@@ -1,3 +1,8 @@
+﻿---
+name: skill-baru
+description: "Template skill baru."
+---
+
 # Nama Skill (Misal: Kode Bersih)
 
 ## Deskripsi
@@ -12,3 +17,4 @@ Contoh: "Skill ini mengatur gaya penulisan kode saya agar selalu menggunakan bah
 ## Kondisi Pemicu
 (Opsional) Kapan aturan ini harus dijalankan? 
 Contoh: "Aktif setiap kali pengguna meminta untuk menulis atau me-review kode."
+
