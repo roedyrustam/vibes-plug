@@ -3,5 +3,6 @@
   "version": "1.2.0",
   "description": "Plugin kustomisasi untuk Antigravity.",
   "author": "roedy",
+  "license": "MIT",
   "repository": "https://github.com/roedyrustam/vibes-plug.git"
 }

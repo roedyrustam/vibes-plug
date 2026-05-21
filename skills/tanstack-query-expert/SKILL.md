@@ -1,75 +1,72 @@
 ---
 name: tanstack-query-expert
-description: "Expert in TanStack Query (React Query) — asynchronous state management. Covers data fetching, stale time configuration, mutations, optimistic updates, and Next.js App Router (SSR) integration."
+description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infinite scrolling, optimistic mutations, SSR/React Server Components hydration, and advanced cache invalidation."
 risk: safe
 source: community
-date_added: "2026-03-07"
+date_added: "2026-05-22"
 ---
 
-# TanStack Query Expert
+# TanStack Query Expert (Advanced v5 Edition)
 
-You are a production-grade TanStack Query (formerly React Query) expert. You help developers build robust, performant asynchronous state management layers in React and Next.js applications. You master declarative data fetching, cache invalidation, optimistic UI updates, background syncing, error boundaries, and server-side rendering (SSR) hydration patterns.
+You are a production-grade TanStack Query (v5) expert. You help developers build robust, performant asynchronous state management layers in modern React (v18/19) and Next.js (App Router) applications. You master declarative data fetching, cache invalidation, optimistic UI updates, background syncing, Suspense boundaries, and SSR hydration patterns.
 
 ## When to Use This Skill
 
-- Use when setting up or refactoring data fetching logic (replacing `useEffect` + `useState`)
-- Use when designing query keys (Array-based, strictly typed keys)
-- Use when configuring global or query-specific `staleTime`, `gcTime`, and `retry` behavior
-- Use when writing `useMutation` hooks for POST/PUT/DELETE requests
-- Use when invalidating the cache (`queryClient.invalidateQueries`) after a mutation
-- Use when implementing Optimistic Updates for instant UX feedback
-- Use when integrating TanStack Query with Next.js App Router (Server Components + Client Boundary hydration)
+- Refactoring data fetching logic (replacing `useEffect` + `useState`).
+- Designing query keys (Array-based, strictly typed keys via factories).
+- Writing `useMutation` hooks with immediate Optimistic Updates.
+- Implementing Infinite Scrolling (`useInfiniteQuery`).
+- Utilizing React Suspense with `useSuspenseQuery`.
+- Integrating TanStack Query with Next.js App Router (Server Components prefetching + Client Boundary hydration).
 
-## Core Concepts
+## Core Concepts & Rules of Thumb
 
-### Why TanStack Query?
+- **Never** use `useEffect` to fetch data if TanStack Query is available.
+- **Never** sync query data into local React state (e.g., `useEffect(() => setLocalState(data), [data])`). Derive state during render instead.
+- **Stale != Garbage Collected**: `staleTime` dictates when a background refetch is needed. `gcTime` dictates how long inactive data stays in memory.
 
-TanStack Query is not just for fetching data; it's an **asynchronous state manager**. It handles caching, background updates, deduplication of multiple requests for the same data, pagination, and out-of-the-box loading/error states. 
+## Advanced Query Patterns
 
-**Rule of Thumb:** Never use `useEffect` to fetch data if TanStack Query is available in the stack.
+### 1. The Custom Hook & Suspense Pattern
 
-## Query Definition Patterns
-
-### The Custom Hook Pattern (Best Practice)
-
-Always abstract `useQuery` calls into custom hooks to encapsulate the fetching logic, TypeScript types, and query keys.
+Always abstract `useQuery` calls into custom hooks. Use `useSuspenseQuery` for modern React architectures to handle loading states via `<Suspense>` rather than returning `isLoading` booleans.
 
 ```typescript
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
-// 1. Define strict types
-type User = { id: string; name: string; status: 'active' | 'inactive' };
+// Define strict types
+type User = { id: string; name: string };
 
-// 2. Define the fetcher function
 const fetchUser = async (userId: string): Promise<User> => {
   const res = await fetch(`/api/users/${userId}`);
   if (!res.ok) throw new Error('Failed to fetch user');
   return res.json();
 };
 
-// 3. Export a custom hook
-export const useUser = (userId: string) => {
-  return useQuery({
-    queryKey: ['users', userId], // Array-based query key
+// Export a custom hook using Suspense
+export const useUserSuspense = (userId: string) => {
+  return useSuspenseQuery({
+    queryKey: ['users', userId], 
     queryFn: () => fetchUser(userId),
-    staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes (no background refetching)
-    enabled: !!userId, // Dependent query: only run if userId exists
+    staleTime: 1000 * 60 * 5, // Fresh for 5 minutes
   });
 };
 ```
 
-### Advanced Query Keys
+*Usage:*
+```tsx
+<ErrorBoundary fallback={<ErrorFallback />}>
+  <Suspense fallback={<SkeletonProfile />}>
+    <UserProfile id={userId} />
+  </Suspense>
+</ErrorBoundary>
+```
 
-Query keys uniquely identify the cache. They must be arrays, and order matters.
+### 2. Query Key Factories (Mandatory for Scale)
+
+Query keys uniquely identify the cache. Use factories to prevent typos and ensure invalidation targets the right subsets of data.
 
 ```typescript
-// Filtering / Sorting
-useQuery({
-  queryKey: ['issues', { status: 'open', sort: 'desc' }],
-  queryFn: () => fetchIssues({ status: 'open', sort: 'desc' })
-});
-
-// Factory pattern for query keys (Highly recommended for large apps)
 export const issueKeys = {
   all: ['issues'] as const,
   lists: () => [...issueKeys.all, 'list'] as const,
@@ -77,40 +74,19 @@ export const issueKeys = {
   details: () => [...issueKeys.all, 'detail'] as const,
   detail: (id: number) => [...issueKeys.details(), id] as const,
 };
+
+// Usage in query
+useQuery({ queryKey: issueKeys.list('open'), queryFn: fetchOpenIssues })
+
+// Invalidation targets ALL issue lists, but leaves details alone
+queryClient.invalidateQueries({ queryKey: issueKeys.lists() })
 ```
 
 ## Mutations & Cache Invalidation
 
-### Basic Mutation with Invalidation
+### Optimistic Updates (v5 Best Practice)
 
-When you modify data on the server, you must tell the client cache that the old data is now stale.
-
-```typescript
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-export const useCreatePost = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (newPost: { title: string }) => {
-      const res = await fetch('/api/posts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newPost),
-      });
-      return res.json();
-    },
-    // On success, invalidate the 'posts' cache to trigger a background refetch
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
-    },
-  });
-};
-```
-
-### Optimistic Updates
-
-Give the user instant feedback by updating the cache *before* the server responds, and rolling back if the request fails.
+Give the user instant feedback by updating the cache *before* the server responds. 
 
 ```typescript
 export const useUpdateTodo = () => {
@@ -121,22 +97,21 @@ export const useUpdateTodo = () => {
     
     // 1. Triggered immediately when mutate() is called
     onMutate: async (newTodo) => {
-      // Cancel any outgoing refetches so they don't overwrite our optimistic update
+      // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['todos'] });
 
-      // Snapshot the previous value
+      // Snapshot previous value
       const previousTodos = queryClient.getQueryData(['todos']);
 
-      // Optimistically update to the new value
+      // Optimistically update
       queryClient.setQueryData(['todos'], (old: any) => 
-        old.map((todo: any) => todo.id === newTodo.id ? { ...todo, ...newTodo } : todo)
+        old?.map((todo: any) => todo.id === newTodo.id ? { ...todo, ...newTodo } : todo)
       );
 
-      // Return a context object with the snapshotted value
       return { previousTodos };
     },
     
-    // 2. If the mutation fails, use the context returned from onMutate to roll back
+    // 2. Roll back on error
     onError: (err, newTodo, context) => {
       queryClient.setQueryData(['todos'], context?.previousTodos);
     },
@@ -149,56 +124,26 @@ export const useUpdateTodo = () => {
 };
 ```
 
-## Next.js App Router Integration
+## Next.js App Router Integration (Hydration)
 
-### Initializing the Provider
+Prefetch data securely on the server and pass it to the client without prop-drilling or large JSON payloads blocking the main thread.
 
-```typescript
-// app/providers.tsx
-'use client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { useState } from 'react'
-
-export default function Providers({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 60 * 1000, // 1 minute
-            refetchOnWindowFocus: false, // Prevents aggressive refetching on tab switch
-          },
-        },
-      })
-  )
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-    </QueryClientProvider>
-  )
-}
-```
-
-### Server Component Pre-fetching (Hydration)
-
-Pre-fetch data on the server and pass it to the client without prop-drilling or `initialData`.
+### Server Component (Pre-fetching)
 
 ```typescript
-// app/posts/page.tsx (Server Component)
+// app/posts/page.tsx
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import PostsList from './PostsList'; // Client Component
+import PostsList from './PostsList';
 
 export default async function PostsPage() {
   const queryClient = new QueryClient();
 
-  // Prefetch the data on the server
+  // Prefetch data on the server
   await queryClient.prefetchQuery({
     queryKey: ['posts'],
     queryFn: fetchPostsServerSide,
   });
 
-  // Dehydrate the cache and pass it to the HydrationBoundary
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <PostsList />
@@ -207,41 +152,48 @@ export default async function PostsPage() {
 }
 ```
 
+### Client Component (Consuming Hydrated Data)
+
 ```typescript
-// app/posts/PostsList.tsx (Client Component)
+// app/posts/PostsList.tsx
 'use client'
 import { useQuery } from '@tanstack/react-query';
 
 export default function PostsList() {
-  // This will NOT trigger a network request on mount! 
-  // It reads instantly from the dehydrated server cache.
+  // Reads instantly from the dehydrated server cache; NO layout shift.
   const { data } = useQuery({
     queryKey: ['posts'],
     queryFn: fetchPostsClientSide,
   });
 
-  return <div>{data.map(post => <p key={post.id}>{post.title}</p>)}</div>;
+  return <div>{data?.map(post => <p key={post.id}>{post.title}</p>)}</div>;
 }
 ```
 
-## Best Practices
+## Infinite Loading & Pagination
 
-- ✅ **Do:** Create Query Key factories so you don't misspell `['users']` vs `['user']` across different files.
-- ✅ **Do:** Set a global `staleTime` (e.g., `1000 * 60`) if your data doesn't change every second. The default `staleTime` is `0`, meaning TanStack Query will trigger a background refetch on every component remount by default.
-- ✅ **Do:** Use `queryClient.setQueryData` sparingly. It's usually better to just `invalidateQueries` and let TanStack Query refetch the fresh data organically.
-- ✅ **Do:** Abstract all `useMutation` and `useQuery` calls into custom hooks. Views should only say `const { mutate } = useCreatePost()`.
-- ❌ **Don't:** Pass primitive callbacks inline directly to `useQuery` without memoization if you rely on closures. (Instead, rely on the `queryKey` dependency array).
-- ❌ **Don't:** Sync query data into local React state (e.g., `useEffect(() => setLocalState(data), [data])`). Use the query data directly. If you need derived state, derive it during render.
+Use `useInfiniteQuery` for infinite scroll logic. In v5, `initialPageParam` is strictly required.
+
+```typescript
+const {
+  data,
+  fetchNextPage,
+  hasNextPage,
+  isFetchingNextPage,
+} = useInfiniteQuery({
+  queryKey: ['projects'],
+  queryFn: ({ pageParam }) => fetchProjects(pageParam),
+  initialPageParam: 0,
+  getNextPageParam: (lastPage, allPages) => lastPage.nextCursor,
+})
+```
 
 ## Troubleshooting
 
-**Problem:** Infinite fetching loop in the network tab.
-**Solution:** Check your `queryFn`. If your `fetch` logic isn't structured correctly, or throws an unhandled exception before hitting the return, TanStack Query will retry automatically up to 3 times (default). If wrapped in an unstable `useEffect`, it loops infinitely. Check `retry: false` for debugging.
-
-**Problem:** `staleTime` vs `gcTime` (formerly `cacheTime`) confusion.
-**Solution:** `staleTime` governs when a background refetch is triggered. `gcTime` governs how long the inactive data stays in memory after the component unmounts. If `gcTime` < `staleTime`, data will be deleted before it even gets stale!
+1. **Infinite Fetching Loops:** Check your `queryFn`. If your fetcher throws an unhandled exception before returning, TanStack Query retries 3 times automatically. Ensure your component doesn't force continuous re-renders.
+2. **`staleTime` vs `gcTime`:** If `gcTime` is lower than `staleTime`, data will be deleted from memory before it even gets stale!
+3. **Missing v5 Imports:** Ensure developers use `@tanstack/react-query` instead of the legacy `react-query` v3 package.
 
 ## Limitations
 - Use this skill only when the task clearly matches the scope described above.
 - Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
-- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
