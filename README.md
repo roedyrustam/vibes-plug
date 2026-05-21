@@ -20,6 +20,9 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan *Row-Level Security* (RLS), *shared-schema*, dan PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Panduan jalan (roadmap) terstruktur untuk merencanakan dan meluncurkan Minimum Viable Product (MVP) untuk SaaS, mencakup teknologi, autentikasi, pembayaran, dll.
 
+### Database & Keamanan (Security)
+- **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
+
 ### SEO & Optimasi Visibilitas
 - **SEO Umbrella** (`seo`): Audit SEO menyeluruh yang mencakup *technical* SEO, SEO *on-page*, schema, sitemap, kualitas konten, hingga *AI search readiness* dan GEO.
 - **SEO GEO** (`seo-geo`): Berfokus pada optimasi konten agar dapat dibaca dan dikutip dengan baik oleh *AI Overviews*, ChatGPT, Perplexity, dan sistem pencarian AI lainnya (Generative Engine Optimization).
@@ -30,14 +33,23 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Skill Baru** (`skill_baru`): *Template* dasar untuk pembuatan *skill* agen baru ke depannya.
 
-## Instalasi
+## Instalasi otomatis (Rekomendasi)
 
-Salin seluruh folder `vibes-plug` ini ke dalam direktori konfigurasi Antigravity Anda:
+Cara termudah agar semua *skill* terinstal dan tersimpan otomatis ke dalam direktori Anda adalah dengan melakukan *clone* repositori Git ini. Buka terminal Anda dan jalankan perintah di bawah ini sesuai sistem operasi Anda:
 
-- **Windows:** `C:\Users\<Username>\.gemini\config\plugins\vibes-plug`
-- **Mac/Linux:** `~/.gemini/config/plugins/vibes-plug`
+**Windows (PowerShell / CMD):**
+```bash
+git clone https://github.com/roedyrustam/vibes-plug.git "$HOME\.gemini\config\plugins\vibes-plug"
+```
 
-Sistem akan memindai folder ini dan memuat semua plugin beserta *skills* secara otomatis.
+**Mac / Linux (Terminal):**
+```bash
+git clone https://github.com/roedyrustam/vibes-plug.git ~/.gemini/config/plugins/vibes-plug
+```
+
+Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder tersebut dan mendeteksi seluruh plugin beserta *skills* (termasuk jika ada skill baru) secara otomatis.
+
+> **Tip:** Jika ada *update* skill di masa depan, Anda cukup menjalankan `git pull` dari dalam folder `vibes-plug` tersebut.
 
 ## Versi
 v1.2.0
