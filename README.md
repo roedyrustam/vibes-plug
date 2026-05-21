@@ -7,6 +7,7 @@ Plugin kustomisasi untuk Antigravity yang berisi berbagai *skills* khusus untuk 
 Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan oleh agen:
 
 ### Desain & UI/UX
+- **HIG — Human Interface Guidelines** (`hig`): Menerapkan tiga prinsip desain antarmuka inti — **Hierarchy** (hirarki visual yang jelas), **Harmony** (harmoni antar elemen dan platform), dan **Consistency** (konsistensi di semua ukuran layar dan perangkat).
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Panduan desain komprehensif untuk aplikasi web dan mobile. Mengandung panduan palet warna, tipografi, serta pedoman UX mendalam.
 - **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
 
