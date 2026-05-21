@@ -1,6 +1,8 @@
-﻿---
+---
 name: asisten-ramah
 description: "Skill untuk membuat Antigravity membalas dengan ramah."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 ---
 
 # Asisten Ramah

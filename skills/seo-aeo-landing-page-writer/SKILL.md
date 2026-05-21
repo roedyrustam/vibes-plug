@@ -1,6 +1,8 @@
 ---
 name: seo-aeo-landing-page-writer
 description: "Writes complete, structured landing pages optimized for SEO ranking, AEO citation, and visitor conversion. Activate when the user wants to write or generate a landing page for a product, service, or offer."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 risk: safe
 source: community
 date_added: "2026-04-01"

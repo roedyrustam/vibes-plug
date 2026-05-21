@@ -1,6 +1,8 @@
-﻿---
+---
 name: ui-ux-expert
 description: "UI/UX Designer & Frontend Specialist."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 ---
 
 # ðŸŽ¯ UI/UX Expert Agent Skill

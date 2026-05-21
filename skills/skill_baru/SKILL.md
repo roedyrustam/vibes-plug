@@ -1,6 +1,8 @@
-﻿---
+---
 name: skill-baru
 description: "Template skill baru."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 ---
 
 # Nama Skill (Misal: Kode Bersih)

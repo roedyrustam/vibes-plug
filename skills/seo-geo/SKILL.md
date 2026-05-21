@@ -1,6 +1,8 @@
 ---
 name: seo-geo
 description: "Advanced Generative Engine Optimization (GEO). Optimize content for AI Overviews, ChatGPT, Perplexity, and other AI search systems. Analyzes citability, llms.txt readiness, crawler accessibility, semantic structure, and brand mention authority."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 risk: unknown
 source: "https://github.com/AgriciDaniel/claude-seo"
 date_added: "2026-05-22"

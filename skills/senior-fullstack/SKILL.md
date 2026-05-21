@@ -1,6 +1,8 @@
 ---
 name: senior-fullstack
 description: "Complete toolkit for senior fullstack with modern tools and best practices."
+author: "Roedy Rustam"
+github: "https://github.com/roedyrustam/vibes-plug"
 risk: critical
 source: community
 date_added: "2026-02-27"
