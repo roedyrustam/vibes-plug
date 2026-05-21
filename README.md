@@ -40,7 +40,7 @@ Salin seluruh folder `vibes-plug` ini ke dalam direktori konfigurasi Antigravity
 Sistem akan memindai folder ini dan memuat semua plugin beserta *skills* secara otomatis.
 
 ## Versi
-v1.1.0
+v1.2.0
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
