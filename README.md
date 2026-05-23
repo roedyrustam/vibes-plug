@@ -13,6 +13,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 
 ### Frontend & Fullstack Web Development
 - **Brainstorming** (`brainstorming`): Protokol lanjutan dengan pedoman *Modern Web Guidance* untuk memvalidasi ide desain dan arsitektur web berskala besar sebelum pengkodean dimulai.
+- **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.3+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
 - **Senior Frontend** (`senior-frontend`): Ahli pengembangan React, Next.js, TypeScript, dan Tailwind CSS. Mampu mengoptimalkan performa, *bundle size*, dan merancang komponen *frontend*.
 - **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query (React Query) dan Next.js App Router (SSR).
@@ -53,7 +54,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 > **Tip:** Jika ada *update* skill di masa depan, Anda cukup menjalankan `git pull` dari dalam folder `vibes-plug` tersebut.
 
 ## Versi
-v1.2.3
+v1.2.5
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

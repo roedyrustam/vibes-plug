@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 1.2.4
+- **Version**: 1.2.5
 - **Last Updated**: 2026-05-24
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
@@ -9,6 +9,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 
 ## Skill Modules
 - **brainstorming**: Advanced brainstorming protocol with 2026 Modern Web Guidance — RSC, PPR, Server Actions, AI integration, Passkeys, and structured Design Document output template.
+- **bun-runtime-expert**: Expert skill for the Bun JavaScript/TypeScript runtime featuring Bun.serve, Bun.sql, Bun.s3, bun:test, bundler, and package manager.
 - **saas-mvp-launcher**: Roadmap and technical design for bootstrapping high-performance multi-tenant B2B/B2C SaaS MVPs with Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, and Vercel AI SDK.
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
 - **supabase-security-expert**: Relational database auditing and RLS security practices.
