@@ -10,213 +10,114 @@ date_added: "2026-02-27"
 
 # Senior Fullstack
 
-Complete toolkit for senior fullstack with modern tools and best practices.
+A comprehensive blueprint and toolkit for senior fullstack engineers, covering production-grade architecture, database optimization, advanced state management, micro-interactions, robust CI/CD, and system security.
 
 ## Quick Start
 
 ### Main Capabilities
 
-This skill provides three core capabilities through automated scripts:
+This skill provides three core capabilities supported by automated pipeline scripts inside `scripts/`:
 
 ```bash
-# Script 1: Fullstack Scaffolder
-python scripts/fullstack_scaffolder.py [options]
+# Script 1: Scaffold a production-grade fullstack workspace
+python scripts/fullstack_scaffolder.py <project-path> [options]
 
-# Script 2: Project Scaffolder
-python scripts/project_scaffolder.py [options]
+# Script 2: Analyze codebase for performance bottlenecks and ORM anti-patterns
+python scripts/project_scaffolder.py <target-path> [--verbose]
 
-# Script 3: Code Quality Analyzer
-python scripts/code_quality_analyzer.py [options]
+# Script 3: Perform advanced code quality, security header, and CSP validations
+python scripts/code_quality_analyzer.py [arguments] [options]
 ```
+
+---
 
 ## Core Capabilities
 
 ### 1. Fullstack Scaffolder
-
-Automated tool for fullstack scaffolder tasks.
-
-**Features:**
-- Automated scaffolding
-- Best practices built-in
-- Configurable templates
-- Quality checks
-
-**Usage:**
-```bash
-python scripts/fullstack_scaffolder.py <project-path> [options]
-```
+Automated scaffolder that spins up highly structured workspaces with absolute consistency:
+- **Zero-Config Structure**: Enforces robust, modular directory trees (Next.js App Router, modular API routes).
+- **Embedded Security Defaults**: Generates standard security headers, CSP configs, and strict env-var checking.
+- **ORM Scaffolding**: Proactively sets up Drizzle and Prisma database clients with automatic migration folders.
 
 ### 2. Project Scaffolder
-
-Comprehensive analysis and optimization tool.
-
-**Features:**
-- Deep analysis
-- Performance metrics
-- Recommendations
-- Automated fixes
-
-**Usage:**
-```bash
-python scripts/project_scaffolder.py <target-path> [--verbose]
-```
+Performs static analysis on active fullstack codebases to flag scaling risks:
+- Identifies N+1 query patterns in prisma/drizzle statements.
+- Scans react client bundle sizes and flags non-dynamic component imports.
+- Recommends indexing strategies for tables showing high load profiles.
 
 ### 3. Code Quality Analyzer
+Automated linter and formatter validation pipeline script:
+- Verifies comprehensive test coverage criteria are satisfied.
+- Flags insecure CORS policies (`Access-Control-Allow-Origin: *` in production).
+- Checks for hardcoded secrets and credentials.
 
-Advanced tooling for specialized tasks.
-
-**Features:**
-- Expert-level automation
-- Custom configurations
-- Integration ready
-- Production-grade output
-
-**Usage:**
-```bash
-python scripts/code_quality_analyzer.py [arguments] [options]
-```
+---
 
 ## Reference Documentation
 
-### Tech Stack Guide
+### [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
+Detailed patterns and production guides:
+- React 19 & Next.js 15 Server-First Architectures.
+- Type-Safe Contracts via API Routes and Server Actions.
+- Connection Pooling and High-Concurrency Postgres scaling.
 
-Comprehensive guide available in `references/tech_stack_guide.md`:
+### [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
+Advanced architectural solutions:
+- High-Performance Caching Layer using Redis.
+- Relational Database Partitioning & Advanced Indexing.
+- Event-Driven Webhooks & Resilient Background Workers.
 
-- Detailed patterns and practices
-- Code examples
-- Best practices
-- Anti-patterns to avoid
-- Real-world scenarios
+### [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
+Automation and operational pipelines:
+- Automated CI/CD (GitHub Actions) with test orchestration.
+- High-Fidelity Test Matrix (Vitest Unit tests + Playwright E2E tests).
+- Production-Grade Docker/Kubernetes deployments.
 
-### Architecture Patterns
+---
 
-Complete workflow documentation in `references/architecture_patterns.md`:
+## Modern Tech Stack (2026)
 
-- Step-by-step processes
-- Optimization strategies
-- Tool integrations
-- Performance tuning
-- Troubleshooting guide
+- **Languages:** TypeScript, JavaScript, SQL, Python, Go
+- **Frontend Frameworks:** React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui
+- **State Management & Fetching:** TanStack Query (React Query) v5, React Server Actions, Zustand
+- **Database & ORMs:** PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon
+- **Operations & Security:** Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk
 
-### Development Workflows
+---
 
-Technical reference guide in `references/development_workflows.md`:
+## Senior Core Best Practices
 
-- Technology stack details
-- Configuration examples
-- Integration patterns
-- Security considerations
-- Scalability guidelines
+### Code Quality & Typings
+- ✅ Enforce `strict: true` in `tsconfig.json` and avoid using `any` typings.
+- ✅ Structure components using React Server Components (RSC) by default; only use `'use client'` at leaf nodes.
+- ✅ Enforce comprehensive runtime schema validation with Zod for all API request payloads.
 
-## Tech Stack
-
-**Languages:** TypeScript, JavaScript, Python, Go, Swift, Kotlin
-**Frontend:** React, Next.js, React Native, Flutter
-**Backend:** Node.js, Express, GraphQL, REST APIs
-**Database:** PostgreSQL, Prisma, NeonDB, Supabase
-**DevOps:** Docker, Kubernetes, Terraform, GitHub Actions, CircleCI
-**Cloud:** AWS, GCP, Azure
-
-## Development Workflow
-
-### 1. Setup and Configuration
-
-```bash
-# Install dependencies
-npm install
-# or
-pip install -r requirements.txt
-
-# Configure environment
-cp .env.example .env
-```
-
-### 2. Run Quality Checks
-
-```bash
-# Use the analyzer script
-python scripts/project_scaffolder.py .
-
-# Review recommendations
-# Apply fixes
-```
-
-### 3. Implement Best Practices
-
-Follow the patterns and practices documented in:
-- `references/tech_stack_guide.md`
-- `references/architecture_patterns.md`
-- `references/development_workflows.md`
-
-## Best Practices Summary
-
-### Code Quality
-- Follow established patterns
-- Write comprehensive tests
-- Document decisions
-- Review regularly
-
-### Performance
-- Measure before optimizing
-- Use appropriate caching
-- Optimize critical paths
-- Monitor in production
+### Database Scaling
+- ✅ Always use database connection pooling (e.g. Supabase Supavisor or Neon serverless connection poolers).
+- ✅ Add indexes on columns used in `WHERE`, `JOIN`, and `ORDER BY` clauses; continuously profile query times with `EXPLAIN ANALYZE`.
+- ✅ Enforce Row-Level Security (RLS) policies on all tables holding tenant-specific details.
 
 ### Security
-- Validate all inputs
-- Use parameterized queries
-- Implement proper authentication
-- Keep dependencies updated
+- ✅ Enforce secure security headers (e.g. strict Content Security Policy, HSTS, X-Content-Type-Options).
+- ✅ Validate and sanitize all external webhooks (e.g. verify Stripe webhook signatures before updating database rows).
+- ✅ Implement aggressive rate limiting on public endpoints to mitigate DDoS and brute-force risks.
 
-### Maintainability
-- Write clear code
-- Use consistent naming
-- Add helpful comments
-- Keep it simple
-
-## Common Commands
-
-```bash
-# Development
-npm run dev
-npm run build
-npm run test
-npm run lint
-
-# Analysis
-python scripts/project_scaffolder.py .
-python scripts/code_quality_analyzer.py --analyze
-
-# Deployment
-docker build -t app:latest .
-docker-compose up -d
-kubectl apply -f k8s/
-```
+---
 
 ## Troubleshooting
 
-### Common Issues
+**Problem:** Hydration mismatch errors in Next.js 15  
+**Solution:** Avoid using client-only browser state (e.g., `window.localStorage` or system timestamps) during the initial React render. Wrap unstable blocks in `useEffect` or utilize `next/dynamic` with `{ ssr: false }`.
 
-Check the comprehensive troubleshooting section in `references/development_workflows.md`.
+**Problem:** PostgreSQL connection spikes under peak serverless invocation  
+**Solution:** Reduce maximum pool sizes in your connection string and utilize a transaction connection pooler (e.g., pgBouncer / Supavisor) with a `pool_mode=transaction` suffix.
 
-### Getting Help
+**Problem:** Stale UI data after running Next.js Server Actions  
+**Solution:** Call `revalidatePath()` or `revalidateTag()` inside the Server Action immediately after database transactions succeed to purge Next.js's router and data caches.
 
-- Review reference documentation
-- Check script output messages
-- Consult tech stack documentation
-- Review error logs
-
-## Resources
-
-- Pattern Reference: `references/tech_stack_guide.md`
-- Workflow Guide: `references/architecture_patterns.md`
-- Technical Guide: `references/development_workflows.md`
-- Tool Scripts: `scripts/` directory
-
-## When to Use
-This skill is applicable to execute the workflow or actions described in the overview.
+---
 
 ## Limitations
-- Use this skill only when the task clearly matches the scope described above.
-- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
-- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+- This skill must only be utilized for high-performance multi-tier software projects.
+- Avoid using custom server solutions (e.g., custom Express server on Next.js) unless explicitly requested; use native Next.js server routing for optimal Vercel deployment.
+- When running code quality or scaffolding scripts, always verify file access permissions before initiating massive system writes.

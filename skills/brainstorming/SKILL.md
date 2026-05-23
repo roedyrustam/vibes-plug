@@ -13,7 +13,7 @@ date_added: "2026-02-27"
 ## Purpose
 
 Turn raw ideas into **clear, validated designs and specifications**
-through structured dialogue **before any implementation begins**. This skill is heavily optimized for modern web development architectures.
+through structured dialogue **before any implementation begins**. This skill is heavily optimized for modern web development architectures (React 19, Next.js 15, edge computing, AI-native SaaS, and serverless-first patterns).
 
 This skill exists to prevent:
 - Premature implementation
@@ -21,6 +21,7 @@ This skill exists to prevent:
 - Misaligned solutions
 - Fragile or non-scalable web systems
 - Accessibility and performance regressions
+- Over-engineering before product-market fit
 
 You are **not allowed** to implement, code, or modify behavior while this skill is active.
 
@@ -46,11 +47,13 @@ Your job is to **slow the process down just enough to get it right**.
 Before asking any questions:
 
 - Review the current project state (if available):
-  - Tech stack (React, Next.js, Vue, vanilla, dll)
-  - Existing architecture and patterns
-  - Documentation and prior decisions
+  - Tech stack (React 19, Next.js 15, Vue, Svelte, Astro, etc.)
+  - Rendering strategy (RSC, SSR, SSG, ISR, PPR)
+  - Existing architecture, design system, and ORM patterns
+  - Documentation, prior decisions, and existing database schemas
 - Identify what already exists vs. what is proposed
 - Note constraints that appear implicit but unconfirmed
+- Check for existing AI/LLM integration points (Vercel AI SDK, LangChain, etc.)
 
 **Do not design yet.**
 
@@ -78,16 +81,24 @@ Focus on understanding:
 
 You MUST explicitly clarify or propose assumptions for the following modern web pillars:
 
-- **Performance & Web Vitals:** Core Web Vitals (LCP, FID/INP, CLS), payload budgets.
-- **Architecture Paradigm:** SPA vs SSR vs SSG vs Islands architecture.
-- **Accessibility (a11y):** WCAG compliance levels, screen reader support, keyboard navigation.
-- **Responsiveness & Devices:** Mobile-first strategy, touch targets, layout breakpoints.
-- **Security:** CSP, CSRF/XSS mitigation, authentication flows (OAuth, JWT, Session).
-- **SEO & Discoverability:** Meta tags, semantic HTML, structured data, SSR requirements.
-- **Scale & State:** Client state vs Server state, caching strategies, offline capabilities.
+- **Performance & Web Vitals:** Core Web Vitals (LCP, INP, CLS), payload budgets, Turbopack dev performance.
+- **Architecture Paradigm:** React Server Components (RSC), Partial Prerendering (PPR), SSR, SSG, ISR, Islands Architecture, or SPA.
+- **Data Mutation Strategy:** Server Actions vs REST API routes vs tRPC vs GraphQL.
+- **Accessibility (a11y):** WCAG 2.2 compliance levels, screen reader support, keyboard navigation, focus management.
+- **Responsiveness & Devices:** Mobile-first strategy, touch targets (min 44×44px), layout breakpoints, container queries.
+- **Security:** CSP headers, CSRF/XSS mitigation, authentication flows (Passkeys, OAuth 2.0, JWT, Session), rate limiting.
+- **SEO & Discoverability:** Meta tags, semantic HTML, structured data (JSON-LD), SSR/PPR requirements, `robots.txt`, sitemap.
+- **Scale & State:** Client state (Zustand) vs Server state (TanStack Query), caching strategies (`unstable_cache`, `revalidateTag`), edge vs origin.
+- **AI Integration:** Whether the product includes AI/LLM features (chat, generation, embeddings) and which SDK/provider to use.
+- **Infrastructure & Cost:** Serverless vs edge vs traditional hosting, database connection pooling, estimated cost tiers.
 
 If the user is unsure:
-- Propose reasonable modern defaults (e.g., SSR for SEO-heavy apps, SPA for high-interactivity dashboards).
+- Propose reasonable modern defaults:
+  - **SEO-heavy apps:** Next.js 15 with PPR + SSR.
+  - **High-interactivity dashboards:** Next.js 15 SPA-mode with RSC + Server Actions.
+  - **Content sites:** Astro or Next.js SSG with ISR.
+  - **Auth:** Clerk or Auth.js with Passkeys support.
+  - **Database:** PostgreSQL via Supabase or Neon with Drizzle ORM.
 - Clearly mark them as **assumptions**.
 
 ---
@@ -112,8 +123,8 @@ List unresolved questions, if any.
 
 Then ask:
 
-> “Does this accurately reflect your intent?  
-> Please confirm or correct anything before we move to architectural design.”
+> "Does this accurately reflect your intent?  
+> Please confirm or correct anything before we move to architectural design."
 
 **Do NOT proceed until explicit confirmation is given.**
 
@@ -128,9 +139,15 @@ Once understanding is confirmed:
 - Explain trade-offs clearly:
   - DX (Developer Experience) vs UX (User Experience)
   - Time-to-market vs Extensibility
-  - Client-side vs Server-side complexity
-  - Bundle size and rendering performance
+  - Client-side vs Server-side complexity (RSC boundary decisions)
+  - Bundle size, rendering performance, and edge latency
+  - Infrastructure cost at scale (serverless invocations, database connections, AI API costs)
 - Avoid premature optimization (**YAGNI ruthlessly**).
+- For each approach, specify:
+  - Rendering strategy (RSC + PPR, full SSR, SSG + ISR, SPA)
+  - Data mutation pattern (Server Actions, API routes, tRPC)
+  - State management approach (server-first, Zustand, TanStack Query)
+  - Styling system (Tailwind CSS v4, CSS Modules, vanilla CSS)
 
 ---
 
@@ -141,16 +158,17 @@ When presenting the design:
 - Break it into sections of **200–300 words max**.
 - After each section, ask:
 
-  > “Does this look right so far?”
+  > "Does this look right so far?"
 
 Cover, as relevant:
 
-- **System Architecture:** Frontend/Backend boundary, API design (REST/GraphQL/tRPC).
-- **Component Design:** Component tree, reusability, styling approach (Tailwind, CSS-in-JS, CSS Modules).
-- **Data Flow & State:** How data is fetched, mutated, cached, and synchronized.
-- **User Interface (UI):** Key layouts, responsive behavior, micro-interactions.
-- **Error Handling & Resilience:** Error boundaries, fallback states, offline support.
-- **Testing Strategy:** Unit (Jest/Vitest), E2E (Playwright/Cypress), visual regression.
+- **System Architecture:** RSC/Client boundary decisions, API design (Server Actions / REST / tRPC), edge vs origin functions.
+- **Component Design:** Component tree with RSC/Client split, reusability, styling approach (Tailwind CSS v4 `@theme`, shadcn/ui).
+- **Data Flow & State:** How data is fetched (RSC `async` components), mutated (Server Actions + `useActionState`), cached (`revalidateTag`), and optimistically updated (`useOptimistic`).
+- **User Interface (UI):** Key layouts, responsive behavior (container queries), micro-interactions (Framer Motion / CSS transitions).
+- **Error Handling & Resilience:** React Error Boundaries, `error.tsx` / `not-found.tsx` in Next.js, Sentry integration, graceful degradation.
+- **Testing Strategy:** Unit (Vitest + React Testing Library), E2E (Playwright), visual regression (Chromatic / Percy).
+- **AI Features (if applicable):** Model provider selection, streaming architecture (Vercel AI SDK `streamText`), token cost estimation, rate limiting.
 
 ---
 
@@ -171,16 +189,54 @@ This log should be preserved for documentation.
 
 ### 📄 Documentation
 
-Once the design is validated:
+Once the design is validated, produce a **Design Document** using this template:
 
-- Write the final design to a durable, shared format (e.g. Markdown).
-- Include:
-  - Understanding summary
-  - Assumptions
-  - Decision log
-  - Final Web Architecture & UI Design
+```markdown
+# [Project Name] — Design Document
 
-Persist the document according to the project’s standard workflow.
+## 1. Understanding Summary
+- What is being built
+- Why it exists
+- Who it is for
+- Key constraints
+- Explicit non-goals
+
+## 2. Technical Architecture
+- Rendering strategy (RSC + PPR / SSR / SSG / SPA)
+- Data mutation pattern (Server Actions / API Routes / tRPC)
+- State management (server-first / Zustand / TanStack Query)
+- Database & ORM (PostgreSQL + Drizzle / Prisma)
+- Auth provider (Clerk / Auth.js / Supabase Auth)
+- Hosting & deployment (Vercel / AWS / Railway)
+
+## 3. Component Architecture
+- Component tree with RSC/Client boundary markers
+- Design system & styling approach
+- Key layouts and responsive strategy
+
+## 4. Data Flow
+- Fetching patterns (RSC async, TanStack Query, SWR)
+- Mutation patterns (Server Actions, optimistic updates)
+- Caching strategy (revalidateTag, unstable_cache, Redis)
+
+## 5. AI Features (if applicable)
+- Model provider and SDK
+- Streaming architecture
+- Token cost estimation
+
+## 6. Assumptions
+- [List all assumptions]
+
+## 7. Decision Log
+| # | Decision | Alternatives | Rationale |
+|---|----------|-------------|----------|
+| 1 | ...      | ...         | ...      |
+
+## 8. Open Risks
+- [List acknowledged risks]
+```
+
+Persist the document as a project artifact (e.g., `DESIGN.md` or an Antigravity implementation plan).
 
 ---
 
@@ -188,11 +244,16 @@ Persist the document according to the project’s standard workflow.
 
 Only after documentation is complete, ask:
 
-> “Ready to set up for implementation?”
+> "Ready to set up for implementation?"
 
 If yes:
-- Create an explicit implementation plan mapping to specific web components, API routes, and styling tasks.
-- Proceed incrementally, starting with foundations (e.g., routing, basic layout) before complex features.
+- Create an explicit implementation plan mapping to specific:
+  - React Server Components and Client Components
+  - Server Actions with Zod validation schemas
+  - Database migrations (Drizzle / Prisma)
+  - API routes or tRPC procedures
+  - Tailwind CSS v4 theme tokens and component styling
+- Proceed incrementally, starting with foundations (database schema → auth → layout → core features).
 
 ---
 
@@ -216,17 +277,16 @@ If any criterion is unmet:
 
 - One question at a time.
 - Assumptions must be explicit.
-- Modern Web First: Always consider performance, accessibility, and responsiveness.
+- **Server-First by Default:** Prefer React Server Components, Server Actions, and server-side data fetching. Only push logic to the client when interactivity demands it.
+- **Modern Web First:** Always consider performance (Core Web Vitals), accessibility (WCAG 2.2), and responsiveness (mobile-first + container queries).
 - Validate incrementally.
 - Prefer clarity over cleverness.
 - Be willing to go back and clarify.
-- **YAGNI ruthlessly**.
+- **YAGNI ruthlessly** — but plan for the next logical scale point.
 
 ---
-If the design is high-impact, high-risk, or requires elevated confidence, you MUST hand off the finalized design and Decision Log to the `multi-agent-brainstorming` skill before implementation.
 
-## When to Use
-This skill is applicable to execute the workflow or actions described in the overview.
+> **Escalation Rule:** If the design is high-impact, high-risk, or requires elevated confidence, you MUST hand off the finalized design and Decision Log to the `multi-agent-brainstorming` skill before implementation.
 
 ## Limitations
 - Use this skill only when the task clearly matches the scope described above.

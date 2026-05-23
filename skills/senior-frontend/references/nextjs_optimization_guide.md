@@ -1,6 +1,6 @@
 # Next.js Optimization Guide
 
-Performance optimization techniques for Next.js 14+ applications.
+Performance optimization techniques for Next.js 15 applications with React Server Components, Turbopack, and modern caching strategies.
 
 ---
 

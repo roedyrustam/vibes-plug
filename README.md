@@ -53,7 +53,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 > **Tip:** Jika ada *update* skill di masa depan, Anda cukup menjalankan `git pull` dari dalam folder `vibes-plug` tersebut.
 
 ## Versi
-v1.2.1
+v1.2.3
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

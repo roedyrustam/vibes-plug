@@ -1,6 +1,6 @@
 ---
 name: senior-frontend
-description: Frontend development skill for React, Next.js, TypeScript, and Tailwind CSS applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or reviewing frontend code quality.
+description: Frontend development skill for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or reviewing frontend code quality.
 author: "Roedy Rustam"
 github: "https://github.com/roedyrustam/vibes-plug"
 risk: safe
@@ -10,14 +10,15 @@ date_added: "2026-03-07"
 
 # Senior Frontend
 
-Frontend development patterns, performance optimization, and automation tools for React/Next.js applications.
+Frontend development patterns, performance optimization, and automation tools for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript.
 
 ## When to Use
-- Use when scaffolding a new React or Next.js project with TypeScript and Tailwind CSS.
-- Use when generating new components or custom hooks.
+- Use when scaffolding a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
+- Use when generating new components, custom hooks, or Server Actions.
 - Use when analyzing and optimizing bundle sizes for frontend applications.
-- Use to implement or review advanced React patterns like Compound Components or Render Props.
+- Use to implement or review advanced React 19 patterns (Compound Components, `useActionState`, `useOptimistic`).
 - Use to ensure accessibility compliance and implement robust testing strategies.
+- Use when setting up Turbopack for lightning-fast dev server HMR.
 
 ## Table of Contents
 
@@ -25,14 +26,15 @@ Frontend development patterns, performance optimization, and automation tools fo
 - [Component Generation](#component-generation)
 - [Bundle Analysis](#bundle-analysis)
 - [React Patterns](#react-patterns)
-- [Next.js Optimization](#nextjs-optimization)
+- [Next.js 15 Optimization](#nextjs-15-optimization)
+- [React 19 Patterns](#react-19-patterns)
 - [Accessibility and Testing](#accessibility-and-testing)
 
 ---
 
 ## Project Scaffolding
 
-Generate a new Next.js or React project with TypeScript, Tailwind CSS, and best practice configurations.
+Generate a new Next.js 15 or React 19 project with TypeScript, Tailwind CSS v4, and best practice configurations.
 
 ### Workflow: Create New Frontend Project
 
@@ -63,31 +65,32 @@ Generate a new Next.js or React project with TypeScript, Tailwind CSS, and best 
 
 | Option               | Description                                       |
 | -------------------- | ------------------------------------------------- |
-| `--template nextjs`  | Next.js 14+ with App Router and Server Components |
-| `--template react`   | React + Vite with TypeScript                      |
-| `--features auth`    | Add NextAuth.js authentication                    |
-| `--features api`     | Add React Query + API client                      |
+| `--template nextjs`  | Next.js 15 with App Router, Turbopack, and RSC    |
+| `--template react`   | React 19 + Vite with TypeScript                   |
+| `--features auth`    | Add Clerk or Auth.js authentication               |
+| `--features api`     | Add TanStack Query v5 + API client                |
 | `--features forms`   | Add React Hook Form + Zod validation              |
-| `--features testing` | Add Vitest + Testing Library                      |
+| `--features testing` | Add Vitest + Testing Library + Playwright          |
+| `--features ai`      | Add Vercel AI SDK with streaming chat              |
 | `--dry-run`          | Preview files without creating them               |
 
-### Generated Structure (Next.js)
+### Generated Structure (Next.js 15)
 
 ```
 my-app/
 ├── app/
-│   ├── layout.tsx        # Root layout with fonts
-│   ├── page.tsx          # Home page
-│   ├── globals.css       # Tailwind + CSS variables
+│   ├── layout.tsx          # Root layout with fonts
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Tailwind CSS v4 (CSS-first config)
+│   ├── actions/            # Server Actions (Zod-validated mutations)
 │   └── api/health/route.ts
 ├── components/
-│   ├── ui/               # Button, Input, Card
-│   └── layout/           # Header, Footer, Sidebar
-├── hooks/                # useDebounce, useLocalStorage
-├── lib/                  # utils (cn), constants
-├── types/                # TypeScript interfaces
-├── tailwind.config.ts
-├── next.config.js
+│   ├── ui/                 # shadcn/ui: Button, Input, Card
+│   └── layout/             # Header, Footer, Sidebar
+├── hooks/                  # useDebounce, useLocalStorage, useMediaQuery
+├── lib/                    # utils (cn), constants, db client
+├── types/                  # TypeScript interfaces & Zod schemas
+├── next.config.ts          # Next.js 15 config (TypeScript)
 └── package.json
 ```
 
@@ -292,13 +295,13 @@ function DataFetcher({ url, render }) {
 
 ---
 
-## Next.js Optimization
+## Next.js 15 Optimization
 
 Reference: `references/nextjs_optimization_guide.md`
 
 ### Server vs Client Components
 
-Use Server Components by default. Add 'use client' only when you need:
+Use Server Components by default. Add `'use client'` only when you need:
 
 - Event handlers (onClick, onChange)
 - State (useState, useReducer)
@@ -307,8 +310,9 @@ Use Server Components by default. Add 'use client' only when you need:
 
 ```tsx
 // Server Component (default) - no 'use client'
-async function ProductPage({ params }) {
-  const product = await getProduct(params.id); // Server-side fetch
+async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params; // Next.js 15: params is async
+  const product = await getProduct(id);
 
   return (
     <div>
@@ -319,8 +323,8 @@ async function ProductPage({ params }) {
 }
 
 // Client Component
-("use client");
-function AddToCartButton({ productId }) {
+'use client';
+function AddToCartButton({ productId }: { productId: string }) {
   const [adding, setAdding] = useState(false);
   return <button onClick={() => addToCart(productId)}>Add</button>;
 }
@@ -362,16 +366,114 @@ async function Dashboard() {
 }
 
 // Streaming with Suspense
-async function ProductPage({ params }) {
+async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   return (
     <div>
-      <ProductDetails id={params.id} />
+      <ProductDetails id={id} />
       <Suspense fallback={<ReviewsSkeleton />}>
-        <Reviews productId={params.id} />
+        <Reviews productId={id} />
       </Suspense>
     </div>
   );
 }
+```
+
+---
+
+## React 19 Patterns
+
+React 19 introduces new primitives for handling form mutations, optimistic UI updates, and async transitions.
+
+### Server Actions with `useActionState`
+
+```tsx
+'use client';
+
+import { useActionState } from 'react';
+import { createWorkspace } from '@/app/actions/workspace';
+
+function CreateWorkspaceForm() {
+  const [state, formAction, isPending] = useActionState(createWorkspace, null);
+
+  return (
+    <form action={formAction}>
+      <input
+        name="name"
+        placeholder="Workspace name"
+        disabled={isPending}
+        className="border rounded px-3 py-2"
+      />
+      <input
+        name="slug"
+        placeholder="URL slug"
+        disabled={isPending}
+        className="border rounded px-3 py-2"
+      />
+      <button
+        type="submit"
+        disabled={isPending}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        {isPending ? 'Creating...' : 'Create Workspace'}
+      </button>
+      {state?.error && <p className="text-red-500">{state.error}</p>}
+    </form>
+  );
+}
+```
+
+### Optimistic UI with `useOptimistic`
+
+```tsx
+'use client';
+
+import { useOptimistic } from 'react';
+import { toggleLike } from '@/app/actions/likes';
+
+function LikeButton({ liked, count }: { liked: boolean; count: number }) {
+  const [optimisticState, setOptimistic] = useOptimistic(
+    { liked, count },
+    (current, _action: boolean) => ({
+      liked: !current.liked,
+      count: current.liked ? current.count - 1 : current.count + 1,
+    })
+  );
+
+  async function handleToggle() {
+    setOptimistic(!optimisticState.liked);
+    await toggleLike();
+  }
+
+  return (
+    <button onClick={handleToggle}>
+      {optimisticState.liked ? '❤️' : '🤍'} {optimisticState.count}
+    </button>
+  );
+}
+```
+
+### Form Status with `useFormStatus`
+
+```tsx
+'use client';
+
+import { useFormStatus } from 'react-dom';
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button type="submit" disabled={pending} className="bg-blue-600 text-white px-4 py-2 rounded">
+      {pending ? 'Submitting...' : 'Submit'}
+    </button>
+  );
+}
+
+// Usage inside a <form> with a Server Action
+<form action={createPost}>
+  <textarea name="content" required />
+  <SubmitButton />
+</form>
 ```
 
 ---
@@ -433,35 +535,56 @@ test("dialog is accessible", async () => {
 
 ## Quick Reference
 
-### Common Next.js Config
+### Common Next.js 15 Config
 
-```js
-// next.config.js
-const nextConfig = {
+```ts
+// next.config.ts (TypeScript config in Next.js 15)
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [{ hostname: "cdn.example.com" }],
-    formats: ["image/avif", "image/webp"],
+    remotePatterns: [{ hostname: 'cdn.example.com' }],
+    formats: ['image/avif', 'image/webp'],
   },
   experimental: {
-    optimizePackageImports: ["lucide-react", "@heroicons/react"],
+    optimizePackageImports: ['lucide-react', '@heroicons/react'],
   },
 };
+
+export default nextConfig;
 ```
 
-### Tailwind CSS Utilities
+### Tailwind CSS v4 Utilities
+
+Tailwind CSS v4 uses CSS-first configuration (`@theme` directive in CSS) instead of `tailwind.config.ts`.
+
+```css
+/* app/globals.css — Tailwind CSS v4 with CSS-first config */
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: oklch(0.55 0.22 260);
+  --color-primary-hover: oklch(0.48 0.22 260);
+  --color-surface: oklch(0.99 0 0);
+  --color-muted: oklch(0.55 0.01 260);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --font-sans: 'Inter', sans-serif;
+}
+```
 
 ```tsx
 // Conditional classes with cn()
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 <button
   className={cn(
-    "px-4 py-2 rounded",
-    variant === "primary" && "bg-blue-500 text-white",
-    disabled && "opacity-50 cursor-not-allowed",
+    'px-4 py-2 rounded-md',
+    variant === 'primary' && 'bg-primary text-white hover:bg-primary-hover',
+    disabled && 'opacity-50 cursor-not-allowed',
   )}
-/>;
-```
+/>;```
 
 ### TypeScript Patterns
 
@@ -488,8 +611,19 @@ function List<T>({ items, renderItem }: ListProps<T>) {
 ## Resources
 
 - React Patterns: `references/react_patterns.md`
-- Next.js Optimization: `references/nextjs_optimization_guide.md`
+- Next.js 15 Optimization: `references/nextjs_optimization_guide.md`
 - Best Practices: `references/frontend_best_practices.md`
+
+## Troubleshooting
+
+**Problem:** `params` or `searchParams` causing type errors in Next.js 15 page components  
+**Solution:** In Next.js 15, `params` and `searchParams` are now `Promise`-based. Use `const { id } = await params;` instead of direct destructuring.
+
+**Problem:** Tailwind CSS v4 custom classes not applying  
+**Solution:** Tailwind v4 uses CSS-first configuration. Define custom theme tokens via `@theme { }` inside your CSS file, not `tailwind.config.ts`. The config file is no longer required.
+
+**Problem:** `useFormStatus` returning `pending: false` when a Server Action is running  
+**Solution:** `useFormStatus` must be rendered inside the `<form>` element whose `action` prop triggers the Server Action. It does not work if used in a parent component above the form.
 
 ## Limitations
 - Use this skill only when the task clearly matches the scope described above.
