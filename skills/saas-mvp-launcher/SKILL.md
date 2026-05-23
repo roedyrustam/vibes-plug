@@ -46,16 +46,16 @@ Recommended modern SaaS stack (2026):
 
 | Layer | Choice | Why |
 |-------|--------|-----|
-| Frontend | Next.js 15 + TypeScript | Full-stack, great DX, Vercel deploy |
-| Styling | Tailwind CSS + shadcn/ui | Fast, accessible, customizable |
-| Backend | Next.js API Routes or tRPC | Type-safe, co-located |
-| Database | PostgreSQL via Supabase | Reliable, scalable, free tier |
-| ORM | Prisma or Drizzle | Type-safe queries, migrations |
-| Auth | Clerk or NextAuth.js | Social login, session management |
-| Payments | Stripe | Industry standard, great docs |
-| Email | Resend + React Email | Modern, developer-friendly |
-| Deployment | Vercel (frontend) + Railway (backend) | Zero-config, fast CI/CD |
-| Monitoring | Sentry + PostHog | Error tracking + analytics |
+| Frontend | Next.js 15 + TypeScript | App Router, React Server Components, fast hydration |
+| Styling | Tailwind CSS v4 + shadcn/ui | Native cascade layers, CSS-first config, superb aesthetics |
+| Backend | Next.js Server Actions | Standard 2026 pattern, co-located types, direct DB integration |
+| Database | PostgreSQL (Supabase or Neon) | High performance, serverless branching, robust RLS |
+| ORM | Drizzle ORM or Prisma | Drizzle for edge compatibility/SQL-like feel; Prisma for rich DX |
+| Auth | Clerk or NextAuth.js (Auth.js) | Secure sessions, social logins, middleware support |
+| Payments | Stripe | Complete subscription lifecycles, customer portal, robust SDK |
+| Email | Resend + React Email | High deliverability, template composability, fast setup |
+| Deployment | Vercel | Seamless Next.js deployment, edge network, zero-config CI/CD |
+| Monitoring | Sentry + PostHog | Real-time crash reporting, visual replay, and user funnels |
 
 ### 3. Project Structure
 
@@ -81,6 +81,8 @@ my-saas/
 
 ### 4. Core Database Schema (Multi-tenant SaaS)
 
+#### Prisma Schema (`prisma/schema.prisma`)
+
 ```prisma
 model User {
   id            String    @id @default(cuid())
@@ -100,6 +102,18 @@ model Workspace {
   createdAt DateTime  @default(now())
 }
 
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String    // ADMIN, MEMBER
+  createdAt   DateTime  @default(now())
+
+  @@unique([workspaceId, userId])
+}
+
 model Subscription {
   id                 String   @id @default(cuid())
   userId             String   @unique
@@ -116,6 +130,49 @@ enum Plan {
   PRO
   ENTERPRISE
 }
+```
+
+#### Drizzle ORM Schema (`lib/db/schema.ts`)
+
+```typescript
+import { pgTable, text, timestamp, pgEnum, unique } from 'drizzle-orm/pg-core';
+
+export const planEnum = pgEnum('plan', ['FREE', 'PRO', 'ENTERPRISE']);
+
+export const users = pgTable('users', {
+  id: text('id').primaryKey(),
+  email: text('email').notNull().unique(),
+  name: text('name'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const workspaces = pgTable('workspaces', {
+  id: text('id').primaryKey(),
+  name: text('name').notNull(),
+  slug: text('slug').notNull().unique(),
+  plan: planEnum('plan').default('FREE').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const workspaceMembers = pgTable('workspace_members', {
+  id: text('id').primaryKey(),
+  workspaceId: text('workspace_id').references(() => workspaces.id, { onDelete: 'cascade' }).notNull(),
+  userId: text('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  role: text('role').$type<'ADMIN' | 'MEMBER'>().default('MEMBER').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+}, (t) => ({
+  unq: unique().on(t.workspaceId, t.userId),
+}));
+
+export const subscriptions = pgTable('subscriptions', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id).notNull().unique(),
+  stripeCustomerId: text('stripe_customer_id').notNull().unique(),
+  stripePriceId: text('stripe_price_id').notNull(),
+  stripeSubId: text('stripe_sub_id').notNull().unique(),
+  status: text('status').notNull(), // 'active', 'canceled', etc.
+  currentPeriodEnd: timestamp('current_period_end').notNull(),
+});
 ```
 
 ### 5. Authentication Setup (Clerk)
@@ -144,29 +201,170 @@ export const config = {
 };
 ```
 
-### 6. Stripe Integration (Subscriptions)
+### 7. Next.js 15 Server Action (With Auth & Zod)
+
+Server Actions provide a secure, type-safe way to handle form submissions and data mutations directly from React Server Components.
 
 ```typescript
-// lib/stripe.ts
-import Stripe from 'stripe';
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-01-27.acacia',
+// app/actions/workspace.ts
+'use server';
+
+import { auth } from '@clerk/nextjs/server';
+import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
+import { db } from '@/lib/db';
+import { workspaces, workspaceMembers } from '@/lib/db/schema';
+
+const CreateWorkspaceSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(32),
+  slug: z.string().min(2).max(32).regex(/^[a-z0-9-]+$/, 'Slug must be alphanumeric & hyphens only'),
 });
 
-// Create checkout session
-export async function createCheckoutSession(userId: string, priceId: string) {
-  return stripe.checkout.sessions.create({
-    mode: 'subscription',
-    payment_method_types: ['card'],
-    line_items: [{ price: priceId, quantity: 1 }],
-    success_url: `${process.env.NEXT_PUBLIC_URL}/dashboard?success=true`,
-    cancel_url: `${process.env.NEXT_PUBLIC_URL}/pricing`,
-    metadata: { userId },
+export async function createWorkspace(prevState: any, formData: FormData) {
+  const { userId } = await auth();
+  if (!userId) {
+    return { error: 'Unauthorized' };
+  }
+
+  const validatedFields = CreateWorkspaceSchema.safeParse({
+    name: formData.get('name'),
+    slug: formData.get('slug'),
   });
+
+  if (!validatedFields.success) {
+    return { error: validatedFields.error.flatten().fieldErrors };
+  }
+
+  const { name, slug } = validatedFields.data;
+
+  try {
+    await db.transaction(async (tx) => {
+      const workspaceId = `ws_${crypto.randomUUID()}`;
+      
+      // Create workspace
+      await tx.insert(workspaces).values({
+        id: workspaceId,
+        name,
+        slug,
+        plan: 'FREE',
+      });
+
+      // Assign current user as admin
+      await tx.insert(workspaceMembers).values({
+        id: `wsm_${crypto.randomUUID()}`,
+        workspaceId,
+        userId,
+        role: 'ADMIN',
+      });
+    });
+
+    revalidatePath('/dashboard');
+    return { success: true };
+  } catch (err: any) {
+    return { error: err.message || 'Database error occurred' };
+  }
 }
 ```
 
-### 7. Pre-Launch Checklist
+### 8. Vercel AI SDK Integration (Core Feature)
+
+Integrate AI capabilities effortlessly using the Vercel AI SDK. This pattern features structured JSON outputs and streaming support.
+
+```typescript
+// app/api/chat/route.ts
+import { google } from '@ai-sdk/google'; // Or openai, anthropic, etc.
+import { streamText } from 'ai';
+import { auth } from '@clerk/nextjs/server';
+
+export async function POST(req: Request) {
+  const { userId } = await auth();
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
+  const { messages } = await req.json();
+
+  const result = await streamText({
+    model: google('gemini-2.5-flash'),
+    system: 'You are an intelligent assistant embedded inside a premium B2B SaaS MVP dashboard.',
+    messages,
+  });
+
+  return result.toDataStreamResponse();
+}
+```
+
+### 9. Stripe Webhook Handler (Next.js App Router)
+
+A robust webhook endpoint is essential for keeping subscription states synchronized when events occur in Stripe (e.g., successful renewal, cancellation, or failed payments).
+
+```typescript
+// app/api/webhooks/stripe/route.ts
+import { headers } from 'next/headers';
+import { stripe } from '@/lib/stripe';
+import { db } from '@/lib/db';
+import { subscriptions } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+
+export async function POST(req: Request) {
+  const body = await req.text();
+  const signature = headers().get('stripe-signature') as string;
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      body,
+      signature,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
+  }
+
+  const session = event.data.object as any;
+
+  if (event.type === 'checkout.session.completed') {
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+    const userId = session.metadata?.userId;
+
+    if (userId) {
+      await db.insert(subscriptions).values({
+        id: subscription.id,
+        userId,
+        stripeCustomerId: session.customer as string,
+        stripePriceId: subscription.items.data[0].price.id,
+        stripeSubId: subscription.id,
+        status: subscription.status,
+        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      });
+    }
+  }
+
+  if (event.type === 'invoice.payment_succeeded') {
+    const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+    await db
+      .update(subscriptions)
+      .set({
+        stripePriceId: subscription.items.data[0].price.id,
+        status: subscription.status,
+        currentPeriodEnd: new Date(subscription.current_period_end * 1000),
+      })
+      .where(eq(subscriptions.stripeSubId, subscription.id));
+  }
+
+  if (event.type === 'customer.subscription.deleted') {
+    const subscription = event.data.object as any;
+    await db
+      .update(subscriptions)
+      .set({ status: 'canceled' })
+      .where(eq(subscriptions.stripeSubId, subscription.id));
+  }
+
+  return new Response(JSON.stringify({ received: true }), { status: 200 });
+}
+```
+
+### 10. Pre-Launch Checklist
 
 **Technical:**
 - [ ] Authentication works (signup, login, logout, password reset)
