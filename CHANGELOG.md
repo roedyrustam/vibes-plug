@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.6] - 2026-05-24
+
+### Added
+- Created a new `rust-programming-expert` skill module for Rust programming (Rust 2024 / v1.85+):
+  - Added memory safety structural patterns (ownership, borrowing, lifetimes, smart pointers).
+  - Included idiomatic error handling strategies using `thiserror` and `anyhow`.
+  - Detailed modern async workflows with Tokio, non-blocking tasks, and Rust 2024 async closures.
+  - Added production web backend scaffolding with Axum and SQLx compile-time query verification.
+  - Provided command line interface parsing patterns with Clap v4 and Serde.
+  - Formulated strict unsafety audit practices, unsafe extern blocks, and release build optimization parameters.
+
 ## [1.2.5] - 2026-05-24
 
 ### Added
