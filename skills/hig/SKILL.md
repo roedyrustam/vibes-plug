@@ -2,10 +2,6 @@
 name: hig
 description: "Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif, kohesif, dan adaptif di semua ukuran layar dan perangkat."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: community
-date_added: "2026-05-22"
 tags: [hig, ui-ux, design-principles, hierarchy, harmony, consistency, accessibility]
 ---
 

@@ -2,19 +2,16 @@
 name: rust-programming-expert
 description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety (ownership/lifetimes), async programming (Tokio, async closures), API backends (Axum, SQLx), CLI development (Clap, Serde), unsafe safety, optimization, and Cargo profiling."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: community
-date_added: "2026-05-24"
 ---
 
 # Rust Programming Expert
 
+## Deskripsi
 Expert-level guidance for writing high-performance, robust, and memory-safe systems applications using **Rust 2024 (v1.85+)**. This skill outlines advanced practices in ownership, lifetimes, error design, async architectures, backend development, performance tuning, and idiomatic ecosystem patterns.
 
 ---
 
-## When to Use
+## Kondisi Pemicu
 
 - Use when bootstrapping or maintaining a production Rust crate, application, or workspace.
 - Use when designing data models involving complex lifetimes, smart pointers (`Arc`, `Rc`, `RefCell`), or zero-copy abstractions (`Cow`).

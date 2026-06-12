@@ -1,18 +1,15 @@
 ---
 name: senior-frontend
-description: Frontend development skill for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 applications. Use when building React components, optimizing Next.js performance, analyzing bundle sizes, scaffolding frontend projects, implementing accessibility, or reviewing frontend code quality.
+description: "Frontend development skill for React 19, Next.js 15, TypeScript, and Tailwind CSS v4."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: https://github.com/alirezarezvani/claude-skills
-date_added: "2026-03-07"
 ---
 
 # Senior Frontend
 
+## Deskripsi
 Frontend development patterns, performance optimization, and automation tools for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript.
 
-## When to Use
+## Kondisi Pemicu
 - Use when scaffolding a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
 - Use when generating new components, custom hooks, or Server Actions.
 - Use when analyzing and optimizing bundle sizes for frontend applications.

@@ -2,17 +2,13 @@
 name: bun-runtime-expert
 description: "Expert skill for the Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun, migrating from Node.js, or leveraging Bun's built-in APIs (Bun.serve, Bun.sql, Bun.s3, bun:test)."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: community
-date_added: "2026-05-24"
 ---
 
 # Bun Runtime Expert
 
 Expert-level guidance for building high-performance applications with the Bun JavaScript/TypeScript runtime (v1.3+). Covers Bun's built-in HTTP server, database clients, bundler, test runner, package manager, and Node.js migration strategies.
 
-## When to Use
+## Kondisi Pemicu
 
 - Use when scaffolding a new project with Bun as the runtime.
 - Use when building HTTP servers or APIs with `Bun.serve()`.

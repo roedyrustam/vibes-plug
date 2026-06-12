@@ -2,10 +2,6 @@
 name: seo
 description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO. Use as the umbrella skill when the user asks for a full SEO analysis or strategy."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: unknown
-source: "https://github.com/AgriciDaniel/claude-seo"
-date_added: "2026-03-21"
 user-invokable: true
 argument-hint: "[command] [url]"
 ---
@@ -14,7 +10,7 @@ argument-hint: "[command] [url]"
 
 Comprehensive SEO analysis across all industries (SaaS, local services, e-commerce, publishers, agencies). Orchestrates specialized sub-skills and subagents, heavily emphasizing **Modern Web Performance** and **AI Search Readiness (GEO)**.
 
-## When to Use
+## Kondisi Pemicu
 - Use when the user asks for a full SEO audit or broad SEO strategy.
 - Use as the umbrella entry point when multiple SEO dimensions are in scope.
 - Use when the task spans technical SEO, content, schema, sitemaps, and AI search readiness together.

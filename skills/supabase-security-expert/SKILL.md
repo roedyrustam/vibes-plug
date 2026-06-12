@@ -2,7 +2,6 @@
 name: supabase-security-expert
 description: Ahli keamanan Supabase untuk audit RLS (Row Level Security), RBAC, database relasional, dan pencegahan kebocoran data (hardcoded secrets).
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
 ---
 
 # Supabase Security Expert

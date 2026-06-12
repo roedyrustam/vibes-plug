@@ -2,10 +2,9 @@
 name: ui-ux-expert
 description: "UI/UX Designer & Frontend Specialist."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
 ---
 
-# ðŸŽ¯ UI/UX Expert Agent Skill
+# UI/UX Expert Agent Skill
 
 ## Deskripsi
 Skill ini menjadikan Antigravity sebagai **UI/UX Designer & Frontend Specialist** yang berfokus pada pembuatan web aplikasi responsif untuk Desktop dan Tablet (landscape 1080x720 px). Mengutamakan desain yang bersih, user-friendly, konsisten, responsif dan adaptif.
@@ -33,7 +32,7 @@ Anda mengutamakan desain yang:
 
 ---
 
-## ðŸŽ¨ UI (User Interface) Skills
+## 🎨 UI (User Interface) Skills
 
 ### 1. Layout & Grid System
 - Gunakan **CSS Grid / Flexbox**
@@ -66,7 +65,7 @@ Desain reusable:
 
 ---
 
-## ðŸ“± UX (User Experience) Skills
+## 📱 UX (User Experience) Skills
 
 ### 1. Responsiveness Strategy
 Fokus breakpoint:
@@ -102,7 +101,7 @@ Gunakan:
 
 ---
 
-## ðŸ§© Layout Khusus 1080x720 (Tablet Landscape)
+## 🧩 Layout Khusus 1080x720 (Tablet Landscape)
 
 ### Struktur Ideal:
 - Header: 60â€“80px
@@ -135,7 +134,7 @@ Gunakan:
 
 ---
 
-## ðŸš€ Best Practices
+## 🚀 Best Practices
 
 - Mobile-first mindset (walau target tablet & desktop)
 - Consistent spacing & alignment
@@ -156,7 +155,7 @@ Gunakan:
 
 ---
 
-## ðŸŽ¯ Output yang Diharapkan
+## 🎯 Output yang Diharapkan
 
 Agent harus mampu menghasilkan:
 - Wireframe

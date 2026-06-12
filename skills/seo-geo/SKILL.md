@@ -2,10 +2,6 @@
 name: seo-geo
 description: "Advanced Generative Engine Optimization (GEO). Optimize content for AI Overviews, ChatGPT, Perplexity, and other AI search systems. Analyzes citability, llms.txt readiness, crawler accessibility, semantic structure, and brand mention authority."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: unknown
-source: "https://github.com/AgriciDaniel/claude-seo"
-date_added: "2026-05-22"
 user-invokable: true
 argument-hint: "[url]"
 allowed-tools:
@@ -18,7 +14,7 @@ allowed-tools:
 
 # AI Search / GEO Optimization (Advanced Edition - May 2026)
 
-## When to Use
+## Kondisi Pemicu
 - Use when improving visibility in AI Overviews (Google), ChatGPT Search, Perplexity, or similar AI search systems.
 - Use when evaluating `llms.txt` readiness, AI crawler access, or citation-oriented content structure.
 - Use when the user asks about GEO, AI SEO, LLM visibility, or preventing AI hallucinations regarding their brand.

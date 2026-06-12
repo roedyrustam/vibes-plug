@@ -2,10 +2,6 @@
 name: tanstack-query-expert
 description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infinite scrolling, optimistic mutations, SSR/React Server Components hydration, and advanced cache invalidation."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: community
-date_added: "2026-05-22"
 ---
 
 # TanStack Query Expert (Advanced v5 Edition)
