@@ -18,10 +18,12 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Senior Frontend** (`senior-frontend`): Ahli pengembangan React, Next.js, TypeScript, dan Tailwind CSS. Mampu mengoptimalkan performa, *bundle size*, dan merancang komponen *frontend*.
 - **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query (React Query) dan Next.js App Router (SSR).
+- **Tauri Expert** (`tauri-expert`): Panduan terbaik untuk pengembangan aplikasi lintas platform *(cross-platform)* dengan Tauri v2, berfokus pada ekosistem backend Rust, IPC komunikasi, dan *Capabilities* keamanan.
 
 ### Arsitektur SaaS & Bisnis
 - **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan *Row-Level Security* (RLS), *shared-schema*, dan PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Panduan jalan (roadmap) terstruktur untuk merencanakan dan meluncurkan Minimum Viable Product (MVP) untuk SaaS, mencakup teknologi, autentikasi, pembayaran, dll.
+- **PRD Architect** (`prd-architect`): Memaksa perumusan *Product Requirements Document* (PRD) yang meliputi MVP dan *user flows* secara wajib sebelum agen menulis kode aplikasi baru apa pun.
 
 ### Database & Keamanan (Security)
 - **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
@@ -34,6 +36,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 ### Utilitas & Ekstra
 - **Web Scraper** (`web-scraper`): Kemampuan ekstraksi data web cerdas dengan berbagai strategi *scraping*, dukungan paginasi, pemantauan, serta ekspor CSV/JSON.
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
+- **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **Skill Baru** (`skill_baru`): *Template* dasar untuk pembuatan *skill* agen baru ke depannya.
 
 ## Instalasi otomatis (Rekomendasi)
@@ -55,7 +58,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 > **Tip:** Jika ada *update* skill di masa depan, Anda cukup menjalankan `git pull` dari dalam folder `vibes-plug` tersebut.
 
 ## Versi
-v1.2.6
+v1.3.0
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

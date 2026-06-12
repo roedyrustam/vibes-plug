@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2026-06-12
+
+### Added
+- Added `token-saver` skill to enforce concise AI responses and minimal codebase rewrites.
+- Added `tauri-expert` skill outlining Tauri v2 best practices, IPC communication, and security capabilities.
+- Added `prd-architect` skill serving as a mandatory guardrail to generate and validate Product Requirements Documents (PRD) before generating code for new projects.
+
+### Changed
+- Standardized all 23 skill metadata (frontmatter) formats across the plugin.
+- Standardized the trigger header to `## Kondisi Pemicu` in all skills.
+- Broadly updated technical relevance in existing skills (bumped to React 19, Next.js 15, Tailwind v4, TanStack Query v5, Bun v1.1+).
+- Fixed markdown script paths in `ui-ux-pro-max` and emoji encoding issues in `ui_ux_expert`.
+
 ## [1.2.6] - 2026-05-24
 
 ### Added
