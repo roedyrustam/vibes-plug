@@ -11,7 +11,7 @@ tools:
 - claude-code
 - antigravity
 - cursor
-- gemini-cli
+- antigravity-cli
 - codex-cli
 ---
 
