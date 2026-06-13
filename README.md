@@ -23,6 +23,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Panduan menulis kode bersih (SOLID, DRY) dan merancang arsitektur aplikasi modular yang skalabel (Clean Architecture, caching, database replication).
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query (React Query) dan Next.js App Router (SSR).
 - **Tauri Expert** (`tauri-expert`): Panduan terbaik untuk pengembangan aplikasi lintas platform *(cross-platform)* dengan Tauri v2, berfokus pada ekosistem backend Rust, IPC komunikasi, dan *Capabilities* keamanan.
+- **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan, serta melakukan optimasi terarah sesuai standar.
 
 ### Arsitektur SaaS & Bisnis
 - **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan *Row-Level Security* (RLS), *shared-schema*, dan PostgreSQL.

@@ -24,4 +24,5 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Generative search engine optimization and visibility architectures.
 - **tauri-expert**: Expert skill for Tauri v2 development (Rust backend, IPC, capabilities).
 - **token-saver**: Strict token-saving protocol for minimal fluff and efficient codebase edits.
+- **app-analyzer-optimizer**: Deeply analyzes application architecture, dependencies, and performance configurations, and executes targeted optimizations aligned with active vibes-plug skills.
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
