@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 1.3.4
+- **Version**: 1.3.5
 - **Last Updated**: 2026-06-14
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 

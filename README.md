@@ -1,5 +1,7 @@
 # Vibes Plug
 
+![Vibes Plug Banner](banner.png)
+
 Plugin kustomisasi untuk Antigravity yang berisi berbagai *skills* khusus untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
 
 ## Fitur dan Skills yang Tersedia
@@ -65,7 +67,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///C:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ## Versi
-v1.3.4
+v1.3.5
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
