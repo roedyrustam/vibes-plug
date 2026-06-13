@@ -27,6 +27,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 
 ### Database & Keamanan (Security)
 - **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
+- **Firebase Security Expert** (`firebase-security-expert`): Ahli keamanan Firebase untuk melakukan audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check.
 
 ### SEO & Optimasi Visibilitas
 - **SEO Umbrella** (`seo`): Audit SEO menyeluruh yang mencakup *technical* SEO, SEO *on-page*, schema, sitemap, kualitas konten, hingga *AI search readiness* dan GEO.
@@ -62,7 +63,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///C:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ## Versi
-v1.3.1
+v1.3.2
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

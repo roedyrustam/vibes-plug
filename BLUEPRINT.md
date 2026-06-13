@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 1.3.1
+- **Version**: 1.3.2
 - **Last Updated**: 2026-06-14
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
@@ -14,6 +14,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **saas-mvp-launcher**: Roadmap and technical design for bootstrapping high-performance multi-tenant B2B/B2C SaaS MVPs with Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, and Vercel AI SDK.
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
 - **supabase-security-expert**: Relational database auditing and RLS security practices.
+- **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check integration.
 - **auto-doc-updater**: Automated project documentation tracking.
 - **ui-ux-pro-max** & **hig**: Comprehensive UI/UX and Human Interface Guidelines consistency.
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — useActionState, useOptimistic, useFormStatus, Turbopack, and bundle optimization.
