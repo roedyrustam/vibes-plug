@@ -1,4 +1,4 @@
-# Panduan Kontribusi Skill (Bagi yang Sudah Fork di GitHub)
+# Panduan Kontribusi Skill 
 
 Terima kasih telah berkontribusi ke **Vibes Plug**! Panduan ini dirancang khusus untuk mempermudah Anda yang telah melakukan *fork* repositori ini di GitHub agar dapat menambahkan atau memperbarui *skills* dengan standar yang sesuai.
 
