@@ -2,10 +2,6 @@
 name: saas-mvp-launcher
 description: "Use when planning or building a SaaS MVP from scratch. Provides a structured roadmap covering tech stack, architecture, auth, payments, and launch checklist."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: safe
-source: community
-date_added: "2026-03-04"
 ---
 
 # SaaS MVP Launcher

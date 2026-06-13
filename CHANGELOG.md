@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.6] - 2026-06-14
+
+### Changed
+- Cleaned up obsolete metadata fields (`github:`, `risk:`, `source:`, and `date_added:`) from all skill definition files in the repository.
+
 ## [1.3.5] - 2026-06-14
 
 ### Changed

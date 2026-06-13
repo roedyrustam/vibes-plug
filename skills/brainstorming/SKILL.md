@@ -2,10 +2,6 @@
 name: brainstorming
 description: "Advanced brainstorming protocol with Modern Web Guidance. Transforms vague ideas into validated, scalable web architectures and designs through disciplined reasoning and collaboration."
 author: "Roedy Rustam"
-github: "https://github.com/roedyrustam/vibes-plug"
-risk: unknown
-source: community
-date_added: "2026-02-27"
 ---
 
 # Brainstorming Ideas Into Designs (with Modern Web Guidance)

@@ -67,7 +67,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///C:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ## Versi
-v1.3.5
+v1.3.6
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
