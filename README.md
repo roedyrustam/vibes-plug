@@ -16,6 +16,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.3+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
 - **Rust Programming Expert** (`rust-programming-expert`): Panduan tingkat tinggi untuk pemrograman Rust (Rust 2024 / v1.85+), mencakup keamanan memori (ownership/lifetimes), pemrograman asinkron (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), optimasi performa, serta manajemen kode unsafe.
 - **Senior Frontend** (`senior-frontend`): Ahli pengembangan React, Next.js, TypeScript, dan Tailwind CSS. Mampu mengoptimalkan performa, *bundle size*, dan merancang komponen *frontend*.
+- **Tailwind CSS Expert** (`tailwind-expert`): Panduan mendalam untuk konfigurasi CSS-first Tailwind CSS v4, theme customization (@theme), utility classes modern, state modifiers kustom, dan optimalisasi berkas.
 - **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query (React Query) dan Next.js App Router (SSR).
 - **Tauri Expert** (`tauri-expert`): Panduan terbaik untuk pengembangan aplikasi lintas platform *(cross-platform)* dengan Tauri v2, berfokus pada ekosistem backend Rust, IPC komunikasi, dan *Capabilities* keamanan.
@@ -63,7 +64,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///C:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ## Versi
-v1.3.2
+v1.3.3
 
 ## Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 1.3.2
+- **Version**: 1.3.3
 - **Last Updated**: 2026-06-14
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
@@ -18,6 +18,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **auto-doc-updater**: Automated project documentation tracking.
 - **ui-ux-pro-max** & **hig**: Comprehensive UI/UX and Human Interface Guidelines consistency.
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — useActionState, useOptimistic, useFormStatus, Turbopack, and bundle optimization.
+- **tailwind-expert**: Tailwind CSS v4 styling rules, CSS-first design, theme customization, and utility optimization.
 - **senior-fullstack**: Advanced fullstack architectural/testing references (Redis caching, BullMQ background queues, connection pooling, CI/CD pipelines, Docker, and Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Generative search engine optimization and visibility architectures.
 - **tauri-expert**: Expert skill for Tauri v2 development (Rust backend, IPC, capabilities).
