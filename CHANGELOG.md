@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.3.7] - 2026-06-15
+
+### Added / Ditambahkan
+- Added `python-programming-expert` skill module detailing Python 3.12+ features, type parameters, generic validation schemas using Pydantic v2, structured concurrency with asyncio TaskGroups, database interactions with SQLAlchemy 2.0 and SQLModel, package management via uv/Poetry, linting with Ruff, and testing with pytest.
+  *(Menambahkan modul skill `python-programming-expert` yang mendetailkan fitur Python 3.12+, parameter tipe, skema validasi generik menggunakan Pydantic v2, konkurensi terstruktur dengan asyncio TaskGroups, interaksi database dengan SQLAlchemy 2.0 dan SQLModel, manajemen paket melalui uv/Poetry, linting dengan Ruff, dan pengujian dengan pytest.)*
+
 ## [1.3.6] - 2026-06-14
 
 ### Changed / Diubah

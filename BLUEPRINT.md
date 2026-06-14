@@ -1,7 +1,7 @@
 # Project Blueprint
 
-- **Version**: 1.3.6
-- **Last Updated**: 2026-06-14
+- **Version**: 1.3.7
+- **Last Updated**: 2026-06-15
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
@@ -17,6 +17,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 ### Skill Modules
 - **brainstorming**: Advanced brainstorming protocol with 2026 Modern Web Guidance — RSC, PPR, Server Actions, AI integration, Passkeys, and structured Design Document output template.
 - **bun-runtime-expert**: Expert skill for the Bun JavaScript/TypeScript runtime featuring Bun.serve, Bun.sql, Bun.s3, bun:test, bundler, and package manager.
+- **python-programming-expert**: Expert skill for Python programming (Python 3.12+) covering type safety (typing/Pydantic), async/await (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), package management (uv, Poetry), quality checks (Ruff), and testing with pytest.
 - **rust-programming-expert**: Expert skill for Rust programming (Rust 2024 / v1.85+) covering memory safety (ownership/lifetimes), async (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), unsafe safety, optimization, and Cargo profiling.
 - **saas-mvp-launcher**: Roadmap and technical design for bootstrapping high-performance multi-tenant B2B/B2C SaaS MVPs with Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, and Vercel AI SDK.
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
@@ -45,6 +46,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 ### Modul Skill
 - **brainstorming**: Protokol brainstorming tingkat lanjut dengan Modern Web Guidance 2026 — RSC, PPR, Server Actions, integrasi AI, Passkeys, dan template output Dokumen Desain yang terstruktur.
 - **bun-runtime-expert**: Panduan ahli untuk runtime JavaScript/TypeScript Bun yang mencakup Bun.serve, Bun.sql, Bun.s3, bun:test, bundler, dan package manager.
+- **python-programming-expert**: Panduan ahli untuk pemrograman Python (Python 3.12+) mencakup keamanan tipe (typing/Pydantic), asinkron (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), manajemen paket (uv, Poetry), pemeriksaan kualitas (Ruff), dan pengujian dengan pytest.
 - **rust-programming-expert**: Panduan ahli untuk pemrograman Rust (Rust 2024 / v1.85+) mencakup keamanan memori (ownership/lifetimes), pemrograman asinkron (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), unsafe safety, optimasi performa, dan profiling Cargo.
 - **saas-mvp-launcher**: Panduan jalan dan desain teknis untuk meluncurkan MVP SaaS multi-tenant B2B/B2C berkinerja tinggi menggunakan Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, dan Vercel AI SDK.
 - **saas-multi-tenant**: Strategi isolasi database multi-tenant dan Row-Level Security (RLS) pada PostgreSQL.
