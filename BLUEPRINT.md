@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 1.3.7
+- **Version**: 1.3.8
 - **Last Updated**: 2026-06-15
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
@@ -23,6 +23,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
 - **supabase-security-expert**: Relational database auditing and RLS security practices.
 - **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check integration.
+- **secure-fuzz-testing**: Coverage-guided fuzzing (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan) for security validation.
 - **auto-doc-updater**: Automated project documentation tracking.
 - **ui-ux-pro-max** & **hig**: Comprehensive UI/UX and Human Interface Guidelines consistency.
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — useActionState, useOptimistic, useFormStatus, Turbopack, and bundle optimization.
@@ -52,6 +53,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **saas-multi-tenant**: Strategi isolasi database multi-tenant dan Row-Level Security (RLS) pada PostgreSQL.
 - **supabase-security-expert**: Praktik audit database relasional dan keamanan Row-Level Security (RLS) Supabase.
 - **firebase-security-expert**: Audit Security Rules Firebase, perlindungan akun layanan (Service Account), dan integrasi App Check.
+- **secure-fuzz-testing**: Pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan) untuk validasi keamanan.
 - **auto-doc-updater**: Pelacakan dokumentasi proyek otomatis.
 - **ui-ux-pro-max** & **hig**: Panduan UI/UX komprehensif dan konsistensi Human Interface Guidelines (Hierarchy, Harmony, Consistency).
 - **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — useActionState, useOptimistic, useFormStatus, Turbopack, dan optimasi bundle.

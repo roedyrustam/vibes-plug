@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.3.8] - 2026-06-15
+
+### Added / Ditambahkan
+- Added `secure-fuzz-testing` skill module detailing coverage-guided fuzzing target creation (Atheris for Python, cargo-fuzz for Rust, native Go fuzzing), sanitizers configuration (ASan, MSan, UBSan), diagnostic analysis, and automated DevSecOps CI/CD pipelines integration.
+  *(Menambahkan modul skill `secure-fuzz-testing` yang mendetailkan pembuatan target fuzzing berbasis cakupan (Atheris untuk Python, cargo-fuzz untuk Rust, native Go fuzzing), konfigurasi sanitizer (ASan, MSan, UBSan), analisis diagnostik, dan integrasi pipa DevSecOps CI/CD otomatis.)*
+
 ## [1.3.7] - 2026-06-15
 
 ### Added / Ditambahkan

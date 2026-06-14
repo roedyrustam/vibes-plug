@@ -41,6 +41,7 @@ This plugin provides the following list of skills that can be used by the agent:
 #### Database & Security
 - **Supabase Security Expert** (`supabase-security-expert`): Supabase security expert to audit web application security, relational databases, RLS (Row Level Security) configuration, RBAC, and prevent data leakage (hardcoded secrets).
 - **Firebase Security Expert** (`firebase-security-expert`): Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration.
+- **Secure Fuzz Testing** (`secure-fuzz-testing`): Expert-level skill for writing and integrating coverage-guided fuzz tests (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan) for continuous secure validation in CI/CD.
 
 #### SEO & Visibility Optimization
 - **SEO Umbrella** (`seo`): Comprehensive SEO audit covering technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO.
@@ -118,6 +119,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 #### Database & Keamanan (Security)
 - **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
 - **Firebase Security Expert** (`firebase-security-expert`): Ahli keamanan Firebase untuk melakukan audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check.
+- **Secure Fuzz Testing** (`secure-fuzz-testing`): Panduan tingkat ahli untuk menulis dan mengintegrasikan pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan) untuk validasi keamanan berkelanjutan pada CI/CD.
 
 #### SEO & Optimasi Visibilitas
 - **SEO Umbrella** (`seo`): Audit SEO menyeluruh yang mencakup *technical* SEO, SEO *on-page*, schema, sitemap, kualitas konten, hingga *AI search readiness* dan GEO.
