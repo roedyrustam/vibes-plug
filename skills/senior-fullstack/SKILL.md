@@ -1,119 +1,76 @@
 ---
 name: senior-fullstack
-description: "Complete toolkit for senior fullstack with modern tools and best practices."
+description: "Perangkat instruksi lengkap untuk pengembang fullstack tingkat senior dengan alat-alat dan best practices termutakhir / Complete toolkit for senior fullstack with modern tools and best practices."
 author: "Roedy Rustam"
 ---
 
 # Senior Fullstack
 
+[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Panduan komprehensif dan perangkat instruksi untuk insinyur fullstack tingkat senior. Mencakup arsitektur tingkat produksi, optimasi database, manajemen state lanjutan, mikro-interaksi, CI/CD yang tangguh, dan keamanan sistem.
+
+### Kemampuan Utama
+- **Fullstack Scaffolder**: Script otomatis untuk merancang workspace fullstack terstruktur dengan keamanan dasar, konfigurasi CSP, dan database client (Prisma/Drizzle).
+- **Project Scaffolder**: Melakukan analisis statis pada codebase untuk mendeteksi risiko skalabilitas (seperti N+1 query ORM).
+- **Code Quality Analyzer**: Memvalidasi cakupan pengujian, memantau celah keamanan CORS, dan mendeteksi rahasia (secrets) yang tertulis keras (hardcoded).
+
+### Stack Teknologi Modern (2026)
+- **Bahasa**: TypeScript, JavaScript, SQL, Python, Go.
+- **Frontend**: React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui.
+- **State & Fetching**: TanStack Query v5, React Server Actions, Zustand.
+- **Database & ORM**: PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon.
+- **Operasional & Keamanan**: Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk.
+
+### Praktik Terbaik Senior
+- **Kualitas Kode**: Terapkan `strict: true` di `tsconfig.json`, hindari tipe `any`, dan gunakan Zod untuk validasi payload API.
+- **Skalabilitas Database**: Gunakan connection pooling, buat index pada kolom query, dan terapkan Row-Level Security (RLS) pada tabel bertingkat tenant.
+- **Keamanan**: Terapkan header keamanan yang ketat (CSP, HSTS), validasi tanda tangan webhook eksternal (misal Stripe), dan pasang rate limiting.
+
+### Referensi Dokumentasi
+- [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
+- [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
+- [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
+
+---
+
+<a name="english"></a>
+## English
+
+### Description
 A comprehensive blueprint and toolkit for senior fullstack engineers, covering production-grade architecture, database optimization, advanced state management, micro-interactions, robust CI/CD, and system security.
 
-## Quick Start
+### Core Capabilities
+- **Fullstack Scaffolder**: Automated scaffolder that spins up highly structured workspaces with embedded security defaults, CSP configuration, and database clients (Prisma/Drizzle).
+- **Project Scaffolder**: Performs static analysis on active fullstack codebases to flag scaling risks (such as N+1 query patterns).
+- **Code Quality Analyzer**: Validates test coverage, scans for insecure CORS policies, and detects hardcoded secrets.
 
-### Main Capabilities
+### Modern Tech Stack (2026)
+- **Languages:** TypeScript, JavaScript, SQL, Python, Go.
+- **Frontend:** React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui.
+- **State & Fetching:** TanStack Query v5, React Server Actions, Zustand.
+- **Database & ORMs:** PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon.
+- **Operations & Security:** Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk.
 
-This skill provides three core capabilities supported by automated pipeline scripts inside `scripts/`:
+### Senior Best Practices
+- **Code Quality**: Enforce `strict: true` in `tsconfig.json`, avoid `any` typings, and validate API payloads with Zod.
+- **Database Scaling**: Always use connection pooling, add indexes on query columns, and enforce Row-Level Security (RLS) on tenant tables.
+- **Security**: Enforce strict security headers (CSP, HSTS), validate external webhook signatures (e.g., Stripe), and implement rate limiting.
 
-```bash
-# Script 1: Scaffold a production-grade fullstack workspace
-python scripts/fullstack_scaffolder.py <project-path> [options]
-
-# Script 2: Analyze codebase for performance bottlenecks and ORM anti-patterns
-python scripts/project_scaffolder.py <target-path> [--verbose]
-
-# Script 3: Perform advanced code quality, security header, and CSP validations
-python scripts/code_quality_analyzer.py [arguments] [options]
-```
-
----
-
-## Core Capabilities
-
-### 1. Fullstack Scaffolder
-Automated scaffolder that spins up highly structured workspaces with absolute consistency:
-- **Zero-Config Structure**: Enforces robust, modular directory trees (Next.js App Router, modular API routes).
-- **Embedded Security Defaults**: Generates standard security headers, CSP configs, and strict env-var checking.
-- **ORM Scaffolding**: Proactively sets up Drizzle and Prisma database clients with automatic migration folders.
-
-### 2. Project Scaffolder
-Performs static analysis on active fullstack codebases to flag scaling risks:
-- Identifies N+1 query patterns in prisma/drizzle statements.
-- Scans react client bundle sizes and flags non-dynamic component imports.
-- Recommends indexing strategies for tables showing high load profiles.
-
-### 3. Code Quality Analyzer
-Automated linter and formatter validation pipeline script:
-- Verifies comprehensive test coverage criteria are satisfied.
-- Flags insecure CORS policies (`Access-Control-Allow-Origin: *` in production).
-- Checks for hardcoded secrets and credentials.
+### Reference Documentation
+- [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
+- [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
+- [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
 
 ---
 
-## Reference Documentation
-
-### [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
-Detailed patterns and production guides:
-- React 19 & Next.js 15 Server-First Architectures.
-- Type-Safe Contracts via API Routes and Server Actions.
-- Connection Pooling and High-Concurrency Postgres scaling.
-
-### [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
-Advanced architectural solutions:
-- High-Performance Caching Layer using Redis.
-- Relational Database Partitioning & Advanced Indexing.
-- Event-Driven Webhooks & Resilient Background Workers.
-
-### [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
-Automation and operational pipelines:
-- Automated CI/CD (GitHub Actions) with test orchestration.
-- High-Fidelity Test Matrix (Vitest Unit tests + Playwright E2E tests).
-- Production-Grade Docker/Kubernetes deployments.
-
----
-
-## Modern Tech Stack (2026)
-
-- **Languages:** TypeScript, JavaScript, SQL, Python, Go
-- **Frontend Frameworks:** React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui
-- **State Management & Fetching:** TanStack Query (React Query) v5, React Server Actions, Zustand
-- **Database & ORMs:** PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon
-- **Operations & Security:** Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk
-
----
-
-## Senior Core Best Practices
-
-### Code Quality & Typings
-- ✅ Enforce `strict: true` in `tsconfig.json` and avoid using `any` typings.
-- ✅ Structure components using React Server Components (RSC) by default; only use `'use client'` at leaf nodes.
-- ✅ Enforce comprehensive runtime schema validation with Zod for all API request payloads.
-
-### Database Scaling
-- ✅ Always use database connection pooling (e.g. Supabase Supavisor or Neon serverless connection poolers).
-- ✅ Add indexes on columns used in `WHERE`, `JOIN`, and `ORDER BY` clauses; continuously profile query times with `EXPLAIN ANALYZE`.
-- ✅ Enforce Row-Level Security (RLS) policies on all tables holding tenant-specific details.
-
-### Security
-- ✅ Enforce secure security headers (e.g. strict Content Security Policy, HSTS, X-Content-Type-Options).
-- ✅ Validate and sanitize all external webhooks (e.g. verify Stripe webhook signatures before updating database rows).
-- ✅ Implement aggressive rate limiting on public endpoints to mitigate DDoS and brute-force risks.
-
----
-
-## Troubleshooting
-
-**Problem:** Hydration mismatch errors in Next.js 15  
-**Solution:** Avoid using client-only browser state (e.g., `window.localStorage` or system timestamps) during the initial React render. Wrap unstable blocks in `useEffect` or utilize `next/dynamic` with `{ ssr: false }`.
-
-**Problem:** PostgreSQL connection spikes under peak serverless invocation  
-**Solution:** Reduce maximum pool sizes in your connection string and utilize a transaction connection pooler (e.g., pgBouncer / Supavisor) with a `pool_mode=transaction` suffix.
-
-**Problem:** Stale UI data after running Next.js Server Actions  
-**Solution:** Call `revalidatePath()` or `revalidateTag()` inside the Server Action immediately after database transactions succeed to purge Next.js's router and data caches.
-
----
-
-## Limitations
-- This skill must only be utilized for high-performance multi-tier software projects.
-- Avoid using custom server solutions (e.g., custom Express server on Next.js) unless explicitly requested; use native Next.js server routing for optimal Vercel deployment.
-- When running code quality or scaffolding scripts, always verify file access permissions before initiating massive system writes.
+### Troubleshooting / Pemecahan Masalah
+- **Hydration Mismatch**: Avoid client-only browser state (like `localStorage`) during initial render. Wrap blocks in `useEffect` or use `next/dynamic` with `{ ssr: false }`.
+- **Postgres Connection Spikes**: Reduce pool size and use a transaction pooler (pgBouncer/Supavisor) with `pool_mode=transaction`.
+- **Stale Server Action UI**: Call `revalidatePath()` or `revalidateTag()` immediately after database transactions succeed.

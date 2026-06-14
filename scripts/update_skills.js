@@ -18,7 +18,7 @@ function updateSkills() {
             content = content.replace(/date_added:.*?\n/g, '');
             
             // Standardize headers
-            content = content.replace(/^## When to Use$/gm, '## Kondisi Pemicu');
+            content = content.replace(/^## When to Use$/gm, '## Kondisi Pemicu / Trigger Conditions');
             
             // Update technologies to make them "semakin relevan"
             content = content.replace(/React 18/g, 'React 19');

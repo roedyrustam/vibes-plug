@@ -1,6 +1,6 @@
 ---
 name: seo-geo
-description: "Advanced Generative Engine Optimization (GEO). Optimize content for AI Overviews, ChatGPT, Perplexity, and other AI search systems. Analyzes citability, llms.txt readiness, crawler accessibility, semantic structure, and brand mention authority."
+description: "Optimasi Mesin Pencari Generatif (GEO) untuk AI Overviews, ChatGPT, dan Perplexity / Generative Engine Optimization (GEO) for AI Overviews, ChatGPT, and Perplexity."
 author: "Roedy Rustam"
 user-invokable: true
 argument-hint: "[url]"
@@ -12,132 +12,62 @@ allowed-tools:
   - WebFetch
 ---
 
-# AI Search / GEO Optimization (Advanced Edition - May 2026)
+# AI Search / GEO Optimization (Generative Engine Optimization)
 
-## Kondisi Pemicu
-- Use when improving visibility in AI Overviews (Google), ChatGPT Search, Perplexity, or similar AI search systems.
-- Use when evaluating `llms.txt` readiness, AI crawler access, or citation-oriented content structure.
-- Use when the user asks about GEO, AI SEO, LLM visibility, or preventing AI hallucinations regarding their brand.
-
-## Key Statistics & Paradigm Shift
-
-| Metric | Value | Insight |
-|--------|-------|---------|
-| AI Overviews reach | 1.5 billion+ users/month | Google dominates top-of-funnel discovery. |
-| AI-referred sessions growth | 527% (Jan-May 2025) | AI is replacing traditional 10-blue-links search. |
-| ChatGPT weekly active users | 900+ million | ChatGPT is the primary alternative search engine. |
-
-## Critical Insight: Brand Mentions & Semantic Trust > Backlinks
-
-**Brand mentions and structured entity data correlate 3x more strongly with AI visibility than traditional backlinks.**
-(Ahrefs December 2025 study of 75,000 brands)
-
-- **Only 11% of domains** are cited by both ChatGPT and Google AI Overviews for the same query.
-- **Hallucination Prevention:** AI relies on definitive, unambiguous, and semantically tagged facts. Vague content leads to exclusion or hallucinated summaries.
+[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
 
 ---
 
-## GEO Analysis Criteria (Advanced)
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
 
-### 1. Citability Score (25%)
-**Optimal passage length: 134-167 words** for AI citation.
-- **Strong signals:** Clear, quotable sentences. Direct answers in the first 40-60 words. Claims attributed to primary sources. Definitions using "X is..." formats.
-- **Weak signals:** Vague statements, opinions without evidence, buried conclusions.
+### Kondisi Pemicu
+Gunakan skill ini ketika:
+- Meningkatkan visibilitas pada AI Overviews (Google), ChatGPT Search, Perplexity, atau sistem pencarian AI sejenis.
+- Mengevaluasi kesiapan file `llms.txt`, akses AI crawler, atau struktur konten yang berorientasi pada citasi (kutipan).
+- Pengguna bertanya tentang GEO, AI SEO, visibilitas LLM, atau mencegah halusinasi AI tentang merek mereka.
 
-### 2. Semantic HTML & Structural Readability (20%)
-LLMs digest structure to understand context.
-- **Strong signals:** Strict `H1 -> H2 -> H3` hierarchy. Semantic tags (`<article>`, `<main>`, `<section>`, `<aside>`). `<blockquote>` for quotes.
-- **Weak signals:** `<div>` soup. Inconsistent heading hierarchy. Text walls.
+### Perubahan Paradigma & Statistik Utama
+- **AI Overviews Reach**: 1,5 miliar+ pengguna/bulan. Google mendominasi pencarian tingkat atas.
+- **AI-referred Sessions Growth**: Pertumbuhan 527% sesi rujukan AI. AI menggantikan pencarian tautan biru tradisional.
+- **Brand Mentions & Semantic Trust**: Sebutan merek dan data entitas terstruktur berkorelasi 3x lebih kuat dengan visibilitas AI daripada backlink tradisional.
+- **Pencegahan Halusinasi**: AI bergantung pada fakta yang definitif, tidak ambigu, dan ditandai secara semantik.
 
-### 3. Multi-Modal & Structured Content (15%)
-Content with multi-modal elements sees **156% higher selection rates** by AI.
-- **Check for:** Text paired with relevant images/infographics. Embedded videos. Markdown-friendly tables for comparative data. Ordered/unordered lists for step-by-step content.
+### Kriteria Analisis GEO
+1. **Citability Score (Skor Citasi) (25%)**: Panjang teks optimal 134-167 kata untuk citasi AI. Jawaban langsung harus ada di 40-60 kata pertama.
+2. **HTML Semantik & Keterbacaan Struktur (20%)**: LLM membaca struktur untuk memahami konteks. Gunakan tag semantik (`<article>`, `<section>`, `<aside>`) dan hierarki heading yang ketat (H1 -> H2 -> H3).
+3. **Konten Multi-Modal & Terstruktur (15%)**: Konten dengan elemen multi-modal (tabel markdown, daftar langkah, grafik) memiliki tingkat pemilihan 156% lebih tinggi oleh AI.
+4. **Otoritas, Entitas & Sinyal Merek (20%)**: AI memverifikasi fakta lintas platform. Butuh keberadaan entitas di Wikidata, Reddit, dan profil penulis (Person schema).
+5. **Aksesibilitas Teknis untuk LLM (20%)**: Crawler AI tidak mengeksekusi JavaScript. Server-Side Rendering (SSR) atau Static Site Generation (SSG) wajib digunakan.
 
-### 4. Authority, Entity & Brand Signals (20%)
-AI systems verify facts across platforms before citing.
-- **Strong signals:** Entity presence in Wikipedia/Wikidata. Mentions on Reddit, YouTube, LinkedIn. Author bylines with `Person` schema and credentials. Consistent "About" data (`Organization` schema).
-
-### 5. Technical Accessibility for LLMs (20%)
-**AI crawlers do NOT execute JavaScript.** Server-side rendering (SSR) or Static Site Generation (SSG) is absolute mandatory.
-- **Check for:** Client-only content (fails AI crawl). AI crawler access in `robots.txt`. `llms.txt` configuration. RSL 1.0 licensing terms.
-
----
-
-## AI Crawler Detection & Permissions
-
-Check `robots.txt` for these AI crawlers:
-
-| Crawler | Owner | Purpose | Recommendation |
-|---------|-------|---------|----------------|
-| GPTBot / OAI-SearchBot | OpenAI | ChatGPT search | **Allow** |
-| ClaudeBot | Anthropic | Claude web features | **Allow** |
-| PerplexityBot | Perplexity | Perplexity search | **Allow** |
-| CCBot | Common Crawl | Training data | Optional (Often Blocked) |
-| Bytespider | ByteDance | TikTok/Douyin AI | Optional |
+### Standar llms.txt
+Standard **llms.txt** memberikan panduan konten terstruktur untuk crawler AI, melewati noise visual (layout/navigasi).
+**Lokasi**: `/llms.txt` (root domain).
 
 ---
 
-## llms.txt Standard
+<a name="english"></a>
+## English
 
+### Trigger Conditions
+Use this skill when:
+- Improving visibility in AI Overviews (Google), ChatGPT Search, Perplexity, or similar AI search systems.
+- Evaluating `llms.txt` readiness, AI crawler access, or citation-oriented content structure.
+- The user asks about GEO, AI SEO, LLM visibility, or preventing AI hallucinations regarding their brand.
+
+### Paradigm Shift & Key Statistics
+- **AI Overviews Reach**: 1.5 billion+ users/month. Google dominates top-of-funnel discovery.
+- **AI-referred Sessions Growth**: 527% growth in sessions referred by AI. AI is replacing traditional 10-blue-links search.
+- **Brand Mentions & Semantic Trust**: Brand mentions and structured entity data correlate 3x more strongly with AI visibility than traditional backlinks.
+- **Hallucination Prevention**: AI relies on definitive, unambiguous, and semantically tagged facts.
+
+### GEO Analysis Criteria
+1. **Citability Score (25%)**: Optimal passage length of 134-167 words for AI citation. Direct answers must reside in the first 40-60 words.
+2. **Semantic HTML & Structural Readability (20%)**: LLMs read structure to understand context. Use semantic tags (`<article>`, `<section>`, `<aside>`) and strict heading hierarchy (H1 -> H2 -> H3).
+3. **Multi-Modal & Structured Content (15%)**: Content with multi-modal elements (markdown tables, step lists, charts) sees 156% higher selection rates by AI.
+4. **Authority, Entity & Brand Signals (20%)**: AI verifies facts across platforms. Requires entity presence on Wikidata, Reddit, and author profiles (Person schema).
+5. **Technical Accessibility for LLMs (20%)**: AI crawlers do NOT execute JavaScript. Server-Side Rendering (SSR) or Static Site Generation (SSG) is mandatory.
+
+### llms.txt Standard
 The **llms.txt** standard provides AI crawlers with structured content guidance, bypassing visual noise.
-**Location:** `/llms.txt` (root of domain)
-
-**Format:**
-```markdown
-# Title of site
-> Brief description
-
-## Main sections
-- `Page title -> https://example.com/page`: Description
-
-## Optional: Key facts (Hallucination Prevention)
-- Fact 1 (e.g. "Company X was founded in 2020.")
-- Fact 2 (e.g. "Product Y costs $99/month.")
-```
-
----
-
-## Output / Deliverable
-
-Generate `GEO-ANALYSIS.md` with:
-
-1. **GEO Readiness Score: XX/100**
-2. **Platform Breakdown** (Google AIO vs ChatGPT vs Perplexity estimates)
-3. **AI Crawler Access Status** (Allowed/Blocked)
-4. **llms.txt Status** (Present/Missing + ready-to-use template if missing)
-5. **Brand Mention & Entity Analysis** (Wikipedia, Reddit, Social Presence)
-6. **Passage-Level Citability** (Identified 134-167 word blocks)
-7. **Semantic HTML & SSR Check** (JavaScript dependency analysis)
-8. **Top 5 Highest-Impact Changes**
-
----
-
-## Prioritized Action Plan (Quick Wins to High Impact)
-
-### Quick Wins
-1. Add "What is [topic]?" definition in the first 60 words of key pages.
-2. Ensure H2/H3 headings match common user query questions.
-3. Allow `GPTBot`, `ClaudeBot`, and `PerplexityBot` in `robots.txt`.
-
-### Medium Effort
-1. Create and deploy an `/llms.txt` file outlining core facts and URLs.
-2. Refactor `<div>` layouts into semantic `<article>`, `<section>`, and `<main>` tags.
-3. Ensure SSR/SSG is used for primary content (No pure SPA for public pages).
-
-### High Impact
-1. Implement comprehensive entity linking (`sameAs` schema linking to Wikipedia/LinkedIn).
-2. Create original data surveys (unique citability source for LLMs).
-3. Build brand presence on Reddit and YouTube to create cross-platform verification signals.
-
-## Error Handling
-
-| Scenario | Action |
-|----------|--------|
-| AI crawlers blocked by robots.txt | Report exactly which crawlers are blocked. Provide specific robots.txt directives to add for enabling AI search visibility. |
-| No llms.txt found | Note the absence and provide a ready-to-use llms.txt template based on the site's content structure. |
-| Heavy Client-Side Rendering | WARN the user that AI bots will see blank pages. Recommend Next.js SSR, Nuxt, or pre-rendering. |
-
-## Limitations
-- Use this skill only when the task clearly matches the scope described above.
-- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
-- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+**Location**: `/llms.txt` (domain root).
