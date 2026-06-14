@@ -1,67 +1,12 @@
 ---
 name: saas-mvp-launcher
-description: "Panduan terstruktur untuk merencanakan dan meluncurkan SaaS MVP dari nol / Structured roadmap and design to plan and launch a SaaS MVP from scratch."
+description: "Structured roadmap and design to plan and launch a SaaS MVP from scratch / Panduan terstruktur untuk merencanakan dan meluncurkan SaaS MVP dari nol."
 author: "Roedy Rustam"
 ---
 
 # SaaS MVP Launcher
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Ringkasan
-Skill ini memandu Anda membangun SaaS MVP tingkat produksi dalam waktu sesingkat mungkin. Panduan ini mencakup validasi ide, pemilihan stack teknologi, autentikasi, pembayaran, desain database, deployment, hingga checklist peluncuran menggunakan teknologi modern yang teruji.
-
-### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Memulai produk SaaS baru dari awal.
-- Memilih stack teknologi untuk aplikasi web SaaS.
-- Mengatur autentikasi, penagihan (billing), atau database untuk SaaS.
-- Memerlukan checklist peluncuran terstruktur sebelum rilis ke publik.
-- Merancang arsitektur aplikasi multi-tenant.
-- Melakukan tinjauan teknis (audit) terhadap SaaS tahap awal.
-
-### Panduan Langkah demi Langkah
-
-#### 1. Validasi Sebelum Membangun
-Sebelum menulis kode, lakukan validasi ide:
-- [ ] Apakah Anda dapat menjelaskan masalah dalam satu kalimat?
-- [ ] Siapa target pelanggan yang tepat? (bukan "semua orang")
-- [ ] Apa alternatif berbayar yang mereka gunakan saat ini?
-- [ ] Apakah Anda sudah berbicara dengan 5+ calon pelanggan?
-- [ ] Apakah mereka bersedia membayar sebesar $X/bulan untuk solusi Anda?
-
-*Aturan:* Jika Anda tidak bisa mendapatkan 3 orang yang bersedia melakukan pre-pay atau menandatangani letter of intent, jangan mulai menulis kode terlebih dahulu.
-
-#### 2. Pilih Stack Teknologi Anda
-Rekomendasi stack SaaS modern (2026):
-- **Frontend**: Next.js 15 + TypeScript (App Router, Server Components).
-- **Styling**: Tailwind CSS v4 + shadcn/ui.
-- **Backend**: Next.js Server Actions (integrasi DB langsung, type-safe).
-- **Database**: PostgreSQL (Supabase atau Neon) dengan RLS.
-- **ORM**: Drizzle ORM atau Prisma.
-- **Auth**: Clerk atau NextAuth.js (Auth.js).
-- **Payments**: Stripe (langganan, customer portal).
-- **Email**: Resend + React Email.
-- **Deployment**: Vercel (CI/CD otomatis, edge network).
-- **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
-
-#### 3. Database Schema (Multi-tenant SaaS)
-Skema database multi-tenant menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat contoh skema di bagian English).
-
-#### 4. Checklist Peluncuran (Pre-Launch Checklist)
-- **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.
-- **Produk**: Landing page dengan proposisi nilai yang jelas, Halaman harga (pricing) dengan 2-3 tier, Alur onboarding (< 5 menit), Dokumen Terms of Service dan Kebijakan Privasi.
-- **Pemasaran**: Domain terkonfigurasi, Tag meta SEO pada semua halaman, Google Analytics/PostHog aktif, Akun media sosial siap.
-
-### Praktik Terbaik & Pemecahan Masalah
-- **Iterasi Cepat**: Luncurkan MVP dalam waktu maksimal 4-6 minggu, lalu lakukan iterasi berdasarkan masukan pengguna.
-- **Tarik Biaya sejak Hari Ke-1**: Pengguna berbayar memvalidasi keselarasan produk dengan kebutuhan pasar secara nyata.
-- **Webhook Stripe**: Gunakan Stripe CLI untuk pengujian webhook lokal: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -117,6 +62,61 @@ Please refer to the code examples below for database schema configurations in Pr
 - **Build Fast**: Ship a working MVP in 4-6 weeks maximum, then iterate based on feedback.
 - **Charge from Day 1**: Paying users validate product-market fit.
 - **Stripe Webhooks**: Use Stripe CLI for local testing: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Ringkasan
+Skill ini memandu Anda membangun SaaS MVP tingkat produksi dalam waktu sesingkat mungkin. Panduan ini mencakup validasi ide, pemilihan stack teknologi, autentikasi, pembayaran, desain database, deployment, hingga checklist peluncuran menggunakan teknologi modern yang teruji.
+
+### Kondisi Pemicu
+Gunakan skill ini ketika:
+- Memulai produk SaaS baru dari awal.
+- Memilih stack teknologi untuk aplikasi web SaaS.
+- Mengatur autentikasi, penagihan (billing), atau database untuk SaaS.
+- Memerlukan checklist peluncuran terstruktur sebelum rilis ke publik.
+- Merancang arsitektur aplikasi multi-tenant.
+- Melakukan tinjauan teknis (audit) terhadap SaaS tahap awal.
+
+### Panduan Langkah demi Langkah
+
+#### 1. Validasi Sebelum Membangun
+Sebelum menulis kode, lakukan validasi ide:
+- [ ] Apakah Anda dapat menjelaskan masalah dalam satu kalimat?
+- [ ] Siapa target pelanggan yang tepat? (bukan "semua orang")
+- [ ] Apa alternatif berbayar yang mereka gunakan saat ini?
+- [ ] Apakah Anda sudah berbicara dengan 5+ calon pelanggan?
+- [ ] Apakah mereka bersedia membayar sebesar $X/bulan untuk solusi Anda?
+
+*Aturan:* Jika Anda tidak bisa mendapatkan 3 orang yang bersedia melakukan pre-pay atau menandatangani letter of intent, jangan mulai menulis kode terlebih dahulu.
+
+#### 2. Pilih Stack Teknologi Anda
+Rekomendasi stack SaaS modern (2026):
+- **Frontend**: Next.js 15 + TypeScript (App Router, Server Components).
+- **Styling**: Tailwind CSS v4 + shadcn/ui.
+- **Backend**: Next.js Server Actions (integrasi DB langsung, type-safe).
+- **Database**: PostgreSQL (Supabase atau Neon) dengan RLS.
+- **ORM**: Drizzle ORM atau Prisma.
+- **Auth**: Clerk atau NextAuth.js (Auth.js).
+- **Payments**: Stripe (langganan, customer portal).
+- **Email**: Resend + React Email.
+- **Deployment**: Vercel (CI/CD otomatis, edge network).
+- **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
+
+#### 3. Database Schema (Multi-tenant SaaS)
+Skema database multi-tenant menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat acuan kode di bawah).
+
+#### 4. Checklist Peluncuran (Pre-Launch Checklist)
+- **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.
+- **Produk**: Landing page dengan proposisi nilai yang jelas, Halaman harga (pricing) dengan 2-3 tier, Alur onboarding (< 5 menit), Dokumen Terms of Service dan Kebijakan Privasi.
+- **Pemasaran**: Domain terkonfigurasi, Tag meta SEO pada semua halaman, Google Analytics/PostHog aktif, Akun media sosial siap.
+
+### Praktik Terbaik & Pemecahan Masalah
+- **Iterasi Cepat**: Luncurkan MVP dalam waktu maksimal 4-6 minggu, lalu lakukan iterasi berdasarkan masukan pengguna.
+- **Tarik Biaya sejak Hari Ke-1**: Pengguna berbayar memvalidasi keselarasan produk dengan kebutuhan pasar secara nyata.
+- **Webhook Stripe**: Gunakan Stripe CLI untuk pengujian webhook lokal: `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
 
 ---
 

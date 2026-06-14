@@ -1,49 +1,12 @@
 ---
 name: seo-aeo-landing-page-writer
-description: "Penulis landing page terstruktur untuk peringkat SEO, sitasi AEO, dan konversi / Writes complete, structured landing pages optimized for SEO ranking, AEO citation, and visitor conversion."
+description: "Writes complete, structured landing pages optimized for SEO ranking, AEO citation, and visitor conversion / Penulis landing page terstruktur untuk peringkat SEO, sitasi AEO, dan konversi."
 author: "Roedy Rustam"
 ---
 
 # SEO-AEO Landing Page Writer
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Ringkasan
-Menghasilkan landing page lengkap yang siap dipublikasikan dengan struktur heading SEO, blok ekstraksi AEO, bagian FAQ, tabel perbandingan, bukti sosial (social proof), dan CTA yang berfokus pada konversi. Setiap bagian dirancang untuk memandu pengunjung dari pemahaman masalah menuju tindakan (pembelian/registrasi).
-
-### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Membangun landing page untuk produk atau layanan baru.
-- Menulis ulang landing page yang ada untuk optimasi SEO dan AEO.
-- Memerlukan halaman yang dapat dengan mudah dikutip oleh mesin pencari AI (seperti Perplexity atau ChatGPT).
-- Membuat salinan konversi (conversion copy) yang menyoroti masalah pengguna sebelum memperkenalkan solusi.
-
-### Cara Kerja (Langkah demi Langkah)
-1. **Pemetaan Input**: Ekstrak nama produk, target audiens, kata kunci utama, keluhan utama pengguna, fitur, manfaat, USP, bukti sosial, dan CTA.
-2. **Tulis Kalimat Ekstraksi AEO**: Buat satu kalimat ringkas berisi 25–40 kata yang menjawab "Apa itu [produk]?" tanpa jargon, dan letakkan di dalam blockquote tepat setelah tag H1. Kalimat ini yang akan diekstraksi oleh mesin pencari AI.
-3. **Ikuti Alur Narasi**: Tulis bagian dalam urutan persis seperti berikut:
-   - Hero — H1 + Kalimat AEO + CTA
-   - Problem — Keluhan utama audiens (tanpa menyebutkan produk terlebih dahulu)
-   - Solution — Memperkenalkan produk sebagai jawaban masalah
-   - Features as Benefits — Tabel fitur dan manfaat
-   - Social Proof — Testimoni, logo klien, statistik
-   - Mid-page CTA — CTA tengah halaman
-   - How It Works — Langkah bernomor
-   - Comparison — Tabel perbandingan jujur dengan kompetitor
-   - FAQ — Minimal 6 entri, masing-masing di bawah 50 kata
-   - Trust Signals — Sinyal kepercayaan (garansi, enkripsi, dll.)
-   - Final CTA — CTA penutup
-
-### Praktik Terbaik & Hal yang Harus Dihindari
-- **Empati Utama**: Tulis bagian masalah terlebih dahulu sebelum menyebutkan produk untuk membangun empati.
-- **Batasan FAQ**: Setiap jawaban FAQ harus di bawah 50 kata, mandiri, dan mudah dipahami tanpa konteks eksternal.
-- **Bahasa Jujur**: Hindari kata-kata berlebihan seperti "revolutionary", "game-changing", atau "best-in-class".
-- **CTA Spesifik**: Jangan gunakan teks tombol standar seperti "Submit" atau "Click Here". Gunakan teks berorientasi tindakan (misal: "Mulai Uji Coba Gratis").
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -82,3 +45,40 @@ Use this skill when:
 - **FAQ Limits**: Every FAQ answer must be under 50 words and self-contained.
 - **Tone**: Do not use "revolutionary", "game-changing", or "best-in-class".
 - **CTA**: Do not use "Submit" or "Click Here" as CTA button text.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Ringkasan
+Menghasilkan landing page lengkap yang siap dipublikasikan dengan struktur heading SEO, blok ekstraksi AEO, bagian FAQ, tabel perbandingan, bukti sosial (social proof), dan CTA yang berfokus pada konversi. Setiap bagian dirancang untuk memandu pengunjung dari pemahaman masalah menuju tindakan (pembelian/registrasi).
+
+### Kondisi Pemicu
+Gunakan skill ini ketika:
+- Membangun landing page untuk produk atau layanan baru.
+- Menulis ulang landing page yang ada untuk optimasi SEO dan AEO.
+- Memerlukan halaman yang dapat dengan mudah dikutip oleh mesin pencari AI (seperti Perplexity atau ChatGPT).
+- Membuat salinan konversi (conversion copy) yang menyoroti masalah pengguna sebelum memperkenalkan solusi.
+
+### Cara Kerja (Langkah demi Langkah)
+1. **Pemetaan Input**: Ekstrak nama produk, target audiens, kata kunci utama, keluhan utama pengguna, fitur, manfaat, USP, bukti sosial, dan CTA.
+2. **Tulis Kalimat Ekstraksi AEO**: Buat satu kalimat ringkas berisi 25–40 kata yang menjawab "Apa itu [produk]?" tanpa jargon, dan letakkan di dalam blockquote tepat setelah tag H1. Kalimat ini yang akan diekstraksi oleh mesin pencari AI.
+3. **Ikuti Alur Narasi**: Tulis bagian dalam urutan persis seperti berikut:
+   - Hero — H1 + Kalimat AEO + CTA
+   - Problem — Keluhan utama audiens (tanpa menyebutkan produk terlebih dahulu)
+   - Solution — Memperkenalkan produk sebagai jawaban masalah
+   - Features as Benefits — Tabel fitur dan manfaat
+   - Social Proof — Testimoni, logo klien, statistik
+   - Mid-page CTA — CTA tengah halaman
+   - How It Works — Langkah bernomor
+   - Comparison — Tabel perbandingan jujur dengan kompetitor
+   - FAQ — Minimal 6 entri, masing-masing di bawah 50 kata
+   - Trust Signals — Sinyal kepercayaan (garansi, enkripsi, dll.)
+   - Final CTA — CTA penutup
+
+### Praktik Terbaik & Hal yang Harus Dihindari
+- **Empati Utama**: Tulis bagian masalah terlebih dahulu sebelum menyebutkan produk untuk membangun empati.
+- **Batasan FAQ**: Setiap jawaban FAQ harus di bawah 50 kata, mandiri, dan mudah dipahami tanpa konteks eksternal.
+- **Bahasa Jujur**: Hindari kata-kata berlebihan seperti "revolutionary", "game-changing", or "best-in-class".
+- **CTA Spesifik**: Jangan gunakan teks tombol standar seperti "Submit" atau "Click Here". Gunakan teks berorientasi tindakan (misal: "Mulai Uji Coba Gratis").

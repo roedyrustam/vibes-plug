@@ -1,6 +1,104 @@
 # Contribution Guide / Panduan Kontribusi
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
+
+---
+
+<a name="english"></a>
+## English
+
+Thank you for contributing to **Vibes Plug**! This guide is designed to make it easy for you if you have *forked* this repository on GitHub to add or update *skills* according to proper standards.
+
+### Contribution Flow (Step-by-Step)
+
+#### 1. Sync Your Local Repository
+Ensure your local repository is connected to the main repository (*upstream*) to get the latest updates.
+
+If you haven't added the main repository as an *upstream* remote, run the following command in your terminal/PowerShell inside the `vibes-plug` directory:
+
+```bash
+# Add upstream remote
+git remote add upstream https://github.com/roedyrustam/vibes-plug.git
+```
+
+Before you start creating a new skill, sync your local `main` branch with upstream:
+
+```bash
+# Switch to main branch
+git checkout main
+
+# Pull the latest updates from upstream
+git pull upstream main
+
+# Sync it to your GitHub fork (origin)
+git push origin main
+```
+
+#### 2. Create a New Branch
+Always create a new, descriptive branch for the changes you want to make:
+
+```bash
+git checkout -b feat/add-skill-<skill-name>
+# Example: git checkout -b feat/add-skill-fast-api
+```
+
+#### 3. Create a New Skill Module
+1. Navigate to the `skills/` directory.
+2. Create a new folder with your skill name using **kebab-case** (e.g., `skills/fast-api`).
+3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill_baru/SKILL.md).
+
+Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
+
+```yaml
+---
+name: kebab-case-skill-name
+description: "Short English description / Deskripsi singkat"
+author: "Your Name or GitHub Username"
+---
+```
+
+The document body must have the following sections:
+- `# Skill Name`
+- `## Description`
+- `## Instructions` (Contains detailed guidelines, code styling rules, etc.)
+- `## Trigger Conditions` (Conditions/context under which this skill should be activated by the agent)
+
+#### 4. Register the Skill in README.md and BLUEPRINT.md
+To make your new skill recognized and easily discoverable:
+1. **`README.md`**: Register your skill in the **Features and Available Skills** section under the relevant category.
+2. **`BLUEPRINT.md`**: Register your skill module in the **Skill Modules** section.
+
+#### 5. Run the Standardization Script
+We provide an automated script to format markdown, align technology stack versions (e.g., React 19, Next.js 15), and fix emoji encoding issues.
+
+Run the following command before committing:
+
+```bash
+node scripts/update_skills.js
+```
+
+Ensure the script runs successfully and check if any of your new skill files were updated.
+
+#### 6. Commit and Push Changes
+Once everything is neat and validated, commit your changes:
+
+```bash
+git add .
+git commit -m "feat: add skill <skill-name>"
+git push origin feat/add-skill-<skill-name>
+```
+
+#### 7. Create a Pull Request (PR)
+1. Open your forked repository page on GitHub (e.g., `https://github.com/username/vibes-plug`).
+2. You will see a yellow button saying **"Compare & pull request"**. Click that button.
+3. Provide a clear description of the purpose and utility of the skill you added.
+4. Submit your Pull Request (PR) to the `main` branch of the original repository (`roedyrustam/vibes-plug`).
+
+### Additional Rules & Tips
+> [!NOTE]
+> - Ensure instructions are written in a clear and instructive language.
+> - Avoid duplicate instructions with existing skills. If your skill is similar, consider updating an existing skill instead.
+> - Do not include extra frontmatter fields other than `name`, `description`, and `author`, as they will be cleaned automatically by the `update_skills.js` script.
 
 ---
 
@@ -99,101 +197,3 @@ git push origin feat/add-skill-<nama-skill>
 > - Pastikan instruksi ditulis dengan bahasa yang jelas dan instruktif.
 > - Hindari duplikasi instruksi dengan skill yang sudah ada. Jika skill Anda mirip, pertimbangkan untuk memperbarui skill yang telah ada.
 > - Jangan menyertakan frontmatter tambahan di luar `name`, `description`, dan `author`, karena akan dibersihkan secara otomatis oleh script `update_skills.js`.
-
----
-
-<a name="english"></a>
-## English
-
-Thank you for contributing to **Vibes Plug**! This guide is designed to make it easy for you if you have *forked* this repository on GitHub to add or update *skills* according to proper standards.
-
-### Contribution Flow (Step-by-Step)
-
-#### 1. Sync Your Local Repository
-Ensure your local repository is connected to the main repository (*upstream*) to get the latest updates.
-
-If you haven't added the main repository as an *upstream* remote, run the following command in your terminal/PowerShell inside the `vibes-plug` directory:
-
-```bash
-# Add upstream remote
-git remote add upstream https://github.com/roedyrustam/vibes-plug.git
-```
-
-Before you start creating a new skill, sync your local `main` branch with upstream:
-
-```bash
-# Switch to main branch
-git checkout main
-
-# Pull the latest updates from upstream
-git pull upstream main
-
-# Sync it to your GitHub fork (origin)
-git push origin main
-```
-
-#### 2. Create a New Branch
-Always create a new, descriptive branch for the changes you want to make:
-
-```bash
-git checkout -b feat/add-skill-<skill-name>
-# Example: git checkout -b feat/add-skill-fast-api
-```
-
-#### 3. Create a New Skill Module
-1. Navigate to the `skills/` directory.
-2. Create a new folder with your skill name using **kebab-case** (e.g., `skills/fast-api`).
-3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill_baru/SKILL.md).
-
-Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
-
-```yaml
----
-name: kebab-case-skill-name
-description: "Deskripsi singkat / Short description"
-author: "Your Name or GitHub Username"
----
-```
-
-The document body must have the following sections:
-- `# Skill Name`
-- `## Description`
-- `## Instructions` (Contains detailed guidelines, code styling rules, etc.)
-- `## Trigger Conditions` (Conditions/context under which this skill should be activated by the agent)
-
-#### 4. Register the Skill in README.md and BLUEPRINT.md
-To make your new skill recognized and easily discoverable:
-1. **`README.md`**: Register your skill in the **Features and Available Skills** section under the relevant category.
-2. **`BLUEPRINT.md`**: Register your skill module in the **Skill Modules** section.
-
-#### 5. Run the Standardization Script
-We provide an automated script to format markdown, align technology stack versions (e.g., React 19, Next.js 15), and fix emoji encoding issues.
-
-Run the following command before committing:
-
-```bash
-node scripts/update_skills.js
-```
-
-Ensure the script runs successfully and check if any of your new skill files were updated.
-
-#### 6. Commit and Push Changes
-Once everything is neat and validated, commit your changes:
-
-```bash
-git add .
-git commit -m "feat: add skill <skill-name>"
-git push origin feat/add-skill-<skill-name>
-```
-
-#### 7. Create a Pull Request (PR)
-1. Open your forked repository page on GitHub (e.g., `https://github.com/username/vibes-plug`).
-2. You will see a yellow button saying **"Compare & pull request"**. Click that button.
-3. Provide a clear description of the purpose and utility of the skill you added.
-4. Submit your Pull Request (PR) to the `main` branch of the original repository (`roedyrustam/vibes-plug`).
-
-### Additional Rules & Tips
-> [!NOTE]
-> - Ensure instructions are written in a clear and instructive language.
-> - Avoid duplicate instructions with existing skills. If your skill is similar, consider updating an existing skill instead.
-> - Do not include extra frontmatter fields other than `name`, `description`, and `author`, as they will be cleaned automatically by the `update_skills.js` script.

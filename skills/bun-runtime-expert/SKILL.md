@@ -1,110 +1,12 @@
 ---
 name: bun-runtime-expert
-description: "Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun / Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun."
+description: "Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun."
 author: "Roedy Rustam"
 ---
 
 # Bun Runtime Expert
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
-
-### Kondisi Pemicu
-- Gunakan saat merancang proyek baru menggunakan Bun sebagai runtime.
-- Gunakan saat membangun server HTTP atau API dengan `Bun.serve()`.
-- Gunakan saat melakukan query database dengan `Bun.sql` (PostgreSQL, MySQL, SQLite).
-- Gunakan saat berinteraksi dengan object storage yang kompatibel dengan S3 via `Bun.s3`.
-- Gunakan saat membundel kode frontend atau backend dengan `bun build`.
-- Gunakan saat menulis pengujian (testing) menggunakan `bun:test`.
-- Gunakan saat memigrasikan proyek Node.js ke Bun.
-- Gunakan saat mengoptimalkan kecepatan instalasi paket atau manajemen lockfile.
-
-### Arsitektur Inti
-
-#### Mengapa Bun?
-Bun adalah runtime JavaScript/TypeScript serba ada yang menggantikan Node.js, npm, Webpack/Vite, dan Jest dalam satu berkas biner tunggal:
-
-| Kemampuan | Bawaan Bun | Setara di Node.js |
-|---|---|---|
-| Runtime | `bun run` | `node` |
-| Package Manager | `bun install` | `npm` / `pnpm` / `yarn` |
-| Bundler | `bun build` | Webpack / Vite / esbuild |
-| Test Runner | `bun test` | Jest / Vitest |
-| HTTP Server | `Bun.serve()` | Express / Fastify |
-| SQL Client | `Bun.sql` | `pg` / `mysql2` / `better-sqlite3` |
-| S3 Client | `Bun.s3` | `@aws-sdk/client-s3` |
-| Redis Client | Built-in | `ioredis` |
-| TypeScript | Native (tanpa config) | `ts-node` / `tsx` |
-| `.env` loading | Native | `dotenv` |
-
-### Memulai Cepat
-
-#### 1. Instal Bun
-```bash
-# Windows (PowerShell)
-powershell -c "irm bun.sh/install.ps1 | iex"
-
-# macOS / Linux
-curl -fsSL https://bun.sh/install | bash
-
-# Verifikasi instalasi
-bun --version
-```
-
-#### 2. Inisialisasi Proyek Baru
-```bash
-bun init
-```
-Ini menghasilkan `package.json`, `tsconfig.json`, dan file entry point `index.ts`. TypeScript langsung berfungsi tanpa konfigurasi tambahan.
-
-#### 3. Instal Dependensi
-```bash
-# Menginstal semua dependensi (10-100x lebih cepat dari npm)
-bun install
-
-# Menambahkan paket
-bun add hono zod drizzle-orm
-
-# Menambahkan dev dependency
-bun add -d @types/bun vitest
-```
-
-### Bun.serve() — HTTP Server Berkinerja Tinggi
-`Bun.serve()` adalah server HTTP tanpa dependensi eksternal dengan dukungan TLS bawaan, WebSocket, dan hot module reloading.
-
-#### Server HTTP Dasar
-```typescript
-Bun.serve({
-  port: 3000,
-  fetch(req) {
-    const url = new URL(req.url);
-    if (url.pathname === '/api/health') {
-      return Response.json({ status: 'ok', runtime: 'bun' });
-    }
-    return new Response('Not Found', { status: 404 });
-  },
-});
-```
-
-### Bun.sql — Klien Database Terpadu
-Klien SQL tanpa dependensi eksternal yang mendukung PostgreSQL, MySQL/MariaDB, dan SQLite melalui tagged template literals.
-
-#### PostgreSQL
-```typescript
-import { sql } from 'bun';
-const users = await sql`SELECT * FROM users WHERE active = ${true}`;
-```
-
-### Praktik Terbaik
-- **Performa:** Gunakan `Bun.serve()` secara langsung atau bersama Hono — hindari Express (karena lapisan kompatibilitasnya lebih lambat). Gunakan `Bun.file()` untuk I/O file yang efisien.
-- **Keamanan:** Selalu gunakan parameterisasi query melalui template literals di `Bun.sql` untuk mencegah SQL Injection secara otomatis.
-- **Pengujian:** Gunakan `bun:test` yang kompatibel dengan Jest namun jauh lebih cepat.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -203,6 +105,104 @@ const users = await sql`SELECT * FROM users WHERE active = ${true}`;
 - **Performance:** Use `Bun.serve()` directly or Hono for HTTP — avoid Express (slower compat layer). Use `Bun.file()` for efficient file I/O.
 - **Security:** Always parameterize queries via template literals in `Bun.sql` (automatically prevents SQL injection).
 - **Testing:** Use `bun:test` — it's Jest-compatible and significantly faster.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
+
+### Kondisi Pemicu
+- Gunakan saat merancang proyek baru menggunakan Bun sebagai runtime.
+- Gunakan saat membangun server HTTP atau API dengan `Bun.serve()`.
+- Gunakan saat melakukan query database dengan `Bun.sql` (PostgreSQL, MySQL, SQLite).
+- Gunakan saat berinteraksi dengan object storage yang kompatibel dengan S3 via `Bun.s3`.
+- Gunakan saat membundel kode frontend atau backend dengan `bun build`.
+- Gunakan saat menulis pengujian (testing) menggunakan `bun:test`.
+- Gunakan saat memigrasikan proyek Node.js ke Bun.
+- Gunakan saat mengoptimalkan kecepatan instalasi paket atau manajemen lockfile.
+
+### Arsitektur Inti
+
+#### Mengapa Bun?
+Bun adalah runtime JavaScript/TypeScript serba ada yang menggantikan Node.js, npm, Webpack/Vite, dan Jest dalam satu berkas biner tunggal:
+
+| Kemampuan | Bawaan Bun | Setara di Node.js |
+|---|---|---|
+| Runtime | `bun run` | `node` |
+| Package Manager | `bun install` | `npm` / `pnpm` / `yarn` |
+| Bundler | `bun build` | Webpack / Vite / esbuild |
+| Test Runner | `bun test` | Jest / Vitest |
+| HTTP Server | `Bun.serve()` | Express / Fastify |
+| SQL Client | `Bun.sql` | `pg` / `mysql2` / `better-sqlite3` |
+| S3 Client | `Bun.s3` | `@aws-sdk/client-s3` |
+| Redis Client | Built-in | `ioredis` |
+| TypeScript | Native (tanpa config) | `ts-node` / `tsx` |
+| `.env` loading | Native | `dotenv` |
+
+### Memulai Cepat
+
+#### 1. Instal Bun
+```bash
+# Windows (PowerShell)
+powershell -c "irm bun.sh/install.ps1 | iex"
+
+# macOS / Linux
+curl -fsSL https://bun.sh/install | bash
+
+# Verifikasi instalasi
+bun --version
+```
+
+#### 2. Inisialisasi Proyek Baru
+```bash
+bun init
+```
+Ini menghasilkan `package.json`, `tsconfig.json`, dan file entry point `index.ts`. TypeScript langsung berfungsi tanpa konfigurasi tambahan.
+
+#### 3. Instal Dependensi
+```bash
+# Mengmenginstal semua dependensi (10-100x lebih cepat dari npm)
+bun install
+
+# Menambahkan paket
+bun add hono zod drizzle-orm
+
+# Menambahkan dev dependency
+bun add -d @types/bun vitest
+```
+
+### Bun.serve() — HTTP Server Berkinerja Tinggi
+`Bun.serve()` adalah server HTTP tanpa dependensi eksternal dengan dukungan TLS bawaan, WebSocket, dan hot module reloading.
+
+#### Server HTTP Dasar
+```typescript
+Bun.serve({
+  port: 3000,
+  fetch(req) {
+    const url = new URL(req.url);
+    if (url.pathname === '/api/health') {
+      return Response.json({ status: 'ok', runtime: 'bun' });
+    }
+    return new Response('Not Found', { status: 404 });
+  },
+});
+```
+
+### Bun.sql — Klien Database Terpadu
+Klien SQL tanpa dependensi eksternal yang mendukung PostgreSQL, MySQL/MariaDB, dan SQLite melalui tagged template literals.
+
+#### PostgreSQL
+```typescript
+import { sql } from 'bun';
+const users = await sql`SELECT * FROM users WHERE active = ${true}`;
+```
+
+### Praktik Terbaik
+- **Performa:** Gunakan `Bun.serve()` secara langsung atau bersama Hono — hindari Express (karena lapisan kompatibilitasnya lebih lambat). Gunakan `Bun.file()` untuk I/O file yang efisien.
+- **Keamanan:** Selalu gunakan parameterisasi query melalui template literals di `Bun.sql` untuk mencegah SQL Injection secara otomatis.
+- **Pengujian:** Gunakan `bun:test` yang kompatibel dengan Jest namun jauh lebih cepat.
 
 ---
 

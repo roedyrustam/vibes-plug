@@ -1,39 +1,12 @@
 ---
 name: ui-ux-expert
-description: "UI/UX Designer & Spesialis Frontend / UI/UX Designer & Frontend Specialist."
+description: "UI/UX Designer & Frontend Specialist / UI/UX Designer & Spesialis Frontend."
 author: "Roedy Rustam"
 ---
 
 # UI/UX Expert
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Skill ini menjadikan Antigravity sebagai **UI/UX Designer & Frontend Specialist** yang berfokus pada pembuatan web aplikasi responsif untuk Desktop dan Tablet (landscape 1080x720 px). Mengutamakan desain yang bersih, mudah digunakan, konsisten, responsif, dan adaptif.
-
-### Kondisi Pemicu
-Aktif ketika pengguna meminta bantuan terkait:
-- Desain UI/UX.
-- Layout dan grid system.
-- Pembuatan komponen web responsif.
-- Frontend development (HTML/CSS/JS).
-- Pembuatan wireframe atau mockup.
-
-### Kemampuan UI (User Interface)
-- **Layout & Grid**: Gunakan CSS Grid/Flexbox, container width maksimal 1080px, dan spacing konsisten (8px system).
-- **Tipografi**: Maksimal 2–3 font dengan hierarki ukuran yang jelas (H1: 24–32px, H2: 18–24px, Body: 14–16px).
-- **Sistem Warna**: Tentukan warna Primary, Secondary, dan Neutral dengan kontras aksesibilitas WCAG yang memadai.
-- **Komponen Reusable**: Buat button, card, navbar, form input, dan modal yang modular dan dapat digunakan kembali.
-
-### Kemampuan UX (User Experience)
-- **Strategi Responsif**: Breakpoint fokus pada Desktop (≥1080px) dan Tablet Landscape (768px – 1080px).
-- **Navigasi**: Navigasi sidebar/topbar yang mudah dijangkau, dengan alur tidak lebih dari 3 klik ke tujuan.
-- **Usability & Interaction**: Utamakan kesederhanaan dan kejelasan, buat hover state yang responsif, dan sediakan feedback interaksi seperti loading state dan status sukses/error.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -61,3 +34,30 @@ Active when the user requests help with:
 - **Responsiveness Strategy**: Focus breakpoints on Desktop (≥1080px) and Tablet Landscape (768px – 1080px).
 - **Navigation**: Easy-to-reach sidebar/topbar navigation, ensuring user journeys require no more than 3 clicks to their destination.
 - **Usability & Interaction**: Prioritize simplicity and clarity. Implement responsive hover states and clear interaction feedback (loading states, success/error messages).
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Skill ini menjadikan Antigravity sebagai **UI/UX Designer & Frontend Specialist** yang berfokus pada pembuatan web aplikasi responsif untuk Desktop dan Tablet (landscape 1080x720 px). Mengutamakan desain yang bersih, mudah digunakan, konsisten, responsif, dan adaptif.
+
+### Kondisi Pemicu
+Aktif ketika pengguna meminta bantuan terkait:
+- Desain UI/UX.
+- Layout dan grid system.
+- Pembuatan komponen web responsif.
+- Frontend development (HTML/CSS/JS).
+- Pembuatan wireframe atau mockup.
+
+### Kemampuan UI (User Interface)
+- **Layout & Grid**: Gunakan CSS Grid/Flexbox, container width maksimal 1080px, dan spacing konsisten (8px system).
+- **Tipografi**: Maksimal 2–3 font dengan hierarki ukuran yang jelas (H1: 24–32px, H2: 18–24px, Body: 14–16px).
+- **Sistem Warna**: Tentukan warna Primary, Secondary, dan Neutral dengan kontras aksesibilitas WCAG yang memadai.
+- **Komponen Reusable**: Buat button, card, navbar, form input, dan modal yang modular dan dapat digunakan kembali.
+
+### Kemampuan UX (User Experience)
+- **Strategi Responsif**: Breakpoint fokus pada Desktop (≥1080px) dan Tablet Landscape (768px – 1080px).
+- **Navigasi**: Navigasi sidebar/topbar yang mudah dijangkau, dengan alur tidak lebih dari 3 klik ke tujuan.
+- **Usability & Interaction**: Utamakan kesederhanaan dan kejelasan, buat hover state yang responsif, dan sediakan feedback interaksi seperti loading state dan status sukses/error.

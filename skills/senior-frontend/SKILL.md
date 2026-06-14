@@ -1,46 +1,12 @@
 ---
 name: senior-frontend
-description: "Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4 / Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4."
+description: "Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 / Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4."
 author: "Roedy Rustam"
 ---
 
 # Senior Frontend Specialist
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Pola pengembangan frontend, optimasi performa, dan integrasi ekosistem modern untuk aplikasi berbasis React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript.
-
-### Kondisi Pemicu
-- Gunakan saat merancang proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
-- Gunakan saat membuat komponen baru, custom hooks, atau Server Actions.
-- Gunakan saat menganalisis dan mengoptimalkan ukuran bundle frontend.
-- Gunakan untuk mengimplementasikan pola React 19 lanjutan (`useActionState`, `useOptimistic`).
-- Gunakan untuk memastikan kepatuhan aksesibilitas (a11y) dan pengujian otomatis.
-
-### Panduan Teknis & Praktik Terbaik
-
-#### 1. Next.js 15: Server vs Client Components
-Gunakan **Server Components** secara default untuk pengambilan data berkinerja tinggi dan optimalisasi SEO. Gunakan `'use client'` hanya saat membutuhkan state (`useState`, `useEffect`), event handler (`onClick`), atau API browser.
-*Catatan Next.js 15:* `params` dan `searchParams` sekarang bertipe `Promise`. Lakukan `await params` sebelum mengakses nilainya.
-
-#### 2. React 19 Form & Mutation Patterns
-- **`useActionState`**: Gunakan untuk menangani form submission dengan status pending dan handling error secara bawaan.
-- **`useOptimistic`**: Gunakan untuk pembaruan UI secara optimistik (misalnya tombol Like) agar terasa instan bagi pengguna.
-- **`useFormStatus`**: Gunakan untuk mengambil status form di dalam komponen anak (seperti tombol submit).
-
-#### 3. Tailwind CSS v4 CSS-First Configuration
-Konfigurasi kustom tema dilakukan langsung di file CSS (seperti `app/globals.css`) menggunakan direktif `@theme`, bukan lagi menggunakan file `tailwind.config.ts`.
-
-#### 4. Aksesibilitas (a11y) & Pengujian
-- Gunakan HTML semantik seperti `<button>` dan `<nav>`.
-- Pastikan semua elemen interaktif dapat diakses melalui keyboard.
-- Lakukan pengujian unit menggunakan Vitest dan React Testing Library, serta pengujian E2E menggunakan Playwright.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -75,3 +41,37 @@ Tailwind CSS v4 uses CSS-first configuration. Define custom theme tokens using t
 - Use semantic HTML tags (`<button>`, `<nav>`).
 - Ensure full keyboard navigability for all interactive elements.
 - Write unit tests using Vitest and React Testing Library, and E2E tests using Playwright.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Pola pengembangan frontend, optimasi performa, dan integrasi ekosistem modern untuk aplikasi berbasis React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript.
+
+### Kondisi Pemicu
+- Gunakan saat merancang proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
+- Gunakan saat membuat komponen baru, custom hooks, atau Server Actions.
+- Gunakan saat menganalisis dan mengoptimalkan ukuran bundle frontend.
+- Gunakan untuk mengimplementasikan pola React 19 lanjutan (`useActionState`, `useOptimistic`).
+- Gunakan untuk memastikan kepatuhan aksesibilitas (a11y) dan pengujian otomatis.
+
+### Panduan Teknis & Praktik Terbaik
+
+#### 1. Next.js 15: Server vs Client Components
+Gunakan **Server Components** secara default untuk pengambilan data berkinerja tinggi dan optimalisasi SEO. Gunakan `'use client'` hanya saat membutuhkan state (`useState`, `useEffect`), event handler (`onClick`), atau API browser.
+*Catatan Next.js 15:* `params` dan `searchParams` sekarang bertipe `Promise`. Lakukan `await params` sebelum mengakses nilainya.
+
+#### 2. React 19 Form & Mutation Patterns
+- **`useActionState`**: Gunakan untuk menangani form submission dengan status pending dan handling error secara bawaan.
+- **`useOptimistic`**: Gunakan untuk pembaruan UI secara optimistik (misalnya tombol Like) agar terasa instan bagi pengguna.
+- **`useFormStatus`**: Gunakan untuk mengambil status form di dalam komponen anak (seperti tombol submit).
+
+#### 3. Tailwind CSS v4 CSS-First Configuration
+Konfigurasi kustom tema dilakukan langsung di file CSS (seperti `app/globals.css`) menggunakan direktif `@theme`, bukan lagi menggunakan file `tailwind.config.ts`.
+
+#### 4. Aksesibilitas (a11y) & Pengujian
+- Gunakan HTML semantik seperti `<button>` dan `<nav>`.
+- Pastikan semua elemen interaktif dapat diakses melalui keyboard.
+- Lakukan pengujian unit menggunakan Vitest dan React Testing Library, serta pengujian E2E menggunakan Playwright.

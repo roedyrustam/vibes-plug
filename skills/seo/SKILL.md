@@ -1,6 +1,6 @@
 ---
 name: seo
-description: "Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO) / Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO."
+description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO / Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)"
 author: "Roedy Rustam"
 user-invokable: true
 argument-hint: "[command] [url]"
@@ -8,47 +8,7 @@ argument-hint: "[command] [url]"
 
 # SEO: Universal SEO Analysis Skill
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Analisis SEO komprehensif di semua industri (SaaS, layanan lokal, e-commerce, penerbit, agensi). Mengatur sub-skills dan sub-agen khusus dengan penekanan kuat pada **Performa Web Modern** dan **Kesiapan Pencarian AI (Generative Engine Optimization - GEO)**.
-
-### Kondisi Pemicu
-- Gunakan saat pengguna meminta audit SEO lengkap atau strategi SEO yang luas.
-- Gunakan sebagai pintu masuk utama ketika beberapa dimensi SEO berada dalam cakupan tugas.
-- Gunakan ketika tugas mencakup technical SEO, konten, schema, sitemaps, dan kesiapan pencarian AI sekaligus.
-
-### Acuan Cepat Perintah (Quick Reference)
-- `/seo audit <url>`: Audit situs web penuh dengan delegasi sub-agen paralel.
-- `/seo page <url>`: Analisis halaman tunggal yang mendalam.
-- `/seo sitemap <url or generate>`: Menganalisis atau menghasilkan sitemap XML.
-- `/seo schema <url>`: Mendeteksi, memvalidasi, dan menghasilkan markup Schema.org.
-- `/seo images <url>`: Analisis optimasi gambar (WebP, lazy-load, alt-text).
-- `/seo technical <url>`: Audit SEO teknis (Arsitektur, Core Web Vitals, Crawlability).
-- `/seo content <url>`: Analisis E-E-A-T dan kualitas konten.
-- `/seo geo <url>`: Optimasi Mesin Pencari Generatif (AI Overviews / GEO).
-- `/seo plan <business-type>`: Perencanaan SEO strategis.
-
-### Aturan Kualitas & Web Modern
-- **Konten Tipis (Thin Content)**: Peringatan jika terdapat 30+ halaman lokasi (wajibkan 60%+ konten unik).
-- **Schema**: Jangan merekomendasikan schema HowTo (usang sejak Sept 2023). Schema FAQ hanya untuk situs web pemerintah dan layanan kesehatan.
-- **Core Web Vitals**: Pengukuran harus menggunakan INP (Interaction to Next Paint), bukan FID. LCP harus < 2.5 detik.
-- **Kesiapan AI (AI-First)**: Periksa kesiapan `llms.txt`, tag HTML semantik, dan teks bersih agar mudah dibaca oleh crawler AI.
-
-### Metodologi Penilaian (SEO Health Score)
-Skor Kesehatan SEO (0-100) dihitung berdasarkan bobot kategori berikut:
-- **Technical SEO (20%)**: Crawlability, HTTPS, Arsitektur.
-- **Kualitas Konten (E-E-A-T) (20%)**: Kedalaman, Keaslian, Otoritatif.
-- **On-Page SEO (15%)**: Title, Meta, Heading, Kata Kunci.
-- **Performa (CWV) (15%)**: LCP, INP, CLS, Mobile-First.
-- **Kesiapan AI (GEO) (15%)**: Citability, llms.txt, HTML Semantik.
-- **Schema / Structured Data (10%)**: Kelayakan Rich Snippets.
-- **Media & Gambar (5%)**: Alt-text, WebP, Lazy Loading.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -89,3 +49,43 @@ Weighted aggregate of all categories:
 - **AI Search Readiness (GEO) (15%)**: Citability, llms.txt, Semantic HTML.
 - **Schema / Structured Data (10%)**: Rich Snippets Eligibility.
 - **Media & Images (5%)**: Alt-text, WebP, Lazy Loading.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Analisis SEO komprehensif di semua industri (SaaS, layanan lokal, e-commerce, penerbit, agensi). Mengatur sub-skills dan sub-agen khusus dengan penekanan kuat pada **Performa Web Modern** dan **Kesiapan Pencarian AI (Generative Engine Optimization - GEO)**.
+
+### Kondisi Pemicu
+- Gunakan saat pengguna meminta audit SEO lengkap atau strategi SEO yang luas.
+- Gunakan sebagai pintu masuk utama ketika beberapa dimensi SEO berada dalam cakupan tugas.
+- Gunakan ketika tugas mencakup technical SEO, konten, schema, sitemaps, dan kesiapan pencarian AI sekaligus.
+
+### Acuan Cepat Perintah (Quick Reference)
+- `/seo audit <url>`: Audit situs web penuh dengan delegasi sub-agen paralel.
+- `/seo page <url>`: Analisis halaman tunggal yang mendalam.
+- `/seo sitemap <url or generate>`: Menganalisis atau menghasilkan sitemap XML.
+- `/seo schema <url>`: Mendeteksi, memvalidasi, dan menghasilkan markup Schema.org.
+- `/seo images <url>`: Analisis optimasi gambar (WebP, lazy-load, alt-text).
+- `/seo technical <url>`: Audit SEO teknis (Arsitektur, Core Web Vitals, Crawlability).
+- `/seo content <url>`: Analisis E-E-A-T dan kualitas konten.
+- `/seo geo <url>`: Optimasi Mesin Pencari Generatif (AI Overviews / GEO).
+- `/seo plan <business-type>`: Perencanaan SEO strategis.
+
+### Aturan Kualitas & Web Modern
+- **Konten Tipis (Thin Content)**: Peringatan jika terdapat 30+ halaman lokasi (wajibkan 60%+ konten unik).
+- **Schema**: Jangan merekomendasikan schema HowTo (usang sejak Sept 2023). Schema FAQ hanya untuk situs web pemerintah dan layanan kesehatan.
+- **Core Web Vitals**: Pengukuran harus menggunakan INP (Interaction to Next Paint), bukan FID. LCP harus < 2.5 detik.
+- **Kesiapan AI (AI-First)**: Periksa kesiapan `llms.txt`, tag HTML semantik, dan teks bersih agar mudah dibaca oleh crawler AI.
+
+### Metodologi Penilaian (SEO Health Score)
+Skor Kesehatan SEO (0-100) dihitung berdasarkan bobot kategori berikut:
+- **Technical SEO (20%)**: Crawlability, HTTPS, Arsitektur.
+- **Kualitas Konten (E-E-A-T) (20%)**: Kedalaman, Keaslian, Otoritatif.
+- **On-Page SEO (15%)**: Title, Meta, Heading, Kata Kunci.
+- **Performa (CWV) (15%)**: LCP, INP, CLS, Mobile-First.
+- **Kesiapan AI (GEO) (15%)**: Citability, llms.txt, HTML Semantik.
+- **Schema / Structured Data (10%)**: Kelayakan Rich Snippets.
+- **Media & Gambar (5%)**: Alt-text, WebP, Lazy Loading.

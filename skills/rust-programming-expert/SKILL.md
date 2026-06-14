@@ -1,59 +1,12 @@
 ---
 name: rust-programming-expert
-description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in Indonesian and English."
+description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian."
 author: "Roedy Rustam"
 ---
 
 # Rust Programming Expert
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Panduan tingkat ahli untuk menulis aplikasi sistem yang berkinerja tinggi, tangguh, dan aman secara memori menggunakan **Rust 2024 (v1.85+)**. Skill ini menguraikan praktik-praktik lanjutan dalam kepemilikan (ownership), masa hidup (lifetimes), desain error, arsitektur asinkron, pengembangan backend, optimasi performa, dan pola ekosistem yang idiomatis.
-
-### Kondisi Pemicu
-- Gunakan saat merancang atau memelihara crate, aplikasi, atau workspace Rust tingkat produksi.
-- Gunakan saat mendesain model data dengan lifetime yang kompleks, smart pointers (`Arc`, `Rc`, `RefCell`), atau abstraksi zero-copy (`Cow`).
-- Gunakan saat membangun layanan asinkron konkurensi tinggi dengan **Tokio** dan **Axum**.
-- Gunakan saat berinteraksi dengan database secara aman menggunakan SQL yang diverifikasi saat kompilasi dengan **SQLx**.
-- Gunakan saat merancang utilitas CLI modern menggunakan **Clap** dan **Serde**.
-- Gunakan saat memigrasikan atau meningkatkan codebase Rust yang ada ke **Edisi Rust 2024**.
-- Gunakan saat melakukan profiling, mengoptimalkan, atau men-debug waktu kompilasi, penggunaan memori, atau kinerja runtime.
-
-### Edisi Rust 2024 & Arsitektur Inti
-Edisi Rust 2024 meningkatkan ergonomi bahasa, memperkuat invariant keamanan, dan memperkenalkan peningkatan asinkron bawaan:
-- **Async Closures**: Traits `AsyncFn` dan penulisan closure `async || {}` sekarang stabil. Gunakan untuk adapter stream asinkron atau event handler langsung.
-- **RPIT Lifetimes**: RPIT (`impl Trait` pada posisi return) menangkap semua lifetime dalam scope secara default. Gunakan sintaksis eksplisit `use<'a, T>` untuk membatasi penangkapan lifetime.
-- **Unsafe Extern**: Blok `extern` dan atribut tertentu (`no_mangle`) sekarang memerlukan kata kunci `unsafe`.
-- **Tambahan Prelude**: `Future` dan `IntoFuture` sekarang diimpor secara otomatis.
-
-### Dasar Bahasa & Keamanan Memori
-Keamanan memori dijamin saat kompilasi melalui sistem kepemilikan (ownership). Ikuti panduan berikut:
-1. **Kepemilikan & Peminjaman**: Setiap nilai memiliki satu pemilik. Ketika pemilik keluar dari scope, nilai tersebut dihapus. Anda dapat memiliki banyak referensi immutable (`&T`) *ATAU* tepat satu referensi mutable (`&mut T`) aktif pada satu waktu.
-2. **Lifetimes & Smart Pointers**: Hindari meletakkan referensi (`&T`) di dalam definisi struct kecuali untuk struct pembantu berumur pendek. Gunakan `Arc<T>` (Thread-Safe Shared Reference) dan `Mutex<T>` (Mutual Exclusion) untuk berbagi state antar thread.
-
-### Penanganan Error yang Idiomatis
-Rust menggunakan monad `Result<T, E>` dan `Option<T>` alih-alih exception tradisional.
-- **Tingkat Aplikasi**: Gunakan `anyhow` untuk pembuatan skrip cepat atau konteks aplikasi tingkat tinggi di mana pelacakan stack dan pembungkusan error acak diperlukan.
-- **Tingkat Library**: Gunakan `thiserror` untuk mendefinisikan enum error domain yang tepat, terstruktur, dan deskriptif.
-
-### Pemrograman Asinkron (Rust 2024 + Tokio)
-- **Gunakan Tugas Tokio untuk I/O**: Gunakan `tokio::spawn` untuk menjalankan tugas-tugas ringan dan konkuren.
-- **JANGAN Blokir Runtime Asinkron**: Jangan pernah menjalankan pekerjaan berat CPU atau I/O sinkron secara langsung di dalam thread pekerja asinkron. Gunakan `tokio::task::spawn_blocking` jika diperlukan.
-
-### Integrasi Ekosistem Produksi
-- **Axum + SQLx (Web API Stack)**: Axum menyediakan framework web asinkron terkemuka, sementara SQLx menyediakan lapisan interaksi database dengan pemeriksaan keamanan SQL pada saat kompilasi.
-- **Clap + Serde (CLI Stack)**: Clap v4 menyediakan parser argumen baris perintah deklaratif berbasis makro. Serde menangani serialisasi/deserialisasi dengan lancar.
-
-### Optimasi & Kode Unsafe
-- **Hindari Alokasi Heap**: Gunakan `&str` alih-alih `String` untuk variabel read-only. Gunakan `Cow<'a, str>` ketika variabel hanya sesekali dimutasi.
-- **Konfigurasi Profil Release (`Cargo.toml`)**: Gunakan `opt-level = 3`, `lto = true`, dan `codegen-units = 1` untuk kinerja maksimal.
-- **Kode Unsafe yang Aman**: Hanya gunakan `unsafe` untuk memanggil binding C atau struktur data lockless kustom. Selalu sertakan blok `// SAFETY:` untuk menjelaskan validitas invariant.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -107,3 +60,50 @@ Rust utilizes the `Result<T, E>` and `Option<T>` monads:
 ### Troubleshooting & Common Gotchas / Pemecahan Masalah
 - **Lifetimes Mismatch**: Ensure returned references don't point to local variables. Use owned types or bind output lifetimes to input lifetimes.
 - **Send / Sync Boundary Failures**: Async block elements across `.await` must implement `Send`. Avoid holding synchronous mutex guards across `.await` points.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Panduan tingkat ahli untuk menulis aplikasi sistem yang berkinerja tinggi, tangguh, dan aman secara memori menggunakan **Rust 2024 (v1.85+)**. Skill ini menguraikan praktik-praktik lanjutan dalam kepemilikan (ownership), masa hidup (lifetimes), desain error, arsitektur asinkron, pengembangan backend, optimasi performa, dan pola ekosistem yang idiomatis.
+
+### Kondisi Pemicu
+- Gunakan saat merancang atau memelihara crate, aplikasi, atau workspace Rust tingkat produksi.
+- Gunakan saat mendesain model data dengan lifetime yang kompleks, smart pointers (`Arc`, `Rc`, `RefCell`), atau abstraksi zero-copy (`Cow`).
+- Gunakan saat membangun layanan asinkron konkurensi tinggi dengan **Tokio** dan **Axum**.
+- Gunakan saat berinteraksi dengan database secara aman menggunakan SQL yang diverifikasi saat kompilasi dengan **SQLx**.
+- Gunakan saat merancang utilitas CLI modern menggunakan **Clap** dan **Serde**.
+- Gunakan saat memigrasikan atau meningkatkan codebase Rust yang ada ke **Edisi Rust 2024**.
+- Gunakan saat melakukan profiling, mengoptimalkan, atau men-debug waktu kompilasi, penggunaan memori, atau kinerja runtime.
+
+### Edisi Rust 2024 & Arsitektur Inti
+Edisi Rust 2024 meningkatkan ergonomi bahasa, memperkuat invariant keamanan, dan memperkenalkan peningkatan asinkron bawaan:
+- **Async Closures**: Traits `AsyncFn` dan penulisan closure `async || {}` sekarang stabil. Gunakan untuk adapter stream asinkron atau event handler langsung.
+- **RPIT Lifetimes**: RPIT (`impl Trait` pada posisi return) menangkap semua lifetime dalam scope secara default. Gunakan sintaksis eksplisit `use<'a, T>` untuk membatasi penangkapan lifetime.
+- **Unsafe Extern**: Blok `extern` dan atribut tertentu (`no_mangle`) sekarang memerlukan kata kunci `unsafe`.
+- **Tambahan Prelude**: `Future` dan `IntoFuture` sekarang diimpor secara otomatis.
+
+### Dasar Bahasa & Keamanan Memori
+Keamanan memori dijamin saat kompilasi melalui sistem kepemilikan (ownership). Ikuti panduan berikut:
+1. **Kepemilikan & Peminjaman**: Setiap nilai memiliki satu pemilik. Ketika pemilik keluar dari scope, nilai tersebut dihapus. Anda dapat memiliki banyak referensi immutable (`&T`) *ATAU* tepat satu referensi mutable (`&mut T`) aktif pada satu waktu.
+2. **Lifetimes & Smart Pointers**: Hindari meletakkan referensi (`&T`) di dalam definisi struct kecuali untuk struct pembantu berumur pendek. Gunakan `Arc<T>` (Thread-Safe Shared Reference) dan `Mutex<T>` (Mutual Exclusion) untuk berbagi state antar thread.
+
+### Penanganan Error yang Idiomatis
+Rust menggunakan monad `Result<T, E>` and `Option<T>` alih-alih exception tradisional.
+- **Tingkat Aplikasi**: Gunakan `anyhow` untuk pembuatan skrip cepat atau konteks aplikasi tingkat tinggi di mana pelacakan stack dan pembungkusan error acak diperlukan.
+- **Tingkat Library**: Gunakan `thiserror` untuk mendefinisikan enum error domain yang tepat, terstruktur, dan deskriptif.
+
+### Pemrograman Asinkron (Rust 2024 + Tokio)
+- **Gunakan Tugas Tokio untuk I/O**: Gunakan `tokio::spawn` untuk menjalankan tugas-tugas ringan dan konkuren.
+- **JANGAN Blokir Runtime Asinkron**: Jangan pernah menjalankan pekerjaan berat CPU atau I/O sinkron secara langsung di dalam thread pekerja asinkron. Gunakan `tokio::task::spawn_blocking` jika diperlukan.
+
+### Integrasi Ekosistem Produksi
+- **Axum + SQLx (Web API Stack)**: Axum menyediakan framework web asinkron terkemuka, sementara SQLx menyediakan lapisan interaksi database dengan pemeriksaan keamanan SQL pada saat kompilasi.
+- **Clap + Serde (CLI Stack)**: Clap v4 menyediakan parser argumen baris perintah deklaratif berbasis makro. Serde menangani serialisasi/deserialisasi dengan lancar.
+
+### Optimasi & Kode Unsafe
+- **Hindari Alokasi Heap**: Gunakan `&str` alih-alih `String` untuk variabel read-only. Gunakan `Cow<'a, str>` ketika variabel hanya sesekali dimutasi.
+- **Konfigurasi Profil Release (`Cargo.toml`)**: Gunakan `opt-level = 3`, `lto = true`, dan `codegen-units = 1` untuk kinerja maksimal.
+- **Kode Unsafe yang Aman**: Hanya gunakan `unsafe` untuk memanggil binding C atau struktur data lockless kustom. Selalu sertakan blok `// SAFETY:` untuk menjelaskan validitas invariant.

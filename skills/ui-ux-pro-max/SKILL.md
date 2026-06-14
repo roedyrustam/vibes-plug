@@ -1,55 +1,12 @@
 ---
 name: ui-ux-pro-max
-description: "Panduan desain komprehensif untuk aplikasi web dan mobile / Comprehensive design guide for web and mobile applications."
+description: "Comprehensive design guide for web and mobile applications / Panduan desain komprehensif untuk aplikasi web dan mobile."
 author: "Roedy Rustam"
 ---
 
 # UI/UX Pro Max - Design Intelligence
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Panduan desain komprehensif untuk aplikasi web dan mobile. Berisi pedoman palet warna, tipografi, serta pedoman UX mendalam untuk 9 tumpukan teknologi (technology stacks) dengan rekomendasi berbasis prioritas.
-
-### Kondisi Pemicu
-Tinjau pedoman ini ketika:
-- Mendesain komponen UI atau halaman baru.
-- Memilih palet warna dan tipografi.
-- Meninjau kode untuk masalah kegunaan (UX).
-- Membangun landing page atau dashboard.
-- Menerapkan persyaratan aksesibilitas (a11y).
-
-### Acuan Cepat Aturan Profesional
-
-#### 1. Aksesibilitas (A11y) - KRITIS
-- **Kontras Warna**: Rasio kontras minimal 4.5:1 untuk teks normal agar mudah dibaca.
-- **Focus States**: Tampilkan cincin fokus (focus ring) yang jelas saat elemen interaktif dinavigasikan dengan keyboard.
-- **Alt Text**: Sediakan alt text deskriptif pada gambar yang memiliki arti penting.
-
-#### 2. Sentuhan & Interaksi - KRITIS
-- **Touch Target Size**: Ukuran area sentuh minimal 44x44px untuk perangkat mobile.
-- **Loading Buttons**: Nonaktifkan tombol selama operasi asinkron sedang berjalan agar tidak terjadi submit ganda.
-- **Cursor Pointer**: Tambahkan `cursor-pointer` pada semua elemen interaktif yang dapat diklik atau memiliki efek hover.
-
-#### 3. Performa & Animasi - TINGGI / MENENGAH
-- **Optimasi Gambar**: Gunakan format WebP/AVIF, atribut srcset, dan lazy loading.
-- **Mikro-interaksi**: Gunakan durasi 150-300ms untuk transisi state agar terasa responsif namun halus.
-
-#### 4. Kontras Mode Terang & Gelap
-- **Mode Terang**: Gunakan warna teks gelap yang jelas (misal Slate-900 `#0F172A`), hindari teks abu-abu pudar. Gunakan warna batas (border) yang kontras.
-- **Mode Gelap**: Pastikan latar belakang gelap memberikan kontras yang cukup dengan elemen di atasnya.
-
-### Checklist Desain UI/UX Sebelum Delivery
-- [ ] **Visual**: Tidak menggunakan emoji sebagai ikon (gunakan SVG). Ikon berasal dari set yang konsisten. Efek hover tidak menggeser layout.
-- [ ] **Interaksi**: Semua elemen klik memiliki `cursor-pointer`. Transisi halus (150-300ms).
-- [ ] **Kontras**: Kontras teks mode terang minimal 4.5:1. Borders terlihat di kedua mode.
-- [ ] **Layout**: Elemen melayang (floating navbar) memiliki spacing yang pas dari tepi. Responsif diuji di berbagai breakpoint (375px, 768px, 1024px, 1440px). Tidak ada scroll horizontal pada mobile.
-- [ ] **Aksesibilitas**: Semua gambar memiliki alt text. Form input memiliki label terkait.
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -93,3 +50,46 @@ Reference these guidelines when:
 - [ ] **Contrast**: Text contrast in light mode is at least 4.5:1. Borders visible in both modes.
 - [ ] **Layout**: Floating elements have proper spacing from edges. Responsive tested at multiple breakpoints (375px, 768px, 1024px, 1440px). No horizontal scroll on mobile.
 - [ ] **Accessibility**: All images have alt text. Form inputs have labels.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Panduan desain komprehensif untuk aplikasi web dan mobile. Berisi pedoman palet warna, tipografi, serta pedoman UX mendalam untuk 9 tumpukan teknologi (technology stacks) dengan rekomendasi berbasis prioritas.
+
+### Kondisi Pemicu
+Tinjau pedoman ini ketika:
+- Mendesain komponen UI atau halaman baru.
+- Memilih palet warna dan tipografi.
+- Meninjau kode untuk masalah kegunaan (UX).
+- Membangun landing page atau dashboard.
+- Menerapkan persyaratan aksesibilitas (a11y).
+
+### Acuan Cepat Aturan Profesional
+
+#### 1. Aksesibilitas (A11y) - KRITIS
+- **Kontras Warna**: Rasio kontras minimal 4.5:1 untuk teks normal agar mudah dibaca.
+- **Focus States**: Tampilkan cincin fokus (focus ring) yang jelas saat elemen interaktif dinavigasikan dengan keyboard.
+- **Alt Text**: Sediakan alt text deskriptif pada gambar yang memiliki arti penting.
+
+#### 2. Sentuhan & Interaksi - KRITIS
+- **Touch Target Size**: Ukuran area sentuh minimal 44x44px untuk perangkat mobile.
+- **Loading Buttons**: Nonaktifkan tombol selama operasi asinkron sedang berjalan agar tidak terjadi submit ganda.
+- **Cursor Pointer**: Tambahkan `cursor-pointer` pada semua elemen interaktif yang dapat diklik atau memiliki efek hover.
+
+#### 3. Performa & Animasi - TINGGI / MENENGAH
+- **Optimasi Gambar**: Gunakan format WebP/AVIF, atribut srcset, dan lazy loading.
+- **Mikro-interaksi**: Gunakan durasi 150-300ms untuk transisi state agar terasa responsif namun halus.
+
+#### 4. Kontras Mode Terang & Gelap
+- **Mode Terang**: Gunakan warna teks gelap yang jelas (misal Slate-900 `#0F172A`), hindari teks abu-abu pudar. Gunakan warna batas (border) yang kontras.
+- **Mode Gelap**: Pastikan latar belakang gelap memberikan kontras yang cukup dengan elemen di atasnya.
+
+### Checklist Desain UI/UX Sebelum Delivery
+- [ ] **Visual**: Tidak menggunakan emoji sebagai ikon (gunakan SVG). Ikon berasal dari set yang konsisten. Efek hover tidak menggeser layout.
+- [ ] **Interaksi**: Semua elemen klik memiliki `cursor-pointer`. Transisi halus (150-300ms).
+- [ ] **Kontras**: Kontras teks mode terang minimal 4.5:1. Borders terlihat di kedua mode.
+- [ ] **Layout**: Elemen melayang (floating navbar) memiliki spacing yang pas dari tepi. Responsif diuji di berbagai breakpoint (375px, 768px, 1024px, 1440px). Tidak ada scroll horizontal pada mobile.
+- [ ] **Aksesibilitas**: Semua gambar memiliki alt text. Form input memiliki label terkait.

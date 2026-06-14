@@ -1,6 +1,6 @@
 ---
 name: web-scraper
-description: "Kemampuan ekstraksi data web cerdas dengan berbagai strategi scraping, dukungan paginasi, pemantauan, serta ekspor / Smart web data extraction capability with various scraping strategies, pagination support, monitoring, and export."
+description: "Smart web data extraction capability with various scraping strategies, pagination support, monitoring, and export / Kemampuan ekstraksi data web cerdas dengan berbagai strategi scraping, dukungan paginasi, pemantauan, serta ekspor."
 author: "Roedy Rustam"
 tags:
 - scraping
@@ -11,58 +11,7 @@ tags:
 
 # Web Scraper
 
-[Bahasa Indonesia](#bahasa-indonesia) | [English](#english)
-
----
-
-<a name="bahasa-indonesia"></a>
-## Bahasa Indonesia
-
-### Deskripsi
-Kemampuan ekstraksi data web cerdas menggunakan multi-strategi. Mengekstrak data terstruktur dari halaman web (tabel, daftar, harga). Mendukung paginasi, pemantauan, dan ekspor ke CSV/JSON/Markdown.
-
-### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Pengguna menyebutkan "scraper", "scraping", "extrair dados web", atau "web scraping".
-- Pengguna meminta untuk "raspar data" (mengikis data) atau "mengumpulkan data dari situs web".
-
-### Alur Kerja (Phases)
-```
-1. CLARIFY  ->  2. RECON  ->  3. STRATEGY  ->  4. EXTRACT  ->  5. TRANSFORM  ->  6. VALIDATE  ->  7. FORMAT
-```
-
-#### Phase 1: Clarify (Klarifikasi)
-Tentukan parameter ekstraksi sebelum mengakses URL:
-- **Target URL**: Halaman mana yang akan dikikis.
-- **Data Target**: Data spesifik apa yang ingin diekstrak.
-- **Format Output**: Tabel Markdown (default), JSON, atau CSV.
-- **Scope**: Halaman tunggal, paginasi, atau banyak URL.
-
-#### Phase 2: Recon (Pemeriksaan Awal)
-Gunakan `WebFetch` untuk menganalisis struktur halaman: tipe halaman, render JavaScript (apakah diperlukan Browser), paginasi, dan ketersediaan data.
-
-#### Phase 3: Strategy Selection (Pemilihan Strategi)
-- **Strategi A (WebFetch)**: Untuk halaman statis, artikel, tabel sederhana.
-- **Strategi B (Browser Automation)**: Untuk halaman yang dirender JS, SPA, atau konten interaktif.
-- **Strategi C (Bash/curl/API)**: Jika data tersedia dalam bentuk endpoint API JSON/XML atau file CSV/Excel langsung.
-
-#### Phase 4: Extract (Ekstraksi)
-Terapkan pola ekstraksi sesuai mode data:
-- `table` (Tabel Markdown)
-- `product` (Nama, harga, merek, spesifikasi)
-- `pricing` (Plan names, prices, features)
-- `contact` (Nama, email, telepon)
-- `faq` (Tanya-jawab)
-- `jobs` (Judul pekerjaan, gaji, lokasi)
-
-#### Phase 5: Transform (Pembersihan Data)
-Bersihkan spasi kosong (whitespace), decode entitas HTML, normalisasikan tanggal (ISO-8601), hapus duplikasi (deduplikasi), dan lakukan resolusi URL relatif menjadi absolut.
-
-#### Phase 6: Validate (Validasi)
-Periksa kelengkapan baris, tipe data, dan tentukan rating keyakinan (**Confidence Rating**: HIGH / MEDIUM / LOW).
-
-#### Phase 7: Format & Deliver (Format & Pengiriman)
-Kirimkan data terstruktur kepada pengguna lengkap dengan amplop metadata (Sumber URL, Tanggal, Jumlah Item, Strategi, Catatan).
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
 
@@ -114,3 +63,54 @@ Verify item counts, check for truncation or outliers, and assign a **Confidence 
 
 #### Phase 7: Format & Deliver
 Deliver structured data wrapped in the metadata envelope (Source URL, Date, Item Count, Strategy, Notes).
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Kemampuan ekstraksi data web cerdas menggunakan multi-strategi. Mengekstrak data terstruktur dari halaman web (tabel, daftar, harga). Mendukung paginasi, pemantauan, dan ekspor ke CSV/JSON/Markdown.
+
+### Kondisi Pemicu
+Gunakan skill ini ketika:
+- Pengguna menyebutkan "scraper", "scraping", "extrair dados web", atau "web scraping".
+- Pengguna meminta untuk "raspar data" (mengikis data) atau "mengumpulkan data dari situs web".
+
+### Alur Kerja (Phases)
+```
+1. CLARIFY  ->  2. RECON  ->  3. STRATEGY  ->  4. EXTRACT  ->  5. TRANSFORM  ->  6. VALIDATE  ->  7. FORMAT
+```
+
+#### Phase 1: Clarify (Klarifikasi)
+Tentukan parameter ekstraksi sebelum mengakses URL:
+- **Target URL**: Halaman mana yang akan dikikis.
+- **Data Target**: Data spesifik apa yang ingin diekstrak.
+- **Format Output**: Tabel Markdown (default), JSON, atau CSV.
+- **Scope**: Halaman tunggal, paginasi, atau banyak URL.
+
+#### Phase 2: Recon (Pemeriksaan Awal)
+Gunakan `WebFetch` untuk menganalisis struktur halaman: tipe halaman, render JavaScript (apakah diperlukan Browser), paginasi, dan ketersediaan data.
+
+#### Phase 3: Strategy Selection (Pemilihan Strategi)
+- **Strategi A (WebFetch)**: Untuk halaman statis, artikel, tabel sederhana.
+- **Strategi B (Browser Automation)**: Untuk halaman yang dirender JS, SPA, atau konten interaktif.
+- **Strategi C (Bash/curl/API)**: Jika data tersedia dalam bentuk endpoint API JSON/XML atau file CSV/Excel langsung.
+
+#### Phase 4: Extract (Ekstraksi)
+Terapkan pola ekstraksi sesuai mode data:
+- `table` (Tabel Markdown)
+- `product` (Nama, harga, merek, spesifikasi)
+- `pricing` (Plan names, prices, features)
+- `contact` (Nama, email, telepon)
+- `faq` (Tanya-jawab)
+- `jobs` (Judul pekerjaan, gaji, lokasi)
+
+#### Phase 5: Transform (Pembersihan Data)
+Bersihkan spasi kosong (whitespace), decode entitas HTML, normalisasikan tanggal (ISO-8601), hapus duplikasi (deduplikasi), dan lakukan resolusi URL relatif menjadi absolut.
+
+#### Phase 6: Validate (Validasi)
+Periksa kelengkapan baris, tipe data, dan tentukan rating keyakinan (**Confidence Rating**: HIGH / MEDIUM / LOW).
+
+#### Phase 7: Format & Deliver (Format & Pengiriman)
+Kirimkan data terstruktur kepada pengguna lengkap dengan amplop metadata (Sumber URL, Tanggal, Jumlah Item, Strategi, Catatan).
