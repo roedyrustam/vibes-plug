@@ -35,6 +35,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **token-saver**: Strict token-saving protocol for minimal fluff and efficient codebase edits.
 - **app-analyzer-optimizer**: Deeply analyzes application architecture, dependencies, and performance configurations, and executes targeted optimizations aligned with active vibes-plug skills.
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
+- **coderabbit**: AI-powered automated code reviews, pull request summarizations, interactive chat prompts, and .coderabbit.yaml custom configurations.
 
 ---
 
@@ -65,3 +66,4 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **token-saver**: Protokol penghematan token yang ketat untuk respons AI yang minimal dan ringkas.
 - **app-analyzer-optimizer**: Menganalisis secara mendalam arsitektur aplikasi, dependensi, konfigurasi performa, serta melakukan optimasi terarah.
 - **prd-architect**: Guardrail awal yang mewajibkan pembuatan Product Requirements Document (PRD) yang komprehensif sebelum menulis kode baru.
+- **coderabbit**: Asisten review kode otomatis berbasis AI, perangkum pull request, obrolan interaktif, dan konfigurasi kustom .coderabbit.yaml.

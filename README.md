@@ -52,6 +52,7 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Web Scraper** (`web-scraper`): Smart web data extraction capability with various scraping strategies, pagination support, monitoring, and CSV/JSON export.
 - **Friendly Assistant** (`asisten_ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition, very useful for high-efficiency bulk refactoring tasks.
+- **CodeRabbit Expert** (`coderabbit`): AI-powered automated code review, pull request summarization, and interactive developer feedback directly in GitHub/GitLab.
 - **New Skill** (`skill_baru`): Basic template for creating new agent skills in the future.
 
 ### Automatic Installation (Recommended)
@@ -130,6 +131,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Web Scraper** (`web-scraper`): Kemampuan ekstraksi data web cerdas dengan berbagai strategi *scraping*, dukungan paginasi, pemantauan, serta ekspor CSV/JSON.
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
+- **CodeRabbit Expert** (`coderabbit`): Asisten review kode otomatis berbasis AI, perangkum pull request, dan umpan balik developer interaktif langsung di GitHub/GitLab.
 - **Skill Baru** (`skill_baru`): *Template* dasar untuk pembuatan *skill* agen baru ke depannya.
 
 ### Instalasi otomatis (Rekomendasi)
