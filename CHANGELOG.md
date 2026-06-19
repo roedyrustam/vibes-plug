@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.3.9] - 2026-06-19
+
+### Changed / Diubah
+- Executed audit and validation across all 29 skill modules in the repository to ensure standardization of frontmatter, modern tech stacks (React 19, Next.js 15, Tailwind CSS v4, TanStack Query v5, Bun v1.1+), trigger conditions formatting, and clean emoji encodings.
+  *(Melakukan audit dan validasi di seluruh 29 modul skill dalam repositori untuk memastikan standardisasi frontmatter, stack teknologi modern (React 19, Next.js 15, Tailwind CSS v4, TanStack Query v5, Bun v1.1+), format kondisi pemicu, dan pengodean emoji yang bersih.)*
+
 ## [1.3.8] - 2026-06-15
 
 ### Added / Ditambahkan
