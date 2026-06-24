@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.4.0] - 2026-06-25
+
+### Added / Ditambahkan
+- Added `fullstack-expert` skill module, providing expert-level guidelines for multi-language (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum) web development, API design patterns, database architectures, DevOps, and observability.
+  *(Menambahkan modul skill `fullstack-expert` yang menyediakan pedoman tingkat ahli untuk pengembangan web multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), pola desain API, arsitektur database, DevOps, dan observability.)*
+- Added `saas-transformer` master orchestrator skill module to guide systematic 8-phase transformation of standard applications into production-grade multi-tenant SaaS platforms (covering database isolation, billing/Stripe, teams, and feature gating).
+  *(Menambahkan modul skill master orkestrator `saas-transformer` untuk memandu transformasi sistematis 8-fase dari aplikasi standar menjadi platform SaaS multi-tenant tingkat produksi (mencakup isolasi database, billing/Stripe, tim, dan feature gating).)*
+- Added `production-ready-hardener` master orchestrator skill module to conduct automated 7-phase application pre-launch audits across security, performance, accessibility, testing, and deployment, including a Python-based diagnostic scanner tool.
+  *(Menambahkan modul skill master orkestrator `production-ready-hardener` untuk melakukan audit pra-peluncuran aplikasi 7-fase secara otomatis pada aspek keamanan, performa, aksesibilitas, testing, dan deployment, termasuk alat scanner diagnostik berbasis Python.)*
+- Added/documented missing core skill modules in the plugin index, including `tanstack-query-expert` (asynchronous state management & caching), `web-scraper` (multi-strategy data extraction workflow), `supabase-migration` (database schema migration tracking), `ui-ux-expert` (responsive web design & layout optimization), and `asisten-ramah` (friendly conversational styling).
+  *(Menambahkan/mendokumentasikan modul skill inti yang sebelumnya belum tercantum di indeks plugin, termasuk `tanstack-query-expert` (manajemen state asinkron & caching), `web-scraper` (alur kerja ekstraksi data multi-strategi), `supabase-migration` (pelacakan migrasi skema database), `ui-ux-expert` (desain web responsif & optimasi tata letak), dan `asisten-ramah` (gaya percakapan ramah).)*
+
 ## [1.3.9] - 2026-06-19
 
 ### Changed / Diubah

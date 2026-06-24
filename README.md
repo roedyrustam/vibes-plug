@@ -21,27 +21,31 @@ This plugin provides the following list of skills that can be used by the agent:
 - **UI/UX Expert** (`ui_ux_expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
 
 #### Frontend & Fullstack Web Development
+- **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits, and executes targeted optimizations according to standards.
 - **Brainstorming** (`brainstorming`): Advanced protocol with *Modern Web Guidance* guidelines to validate design ideas and large-scale web architecture before coding begins.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun JavaScript/TypeScript runtime (v1.1+), covering built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, package management, and migration strategies from Node.js.
+- **Fullstack Expert** (`fullstack-expert`): Expert-level fullstack development references covering multiple languages (TypeScript, Python, Go, Rust), frameworks (Next.js, FastAPI, Gin, Axum), API design patterns, databases, DevOps, and observability.
+- **Production-Ready Hardener** (`production-ready-hardener`): Ultimate production readiness skill that orchestrates and coordinates audits across security, performance, SEO, testing, and DevOps. Includes an automated Python-based diagnostic scanner.
 - **Python Programming Expert** (`python-programming-expert`): Expert-level guide for Python programming (Python 3.12+), covering type safety (typing, Pydantic v2), asynchronous patterns (asyncio, TaskGroups), modern backend APIs (FastAPI, SQLAlchemy, SQLModel), package management (uv, Poetry), quality tooling (Ruff), and pytest.
 - **Rust Programming Expert** (`rust-programming-expert`): High-level guide for Rust programming (Rust 2024 / v1.85+), covering memory safety (ownership/lifetimes), asynchronous programming (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), performance optimization, and unsafe code management.
-- **Senior Frontend** (`senior-frontend`): React 19, Next.js 15, TypeScript, and Tailwind CSS v4 development expert. Capable of optimizing performance, bundle size, and designing frontend components.
-- **Tailwind CSS Expert** (`tailwind-expert`): Deep guide for CSS-first Tailwind CSS v4 configuration, theme customization (@theme), modern utility classes, custom state modifiers, and file optimization.
-- **Senior Fullstack** (`senior-fullstack`): Complete set of instructions for senior-level fullstack developers with the latest tools and best practices.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Guide to writing clean code (SOLID, DRY) and designing scalable modular application architectures (Clean Architecture, caching, database replication).
+- **Senior Frontend** (`senior-frontend`): React 19, Next.js 15, TypeScript, and Tailwind CSS v4 development expert. Capable of optimizing performance, bundle size, and designing frontend components.
+- **Senior Fullstack** (`senior-fullstack`): Complete set of instructions for senior-level fullstack developers with the latest tools and best practices.
+- **Tailwind CSS Expert** (`tailwind-expert`): Deep guide for CSS-first Tailwind CSS v4 configuration, theme customization (@theme), modern utility classes, custom state modifiers, and file optimization.
 - **TanStack Query Expert** (`tanstack-query-expert`): Expert in asynchronous state management using TanStack Query v5 and Next.js App Router (SSR).
 - **Tauri Expert** (`tauri-expert`): Best practice guide for cross-platform application development with Tauri v2, focusing on the Rust backend ecosystem, IPC communication, and security capabilities.
-- **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits, and executes targeted optimizations according to standards.
 
 #### SaaS Architecture & Business
+- **PRD Architect** (`prd-architect`): Enforces the mandatory formulation of a Product Requirements Document (PRD) covering MVPs and user flows before the agent writes any new application code.
 - **SaaS Multi-Tenant** (`saas-multi-tenant`): Specialist in designing and implementing multi-tenant SaaS architecture with Row-Level Security (RLS), shared-schema, and PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Structured roadmap to plan and launch a Minimum Viable Product (MVP) for SaaS, covering technologies, authentication, payments, etc.
-- **PRD Architect** (`prd-architect`): Enforces the mandatory formulation of a Product Requirements Document (PRD) covering MVPs and user flows before the agent writes any new application code.
+- **SaaS Transformer** (`saas-transformer`): Master orchestrator skill that guides the systematic 8-phase transformation of an existing regular application into a fully-featured production-ready multi-tenant SaaS platform (tenancy, billing, team management, feature gating).
 
 #### Database & Security
-- **Supabase Security Expert** (`supabase-security-expert`): Supabase security expert to audit web application security, relational databases, RLS (Row Level Security) configuration, RBAC, and prevent data leakage (hardcoded secrets).
 - **Firebase Security Expert** (`firebase-security-expert`): Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Expert-level skill for writing and integrating coverage-guided fuzz tests (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan) for continuous secure validation in CI/CD.
+- **Supabase Migration** (`supabase-migration`): A skill to create, manage, or apply database migrations for Supabase locally or remotely via MCP integrations.
+- **Supabase Security Expert** (`supabase-security-expert`): Supabase security expert to audit web application security, relational databases, RLS (Row Level Security) configuration, RBAC, and prevent data leakage (hardcoded secrets).
 
 #### SEO & Visibility Optimization
 - **SEO Umbrella** (`seo`): Comprehensive SEO audit covering technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO.
@@ -78,7 +82,7 @@ Once the command above succeeds, Antigravity will scan the folder and automatica
 For those who want to contribute by adding new skills or updating existing ones, please read our complete guide at [CONTRIBUTING.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ### Version
-v1.3.9
+v1.4.0
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -100,27 +104,31 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
 
 #### Frontend & Fullstack Web Development
+- **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan, serta melakukan optimasi terarah sesuai standar.
 - **Brainstorming** (`brainstorming`): Protokol lanjutan dengan pedoman *Modern Web Guidance* untuk memvalidasi ide desain dan arsitektur web berskala besar sebelum pengkodean dimulai.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.1+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
+- **Fullstack Expert** (`fullstack-expert`): Referensi pengembangan fullstack tingkat ahli yang mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), pola desain API, database, DevOps, serta observability.
+- **Production-Ready Hardener** (`production-ready-hardener`): Skill kesiapan produksi utama yang mengorkestrasi dan mengoordinasikan audit pada aspek keamanan, performa, SEO, testing, dan DevOps. Dilengkapi dengan alat scanner diagnostik otomatis berbasis Python.
 - **Python Programming Expert** (`python-programming-expert`): Panduan tingkat ahli untuk pemrograman Python (Python 3.12+), mencakup keamanan tipe (typing, Pydantic v2), pola asinkron (asyncio, TaskGroups), API backend modern (FastAPI, SQLAlchemy, SQLModel), manajemen paket (uv, Poetry), kualitas kode (Ruff), dan pytest.
 - **Rust Programming Expert** (`rust-programming-expert`): Panduan tingkat tinggi untuk pemrograman Rust (Rust 2024 / v1.85+), mencakup keamanan memori (ownership/lifetimes), pemrograman asinkron (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), optimasi performa, serta manajemen kode unsafe.
-- **Senior Frontend** (`senior-frontend`): Ahli pengembangan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4. Mampu mengoptimalkan performa, *bundle size*, dan merancang komponen *frontend*.
-- **Tailwind CSS Expert** (`tailwind-expert`): Panduan mendalam untuk konfigurasi CSS-first Tailwind CSS v4, theme customization (@theme), utility classes modern, state modifiers kustom, dan optimalisasi berkas.
-- **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Panduan menulis kode bersih (SOLID, DRY) dan merancang arsitektur aplikasi modular yang skalabel (Clean Architecture, caching, database replication).
+- **Senior Frontend** (`senior-frontend`): Ahli pengembangan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4. Mampu mengoptimalkan performa, *bundle size*, dan merancang komponen *frontend*.
+- **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
+- **Tailwind CSS Expert** (`tailwind-expert`): Panduan mendalam untuk konfigurasi CSS-first Tailwind CSS v4, theme customization (@theme), utility classes modern, state modifiers kustom, dan optimalisasi berkas.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query v5 dan Next.js App Router (SSR).
 - **Tauri Expert** (`tauri-expert`): Panduan terbaik untuk pengembangan aplikasi lintas platform *(cross-platform)* dengan Tauri v2, berfokus pada ekosistem backend Rust, IPC komunikasi, dan *Capabilities* keamanan.
-- **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan, serta melakukan optimasi terarah sesuai standar.
 
 #### Arsitektur SaaS & Bisnis
+- **PRD Architect** (`prd-architect`): Memaksa perumusan *Product Requirements Document* (PRD) yang meliputi MVP dan *user flows* secara wajib sebelum agen menulis kode aplikasi baru apa pun.
 - **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan *Row-Level Security* (RLS), *shared-schema*, dan PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Panduan jalan (roadmap) terstruktur untuk merencanakan dan meluncurkan Minimum Viable Product (MVP) untuk SaaS, mencakup teknologi, autentikasi, pembayaran, dll.
-- **PRD Architect** (`prd-architect`): Memaksa perumusan *Product Requirements Document* (PRD) yang meliputi MVP dan *user flows* secara wajib sebelum agen menulis kode aplikasi baru apa pun.
+- **SaaS Transformer** (`saas-transformer`): Skill master orkestrator yang memandu transformasi sistematis 8-fase dari aplikasi biasa yang sudah berjalan menjadi platform SaaS multi-tenant lengkap yang siap produksi (tenancy, billing, manajemen tim, feature gating).
 
 #### Database & Keamanan (Security)
-- **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
 - **Firebase Security Expert** (`firebase-security-expert`): Ahli keamanan Firebase untuk melakukan audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Panduan tingkat ahli untuk menulis dan mengintegrasikan pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan) untuk validasi keamanan berkelanjutan pada CI/CD.
+- **Supabase Migration** (`supabase-migration`): Kemampuan untuk membuat, mengelola, atau menerapkan migrasi database Supabase secara lokal maupun remote menggunakan integrasi MCP.
+- **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan mencegah kebocoran data (*hardcoded secrets*).
 
 #### SEO & Optimasi Visibilitas
 - **SEO Umbrella** (`seo`): Audit SEO menyeluruh yang mencakup *technical* SEO, SEO *on-page*, schema, sitemap, kualitas konten, hingga *AI search readiness* dan GEO.
@@ -157,7 +165,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ### Versi
-v1.3.9
+v1.4.0
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
