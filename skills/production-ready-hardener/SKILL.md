@@ -227,6 +227,20 @@ When this skill is triggered, execute the following 7-phase hardening process **
 
 ---
 
+### Automated Readiness Scanner
+An automated Python scanner script is included at [production_readiness_scanner.py](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py) to perform all check phases automatically. It automatically detects technology stacks (Vite, React 19, Supabase, Vitest, Playwright, ESLint) and parses local developer logs (`tsc_errors.txt`, `eslint_output.txt`, etc.) to calculate a live readiness score and compile an interactive, clickable markdown report (`PRODUCTION_READINESS_REPORT.md`).
+
+**Usage:**
+```bash
+# Run basic static checklist checks on a project
+python scripts/production_readiness_scanner.py /path/to/project
+
+# Run active compilation, linting, and test execution diagnostics
+python scripts/production_readiness_scanner.py /path/to/project --run-tsc --run-lint --run-tests --run-build
+```
+
+---
+
 ### Production Readiness Report Format
 
 After completing all 7 phases, compile a **Production Readiness Report** with:
@@ -392,6 +406,20 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] SLI/SLO terdefinisi
 - [ ] Backup database otomatis dengan prosedur restore yang teruji
 - [ ] Dokumentasi terkini (CHANGELOG.md, BLUEPRINT.md, README)
+
+---
+
+### Scanner Kesiapan Otomatis
+Script scanner Python otomatis tersedia di [production_readiness_scanner.py](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py) untuk menjalankan seluruh fase pemeriksaan secara otomatis. Scanner ini mendeteksi stack teknologi (Vite, React 19, Supabase, Vitest, Playwright, ESLint) serta mem-parsing file log error lokal (`tsc_errors.txt`, `eslint_output.txt`, dll) untuk mengkalkulasi skor kesiapan rilis dan menyusun laporan markdown interaktif (`PRODUCTION_READINESS_REPORT.md`).
+
+**Cara Penggunaan:**
+```bash
+# Jalankan pemeriksaan checklist statis dasar pada proyek
+python scripts/production_readiness_scanner.py /path/to/project
+
+# Jalankan diagnostik aktif termasuk typecheck tsc, linter eslint, unit test, dan bundle build
+python scripts/production_readiness_scanner.py /path/to/project --run-tsc --run-lint --run-tests --run-build
+```
 
 ---
 
