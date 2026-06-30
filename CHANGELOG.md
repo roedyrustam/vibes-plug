@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.4.1] - 2026-06-30
+
+### Changed / Diubah
+- Updated `ui-ux-expert` and `ui-ux-pro-max` skill modules to add comprehensive design and implementation guidelines for modern, professional, and standard dashboard architectures.
+  *(Memperbarui modul skill `ui-ux-expert` dan `ui-ux-pro-max` untuk menambahkan panduan desain dan implementasi komprehensif bagi arsitektur dashboard yang modern, profesional, dan standar.)*
+- Bumped project and plugin versions to v1.4.1.
+  *(Meningkatkan versi proyek dan plugin ke v1.4.1.)*
+
 ## [1.4.0] - 2026-06-25
 
 ### Added / Ditambahkan

@@ -1,7 +1,7 @@
 # Project Blueprint
 
-- **Version**: 1.4.0
-- **Last Updated**: 2026-06-25
+- **Version**: 1.4.1
+- **Last Updated**: 2026-06-30
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
@@ -41,8 +41,8 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **tanstack-query-expert**: Asynchronous state management & caching (Next.js SSR hydration, optimistic updates, Suspense, and query key factories).
 - **tauri-expert**: Expert skill for Tauri v2 development (Rust backend, IPC, capabilities).
 - **token-saver**: Strict token-saving protocol for minimal fluff and efficient codebase edits.
-- **ui-ux-pro-max** & **hig**: Comprehensive UI/UX and Human Interface Guidelines consistency.
-- **ui-ux-expert**: UI/UX Designer & Frontend Specialist focusing on desktop and tablet landscape (1080x720 px) layouts, grids, typography, and accessibility.
+- **ui-ux-pro-max** & **hig**: Comprehensive UI/UX design (including modern dashboard architectures) and Human Interface Guidelines consistency.
+- **ui-ux-expert**: UI/UX Designer & Frontend Specialist focusing on desktop/tablet landscape (1080x720 px) layouts, grids, typography, accessibility, and professional dashboard design.
 - **web-scraper**: Multi-strategy data extraction workflow (static, browser automation, API), pagination, validation, and structured formats export (CSV/JSON/Markdown).
 
 ---
@@ -80,6 +80,6 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **tanstack-query-expert**: Manajemen state asinkron & caching (hidrasi Next.js SSR, optimistic updates, Suspense, dan query key factories).
 - **tauri-expert**: Panduan ahli untuk pengembangan Tauri v2 (Rust backend, IPC, capabilities).
 - **token-saver**: Protokol penghematan token yang ketat untuk respons AI yang minimal dan ringkas.
-- **ui-ux-pro-max** & **hig**: Panduan UI/UX komprehensif dan konsistensi Human Interface Guidelines (Hierarchy, Harmony, Consistency).
-- **ui-ux-expert**: UI/UX Designer & Frontend Specialist yang berfokus pada layout desktop dan tablet landscape (1080x720 px), grid, tipografi, dan aksesibilitas.
+- **ui-ux-pro-max** & **hig**: Panduan UI/UX komprehensif (termasuk arsitektur dashboard modern) dan konsistensi Human Interface Guidelines (Hierarchy, Harmony, Consistency).
+- **ui-ux-expert**: UI/UX Designer & Frontend Specialist yang berfokus pada layout desktop dan tablet landscape (1080x720 px), grid, tipografi, aksesibilitas, serta desain dashboard profesional.
 - **web-scraper**: Alur kerja ekstraksi data multi-strategi (statis, otomatisasi browser, API), paginasi, validasi, dan ekspor format terstruktur (CSV/JSON/Markdown).
