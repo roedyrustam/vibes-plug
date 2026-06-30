@@ -288,16 +288,12 @@ When this skill is triggered, execute the following **8-phase transformation pro
    );
    ```
 
-3. **Integrate Stripe**:
-   - Create Stripe products and prices for each tier
-   - Implement checkout flow (Stripe Checkout or embedded)
-   - Handle webhooks with signature verification and idempotency:
-     - `checkout.session.completed` → Activate subscription
-     - `invoice.payment_succeeded` → Renew period
-     - `invoice.payment_failed` → Mark as past_due, notify user
-     - `customer.subscription.deleted` → Downgrade to free
-     - `customer.subscription.updated` → Update plan
-   - Build customer portal for self-service (plan changes, invoices, cancellation)
+3. **Integrate Payment Provider**:
+   - Select provider based on target market/tax requirements (Stripe, Midtrans, PayPal, Paddle, FastSpring).
+   - Create products and pricing plans in the provider dashboard.
+   - Implement checkout flow (hosted checkout session, inline widget, or payment link).
+   - Handle webhooks with signature verification, payloads, and idempotency (see [billing_integration_guide.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/saas-transformer/references/billing_integration_guide.md)).
+   - Build customer portal or self-service billing page for plan updates/cancellations.
 
 4. **Implement trial management**:
    - 14-day free trial on signup (configurable)
@@ -653,15 +649,15 @@ Ketika skill ini dipicu, jalankan **8 fase transformasi secara berurutan**. Seti
 #### FASE 4: Billing & Langganan
 **Mengorkestrasi:** `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend`
 
-- [ ] Tier harga didefinisikan dengan produk/harga Stripe
-- [ ] Tabel subscription dibuat
-- [ ] Integrasi Stripe Checkout berfungsi
-- [ ] Semua webhook kritis ditangani dengan idempotency
-- [ ] Tanda tangan webhook diverifikasi
-- [ ] Customer portal dapat diakses
+- [ ] Tier harga didefinisikan dengan produk/harga pada dashboard provider pembayaran (Stripe, Midtrans, PayPal, Paddle, FastSpring)
+- [ ] Tabel subscription dibuat dengan schema multi-gateway
+- [ ] Integrasi Checkout (hosted session/widget) berfungsi
+- [ ] Semua webhook kritis ditangani dengan idempotency (lihat [billing_integration_guide.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/saas-transformer/references/billing_integration_guide.md))
+- [ ] Tanda tangan/signature webhook diverifikasi pada setiap request
+- [ ] Customer billing portal dapat diakses
 - [ ] Periode trial diimplementasikan dengan notifikasi expiry
-- [ ] Perubahan plan (upgrade/downgrade) ditangani
-- [ ] Dunning management untuk pembayaran gagal
+- [ ] Perubahan plan (upgrade/downgrade) ditangani secara aman
+- [ ] Penanganan pembayaran gagal (dunning management) dikonfigurasi
 
 #### FASE 5: Workspace & Manajemen Tim
 **Mengorkestrasi:** `saas-multi-tenant`, `senior-frontend`, `ui-ux-pro-max`

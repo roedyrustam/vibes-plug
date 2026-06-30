@@ -45,7 +45,7 @@ Recommended modern SaaS stack (2026):
 - **Database**: PostgreSQL (Supabase or Neon) with RLS.
 - **ORM**: Drizzle ORM or Prisma.
 - **Auth**: Clerk or NextAuth.js (Auth.js).
-- **Payments**: Stripe (subscriptions, customer portal).
+- **Payments**: Choice of Stripe, Midtrans (for SE Asia), PayPal, Paddle, or FastSpring (including subscriptions and customer portals).
 - **Email**: Resend + React Email.
 - **Deployment**: Vercel (seamless deployment, edge network, zero-config CI/CD).
 - **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
@@ -100,7 +100,7 @@ Rekomendasi stack SaaS modern (2026):
 - **Database**: PostgreSQL (Supabase atau Neon) dengan RLS.
 - **ORM**: Drizzle ORM atau Prisma.
 - **Auth**: Clerk atau NextAuth.js (Auth.js).
-- **Payments**: Stripe (langganan, customer portal).
+- **Payments**: Pilihan Stripe, Midtrans (untuk Asia Tenggara/Indonesia), PayPal, Paddle, atau FastSpring (termasuk fitur langganan, customer portal, dan kepatuhan pajak otomatis).
 - **Email**: Resend + React Email.
 - **Deployment**: Vercel (CI/CD otomatis, edge network).
 - **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
