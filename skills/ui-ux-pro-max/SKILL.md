@@ -44,6 +44,11 @@ Reference these guidelines when:
 - **Light Mode**: Use high-contrast dark text (e.g., Slate-900 `#0F172A`); avoid faint gray text. Ensure borders are visible.
 - **Dark Mode**: Verify that background tones provide enough contrast with foreground elements.
 
+#### 5. Modern & Professional Dashboard Design
+- **Information Hierarchy**: Put the most critical indicators (KPI cards) at the top, followed by trends (charts) in the middle, and detailed data (tables/lists) at the bottom.
+- **Visual Grid**: Keep margins/gaps consistent (16px/24px). Use clean dividers or subtle borders (`border-slate-100` / `border-slate-800`) instead of heavy black lines.
+- **Charts & Colors**: Use max 3–5 coordinated colors for visual clarity in graphs. Ensure tooltips are responsive.
+
 ### UI/UX Design Checklist Before Delivery
 - [ ] **Visual Quality**: Emojis are not used as icons (use SVG). Icons from a consistent set. Hovers do not shift layout.
 - [ ] **Interaction**: All clickable elements have `cursor-pointer`. Smooth transitions (150-300ms).
@@ -86,6 +91,11 @@ Tinjau pedoman ini ketika:
 #### 4. Kontras Mode Terang & Gelap
 - **Mode Terang**: Gunakan warna teks gelap yang jelas (misal Slate-900 `#0F172A`), hindari teks abu-abu pudar. Gunakan warna batas (border) yang kontras.
 - **Mode Gelap**: Pastikan latar belakang gelap memberikan kontras yang cukup dengan elemen di atasnya.
+
+#### 5. Desain Dashboard Modern & Profesional
+- **Hierarki Informasi**: Letakkan indikator paling kritis (kartu KPI) di bagian atas, tren (grafik) di bagian tengah, dan detail data (tabel/list) di bagian bawah.
+- **Grid Visual**: Jaga konsistensi margin dan celah (16px/24px). Gunakan pembatas bersih atau border halus (`border-slate-100` / `border-slate-800`) daripada garis hitam tebal.
+- **Grafik & Warna**: Gunakan maksimal 3–5 warna terkoordinasi untuk kejelasan visual pada grafik. Pastikan tooltip responsif.
 
 ### Checklist Desain UI/UX Sebelum Delivery
 - [ ] **Visual**: Tidak menggunakan emoji sebagai ikon (gunakan SVG). Ikon berasal dari set yang konsisten. Efek hover tidak menggeser layout.
