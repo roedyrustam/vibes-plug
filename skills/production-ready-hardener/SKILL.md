@@ -56,11 +56,13 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌─── PHASE 5: Testing & Quality Assurance ──────────┐  │
+│  │  • e2e-testing-expert (Playwright, Vitest, CI/CD)  │  │
 │  │  • coderabbit (Automated code review)              │  │
 │  │  • secure-fuzz-testing (Security testing)          │  │
 │  │  • senior-frontend (Vitest, Playwright)            │  │
 │  │  • senior-fullstack (CI/CD test matrix)            │  │
 │  └────────────────────────────────────────────────────┘  │
+
 │                                                          │
 │  ┌─── PHASE 6: Performance & SEO ────────────────────┐  │
 │  │  • seo (Full SEO audit, Core Web Vitals)           │  │
@@ -168,7 +170,8 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 5: Testing & Quality Assurance
-**Orchestrates:** `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack`
+**Orchestrates:** `e2e-testing-expert`, `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack`
+
 
 **Checklist:**
 - [ ] **Unit tests** — Vitest/Jest for frontend logic, pytest/go test for backend (≥80% coverage target)
@@ -313,7 +316,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 | 2. Pengerasan Frontend | `senior-frontend`, `tailwind-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert` | React 19, a11y, responsif, state management |
 | 3. Pengerasan Backend | `fullstack-expert`, `senior-fullstack`, expert bahasa spesifik | Database, pooling, rate limiting, job queues |
 | 4. Pengerasan Keamanan | `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `fullstack-expert` | RLS, RBAC, OWASP, secrets, XSS/CSRF |
-| 5. Testing & QA | `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack` | Unit, E2E, fuzz, visual regression |
+| 5. Testing & QA | `e2e-testing-expert`, `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack` | E2E (Playwright), Unit (Vitest), fuzz, CI/CD pipelines |
 | 6. Performa & SEO | `seo`, `seo-geo`, `app-analyzer-optimizer` | Core Web Vitals, bundle, CDN, sitemap |
 | 7. DevOps & Deployment | `fullstack-expert`, `senior-fullstack`, `auto-doc-updater` | Docker, CI/CD, monitoring, rollback |
 

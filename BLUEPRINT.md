@@ -20,7 +20,9 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **auto-doc-updater**: Automated project documentation tracking.
 - **brainstorming**: Advanced brainstorming protocol with 2026 Modern Web Guidance — RSC, PPR, Server Actions, AI integration, Passkeys, and structured Design Document output template.
 - **bun-runtime-expert**: Expert skill for the Bun JavaScript/TypeScript runtime featuring Bun.serve, Bun.sql, Bun.s3, bun:test, bundler, and package manager.
+- **e2e-testing-expert**: Guidelines for Playwright End-to-End testing, Vitest unit/integration testing, and GitHub Actions CI/CD automation.
 - **coderabbit**: AI-powered automated code reviews, pull request summarizations, interactive chat prompts, and `.coderabbit.yaml` custom configurations.
+
 - **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check integration.
 - **fullstack-expert**: Multi-language (TypeScript, Python, Go, Rust), multi-framework backend developer references, API design patterns, database architecture, DevOps, and observability.
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
@@ -61,7 +63,9 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **auto-doc-updater**: Pelacakan dokumentasi proyek otomatis secara berkala.
 - **brainstorming**: Protokol brainstorming tingkat lanjut dengan Modern Web Guidance 2026 — RSC, PPR, Server Actions, integrasi AI, Passkeys, dan template output Dokumen Desain yang terstruktur.
 - **bun-runtime-expert**: Panduan ahli untuk runtime JavaScript/TypeScript Bun yang mencakup Bun.serve, Bun.sql, Bun.s3, bun:test, bundler, dan package manager.
+- **e2e-testing-expert**: Panduan pengujian E2E (Playwright), unit/integrasi (Vitest), dan otomatisasi CI/CD (GitHub Actions).
 - **coderabbit**: Asisten review kode otomatis berbasis AI, perangkum pull request, obrolan interaktif, dan konfigurasi kustom `.coderabbit.yaml`.
+
 - **firebase-security-expert**: Audit Security Rules Firebase, perlindungan akun layanan (Service Account), dan integrasi App Check.
 - **fullstack-expert**: Referensi pengembang backend multi-bahasa (TypeScript, Python, Go, Rust), multi-framework, pola desain API, arsitektur database, DevOps, dan observability.
 - **prd-architect**: Guardrail awal yang mewajibkan pembuatan Product Requirements Document (PRD) yang komprehensif sebelum menulis kode baru.
