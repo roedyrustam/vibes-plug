@@ -27,9 +27,11 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **production-ready-hardener**: Automated 7-phase application pre-launch audits across security, performance, accessibility, testing, and deployment, including a Python-based diagnostic scanner tool.
 - **python-programming-expert**: Expert skill for Python programming (Python 3.12+) covering type safety (typing/Pydantic), async/await (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), package management (uv, Poetry), quality checks (Ruff), and testing with pytest.
 - **rust-programming-expert**: Expert skill for Rust programming (Rust 2024 / v1.85+) covering memory safety (ownership/lifetimes), async (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), unsafe safety, optimization, and Cargo profiling.
+- **saas-billing**: Implementation of payment gateways (Stripe, Midtrans, Paddle), webhook handling, subscription lifecycle states, and database synchronization.
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
 - **saas-mvp-launcher**: Roadmap and technical design for bootstrapping high-performance multi-tenant B2B/B2C SaaS MVPs with Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, and Vercel AI SDK.
 - **saas-transformer**: Systematic 8-phase transformation of standard applications into production-grade multi-tenant SaaS platforms (database isolation, billing/Stripe, teams, feature gating).
+
 - **scalability-clean-code**: Guidelines for maintaining code readability (Clean Code, SOLID, DRY) and system scalability (Clean Architecture, loose coupling, horizontal scaling, caching).
 - **secure-fuzz-testing**: Coverage-guided fuzzing (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan) for security validation.
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, and bundle optimization.
@@ -66,9 +68,11 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **production-ready-hardener**: Audit pra-peluncuran aplikasi 7-fase otomatis pada aspek keamanan, performa, aksesibilitas, testing, dan deployment, termasuk alat scanner diagnostik berbasis Python.
 - **python-programming-expert**: Panduan ahli untuk pemrograman Python (Python 3.12+) mencakup keamanan tipe (typing/Pydantic), asinkron (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), manajemen paket (uv, Poetry), pemeriksaan kualitas (Ruff), dan pengujian dengan pytest.
 - **rust-programming-expert**: Panduan ahli untuk pemrograman Rust (Rust 2024 / v1.85+) mencakup keamanan memori (ownership/lifetimes), pemrograman asinkron (Tokio, async closures), web backends (Axum, SQLx), CLI (Clap, Serde), unsafe safety, optimasi performa, dan profiling Cargo.
+- **saas-billing**: Implementasi payment gateway (Stripe, Midtrans, Paddle), penanganan webhook, status langganan, dan sinkronisasi database.
 - **saas-multi-tenant**: Strategi isolasi database multi-tenant dan Row-Level Security (RLS) pada PostgreSQL.
 - **saas-mvp-launcher**: Panduan jalan dan desain teknis untuk meluncurkan MVP SaaS multi-tenant B2B/B2C berkinerja tinggi menggunakan Next.js 15, Tailwind CSS v4, Drizzle/Prisma, Stripe, Clerk, dan Vercel AI SDK.
 - **saas-transformer**: Transformasi sistematis 8-fase dari aplikasi biasa menjadi platform SaaS multi-tenant tingkat produksi (isolasi database, billing/Stripe, tim, feature gating).
+
 - **scalability-clean-code**: Panduan menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan skalabilitas sistem (Clean Architecture, decoupling, horizontal scaling, caching).
 - **secure-fuzz-testing**: Pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan) untuk validasi keamanan.
 - **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.

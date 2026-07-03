@@ -45,10 +45,12 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌─── PHASE 4: Billing & Subscription ────────────────────────┐  │
+│  │  • saas-billing (Gateway integration, webhooks, dunning)  │  │
 │  │  • saas-mvp-launcher (Stripe integration, pricing tiers)  │  │
 │  │  • fullstack-expert (Webhook handling, idempotency)       │  │
 │  │  • senior-frontend (Pricing page, customer portal UI)     │  │
 │  └────────────────────────────────────────────────────────────┘  │
+
 │                                                                   │
 │  ┌─── PHASE 5: Workspace & Team Management ───────────────────┐  │
 │  │  • saas-multi-tenant (Workspace model, member roles)      │  │
@@ -247,7 +249,8 @@ When this skill is triggered, execute the following **8-phase transformation pro
 ---
 
 #### PHASE 4: Billing & Subscription
-**Orchestrates:** `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend`
+**Orchestrates:** `saas-billing`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend`
+
 
 **Goal:** Integrate payment processing and subscription management.
 
@@ -590,7 +593,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 | 1. Discovery & Analisis | `app-analyzer-optimizer`, `prd-architect`, `brainstorming` | Audit codebase, PRD, strategi transformasi |
 | 2. Fondasi Multi-Tenancy | `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` | tenant_id, RLS, isolasi data |
 | 3. Autentikasi & Otorisasi | `fullstack-expert`, `supabase-security-expert`, `firebase-security-expert` | OAuth/OIDC, RBAC, JWT claims |
-| 4. Billing & Langganan | `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend` | Stripe, pricing, webhook, dunning |
+| 4. Billing & Langganan | `saas-billing`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend` | Stripe/Midtrans, billing state machine, webhook, dunning |
 | 5. Workspace & Tim | `saas-multi-tenant`, `senior-frontend`, `ui-ux-pro-max` | Invite, roles, onboarding |
 | 6. Frontend SaaS & Landing | `senior-frontend`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig` | App shell, dashboard, marketing |
 | 7. API & Feature Gating | `fullstack-expert`, `scalability-clean-code`, `senior-fullstack` | Versioning, rate limit, usage metering |

@@ -45,8 +45,10 @@ Admin endpoints that aggregate data across tenants must bypass RLS explicitly us
 ### Best Practices & Pitfalls
 - **Never** query a tenant-scoped table without a `tenant_id` filter or active RLS.
 - **Never** use auto-incrementing integer IDs for tenant-scoped resources. Use UUIDs to prevent ID enumeration attacks.
-- **Reset the tenant context** in the connection cleanup path to prevent context pollution in connection pooling.
+- **Connection Pooling Mitigation**: When using connection pooling (e.g., PgBouncer), session variables set by `SET LOCAL` are only scoped to the transaction. If you use session-scoped variables, ensure you reset them (`RESET ALL` or `SET app.current_tenant_id = ''`) before returning the connection to the pool, or run them strictly inside a `BEGIN`...`COMMIT` transaction block.
+- **RLS Bypass Risk**: Ensure database migrations and triggers are run with `SECURITY DEFINER` only when strictly necessary, and explicitly set a safe `search_path` to prevent search path hijacking.
 - **Test with at least 3 tenants** in your seed data to catch cross-tenant data leakage bugs.
+
 
 ---
 
@@ -85,5 +87,7 @@ Endpoint admin yang memerlukan agregasi data lintas tenant harus melewati RLS se
 ### Praktik Terbaik & Hal yang Harus Dihindari
 - **Jangan pernah** melakukan query pada tabel bertingkat tenant tanpa filter `tenant_id` atau tanpa RLS yang aktif.
 - **Jangan pernah** menggunakan ID integer berurutan (auto-increment) untuk resource bertingkat tenant. Gunakan UUID untuk mencegah penjelajahan ID oleh penyerang.
-- **Reset konteks tenant** setelah transaksi selesai untuk mencegah context kebocoran saat koneksi dikembalikan ke connection pool.
+- **Mitigasi Connection Pooling**: Saat menggunakan connection pool (seperti PgBouncer), variabel sesi yang diatur oleh `SET LOCAL` hanya berlaku selama transaksi berlangsung. Jika Anda menggunakan variabel sesi, pastikan Anda meresetnya (`RESET ALL` atau `SET app.current_tenant_id = ''`) sebelum mengembalikan koneksi ke pool, atau jalankan perintah secara ketat di dalam blok transaksi `BEGIN`...`COMMIT`.
+- **Risiko RLS Bypass**: Pastikan fungsi migrasi database dan triggers yang dijalankan dengan `SECURITY DEFINER` hanya digunakan saat benar-benar diperlukan, dan atur `search_path` secara aman untuk mencegah pembajakan search path.
 - **Uji dengan minimal 3 tenant** dalam database pengembangan (seed data) untuk mendeteksi bug kebocoran data lintas tenant.
+

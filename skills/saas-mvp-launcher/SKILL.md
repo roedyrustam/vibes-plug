@@ -55,8 +55,12 @@ Please refer to the code examples below for database schema configurations in Pr
 
 #### 4. Pre-Launch Checklist
 - **Technical**: Authentication works, Payments work end-to-end, Error monitoring configured (Sentry), Database backups active, Rate limiting on API routes, Input validation with Zod.
+- **Authentication & Auth Provider Checklist**:
+  - **Clerk**: Ensure webhook secrets are configured in production to sync user creations/deletions, set `ClerkProvider` dynamic flags, and lock down middleware matching routes so API folders are protected.
+  - **NextAuth.js (Auth.js)**: Verify `NEXTAUTH_SECRET` is set with a strong generated value, session driver is correctly configured (JWT or database sessions), and token expiration rules are set appropriately.
 - **Product**: Landing page with clear value prop, Pricing page with 2-3 tiers, Onboarding flow (< 5 minutes to first value), ToS and Privacy Policy.
 - **Marketing**: Domain configured, SEO meta tags on all pages, Analytics active.
+
 
 ### Best Practices & Troubleshooting
 - **Build Fast**: Ship a working MVP in 4-6 weeks maximum, then iterate based on feedback.
@@ -110,8 +114,12 @@ Skema database multi-tenant menyediakan struktur relasi antara `User`, `Workspac
 
 #### 4. Checklist Peluncuran (Pre-Launch Checklist)
 - **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.
+- **Checklist Autentikasi & Auth Provider**:
+  - **Clerk**: Pastikan webhook secret dikonfigurasi di produksi untuk sinkronisasi pembuatan/penghapusan user, atur dynamic flags pada `ClerkProvider`, dan kunci middleware agar seluruh endpoint API terproteksi.
+  - **NextAuth.js (Auth.js)**: Pastikan `NEXTAUTH_SECRET` diatur dengan nilai acak yang kuat di environment production, adapter session terhubung dengan benar (JWT atau database session), dan atur waktu kedaluwarsa token secara aman.
 - **Produk**: Landing page dengan proposisi nilai yang jelas, Halaman harga (pricing) dengan 2-3 tier, Alur onboarding (< 5 menit), Dokumen Terms of Service dan Kebijakan Privasi.
 - **Pemasaran**: Domain terkonfigurasi, Tag meta SEO pada semua halaman, Google Analytics/PostHog aktif, Akun media sosial siap.
+
 
 ### Praktik Terbaik & Pemecahan Masalah
 - **Iterasi Cepat**: Luncurkan MVP dalam waktu maksimal 4-6 minggu, lalu lakukan iterasi berdasarkan masukan pengguna.
