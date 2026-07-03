@@ -22,7 +22,7 @@ from typing import Dict, List, Optional
 # Project templates
 TEMPLATES = {
     "nextjs": {
-        "name": "Next.js 14+ App Router",
+        "name": "Next.js 15+ App Router",
         "description": "Modern Next.js with App Router, Server Components, and TypeScript",
         "structure": {
             "app": {

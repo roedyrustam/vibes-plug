@@ -42,7 +42,7 @@ No,Category,Guideline,Description,Do,Don't,Code Good,Code Bad,Severity,Docs URL
 41,Accessibility,Focus visible,Show focus only for keyboard users,focus-visible:ring-2,Focus on all interactions,focus-visible:ring-2,focus:ring-2 (shows on click too),Medium,
 42,Accessibility,Reduced motion,Respect user motion preferences,motion-reduce:animate-none,Ignore motion preferences,motion-reduce:transition-none,No reduced motion support,High,https://tailwindcss.com/docs/hover-focus-and-other-states#prefers-reduced-motion
 43,Performance,Configure content paths,Tailwind needs to know where classes are used,Use 'content' array in config,Use deprecated 'purge' option (v2),"content: ['./src/**/*.{js,ts,jsx,tsx}']",purge: [...],High,https://tailwindcss.com/docs/content-configuration
-44,Performance,JIT mode,Use JIT for faster builds and smaller bundles,JIT enabled (default in v3),Full CSS in development,Tailwind v3 defaults,Tailwind v2 without JIT,Medium,
+44,Performance,JIT mode,Use JIT for faster builds and smaller bundles,JIT enabled (default in v3),Full CSS in development,Tailwind v4 defaults,Tailwind v2 without JIT,Medium,
 45,Performance,Avoid @apply bloat,Use @apply sparingly,Direct utilities in HTML,Heavy @apply usage,class='px-4 py-2 rounded',@apply px-4 py-2 rounded;,Low,https://tailwindcss.com/docs/reusing-styles
 46,Plugins,Official plugins,Use official Tailwind plugins,@tailwindcss/forms typography aspect-ratio,Custom implementations,@tailwindcss/forms,Custom form reset CSS,Medium,https://tailwindcss.com/docs/plugins
 47,Plugins,Custom utilities,Create utilities for repeated patterns,Custom utility in config,Repeated arbitrary values,Custom shadow utility,"shadow-[0_4px_20px_rgba(0,0,0,0.1)] everywhere",Medium,

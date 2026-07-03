@@ -1,5 +1,5 @@
 No,Category,Guideline,Description,Do,Don't,Code Good,Code Bad,Severity,Docs URL
-1,Routing,Use App Router for new projects,App Router is the recommended approach in Next.js 14+,app/ directory with page.tsx,pages/ for new projects,app/dashboard/page.tsx,pages/dashboard.tsx,Medium,https://nextjs.org/docs/app
+1,Routing,Use App Router for new projects,App Router is the recommended approach in Next.js 15+,app/ directory with page.tsx,pages/ for new projects,app/dashboard/page.tsx,pages/dashboard.tsx,Medium,https://nextjs.org/docs/app
 2,Routing,Use file-based routing,Create routes by adding files in app directory,page.tsx for routes layout.tsx for layouts,Manual route configuration,app/blog/[slug]/page.tsx,Custom router setup,Medium,https://nextjs.org/docs/app/building-your-application/routing
 3,Routing,Colocate related files,Keep components styles tests with their routes,Component files alongside page.tsx,Separate components folder,app/dashboard/_components/,components/dashboard/,Low,
 4,Routing,Use route groups for organization,Group routes without affecting URL,Parentheses for route groups,Nested folders affecting URL,(marketing)/about/page.tsx,marketing/about/page.tsx,Low,https://nextjs.org/docs/app/building-your-application/routing/route-groups

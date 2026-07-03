@@ -3,42 +3,71 @@ const path = require('path');
 
 const skillsDir = path.join(__dirname, '../skills');
 
+function walk(dir) {
+    let results = [];
+    const list = fs.readdirSync(dir);
+    list.forEach(file => {
+        file = path.join(dir, file);
+        const stat = fs.statSync(file);
+        if (stat && stat.isDirectory()) {
+            results = results.concat(walk(file));
+        } else {
+            results.push(file);
+        }
+    });
+    return results;
+}
+
 function updateSkills() {
-    const dirs = fs.readdirSync(skillsDir);
+    const files = walk(skillsDir);
     
-    dirs.forEach(dir => {
-        const skillPath = path.join(skillsDir, dir, 'SKILL.md');
-        if (fs.existsSync(skillPath)) {
-            let content = fs.readFileSync(skillPath, 'utf-8');
+    files.forEach(filePath => {
+        const ext = path.extname(filePath);
+        if (ext === '.md' || ext === '.csv' || ext === '.py') {
+            let content = fs.readFileSync(filePath, 'utf-8');
+            const originalContent = content;
             
-            // Remove unnecessary frontmatter
-            content = content.replace(/github:.*?\n/g, '');
-            content = content.replace(/risk:.*?\n/g, '');
-            content = content.replace(/source:.*?\n/g, '');
-            content = content.replace(/date_added:.*?\n/g, '');
+            if (ext === '.md') {
+                // Only clean frontmatter if it exists at the top of the file
+                if (content.startsWith('---')) {
+                    const parts = content.split('---');
+                    if (parts.length >= 3) {
+                        let frontmatter = parts[1];
+                        frontmatter = frontmatter.replace(/github:.*?\n/g, '');
+                        frontmatter = frontmatter.replace(/risk:.*?\n/g, '');
+                        frontmatter = frontmatter.replace(/source:.*?\n/g, '');
+                        frontmatter = frontmatter.replace(/date_added:.*?\n/g, '');
+                        parts[1] = frontmatter;
+                        content = parts.join('---');
+                    }
+                }
+                
+                // Standardize headers
+                content = content.replace(/^## When to Use$/gm, '## Kondisi Pemicu / Trigger Conditions');
+                
+                // Fix encoding issues from ui_ux_expert
+                content = content.replace(/ðŸŽ¯/g, '🎯');
+                content = content.replace(/ðŸ§ /g, '🧠');
+                content = content.replace(/ðŸŽ¨/g, '🎨');
+                content = content.replace(/ðŸ“±/g, '📱');
+                content = content.replace(/ðŸ§©/g, '🧩');
+                content = content.replace(/âš™ï¸ /g, '⚙️');
+                content = content.replace(/ðŸš€/g, '🚀');
+                content = content.replace(/â Œ/g, '❌');
+            }
             
-            // Standardize headers
-            content = content.replace(/^## When to Use$/gm, '## Kondisi Pemicu / Trigger Conditions');
-            
-            // Update technologies to make them "semakin relevan"
+            // Update technologies to make them "semakin relevan" for all files
             content = content.replace(/React 18/g, 'React 19');
             content = content.replace(/Next\.js 14/g, 'Next.js 15');
             content = content.replace(/Tailwind CSS v3/g, 'Tailwind CSS v4');
+            content = content.replace(/Tailwind v3/g, 'Tailwind v4');
             content = content.replace(/TanStack Query v4/g, 'TanStack Query v5');
             content = content.replace(/Bun v1\.0/g, 'Bun v1.1+');
             
-            // Fix encoding issues from ui_ux_expert
-            content = content.replace(/ðŸŽ¯/g, '🎯');
-            content = content.replace(/ðŸ§ /g, '🧠');
-            content = content.replace(/ðŸŽ¨/g, '🎨');
-            content = content.replace(/ðŸ“±/g, '📱');
-            content = content.replace(/ðŸ§©/g, '🧩');
-            content = content.replace(/âš™ï¸ /g, '⚙️');
-            content = content.replace(/ðŸš€/g, '🚀');
-            content = content.replace(/â Œ/g, '❌');
-
-            fs.writeFileSync(skillPath, content, 'utf-8');
-            console.log(`Updated: ${dir}`);
+            if (content !== originalContent) {
+                fs.writeFileSync(filePath, content, 'utf-8');
+                console.log(`Updated: ${path.relative(skillsDir, filePath)}`);
+            }
         }
     });
 }
