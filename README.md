@@ -26,6 +26,7 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun JavaScript/TypeScript runtime (v1.1+), covering built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, package management, and migration strategies from Node.js.
 - **E2E Testing & Test Automation** (`e2e-testing-expert`): Expert guide for End-to-End (E2E) testing with Playwright, unit/integration testing with Vitest, and CI/CD automated pipeline setup.
 - **Fullstack Expert** (`fullstack-expert`): Expert-level fullstack development references covering multiple languages (TypeScript, Python, Go, Rust), frameworks (Next.js, FastAPI, Gin, Axum), API design patterns, databases, DevOps, and observability.
+- **PHP MVC Expert** (`mvc-expert`): Guidelines for modernizing legacy PHP projects into clean, secure, and structured OOP/MVC architectures adhering to modern PHP (v8.2+) capabilities and PSR standards.
 
 - **Production-Ready Hardener** (`production-ready-hardener`): Ultimate production readiness skill that orchestrates and coordinates audits across security, performance, SEO, testing, and DevOps. Includes an automated Python-based diagnostic scanner.
 - **Python Programming Expert** (`python-programming-expert`): Expert-level guide for Python programming (Python 3.12+), covering type safety (typing, Pydantic v2), asynchronous patterns (asyncio, TaskGroups), modern backend APIs (FastAPI, SQLAlchemy, SQLModel), package management (uv, Poetry), quality tooling (Ruff), and pytest.
@@ -61,6 +62,7 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Friendly Assistant** (`asisten_ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition, very useful for high-efficiency bulk refactoring tasks.
 - **CodeRabbit Expert** (`coderabbit`): AI-powered automated code review, pull request summarization, and interactive developer feedback directly in GitHub/GitLab.
+- **Auto Documentation Updater** (`auto-doc-updater`): Automatically documents every feature change or bug fix successfully built into `CHANGELOG.md` and `BLUEPRINT.md`.
 - **New Skill** (`skill_baru`): Basic template for creating new agent skills in the future.
 
 ### Automatic Installation (Recommended)
@@ -113,6 +115,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.1+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
 - **E2E Testing & Otomatisasi Tes** (`e2e-testing-expert`): Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi pipeline CI/CD.
 - **Fullstack Expert** (`fullstack-expert`): Referensi pengembangan fullstack tingkat ahli yang mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), pola desain API, database, DevOps, serta observability.
+- **PHP MVC Expert** (`mvc-expert`): Panduan untuk memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih, aman, dan terstruktur dengan mematuhi standar PSR dan fitur PHP modern (v8.2+).
 
 - **Production-Ready Hardener** (`production-ready-hardener`): Skill kesiapan produksi utama yang mengorkestrasi dan mengoordinasikan audit pada aspek keamanan, performa, SEO, testing, dan DevOps. Dilengkapi dengan alat scanner diagnostik otomatis berbasis Python.
 - **Python Programming Expert** (`python-programming-expert`): Panduan tingkat ahli untuk pemrograman Python (Python 3.12+), mencakup keamanan tipe (typing, Pydantic v2), pola asinkron (asyncio, TaskGroups), API backend modern (FastAPI, SQLAlchemy, SQLModel), manajemen paket (uv, Poetry), kualitas kode (Ruff), dan pytest.
@@ -148,6 +151,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **CodeRabbit Expert** (`coderabbit`): Asisten review kode otomatis berbasis AI, perangkum pull request, dan umpan balik developer interaktif langsung di GitHub/GitLab.
+- **Auto Documentation Updater** (`auto-doc-updater`): Otomatis mendokumentasikan setiap perubahan fitur atau perbaikan bug yang berhasil di-build ke `CHANGELOG.md` dan `BLUEPRINT.md`.
 - **Skill Baru** (`skill_baru`): *Template* dasar untuk pembuatan *skill* agen baru ke depannya.
 
 ### Instalasi otomatis (Rekomendasi)
@@ -173,7 +177,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ### Versi
-v1.4.1
+v1.4.3
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

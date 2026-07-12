@@ -8,6 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.4.3] - 2026-07-13
+
+### Added / Ditambahkan
+- Added `mvc-expert` skill module, providing expert-level guidelines to refactor legacy/obsolete PHP spaghetti codebases into modern, secure, and scalable MVC architectures using modern PHP 8.2+ OOP features and PSR standards.
+  *(Menambahkan modul skill `mvc-expert` yang menyediakan pedoman tingkat ahli untuk merefaktor codebase PHP spageti lama/usang menjadi arsitektur MVC yang modern, aman, dan skalabel menggunakan fitur OOP PHP 8.2+ modern dan standar PSR.)*
+
+### Changed / Diubah
+- Bumped project and plugin versions to v1.4.3.
+  *(Meningkatkan versi proyek dan plugin ke v1.4.3.)*
+
+## [1.4.2] - 2026-07-13
+
+### Changed / Diubah
+- Improved technology version modernization script `update_skills.js` to support matching non-breaking space variants (like `&nbsp;` and `\u0026nbsp;`).
+  *(Meningkatkan skrip pencocokan standardisasi teknologi `update_skills.js` agar mendukung pencocokan variasi spasi non-breaking seperti `&nbsp;` dan `\u0026nbsp;`.)*
+- Updated `ui-ux-pro-max` dataset to target Next.js 15 instead of Next.js 14 in non-breaking spaces documentation.
+  *(Memperbarui dataset `ui-ux-pro-max` untuk menargetkan Next.js 15 daripada Next.js 14 pada bagian dokumentasi spasi non-breaking.)*
+- Documented missing `auto-doc-updater` and `skill-baru` skills in `README.md` and `BLUEPRINT.md`.
+  *(Mendokumentasikan skill `auto-doc-updater` dan `skill-baru` yang sebelumnya belum tercantum di `README.md` dan `BLUEPRINT.md`.)*
+- Bumped project and plugin versions to v1.4.2.
+  *(Meningkatkan versi proyek dan plugin ke v1.4.2.)*
+
 ## [1.4.1] - 2026-06-30
 
 ### Changed / Diubah

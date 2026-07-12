@@ -57,12 +57,12 @@ function updateSkills() {
             }
             
             // Update technologies to make them "semakin relevan" for all files
-            content = content.replace(/React 18/g, 'React 19');
-            content = content.replace(/Next\.js 14/g, 'Next.js 15');
-            content = content.replace(/Tailwind CSS v3/g, 'Tailwind CSS v4');
-            content = content.replace(/Tailwind v3/g, 'Tailwind v4');
-            content = content.replace(/TanStack Query v4/g, 'TanStack Query v5');
-            content = content.replace(/Bun v1\.0/g, 'Bun v1.1+');
+            content = content.replace(/React(?:&nbsp;|\\u0026nbsp;| )18/g, (match) => match.replace('18', '19'));
+            content = content.replace(/Next\.js(?:&nbsp;|\\u0026nbsp;| )14/g, (match) => match.replace('14', '15'));
+            content = content.replace(/Tailwind CSS(?:&nbsp;|\\u0026nbsp;| )v3/g, (match) => match.replace('v3', 'v4'));
+            content = content.replace(/Tailwind(?:&nbsp;|\\u0026nbsp;| )v3/g, (match) => match.replace('v3', 'v4'));
+            content = content.replace(/TanStack Query(?:&nbsp;|\\u0026nbsp;| )v4/g, (match) => match.replace('v4', 'v5'));
+            content = content.replace(/Bun(?:&nbsp;|\\u0026nbsp;| )v1\.0/g, (match) => match.replace('v1.0', 'v1.1+'));
             
             if (content !== originalContent) {
                 fs.writeFileSync(filePath, content, 'utf-8');

@@ -1,7 +1,7 @@
 # Project Blueprint
 
-- **Version**: 1.4.1
-- **Last Updated**: 2026-06-30
+- **Version**: 1.4.3
+- **Last Updated**: 2026-07-13
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
@@ -25,6 +25,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 
 - **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check integration.
 - **fullstack-expert**: Multi-language (TypeScript, Python, Go, Rust), multi-framework backend developer references, API design patterns, database architecture, DevOps, and observability.
+- **mvc-expert**: Expert guidelines to modernize legacy PHP projects into clean, secure, and structured OOP/MVC architectures adhering to modern PHP (v8.2+) capabilities and PSR standards.
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
 - **production-ready-hardener**: Automated 7-phase application pre-launch audits across security, performance, accessibility, testing, and deployment, including a Python-based diagnostic scanner tool.
 - **python-programming-expert**: Expert skill for Python programming (Python 3.12+) covering type safety (typing/Pydantic), async/await (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), package management (uv, Poetry), quality checks (Ruff), and testing with pytest.
@@ -39,6 +40,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, and bundle optimization.
 - **senior-fullstack**: Advanced fullstack architectural/testing references (Redis caching, BullMQ background queues, connection pooling, CI/CD pipelines, Docker, and Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Generative search engine optimization and visibility architectures.
+- **skill-baru**: Basic template for creating new agent skills in the future.
 - **supabase-migration**: Database schema migration tracking and deployment commands (local and MCP).
 - **supabase-security-expert**: Relational database auditing and RLS security practices.
 - **tailwind-expert**: Tailwind CSS v4 styling rules, CSS-first design, theme customization, and utility optimization.
@@ -68,6 +70,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 
 - **firebase-security-expert**: Audit Security Rules Firebase, perlindungan akun layanan (Service Account), dan integrasi App Check.
 - **fullstack-expert**: Referensi pengembang backend multi-bahasa (TypeScript, Python, Go, Rust), multi-framework, pola desain API, arsitektur database, DevOps, dan observability.
+- **mvc-expert**: Pedoman ahli untuk memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih, aman, dan terstruktur dengan mematuhi standar PSR dan fitur PHP modern (v8.2+).
 - **prd-architect**: Guardrail awal yang mewajibkan pembuatan Product Requirements Document (PRD) yang komprehensif sebelum menulis kode baru.
 - **production-ready-hardener**: Audit pra-peluncuran aplikasi 7-fase otomatis pada aspek keamanan, performa, aksesibilitas, testing, dan deployment, termasuk alat scanner diagnostik berbasis Python.
 - **python-programming-expert**: Panduan ahli untuk pemrograman Python (Python 3.12+) mencakup keamanan tipe (typing/Pydantic), asinkron (asyncio, TaskGroups), web backends (FastAPI, SQLAlchemy, SQLModel), manajemen paket (uv, Poetry), pemeriksaan kualitas (Ruff), dan pengujian dengan pytest.
@@ -82,6 +85,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.
 - **senior-fullstack**: Referensi arsitektur dan pengujian fullstack tingkat lanjut (Redis caching, BullMQ background queues, connection pooling, CI/CD pipelines, Docker, dan Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Arsitektur visibilitas dan optimasi mesin pencari generatif (AEO/GEO/SEO).
+- **skill-baru**: Template dasar untuk pembuatan skill agen baru ke depannya.
 - **supabase-migration**: Pelacakan migrasi skema database dan perintah deployment (lokal dan MCP).
 - **supabase-security-expert**: Praktik audit database relasional dan keamanan Row-Level Security (RLS) Supabase.
 - **tailwind-expert**: Aturan styling Tailwind CSS v4, desain CSS-first, kustomisasi tema (@theme), dan optimasi utility.
