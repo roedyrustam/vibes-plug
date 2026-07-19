@@ -50,8 +50,9 @@ Recommended modern SaaS stack (2026):
 - **Deployment**: Vercel (seamless deployment, edge network, zero-config CI/CD).
 - **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
 
-#### 3. Core Database Schema (Multi-tenant SaaS)
-Please refer to the code examples below for database schema configurations in Prisma and Drizzle.
+#### 3. Architecture & Database Schema
+- **Architecture (`multiple-entry-points`)**: Apply the `multiple-entry-points` pattern to logically separate the public landing page, the authenticated tenant dashboard, and the administrative backend. This ensures the public site loads blazingly fast without bootstrapping heavy application logic.
+- **Schema (Multi-tenant SaaS)**: Please refer to the code examples below for database schema configurations in Prisma and Drizzle.
 
 #### 4. Pre-Launch Checklist
 - **Technical**: Authentication works, Payments work end-to-end, Error monitoring configured (Sentry), Database backups active, Rate limiting on API routes, Input validation with Zod.
@@ -109,8 +110,9 @@ Rekomendasi stack SaaS modern (2026):
 - **Deployment**: Vercel (CI/CD otomatis, edge network).
 - **Monitoring**: Sentry + PostHog (crash reporting, user analytics).
 
-#### 3. Database Schema (Multi-tenant SaaS)
-Skema database multi-tenant menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat acuan kode di bawah).
+#### 3. Arsitektur & Database Schema
+- **Arsitektur (`multiple-entry-points`)**: Terapkan pola `multiple-entry-points` untuk memisahkan secara logis halaman *landing page* publik, *dashboard* tenant yang diautentikasi, dan *backend* administratif. Ini memastikan situs publik memuat dengan sangat cepat tanpa memuat logika aplikasi yang berat.
+- **Schema (Multi-tenant SaaS)**: Skema database multi-tenant menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat acuan kode di bawah).
 
 #### 4. Checklist Peluncuran (Pre-Launch Checklist)
 - **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.

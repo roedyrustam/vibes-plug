@@ -42,9 +42,9 @@ If using Prisma, apply a global middleware that injects `where: { tenantId }` au
 #### 6. Separate Cross-Tenant Admin Routes
 Admin endpoints that aggregate data across tenants must bypass RLS explicitly using a dedicated database role (e.g., `bypassrls` or an admin bypass role).
 
-#### 7. Multi-Page Application (MPA) Approach in a Single Repository
+#### 7. Multi-Page Application (MPA) & Multiple Entry Points Approach
 When organizing a multi-tenant SaaS as a Multi-Page Application within a single repository, adhere to the following guidelines:
-- **Centralized Routing**: Use a Front Controller to handle all page requests. Route each request to its respective controller and view, ensuring each page load is fully processed on the server side with tenant context correctly initialized.
+- **Routing & Multiple Entry Points**: Use the `multiple-entry-points` skill to logically separate traffic. For example, use a `tenant.php` entry point that strictly mandates a valid `tenant_id` resolution before bootstrapping the app, while a `landing.php` entry point handles anonymous public traffic safely.
 - **Shared Layouts & Partials**: Avoid duplicating HTML (headers, footers, navigation). Create a `src/Views/layouts/` directory for base templates and a `src/Views/partials/` directory for reusable UI components. Controllers should inject page-specific content into the base layout.
 - **Asset Management**: Store all static assets in the `public/` directory. Use cache-busting techniques when linking assets in the views.
 - **State Management**: Use server-side sessions securely for user authentication, tenant context, flash messages, and tracking state across full page reloads.
@@ -91,9 +91,9 @@ Jika menggunakan Prisma, gunakan middleware global untuk menyisipkan `where: { t
 #### 6. Pisahkan Jalur Akses Admin Lintas Tenant
 Endpoint admin yang memerlukan agregasi data lintas tenant harus melewati RLS secara eksplisit menggunakan peran database khusus (misal: `bypassrls` atau role admin terdedikasi).
 
-#### 7. Pendekatan Multi-Page Application (MPA) dalam Satu Repositori
+#### 7. Pendekatan Multi-Page Application (MPA) & Multiple Entry Points
 Saat mengatur proyek SaaS multi-tenant sebagai Multi-Page Application di dalam satu repositori, ikuti panduan berikut:
-- **Routing Terpusat (Centralized Routing)**: Gunakan Front Controller untuk menangani semua permintaan halaman. Arahkan setiap permintaan ke controller dan view masing-masing, memastikan setiap pemuatan halaman diproses sepenuhnya di sisi server dengan konteks tenant yang diinisialisasi dengan benar.
+- **Routing & Multiple Entry Points**: Gunakan skill `multiple-entry-points` untuk memisahkan lalu lintas secara logis. Misalnya, gunakan *entry point* `tenant.php` yang secara ketat mewajibkan resolusi `tenant_id` yang valid sebelum memuat aplikasi, sementara *entry point* `landing.php` melayani lalu lintas publik anonim dengan aman.
 - **Layout & Parsial Bersama (Shared Layouts & Partials)**: Hindari duplikasi HTML (header, footer, navigasi). Buat direktori `src/Views/layouts/` untuk template dasar dan direktori `src/Views/partials/` untuk komponen UI yang dapat digunakan kembali. Controller harus menyuntikkan konten spesifik halaman ke dalam layout dasar.
 - **Manajemen Aset**: Simpan semua aset statis di direktori `public/`. Gunakan teknik cache-busting saat menautkan aset di dalam view.
 - **Manajemen State**: Gunakan session sisi server secara aman untuk autentikasi pengguna, konteks tenant, pesan flash, dan melacak state di seluruh proses reload halaman secara penuh.

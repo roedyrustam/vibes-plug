@@ -34,6 +34,7 @@ Your database must act as the source of truth for authorization, but synchronize
 - `canceled`: Subscription ended. Revoke premium features and prompt for reactivation.
 
 #### 2. Secure Webhook Implementation
+- **Dedicated Entry Point (`multiple-entry-points`)**: Isolate webhook processing into its own entry point (e.g., `webhook.php` or a separate edge function). This avoids bootstrapping heavy frontend/template engines and ensures rapid response times to the payment gateway.
 - **Signature Verification**: Always verify webhook signatures using the gateway's official SDK and webhook secret. Never trust raw request bodies.
 - **Idempotency**: Webhook events might be delivered multiple times. Save handled `event_id`s to a database table to avoid duplicate processing.
 - **Async Processing**: Return a `200 OK` status immediately to the gateway, then process the webhook body asynchronously (e.g., via background queues) to avoid gateway timeout.
@@ -82,6 +83,7 @@ Database Anda harus bertindak sebagai sumber kebenaran (source of truth) untuk o
 - `canceled`: Langganan berakhir. Cabut fitur premium dan tawarkan reaktivasi.
 
 #### 2. Implementasi Webhook Aman
+- **Entry Point Terdedikasi (`multiple-entry-points`)**: Isolasi pemrosesan webhook ke dalam *entry point* tersendiri (misal: `webhook.php` atau *edge function*). Ini menghindari pemuatan mesin template/frontend yang berat dan memastikan waktu respons yang sangat cepat ke *payment gateway*.
 - **Verifikasi Tanda Tangan**: Selalu verifikasi signature webhook menggunakan SDK resmi gateway dan webhook secret. Jangan pernah mempercayai body request mentah.
 - **Idempotensi**: Event webhook dapat dikirim lebih dari sekali. Simpan `event_id` yang telah diproses ke dalam tabel database untuk menghindari pemrosesan ganda.
 - **Pemrosesan Asinkron**: Kembalikan status `200 OK` segera ke payment gateway, lalu proses webhook di background queue agar koneksi tidak mengalami timeout.

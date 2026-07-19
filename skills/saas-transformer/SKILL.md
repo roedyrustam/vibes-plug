@@ -60,6 +60,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │                                                                   │
 │  ┌─── PHASE 6: SaaS Frontend & Landing ───────────────────────┐  │
 │  │  • senior-frontend (App shell, dashboard, settings)       │  │
+│  │  • multiple-entry-points (Separate app vs landing page)   │  │
 │  │  • tailwind-expert (Design system, responsive)            │  │
 │  │  • seo-aeo-landing-page-writer (Conversion landing page)  │  │
 │  │  • seo / seo-geo (SEO & AI search readiness)              │  │
@@ -365,12 +366,15 @@ When this skill is triggered, execute the following **8-phase transformation pro
 ---
 
 #### PHASE 6: SaaS Frontend & Landing
-**Orchestrates:** `senior-frontend`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
+**Orchestrates:** `senior-frontend`, `multiple-entry-points`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
 
 **Goal:** Build the SaaS frontend: app shell, dashboard, and marketing pages.
 
 **Steps:**
-1. **App shell / Layout**:
+1. **Architecture Separation (`multiple-entry-points`)**:
+   - Separate the heavy authenticated SaaS application from the lightweight marketing landing pages using distinct entry points.
+
+2. **App shell / Layout**:
    - Authenticated layout with sidebar navigation
    - Workspace context in header (workspace name, switcher)
    - User menu (profile, settings, logout)
@@ -595,7 +599,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 | 3. Autentikasi & Otorisasi | `fullstack-expert`, `supabase-security-expert`, `firebase-security-expert` | OAuth/OIDC, RBAC, JWT claims |
 | 4. Billing & Langganan | `saas-billing`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend` | Stripe/Midtrans, billing state machine, webhook, dunning |
 | 5. Workspace & Tim | `saas-multi-tenant`, `senior-frontend`, `ui-ux-pro-max` | Invite, roles, onboarding |
-| 6. Frontend SaaS & Landing | `senior-frontend`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig` | App shell, dashboard, marketing |
+| 6. Frontend SaaS & Landing | `senior-frontend`, `multiple-entry-points`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig` | App shell, dashboard, marketing |
 | 7. API & Feature Gating | `fullstack-expert`, `scalability-clean-code`, `senior-fullstack` | Versioning, rate limit, usage metering |
 | 8. Pengerasan & Peluncuran | `production-ready-hardener`, `auto-doc-updater`, `saas-mvp-launcher` | Audit produksi, checklist, dokumentasi |
 
@@ -676,8 +680,9 @@ Ketika skill ini dipicu, jalankan **8 fase transformasi secara berurutan**. Seti
 - [ ] Halaman pengaturan workspace
 
 #### FASE 6: Frontend SaaS & Landing
-**Mengorkestrasi:** `senior-frontend`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig`
+**Mengorkestrasi:** `senior-frontend`, `multiple-entry-points`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig`
 
+- [ ] Arsitektur dipisah antara aplikasi SaaS dan landing page (`multiple-entry-points`)
 - [ ] App shell dengan sidebar, header, workspace switcher
 - [ ] Dashboard dengan metrik dan grafik penggunaan
 - [ ] Halaman pengaturan akun, workspace, tim, billing
