@@ -106,6 +106,13 @@ Refactor old PHP logic to use modern constructs:
 - **Readonly Classes** for immutable service/data classes.
 - **Strict Types Declaration**: Add `declare(strict_types=1);` to all class files.
 
+#### 6. Multi-Page Application (MPA) Approach in a Single Repository
+When organizing a project as a Multi-Page Application within a single repository, adhere to the following guidelines:
+- **Centralized Routing**: Use the Front Controller (`public/index.php`) to handle all page requests. Route each request to its respective controller and view, ensuring each page load is fully processed on the server side.
+- **Shared Layouts & Partials**: Avoid duplicating HTML (headers, footers, navigation). Create a `src/Views/layouts/` directory for base templates and a `src/Views/partials/` directory for reusable UI components. Controllers should inject page-specific content into the base layout.
+- **Asset Management**: Store all static assets (CSS, JS, images) in the `public/` directory. Use cache-busting techniques (e.g., appending file modification time `?v=123`) when linking assets in the views.
+- **State Management**: Use server-side sessions securely for user authentication, flash messages, and tracking state across full page reloads.
+
 ### Trigger Conditions
 Active whenever the user requests to:
 - Modernize a legacy PHP project or spaghetti PHP script.
@@ -209,6 +216,13 @@ Refaktorkan logika PHP lama agar menggunakan fitur modern:
 - **Constructor Property Promotion** dan **Typed Properties** untuk properti kelas.
 - **Readonly Classes** untuk kelas layanan atau data yang bersifat immutable (tidak dapat diubah).
 - **Deklarasi Strict Types**: Tambahkan `declare(strict_types=1);` di bagian paling atas setiap file kelas.
+
+#### 6. Pendekatan Multi-Page Application (MPA) dalam Satu Repositori
+Saat mengatur proyek sebagai Multi-Page Application di dalam satu repositori, ikuti panduan berikut:
+- **Routing Terpusat (Centralized Routing)**: Gunakan Front Controller (`public/index.php`) untuk menangani semua permintaan halaman. Arahkan setiap permintaan ke controller dan view masing-masing, memastikan setiap pemuatan halaman diproses sepenuhnya di sisi server.
+- **Layout & Parsial Bersama (Shared Layouts & Partials)**: Hindari duplikasi HTML (header, footer, navigasi). Buat direktori `src/Views/layouts/` untuk template dasar dan direktori `src/Views/partials/` untuk komponen UI yang dapat digunakan kembali. Controller harus menyuntikkan konten spesifik halaman ke dalam layout dasar.
+- **Manajemen Aset**: Simpan semua aset statis (CSS, JS, gambar) di direktori `public/`. Gunakan teknik cache-busting (misalnya, menambahkan waktu modifikasi file `?v=123`) saat menautkan aset di dalam view.
+- **Manajemen State**: Gunakan session sisi server secara aman untuk autentikasi pengguna, pesan flash, dan melacak state di seluruh proses reload halaman secara penuh.
 
 ### Kondisi Pemicu
 Aktif setiap kali pengguna meminta untuk:
