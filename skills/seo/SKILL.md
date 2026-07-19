@@ -39,6 +39,7 @@ Comprehensive SEO analysis across all industries (SaaS, local services, e-commer
 - **Schema Deprecations**: Never recommend HowTo schema (deprecated Sept 2023). FAQ schema only for government and healthcare sites.
 - **Core Web Vitals**: All performance references must use INP (Interaction to Next Paint), never FID. LCP must be < 2.5s.
 - **AI-First Indexing**: Always check for `llms.txt` readiness, semantic HTML tags, and clean text extraction for LLM crawlers.
+- **MPA Synergy**: When auditing a Multi-Page Application (orchestrated via `mpa-orchestrator`), ensure each server-rendered page delivers fully populated HTML and structured data on initial load without relying on client-side JavaScript execution.
 
 ### Scoring Methodology (SEO Health Score)
 Weighted aggregate of all categories:
@@ -79,6 +80,7 @@ Analisis SEO komprehensif di semua industri (SaaS, layanan lokal, e-commerce, pe
 - **Schema**: Jangan merekomendasikan schema HowTo (usang sejak Sept 2023). Schema FAQ hanya untuk situs web pemerintah dan layanan kesehatan.
 - **Core Web Vitals**: Pengukuran harus menggunakan INP (Interaction to Next Paint), bukan FID. LCP harus < 2.5 detik.
 - **Kesiapan AI (AI-First)**: Periksa kesiapan `llms.txt`, tag HTML semantik, dan teks bersih agar mudah dibaca oleh crawler AI.
+- **Sinergi MPA**: Saat mengaudit Multi-Page Application (diorkestrasi via `mpa-orchestrator`), pastikan setiap halaman yang di-render di server menyajikan HTML lengkap dan data terstruktur pada pemuatan awal tanpa bergantung pada eksekusi JavaScript sisi klien.
 
 ### Metodologi Penilaian (SEO Health Score)
 Skor Kesehatan SEO (0-100) dihitung berdasarkan bobot kategori berikut:

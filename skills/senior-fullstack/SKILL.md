@@ -32,6 +32,7 @@ A comprehensive blueprint and toolkit for senior fullstack engineers, covering p
 - **Code Quality**: Enforce `strict: true` in `tsconfig.json`, avoid `any` typings, and validate API payloads with Zod.
 - **Database Scaling**: Always use connection pooling, add indexes on query columns, and enforce Row-Level Security (RLS) on tenant tables.
 - **Security**: Enforce strict security headers (CSP, HSTS), validate external webhook signatures (e.g., Stripe), and implement rate limiting.
+- **Architecture Choice**: Consider the Multi-Page Application (MPA) approach in a single repository (via `mpa-orchestrator`) for projects prioritizing SEO, fast initial loads, and simpler deployment models over heavy client-side state.
 
 ### Troubleshooting
 - **Hydration Mismatch**: Avoid client-only browser state (like `localStorage`) during initial render. Wrap blocks in `useEffect` or use `next/dynamic` with `{ ssr: false }`.
@@ -67,6 +68,7 @@ Panduan komprehensif dan perangkat instruksi untuk insinyur fullstack tingkat se
 - **Kualitas Kode**: Terapkan `strict: true` di `tsconfig.json`, hindari tipe `any`, dan gunakan Zod untuk validasi payload API.
 - **Skalabilitas Database**: Gunakan connection pooling, buat index pada kolom query, dan terapkan Row-Level Security (RLS) pada tabel bertingkat tenant.
 - **Keamanan**: Terapkan header keamanan yang ketat (CSP, HSTS), validasi tanda tangan webhook eksternal (misal Stripe), dan pasang rate limiting.
+- **Pemilihan Arsitektur**: Pertimbangkan pendekatan Multi-Page Application (MPA) dalam satu repositori (via `mpa-orchestrator`) untuk proyek yang mengutamakan SEO, pemuatan awal yang cepat, dan model deployment yang lebih sederhana dibandingkan state sisi klien yang berat.
 
 ### Pemecahan Masalah (Troubleshooting)
 - **Hydration Mismatch**: Hindari browser state khusus client (seperti `localStorage`) selama render awal. Bungkus block dalam `useEffect` atau gunakan `next/dynamic` dengan `{ ssr: false }`.

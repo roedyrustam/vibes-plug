@@ -42,6 +42,11 @@ Tailwind CSS v4 uses CSS-first configuration. Define custom theme tokens using t
 - Ensure full keyboard navigability for all interactive elements.
 - Write unit tests using Vitest and React Testing Library, and E2E tests using Playwright.
 
+#### 5. Multi-Page Application (MPA) Integration
+When working within a centralized MPA architecture (e.g., orchestrated by `mpa-orchestrator`):
+- **Micro-Interactions**: Use lightweight tools like Alpine.js or HTMX for dynamic UI elements instead of heavy client-side React bundles, preserving the server-rendered nature of the MPA.
+- **Progressive Enhancement**: Ensure forms and links work without JavaScript first, then enhance them with client-side interactivity.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -75,3 +80,8 @@ Konfigurasi kustom tema dilakukan langsung di file CSS (seperti `app/globals.css
 - Gunakan HTML semantik seperti `<button>` dan `<nav>`.
 - Pastikan semua elemen interaktif dapat diakses melalui keyboard.
 - Lakukan pengujian unit menggunakan Vitest dan React Testing Library, serta pengujian E2E menggunakan Playwright.
+
+#### 5. Integrasi Multi-Page Application (MPA)
+Saat bekerja dalam arsitektur MPA terpusat (misalnya diorkestrasi oleh `mpa-orchestrator`):
+- **Interaksi Mikro**: Gunakan alat ringan seperti Alpine.js atau HTMX untuk elemen UI dinamis alih-alih bundle React client-side yang berat, untuk mempertahankan sifat server-rendered dari MPA.
+- **Progressive Enhancement**: Pastikan form dan tautan berfungsi tanpa JavaScript terlebih dahulu, kemudian tingkatkan dengan interaktivitas sisi klien.
