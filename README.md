@@ -41,7 +41,7 @@ This plugin provides the following list of skills that can be used by the agent:
 #### SaaS Architecture & Business
 - **PRD Architect** (`prd-architect`): Enforces the mandatory formulation of a Product Requirements Document (PRD) covering MVPs and user flows before the agent writes any new application code.
 - **SaaS Billing & Subscriptions** (`saas-billing`): Implement and audit SaaS billing systems, subscription state machines, secure webhooks, and local database synchronization using Stripe, Midtrans, or Paddle.
-- **SaaS Multi-Tenant** (`saas-multi-tenant`): Specialist in designing and implementing multi-tenant SaaS architecture with Row-Level Security (RLS), shared-schema, and PostgreSQL.
+- **SaaS Multi-Tenant** (`saas-multi-tenant`): Specialist in designing and implementing multi-tenant SaaS architecture with both Shared Schema (RLS) and Isolated Schema (schema-per-tenant) using PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Structured roadmap to plan and launch a Minimum Viable Product (MVP) for SaaS, covering technologies, authentication, payments, etc.
 - **SaaS Transformer** (`saas-transformer`): Master orchestrator skill that guides the systematic 8-phase transformation of an existing regular application into a fully-featured production-ready multi-tenant SaaS platform (tenancy, billing, team management, feature gating).
 
@@ -130,7 +130,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 #### Arsitektur SaaS & Bisnis
 - **PRD Architect** (`prd-architect`): Memaksa perumusan *Product Requirements Document* (PRD) yang meliputi MVP dan *user flows* secara wajib sebelum agen menulis kode aplikasi baru apa pun.
 - **SaaS Billing & Langganan** (`saas-billing`): Implementasi dan audit sistem billing SaaS, state machine langganan, webhook aman, dan sinkronisasi database lokal menggunakan Stripe, Midtrans, atau Paddle.
-- **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan *Row-Level Security* (RLS), *shared-schema*, dan PostgreSQL.
+- **SaaS Multi-Tenant** (`saas-multi-tenant`): Spesialis dalam merancang dan mengimplementasikan arsitektur *SaaS multi-tenant* dengan dukungan *Shared Schema* (RLS) maupun *Isolated Schema* (schema-per-tenant) menggunakan PostgreSQL.
 - **SaaS MVP Launcher** (`saas-mvp-launcher`): Panduan jalan (roadmap) terstruktur untuk merencanakan dan meluncurkan Minimum Viable Product (MVP) untuk SaaS, mencakup teknologi, autentikasi, pembayaran, dll.
 - **SaaS Transformer** (`saas-transformer`): Skill master orkestrator yang memandu transformasi sistematis 8-fase dari aplikasi biasa yang sudah berjalan menjadi platform SaaS multi-tenant lengkap yang siap produksi (tenancy, billing, manajemen tim, feature gating).
 

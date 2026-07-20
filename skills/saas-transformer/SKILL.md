@@ -35,7 +35,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌─── PHASE 2: Multi-Tenancy Foundation ──────────────────────┐  │
-│  │  • saas-multi-tenant (RLS, tenant_id, data isolation)     │  │
+│  │  • saas-multi-tenant (Shared/Isolated Schema, data isolation) │  │
 │  │  • supabase-migration (Database migrations)               │  │
 │  │  • supabase-security-expert (Audit RLS & RBAC)            │  │
 │  └────────────────────────────────────────────────────────────┘  │
@@ -139,14 +139,15 @@ When this skill is triggered, execute the following **9-phase transformation pro
 ---
 
 #### PHASE 2: Multi-Tenancy Foundation
-**Orchestrates:** `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`
+**Orchestrates:** `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` (for Shared Schema RLS)
 
 **Goal:** Add tenant isolation to the database layer.
 
 **Checklist:**
-- [ ] `tenant_id` / `workspace_id` column added to ALL data tables
 - [ ] Core SaaS tables created (workspaces, workspace_members, workspace_invitations)
-- [ ] RLS enabled and policies created on ALL tenant-scoped tables
+- [ ] Decide on Tenancy Model (Shared Schema vs Isolated Schema)
+- [ ] Add `tenant_id` to all scoped tables (if Shared Schema) or configure dynamic routing (if Isolated Schema)
+- [ ] Apply RLS policies to restrict data access by tenant (if Shared Schema)
 - [ ] Tenant-aware middleware implemented
 - [ ] Existing data backfilled with default tenant
 
@@ -319,7 +320,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 | Fase | Skill yang Digunakan | Fokus |
 |------|---------------------|-------|
 | 1. Discovery & Arsitektur | `app-analyzer-optimizer`, `prd-architect`, `mpa-orchestrator`, `bun-runtime-expert` | Audit codebase, MPA vs SPA, evaluasi Bun |
-| 2. Fondasi Multi-Tenancy | `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` | tenant_id, RLS, isolasi data |
+| 2. Fondasi Multi-Tenancy | `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` | Shared/Isolated Schema, RLS, isolasi data |
 | 3. Autentikasi & Otorisasi | `fullstack-expert`, `supabase-security-expert`, `firebase-security-expert` | OAuth/OIDC, RBAC, JWT claims |
 | 4. Billing & Langganan | `saas-billing`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend` | Stripe/Midtrans, webhook, dunning |
 | 5. Workspace & Tim | `saas-multi-tenant`, `senior-frontend`, `ui-ux-pro-max` | Invite, roles, onboarding |
@@ -354,10 +355,11 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 - [ ] Model tenancy diputuskan
 
 #### FASE 2: Fondasi Multi-Tenancy
-**Mengorkestrasi:** `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`
+**Mengorkestrasi:** `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` (untuk RLS Shared Schema)
 
-- [ ] Kolom `tenant_id` / `workspace_id` ditambahkan ke SEMUA tabel data
-- [ ] RLS diaktifkan dan policy dibuat di SEMUA tabel bertingkat tenant
+- [ ] Tentukan Model Tenancy (Shared Schema vs Isolated Schema)
+- [ ] Tambahkan `tenant_id` ke semua tabel terkait (jika Shared Schema) atau konfigurasi routing dinamis (jika Isolated Schema)
+- [ ] Terapkan kebijakan RLS untuk membatasi akses data per tenant (jika Shared Schema)
 - [ ] Middleware tenant-aware diimplementasikan
 - [ ] Data existing di-backfill dengan tenant default
 
