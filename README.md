@@ -26,6 +26,7 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun JavaScript/TypeScript runtime (v1.1+), covering built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, package management, and migration strategies from Node.js.
 - **E2E Testing & Test Automation** (`e2e-testing-expert`): Expert guide for End-to-End (E2E) testing with Playwright, unit/integration testing with Vitest, and CI/CD automated pipeline setup.
 - **Fullstack Expert** (`fullstack-expert`): Expert-level fullstack development references covering multiple languages (TypeScript, Python, Go, Rust), frameworks (Next.js, FastAPI, Gin, Axum), API design patterns, databases, DevOps, and observability.
+- **Monorepo & Workspace Architect** (`monorepo-architect`): Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages.
 - **PHP MVC Expert** (`mvc-expert`): Guidelines for modernizing legacy PHP projects into clean, secure, and structured OOP/MVC architectures adhering to modern PHP (v8.2+) capabilities and PSR standards.
 
 - **Production-Ready Hardener** (`production-ready-hardener`): Ultimate production readiness skill that orchestrates and coordinates audits across security, performance, SEO, testing, and DevOps. Includes an automated Python-based diagnostic scanner.
@@ -116,6 +117,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.1+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
 - **E2E Testing & Otomatisasi Tes** (`e2e-testing-expert`): Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi pipeline CI/CD.
 - **Fullstack Expert** (`fullstack-expert`): Referensi pengembangan fullstack tingkat ahli yang mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), pola desain API, database, DevOps, serta observability.
+- **Monorepo & Workspace Architect** (`monorepo-architect`): Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo, pnpm workspaces, dan paket bersama (*shared packages*).
 - **PHP MVC Expert** (`mvc-expert`): Panduan untuk memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih, aman, dan terstruktur dengan mematuhi standar PSR dan fitur PHP modern (v8.2+).
 
 - **Production-Ready Hardener** (`production-ready-hardener`): Skill kesiapan produksi utama yang mengorkestrasi dan mengoordinasikan audit pada aspek keamanan, performa, SEO, testing, dan DevOps. Dilengkapi dengan alat scanner diagnostik otomatis berbasis Python.
