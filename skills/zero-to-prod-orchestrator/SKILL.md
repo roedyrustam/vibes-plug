@@ -1,10 +1,10 @@
 ---
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
-author: "Antigravity"
+author: "Roedy Rustam"
 ---
 
-# Zero to Production Orchestrator
+# Zero to Production Orchestrator (2026 Master Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,70 +14,85 @@ author: "Antigravity"
 ## English
 
 ### Overview
-The **Zero to Production Orchestrator** is a master skill designed to guide the complete lifecycle of building a new application from absolute zero to a production-ready release. It orchestrates other specialized skills and enforces strict documentation of progress and milestones.
+The **Zero to Production Orchestrator** is the central master skill designed to orchestrate all specialized skills in `vibes-plug`. It guides fullstack developers through the complete software engineering lifecycle — from concept discovery to AI integration, multi-platform backend architecture, design systems, automated testing, GEO/AEO optimization, and production deployment.
 
 ### Trigger Conditions
-Use this skill when:
-- The user wants to build a new application from scratch.
-- The user requests a step-by-step guided implementation for a new project.
-- The user wants an organized workflow where every step and progress is documented.
+- Starting any new application development from scratch.
+- Asking for a complete, end-to-end fullstack development roadmap.
+- Orchestrating multiple domain skills across UI, Backend, AI/LLM, Database, Security, and Cloud.
 
-### Core Principles
-1. **Never Skip Phases**: Each phase must be completed and approved by the user before moving to the next.
-2. **Continuous Documentation**: Use `auto-doc-updater` to update `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
-3. **Progress Tracking**: Maintain a `PROGRESS.md` or a centralized task tracker in the repository root to check off completed tasks.
+### Core Principles & Hard Gates
+1. **Never Skip Phases**: Each phase must be completed and validated before advancing to the next.
+2. **Continuous Auto-Documentation**: Invoke `auto-doc-updater` to log changes in `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
+3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
 
-### The 8-Phase Master Plan
+---
 
-#### PHASE 1: Discovery & PRD
-**Orchestrates:** `prd-architect`, `brainstorming`
-- [ ] Brainstorm and validate the application idea.
+### The 8-Phase Master Fullstack Pipeline
+
+```
+  PHASE 1          PHASE 2          PHASE 3          PHASE 4
+Discovery/PRD ---> Foundation ---> Database/ORM ---> Backend/APIs
+      |                                                   |
+      v                                                   v
+  PHASE 8          PHASE 7          PHASE 6          PHASE 5
+Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
+```
+
+#### PHASE 1: Discovery & AI PRD Architectural Planning
+**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`
+- [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Draft a comprehensive Product Requirements Document (PRD).
-- [ ] Define the tech stack.
+- [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
 
-#### PHASE 2: Project Foundation
-**Orchestrates:** `bun-runtime-expert`, `senior-fullstack`, `senior-frontend`
-- [ ] Initialize the repository (e.g., Next.js, Vite, or backend frameworks).
-- [ ] Configure linters, formatters, and TypeScript/environment settings.
-- [ ] Set up the initial CI/CD pipeline.
+#### PHASE 2: Project Foundation & Monorepo Setup
+**Orchestrates:** `monorepo-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`
+- [ ] Initialize monorepo (Turborepo + pnpm workspaces) or single repo foundation.
+- [ ] Set up language runtimes: Node.js 22 LTS / Bun 1.2+ / Python 3.12+ (uv) / Go 1.23+.
+- [ ] Configure `Ruff`, `ESLint`, `Prettier`, and TypeScript strict configurations.
+- [ ] Setup initial CI/CD pipeline template.
 
-#### PHASE 3: Database & Core Architecture
-**Orchestrates:** `fullstack-expert`, `saas-multi-tenant` (if SaaS), `supabase-migration`
-- [ ] Design the database schema and relationships.
-- [ ] Configure the ORM (Prisma/Drizzle/SQLx).
-- [ ] Apply initial database migrations.
-- [ ] Implement Row-Level Security (RLS) or tenant isolation if required.
+#### PHASE 3: Database & Multi-Tenant Core Architecture
+**Orchestrates:** `fullstack-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`
+- [ ] Design normalized relational schemas and document models.
+- [ ] Configure ORM layer (Drizzle ORM / Prisma 6 / SQLx / sqlc).
+- [ ] Implement Row-Level Security (RLS) policies and tenant isolation.
+- [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
-#### PHASE 4: Authentication & Backend APIs
-**Orchestrates:** `firebase-security-expert`, `supabase-security-expert`, `fullstack-expert`
-- [ ] Set up Authentication (Clerk, NextAuth, Supabase Auth).
-- [ ] Build core API routes or server actions.
-- [ ] Implement role-based access control (RBAC).
+#### PHASE 4: Backend APIs, Microservices & AI Agents
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`
+- [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, Hono, Gin, or Axum.
+- [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
+- [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
+- [ ] Implement background processing queues (BullMQ + Redis) and rate limiters.
 
-#### PHASE 5: Frontend & UI/UX
-**Orchestrates:** `ui-ux-pro-max`, `tailwind-expert`, `tanstack-query-expert`
-- [ ] Build the base layout and navigation shell.
-- [ ] Implement core UI components using the design system.
-- [ ] Integrate frontend state with backend APIs.
+#### PHASE 5: Frontend, Design Systems & Mobile Apps
+**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `mobile-expo-expert`, `tauri-expert`
+- [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
+- [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
+- [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
+- [ ] Integrate frontend state management with TanStack Query v5.
 
-#### PHASE 6: Testing & QA
-**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`
-- [ ] Write unit tests for core logic.
-- [ ] Write integration and E2E tests for critical user flows.
-- [ ] Fix any bugs found during QA.
+#### PHASE 6: Automated Testing & Security Audit
+**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`
+- [ ] Write unit and integration tests with Vitest and pytest.
+- [ ] Write resilient E2E browser tests with Playwright.
+- [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
+- [ ] Audit CORS, CSP headers, rate-limiting, and input sanitization.
 
-#### PHASE 7: Hardening & SEO
-**Orchestrates:** `production-ready-hardener`, `seo`, `app-analyzer-optimizer`
-- [ ] Audit performance and security.
-- [ ] Implement SEO metadata, sitemaps, and GEO strategies.
-- [ ] Ensure the application handles edge cases and errors gracefully.
+#### PHASE 7: Pre-Launch Hardening, Web Vitals & GEO/SEO
+**Orchestrates:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`
+- [ ] Perform pre-launch audit across Core Web Vitals (LCP, INP, CLS) and bundle sizes.
+- [ ] Optimize Generative Engine Optimization (GEO) for AI Overviews, Perplexity, ChatGPT Search, and deploy `/llms.txt`.
+- [ ] Generate structured Schema.org JSON-LD markup and AEO conversion landing pages.
 
-#### PHASE 8: Launch & Deployment
-**Orchestrates:** `cloud-hosting-expert`, `auto-doc-updater`
-- [ ] Deploy to production (Vercel, Cloudflare, VPS, etc.).
-- [ ] Finalize all documentation (`CHANGELOG.md`, `BLUEPRINT.md`).
-- [ ] Handover the production-ready application to the user.
+#### PHASE 8: Launch, Deployment & Handover
+**Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `saas-transformer`, `auto-doc-updater`
+- [ ] Deploy backend and edge services to Vercel, Cloudflare, AWS, or Railway.
+- [ ] Configure Stripe Billing v16+ usage-based subscriptions and webhooks.
+- [ ] Finalize `CHANGELOG.md`, `BLUEPRINT.md`, and `PROGRESS.md`.
+- [ ] Handover the production-grade application to the user.
 
 ---
 
@@ -85,67 +100,73 @@ Use this skill when:
 ## Bahasa Indonesia
 
 ### Ringkasan
-**Zero to Production Orchestrator** adalah skill master yang dirancang untuk memandu siklus hidup lengkap dalam membangun aplikasi baru dari nol mutlak hingga rilis siap produksi. Skill ini mengorkestrasi skill spesialis lainnya dan mewajibkan dokumentasi progres yang ketat.
+**Zero to Production Orchestrator** adalah skill master terpusat yang merancang dan mengorkestrasi seluruh skill spesialis di `vibes-plug`. Skill ini memandu pengembang *fullstack* melalui seluruh siklus hidup rekayasa perangkat lunak — mulai dari tahap ide awal hingga integrasi AI, arsitektur backend multi-platform, design system, pengujian otomatis, optimasi GEO/AEO, dan deployment produksi.
 
 ### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Pengguna ingin membangun aplikasi baru dari awal (from scratch).
-- Pengguna meminta panduan implementasi langkah demi langkah untuk proyek baru.
-- Pengguna menginginkan alur kerja terorganisir di mana setiap langkah dan progres terdokumentasi secara konsisten.
+- Memulai pengembangan aplikasi baru dari nol.
+- Meminta panduan roadmap pengembangan fullstack end-to-end yang terstruktur.
+- Mengorkestrasi berbagai skill spesialis lintas domain (UI, Backend, AI/LLM, Database, Keamanan, dan Cloud).
 
-### Prinsip Inti
-1. **Jangan Pernah Melewati Fase**: Setiap fase harus diselesaikan dan disetujui oleh pengguna sebelum beralih ke fase berikutnya.
-2. **Dokumentasi Berkelanjutan**: Gunakan `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap pencapaian besar (milestone).
-3. **Pelacakan Progres**: Buat dan pelihara file `PROGRESS.md` atau daftar tugas utama (Task List) di root repositori untuk mencentang tugas yang telah selesai.
+### Prinsip Inti & Gerbang Ketat
+1. **Jangan Pernah Melewati Fase**: Setiap fase harus diselesaikan dan divalidasi sebelum beralih ke fase berikutnya.
+2. **Otomatisasi Dokumentasi**: Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap milestone utama.
+3. **Pelacakan Progres**: Pelihara daftar periksa `PROGRESS.md` di root repositori.
 
-### Rencana Induk 8-Fase
+---
 
-#### FASE 1: Discovery & PRD
-**Mengorkestrasi:** `prd-architect`, `brainstorming`
-- [ ] Bertukar pikiran (brainstorming) dan memvalidasi ide aplikasi.
+### Master Pipeline Fullstack 8-Fase
+
+#### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`
+- [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Menyusun Product Requirements Document (PRD) yang komprehensif.
-- [ ] Menentukan stack teknologi.
+- [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.
 
-#### FASE 2: Fondasi Proyek
-**Mengorkestrasi:** `bun-runtime-expert`, `senior-fullstack`, `senior-frontend`
-- [ ] Inisialisasi repositori (misal: Next.js, Vite, atau framework backend).
-- [ ] Konfigurasi linter, formatter, dan pengaturan TypeScript/environment.
-- [ ] Siapkan pipeline CI/CD awal.
+#### FASE 2: Fondasi Proyek & Monorepo
+**Mengorkestrasi:** `monorepo-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`
+- [ ] Inisialisasi monorepo (Turborepo + pnpm workspaces) atau repositori tunggal.
+- [ ] Menyiapkan runtime bahasa: Node.js 22 LTS / Bun 1.2+ / Python 3.12+ (uv) / Go 1.23+.
+- [ ] Konfigurasi `Ruff`, `ESLint`, `Prettier`, dan TypeScript ketat.
+- [ ] Menyiapkan template pipeline CI/CD awal.
 
-#### FASE 3: Database & Arsitektur Inti
-**Mengorkestrasi:** `fullstack-expert`, `saas-multi-tenant` (jika SaaS), `supabase-migration`
-- [ ] Desain skema database dan relasinya.
-- [ ] Konfigurasi ORM (Prisma/Drizzle/SQLx).
-- [ ] Terapkan migrasi database awal.
-- [ ] Implementasikan Row-Level Security (RLS) atau isolasi tenant jika diperlukan.
+#### FASE 3: Database & Arsitektur Multi-Tenant
+**Mengorkestrasi:** `fullstack-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`
+- [ ] Merancang skema relasional ter-normalisasi dan pemodelan dokumen.
+- [ ] Konfigurasi lapisan ORM (Drizzle ORM / Prisma 6 / SQLx / sqlc).
+- [ ] Mengimplementasikan kebijakan Row-Level Security (RLS) dan isolasi tenant.
+- [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
-#### FASE 4: Autentikasi & API Backend
-**Mengorkestrasi:** `firebase-security-expert`, `supabase-security-expert`, `fullstack-expert`
-- [ ] Siapkan Autentikasi (Clerk, NextAuth, Supabase Auth).
-- [ ] Bangun route API inti atau Server Actions.
-- [ ] Implementasikan Role-Based Access Control (RBAC).
+#### FASE 4: API Backend, Microservices & Agen AI
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`
+- [ ] Membangun REST / GraphQL / gRPC API throughput tinggi menggunakan Fastify 5, Hono, Gin, atau Axum.
+- [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
+- [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
+- [ ] Mengimplementasikan antrean pemrosesan latar belakang (BullMQ + Redis) dan rate limiters.
 
-#### FASE 5: Frontend & UI/UX
-**Mengorkestrasi:** `ui-ux-pro-max`, `tailwind-expert`, `tanstack-query-expert`
-- [ ] Bangun layout dasar dan navigasi (app shell).
-- [ ] Implementasikan komponen UI inti menggunakan sistem desain.
-- [ ] Integrasikan state frontend dengan API backend.
+#### FASE 5: Frontend, Design System & Aplikasi Mobile
+**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `mobile-expo-expert`, `tauri-expert`
+- [ ] Mengimplementasikan *design tokens* (OKLCH) dan token direktif Tailwind CSS v4 `@theme`.
+- [ ] Membangun komponen dasar tanpa styling (*headless primitives*) menggunakan Radix UI / Base UI dan CVA.
+- [ ] Membangun halaman React 19 / Next.js 15 dengan Server Components, Server Actions (`useActionState`, `useOptimistic`), atau Expo Router v4 untuk Mobile / Tauri v2 untuk Desktop.
+- [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
-#### FASE 6: Testing & QA
-**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`
-- [ ] Tulis unit test untuk logika inti.
-- [ ] Tulis integration dan E2E test untuk alur pengguna yang kritis.
-- [ ] Perbaiki bug yang ditemukan selama proses QA.
+#### FASE 6: Pengujian Otomatis & Audit Keamanan
+**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`
+- [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
+- [ ] Menulis pengujian browser E2E yang tangguh menggunakan Playwright.
+- [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
+- [ ] Mengaudit CORS, CSP headers, rate-limiting, dan sanitasi input.
 
-#### FASE 7: Hardening & SEO
-**Mengorkestrasi:** `production-ready-hardener`, `seo`, `app-analyzer-optimizer`
-- [ ] Audit performa dan keamanan aplikasi.
-- [ ] Terapkan metadata SEO, sitemap, dan strategi GEO.
-- [ ] Pastikan aplikasi menangani edge case dan error dengan baik (graceful degradation).
+#### FASE 7: Hardening Pra-Peluncuran, Web Vitals & GEO/SEO
+**Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`
+- [ ] Audit pra-peluncuran pada Core Web Vitals (LCP, INP, CLS) dan ukuran bundle.
+- [ ] Mengoptimalkan Generative Engine Optimization (GEO) untuk AI Overviews, Perplexity, ChatGPT Search, dan merilis `/llms.txt`.
+- [ ] Membuat markup terstruktur Schema.org JSON-LD dan landing page konversi AEO.
 
-#### FASE 8: Launch & Deployment
-**Mengorkestrasi:** `cloud-hosting-expert`, `auto-doc-updater`
-- [ ] Deploy ke production (Vercel, Cloudflare, VPS, dll).
-- [ ] Selesaikan semua dokumentasi (`CHANGELOG.md`, `BLUEPRINT.md`, `PROGRESS.md`).
+#### FASE 8: Peluncuran, Deployment & Serah Terima
+**Mengorkestrasi:** `cloud-hosting-expert`, `saas-billing`, `saas-transformer`, `auto-doc-updater`
+- [ ] Deploy backend dan edge services ke Vercel, Cloudflare, AWS, atau Railway.
+- [ ] Konfigurasi langganan berbasis penggunaan Stripe Billing v16+ dan webhooks.
+- [ ] Menyelesaikan `CHANGELOG.md`, `BLUEPRINT.md`, dan `PROGRESS.md`.
 - [ ] Serah terima aplikasi siap produksi kepada pengguna.
