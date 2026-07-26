@@ -11,6 +11,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [1.5.0] - 2026-07-26
 
 ### Added / Ditambahkan
+- Added `session-handoff-resume` skill module, providing zero-token loss session continuation across account switches and chat resets via ultra-compact `STATE_HANDOFF.md` checkpoints.
+  *(Menambahkan modul skill `session-handoff-resume` untuk menyimpan checkpoint `STATE_HANDOFF.md` super hemat token dan melanjutkan proyek secara instan saat ganti akun/sesi.)*
 - Added `multi-agent-orchestration` skill module, providing expert-level guidelines for multi-agent systems, LangGraph, CrewAI, AutoGen, supervisor routing, state graphs, and Human-in-the-Loop guardrails.
   *(Menambahkan modul skill `multi-agent-orchestration` yang menyediakan pedoman tingkat ahli untuk sistem multi-agen, LangGraph, CrewAI, AutoGen, perutean supervisor, dan gerbang persetujuan manusia.)*
 - Added `design-system-architect` skill module, providing expert-level guidelines for enterprise UI design systems, Design Tokens, Radix UI/Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.

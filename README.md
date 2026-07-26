@@ -78,6 +78,7 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Friendly Assistant** (`asisten_ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Web Accessibility (WCAG 2.2 AAA) and i18n internationalization standards.
 - **New Skill** (`skill_baru`): Basic template for creating new agent skills in the future.
+- **Session Handoff & Memory Resume** (`session-handoff-resume`): Saves ultra-compact project checkpoints (`STATE_HANDOFF.md`) before account/session switches and seamlessly resumes work with zero token waste.
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition, very useful for high-efficiency bulk refactoring tasks.
 - **Web Scraper** (`web-scraper`): Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, and structured JSON/CSV export.
 
@@ -185,6 +186,7 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Standar Aksesibilitas Web (WCAG 2.2 AAA) dan internasionalisasi i18n.
 - **Skill Baru** (`skill_baru`): *Template* dasar untuk pembuatan *skill* agen baru ke depannya.
+- **Session Handoff & Memory Resume** (`session-handoff-resume`): Menyimpan checkpoint proyek super ringkas (`STATE_HANDOFF.md`) sebelum ganti akun/sesi dan melanjutkan pekerjaan secara instan tanpa boros token.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **Web Scraper** (`web-scraper`): Kemampuan ekstraksi data web cerdas dengan strategi *scraping* modern (Crawl4AI, Playwright, BeautifulSoup), ekstraksi LLM, serta ekspor JSON/CSV terstruktur.
 

@@ -52,6 +52,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, and bundle optimization.
 - **senior-fullstack**: Advanced fullstack architectural/testing references (Redis caching, BullMQ background queues, connection pooling, CI/CD pipelines, Docker, and Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Generative search engine optimization and visibility architectures (AI Overviews, ChatGPT Search, Perplexity, `/llms.txt`).
+- **session-handoff-resume**: Zero-token loss session continuation across account switches and chat resets via ultra-compact `STATE_HANDOFF.md` checkpoints.
 - **skill-baru**: Basic template for creating new agent skills in the future.
 - **supabase-migration**: Database schema migration tracking and deployment commands (local and CLI v2+).
 - **supabase-security-expert**: Relational database auditing, RLS security practices, and Supabase Linter.
@@ -110,6 +111,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.
 - **senior-fullstack**: Referensi fullstack lanjutan (Redis caching, BullMQ background queues, connection pooling, CI/CD, Docker, Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Optimasi mesin pencari generatif (AI Overviews, ChatGPT Search, Perplexity, `/llms.txt`).
+- **session-handoff-resume**: Penyimpanan checkpoint `STATE_HANDOFF.md` super hemat token dan pemulihan pekerjaan instan saat ganti akun/sesi.
 - **skill-baru**: Template dasar pembuatan skill baru.
 - **supabase-migration**: Pelacakan dan eksekusi migrasi schema database Supabase (lokal dan CLI v2+).
 - **supabase-security-expert**: Audit database relasional, praktik keamanan RLS, dan Supabase Linter.
