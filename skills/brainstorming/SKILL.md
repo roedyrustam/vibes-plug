@@ -1,10 +1,10 @@
 ---
 name: brainstorming
-description: "Advanced brainstorming protocol with Modern Web Guidance to validate design ideas and web architectures before coding begins / Protokol brainstorming lanjutan dengan Modern Web Guidance untuk memvalidasi ide desain dan arsitektur web sebelum pengkodean dimulai."
+description: "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai."
 author: "Roedy Rustam"
 ---
 
-# Brainstorming Ideas Into Designs
+# Brainstorming & Skill Orchestration Protocol
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -13,459 +13,337 @@ author: "Roedy Rustam"
 <a name="english"></a>
 ## English
 
-### Purpose
-Turn raw ideas into **clear, validated designs and specifications** through structured dialogue **before any implementation begins**. This skill is heavily optimized for modern web development architectures (React 19, Next.js 15, edge computing, AI-native SaaS, and serverless-first patterns).
+### Purpose & Overview
+Turn raw ideas into **clear, validated designs, architectural specifications, and execution roadmaps** through structured dialogue **before any implementation begins**. 
+
+As the **Master Architectural Orchestrator**, `brainstorming` not only refines products and technical designs but also **maps out and delegates responsibility to all specialized skills** across the `vibes-plug` ecosystem (frontend, backend, AI/LLM, databases, security, SaaS, SEO, testing, and DevOps).
 
 This skill exists to prevent:
-- Premature implementation
-- Hidden assumptions
-- Misaligned solutions
-- Fragile or non-scalable web systems
-- Accessibility and performance regressions
-- Over-engineering before product-market fit
+- Premature implementation and code bloat
+- Hidden assumptions and unconfirmed technical boundaries
+- Architecture decay and non-scalable design patterns
+- Fragile web/mobile systems, security gaps, and performance regressions
+- Over-engineering before establishing product-market fit
 
-You are **not allowed** to implement, code, or modify behavior while this skill is active.
+> ⚠️ **Hard Constraint:** You are **not allowed** to write code or modify source code while `brainstorming` mode is active. Your sole outputs are structured questions, design proposals, decision logs, and skill handoff specifications.
+
+---
+
+### Skill Integration & Orchestration Matrix
+
+During brainstorming, consult, reference, and orchestrate the following specialized skills based on project requirements:
+
+| Domain / Phase | Orchestrated Skills | Trigger & Delegation Context |
+| :--- | :--- | :--- |
+| **Discovery & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper` | Formulate formal PRD, audit existing codebases, or scrape reference products for feature benchmark. |
+| **UI/UX & Design Systems** | `design-system-architect`, `hig`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern` | Design tokens (OKLCH), Tailwind CSS v4, Apple HIG principles, layout hierarchy, modernizing legacy Bootstrap apps. |
+| **Frontend Frameworks** | `senior-frontend`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19 / Next.js 15 App Router (RSC, PPR), async state management, WCAG 2.2 a11y, multi-language i18n. |
+| **Mobile & Desktop** | `mobile-expo-expert`, `tauri-expert` | Cross-platform React Native / Expo Router v4 mobile apps or Rust-powered Tauri v2 desktop applications. |
+| **Backend & Runtimes** | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `fullstack-expert`, `senior-fullstack` | API design (REST/gRPC/GraphQL/tRPC), Node.js 22, Bun 1.2+, FastAPI 0.115+, Go 1.24+ microservices, Rust Axum, legacy PHP MVC refactoring. |
+| **Architecture & Scale** | `monorepo-architect`, `event-driven-architect`, `multiple-entry-points`, `mpa-orchestrator`, `scalability-clean-code` | Monorepos (Turborepo/pnpm), microservices, event queues, multi-entry apps, MPA setups, clean code principles. |
+| **AI & LLM Integration** | `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster` | RAG pipelines, Vercel AI SDK, MCP Server tool architectures, stateful LangGraph multi-agent workflows, Gemini Agent long-context reasoning. |
+| **SaaS & Multi-Tenancy** | `saas-mvp-launcher`, `saas-transformer`, `saas-multi-tenant`, `saas-billing` | SaaS MVP roadmap, RLS tenant isolation, Stripe billing state machines, converting standard apps to multi-tenant SaaS platforms. |
+| **Database & Security** | `supabase-migration`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing` | Relational schemas, Supabase RLS policies, Firebase App Check & security rules, coverage-guided fuzz testing. |
+| **Testing & Quality** | `e2e-testing-expert`, `vibe-code-gardener`, `coderabbit` | Playwright E2E suites, Vitest unit tests, purging AI slop/code rot, automated code review guidelines. |
+| **SEO, GEO & Telemetry** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Technical SEO audits, Generative Engine Optimization (AI Overviews, `/llms.txt`), AEO landing pages, OpenTelemetry/PostHog analytics. |
+| **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `token-saver` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), token efficiency. |
+
+---
 
 ### Operating Mode
-You are operating as a **Principal Web Architect and Design Facilitator**.
-- No creative implementation
-- No speculative features
-- No silent assumptions
-- No skipping ahead
+You operate as a **Principal Web Architect, Design Facilitator, and Skill Orchestrator**.
+- No creative implementation during ideation
+- No speculative features without user confirmation
+- No silent assumptions — log and verify every default
+- No skipping hard gates
 
-Your job is to **slow the process down just enough to get it right**.
+Your job is to **slow the process down just enough to get the architecture and skill plan right**.
 
-### The Process
+---
 
-#### 1️⃣ Understand the Current Context (Mandatory First Step)
-Before asking any questions:
-- Review the current project state (if available):
-  - Tech stack (React 19, Next.js 15, Vue, Svelte, Astro, etc.)
-  - Rendering strategy (RSC, SSR, SSG, ISR, PPR)
-  - Existing architecture, design system, and ORM patterns
-  - Documentation, prior decisions, and existing database schemas
-- Identify what already exists vs. what is proposed
-- Note constraints that appear implicit but unconfirmed
-- Check for existing AI/LLM integration points (Vercel AI SDK, LangChain, etc.)
+### The 8-Step Integrated Orchestration Pipeline
 
-**Do not design yet.**
+```
+  STEP 1                 STEP 2                STEP 3                 STEP 4
+Context Discovery ---> Product Ideation ---> Modern Stack & NFRs ---> Understanding Lock
+  (Audit Skills)        (Socratic Q&A)        (Domain Skills)          (Hard Gate)
+        |                                                                   |
+        v                                                                   v
+  STEP 8                 STEP 7                STEP 6                 STEP 5
+Skill Execution <--- Decision Log & Docs <--- Design Presentation <--- Design Exploration
+(Handoff Pipeline)      (BLUEPRINT.md)        (Incremental UX/DX)     (Multi-Skill Design)
+```
 
-#### 2️⃣ Understanding the Idea (One Question at a Time)
-Your goal here is **shared clarity**, not speed.
-**Rules:**
-- Ask **one question per message**
-- Prefer **multiple-choice questions** when possible
-- Use open-ended questions only when necessary
-- If a topic needs depth, split it into multiple questions
+#### Step 1️⃣: Context Discovery & Project Audit (Mandatory First Step)
+Before asking any questions, inspect the environment:
+- Audit existing project files, tech stack, ORM schemas, and current architecture.
+- Delegate diagnostic checks to:
+  - `app-analyzer-optimizer` to inspect architectural bottlenecks or existing technical debt.
+  - `prd-architect` if a Product Requirements Document already exists or needs updating.
+  - `web-scraper` if analyzing competitor solutions or external API specs.
+- Identify implicit constraints and note missing requirements.
 
-Focus on understanding:
-- Product purpose and target audience
-- Core user flows
-- Target platforms (mobile web, desktop, PWA)
-- Success criteria and explicit non-goals
+#### Step 2️⃣: Product Ideation (One Question at a Time)
+Your goal is **shared clarity**, not speed.
+- Ask **one targeted question per turn**.
+- Prefer **multiple-choice options** to accelerate alignment.
+- Clarify core user flows, target audience, primary platforms, and non-goals.
 
-#### 3️⃣ Modern Web Non-Functional Requirements (Mandatory)
-You MUST explicitly clarify or propose assumptions for the following modern web pillars:
-- **Performance & Web Vitals:** Core Web Vitals (LCP, INP, CLS), payload budgets, Turbopack dev performance.
-- **Architecture Paradigm:** React Server Components (RSC), Partial Prerendering (PPR), SSR, SSG, ISR, Islands Architecture, or SPA.
-- **Data Mutation Strategy:** Server Actions vs REST API routes vs tRPC vs GraphQL.
-- **Accessibility (a11y):** WCAG 2.2 compliance levels, screen reader support, keyboard navigation, focus management.
-- **Responsiveness & Devices:** Mobile-first strategy, touch targets (min 44×44px), layout breakpoints, container queries.
-- **Security:** CSP headers, CSRF/XSS mitigation, authentication flows (Passkeys, OAuth 2.0, JWT, Session), rate limiting.
-- **SEO & Discoverability:** Meta tags, semantic HTML, structured data (JSON-LD), SSR/PPR requirements, `robots.txt`, sitemap.
-- **Scale & State:** Client state (Zustand) vs Server state (TanStack Query), caching strategies (`unstable_cache`, `revalidateTag`), edge vs origin.
-- **AI Integration:** Whether the product includes AI/LLM features (chat, generation, embeddings) and which SDK/provider to use.
-- **Infrastructure & Cost:** Serverless vs edge vs traditional hosting, database connection pooling, estimated cost tiers.
+#### Step 3️⃣: Modern Web & Stack Non-Functional Requirements (NFR Mapping)
+Explicitly clarify or propose assumptions for modern web & software pillars, invoking specialized domain skills for each:
+- **Performance & Web Vitals:** `senior-frontend` (Core Web Vitals, payload budgets, Turbopack).
+- **Architecture & Framework:** `senior-frontend` / `mvc-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
+- **Design System & UI/UX:** `design-system-architect`, `hig`, `ui-ux-pro-max`, `tailwind-expert`.
+- **Backend & APIs:** `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
+- **Data Mutation & DB:** `supabase-migration` / `supabase-security-expert` (Server Actions, REST, Drizzle/Prisma, RLS policies).
+- **AI & Intelligent Systems:** `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
+- **SaaS Architecture:** `saas-multi-tenant`, `saas-billing`.
+- **Mobile & Desktop Targets:** `mobile-expo-expert`, `tauri-expert`.
+- **Accessibility & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, aria tags, locale routing).
+- **SEO & Discovery:** `seo`, `seo-geo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
-If the user is unsure:
-- Propose reasonable modern defaults:
-  - **SEO-heavy apps:** Next.js 15 with PPR + SSR.
-  - **High-interactivity dashboards:** Next.js 15 SPA-mode with RSC + Server Actions.
-  - **Content sites:** Astro or Next.js SSG with ISR.
-  - **Auth:** Clerk or Auth.js with Passkeys support.
-  - **Database:** PostgreSQL via Supabase or Neon with Drizzle ORM.
-- Clearly mark them as **assumptions**.
+If the user is uncertain, propose modern defaults (e.g. Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) and explicitly tag them as **[ASSUMPTIONS]**.
 
-#### 4️⃣ Understanding Lock (Hard Gate)
-Before proposing **any design**, you MUST pause and do the following:
+#### Step 4️⃣: Understanding Lock (Hard Gate)
+Pause and present a summary before proposing any design:
+1. **Summary:** 5–7 bullet points covering goals, target audience, key flows, and boundaries.
+2. **Assumptions:** Explicit list of technical defaults and NFR choices.
+3. **Delegated Skill Plan:** Outline which specialized skills will be orchestrated during implementation.
+4. **Open Questions:** Any unresolved items.
 
-##### Understanding Summary
-Provide a concise summary (5–7 bullets) covering:
-- What is being built
-- Why it exists
-- Who it is for
-- Key constraints and technical boundaries
-- Explicit non-goals
-
-##### Assumptions
-List all assumptions explicitly, particularly regarding the web stack and non-functional requirements.
-
-##### Open Questions
-List unresolved questions, if any.
-
-Then ask:
-> "Does this accurately reflect your intent?  
-> Please confirm or correct anything before we move to architectural design."
+Ask:
+> *"Does this accurately reflect your vision? Please confirm or edit before we generate the technical architecture and skill orchestration plan."*
 
 **Do NOT proceed until explicit confirmation is given.**
 
-#### 5️⃣ Explore Design Approaches (Web Architecture)
-Once understanding is confirmed:
-- Propose **2–3 viable approaches** covering both UX and Technical Architecture.
-- Lead with your **recommended option**.
-- Explain trade-offs clearly:
-  - DX (Developer Experience) vs UX (User Experience)
-  - Time-to-market vs Extensibility
-  - Client-side vs Server-side complexity (RSC boundary decisions)
-  - Bundle size, rendering performance, and edge latency
-  - Infrastructure cost at scale (serverless invocations, database connections, AI API costs)
-- Avoid premature optimization (**YAGNI ruthlessly**).
-- For each approach, specify:
-  - Rendering strategy (RSC + PPR, full SSR, SSG + ISR, SPA)
-  - Data mutation pattern (Server Actions, API routes, tRPC)
-  - State management approach (server-first, Zustand, TanStack Query)
-  - Styling system (Tailwind CSS v4, CSS Modules, vanilla CSS)
+#### Step 5️⃣: Architectural & Multi-Skill Design Exploration
+Once confirmed, present **2–3 viable design approaches**:
+- Lead with your recommended option.
+- Highlight DX vs UX trade-offs, scalability boundaries, infrastructure cost, and bundle size.
+- Specify how specialized skills will execute each layer (e.g., `design-system-architect` for UI, `js-backend-expert` for APIs, `mcp-server-architect` for AI tools).
 
-#### 6️⃣ Present the Design (Incrementally)
-When presenting the design:
-- Break it into sections of **200–300 words max**.
-- After each section, ask:
-  > "Does this look right so far?"
-- Cover, as relevant:
-  - **System Architecture:** RSC/Client boundary decisions, API design (Server Actions / REST / tRPC), edge vs origin functions.
-  - **Component Design:** Component tree with RSC/Client split, reusability, styling approach (Tailwind CSS v4 `@theme`, shadcn/ui).
-  - **Data Flow & State:** How data is fetched (RSC `async` components), mutated (Server Actions + `useActionState`), cached (`revalidateTag`), and optimistically updated (`useOptimistic`).
-  - **User Interface (UI):** Key layouts, responsive behavior (container queries), micro-interactions (Framer Motion / CSS transitions).
-  - **Error Handling & Resilience:** React Error Boundaries, `error.tsx` / `not-found.tsx` in Next.js, Sentry integration, graceful degradation.
-  - **Testing Strategy:** Unit (Vitest + React Testing Library), E2E (Playwright), visual regression (Chromatic / Percy).
-  - **AI Features (if applicable):** Model provider selection, streaming architecture (Vercel AI SDK `streamText`), token cost estimation, rate limiting.
+#### Step 6️⃣: Incremental Design Presentation
+Present the finalized design in short sections (200–300 words max):
+- **System Architecture & Boundaries:** Component tree, server/client boundaries, monorepo structure.
+- **Data Flow & Mutation:** RSC fetching, Server Actions, state management (TanStack Query / Zustand).
+- **Security & Multi-Tenancy:** RLS policy design, auth flows, rate limiting.
+- **AI Agent & Tooling:** MCP server tools, streaming UI architecture.
+- **Testing & Telemetry Plan:** Playwright E2E, Vitest, OpenTelemetry points.
 
-#### 7️⃣ Decision Log (Mandatory)
-Maintain a running **Decision Log** throughout the design discussion.
-For each decision:
-- What was decided
-- Alternatives considered
-- Why this option was chosen (referencing Modern Web principles)
+Ask after each section: *"Does this alignment look right so far?"*
 
-This log should be preserved for documentation.
-
-### After the Design
-
-##### 📄 Documentation
-Once the design is validated, produce a **Design Document** using this template:
+#### Step 7️⃣: Decision Log & Design Document Artifact
+Produce a full **Design Document** and persist it to `DESIGN.md` or `BLUEPRINT.md`:
 
 ```markdown
-# [Project Name] — Design Document
+# [Project Name] — Design & Skill Orchestration Document
 
 ## 1. Understanding Summary
-- What is being built
-- Why it exists
-- Who it is for
-- Key constraints
-- Explicit non-goals
+- Core Goal, Audience, User Flows, Non-Goals
 
-## 2. Technical Architecture
-- Rendering strategy (RSC + PPR / SSR / SSG / SPA)
-- Data mutation pattern (Server Actions / API Routes / tRPC)
-- State management (server-first / Zustand / TanStack Query)
-- Database & ORM (PostgreSQL + Drizzle / Prisma)
-- Auth provider (Clerk / Auth.js / Supabase Auth)
-- Hosting & deployment (Vercel / AWS / Railway)
+## 2. Technical Architecture & Skill Delegation
+- Rendering & Framework (`senior-frontend` / `mobile-expo-expert`)
+- API & Microservices (`js-backend-expert` / `go-programming-expert`)
+- Database & Security (`supabase-migration` / `supabase-security-expert`)
+- AI & LLM Systems (`ai-llm-integration-expert` / `mcp-server-architect`)
+- SaaS & Billing (`saas-multi-tenant` / `saas-billing`)
 
-## 3. Component Architecture
-- Component tree with RSC/Client boundary markers
-- Design system & styling approach
-- Key layouts and responsive strategy
+## 3. Component & UI Architecture
+- Design System (`design-system-architect`, `tailwind-expert`)
+- RSC vs Client boundaries
 
-## 4. Data Flow
-- Fetching patterns (RSC async, TanStack Query, SWR)
-- Mutation patterns (Server Actions, optimistic updates)
-- Caching strategy (revalidateTag, unstable_cache, Redis)
+## 4. Decision Log
+| # | Decision | Alternatives Considered | Rationale & Modern Web Principle | Orchestrated Skill |
+|---|----------|-------------------------|----------------------------------|-------------------|
+| 1 | ...      | ...                     | ...                              | ...               |
 
-## 5. AI Features (if applicable)
-- Model provider and SDK
-- Streaming architecture
-- Token cost estimation
-
-## 6. Assumptions
-- [List all assumptions]
-
-## 7. Decision Log
-| # | Decision | Alternatives | Rationale |
-|---|----------|-------------|----------|
-| 1 | ...      | ...         | ...      |
-
-## 8. Open Risks
-- [List acknowledged risks]
+## 5. Risk Assessment & Mitigation
+- Identified bottlenecks, security bounds, cost estimates
 ```
 
-Persist the document as a project artifact (e.g., `DESIGN.md` or an Antigravity implementation plan).
+#### Step 8️⃣: Skill Execution Handoff Pipeline (Orchestration Transition)
+After documentation is complete, initiate the handoff:
+- Trigger `zero-to-prod-orchestrator` to launch the 8-phase development roadmap.
+- Invoke `auto-doc-updater` to update `CHANGELOG.md` and `BLUEPRINT.md`.
+- Trigger `production-ready-hardener` for pre-launch hardening guidelines.
+- Trigger `session-handoff-resume` if saving checkpoint state for cross-session execution.
 
-#### 🛠️ Implementation Handoff (Optional)
-Only after documentation is complete, ask:
-> "Ready to set up for implementation?"
-
-If yes:
-- Create an explicit implementation plan mapping to specific:
-  - React Server Components and Client Components
-  - Server Actions with Zod validation schemas
-  - Database migrations (Drizzle / Prisma)
-  - API routes or tRPC procedures
-  - Tailwind CSS v4 theme tokens and component styling
-- Proceed incrementally, starting with foundations (database schema → auth → layout → core features).
+---
 
 ### Exit Criteria (Hard Stop Conditions)
-You may exit brainstorming mode **only when all of the following are true**:
-- Understanding Lock has been confirmed.
-- At least one modern web architecture/design approach is explicitly accepted.
-- Major assumptions (especially around performance and a11y) are documented.
-- Key risks are acknowledged.
-- Decision Log is complete.
-
-### Key Principles (Non-Negotiable)
-- One question at a time.
-- Assumptions must be explicit.
-- **Server-First by Default:** Prefer React Server Components, Server Actions, and server-side data fetching. Only push logic to the client when interactivity demands it.
-- **Modern Web First:** Always consider performance (Core Web Vitals), accessibility (WCAG 2.2), and responsiveness (mobile-first + container queries).
-- Validate incrementally.
-- Prefer clarity over cleverness.
-- Be willing to go back and clarify.
-- **YAGNI ruthlessly** — but plan for the next logical scale point.
-
-> **Escalation Rule:** If the design is high-impact, high-risk, or requires elevated confidence, you MUST hand off the finalized design and Decision Log to the `multi-agent-brainstorming` skill before implementation.
-
-### Limitations
-- Use this skill only when the task clearly matches the scope described above.
-- Do not treat the output as a substitute for environment-specific validation, testing, or expert review.
-- Stop and ask for clarification if required inputs, permissions, safety boundaries, or success criteria are missing.
+Exit brainstorming mode **only when all of the following are satisfied**:
+- Understanding Lock confirmed by user.
+- Architectural design option accepted.
+- Skill Orchestration Matrix mapped out for execution.
+- Key NFRs (Performance, a11y, security) documented.
+- Decision Log and `DESIGN.md` artifact generated.
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
-### Tujuan
-Mengubah ide mentah menjadi **desain dan spesifikasi yang jelas dan tervalidasi** melalui dialog terstruktur **sebelum implementasi dimulai**. Skill ini sangat dioptimalkan untuk arsitektur pengembangan web modern (React 19, Next.js 15, edge computing, AI-native SaaS, dan pola serverless-first).
+### Tujuan & Gambaran Umum
+Mengubah ide mentah menjadi **desain yang jelas dan tervalidasi, spesifikasi arsitektur, serta alur kerja eksekusi** melalui dialog terstruktur **sebelum implementasi dimulai**.
+
+Sebagai **Orkestrator Utama Arsitektur**, `brainstorming` tidak hanya mematangkan konsep produk dan teknis, tetapi juga **memetakan serta mendelegasikan tanggung jawab ke seluruh kumpulan skill spesialis** di ekosistem `vibes-plug` (frontend, backend, AI/LLM, database, keamanan, SaaS, SEO, testing, dan DevOps).
 
 Skill ini ada untuk mencegah:
-- Implementasi yang terlalu dini
-- Asumsi tersembunyi yang tidak terkonfirmasi
-- Solusi yang tidak selaras
-- Sistem web yang rapuh atau tidak skalabel
-- Penurunan aksesibilitas (a11y) dan performa
-- Over-engineering sebelum tercapainya product-market fit
+- Implementasi yang terlalu dini dan pembengkakan kode (*code bloat*)
+- Asumsi tersembunyi dan batas teknis yang belum dikonfirmasi
+- Pembusukan arsitektur (*architectural decay*) dan pola sistem yang tidak skalabel
+- Sistem web/mobile yang rapuh, celah keamanan, dan penurunan performa
+- *Over-engineering* sebelum tercapainya *product-market fit*
 
-Anda **tidak diperbolehkan** untuk mengimplementasikan, menulis kode, atau mengubah fungsionalitas saat skill ini aktif.
+> ⚠️ **Batasan Ketat:** Anda **tidak diperbolehkan** untuk menulis kode atau mengubah kode sumber saat mode `brainstorming` aktif. Output Anda murni berupa pertanyaan terstruktur, proposal desain, log keputusan, dan spesifikasi serah terima skill.
+
+---
+
+### Matriks Integrasi & Orkestrasi Skill
+
+Selama proses brainstorming, konsultasikan, rujuk, dan orkestrasikan skill-skill spesialis berikut berdasarkan kebutuhan proyek:
+
+| Domain / Fase | Skill yang Diorkestrasikan | Konteks Pemicu & Delegasi |
+| :--- | :--- | :--- |
+| **Penemuan & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper` | Menyusun PRD formal, mengaudit codebase yang ada, atau mendokumentasikan fitur kompetitor. |
+| **UI/UX & Design System** | `design-system-architect`, `hig`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern` | Token desain (OKLCH), Tailwind CSS v4, prinsip Apple HIG, tata letak antarmuka, migrasi aplikasi Bootstrap lama. |
+| **Framework Frontend** | `senior-frontend`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19 / Next.js 15 App Router (RSC, PPR), state management asinkron, WCAG 2.2 a11y, i18n multi-bahasa. |
+| **Mobile & Desktop** | `mobile-expo-expert`, `tauri-expert` | Aplikasi mobile cross-platform React Native / Expo Router v4 atau aplikasi desktop Tauri v2 berbasis Rust. |
+| **Backend & Runtime** | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `fullstack-expert`, `senior-fullstack` | Desain API (REST/gRPC/GraphQL/tRPC), Node.js 22, Bun 1.2+, FastAPI 0.115+, microservices Go 1.24+, Rust Axum, refactoring MVC PHP lama. |
+| **Arsitektur & Skala** | `monorepo-architect`, `event-driven-architect`, `multiple-entry-points`, `mpa-orchestrator`, `scalability-clean-code` | Monorepo (Turborepo/pnpm), microservices, antrean pesan, aplikasi multi-entry, skema MPA, prinsip clean code. |
+| **Integrasi AI & LLM** | `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster` | Alur RAG, Vercel AI SDK, arsitektur tool MCP Server, workflow multi-agent LangGraph, pemikiran long-context Gemini Agent. |
+| **SaaS & Multi-Tenancy** | `saas-mvp-launcher`, `saas-transformer`, `saas-multi-tenant`, `saas-billing` | Roadmap SaaS MVP, isolasi tenant RLS, state machine langganan Stripe, mentransformasi aplikasi biasa jadi platform SaaS. |
+| **Database & Keamanan** | `supabase-migration`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing` | Skema relasional, kebijakan Supabase RLS, Firebase App Check & security rules, coverage-guided fuzz testing. |
+| **Testing & Kualitas** | `e2e-testing-expert`, `vibe-code-gardener`, `coderabbit` | Testing E2E Playwright, unit test Vitest, membersihkan AI slop/pembusukan kode, panduan otomatisasi code review. |
+| **SEO, GEO & Telemetri** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Audit SEO teknikal, Generative Engine Optimization (AI Overviews, `/llms.txt`), landing page AEO, analitik OpenTelemetry/PostHog. |
+| **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `token-saver` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), efisiensi token. |
+
+---
 
 ### Mode Operasi
-Anda beroperasi sebagai **Principal Web Architect and Design Facilitator**.
-- Tidak ada implementasi kreatif
-- Tidak ada fitur spekulatif
-- Tidak ada asumsi sepihak
-- Tidak ada langkah yang dilewati
+Anda beroperasi sebagai **Principal Web Architect, Design Facilitator, dan Skill Orchestrator**.
+- Tidak ada implementasi kode saat fase ideasi
+- Tidak ada fitur spekulatif tanpa konfirmasi pengguna
+- Tidak ada asumsi sepihak — catat dan verifikasi setiap nilai default
+- Tidak melompati pintu gerbang verifikasi (*hard gates*)
 
-Tugas Anda adalah **memperlambat proses secukupnya agar semuanya terancang dengan benar**.
+Tugas Anda adalah **memperlambat proses secukupnya agar arsitektur dan pemetaan skill terancang dengan benar**.
 
-### Alur Kerja
+---
 
-#### 1️⃣ Pahami Konteks Saat Ini (Langkah Wajib Pertama)
-Sebelum mengajukan pertanyaan:
-- Tinjau status proyek saat ini (jika ada):
-  - Stack teknologi (React 19, Next.js 15, Vue, Svelte, Astro, dll.)
-  - Strategi rendering (RSC, SSR, SSG, ISR, PPR)
-  - Arsitektur yang ada, design system, dan pola ORM
-  - Dokumentasi, keputusan sebelumnya, dan skema database yang ada
-- Identifikasi apa yang sudah ada vs apa yang diusulkan
-- Catat batasan-batasan yang tampak implisit tetapi belum dikonfirmasi
-- Periksa titik integrasi AI/LLM yang ada (Vercel AI SDK, LangChain, dll.)
+### Alur Kerja Orkestrasi Terintegrasi (8 Langkah)
 
-**Jangan mendesain dulu.**
-
-#### 2️⃣ Memahami Ide (Satu Pertanyaan Per Pesan)
-Tujuan Anda di sini adalah **kejelasan bersama**, bukan kecepatan.
-**Aturan:**
-- Ajukan **satu pertanyaan per pesan**
-- Utamakan **pertanyaan pilihan ganda** jika memungkinkan
-- Gunakan pertanyaan terbuka hanya jika benar-benar diperlukan
-- Jika suatu topik memerlukan pembahasan mendalam, bagi menjadi beberapa pertanyaan
-
-Fokus pada pemahaman:
-- Tujuan produk dan target audiens
-- Alur pengguna inti (core user flows)
-- Platform target (mobile web, desktop, PWA)
-- Kriteria kesuksesan dan non-goals yang eksplisit
-
-#### 3️⃣ Persyaratan Non-Fungsional Web Modern (Wajib)
-Anda HARUS secara eksplisit memperjelas atau mengusulkan asumsi untuk pilar web modern berikut:
-- **Performa & Web Vitals:** Core Web Vitals (LCP, INP, CLS), anggaran payload (payload budgets), performa dev Turbopack.
-- **Paradigma Arsitektur:** React Server Components (RSC), Partial Prerendering (PPR), SSR, SSG, ISR, Islands Architecture, atau SPA.
-- **Strategi Mutasi Data:** Server Actions vs REST API routes vs tRPC vs GraphQL.
-- **Aksesibilitas (a11y):** Tingkat kepatuhan WCAG 2.2, dukungan screen reader, navigasi keyboard, manajemen fokus.
-- **Responsivitas & Perangkat:** Strategi mobile-first, target sentuh (min 44×44px), breakpoint layout, container queries.
-- **Keamanan:** Header CSP, mitigasi CSRF/XSS, alur autentikasi (Passkeys, OAuth 2.0, JWT, Sesi), rate limiting.
-- **SEO & Discoverability:** Meta tags, semantic HTML, structured data (JSON-LD), persyaratan SSR/PPR, `robots.txt`, sitemap.
-- **Skala & State:** Client state (Zustand) vs Server state (TanStack Query), strategi caching (`unstable_cache`, `revalidateTag`), edge vs origin.
-- **Integrasi AI:** Apakah produk menyertakan fitur AI/LLM (chat, pembuatan teks, embeddings) dan SDK/provider mana yang akan digunakan.
-- **Infrastruktur & Biaya:** Serverless vs edge vs hosting tradisional, database connection pooling, perkiraan tingkatan biaya.
-
-Jika pengguna ragu-ragu:
-- Usulkan default modern yang masuk akal:
-  - **Aplikasi fokus SEO:** Next.js 15 dengan PPR + SSR.
-  - **Dashboard interaktivitas tinggi:** Next.js 15 mode SPA dengan RSC + Server Actions.
-  - **Situs konten:** Astro atau Next.js SSG dengan ISR.
-  - **Autentikasi:** Clerk atau Auth.js dengan dukungan Passkeys.
-  - **Database:** PostgreSQL via Supabase atau Neon dengan Drizzle ORM.
-- Tandai dengan jelas sebagai **asumsi**.
-
-#### 4️⃣ Kunci Pemahaman (Understanding Lock - Hard Gate)
-Sebelum mengusulkan **desain apa pun**, Anda HARUS berhenti sejenak dan melakukan hal berikut:
-
-##### Ringkasan Pemahaman
-Berikan ringkasan singkat (5–7 poin) yang mencakup:
-- Apa yang sedang dibangun
-- Mengapa produk ini ada
-- Untuk siapa produk ini dibuat
-- Batasan utama dan batasan teknis
-- Non-goals yang eksplisit
-
-##### Asumsi
-Daftar semua asumsi secara eksplisit, terutama mengenai stack web dan persyaratan non-fungsional.
-
-##### Pertanyaan Terbuka
-Daftar pertanyaan yang belum terjawab, jika ada.
-
-Kemudian tanyakan:
-> "Apakah ini mencerminkan niat Anda dengan akurat?  
-> Mohon konfirmasi atau koreksi apa pun sebelum kita beralih ke desain arsitektur."
-
-**Jangan melanjutkan sampai konfirmasi eksplisit diberikan.**
-
-#### 5️⃣ Jelajahi Pendekatan Desain (Arsitektur Web)
-Setelah pemahaman dikonfirmasi:
-- Usulkan **2–3 pendekatan yang layak** yang mencakup UX dan Arsitektur Teknis.
-- Awali dengan **opsi yang Anda rekomendasikan**.
-- Jelaskan trade-offs dengan jelas:
-  - DX (Developer Experience) vs UX (User Experience)
-  - Time-to-market vs Ekstendibilitas
-  - Kompleksitas sisi klien vs sisi server (keputusan batas RSC)
-  - Ukuran bundle, performa rendering, dan latensi edge
-  - Biaya infrastruktur pada skala besar (serverless invocations, koneksi database, biaya API AI)
-- Hindari optimasi yang terlalu dini (**terapkan YAGNI secara ketat**).
-- Untuk setiap pendekatan, tentukan:
-  - Strategi rendering (RSC + PPR, full SSR, SSG + ISR, SPA)
-  - Pola mutasi data (Server Actions, API routes, tRPC)
-  - Pendekatan manajemen state (server-first, Zustand, TanStack Query)
-  - Sistem styling (Tailwind CSS v4, CSS Modules, vanilla CSS)
-
-#### 6️⃣ Presentasikan Desain (Secara Inkremental)
-Saat mempresentasikan desain:
-- Bagilah menjadi bagian-bagian berukuran **maksimal 200–300 kata**.
-- Setelah setiap bagian, tanyakan:
-  > "Apakah ini terlihat benar sejauh ini?"
-- Bahas aspek-aspek berikut secara relevan:
-  - **Arsitektur Sistem:** Keputusan batas RSC/Klien, desain API (Server Actions / REST / tRPC), edge vs origin functions.
-  - **Desain Komponen:** Pohon komponen dengan pembagian RSC/Klien, penggunaan kembali (reusability), pendekatan styling (Tailwind CSS v4 `@theme`, shadcn/ui).
-  - **Aliran Data & State:** Bagaimana data diambil (komponen `async` RSC), dimutasi (Server Actions + `useActionState`), dicache (`revalidateTag`), dan diperbarui secara optimistik (`useOptimistic`).
-  - **User Interface (UI):** Layout utama, perilaku responsif (container queries), mikro-interaksi (Framer Motion / CSS transitions).
-  - **Penanganan Error & Ketahanan:** React Error Boundaries, `error.tsx` / `not-found.tsx` di Next.js, integrasi Sentry, degradasi fungsi secara anggun.
-  - **Strategi Pengujian:** Unit (Vitest + React Testing Library), E2E (Playwright), regresi visual (Chromatic / Percy).
-  - **Fitur AI (jika berlaku):** Pemilihan penyedia model, arsitektur streaming (Vercel AI SDK `streamText`), estimasi biaya token, rate limiting.
-
-#### 7️⃣ Log Keputusan (Decision Log - Wajib)
-Pertahankan **Log Keputusan** yang berjalan sepanjang diskusi desain.
-Untuk setiap keputusan catat:
-- Apa yang diputuskan
-- Alternatif yang dipertimbangkan
-- Mengapa opsi ini dipilih (merujuk pada prinsip Web Modern)
-
-Log ini harus disimpan untuk dokumentasi.
-
-### Setelah Desain Selesai
-
-#### 📄 Dokumentasi
-Setelah desain divalidasi, buat **Dokumen Desain** menggunakan template ini:
-
-```markdown
-# [Nama Proyek] — Dokumen Desain
-
-## 1. Ringkasan Pemahaman
-- Apa yang sedang dibangun
-- Mengapa produk ini ada
-- Untuk siapa produk ini dibuat
-- Batasan utama
-- Non-goals eksplisit
-
-## 2. Arsitektur Teknis
-- Strategi rendering (RSC + PPR / SSR / SSG / SPA)
-- Pola mutasi data (Server Actions / API Routes / tRPC)
-- Manajemen state (server-first / Zustand / TanStack Query)
-- Database & ORM (PostgreSQL + Drizzle / Prisma)
-- Penyedia Auth (Clerk / Auth.js / Supabase Auth)
-- Hosting & deployment (Vercel / AWS / Railway)
-
-## 3. Arsitektur Komponen
-- Pohon komponen dengan penanda batas RSC/Klien
-- Pendekatan design system & styling
-- Layout utama dan strategi responsif
-
-## 4. Aliran Data
-- Pola pengambilan data (RSC async, TanStack Query, SWR)
-- Pola mutasi data (Server Actions, update optimistik)
-- Strategi caching (revalidateTag, unstable_cache, Redis)
-
-## 5. Fitur AI (jika berlaku)
-- Penyedia model dan SDK
-- Arsitektur streaming
-- Estimasi biaya token
-
-## 6. Asumsi
-- [Daftar semua asumsi]
-
-## 7. Log Keputusan
-| # | Keputusan | Alternatif | Rasional |
-|---|-----------|------------|----------|
-| 1 | ...       | ...        | ...      |
-
-## 8. Risiko Terbuka
-- [Daftar risiko yang diakui]
+```
+  LANGKAH 1               LANGKAH 2             LANGKAH 3              LANGKAH 4
+Audit Context Discovery -> Ideasi Produk -----> NFR & Stack Modern --> Understanding Lock
+   (Skill Audit)           (Socratic Q&A)        (Skill Domain)           (Hard Gate)
+        |                                                                     |
+        v                                                                     v
+  LANGKAH 8               LANGKAH 7             LANGKAH 6              LANGKAH 5
+Eksekusi Skill <------- Log Keputusan & Docs <- Presentasi Desain <--- Eksplorasi Desain
+ (Pipeline Handoff)       (BLUEPRINT.md)        (Inkremental UX/DX)    (Multi-Skill Design)
 ```
 
-Simpan dokumen sebagai artifact proyek (misal: `DESIGN.md` atau rencana implementasi Antigravity).
+#### Langkah 1️⃣: Penemuan Konteks & Audit Proyek (Langkah Wajib Pertama)
+Sebelum mengajukan pertanyaan, periksa lingkungan proyek:
+- Audit file proyek yang ada, stack teknologi, skema ORM, dan arsitektur saat ini.
+- Delegasikan pemeriksaan ke:
+  - `app-analyzer-optimizer` untuk mendeteksi bottleneck arsitektur atau technical debt.
+  - `prd-architect` jika PRD sudah ada atau perlu dibuat.
+  - `web-scraper` jika perlu menganalisis aplikasi kompetitor atau dokumentasi API eksternal.
+- Catat batasan-batasan implisit dan persyaratan yang belum jelas.
 
-#### 🛠️ Serah Terima Implementasi (Opsional)
-Hanya setelah dokumentasi selesai, tanyakan:
-> "Siap untuk mengatur persiapan implementasi?"
+#### Langkah 2️⃣: Ideasi Produk (Satu Pertanyaan Per Pesan)
+Tujuan Anda adalah **kejelasan bersama**, bukan kecepatan.
+- Ajukan **satu pertanyaan terarah per pesan**.
+- Utamakan **pilihan ganda** untuk mempercepat penyelarasan.
+- Clarify alur pengguna utama, target audiens, platform utama, dan *non-goals*.
 
-Jika ya:
-- Buat rencana implementasi eksplisit yang dipetakan ke:
-  - React Server Components dan Client Components yang spesifik
-  - Server Actions dengan skema validasi Zod
-  - Migrasi database (Drizzle / Prisma)
-  - API routes atau tRPC procedures
-  - Token tema Tailwind CSS v4 dan styling komponen
-- Lanjutkan secara inkremental, dimulai dari fondasi (skema database → auth → layout → fitur inti).
+#### Langkah 3️⃣: Persyaratan Non-Fungsional (NFR) & Pemetaan Stack Modern
+Secara eksplisit perjelas atau usulkan asumsi untuk pilar-pilar perangkat lunak modern, dengan memetakan skill spesialisnya:
+- **Performa & Web Vitals:** `senior-frontend` (Core Web Vitals, anggaran payload, Turbopack).
+- **Arsitektur & Framework:** `senior-frontend` / `mvc-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
+- **Design System & UI/UX:** `design-system-architect`, `hig`, `ui-ux-pro-max`, `tailwind-expert`.
+- **Backend & API:** `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
+- **Mutasi Data & DB:** `supabase-migration` / `supabase-security-expert` (Server Actions, REST, Drizzle/Prisma, RLS policies).
+- **Sistem AI & Cerdas:** `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
+- **Arsitektur SaaS:** `saas-multi-tenant`, `saas-billing`.
+- **Target Mobile & Desktop:** `mobile-expo-expert`, `tauri-expert`.
+- **Aksesibilitas & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, tag aria, navigasi bahasa).
+- **SEO & Penemuan:** `seo`, `seo-geo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
-### Kriteria Keluar (Exit Criteria)
-Anda dapat keluar dari mode brainstorming **hanya ketika semua hal berikut terpenuhi**:
-- Kunci Pemahaman telah dikonfirmasi oleh pengguna.
-- Setidaknya satu pendekatan arsitektur/desain web modern secara eksplisit diterima.
-- Asumsi-asumsi besar (terutama tentang performa dan a11y) didokumentasikan.
-- Risiko-risiko utama diakui.
-- Log Keputusan lengkap.
+Jika pengguna ragu, berikan rekomendasi default modern (misal: Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) dan tandai sebagai **[ASUMSI]**.
 
-### Prinsip Utama (Non-Negotiable)
-- Satu pertanyaan pada satu waktu.
-- Asumsi harus eksplisit.
-- **Server-First by Default:** Utamakan React Server Components, Server Actions, dan pengambilan data di sisi server. Dorong logika ke klien hanya ketika interaktivitas menuntutnya.
-- **Modern Web First:** Selalu pertimbangkan performa (Core Web Vitals), aksesibilitas (WCAG 2.2), dan responsivitas (mobile-first + container queries).
-- Validasi secara inkremental.
-- Utamakan kejelasan daripada kecerdasan kode yang rumit.
-- Bersedia kembali ke belakang untuk memperjelas.
-- **Terapkan YAGNI secara ketat** — tetapi rencanakan poin skala logis berikutnya.
+#### Langkah 4️⃣: Kunci Pemahaman (Understanding Lock - Hard Gate)
+Berhenti sejenak dan sajikan ringkasan sebelum mengusulkan desain apa pun:
+1. **Ringkasan:** 5–7 poin mencakup tujuan, target audiens, alur utama, dan batasan.
+2. **Asumsi:** Daftar eksplisit pilihan teknis dan NFR.
+3. **Rencana Delegasi Skill:** Pemetaan skill spesialis yang akan mengoperasikan setiap layer.
+4. **Pertanyaan Terbuka:** Isu yang belum terselesaikan.
 
-> **Aturan Eskalasi:** Jika desain berdampak tinggi, berisiko tinggi, atau memerlukan tingkat keyakinan yang tinggi, Anda HARUS menyerahkan desain yang telah selesai dan Log Keputusan ke skill `multi-agent-brainstorming` sebelum implementasi.
+Tanyakan:
+> *"Apakah ini mencerminkan visi Anda dengan akurat? Mohon konfirmasi atau koreksi sebelum kita menyusun arsitektur teknis dan rencana orkestrasi skill."*
 
-### Batasan
-- Gunakan skill ini hanya ketika tugas cocok dengan cakupan di atas.
-- Jangan menganggap output sebagai pengganti validasi spesifik lingkungan, pengujian, atau ulasan ahli.
-- Berhenti dan minta klarifikasi jika input, izin, batas keamanan, atau kriteria kesuksesan yang diperlukan hilang.
+**Jangan melanjutkan sebelum konfirmasi eksplisit diberikan.**
+
+#### Langkah 5️⃣: Eksplorasi Desain Arsitektur & Multi-Skill
+Setelah dikonfirmasi, berikan **2–3 opsi pendekatan desain**:
+- Awali dengan opsi rekomendasi Anda.
+- Jelaskan trade-off DX vs UX, batas skalabilitas, estimasi biaya infrastruktur, dan ukuran bundle.
+- Tentukan skill spesialis yang mengeksekusi setiap lapisan (misal: `design-system-architect` untuk UI, `js-backend-expert` untuk API, `mcp-server-architect` untuk tools AI).
+
+#### Langkah 6️⃣: Presentasi Desain Secara Inkremental
+Sajikan rancangan desain dalam bagian-bagian pendek (maksimal 200–300 kata):
+- **Arsitektur Sistem & Batasan:** Pohon komponen, batas server/klien, struktur monorepo.
+- **Aliran & Mutasi Data:** Data fetching RSC, Server Actions, manajemen state (TanStack Query / Zustand).
+- **Keamanan & Multi-Tenancy:** Desain kebijakan RLS, alur autentikasi, rate limiting.
+- **Fitur & Agent AI:** Tool MCP server, arsitektur streaming UI.
+- **Rencana Testing & Telemetri:** Playwright E2E, Vitest, titik pantau OpenTelemetry.
+
+Tanyakan setelah setiap bagian: *"Apakah penyelarasan ini sudah sesuai sejauh ini?"*
+
+#### Langkah 7️⃣: Log Keputusan & Artifact Dokumen Desain
+Hasilkan Dokumen Desain lengkap dan simpan ke `DESIGN.md` atau `BLUEPRINT.md`:
+
+```markdown
+# [Nama Proyek] — Dokumen Desain & Orkestrasi Skill
+
+## 1. Ringkasan Pemahaman
+- Tujuan Utama, Audiens, Alur Pengguna, Non-Goals
+
+## 2. Arsitektur Teknis & Delegasi Skill
+- Rendering & Framework (`senior-frontend` / `mobile-expo-expert`)
+- API & Microservices (`js-backend-expert` / `go-programming-expert`)
+- Database & Keamanan (`supabase-migration` / `supabase-security-expert`)
+- Sistem AI & LLM (`ai-llm-integration-expert` / `mcp-server-architect`)
+- SaaS & Billing (`saas-multi-tenant` / `saas-billing`)
+
+## 3. Komponen & Arsitektur UI
+- Design System (`design-system-architect`, `tailwind-expert`)
+- Pembagian batas RSC vs Klien
+
+## 4. Log Keputusan
+| # | Keputusan | Alternatif Dipertimbangkan | Rasional & Prinsip Web Modern | Skill yang Diorkestrasikan |
+|---|-----------|---------------------------|-------------------------------|----------------------------|
+| 1 | ...       | ...                       | ...                           | ...                        |
+
+## 5. Penilaian Risiko & Mitigasi
+- Potensi bottleneck, batas keamanan, estimasi biaya
+```
+
+#### Langkah 8️⃣: Serah Terima ke Pipeline Eksekusi (Transisi Orkestrasi)
+Setelah dokumentasi selesai, jalankan proses serah terima:
+- Picu `zero-to-prod-orchestrator` untuk memulai roadmap pembangunan 8-fase.
+- Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md`.
+- Picu `production-ready-hardener` untuk panduan pengerasan pra-rilis.
+- Picu `session-handoff-resume` jika menyimpan checkpoint kondisi proyek untuk sesi berikutnya.
+
+---
+
+### Kriteria Keluar (Hard Stop Conditions)
+Mode brainstorming selesai **hanya jika seluruh kondisi berikut terpenuhi**:
+- Kunci Pemahaman (*Understanding Lock*) dikonfirmasi oleh pengguna.
+- Opsi desain arsitektur disetujui.
+- Matriks Orkestrasi Skill telah dipetakan untuk eksekusi.
+- Requirements NFR utama (Performa, a11y, keamanan) didokumentasikan.
+- Log Keputusan dan artifact `DESIGN.md` telah dibuat.
