@@ -23,29 +23,30 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 ```
 ┌─────────────────────────────────────────────────────────┐
 │              PRODUCTION-READY HARDENER                   │
-│                 (Master Orchestrator)                     │
-├─────────────────────────────────────────────────────────┤
-│                                                          │
-│  ┌─── PHASE 1: Architecture & Code Quality ──────────┐  │
+│                 (Master Orchestrator)                │  ┌─── PHASE 1: Architecture & Code Quality ──────────┐  │
 │  │  • scalability-clean-code (SOLID, DRY, Clean Arch) │  │
 │  │  • fullstack-expert (System Design, API Design)    │  │
 │  │  • senior-fullstack (Tech Stack, Patterns)         │  │
 │  │  • app-analyzer-optimizer (Deep Analysis)          │  │
+│  │  • monorepo-architect (Turborepo & pnpm)           │  │
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
-│  ┌─── PHASE 2: Frontend Hardening ───────────────────┐  │
+│  ┌─── PHASE 2: Frontend & UI Design Systems ─────────┐  │
 │  │  • senior-frontend (React 19, Next.js 15, a11y)   │  │
-│  │  • tailwind-expert (CSS-first, responsive)         │  │
+│  │  • design-system-architect (Tokens, Radix, CVA)   │  │
+│  │  • tailwind-expert (CSS-first, OKLCH, responsive) │  │
 │  │  • ui-ux-pro-max / hig (Design consistency)        │  │
 │  │  • tanstack-query-expert (State & caching)         │  │
+│  │  • mobile-expo-expert / tauri-expert (Mobile/App)  │  │
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
-│  ┌─── PHASE 3: Backend Hardening ────────────────────┐  │
-│  │  • fullstack-expert (Multi-language backends)      │  │
-│  │  • senior-fullstack (DB, connection pooling)       │  │
-│  │  • python-programming-expert (if Python)           │  │
-│  │  • rust-programming-expert (if Rust)               │  │
-│  │  • bun-runtime-expert (if Bun)                     │  │
+│  ┌─── PHASE 3: Backend & AI Services ────────────────┐  │
+│  │  • js-backend-expert (Node 22, Bun, Fastify, Hono) │  │
+│  │  • go-programming-expert (Go 1.23+, sqlc, gRPC)   │  │
+│  │  • python-programming-expert (Python 3.12+, uv)   │  │
+│  │  • rust-programming-expert (Rust 2024, Axum)       │  │
+│  │  • mcp-server-architect (MCP Server Tools, Zod)    │  │
+│  │  • multi-agent-orchestration (LangGraph, Swarms)   │  │
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌─── PHASE 4: Security Hardening ───────────────────┐  │
@@ -56,6 +57,22 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌─── PHASE 5: Testing & Quality Assurance ──────────┐  │
+│  │  • e2e-testing-expert (Playwright, Vitest, CI/CD)  │  │
+│  │  • coderabbit (Automated code review)              │  │
+│  │  • secure-fuzz-testing (Security testing)          │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                          │
+│  ┌─── PHASE 6: Performance & GEO/SEO ────────────────┐  │
+│  │  • seo (Full SEO audit, Core Web Vitals)           │  │
+│  │  • seo-geo (AI search readiness / GEO / llms.txt)  │  │
+│  │  • app-analyzer-optimizer (Bundle & perf)          │  │
+│  └────────────────────────────────────────────────────┘  │
+│                                                          │
+│  ┌─── PHASE 7: DevOps & Session Protection ──────────┐  │
+│  │  • cloud-hosting-expert (Vercel, Cloudflare, AWS)  │  │
+│  │  • session-handoff-resume (State Checkpoint)       │  │
+│  │  • auto-doc-updater (CHANGELOG, BLUEPRINT)         │  │
+│  └────────────────────────────────────────────────────┘  │��──┐  │
 │  │  • e2e-testing-expert (Playwright, Vitest, CI/CD)  │  │
 │  │  • coderabbit (Automated code review)              │  │
 │  │  • secure-fuzz-testing (Security testing)          │  │

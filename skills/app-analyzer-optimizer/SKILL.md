@@ -1,10 +1,10 @@
 ---
 name: app-analyzer-optimizer
 description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."
-author: "roedy"
+author: "Roedy Rustam"
 ---
 
-# App Analyzer & Optimizer
+# App Analyzer & Optimizer (2026 Master Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,45 +14,37 @@ author: "roedy"
 ## English
 
 ### Description
-This skill instructs the agent to deeply analyze the application structure, architecture, dependencies, and performance, and then safely perform code optimizations, resource efficiency, and system performance improvements based on the guidelines of other active vibes-plug skills.
+Master auditing and optimization skill instructing the agent to deeply analyze application structure, multi-language architecture, dependencies, performance, and security across the entire codebase. It safely executes targeted optimizations by orchestrating guidelines from all active `vibes-plug` specialized skills.
 
 ### Instructions
 
-#### 1. Deep Analysis Protocol
+#### 1. Deep Analysis & Audit Protocol
 Before making any code changes or optimizations, run the following auditing steps:
-- **Application Structure Mapping**: Explore the project directory tree to understand module structures, frontend/backend separation, and asset organization.
-- **Build & Config Review**:
-  - Check project configuration files such as `package.json`, `tsconfig.json`, `next.config.js`, `tailwind.config.js`, `vite.config.ts`, `Cargo.toml`, etc.
-  - Identify the versions of core technologies to match them with the latest ecosystem standards (e.g., React 19, Next.js 15, Tailwind CSS v4, Rust 2024 / v1.85+).
-- **Bottleneck & Critical Issue Detection**:
-  - Look for code redundancy, database query inefficiencies, excessive frontend rendering, or backend memory leaks.
-  - Review basic security configurations such as *Row-Level Security* (RLS) on Supabase or security rules on Firebase.
+- **Application Structure & Monorepo Mapping**: Explore directory trees, Turborepo / pnpm workspace dependencies, frontend/backend separation, and asset organization (`monorepo-architect`).
+- **Build & Ecosystem Configuration Review**:
+  - Inspect `package.json`, `tsconfig.json`, `next.config.js`, `vite.config.ts`, `Cargo.toml`, `go.mod`, `pyproject.toml` (`uv`).
+  - Align tech stack with modern 2026 ecosystem standards (React 19, Next.js 15, Tailwind v4 `@theme`, Node 22 LTS, Bun 1.2+, Python 3.12+ PEP 695, Go 1.23+, Rust 2024 / v1.85+, Expo SDK 52+, Tauri v2).
+- **Bottleneck & Security Audit**:
+  - **Frontend / UI**: Check Core Web Vitals (LCP, INP, CLS), bundle size, render loops, and WCAG 2.2 AAA accessibility compliance (`design-system-architect`, `senior-frontend`).
+  - **Backend / APIs**: Audit memory leaks, unhandled async promises, Event Loop blocking, ORM N+1 queries, and connection poolers (`js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`).
+  - **AI / MCP Systems**: Audit MCP server tools for input parameter validation (Zod/Pydantic), permission boundaries, and recursion limits in multi-agent state graphs (`mcp-server-architect`, `multi-agent-orchestration`).
+  - **Security & RLS**: Review PostgreSQL Row-Level Security (RLS), Supabase policies, Firebase Security Rules, CORS, and CSP headers (`supabase-security-expert`, `firebase-security-expert`, `saas-multi-tenant`).
 
-#### 2. Optimization Alignment with Vibes-Plug Skills
-Execute optimizations based on matching guidelines from the following active skills:
-- **Design & Styling**: Align layouts and styling with `tailwind-expert` (CSS-first, OKLCH, responsive modifiers) and `ui-ux-pro-max` / `hig` (Hierarchy, Harmony, Consistency).
-- **State Management & Data Fetching**: Use optimal caching, query key factories, and optimal mutation handling from `tanstack-query-expert`.
-- **Architecture & Code Quality**: Apply SOLID, DRY, and separation of concerns (loose coupling) principles from `scalability-clean-code`.
-- **Framework & Runtime**:
-  - In JS/TS ecosystem, optimize for fast runtimes (like Bun using `bun-runtime-expert`) or latest Next.js patterns (RSC, PPR, `useActionState` using `senior-frontend` / `senior-fullstack`).
-  - In Rust/Tauri ecosystem, optimize memory allocation, concurrency handling, and IPC security using `rust-programming-expert` and `tauri-expert`.
-- **Database & RLS**: Apply Row-Level Security and query scoping using `supabase-security-expert` or `saas-multi-tenant`.
-- **SEO & Visibility**: Optimize metadata, heading structure, semantic HTML, and AI search citation according to `seo` and `seo-geo`.
+#### 2. Optimization Alignment Across Vibes-Plug Skills
+Execute optimizations based on matching guidelines from active skills:
+- **Design & UI**: Align styling with `tailwind-expert` (CSS-first, OKLCH, responsive modifiers) and `design-system-architect` (Radix/Base UI headless primitives, CVA, ARIA roles).
+- **State & Data Fetching**: Optimize query key factories, `useSuspenseQuery`, and optimistic mutations via `tanstack-query-expert`.
+- **Architecture & Clean Code**: Apply SOLID, DRY, Clean Architecture, and loose coupling via `scalability-clean-code`.
+- **SEO & GEO**: Enhance Generative Engine Optimization for AI Overviews, Perplexity, ChatGPT Search, JSON-LD schemas, and `/llms.txt` via `seo` and `seo-geo`.
+- **Session Protection**: If performing large-scale multi-file refactoring, save a `STATE_HANDOFF.md` checkpoint via `session-handoff-resume` before switching sessions or accounts.
 
 #### 3. Safe Optimization Workflow
-Execute optimizations through these structured steps:
-1. **Create Initial Audit Report**: Document weaknesses, redundancies, and optimization areas found in a draft proposal.
-2. **Incremental Implementation**: Apply changes modularly (one file/component at a time) to prevent breaking changes.
+1. **Create Initial Audit Report**: Document weaknesses, redundancies, and proposed refactoring in an audit proposal.
+2. **Incremental Implementation**: Apply changes modularly (one component/module at a time) to prevent breaking changes.
 3. **Validation & Benchmarking**:
-    - Run unit tests, build tests, or linters to ensure no syntax/runtime errors are introduced.
-    - Compare performance before and after changes when possible (e.g., bundle size, API response times).
-4. **Auto-Documentation**: Use `auto-doc-updater` to automatically write optimization changes to `CHANGELOG.md` and `BLUEPRINT.md`.
-
-### Trigger Conditions
-Active whenever the user requests to:
-- Perform a project analysis, codebase audit, or general architecture review.
-- Perform performance optimization, bundle size reduction, database fixes, or mid-to-large scale code refactoring.
-- Align legacy projects to be compatible with the latest technologies or standards.
+   - Run unit tests (`vitest`, `pytest`, `go test`), build tests, or linters (`Ruff`, `ESLint`).
+   - Run Playwright E2E specs (`e2e-testing-expert`) or fuzz tests (`secure-fuzz-testing`).
+4. **Auto-Documentation**: Invoke `auto-doc-updater` to automatically write optimization changes to `CHANGELOG.md` and `BLUEPRINT.md`.
 
 ---
 
@@ -60,42 +52,33 @@ Active whenever the user requests to:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memberikan instruksi kepada agen untuk mempelajari struktur, arsitektur, dependensi, dan performa aplikasi secara mendalam (deep analysis), kemudian melakukan optimasi kode, efisiensi resource, dan peningkatan performa sistem secara aman dan terarah berdasarkan pedoman skill-skill yang aktif di dalam vibes-plug.
+Skill master audit dan optimasi yang menginstruksikan agen untuk menganalisis struktur aplikasi, arsitektur multi-bahasa, dependensi, performa, dan keamanan di seluruh codebase secara mendalam. Skill ini melakukan optimasi terarah secara aman dengan mengorkestrasikan pedoman dari seluruh skill spesialis `vibes-plug`.
 
 ### Instruksi
 
 #### 1. Protokol Analisis Mendalam (Deep Analysis Protocol)
 Sebelum melakukan perubahan kode atau optimasi apa pun pada proyek, jalankan langkah-langkah audit berikut:
-- **Pemetaan Struktur Aplikasi**: Telusuri pohon direktori proyek untuk memahami struktur modul, pembagian frontend/backend, dan organisasi asset.
-- **Analisis Konfigurasi (Build & Config Review)**:
-  - Periksa file konfigurasi proyek seperti `package.json`, `tsconfig.json`, `next.config.js`, `tailwind.config.js`, `vite.config.ts`, `Cargo.toml`, dsb.
-  - Identifikasi versi teknologi utama yang digunakan untuk mencocokkannya dengan standar ekosistem terbaru (misal: React 19, Next.js 15, Tailwind CSS v4, Rust 2024 / v1.85+).
-- **Deteksi Bottleneck & Isu Kritis**:
-  - Cari redundansi kode, inefisiensi query database, render berlebih di sisi frontend, atau memory leaks di sisi backend.
-  - Periksa pengaturan keamanan dasar seperti *Row-Level Security* (RLS) pada Supabase atau aturan keamanan pada Firebase.
+- **Pemetaan Struktur Aplikasi & Monorepo**: Telusuri direktori, dependensi workspace pnpm/Turborepo, pembagian frontend/backend, dan organisasi aset (`monorepo-architect`).
+- **Analisis Konfigurasi Build & Ekosistem**:
+  - Periksa `package.json`, `tsconfig.json`, `next.config.js`, `vite.config.ts`, `Cargo.toml`, `go.mod`, `pyproject.toml` (`uv`).
+  - Selaraskan stack teknologi dengan standar 2026 (React 19, Next.js 15, Tailwind v4 `@theme`, Node 22 LTS, Bun 1.2+, Python 3.12+ PEP 695, Go 1.23+, Rust 2024 / v1.85+, Expo SDK 52+, Tauri v2).
+- **Deteksi Bottleneck & Isu Keamanan**:
+  - **Frontend / UI**: Periksa Core Web Vitals (LCP, INP, CLS), ukuran bundle, loop render, dan kepatuhan aksesibilitas WCAG 2.2 AAA (`design-system-architect`, `senior-frontend`).
+  - **Backend / API**: Audit memory leaks, unhandled async promises, blocking event loop, kueri ORM N+1, dan connection poolers (`js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`).
+  - **Sistem AI / MCP**: Audit alat MCP Server untuk validasi parameter (Zod/Pydantic), batasan izin, dan batas rekursi pada graf agen (`mcp-server-architect`, `multi-agent-orchestration`).
+  - **Keamanan & RLS**: Periksa Row-Level Security (RLS) PostgreSQL, Supabase, Firebase Security Rules, CORS, dan header CSP (`supabase-security-expert`, `firebase-security-expert`, `saas-multi-tenant`).
 
 #### 2. Penyelarasan Optimasi dengan Vibes-Plug Skills
-Lakukan optimasi berdasarkan keselarasan aturan dari skill-skill berikut jika aktif:
-- **Desain & Gaya**: Sesuaikan layout dan styling dengan aturan `tailwind-expert` (CSS-first, OKLCH, responsive modifiers) dan `ui-ux-pro-max` / `hig` (Hierarchy, Harmony, Consistency).
-- **Pengelolaan State & Data Fetching**: Gunakan caching optimal, query key factory, dan penanganan mutasi optimal dari `tanstack-query-expert`.
-- **Arsitektur & Kualitas Kode**: Terapkan prinsip SOLID, DRY, dan pemisahan logika (loose coupling) yang ada di `scalability-clean-code`.
-- **Framework & Runtime**:
-  - Di ekosistem JS/TS, optimalkan penggunaan runtime cepat (seperti Bun menggunakan `bun-runtime-expert`) atau pattern terbaru Next.js (RSC, PPR, `useActionState` menggunakan `senior-frontend` / `senior-fullstack`).
-  - Di ekosistem Rust/Tauri, optimalkan alokasi memori, penanganan concurrency, dan keamanan IPC menggunakan `rust-programming-expert` dan `tauri-expert`.
-- **Database & RLS**: Menerapkan Row-Level Security dan query scoping menggunakan `supabase-security-expert` or `saas-multi-tenant`.
-- **SEO & Visibilitas**: Optimalkan metadata, struktur heading, semantic HTML, dan AI search citation sesuai `seo` dan `seo-geo`.
+- **Desain & UI**: Sesuaikan layout dengan `tailwind-expert` (CSS-first, OKLCH, responsive modifiers) dan `design-system-architect` (Radix/Base UI headless primitives, CVA, ARIA roles).
+- **Pengelolaan State & Data Fetching**: Gunakan query key factory, `useSuspenseQuery`, dan mutasi optimistik dari `tanstack-query-expert`.
+- **Arsitektur & Kualitas Kode**: Terapkan prinsip SOLID, DRY, dan Clean Architecture dari `scalability-clean-code`.
+- **SEO & GEO**: Tingkatkan Generative Engine Optimization untuk AI Overviews, Perplexity, ChatGPT Search, JSON-LD, dan `/llms.txt` via `seo` dan `seo-geo`.
+- **Proteksi Sesi**: Jika melakukan refactoring skala besar, simpan checkpoint `STATE_HANDOFF.md` via `session-handoff-resume` sebelum berganti akun/sesi.
 
 #### 3. Alur Kerja Optimasi Aman (Safe Optimization Workflow)
-Lakukan optimasi dengan langkah-langkah terstruktur berikut:
-1. **Buat Laporan Audit Awal**: Dokumentasikan daftar kelemahan, redundansi, dan area optimasi yang ditemukan dalam bentuk rancangan usulan.
-2. **Implementasi Inkremental**: Lakukan perubahan secara modular (satu file/komponen pada satu waktu) untuk menghindari perubahan yang merusak kompatibilitas (breaking changes).
+1. **Buat Laporan Audit Awal**: Dokumentasikan kelemahan, redundansi, dan usulan refactoring.
+2. **Implementasi Inkremental**: Lakukan perubahan secara modular (satu file/komponen pada satu waktu) untuk menghindari breaking changes.
 3. **Validasi & Benchmarking**:
-    - Jalankan unit test, build test, atau linter untuk memastikan tidak ada syntax/runtime error yang diperkenalkan.
-    - Bandingkan performa sebelum dan sesudah perubahan jika memungkinkan (misal: ukuran bundle, waktu response API).
-4. **Pencatatan Riwayat (Auto-Document)**: Gunakan kemampuan `auto-doc-updater` untuk secara otomatis menulis perubahan optimasi ke `CHANGELOG.md` dan `BLUEPRINT.md`.
-
-### Kondisi Pemicu
-Aktif setiap kali pengguna meminta untuk:
-- Melakukan analisis proyek, audit codebase, atau review arsitektur secara keseluruhan.
-- Melakukan optimasi performa, pengurangan ukuran bundle, perbaikan database, atau refactoring kode skala menengah hingga besar.
-- Menyelaraskan proyek lama agar kompatibel dengan teknologi atau standar terbaru.
+   - Jalankan unit test (`vitest`, `pytest`, `go test`), build test, atau linter (`Ruff`, `ESLint`).
+   - Jalankan Playwright E2E (`e2e-testing-expert`) atau fuzz testing (`secure-fuzz-testing`).
+4. **Pencatatan Riwayat (Auto-Document)**: Gunakan `auto-doc-updater` untuk secara otomatis menulis perubahan optimasi ke `CHANGELOG.md` dan `BLUEPRINT.md`.

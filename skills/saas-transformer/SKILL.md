@@ -31,7 +31,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  │  • prd-architect (Generate PRD for SaaS features)         │  │
 │  │  • brainstorming (Validate transformation strategy)       │  │
 │  │  • mpa-orchestrator (Evaluate MPA vs SPA architecture)    │  │
-│  │  • bun-runtime-expert (Evaluate runtime migration)        │  │
+│  │  • bun-runtime-expert / go-programming-expert             │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌─── PHASE 2: Multi-Tenancy Foundation ──────────────────────┐  │
@@ -42,8 +42,8 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │                                                                   │
 │  ┌─── PHASE 3: Authentication & Authorization ────────────────┐  │
 │  │  • fullstack-expert (OAuth 2.0 / OIDC setup)              │  │
+│  │  • js-backend-expert / go-programming-expert (Auth RBAC)  │  │
 │  │  • supabase-security-expert (RBAC, Custom Claims)         │  │
-│  │  • firebase-security-expert (if Firebase Auth)            │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌─── PHASE 4: Billing & Subscription ────────────────────────┐  │
@@ -55,24 +55,27 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │                                                                   │
 │  ┌─── PHASE 5: Workspace & Team Management ───────────────────┐  │
 │  │  • saas-multi-tenant (Workspace model, member roles)      │  │
+│  │  • design-system-architect (Radix/Base UI components)     │  │
 │  │  • senior-frontend (Invite flow, settings UI)             │  │
 │  │  • ui-ux-pro-max (Dashboard, onboarding UX)              │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
-│  ┌─── PHASE 6: SaaS Frontend & Landing ───────────────────────┐  │
+│  ┌─── PHASE 6: SaaS Frontend & Marketing ─────────────────────┐  │
 │  │  • senior-frontend (App shell, dashboard, settings)       │  │
+│  │  • design-system-architect (Tokens, Radix, CVA)           │  │
 │  │  • tanstack-query-expert (State & optimistic updates)     │  │
 │  │  • multiple-entry-points (Separate app vs landing page)   │  │
 │  │  • tailwind-expert (Design system, responsive)            │  │
 │  │  • seo-aeo-landing-page-writer (Conversion landing page)  │  │
-│  │  • seo / seo-geo (SEO & AI search readiness)              │  │
-│  │  • hig (Human Interface Guidelines consistency)           │  │
+│  │  • seo / seo-geo (SEO & AI search readiness, llms.txt)     │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
-│  ┌─── PHASE 7: API Layer & Feature Gating ────────────────────┐  │
-│  │  • fullstack-expert (API versioning, rate limiting)       │  │
+│  ┌─── PHASE 7: API Layer, AI Tools & Feature Gating ──────────┐  │
+│  │  • js-backend-expert (Node 22, Bun, Fastify 5, Hono)       │  │
+│  │  • go-programming-expert (Go 1.23+ microservices, gRPC)   │  │
+│  │  • mcp-server-architect (MCP Server tools & Zod schemas)  │  │
+│  │  • multi-agent-orchestration (LangGraph multi-agent teams)│  │
 │  │  • scalability-clean-code (Clean arch, SOLID)             │  │
-│  │  • senior-fullstack (Usage metering, feature flags)       │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 │  ┌─── PHASE 8: Testing, Security & Quality Assurance ─────────┐  │
@@ -81,11 +84,11 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  │  • coderabbit (AI PR summarization & code review)         │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
-│  ┌─── PHASE 9: Production Hardening & Cloud Deployment ───────┐  │
+│  ┌─── PHASE 9: Production Hardening, Cloud & Handoff ─────────┐  │
 │  │  • production-ready-hardener (Full 7-phase hardening)      │  │
 │  │  • cloud-hosting-expert (Edge middleware & custom domains)│  │
+│  │  • session-handoff-resume (Save state checkpoint)         │  │
 │  │  • auto-doc-updater (CHANGELOG, BLUEPRINT)                │  │
-│  │  • saas-mvp-launcher (Pre-launch checklist)               │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                   │
 └──────────────────────────────────────────────────────────────────┘
