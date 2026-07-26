@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [1.5.0] - 2026-07-26
+
+### Changed / Diubah
+- Standardized and updated all 48 skills within `vibes-plug` to match current 2026 technical relevance and industry standards.
+  *(Memperbarui dan menyelaraskan seluruh 48 skill di `vibes-plug` agar sesuai dengan relevansi teknis dan standar industri terkini tahun 2026.)*
+- Updated AI/LLM skills (`ai-llm-integration-expert`, `brainstorming`) with Model Context Protocol (MCP), Vercel AI SDK 4.x/5.x, reasoning models (DeepSeek-R1/V3, Gemini 3.5/3.6, Claude 3.7), and HNSW vector search.
+  *(Memperbarui skill AI/LLM dengan Model Context Protocol (MCP), Vercel AI SDK 4.x/5.x, model penalaran, dan pencarian vektor HNSW.)*
+- Updated Frontend & Mobile skills (`senior-frontend`, `tailwind-expert`, `mobile-expo-expert`, `tauri-expert`) with Next.js 15+, React 19, Tailwind CSS v4 `@theme`, Expo SDK 52+, React Native 0.76+ New Architecture, and Tauri v2.0+ stable.
+  *(Memperbarui skill Frontend & Mobile dengan React 19, Next.js 15+, Tailwind v4, Expo SDK 52+, React Native 0.76+ New Architecture, dan Tauri v2.0+.)*
+- Updated Language & Runtime skills (`python-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`) to Python 3.12/3.13+ (PEP 695 generics, `uv`, `Ruff`), Rust 2024 (v1.85+), and Bun 1.2+.
+  *(Memperbarui skill Bahasa & Runtime ke Python 3.12/3.13+, Rust 2024, dan Bun 1.2+.)*
+- Updated Search & Scraping skills (`seo-geo`, `web-scraper`) with Generative Engine Optimization (GEO for AI Overviews, Perplexity, ChatGPT Search) and Crawl4AI / Playwright extraction engines.
+  *(Memperbarui skill Search & Scraping dengan Generative Engine Optimization (GEO) dan engine ekstraksi Crawl4AI / Playwright.)*
+
 ## [1.4.3] - 2026-07-13
 
 ### Added / Ditambahkan

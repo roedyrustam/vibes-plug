@@ -1,6 +1,6 @@
 ---
 name: ai-llm-integration-expert
-description: "Expert guide for integrating Large Language Models (LLMs), RAG architecture, vector databases, and AI agents / Panduan ahli untuk integrasi LLM, arsitektur RAG, vector database, dan agen AI."
+description: "Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents / Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI."
 author: "Roedy Rustam"
 ---
 
@@ -14,40 +14,42 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-This skill provides production-grade guidelines for integrating Artificial Intelligence (AI) and Large Language Models (LLMs) into modern applications. It covers Retrieval-Augmented Generation (RAG), vector embeddings, token streaming for real-time UI, and AI agent orchestration.
+Production-grade guidelines for integrating Artificial Intelligence (AI), Model Context Protocol (MCP), and Large Language Models (LLMs) into modern applications. Covers Retrieval-Augmented Generation (RAG), vector embeddings, token streaming for real-time UI, agentic tool execution, and MCP architecture.
 
 ### Trigger Conditions
-- Integrating OpenAI, Anthropic (Claude), Gemini, or open-source models (Llama).
-- Building AI chatbots, copilots, or text-summarization features.
-- Implementing RAG with vector databases (Pinecone, Supabase `pgvector`, Qdrant).
-- Handling long-running AI generation via Server-Sent Events (SSE) or WebSockets.
-- Designing AI agents with tool-calling capabilities.
+- Integrating OpenAI (GPT-4o/o3), Anthropic (Claude 3.7/Sonnet), Gemini (3.5/3.6 Pro/Flash), or open-source reasoning models (DeepSeek-R1/V3, Llama 3.3).
+- Implementing Model Context Protocol (MCP) server or client integrations.
+- Building AI chatbots, copilots, or autonomous AI agent workflows (LangGraph, Vercel AI SDK 4.x/5.x).
+- Implementing RAG with vector databases (Supabase `pgvector` with HNSW indexes, Qdrant, Pinecone).
+- Handling real-time AI token generation via Server-Sent Events (SSE), Web Streams, or WebSockets.
+- Designing AI agents with tool-calling capabilities and strict Zod schema validations.
 
 ### Core Architecture Guidelines
 
-#### 1. RAG (Retrieval-Augmented Generation) Pipeline
-Do not rely on the LLM's internal knowledge for domain-specific tasks. Build a RAG pipeline:
-1. **Ingestion**: Chunk long documents (e.g., 500 tokens/chunk with 50-token overlap).
+#### 1. Model Context Protocol (MCP) Integration
+Standardize agent-tool interactions using the Model Context Protocol (MCP):
+- **MCP Servers**: Expose tools, resources, and prompt templates over JSON-RPC 2.0 (stdio or SSE transports).
+- **Security & Scope**: Validate all incoming parameters with Zod schemas. Enforce strict authorization boundaries before executing tool calls.
+
+#### 2. Advanced RAG (Retrieval-Augmented Generation) Pipeline
+Do not rely solely on internal model weights for domain knowledge. Build a production-grade RAG pipeline:
+1. **Ingestion**: Chunk long documents (e.g., 500-1000 tokens with 10% overlap, respecting semantic boundary headings).
 2. **Embedding**: Convert chunks to vectors using `text-embedding-3-small` or `nomic-embed-text`.
-3. **Storage**: Store vectors + metadata in a Vector DB (`pgvector` via Supabase is highly recommended if already using PostgreSQL).
-4. **Retrieval**: Perform cosine similarity search on the user query's embedding.
-5. **Generation**: Inject top-K retrieved chunks into the LLM prompt as context.
+3. **Storage & Hybrid Search**: Store vectors in PostgreSQL using `pgvector` (with HNSW vector index) or Qdrant. Combine vector cosine similarity with full-text keyword search (BM25 / tsvector) for hybrid search retrieval.
+4. **Reranking**: Use a cross-encoder reranker (e.g., Cohere Rerank) on top-K results to increase precision.
+5. **Generation**: Inject top contextual snippets into the system prompt.
 
-#### 2. Streaming Responses (Crucial for UX)
-LLM generation is slow. Always stream responses to the frontend to reduce perceived latency.
-- **Backend (Next.js/Node/Bun)**: Use the Web Streams API to pipe the LLM stream directly to the response object.
-- **Frontend (React)**: Use libraries like `ai` (Vercel AI SDK) or handle Server-Sent Events (SSE) natively. Show partial text and markdown rendering dynamically.
+#### 3. Streaming Responses & Vercel AI SDK
+- **Backend (Next.js/Bun/FastAPI)**: Pipe stream chunks directly via Web Streams API or SSE.
+- **Frontend (React)**: Use Vercel AI SDK (`useChat`, `useCompletion`) or native ReadableStream readers for zero perceived latency.
 
-#### 3. Structured Output & Tool Calling
-When you need the LLM to return data (JSON) or take actions:
-- **Do not parse raw text**. Use the LLM provider's native "Tool Calling" or "Function Calling" APIs.
-- Provide strict JSON schemas (using Zod) to enforce the shape of the output.
-- For open-source models, use libraries like `instructor` or `outlines`.
+#### 4. Structured Output & Tool Calling
+- Use native Tool/Function Calling APIs with strict JSON schemas via Zod (`zodResponseFormat`).
+- Support reasoning/thinking models (e.g., DeepSeek-R1, Gemini 3.5 Thought) by separating internal reasoning tokens `<think>` from client-facing output.
 
-#### 4. Cost & Rate Limit Management
-- Track token usage in a database on every request.
-- Implement aggressive rate-limiting per user (e.g., 10 AI requests/minute for Pro tier, 2 for Free tier).
-- Implement semantic caching (caching responses for similar queries) using Redis + Vector similarity to save API costs.
+#### 5. Cost & Rate Limit Management
+- Monitor token consumption per session and store metrics in telemetry/analytics tables.
+- Implement semantic caching using Redis + vector similarity to skip redundant model queries.
 
 ---
 
@@ -55,36 +57,38 @@ When you need the LLM to return data (JSON) or take actions:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memberikan panduan tingkat produksi untuk mengintegrasikan Kecerdasan Buatan (AI) dan Large Language Models (LLMs) ke dalam aplikasi modern. Panduan ini mencakup RAG (*Retrieval-Augmented Generation*), *vector embeddings*, *streaming* token untuk UI *real-time*, dan orkestrasi agen AI.
+Panduan tingkat produksi untuk mengintegrasikan Kecerdasan Buatan (AI), Model Context Protocol (MCP), dan Large Language Models (LLMs) ke dalam aplikasi modern. Panduan ini mencakup RAG (*Retrieval-Augmented Generation*), *vector embeddings*, *streaming* token UI *real-time*, eksekusi *tool* agen AI, dan arsitektur MCP.
 
 ### Kondisi Pemicu
-- Mengintegrasikan OpenAI, Anthropic (Claude), Gemini, atau model open-source (Llama).
-- Membangun chatbot AI, *copilot*, atau fitur peringkasan teks.
-- Mengimplementasikan RAG dengan *vector database* (Pinecone, Supabase `pgvector`, Qdrant).
-- Menangani generasi AI berdurasi panjang melalui Server-Sent Events (SSE) atau WebSocket.
-- Merancang agen AI yang memiliki kemampuan memanggil alat (*tool-calling*).
+- Mengintegrasikan OpenAI (GPT-4o/o3), Anthropic (Claude 3.7), Gemini (3.5/3.6), atau model penalaran open-source (DeepSeek-R1/V3, Llama 3.3).
+- Mengimplementasikan integrasi server atau klien Model Context Protocol (MCP).
+- Membangun chatbot AI, *copilot*, atau alur kerja agen AI otonom (LangGraph, Vercel AI SDK 4.x/5.x).
+- Mengimplementasikan RAG dengan *vector database* (Supabase `pgvector` indeks HNSW, Qdrant, Pinecone).
+- Menangani generasi token AI *real-time* via Server-Sent Events (SSE), Web Streams, atau WebSocket.
+- Merancang agen AI yang memiliki kemampuan *tool-calling* dengan validasi skema Zod yang ketat.
 
 ### Panduan Arsitektur Inti
 
-#### 1. Pipa RAG (*Retrieval-Augmented Generation*)
-Jangan mengandalkan pengetahuan internal LLM untuk tugas spesifik domain. Bangun pipa RAG:
-1. **Ingesti**: Pecah dokumen panjang menjadi potongan-potongan (*chunk*) (mis. 500 token/chunk dengan *overlap* 50 token).
-2. **Embedding**: Ubah potongan tersebut menjadi vektor (menggunakan `text-embedding-3-small`).
-3. **Penyimpanan**: Simpan vektor beserta metadatanya di Vector DB (Sangat disarankan menggunakan `pgvector` di Supabase jika sudah memakai PostgreSQL).
-4. **Pencarian (Retrieval)**: Lakukan pencarian *cosine similarity* terhadap *embedding* dari *query* pengguna.
-5. **Generasi**: Suntikkan potongan teratas (Top-K) ke dalam *prompt* LLM sebagai konteks.
+#### 1. Integrasi Model Context Protocol (MCP)
+Strukturkan interaksi antara agen dan alat menggunakan standar MCP:
+- **Server MCP**: Sediakan alat (*tools*), sumber daya (*resources*), dan *prompt templates* melalui transport JSON-RPC 2.0 (stdio atau SSE).
+- **Keamanan**: Validasi semua parameter masuk menggunakan skema Zod dan berlakukan otorisasi sebelum mengeksekusi fungsi.
 
-#### 2. Streaming Respons (Sangat Penting untuk UX)
-Pembuatan teks oleh LLM membutuhkan waktu. Selalu gunakan metode *streaming* ke frontend untuk mengurangi *perceived latency* (rasa lambat).
-- **Backend (Next.js/Node/Bun)**: Gunakan Web Streams API untuk mengalirkan *stream* LLM langsung ke objek respons.
-- **Frontend (React)**: Gunakan library seperti `ai` (Vercel AI SDK) atau tangani Server-Sent Events (SSE) secara *native*. Tampilkan teks parsial secara dinamis.
+#### 2. Pipa RAG Lanjutan (*Retrieval-Augmented Generation*)
+1. **Ingesti**: Pecah dokumen (500-1000 token dengan *overlap* 10% berbasis struktur judul semantik).
+2. **Embedding**: Ubah teks menjadi vektor (`text-embedding-3-small`).
+3. **Penyimpanan & Pencarian Hibrida**: Gunakan Supabase `pgvector` (indeks HNSW) atau Qdrant. Gabungkan pencarian vektor (*cosine similarity*) dengan pencarian teks (*full-text search*) untuk hasil yang lebih akurat.
+4. **Reranking**: Terapkan model reranker (misalnya Cohere Rerank) pada hasil pencarian teratas.
+5. **Generasi**: Suntikkan potongan konteks terbaik ke dalam *system prompt* LLM.
 
-#### 3. Output Terstruktur & Tool Calling
-Jika LLM perlu mengembalikan data (JSON) atau melakukan tindakan:
-- **Jangan mem-parsing teks mentah**. Gunakan API "Tool Calling" atau "Function Calling" bawaan dari penyedia LLM.
-- Berikan skema JSON yang ketat (menggunakan Zod) untuk memaksa format *output*.
+#### 3. Streaming Respons & Vercel AI SDK
+- **Backend**: Alirkan *stream* token menggunakan Web Streams API atau SSE.
+- **Frontend**: Gunakan Vercel AI SDK (`useChat`) untuk memberikan pengalaman pengguna yang responsif tanpa jeda.
 
-#### 4. Manajemen Biaya & Rate Limit
-- Lacak penggunaan token (Token Usage) dalam database pada setiap permintaan.
-- Terapkan *rate-limiting* yang ketat per pengguna (misalnya, 10 permintaan AI/menit untuk tier Pro, 2 untuk tier Free).
-- Implementasikan *semantic caching* (menyimpan respons untuk *query* yang mirip secara semantik) menggunakan Redis + Vector similarity untuk menghemat biaya API.
+#### 4. Output Terstruktur & Tool Calling
+- Gunakan API Tool Calling bawaan penyedia LLM dengan validasi Zod yang ketat (`zodResponseFormat`).
+- Untuk model penalaran (*reasoning models* seperti DeepSeek-R1 atau Gemini 3.5 Thought), pisahkan blok `<think>` internal dari keluaran teks publik.
+
+#### 5. Manajemen Biaya & Rate Limit
+- Pantau konsumsi token per sesi dan simpan di tabel telemetri.
+- Terapkan *semantic caching* menggunakan Redis + perbandingan vektor untuk menghemat biaya panggilan API.

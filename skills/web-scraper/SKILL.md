@@ -1,15 +1,17 @@
 ---
 name: web-scraper
-description: "Smart web data extraction capability with various scraping strategies, pagination support, monitoring, and export / Kemampuan ekstraksi data web cerdas dengan berbagai strategi scraping, dukungan paginasi, pemantauan, serta ekspor."
+description: "Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, pagination support, and structured export / Kemampuan ekstraksi data web cerda s dengan strategi scraping modern (Crawl4AI, Playwright, BeautifulSoup), ekstraksi LLM, paginasi, dan ekspor terstruktur."
 author: "Roedy Rustam"
 tags:
 - scraping
 - data-extraction
 - automation
-- csv
+- crawl4ai
+- playwright
+- json
 ---
 
-# Web Scraper
+# Web Scraper (Modern Multi-Strategy Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -19,50 +21,35 @@ tags:
 ## English
 
 ### Overview
-Smart web data extraction using a multi-strategy approach. Extracts structured data from web pages (tables, lists, prices). Supports pagination, monitoring, and exporting to CSV/JSON/Markdown.
+Smart, production-grade web data extraction utilizing multi-strategy scraping: Crawl4AI / Playwright for JS-rendered SPAs, BeautifulSoup / httpx for static HTML, and LLM-assisted schema extraction. Supports deep pagination, proxy rotation, rate-limiting compliance, and exporting to JSON, CSV, or Markdown.
 
 ### Trigger Conditions
-Use this skill when:
-- The user mentions "scraper", "scraping", "web scraping", or "web data extraction".
-- The user requests to "gather data from a website" or "collect site details".
+- Scraping, extracting, or parsing data from public web pages.
+- Harvesting product catalogs, pricing matrices, job boards, or news articles.
+- Handling complex JavaScript-rendered web pages (SPAs).
+- Structuring raw HTML into schema-validated JSON formats via LLM extraction.
 
-### Workflow (Phases)
+### Multi-Strategy Scraping Engine
+
+#### 1. Strategy A: High-Performance Static Scraping (`httpx` + `BeautifulSoup` / `selectolax`)
+- Best for SSG, static blogs, and simple HTML tables.
+- Extremely lightweight, fast, and low-cost.
+
+#### 2. Strategy B: Headless Browser & AI Crawler (`Crawl4AI` / `Playwright`)
+- Best for JS-heavy single page applications (React, Next.js client renders, Vue).
+- Features automatic Markdown conversion, DOM cleaning, scroll simulation, and shadow DOM traversal.
+
+#### 3. Strategy C: API Endpoint Inspection (Network Protocol Extraction)
+- Inspect network requests (`XHR`/`fetch`) to identify internal JSON API endpoints, bypassing HTML parsing altogether.
+
+### Workflow & Data Pipeline
+
 ```
-1. CLARIFY  ->  2. RECON  ->  3. STRATEGY  ->  4. EXTRACT  ->  5. TRANSFORM  ->  6. VALIDATE  ->  7. FORMAT
+1. CLARIFY -> 2. RECON -> 3. STRATEGY -> 4. EXTRACT -> 5. TRANSFORM -> 6. VALIDATE -> 7. EXPORT
 ```
 
-#### Phase 1: Clarify
-Establish extraction parameters before accessing the URL:
-- **Target URL(s)**: Which page(s) to scrape.
-- **Data Target**: What specific data to extract.
-- **Output Format**: Markdown table (default), JSON, or CSV.
-- **Scope**: Single page, paginated, or multi-URL.
-
-#### Phase 2: Reconnaissance
-Use `WebFetch` to analyze page structure: page type, JS rendering indicators (deciding if Browser is needed), pagination, and structured data availability.
-
-#### Phase 3: Strategy Selection
-- **Strategy A (WebFetch + AI)**: For static pages, articles, simple tables.
-- **Strategy B (Browser Automation)**: For JS-rendered pages, SPAs, and interactive content.
-- **Strategy C (Bash/curl/API)**: For raw JSON APIs or direct CSV/Excel download files.
-
-#### Phase 4: Extract
-Apply extraction prompts and templates depending on the data mode:
-- `table` (Markdown tables with exact headers)
-- `product` (Name, price, brand, specs, reviews)
-- `pricing` (Plan names, prices, features)
-- `contact` (Name, email, phone)
-- `faq` (Question-answer pairs)
-- `jobs` (Job title, salary, location)
-
-#### Phase 5: Transform
-Clean whitespaces, decode HTML entities, normalize dates to ISO-8601, resolve relative URLs to absolute, and deduplicate rows.
-
-#### Phase 6: Validate
-Verify item counts, check for truncation or outliers, and assign a **Confidence Rating** (HIGH / MEDIUM / LOW).
-
-#### Phase 7: Format & Deliver
-Deliver structured data wrapped in the metadata envelope (Source URL, Date, Item Count, Strategy, Notes).
+- **Validation**: Verify line item counts, check for schema truncation, and assign a Confidence Rating (**HIGH / MEDIUM / LOW**).
+- **Export Formats**: Structured JSON (standard), CSV, or GitHub Markdown tables.
 
 ---
 
@@ -70,47 +57,25 @@ Deliver structured data wrapped in the metadata envelope (Source URL, Date, Item
 ## Bahasa Indonesia
 
 ### Deskripsi
-Kemampuan ekstraksi data web cerdas menggunakan multi-strategi. Mengekstrak data terstruktur dari halaman web (tabel, daftar, harga). Mendukung paginasi, pemantauan, dan ekspor ke CSV/JSON/Markdown.
+Ekstraksi data web cerdas tingkat produksi menggunakan berbagai strategi scraping: Crawl4AI / Playwright untuk aplikasi SPA berbasis JavaScript, BeautifulSoup / httpx untuk HTML statis, serta ekstraksi skema berbasis LLM. Mendukung paginasi, rotasi proxy, batas frekuensi (rate limiting), dan ekspor ke JSON, CSV, atau Markdown.
 
 ### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Pengguna menyebutkan "scraper", "scraping", "extrair dados web", atau "web scraping".
-- Pengguna meminta untuk "raspar data" (mengikis data) atau "mengumpulkan data dari situs web".
+- Mengikis (*scraping*), mengekstrak, atau mem-parsing data dari situs web publik.
+- Mengumpulkan katalog produk, matriks harga, papan lowongan kerja, atau artikel berita.
+- Menangani halaman web kompleks yang dirender dengan JavaScript (SPA).
+- Mengubah HTML mentah menjadi format JSON terstruktur yang tervalidasi skema.
 
-### Alur Kerja (Phases)
-```
-1. CLARIFY  ->  2. RECON  ->  3. STRATEGY  ->  4. EXTRACT  ->  5. TRANSFORM  ->  6. VALIDATE  ->  7. FORMAT
-```
+### Alur Ekstraksi Multi-Strategi
 
-#### Phase 1: Clarify (Klarifikasi)
-Tentukan parameter ekstraksi sebelum mengakses URL:
-- **Target URL**: Halaman mana yang akan dikikis.
-- **Data Target**: Data spesifik apa yang ingin diekstrak.
-- **Format Output**: Tabel Markdown (default), JSON, atau CSV.
-- **Scope**: Halaman tunggal, paginasi, atau banyak URL.
+#### 1. Strategi A: Scraping Statis Cepat (`httpx` + `BeautifulSoup` / `selectolax`)
+- Sangat cocok untuk situs statis, blog, dan tabel HTML sederhana. Performa sangat tinggi dan hemat memori.
 
-#### Phase 2: Recon (Pemeriksaan Awal)
-Gunakan `WebFetch` untuk menganalisis struktur halaman: tipe halaman, render JavaScript (apakah diperlukan Browser), paginasi, dan ketersediaan data.
+#### 2. Strategi B: Headless Browser & AI Crawler (`Crawl4AI` / `Playwright`)
+- Sangat cocok untuk SPA berbasis JavaScript (React, Next.js client render, Vue). Menangani konversi Markdown otomatis, pembersihan DOM, dan interaksi scroll.
 
-#### Phase 3: Strategy Selection (Pemilihan Strategi)
-- **Strategi A (WebFetch)**: Untuk halaman statis, artikel, tabel sederhana.
-- **Strategi B (Browser Automation)**: Untuk halaman yang dirender JS, SPA, atau konten interaktif.
-- **Strategi C (Bash/curl/API)**: Jika data tersedia dalam bentuk endpoint API JSON/XML atau file CSV/Excel langsung.
+#### 3. Strategi C: Inspeksi Endpoint API Internal
+- Analisis lalu lintas jaringan (`fetch`/`XHR`) untuk menemukan API JSON internal langsung dari sumbernya.
 
-#### Phase 4: Extract (Ekstraksi)
-Terapkan pola ekstraksi sesuai mode data:
-- `table` (Tabel Markdown)
-- `product` (Nama, harga, merek, spesifikasi)
-- `pricing` (Plan names, prices, features)
-- `contact` (Nama, email, telepon)
-- `faq` (Tanya-jawab)
-- `jobs` (Judul pekerjaan, gaji, lokasi)
-
-#### Phase 5: Transform (Pembersihan Data)
-Bersihkan spasi kosong (whitespace), decode entitas HTML, normalisasikan tanggal (ISO-8601), hapus duplikasi (deduplikasi), dan lakukan resolusi URL relatif menjadi absolut.
-
-#### Phase 6: Validate (Validasi)
-Periksa kelengkapan baris, tipe data, dan tentukan rating keyakinan (**Confidence Rating**: HIGH / MEDIUM / LOW).
-
-#### Phase 7: Format & Deliver (Format & Pengiriman)
-Kirimkan data terstruktur kepada pengguna lengkap dengan amplop metadata (Sumber URL, Tanggal, Jumlah Item, Strategi, Catatan).
+### Format & Validasi Output
+- Terapkan validasi data (ISO-8601 untuk tanggal, pembersihan whitespace, resolusi URL absolut).
+- Sertakan tingkat keyakinan data (**Confidence Rating: HIGH / MEDIUM / LOW**).
