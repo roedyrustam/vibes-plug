@@ -11,6 +11,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [1.5.0] - 2026-07-26
 
 ### Added / Ditambahkan
+- Added `multi-agent-orchestration` skill module, providing expert-level guidelines for multi-agent systems, LangGraph, CrewAI, AutoGen, supervisor routing, state graphs, and Human-in-the-Loop guardrails.
+  *(Menambahkan modul skill `multi-agent-orchestration` yang menyediakan pedoman tingkat ahli untuk sistem multi-agen, LangGraph, CrewAI, AutoGen, perutean supervisor, dan gerbang persetujuan manusia.)*
+- Added `design-system-architect` skill module, providing expert-level guidelines for enterprise UI design systems, Design Tokens, Radix UI/Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.
+  *(Menambahkan modul skill `design-system-architect` yang menyediakan pedoman tingkat ahli untuk design system UI, Design Tokens, headless primitives Radix UI/Base UI, Tailwind v4 `@theme`, CVA, dan aksesibilitas WCAG 2.2 AAA.)*
 - Added `mcp-server-architect` skill module, providing expert-level guidelines for designing, building, and securing Model Context Protocol (MCP) servers across TypeScript, Python, and Go (stdio/SSE transports, Zod/Pydantic validation, security guardrails).
   *(Menambahkan modul skill `mcp-server-architect` yang menyediakan pedoman tingkat ahli untuk merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go.)*
 - Added `go-programming-expert` skill module, providing expert-level guidelines for Go 1.23/1.24+ backend APIs, microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and table-driven testing.

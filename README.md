@@ -18,8 +18,10 @@ This plugin provides the following list of skills that can be used by the agent:
 #### AI & Agentic Systems
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Production-grade guidelines for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases (`pgvector` HNSW, Qdrant), reasoning models (DeepSeek-R1/V3, Gemini 3.5/3.6, Claude 3.7), Vercel AI SDK 4.x/5.x, and AI agent orchestration.
 - **MCP Server Architect** (`mcp-server-architect`): Expert guide for designing, building, and security-hardening Model Context Protocol (MCP) servers across TypeScript, Python, and Go (`stdio` and `SSE` transports, Zod/Pydantic schema validation, permission guardrails).
+- **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Expert guide for designing multi-agent AI systems, LangGraph stateful graph workflows, CrewAI/AutoGen swarms, supervisor routing, shared memory state, and Human-in-the-Loop guardrails.
 
 #### Design & UI/UX
+- **Design System Architect** (`design-system-architect`): Expert guide for designing and maintaining scalable UI Design Systems, Design Tokens (OKLCH), Radix UI / Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.
 - **HIG — Human Interface Guidelines** (`hig`): Applies three core interface design principles — **Hierarchy** (clear visual hierarchy), **Harmony** (harmony between elements and platform), and **Consistency** (consistency across all screen sizes and devices, iOS 18/macOS Sequoia).
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Comprehensive design guide for web and mobile applications. Contains guides for color palettes, typography, WCAG 2.2 AAA accessibility, micro-animations, and deep UX guidelines.
 - **UI/UX Expert** (`ui_ux_expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
@@ -123,8 +125,10 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 #### AI & Sistem Agen
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Panduan tingkat produksi untuk integrasi Large Language Models (LLMs), Model Context Protocol (MCP), arsitektur RAG, vector database (`pgvector` HNSW, Qdrant), model penalaran (DeepSeek-R1/V3, Gemini 3.5/3.6, Claude 3.7), Vercel AI SDK 4.x/5.x, dan orkestrasi agen AI.
 - **MCP Server Architect** (`mcp-server-architect`): Panduan ahli merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go (transport `stdio` & `SSE`, validasi Zod/Pydantic, guardrails keamanan).
+- **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Panduan ahli merancang sistem multi-agen AI, alur kerja graf berbasis state LangGraph, kelompok agen CrewAI/AutoGen, perutean supervisor, memori bersama, dan gerbang persetujuan manusia.
 
 #### Desain & UI/UX
+- **Design System Architect** (`design-system-architect`): Panduan ahli merancang dan memelihara Design System UI, Design Tokens (OKLCH), Radix UI / Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA, dan aksesibilitas WCAG 2.2 AAA.
 - **HIG — Human Interface Guidelines** (`hig`): Menerapkan tiga prinsip desain antarmuka inti — **Hierarchy** (hirarki visual yang jelas), **Harmony** (harmoni antar elemen dan platform), dan **Consistency** (konsistensi di semua ukuran layar dan perangkat, iOS 18/macOS Sequoia).
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Panduan desain komprehensif untuk aplikasi web dan mobile. Mengandung panduan palet warna, tipografi, aksesibilitas WCAG 2.2 AAA, mikro-animasi, serta pedoman UX mendalam.
 - **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.

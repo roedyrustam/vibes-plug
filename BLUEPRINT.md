@@ -25,6 +25,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **cloud-hosting-expert**: Expert guide for deploying SaaS applications on edge and serverless platforms like Vercel (Edge, Fluid Compute), Cloudflare (Wrangler v3, Workers/Pages), Supabase, and Neon.
 - **coderabbit**: AI-powered automated code reviews, pull request summarizations, interactive chat prompts, and `.coderabbit.yaml` custom configurations.
 - **data-telemetry-expert**: Observability, OpenTelemetry 1.30+, PostHog, Mixpanel, and telemetry data pipelines.
+- **design-system-architect**: Enterprise UI design systems, Design Tokens (OKLCH), Radix UI/Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.
 - **e2e-testing-expert**: Guidelines for Playwright End-to-End testing (1.48+), Vitest unit/integration testing (2+), MSW 2+, and GitHub Actions CI/CD automation.
 - **event-driven-architect**: Microservices architecture, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, and background workflows (Temporal, Inngest, Trigger.dev v3).
 - **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check v11+ integration.
@@ -36,6 +37,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **mcp-server-architect**: Expert guide for designing, building, and securing Model Context Protocol (MCP) servers across TypeScript, Python, and Go (`stdio` and `SSE` transports, Zod/Pydantic schema validation, security guardrails).
 - **mobile-expo-expert**: React Native 0.76+ and Expo SDK 52+ development, covering Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
 - **monorepo-architect**: Expert guide for designing and managing scalable monorepos using Turborepo 2.x, pnpm v9+ workspaces, and pnpm catalogs.
+- **multi-agent-orchestration**: Multi-agent AI systems, LangGraph stateful graph workflows, CrewAI/AutoGen swarms, supervisor routing, shared memory state, and Human-in-the-Loop guardrails.
 - **mvc-expert**: Expert guidelines to modernize legacy PHP projects into clean, secure, and structured OOP/MVC architectures adhering to modern PHP (v8.3/8.4+) capabilities and PSR standards.
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
 - **production-ready-hardener**: Automated pre-launch audits across security, performance, accessibility, testing, and deployment.
@@ -81,6 +83,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **cloud-hosting-expert**: Panduan ahli meluncurkan aplikasi SaaS di platform edge & serverless (Vercel, Cloudflare, Supabase, Neon).
 - **coderabbit**: Asisten review kode otomatis berbasis AI, perangkum pull request, dan integrasi `.coderabbit.yaml`.
 - **data-telemetry-expert**: Observabilitas, OpenTelemetry 1.30+, PostHog, Mixpanel, dan analitik pipa data.
+- **design-system-architect**: Design system UI perusahaan, Design Tokens (OKLCH), headless primitives Radix UI/Base UI, Tailwind v4 `@theme`, CVA, dan aksesibilitas WCAG 2.2 AAA.
 - **e2e-testing-expert**: Pengujian End-to-End dengan Playwright 1.48+, Vitest 2+, MSW 2+, dan otomatisasi CI/CD.
 - **event-driven-architect**: Arsitektur microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), dan background workflows (Temporal, Inngest, Trigger.dev v3).
 - **firebase-security-expert**: Audit Firebase Security Rules, perlindungan Service Account, dan konfigurasi App Check v11+.
@@ -92,6 +95,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **mcp-server-architect**: Panduan ahli merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go (transport `stdio` & `SSE`, validasi Zod/Pydantic, guardrails keamanan).
 - **mobile-expo-expert**: Pengembangan React Native 0.76+ dan Expo SDK 52+, mencakup Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
 - **monorepo-architect**: Merancang dan mengelola monorepo skalabel menggunakan Turborepo 2.x, pnpm v9+ workspaces, dan pnpm catalogs.
+- **multi-agent-orchestration**: Sistem multi-agen AI, alur kerja graf berbasis state LangGraph, kelompok agen CrewAI/AutoGen, perutean supervisor, memori bersama, dan gerbang persetujuan manusia.
 - **mvc-expert**: Memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih dan terstruktur mematuhi standar PSR dan fitur PHP modern (v8.3/8.4+).
 - **prd-architect**: Perumusan wajib Product Requirements Document (PRD) sebelum menulis kode aplikasi baru.
 - **production-ready-hardener**: Audit kesiapan produksi pra-peluncuran pada aspek keamanan, performa, aksesibilitas, testing, dan deployment.
