@@ -10,6 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [1.5.0] - 2026-07-26
 
+### Added / Ditambahkan
+- Added `mcp-server-architect` skill module, providing expert-level guidelines for designing, building, and securing Model Context Protocol (MCP) servers across TypeScript, Python, and Go (stdio/SSE transports, Zod/Pydantic validation, security guardrails).
+  *(Menambahkan modul skill `mcp-server-architect` yang menyediakan pedoman tingkat ahli untuk merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go.)*
+- Added `go-programming-expert` skill module, providing expert-level guidelines for Go 1.23/1.24+ backend APIs, microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and table-driven testing.
+  *(Menambahkan modul skill `go-programming-expert` yang menyediakan pedoman tingkat ahli untuk Go 1.23/1.24+ backend API, microservices, pola konkurensi, sqlc, net/http, Gin/Echo/Fiber, gRPC, dan testing.)*
+- Added `js-backend-expert` skill module, providing expert-level guidelines for Node.js 22 LTS, Bun 1.2+, Deno 2.x, Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSockets, and BullMQ background jobs.
+  *(Menambahkan modul skill `js-backend-expert` yang menyediakan pedoman tingkat ahli untuk Node.js 22 LTS, Bun 1.2+, Deno 2.x, Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSocket, dan pemrosesan background job BullMQ.)*
+
 ### Changed / Diubah
 - Standardized and updated all 48 skills within `vibes-plug` to match current 2026 technical relevance and industry standards.
   *(Memperbarui dan menyelaraskan seluruh 48 skill di `vibes-plug` agar sesuai dengan relevansi teknis dan standar industri terkini tahun 2026.)*
