@@ -1,10 +1,10 @@
 ---
 name: ui-ux-pro-max
-description: "Comprehensive design guide for web and mobile applications / Panduan desain komprehensif untuk aplikasi web dan mobile."
+description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
 author: "Roedy Rustam"
 ---
 
-# UI/UX Pro Max - Design Intelligence
+# UI/UX Pro Max - Design Intelligence System
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,47 +14,95 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Comprehensive design guide for web and mobile applications. Contains guides for color palettes, typography, and deep UX guidelines across 9 technology stacks with priority-based recommendations.
+UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, and stack-specific best practices across **11 technology stacks**.
 
 ### Trigger Conditions
-Reference these guidelines when:
-- Designing new UI components or pages.
-- Choosing color palettes and typography.
-- Reviewing code for UX issues.
-- Building landing pages or dashboards.
-- Implementing accessibility requirements.
+Reference these guidelines or run the CLI search engine when:
+- Designing new UI components, landing pages, or dashboards.
+- Choosing color schemes, font pairings, and design tokens.
+- Generating a complete design system recommendation for a project.
+- Auditing code for UX, accessibility (a11y), or performance issues.
+- Needing stack-specific code patterns (React, Next.js, Vue, Nuxt, Svelte, Tailwind, SwiftUI, React Native, Flutter, Shadcn).
+
+---
+
+### Python BM25 Search CLI Integration
+
+The skill includes a fast Python search engine in `scripts/search.py` that queries 12 domain CSV datasets and 11 tech-stack CSV datasets.
+
+#### 1. Generate Complete Design System Recommendation
+Run this before starting design/coding to get an aggregated design system spec:
+```bash
+python scripts/search.py "<project/topic query>" --design-system -p "Project Name" -f markdown
+```
+*Example:* `python scripts/search.py "SaaS analytics dashboard" --design-system -p "MetricsApp" -f markdown`
+
+#### 2. Domain-Specific Search
+Search specific design domains:
+```bash
+python scripts/search.py "<query>" --domain <domain> --max-results 3
+```
+- **Available Domains (`--domain`)**:
+  - `style`: Visual design styles (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, etc.)
+  - `prompt`: Copy-paste ready AI prompts & CSS implementation checklists
+  - `color`: Hex color palettes tailored by product type (Primary, Secondary, CTA, Background, Text)
+  - `chart`: Chart type recommendations, library suggestions, accessibility & color guidance
+  - `landing`: High-converting landing page layouts, section orders & CTA placement
+  - `product`: Product-type specific design system blueprints (SaaS, E-commerce, Fintech, Crypto, etc.)
+  - `ux`: UX anti-patterns, usability best practices, severity, and good/bad code examples
+  - `typography`: Google font pairings, heading/body recommendations, mood keywords & CSS imports
+  - `icons`: Icon usage guidance, SVG libraries (Lucide, Heroicons), and code imports
+  - `react`: React & Next.js performance optimizations, re-render fixes & dynamic imports
+  - `web`: Web interface guidelines (ARIA, focus traps, virtual list, form inputs)
+
+*Example:* `python scripts/search.py "fintech dark theme" --domain color`
+
+#### 3. Stack-Specific Guidelines Search
+Search guidelines tailored to your exact tech stack:
+```bash
+python scripts/search.py "<query>" --stack <stack> --max-results 3
+```
+- **Supported Stacks (`--stack`)**:
+  - `html-tailwind` | `react` | `nextjs` | `vue` | `nuxtjs` | `nuxt-ui` | `svelte` | `swiftui` | `react-native` | `flutter` | `shadcn`
+
+*Example:* `python scripts/search.py "virtualized list performance" --stack react`
+
+---
 
 ### Quick Reference for Professional Rules
 
-#### 1. Accessibility - CRITICAL
-- **Color Contrast**: Minimum 4.5:1 ratio for normal text.
-- **Focus States**: Visible focus rings on interactive elements during keyboard navigation.
-- **Alt Text**: Descriptive alt text for meaningful images.
+#### 1. Accessibility (WCAG 2.2) - CRITICAL
+- **Color Contrast**: Minimum 4.5:1 ratio for normal text, 3:1 for large text/UI components.
+- **Focus States**: Visible focus rings (`focus-visible:ring-2 focus-visible:ring-offset-2`) during keyboard navigation.
+- **Alt Text & ARIA**: Descriptive alt text for imagery; proper `aria-expanded`, `aria-controls`, and semantic HTML tags.
 
 #### 2. Touch & Interaction - CRITICAL
-- **Touch Target Size**: Minimum 44x44px touch targets for mobile.
-- **Loading Buttons**: Disable buttons during asynchronous operations to prevent double submissions.
-- **Cursor Pointer**: Add `cursor-pointer` to all interactive/clickable elements.
+- **Touch Target Size**: Minimum 44x44px for mobile devices.
+- **Loading & State**: Disable buttons during async requests to prevent duplicate submissions; show subtle spinners or skeleton loaders.
+- **Cursor Pointer**: Always add `cursor-pointer` to clickable/interactive elements.
 
 #### 3. Performance & Animation - HIGH / MEDIUM
-- **Image Optimization**: Use WebP/AVIF formats, srcset, and lazy loading.
-- **Micro-interactions**: Use 150-300ms durations for responsive and smooth transitions.
+- **Image & Assets**: Use WebP/AVIF formats, `srcset`, explicit `width`/`height` attributes, and `loading="lazy"`.
+- **Micro-interactions**: Keep transition durations between 150ms–300ms (`ease-in-out`) for fast and responsive UI feel.
+- **Reduced Motion**: Respect `prefers-reduced-motion: reduce`.
 
 #### 4. Light/Dark Mode Contrast
-- **Light Mode**: Use high-contrast dark text (e.g., Slate-900 `#0F172A`); avoid faint gray text. Ensure borders are visible.
-- **Dark Mode**: Verify that background tones provide enough contrast with foreground elements.
+- **Light Mode**: High-contrast text (e.g. Slate-900 `#0F172A`); avoid pale grays for primary text. Ensure borders (`border-slate-200`) remain visible.
+- **Dark Mode**: High contrast foreground elements over dark slate/gray backgrounds; avoid pure black `#000000` text containers unless requested.
 
-#### 5. Modern & Professional Dashboard Design
-- **Information Hierarchy**: Put the most critical indicators (KPI cards) at the top, followed by trends (charts) in the middle, and detailed data (tables/lists) at the bottom.
-- **Visual Grid**: Keep margins/gaps consistent (16px/24px). Use clean dividers or subtle borders (`border-slate-100` / `border-slate-800`) instead of heavy black lines.
-- **Charts & Colors**: Use max 3–5 coordinated colors for visual clarity in graphs. Ensure tooltips are responsive.
+#### 5. Dashboard & Information Hierarchy
+- **Layout Flow**: KPI summary cards top -> Trend charts middle -> Detailed data tables bottom.
+- **Visual Grid**: Consistent gaps/padding (16px / 24px). Clean subtle borders instead of heavy black dividers.
+- **Data Viz**: Maximum 3–5 coordinated colors in graphs. Responsive tooltips and legend alignment.
 
-### UI/UX Design Checklist Before Delivery
-- [ ] **Visual Quality**: Emojis are not used as icons (use SVG). Icons from a consistent set. Hovers do not shift layout.
-- [ ] **Interaction**: All clickable elements have `cursor-pointer`. Smooth transitions (150-300ms).
-- [ ] **Contrast**: Text contrast in light mode is at least 4.5:1. Borders visible in both modes.
-- [ ] **Layout**: Floating elements have proper spacing from edges. Responsive tested at multiple breakpoints (375px, 768px, 1024px, 1440px). No horizontal scroll on mobile.
-- [ ] **Accessibility**: All images have alt text. Form inputs have labels.
+---
+
+### UI/UX Design Pre-Delivery Checklist
+- [ ] **Visual Quality**: No emojis used as UI icons (use SVG icons from Lucide/Heroicons). Hover states do not cause layout shifts.
+- [ ] **Interaction**: `cursor-pointer` applied to all interactive elements. Smooth 150–300ms transitions.
+- [ ] **Contrast**: Text contrast ratio >= 4.5:1 in light mode. Visible borders in both light and dark modes.
+- [ ] **Layout & Responsive**: Tested across 375px, 768px, 1024px, 1440px breakpoints. No unintentional horizontal scrolling on mobile.
+- [ ] **Accessibility**: All images have meaningful `alt` text. Form inputs have explicitly connected `<label>` elements or `aria-label`.
 
 ---
 
@@ -62,44 +110,92 @@ Reference these guidelines when:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan desain komprehensif untuk aplikasi web dan mobile. Berisi pedoman palet warna, tipografi, serta pedoman UX mendalam untuk 9 tumpukan teknologi (technology stacks) dengan rekomendasi berbasis prioritas.
+UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
 
 ### Kondisi Pemicu
-Tinjau pedoman ini ketika:
-- Mendesain komponen UI atau halaman baru.
-- Memilih palet warna dan tipografi.
-- Meninjau kode untuk masalah kegunaan (UX).
-- Membangun landing page atau dashboard.
-- Menerapkan persyaratan aksesibilitas (a11y).
+Gunakan pedoman ini atau jalankan mesin pencari CLI ketika:
+- Mendesain komponen UI baru, landing page, atau dashboard.
+- Memilih skema warna, pasangan font, dan token desain.
+- Menghasilkan rekomendasi sistem desain (design system) lengkap untuk proyek.
+- Mengaudit kode untuk masalah UX, aksesibilitas (a11y), atau kinerja.
+- Membutuhkan pola kode spesifik stack (React, Next.js, Vue, Nuxt, Svelte, Tailwind, SwiftUI, React Native, Flutter, Shadcn).
+
+---
+
+### Integrasi CLI Pencarian Python BM25
+
+Skill ini dilengkapi mesin pencari Python cepat di `scripts/search.py` yang dapat mengueri 12 dataset CSV domain dan 11 dataset CSV tech-stack.
+
+#### 1. Generasi Rekomendasi Sistem Desain Lengkap
+Jalankan ini sebelum memulai desain/coding untuk mendapatkan spesifikasi sistem desain terintegrasi:
+```bash
+python scripts/search.py "<kueri proyek/topik>" --design-system -p "Nama Proyek" -f markdown
+```
+*Contoh:* `python scripts/search.py "SaaS analytics dashboard" --design-system -p "MetricsApp" -f markdown`
+
+#### 2. Pencarian Berdasarkan Domain
+Cari domain desain tertentu:
+```bash
+python scripts/search.py "<kueri>" --domain <domain> --max-results 3
+```
+- **Domain yang Tersedia (`--domain`)**:
+  - `style`: Gaya desain visual (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, dll.)
+  - `prompt`: Prompt AI siap pakai & checklist implementasi CSS
+  - `color`: Palet warna Hex sesuai jenis produk (Utama, Sekunder, CTA, Background, Teks)
+  - `chart`: Rekomendasi jenis grafik, pustaka grafik, panduan kontras & aksesibilitas
+  - `landing`: Tata letak landing page konversi tinggi, urutan seksi & penempatan CTA
+  - `product`: Cetak biru sistem desain spesifik jenis produk (SaaS, E-commerce, Fintech, Crypto, dll.)
+  - `ux`: Anti-pattern UX, praktik terbaik kegunaan, tingkat keparahan, serta contoh kode baik/buruk
+  - `typography`: Pasangan font Google Fonts, rekomendasi font judul/isi, mood & CSS import
+  - `icons`: Panduan penggunaan ikon, pustaka SVG (Lucide, Heroicons), & import kode
+  - `react`: Optimasi performa React & Next.js, perbaikan re-render & dynamic import
+  - `web`: Pedoman antarmuka web (ARIA, focus trap, virtual list, input form)
+
+*Contoh:* `python scripts/search.py "fintech dark theme" --domain color`
+
+#### 3. Pencarian Pedoman Spesifik Tech Stack
+Cari pedoman yang disesuaikan persis dengan tech stack proyek:
+```bash
+python scripts/search.py "<kueri>" --stack <stack> --max-results 3
+```
+- **Tech Stack yang Didukung (`--stack`)**:
+  - `html-tailwind` | `react` | `nextjs` | `vue` | `nuxtjs` | `nuxt-ui` | `svelte` | `swiftui` | `react-native` | `flutter` | `shadcn`
+
+*Contoh:* `python scripts/search.py "virtualized list performance" --stack react`
+
+---
 
 ### Acuan Cepat Aturan Profesional
 
-#### 1. Aksesibilitas (A11y) - KRITIS
-- **Kontras Warna**: Rasio kontras minimal 4.5:1 untuk teks normal agar mudah dibaca.
-- **Focus States**: Tampilkan cincin fokus (focus ring) yang jelas saat elemen interaktif dinavigasikan dengan keyboard.
-- **Alt Text**: Sediakan alt text deskriptif pada gambar yang memiliki arti penting.
+#### 1. Aksesibilitas (WCAG 2.2) - KRITIS
+- **Kontras Warna**: Rasio kontras minimal 4.5:1 untuk teks normal, 3:1 untuk teks besar/komponen UI.
+- **Focus States**: Tampilkan cincin fokus yang jelas (`focus-visible:ring-2 focus-visible:ring-offset-2`) saat menggunakan navigasi keyboard.
+- **Alt Text & ARIA**: Sediakan alt text deskriptif pada gambar; gunakan atribut `aria-expanded`, `aria-controls`, serta elemen HTML semantik.
 
 #### 2. Sentuhan & Interaksi - KRITIS
 - **Touch Target Size**: Ukuran area sentuh minimal 44x44px untuk perangkat mobile.
-- **Loading Buttons**: Nonaktifkan tombol selama operasi asinkron sedang berjalan agar tidak terjadi submit ganda.
-- **Cursor Pointer**: Tambahkan `cursor-pointer` pada semua elemen interaktif yang dapat diklik atau memiliki efek hover.
+- **Loading & State**: Nonaktifkan tombol selama operasi asinkron agar tidak terjadi submit ganda; tampilkan spinner halus atau skeleton loader.
+- **Cursor Pointer**: Wajib menambahkan `cursor-pointer` pada elemen interaktif yang dapat diklik.
 
 #### 3. Performa & Animasi - TINGGI / MENENGAH
-- **Optimasi Gambar**: Gunakan format WebP/AVIF, atribut srcset, dan lazy loading.
-- **Mikro-interaksi**: Gunakan durasi 150-300ms untuk transisi state agar terasa responsif namun halus.
+- **Aset Gambar**: Gunakan format WebP/AVIF, atribut `srcset`, dimensi `width`/`height` eksplisit, serta `loading="lazy"`.
+- **Mikro-interaksi**: Durasi transisi antara 150ms–300ms (`ease-in-out`) agar antarmuka terasa cepat dan responsif.
+- **Reduced Motion**: Hormati preferensi `prefers-reduced-motion: reduce`.
 
 #### 4. Kontras Mode Terang & Gelap
-- **Mode Terang**: Gunakan warna teks gelap yang jelas (misal Slate-900 `#0F172A`), hindari teks abu-abu pudar. Gunakan warna batas (border) yang kontras.
-- **Mode Gelap**: Pastikan latar belakang gelap memberikan kontras yang cukup dengan elemen di atasnya.
+- **Mode Terang**: Teks gelap kontras tinggi (misal Slate-900 `#0F172A`); hindari teks abu-abu pudar. Pastikan batas/border (`border-slate-200`) tetap terlihat.
+- **Mode Gelap**: Kontras tinggi antara elemen latar depan dengan latar belakang gelap; hindari kontainer teks serba hitam pekat `#000000` kecuali diminta khusus.
 
-#### 5. Desain Dashboard Modern & Profesional
-- **Hierarki Informasi**: Letakkan indikator paling kritis (kartu KPI) di bagian atas, tren (grafik) di bagian tengah, dan detail data (tabel/list) di bagian bawah.
-- **Grid Visual**: Jaga konsistensi margin dan celah (16px/24px). Gunakan pembatas bersih atau border halus (`border-slate-100` / `border-slate-800`) daripada garis hitam tebal.
-- **Grafik & Warna**: Gunakan maksimal 3–5 warna terkoordinasi untuk kejelasan visual pada grafik. Pastikan tooltip responsif.
+#### 5. Dashboard & Hierarki Informasi
+- **Alur Tata Letak**: Kartu ringkasan KPI di atas -> Grafik tren di tengah -> Tabel detail data di bawah.
+- **Grid Visual**: Konsistensi gap/padding (16px / 24px). Gunakan border halus daripada pembatas tebal hitam.
+- **Visualisasi Data**: Maksimal 3–5 warna terkoordinasi dalam grafik. Tooltip responsif & perataan legenda yang rapi.
+
+---
 
 ### Checklist Desain UI/UX Sebelum Delivery
-- [ ] **Visual**: Tidak menggunakan emoji sebagai ikon (gunakan SVG). Ikon berasal dari set yang konsisten. Efek hover tidak menggeser layout.
-- [ ] **Interaksi**: Semua elemen klik memiliki `cursor-pointer`. Transisi halus (150-300ms).
-- [ ] **Kontras**: Kontras teks mode terang minimal 4.5:1. Borders terlihat di kedua mode.
-- [ ] **Layout**: Elemen melayang (floating navbar) memiliki spacing yang pas dari tepi. Responsif diuji di berbagai breakpoint (375px, 768px, 1024px, 1440px). Tidak ada scroll horizontal pada mobile.
-- [ ] **Aksesibilitas**: Semua gambar memiliki alt text. Form input memiliki label terkait.
+- [ ] **Visual**: Tidak menggunakan emoji sebagai ikon UI (gunakan ikon SVG seperti Lucide/Heroicons). Efek hover tidak menggeser tata letak.
+- [ ] **Interaksi**: `cursor-pointer` diterapkan pada semua elemen interaktif. Transisi halus 150–300ms.
+- [ ] **Kontras**: Rasio kontras teks minimal 4.5:1 pada mode terang. Border terlihat di kedua mode (terang & gelap).
+- [ ] **Tata Letak & Responsif**: Diuji pada breakpoint 375px, 768px, 1024px, 1440px. Tidak ada scroll horizontal tak disengaja pada perangkat mobile.
+- [ ] **Aksesibilitas**: Semua gambar memiliki `alt` text yang bermakna. Form input memiliki `<label>` terhubung atau `aria-label`.
