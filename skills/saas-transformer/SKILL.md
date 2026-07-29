@@ -201,10 +201,10 @@ When this skill is triggered, execute the following **9-phase transformation pro
 #### PHASE 6: SaaS Frontend & Landing
 **Orchestrates:** `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
 
-**Goal:** Build the SaaS frontend: app shell, dashboard, and marketing pages.
+**Goal:** Build the SaaS frontend: app shell, dashboard, marketing pages, and super admin panel.
 
 **Steps:**
-1. **Architecture Separation (`multiple-entry-points`)**: Separate authenticated SaaS application from marketing pages.
+1. **Architecture Separation (`multiple-entry-points`)**: Separate authenticated SaaS application from marketing pages and the Super Admin dashboard (which MUST be deployed on a separate subdomain like `admin.example.com` for application management).
 2. **State Management (`tanstack-query-expert`)**: Implement robust asynchronous state handling, ensuring optimistic UI updates (e.g., when a user updates their profile, the UI reflects it instantly while the server syncs).
 3. **App shell / Layout**: Authenticated layout with sidebar navigation, breadcrumbs, and workspace context.
 4. **Marketing / Landing page**: Convert users with a highly optimized, SEO/GEO friendly landing page.
@@ -214,6 +214,7 @@ When this skill is triggered, execute the following **9-phase transformation pro
 - [ ] Advanced data fetching with TanStack Query (no raw useEffects)
 - [ ] Settings pages (account, workspace, team, billing)
 - [ ] Landing page with pricing and social proof
+- [ ] Super Admin dashboard deployed on a separate subdomain
 - [ ] SEO meta tags and Structured data on all public pages
 - [ ] Consistent design system (colors, typography, spacing)
 
@@ -392,7 +393,8 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 #### FASE 6: Frontend SaaS & Landing
 **Mengorkestrasi:** `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `seo-aeo-landing-page-writer`, `seo`, `hig`
 
-- [ ] Arsitektur dipisah antara aplikasi SaaS dan landing page (`multiple-entry-points`)
+- [ ] Arsitektur dipisah antara aplikasi SaaS, landing page, dan Super Admin (`multiple-entry-points`)
+- [ ] Dashboard Super Admin untuk manajemen aplikasi (wajib di-deploy pada subdomain terpisah seperti `admin.domain.com`)
 - [ ] App shell dengan sidebar, header, workspace switcher
 - [ ] Pengambilan data (data fetching) modern dengan TanStack Query
 - [ ] Dashboard dengan metrik dan grafik penggunaan

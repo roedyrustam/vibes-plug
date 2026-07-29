@@ -52,14 +52,15 @@ Recommended modern SaaS stack (2026):
 
 #### 3. Architecture & Database Schema
 - **Architecture (`multiple-entry-points`)**: Apply the `multiple-entry-points` pattern to logically separate the public landing page, the authenticated tenant dashboard, and the administrative backend. This ensures the public site loads blazingly fast without bootstrapping heavy application logic.
-- **Schema (Multi-tenant SaaS)**: Choose between **Shared Schema** (tenant_id on every table, simpler) or **Isolated Schema** (schema-per-tenant, stricter isolation). Please refer to the code examples below for Shared Schema database configurations in Prisma and Drizzle.
+  - **Super Admin Dashboard**: A critical requirement for application management. The Super Admin panel must be explicitly separated and deployed on a dedicated subdomain (e.g., `admin.example.com`). This isolates administrative capabilities (user moderation, global metrics, tenant management) from the main application.
+- **Schema (Multi-tenant SaaS)**: Choose between **Shared Schema** (tenant_id on every table, simpler) or **Isolated Schema** (schema-per-tenant, stricter isolation). Please refer to the code examples below for Shared Schema database configurations in Prisma and Drizzle. Ensure the User schema includes a role or flag (e.g., `isSuperAdmin`) to restrict access to the admin subdomain.
 
 #### 4. Pre-Launch Checklist
 - **Technical**: Authentication works, Payments work end-to-end, Error monitoring configured (Sentry), Database backups active, Rate limiting on API routes, Input validation with Zod.
 - **Authentication & Auth Provider Checklist**:
   - **Clerk**: Ensure webhook secrets are configured in production to sync user creations/deletions, set `ClerkProvider` dynamic flags, and lock down middleware matching routes so API folders are protected.
   - **NextAuth.js (Auth.js)**: Verify `NEXTAUTH_SECRET` is set with a strong generated value, session driver is correctly configured (JWT or database sessions), and token expiration rules are set appropriately.
-- **Product**: Landing page with clear value prop, Pricing page with 2-3 tiers, Onboarding flow (< 5 minutes to first value), ToS and Privacy Policy.
+- **Product**: Landing page with clear value prop, Pricing page with 2-3 tiers, Onboarding flow (< 5 minutes to first value), ToS and Privacy Policy, **Super Admin Dashboard** deployed on a subdomain for app management.
 - **Marketing**: Domain configured, SEO meta tags on all pages, Analytics active.
 
 
@@ -112,14 +113,15 @@ Rekomendasi stack SaaS modern (2026):
 
 #### 3. Arsitektur & Database Schema
 - **Arsitektur (`multiple-entry-points`)**: Terapkan pola `multiple-entry-points` untuk memisahkan secara logis halaman *landing page* publik, *dashboard* tenant yang diautentikasi, dan *backend* administratif. Ini memastikan situs publik memuat dengan sangat cepat tanpa memuat logika aplikasi yang berat.
-- **Schema (Multi-tenant SaaS)**: Pilih antara **Shared Schema** (tenant_id di setiap tabel, lebih sederhana) atau **Isolated Schema** (schema-per-tenant, isolasi lebih ketat). Skema database multi-tenant Shared Schema menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat acuan kode di bawah).
+  - **Dashboard Super Admin**: Fitur wajib untuk manajemen aplikasi. Panel Super Admin harus dipisahkan secara eksplisit dan di-deploy pada subdomain khusus (contoh: `admin.example.com`). Hal ini mengisolasi akses administratif (moderasi user, metrik sistem, manajemen tenant) dari aplikasi utama.
+- **Schema (Multi-tenant SaaS)**: Pilih antara **Shared Schema** (tenant_id di setiap tabel, lebih sederhana) atau **Isolated Schema** (schema-per-tenant, isolasi lebih ketat). Skema database multi-tenant Shared Schema menyediakan struktur relasi antara `User`, `Workspace`, `WorkspaceMember`, dan `Subscription` (lihat acuan kode di bawah). Pastikan skema User memiliki flag atau role (contoh: `isSuperAdmin`) untuk membatasi akses ke subdomain admin.
 
 #### 4. Checklist Peluncuran (Pre-Launch Checklist)
 - **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.
 - **Checklist Autentikasi & Auth Provider**:
   - **Clerk**: Pastikan webhook secret dikonfigurasi di produksi untuk sinkronisasi pembuatan/penghapusan user, atur dynamic flags pada `ClerkProvider`, dan kunci middleware agar seluruh endpoint API terproteksi.
   - **NextAuth.js (Auth.js)**: Pastikan `NEXTAUTH_SECRET` diatur dengan nilai acak yang kuat di environment production, adapter session terhubung dengan benar (JWT atau database session), dan atur waktu kedaluwarsa token secara aman.
-- **Produk**: Landing page dengan proposisi nilai yang jelas, Halaman harga (pricing) dengan 2-3 tier, Alur onboarding (< 5 menit), Dokumen Terms of Service dan Kebijakan Privasi.
+- **Produk**: Landing page dengan proposisi nilai yang jelas, Halaman harga (pricing) dengan 2-3 tier, Alur onboarding (< 5 menit), Dokumen Terms of Service dan Kebijakan Privasi, **Dashboard Super Admin** yang di-deploy di subdomain untuk manajemen aplikasi.
 - **Pemasaran**: Domain terkonfigurasi, Tag meta SEO pada semua halaman, Google Analytics/PostHog aktif, Akun media sosial siap.
 
 
@@ -138,6 +140,7 @@ model User {
   id            String    @id @default(cuid())
   email         String    @unique
   name          String?
+  isSuperAdmin  Boolean   @default(false)
   createdAt     DateTime  @default(now())
   subscription  Subscription?
   workspaces    WorkspaceMember[]
@@ -184,7 +187,7 @@ enum Plan {
 
 ### Drizzle ORM Schema (`lib/db/schema.ts`)
 ```typescript
-import { pgTable, text, timestamp, pgEnum, unique } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, pgEnum, unique, boolean } from 'drizzle-orm/pg-core';
 
 export const planEnum = pgEnum('plan', ['FREE', 'PRO', 'ENTERPRISE']);
 
@@ -192,6 +195,7 @@ export const users = pgTable('users', {
   id: text('id').primaryKey(),
   email: text('email').notNull().unique(),
   name: text('name'),
+  isSuperAdmin: boolean('is_super_admin').default(false).notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
