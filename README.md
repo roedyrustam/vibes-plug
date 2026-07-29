@@ -9,7 +9,7 @@
 <a name="english"></a>
 ## English
 
-Customization plugin for Antigravity that contains various specialized *skills* to support software development, UI/UX design, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Customization plugin for Antigravity containing 40+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies.
 
 ### Features and Available Skills
 
@@ -28,6 +28,8 @@ This plugin provides the following list of skills that can be used by the agent:
 
 #### Frontend & Mobile Development
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits (Core Web Vitals, INP), and executes targeted optimizations according to standards.
+- **MPA Orchestrator** (`mpa-orchestrator`): Orchestrates Multi-Page Application (MPA) architecture within a single repository.
+- **SPA Orchestrator** (`spa-orchestrator`): Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management (TanStack Router/Query) with decoupled API-driven backends.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern utility-first stacks using Tailwind CSS v4 and Alpine.js 3 / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Expert guide for React Native 0.76+ and Expo SDK 52+ development, covering Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
 - **Senior Frontend** (`senior-frontend`): React 19, Next.js 15, TypeScript, and Tailwind CSS v4 development expert. Capable of optimizing performance, bundle size, Server Actions, `useActionState`, `useOptimistic`, and designing frontend components.
@@ -107,7 +109,7 @@ Once the command above succeeds, Antigravity will scan the folder and automatica
 For those who want to contribute by adding new skills or updating existing ones, please read our complete guide at [CONTRIBUTING.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ### Version
-v1.5.0
+v2.0.0 (2026 Edition)
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -117,7 +119,7 @@ v1.5.0
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
-Plugin kustomisasi untuk Antigravity yang berisi berbagai *skills* khusus untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi 40+ *skills* khusus yang diperbarui untuk tech stack modern 2026 (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Fitur dan Skills yang Tersedia
 
@@ -136,6 +138,8 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 
 #### Pengembangan Frontend & Mobile
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan (Core Web Vitals, INP), serta melakukan optimasi terarah.
+- **MPA Orchestrator** (`mpa-orchestrator`): Mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori.
+- **SPA Orchestrator** (`spa-orchestrator`): Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API yang terpisah.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Skill ahli untuk merefaktor dan memigrasikan aplikasi Bootstrap CSS lama ke stack modern berbasis utility menggunakan Tailwind CSS v4 dan Alpine.js 3 / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Panduan ahli pengembangan React Native 0.76+ dan Expo SDK 52+, mencakup Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
 - **Senior Frontend** (`senior-frontend`): Ahli pengembangan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4. Mampu mengoptimalkan performa, *bundle size*, Server Actions, `useActionState`, `useOptimistic`, dan merancang komponen *frontend*.
@@ -215,7 +219,7 @@ Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder ter
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/CONTRIBUTING.md).
 
 ### Versi
-v1.5.0
+v2.0.0 (Edisi 2026)
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
