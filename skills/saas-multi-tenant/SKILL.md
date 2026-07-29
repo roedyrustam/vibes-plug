@@ -4,7 +4,7 @@ description: "Design and implement multi-tenant SaaS architectures with RLS, ten
 author: "Roedy Rustam"
 ---
 
-# SaaS Multi-Tenant Architecture
+# SaaS Multi-Tenant Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -13,117 +13,219 @@ author: "Roedy Rustam"
 <a name="english"></a>
 ## English
 
+### Description
+Expert guide for designing and implementing multi-tenant SaaS architectures with full tenant isolation, Supabase/PostgreSQL Row Level Security (RLS), schema-per-org patterns, RBAC, and Super Admin access controls.
+
 ### Trigger Conditions
-Use this skill when:
-- The user is building a SaaS application where multiple customers share the same database.
-- The user asks about tenant isolation, Row-Level Security (RLS), or data leakage prevention.
-- The user needs to scope every database query to a specific tenant automatically.
-- The user asks about tradeoffs between shared-schema, schema-per-tenant, and database-per-tenant.
-- The user is implementing admin endpoints that must access data across tenants.
-- The user needs to add `tenant_id` columns to an existing single-tenant application.
+- Building a SaaS application that serves multiple organizations (workspaces/tenants).
+- Implementing Row Level Security (RLS) policies in Supabase or PostgreSQL.
+- Designing a data model that isolates tenant data securely.
+- Implementing role-based access control (RBAC) within a tenant.
+- Building the Super Admin management panel for cross-tenant operations.
+- Choosing between shared schema vs. schema-per-org isolation strategies.
 
-### Core Workflow
+### Tenant Isolation Strategies
 
-#### 1. Determine the Tenancy Model
-Discuss scale expectations and isolation requirements with the user. Choose the appropriate model:
-- **Shared Schema (Row-Level Isolation)**: For most SaaS apps under 10,000 tenants. Uses a `tenant_id` column on every table. Easy to maintain, query across tenants, and migrate.
-- **Isolated Schema (Schema-per-Tenant)**: Each tenant gets their own PostgreSQL schema. Better for enterprise compliance (HIPAA, SOC2), strict data isolation, and per-tenant backup/restore. Requires dynamic schema routing and multi-schema migrations.
-- **Database-per-Tenant**: Highest isolation, but extremely complex to manage and scale infrastructure. Generally avoid unless strictly required by enterprise contracts.
+| Strategy | Isolation Level | Cost | Complexity | Best For |
+|---|---|---|---|---|
+| **Shared Schema + RLS** | Row-level | Low | Medium | Standard SaaS (< 1M tenants) |
+| **Schema per Org** | Table-level | Medium | High | Compliance-heavy (HIPAA, finance) |
+| **DB per Org** | Database-level | High | Very High | Enterprise, regulated industries |
 
-#### 2. Shared Schema: Add `tenant_id` to Every Tenant-Scoped Table
-If using Shared Schema, the column must be `NOT NULL`, type `UUID` or `TEXT`, and included in every composite index. Never allow a tenant-scoped table to exist without this column to prevent data leaks.
+### Strategy 1: Shared Schema + RLS (Recommended for Most SaaS)
 
-#### 3. Shared Schema: Set Up PostgreSQL Row-Level Security (RLS)
-If using Shared Schema, create a policy on each tenant-scoped table that filters rows by a session variable like `current_setting('app.current_tenant_id')`. This acts as a database-level safety net if application code forgets a WHERE clause.
+#### Core Schema Design
+```sql
+-- Central workspaces (tenants) table
+CREATE TABLE workspaces (
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name        TEXT NOT NULL,
+    slug        TEXT UNIQUE NOT NULL,
+    plan        TEXT NOT NULL DEFAULT 'free' CHECK (plan IN ('free', 'pro', 'enterprise')),
+    created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
 
-#### 4. Isolated Schema: Dynamic Schema Routing
-If using Isolated Schema, set the PostgreSQL `search_path` dynamically at the start of every request/transaction to point to the tenant's specific schema (e.g., `SET LOCAL search_path TO tenant_abc, public;`). Ensure connection poolers (like PgBouncer) reset this properly.
+-- Users belong to multiple workspaces via memberships
+CREATE TABLE workspace_members (
+    workspace_id    UUID REFERENCES workspaces(id) ON DELETE CASCADE,
+    user_id         UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    role            TEXT NOT NULL DEFAULT 'member' CHECK (role IN ('owner', 'admin', 'member', 'viewer')),
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    PRIMARY KEY (workspace_id, user_id)
+);
 
-#### 5. Build Tenant-Aware Middleware
-At the start of every request, extract the `tenant_id` from the authenticated session, JWT claims, subdomain, or custom domain.
-- For Shared Schema: Set it on the database connection using `SET LOCAL app.current_tenant_id = '...'` inside a transaction.
-- For Isolated Schema: Set the `search_path` to the tenant's schema securely.
+-- All tenant data has workspace_id
+CREATE TABLE projects (
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    workspace_id    UUID NOT NULL REFERENCES workspaces(id) ON DELETE CASCADE,
+    name            TEXT NOT NULL,
+    created_by      UUID REFERENCES auth.users(id),
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+```
 
-#### 6. Scope ORM Queries Automatically
-- For Shared Schema: If using Prisma, apply a global middleware/extension that injects `where: { tenantId }` automatically. If using Drizzle, create a base query builder that includes the tenant filter.
-- For Isolated Schema: Ensure the ORM executes queries against the currently active schema. Some ORMs require specific configuration for multi-schema tenancy.
+#### Row Level Security Policies
+```sql
+-- Enable RLS on all tenant tables
+ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
 
-#### 7. Separate Cross-Tenant Admin Routes
-Admin endpoints that aggregate data across tenants must:
-- For Shared Schema: Bypass RLS explicitly using a dedicated database role (e.g., `bypassrls` or an admin bypass role).
-- For Isolated Schema: Query multiple schemas or an aggregation schema, which adds complexity.
+-- Policy: Users can only see projects in their workspaces
+CREATE POLICY "workspace members can view projects"
+    ON projects FOR SELECT
+    USING (
+        workspace_id IN (
+            SELECT workspace_id FROM workspace_members
+            WHERE user_id = auth.uid()
+        )
+    );
 
-#### 8. Multi-Page Application (MPA) & Multiple Entry Points Approach
-When organizing a multi-tenant SaaS as a Multi-Page Application within a single repository, adhere to the following guidelines:
-- **Routing & Multiple Entry Points**: Use the `multiple-entry-points` skill to logically separate traffic. For example, use a `tenant.php` entry point that strictly mandates a valid `tenant_id` resolution before bootstrapping the app, while a `landing.php` entry point handles anonymous public traffic safely.
-- **Shared Layouts & Partials**: Avoid duplicating HTML (headers, footers, navigation). Create a `src/Views/layouts/` directory for base templates and a `src/Views/partials/` directory for reusable UI components. Controllers should inject page-specific content into the base layout.
-- **Asset Management**: Store all static assets in the `public/` directory. Use cache-busting techniques when linking assets in the views.
-- **State Management**: Use server-side sessions securely for user authentication, tenant context, flash messages, and tracking state across full page reloads.
+-- Policy: Only admins and owners can create projects
+CREATE POLICY "admins can create projects"
+    ON projects FOR INSERT
+    WITH CHECK (
+        workspace_id IN (
+            SELECT workspace_id FROM workspace_members
+            WHERE user_id = auth.uid()
+              AND role IN ('owner', 'admin')
+        )
+    );
 
-### Best Practices & Pitfalls
-- **Never** query a tenant-scoped table without a `tenant_id` filter or active RLS.
-- **Never** use auto-incrementing integer IDs for tenant-scoped resources. Use UUIDs to prevent ID enumeration attacks.
-- **Connection Pooling Mitigation**: When using connection pooling (e.g., PgBouncer), session variables set by `SET LOCAL` are only scoped to the transaction. If you use session-scoped variables, ensure you reset them (`RESET ALL` or `SET app.current_tenant_id = ''`) before returning the connection to the pool, or run them strictly inside a `BEGIN`...`COMMIT` transaction block.
-- **RLS Bypass Risk**: Ensure database migrations and triggers are run with `SECURITY DEFINER` only when strictly necessary, and explicitly set a safe `search_path` to prevent search path hijacking.
-- **Test with at least 3 tenants** in your seed data to catch cross-tenant data leakage bugs.
+-- Policy: Super Admin can bypass RLS (service role only)
+-- ⚠️ NEVER expose service role key to frontend
+```
 
+#### RLS Helper Functions
+```sql
+-- Helper: Check if current user has a minimum role in a workspace
+CREATE OR REPLACE FUNCTION user_has_role(
+    p_workspace_id UUID,
+    p_min_role TEXT
+) RETURNS BOOLEAN AS $$
+DECLARE
+    role_hierarchy TEXT[] := ARRAY['viewer', 'member', 'admin', 'owner'];
+    user_role TEXT;
+BEGIN
+    SELECT role INTO user_role
+    FROM workspace_members
+    WHERE workspace_id = p_workspace_id AND user_id = auth.uid();
+
+    RETURN (
+        array_position(role_hierarchy, user_role) >=
+        array_position(role_hierarchy, p_min_role)
+    );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+```
+
+### Strategy 2: Schema per Org (Compliance-Heavy)
+For regulated industries requiring strict data separation:
+```sql
+-- Dynamically create a schema for each new tenant
+CREATE OR REPLACE FUNCTION create_tenant_schema(p_slug TEXT) RETURNS VOID AS $$
+BEGIN
+    EXECUTE format('CREATE SCHEMA IF NOT EXISTS tenant_%s', p_slug);
+    
+    -- Create all tenant tables in the new schema
+    EXECUTE format('
+        CREATE TABLE tenant_%s.projects (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            name TEXT NOT NULL,
+            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        )', p_slug);
+END;
+$$ LANGUAGE plpgsql;
+
+-- Bypass pattern: set search_path per connection
+SET search_path TO tenant_acme, public;
+SELECT * FROM projects;  -- Reads from tenant_acme.projects only
+```
+
+### Super Admin Architecture
+
+Super Admin is a separate system that operates **across all tenants** with elevated privileges:
+
+```typescript
+// Super Admin routes are ONLY accessible at admin.yourdomain.com
+// Enforced at DNS + middleware level
+
+// middleware.ts — verify super admin domain
+if (hostname === 'admin.yourdomain.com') {
+  const session = await verifyAdminSession(req);
+  if (!session?.user.isSuperAdmin) {
+    return NextResponse.redirect('https://yourdomain.com');
+  }
+}
+```
+
+```sql
+-- Super Admin uses service role to bypass RLS
+-- admin.sql — queries bypass all RLS policies when using service role key
+
+-- Cross-tenant query (only accessible with service role)
+SELECT w.name, COUNT(wm.user_id) as member_count, w.plan
+FROM workspaces w
+LEFT JOIN workspace_members wm ON w.id = wm.workspace_id
+GROUP BY w.id
+ORDER BY member_count DESC;
+```
+
+### RBAC Implementation (TypeScript)
+```typescript
+type Role = 'owner' | 'admin' | 'member' | 'viewer';
+
+const ROLE_PERMISSIONS: Record<Role, string[]> = {
+  owner: ['*'],  // All permissions
+  admin: ['project:create', 'project:delete', 'member:invite', 'member:remove'],
+  member: ['project:create', 'project:read', 'project:update'],
+  viewer: ['project:read'],
+};
+
+function can(userRole: Role, permission: string): boolean {
+  const perms = ROLE_PERMISSIONS[userRole];
+  return perms.includes('*') || perms.includes(permission);
+}
+
+// Usage in API handler
+if (!can(currentMember.role, 'project:delete')) {
+  throw new ForbiddenError('Insufficient permissions');
+}
+```
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Deskripsi
+Panduan ahli untuk merancang dan mengimplementasikan arsitektur SaaS multi-tenant dengan isolasi tenant penuh, Row Level Security (RLS) Supabase/PostgreSQL, pola schema-per-org, RBAC, dan kontrol akses Super Admin.
+
 ### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Pengguna membangun aplikasi SaaS di mana beberapa pelanggan berbagi database yang sama.
-- Pengguna bertanya tentang isolasi tenant, Row-Level Security (RLS), atau pencegahan kebocoran data.
-- Pengguna perlu membatasi setiap query database ke tenant tertentu secara otomatis.
-- Pengguna bertanya tentang trade-off antara shared-schema, schema-per-tenant, dan database-per-tenant.
-- Pengguna mengimplementasikan endpoint admin yang perlu mengakses data lintas tenant.
-- Pengguna perlu menambahkan kolom `tenant_id` ke aplikasi single-tenant yang sudah ada.
+- Membangun aplikasi SaaS yang melayani beberapa organisasi (workspace/tenant).
+- Mengimplementasikan kebijakan Row Level Security (RLS) di Supabase atau PostgreSQL.
+- Merancang model data yang mengisolasi data tenant dengan aman.
+- Mengimplementasikan role-based access control (RBAC) dalam tenant.
+- Membangun panel manajemen Super Admin untuk operasi lintas tenant.
+- Memilih antara shared schema vs. schema-per-org.
 
-### Alur Kerja Inti
+### Strategi Isolasi Tenant
 
-#### 1. Tentukan Model Tenancy
-Diskusikan dengan pengguna mengenai skala dan persyaratan isolasi mereka. Pilih model yang sesuai:
-- **Shared Schema (Isolasi Baris / Row-Level)**: Untuk sebagian besar aplikasi SaaS di bawah 10.000 tenant. Menggunakan kolom `tenant_id` pada setiap tabel. Mudah dipelihara, query lintas tenant, dan migrasi.
-- **Isolated Schema (Schema-per-Tenant)**: Setiap tenant mendapatkan skema PostgreSQL mereka sendiri. Lebih baik untuk kepatuhan enterprise (HIPAA, SOC2), isolasi data ketat, dan backup/restore per-tenant. Membutuhkan routing skema dinamis dan migrasi multi-skema.
-- **Database-per-Tenant**: Isolasi tertinggi, namun sangat kompleks untuk dikelola dan diskalakan. Umumnya dihindari kecuali diwajibkan secara ketat oleh kontrak enterprise.
+| Strategi | Level Isolasi | Biaya | Kompleksitas | Terbaik Untuk |
+|---|---|---|---|---|
+| **Shared Schema + RLS** | Row-level | Rendah | Sedang | SaaS standar (< 1M tenant) |
+| **Schema per Org** | Table-level | Sedang | Tinggi | Kepatuhan ketat (HIPAA, keuangan) |
+| **DB per Org** | Database-level | Tinggi | Sangat Tinggi | Enterprise, industri teratur |
 
-#### 2. Shared Schema: Tambahkan `tenant_id` di Setiap Tabel yang Terkait Tenant
-Jika menggunakan Shared Schema, kolom ini harus `NOT NULL`, bertipe `UUID` atau `TEXT`, dan dimasukkan ke dalam setiap composite index. Jangan biarkan ada tabel tanpa kolom ini untuk mencegah kebocoran data.
+### Strategi 1: Shared Schema + RLS (Direkomendasikan)
+Rancang tabel `workspaces` (tenant), `workspace_members` (keanggotaan + role), dan semua tabel data dengan kolom `workspace_id`. Terapkan RLS agar pengguna hanya dapat melihat data workspace mereka sendiri.
 
-#### 3. Shared Schema: Konfigurasikan PostgreSQL Row-Level Security (RLS)
-Jika menggunakan Shared Schema, buat kebijakan (policy) RLS pada setiap tabel yang memfilter baris berdasarkan variabel sesi seperti `current_setting('app.current_tenant_id')`. Ini bertindak sebagai pengaman tingkat database jika kode aplikasi lupa menyertakan filter WHERE.
+#### Fungsi Helper RLS
+Buat fungsi `user_has_role()` yang dapat digunakan kembali di seluruh kebijakan RLS untuk memeriksa apakah pengguna saat ini memiliki role minimum yang diperlukan dalam workspace tertentu.
 
-#### 4. Isolated Schema: Routing Skema Dinamis
-Jika menggunakan Isolated Schema, atur `search_path` PostgreSQL secara dinamis pada awal setiap request/transaksi untuk mengarah ke skema spesifik tenant (misal: `SET LOCAL search_path TO tenant_abc, public;`). Pastikan connection pooler (seperti PgBouncer) mereset ini dengan benar.
+### Strategi 2: Schema per Org
+Untuk industri teratur yang membutuhkan pemisahan data ketat. Buat schema PostgreSQL terpisah untuk setiap tenant secara dinamis. Atur `search_path` per koneksi untuk mengarahkan query ke schema tenant yang benar.
 
-#### 5. Buat Middleware yang Sadar Tenant (Tenant-Aware)
-Pada awal setiap request, ekstrak `tenant_id` dari sesi autentikasi, JWT, subdomain, atau custom domain.
-- Untuk Shared Schema: Atur nilai tersebut pada koneksi database menggunakan `SET LOCAL app.current_tenant_id = '...'` di dalam transaksi.
-- Untuk Isolated Schema: Atur `search_path` ke skema tenant secara aman.
+### Arsitektur Super Admin
+Super Admin adalah sistem terpisah yang beroperasi **di semua tenant** dengan hak istimewa yang ditingkatkan. Hanya dapat diakses di `admin.yourdomain.com` — diberlakukan di level DNS dan middleware. Menggunakan service role key Supabase untuk mem-bypass RLS dan melakukan query lintas tenant.
 
-#### 6. Batasi Query ORM Secara Otomatis
-- Untuk Shared Schema: Jika menggunakan Prisma, gunakan middleware/ekstensi global untuk menyisipkan `where: { tenantId }` secara otomatis. Jika menggunakan Drizzle, buat base query builder yang menyertakan filter tenant.
-- Untuk Isolated Schema: Pastikan ORM mengeksekusi query pada skema yang sedang aktif. Beberapa ORM memerlukan konfigurasi khusus untuk multi-schema tenancy.
-
-#### 7. Pisahkan Jalur Akses Admin Lintas Tenant
-Endpoint admin yang memerlukan agregasi data lintas tenant harus:
-- Untuk Shared Schema: Melewati RLS secara eksplisit menggunakan peran database khusus (misal: `bypassrls` atau role admin terdedikasi).
-- Untuk Isolated Schema: Melakukan query ke berbagai skema atau skema agregasi, yang mana menambah kompleksitas.
-
-#### 8. Pendekatan Multi-Page Application (MPA) & Multiple Entry Points
-Saat mengatur proyek SaaS multi-tenant sebagai Multi-Page Application di dalam satu repositori, ikuti panduan berikut:
-- **Routing & Multiple Entry Points**: Gunakan skill `multiple-entry-points` untuk memisahkan lalu lintas secara logis. Misalnya, gunakan *entry point* `tenant.php` yang secara ketat mewajibkan resolusi `tenant_id` yang valid sebelum memuat aplikasi, sementara *entry point* `landing.php` melayani lalu lintas publik anonim dengan aman.
-- **Layout & Parsial Bersama (Shared Layouts & Partials)**: Hindari duplikasi HTML (header, footer, navigasi). Buat direktori `src/Views/layouts/` untuk template dasar dan direktori `src/Views/partials/` untuk komponen UI yang dapat digunakan kembali. Controller harus menyuntikkan konten spesifik halaman ke dalam layout dasar.
-- **Manajemen Aset**: Simpan semua aset statis di direktori `public/`. Gunakan teknik cache-busting saat menautkan aset di dalam view.
-- **Manajemen State**: Gunakan session sisi server secara aman untuk autentikasi pengguna, konteks tenant, pesan flash, dan melacak state di seluruh proses reload halaman secara penuh.
-
-### Praktik Terbaik & Hal yang Harus Dihindari
-- **Jangan pernah** melakukan query pada tabel bertingkat tenant tanpa filter `tenant_id` atau tanpa RLS yang aktif.
-- **Jangan pernah** menggunakan ID integer berurutan (auto-increment) untuk resource bertingkat tenant. Gunakan UUID untuk mencegah penjelajahan ID oleh penyerang.
-- **Mitigasi Connection Pooling**: Saat menggunakan connection pool (seperti PgBouncer), variabel sesi yang diatur oleh `SET LOCAL` hanya berlaku selama transaksi berlangsung. Jika Anda menggunakan variabel sesi, pastikan Anda meresetnya (`RESET ALL` atau `SET app.current_tenant_id = ''`) sebelum mengembalikan koneksi ke pool, atau jalankan perintah secara ketat di dalam blok transaksi `BEGIN`...`COMMIT`.
-- **Risiko RLS Bypass**: Pastikan fungsi migrasi database dan triggers yang dijalankan dengan `SECURITY DEFINER` hanya digunakan saat benar-benar diperlukan, dan atur `search_path` secara aman untuk mencegah pembajakan search path.
-- **Uji dengan minimal 3 tenant** dalam database pengembangan (seed data) untuk mendeteksi bug kebocoran data lintas tenant.
-
+### Implementasi RBAC
+Definisikan peta izin per role (`owner`, `admin`, `member`, `viewer`) dan fungsi `can()` helper untuk memeriksa izin dalam API handler.

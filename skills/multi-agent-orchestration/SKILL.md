@@ -4,7 +4,7 @@ description: "Expert guide for designing and orchestrating multi-agent systems, 
 author: "Roedy Rustam"
 ---
 
-# Multi-Agent Orchestration Expert
+# Multi-Agent Orchestration Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,90 +14,154 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Production-grade architecture guide for designing, building, and operating **Multi-Agent AI Systems**. Covers stateful graph workflows (**LangGraph**), agent swarms (**CrewAI**, **AutoGen**, **OpenAI Swarm**), supervisor routing patterns, shared memory state management, tool delegation, and human-in-the-loop (HITL) approval gates.
+Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers agent orchestration frameworks (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, CrewAI, AutoGen), shared state and memory management, tool execution, human-in-the-loop (HITL) guardrails, and observability for agentic workflows.
 
 ### Trigger Conditions
-- Designing complex AI systems requiring multiple specialized agents working together (e.g., Planner + Coder + Reviewer + Tester).
-- Implementing stateful, cyclic AI workflows using **LangGraph** (Python / TypeScript).
-- Creating agent teams with role-based delegations using **CrewAI** or **AutoGen**.
-- Setting up Human-in-the-Loop (HITL) approval steps for high-risk agent tool actions (DB deletion, financial payments, production deploys).
-- Managing shared state, context truncation, and recursion limits across agent graphs.
+- Building autonomous AI agents that execute multi-step tasks.
+- Designing systems where multiple specialized AI agents collaborate.
+- Implementing graph-based agent workflows with LangGraph or similar frameworks.
+- Integrating human-in-the-loop checkpoints for high-stakes decisions.
+- Building AI pipelines with tool-calling, RAG retrieval, code execution, or browser control.
+- Evaluating and selecting agent frameworks (LangGraph vs OpenAI Agents SDK vs Google ADK).
 
-### Architecture Patterns
+### Agent Framework Comparison (2026)
 
+| Framework | Language | Best For | Key Differentiator |
+|---|---|---|---|
+| **LangGraph** | Python / TypeScript | Complex stateful workflows | Graph-based, any LLM, full control |
+| **OpenAI Agents SDK** | Python | GPT-5 native agents | Built-in handoffs, tracing, guardrails |
+| **Google ADK** | Python | Gemini-powered agents | Multi-agent, Vertex AI, streaming |
+| **Mastra.ai** | TypeScript | TS-first agent apps | Built-in memory, evals, RAG, MCP |
+| **CrewAI** | Python | Team-of-agents tasks | Role-based agents, easy to start |
+| **AutoGen** | Python | Research & LLM evaluation | Conversation-driven agents |
+
+### Core Architecture Principles
+
+#### 1. Agent Roles & Specialization
+Design agents with single responsibilities — avoid "do-everything" agents:
+- **Orchestrator Agent**: Routes tasks, decomposes goals, delegates to specialists.
+- **Specialist Agents**: Domain-specific (research agent, code agent, data analyst, writer).
+- **Tool Agents**: Wrap external capabilities (browser agent, SQL agent, file agent).
+- **Critic/Validator Agent**: Reviews output of other agents before finalizing.
+
+#### 2. LangGraph — Stateful Graph Workflows
+LangGraph models agent workflows as directed graphs with persistent state — ideal for complex, multi-step tasks with branching logic and HITL:
+```python
+from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.memory import MemorySaver
+from typing import TypedDict, Annotated
+import operator
+
+class AgentState(TypedDict):
+    messages: Annotated[list, operator.add]
+    task: str
+    result: str
+
+def research_node(state: AgentState):
+    # Call research agent
+    return {"messages": [research_agent.invoke(state["task"])]}
+
+def write_node(state: AgentState):
+    # Call writing agent with research result
+    return {"result": writing_agent.invoke(state["messages"])}
+
+def should_revise(state: AgentState) -> str:
+    # Conditional routing
+    return "revise" if needs_revision(state["result"]) else "end"
+
+builder = StateGraph(AgentState)
+builder.add_node("research", research_node)
+builder.add_node("write", write_node)
+builder.add_conditional_edges("write", should_revise, {"revise": "research", "end": END})
+
+# Persist state for HITL
+memory = MemorySaver()
+graph = builder.compile(checkpointer=memory, interrupt_before=["write"])
 ```
-                          +-------------------+
-                          |  Supervisor Agent |
-                          +---------+---------+
-                                    |
-          +-------------------------+-------------------------+
-          |                         |                         |
-+---------v---------+     +---------v---------+     +---------v---------+
-|   Researcher AI   |     |    Coder Agent    |     |   Reviewer Agent  |
-|  (Web/Doc Tools)  |     |  (Code Gen/Edit)  |     | (Linter/Tests)    |
-+-------------------+     +-------------------+     +-------------------+
+
+#### 3. OpenAI Agents SDK — Handoffs & Guardrails
+Use the OpenAI Agents SDK for native GPT-5 agent workflows with built-in tracing:
+```python
+from agents import Agent, Runner, handoff, input_guardrail, GuardrailFunctionOutput
+
+# Define specialist agents
+researcher = Agent(
+    name="Researcher",
+    instructions="Search and retrieve relevant information.",
+    tools=[web_search, document_retrieval],
+)
+
+writer = Agent(
+    name="Writer",
+    instructions="Write high-quality content based on research.",
+    handoffs=[handoff(researcher, tool_name_override="get_research")],
+)
+
+# Input guardrail to prevent harmful requests
+@input_guardrail
+async def content_filter(ctx, agent, input) -> GuardrailFunctionOutput:
+    if contains_harmful_content(input):
+        return GuardrailFunctionOutput(output_info="Blocked", tripwire_triggered=True)
+    return GuardrailFunctionOutput(output_info="OK", tripwire_triggered=False)
+
+# Run with tracing
+result = await Runner.run(writer, "Write an article about...", guardrails=[content_filter])
 ```
 
-#### 1. Supervisor / Hierarchical Routing
-A central **Supervisor Agent** evaluates the user request, breaks it into subtasks, and dynamically routes execution to specialized worker agents based on output state.
+#### 4. Google ADK — Gemini Multi-Agent
+Google Agent Development Kit (ADK) for building Gemini-powered agents with Vertex AI integration:
+```python
+from google.adk.agents import Agent
+from google.adk.tools import google_search, code_execution
 
-#### 2. Stateful Graph Workflows (LangGraph)
-Define AI workflows as directed graphs:
-- **Nodes**: Individual agents or deterministic tool functions.
-- **Edges**: Conditional routing logic based on state inspection.
-- **State**: Central, immutable state object passed across nodes (with reducers for state updates).
+root_agent = Agent(
+    model="gemini-2.5-pro",
+    name="orchestrator",
+    instruction="Coordinate research and analysis tasks.",
+    sub_agents=[research_agent, analysis_agent],
+    tools=[google_search, code_execution],
+)
+```
 
-#### 3. Human-in-the-Loop (HITL) Guardrails
-Pause graph execution before dangerous node transitions (e.g., deploying code or executing destructive SQL queries). Wait for explicit human confirmation or user input before resuming graph state.
-
----
-
-### Implementation Example (LangGraph TypeScript)
-
+#### 5. Mastra.ai — TypeScript-First Agents
+For TypeScript teams, Mastra provides the most complete agentic framework:
 ```typescript
-import { StateGraph, END, START } from '@langchain/langgraph';
-import { Annotation } from '@langchain/langgraph';
+import { Agent, MastraMemory } from '@mastra/core';
+import { createTool } from '@mastra/core/tools';
 
-// Define Shared Memory State
-const AgentState = Annotation.Root({
-  messages: Annotation<string[]>({
-    reducer: (x, y) => x.concat(y),
-    default: () => [],
-  }),
-  nextAgent: Annotation<string>({
-    reducer: (x, y) => y ?? x,
-    default: () => 'researcher',
-  }),
+const webSearchTool = createTool({
+  id: 'web-search',
+  description: 'Search the web for current information',
+  inputSchema: z.object({ query: z.string() }),
+  execute: async ({ context: { query } }) => searchWeb(query),
 });
 
-// Build Workflow Graph
-const workflow = new StateGraph(AgentState)
-  .addNode('researcher', async (state) => {
-    // Researcher logic
-    return { messages: ['Research completed.'], nextAgent: 'coder' };
-  })
-  .addNode('coder', async (state) => {
-    // Coder logic
-    return { messages: ['Code generated.'], nextAgent: 'reviewer' };
-  })
-  .addNode('reviewer', async (state) => {
-    // Reviewer logic
-    return { messages: ['Review passed.'], nextAgent: END };
-  })
-  .addEdge(START, 'researcher')
-  .addConditionalEdges('researcher', (state) => state.nextAgent)
-  .addConditionalEdges('coder', (state) => state.nextAgent)
-  .addConditionalEdges('reviewer', (state) => state.nextAgent);
-
-const app = workflow.compile();
+const researchAgent = new Agent({
+  name: 'researcher',
+  instructions: 'Find and summarize information accurately.',
+  model: { provider: 'ANTHROPIC', name: 'claude-sonnet-4-5' },
+  tools: { webSearch: webSearchTool },
+  memory: new MastraMemory({ storage: supabaseStorage }),
+});
 ```
 
----
+#### 6. Human-in-the-Loop (HITL) Guardrails
+Mandatory for high-stakes agent actions (financial transactions, email sending, code deployment):
+- **Interrupt Checkpoints**: Pause graph execution before irreversible actions.
+- **Approval Flows**: Send pending action to a UI for human review before continuing.
+- **Confidence Thresholds**: Auto-approve if confidence > 90%, escalate if < 70%.
 
-### Production Guardrails
-- **Recursion Limits**: Set maximum graph step limits (e.g., `recursionLimit: 25`) to prevent infinite looping loops between agents.
-- **Token Cost Budgets**: Track cumulative token consumption per execution run. Terminate or pause graph execution if budget thresholds are exceeded.
-- **State Checkpointing**: Persist graph state in PostgreSQL/Redis at every node transition to allow state recovery after failures.
+#### 7. Agent Memory Architecture
+- **Working Memory (In-context)**: Recent messages and task state in the prompt window.
+- **Episodic Memory**: Summarized past sessions stored as embeddings (Mem0, MemGPT).
+- **Semantic Memory**: Domain knowledge in a vector store (pgvector, Qdrant).
+- **Procedural Memory**: Learned tool-use patterns stored as structured data.
+
+#### 8. Observability & Evaluation
+- **LangSmith**: Native tracing for LangGraph, LangChain agents.
+- **OpenAI Tracing**: Built-in in OpenAI Agents SDK — view agent runs, handoffs, tool calls.
+- **Mastra Evals**: Built-in evaluation framework for Mastra agents.
+- **Custom Metrics**: Track task completion rate, tool call accuracy, latency, and cost per run.
 
 ---
 
@@ -105,25 +169,62 @@ const app = workflow.compile();
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan arsitektur tingkat produksi untuk merancang, membangun, mengoperasikan, dan mendokumentasikan **Sistem Multi-Agen AI**. Mencakup alur kerja graf berbasis state (**LangGraph**), kelompok agen (*swarms* via **CrewAI**, **AutoGen**), pola perutean supervisor, manajemen state memori bersama, delegasi alat, dan gerbang persetujuan manusia (*Human-in-the-Loop*).
+Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup framework orkestrasi agen (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), manajemen state dan memori bersama, eksekusi tool, guardrail human-in-the-loop (HITL), dan observabilitas untuk alur kerja agentik.
 
 ### Kondisi Pemicu
-- Merancang sistem AI kompleks yang membutuhkan beberapa agen spesialis (misal: Perencana + Pemrogram + Peninjau + Penguji).
-- Mengimplementasikan alur kerja AI berbasis graf menggunakan **LangGraph** (Python / TypeScript).
-- Membuat tim agen dengan peran spesifik menggunakan **CrewAI** atau **AutoGen**.
-- Mengatur langkah *Human-in-the-Loop* (HITL) untuk tindakan alat berisiko tinggi (penghapusan DB, pembayaran, rilis produksi).
-- Mengelola state bersama, pemotongan konteks, dan batas rekursi pada graf agen.
+- Membangun agen AI otonom yang mengeksekusi tugas multi-langkah.
+- Merancang sistem di mana beberapa agen AI khusus berkolaborasi.
+- Mengimplementasikan alur kerja agen berbasis graph dengan LangGraph atau framework serupa.
+- Mengintegrasikan checkpoint human-in-the-loop untuk keputusan berisiko tinggi.
+- Membangun pipeline AI dengan tool-calling, RAG, eksekusi kode, atau kontrol browser.
+- Mengevaluasi dan memilih framework agen yang tepat.
 
-### Pola Arsitektur Utama
+### Perbandingan Framework Agen (2026)
 
-1. **Perutean Supervisor / Hierarkis**: Agen Supervisor mengevaluasi permintaan pengguna, membaginya menjadi sub-tugas, dan merutekannya ke agen pekerja.
-2. **Alur Kerja Graf Berbasis State (LangGraph)**:
-   - **Nodes**: Agen individual atau fungsi alat deterministik.
-   - **Edges**: Logika perutean kondisional berdasarkan kondisi state.
-   - **State**: Objek memori terpusat yang diturunkan antar node.
-3. **Human-in-the-Loop (HITL)**: Menghentikan eksekusi graf sejenak sebelum transisi node berbahaya untuk meminta persetujuan manusia.
+| Framework | Bahasa | Terbaik Untuk | Diferensiasi Kunci |
+|---|---|---|---|
+| **LangGraph** | Python / TS | Alur kerja stateful kompleks | Berbasis graph, LLM apa saja, kontrol penuh |
+| **OpenAI Agents SDK** | Python | Agen GPT-5 native | Handoffs, tracing, guardrails bawaan |
+| **Google ADK** | Python | Agen berbasis Gemini | Multi-agen, Vertex AI, streaming |
+| **Mastra.ai** | TypeScript | Aplikasi agen TS-first | Memori, evaluasi, RAG, MCP bawaan |
+| **CrewAI** | Python | Tugas tim-agen | Agen berbasis peran, mudah dimulai |
+| **AutoGen** | Python | Riset & evaluasi LLM | Agen berbasis percakapan |
 
-### Guardrails Produksi
-- **Batas Rekursi**: Tetapkan batas maksimal langkah graf (misal: `recursionLimit: 25`) untuk mencegah *looping* tanpa henti.
-- **Anggaran Token**: Lacak akumulasi konsumsi token per alur kerja. Hentikan eksekusi jika melebihi batas.
-- **Checkpointing State**: Simpan state graf di PostgreSQL/Redis pada setiap transisi node untuk pemulihan jika terjadi eror.
+### Prinsip Arsitektur Inti
+
+#### 1. Peran & Spesialisasi Agen
+Rancang agen dengan tanggung jawab tunggal:
+- **Orchestrator Agent**: Mendelegasikan tugas ke agen spesialis.
+- **Specialist Agents**: Domain-spesifik (agen riset, kode, analis data, penulis).
+- **Tool Agents**: Membungkus kemampuan eksternal (browser, SQL, file).
+- **Critic/Validator Agent**: Meninjau output agen lain sebelum difinalisasi.
+
+#### 2. LangGraph — Alur Kerja Graf Stateful
+LangGraph memodelkan alur kerja agen sebagai graf terarah dengan state persisten — ideal untuk tugas kompleks dengan logika percabangan dan HITL. State disimpan di checkpointer (MemorySaver atau PostgreSQL) untuk resume antar sesi.
+
+#### 3. OpenAI Agents SDK — Handoffs & Guardrails
+SDK native untuk agen GPT-5 dengan handoffs agen-ke-agen, tracing bawaan, dan guardrails untuk mencegah output berbahaya.
+
+#### 4. Google ADK — Agen Gemini Multi-Agent
+ADK untuk membangun agen Gemini dengan integrasi Vertex AI, sub-agents, dan tool seperti Google Search dan eksekusi kode.
+
+#### 5. Mastra.ai — Agen TypeScript-First
+Framework paling lengkap untuk tim TypeScript: memori bawaan, evaluasi, RAG, dan dukungan MCP native.
+
+#### 6. Human-in-the-Loop (HITL) Guardrails
+Wajib untuk aksi agen berisiko tinggi (transaksi keuangan, pengiriman email, deployment kode):
+- **Interrupt Checkpoints**: Jeda eksekusi graf sebelum aksi tidak dapat dibalik.
+- **Approval Flows**: Kirim aksi yang menunggu ke UI untuk ditinjau manusia.
+- **Confidence Thresholds**: Auto-approve jika keyakinan > 90%, eskalasi jika < 70%.
+
+#### 7. Arsitektur Memori Agen
+- **Working Memory**: Riwayat percakapan recent dalam context window.
+- **Episodic Memory**: Sesi masa lalu yang diringkas sebagai embedding (Mem0).
+- **Semantic Memory**: Pengetahuan domain dalam vector store (pgvector, Qdrant).
+- **Procedural Memory**: Pola penggunaan tool yang dipelajari sebagai data terstruktur.
+
+#### 8. Observabilitas & Evaluasi
+- **LangSmith**: Tracing native untuk LangGraph.
+- **OpenAI Tracing**: Bawaan di OpenAI Agents SDK — lihat run, handoff, tool call.
+- **Mastra Evals**: Framework evaluasi bawaan untuk agen Mastra.
+- **Metrik Kustom**: Lacak tingkat penyelesaian tugas, akurasi tool call, latensi, dan biaya per run.

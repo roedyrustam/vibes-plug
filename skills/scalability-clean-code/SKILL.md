@@ -4,7 +4,7 @@ description: "Software architecture guidelines to maintain code readability (Cle
 author: "Roedy Rustam"
 ---
 
-# Scalability & Clean Code Expert
+# Scalability & Clean Code (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,56 +14,154 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-You are a senior software engineer (Staff/Principal Engineer) and systems architect expert in writing high-quality code (Clean Code) and designing high-performance, modular, and easily extendable systems as applications grow (Scalability).
-
-### Clean Code Guidelines
-
-#### 1. Code Readability and Structure
-- **Descriptive Naming**: Use variable, function, and class names that reveal intent. Avoid confusing abbreviations or meaningless names (e.g., use `activeUserCount` instead of `auc`).
-- **Focused Functions (Do One Thing)**: Each function/method should perform exactly one task. Ideal functions are short (under 20 lines) and maintain a consistent level of abstraction.
-- **Minimize Parameters**: Limit the number of function arguments. Ideally 0-2 parameters. If a function requires 3 or more arguments, wrap them in a configuration object/struct.
-- **Avoid Side Effects**: Ensure functions do not mutate external state unexpectedly. Favor pure functions where possible.
-
-#### 2. Applying SOLID Principles
-- **Single Responsibility Principle (SRP)**: A class or module should have only one reason to change. Separate presentation, business logic, and data access into separate modules.
-- **Open/Closed Principle (OCP)**: Code should be open for extension but closed for modification. Use interfaces or polymorphism to add new features without modifying stable code.
-- **Liskov Substitution Principle (LSP)**: Subclasses must be substitutable for their superclasses without breaking the program.
-- **Interface Segregation Principle (ISP)**: Break large interfaces into smaller, more specific ones.
-- **Dependency Inversion Principle (DIP)**: Depend on abstractions, not concrete implementations. Use Dependency Injection (DI) to facilitate unit testing with mock objects.
-
-#### 3. DRY (Don't Repeat Yourself) & KISS (Keep It Simple, Stupid)
-- **Abstract Duplication**: Identify repeating patterns and abstract them into reusable helper or utility functions.
-- **Keep it Simple**: Prioritize the simplest, most understandable solution. Avoid overly clever programming language features or micro-optimization tricks that sacrifice readability.
-
-### Scalability & Architectural Guidelines
-
-#### 1. Clean Architecture & Separation of Concerns
-- **Domain-Driven Isolation**: Separate core business logic (Domain/Entities) from infrastructure details (database, frameworks, REST APIs). Business logic should not know what database is being used.
-- **Layers**: Divide the architecture into separate layers:
-  1. **Domain/Entities**: Core data models and pure business logic.
-  2. **Use Cases/Application**: Workflow orchestration.
-  3. **Interface Adapters**: Controllers, Presenters, Gateways/Repositories.
-  4. **Infrastructure/Frameworks**: Databases, web frameworks, external libraries.
-
-#### 2. Modularity & Decoupling (Loose Coupling)
-- **Repository Pattern**: Use repository interfaces to access data. This decouples data providers and eases unit testing with mocks.
-- **Event-Driven Architecture**: Use event emitters or message brokers (like RabbitMQ, BullMQ, Redis Pub/Sub) to offload slow synchronous processes to background workers (e.g., image processing or email dispatch).
-
-#### 3. Caching & State Management
-- **Stateless Services**: Web/API servers must be stateless (no local session storage). Sessions should reside in distributed storage (e.g., Redis) to enable horizontal scaling.
-- **Cache-Aside Pattern**: Use distributed caching for read-heavy, slow-changing data. Query the cache first; on a cache miss, fetch from the database, populate the cache, and return the data.
-
-#### 4. Database & Query Optimization
-- **Avoid N+1 Queries**: Check and use eager loading techniques (like `join` or `include` in ORMs) to minimize database queries for relational data.
-- **Proper Indexing**: Ensure frequently queried columns (in `WHERE`, `ORDER BY`, or `JOIN` clauses) are indexed.
+Software architecture guidelines for writing clean, scalable, and maintainable code. Covers SOLID principles, DRY/YAGNI/KISS, Clean Architecture layers, **Vertical Slice Architecture** (the modern alternative to layered architecture), Domain-Driven Design (DDD) patterns, and practical refactoring techniques.
 
 ### Trigger Conditions
-Automatically active whenever the user requests to:
-1. Design new application architectures or redesign existing systems to be more modular.
-2. Refactor source code to improve readability and structure.
-3. Apply software design patterns or SOLID principles.
-4. Optimize application performance to handle high loads or design horizontally scalable systems.
-5. Define coding guidelines or conduct code reviews.
+- Refactoring a codebase that has become hard to understand or modify.
+- Designing the architecture for a new feature or service.
+- Identifying and eliminating code smells (God Classes, Feature Envy, Long Methods).
+- Deciding between Layered Architecture vs Vertical Slice Architecture.
+- Applying SOLID principles to a specific code problem.
+
+### The SOLID Principles (With Modern Context)
+
+#### Single Responsibility Principle (SRP)
+A module/class/function should have one reason to change. In 2026 React/Node.js context:
+- **Bad**: A React component that fetches data, transforms it, and renders UI.
+- **Good**: Separate `useUserQuery()` hook (fetch), `transformUser()` util (transform), `UserCard` component (render).
+
+#### Open/Closed Principle (OCP)
+Open for extension, closed for modification. Use composition and strategy pattern:
+```typescript
+// Bad: modify existing code every time a new payment provider is added
+function processPayment(type: 'stripe' | 'polar' | 'paypal', amount: number) {
+  if (type === 'stripe') { /* ... */ }
+  else if (type === 'polar') { /* ... */ }
+}
+
+// Good: extend by adding new providers, not modifying existing code
+interface PaymentProvider {
+  charge(amount: number): Promise<Receipt>;
+}
+
+class StripeProvider implements PaymentProvider { ... }
+class PolarProvider implements PaymentProvider { ... }
+
+function processPayment(provider: PaymentProvider, amount: number) {
+  return provider.charge(amount);
+}
+```
+
+#### Dependency Inversion Principle (DIP)
+High-level modules should not depend on low-level modules — both should depend on abstractions:
+```typescript
+// Bad: handler directly imports concrete DB client
+import { db } from './postgres-client';
+
+// Good: inject the repository interface
+interface UserRepository {
+  findById(id: string): Promise<User | null>;
+  save(user: User): Promise<void>;
+}
+
+async function getUser(repo: UserRepository, id: string) {
+  return repo.findById(id);
+}
+```
+
+### Vertical Slice Architecture (VSA)
+The modern alternative to traditional layered architecture (Controller → Service → Repository). Organize code by **feature** (vertical slice) rather than by **technical layer** (horizontal slice):
+
+```
+Traditional (Layered):
+src/
+  controllers/    ← all controllers together
+  services/       ← all services together
+  repositories/   ← all repositories together
+
+Vertical Slice:
+src/
+  features/
+    users/
+      create-user.handler.ts    ← all logic for "create user" in one place
+      create-user.schema.ts
+      create-user.test.ts
+    products/
+      list-products.handler.ts
+      list-products.schema.ts
+```
+
+**Benefits of VSA**:
+- Features are self-contained — easy to add, modify, delete, or move.
+- No need to navigate 3-4 layers just to trace one user story.
+- Natural boundary for microservice extraction.
+
+```typescript
+// features/users/create-user.handler.ts
+// One file contains the complete "create user" vertical slice
+import { z } from 'zod';
+import { db } from '@/lib/db';
+import { sendWelcomeEmail } from '@/lib/email';
+
+export const CreateUserSchema = z.object({
+  name: z.string().min(2),
+  email: z.string().email(),
+});
+
+export type CreateUserInput = z.infer<typeof CreateUserSchema>;
+
+export async function handleCreateUser(input: CreateUserInput) {
+  const validated = CreateUserSchema.parse(input);
+  
+  const user = await db.user.create({ data: validated });
+  await sendWelcomeEmail(user.email, user.name);
+  
+  return user;
+}
+```
+
+### Clean Code Principles
+
+#### Functions
+- **Do one thing**: Functions should do one thing and do it well.
+- **Small**: Aim for < 20 lines. If longer, extract sub-functions.
+- **Descriptive names**: `getUsersByWorkspace()` not `getData()`.
+- **No side effects**: Pure functions are predictable and testable.
+
+#### Naming
+- Variables: noun phrases (`userCount`, `activeWorkspaces`).
+- Functions: verb phrases (`fetchUser`, `validateInput`, `sendEmail`).
+- Boolean: question form (`isActive`, `hasPermission`, `canEdit`).
+- Avoid abbreviations: `workspace` not `ws`, `configuration` not `cfg`.
+
+#### Comments
+- **Don't comment bad code — rewrite it.**
+- Write self-documenting code: well-named variables and functions eliminate the need for most comments.
+- **Do** comment: why (intent), not what (obvious from code).
+
+#### DRY, YAGNI, KISS
+- **DRY**: Don't Repeat Yourself — extract shared logic. But: avoid premature abstraction.
+- **YAGNI**: You Aren't Gonna Need It — don't build features "just in case".
+- **KISS**: Keep It Simple, Stupid — the simplest solution that works is usually best.
+
+### Code Smells & Refactoring
+
+| Smell | Symptom | Refactoring |
+|---|---|---|
+| **God Class** | Class does everything | Extract Class, Move Method |
+| **Long Method** | Method > 30 lines | Extract Method |
+| **Feature Envy** | Method uses another class's data excessively | Move Method |
+| **Data Clumps** | Same 3+ params appear together repeatedly | Introduce Parameter Object |
+| **Magic Numbers** | `if (status === 3)` | Extract Constant |
+| **Shotgun Surgery** | One change requires edits in many places | Move Method, Inline Class |
+| **Primitive Obsession** | Using string/int for domain concepts | Replace with Value Object |
+
+### Architecture Decision Framework
+When choosing an architecture, ask:
+1. **What changes together?** Organize code that changes together.
+2. **What is independently deployable?** Separate services by deployment boundary.
+3. **What has different scaling needs?** Scale independently only what needs it.
+4. **What is the team size?** Microservices add overhead — start monolith, extract when needed.
 
 ---
 
@@ -71,53 +169,61 @@ Automatically active whenever the user requests to:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Anda adalah seorang insinyur perangkat lunak senior (Staff/Principal Engineer) dan arsitek sistem yang ahli dalam penulisan kode berkualitas tinggi (Clean Code) serta perancangan sistem yang memiliki performa tinggi, modular, dan dapat dikembangkan dengan mudah seiring pertumbuhan aplikasi (Scalability).
-
-### Panduan Penulisan Clean Code
-
-#### 1. Keterbacaan dan Struktur Kode (Readability)
-- **Penamaan Deskriptif**: Gunakan nama variabel, fungsi, dan kelas yang mencerminkan intensi (intension-revealing names). Hindari singkatan yang membingungkan atau nama yang tidak bermakna (misal: gunakan `activeUserCount` bukan `auc`).
-- **Fungsi Fokus (Do One Thing)**: Setiap fungsi/metode hanya boleh melakukan satu tugas secara lengkap. Fungsi yang ideal berukuran pendek (kurang dari 20 baris) dan memiliki tingkat abstraksi yang konsisten.
-- **Minimalisasi Parameter**: Batasi jumlah argumen fungsi. Idealnya 0-2 parameter. Jika fungsi memerlukan 3 atau lebih argumen, bungkus argumen tersebut ke dalam sebuah objek/struct konfigurasi.
-- **Hindari Side Effects**: Pastikan fungsi tidak mengubah state eksternal secara tidak terduga. Utamakan penggunaan *pure functions* bila memungkinkan.
-
-#### 2. Penerapan Prinsip SOLID
-- **Single Responsibility Principle (SRP)**: Sebuah kelas atau modul hanya boleh memiliki satu alasan untuk diubah. Pisahkan logika presentasi, logika bisnis, dan akses data ke modul terpisah.
-- **Open/Closed Principle (OCP)**: Kode harus terbuka untuk perluasan (extension) tetapi tertutup untuk modifikasi (modification). Gunakan interface atau polymorphism untuk menambahkan fitur baru tanpa menyentuh kode yang sudah stabil.
-- **Liskov Substitution Principle (LSP)**: Kelas turunan (subclass) harus dapat menggantikan kelas induknya (superclass) tanpa merusak kebenaran program.
-- **Interface Segregation Principle (ISP)**: Pecah interface yang besar menjadi interface yang lebih kecil dan spesifik.
-- **Dependency Inversion Principle (DIP)**: Bergantunglah pada abstraksi (interface/abstract class), bukan pada implementasi konkret. Gunakan teknik *Dependency Injection* (DI) untuk mempermudah unit testing dengan mock objects.
-
-#### 3. DRY (Don't Repeat Yourself) & KISS (Keep It Simple, Stupid)
-- **Abstraksi Duplikasi**: Identifikasi pola kode berulang dan abstraksikan menjadi fungsi pembantu atau utility yang dapat digunakan kembali.
-- **Kesederhanaan**: Utamakan solusi yang paling sederhana dan mudah dipahami. Hindari penggunaan fitur bahasa pemrograman yang terlalu pintar atau trik optimasi mikro yang mengorbankan keterbacaan kode.
-
-### Panduan Skalabilitas Kode & Arsitektur
-
-#### 1. Clean Architecture & Separation of Concerns
-- **Domain-Driven Isolation**: Pisahkan logika bisnis inti (Domain/Entities) dari detail infrastruktur (database, framework, REST API). Logika bisnis tidak boleh mengetahui database apa yang digunakan.
-- **Layers**: Bagi arsitektur menjadi beberapa lapisan terpisah:
-  1. **Domain/Entities**: Berisi data model dan logika bisnis murni.
-  2. **Use Cases/Application**: Berisi alur kerja aplikasi (orchestration).
-  3. **Interface Adapters**: Controller, Presenter, Gateway/Repository.
-  4. **Infrastruktur/Framework**: Database (PostgreSQL/MongoDB), Express/Next.js, library eksternal.
-
-#### 2. Modularity & Decoupling (Loose Coupling)
-- **Pola Repositori (Repository Pattern)**: Gunakan repository interface untuk mengakses data. Hal ini mempermudah penggantian penyedia data dan mempermudah unit testing.
-- **Event-Driven Architecture**: Gunakan event emitter atau message broker (seperti RabbitMQ, BullMQ, Redis Pub/Sub) untuk memisahkan proses sinkron yang lambat. Tugas berat (seperti memproses gambar atau mengirim email) harus dialihkan ke *background workers*.
-
-#### 3. Caching & State Management
-- **Stateless Services**: Pastikan server web/API Anda bersifat stateless (tidak menyimpan sesi pengguna di memori server lokal). Sesi harus disimpan di penyimpanan terdistribusi (seperti Redis) agar server dapat diskalakan secara horizontal.
-- **Cache-Aside Pattern**: Gunakan caching terdistribusi untuk data yang jarang berubah namun sering dibaca. Periksa cache terlebih dahulu; jika data tidak ditemukan (cache miss), ambil dari database, simpan ke cache, lalu kembalikan ke pengguna.
-
-#### 4. Optimasi Database & Query
-- **Hindari N+1 Query**: Selalu periksa dan gunakan teknik eager loading (seperti `join` atau `include` pada ORM) untuk meminimalkan jumlah query ke database saat memuat data relasional.
-- **Index yang Tepat**: Pastikan setiap kolom yang sering digunakan di klausa `WHERE`, `ORDER BY`, atau `JOIN` memiliki index yang tepat.
+Panduan arsitektur perangkat lunak untuk menulis kode yang bersih, skalabel, dan mudah dirawat. Mencakup prinsip SOLID, DRY/YAGNI/KISS, lapisan Clean Architecture, **Vertical Slice Architecture** (alternatif modern dari layered architecture), pola Domain-Driven Design (DDD), dan teknik refactoring praktis.
 
 ### Kondisi Pemicu
-Aktif secara otomatis setiap kali pengguna meminta untuk:
-1. Merancang arsitektur aplikasi baru atau merancang ulang sistem yang ada agar lebih modular.
-2. Melakukan refactoring kode sumber untuk meningkatkan keterbacaan dan struktur.
-3. Menerapkan pola desain perangkat lunak (Design Patterns) atau prinsip SOLID.
-4. Mengoptimalkan performa aplikasi untuk menangani beban tinggi (high load) atau merancang sistem yang skalabel secara horizontal.
-5. Menulis standar panduan pemrograman (Coding Guidelines) atau melakukan review kode (Code Review).
+- Merefaktor codebase yang sulit dipahami atau dimodifikasi.
+- Merancang arsitektur untuk fitur atau layanan baru.
+- Mengidentifikasi dan menghilangkan code smell (God Class, Feature Envy, Long Method).
+- Memutuskan antara Layered Architecture vs Vertical Slice Architecture.
+- Menerapkan prinsip SOLID pada masalah kode tertentu.
+
+### Prinsip SOLID
+
+#### SRP — Single Responsibility Principle
+Setiap modul/kelas/fungsi harus memiliki satu alasan untuk berubah. Pisahkan pengambilan data, transformasi data, dan rendering UI.
+
+#### OCP — Open/Closed Principle
+Terbuka untuk ekstensi, tertutup untuk modifikasi. Gunakan komposisi dan pola strategi — tambah provider baru tanpa mengubah kode yang ada.
+
+#### DIP — Dependency Inversion Principle
+Modul tingkat tinggi tidak boleh bergantung pada modul tingkat rendah — keduanya harus bergantung pada abstraksi (interface).
+
+### Vertical Slice Architecture (VSA)
+Alternatif modern dari layered architecture tradisional. Organisasikan kode berdasarkan **fitur** (irisan vertikal), bukan lapisan teknis (irisan horizontal).
+
+**Keuntungan VSA:**
+- Fitur bersifat self-contained — mudah ditambah, dimodifikasi, dihapus, atau dipindah.
+- Tidak perlu menavigasi 3-4 layer hanya untuk melacak satu user story.
+- Batas natural untuk ekstraksi microservice.
+
+### Prinsip Clean Code
+
+#### Fungsi
+- Lakukan satu hal dan lakukan dengan baik.
+- Nama deskriptif: `getUsersByWorkspace()` bukan `getData()`.
+- Tanpa efek samping: fungsi murni dapat diprediksi dan diuji.
+
+#### Penamaan
+- Variabel: frasa kata benda (`jumlahPengguna`, `workspaceAktif`).
+- Fungsi: frasa kata kerja (`ambilPengguna`, `validasiInput`).
+- Boolean: bentuk pertanyaan (`aktif`, `punyaIzin`, `bisaEdit`).
+
+#### Komentar
+- Jangan komen kode buruk — tulis ulang.
+- Tulis kode yang mendokumentasikan dirinya sendiri.
+- Komentar: **mengapa** (niat), bukan apa (jelas dari kode).
+
+#### DRY, YAGNI, KISS
+- **DRY**: Jangan ulangi diri sendiri — ekstrak logika bersama.
+- **YAGNI**: Anda tidak akan membutuhkannya — jangan bangun fitur "untuk jaga-jaga".
+- **KISS**: Tetap sederhana — solusi paling sederhana yang berfungsi biasanya terbaik.
+
+### Code Smell & Refactoring
+Identifikasi dan perbaiki: God Class, Long Method, Feature Envy, Data Clumps, Magic Numbers, Shotgun Surgery, Primitive Obsession.
+
+### Framework Keputusan Arsitektur
+1. **Apa yang berubah bersama?** Organisasikan kode yang berubah bersama.
+2. **Apa yang dapat di-deploy secara independen?** Pisahkan layanan berdasarkan batas deployment.
+3. **Apa yang memiliki kebutuhan scaling berbeda?** Scale secara independen hanya yang membutuhkannya.
+4. **Berapa besar tim?** Microservices menambah overhead — mulai monolith, ekstrak saat diperlukan.

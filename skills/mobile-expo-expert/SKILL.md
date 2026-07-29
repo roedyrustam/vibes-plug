@@ -4,7 +4,7 @@ description: "Expert guide for React Native 0.76+ and Expo SDK 52+ development. 
 author: "Roedy Rustam"
 ---
 
-# Mobile Expo Expert (SDK 52+ / RN 0.76+ Edition)
+# Mobile Expert — React Native & Expo (SDK 53 / RN 0.79 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,35 +14,118 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Best practices for building production-ready, cross-platform mobile applications (iOS, Android, Web) using **React Native (0.76+)** with **Expo SDK 52+**. Embraces the New Architecture (Fabric renderer & TurboModules enabled by default), Expo Router v4, and Expo Application Services (EAS).
+Expert guide for building production-grade cross-platform mobile applications using **React Native 0.79+** and **Expo SDK 53+**. Covers the New Architecture (stable), Expo Router v4, OTA updates, native modules, and modern state management patterns for iOS and Android.
 
 ### Trigger Conditions
-- Starting or upgrading a mobile app project to Expo SDK 52+ / React Native 0.76+.
-- Implementing file-based routing with Expo Router v4.
-- Migrating to or troubleshooting React Native's New Architecture (Fabric/TurboModules).
-- Setting up Over-The-Air (OTA) updates via EAS Update.
-- Building custom native modules via Expo Modules API (Swift & Kotlin).
-- Implementing push notifications, background tasks, and biometric auth.
+- Building a new iOS/Android cross-platform mobile app.
+- Using Expo SDK 53+ or React Native 0.79+ with the New Architecture.
+- Implementing file-based routing with **Expo Router v4**.
+- Setting up OTA (Over-the-Air) updates with EAS Update.
+- Writing native modules using **JSI** (JavaScript Interface) or **Expo Modules API**.
+- Integrating device features: camera, biometrics, notifications, location.
 
-### Core Architecture Guidelines
+### What's New in 2026
 
-#### 1. React Native New Architecture (Default in Expo SDK 52+)
-- The **New Architecture** (Fabric + TurboModules + C++ core) is enabled by default. Avoid legacy bridge-dependent packages.
-- Use concurrent React features (`useTransition`, `useDeferredValue`) safely within native views.
+#### React Native 0.79 — New Architecture Stable
+The **New Architecture** (Fabric + JSI + TurboModules) is now **fully stable** and the default for all new Expo SDK 53 projects:
+- **Fabric**: New rendering engine — synchronous rendering, better animations.
+- **JSI (JavaScript Interface)**: Direct C++ bridge — no more async serialization for native calls.
+- **TurboModules**: Lazy-loaded native modules — significantly faster startup time.
+- **Concurrent React**: Full support for `useTransition`, `useDeferredValue`, and Suspense on mobile.
 
-#### 2. File-Based Routing (Expo Router v4)
-- Use `app/(tabs)` for tab navigation and `app/(auth)` for auth flows.
-- Use `_layout.tsx` to define shared headers, stacks, and context providers.
-- Handle universal deep linking natively using dynamic route parameters (`app/user/[id].tsx`).
+#### Expo SDK 53 — Key Updates
+- **Expo Router v4**: File-based routing with typed routes, API routes (Expo functions), and universal links.
+- **Expo Camera v15**: Unified camera API for iOS and Android.
+- **Expo SQLite v15**: Full SQLite with WAL mode and `useSQLiteContext` hook.
+- **Expo Modules API v2**: Easier native module authoring with Swift/Kotlin.
+- **EAS Build**: Faster builds with M-series Mac runners.
 
-#### 3. Styling & Modern UI Systems
-- **NativeWind (v4)**: Use Tailwind CSS utility tokens directly in React Native components.
-- **Safe Area & Keyboard**: Wrap screens in `SafeAreaView` and use `KeyboardAvoidingView` or `react-native-keyboard-controller` to handle software keyboards smoothly.
+### Core Architecture Patterns
 
-#### 4. Build, Distribution & OTA Updates (EAS)
-- **EAS Build**: Cross-compile native builds in the cloud.
-- **EAS Update**: Ship instant JS/asset patches Over-The-Air without waiting for App Store / Play Store reviews.
-- **EAS Submit**: Automate store submission pipelines.
+#### 1. Project Setup (Expo SDK 53 + New Arch)
+```bash
+npx create-expo-app@latest MyApp --template tabs
+cd MyApp
+# New Architecture is enabled by default in SDK 53
+```
+
+#### 2. Expo Router v4 — File-Based Routing
+```
+app/
+  _layout.tsx          # Root layout (navigation + providers)
+  (tabs)/
+    _layout.tsx         # Tab navigator
+    index.tsx           # Home tab
+    profile.tsx         # Profile tab
+  (auth)/
+    login.tsx           # Login screen
+    register.tsx
+  modal.tsx             # Modal screen
+```
+
+Use **typed routes** for compile-time safety:
+```typescript
+import { Link, useRouter } from 'expo-router';
+
+// Typed navigation — TypeScript errors on invalid paths
+<Link href="/profile">Profile</Link>
+
+const router = useRouter();
+router.push('/modal');
+```
+
+#### 3. API Routes (Expo Functions)
+Expo Router v4 supports API routes for serverless backend logic:
+```typescript
+// app/api/user+api.ts
+export async function GET(request: Request) {
+  const user = await db.user.findFirst();
+  return Response.json(user);
+}
+```
+
+#### 4. State Management
+- **TanStack Query v5**: Primary choice for server state (`useQuery`, `useMutation`).
+- **Zustand**: Lightweight client state management (replace Context for complex state).
+- **MMKV**: Ultra-fast synchronous storage (replace AsyncStorage).
+- **Expo SQLite + Drizzle**: Local-first database with full SQL support.
+
+#### 5. Navigation Patterns
+```typescript
+// Deep linking & Universal Links configuration
+// app.json
+{
+  "expo": {
+    "scheme": "myapp",
+    "ios": { "associatedDomains": ["applinks:myapp.com"] },
+    "android": { "intentFilters": [{ "action": "VIEW", "data": [{ "scheme": "https", "host": "myapp.com" }] }] }
+  }
+}
+```
+
+#### 6. Native Modules — Expo Modules API v2
+```typescript
+// modules/my-sensor/src/MyModule.ts
+import { requireNativeModule } from 'expo-modules-core';
+const MyModule = requireNativeModule('MyModule');
+
+export function readSensor(): Promise<number> {
+  return MyModule.readSensor();
+}
+```
+
+#### 7. OTA Updates with EAS Update
+```bash
+# Push an instant OTA update (no App Store review)
+eas update --branch production --message "Fix critical bug"
+```
+Use **channels** to target specific user groups (production, staging, beta).
+
+#### 8. Performance Best Practices
+- Use **FlashList** (Shopify) instead of `FlatList` for large lists.
+- Use **react-native-reanimated v3** for 60/120fps animations that run on the UI thread.
+- Use **react-native-gesture-handler** for gesture recognition on the native thread.
+- Enable **Hermes** engine (default in SDK 53) for faster startup and reduced memory.
 
 ---
 
@@ -50,32 +133,54 @@ Best practices for building production-ready, cross-platform mobile applications
 ## Bahasa Indonesia
 
 ### Deskripsi
-Praktik terbaik untuk membangun aplikasi seluler *cross-platform* (iOS, Android, Web) yang siap produksi menggunakan **React Native (0.76+)** dan **Expo SDK 52+**. Mengadopsi Arsitektur Baru (renderer Fabric & TurboModules yang aktif secara default), Expo Router v4, serta Expo Application Services (EAS).
+Panduan ahli untuk membangun aplikasi mobile cross-platform tingkat produksi menggunakan **React Native 0.79+** dan **Expo SDK 53+**. Mencakup New Architecture (stabil), Expo Router v4, OTA updates, native modules, dan pola state management modern untuk iOS dan Android.
 
 ### Kondisi Pemicu
-- Memulai atau memperbarui proyek mobile ke Expo SDK 52+ / React Native 0.76+.
-- Mengimplementasikan routing berbasis file dengan Expo Router v4.
-- Mengkonfigurasi Arsitektur Baru React Native (Fabric / TurboModules).
-- Mengatur pembaruan langsung (*Over-The-Air* / OTA) via EAS Update.
-- Membangun modul native kustom via Expo Modules API (Swift & Kotlin).
-- Menerapkan *push notifications*, *background tasks*, dan autentikasi biometrik.
+- Membangun aplikasi mobile iOS/Android cross-platform baru.
+- Menggunakan Expo SDK 53+ atau React Native 0.79+ dengan New Architecture.
+- Mengimplementasikan routing berbasis file dengan **Expo Router v4**.
+- Menyiapkan OTA (Over-the-Air) updates dengan EAS Update.
+- Menulis native modules menggunakan JSI atau Expo Modules API v2.
+- Mengintegrasikan fitur perangkat: kamera, biometrik, notifikasi, lokasi.
 
-### Panduan Arsitektur Inti
+### Yang Baru di 2026
 
-#### 1. Arsitektur Baru React Native (Default di Expo SDK 52+)
-- **Arsitektur Baru** (Fabric + TurboModules) aktif secara otomatis. Hindari paket lama yang masih bergantung pada *legacy bridge*.
-- Gunakan fitur konkurensi React (`useTransition`, `useDeferredValue`) dengan aman di komponen native.
+#### React Native 0.79 — New Architecture Stabil
+**New Architecture** (Fabric + JSI + TurboModules) kini **sepenuhnya stabil** dan menjadi default untuk semua proyek baru Expo SDK 53:
+- **Fabric**: Engine rendering baru — rendering sinkron, animasi lebih baik.
+- **JSI**: Bridge C++ langsung — tidak ada lagi serialisasi async untuk panggilan native.
+- **TurboModules**: Modul native lazy-loaded — startup jauh lebih cepat.
+- **Concurrent React**: Dukungan penuh untuk `useTransition`, `useDeferredValue`, dan Suspense di mobile.
 
-#### 2. Perutean Berbasis File (Expo Router v4)
-- Gunakan `app/(tabs)` untuk navigasi tab dan `app/(auth)` untuk alur autentikasi.
-- Gunakan `_layout.tsx` untuk mendefinisikan *header* bersama, tumpukan navigasi (*stack*), dan penyedia konteks.
-- Kelola *universal deep linking* secara otomatis via rute dinamis (`app/user/[id].tsx`).
+#### Expo SDK 53 — Pembaruan Utama
+- **Expo Router v4**: Routing berbasis file dengan typed routes, API routes, dan universal links.
+- **Expo Camera v15**: API kamera terpadu untuk iOS dan Android.
+- **Expo SQLite v15**: SQLite lengkap dengan mode WAL dan hook `useSQLiteContext`.
+- **Expo Modules API v2**: Pembuatan modul native yang lebih mudah dengan Swift/Kotlin.
+- **EAS Build**: Build lebih cepat dengan runner Mac M-series.
 
-#### 3. Styling & UI System Modern
-- **NativeWind (v4)**: Gunakan utilitas Tailwind CSS langsung di komponen React Native.
-- **Area Aman & Keyboard**: Bungkus layar dengan `SafeAreaView` dan gunakan `KeyboardAvoidingView` agar bidang input tidak tertutup keyboard.
+### Pola Arsitektur Inti
 
-#### 4. Build, Distribusi & OTA Updates (EAS)
-- **EAS Build**: Kompilasi build native di *cloud*.
-- **EAS Update**: Rilis perbaikan bug instan tanpa perlu menunggu proses tinjauan App Store / Google Play.
-- **EAS Submit**: Otomatiskan alur pengiriman ke toko aplikasi.
+#### 1. Routing Berbasis File (Expo Router v4)
+Expo Router menggunakan konvensi direktori `app/` untuk mendefinisikan semua layar dan navigasi. Gunakan **typed routes** untuk keamanan type-safe di waktu kompilasi.
+
+#### 2. API Routes (Expo Functions)
+Expo Router v4 mendukung API routes untuk logika backend serverless langsung di dalam proyek.
+
+#### 3. State Management
+- **TanStack Query v5**: Pilihan utama untuk server state.
+- **Zustand**: State klien yang ringan.
+- **MMKV**: Penyimpanan sinkron ultra-cepat (pengganti AsyncStorage).
+- **Expo SQLite + Drizzle**: Database lokal-first dengan dukungan SQL penuh.
+
+#### 4. Native Modules — Expo Modules API v2
+Gunakan Expo Modules API untuk membuat modul native kustom dengan Swift (iOS) dan Kotlin (Android) dengan boilerplate minimal.
+
+#### 5. OTA Updates dengan EAS Update
+Dorong pembaruan instan ke pengguna tanpa melalui review App Store. Gunakan channel (`production`, `staging`, `beta`) untuk menargetkan kelompok pengguna tertentu.
+
+#### 6. Praktik Terbaik Performa
+- **FlashList**: Pengganti FlatList yang jauh lebih cepat untuk daftar panjang.
+- **react-native-reanimated v3**: Animasi 60/120fps yang berjalan di UI thread.
+- **react-native-gesture-handler**: Pengenalan gesture di native thread.
+- **Hermes Engine**: Default di SDK 53 — startup lebih cepat, memori lebih sedikit.

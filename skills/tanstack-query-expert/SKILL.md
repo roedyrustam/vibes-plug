@@ -4,7 +4,7 @@ description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infi
 author: "Roedy Rustam"
 ---
 
-# TanStack Query Expert (Advanced v5 Edition)
+# TanStack Query Expert (v5 + TanStack Router/Start Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,35 +14,137 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-You are a production-grade TanStack Query (v5) expert. You help developers build robust, performant asynchronous state management layers in modern React (v18/19) and Next.js (App Router) applications. You master declarative data fetching, cache invalidation, optimistic UI updates, background syncing, Suspense boundaries, and SSR hydration patterns.
+Production-grade TanStack Query (v5) mastery for modern React (v18/19) and Next.js (App Router) applications. Covers declarative data fetching, advanced cache invalidation, optimistic UI updates, Suspense boundaries, SSR hydration, and the new **TanStack Router** + **TanStack Start** ecosystem for full-stack type-safe applications.
 
 ### Trigger Conditions
-- Refactoring data fetching logic (replacing `useEffect` + `useState`).
-- Designing query keys (Array-based, strictly typed keys via factories).
+- Refactoring data fetching logic (replacing `useEffect` + `useState` patterns).
+- Designing query key factories (Array-based, strictly typed).
 - Writing `useMutation` hooks with immediate Optimistic Updates.
 - Implementing Infinite Scrolling (`useInfiniteQuery`).
-- Utilizing React Suspense with `useSuspenseQuery`.
+- Using React Suspense with `useSuspenseQuery`.
 - Integrating TanStack Query with Next.js App Router (Server Components prefetching + Client Boundary hydration).
+- Building type-safe SPAs with **TanStack Router** (typed routes, route-level loaders).
+- Building full-stack apps with **TanStack Start** (server functions, RSC-like patterns).
 
 ### Core Concepts & Rules of Thumb
 - **Never** use `useEffect` to fetch data if TanStack Query is available.
 - **Never** sync query data into local React state (e.g., `useEffect(() => setLocalState(data), [data])`). Derive state during render instead.
-- **Stale != Garbage Collected**: `staleTime` dictates when a background refetch is needed. `gcTime` dictates how long inactive data stays in memory.
+- **Stale != Garbage Collected**: `staleTime` dictates when background refetch triggers. `gcTime` dictates how long inactive data stays in memory.
+- **Always** use `queryOptions()` helper to co-locate query definition and reuse it across components and loaders.
 
 ### Advanced Query Patterns
 
-#### 1. The Custom Hook & Suspense Pattern
-Always abstract `useQuery` calls into custom hooks. Use `useSuspenseQuery` for modern React architectures to handle loading states via `<Suspense>` rather than returning `isLoading` booleans.
+#### 1. `queryOptions()` Helper — The 2026 Best Practice
+Co-locate your query definition using `queryOptions()` to share it between components and route loaders:
+```typescript
+import { queryOptions } from '@tanstack/react-query';
 
-#### 2. Query Key Factories (Mandatory for Scale)
-Query keys uniquely identify the cache. Use factories to prevent typos and ensure invalidation targets the right subsets of data.
+export const userQueryOptions = (userId: string) =>
+  queryOptions({
+    queryKey: ['users', userId],
+    queryFn: () => fetchUser(userId),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
-#### 3. Optimistic Updates (v5 Best Practice)
-Give the user instant feedback by updating the cache *before* the server responds.
+// In component:
+const { data } = useQuery(userQueryOptions(userId));
+
+// In TanStack Router loader:
+export const Route = createFileRoute('/users/$userId')({
+  loader: ({ context: { queryClient }, params }) =>
+    queryClient.ensureQueryData(userQueryOptions(params.userId)),
+  component: UserPage,
+});
+```
+
+#### 2. Custom Hook & Suspense Pattern
+Abstract `useQuery` into custom hooks. Use `useSuspenseQuery` for modern React architectures:
+```typescript
+export function useUser(userId: string) {
+  return useSuspenseQuery(userQueryOptions(userId));
+}
+```
+
+#### 3. Query Key Factories (Mandatory for Scale)
+Use factories to prevent typos and ensure invalidation targets the correct subsets:
+```typescript
+export const userKeys = {
+  all: ['users'] as const,
+  lists: () => [...userKeys.all, 'list'] as const,
+  list: (filters: string) => [...userKeys.lists(), { filters }] as const,
+  details: () => [...userKeys.all, 'detail'] as const,
+  detail: (id: string) => [...userKeys.details(), id] as const,
+};
+```
+
+#### 4. Optimistic Updates (v5 Best Practice)
+Give users instant feedback by updating the cache before the server responds:
+```typescript
+const mutation = useMutation({
+  mutationFn: updateTodo,
+  onMutate: async (newTodo) => {
+    await queryClient.cancelQueries({ queryKey: todoKeys.lists() });
+    const previous = queryClient.getQueryData(todoKeys.lists());
+    queryClient.setQueryData(todoKeys.lists(), (old) =>
+      old?.map(t => t.id === newTodo.id ? newTodo : t)
+    );
+    return { previous };
+  },
+  onError: (err, _, context) => {
+    queryClient.setQueryData(todoKeys.lists(), context?.previous);
+  },
+  onSettled: () => queryClient.invalidateQueries({ queryKey: todoKeys.lists() }),
+});
+```
+
+#### 5. TanStack Router — Type-Safe Client-Side Routing
+TanStack Router is the recommended router for SPAs in 2026 — fully type-safe routes, search params, and loaders:
+```typescript
+import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+
+const rootRoute = createRootRoute({ component: RootLayout });
+
+const usersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/users',
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(usersQueryOptions()),
+  component: UsersPage,
+});
+```
+
+#### 6. TanStack Start — Full-Stack Framework
+TanStack Start brings server functions and SSR to TanStack Router apps — a Vite-powered alternative to Next.js for SPAs that need SSR:
+```typescript
+import { createServerFn } from '@tanstack/start';
+
+// Type-safe server function (runs on server)
+const getUser = createServerFn({ method: 'GET' })
+  .validator(z.object({ userId: z.string() }))
+  .handler(async ({ data }) => {
+    return db.user.findUnique({ where: { id: data.userId } });
+  });
+```
+
+#### 7. Next.js App Router SSR Hydration
+Prefetch on the server and hydrate on the client seamlessly:
+```typescript
+// Server Component (app/users/page.tsx)
+export default async function UsersPage() {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(usersQueryOptions());
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <UsersList />
+    </HydrationBoundary>
+  );
+}
+```
 
 ### Troubleshooting
-- **Infinite Fetching Loops**: Check your `queryFn`. If it throws unhandled exceptions, TanStack Query retries 3 times automatically. Ensure your component does not trigger constant re-renders.
-- **`staleTime` vs `gcTime`**: If `gcTime` is lower than `staleTime`, data will be deleted from memory before it even becomes stale.
+- **Infinite Fetching Loops**: Check your `queryFn`. Unhandled exceptions trigger 3 auto-retries. Ensure stable query keys (no object literals in render).
+- **`staleTime` vs `gcTime`**: If `gcTime` < `staleTime`, data is deleted from memory before it becomes stale — this defeats the cache. Always set `gcTime >= staleTime`.
+- **Hydration Mismatch**: Ensure server and client produce identical initial query data — check for timezone or locale differences.
 
 ---
 
@@ -50,33 +152,48 @@ Give the user instant feedback by updating the cache *before* the server respond
 ## Bahasa Indonesia
 
 ### Deskripsi
-Anda adalah seorang ahli TanStack Query (v5) tingkat produksi. Tugas Anda adalah membantu developer membangun lapisan manajemen state asinkron yang tangguh dan berkinerja tinggi dalam aplikasi React modern (v18/19) dan Next.js (App Router). Anda menguasai deklarasi data fetching, pembatalan cache (cache invalidation), pembaruan UI secara optimistik (optimistic updates), sinkronisasi latar belakang, batas Suspense, dan pola hidrasi SSR.
+Penguasaan TanStack Query (v5) tingkat produksi untuk aplikasi React modern (v18/19) dan Next.js (App Router). Mencakup data fetching deklaratif, invalidasi cache lanjutan, optimistic UI, Suspense boundaries, hidrasi SSR, serta ekosistem **TanStack Router** + **TanStack Start** untuk aplikasi full-stack yang type-safe.
 
 ### Kondisi Pemicu
-Gunakan skill ini ketika:
-- Melakukan refactoring logika data fetching (menggantikan `useEffect` + `useState`).
-- Merancang struktur query keys (berbasis Array, ter-type secara ketat menggunakan factory).
-- Menulis hook `useMutation` dengan Pembaruan Optimistik instan.
+- Refactoring logika data fetching (menggantikan `useEffect` + `useState`).
+- Merancang query key factories berbasis Array yang type-safe.
+- Menulis hook `useMutation` dengan Optimistic Updates instan.
 - Mengimplementasikan Infinite Scrolling (`useInfiniteQuery`).
 - Memanfaatkan React Suspense dengan `useSuspenseQuery`.
-- Mengintegrasikan TanStack Query dengan Next.js App Router (Server Components prefetching + Client Boundary hydration).
+- Mengintegrasikan TanStack Query dengan Next.js App Router (prefetching RSC + hidrasi client boundary).
+- Membangun SPA type-safe dengan **TanStack Router** (rute bertipe, route-level loaders).
+- Membangun aplikasi full-stack dengan **TanStack Start** (server functions, pola mirip RSC).
 
 ### Aturan Utama & Prinsip
-- **Jangan pernah** menggunakan `useEffect` untuk mengambil data jika TanStack Query tersedia.
-- **Jangan pernah** menyinkronkan data query ke state lokal React (misal, `useEffect(() => setLocalState(data), [data])`). Turunkan (derive) state langsung saat render.
-- **Beda Stale dan GC**: `staleTime` menentukan kapan data harus di-refetch di latar belakang. `gcTime` menentukan berapa lama data yang tidak aktif tetap berada di memori.
+- **Jangan pernah** gunakan `useEffect` untuk fetch data jika TanStack Query tersedia.
+- **Jangan pernah** sinkronkan data query ke state lokal React.
+- `staleTime`: kapan refetch latar belakang dipicu. `gcTime`: berapa lama data tidak aktif di memori.
+- **Selalu** gunakan helper `queryOptions()` untuk mendefinisikan dan berbagi query definition.
 
 ### Pola Tingkat Lanjut
 
-#### 1. Custom Hook & Suspense Pattern
-Selalu abstraksikan pemanggilan `useQuery` ke dalam custom hook. Gunakan `useSuspenseQuery` untuk arsitektur React modern agar loading state ditangani langsung oleh `<Suspense>` bawaan.
+#### 1. Helper `queryOptions()` — Best Practice 2026
+Co-locate definisi query menggunakan `queryOptions()` untuk berbagi antara komponen dan route loader. Lihat contoh kode di bagian English.
 
-#### 2. Query Key Factories (Wajib untuk Skala Besar)
-Query keys mengidentifikasi cache secara unik. Gunakan query key factory untuk mencegah typo dan memastikan invalidation menargetkan subset data yang tepat.
+#### 2. Custom Hook & Suspense Pattern
+Abstraksikan `useQuery` ke dalam custom hook. Gunakan `useSuspenseQuery` untuk loading state yang ditangani oleh `<Suspense>`.
 
-#### 3. Pembaruan Optimistik (Optimistic Updates)
-Berikan umpan balik instan kepada pengguna dengan memperbarui cache *sebelum* server merespons (lihat contoh kode di bagian English).
+#### 3. Query Key Factories
+Gunakan factory untuk mencegah typo dan memastikan invalidation menargetkan subset data yang tepat.
 
-### Pemecahan Masalah (Troubleshooting)
-- **Loop Fetching Tak Terbatas (Infinite Loops)**: Periksa `queryFn` Anda. Jika terjadi unhandled exception, TanStack Query akan mengulangi (retry) 3 kali secara otomatis. Pastikan komponen Anda tidak memicu re-render secara konstan.
-- **`staleTime` vs `gcTime`**: Jika `gcTime` lebih kecil dari `staleTime`, data akan dihapus dari memori bahkan sebelum statusnya berubah menjadi usang (stale).
+#### 4. Optimistic Updates
+Perbarui cache sebelum server merespons untuk umpan balik instan kepada pengguna.
+
+#### 5. TanStack Router
+Router client-side yang fully type-safe untuk SPA — rute, search params, dan loader semuanya bertipe. Direkomendasikan untuk proyek SPA baru di 2026 (menggantikan React Router).
+
+#### 6. TanStack Start
+Framework full-stack berbasis Vite dengan server functions type-safe — alternatif Next.js untuk SPA yang membutuhkan SSR.
+
+#### 7. Hidrasi SSR Next.js App Router
+Prefetch di Server Component, lalu wrap dengan `<HydrationBoundary>` agar data langsung tersedia di Client Component tanpa request tambahan.
+
+### Pemecahan Masalah
+- **Loop Fetching**: Query key tidak stabil atau `queryFn` yang melempar error tak tertangani.
+- **`staleTime` vs `gcTime`**: Jangan set `gcTime` lebih kecil dari `staleTime`.
+- **Hydration Mismatch**: Pastikan server dan client menghasilkan data awal yang identik.

@@ -68,10 +68,11 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement background processing queues (BullMQ + Redis) and rate limiters.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `mobile-expo-expert`, `tauri-expert`
+**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `tauri-expert`
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
+- [ ] If SPA architecture — coordinate with `spa-orchestrator` for routing (TanStack Router), state (TanStack Query v5), and decoupled API layer.
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing & Security Audit
@@ -90,7 +91,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### PHASE 8: Launch, Deployment & Handover
 **Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `saas-transformer`, `auto-doc-updater`
 - [ ] Deploy backend and edge services to Vercel, Cloudflare, AWS, or Railway.
-- [ ] Configure Stripe Billing v16+ usage-based subscriptions and webhooks.
+- [ ] For SaaS applications: deploy Super Admin dashboard on a **separate subdomain** (e.g., `admin.yourdomain.com`) with strict role-based access (`isSuperAdmin` flag).
+- [ ] Configure Stripe / Polar.sh / LemonSqueezy billing and webhooks.
 - [ ] Finalize `CHANGELOG.md`, `BLUEPRINT.md`, and `PROGRESS.md`.
 - [ ] Handover the production-grade application to the user.
 
@@ -145,10 +147,11 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengimplementasikan antrean pemrosesan latar belakang (BullMQ + Redis) dan rate limiters.
 
 #### FASE 5: Frontend, Design System & Aplikasi Mobile
-**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `mobile-expo-expert`, `tauri-expert`
+**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `tauri-expert`
 - [ ] Mengimplementasikan *design tokens* (OKLCH) dan token direktif Tailwind CSS v4 `@theme`.
 - [ ] Membangun komponen dasar tanpa styling (*headless primitives*) menggunakan Radix UI / Base UI dan CVA.
-- [ ] Membangun halaman React 19 / Next.js 15 dengan Server Components, Server Actions (`useActionState`, `useOptimistic`), atau Expo Router v4 untuk Mobile / Tauri v2 untuk Desktop.
+- [ ] Membangun halaman React 19 / Next.js 15 dengan Server Components, Server Actions, atau Expo Router v4 untuk Mobile / Tauri v2 untuk Desktop.
+- [ ] Jika arsitektur SPA — koordinasikan dengan `spa-orchestrator` untuk routing (TanStack Router), state (TanStack Query v5), dan API layer terpisah.
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis & Audit Keamanan
@@ -167,6 +170,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### FASE 8: Peluncuran, Deployment & Serah Terima
 **Mengorkestrasi:** `cloud-hosting-expert`, `saas-billing`, `saas-transformer`, `auto-doc-updater`
 - [ ] Deploy backend dan edge services ke Vercel, Cloudflare, AWS, atau Railway.
-- [ ] Konfigurasi langganan berbasis penggunaan Stripe Billing v16+ dan webhooks.
+- [ ] Untuk aplikasi SaaS: deploy dashboard Super Admin pada **subdomain terpisah** (misal: `admin.domain.com`) dengan kontrol akses berbasis role (`isSuperAdmin`).
+- [ ] Konfigurasi billing Stripe / Polar.sh / LemonSqueezy dan webhooks.
 - [ ] Menyelesaikan `CHANGELOG.md`, `BLUEPRINT.md`, dan `PROGRESS.md`.
 - [ ] Serah terima aplikasi siap produksi kepada pengguna.

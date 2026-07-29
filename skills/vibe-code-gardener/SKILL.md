@@ -4,7 +4,7 @@ description: "Purger of AI slop, code bloat, context drift, and architectural de
 author: "Roedy Rustam"
 ---
 
-# Vibe Code Gardener & AI Slop Purger
+# Vibe Code Gardener (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,28 +14,111 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-In **Vibe Coding**, developers generate code rapidly using natural language without writing every line manually. However, fast iteration inevitably leads to **"Vibe Decay"**—codebase bloat, duplicate helpers, `any` type masking, unused dependencies, oversized 1000-line single-file components, and subtle logic drift.
+Detects and purges AI-generated code quality issues — AI slop, code bloat, context drift, duplicated logic, dead code, misaligned patterns, and architectural decay in projects that have been heavily vibe-coded.
 
-**`vibe-code-gardener`** is a specialized protocol designed to prune, sanitize, and refactor AI-generated codebases back to production-grade quality without breaking existing vibes or features.
+### Trigger Conditions
+- Codebase has grown out of control after many AI-assisted coding sessions.
+- Duplication, inconsistent patterns, or unexplained abstractions detected.
+- Features are getting harder to add or understand.
+- Tests are brittle or missing entirely.
+- The codebase has "AI smell" — overly verbose comments, unnecessary defensive code, duplicate utilities.
 
-### Core Pillars of Vibe Gardening
+### AI Slop Detection Heuristics (2026)
 
-#### 1. AI Slop Detection & Purging
-- **Duplicate Helper Neutralization**: Scans for redundant functions created across iterations (e.g., `formatDate`, `formatTimestamp`, `dateFormatter`). Merges them into a single utility file.
-- **Debug Artifact Cleanup**: Removes leftover `console.log`, `debugger`, `print()`, or temporary test data scattered during vibe debugging sessions.
-- **Phantom Dependency Audit**: Identifies npm/pip packages installed for tiny tasks that can easily be written natively.
+These are the most common AI-generated code quality issues to look for:
 
-#### 2. File De-bloating & Modularization
-- **500-Line Rule**: Detects monolithic component files spawned during fast prompting.
-- **Smart Extraction**: Splits monster files into logical sub-components, custom hooks, and type definitions without breaking imports.
+#### 1. The "Just In Case" Over-Engineering
+AI models often add features or abstractions "for extensibility" that are never needed:
+```typescript
+// 🔴 AI SLOP: Factory pattern for something that will never change
+const createUserRepository = (type: 'postgres' | 'mysql' | 'sqlite') => {
+  if (type === 'postgres') return new PostgresUserRepo();
+  // ...never switches in practice
+};
 
-#### 3. Type & Safety Restoration
-- **Un-masking `any` & `@ts-nocheck`**: Replaces loose `any` types and suppressed errors with strict, explicit TypeScript interfaces or Python type hints.
-- **Contract Verification**: Ensures function signatures match across caller sites, catching broken parameters caused by context window limits.
+// ✅ CLEAN: Just use the implementation
+const userRepo = new PostgresUserRepo();
+```
 
-#### 4. Vibe Drift Guardrail
-- **Regression Check**: Verifies that recent prompt iterations did not accidentally delete or overwrite previously working features.
-- **State Integrity**: Ensures local UI state hasn't leaked into global state or created unhandled side-effects.
+#### 2. The "Belt and Suspenders" Duplicate Guards
+AI adds null checks and validations at every layer unnecessarily:
+```typescript
+// 🔴 AI SLOP: Triple-validated (already validated by Zod + DB schema + here)
+if (!user || !user.id || user.id === undefined || user.id === null || typeof user.id !== 'string') { ... }
+
+// ✅ CLEAN: Trust your types
+if (!user.id) { ... }
+```
+
+#### 3. The "Graveyard of Dead Utilities"
+AI-generated helper files with functions that are defined but never used:
+- Search for exported functions with 0 usages: `grep -r "export function" --include="*.ts" | while read...`
+- Remove entire files of dead utilities.
+
+#### 4. Context Drift — Style Inconsistency
+Different sessions produce different coding styles in the same codebase:
+- Some files use `async/await`, others use `.then()` chains.
+- Some use `const` arrow functions, others use `function` declarations.
+- Mixed naming: `userId`, `user_id`, `UserID` in the same project.
+- **Fix**: Run a style unification pass with Prettier + ESLint rules.
+
+#### 5. Comment Pollution
+AI loves to narrate obvious code:
+```typescript
+// 🔴 AI SLOP: Stating the obvious
+// Get the user from the database
+const user = await db.user.findUnique({ where: { id } });
+// Return the user
+return user;
+
+// ✅ CLEAN: No comment needed — code is self-explanatory
+const user = await db.user.findUnique({ where: { id } });
+return user;
+```
+
+#### 6. The Bloated Component
+AI tends to put too much in one component across sessions:
+- Component renders conditionally across 5+ different states.
+- Component has 10+ props.
+- Component imports from 20+ different modules.
+- **Fix**: Apply Single Responsibility — split into sub-components.
+
+#### 7. Dependency Creep
+Each AI session may install new packages for tasks already solvable with existing deps:
+```bash
+# Audit dependencies — find packages doing the same thing
+npx depcheck  # Unused dependencies
+npx bundle-phobia-cli # Bundle size of each dep
+```
+
+### Gardening Protocol
+
+#### Phase 1: Discovery (Read Only)
+1. Map the full file tree.
+2. Identify largest files (likely bloated).
+3. Find duplicated logic with semantic search.
+4. Find unused exports and dead code.
+5. Identify inconsistent patterns across files.
+
+#### Phase 2: Triage
+Categorize issues:
+- **Critical**: Bugs, security holes, data loss risks.
+- **High**: Duplicate business logic that will diverge.
+- **Medium**: Code smells that slow development.
+- **Low**: Style inconsistencies, over-verbose comments.
+
+#### Phase 3: Systematic Refactoring
+Work file by file, smallest changes first:
+1. Remove dead code and unused imports.
+2. Extract duplicated logic into shared utilities.
+3. Simplify over-engineered abstractions.
+4. Standardize naming conventions.
+5. Add missing tests for business-critical paths.
+
+#### Phase 4: Prevention
+- Add ESLint rules to catch common AI slop patterns.
+- Add `depcheck` to CI to catch unused dependencies.
+- Add architecture tests (e.g., `arch-unit`) to enforce layer boundaries.
 
 ---
 
@@ -43,33 +126,48 @@ In **Vibe Coding**, developers generate code rapidly using natural language with
 ## Bahasa Indonesia
 
 ### Deskripsi
-Dalam dunia **Vibe Coding**, developer membuat aplikasi dengan cepat menggunakan bahasa alami tanpa menulis kode baris demi baris secara manual. Namun, iterasi cepat ini selalu memicu **"Vibe Decay" (Pembusukan Vibe)**—kode membengkak, helper ganda, penutupan *type check* dengan `any`/`@ts-nocheck`, paket dependencies hantu, komponen tunggal raksasa 1000+ baris, serta pergeseran logika (*context drift*).
+Mendeteksi dan membersihkan masalah kualitas kode yang dihasilkan AI — AI slop, kode yang membengkak, context drift, logika yang terduplikasi, kode mati, pola yang tidak konsisten, dan pembusukan arsitektur pada proyek yang banyak menggunakan vibe coding.
 
-**`vibe-code-gardener`** adalah protokol khusus untuk merapikan, membersihkan, dan merefaktor *codebase* hasil *vibe coding* kembali ke standar kualitas produksi tanpa merusak fitur yang sudah berjalan.
+### Kondisi Pemicu
+- Codebase telah tumbuh tidak terkendali setelah banyak sesi coding berbantuan AI.
+- Duplikasi, pola tidak konsisten, atau abstraksi yang tidak dapat dijelaskan terdeteksi.
+- Fitur semakin sulit ditambahkan atau dipahami.
+- Test rapuh atau tidak ada sama sekali.
+- Codebase memiliki "AI smell" — komentar yang terlalu verbose, kode defensif yang tidak perlu, utilitas yang diduplikasi.
 
-### Pilar Utama Vibe Gardening
+### Heuristik Deteksi AI Slop (2026)
 
-#### 1. Deteksi & Pembersihan AI Slop
-- **Pembersihan Helper Ganda**: Menemukan fungsi redundan yang dibuat berulang di berbagai iterasi (contoh: `formatDate`, `formatTimestamp`, `dateFormatter`). Memusatkannya ke satu file utility.
-- **Pembersihan Artefak Debug**: Menghapus sisa `console.log`, `debugger`, `print()`, atau *mock data* sementara yang tertinggal saat debugging.
-- **Audit Dependencies Hantu**: Mendeteksi paket npm/pip yang di-install hanya untuk tugas 3 baris yang sebenarnya bisa ditulis secara *native*.
+#### 1. Over-Engineering "Untuk Jaga-Jaga"
+Model AI sering menambahkan fitur atau abstraksi "untuk ekstensibilitas" yang tidak pernah dibutuhkan. Hapus factory pattern, strategy pattern, atau abstraksi lain yang tidak memiliki lebih dari satu implementasi.
 
-#### 2. Dekomposisi File Raksasa (File De-bloating)
-- **Aturan 500 Baris**: Menemukan file komponen monolitik yang membengkak karena *prompting* cepat.
-- **Ekstraksi Cerdas**: Memecah file raksasa menjadi sub-komponen, *custom hooks*, dan tipe data yang rapi tanpa merusak integrasi.
+#### 2. "Belt and Suspenders" — Validasi Ganda Berlebihan
+AI menambahkan null check dan validasi di setiap layer yang sebenarnya sudah divalidasi oleh Zod, TypeScript, atau skema DB. Percayai tipe Anda.
 
-#### 3. Pemulihan Tipe & Keamanan Kode
-- **Membuka Masker `any` & `@ts-nocheck`**: Mengganti tipe `any` dan penekanan error dengan *interface* TypeScript yang ketat atau *type hints* Python.
-- **Verifikasi Kontrak API**: Memastikan *signature* fungsi cocok di semua lokasi pemanggilan.
+#### 3. "Kuburan Utilitas Mati"
+File helper yang dihasilkan AI dengan fungsi yang tidak pernah digunakan. Cari dan hapus ekspor dengan 0 penggunaan.
 
-#### 4. Guardrail Pergeseran Logika (Vibe Drift)
-- **Cek Regresi Fitur**: Memastikan iterasi *prompt* terbaru tidak secara tidak sengaja menghapus atau mengubah fitur yang sebelumnya sudah berfungsi.
-- **Integritas State**: Memastikan *state* lokal tidak bocor ke *state* global atau menimbulkan *side-effect* yang tak terduga.
+#### 4. Context Drift — Inkonsistensi Gaya
+Sesi yang berbeda menghasilkan gaya koding yang berbeda: sebagian menggunakan `async/await`, yang lain menggunakan `.then()`; penamaan campuran `userId`, `user_id`, `UserID`. Perbaiki dengan satu pass Prettier + aturan ESLint.
 
----
+#### 5. Polusi Komentar
+AI suka mengomentari kode yang sudah jelas sendiri. Hapus komentar yang hanya mengulang apa yang sudah tertulis dalam kode.
 
-### Workflow / Cara Menggunakan
-Gunakan skill ini dengan perintah/prompt:
-- `"Jalankan vibe-code-gardener untuk membersihkan AI slop di proyek ini"`
-- `"Audit vibe decay dan rapikan file yang terlalu besar"`
-- `"Sanitize codebase dari redundant code dan any type masking"`
+#### 6. Komponen yang Membengkak
+Komponen dengan terlalu banyak kondisi rendering, prop, atau impor. Terapkan Single Responsibility — pecah menjadi sub-komponen.
+
+#### 7. Creep Dependensi
+Setiap sesi AI mungkin menginstal paket baru untuk tugas yang sudah bisa diselesaikan dengan dependensi yang ada. Audit dengan `depcheck` dan `bundle-phobia-cli`.
+
+### Protokol Berkebun
+
+#### Fase 1: Penemuan (Hanya Baca)
+Peta pohon file lengkap, identifikasi file terbesar, temukan logika yang terduplikasi, temukan ekspor yang tidak digunakan.
+
+#### Fase 2: Triase
+Kategorikan masalah: Kritis, Tinggi, Sedang, Rendah.
+
+#### Fase 3: Refactoring Sistematis
+Kerja file per file, perubahan terkecil dulu: hapus kode mati, ekstrak logika duplikat, sederhanakan abstraksi berlebih, standarisasi penamaan, tambahkan test yang hilang.
+
+#### Fase 4: Pencegahan
+Tambahkan aturan ESLint, `depcheck` di CI, dan architecture test untuk menjaga codebase tetap bersih.

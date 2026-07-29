@@ -4,7 +4,7 @@ description: "Skill to implement token saving scheme, concise, and focused on es
 author: "Roedy Rustam"
 ---
 
-# Token Saver (Penghemat Token)
+# Token Saver Protocol (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,34 +14,63 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-This skill forces the agent to minimize token consumption during the thought process, tool calls, and final responses. Highly useful for large projects or when the conversation context is very long.
-
-### Instructions & Token Saving Scheme
-
-#### 1. Super Concise Communication (Zero-Fluff)
-- Eliminate greetings ("Hello", "Sure", etc.) and unnecessary sign-offs.
-- Do not repeat the user's question.
-- Use short bullet points or compact sentences.
-- If a task succeeds, simply reply with "Done" or state the name of the modified file.
-
-#### 2. Code Editing Efficiency
-- **DO NOT** rewrite entire files if only small changes are required.
-- Always prioritize precise editing tools (like `replace_file_content` or `multi_replace_file_content`) over `write_to_file` when updating existing code.
-- When sharing code snippets, provide only the changed blocks/lines; avoid rewriting unchanged code unless explicitly requested.
-
-#### 3. Search & Context Efficiency
-- Use the most specific search tools (e.g., `grep_search`) instead of listing or searching the entire directory.
-- Avoid loading large files into memory/context unless absolutely necessary. Load partial lines using parameters for very large files.
-
-#### 4. Code Explanations & Documentation
-- Provide explanations *only if* explicitly requested by the user.
-- Avoid explaining "why" or "how" code works unless instructed. Focus on providing the code output or patch.
+Implements token-efficient communication protocols for long-context AI coding sessions. Activates concise mode — minimizing response verbosity while maintaining precision and completeness of technical output.
 
 ### Trigger Conditions
-Use this profile when:
-- The user requests to "save tokens", "work fast", or "be concise".
-- The token context (conversation history) is near its limit.
-- Performing small refactoring tasks across multiple files in succession.
+- User asks for token-saving mode, concise responses, or minimal output.
+- Session is running long and context window is being consumed rapidly.
+- User explicitly says "be concise", "save tokens", or "minimal".
+
+### Token Budget Strategies for Long Context
+
+#### 1. Response Compression Rules (Active When Triggered)
+- **No preamble**: Skip "Of course! I'll help you with that...".
+- **No restatement**: Never repeat back what the user just said.
+- **No trailing summaries**: Don't summarize what you just did at the end.
+- **Code-first**: Show the code change immediately, explain briefly after.
+- **Diff format**: For small changes, show only the changed lines (not the full file).
+- **Bullet > prose**: Use bullet lists instead of paragraphs for explanations.
+
+#### 2. Tool Call Efficiency
+- **Batch parallel reads**: Read multiple files in a single turn (not sequentially).
+- **Targeted grep over full reads**: Use `grep_search` to find specific content before reading the whole file.
+- **Write once**: Produce correct output on first try — avoid edit-then-edit-again cycles.
+- **Skip confirmation requests**: Don't ask "Shall I proceed?" — just proceed.
+
+#### 3. Context Window Budget Awareness
+When working on a long session:
+```
+Token budget allocation (for 200K context):
+├── System prompt + skills:    ~15K
+├── Conversation history:      ~50K (truncates older turns)
+├── File contents read:        ~100K (most expensive)
+└── Response generation:       ~35K
+```
+- Prefer `grep_search` over reading full large files.
+- Summarize large files mentally; only `view_file` the specific section needed.
+- When context is nearly full, create a checkpoint with `session-handoff-resume` skill.
+
+#### 4. Output Size Minimization
+For file edits:
+```diff
+# Preferred: diff format showing only changes
+- const OLD_VALUE = 'old';
++ const NEW_VALUE = 'new';
+```
+
+For explanations:
+```
+# Preferred: 1-sentence rationale
+Changed X to Y because Z.
+
+# Avoid: multi-paragraph explanation of an obvious change
+```
+
+#### 5. Code Generation — First Draft Quality
+Generate correct, production-ready code on the first attempt:
+- Apply all relevant best practices from skills without being asked.
+- Include error handling, types, and edge cases inline.
+- Avoid TODOs, placeholder values, or "implement this later" comments.
 
 ---
 
@@ -49,31 +78,34 @@ Use this profile when:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memaksa agen untuk meminimalkan penggunaan token selama proses pemikiran (thought process), pemanggilan alat (tool calls), dan respons akhir. Sangat berguna untuk proyek besar atau ketika konteks percakapan sudah sangat panjang.
-
-### Instruksi & Skema Penghematan Token
-
-#### 1. Komunikasi Super Ringkas (Zero-Fluff)
-- Hilangkan sapaan ("Halo", "Tentu saja", dsb.) dan penutup yang tidak perlu.
-- Jangan mengulang pertanyaan pengguna.
-- Gunakan format *bullet point* pendek atau kalimat padat.
-- Jika berhasil melakukan tugas, cukup jawab "Selesai" atau sebutkan nama file yang diubah.
-
-#### 2. Efisiensi Pengeditan Kode
-- **JANGAN** pernah menulis ulang (rewrite) keseluruhan file jika hanya ada sedikit perubahan.
-- Selalu prioritaskan alat pengeditan presisi (seperti `replace_file_content` atau `multi_replace_file_content`) alih-alih `write_to_file` saat memperbarui kode yang sudah ada.
-- Saat memberikan cuplikan kode di chat, berikan hanya blok fungsi/baris yang berubah saja, hindari menulis ulang kode yang tidak berubah (kecuali jika diminta untuk *full code*).
-
-#### 3. Efisiensi Pencarian & Konteks
-- Gunakan alat pencarian yang paling spesifik (contoh: `grep_search`) alih-alih mencari ke seluruh direktori jika memungkinkan.
-- Jangan memuat file besar ke dalam memori/konteks kecuali benar-benar diperlukan untuk dianalisis. Jika file sangat besar, muat sebagian saja (menggunakan parameter baris).
-
-#### 4. Penjelasan Kode & Dokumentasi
-- Berikan penjelasan *hanya jika* diminta secara spesifik oleh pengguna.
-- Hindari menjelaskan "mengapa" dan "bagaimana" suatu kode bekerja kecuali ada instruksi eksplisit. Fokus saja pada memberikan *output* kode atau *patch*.
+Mengimplementasikan protokol komunikasi hemat token untuk sesi coding AI yang panjang. Mengaktifkan mode ringkas — meminimalkan verbositas respons sambil mempertahankan presisi dan kelengkapan output teknis.
 
 ### Kondisi Pemicu
-Gunakan profil ini ketika:
-- Pengguna meminta untuk "menghemat token", "bekerja cepat", atau "ringkas".
-- Konteks token (conversation history) sudah hampir penuh.
-- Melakukan tugas *refactoring* kecil dalam jumlah file yang banyak secara beruntun.
+- Pengguna meminta mode hemat token, respons ringkas, atau output minimal.
+- Sesi sudah panjang dan context window sedang dikonsumsi dengan cepat.
+- Pengguna secara eksplisit berkata "ringkas", "hemat token", atau "minimal".
+
+### Strategi Token Budget untuk Konteks Panjang
+
+#### 1. Aturan Kompresi Respons (Aktif Saat Dipicu)
+- Tanpa pembuka: Lewati "Tentu saja! Saya akan membantu Anda dengan...".
+- Tanpa pengulangan: Jangan pernah mengulangi apa yang baru saja dikatakan pengguna.
+- Tanpa ringkasan di akhir: Jangan rangkum apa yang baru saja dilakukan.
+- Code-first: Tunjukkan perubahan kode segera, jelaskan singkat setelahnya.
+- Format diff: Untuk perubahan kecil, tunjukkan hanya baris yang berubah.
+- Poin > prosa: Gunakan daftar poin daripada paragraf.
+
+#### 2. Efisiensi Pemanggilan Tool
+- Baca beberapa file secara paralel dalam satu giliran.
+- Gunakan `grep_search` untuk menemukan konten spesifik sebelum membaca file lengkap.
+- Hasilkan output yang benar pada percobaan pertama.
+- Jangan tanyakan "Apakah saya harus melanjutkan?" — langsung lanjutkan.
+
+#### 3. Kesadaran Budget Context Window
+Alokasikan token secara bijak: batasi baca file besar, gunakan `grep_search` daripada membaca file penuh, dan buat checkpoint dengan skill `session-handoff-resume` saat konteks hampir penuh.
+
+#### 4. Minimalisasi Ukuran Output
+Gunakan format diff untuk edit file. Berikan penjelasan 1 kalimat untuk perubahan yang jelas.
+
+#### 5. Kualitas Draft Kode Pertama
+Hasilkan kode yang benar dan siap produksi pada percobaan pertama — termasuk error handling, tipe, dan edge case secara inline. Hindari TODO, nilai placeholder, atau komentar "implementasikan ini nanti".

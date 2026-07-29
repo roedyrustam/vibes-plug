@@ -4,7 +4,7 @@ description: "Expert guide for End-to-End (E2E) testing with Playwright, unit/in
 author: "Roedy Rustam"
 ---
 
-# E2E Testing & Test Automation Expert
+# E2E Testing Expert (Playwright 1.49+ / Vitest 3 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,110 +14,264 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-This skill provides comprehensive, professional guidelines for implementing End-to-End (E2E) testing with Playwright, unit and integration testing with Vitest, and setting up automated CI/CD pipelines (e.g., GitHub Actions) to run tests on every commit/PR.
+Expert guide for building comprehensive automated test suites using **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integration), and robust CI/CD pipelines. Covers modern testing patterns for Next.js 15, React 19, and API backends.
 
 ### Trigger Conditions
-Active when the user requests help with:
-- Setting up Playwright or Vitest in a JavaScript/TypeScript project.
-- Writing E2E test specs (e.g., user authentication, Stripe checkout, interactive dashboard flows).
-- Writing unit or integration tests for components, hooks, or backend utilities.
-- Configuring a GitHub Actions workflow to run test suites.
-- Debugging flaky E2E tests, handling timeouts, or configuring testing environments.
+- Writing E2E tests for web applications with Playwright.
+- Writing unit or integration tests with Vitest.
+- Setting up a full automated testing pipeline in GitHub Actions / GitLab CI.
+- Testing React components in isolation with Playwright Component Testing.
+- Mocking external services (APIs, databases) in tests.
+- Setting up visual regression tests.
 
-### Core Testing Standards
+### Playwright 1.49+ — Key Updates
 
-#### 1. Playwright Best Practices
-- **Locators**: Use resilient user-facing locators (`getByRole`, `getByLabelText`, `getByPlaceholder`) instead of implementation details like CSS selectors (`.btn-primary`) or XPath.
-- **State Isolation**: Run tests in isolated browser contexts. Reuse login state via `storageState` to avoid repeating the authentication flow in every test.
-- **Trace Viewer**: Enable Playwright trace recording in CI (`trace: 'on-first-retry'`) to record screenshots, network requests, and DOM snapshots for easier debugging.
-- **Network Mocking**: Mock third-party APIs (like Stripe, Clerk, or external SaaS webhooks) using `page.route` to prevent tests from failing due to external network flakiness.
+#### New in 2026
+- **`aria-snapshot`**: Assert the accessibility tree as a snapshot — more semantic than DOM snapshots.
+- **`page.addLocatorHandler()`**: Handle dynamic UI (modals, cookie banners) automatically.
+- **WebSocket testing**: Built-in `page.expectWebSocketEvent()`.
+- **Playwright MCP Server**: Expose a Playwright browser to AI agents via MCP tools.
 
-#### 2. Vitest Best Practices
-- **Isolation**: Keep tests completely pure and isolated. Reset mock states (`vi.clearAllMocks()`) before or after each test run.
-- **Component Tests**: Use `@testing-library/react` and Vitest to test component behavior (what the user sees and interacts with) rather than internal implementation states.
-- **Speed**: Organize tests so they can run concurrently where possible (`test.concurrent`).
-
-#### 3. Automated CI/CD Setup
-Set up a clean GitHub Actions workflow that:
-- Installs project dependencies (utilizing caching).
-- Installs Playwright system browsers.
-- Runs the test suite (linting, Vitest, Playwright).
-- Uploads Playwright HTML report and traces on test failure.
-
----
-
-### Code Examples
-
-#### Playwright Login & Checkout Spec (`tests/auth-checkout.spec.ts`)
+#### Project Configuration
 ```typescript
-import { test, expect } from '@playwright/test';
+// playwright.config.ts
+import { defineConfig, devices } from '@playwright/test';
 
-test.describe('SaaS Checkout Flow', () => {
-  // Reuse authentication state
-  test.use({ storageState: 'playwright/.auth/user.json' });
+export default defineConfig({
+  testDir: './tests/e2e',
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 4 : undefined,
+  reporter: [
+    ['html', { open: 'never' }],
+    ['junit', { outputFile: 'results.xml' }],
+  ],
+  use: {
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'on-first-retry',
+  },
+  projects: [
+    // Setup: seed test DB
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 7'] },
+      dependencies: ['setup'],
+    },
+  ],
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});
+```
 
-  test('should navigate to billing and start stripe checkout', async ({ page }) => {
-    await page.goto('/settings/billing');
+#### Page Object Model (POM)
+```typescript
+// tests/e2e/pages/LoginPage.ts
+import { type Page, type Locator, expect } from '@playwright/test';
 
-    // Resilient locators
-    const upgradeButton = page.getByRole('button', { name: 'Upgrade to Pro' });
-    await expect(upgradeButton).toBeVisible();
-    await upgradeButton.click();
+export class LoginPage {
+  readonly page: Page;
+  readonly emailInput: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
 
-    // Verify redirect to Stripe checkout page
-    await page.waitForURL(/.*checkout.stripe.com.*/);
-    await expect(page.getByText('Vibes Plug Pro')).toBeVisible();
+  constructor(page: Page) {
+    this.page = page;
+    this.emailInput = page.getByLabel('Email');
+    this.passwordInput = page.getByLabel('Password');
+    this.submitButton = page.getByRole('button', { name: 'Sign in' });
+  }
+
+  async goto() {
+    await this.page.goto('/login');
+  }
+
+  async login(email: string, password: string) {
+    await this.emailInput.fill(email);
+    await this.passwordInput.fill(password);
+    await this.submitButton.click();
+    await this.page.waitForURL('/dashboard');
+  }
+}
+```
+
+#### API Mocking with `page.route()`
+```typescript
+test('shows error when API fails', async ({ page }) => {
+  // Intercept and mock API response
+  await page.route('**/api/users', (route) => {
+    route.fulfill({
+      status: 500,
+      body: JSON.stringify({ error: 'Internal server error' }),
+      contentType: 'application/json',
+    });
+  });
+
+  await page.goto('/users');
+  await expect(page.getByRole('alert')).toContainText('Something went wrong');
+});
+```
+
+#### Accessibility Assertions (aria-snapshot)
+```typescript
+test('navigation is accessible', async ({ page }) => {
+  await page.goto('/');
+  
+  // Assert accessibility tree structure
+  await expect(page.locator('nav')).toMatchAriaSnapshot(`
+    - navigation:
+      - link "Home"
+      - link "Products"
+      - link "Pricing"
+      - link "Sign in"
+  `);
+});
+```
+
+#### Auth State Reuse (storageState)
+```typescript
+// tests/e2e/auth.setup.ts
+import { test as setup } from '@playwright/test';
+
+setup('authenticate', async ({ page }) => {
+  await page.goto('/login');
+  await page.getByLabel('Email').fill('test@example.com');
+  await page.getByLabel('Password').fill('password');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.waitForURL('/dashboard');
+  
+  // Save session state for reuse in all tests
+  await page.context().storageState({ path: 'playwright/.auth/user.json' });
+});
+
+// tests/e2e/dashboard.spec.ts
+import { test } from '@playwright/test';
+
+test.use({ storageState: 'playwright/.auth/user.json' });
+
+test('dashboard loads correctly', async ({ page }) => {
+  await page.goto('/dashboard');
+  // Already authenticated — no login needed
+});
+```
+
+### Vitest 3 — Unit & Integration Testing
+
+#### Configuration
+```typescript
+// vitest.config.ts
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./tests/setup.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'lcov', 'html'],
+      thresholds: { lines: 80, functions: 80 },
+    },
+  },
+});
+```
+
+#### React Component Testing
+```typescript
+import { render, screen, userEvent } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { Counter } from './Counter';
+
+describe('Counter', () => {
+  it('increments count on button click', async () => {
+    const user = userEvent.setup();
+    render(<Counter initialCount={0} />);
+
+    await user.click(screen.getByRole('button', { name: 'Increment' }));
+
+    expect(screen.getByText('Count: 1')).toBeInTheDocument();
+  });
+
+  it('calls onMaxReached when limit hit', async () => {
+    const onMaxReached = vi.fn();
+    const user = userEvent.setup();
+    render(<Counter initialCount={9} max={10} onMaxReached={onMaxReached} />);
+
+    await user.click(screen.getByRole('button', { name: 'Increment' }));
+
+    expect(onMaxReached).toHaveBeenCalledOnce();
   });
 });
 ```
 
-#### GitHub Actions Workflow (`.github/workflows/test.yml`)
-```yaml
-name: CI Test Suite
+#### Server Action / API Route Testing
+```typescript
+import { describe, it, expect, beforeEach } from 'vitest';
+import { testClient } from 'hono/testing';
+import { app } from '../src/server';
+import { resetTestDb } from './helpers/db';
 
-on:
-  push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ main ]
+describe('POST /api/users', () => {
+  beforeEach(resetTestDb);
+
+  it('creates a new user', async () => {
+    const client = testClient(app);
+    const res = await client.api.users.$post({
+      json: { name: 'Alice', email: 'alice@example.com' },
+    });
+
+    expect(res.status).toBe(201);
+    const data = await res.json();
+    expect(data.email).toBe('alice@example.com');
+  });
+});
+```
+
+### GitHub Actions CI Pipeline
+```yaml
+# .github/workflows/test.yml
+name: CI Tests
+
+on: [push, pull_request]
 
 jobs:
-  test:
+  unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
+      - run: pnpm run test:unit --coverage
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-      - name: Run Linting
-        run: npm run lint
-
-      - name: Run Unit/Integration Tests
-        run: npx vitest run
-
-      - name: Run E2E Tests
-        run: npx playwright test
-        env:
-          DATABASE_URL: ${{ secrets.TEST_DATABASE_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.TEST_NEXTAUTH_SECRET }}
-
-      - name: Upload Playwright Report
-        uses: actions/upload-artifact@v4
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: 'pnpm' }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm run test:e2e
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
 ```
 
 ---
@@ -126,32 +280,36 @@ jobs:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini menyediakan panduan profesional yang komprehensif untuk menerapkan pengujian End-to-End (E2E) menggunakan Playwright, pengujian unit & integrasi menggunakan Vitest, serta konfigurasi pipeline CI/CD (seperti GitHub Actions) secara otomatis.
+Panduan ahli untuk membangun test suite otomatis yang komprehensif menggunakan **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integrasi), dan pipeline CI/CD yang kuat. Mencakup pola pengujian modern untuk Next.js 15, React 19, dan backend API.
 
 ### Kondisi Pemicu
-Aktif ketika pengguna meminta bantuan terkait:
-- Setup Playwright atau Vitest di proyek JavaScript/TypeScript.
-- Penulisan tes E2E (misalnya: alur login pengguna, checkout Stripe, dashboard interaktif).
-- Penulisan unit test atau integration test untuk komponen UI, hooks, atau utilitas backend.
-- Konfigurasi workflow GitHub Actions untuk menjalankan pengujian otomatis.
-- Debugging tes E2E yang lambat/flaky, handling timeout, atau konfigurasi environment testing.
+- Menulis E2E test untuk aplikasi web dengan Playwright.
+- Menulis unit atau integration test dengan Vitest.
+- Menyiapkan pipeline pengujian otomatis di GitHub Actions / GitLab CI.
+- Menguji komponen React secara terisolasi.
+- Mocking layanan eksternal (API, database) dalam test.
+- Menyiapkan visual regression test.
 
-### Standar Pengujian Utama
+### Playwright 1.49+ — Fitur Baru 2026
+- **`aria-snapshot`**: Assert accessibility tree sebagai snapshot.
+- **`page.addLocatorHandler()`**: Tangani UI dinamis (modal, cookie banner) secara otomatis.
+- **WebSocket testing**: `page.expectWebSocketEvent()` bawaan.
+- **Playwright MCP Server**: Ekspos browser Playwright ke agen AI via MCP.
 
-#### 1. Praktik Terbaik Playwright
-- **Locators**: Gunakan locator yang tangguh berbasis elemen yang dilihat pengguna (`getByRole`, `getByLabelText`, `getByPlaceholder`) daripada CSS selector (`.btn-primary`) atau XPath.
-- **Isolasi State**: Jalankan tes dalam browser context yang terisolasi. Gunakan fitur `storageState` untuk menyimpan session cookie agar alur login tidak perlu diulang pada setiap tes.
-- **Trace Viewer**: Aktifkan perekaman trace Playwright di CI (`trace: 'on-first-retry'`) untuk merekam screenshot, network request, dan DOM snapshot untuk mempermudah debugging.
-- **Mocking Network**: Gunakan `page.route` untuk memalsukan respon dari API pihak ketiga (seperti Stripe, Clerk, atau Webhook) agar pengujian tidak gagal akibat gangguan jaringan eksternal.
+### Page Object Model (POM)
+Enkapsulasi selektor dan tindakan halaman dalam kelas terpisah untuk mengurangi duplikasi dan meningkatkan keterbacaan test.
 
-#### 2. Praktik Terbaik Vitest
-- **Isolasi**: Jaga agar pengujian benar-benar bersih dan terisolasi. Reset mock state (`vi.clearAllMocks()`) sebelum atau sesudah setiap pengujian dijalankan.
-- **Pengujian Komponen**: Gunakan `@testing-library/react` dan Vitest untuk menguji perilaku komponen UI (apa yang dilihat dan diinteraksikan pengguna) daripada struktur internal state-nya.
-- **Kecepatan**: Atur pengujian agar dapat berjalan secara bersamaan jika memungkinkan (`test.concurrent`).
+### Mocking API dengan `page.route()`
+Gunakan `page.route()` untuk mencegat permintaan jaringan dan mengembalikan respons palsu — mengisolasi frontend dari backend dalam E2E test.
 
-#### 3. Konfigurasi CI/CD Otomatis
-Buat workflow GitHub Actions bersih yang akan:
-- Menginstal dependensi proyek (menggunakan caching untuk mempercepat proses).
-- Mengunduh browser sistem yang dibutuhkan Playwright.
-- Menjalankan seluruh pengujian (linter, Vitest, Playwright).
-- Mengunggah laporan HTML Playwright dan trace rekaman jika terjadi kegagalan tes.
+### Aksesibilitas dengan aria-snapshot
+Gunakan `toMatchAriaSnapshot()` untuk memvalidasi struktur aksesibilitas navigasi, form, dan komponen interaktif — lebih semantis dari snapshot DOM biasa.
+
+### Auth State Reuse (storageState)
+Gunakan `storageState` untuk menyimpan state sesi setelah login sekali dan menggunakannya kembali di semua test yang memerlukan autentikasi — menghemat waktu secara signifikan.
+
+### Vitest 3 — Unit & Integration Testing
+Vitest 3 adalah test runner yang cepat berbasis Vite dengan kompatibilitas Jest penuh. Gunakan untuk unit test React component, server action, dan logika bisnis.
+
+### Pipeline CI GitHub Actions
+Pisahkan job `unit` dan `e2e` untuk feedback paralel yang lebih cepat. Upload `playwright-report` sebagai artifact saat gagal untuk debugging.

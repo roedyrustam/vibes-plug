@@ -4,7 +4,7 @@ description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Cove
 author: "Roedy Rustam"
 ---
 
-# Rust Programming Expert
+# Rust Programming Expert (2024 Edition / v1.88+)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,52 +14,183 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level guidance for writing high-performance, robust, and memory-safe systems applications using **Rust 2024 (v1.85+)**. This skill outlines advanced practices in ownership, lifetimes, error design, async architectures, backend development, performance tuning, and idiomatic ecosystem patterns.
+Expert-level Rust development for building memory-safe, high-performance systems, APIs, CLI tools, and WebAssembly. Covers the **Rust 2024 edition**, async/await with Tokio, Axum 0.8 web framework, SQLx for async database access, and modern Rust idioms.
 
 ### Trigger Conditions
-- Use when bootstrapping or maintaining a production Rust crate, application, or workspace.
-- Use when designing data models involving complex lifetimes, smart pointers (`Arc`, `Rc`, `RefCell`), or zero-copy abstractions (`Cow`).
-- Use when building high-concurrency async services with **Tokio** and **Axum**.
-- Use when interacting with databases safely using compile-time checked SQL with **SQLx**.
-- Use when crafting modern CLI utilities using **Clap** and **Serde**.
-- Use when migrating or upgrading an existing Rust codebase to the **Rust 2024 Edition**.
-- Use when profiling, optimizing, or debugging compile times, memory footprints, or runtime performance.
+- Writing systems-level code requiring memory safety and zero-cost abstractions.
+- Building high-performance HTTP APIs with **Axum 0.8**.
+- Implementing async services with **Tokio** runtime.
+- Interacting with databases using **SQLx** or **SeaORM**.
+- Building CLI tools with **Clap v4**.
+- Compiling to **WebAssembly (WASM)** for browser or edge deployment.
+- Writing Rust for **Tauri v2** desktop application backends.
 
-### Rust 2024 Edition & Core Architecture
-Rust 2024 (stabilized in Rust v1.85) enhances language ergonomics, strengthens safety invariants, and introduces native async enhancements:
-- **Async Closures**: Stable `async || {}` & `AsyncFn` traits.
-- **RPIT Lifetimes**: RPIT (`impl Trait` in return position) captures all in-scope lifetimes by default. Use explicit `use<'a, T>` syntax if you want to restrict lifetime capturing.
-- **Unsafe Extern**: `extern` blocks and specific attributes (`no_mangle`) now require the `unsafe` keyword.
-- **Prelude Additions**: `Future` and `IntoFuture` are now imported automatically.
+### Rust 2024 Edition Highlights
+The Rust 2024 edition (stabilized in 1.85) introduces:
+- **`gen` blocks**: Generators for lazy sequence production.
+- **Lifetime capture rules**: More precise lifetime inference in `impl Trait`.
+- **Unsafe extern blocks**: Clearer unsafe boundary declarations.
+- **`if let` chains**: `if let Some(x) = opt && x > 0` now works cleanly.
+- **`async fn` in traits**: Now stable — no more `async-trait` macro needed.
 
-### Language Essentials & Memory Safety
-Memory safety in Rust is guaranteed at compile time through the ownership system:
-1. **Ownership & Borrowing**: Each value has a single owner. You can have any number of immutable references (`&T`) *OR* exactly one active mutable reference (`&mut T`) to a value at any given time.
-2. **Lifetimes & Smart Pointers**: Avoid references (`&T`) in struct definitions unless short-lived. Use `Arc<T>` and `Mutex<T>` or `RwLock<T>` for thread-safe state sharing.
+### Async `fn` in Traits (Stable in Rust 2024)
+```rust
+// No longer need #[async_trait] macro!
+trait DataStore {
+    async fn get(&self, id: &str) -> Result<Data, Error>;
+    async fn set(&self, id: &str, data: Data) -> Result<(), Error>;
+}
 
-### Idiomatic Error Handling
-Rust utilizes the `Result<T, E>` and `Option<T>` monads:
-- **Application-level Errors**: Use `anyhow` for high-level application contexts where stack traces and arbitrary error wrapping are needed.
-- **Library-level Errors**: Use `thiserror` to define precise, structured, and descriptive domain error enums.
+impl DataStore for PostgresStore {
+    async fn get(&self, id: &str) -> Result<Data, Error> {
+        sqlx::query_as("SELECT * FROM data WHERE id = $1")
+            .bind(id)
+            .fetch_one(&self.pool)
+            .await
+            .map_err(Into::into)
+    }
+    async fn set(&self, id: &str, data: Data) -> Result<(), Error> {
+        sqlx::query("INSERT INTO data (id, value) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET value = $2")
+            .bind(id)
+            .bind(&data.value)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+}
+```
 
-### Asynchronous Programming (Rust 2024 + Tokio)
-- **Prefer Tokio Tasks for I/O**: Use `tokio::spawn` to run light, concurrent tasks that perform asynchronous I/O.
-- **Do NOT Block the Async Runtime**: Never run CPU-bound work or synchronous block-I/O directly inside an async worker thread. Use `tokio::task::spawn_blocking` to offload heavy calculations.
+### Axum 0.8 — HTTP API Framework
+```rust
+use axum::{
+    extract::{Path, State},
+    response::Json,
+    routing::{get, post},
+    Router,
+};
+use sqlx::PgPool;
+use serde::{Deserialize, Serialize};
 
-### Production Ecosystem Integrations
-- **Axum + SQLx**: High performance async routing combined with compile-time checked PostgreSQL database queries.
-- **Clap + Serde**: Declarative command-line argument parser and serialization/deserialization.
+#[derive(Clone)]
+struct AppState {
+    db: PgPool,
+}
 
-### Optimization & Unsafe Code
-- **Avoid Heap Allocations**: Use slices `&[T]` and zero-copy `Cow<'a, str>` wrappers where possible.
-- **Release Profile (`Cargo.toml`)**: Use `opt-level = 3`, `lto = true`, and `codegen-units = 1` for production.
-- **Sound Unsafe**: Only use `unsafe` when absolutely required. Always document with a `// SAFETY:` block.
+#[derive(Serialize, Deserialize)]
+struct User {
+    id: String,
+    name: String,
+    email: String,
+}
 
----
+async fn get_user(
+    Path(user_id): Path<String>,
+    State(state): State<AppState>,
+) -> Result<Json<User>, StatusCode> {
+    let user = sqlx::query_as!(User, "SELECT * FROM users WHERE id = $1", user_id)
+        .fetch_optional(&state.db)
+        .await
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+        .ok_or(StatusCode::NOT_FOUND)?;
 
-### Troubleshooting & Common Gotchas / Pemecahan Masalah
-- **Lifetimes Mismatch**: Ensure returned references don't point to local variables. Use owned types or bind output lifetimes to input lifetimes.
-- **Send / Sync Boundary Failures**: Async block elements across `.await` must implement `Send`. Avoid holding synchronous mutex guards across `.await` points.
+    Ok(Json(user))
+}
+
+#[tokio::main]
+async fn main() {
+    let db = PgPool::connect(&std::env::var("DATABASE_URL").unwrap())
+        .await
+        .expect("Failed to connect to database");
+
+    let state = AppState { db };
+
+    let app = Router::new()
+        .route("/users/:id", get(get_user))
+        .route("/users", post(create_user))
+        .with_state(state);
+
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
+    println!("Listening on :8080");
+    axum::serve(listener, app).await.unwrap();
+}
+```
+
+### SQLx — Compile-Time Verified SQL
+```rust
+// Compile-time SQL checking (requires DATABASE_URL at build time)
+let users = sqlx::query_as!(
+    User,
+    r#"SELECT id, name, email FROM users WHERE created_at > $1 ORDER BY created_at DESC LIMIT $2"#,
+    since,
+    limit as i64
+)
+.fetch_all(&pool)
+.await?;
+```
+
+### Error Handling — thiserror + anyhow
+```rust
+use thiserror::Error;
+
+// Library errors: use thiserror for typed errors
+#[derive(Debug, Error)]
+pub enum AppError {
+    #[error("User not found: {id}")]
+    UserNotFound { id: String },
+    #[error("Database error: {0}")]
+    Database(#[from] sqlx::Error),
+    #[error("Validation failed: {message}")]
+    Validation { message: String },
+}
+
+// Application code: use anyhow for ergonomic error propagation
+use anyhow::{Context, Result};
+
+fn process() -> Result<()> {
+    let config = load_config().context("Failed to load configuration")?;
+    let db = connect_db(&config).context("Failed to connect to database")?;
+    Ok(())
+}
+```
+
+### CLI Tools with Clap v4
+```rust
+use clap::{Parser, Subcommand};
+
+#[derive(Parser)]
+#[command(name = "myapp", version, about = "My CLI tool")]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands {
+    /// Start the server
+    Serve {
+        #[arg(short, long, default_value = "8080")]
+        port: u16,
+    },
+    /// Run migrations
+    Migrate,
+}
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let cli = Cli::parse();
+    match cli.command {
+        Commands::Serve { port } => serve(port).await,
+        Commands::Migrate => run_migrations().await,
+    }
+}
+```
+
+### Performance Best Practices
+- **Zero-cost abstractions**: Use iterators (`map`, `filter`, `collect`) — compiled to the same code as hand-written loops.
+- **Avoid unnecessary cloning**: Use references (`&T`) and lifetimes where possible.
+- **`Arc<T>` for shared state**: Use `Arc<Mutex<T>>` or `Arc<RwLock<T>>` for shared mutable state across threads.
+- **SIMD**: Use `std::simd` (stable in 1.88) for data-parallel operations.
+- **Profile before optimizing**: Use `cargo flamegraph` or `perf` to find actual bottlenecks.
 
 ---
 
@@ -67,43 +198,38 @@ Rust utilizes the `Result<T, E>` and `Option<T>` monads:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan tingkat ahli untuk menulis aplikasi sistem yang berkinerja tinggi, tangguh, dan aman secara memori menggunakan **Rust 2024 (v1.85+)**. Skill ini menguraikan praktik-praktik lanjutan dalam kepemilikan (ownership), masa hidup (lifetimes), desain error, arsitektur asinkron, pengembangan backend, optimasi performa, dan pola ekosistem yang idiomatis.
+Pengembangan Rust tingkat ahli untuk membangun sistem, API, CLI tool, dan WebAssembly yang aman di memori dan berkinerja tinggi. Mencakup **edisi Rust 2024**, async/await dengan Tokio, framework web Axum 0.8, SQLx untuk akses database async, dan idiom Rust modern.
 
 ### Kondisi Pemicu
-- Gunakan saat merancang atau memelihara crate, aplikasi, atau workspace Rust tingkat produksi.
-- Gunakan saat mendesain model data dengan lifetime yang kompleks, smart pointers (`Arc`, `Rc`, `RefCell`), atau abstraksi zero-copy (`Cow`).
-- Gunakan saat membangun layanan asinkron konkurensi tinggi dengan **Tokio** dan **Axum**.
-- Gunakan saat berinteraksi dengan database secara aman menggunakan SQL yang diverifikasi saat kompilasi dengan **SQLx**.
-- Gunakan saat merancang utilitas CLI modern menggunakan **Clap** dan **Serde**.
-- Gunakan saat memigrasikan atau meningkatkan codebase Rust yang ada ke **Edisi Rust 2024**.
-- Gunakan saat melakukan profiling, mengoptimalkan, atau men-debug waktu kompilasi, penggunaan memori, atau kinerja runtime.
+- Menulis kode sistem yang membutuhkan keamanan memori dan zero-cost abstraction.
+- Membangun HTTP API berkinerja tinggi dengan **Axum 0.8**.
+- Mengimplementasikan layanan async dengan runtime **Tokio**.
+- Berinteraksi dengan database menggunakan **SQLx** atau SeaORM.
+- Membangun CLI tool dengan **Clap v4**.
+- Mengkompilasi ke **WebAssembly (WASM)** untuk browser atau edge.
+- Menulis backend Rust untuk aplikasi desktop **Tauri v2**.
 
-### Edisi Rust 2024 & Arsitektur Inti
-Edisi Rust 2024 meningkatkan ergonomi bahasa, memperkuat invariant keamanan, dan memperkenalkan peningkatan asinkron bawaan:
-- **Async Closures**: Traits `AsyncFn` dan penulisan closure `async || {}` sekarang stabil. Gunakan untuk adapter stream asinkron atau event handler langsung.
-- **RPIT Lifetimes**: RPIT (`impl Trait` pada posisi return) menangkap semua lifetime dalam scope secara default. Gunakan sintaksis eksplisit `use<'a, T>` untuk membatasi penangkapan lifetime.
-- **Unsafe Extern**: Blok `extern` dan atribut tertentu (`no_mangle`) sekarang memerlukan kata kunci `unsafe`.
-- **Tambahan Prelude**: `Future` dan `IntoFuture` sekarang diimpor secara otomatis.
+### Sorotan Edisi Rust 2024
+- **`async fn` dalam trait**: Kini stabil — tidak perlu lagi macro `#[async_trait]`.
+- **`if let` chains**: `if let Some(x) = opt && x > 0` kini berfungsi secara bersih.
+- **`gen` blocks**: Generator untuk produksi urutan yang malas.
+- **Aturan lifetime capture**: Inferensi lifetime yang lebih presisi di `impl Trait`.
 
-### Dasar Bahasa & Keamanan Memori
-Keamanan memori dijamin saat kompilasi melalui sistem kepemilikan (ownership). Ikuti panduan berikut:
-1. **Kepemilikan & Peminjaman**: Setiap nilai memiliki satu pemilik. Ketika pemilik keluar dari scope, nilai tersebut dihapus. Anda dapat memiliki banyak referensi immutable (`&T`) *ATAU* tepat satu referensi mutable (`&mut T`) aktif pada satu waktu.
-2. **Lifetimes & Smart Pointers**: Hindari meletakkan referensi (`&T`) di dalam definisi struct kecuali untuk struct pembantu berumur pendek. Gunakan `Arc<T>` (Thread-Safe Shared Reference) dan `Mutex<T>` (Mutual Exclusion) untuk berbagi state antar thread.
+### Axum 0.8 — Framework HTTP API
+Gunakan Axum untuk HTTP API yang idiomatis dan berkinerja tinggi dibangun di atas Tokio. Manfaatkan extractor (`Path`, `State`, `Json`, `Query`) untuk parameter handler yang type-safe.
 
-### Penanganan Error yang Idiomatis
-Rust menggunakan monad `Result<T, E>` and `Option<T>` alih-alih exception tradisional.
-- **Tingkat Aplikasi**: Gunakan `anyhow` untuk pembuatan skrip cepat atau konteks aplikasi tingkat tinggi di mana pelacakan stack dan pembungkusan error acak diperlukan.
-- **Tingkat Library**: Gunakan `thiserror` untuk mendefinisikan enum error domain yang tepat, terstruktur, dan deskriptif.
+### SQLx — SQL Terverifikasi Waktu Kompilasi
+SQLx memverifikasi query SQL Anda terhadap database nyata saat kompilasi — menghilangkan seluruh kelas bug runtime.
 
-### Pemrograman Asinkron (Rust 2024 + Tokio)
-- **Gunakan Tugas Tokio untuk I/O**: Gunakan `tokio::spawn` untuk menjalankan tugas-tugas ringan dan konkuren.
-- **JANGAN Blokir Runtime Asinkron**: Jangan pernah menjalankan pekerjaan berat CPU atau I/O sinkron secara langsung di dalam thread pekerja asinkron. Gunakan `tokio::task::spawn_blocking` jika diperlukan.
+### Penanganan Error — thiserror + anyhow
+- Gunakan `thiserror` untuk error bertipe di library code.
+- Gunakan `anyhow` untuk propagasi error yang ergonomis di application code.
 
-### Integrasi Ekosistem Produksi
-- **Axum + SQLx (Web API Stack)**: Axum menyediakan framework web asinkron terkemuka, sementara SQLx menyediakan lapisan interaksi database dengan pemeriksaan keamanan SQL pada saat kompilasi.
-- **Clap + Serde (CLI Stack)**: Clap v4 menyediakan parser argumen baris perintah deklaratif berbasis makro. Serde menangani serialisasi/deserialisasi dengan lancar.
+### CLI Tool dengan Clap v4
+Clap v4 menggunakan derive macro untuk mendefinisikan antarmuka CLI secara deklaratif — perintah, subperintah, argumen, dan flag dengan parsing bawaan.
 
-### Optimasi & Kode Unsafe
-- **Hindari Alokasi Heap**: Gunakan `&str` alih-alih `String` untuk variabel read-only. Gunakan `Cow<'a, str>` ketika variabel hanya sesekali dimutasi.
-- **Konfigurasi Profil Release (`Cargo.toml`)**: Gunakan `opt-level = 3`, `lto = true`, dan `codegen-units = 1` untuk kinerja maksimal.
-- **Kode Unsafe yang Aman**: Hanya gunakan `unsafe` untuk memanggil binding C atau struktur data lockless kustom. Selalu sertakan blok `// SAFETY:` untuk menjelaskan validitas invariant.
+### Praktik Terbaik Performa
+- Gunakan iterator (`map`, `filter`, `collect`) — dikompilasi setara dengan loop manual.
+- Hindari cloning yang tidak perlu — gunakan referensi dan lifetime.
+- Gunakan `Arc<Mutex<T>>` untuk state bersama yang dapat dimutasi di antara thread.
+- Profiling terlebih dahulu dengan `cargo flamegraph` sebelum mengoptimalkan.

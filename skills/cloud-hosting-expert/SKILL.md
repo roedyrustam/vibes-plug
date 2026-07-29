@@ -1,10 +1,10 @@
 ---
 name: cloud-hosting-expert
 description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
-author: "Antigravity"
+author: "Roedy Rustam"
 ---
 
-# Cloud Hosting & Edge Deployment Expert
+# Cloud Hosting Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,34 +14,194 @@ author: "Antigravity"
 ## English
 
 ### Description
-This skill provides expertise on deploying modern SaaS architectures—especially those using Multiple Entry Points—on advanced cloud hosting platforms like Vercel and Cloudflare. It covers edge caching, serverless functions, routing configurations, and custom domains.
-
-### Core Strategies for Multiple Entry Points
-
-#### 1. Vercel: Rewrites and Edge Middleware
-When deploying a Multi-Page Application or an app with multiple entry points on Vercel, you can use `vercel.json` rewrites or Vercel Edge Middleware to route traffic intelligently without hitting a heavy monolithic router.
-- **Rewrites (`vercel.json`)**: Map `/api/*` to an `api/index.js` or `api/webhook.ts` entry point, map `/admin/*` to an `admin/index.js` entry, and route everything else to the public landing page entry.
-- **Edge Middleware**: Use `middleware.ts` to inspect the host header (for multi-tenant subdomains) or paths, and rewrite the request to the correct entry point transparently (e.g., rewriting `tenant1.myapp.com` to `/tenant-entry?tenant=tenant1`).
-
-#### 2. Cloudflare: Workers and Custom Domains
-Cloudflare provides powerful edge routing via Cloudflare Workers and Cloudflare for SaaS.
-- **Workers**: Deploy a Cloudflare Worker that acts as a global edge router. It can inspect incoming requests, check authentication at the edge, and route `/webhook` directly to the webhook entry point, bypassing the main application overhead.
-- **Cloudflare for SaaS**: Configure SSL and routing for hundreds of tenant custom domains, pointing them all to your `tenant` entry point seamlessly while keeping marketing traffic on the primary domain entry point.
-
-#### 3. Caching and Performance
-By separating entry points, you can define aggressive caching rules tailored to each:
-- **Public Landing Entry**: Cache heavily at the Edge (CDN) with stale-while-revalidate.
-- **Webhook Entry**: No caching, ensure direct execution.
-- **Tenant Dashboard Entry**: Cache static assets but never cache the HTML/JSON data for authenticated routes.
-
-### Orchestrating with Other Skills
-- **With `multiple-entry-points`**: Leverage `vercel.json` or Cloudflare Workers to physically enforce the logical separation of your entry points at the network layer.
-- **With `saas-multi-tenant`**: Use Vercel Middleware or Cloudflare Workers to parse `tenant_id` from custom domains or subdomains before the request even hits your database.
+Expert guide for deploying SaaS applications and their multiple entry points (landing page, app, super admin subdomain) on modern edge and serverless platforms. Covers Vercel, Cloudflare Workers & Pages, Railway, Fly.io, and **Cloudflare Workers AI** for AI-powered edge workloads.
 
 ### Trigger Conditions
-- The user is deploying a web application to Vercel, Cloudflare, or similar edge platforms.
-- The user needs to configure routing for an app with multiple entry points (e.g., separating API, admin, and public traffic).
-- The user is setting up custom domains or subdomains for a multi-tenant SaaS.
+- Deploying a Next.js, Hono, or Astro application to Vercel, Cloudflare, or Railway.
+- Configuring custom domains and subdomain routing (e.g., `app.domain.com`, `admin.domain.com`).
+- Setting up Edge Middleware for multi-tenant tenant identification.
+- Deploying AI inference workloads to **Cloudflare Workers AI**.
+- Deploying long-running backend services to **Railway** or **Fly.io**.
+- Implementing CDN caching strategies for SaaS applications.
+
+### Platform Selection Guide (2026)
+
+| Platform | Best For | Free Tier | Cold Start |
+|---|---|---|---|
+| **Vercel** | Next.js, static, serverless functions | ✅ | ~200ms |
+| **Cloudflare Workers** | Ultra-low latency APIs, edge logic | ✅ (100k req/day) | ~0ms |
+| **Cloudflare Pages** | Static + full-stack (via Workers) | ✅ | ~0ms |
+| **Railway** | Node.js/Go/Python long-running services, Bun | ✅ (5$/mo credit) | None |
+| **Fly.io** | Docker containers, global distribution | ✅ (3 shared VMs) | ~500ms |
+| **Render** | Node.js/Go/Python persistent services | ✅ (spins down) | ~30s |
+
+### Multi-Entry Point Deployment Architecture
+
+For SaaS applications, separate deployments for each entry point:
+```
+myapp.com         → Vercel (Marketing/Landing — Next.js static)
+app.myapp.com     → Vercel (SaaS App — Next.js dynamic)
+admin.myapp.com   → Vercel (Super Admin — Next.js, restricted access)
+api.myapp.com     → Railway/Fly.io (Backend API — long-running)
+cdn.myapp.com     → Cloudflare R2 (Static assets & user uploads)
+```
+
+### Vercel — Next.js Deployment
+
+#### Multi-Domain Configuration
+```json
+// vercel.json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
+      ]
+    }
+  ]
+}
+```
+
+#### Edge Middleware for Tenant Routing
+```typescript
+// middleware.ts — runs at the edge before every request
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const hostname = request.headers.get('host') ?? '';
+  const subdomain = hostname.split('.')[0];
+
+  // Route admin subdomain — enforce strict auth check
+  if (subdomain === 'admin') {
+    const adminToken = request.cookies.get('admin-session')?.value;
+    if (!adminToken) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+
+  // Identify tenant from subdomain for multi-tenant apps
+  if (subdomain !== 'www' && subdomain !== 'app' && subdomain !== 'admin') {
+    const response = NextResponse.next();
+    response.headers.set('x-tenant-slug', subdomain);
+    return response;
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
+```
+
+### Cloudflare Workers — Edge APIs
+
+#### Hono on Cloudflare Workers
+```typescript
+// src/index.ts
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { rateLimit } from '@/middleware/rateLimit';
+
+const app = new Hono<{ Bindings: Env }>();
+
+app.use('*', cors({ origin: ['https://app.myapp.com'] }));
+app.use('/api/*', rateLimit(100)); // 100 req/min via KV
+
+app.get('/api/health', (c) => c.json({ status: 'ok', region: c.env.CF_REGION }));
+
+app.get('/api/data', async (c) => {
+  // Access Cloudflare D1 (SQLite at edge)
+  const result = await c.env.DB.prepare('SELECT * FROM items LIMIT 20').all();
+  return c.json(result.results);
+});
+
+export default app;
+```
+
+#### Cloudflare Workers AI (On-Device Edge Inference)
+Run AI models directly at Cloudflare's edge — no external API calls needed:
+```typescript
+export default {
+  async fetch(request: Request, env: Env) {
+    const { text } = await request.json() as { text: string };
+
+    // Run Llama 3 or Mistral at the edge
+    const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [
+        { role: 'system', content: 'You are a helpful assistant.' },
+        { role: 'user', content: text }
+      ],
+      stream: true,
+    });
+
+    return new Response(response, {
+      headers: { 'Content-Type': 'text/event-stream' }
+    });
+  }
+};
+```
+
+Available models on Workers AI:
+- `@cf/meta/llama-3.1-8b-instruct` — Fast general-purpose chat
+- `@cf/mistral/mistral-7b-instruct-v0.2` — Fast instruction model
+- `@cf/baai/bge-small-en-v1.5` — Text embedding (for RAG)
+- `@cf/stabilityai/stable-diffusion-xl-base-1.0` — Image generation
+
+### Railway — Bun / Node.js Long-Running Services
+```dockerfile
+# Dockerfile for Railway (Bun runtime)
+FROM oven/bun:1.2-alpine
+WORKDIR /app
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
+COPY . .
+EXPOSE 3000
+CMD ["bun", "run", "src/server.ts"]
+```
+
+```toml
+# railway.toml
+[build]
+builder = "DOCKERFILE"
+
+[deploy]
+startCommand = "bun run src/server.ts"
+healthcheckPath = "/health"
+healthcheckTimeout = 10
+restartPolicyType = "ON_FAILURE"
+```
+
+### Environment Variables & Secrets Management
+- **Vercel**: Use Vercel's built-in secrets panel — supports preview/production scoping.
+- **Cloudflare**: Use `wrangler secret put SECRET_NAME` or the dashboard.
+- **Railway**: Use Railway's variable groups for shared secrets across services.
+- **Never** commit `.env` files — use `.env.example` as documentation only.
+
+### Caching Strategy
+```typescript
+// Vercel: Cache API responses at the edge
+export async function GET() {
+  const data = await fetchData();
+  return Response.json(data, {
+    headers: {
+      'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+    }
+  });
+}
+
+// Cloudflare: Use Cache API
+const cache = caches.default;
+const cached = await cache.match(request);
+if (cached) return cached;
+```
 
 ---
 
@@ -49,31 +209,36 @@ By separating entry points, you can define aggressive caching rules tailored to 
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memberikan keahlian dalam men-deploy arsitektur SaaS modern—khususnya yang menggunakan *Multiple Entry Points*—pada platform cloud hosting canggih seperti Vercel dan Cloudflare. Panduan ini mencakup *edge caching*, *serverless functions*, konfigurasi routing, dan custom domain.
-
-### Strategi Inti untuk Multiple Entry Points
-
-#### 1. Vercel: Rewrites dan Edge Middleware
-Saat men-deploy Multi-Page Application atau aplikasi dengan beberapa *entry point* di Vercel, Anda dapat menggunakan `rewrites` di `vercel.json` atau *Vercel Edge Middleware* untuk merutekan lalu lintas secara cerdas tanpa melalui router monolitik yang berat.
-- **Rewrites (`vercel.json`)**: Arahkan `/api/*` ke *entry point* `api/index.js` atau `api/webhook.ts`, arahkan `/admin/*` ke *entry point* `admin/index.js`, dan sisa lalu lintas ke *entry point* landing page publik.
-- **Edge Middleware**: Gunakan `middleware.ts` untuk memeriksa *host header* (untuk subdomain multi-tenant) atau path, dan secara transparan merutekan permintaan ke *entry point* yang benar (misalnya, mengarahkan `tenant1.myapp.com` ke `/tenant-entry?tenant=tenant1`).
-
-#### 2. Cloudflare: Workers dan Custom Domains
-Cloudflare menyediakan perutean edge yang sangat tangguh melalui Cloudflare Workers dan Cloudflare for SaaS.
-- **Workers**: Deploy Cloudflare Worker yang bertindak sebagai router edge global. Worker dapat memeriksa permintaan masuk, dan merutekan `/webhook` langsung ke *entry point* webhook dengan melewatkan *overhead* aplikasi utama.
-- **Cloudflare for SaaS**: Konfigurasikan SSL dan routing untuk ratusan domain khusus (custom domain) tenant, dan arahkan semuanya ke *entry point* `tenant` Anda dengan mulus sambil menjaga *traffic* marketing tetap pada *entry point* domain utama.
-
-#### 3. Caching dan Performa
-Dengan memisahkan *entry points*, Anda dapat menentukan aturan caching agresif yang disesuaikan untuk masing-masing jalur:
-- **Entry Point Publik (Landing Page)**: Lakukan cache secara besar-besaran di Edge (CDN) dengan mekanisme stale-while-revalidate.
-- **Entry Point Webhook**: Tanpa cache, pastikan dieksekusi secara langsung.
-- **Entry Point Dashboard Tenant**: Lakukan cache pada aset statis tetapi jangan pernah melakukan cache pada HTML/JSON untuk rute yang diautentikasi.
-
-### Orkestrasi dengan Skill Lain
-- **Dengan `multiple-entry-points`**: Manfaatkan `vercel.json` atau Cloudflare Workers untuk memaksakan pemisahan logis *entry points* Anda secara fisik di lapisan jaringan (Network Layer).
-- **Dengan `saas-multi-tenant`**: Gunakan Vercel Middleware atau Cloudflare Workers untuk mengekstrak `tenant_id` dari custom domain atau subdomain sebelum permintaan mencapai database Anda.
+Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landing page, aplikasi, subdomain super admin) di platform edge dan serverless modern. Mencakup Vercel, Cloudflare Workers & Pages, Railway, Fly.io, dan **Cloudflare Workers AI** untuk workload AI di edge.
 
 ### Kondisi Pemicu
-- Pengguna sedang men-deploy aplikasi web ke Vercel, Cloudflare, atau platform edge serupa.
-- Pengguna perlu mengonfigurasi routing untuk aplikasi dengan beberapa *entry point* (misal: memisahkan traffic API, admin, dan publik).
-- Pengguna sedang menyiapkan custom domain atau subdomain untuk SaaS multi-tenant.
+- Men-deploy aplikasi Next.js, Hono, atau Astro ke Vercel, Cloudflare, atau Railway.
+- Mengonfigurasi domain kustom dan routing subdomain.
+- Menyiapkan Edge Middleware untuk identifikasi tenant multi-tenant.
+- Men-deploy workload inferensi AI ke **Cloudflare Workers AI**.
+- Men-deploy layanan backend long-running ke **Railway** atau **Fly.io**.
+
+### Panduan Pemilihan Platform (2026)
+
+Pilih Vercel untuk Next.js dan aplikasi full-stack. Cloudflare Workers untuk API dengan latensi ultra-rendah dan logika edge. Railway/Fly.io untuk layanan backend long-running (Node.js, Bun, Go, Python). Cloudflare R2 untuk penyimpanan objek (pengganti S3 yang lebih murah).
+
+### Arsitektur Deployment Multi-Entry Point
+
+Pisahkan deployment untuk setiap entry point SaaS:
+- `domain.com` → Landing page (Vercel, statis)
+- `app.domain.com` → Aplikasi SaaS (Vercel, dinamis)
+- `admin.domain.com` → Dashboard Super Admin (Vercel, akses terbatas)
+- `api.domain.com` → Backend API (Railway/Fly.io, long-running)
+- `cdn.domain.com` → Aset statis & upload pengguna (Cloudflare R2)
+
+### Edge Middleware (Vercel)
+Gunakan `middleware.ts` untuk routing tenant berdasarkan subdomain dan perlindungan rute admin — berjalan di edge sebelum setiap permintaan.
+
+### Cloudflare Workers AI
+Jalankan model AI (Llama 3.1, Mistral, BGE embedding) langsung di edge Cloudflare — tanpa panggilan API eksternal, latensi sangat rendah, dan ditagih per token.
+
+### Railway — Layanan Long-Running
+Gunakan Railway untuk backend yang tidak cocok dengan model serverless (WebSocket, background job, koneksi database persisten). Mendukung Bun, Node.js, Go, Python, Rust dengan deployment otomatis dari GitHub.
+
+### Manajemen Environment Variable & Secret
+Gunakan panel secret bawaan di masing-masing platform. Jangan pernah commit file `.env` — gunakan `.env.example` sebagai dokumentasi saja.

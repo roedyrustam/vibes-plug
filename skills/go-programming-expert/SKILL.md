@@ -4,7 +4,7 @@ description: "Expert-level skill for Go programming (Go 1.23/1.24+). Covers high
 author: "Roedy Rustam"
 ---
 
-# Go Programming Expert (1.23 / 1.24+ Edition)
+# Go Programming Expert (Go 1.24 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,61 +14,236 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level guidance for building high-performance, concurrent, scalable, and memory-efficient backend applications using **Go (1.23+)**. Covers idiomatic Go patterns, concurrency primitives, modern `net/http` routing, compile-time safe database queries (`sqlc`, `pgx`), gRPC, microservices, profiling (`pprof`), and table-driven testing.
+Expert-level Go development for building high-performance microservices, APIs, and CLI tools. Covers **Go 1.24** features (range-over-func iterators, generic type aliases, weak pointers), structured logging with `slog`, `net/http` with the new ServeMux patterns, Gin/Echo/Fiber frameworks, sqlc for type-safe SQL, gRPC, and production testing patterns.
 
 ### Trigger Conditions
-- Bootstrapping or maintaining a Go application, HTTP API, gRPC service, CLI tool, or microservice.
-- Designing concurrent workflows using **Goroutines**, **Channels**, `sync`, and `errgroup`.
-- Writing web handlers using standard `net/http` (Go 1.22+ enhanced routing), **Gin**, **Echo**, **Fiber**, or **Chi**.
-- Implementing database interactions using **`sqlc`**, **`pgx/v5`**, or **GORM**.
-- Building gRPC and Protocol Buffer services.
-- Writing unit tests, benchmarks, table-driven tests, or fuzz tests with Go's built-in `testing` package.
-- Profiling memory allocations or CPU bottlenecks using `pprof` or `go tool trace`.
+- Writing Go 1.23+ / 1.24+ microservices or APIs.
+- Implementing concurrency patterns with goroutines, channels, and `sync` primitives.
+- Using structured logging with `log/slog`.
+- Building HTTP servers with `net/http` ServeMux (Go 1.22+) or Gin/Echo/Fiber.
+- Writing type-safe SQL with **sqlc** or using **GORM**.
+- Implementing gRPC services with protobuf.
+- Writing Go tests with the standard `testing` package + `testify`.
 
-### Modern Go 1.23+ Features
-1. **Enhanced `net/http` ServeMux Routing**: Native path parameter matching and HTTP method matching without third-party routers:
-   ```go
-   mux := http.NewServeMux()
-   mux.HandleFunc("GET /users/{id}", handleGetUser)
-   mux.HandleFunc("POST /users", handleCreateUser)
-   ```
-2. **Standard Library Iterators (`iter` package)**: First-class range-over-func support using `iter.Seq` and `iter.Seq2`.
-3. **Slices & Maps Packages**: Generic helpers in standard library (`slices.Contains`, `slices.SortFunc`, `maps.Clone`).
-4. **Range Over Integers & Functions**: `for i := range 10` is natively supported.
+### Go 1.24 — Key Features
 
-### Idiomatic Concurrency & Context
-- **Always Pass `context.Context`**: The first parameter of functions handling I/O or network requests must be `ctx context.Context`.
-- **Structured Concurrency with `errgroup`**: Use `golang.org/x/sync/errgroup` to manage multiple goroutines, propagate errors, and cancel pending tasks on failure.
-  ```go
-  g, ctx := errgroup.WithContext(parentCtx)
-  g.Go(func() error {
-      return fetchUser(ctx, userID)
-  })
-  if err := g.Wait(); err != nil {
-      // Handle first error encountered
-  }
-  ```
-- **Prevent Goroutine Leaks**: Ensure every goroutine launched has an explicit exit condition or listens to `ctx.Done()`.
+#### Range-Over-Func (Go 1.22 → Stable in 1.24)
+Range over custom iterators — enables functional-style collection operations:
+```go
+// Define an iterator function
+func Fibonacci() iter.Seq[int] {
+    return func(yield func(int) bool) {
+        a, b := 0, 1
+        for {
+            if !yield(a) {
+                return
+            }
+            a, b = b, a+b
+        }
+    }
+}
 
-### Type-Safe Database Access (`sqlc` & `pgx/v5`)
-Prefer `sqlc` for compile-time type-safe SQL code generation over heavy reflection-based ORMs:
-- **`sqlc`**: Generates clean, type-safe Go code from raw SQL queries.
-- **Connection Pooling**: Use `pgxpool.Pool` for PostgreSQL with production-grade configuration (max conns, idle timeouts).
+// Range over it naturally
+for n := range Fibonacci() {
+    if n > 100 {
+        break
+    }
+    fmt.Println(n)
+}
+```
 
-### Testing & Quality
-- **Table-Driven Tests**: Write clean, maintainable unit tests using slice of test structs:
-  ```go
-  tests := []struct {
-      name    string
-      input   int
-      want    int
-      wantErr bool
-  }{
-      {"valid input", 5, 25, false},
-      {"negative input", -1, 0, true},
-  }
-  ```
-- **Fuzz Testing**: Native `testing.F` to discover unexpected edge cases and crash inputs automatically.
+#### Generic Type Aliases (Go 1.24)
+```go
+// Type alias with generic parameters
+type Set[T comparable] = map[T]struct{}
+type Result[T any] = struct{ Value T; Err error }
+
+// Usage
+var s Set[string] = make(map[string]struct{})
+```
+
+#### Weak Pointers (Go 1.24)
+```go
+import "weak"
+
+// Weak pointer — does not prevent GC collection
+ptr := weak.Make(&myStruct{})
+if val := ptr.Value(); val != nil {
+    // Still alive
+}
+```
+
+### Structured Logging with `log/slog`
+```go
+package main
+
+import (
+    "log/slog"
+    "os"
+)
+
+func main() {
+    // Production JSON logger
+    logger := slog.New(slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+        Level: slog.LevelInfo,
+        AddSource: true, // include file:line
+    }))
+    slog.SetDefault(logger)
+
+    slog.Info("server started", "port", 8080, "env", "production")
+    slog.Error("database connection failed", "error", err, "host", dbHost)
+    
+    // Grouped context
+    reqLogger := logger.WithGroup("request").With(
+        "trace_id", traceID,
+        "user_id", userID,
+    )
+    reqLogger.Info("handler called", "method", r.Method, "path", r.URL.Path)
+}
+```
+
+### HTTP Server — net/http ServeMux (Go 1.22+)
+Go 1.22 upgraded the standard ServeMux with method-based routing and path parameters — reducing the need for external routers:
+```go
+package main
+
+import (
+    "encoding/json"
+    "net/http"
+    "log/slog"
+)
+
+func main() {
+    mux := http.NewServeMux()
+
+    // Method + path pattern matching (Go 1.22+)
+    mux.HandleFunc("GET /api/users", listUsers)
+    mux.HandleFunc("POST /api/users", createUser)
+    mux.HandleFunc("GET /api/users/{id}", getUser)  // path params
+    mux.HandleFunc("DELETE /api/users/{id}", deleteUser)
+
+    slog.Info("starting server", "addr", ":8080")
+    http.ListenAndServe(":8080", mux)
+}
+
+func getUser(w http.ResponseWriter, r *http.Request) {
+    id := r.PathValue("id")  // Extract path parameter
+    // ...
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(user)
+}
+```
+
+### Type-Safe SQL with sqlc
+```bash
+# Install sqlc
+go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
+
+# sqlc.yaml
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "queries/"
+    schema: "schema/"
+    gen:
+      go:
+        package: "db"
+        out: "internal/db"
+        emit_json_tags: true
+        emit_interface: true
+```
+
+```sql
+-- queries/users.sql
+-- name: GetUser :one
+SELECT * FROM users WHERE id = $1 LIMIT 1;
+
+-- name: ListUsers :many
+SELECT * FROM users ORDER BY created_at DESC LIMIT $1 OFFSET $2;
+
+-- name: CreateUser :one
+INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *;
+```
+
+```go
+// Generated type-safe Go code (used in handlers)
+user, err := queries.GetUser(ctx, userID) // Fully typed!
+users, err := queries.ListUsers(ctx, db.ListUsersParams{Limit: 20, Offset: 0})
+```
+
+### Concurrency Patterns
+
+#### errgroup for Parallel Work
+```go
+import "golang.org/x/sync/errgroup"
+
+g, ctx := errgroup.WithContext(context.Background())
+
+g.Go(func() error { return fetchA(ctx) })
+g.Go(func() error { return fetchB(ctx) })
+
+if err := g.Wait(); err != nil {
+    // First error from any goroutine
+    return fmt.Errorf("parallel fetch: %w", err)
+}
+```
+
+#### Worker Pool Pattern
+```go
+func workerPool(jobs <-chan Job, results chan<- Result, numWorkers int) {
+    var wg sync.WaitGroup
+    for range numWorkers {
+        wg.Add(1)
+        go func() {
+            defer wg.Done()
+            for job := range jobs {
+                results <- process(job)
+            }
+        }()
+    }
+    wg.Wait()
+    close(results)
+}
+```
+
+### Testing Best Practices
+```go
+package user_test
+
+import (
+    "testing"
+    "github.com/stretchr/testify/assert"
+    "github.com/stretchr/testify/require"
+)
+
+func TestGetUser(t *testing.T) {
+    t.Parallel() // Always parallelize independent tests
+
+    // Table-driven tests
+    tests := []struct{
+        name   string
+        userID string
+        want   *User
+        wantErr bool
+    }{
+        {"valid user", "user-123", &User{ID: "user-123"}, false},
+        {"not found", "missing", nil, true},
+    }
+
+    for _, tt := range tests {
+        t.Run(tt.name, func(t *testing.T) {
+            t.Parallel()
+            got, err := GetUser(context.Background(), tt.userID)
+            if tt.wantErr {
+                require.Error(t, err)
+                return
+            }
+            require.NoError(t, err)
+            assert.Equal(t, tt.want.ID, got.ID)
+        })
+    }
+}
+```
 
 ---
 
@@ -76,36 +251,45 @@ Prefer `sqlc` for compile-time type-safe SQL code generation over heavy reflecti
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan tingkat ahli untuk membangun aplikasi backend yang berkinerja tinggi, konkuren, skalabel, dan efisien dalam penggunaan memori menggunakan **Go (1.23+)**. Skill ini mencakup pola Go idiomatis, primitif konkurensi, perutean modern `net/http`, kueri database yang aman pada saat kompilasi (`sqlc`, `pgx`), gRPC, microservices, profiling (`pprof`), dan pengujian berbasis tabel (*table-driven testing*).
+Panduan Go tingkat ahli untuk membangun microservices, API, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.24** (range-over-func, generic type alias, weak pointer), structured logging dengan `slog`, ServeMux `net/http` dengan pola baru (Go 1.22+), framework Gin/Echo/Fiber, sqlc untuk SQL type-safe, gRPC, dan pola pengujian produksi.
 
 ### Kondisi Pemicu
-- Merancang atau memelihara aplikasi Go, HTTP API, layanan gRPC, alat CLI, atau microservice.
-- Merancang alur kerja konkuren menggunakan **Goroutines**, **Channels**, `sync`, dan `errgroup`.
-- Menulis handler web menggunakan `net/http` standar (routing bawaan Go 1.22+), **Gin**, **Echo**, **Fiber**, atau **Chi**.
-- Mengimplementasikan interaksi database menggunakan **`sqlc`**, **`pgx/v5`**, atau **GORM**.
-- Membangun layanan gRPC dan Protocol Buffers.
-- Menulis unit test, benchmark, table-driven test, atau fuzz test dengan package bawaan `testing`.
-- Melakukan profiling memori atau hambatan CPU menggunakan `pprof` atau `go tool trace`.
+- Menulis microservices atau API Go 1.23+/1.24+.
+- Mengimplementasikan pola konkurensi dengan goroutine, channel, dan primitif `sync`.
+- Menggunakan structured logging dengan `log/slog`.
+- Membangun HTTP server dengan ServeMux `net/http` (Go 1.22+) atau Gin/Echo/Fiber.
+- Menulis SQL type-safe dengan **sqlc** atau GORM.
+- Mengimplementasikan layanan gRPC dengan protobuf.
 
-### Fitur Modern Go 1.23+
-1. **Peningkatan Perutean `net/http` ServeMux**: Pencocokan parameter path dan metode HTTP secara native tanpa butuh router eksternal:
-   ```go
-   mux := http.NewServeMux()
-   mux.HandleFunc("GET /users/{id}", handleGetUser)
-   mux.HandleFunc("POST /users", handleCreateUser)
-   ```
-2. **Iterator Standard Library (`iter` package)**: Dukungan *range-over-func* tingkat pertama menggunakan `iter.Seq` dan `iter.Seq2`.
-3. **Package Slices & Maps**: Helper generic bawaan (`slices.Contains`, `slices.SortFunc`, `maps.Clone`).
-4. **Range Over Integers**: `for i := range 10` didukung secara langsung.
+### Go 1.24 — Fitur Utama
 
-### Konkurensi Idiomatis & Konteks
-- **Selalu Sediakan `context.Context`**: Parameter pertama dari fungsi yang menangani I/O atau jaringan harus berupa `ctx context.Context`.
-- **Konkurensi Terstruktur dengan `errgroup`**: Gunakan `golang.org/x/sync/errgroup` untuk mengelola banyak goroutine, menyebarkan error, dan membatalkan tugas jika terjadi kegagalan.
-- **Cegah Kebocoran Goroutine**: Pastikan setiap goroutine yang dijalankan memiliki kondisi keluar eksplisit atau mendengarkan event `ctx.Done()`.
+#### Range-Over-Func (Stabil di 1.24)
+Go 1.24 menstabilkan range over iterator function — memungkinkan koleksi gaya fungsional yang idiomatis tanpa mengekspos slice internal.
 
-### Akses Database Aman-Tipe (`sqlc` & `pgx/v5`)
-Utamakan `sqlc` untuk menghasilkan kode Go yang aman secara tipe dari kueri SQL mentah alih-alih ORM berbasis refleksi yang berat. Gunakan `pgxpool.Pool` untuk PostgreSQL dengan konfigurasi batas koneksi produksi.
+#### Generic Type Alias
+Go 1.24 memungkinkan alias tipe dengan parameter generic, meningkatkan komposibilitas tipe.
 
-### Pengujian & Kualitas
-- **Table-Driven Tests**: Tulis unit test yang bersih dan mudah dipelihara menggunakan slice struct pengujian.
-- **Fuzz Testing**: Gunakan `testing.F` bawaan untuk menemukan kasus batas (*edge cases*) dan input tak terduga secara otomatis.
+#### Weak Pointer
+`weak.Make()` membuat pointer lemah yang tidak mencegah GC mengumpulkan objek — berguna untuk cache.
+
+### Structured Logging dengan `log/slog`
+Paket `log/slog` bawaan Go (sejak 1.21) mendukung output JSON terstruktur, level log, dan pengelompokan atribut. Gunakan sebagai standar logging di semua proyek Go baru.
+
+### HTTP Server — net/http ServeMux (Go 1.22+)
+ServeMux Go 1.22 mendukung pencocokan berdasarkan metode HTTP dan parameter path — mengurangi kebutuhan router eksternal untuk API sederhana.
+
+### SQL Type-Safe dengan sqlc
+`sqlc` menghasilkan kode Go yang fully typed dari query SQL dan skema database — menghilangkan kebutuhan ORM untuk sebagian besar kasus.
+
+### Pola Konkurensi
+
+#### errgroup
+Gunakan `errgroup.WithContext()` dari `golang.org/x/sync/errgroup` untuk menjalankan goroutine paralel dan mengumpulkan error pertama secara aman.
+
+#### Worker Pool
+Gunakan pola worker pool dengan channel untuk memproses pekerjaan secara paralel dengan jumlah goroutine yang terkendali.
+
+### Best Practices Pengujian
+- Gunakan `t.Parallel()` untuk semua test independen.
+- Gunakan table-driven tests untuk menguji banyak skenario dengan kode minimal.
+- Gunakan `testify/assert` dan `testify/require` untuk assertion yang ekspresif.

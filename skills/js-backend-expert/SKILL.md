@@ -4,7 +4,7 @@ description: "Expert-level skill for Node.js 22+, Bun 1.2+, and Deno 2.x backend
 author: "Roedy Rustam"
 ---
 
-# JS Backend Expert (Node.js 22 / Bun 1.2 / Deno 2.x Edition)
+# JS Backend Expert (Node.js 24 / Bun 1.2 / Deno 2.x Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,31 +14,36 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Production-grade guidance for building fast, scalable, and resilient JavaScript/TypeScript backend APIs, microservices, and serverless functions across **Node.js 22+ (LTS)**, **Bun 1.2+**, and **Deno 2.x**. Covers high-throughput frameworks (Fastify 5, Hono, Express 5, NestJS), type-safe ORMs (Drizzle, Prisma 6), asynchronous event loop optimization, WebSockets, BullMQ background jobs, and graceful shutdown handling.
+Production-grade guidance for building fast, scalable, and resilient JavaScript/TypeScript backend APIs, microservices, and serverless functions across **Node.js 24 (LTS)**, **Bun 1.2+**, and **Deno 2.x**. Covers high-throughput frameworks (Fastify 5, Hono, Express 5, NestJS), type-safe ORMs (Drizzle, Prisma 6), **Hono RPC** for type-safe full-stack communication, Edge Runtime patterns, WebSockets, BullMQ background jobs, and graceful shutdown handling.
 
 ### Trigger Conditions
 - Bootstrapping or refactoring a Node.js, Bun, or Deno backend application or microservice.
 - Writing RESTful, GraphQL, WebSocket, or SSE (Server-Sent Events) API endpoints.
 - Developing web servers using **Fastify 5**, **Hono**, **Express 5**, or **NestJS**.
+- Building type-safe full-stack apps with **Hono RPC** or **tRPC**.
+- Deploying backend logic to Edge Runtimes (Cloudflare Workers, Vercel Edge).
 - Interacting with databases using **Drizzle ORM**, **Prisma 6**, or **Kysely**.
 - Setting up background job processing with **BullMQ** and **Redis**.
 - Implementing rate limiting, CORS, Content Security Policy (CSP), and JWT/Session authentication.
 - Writing backend tests using **Vitest**, **Supertest**, or Node's native `node:test` runner.
 
-### Runtime Matrix (Node.js 22 vs Bun 1.2 vs Deno 2.x)
+### Runtime Matrix (Node.js 24 vs Bun 1.2 vs Deno 2.x)
 
-| Feature / Runtime | Node.js 22 (LTS) | Bun 1.2+ | Deno 2.x |
+| Feature / Runtime | Node.js 24 (LTS) | Bun 1.2+ | Deno 2.x |
 |---|---|---|---|
 | Module Standard | Native ESM / CJS | Native ESM / CJS | Native ESM |
 | `.env` Loading | Native `--env-file` | Native | Native |
 | TypeScript Execution | Native `--experimental-strip-types` / `tsx` | Native (Zero-config) | Native (Zero-config) |
 | HTTP Server | `node:http` / `Fastify` | `Bun.serve()` / `Hono` | `Deno.serve()` / `Hono` |
 | Native WebSockets | Built-in (`WebSocket`) | Built-in (`Bun.serve`) | Built-in (`Deno.upgradeWebSocket`) |
+| Package Manager | npm / pnpm | bun (built-in) | npm / jsr |
+| Test Runner | `node:test` / Vitest | `bun test` | `deno test` |
+| Edge Deploy | Vercel Serverless | Railway / Fly.io | Deno Deploy |
 
 ### Framework Guidance
 
 #### 1. Fastify 5 (High-Throughput & Schema Validation)
-Use Fastify for performance-critical REST APIs. Always validate input schemas using **TypeBox** or **Zod**:
+Use Fastify for performance-critical REST APIs. Always validate input using **TypeBox** or **Zod**:
 ```typescript
 import Fastify from 'fastify';
 import { z } from 'zod';
@@ -55,34 +60,85 @@ app.post('/api/users', async (request, reply) => {
 });
 ```
 
-#### 2. Hono (Multi-Runtime & Ultra-Lightweight)
-Use Hono for cross-runtime backends running seamlessly on Node.js, Bun, Cloudflare Workers, or Deno:
+#### 2. Hono (Multi-Runtime & Hono RPC)
+Use Hono for cross-runtime backends. The killer feature in 2026 is **Hono RPC** — end-to-end type-safe API calls without code generation:
 ```typescript
+// server.ts
 import { Hono } from 'hono';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
 
-const app = new Hono();
-app.get('/health', (c) => c.json({ status: 'ok', time: new Date().toISOString() }));
+const app = new Hono()
+  .get('/health', (c) => c.json({ status: 'ok' }))
+  .post(
+    '/users',
+    zValidator('json', z.object({ name: z.string(), email: z.string().email() })),
+    async (c) => {
+      const body = c.req.valid('json');
+      const user = await db.user.create({ data: body });
+      return c.json(user, 201);
+    }
+  );
 
+export type AppType = typeof app;
 export default app;
+
+// client.ts — fully type-safe, no codegen needed
+import { hc } from 'hono/client';
+import type { AppType } from './server';
+
+const client = hc<AppType>('http://localhost:3000');
+const res = await client.users.$post({ json: { name: 'Alice', email: 'alice@example.com' } });
+const user = await res.json(); // Fully typed!
 ```
 
 #### 3. Express 5
-Express 5 natively catches rejected promises in async route handlers — eliminating the need for `express-async-errors`.
+Express 5 natively catches rejected promises in async route handlers — eliminating the need for `express-async-errors`. It's ideal for teams already familiar with Express.
+
+#### 4. Edge Runtime (Cloudflare Workers / Vercel Edge)
+For ultra-low latency at the edge, use **Hono** (runs natively on all edge platforms):
+```typescript
+// Cloudflare Worker
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    return app.fetch(request, env);
+  }
+};
+```
+Edge Runtime restrictions: No Node.js built-ins (`fs`, `path`), limited memory, no long-running processes. Use `fetch`, Web Crypto API, and Cloudflare KV/D1/R2.
 
 ---
 
 ### Type-Safe Data Layer (Drizzle ORM & Prisma 6)
 - **Drizzle ORM**: Prefer for zero-overhead, SQL-like TypeScript query building in serverless/edge applications.
-- **Prisma 6**: Prefer for complex relational schema modeling, auto-generated GraphQL/tRPC integrations, and rich studio tooling.
-- **Connection Pooling**: Always use connection poolers (PgBouncer, Supavisor, Neon/Hyperdrive) when deploying serverless handlers.
+- **Prisma 6**: Prefer for complex relational schema modeling, auto-generated TypeScript client, and rich `prisma studio` tooling.
+- **Connection Pooling**: Always use connection poolers (PgBouncer, Supavisor, Neon Hyperdrive) when deploying serverless handlers.
+
+### Background Jobs (BullMQ + Redis)
+```typescript
+import { Queue, Worker } from 'bullmq';
+import { Redis } from 'ioredis';
+
+const connection = new Redis({ maxRetriesPerRequest: null });
+const emailQueue = new Queue('email', { connection });
+
+// Enqueue
+await emailQueue.add('welcome-email', { userId: '123' }, { delay: 1000 });
+
+// Worker
+const worker = new Worker('email', async (job) => {
+  await sendWelcomeEmail(job.data.userId);
+}, { connection, concurrency: 5 });
+```
 
 ### Graceful Shutdown & Resilience
-Never terminate process abruptly. Clean up database pools, HTTP listeners, and Redis queues:
+Never terminate the process abruptly. Clean up database pools, HTTP listeners, and Redis queues:
 ```typescript
 const shutdown = async (signal: string) => {
   console.log(`Received ${signal}. Shutting down gracefully...`);
   await server.close();
   await dbPool.end();
+  await worker.close();
   process.exit(0);
 };
 
@@ -96,52 +152,41 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan tingkat produksi untuk membangun API backend, microservices, dan fungsi serverless JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 22+ (LTS)**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), optimasi event loop, WebSocket, background jobs (BullMQ), dan penanganan *graceful shutdown*.
+Panduan tingkat produksi untuk membangun API backend JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 24 (LTS)**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), **Hono RPC** untuk komunikasi full-stack type-safe, pola Edge Runtime, WebSocket, background jobs (BullMQ), dan penanganan *graceful shutdown*.
 
 ### Kondisi Pemicu
 - Merancang atau merefaktor aplikasi backend Node.js, Bun, atau Deno.
-- Menulis endpoint RESTful, GraphQL, WebSocket, atau Server-Sent Events (SSE).
-- Mengembangkan web server menggunakan **Fastify 5**, **Hono**, **Express 5**, atau **NestJS**.
-- Berinteraksi dengan database menggunakan **Drizzle ORM**, **Prisma 6**, atau **Kysely**.
-- Mengatur pemrosesan pekerjaan latar belakang dengan **BullMQ** dan **Redis**.
-- Mengimplementasikan *rate limiting*, CORS, Content Security Policy (CSP), dan autentikasi JWT/Session.
-- Menulis pengujian backend menggunakan **Vitest**, **Supertest**, atau runner bawaan `node:test`.
+- Menulis endpoint RESTful, GraphQL, WebSocket, atau SSE.
+- Membangun web server dengan Fastify 5, Hono, Express 5, atau NestJS.
+- Membangun aplikasi full-stack type-safe dengan **Hono RPC** atau tRPC.
+- Men-deploy logika backend ke Edge Runtime (Cloudflare Workers, Vercel Edge).
+- Berinteraksi dengan database menggunakan Drizzle ORM, Prisma 6, atau Kysely.
+- Mengatur background job dengan BullMQ dan Redis.
 
-### Matriks Runtime (Node.js 22 vs Bun 1.2 vs Deno 2.x)
-
-| Fitur / Runtime | Node.js 22 (LTS) | Bun 1.2+ | Deno 2.x |
-|---|---|---|---|
-| Standar Modul | ESM / CJS Bawaan | ESM / CJS Bawaan | ESM Bawaan |
-| Pemuatan `.env` | Bawaan `--env-file` | Bawaan | Bawaan |
-| Eksekusi TypeScript | Bawaan `--experimental-strip-types` / `tsx` | Native (Tanpa Config) | Native (Tanpa Config) |
-| HTTP Server | `node:http` / `Fastify` | `Bun.serve()` / `Hono` | `Deno.serve()` / `Hono` |
+### Matriks Runtime
+Node.js 24 sebagai LTS terbaru, Bun 1.2+ untuk performa maksimal dan zero-config TypeScript, Deno 2.x untuk keamanan bawaan dan kompatibilitas npm.
 
 ### Panduan Framework
 
-#### 1. Fastify 5 (Kinerja Tinggi & Validasi Skema)
-Gunakan Fastify untuk REST API yang membutuhkan troughput tinggi. Selalu validasi skema input menggunakan **TypeBox** atau **Zod**.
+#### 1. Fastify 5 — Kinerja Tinggi & Validasi Skema
+Gunakan untuk REST API dengan throughput tinggi. Selalu validasi input menggunakan TypeBox atau Zod.
 
-#### 2. Hono (Multi-Runtime & Portabel)
-Gunakan Hono untuk backend yang perlu berjalan secara fleksibel di Node.js, Bun, Cloudflare Workers, atau Deno.
+#### 2. Hono & Hono RPC — Multi-Runtime & Type-Safe Full-Stack
+Hono berjalan di Node.js, Bun, Cloudflare Workers, dan Deno. **Hono RPC** adalah fitur unggulan 2026 — panggilan API end-to-end yang fully type-safe tanpa code generation. Klien mendapatkan tipe yang tepat dari definisi server secara otomatis.
 
 #### 3. Express 5
-Express 5 secara otomatis menangkap *rejected promises* pada async route handler tanpa butuh pustaka tambahan.
+Express 5 otomatis menangkap rejected promises di async route handler tanpa butuh library tambahan.
 
-### Lapisan Data Aman-Tipe (Drizzle ORM & Prisma 6)
-- **Drizzle ORM**: Sangat disarankan untuk arsitektur serverless/edge dengan *overhead* nol dan gaya query SQL yang eksplisit.
-- **Prisma 6**: Sangat cocok untuk pemodelan data relasional yang kompleks dan auto-generated SDK.
-- **Connection Pooling**: Selalu gunakan *connection pooler* (PgBouncer, Supavisor, Neon) di lingkungan serverless.
+#### 4. Edge Runtime (Cloudflare Workers / Vercel Edge)
+Gunakan Hono untuk latensi ultra-rendah di edge. Batasan edge: tanpa built-in Node.js (`fs`, `path`), memori terbatas, tanpa proses long-running. Gunakan `fetch`, Web Crypto API, dan Cloudflare KV/D1/R2.
 
-### Graceful Shutdown (Penutupan Anggun)
-Jangan pernah menghentikan proses secara mendadak. Bersihkan *connection pool*, HTTP server, dan queue Redis:
-```typescript
-const penutupanAnggun = async (sinyal: string) => {
-  console.log(`Menerima sinyal ${sinyal}. Menutup koneksi...`);
-  await server.close();
-  await dbPool.end();
-  process.exit(0);
-};
+### Lapisan Data Type-Safe
+- **Drizzle ORM**: Ideal untuk serverless/edge dengan query bergaya SQL dan zero overhead.
+- **Prisma 6**: Ideal untuk pemodelan skema relasional kompleks dan tooling prisma studio yang kaya.
+- **Connection Pooling**: Wajib di lingkungan serverless — gunakan PgBouncer, Supavisor, atau Neon Hyperdrive.
 
-process.on('SIGTERM', () => penutupanAnggun('SIGTERM'));
-process.on('SIGINT', () => penutupanAnggun('SIGINT'));
-```
+### Background Jobs (BullMQ + Redis)
+Gunakan BullMQ dengan Redis untuk pemrosesan tugas latar belakang yang andal dengan retry otomatis, delay, dan konkurensi yang dapat dikonfigurasi.
+
+### Graceful Shutdown
+Jangan hentikan proses secara mendadak. Bersihkan connection pool, HTTP server, dan worker queue sebelum keluar.

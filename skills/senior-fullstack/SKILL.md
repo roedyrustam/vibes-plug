@@ -4,7 +4,7 @@ description: "Complete toolkit for senior fullstack with modern tools and best p
 author: "Roedy Rustam"
 ---
 
-# Senior Fullstack Specialist
+# Senior Fullstack Developer (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,35 +14,105 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-A comprehensive blueprint and toolkit for senior fullstack engineers, covering production-grade architecture, database optimization, advanced state management, micro-interactions, robust CI/CD, and system security.
+Complete guidelines for senior fullstack developers building production-grade applications in 2026. Covers the modern AI-native stack, architecture decision-making, API design, frontend/backend integration, and team-level best practices.
 
-### Core Capabilities
-- **Fullstack Scaffolder**: Automated scaffolder that spins up highly structured workspaces with embedded security defaults, CSP configuration, and database clients (Prisma/Drizzle).
-- **Project Scaffolder**: Performs static analysis on active fullstack codebases to flag scaling risks (such as N+1 query patterns).
-- **Code Quality Analyzer**: Validates test coverage, scans for insecure CORS policies, and detects hardcoded secrets.
+### Trigger Conditions
+- Making fullstack architecture decisions across frontend and backend.
+- Designing API contracts between React 19/Next.js 15 frontend and Node.js/Go/Python backend.
+- Integrating AI features (LLM, agents, RAG) into a fullstack application.
+- Setting up a monorepo with shared types between frontend and backend.
+- Reviewing and improving overall application architecture and code quality.
 
-### Modern Tech Stack (2026)
-- **Languages:** TypeScript, JavaScript, SQL, Python, Go.
-- **Frontend:** React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui.
-- **State & Fetching:** TanStack Query v5, React Server Actions, Zustand.
-- **Database & ORMs:** PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon.
-- **Operations & Security:** Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk.
+### Modern 2026 Fullstack Stack
 
-### Senior Best Practices
-- **Code Quality**: Enforce `strict: true` in `tsconfig.json`, avoid `any` typings, and validate API payloads with Zod.
-- **Database Scaling**: Always use connection pooling, add indexes on query columns, and enforce Row-Level Security (RLS) on tenant tables.
-- **Security**: Enforce strict security headers (CSP, HSTS), validate external webhook signatures (e.g., Stripe), and implement rate limiting.
-- **Architecture Choice**: Consider the Multi-Page Application (MPA) approach in a single repository (via `mpa-orchestrator`) for projects prioritizing SEO, fast initial loads, and simpler deployment models over heavy client-side state.
+#### Recommended Stacks by Use Case
 
-### Troubleshooting
-- **Hydration Mismatch**: Avoid client-only browser state (like `localStorage`) during initial render. Wrap blocks in `useEffect` or use `next/dynamic` with `{ ssr: false }`.
-- **Postgres Connection Spikes**: Reduce pool size and use a transaction pooler (pgBouncer/Supavisor) with `pool_mode=transaction`.
-- **Stale Server Action UI**: Call `revalidatePath()` or `revalidateTag()` immediately after database transactions succeed.
+| Use Case | Frontend | Backend | Database | AI Layer |
+|---|---|---|---|---|
+| **SaaS App (default)** | Next.js 15 (App Router) | Hono / Fastify 5 | Postgres + Drizzle | Vercel AI SDK 5.x |
+| **AI-First App** | Next.js 15 + RSC streaming | Mastra.ai / LangGraph | pgvector + Supabase | Anthropic / OpenAI |
+| **Decoupled SPA** | TanStack Start + React 19 | Hono RPC | Postgres + Drizzle | Vercel AI SDK |
+| **Content Site** | Astro 5 + MDX | N/A (static) | Sanity / Contentful | — |
+| **Mobile** | Expo SDK 53 + React Native 0.79 | Hono / Fastify | SQLite (Expo) + Postgres | Vercel AI SDK |
 
-### Reference Documentation
-- [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
-- [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
-- [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
+#### AI-Native Fullstack Patterns
+In 2026, AI is a first-class citizen in fullstack applications:
+- **Streaming AI Responses**: Use Next.js RSC + Vercel AI SDK `streamUI` to stream LLM responses as React components from the server.
+- **Server Actions as AI Triggers**: Use React 19 `useActionState` with Server Actions to invoke LLM calls without an API layer.
+- **Background AI Jobs**: Offload long LLM tasks to BullMQ + Redis workers; stream results via WebSockets or SSE.
+- **Structured AI Output**: Always use `zodResponseFormat` or Pydantic schemas for LLM responses — never parse free-form JSON.
+
+### API Design Principles (2026)
+
+#### Type-Safe Communication
+Choose one approach and be consistent:
+- **Hono RPC**: If backend is Hono — zero codegen, end-to-end types.
+- **tRPC**: If using React Query with Next.js — excellent DX with RSC support.
+- **OpenAPI + codegen**: If you have multiple consumers (mobile, third parties).
+
+#### API Versioning
+- Use URL versioning: `/api/v1/users`.
+- Pin major version in URL, minor versions are backward-compatible.
+- Deprecate with `Deprecation` and `Sunset` headers.
+
+#### Error Response Standard (RFC 9457 Problem Details)
+```typescript
+// Consistent error format across all endpoints
+interface ProblemDetail {
+  type: string;       // URI identifying the error type
+  title: string;      // Human-readable summary
+  status: number;     // HTTP status code
+  detail: string;     // Specific explanation
+  instance?: string;  // URI of the specific occurrence
+}
+```
+
+### SPA vs SSR vs Static — Decision Guide
+```
+SEO-critical + mostly read? → Next.js SSR / Astro 5 (static)
+Highly interactive dashboard? → SPA (TanStack Start / Vite + TanStack Router)
+   → see spa-orchestrator skill for architecture details
+Mixed (marketing + app)?    → Next.js 15 with hybrid routing
+Real-time data?             → SSR + WebSocket or SSE streaming
+```
+
+### Monorepo with Shared Types
+```typescript
+// packages/types/src/index.ts — single source of truth
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  plan: 'free' | 'pro' | 'enterprise';
+  isSuperAdmin: boolean;
+}
+
+export interface ApiResponse<T> {
+  data: T;
+  meta?: { page: number; total: number };
+}
+
+// apps/api — uses the type
+// apps/web — uses the same type
+// apps/admin — uses the same type
+import type { User } from '@myapp/types';
+```
+
+### Security Checklist (Fullstack)
+- [ ] All user inputs validated with Zod on the server (never trust the client).
+- [ ] JWT secrets rotated every 90 days; use short expiry + refresh tokens.
+- [ ] CSP headers configured (no `unsafe-inline` in production).
+- [ ] All DB queries use parameterized queries — no string concatenation.
+- [ ] File uploads validated for MIME type and scanned before storage.
+- [ ] Rate limiting on all public API endpoints.
+- [ ] Super Admin routes restricted to `admin.domain.com` with `isSuperAdmin` check.
+
+### Code Review Standards
+- Functions < 30 lines; files < 300 lines.
+- No business logic in UI components.
+- Every PR includes relevant tests (unit or E2E).
+- No `any` types in TypeScript production code.
+- Dependencies audited with `pnpm audit` on every PR.
 
 ---
 
@@ -50,32 +120,48 @@ A comprehensive blueprint and toolkit for senior fullstack engineers, covering p
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan komprehensif dan perangkat instruksi untuk insinyur fullstack tingkat senior. Mencakup arsitektur tingkat produksi, optimasi database, manajemen state lanjutan, mikro-interaksi, CI/CD yang tangguh, dan keamanan sistem.
+Panduan lengkap untuk pengembang fullstack senior yang membangun aplikasi tingkat produksi di 2026. Mencakup stack AI-native modern, pengambilan keputusan arsitektur, desain API, integrasi frontend/backend, dan best practices tingkat tim.
 
-### Kemampuan Utama
-- **Fullstack Scaffolder**: Script otomatis untuk merancang workspace fullstack terstruktur dengan keamanan dasar, konfigurasi CSP, dan database client (Prisma/Drizzle).
-- **Project Scaffolder**: Melakukan analisis statis pada codebase untuk mendeteksi risiko skalabilitas (seperti N+1 query ORM).
-- **Code Quality Analyzer**: Memvalidasi cakupan pengujian, memantau celah keamanan CORS, dan mendeteksi rahasia (secrets) yang tertulis keras (hardcoded).
+### Kondisi Pemicu
+- Membuat keputusan arsitektur fullstack di frontend dan backend.
+- Merancang kontrak API antara frontend React 19/Next.js 15 dan backend Node.js/Go/Python.
+- Mengintegrasikan fitur AI (LLM, agen, RAG) ke dalam aplikasi fullstack.
+- Menyiapkan monorepo dengan shared types antara frontend dan backend.
+- Meninjau dan meningkatkan arsitektur dan kualitas kode aplikasi secara keseluruhan.
 
-### Stack Teknologi Modern (2026)
-- **Bahasa**: TypeScript, JavaScript, SQL, Python, Go.
-- **Frontend**: React 19, Next.js 15 (App Router), Tailwind CSS v4, shadcn/ui.
-- **State & Fetching**: TanStack Query v5, React Server Actions, Zustand.
-- **Database & ORM**: PostgreSQL, Drizzle ORM, Prisma, Redis, Supabase, Neon.
-- **Operasional & Keamanan**: Docker, GitHub Actions, AWS/Vercel, Sentry, Snyk.
+### Stack Fullstack Modern 2026
 
-### Praktik Terbaik Senior
-- **Kualitas Kode**: Terapkan `strict: true` di `tsconfig.json`, hindari tipe `any`, dan gunakan Zod untuk validasi payload API.
-- **Skalabilitas Database**: Gunakan connection pooling, buat index pada kolom query, dan terapkan Row-Level Security (RLS) pada tabel bertingkat tenant.
-- **Keamanan**: Terapkan header keamanan yang ketat (CSP, HSTS), validasi tanda tangan webhook eksternal (misal Stripe), dan pasang rate limiting.
-- **Pemilihan Arsitektur**: Pertimbangkan pendekatan Multi-Page Application (MPA) dalam satu repositori (via `mpa-orchestrator`) untuk proyek yang mengutamakan SEO, pemuatan awal yang cepat, dan model deployment yang lebih sederhana dibandingkan state sisi klien yang berat.
+Rekomendasi stack berdasarkan use case:
+- **SaaS App**: Next.js 15 + Hono/Fastify + Postgres + Drizzle + Vercel AI SDK.
+- **AI-First App**: Next.js 15 RSC streaming + Mastra.ai/LangGraph + pgvector.
+- **SPA Terpisah**: TanStack Start + Hono RPC + Postgres — lihat `spa-orchestrator`.
+- **Situs Konten**: Astro 5 + MDX.
+- **Mobile**: Expo SDK 53 + Hono + SQLite.
 
-### Pemecahan Masalah (Troubleshooting)
-- **Hydration Mismatch**: Hindari browser state khusus client (seperti `localStorage`) selama render awal. Bungkus block dalam `useEffect` atau gunakan `next/dynamic` dengan `{ ssr: false }`.
-- **Lonjakan Koneksi Postgres (Connection Spikes)**: Kurangi ukuran pool dan gunakan transaction pooler (pgBouncer/Supavisor) dengan `pool_mode=transaction`.
-- **UI Server Action yang Usang (Stale)**: Panggil `revalidatePath()` atau `revalidateTag()` segera setelah transaksi database berhasil.
+### Pola Fullstack AI-Native (2026)
+AI adalah warga kelas satu di aplikasi fullstack 2026:
+- **Streaming RSC**: Alirkan respons LLM sebagai komponen React dari server menggunakan `streamUI` Vercel AI SDK 5.x.
+- **Server Actions sebagai Pemicu AI**: Panggil LLM dari Server Actions React 19 tanpa lapisan API terpisah.
+- **Background AI Jobs**: Offload tugas LLM panjang ke BullMQ + Redis; stream hasil via WebSocket atau SSE.
+- **Output AI Terstruktur**: Selalu gunakan `zodResponseFormat` atau skema Pydantic — jangan pernah parse JSON bebas dari LLM.
 
-### Referensi Dokumentasi
-- [Tech Stack Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/tech_stack_guide.md)
-- [Architecture Patterns](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/architecture_patterns.md)
-- [Development Workflows](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/senior-fullstack/references/development_workflows.md)
+### Prinsip Desain API (2026)
+- **Hono RPC**: Zero codegen, end-to-end type-safe jika backend adalah Hono.
+- **tRPC**: Untuk React Query + Next.js dengan dukungan RSC.
+- **OpenAPI + codegen**: Jika memiliki banyak konsumen (mobile, pihak ketiga).
+- **Format Error RFC 9457**: Respons error yang konsisten dengan `type`, `title`, `status`, `detail`.
+
+### SPA vs SSR vs Static
+Gunakan SSR/Astro untuk situs kritis SEO dan banyak baca. Gunakan SPA (TanStack Start) untuk dashboard yang sangat interaktif. Gunakan Next.js 15 dengan routing hybrid untuk aplikasi campuran (marketing + app).
+
+### Monorepo dengan Shared Types
+Definisikan interface dan tipe bersama di `packages/types` — digunakan oleh semua app (web, admin, api, mobile) sebagai single source of truth.
+
+### Checklist Keamanan
+- Input pengguna divalidasi Zod di server.
+- JWT rotasi 90 hari; expiry pendek + refresh token.
+- Header CSP dikonfigurasi.
+- Semua query DB menggunakan parameterized query.
+- Upload file divalidasi MIME type.
+- Rate limiting di semua endpoint publik.
+- Rute Super Admin dibatasi di `admin.domain.com` dengan cek `isSuperAdmin`.

@@ -4,7 +4,7 @@ description: "Orchestrates Multi-Page Application (MPA) architecture within a si
 author: "Antigravity"
 ---
 
-# Multi-Page Application (MPA) Orchestrator
+# Multi-Page Application (MPA) Orchestrator (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,29 +14,51 @@ author: "Antigravity"
 ## English
 
 ### Description
-This skill provides a structured approach for building and orchestrating a Multi-Page Application (MPA) within a single repository. It acts as an orchestrator, connecting foundational MPA principles with other specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-fullstack`, etc.) to deliver a cohesive, modern server-rendered application.
+A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
 
 ### Core MPA Principles in a Single Repository
-1. **Centralized Architecture**: Keep frontend views, backend logic, and routing within a unified codebase to simplify deployment and reduce cognitive load.
-2. **Server-Side Routing & Rendering**: Use a Front Controller (e.g., `index.php`, `main.go`, or Next.js Pages router) to intercept requests, fetch data, and render complete HTML pages per route.
-3. **Shared UI Ecosystem**: 
-   - Maintain a `layouts/` directory for base HTML structures (e.g., `<head>`, navigation, footers).
-   - Maintain a `partials/` or `components/` directory for reusable UI elements.
-   - Inject route-specific content into these layouts dynamically.
-4. **Asset Management**: Centralize static assets (CSS, JS, images) in a `public/` directory. Implement cache-busting for production assets.
-5. **Session-based State**: Leverage secure, server-side HTTP-only cookies and sessions for user authentication, tenant context, and flash messages across page navigations.
+1. **Centralized Architecture**: Frontend views, backend logic, and routing in a unified codebase — simplifies deployment and reduces cognitive load.
+2. **Server-Side Routing & Rendering**: A Front Controller intercepts requests, fetches data, and renders complete HTML per route. Options in 2026:
+   - **Astro 5**: Best for content-heavy sites — renders to static HTML by default, hydrates islands on demand.
+   - **Next.js 15 (Pages Router)**: Traditional MPA feel with React components.
+   - **Backend-driven**: Laravel/Django/Gin templates rendered server-side.
+3. **Islands Architecture (Astro 5)**:
+   - Render 100% static HTML for non-interactive content.
+   - Use `client:load`, `client:idle`, or `client:visible` directives to hydrate interactive islands only when needed.
+   - Supports React, Vue, Svelte, Solid, or vanilla JS islands side by side.
+4. **HTMX 2 — HTML-First Interactivity**:
+   - Enhance any server-rendered page with partial HTML swaps without writing JavaScript.
+   - Works with any backend — Django, Laravel, Go, Node.js.
+   - `hx-get`, `hx-post`, `hx-target`, `hx-swap` for declarative AJAX.
+5. **Shared UI Ecosystem**:
+   - Maintain a `layouts/` directory for base HTML structures.
+   - Maintain a `components/` directory for reusable UI elements.
+6. **Asset Management**: Centralize static assets in `public/`. Implement cache-busting for production.
+7. **Session-based State**: Use secure HTTP-only cookies and server sessions for auth, tenant context, and flash messages.
+
+### Framework Selection Guide
+
+| Need | Recommended Stack |
+|---|---|
+| Content site / Blog / Docs | **Astro 5** + MDX + Tailwind v4 |
+| Full server-rendered app (PHP) | **Laravel 11** + Livewire 3 / Alpine.js |
+| Full server-rendered app (Python) | **Django 5** + HTMX 2 + Alpine.js |
+| Full server-rendered app (Go) | **Templ** + HTMX 2 + Tailwind v4 |
+| React MPA with SSR | **Next.js 15** Pages Router or App Router |
 
 ### Orchestration Guidelines
-When designing or refactoring an MPA, orchestrate the following skills contextually:
-- **With `mvc-expert`**: Ensure the MPA strictly follows the MVC pattern. Controllers handle business logic and data aggregation, passing clean variables to the Views for rendering.
-- **With `saas-multi-tenant`**: Integrate tenant identification in the core routing middleware. Ensure every page load initializes the `tenant_id` context securely before fetching any data for the View.
-- **With `senior-frontend` / `ui-ux-pro-max`**: While it's an MPA, enhance the frontend experience using lightweight JavaScript frameworks (like Alpine.js or HTMX) and Tailwind CSS for dynamic micro-interactions without sacrificing server-side rendering.
-- **With `seo`**: Maximize the MPA's inherent SEO advantages by ensuring every page returns fully populated HTML, correct meta tags, and structured schema data on the initial load.
+- **With `mvc-expert`**: Enforce MVC pattern — Controllers handle logic, Views handle rendering.
+- **With `saas-multi-tenant`**: Integrate tenant identification in core routing middleware — every page load initializes `tenant_id` context securely.
+- **With `senior-frontend` / `ui-ux-pro-max`**: Enhance with Alpine.js for reactive UI or HTMX 2 for HTML-driven partial updates — no heavy client-side bundles.
+- **With `seo`**: Maximize MPA's inherent SEO advantages — every page returns fully populated HTML, correct meta tags, and Schema.org JSON-LD on initial load.
+- **vs `spa-orchestrator`**: Choose MPA when SEO is critical, data is mostly read-heavy, and complex client-side state is not required. Choose SPA when the app is highly interactive and session-based (like dashboards).
 
 ### Trigger Conditions
-- Active when the user requests to build a web application using the Multi-Page Application (MPA) approach in a single repository.
-- Active when refactoring or migrating an existing app to a centralized MPA architecture.
-- Active when the user mentions combining MPA with SaaS, MVC, or modern backend frameworks.
+- Building a web application using the Multi-Page Application (MPA) approach in a single repository.
+- Refactoring or migrating an existing app to a centralized MPA architecture.
+- Building content sites, marketing pages, or SEO-critical applications.
+- Using Astro 5 for static or content-heavy sites with optional interactive islands.
+- Adding interactivity to server-rendered pages with HTMX 2 without a full SPA rewrite.
 
 ---
 
@@ -44,26 +66,36 @@ When designing or refactoring an MPA, orchestrate the following skills contextua
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memberikan pendekatan terstruktur untuk membangun dan mengorkestrasi Multi-Page Application (MPA) di dalam satu repositori (monolith/single repo). Skill ini bertindak sebagai orkestrator yang menghubungkan prinsip-prinsip dasar MPA dengan skill spesialis lainnya (seperti `mvc-expert`, `saas-multi-tenant`, `senior-fullstack`, dll.) untuk menghasilkan aplikasi *server-rendered* yang kohesif dan modern.
+Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
 
-### Prinsip Inti MPA dalam Satu Repositori
-1. **Arsitektur Terpusat**: Simpan tampilan frontend, logika backend, dan routing dalam satu codebase terpadu untuk menyederhanakan proses deployment dan mengurangi beban kognitif.
-2. **Routing & Rendering Sisi Server**: Gunakan Front Controller (misalnya `index.php`, `main.go`, atau Next.js Pages router) untuk menangkap permintaan, mengambil data, dan me-render halaman HTML lengkap per rute.
-3. **Ekosistem UI Bersama**:
-   - Buat direktori `layouts/` untuk struktur dasar HTML (seperti `<head>`, navigasi, footer).
-   - Buat direktori `partials/` atau `components/` untuk elemen UI yang dapat digunakan kembali.
-   - Suntikkan konten spesifik rute ke dalam layout ini secara dinamis.
-4. **Manajemen Aset**: Pusatkan aset statis (CSS, JS, gambar) di dalam direktori `public/`. Terapkan teknik *cache-busting* untuk aset produksi.
-5. **State Berbasis Session**: Manfaatkan cookie HTTP-only dan session sisi server yang aman untuk autentikasi pengguna, konteks tenant, dan pesan flash di setiap navigasi halaman.
+### Prinsip Inti MPA
+1. **Arsitektur Terpusat**: View frontend, logika backend, dan routing dalam satu codebase.
+2. **Routing & Rendering Sisi Server**: Front Controller menangkap permintaan, mengambil data, dan me-render HTML lengkap per rute.
+3. **Islands Architecture (Astro 5)**: Render HTML statis 100% secara default, hidrate island interaktif hanya saat diperlukan.
+4. **HTMX 2 — Interaktivitas HTML-First**: Tingkatkan halaman server-rendered dengan pertukaran HTML parsial tanpa menulis JavaScript.
+5. **Ekosistem UI Bersama**: Direktori `layouts/` dan `components/` untuk elemen UI yang dapat digunakan kembali.
+6. **State Berbasis Session**: Cookie HTTP-only dan session sisi server untuk autentikasi dan konteks tenant.
+
+### Panduan Pemilihan Framework
+
+| Kebutuhan | Stack yang Direkomendasikan |
+|---|---|
+| Situs konten / Blog / Docs | **Astro 5** + MDX + Tailwind v4 |
+| Aplikasi server-rendered (PHP) | **Laravel 11** + Livewire 3 / Alpine.js |
+| Aplikasi server-rendered (Python) | **Django 5** + HTMX 2 + Alpine.js |
+| Aplikasi server-rendered (Go) | **Templ** + HTMX 2 + Tailwind v4 |
+| React MPA dengan SSR | **Next.js 15** Pages Router atau App Router |
 
 ### Panduan Orkestrasi
-Saat merancang atau melakukan refaktor MPA, orkestrasikan skill berikut secara kontekstual:
-- **Dengan `mvc-expert`**: Pastikan MPA secara ketat mengikuti pola MVC. Controller menangani logika bisnis dan agregasi data, lalu meneruskan variabel yang bersih ke View untuk di-render.
-- **Dengan `saas-multi-tenant`**: Integrasikan identifikasi tenant pada middleware routing inti. Pastikan setiap pemuatan halaman menginisialisasi konteks `tenant_id` secara aman sebelum mengambil data untuk View.
-- **Dengan `senior-frontend` / `ui-ux-pro-max`**: Meskipun ini adalah MPA, tingkatkan pengalaman frontend menggunakan framework JavaScript ringan (seperti Alpine.js atau HTMX) dan Tailwind CSS untuk interaksi mikro yang dinamis tanpa mengorbankan *server-side rendering*.
-- **Dengan `seo`**: Maksimalkan keuntungan SEO bawaan dari MPA dengan memastikan setiap halaman mengembalikan HTML yang terisi penuh, tag meta yang benar, dan data skema terstruktur pada pemuatan awal.
+- **Dengan `mvc-expert`**: Pastikan MPA mengikuti pola MVC secara ketat.
+- **Dengan `saas-multi-tenant`**: Integrasikan identifikasi tenant di middleware routing inti.
+- **Dengan `senior-frontend` / `ui-ux-pro-max`**: Tingkatkan dengan Alpine.js atau HTMX 2 untuk interaksi tanpa bundle berat.
+- **Dengan `seo`**: Setiap halaman mengembalikan HTML penuh, tag meta, dan JSON-LD terisi saat load awal.
+- **vs `spa-orchestrator`**: Pilih MPA saat SEO kritis dan data kebanyakan read-heavy. Pilih SPA saat aplikasi sangat interaktif seperti dashboard.
 
 ### Kondisi Pemicu
-- Aktif ketika pengguna meminta untuk membangun aplikasi web menggunakan pendekatan Multi-Page Application (MPA) dalam satu repositori.
-- Aktif ketika melakukan refaktor atau migrasi aplikasi yang sudah ada ke arsitektur MPA terpusat.
-- Aktif ketika pengguna menyebutkan penggabungan MPA dengan SaaS, MVC, atau framework backend modern.
+- Membangun aplikasi web dengan pendekatan MPA dalam satu repositori.
+- Refaktor atau migrasi aplikasi yang ada ke arsitektur MPA terpusat.
+- Membangun situs konten, halaman marketing, atau aplikasi kritis SEO.
+- Menggunakan Astro 5 untuk situs statis atau konten-berat dengan island interaktif opsional.
+- Menambahkan interaktivitas ke halaman server-rendered dengan HTMX 2 tanpa menulis ulang ke SPA.
