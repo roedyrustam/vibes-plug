@@ -4,7 +4,7 @@ description: "Skill to save ultra-compact project checkpoints and seamlessly res
 author: "Roedy Rustam"
 ---
 
-# Session Handoff & Memory Resume Expert
+# Session Handoff & Resume (2026 — Cross-Model Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,75 +14,99 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-A specialized efficiency skill designed for seamless cross-account and cross-session continuations. When your token quota runs out or context window resets, this skill creates an ultra-compact **Handover Checkpoint** (`STATE_HANDOFF.md`). In a new session or account, it instantly resumes work from the exact active task with zero token waste, bypassing redundant codebase scanning.
+Saves ultra-compact project checkpoints and enables seamless work resumption across new chat sessions, different accounts, or different AI models (Gemini, Claude, GPT). Designed for minimum token consumption while preserving full context needed for continuation.
 
 ### Trigger Conditions
-- User says: "ganti akun", "token habis", "checkpoint", "save state", "handoff", "resume", "lanjutkan proyek", "baca handoff".
-- Prior to switching AI accounts or starting a new chat window.
-- Resuming an in-flight development task after a session reset.
+- Session is running very long and context window is nearly exhausted.
+- User wants to switch to a new chat session or different AI model.
+- User wants to save progress before closing and resume later.
+- User says "save checkpoint", "handoff", "save progress", "resume later".
 
----
+### Checkpoint Format (Ultra-Compact)
 
-### Operating Modes
+When creating a checkpoint, output a compact YAML block under 200 tokens:
 
+```yaml
+# CHECKPOINT — [Project Name] — [Date]
+project: "[Project Name]"
+goal: "[One-line goal of the current session]"
+status: "[brief status: e.g., '60% — backend API done, frontend in progress']"
+stack: "[e.g., Next.js 15 + Hono + Supabase + Drizzle]"
+last_completed:
+  - "[Most recent task completed]"
+  - "[Second most recent]"
+next_tasks:
+  - "[Immediate next task]"
+  - "[Following task]"
+  - "[Following task]"
+blockers: "[Any known blockers or pending decisions, or 'none']"
+key_files:
+  - "[path/to/critical/file.ts]"
+  - "[path/to/another/file.ts]"
+env_needed: "[List of env vars needed, e.g., SUPABASE_URL, STRIPE_KEY]"
+notes: "[Any critical context that doesn't fit above]"
 ```
-+--------------------------------------------------------------------+
-|                         MODE A: HANDOFF                            |
-| (Before Switching Account: Create Ultra-Compact STATE_HANDOFF.md)  |
-+---------------------------------+----------------------------------+
-                                  |
-                                  v
-+--------------------------------------------------------------------+
-|                         MODE B: RESUME                             |
-| (New Account / Chat Session: Read ONLY STATE_HANDOFF.md & Continue)|
-+--------------------------------------------------------------------+
-```
 
----
+### Cross-Model Handoff Protocol (2026)
 
-### Mode A: Handoff Checkpoint Creation (Save State)
-When the user indicates their token is running low or they are switching accounts:
-
-1. Create or overwrite `.agents/STATE_HANDOFF.md` at the project root (or artifact directory).
-2. Write an ultra-compact summary using this strict, token-efficient template (max 150 words):
+Different AI models interpret context differently. Use this universal handoff prompt:
 
 ```markdown
-# Project Handover Checkpoint
+## RESUME CONTEXT — [Project Name]
 
-- **Timestamp**: YYYY-MM-DD HH:MM
-- **Primary Goal**: [1-2 sentences summarizing overall task]
-- **Active Phase**: [e.g., Phase 4: Authentication & Backend APIs]
-- **Current Task**: [Exact subtask currently being implemented or debugged]
+You are resuming work on [Project Name]. Read this context carefully before taking any action.
 
-## Key Architecture & Decisions Made
-- [Decision 1: e.g., Using Drizzle ORM with PostgreSQL RLS]
-- [Decision 2: e.g., Next.js 15 App Router with Server Actions]
+**Goal**: [One-sentence project goal]
+**Current Status**: [What's been done, what's pending]
+**Tech Stack**: [Stack details]
+**Repository**: [path or URL if available]
 
-## Recently Modified Files
-- [file_basename](file:///path/to/modified/file.ts#L20-L45)
+**Completed**:
+- ✅ [Done item 1]
+- ✅ [Done item 2]
 
-## Next Immediate Action
-- [The EXACT next command or code edit to execute in the new session]
+**Next Tasks** (in priority order):
+1. [ ] [Immediate next task — be specific]
+2. [ ] [Second task]
+3. [ ] [Third task]
 
-## Open Questions / Blockers
-- [Any pending user decision or unresolved error, if any]
+**Critical Files to Read First**:
+- [file path] — [why it's critical]
+- [file path] — [why it's critical]
+
+**Known Constraints**:
+- [Constraint 1, e.g., "Use pnpm, not npm"]
+- [Constraint 2, e.g., "Admin panel must be on admin.domain.com"]
+
+**Do NOT**:
+- [Something the previous session explicitly avoided]
+- [Another anti-pattern to avoid]
+
+Start by reading the critical files listed above, then confirm you understand the current state before proceeding.
 ```
 
-3. Output a brief 2-line response:
-   > "Checkpoint saved to `STATE_HANDOFF.md`. You can now switch accounts/sessions and type **'resume'** or **'lanjutkan'**."
+### Checkpoint Storage Locations
 
----
+| Destination | Use When |
+|---|---|
+| `CHECKPOINT.md` in project root | Primary — version-controlled |
+| `.agents/CHECKPOINT.md` | Alternative — agents-specific dir |
+| Copied to clipboard | Quick cross-session handoff |
+| Supabase notes table | Cloud-synced across devices |
 
-### Mode B: Zero-Token Resume (Restore State)
-When starting a new chat session or after switching accounts:
+### Resume Protocol (For New Session)
+When the user provides a checkpoint to resume from:
+1. **Read all key files** listed in the checkpoint.
+2. **Verify current state** matches the checkpoint (check git status, recent commits).
+3. **Confirm understanding** — briefly state what you're resuming and what the first task is.
+4. **Proceed immediately** — don't ask unnecessary questions.
 
-1. **Do NOT scan the entire codebase or run wide grep searches.**
-2. Read ONLY `.agents/STATE_HANDOFF.md` (or `PROGRESS.md` if available).
-3. Instantly acknowledge and execute:
-   > "Resuming work from `STATE_HANDOFF.md` checkpoint.  
-   > **Current Task**: [Current Task]  
-   > **Executing Next Step**: [Next Immediate Action]..."
-4. Immediately proceed to code, test, or implement the next immediate action without asking redundant questions.
+### Automatic Checkpoint Triggers
+Proactively offer to create a checkpoint when:
+- User has been working for > 30 messages in a session.
+- The context window is > 70% consumed.
+- A major milestone is completed (e.g., "backend API is fully done").
+- The user says "I'll continue later".
 
 ---
 
@@ -90,57 +114,45 @@ When starting a new chat session or after switching accounts:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill efisiensi khusus yang dirancang untuk melanjutkan pekerjaan secara mulus lintas akun atau lintas sesi obrolan. Ketika kuota token Anda habis atau jendela konteks di-reset, skill ini akan membuat **Checkpoint Serah Terima** yang super ringkas (`STATE_HANDOFF.md`). Pada akun atau sesi baru, agen dapat langsung melanjutkan pekerjaan dari tugas aktif persis tanpa membuang token untuk membaca ulang seluruh codebase.
+Menyimpan checkpoint proyek yang ultra-ringkas dan memungkinkan kelanjutan pekerjaan yang mulus di sesi chat baru, akun yang berbeda, atau model AI yang berbeda (Gemini, Claude, GPT). Dirancang untuk konsumsi token minimum sambil mempertahankan konteks penuh yang diperlukan untuk kelanjutan.
 
 ### Kondisi Pemicu
-- Pengguna berkata: "ganti akun", "token habis", "checkpoint", "save state", "handoff", "resume", "lanjutkan proyek", "baca handoff".
-- Sebelum berpindah akun AI atau membuka jendela obrolan baru.
-- Melanjutkan tugas pengembangan yang sedang berjalan setelah sesi terputus.
+- Sesi berjalan sangat lama dan context window hampir habis.
+- Pengguna ingin beralih ke sesi chat baru atau model AI yang berbeda.
+- Pengguna ingin menyimpan progres sebelum menutup dan melanjutkan nanti.
+- Pengguna berkata "simpan checkpoint", "handoff", "simpan progres", "lanjut nanti".
 
----
+### Format Checkpoint (Ultra-Ringkas)
 
-### Mode Operasi
+Saat membuat checkpoint, keluarkan blok YAML ringkas di bawah 200 token dengan field: `project`, `goal`, `status`, `stack`, `last_completed`, `next_tasks`, `blockers`, `key_files`, `env_needed`, `notes`.
 
-#### Mode A: Pembuatan Checkpoint Handoff (Simpan State)
-Saat pengguna memberi tahu bahwa token hampir habis atau akan berpindah akun:
+### Protokol Handoff Lintas-Model (2026)
 
-1. Buat atau perbarui file `.agents/STATE_HANDOFF.md` di root proyek.
-2. Tulis ringkasan super hemat token menggunakan format baku berikut:
+Model AI yang berbeda menginterpretasikan konteks secara berbeda. Gunakan prompt handoff universal saat berpindah antar model (Gemini → Claude → GPT):
+- Sertakan goal satu kalimat, status saat ini, stack, daftar tugas yang selesai (✅), dan tugas berikutnya yang diprioritaskan.
+- Sertakan file kritis yang harus dibaca terlebih dahulu oleh model baru.
+- Sertakan kendala yang diketahui dan daftar "Jangan Lakukan".
+- Minta model baru untuk mengkonfirmasi pemahaman sebelum melanjutkan.
 
-```markdown
-# Checkpoint Serah Terima Proyek
+### Lokasi Penyimpanan Checkpoint
 
-- **Waktu**: YYYY-MM-DD HH:MM
-- **Tujuan Utama**: [1-2 kalimat ringkasan tujuan keseluruhan]
-- **Fase Aktif**: [Misal: Fase 4: Autentikasi & API Backend]
-- **Tugas Saat Ini**: [Tugas spesifik yang sedang dikerjakan atau di-debug]
+| Tujuan | Gunakan Saat |
+|---|---|
+| `CHECKPOINT.md` di root proyek | Utama — dikontrol versi |
+| `.agents/CHECKPOINT.md` | Alternatif — direktori agen |
+| Disalin ke clipboard | Handoff lintas sesi cepat |
+| Tabel catatan Supabase | Tersinkronisasi cloud antar perangkat |
 
-## Keputusan Arsitektur Utama
-- [Keputusan 1: Misal, Menggunakan Drizzle ORM + Supabase Auth]
-- [Keputusan 2: Misal, Tailwind CSS v4 @theme]
+### Protokol Resume (Untuk Sesi Baru)
+Saat pengguna memberikan checkpoint untuk dilanjutkan:
+1. **Baca semua file kritis** yang tercantum dalam checkpoint.
+2. **Verifikasi status saat ini** cocok dengan checkpoint (periksa git status, commit terbaru).
+3. **Konfirmasi pemahaman** — nyatakan singkat apa yang dilanjutkan dan apa tugas pertama.
+4. **Lanjutkan segera** — jangan ajukan pertanyaan yang tidak perlu.
 
-## Berkas yang Baru Dimodifikasi
-- [file_basename](file:///path/to/modified/file.ts#L20-L45)
-
-## Aksi Selanjutnya (Immediate Next Step)
-- [Perintah atau edit kode SPESIFIK yang harus langsung dijalankan di sesi baru]
-
-## Pertanyaan Terbuka / Kendala
-- [Keputusan pengguna yang tertunda atau error yang belum selesai, jika ada]
-```
-
-3. Tampilkan pesan singkat:
-   > "Checkpoint berhasil disimpan di `STATE_HANDOFF.md`. Anda dapat berpindah akun/sesi sekarang dan ketik **'lanjutkan'** atau **'resume'** pada sesi baru."
-
----
-
-#### Mode B: Resume Hemat Token (Pulihkan State)
-Saat memulai sesi baru atau setelah berpindah akun:
-
-1. **JANGAN memindai seluruh direktori proyek atau melakukan pencarian grep massal.**
-2. Baca HANYA file `.agents/STATE_HANDOFF.md` (atau `PROGRESS.md`).
-3. Langsung konfirmasi dan eksekusi:
-   > "Melanjutkan pekerjaan dari checkpoint `STATE_HANDOFF.md`.  
-   > **Tugas Aktif**: [Tugas Saat Ini]  
-   > **Menjalankan Langkah Berikutnya**: [Aksi Selanjutnya]..."
-4. Langsung jalankan tindakan berikutnya tanpa mengajukan pertanyaan yang berulang.
+### Pemicu Checkpoint Otomatis
+Tawarkan secara proaktif untuk membuat checkpoint saat:
+- Pengguna telah bekerja lebih dari 30 pesan dalam satu sesi.
+- Context window > 70% terpakai.
+- Milestone besar selesai.
+- Pengguna berkata "saya akan lanjutkan nanti".

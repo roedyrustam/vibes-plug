@@ -4,7 +4,7 @@ description: "Mandatory guardrail skill that enforces creating a comprehensive P
 author: "Roedy Rustam"
 ---
 
-# PRD Architect (Perancang Dokumen Kebutuhan Produk)
+# PRD Architect (2026 — PRD-as-Code Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,33 +14,137 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-This skill acts as a first gatekeeper whenever there is an initiative to build a new application, software, or large project from scratch. It ensures that no code is written before a comprehensive **Product Requirements Document (PRD)** is approved by the user.
+Mandatory guardrail that enforces creating a comprehensive Product Requirements Document (PRD) before generating code for any new project. Introduces **PRD-as-Code** — a structured Markdown format designed to be machine-readable by AI agents and version-controlled alongside code.
 
 ### Trigger Conditions
-Automatically active when:
-- The user requests to "create a new application", "new project", "new SaaS", or "new MVP".
-- The user starts a large initiative without specifying feature structures.
-- The agent is asked to act as a Product Manager (PM) or initiate a project.
+- A user requests building a new application, SaaS, or major feature from scratch.
+- There is no existing PRD, BLUEPRINT.md, or product specification.
+- The project scope is unclear or ambiguous.
+- The user says "build me...", "create a...", "I want to make..." for a new project.
 
-### Instructions & Workflow (Mandatory)
+### Why PRD Before Code
+1. **Prevents scope creep**: Defines boundaries before any line of code is written.
+2. **Aligns AI output**: AI agents generate significantly better code when given a structured spec.
+3. **Enables traceability**: Each implemented feature can be traced back to a PRD requirement.
+4. **Reduces rework**: Catches architectural decisions early (DB choice, auth flow, integrations).
+5. **Version-controlled spec**: PRD lives in the repo — changes are tracked and reviewable.
 
-#### 1. DO NOT WRITE CODE IMMEDIATELY
-When triggered, **stop** thinking about code, folder structure, or technical implementations. Your first task is purely to analyze the business and product needs.
+### PRD-as-Code Template
 
-#### 2. Draft the PRD (Product Requirements Document)
-Create a PRD document (Markdown or Artifact format) covering the following structure:
-- **1. Executive Summary**: Main purpose of the application and problems to solve.
-- **2. Target Audience**: Who will use this product.
-- **3. MVP Scope**: List of absolute features for version v1.0. Move other features to "Future Roadmap".
-- **4. Core User Flows**: Step-by-step actions users will take (e.g., *Register -> Input Data -> View Dashboard*).
-- **5. Technical Requirements**: Recommended technology stack (Frontend, Backend, Database, Infrastructure) matching the project profile.
-- **6. Success Metrics**: Functional metrics for success.
+```markdown
+# Product Requirements Document (PRD)
+**Project**: [Project Name]
+**Version**: 1.0.0
+**Status**: Draft | In Review | Approved
+**Created**: YYYY-MM-DD
+**Last Updated**: YYYY-MM-DD
 
-#### 3. Request User Approval
-After presenting the PRD, you **MUST** ask the user: *"Do you agree with this PRD specification? Are there any features or flows you'd like to remove/add before we proceed to architecture and coding?"*
+---
 
-#### 4. Proceed to Implementation Plan
-Only *after* the user says "Yes" or "Agree" to the PRD can you create the Implementation Plan and Task List to start coding.
+## 1. Executive Summary
+[2-3 sentences: What is this product? Who is it for? What problem does it solve?]
+
+## 2. Problem Statement
+**Problem**: [Clear description of the problem being solved]
+**Target Users**: [Specific user segments]
+**Current Pain Points**:
+- Pain point 1
+- Pain point 2
+
+## 3. Goals & Success Metrics
+| Goal | Metric | Target |
+|---|---|---|
+| Reduce churn | Monthly churn rate | < 5% |
+| Improve activation | D7 retention | > 40% |
+
+## 4. User Personas
+### Persona 1: [Name]
+- **Role**: [Job title / context]
+- **Goals**: [What they want to achieve]
+- **Frustrations**: [What currently doesn't work]
+- **Key Behaviors**: [How they'll use this product]
+
+## 5. Feature Requirements
+
+### MVP Features (Must Have — v1.0)
+- [ ] **[Feature Name]**: [Description. Acceptance criteria: ...]
+- [ ] **Authentication**: Email/password + Google OAuth. PKCE flow. Session-based.
+- [ ] **Dashboard**: Overview of [key metrics]. Real-time updates via SSE.
+
+### Phase 2 Features (Should Have — v1.x)
+- [ ] **[Feature Name]**: [Description]
+
+### Future Features (Nice to Have — v2.0+)
+- [ ] **[Feature Name]**: [Description]
+
+## 6. Technical Architecture
+
+### Stack Decision
+| Layer | Technology | Rationale |
+|---|---|---|
+| Frontend | Next.js 15 + React 19 | SSR, App Router, RSC |
+| Backend | Hono + Bun | Type-safe RPC, edge-ready |
+| Database | PostgreSQL + Drizzle ORM | ACID, RLS multi-tenant |
+| Auth | Supabase Auth v3 | PKCE, OAuth, MFA |
+| Payments | Stripe / Polar.sh | [Reason for choice] |
+| Deployment | Vercel + Railway | [Reason for choice] |
+
+### Architecture Decisions (ADRs)
+- **ADR-001**: [Decision title] — [Decision made and why]
+- **ADR-002**: Multi-tenancy via RLS — Shared schema with Supabase RLS for isolation
+
+### Multi-Entry Points (if SaaS)
+| Entry Point | Domain | Purpose |
+|---|---|---|
+| Landing Page | `myapp.com` | Marketing, conversion |
+| SaaS App | `app.myapp.com` | Core product |
+| Super Admin | `admin.myapp.com` | Cross-tenant management |
+| API | `api.myapp.com` | Backend (internal + public) |
+
+## 7. Data Model (High-Level)
+```
+users ──belongs_to──> workspaces (via workspace_members)
+workspaces ──has_many──> projects
+projects ──has_many──> tasks
+```
+
+## 8. User Flows
+### Primary Flow: [Name]
+1. User [action 1]
+2. System [response 1]
+3. User [action 2]
+4. System [response 2] → Success state
+
+## 9. Non-Functional Requirements
+| Requirement | Target |
+|---|---|
+| Performance | LCP < 2.5s, INP < 200ms |
+| Availability | 99.9% uptime |
+| Security | SOC 2 Type II compliant |
+| Scalability | Support 10K concurrent users |
+
+## 10. Out of Scope
+- [Explicitly excluded feature or integration]
+- [Another explicitly excluded item]
+
+## 11. Open Questions
+- [ ] [Question that needs a decision before development]
+- [ ] Should we support SSO (SAML) in v1 or defer to v2?
+
+## 12. Approval & Sign-off
+| Stakeholder | Role | Status |
+|---|---|---|
+| [Name] | Product | ✅ Approved |
+| [Name] | Engineering | ⏳ Pending |
+```
+
+### Enforcement Protocol
+1. **Detect**: When user requests a new project build.
+2. **Pause**: Do NOT generate any code.
+3. **Generate PRD**: Create a pre-filled PRD draft based on the user's description.
+4. **Review**: Present to user for approval/edits.
+5. **Confirm**: Once PRD is approved, proceed to `zero-to-prod-orchestrator` Phase 1.
+6. **Reference**: Cite the PRD in all subsequent code generation decisions.
 
 ---
 
@@ -48,30 +152,40 @@ Only *after* the user says "Yes" or "Agree" to the PRD can you create the Implem
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini bertindak sebagai palang pintu pertama setiap kali ada inisiatif untuk membangun aplikasi, perangkat lunak, atau proyek besar baru dari nol. Skill ini memastikan bahwa tidak ada kode yang ditulis sebelum **Product Requirements Document (PRD)** yang komprehensif disetujui oleh pengguna.
+Guardrail wajib yang memaksa pembuatan Product Requirements Document (PRD) komprehensif sebelum membuat kode untuk proyek baru apapun. Memperkenalkan **PRD-as-Code** — format Markdown terstruktur yang dirancang agar dapat dibaca mesin oleh agen AI dan dikontrol versi bersama kode.
 
 ### Kondisi Pemicu
-Selalu aktif secara otomatis ketika:
-- Pengguna meminta untuk "membuat aplikasi baru", "proyek baru", "SaaS baru", atau "MVP baru".
-- Pengguna memulai inisiatif besar tanpa menyebutkan struktur fitur yang spesifik.
-- Agen diminta untuk menjadi *Product Manager* (PM) atau menginisiasi proyek.
+- Pengguna meminta membangun aplikasi, SaaS, atau fitur besar baru dari awal.
+- Tidak ada PRD, BLUEPRINT.md, atau spesifikasi produk yang ada.
+- Ruang lingkup proyek tidak jelas atau ambigu.
+- Pengguna berkata "buatkan saya...", "buat sebuah...", "saya ingin membuat..." untuk proyek baru.
 
-### Instruksi & Alur Kerja (Wajib Diikuti)
+### Mengapa PRD Sebelum Kode
+1. **Mencegah scope creep**: Mendefinisikan batas sebelum satu baris kode pun ditulis.
+2. **Menyelaraskan output AI**: Agen AI menghasilkan kode yang jauh lebih baik saat diberi spesifikasi terstruktur.
+3. **Memungkinkan keterlacakan**: Setiap fitur yang diimplementasikan dapat ditelusuri kembali ke persyaratan PRD.
+4. **Mengurangi pengerjaan ulang**: Menangkap keputusan arsitektur lebih awal (pilihan DB, alur auth, integrasi).
+5. **Spesifikasi dengan kontrol versi**: PRD hidup di repo — perubahan dilacak dan dapat ditinjau.
 
-#### 1. JANGAN LANGSUNG MENULIS KODE
-Saat dipicu, **berhenti** memikirkan kode, struktur folder, atau implementasi teknis. Tugas pertama Anda adalah murni menganalisis bisnis dan kebutuhan produk.
+### Template PRD-as-Code
+Template PRD mencakup 12 bagian:
+1. **Ringkasan Eksekutif**: Apa produk ini, untuk siapa, masalah apa yang diselesaikan.
+2. **Pernyataan Masalah**: Deskripsi masalah yang jelas dengan persona pengguna target.
+3. **Tujuan & Metrik Keberhasilan**: Target terukur yang terkait dengan tujuan bisnis.
+4. **Persona Pengguna**: Peran, tujuan, frustrasi, dan perilaku kunci.
+5. **Persyaratan Fitur**: MVP (Harus Ada), Fase 2 (Sebaiknya Ada), Masa Depan (Bagus Dimiliki).
+6. **Arsitektur Teknis**: Keputusan stack dengan justifikasi, ADR, multi-entry points.
+7. **Model Data**: Hubungan antar entitas tingkat tinggi.
+8. **Alur Pengguna**: Alur langkah-demi-langkah untuk interaksi utama.
+9. **Persyaratan Non-Fungsional**: Performa, ketersediaan, keamanan, skalabilitas.
+10. **Di Luar Ruang Lingkup**: Apa yang secara eksplisit dikecualikan.
+11. **Pertanyaan Terbuka**: Keputusan yang perlu dibuat sebelum pengembangan.
+12. **Persetujuan**: Pemangku kepentingan dan status tanda tangan.
 
-#### 2. Buat Draf PRD (Product Requirements Document)
-Susun dokumen PRD (format Markdown atau Artifact) yang mencakup struktur berikut:
-- **1. Ringkasan Eksekutif (Executive Summary)**: Tujuan utama aplikasi dan masalah yang ingin dipecahkan.
-- **2. Target Pengguna (Target Audience)**: Siapa yang akan menggunakan produk ini.
-- **3. Ruang Lingkup MVP (Minimum Viable Product)**: Daftar fitur mutlak yang harus ada di versi v1.0. Fitur lain masukkan ke "Future Roadmap".
-- **4. Alur Pengguna Utama (Core User Flows)**: Langkah demi langkah apa yang akan dilakukan pengguna (misal: *Daftar -> Masukkan Data -> Lihat Dashboard*).
-- **5. Kebutuhan Teknis (Tech Stack & Architecture)**: Saran stack teknologi (Frontend, Backend, Database, Infrastruktur) yang paling sesuai dengan profil proyek.
-- **6. Kriteria Kesuksesan (Success Metrics)**: Apa tanda aplikasi ini berhasil secara fungsional.
-
-#### 3. Minta Persetujuan (User Approval)
-Setelah menyajikan PRD, Anda **WAJIB** bertanya kepada pengguna: *"Apakah Anda setuju dengan spesifikasi PRD ini? Adakah fitur atau alur yang ingin dikurangi/ditambahkan sebelum kita lanjut ke arsitektur dan penulisan kode?"*
-
-#### 4. Lanjut ke Implementation Plan
-Hanya *setelah* pengguna mengatakan "Ya" atau "Setuju" terhadap PRD, barulah Anda boleh membuat Implementation Plan dan Task List untuk memulai *coding*.
+### Protokol Penegakan
+1. **Deteksi**: Saat pengguna meminta pembangunan proyek baru.
+2. **Jeda**: JANGAN hasilkan kode apapun.
+3. **Buat PRD**: Buat draf PRD yang sudah diisi berdasarkan deskripsi pengguna.
+4. **Tinjau**: Sajikan kepada pengguna untuk persetujuan/edit.
+5. **Konfirmasi**: Setelah PRD disetujui, lanjut ke `zero-to-prod-orchestrator` Fase 1.
+6. **Referensi**: Kutip PRD dalam semua keputusan pembuatan kode selanjutnya.

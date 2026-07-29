@@ -1,10 +1,10 @@
 ---
 name: spa-orchestrator
 description: "Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management with API-driven backends / Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API."
-author: "Antigravity"
+author: "Roedy Rustam"
 ---
 
-# Single-Page Application (SPA) Orchestrator
+# Single-Page Application (SPA) Orchestrator (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,30 +14,238 @@ author: "Antigravity"
 ## English
 
 ### Description
-This skill provides a structured approach for building and orchestrating a Single-Page Application (SPA) architecture. It acts as a master coordinator, connecting SPA frontend principles (client-side routing, complex state management, and component-driven UI) with decoupled, API-driven backend services (using skills like `senior-frontend`, `tanstack-query-expert`, and backend experts).
-
-### Core SPA Principles
-1. **Decoupled Architecture**: Strictly separate the frontend application from the backend API. The frontend is a standalone static application (or SSR application) that communicates with the backend exclusively through APIs (REST, GraphQL, or tRPC).
-2. **Client-Side Routing**: Use client-side routers (e.g., React Router, Vue Router, Next.js App Router) to navigate between views instantly without reloading the browser window.
-3. **Component-Driven UI**: 
-   - Build the UI using modular, reusable components.
-   - Maintain a clear separation between Presentational (dumb) components and Container (smart) components.
-4. **State Management**: Manage complex UI states efficiently. Differentiate between:
-   - *Server State*: Data fetched from the API (use `tanstack-query-expert` for caching, invalidation, and optimistic updates).
-   - *Client State*: UI-specific state like modals, dark mode, or forms (use Context, Zustand, or simple useState).
-5. **API Authentication**: Use token-based authentication (JWT, OAuth) or secure HTTP-only cookies designed for API consumption. Ensure the frontend gracefully handles token expiration and refresh flows.
-
-### Orchestration Guidelines
-When designing or building an SPA, orchestrate the following skills contextually:
-- **With `senior-frontend` / `ui-ux-pro-max`**: Build a highly interactive, fluid user interface using modern frameworks (React/Next.js/Vue) and Tailwind CSS. Ensure micro-animations and transitions feel native.
-- **With `tanstack-query-expert`**: Offload all API data fetching, caching, and synchronization to TanStack Query. Avoid manual `useEffect` fetches for server state.
-- **With `js-backend-expert` or `go-programming-expert`**: Design robust, stateless backend APIs that serve JSON data efficiently. Ensure CORS and rate-limiting are properly configured.
-- **With `seo` / `seo-geo`**: Address inherent SPA SEO challenges. If SEO is critical, orchestrate a shift towards Server-Side Rendering (SSR) or Static Site Generation (SSG) using frameworks like Next.js, ensuring meta tags and schema data are populated on the server.
+Structured orchestration guide for building modern Single-Page Applications (SPAs). Coordinates frontend architecture (TanStack Router, React 19, TanStack Query v5) with decoupled API backends (Hono RPC, tRPC). Covers state management strategy, routing patterns, API layer design, build tooling (Vite + TanStack Start), and deployment strategies.
 
 ### Trigger Conditions
-- Active when the user requests to build a web application using the Single-Page Application (SPA) approach, React, Vue, or headless architecture.
-- Active when refactoring a legacy application into a decoupled frontend-backend architecture.
-- Active when the user needs help organizing complex client-side state and API integrations.
+- Building a highly interactive dashboard, admin panel, or data-heavy web application as a SPA.
+- Choosing between SPA vs SSR vs MPA for a new project.
+- Setting up client-side routing with **TanStack Router** (type-safe routes, loaders).
+- Structuring state management: server state (TanStack Query) vs client state (Zustand/Jotai).
+- Building a decoupled frontend that communicates with a separate backend via **Hono RPC** or tRPC.
+- Deploying a SPA to Cloudflare Pages, Vercel, or a CDN.
+
+### SPA vs SSR vs MPA — Decision Guide
+```
+Choose SPA when:
+✅ Highly interactive app (dashboard, editor, admin panel)
+✅ Rich client-side state that persists across navigation
+✅ Auth-gated app (SEO is not a primary concern)
+✅ Already have a separate backend API
+
+Choose SSR (Next.js) when:
+✅ SEO is critical (marketing pages, public content)
+✅ Fast initial page load for unauthenticated users
+✅ Mixed app: some public pages + some gated app pages
+
+Choose MPA (Astro, Django, Laravel) when:
+✅ Mostly static content, minimal interactivity
+✅ SEO is the primary concern
+✅ Small team that wants to avoid JS complexity
+  → see mpa-orchestrator skill
+```
+
+### Recommended SPA Stack (2026)
+
+| Layer | Tool | Why |
+|---|---|---|
+| **Build** | Vite 6 / TanStack Start | Instant HMR, ES modules, fast builds |
+| **Routing** | TanStack Router | Fully type-safe routes, search params, loaders |
+| **Server State** | TanStack Query v5 | Data fetching, caching, mutations |
+| **Client State** | Zustand / Jotai | Lightweight, no boilerplate |
+| **API Layer** | Hono RPC / tRPC | End-to-end type-safe, no codegen |
+| **Forms** | React Hook Form + Zod | Performant, type-safe validation |
+| **Styling** | Tailwind CSS v4 | Utility-first, zero-runtime |
+| **Components** | shadcn/ui + Base UI | Headless, accessible, customizable |
+
+### TanStack Router — File-Based Type-Safe Routing
+
+```
+src/routes/
+  __root.tsx          # Root layout (providers, nav)
+  index.tsx           # / — landing/home
+  _auth.tsx           # Auth guard layout
+  _auth/
+    dashboard.tsx     # /dashboard (auth required)
+    settings/
+      index.tsx       # /settings
+      profile.tsx     # /settings/profile
+  _public.tsx         # Public layout
+  _public/
+    login.tsx         # /login
+```
+
+```typescript
+// src/routes/__root.tsx
+import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
+import type { QueryClient } from '@tanstack/react-query';
+
+interface RouterContext {
+  queryClient: QueryClient;
+  auth: { user: User | null; isAuthenticated: boolean };
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  component: () => (
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
+  ),
+});
+```
+
+```typescript
+// src/routes/_auth/dashboard.tsx — protected route with data preloading
+import { createFileRoute, redirect } from '@tanstack/react-router';
+import { workspacesQueryOptions } from '@/queries/workspaces';
+
+export const Route = createFileRoute('/_auth/dashboard')({
+  // Runs before render — redirect if not authenticated
+  beforeLoad: ({ context }) => {
+    if (!context.auth.isAuthenticated) {
+      throw redirect({ to: '/login' });
+    }
+  },
+  // Prefetch data in loader — no loading state on initial render
+  loader: ({ context: { queryClient } }) =>
+    queryClient.ensureQueryData(workspacesQueryOptions()),
+  component: DashboardPage,
+});
+
+function DashboardPage() {
+  // Data is already available — no loading state
+  const { data: workspaces } = useSuspenseQuery(workspacesQueryOptions());
+  return <WorkspaceList workspaces={workspaces} />;
+}
+```
+
+### State Management Architecture
+
+```
+State Layers:
+┌─────────────────────────────────────┐
+│  Server State (TanStack Query v5)   │  ← API data, cached, auto-refetch
+│  workspaces, users, projects, etc.  │
+├─────────────────────────────────────┤
+│  Client State (Zustand)             │  ← UI state, sidebar open, theme
+│  modals, filters, UI preferences    │
+├─────────────────────────────────────┤
+│  Form State (React Hook Form)       │  ← Active form inputs, validation
+│  Scoped to individual forms         │
+├─────────────────────────────────────┤
+│  URL State (TanStack Router)        │  ← Shareable page state
+│  search params, active tab, page #  │
+└─────────────────────────────────────┘
+```
+
+```typescript
+// URL State — persist filter state in URL (shareable)
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { z } from 'zod';
+
+const searchSchema = z.object({
+  page: z.number().int().positive().default(1).catch(1),
+  search: z.string().default('').catch(''),
+  status: z.enum(['all', 'active', 'archived']).default('all').catch('all'),
+});
+
+export const Route = createFileRoute('/_auth/projects')({
+  validateSearch: searchSchema,
+  component: ProjectsPage,
+});
+
+function ProjectsPage() {
+  const { page, search, status } = Route.useSearch();
+  const navigate = useNavigate({ from: Route.fullPath });
+
+  const setSearch = (q: string) =>
+    navigate({ search: (prev) => ({ ...prev, search: q, page: 1 }) });
+
+  return (
+    <div>
+      <SearchInput value={search} onChange={setSearch} />
+      <ProjectList page={page} search={search} status={status} />
+    </div>
+  );
+}
+```
+
+### Hono RPC — Decoupled Type-Safe API
+
+```typescript
+// apps/api/src/index.ts — backend Hono app
+import { Hono } from 'hono';
+import { zValidator } from '@hono/zod-validator';
+
+const workspacesRoute = new Hono()
+  .get('/', async (c) => {
+    const user = c.get('user');
+    const workspaces = await db.workspace.findMany({
+      where: { members: { some: { userId: user.id } } },
+    });
+    return c.json(workspaces);
+  })
+  .post('/', zValidator('json', CreateWorkspaceSchema), async (c) => {
+    const data = c.req.valid('json');
+    const workspace = await db.workspace.create({ data });
+    return c.json(workspace, 201);
+  });
+
+const app = new Hono()
+  .use('*', authMiddleware)
+  .route('/workspaces', workspacesRoute);
+
+export type AppType = typeof app;
+export default app;
+```
+
+```typescript
+// apps/web/src/lib/api.ts — type-safe client
+import { hc } from 'hono/client';
+import type { AppType } from '@myapp/api';
+
+export const api = hc<AppType>(import.meta.env.VITE_API_URL);
+
+// TanStack Query integration
+export const workspacesQueryOptions = () =>
+  queryOptions({
+    queryKey: ['workspaces'],
+    queryFn: async () => {
+      const res = await api.workspaces.$get();
+      return res.json(); // Fully typed!
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+```
+
+### Build & Deployment
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+
+export default defineConfig({
+  plugins: [
+    TanStackRouterVite(), // Auto-generates route tree
+    react(),
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-query': ['@tanstack/react-query'],
+          'vendor-router': ['@tanstack/react-router'],
+        },
+      },
+    },
+  },
+});
+```
+
+**Deployment target**: Cloudflare Pages or Vercel for CDN-served static SPA. Backend API deployed separately to Railway/Fly.io.
 
 ---
 
@@ -45,27 +253,35 @@ When designing or building an SPA, orchestrate the following skills contextually
 ## Bahasa Indonesia
 
 ### Deskripsi
-Skill ini memberikan pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Single-Page Application (SPA). Skill ini bertindak sebagai koordinator utama yang menghubungkan prinsip-prinsip frontend SPA (routing sisi klien, manajemen state yang kompleks, dan UI berbasis komponen) dengan layanan backend terpisah yang digerakkan oleh API (menggunakan skill seperti `senior-frontend`, `tanstack-query-expert`, dan ahli backend).
-
-### Prinsip Inti SPA
-1. **Arsitektur Terpisah (Decoupled)**: Pisahkan secara ketat aplikasi frontend dari API backend. Frontend adalah aplikasi statis mandiri (atau aplikasi SSR) yang berkomunikasi dengan backend secara eksklusif melalui API (REST, GraphQL, atau tRPC).
-2. **Routing Sisi Klien (Client-Side Routing)**: Gunakan router sisi klien (seperti React Router, Vue Router, Next.js App Router) untuk menavigasi antar tampilan secara instan tanpa memuat ulang (reload) jendela browser.
-3. **UI Berbasis Komponen**:
-   - Bangun antarmuka menggunakan komponen modular yang dapat digunakan kembali.
-   - Jaga pemisahan yang jelas antara komponen Presentational (dumb) dan komponen Container (smart).
-4. **Manajemen State**: Kelola state UI yang kompleks secara efisien. Bedakan antara:
-   - *Server State*: Data yang diambil dari API (gunakan `tanstack-query-expert` untuk caching, invalidasi, dan optimistic updates).
-   - *Client State*: State khusus UI seperti modal, mode gelap, atau form (gunakan Context, Zustand, atau useState sederhana).
-5. **Autentikasi API**: Gunakan autentikasi berbasis token (JWT, OAuth) atau cookie HTTP-only aman yang dirancang untuk konsumsi API. Pastikan frontend menangani kedaluwarsa token dan alur pembaruan (refresh) dengan lancar.
-
-### Panduan Orkestrasi
-Saat merancang atau membangun SPA, orkestrasikan skill berikut secara kontekstual:
-- **Dengan `senior-frontend` / `ui-ux-pro-max`**: Bangun antarmuka pengguna yang sangat interaktif dan mulus menggunakan framework modern (React/Next.js/Vue) dan Tailwind CSS. Pastikan interaksi mikro dan transisi terasa seperti aplikasi native.
-- **Dengan `tanstack-query-expert`**: Serahkan semua proses pengambilan data API, caching, dan sinkronisasi ke TanStack Query. Hindari pengambilan data manual dengan `useEffect` untuk state server.
-- **Dengan `js-backend-expert` atau `go-programming-expert`**: Rancang API backend yang kokoh dan stateless untuk menyajikan data JSON secara efisien. Pastikan CORS dan rate-limiting dikonfigurasi dengan benar.
-- **Dengan `seo` / `seo-geo`**: Atasi tantangan SEO yang melekat pada SPA. Jika SEO sangat penting, orkestrasikan pergeseran menuju Server-Side Rendering (SSR) atau Static Site Generation (SSG) menggunakan framework seperti Next.js, untuk memastikan tag meta dan data skema terisi di server.
+Panduan orkestrasi terstruktur untuk membangun Single-Page Application (SPA) modern. Mengkoordinasikan arsitektur frontend (TanStack Router, React 19, TanStack Query v5) dengan backend API terpisah (Hono RPC, tRPC). Mencakup strategi state management, pola routing, desain API layer, build tooling (Vite + TanStack Start), dan strategi deployment.
 
 ### Kondisi Pemicu
-- Aktif ketika pengguna meminta untuk membangun aplikasi web menggunakan pendekatan Single-Page Application (SPA), React, Vue, atau arsitektur headless.
-- Aktif ketika melakukan refaktor aplikasi lama menjadi arsitektur frontend-backend yang terpisah.
-- Aktif ketika pengguna membutuhkan bantuan dalam mengatur state sisi klien yang kompleks dan integrasi API.
+- Membangun dashboard yang sangat interaktif, panel admin, atau aplikasi web berat data sebagai SPA.
+- Memilih antara SPA vs SSR vs MPA untuk proyek baru.
+- Menyiapkan client-side routing dengan **TanStack Router** (rute type-safe, loader).
+- Menyusun state management: server state (TanStack Query) vs client state (Zustand/Jotai).
+- Membangun frontend terpisah yang berkomunikasi dengan backend terpisah via **Hono RPC** atau tRPC.
+- Men-deploy SPA ke Cloudflare Pages, Vercel, atau CDN.
+
+### SPA vs SSR vs MPA — Panduan Keputusan
+
+Pilih SPA saat: aplikasi sangat interaktif (dashboard, editor, panel admin), state sisi klien yang kaya, aplikasi yang dibatasi auth (SEO bukan perhatian utama).
+
+Pilih SSR (Next.js) saat: SEO sangat penting, load halaman awal yang cepat untuk pengguna yang tidak terautentikasi, aplikasi campuran.
+
+Pilih MPA (Astro, Django, Laravel) saat: konten sebagian besar statis, SEO adalah perhatian utama — lihat skill `mpa-orchestrator`.
+
+### Stack SPA yang Direkomendasikan (2026)
+Vite 6 untuk build, TanStack Router untuk routing type-safe, TanStack Query v5 untuk server state, Zustand untuk client state, Hono RPC untuk API layer type-safe, React Hook Form + Zod untuk form, Tailwind CSS v4 untuk styling.
+
+### TanStack Router — Routing File-Based Type-Safe
+Atur rute dalam direktori `src/routes/` dengan layout bersarang. Gunakan `createFileRoute` dengan `beforeLoad` untuk guard autentikasi, `loader` untuk prefetch data, dan `validateSearch` untuk URL state yang dapat dibagikan.
+
+### Arsitektur State Management
+Empat lapisan state yang saling melengkapi: Server State (TanStack Query), Client State (Zustand), Form State (React Hook Form), dan URL State (TanStack Router search params).
+
+### Hono RPC — API Type-Safe Terpisah
+Ekspor `AppType` dari backend Hono dan gunakan `hc<AppType>()` di frontend untuk panggilan API yang fully typed tanpa codegen.
+
+### Build & Deployment
+Gunakan plugin `TanStackRouterVite` untuk auto-generate route tree. Konfigurasi `manualChunks` untuk code splitting yang optimal. Deploy SPA ke Cloudflare Pages atau Vercel; backend API ke Railway/Fly.io secara terpisah.
