@@ -94,6 +94,11 @@ When working within a centralized MPA (via `mpa-orchestrator`):
 - Use **Alpine.js** or **HTMX** for micro-interactions without heavy client bundles.
 - Apply **Progressive Enhancement**: ensure forms and links work without JavaScript first.
 
+#### 8. Advanced Animations (GSAP)
+- Use **GSAP (GreenSock Animation Platform)** for complex, timeline-based, and scroll-driven animations (`ScrollTrigger`).
+- Prefer GSAP over CSS animations for sequences requiring pausing, reversing, staggering, or timeline control.
+- In React, always use the `@gsap/react` `useGSAP()` hook for automatic cleanup and scope management to prevent memory leaks.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -149,3 +154,8 @@ Saat membangun SPA terpisah (bukan Next.js SSR):
 Saat bekerja dalam arsitektur MPA terpusat:
 - Gunakan Alpine.js atau HTMX untuk interaksi mikro yang ringan.
 - Terapkan Progressive Enhancement: form dan link harus berfungsi tanpa JavaScript terlebih dahulu.
+
+#### 8. Animasi Tingkat Lanjut (GSAP)
+- Gunakan **GSAP (GreenSock Animation Platform)** untuk animasi kompleks, berbasis timeline, dan *scroll-driven* (`ScrollTrigger`).
+- Utamakan GSAP dibandingkan CSS untuk animasi yang membutuhkan kontrol *timeline*, jeda (*pause*), *reverse*, atau *stagger*.
+- Di React, selalu gunakan hook `useGSAP()` dari `@gsap/react` untuk *cleanup* otomatis dan manajemen *scope* guna mencegah kebocoran memori (*memory leak*).
