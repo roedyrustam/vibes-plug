@@ -57,6 +57,7 @@ Recommended modern SaaS stack (2026):
 
 #### 4. Pre-Launch Checklist
 - **Technical**: Authentication works, Payments work end-to-end, Error monitoring configured (Sentry), Database backups active, Rate limiting on API routes, Input validation with Zod.
+- **Session Management Optimization**: Use Edge-compatible JWTs combined with Redis (e.g., Upstash) for high-performance session validation. Avoid blocking relational database queries on every authenticated request.
 - **Authentication & Auth Provider Checklist**:
   - **Clerk**: Ensure webhook secrets are configured in production to sync user creations/deletions, set `ClerkProvider` dynamic flags, and lock down middleware matching routes so API folders are protected.
   - **NextAuth.js (Auth.js)**: Verify `NEXTAUTH_SECRET` is set with a strong generated value, session driver is correctly configured (JWT or database sessions), and token expiration rules are set appropriately.
@@ -118,6 +119,7 @@ Rekomendasi stack SaaS modern (2026):
 
 #### 4. Checklist Peluncuran (Pre-Launch Checklist)
 - **Teknis**: Autentikasi bekerja dengan baik, Pembayaran bekerja end-to-end (subscribe, cancel), Pemantauan error terkonfigurasi (Sentry), Database backup aktif, Rate limiting pada API routes, Validasi input dengan Zod pada semua form.
+- **Optimasi Session Management**: Gunakan JWT (Edge-compatible) yang dikombinasikan dengan Redis (contoh: Upstash) untuk validasi sesi berkinerja tinggi. Hindari query database relasional yang memblokir pada setiap request yang terautentikasi.
 - **Checklist Autentikasi & Auth Provider**:
   - **Clerk**: Pastikan webhook secret dikonfigurasi di produksi untuk sinkronisasi pembuatan/penghapusan user, atur dynamic flags pada `ClerkProvider`, dan kunci middleware agar seluruh endpoint API terproteksi.
   - **NextAuth.js (Auth.js)**: Pastikan `NEXTAUTH_SECRET` diatur dengan nilai acak yang kuat di environment production, adapter session terhubung dengan benar (JWT atau database session), dan atur waktu kedaluwarsa token secara aman.

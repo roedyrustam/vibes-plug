@@ -94,6 +94,9 @@ CREATE POLICY "admins can create projects"
 -- ⚠️ NEVER expose service role key to frontend
 ```
 
+#### Session Management & RLS Optimization
+To avoid performance bottlenecks, embed `workspace_id` and `role` directly into the user's Session JWT (Custom Claims). This allows RLS policies to check the session token directly (`auth.jwt()->>'workspace_id'`) instead of joining the `workspace_members` table on every query.
+
 #### RLS Helper Functions
 ```sql
 -- Helper: Check if current user has a minimum role in a workspace
@@ -217,6 +220,9 @@ Panduan ahli untuk merancang dan mengimplementasikan arsitektur SaaS multi-tenan
 
 ### Strategi 1: Shared Schema + RLS (Direkomendasikan)
 Rancang tabel `workspaces` (tenant), `workspace_members` (keanggotaan + role), dan semua tabel data dengan kolom `workspace_id`. Terapkan RLS agar pengguna hanya dapat melihat data workspace mereka sendiri.
+
+#### Optimasi Session Management & RLS
+Untuk menghindari bottleneck performa, sematkan `workspace_id` dan `role` langsung ke dalam Session JWT pengguna (Custom Claims). Ini memungkinkan kebijakan RLS untuk memeriksa token sesi secara langsung (`auth.jwt()->>'workspace_id'`) daripada melakukan join ke tabel `workspace_members` pada setiap query.
 
 #### Fungsi Helper RLS
 Buat fungsi `user_has_role()` yang dapat digunakan kembali di seluruh kebijakan RLS untuk memeriksa apakah pengguna saat ini memiliki role minimum yang diperlukan dalam workspace tertentu.

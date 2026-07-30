@@ -183,6 +183,7 @@ export const subscriptions = pgTable('subscriptions', {
 ### Billing Security Checklist
 - [ ] Webhook signature verified on every request — reject without valid signature.
 - [ ] Webhook idempotency implemented — never process the same event twice.
+- [ ] Session Management Optimization: Secure the billing portal route with strict session validation and CSRF protection. Do not cache session-dependent billing states.
 - [ ] Use Stripe CLI / Polar.sh test webhooks for local development.
 - [ ] All billing API calls use server-side code only — never expose secret keys to frontend.
 - [ ] Plan limits enforced on every protected route (not just at checkout).
@@ -238,6 +239,7 @@ Rancang tabel `subscriptions` yang mendukung beberapa provider (`stripe`, `polar
 ### Checklist Keamanan Billing
 - [ ] Tanda tangan webhook diverifikasi pada setiap permintaan.
 - [ ] Idempotency webhook diimplementasikan.
+- [ ] Optimasi Session Management: Amankan rute portal billing dengan validasi sesi yang ketat dan perlindungan CSRF. Jangan gunakan cache untuk state billing yang bergantung pada sesi pengguna.
 - [ ] Semua panggilan API billing menggunakan kode sisi server saja.
 - [ ] Batas plan diterapkan pada setiap rute yang dilindungi.
 - [ ] Alur dunning pembayaran gagal dikonfigurasi.

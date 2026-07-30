@@ -166,6 +166,7 @@ When this skill is triggered, execute the following **9-phase transformation pro
 - [ ] RBAC roles defined (owner, admin, member, viewer)
 - [ ] Authorization middleware protects all routes/endpoints
 - [ ] JWT custom claims include workspace_id and role
+- [ ] Session Management Optimization: Implement Edge-ready session validation (e.g., Redis or JWT) to minimize database lookups
 
 ---
 
@@ -373,6 +374,7 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 - [ ] Provider auth dikonfigurasi (email + minimal 1 OAuth)
 - [ ] Role RBAC didefinisikan (owner, admin, member, viewer)
 - [ ] Middleware otorisasi melindungi semua route/endpoint
+- [ ] Optimasi Session Management: Implementasikan validasi sesi Edge-ready (contoh: Redis atau JWT custom claims) untuk meminimalkan beban query ke database
 
 #### FASE 4: Billing & Langganan
 **Mengorkestrasi:** `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend`
