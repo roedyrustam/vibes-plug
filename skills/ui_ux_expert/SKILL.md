@@ -35,6 +35,12 @@ Active when the user requests help with:
 - **Navigation**: Easy-to-reach sidebar/topbar navigation, ensuring user journeys require no more than 3 clicks to their destination.
 - **Usability & Interaction**: Prioritize simplicity and clarity. Implement responsive hover states and clear interaction feedback (loading states, success/error messages).
 
+### Modern SaaS Design Guidelines (Inspired by Monday.com)
+- **Visual Aesthetic**: Spacious, highly structured, clean white (`#FFFFFF`) or light gray (`#F9F9F9`) backgrounds with vibrant brand accents (e.g., `#0073ea` blue). 
+- **Typography**: Geometric sans-serif fonts with high contrast (extra-bold 48-60px for hero, medium 16-18px for body in muted gray `#676879`).
+- **Components**: Rounded corners for buttons (~8px) and large radius for cards (~12-16px) with subtle drop shadows (`shadow-sm`).
+- **Layout Flow**: Centered content with a max-width of 1200-1400px and very generous vertical section padding (80-120px) to create a premium feel.
+
 ### Modern & Professional Dashboard Design Guidelines
 - **Dashboard Layout**: 
   - **Sidebar**: Collapsible navigation bar (240px–280px width open, 64px–80px collapsed). Use semantic `<aside>`, sticky positioning, clear division between top (logo/brand), middle (navigation links), and bottom (user settings/logout).
@@ -80,6 +86,12 @@ Aktif ketika pengguna meminta bantuan terkait:
 - **Strategi Responsif**: Breakpoint fokus pada Desktop (≥1080px) dan Tablet Landscape (768px – 1080px).
 - **Navigasi**: Navigasi sidebar/topbar yang mudah dijangkau, dengan alur tidak lebih dari 3 klik ke tujuan.
 - **Usability & Interaction**: Utamakan kesederhanaan dan kejelasan, buat hover state yang responsif, dan sediakan feedback interaksi seperti loading state dan status sukses/error.
+
+### Panduan Desain SaaS Modern (Terinspirasi Monday.com)
+- **Estetika Visual**: Luas, terstruktur, bersih dengan latar belakang putih (`#FFFFFF`) atau abu-abu terang (`#F9F9F9`), dipadukan dengan aksen merek yang cerah (mis. biru `#0073ea`).
+- **Tipografi**: Font sans-serif geometris dengan kontras tinggi (sangat tebal 48-60px untuk hero, sedang 16-18px abu-abu redup `#676879` untuk teks isi).
+- **Komponen**: Sudut melengkung untuk tombol (~8px) dan radius besar untuk kartu (~12-16px) dengan efek bayangan sangat halus (`shadow-sm`).
+- **Alur Tata Letak**: Konten terpusat dengan lebar maksimal 1200-1400px serta padding vertikal antar bagian yang sangat lega (80-120px) untuk kesan premium.
 
 ### Panduan Desain Dashboard Modern & Profesional
 - **Tata Letak Dashboard (Layout)**:

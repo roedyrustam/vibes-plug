@@ -46,6 +46,13 @@ Use this skill when:
 - **Tone**: Do not use "revolutionary", "game-changing", or "best-in-class".
 - **CTA**: Do not use "Submit" or "Click Here" as CTA button text.
 
+### Layout & UI Aesthetic (Monday.com Inspired)
+- Design the landing page with a modern, spacious aesthetic (see `monday-design-aesthetic` skill).
+- Use generous vertical padding (80-120px) between narrative sections.
+- Display features as benefits using large, rounded cards (12-16px radius) with subtle drop shadows.
+- Keep the background clean white or light gray, using a vibrant brand color for CTA buttons.
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -82,3 +89,9 @@ Gunakan skill ini ketika:
 - **Batasan FAQ**: Setiap jawaban FAQ harus di bawah 50 kata, mandiri, dan mudah dipahami tanpa konteks eksternal.
 - **Bahasa Jujur**: Hindari kata-kata berlebihan seperti "revolutionary", "game-changing", or "best-in-class".
 - **CTA Spesifik**: Jangan gunakan teks tombol standar seperti "Submit" atau "Click Here". Gunakan teks berorientasi tindakan (misal: "Mulai Uji Coba Gratis").
+
+### Tata Letak & Estetika UI (Inspirasi Monday.com)
+- Desain landing page dengan estetika modern dan lapang (lihat skill `monday-design-aesthetic`).
+- Gunakan padding vertikal yang lega (80-120px) di antara setiap bagian narasi.
+- Tampilkan fitur sebagai manfaat (features as benefits) menggunakan kartu bersudut melengkung besar (radius 12-16px) dengan efek bayangan halus.
+- Jaga latar belakang tetap putih bersih atau abu-abu terang, menggunakan warna merek yang cerah untuk tombol CTA.
