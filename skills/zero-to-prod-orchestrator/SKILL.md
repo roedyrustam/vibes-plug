@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Overview
-The **Zero to Production Orchestrator** is the central master skill designed to orchestrate all specialized skills in `vibes-plug`. It guides fullstack developers through the complete software engineering lifecycle — from concept discovery to AI integration, multi-platform backend architecture, design systems, automated testing, GEO/AEO optimization, and production deployment.
+The **Zero to Production Orchestrator** is the ultimate master skill designed to orchestrate the entire `vibes-plug` ecosystem as a highly interconnected **engineering swarm**. By acting as the central conductor, it ensures that no sub-skill is executed in isolation. It guides fullstack developers through the complete software engineering lifecycle — from concept discovery to AI integration, multi-platform backend architecture, design systems, automated testing, GEO/AEO optimization, and production deployment.
 
 ### Trigger Conditions
 - Starting any new application development from scratch.
@@ -25,6 +25,8 @@ The **Zero to Production Orchestrator** is the central master skill designed to 
 1. **Never Skip Phases**: Each phase must be completed and validated before advancing to the next.
 2. **Continuous Auto-Documentation**: Invoke `auto-doc-updater` to log changes in `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
 3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
+4. **State Preservation**: Utilize `session-handoff-resume` when pausing work or switching contexts, ensuring zero token waste.
+5. **Efficiency**: Keep `token-saver` active during large refactors to maintain a lean, powerful execution loop.
 
 ---
 
@@ -102,7 +104,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ## Bahasa Indonesia
 
 ### Ringkasan
-**Zero to Production Orchestrator** adalah skill master terpusat yang merancang dan mengorkestrasi seluruh skill spesialis di `vibes-plug`. Skill ini memandu pengembang *fullstack* melalui seluruh siklus hidup rekayasa perangkat lunak — mulai dari tahap ide awal hingga integrasi AI, arsitektur backend multi-platform, design system, pengujian otomatis, optimasi GEO/AEO, dan deployment produksi.
+**Zero to Production Orchestrator** adalah skill master utama yang dirancang untuk mengorkestrasi seluruh ekosistem `vibes-plug` sebagai sebuah **engineering swarm** yang saling terhubung erat. Dengan bertindak sebagai konduktor pusat, skill ini memastikan tidak ada sub-skill yang dieksekusi secara terisolasi. Skill ini memandu pengembang *fullstack* melalui seluruh siklus hidup rekayasa perangkat lunak — mulai dari tahap ide awal hingga integrasi AI, arsitektur backend multi-platform, design system, pengujian otomatis, optimasi GEO/AEO, dan deployment produksi.
 
 ### Kondisi Pemicu
 - Memulai pengembangan aplikasi baru dari nol.
@@ -113,6 +115,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 1. **Jangan Pernah Melewati Fase**: Setiap fase harus diselesaikan dan divalidasi sebelum beralih ke fase berikutnya.
 2. **Otomatisasi Dokumentasi**: Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap milestone utama.
 3. **Pelacakan Progres**: Pelihara daftar periksa `PROGRESS.md` di root repositori.
+4. **Preservasi State**: Gunakan `session-handoff-resume` saat menjeda pekerjaan atau berganti konteks, memastikan tidak ada token yang terbuang percuma.
+5. **Efisiensi**: Aktifkan `token-saver` selama refactoring besar-besaran untuk mempertahankan *loop* eksekusi yang ringkas dan *powerful*.
 
 ---
 

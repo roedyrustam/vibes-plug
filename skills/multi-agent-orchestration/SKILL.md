@@ -16,6 +16,8 @@ author: "Roedy Rustam"
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers agent orchestration frameworks (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, CrewAI, AutoGen), shared state and memory management, tool execution, human-in-the-loop (HITL) guardrails, and observability for agentic workflows.
 
+**Swarm Synergy:** This skill acts as a powerful orchestrator when combined with `mcp-server-architect` (for external tool integration) and `ai-llm-integration-expert` (for foundation model setup). Together, they form a complete, end-to-end **AI Engineering Swarm**.
+
 ### Trigger Conditions
 - Building autonomous AI agents that execute multi-step tasks.
 - Designing systems where multiple specialized AI agents collaborate.
@@ -170,6 +172,8 @@ Mandatory for high-stakes agent actions (financial transactions, email sending, 
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup framework orkestrasi agen (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), manajemen state dan memori bersama, eksekusi tool, guardrail human-in-the-loop (HITL), dan observabilitas untuk alur kerja agentik.
+
+**Sinergi Swarm:** Skill ini bertindak sebagai orkestrator yang sangat *powerful* jika dikombinasikan dengan `mcp-server-architect` (untuk integrasi eksternal tool) dan `ai-llm-integration-expert` (untuk penyiapan foundation model). Bersama-sama, ketiganya membentuk **AI Engineering Swarm** yang komprehensif dari ujung ke ujung.
 
 ### Kondisi Pemicu
 - Membangun agen AI otonom yang mengeksekusi tugas multi-langkah.
