@@ -84,13 +84,17 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition, very useful for high-efficiency bulk refactoring tasks.
 - **Web Scraper** (`web-scraper`): Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, and structured JSON/CSV export.
 
-### Optimal SaaS Orchestration
+### Universal Orchestration Workflow (The Power of Vibes Plug)
 
-To build or transform an application into a SaaS product optimally, do not trigger SaaS skills randomly. Instead, use a structured orchestration approach:
+To unlock the full potential of `vibes-plug`, skills should not be used in isolation. They are designed to act as a **highly orchestrated, interconnected swarm** that builds upon each other:
 
-- **Starting from scratch:** Invoke the `saas-mvp-launcher` skill to get a complete roadmap from idea validation to production deployment.
-- **Transforming an existing app:** Invoke the `saas-transformer` skill. It acts as a master orchestrator that will run a systematic 9-phase transformation on your existing codebase.
-- **Deep Dives & Integrations:** During the orchestration process, the master skill will automatically coordinate with specialized skills like `saas-multi-tenant` (for database isolation and RLS optimization) and `saas-billing` (for secure webhooks and payment gateways). This ensures that critical aspects like session management, multi-tenancy, and security are seamlessly integrated.
+1. **Ideation & Planning:** Always start with `brainstorming` and `prd-architect` to validate requirements, architectures, and design ideas.
+2. **Design & Frontend:** Trigger `design-system-architect` and `ui-ux-pro-max` to establish tokens, then use `senior-frontend` alongside `tanstack-query-expert` to implement robust, responsive UIs.
+3. **Backend & Architecture:** While building the frontend, orchestrate `js-backend-expert` (or `go-programming-expert`/`rust-programming-expert`) with `event-driven-architect` for high-performance, scalable backends.
+4. **SaaS Transformation (Master Orchestrators):** If you are building a commercial product, invoke `saas-transformer` or `saas-mvp-launcher`. These master skills will automatically invoke `saas-multi-tenant`, `saas-billing`, and `supabase-security-expert` to seamlessly integrate tenancy, billing, and session management.
+5. **Quality & Launch:** Before deploying, use `e2e-testing-expert`, `secure-fuzz-testing`, and `seo` to validate. Finally, invoke `production-ready-hardener` to audit the entire system for Edge/Cloud deployment.
+
+By letting the skills naturally invoke one another, you transform the AI into a complete, end-to-end engineering team.
 
 ---
 
@@ -202,13 +206,17 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **Web Scraper** (`web-scraper`): Kemampuan ekstraksi data web cerdas dengan strategi *scraping* modern (Crawl4AI, Playwright, BeautifulSoup), ekstraksi LLM, serta ekspor JSON/CSV terstruktur.
 
-### Orkestrasi SaaS yang Optimal
+### Alur Orkestrasi Universal (Kekuatan Penuh Vibes Plug)
 
-Untuk membangun atau mentransformasi aplikasi menjadi produk SaaS secara optimal, jangan memicu *skill* SaaS secara acak. Gunakan pendekatan orkestrasi terstruktur berikut:
+Untuk membuka potensi penuh dari `vibes-plug`, *skill* tidak boleh digunakan secara terisolasi. Mereka dirancang untuk bertindak sebagai **sebuah ekosistem (swarm) yang saling terhubung dan terorkestrasi** yang saling melengkapi:
 
-- **Membangun dari nol (Scratch):** Panggil *skill* `saas-mvp-launcher` untuk mendapatkan *roadmap* lengkap mulai dari validasi ide hingga *deployment* ke produksi.
-- **Mentransformasi aplikasi yang sudah ada:** Panggil *skill* `saas-transformer`. *Skill* ini bertindak sebagai *master orchestrator* yang akan menjalankan transformasi sistematis 9-fase pada *codebase* Anda saat ini.
-- **Pendalaman & Integrasi Khusus:** Selama proses orkestrasi berjalan, *master skill* akan berkoordinasi secara otomatis dengan *skill* spesialis seperti `saas-multi-tenant` (untuk isolasi database dan optimasi RLS) serta `saas-billing` (untuk *webhook* yang aman dan integrasi pembayaran). Pendekatan ini memastikan aspek krusial seperti optimasi *session management*, *multi-tenancy*, dan keamanan terintegrasi dengan sempurna.
+1. **Ideasi & Perencanaan:** Selalu mulai dengan `brainstorming` dan `prd-architect` untuk memvalidasi persyaratan, arsitektur, dan ide desain.
+2. **Desain & Frontend:** Picu `design-system-architect` dan `ui-ux-pro-max` untuk membuat *design tokens*, kemudian gunakan `senior-frontend` bersama `tanstack-query-expert` untuk membangun UI yang kuat dan responsif.
+3. **Backend & Arsitektur:** Saat membangun frontend, orkestrasikan `js-backend-expert` (atau `go-programming-expert`/`rust-programming-expert`) dengan `event-driven-architect` untuk *backend* berskala tinggi.
+4. **Transformasi SaaS (Master Orchestrators):** Jika Anda membangun sebuah produk komersial, panggil `saas-transformer` atau `saas-mvp-launcher`. *Skill master* ini akan secara otomatis memicu `saas-multi-tenant`, `saas-billing`, dan `supabase-security-expert` untuk mengintegrasikan sistem *tenancy*, penagihan, dan manajemen sesi secara mulus.
+5. **Kualitas & Peluncuran:** Sebelum *deploy*, gunakan `e2e-testing-expert`, `secure-fuzz-testing`, dan `seo` untuk validasi. Terakhir, panggil `production-ready-hardener` untuk mengaudit seluruh sistem sebelum rilis ke Edge/Cloud.
+
+Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah agen AI menjadi sebuah tim *engineering end-to-end* yang lengkap dan sangat *powerful*.
 
 ---
 
