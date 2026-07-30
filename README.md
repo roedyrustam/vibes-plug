@@ -84,6 +84,14 @@ This plugin provides the following list of skills that can be used by the agent:
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition, very useful for high-efficiency bulk refactoring tasks.
 - **Web Scraper** (`web-scraper`): Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, and structured JSON/CSV export.
 
+### Optimal SaaS Orchestration
+
+To build or transform an application into a SaaS product optimally, do not trigger SaaS skills randomly. Instead, use a structured orchestration approach:
+
+- **Starting from scratch:** Invoke the `saas-mvp-launcher` skill to get a complete roadmap from idea validation to production deployment.
+- **Transforming an existing app:** Invoke the `saas-transformer` skill. It acts as a master orchestrator that will run a systematic 9-phase transformation on your existing codebase.
+- **Deep Dives & Integrations:** During the orchestration process, the master skill will automatically coordinate with specialized skills like `saas-multi-tenant` (for database isolation and RLS optimization) and `saas-billing` (for secure webhooks and payment gateways). This ensures that critical aspects like session management, multi-tenancy, and security are seamlessly integrated.
+
 ---
 
 ### Automatic Installation (Recommended)
@@ -193,6 +201,14 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **Session Handoff & Memory Resume** (`session-handoff-resume`): Menyimpan checkpoint proyek super ringkas (`STATE_HANDOFF.md`) sebelum ganti akun/sesi dan melanjutkan pekerjaan secara instan tanpa boros token.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan, sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **Web Scraper** (`web-scraper`): Kemampuan ekstraksi data web cerdas dengan strategi *scraping* modern (Crawl4AI, Playwright, BeautifulSoup), ekstraksi LLM, serta ekspor JSON/CSV terstruktur.
+
+### Orkestrasi SaaS yang Optimal
+
+Untuk membangun atau mentransformasi aplikasi menjadi produk SaaS secara optimal, jangan memicu *skill* SaaS secara acak. Gunakan pendekatan orkestrasi terstruktur berikut:
+
+- **Membangun dari nol (Scratch):** Panggil *skill* `saas-mvp-launcher` untuk mendapatkan *roadmap* lengkap mulai dari validasi ide hingga *deployment* ke produksi.
+- **Mentransformasi aplikasi yang sudah ada:** Panggil *skill* `saas-transformer`. *Skill* ini bertindak sebagai *master orchestrator* yang akan menjalankan transformasi sistematis 9-fase pada *codebase* Anda saat ini.
+- **Pendalaman & Integrasi Khusus:** Selama proses orkestrasi berjalan, *master skill* akan berkoordinasi secara otomatis dengan *skill* spesialis seperti `saas-multi-tenant` (untuk isolasi database dan optimasi RLS) serta `saas-billing` (untuk *webhook* yang aman dan integrasi pembayaran). Pendekatan ini memastikan aspek krusial seperti optimasi *session management*, *multi-tenancy*, dan keamanan terintegrasi dengan sempurna.
 
 ---
 
