@@ -18,6 +18,7 @@ Expert guide for implementing and auditing SaaS billing systems. Covers subscrip
 
 ### Trigger Conditions
 - Integrating any payment gateway (Stripe, Polar.sh, LemonSqueezy, Midtrans, PayPal) into a SaaS application.
+- Using a Static-to-Dynamic QRIS alternative (with unique nominals and mutation webhooks) for local developers without PG accounts.
 - Implementing subscription state machines (active → past_due → canceled → reactivated).
 - Building secure webhook handlers with signature verification and idempotency.
 - Syncing external subscription status to a local database.
@@ -162,13 +163,129 @@ await stripe.subscriptionItems.createUsageRecord(subscriptionItemId, {
 });
 ```
 
+### PayPal — Checkout Integration
+
+PayPal remains a trusted global standard for one-off payments and subscriptions.
+
+#### Create Order (Server-Side)
+```typescript
+// app/api/paypal/create-order/route.ts
+import { paypalClient } from '@/lib/paypal';
+import paypal from '@paypal/checkout-server-sdk';
+
+export async function POST() {
+  const request = new paypal.orders.OrdersCreateRequest();
+  request.prefer("return=representation");
+  request.requestBody({
+    intent: 'CAPTURE',
+    purchase_units: [{ amount: { currency_code: 'USD', value: '29.99' } }]
+  });
+
+  const response = await paypalClient().execute(request);
+  return Response.json({ id: response.result.id });
+}
+```
+
+#### Capture Payment (Server-Side)
+```typescript
+// app/api/paypal/capture-order/route.ts
+import { db } from '@/lib/db';
+import { paypalClient } from '@/lib/paypal';
+import paypal from '@paypal/checkout-server-sdk';
+
+export async function POST(req: Request) {
+  const { orderID, userId } = await req.json();
+  const request = new paypal.orders.OrdersCaptureRequest(orderID);
+  request.requestBody({});
+
+  const response = await paypalClient().execute(request);
+  if (response.result.status === 'COMPLETED') {
+    // Grant access or update subscription in DB
+    await db.subscription.create({
+      data: { userId, provider: 'paypal', status: 'active' }
+    });
+    return Response.json({ success: true });
+  }
+  return Response.json({ success: false }, { status: 400 });
+}
+```
+
+### QRIS Static-to-Dynamic (Indonesia Alternative)
+
+For Indonesian developers without an official Payment Gateway account, you can create a "Dynamic" QRIS experience using a single Static QRIS combined with unique payment amounts and a bank mutation checking service (e.g., Moota, Cekmutasi) via webhook.
+
+#### 1. Generate Unique Amount (Server-Side)
+```typescript
+// Add a unique 3-digit code to the base price
+export async function createQrisTransaction(userId: string, basePrice: number) {
+  // Generate a random code between 1 and 999
+  const uniqueCode = Math.floor(Math.random() * 999) + 1;
+  const totalAmount = basePrice + uniqueCode;
+  
+  const transaction = await db.transaction.create({
+    data: {
+      userId, basePrice, uniqueCode, totalAmount,
+      status: 'pending', provider: 'qris_static',
+      expiresAt: new Date(Date.now() + 15 * 60 * 1000) // 15 mins expiry
+    }
+  });
+  
+  return {
+    transactionId: transaction.id,
+    totalAmount,
+    qrisUrl: "https://myapp.com/static-qris.png" // User must manually input totalAmount
+  };
+}
+```
+
+#### 2. Mutation Webhook Handler & Real-Time Notification
+```typescript
+// app/api/webhooks/mutation/route.ts
+import { db } from '@/lib/db';
+import { pusherServer } from '@/lib/pusher';
+
+export async function POST(req: Request) {
+  const signature = req.headers.get("signature");
+  // TODO: Verify signature from mutation service (e.g., Moota)
+  
+  const mutations = await req.json();
+  
+  for (const mutation of mutations) {
+    if (mutation.type === 'CR' && mutation.amount > 0) {
+      // Find pending transaction matching the exact unique amount
+      const tx = await db.transaction.findFirst({
+        where: {
+          totalAmount: mutation.amount,
+          status: 'pending',
+          provider: 'qris_static',
+          expiresAt: { gt: new Date() }
+        }
+      });
+      
+      if (tx) {
+        // Mark as paid and activate subscription
+        await db.transaction.update({ where: { id: tx.id }, data: { status: 'paid' } });
+        await db.subscription.create({
+          data: { userId: tx.userId, provider: 'qris_static', status: 'active' }
+        });
+        
+        // Trigger real-time notification to frontend
+        await pusherServer.trigger(`payment-${tx.id}`, 'payment-success', { success: true });
+      }
+    }
+  }
+  
+  return new Response("OK", { status: 200 });
+}
+```
+
 ### Database Schema for Multi-Provider Billing
 ```typescript
-// Drizzle ORM — supports Stripe, Polar, LemonSqueezy
+// Drizzle ORM — supports Stripe, Polar, LemonSqueezy, PayPal, QRIS Static
 export const subscriptions = pgTable('subscriptions', {
   id: text('id').primaryKey(),
   workspaceId: text('workspace_id').references(() => workspaces.id).notNull(),
-  provider: text('provider').$type<'stripe' | 'polar' | 'lemonsqueezy'>().notNull(),
+  provider: text('provider').$type<'stripe' | 'polar' | 'lemonsqueezy' | 'paypal' | 'qris_static'>().notNull(),
   externalCustomerId: text('external_customer_id').notNull(),
   externalSubId: text('external_sub_id').notNull().unique(),
   status: text('status').$type<'active' | 'trialing' | 'past_due' | 'canceled' | 'paused'>().notNull(),
@@ -200,6 +317,7 @@ Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencak
 
 ### Kondisi Pemicu
 - Mengintegrasikan payment gateway (Stripe, Polar.sh, LemonSqueezy, Midtrans, PayPal) ke aplikasi SaaS.
+- Menggunakan alternatif QRIS Statis menjadi Dinamis (dengan nominal unik dan webhook mutasi) untuk developer lokal tanpa akun PG.
 - Mengimplementasikan state machine langganan.
 - Membangun webhook handler aman dengan verifikasi tanda tangan dan idempotency.
 - Menyinkronkan status langganan eksternal ke database lokal.
@@ -216,11 +334,17 @@ Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencak
 | **LemonSqueezy** | Indie hackers, harga sederhana | ❌ | ✅ |
 | **Paddle** | B2B SaaS, kepatuhan PPN EU | ❌ | ✅ |
 | **Midtrans** | Asia Tenggara / Indonesia | ❌ | ❌ |
+| **PayPal** | Global, kepercayaan konsumen (consumer trust) | ❌ | ❌ |
 
 > **Merchant of Record (MoR)**: Provider menangani kepatuhan pajak (PPN, GST), chargeback, dan tanggung jawab hukum — ideal untuk tim kecil tanpa departemen keuangan.
 
 ### Polar.sh — Billing Developer-First
 Polar.sh adalah alternatif open-source modern untuk Gumroad/LemonSqueezy, dirancang khusus untuk developer dan proyek open-source. Mendukung checkout, webhook, dan manajemen langganan dengan SDK TypeScript yang bersih.
+
+### PayPal — Integrasi Checkout
+PayPal sering digunakan sebagai gateway alternatif atau utama karena tingginya kepercayaan konsumen global.
+- **Server-Side Checkout**: Gunakan `create-order` dan `capture-order` di backend (menggunakan `@paypal/checkout-server-sdk`) untuk memastikan keamanan dan mencegah manipulasi harga di sisi klien.
+- **Webhook**: Verifikasi webhook dari PayPal untuk langganan yang diperbarui atau dibatalkan.
 
 ### Stripe — Pola Produksi
 
@@ -233,8 +357,15 @@ Selalu verifikasi tanda tangan webhook, tandai event sebagai diproses di databas
 #### Billing Berbasis Penggunaan (Metered)
 Laporkan penggunaan API dengan `stripe.subscriptionItems.createUsageRecord()` di akhir periode billing.
 
+### Alternatif Lokal: QRIS Statis Rasa Dinamis (Tanpa Akun Payment Gateway)
+Bagi pengguna/developer di Indonesia yang belum memiliki Payment Gateway (seperti Midtrans), Anda dapat membuat pengalaman QRIS "Dinamis" menggunakan satu gambar QRIS statis biasa.
+- **Generate Nominal Unik (Endpoint)**: Tambahkan angka unik (misalnya 3 digit acak) ke harga dasar (contoh: Rp 100.000 menjadi Rp 100.123). Simpan ke database sebagai transaksi `pending` dengan batas waktu kadaluarsa (misal 15 menit). Tampilkan gambar QRIS beserta instruksi transfer sesuai nominal unik.
+- **Webhook Mutasi Bank**: Gunakan layanan pihak ketiga (seperti Moota, Cekmutasi) yang mengirimkan notifikasi webhook (ke `/api/webhooks/mutation`) setiap kali ada uang masuk.
+- **Validasi Otomatis**: Saat webhook menerima payload mutasi kredit (`CR`), sistem mencari transaksi `pending` yang jumlahnya sama persis (`totalAmount`). Jika cocok, sistem menandai tagihan sebagai lunas (`paid`) dan mengaktifkan langganan.
+- **Notifikasi Klien**: Gunakan WebSocket (seperti Pusher atau Socket.io) di backend untuk melakukan *trigger event* "pembayaran berhasil". Di frontend, *listen* ke event tersebut dan tampilkan notifikasi *real-time* kepada pengguna secara instan tanpa perlu me-refresh halaman.
+
 ### Skema Database Multi-Provider
-Rancang tabel `subscriptions` yang mendukung beberapa provider (`stripe`, `polar`, `lemonsqueezy`) dengan kolom `provider` dan ID eksternal yang terpisah.
+Rancang tabel `subscriptions` yang mendukung beberapa provider (`stripe`, `polar`, `lemonsqueezy`, `paypal`, `qris_static`) dengan kolom `provider` dan ID eksternal yang terpisah.
 
 ### Checklist Keamanan Billing
 - [ ] Tanda tangan webhook diverifikasi pada setiap permintaan.
