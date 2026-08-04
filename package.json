@@ -1,0 +1,25 @@
+{
+  "name": "vibes-plug",
+  "version": "1.0.0",
+  "description": "Customization plugin for Antigravity containing 65+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roedyrustam/vibes-plug.git"
+  },
+  "keywords": [
+    "gemini",
+    "plugins",
+    "gemini",
+    "skills"
+  ],
+  "author": "Roedy Rustam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roedyrustam/vibes-plug/issues"
+  },
+  "homepage": "https://github.com/roedyrustam/vibes-plug#readme"
+}
