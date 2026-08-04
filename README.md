@@ -11,6 +11,20 @@
 
 **2026 Edition** — Customization plugin for Antigravity containing 65+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies.
 
+### Installation
+
+You can install or update `vibes-plug` directly into your Antigravity plugins directory using `curl` or `npm`.
+
+**Using curl & tar (Recommended for Antigravity)**
+```bash
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-1.0.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+```
+
+**Using npm (Global Installation)**
+```bash
+npm install -g vibes-plug
+```
+
 ### Features and Available Skills
 
 This plugin provides the following list of skills that can be used by the agent:
@@ -139,6 +153,20 @@ v2.0.0 (2026 Edition)
 ## Bahasa Indonesia
 
 **Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi 65+ *skills* khusus yang diperbarui untuk tech stack modern 2026 (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
+
+### Instalasi
+
+Anda dapat menginstal atau memperbarui `vibes-plug` langsung ke dalam direktori plugin Antigravity menggunakan `curl` atau `npm`.
+
+**Menggunakan curl & tar (Direkomendasikan untuk Antigravity)**
+```bash
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-1.0.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+```
+
+**Menggunakan npm (Instalasi Global)**
+```bash
+npm install -g vibes-plug
+```
 
 ### Fitur dan Skills yang Tersedia
 
