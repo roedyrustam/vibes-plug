@@ -9,7 +9,7 @@
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Customization plugin for Antigravity containing 40+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Customization plugin for Antigravity containing 65+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies.
 
 ### Features and Available Skills
 
@@ -26,24 +26,28 @@ This plugin provides the following list of skills that can be used by the agent:
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Comprehensive design guide for web and mobile applications. Contains guides for color palettes, typography, WCAG 2.2 AAA accessibility, micro-animations, and deep UX guidelines.
 - **UI/UX Expert** (`ui_ux_expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
 
-#### Frontend & Mobile Development
+#### Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits (Core Web Vitals, INP), and executes targeted optimizations according to standards.
 - **MPA Orchestrator** (`mpa-orchestrator`): Orchestrates Multi-Page Application (MPA) architecture within a single repository.
 - **SPA Orchestrator** (`spa-orchestrator`): Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management (TanStack Router/Query) with decoupled API-driven backends.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern utility-first stacks using Tailwind CSS v4 and Alpine.js 3 / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Expert guide for React Native 0.76+ and Expo SDK 52+ development, covering Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
+- **Performance & Web Vitals** (`performance-web-vitals`): Expert guide for Web Performance optimization — Core Web Vitals (LCP, INP, CLS), JavaScript bundle analysis, image/font loading strategies, React 19 concurrent features (`useTransition`, `useDeferredValue`), virtual lists, and Lighthouse score improvement.
 - **Senior Frontend** (`senior-frontend`): React 19, Next.js 15, TypeScript, and Tailwind CSS v4 development expert. Capable of optimizing performance, bundle size, Server Actions, `useActionState`, `useOptimistic`, and designing frontend components.
+- **State Management Expert** (`state-management-expert`): Expert guide for modern client-side state management — Zustand 5 (slice pattern, persistence, devtools), Jotai 2 (atomic state, `loadable`), Valtio, Redux Toolkit 2 (Immer, `createAsyncThunk`), and proper separation of server state (TanStack Query) from client state.
 - **Tailwind CSS Expert** (`tailwind-expert`): Deep guide for CSS-first Tailwind CSS v4 configuration (`@theme`), modern utility classes, custom state modifiers, OKLCH colors, and container queries.
 - **TanStack Query Expert** (`tanstack-query-expert`): Expert in asynchronous state management using TanStack Query v5, `useSuspenseQuery`, optimistic mutations, and Next.js App Router (SSR) hydration.
 - **Tauri Expert** (`tauri-expert`): Best practice guide for cross-platform application development with Tauri v2 (Desktop & Mobile), focusing on the Rust backend ecosystem, IPC communication, and security capabilities.
 
 #### Backend, Languages & Runtimes
+- **API Design Expert** (`api-design-expert`): Expert guide for designing production-grade APIs — REST resource modeling, HTTP semantics, GraphQL schema design, gRPC with protobuf, tRPC for end-to-end TypeScript type safety, OpenAPI 3.1 documentation, API versioning, rate limiting (sliding window), idempotency keys, and contract-first development.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun JavaScript/TypeScript runtime (v1.2+), covering built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, package management, and migration strategies from Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Expert-level skill for Go programming (Go 1.23/1.24+). Covers high-performance backend APIs, microservices, concurrency patterns (`errgroup`, context propagation), `sqlc`, `net/http` routing, Gin/Echo/Fiber, gRPC, and table-driven testing.
 - **JS Backend Expert** (`js-backend-expert`): Production-grade guidance for modern JavaScript/TypeScript backend APIs across Node.js 22 LTS, Bun 1.2+, and Deno 2.x. Covers Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSockets, and BullMQ background queues.
 - **PHP MVC Expert** (`mvc-expert`): Guidelines for modernizing legacy PHP projects into clean, secure, and structured OOP/MVC architectures adhering to modern PHP (v8.3/8.4+) capabilities and PSR standards.
 - **Python Programming Expert** (`python-programming-expert`): Expert-level guide for Python programming (Python 3.12/3.13+), covering PEP 695 type parameter syntax, structured concurrency (`asyncio.TaskGroup`), FastAPI 0.115+, Pydantic v2, `uv` package manager, `Ruff` 0.8+, and pytest 8+.
 - **Rust Programming Expert** (`rust-programming-expert`): High-level guide for Rust programming (Rust 2024 / v1.85+), covering memory safety (ownership/lifetimes), asynchronous programming (Tokio, async closures), web backends (Axum 0.8+, SQLx 0.8+), CLI (Clap, Serde), performance optimization, and unsafe code management.
+- **TypeScript Expert** (`typescript-expert`): Expert guide for TypeScript 5.x advanced type system — strict mode config, branded types for domain modeling, discriminated unions for state machines, template literal types, conditional types with `infer`, the `satisfies` operator, `NoInfer<T>`, `using` declarations (TS 5.2), Zod schema integration, and type-safe environment variables.
 
 #### SaaS Architecture, Systems & Cloud
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Expert guide for deploying SaaS applications on edge and serverless platforms like Vercel (Edge, Fluid Compute), Cloudflare (Wrangler v3, Workers/Pages), Supabase, and Neon.
@@ -57,13 +61,16 @@ This plugin provides the following list of skills that can be used by the agent:
 - **SaaS Transformer** (`saas-transformer`): Master orchestrator skill that guides the systematic 8-phase transformation of an existing regular application into a fully-featured production-ready multi-tenant SaaS platform.
 - **Senior Fullstack** (`senior-fullstack`): Complete set of instructions for senior-level fullstack developers with the latest tools and best practices.
 
+#### Database & ORM
+- **Database & ORM Expert** (`database-orm-expert`): Expert guide for database schema design and ORM selection — Prisma 6 (schema-first, Studio, `$transaction`), Drizzle ORM (SQL-first, edge-compatible, composable queries), TypeORM, raw SQL via `postgres.js`, cursor-based pagination, N+1 prevention, index strategy, connection pooling, and migration best practices for PostgreSQL, MySQL, and SQLite.
+- **Supabase Migration** (`supabase-migration`): A skill to create, manage, or apply database migrations for Supabase locally or remotely via CLI v2+.
+
 #### Quality, Testing & Security
 - **E2E Testing & Test Automation** (`e2e-testing-expert`): Expert guide for End-to-End (E2E) testing with Playwright 1.48+, unit/integration testing with Vitest 2+, MSW 2+, and CI/CD automated pipeline setup.
 - **Firebase Security Expert** (`firebase-security-expert`): Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration (v11+).
 - **Production-Ready Hardener** (`production-ready-hardener`): Ultimate production readiness skill that orchestrates and coordinates audits across security, performance, SEO, testing, and DevOps.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Guide to writing clean code (SOLID, DRY) and designing scalable modular application architectures.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Expert-level skill for writing and integrating coverage-guided fuzz tests (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan).
-- **Supabase Migration** (`supabase-migration`): A skill to create, manage, or apply database migrations for Supabase locally or remotely via CLI v2+.
 - **Supabase Security Expert** (`supabase-security-expert`): Supabase security expert to audit web application security, relational databases, RLS (Row Level Security) configuration, RBAC, and Supabase Linter.
 - **Zero to Production Orchestrator** (`zero-to-prod-orchestrator`): Master orchestrator skill that guides the complete lifecycle of building a new application from scratch to a production-ready release.
 
@@ -131,7 +138,7 @@ v2.0.0 (2026 Edition)
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
-**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi 40+ *skills* khusus yang diperbarui untuk tech stack modern 2026 (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi 65+ *skills* khusus yang diperbarui untuk tech stack modern 2026 (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Fitur dan Skills yang Tersedia
 
@@ -148,24 +155,28 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Panduan desain komprehensif untuk aplikasi web dan mobile. Mengandung panduan palet warna, tipografi, aksesibilitas WCAG 2.2 AAA, mikro-animasi, serta pedoman UX mendalam.
 - **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
 
-#### Pengembangan Frontend & Mobile
+#### Pengembangan Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan (Core Web Vitals, INP), serta melakukan optimasi terarah.
 - **MPA Orchestrator** (`mpa-orchestrator`): Mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori.
 - **SPA Orchestrator** (`spa-orchestrator`): Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API yang terpisah.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Skill ahli untuk merefaktor dan memigrasikan aplikasi Bootstrap CSS lama ke stack modern berbasis utility menggunakan Tailwind CSS v4 dan Alpine.js 3 / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Panduan ahli pengembangan React Native 0.76+ dan Expo SDK 52+, mencakup Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
+- **Performance & Web Vitals** (`performance-web-vitals`): Panduan ahli optimasi performa web — Core Web Vitals (LCP, INP, CLS), analisis bundle JavaScript, strategi loading gambar/font, fitur concurrent React 19 (`useTransition`, `useDeferredValue`), virtualisasi list panjang, dan peningkatan skor Lighthouse.
 - **Senior Frontend** (`senior-frontend`): Ahli pengembangan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4. Mampu mengoptimalkan performa, *bundle size*, Server Actions, `useActionState`, `useOptimistic`, dan merancang komponen *frontend*.
+- **State Management Expert** (`state-management-expert`): Panduan ahli manajemen state client-side modern — Zustand 5 (slice pattern, persistensi, devtools), Jotai 2 (state atomik, `loadable`), Valtio, Redux Toolkit 2 (Immer, `createAsyncThunk`), dan pemisahan yang tepat antara server state (TanStack Query) dan client state.
 - **Tailwind CSS Expert** (`tailwind-expert`): Panduan mendalam untuk konfigurasi CSS-first Tailwind CSS v4 (`@theme`), utility classes modern, state modifiers kustom, warna OKLCH, dan container queries.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron menggunakan TanStack Query v5, `useSuspenseQuery`, mutasi optimistik, dan Next.js App Router (SSR) hidrasi.
 - **Tauri Expert** (`tauri-expert`): Panduan terbaik untuk pengembangan aplikasi lintas platform *(cross-platform)* dengan Tauri v2 (Desktop & Mobile), berfokus pada ekosistem backend Rust, IPC komunikasi, dan *Capabilities* keamanan.
 
 #### Backend, Bahasa & Runtime
+- **API Design Expert** (`api-design-expert`): Panduan ahli untuk merancang API berkualitas produksi — pemodelan resource REST, semantik HTTP, desain skema GraphQL, gRPC dengan protobuf, tRPC end-to-end type-safe untuk TypeScript, dokumentasi OpenAPI 3.1, versioning API, rate limiting (sliding window), idempotency key, dan pengembangan contract-first.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli untuk runtime JavaScript/TypeScript Bun (v1.2+), mencakup built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, manajemen paket, serta strategi migrasi dari Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Skill tingkat ahli untuk pemrograman Go (Go 1.23/1.24+). Mencakup API backend berkinerja tinggi, microservices, pola konkurensi (`errgroup`, perambatan konteks), `sqlc`, routing `net/http`, Gin/Echo/Fiber, gRPC, dan pengujian berbasis tabel.
 - **JS Backend Expert** (`js-backend-expert`): Panduan tingkat produksi untuk API backend JavaScript/TypeScript modern di Node.js 22 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSocket, dan background queues BullMQ.
 - **PHP MVC Expert** (`mvc-expert`): Panduan untuk memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih, aman, dan terstruktur dengan mematuhi standar PSR dan fitur PHP modern (v8.3/8.4+).
 - **Python Programming Expert** (`python-programming-expert`): Panduan tingkat ahli untuk pemrograman Python (Python 3.12/3.13+), mencakup sintaksis parameter tipe PEP 695, konkurensi terstruktur (`asyncio.TaskGroup`), API backend modern (FastAPI 0.115+, Pydantic v2), manajemen paket (`uv`), kualitas kode (`Ruff`), dan pytest 8+.
 - **Rust Programming Expert** (`rust-programming-expert`): Panduan tingkat tinggi untuk pemrograman Rust (Rust 2024 / v1.85+), mencakup keamanan memori, pemrograman asinkron (Tokio, async closures), web backends (Axum 0.8+, SQLx 0.8+), CLI (Clap, Serde), optimasi performa, serta manajemen kode unsafe.
+- **TypeScript Expert** (`typescript-expert`): Panduan ahli sistem tipe TypeScript 5.x — konfigurasi strict mode, branded types untuk pemodelan domain, discriminated union untuk state machine, template literal types, conditional types dengan `infer`, operator `satisfies`, `NoInfer<T>`, deklarasi `using` (TS 5.2), integrasi schema Zod, dan variabel lingkungan type-safe.
 
 #### Arsitektur SaaS, Sistem & Cloud
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Panduan ahli untuk meluncurkan aplikasi SaaS di platform edge & serverless seperti Vercel (Edge, Fluid Compute), Cloudflare (Wrangler v3, Workers/Pages), Supabase, dan Neon.
@@ -179,13 +190,16 @@ Plugin ini menyediakan daftar kemampuan (*skills*) berikut yang bisa digunakan o
 - **SaaS Transformer** (`saas-transformer`): Skill master orkestrator yang memandu transformasi sistematis 8-fase dari aplikasi biasa menjadi platform SaaS multi-tenant lengkap yang siap produksi.
 - **Senior Fullstack** (`senior-fullstack`): Perangkat instruksi lengkap untuk pengembang *fullstack* tingkat senior dengan alat-alat dan *best practices* termutakhir.
 
+#### Database & ORM
+- **Database & ORM Expert** (`database-orm-expert`): Panduan ahli desain skema database dan pemilihan ORM — Prisma 6 (schema-first, Studio, `$transaction`), Drizzle ORM (SQL-first, edge-compatible, composable query), TypeORM, SQL mentah via `postgres.js`, cursor-based pagination, pencegahan N+1, strategi index, connection pooling, dan praktik terbaik migrasi untuk PostgreSQL, MySQL, dan SQLite.
+- **Supabase Migration** (`supabase-migration`): Kemampuan untuk membuat, mengelola, atau menerapkan migrasi database Supabase secara lokal maupun remote via CLI v2+.
+
 #### Kualitas, Pengujian & Keamanan
 - **E2E Testing & Otomatisasi Tes** (`e2e-testing-expert`): Panduan ahli pengujian End-to-End (E2E) dengan Playwright 1.48+, pengujian unit/integrasi dengan Vitest 2+, MSW 2+, dan otomatisasi pipeline CI/CD.
 - **Firebase Security Expert** (`firebase-security-expert`): Ahli keamanan Firebase untuk melakukan audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check (v11+).
 - **Production-Ready Hardener** (`production-ready-hardener`): Skill kesiapan produksi utama yang mengorkestrasi dan mengoordinasikan audit pada aspek keamanan, performa, SEO, testing, dan DevOps.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Panduan menulis kode bersih (SOLID, DRY) dan merancang arsitektur aplikasi modular yang skalabel.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Panduan tingkat ahli untuk menulis dan mengintegrasikan pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan).
-- **Supabase Migration** (`supabase-migration`): Kemampuan untuk membuat, mengelola, atau menerapkan migrasi database Supabase secara lokal maupun remote via CLI v2+.
 - **Supabase Security Expert** (`supabase-security-expert`): Ahli keamanan Supabase untuk melakukan audit keamanan aplikasi web, database relasional, konfigurasi RLS (Row Level Security), RBAC, dan Supabase Linter.
 - **Zero to Production Orchestrator** (`zero-to-prod-orchestrator`): Skill master orkestrator yang memandu siklus hidup lengkap dalam membangun aplikasi baru dari nol hingga rilis siap produksi.
 
