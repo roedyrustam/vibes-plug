@@ -1,5 +1,10 @@
 # Vibes Plug
 
+[![Version](https://img.shields.io/badge/version-v2.1.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-69%2B%20active-06b6d4.svg)](skills/)
+[![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
+[![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
+
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
 ![Vibes Plug Banner](banner.png)
@@ -217,6 +222,8 @@ v2.1.0 (2026 Edition) — 69+ skills
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
 **Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **69+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
