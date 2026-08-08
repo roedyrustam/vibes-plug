@@ -1,28 +1,69 @@
 # Vibes Plug
 
+[![Version](https://img.shields.io/badge/version-v2.1.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-69%2B%20active-06b6d4.svg)](skills/)
+[![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
+[![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
+
+![Vibes Swarm Demo](vibes-swarm-demo.gif)
+
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal Agentic Swarm Workflow
+### ⚡ Universal 69+ Skills Agentic Swarm Architecture
 
 ```mermaid
 graph TD
-    %% Custom Styling
+    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills Engine)"]
+
+    subgraph SWARM["⚡ 69+ Specialized Skills Swarm Ecosystem"]
+        D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
+        D1["🤖 AI & Agentic Systems (5 Skills)<br/>ai-llm-integration • mcp-architect • multi-agent • gemini-booster"]
+        D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
+        D3["🖥️ Frontend & State (13 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
+        D4["⚙️ Backend & Languages (8 Skills)<br/>api-design • js-backend • python-expert • go-expert • rust-expert"]
+        D5["☁️ SaaS & Cloud Systems (13 Skills)<br/>saas-transformer • saas-billing • saas-multi-tenant • ci-cd-devops"]
+        D6["🗄️ Database & Security (10 Skills)<br/>database-orm • supabase-migration • auth-identity • supabase-security"]
+        D7["🔒 Hardening & Quality (8 Skills)<br/>e2e-testing • vibe-code-gardener • zero-to-prod • production-hardener"]
+        D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"]
+    end
+
+    PROD["🚀 Production-Ready Release<br/>Scalable, Secure, AI-Native & Fully Hardened"]
+
+    AGY --> D9
+    D9 --> D1
+    D9 --> D2
+    D1 --> D4
+    D2 --> D3
+    D3 --> D5
+    D4 --> D5
+    D5 --> D6
+    D6 --> D7
+    D7 --> D8
+    D8 --> PROD
+
     classDef hero fill:#2d1b4e,stroke:#a855f7,stroke-width:2px,color:#fff;
-    classDef step1 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
-    classDef step2 fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#f8fafc;
-    classDef step3 fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#f8fafc;
-    classDef step4 fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc;
-    classDef step5 fill:#0f172a,stroke:#6366f1,stroke-width:2px,color:#f8fafc;
+    classDef ai fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
+    classDef ui fill:#831843,stroke:#f472b6,stroke-width:2px,color:#f8fafc;
+    classDef front fill:#0f3f2a,stroke:#34d399,stroke-width:2px,color:#f8fafc;
+    classDef back fill:#451a03,stroke:#fbbf24,stroke-width:2px,color:#f8fafc;
+    classDef saas fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#f8fafc;
+    classDef db fill:#042f2e,stroke:#2dd4bf,stroke-width:2px,color:#f8fafc;
+    classDef sec fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#f8fafc;
+    classDef seo fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f8fafc;
+    classDef util fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#f8fafc;
     classDef target fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills)"] ::: hero
-
-    AGY --> P1["💡 1. Ideation & PRD<br/>brainstorming • prd-architect • gemini-agent-booster"] ::: step1
-    P1 --> P2["🎨 2. Design System & UI/UX<br/>design-system-architect • ui-ux-pro-max • senior-frontend"] ::: step2
-    P2 --> P3["⚙️ 3. Backend & AI Systems<br/>js-backend-expert • mcp-server-architect • multi-agent-orchestration"] ::: step3
-    P3 --> P4["☁️ 4. SaaS & Cloud Integration<br/>saas-transformer • saas-billing • payment-gateway-expert"] ::: step4
-    P4 --> P5["🔒 5. Audit & Production Hardening<br/>e2e-testing-expert • vibe-code-gardener • production-ready-hardener"] ::: step5
-    P5 --> PROD["🚀 Production-Ready Release<br/>Scalable, Secure & Fully Tested"] ::: target
+    class AGY hero;
+    class D9 util;
+    class D1 ai;
+    class D2 ui;
+    class D3 front;
+    class D4 back;
+    class D5 saas;
+    class D6 db;
+    class D7 sec;
+    class D8 seo;
+    class PROD target;
 ```
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
@@ -181,6 +222,8 @@ v2.1.0 (2026 Edition) — 69+ skills
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
 **Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **69+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
