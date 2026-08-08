@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.1.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-69%2B%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v2.2.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-77%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
 
@@ -9,21 +9,21 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 69+ Skills Agentic Swarm Architecture
+### ⚡ Universal 77+ Skills Agentic Swarm Architecture
 
 ```mermaid
 graph TD
-    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills Engine)"]
+    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (77+ Skills Engine)"]
 
-    subgraph SWARM["⚡ 69+ Specialized Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 77+ Specialized Skills Swarm Ecosystem"]
         D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
-        D1["🤖 AI & Agentic Systems (5 Skills)<br/>ai-llm-integration • mcp-architect • multi-agent • gemini-booster"]
+        D1["🤖 AI & Agentic Systems (7 Skills)<br/>ai-llm-integration • vector-db-rag • ai-cost-token-optimizer • mcp-architect"]
         D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
         D3["🖥️ Frontend & State (13 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
-        D4["⚙️ Backend & Languages (8 Skills)<br/>api-design • js-backend • python-expert • go-expert • rust-expert"]
-        D5["☁️ SaaS & Cloud Systems (13 Skills)<br/>saas-transformer • saas-billing • saas-multi-tenant • ci-cd-devops"]
-        D6["🗄️ Database & Security (10 Skills)<br/>database-orm • supabase-migration • auth-identity • supabase-security"]
-        D7["🔒 Hardening & Quality (8 Skills)<br/>e2e-testing • vibe-code-gardener • zero-to-prod • production-hardener"]
+        D4["⚙️ Backend & Languages (9 Skills)<br/>js-backend • python-expert • go-expert • rust-expert • async-queue-temporal"]
+        D5["☁️ SaaS & Cloud Systems (14 Skills)<br/>saas-transformer • saas-billing • feature-flag-analytics • ci-cd-devops"]
+        D6["🗄️ Database & Edge (11 Skills)<br/>database-orm • edge-serverless-db • supabase-migration • auth-identity"]
+        D7["🔒 Quality & Security (10 Skills)<br/>e2e-testing • browser-automation • zero-trust-secret-vault • production-hardener"]
         D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"]
     end
 
@@ -73,7 +73,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Customization plugin for Antigravity containing **69+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Customization plugin for Antigravity containing **77+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -102,10 +102,12 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following 69+ skills that can be used by the agent:
+This plugin provides the following 77+ skills that can be used by the agent:
 
 #### 🤖 AI & Agentic Systems
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Production-grade guidelines for integrating frontier LLMs (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), RAG pipelines with `pgvector` HNSW + BM25 hybrid search, agentic memory (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, and computer use (Browser-Use, Playwright MCP).
+- **Vector DB & Deep RAG Expert** (`vector-db-rag-expert`): High-performance Vector DBs, `pgvector` HNSW indexing, hybrid search (Dense + BM25), semantic chunking, and RAG quality evaluation.
+- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): LLM API FinOps — Anthropic & Gemini prompt/context caching, dynamic model routing (Flash vs Pro/Opus), and semantic caching.
 - **MCP Server Architect** (`mcp-server-architect`): Expert guide for designing, building, and security-hardening Model Context Protocol (MCP) servers in TypeScript, Python, and Go. Covers MCP v1.9+ Streamable HTTP transport, Zod/Pydantic validation, OAuth 2.1, and multi-server orchestration.
 - **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Expert guide for designing stateful multi-agent AI systems — LangGraph graph-based workflows, CrewAI/AutoGen swarms, OpenAI Agents SDK handoffs, Google ADK, shared memory state, and Human-in-the-Loop guardrails.
 - **Gemini Agent Booster** (`gemini-agent-booster`): Master optimization protocol for Gemini Agent (Antigravity) to unlock native 1M+ long-context reasoning, multimodal vision UI audits, visual subagent feedback, and high-speed problem solving.
@@ -123,6 +125,7 @@ This plugin provides the following 69+ skills that can be used by the agent:
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits (Core Web Vitals, INP), and executes targeted optimizations.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Expert guide for React Native 0.79+ and Expo SDK 53+ development — Expo Router v4, New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
+- **Mobile Push Notification & Live Activities** (`mobile-push-notification-expert`): Cross-platform push notifications (Expo Push, FCM, APNs, Web Push), iOS Live Activities, and background payload handlers.
 - **MPA Orchestrator** (`mpa-orchestrator`): Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating Alpine.js / HTMX for progressive enhancement.
 - **Multiple Entry Points** (`multiple-entry-points`): Expert guide for designing and implementing Multiple Entry Points architecture in web applications — separate bundles for landing, app, admin, and embedded widgets.
 - **Performance & Web Vitals** (`performance-web-vitals`): Expert guide for Web Performance optimization — Core Web Vitals (LCP, INP, CLS), JavaScript bundle analysis, image/font loading strategies, React 19 concurrent features, virtual lists, and Lighthouse score improvement.
@@ -136,6 +139,7 @@ This plugin provides the following 69+ skills that can be used by the agent:
 
 #### ⚙️ Backend, Languages & Runtimes
 - **API Design Expert** (`api-design-expert`): Expert guide for REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, API versioning, rate limiting (sliding window), idempotency keys, and contract-first development.
+- **Async Queue & Durable Workflow Expert** (`async-queue-temporal-expert`): Durable background execution pipelines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant sagas.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun v1.2+ — built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, and migration strategies from Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Expert-level skill for Go 1.23/1.24+ — high-performance microservices, concurrency patterns (`errgroup`, context propagation), `sqlc`, `net/http`, Gin/Echo/Fiber, gRPC, and table-driven testing.
 - **JS Backend Expert** (`js-backend-expert`): Production-grade guidance for Node.js 24 LTS, Bun 1.2+, and Deno 2.x. Covers Fastify 5, Hono v4 (RPC, secure headers, rate limiter), Express 5, NestJS, Drizzle ORM, Prisma 6, BullMQ, OpenTelemetry, and graceful shutdown.
@@ -148,6 +152,7 @@ This plugin provides the following 69+ skills that can be used by the agent:
 - **CI/CD & DevOps Architect** (`ci-cd-devops-architect`): Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, GitHub Actions, and Infrastructure as Code (IaC) with Terraform and Pulumi.
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Expert guide for deploying SaaS on Vercel (Edge, Fluid Compute), Cloudflare Workers/Pages, Supabase, and Neon — with multi-region strategies and edge caching.
 - **Event-Driven Architect** (`event-driven-architect`): Microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, CQRS, and background workflows (Temporal, Inngest, Trigger.dev v3).
+- **Feature Flag & Progressive Rollout Expert** (`feature-flag-analytics-expert`): Feature flags & progressive rollouts (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases.
 - **Fullstack Expert** (`fullstack-expert`): Expert-level fullstack references covering TypeScript, Python, Go, Rust, API design, databases, DevOps, and observability.
 - **Monorepo & Workspace Architect** (`monorepo-architect`): Expert guide for scalable monorepos using Turborepo 2.x, pnpm v9+ workspaces, and pnpm catalogs.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU) and secure webhooks into SaaS platforms — HMAC signature verification, webhook idempotency, and billing state machines.
@@ -161,16 +166,19 @@ This plugin provides the following 69+ skills that can be used by the agent:
 
 #### 🗄️ Database & ORM
 - **Database & ORM Expert** (`database-orm-expert`): Expert guide for Prisma 6 (schema-first, Studio, `$transaction`) and Drizzle ORM (SQL-first, edge-compatible, composable queries). Covers cursor-based pagination, N+1 prevention, index strategy, connection pooling, and migration best practices for PostgreSQL, MySQL, and SQLite.
+- **Edge & Serverless DB Expert** (`edge-serverless-db-expert`): Ultra-low-latency serverless & edge databases (Neon Serverless Postgres, Cloudflare D1, Turso/libsql, Upstash Redis), connection pooling, and cold-start mitigation.
 - **Supabase Migration** (`supabase-migration`): Create, manage, or apply database migrations for Supabase locally or remotely via Supabase CLI v2+.
 
 #### 🔒 Quality, Testing & Security
 - **Authentication & Identity Expert** (`authentication-identity-expert`): Expert guide for implementing secure authentication with Clerk, Supabase Auth, Auth.js v5, and Better Auth. Covers OAuth 2.1 + PKCE, WebAuthn/Passkeys, RBAC enforcement, JWT best practices, and MFA integration for Next.js 15.
+- **Browser Automation & Web Agent Expert** (`browser-automation-expert`): Autonomous browser automation, Playwright v1.48+, Browser-Use LLM web agents, visual regression testing, and E2E user flow execution.
 - **E2E Testing & Test Automation** (`e2e-testing-expert`): Expert guide for Playwright 1.48+, Vitest 2+, MSW 2+, and CI/CD automated pipeline setup.
 - **Firebase Security Expert** (`firebase-security-expert`): Firebase security audit for Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check v11+.
 - **Production-Ready Hardener** (`production-ready-hardener`): Ultimate production readiness skill orchestrating security, performance, SEO, testing, and DevOps audits before deployment.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Guide to Clean Code, SOLID, DRY, and designing scalable modular application architectures.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Expert-level skill for coverage-guided fuzz tests (Atheris, cargo-fuzz, native Go fuzzing) with sanitizers (ASan, MSan, UBSan).
 - **Supabase Security Expert** (`supabase-security-expert`): Supabase security audit for RLS (Row Level Security), RBAC, relational databases, data leakage prevention, and Supabase Linter.
+- **Zero-Trust Secret Vault & Credential Security** (`zero-trust-secret-vault`): Zero-Trust secret management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment variable security.
 - **Zero to Production Orchestrator** (`zero-to-prod-orchestrator`): Master orchestrator for the complete lifecycle of building a new application from scratch to production-ready release.
 
 #### 🔍 SEO & Search Optimization
@@ -225,7 +233,7 @@ v2.1.0 (2026 Edition) — 69+ skills
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **69+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **77+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -254,10 +262,12 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **69+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
+Plugin ini menyediakan **77+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
 
 #### 🤖 AI & Sistem Agen
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Panduan tingkat produksi untuk integrasi frontier LLM (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), pipeline RAG dengan pgvector HNSW + BM25 hybrid search, memori agentik (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, dan computer use (Browser-Use, Playwright MCP).
+- **Vector DB & Deep RAG Expert** (`vector-db-rag-expert`): Vector DB berkinerja tinggi, indeks `pgvector` HNSW, hybrid search (Dense + BM25), semantic chunking, dan evaluasi RAG.
+- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): FinOps API LLM — Anthropic & Gemini prompt/context caching, routing model dinamis (Flash vs Pro/Opus), dan semantic caching.
 - **MCP Server Architect** (`mcp-server-architect`): Panduan ahli merancang, membangun, dan mengamankan server MCP v1.9+ di TypeScript, Python, dan Go. Mencakup Streamable HTTP transport, validasi Zod/Pydantic, OAuth 2.1, dan orkestrasi multi-server.
 - **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Panduan ahli merancang sistem multi-agen AI stateful — alur kerja LangGraph, CrewAI/AutoGen, OpenAI Agents SDK handoffs, Google ADK, memori bersama, dan gerbang Human-in-the-Loop.
 - **Gemini Agent Booster** (`gemini-agent-booster`): Protokol optimasi utama untuk Gemini Agent (Antigravity) — mengaktifkan pemikiran long-context 1M+, audit UI visual multimodal, dan pemecahan masalah kecepatan tinggi.
@@ -275,6 +285,7 @@ Plugin ini menyediakan **69+ kemampuan (*skills*)** berikut yang bisa digunakan 
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan (Core Web Vitals, INP), serta optimasi terarah.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Skill ahli merefaktor dan memigrasikan aplikasi Bootstrap CSS lama ke stack modern menggunakan Tailwind CSS v4 dan Alpine.js / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ — Expo Router v4, New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
+- **Mobile Push Notification & Live Activities** (`mobile-push-notification-expert`): Notifikasi push lintas platform (Expo Push, FCM, APNs, Web Push), iOS Live Activities, dan penanganan payload background.
 - **MPA Orchestrator** (`mpa-orchestrator`): Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, mengintegrasikan Alpine.js / HTMX untuk progressive enhancement.
 - **Multiple Entry Points** (`multiple-entry-points`): Panduan ahli merancang dan mengimplementasikan arsitektur Multiple Entry Points pada aplikasi web — bundle terpisah untuk landing, app, admin, dan embedded widget.
 - **Performance & Web Vitals** (`performance-web-vitals`): Panduan ahli optimasi performa web — Core Web Vitals (LCP, INP, CLS), analisis bundle JavaScript, strategi loading gambar/font, fitur concurrent React 19, virtualisasi list, dan peningkatan skor Lighthouse.
@@ -288,6 +299,7 @@ Plugin ini menyediakan **69+ kemampuan (*skills*)** berikut yang bisa digunakan 
 
 #### ⚙️ Backend, Bahasa & Runtime
 - **API Design Expert** (`api-design-expert`): Panduan ahli REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, API versioning, rate limiting (sliding window), idempotency key, dan pengembangan contract-first.
+- **Async Queue & Durable Workflow Expert** (`async-queue-temporal-expert`): Pipeline eksekusi background tahan-gagal (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) dan alur transaksi Saga terdistribusi.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli runtime Bun v1.2+ — built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, dan strategi migrasi dari Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Skill tingkat ahli untuk Go 1.23/1.24+ — API backend berkinerja tinggi, microservices, pola konkurensi (`errgroup`), `sqlc`, `net/http`, Gin/Echo/Fiber, gRPC, dan pengujian berbasis tabel.
 - **JS Backend Expert** (`js-backend-expert`): Panduan tingkat produksi untuk Node.js 24 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono v4 (RPC, secure headers, rate limiter), Express 5, NestJS, Drizzle ORM, Prisma 6, BullMQ, OpenTelemetry, dan graceful shutdown.
@@ -300,6 +312,7 @@ Plugin ini menyediakan **69+ kemampuan (*skills*)** berikut yang bisa digunakan 
 - **CI/CD & DevOps Architect** (`ci-cd-devops-architect`): Panduan ahli continuous integration, pipeline deployment, Docker, Kubernetes, GitHub Actions, dan Infrastructure as Code (IaC) dengan Terraform dan Pulumi.
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Panduan ahli deployment SaaS di Vercel (Edge, Fluid Compute), Cloudflare Workers/Pages, Supabase, dan Neon — dengan strategi multi-region dan edge caching.
 - **Event-Driven Architect** (`event-driven-architect`): Arsitektur microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, CQRS, dan background workflows (Temporal, Inngest, Trigger.dev v3).
+- **Feature Flag & Progressive Rollout Expert** (`feature-flag-analytics-expert`): Feature flags & rilis bertahap (PostHog, LaunchDarkly, GrowthBook), orkestrasi A/B testing, dan rilis canary.
 - **Fullstack Expert** (`fullstack-expert`): Referensi fullstack tingkat ahli — TypeScript, Python, Go, Rust, desain API, database, DevOps, dan observability.
 - **Monorepo & Workspace Architect** (`monorepo-architect`): Panduan ahli monorepo skalabel menggunakan Turborepo 2.x, pnpm v9+ workspaces, dan pnpm catalogs.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Panduan ahli integrasi payment gateway (Stripe, PayPal, Xendit, Midtrans, DOKU) dan webhook aman ke platform SaaS — verifikasi HMAC, idempotency webhook, dan billing state machine.
@@ -313,16 +326,19 @@ Plugin ini menyediakan **69+ kemampuan (*skills*)** berikut yang bisa digunakan 
 
 #### 🗄️ Database & ORM
 - **Database & ORM Expert** (`database-orm-expert`): Panduan ahli Prisma 6 (schema-first, Studio, `$transaction`) dan Drizzle ORM (SQL-first, edge-compatible, composable query). Mencakup cursor-based pagination, pencegahan N+1, strategi index, connection pooling, dan praktik terbaik migrasi untuk PostgreSQL, MySQL, dan SQLite.
+- **Edge & Serverless DB Expert** (`edge-serverless-db-expert`): Database serverless & edge latensi ultra-rendah (Neon Serverless Postgres, Cloudflare D1, Turso/libsql, Upstash Redis), connection pooling, dan mitigasi cold-start.
 - **Supabase Migration** (`supabase-migration`): Membuat, mengelola, atau menerapkan migrasi database Supabase secara lokal maupun remote via Supabase CLI v2+.
 
 #### 🔒 Kualitas, Pengujian & Keamanan
 - **Authentication & Identity Expert** (`authentication-identity-expert`): Panduan ahli autentikasi aman dengan Clerk, Supabase Auth, Auth.js v5, dan Better Auth. Mencakup OAuth 2.1 + PKCE, WebAuthn/Passkeys, penegakan RBAC server-side, best practices JWT, dan integrasi MFA untuk Next.js 15.
+- **Browser Automation & Web Agent Expert** (`browser-automation-expert`): Otomatisasi browser otonom, Playwright v1.48+, agen web LLM Browser-Use, pengujian visual regression, dan eksekusi alur pengguna E2E.
 - **E2E Testing & Otomatisasi Tes** (`e2e-testing-expert`): Panduan ahli Playwright 1.48+, Vitest 2+, MSW 2+, dan otomatisasi pipeline CI/CD.
 - **Firebase Security Expert** (`firebase-security-expert`): Audit keamanan Firebase untuk Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan App Check v11+.
 - **Production-Ready Hardener** (`production-ready-hardener`): Skill kesiapan produksi utama yang mengorkestrasi audit keamanan, performa, SEO, testing, dan DevOps sebelum deployment.
 - **Scalability & Clean Code Expert** (`scalability-clean-code`): Panduan Clean Code, SOLID, DRY, dan merancang arsitektur aplikasi modular yang skalabel.
 - **Secure Fuzz Testing** (`secure-fuzz-testing`): Panduan tingkat ahli pengujian fuzzing berbasis cakupan (Atheris, cargo-fuzz, native Go fuzzing) dengan sanitizer (ASan, MSan, UBSan).
 - **Supabase Security Expert** (`supabase-security-expert`): Audit keamanan Supabase untuk RLS (Row Level Security), RBAC, database relasional, pencegahan kebocoran data, dan Supabase Linter.
+- **Zero-Trust Secret Vault & Credential Security** (`zero-trust-secret-vault`): Pengelolaan rahasia Zero-Trust (Infisical, HashiCorp Vault, Doppler), rotasi kunci API otomatis, dan keamanan variabel lingkungan.
 - **Zero to Production Orchestrator** (`zero-to-prod-orchestrator`): Skill master orkestrator yang memandu siklus hidup lengkap pembangunan aplikasi baru dari nol hingga rilis siap produksi.
 
 #### 🔍 SEO & Optimasi Visibilitas
@@ -351,10 +367,10 @@ Untuk membuka potensi penuh dari `vibes-plug`, *skill* dirancang untuk bertindak
 
 1. **Ideasi & Perencanaan:** Mulai dengan `brainstorming` dan `prd-architect` untuk memvalidasi persyaratan dan arsitektur. Aktifkan `gemini-agent-booster` untuk penalaran arsitektur mendalam.
 2. **Desain & Frontend:** Picu `design-system-architect` dan `ui-ux-pro-max` untuk membuat design tokens, lalu gunakan `senior-frontend` bersama `ui-components-expert` dan `tanstack-query-expert` untuk membangun UI yang kuat dan aksesibel.
-3. **Backend & Arsitektur:** Orkestrasikan `js-backend-expert` (atau `go-programming-expert` / `rust-programming-expert`) dengan `event-driven-architect` untuk backend berkinerja tinggi. Tambahkan `authentication-identity-expert` untuk alur autentikasi yang aman.
-4. **Integrasi AI:** Panggil `ai-llm-integration-expert` dan `mcp-server-architect` untuk integrasi LLM dan tooling MCP. Gunakan `multi-agent-orchestration` untuk alur kerja agentik yang kompleks.
-5. **Transformasi SaaS:** Panggil `saas-transformer` atau `saas-mvp-launcher` — skill master ini otomatis mengoordinasikan `saas-multi-tenant`, `saas-billing`, `payment-gateway-expert`, dan `supabase-security-expert`.
-6. **Kualitas & Peluncuran:** Gunakan `e2e-testing-expert`, `vibe-code-gardener`, dan `seo` untuk validasi. Terakhir, panggil `production-ready-hardener` untuk mengaudit seluruh sistem sebelum rilis ke Edge/Cloud.
+3. **Backend & Arsitektur:** Orkestrasikan `js-backend-expert` (atau `go-programming-expert` / `rust-programming-expert`) dengan `event-driven-architect` dan `async-queue-temporal-expert` untuk backend berkinerja tinggi. Tambahkan `authentication-identity-expert` untuk alur autentikasi yang aman.
+4. **Integrasi AI:** Panggil `ai-llm-integration-expert`, `vector-db-rag-expert`, `ai-cost-token-optimizer`, dan `mcp-server-architect` untuk integrasi LLM dan tooling MCP. Gunakan `multi-agent-orchestration` untuk alur kerja agentik yang kompleks.
+5. **Transformasi SaaS:** Panggil `saas-transformer` atau `saas-mvp-launcher` — skill master ini otomatis mengoordinasikan `saas-multi-tenant`, `saas-billing`, `feature-flag-analytics-expert`, `payment-gateway-expert`, dan `supabase-security-expert`.
+6. **Kualitas & Peluncuran:** Gunakan `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, dan `seo` untuk validasi. Terakhir, panggil `production-ready-hardener` untuk mengaudit seluruh sistem sebelum rilis ke Edge/Cloud.
 
 Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah agen AI menjadi **tim engineering end-to-end yang lengkap dan sangat powerful**.
 
@@ -365,7 +381,7 @@ Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah 
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Versi
-v2.1.0 (Edisi 2026) — 69+ skills
+v2.2.0 (Edisi 2026) — 77+ skills
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
