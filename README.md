@@ -2,6 +2,29 @@
 
 ![Vibes Plug Banner](banner.png)
 
+### ⚡ Universal Agentic Swarm Workflow
+
+```mermaid
+graph TD
+    %% Custom Styling
+    classDef hero fill:#2d1b4e,stroke:#a855f7,stroke-width:2px,color:#fff;
+    classDef step1 fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#f8fafc;
+    classDef step2 fill:#0f172a,stroke:#ec4899,stroke-width:2px,color:#f8fafc;
+    classDef step3 fill:#0f172a,stroke:#10b981,stroke-width:2px,color:#f8fafc;
+    classDef step4 fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc;
+    classDef step5 fill:#0f172a,stroke:#6366f1,stroke-width:2px,color:#f8fafc;
+    classDef target fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
+
+    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills)"] ::: hero
+
+    AGY --> P1["💡 1. Ideation & PRD<br/>brainstorming • prd-architect • gemini-agent-booster"] ::: step1
+    P1 --> P2["🎨 2. Design System & UI/UX<br/>design-system-architect • ui-ux-pro-max • senior-frontend"] ::: step2
+    P2 --> P3["⚙️ 3. Backend & AI Systems<br/>js-backend-expert • mcp-server-architect • multi-agent-orchestration"] ::: step3
+    P3 --> P4["☁️ 4. SaaS & Cloud Integration<br/>saas-transformer • saas-billing • payment-gateway-expert"] ::: step4
+    P4 --> P5["🔒 5. Audit & Production Hardening<br/>e2e-testing-expert • vibe-code-gardener • production-ready-hardener"] ::: step5
+    P5 --> PROD["🚀 Production-Ready Release<br/>Scalable, Secure & Fully Tested"] ::: target
+```
+
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
 ---
