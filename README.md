@@ -8,7 +8,34 @@
 
 ```mermaid
 graph TD
-    %% Custom Styling
+    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills Engine)"]
+
+    subgraph SWARM["⚡ 69+ Specialized Skills Swarm Ecosystem"]
+        D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
+        D1["🤖 AI & Agentic Systems (5 Skills)<br/>ai-llm-integration • mcp-architect • multi-agent • gemini-booster"]
+        D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
+        D3["🖥️ Frontend & State (13 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
+        D4["⚙️ Backend & Languages (8 Skills)<br/>api-design • js-backend • python-expert • go-expert • rust-expert"]
+        D5["☁️ SaaS & Cloud Systems (13 Skills)<br/>saas-transformer • saas-billing • saas-multi-tenant • ci-cd-devops"]
+        D6["🗄️ Database & Security (10 Skills)<br/>database-orm • supabase-migration • auth-identity • supabase-security"]
+        D7["🔒 Hardening & Quality (8 Skills)<br/>e2e-testing • vibe-code-gardener • zero-to-prod • production-hardener"]
+        D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"]
+    end
+
+    PROD["🚀 Production-Ready Release<br/>Scalable, Secure, AI-Native & Fully Hardened"]
+
+    AGY --> D9
+    D9 --> D1
+    D9 --> D2
+    D1 --> D4
+    D2 --> D3
+    D3 --> D5
+    D4 --> D5
+    D5 --> D6
+    D6 --> D7
+    D7 --> D8
+    D8 --> PROD
+
     classDef hero fill:#2d1b4e,stroke:#a855f7,stroke-width:2px,color:#fff;
     classDef ai fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
     classDef ui fill:#831843,stroke:#f472b6,stroke-width:2px,color:#f8fafc;
@@ -21,31 +48,17 @@ graph TD
     classDef util fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#f8fafc;
     classDef target fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (69+ Skills Engine)"] ::: hero
-
-    subgraph SWARM["⚡ 69+ Specialized Skills Swarm Ecosystem"]
-        D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"] ::: util
-        D1["🤖 AI & Agentic Systems (5 Skills)<br/>ai-llm-integration • mcp-architect • multi-agent • gemini-booster"] ::: ai
-        D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"] ::: ui
-        D3["🖥️ Frontend & State (13 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"] ::: front
-        D4["⚙️ Backend & Languages (8 Skills)<br/>api-design • js-backend • python-expert • go-expert • rust-expert"] ::: back
-        D5["☁️ SaaS & Cloud Systems (13 Skills)<br/>saas-transformer • saas-billing • saas-multi-tenant • ci-cd-devops"] ::: saas
-        D6["🗄️ Database & Security (10 Skills)<br/>database-orm • supabase-migration • auth-identity • supabase-security"] ::: db
-        D7["🔒 Hardening & Quality (8 Skills)<br/>e2e-testing • vibe-code-gardener • zero-to-prod • production-hardener"] ::: sec
-        D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"] ::: seo
-    end
-
-    AGY --> D9
-    D9 --> D1
-    D9 --> D2
-    D1 --> D4
-    D2 --> D3
-    D3 --> D5
-    D4 --> D5
-    D5 --> D6
-    D6 --> D7
-    D7 --> D8
-    D8 --> PROD["🚀 Production-Ready Release<br/>Scalable, Secure, AI-Native & Fully Hardened"] ::: target
+    class AGY hero;
+    class D9 util;
+    class D1 ai;
+    class D2 ui;
+    class D3 front;
+    class D4 back;
+    class D5 saas;
+    class D6 db;
+    class D7 sec;
+    class D8 seo;
+    class PROD target;
 ```
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
