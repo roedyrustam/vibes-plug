@@ -1,10 +1,10 @@
 ---
 name: python-programming-expert
-description: "Expert-level skill for Python programming (Python 3.12/3.13+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
+description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
 author: "Roedy Rustam"
 ---
 
-# Python Programming Expert (3.13 JIT Edition)
+# Python Programming Expert (3.14 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,203 +14,346 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level Python development guidance for **Python 3.13+** with JIT compiler, covering type safety, async patterns, modern web frameworks (FastAPI 0.115+, Django 5.x), Pydantic v2, the `uv` package manager, Ruff linting, and production-grade testing with pytest.
+Expert-level Python development guidance for **Python 3.13 / 3.14+** covering JIT compilation, free-threaded (no-GIL) mode, modern type safety patterns, async architecture, and the full production stack: **FastAPI 0.115+**, **Pydantic v2**, **SQLAlchemy 2.x / SQLModel**, **uv**, **Ruff**, and **pytest-asyncio**.
 
 ### Trigger Conditions
-- Writing Python 3.12+ / 3.13+ applications or services.
-- Building FastAPI 0.115+ REST APIs or Django 5.x web apps.
-- Managing Python projects with the `uv` package manager.
-- Implementing async/await patterns with `asyncio.TaskGroup`.
-- Writing type-safe Python with Pydantic v2 and modern generics (PEP 695).
-- Setting up Ruff for linting + formatting, pytest for testing.
+- Writing Python 3.13+ / 3.14+ applications or services.
+- Building **FastAPI 0.115+** REST APIs, **Django 5.x**, or **Litestar** web services.
+- Managing Python projects with the **`uv`** package manager.
+- Implementing async/await patterns with `asyncio.TaskGroup` or structured concurrency.
+- Writing type-safe Python with **Pydantic v2** and modern generics (PEP 695/696).
+- Setting up **Ruff** for linting + formatting; **pytest** with `pytest-asyncio` for testing.
+- Building AI backends integrating with LLM APIs (OpenAI, Anthropic, Google GenAI).
 
-### Python 3.13 — Key Improvements
+---
 
-#### JIT Compiler (Experimental → Production-Ready)
-Python 3.13 ships with an **experimental JIT compiler** based on copy-and-patch. Enable it for CPU-bound workloads:
-```bash
-python3.13 --enable-experimental-jit app.py
-# Or via env var:
-PYTHON_JIT=1 python3.13 app.py
-```
-Expected 10-20% speedup for numeric/algorithmic code. Not yet beneficial for I/O-bound async code.
+### Python Version Matrix (2026)
 
-#### Free-Threaded Mode (No GIL)
-Python 3.13 introduces an experimental **free-threaded build** (no GIL), enabling true CPU parallelism with threads:
-```bash
-# Install free-threaded build
-uv python install 3.13t
-python3.13t -X gil=0 my_parallel_app.py
-```
+| Version | Status | Key Feature |
+|---|---|---|
+| **Python 3.14** | Latest (Oct 2025) | PEP 696 defaults, improved JIT, `@` on types |
+| **Python 3.13** | Stable LTS | JIT compiler, free-threaded mode (no GIL) |
+| **Python 3.12** | Supported | PEP 695 generics, `type` alias statement |
+| **Python 3.11** | Security only | `asyncio.TaskGroup`, `ExceptionGroup` |
 
-#### Improved Error Messages
-Python 3.13 provides significantly better tracebacks with highlighted variable values and suggestions.
+---
 
 ### Modern Python Toolchain (2026)
 
-#### uv — The 2026 Standard Package Manager
-Replace `pip`, `pip-tools`, `virtualenv`, `pyenv`, and `poetry` with **uv**:
+#### uv — The Standard Package Manager
+Replace `pip`, `pip-tools`, `virtualenv`, `pyenv`, and `poetry` entirely with **uv** (written in Rust — 10-100x faster):
 ```bash
 # Create project
-uv init my-project
-cd my-project
+uv init my-api
+cd my-api
 
-# Add dependencies
-uv add fastapi pydantic httpx
+# Add runtime dependencies
+uv add fastapi pydantic httpx sqlalchemy[asyncio]
 
 # Add dev dependencies
-uv add --dev pytest ruff mypy
+uv add --dev pytest pytest-asyncio ruff mypy httpx
 
-# Run scripts
+# Run scripts (no activation needed)
 uv run python main.py
 uv run pytest
+uv run fastapi dev main.py  # Hot reload dev server
 
-# Sync environment
+# Pin exact Python version
+uv python pin 3.13
+
+# Sync all environments
 uv sync
-
-# Lock dependencies
-uv lock
 ```
 
-#### Ruff — Linting + Formatting in One
-```bash
-uv add --dev ruff
+#### `pyproject.toml` — Single Config File
+```toml
+[project]
+name = "my-api"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "pydantic>=2.9",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg>=0.30",
+]
 
-# ruff.toml
 [tool.ruff]
 line-length = 88
 target-version = "py313"
 
 [tool.ruff.lint]
-select = ["E", "F", "I", "N", "UP", "B", "SIM", "ANN"]
+select = ["E", "F", "I", "N", "UP", "B", "SIM", "ANN", "ASYNC"]
 
-# Run
-uv run ruff check .
-uv run ruff format .
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["ANN"]  # No type annotations required in tests
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"   # pytest-asyncio auto mode
 ```
 
-### Type Safety — Modern Patterns (Python 3.12+)
+---
 
-#### PEP 695 — New Generic Syntax
+### Type Safety — Modern Patterns
+
+#### PEP 695 — Generic Syntax (Python 3.12+)
 ```python
-# Old (Python < 3.12)
-from typing import TypeVar
+# Old way (verbose)
+from typing import TypeVar, Generic
 T = TypeVar('T')
-def first[T](lst: list[T]) -> T: ...
+class Stack(Generic[T]):
+    def push(self, item: T) -> None: ...
 
-# New (Python 3.12+) — cleaner, no TypeVar boilerplate
+# New way (Python 3.12+) — clean, no boilerplate
+class Stack[T]:
+    def __init__(self) -> None:
+        self._items: list[T] = []
+
+    def push(self, item: T) -> None:
+        self._items.append(item)
+
+    def pop(self) -> T:
+        return self._items.pop()
+
+# Generic functions
 def first[T](lst: list[T]) -> T:
     return lst[0]
 
-type Vector = list[float]  # Type alias with 'type' statement
+# Type aliases (PEP 695)
+type Vector = list[float]
+type Matrix[T] = list[list[T]]
 ```
 
-#### Pydantic v2 — Data Validation
+#### PEP 696 — TypeVar Defaults (Python 3.14+)
 ```python
-from pydantic import BaseModel, Field, field_validator
-from pydantic import EmailStr
+# Default generic types — reduces boilerplate in libraries
+class Response[T = dict]:  # T defaults to dict if not specified
+    def __init__(self, data: T) -> None:
+        self.data = data
+
+response = Response({"key": "value"})  # T inferred as dict
+```
+
+#### Pydantic v2 — Production Data Validation
+```python
+from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic import EmailStr, SecretStr
+from typing import Annotated
+
+# Annotated types for reusability
+PositiveInt = Annotated[int, Field(gt=0)]
+TrimmedStr = Annotated[str, Field(min_length=1, strip_whitespace=True)]
 
 class UserCreate(BaseModel):
-    name: str = Field(min_length=2, max_length=50)
+    model_config = {"str_strip_whitespace": True}
+
+    name: TrimmedStr = Field(max_length=50)
     email: EmailStr
-    age: int = Field(ge=0, le=150)
+    age: PositiveInt
+    password: SecretStr = Field(min_length=8)
 
     @field_validator('name')
     @classmethod
-    def name_must_not_contain_space(cls, v: str) -> str:
-        if '  ' in v:
-            raise ValueError('Name must not have double spaces')
-        return v.strip()
+    def validate_name(cls, v: str) -> str:
+        if not v.replace(' ', '').isalpha():
+            raise ValueError('Name must contain only letters')
+        return v.title()
+
+    @model_validator(mode='after')
+    def check_adult_email(self) -> 'UserCreate':
+        if self.age < 18 and 'kids' not in self.email:
+            raise ValueError('Minors must use a kids account email')
+        return self
 
 # Usage
-user = UserCreate(name="Alice", email="alice@example.com", age=30)
-user.model_dump()  # {'name': 'Alice', 'email': 'alice@example.com', 'age': 30}
+user = UserCreate(name="alice smith", email="alice@example.com", age=25, password="securepassword")
+user.model_dump()           # {'name': 'Alice Smith', 'email': 'alice@example.com', 'age': 25}
+user.model_dump(mode='json')  # JSON-serializable dict
 ```
 
-### FastAPI 0.115+ Best Practices
+---
 
-#### Lifespan (Replace @app.on_event)
+### FastAPI 0.115+ — Production Patterns
+
+#### Application Structure
+```
+my_api/
+├── main.py             # FastAPI app + lifespan
+├── routers/
+│   ├── users.py        # APIRouter for /users
+│   └── posts.py        # APIRouter for /posts
+├── models/
+│   ├── user.py         # Pydantic request/response models
+│   └── post.py
+├── db/
+│   ├── database.py     # SQLAlchemy engine + session
+│   └── models.py       # ORM models
+├── services/
+│   └── user_service.py # Business logic layer
+└── core/
+    ├── config.py       # Settings with Pydantic BaseSettings
+    └── security.py     # JWT, hashing
+```
+
+#### Lifespan — Startup & Shutdown
 ```python
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+engine = create_async_engine(settings.DATABASE_URL, echo=False, pool_size=10)
+AsyncSessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: connect DB, warm caches
-    await db.connect()
+    # Startup
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    print("✅ Database connected")
     yield
-    # Shutdown: clean up resources
-    await db.disconnect()
+    # Shutdown
+    await engine.dispose()
+    print("✅ Database disconnected")
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(title="My API", version="1.0.0", lifespan=lifespan)
 ```
 
 #### Dependency Injection Pattern
 ```python
-from fastapi import Depends, HTTPException
+from typing import Annotated
+from fastapi import Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 async def get_db() -> AsyncSession:
-    async with async_session_factory() as session:
+    async with AsyncSessionLocal() as session:
         yield session
 
-@app.get("/users/{user_id}")
-async def get_user(user_id: str, db: AsyncSession = Depends(get_db)):
+DbDep = Annotated[AsyncSession, Depends(get_db)]
+
+# In routes
+@router.get("/users/{user_id}", response_model=UserResponse)
+async def get_user(user_id: str, db: DbDep):
     user = await db.get(User, user_id)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return user
 ```
 
-#### Structured Error Responses
+#### Settings with Pydantic BaseSettings
+```python
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+
+    DATABASE_URL: str
+    SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    ENVIRONMENT: str = "development"
+
+    @property
+    def is_production(self) -> bool:
+        return self.ENVIRONMENT == "production"
+
+settings = Settings()
+```
+
+#### Structured Error Handling (RFC 9457)
 ```python
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
-class AppError(Exception):
-    def __init__(self, message: str, code: str, status: int = 400):
-        self.message = message
-        self.code = code
+class AppException(Exception):
+    def __init__(self, *, type: str, title: str, status: int, detail: str):
+        self.type = type
+        self.title = title
         self.status = status
+        self.detail = detail
 
-@app.exception_handler(AppError)
-async def app_error_handler(request: Request, exc: AppError):
+@app.exception_handler(AppException)
+async def app_exception_handler(request: Request, exc: AppException) -> JSONResponse:
     return JSONResponse(
         status_code=exc.status,
-        content={"error": exc.code, "message": exc.message}
+        content={
+            "type": exc.type,
+            "title": exc.title,
+            "status": exc.status,
+            "detail": exc.detail,
+        }
     )
+
+# Usage in routes
+raise AppException(
+    type="https://myapi.com/errors/user-not-found",
+    title="User Not Found",
+    status=404,
+    detail=f"User with id '{user_id}' does not exist",
+)
 ```
 
-### Async Patterns — asyncio.TaskGroup (Python 3.11+)
+---
+
+### Async Patterns
+
+#### asyncio.TaskGroup (Python 3.11+)
 ```python
 import asyncio
 
 async def main():
+    # Better than asyncio.gather — propagates exceptions immediately
     async with asyncio.TaskGroup() as tg:
-        task_a = tg.create_task(fetch_data("A"))
-        task_b = tg.create_task(fetch_data("B"))
-    # Both tasks complete or any exception is raised
-    results = [task_a.result(), task_b.result()]
+        task_users = tg.create_task(fetch_users())
+        task_posts = tg.create_task(fetch_posts())
+        task_stats = tg.create_task(fetch_stats())
+    # All tasks complete here — exception in any task cancels all others
+    return task_users.result(), task_posts.result(), task_stats.result()
 ```
 
-### Testing with pytest
-```python
-import pytest
-import pytest_asyncio
-from httpx import AsyncClient, ASGITransport
+#### Python 3.13 — JIT & Free-Threaded Mode
+```bash
+# JIT compiler — 10-20% speedup on CPU-bound code
+PYTHON_JIT=1 python3.13 compute_heavy.py
 
-@pytest_asyncio.fixture
-async def client():
+# Free-threaded build (no GIL) — true CPU parallelism
+uv python install 3.13t  # install free-threaded build
+python3.13t -X gil=0 parallel_app.py
+```
+
+---
+
+### Testing with pytest + pytest-asyncio
+```python
+# conftest.py
+import pytest
+from httpx import AsyncClient, ASGITransport
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+
+TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
+
+@pytest.fixture
+async def db_session():
+    engine = create_async_engine(TEST_DATABASE_URL)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    async with async_sessionmaker(engine)() as session:
+        yield session
+    await engine.dispose()
+
+@pytest.fixture
+async def client(db_session):
+    app.dependency_overrides[get_db] = lambda: db_session
     async with AsyncClient(
         transport=ASGITransport(app=app), base_url="http://test"
     ) as ac:
         yield ac
 
-@pytest.mark.asyncio
-async def test_get_user(client: AsyncClient):
-    response = await client.get("/users/123")
-    assert response.status_code == 200
-    assert response.json()["id"] == "123"
+# test_users.py
+async def test_create_user(client: AsyncClient):
+    response = await client.post("/users", json={"name": "Alice", "email": "alice@test.com", "age": 25, "password": "password123"})
+    assert response.status_code == 201
+    data = response.json()
+    assert data["email"] == "alice@test.com"
 ```
 
 ---
@@ -219,53 +362,41 @@ async def test_get_user(client: AsyncClient):
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan pengembangan Python tingkat ahli untuk **Python 3.13+** dengan JIT compiler, mencakup keamanan tipe, pola async, framework web modern (FastAPI 0.115+, Django 5.x), Pydantic v2, manajer paket `uv`, Ruff, dan pengujian produksi dengan pytest.
+Panduan pengembangan Python tingkat ahli untuk **Python 3.13/3.14+** mencakup JIT compilation, mode free-threaded (tanpa GIL), pola keamanan tipe modern, arsitektur async, dan stack produksi lengkap: **FastAPI 0.115+**, **Pydantic v2**, **SQLAlchemy 2.x**, **uv**, **Ruff**, dan **pytest-asyncio**.
 
 ### Kondisi Pemicu
-- Menulis aplikasi atau layanan Python 3.12+/3.13+.
-- Membangun REST API FastAPI 0.115+ atau aplikasi web Django 5.x.
+- Menulis aplikasi atau layanan Python 3.13+/3.14+.
+- Membangun REST API FastAPI 0.115+, Django 5.x, atau Litestar.
 - Mengelola proyek Python dengan manajer paket `uv`.
 - Mengimplementasikan pola async/await dengan `asyncio.TaskGroup`.
-- Menulis Python type-safe dengan Pydantic v2 dan generik modern (PEP 695).
-- Menyiapkan Ruff untuk linting + formatting, pytest untuk pengujian.
-
-### Python 3.13 — Peningkatan Utama
-
-#### JIT Compiler
-Python 3.13 hadir dengan **JIT compiler eksperimental** berbasis copy-and-patch. Aktifkan dengan `--enable-experimental-jit` atau variabel lingkungan `PYTHON_JIT=1`. Perkiraan peningkatan kecepatan 10-20% untuk kode CPU-bound.
-
-#### Free-Threaded Mode (Tanpa GIL)
-Python 3.13 memperkenalkan **build free-threaded eksperimental** (tanpa GIL), memungkinkan paralelisme CPU sejati dengan thread.
+- Menulis Python type-safe dengan Pydantic v2 dan generik modern (PEP 695/696).
+- Menyiapkan Ruff untuk linting + formatting; pytest-asyncio untuk pengujian.
 
 ### Toolchain Modern (2026)
 
-#### uv — Manajer Paket Standar 2026
-Gantikan `pip`, `pip-tools`, `virtualenv`, `pyenv`, dan `poetry` dengan **uv** — jauh lebih cepat dan terintegrasi dalam satu alat. Gunakan `uv init`, `uv add`, `uv run`, dan `uv sync` untuk semua operasi proyek.
-
-#### Ruff — Linting + Formatting Dalam Satu Alat
-Ruff menggantikan Flake8, isort, Black, dan pyupgrade sekaligus — jauh lebih cepat karena ditulis dalam Rust.
+**`uv`** menggantikan `pip`, `pip-tools`, `virtualenv`, `pyenv`, dan `poetry` — ditulis dalam Rust, 10-100x lebih cepat. Gunakan satu file `pyproject.toml` untuk semua konfigurasi.
 
 ### Keamanan Tipe — Pola Modern
 
-#### PEP 695 — Sintaksis Generic Baru
-Python 3.12+ memperkenalkan sintaksis generic yang lebih bersih tanpa boilerplate `TypeVar`. Gunakan pernyataan `type` untuk alias tipe.
+**PEP 695** (Python 3.12+): Sintaksis generic baru yang bersih tanpa boilerplate `TypeVar`. Gunakan `type` statement untuk alias tipe.
 
-#### Pydantic v2
-Gunakan `BaseModel`, `Field`, dan `@field_validator` untuk validasi data yang ketat. `model_dump()` dan `model_validate()` menggantikan metode lama.
+**PEP 696** (Python 3.14+): Default untuk TypeVar — mengurangi boilerplate lebih lanjut pada library dan class generic.
 
-### FastAPI 0.115+ Best Practices
+**Pydantic v2**: Gunakan `BaseModel`, `Field`, `@field_validator`, dan `@model_validator` untuk validasi data yang ketat. `model_dump()` dan `model_validate()` menggantikan metode v1.
 
-#### Lifespan (Gantikan @app.on_event)
-Gunakan `@asynccontextmanager` dengan parameter `lifespan` di `FastAPI()` untuk startup/shutdown yang bersih.
+### FastAPI 0.115+ — Pola Produksi
 
-#### Dependency Injection
-Gunakan `Depends()` untuk injeksi sesi database, autentikasi, dan dependensi lainnya ke route handler.
+- **Lifespan**: Gunakan `@asynccontextmanager` dengan `lifespan=` di `FastAPI()` untuk startup/shutdown yang bersih.
+- **Dependency Injection**: Gunakan `Depends()` dengan `Annotated` untuk sesi database, autentikasi, dll.
+- **BaseSettings**: Gunakan `pydantic-settings` untuk konfigurasi dari environment variables dengan validasi tipe.
+- **Error RFC 9457**: Format error yang konsisten dengan `type`, `title`, `status`, `detail`.
 
-#### Error Terstruktur
-Buat kelas `Exception` kustom dan daftarkan `exception_handler` global untuk respons error yang konsisten.
+### Pola Async
 
-### Pola Async — asyncio.TaskGroup
-Gunakan `asyncio.TaskGroup` (Python 3.11+) sebagai pengganti `asyncio.gather()` yang lebih aman — secara otomatis membatalkan semua task lain jika salah satu gagal.
+Gunakan `asyncio.TaskGroup` (Python 3.11+) sebagai pengganti `asyncio.gather()` — lebih aman karena propagasi exception langsung dan membatalkan semua task lain saat ada yang gagal.
 
-### Pengujian dengan pytest
-Gunakan `pytest-asyncio` dan `AsyncClient` dari `httpx` untuk pengujian endpoint async FastAPI yang bersih dan terisolasi.
+Python 3.13 JIT: Aktifkan dengan `PYTHON_JIT=1` untuk kode CPU-bound. Free-threaded mode (`python3.13t -X gil=0`) untuk paralelisme CPU sejati.
+
+### Pengujian
+
+Gunakan `pytest-asyncio` dengan `asyncio_mode = "auto"` di `pyproject.toml`. Gunakan `AsyncClient` dari `httpx` dengan `ASGITransport` untuk pengujian endpoint async yang bersih dan terisolasi tanpa perlu menjalankan server.

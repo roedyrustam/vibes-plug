@@ -1,10 +1,10 @@
 ---
 name: typescript-expert
-description: "Expert guide for TypeScript 5.x advanced type system, strict mode, generics, utility types, branded types, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.x, mode strict, generics, utility types, branded types, dan pola arsitektur type-safe."
+description: "Expert guide for TypeScript 5.5+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.5+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
 author: "Roedy Rustam"
 ---
 
-# TypeScript Expert (TypeScript 5.x Edition)
+# TypeScript Expert (TypeScript 5.5+ Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.4+** features including `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
+Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.5+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
 
 ### Trigger Conditions
 - Writing TypeScript with advanced generic constraints.
@@ -66,29 +66,71 @@ const b = identity({ x: 10 });        // type: { readonly x: 10 }
 
 ---
 
+### TypeScript 5.5 / 5.6 — New Features
+
+#### Inferred Type Predicates (TS 5.5)
+```typescript
+// TypeScript now infers type predicates from return statements automatically
+const nums = [1, null, 2, undefined, 3].filter((x) => x !== null);
+// nums is now inferred as number[] — no manual type assertion needed!
+
+// Before TS 5.5 you needed:
+const nums = [1, null, 2].filter((x): x is number => x !== null);
+
+// Works with any refinement pattern:
+function isString(x: unknown) {
+  return typeof x === 'string'; // TS 5.5 infers: (x: unknown) => x is string
+}
+```
+
+#### Isolated Declarations (TS 5.5)
+```typescript
+// New tsconfig option: "isolatedDeclarations": true
+// Forces explicit return types on all exported functions — enables
+// parallel .d.ts generation (massively speeds up monorepo builds)
+export function add(a: number, b: number): number { // explicit return type required
+  return a + b;
+}
+```
+
+#### Iterator Helper Methods (TS 5.6 — ES2025)
+```typescript
+// Native iterator methods now fully typed
+const result = [1, 2, 3, 4, 5]
+  .values()          // IteratorObject
+  .filter(x => x % 2 === 0)  // 2, 4
+  .map(x => x * 10)  // 20, 40
+  .toArray();        // [20, 40]
+```
+
+---
+
 ### Strict Mode Configuration
 
 ```json
-// tsconfig.json — recommended strict config for production
+// tsconfig.json — recommended strict config for Next.js / monorepo projects
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2022", "DOM"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "Preserve",
+    "moduleResolution": "Bundler",
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
-    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
+    "isolatedDeclarations": true,
     "verbatimModuleSyntax": true,
-    "skipLibCheck": false
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   }
 }
 ```
+
+> **Note**: Use `"moduleResolution": "Bundler"` with `"module": "Preserve"` for Vite, Next.js, and other bundler-based projects. Use `"NodeNext"` for Node.js/Bun/Deno runtimes.
 
 ---
 
@@ -258,7 +300,7 @@ config.port.toFixed(2); // Works! Literal type preserved.
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.4+** termasuk `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.
+Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.5+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.
 
 ### Kondisi Pemicu
 - Menulis TypeScript dengan generic constraints tingkat lanjut.
@@ -266,14 +308,17 @@ Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan str
 - Merancang kontrak API type-safe (REST, tRPC, Zod schema).
 - Mengimplementasikan branded types untuk pemodelan domain.
 - Menyelesaikan type error kompleks atau polusi `any`.
-- Menyiapkan `tsconfig.json` untuk proyek strict.
+- Menyiapkan `tsconfig.json` untuk proyek strict dengan `isolatedDeclarations`.
 - Menulis utility types atau type helpers TypeScript.
 
 ### Panduan Singkat
 
-- **Aktifkan strict mode**: Selalu gunakan `"strict": true` ditambah `noUncheckedIndexedAccess` dan `exactOptionalPropertyTypes`.
+- **Aktifkan strict mode**: Selalu gunakan `"strict": true` ditambah `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, dan `isolatedDeclarations`.
+- **Inferred Type Predicates** (TS 5.5): Filter array tanpa type assertion manual — TypeScript inferensikan sendiri.
+- **Isolated Declarations** (TS 5.5): Aktifkan untuk mempercepat build monorepo via parallel `.d.ts` generation.
 - **Branded Types**: Cegah pencampuran primitif yang berbeda secara semantis (UserId vs PostId).
 - **Discriminated Union**: Gunakan untuk state machine dan variant data yang terbatas.
 - **Zod**: Validasi data eksternal dan turunkan tipe TypeScript dari schema Zod.
 - **Hindari `as any`**: Gunakan `unknown` dengan narrowing atau Zod untuk data yang tidak diketahui tipenya.
 - **`satisfies` operator**: Validasi objek terhadap tipe tanpa melebarkan tipe yang diinferensi.
+- **`moduleResolution: Bundler`**: Gunakan untuk proyek Next.js/Vite; `NodeNext` untuk Node.js/Bun backend.

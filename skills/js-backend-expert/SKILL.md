@@ -1,10 +1,10 @@
 ---
 name: js-backend-expert
-description: "Expert-level skill for Node.js 22+, Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono, NestJS, Prisma 6, Drizzle ORM, WebSockets, and microservices in English and Indonesian."
+description: "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian."
 author: "Roedy Rustam"
 ---
 
-# JS Backend Expert (Node.js 24 / Bun 1.2 / Deno 2.x Edition)
+# JS Backend Expert (Node.js 24 LTS / Bun 1.2 / Deno 2.x Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -152,7 +152,7 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan tingkat produksi untuk membangun API backend JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 24 (LTS)**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), **Hono RPC** untuk komunikasi full-stack type-safe, pola Edge Runtime, WebSocket, background jobs (BullMQ), dan penanganan *graceful shutdown*.
+Panduan tingkat produksi untuk membangun API backend JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 24 LTS**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono v4, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), **Hono RPC** untuk komunikasi full-stack type-safe, pola Edge Runtime, WebSocket, background jobs (BullMQ), OpenTelemetry, dan penanganan *graceful shutdown*.
 
 ### Kondisi Pemicu
 - Merancang atau merefaktor aplikasi backend Node.js, Bun, atau Deno.
