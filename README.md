@@ -19,10 +19,10 @@ graph TD
         D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
         D1["🤖 AI & Agentic Systems (7 Skills)<br/>ai-llm-integration • vector-db-rag • ai-cost-token-optimizer • mcp-architect"]
         D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
-        D3["🖥️ Frontend & State (13 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
+        D3["🖥️ Frontend & State (14 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
         D4["⚙️ Backend & Languages (9 Skills)<br/>js-backend • python-expert • go-expert • rust-expert • async-queue-temporal"]
         D5["☁️ SaaS & Cloud Systems (14 Skills)<br/>saas-transformer • saas-billing • feature-flag-analytics • ci-cd-devops"]
-        D6["🗄️ Database & Edge (11 Skills)<br/>database-orm • edge-serverless-db • supabase-migration • auth-identity"]
+        D6["🗄️ Database & ORM (3 Skills)<br/>database-orm • edge-serverless-db • supabase-migration"]
         D7["🔒 Quality & Security (10 Skills)<br/>e2e-testing • browser-automation • zero-trust-secret-vault • production-hardener"]
         D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"]
     end
