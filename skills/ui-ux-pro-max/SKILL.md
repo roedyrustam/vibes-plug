@@ -20,6 +20,7 @@ UI/UX Pro Max is a comprehensive design intelligence engine equipped with an off
 Reference these guidelines or run the CLI search engine when:
 - Designing new UI components, landing pages, or dashboards.
 - Choosing color schemes, font pairings, and design tokens.
+- Learning, reverse-engineering, or cloning website design templates & components directly from a target URL (Combine with `website-design-cloner`).
 - Generating a complete design system recommendation for a project.
 - Auditing code for UX, accessibility (a11y), or performance issues.
 - Needing stack-specific code patterns (React, Next.js, Vue, Nuxt, Svelte, Tailwind, SwiftUI, React Native, Flutter, Shadcn).

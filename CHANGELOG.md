@@ -6,6 +6,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
 
+## [1.8.0] - 2026-08-09
+
+### Added / Ditambahkan
+- Added `website-design-cloner` skill module: Reverse-engineer website designs & templates directly from any live target URL into 1:1 code (Tailwind CSS v4 `@theme`, React 19, Next.js 15 App Router).
+  *(Menambahkan modul skill `website-design-cloner`: Mempelajari dan merekayasa balik desain situs web & template secara langsung dari URL target ke kode presisi 1:1.)*
+- Integrated URL design cloning triggers and handoff protocols into `web-scraper`, `ui-ux-pro-max`, and `brainstorming`.
+  *(Mengintegrasikan pemicu duplikasi desain URL dan protokol handoff ke dalam `web-scraper`, `ui-ux-pro-max`, dan `brainstorming`.)*
+
+### Changed / Diubah
+- Bumped plugin and package versions to `v1.8.0`.
+  *(Meningkatkan versi plugin dan package ke `v1.8.0`.)*
+
+---
+
 ## [1.7.0] - 2026-08-09
 
 ### Added / Ditambahkan
