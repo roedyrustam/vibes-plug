@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.2.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-77%2B%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v2.3.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-78%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
 
@@ -9,13 +9,13 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 77+ Skills Agentic Swarm Architecture
+### ⚡ Universal 78+ Skills Agentic Swarm Architecture
 
 ```mermaid
 graph TD
     AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (77+ Skills Engine)"]
 
-    subgraph SWARM["⚡ 77+ Specialized Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 78+ Specialized Skills Swarm Ecosystem"]
         D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
         D1["🤖 AI & Agentic Systems (7 Skills)<br/>ai-llm-integration • vector-db-rag • ai-cost-token-optimizer • mcp-architect"]
         D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
@@ -73,7 +73,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Customization plugin for Antigravity containing **77+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Customization plugin for Antigravity containing **78+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -102,7 +102,7 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following 77+ skills that can be used by the agent:
+This plugin provides the following 78+ skills that can be used by the agent:
 
 #### 🤖 AI & Agentic Systems
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Production-grade guidelines for integrating frontier LLMs (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), RAG pipelines with `pgvector` HNSW + BM25 hybrid search, agentic memory (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, and computer use (Browser-Use, Playwright MCP).
@@ -194,6 +194,7 @@ This plugin provides the following 77+ skills that can be used by the agent:
 - **Friendly Assistant** (`asisten_ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Web Accessibility (WCAG 2.2 AAA) and i18n internationalization standards.
 - **New Skill Template** (`skill_baru`): Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support.
+- **Session Context Loader** (`session-context-loader`): Automatically loads and learns project context (Tech Stack, PRD, Roadmap, Blueprint) at the start of every new conversation session to ensure focused development.
 - **Session Handoff & Memory Resume** (`session-handoff-resume`): Saves ultra-compact project checkpoints (`STATE_HANDOFF.md`) before account/session switches and resumes work with zero token waste.
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition — very useful for high-efficiency bulk refactoring tasks.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects — systematic cleanup and refactoring of LLM-generated code.
@@ -221,7 +222,7 @@ By letting skills naturally invoke one another, you transform the AI into a comp
 For those who want to contribute by adding new skills or updating existing ones, please read our complete guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Version
-v2.1.0 (2026 Edition) — 69+ skills
+v2.3.0 (2026 Edition) — 78+ skills
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -233,7 +234,7 @@ v2.1.0 (2026 Edition) — 69+ skills
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **77+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **78+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -262,7 +263,7 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **77+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
+Plugin ini menyediakan **78+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
 
 #### 🤖 AI & Sistem Agen
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Panduan tingkat produksi untuk integrasi frontier LLM (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), pipeline RAG dengan pgvector HNSW + BM25 hybrid search, memori agentik (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, dan computer use (Browser-Use, Playwright MCP).
@@ -354,6 +355,7 @@ Plugin ini menyediakan **77+ kemampuan (*skills*)** berikut yang bisa digunakan 
 - **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Standar Aksesibilitas Web (WCAG 2.2 AAA) dan internasionalisasi i18n.
 - **Template Skill Baru** (`skill_baru`): Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual.
+- **Session Context Loader** (`session-context-loader`): Otomatis memuat dan mempelajari konteks proyek (Tech Stack, PRD, Roadmap, Blueprint) di awal setiap sesi baru untuk memastikan pengembangan yang terarah.
 - **Session Handoff & Memory Resume** (`session-handoff-resume`): Menyimpan checkpoint proyek super ringkas (`STATE_HANDOFF.md`) sebelum ganti akun/sesi dan melanjutkan pekerjaan secara instan tanpa boros token.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan — sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding — pembersihan dan refactoring sistematis kode yang dihasilkan LLM.
@@ -381,7 +383,7 @@ Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah 
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Versi
-v2.2.0 (Edisi 2026) — 77+ skills
+v2.3.0 (Edisi 2026) — 78+ skills
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

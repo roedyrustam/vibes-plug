@@ -1,6 +1,6 @@
 {
   "name": "vibes-plug",
-  "version": "1.0.0",
+  "version": "2.3.0",
   "description": "Customization plugin for Antigravity containing 65+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "scripts": {

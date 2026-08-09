@@ -146,6 +146,14 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 ```
 
+### Skill Orchestration & Handoff
+- **Upstream Orchestrator**: Executes during **Phase 4** of `zero-to-prod-orchestrator` or after backend decision lock in `brainstorming`.
+- **API Contracts & Specs**: Delegate OpenAPI / GraphQL / gRPC design to `api-design-expert` and TypeScript type generation to `typescript-expert`.
+- **Database & ORM Layer**: Delegate schema design, migrations, and pooling to `database-orm-expert` and `supabase-migration`.
+- **Authentication & Security**: Delegate JWT/OAuth2 flows to `authentication-identity-expert` and environment secret security to `zero-trust-secret-vault`.
+- **Durable Async Jobs**: Delegate fault-tolerant long-running workflows to `async-queue-temporal-expert`.
+- **Automated Testing & Docs**: Delegate integration testing to `e2e-testing-expert` and update change logs via `auto-doc-updater`.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -190,3 +198,11 @@ Gunakan BullMQ dengan Redis untuk pemrosesan tugas latar belakang yang andal den
 
 ### Graceful Shutdown
 Jangan hentikan proses secara mendadak. Bersihkan connection pool, HTTP server, dan worker queue sebelum keluar.
+
+### Orkestrasi Skill & Serah Terima
+- **Orkestrator Utama**: Dieksekusi pada **Fase 4** dari `zero-to-prod-orchestrator` atau setelah finalisasi backend di `brainstorming`.
+- **Kontrak & Spesifikasi API**: Delegasikan desain OpenAPI / GraphQL / gRPC ke `api-design-expert` dan tipe TypeScript ke `typescript-expert`.
+- **Database & ORM**: Delegasikan desain skema, migrasi, dan pooling ke `database-orm-expert` dan `supabase-migration`.
+- **Autentikasi & Keamanan**: Delegasikan alur JWT/OAuth2 ke `authentication-identity-expert` dan keamanan kredensial ke `zero-trust-secret-vault`.
+- **Pekerjaan Asinkron Tahan Gagal**: Delegasikan workflow kompleks ke `async-queue-temporal-expert`.
+- **Pengujian & Dokumentasi**: Delegasikan pengujian integrasi ke `e2e-testing-expert` dan perbarui catatan perubahan via `auto-doc-updater`.

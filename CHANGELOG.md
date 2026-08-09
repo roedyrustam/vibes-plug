@@ -6,6 +6,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
 
+## [1.8.0] - 2026-08-09
+
+### Added / Ditambahkan
+- Added `website-design-cloner` skill module: Reverse-engineer website designs & templates directly from any live target URL into 1:1 code (Tailwind CSS v4 `@theme`, React 19, Next.js 15 App Router).
+  *(Menambahkan modul skill `website-design-cloner`: Mempelajari dan merekayasa balik desain situs web & template secara langsung dari URL target ke kode presisi 1:1.)*
+- Integrated URL design cloning triggers and handoff protocols into `web-scraper`, `ui-ux-pro-max`, and `brainstorming`.
+  *(Mengintegrasikan pemicu duplikasi desain URL dan protokol handoff ke dalam `web-scraper`, `ui-ux-pro-max`, dan `brainstorming`.)*
+
+### Changed / Diubah
+- Bumped plugin and package versions to `v1.8.0`.
+  *(Meningkatkan versi plugin dan package ke `v1.8.0`.)*
+
+---
+
+## [1.7.0] - 2026-08-09
+
+### Added / Ditambahkan
+- Automated PRD & Roadmap creation protocol: `prd-architect` and `zero-to-prod-orchestrator` now enforce generating both `PRD.md` and `ROADMAP.md` before any code implementation begins on new projects.
+  *(Protokol otomatisasi PRD & Roadmap: `prd-architect` dan `zero-to-prod-orchestrator` sekarang mewajibkan pembuatan `PRD.md` dan `ROADMAP.md` sebelum penulisan kode dimulai.)*
+- Explicit **Skill Orchestration & Handoff** matrices added across domain expert skills (`senior-frontend`, `js-backend-expert`, `ai-llm-integration-expert`, `saas-multi-tenant`, `auto-doc-updater`).
+  *(Menambahkan matriks **Skill Orchestration & Handoff** eksplisit pada seluruh skill domain spesialis.)*
+
+### Changed / Diubah
+- Upgraded master orchestrator `brainstorming` and `zero-to-prod-orchestrator` to seamlessly cross-reference and delegate to all 77 specialized skills in `vibes-plug`.
+  *(Memperbarui orchestrator master `brainstorming` dan `zero-to-prod-orchestrator` untuk mendelegasikan tugas secara dinamis ke seluruh 77 skill di `vibes-plug`.)*
+- Bumped plugin and package versions to `v1.7.0`.
+  *(Meningkatkan versi plugin dan package ke `v1.7.0`.)*
+
 ---
 
 ## [1.5.0] - 2026-07-26

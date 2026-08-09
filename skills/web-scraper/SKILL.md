@@ -20,6 +20,7 @@ Smart web data extraction using modern scraping strategies — **Firecrawl** (LL
 - Extracting structured data from websites for analysis, training data, or content pipelines.
 - Scraping dynamic JavaScript-rendered pages (SPAs, React apps).
 - Converting web pages to clean Markdown for LLM context or RAG pipelines.
+- Analyzing or cloning website UI design, templates, and components directly from a URL (Handoff to `website-design-cloner`).
 - Building an automated data pipeline that scrapes, transforms, and stores data.
 - Extracting data at scale with rate limiting and proxy rotation.
 
@@ -172,6 +173,7 @@ Ekstraksi data web yang cerdas menggunakan strategi scraping modern — **Firecr
 - Mengekstrak data terstruktur dari website untuk analisis, data pelatihan, atau pipeline konten.
 - Scraping halaman yang dirender JavaScript secara dinamis (SPA, aplikasi React).
 - Mengonversi halaman web menjadi Markdown bersih untuk konteks LLM atau pipeline RAG.
+- Mempelajari atau menduplikasi desain UI, template, dan komponen situs web langsung dari URL (Delegasikan ke `website-design-cloner`).
 - Membangun pipeline data otomatis yang melakukan scraping, transformasi, dan penyimpanan.
 - Mengekstrak data dalam skala besar dengan rate limiting dan rotasi proxy.
 

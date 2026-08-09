@@ -35,8 +35,8 @@ During brainstorming, consult, reference, and orchestrate the following speciali
 
 | Domain / Phase | Orchestrated Skills | Trigger & Delegation Context |
 | :--- | :--- | :--- |
-| **Discovery & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `browser-automation-expert` | Formulate formal PRD, audit existing codebases, scrape reference products, or execute autonomous Playwright/Browser-Use web agents. |
-| **UI/UX & Design Systems** | `design-system-architect`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern` | Design tokens (OKLCH), Tailwind CSS v4, Apple HIG principles, layout hierarchy, modernizing legacy Bootstrap apps. |
+| **Discovery & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `website-design-cloner`, `browser-automation-expert` | Formulate formal PRD, audit existing codebases, reverse-engineer website URL designs 1:1, scrape reference products, or execute autonomous Playwright/Browser-Use web agents. |
+| **UI/UX & Design Systems** | `design-system-architect`, `website-design-cloner`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern` | Reverse-engineer website designs & templates directly from target URL, design tokens (OKLCH), Tailwind CSS v4, Apple HIG principles, layout hierarchy, modernizing legacy Bootstrap apps. |
 | **Frontend Frameworks** | `senior-frontend`, `tanstack-query-expert`, `global-a11y-i18n-expert`, `state-management-expert` | React 19 / Next.js 15 App Router (RSC, PPR), async state management (Zustand/Jotai), WCAG 2.2 a11y, multi-language i18n. |
 | **Mobile & Desktop** | `mobile-expo-expert`, `tauri-expert`, `mobile-push-notification-expert` | Cross-platform React Native / Expo Router v4, iOS Live Activities, push notifications (FCM/APNs), or Rust-powered Tauri v2 desktop apps. |
 | **Backend & Runtimes** | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `fullstack-expert`, `senior-fullstack`, `async-queue-temporal-expert` | API design, Node.js 24, Bun 1.2+, FastAPI, Go microservices, Rust Axum, durable workflows (Temporal/Trigger.dev/BullMQ). |
@@ -48,7 +48,7 @@ During brainstorming, consult, reference, and orchestrate the following speciali
 | **Testing & Security** | `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, `coderabbit` | Playwright E2E suites, automated web agent flows, Zero-Trust secrets (Infisical/Vault), purging AI slop, automated code review. |
 | **Performance** | `performance-web-vitals` | Core Web Vitals (LCP, INP, CLS), bundle optimization, image/font loading, React concurrent features, Lighthouse score improvement. |
 | **SEO, GEO & Telemetry** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Technical SEO audits, Generative Engine Optimization (AI Overviews, `/llms.txt`), AEO landing pages, OpenTelemetry/PostHog analytics. |
-| **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `token-saver` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), token efficiency. |
+| **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), loading context on new sessions, token efficiency. |
 
 ---
 
@@ -169,6 +169,7 @@ After documentation is complete, initiate the handoff:
 - Invoke `auto-doc-updater` to update `CHANGELOG.md` and `BLUEPRINT.md`.
 - Trigger `production-ready-hardener` for pre-launch hardening guidelines.
 - Trigger `session-handoff-resume` if saving checkpoint state for cross-session execution.
+- Ensure `session-context-loader` is invoked on the next session start.
 
 ---
 
@@ -220,7 +221,7 @@ Selama proses brainstorming, konsultasikan, rujuk, dan orkestrasikan skill-skill
 | **Testing & Kualitas** | `e2e-testing-expert`, `vibe-code-gardener`, `coderabbit` | Testing E2E Playwright, unit test Vitest, membersihkan AI slop/pembusukan kode, panduan otomatisasi code review. |
 | **Performa** | `performance-web-vitals` | Core Web Vitals (LCP, INP, CLS), optimasi bundle, loading gambar/font, React concurrent features, peningkatan skor Lighthouse. |
 | **SEO, GEO & Telemetri** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Audit SEO teknikal, Generative Engine Optimization (AI Overviews, `/llms.txt`), landing page AEO, analitik OpenTelemetry/PostHog. |
-| **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `token-saver` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), efisiensi token. |
+| **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), pemuatan konteks otomatis, efisiensi token. |
 
 ---
 
@@ -341,6 +342,7 @@ Setelah dokumentasi selesai, jalankan proses serah terima:
 - Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md`.
 - Picu `production-ready-hardener` untuk panduan pengerasan pra-rilis.
 - Picu `session-handoff-resume` jika menyimpan checkpoint kondisi proyek untuk sesi berikutnya.
+- Pastikan `session-context-loader` aktif untuk memuat konteks saat sesi baru dimulai.
 
 ---
 
