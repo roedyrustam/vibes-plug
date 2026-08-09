@@ -159,6 +159,11 @@ After every successful feature implementation:
 3. **PROGRESS.md**: Mark completed tasks `[x]`, update next steps.
 4. **ADR**: Create a new ADR if a significant architectural decision was made (DB choice, auth flow, billing provider, deployment strategy, isolation strategy).
 
+### Skill Orchestration & Handoff
+- **Global Listener**: Invoked automatically after completing milestones in `zero-to-prod-orchestrator`, `brainstorming`, `prd-architect`, or any domain expert skill execution.
+- **Context Handoff**: Coordinates with `session-handoff-resume` to ensure checkpoints and documentation are saved before context switching.
+- **Codebase Auditing**: Coordinates with `vibe-code-gardener` to log dead code purges and structural refactors.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -202,3 +207,8 @@ Setelah setiap implementasi fitur yang berhasil:
 2. **BLUEPRINT.md**: Perbarui hanya jika skema, stack, atau entry points berubah.
 3. **PROGRESS.md**: Tandai tugas selesai `[x]`, perbarui langkah selanjutnya.
 4. **ADR**: Buat ADR baru jika keputusan arsitektur signifikan dibuat.
+
+### Orkestrasi Skill & Serah Terima
+- **Pendengar Global**: Dipanggil secara otomatis setelah menyelesaikan milestone di `zero-to-prod-orchestrator`, `brainstorming`, `prd-architect`, atau skill domain spesialis mana pun.
+- **Serah Terima Konteks**: Berkoordinasi dengan `session-handoff-resume` untuk memastikan checkpoint dan dokumentasi tersimpan sebelum alih konteks.
+- **Audit Codebase**: Berkoordinasi dengan `vibe-code-gardener` untuk mencatat pembersihan dead code dan refactoring struktural.

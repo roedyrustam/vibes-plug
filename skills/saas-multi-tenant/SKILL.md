@@ -194,6 +194,13 @@ if (!can(currentMember.role, 'project:delete')) {
 }
 ```
 
+### Skill Orchestration & Handoff
+- **Upstream Orchestrator**: Executes during **Phase 3** of `zero-to-prod-orchestrator` or SaaS design lock in `brainstorming`.
+- **Database & Security**: Delegate database schema migrations to `supabase-migration` and security audit / App Check rules to `supabase-security-expert`.
+- **SaaS Billing & Monitization**: Delegate subscription state machines and Stripe/Polar integration to `saas-billing` and `payment-gateway-expert`.
+- **Multi-Entry Points**: Delegate Super Admin domain isolation (`admin.yourdomain.com`) to `multiple-entry-points`.
+- **Transformation Roadmap**: Coordinate with `saas-transformer` and `saas-mvp-launcher` when upgrading single-tenant apps to multi-tenant.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -235,3 +242,10 @@ Super Admin adalah sistem terpisah yang beroperasi **di semua tenant** dengan ha
 
 ### Implementasi RBAC
 Definisikan peta izin per role (`owner`, `admin`, `member`, `viewer`) dan fungsi `can()` helper untuk memeriksa izin dalam API handler.
+
+### Orkestrasi Skill & Serah Terima
+- **Orkestrator Utama**: Dieksekusi pada **Fase 3** dari `zero-to-prod-orchestrator` atau saat finalisasi SaaS di `brainstorming`.
+- **Database & Keamanan**: Delegasikan migrasi skema ke `supabase-migration` dan audit keamanan / RLS ke `supabase-security-expert`.
+- **SaaS Billing & Monitisasi**: Delegasikan state machine langganan dan integrasi Stripe/Polar ke `saas-billing` dan `payment-gateway-expert`.
+- **Multi-Entry Points**: Delegasikan isolasi domain Super Admin (`admin.domain.com`) ke `multiple-entry-points`.
+- **Roadmap Transformasi**: Koordinasikan dengan `saas-transformer` dan `saas-mvp-launcher` saat mentransformasi aplikasi single-tenant ke multi-tenant.

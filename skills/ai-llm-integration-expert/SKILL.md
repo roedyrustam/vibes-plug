@@ -100,6 +100,13 @@ Modern agents can control browsers and operating systems:
 - Implement **semantic caching** using Redis + vector similarity to skip redundant model queries.
 - Use **batch APIs** (OpenAI Batch, Anthropic Message Batches) for async, high-volume workloads at 50% cost reduction.
 
+#### 10. Skill Orchestration & Handoff
+- **Upstream Orchestrator**: Executes during **Phase 4** of `zero-to-prod-orchestrator` or after AI decision lock in `brainstorming`.
+- **MCP Server Architecture**: Delegate custom MCP server creation to `mcp-server-architect` and payment tools to `doku-mcp-server`.
+- **Multi-Agent & Swarm Workflows**: Delegate complex agent state graphs to `multi-agent-orchestration` and Gemini long-context optimization to `gemini-agent-booster`.
+- **Vector DB & Hybrid Search**: Delegate pgvector indexing and hybrid search tuning to `vector-db-rag-expert`.
+- **Token Budget & FinOps**: Delegate API cost optimization and prompt caching strategies to `ai-cost-token-optimizer`.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -160,3 +167,10 @@ Gunakan mode structured output (bukan prompt engineering) untuk jaminan kesesuai
 - Pantau konsumsi token per sesi di tabel telemetri.
 - Terapkan semantic caching dengan Redis + vektor.
 - Gunakan Batch API (OpenAI / Anthropic) untuk workload async volume tinggi dengan biaya 50% lebih hemat.
+
+#### 10. Orkestrasi Skill & Serah Terima
+- **Orkestrator Utama**: Dieksekusi pada **Fase 4** dari `zero-to-prod-orchestrator` atau setelah finalisasi arsitektur AI di `brainstorming`.
+- **Arsitektur MCP Server**: Delegasikan pembuatan MCP server ke `mcp-server-architect` dan integrasi pembayaran ke `doku-mcp-server`.
+- **Multi-Agent & Swarm Workflows**: Delegasikan alur state graph kompleks ke `multi-agent-orchestration` dan optimasi long-context Gemini ke `gemini-agent-booster`.
+- **Vector DB & Hybrid Search**: Delegasikan indeks pgvector dan pencarian hibrida ke `vector-db-rag-expert`.
+- **Token Budget & FinOps**: Delegasikan optimasi biaya API dan caching prompt ke `ai-cost-token-optimizer`.
