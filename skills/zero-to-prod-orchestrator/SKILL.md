@@ -44,7 +44,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### PHASE 1: Discovery & AI PRD Architectural Planning
 **Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
-- [ ] Draft a comprehensive Product Requirements Document (PRD).
+- [ ] Draft a comprehensive Product Requirements Document (PRD.md) and a Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
 
@@ -125,7 +125,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
 **Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
-- [ ] Menyusun Product Requirements Document (PRD) yang komprehensif.
+- [ ] Menyusun Product Requirements Document (PRD.md) dan Roadmap (ROADMAP.md) yang komprehensif.
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.
 

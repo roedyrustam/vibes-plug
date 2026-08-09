@@ -141,10 +141,10 @@ projects ──has_many──> tasks
 ### Enforcement Protocol
 1. **Detect**: When user requests a new project build.
 2. **Pause**: Do NOT generate any code.
-3. **Generate PRD**: Create a pre-filled PRD draft based on the user's description.
+3. **Generate PRD & Roadmap**: Create a pre-filled PRD draft (`PRD.md`) and a Roadmap document (`ROADMAP.md` or `PROGRESS.md`) based on the user's description.
 4. **Review**: Present to user for approval/edits.
-5. **Confirm**: Once PRD is approved, proceed to `zero-to-prod-orchestrator` Phase 1.
-6. **Reference**: Cite the PRD in all subsequent code generation decisions.
+5. **Confirm**: Once PRD and Roadmap are approved, proceed to `zero-to-prod-orchestrator` Phase 1.
+6. **Reference**: Cite the PRD and Roadmap in all subsequent code generation decisions.
 
 ---
 
@@ -185,7 +185,7 @@ Template PRD mencakup 12 bagian:
 ### Protokol Penegakan
 1. **Deteksi**: Saat pengguna meminta pembangunan proyek baru.
 2. **Jeda**: JANGAN hasilkan kode apapun.
-3. **Buat PRD**: Buat draf PRD yang sudah diisi berdasarkan deskripsi pengguna.
+3. **Buat PRD & Roadmap**: Buat draf PRD (`PRD.md`) dan dokumen Roadmap (`ROADMAP.md` atau `PROGRESS.md`) yang sudah diisi berdasarkan deskripsi pengguna.
 4. **Tinjau**: Sajikan kepada pengguna untuk persetujuan/edit.
-5. **Konfirmasi**: Setelah PRD disetujui, lanjut ke `zero-to-prod-orchestrator` Fase 1.
-6. **Referensi**: Kutip PRD dalam semua keputusan pembuatan kode selanjutnya.
+5. **Konfirmasi**: Setelah PRD dan Roadmap disetujui, lanjut ke `zero-to-prod-orchestrator` Fase 1.
+6. **Referensi**: Kutip PRD dan Roadmap dalam semua keputusan pembuatan kode selanjutnya.
