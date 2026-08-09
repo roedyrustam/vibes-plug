@@ -25,7 +25,7 @@ The **Zero to Production Orchestrator** is the ultimate master skill designed to
 1. **Never Skip Phases**: Each phase must be completed and validated before advancing to the next.
 2. **Continuous Auto-Documentation**: Invoke `auto-doc-updater` to log changes in `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
 3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
-4. **State Preservation**: Utilize `session-handoff-resume` when pausing work or switching contexts, ensuring zero token waste.
+4. **State Preservation & Context**: Utilize `session-handoff-resume` when pausing work, and `session-context-loader` on every new session to preserve full context.
 5. **Efficiency**: Keep `token-saver` active during large refactors to maintain a lean, powerful execution loop.
 
 ---
@@ -42,7 +42,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`
+**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Draft a comprehensive Product Requirements Document (PRD.md) and a Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
@@ -115,7 +115,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 1. **Jangan Pernah Melewati Fase**: Setiap fase harus diselesaikan dan divalidasi sebelum beralih ke fase berikutnya.
 2. **Otomatisasi Dokumentasi**: Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap milestone utama.
 3. **Pelacakan Progres**: Pelihara daftar periksa `PROGRESS.md` di root repositori.
-4. **Preservasi State**: Gunakan `session-handoff-resume` saat menjeda pekerjaan atau berganti konteks, memastikan tidak ada token yang terbuang percuma.
+4. **Preservasi State & Konteks**: Gunakan `session-handoff-resume` saat menjeda pekerjaan, dan `session-context-loader` di awal setiap sesi baru untuk menjaga konteks penuh.
 5. **Efisiensi**: Aktifkan `token-saver` selama refactoring besar-besaran untuk mempertahankan *loop* eksekusi yang ringkas dan *powerful*.
 
 ---
@@ -123,7 +123,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Menyusun Product Requirements Document (PRD.md) dan Roadmap (ROADMAP.md) yang komprehensif.
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).

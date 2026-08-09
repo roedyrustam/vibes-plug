@@ -27,6 +27,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 ├──────────────────────────────────────────────────────────────────┤
 │                                                                   │
 │  ┌─── PHASE 1: Discovery & Architecture Analysis ─────────────┐  │
+│  │  • session-context-loader (Load project context)          │  │
 │  │  • app-analyzer-optimizer (Audit architecture & codebase)  │  │
 │  │  • prd-architect (Generate PRD for SaaS features)         │  │
 │  │  • brainstorming (Validate transformation strategy)       │  │
@@ -111,7 +112,7 @@ When this skill is triggered, execute the following **9-phase transformation pro
 ---
 
 #### PHASE 1: Discovery & Architecture Analysis
-**Orchestrates:** `app-analyzer-optimizer`, `prd-architect`, `brainstorming`, `mpa-orchestrator`, `bun-runtime-expert`
+**Orchestrates:** `session-context-loader`, `app-analyzer-optimizer`, `prd-architect`, `brainstorming`, `mpa-orchestrator`, `bun-runtime-expert`
 
 **Goal:** Understand the existing application and plan the transformation, including architectural pivots.
 
@@ -324,7 +325,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 
 | Fase | Skill yang Digunakan | Fokus |
 |------|---------------------|-------|
-| 1. Discovery & Arsitektur | `app-analyzer-optimizer`, `prd-architect`, `mpa-orchestrator`, `bun-runtime-expert` | Audit codebase, MPA vs SPA, evaluasi Bun |
+| 1. Discovery & Arsitektur | `session-context-loader`, `app-analyzer-optimizer`, `prd-architect`, `mpa-orchestrator`, `bun-runtime-expert` | Muat konteks, audit codebase, MPA vs SPA, evaluasi Bun |
 | 2. Fondasi Multi-Tenancy | `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert` | Shared/Isolated Schema, RLS, isolasi data |
 | 3. Autentikasi & Otorisasi | `fullstack-expert`, `supabase-security-expert`, `firebase-security-expert` | OAuth/OIDC, RBAC, JWT claims |
 | 4. Billing & Langganan | `saas-billing`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend` | Stripe/Midtrans, webhook, dunning |
@@ -351,7 +352,7 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 ---
 
 #### FASE 1: Discovery & Analisis Arsitektur
-**Mengorkestrasi:** `app-analyzer-optimizer`, `prd-architect`, `brainstorming`, `mpa-orchestrator`, `bun-runtime-expert`
+**Mengorkestrasi:** `session-context-loader`, `app-analyzer-optimizer`, `prd-architect`, `brainstorming`, `mpa-orchestrator`, `bun-runtime-expert`
 
 - [ ] Semua tabel/model database dipetakan
 - [ ] Keputusan arsitektur (MPA vs SPA, Node vs Bun) dievaluasi
