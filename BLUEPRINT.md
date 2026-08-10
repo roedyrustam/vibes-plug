@@ -20,20 +20,27 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **asisten-ramah**: Friendly assistant styling to respond with a warm, polite language style and emojis.
 - **auto-doc-updater**: Automated project documentation tracking (`CHANGELOG.md` and `BLUEPRINT.md`).
 - **bootstrap-to-modern**: Refactor and migrate legacy Bootstrap CSS applications to modern utility-first stacks using Tailwind CSS v4 and Alpine.js 3 / HTMX.
-- **brainstorming**: Advanced brainstorming protocol with 2026 Modern Web Guidance — RSC, PPR, Server Actions, AI integration, Passkeys, and structured Design Document templates.
+- **brainstorming**: Advanced brainstorming protocol with 2026 Modern Web Guidance â€” RSC, PPR, Server Actions, AI integration, Passkeys, and structured Design Document templates.
 - **bun-runtime-expert**: Expert skill for the Bun JavaScript/TypeScript runtime (v1.2+) featuring `Bun.serve`, `Bun.sql`, `Bun.s3`, `bun test`, bundler, and package manager.
 - **cloud-hosting-expert**: Expert guide for deploying SaaS applications on edge and serverless platforms like Vercel (Edge, Fluid Compute), Cloudflare (Wrangler v3, Workers/Pages), Supabase, and Neon.
 - **coderabbit**: AI-powered automated code reviews, pull request summarizations, interactive chat prompts, and `.coderabbit.yaml` custom configurations.
+- **cron-scheduler-expert**: Scheduled tasks, cron jobs, recurring background work (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron, BullMQ), and distributed cron locking.
 - **data-telemetry-expert**: Observability, OpenTelemetry 1.30+, PostHog, Mixpanel, and telemetry data pipelines.
+- **dependency-upgrade-migrator**: Dependency upgrades, breaking change migrations, framework version bumps (React 18→19, Next 14→15, Tailwind v3→v4), codemod automation, and vulnerability remediation.
 - **design-system-architect**: Enterprise UI design systems, Design Tokens (OKLCH), Radix UI/Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.
 - **e2e-testing-expert**: Guidelines for Playwright End-to-End testing (1.48+), Vitest unit/integration testing (2+), MSW 2+, and GitHub Actions CI/CD automation.
+- **email-notification-expert**: Transactional email pipelines (Resend, Postmark, SES), React Email templates, in-app notifications, deliverability optimization, and webhook tracking.
+- **error-resilience-expert**: Application error resilience, React 19 Error Boundaries, API error standards (RFC 9457), retry strategies, circuit breakers, and graceful degradation.
 - **event-driven-architect**: Microservices architecture, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, and background workflows (Temporal, Inngest, Trigger.dev v3).
+- **file-upload-media-expert**: Presigned URL uploads (S3, R2, Supabase Storage), image processing (Sharp), video transcoding (Mux), CDN optimization, drag-and-drop UI, and magic byte file validation.
 - **firebase-security-expert**: Firebase Security Rules auditing, Service Account protection, and App Check v11+ integration.
+- **form-validation-expert**: Complex form handling with React Hook Form, server-side validation with `useActionState` + Zod, multi-step wizards, accessibility, and progressive enhancement.
 - **fullstack-expert**: Multi-language (TypeScript, Python, Go, Rust), multi-framework backend references (Next.js, FastAPI, Gin, Axum), OpenAPI 3.1 API design patterns, databases, DevOps, and observability.
 - **global-a11y-i18n-expert**: Web Accessibility (WCAG 2.2 AAA) and internationalization (i18n) standards.
 - **go-programming-expert**: Expert-level skill for Go programming (Go 1.23/1.24+). Covers high-performance backend APIs, microservices, concurrency patterns (`errgroup`, context propagation), `sqlc`, `net/http`, Gin/Echo/Fiber, gRPC, and table-driven testing.
 - **hig**: Human Interface Guidelines for iOS 18 and macOS Sequoia, enforcing visual hierarchy, harmony, and platform consistency.
 - **js-backend-expert**: Production-grade guidance for modern JavaScript/TypeScript backend APIs across Node.js 22 LTS, Bun 1.2+, and Deno 2.x. Covers Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSockets, and BullMQ background queues.
+- **logging-error-tracking-expert**: Structured JSON logging (Pino), Sentry error tracking, request ID correlation, source map uploads in CI, alert rules, and GDPR-compliant PII redaction.
 - **mcp-server-architect**: Expert guide for designing, building, and securing Model Context Protocol (MCP) servers across TypeScript, Python, and Go (`stdio` and `SSE` transports, Zod/Pydantic schema validation, security guardrails).
 - **mobile-expo-expert**: React Native 0.76+ and Expo SDK 52+ development, covering Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
 - **monorepo-architect**: Expert guide for designing and managing scalable monorepos using Turborepo 2.x, pnpm v9+ workspaces, and pnpm catalogs.
@@ -42,6 +49,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **prd-architect**: Initial guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code.
 - **production-ready-hardener**: Automated pre-launch audits across security, performance, accessibility, testing, and deployment.
 - **python-programming-expert**: Expert skill for Python programming (Python 3.12/3.13+) covering PEP 695 type parameter syntax, structured concurrency (`asyncio.TaskGroup`), web backends (FastAPI 0.115+, Pydantic v2), package management (`uv`), quality checks (`Ruff`), and testing with pytest 8+.
+- **rate-limit-abuse-prevention**: API rate limiting (Upstash Ratelimit), bot protection (Turnstile), DDoS edge mitigation, brute-force login prevention, API key management, and usage quotas.
 - **rust-programming-expert**: Expert skill for Rust programming (Rust 2024 / v1.85+) covering memory safety (ownership/lifetimes), async (Tokio, async closures), web backends (Axum 0.8+, SQLx 0.8+), CLI (Clap, Serde), unsafe safety, optimization, and Cargo profiling.
 - **saas-billing**: Implementation of payment gateways (Stripe v16+, Midtrans, Paddle), webhook handling, subscription lifecycle states, and database synchronization.
 - **saas-multi-tenant**: Row-Level Security (RLS) and multi-tenant database isolation strategies.
@@ -49,7 +57,7 @@ Vibes Plug is a customized plugin for Antigravity that houses high-performance c
 - **saas-transformer**: Systematic 8-phase transformation of standard applications into production-grade multi-tenant SaaS platforms (database isolation, billing/Stripe, teams, feature gating).
 - **scalability-clean-code**: Guidelines for maintaining code readability (Clean Code, SOLID, DRY) and system scalability (Clean Architecture, loose coupling, horizontal scaling, caching).
 - **secure-fuzz-testing**: Coverage-guided fuzzing (Atheris, cargo-fuzz, native Go fuzzing) with compilers/sanitizers (ASan, MSan, UBSan) for security validation.
-- **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, and bundle optimization.
+- **senior-frontend**: React 19, Next.js 15, Tailwind CSS v4 frontend patterns â€” `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, and bundle optimization.
 - **senior-fullstack**: Advanced fullstack architectural/testing references (Redis caching, BullMQ background queues, connection pooling, CI/CD pipelines, Docker, and Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Generative search engine optimization and visibility architectures (AI Overviews, ChatGPT Search, Perplexity, `/llms.txt`).
 - **session-handoff-resume**: Zero-token loss session continuation across account switches and chat resets via ultra-compact `STATE_HANDOFF.md` checkpoints.
@@ -83,16 +91,23 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **bun-runtime-expert**: Panduan ahli untuk runtime Bun JavaScript/TypeScript (v1.2+) (`Bun.serve`, `Bun.sql`, `Bun.s3`, `bun test`, bundler, package manager).
 - **cloud-hosting-expert**: Panduan ahli meluncurkan aplikasi SaaS di platform edge & serverless (Vercel, Cloudflare, Supabase, Neon).
 - **coderabbit**: Asisten review kode otomatis berbasis AI, perangkum pull request, dan integrasi `.coderabbit.yaml`.
+- **cron-scheduler-expert**: Tugas terjadwal, cron job, pekerjaan latar belakang berulang (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron, BullMQ), dan penguncian cron terdistribusi.
 - **data-telemetry-expert**: Observabilitas, OpenTelemetry 1.30+, PostHog, Mixpanel, dan analitik pipa data.
+- **dependency-upgrade-migrator**: Upgrade dependensi, migrasi breaking change, upgrade versi framework (React 18→19, Next 14→15, Tailwind v3→v4), otomasi codemod, dan remediasi kerentanan.
 - **design-system-architect**: Design system UI perusahaan, Design Tokens (OKLCH), headless primitives Radix UI/Base UI, Tailwind v4 `@theme`, CVA, dan aksesibilitas WCAG 2.2 AAA.
 - **e2e-testing-expert**: Pengujian End-to-End dengan Playwright 1.48+, Vitest 2+, MSW 2+, dan otomatisasi CI/CD.
+- **email-notification-expert**: Pipeline email transaksional (Resend, Postmark, SES), template React Email, notifikasi in-app, optimasi deliverability, dan tracking webhook.
+- **error-resilience-expert**: Ketahanan error aplikasi, Error Boundaries React 19, standar error API (RFC 9457), strategi retry, circuit breaker, dan degradasi anggun.
 - **event-driven-architect**: Arsitektur microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), dan background workflows (Temporal, Inngest, Trigger.dev v3).
+- **file-upload-media-expert**: Upload presigned URL (S3, R2, Supabase Storage), pemrosesan gambar (Sharp), transcoding video (Mux), optimasi CDN, UI drag-and-drop, dan validasi file magic bytes.
 - **firebase-security-expert**: Audit Firebase Security Rules, perlindungan Service Account, dan konfigurasi App Check v11+.
+- **form-validation-expert**: Penanganan formulir kompleks dengan React Hook Form, validasi server-side dengan `useActionState` + Zod, wizard multi-langkah, aksesibilitas, dan progressive enhancement.
 - **fullstack-expert**: Referensi pengembangan fullstack multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), OpenAPI 3.1, database, DevOps, dan observability.
 - **global-a11y-i18n-expert**: Standar Aksesibilitas Web (WCAG 2.2 AAA) dan internasionalisasi (i18n).
 - **go-programming-expert**: Skill tingkat ahli untuk pemrograman Go (Go 1.23/1.24+). Mencakup API backend, microservices, pola konkurensi (`errgroup`), `sqlc`, routing `net/http`, Gin/Echo/Fiber, gRPC, dan testing.
 - **hig**: Human Interface Guidelines untuk iOS 18 dan macOS Sequoia.
 - **js-backend-expert**: Panduan tingkat produksi untuk API backend JavaScript/TypeScript di Node.js 22 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSocket, dan BullMQ.
+- **logging-error-tracking-expert**: Logging terstruktur JSON (Pino), pelacakan error Sentry, korelasi request ID, upload source map di CI, aturan alert, dan redaksi PII sesuai GDPR.
 - **mcp-server-architect**: Panduan ahli merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go (transport `stdio` & `SSE`, validasi Zod/Pydantic, guardrails keamanan).
 - **mobile-expo-expert**: Pengembangan React Native 0.76+ dan Expo SDK 52+, mencakup Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
 - **monorepo-architect**: Merancang dan mengelola monorepo skalabel menggunakan Turborepo 2.x, pnpm v9+ workspaces, dan pnpm catalogs.
@@ -101,6 +116,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **prd-architect**: Perumusan wajib Product Requirements Document (PRD) sebelum menulis kode aplikasi baru.
 - **production-ready-hardener**: Audit kesiapan produksi pra-peluncuran pada aspek keamanan, performa, aksesibilitas, testing, dan deployment.
 - **python-programming-expert**: Pemrograman Python (Python 3.12/3.13+), mencakup sintaksis parameter tipe PEP 695, konkurensi terstruktur (`asyncio.TaskGroup`), API backend (FastAPI 0.115+, Pydantic v2), `uv`, `Ruff`, dan pytest 8+.
+- **rate-limit-abuse-prevention**: Rate limiting API (Upstash Ratelimit), perlindungan bot (Turnstile), mitigasi DDoS di edge, pencegahan brute-force login, manajemen API key, dan kuota penggunaan.
 - **rust-programming-expert**: Pemrograman Rust (Rust 2024 / v1.85+), mencakup keamanan memori, async (Tokio), web backends (Axum 0.8+, SQLx 0.8+), CLI (Clap, Serde), dan Cargo profiling.
 - **saas-billing**: Implementasi payment gateway (Stripe v16+, Midtrans, Paddle), webhook handling, dan sinkronisasi database.
 - **saas-multi-tenant**: Strategi isolasi database multi-tenant RLS dan isolated schema.
@@ -108,7 +124,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat berbagai kema
 - **saas-transformer**: Transformasi sistematis 8-fase dari aplikasi biasa menjadi platform SaaS multi-tenant lengkap.
 - **scalability-clean-code**: Penulisan kode bersih (SOLID, DRY) dan arsitektur aplikasi modular yang skalabel.
 - **secure-fuzz-testing**: Coverage-guided fuzzing (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan).
-- **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.
+- **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 â€” `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.
 - **senior-fullstack**: Referensi fullstack lanjutan (Redis caching, BullMQ background queues, connection pooling, CI/CD, Docker, Playwright).
 - **seo**, **seo-geo**, & **seo-aeo-landing-page-writer**: Optimasi mesin pencari generatif (AI Overviews, ChatGPT Search, Perplexity, `/llms.txt`).
 - **session-handoff-resume**: Penyimpanan checkpoint `STATE_HANDOFF.md` super hemat token dan pemulihan pekerjaan instan saat ganti akun/sesi.

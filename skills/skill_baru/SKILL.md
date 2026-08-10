@@ -94,12 +94,23 @@ const example = {
 
 ---
 
-### Integration with Other Skills
+### Integration with Other Skills (MANDATORY)
+
+> ⚠️ **Every skill MUST list at least 3 cross-references.** No skill should exist in isolation.
 
 This skill works best when combined with:
 - `[skill-name]` — [Why and when to combine]
 - `[skill-name]` — [Why and when to combine]
 - `[skill-name]` — [Why and when to combine]
+
+### Referenced By Orchestrators (MANDATORY)
+
+> ⚠️ **Update the orchestrator skills below when creating a new domain skill.**
+
+This skill should be referenced by the following orchestrators:
+- `brainstorming` — Add to the "[Domain]" row in the Skill Integration & Orchestration Matrix
+- `zero-to-prod-orchestrator` — Add to Phase [N]: [Phase Name]
+- `production-ready-hardener` — Add to Phase [N] if relevant to pre-launch audit
 
 ---
 
@@ -127,21 +138,35 @@ Aktifkan skill ini ketika pengguna sedang:
 - **[Prinsip 3]:** [Penjelasan singkat]
 - **[Prinsip 4]:** [Penjelasan singkat]
 
-### Integrasi dengan Skill Lain
+### Integrasi dengan Skill Lain (WAJIB)
+
+> ⚠️ **Setiap skill WAJIB mencantumkan minimal 3 referensi silang.** Tidak ada skill yang boleh berdiri sendiri.
 
 Skill ini bekerja paling baik dikombinasikan dengan:
 - `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
 - `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
+- `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
+
+### Direferensikan oleh Orchestrator (WAJIB)
+
+Skill ini harus direferensikan oleh orchestrator berikut:
+- `brainstorming` — Tambahkan ke baris "[Domain]" di Matriks Orkestrasi
+- `zero-to-prod-orchestrator` — Tambahkan ke Fase [N]
+- `production-ready-hardener` — Tambahkan ke Fase [N] jika relevan
 
 ---
 
 ## Checklist Sebelum Mempublikasikan Skill Ini
 
-- [ ] Frontmatter `name` dan `description` sudah diisi.
+- [ ] Frontmatter `name` dan `description` sudah diisi (bilingual EN/ID).
 - [ ] Semua teks `[...]` placeholder sudah diganti.
 - [ ] Ada minimal 2 contoh kode yang nyata dan dapat dijalankan.
 - [ ] Ada tabel perbandingan atau selection guide jika relevan.
 - [ ] Ada bagian "Common Pitfalls" atau anti-pattern.
+- [ ] **Bagian "Integration with Other Skills" mencantumkan minimal 3 skill.**
+- [ ] **Bagian "Referenced By Orchestrators" sudah diisi.**
 - [ ] Bagian Bahasa Indonesia sudah diterjemahkan dengan benar.
 - [ ] Blok instruksi ini sudah dihapus.
-- [ ] Skill sudah ditambahkan ke matriks orkestrasi `brainstorming` jika relevan.
+- [ ] **Skill sudah ditambahkan ke matriks orkestrasi `brainstorming`.**
+- [ ] **Skill sudah ditambahkan ke fase yang relevan di `zero-to-prod-orchestrator`.**
+- [ ] `BLUEPRINT.md` sudah diperbarui dengan deskripsi skill baru.
