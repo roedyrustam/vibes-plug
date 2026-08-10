@@ -6,6 +6,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
 
+## [2.4.0] - 2026-08-11
+
+### Added / Ditambahkan
+- Updated `saas-transformer` master orchestrator: Reconstructed 9-phase ASCII architecture map and enriched skill maps across all 9 transformation phases in both English and Bahasa Indonesia sections.
+  *(Pembaruan `saas-transformer`: Merestrukturisasi peta arsitektur ASCII 9-fase dan memperkaya pemetaan skill di seluruh 9 fase transformasi.)*
+- Updated `production-ready-hardener` master orchestrator: Reconstructed 7-phase ASCII architecture map and enriched skill maps across all 7 pre-production hardening phases.
+  *(Pembaruan `production-ready-hardener`: Merestrukturisasi peta arsitektur ASCII 7-fase dan memperkaya pemetaan skill di seluruh 7 fase pengerasan pra-produksi.)*
+- Added Windows standard output UTF-8 stream reconfiguration (`sys.stdout.reconfigure(encoding='utf-8')`) in scanner scripts (`saas_transformation_scanner.py` and `production_readiness_scanner.py`) to prevent terminal encoding errors.
+  *(Menambahkan rekonfigurasi encoding stream UTF-8 pada script scanner Python untuk mencegah error encoding di terminal Windows.)*
+- Synchronized `BLUEPRINT.md` to list all 87 skill modules across both English and Bahasa Indonesia documentation sections.
+  *(Menyelaraskan `BLUEPRINT.md` untuk mencakup seluruh 87 modul skill pada dokumentasi Bahasa Inggris dan Bahasa Indonesia.)*
+
+### Changed / Diubah
+- Fixed UTF-8 character encoding corruptions (mojibake) across skill guidelines (`SKILL.md`) and project documentation (`BLUEPRINT.md`).
+  *(Memperbaiki kerusakan encoding karakter UTF-8 (mojibake) pada petunjuk skill dan dokumentasi proyek.)*
+- Bumped plugin, package, and blueprint versions to `v2.4.0`.
+  *(Meningkatkan versi plugin, package, dan blueprint ke `v2.4.0`.)*
+
+---
+
 ## [1.8.0] - 2026-08-09
 
 ### Added / Ditambahkan

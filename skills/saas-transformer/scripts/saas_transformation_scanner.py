@@ -12,9 +12,15 @@ import re
 from pathlib import Path
 from typing import Dict, List
 
+# Ensure UTF-8 output on Windows consoles
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
+
 
 class SaasTransformationScanner:
-    """Scans an existing codebase for SaaS transformation readiness across 8 pillars."""
+    """Scans an existing codebase for SaaS transformation readiness across 7 key pillars."""
 
     PILLAR_WEIGHTS = {
         'tenancy': 0.20,
@@ -108,14 +114,14 @@ class SaasTransformationScanner:
 
     def _grep_project(self, pattern: str, extensions: List[str] = None) -> List[str]:
         matches = []
-        exts = extensions or ['.ts', '.tsx', '.js', '.jsx', '.py', '.go', '.rs', '.prisma']
+        exts = extensions or ['.ts', '.tsx', '.js', '.jsx', '.py', '.go', '.rs', '.prisma', '.sql', '.yaml', '.yml', '.json']
         for ext in exts:
             for f in self.target_path.rglob(f'*{ext}'):
-                if any(x in str(f) for x in ['node_modules', '.next', 'dist', '.git']):
+                if any(x in str(f) for x in ['node_modules', '.next', 'dist', '.git', 'target', '.venv']):
                     continue
                 try:
-                    content = f.read_text(errors='ignore')
-                    if re.search(pattern, content):
+                    content = f.read_text(encoding='utf-8', errors='ignore')
+                    if re.search(pattern, content, re.IGNORECASE):
                         matches.append(str(f.relative_to(self.target_path)))
                 except (IOError, OSError):
                     continue
@@ -125,91 +131,95 @@ class SaasTransformationScanner:
         p = self._init_pillar('tenancy', 'Multi-Tenancy Foundation')
         
         # Check database schema structure
-        has_db_schema = self._file_exists('prisma/schema.prisma') or self._grep_project('pgTable|sqliteTable|mysqlTable', ['.ts', '.js'])
-        self._check(p, 'Database schema config exists', has_db_schema, severity='critical')
+        has_db_schema = self._file_exists('prisma/schema.prisma', 'drizzle.config.ts', 'drizzle.config.js') or self._grep_project(r'pgTable|sqliteTable|mysqlTable|schema\.createTable|Base\.metadata', ['.ts', '.js', '.py'])
+        self._check(p, 'Database schema config exists', bool(has_db_schema), severity='critical')
 
         # Check tenant id usage
-        tenant_cols = self._grep_project(r'tenant_id|tenantId|workspace_id|workspaceId', ['.prisma', '.ts', '.js'])
+        tenant_cols = self._grep_project(r'tenant_id|tenantId|workspace_id|workspaceId|org_id|orgId', ['.prisma', '.ts', '.js', '.py', '.go', '.sql'])
         self._check(p, 'tenant_id/workspace_id column configured in models', len(tenant_cols) > 0, severity='critical')
 
         # Check RLS
-        has_rls = self._grep_project(r'ROW LEVEL SECURITY|ENABLE RLS|enableRowLevelSecurity', ['.sql', '.ts', '.js'])
-        self._check(p, 'PostgreSQL RLS setup or database policies present', len(has_rls) > 0)
+        has_rls = self._grep_project(r'ROW LEVEL SECURITY|ENABLE RLS|enableRowLevelSecurity|createPolicy', ['.sql', '.ts', '.js', '.py'])
+        self._check(p, 'PostgreSQL RLS setup or database isolation policies present', len(has_rls) > 0)
 
         # Check Tenant Middleware
-        has_mw = self._grep_project(r'tenantMiddleware|app\.current_tenant_id|tenantContext', ['.ts', '.js', '.py', '.go'])
+        has_mw = self._grep_project(r'tenantMiddleware|app\.current_tenant_id|tenantContext|workspaceMiddleware', ['.ts', '.js', '.py', '.go'])
         self._check(p, 'Tenant-aware middleware initialized', len(has_mw) > 0)
 
     def _audit_auth(self):
         p = self._init_pillar('auth', 'Authentication & Authorization')
 
         # Auth service provider detection
-        has_clerk = self._grep_project(r'clerkMiddleware|@clerk/nextjs', ['.ts', '.tsx', '.json'])
-        has_nextauth = self._grep_project(r'NextAuth|auth\.js', ['.ts', '.js'])
-        has_supabase_auth = self._grep_project(r'supabase\.auth|@supabase/ssr', ['.ts', '.tsx', '.js'])
-        self._check(p, 'Production auth provider configured (Clerk/NextAuth/Supabase Auth)', 
-                    bool(has_clerk or has_nextauth or has_supabase_auth), severity='critical')
+        has_clerk = self._grep_project(r'clerkMiddleware|@clerk/nextjs|@clerk/clerk-sdk-node', ['.ts', '.tsx', '.json'])
+        has_nextauth = self._grep_project(r'NextAuth|auth\.js|@auth/core|next-auth', ['.ts', '.js', '.json'])
+        has_supabase_auth = self._grep_project(r'supabase\.auth|@supabase/ssr|@supabase/auth-helpers', ['.ts', '.tsx', '.js'])
+        has_firebase_auth = self._grep_project(r'firebase/auth|firebase-admin/auth', ['.ts', '.tsx', '.js', '.json'])
+        has_custom_jwt = self._grep_project(r'jsonwebtoken|jose|PyJWT', ['.ts', '.js', '.py', '.json'])
+
+        has_auth_provider = bool(has_clerk or has_nextauth or has_supabase_auth or has_firebase_auth or has_custom_jwt)
+        self._check(p, 'Production auth provider configured (Clerk/NextAuth/Supabase/Firebase/JWT)', 
+                    has_auth_provider, severity='critical')
 
         # Roles / RBAC
-        has_roles = self._grep_project(r'role\s*:\s*["\'](admin|owner|member)["\']|requireRole|checkPermission', ['.ts', '.tsx', '.js', '.py'])
+        has_roles = self._grep_project(r'role\s*:\s*["\'](admin|owner|member|viewer)["\']|requireRole|checkPermission|hasPermission|RBAC', ['.ts', '.tsx', '.js', '.py', '.go'])
         self._check(p, 'Role-Based Access Control (RBAC) definitions exist', len(has_roles) > 0)
 
     def _audit_billing(self):
         p = self._init_pillar('billing', 'Billing & Subscription')
 
         # Payment Provider dependencies
-        has_stripe = self._grep_project(r'stripe|lemonsqueezy|paddle-sdk', ['.json', '.ts', '.js', '.py'])
-        self._check(p, 'Payment processor integrated (Stripe/LemonSqueezy)', len(has_stripe) > 0, severity='critical')
+        has_stripe = self._grep_project(r'stripe|lemonsqueezy|paddle-sdk|doku-payment|midtrans', ['.json', '.ts', '.js', '.py', '.go'])
+        self._check(p, 'Payment processor integrated (Stripe/LemonSqueezy/DOKU/Midtrans)', len(has_stripe) > 0, severity='critical')
 
         # Webhooks
-        has_webhook = self._grep_project(r'stripe\.webhooks|constructEvent|webhooks/stripe', ['.ts', '.js', '.py'])
+        has_webhook = self._grep_project(r'stripe\.webhooks|constructEvent|webhooks/stripe|doku.*webhook|verifySignature', ['.ts', '.js', '.py', '.go'])
         self._check(p, 'Webhook listener for payment events implemented', len(has_webhook) > 0)
 
         # Pricing and Plans config
-        has_pricing = self._grep_project(r'pricing|plans|subscriptionStatus|tier', ['.ts', '.tsx', '.js'])
+        has_pricing = self._grep_project(r'pricing|plans|subscriptionStatus|tier|PLAN_LIMITS', ['.ts', '.tsx', '.js', '.py'])
         self._check(p, 'Pricing plan definitions present', len(has_pricing) > 0)
 
     def _audit_teams(self):
         p = self._init_pillar('teams', 'Workspace & Team Management')
 
         # Member list / Workspace switcher check
-        has_switcher = self._grep_project(r'workspaceSwitcher|WorkspaceSelect|switchWorkspace', ['.tsx', '.ts', '.js'])
+        has_switcher = self._grep_project(r'workspaceSwitcher|WorkspaceSelect|switchWorkspace|orgSwitcher', ['.tsx', '.ts', '.js'])
         self._check(p, 'Workspace switching controls found', len(has_switcher) > 0)
 
         # Invite flow
-        has_invites = self._grep_project(r'workspace_invitations|inviteMember|invitationToken', ['.prisma', '.ts', '.js'])
+        has_invites = self._grep_project(r'workspace_invitations|inviteMember|invitationToken|team_members', ['.prisma', '.ts', '.js', '.py', '.sql'])
         self._check(p, 'Team invitation system models or methods exist', len(has_invites) > 0)
 
     def _audit_frontend(self):
         p = self._init_pillar('frontend', 'SaaS App Shell & Dashboard')
 
         # Shell and settings pages
-        has_billing_ui = self._grep_project(r'/settings/billing|BillingSettings', ['.tsx', '.ts', '.js'])
+        has_billing_ui = self._grep_project(r'/settings/billing|BillingSettings|SubscriptionSettings', ['.tsx', '.ts', '.js'])
         self._check(p, 'Billing/subscription settings page implemented', len(has_billing_ui) > 0)
 
-        has_team_ui = self._grep_project(r'/settings/team|TeamSettings', ['.tsx', '.ts', '.js'])
+        has_team_ui = self._grep_project(r'/settings/team|TeamSettings|MembersSettings', ['.tsx', '.ts', '.js'])
         self._check(p, 'Team/member settings page implemented', len(has_team_ui) > 0)
 
     def _audit_api(self):
         p = self._init_pillar('api', 'API Layer & Feature Gating')
 
         # Gated flags or plan limits
-        has_gating = self._grep_project(r'PLAN_LIMITS|PLAN_CONFIGS|hasFeature|assertHasFeature', ['.ts', '.tsx', '.js'])
+        has_gating = self._grep_project(r'PLAN_LIMITS|PLAN_CONFIGS|hasFeature|assertHasFeature|useFeatureFlag|checkFeatureGating', ['.ts', '.tsx', '.js', '.py'])
         self._check(p, 'Feature gating / usage limit configuration map defined', len(has_gating) > 0)
 
         # Usage metering log
-        has_metering = self._grep_project(r'usage_records|usageRecords|usageMeter|incrementUsage', ['.prisma', '.ts', '.js'])
+        has_metering = self._grep_project(r'usage_records|usageRecords|usageMeter|incrementUsage|trackUsage', ['.prisma', '.ts', '.js', '.py', '.sql'])
         self._check(p, 'Usage metering / metric tracking database model exists', len(has_metering) > 0)
 
     def _audit_hardening(self):
         p = self._init_pillar('hardening', 'Production Hardening')
 
         # Basic rate limits
-        has_rate_limit = self._grep_project(r'rate.?limit|upstash/ratelimit|limiter', ['.ts', '.js', '.py'])
+        has_rate_limit = self._grep_project(r'rate.?limit|upstash/ratelimit|limiter|slowDown|governor', ['.ts', '.js', '.py', '.go'])
         self._check(p, 'API Rate Limiting setup configured', len(has_rate_limit) > 0)
 
         # Env validation
-        has_env_spec = self._file_exists('.env.example', '.env.template')
+        has_env_spec = self._file_exists('.env.example', '.env.template', '.env.schema')
         self._check(p, 'Environment example schema exists', has_env_spec)
 
     def _calculate_overall_score(self):

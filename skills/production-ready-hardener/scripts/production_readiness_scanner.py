@@ -14,6 +14,12 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+# Ensure UTF-8 output on Windows consoles
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stderr, 'reconfigure'):
+    sys.stderr.reconfigure(encoding='utf-8')
+
 
 class ProductionReadinessScanner:
     """Scans a project for production readiness across 7 phases."""

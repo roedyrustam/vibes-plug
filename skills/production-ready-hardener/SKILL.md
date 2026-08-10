@@ -21,79 +21,84 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 ### Orchestrated Skills Map
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│              PRODUCTION-READY HARDENER                   │
-│                 (Master Orchestrator)                │  ┌─── PHASE 1: Architecture & Code Quality ──────────┐  │
-│  │  • scalability-clean-code (SOLID, DRY, Clean Arch) │  │
-│  │  • fullstack-expert (System Design, API Design)    │  │
-│  │  • senior-fullstack (Tech Stack, Patterns)         │  │
-│  │  • app-analyzer-optimizer (Deep Analysis)          │  │
-│  │  • monorepo-architect (Turborepo & pnpm)           │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 2: Frontend & UI Design Systems ─────────┐  │
-│  │  • senior-frontend (React 19, Next.js 15, a11y)   │  │
-│  │  • design-system-architect (Tokens, Radix, CVA)   │  │
-│  │  • tailwind-expert (CSS-first, OKLCH, responsive) │  │
-│  │  • ui-ux-pro-max / hig (Design consistency)        │  │
-│  │  • tanstack-query-expert (State & caching)         │  │
-│  │  • mobile-expo-expert / tauri-expert (Mobile/App)  │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 3: Backend & AI Services ────────────────┐  │
-│  │  • js-backend-expert (Node 22, Bun, Fastify, Hono) │  │
-│  │  • go-programming-expert (Go 1.23+, sqlc, gRPC)   │  │
-│  │  • python-programming-expert (Python 3.12+, uv)   │  │
-│  │  • rust-programming-expert (Rust 2024, Axum)       │  │
-│  │  • mcp-server-architect (MCP Server Tools, Zod)    │  │
-│  │  • multi-agent-orchestration (LangGraph, Swarms)   │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 4: Security Hardening ───────────────────┐  │
-│  │  • supabase-security-expert (RLS, RBAC, secrets)   │  │
-│  │  • firebase-security-expert (Rules, App Check)     │  │
-│  │  • secure-fuzz-testing (Fuzzing, sanitizers)       │  │
-│  │  • fullstack-expert (OWASP, defense-in-depth)      │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 5: Testing & Quality Assurance ──────────┐  │
-│  │  • e2e-testing-expert (Playwright, Vitest, CI/CD)  │  │
-│  │  • coderabbit (Automated code review)              │  │
-│  │  • secure-fuzz-testing (Security testing)          │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 6: Performance & GEO/SEO ────────────────┐  │
-│  │  • seo (Full SEO audit, Core Web Vitals)           │  │
-│  │  • seo-geo (AI search readiness / GEO / llms.txt)  │  │
-│  │  • app-analyzer-optimizer (Bundle & perf)          │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 7: DevOps & Session Protection ──────────┐  │
-│  │  • cloud-hosting-expert (Vercel, Cloudflare, AWS)  │  │
-│  │  • session-handoff-resume (State Checkpoint)       │  │
-│  │  • auto-doc-updater (CHANGELOG, BLUEPRINT)         │  │
-│  └────────────────────────────────────────────────────┘  │��──┐  │
-│  │  • e2e-testing-expert (Playwright, Vitest, CI/CD)  │  │
-│  │  • coderabbit (Automated code review)              │  │
-│  │  • secure-fuzz-testing (Security testing)          │  │
-│  │  • senior-frontend (Vitest, Playwright)            │  │
-│  │  • senior-fullstack (CI/CD test matrix)            │  │
-│  └────────────────────────────────────────────────────┘  │
-
-│                                                          │
-│  ┌─── PHASE 6: Performance & SEO ────────────────────┐  │
-│  │  • seo (Full SEO audit, Core Web Vitals)           │  │
-│  │  • seo-geo (AI search readiness / GEO)             │  │
-│  │  • app-analyzer-optimizer (Bundle & perf)          │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-│  ┌─── PHASE 7: DevOps & Deployment ─────────────────┐  │
-│  │  • fullstack-expert (Docker, K8s, Terraform)       │  │
-│  │  • senior-fullstack (CI/CD, Docker Compose)        │  │
-│  │  • auto-doc-updater (CHANGELOG, BLUEPRINT)         │  │
-│  └────────────────────────────────────────────────────┘  │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│              PRODUCTION-READY HARDENER                           │
+│                 (Master Orchestrator — 7 Phases)                 │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  ┌─── PHASE 1: Architecture & Code Quality ───────────────────┐  │
+│  │  • scalability-clean-code (SOLID, DRY, Clean Architecture)  │  │
+│  │  • fullstack-expert / senior-fullstack (Design & patterns) │  │
+│  │  • app-analyzer-optimizer (Deep codebase & bottleneck audit)│ │
+│  │  • monorepo-architect (Turborepo & pnpm workspace structure)│  │
+│  │  • dependency-upgrade-migrator (Codemod & package audits)  │  │
+│  │  • vibe-code-gardener (Purge AI slop & context drift)      │  │
+│  │  • typescript-expert (Strict mode & type-safe patterns)    │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 2: Frontend Hardening ────────────────────────────┐  │
+│  │  • senior-frontend (React 19, Next.js 15 App Router)       │  │
+│  │  • design-system-architect (Tokens, Radix, CVA, WCAG 2.2)  │  │
+│  │  • tailwind-expert (CSS-first config, OKLCH, responsive)   │  │
+│  │  • form-validation-expert (React Hook Form, Zod validation)│  │
+│  │  • state-management-expert (Zustand, Jotai, TanStack Store)│  │
+│  │  • ui-components-expert (Input, nav, container primitives) │  │
+│  │  • ui-ux-pro-max / hig (HIG principles & design system)    │  │
+│  │  • global-a11y-i18n-expert (Web accessibility & i18n)      │  │
+│  │  • mobile-expo-expert / tauri-expert (Mobile & Desktop)    │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 3: Backend & AI Services ─────────────────────────┐  │
+│  │  • js-backend-expert (Node 24, Bun 1.2, Fastify, Hono)     │  │
+│  │  • go-programming-expert (Go 1.24+, microservices, gRPC)   │  │
+│  │  • python-programming-expert (Python 3.13+, FastAPI, uv)   │  │
+│  │  • rust-programming-expert (Rust 2024, Axum, async)        │  │
+│  │  • database-orm-expert (Prisma 6, Drizzle, migrations)    │  │
+│  │  • edge-serverless-db-expert (Neon, Cloudflare D1, Turso)  │  │
+│  │  • cron-scheduler-expert / async-queue-temporal-expert     │  │
+│  │  • email-notification-expert (Transactional emails)        │  │
+│  │  • file-upload-media-expert (S3, Presigned URLs, CDN)      │  │
+│  │  • mcp-server-architect (MCP Server Tools & Zod schemas)   │  │
+│  │  • multi-agent-orchestration / ai-llm-integration-expert   │  │
+│  │  • ai-cost-token-optimizer (Prompt caching & token budget) │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 4: Security Hardening ────────────────────────────┐  │
+│  │  • supabase-security-expert (RLS policies, Supabase Linter)│  │
+│  │  • firebase-security-expert (Rules, App Check, data leak)  │  │
+│  │  • authentication-identity-expert (OAuth2, RBAC/ABAC)     │  │
+│  │  • zero-trust-secret-vault (Vault, Infisical, key rotation)│  │
+│  │  • rate-limit-abuse-prevention (Rate limit & bot protection)│ │
+│  │  • secure-fuzz-testing (Coverage-guided fuzzing)           │  │
+│  │  • fullstack-expert (OWASP Top 10 & defense-in-depth)      │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 5: Testing & Quality Assurance ───────────────────┐  │
+│  │  • e2e-testing-expert (Playwright E2E & Vitest integration)│  │
+│  │  • browser-automation-expert (Visual regression testing)   │  │
+│  │  • secure-fuzz-testing (Security fuzz testing)             │  │
+│  │  • error-resilience-expert (Retry logic & circuit breakers)│  │
+│  │  • logging-error-tracking-expert (Pino, Sentry correlation)│  │
+│  │  • coderabbit (AI code review & PR summarization)          │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 6: Performance & GEO/SEO ─────────────────────────┐  │
+│  │  • seo (Technical SEO, Schema, Sitemap, E-E-A-T audit)     │  │
+│  │  • seo-geo (Generative Engine Optimization & llms.txt)     │  │
+│  │  • seo-aeo-landing-page-writer (AEO conversion landing)    │  │
+│  │  • performance-web-vitals (CWV: LCP, INP, CLS optimization)│  │
+│  │  • app-analyzer-optimizer (Bundle analysis & dynamic loading)│
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+│  ┌─── PHASE 7: DevOps & Deployment ───────────────────────────┐  │
+│  │  • ci-cd-devops-architect (GitHub Actions, Docker, IaC)    │  │
+│  │  • cloud-hosting-expert (Vercel, Cloudflare Workers, AWS)  │  │
+│  │  • data-telemetry-expert (OpenTelemetry, PostHog metrics)  │  │
+│  │  • session-handoff-resume (Save state checkpoint)          │  │
+│  │  • auto-doc-updater (CHANGELOG & BLUEPRINT automation)     │  │
+│  └────────────────────────────────────────────────────────────┘  │
+│                                                                  │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ### Execution Protocol
@@ -103,49 +108,49 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 1: Architecture & Code Quality Audit
-**Orchestrates:** `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`
+**Orchestrates:** `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `typescript-expert`
 
 **Checklist:**
 - [ ] **Project structure** follows clean architecture (Domain → Use Cases → Adapters → Infrastructure)
 - [ ] **SOLID principles** are applied consistently — no god classes, no leaky abstractions
 - [ ] **DRY violations** identified and refactored into shared utilities/services
 - [ ] **API contracts** are spec-first (OpenAPI/GraphQL schema) with proper versioning
-- [ ] **Error handling** is structured and consistent (RFC 7807 Problem Details or equivalent)
-- [ ] **TypeScript strict mode** enabled (`strict: true` in tsconfig), no `any` types
+- [ ] **Error handling** is structured and consistent (RFC 9457 Problem Details or equivalent)
+- [ ] **TypeScript strict mode** enabled (`strict: true` in tsconfig), no `any` types (`typescript-expert`)
 - [ ] **Input validation** on all API boundaries (Zod, Pydantic, or equivalent)
 - [ ] **No hardcoded values** — all config via environment variables or config files
-- [ ] **Dead code eliminated** — no unused imports, functions, or dependencies
-- [ ] **Dependency audit** — all packages up-to-date, no known CVEs (`npm audit`, `pip audit`)
+- [ ] **Dead code & AI slop eliminated** — unneeded boilerplate cleaned via `vibe-code-gardener`
+- [ ] **Dependency audit** — all packages up-to-date, no known CVEs (`dependency-upgrade-migrator`, `npm audit`)
 
 ---
 
 #### PHASE 2: Frontend Hardening
-**Orchestrates:** `senior-frontend`, `tailwind-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`
+**Orchestrates:** `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-components-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert`
 
 **Checklist:**
 - [ ] **Server Components by default** — `'use client'` only when truly needed (state, events, browser APIs)
 - [ ] **Proper Suspense boundaries** with meaningful loading states (skeletons, not spinners)
 - [ ] **Error boundaries** on all page segments with user-friendly error UI
-- [ ] **React 19 patterns** properly used (`useActionState`, `useOptimistic`, `useFormStatus`)
+- [ ] **Form validation** — robust validation with React Hook Form + Zod (`form-validation-expert`)
 - [ ] **No hydration mismatches** — no client-only state (`localStorage`, `window`) in initial render
-- [ ] **Accessibility (a11y)** — semantic HTML, ARIA labels, keyboard navigation, focus management
-- [ ] **Responsive design** — works flawlessly on mobile (320px), tablet, and desktop
+- [ ] **Accessibility (a11y) & i18n** — WCAG 2.2 compliance, ARIA, keyboard nav (`global-a11y-i18n-expert`)
+- [ ] **Responsive design** — works flawlessly on mobile (320px), tablet, and desktop (`tailwind-expert`)
 - [ ] **Image optimization** — `next/image` with proper sizes, WebP/AVIF format, lazy loading
 - [ ] **Font optimization** — `next/font` with font-display: swap, preconnect to font CDN
 - [ ] **Bundle analysis** — no unnecessary large libraries, proper code splitting & lazy loading
 - [ ] **Meta tags** — proper title, description, OG tags, canonical URL on every page
-- [ ] **State management** — TanStack Query for server state, Zustand/Jotai for client state (no mixing)
+- [ ] **State management** — TanStack Query for server state, Zustand/Jotai for client state (`state-management-expert`)
 - [ ] **Caching strategy** — proper `staleTime`, `gcTime`, and query key factory patterns
-- [ ] **UI consistency** — design tokens applied consistently (colors, spacing, typography)
+- [ ] **UI consistency** — design tokens applied consistently (`design-system-architect`)
 
 ---
 
-#### PHASE 3: Backend Hardening
-**Orchestrates:** `fullstack-expert`, `senior-fullstack`, language-specific experts
+#### PHASE 3: Backend & AI Services Hardening
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `edge-serverless-db-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-cost-token-optimizer`
 
 **Checklist:**
-- [ ] **Database migrations** — all schema changes via managed migrations (never manual ALTER in production)
-- [ ] **Connection pooling** configured (PgBouncer/Supavisor for PostgreSQL, HikariCP for Java)
+- [ ] **Database migrations** — schema changes via managed migrations (Prisma 6 / Drizzle ORM)
+- [ ] **Connection pooling** configured (PgBouncer/Supavisor, edge poolers via `edge-serverless-db-expert`)
 - [ ] **Proper indexes** on all frequently queried columns (`WHERE`, `JOIN`, `ORDER BY`)
 - [ ] **N+1 query prevention** — eager loading or DataLoader pattern for relational data
 - [ ] **Query profiling** — `EXPLAIN ANALYZE` run on critical queries, no Seq Scans on large tables
@@ -153,97 +158,80 @@ When this skill is triggered, execute the following 7-phase hardening process **
 - [ ] **API rate limiting** — token bucket or sliding window on all public endpoints
 - [ ] **Idempotency keys** — all mutation endpoints handle retries safely
 - [ ] **Pagination** — cursor-based for large datasets, with consistent response format
-- [ ] **Background jobs** — heavy tasks (email, PDF, image processing) use job queues (BullMQ, Celery)
+- [ ] **Background jobs & cron** — durable workflows (Temporal, BullMQ, Inngest) via `async-queue-temporal-expert`
+- [ ] **Transactional Email & Media** — Resend/SES setup (`email-notification-expert`) & Presigned URLs (`file-upload-media-expert`)
+- [ ] **MCP & AI Cost Optimization** — MCP schemas guarded (`mcp-server-architect`) & prompt caching active (`ai-cost-token-optimizer`)
 - [ ] **Graceful shutdown** — proper SIGTERM handling, drain connections before exit
 - [ ] **Health check endpoints** — `/healthz` (liveness) and `/readyz` (readiness) implemented
-- [ ] **Request timeout** — all HTTP/database calls have explicit timeout values
-- [ ] **Error logging** — structured JSON logging with correlation IDs for request tracing
 
 ---
 
 #### PHASE 4: Security Hardening
-**Orchestrates:** `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `fullstack-expert`
+**Orchestrates:** `supabase-security-expert`, `firebase-security-expert`, `authentication-identity-expert`, `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `secure-fuzz-testing`, `fullstack-expert`
 
 **Checklist:**
-- [ ] **Authentication** — OAuth 2.0 / OIDC implementation (Clerk, NextAuth, Lucia, Firebase Auth)
+- [ ] **Authentication** — OAuth 2.0 / OIDC implementation (`authentication-identity-expert`)
 - [ ] **Authorization** — RBAC/ABAC with proper middleware on all protected routes
-- [ ] **Row-Level Security (RLS)** — enabled on ALL public tables in Supabase/PostgreSQL
+- [ ] **Row-Level Security (RLS)** — enabled on ALL public tables in Supabase/PostgreSQL (`supabase-security-expert`)
 - [ ] **Security Rules** — Firebase Firestore/Storage rules are strict (no `allow read, write: if true`)
 - [ ] **CORS configuration** — explicit allow-list of origins (never `*` in production)
 - [ ] **CSP headers** — Content-Security-Policy configured with strict directives
 - [ ] **HTTPS enforced** — HSTS header with `max-age=31536000; includeSubDomains; preload`
-- [ ] **Secrets management** — all secrets in environment variables or secret managers (never in code)
+- [ ] **Secrets management** — zero-trust secret management via `zero-trust-secret-vault`
+- [ ] **Rate Limiting & Abuse Prevention** — DDoS, bot protection, Cloudflare Turnstile (`rate-limit-abuse-prevention`)
 - [ ] **`.gitignore` audit** — `.env`, `service-account.json`, private keys are excluded
-- [ ] **SQL injection prevention** — all queries use parameterized statements (never string concatenation)
-- [ ] **XSS prevention** — output encoding, CSP, no `dangerouslySetInnerHTML` without sanitization
-- [ ] **CSRF protection** — anti-CSRF tokens on state-changing forms and endpoints
+- [ ] **SQL injection prevention** — all queries use parameterized statements
+- [ ] **XSS & CSRF prevention** — output encoding, CSP, anti-CSRF tokens on state-changing endpoints
 - [ ] **File upload validation** — content-type checking, size limits, no executable uploads
-- [ ] **Webhook signature verification** — all incoming webhooks (Stripe, etc.) validate signatures
+- [ ] **Webhook signature verification** — all incoming webhooks validate signatures
 - [ ] **Audit logging** — sensitive operations logged (login, data export, permission changes, admin actions)
-- [ ] **API key rotation** — strategy in place for rotating secrets without downtime
-- [ ] **Dependency vulnerability scan** — `npm audit`, `pip audit`, `cargo audit`, `govulncheck`
-- [ ] **App Check / reCAPTCHA** — bot protection on public forms and API endpoints
 
 ---
 
 #### PHASE 5: Testing & Quality Assurance
-**Orchestrates:** `e2e-testing-expert`, `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack`
-
+**Orchestrates:** `e2e-testing-expert`, `browser-automation-expert`, `coderabbit`, `secure-fuzz-testing`, `error-resilience-expert`, `logging-error-tracking-expert`
 
 **Checklist:**
-- [ ] **Unit tests** — Vitest/Jest for frontend logic, pytest/go test for backend (≥80% coverage target)
+- [ ] **Unit tests** — Vitest/Jest for frontend, pytest/go test for backend (≥80% coverage target)
 - [ ] **Integration tests** — API endpoint tests with real database (test containers)
-- [ ] **E2E tests** — Playwright for critical user flows (signup, login, payment, core features)
-- [ ] **Fuzz testing** — coverage-guided fuzzing on parsers, validators, and input processors
-- [ ] **Visual regression tests** — screenshot comparisons for UI-critical pages
-- [ ] **Accessibility tests** — axe-core or pa11y in CI pipeline
-- [ ] **Performance tests** — Lighthouse CI with score thresholds (Performance ≥90, A11y ≥90)
-- [ ] **Load testing** — k6 or Artillery for API stress testing (define SLOs: p99 < 500ms)
-- [ ] **Code review automation** — CodeRabbit or equivalent configured on all PRs
-- [ ] **Type checking** — `tsc --noEmit` passes with zero errors in CI
-- [ ] **Linting** — ESLint/Ruff/clippy runs in CI with zero warnings policy
-- [ ] **Pre-commit hooks** — lint-staged + husky for local quality checks
+- [ ] **E2E tests** — Playwright for critical user flows (`e2e-testing-expert`)
+- [ ] **Visual E2E testing** — screenshot comparison and UI regression via `browser-automation-expert`
+- [ ] **Fuzz testing** — coverage-guided fuzzing on parsers, validators, and streams (`secure-fuzz-testing`)
+- [ ] **Error resilience** — retry strategies, circuit breakers, and fallback UI via `error-resilience-expert`
+- [ ] **Logging & Error Tracking** — structured JSON logging (Pino/Winston) & Sentry via `logging-error-tracking-expert`
+- [ ] **Code review automation** — CodeRabbit configured on all PRs (`coderabbit`)
+- [ ] **Type checking & linting** — `tsc --noEmit` and linter pass with zero errors in CI
 
 ---
 
-#### PHASE 6: Performance & SEO Optimization
-**Orchestrates:** `seo`, `seo-geo`, `app-analyzer-optimizer`
+#### PHASE 6: Performance & GEO/SEO Optimization
+**Orchestrates:** `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `performance-web-vitals`, `app-analyzer-optimizer`
 
 **Checklist:**
-- [ ] **Core Web Vitals** — LCP < 2.5s, INP < 200ms, CLS < 0.1 (measured with real user data)
+- [ ] **Core Web Vitals** — LCP < 2.5s, INP < 200ms, CLS < 0.1 (`performance-web-vitals`)
 - [ ] **Bundle size** — analyzed and optimized (tree-shaking, dynamic imports, no duplicate deps)
-- [ ] **CDN** — static assets served via CDN (Cloudflare, CloudFront, Vercel Edge)
-- [ ] **Caching headers** — proper `Cache-Control` on static assets (immutable, max-age=31536000)
-- [ ] **Database read replicas** — configured for read-heavy workloads
-- [ ] **Multi-tier caching** — Browser → CDN → Application (Redis) → Database
-- [ ] **SEO meta tags** — title, description, canonical URL, OG/Twitter cards on every page
-- [ ] **Structured data** — Schema.org markup for relevant content (Product, Article, FAQ, etc.)
-- [ ] **Sitemap** — XML sitemap generated and submitted to Google Search Console
+- [ ] **CDN & Caching** — static assets served via CDN with multi-tier caching (Browser → CDN → Redis → DB)
+- [ ] **SEO meta tags** — title, description, canonical URL, OG/Twitter cards on every page (`seo`)
+- [ ] **Structured data & Sitemap** — Schema.org markup and XML sitemap generated
 - [ ] **robots.txt** — properly configured (no accidental disallow of important pages)
-- [ ] **AI search readiness** — `llms.txt`, semantic HTML, clean extractable content
-- [ ] **Page speed** — Lighthouse score ≥ 90 on all key pages
+- [ ] **AI search readiness (GEO)** — `llms.txt`, semantic HTML, AEO optimization (`seo-geo`, `seo-aeo-landing-page-writer`)
+- [ ] **Lighthouse score** — Lighthouse score ≥ 90 on all key pages
 
 ---
 
 #### PHASE 7: DevOps & Deployment Readiness
-**Orchestrates:** `fullstack-expert`, `senior-fullstack`, `auto-doc-updater`
+**Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-handoff-resume`, `auto-doc-updater`
 
 **Checklist:**
 - [ ] **Docker** — multi-stage builds, non-root user, HEALTHCHECK, `.dockerignore` configured
-- [ ] **CI/CD pipeline** — automated lint → test → build → deploy on every push/PR
-- [ ] **Environment parity** — dev/staging/production use identical Docker images
-- [ ] **Database migrations** — run automatically in CI/CD before deployment
-- [ ] **Zero-downtime deployment** — rolling updates or blue-green deployment strategy
-- [ ] **Rollback strategy** — ability to revert to previous version within minutes
-- [ ] **Monitoring & alerting** — Sentry (errors), Prometheus/Grafana (metrics), OpenTelemetry (traces)
-- [ ] **Structured logging** — JSON format with `timestamp`, `level`, `message`, `correlationId`
+- [ ] **CI/CD pipeline** — automated lint → test → build → deploy on push/PR (`ci-cd-devops-architect`)
+- [ ] **Edge & Cloud Deployment** — Vercel / Cloudflare Workers / AWS Edge setup (`cloud-hosting-expert`)
+- [ ] **Zero-downtime deployment & Rollback** — rolling updates or blue-green strategy with tested rollback
+- [ ] **Telemetry & Observability** — OpenTelemetry, PostHog, Prometheus/Grafana (`data-telemetry-expert`)
 - [ ] **SLIs/SLOs defined** — error rate < 0.1%, p99 latency < 500ms, uptime > 99.9%
-- [ ] **Incident response** — documented runbook for common failure scenarios
+- [ ] **Incident response & Runbooks** — documented runbooks for common failure scenarios
 - [ ] **Backup & disaster recovery** — automated database backups, tested restore procedure
-- [ ] **Environment variables** — all secrets stored in secure secrets manager (Vault, AWS SSM, etc.)
-- [ ] **SSL/TLS certificates** — auto-renewal configured (Let's Encrypt / cloud provider)
-- [ ] **Documentation** — CHANGELOG.md and BLUEPRINT.md up-to-date via `auto-doc-updater`
-- [ ] **README** — clear setup instructions, architecture diagram, and deployment guide
+- [ ] **Session Checkpoint & Docs** — `session-handoff-resume` checkpoint saved, `CHANGELOG.md` & `BLUEPRINT.md` updated (`auto-doc-updater`)
 
 ---
 
@@ -327,15 +315,15 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 
 ### Peta Skill yang Diorkestrasi
 
-| Fase | Skill yang Digunakan | Fokus |
-|------|---------------------|-------|
-| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer` | SOLID, DRY, Clean Architecture, API Design |
-| 2. Pengerasan Frontend | `senior-frontend`, `tailwind-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert` | React 19, a11y, responsif, state management |
-| 3. Pengerasan Backend | `fullstack-expert`, `senior-fullstack`, expert bahasa spesifik | Database, pooling, rate limiting, job queues |
-| 4. Pengerasan Keamanan | `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `fullstack-expert` | RLS, RBAC, OWASP, secrets, XSS/CSRF |
-| 5. Testing & QA | `e2e-testing-expert`, `coderabbit`, `secure-fuzz-testing`, `senior-frontend`, `senior-fullstack` | E2E (Playwright), Unit (Vitest), fuzz, CI/CD pipelines |
-| 6. Performa & SEO | `seo`, `seo-geo`, `app-analyzer-optimizer` | Core Web Vitals, bundle, CDN, sitemap |
-| 7. DevOps & Deployment | `fullstack-expert`, `senior-fullstack`, `auto-doc-updater` | Docker, CI/CD, monitoring, rollback |
+| Fase | Skill yang Digunakan | Fokus Utama |
+|------|---------------------|-------------|
+| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `typescript-expert` | SOLID, DRY, Clean Architecture, RFC 9457 errors, pembersihan AI slop, strict TS |
+| 2. Pengerasan Frontend | `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-components-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19, Error Boundaries, validasi Zod + RHF, a11y, state management, UI primitives |
+| 3. Pengerasan Backend | `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `edge-serverless-db-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-cost-token-optimizer` | Database migration, ORM, connection pooling, durable background jobs, transactional email, MCP tools, token budget |
+| 4. Pengerasan Keamanan | `supabase-security-expert`, `firebase-security-expert`, `authentication-identity-expert`, `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `secure-fuzz-testing`, `fullstack-expert` | RLS, RBAC, OAuth2, Turnstile bot protection, Upstash rate limit, secret vault, fuzzing, XSS/CSRF |
+| 5. Testing & QA | `e2e-testing-expert`, `browser-automation-expert`, `coderabbit`, `secure-fuzz-testing`, `error-resilience-expert`, `logging-error-tracking-expert` | E2E (Playwright), visual testing, Unit (Vitest), circuit breaker, Sentry & Pino logging |
+| 6. Performa & SEO | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), bundle, CDN, sitemap, llms.txt & AEO |
+| 7. DevOps & Observability | `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-handoff-resume`, `auto-doc-updater` | Docker, CI/CD pipeline, OpenTelemetry, PostHog, Vercel/Cloudflare, state checkpoint & CHANGELOG |
 
 ### Protokol Eksekusi
 
@@ -348,84 +336,83 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] Prinsip SOLID diterapkan konsisten
 - [ ] Pelanggaran DRY diidentifikasi dan di-refactor
 - [ ] Kontrak API menggunakan desain spec-first (OpenAPI/GraphQL)
-- [ ] Error handling terstruktur dan konsisten
-- [ ] TypeScript strict mode aktif, tanpa tipe `any`
+- [ ] Error handling terstruktur dan konsisten (RFC 9457)
+- [ ] TypeScript strict mode aktif (`strict: true`), tanpa tipe `any` (`typescript-expert`)
 - [ ] Validasi input di semua batas API (Zod, Pydantic)
 - [ ] Tidak ada hardcoded value — semua konfigurasi via environment variable
-- [ ] Dead code dieliminasi
-- [ ] Audit dependensi — semua paket up-to-date, tanpa CVE
+- [ ] Dead code & AI slop dieliminasi via `vibe-code-gardener`
+- [ ] Audit dependensi — semua paket up-to-date, tanpa CVE (`dependency-upgrade-migrator`)
 
 #### FASE 2: Pengerasan Frontend
 - [ ] Server Components secara default
 - [ ] Suspense boundary dengan loading state bermakna
 - [ ] Error boundary di setiap segmen halaman
-- [ ] Pattern React 19 digunakan dengan benar
+- [ ] Validasi formulir ketat dengan React Hook Form + Zod (`form-validation-expert`)
 - [ ] Tidak ada hydration mismatch
-- [ ] Aksesibilitas (a11y) — HTML semantik, ARIA, navigasi keyboard
-- [ ] Desain responsif — berfungsi sempurna di mobile, tablet, desktop
+- [ ] Aksesibilitas (a11y) & i18n — WCAG 2.2, ARIA, navigasi keyboard (`global-a11y-i18n-expert`)
+- [ ] Desain responsif — berfungsi sempurna di mobile, tablet, desktop (`tailwind-expert`)
 - [ ] Optimasi gambar dengan `next/image`, WebP/AVIF, lazy loading
 - [ ] Analisis bundle — tanpa library besar yang tidak perlu
 - [ ] Meta tags lengkap di setiap halaman
-- [ ] Strategi state management dan caching yang tepat
+- [ ] Strategi state management (`state-management-expert`) dan caching yang tepat
 
 #### FASE 3: Pengerasan Backend
-- [ ] Semua perubahan schema via database migration
-- [ ] Connection pooling dikonfigurasi
+- [ ] Semua perubahan schema via database migration (Prisma 6 / Drizzle ORM)
+- [ ] Connection pooling dikonfigurasi (`edge-serverless-db-expert`)
 - [ ] Index yang tepat pada kolom yang sering di-query
 - [ ] Pencegahan N+1 query
-- [ ] API rate limiting aktif
-- [ ] Idempotency key untuk mutation endpoint
-- [ ] Background job queue untuk tugas berat
+- [ ] API rate limiting & idempotency keys aktif
+- [ ] Durable background jobs & cron queues (`async-queue-temporal-expert`)
+- [ ] Email transaksional & upload media presigned (`email-notification-expert`, `file-upload-media-expert`)
+- [ ] Skema MCP Server guarded & optimasi prompt caching (`ai-cost-token-optimizer`)
 - [ ] Graceful shutdown dengan penanganan SIGTERM
 - [ ] Health check endpoint (`/healthz`, `/readyz`)
-- [ ] Structured logging dengan correlation ID
 
 #### FASE 4: Pengerasan Keamanan
-- [ ] Autentikasi OAuth 2.0 / OIDC
+- [ ] Autentikasi OAuth 2.0 / OIDC (`authentication-identity-expert`)
 - [ ] Otorisasi RBAC/ABAC pada semua route dilindungi
-- [ ] RLS aktif di SEMUA tabel publik (Supabase/PostgreSQL)
+- [ ] RLS aktif di SEMUA tabel publik (Supabase/PostgreSQL) (`supabase-security-expert`)
 - [ ] Firebase Security Rules ketat
 - [ ] CORS dengan allow-list eksplisit (bukan `*`)
 - [ ] CSP headers dikonfigurasi
 - [ ] HTTPS dipaksakan dengan HSTS
-- [ ] Semua secret di environment variable / secret manager
+- [ ] Semua secret di environment variable / secret manager (`zero-trust-secret-vault`)
+- [ ] Rate limiting & proteksi bot Turnstile (`rate-limit-abuse-prevention`)
 - [ ] `.gitignore` mencakup `.env` dan file sensitif
 - [ ] Pencegahan SQL injection, XSS, CSRF
 - [ ] Validasi file upload (content-type, size limit)
-- [ ] Verifikasi tanda tangan webhook
-- [ ] Audit logging untuk operasi sensitif
-- [ ] Scan kerentanan dependensi
+- [ ] Verifikasi tanda tangan webhook & audit logging
 
 #### FASE 5: Testing & Quality Assurance
 - [ ] Unit test (≥80% coverage)
 - [ ] Integration test dengan database real
-- [ ] E2E test untuk alur kritis (Playwright)
-- [ ] Fuzz testing pada parser dan validator
-- [ ] Accessibility test dalam CI pipeline
-- [ ] Performance test (Lighthouse CI ≥90)
-- [ ] Code review automation (CodeRabbit)
+- [ ] E2E test untuk alur kritis (Playwright) (`e2e-testing-expert`)
+- [ ] Visual regression testing (`browser-automation-expert`)
+- [ ] Fuzz testing pada parser dan validator (`secure-fuzz-testing`)
+- [ ] Error resilience (circuit breaker & retry logic) (`error-resilience-expert`)
+- [ ] Structured logging (Pino) & error tracking (Sentry) (`logging-error-tracking-expert`)
+- [ ] Code review automation (CodeRabbit) (`coderabbit`)
 - [ ] Type checking dan linting di CI tanpa error
 
 #### FASE 6: Optimasi Performa & SEO
-- [ ] Core Web Vitals memenuhi target (LCP < 2.5s, INP < 200ms, CLS < 0.1)
+- [ ] Core Web Vitals memenuhi target (LCP < 2.5s, INP < 200ms, CLS < 0.1) (`performance-web-vitals`)
 - [ ] Bundle size dioptimasi
 - [ ] CDN untuk aset statis
 - [ ] Caching multi-tier (Browser → CDN → Redis → Database)
-- [ ] SEO meta tags lengkap
-- [ ] Structured data (Schema.org)
-- [ ] XML Sitemap
-- [ ] Kesiapan AI search (llms.txt, HTML semantik)
+- [ ] SEO meta tags lengkap (`seo`)
+- [ ] Structured data (Schema.org) & XML Sitemap
+- [ ] Kesiapan AI search & AEO (`seo-geo`, `seo-aeo-landing-page-writer`, `llms.txt`)
 
 #### FASE 7: DevOps & Kesiapan Deployment
 - [ ] Docker multi-stage build, non-root user, HEALTHCHECK
-- [ ] CI/CD pipeline otomatis (lint → test → build → deploy)
-- [ ] Zero-downtime deployment (rolling update / blue-green)
-- [ ] Strategi rollback yang teruji
-- [ ] Monitoring & alerting (Sentry, Prometheus/Grafana, OpenTelemetry)
+- [ ] CI/CD pipeline otomatis (lint → test → build → deploy) (`ci-cd-devops-architect`)
+- [ ] Edge & Cloud Deployment (Vercel/Cloudflare Workers) (`cloud-hosting-expert`)
+- [ ] Zero-downtime deployment & strategi rollback yang teruji
+- [ ] Telemetri & observability (OpenTelemetry, PostHog, Sentry) (`data-telemetry-expert`)
 - [ ] Structured logging format JSON
-- [ ] SLI/SLO terdefinisi
-- [ ] Backup database otomatis dengan prosedur restore yang teruji
-- [ ] Dokumentasi terkini (CHANGELOG.md, BLUEPRINT.md, README)
+- [ ] SLI/SLO terdefinisi & backup database otomatis
+- [ ] Session state checkpoint disimpan (`session-handoff-resume`)
+- [ ] Dokumentasi terkini (`CHANGELOG.md`, `BLUEPRINT.md`, `README`) (`auto-doc-updater`)
 
 ---
 
