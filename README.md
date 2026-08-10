@@ -102,7 +102,7 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following 78+ skills that can be used by the agent:
+This plugin provides the following 87+ skills that can be used by the agent:
 
 #### 🤖 AI & Agentic Systems
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Production-grade guidelines for integrating frontier LLMs (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), RAG pipelines with `pgvector` HNSW + BM25 hybrid search, agentic memory (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, and computer use (Browser-Use, Playwright MCP).
