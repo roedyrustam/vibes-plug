@@ -172,9 +172,13 @@ export function verifyDokuWebhook(req: Request, secretKey: string): boolean {
   
   const expectedSignature = `HMACSHA256=${calculatedHmac}`;
 
-  return receivedSignature === expectedSignature;
+  return crypto.timingSafeEqual(
+    Buffer.from(receivedSignature),
+    Buffer.from(expectedSignature)
+  );
 }
 ```
+
 
 ---
 

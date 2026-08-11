@@ -73,7 +73,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement file upload with presigned URLs (S3/R2) and media processing.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
+**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
@@ -162,7 +162,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengimplementasikan upload file dengan presigned URL (S3/R2) dan pemrosesan media.
 
 #### FASE 5: Frontend, Design System & Aplikasi Mobile
-**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
+**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
 - [ ] Mengimplementasikan *design tokens* (OKLCH) dan token direktif Tailwind CSS v4 `@theme`.
 - [ ] Membangun komponen dasar tanpa styling (*headless primitives*) menggunakan Radix UI / Base UI dan CVA.
 - [ ] Membangun halaman React 19 / Next.js 15 dengan Server Components, Server Actions, animasi tingkat lanjut (GSAP), atau Expo Router v4 untuk Mobile / Tauri v2 untuk Desktop.
