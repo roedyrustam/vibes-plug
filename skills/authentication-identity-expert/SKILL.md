@@ -1,7 +1,7 @@
 ---
 name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Authentication & Identity Expert (2026 Edition)
@@ -270,3 +270,7 @@ Gunakan library `@simplewebauthn/server` untuk registrasi dan verifikasi passkey
 - MFA ditawarkan untuk akun privileged.
 - Rate limiting di endpoint login/signup.
 - Rotasi refresh token setiap kali digunakan.
+
+
+## Orchestration & Integration
+- Connects to other backend skills as part of the orchestration flow.

@@ -1,7 +1,7 @@
 ---
 name: ai-cost-token-optimizer
 description: "Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting / Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # AI Cost & Token Optimizer
@@ -43,3 +43,7 @@ Panduan tingkat produksi untuk FinOps dalam rekayasa AI — prompt caching (Anth
 - **Prompt & Context Caching**: Menyimpan prompt sistem dan dokumen konteks panjang di cache untuk menghemat hingga 90% biaya token.
 - **Model Router**: Routing otomatis berdasarkan heuristik antara model ultra-cepat Flash dan model penalaran Pro.
 - **Semantic Caching**: Memanfaatkan embedding vector query untuk menyajikan respon cache pada pertanyaan pengguna yang serupa secara semantik.
+
+
+## Orchestration & Integration
+- Integrates with ai-llm-integration-expert and zero-to-prod-orchestrator.

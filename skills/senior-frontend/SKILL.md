@@ -94,10 +94,10 @@ When working within a centralized MPA (via `mpa-orchestrator`):
 - Use **Alpine.js** or **HTMX** for micro-interactions without heavy client bundles.
 - Apply **Progressive Enhancement**: ensure forms and links work without JavaScript first.
 
-#### 8. Advanced Animations (GSAP)
-- Use **GSAP (GreenSock Animation Platform)** for complex, timeline-based, and scroll-driven animations (`ScrollTrigger`).
-- Prefer GSAP over CSS animations for sequences requiring pausing, reversing, staggering, or timeline control.
-- In React, always use the `@gsap/react` `useGSAP()` hook for automatic cleanup and scope management to prevent memory leaks.
+#### 8. Advanced Animations (GSAP & Anime.js)
+- **GSAP (GreenSock)**: Use for complex, timeline-based, and scroll-driven animations (`ScrollTrigger`). In React, always use `@gsap/react` `useGSAP()` hook for automatic cleanup.
+- **Anime.js**: Use as a lightweight, powerful alternative for simpler sequencing, staggering, SVG path animations, and DOM attribute animations. It's often preferred when bundle size is a strict concern and scroll-driven features are not needed.
+- Prefer JS animations (GSAP/Anime.js) over CSS for sequences requiring pausing, reversing, or timeline control.
 
 ---
 
@@ -155,7 +155,7 @@ Saat bekerja dalam arsitektur MPA terpusat:
 - Gunakan Alpine.js atau HTMX untuk interaksi mikro yang ringan.
 - Terapkan Progressive Enhancement: form dan link harus berfungsi tanpa JavaScript terlebih dahulu.
 
-#### 8. Animasi Tingkat Lanjut (GSAP)
-- Gunakan **GSAP (GreenSock Animation Platform)** untuk animasi kompleks, berbasis timeline, dan *scroll-driven* (`ScrollTrigger`).
-- Utamakan GSAP dibandingkan CSS untuk animasi yang membutuhkan kontrol *timeline*, jeda (*pause*), *reverse*, atau *stagger*.
-- Di React, selalu gunakan hook `useGSAP()` dari `@gsap/react` untuk *cleanup* otomatis dan manajemen *scope* guna mencegah kebocoran memori (*memory leak*).
+#### 8. Animasi Tingkat Lanjut (GSAP & Anime.js)
+- **GSAP (GreenSock)**: Gunakan untuk animasi kompleks, berbasis timeline, dan *scroll-driven* (`ScrollTrigger`). Di React, selalu gunakan hook `useGSAP()` dari `@gsap/react` untuk mencegah kebocoran memori.
+- **Anime.js**: Gunakan sebagai alternatif yang lebih ringan namun sangat kuat untuk animasi DOM, properti CSS, SVG, dan *staggering* sederhana. Sangat cocok jika ukuran *bundle* menjadi prioritas utama.
+- Utamakan pustaka JS (GSAP/Anime.js) dibandingkan CSS murni untuk animasi yang membutuhkan kontrol *timeline*, jeda (*pause*), *reverse*, atau *stagger* dinamis.

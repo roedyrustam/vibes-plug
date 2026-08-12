@@ -102,27 +102,33 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following 87+ skills that can be used by the agent:
+This plugin provides the following 83+ skills that can be used by the agent:
 
 #### 🤖 AI & Agentic Systems
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Production-grade guidelines for integrating frontier LLMs (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), RAG pipelines with `pgvector` HNSW + BM25 hybrid search, agentic memory (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, and computer use (Browser-Use, Playwright MCP).
-- **Vector DB & Deep RAG Expert** (`vector-db-rag-expert`): High-performance Vector DBs, `pgvector` HNSW indexing, hybrid search (Dense + BM25), semantic chunking, and RAG quality evaluation.
-- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): LLM API FinOps — Anthropic & Gemini prompt/context caching, dynamic model routing (Flash vs Pro/Opus), and semantic caching.
+- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and strict token budgeting.
+- **MCP Client Orchestrator** (`mcp-client-orchestrator`): Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files.
+- **Vector DB & RAG Expert** (`vector-db-rag-expert`): High-performance Vector Databases, RAG architectures, `pgvector` HNSW indexing, hybrid search (Dense + BM25), semantic chunking, and RAG quality evaluation.
 - **MCP Server Architect** (`mcp-server-architect`): Expert guide for designing, building, and security-hardening Model Context Protocol (MCP) servers in TypeScript, Python, and Go. Covers MCP v1.9+ Streamable HTTP transport, Zod/Pydantic validation, OAuth 2.1, and multi-server orchestration.
 - **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Expert guide for designing stateful multi-agent AI systems — LangGraph graph-based workflows, CrewAI/AutoGen swarms, OpenAI Agents SDK handoffs, Google ADK, shared memory state, and Human-in-the-Loop guardrails.
 - **Gemini Agent Booster** (`gemini-agent-booster`): Master optimization protocol for Gemini Agent (Antigravity) to unlock native 1M+ long-context reasoning, multimodal vision UI audits, visual subagent feedback, and high-speed problem solving.
 - **DOKU MCP Server** (`doku-mcp-server`): Expert guide for DOKU Model Context Protocol (MCP) Server integration — AI Agentic Commerce with tools for payment links, Virtual Accounts, QRIS, transaction status checks, and client configuration for Claude Desktop, Cursor, and AGY.
 
 #### 🎨 Design & UI/UX
-- **Design System Architect** (`design-system-architect`): Expert guide for designing and maintaining scalable UI Design Systems with design tokens (OKLCH), Radix UI / Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, and WCAG 2.2 AAA accessibility.
+- **Design System Architect** (`design-system-architect`): Expert guide for designing and maintaining scalable UI Design Systems with design tokens (OKLCH), Radix UI / Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, dan WCAG 2.2 AAA accessibility.
+- **GLSL Shader Expert** (`glsl-shader-expert`): Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers procedural textures and post-processing.
+- **Visual QA & Vision Agent** (`visual-qa-vision-agent`): Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions.
 - **HIG — Human Interface Guidelines** (`hig`): Applies the three core interface design principles — **Hierarchy** (clear visual structure), **Harmony** (element cohesion and platform alignment), and **Consistency** (uniformity across all screen sizes and devices).
 - **Monday Design Aesthetic** (`monday-design-aesthetic`): Expert guide for implementing the modern, spacious, and highly structured Monday.com design system — clean grids, vibrant color system, and polished micro-interactions.
 - **UI Components Expert** (`ui-components-expert`): Expert guide for building production-quality UI components following the 4 pillars: Input Controls, Navigation, Information, and Containers. Covers shadcn/ui, Radix UI, Motion (Framer Motion v12), React Hook Form + Zod, WCAG 2.2 accessibility, and micro-interaction checklists.
+- **Web 3D Graphics Expert** (`web-3d-graphics-expert`): Expert guide for WebGL and 3D graphics using Three.js, Babylon.js, React Three Fiber, and TresJS. Covers scene optimization, lighting, and GLTF/GLB models.
+- **WebXR AR/VR Expert** (`webxr-ar-vr-expert`): Expert guide for WebXR development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing.
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks. Contains guides for color palettes, typography, WCAG 2.2 AAA, micro-animations, and deep UX guidelines.
 - **UI/UX Expert** (`ui_ux_expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
 
 #### 🖥️ Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits (Core Web Vitals, INP), and executes targeted optimizations.
+- **Apple Ecosystem Expert** (`apple-ecosystem-expert`): Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs for iOS, and Apple HIG.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Expert guide for React Native 0.79+ and Expo SDK 53+ development — Expo Router v4, New Architecture (Fabric & TurboModules), EAS builds, OTA updates, and NativeWind v4.
 - **Mobile Push Notification & Live Activities** (`mobile-push-notification-expert`): Cross-platform push notifications (Expo Push, FCM, APNs, Web Push), iOS Live Activities, and background payload handlers.
@@ -132,16 +138,21 @@ This plugin provides the following 87+ skills that can be used by the agent:
 - **Realtime Collaboration Expert** (`realtime-collaboration-expert`): Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks — for collaborative editors, cursors, and live presence.
 - **Senior Frontend** (`senior-frontend`): React 19, Next.js 15 (App Router, PPR, View Transitions), TypeScript, and Tailwind CSS v4 development expert. Covers `useActionState`, `useOptimistic`, `use()`, GSAP animations, and WCAG 2.2 compliance.
 - **SPA Orchestrator** (`spa-orchestrator`): Orchestrates Single-Page Application (SPA) architecture with TanStack Router, TanStack Query v5, and decoupled API-driven backends.
-- **State Management Expert** (`state-management-expert`): Expert guide for modern client-side state management — Zustand 5, Jotai 2, Valtio, TanStack Store, Redux Toolkit 2, and TanStack Query v5 for server state.
+- **State Management Expert** (`state-management-expert`): Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, and server state patterns.
+- **Project Context Mapper** (`project-context-mapper`): Gives the agent a photographic memory of massive repositories. Forces the creation and maintenance of a highly compressed `CONTEXT_MAP.md` to prevent context exhaustion and hallucination.
 - **Tailwind CSS Expert** (`tailwind-expert`): Deep guide for Tailwind CSS v4 CSS-first configuration (`@theme`), OKLCH colors, 3D transforms, `field-sizing`, container queries, custom variants, and migration from v3.
 - **TanStack Query Expert** (`tanstack-query-expert`): Expert in asynchronous state management with TanStack Query v5 — `useSuspenseQuery`, infinite scrolling, optimistic mutations, SSR/RSC hydration, and advanced cache invalidation.
 - **Tauri Expert** (`tauri-expert`): Best practice guide for cross-platform applications with Tauri v2 (Desktop & Mobile), Rust backend, IPC communication, and security capabilities.
+- **Vue Frontend Expert** (`vue-frontend-expert`): Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management and SPA/SSR architectural patterns.
+- **Web Game Engine Expert** (`web-game-engine-expert`): Expert guide for web-based game development. Covers Entity Component System (ECS) architectures, physics engines (Rapier, Havok, Cannon-es), and game loop optimization.
 
 #### ⚙️ Backend, Languages & Runtimes
 - **API Design Expert** (`api-design-expert`): Expert guide for REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, API versioning, rate limiting (sliding window), idempotency keys, and contract-first development.
+- **GraphQL & Apollo Expert** (`graphql-apollo-expert`): Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First), TypeGraphQL, and N+1 query optimization.
 - **Async Queue & Durable Workflow Expert** (`async-queue-temporal-expert`): Durable background execution pipelines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant sagas.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Expert guide for Bun v1.2+ — built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, and migration strategies from Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Expert-level skill for Go 1.23/1.24+ — high-performance microservices, concurrency patterns (`errgroup`, context propagation), `sqlc`, `net/http`, Gin/Echo/Fiber, gRPC, and table-driven testing.
+- **Autonomous TDD Debugger** (`autonomous-tdd-debugger`): Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger.
 - **JS Backend Expert** (`js-backend-expert`): Production-grade guidance for Node.js 24 LTS, Bun 1.2+, and Deno 2.x. Covers Fastify 5, Hono v4 (RPC, secure headers, rate limiter), Express 5, NestJS, Drizzle ORM, Prisma 6, BullMQ, OpenTelemetry, and graceful shutdown.
 - **PHP MVC Expert** (`mvc-expert`): Guidelines for modernizing legacy PHP projects into clean, secure, and structured OOP/MVC architectures following PSR standards and PHP 8.3/8.4+ features.
 - **Python Programming Expert** (`python-programming-expert`): Expert-level guide for Python 3.13/3.14+ — JIT compiler, free-threaded mode (no GIL), PEP 695/696 generics, Pydantic v2, FastAPI 0.115+, SQLAlchemy 2.x async, `uv` package manager, Ruff, and pytest-asyncio.
@@ -152,8 +163,10 @@ This plugin provides the following 87+ skills that can be used by the agent:
 - **CI/CD & DevOps Architect** (`ci-cd-devops-architect`): Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, GitHub Actions, and Infrastructure as Code (IaC) with Terraform and Pulumi.
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Expert guide for deploying SaaS on Vercel (Edge, Fluid Compute), Cloudflare Workers/Pages, Supabase, and Neon — with multi-region strategies and edge caching.
 - **Event-Driven Architect** (`event-driven-architect`): Microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, CQRS, and background workflows (Temporal, Inngest, Trigger.dev v3).
+- **Legacy Code Translator** (`legacy-code-translator`): Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks.
 - **Feature Flag & Progressive Rollout Expert** (`feature-flag-analytics-expert`): Feature flags & progressive rollouts (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases.
 - **Fullstack Expert** (`fullstack-expert`): Expert-level fullstack references covering TypeScript, Python, Go, Rust, API design, databases, DevOps, and observability.
+- **Micro-Frontend Architect** (`micro-frontend-architect`): Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications.
 - **Monorepo & Workspace Architect** (`monorepo-architect`): Expert guide for scalable monorepos using Turborepo 2.x, pnpm v9+ workspaces, and pnpm catalogs.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU) and secure webhooks into SaaS platforms — HMAC signature verification, webhook idempotency, and billing state machines.
 - **DOKU Payment Gateway** (`doku-payment-gateway`): Expert guide for DOKU Jokul API v2 — HMAC-SHA256 header signature calculation, Checkout & Direct APIs (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup.
@@ -207,9 +220,9 @@ This plugin provides the following 87+ skills that can be used by the agent:
 To unlock the full potential of `vibes-plug`, skills are designed to act as a **highly orchestrated, interconnected swarm** that builds upon each other:
 
 1. **Ideation & Planning:** Start with `brainstorming` and `prd-architect` to validate requirements, architectures, and design ideas. Trigger `gemini-agent-booster` for deep architectural reasoning.
-2. **Design & Frontend:** Trigger `design-system-architect` and `ui-ux-pro-max` to establish tokens, then use `senior-frontend` alongside `ui-components-expert` and `tanstack-query-expert` to build robust, accessible UIs.
-3. **Backend & Architecture:** Orchestrate `js-backend-expert` (or `go-programming-expert` / `rust-programming-expert`) with `event-driven-architect` for high-performance, scalable backends. Add `authentication-identity-expert` for secure auth flows.
-4. **AI Integration:** Invoke `ai-llm-integration-expert` and `mcp-server-architect` for LLM integrations and MCP tooling. Use `multi-agent-orchestration` for complex agentic workflows.
+2. **Design & Frontend:** Trigger `design-system-architect` and `ui-ux-pro-max` to establish tokens, then use `senior-frontend` alongside `ui-components-expert`, `project-context-mapper`, and `tanstack-query-expert` to build robust, accessible UIs.
+3. **Backend & Architecture:** Orchestrate `js-backend-expert` (or `go-programming-expert` / `rust-programming-expert`) with `event-driven-architect` and `autonomous-tdd-debugger` for high-performance, scalable backends. Add `authentication-identity-expert` for secure auth flows.
+4. **AI Integration:** Invoke `ai-llm-integration-expert` and `mcp-server-architect` for LLM integrations and MCP tooling. Use `multi-agent-orchestration` and `mcp-client-orchestrator` for complex agentic workflows.
 5. **SaaS Transformation:** Invoke `saas-transformer` or `saas-mvp-launcher` — these master skills automatically coordinate `saas-multi-tenant`, `saas-billing`, `payment-gateway-expert`, and `supabase-security-expert`.
 6. **Quality & Launch:** Use `e2e-testing-expert`, `vibe-code-gardener`, and `seo` to validate. Finally, invoke `production-ready-hardener` to audit the entire system before Edge/Cloud deployment.
 
@@ -222,7 +235,7 @@ By letting skills naturally invoke one another, you transform the AI into a comp
 For those who want to contribute by adding new skills or updating existing ones, please read our complete guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Version
-v2.3.0 (2026 Edition) — 78+ skills
+v2.3.0 (2026 Edition) — 83+ skills
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -234,7 +247,7 @@ v2.3.0 (2026 Edition) — 78+ skills
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **78+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **83+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -263,12 +276,13 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **78+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
+Plugin ini menyediakan **83+ kemampuan (*skills*)** berikut yang bisa digunakan oleh agen:
 
 #### 🤖 AI & Sistem Agen
 - **AI & LLM Integration Expert** (`ai-llm-integration-expert`): Panduan tingkat produksi untuk integrasi frontier LLM (GPT-5, Claude 4, Gemini 3.1 Pro/Flash), MCP v1.9+ (Streamable HTTP), pipeline RAG dengan pgvector HNSW + BM25 hybrid search, memori agentik (Mem0/MemGPT), Vercel AI SDK 5.x, prompt caching, dan computer use (Browser-Use, Playwright MCP).
-- **Vector DB & Deep RAG Expert** (`vector-db-rag-expert`): Vector DB berkinerja tinggi, indeks `pgvector` HNSW, hybrid search (Dense + BM25), semantic chunking, dan evaluasi RAG.
-- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): FinOps API LLM — Anthropic & Gemini prompt/context caching, routing model dinamis (Flash vs Pro/Opus), dan semantic caching.
+- **AI Cost & Token Optimizer** (`ai-cost-token-optimizer`): Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, dan pembatasan token ketat.
+- **MCP Client Orchestrator** (`mcp-client-orchestrator`): Panduan ahli tentang cara Agen AI mengorkestrasi dan mengkonsumsi server MCP (Model Context Protocol) eksternal secara dinamis untuk akses real-time ke database, GitHub, Slack, dan file lokal.
+- **Vector DB & RAG Expert** (`vector-db-rag-expert`): Database Vector berkinerja tinggi, arsitektur RAG, indeks `pgvector` HNSW, pencarian hibrida (Dense + BM25), semantic chunking, dan evaluasi RAG.
 - **MCP Server Architect** (`mcp-server-architect`): Panduan ahli merancang, membangun, dan mengamankan server MCP v1.9+ di TypeScript, Python, dan Go. Mencakup Streamable HTTP transport, validasi Zod/Pydantic, OAuth 2.1, dan orkestrasi multi-server.
 - **Multi-Agent Orchestration Expert** (`multi-agent-orchestration`): Panduan ahli merancang sistem multi-agen AI stateful — alur kerja LangGraph, CrewAI/AutoGen, OpenAI Agents SDK handoffs, Google ADK, memori bersama, dan gerbang Human-in-the-Loop.
 - **Gemini Agent Booster** (`gemini-agent-booster`): Protokol optimasi utama untuk Gemini Agent (Antigravity) — mengaktifkan pemikiran long-context 1M+, audit UI visual multimodal, dan pemecahan masalah kecepatan tinggi.
@@ -276,14 +290,19 @@ Plugin ini menyediakan **78+ kemampuan (*skills*)** berikut yang bisa digunakan 
 
 #### 🎨 Desain & UI/UX
 - **Design System Architect** (`design-system-architect`): Panduan ahli merancang dan memelihara Design System UI — Design Tokens (OKLCH), Radix UI / Base UI headless primitives, Tailwind CSS v4 `@theme`, CVA variants, dan aksesibilitas WCAG 2.2 AAA.
+- **GLSL Shader Expert** (`glsl-shader-expert`): Panduan ahli menulis shader GLSL (Vertex/Fragment) khusus untuk WebGL menggunakan Three.js dan Babylon.js.
+- **Visual QA & Vision Agent** (`visual-qa-vision-agent`): Membekali agen AI dengan kemampuan QA visual menggunakan Playwright dan kemampuan *Vision* bawaan agen untuk mengkoreksi layout UI dan perataan CSS secara mandiri.
 - **HIG — Human Interface Guidelines** (`hig`): Menerapkan tiga prinsip desain antarmuka inti — **Hierarchy** (hirarki visual yang jelas), **Harmony** (harmoni antar elemen dan platform), dan **Consistency** (konsistensi di semua layar dan perangkat).
 - **Monday Design Aesthetic** (`monday-design-aesthetic`): Panduan ahli mengimplementasikan sistem desain Monday.com yang modern, luas, dan terstruktur — grid bersih, sistem warna yang vibran, dan micro-interaction yang halus.
 - **UI Components Expert** (`ui-components-expert`): Panduan ahli membangun komponen UI berkualitas produksi dengan 4 pilar: Kontrol Input, Navigasi, Informasi, dan Kontainer. Mencakup shadcn/ui, Radix UI, Motion (Framer Motion v12), React Hook Form + Zod, WCAG 2.2, dan checklist micro-interaction.
+- **Web 3D Graphics Expert** (`web-3d-graphics-expert`): Panduan ahli untuk WebGL dan grafis 3D menggunakan Three.js, Babylon.js, R3F, dan TresJS. Termasuk optimasi scene dan model 3D.
+- **WebXR AR/VR Expert** (`webxr-ar-vr-expert`): Panduan ahli untuk pengembangan WebXR (Virtual dan Augmented Reality) menggunakan Babylon.js dan Three.js.
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack. Berisi panduan palet warna, tipografi, WCAG 2.2 AAA, micro-animasi, dan pedoman UX mendalam.
 - **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
 
 #### 🖥️ Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan (Core Web Vitals, INP), serta optimasi terarah.
+- **Apple Ecosystem Expert** (`apple-ecosystem-expert`): Panduan ahli pengembangan Ekosistem Apple. Mencakup dukungan iOS, kompatibilitas Safari WebKit, PWA untuk iOS, dan Apple HIG.
 - **Bootstrap to Modern** (`bootstrap-to-modern`): Skill ahli merefaktor dan memigrasikan aplikasi Bootstrap CSS lama ke stack modern menggunakan Tailwind CSS v4 dan Alpine.js / HTMX.
 - **Mobile Expo Expert** (`mobile-expo-expert`): Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ — Expo Router v4, New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
 - **Mobile Push Notification & Live Activities** (`mobile-push-notification-expert`): Notifikasi push lintas platform (Expo Push, FCM, APNs, Web Push), iOS Live Activities, dan penanganan payload background.
@@ -293,17 +312,22 @@ Plugin ini menyediakan **78+ kemampuan (*skills*)** berikut yang bisa digunakan 
 - **Realtime Collaboration Expert** (`realtime-collaboration-expert`): Panduan ahli membangun fitur kolaborasi real-time menggunakan WebSockets, WebRTC, CRDT (Yjs, Automerge), dan Liveblocks — untuk editor kolaboratif, kursor live, dan indikator kehadiran.
 - **Senior Frontend** (`senior-frontend`): Ahli React 19, Next.js 15 (App Router, PPR, View Transitions), TypeScript, dan Tailwind CSS v4. Mencakup `useActionState`, `useOptimistic`, `use()`, animasi GSAP, dan kepatuhan WCAG 2.2.
 - **SPA Orchestrator** (`spa-orchestrator`): Mengorkestrasi arsitektur SPA dengan TanStack Router, TanStack Query v5, dan backend berbasis API yang terpisah.
-- **State Management Expert** (`state-management-expert`): Panduan ahli manajemen state client-side modern — Zustand 5, Jotai 2, Valtio, TanStack Store, Redux Toolkit 2, dan TanStack Query v5 untuk server state.
+- **State Management Expert** (`state-management-expert`): Panduan ahli manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, dan pola server state.
+- **Project Context Mapper** (`project-context-mapper`): Memberi agen ingatan fotografis untuk repositori besar dengan mewajibkan pembuatan dan pemeliharaan file `CONTEXT_MAP.md` yang sangat padat untuk mencegah halusinasi konteks.
 - **Tailwind CSS Expert** (`tailwind-expert`): Panduan mendalam Tailwind CSS v4 CSS-first configuration (`@theme`), warna OKLCH, 3D transform, `field-sizing`, container queries, custom variants, dan migrasi dari v3.
 - **TanStack Query Expert** (`tanstack-query-expert`): Pakar manajemen state asinkron TanStack Query v5 — `useSuspenseQuery`, infinite scrolling, mutasi optimistik, SSR/RSC hydration, dan invalidasi cache tingkat lanjut.
 - **Tauri Expert** (`tauri-expert`): Panduan terbaik pengembangan aplikasi lintas platform dengan Tauri v2 (Desktop & Mobile), Rust backend, IPC komunikasi, dan *Capabilities* keamanan.
+- **Vue Frontend Expert** (`vue-frontend-expert`): Panduan ahli untuk Vue 3 (Composition API), Nuxt 3, dan Pinia. Mencakup state management tingkat lanjut dan pola arsitektur SPA/SSR.
+- **Web Game Engine Expert** (`web-game-engine-expert`): Panduan ahli pengembangan game berbasis web. Mencakup arsitektur Entity Component System (ECS) dan mesin fisika (Rapier, Havok, Cannon-es).
 
 #### ⚙️ Backend, Bahasa & Runtime
 - **API Design Expert** (`api-design-expert`): Panduan ahli REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, API versioning, rate limiting (sliding window), idempotency key, dan pengembangan contract-first.
+- **GraphQL & Apollo Expert** (`graphql-apollo-expert`): Panduan ahli merancang dan mengkonsumsi API GraphQL. Mencakup Apollo Server/Client, NestJS GraphQL, dan optimasi query N+1.
 - **Async Queue & Durable Workflow Expert** (`async-queue-temporal-expert`): Pipeline eksekusi background tahan-gagal (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) dan alur transaksi Saga terdistribusi.
 - **Bun Runtime Expert** (`bun-runtime-expert`): Panduan ahli runtime Bun v1.2+ — built-in APIs (`Bun.serve`, `Bun.sql`, `Bun.s3`), `bun test`, `bun build`, dan strategi migrasi dari Node.js.
 - **Go Programming Expert** (`go-programming-expert`): Skill tingkat ahli untuk Go 1.23/1.24+ — API backend berkinerja tinggi, microservices, pola konkurensi (`errgroup`), `sqlc`, `net/http`, Gin/Echo/Fiber, gRPC, dan pengujian berbasis tabel.
-- **JS Backend Expert** (`js-backend-expert`): Panduan tingkat produksi untuk Node.js 24 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono v4 (RPC, secure headers, rate limiter), Express 5, NestJS, Drizzle ORM, Prisma 6, BullMQ, OpenTelemetry, dan graceful shutdown.
+- **Autonomous TDD Debugger** (`autonomous-tdd-debugger`): Memberdayakan agen untuk menjalankan tes secara mandiri, membaca stack trace di terminal, dan menyembuhkan (self-heal) kode secara otonom.
+- **JavaScript Backend Expert** (`js-backend-expert`): Panduan tingkat produksi untuk Node.js 24 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono v4 (RPC, secure headers, rate limiter), Express 5, NestJS, Drizzle ORM, Prisma 6, BullMQ, OpenTelemetry, dan graceful shutdown.
 - **PHP MVC Expert** (`mvc-expert`): Panduan memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih dan terstruktur mengikuti standar PSR dan fitur PHP 8.3/8.4+.
 - **Python Programming Expert** (`python-programming-expert`): Panduan tingkat ahli Python 3.13/3.14+ — JIT compiler, mode free-threaded (tanpa GIL), PEP 695/696 generics, Pydantic v2, FastAPI 0.115+, SQLAlchemy 2.x async, `uv`, Ruff, dan pytest-asyncio.
 - **Rust Programming Expert** (`rust-programming-expert`): Panduan Rust 2024 / v1.85+ — keamanan memori, pemrograman async (Tokio), web backend (Axum 0.8+, SQLx 0.8+), CLI (Clap, Serde), dan optimasi performa.
@@ -313,8 +337,10 @@ Plugin ini menyediakan **78+ kemampuan (*skills*)** berikut yang bisa digunakan 
 - **CI/CD & DevOps Architect** (`ci-cd-devops-architect`): Panduan ahli continuous integration, pipeline deployment, Docker, Kubernetes, GitHub Actions, dan Infrastructure as Code (IaC) dengan Terraform dan Pulumi.
 - **Cloud Hosting Expert** (`cloud-hosting-expert`): Panduan ahli deployment SaaS di Vercel (Edge, Fluid Compute), Cloudflare Workers/Pages, Supabase, dan Neon — dengan strategi multi-region dan edge caching.
 - **Event-Driven Architect** (`event-driven-architect`): Arsitektur microservices, message queues (NATS, Kafka, RabbitMQ, EventBridge), Event Sourcing, CQRS, dan background workflows (Temporal, Inngest, Trigger.dev v3).
+- **Legacy Code Translator** (`legacy-code-translator`): Panduan metodologis bagi Agen AI untuk membongkar, menerjemahkan, dan memodernisasi *codebase* warisan (PHP, Python 2, React lawas) ke arsitektur modern secara aman.
 - **Feature Flag & Progressive Rollout Expert** (`feature-flag-analytics-expert`): Feature flags & rilis bertahap (PostHog, LaunchDarkly, GrowthBook), orkestrasi A/B testing, dan rilis canary.
 - **Fullstack Expert** (`fullstack-expert`): Referensi fullstack tingkat ahli — TypeScript, Python, Go, Rust, desain API, database, DevOps, dan observability.
+- **Micro-Frontend Architect** (`micro-frontend-architect`): Panduan ahli merancang arsitektur Micro-Frontend menggunakan Webpack Module Federation dan Vite Federation untuk aplikasi skala besar.
 - **Monorepo & Workspace Architect** (`monorepo-architect`): Panduan ahli monorepo skalabel menggunakan Turborepo 2.x, pnpm v9+ workspaces, dan pnpm catalogs.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Panduan ahli integrasi payment gateway (Stripe, PayPal, Xendit, Midtrans, DOKU) dan webhook aman ke platform SaaS — verifikasi HMAC, idempotency webhook, dan billing state machine.
 - **DOKU Payment Gateway** (`doku-payment-gateway`): Panduan ahli integrasi DOKU Jokul API v2 — kalkulasi signature HMAC-SHA256, Checkout & Direct API (VA, QRIS, E-Wallet, Kartu Kredit), verifikasi notifikasi webhook, dan setup sandbox/produksi.
