@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   *(Menyelaraskan `BLUEPRINT.md` untuk mencakup seluruh 87 modul skill pada dokumentasi Bahasa Inggris dan Bahasa Indonesia.)*
 
 ### Changed / Diubah
+- Restructured `rules/` directory into a single `AGENTS.md` at the plugin root to ensure full compatibility and automatic rule loading in Antigravity IDE and Desktop.
+  *(Merestrukturisasi direktori `rules/` menjadi satu file `AGENTS.md` di root plugin untuk memastikan kompatibilitas penuh dan pemuatan aturan otomatis di Antigravity IDE dan Desktop.)*
 - Fixed UTF-8 character encoding corruptions (mojibake) across skill guidelines (`SKILL.md`) and project documentation (`BLUEPRINT.md`).
   *(Memperbaiki kerusakan encoding karakter UTF-8 (mojibake) pada petunjuk skill dan dokumentasi proyek.)*
 - Bumped plugin, package, and blueprint versions to `v2.4.0`.
