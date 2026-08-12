@@ -1,7 +1,7 @@
 ---
 name: ai-llm-integration-expert
 description: "Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents / Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # AI & LLM Integration Expert (2026 Edition)
@@ -174,3 +174,7 @@ Gunakan mode structured output (bukan prompt engineering) untuk jaminan kesesuai
 - **Multi-Agent & Swarm Workflows**: Delegasikan alur state graph kompleks ke `multi-agent-orchestration` dan optimasi long-context Gemini ke `gemini-agent-booster`.
 - **Vector DB & Hybrid Search**: Delegasikan indeks pgvector dan pencarian hibrida ke `vector-db-rag-expert`.
 - **Token Budget & FinOps**: Delegasikan optimasi biaya API dan caching prompt ke `ai-cost-token-optimizer`.
+
+
+## Orchestration & Integration
+- Integrates with ai-cost-token-optimizer, multi-agent-orchestration, and vector-db-rag-expert.

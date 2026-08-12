@@ -50,7 +50,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
 
 #### PHASE 2: Project Foundation & Monorepo Setup
-**Orchestrates:** `monorepo-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`
+**Orchestrates:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`
 - [ ] Initialize monorepo (Turborepo + pnpm workspaces) or single repo foundation.
 - [ ] Set up language runtimes: Node.js 22 LTS / Bun 1.2+ / Python 3.12+ (uv) / Go 1.23+.
 - [ ] Configure `Ruff`, `ESLint`, `Prettier`, and TypeScript strict configurations.
@@ -64,8 +64,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
 #### PHASE 4: Backend APIs, Microservices & AI Agents
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`
-- [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, Hono, Gin, or Axum.
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`
+- [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
 - [ ] Implement background processing queues (BullMQ + Redis), scheduled jobs, and rate limiters.
@@ -73,16 +73,16 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement file upload with presigned URLs (S3/R2) and media processing.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
+**Orchestrates:** `design-system-architect`, `senior-frontend`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
-- [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
+- [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP/Anime.js), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
 - [ ] Implement complex forms with React Hook Form + Zod validation.
 - [ ] If SPA architecture — coordinate with `spa-orchestrator` for routing (TanStack Router), state (TanStack Query v5), and decoupled API layer.
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`
+**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Write resilient E2E browser tests with Playwright.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
@@ -91,8 +91,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Audit CORS, CSP headers, rate-limiting, and input sanitization.
 - [ ] Run code quality audit to purge AI slop and architectural decay.
 
-#### PHASE 7: Pre-Launch Hardening, Web Vitals & GEO/SEO
-**Orchestrates:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `logging-error-tracking-expert`
+#### PHASE 7: DevOps, Deployment & Proactive Monitoring
+**Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `ci-cd-devops-architect`
 - [ ] Perform pre-launch audit across Core Web Vitals (LCP, INP, CLS) and bundle sizes.
 - [ ] Configure production monitoring, alerting rules, and on-call notifications.
 - [ ] Optimize Generative Engine Optimization (GEO) for AI Overviews, Perplexity, ChatGPT Search, and deploy `/llms.txt`.
@@ -131,15 +131,15 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Menyusun Product Requirements Document (PRD.md) dan Roadmap (ROADMAP.md) yang komprehensif.
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Untuk proyek yang sudah ada: audit kesehatan dependensi dan rencanakan upgrade dengan `dependency-upgrade-migrator`.
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.
 
-#### FASE 2: Fondasi Proyek & Monorepo
-**Mengorkestrasi:** `monorepo-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`
+#### FASE 2: Pondasi Proyek & Setup Monorepo
+**Mengorkestrasi:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`
 - [ ] Inisialisasi monorepo (Turborepo + pnpm workspaces) atau repositori tunggal.
 - [ ] Menyiapkan runtime bahasa: Node.js 22 LTS / Bun 1.2+ / Python 3.12+ (uv) / Go 1.23+.
 - [ ] Konfigurasi `Ruff`, `ESLint`, `Prettier`, dan TypeScript ketat.
@@ -152,26 +152,26 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengimplementasikan kebijakan Row-Level Security (RLS) dan isolasi tenant.
 - [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
-#### FASE 4: API Backend, Microservices & Agen AI
-**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`
-- [ ] Membangun REST / GraphQL / gRPC API throughput tinggi menggunakan Fastify 5, Hono, Gin, atau Axum.
+#### FASE 4: Backend API, Microservices & Agen AI
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `mcp-client-orchestrator`, `autonomous-swarm-director`
+- [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
 - [ ] Mengimplementasikan antrean pemrosesan latar belakang (BullMQ + Redis), tugas terjadwal, dan rate limiter.
 - [ ] Menyiapkan pipeline email transaksional (Resend/Postmark) dan sistem notifikasi.
 - [ ] Mengimplementasikan upload file dengan presigned URL (S3/R2) dan pemrosesan media.
 
-#### FASE 5: Frontend, Design System & Aplikasi Mobile
-**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`
-- [ ] Mengimplementasikan *design tokens* (OKLCH) dan token direktif Tailwind CSS v4 `@theme`.
-- [ ] Membangun komponen dasar tanpa styling (*headless primitives*) menggunakan Radix UI / Base UI dan CVA.
-- [ ] Membangun halaman React 19 / Next.js 15 dengan Server Components, Server Actions, animasi tingkat lanjut (GSAP), atau Expo Router v4 untuk Mobile / Tauri v2 untuk Desktop.
+#### FASE 5: Frontend, Design System & Mobile App
+**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`
+- [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
+- [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
+- [ ] Buat halaman React 19 / Next.js 15 memanfaatkan RSC, Server Actions (`useActionState`), animasi tingkat lanjut (GSAP/Anime.js), atau Expo Router v4 (Mobile) / Tauri v2 (Desktop).
 - [ ] Mengimplementasikan formulir kompleks dengan React Hook Form + validasi Zod.
 - [ ] Jika arsitektur SPA — koordinasikan dengan `spa-orchestrator` untuk routing (TanStack Router), state (TanStack Query v5), dan API layer terpisah.
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`
+**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Menulis pengujian browser E2E yang tangguh menggunakan Playwright.
 - [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
@@ -180,8 +180,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengaudit CORS, CSP headers, rate-limiting, dan sanitasi input.
 - [ ] Menjalankan audit kualitas kode untuk membersihkan AI slop dan pembusukan arsitektur.
 
-#### FASE 7: Hardening Pra-Peluncuran, Web Vitals & GEO/SEO
-**Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `logging-error-tracking-expert`
+#### FASE 7: Hardening Pra-Peluncuran, Monitoring & DevOps Sentinel
+**Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `logging-error-tracking-expert`, `proactive-background-watcher`
 - [ ] Audit pra-peluncuran pada Core Web Vitals (LCP, INP, CLS) dan ukuran bundle.
 - [ ] Mengonfigurasi monitoring produksi, aturan alerting, dan notifikasi on-call.
 - [ ] Mengoptimalkan GEO untuk AI Overviews, Perplexity, ChatGPT Search, dan merilis `/llms.txt`.

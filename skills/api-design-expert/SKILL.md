@@ -1,7 +1,7 @@
 ---
 name: api-design-expert
 description: "Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design / Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # API Design Expert
@@ -308,3 +308,7 @@ Panduan ahli untuk merancang, mendokumentasikan, dan mengembangkan API berkualit
 4. **Versioning**: Gunakan URL path (`/api/v1/`) untuk API publik.
 5. **Idempotency**: Implementasikan `Idempotency-Key` header untuk operasi mutasi yang kritis.
 6. **Rate Limiting**: Selalu sertakan header `X-RateLimit-*` dan kode `429` yang benar.
+
+
+## Orchestration & Integration
+- Connects to other backend skills as part of the orchestration flow.

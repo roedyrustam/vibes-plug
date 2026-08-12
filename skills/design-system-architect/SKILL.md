@@ -1,7 +1,7 @@
 ---
 name: design-system-architect
 description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives (Radix/Base UI), Tailwind v4 @theme, and WCAG 2.2 accessibility in English and Indonesian."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -241,3 +241,7 @@ Base UI (dari tim MUI) adalah alternatif Radix UI untuk 2026 dengan dukungan nat
 - Navigasi keyboard berfungsi untuk semua interaksi.
 - Modal menjebak fokus dan memulihkannya saat ditutup.
 - Target sentuh ≥ 24×24px (persyaratan baru WCAG 2.2).
+
+
+## Orchestration & Integration
+- Integrates with frontend orchestrators, Tailwind v4, Base UI, and shadcn/ui.

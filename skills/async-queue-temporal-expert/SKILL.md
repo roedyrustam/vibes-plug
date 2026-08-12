@@ -1,7 +1,7 @@
 ---
 name: async-queue-temporal-expert
 description: "Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant background sagas / Panduan ahli workflow engine tahan-gagal (Temporal, Trigger.dev, Inngest, BullMQ)."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Async Queue & Durable Workflow Expert
@@ -48,3 +48,7 @@ Panduan tingkat produksi untuk merancang pipeline eksekusi background yang tahan
 - **Eksekusi Tahan-Gagal (Durable)**: Retry otomatis, persistensi state, dan kompensasi lanjutan setelah restart server.
 - **Pola Saga**: Transaksi terdistribusi multi-langkah dengan logika kompensasi untuk pembatalan saat terjadi kegagalan.
 - **Rate Limiting & Konkurensi**: Kontrol konkurensi worker, backoff jitter, dan isolasi antrean per-tenant.
+
+
+## Orchestration & Integration
+- Connects to other backend skills as part of the orchestration flow.

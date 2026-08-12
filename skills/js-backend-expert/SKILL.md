@@ -92,10 +92,16 @@ const res = await client.users.$post({ json: { name: 'Alice', email: 'alice@exam
 const user = await res.json(); // Fully typed!
 ```
 
-#### 3. Express 5
-Express 5 natively catches rejected promises in async route handlers — eliminating the need for `express-async-errors`. It's ideal for teams already familiar with Express.
+#### 3. NestJS (Enterprise Architecture)
+Use NestJS for large-scale, enterprise-grade applications. It enforces a strict modular architecture (Controllers, Providers, Modules) inspired by Angular.
+- **Dependency Injection**: Leverage built-in DI for testable, loosely coupled services.
+- **TypeScript First**: Decorators (`@Controller()`, `@Get()`) provide clean, declarative routing.
+- **Under the Hood**: By default uses Express, but can be switched to Fastify for higher performance using `platform-fastify`.
 
-#### 4. Edge Runtime (Cloudflare Workers / Vercel Edge)
+#### 4. Express 5
+Express 5 natively catches rejected promises in async route handlers — eliminating the need for `express-async-errors`. While less opinionated than NestJS and slower than Fastify, its ecosystem is unparalleled. Ideal for teams migrating legacy apps.
+
+#### 5. Edge Runtime (Cloudflare Workers / Vercel Edge)
 For ultra-low latency at the edge, use **Hono** (runs natively on all edge platforms):
 ```typescript
 // Cloudflare Worker
@@ -182,10 +188,13 @@ Gunakan untuk REST API dengan throughput tinggi. Selalu validasi input menggunak
 #### 2. Hono & Hono RPC — Multi-Runtime & Type-Safe Full-Stack
 Hono berjalan di Node.js, Bun, Cloudflare Workers, dan Deno. **Hono RPC** adalah fitur unggulan 2026 — panggilan API end-to-end yang fully type-safe tanpa code generation. Klien mendapatkan tipe yang tepat dari definisi server secara otomatis.
 
-#### 3. Express 5
-Express 5 otomatis menangkap rejected promises di async route handler tanpa butuh library tambahan.
+#### 3. NestJS — Arsitektur Enterprise
+Gunakan NestJS untuk aplikasi skala besar tingkat *enterprise*. NestJS memaksakan arsitektur modular yang ketat dengan Dependency Injection dan Decorators. NestJS menggunakan Express secara bawaan, namun dapat dialihkan ke Fastify untuk performa lebih tinggi.
 
-#### 4. Edge Runtime (Cloudflare Workers / Vercel Edge)
+#### 4. Express 5
+Express 5 otomatis menangkap rejected promises di async route handler tanpa butuh library tambahan. Sangat cocok untuk tim yang sudah familiar dengan ekosistem Express.
+
+#### 5. Edge Runtime (Cloudflare Workers / Vercel Edge)
 Gunakan Hono untuk latensi ultra-rendah di edge. Batasan edge: tanpa built-in Node.js (`fs`, `path`), memori terbatas, tanpa proses long-running. Gunakan `fetch`, Web Crypto API, dan Cloudflare KV/D1/R2.
 
 ### Lapisan Data Type-Safe

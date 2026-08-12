@@ -1,7 +1,7 @@
 ---
 name: app-analyzer-optimizer
 description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # App Analyzer & Optimizer (2026 Edition)
@@ -187,3 +187,7 @@ Gunakan CodeRabbit untuk review PR otomatis, Sourcegraph Cody untuk pencarian se
 | Memblokir thread utama | INP tinggi, UI tidak responsif | `useTransition`, web workers |
 | Tanpa caching | Data yang sama diambil berulang kali | Redis, React Query staleTime, HTTP cache |
 | Bundle membengkak | Payload JS besar | Tree-shaking, code splitting, lazy imports |
+
+
+## Orchestration & Integration
+- Integrates with performance-web-vitals and production-ready-hardener.

@@ -1,7 +1,7 @@
 ---
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill
@@ -135,3 +135,8 @@ Skill ini harus direferensikan oleh orchestrator berikut:
 - `brainstorming` — Bagian Mobile & Web Ecosystems.
 - `zero-to-prod-orchestrator` — Fase 4 dan 8 (Kesiapan Produksi).
 - `production-ready-hardener` — Fase 2 (Audit Kompatibilitas Lintas Browser & PWA).
+
+
+## Orchestration & Integration
+- Integrates with: `hig`, `mobile-expo-expert`, `tailwind-expert`, `ui-components-expert`.
+- Orchestrated by: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`.
