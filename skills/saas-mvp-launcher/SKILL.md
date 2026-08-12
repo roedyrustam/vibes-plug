@@ -229,3 +229,13 @@ export const subscriptions = pgTable('subscriptions', {
   currentPeriodEnd: timestamp('current_period_end').notNull(),
 });
 ```
+
+---
+### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, scaffolding a project, or finalizing the initial UI/UX, you MUST automatically use the `generate_image` tool to create a custom logo that perfectly matches the application's core concept and aesthetic. 
+This generated image MUST be explicitly used as:
+1. The primary application logo (e.g., in the header/navbar).
+2. The website favicon (`favicon.ico` or equivalent).
+3. The Open Graph (OG) image for SEO metadata (`og:image`).
+
+Do not use placeholders for these assets. Generate and integrate them automatically.
