@@ -53,13 +53,13 @@ Use the `browser_subagent` + `generate_image` tools for visual feedback:
 3. **Generate a target design** using `generate_image` for visual comparison.
 4. **Iterate code** based on visual delta between current and target design.
 
-### Thinking Mode — Extended Reasoning
-For complex problems, use Gemini's extended thinking:
+### Thinking Mode — Mandatory Extended Reasoning (o1-Style)
+For any complex problem, architecture decision, or large refactor, you MUST engage Gemini's extended thinking or generate a mandatory explicit reasoning chain (`<thought>`) before generating code:
 - Architecture decisions with multiple tradeoffs.
 - Debugging hard-to-reproduce race conditions.
 - Designing multi-step agentic workflows.
 - Cryptographic or security-sensitive implementations.
-- **Protocol**: State the problem clearly → let thinking run → review reasoning chain → validate conclusion.
+- **Protocol**: State the problem clearly → engage deep reasoning chain → critique your own initial assumptions → validate the conclusion → execute tool calls.
 
 ### Deep Research Mode
 Gemini 2.5 Pro's deep research can spend up to 30 minutes actively searching, reading, and synthesizing from hundreds of sources. Use for:
@@ -121,8 +121,8 @@ Manfaatkan jendela konteks besar dengan membaca seluruh file (bukan hanya fragme
 ### Visi Multimodal — Protokol Audit UI
 Gunakan `browser_subagent` untuk mengambil screenshot aplikasi yang berjalan, analisis secara visual untuk masalah tata letak atau aksesibilitas, buat desain target dengan `generate_image`, lalu iterasi kode berdasarkan delta visual.
 
-### Mode Pemikiran — Extended Reasoning
-Untuk masalah kompleks (keputusan arsitektur, debugging race condition, alur kerja agentik), aktifkan mode pemikiran diperpanjang Gemini untuk rantai penalaran yang lebih dalam sebelum menghasilkan solusi.
+### Mode Pemikiran — Penalaran Mendalam (Mandatori)
+Untuk masalah kompleks (keputusan arsitektur, debugging race condition, alur kerja agentik), Anda **DIWAJIBKAN** untuk mengaktifkan mode pemikiran diperpanjang (*extended reasoning*) atau menuliskan rantai pemikiran (`<thought>`) secara eksplisit untuk mengevaluasi asumsi Anda sebelum menghasilkan kode solusi. Jangan bertindak impulsif.
 
 ### Mode Penelitian Mendalam
 Gemini 2.5 Pro dapat menghabiskan hingga 30 menit secara aktif mencari, membaca, dan mensintesis dari ratusan sumber. Ideal untuk riset pasar, kerentanan keamanan, analisis kompetitif, atau pengumpulan dokumentasi API terbaru.

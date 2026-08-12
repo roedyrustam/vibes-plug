@@ -44,7 +44,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### PHASE 1: Discovery & AI PRD Architectural Planning
 **Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `hyper-context-synthesizer`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
-- [ ] Draft a comprehensive Product Requirements Document (PRD.md) and a Roadmap (ROADMAP.md).
+- [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOKUMENTASI.md) alongside the Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
 - [ ] For existing projects: audit dependency health and plan upgrades with `dependency-upgrade-migrator`.
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
@@ -133,7 +133,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
 **Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `hyper-context-synthesizer`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
-- [ ] Menyusun Product Requirements Document (PRD.md) dan Roadmap (ROADMAP.md) yang komprehensif.
+- [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOKUMENTASI.md) yang komprehensif beserta Roadmap (ROADMAP.md).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Untuk proyek yang sudah ada: audit kesehatan dependensi dan rencanakan upgrade dengan `dependency-upgrade-migrator`.
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.

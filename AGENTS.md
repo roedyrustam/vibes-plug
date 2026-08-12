@@ -23,6 +23,15 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 4. **Agent Synergy**: Rely on the `vibes-plug` skills ecosystem. For example, if a task needs UI design, spawn a subagent guided by `ui-components-expert`; if it needs backend logic, spawn one with `js-backend-expert` or `go-programming-expert`.
 5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
 6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.
+7. **Mandatory Documentation**: Whenever initiating a new project from scratch, the Swarm Director MUST ensure the automatic generation of a Product Requirements Document (`PRD.md`), Entity Relationship Diagram (`ERD.md`), and general Documentation (`DOKUMENTASI.md`) before any code is generated.
+
+## MANDATORY: Deep Reasoning (o1-Style Thinking)
+**CRITICAL RULE**: Do not act impulsively. Before writing any code, modifying files, or making architectural decisions, the AI Agent MUST engage in a mandatory "Internal Monologue" or deep reasoning phase (e.g., using `<thought>` tags or explicitly generating an execution plan). 
+1. **Analyze**: Evaluate constraints, edge cases, and implications.
+2. **Critique**: Question your own initial assumptions. Is there a more scalable or modern way?
+3. **Validate**: Double-check the proposed solution against the project's non-functional requirements (NFRs) and standard best practices.
+4. **Execute**: Only after this reasoning chain is complete should you invoke file-editing tools.
+
 # LEARNING GRAPH: Skill Ecosystem Gold Standard
 
 This document serves as the persistent memory and standard operating procedure for the `vibes-plug` AI ecosystem. Any AI agent modifying or creating a skill must adhere strictly to these standards.

@@ -44,12 +44,12 @@ Search specific design domains:
 python scripts/search.py "<query>" --domain <domain> --max-results 3
 ```
 - **Available Domains (`--domain`)**:
-  - `style`: Visual design styles (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, etc.)
+  - `style`: Visual design styles (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, Spatial UI, WebGL 3D elements, etc.)
   - `prompt`: Copy-paste ready AI prompts & CSS implementation checklists
   - `color`: Hex color palettes tailored by product type (Primary, Secondary, CTA, Background, Text)
   - `chart`: Chart type recommendations, library suggestions, accessibility & color guidance
   - `landing`: High-converting landing page layouts, section orders & CTA placement
-  - `product`: Product-type specific design system blueprints (SaaS, E-commerce, Fintech, Crypto, etc.)
+  - `product`: Product-type specific design system blueprints (SaaS, E-commerce, Fintech, Crypto, AI-Native Chat Interfaces, etc.)
   - `ux`: UX anti-patterns, usability best practices, severity, and good/bad code examples
   - `typography`: Google font pairings, heading/body recommendations, mood keywords & CSS imports
   - `icons`: Icon usage guidance, SVG libraries (Lucide, Heroicons), and code imports
@@ -140,12 +140,12 @@ Cari domain desain tertentu:
 python scripts/search.py "<kueri>" --domain <domain> --max-results 3
 ```
 - **Domain yang Tersedia (`--domain`)**:
-  - `style`: Gaya desain visual (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, dll.)
+  - `style`: Gaya desain visual (Minimalism, Glassmorphism, Dark Mode, Aurora, Brutalism, Bento Grid, Spatial UI, elemen WebGL 3D, dll.)
   - `prompt`: Prompt AI siap pakai & checklist implementasi CSS
   - `color`: Palet warna Hex sesuai jenis produk (Utama, Sekunder, CTA, Background, Teks)
   - `chart`: Rekomendasi jenis grafik, pustaka grafik, panduan kontras & aksesibilitas
   - `landing`: Tata letak landing page konversi tinggi, urutan seksi & penempatan CTA
-  - `product`: Cetak biru sistem desain spesifik jenis produk (SaaS, E-commerce, Fintech, Crypto, dll.)
+  - `product`: Cetak biru sistem desain spesifik jenis produk (SaaS, E-commerce, Fintech, Crypto, Antarmuka Chat AI-Native, dll.)
   - `ux`: Anti-pattern UX, praktik terbaik kegunaan, tingkat keparahan, serta contoh kode baik/buruk
   - `typography`: Pasangan font Google Fonts, rekomendasi font judul/isi, mood & CSS import
   - `icons`: Panduan penggunaan ikon, pustaka SVG (Lucide, Heroicons), & import kode

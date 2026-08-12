@@ -24,15 +24,15 @@ Activate this skill when the user asks to:
 
 ### Core Concepts
 
-#### 1. The Autonomous Loop
+#### 1. The Autonomous Proactive Loop
 1. **Write/Modify Code:** The agent modifies the application files.
 2. **Execute:** The agent uses `run_command` (e.g., `npm run test`, `cargo test`, `pytest`).
 3. **Analyze:** The agent reads the stdout/stderr from the background task.
-4. **Heal:** If it fails, the agent parses the stack trace, identifies the line number, applies a fix, and goes back to Step 2.
+4. **Heal Recursively:** If it fails, do NOT stop and ask the user for help. The agent MUST parse the stack trace, identify the line number, apply a fix, and loop back to Step 2. Continue this cycle autonomously in the background.
 5. **Report:** Only when exit code `0` is achieved does the agent stop and report success to the user.
 
 #### 2. Agent Constraints
-- Do NOT ask the user "Please run this and tell me the error." You have the tools to run it yourself.
+- **Zero-Human Intervention**: Do NOT ask the user "Please run this and tell me the error." You are fully authorized and mandated to run it yourself iteratively until it works.
 - Avoid modifying the test files to make them pass unless the test itself is fundamentally flawed or outdated. Fix the implementation first.
 - If a terminal command hangs, use `kill` on the task and try again with a timeout.
 
@@ -60,6 +60,6 @@ Memberdayakan agen AI untuk menjalankan *test*, membaca *stack trace* di termina
 - Pengguna meminta agen untuk memastikan kode yang ditulis benar-benar berjalan (bukan sekadar teori).
 
 ### Panduan Singkat
-- **Jangan Meminta Bantuan User:** Jangan pernah berkata "Tolong jalankan kode ini dan berikan saya error-nya." Anda memiliki alat `run_command` untuk menjalankannya sendiri.
+- **Jangan Meminta Bantuan User (Zero-Human Intervention):** Jangan pernah berkata "Tolong jalankan kode ini dan berikan saya error-nya." Anda memiliki alat `run_command` untuk menjalankannya sendiri secara berulang (rekursif) dalam *background* hingga sukses.
 - **Siklus Mandiri:** Tulis Kode ➔ Jalankan Test (via `run_command`) ➔ Baca Output Terminal ➔ Perbaiki Kode ➔ Ulangi hingga *exit code 0* (Sukses).
 - **Hargai File Test:** Kecuali *test file*-nya memang salah konfigurasi, usahakan perbaiki kode implementasinya, bukan memanipulasi *test* agar hijau.

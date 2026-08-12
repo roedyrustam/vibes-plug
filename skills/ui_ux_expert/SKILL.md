@@ -34,11 +34,12 @@ Active when the user requests help with:
 - **Responsiveness Strategy**: Focus breakpoints on Desktop (≥1080px) and Tablet Landscape (768px – 1080px).
 - **Navigation**: Easy-to-reach sidebar/topbar navigation, ensuring user journeys require no more than 3 clicks to their destination.
 - **Usability & Interaction**: Prioritize simplicity and clarity. Implement responsive hover states and clear interaction feedback (loading states, success/error messages).
+- **Cognitive Load Reduction**: Implement Progressive Disclosure. Do not overwhelm the user with all settings/buttons at once. Hide advanced features behind "Advanced" accordions or dropdowns.
 
-### Modern SaaS Design Guidelines (Inspired by Monday.com)
-- **Visual Aesthetic**: Spacious, highly structured, clean white (`#FFFFFF`) or light gray (`#F9F9F9`) backgrounds with vibrant brand accents (e.g., `#0073ea` blue). 
+### Modern SaaS Design Guidelines (Next-Gen Aesthetic)
+- **Visual Aesthetic**: Move beyond flat design. Implement Premium styles like **Glassmorphism** (translucent backgrounds with `backdrop-blur-md`), dynamic Aurora gradients, or Bento Grid layouts. Backgrounds should feel spatial and alive.
 - **Typography**: Geometric sans-serif fonts with high contrast (extra-bold 48-60px for hero, medium 16-18px for body in muted gray `#676879`).
-- **Components**: Rounded corners for buttons (~8px) and large radius for cards (~12-16px) with subtle drop shadows (`shadow-sm`).
+- **Components**: Rounded corners for buttons (~8px) and large radius for cards (~12-16px) with subtle drop shadows (`shadow-sm` to `shadow-xl` for elevation).
 - **Layout Flow**: Centered content with a max-width of 1200-1400px and very generous vertical section padding (80-120px) to create a premium feel.
 
 ### Modern & Professional Dashboard Design Guidelines
@@ -87,10 +88,10 @@ Aktif ketika pengguna meminta bantuan terkait:
 - **Navigasi**: Navigasi sidebar/topbar yang mudah dijangkau, dengan alur tidak lebih dari 3 klik ke tujuan.
 - **Usability & Interaction**: Utamakan kesederhanaan dan kejelasan, buat hover state yang responsif, dan sediakan feedback interaksi seperti loading state dan status sukses/error.
 
-### Panduan Desain SaaS Modern (Terinspirasi Monday.com)
-- **Estetika Visual**: Luas, terstruktur, bersih dengan latar belakang putih (`#FFFFFF`) atau abu-abu terang (`#F9F9F9`), dipadukan dengan aksen merek yang cerah (mis. biru `#0073ea`).
+### Panduan Desain SaaS Modern (Estetika Next-Gen)
+- **Estetika Visual**: Tinggalkan desain *flat* yang membosankan. Gunakan gaya Premium seperti **Glassmorphism** (latar tembus pandang dengan `backdrop-blur-md`), gradasi dinamis Aurora, atau tata letak Bento Grid. Latar belakang harus terasa spasial dan hidup.
 - **Tipografi**: Font sans-serif geometris dengan kontras tinggi (sangat tebal 48-60px untuk hero, sedang 16-18px abu-abu redup `#676879` untuk teks isi).
-- **Komponen**: Sudut melengkung untuk tombol (~8px) dan radius besar untuk kartu (~12-16px) dengan efek bayangan sangat halus (`shadow-sm`).
+- **Komponen**: Sudut melengkung untuk tombol (~8px) dan radius besar untuk kartu (~12-16px) dengan efek bayangan halus yang memperlihatkan elevasi.
 - **Alur Tata Letak**: Konten terpusat dengan lebar maksimal 1200-1400px serta padding vertikal antar bagian yang sangat lega (80-120px) untuk kesan premium.
 
 ### Panduan Desain Dashboard Modern & Profesional

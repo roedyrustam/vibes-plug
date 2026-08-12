@@ -31,8 +31,9 @@ Activate this skill when the user says:
 4. **Analyze:** The agent receives the screenshot (via the `view_file` tool on the image) and analyzes the visual hierarchy, contrast, and alignment.
 5. **Correct:** The agent fixes margin, padding, or flexbox issues based on what it *saw*, not just what the code says.
 
-#### 2. Agent Constraints
-- Do not blindly guess CSS layouts when complex (e.g., overlapping elements). Take a screenshot to verify.
+#### 2. Agent Constraints (Mandatory Visual Verification)
+- **NO BLIND CSS GUESSING**: You are strictly prohibited from finalizing a frontend component without verifying it visually first. You MUST use a `browser_subagent` to capture a screenshot of your work.
+- **Pixel-Perfect Validation**: Compare the screenshot against the initial design spec or generic UI/UX best practices. Iterate on the CSS until the visual output is flawless.
 - Always check contrast ratios visually if design tokens are overridden.
 
 ---
@@ -59,6 +60,6 @@ Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakuka
 - Saat melakukan *cloning* desain dari gambar *mockup*.
 
 ### Panduan Singkat
-- **Gunakan Mata Anda:** Anda adalah model *multimodal*. Jika ragu apakah desain sudah rata tengah (*center*), jalankan Playwright, ambil *screenshot*, dan gunakan tool `view_file` untuk melihat *screenshot* tersebut.
+- **Gunakan Mata Anda (Wajib Verifikasi Visual):** Anda dilarang keras memfinalisasi atau menyelesaikan tugas frontend tanpa melihat hasilnya terlebih dahulu. Anda WAJIB mengambil *screenshot*, melihatnya menggunakan tool `view_file`, dan memverifikasi layout secara visual (*pixel-perfect*).
 - **Siklus Visual:** Tulis Kode ➔ Ambil Screenshot ➔ Analisis dengan *Vision* ➔ Perbaiki Tailwind/CSS ➔ Selesai.
 - **Jangan Menebak:** Terkadang `justify-center` tidak berfungsi karena ada pembungkus (*wrapper*) absolut. Jangan menebak-nebak di dalam kode; lihat hasil akhirnya secara visual!
