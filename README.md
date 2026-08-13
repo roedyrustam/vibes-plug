@@ -93,6 +93,11 @@ Once the command succeeds, Antigravity will automatically scan the folder and de
 
 > **Tip:** To update skills in the future, run `git pull` from inside the `vibes-plug` folder.
 
+**Using npm:**
+```bash
+npm install vibes-plug
+```
+
 **Using curl & tar:**
 ```bash
 mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-1.0.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
@@ -266,6 +271,11 @@ git clone https://github.com/roedyrustam/vibes-plug.git ~/.gemini/config/plugins
 Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder dan mendeteksi seluruh plugin beserta *skills* secara otomatis.
 
 > **Tip:** Untuk memperbarui skill di masa depan, cukup jalankan `git pull` dari dalam folder `vibes-plug`.
+
+**Menggunakan npm:**
+```bash
+npm install vibes-plug
+```
 
 **Menggunakan curl & tar:**
 ```bash
