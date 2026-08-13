@@ -48,17 +48,17 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
   --color-text-muted:  oklch(50% 0.015 250);
   --color-destructive: oklch(55% 0.22  25);    /* Red */
 
-  /* --- Typography --- */
+  /* --- Fluid Typography (clamp) --- */
   --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-  --font-size-xs:   0.75rem;
-  --font-size-sm:   0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg:   1.125rem;
-  --font-size-xl:   1.25rem;
-  --font-size-2xl:  1.5rem;
-  --font-size-3xl:  1.875rem;
-  --font-size-4xl:  2.25rem;
+  --font-size-xs:   clamp(0.7rem, 0.17vi + 0.66rem, 0.75rem);
+  --font-size-sm:   clamp(0.8rem, 0.17vi + 0.76rem, 0.875rem);
+  --font-size-base: clamp(0.9rem, 0.17vi + 0.86rem, 1rem);
+  --font-size-lg:   clamp(1rem, 0.17vi + 0.96rem, 1.125rem);
+  --font-size-xl:   clamp(1.1rem, 0.34vi + 1.02rem, 1.25rem);
+  --font-size-2xl:  clamp(1.2rem, 0.69vi + 1.03rem, 1.5rem);
+  --font-size-3xl:  clamp(1.5rem, 0.86vi + 1.29rem, 1.875rem);
+  --font-size-4xl:  clamp(1.8rem, 1.03vi + 1.54rem, 2.25rem);
 
   /* --- Spacing & Radius --- */
   --radius-sm:  0.25rem;
@@ -137,6 +137,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };
+```
+
+### Component Layout (Container Queries over Media Queries)
+Avoid `@media` queries for internal component styling. Use **CSS Container Queries (`@container`)** so components respond to their wrapper, not the viewport. This makes components truly reusable anywhere.
+```tsx
+// Example of a container-aware component using Tailwind v4
+<div className="@container">
+  <div className="flex flex-col @md:flex-row gap-4">
+    <div className="p-4 bg-surface rounded-xl">Fluid Card</div>
+  </div>
+</div>
 ```
 
 ### shadcn/ui Registry — Distributable Components (2026)
@@ -227,6 +238,8 @@ Definisikan semua token di CSS menggunakan direktif `@theme`. Gunakan warna OKLC
 
 ### Arsitektur Komponen
 Gunakan pola Headless + Styled: primitif headless (Base UI/Radix) untuk aksesibilitas, gaya melalui Tailwind + CVA (class-variance-authority) untuk varian type-safe.
+
+**Container Queries (`@container`)**: DILARANG keras menggunakan `@media` query (misal `md:`, `lg:`) untuk layout di dalam sebuah komponen. Gunakan **Container Queries (`@md:`, `@lg:`)** agar komponen dapat menyesuaikan diri dengan lebar pembungkusnya, bukan lebar layar secara keseluruhan. Ini membuat komponen Anda 100% *reusable*.
 
 ### Registry shadcn/ui — Komponen yang Dapat Didistribusikan (2026)
 shadcn/ui v2 memperkenalkan sistem registry — distribusikan komponen Anda sebagai library yang dapat dibagikan sehingga orang lain dapat menginstalnya dengan `npx shadcn add [url] [komponen]`.

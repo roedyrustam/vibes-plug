@@ -1,6 +1,6 @@
 ---
 name: prd-architect
-description: "Mandatory guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD) before generating code for new projects / Skill khusus untuk memaksa pembuatan Product Requirements Document (PRD) sebelum mulai coding pada setiap proyek baru."
+description: "Mandatory guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD), ERD, and Documentation before generating code for new projects / Skill khusus untuk memaksa pembuatan Product Requirements Document (PRD), ERD, dan Dokumentasi secara otomatis sebelum mulai coding pada setiap proyek baru."
 author: "Roedy Rustam"
 ---
 
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Mandatory guardrail that enforces creating a comprehensive Product Requirements Document (PRD) before generating code for any new project. Introduces **PRD-as-Code** — a structured Markdown format designed to be machine-readable by AI agents and version-controlled alongside code.
+Mandatory guardrail that enforces creating a comprehensive Product Requirements Document (PRD), Entity Relationship Diagram (ERD), and general Documentation before generating code for any new project. Introduces **PRD-as-Code** — a structured Markdown format designed to be machine-readable by AI agents and version-controlled alongside code.
 
 ### Trigger Conditions
 - A user requests building a new application, SaaS, or major feature from scratch.
@@ -141,10 +141,10 @@ projects ──has_many──> tasks
 ### Enforcement Protocol
 1. **Detect**: When user requests a new project build.
 2. **Pause**: Do NOT generate any code.
-3. **Generate PRD & Roadmap**: Create a pre-filled PRD draft (`PRD.md`) and a Roadmap document (`ROADMAP.md` or `PROGRESS.md`) based on the user's description.
+3. **Generate PRD, ERD, Docs & Roadmap**: Automatically create a pre-filled PRD draft (`PRD.md`), an Entity Relationship Diagram (`ERD.md`), general Documentation (`DOKUMENTASI.md`), and a Roadmap document (`ROADMAP.md` or `PROGRESS.md`) based on the user's description.
 4. **Review**: Present to user for approval/edits.
-5. **Confirm**: Once PRD and Roadmap are approved, proceed to `zero-to-prod-orchestrator` Phase 1.
-6. **Reference**: Cite the PRD and Roadmap in all subsequent code generation decisions.
+5. **Confirm**: Once the PRD, ERD, Documentation, and Roadmap are approved, proceed to `zero-to-prod-orchestrator` Phase 1.
+6. **Reference**: Cite the PRD, ERD, Documentation, and Roadmap in all subsequent code generation decisions.
 
 ---
 
@@ -152,7 +152,7 @@ projects ──has_many──> tasks
 ## Bahasa Indonesia
 
 ### Deskripsi
-Guardrail wajib yang memaksa pembuatan Product Requirements Document (PRD) komprehensif sebelum membuat kode untuk proyek baru apapun. Memperkenalkan **PRD-as-Code** — format Markdown terstruktur yang dirancang agar dapat dibaca mesin oleh agen AI dan dikontrol versi bersama kode.
+Guardrail wajib yang memaksa pembuatan secara otomatis Product Requirements Document (PRD) komprehensif, Entity Relationship Diagram (ERD), dan Dokumentasi sebelum membuat kode untuk proyek baru apapun. Memperkenalkan **PRD-as-Code** — format Markdown terstruktur yang dirancang agar dapat dibaca mesin oleh agen AI dan dikontrol versi bersama kode.
 
 ### Kondisi Pemicu
 - Pengguna meminta membangun aplikasi, SaaS, atau fitur besar baru dari awal.
@@ -185,7 +185,17 @@ Template PRD mencakup 12 bagian:
 ### Protokol Penegakan
 1. **Deteksi**: Saat pengguna meminta pembangunan proyek baru.
 2. **Jeda**: JANGAN hasilkan kode apapun.
-3. **Buat PRD & Roadmap**: Buat draf PRD (`PRD.md`) dan dokumen Roadmap (`ROADMAP.md` atau `PROGRESS.md`) yang sudah diisi berdasarkan deskripsi pengguna.
+3. **Buat PRD, ERD, Dokumentasi & Roadmap**: Secara otomatis buat draf PRD (`PRD.md`), Entity Relationship Diagram (`ERD.md`), Dokumentasi umum (`DOKUMENTASI.md`), dan dokumen Roadmap (`ROADMAP.md` atau `PROGRESS.md`) yang sudah diisi berdasarkan deskripsi pengguna.
 4. **Tinjau**: Sajikan kepada pengguna untuk persetujuan/edit.
-5. **Konfirmasi**: Setelah PRD dan Roadmap disetujui, lanjut ke `zero-to-prod-orchestrator` Fase 1.
-6. **Referensi**: Kutip PRD dan Roadmap dalam semua keputusan pembuatan kode selanjutnya.
+5. **Konfirmasi**: Setelah PRD, ERD, Dokumentasi, dan Roadmap disetujui, lanjut ke `zero-to-prod-orchestrator` Fase 1.
+6. **Referensi**: Kutip PRD, ERD, Dokumentasi, dan Roadmap dalam semua keputusan pembuatan kode selanjutnya.
+
+---
+### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, scaffolding a project, or finalizing the initial UI/UX, you MUST automatically use the `generate_image` tool to create a custom logo that perfectly matches the application's core concept and aesthetic. 
+This generated image MUST be explicitly used as:
+1. The primary application logo (e.g., in the header/navbar).
+2. The website favicon (`favicon.ico` or equivalent).
+3. The Open Graph (OG) image for SEO metadata (`og:image`).
+
+Do not use placeholders for these assets. Generate and integrate them automatically.

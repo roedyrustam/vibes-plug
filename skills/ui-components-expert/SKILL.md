@@ -181,12 +181,13 @@ export function ConfirmDialog({ onConfirm }: { onConfirm: () => void }) {
 
 ---
 
-### Micro-Interaction Checklist
+### Micro-Interaction Checklist (Next-Gen)
 These small details separate premium from basic UI:
 - [ ] All interactive elements have `:focus-visible` ring (2px, brand color).
 - [ ] Buttons have loading state with spinner + disabled state.
 - [ ] Form fields animate error shake on invalid submit.
-- [ ] Hover transitions use `transition-colors duration-200 ease-in-out`.
+- [ ] **Physics-Based Animation**: Do not rely solely on linear `ease-in-out`. Use Framer Motion (v12) `spring` physics (`stiffness: 300, damping: 20`) for modals, popovers, and interactive elements to provide a natural, snappy feel.
+- [ ] Hover transitions on simple buttons use `transition-all duration-200 ease-out`.
 - [ ] Modals animate in with fade + scale: `animate-in fade-in zoom-in-95`.
 - [ ] List items stagger-animate when rendered (use Motion `stagger`).
 - [ ] Skeleton loaders match the exact layout of the content they replace.
@@ -215,6 +216,10 @@ Panduan ahli untuk mengevaluasi, mengaudit, dan membangun komponen UI berkualita
 - Mengaudit komponen yang ada terhadap standar WCAG 2.2 dan desain interaksi.
 - Menyiapkan library komponen dengan shadcn/ui, Radix UI, atau Base UI.
 - Menambahkan micro-interaction, hover state, focus ring, dan animasi ke komponen.
+
+### QA Visual Mandatori (KRITIS)
+- **Siklus Verifikasi Visual**: Anda DILARANG KERAS menyelesaikan komponen UI tanpa mengambil screenshot menggunakan `browser_subagent` dan menganalisisnya via `visual-qa-vision-agent`.
+- **Standar Pixel-Perfect**: Jangan menebak padding/margin. Ambil gambar, analisis dengan kemampuan Vision Anda, dan koreksi pergeseran tata letak hingga sempurna.
 
 ### Stack Komponen Rekomendasi (2026)
 - **Headless Primitives**: Radix UI / Base UI — aksesibilitas dan behavior tanpa style.
@@ -264,11 +269,12 @@ Komponen yang mengelompokkan konten terkait (card, modal/dialog, sheet/drawer, a
 - Gunakan shadow tipis + border untuk elevasi card. Hindari drop shadow berat di mode terang.
 - Gunakan bottom sheet di mobile, side sheet di desktop untuk aksi sekunder.
 
-### Checklist Micro-Interaction
+### Checklist Micro-Interaction (Next-Gen)
 Detail kecil yang membedakan UI premium dari yang biasa:
 - [ ] Semua elemen interaktif memiliki `:focus-visible` ring (2px, warna brand).
 - [ ] Tombol memiliki loading state dengan spinner + disabled state.
+- [ ] **Animasi Fisika (Spring)**: Hindari transisi linier kaku. Gunakan Framer Motion (v12) `spring` (`stiffness: 300, damping: 20`) pada interaksi klik, modal, dan dropdown agar terasa alami dan sangat responsif.
+- [ ] Hover transition sederhana menggunakan `transition-all duration-200 ease-out`.
 - [ ] Modal dan drawer muncul dengan animasi fade + scale yang mulus.
-- [ ] Hover transition menggunakan `transition-colors duration-200`.
 - [ ] Skeleton loader sesuai persis dengan layout konten yang digantikan.
 - [ ] Dark mode diuji untuk semua state (terutama warna error/warning).

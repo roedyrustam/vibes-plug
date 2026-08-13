@@ -223,3 +223,13 @@ Google AI Mode (sebelumnya AI Overviews) kini mendukung bagian atas hasil pencar
 
 ### Standar SEO On-Page
 H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskripsi < 155 karakter, URL lowercase dengan tanda hubung dan keyword di slug, alt text deskriptif untuk semua gambar, 3-5 internal link per halaman long-form.
+
+---
+### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, scaffolding a project, or finalizing the initial UI/UX, you MUST automatically use the `generate_image` tool to create a custom logo that perfectly matches the application's core concept and aesthetic. 
+This generated image MUST be explicitly used as:
+1. The primary application logo (e.g., in the header/navbar).
+2. The website favicon (`favicon.ico` or equivalent).
+3. The Open Graph (OG) image for SEO metadata (`og:image`).
+
+Do not use placeholders for these assets. Generate and integrate them automatically.
