@@ -1,7 +1,7 @@
 ---
 name: token-saver
 description: "Skill to implement token saving scheme, concise, and focused on essential changes / Skill untuk menerapkan skema penghematan token, ringkas, dan fokus pada perubahan esensial tanpa basa-basi."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Token Saver Protocol (2026 Edition)
@@ -109,3 +109,11 @@ Gunakan format diff untuk edit file. Berikan penjelasan 1 kalimat untuk perubaha
 
 #### 5. Kualitas Draft Kode Pertama
 Hasilkan kode yang benar dan siap produksi pada percobaan pertama — termasuk error handling, tipe, dan edge case secara inline. Hindari TODO, nilai placeholder, atau komentar "implementasikan ini nanti".
+
+---
+
+## Orchestration & Integration
+- Integrates with `zero-to-prod-orchestrator`, `session-handoff-resume`, `brainstorming`, and `ai-cost-token-optimizer`.
+
+## Integrasi Orkestrasi
+- Terintegrasi dengan `zero-to-prod-orchestrator`, `session-handoff-resume`, `brainstorming`, dan `ai-cost-token-optimizer`.
