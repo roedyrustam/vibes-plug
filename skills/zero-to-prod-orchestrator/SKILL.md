@@ -42,7 +42,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `hyper-context-synthesizer`
+**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOKUMENTASI.md) alongside the Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
@@ -57,14 +57,14 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Setup initial CI/CD pipeline template (GitHub Actions, Docker).
 
 #### PHASE 3: Database & Multi-Tenant Core Architecture
-**Orchestrates:** `fullstack-expert`, `database-orm-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `senior-fullstack`
+**Orchestrates:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
 - [ ] Design normalized relational schemas and document models.
 - [ ] Configure ORM layer (Drizzle ORM / Prisma 6 / SQLx / sqlc).
 - [ ] Implement Row-Level Security (RLS) policies and tenant isolation.
 - [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
 #### PHASE 4: Backend APIs, Microservices & AI Agents
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `llm-cost-arbitrage-router`
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
 - [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
@@ -73,7 +73,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement file upload with presigned URLs (S3/R2) and media processing.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `design-system-architect`, `senior-frontend`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`, `ui-ux-expert`
+**Orchestrates:** `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP/Anime.js), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
@@ -82,7 +82,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`
+**Orchestrates:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Write resilient E2E browser tests with Playwright.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
@@ -131,7 +131,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `hyper-context-synthesizer`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOKUMENTASI.md) yang komprehensif beserta Roadmap (ROADMAP.md).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
@@ -146,14 +146,14 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Menyiapkan template pipeline CI/CD awal (GitHub Actions, Docker).
 
 #### FASE 3: Database & Arsitektur Multi-Tenant
-**Mengorkestrasi:** `fullstack-expert`, `database-orm-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `senior-fullstack`
+**Mengorkestrasi:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
 - [ ] Merancang skema relasional ter-normalisasi dan pemodelan dokumen.
 - [ ] Konfigurasi lapisan ORM (Drizzle ORM / Prisma 6 / SQLx / sqlc).
 - [ ] Mengimplementasikan kebijakan Row-Level Security (RLS) dan isolasi tenant.
 - [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
 #### FASE 4: Backend API, Microservices & Agen AI
-**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `mcp-client-orchestrator`, `autonomous-swarm-director`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `llm-cost-arbitrage-router`
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `mcp-client-orchestrator`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
 - [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
@@ -162,7 +162,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengimplementasikan upload file dengan presigned URL (S3/R2) dan pemrosesan media.
 
 #### FASE 5: Frontend, Design System & Mobile App
-**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`, `ui-ux-expert`
+**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
 - [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Buat halaman React 19 / Next.js 15 memanfaatkan RSC, Server Actions (`useActionState`), animasi tingkat lanjut (GSAP/Anime.js), atau Expo Router v4 (Mobile) / Tauri v2 (Desktop).
@@ -171,7 +171,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`
+**Mengorkestrasi:** `e2e-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Menulis pengujian browser E2E yang tangguh menggunakan Playwright.
 - [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
@@ -181,7 +181,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Menjalankan audit kualitas kode untuk membersihkan AI slop dan pembusukan arsitektur.
 
 #### FASE 7: Hardening Pra-Peluncuran, Monitoring & DevOps Sentinel
-**Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `logging-error-tracking-expert`, `proactive-background-watcher`, `ai-cost-token-optimizer`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `autonomous-chaos-monkey`, `self-healing-cloud-orchestrator`
+**Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `logging-error-tracking-expert`, `proactive-background-watcher`, `ai-cost-token-optimizer`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `autonomous-chaos-monkey`, `self-healing-cloud-orchestrator`
 - [ ] Audit pra-peluncuran pada Core Web Vitals (LCP, INP, CLS) dan ukuran bundle.
 - [ ] Mengonfigurasi monitoring produksi, aturan alerting, dan notifikasi on-call.
 - [ ] Mengoptimalkan GEO untuk AI Overviews, Perplexity, ChatGPT Search, dan merilis `/llms.txt`.

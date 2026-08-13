@@ -29,6 +29,34 @@ const sql = neon(process.env.DATABASE_URL!);
 export const db = drizzle({ client: sql });
 ```
 
+### Implementation Checklist
+- [ ] Use HTTP/WebSocket drivers (e.g., `neon-http`) for querying databases from Edge Workers/Functions.
+- [ ] Configure connection pooling (PgBouncer, Prisma Accelerate) if using standard TCP connections to avoid exhausting database connection limits.
+- [ ] Use read-replicas near the edge location for global deployments to reduce latency.
+- [ ] Cache heavy, read-heavy queries at the edge using Upstash Redis or Cloudflare KV.
+
+### Example: Upstash Redis Edge Caching
+```typescript
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
+export async function getCachedData(key: string) {
+  let data = await redis.get(key);
+  if (!data) {
+    data = await fetchFromDB();
+    await redis.set(key, data, { ex: 3600 }); // Cache for 1 hour
+  }
+  return data;
+}
+```
+
+## Orchestration & Integration
+- Integrates with: `database-orm-expert`, `cloud-hosting-expert`.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -41,3 +69,31 @@ Praktik terbaik membangun aplikasi latensi rendah dengan database serverless dan
 - **Neon & Cloudflare D1**: Serverless Postgres autoscaling dengan branching instan dan distributed edge SQLite.
 - **Connection Pooling**: Proxy pooling HTTP/WebSocket untuk edge worker tanpa risiko kehabisan koneksi TCP.
 - **Embedded Replicas**: Sinkronisasi read-replica SQLite di edge dengan database utama untuk query di bawah 10ms.
+
+### Checklist Implementasi
+- [ ] Gunakan driver HTTP/WebSocket (misal: `neon-http`) untuk mengakses database dari Edge Workers/Functions.
+- [ ] Konfigurasi connection pooling (PgBouncer, Prisma Accelerate) jika menggunakan koneksi TCP standar untuk mencegah batas koneksi habis.
+- [ ] Gunakan read-replicas di dekat lokasi edge untuk deployment global guna mengurangi latensi.
+- [ ] Cache query berat yang sering dibaca di edge menggunakan Upstash Redis atau Cloudflare KV.
+
+### Contoh: Upstash Redis Edge Caching
+```typescript
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
+export async function getCachedData(key: string) {
+  let data = await redis.get(key);
+  if (!data) {
+    data = await fetchFromDB();
+    await redis.set(key, data, { ex: 3600 }); // Cache 1 jam
+  }
+  return data;
+}
+```
+
+## Integrasi Orkestrasi
+- Terintegrasi dengan: `database-orm-expert`, `cloud-hosting-expert`.

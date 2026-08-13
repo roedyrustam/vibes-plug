@@ -35,22 +35,22 @@ During brainstorming, consult, reference, and orchestrate the following speciali
 
 | Domain / Phase | Orchestrated Skills | Trigger & Delegation Context |
 | :--- | :--- | :--- |
-| **Discovery & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `website-design-cloner`, `browser-automation-expert`, `dependency-upgrade-migrator`, `project-context-mapper`, `proactive-background-watcher`, `self-evolving-memory-graph`, `hyper-context-synthesizer` | Formulate formal PRD, ERD, and Documentation, audit existing codebases, cross-project episodic memory, reverse-engineer website URL designs 1:1, scrape reference products, execute autonomous Playwright/Browser-Use web agents, or audit dependency health. |
-| **UI/UX & Design Systems** | `design-system-architect`, `website-design-cloner`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern`, `ui-components-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent` | Reverse-engineer website designs & templates directly from target URL, design tokens (OKLCH), Tailwind CSS v4, Apple HIG principles, layout hierarchy, production-quality UI components, modernizing legacy Bootstrap apps, WebGL 3D (Three.js/Babylon.js), custom GLSL shaders, WebXR AR/VR. |
+| **Discovery & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `website-design-cloner`, `browser-automation-expert`, `dependency-upgrade-migrator`, `project-context-mapper`, `proactive-background-watcher`, `self-evolving-memory-graph` | Formulate formal PRD, ERD, and Documentation, audit existing codebases, cross-project episodic memory, reverse-engineer website URL designs 1:1, scrape reference products, execute autonomous Playwright/Browser-Use web agents, or audit dependency health. |
+| **UI/UX & Design Systems** | `design-system-architect`, `website-design-cloner`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `tailwind-expert`, `bootstrap-to-modern`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent` | Reverse-engineer website designs & templates directly from target URL, design tokens (OKLCH), Tailwind CSS v4, Apple HIG principles, layout hierarchy, production-quality UI components, modernizing legacy Bootstrap apps, WebGL 3D (Three.js/Babylon.js), custom GLSL shaders, WebXR AR/VR. |
 | **Frontend Frameworks** | `senior-frontend`, `vue-frontend-expert`, `tanstack-query-expert`, `global-a11y-i18n-expert`, `state-management-expert`, `form-validation-expert`, `apple-ecosystem-expert` | React 19 / Next.js 15 App Router, Vue 3 / Nuxt 3, async state management (Zustand/Jotai/Pinia), WCAG 2.2 a11y, multi-language i18n, complex forms with React Hook Form + Zod. |
 | **Mobile & Desktop** | `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `mobile-push-notification-expert` | Cross-platform React Native / Expo Router v4, Apple ecosystem (iOS PWA & Safari), iOS Live Activities, push notifications (FCM/APNs), or Rust-powered Tauri v2 desktop apps. |
-| **Backend & Runtimes** | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `fullstack-expert`, `senior-fullstack`, `async-queue-temporal-expert`, `cron-scheduler-expert`, `legacy-code-translator` | API design, Node.js 24, Bun 1.2+, FastAPI, Go microservices, Rust Axum, durable workflows (Temporal/Trigger.dev/BullMQ), scheduled tasks & cron jobs. |
-| **API Design & Contracts** | `api-design-expert`, `typescript-expert`, `rate-limit-abuse-prevention`, `graphql-apollo-expert` | REST best practices, GraphQL schema (Apollo/NestJS), gRPC/protobuf, tRPC end-to-end type safety, OpenAPI 3.1 documentation, rate limiting, API key management, idempotency, versioning strategy. |
-| **Database & ORM** | `database-orm-expert`, `supabase-migration`, `vector-db-rag-expert`, `edge-serverless-db-expert`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing` | Prisma 6 / Drizzle ORM, pgvector HNSW RAG indexing, serverless DBs (Neon/D1/Turso), Supabase RLS, Firebase security rules. |
+| **Backend & Runtimes** | `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `domain-driven-design-expert`, `fullstack-expert`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `cron-scheduler-expert`, `legacy-code-translator`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert` | API design, Node.js 24, Bun 1.2+, FastAPI, Go microservices, Rust Axum, API Gateways, Edge computing WASM, durable workflows (Temporal/Trigger.dev/BullMQ), dedicated background jobs queues, scheduled tasks & cron jobs. |
+| **API Design & Contracts** | `api-design-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, `rate-limit-abuse-prevention`, `graphql-apollo-expert` | REST best practices, GraphQL schema (Apollo/NestJS), gRPC/protobuf, tRPC end-to-end type safety, OpenAPI 3.1 documentation & codegen, rate limiting, API key management, idempotency, versioning strategy. |
+| **Database, ORM & Data** | `database-orm-expert`, `supabase-migration`, `vector-db-rag-expert`, `edge-serverless-db-expert`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `data-pipeline-etl-expert` | Prisma 6 / Drizzle ORM, Data pipelines (dbt/Dagster), pgvector HNSW RAG indexing, serverless DBs (Neon/D1/Turso), Supabase RLS, Firebase security rules. |
 | **Architecture & Scale** | `monorepo-architect`, `event-driven-architect`, `multiple-entry-points`, `mpa-orchestrator`, `spa-orchestrator`, `scalability-clean-code`, `micro-frontend-architect`, `web-game-engine-expert` | Monorepos (Turborepo/pnpm), microservices, event queues, multi-entry apps, MPA & SPA setups, clean code principles, micro-frontends (Webpack/Vite Federation), WebGL ECS & Physics engines. |
-| **AI & LLM Integration** | `ai-llm-integration-expert`, `vector-db-rag-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster`, `ai-cost-token-optimizer`, `autonomous-swarm-director`, `mcp-client-orchestrator`, `doku-mcp-server`, `llm-cost-arbitrage-router` | RAG pipelines, MCP Server v1.9+, LangGraph multi-agent workflows, Gemini Agent long-context reasoning, LLM FinOps, semantic caching, autonomous agent swarms, DOKU MCP integration. |
+| **AI & LLM Integration** | `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `vector-db-rag-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster`, `ai-cost-token-optimizer`, `mcp-client-orchestrator`, `doku-mcp-server` | RAG pipelines, MCP Server v1.9+, LangGraph multi-agent workflows, Gemini Agent long-context reasoning, LLM FinOps, semantic caching, autonomous agent swarms, DOKU MCP integration. |
 | **SaaS & Multi-Tenancy** | `saas-mvp-launcher`, `saas-transformer`, `saas-multi-tenant`, `saas-billing`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `email-notification-expert` | SaaS MVP roadmap, RLS tenant isolation, Stripe/DOKU billing, feature flags (PostHog/LaunchDarkly), progressive rollout, transactional email & notification pipelines. |
-| **Testing & Security** | `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, `coderabbit`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `post-quantum-crypto-migrator` | Playwright E2E suites, dynamic security fuzzing, post-quantum crypto migration, Zero-Trust secrets, automated code review, auth, brute-force & DDoS prevention, autonomous TDD debugging. |
+| **Testing & Security** | `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, `coderabbit`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert` | Playwright E2E suites, dynamic security fuzzing, GDPR/PDPA compliance, post-quantum crypto migration, Zero-Trust secrets, automated code review, auth, brute-force & DDoS prevention, autonomous TDD debugging. |
 | **Error Handling & Resilience** | `error-resilience-expert`, `logging-error-tracking-expert`, `autonomous-chaos-monkey` | Chaos engineering, React Error Boundaries, API error standards (RFC 9457), retry patterns, circuit breakers, graceful degradation, structured logging (Pino), Sentry integration. |
-| **Communication & Notifications** | `email-notification-expert`, `mobile-push-notification-expert`, `realtime-collaboration-expert` | Transactional email (Resend/Postmark), React Email templates, in-app notifications, push notifications, real-time collaboration (WebSocket/WebRTC/CRDTs). |
+| **Communication & Notifications** | `email-notification-expert`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `sse-websocket-streaming-expert` | Transactional email (Resend/Postmark), React Email templates, in-app notifications, push notifications, streaming responses (SSE/WebSocket), real-time collaboration (WebSocket/WebRTC/CRDTs). |
 | **File & Media** | `file-upload-media-expert` | Presigned URL uploads (S3/R2), image optimization (Sharp), video transcoding (Mux), CDN configuration, drag-and-drop UI, file validation & security. |
 | **Performance** | `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), bundle optimization, image/font loading, React concurrent features, Lighthouse score improvement, deep architecture analysis. |
-| **SEO, GEO & Telemetry** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Technical SEO audits, Generative Engine Optimization (AI Overviews, `/llms.txt`), AEO landing pages, OpenTelemetry/PostHog analytics. |
+| **SEO, GEO & Telemetry** | `seo`, `data-telemetry-expert` | Technical SEO audits, Generative Engine Optimization (AI Overviews, `/llms.txt`), AEO landing pages, OpenTelemetry/PostHog analytics. |
 | **DevOps & CI/CD** | `ci-cd-devops-architect`, `cloud-hosting-expert`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator` | GitHub Actions, Docker, Kubernetes, Terraform, Vercel/Cloudflare deployment, self-healing cloud operations, Renovate Bot, dependency health. |
 | **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), loading context on new sessions, token efficiency. |
 
@@ -98,15 +98,15 @@ Your goal is **shared clarity**, not speed.
 #### Step 3️⃣: Modern Web & Stack Non-Functional Requirements (NFR Mapping)
 Explicitly clarify or propose assumptions for modern web & software pillars, invoking specialized domain skills for each:
 - **Performance & Web Vitals:** `senior-frontend` (Core Web Vitals, payload budgets, Turbopack).
-- **Architecture & Framework:** `senior-frontend` / `mvc-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
+- **Architecture & Framework:** `senior-frontend` / `mvc-expert`, `domain-driven-design-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
 - **Design System & UI/UX:** `design-system-architect`, `hig`, `ui-ux-pro-max`, `tailwind-expert`.
-- **Backend & APIs:** `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
+- **Backend & APIs:** `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
 - **Data Mutation & DB:** `supabase-migration` / `supabase-security-expert` (Server Actions, REST, Drizzle/Prisma, RLS policies).
-- **AI & Intelligent Systems:** `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
+- **AI & Intelligent Systems:** `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
 - **SaaS Architecture:** `saas-multi-tenant`, `saas-billing`.
 - **Mobile & Desktop Targets:** `mobile-expo-expert`, `tauri-expert`.
 - **Accessibility & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, aria tags, locale routing).
-- **SEO & Discovery:** `seo`, `seo-geo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
+- **SEO & Discovery:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
 If the user is uncertain, propose modern defaults (e.g. Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) and explicitly tag them as **[ASSUMPTIONS]**.
 
@@ -126,7 +126,7 @@ Ask:
 Once confirmed, present **2–3 viable design approaches**:
 - Lead with your recommended option.
 - Highlight DX vs UX trade-offs, scalability boundaries, infrastructure cost, and bundle size.
-- Specify how specialized skills will execute each layer (e.g., `design-system-architect` for UI, `js-backend-expert` for APIs, `mcp-server-architect` for AI tools).
+- Specify how specialized skills will execute each layer (e.g., `design-system-architect` for UI, `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` for APIs, `mcp-server-architect` for AI tools).
 
 #### Step 6️⃣: Incremental Design Presentation
 Present the finalized design in short sections (200–300 words max):
@@ -149,9 +149,9 @@ Produce a full **Design Document** and persist it to `DESIGN.md` or `BLUEPRINT.m
 
 ## 2. Technical Architecture & Skill Delegation
 - Rendering & Framework (`senior-frontend` / `mobile-expo-expert`)
-- API & Microservices (`js-backend-expert` / `go-programming-expert`)
+- API & Microservices (`nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` / `go-programming-expert`)
 - Database & Security (`supabase-migration` / `supabase-security-expert`)
-- AI & LLM Systems (`ai-llm-integration-expert` / `mcp-server-architect`)
+- AI & LLM Systems (`ai-llm-integration-expert`, `ai-prompt-engineering-expert` / `mcp-server-architect`)
 - SaaS & Billing (`saas-multi-tenant` / `saas-billing`)
 
 ## 3. Component & UI Architecture
@@ -212,22 +212,22 @@ Selama proses brainstorming, konsultasikan, rujuk, dan orkestrasikan skill-skill
 
 | Domain / Fase | Skill yang Diorkestrasikan | Konteks Pemicu & Delegasi |
 | :--- | :--- | :--- |
-| **Penemuan & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `website-design-cloner`, `browser-automation-expert`, `dependency-upgrade-migrator`, `project-context-mapper`, `proactive-background-watcher`, `self-evolving-memory-graph`, `hyper-context-synthesizer` | Menyusun PRD, ERD, dan Dokumentasi formal, memori episodik lintas proyek, mengaudit codebase yang ada, mendokumentasikan fitur kompetitor, reverse-engineer desain website, atau audit kesehatan dependensi. |
-| **UI/UX & Design System** | `design-system-architect`, `website-design-cloner`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `ui-ux-expert`, `tailwind-expert`, `bootstrap-to-modern`, `ui-components-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent` | Token desain (OKLCH), Tailwind CSS v4, prinsip Apple HIG, tata letak antarmuka, komponen UI berkualitas produksi, migrasi aplikasi Bootstrap lama, WebGL 3D, kustomisasi shader GLSL, dan WebXR AR/VR. |
+| **Penemuan & Audit** | `prd-architect`, `app-analyzer-optimizer`, `web-scraper`, `website-design-cloner`, `browser-automation-expert`, `dependency-upgrade-migrator`, `project-context-mapper`, `proactive-background-watcher`, `self-evolving-memory-graph` | Menyusun PRD, ERD, dan Dokumentasi formal, memori episodik lintas proyek, mengaudit codebase yang ada, mendokumentasikan fitur kompetitor, reverse-engineer desain website, atau audit kesehatan dependensi. |
+| **UI/UX & Design System** | `design-system-architect`, `website-design-cloner`, `hig`, `monday-design-aesthetic`, `ui-ux-pro-max`, `tailwind-expert`, `bootstrap-to-modern`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent` | Token desain (OKLCH), Tailwind CSS v4, prinsip Apple HIG, tata letak antarmuka, komponen UI berkualitas produksi, migrasi aplikasi Bootstrap lama, WebGL 3D, kustomisasi shader GLSL, dan WebXR AR/VR. |
 | **Framework Frontend** | `senior-frontend`, `tanstack-query-expert`, `global-a11y-i18n-expert`, `state-management-expert`, `form-validation-expert`, `apple-ecosystem-expert` | React 19 / Next.js 15 App Router (RSC, PPR), state management (Zustand/Jotai), WCAG 2.2 a11y, i18n multi-bahasa, formulir kompleks dengan React Hook Form + Zod. |
 | **Mobile & Desktop** | `mobile-expo-expert`, `tauri-expert`, `mobile-push-notification-expert`, `apple-ecosystem-expert` | Aplikasi mobile cross-platform React Native / Expo Router v4, iOS Live Activities, push notification (FCM/APNs), atau aplikasi desktop Tauri v2 berbasis Rust. |
-| **Backend & Runtime** | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `fullstack-expert`, `senior-fullstack`, `async-queue-temporal-expert`, `cron-scheduler-expert`, `legacy-code-translator` | Desain API, Node.js 24, Bun 1.2+, FastAPI 0.115+, microservices Go 1.24+, Rust Axum, refactoring MVC PHP lama, tugas terjadwal & cron job. |
-| **Desain API & Kontrak** | `api-design-expert`, `typescript-expert`, `rate-limit-abuse-prevention`, `graphql-apollo-expert` | Praktik terbaik REST, skema GraphQL (Apollo/NestJS), gRPC/protobuf, tRPC end-to-end type safety, dokumentasi OpenAPI 3.1, rate limiting, manajemen API key, idempotency, strategi versioning. |
-| **Database & ORM** | `database-orm-expert`, `supabase-migration`, `vector-db-rag-expert`, `edge-serverless-db-expert`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing` | Desain skema Prisma 6 / Drizzle ORM, pgvector HNSW RAG, database serverless (Neon/D1/Turso), Supabase RLS, Firebase security rules. |
+| **Backend & Runtime** | `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `bun-runtime-expert`, `mvc-expert`, `domain-driven-design-expert`, `fullstack-expert`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `cron-scheduler-expert`, `legacy-code-translator`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert` | Desain API, Node.js 24, Bun 1.2+, FastAPI 0.115+, microservices Go 1.24+, Rust Axum, API Gateways, Edge computing WASM, refactoring MVC PHP lama, antrean background jobs khusus, tugas terjadwal & cron job. |
+| **Desain API & Kontrak** | `api-design-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, `rate-limit-abuse-prevention`, `graphql-apollo-expert` | Praktik terbaik REST, skema GraphQL (Apollo/NestJS), gRPC/protobuf, tRPC end-to-end type safety, dokumentasi OpenAPI 3.1 & codegen, rate limiting, manajemen API key, idempotency, strategi versioning. |
+| **Database, ORM & Data** | `database-orm-expert`, `supabase-migration`, `vector-db-rag-expert`, `edge-serverless-db-expert`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `data-pipeline-etl-expert` | Desain skema Prisma 6 / Drizzle ORM, Data pipelines (dbt/Dagster), pgvector HNSW RAG, database serverless (Neon/D1/Turso), Supabase RLS, Firebase security rules. |
 | **Arsitektur & Skala** | `monorepo-architect`, `event-driven-architect`, `multiple-entry-points`, `mpa-orchestrator`, `spa-orchestrator`, `scalability-clean-code`, `micro-frontend-architect`, `web-game-engine-expert` | Monorepo (Turborepo/pnpm), microservices, antrean pesan, aplikasi multi-entry, skema MPA & SPA, prinsip clean code, micro-frontends (Webpack/Vite Federation), arsitektur ECS & Physics WebGL. |
-| **Integrasi AI & LLM** | `ai-llm-integration-expert`, `vector-db-rag-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster`, `ai-cost-token-optimizer`, `autonomous-swarm-director`, `mcp-client-orchestrator`, `doku-mcp-server`, `llm-cost-arbitrage-router` | Alur RAG, MCP Server v1.9+, workflow multi-agent LangGraph, semantic caching dinamis, pemikiran long-context Gemini, FinOps LLM & prompt caching, integrasi DOKU MCP. |
+| **Integrasi AI & LLM** | `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `vector-db-rag-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `gemini-agent-booster`, `ai-cost-token-optimizer`, `mcp-client-orchestrator`, `doku-mcp-server` | Alur RAG, MCP Server v1.9+, workflow multi-agent LangGraph, semantic caching dinamis, pemikiran long-context Gemini, FinOps LLM & prompt caching, integrasi DOKU MCP. |
 | **SaaS & Multi-Tenancy** | `saas-mvp-launcher`, `saas-transformer`, `saas-multi-tenant`, `saas-billing`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `email-notification-expert` | Roadmap SaaS MVP, isolasi tenant RLS, billing Stripe/DOKU, feature flags, progressive rollout, email transaksional & pipeline notifikasi. **Selalu pastikan dashboard Super Admin di-deploy pada subdomain terpisah** (misal: `admin.domain.com`). |
-| **Testing & Keamanan** | `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, `coderabbit`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `post-quantum-crypto-migrator` | Testing E2E Playwright, dynamic security fuzzing, migrasi post-quantum crypto, rahasia Zero-Trust, code review otomatis, pencegahan brute-force & DDoS, debugging TDD otonom. |
+| **Testing & Keamanan** | `e2e-testing-expert`, `browser-automation-expert`, `zero-trust-secret-vault`, `vibe-code-gardener`, `coderabbit`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert` | Testing E2E Playwright, dynamic security fuzzing, kepatuhan GDPR/PDPA, migrasi post-quantum crypto, rahasia Zero-Trust, code review otomatis, pencegahan brute-force & DDoS, debugging TDD otonom. |
 | **Penanganan Error & Ketahanan** | `error-resilience-expert`, `logging-error-tracking-expert`, `autonomous-chaos-monkey` | Chaos engineering, React Error Boundaries, standar error API (RFC 9457), pola retry, circuit breaker, degradasi anggun, logging terstruktur (Pino), Sentry integrasi. |
-| **Komunikasi & Notifikasi** | `email-notification-expert`, `mobile-push-notification-expert`, `realtime-collaboration-expert` | Email transaksional (Resend/Postmark), template React Email, notifikasi in-app, push notification, kolaborasi real-time (WebSocket/WebRTC/CRDTs). |
+| **Komunikasi & Notifikasi** | `email-notification-expert`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `sse-websocket-streaming-expert` | Email transaksional (Resend/Postmark), template React Email, notifikasi in-app, push notification, streaming respons (SSE/WebSocket), kolaborasi real-time (WebSocket/WebRTC/CRDTs). |
 | **File & Media** | `file-upload-media-expert` | Upload presigned URL (S3/R2), optimasi gambar (Sharp), transcoding video (Mux), konfigurasi CDN, UI drag-and-drop, validasi & keamanan file. |
 | **Performa** | `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), optimasi bundle, loading gambar/font, React concurrent features, peningkatan skor Lighthouse, analisis arsitektur mendalam. |
-| **SEO, GEO & Telemetri** | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `data-telemetry-expert` | Audit SEO teknikal, Generative Engine Optimization (AI Overviews, `/llms.txt`), landing page AEO, analitik OpenTelemetry/PostHog. |
+| **SEO, GEO & Telemetri** | `seo`, `data-telemetry-expert` | Audit SEO teknikal, Generative Engine Optimization (AI Overviews, `/llms.txt`), landing page AEO, analitik OpenTelemetry/PostHog. |
 | **DevOps & CI/CD** | `ci-cd-devops-architect`, `cloud-hosting-expert`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator` | GitHub Actions, Docker, Kubernetes, Terraform, deployment Vercel/Cloudflare, self-healing cloud operations, Renovate Bot, kesehatan dependensi. |
 | **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), pemuatan konteks otomatis, efisiensi token. |
 
@@ -275,15 +275,15 @@ Tujuan Anda adalah **kejelasan bersama**, bukan kecepatan.
 #### Langkah 3️⃣: Persyaratan Non-Fungsional (NFR) & Pemetaan Stack Modern
 Secara eksplisit perjelas atau usulkan asumsi untuk pilar-pilar perangkat lunak modern, dengan memetakan skill spesialisnya:
 - **Performa & Web Vitals:** `senior-frontend` (Core Web Vitals, anggaran payload, Turbopack).
-- **Arsitektur & Framework:** `senior-frontend` / `mvc-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
+- **Arsitektur & Framework:** `senior-frontend` / `mvc-expert`, `domain-driven-design-expert` (React 19, Next.js 15 PPR/RSC, Islands, SPA).
 - **Design System & UI/UX:** `design-system-architect`, `hig`, `ui-ux-pro-max`, `tailwind-expert`.
-- **Backend & API:** `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
+- **Backend & API:** `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` / `python-programming-expert` / `go-programming-expert` / `rust-programming-expert`.
 - **Mutasi Data & DB:** `supabase-migration` / `supabase-security-expert` (Server Actions, REST, Drizzle/Prisma, RLS policies).
-- **Sistem AI & Cerdas:** `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
+- **Sistem AI & Cerdas:** `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `multi-agent-orchestration`.
 - **Arsitektur SaaS:** `saas-multi-tenant`, `saas-billing`.
 - **Target Mobile & Desktop:** `mobile-expo-expert`, `tauri-expert`.
 - **Aksesibilitas & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, tag aria, navigasi bahasa).
-- **SEO & Penemuan:** `seo`, `seo-geo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
+- **SEO & Penemuan:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
 Jika pengguna ragu, berikan rekomendasi default modern (misal: Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) dan tandai sebagai **[ASUMSI]**.
 
@@ -303,7 +303,7 @@ Tanyakan:
 Setelah dikonfirmasi, berikan **2–3 opsi pendekatan desain**:
 - Awali dengan opsi rekomendasi Anda.
 - Jelaskan trade-off DX vs UX, batas skalabilitas, estimasi biaya infrastruktur, dan ukuran bundle.
-- Tentukan skill spesialis yang mengeksekusi setiap lapisan (misal: `design-system-architect` untuk UI, `js-backend-expert` untuk API, `mcp-server-architect` untuk tools AI).
+- Tentukan skill spesialis yang mengeksekusi setiap lapisan (misal: `design-system-architect` untuk UI, `nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` untuk API, `mcp-server-architect` untuk tools AI).
 
 #### Langkah 6️⃣: Presentasi Desain Secara Inkremental
 Sajikan rancangan desain dalam bagian-bagian pendek (maksimal 200–300 kata):
@@ -326,9 +326,9 @@ Hasilkan Dokumen Desain lengkap dan simpan ke `DESIGN.md` atau `BLUEPRINT.md`:
 
 ## 2. Arsitektur Teknis & Delegasi Skill
 - Rendering & Framework (`senior-frontend` / `mobile-expo-expert`)
-- API & Microservices (`js-backend-expert` / `go-programming-expert`)
+- API & Microservices (`nextjs-app-router-expert`, `database-migration-versioning-expert`, `js-backend-expert` / `go-programming-expert`)
 - Database & Keamanan (`supabase-migration` / `supabase-security-expert`)
-- Sistem AI & LLM (`ai-llm-integration-expert` / `mcp-server-architect`)
+- Sistem AI & LLM (`ai-llm-integration-expert`, `ai-prompt-engineering-expert` / `mcp-server-architect`)
 - SaaS & Billing (`saas-multi-tenant` / `saas-billing`)
 
 ## 3. Komponen & Arsitektur UI

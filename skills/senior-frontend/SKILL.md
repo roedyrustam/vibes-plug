@@ -31,9 +31,9 @@ Use **Server Components** by default for performance and SEO. Use `'use client'`
 - State (`useState`, `useEffect`), event handlers (`onClick`), browser APIs.
 - Interactive UI that must be hydrated on the client.
 
-*Next.js 15 Notes:*
+*Next.js 15.2+ Notes:*
 - `params` and `searchParams` are now `Promise`-based — always `await` them before reading properties.
-- **Partial Prerendering (PPR)**: Wrap dynamic sections in `<Suspense>` — Next.js will statically pre-render the shell and stream dynamic content. Enable with `experimental: { ppr: true }`.
+- **Partial Prerendering (PPR)**: PPR is now stable. Wrap dynamic sections in `<Suspense>` — Next.js will statically pre-render the shell and stream dynamic content natively without experimental flags.
 
 #### 2. React 19 — New Hooks & Compiler
 React 19 ships with a **compiler** that auto-applies memoization. You no longer need `useMemo`, `useCallback`, or `React.memo` in most cases — the compiler handles it.
@@ -120,9 +120,9 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 #### 1. Next.js 15: Server vs Client Components
 Gunakan **Server Components** secara default untuk performa dan SEO. Gunakan `'use client'` hanya saat dibutuhkan state, event handler, atau API browser.
 
-*Catatan Next.js 15:*
+*Catatan Next.js 15.2+:*
 - `params` dan `searchParams` sekarang bertipe `Promise` — lakukan `await` sebelum mengakses nilainya.
-- **Partial Prerendering (PPR)**: Bungkus bagian dinamis dengan `<Suspense>` — Next.js akan men-prerender shell statis dan meng-stream konten dinamis. Aktifkan dengan `experimental: { ppr: true }`.
+- **Partial Prerendering (PPR)**: PPR kini sudah stabil. Bungkus bagian dinamis dengan `<Suspense>` — Next.js akan men-prerender shell statis dan meng-stream konten dinamis secara native tanpa flag experimental.
 
 #### 2. React 19 — Hook Baru & Compiler
 React 19 hadir dengan **compiler** yang otomatis menerapkan memoization. Anda tidak lagi perlu `useMemo`, `useCallback`, atau `React.memo` di sebagian besar kasus.

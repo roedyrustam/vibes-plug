@@ -156,6 +156,45 @@ app.post('/api/analyze', async (c) => {
 });
 ```
 
+### SPA vs SSR vs Static — Decision Guide
+```
+SEO-critical + mostly read? → Next.js SSR / Astro 5 (static)
+Highly interactive dashboard? → SPA (TanStack Start / Vite + TanStack Router)
+   → see spa-orchestrator skill for architecture details
+Mixed (marketing + app)?    → Next.js 15 with hybrid routing
+Real-time data?             → SSR + WebSocket or SSE streaming
+```
+
+### Monorepo with Shared Types
+```typescript
+// packages/types/src/index.ts — single source of truth
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  plan: 'free' | 'pro' | 'enterprise';
+  isSuperAdmin: boolean;
+}
+
+// apps/api & apps/web use the same type
+import type { User } from '@myapp/types';
+```
+
+### Security Checklist (Fullstack)
+- [ ] All user inputs validated with Zod on the server.
+- [ ] JWT secrets rotated every 90 days; use short expiry + refresh tokens.
+- [ ] CSP headers configured (no `unsafe-inline` in production).
+- [ ] All DB queries use parameterized queries.
+- [ ] Rate limiting on all public API endpoints.
+- [ ] Super Admin routes restricted to `admin.domain.com` with `isSuperAdmin` check.
+
+### Code Review Standards
+- Functions < 30 lines; files < 300 lines.
+- No business logic in UI components.
+- Every PR includes relevant tests (unit or E2E).
+- No `any` types in TypeScript production code.
+- Dependencies audited with `pnpm audit` on every PR.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -200,3 +239,17 @@ Pisahkan sisi tulis (PostgreSQL) dari sisi baca (view terdenormalisasi atau Clic
 
 ### Integrasi Backend AI-Native (2026)
 Gunakan Vercel AI SDK `generateObject()` dengan skema Zod untuk mengintegrasikan kemampuan AI ke endpoint API yang ada — mengembalikan output terstruktur yang dijamin sesuai tipe.
+
+### SPA vs SSR vs Static
+Gunakan SSR/Astro untuk situs kritis SEO dan banyak baca. Gunakan SPA (TanStack Start) untuk dashboard yang sangat interaktif. Gunakan Next.js 15 dengan routing hybrid untuk aplikasi campuran (marketing + app).
+
+### Monorepo dengan Shared Types
+Definisikan interface dan tipe bersama di `packages/types` — digunakan oleh semua app (web, admin, api, mobile) sebagai single source of truth.
+
+### Checklist Keamanan & Code Review
+- Input pengguna divalidasi Zod di server.
+- Header CSP dikonfigurasi & parameterized query untuk DB.
+- Rate limiting di semua endpoint publik.
+- Rute Super Admin dibatasi di subdomain dengan cek `isSuperAdmin`.
+- Tidak ada logika bisnis di komponen UI; wajib ada unit/E2E test pada PR.
+- Tidak ada tipe `any` pada kode TypeScript produksi.

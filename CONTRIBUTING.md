@@ -45,7 +45,7 @@ git checkout -b feat/add-skill-<skill-name>
 #### 3. Create a New Skill Module
 1. Navigate to the `skills/` directory.
 2. Create a new folder with your skill name using **kebab-case** (e.g., `skills/fast-api`).
-3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill_baru/SKILL.md).
+3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill-baru/SKILL.md).
 
 Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 
@@ -143,7 +143,7 @@ git checkout -b feat/add-skill-<nama-skill>
 #### 3. Buat Modul Skill Baru
 1. Masuk ke direktori `skills/`.
 2. Buat folder baru dengan nama skill Anda menggunakan format **kebab-case** (misalnya `skills/fast-api`).
-3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill_baru/SKILL.md).
+3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill-baru/SKILL.md).
 
 Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 

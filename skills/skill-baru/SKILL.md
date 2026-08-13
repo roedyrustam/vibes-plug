@@ -11,7 +11,7 @@ author: "Roedy Rustam"
 ---
 
 > **HOW TO USE THIS TEMPLATE**
-> 1. Copy this entire folder (`skill_baru/`) and rename it using kebab-case (e.g., `my-new-skill/`).
+> 1. Copy this entire folder (`skill-baru/`) and rename it using kebab-case (e.g., `my-new-skill/`).
 > 2. Replace all placeholder text marked with `[...]` brackets.
 > 3. Update the frontmatter `name` and `description` fields above.
 > 4. Delete this instruction block before publishing.

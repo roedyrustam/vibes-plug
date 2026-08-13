@@ -32,6 +32,16 @@ test('Autonomous User Signup & Checkout Flow', async ({ page }) => {
 });
 ```
 
+### Implementation Checklist
+- [ ] Install Playwright (`npm init playwright@latest`) and configure required browsers.
+- [ ] Set up the `playwright.config.ts` for parallel execution and retries.
+- [ ] Use user-facing locators (e.g., `getByRole`, `getByText`) instead of unstable CSS/XPath selectors.
+- [ ] Configure trace viewers and video recording for CI/CD pipeline failures.
+- [ ] If building an LLM agent, pass the Playwright Page context to the Browser-Use MCP tool.
+
+## Orchestration & Integration
+- Integrates with: `e2e-testing-expert`, `visual-qa-vision-agent`, `mcp-client-orchestrator`.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -44,3 +54,13 @@ Panduan tingkat produksi untuk otomatisasi browser otonom, Playwright v1.48+, ag
 - **Otomatisasi Playwright**: Kontrol browser headless/headful, isolasi konteks multi-tab, auto-waiting, dan intersepsi jaringan.
 - **Agen Web LLM**: Integrasi Browser-Use & Playwright MCP untuk tugas web berbasis AI dan navigasi dinamis.
 - **Visual E2E & Regresi**: Perbandingan screenshot, rekaman video, dan pengunggahan artefak di CI/CD.
+
+### Checklist Implementasi
+- [ ] Instal Playwright (`npm init playwright@latest`) dan konfigurasi browser yang diperlukan.
+- [ ] Atur `playwright.config.ts` untuk eksekusi paralel dan retries.
+- [ ] Gunakan locator berbasis pengguna (misal: `getByRole`, `getByText`) sebagai pengganti selektor CSS/XPath yang tidak stabil.
+- [ ] Konfigurasi trace viewer dan perekaman video untuk mendebug kegagalan di pipeline CI/CD.
+- [ ] Jika membangun agen LLM, lewatkan konteks Playwright Page ke tool Browser-Use MCP.
+
+## Integrasi Orkestrasi
+- Terintegrasi dengan: `e2e-testing-expert`, `visual-qa-vision-agent`, `mcp-client-orchestrator`.

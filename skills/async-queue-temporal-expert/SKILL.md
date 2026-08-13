@@ -36,6 +36,12 @@ export const generateSaaSReport = task({
 });
 ```
 
+### Implementation Checklist
+- [ ] Define background tasks idempotently so they can be safely retried without side effects.
+- [ ] Offload heavy payloads to cloud storage (S3) and pass only reference IDs/URLs through the queue.
+- [ ] Configure concurrency limits per tenant/worker to avoid rate limit bans from third-party APIs.
+- [ ] Implement compensation tasks (rollback) for distributed saga patterns if a downstream step fails permanently.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -48,6 +54,12 @@ Panduan tingkat produksi untuk merancang pipeline eksekusi background yang tahan
 - **Eksekusi Tahan-Gagal (Durable)**: Retry otomatis, persistensi state, dan kompensasi lanjutan setelah restart server.
 - **Pola Saga**: Transaksi terdistribusi multi-langkah dengan logika kompensasi untuk pembatalan saat terjadi kegagalan.
 - **Rate Limiting & Konkurensi**: Kontrol konkurensi worker, backoff jitter, dan isolasi antrean per-tenant.
+
+### Checklist Implementasi
+- [ ] Definisikan tugas background secara idempoten agar dapat diulang (retry) dengan aman tanpa efek samping.
+- [ ] Pindahkan muatan (payload) besar ke penyimpanan cloud (S3) dan hanya teruskan ID referensi melalui antrean.
+- [ ] Konfigurasi batas konkurensi per tenant/worker untuk menghindari pemblokiran batas akses (rate limit) dari API pihak ketiga.
+- [ ] Terapkan tugas kompensasi (rollback) untuk pola saga terdistribusi jika sebuah langkah lanjutan gagal secara permanen.
 
 
 ## Orchestration & Integration

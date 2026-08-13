@@ -22,6 +22,30 @@ This skill outlines the architectural pattern of using Multiple Entry Points in 
 3. **Security Boundaries**: By physically separating entry points, you can apply distinct server-level security rules (via `.htaccess`, Nginx configurations, or WAF). For example, you can restrict access to `admin.php` to specific internal IP addresses or enforce mutual TLS.
 4. **Frontend Asset Bundling (Vite / Webpack)**: In a modern frontend context (especially for MPAs), define multiple entry points in the bundler configuration. This generates separate, optimized JavaScript and CSS bundles for the public site versus the complex admin dashboard, drastically reducing overall payload sizes for general users.
 
+### Implementation Checklist
+- [ ] Create separate HTML entry points in the root/public directory (e.g., `index.html`, `admin.html`).
+- [ ] Configure the frontend bundler (Vite/Webpack) to output multiple bundles.
+- [ ] Set up server-side routing (Nginx or Node.js) to serve the correct entry HTML based on the URL path.
+- [ ] Ensure shared components and utilities are properly tree-shaken and split into common chunks.
+
+### Example: Vite Config for Multiple Entries
+```javascript
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        admin: resolve(__dirname, 'admin.html'),
+        app: resolve(__dirname, 'app.html')
+      }
+    }
+  }
+});
+```
+
 ### Orchestration with Other Skills
 - **With `mpa-orchestrator`**: In a Multi-Page Application, multiple entry points allow you to split heavy dashboard assets from fast-loading public marketing pages, enhancing both SEO and performance.
 - **With `mvc-expert`**: Each entry point acts as a distinct Front Controller, initiating its own lightweight Router instance configured specifically for that domain's controllers (e.g., an AdminRouter vs an ApiRouter).
@@ -44,6 +68,12 @@ Skill ini menguraikan pola arsitektur menggunakan *Multiple Entry Points* dalam 
 2. **Bootstrapping Terdedikasi**: Setiap titik masuk (entry point) hanya memuat dependensi, konfigurasi, dan middleware yang benar-benar diperlukannya. Contohnya, `api.php` tidak perlu menginisialisasi *template engine* HTML atau *session cookies*, sementara `admin.php` dapat langsung memberlakukan middleware autentikasi secara ketat sejak awal file dieksekusi.
 3. **Batas Keamanan (Security Boundaries)**: Dengan memisahkan titik masuk secara fisik, Anda dapat menerapkan aturan keamanan tingkat server yang berbeda (melalui `.htaccess`, konfigurasi Nginx, atau WAF). Misalnya, membatasi akses ke `admin.php` hanya untuk alamat IP internal tertentu.
 4. **Bundling Aset Frontend (Vite / Webpack)**: Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry points* pada konfigurasi *bundler*. Ini akan menghasilkan bundel JavaScript dan CSS yang terpisah dan optimal antara situs publik dan dashboard admin, sehingga secara drastis mengurangi ukuran *payload* bagi pengguna umum.
+
+### Checklist Implementasi
+- [ ] Buat titik entri HTML terpisah di direktori utama/publik (misal: `index.html`, `admin.html`).
+- [ ] Konfigurasi bundler frontend (Vite/Webpack) untuk menghasilkan multiple bundle.
+- [ ] Siapkan routing di sisi server (Nginx atau Node.js) untuk menyajikan HTML entri yang benar berdasarkan path URL.
+- [ ] Pastikan komponen dan utilitas yang dipakai bersama dioptimalkan (tree-shaking) dan dipisah ke dalam *common chunks*.
 
 ### Orkestrasi dengan Skill Lain
 - **Dengan `mpa-orchestrator`**: Dalam aplikasi MPA, penggunaan beberapa *entry point* memungkinkan Anda memisahkan aset dashboard yang berat dari halaman *marketing* publik yang butuh kecepatan muat tinggi, sehingga meningkatkan SEO dan performa sekaligus.

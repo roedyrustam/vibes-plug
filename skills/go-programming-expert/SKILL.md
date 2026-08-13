@@ -1,10 +1,10 @@
 ---
 name: go-programming-expert
-description: "Expert-level skill for Go programming (Go 1.23/1.24+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian."
+description: "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian."
 author: "Roedy Rustam"
 ---
 
-# Go Programming Expert (Go 1.24 Edition)
+# Go Programming Expert (Go 1.25 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,10 +14,10 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level Go development for building high-performance microservices, APIs, and CLI tools. Covers **Go 1.24** features (range-over-func iterators, generic type aliases, weak pointers), structured logging with `slog`, `net/http` with the new ServeMux patterns, Gin/Echo/Fiber frameworks, sqlc for type-safe SQL, gRPC, and production testing patterns.
+Expert-level Go development for building high-performance microservices, APIs, and CLI tools. Covers **Go 1.25** features (range-over-func iterators, generic type aliases, weak pointers), structured logging with `slog`, `net/http` with the new ServeMux patterns, Gin/Echo/Fiber frameworks, sqlc for type-safe SQL, gRPC, and production testing patterns.
 
 ### Trigger Conditions
-- Writing Go 1.23+ / 1.24+ microservices or APIs.
+- Writing Go 1.24+ / 1.25+ microservices or APIs.
 - Implementing concurrency patterns with goroutines, channels, and `sync` primitives.
 - Using structured logging with `log/slog`.
 - Building HTTP servers with `net/http` ServeMux (Go 1.22+) or Gin/Echo/Fiber.
@@ -25,9 +25,9 @@ Expert-level Go development for building high-performance microservices, APIs, a
 - Implementing gRPC services with protobuf.
 - Writing Go tests with the standard `testing` package + `testify`.
 
-### Go 1.24 — Key Features
+### Go 1.25 — Key Features
 
-#### Range-Over-Func (Go 1.22 → Stable in 1.24)
+#### Range-Over-Func (Go 1.22 → Stable in 1.24/1.25)
 Range over custom iterators — enables functional-style collection operations:
 ```go
 // Define an iterator function
@@ -52,7 +52,7 @@ for n := range Fibonacci() {
 }
 ```
 
-#### Generic Type Aliases (Go 1.24)
+#### Generic Type Aliases (Go 1.24/1.25)
 ```go
 // Type alias with generic parameters
 type Set[T comparable] = map[T]struct{}
@@ -62,7 +62,7 @@ type Result[T any] = struct{ Value T; Err error }
 var s Set[string] = make(map[string]struct{})
 ```
 
-#### Weak Pointers (Go 1.24)
+#### Weak Pointers (Go 1.24/1.25)
 ```go
 import "weak"
 
@@ -251,23 +251,23 @@ func TestGetUser(t *testing.T) {
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan Go tingkat ahli untuk membangun microservices, API, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.24** (range-over-func, generic type alias, weak pointer), structured logging dengan `slog`, ServeMux `net/http` dengan pola baru (Go 1.22+), framework Gin/Echo/Fiber, sqlc untuk SQL type-safe, gRPC, dan pola pengujian produksi.
+Panduan Go tingkat ahli untuk membangun microservices, API, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.25** (range-over-func, generic type alias, weak pointer), structured logging dengan `slog`, ServeMux `net/http` dengan pola baru (Go 1.22+), framework Gin/Echo/Fiber, sqlc untuk SQL type-safe, gRPC, dan pola pengujian produksi.
 
 ### Kondisi Pemicu
-- Menulis microservices atau API Go 1.23+/1.24+.
+- Menulis microservices atau API Go 1.24+/1.25+.
 - Mengimplementasikan pola konkurensi dengan goroutine, channel, dan primitif `sync`.
 - Menggunakan structured logging dengan `log/slog`.
 - Membangun HTTP server dengan ServeMux `net/http` (Go 1.22+) atau Gin/Echo/Fiber.
 - Menulis SQL type-safe dengan **sqlc** atau GORM.
 - Mengimplementasikan layanan gRPC dengan protobuf.
 
-### Go 1.24 — Fitur Utama
+### Go 1.25 — Fitur Utama
 
-#### Range-Over-Func (Stabil di 1.24)
-Go 1.24 menstabilkan range over iterator function — memungkinkan koleksi gaya fungsional yang idiomatis tanpa mengekspos slice internal.
+#### Range-Over-Func (Stabil di 1.24/1.25)
+Go 1.24/1.25 menstabilkan range over iterator function — memungkinkan koleksi gaya fungsional yang idiomatis tanpa mengekspos slice internal.
 
 #### Generic Type Alias
-Go 1.24 memungkinkan alias tipe dengan parameter generic, meningkatkan komposibilitas tipe.
+Go 1.24/1.25 memungkinkan alias tipe dengan parameter generic, meningkatkan komposibilitas tipe.
 
 #### Weak Pointer
 `weak.Make()` membuat pointer lemah yang tidak mencegah GC mengumpulkan objek — berguna untuk cache.

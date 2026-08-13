@@ -156,9 +156,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 Google AI Mode (formerly AI Overviews) now powers the top of search results:
 - **Be the source**: Write comprehensive, authoritative content on your core topics.
 - **Q&A format**: Structure content as questions and answers — AI Mode quotes these directly.
+- **AEO Extraction Sentence**: Write one 25–40 word sentence that answers "What is [product]?" immediately after the H1. This is the sentence AI engines extract.
 - **Factual and specific**: Include statistics, named entities, and dates.
-- **`/llms.txt`**: Add an AI-readable site index (see `seo-geo` skill).
 - **Speed**: AI Mode favors fast-loading pages (TTFB < 600ms).
+
+#### The 2026 AI Search Landscape
+| AI Engine | Source | Citable Content | Key Signal |
+|---|---|---|---|
+| **Google AI Mode** | Google index + Gemini | Yes — with source links | E-E-A-T, structured data |
+| **ChatGPT Search** | Bing index + GPT-4o | Yes — with citations | Bing ranking, freshness |
+| **Perplexity** | Real-time web crawl | Yes — prominent citations | Authority, specificity |
+
+#### `/llms.txt` — AI Indexing Protocol
+Add an `/llms.txt` file at your domain root:
+```
+# /llms.txt
+# AI-friendly site map for LLM indexers
+## Product
+- [Features](/features): Complete feature list with pricing
+## Content
+- [Blog](/blog): Technical articles
+```
+
+#### Landing Page SEO/AEO Narrative Arc
+Follow this exact order for landing pages:
+1. Hero — H1 + AEO sentence + CTA
+2. Problem — Audience pain, no product mention yet
+3. Solution — Introduce product as the answer
+4. Features as Benefits — Table format
+5. Social Proof & FAQ (under 50 words each)
 
 ### On-Page SEO Standards
 ```
@@ -213,23 +239,15 @@ Gunakan Metadata API Next.js 15 untuk SEO lengkap: `title`, `description`, `open
 ### Data Terstruktur (JSON-LD) untuk Kutipan AI
 Tambahkan schema `Organization` untuk membangun entitas merek dan schema `SoftwareApplication` untuk produk SaaS — termasuk `aggregateRating` jika tersedia.
 
-### GEO — Optimasi Google AI Mode
-Google AI Mode (sebelumnya AI Overviews) kini mendukung bagian atas hasil pencarian:
-- Tulis konten yang komprehensif dan otoritatif tentang topik inti.
-- Strukturkan konten sebagai Q&A — AI Mode langsung mengutip ini.
-- Sertakan statistik, entitas bernama, dan tanggal.
+### GEO — Optimasi AI Mode & Landing Page AEO
+Google AI Mode (sebelumnya AI Overviews) dan Perplexity sangat menyukai format berikut:
+- **Kalimat Ekstraksi AEO**: Buat satu kalimat ringkas 25–40 kata ("Apa itu [produk]?") di blockquote setelah H1.
+- Tulis konten Q&A dan sertakan statistik spesifik.
+- **Alur Narasi Landing Page**: Hero (H1+AEO) -> Problem -> Solution -> Features -> Social Proof -> FAQ (tiap jawaban <50 kata).
 - Tambahkan `/llms.txt` sebagai indeks situs yang dapat dibaca AI.
-- Kecepatan: AI Mode lebih memilih halaman yang memuat cepat (TTFB < 600ms).
+- Kecepatan: Halaman harus memuat sangat cepat (TTFB < 600ms).
 
 ### Standar SEO On-Page
 H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskripsi < 155 karakter, URL lowercase dengan tanda hubung dan keyword di slug, alt text deskriptif untuk semua gambar, 3-5 internal link per halaman long-form.
 
----
-### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)
-**MANDATORY**: Whenever you are building a new application, scaffolding a project, or finalizing the initial UI/UX, you MUST automatically use the `generate_image` tool to create a custom logo that perfectly matches the application's core concept and aesthetic. 
-This generated image MUST be explicitly used as:
-1. The primary application logo (e.g., in the header/navbar).
-2. The website favicon (`favicon.ico` or equivalent).
-3. The Open Graph (OG) image for SEO metadata (`og:image`).
 
-Do not use placeholders for these assets. Generate and integrate them automatically.

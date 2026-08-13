@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
+## [2.5.0] - 2026-08-14
+
+### Added / Ditambahkan
+- Registered 6 previously undocumented skill modules in `BLUEPRINT.md` and `README.md`: `autonomous-chaos-monkey`, `autonomous-red-teamer`, `hyper-context-synthesizer`, `llm-cost-arbitrage-router`, `post-quantum-crypto-migrator`, `self-healing-cloud-orchestrator`.
+  *(Mendaftarkan 6 modul skill yang sebelumnya tidak terdokumentasi di `BLUEPRINT.md` dan `README.md`: `autonomous-chaos-monkey`, `autonomous-red-teamer`, `hyper-context-synthesizer`, `llm-cost-arbitrage-router`, `post-quantum-crypto-migrator`, `self-healing-cloud-orchestrator`.)*
+
+### Changed / Diubah
+- **Naming Standardization**: Renamed 3 skill directories from underscore to kebab-case convention: `asisten_ramah` → `asisten-ramah`, `skill_baru` → `skill-baru`, `ui_ux_expert` → `ui-ux-expert`.
+  *(Standardisasi penamaan: Mengganti nama 3 direktori skill dari underscore ke konvensi kebab-case.)*
+- Updated all cross-references to renamed skills across `README.md`, `CONTRIBUTING.md`, `bootstrap-to-modern/SKILL.md`, and `skill-baru/SKILL.md`.
+  *(Memperbarui seluruh referensi silang ke skill yang diganti nama di `README.md`, `CONTRIBUTING.md`, `bootstrap-to-modern/SKILL.md`, dan `skill-baru/SKILL.md`.)*
+- Synchronized skill count from "103" to "109" across `README.md` (badge, mermaid, footer), `BLUEPRINT.md` (EN & ID headers), and all documentation.
+  *(Menyelaraskan jumlah skill dari "103" menjadi "109" di `README.md` (badge, mermaid, footer), `BLUEPRINT.md` (header EN & ID), dan seluruh dokumentasi.)*
+- Synchronized `BLUEPRINT.md` version from v2.4.0 to v2.5.0 to match `plugin.json`.
+  *(Menyelaraskan versi `BLUEPRINT.md` dari v2.4.0 ke v2.5.0 agar sesuai dengan `plugin.json`.)*
+
+---
 
 ## [2.4.0] - 2026-08-11
 

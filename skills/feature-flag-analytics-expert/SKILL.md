@@ -32,6 +32,16 @@ export async function isNewCheckoutEnabled(userId: string) {
 }
 ```
 
+### Implementation Checklist
+- [ ] Initialize the Feature Flag client (e.g., PostHog/LaunchDarkly) securely on the server and client.
+- [ ] Create flags in the dashboard before referencing them in code.
+- [ ] Set fallback (default) values for flags in case of network failures.
+- [ ] Use user identification (User ID/Distinct ID) consistently to ensure the same user gets the same flag variant.
+- [ ] Clean up obsolete flags from the codebase once a feature is 100% rolled out.
+
+## Orchestration & Integration
+- Integrates with: `data-telemetry-expert`, `e2e-testing-expert`, `ci-cd-devops-architect`.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -44,3 +54,13 @@ Panduan tingkat produksi untuk manajemen feature flags, rilis fitur bertahap (pr
 - **Feature Gating**: Memisahkan deployment kode dari rilis fitur dengan tombol *kill-switch* instan.
 - **Rilis Bertahap (Canary)**: Meluncurkan fitur baru secara bertahap ke 5%, 25%, 50%, hingga 100% segmen pengguna.
 - **Mesin Eksperimen**: Pengujian A/B statistik dengan metrik konversi dan analitik varian.
+
+### Checklist Implementasi
+- [ ] Inisialisasi klien Feature Flag (misal: PostHog/LaunchDarkly) secara aman di server dan klien.
+- [ ] Buat flag di dasbor sebelum mereferensikannya dalam kode.
+- [ ] Tetapkan nilai fallback (default) untuk flag sebagai antisipasi kegagalan jaringan.
+- [ ] Gunakan identifikasi pengguna (User ID/Distinct ID) secara konsisten untuk memastikan pengguna yang sama mendapat varian flag yang sama.
+- [ ] Bersihkan flag yang kedaluwarsa dari basis kode setelah fitur 100% dirilis.
+
+## Integrasi Orkestrasi
+- Terintegrasi dengan: `data-telemetry-expert`, `e2e-testing-expert`, `ci-cd-devops-architect`.
