@@ -165,6 +165,14 @@ Mandatory for high-stakes agent actions (financial transactions, email sending, 
 - **Mastra Evals**: Built-in evaluation framework for Mastra agents.
 - **Custom Metrics**: Track task completion rate, tool call accuracy, latency, and cost per run.
 
+#### 9. Antigravity Native Swarm Director
+Leverage Antigravity's native `invoke_subagent` for parallel execution:
+- **Analyze & Decompose**: Break tasks into independent, non-overlapping chunks.
+- **Spawn Parallel Subagents**: Use `invoke_subagent` with specific scoped prompts. Pass `branch` or `share` workspace parameters safely. Do NOT spawn >5 subagents simultaneously.
+- **Wait & Monitor**: System automatically wakes you upon subagent completion. No polling needed.
+- **Adversarial Critique**: Spawn an "Auditor" subagent to red-team and review the outputs before merging.
+- **Mandatory PRD Guardrail**: When starting a new project, the Director MUST ensure `PRD.md`, `ERD.md`, and `DOKUMENTASI.md` are generated first.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -232,3 +240,11 @@ Wajib untuk aksi agen berisiko tinggi (transaksi keuangan, pengiriman email, dep
 - **OpenAI Tracing**: Bawaan di OpenAI Agents SDK — lihat run, handoff, tool call.
 - **Mastra Evals**: Framework evaluasi bawaan untuk agen Mastra.
 - **Metrik Kustom**: Lacak tingkat penyelesaian tugas, akurasi tool call, latensi, dan biaya per run.
+
+#### 9. Antigravity Native Swarm Director
+Manfaatkan kemampuan native `invoke_subagent` dari Antigravity:
+- **Pecah & Delegasikan**: Pecah tugas menjadi independen.
+- **Spawn Sub-Agen Paralel**: Panggil sub-agen dengan prompt spesifik. Hindari menugaskan dua agen untuk file yang sama. Maksimal 5 sub-agen sekaligus.
+- **Tunggu Otomatis**: Sistem akan membangunkan Anda otomatis saat sub-agen selesai.
+- **Kritik Adversarial (Red Teaming)**: Panggil sub-agen "Auditor" khusus untuk mencari kerentanan dari hasil kerja agen lain sebelum digabungkan.
+- **Dokumentasi Wajib (Proyek Baru)**: Jika proyek baru, Direktur WAJIB memastikan `PRD.md`, `ERD.md`, dan `DOKUMENTASI.md` dibuat sebelum pekerjaan koding dimulai.

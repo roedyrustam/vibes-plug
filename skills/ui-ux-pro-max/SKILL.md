@@ -200,3 +200,13 @@ python scripts/search.py "<kueri>" --stack <stack> --max-results 3
 - [ ] **Kontras**: Rasio kontras teks minimal 4.5:1 pada mode terang. Border terlihat di kedua mode (terang & gelap).
 - [ ] **Tata Letak & Responsif**: Diuji pada breakpoint 375px, 768px, 1024px, 1440px. Tidak ada scroll horizontal tak disengaja pada perangkat mobile.
 - [ ] **Aksesibilitas**: Semua gambar memiliki `alt` text yang bermakna. Form input memiliki `<label>` terhubung atau `aria-label`.
+
+---
+### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, scaffolding a project, or finalizing the initial UI/UX, you MUST automatically use the `generate_image` tool to create a custom logo that perfectly matches the application's core concept and aesthetic. 
+This generated image MUST be explicitly used as:
+1. The primary application logo (e.g., in the header/navbar).
+2. The website favicon (`favicon.ico` or equivalent).
+3. The Open Graph (OG) image for SEO metadata (`og:image`).
+
+Do not use placeholders for these assets. Generate and integrate them automatically.

@@ -12,12 +12,13 @@
 ## English
 
 ### Overview
-Vibes Plug is a customized plugin for Antigravity that houses 109 high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
+Vibes Plug is a customized plugin for Antigravity that houses 114 high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
 
-### Skill Modules (109 Total)
+### Skill Modules (116 Total)
 - **ai-cost-token-optimizer**: Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting
 - **ai-llm-integration-expert**: Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents
 - **api-design-expert**: Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design
+- **api-gateway-proxy-expert**: Expert guide for API Gateways, reverse proxies, rate limiting, and request routing (Kong, KrakenD, Traefik, Nginx)
 - **app-analyzer-optimizer**: Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization
 - **apple-ecosystem-expert**: Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps
 - **asisten-ramah**: Skill to make Antigravity respond in a friendly manner
@@ -28,14 +29,17 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 - **auto-doc-updater**: Automatically documents every feature change or bug fix successfully built into CHANGELOG.md and BLUEPRINT.md
 - **autonomous-swarm-director**: Elevates the AI from a single-threaded agent into a Swarm Director. Teaches the agent how to break down complex tasks and autonomously invoke and orchestrate multiple subagents in parallel to achieve a goal.
 - **autonomous-tdd-debugger**: Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger.
+- **background-jobs-queue-expert**: Dedicated deep-dive for BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, job deduplication, idempotency, dead letter queues, and job priority
 - **bootstrap-to-modern**: Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js
 - **brainstorming**: Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins
 - **browser-automation-expert**: Expert guide for autonomous browser automation, Playwright/Browser-Use web agent execution, visual E2E testing, and UI regression workflows
 - **bun-runtime-expert**: Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun
 - **ci-cd-devops-architect**: Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC)
 - **cloud-hosting-expert**: Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare
+- **compliance-gdpr-privacy-expert**: Expert guide for data privacy, GDPR, PDPA compliance, data anonymization, right to be forgotten, and consent management
 - **coderabbit**: AI-powered automated code review, PR summarization, and interactive developer feedback
 - **cron-scheduler-expert**: Expert guide for scheduled tasks, cron jobs, recurring background work (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron), and distributed scheduling
+- **data-pipeline-etl-expert**: Expert guide for Data Pipelines, ETL/ELT architectures (dbt, Dagster, Airbyte), data warehousing, and big data processing
 - **data-telemetry-expert**: Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel)
 - **database-orm-expert**: Expert guide for database schema design, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrations, query optimization, and type-safe SQL patterns in TypeScript
 - **dependency-upgrade-migrator**: Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation
@@ -57,11 +61,9 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 - **glsl-shader-expert**: Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers shader materials, post-processing, noise, and performance optimization.
 - **go-programming-expert**: Expert-level skill for Go programming (Go 1.23/1.24+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian.
 - **graphql-apollo-expert**: Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization.
-- **hyper-context-synthesizer**: Cross-project episodic memory. Synthesizes bug fixes and architectural choices from previous tasks to bypass zero-shot limitations
 - **hig**: Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces
 - **js-backend-expert**: Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian.
 - **legacy-code-translator**: Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks.
-- **llm-cost-arbitrage-router**: Dynamically routes LLM calls based on cost/latency and builds semantic caching layers to reduce token burn
 - **logging-error-tracking-expert**: Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management
 - **mcp-client-orchestrator**: Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files.
 - **mcp-server-architect**: Expert guide for designing, building, and security-hardening Model Context Protocol (MCP) servers and tool integrations in TypeScript, Python, and Go
@@ -73,7 +75,11 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 - **mpa-orchestrator**: Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills
 - **multi-agent-orchestration**: Expert guide for designing and orchestrating multi-agent systems, agent swarms, graph-based workflows (LangGraph, CrewAI, AutoGen), shared state memory, and human-in-the-loop guardrails in English and Indonesian.
 - **multiple-entry-points**: Expert guide for designing and implementing Multiple Entry Points architecture in web applications
+- **database-migration-versioning-expert**: Expert guide for database migrations: schema versioning, zero-downtime migrations, backward-compatible changes, data backfill, and rollback strategies
+- **nextjs-app-router-expert**: Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies
+- **svg-animation-motion-expert**: Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API
 - **mvc-expert**: Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects
+- **openapi-swagger-codegen-expert**: OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing
 - **payment-gateway-expert**: Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU) and secure webhooks into SaaS platforms
 - **performance-web-vitals**: Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement
 - **post-quantum-crypto-migrator**: FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (PQC)
@@ -94,14 +100,12 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 - **self-healing-cloud-orchestrator**: Real-time log monitoring, crash detection, and auto-hotfixing code without human intervention
 - **self-evolving-memory-graph**: Grants the AI long-term episodic memory. The agent autonomously documents the user's coding preferences, past mistakes to avoid, and architectural decisions into a persistent learning graph.
 - **senior-frontend**: Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4
-- **senior-fullstack**: Complete toolkit for senior fullstack with modern tools and best practices
 - **seo**: Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO
-- **seo-aeo-landing-page-writer**: Writes complete, structured landing pages optimized for SEO ranking, AEO citation, and visitor conversion
-- **seo-geo**: Generative Engine Optimization (GEO) for AI Overviews, ChatGPT, and Perplexity
 - **session-context-loader**: Automatically loads and learns project context (Tech Stack, PRD, Roadmap, Blueprint) at the start of every new conversation session to ensure focused and directed development
 - **session-handoff-resume**: Skill to save ultra-compact project checkpoints and seamlessly resume work across accounts or new chat sessions with minimum token consumption
 - **skill-baru**: Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support
 - **spa-orchestrator**: Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management with API-driven backends
+- **sse-websocket-streaming-expert**: Expert guide for Server-Sent Events (SSE), WebSockets, bi-directional streaming, real-time data push, and connection management
 - **state-management-expert**: Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, and server state patterns with TanStack Query
 - **supabase-migration**: A skill to create or apply a Supabase database migration
 - **supabase-security-expert**: Supabase security expert to audit RLS (Row Level Security), RBAC, relational databases, prevent data leakage, and utilize Supabase Linter
@@ -111,12 +115,12 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 - **token-saver**: Skill to implement token saving scheme, concise, and focused on essential changes
 - **typescript-expert**: Expert guide for TypeScript 5.5+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns
 - **ui-components-expert**: Expert guide for building production-quality UI components following the 4 pillars: Input Controls, Navigation, Information, and Containers. Covers React 19, Radix UI, shadcn/ui, accessibility (WCAG 2.2), and modern interaction patterns
-- **ui-ux-expert**: UI/UX Designer & Frontend Specialist
 - **ui-ux-pro-max**: Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks
 - **vector-db-rag-expert**: Expert guide for high-performance Vector Databases, RAG architectures, pgvector HNSW indexing, hybrid search (Dense + BM25), and semantic chunking
 - **vibe-code-gardener**: Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects
 - **visual-qa-vision-agent**: Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions.
 - **vue-frontend-expert**: Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian.
+- **wasm-edge-computing-expert**: Expert guide for WebAssembly (Wasm), Edge computing (Cloudflare Workers, Fastly Compute), serverless edge functions, and high-performance execution
 - **web-3d-graphics-expert**: Expert guide for WebGL and 3D graphics in the browser using Three.js, Babylon.js, React Three Fiber (R3F), and TresJS. Covers scene optimization, shaders, lighting, 3D model loading (GLTF/GLB), and performance tuning.
 - **web-game-engine-expert**: Expert guide for web-based game development. Covers Entity Component System (ECS) architectures, physics engines (Rapier, Havok, Cannon-es), collision detection, and game loop optimization.
 - **web-scraper**: Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, pagination support, and structured export
@@ -131,12 +135,13 @@ Vibes Plug is a customized plugin for Antigravity that houses 109 high-performan
 ## Bahasa Indonesia
 
 ### Ringkasan
-Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
+Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 114 modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
 
-### Modul Skills (Total 109 Modul)
+### Modul Skills (Total 116 Modul)
 - **ai-cost-token-optimizer**: Optimasi biaya API LLM, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, dan token budgeting.
 - **ai-llm-integration-expert**: Panduan tingkat produksi untuk integrasi Large Language Models (LLMs), Model Context Protocol (MCP), RAG (`pgvector` HNSW, Qdrant), model penalaran (DeepSeek-R1/V3, Gemini 3.5/3.6, Claude 3.7), dan Vercel AI SDK 4.x/5.x.
 - **api-design-expert**: Praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, versioning API, rate limiting, dan contract-first design.
+- **api-gateway-proxy-expert**: Panduan ahli untuk API Gateways, reverse proxy, rate limiting, dan request routing (Kong, KrakenD, Traefik, Nginx).
 - **app-analyzer-optimizer**: Menganalisis struktur dan arsitektur aplikasi secara mendalam, audit performa (Core Web Vitals, INP), serta optimasi terarah.
 - **asisten-ramah**: Kepribadian ramah, hangat, dan bersemangat.
 - **async-queue-temporal-expert**: Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) dan saga latar belakang tahan gagal.
@@ -144,14 +149,17 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kem
 - **autonomous-red-teamer**: Fuzzing keamanan dinamis berbasis AI, eksploitasi (XSS, SQLi, SSRF, Prompt Injection), dan remediasi otomatis.
 - **authentication-identity-expert**: Autentikasi aman, otorisasi (RBAC/ABAC), OAuth2, OIDC, dan manajemen identitas (Clerk, Auth.js, Supabase Auth).
 - **auto-doc-updater**: Pendokumentasian otomatis fitur dan perbaikan bug ke `CHANGELOG.md` dan `BLUEPRINT.md`.
+- **background-jobs-queue-expert**: Panduan mendalam untuk BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, deduplikasi job, idempotency, dead letter queue, dan prioritas job.
 - **bootstrap-to-modern**: Refaktor dan migrasi aplikasi Bootstrap CSS ke stack modern berbasis utility menggunakan Tailwind CSS v4 dan Alpine.js 3 / HTMX.
 - **brainstorming**: Protokol lanjutan dengan pedoman *Modern Web Guidance* (RSC, PPR, Server Actions, integrasi AI, Passkeys).
 - **browser-automation-expert**: Otomatisasi browser otonom, Playwright/Browser-Use web agent execution, visual E2E testing, dan UI regression.
 - **bun-runtime-expert**: Panduan ahli untuk runtime Bun JavaScript/TypeScript (v1.2+) (`Bun.serve`, `Bun.sql`, `Bun.s3`, `bun test`, bundler, package manager).
 - **ci-cd-devops-architect**: Integrasi berkelanjutan, pipeline deployment (GitHub Actions), Docker multi-stage build, Kubernetes, dan Infrastructure as Code (IaC).
 - **cloud-hosting-expert**: Panduan ahli meluncurkan aplikasi SaaS di platform edge & serverless (Vercel, Cloudflare, Supabase, Neon).
+- **compliance-gdpr-privacy-expert**: Panduan ahli privasi data, kepatuhan GDPR, PDPA, anonimisasi data, hak untuk dilupakan, dan manajemen persetujuan.
 - **coderabbit**: Asisten review kode otomatis berbasis AI, perangkum pull request, dan integrasi `.coderabbit.yaml`.
 - **cron-scheduler-expert**: Tugas terjadwal, cron job, pekerjaan latar belakang berulang (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron, BullMQ), dan penguncian cron terdistribusi.
+- **data-pipeline-etl-expert**: Panduan ahli Data Pipelines, arsitektur ETL/ELT, data warehousing, dan pemrosesan big data.
 - **data-telemetry-expert**: Observabilitas, OpenTelemetry 1.30+, PostHog, Mixpanel, dan analitik pipa data.
 - **database-orm-expert**: Desain skema database, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrasi, optimasi query, dan pola SQL type-safe di TypeScript.
 - **dependency-upgrade-migrator**: Upgrade dependensi, migrasi breaking change, upgrade versi framework (React 18→19, Next 14→15, Tailwind v3→v4), otomasi codemod, dan remediasi kerentanan.
@@ -172,9 +180,7 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kem
 - **global-a11y-i18n-expert**: Standar Aksesibilitas Web (WCAG 2.2 AAA) dan internasionalisasi (i18n).
 - **go-programming-expert**: Skill tingkat ahli untuk pemrograman Go (Go 1.23/1.24+). Mencakup API backend, microservices, pola konkurensi (`errgroup`), `sqlc`, routing `net/http`, Gin/Echo/Fiber, gRPC, dan testing.
 - **hig**: Human Interface Guidelines untuk iOS 18 dan macOS Sequoia.
-- **hyper-context-synthesizer**: Memori episodik lintas proyek. Menyintesis perbaikan bug dan pilihan arsitektur dari tugas sebelumnya untuk melampaui batasan zero-shot.
 - **js-backend-expert**: Panduan tingkat produksi untuk API backend JavaScript/TypeScript di Node.js 22 LTS, Bun 1.2+, dan Deno 2.x. Mencakup Fastify 5, Hono, Express 5, NestJS, Prisma 6, Drizzle ORM, WebSocket, dan BullMQ.
-- **llm-cost-arbitrage-router**: Mengarahkan pemanggilan LLM secara dinamis berdasarkan biaya/latensi dan membangun lapisan semantic cache untuk menekan pengeluaran token.
 - **logging-error-tracking-expert**: Logging terstruktur JSON (Pino), pelacakan error Sentry, korelasi request ID, upload source map di CI, aturan alert, dan redaksi PII sesuai GDPR.
 - **mcp-server-architect**: Panduan ahli merancang, membangun, dan mengamankan server Model Context Protocol (MCP) pada TypeScript, Python, dan Go (transport `stdio` & `SSE`, validasi Zod/Pydantic, guardrails keamanan).
 - **mobile-expo-expert**: Pengembangan React Native 0.76+ dan Expo SDK 52+, mencakup Expo Router v4, React Native New Architecture (Fabric & TurboModules), EAS builds, OTA updates, dan NativeWind v4.
@@ -184,7 +190,11 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kem
 - **mpa-orchestrator**: Arsitektur Multi-Page Application (MPA) dalam satu repositori yang mengintegrasikan routing backend dan server-rendered templates.
 - **multi-agent-orchestration**: Sistem multi-agen AI, alur kerja graf berbasis state LangGraph, kelompok agen CrewAI/AutoGen, perutean supervisor, memori bersama, dan gerbang persetujuan manusia.
 - **multiple-entry-points**: Desain arsitektur aplikasi web dengan multiple entry points (landing page terpisah, app shell dengan autentikasi, dan dashboard super admin).
+- **database-migration-versioning-expert**: Expert guide for database migrations: schema versioning, zero-downtime migrations, backward-compatible changes, data backfill, and rollback strategies
+- **nextjs-app-router-expert**: Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies
+- **svg-animation-motion-expert**: Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API
 - **mvc-expert**: Memodernisasi proyek PHP lama menjadi arsitektur OOP/MVC yang bersih dan terstruktur mematuhi standar PSR dan fitur PHP modern (v8.3/8.4+).
+- **openapi-swagger-codegen-expert**: Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak.
 - **payment-gateway-expert**: Integrasi payment gateway (Stripe, PayPal, Xendit, Midtrans, DOKU), verifikasi signature webhook, dan state machine langganan.
 - **performance-web-vitals**: Optimasi performa web mencakup Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, dan peningkatan skor Lighthouse.
 - **post-quantum-crypto-migrator**: Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech.
@@ -202,14 +212,12 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kem
 - **secure-fuzz-testing**: Coverage-guided fuzzing (Atheris, cargo-fuzz, native Go fuzzing) dengan compiler/sanitizer (ASan, MSan, UBSan).
 - **self-healing-cloud-orchestrator**: Pemantauan log real-time, deteksi kerusakan, dan perbaikan kode hotfix otomatis tanpa intervensi manusia.
 - **senior-frontend**: Pola frontend React 19, Next.js 15, Tailwind CSS v4 — `useActionState`, `useOptimistic`, `useFormStatus`, Turbopack, dan optimasi bundle.
-- **senior-fullstack**: Referensi fullstack lanjutan (Redis caching, BullMQ background queues, connection pooling, CI/CD, Docker, Playwright).
 - **seo**: Audit SEO menyeluruh (Technical SEO, On-Page SEO, Schema.org, Sitemap, E-E-A-T, dan GEO).
-- **seo-aeo-landing-page-writer**: Penulisan landing page terstruktur untuk peringkat SEO, sitasi AEO, dan konversi.
-- **seo-geo**: Optimasi mesin pencari generatif (AI Overviews, ChatGPT Search, Perplexity, `/llms.txt`).
 - **session-context-loader**: Otomatis memuat dan mempelajari konteks proyek (Tech Stack, PRD, Roadmap, Blueprint) di awal setiap sesi.
 - **session-handoff-resume**: Penyimpanan checkpoint `STATE_HANDOFF.md` super hemat token dan pemulihan pekerjaan instan saat ganti akun/sesi.
 - **skill-baru**: Template dan panduan komprehensif untuk membuat skill vibes-plug baru.
 - **spa-orchestrator**: Arsitektur Single-Page Application (SPA) yang mengintegrasikan state management frontend dengan backend berbasis API.
+- **sse-websocket-streaming-expert**: Panduan ahli Server-Sent Events (SSE), WebSockets, streaming dua arah, data push real-time, dan manajemen koneksi.
 - **state-management-expert**: Manajemen state client-side modern (Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit) dan pola server state dengan TanStack Query.
 - **supabase-migration**: Pelacakan dan eksekusi migrasi schema database Supabase (lokal dan CLI v2+).
 - **supabase-security-expert**: Audit database relasional, praktik keamanan RLS, dan Supabase Linter.
@@ -219,10 +227,10 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 109 modul kem
 - **token-saver**: Protokol penghematan token untuk edisi codebase yang efisien.
 - **typescript-expert**: Sistem tipe lanjutan TypeScript 5.5+, mode strict, generics, utility types, branded types, inferred type predicates, dan isolated declarations.
 - **ui-components-expert**: Komponen UI berkualitas produksi dengan 4 pilar: Kontrol Input, Navigasi, Informasi, dan Kontainer.
-- **ui-ux-expert**: UI/UX Designer & Spesialis Frontend yang berfokus pada layout responsif, tipografi, dan aksesibilitas.
 - **ui-ux-pro-max**: Desain UI/UX komprehensif (dashboard modern) dan konsistensi Human Interface Guidelines.
 - **vector-db-rag-expert**: Panduan ahli Vector DB, arsitektur RAG, pgvector HNSW, dan hybrid search.
 - **vibe-code-gardener**: Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding.
+- **wasm-edge-computing-expert**: Panduan ahli WebAssembly (Wasm), Edge computing, fungsi edge serverless, dan eksekusi kinerja tinggi.
 - **web-scraper**: Ekstraksi data web multi-strategi (Crawl4AI, Playwright, BeautifulSoup, ekstraksi LLM), paginasi, validasi, dan ekspor JSON/CSV/Markdown.
 - **website-design-cloner**: Mempelajari dan merekayasa balik desain situs web & template secara langsung dari URL target ke kode presisi 1:1.
 - **zero-to-prod-orchestrator**: Master orkestrator yang memandu siklus hidup lengkap pembuatan aplikasi dari nol hingga produksi.

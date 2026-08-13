@@ -37,6 +37,12 @@ export function selectOptimalModel(promptLength: number, taskType: 'classificati
 - [ ] Set up semantic caching (e.g., Redis + Vector Search) for frequently asked identical queries.
 - [ ] Monitor token usage and set hard budgeting limits per user/tenant to prevent abuse.
 
+### Operating Protocol
+1. **Model Fallback & Routing**: Sets up an abstraction layer (like LiteLLM or Vercel AI SDK Core) to support multiple providers.
+2. **Complexity Scoring**: Implements heuristics (prompt length, required JSON schema, keyword analysis) to route to the cheapest capable model.
+3. **Semantic Caching Integration**: Implements a Vector DB or Redis caching layer. Before routing to an LLM, it embeddings the user prompt and checks if a semantically similar query was answered recently.
+4. **Token Budgeting**: Sets hard limits and alerts for daily API consumption per tenant/user.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -56,9 +62,21 @@ Panduan tingkat produksi untuk FinOps dalam rekayasa AI — prompt caching (Anth
 - [ ] Siapkan semantic caching (misal: Redis + Vector Search) untuk pertanyaan identik yang sering diajukan.
 - [ ] Pantau penggunaan token dan tetapkan batas anggaran yang ketat per pengguna/tenant untuk mencegah penyalahgunaan.
 
+### Protokol Operasi
+1. **Routing & Fallback Model**: Menyiapkan lapisan abstraksi (seperti LiteLLM atau Vercel AI SDK Core) untuk mendukung berbagai penyedia model.
+2. **Penilaian Kompleksitas**: Mengimplementasikan heuristik (panjang prompt, kebutuhan skema JSON, analisis kata kunci) untuk mengarahkan prompt ke model termurah yang mampu menyelesaikannya.
+3. **Integrasi Semantic Caching**: Mengimplementasikan lapisan *cache* Vector DB atau Redis. Sebelum mengirim ke LLM, prompt pengguna diubah menjadi vektor (*embedding*) untuk mengecek apakah pertanyaan serupa pernah dijawab baru-baru ini.
+4. **Penganggaran Token**: Menetapkan batas maksimal dan notifikasi untuk konsumsi API harian per pengguna/tenant.
+
 
 ## Orchestration & Integration
-- Integrates with `ai-llm-integration-expert`, `token-saver`, `llm-cost-arbitrage-router`, and `zero-to-prod-orchestrator`.
+- Integrates with `ai-llm-integration-expert`, `token-saver`, and `zero-to-prod-orchestrator`.
+- Connects to `edge-serverless-db-expert` (Upstash/Redis) for fast semantic caching.
+- Collaborates with `vector-db-rag-expert` for similarity scoring during cache retrieval.
+- Feeds billing metrics into `saas-billing` for usage-based AI pricing models.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan `ai-llm-integration-expert`, `token-saver`, `llm-cost-arbitrage-router`, dan `zero-to-prod-orchestrator`.
+- Terintegrasi dengan `ai-llm-integration-expert`, `token-saver`, dan `zero-to-prod-orchestrator`.
+- Terhubung dengan `edge-serverless-db-expert` (Upstash/Redis) untuk *semantic caching* secepat kilat.
+- Berkolaborasi dengan `vector-db-rag-expert` untuk perhitungan kemiripan saat pencarian *cache*.
+- Memasok metrik penagihan ke `saas-billing` untuk model bisnis AI berbasis penggunaan (*usage-based pricing*).

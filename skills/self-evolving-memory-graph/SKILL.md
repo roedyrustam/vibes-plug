@@ -46,6 +46,11 @@ Use the `multi_replace_file_content` or `write_to_file` tool to append the lesso
 #### 3. Memory Retrieval
 Ensure `session-context-loader` is configured to read this memory file at the start of every new chat session. 
 
+#### 4. Cross-Project Episodic Memory (Global Context)
+- **Continuous Capture**: For complex architectural decisions or bug fixes that span beyond a single project, extract the root cause and solution into a global knowledge graph (e.g., `~/.gemini/knowledge` or equivalent `<appDataDir>/knowledge` KI system).
+- **Contextual Retrieval**: On new sessions, search the global context directory for similar past issues before diving into complex bugs.
+- **Synthesis & Injection**: Inject the historical context directly into the current execution loop, stating explicitly: *"I remember we solved this architectural issue in Project X using technique Y. Applying the same proven pattern here."*
+
 ---
 
 ### Integration with Other Skills (MANDATORY)
@@ -73,3 +78,8 @@ Claude melupakan segalanya saat sesi chat baru dimulai. Skill ini memberi Anda "
 - **Jangan Hanya Berjanji:** Jika pengguna mengoreksi Anda, jangan sekadar menjawab "Baik, saya akan ingat." LLM tidak punya ingatan bawaan antar-sesi. Anda **wajib** menulis koreksi tersebut ke dalam file `LEARNING_GRAPH.md` di folder `.agents/` atau direktori *root*.
 - **Kategorisasi Ingatan:** Pisahkan ingatan menjadi: Preferensi Gaya (*Style*), Pelajaran Berharga (*Lessons Learned*), dan Keputusan Arsitektur (*Decisions*).
 - **Semakin Lama Semakin Pintar:** Dengan membaca file ini di awal setiap percakapan, Anda tidak akan pernah mengulangi kesalahan yang sama dua kali.
+
+### Memori Episodik Lintas-Proyek (Konteks Global)
+- **Penangkapan Berkelanjutan**: Untuk bug yang rumit dan pola arsitektur tingkat lanjut, ekstrak solusi ke dalam grafik pengetahuan global (misal: `~/.gemini/knowledge`).
+- **Pencarian Kontekstual**: Sebelum memecahkan masalah kompleks baru, cari direktori konteks global untuk kasus serupa.
+- **Sintesis & Injeksi**: Secara proaktif sebutkan: *"Saya ingat kita menyelesaikan ini di Proyek X dengan cara Y, saya akan menerapkannya di sini."*
