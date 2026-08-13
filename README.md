@@ -1,7 +1,7 @@
 # Vibes Plug
 
 [![Version](https://img.shields.io/badge/version-v2.5.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-103%2B%20active-06b6d4.svg)](skills/)
+[![Skills](https://img.shields.io/badge/skills-109%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
 
@@ -9,13 +9,13 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 103+ Skills Agentic Swarm Architecture
+### ⚡ Universal 109+ Skills Agentic Swarm Architecture
 
 ```mermaid
 graph TD
-    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (103+ Skills Engine)"]
+    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (109+ Skills Engine)"]
 
-    subgraph SWARM["⚡ 103+ Specialized Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 109+ Specialized Skills Swarm Ecosystem"]
         D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
         D1["🤖 AI & Agentic Systems (7 Skills)<br/>ai-llm-integration • vector-db-rag • ai-cost-token-optimizer • mcp-architect"]
         D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
@@ -129,7 +129,7 @@ This plugin provides the following 103+ skills that can be used by the agent:
 - **Web 3D Graphics Expert** (`web-3d-graphics-expert`): Expert guide for WebGL and 3D graphics using Three.js, Babylon.js, React Three Fiber, and TresJS. Covers scene optimization, lighting, and GLTF/GLB models.
 - **WebXR AR/VR Expert** (`webxr-ar-vr-expert`): Expert guide for WebXR development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing.
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks. Contains guides for color palettes, typography, WCAG 2.2 AAA, micro-animations, and deep UX guidelines.
-- **UI/UX Expert** (`ui_ux_expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
+- **UI/UX Expert** (`ui-ux-expert`): Interface (Frontend) specialist and UI/UX Designer focusing on responsive and interactive layouts.
 
 #### 🖥️ Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Deeply analyzes application structure and architecture, performs performance/security bottleneck audits (Core Web Vitals, INP), and executes targeted optimizations.
@@ -209,9 +209,9 @@ This plugin provides the following 103+ skills that can be used by the agent:
 - **Brainstorming** (`brainstorming`): Master ideation protocol & architectural orchestrator. Validates design ideas and orchestrates all vibes-plug skills before coding begins — 8-step structured dialogue with hard gates and skill delegation matrix.
 - **CodeRabbit Expert** (`coderabbit`): AI-powered automated code review, pull request summarization, and interactive developer feedback for GitHub/GitLab.
 - **Data Telemetry Expert** (`data-telemetry-expert`): Observability, OpenTelemetry 1.30+, PostHog, Mixpanel, and data pipeline analytics.
-- **Friendly Assistant** (`asisten_ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
+- **Friendly Assistant** (`asisten-ramah`): Adds a friendly, warm, and enthusiastic personality to the agent's responses.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Web Accessibility (WCAG 2.2 AAA) and i18n internationalization standards.
-- **New Skill Template** (`skill_baru`): Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support.
+- **New Skill Template** (`skill-baru`): Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support.
 - **Session Context Loader** (`session-context-loader`): Automatically loads and learns project context (Tech Stack, PRD, Roadmap, Blueprint) at the start of every new conversation session to ensure focused development.
 - **Session Handoff & Memory Resume** (`session-handoff-resume`): Saves ultra-compact project checkpoints (`STATE_HANDOFF.md`) before account/session switches and resumes work with zero token waste.
 - **Token Saver** (`token-saver`): Strong instructions to minimize fluff and repetition — very useful for high-efficiency bulk refactoring tasks.
@@ -308,7 +308,7 @@ Plugin ini menyediakan **103+ kemampuan (*skills*)** berikut yang bisa digunakan
 - **Web 3D Graphics Expert** (`web-3d-graphics-expert`): Panduan ahli untuk WebGL dan grafis 3D menggunakan Three.js, Babylon.js, R3F, dan TresJS. Termasuk optimasi scene dan model 3D.
 - **WebXR AR/VR Expert** (`webxr-ar-vr-expert`): Panduan ahli untuk pengembangan WebXR (Virtual dan Augmented Reality) menggunakan Babylon.js dan Three.js.
 - **UI/UX Pro Max** (`ui-ux-pro-max`): Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack. Berisi panduan palet warna, tipografi, WCAG 2.2 AAA, micro-animasi, dan pedoman UX mendalam.
-- **UI/UX Expert** (`ui_ux_expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
+- **UI/UX Expert** (`ui-ux-expert`): Spesialis antarmuka (Frontend) dan UI/UX Designer yang berfokus pada layout responsif dan interaktif.
 
 #### 🖥️ Frontend, Mobile & State
 - **App Analyzer & Optimizer** (`app-analyzer-optimizer`): Menganalisis struktur dan arsitektur aplikasi secara mendalam, melakukan audit bottleneck performa/keamanan (Core Web Vitals, INP), serta optimasi terarah.
@@ -388,9 +388,9 @@ Plugin ini menyediakan **103+ kemampuan (*skills*)** berikut yang bisa digunakan
 - **Brainstorming** (`brainstorming`): Protokol ideasi utama & orkestrator arsitektur. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai — dialog terstruktur 8-langkah dengan hard gates dan matriks delegasi skill.
 - **CodeRabbit Expert** (`coderabbit`): Asisten review kode otomatis berbasis AI, perangkum pull request, dan umpan balik developer interaktif di GitHub/GitLab.
 - **Data Telemetry Expert** (`data-telemetry-expert`): Observabilitas, OpenTelemetry 1.30+, PostHog, Mixpanel, dan analitik pipa data.
-- **Asisten Ramah** (`asisten_ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
+- **Asisten Ramah** (`asisten-ramah`): Menambahkan kepribadian yang ramah, hangat, dan bersemangat pada respons agen.
 - **Global Accessibility & Internationalization** (`global-a11y-i18n-expert`): Standar Aksesibilitas Web (WCAG 2.2 AAA) dan internasionalisasi i18n.
-- **Template Skill Baru** (`skill_baru`): Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual.
+- **Template Skill Baru** (`skill-baru`): Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual.
 - **Session Context Loader** (`session-context-loader`): Otomatis memuat dan mempelajari konteks proyek (Tech Stack, PRD, Roadmap, Blueprint) di awal setiap sesi baru untuk memastikan pengembangan yang terarah.
 - **Session Handoff & Memory Resume** (`session-handoff-resume`): Menyimpan checkpoint proyek super ringkas (`STATE_HANDOFF.md`) sebelum ganti akun/sesi dan melanjutkan pekerjaan secara instan tanpa boros token.
 - **Token Saver** (`token-saver`): Instruksi kuat untuk meminimalkan *fluff* dan pengulangan — sangat berguna untuk tugas refactoring massal dengan efisiensi tinggi.
@@ -419,7 +419,7 @@ Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah 
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Versi
-v2.5.0 (Edisi 2026) — 103+ skills
+v2.5.0 (Edisi 2026) — 109+ skills
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
