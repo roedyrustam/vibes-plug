@@ -1,7 +1,7 @@
 ---
 name: compliance-gdpr-privacy-expert
 description: "Expert guide for Data Privacy, GDPR, CCPA, and PDPA compliance. Covers consent management, data retention, privacy-by-design, and audit trails / Panduan kepatuhan Privasi Data, GDPR, dan PDPA."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # Data Privacy & Compliance Expert
@@ -14,72 +14,38 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert guide for Data Privacy regulations (GDPR, CCPA, PDPA Indonesia) and privacy-by-design implementation. Covers consent management, right-to-be-forgotten (data deletion workflows), data masking, retention policies, cookie compliance, and maintaining strict audit trails for SaaS applications.
+A crucial guide for engineering teams building SaaS applications that handle PII (Personally Identifiable Information). Covers technical implementation patterns for privacy regulations like GDPR (Europe), CCPA (California), and PDPA/UU PDP (Indonesia), including data mapping, consent management, Right to be Forgotten (data erasure), and secure audit trails.
 
 ### Trigger Conditions
-Activate this skill when the user is:
-- Building an application targeting European (EU) or Californian users.
-- Implementing "Delete My Account" functionality requiring hard deletion of PII.
-- Setting up cookie consent banners and telemetry opt-in workflows.
-- Designing a database schema that involves highly sensitive Personally Identifiable Information (PII).
+- When architecting user database schemas that store PII (names, emails, phone numbers, IP addresses).
+- When implementing cookie consent banners and tracking scripts.
+- When the user asks about "GDPR compliance", "data retention", or "account deletion".
+- When building admin dashboards that require secure audit logging.
 
----
+### Core Architectural Guidelines
 
-### Core Concepts
+#### 1. Privacy by Design (Data Minimization)
+Do not collect data you do not explicitly need.
+- **Hashing/Encryption**: Hash sensitive data (like passwords) and encrypt PII at rest (AES-256) and in transit (TLS 1.3).
+- **IP Addresses**: IP addresses are considered PII under GDPR. Anonymize IP logs (e.g., masking the last octet `192.168.1.0`) if used for analytics.
 
-#### 1. Privacy by Design
-Privacy must be embedded into the architecture from day one, not bolted on as an afterthought. This means collecting only strictly necessary data, masking it at rest, and ensuring it can be completely purged.
+#### 2. The Right to be Forgotten (Soft vs Hard Deletion)
+Users must be able to delete their accounts easily.
+- **Soft Deletion**: Flagging a user as `deleted_at = NOW()` is useful for immediate UI removal, but it is **not compliant** with GDPR erasure requests if the data stays indefinitely.
+- **Hard Deletion / Scrubbing**: You must implement a background worker that permanently deletes or fully anonymizes soft-deleted records after a grace period (e.g., 30 days).
 
-#### 2. The Right to Erasure (Right to be Forgotten)
-When a user requests account deletion, you must physically remove their PII within 30 days (under GDPR). Soft deletes (`deleted_at = NOW()`) are generally insufficient for PII unless heavily anonymized.
+#### 3. Consent Management
+- **Cookies**: Do not load analytical or marketing scripts (Google Analytics, Meta Pixel) until the user has explicitly clicked "Accept".
+- **Database**: Store the timestamp and version of the Terms of Service/Privacy Policy the user agreed to during registration.
 
-```sql
--- Example: GDPR-compliant account deletion
--- Instead of soft-deleting, anonymize the user record so aggregate analytics survive
-UPDATE users 
-SET 
-  first_name = 'Anonymized',
-  last_name = 'User',
-  email = concat('anon_', id, '@deleted.local'),
-  phone = NULL,
-  ip_address = NULL
-WHERE id = 'uuid-to-delete';
-```
+#### 4. Audit Trails
+For financial or health data, maintain an append-only audit log of *who* accessed *what* PII and *when*.
+- Never log actual PII in plain text application logs (e.g., avoid `console.log(user)`).
 
----
-
-### Best Practices
-
-1. **Separate PII from Transactional Data:** Store PII (names, emails) in a separate table from behavioral or transactional data. This makes it trivial to anonymize a user by deleting the PII record while leaving the anonymized transaction intact for financial reporting.
-2. **Explicit Consent for Telemetry:** Analytics (PostHog, Google Analytics) and marketing cookies must be strictly opt-in for EU users. Do not load telemetry SDKs until the consent banner is accepted.
-3. **Data Retention Policies:** Implement background cron jobs to automatically purge application logs, IP addresses, and old telemetry data after 30-90 days.
-4. **Audit Trails (Action Logging):** Track *who* accessed *what* sensitive data and *when*. This is critical for HIPAA or SOC2 compliance.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Problem | Correct Approach |
-|---|---|---|
-| **Logging PII in plaintext** | Log files become toxic and violate GDPR | Mask emails, IPs, and passwords before passing to `console.log` or Sentry. |
-| **Relying purely on Soft Deletes** | Violates "Right to Erasure" | Use hard deletes or strict anonymization scrubbing scripts. |
-| **Pre-checked consent boxes** | Illegal under GDPR | Consent must be an explicit, affirmative action by the user. |
-
----
-
-### Integration with Other Skills (MANDATORY)
-
-This skill works best when combined with:
-- `logging-error-tracking-expert` — To ensure application logs and error trackers (Sentry) are automatically scrubbing PII before transmission.
-- `database-orm-expert` — For implementing column-level encryption and anonymization schemas.
-- `feature-flag-analytics-expert` — For integrating cookie consent state with telemetry SDK loading mechanisms.
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Security & Identity" domain.
-- `zero-to-prod-orchestrator` — Phase 2 (Planning) and Phase 6 (Security).
-- `production-ready-hardener` — Phase 6 (Security Hardening) for PII leakage checks.
+## Orchestration & Integration
+- Enhances `database-orm-expert` with schema guidelines for soft-deletion and PII encryption.
+- Works with `logging-error-tracking-expert` to ensure logs are sanitized of PII.
+- Complements `authentication-identity-expert` for secure user lifecycle management.
 
 ---
 
@@ -87,32 +53,33 @@ This skill should be referenced by the following orchestrators:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan ahli untuk regulasi Privasi Data (GDPR, CCPA, UU PDP Indonesia) dan implementasi *privacy-by-design*. Mencakup manajemen persetujuan (consent), hak untuk dilupakan (alur penghapusan data), penyamaran data (masking), kebijakan retensi, kepatuhan *cookie*, dan audit trail untuk aplikasi SaaS.
+Panduan krusial bagi tim engineering yang membangun aplikasi SaaS yang menangani PII (Data Pribadi). Mencakup pola implementasi teknis untuk regulasi privasi seperti GDPR (Eropa) dan UU PDP (Pelindungan Data Pribadi Indonesia). Meliputi manajemen persetujuan (consent), hak untuk dilupakan (penghapusan data), dan rekam jejak audit (audit trails).
 
 ### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Membangun aplikasi yang menargetkan pengguna Eropa (UE) atau Amerika.
-- Mengimplementasikan fitur "Hapus Akun Saya" yang mewajibkan penghapusan permanen data pribadi (PII).
-- Menyiapkan banner persetujuan *cookie* dan alur opt-in untuk telemetri.
-- Merancang skema database yang melibatkan Informasi Identitas Pribadi (PII) yang sensitif sesuai UU PDP.
+- Saat merancang skema database yang menyimpan data pribadi (nama, email, nomor telepon).
+- Saat mengimplementasikan banner persetujuan cookie (cookie consent).
+- Saat merancang fitur penghapusan akun pengguna.
+- Saat melakukan logging data sensitif.
 
-### Panduan Singkat
+### Panduan Arsitektur Inti
 
-- **Pisahkan PII dari Data Transaksi:** Simpan data identitas (nama, email) di tabel terpisah dari data transaksi. Ini memudahkan Anda menganonimkan pengguna (dengan menghapus PII) tanpa merusak laporan keuangan agregat Anda.
-- **Hak untuk Dihapus (Right to Erasure):** *Soft delete* (`deleted_at`) saja tidak cukup menurut GDPR dan UU PDP jika menyangkut PII. Lakukan penghapusan permanen atau penyamaran (anonimisasi) secara total.
-- **Persetujuan Eksplisit:** Jangan muat SDK pelacakan (Analytics, Facebook Pixel) secara otomatis sebelum pengguna menekan tombol "Setuju". Kotak centang yang sudah dicentang dari awal adalah ilegal.
-- **Awas Kebocoran Log:** Pastikan alat *logging* Anda memfilter atau me-masking email, NIK, dan *password* sebelum log dikirim ke server (seperti Datadog atau Sentry).
+#### 1. Privasi sejak Desain (Privacy by Design)
+Kumpulkan hanya data yang benar-benar dibutuhkan.
+- **Enkripsi**: Enkripsi PII saat diam (at rest) dan bergerak (in transit).
+- **Alamat IP**: IP adalah data pribadi. Anomimkan log IP jika hanya digunakan untuk analitik umum.
 
-### Integrasi dengan Skill Lain (WAJIB)
+#### 2. Hak untuk Dihapus (Right to be Forgotten)
+Pengguna harus memiliki tombol yang mudah diakses untuk menghapus akun mereka.
+- **Soft Delete vs Hard Delete**: Mengubah status menjadi `deleted_at` tidak cukup untuk kepatuhan hukum jika data dibiarkan selamanya. Anda harus membuat *cron job* yang secara permanen menghapus atau menganonimkan data (mengubah nama menjadi "Deleted User") setelah masa tenggang (misal: 30 hari).
 
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `logging-error-tracking-expert` — Memastikan log aplikasi tidak menyimpan data pribadi secara *plaintext*.
-- `database-orm-expert` — Mengimplementasikan enkripsi tingkat kolom atau teknik anonimisasi di database.
-- `feature-flag-analytics-expert` — Mengatur pemuatan SDK analitik berdasarkan status persetujuan pengguna.
+#### 3. Manajemen Persetujuan (Consent)
+- Jangan memuat skrip pelacakan pihak ketiga (seperti Facebook Pixel atau Google Analytics) sebelum pengguna memberikan izin eksplisit (Opt-In).
+- Simpan rekaman kapan pengguna menyetujui Kebijakan Privasi Anda di database.
 
-### Direferensikan oleh Orchestrator (WAJIB)
+#### 4. Pembersihan Log (Log Sanitization)
+Pastikan sistem logging aplikasi Anda (Pino, Winston) secara otomatis menyensor (redact) informasi sensitif seperti password, token kartu kredit, dan nomor telepon sebelum mengirimkannya ke sistem agregasi log seperti Datadog atau Sentry.
 
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Tambahkan ke domain "Security & Identity".
-- `zero-to-prod-orchestrator` — Fase 2 (Planning) dan Fase 6 (Security).
-- `production-ready-hardener` — Fase 6 (Security Hardening).
+## Integrasi Orkestrasi
+- Memperkuat `database-orm-expert` terkait skema enkripsi dan penghapusan data.
+- Bekerja sama dengan `logging-error-tracking-expert` untuk pedoman sanitasi log.
+- Melengkapi `authentication-identity-expert` dalam manajemen siklus hidup pengguna.

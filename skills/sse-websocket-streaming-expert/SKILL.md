@@ -1,7 +1,7 @@
 ---
 name: sse-websocket-streaming-expert
 description: "Expert guide for Server-Sent Events (SSE), WebSockets, and Streaming Architectures. Covers real-time data push, Socket.IO, Hono WebSocket, and AI response streaming / Panduan ahli streaming real-time."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
 # SSE, WebSocket & Streaming Expert
@@ -14,90 +14,48 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert guide for building high-performance, real-time streaming architectures. Covers Server-Sent Events (SSE), WebSocket scaling (Socket.IO, native WebSockets, Bun WebSockets), streaming HTTP responses, and bidirectional communication. Crucial for AI response streaming (LLM typing effects), live dashboards, and instant notifications.
+A focused guide for building real-time data push architectures. While `realtime-collaboration-expert` focuses on CRDTs (Yjs) for multi-player editing, this skill focuses on the transport layer: when to use Server-Sent Events (SSE) vs WebSockets vs HTTP Streaming, scaling pub/sub architectures, and streaming AI responses.
 
 ### Trigger Conditions
-Activate this skill when the user is:
-- Building an AI chatbot that requires token-by-token text streaming.
-- Implementing a real-time live dashboard or stock ticker.
-- Adding instant push notifications to a web client.
-- Deciding between WebSockets, SSE, and long-polling for real-time features.
+- When building live notification systems, live sports scores, or stock tickers.
+- When streaming LLM text generation responses chunk-by-chunk to the UI.
+- When the user asks about "WebSockets", "Socket.IO", or "SSE".
+- When implementing a chat application.
 
----
+### Core Architectural Guidelines
 
-### Core Concepts
+#### 1. SSE vs WebSockets
+Choose the right transport mechanism to save server resources.
+- **Server-Sent Events (SSE)**: Unidirectional (Server to Client). Uses standard HTTP. Best for live feeds, AI streaming, notifications. Handles reconnections automatically.
+- **WebSockets**: Bidirectional. Best for chat apps, multiplayer games. Requires a persistent TCP connection and custom ping/pong keepalives.
 
-#### 1. Selection Guide: WebSockets vs SSE
-| Feature | WebSockets | Server-Sent Events (SSE) |
-|---|---|---|
-| **Direction** | Bidirectional (Full Duplex) | Unidirectional (Server -> Client) |
-| **Protocol** | `ws://` (Custom TCP) | Standard HTTP/HTTPS |
-| **Best For** | Chat, multiplayer games | AI streaming, notifications, live feeds |
-| **Complexity** | High (needs load balancer support) | Low (native HTTP, easy to proxy) |
-
-**Recommendation:** Default to SSE for 90% of real-time web features (like AI streaming or notifications) because it runs over standard HTTP, bypasses corporate firewall blocks, and supports automatic reconnection. Only use WebSockets when the client needs to rapidly push high-frequency data *to* the server (like games or collaborative drawing).
-
-#### 2. Streaming LLM Responses via SSE (Next.js Example)
+#### 2. Streaming AI Responses (HTTP Streaming)
+For LLMs, use standard HTTP Streaming (often via the `ai` SDK in React/Next.js) instead of complex WebSockets.
 ```typescript
-// app/api/chat/route.ts
+// Next.js Route Handler Example
 export async function POST(req: Request) {
-  const stream = new TransformStream();
-  const writer = stream.writable.getWriter();
+  const { prompt } = await req.json();
+  const stream = await myLLM.stream(prompt);
   
-  // Simulate AI generation
-  (async () => {
-    const text = "Hello from the AI model!";
-    for (const char of text) {
-      await writer.write(new TextEncoder().encode(`data: ${char}\n\n`));
-      await new Promise(r => setTimeout(r, 50));
-    }
-    await writer.close();
-  })();
-
-  return new Response(stream.readable, {
-    headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
-    },
+  return new Response(stream, {
+    headers: { 'Content-Type': 'text/event-stream' },
   });
 }
 ```
 
----
+#### 3. Scaling WebSockets (Pub/Sub)
+A single Node.js process can handle thousands of WebSockets, but when you scale horizontally (multiple servers), clients on Server A cannot see messages from Server B.
+- **Redis Adapter**: Use a Pub/Sub mechanism (like Redis) so when a message is published, all server instances broadcast it to their respective connected clients.
+- **Serverless WebSockets**: In serverless environments (AWS API Gateway, Cloudflare Durable Objects), you do not hold the connection in your code. The infrastructure holds it, and calls your webhook when messages arrive.
 
-### Best Practices
+#### 4. Reconnection & Idempotency
+- Always assume connections will drop.
+- Clients must maintain a `lastEventId` or cursor. Upon reconnection, the client sends this cursor so the server can push any missed messages, preventing data loss.
 
-1. **Connection State Management:** Always handle disconnection events and implement exponential backoff reconnection strategies on the client.
-2. **Horizontal Scaling for WebSockets:** WebSockets are stateful. To scale horizontally across multiple instances, you MUST use a Pub/Sub backplane (like Redis) so an event emitted on Server A reaches a client connected to Server B.
-3. **Keep-Alives (Heartbeats):** Implement ping/pong heartbeats to detect dead TCP connections that haven't been cleanly closed by the network.
-4. **Auth Handshakes:** For WebSockets, authenticate during the initial HTTP upgrade handshake using a ticket/token system rather than sending JWTs in plaintext over the active websocket channel.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Problem | Correct Approach |
-|---|---|---|
-| **Using WebSockets for one-way feeds** | Over-engineering, firewall issues | Use Server-Sent Events (SSE) which use standard HTTP. |
-| **Ignoring the connection limit** | Browsers limit SSE connections (HTTP/1.1 limits to 6 per domain) | Use HTTP/2 (multiplexing solves the limit) or combine streams. |
-| **Missing Redis backplane** | Users don't see messages if routed to different servers | Integrate Redis Pub/Sub for cross-instance WebSocket broadcasting. |
-
----
-
-### Integration with Other Skills (MANDATORY)
-
-This skill works best when combined with:
-- `realtime-collaboration-expert` — While this skill handles the transport layer (SSE/WS), collaboration handles the state layer (CRDTs).
-- `ai-llm-integration-expert` — For streaming AI outputs via Server-Sent Events for the ChatGPT-like typing effect.
-- `js-backend-expert` — For implementing WebSocket or SSE servers using Bun, Hono, or Node.js.
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Backend & Infrastructure" domain.
-- `zero-to-prod-orchestrator` — Phase 3 (Architecture) and Phase 4 (Backend).
-- `production-ready-hardener` — Phase 4 (Backend Hardening) for checking WebSocket scaling architectures.
+## Orchestration & Integration
+- Supplements `js-backend-expert` or `go-programming-expert` with real-time push capabilities.
+- Essential for `gemini-agent-booster` when building AI streaming chat interfaces.
+- Integrates with `api-gateway-proxy-expert` to ensure proxies do not buffer streaming responses.
 
 ---
 
@@ -105,32 +63,31 @@ This skill should be referenced by the following orchestrators:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan ahli untuk membangun arsitektur streaming *real-time* berkinerja tinggi. Mencakup Server-Sent Events (SSE), skalabilitas WebSocket (Socket.IO, Bun WebSockets), streaming respons HTTP, dan komunikasi dua arah. Sangat penting untuk streaming respons AI (efek mengetik), dashboard langsung, dan notifikasi instan.
+Panduan terfokus untuk membangun arsitektur push data real-time. Skill ini berfokus pada lapisan transport: kapan harus menggunakan Server-Sent Events (SSE) vs WebSockets vs HTTP Streaming, penskalaan arsitektur pub/sub (Redis), dan streaming respons AI.
 
 ### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Membangun chatbot AI yang memerlukan streaming teks per-token.
-- Mengimplementasikan *live dashboard* atau *ticker* saham secara *real-time*.
-- Menambahkan notifikasi *push* instan ke klien web.
-- Memutuskan antara WebSockets, SSE, dan *long-polling* untuk fitur *real-time*.
+- Saat membangun sistem notifikasi live, pembaruan skor, atau ticker saham.
+- Saat melakukan streaming teks hasil generasi LLM bagian-demi-bagian (chunk-by-chunk) ke UI.
+- Saat mengimplementasikan aplikasi obrolan (chat).
 
-### Panduan Singkat
+### Panduan Arsitektur Inti
 
-- **Pilih SSE Sebelum WebSocket:** Gunakan Server-Sent Events (SSE) untuk 90% kasus (seperti streaming AI atau notifikasi). SSE berjalan di atas HTTP standar, kebal terhadap pemblokiran *firewall*, dan memiliki fitur *auto-reconnect* bawaan. Gunakan WebSocket hanya jika klien perlu mengirim data secara intensif ke server (seperti game *multiplayer*).
-- **Wajib Redis Pub/Sub untuk Scaling:** WebSocket memiliki *state* (koneksi terbuka persisten). Jika Anda memiliki dua server, pesan dari Server A tidak akan sampai ke klien di Server B tanpa adanya lapisan komunikasi antar-server (*backplane*) seperti Redis Pub/Sub.
-- **Terapkan Heartbeat (Ping/Pong):** Jaringan sering memutuskan koneksi tanpa memberitahu aplikasi. Terapkan mekanisme *ping/pong* untuk mendeteksi dan membersihkan koneksi yang terputus secara diam-diam.
-- **Awasi Batasan HTTP/1.1:** Browser membatasi maksimal 6 koneksi persisten HTTP/1.1 per domain (berdampak pada SSE). Pastikan server Anda mendukung HTTP/2 untuk menghindari batasan ini melalui *multiplexing*.
+#### 1. SSE vs WebSockets
+Pilih mekanisme transport yang tepat:
+- **Server-Sent Events (SSE)**: Satu arah (Server ke Klien). Berjalan di atas HTTP biasa. Sangat ideal untuk feed berita, notifikasi, dan streaming AI. Mendukung rekoneksi otomatis secara native.
+- **WebSockets**: Dua arah. Ideal untuk aplikasi chat dan game. Membutuhkan penanganan koneksi persisten dan mekanisme ping/pong manual.
 
-### Integrasi dengan Skill Lain (WAJIB)
+#### 2. Streaming Respons AI
+Gunakan HTTP Streaming biasa (biasanya menggunakan `text/event-stream`) untuk merender kata demi kata dari AI tanpa perlu memelihara koneksi WebSocket yang kompleks.
 
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `realtime-collaboration-expert` — Menangani kolaborasi state (CRDT), sementara skill ini menangani lapisan transportasinya (SSE/WS).
-- `ai-llm-integration-expert` — Untuk melakukan streaming keluaran AI menggunakan SSE (efek mengetik ala ChatGPT).
-- `js-backend-expert` — Untuk membangun server WebSocket atau SSE menggunakan Bun, Hono, atau Node.js.
+#### 3. Penskalaan (Scaling) WebSockets
+Saat aplikasi diskalakan ke beberapa server (horizontal scaling), pengguna yang terhubung ke Server A tidak akan menerima pesan dari pengguna di Server B. Anda WAJIB menggunakan Redis Pub/Sub (atau mekanisme message broker serupa) sebagai *backplane* agar semua server saling berkomunikasi.
 
-### Direferensikan oleh Orchestrator (WAJIB)
+#### 4. Rekoneksi & Penanganan Kehilangan Data
+- Klien harus selalu mengirimkan kursor (misal: ID pesan terakhir yang diterima) saat melakukan rekoneksi.
+- Server menggunakan kursor tersebut untuk memutar ulang (replay) pesan yang terlewat selama klien terputus.
 
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Tambahkan ke domain "Backend & Infrastructure".
-- `zero-to-prod-orchestrator` — Fase 3 (Arsitektur) dan Fase 4 (Backend).
-- `production-ready-hardener` — Fase 4 (Backend Hardening) untuk memeriksa arsitektur *scaling* WebSocket.
+## Integrasi Orkestrasi
+- Melengkapi `js-backend-expert` atau `go-programming-expert` dengan kemampuan push real-time.
+- Sangat penting bagi `gemini-agent-booster` saat membangun antarmuka chat AI.
+- Terintegrasi dengan `api-gateway-proxy-expert` (pastikan NGINX/proxy tidak melakukan *buffering* pada koneksi streaming).

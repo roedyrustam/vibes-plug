@@ -16,6 +16,8 @@ Vibes Plug is a customized plugin for Antigravity that houses 114 high-performan
 
 ### Skill Modules (116 Total)
 - **ai-cost-token-optimizer**: Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting
+- **ai-prompt-engineering-expert**: Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation
+- **domain-driven-design-expert**: Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS
 - **ai-llm-integration-expert**: Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents
 - **api-design-expert**: Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design
 - **api-gateway-proxy-expert**: Expert guide for API Gateways, reverse proxies, rate limiting, and request routing (Kong, KrakenD, Traefik, Nginx)
@@ -139,6 +141,8 @@ Vibes Plug adalah plugin kustomisasi untuk Antigravity yang memuat 114 modul kem
 
 ### Modul Skills (Total 116 Modul)
 - **ai-cost-token-optimizer**: Optimasi biaya API LLM, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, dan token budgeting.
+- **ai-prompt-engineering-expert**: Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation
+- **domain-driven-design-expert**: Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS
 - **ai-llm-integration-expert**: Panduan tingkat produksi untuk integrasi Large Language Models (LLMs), Model Context Protocol (MCP), RAG (`pgvector` HNSW, Qdrant), model penalaran (DeepSeek-R1/V3, Gemini 3.5/3.6, Claude 3.7), dan Vercel AI SDK 4.x/5.x.
 - **api-design-expert**: Praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1, versioning API, rate limiting, dan contract-first design.
 - **api-gateway-proxy-expert**: Panduan ahli untuk API Gateways, reverse proxy, rate limiting, dan request routing (Kong, KrakenD, Traefik, Nginx).

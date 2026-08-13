@@ -57,14 +57,14 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Setup initial CI/CD pipeline template (GitHub Actions, Docker).
 
 #### PHASE 3: Database & Multi-Tenant Core Architecture
-**Orchestrates:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
+**Orchestrates:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
 - [ ] Design normalized relational schemas and document models.
 - [ ] Configure ORM layer (Drizzle ORM / Prisma 6 / SQLx / sqlc).
 - [ ] Implement Row-Level Security (RLS) policies and tenant isolation.
 - [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
 #### PHASE 4: Backend APIs, Microservices & AI Agents
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
 - [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
@@ -146,14 +146,14 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Menyiapkan template pipeline CI/CD awal (GitHub Actions, Docker).
 
 #### FASE 3: Database & Arsitektur Multi-Tenant
-**Mengorkestrasi:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
+**Mengorkestrasi:** `fullstack-expert`, `database-migration-versioning-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-migration`, `supabase-security-expert`, `edge-serverless-db-expert`, `data-pipeline-etl-expert`
 - [ ] Merancang skema relasional ter-normalisasi dan pemodelan dokumen.
 - [ ] Konfigurasi lapisan ORM (Drizzle ORM / Prisma 6 / SQLx / sqlc).
 - [ ] Mengimplementasikan kebijakan Row-Level Security (RLS) dan isolasi tenant.
 - [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
 #### FASE 4: Backend API, Microservices & Agen AI
-**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `mcp-client-orchestrator`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `mcp-client-orchestrator`, `async-queue-temporal-expert`, `background-jobs-queue-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `mobile-push-notification-expert`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`
 - [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.

@@ -1,10 +1,10 @@
 ---
 name: api-gateway-proxy-expert
 description: "Expert guide for API Gateways, Reverse Proxies, and Service Mesh. Covers Kong, Traefik, NGINX, Cloudflare Gateway, and load balancing / Panduan ahli untuk API Gateway, Reverse Proxy, dan Service Mesh."
-author: "Roedy Rustam"
+author: vibes-plug-swarm
 ---
 
-# API Gateway & Proxy Expert
+# API Gateway & Reverse Proxy Expert
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,75 +14,36 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert guide for architecting the edge layer of microservices and distributed systems. Covers API Gateways, Reverse Proxies, Load Balancing, and Service Mesh concepts. Focuses on tools like Kong, Traefik, AWS API Gateway, NGINX, and Envoy, providing patterns for routing, SSL termination, rate limiting, and traffic management.
+A comprehensive guide for routing, load balancing, and managing traffic at the perimeter of your microservices architecture. Covers configuring API Gateways (Kong, Tyk), modern reverse proxies (Traefik, Caddy, NGINX), and understanding Service Mesh patterns.
 
 ### Trigger Conditions
-Activate this skill when the user is:
-- Exposing multiple microservices behind a single unified API endpoint.
-- Setting up a reverse proxy for SSL termination and load balancing.
-- Implementing global rate limiting, IP whitelisting, or WAF (Web Application Firewall) at the network edge.
-- Migrating from a monolith to microservices and needing a strangler fig pattern implementation via routing.
+- When architecting a microservices backend that needs a unified entry point (BFF - Backend for Frontend).
+- When configuring SSL/TLS termination, rate limiting, or IP allowlisting at the infrastructure level.
+- When the user asks about "Traefik", "NGINX config", "Kong", or "API routing".
+- When implementing blue-green deployments or canary releases via traffic splitting.
 
----
+### Core Architectural Guidelines
 
-### Core Concepts
+#### 1. API Gateway Pattern
+Instead of client applications calling individual microservices, route all traffic through an API Gateway.
+- **Cross-Cutting Concerns**: Offload authentication (JWT verification), rate limiting, and CORS handling to the Gateway.
+- **Routing**: Use path-based routing (e.g., `/api/users` -> Users Service, `/api/billing` -> Billing Service).
 
-#### 1. API Gateway vs Reverse Proxy vs Service Mesh
-- **Reverse Proxy (e.g., NGINX, HAProxy):** Forwards client requests to backend servers. Handles SSL termination and simple load balancing.
-- **API Gateway (e.g., Kong, AWS API Gateway):** A specialized reverse proxy that adds API-specific capabilities like authentication validation (JWT), rate limiting, request/response transformation, and API analytics.
-- **Service Mesh (e.g., Istio, Linkerd):** Handles service-to-service communication *internal* to the cluster (East-West traffic), rather than external client-to-cluster communication (North-South traffic).
+#### 2. Tool Selection
+- **Traefik**: Best for Docker/Kubernetes environments due to its auto-discovery capabilities via labels/annotations.
+- **Caddy**: Best for simplicity and automatic HTTPS (Let's Encrypt provisioning).
+- **Kong API Gateway**: Best for enterprise environments requiring extensive plugins (OIDC, rate limiting, analytics).
+- **Cloudflare (Edge)**: Use Cloudflare rules for edge-level caching, WAF, and DDoS protection before traffic even reaches your origin proxy.
 
-#### 2. The Strangler Fig Pattern
-An API Gateway is essential for safely migrating legacy systems. The Gateway routes new API paths to the new microservices while sending all other traffic to the legacy monolith.
+#### 3. Configuration Best Practices
+- **Timeouts**: Always configure strict proxy read/write timeouts to prevent stalled connections from exhausting worker pools.
+- **Health Checks**: Configure active health checks so the proxy can automatically remove failing backend instances from the load balancer pool.
+- **X-Forwarded Headers**: Ensure your proxy correctly sets `X-Forwarded-For` and `X-Forwarded-Proto` so backend services know the client's real IP and protocol.
 
-```yaml
-# Example: Traefik Docker Compose routing configuration
-http:
-  routers:
-    # Route to the new microservice
-    new-service-router:
-      rule: "PathPrefix(`/api/v2/users`)"
-      service: "new-users-microservice"
-    # Fallback to the legacy monolith
-    legacy-monolith-router:
-      rule: "PathPrefix(`/`)"
-      service: "legacy-monolith"
-```
-
----
-
-### Best Practices
-
-1. **Offload Cross-Cutting Concerns:** Do not implement rate limiting, JWT validation, or CORS in every single microservice. Offload these concerns to the API Gateway.
-2. **Centralize SSL/TLS Termination:** Terminate HTTPS at the API Gateway or Edge network (Cloudflare) to reduce the computational overhead on internal backend services.
-3. **Implement Circuit Breakers at the Edge:** If a backend service is failing, the API Gateway should trip the circuit breaker and return a 503 instantly to prevent cascading failures across the system.
-4. **Use Infrastructure as Code (IaC):** Define your API Gateway routes and policies using declarative YAML or Terraform. Do not rely on manual click-ops in a UI dashboard.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Problem | Correct Approach |
-|---|---|---|
-| **Gateway Monolith** | Putting business logic inside the API Gateway makes it a brittle monolith | Keep the Gateway dumb. Only handle routing, auth, and traffic shaping. |
-| **No Timeout Configuration** | Hanging requests exhaust connection pools | Always configure strict read, write, and idle timeouts on the proxy. |
-| **Exposing internal endpoints** | Security vulnerabilities | Use explicit route mapping; deny all traffic by default except defined routes. |
-
----
-
-### Integration with Other Skills (MANDATORY)
-
-This skill works best when combined with:
-- `api-design-expert` — While `api-design-expert` covers the API contract, this skill covers how that API is delivered and protected over the network.
-- `authentication-identity-expert` — For integrating JWT validation and OAuth2 scopes at the API Gateway level.
-- `rate-limit-abuse-prevention` — The actual rate limiting policies and bot detection logic are often enforced by the Gateway described here.
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Backend & Infrastructure" domain.
-- `zero-to-prod-orchestrator` — Phase 3 (Architecture) and Phase 8 (Deployment).
-- `production-ready-hardener` — Phase 6 (Security Hardening) for WAF and rate limit checks.
+## Orchestration & Integration
+- Sits in front of `js-backend-expert`, `go-programming-expert`, and `rust-programming-expert` services.
+- Offloads work from `rate-limit-abuse-prevention` by handling rate limits at the L7 proxy layer.
+- Complements `ci-cd-devops-architect` when configuring Docker Compose or Kubernetes Ingress.
 
 ---
 
@@ -90,32 +51,31 @@ This skill should be referenced by the following orchestrators:
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan ahli untuk merancang lapisan tepi (edge layer) dari microservices dan sistem terdistribusi. Mencakup API Gateway, Reverse Proxy, Load Balancing, dan konsep Service Mesh (Kong, Traefik, AWS API Gateway, Envoy). Memberikan pola untuk *routing*, terminasi SSL, *rate limiting*, dan manajemen lalu lintas jaringan.
+Panduan komprehensif untuk routing, load balancing, dan manajemen trafik di lapisan terluar (perimeter) arsitektur microservices. Mencakup konfigurasi API Gateway (Kong), reverse proxy modern (Traefik, Caddy, NGINX), dan Service Mesh.
 
 ### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Mengekspos beberapa microservices di balik satu *endpoint* API terpadu.
-- Menyiapkan *reverse proxy* untuk terminasi SSL dan *load balancing*.
-- Mengimplementasikan *rate limiting* global atau WAF di tingkat jaringan.
-- Memigrasi sistem monolitik ke microservices dan membutuhkan pola *strangler fig* melalui konfigurasi *routing*.
+- Saat merancang backend microservices yang membutuhkan satu pintu masuk terpadu (BFF).
+- Saat mengonfigurasi terminasi SSL/TLS, rate limiting, atau IP allowlisting di tingkat infrastruktur.
+- Saat menerapkan rilis canary atau blue-green deployment melalui pembagian trafik (traffic splitting).
 
-### Panduan Singkat
+### Panduan Arsitektur Inti
 
-- **Pusatkan Keamanan dan CORS:** Jangan menulis logika validasi JWT atau pengaturan CORS di setiap *microservice*. Bebankan tugas *cross-cutting* ini kepada API Gateway.
-- **Jaga Gateway Tetap "Bodoh":** Jangan masukkan logika bisnis atau agregasi data kompleks ke dalam API Gateway. Gateway hanya boleh mengurus *routing*, autentikasi, dan kontrol lalu lintas.
-- **Atur Timeout:** Selalu konfigurasikan batas waktu (*timeout*) yang ketat di proxy. Jika *backend* mati, Gateway harus cepat memutuskan koneksi (mungkin dengan memicu *circuit breaker*) agar *thread pool* tidak habis.
-- **Terminasi SSL di Tepi:** Selesaikan enkripsi SSL/TLS di Gateway. Komunikasi internal antar-service di dalam jaringan privat (VPC) dapat menggunakan HTTP biasa untuk performa, atau mTLS ringan via Service Mesh.
+#### 1. Pola API Gateway
+Jangan biarkan klien (frontend/mobile) memanggil microservices secara langsung.
+- Gunakan Gateway untuk menangani masalah lintas-layanan (cross-cutting) seperti verifikasi JWT, CORS, dan rate limiting.
+- Gunakan routing berbasis *path* (jalur).
 
-### Integrasi dengan Skill Lain (WAJIB)
+#### 2. Pemilihan Tool
+- **Traefik**: Pilihan terbaik untuk lingkungan Docker/Kubernetes karena penemuan layanan otomatis (auto-discovery) melalui label.
+- **Caddy**: Pilihan terbaik untuk kemudahan setup dan HTTPS otomatis (Let's Encrypt).
+- **Kong**: Standar industri untuk kebutuhan Enterprise dengan sistem plugin yang kuat.
+- **Cloudflare**: Lini pertahanan pertama untuk WAF dan perlindungan DDoS di sisi Edge.
 
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `api-design-expert` — Untuk mendesain kontrak API yang akan diekspos melalui Gateway.
-- `authentication-identity-expert` — Untuk memvalidasi token JWT di level Gateway sebelum *request* mencapai *backend*.
-- `rate-limit-abuse-prevention` — Untuk menetapkan kebijakan anti-DDoS dan pembatasan akses di gerbang masuk.
+#### 3. Praktik Terbaik Konfigurasi
+- **Timeouts**: Selalu tetapkan batas waktu (timeout) koneksi proxy untuk mencegah server kehabisan resource karena koneksi yang menggantung.
+- **Health Checks**: Aktifkan health check agar proxy tidak mengirimkan request ke service yang sedang mati.
+- **Header X-Forwarded**: Pastikan proxy menyertakan header `X-Forwarded-For` agar backend mengetahui IP asli klien.
 
-### Direferensikan oleh Orchestrator (WAJIB)
-
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Tambahkan ke domain "Backend & Infrastructure".
-- `zero-to-prod-orchestrator` — Fase 3 (Arsitektur) dan Fase 8 (Deployment).
-- `production-ready-hardener` — Fase 6 (Security Hardening).
+## Integrasi Orkestrasi
+- Berada di depan service yang dibangun dengan `js-backend-expert`, `go-programming-expert`, atau `rust-programming-expert`.
+- Bekerja sama dengan `ci-cd-devops-architect` untuk konfigurasi Ingress Kubernetes atau Docker Compose.
