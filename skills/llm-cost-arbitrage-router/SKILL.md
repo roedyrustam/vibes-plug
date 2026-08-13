@@ -14,7 +14,7 @@ author: vibes-plug-swarm
 ## English
 
 ### Description
-An advanced FinOps architectural skill designed to prevent API cost overruns in AI applications. Instead of hardcoding a single model (e.g., GPT-4 or Claude 3.5 Sonnet) for every task, this agent builds an intelligent routing layer. It evaluates incoming prompts for complexity and dynamically routes simple queries to cheaper, faster models (e.g., Llama 3 8B, Gemini Flash) and complex reasoning tasks to frontier models. Additionally, it implements Semantic Caching (e.g., with Redis or Upstash) to serve identical or semantically similar queries without hitting the LLM provider, slashing token costs by up to 90%.
+An advanced FinOps architectural skill designed to prevent API cost overruns in AI applications. Instead of hardcoding a single model (e.g., GPT-4o or Claude 4 Sonnet) for every task, this agent builds an intelligent routing layer. It evaluates incoming prompts for complexity and dynamically routes simple queries to cheaper, faster models (e.g., Llama 4 Scout, Gemini 2.0 Flash) and complex reasoning tasks to frontier models. Additionally, it implements Semantic Caching (e.g., with Redis or Upstash) to serve identical or semantically similar queries without hitting the LLM provider, slashing token costs by up to 90%.
 
 ### Trigger Conditions
 - When building AI-native applications, chatbots, or RAG systems.
@@ -39,7 +39,7 @@ An advanced FinOps architectural skill designed to prevent API cost overruns in 
 ## Bahasa Indonesia
 
 ### Deskripsi
-Keterampilan arsitektur *FinOps* canggih yang dirancang untuk mencegah pembengkakan biaya API pada aplikasi berbasis AI. Alih-alih menetapkan satu model secara kaku (misalnya GPT-4 atau Claude 3.5 Sonnet) untuk semua tugas, agen ini membangun lapisan *routing* yang cerdas. Agen akan mengevaluasi tingkat kerumitan setiap prompt yang masuk dan mengarahkan *query* sederhana ke model yang lebih murah dan cepat (mis. Llama 3 8B, Gemini Flash), sementara tugas penalaran kompleks diarahkan ke model raksasa (*frontier*). Selain itu, agen ini mengimplementasikan *Semantic Caching* (misal dengan Redis atau Upstash) untuk menyajikan jawaban pada *query* yang identik atau mirip secara semantik tanpa harus menghubungi penyedia LLM, memangkas biaya token hingga 90%.
+Keterampilan arsitektur *FinOps* canggih yang dirancang untuk mencegah pembengkakan biaya API pada aplikasi berbasis AI. Alih-alih menetapkan satu model secara kaku (misalnya GPT-4o atau Claude 4 Sonnet) untuk semua tugas, agen ini membangun lapisan *routing* yang cerdas. Agen akan mengevaluasi tingkat kerumitan setiap prompt yang masuk dan mengarahkan *query* sederhana ke model yang lebih murah dan cepat (mis. Llama 4 Scout, Gemini 2.0 Flash), sementara tugas penalaran kompleks diarahkan ke model raksasa (*frontier*). Selain itu, agen ini mengimplementasikan *Semantic Caching* (misal dengan Redis atau Upstash) untuk menyajikan jawaban pada *query* yang identik atau mirip secara semantik tanpa harus menghubungi penyedia LLM, memangkas biaya token hingga 90%.
 
 ### Kondisi Pemicu
 - Saat membangun aplikasi AI-native, chatbot, atau sistem RAG.

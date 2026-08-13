@@ -1,10 +1,10 @@
 ---
 name: typescript-expert
-description: "Expert guide for TypeScript 5.5+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.5+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
+description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
 author: "Roedy Rustam"
 ---
 
-# TypeScript Expert (TypeScript 5.5+ Edition)
+# TypeScript Expert (TypeScript 5.8+ Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.5+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
+Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.8+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
 
 ### Trigger Conditions
 - Writing TypeScript with advanced generic constraints.
@@ -66,7 +66,7 @@ const b = identity({ x: 10 });        // type: { readonly x: 10 }
 
 ---
 
-### TypeScript 5.5 / 5.6 — New Features
+### TypeScript 5.5 - 5.8 — New Features
 
 #### Inferred Type Predicates (TS 5.5)
 ```typescript
@@ -300,7 +300,7 @@ config.port.toFixed(2); // Works! Literal type preserved.
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.5+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.
+Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.8+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.
 
 ### Kondisi Pemicu
 - Menulis TypeScript dengan generic constraints tingkat lanjut.

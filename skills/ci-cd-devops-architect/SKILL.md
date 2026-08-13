@@ -26,6 +26,36 @@ Expert-level skill for designing and maintaining CI/CD pipelines (GitHub Actions
 - **Zero-Trust Secrets**: Never commit secrets to the repository. Use Infisical, GitHub Secrets, or HashiCorp Vault (`zero-trust-secret-vault`).
 - **Zero-Downtime Deployments**: Utilize deployment strategies like rolling updates or blue-green deployments to ensure availability.
 
+### Implementation Checklist
+- [ ] Configure branch protection rules (require passing status checks before merge).
+- [ ] Set up multi-stage Docker builds to reduce image size and attack surface.
+- [ ] Implement caching for package managers (npm, pnpm, cargo, go mod) in CI workflows.
+- [ ] Scan container images for vulnerabilities before pushing to the registry.
+
+### Example: Multi-Stage Dockerfile (Node.js/Next.js)
+```dockerfile
+# Build stage
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+# Next.js standalone output
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
 ### Trigger Conditions
 Active whenever the user is creating GitHub Actions, configuring Dockerfiles, writing Terraform scripts, setting up Renovate Bot, or configuring deployment pipelines.
 
@@ -57,6 +87,36 @@ Skill tingkat ahli untuk merancang dan memelihara *pipeline* CI/CD (GitHub Actio
 - **Infrastructure as Code (IaC)**: Simpan semua konfigurasi infrastruktur (Terraform, manifes K8s) di kontrol versi.
 - **Manajemen Rahasia (Secrets)**: Gunakan *vault* yang aman seperti GitHub Secrets, Infisical, atau HashiCorp Vault (`zero-trust-secret-vault`).
 - **Deployment Tanpa Downtime**: Manfaatkan strategi *deployment* seperti pembaruan bergulir (*rolling updates*) atau *blue-green deployments*.
+
+### Checklist Implementasi
+- [ ] Konfigurasi aturan perlindungan cabang / branch protection (wajib lulus status check sebelum merge).
+- [ ] Siapkan multi-stage Docker builds untuk mengurangi ukuran image dan permukaan serangan.
+- [ ] Implementasikan caching untuk package managers (npm, pnpm, cargo, go mod) di workflow CI.
+- [ ] Pindai image kontainer untuk kerentanan sebelum push ke registry.
+
+### Contoh: Multi-Stage Dockerfile (Node.js/Next.js)
+```dockerfile
+# Tahap Build
+FROM node:22-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Tahap Produksi
+FROM node:22-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+# Next.js standalone output
+COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
+
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
 
 ### Integrasi dengan Skill Lain (WAJIB)
 

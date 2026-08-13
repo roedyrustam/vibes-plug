@@ -26,6 +26,12 @@ Transforms the AI from a stateless engine into a senior teammate with persistent
 2. **Contextual Retrieval**: On new sessions, it queries the memory graph against the current task intent.
 3. **Synthesis & Injection**: Injects the historical context directly into the current execution loop, stating explicitly: *"I remember we solved this architectural issue in Project X using technique Y. Applying the same proven pattern here."*
 
+### Implementation Checklist
+- [ ] Create or access a global context directory (`~/.gemini/knowledge` or similar) to store cross-project memories.
+- [ ] Structure historical context as markdown files with clear titles, problems, and solutions.
+- [ ] Before diving into complex bugs, search the global context directory for similar past issues.
+- [ ] When a new complex pattern is solved, explicitly write the solution back to the global context store for future use.
+
 ## Orchestration & Integration
 - Enhances `self-evolving-memory-graph` by elevating it from single-repo memory to cross-workspace episodic memory.
 - Feeds crucial background context into `brainstorming` and `zero-to-prod-orchestrator` during the ideation phase.
@@ -48,6 +54,12 @@ Mengubah AI dari mesin yang melupakan konteks (*stateless*) menjadi rekan setim 
 1. **Penangkapan Berkelanjutan**: Ketika masalah sulit berhasil dipecahkan, agen ini mengekstrak akar masalah, kode solusi, dan alasan logisnya, lalu menyimpannya di grafik pengetahuan global.
 2. **Pencarian Kontekstual**: Pada sesi baru, ia melakukan *query* ke grafik memori berdasarkan tujuan tugas saat ini.
 3. **Sintesis & Injeksi**: Menyuntikkan konteks historis langsung ke dalam loop eksekusi saat ini, dan secara eksplisit menyatakan: *"Saya ingat kita pernah menyelesaikan masalah arsitektural ini di Proyek X menggunakan teknik Y. Saya akan menerapkan pola terbukti yang sama di sini."*
+
+### Checklist Implementasi
+- [ ] Buat atau akses direktori konteks global (`~/.gemini/knowledge` atau serupa) untuk menyimpan memori lintas-proyek.
+- [ ] Strukturkan konteks historis sebagai file markdown dengan judul, masalah, dan solusi yang jelas.
+- [ ] Sebelum mendalami bug kompleks, cari di direktori konteks global apakah ada masalah serupa di masa lalu.
+- [ ] Saat pola kompleks baru berhasil diselesaikan, tulis solusi tersebut kembali ke penyimpanan konteks global secara eksplisit untuk penggunaan di masa depan.
 
 ## Integrasi Orkestrasi
 - Memperkuat `self-evolving-memory-graph` dengan meningkatkannya dari sekadar memori repositori tunggal menjadi memori episodik lintas-workspace.

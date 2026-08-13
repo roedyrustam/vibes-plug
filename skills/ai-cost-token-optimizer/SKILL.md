@@ -31,6 +31,12 @@ export function selectOptimalModel(promptLength: number, taskType: 'classificati
 }
 ```
 
+### Implementation Checklist
+- [ ] Enable Context Caching for static system prompts or documents larger than 32k tokens.
+- [ ] Implement a router heuristic: use `gemini-3.5-flash` for simple parsing and `gemini-3.1-pro` for deep reasoning.
+- [ ] Set up semantic caching (e.g., Redis + Vector Search) for frequently asked identical queries.
+- [ ] Monitor token usage and set hard budgeting limits per user/tenant to prevent abuse.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -43,6 +49,12 @@ Panduan tingkat produksi untuk FinOps dalam rekayasa AI — prompt caching (Anth
 - **Prompt & Context Caching**: Menyimpan prompt sistem dan dokumen konteks panjang di cache untuk menghemat hingga 90% biaya token.
 - **Model Router**: Routing otomatis berdasarkan heuristik antara model ultra-cepat Flash dan model penalaran Pro.
 - **Semantic Caching**: Memanfaatkan embedding vector query untuk menyajikan respon cache pada pertanyaan pengguna yang serupa secara semantik.
+
+### Checklist Implementasi
+- [ ] Aktifkan Context Caching untuk prompt sistem statis atau dokumen yang lebih besar dari 32k token.
+- [ ] Terapkan heuristik router: gunakan `gemini-3.5-flash` untuk parsing sederhana dan `gemini-3.1-pro` untuk penalaran mendalam.
+- [ ] Siapkan semantic caching (misal: Redis + Vector Search) untuk pertanyaan identik yang sering diajukan.
+- [ ] Pantau penggunaan token dan tetapkan batas anggaran yang ketat per pengguna/tenant untuk mencegah penyalahgunaan.
 
 
 ## Orchestration & Integration
