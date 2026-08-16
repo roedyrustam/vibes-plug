@@ -1,7 +1,7 @@
 ---
 name: api-design-expert
 description: "Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design / Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # API Design Expert
@@ -281,6 +281,9 @@ components:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang, mendokumentasikan, dan mengembangkan API berkualitas produksi. Mencakup pemodelan resource **REST** dan semantik HTTP, desain skema **GraphQL**, **gRPC** dengan protobuf, dan **tRPC** untuk API end-to-end type-safe di TypeScript. Termasuk dokumentasi OpenAPI 3.1, strategi versioning API, rate limiting, idempotency, dan alur kerja contract-first.

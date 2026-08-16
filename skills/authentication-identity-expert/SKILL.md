@@ -1,7 +1,7 @@
 ---
 name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Authentication & Identity Expert (2026 Edition)
@@ -230,6 +230,9 @@ await redis.setex(`webauthn:${userId}`, 60, JSON.stringify(options.challenge));
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengimplementasikan autentikasi, otorisasi, dan manajemen identitas yang aman pada aplikasi web dan mobile modern. Mencakup **Clerk**, **Supabase Auth**, **Auth.js v5**, **Better Auth**, pola JWT, OAuth 2.1, alur PKCE, RBAC/ABAC, passkey (WebAuthn), dan implementasi MFA untuk stack React 19 / Next.js 15.

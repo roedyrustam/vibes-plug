@@ -1,7 +1,7 @@
 ---
 name: tanstack-query-expert
 description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infinite scrolling, optimistic mutations, SSR/React Server Components hydration, and advanced cache invalidation / Pakar manajemen state asinkron menggunakan TanStack Query (React Query) v5 dan Next.js App Router (SSR)."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # TanStack Query Expert (v5 + TanStack Router/Start Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade TanStack Query (v5) mastery for modern React (v18/19) and Next.js (App Router) applications. Covers declarative data fetching, advanced cache invalidation, optimistic UI updates, Suspense boundaries, SSR hydration, and the new **TanStack Router** + **TanStack Start** ecosystem for full-stack type-safe applications.
@@ -150,6 +153,9 @@ export default async function UsersPage() {
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Penguasaan TanStack Query (v5) tingkat produksi untuk aplikasi React modern (v18/19) dan Next.js (App Router). Mencakup data fetching deklaratif, invalidasi cache lanjutan, optimistic UI, Suspense boundaries, hidrasi SSR, serta ekosistem **TanStack Router** + **TanStack Start** untuk aplikasi full-stack yang type-safe.

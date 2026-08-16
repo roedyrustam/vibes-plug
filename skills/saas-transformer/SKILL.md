@@ -1,7 +1,7 @@
 ---
 name: saas-transformer
 description: "Transforms regular applications into complete SaaS platforms with multi-tenancy, billing, team management, and feature gating — orchestrating all relevant vibes-plug skills / Mentransformasi aplikasi biasa menjadi platform SaaS lengkap dengan multi-tenancy, billing, manajemen tim, dan feature gating — mengorkestrasi semua skill vibes-plug yang relevan."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # SaaS Transformer
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 The **SaaS Transformer** is a master orchestrator skill that guides the complete transformation of an existing regular application into a fully-featured SaaS platform. Unlike `saas-mvp-launcher` (which builds from scratch) or `saas-multi-tenant` (which only handles data isolation), this skill takes an **already working application** and systematically adds every layer needed to make it a commercial SaaS product.
@@ -343,6 +346,9 @@ Setiap fase dinilai 0-100 berdasarkan penyelesaian checklist:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 **SaaS Transformer** adalah skill orkestrator utama yang memandu transformasi lengkap aplikasi biasa menjadi platform SaaS berfitur lengkap. Berbeda dengan `saas-mvp-launcher` (yang membangun dari nol) atau `saas-multi-tenant` (yang hanya menangani isolasi data), skill ini mengambil **aplikasi yang sudah berjalan** dan secara sistematis menambahkan setiap lapisan yang diperlukan untuk menjadikannya produk SaaS komersial.

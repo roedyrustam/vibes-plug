@@ -1,7 +1,7 @@
 ---
 name: background-jobs-queue-expert
 description: "Dedicated deep-dive for BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, job deduplication, idempotency, dead letter queues, and job priority / Panduan mendalam untuk BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, deduplikasi job, idempotency, dead letter queue, dan prioritas job."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Background Jobs & Queue Expert
@@ -34,6 +34,9 @@ A deep-dive expert guide for implementing advanced background job queues using B
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli yang mendalam untuk mengimplementasikan antrean pekerjaan latar belakang (background job queues) menggunakan BullMQ v5, Trigger.dev v3, dan Inngest. Skill ini murni berfokus pada mekanika pemrosesan job yang tangguh: *delayed jobs*, deduplikasi job, batas konkurensi per-tenant, *idempotency* yang ketat, *dead letter queues* (DLQ), dan prioritas job.

@@ -1,7 +1,7 @@
 ---
 name: vector-db-rag-expert
 description: "Expert guide for high-performance Vector Databases, RAG architectures, pgvector HNSW indexing, hybrid search (Dense + BM25), and semantic chunking / Panduan ahli Vector DB, arsitektur RAG, pgvector HNSW, dan hybrid search."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Vector DB & Deep RAG Expert

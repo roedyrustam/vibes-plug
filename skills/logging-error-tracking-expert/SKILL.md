@@ -1,7 +1,7 @@
 ---
 name: logging-error-tracking-expert
 description: "Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management / Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Logging & Error Tracking Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for implementing structured logging, error tracking, and application monitoring. Covers **Pino** (high-performance JSON logging), **Sentry** SDK integration (React, Node.js, Next.js), **source map upload** for production errors, **request ID correlation** across microservices, **log aggregation** (Axiom, Datadog, Logflare), **alert rules**, **GDPR-compliant log redaction** (PII masking), and **OpenTelemetry integration**.
@@ -316,6 +319,9 @@ const LOG_RETENTION = {
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengimplementasikan logging terstruktur, pelacakan error, dan pemantauan aplikasi. Mencakup **Pino** (logging JSON berkinerja tinggi), integrasi SDK **Sentry** (React, Node.js, Next.js), **upload source map** untuk error produksi, **korelasi request ID** lintas microservice, **agregasi log** (Axiom, Datadog, Logflare), **aturan alerting**, **redaksi log sesuai GDPR** (masking PII), dan integrasi **OpenTelemetry**.

@@ -1,7 +1,7 @@
 ---
 name: web-3d-graphics-expert
 description: "Expert guide for WebGL and 3D graphics in the browser using Three.js, Babylon.js, React Three Fiber (R3F), and TresJS. Covers scene optimization, shaders, lighting, 3D model loading (GLTF/GLB), and performance tuning."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Web 3D Graphics Expert (Three.js & Babylon.js)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-level guidance for developing high-performance 3D graphics in the browser. Covers the raw APIs of **Three.js** and **Babylon.js**, as well as framework-specific wrappers like **React Three Fiber (R3F)** for React and **TresJS** for Vue. Focuses on rendering performance, efficient memory management, and realistic lighting/material setups.
@@ -112,6 +115,9 @@ This skill should be referenced by the following orchestrators:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan produksi untuk pengembangan grafis 3D performa tinggi di browser. Mencakup **Three.js** dan **Babylon.js**, serta integrasi framework seperti **React Three Fiber (R3F)** untuk React dan **TresJS** untuk Vue. Fokus pada performa render, manajemen memori, dan pencahayaan realistis.

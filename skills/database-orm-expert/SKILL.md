@@ -1,7 +1,7 @@
 ---
 name: database-orm-expert
 description: "Expert guide for database schema design, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrations, query optimization, and type-safe SQL patterns in TypeScript / Panduan ahli untuk desain skema database, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrasi, optimasi query, dan pola SQL type-safe di TypeScript."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Database ORM Expert (Prisma 6 + Drizzle ORM Edition)
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Description
-Expert-level database development covering schema design, ORM selection, migrations, query optimization, and type-safe SQL patterns. Focuses on **Prisma 6** and **Drizzle ORM** as primary modern ORMs, with coverage of TypeORM, raw SQL via `postgres.js`, and connection pooling strategies for production workloads.
+Design schemas, select ORMs, execute migrations, optimize queries, and implement type-safe SQL patterns. Prioritize **Prisma 6** and **Drizzle ORM**. Implement connection pooling for production workloads.
 
 ### Trigger Conditions
 - Designing or migrating a database schema.
@@ -24,6 +24,11 @@ Expert-level database development covering schema design, ORM selection, migrati
 - Setting up database migrations in CI/CD pipelines.
 - Implementing Row Level Security (RLS) patterns.
 - Working with PostgreSQL, MySQL, SQLite, or PlanetScale.
+
+## Orchestration & Integration
+- `js-backend-expert`: For Node/Bun/Deno backend implementations integrating these ORMs.
+- `edge-serverless-db-expert`: For edge/serverless connections (e.g., Supabase, Neon, Turso).
+- `database-migration-versioning-expert`: For advanced migration strategies and CI/CD pipelines.
 
 ---
 
@@ -259,7 +264,7 @@ npx drizzle-kit studio     # open Drizzle Studio GUI
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan pengembangan database level ahli mencakup desain skema, pemilihan ORM, migrasi, optimasi query, dan pola SQL type-safe. Berfokus pada **Prisma 6** dan **Drizzle ORM** sebagai ORM modern utama, dengan cakupan TypeORM, SQL mentah via `postgres.js`, dan strategi connection pooling untuk beban kerja produksi.
+Rancang skema, pilih ORM, eksekusi migrasi, optimalkan query, dan implementasikan pola SQL type-safe. Prioritaskan **Prisma 6** dan **Drizzle ORM**. Implementasikan connection pooling untuk beban kerja produksi.
 
 ### Kondisi Pemicu
 - Merancang atau memigrasikan skema database.
@@ -269,6 +274,11 @@ Panduan pengembangan database level ahli mencakup desain skema, pemilihan ORM, m
 - Menyiapkan migrasi database dalam pipeline CI/CD.
 - Mengimplementasikan pola Row Level Security (RLS).
 - Bekerja dengan PostgreSQL, MySQL, SQLite, atau PlanetScale.
+
+## Integrasi Orkestrasi
+- `js-backend-expert`: Untuk implementasi backend Node/Bun/Deno yang menggunakan ORM ini.
+- `edge-serverless-db-expert`: Untuk koneksi edge/serverless (mis. Supabase, Neon, Turso).
+- `database-migration-versioning-expert`: Untuk strategi migrasi lanjutan dan pipeline CI/CD.
 
 ### Panduan Pemilihan ORM
 

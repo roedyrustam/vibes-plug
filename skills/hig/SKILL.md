@@ -1,7 +1,7 @@
 ---
 name: hig
 description: "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces / Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX designs. Covers the core triad (Hierarchy, Harmony, Consistency), Apple's HIG 2025 updates, Google Material Design 3, spatial design for Apple Vision Pro, and modern accessibility requirements.
@@ -135,6 +138,9 @@ When reviewing a design, check:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mobile. Mencakup triad inti (Hierarchy, Harmony, Consistency), pembaruan Apple HIG 2025, Google Material Design 3, desain spasial untuk Apple Vision Pro, dan persyaratan aksesibilitas modern.

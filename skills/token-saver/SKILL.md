@@ -1,7 +1,7 @@
 ---
 name: token-saver
 description: "Skill to implement token saving scheme, concise, and focused on essential changes / Skill untuk menerapkan skema penghematan token, ringkas, dan fokus pada perubahan esensial tanpa basa-basi."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Token Saver Protocol (2026 Edition)

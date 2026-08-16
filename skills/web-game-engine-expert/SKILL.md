@@ -1,7 +1,7 @@
 ---
 name: web-game-engine-expert
 description: "Expert guide for web-based game development. Covers Entity Component System (ECS) architectures, physics engines (Rapier, Havok, Cannon-es), collision detection, and game loop optimization."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Web Game Engine Expert (Physics & ECS)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guidance for building highly interactive 3D simulations and web games. Focuses on integrating modern WebAssembly-based **Physics Engines** (Havok, Rapier, Cannon-es) and structuring application state using the **Entity Component System (ECS)** pattern (e.g., bitECS, Miniplex).
@@ -82,6 +85,9 @@ This skill works best when combined with:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan pengembangan *game* dan simulasi 3D di web. Mencakup integrasi *Physics Engine* berbasis WebAssembly (Rapier, Havok, Cannon) dan arsitektur *Entity Component System* (ECS).

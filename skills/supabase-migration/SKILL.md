@@ -1,7 +1,7 @@
 ---
 name: supabase-migration
 description: "A skill to create or apply a Supabase database migration / Kemampuan untuk membuat atau menerapkan migrasi database Supabase."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Supabase Migration Skill

@@ -1,7 +1,7 @@
 ---
 name: auto-doc-updater
 description: "Automatically documents every feature change or bug fix successfully built into CHANGELOG.md and BLUEPRINT.md / Otomatis mendokumentasikan setiap perubahan fitur atau perbaikan bug yang berhasil di-build ke CHANGELOG.md dan BLUEPRINT.md."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Auto Documentation Updater (2026 — ADR Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Automatically maintains project documentation after every successful build or feature implementation. Updates `CHANGELOG.md`, `BLUEPRINT.md`, and introduces **Architecture Decision Records (ADRs)** — immutable records of key architectural decisions made throughout the project lifecycle.
@@ -168,6 +171,9 @@ After every successful feature implementation:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Secara otomatis memelihara dokumentasi proyek setelah setiap build atau implementasi fitur yang berhasil. Memperbarui `CHANGELOG.md`, `BLUEPRINT.md`, dan memperkenalkan **Architecture Decision Records (ADR)** — catatan permanen dari keputusan arsitektur kunci yang dibuat sepanjang siklus hidup proyek.

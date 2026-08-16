@@ -1,7 +1,7 @@
 ---
 name: error-resilience-expert
 description: "Expert guide for error handling patterns, resilience engineering, retry strategies, circuit breakers, and graceful degradation across React, Next.js, and Node.js / Panduan ahli pola penanganan error, rekayasa ketahanan, strategi retry, circuit breaker, dan degradasi anggun di React, Next.js, dan Node.js."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Error & Resilience Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for building resilient applications that fail gracefully, recover automatically, and provide actionable error feedback to users and developers. Covers **React Error Boundaries**, **Next.js error handling** (`error.tsx`, `global-error.tsx`, `not-found.tsx`), **API error response standards** (RFC 9457 Problem Details), **retry patterns** with exponential backoff, **circuit breaker patterns**, **dead letter queues**, and **Sentry/BugSnag** integration.
@@ -434,6 +437,9 @@ worker.on('failed', async (job, err) => {
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun aplikasi yang tahan banting — gagal secara anggun, pulih otomatis, dan memberikan umpan balik error yang dapat ditindaklanjuti kepada pengguna maupun developer. Mencakup **React Error Boundaries**, **penanganan error Next.js** (`error.tsx`, `global-error.tsx`, `not-found.tsx`), **standar respons error API** (RFC 9457 Problem Details), **pola retry** dengan exponential backoff, **pola circuit breaker**, **dead letter queues**, dan integrasi **Sentry/BugSnag**.

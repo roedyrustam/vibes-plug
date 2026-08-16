@@ -1,7 +1,7 @@
 ---
 name: bootstrap-to-modern
 description: "Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js / Skill ahli untuk melakukan refaktor dan migrasi aplikasi Bootstrap CSS lama ke stack modern menggunakan Tailwind CSS v4 dan Alpine.js."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Bootstrap to Modern (Tailwind + Alpine.js) / Refaktor Bootstrap ke Modern
@@ -51,6 +51,9 @@ Active whenever the user asks to migrate, refactor, or update a Bootstrap projec
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini mengubah aplikasi web lama yang di-style dengan Bootstrap (baik yang bergantung pada jQuery maupun murni CSS) menjadi arsitektur modern berbasis utility menggunakan **Tailwind CSS v4** untuk styling dan **Alpine.js** untuk behavior reaktif yang ringan.

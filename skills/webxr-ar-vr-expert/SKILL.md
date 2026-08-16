@@ -1,7 +1,7 @@
 ---
 name: webxr-ar-vr-expert
 description: "Expert guide for WebXR (Web-based Virtual and Augmented Reality) development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # WebXR AR/VR Expert
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guidance for building immersive **Augmented Reality (AR)** and **Virtual Reality (VR)** experiences in the browser using the **WebXR Device API**. Focuses on implementation via **Babylon.js** (which has industry-leading WebXR support) and **Three.js** / React Three Fiber.
@@ -101,6 +104,9 @@ This skill works best when combined with:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk pengembangan *Virtual Reality* (VR) dan *Augmented Reality* (AR) di web menggunakan **WebXR API**. Difokuskan pada implementasi menggunakan **Babylon.js** dan **Three.js** untuk ekosistem *Spatial Computing*.

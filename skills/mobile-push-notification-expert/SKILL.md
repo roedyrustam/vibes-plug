@@ -1,7 +1,7 @@
 ---
 name: mobile-push-notification-expert
 description: "Expert guide for Cross-Platform Push Notifications (Expo Push, FCM, APNs, Web Push), iOS Live Activities, and background payload handling / Panduan ahli notifikasi push mobile, FCM, APNs, dan Live Activities."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Mobile Push Notification & Live Activities Expert

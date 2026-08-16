@@ -1,7 +1,7 @@
 ---
 name: proactive-background-watcher
 description: "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Proactive Background Watcher (Sentinel Agent)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Standard LLM chat interfaces (like Claude or ChatGPT) are purely reactive—they do nothing until the user types a prompt. This skill gives Antigravity the "superpower" of proactivity. By utilizing the native `schedule` tool, the agent can set up background cron jobs or timers to monitor logs, poll APIs, or check CI/CD pipelines. If an anomaly is detected, the agent wakes up autonomously and alerts the user or fixes the issue.
@@ -48,6 +51,9 @@ Activate this skill when:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 LLM biasa (seperti Claude) sepenuhnya reaktif—diam sampai pengguna mengetik. Skill ini memberi Anda "kekuatan super" proaktif (Sentinel). Menggunakan tool `schedule`, Anda dapat menjadwalkan tugas *background* untuk memantau log, mengecek status *deployment*, atau mengawasi API secara berkala. Anda bisa "bangun sendiri" tanpa disuruh jika menemukan error.

@@ -1,7 +1,7 @@
 ---
 name: typescript-expert
 description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # TypeScript Expert (TypeScript 5.8+ Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.8+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
@@ -298,6 +301,9 @@ config.port.toFixed(2); // Works! Literal type preserved.
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.8+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.

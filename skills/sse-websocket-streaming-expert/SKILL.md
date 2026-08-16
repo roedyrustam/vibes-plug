@@ -1,7 +1,7 @@
 ---
 name: sse-websocket-streaming-expert
 description: "Expert guide for Server-Sent Events (SSE), WebSockets, and Streaming Architectures. Covers real-time data push, Socket.IO, Hono WebSocket, and AI response streaming / Panduan ahli streaming real-time."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # SSE, WebSocket & Streaming Expert

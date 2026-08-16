@@ -1,7 +1,7 @@
 ---
 name: skill-baru
 description: "Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support / Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # [Skill Name] — vibes-plug Skill Template
@@ -21,6 +21,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 [One paragraph describing the purpose and scope of this skill. Be specific about what problems it solves and what technology versions it targets.]
@@ -116,6 +119,9 @@ This skill should be referenced by the following orchestrators:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 [Satu paragraf menjelaskan tujuan dan ruang lingkup skill ini. Spesifik tentang masalah apa yang dipecahkan dan versi teknologi apa yang ditargetkan.]

@@ -1,7 +1,7 @@
 ---
 name: saas-mvp-launcher
 description: "Structured roadmap and design to plan and launch a SaaS MVP from scratch / Panduan terstruktur untuk merencanakan dan meluncurkan SaaS MVP dari nol."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # SaaS MVP Launcher
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Overview
 This skill guides you through building a production-ready SaaS MVP in the shortest time possible. It covers everything from idea validation and tech stack selection to authentication, payments, database design, deployment, and launch — using modern, battle-tested tools.
@@ -74,6 +77,9 @@ Recommended modern SaaS stack (2026):
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Ringkasan
 Skill ini memandu Anda membangun SaaS MVP tingkat produksi dalam waktu sesingkat mungkin. Panduan ini mencakup validasi ide, pemilihan stack teknologi, autentikasi, pembayaran, desain database, deployment, hingga checklist peluncuran menggunakan teknologi modern yang teruji.

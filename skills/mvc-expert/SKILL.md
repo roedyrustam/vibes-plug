@@ -1,7 +1,7 @@
 ---
 name: mvc-expert
 description: "Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects / Pedoman ahli untuk merefaktor codebase PHP lama menjadi proyek terstruktur MVC yang bersih, modern, dan skalabel."
-author: "Antigravity"
+author: "vibes-plug-swarm"
 ---
 
 # PHP MVC Expert & Modernization
@@ -12,6 +12,9 @@ author: "Antigravity"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill provides the agent with structured protocols, coding patterns, and architectural guidelines to audit, refactor, and modernize legacy/obsolete PHP codebases (plain spaghetti PHP) into a clean, modern, secure, and scalable Model-View-Controller (MVC) structure adhering to PSR standards and modern PHP (v8.2+) capabilities.
@@ -123,6 +126,9 @@ Active whenever the user requests to:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini memberikan protokol terstruktur, pola penulisan kode, dan panduan arsitektur bagi agen untuk melakukan audit, refaktorisasi, dan modernisasi terhadap codebase PHP lama yang usang (Plain Spaghetti PHP) menjadi struktur Model-View-Controller (MVC) yang bersih, modern, aman, dan skalabel yang mematuhi standar PSR serta kemampuan PHP modern (v8.2+).

@@ -1,7 +1,7 @@
 ---
 name: glsl-shader-expert
 description: "Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers shader materials, post-processing, noise, and performance optimization."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # GLSL Shader Expert (WebGL 3D Graphics)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guidance for writing and integrating custom GLSL (OpenGL Shading Language) shaders into web applications using **Three.js** (`ShaderMaterial` / `RawShaderMaterial`) or **Babylon.js** (`ShaderMaterial`). Focuses on creating advanced visual effects, custom lighting models, procedural textures (noise), and post-processing passes.
@@ -85,6 +88,9 @@ This skill works best when combined with:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk menulis dan mengintegrasikan shader GLSL khusus ke dalam aplikasi web menggunakan **Three.js** atau **Babylon.js**. Mencakup pembuatan *Vertex Shader*, *Fragment Shader*, efek visual prosedural, dan optimasi GPU.

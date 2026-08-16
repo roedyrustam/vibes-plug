@@ -1,7 +1,7 @@
 ---
 name: doku-mcp-server
 description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for payment links, Virtual Accounts, QRIS, transaction status checks, and client configuration (Claude Desktop, Cursor, AGY) / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # DOKU MCP Server / Server Model Context Protocol DOKU
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert guide for integrating and building Model Context Protocol (MCP) servers with DOKU Payment Gateway based on [DOKU Developers Documentation](https://developers.doku.com/). Enables AI Agents (Claude Desktop, Antigravity, Cursor, n8n, LangChain) to execute payment tasks autonomously using Agentic Commerce capabilities (generating payment links, issuing Virtual Account numbers, generating QRIS codes, querying transaction statuses).
@@ -205,6 +208,9 @@ main().catch(console.error);
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan dan membuat server Model Context Protocol (MCP) dengan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Documentation](https://developers.doku.com/). Memungkinkan Agen AI (Claude Desktop, Antigravity, Cursor, n8n, LangChain) menjalankan transaksi pembayaran secara otonom dalam alur Agentic Commerce (membuat link pembayaran, membuat nomor Virtual Account, membuat kode QRIS, dan memeriksa status transaksi).

@@ -1,7 +1,7 @@
 ---
 name: python-programming-expert
 description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Python Programming Expert (3.14 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert-level Python development guidance for **Python 3.13 / 3.14+** covering JIT compilation, free-threaded (no-GIL) mode, modern type safety patterns, async architecture, and the full production stack: **FastAPI 0.115+**, **Pydantic v2**, **SQLAlchemy 2.x / SQLModel**, **uv**, **Ruff**, and **pytest-asyncio**.
@@ -360,6 +363,9 @@ async def test_create_user(client: AsyncClient):
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan pengembangan Python tingkat ahli untuk **Python 3.13/3.14+** mencakup JIT compilation, mode free-threaded (tanpa GIL), pola keamanan tipe modern, arsitektur async, dan stack produksi lengkap: **FastAPI 0.115+**, **Pydantic v2**, **SQLAlchemy 2.x**, **uv**, **Ruff**, dan **pytest-asyncio**.

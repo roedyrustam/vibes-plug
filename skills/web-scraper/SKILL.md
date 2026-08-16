@@ -1,10 +1,10 @@
 ---
 name: web-scraper
-description: "Smart web data extraction capability with multi-strategy scraping (Crawl4AI, Playwright, BeautifulSoup), LLM extraction, pagination support, and structured export / Kemampuan ekstraksi data web cerdas dengan strategi scraping modern (Crawl4AI, Playwright, BeautifulSoup), ekstraksi LLM, paginasi, dan ekspor terstruktur."
-author: "Roedy Rustam"
+description: "Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export / Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur."
+author: vibes-plug-swarm
 ---
 
-# Web Scraper Expert (2026 Edition)
+# Agentic Web Scraper Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -13,152 +13,103 @@ author: "Roedy Rustam"
 <a name="english"></a>
 ## English
 
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `browser-automation-expert`, `ai-llm-integration-expert`, `brainstorming`, and `zero-to-prod-orchestrator` to ensure cohesive agentic execution.
+
 ### Description
-Smart web data extraction using modern scraping strategies — **Firecrawl** (LLM-ready structured extraction), **Jina Reader API** (clean markdown from any URL), **Crawl4AI** (async Python scraping), **Playwright** (browser automation), and **BeautifulSoup** (lightweight HTML parsing). Supports pagination, dynamic content, structured export (JSON, CSV, Markdown), and AI-powered data extraction.
+Advanced Agentic Web Scraping utilizing modern multi-strategy data extraction. Leverages **Crawl4AI v4** and **Firecrawl** to convert raw DOMs into LLM-friendly Markdown. Implements Agentic Extraction loops where the LLM guides the scraper dynamically based on page state. Incorporates strategies for bypassing anti-bot measures (Cloudflare Turnstile, Datadome) and navigating dynamic Shadow DOMs.
 
 ### Trigger Conditions
 - Extracting structured data from websites for analysis, training data, or content pipelines.
-- Scraping dynamic JavaScript-rendered pages (SPAs, React apps).
+- Scraping dynamic JavaScript-rendered pages and complex SPAs.
 - Converting web pages to clean Markdown for LLM context or RAG pipelines.
-- Analyzing or cloning website UI design, templates, and components directly from a URL (Handoff to `website-design-cloner`).
-- Building an automated data pipeline that scrapes, transforms, and stores data.
-- Extracting data at scale with rate limiting and proxy rotation.
+- Dealing with anti-bot protections or complex Shadow DOM architectures during scraping.
+- Implementing an automated agentic data extraction loop.
 
-### Strategy Selection Guide
+### Extracting DOM into LLM-Friendly Markdown
+Use **Crawl4AI v4** for high-performance async extraction and **Firecrawl** for seamless LLM-ready conversion.
 
-| Strategy | Tool | Best For | JS Required |
-|---|---|---|---|
-| **Managed API** | Firecrawl / Jina Reader | LLM-ready content, clean Markdown | Handled |
-| **Async Python** | Crawl4AI | High-volume, AI-powered extraction | Optional |
-| **Browser Automation** | Playwright | Complex SPAs, auth-required pages | ✅ |
-| **Lightweight HTML** | BeautifulSoup + httpx | Static HTML, fast extraction | ❌ |
-
-### Firecrawl — LLM-Ready Web Scraping (2026 Standard)
-Firecrawl converts any URL to clean, LLM-ready Markdown with a single API call:
-```python
-from firecrawl import FirecrawlApp
-
-app = FirecrawlApp(api_key="fc-xxxx")
-
-# Single page — clean Markdown
-result = app.scrape_url(
-    "https://example.com/article",
-    formats=["markdown", "html"],
-    only_main_content=True,  # removes nav, footer, ads
-)
-print(result.markdown)
-
-# Full site crawl
-crawl_result = app.crawl_url(
-    "https://docs.example.com",
-    limit=50,
-    scrape_options={"formats": ["markdown"]},
-)
-
-# LLM-powered structured extraction with JSON schema
-from pydantic import BaseModel
-
-class ProductInfo(BaseModel):
-    name: str
-    price: float
-    description: str
-    in_stock: bool
-
-result = app.scrape_url(
-    "https://shop.example.com/product/123",
-    formats=["extract"],
-    extract={"schema": ProductInfo.model_json_schema()},
-)
-product = ProductInfo(**result.extract)
-```
-
-### Jina Reader API — Clean Markdown from Any URL
-```python
-import httpx
-
-async def url_to_markdown(url: str) -> str:
-    """Convert any URL to clean Markdown via Jina Reader API."""
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"https://r.jina.ai/{url}",
-            headers={
-                "Accept": "application/json",
-                "X-Return-Format": "markdown",
-                "Authorization": f"Bearer {JINA_API_KEY}",
-            }
-        )
-        data = response.json()
-        return data["data"]["content"]
-
-# Search and get results as Markdown
-async def search_to_markdown(query: str) -> str:
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"https://s.jina.ai/{query}",
-            headers={"Accept": "application/json"}
-        )
-        return response.json()["data"]
-```
-
-### Crawl4AI — Async Python Web Scraper
+**Crawl4AI v4 (Async Python):**
 ```python
 import asyncio
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 
-async def scrape_with_ai_extraction():
-    browser_config = BrowserConfig(headless=True, verbose=False)
+async def extract_markdown(url: str):
+    config = BrowserConfig(headless=True, bypass_csp=True)
+    run_config = CrawlerRunConfig(
+        cache_mode=CacheMode.ENABLED,
+        remove_overlay_elements=True,
+        word_count_threshold=50
+    )
     
-    async with AsyncWebCrawler(config=browser_config) as crawler:
-        result = await crawler.arun(
-            url="https://news.example.com",
-            config=CrawlerRunConfig(
-                cache_mode=CacheMode.ENABLED,       # cache results
-                word_count_threshold=50,            # skip short content
-                exclude_external_links=True,
-                remove_overlay_elements=True,       # remove popups/modals
-            ),
-        )
-        
-        print(result.markdown.fit_markdown)  # cleaned, AI-optimized Markdown
-        print(result.links)                  # extracted links
+    async with AsyncWebCrawler(config=config) as crawler:
+        result = await crawler.arun(url=url, config=run_config)
+        # Returns clean, AI-optimized markdown ready for LLM consumption
+        return result.markdown.fit_markdown
 ```
 
-### Playwright — Complex Dynamic Pages
+**Firecrawl (Managed API):**
 ```python
-from playwright.async_api import async_playwright
-import asyncio
+from firecrawl import FirecrawlApp
+from pydantic import BaseModel
 
-async def scrape_spa(url: str) -> dict:
-    async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True)
-        page = await browser.new_page()
+app = FirecrawlApp(api_key="fc-xxxx")
+
+class ExtractionSchema(BaseModel):
+    title: str
+    content: str
+    key_metrics: list[str]
+
+# Single API call to extract structured data based on JSON schema
+result = app.scrape_url(
+    "https://example.com/data",
+    formats=["extract", "markdown"],
+    extract={"schema": ExtractionSchema.model_json_schema()}
+)
+print(result.markdown) # Clean markdown
+print(result.extract)  # Structured JSON
+```
+
+### Anti-Bot Bypass & Shadow DOMs
+Scraping modern web apps requires bypassing anti-bot measures like Cloudflare Turnstile and Datadome, as well as accessing deeply nested elements.
+
+1. **Anti-Bot Bypass (Cloudflare Turnstile, Datadome):**
+   - **Residential Proxies:** Rotate high-quality residential IPs to avoid datacenter IP bans.
+   - **Browser Fingerprinting:** Use tools like `playwright-stealth` or specialized stealth browsers (e.g., Undetected ChromeDriver, Curl-Impersonate) to mask automated fingerprints (WebGL, Canvas, User-Agent).
+   - **Human-like Interaction:** Introduce random delays, simulate realistic mouse movements, and handle CAPTCHAs via third-party solving services only when necessary.
+2. **Dynamic Shadow DOMs:**
+   - Use CSS piercing selectors or JavaScript execution to penetrate the Shadow Root.
+   - Example (Playwright): `await page.locator('my-web-component >> css=.internal-element').text_content()`
+   - Recursively traverse the DOM tree injecting scripts to extract content from encapsulated components.
+
+### Agentic Extraction Loops
+Implement an autonomous loop where an LLM guides the scraper based on the current page state, rather than relying on brittle CSS selectors.
+
+1. **Observe:** The scraper extracts the current DOM into clean Markdown.
+2. **Analyze:** The LLM analyzes the Markdown to identify necessary data or the next interaction step (e.g., "Click the 'Load More' button").
+3. **Act:** The LLM issues a command (extract data, navigate, click, fill form).
+4. **Loop:** Repeat until the extraction goal is met.
+
+```python
+async def agentic_scrape_loop(url: str, goal: str):
+    current_url = url
+    while True:
+        markdown_content = await extract_markdown(current_url)
+        # LLM analyzes state and decides next action
+        action = await llm_decide_action(markdown_content, goal)
         
-        # Block images/CSS to speed up
-        await page.route("**/*.{png,jpg,jpeg,gif,css,woff2}", lambda r: r.abort())
-        
-        await page.goto(url, wait_until="networkidle")
-        
-        # Wait for dynamic content
-        await page.wait_for_selector("[data-testid='product-list']")
-        
-        # Extract structured data via JavaScript
-        products = await page.evaluate("""() => {
-            return Array.from(document.querySelectorAll('.product-card')).map(card => ({
-                name: card.querySelector('.product-name')?.textContent?.trim(),
-                price: card.querySelector('.price')?.textContent?.trim(),
-            }));
-        }""")
-        
-        await browser.close()
-        return {"products": products, "url": url}
+        if action.type == "COMPLETE":
+            return action.extracted_data
+        elif action.type == "CLICK":
+            await click_element(action.target_selector)
+        elif action.type == "NAVIGATE":
+            current_url = action.new_url
 ```
 
 ### Ethical Scraping Checklist
 - [ ] Check `robots.txt` and respect `Disallow` rules.
-- [ ] Implement rate limiting — minimum 1-2 seconds between requests.
-- [ ] Use descriptive `User-Agent` header with contact email.
-- [ ] Cache results to avoid repeated requests.
-- [ ] Prefer public APIs or official data feeds when available.
+- [ ] Implement rate limiting.
+- [ ] Use descriptive `User-Agent` headers.
 - [ ] Do not scrape personal/private data without consent.
 
 ---
@@ -166,42 +117,41 @@ async def scrape_spa(url: str) -> dict:
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `browser-automation-expert`, `ai-llm-integration-expert`, `brainstorming`, dan `zero-to-prod-orchestrator` untuk memastikan eksekusi agentic yang kohesif.
+
 ### Deskripsi
-Ekstraksi data web yang cerdas menggunakan strategi scraping modern — **Firecrawl** (ekstraksi terstruktur siap-LLM), **Jina Reader API** (Markdown bersih dari URL manapun), **Crawl4AI** (scraping Python async), **Playwright** (otomasi browser), dan **BeautifulSoup** (parsing HTML ringan). Mendukung paginasi, konten dinamis, ekspor terstruktur, dan ekstraksi data bertenaga AI.
+Scraping Web Agentic tingkat lanjut menggunakan ekstraksi data multi-strategi modern. Memanfaatkan **Crawl4AI v4** dan **Firecrawl** untuk mengubah DOM mentah menjadi Markdown yang ramah LLM. Mengimplementasikan loop Ekstraksi Agentic di mana LLM memandu scraper secara dinamis berdasarkan status halaman. Menggabungkan strategi untuk melewati tindakan anti-bot (Cloudflare Turnstile, Datadome) dan menavigasi Shadow DOM yang dinamis.
 
 ### Kondisi Pemicu
-- Mengekstrak data terstruktur dari website untuk analisis, data pelatihan, atau pipeline konten.
-- Scraping halaman yang dirender JavaScript secara dinamis (SPA, aplikasi React).
+- Mengekstrak data terstruktur dari situs web untuk analisis, data pelatihan, atau pipeline konten.
+- Scraping halaman yang dirender JavaScript secara dinamis dan SPA kompleks.
 - Mengonversi halaman web menjadi Markdown bersih untuk konteks LLM atau pipeline RAG.
-- Mempelajari atau menduplikasi desain UI, template, dan komponen situs web langsung dari URL (Delegasikan ke `website-design-cloner`).
-- Membangun pipeline data otomatis yang melakukan scraping, transformasi, dan penyimpanan.
-- Mengekstrak data dalam skala besar dengan rate limiting dan rotasi proxy.
+- Menghadapi perlindungan anti-bot atau arsitektur Shadow DOM yang kompleks saat scraping.
+- Mengimplementasikan loop ekstraksi data agentic otomatis.
 
-### Panduan Pemilihan Strategi
+### Mengekstrak DOM menjadi Markdown Ramah LLM
+Gunakan **Crawl4AI v4** untuk ekstraksi async berperforma tinggi dan **Firecrawl** untuk konversi siap LLM yang mulus. (Lihat contoh kode di bagian bahasa Inggris).
 
-| Strategi | Tool | Terbaik Untuk | Perlu JS |
-|---|---|---|---|
-| **API Terkelola** | Firecrawl / Jina Reader | Konten siap LLM, Markdown bersih | Ditangani |
-| **Python Async** | Crawl4AI | Volume tinggi, ekstraksi AI | Opsional |
-| **Otomasi Browser** | Playwright | SPA kompleks, halaman butuh auth | ✅ |
-| **HTML Ringan** | BeautifulSoup + httpx | HTML statis, ekstraksi cepat | ❌ |
+### Bypass Anti-Bot & Shadow DOM
+1. **Bypass Anti-Bot (Cloudflare Turnstile, Datadome):**
+   - **Proxy Residensial:** Rotasi IP residensial berkualitas tinggi untuk menghindari pemblokiran IP datacenter.
+   - **Browser Fingerprinting:** Gunakan alat seperti `playwright-stealth` atau browser stealth khusus untuk menyembunyikan sidik jari otomatis.
+   - **Interaksi Mirip Manusia:** Tambahkan penundaan acak, simulasikan gerakan mouse yang realistis.
+2. **Shadow DOM Dinamis:**
+   - Gunakan selektor penembus CSS atau eksekusi JavaScript untuk menembus Shadow Root.
+   - Telusuri pohon DOM secara rekursif dengan menyuntikkan skrip untuk mengekstrak konten.
 
-### Firecrawl — Scraping Web Siap LLM
-Firecrawl mengonversi URL apapun menjadi Markdown bersih siap LLM dengan satu panggilan API. Mendukung crawling seluruh situs, ekstraksi terstruktur berbasis skema JSON, dan penghapusan konten yang tidak relevan (navigasi, footer, iklan).
+### Loop Ekstraksi Agentic
+Implementasikan loop otonom di mana LLM memandu scraper berdasarkan status halaman saat ini, bukan bergantung pada selektor CSS yang rentan rusak.
 
-### Jina Reader API — Markdown Bersih dari URL Manapun
-Jina Reader (`r.jina.ai/{url}`) mengonversi halaman web manapun menjadi Markdown yang dioptimalkan untuk LLM. Jina Search (`s.jina.ai/{query}`) melakukan pencarian web dan mengembalikan hasilnya sebagai Markdown.
-
-### Crawl4AI — Web Scraper Python Async
-Crawl4AI mendukung caching hasil, ekstraksi Markdown yang dioptimalkan AI, dan konfigurasi browser yang fleksibel untuk scraping konten dinamis.
-
-### Playwright — Halaman Dinamis Kompleks
-Gunakan Playwright untuk scraping SPA yang memerlukan eksekusi JavaScript, menunggu elemen dinamis, atau interaksi dengan halaman (klik, scroll, isi form).
+1. **Observasi:** Scraper mengekstrak DOM saat ini menjadi Markdown yang bersih.
+2. **Analisis:** LLM menganalisis Markdown untuk mengidentifikasi data yang diperlukan atau langkah interaksi selanjutnya (misal: "Klik tombol 'Muat Lebih Banyak'").
+3. **Aksi:** LLM mengeluarkan perintah (ekstrak data, navigasi, klik, isi form).
+4. **Loop:** Ulangi hingga tujuan ekstraksi tercapai.
 
 ### Checklist Scraping Etis
 - [ ] Periksa `robots.txt` dan hormati aturan `Disallow`.
-- [ ] Implementasikan rate limiting — minimal 1-2 detik antar permintaan.
-- [ ] Gunakan header `User-Agent` deskriptif dengan email kontak.
-- [ ] Cache hasil untuk menghindari permintaan berulang.
-- [ ] Utamakan API publik atau feed data resmi jika tersedia.
+- [ ] Implementasikan rate limiting.
+- [ ] Gunakan header `User-Agent` yang deskriptif.
 - [ ] Jangan scraping data pribadi/privat tanpa izin.
