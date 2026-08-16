@@ -245,3 +245,14 @@ This generated image MUST be explicitly used as:
 3. The Open Graph (OG) image for SEO metadata (`og:image`).
 
 Do not use placeholders for these assets. Generate and integrate them automatically.
+
+---
+### 📄 Standard Pages Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
+1. **About Page** (`/about`)
+2. **Profile Page** (`/profile`)
+3. **Contact Page** (`/contact`)
+4. **Terms of Reference / Terms of Service** (`/terms`)
+5. **Privacy Policy** (`/privacy-policy`)
+
+These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.

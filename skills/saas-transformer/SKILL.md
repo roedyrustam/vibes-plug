@@ -237,6 +237,7 @@ When this skill is triggered, execute the following **9-phase transformation pro
 - [ ] Design system tokens configured with `design-system-architect` / `tailwind-expert`
 - [ ] Settings pages (account, workspace, team, billing)
 - [ ] Landing page with pricing and social proof
+- [ ] **MANDATORY**: Automatically scaffold standard pages (About, Profile, Contact, Terms of Reference/Service, Privacy Policy).
 - [ ] Super Admin dashboard deployed on a separate subdomain
 - [ ] SEO meta tags and Structured data on all public pages (`seo` / `seo-geo`)
 
@@ -444,6 +445,7 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 - [ ] Pengambilan data (data fetching) modern dengan TanStack Query
 - [ ] Design system tokens dikonfigurasi via `design-system-architect` / `tailwind-expert`
 - [ ] Landing page teroptimasi SEO dengan pricing dan social proof (`seo-aeo-landing-page-writer`)
+- [ ] **MANDATORY**: Otomatis buat halaman standar (About, Profile, Contact, Terms of Reference/Service, Privacy Policy).
 
 #### FASE 7: API & Feature Gating
 **Mengorkestrasi:** `api-design-expert`, `rate-limit-abuse-prevention`, `feature-flag-analytics-expert`, `async-queue-temporal-expert`, `cron-scheduler-expert`, `js-backend-expert`, `go-programming-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `scalability-clean-code`

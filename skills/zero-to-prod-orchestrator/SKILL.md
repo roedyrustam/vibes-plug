@@ -80,6 +80,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP/Anime.js), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
+- [ ] **MANDATORY**: Automatically scaffold standard pages: About, Profile, Contact, Terms of Reference/Service, and Privacy Policy.
 - [ ] Implement complex forms with React Hook Form + Zod validation.
 - [ ] If SPA architecture — coordinate with `spa-orchestrator` for routing (TanStack Router), state (TanStack Query v5), and decoupled API layer.
 - [ ] Integrate frontend state management with TanStack Query v5.
@@ -172,6 +173,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Buat halaman React 19 / Next.js 15 memanfaatkan RSC, Server Actions (`useActionState`), animasi tingkat lanjut (GSAP/Anime.js), atau Expo Router v4 (Mobile) / Tauri v2 (Desktop).
+- [ ] **MANDATORY**: Otomatis buat halaman standar: About, Profile, Contact, Terms of Reference/Service, dan Privacy Policy.
 - [ ] Mengimplementasikan formulir kompleks dengan React Hook Form + validasi Zod.
 - [ ] Jika arsitektur SPA — koordinasikan dengan `spa-orchestrator` untuk routing (TanStack Router), state (TanStack Query v5), dan API layer terpisah.
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
@@ -210,3 +212,14 @@ This generated image MUST be explicitly used as:
 3. The Open Graph (OG) image for SEO metadata (`og:image`).
 
 Do not use placeholders for these assets. Generate and integrate them automatically.
+
+---
+### 📄 Standard Pages Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
+1. **About Page** (`/about`)
+2. **Profile Page** (`/profile`)
+3. **Contact Page** (`/contact`)
+4. **Terms of Reference / Terms of Service** (`/terms`)
+5. **Privacy Policy** (`/privacy-policy`)
+
+These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
