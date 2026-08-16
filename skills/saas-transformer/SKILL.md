@@ -72,6 +72,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
 │  ┌─── PHASE 6: SaaS Frontend & Landing ───────────────────────┐  │
+│  │  • modern-web-guidance (MANDATORY: Modern web standards)   │  │
 │  │  • senior-frontend (App shell & responsive navigation)     │  │
 │  │  • tanstack-query-expert (Async state & optimistic UI)     │  │
 │  │  • multiple-entry-points (Separate app, landing & admin)   │  │
@@ -221,12 +222,13 @@ When this skill is triggered, execute the following **9-phase transformation pro
 ---
 
 #### PHASE 6: SaaS Frontend & Landing
-**Orchestrates:** `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
+**Orchestrates:** `modern-web-guidance`, `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
 
 **Goal:** Build the SaaS frontend: app shell, dashboard, marketing pages, and super admin panel.
 
 **Steps:**
-1. **Architecture Separation (`multiple-entry-points`)**: Separate authenticated SaaS application from marketing pages and the Super Admin dashboard (which MUST be deployed on a separate subdomain like `admin.example.com` for application management).
+1. **Modern Web Standards (`modern-web-guidance`)**: **MANDATORY** - Always consult Google's modern web guidance before building frontend features to ensure the use of modern APIs, performance standards, and up-to-date best practices.
+2. **Architecture Separation (`multiple-entry-points`)**: Separate authenticated SaaS application from marketing pages and the Super Admin dashboard (which MUST be deployed on a separate subdomain like `admin.example.com` for application management).
 2. **State Management (`tanstack-query-expert`)**: Implement robust asynchronous state handling, ensuring optimistic UI updates (e.g., when a user updates their profile, the UI reflects it instantly while the server syncs).
 3. **App shell / Layout**: Authenticated layout with sidebar navigation, breadcrumbs, and workspace context.
 4. **Marketing / Landing page**: Convert users with a highly optimized, SEO/GEO friendly landing page created with `seo-aeo-landing-page-writer`.
@@ -365,7 +367,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 | 3. Autentikasi & Otorisasi | `authentication-identity-expert`, `fullstack-expert`, `supabase-security-expert`, `firebase-security-expert`, `zero-trust-secret-vault` | OAuth2/OIDC, RBAC/ABAC, JWT custom claims, session Edge & secret vault |
 | 4. Billing & Langganan | `saas-billing`, `payment-gateway-expert`, `doku-payment-gateway`, `saas-mvp-launcher`, `fullstack-expert`, `senior-frontend`, `email-notification-expert` | Stripe/Midtrans/DOKU, webhook idempotency, sync billing & notifikasi email |
 | 5. Workspace & Tim | `saas-multi-tenant`, `form-validation-expert`, `email-notification-expert`, `ui-components-expert`, `senior-frontend`, `ui-ux-pro-max` | Invite flow, token link, manajemen role, UI workspace switcher |
-| 6. Frontend SaaS & Landing | `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig` | Separation (App/Landing/Admin), TanStack Query state, landing page SEO |
+| 6. Frontend SaaS & Landing | `modern-web-guidance`, `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig` | Standar web modern, Separation (App/Landing/Admin), TanStack Query state, landing page SEO |
 | 7. API & Feature Gating | `api-design-expert`, `rate-limit-abuse-prevention`, `feature-flag-analytics-expert`, `async-queue-temporal-expert`, `cron-scheduler-expert`, `js-backend-expert`, `go-programming-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `scalability-clean-code` | REST/OpenAPI, rate limiting, feature gating, background jobs & MCP tools |
 | 8. Pengujian, Keamanan & QA | `e2e-testing-expert`, `browser-automation-expert`, `secure-fuzz-testing`, `error-resilience-expert`, `logging-error-tracking-expert`, `coderabbit` | Playwright E2E, fuzz testing, error resilience (retry/circuit breaker) & CodeRabbit |
 | 9. Pengerasan Produksi & Cloud | `production-ready-hardener`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `data-telemetry-expert`, `performance-web-vitals`, `session-handoff-resume`, `auto-doc-updater` | Edge middleware, CI/CD pipeline, Core Web Vitals, checkpoint & auto-doc |
@@ -437,8 +439,9 @@ Ketika skill ini dipicu, jalankan **9 fase transformasi secara berurutan**. Seti
 - [ ] Batas ukuran tim berdasarkan plan
 
 #### FASE 6: Frontend SaaS & Landing
-**Mengorkestrasi:** `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
+**Mengorkestrasi:** `modern-web-guidance`, `senior-frontend`, `tanstack-query-expert`, `multiple-entry-points`, `tailwind-expert`, `design-system-architect`, `seo-aeo-landing-page-writer`, `seo`, `seo-geo`, `hig`
 
+- [ ] **MANDATORY**: Konsultasikan panduan web modern Google (`modern-web-guidance`) terlebih dahulu sebelum membangun fitur frontend.
 - [ ] Arsitektur dipisah antara aplikasi SaaS, landing page, dan Super Admin (`multiple-entry-points`)
 - [ ] Dashboard Super Admin untuk manajemen aplikasi (wajib di-deploy pada subdomain terpisah seperti `admin.domain.com`)
 - [ ] App shell dengan sidebar, header, workspace switcher

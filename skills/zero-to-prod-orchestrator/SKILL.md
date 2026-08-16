@@ -76,7 +76,8 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement file upload with presigned URLs (S3/R2) and media processing.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
+**Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
+- [ ] **MANDATORY**: Run `modern-web-guidance` FIRST before implementing any frontend HTML/CSS/JS features to ensure compliance with modern Google standards.
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Build React 19 / Next.js 15 pages utilizing Server Components, Server Actions (`useActionState`, `useOptimistic`), advanced animations (GSAP/Anime.js), or Expo Router v4 for Mobile / Tauri v2 for Desktop.
@@ -169,7 +170,8 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Mengimplementasikan upload file dengan presigned URL (S3/R2) dan pemrosesan media.
 
 #### FASE 5: Frontend, Design System & Mobile App
-**Mengorkestrasi:** `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
+**Mengorkestrasi:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `nextjs-app-router-expert`, `vue-frontend-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `form-validation-expert`, `ui-components-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `monday-design-aesthetic`, `state-management-expert`, `ui-ux-pro-max`
+- [ ] **MANDATORY**: Jalankan `modern-web-guidance` PERTAMA KALI sebelum mengimplementasikan fitur frontend HTML/CSS/JS untuk memastikan kepatuhan dengan standar modern Google.
 - [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Buat halaman React 19 / Next.js 15 memanfaatkan RSC, Server Actions (`useActionState`), animasi tingkat lanjut (GSAP/Anime.js), atau Expo Router v4 (Mobile) / Tauri v2 (Desktop).

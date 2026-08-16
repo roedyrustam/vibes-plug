@@ -14,7 +14,8 @@ author: "vibes-plug-swarm"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+- **MANDATORY**: Execute `modern-web-guidance` FIRST for all frontend HTML/CSS/JS features to ensure compliance with modern Google standards.
 
 ### Overview
 This skill guides you through building a production-ready SaaS MVP in the shortest time possible. It covers everything from idea validation and tech stack selection to authentication, payments, database design, deployment, and launch — using modern, battle-tested tools.
@@ -79,7 +80,8 @@ Recommended modern SaaS stack (2026):
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+- **MANDATORY**: Eksekusi `modern-web-guidance` PERTAMA KALI untuk semua fitur frontend HTML/CSS/JS guna memastikan kepatuhan dengan standar modern Google.
 
 ### Ringkasan
 Skill ini memandu Anda membangun SaaS MVP tingkat produksi dalam waktu sesingkat mungkin. Panduan ini mencakup validasi ide, pemilihan stack teknologi, autentikasi, pembayaran, desain database, deployment, hingga checklist peluncuran menggunakan teknologi modern yang teruji.
