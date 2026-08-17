@@ -1,8 +1,8 @@
-# Vibes-Plug — 109+ Skills Ecosystem (v2.6.0)
+# Vibes-Plug — 134+ Skills Ecosystem (v2.7.0)
 # Universal AI Plugin for Antigravity, Claude, and Cursor
 
 ## About
-This project uses the vibes-plug skills ecosystem with 109+ specialized skills.
+This project uses the vibes-plug skills ecosystem with 134+ specialized skills.
 Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
 instructions, patterns, and best practices for the modern 2026 tech stack.
 

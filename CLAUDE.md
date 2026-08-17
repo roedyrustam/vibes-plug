@@ -1,10 +1,10 @@
-# Vibes-Plug — 109+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 134+ Skills Ecosystem for AI-Powered Development
 
-> **v2.6.0 (2026 Edition)** — Universal AI plugin with 109+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v2.7.0 (2026 Edition)** — Universal AI plugin with 134+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 
-This repository contains **109+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **134+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
 
 **Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
 

@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.6.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-109%2B%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v2.7.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-134%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Cursor](https://img.shields.io/badge/cursor-compatible-3b82f6.svg)](https://github.com/roedyrustam/vibes-plug)
@@ -11,37 +11,48 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 109+ Skills Agentic Swarm Architecture
+### ⚡ Universal 134+ Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
-    AGY["🤖 Antigravity AI Agent<br/>Powered by vibes-plug (109+ Skills Engine)"]
-
-    subgraph SWARM["⚡ 109+ Specialized Skills Swarm Ecosystem"]
-        D9["💡 Ideation & Planning (11 Skills)<br/>brainstorming • prd-architect • auto-doc-updater • session-handoff"]
-        D1["🤖 AI & Agentic Systems (7 Skills)<br/>ai-llm-integration • vector-db-rag • ai-cost-token-optimizer • mcp-architect"]
-        D2["🎨 Design & UI/UX (6 Skills)<br/>design-system • hig • monday-aesthetic • ui-components • ui-ux-pro"]
-        D3["🖥️ Frontend & State (14 Skills)<br/>senior-frontend • tailwind-expert • tanstack-query • state-management"]
-        D4["⚙️ Backend & Languages (9 Skills)<br/>js-backend • python-expert • go-expert • rust-expert • async-queue-temporal"]
-        D5["☁️ SaaS & Cloud Systems (14 Skills)<br/>saas-transformer • saas-billing • feature-flag-analytics • ci-cd-devops"]
-        D6["🗄️ Database & ORM (3 Skills)<br/>database-orm • edge-serverless-db • supabase-migration"]
-        D7["🔒 Quality & Security (10 Skills)<br/>e2e-testing • browser-automation • zero-trust-secret-vault • production-hardener"]
-        D8["🔍 SEO & GEO Optimization (3 Skills)<br/>seo • seo-geo • seo-aeo-landing-page-writer"]
+    subgraph PLATFORMS["🌐 Universal AI Platform Entry Points"]
+        AGY["🤖 Google Antigravity (AGY)<br/>via AGENTS.md"]
+        CLAUDE["🧠 Claude Code / Desktop<br/>via CLAUDE.md & .claude/rules/"]
+        CURSOR["⚡ Cursor IDE<br/>via .cursorrules & .cursor/rules/"]
     end
 
-    PROD["🚀 Production-Ready Release<br/>Scalable, Secure, AI-Native & Fully Hardened"]
+    DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    AGY --> D9
-    D9 --> D1
-    D9 --> D2
-    D1 --> D4
-    D2 --> D3
-    D3 --> D5
+    subgraph SWARM["⚡ 134+ Specialized Engineering Skills Swarm Ecosystem"]
+        D1["💡 Discovery, Ideation & Architecture (14 Skills)<br/>brainstorming • prd-architect • project-context-mapper • auto-doc-updater"]
+        D2["🤖 AI, LLM & Agentic Systems (10 Skills)<br/>ai-llm-integration • ai-media-generation • vector-db-rag • mcp-server-architect"]
+        D3["🎨 Design Systems, UI/UX & Visuals (14 Skills)<br/>design-system • hig • ui-components • data-visualization • rich-text-editor • web-3d"]
+        D4["🖥️ Frontend Frameworks & State (20 Skills)<br/>senior-frontend • tailwind-expert • astro • svelte • solidjs • angular • tanstack-query"]
+        D5["📱 Mobile, Desktop & WebXR (8 Skills)<br/>mobile-expo • apple-ecosystem • tauri • desktop-electron • push-notifications"]
+        D6["⚙️ Backend, Microservices & Runtimes (22 Skills)<br/>js-backend • python • go • rust • bun • api-design • n8n-automation • chatbot"]
+        D7["🗄️ Database, ORM, Search & Data (12 Skills)<br/>database-orm • edge-serverless-db • search-engine • geospatial-maps • supabase"]
+        D8["☁️ SaaS, Commerce & Cloud (16 Skills)<br/>saas-transformer • saas-billing • ecommerce • payment-gateway • doku-gateway • ci-cd"]
+        D9["🔒 Testing, Security, A11y & Resilience (18 Skills)<br/>e2e-testing • accessibility-testing • zero-trust • error-resilience • autonomous-tdd"]
+    end
+
+    PROD["🚀 Production-Ready Release<br/>Scalable, Secure, Accessible, AI-Native & Fully Hardened"]
+
+    AGY --> DIRECTOR
+    CLAUDE --> DIRECTOR
+    CURSOR --> DIRECTOR
+
+    DIRECTOR --> D1
+    D1 --> D2
+    D1 --> D3
+    D2 --> D6
+    D3 --> D4
     D4 --> D5
-    D5 --> D6
+    D4 --> D8
     D6 --> D7
-    D7 --> D8
-    D8 --> PROD
+    D6 --> D8
+    D7 --> D9
+    D8 --> D9
+    D9 --> PROD
 
     classDef hero fill:#2d1b4e,stroke:#a855f7,stroke-width:2px,color:#fff;
     classDef ai fill:#1e1b4b,stroke:#818cf8,stroke-width:2px,color:#f8fafc;
@@ -51,20 +62,19 @@ graph TD
     classDef saas fill:#3b0764,stroke:#c084fc,stroke-width:2px,color:#f8fafc;
     classDef db fill:#042f2e,stroke:#2dd4bf,stroke-width:2px,color:#f8fafc;
     classDef sec fill:#4c0519,stroke:#fb7185,stroke-width:2px,color:#f8fafc;
-    classDef seo fill:#14532d,stroke:#4ade80,stroke-width:2px,color:#f8fafc;
     classDef util fill:#1e293b,stroke:#94a3b8,stroke-width:2px,color:#f8fafc;
     classDef target fill:#064e3b,stroke:#34d399,stroke-width:2px,color:#ecfdf5;
 
-    class AGY hero;
-    class D9 util;
-    class D1 ai;
-    class D2 ui;
-    class D3 front;
-    class D4 back;
-    class D5 saas;
-    class D6 db;
-    class D7 sec;
-    class D8 seo;
+    class AGY,CLAUDE,CURSOR,DIRECTOR hero;
+    class D1 util;
+    class D2 ai;
+    class D3 ui;
+    class D4 front;
+    class D5 front;
+    class D6 back;
+    class D7 db;
+    class D8 saas;
+    class D9 sec;
     class PROD target;
 ```
 
@@ -75,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **109+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **134+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -291,7 +301,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.6.0 (2026 Edition) — 109+ skills | Supports AGY + Claude + Cursor
+v2.7.0 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -303,7 +313,7 @@ v2.6.0 (2026 Edition) — 109+ skills | Supports AGY + Claude + Cursor
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **109+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **134+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -519,7 +529,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.6.0 (Edisi 2026) — 109+ skills | Mendukung AGY + Claude + Cursor
+v2.7.0 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
