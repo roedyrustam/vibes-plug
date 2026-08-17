@@ -1,0 +1,42 @@
+# Vibes-Plug — 109+ Skills Ecosystem (v2.5.0)
+# Universal AI Plugin for Antigravity, Claude, and Cursor
+
+## About
+This project uses the vibes-plug skills ecosystem with 109+ specialized skills.
+Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
+instructions, patterns, and best practices for the modern 2026 tech stack.
+
+## Core Stack (2026 Edition)
+- Frontend: React 19, Next.js 15, Tailwind CSS v4, TypeScript 5.8+
+- Backend: Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
+- Database: Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
+- AI/LLM: Vercel AI SDK 5.x, MCP v1.9+, pgvector, RAG pipelines
+
+## Mandatory Before Coding
+1. Read the relevant `skills/<skill-name>/SKILL.md` files before writing code.
+2. Think deeply before acting — analyze constraints, question assumptions, validate approach.
+3. For new projects, auto-generate: PRD.md, ERD.md, DOKUMENTASI.md.
+
+## Skill Domains
+- 🤖 AI & Agentic: ai-llm-integration-expert, mcp-server-architect, vector-db-rag-expert, multi-agent-orchestration
+- 🎨 Design & UI/UX: design-system-architect, hig, ui-components-expert, ui-ux-pro-max
+- 🖥️ Frontend: senior-frontend, tailwind-expert, nextjs-app-router-expert, tanstack-query-expert, vue-frontend-expert
+- ⚙️ Backend: js-backend-expert, python-programming-expert, go-programming-expert, rust-programming-expert, api-design-expert
+- ☁️ SaaS & Cloud: saas-transformer, saas-billing, ci-cd-devops-architect, cloud-hosting-expert, payment-gateway-expert
+- 🗄️ Database: database-orm-expert, edge-serverless-db-expert, supabase-migration
+- 🔒 Security: authentication-identity-expert, e2e-testing-expert, production-ready-hardener, zero-trust-secret-vault
+- 🔍 SEO: seo
+- 🛠️ Utilities: brainstorming, prd-architect, auto-doc-updater, token-saver, vibe-code-gardener
+
+## Code Quality
+- Clean Code, SOLID, DRY — see `scalability-clean-code` skill.
+- No AI slop — be imperative, direct, token-efficient.
+- Bilingual support (English & Bahasa Indonesia) for all skills.
+
+## Orchestration Flow
+1. Ideation: brainstorming → prd-architect
+2. Design: design-system-architect → senior-frontend → ui-components-expert
+3. Backend: js-backend-expert → event-driven-architect → autonomous-tdd-debugger
+4. AI: ai-llm-integration-expert → mcp-server-architect
+5. SaaS: saas-transformer → saas-billing + saas-multi-tenant
+6. Launch: e2e-testing-expert → seo → production-ready-hardener

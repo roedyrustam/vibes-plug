@@ -1,8 +1,25 @@
 {
   "name": "vibes-plug",
   "version": "2.5.0",
-  "description": "Plugin kustomisasi untuk Antigravity.",
+  "description": "Universal AI plugin with 109+ specialized skills for Antigravity, Claude, and Cursor.",
   "author": "roedy rustam",
   "license": "MIT",
-  "repository": "https://github.com/roedyrustam/vibes-plug.git"
+  "repository": "https://github.com/roedyrustam/vibes-plug.git",
+  "platforms": {
+    "antigravity": {
+      "entry": "AGENTS.md",
+      "config": "plugin.json",
+      "skillsDir": "skills/"
+    },
+    "claude": {
+      "entry": "CLAUDE.md",
+      "rulesDir": ".claude/rules/",
+      "skillsDir": "skills/"
+    },
+    "cursor": {
+      "entry": ".cursorrules",
+      "rulesDir": ".cursor/rules/",
+      "skillsDir": "skills/"
+    }
+  }
 }

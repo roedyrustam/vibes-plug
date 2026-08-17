@@ -3,6 +3,8 @@
 [![Version](https://img.shields.io/badge/version-v2.5.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Skills](https://img.shields.io/badge/skills-109%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Cursor](https://img.shields.io/badge/cursor-compatible-3b82f6.svg)](https://github.com/roedyrustam/vibes-plug)
 [![License](https://img.shields.io/badge/license-MIT-ec4899.svg)](LICENSE)
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
@@ -73,11 +75,13 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Customization plugin for Antigravity containing **103+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **109+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
-The easiest way to install or update `vibes-plug` is by cloning the Git repository directly into your Antigravity plugins directory.
+#### 🟢 Antigravity (AGY)
+
+Clone the Git repository directly into your Antigravity plugins directory.
 
 **Windows (PowerShell / CMD):**
 ```bash
@@ -89,9 +93,48 @@ git clone https://github.com/roedyrustam/vibes-plug.git "$HOME\.gemini\config\pl
 git clone https://github.com/roedyrustam/vibes-plug.git ~/.gemini/config/plugins/vibes-plug
 ```
 
-Once the command succeeds, Antigravity will automatically scan the folder and detect all plugins and skills.
+Antigravity will automatically scan the folder and detect all plugins and skills.
 
-> **Tip:** To update skills in the future, run `git pull` from inside the `vibes-plug` folder.
+#### 🟠 Claude Code / Claude Desktop
+
+Clone `vibes-plug` and run the installer to set up Claude-compatible config files.
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/roedyrustam/vibes-plug.git ~/vibes-plug
+
+# 2. Run the Claude installer
+node ~/vibes-plug/scripts/install.js --claude
+```
+
+This copies `CLAUDE.md`, `.claude/rules/`, and `skills/` to `~/.claude/`.
+
+**Per-project install** (optional — for project-specific rules):
+```bash
+node ~/vibes-plug/scripts/install.js --claude --project ./my-project
+```
+
+#### 🔵 Cursor IDE
+
+Cursor uses per-project configuration. Clone `vibes-plug` and install into your project:
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/roedyrustam/vibes-plug.git ~/vibes-plug
+
+# 2. Run the Cursor installer
+node ~/vibes-plug/scripts/install.js --cursor --project ./my-project
+```
+
+This copies `.cursorrules`, `.cursor/rules/`, and `skills/` to your project directory.
+
+#### 🚀 Install for All Platforms
+
+```bash
+node ~/vibes-plug/scripts/install.js --all --project ./my-project
+```
+
+> **Tip:** To update skills in the future, run `git pull` from inside the `vibes-plug` folder, then re-run the installer.
 
 **Using npm:**
 ```bash
@@ -239,8 +282,16 @@ By letting skills naturally invoke one another, you transform the AI into a comp
 
 For those who want to contribute by adding new skills or updating existing ones, please read our complete guide at [CONTRIBUTING.md](CONTRIBUTING.md).
 
+### Platform Compatibility
+
+| Platform | Entry Point | Config Files | Skills Access |
+|----------|-------------|--------------|---------------|
+| **Antigravity (AGY)** | `AGENTS.md` | `plugin.json` | Direct via `skills/` |
+| **Claude Code** | `CLAUDE.md` | `.claude/rules/*.md` | Via `skills/` directory |
+| **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
+
 ### Version
-v2.5.0 (2026 Edition) — 103+ skills
+v2.5.0 (2026 Edition) — 109+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -252,11 +303,13 @@ v2.5.0 (2026 Edition) — 103+ skills
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin kustomisasi untuk Antigravity yang berisi **103+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.5+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **109+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
-Cara termudah untuk menginstal atau memperbarui `vibes-plug` adalah dengan melakukan *clone* repositori Git ke dalam direktori plugin Antigravity.
+#### 🟢 Antigravity (AGY)
+
+Clone repositori Git ke dalam direktori plugin Antigravity.
 
 **Windows (PowerShell / CMD):**
 ```bash
@@ -268,9 +321,48 @@ git clone https://github.com/roedyrustam/vibes-plug.git "$HOME\.gemini\config\pl
 git clone https://github.com/roedyrustam/vibes-plug.git ~/.gemini/config/plugins/vibes-plug
 ```
 
-Seketika setelah perintah di atas berhasil, Antigravity akan memindai folder dan mendeteksi seluruh plugin beserta *skills* secara otomatis.
+Antigravity akan otomatis memindai folder dan mendeteksi seluruh plugin beserta *skills*.
 
-> **Tip:** Untuk memperbarui skill di masa depan, cukup jalankan `git pull` dari dalam folder `vibes-plug`.
+#### 🟠 Claude Code / Claude Desktop
+
+Clone `vibes-plug` dan jalankan installer untuk mengkonfigurasi Claude.
+
+```bash
+# 1. Clone repo
+git clone https://github.com/roedyrustam/vibes-plug.git ~/vibes-plug
+
+# 2. Jalankan installer Claude
+node ~/vibes-plug/scripts/install.js --claude
+```
+
+Ini akan menyalin `CLAUDE.md`, `.claude/rules/`, dan `skills/` ke `~/.claude/`.
+
+**Instalasi per-project** (opsional):
+```bash
+node ~/vibes-plug/scripts/install.js --claude --project ./proyek-saya
+```
+
+#### 🔵 Cursor IDE
+
+Cursor menggunakan konfigurasi per-project. Clone `vibes-plug` lalu install ke proyek Anda:
+
+```bash
+# 1. Clone repo
+git clone https://github.com/roedyrustam/vibes-plug.git ~/vibes-plug
+
+# 2. Jalankan installer Cursor
+node ~/vibes-plug/scripts/install.js --cursor --project ./proyek-saya
+```
+
+Ini akan menyalin `.cursorrules`, `.cursor/rules/`, dan `skills/` ke direktori proyek Anda.
+
+#### 🚀 Install untuk Semua Platform
+
+```bash
+node ~/vibes-plug/scripts/install.js --all --project ./proyek-saya
+```
+
+> **Tip:** Untuk memperbarui skill, cukup jalankan `git pull` dari folder `vibes-plug`, lalu jalankan installer ulang.
 
 **Menggunakan npm:**
 ```bash
@@ -418,8 +510,16 @@ Dengan membiarkan *skill-skill* ini saling memicu secara natural, Anda mengubah 
 
 Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill yang ada, silakan baca panduan lengkap kami di [CONTRIBUTING.md](CONTRIBUTING.md).
 
+### Kompatibilitas Platform
+
+| Platform | Entry Point | File Konfigurasi | Akses Skills |
+|----------|-------------|------------------|--------------|
+| **Antigravity (AGY)** | `AGENTS.md` | `plugin.json` | Langsung via `skills/` |
+| **Claude Code** | `CLAUDE.md` | `.claude/rules/*.md` | Via direktori `skills/` |
+| **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
+
 ### Versi
-v2.5.0 (Edisi 2026) — 109+ skills
+v2.5.0 (Edisi 2026) — 109+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
