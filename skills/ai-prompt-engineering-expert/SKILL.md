@@ -1,7 +1,7 @@
 ---
 name: ai-prompt-engineering-expert
 description: "Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation / Panduan ahli rekayasa prompt dan evaluasi LLM."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # AI Prompt Engineering Expert

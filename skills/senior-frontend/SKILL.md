@@ -1,7 +1,7 @@
 ---
 name: senior-frontend
 description: "Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 / Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Senior Frontend Specialist (2026 Edition)
@@ -16,88 +16,63 @@ author: "Roedy Rustam"
 ### Description
 Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies.
 
+### Orchestration & Integration
+- `ui-components-expert`: For building robust UI components (Radix, shadcn).
+- `tailwind-expert`: For styling and custom @theme configurations.
+- `nextjs-app-router-expert`: For RSC, caching, and Next.js routing patterns.
+- `state-management-expert`: For client-side state (Zustand, Jotai).
+- `tanstack-query-expert`: For advanced data fetching and server state caching.
+- `spa-orchestrator`: For Single-Page Application architectures.
+- `mpa-orchestrator`: For Multi-Page Application architectures.
+
 ### Trigger Conditions
-- Use when scaffolding a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
-- Use when generating new components, custom hooks, or Server Actions.
-- Use when analyzing and optimizing bundle sizes and Core Web Vitals.
-- Use to implement advanced React 19 patterns (`useActionState`, `useOptimistic`, `use()`).
-- Use when working in SPA mode — coordinate with `spa-orchestrator` for architecture decisions.
-- Use to ensure accessibility compliance (WCAG 2.2) and implement robust testing.
+- Scaffold a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
+- Generate new components, custom hooks, or Server Actions.
+- Analyze and optimize bundle sizes and Core Web Vitals.
+- Implement advanced React 19 patterns (`useActionState`, `useOptimistic`, `use()`).
+- Build SPAs — coordinate with `spa-orchestrator`.
+- Ensure accessibility compliance (WCAG 2.2) and testing.
 
 ### Technical Guidelines & Best Practices
 
 #### 1. Next.js 15: Server vs Client Components
-Use **Server Components** by default for performance and SEO. Use `'use client'` only when you need:
+Use **Server Components** by default for performance and SEO. Use `'use client'` strictly for:
 - State (`useState`, `useEffect`), event handlers (`onClick`), browser APIs.
-- Interactive UI that must be hydrated on the client.
+- Interactive UI needing client hydration.
 
-*Next.js 15.2+ Notes:*
-- `params` and `searchParams` are now `Promise`-based — always `await` them before reading properties.
-- **Partial Prerendering (PPR)**: PPR is now stable. Wrap dynamic sections in `<Suspense>` — Next.js will statically pre-render the shell and stream dynamic content natively without experimental flags.
+*Next.js 15.2+ Requirements:*
+- Await `Promise`-based `params` and `searchParams` before accessing properties.
+- Use **Partial Prerendering (PPR)** natively. Wrap dynamic sections in `<Suspense>`.
 
-#### 2. React 19 — New Hooks & Compiler
-React 19 ships with a **compiler** that auto-applies memoization. You no longer need `useMemo`, `useCallback`, or `React.memo` in most cases — the compiler handles it.
+#### 2. React 19 Compiler & Hooks
+Do not use `useMemo`, `useCallback`, or `React.memo` unless explicitly required; rely on the React 19 compiler.
 
-**New Hooks:**
-- **`useActionState`**: Manage form state, pending indicators, and action results natively with Server Actions.
-- **`useOptimistic`**: Instantly update UI before server confirms (likes, cart additions).
-- **`useFormStatus`**: Read form submission state inside child components.
-- **`use(promise)`**: Unwrap promises or context inside render — works with Suspense.
-```tsx
-// use() with context
-const theme = use(ThemeContext);
-
-// use() with a promise (suspends until resolved)
-const data = use(fetchUserPromise);
-```
+**Mandatory Hooks:**
+- **`useActionState`**: Manage form state, pending indicators, and action results with Server Actions.
+- **`useOptimistic`**: Update UI instantly before server confirmation.
+- **`useFormStatus`**: Read form submission state in child components.
+- **`use(promise)`**: Unwrap promises or context inside render with Suspense.
 
 #### 3. View Transitions API
-Use the native browser View Transitions API for smooth page transitions without heavy libraries:
-```tsx
-import { unstable_ViewTransition as ViewTransition } from 'react';
+Implement native View Transitions API for smooth page transitions. Use Next.js 15 `<Link viewTransition>` natively.
 
-// Wrap changing elements
-<ViewTransition name="hero-image">
-  <img src={image} />
-</ViewTransition>
-```
-Next.js 15 App Router supports View Transitions natively via the `<Link>` component with `viewTransition` prop.
-
-#### 4. Tailwind CSS v4 CSS-First Configuration
-Tailwind CSS v4 uses **CSS-first configuration**. Define custom theme tokens using the `@theme` directive in your main CSS file. Use the new `@plugin` directive to register plugins:
-```css
-@import "tailwindcss";
-
-@theme {
-  --color-brand: oklch(55% 0.2 250);
-  --font-sans: "Inter", sans-serif;
-  --animate-fade-in: fade-in 0.3s ease-out;
-}
-
-@plugin "@tailwindcss/typography";
-```
+#### 4. Tailwind CSS v4
+Use CSS-first configuration. Define custom tokens with `@theme` and register plugins with `@plugin` in the main CSS file.
 
 #### 5. Accessibility (WCAG 2.2) & Testing
-- Use semantic HTML tags (`<button>`, `<nav>`, `<main>`, `<article>`).
-- Ensure full keyboard navigability and proper `aria-*` labels.
+- Enforce semantic HTML (`<button>`, `<nav>`, `<main>`, `<article>`).
+- Enforce full keyboard navigability and valid `aria-*` labels.
 - Write unit tests using **Vitest** and **React Testing Library**.
-- Write E2E tests using **Playwright** (via `e2e-testing-expert` skill).
+- Write E2E tests using **Playwright** via `e2e-testing-expert`.
 
-#### 6. SPA Integration (spa-orchestrator)
-When building a decoupled SPA (not Next.js SSR):
-- Coordinate with `spa-orchestrator` for architecture decisions (routing, state, API layer).
-- Use **TanStack Router** for fully type-safe client-side routing (preferred over React Router for new projects).
-- Use **TanStack Query v5** for all server state — never use bare `useEffect` for data fetching.
+#### 6. Architecture Integration
+- **SPA (`spa-orchestrator`)**: Use **TanStack Router** for type-safe client routing and **TanStack Query v5** for server state. Never use bare `useEffect` for data fetching.
+- **MPA (`mpa-orchestrator`)**: Use **Alpine.js** or **HTMX** for micro-interactions. Apply Progressive Enhancement.
 
-#### 7. Multi-Page Application (MPA) Integration
-When working within a centralized MPA (via `mpa-orchestrator`):
-- Use **Alpine.js** or **HTMX** for micro-interactions without heavy client bundles.
-- Apply **Progressive Enhancement**: ensure forms and links work without JavaScript first.
-
-#### 8. Advanced Animations (GSAP & Anime.js)
-- **GSAP (GreenSock)**: Use for complex, timeline-based, and scroll-driven animations (`ScrollTrigger`). In React, always use `@gsap/react` `useGSAP()` hook for automatic cleanup.
-- **Anime.js**: Use as a lightweight, powerful alternative for simpler sequencing, staggering, SVG path animations, and DOM attribute animations. It's often preferred when bundle size is a strict concern and scroll-driven features are not needed.
-- Prefer JS animations (GSAP/Anime.js) over CSS for sequences requiring pausing, reversing, or timeline control.
+#### 7. Advanced Animations
+- **GSAP (GreenSock)**: Use for complex, timeline-based, scroll-driven animations (`ScrollTrigger`). Enforce `@gsap/react` `useGSAP()` hook for auto-cleanup.
+- **Anime.js**: Use as a lightweight alternative for simple sequencing, SVG path animations, and DOM attribute animations.
+- Prefer JS animations over CSS when timeline control (pause, reverse, dynamic stagger) is required.
 
 ---
 
@@ -107,55 +82,60 @@ When working within a centralized MPA (via `mpa-orchestrator`):
 ### Deskripsi
 Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA.
 
+### Integrasi Orkestrasi
+- `ui-components-expert`: Untuk membangun komponen UI yang kuat (Radix, shadcn).
+- `tailwind-expert`: Untuk styling dan konfigurasi @theme kustom.
+- `nextjs-app-router-expert`: Untuk RSC, caching, dan pola routing Next.js.
+- `state-management-expert`: Untuk state client-side (Zustand, Jotai).
+- `tanstack-query-expert`: Untuk fetching data lanjutan dan caching server state.
+- `spa-orchestrator`: Untuk arsitektur Single-Page Application.
+- `mpa-orchestrator`: Untuk arsitektur Multi-Page Application.
+
 ### Kondisi Pemicu
-- Gunakan saat merancang proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
-- Gunakan saat membuat komponen baru, custom hooks, atau Server Actions.
-- Gunakan saat menganalisis dan mengoptimalkan bundle dan Core Web Vitals.
-- Gunakan untuk mengimplementasikan pola React 19 lanjutan (`useActionState`, `useOptimistic`, `use()`).
-- Gunakan saat membangun SPA — koordinasikan dengan `spa-orchestrator` untuk keputusan arsitektur.
-- Gunakan untuk memastikan kepatuhan aksesibilitas (WCAG 2.2) dan pengujian otomatis.
+- Buat proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
+- Buat komponen baru, custom hooks, atau Server Actions.
+- Analisis dan optimalkan ukuran bundle dan Core Web Vitals.
+- Terapkan pola React 19 lanjutan (`useActionState`, `useOptimistic`, `use()`).
+- Bangun SPA — koordinasikan dengan `spa-orchestrator`.
+- Pastikan kepatuhan aksesibilitas (WCAG 2.2) dan pengujian.
 
 ### Panduan Teknis & Praktik Terbaik
 
 #### 1. Next.js 15: Server vs Client Components
-Gunakan **Server Components** secara default untuk performa dan SEO. Gunakan `'use client'` hanya saat dibutuhkan state, event handler, atau API browser.
+Gunakan **Server Components** secara default. Gunakan `'use client'` hanya untuk:
+- State (`useState`, `useEffect`), event handler, API browser.
+- UI interaktif yang membutuhkan hidrasi klien.
 
-*Catatan Next.js 15.2+:*
-- `params` dan `searchParams` sekarang bertipe `Promise` — lakukan `await` sebelum mengakses nilainya.
-- **Partial Prerendering (PPR)**: PPR kini sudah stabil. Bungkus bagian dinamis dengan `<Suspense>` — Next.js akan men-prerender shell statis dan meng-stream konten dinamis secara native tanpa flag experimental.
+*Persyaratan Next.js 15.2+:*
+- Wajib `await` pada `params` dan `searchParams` yang kini bertipe `Promise`.
+- Gunakan **Partial Prerendering (PPR)** secara native. Bungkus bagian dinamis dengan `<Suspense>`.
 
-#### 2. React 19 — Hook Baru & Compiler
-React 19 hadir dengan **compiler** yang otomatis menerapkan memoization. Anda tidak lagi perlu `useMemo`, `useCallback`, atau `React.memo` di sebagian besar kasus.
+#### 2. React 19 Compiler & Hook Baru
+Jangan gunakan `useMemo`, `useCallback`, atau `React.memo` kecuali sangat diperlukan; andalkan compiler React 19.
 
-**Hook Baru:**
-- **`useActionState`**: Mengelola state form, indikator loading, dan hasil action dengan Server Actions.
-- **`useOptimistic`**: Memperbarui UI secara instan sebelum server mengonfirmasi.
-- **`useFormStatus`**: Membaca status form di dalam komponen anak.
-- **`use(promise)`**: Membuka *promise* atau context langsung di dalam render — bekerja bersama Suspense.
+**Hook Wajib:**
+- **`useActionState`**: Kelola state form, indikator loading, dan hasil action dengan Server Actions.
+- **`useOptimistic`**: Perbarui UI secara instan sebelum server mengonfirmasi.
+- **`useFormStatus`**: Baca status form di dalam komponen anak.
+- **`use(promise)`**: Buka promise atau context langsung di dalam render dengan Suspense.
 
 #### 3. View Transitions API
-Gunakan View Transitions API bawaan browser untuk transisi halaman yang mulus tanpa library berat. Next.js 15 mendukung ini secara native melalui `<Link viewTransition>`.
+Terapkan View Transitions API bawaan browser untuk transisi halaman. Gunakan `<Link viewTransition>` pada Next.js 15.
 
-#### 4. Tailwind CSS v4 CSS-First Configuration
-Konfigurasi kustom tema dilakukan langsung di file CSS menggunakan direktif `@theme`. Gunakan `@plugin` untuk mendaftarkan plugin.
+#### 4. Tailwind CSS v4
+Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama.
 
 #### 5. Aksesibilitas (WCAG 2.2) & Pengujian
-- Gunakan HTML semantik (`<button>`, `<nav>`, `<main>`).
-- Pastikan navigasi keyboard berfungsi penuh dengan label `aria-*` yang tepat.
-- Pengujian unit dengan Vitest + React Testing Library; E2E dengan Playwright.
+- Wajib gunakan HTML semantik (`<button>`, `<nav>`, `<main>`).
+- Wajib pastikan navigasi keyboard dengan label `aria-*` yang valid.
+- Tulis pengujian unit dengan **Vitest** dan **React Testing Library**.
+- Tulis pengujian E2E dengan **Playwright** via `e2e-testing-expert`.
 
-#### 6. Integrasi SPA (spa-orchestrator)
-Saat membangun SPA terpisah (bukan Next.js SSR):
-- Koordinasikan dengan `spa-orchestrator` untuk keputusan routing, state, dan API layer.
-- Gunakan **TanStack Router** untuk routing type-safe di sisi klien.
-- Gunakan **TanStack Query v5** untuk semua server state.
+#### 6. Integrasi Arsitektur
+- **SPA (`spa-orchestrator`)**: Gunakan **TanStack Router** untuk routing klien dan **TanStack Query v5** untuk server state. Jangan gunakan `useEffect` murni untuk fetching data.
+- **MPA (`mpa-orchestrator`)**: Gunakan **Alpine.js** atau **HTMX** untuk interaksi mikro. Terapkan Progressive Enhancement.
 
-#### 7. Integrasi MPA (mpa-orchestrator)
-Saat bekerja dalam arsitektur MPA terpusat:
-- Gunakan Alpine.js atau HTMX untuk interaksi mikro yang ringan.
-- Terapkan Progressive Enhancement: form dan link harus berfungsi tanpa JavaScript terlebih dahulu.
-
-#### 8. Animasi Tingkat Lanjut (GSAP & Anime.js)
-- **GSAP (GreenSock)**: Gunakan untuk animasi kompleks, berbasis timeline, dan *scroll-driven* (`ScrollTrigger`). Di React, selalu gunakan hook `useGSAP()` dari `@gsap/react` untuk mencegah kebocoran memori.
-- **Anime.js**: Gunakan sebagai alternatif yang lebih ringan namun sangat kuat untuk animasi DOM, properti CSS, SVG, dan *staggering* sederhana. Sangat cocok jika ukuran *bundle* menjadi prioritas utama.
-- Utamakan pustaka JS (GSAP/Anime.js) dibandingkan CSS murni untuk animasi yang membutuhkan kontrol *timeline*, jeda (*pause*), *reverse*, atau *stagger* dinamis.
+#### 7. Animasi Tingkat Lanjut
+- **GSAP (GreenSock)**: Gunakan untuk animasi kompleks, berbasis timeline, dan scroll-driven. Wajib gunakan hook `useGSAP()` dari `@gsap/react`.
+- **Anime.js**: Gunakan untuk staggering sederhana, animasi SVG, dan DOM.
+- Utamakan animasi JS (GSAP/Anime.js) daripada CSS murni jika kontrol timeline (pause, reverse) dibutuhkan.

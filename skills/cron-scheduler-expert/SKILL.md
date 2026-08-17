@@ -1,7 +1,7 @@
 ---
 name: cron-scheduler-expert
 description: "Expert guide for scheduled tasks, cron jobs, recurring background work (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron), and distributed scheduling / Panduan ahli untuk tugas terjadwal, cron job, pekerjaan latar belakang berulang, dan penjadwalan terdistribusi."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Cron & Scheduler Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for implementing scheduled tasks, cron jobs, and recurring background work in modern web applications. Covers **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **node-cron**, **BullMQ repeatable jobs**, **distributed cron locking** (Redis-based), **timezone-aware scheduling**, and common use cases (cleanup jobs, report generation, health checks, subscription renewals).
@@ -277,6 +280,9 @@ export async function GET(request: Request) {
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengimplementasikan tugas terjadwal, cron job, dan pekerjaan latar belakang berulang di aplikasi web modern. Mencakup **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **node-cron**, **BullMQ repeatable jobs**, **distributed cron locking** (berbasis Redis), **penjadwalan sadar zona waktu**, dan kasus penggunaan umum (pembersihan data, pembuatan laporan, health check, perpanjangan langganan).

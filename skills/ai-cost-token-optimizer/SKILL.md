@@ -1,7 +1,7 @@
 ---
 name: ai-cost-token-optimizer
 description: "Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting / Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # AI Cost & Token Optimizer

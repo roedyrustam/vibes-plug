@@ -1,7 +1,7 @@
 ---
 name: session-context-loader
 description: "Automatically loads and learns project context (Tech Stack, PRD, Roadmap, Blueprint) at the start of every new conversation session to ensure focused and directed development / Otomatis memuat dan mempelajari konteks proyek (Tech Stack, PRD, Roadmap, Blueprint) di awal setiap sesi percakapan baru untuk memastikan pengembangan yang terarah dan fokus."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Session Context Loader
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill ensures that the AI agent is always aligned with the project's core documentation. At the beginning of every new conversation session, it automatically searches for and reads essential project context files (Tech Stack, PRD, Roadmap, Blueprint). This guarantees that development remains focused, directed, and strictly adheres to established requirements and architectural decisions.
@@ -46,6 +49,9 @@ When triggered, you MUST perform the following steps before answering the user's
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini memastikan bahwa agen AI selalu selaras dengan dokumentasi inti proyek. Di awal setiap sesi percakapan baru, agen akan secara otomatis mencari dan membaca file konteks proyek esensial (Tech Stack, PRD, Roadmap, Blueprint). Ini menjamin bahwa pengembangan proyek aplikasi tetap lebih terarah, fokus, dan sangat mematuhi persyaratan serta keputusan arsitektur yang telah ditetapkan.

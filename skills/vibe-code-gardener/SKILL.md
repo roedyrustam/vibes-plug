@@ -1,7 +1,7 @@
 ---
 name: vibe-code-gardener
 description: "Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects / Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Vibe Code Gardener (2026 Edition)

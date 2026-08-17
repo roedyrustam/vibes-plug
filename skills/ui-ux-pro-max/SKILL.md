@@ -1,7 +1,7 @@
 ---
 name: ui-ux-pro-max
 description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -13,8 +13,11 @@ author: "Roedy Rustam"
 <a name="english"></a>
 ## English
 
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+
 ### Description
-UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, and stack-specific best practices across **11 technology stacks**.
+UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, **Material Design 3 (M3)**, and stack-specific best practices across **11 technology stacks**.
 
 ### Trigger Conditions
 Reference these guidelines or run the CLI search engine when:
@@ -55,6 +58,7 @@ python scripts/search.py "<query>" --domain <domain> --max-results 3
   - `icons`: Icon usage guidance, SVG libraries (Lucide, Heroicons), and code imports
   - `react`: React & Next.js performance optimizations, re-render fixes & dynamic imports
   - `web`: Web interface guidelines (ARIA, focus traps, virtual list, form inputs)
+  - `m3`: Material Design 3 specific design tokens, color roles, elevation, and component specs
 
 *Example:* `python scripts/search.py "fintech dark theme" --domain color`
 
@@ -92,6 +96,7 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 - **Dark Mode**: High contrast foreground elements over dark slate/gray backgrounds; avoid pure black `#000000` text containers unless requested.
 
 #### 5. Dashboard & Information Hierarchy
+- **Material Design 3 (M3) Integration**: Follow M3 Layouts (compact, medium, expanded). Use M3 elevation for layering instead of heavy borders.
 - **Layout Flow**: KPI summary cards top -> Trend charts middle -> Detailed data tables bottom.
 - **Visual Grid**: Consistent gaps/padding (16px / 24px). Clean subtle borders instead of heavy black dividers.
 - **Data Viz**: Maximum 3–5 coordinated colors in graphs. Responsive tooltips and legend alignment.
@@ -110,8 +115,11 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+
 ### Deskripsi
-UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
+UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, **Material Design 3 (M3)**, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
 
 ### Kondisi Pemicu
 Gunakan pedoman ini atau jalankan mesin pencari CLI ketika:
@@ -151,6 +159,7 @@ python scripts/search.py "<kueri>" --domain <domain> --max-results 3
   - `icons`: Panduan penggunaan ikon, pustaka SVG (Lucide, Heroicons), & import kode
   - `react`: Optimasi performa React & Next.js, perbaikan re-render & dynamic import
   - `web`: Pedoman antarmuka web (ARIA, focus trap, virtual list, input form)
+  - `m3`: Token desain spesifik Material Design 3, peran warna, elevasi, dan spesifikasi komponen
 
 *Contoh:* `python scripts/search.py "fintech dark theme" --domain color`
 
@@ -188,6 +197,7 @@ python scripts/search.py "<kueri>" --stack <stack> --max-results 3
 - **Mode Gelap**: Kontras tinggi antara elemen latar depan dengan latar belakang gelap; hindari kontainer teks serba hitam pekat `#000000` kecuali diminta khusus.
 
 #### 5. Dashboard & Hierarki Informasi
+- **Integrasi Material Design 3 (M3)**: Ikuti tata letak M3 (compact, medium, expanded). Gunakan elevasi M3 untuk pelapisan alih-alih border tebal.
 - **Alur Tata Letak**: Kartu ringkasan KPI di atas -> Grafik tren di tengah -> Tabel detail data di bawah.
 - **Grid Visual**: Konsistensi gap/padding (16px / 24px). Gunakan border halus daripada pembatas tebal hitam.
 - **Visualisasi Data**: Maksimal 3–5 warna terkoordinasi dalam grafik. Tooltip responsif & perataan legenda yang rapi.

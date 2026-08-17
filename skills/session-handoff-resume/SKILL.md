@@ -1,7 +1,7 @@
 ---
 name: session-handoff-resume
 description: "Skill to save ultra-compact project checkpoints and seamlessly resume work across accounts or new chat sessions with minimum token consumption / Skill untuk menyimpan checkpoint proyek yang super ringkas dan melanjutkan pekerjaan secara efisien saat ganti akun/sesi tanpa boros token."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Session Handoff & Resume (2026 — Cross-Model Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Saves ultra-compact project checkpoints and enables seamless work resumption across new chat sessions, different accounts, or different AI models (Gemini, Claude, GPT). Designed for minimum token consumption while preserving full context needed for continuation.
@@ -112,6 +115,9 @@ Proactively offer to create a checkpoint when:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Menyimpan checkpoint proyek yang ultra-ringkas dan memungkinkan kelanjutan pekerjaan yang mulus di sesi chat baru, akun yang berbeda, atau model AI yang berbeda (Gemini, Claude, GPT). Dirancang untuk konsumsi token minimum sambil mempertahankan konteks penuh yang diperlukan untuk kelanjutan.

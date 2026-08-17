@@ -1,7 +1,7 @@
 ---
 name: file-upload-media-expert
 description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigned URLs, image/video processing, CDN optimization, and media pipeline architecture / Panduan ahli untuk upload file (S3, R2, Supabase Storage), presigned URL, pemrosesan gambar/video, optimasi CDN, dan arsitektur pipeline media."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # File Upload & Media Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for building secure, performant file upload systems and media processing pipelines. Covers **presigned URL upload patterns** (S3, R2, Supabase Storage), **multipart uploads** with progress tracking, **image optimization** (Sharp, Cloudflare Images, Vercel OG), **video transcoding** (Mux, Cloudflare Stream), **PDF generation**, **file validation & virus scanning**, **CDN configuration**, and **drag-and-drop UI components**.
@@ -387,6 +390,9 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem upload file yang aman dan performa tinggi serta pipeline pemrosesan media. Mencakup **pola upload presigned URL** (S3, R2, Supabase Storage), **upload multipart** dengan pelacakan progres, **optimasi gambar** (Sharp, Cloudflare Images, Vercel OG), **transcoding video** (Mux, Cloudflare Stream), **pembuatan PDF**, **validasi file & pemindaian virus**, **konfigurasi CDN**, dan **komponen UI drag-and-drop**.

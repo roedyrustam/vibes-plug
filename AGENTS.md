@@ -1,5 +1,9 @@
 # Core Rule for Vibes-Plug Agents
 
+> **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
+> **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/`
+> Each platform has its own entry point, but the core rules and 109+ skills are shared.
+
 ## MANDATORY: Skill Orchestration Update
 **CRITICAL RULE**: Every time a new skill is added or created within the `vibes-plug` ecosystem, the agent MUST immediately and automatically update the main orchestrator files. 
 

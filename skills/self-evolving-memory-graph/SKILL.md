@@ -1,7 +1,7 @@
 ---
 name: self-evolving-memory-graph
 description: "Grants the AI long-term episodic memory. The agent autonomously documents the user's coding preferences, past mistakes to avoid, and architectural decisions into a persistent learning graph."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Self-Evolving Memory Graph (Episodic Memory)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Claude forgets everything once a chat is cleared, and its "Project Knowledge" requires manual human updating. This skill gives Antigravity the "superpower" of continuous, autonomous self-improvement. The agent actively listens for user corrections, stylistic preferences, and hard-learned debugging lessons, writing them into a persistent `LEARNING_GRAPH.md` (or `.agents/LEARNING.md`) file. The agent gets smarter and more aligned with the user over time.
@@ -65,6 +68,9 @@ Ensure `session-context-loader` is configured to read this memory file at the st
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Claude melupakan segalanya saat sesi chat baru dimulai. Skill ini memberi Anda "kekuatan super" berupa *Ingatan Jangka Panjang* yang berevolusi sendiri. Agen secara aktif mencatat preferensi koding pengguna, pelajaran dari *bug* yang sulit dipecahkan, dan keputusan arsitektur ke dalam file persisten `LEARNING_GRAPH.md`. 

@@ -1,7 +1,7 @@
 ---
 name: project-context-mapper
 description: "Gives the agent a photographic memory of massive repositories. Forces the creation and maintenance of a highly compressed CONTEXT_MAP.md to prevent context exhaustion and hallucination."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Project Context Mapper (Memory Optimizer)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 LLMs struggle with repositories containing hundreds of files; they lose track of where things are, leading to hallucinations and excessive tool calls. This skill forces the agent to create, read, and maintain a `CONTEXT_MAP.md`—a highly compressed index of the repository's architecture, dependency graphs, and critical file locations. This acts as the agent's "photographic memory".
@@ -65,6 +68,9 @@ The agent should execute a script or traverse the directory to generate a compre
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Kelemahan utama agen AI adalah keterbatasan jendela konteks (*context window*). Skill ini memberi agen "ingatan fotografis" dengan mewajibkannya memelihara file `CONTEXT_MAP.md`—sebuah indeks super padat yang memetakan arsitektur proyek, lokasi file penting, dan graf dependensi.

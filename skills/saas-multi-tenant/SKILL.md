@@ -1,7 +1,7 @@
 ---
 name: saas-multi-tenant
 description: "Design and implement multi-tenant SaaS architectures with RLS, tenant isolation, and PostgreSQL / Desain dan implementasikan arsitektur SaaS multi-tenant dengan RLS, isolasi tenant, dan PostgreSQL."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # SaaS Multi-Tenant Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert guide for designing and implementing multi-tenant SaaS architectures with full tenant isolation, Supabase/PostgreSQL Row Level Security (RLS), schema-per-org patterns, RBAC, and Super Admin access controls.
@@ -205,6 +208,9 @@ if (!can(currentMember.role, 'project:delete')) {
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang dan mengimplementasikan arsitektur SaaS multi-tenant dengan isolasi tenant penuh, Row Level Security (RLS) Supabase/PostgreSQL, pola schema-per-org, RBAC, dan kontrol akses Super Admin.

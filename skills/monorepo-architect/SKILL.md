@@ -1,7 +1,7 @@
 ---
 name: monorepo-architect
 description: "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages / Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Monorepo Architect (Turborepo 2.x / Moon Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert guide for designing and managing scalable monorepos. Covers **Turborepo 2.x** (the 2026 standard for JS/TS monorepos), **moon** (polyglot task runner for teams mixing JS + Rust + Go), **pnpm workspaces**, shared package design, incremental builds, remote caching, and CI/CD pipeline optimization.
@@ -189,6 +192,9 @@ tasks:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang dan mengelola monorepo yang skalabel. Mencakup **Turborepo 2.x** (standar 2026 untuk monorepo JS/TS), **moon** (task runner poliglot untuk tim yang memadukan JS + Rust + Go), **pnpm workspaces**, desain shared package, incremental build, remote caching, dan optimasi pipeline CI/CD.

@@ -1,7 +1,7 @@
 ---
 name: mpa-orchestrator
 description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
-author: "Antigravity"
+author: "vibes-plug-swarm"
 ---
 
 # Multi-Page Application (MPA) Orchestrator (2026 Edition)
@@ -12,6 +12,9 @@ author: "Antigravity"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -47,6 +50,7 @@ A structured approach for building and orchestrating Multi-Page Application (MPA
 | React MPA with SSR | **Next.js 15** Pages Router or App Router |
 
 ### Orchestration Guidelines
+- **With `modern-web-guidance`**: MUST execute FIRST before any HTML/CSS task to ensure modern frontend standards.
 - **With `mvc-expert`**: Enforce MVC pattern — Controllers handle logic, Views handle rendering.
 - **With `saas-multi-tenant`**: Integrate tenant identification in core routing middleware — every page load initializes `tenant_id` context securely.
 - **With `senior-frontend` / `ui-ux-pro-max`**: Enhance with Alpine.js for reactive UI or HTMX 2 for HTML-driven partial updates — no heavy client-side bundles.
@@ -64,6 +68,9 @@ A structured approach for building and orchestrating Multi-Page Application (MPA
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
@@ -87,6 +94,7 @@ Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page 
 | React MPA dengan SSR | **Next.js 15** Pages Router atau App Router |
 
 ### Panduan Orkestrasi
+- **Dengan `modern-web-guidance`**: WAJIB dieksekusi PERTAMA KALI sebelum tugas HTML/CSS untuk memastikan standar frontend modern.
 - **Dengan `mvc-expert`**: Pastikan MPA mengikuti pola MVC secara ketat.
 - **Dengan `saas-multi-tenant`**: Integrasikan identifikasi tenant di middleware routing inti.
 - **Dengan `senior-frontend` / `ui-ux-pro-max`**: Tingkatkan dengan Alpine.js atau HTMX 2 untuk interaksi tanpa bundle berat.
@@ -99,3 +107,14 @@ Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page 
 - Membangun situs konten, halaman marketing, atau aplikasi kritis SEO.
 - Menggunakan Astro 5 untuk situs statis atau konten-berat dengan island interaktif opsional.
 - Menambahkan interaktivitas ke halaman server-rendered dengan HTMX 2 tanpa menulis ulang ke SPA.
+
+---
+### 📄 Standard Pages Mandate (CRITICAL)
+**MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
+1. **About Page** (`/about`)
+2. **Profile Page** (`/profile`)
+3. **Contact Page** (`/contact`)
+4. **Terms of Reference / Terms of Service** (`/terms`)
+5. **Privacy Policy** (`/privacy-policy`)
+
+These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.

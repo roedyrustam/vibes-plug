@@ -1,7 +1,7 @@
 ---
 name: self-healing-cloud-orchestrator
 description: "Real-time log monitoring, crash detection, and auto-hotfixing code without human intervention / Pemantauan log real-time, deteksi kerusakan, dan perbaikan kode hotfix otomatis tanpa intervensi manusia."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Self-Healing Cloud Orchestrator (Code-to-Cloud Auto Remediation)

@@ -1,7 +1,7 @@
 ---
 name: visual-qa-vision-agent
 description: "Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Visual QA & Vision Agent
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill transforms the agent from a blind code generator into a visual designer. Instead of hoping the CSS looks correct, the agent is instructed to write a script that takes a screenshot of the newly created component, analyzes the screenshot using its own Vision AI capabilities, and iteratively tweaks the CSS until it matches the design intent perfectly.
@@ -51,6 +54,9 @@ Activate this skill when the user says:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakukan *Quality Assurance* (QA) visual. Agen tidak lagi sekadar menebak CSS secara buta, melainkan mengambil *screenshot* dari halaman yang dibuatnya, melihat hasilnya, dan mengkoreksi *margin/padding* secara mandiri.

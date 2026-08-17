@@ -1,7 +1,7 @@
 ---
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 1M+ long-context reasoning, multimodal vision UI audits, visual subagent feedback, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 1M+, audit UI visual multimodal, dan pemecahan masalah kecepatan tinggi."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Gemini Agent Booster (2026 Edition — Gemini 2.5 Pro/Flash)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 2.5 Pro/Flash capabilities — including 1M+ token context window, multimodal vision analysis, deep research mode, thinking chains, and high-speed code generation.
@@ -91,6 +94,9 @@ Gemini Agent natively supports parallel tool calls — run independent operation
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kemampuan native Gemini 2.5 Pro/Flash — termasuk context window 1M+ token, analisis visi multimodal, mode penelitian mendalam, rantai pemikiran, dan generasi kode berkecepatan tinggi.

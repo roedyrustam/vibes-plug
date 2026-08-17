@@ -1,7 +1,7 @@
 ---
 name: monday-design-aesthetic
 description: "Expert guide for implementing the modern, spacious, and highly structured Monday.com design system / Panduan desain ala Monday.com."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Monday.com Design Aesthetic
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill focuses on implementing the modern, spacious, and structured design aesthetic inspired by Monday.com. It is ideal for SaaS landing pages and dashboards.
@@ -41,6 +44,9 @@ Use this when the user asks for:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini berfokus pada implementasi desain yang modern, luas (spacious), dan terstruktur yang terinspirasi oleh Monday.com. Sangat cocok untuk landing page dan dashboard SaaS.

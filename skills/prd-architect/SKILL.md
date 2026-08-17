@@ -1,7 +1,7 @@
 ---
 name: prd-architect
 description: "Mandatory guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD), ERD, and Documentation before generating code for new projects / Skill khusus untuk memaksa pembuatan Product Requirements Document (PRD), ERD, dan Dokumentasi secara otomatis sebelum mulai coding pada setiap proyek baru."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # PRD Architect (2026 — PRD-as-Code Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Mandatory guardrail that enforces creating a comprehensive Product Requirements Document (PRD), Entity Relationship Diagram (ERD), and general Documentation before generating code for any new project. Introduces **PRD-as-Code** — a structured Markdown format designed to be machine-readable by AI agents and version-controlled alongside code.
@@ -150,6 +153,9 @@ projects ──has_many──> tasks
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Guardrail wajib yang memaksa pembuatan secara otomatis Product Requirements Document (PRD) komprehensif, Entity Relationship Diagram (ERD), dan Dokumentasi sebelum membuat kode untuk proyek baru apapun. Memperkenalkan **PRD-as-Code** — format Markdown terstruktur yang dirancang agar dapat dibaca mesin oleh agen AI dan dikontrol versi bersama kode.

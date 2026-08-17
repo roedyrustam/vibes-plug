@@ -1,7 +1,7 @@
 ---
 name: multi-agent-orchestration
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, graph-based workflows (LangGraph, CrewAI, AutoGen), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers agent orchestration frameworks (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, CrewAI, AutoGen), shared state and memory management, tool execution, human-in-the-loop (HITL) guardrails, and observability for agentic workflows.
@@ -177,6 +180,9 @@ Leverage Antigravity's native `invoke_subagent` for parallel execution:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup framework orkestrasi agen (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), manajemen state dan memori bersama, eksekusi tool, guardrail human-in-the-loop (HITL), dan observabilitas untuk alur kerja agentik.

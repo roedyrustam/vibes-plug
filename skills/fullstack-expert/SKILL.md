@@ -1,7 +1,7 @@
 ---
 name: fullstack-expert
 description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), API design, microservices, DevOps, and system design / Panduan fullstack tingkat ahli mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), desain API, microservices, DevOps, dan system design."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Fullstack Expert (2026 Multi-Language Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert-level fullstack development across multiple languages and frameworks. Covers tech stack selection, API design (REST/gRPC/GraphQL), microservice architecture, DevOps, system design patterns, and AI-native backend integration for 2026.
@@ -199,6 +202,9 @@ import type { User } from '@myapp/types';
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan pengembangan fullstack tingkat ahli di berbagai bahasa dan framework. Mencakup pemilihan tech stack, desain API (REST/gRPC/GraphQL), arsitektur microservice, DevOps, pola desain sistem, dan integrasi backend AI-native untuk 2026.

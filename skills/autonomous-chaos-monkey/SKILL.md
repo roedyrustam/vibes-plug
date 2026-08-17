@@ -1,7 +1,7 @@
 ---
 name: autonomous-chaos-monkey
 description: "AI-driven Chaos Engineering. Randomly injects latency, terminates mock services, and automatically implements circuit breakers / Chaos Engineering berbasis AI. Menyuntikkan latensi secara acak, mematikan layanan simulasi, dan secara otomatis menerapkan circuit breaker."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Autonomous Chaos Monkey (Resilience Engineering Agent)

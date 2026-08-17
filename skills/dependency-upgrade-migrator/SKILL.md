@@ -1,7 +1,7 @@
 ---
 name: dependency-upgrade-migrator
 description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Dependency Upgrade Migrator (2026 Edition)
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for safely upgrading dependencies, migrating through breaking changes, and maintaining healthy dependency trees. Covers **automated upgrade tooling** (`npm-check-updates`, `taze`, Renovate Bot), **major framework migration guides** (React 18→19, Next.js 14→15, Tailwind v3→v4), **codemod automation** (jscodeshift, ts-morph), **vulnerability remediation** (`npm audit`, `pnpm audit`), **lockfile hygiene**, **monorepo alignment** (pnpm catalogs), and **breaking change detection workflows**.
@@ -274,6 +277,9 @@ catalog:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk upgrade dependensi yang aman, migrasi melalui breaking change, dan pemeliharaan dependency tree yang sehat. Mencakup **tooling upgrade otomatis** (`taze`, Renovate Bot), **panduan migrasi framework utama** (React 18→19, Next.js 14→15, Tailwind v3→v4), **otomasi codemod** (jscodeshift, ts-morph), **remediasi kerentanan** (`pnpm audit`), **kebersihan lockfile**, dan **penyelarasan dependensi monorepo** (pnpm catalogs).

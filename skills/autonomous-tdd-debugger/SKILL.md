@@ -1,7 +1,7 @@
 ---
 name: autonomous-tdd-debugger
 description: "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Autonomous TDD Debugger & Self-Healing Agent
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill transforms the AI from a passive code generator into an active, autonomous engineer. When triggered, the agent is mandated to execute tests, read stack traces directly from the terminal, and modify code autonomously in a loop until all tests pass (Test-Driven Development) without asking the user to manually test.
@@ -51,6 +54,9 @@ Activate this skill when the user asks to:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Memberdayakan agen AI untuk menjalankan *test*, membaca *stack trace* di terminal, dan menyembuhkan (self-heal) kode secara mandiri hingga sukses. Mengubah agen dari sekadar penulis kode pasif menjadi *debugger* aktif.

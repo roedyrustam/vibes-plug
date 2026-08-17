@@ -1,7 +1,7 @@
 ---
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Global Accessibility (a11y) & i18n Expert
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill focuses on making enterprise web applications universally accessible and globally adaptable. It covers Web Content Accessibility Guidelines (WCAG) compliance and Internationalization (i18n) patterns for multi-language, multi-timezone software.
@@ -48,6 +51,9 @@ Time is incredibly difficult to manage globally.
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini berfokus pada pembuatan aplikasi web skala *enterprise* yang dapat diakses secara universal dan diadaptasi secara global. Panduan ini mencakup kepatuhan pedoman Aksesibilitas Web (WCAG) serta pola Internasionalisasi (i18n) untuk perangkat lunak multi-bahasa dan multi-zona-waktu.

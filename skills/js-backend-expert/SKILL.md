@@ -1,7 +1,7 @@
 ---
 name: js-backend-expert
 description: "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # JS Backend Expert (Node.js 24 LTS / Bun 1.2 / Deno 2.x Edition)
@@ -152,12 +152,13 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 ```
 
-### Skill Orchestration & Handoff
+## Orchestration & Integration
 - **Upstream Orchestrator**: Executes during **Phase 4** of `zero-to-prod-orchestrator` or after backend decision lock in `brainstorming`.
 - **API Contracts & Specs**: Delegate OpenAPI / GraphQL / gRPC design to `api-design-expert` and TypeScript type generation to `typescript-expert`.
-- **Database & ORM Layer**: Delegate schema design, migrations, and pooling to `database-orm-expert` and `supabase-migration`.
+- **Database & ORM Layer**: Delegate schema design, migrations, and pooling to `database-orm-expert` and `supabase-migration`. Connect to `edge-serverless-db-expert` for serverless database architectures.
 - **Authentication & Security**: Delegate JWT/OAuth2 flows to `authentication-identity-expert` and environment secret security to `zero-trust-secret-vault`.
 - **Durable Async Jobs**: Delegate fault-tolerant long-running workflows to `async-queue-temporal-expert`.
+- **Error Resilience**: Implement error handling patterns and circuit breakers via `error-resilience-expert`.
 - **Automated Testing & Docs**: Delegate integration testing to `e2e-testing-expert` and update change logs via `auto-doc-updater`.
 
 ---
@@ -208,10 +209,11 @@ Gunakan BullMQ dengan Redis untuk pemrosesan tugas latar belakang yang andal den
 ### Graceful Shutdown
 Jangan hentikan proses secara mendadak. Bersihkan connection pool, HTTP server, dan worker queue sebelum keluar.
 
-### Orkestrasi Skill & Serah Terima
+## Integrasi Orkestrasi
 - **Orkestrator Utama**: Dieksekusi pada **Fase 4** dari `zero-to-prod-orchestrator` atau setelah finalisasi backend di `brainstorming`.
 - **Kontrak & Spesifikasi API**: Delegasikan desain OpenAPI / GraphQL / gRPC ke `api-design-expert` dan tipe TypeScript ke `typescript-expert`.
-- **Database & ORM**: Delegasikan desain skema, migrasi, dan pooling ke `database-orm-expert` dan `supabase-migration`.
+- **Database & ORM**: Delegasikan desain skema, migrasi, dan pooling ke `database-orm-expert` dan `supabase-migration`. Hubungkan dengan `edge-serverless-db-expert` untuk arsitektur database serverless.
 - **Autentikasi & Keamanan**: Delegasikan alur JWT/OAuth2 ke `authentication-identity-expert` dan keamanan kredensial ke `zero-trust-secret-vault`.
 - **Pekerjaan Asinkron Tahan Gagal**: Delegasikan workflow kompleks ke `async-queue-temporal-expert`.
+- **Ketahanan Error**: Terapkan pola penanganan error dan circuit breaker melalui `error-resilience-expert`.
 - **Pengujian & Dokumentasi**: Delegasikan pengujian integrasi ke `e2e-testing-expert` dan perbarui catatan perubahan via `auto-doc-updater`.

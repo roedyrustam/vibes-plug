@@ -1,7 +1,7 @@
 ---
 name: async-queue-temporal-expert
 description: "Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant background sagas / Panduan ahli workflow engine tahan-gagal (Temporal, Trigger.dev, Inngest, BullMQ)."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Async Queue & Durable Workflow Expert
@@ -46,6 +46,9 @@ export const generateSaaSReport = task({
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk merancang pipeline eksekusi background yang tahan-gagal (durable execution) dan state machine terdistribusi menggunakan Temporal.io, Trigger.dev v3, Inngest, dan BullMQ v5. Menjamin penyelesaian eksekusi tugas background berdurasi panjang meskipun terjadi server crash atau pembatasan API rate limit.

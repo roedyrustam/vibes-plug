@@ -1,7 +1,7 @@
 ---
 name: mcp-client-orchestrator
 description: "Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # MCP Client Orchestrator
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 While `mcp-server-architect` teaches the agent how to *build* servers, this skill teaches the agent how to **consume** them as an MCP Client. This grants the agent "superpowers" by securely interacting with local PostgreSQL databases, GitHub repos, Figma APIs, and Slack channels in real-time, autonomously, using available MCP tool sets.
@@ -56,6 +59,9 @@ Example: "Find the bug reported on GitHub and fix it."
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill yang memandu Agen AI tentang cara menggunakan (consume) server Model Context Protocol (MCP) eksternal, memberikan kekuatan *real-time* untuk berinteraksi dengan Database, GitHub, Slack, dan sistem lainnya secara otonom.

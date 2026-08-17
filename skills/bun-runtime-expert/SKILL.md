@@ -1,7 +1,7 @@
 ---
 name: bun-runtime-expert
 description: "Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Bun Runtime Expert
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 Expert-level guidance for building high-performance applications with the Bun JavaScript/TypeScript runtime (v1.1+). Covers Bun's built-in HTTP server, database clients, bundler, test runner, package manager, and Node.js migration strategies.
 
@@ -110,6 +113,9 @@ const users = await sql`SELECT * FROM users WHERE active = ${true}`;
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
 

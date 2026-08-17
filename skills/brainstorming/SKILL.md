@@ -1,7 +1,7 @@
 ---
 name: brainstorming
 description: "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Brainstorming & Skill Orchestration Protocol
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Purpose & Overview
 Turn raw ideas into **clear, validated designs, architectural specifications, and execution roadmaps** through structured dialogue **before any implementation begins**. 
@@ -25,7 +28,7 @@ This skill exists to prevent:
 - Fragile web/mobile systems, security gaps, and performance regressions
 - Over-engineering before establishing product-market fit
 
-> ⚠️ **Hard Constraint:** You are **not allowed** to write code or modify source code while `brainstorming` mode is active. Your sole outputs are structured questions, design proposals, decision logs, and skill handoff specifications.
+> ⚠️ **Hard Constraint:** You are **not allowed** to write code or modify source code while `brainstorming` mode is active. Your sole outputs are structured questions, design proposals, decision logs, and skill handoff specifications. **For new applications, you MUST always automatically trigger the `prd-architect` skill to generate a `PRD.md` file before coding begins.**
 
 ---
 
@@ -85,7 +88,7 @@ Before asking any questions, inspect the environment:
 - Audit existing project files, tech stack, ORM schemas, and current architecture.
 - Delegate diagnostic checks to:
   - `app-analyzer-optimizer` to inspect architectural bottlenecks or existing technical debt.
-  - `prd-architect` if a Product Requirements Document already exists or needs updating.
+  - `prd-architect` to **mandatorily generate a `PRD.md` file** if this is a new application, or update it if it already exists.
   - `web-scraper` if analyzing competitor solutions or external API specs.
 - Identify implicit constraints and note missing requirements.
 
@@ -184,11 +187,15 @@ Exit brainstorming mode **only when all of the following are satisfied**:
 - Skill Orchestration Matrix mapped out for execution.
 - Key NFRs (Performance, a11y, security) documented.
 - Decision Log and `DESIGN.md` artifact generated.
+- **`PRD.md` successfully generated** (for new applications).
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Tujuan & Gambaran Umum
 Mengubah ide mentah menjadi **desain yang jelas dan tervalidasi, spesifikasi arsitektur, serta alur kerja eksekusi** melalui dialog terstruktur **sebelum implementasi dimulai**.
@@ -202,7 +209,7 @@ Skill ini ada untuk mencegah:
 - Sistem web/mobile yang rapuh, celah keamanan, dan penurunan performa
 - *Over-engineering* sebelum tercapainya *product-market fit*
 
-> ⚠️ **Batasan Ketat:** Anda **tidak diperbolehkan** untuk menulis kode atau mengubah kode sumber saat mode `brainstorming` aktif. Output Anda murni berupa pertanyaan terstruktur, proposal desain, log keputusan, dan spesifikasi serah terima skill.
+> ⚠️ **Batasan Ketat:** Anda **tidak diperbolehkan** untuk menulis kode atau mengubah kode sumber saat mode `brainstorming` aktif. Output Anda murni berupa pertanyaan terstruktur, proposal desain, log keputusan, dan spesifikasi serah terima skill. **Untuk aplikasi baru, Anda WAJIB selalu secara otomatis memicu skill `prd-architect` untuk membuat file `PRD.md` sebelum penulisan kode dimulai.**
 
 ---
 
@@ -262,7 +269,7 @@ Sebelum mengajukan pertanyaan, periksa lingkungan proyek:
 - Audit file proyek yang ada, stack teknologi, skema ORM, dan arsitektur saat ini.
 - Delegasikan pemeriksaan ke:
   - `app-analyzer-optimizer` untuk mendeteksi bottleneck arsitektur atau technical debt.
-  - `prd-architect` jika PRD sudah ada atau perlu dibuat.
+  - `prd-architect` untuk **wajib menghasilkan file `PRD.md`** jika ini adalah aplikasi baru, atau memperbaruinya jika sudah ada.
   - `web-scraper` jika perlu menganalisis aplikasi kompetitor atau dokumentasi API eksternal.
 - Catat batasan-batasan implisit dan persyaratan yang belum jelas.
 
@@ -361,6 +368,7 @@ Mode brainstorming selesai **hanya jika seluruh kondisi berikut terpenuhi**:
 - Matriks Orkestrasi Skill telah dipetakan untuk eksekusi.
 - Requirements NFR utama (Performa, a11y, keamanan) didokumentasikan.
 - Log Keputusan dan artifact `DESIGN.md` telah dibuat.
+- **File `PRD.md` telah berhasil dibuat** (untuk aplikasi baru).
 
 ---
 ### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)

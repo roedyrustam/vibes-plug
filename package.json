@@ -1,10 +1,13 @@
 {
   "name": "vibes-plug",
   "version": "2.5.0",
-  "description": "Customization plugin for Antigravity containing 103+ specialized *skills* updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
+  "description": "Universal AI plugin with 109+ specialized skills for Antigravity, Claude, and Cursor. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install-all": "node scripts/install.js --all",
+    "install-claude": "node scripts/install.js --claude",
+    "install-cursor": "node scripts/install.js --cursor"
   },
   "repository": {
     "type": "git",
@@ -12,8 +15,10 @@
   },
   "keywords": [
     "gemini",
-    "plugins",
-    "gemini",
+    "antigravity",
+    "claude",
+    "cursor",
+    "ai-plugins",
     "skills"
   ],
   "author": "Roedy Rustam",

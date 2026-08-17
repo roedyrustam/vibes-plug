@@ -1,10 +1,10 @@
 ---
 name: browser-automation-expert
-description: "Expert guide for autonomous browser automation, Playwright/Browser-Use web agent execution, visual E2E testing, and UI regression workflows / Panduan ahli otomatisasi browser otonom, Playwright/Browser-Use agent, dan pengujian visual E2E."
-author: "Roedy Rustam"
+description: "Expert guide for autonomous web agents (Browser-Use, Stagehand), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
+author: vibes-plug-swarm
 ---
 
-# Browser Automation & Web Agent Expert
+# Autonomous Web Agent & Automation Expert
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,53 +14,58 @@ author: "Roedy Rustam"
 ## English
 
 ### Purpose & Overview
-Production-grade guidelines for integrating autonomous browser automation, Playwright v1.48+, Browser-Use LLM web agents, visual regression testing, and automated end-to-end user flow execution.
+Deploy ultra-powerful autonomous web agents that can perceive, navigate, and execute complex workflows without human intervention. Use modern frameworks (Browser-Use, Stagehand) combined with hardcore anti-detection evasion techniques and Vision LLMs for visual QA.
 
-### Key Capabilities
-- **Playwright Automation**: Headless & headful browser control, multi-tab context isolation, locator strategies, auto-waiting, and network interception.
-- **LLM Web Agents**: Browser-Use & Playwright MCP integration for AI-driven web tasks, dynamic element interaction, and autonomous page navigation.
-- **Visual E2E & Regression**: Screenshot diffing, pixel-match assertions, video recording, and CI/CD artifact attachment.
+### Core Capabilities
 
-```typescript
-import { test, expect } from '@playwright/test';
+1. **Autonomous Execution Frameworks**
+   - Integrate **Browser-Use** and **Stagehand** to allow LLMs to visually interpret DOM trees, inject semantic labels, and autonomously decide click/type actions.
+   - Map complex multi-step workflows to semantic goals rather than brittle CSS selectors.
 
-test('Autonomous User Signup & Checkout Flow', async ({ page }) => {
-  await page.goto('https://app.example.com/signup');
-  await page.getByPlaceholder('Enter your email').fill('agent@example.com');
-  await page.getByRole('button', { name: 'Get Started' }).click();
-  await expect(page.getByText('Welcome to Dashboard')).toBeVisible();
-});
-```
+2. **Hardcore Evasion & Anti-Bot Bypassing**
+   - **Playwright Stealth**: Implement `puppeteer-extra-plugin-stealth` adapted for Playwright to spoof `navigator.webdriver`.
+   - **Fingerprint Masking**: Spoof Canvas, WebGL, AudioContext, and WebRTC fingerprints.
+   - **Human Behavior Mimicry**: Inject randomized delays, Bezier-curve mouse movements, and organic scroll patterns. Rotate residential proxies to bypass Cloudflare/Datadome.
 
-### Implementation Checklist
-- [ ] Install Playwright (`npm init playwright@latest`) and configure required browsers.
-- [ ] Set up the `playwright.config.ts` for parallel execution and retries.
-- [ ] Use user-facing locators (e.g., `getByRole`, `getByText`) instead of unstable CSS/XPath selectors.
-- [ ] Configure trace viewers and video recording for CI/CD pipeline failures.
-- [ ] If building an LLM agent, pass the Playwright Page context to the Browser-Use MCP tool.
+3. **Visual QA & Diffing via Vision LLMs**
+   - Capture viewport screenshots and pipe them into **GPT-4o**, **Claude 3.5 Sonnet**, or **Gemini 1.5 Pro**.
+   - Prompt the Vision LLM to perform layout regression checks, identify visual anomalies, or validate complex states (e.g., "Is the modal fully obscuring the background?").
+
+### Execution Protocol
+- **Action**: Initialize Stagehand or Browser-Use agent.
+- **Action**: Inject stealth scripts before page load.
+- **Action**: Pass screenshots to Vision LLM at key checkpoints for semantic validation.
 
 ## Orchestration & Integration
-- Integrates with: `e2e-testing-expert`, `visual-qa-vision-agent`, `mcp-client-orchestrator`.
+- Integrates with: `web-scraper`, `autonomous-chaos-monkey`, `visual-qa-vision-agent`, `e2e-testing-expert`.
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
-### Deskripsi
-Panduan tingkat produksi untuk otomatisasi browser otonom, Playwright v1.48+, agen web LLM Browser-Use, pengujian visual regression, dan eksekusi alur pengguna E2E otomatis.
+### Tujuan & Gambaran Umum
+Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengeksekusi alur kerja kompleks tanpa campur tangan manusia. Gunakan framework modern (Browser-Use, Stagehand) dipadukan dengan teknik penghindaran deteksi bot tingkat tinggi dan Vision LLM untuk QA visual.
 
-### Fitur Utama
-- **Otomatisasi Playwright**: Kontrol browser headless/headful, isolasi konteks multi-tab, auto-waiting, dan intersepsi jaringan.
-- **Agen Web LLM**: Integrasi Browser-Use & Playwright MCP untuk tugas web berbasis AI dan navigasi dinamis.
-- **Visual E2E & Regresi**: Perbandingan screenshot, rekaman video, dan pengunggahan artefak di CI/CD.
+### Kemampuan Utama
 
-### Checklist Implementasi
-- [ ] Instal Playwright (`npm init playwright@latest`) dan konfigurasi browser yang diperlukan.
-- [ ] Atur `playwright.config.ts` untuk eksekusi paralel dan retries.
-- [ ] Gunakan locator berbasis pengguna (misal: `getByRole`, `getByText`) sebagai pengganti selektor CSS/XPath yang tidak stabil.
-- [ ] Konfigurasi trace viewer dan perekaman video untuk mendebug kegagalan di pipeline CI/CD.
-- [ ] Jika membangun agen LLM, lewatkan konteks Playwright Page ke tool Browser-Use MCP.
+1. **Framework Eksekusi Otonom**
+   - Integrasikan **Browser-Use** dan **Stagehand** agar LLM dapat menginterpretasi DOM tree secara visual, menyuntikkan label semantik, dan menentukan aksi klik/ketik secara otonom.
+   - Petakan alur kerja multi-langkah ke tujuan semantik, bukan selektor CSS yang rapuh.
+
+2. **Penghindaran Deteksi & Anti-Bot Tingkat Tinggi**
+   - **Playwright Stealth**: Implementasikan plugin stealth untuk memalsukan `navigator.webdriver`.
+   - **Masking Fingerprint**: Palsukan sidik jari Canvas, WebGL, AudioContext, dan WebRTC.
+   - **Mimikri Perilaku Manusia**: Suntikkan jeda acak, gerakan mouse kurva Bezier, dan pola scroll organik. Rotasi proxy residential untuk menembus Cloudflare/Datadome.
+
+3. **QA Visual & Diffing via Vision LLM**
+   - Tangkap screenshot viewport dan teruskan ke **GPT-4o**, **Claude 3.5 Sonnet**, atau **Gemini 1.5 Pro**.
+   - Minta Vision LLM untuk melakukan pemeriksaan regresi layout, mengidentifikasi anomali visual, atau memvalidasi status kompleks (mis. "Apakah modal menutupi background sepenuhnya?").
+
+### Protokol Eksekusi
+- **Tindakan**: Inisialisasi agen Stagehand atau Browser-Use.
+- **Tindakan**: Suntikkan skrip stealth sebelum pemuatan halaman.
+- **Tindakan**: Teruskan screenshot ke Vision LLM di titik pemeriksaan penting untuk validasi semantik.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `e2e-testing-expert`, `visual-qa-vision-agent`, `mcp-client-orchestrator`.
+- Terintegrasi dengan: `web-scraper`, `autonomous-chaos-monkey`, `visual-qa-vision-agent`, `e2e-testing-expert`.

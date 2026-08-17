@@ -1,7 +1,7 @@
 ---
 name: secure-fuzz-testing
 description: "Expert-level skill for writing and integrating coverage-guided fuzz tests in Python, Rust, and Go for secure code validation in English and Indonesian."
-author: "Roedy Rustam"
+author: "vibes-plug-swarm"
 ---
 
 # Secure Fuzz Testing
@@ -12,6 +12,9 @@ author: "Roedy Rustam"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 Expert-level guidance for writing, running, and integrating coverage-guided fuzz tests (fuzzing) to identify security vulnerabilities, memory leaks, and input-validation issues in software applications. This skill covers writing fuzz targets in **Python**, **Rust**, and **Go**, configuring compilers with sanitizers (ASan, MSan, UBSan), and setting up automated CI/CD security pipelines.
@@ -108,6 +111,9 @@ Use compiler instrumentation flags to expose hidden bugs:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat ahli untuk menulis, menjalankan, dan mengintegrasikan pengujian berbasis cakupan (*coverage-guided fuzzing*) untuk mengidentifikasi celah keamanan, kebocoran memori, dan kesalahan validasi input dalam aplikasi perangkat lunak. Skill ini mencakup penulisan target fuzzing dalam bahasa **Python**, **Rust**, dan **Go**, konfigurasi compiler dengan sanitizer (ASan, MSan, UBSan), serta penyiapan pipa otomatisasi keamanan CI/CD.

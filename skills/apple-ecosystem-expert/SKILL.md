@@ -1,7 +1,7 @@
 ---
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
-author: vibes-plug-swarm
+author: "vibes-plug-swarm"
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill
@@ -102,6 +102,9 @@ This skill should be referenced by the following orchestrators:
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk pengembangan ekosistem Apple. Mencakup kompatibilitas Safari WebKit, Progressive Web Apps (PWA) khusus iOS, interaksi sentuhan, konfigurasi `manifest.json`, dan penerapan prinsip Human Interface Guidelines (HIG) untuk web dan aplikasi iOS.

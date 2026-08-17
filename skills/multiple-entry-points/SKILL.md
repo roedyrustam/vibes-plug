@@ -1,7 +1,7 @@
 ---
 name: multiple-entry-points
 description: "Expert guide for designing and implementing Multiple Entry Points architecture in web applications / Panduan ahli untuk merancang dan mengimplementasikan arsitektur Multiple Entry Points pada aplikasi web."
-author: "Antigravity"
+author: "vibes-plug-swarm"
 ---
 
 # Multiple Entry Points Architecture
@@ -12,6 +12,9 @@ author: "Antigravity"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
 This skill outlines the architectural pattern of using Multiple Entry Points in a web application. Instead of forcing all traffic through a single Front Controller (like a monolithic `index.php`), the application separates traffic logically into distinct entry files such as `index.php` (public), `admin.php`, and `api.php`. This provides stronger isolation, optimized loading, and stricter security boundaries.
@@ -59,6 +62,9 @@ export default defineConfig({
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini menguraikan pola arsitektur menggunakan *Multiple Entry Points* dalam aplikasi web. Alih-alih memaksa semua lalu lintas (traffic) melalui satu Front Controller tunggal (seperti `index.php` monolitik), aplikasi memisahkan lalu lintas secara logis ke dalam file entri yang berbeda seperti `index.php` (publik), `admin.php`, dan `api.php`. Pola ini memberikan isolasi yang lebih kuat, pemuatan (loading) yang dioptimalkan, dan batas keamanan yang lebih ketat.
