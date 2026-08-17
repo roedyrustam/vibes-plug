@@ -5,7 +5,56 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
-## [2.5.0] - 2026-08-14
+## [2.7.0] - 2026-08-18
+
+### Added / Ditambahkan
+- **Enhanced Swarm Topologies**: Introduced 4 standardized Swarm Topologies (Hierarchical Star, Pipeline Saga, Peer-to-Peer Mesh, Critic-Validator Quality Gates) in `AGENTS.md` and `multi-agent-orchestration/SKILL.md`.
+  *(Topologi Swarm Tingkat Lanjut: Menambahkan 4 topologi swarm standar untuk eksekusi paralel dan sekuensial.)*
+- **Swarm Circuit Breakers & Dynamic Routing**: Automated failure detection, retry thresholds, and intelligent fallback delegation across specialized skills.
+  *(Circuit Breaker Swarm & Perutean Dinamis: Deteksi kegagalan otomatis dan delegasi fallback cerdas.)*
+- **Multi-Platform Swarm Protocols**: Unified execution standards across **Antigravity (AGY)** subagent spawning, **Claude Code** background tasks, and **Cursor IDE** Composer rules.
+  *(Protokol Swarm Multi-Platform: Standarisasi eksekusi terpadu di seluruh platform.)*
+- **Synchronized Swarm Architecture Diagram**: Updated Mermaid architecture in `README.md` reflecting multi-platform entry points and the 9-domain swarm engine (134+ skills).
+  *(Diagram Arsitektur Swarm Tersinkronisasi: Diagram Mermaid diperbarui untuk mencakup semua platform dan 9 domain skill.)*
+
+---
+
+## [2.6.0] - 2026-08-18
+
+### Added / Ditambahkan
+- **Universal Multi-Platform Support**: Added full compatibility for **Claude Code/Desktop** (`CLAUDE.md`, `.claude/rules/vibes-plug-core.md`) and **Cursor IDE** (`.cursorrules`, `.cursor/rules/vibes-plug-core.mdc`).
+  *(Dukungan multi-platform universal: Menambahkan kompatibilitas penuh untuk Claude Code dan Cursor IDE.)*
+- **Cross-Platform CLI Installer**: Created `scripts/install.js` for automated zero-friction environment deployment across Antigravity, Claude, and Cursor.
+  *(Script installer cross-platform: Membuat `scripts/install.js` untuk deployment otomatis.)*
+- **20 New Specialized Skills** (Expanding total skills from 114 to 134):
+  1. `ai-media-generation-expert`: AI Image/Video/Voice synthesis (Flux, DALL-E, Sora, ElevenLabs, Whisper).
+  2. `headless-cms-expert`: Sanity v3, Payload CMS 3.x, Strapi 5, Contentful, Storyblok.
+  3. `astro-framework-expert`: Astro 5+ Content Collections, Islands Architecture, View Transitions.
+  4. `data-visualization-expert`: Recharts, Tremor, D3.js v7, Chart.js 4, Apache ECharts.
+  5. `rich-text-editor-expert`: Tiptap v2, Lexical, ProseMirror, Yjs collaborative editing.
+  6. `svelte-sveltekit-expert`: Svelte 5 Runes, SvelteKit 2, server actions.
+  7. `chatbot-messaging-expert`: WhatsApp Business Cloud API, Telegram Bot, Discord.js, Slack Bolt.
+  8. `ecommerce-expert`: Shopify Storefront API, Medusa.js v2, Saleor.
+  9. `documentation-site-expert`: Mintlify, Docusaurus 3, Storybook 8, Astro Starlight.
+  10. `biome-linter-formatter-expert`: Biome v2 (Rust-based linter/formatter replacing ESLint/Prettier).
+  11. `solidjs-expert`: SolidJS 2, SolidStart, fine-grained reactivity.
+  12. `geospatial-maps-expert`: Mapbox GL JS v3, Leaflet, Google Maps, PostGIS.
+  13. `pdf-document-generation-expert`: React PDF, Puppeteer PDF, jsPDF, pdf-lib.
+  14. `search-engine-expert`: Typesense, Meilisearch, Elasticsearch.
+  15. `n8n-automation-expert`: n8n self-hosted workflows, custom nodes, AI chains.
+  16. `angular-expert`: Angular 19+ Standalone, Signals, NgRx SignalStore, SSR Hydration.
+  17. `wordpress-headless-expert`: WPGraphQL, ACF Pro, Faust.js, Next.js/Astro.
+  18. `desktop-electron-expert`: Electron 33+ Context Isolation, typed IPC, auto-updater.
+  19. `blockchain-web3-expert`: viem, wagmi v2, RainbowKit, EVM smart contracts.
+  20. `accessibility-testing-expert`: axe-core, Pa11y, WCAG 2.2 Level AA/AAA automated testing.
+
+### Changed / Diubah
+- Updated orchestrator matrices in `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md` (both EN and ID) to integrate all 20 new skills.
+- Synchronized skill counts to **134+** across `README.md`, `CLAUDE.md`, `.cursorrules`, `package.json`, and `plugin.json`.
+
+---
+
+
 
 ### Added / Ditambahkan
 - Registered 6 previously undocumented skill modules in `BLUEPRINT.md` and `README.md`: `autonomous-chaos-monkey`, `autonomous-red-teamer`, `hyper-context-synthesizer`, `llm-cost-arbitrage-router`, `post-quantum-crypto-migrator`, `self-healing-cloud-orchestrator`.

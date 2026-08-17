@@ -168,13 +168,22 @@ Mandatory for high-stakes agent actions (financial transactions, email sending, 
 - **Mastra Evals**: Built-in evaluation framework for Mastra agents.
 - **Custom Metrics**: Track task completion rate, tool call accuracy, latency, and cost per run.
 
-#### 9. Antigravity Native Swarm Director
-Leverage Antigravity's native `invoke_subagent` for parallel execution:
-- **Analyze & Decompose**: Break tasks into independent, non-overlapping chunks.
-- **Spawn Parallel Subagents**: Use `invoke_subagent` with specific scoped prompts. Pass `branch` or `share` workspace parameters safely. Do NOT spawn >5 subagents simultaneously.
-- **Wait & Monitor**: System automatically wakes you upon subagent completion. No polling needed.
-- **Adversarial Critique**: Spawn an "Auditor" subagent to red-team and review the outputs before merging.
-- **Mandatory PRD Guardrail**: When starting a new project, the Director MUST ensure `PRD.md`, `ERD.md`, and `DOKUMENTASI.md` are generated first.
+#### 9. Swarm Topologies & Dynamic Routing (2026 Edition)
+Choose the right swarm topology based on task complexity:
+- **Hierarchical Swarm (Star)**: Central Swarm Director assigns sub-tasks to specialized domain agents (Frontend, Backend, DB, QA). Best for fullstack development.
+- **Pipeline Saga (Sequential)**: Output of Agent A feeds directly as input to Agent B. Best for CI/CD, data ETL, and multi-step refactoring.
+- **Mesh / Peer-to-Peer**: Agents communicate directly via message bus with shared blackboard memory. Best for open-ended research and brainstorming.
+- **Critic-Validator Gate**: Implementer Agent submits diff/artifact → Auditor Agent runs automated audits (fuzzing, a11y, type checks) → approved or rejected with remediation hints.
+
+#### 10. Multi-Platform Swarm Execution
+- **Antigravity (AGY)**: Spawn parallel subagents with `invoke_subagent`. Maintain shared state via `CONTEXT_MAP.md`.
+- **Claude Code**: Orchestrate sub-tasks with modular `.claude/rules/` directives and background process management.
+- **Cursor IDE**: Apply domain-specific rules with `.cursor/rules/*.mdc` and Composer multi-file transformations.
+
+#### 11. Swarm Circuit Breakers & Graceful Fallbacks
+- Set max retry threshold per subagent (default: 2 retries).
+- If a subagent encounters a persistent tool error or context limit, the Swarm Director automatically re-routes the task to an alternative skill (e.g. `fullstack-expert` fallback if specialized agent stalls).
+- Always persist checkpoint state (`PROGRESS.md` or `BLUEPRINT.md`) to allow seamless resumption.
 
 ---
 
@@ -247,10 +256,19 @@ Wajib untuk aksi agen berisiko tinggi (transaksi keuangan, pengiriman email, dep
 - **Mastra Evals**: Framework evaluasi bawaan untuk agen Mastra.
 - **Metrik Kustom**: Lacak tingkat penyelesaian tugas, akurasi tool call, latensi, dan biaya per run.
 
-#### 9. Antigravity Native Swarm Director
-Manfaatkan kemampuan native `invoke_subagent` dari Antigravity:
-- **Pecah & Delegasikan**: Pecah tugas menjadi independen.
-- **Spawn Sub-Agen Paralel**: Panggil sub-agen dengan prompt spesifik. Hindari menugaskan dua agen untuk file yang sama. Maksimal 5 sub-agen sekaligus.
-- **Tunggu Otomatis**: Sistem akan membangunkan Anda otomatis saat sub-agen selesai.
-- **Kritik Adversarial (Red Teaming)**: Panggil sub-agen "Auditor" khusus untuk mencari kerentanan dari hasil kerja agen lain sebelum digabungkan.
-- **Dokumentasi Wajib (Proyek Baru)**: Jika proyek baru, Direktur WAJIB memastikan `PRD.md`, `ERD.md`, dan `DOKUMENTASI.md` dibuat sebelum pekerjaan koding dimulai.
+#### 9. Topologi Swarm & Perutean Dinamis (Edisi 2026)
+Pilih topologi swarm yang sesuai dengan kompleksitas tugas:
+- **Hierarchical Swarm (Star)**: Swarm Director pusat mendelegasikan sub-tugas ke agen domain khusus (Frontend, Backend, DB, QA). Paling cocok untuk pengembangan fullstack end-to-end.
+- **Pipeline Saga (Sekuensial)**: Output dari Agen A langsung menjadi input bagi Agen B. Terbaik untuk CI/CD, pipeline ETL data, dan refactoring multi-langkah.
+- **Mesh / Peer-to-Peer**: Agen saling berkomunikasi langsung via message bus dengan shared blackboard memory. Ideal untuk riset eksploratif dan brainstorming.
+- **Critic-Validator Gate**: Agen Pelaksana mengirimkan kode/artifak → Agen Auditor menjalankan pengujian otomatis (fuzzing, aksesibilitas, type check) → disetujui atau ditolak dengan saran perbaikan.
+
+#### 10. Eksekusi Swarm Multi-Platform
+- **Antigravity (AGY)**: Jalankan sub-agen paralel dengan `invoke_subagent`. Sinkronisasi state via `CONTEXT_MAP.md`.
+- **Claude Code**: Orkestrasi sub-tugas dengan direktif modular `.claude/rules/` dan eksekusi background.
+- **Cursor IDE**: Terapkan aturan domain via `.cursor/rules/*.mdc` dan transformasi multi-file Composer.
+
+#### 11. Circuit Breaker & Fallback Swarm
+- Batas maksimal retry per sub-agen (default: 2 kali).
+- Jika sub-agen mengalami kegagalan berulang atau limit konteks, Swarm Director secara otomatis mengalihkan tugas ke skill alternatif (misal: `fullstack-expert` sebagai fallback jika agen spesialis macet).
+- Selalu simpan state checkpoint (`PROGRESS.md` atau `BLUEPRINT.md`) agar pekerjaan dapat dilanjutkan kapan saja tanpa kehilangan konteks.
