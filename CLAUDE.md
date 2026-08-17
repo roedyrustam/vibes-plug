@@ -1,6 +1,6 @@
 # Vibes-Plug — 109+ Skills Ecosystem for AI-Powered Development
 
-> **v2.5.0 (2026 Edition)** — Universal AI plugin with 109+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v2.6.0 (2026 Edition)** — Universal AI plugin with 109+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 

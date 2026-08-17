@@ -139,7 +139,7 @@ function main() {
     if (helpFlag || args.length === 0) {
         console.log(`
 ╔══════════════════════════════════════════════════════════╗
-║       vibes-plug installer v2.5.0 (2026 Edition)        ║
+║       vibes-plug installer v2.6.0 (2026 Edition)        ║
 ║    Universal AI Plugin for AGY, Claude, and Cursor       ║
 ╚══════════════════════════════════════════════════════════╝
 
