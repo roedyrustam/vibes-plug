@@ -1,6 +1,6 @@
 ---
 name: design-system-architect
-description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives (Radix/Base UI), Tailwind v4 @theme, and WCAG 2.2 accessibility in English and Indonesian."
+description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
 author: "vibes-plug-swarm"
 ---
 
@@ -14,11 +14,12 @@ author: "vibes-plug-swarm"
 ## English
 
 ### Description
-Expert guide for building and maintaining scalable UI design systems. Covers design tokens with OKLCH and Tailwind v4 `@theme`, headless component primitives (Radix UI, **Base UI 1.x**), **shadcn/ui registry** for distributable component libraries, CVA for type-safe variants, and WCAG 2.2 accessibility compliance.
+Expert guide for building and maintaining scalable UI design systems. Covers design tokens with OKLCH and Tailwind v4 `@theme`, **Material Design 3 (M3)** integration, headless component primitives (Radix UI, **Base UI 1.x**), **shadcn/ui registry** for distributable component libraries, CVA for type-safe variants, and WCAG 2.2 accessibility compliance.
 
 ### Trigger Conditions
 - Building a shared UI component library from scratch.
 - Setting up design tokens (colors, typography, spacing) with Tailwind v4.
+- Applying Material Design 3 (M3) principles (https://m3.material.io/).
 - Using headless primitives (Radix UI, Base UI 1.x) with custom styling.
 - Distributing components via the **shadcn/ui registry** format.
 - Auditing a component library for WCAG 2.2 accessibility compliance.
@@ -84,6 +85,13 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
   }
 }
 ```
+
+### Material Design 3 (M3) Integration
+When requested to follow **Material Design 3 (https://m3.material.io/)**, implement the following M3 token principles in your design system:
+1. **Color Roles**: Map Tailwind colors to M3 roles (`Primary`, `Secondary`, `Tertiary`, `Error`, `Surface`, `Outline`). Implement `On-*` colors for text/icons on top of those roles, and `*-Container` / `On-*-Container` for lower emphasis. Support Dynamic Color if applicable.
+2. **Typography Scale**: Use M3 naming conventions: `Display`, `Headline`, `Title`, `Body`, `Label` (each with `Large`, `Medium`, `Small` sizes).
+3. **Elevation & Surface**: Use M3 Elevation levels (0 to 5) implemented via subtle shadows and surface tint colors, not just heavy drop shadows.
+4. **Shapes**: Map `--radius-*` to M3 shape families: `None`, `Extra Small`, `Small`, `Medium`, `Large`, `Extra Large`, `Full`.
 
 ### Component Architecture
 
@@ -232,12 +240,20 @@ Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Menc
 ### Kondisi Pemicu
 - Membangun library komponen UI bersama dari awal.
 - Menyiapkan design token (warna, tipografi, spacing) dengan Tailwind v4.
+- Menerapkan prinsip Material Design 3 (M3) (https://m3.material.io/).
 - Menggunakan primitif headless (Radix UI, Base UI 1.x) dengan styling kustom.
 - Mendistribusikan komponen via format **registry shadcn/ui**.
 - Mengaudit library komponen untuk kepatuhan aksesibilitas WCAG 2.2.
 
 ### Fondasi Design Token (Tailwind v4 + OKLCH)
 Definisikan semua token di CSS menggunakan direktif `@theme`. Gunakan warna OKLCH untuk tampilan P3 wide-gamut. Definisikan token semantik (`--color-primary`, `--color-surface`, `--color-border`) yang secara otomatis beradaptasi antara mode terang/gelap melalui `@variant dark`.
+
+### Integrasi Material Design 3 (M3)
+Jika diminta mengikuti **Material Design 3 (https://m3.material.io/)**, terapkan prinsip token M3 berikut:
+1. **Peran Warna (Color Roles)**: Petakan warna ke peran M3 (`Primary`, `Secondary`, `Tertiary`, `Error`, `Surface`, `Outline`). Gunakan warna `On-*` untuk teks di atasnya, dan `*-Container` / `On-*-Container` untuk penekanan lebih rendah.
+2. **Skala Tipografi**: Gunakan penamaan M3: `Display`, `Headline`, `Title`, `Body`, `Label` (dengan ukuran `Large`, `Medium`, `Small`).
+3. **Elevasi & Permukaan**: Gunakan tingkat Elevasi M3 (0 hingga 5) melalui bayangan halus dan warna tint permukaan (surface tint).
+4. **Bentuk (Shapes)**: Petakan `--radius-*` ke keluarga bentuk M3: `None`, `Extra Small`, `Small`, `Medium`, `Large`, `Extra Large`, `Full`.
 
 ### Arsitektur Komponen
 Gunakan pola Headless + Styled: primitif headless (Base UI/Radix) untuk aksesibilitas, gaya melalui Tailwind + CVA (class-variance-authority) untuk varian type-safe.
