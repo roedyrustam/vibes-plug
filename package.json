@@ -14,12 +14,21 @@
     "url": "git+https://github.com/roedyrustam/vibes-plug.git"
   },
   "keywords": [
-    "gemini",
     "antigravity",
-    "claude",
-    "cursor",
-    "ai-plugins",
-    "skills"
+    "claude-code",
+    "cursor-rules",
+    "ai-agents",
+    "multi-agent-swarm",
+    "mcp",
+    "model-context-protocol",
+    "vibe-coding",
+    "react19",
+    "nextjs15",
+    "tailwindcss-v4",
+    "bun",
+    "skills",
+    "developer-tools",
+    "zero-to-prod"
   ],
   "author": "Roedy Rustam",
   "license": "ISC",
