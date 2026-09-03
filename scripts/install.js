@@ -139,7 +139,7 @@ function main() {
     if (helpFlag || args.length === 0) {
         console.log(`
 ╔══════════════════════════════════════════════════════════╗
-║       vibes-plug installer v2.7.0 (2026 Edition)        ║
+║       vibes-plug installer v2.7.1 (2026 Edition)        ║
 ║    Universal AI Plugin for AGY, Claude, and Cursor       ║
 ╚══════════════════════════════════════════════════════════╝
 
@@ -162,7 +162,7 @@ Examples:
         return;
     }
 
-    console.log('\n🚀 vibes-plug installer v2.5.0\n');
+    console.log('\n🚀 vibes-plug installer v2.7.0\n');
 
     // Detect platforms
     console.log('📡 Detecting platforms...');

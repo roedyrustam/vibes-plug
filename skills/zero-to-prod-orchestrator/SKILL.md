@@ -45,7 +45,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`
+**Orchestrates:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `asisten-ramah`, `skill-baru`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOKUMENTASI.md) alongside the Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
@@ -141,7 +141,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `asisten-ramah`, `skill-baru`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOKUMENTASI.md) yang komprehensif beserta Roadmap (ROADMAP.md).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).

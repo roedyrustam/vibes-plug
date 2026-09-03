@@ -55,7 +55,7 @@ During brainstorming, consult, reference, and orchestrate the following speciali
 | **Performance** | `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), bundle optimization, image/font loading, React concurrent features, Lighthouse score improvement, deep architecture analysis. |
 | **SEO, GEO & Telemetry** | `seo`, `data-telemetry-expert` | Technical SEO audits, Generative Engine Optimization (AI Overviews, `/llms.txt`), AEO landing pages, OpenTelemetry/PostHog analytics. |
 | **DevOps & CI/CD** | `ci-cd-devops-architect`, `cloud-hosting-expert`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator`, `biome-linter-formatter-expert` | GitHub Actions, Biome lint/format checks, Docker, Kubernetes, Terraform, Vercel/Cloudflare deployment, self-healing cloud operations, Renovate Bot, dependency health. |
-| **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), loading context on new sessions, token efficiency. |
+| **Execution Handoff** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver`, `asisten-ramah`, `skill-baru` | Handing off validated designs to 8-phase production pipeline, pre-launch hardening, continuous docs logging (`CHANGELOG.md`), loading context on new sessions, token efficiency, friendly conversational persona, and new skill scaffolding template. |
 
 ---
 
@@ -236,7 +236,7 @@ Selama proses brainstorming, konsultasikan, rujuk, dan orkestrasikan skill-skill
 | **Performa** | `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), optimasi bundle, loading gambar/font, React concurrent features, peningkatan skor Lighthouse, analisis arsitektur mendalam. |
 | **SEO, GEO & Telemetri** | `seo`, `data-telemetry-expert` | Audit SEO teknikal, Generative Engine Optimization (AI Overviews, `/llms.txt`), landing page AEO, analitik OpenTelemetry/PostHog. |
 | **DevOps & CI/CD** | `ci-cd-devops-architect`, `cloud-hosting-expert`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator`, `biome-linter-formatter-expert` | GitHub Actions, Biome linter/formatter, Docker, Kubernetes, Terraform, deployment Vercel/Cloudflare, self-healing cloud operations, Renovate Bot, kesehatan dependensi. |
-| **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), pemuatan konteks otomatis, efisiensi token. |
+| **Serah Terima Eksekusi** | `zero-to-prod-orchestrator`, `production-ready-hardener`, `auto-doc-updater`, `session-handoff-resume`, `session-context-loader`, `token-saver`, `asisten-ramah`, `skill-baru` | Serah terima desain tervalidasi ke pipeline produksi 8-fase, pengerasan pra-rilis, pembaruan dokumentasi otomatis (`CHANGELOG.md`), pemuatan konteks otomatis, efisiensi token, manajemen gaya ramah asisten, dan pembuatan perancah skill baru. |
 
 ---
 
