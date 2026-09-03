@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 *Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
+## [2.7.1] - 2026-09-04
+
+### Changed / Diubah
+- **Complete 134-Skill Synchronization**: Fully audited all 134 skills in `skills/` and ensured 100% representation across `README.md`, `BLUEPRINT.md`, `brainstorming/SKILL.md`, and `zero-to-prod-orchestrator/SKILL.md`.
+  *(Sinkronisasi Lengkap 134 Skill: Mengaudit seluruh 134 skill dan memastikan representasi 100% pada semua file dokumentasi dan orkestrator.)*
+- **Skill Orchestrator Matrix Update**: Registered `asisten-ramah` and `skill-baru` in both English and Indonesian matrices in `brainstorming/SKILL.md` (Execution Handoff) and `zero-to-prod-orchestrator/SKILL.md` (Phase 1 / Fase 1) per mandatory plugin protocol.
+  *(Pembaruan Matriks Orkestrator Skill: Mendaftarkan `asisten-ramah` dan `skill-baru` pada orkestrator utama dalam bahasa Inggris dan Indonesia.)*
+- **README & Blueprint Alignment**: Added detailed descriptions for all 47 previously uncataloged skills across the 9 core engineering domains in `README.md`, and regenerated `BLUEPRINT.md` with full 134-skill bilingual manifests.
+  *(Penyelarasan README & Blueprint: Menambahkan deskripsi mendalam untuk seluruh 47 skill yang sebelumnya belum terdaftar di README, dan memperbarui BLUEPRINT.md.)*
+- **Installer Version Fix**: Corrected banner version display in `scripts/install.js` to match current release.
+
+---
+
 ## [2.7.0] - 2026-08-18
 
 ### Added / Ditambahkan

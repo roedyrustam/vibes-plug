@@ -1,6 +1,6 @@
 {
   "name": "vibes-plug",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "description": "Universal AI plugin with 134+ specialized skills for Antigravity, Claude, and Cursor. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, Supabase Auth v3). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "scripts": {
@@ -14,12 +14,21 @@
     "url": "git+https://github.com/roedyrustam/vibes-plug.git"
   },
   "keywords": [
-    "gemini",
     "antigravity",
-    "claude",
-    "cursor",
-    "ai-plugins",
-    "skills"
+    "claude-code",
+    "cursor-rules",
+    "ai-agents",
+    "multi-agent-swarm",
+    "mcp",
+    "model-context-protocol",
+    "vibe-coding",
+    "react19",
+    "nextjs15",
+    "tailwindcss-v4",
+    "bun",
+    "skills",
+    "developer-tools",
+    "zero-to-prod"
   ],
   "author": "Roedy Rustam",
   "license": "ISC",
