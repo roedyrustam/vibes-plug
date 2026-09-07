@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-*Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
+## [2.8.0] - 2026-09-08
+
+### Changed / Diubah
+- **Core AI Skills Upgrade (2026 Edition)**: Upgraded 3 foundational AI engineering skills to current 2026 frontier standards:
+  - `gemini-agent-booster`: Upgraded to Gemini 3.x ecosystem (Gemini 3.8 Flash, Gemini 3.5/3.1 Pro/Flash) with 1M–2M token context, native `cachedContent` Context Caching, dynamic `thinkingBudget` reasoning configuration, and Gemini Multimodal Live API bidirectional WebSocket streaming.
+  - `ai-llm-integration-expert`: Added Anthropic Claude 3.7 Sonnet (Hybrid/Extended Thinking), OpenAI o1/o3/o3-mini & GPT-4.5/4o, DeepSeek-R1 (MoE reasoning), Model Context Protocol (MCP) Streamable HTTP transport, MCP Sampling, and Vercel AI SDK 5.x/6.x reasoning token streaming.
+  - `multi-agent-orchestration`: Formalized 5 Anthropic 2026 Core Agentic Design Patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer Loop), LangGraph v0.3+ persistent checkpointers, and OpenAI Agents SDK handoffs & guardrails.
+  *(Pembaruan Skill Inti AI 2026: Meng-upgrade 3 skill AI utama mencakup Gemini 3.x, Claude 3.7 Hybrid Thinking, DeepSeek-R1, MCP Streamable HTTP & Sampling, dan 5 pola desain agentik modern Anthropic.)*
+
+---
+
 ## [2.7.1] - 2026-09-04
 
 ### Changed / Diubah

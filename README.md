@@ -1,6 +1,6 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.7.1-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Version](https://img.shields.io/badge/version-v2.8.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Skills](https://img.shields.io/badge/skills-134%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
@@ -344,7 +344,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.7.1 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
+v2.8.0 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -615,7 +615,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.7.1 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
+v2.8.0 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
