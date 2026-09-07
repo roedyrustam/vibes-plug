@@ -26,6 +26,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "generate:gif": "python scripts/generate_swarm_gif.py",
     "install-all": "node scripts/install.js --all",
     "install-claude": "node scripts/install.js --claude",
     "install-cursor": "node scripts/install.js --cursor"
