@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -136,14 +138,17 @@ function main() {
     const projectIdx = args.indexOf('--project');
     const projectDir = projectIdx !== -1 ? args[projectIdx + 1] : null;
 
+    const pkg = require('../package.json');
+    const version = pkg.version || '2.11.0';
+
     if (helpFlag || args.length === 0) {
         console.log(`
 ╔══════════════════════════════════════════════════════════╗
-║       vibes-plug installer v2.8.0 (2026 Edition)        ║
+║       vibes-plug installer v${version.padEnd(6)} (2026 Edition)        ║
 ║    Universal AI Plugin for AGY, Claude, and Cursor       ║
 ╚══════════════════════════════════════════════════════════╝
 
-Usage: node install.js [options]
+Usage: npx vibes-plug [options] or node install.js [options]
 
 Options:
   --all                   Install for all detected platforms
@@ -154,15 +159,15 @@ Options:
   --help, -h              Show this help message
 
 Examples:
-  node install.js --all
-  node install.js --claude
-  node install.js --cursor --project ./my-app
-  node install.js --claude --cursor --project ./my-app
+  npx vibes-plug --all
+  npx vibes-plug --claude
+  npx vibes-plug --cursor --project ./my-app
+  node scripts/install.js --all
 `);
         return;
     }
 
-    console.log('\n🚀 vibes-plug installer v2.8.0\n');
+    console.log(`\n🚀 vibes-plug installer v${version}\n`);
 
     // Detect platforms
     console.log('📡 Detecting platforms...');
