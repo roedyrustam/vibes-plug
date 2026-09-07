@@ -1,7 +1,7 @@
 ---
 name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Legacy Code Translator (Refactoring Engine)

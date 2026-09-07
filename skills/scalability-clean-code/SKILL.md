@@ -1,7 +1,7 @@
 ---
 name: scalability-clean-code
 description: "Software architecture guidelines to maintain code readability (Clean Code, SOLID, DRY) and application scalability / Panduan arsitektur perangkat lunak untuk menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan kemampuan skalabilitas aplikasi."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Scalability & Clean Code (2026 Edition)

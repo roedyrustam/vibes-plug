@@ -1,7 +1,7 @@
 ---
 name: session-handoff-resume
 description: "Skill to save ultra-compact project checkpoints and seamlessly resume work across accounts or new chat sessions with minimum token consumption / Skill untuk menyimpan checkpoint proyek yang super ringkas dan melanjutkan pekerjaan secara efisien saat ganti akun/sesi tanpa boros token."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Session Handoff & Resume (2026 — Cross-Model Edition)

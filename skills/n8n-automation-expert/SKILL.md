@@ -1,7 +1,7 @@
 ---
 name: n8n-automation-expert
 description: "Expert guide for workflow automation (n8n, Zapier, Make), custom nodes, webhook triggers, and AI-powered automation chains / Panduan ahli otomasi workflow (n8n, Zapier, Make), custom nodes, webhook triggers, dan rantai otomasi berbasis AI."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Workflow Automation Expert (2026 Edition)

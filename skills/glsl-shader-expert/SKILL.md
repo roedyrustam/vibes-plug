@@ -1,7 +1,7 @@
 ---
 name: glsl-shader-expert
 description: "Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers shader materials, post-processing, noise, and performance optimization."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # GLSL Shader Expert (WebGL 3D Graphics)

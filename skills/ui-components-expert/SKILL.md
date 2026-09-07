@@ -1,7 +1,7 @@
 ---
 name: ui-components-expert
 description: Expert guide for building production-quality UI components following the 4 pillars. Covers React 19, Radix UI, Base UI, Tailwind v4, Material Design 3 (M3), WCAG 2.2 / Panduan ahli membangun komponen UI berkualitas produksi dengan M3.
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # 🎨 UI Components Expert (2026/2027 Edition)

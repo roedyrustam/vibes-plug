@@ -1,7 +1,7 @@
 ---
 name: mcp-client-orchestrator
 description: "Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # MCP Client Orchestrator

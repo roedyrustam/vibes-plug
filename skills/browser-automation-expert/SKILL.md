@@ -1,7 +1,7 @@
 ---
 name: browser-automation-expert
 description: "Expert guide for autonomous web agents (Browser-Use, Stagehand), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
-author: vibes-plug-swarm
+author: "Roedy Rustam"
 ---
 
 # Autonomous Web Agent & Automation Expert

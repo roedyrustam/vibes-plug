@@ -1,7 +1,7 @@
 ---
 name: cloud-hosting-expert
 description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Cloud Hosting Expert (2026 Edition)

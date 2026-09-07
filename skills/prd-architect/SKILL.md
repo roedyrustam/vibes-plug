@@ -1,7 +1,7 @@
 ---
 name: prd-architect
 description: "Mandatory guardrail skill that enforces creating a comprehensive Product Requirements Document (PRD), ERD, and Documentation before generating code for new projects / Skill khusus untuk memaksa pembuatan Product Requirements Document (PRD), ERD, dan Dokumentasi secara otomatis sebelum mulai coding pada setiap proyek baru."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # PRD Architect (2026 — PRD-as-Code Edition)

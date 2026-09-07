@@ -1,7 +1,7 @@
 ---
 name: async-queue-temporal-expert
 description: "Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant background sagas / Panduan ahli workflow engine tahan-gagal (Temporal, Trigger.dev, Inngest, BullMQ)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Async Queue & Durable Workflow Expert

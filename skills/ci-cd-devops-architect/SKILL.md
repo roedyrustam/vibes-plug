@@ -1,7 +1,7 @@
 ---
 name: ci-cd-devops-architect
 description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # CI/CD & DevOps Architect / Arsitek CI/CD & DevOps

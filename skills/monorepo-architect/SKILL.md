@@ -1,7 +1,7 @@
 ---
 name: monorepo-architect
 description: "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages / Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Monorepo Architect (Turborepo 2.x / Moon Edition)

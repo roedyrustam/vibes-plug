@@ -1,7 +1,7 @@
 ---
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill

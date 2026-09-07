@@ -1,7 +1,7 @@
 ---
 name: saas-mvp-launcher
 description: "Structured roadmap and design to plan and launch a SaaS MVP from scratch / Panduan terstruktur untuk merencanakan dan meluncurkan SaaS MVP dari nol."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # SaaS MVP Launcher

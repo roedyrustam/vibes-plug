@@ -1,7 +1,7 @@
 ---
 name: background-jobs-queue-expert
 description: "Dedicated deep-dive for BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, job deduplication, idempotency, dead letter queues, and job priority / Panduan mendalam untuk BullMQ v5, Trigger.dev v3, Inngest, delayed jobs, deduplikasi job, idempotency, dead letter queue, dan prioritas job."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Background Jobs & Queue Expert

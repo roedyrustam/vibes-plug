@@ -1,7 +1,7 @@
 ---
 name: domain-driven-design-expert
 description: "Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS / Panduan ahli Desain Berbasis Domain (DDD)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Domain-Driven Design (DDD) Expert

@@ -1,7 +1,7 @@
 ---
 name: edge-serverless-db-expert
 description: "Expert guide for Serverless & Edge Databases (Neon Serverless Postgres, Cloudflare D1, Turso/libsql, Upstash Redis), cold-start mitigation, and connection pooling / Panduan ahli database Serverless & Edge (Neon, Cloudflare D1, Turso, Upstash)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Edge & Serverless DB Expert

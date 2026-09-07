@@ -1,7 +1,7 @@
 ---
 name: secure-fuzz-testing
 description: "Expert-level skill for writing and integrating coverage-guided fuzz tests in Python, Rust, and Go for secure code validation in English and Indonesian."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Secure Fuzz Testing

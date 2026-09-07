@@ -1,7 +1,7 @@
 ---
 name: pdf-document-generation-expert
 description: "Expert guide for PDF generation and document processing (React PDF, Puppeteer, jsPDF, pdf-lib) / Panduan ahli generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer, jsPDF, pdf-lib)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # PDF & Document Generation Expert (2026 Edition)

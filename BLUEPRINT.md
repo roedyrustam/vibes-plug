@@ -1,7 +1,8 @@
 # Project Blueprint
 
 - **Version**: 2.8.0
-- **Last Updated**: 2026-09-04
+- **Author**: Roedy Rustam
+- **Last Updated**: 2026-09-08
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)

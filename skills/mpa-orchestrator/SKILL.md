@@ -1,7 +1,7 @@
 ---
 name: mpa-orchestrator
 description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Multi-Page Application (MPA) Orchestrator (2026 Edition)

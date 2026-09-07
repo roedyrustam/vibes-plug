@@ -1,7 +1,7 @@
 ---
 name: visual-qa-vision-agent
 description: "Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Visual QA & Vision Agent

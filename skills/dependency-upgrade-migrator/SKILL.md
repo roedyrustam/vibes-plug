@@ -1,7 +1,7 @@
 ---
 name: dependency-upgrade-migrator
 description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Dependency Upgrade Migrator (2026 Edition)

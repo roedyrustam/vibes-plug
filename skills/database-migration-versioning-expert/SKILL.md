@@ -1,7 +1,7 @@
 ---
 name: database-migration-versioning-expert
 description: "Expert guide for database migrations: schema versioning, zero-downtime migrations, backward-compatible changes, data backfill, and rollback strategies / Panduan ahli migrasi database."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Database Migration & Versioning Expert

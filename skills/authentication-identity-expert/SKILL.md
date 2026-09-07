@@ -1,7 +1,7 @@
 ---
 name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Authentication & Identity Expert (2026 Edition)

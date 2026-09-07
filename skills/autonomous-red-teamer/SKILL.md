@@ -1,7 +1,7 @@
 ---
 name: autonomous-red-teamer
 description: "AI-driven dynamic security fuzzing, exploit generation (XSS, SQLi, SSRF, Prompt Injection), and automated patch remediation / Fuzzing keamanan dinamis berbasis AI, eksploitasi, dan remediasi otomatis."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Autonomous Red Teamer (AI Hacker & Pen-Tester)

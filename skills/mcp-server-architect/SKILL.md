@@ -1,7 +1,7 @@
 ---
 name: mcp-server-architect
 description: "Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP) in TypeScript and Python / Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python."
-author: vibes-plug-swarm
+author: "Roedy Rustam"
 ---
 
 # MCP Server Architect (Modern AI Tools)

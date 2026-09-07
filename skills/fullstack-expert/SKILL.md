@@ -1,7 +1,7 @@
 ---
 name: fullstack-expert
 description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), API design, microservices, DevOps, and system design / Panduan fullstack tingkat ahli mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), desain API, microservices, DevOps, dan system design."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Fullstack Expert (2026 Multi-Language Edition)

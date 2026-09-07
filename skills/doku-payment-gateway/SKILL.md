@@ -1,7 +1,7 @@
 ---
 name: doku-payment-gateway
 description: "Expert guide for integrating DOKU Payment Gateway (Jokul API v2). Covers HMAC-SHA256 header signature calculation, Checkout & Direct APIs (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup / Panduan ahli integrasi DOKU Payment Gateway."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # DOKU Payment Gateway Integration / Integrasi Payment Gateway DOKU

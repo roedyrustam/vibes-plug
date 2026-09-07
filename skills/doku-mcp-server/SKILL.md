@@ -1,7 +1,7 @@
 ---
 name: doku-mcp-server
 description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for payment links, Virtual Accounts, QRIS, transaction status checks, and client configuration (Claude Desktop, Cursor, AGY) / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # DOKU MCP Server / Server Model Context Protocol DOKU

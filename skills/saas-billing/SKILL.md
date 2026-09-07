@@ -1,7 +1,7 @@
 ---
 name: saas-billing
 description: "Implement and audit SaaS billing systems, subscription state machines, secure webhooks, and local database synchronization / Implementasi dan audit sistem billing SaaS, state machine langganan, webhook aman, dan sinkronisasi database lokal."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # SaaS Billing Expert (2026 Edition)

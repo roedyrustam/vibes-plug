@@ -1,7 +1,7 @@
 ---
 name: typescript-expert
 description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # TypeScript Expert (TypeScript 5.8+ Edition)

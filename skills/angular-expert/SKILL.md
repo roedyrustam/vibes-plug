@@ -1,7 +1,7 @@
 ---
 name: angular-expert
 description: "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3 / Panduan ahli aplikasi enterprise Angular 19+."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Angular Expert (2026 Edition)

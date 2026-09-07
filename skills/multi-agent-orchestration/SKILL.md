@@ -2,7 +2,7 @@
 name: multi-agent-orchestration
 version: "2.8.0"
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)

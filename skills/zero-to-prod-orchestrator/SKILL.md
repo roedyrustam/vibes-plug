@@ -1,7 +1,7 @@
 ---
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Zero to Production Orchestrator (2026 Master Edition)

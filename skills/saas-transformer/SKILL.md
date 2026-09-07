@@ -1,7 +1,7 @@
 ---
 name: saas-transformer
 description: "Transforms regular applications into complete SaaS platforms with multi-tenancy, billing, team management, and feature gating — orchestrating all relevant vibes-plug skills / Mentransformasi aplikasi biasa menjadi platform SaaS lengkap dengan multi-tenancy, billing, manajemen tim, dan feature gating — mengorkestrasi semua skill vibes-plug yang relevan."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # SaaS Transformer

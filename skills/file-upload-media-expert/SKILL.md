@@ -1,7 +1,7 @@
 ---
 name: file-upload-media-expert
 description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigned URLs, image/video processing, CDN optimization, and media pipeline architecture / Panduan ahli untuk upload file (S3, R2, Supabase Storage), presigned URL, pemrosesan gambar/video, optimasi CDN, dan arsitektur pipeline media."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # File Upload & Media Expert (2026 Edition)
