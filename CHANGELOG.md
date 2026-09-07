@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.9.0] - 2026-09-08
+
+### Changed / Diubah
+- **Production Code Recipes & 2026 Frontier Hardening**: Upgraded 4 key AI & distributed execution skills with robust production-ready code recipes and 2026 standards:
+  - `browser-automation-expert`: Updated vision models to Gemini 3.8 Flash and Claude 3.7 Sonnet (Computer Use); added concrete production recipes for Stagehand v0.4+ and Browser-Use with anti-bot evasion and Playwright stealth.
+  - `mcp-server-architect`: Added full production FastMCP (Python) server template and `@modelcontextprotocol/sdk` (TypeScript) McpServer implementation featuring Streamable HTTP / SSE transport, typed tools, dynamic resources, and security guardrails.
+  - `vector-db-rag-expert`: Upgraded to 2026 Deep RAG standards with Reciprocal Rank Fusion (RRF) hybrid search (combining BM25 and pgvector 0.8+ HNSW), Cross-Encoder Re-ranking via FlashRank, and Late Chunking architecture.
+  - `async-queue-temporal-expert`: Added concrete Temporal.io TypeScript SDK implementation featuring the distributed Saga pattern with compensating rollbacks, and Trigger.dev v3 durable tasks with retry jitter.
+  *(Peningkatan Resep Kode Produksi & Kesiapan 2026: Meng-upgrade 4 skill kunci AI & eksekusi terdistribusi dengan resep kode siap pakai di lingkungan produksi dan standar 2026: Browser Automation, MCP Server Architect, Deep RAG & Vector DB, serta Temporal Async Queue.)*
+
+---
+
 ## [2.8.0] - 2026-09-08
 
 ### Changed / Diubah

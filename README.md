@@ -1,6 +1,6 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.8.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Version](https://img.shields.io/badge/version-v2.9.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Skills](https://img.shields.io/badge/skills-134%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)

@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 2.8.0
+- **Version**: 2.9.0
 - **Author**: Roedy Rustam
 - **License**: MIT
 - **Last Updated**: 2026-09-08
@@ -29,7 +29,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **apple-ecosystem-expert**: Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps
 - **asisten-ramah**: Skill to make Antigravity respond in a friendly manner
 - **astro-framework-expert**: Expert guide for Astro 5+ framework — Content Collections, Islands Architecture, View Transitions, partial hydration, and MDX integration
-- **async-queue-temporal-expert**: Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant background sagas
+- **async-queue-temporal-expert**: Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5), distributed sagas, compensating rollbacks, and DLQ
 - **authentication-identity-expert**: Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth)
 - **auto-doc-updater**: Automatically documents every feature change or bug fix successfully built into CHANGELOG.md and BLUEPRINT.md
 - **autonomous-chaos-monkey**: AI-driven Chaos Engineering. Randomly injects latency, terminates mock services, and automatically implements circuit breakers
@@ -40,7 +40,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **blockchain-web3-expert**: Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state
 - **bootstrap-to-modern**: Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js
 - **brainstorming**: Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins
-- **browser-automation-expert**: Expert guide for autonomous web agents (Browser-Use, Stagehand), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA
+- **browser-automation-expert**: Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and frontier Vision LLMs (Gemini 3.8 Flash, Claude 3.7 Sonnet)
 - **bun-runtime-expert**: Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun
 - **chatbot-messaging-expert**: Expert guide for chatbot and messaging platform integration (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) and conversational AI
 - **ci-cd-devops-architect**: Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC)
@@ -83,7 +83,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **legacy-code-translator**: Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks
 - **logging-error-tracking-expert**: Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management
 - **mcp-client-orchestrator**: Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files
-- **mcp-server-architect**: Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP) in TypeScript and Python
+- **mcp-server-architect**: Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python (FastMCP, Streamable HTTP/SSE)
 - **micro-frontend-architect**: Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications
 - **mobile-expo-expert**: Expert guide for React Native 0.79+ and Expo SDK 53+ development. Covers cross-platform mobile architecture, Expo Router v4, New Architecture, OTA updates, and native modules
 - **mobile-push-notification-expert**: Expert guide for Cross-Platform Push Notifications (Expo Push, FCM, APNs, Web Push), iOS Live Activities, and background payload handling
@@ -138,7 +138,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **typescript-expert**: Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns
 - **ui-components-expert**: Expert guide for building production-quality UI components following the 4 pillars. Covers React 19, Radix UI, Base UI, Tailwind v4, Material Design 3 (M3), WCAG 2.2
 - **ui-ux-pro-max**: Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks
-- **vector-db-rag-expert**: Expert guide for high-performance Vector Databases, RAG architectures, pgvector HNSW indexing, hybrid search (Dense + BM25), and semantic chunking
+- **vector-db-rag-expert**: Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking
 - **vibe-code-gardener**: Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects
 - **visual-qa-vision-agent**: Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions
 - **vue-frontend-expert**: Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian
@@ -173,7 +173,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **apple-ecosystem-expert**: Panduan ahli pengembangan ekosistem Apple (iOS & Web)
 - **asisten-ramah**: Skill untuk membuat Antigravity membalas dengan ramah
 - **astro-framework-expert**: Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX
-- **async-queue-temporal-expert**: Panduan ahli workflow engine tahan-gagal (Temporal, Trigger.dev, Inngest, BullMQ)
+- **async-queue-temporal-expert**: Panduan ahli workflow engine tahan-gagal (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5), transaksi saga terdistribusi, dan rollback kompensasi
 - **authentication-identity-expert**: Panduan ahli untuk autentikasi dan otorisasi
 - **auto-doc-updater**: Otomatis mendokumentasikan setiap perubahan fitur atau perbaikan bug yang berhasil di-build ke CHANGELOG.md dan BLUEPRINT.md
 - **autonomous-chaos-monkey**: Chaos Engineering berbasis AI. Menyuntikkan latensi secara acak, mematikan layanan simulasi, dan secara otomatis menerapkan circuit breaker
@@ -184,7 +184,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **blockchain-web3-expert**: Panduan ahli integrasi Web3 dan blockchain
 - **bootstrap-to-modern**: Skill ahli untuk melakukan refaktor dan migrasi aplikasi Bootstrap CSS lama ke stack modern menggunakan Tailwind CSS v4 dan Alpine.js
 - **brainstorming**: Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai
-- **browser-automation-expert**: Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM
+- **browser-automation-expert**: Panduan ahli agen web otonom (Browser-Use, Stagehand v0.4+), penghindaran deteksi bot (Playwright Stealth), dan Vision LLM frontier (Gemini 3.8 Flash, Claude 3.7 Sonnet)
 - **bun-runtime-expert**: Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun
 - **chatbot-messaging-expert**: Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan
 - **ci-cd-devops-architect**: Panduan ahli untuk CI/CD dan infrastruktur
@@ -227,7 +227,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **legacy-code-translator**: Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks
 - **logging-error-tracking-expert**: Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR
 - **mcp-client-orchestrator**: Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files
-- **mcp-server-architect**: Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python
+- **mcp-server-architect**: Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP v1.x) dalam TypeScript dan Python (FastMCP, Streamable HTTP/SSE)
 - **micro-frontend-architect**: Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications
 - **mobile-expo-expert**: Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ untuk aplikasi mobile
 - **mobile-push-notification-expert**: Panduan ahli notifikasi push mobile, FCM, APNs, dan Live Activities
@@ -282,7 +282,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **typescript-expert**: Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe
 - **ui-components-expert**: Panduan ahli membangun komponen UI berkualitas produksi dengan M3
 - **ui-ux-pro-max**: Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack
-- **vector-db-rag-expert**: Panduan ahli Vector DB, arsitektur RAG, pgvector HNSW, dan hybrid search
+- **vector-db-rag-expert**: Panduan ahli Vector DB, arsitektur Deep RAG, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, dan Late Chunking
 - **vibe-code-gardener**: Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding
 - **visual-qa-vision-agent**: Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions
 - **vue-frontend-expert**: Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian
