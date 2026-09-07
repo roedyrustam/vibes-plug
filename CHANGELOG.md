@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.10.0] - 2026-09-08
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 137+ Skills**: Introduced 3 frontier 2026 specialized skills:
+  - `ai-evals-benchmark-expert`: Automated evaluation framework for LLMs & AI agents using Promptfoo, DeepEval, Ragas, deterministic assertions, and regression benchmarking. *(Panduan ahli evaluasi otomatis LLM & Agen AI).*
+  - `local-slm-edge-ai-expert`: Edge AI and Small Language Models (SLMs) execution directly in the browser and edge environments via WebLLM, Transformers.js v3, ONNX Runtime Web, and WebGPU with zero cloud latency. *(Panduan ahli eksekusi SLM lokal dan AI edge di browser).*
+  - `modern-css-native-expert`: Cutting-edge 2026 native CSS guide covering CSS Anchor Positioning, `@starting-style` entry animations, View Transitions Level 2, Container Queries, and `:has()` relational selector. *(Panduan ahli fitur CSS native modern 2026).*
+
+### Changed / Diubah
+- **Resilience & Security Hardening**:
+  - `background-jobs-queue-expert`: Deepened with complete production-grade BullMQ v5 recipes, Redis idempotency locks, Dead Letter Queue (DLQ) retry strategies with exponential backoff and jitter, and priority job processing.
+  - `autonomous-red-teamer`: Deepened with automated adversarial test suites, prompt injection detection pipelines, SSRF filter bypass methodologies, and automated security patch remediation templates.
+  - `brainstorming` & `zero-to-prod-orchestrator`: Synchronized domain matrices and Phase 4, Phase 5, and Phase 6 orchestration chains to natively coordinate all 137 skills.
+
+---
+
 ## [2.9.0] - 2026-09-08
 
 ### Changed / Diubah

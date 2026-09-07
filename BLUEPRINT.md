@@ -1,6 +1,6 @@
 # Project Blueprint
 
-- **Version**: 2.9.0
+- **Version**: 2.10.0
 - **Author**: Roedy Rustam
 - **License**: MIT
 - **Last Updated**: 2026-09-08
@@ -14,11 +14,12 @@
 ## English
 
 ### Overview
-Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 134+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
+Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 137+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
 
-### Skill Modules (134 Total)
+### Skill Modules (137 Total)
 - **accessibility-testing-expert**: Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance
 - **ai-cost-token-optimizer**: Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting
+- **ai-evals-benchmark-expert**: Expert guide for LLM & AI Agent automated evaluations (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, and deterministic assertions
 - **ai-llm-integration-expert**: Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents
 - **ai-media-generation-expert**: Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration
 - **ai-prompt-engineering-expert**: Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation
@@ -81,12 +82,14 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **hig**: Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces
 - **js-backend-expert**: Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian
 - **legacy-code-translator**: Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks
+- **local-slm-edge-ai-expert**: Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings
 - **logging-error-tracking-expert**: Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management
 - **mcp-client-orchestrator**: Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files
 - **mcp-server-architect**: Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python (FastMCP, Streamable HTTP/SSE)
 - **micro-frontend-architect**: Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications
 - **mobile-expo-expert**: Expert guide for React Native 0.79+ and Expo SDK 53+ development. Covers cross-platform mobile architecture, Expo Router v4, New Architecture, OTA updates, and native modules
 - **mobile-push-notification-expert**: Expert guide for Cross-Platform Push Notifications (Expo Push, FCM, APNs, Web Push), iOS Live Activities, and background payload handling
+- **modern-css-native-expert**: Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, and :has()
 - **monday-design-aesthetic**: Expert guide for implementing the modern, spacious, and highly structured Monday.com design system
 - **monorepo-architect**: Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages
 - **mpa-orchestrator**: Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills
@@ -158,11 +161,12 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 ## Bahasa Indonesia
 
 ### Ringkasan
-Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 134+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
+Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 137+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
 
-### Modul Skills (Total 134 Modul)
+### Modul Skills (Total 137 Modul)
 - **accessibility-testing-expert**: Panduan ahli pengujian aksesibilitas web
 - **ai-cost-token-optimizer**: Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching
+- **ai-evals-benchmark-expert**: Panduan ahli evaluasi otomatis LLM & AI Agent (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, dan deterministic assertions
 - **ai-llm-integration-expert**: Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI
 - **ai-media-generation-expert**: Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)
 - **ai-prompt-engineering-expert**: Panduan ahli rekayasa prompt dan evaluasi LLM
@@ -225,12 +229,14 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **hig**: Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif
 - **js-backend-expert**: Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian
 - **legacy-code-translator**: Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks
+- **local-slm-edge-ai-expert**: Panduan ahli SLM lokal dan AI edge di browser (WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU)
 - **logging-error-tracking-expert**: Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR
 - **mcp-client-orchestrator**: Expert guide for the AI Agent to dynamically orchestrate and consume external MCP (Model Context Protocol) servers, giving it real-time superpowers over databases, GitHub, Slack, and local files
 - **mcp-server-architect**: Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP v1.x) dalam TypeScript dan Python (FastMCP, Streamable HTTP/SSE)
 - **micro-frontend-architect**: Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications
 - **mobile-expo-expert**: Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ untuk aplikasi mobile
 - **mobile-push-notification-expert**: Panduan ahli notifikasi push mobile, FCM, APNs, dan Live Activities
+- **modern-css-native-expert**: Panduan ahli fitur CSS native modern 2026 (CSS Anchor Positioning, @starting-style, View Transitions L2, Container Queries, :has)
 - **monday-design-aesthetic**: Panduan desain ala Monday.com
 - **monorepo-architect**: Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces
 - **mpa-orchestrator**: Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya
