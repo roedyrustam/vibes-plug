@@ -2,6 +2,7 @@
 
 - **Version**: 2.8.0
 - **Author**: Roedy Rustam
+- **License**: MIT
 - **Last Updated**: 2026-09-08
 - **Repository**: [vibes-plug](https://github.com/roedyrustam/vibes-plug)
 

@@ -349,6 +349,10 @@ v2.8.0 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
 
+### License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.  
+Copyright (c) 2026 Roedy Rustam.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -619,3 +623,7 @@ v2.8.0 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
+
+### Lisensi
+Proyek ini dilisensikan di bawah Lisensi MIT — lihat file [LICENSE](LICENSE) untuk detail selengkapnya.  
+Hak Cipta (c) 2026 Roedy Rustam.
