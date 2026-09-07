@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [2.11.0] - 2026-09-08
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 140+ Skills**: Introduced 3 high-impact frontier 2026 skills:
+  - `voice-ai-realtime-agent`: Ultra-low-latency (<300ms) bi-directional conversational voice AI with WebRTC, OpenAI Realtime API, Gemini Multimodal Live Audio (PCM 24kHz), Semantic VAD, and LiveKit Agents. *(Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah).*
+  - `graph-rag-knowledge-expert`: Knowledge Graphs and GraphRAG architectures for multi-hop relational retrieval, entity-relationship extraction, Microsoft GraphRAG hierarchical community detection, and Neo4j Text2Cypher. *(Panduan ahli Knowledge Graph, GraphRAG, dan inferensi multi-hop).*
+  - `pwa-offline-first-expert`: Enterprise Local-First and Progressive Web App architectures with zero-latency local operations (OPFS SQLite, RxDB), conflict-free multi-device sync (ElectricSQL, PowerSync), and PWABuilder store packaging. *(Panduan ahli arsitektur Offline-First & Local-First PWA).*
+
+### Changed / Diubah
+- **Skill Orchestrator Matrix Synchronization**:
+  - `brainstorming`: Mapped `voice-ai-realtime-agent` to AI & Communication domains, `graph-rag-knowledge-expert` to Database & AI domains, and `pwa-offline-first-expert` to Frontend & Mobile domains (English & Indonesian).
+  - `zero-to-prod-orchestrator`: Linked new skills into Phase 3 (Database), Phase 4 (Backend APIs & AI Agents), and Phase 5 (Frontend & Mobile) (English & Indonesian).
+
+---
+
 ## [2.10.0] - 2026-09-08
 
 ### Added / Ditambahkan
