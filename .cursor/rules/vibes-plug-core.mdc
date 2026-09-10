@@ -1,13 +1,13 @@
 ---
 alwaysApply: true
-description: "Vibes-Plug 134+ Skills Ecosystem — Universal AI plugin for modern 2026 development"
+description: "Vibes-Plug 144+ Skills Ecosystem — Universal AI plugin for modern 2026 development"
 globs: "**/*"
 ---
 
 # Vibes-Plug Core Rules
 
 ## Skill Resolution Protocol
-This project uses 134+ specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
+This project uses 144+ specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
 
 **Before any task:**
 1. Identify relevant skills from the domain table below.
@@ -18,7 +18,7 @@ This project uses 134+ specialized skills in the `skills/` directory. Each skill
 
 | Domain | Key Skills |
 |--------|-----------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `vector-db-rag-expert`, `multi-agent-orchestration`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert` |
+| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `vector-db-rag-expert`, `multi-agent-orchestration`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert` |
 | 🎨 Design & UI/UX | `design-system-architect`, `hig`, `ui-components-expert`, `ui-ux-pro-max`, `monday-design-aesthetic`, `visual-qa-vision-agent`, `svg-animation-motion-expert`, `data-visualization-expert`, `rich-text-editor-expert` |
 | 🖥️ Frontend | `senior-frontend`, `tailwind-expert`, `nextjs-app-router-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tanstack-query-expert`, `state-management-expert`, `vue-frontend-expert`, `performance-web-vitals`, `form-validation-expert`, `blockchain-web3-expert` |
 | 📱 Mobile & Desktop | `mobile-expo-expert`, `mobile-push-notification-expert`, `tauri-expert`, `desktop-electron-expert` |

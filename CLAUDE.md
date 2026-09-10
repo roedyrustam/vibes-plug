@@ -1,16 +1,16 @@
-# Vibes-Plug — 134+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 144+ Skills Ecosystem for AI-Powered Development
 
-> **v2.8.0 (2026 Edition)** — Universal AI plugin with 134+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v2.12.0 (2026 Edition)** — Universal AI plugin with 144+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 
-This repository contains **134+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **144+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
 
 **Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
 
 | Domain | Skills |
 |--------|--------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `gemini-agent-booster`, `doku-mcp-server` |
+| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `ai-evals-benchmark-expert`, `gemini-agent-booster`, `doku-mcp-server` |
 | 🎨 Design & UI/UX | `design-system-architect`, `hig`, `monday-design-aesthetic`, `ui-components-expert`, `ui-ux-pro-max`, `visual-qa-vision-agent`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert` |
 | 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `bootstrap-to-modern`, `form-validation-expert`, `project-context-mapper`, `tauri-expert`, `web-game-engine-expert` |
 | 📱 Mobile | `mobile-expo-expert`, `mobile-push-notification-expert` |

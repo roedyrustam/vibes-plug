@@ -11,7 +11,7 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 140+ Skills Multi-Platform Agentic Swarm Architecture
+### ⚡ Universal 144+ Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
@@ -23,9 +23,9 @@ graph TD
 
     DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    subgraph SWARM["⚡ 140+ Specialized Engineering Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 144+ Specialized Engineering Skills Swarm Ecosystem"]
         D1["💡 Discovery, Ideation & Architecture (14 Skills)<br/>brainstorming • prd-architect • project-context-mapper • auto-doc-updater"]
-        D2["🤖 AI, LLM & Agentic Systems (13 Skills)<br/>ai-llm-integration • voice-ai-realtime • local-slm-edge-ai • mcp-server"]
+        D2["🤖 AI, LLM & Agentic Systems (17 Skills)<br/>ai-llm-integration • vercel-ai-sdk • deep-research • pydantic-ai • synthetic-data • mcp-server"]
         D3["🎨 Design Systems, UI/UX & Visuals (15 Skills)<br/>design-system • modern-css-native • hig • ui-components • data-visualization"]
         D4["🖥️ Frontend Frameworks & State (21 Skills)<br/>senior-frontend • pwa-offline-first • tailwind-expert • astro • svelte • solidjs"]
         D5["📱 Mobile, Desktop & WebXR (8 Skills)<br/>mobile-expo • apple-ecosystem • tauri • desktop-electron • push-notifications"]
@@ -85,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **140+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **144+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -160,10 +160,14 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following **140+ specialized skills** across 9 core engineering domains:
+This plugin provides the following **144+ specialized skills** across 9 core engineering domains:
 
 #### 🤖 AI & Agentic Systems
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents.
+- **Vercel Ai Sdk Expert** (`vercel-ai-sdk-expert`): Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering.
+- **Deep Research Analyst** (`deep-research-analyst`): Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation.
+- **Pydantic Ai Expert** (`pydantic-ai-expert`): Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows.
+- **Synthetic Data Finetuning Expert** (`synthetic-data-finetuning-expert`): Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs.
 - **Voice Ai Realtime Agent** (`voice-ai-realtime-agent`): Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD.
 - **Ai Evals Benchmark Expert** (`ai-evals-benchmark-expert`): Expert guide for LLM & AI Agent automated evaluations (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, and deterministic assertions.
 - **Local Slm Edge Ai Expert** (`local-slm-edge-ai-expert`): Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings.
@@ -350,7 +354,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.8.0 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
+v2.12.0 (2026 Edition) — 144+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -366,7 +370,7 @@ Copyright (c) 2026 Roedy Rustam.
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **140+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **144+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -441,10 +445,14 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **140+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
+Plugin ini menyediakan **144+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
 
 #### 🤖 AI & Sistem Agen
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI.
+- **Vercel Ai Sdk Expert** (`vercel-ai-sdk-expert`): Panduan ahli Vercel AI SDK (Core, UI, RSC), streaming data terstruktur, tool calling loops, dan rekayasa AI modern di React 19/Next.js 15.
+- **Deep Research Analyst** (`deep-research-analyst`): Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, evidence graph synthesis, dan mitigasi halusinasi.
+- **Pydantic Ai Expert** (`pydantic-ai-expert`): Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI — dependency injection, structured outputs, dan alur kerja graph.
+- **Synthetic Data Finetuning Expert** (`synthetic-data-finetuning-expert`): Panduan ahli generasi data sintetis, penyaringan LLM-as-a-judge, QLoRA fine-tuning (Unsloth), DPO, dan ekspor GGUF/Ollama untuk SLM lokal.
 - **Voice Ai Realtime Agent** (`voice-ai-realtime-agent`): Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah (<300ms) menggunakan WebRTC, OpenAI Realtime API, Gemini Live Audio, dan LiveKit.
 - **Ai Evals Benchmark Expert** (`ai-evals-benchmark-expert`): Panduan ahli evaluasi otomatis LLM & AI Agent (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, dan deterministic assertions.
 - **Local Slm Edge Ai Expert** (`local-slm-edge-ai-expert`): Panduan ahli SLM lokal dan AI edge di browser (WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU).
@@ -631,7 +639,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.8.0 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
+v2.12.0 (Edisi 2026) — 144+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

@@ -14,9 +14,9 @@
 ## English
 
 ### Overview
-Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 140+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
+Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 144+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
 
-### Skill Modules (140 Total)
+### Skill Modules (144 Total)
 - **accessibility-testing-expert**: Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance
 - **ai-cost-token-optimizer**: Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting
 - **ai-evals-benchmark-expert**: Expert guide for LLM & AI Agent automated evaluations (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, and deterministic assertions
@@ -54,6 +54,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **data-visualization-expert**: Expert guide for data visualization, charts, and dashboards using D3.js, Recharts, Chart.js, Nivo, and Tremor
 - **database-migration-versioning-expert**: Expert guide for database migrations: schema versioning, zero-downtime migrations, backward-compatible changes, data backfill, and rollback strategies
 - **database-orm-expert**: Expert guide for database schema design, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrations, query optimization, and type-safe SQL patterns in TypeScript
+- **deep-research-analyst**: Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation
 - **dependency-upgrade-migrator**: Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation
 - **design-system-architect**: Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility
 - **desktop-electron-expert**: Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management
@@ -108,6 +109,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **proactive-background-watcher**: Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts
 - **production-ready-hardener**: Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment
 - **pwa-offline-first-expert**: Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment
+- **pydantic-ai-expert**: Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows
 - **project-context-mapper**: Gives the agent a photographic memory of massive repositories. Forces the creation and maintenance of a highly compressed CONTEXT_MAP.md to prevent context exhaustion and hallucination
 - **python-programming-expert**: Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian
 - **rate-limit-abuse-prevention**: Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection
@@ -136,6 +138,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **supabase-security-expert**: Supabase security expert to audit RLS (Row Level Security), RBAC, relational databases, prevent data leakage, and utilize Supabase Linter
 - **svelte-sveltekit-expert**: Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, server-first architecture, form actions, and SSR/SSG
 - **svg-animation-motion-expert**: Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API
+- **synthetic-data-finetuning-expert**: Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs
 - **tailwind-expert**: Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design
 - **tanstack-query-expert**: Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infinite scrolling, optimistic mutations, SSR/React Server Components hydration, and advanced cache invalidation
 - **tauri-expert**: Expert skill for Tauri (v2) development, Rust backend, IPC, and security
@@ -144,6 +147,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **ui-components-expert**: Expert guide for building production-quality UI components following the 4 pillars. Covers React 19, Radix UI, Base UI, Tailwind v4, Material Design 3 (M3), WCAG 2.2
 - **ui-ux-pro-max**: Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks
 - **vector-db-rag-expert**: Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking
+- **vercel-ai-sdk-expert**: Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering
 - **vibe-code-gardener**: Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects
 - **visual-qa-vision-agent**: Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions
 - **voice-ai-realtime-agent**: Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD
@@ -164,9 +168,9 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 ## Bahasa Indonesia
 
 ### Ringkasan
-Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 140+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
+Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 144+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
 
-### Modul Skills (Total 140 Modul)
+### Modul Skills (Total 144 Modul)
 - **accessibility-testing-expert**: Panduan ahli pengujian aksesibilitas web
 - **ai-cost-token-optimizer**: Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching
 - **ai-evals-benchmark-expert**: Panduan ahli evaluasi otomatis LLM & AI Agent (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, dan deterministic assertions
@@ -201,9 +205,10 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **cron-scheduler-expert**: Panduan ahli untuk tugas terjadwal, cron job, pekerjaan latar belakang berulang, dan penjadwalan terdistribusi
 - **data-pipeline-etl-expert**: Panduan ahli untuk Data Pipelines, ETL/ELT. Mencakup dbt, Airflow, Dagster, BigQuery, ClickHouse, dan DuckDB
 - **data-telemetry-expert**: Panduan ahli untuk observabilitas, telemetri, dan analitik
-- **data-visualization-expert**: Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts, Chart.js, Nivo, dan Tremor
-- **database-migration-versioning-expert**: Panduan ahli migrasi database
+- **data-visualization-expert**: Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts
+- **database-migration-versioning-expert**: Panduan ahli migrasi database: versioning skema, migrasi zero-downtime, dan strategi rollback
 - **database-orm-expert**: Panduan ahli untuk desain skema database, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrasi, optimasi query, dan pola SQL type-safe di TypeScript
+- **deep-research-analyst**: Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, evidence graph synthesis, dan mitigasi halusinasi
 - **dependency-upgrade-migrator**: Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket
 - **design-system-architect**: Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility
 - **desktop-electron-expert**: Panduan ahli pengembangan desktop Electron 33+
@@ -258,6 +263,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **proactive-background-watcher**: Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts
 - **production-ready-hardener**: Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment
 - **pwa-offline-first-expert**: Panduan ahli arsitektur Offline-First & Local-First PWA
+- **pydantic-ai-expert**: Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI — dependency injection, structured outputs, dan alur kerja graph
 - **project-context-mapper**: Gives the agent a photographic memory of massive repositories. Forces the creation and maintenance of a highly compressed CONTEXT_MAP.md to prevent context exhaustion and hallucination
 - **python-programming-expert**: Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian
 - **rate-limit-abuse-prevention**: Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan
@@ -286,6 +292,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **supabase-security-expert**: Ahli keamanan Supabase untuk audit RLS (Row Level Security), RBAC, database relasional, pencegahan kebocoran data, dan pemanfaatan Supabase Linter
 - **svelte-sveltekit-expert**: Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG
 - **svg-animation-motion-expert**: Panduan ahli animasi web
+- **synthetic-data-finetuning-expert**: Panduan ahli generasi data sintetis, penyaringan LLM-as-a-judge, QLoRA fine-tuning (Unsloth), DPO, dan ekspor GGUF/Ollama untuk SLM lokal
 - **tailwind-expert**: Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern
 - **tanstack-query-expert**: Pakar manajemen state asinkron menggunakan TanStack Query (React Query) v5 dan Next.js App Router (SSR)
 - **tauri-expert**: Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan
@@ -294,6 +301,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **ui-components-expert**: Panduan ahli membangun komponen UI berkualitas produksi dengan M3
 - **ui-ux-pro-max**: Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack
 - **vector-db-rag-expert**: Panduan ahli Vector DB, arsitektur Deep RAG, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, dan Late Chunking
+- **vercel-ai-sdk-expert**: Panduan ahli Vercel AI SDK (Core, UI, RSC), streaming data terstruktur, tool calling loops, dan rekayasa AI modern di React 19/Next.js 15
 - **vibe-code-gardener**: Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding
 - **visual-qa-vision-agent**: Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions
 - **voice-ai-realtime-agent**: Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah (<300ms)

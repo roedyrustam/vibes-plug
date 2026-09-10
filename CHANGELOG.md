@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.12.0] - 2026-09-10
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 144+ Skills**: Introduced 4 frontier 2026 AI & Agentic engineering skills:
+  - `vercel-ai-sdk-expert`: Complete production guide for Vercel AI SDK (Core, UI, RSC) in Next.js 15 & React 19. Covers `streamText`, `generateObject`, multi-provider fallback switching (Anthropic, OpenAI, Google, Groq), tool-calling agent loops, and Server Actions streaming. *(Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI).*
+  - `deep-research-analyst`: Autonomous deep research pipeline with recursive query decomposition, multi-source crawling (Crawl4AI / Firecrawl), credibility scoring, fact triangulation (>= 2 independent sources), and evidence graph synthesis with markdown citations. *(Panduan ahli riset mendalam otonom, pencarian web iteratif, dan mitigasi halusinasi).*
+  - `pydantic-ai-expert`: Type-safe Python AI agent framework with Pydantic AI. Features runtime dependency injection (`RunContext`), model-agnostic routing, structured Pydantic schema validation, and graph workflows. *(Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI).*
+  - `synthetic-data-finetuning-expert`: End-to-end synthetic dataset generation pipeline with LLM-as-a-judge quality filtering, QLoRA fine-tuning with Unsloth, DPO alignment, and GGUF/Ollama model export for local SLMs. *(Panduan ahli generasi data sintetis, fine-tuning QLoRA, DPO, dan ekspor GGUF/Ollama).*
+
+### Changed / Diubah
+- **Universal Multi-Platform & Swarm Orchestration**:
+  - Updated all core orchestrators (`brainstorming`, `zero-to-prod-orchestrator`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.cursor/rules/vibes-plug-core.mdc`) to orchestrate the 144+ skills ecosystem.
+  - Integrated `deep-research-analyst` into Phase 1 (Discovery & AI PRD Planning), `vercel-ai-sdk-expert`, `pydantic-ai-expert`, and `synthetic-data-finetuning-expert` into Phase 4 (Backend & AI Agents) and Phase 5 (Frontend).
+  - Synchronized versions and documentation across `package.json`, `plugin.json`, `README.md`, `BLUEPRINT.md`, `index.js`, and `GITHUB_PROMO_KIT.md`.
+
+---
+
 ## [2.11.0] - 2026-09-08
 
 ### Added / Ditambahkan
