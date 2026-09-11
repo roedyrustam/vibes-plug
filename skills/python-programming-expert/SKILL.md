@@ -1,7 +1,7 @@
 ---
 name: python-programming-expert
 description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Python Programming Expert (3.14 Edition)

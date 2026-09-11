@@ -1,7 +1,7 @@
 ---
 name: web-3d-graphics-expert
 description: "Expert guide for WebGL and 3D graphics in the browser using Three.js, Babylon.js, React Three Fiber (R3F), and TresJS. Covers scene optimization, shaders, lighting, 3D model loading (GLTF/GLB), and performance tuning."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Web 3D Graphics Expert (Three.js & Babylon.js)

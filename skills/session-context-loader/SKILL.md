@@ -1,7 +1,7 @@
 ---
 name: session-context-loader
 description: "Automatically loads and learns project context (Tech Stack, PRD, Roadmap, Blueprint) at the start of every new conversation session to ensure focused and directed development / Otomatis memuat dan mempelajari konteks proyek (Tech Stack, PRD, Roadmap, Blueprint) di awal setiap sesi percakapan baru untuk memastikan pengembangan yang terarah dan fokus."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Session Context Loader

@@ -1,23 +1,23 @@
-# Vibes-Plug — 134+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 145+ Skills Ecosystem for AI-Powered Development
 
-> **v2.7.1 (2026 Edition)** — Universal AI plugin with 134+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v2.13.0 (2026 Edition)** — Universal AI plugin with 145+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 
-This repository contains **134+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **145+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
 
 **Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
 
 | Domain | Skills |
 |--------|--------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `gemini-agent-booster`, `doku-mcp-server` |
+| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `ai-evals-benchmark-expert`, `gemini-agent-booster`, `doku-mcp-server` |
 | 🎨 Design & UI/UX | `design-system-architect`, `hig`, `monday-design-aesthetic`, `ui-components-expert`, `ui-ux-pro-max`, `visual-qa-vision-agent`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert` |
 | 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `bootstrap-to-modern`, `form-validation-expert`, `project-context-mapper`, `tauri-expert`, `web-game-engine-expert` |
 | 📱 Mobile | `mobile-expo-expert`, `mobile-push-notification-expert` |
 | ⚙️ Backend & Languages | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `fullstack-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `mvc-expert`, `openapi-swagger-codegen-expert` |
 | ☁️ SaaS & Cloud | `saas-transformer`, `saas-mvp-launcher`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `monorepo-architect`, `micro-frontend-architect`, `event-driven-architect`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `legacy-code-translator` |
 | 🗄️ Database & ORM | `database-orm-expert`, `edge-serverless-db-expert`, `supabase-migration`, `database-migration-versioning-expert` |
-| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `autonomous-chaos-monkey`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator` |
+| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `autonomous-chaos-monkey`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator`, `anti-slop` |
 | 🔍 SEO | `seo` |
 | ⏱️ Async & Scheduling | `async-queue-temporal-expert`, `background-jobs-queue-expert`, `cron-scheduler-expert`, `sse-websocket-streaming-expert`, `realtime-collaboration-expert` |
 | 📊 Data & Observability | `data-telemetry-expert`, `data-pipeline-etl-expert`, `logging-error-tracking-expert`, `email-notification-expert`, `file-upload-media-expert` |
@@ -43,8 +43,8 @@ When a new skill `SKILL.md` is created or modified:
 ### 3. Bilingual Ecosystem
 This ecosystem serves English and Indonesian developers. Every `SKILL.md` must provide bilingual context for critical concepts. Headings can be in either language.
 
-### 4. Anti-Slop
-No generic filler text ("As an AI language model..."). Instructions must be imperative, direct, and token-efficient.
+### 4. Anti-Slop (Zero-Tolerance Standard)
+Strictly eliminate conversational pleasantries ("Certainly!", "I'd be happy to..."), prompt repeating, syntax-narrating comments, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Always consult and enforce the `anti-slop` skill. Instructions and code must be imperative, direct, complete, and token-efficient.
 
 ### 5. Mandatory Documentation for New Projects
 When initiating a new project from scratch, ensure the automatic generation of:
@@ -67,4 +67,4 @@ Every `SKILL.md` MUST have:
 3. **Backend & Architecture:** `js-backend-expert` / `go-programming-expert` / `rust-programming-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
 4. **AI Integration:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`
 5. **SaaS Transformation:** `saas-transformer` / `saas-mvp-launcher` → auto-coordinates billing, tenancy, payments
-6. **Quality & Launch:** `e2e-testing-expert` → `vibe-code-gardener` → `seo` → `production-ready-hardener`
+6. **Quality & Launch:** `e2e-testing-expert` → `vibe-code-gardener` + `anti-slop` → `seo` → `production-ready-hardener`

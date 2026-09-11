@@ -1,7 +1,7 @@
 ---
 name: e2e-testing-expert
 description: "Expert guide for End-to-End (E2E) testing with Playwright, unit/integration testing with Vitest, and CI/CD automated testing pipeline setup / Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi CI/CD."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # E2E Testing Expert (Playwright 1.49+ / Vitest 3 Edition)

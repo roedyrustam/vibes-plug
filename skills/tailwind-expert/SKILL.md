@@ -1,7 +1,7 @@
 ---
 name: tailwind-expert
 description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Tailwind CSS Expert (v4 Edition)

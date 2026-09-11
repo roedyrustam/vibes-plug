@@ -1,7 +1,7 @@
 ---
 name: vibe-code-gardener
 description: "Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects / Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Vibe Code Gardener (2026 Edition)
@@ -175,7 +175,7 @@ Tambahkan aturan ESLint, `depcheck` di CI, dan architecture test untuk menjaga c
 ---
 
 ## Orchestration & Integration
-- Integrates with `zero-to-prod-orchestrator`, `brainstorming`, `coderabbit`, and `dependency-upgrade-migrator`.
+- Integrates with `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`, `coderabbit`, and `dependency-upgrade-migrator`.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan `zero-to-prod-orchestrator`, `brainstorming`, `coderabbit`, dan `dependency-upgrade-migrator`.
+- Terintegrasi dengan `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`, `coderabbit`, dan `dependency-upgrade-migrator`.

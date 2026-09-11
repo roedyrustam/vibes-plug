@@ -1,7 +1,7 @@
 ---
 name: auto-doc-updater
 description: "Automatically documents every feature change or bug fix successfully built into CHANGELOG.md and BLUEPRINT.md / Otomatis mendokumentasikan setiap perubahan fitur atau perbaikan bug yang berhasil di-build ke CHANGELOG.md dan BLUEPRINT.md."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Auto Documentation Updater (2026 — ADR Edition)

@@ -1,7 +1,7 @@
 ---
 name: project-context-mapper
 description: "Gives the agent a photographic memory of massive repositories. Forces the creation and maintenance of a highly compressed CONTEXT_MAP.md to prevent context exhaustion and hallucination."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Project Context Mapper (Memory Optimizer)

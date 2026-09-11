@@ -1,7 +1,7 @@
 ---
 name: skill-baru
 description: "Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support / Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # [Skill Name] — vibes-plug Skill Template

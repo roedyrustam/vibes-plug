@@ -1,7 +1,7 @@
 ---
 name: data-telemetry-expert
 description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Data & Telemetry Expert (OpenTelemetry 1.x / ClickHouse Edition)

@@ -1,7 +1,7 @@
 ---
 name: database-orm-expert
 description: "Expert guide for database schema design, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrations, query optimization, and type-safe SQL patterns in TypeScript / Panduan ahli untuk desain skema database, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrasi, optimasi query, dan pola SQL type-safe di TypeScript."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Database ORM Expert (Prisma 6 + Drizzle ORM Edition)

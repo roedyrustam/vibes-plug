@@ -1,7 +1,7 @@
 ---
 name: bootstrap-to-modern
 description: "Expert skill to refactor and migrate legacy Bootstrap CSS applications to modern stacks using Tailwind CSS v4 and Alpine.js / Skill ahli untuk melakukan refaktor dan migrasi aplikasi Bootstrap CSS lama ke stack modern menggunakan Tailwind CSS v4 dan Alpine.js."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Bootstrap to Modern (Tailwind + Alpine.js) / Refaktor Bootstrap ke Modern

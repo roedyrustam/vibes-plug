@@ -1,7 +1,7 @@
 ---
 name: geospatial-maps-expert
 description: "Expert guide for maps and geospatial data (Mapbox GL JS, Leaflet, Google Maps, PostGIS) / Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS)."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Geospatial & Maps Expert (2026 Edition)

@@ -1,7 +1,8 @@
 ---
 name: multi-agent-orchestration
-description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, graph-based workflows (LangGraph, CrewAI, AutoGen), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
-author: "vibes-plug-swarm"
+version: "2.8.0"
+description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
+author: "Roedy Rustam"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)
@@ -14,43 +15,68 @@ author: "vibes-plug-swarm"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, and `project-context-mapper` to ensure cohesive execution.
 
 ### Description
-Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers agent orchestration frameworks (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, CrewAI, AutoGen), shared state and memory management, tool execution, human-in-the-loop (HITL) guardrails, and observability for agentic workflows.
+Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers core agentic design patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), stateful graph engines (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared episodic/semantic memory, tool execution sandboxes, and human-in-the-loop (HITL) guardrails.
 
-**Swarm Synergy:** This skill acts as a powerful orchestrator when combined with `mcp-server-architect` (for external tool integration) and `ai-llm-integration-expert` (for foundation model setup). Together, they form a complete, end-to-end **AI Engineering Swarm**.
+**Swarm Synergy:** This skill acts as a master orchestrator when combined with `mcp-server-architect` (for external tool integration) and `ai-llm-integration-expert` (for foundation model setup). Together, they form a complete, end-to-end **AI Engineering Swarm**.
 
 ### Trigger Conditions
-- Building autonomous AI agents that execute multi-step tasks.
-- Designing systems where multiple specialized AI agents collaborate.
-- Implementing graph-based agent workflows with LangGraph or similar frameworks.
-- Integrating human-in-the-loop checkpoints for high-stakes decisions.
-- Building AI pipelines with tool-calling, RAG retrieval, code execution, or browser control.
-- Evaluating and selecting agent frameworks (LangGraph vs OpenAI Agents SDK vs Google ADK).
+- Building autonomous AI agents that execute complex, multi-step tasks across several domains.
+- Designing systems where multiple specialized AI agents collaborate, deliberate, and cross-validate.
+- Implementing stateful, graph-based agent workflows with LangGraph, OpenAI Agents SDK, or Google ADK.
+- Implementing Anthropic agentic design patterns: Evaluator-Optimizer loops, Orchestrator-Workers, or Routing.
+- Integrating human-in-the-loop (HITL) pause checkpoints for high-risk actions (code execution, database migrations, financial transactions).
+- Evaluating and selecting agent architectures across Python, TypeScript, and multi-platform swarms.
+
+### Anthropic 2026 Core Agentic Design Patterns
+
+Production systems should favor explicit **Workflows** over unbounded autonomous loops where predictability and reliability are required:
+
+```
+1. PROMPT CHAINING
+   [Input] ---> [LLM Step 1] ---> [Gate/Validator] ---> [LLM Step 2] ---> [Output]
+
+2. ROUTING
+   [Input] ---> [Classifier/Router] ──┬──> [Specialist Agent A]
+                                     ├──> [Specialist Agent B]
+                                     └──> [Specialist Agent C]
+
+3. PARALLELIZATION (Sectioning & Voting)
+   [Input] ──┬──> [Task 1 (Subagent)] ──┐
+             ├──> [Task 2 (Subagent)] ──┼──> [Aggregator / Synthesizer]
+             └──> [Task 3 (Subagent)] ──┘
+
+4. ORCHESTRATOR-WORKERS (Dynamic Decomposition)
+   [Input] ---> [Orchestrator] ──┬──> [Worker 1 (Focused Context)] ──┐
+                                 ├──> [Worker 2 (Focused Context)] ──┼──> [Orchestrator Synthesis]
+                                 └──> [Worker 3 (Focused Context)] ──┘
+
+5. EVALUATOR-OPTIMIZER LOOP (Zero-Tolerance Quality Gate)
+   [Input] ---> [Generator Agent] <─────┐ (Feedback Loop)
+                       │                 │
+                       ▼                 │
+               [Evaluator / Auditor] ────┘ (Reject / Needs Revision)
+                       │
+                       ▼ (Approved)
+                   [Output]
+```
 
 ### Agent Framework Comparison (2026)
 
 | Framework | Language | Best For | Key Differentiator |
 |---|---|---|---|
-| **LangGraph** | Python / TypeScript | Complex stateful workflows | Graph-based, any LLM, full control |
-| **OpenAI Agents SDK** | Python | GPT-5 native agents | Built-in handoffs, tracing, guardrails |
-| **Google ADK** | Python | Gemini-powered agents | Multi-agent, Vertex AI, streaming |
-| **Mastra.ai** | TypeScript | TS-first agent apps | Built-in memory, evals, RAG, MCP |
-| **CrewAI** | Python | Team-of-agents tasks | Role-based agents, easy to start |
-| **AutoGen** | Python | Research & LLM evaluation | Conversation-driven agents |
+| **LangGraph (v0.3+)** | Python / TypeScript | Complex stateful workflows & graphs | Graph-based, persistent checkpointers, time-travel debugging |
+| **OpenAI Agents SDK** | Python | GPT-5 / o-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
+| **Google ADK** | Python | Gemini-powered swarms | Native Vertex AI, multi-agent streaming, search grounding |
+| **Mastra.ai** | TypeScript | TS-first web apps & microservices | Built-in memory, evals, RAG, and native MCP support |
+| **CrewAI** | Python | Role-playing business teams | Fast initial prototyping for business analyst teams |
 
-### Core Architecture Principles
+### Core Implementation Guidelines
 
-#### 1. Agent Roles & Specialization
-Design agents with single responsibilities — avoid "do-everything" agents:
-- **Orchestrator Agent**: Routes tasks, decomposes goals, delegates to specialists.
-- **Specialist Agents**: Domain-specific (research agent, code agent, data analyst, writer).
-- **Tool Agents**: Wrap external capabilities (browser agent, SQL agent, file agent).
-- **Critic/Validator Agent**: Reviews output of other agents before finalizing.
-
-#### 2. LangGraph — Stateful Graph Workflows
-LangGraph models agent workflows as directed graphs with persistent state — ideal for complex, multi-step tasks with branching logic and HITL:
+#### 1. LangGraph — Persistent State & HITL Checkpoints
+LangGraph models agent workflows as directed acyclic or cyclic graphs with persistent state:
 ```python
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
@@ -60,130 +86,104 @@ import operator
 class AgentState(TypedDict):
     messages: Annotated[list, operator.add]
     task: str
-    result: str
+    code_artifact: str
+    audit_feedback: str
+    approved: bool
 
-def research_node(state: AgentState):
-    # Call research agent
-    return {"messages": [research_agent.invoke(state["task"])]}
+def generator_node(state: AgentState):
+    # Generates or refactors code based on previous feedback
+    code = coder_agent.invoke(state["task"], feedback=state.get("audit_feedback"))
+    return {"code_artifact": code}
 
-def write_node(state: AgentState):
-    # Call writing agent with research result
-    return {"result": writing_agent.invoke(state["messages"])}
+def evaluator_node(state: AgentState):
+    # Runs automated linter/tests & security review
+    audit = auditor_agent.invoke(state["code_artifact"])
+    return {
+        "audit_feedback": audit.critique,
+        "approved": audit.is_passing
+    }
 
-def should_revise(state: AgentState) -> str:
-    # Conditional routing
-    return "revise" if needs_revision(state["result"]) else "end"
+def route_next(state: AgentState) -> str:
+    return END if state["approved"] else "generator"
 
 builder = StateGraph(AgentState)
-builder.add_node("research", research_node)
-builder.add_node("write", write_node)
-builder.add_conditional_edges("write", should_revise, {"revise": "research", "end": END})
+builder.add_node("generator", generator_node)
+builder.add_node("evaluator", evaluator_node)
+builder.set_entry_point("generator")
+builder.add_edge("generator", "evaluator")
+builder.add_conditional_edges("evaluator", route_next, {"generator": "generator", END: END})
 
-# Persist state for HITL
-memory = MemorySaver()
-graph = builder.compile(checkpointer=memory, interrupt_before=["write"])
+# Persist state with checkpointer for HITL interruption before destructive actions
+checkpointer = MemorySaver()
+graph = builder.compile(checkpointer=checkpointer, interrupt_before=["generator"])
 ```
 
-#### 3. OpenAI Agents SDK — Handoffs & Guardrails
-Use the OpenAI Agents SDK for native GPT-5 agent workflows with built-in tracing:
+#### 2. OpenAI Agents SDK — Agent Handoffs & Guardrails
+Implement native agent handoffs where specialized agents transition control cleanly:
 ```python
 from agents import Agent, Runner, handoff, input_guardrail, GuardrailFunctionOutput
 
-# Define specialist agents
 researcher = Agent(
     name="Researcher",
-    instructions="Search and retrieve relevant information.",
-    tools=[web_search, document_retrieval],
+    instructions="Research libraries, security advisories, and system specs.",
+    tools=[web_search, doc_retrieval],
 )
 
-writer = Agent(
-    name="Writer",
-    instructions="Write high-quality content based on research.",
-    handoffs=[handoff(researcher, tool_name_override="get_research")],
+architect = Agent(
+    name="Architect",
+    instructions="Synthesize technical architecture and delegate research when needed.",
+    handoffs=[handoff(researcher, tool_name_override="delegate_research")],
 )
 
-# Input guardrail to prevent harmful requests
 @input_guardrail
-async def content_filter(ctx, agent, input) -> GuardrailFunctionOutput:
-    if contains_harmful_content(input):
-        return GuardrailFunctionOutput(output_info="Blocked", tripwire_triggered=True)
-    return GuardrailFunctionOutput(output_info="OK", tripwire_triggered=False)
+async def safety_guardrail(ctx, agent, input_data) -> GuardrailFunctionOutput:
+    if contains_destructive_commands(input_data):
+        return GuardrailFunctionOutput(output_info="Blocked destructive payload", tripwire_triggered=True)
+    return GuardrailFunctionOutput(output_info="Safe", tripwire_triggered=False)
 
-# Run with tracing
-result = await Runner.run(writer, "Write an article about...", guardrails=[content_filter])
+result = await Runner.run(architect, "Design high-throughput ingestion pipeline", guardrails=[safety_guardrail])
 ```
 
-#### 4. Google ADK — Gemini Multi-Agent
-Google Agent Development Kit (ADK) for building Gemini-powered agents with Vertex AI integration:
+#### 3. Google ADK — Gemini Multi-Agent Systems
+Orchestrate Gemini 3.x agents with streaming subagent calls and Vertex AI tooling:
 ```python
 from google.adk.agents import Agent
 from google.adk.tools import google_search, code_execution
 
-root_agent = Agent(
-    model="gemini-2.5-pro",
-    name="orchestrator",
-    instruction="Coordinate research and analysis tasks.",
-    sub_agents=[research_agent, analysis_agent],
+director = Agent(
+    model="gemini-3.1-pro",
+    name="director",
+    instruction="Coordinate domain specialists and synthesize final deliverables.",
+    sub_agents=[frontend_agent, backend_agent, security_agent],
     tools=[google_search, code_execution],
 )
 ```
 
-#### 5. Mastra.ai — TypeScript-First Agents
-For TypeScript teams, Mastra provides the most complete agentic framework:
+#### 4. Mastra.ai — TypeScript-Native Agents
+For modern Next.js / Node.js / Bun environments:
 ```typescript
 import { Agent, MastraMemory } from '@mastra/core';
 import { createTool } from '@mastra/core/tools';
+import { z } from 'zod';
 
-const webSearchTool = createTool({
-  id: 'web-search',
-  description: 'Search the web for current information',
-  inputSchema: z.object({ query: z.string() }),
-  execute: async ({ context: { query } }) => searchWeb(query),
-});
-
-const researchAgent = new Agent({
+const researcher = new Agent({
   name: 'researcher',
-  instructions: 'Find and summarize information accurately.',
-  model: { provider: 'ANTHROPIC', name: 'claude-sonnet-4-5' },
-  tools: { webSearch: webSearchTool },
+  instructions: 'Find and summarize accurate technical documentation.',
+  model: { provider: 'ANTHROPIC', name: 'claude-3-7-sonnet-20250219' },
   memory: new MastraMemory({ storage: supabaseStorage }),
 });
 ```
 
-#### 6. Human-in-the-Loop (HITL) Guardrails
-Mandatory for high-stakes agent actions (financial transactions, email sending, code deployment):
-- **Interrupt Checkpoints**: Pause graph execution before irreversible actions.
-- **Approval Flows**: Send pending action to a UI for human review before continuing.
-- **Confidence Thresholds**: Auto-approve if confidence > 90%, escalate if < 70%.
+#### 5. Human-in-the-Loop (HITL) Guardrails
+Mandatory safeguards before executing irreversible operations:
+- **Interrupt Checkpoints**: Halt workflow execution before executing code, migrating databases, or modifying production records.
+- **Approval Dashboards**: Surface diff previews and proposed shell commands to the user or admin before proceeding.
+- **Confidence Gates**: Auto-proceed only when model confidence score is >= 0.90; trigger human escalation otherwise.
 
-#### 7. Agent Memory Architecture
-- **Working Memory (In-context)**: Recent messages and task state in the prompt window.
-- **Episodic Memory**: Summarized past sessions stored as embeddings (Mem0, MemGPT).
-- **Semantic Memory**: Domain knowledge in a vector store (pgvector, Qdrant).
-- **Procedural Memory**: Learned tool-use patterns stored as structured data.
-
-#### 8. Observability & Evaluation
-- **LangSmith**: Native tracing for LangGraph, LangChain agents.
-- **OpenAI Tracing**: Built-in in OpenAI Agents SDK — view agent runs, handoffs, tool calls.
-- **Mastra Evals**: Built-in evaluation framework for Mastra agents.
-- **Custom Metrics**: Track task completion rate, tool call accuracy, latency, and cost per run.
-
-#### 9. Swarm Topologies & Dynamic Routing (2026 Edition)
-Choose the right swarm topology based on task complexity:
-- **Hierarchical Swarm (Star)**: Central Swarm Director assigns sub-tasks to specialized domain agents (Frontend, Backend, DB, QA). Best for fullstack development.
-- **Pipeline Saga (Sequential)**: Output of Agent A feeds directly as input to Agent B. Best for CI/CD, data ETL, and multi-step refactoring.
-- **Mesh / Peer-to-Peer**: Agents communicate directly via message bus with shared blackboard memory. Best for open-ended research and brainstorming.
-- **Critic-Validator Gate**: Implementer Agent submits diff/artifact → Auditor Agent runs automated audits (fuzzing, a11y, type checks) → approved or rejected with remediation hints.
-
-#### 10. Multi-Platform Swarm Execution
-- **Antigravity (AGY)**: Spawn parallel subagents with `invoke_subagent`. Maintain shared state via `CONTEXT_MAP.md`.
-- **Claude Code**: Orchestrate sub-tasks with modular `.claude/rules/` directives and background process management.
-- **Cursor IDE**: Apply domain-specific rules with `.cursor/rules/*.mdc` and Composer multi-file transformations.
-
-#### 11. Swarm Circuit Breakers & Graceful Fallbacks
-- Set max retry threshold per subagent (default: 2 retries).
-- If a subagent encounters a persistent tool error or context limit, the Swarm Director automatically re-routes the task to an alternative skill (e.g. `fullstack-expert` fallback if specialized agent stalls).
-- Always persist checkpoint state (`PROGRESS.md` or `BLUEPRINT.md`) to allow seamless resumption.
+#### 6. Swarm Circuit Breakers & Fallback Protocols
+- **Retry Caps**: Maximum 2 automated retries per subagent.
+- **Fallback Escalation**: If a specialist agent stalls or loops, the Swarm Director gracefully fallbacks to `fullstack-expert` or requests human guidance.
+- **Checkpoint Persistence**: Always persist intermediate progress to `PROGRESS.md` or `BLUEPRINT.md` so sessions can resume without losing context.
 
 ---
 
@@ -191,84 +191,64 @@ Choose the right swarm topology based on task complexity:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup framework orkestrasi agen (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), manajemen state dan memori bersama, eksekusi tool, guardrail human-in-the-loop (HITL), dan observabilitas untuk alur kerja agentik.
+Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup pola desain agentik inti (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), engine graph stateful (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), memori bersama episodik/semantik, sandbox eksekusi tool, dan guardrail human-in-the-loop (HITL).
 
-**Sinergi Swarm:** Skill ini bertindak sebagai orkestrator yang sangat *powerful* jika dikombinasikan dengan `mcp-server-architect` (untuk integrasi eksternal tool) dan `ai-llm-integration-expert` (untuk penyiapan foundation model). Bersama-sama, ketiganya membentuk **AI Engineering Swarm** yang komprehensif dari ujung ke ujung.
+**Sinergi Swarm:** Skill ini bertindak sebagai orkestrator utama jika dipadukan dengan `mcp-server-architect` (untuk integrasi tool eksternal) dan `ai-llm-integration-expert` (untuk konfigurasi foundation model). Bersama-sama, ketiganya membentuk **AI Engineering Swarm** yang tangguh dari awal hingga rilis produksi.
 
 ### Kondisi Pemicu
-- Membangun agen AI otonom yang mengeksekusi tugas multi-langkah.
-- Merancang sistem di mana beberapa agen AI khusus berkolaborasi.
-- Mengimplementasikan alur kerja agen berbasis graph dengan LangGraph atau framework serupa.
-- Mengintegrasikan checkpoint human-in-the-loop untuk keputusan berisiko tinggi.
-- Membangun pipeline AI dengan tool-calling, RAG, eksekusi kode, atau kontrol browser.
-- Mengevaluasi dan memilih framework agen yang tepat.
+- Membangun agen AI otonom yang mengeksekusi tugas kompleks multi-langkah lintas domain.
+- Merancang sistem kolaborasi, deliberasi, dan validasi silang antar beberapa agen AI spesialis.
+- Mengimplementasikan alur kerja graph stateful dengan LangGraph, OpenAI Agents SDK, atau Google ADK.
+- Menerapkan 5 pola desain agentik standar: Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, atau Evaluator-Optimizer.
+- Mengintegrasikan pos henti human-in-the-loop (HITL) untuk tindakan berisiko tinggi (eksekusi kode, migrasi database, transaksi keuangan).
+- Memilih dan mengevaluasi arsitektur agen di ekosistem Python, TypeScript, atau multi-platform.
+
+### 5 Pola Desain Agentik Inti (Standar Anthropic 2026)
+
+Untuk sistem produksi yang handal, utamakan arsitektur **Workflows** terstruktur daripada loop otonom tanpa batas:
+
+1. **Prompt Chaining**: Memecah tugas menjadi langkah-langkah sekuensial dengan validasi output di setiap transisi.
+2. **Routing**: Mengklasifikasikan input pengguna dan mengarahkannya ke model atau sub-agen yang memiliki spesialisasi yang tepat.
+3. **Parallelization (Sectioning & Voting)**: Menjalankan beberapa sub-agen secara simultan untuk tugas independen atau menjalankan ensemble untuk konsensus voting.
+4. **Orchestrator-Workers**: Agen orkestrator pusat memecah masalah dinamis, mendelegasikannya ke pekerja dengan konteks terfokus, lalu merangkum hasil akhirnya.
+5. **Evaluator-Optimizer Loop**: Agen pembuat (*generator*) menghasilkan solusi sementara agen penilai (*evaluator*) memberikan audit dan umpan balik hingga standar kualitas terpenuhi.
 
 ### Perbandingan Framework Agen (2026)
 
-| Framework | Bahasa | Terbaik Untuk | Diferensiasi Kunci |
+| Framework | Bahasa | Terbaik Untuk | Keunggulan Utama |
 |---|---|---|---|
-| **LangGraph** | Python / TS | Alur kerja stateful kompleks | Berbasis graph, LLM apa saja, kontrol penuh |
-| **OpenAI Agents SDK** | Python | Agen GPT-5 native | Handoffs, tracing, guardrails bawaan |
-| **Google ADK** | Python | Agen berbasis Gemini | Multi-agen, Vertex AI, streaming |
-| **Mastra.ai** | TypeScript | Aplikasi agen TS-first | Memori, evaluasi, RAG, MCP bawaan |
-| **CrewAI** | Python | Tugas tim-agen | Agen berbasis peran, mudah dimulai |
-| **AutoGen** | Python | Riset & evaluasi LLM | Agen berbasis percakapan |
+| **LangGraph (v0.3+)** | Python / TypeScript | Alur kerja graf stateful kompleks | Berbasis graf, checkpointer persisten, time-travel debugging |
+| **OpenAI Agents SDK** | Python | Agen native GPT-5 / o-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
+| **Google ADK** | Python | Swarm agen bertenaga Gemini | Integrasi Vertex AI native, streaming multi-agen, search grounding |
+| **Mastra.ai** | TypeScript | Web apps & microservice TS-first | Memori bawaan, evaluasi otomatis, RAG, dan dukungan MCP native |
+| **CrewAI** | Python | Tim simulasi peran | Cepat untuk membuat prototipe kolaborasi tim bisnis |
 
-### Prinsip Arsitektur Inti
+### Panduan Implementasi Inti
 
-#### 1. Peran & Spesialisasi Agen
-Rancang agen dengan tanggung jawab tunggal:
-- **Orchestrator Agent**: Mendelegasikan tugas ke agen spesialis.
-- **Specialist Agents**: Domain-spesifik (agen riset, kode, analis data, penulis).
-- **Tool Agents**: Membungkus kemampuan eksternal (browser, SQL, file).
-- **Critic/Validator Agent**: Meninjau output agen lain sebelum difinalisasi.
+#### 1. LangGraph — State Persisten & Checkpoint HITL
+Memodelkan alur agen sebagai graf terarah dengan state bersama dan penyimpanan checkpoint:
+- Simpan state di database (PostgreSQL / MemorySaver) agar alur kerja dapat dijeda dan dilanjutkan kapan saja.
+- Terapkan `interrupt_before` sebelum node yang menjalankan perintah destruktif untuk meminta persetujuan manusia (*Human-in-the-loop*).
 
-#### 2. LangGraph — Alur Kerja Graf Stateful
-LangGraph memodelkan alur kerja agen sebagai graf terarah dengan state persisten — ideal untuk tugas kompleks dengan logika percabangan dan HITL. State disimpan di checkpointer (MemorySaver atau PostgreSQL) untuk resume antar sesi.
+#### 2. OpenAI Agents SDK — Handoffs & Guardrails
+Terapkan transisi kendali yang mulus antar agen dengan fungsi `handoff` bawaan serta pasang filter `guardrail` pada input dan output untuk mencegah eksekusi instruksi berbahaya.
 
-#### 3. OpenAI Agents SDK — Handoffs & Guardrails
-SDK native untuk agen GPT-5 dengan handoffs agen-ke-agen, tracing bawaan, dan guardrails untuk mencegah output berbahaya.
+#### 3. Google ADK — Multi-Agent Gemini
+Bangun hierarki agen dengan model Gemini 3.x, di mana root agent mengoordinasikan sub-agents untuk riset, eksekusi kode, dan pembuatan dokumen.
 
-#### 4. Google ADK — Agen Gemini Multi-Agent
-ADK untuk membangun agen Gemini dengan integrasi Vertex AI, sub-agents, dan tool seperti Google Search dan eksekusi kode.
+#### 4. Mastra.ai — Solusi TypeScript Penuh
+Gunakan Mastra untuk ekosistem Next.js dan Node.js: sediakan memori persisten ke Supabase/PostgreSQL, integrasikan tool MCP secara langsung, dan manfaatkan framework evaluasi bawaan.
 
-#### 5. Mastra.ai — Agen TypeScript-First
-Framework paling lengkap untuk tim TypeScript: memori bawaan, evaluasi, RAG, dan dukungan MCP native.
+#### 5. Guardrails Human-in-the-Loop (HITL)
+Pengamanan wajib sebelum melakukan tindakan yang tidak dapat dibatalkan:
+- **Pos Henti Interupsi**: Hentikan eksekusi sebelum menjalankan skrip shell berbahaya, migrasi skema tabel, atau memodifikasi data produksi.
+- **Tinjauan Pratinjau**: Tampilkan ringkasan perbedaan (*diff*) kepada pengguna sebelum modifikasi dieksekusi.
+- **Ambang Keyakinan**: Otomatis lanjutkan hanya jika skor keyakinan model >= 0.90; eskalasikan ke manusia jika berada di bawah ambang batas.
 
-#### 6. Human-in-the-Loop (HITL) Guardrails
-Wajib untuk aksi agen berisiko tinggi (transaksi keuangan, pengiriman email, deployment kode):
-- **Interrupt Checkpoints**: Jeda eksekusi graf sebelum aksi tidak dapat dibalik.
-- **Approval Flows**: Kirim aksi yang menunggu ke UI untuk ditinjau manusia.
-- **Confidence Thresholds**: Auto-approve jika keyakinan > 90%, eskalasi jika < 70%.
-
-#### 7. Arsitektur Memori Agen
-- **Working Memory**: Riwayat percakapan recent dalam context window.
-- **Episodic Memory**: Sesi masa lalu yang diringkas sebagai embedding (Mem0).
-- **Semantic Memory**: Pengetahuan domain dalam vector store (pgvector, Qdrant).
-- **Procedural Memory**: Pola penggunaan tool yang dipelajari sebagai data terstruktur.
-
-#### 8. Observabilitas & Evaluasi
-- **LangSmith**: Tracing native untuk LangGraph.
-- **OpenAI Tracing**: Bawaan di OpenAI Agents SDK — lihat run, handoff, tool call.
-- **Mastra Evals**: Framework evaluasi bawaan untuk agen Mastra.
-- **Metrik Kustom**: Lacak tingkat penyelesaian tugas, akurasi tool call, latensi, dan biaya per run.
-
-#### 9. Topologi Swarm & Perutean Dinamis (Edisi 2026)
-Pilih topologi swarm yang sesuai dengan kompleksitas tugas:
-- **Hierarchical Swarm (Star)**: Swarm Director pusat mendelegasikan sub-tugas ke agen domain khusus (Frontend, Backend, DB, QA). Paling cocok untuk pengembangan fullstack end-to-end.
-- **Pipeline Saga (Sekuensial)**: Output dari Agen A langsung menjadi input bagi Agen B. Terbaik untuk CI/CD, pipeline ETL data, dan refactoring multi-langkah.
-- **Mesh / Peer-to-Peer**: Agen saling berkomunikasi langsung via message bus dengan shared blackboard memory. Ideal untuk riset eksploratif dan brainstorming.
-- **Critic-Validator Gate**: Agen Pelaksana mengirimkan kode/artifak → Agen Auditor menjalankan pengujian otomatis (fuzzing, aksesibilitas, type check) → disetujui atau ditolak dengan saran perbaikan.
-
-#### 10. Eksekusi Swarm Multi-Platform
-- **Antigravity (AGY)**: Jalankan sub-agen paralel dengan `invoke_subagent`. Sinkronisasi state via `CONTEXT_MAP.md`.
-- **Claude Code**: Orkestrasi sub-tugas dengan direktif modular `.claude/rules/` dan eksekusi background.
-- **Cursor IDE**: Terapkan aturan domain via `.cursor/rules/*.mdc` dan transformasi multi-file Composer.
-
-#### 11. Circuit Breaker & Fallback Swarm
-- Batas maksimal retry per sub-agen (default: 2 kali).
-- Jika sub-agen mengalami kegagalan berulang atau limit konteks, Swarm Director secara otomatis mengalihkan tugas ke skill alternatif (misal: `fullstack-expert` sebagai fallback jika agen spesialis macet).
-- Selalu simpan state checkpoint (`PROGRESS.md` atau `BLUEPRINT.md`) agar pekerjaan dapat dilanjutkan kapan saja tanpa kehilangan konteks.
+#### 6. Circuit Breakers & Protokol Pemulihan Swarm
+- **Batas Percobaan Ulang**: Maksimal 2 kali perbaikan otomatis per sub-agen.
+- **Eskalasi Fallback**: Jika agen spesialis mengalami kendala konteks atau gagal berulang kali, Swarm Director segera mengalihkan tugas ke `fullstack-expert` atau meminta masukan pengguna.
+- **Persistensi Kemajuan**: Simpan selalu checkpoint di `PROGRESS.md` atau `BLUEPRINT.md` agar alur kerja dapat dilanjutkan secara efisien tanpa token berlebih.

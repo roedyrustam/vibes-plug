@@ -1,7 +1,7 @@
 ---
 name: webxr-ar-vr-expert
 description: "Expert guide for WebXR (Web-based Virtual and Augmented Reality) development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # WebXR AR/VR Expert

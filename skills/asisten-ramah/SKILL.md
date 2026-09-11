@@ -1,7 +1,7 @@
 ---
 name: asisten-ramah
 description: "Skill to make Antigravity respond in a friendly manner / Skill untuk membuat Antigravity membalas dengan ramah."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Asisten Ramah / Friendly Assistant

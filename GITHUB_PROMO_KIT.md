@@ -10,17 +10,17 @@ Berikut adalah panduan lengkap deskripsi GitHub, tag/topik SEO, dan materi promo
 
 ### 🌟 Pilihan 1: Power & Universal (Paling Direkomendasikan)
 ```text
-⚡ Universal Multi-Agent Swarm Plugin with 134+ specialized skills for Antigravity (AGY), Claude Code, and Cursor IDE. Modern 2026 Fullstack (React 19, Tailwind v4, Bun, Next.js 15, MCP v1.9, Rust, Python 3.14).
+⚡ Universal Multi-Agent Swarm Plugin with 145+ specialized skills for Antigravity (AGY), Claude Code, and Cursor IDE. Modern 2026 Fullstack (React 19, Tailwind v4, Bun, Next.js 15, MCP v1.9, Rust, Python 3.14).
 ```
 
 ### 🔥 Pilihan 2: Vibe Coding & Velocity Focus
 ```text
-🚀 Supercharge your AI Coding Assistant! 134+ production-ready skills & multi-agent swarm orchestration for Antigravity, Claude Code, and Cursor IDE. Build 10x faster from Zero to Production.
+🚀 Supercharge your AI Coding Assistant! 145+ production-ready skills & multi-agent swarm orchestration for Antigravity, Claude Code, and Cursor IDE. Build 10x faster from Zero to Production.
 ```
 
 ### 🧠 Pilihan 3: Enterprise & Architecture Focus
 ```text
-🌐 Autonomous Multi-Agent Swarm Orchestrator & 134+ Skills for Google Antigravity, Claude Code & Cursor. Fullstack, UI/UX, AI/LLM, Cloud, Security & Zero-to-Prod Engineering.
+🌐 Autonomous Multi-Agent Swarm Orchestrator & 145+ Skills for Google Antigravity, Claude Code & Cursor. Fullstack, UI/UX, AI/LLM, Cloud, Security & Zero-to-Prod Engineering.
 ```
 
 ---
@@ -47,7 +47,7 @@ https://github.com/roedyrustam/vibes-plug#readme
 
 ### 🐦 Twitter / X Launch Thread
 ```text
-🚀 Excited to launch vibes-plug v2.7.0 — The Universal Multi-Agent Swarm Engine with 134+ Skills for AI Coding!
+🚀 Excited to launch vibes-plug v2.13.0 — The Universal Multi-Agent Swarm Engine with 145+ Skills for AI Coding!
 
 One unified plugin compatible across:
 🟢 Google Antigravity (AGY)
@@ -55,7 +55,7 @@ One unified plugin compatible across:
 🔵 Cursor IDE
 
 What's inside:
-✨ 134+ specialized skills (React 19, Tailwind v4, Bun, Astro 5, Svelte 5, AI Media, MCP)
+✨ 145+ specialized skills (React 19, Tailwind v4, Bun, Vercel AI SDK, Deep Research, Pydantic AI, Anti-Slop, MCP)
 🤖 4 Swarm Orchestration Topologies (Hierarchical, Pipeline Saga, Mesh, Quality Gate)
 🛡️ Swarm Circuit Breakers & Self-Healing
 📦 Zero-friction 1-command installer
@@ -71,7 +71,7 @@ Try it now & leave a ⭐:
 ### 💬 Reddit Post (untuk r/Cursor, r/ClaudeAI, r/LocalLLaMA, r/reactjs)
 
 **Title:**
-> *I built vibes-plug: A Universal Multi-Agent Swarm with 134+ production skills for Cursor, Claude Code, and Antigravity (Open Source)*
+> *I built vibes-plug: A Universal Multi-Agent Swarm with 145+ production skills for Cursor, Claude Code, and Antigravity (Open Source)*
 
 **Body:**
 ```markdown
@@ -79,10 +79,10 @@ Hey everyone! 👋
 
 A common frustration with AI coding assistants is that they often write outdated patterns or struggle with complex multi-step architectures. 
 
-To solve this, I created **vibes-plug (v2.7.0)** — an open-source universal skill ecosystem and multi-agent swarm director.
+To solve this, I created **vibes-plug (v2.13.0)** — an open-source universal skill ecosystem and multi-agent swarm director.
 
 ### 🌟 Key Highlights:
-- **134+ Handcrafted Skills**: Covers React 19, Next.js 15, Tailwind v4, Bun, Astro 5, Svelte 5, AI Media generation (Flux/ElevenLabs), Biome, Tiptap, Web3, and more.
+- **145+ Handcrafted Skills**: Covers React 19, Next.js 15, Tailwind v4, Bun, Vercel AI SDK, Deep Research, Pydantic AI, Synthetic Data, Anti-Slop, Biome, Tiptap, Web3, and more.
 - **Universal Multi-Platform**: Works seamlessly in **Antigravity (AGENTS.md)**, **Claude Code (CLAUDE.md + .claude/rules/)**, and **Cursor (.cursorrules + .cursor/rules/*.mdc)**.
 - **Swarm Director Protocol**: Automatically decomposes complex fullstack tasks across parallel specialist subagents with built-in circuit breakers.
 - **Bilingual & Token-Optimized**: Full English & Bahasa Indonesia support with zero AI slop.
@@ -97,16 +97,16 @@ Feedback and PRs are warmly welcome! ⭐
 
 ### 💼 LinkedIn Post Copy
 ```text
-🚀 Supercharging AI-Assisted Engineering: Announcing vibes-plug v2.7.0!
+🚀 Supercharging AI-Assisted Engineering: Announcing vibes-plug v2.13.0!
 
 Modern software engineering with AI requires more than simple autocompletion—it demands structured architectural orchestration. 
 
-I’m thrilled to share vibes-plug, a Universal Multi-Agent Swarm Plugin featuring 134+ specialized engineering skills designed for:
+I’m thrilled to share vibes-plug, a Universal Multi-Agent Swarm Plugin featuring 145+ specialized engineering skills designed for:
 ✅ Google Antigravity (AGY)
 ✅ Anthropic Claude Code
 ✅ Cursor IDE
 
-From Zero-to-Production workflows, automated WCAG 2.2 accessibility testing, and modern 2026 tech stacks (React 19, Tailwind v4, Bun 1.2+, MCP v1.9), vibes-plug transforms AI coding tools into an autonomous engineering department.
+From Zero-to-Production workflows, automated WCAG 2.2 accessibility testing, and modern 2026 tech stacks (React 19, Tailwind v4, Bun 1.2+, MCP v1.9, Vercel AI SDK, Pydantic AI), vibes-plug transforms AI coding tools into an autonomous engineering department.
 
 Check out the open-source repository on GitHub:
 👉 https://github.com/roedyrustam/vibes-plug

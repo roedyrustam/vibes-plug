@@ -1,7 +1,7 @@
 ---
 name: svelte-sveltekit-expert
 description: "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Svelte & SvelteKit Expert (2026 Edition)

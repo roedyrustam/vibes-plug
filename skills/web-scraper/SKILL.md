@@ -1,7 +1,7 @@
 ---
 name: web-scraper
 description: "Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export / Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur."
-author: vibes-plug-swarm
+author: "Roedy Rustam"
 ---
 
 # Agentic Web Scraper Expert (2026 Edition)

@@ -1,7 +1,7 @@
 ---
 name: error-resilience-expert
 description: "Expert guide for error handling patterns, resilience engineering, retry strategies, circuit breakers, and graceful degradation across React, Next.js, and Node.js / Panduan ahli pola penanganan error, rekayasa ketahanan, strategi retry, circuit breaker, dan degradasi anggun di React, Next.js, dan Node.js."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Error & Resilience Expert (2026 Edition)

@@ -1,7 +1,7 @@
 ---
 name: graphql-apollo-expert
 description: "Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # GraphQL & Apollo Expert

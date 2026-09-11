@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.7.1-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-134%2B%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v2.11.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-140%2B%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Cursor](https://img.shields.io/badge/cursor-compatible-3b82f6.svg)](https://github.com/roedyrustam/vibes-plug)
@@ -11,7 +11,7 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 134+ Skills Multi-Platform Agentic Swarm Architecture
+### ⚡ Universal 145+ Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
@@ -23,14 +23,14 @@ graph TD
 
     DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    subgraph SWARM["⚡ 134+ Specialized Engineering Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 145+ Specialized Engineering Skills Swarm Ecosystem"]
         D1["💡 Discovery, Ideation & Architecture (14 Skills)<br/>brainstorming • prd-architect • project-context-mapper • auto-doc-updater"]
-        D2["🤖 AI, LLM & Agentic Systems (10 Skills)<br/>ai-llm-integration • ai-media-generation • vector-db-rag • mcp-server-architect"]
-        D3["🎨 Design Systems, UI/UX & Visuals (14 Skills)<br/>design-system • hig • ui-components • data-visualization • rich-text-editor • web-3d"]
-        D4["🖥️ Frontend Frameworks & State (20 Skills)<br/>senior-frontend • tailwind-expert • astro • svelte • solidjs • angular • tanstack-query"]
+        D2["🤖 AI, LLM & Agentic Systems (17 Skills)<br/>ai-llm-integration • vercel-ai-sdk • deep-research • pydantic-ai • synthetic-data • mcp-server"]
+        D3["🎨 Design Systems, UI/UX & Visuals (15 Skills)<br/>design-system • modern-css-native • hig • ui-components • data-visualization"]
+        D4["🖥️ Frontend Frameworks & State (21 Skills)<br/>senior-frontend • pwa-offline-first • tailwind-expert • astro • svelte • solidjs"]
         D5["📱 Mobile, Desktop & WebXR (8 Skills)<br/>mobile-expo • apple-ecosystem • tauri • desktop-electron • push-notifications"]
         D6["⚙️ Backend, Microservices & Runtimes (22 Skills)<br/>js-backend • python • go • rust • bun • api-design • n8n-automation • chatbot"]
-        D7["🗄️ Database, ORM, Search & Data (12 Skills)<br/>database-orm • edge-serverless-db • search-engine • geospatial-maps • supabase"]
+        D7["🗄️ Database, ORM, Search & Data (13 Skills)<br/>database-orm • graph-rag-knowledge • edge-serverless-db • search-engine"]
         D8["☁️ SaaS, Commerce & Cloud (16 Skills)<br/>saas-transformer • saas-billing • ecommerce • payment-gateway • doku-gateway • ci-cd"]
         D9["🔒 Testing, Security, A11y & Resilience (18 Skills)<br/>e2e-testing • accessibility-testing • zero-trust • error-resilience • autonomous-tdd"]
     end
@@ -85,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **134+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **145+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -160,10 +160,17 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following **134+ specialized skills** across 9 core engineering domains:
+This plugin provides the following **145+ specialized skills** across 9 core engineering domains:
 
 #### 🤖 AI & Agentic Systems
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents.
+- **Vercel Ai Sdk Expert** (`vercel-ai-sdk-expert`): Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering.
+- **Deep Research Analyst** (`deep-research-analyst`): Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation.
+- **Pydantic Ai Expert** (`pydantic-ai-expert`): Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows.
+- **Synthetic Data Finetuning Expert** (`synthetic-data-finetuning-expert`): Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs.
+- **Voice Ai Realtime Agent** (`voice-ai-realtime-agent`): Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD.
+- **Ai Evals Benchmark Expert** (`ai-evals-benchmark-expert`): Expert guide for LLM & AI Agent automated evaluations (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, and deterministic assertions.
+- **Local Slm Edge Ai Expert** (`local-slm-edge-ai-expert`): Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings.
 - **Ai Prompt Engineering Expert** (`ai-prompt-engineering-expert`): Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation.
 - **Ai Media Generation Expert** (`ai-media-generation-expert`): Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration.
 - **Ai Cost Token Optimizer** (`ai-cost-token-optimizer`): Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting.
@@ -188,10 +195,12 @@ This plugin provides the following **134+ specialized skills** across 9 core eng
 - **Web 3d Graphics Expert** (`web-3d-graphics-expert`): Expert guide for WebGL and 3D graphics in the browser using Three.js, Babylon.js, React Three Fiber (R3F), and TresJS. Covers scene optimization, shaders, lighting, 3D model loading (GLTF/GLB), and performance tuning.
 - **Glsl Shader Expert** (`glsl-shader-expert`): Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers shader materials, post-processing, noise, and performance optimization.
 - **Webxr Ar Vr Expert** (`webxr-ar-vr-expert`): Expert guide for WebXR (Web-based Virtual and Augmented Reality) development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing.
+- **Modern Css Native Expert** (`modern-css-native-expert`): Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, and :has().
 - **Visual Qa Vision Agent** (`visual-qa-vision-agent`): Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions.
 
 #### 🖥️ Frontend, Mobile & State
 - **Senior Frontend** (`senior-frontend`): Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4.
+- **Pwa Offline First Expert** (`pwa-offline-first-expert`): Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment.
 - **Nextjs App Router Expert** (`nextjs-app-router-expert`): Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies.
 - **Tailwind Expert** (`tailwind-expert`): Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design.
 - **Astro Framework Expert** (`astro-framework-expert`): Expert guide for Astro 5+ framework — Content Collections, Islands Architecture, View Transitions, partial hydration, and MDX integration.
@@ -266,6 +275,7 @@ This plugin provides the following **134+ specialized skills** across 9 core eng
 
 #### 🗄️ Database & ORM
 - **Database Orm Expert** (`database-orm-expert`): Expert guide for database schema design, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrations, query optimization, and type-safe SQL patterns in TypeScript.
+- **Graph Rag Knowledge Expert** (`graph-rag-knowledge-expert`): Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search.
 - **Database Migration Versioning Expert** (`database-migration-versioning-expert`): Expert guide for database migrations: schema versioning, zero-downtime migrations, backward-compatible changes, data backfill, and rollback strategies.
 - **Edge Serverless Db Expert** (`edge-serverless-db-expert`): Expert guide for Serverless & Edge Databases (Neon Serverless Postgres, Cloudflare D1, Turso/libsql, Upstash Redis), cold-start mitigation, and connection pooling.
 - **Supabase Migration** (`supabase-migration`): A skill to create or apply a Supabase database migration.
@@ -308,6 +318,7 @@ This plugin provides the following **134+ specialized skills** across 9 core eng
 - **Data Telemetry Expert** (`data-telemetry-expert`): Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel).
 - **Coderabbit** (`coderabbit`): AI-powered automated code review, PR summarization, and interactive developer feedback.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects.
+- **Anti Slop** (`anti-slop`): Comprehensive Anti-AI Slop enforcement guide. Eliminates conversational pleasantries, placeholder code, truncated implementations, hallucinated packages, speculative over-engineering, and decorative comments.
 - **Web Scraper** (`web-scraper`): Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export.
 - **Website Design Cloner** (`website-design-cloner`): Analyzes and reverse-engineers website designs directly from a target URL, extracting layout structures, design tokens (colors, typography, spacing), component hierarchies, visual assets, and responsive behaviors to enable full 1:1 duplication into modern code (Tailwind CSS v4, React/Next.js, HTML/CSS).
 - **Documentation Site Expert** (`documentation-site-expert`): Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation.
@@ -344,10 +355,14 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.7.1 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
+v2.13.0 (2026 Edition) — 145+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
+
+### License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.  
+Copyright (c) 2026 Roedy Rustam.
 
 ---
 
@@ -356,7 +371,7 @@ v2.7.1 (2026 Edition) — 134+ skills | Supports AGY + Claude + Cursor
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **134+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **145+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -431,10 +446,17 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **134+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
+Plugin ini menyediakan **145+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
 
 #### 🤖 AI & Sistem Agen
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI.
+- **Vercel Ai Sdk Expert** (`vercel-ai-sdk-expert`): Panduan ahli Vercel AI SDK (Core, UI, RSC), streaming data terstruktur, tool calling loops, dan rekayasa AI modern di React 19/Next.js 15.
+- **Deep Research Analyst** (`deep-research-analyst`): Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, evidence graph synthesis, dan mitigasi halusinasi.
+- **Pydantic Ai Expert** (`pydantic-ai-expert`): Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI — dependency injection, structured outputs, dan alur kerja graph.
+- **Synthetic Data Finetuning Expert** (`synthetic-data-finetuning-expert`): Panduan ahli generasi data sintetis, penyaringan LLM-as-a-judge, QLoRA fine-tuning (Unsloth), DPO, dan ekspor GGUF/Ollama untuk SLM lokal.
+- **Voice Ai Realtime Agent** (`voice-ai-realtime-agent`): Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah (<300ms) menggunakan WebRTC, OpenAI Realtime API, Gemini Live Audio, dan LiveKit.
+- **Ai Evals Benchmark Expert** (`ai-evals-benchmark-expert`): Panduan ahli evaluasi otomatis LLM & AI Agent (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, dan deterministic assertions.
+- **Local Slm Edge Ai Expert** (`local-slm-edge-ai-expert`): Panduan ahli SLM lokal dan AI edge di browser (WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU).
 - **Ai Prompt Engineering Expert** (`ai-prompt-engineering-expert`): Panduan ahli rekayasa prompt dan evaluasi LLM.
 - **Ai Media Generation Expert** (`ai-media-generation-expert`): Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT).
 - **Ai Cost Token Optimizer** (`ai-cost-token-optimizer`): Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching.
@@ -459,10 +481,12 @@ Plugin ini menyediakan **134+ kemampuan (*skills*) terspesialisasi** di 9 domain
 - **Web 3d Graphics Expert** (`web-3d-graphics-expert`): Expert guide for WebGL and 3D graphics in the browser using Three.js, Babylon.js, React Three Fiber (R3F), and TresJS. Covers scene optimization, shaders, lighting, 3D model loading (GLTF/GLB), and performance tuning.
 - **Glsl Shader Expert** (`glsl-shader-expert`): Expert guide for writing custom GLSL shaders (Vertex/Fragment) for WebGL using Three.js and Babylon.js. Covers shader materials, post-processing, noise, and performance optimization.
 - **Webxr Ar Vr Expert** (`webxr-ar-vr-expert`): Expert guide for WebXR (Web-based Virtual and Augmented Reality) development using Babylon.js and Three.js. Covers device compatibility, immersive sessions, controllers, and hit-testing.
+- **Modern Css Native Expert** (`modern-css-native-expert`): Panduan ahli fitur CSS native modern 2026 (CSS Anchor Positioning, @starting-style, View Transitions L2, Container Queries, :has).
 - **Visual Qa Vision Agent** (`visual-qa-vision-agent`): Equips the AI agent with visual QA capabilities using Playwright/Puppeteer and the agent's innate Vision capabilities to self-correct UI layout, CSS alignment, and visual regressions.
 
 #### 🖥️ Frontend, Mobile & State
 - **Senior Frontend** (`senior-frontend`): Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4.
+- **Pwa Offline First Expert** (`pwa-offline-first-expert`): Panduan ahli arsitektur Offline-First & Local-First PWA, sinkronisasi bebas konflik CRDT (RxDB, ElectricSQL, PowerSync), dan packaging ke app store via PWABuilder.
 - **Nextjs App Router Expert** (`nextjs-app-router-expert`): Panduan ahli untuk Next.js 15 App Router.
 - **Tailwind Expert** (`tailwind-expert`): Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern.
 - **Astro Framework Expert** (`astro-framework-expert`): Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX.
@@ -537,6 +561,7 @@ Plugin ini menyediakan **134+ kemampuan (*skills*) terspesialisasi** di 9 domain
 
 #### 🗄️ Database & ORM
 - **Database Orm Expert** (`database-orm-expert`): Panduan ahli untuk desain skema database, ORM tools (Prisma 6, Drizzle ORM, TypeORM), migrasi, optimasi query, dan pola SQL type-safe di TypeScript.
+- **Graph Rag Knowledge Expert** (`graph-rag-knowledge-expert`): Panduan ahli Knowledge Graph, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, dan pencarian relasional multi-hop.
 - **Database Migration Versioning Expert** (`database-migration-versioning-expert`): Panduan ahli migrasi database.
 - **Edge Serverless Db Expert** (`edge-serverless-db-expert`): Panduan ahli database Serverless & Edge (Neon, Cloudflare D1, Turso, Upstash).
 - **Supabase Migration** (`supabase-migration`): Kemampuan untuk membuat atau menerapkan migrasi database Supabase.
@@ -579,6 +604,7 @@ Plugin ini menyediakan **134+ kemampuan (*skills*) terspesialisasi** di 9 domain
 - **Data Telemetry Expert** (`data-telemetry-expert`): Panduan ahli untuk observabilitas, telemetri, dan analitik.
 - **Coderabbit** (`coderabbit`): Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding.
+- **Anti Slop** (`anti-slop`): Panduan penegakan anti-AI slop komprehensif. Menghapus basa-basi AI, placeholder code, implementasi terpotong, paket halusinasi, dan komentar dekoratif.
 - **Web Scraper** (`web-scraper`): Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur.
 - **Website Design Cloner** (`website-design-cloner`): Mempelajari dan merekayasa balik desain situs web langsung dari URL target, mengekstrak struktur layout, design token (warna, tipografi, spacing), hierarki komponen, aset visual, dan perilaku responsif untuk duplikasi 1:1 penuh ke kode modern.
 - **Documentation Site Expert** (`documentation-site-expert`): Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen.
@@ -615,7 +641,11 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.7.1 (Edisi 2026) — 134+ skills | Mendukung AGY + Claude + Cursor
+v2.13.0 (Edisi 2026) — 145+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
+
+### Lisensi
+Proyek ini dilisensikan di bawah Lisensi MIT — lihat file [LICENSE](LICENSE) untuk detail selengkapnya.  
+Hak Cipta (c) 2026 Roedy Rustam.

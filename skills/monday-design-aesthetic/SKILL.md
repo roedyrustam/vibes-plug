@@ -1,7 +1,7 @@
 ---
 name: monday-design-aesthetic
 description: "Expert guide for implementing the modern, spacious, and highly structured Monday.com design system / Panduan desain ala Monday.com."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Monday.com Design Aesthetic

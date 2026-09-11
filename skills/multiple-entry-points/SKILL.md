@@ -1,7 +1,7 @@
 ---
 name: multiple-entry-points
 description: "Expert guide for designing and implementing Multiple Entry Points architecture in web applications / Panduan ahli untuk merancang dan mengimplementasikan arsitektur Multiple Entry Points pada aplikasi web."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Multiple Entry Points Architecture

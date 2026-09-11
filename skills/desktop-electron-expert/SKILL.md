@@ -1,7 +1,7 @@
 ---
 name: desktop-electron-expert
 description: "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Desktop Electron Expert (2026 Edition)

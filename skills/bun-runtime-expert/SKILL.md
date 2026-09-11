@@ -1,7 +1,7 @@
 ---
 name: bun-runtime-expert
 description: "Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Bun Runtime Expert

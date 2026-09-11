@@ -1,7 +1,7 @@
 ---
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Global Accessibility (a11y) & i18n Expert

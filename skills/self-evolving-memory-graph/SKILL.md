@@ -1,7 +1,7 @@
 ---
 name: self-evolving-memory-graph
 description: "Grants the AI long-term episodic memory. The agent autonomously documents the user's coding preferences, past mistakes to avoid, and architectural decisions into a persistent learning graph."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Self-Evolving Memory Graph (Episodic Memory)

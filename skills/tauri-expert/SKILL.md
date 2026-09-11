@@ -1,7 +1,7 @@
 ---
 name: tauri-expert
 description: "Expert skill for Tauri (v2) development, Rust backend, IPC, and security / Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Tauri Expert

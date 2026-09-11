@@ -1,7 +1,7 @@
 ---
 name: web-game-engine-expert
 description: "Expert guide for web-based game development. Covers Entity Component System (ECS) architectures, physics engines (Rapier, Havok, Cannon-es), collision detection, and game loop optimization."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Web Game Engine Expert (Physics & ECS)

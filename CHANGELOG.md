@@ -4,7 +4,97 @@ All notable changes to this project will be documented in this file.
 *Semua perubahan penting pada proyek ini akan didokumentasikan dalam berkas ini.*
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-*Format ini didasarkan pada [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), dan proyek ini mematuhi [Semantic Versioning](https://semver.org/spec/v2.0.0.html).*
+
+## [2.13.0] - 2026-09-11
+
+### Added / Ditambahkan
+- **New Frontier Skill: `anti-slop` (145+ Skills Total)**:
+  - Added dedicated zero-tolerance Anti-AI Slop quality gate skill (`skills/anti-slop/SKILL.md`).
+  - Covers the 5 Pillars of AI Slop: elimination of conversational sycophancy/fluff, strict ban on lazy code truncation (`// TODO`, `// ... rest of code unchanged`, mock arrays in production), speculative over-engineering avoidance, elimination of syntax-narrating decorative comments, and enforcement of high technical density documentation.
+  - Added automated pre-commit/CI validator script `scripts/check-anti-slop.js` to catch AI slop and placeholder omissions deterministically.
+- **Bilingual Gold Standard Compliance**:
+  - Restructured and upgraded `graph-rag-knowledge-expert`, `pwa-offline-first-expert`, and `voice-ai-realtime-agent` to provide 100% compliant English and Bahasa Indonesia sections with standard bilingual anchor links and `## Integrasi Orkestrasi`.
+
+### Changed / Diubah
+- **Orchestrators & Swarm Integration**:
+  - Registered `anti-slop` in `skills/brainstorming/SKILL.md` across Testing & Security and Execution Handoff matrices.
+  - Integrated `anti-slop` into `skills/zero-to-prod-orchestrator/SKILL.md` (Phase 1, Phase 6 Code Quality Audit, and general token efficiency guidelines in both English & Indonesian).
+  - Cross-referenced `anti-slop` in `production-ready-hardener`, `vibe-code-gardener`, and `token-saver`.
+  - Updated all ecosystem documentation and counts to 145+ skills (`package.json`, `plugin.json`, `AGENTS.md`, `CLAUDE.md`, `BLUEPRINT.md`, `README.md`).
+
+---
+
+## [2.12.0] - 2026-09-10
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 144+ Skills**: Introduced 4 frontier 2026 AI & Agentic engineering skills:
+  - `vercel-ai-sdk-expert`: Complete production guide for Vercel AI SDK (Core, UI, RSC) in Next.js 15 & React 19. Covers `streamText`, `generateObject`, multi-provider fallback switching (Anthropic, OpenAI, Google, Groq), tool-calling agent loops, and Server Actions streaming. *(Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI).*
+  - `deep-research-analyst`: Autonomous deep research pipeline with recursive query decomposition, multi-source crawling (Crawl4AI / Firecrawl), credibility scoring, fact triangulation (>= 2 independent sources), and evidence graph synthesis with markdown citations. *(Panduan ahli riset mendalam otonom, pencarian web iteratif, dan mitigasi halusinasi).*
+  - `pydantic-ai-expert`: Type-safe Python AI agent framework with Pydantic AI. Features runtime dependency injection (`RunContext`), model-agnostic routing, structured Pydantic schema validation, and graph workflows. *(Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI).*
+  - `synthetic-data-finetuning-expert`: End-to-end synthetic dataset generation pipeline with LLM-as-a-judge quality filtering, QLoRA fine-tuning with Unsloth, DPO alignment, and GGUF/Ollama model export for local SLMs. *(Panduan ahli generasi data sintetis, fine-tuning QLoRA, DPO, dan ekspor GGUF/Ollama).*
+
+### Changed / Diubah
+- **Universal Multi-Platform & Swarm Orchestration**:
+  - Updated all core orchestrators (`brainstorming`, `zero-to-prod-orchestrator`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.cursor/rules/vibes-plug-core.mdc`) to orchestrate the 144+ skills ecosystem.
+  - Integrated `deep-research-analyst` into Phase 1 (Discovery & AI PRD Planning), `vercel-ai-sdk-expert`, `pydantic-ai-expert`, and `synthetic-data-finetuning-expert` into Phase 4 (Backend & AI Agents) and Phase 5 (Frontend).
+  - Synchronized versions and documentation across `package.json`, `plugin.json`, `README.md`, `BLUEPRINT.md`, `index.js`, and `GITHUB_PROMO_KIT.md`.
+
+---
+
+## [2.11.0] - 2026-09-08
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 140+ Skills**: Introduced 3 high-impact frontier 2026 skills:
+  - `voice-ai-realtime-agent`: Ultra-low-latency (<300ms) bi-directional conversational voice AI with WebRTC, OpenAI Realtime API, Gemini Multimodal Live Audio (PCM 24kHz), Semantic VAD, and LiveKit Agents. *(Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah).*
+  - `graph-rag-knowledge-expert`: Knowledge Graphs and GraphRAG architectures for multi-hop relational retrieval, entity-relationship extraction, Microsoft GraphRAG hierarchical community detection, and Neo4j Text2Cypher. *(Panduan ahli Knowledge Graph, GraphRAG, dan inferensi multi-hop).*
+  - `pwa-offline-first-expert`: Enterprise Local-First and Progressive Web App architectures with zero-latency local operations (OPFS SQLite, RxDB), conflict-free multi-device sync (ElectricSQL, PowerSync), and PWABuilder store packaging. *(Panduan ahli arsitektur Offline-First & Local-First PWA).*
+
+### Changed / Diubah
+- **Skill Orchestrator Matrix Synchronization**:
+  - `brainstorming`: Mapped `voice-ai-realtime-agent` to AI & Communication domains, `graph-rag-knowledge-expert` to Database & AI domains, and `pwa-offline-first-expert` to Frontend & Mobile domains (English & Indonesian).
+  - `zero-to-prod-orchestrator`: Linked new skills into Phase 3 (Database), Phase 4 (Backend APIs & AI Agents), and Phase 5 (Frontend & Mobile) (English & Indonesian).
+
+---
+
+## [2.10.0] - 2026-09-08
+
+### Added / Ditambahkan
+- **Ecosystem Expansion to 137+ Skills**: Introduced 3 frontier 2026 specialized skills:
+  - `ai-evals-benchmark-expert`: Automated evaluation framework for LLMs & AI agents using Promptfoo, DeepEval, Ragas, deterministic assertions, and regression benchmarking. *(Panduan ahli evaluasi otomatis LLM & Agen AI).*
+  - `local-slm-edge-ai-expert`: Edge AI and Small Language Models (SLMs) execution directly in the browser and edge environments via WebLLM, Transformers.js v3, ONNX Runtime Web, and WebGPU with zero cloud latency. *(Panduan ahli eksekusi SLM lokal dan AI edge di browser).*
+  - `modern-css-native-expert`: Cutting-edge 2026 native CSS guide covering CSS Anchor Positioning, `@starting-style` entry animations, View Transitions Level 2, Container Queries, and `:has()` relational selector. *(Panduan ahli fitur CSS native modern 2026).*
+
+### Changed / Diubah
+- **Resilience & Security Hardening**:
+  - `background-jobs-queue-expert`: Deepened with complete production-grade BullMQ v5 recipes, Redis idempotency locks, Dead Letter Queue (DLQ) retry strategies with exponential backoff and jitter, and priority job processing.
+  - `autonomous-red-teamer`: Deepened with automated adversarial test suites, prompt injection detection pipelines, SSRF filter bypass methodologies, and automated security patch remediation templates.
+  - `brainstorming` & `zero-to-prod-orchestrator`: Synchronized domain matrices and Phase 4, Phase 5, and Phase 6 orchestration chains to natively coordinate all 137 skills.
+
+---
+
+## [2.9.0] - 2026-09-08
+
+### Changed / Diubah
+- **Production Code Recipes & 2026 Frontier Hardening**: Upgraded 4 key AI & distributed execution skills with robust production-ready code recipes and 2026 standards:
+  - `browser-automation-expert`: Updated vision models to Gemini 3.8 Flash and Claude 3.7 Sonnet (Computer Use); added concrete production recipes for Stagehand v0.4+ and Browser-Use with anti-bot evasion and Playwright stealth.
+  - `mcp-server-architect`: Added full production FastMCP (Python) server template and `@modelcontextprotocol/sdk` (TypeScript) McpServer implementation featuring Streamable HTTP / SSE transport, typed tools, dynamic resources, and security guardrails.
+  - `vector-db-rag-expert`: Upgraded to 2026 Deep RAG standards with Reciprocal Rank Fusion (RRF) hybrid search (combining BM25 and pgvector 0.8+ HNSW), Cross-Encoder Re-ranking via FlashRank, and Late Chunking architecture.
+  - `async-queue-temporal-expert`: Added concrete Temporal.io TypeScript SDK implementation featuring the distributed Saga pattern with compensating rollbacks, and Trigger.dev v3 durable tasks with retry jitter.
+  *(Peningkatan Resep Kode Produksi & Kesiapan 2026: Meng-upgrade 4 skill kunci AI & eksekusi terdistribusi dengan resep kode siap pakai di lingkungan produksi dan standar 2026: Browser Automation, MCP Server Architect, Deep RAG & Vector DB, serta Temporal Async Queue.)*
+
+---
+
+## [2.8.0] - 2026-09-08
+
+### Changed / Diubah
+- **Core AI Skills Upgrade (2026 Edition)**: Upgraded 3 foundational AI engineering skills to current 2026 frontier standards:
+  - `gemini-agent-booster`: Upgraded to Gemini 3.x ecosystem (Gemini 3.8 Flash, Gemini 3.5/3.1 Pro/Flash) with 1M–2M token context, native `cachedContent` Context Caching, dynamic `thinkingBudget` reasoning configuration, and Gemini Multimodal Live API bidirectional WebSocket streaming.
+  - `ai-llm-integration-expert`: Added Anthropic Claude 3.7 Sonnet (Hybrid/Extended Thinking), OpenAI o1/o3/o3-mini & GPT-4.5/4o, DeepSeek-R1 (MoE reasoning), Model Context Protocol (MCP) Streamable HTTP transport, MCP Sampling, and Vercel AI SDK 5.x/6.x reasoning token streaming.
+  - `multi-agent-orchestration`: Formalized 5 Anthropic 2026 Core Agentic Design Patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer Loop), LangGraph v0.3+ persistent checkpointers, and OpenAI Agents SDK handoffs & guardrails.
+  *(Pembaruan Skill Inti AI 2026: Meng-upgrade 3 skill AI utama mencakup Gemini 3.x, Claude 3.7 Hybrid Thinking, DeepSeek-R1, MCP Streamable HTTP & Sampling, dan 5 pola desain agentik modern Anthropic.)*
+
+---
+
 ## [2.7.1] - 2026-09-04
 
 ### Changed / Diubah

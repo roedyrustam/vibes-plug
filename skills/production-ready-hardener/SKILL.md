@@ -1,7 +1,7 @@
 ---
 name: production-ready-hardener
 description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Production-Ready Hardener
@@ -36,6 +36,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  │  • monorepo-architect (Turborepo & pnpm workspace structure)│  │
 │  │  • dependency-upgrade-migrator (Codemod & package audits)  │  │
 │  │  • vibe-code-gardener (Purge AI slop & context drift)      │  │
+│  │  • anti-slop (Eliminate conversational & code slop)        │  │
 │  │  • typescript-expert (Strict mode & type-safe patterns)    │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
@@ -122,7 +123,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 - [ ] **TypeScript strict mode** enabled (`strict: true` in tsconfig), no `any` types (`typescript-expert`)
 - [ ] **Input validation** on all API boundaries (Zod, Pydantic, or equivalent)
 - [ ] **No hardcoded values** — all config via environment variables or config files
-- [ ] **Dead code & AI slop eliminated** — unneeded boilerplate cleaned via `vibe-code-gardener`
+- [ ] **Dead code & AI slop eliminated** — unneeded boilerplate cleaned via `vibe-code-gardener` and `anti-slop`
 - [ ] **Dependency audit** — all packages up-to-date, no known CVEs (`dependency-upgrade-migrator`, `npm audit`)
 
 ---
@@ -323,7 +324,7 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 
 | Fase | Skill yang Digunakan | Fokus Utama |
 |------|---------------------|-------------|
-| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `typescript-expert` | SOLID, DRY, Clean Architecture, RFC 9457 errors, pembersihan AI slop, strict TS |
+| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `anti-slop`, `typescript-expert` | SOLID, DRY, Clean Architecture, RFC 9457 errors, pembersihan AI slop, strict TS |
 | 2. Pengerasan Frontend | `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-components-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19, Error Boundaries, validasi Zod + RHF, a11y, state management, UI primitives |
 | 3. Pengerasan Backend | `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `edge-serverless-db-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-cost-token-optimizer` | Database migration, ORM, connection pooling, durable background jobs, transactional email, MCP tools, token budget |
 | 4. Pengerasan Keamanan | `supabase-security-expert`, `firebase-security-expert`, `authentication-identity-expert`, `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `secure-fuzz-testing`, `fullstack-expert` | RLS, RBAC, OAuth2, Turnstile bot protection, Upstash rate limit, secret vault, fuzzing, XSS/CSRF |
@@ -346,7 +347,7 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] TypeScript strict mode aktif (`strict: true`), tanpa tipe `any` (`typescript-expert`)
 - [ ] Validasi input di semua batas API (Zod, Pydantic)
 - [ ] Tidak ada hardcoded value — semua konfigurasi via environment variable
-- [ ] Dead code & AI slop dieliminasi via `vibe-code-gardener`
+- [ ] Dead code & AI slop dieliminasi via `vibe-code-gardener` dan `anti-slop`
 - [ ] Audit dependensi — semua paket up-to-date, tanpa CVE (`dependency-upgrade-migrator`)
 
 #### FASE 2: Pengerasan Frontend

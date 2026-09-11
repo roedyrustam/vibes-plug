@@ -1,7 +1,7 @@
 ---
 name: micro-frontend-architect
 description: "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Micro-Frontend Architect

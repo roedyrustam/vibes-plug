@@ -1,7 +1,7 @@
 ---
 name: vue-frontend-expert
 description: "Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Vue Frontend Expert (Vue 3 / Nuxt 3)

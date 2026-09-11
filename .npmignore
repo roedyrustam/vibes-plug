@@ -1,0 +1,20 @@
+# Logs & caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+
+# Test & coverage
+coverage/
+*.log
+
+# Git & IDE
+.git/
+.github/
+.vscode/
+.idea/
+
+# Local build artifacts
+*.tgz

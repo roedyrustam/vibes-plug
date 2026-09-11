@@ -1,7 +1,7 @@
 ---
 name: design-system-architect
 description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)

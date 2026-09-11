@@ -1,7 +1,7 @@
 ---
 name: nextjs-app-router-expert
 description: "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
-author: "vibes-plug-swarm"
+author: "Roedy Rustam"
 ---
 
 # Next.js 15 App Router Expert
