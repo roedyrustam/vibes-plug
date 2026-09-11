@@ -215,6 +215,30 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 </Dialog.Root>
 ```
 
+### The 4 Pillars of UI Components Catalog
+
+#### 1. Input Controls (Buttons, Inputs, Selects)
+- **Visual States**: Explicitly define `default`, `hover`, `active`, `focus`, `disabled`, and `error`.
+- **Validation**: Display inline validation on blur using `aria-invalid` and `aria-describedby` (React Hook Form + Zod).
+- **Touch Targets**: Minimum 44×44px (WCAG 2.5.8), M3 recommends 48×48px.
+- **M3 Integration**: Use M3 button tiers (Filled, Tonal, Elevated, Outlined, Text) and FABs for primary actions.
+
+#### 2. Navigation (Navbars, Tabs, Command Palettes)
+- **Command Palette**: Add `⌘K` command menu via `cmdk`.
+- **Responsive Layout**: Bottom nav (<768px), collapsible rail (tablet), full sidebar (desktop).
+- **Smooth Page Transitions**: In Next.js 15, leverage `<Link viewTransition>` for layout morphing.
+- **Active State**: Clear high-contrast indicator with `role="navigation"` and `aria-current="page"`.
+
+#### 3. Information & Feedback (Toasts, Skeletons, Empty States)
+- **Toasts**: Use **Sonner**; cap at max 3 concurrent visible toasts. Auto-dismiss success, keep errors persistent.
+- **Loading UX**: Use layout-matching Skeletons over spinners to eliminate Cumulative Layout Shift (CLS).
+- **Empty States**: Clear illustration, contextual message, and primary CTA.
+
+#### 4. Containers & Layout (Cards, Modals, Sheets)
+- **Modals & Dialogs**: Radix UI / Base UI Dialog with automatic focus trapping and background scroll lock.
+- **Sheets / Drawers**: Bottom sheet for mobile secondary actions; side sheet on desktop.
+- **Cards**: Flat border or subtle shadow (`shadow-sm`); avoid heavy drop shadows in light mode.
+
 ### WCAG 2.2 Accessibility Checklist
 - [ ] All interactive elements have visible focus indicators (`ring-2`).
 - [ ] Color contrast ≥ 4.5:1 (text), ≥ 3:1 (large text / UI components).
@@ -265,6 +289,12 @@ shadcn/ui v2 memperkenalkan sistem registry — distribusikan komponen Anda seba
 
 ### Base UI 1.x — Primitif Aksesibilitas Tanpa Gaya
 Base UI (dari tim MUI) adalah alternatif Radix UI untuk 2026 dengan dukungan native React 19. Sepenuhnya tanpa gaya — terapkan className/Tailwind apapun.
+
+### Katalog 4 Pilar Komponen UI
+1. **Input Controls (Tombol, Input, Select)**: Definisikan status visual (`default`, `hover`, `active`, `focus`, `disabled`, `error`). Tampilkan validasi inline on-blur (`aria-invalid`, `aria-describedby` via React Hook Form + Zod). Target sentuh minimal 44x44px.
+2. **Navigasi (Navbar, Tab, Command Palette)**: Sediakan menu perintah `⌘K` dengan `cmdk`. Layout responsif (navigasi bawah di mobile, rail di tablet, sidebar penuh di desktop). Transisi halaman halus via `<Link viewTransition>` di Next.js 15.
+3. **Informasi & Feedback (Toast, Skeleton, Empty State)**: Gunakan **Sonner** untuk toast (maksimal 3 bersamaan). Gunakan Skeleton sesuai tata letak untuk mencegah CLS dibanding spinner.
+4. **Wadah & Layout (Card, Modal, Sheet)**: Dialog/Modal dengan penguncian scroll dan focus trapping otomatis (Base UI/Radix). Gunakan bottom sheet di mobile dan side sheet di desktop.
 
 ### Checklist Aksesibilitas WCAG 2.2
 - Semua elemen interaktif memiliki indikator fokus yang terlihat.

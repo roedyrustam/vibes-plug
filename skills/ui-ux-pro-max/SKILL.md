@@ -59,6 +59,7 @@ python scripts/search.py "<query>" --domain <domain> --max-results 3
   - `react`: React & Next.js performance optimizations, re-render fixes & dynamic imports
   - `web`: Web interface guidelines (ARIA, focus traps, virtual list, form inputs)
   - `m3`: Material Design 3 specific design tokens, color roles, elevation, and component specs
+  - `preset-monday`: Monday.com spacious SaaS aesthetic (Vibrant Blue `#0073ea`, Clean White `#FFFFFF` + Light Grays `#F9F9F9`/`#F5F6F8`, Dark Footer `#111111`, Figtree/Inter fonts, 12-16px card radius, 80-120px vertical spacing)
 
 *Example:* `python scripts/search.py "fintech dark theme" --domain color`
 
@@ -160,6 +161,7 @@ python scripts/search.py "<kueri>" --domain <domain> --max-results 3
   - `react`: Optimasi performa React & Next.js, perbaikan re-render & dynamic import
   - `web`: Pedoman antarmuka web (ARIA, focus trap, virtual list, input form)
   - `m3`: Token desain spesifik Material Design 3, peran warna, elevasi, dan spesifikasi komponen
+  - `preset-monday`: Estetika SaaS lapang ala Monday.com (Biru Cerah `#0073ea`, Putih Bersih `#FFFFFF` + Abu-abu Terang `#F9F9F9`/`#F5F6F8`, Footer Gelap `#111111`, font Figtree/Inter, radius kartu 12-16px, jarak seksi vertikal 80-120px)
 
 *Contoh:* `python scripts/search.py "fintech dark theme" --domain color`
 

@@ -295,6 +295,29 @@ export async function POST(request: Request) {
 
 ---
 
+### 7. Mobile Push Notifications & iOS Live Activities
+
+```typescript
+import * as Notifications from 'expo-notifications';
+
+// Register for push tokens (Expo Push / FCM / APNs)
+export async function registerForPushNotificationsAsync() {
+  const { status: existingStatus } = await Notifications.getPermissionsAsync();
+  let finalStatus = existingStatus;
+  if (existingStatus !== 'granted') {
+    const { status } = await Notifications.requestPermissionsAsync();
+    finalStatus = status;
+  }
+  if (finalStatus !== 'granted') return null;
+  return (await Notifications.getExpoPushTokenAsync()).data;
+}
+```
+- **Expo Push & FCM**: Send batched push notifications with deep links, actions, and custom data payloads.
+- **iOS Live Activities / Dynamic Island**: Update real-time status (orders, deliveries, live events) using ActivityKit.
+- **Push Token Lifecycle**: Save push tokens to database associated with `userId`; handle token rotation and app reinstall events.
+
+---
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Problem | Correct Approach |
@@ -349,6 +372,11 @@ Aktifkan skill ini ketika:
 
 **Rekomendasi**: Gunakan **Resend** untuk kebanyakan proyek baru (DX terbaik dengan React Email). Gunakan **Postmark** untuk email transaksional misi-kritis. Gunakan **AWS SES** untuk optimasi biaya volume tinggi (10k+/hari).
 
+### Notifikasi Push Mobile & iOS Live Activities
+- **Expo Push & FCM**: Kirim notifikasi push masal dengan payload kustom, aksi tombol, dan deep linking ke rute aplikasi (Expo Router).
+- **iOS Live Activities**: Tampilkan status dinamis secara real-time pada Dynamic Island dan Lock Screen iOS menggunakan ActivityKit.
+- **Siklus Hidup Push Token**: Simpan token push ke database per `userId` dan tangani event rotasi token saat instal ulang aplikasi.
+
 ### Kesalahan Umum yang Harus Dihindari
 
 | Anti-Pola | Masalah | Pendekatan yang Benar |
@@ -361,8 +389,7 @@ Aktifkan skill ini ketika:
 ### Integrasi dengan Skill Lain
 
 - `saas-billing` — Email kuitansi pembayaran, sekuens dunning gagal bayar
-- `saas-transformer` — Email undangan tim, notifikasi workspace
+- `saas-architect` — Email undangan tim, notifikasi workspace
 - `authentication-identity-expert` — Email reset password, verifikasi email, kode MFA
-- `mobile-push-notification-expert` — Strategi notifikasi terpadu (email + push + in-app)
-- `async-queue-temporal-expert` — Worker antrean email dengan BullMQ/Inngest
+- `async-queue-temporal-expert` — Worker antrean pengiriman email & push dengan BullMQ/Inngest
 - `production-ready-hardener` — Audit deliverabilitas email sebelum peluncuran

@@ -1,10 +1,10 @@
 ---
 name: fullstack-expert
-description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), API design, microservices, DevOps, and system design / Panduan fullstack tingkat ahli mencakup multi-bahasa (TypeScript, Python, Go, Rust), multi-framework (Next.js, FastAPI, Gin, Axum), desain API, microservices, DevOps, dan system design."
+description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), API design (OpenAPI 3.1, gRPC), microservices, system design patterns, and polyglot architecture / Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot."
 author: "Roedy Rustam"
 ---
 
-# Fullstack Expert (2026 Multi-Language Edition)
+# Fullstack Expert (2026 Polyglot & Systems Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,66 +14,46 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `senior-frontend`, `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, and `rust-programming-expert`.
 
 ### Description
-Expert-level fullstack development across multiple languages and frameworks. Covers tech stack selection, API design (REST/gRPC/GraphQL), microservice architecture, DevOps, system design patterns, and AI-native backend integration for 2026.
+Expert-level fullstack development across multiple languages and frameworks. Focuses on polyglot backend architectures, system design patterns (Event-Driven Saga, CQRS), API contracts (OpenAPI 3.1, gRPC), and monorepo shared types.
 
 ### Trigger Conditions
-- Choosing the right language and framework for a new service or feature.
-- Designing APIs between services in a multi-language architecture.
-- Planning a microservices decomposition strategy.
-- Implementing system design patterns (event sourcing, CQRS, saga pattern).
-- Integrating AI agents or LLM capabilities into a backend system.
+- Choosing the right language and framework for a multi-service architecture.
+- Designing API contracts (REST, gRPC, Hono RPC) between heterogeneous services.
+- Implementing distributed system design patterns (Saga, CQRS).
+- Setting up a polyglot monorepo with shared types across frontend and backend.
 
-### 2026 Technology Matrix
+---
 
-#### Frontend
-| Tool | Version | Notes |
+### 2026 Polyglot Architecture Matrix
+
+> For comprehensive frontend UI architecture, see `senior-frontend` and `nextjs-app-router-expert`.
+> For dedicated AI agent workflows and LLM integrations, see `ai-llm-integration-expert` and `multi-agent-orchestration`.
+
+| Language | Primary Frameworks | Ideal Workloads |
 |---|---|---|
-| React | 19.x | Compiler, Server Actions, `use()` hook |
-| Next.js | 15.x | PPR, RSC, App Router stable |
-| Astro | 5.x | Islands architecture, MDX, SSG |
-| TanStack Router | 1.x | Type-safe SPA routing |
-| TanStack Start | Beta | Full-stack Vite + RSC patterns |
-| Nuxt | 4.x | Vue 3 SSR/SSG, stable |
-| SvelteKit | 2.x | Lightweight, edge-ready |
+| **TypeScript** | Hono, Fastify 5, NestJS | Serverless, Edge APIs, type-safe RPC |
+| **Python** | FastAPI 0.115+, Django 5 | Data science, LLM orchestration, async queues |
+| **Go** | net/http (Go 1.25+), Gin, Echo | Ultra-high throughput microservices, networking, CLIs |
+| **Rust** | Axum 0.8, Actix-web 4 | High-performance compute, memory safety, WASM |
 
-#### Backend
-| Language | Framework | Best For |
-|---|---|---|
-| TypeScript | Hono, Fastify 5, NestJS | Serverless, edge, type-safe RPC |
-| Python | FastAPI 0.115+, Django 5 | AI/ML workloads, data pipelines |
-| Go | net/http (1.22+), Gin, Echo | High-throughput microservices, CLI |
-| Rust | Axum 0.8, Actix-web 4 | Performance-critical, WASM |
+#### Infrastructure & Multi-Service Storage
+- **Primary OLTP**: PostgreSQL with connection pooling (PgBouncer / Supavisor).
+- **Analytics OLAP**: ClickHouse / DuckDB for high-speed aggregations.
+- **Cache & Ephemeral State**: Redis / Upstash with TTL.
+- **Vector Search**: pgvector or Qdrant for semantic search.
 
-#### AI & Agents
-| Tool | Role |
-|---|---|
-| Vercel AI SDK 5.x | Full-stack AI streaming, RSC |
-| Mastra.ai | TS-first agent framework |
-| LangGraph | Python stateful agent workflows |
-| OpenAI Agents SDK | GPT-5 native agents + handoffs |
-| Google ADK | Gemini-powered agents |
-| Mem0 / MemGPT | Long-term agent memory |
-
-#### Infrastructure
-| Category | Tools |
-|---|---|
-| Container | Docker, Podman |
-| Orchestration | Kubernetes, Railway, Fly.io |
-| CI/CD | GitHub Actions, Turborepo |
-| Observability | OpenTelemetry 1.x, Grafana, Langfuse |
-| Databases | PostgreSQL (primary), ClickHouse (analytics), Redis (cache), Qdrant (vector) |
+---
 
 ### API Design Standards
 
 #### REST — OpenAPI 3.1
 ```yaml
-# openapi.yaml
 openapi: "3.1.0"
 info:
-  title: "My SaaS API"
+  title: "SaaS Multi-Service API"
   version: "1.0.0"
 paths:
   /api/v1/workspaces/{id}:
@@ -95,14 +75,14 @@ paths:
               schema: { $ref: "#/components/schemas/ProblemDetail" }
 ```
 
-#### gRPC — Protocol Buffers
+#### gRPC — Protocol Buffers (`proto3`)
 ```protobuf
 syntax = "proto3";
 package user.v1;
 
 service UserService {
   rpc GetUser (GetUserRequest) returns (User);
-  rpc ListUsers (ListUsersRequest) returns (stream User);  // Server streaming
+  rpc ListUsers (ListUsersRequest) returns (stream User);
   rpc CreateUser (CreateUserRequest) returns (User);
 }
 
@@ -114,59 +94,51 @@ message User {
 }
 ```
 
+---
+
 ### Microservice Patterns
 
-#### Event-Driven (Saga Pattern)
+#### Event-Driven (Saga Pattern with Compensations)
 ```
 Order Service ──publishes──> "order.created" ──> Payment Service
                                                       │
                                                ┌──────┴──────┐
                                           success?       failure?
-                                              │               │
-                                   "payment.succeeded"  "payment.failed"
-                                              │               │
-                                      Inventory Service  Order Service
-                                      (reserve stock)    (cancel order)
+                                               │               │
+                                    "payment.succeeded"  "payment.failed"
+                                               │               │
+                                       Inventory Service  Order Service
+                                       (reserve stock)    (cancel order)
 ```
 
 #### CQRS (Command Query Responsibility Segregation)
-- **Write side**: Commands update the primary PostgreSQL database.
-- **Read side**: Events are projected into read-optimized views (denormalized tables or ClickHouse).
-- Use when read patterns are very different from write patterns.
+- **Write side**: Commands validate and update the primary relational database.
+- **Read side**: Events project into read-optimized denormalized views or ClickHouse tables for high-frequency queries.
 
-### AI-Native Backend Integration (2026)
+---
+
+### AI-Native Backend Integration
 ```typescript
-// Pattern: AI as a service within existing API
 import { generateObject } from 'ai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { z } from 'zod';
 
-// AI endpoint that returns structured data
 app.post('/api/analyze', async (c) => {
   const { content } = await c.req.json();
-
   const { object } = await generateObject({
-    model: anthropic('claude-4-sonnet'),
+    model: anthropic('claude-3-7-sonnet-20250219'),
     schema: z.object({
       sentiment: z.enum(['positive', 'neutral', 'negative']),
       topics: z.array(z.string()),
       summary: z.string().max(200),
     }),
-    prompt: `Analyze this content: ${content}`,
+    prompt: `Analyze: ${content}`,
   });
-
   return c.json(object);
 });
 ```
 
-### SPA vs SSR vs Static — Decision Guide
-```
-SEO-critical + mostly read? → Next.js SSR / Astro 5 (static)
-Highly interactive dashboard? → SPA (TanStack Start / Vite + TanStack Router)
-   → see spa-orchestrator skill for architecture details
-Mixed (marketing + app)?    → Next.js 15 with hybrid routing
-Real-time data?             → SSR + WebSocket or SSE streaming
-```
+---
 
 ### Monorepo with Shared Types
 ```typescript
@@ -178,84 +150,35 @@ export interface User {
   plan: 'free' | 'pro' | 'enterprise';
   isSuperAdmin: boolean;
 }
-
-// apps/api & apps/web use the same type
-import type { User } from '@myapp/types';
 ```
 
-### Security Checklist (Fullstack)
-- [ ] All user inputs validated with Zod on the server.
-- [ ] JWT secrets rotated every 90 days; use short expiry + refresh tokens.
-- [ ] CSP headers configured (no `unsafe-inline` in production).
-- [ ] All DB queries use parameterized queries.
-- [ ] Rate limiting on all public API endpoints.
-- [ ] Super Admin routes restricted to `admin.domain.com` with `isSuperAdmin` check.
+### Production Security Checklist
+- [ ] User inputs validated with Zod / Pydantic on the server.
+- [ ] Parameterized queries enforced across all database layers.
+- [ ] Rate limiting on all public endpoints (`rate-limit-abuse-prevention`).
+- [ ] Super Admin routes strictly isolated to dedicated subdomain.
 
-### Code Review Standards
-- Functions < 30 lines; files < 300 lines.
-- No business logic in UI components.
-- Every PR includes relevant tests (unit or E2E).
-- No `any` types in TypeScript production code.
-- Dependencies audited with `pnpm audit` on every PR.
+## Orchestration & Integration
+- Integrates with: `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `nextjs-app-router-expert`, `api-design-expert`.
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
-### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
-
 ### Deskripsi
-Panduan pengembangan fullstack tingkat ahli di berbagai bahasa dan framework. Mencakup pemilihan tech stack, desain API (REST/gRPC/GraphQL), arsitektur microservice, DevOps, pola desain sistem, dan integrasi backend AI-native untuk 2026.
+Panduan pengembangan fullstack tingkat ahli multi-bahasa (TypeScript, Python, Go, Rust), desain kontrak API (OpenAPI 3.1, gRPC), pola arsitektur microservices (Saga, CQRS), dan monorepo shared types.
 
-### Kondisi Pemicu
-- Memilih bahasa dan framework yang tepat untuk layanan atau fitur baru.
-- Merancang API antar layanan dalam arsitektur multi-bahasa.
-- Merencanakan strategi dekomposisi microservice.
-- Mengimplementasikan pola desain sistem (event sourcing, CQRS, saga pattern).
-- Mengintegrasikan agen AI atau kemampuan LLM ke dalam sistem backend.
+### Matriks Arsitektur Polyglot 2026
+- **TypeScript**: Hono, Fastify 5, NestJS (Serverless, Cloudflare Edge, Hono RPC).
+- **Python**: FastAPI 0.115+, Django 5 (AI/ML, orkestrasi LLM, pipeline asinkron).
+- **Go**: net/http (Go 1.25+), Gin (Microservices throughput tinggi, CLI).
+- **Rust**: Axum 0.8, Actix-web 4 (Performa ekstrem, komputasi berat, WASM).
 
-### Matriks Teknologi 2026
+### Pola Sistem Terdistribusi
+1. **Saga Pattern**: Kompensasi rollback bertahap saat transaksi multi-layanan mengalami kegagalan.
+2. **CQRS**: Memisahkan database tulis (PostgreSQL) dari view proyeksi baca (ClickHouse/Redis) untuk beban baca tinggi.
+3. **Monorepo Shared Types**: Simpan definisi tipe bersama di `packages/types` sebagai single source of truth antara frontend dan backend.
 
-#### Frontend
-React 19 + Next.js 15 (default SaaS), Astro 5 (konten), TanStack Router (SPA), Nuxt 4 (Vue), SvelteKit 2.
-
-#### Backend
-TypeScript/Hono (serverless, edge), Python/FastAPI (AI/ML), Go/net/http (throughput tinggi), Rust/Axum (kritis performa).
-
-#### AI & Agen
-Vercel AI SDK 5.x, Mastra.ai, LangGraph, OpenAI Agents SDK, Google ADK, Mem0/MemGPT untuk memori agen jangka panjang.
-
-#### Infrastruktur
-Docker/Kubernetes, GitHub Actions + Turborepo, OpenTelemetry 1.x, Langfuse. Database: PostgreSQL (utama), ClickHouse (analitik), Redis (cache), Qdrant (vektor).
-
-### Standar Desain API
-- **REST + OpenAPI 3.1**: Untuk API publik dengan beberapa konsumen.
-- **gRPC**: Untuk komunikasi antar layanan internal berkinerja tinggi.
-- **Hono RPC / tRPC**: Untuk komunikasi full-stack TypeScript type-safe tanpa codegen.
-
-### Pola Microservice
-
-#### Event-Driven (Saga Pattern)
-Orkestrasi transaksi terdistribusi melalui event — setiap layanan mempublikasikan event setelah berhasil; kegagalan memicu kompensasi di seluruh rantai.
-
-#### CQRS
-Pisahkan sisi tulis (PostgreSQL) dari sisi baca (view terdenormalisasi atau ClickHouse) ketika pola baca sangat berbeda dari pola tulis.
-
-### Integrasi Backend AI-Native (2026)
-Gunakan Vercel AI SDK `generateObject()` dengan skema Zod untuk mengintegrasikan kemampuan AI ke endpoint API yang ada — mengembalikan output terstruktur yang dijamin sesuai tipe.
-
-### SPA vs SSR vs Static
-Gunakan SSR/Astro untuk situs kritis SEO dan banyak baca. Gunakan SPA (TanStack Start) untuk dashboard yang sangat interaktif. Gunakan Next.js 15 dengan routing hybrid untuk aplikasi campuran (marketing + app).
-
-### Monorepo dengan Shared Types
-Definisikan interface dan tipe bersama di `packages/types` — digunakan oleh semua app (web, admin, api, mobile) sebagai single source of truth.
-
-### Checklist Keamanan & Code Review
-- Input pengguna divalidasi Zod di server.
-- Header CSP dikonfigurasi & parameterized query untuk DB.
-- Rate limiting di semua endpoint publik.
-- Rute Super Admin dibatasi di subdomain dengan cek `isSuperAdmin`.
-- Tidak ada logika bisnis di komponen UI; wajib ada unit/E2E test pada PR.
-- Tidak ada tipe `any` pada kode TypeScript produksi.
+## Integrasi Orkestrasi
+- Terintegrasi dengan: `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `nextjs-app-router-expert`, `api-design-expert`.

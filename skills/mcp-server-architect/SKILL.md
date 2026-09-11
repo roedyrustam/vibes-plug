@@ -152,6 +152,13 @@ if __name__ == "__main__":
 4. **Circuit Breakers & Rate Limits**: Cap consecutive tool executions per agent turn to prevent endless agentic recursive loops.
 5. **Idempotency**: All destructive or state-mutating tools must require an `idempotency_key` argument.
 
+### Agent MCP Client Consumption & Tool Discovery
+When acting as an AI Agent consuming external MCP servers:
+1. **Dynamic Tool Discovery**: Check `list_resources` or `mcp_config.json` before assuming external capabilities do not exist.
+2. **Defensive Schema Querying**: Never guess database schema or table names. Always execute `list_tables` or `get_schema` before generating SQL queries (`execute_sql`).
+3. **Cross-System Workflow Loop**: Dynamically chain tools across domains: GitHub MCP (find issue) -> `grep_search` (locate file) -> `autonomous-tdd-debugger` (test & fix) -> GitHub MCP (create PR).
+4. **Rate Limit Awareness**: Avoid rapid unthrottled loops against external MCP servers.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -289,6 +296,13 @@ if __name__ == "__main__":
 3. **Row-Level Security (RLS)**: Teruskan identitas pengguna dan penyewa (tenant) ke lapisan database driver.
 4. **Circuit Breakers & Rate Limits**: Batasi pemanggilan tool berulang dalam satu giliran respon untuk mencegah perulangan tak terkontrol (*infinite loops*).
 5. **Idempotency**: Semua tool yang memodifikasi data wajib mendukung argumen `idempotency_key`.
+ 
+### Konsumsi Klien MCP & Eksplorasi Tool oleh Agen
+Ketika agen bertindak sebagai Klien MCP:
+1. **Eksplorasi Tool Dinamis**: Periksa `list_resources` atau konfigurasi MCP sebelum menyimpulkan kapabilitas tidak tersedia.
+2. **Kueri Skema Defensif**: Jangan pernah menebak nama tabel/skema. Selalu gunakan `list_tables` atau `get_schema` sebelum membuat kueri SQL.
+3. **Alur Kerja Lintas Sistem**: Rangkaikan pemanggilan tool antar-domain: GitHub MCP -> pencarian kode lokal -> perbaikan otonom -> Pull Request GitHub.
+4. **Kesadaran Batas Frekuensi**: Hindari loop pemanggilan berulang tanpa jeda waktu saat memanggil server MCP eksternal.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `ai-llm-integration-expert`, `mcp-client-orchestrator`, `doku-mcp-server`, `zero-trust-secret-vault`.
+- Terintegrasi dengan: `ai-llm-integration-expert`, `doku-mcp-server`, `zero-trust-secret-vault`.

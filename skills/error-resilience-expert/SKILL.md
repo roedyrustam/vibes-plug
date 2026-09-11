@@ -411,6 +411,18 @@ worker.on('failed', async (job, err) => {
 
 ---
 
+### 7. Chaos Engineering & Automated Failure Injection Protocol
+
+1. **Chaos Injection**: Actively test system resilience by simulating network disruptions, killing database connections, and injecting artificial latency (500ms–5000ms) or dropped packets using Toxiproxy or mock network middleware.
+2. **Failure Observation**: Monitor application behavior under duress. Check whether the UI hangs, returns blank screens, or if connections leak.
+3. **Automated Resilience Hardening**:
+   - Implement Circuit Breakers around fragile external API dependencies.
+   - Add exponential backoff with full jitter to avoid thundering herds.
+   - Implement graceful degradation: render cached data or contextual fallback states rather than throwing unhandled exceptions.
+4. **Resilience Verification**: Re-run the disruption loop until all failure modes are safely caught, logged to Sentry, and recovered from automatically.
+
+---
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Problem | Correct Approach |
@@ -465,6 +477,15 @@ Aktifkan skill ini ketika:
 | **Retry dengan Cerdas** | Gunakan exponential backoff + jitter; jangan retry operasi non-idempoten secara membabi buta |
 | **Isolasi Kegagalan** | Komponen yang gagal tidak boleh menghancurkan seluruh halaman |
 | **Lacak Semuanya** | Setiap error yang tidak tertangani harus sampai ke sistem monitoring |
+
+### Protokol Chaos Engineering & Injeksi Kegagalan Otomatis
+1. **Injeksi Kekacauan (Chaos Injection)**: Uji ketahanan dengan sengaja memutuskan koneksi database, menyuntikkan latensi jaringan (Toxiproxy), atau membuang paket request ke API eksternal.
+2. **Observasi Kegagalan**: Periksa apakah UI macet, layar menjadi putih kosong, atau connection pool bocor saat dependensi bermasalah.
+3. **Hardening Ketahanan Otomatis**:
+   - Terapkan Circuit Breaker pada panggilan API eksternal yang rentan.
+   - Tambahkan retry dengan exponential backoff dan random jitter.
+   - Terapkan degradasi anggun (*graceful degradation*): sajikan data cache atau UI fallback alternatif.
+4. **Verifikasi Ketahanan**: Ulangi simulasi gangguan hingga sistem bertahan tanpa crash fatal dan seluruh error tercatat di Sentry.
 
 ### Kesalahan Umum yang Harus Dihindari
 

@@ -1,10 +1,10 @@
 ---
 name: async-queue-temporal-expert
-description: "Expert guide for Durable Workflow Engines (Temporal.io, Trigger.dev v3, Inngest, BullMQ v5) and fault-tolerant background sagas / Panduan ahli workflow engine tahan-gagal (Temporal, Trigger.dev, Inngest, BullMQ)."
+description: "Unified expert guide for async job queues & durable workflows: BullMQ v5 (Redis queues), Trigger.dev v3 (serverless tasks), Inngest, and Temporal.io (distributed sagas) / Panduan ahli terpadu untuk antrean job asinkron & workflow tahan-gagal: BullMQ v5, Trigger.dev v3, Inngest, dan Temporal.io."
 author: "Roedy Rustam"
 ---
 
-# Async Queue & Durable Workflow Expert (Temporal & Sagas 2026)
+# Async Queue & Durable Workflow Expert (2026 Unified Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,103 +14,112 @@ author: "Roedy Rustam"
 ## English
 
 ### Purpose & Overview
-Production-grade architectural guide for designing durable, fault-tolerant background execution pipelines, asynchronous job queues, and distributed state machines using **Temporal.io**, **Trigger.dev v3**, **Inngest**, and **BullMQ v5**. Guarantees eventual completion across long-running sagas, API rate limits, worker crashes, and network partitions.
+Unified production-grade guide for background execution pipelines, async job queues, and distributed state machines. Covers the full spectrum from simple Redis-backed task queues to complex multi-service sagas with compensating rollbacks.
 
-### Key Capabilities
-1. **Durable State Machines**: Workflows survive process restarts, deployments, and database blips without losing state or re-executing completed side-effects.
-2. **Distributed Saga Pattern**: Multi-step transactions paired with automated compensating activities (rollbacks) whenever a downstream service permanently fails.
-3. **Idempotency & Deduplication**: Ensuring unique idempotency keys per transaction to prevent double billing or duplicate emails.
-4. **Queue Concurrency & Rate Limiting**: Token-bucket throttles, exponential backoff with jitter, and dead-letter queues (DLQ) for poison-pill isolation.
+### 3-Tier Execution Model
+| Tier | Engine | Best For |
+|------|--------|----------|
+| **Tier 1: Redis Task Queues** | BullMQ v5 | High-throughput worker jobs, priority queues, rate limiting, DLQ |
+| **Tier 2: Serverless Durable Tasks** | Trigger.dev v3 / Inngest | Step-checkpointed tasks, automatic resume across crashes, zero infra |
+| **Tier 3: Distributed Sagas** | Temporal.io | Multi-service orchestration, compensating rollbacks, long-running workflows |
+
+### Core Capabilities
+1. **Idempotency & Deduplication**: Deterministic `jobId` keys prevent double billing or duplicate emails.
+2. **Dead Letter Queues (DLQ)**: Auto-relocate permanently failing jobs for audit and alerting.
+3. **Exponential Backoff with Jitter**: Prevents thundering herds on upstream services.
+4. **Tenant Priority Queues**: VIP/enterprise tiers get lower BullMQ priority numbers (higher throughput).
+5. **Durable State Machines**: Workflows survive restarts, deployments, and network partitions.
+6. **Saga Compensations**: Multi-step transactions with automated reverse-order rollbacks.
 
 ---
 
-### Production Implementation Recipes
+### Tier 1: BullMQ v5 — Redis Task Queues (TypeScript)
 
-#### Recipe 1: Temporal.io Saga Pattern with Compensations (TypeScript SDK)
 ```typescript
-import { proxyActivities, ApplicationFailure } from '@temporalio/workflow';
-import type * as activities from './activities';
+import { Queue, Worker, Job } from 'bullmq';
+import Redis from 'ioredis';
 
-// Proxy activities with aggressive retry policies
-const { chargeCustomer, provisionLicense, sendWelcomeEmail, refundCustomer, revokeLicense } =
-  proxyActivities<typeof activities>({
-    startToCloseTimeout: '1 minute',
-    retry: {
-      initialInterval: '1s',
-      backoffCoefficient: 2,
-      maximumAttempts: 5,
-      nonRetryableErrorTypes: ['InvalidCardError', 'AccountSuspendedError'],
-    },
-  });
+const redisConnection = new Redis(process.env.REDIS_URL!, {
+  maxRetriesPerRequest: null, // Required by BullMQ
+});
 
-export interface SubscriptionWorkflowInput {
-  customerId: string;
-  planId: string;
-  amountCents: number;
+export interface NotificationPayload {
+  tenantId: string;
+  userId: string;
+  type: 'email' | 'webhook';
+  payload: Record<string, unknown>;
+  idempotencyKey: string;
 }
 
-/**
- * Distributed Subscription Saga with Compensating Rollbacks
- */
-export async function subscriptionSagaWorkflow(input: SubscriptionWorkflowInput): Promise<{ status: string }> {
-  const compensations: Array<() => Promise<void>> = [];
+// Main Queue
+export const notificationQueue = new Queue<NotificationPayload>('notifications', {
+  connection: redisConnection,
+  defaultJobOptions: {
+    attempts: 5,
+    backoff: { type: 'exponential', delay: 1500 },
+    removeOnComplete: { age: 86400, count: 5000 },
+    removeOnFail: false, // Preserved for DLQ audit
+  },
+});
 
-  try {
-    // Step 1: Charge Customer
-    const chargeResult = await chargeCustomer(input.customerId, input.amountCents);
-    compensations.unshift(() => refundCustomer(chargeResult.chargeId));
+// Dead Letter Queue
+export const notificationDLQ = new Queue('notifications-dlq', {
+  connection: redisConnection,
+});
 
-    // Step 2: Provision License
-    const licenseResult = await provisionLicense(input.customerId, input.planId);
-    compensations.unshift(() => revokeLicense(licenseResult.licenseId));
+// Enqueue with deduplication & priority
+export async function enqueueNotification(data: NotificationPayload, isVip = false) {
+  return await notificationQueue.add('send_notification', data, {
+    jobId: `notif_${data.idempotencyKey}`, // Deterministic dedup key
+    priority: isVip ? 1 : 10,
+  });
+}
 
-    // Step 3: Send Welcome Notification
-    await sendWelcomeEmail(input.customerId, licenseResult.licenseKey);
+// Worker with concurrency & rate limiting
+export const notificationWorker = new Worker<NotificationPayload>(
+  'notifications',
+  async (job: Job<NotificationPayload>) => {
+    if (job.data.type === 'email') await deliverEmail(job.data);
+  },
+  {
+    connection: redisConnection,
+    concurrency: 20,
+    limiter: { max: 100, duration: 1000 },
+  }
+);
 
-    return { status: 'COMPLETED' };
-  } catch (error) {
-    // Execute compensating activities in reverse order
-    for (const compensate of compensations) {
-      try {
-        await compensate();
-      } catch (compError) {
-        console.error('Compensation failed, alerting on-call engineer:', compError);
-      }
-    }
-    throw ApplicationFailure.create({
-      message: `Subscription saga failed and rolled back: ${(error as Error).message}`,
-      nonRetryable: true,
+// DLQ forwarding on retry exhaustion
+notificationWorker.on('failed', async (job, error) => {
+  if (job && job.attemptsMade >= (job.opts.attempts || 5)) {
+    await notificationDLQ.add('failed_notification', {
+      originalJobId: job.id, failedReason: error.message,
+      data: job.data, exhaustedAt: new Date().toISOString(),
     });
   }
-}
+});
 ```
 
-#### Recipe 2: Trigger.dev v3 Durable Task with Idempotency
+---
+
+### Tier 2: Trigger.dev v3 — Serverless Durable Tasks
+
 ```typescript
 import { task } from '@trigger.dev/sdk/v3';
 
-export const generateEnterpriseAnalyticsReport = task({
+export const generateReport = task({
   id: 'generate-enterprise-report',
-  retry: {
-    maxAttempts: 4,
-    minTimeoutInMs: 2000,
-    factor: 2,
-    randomize: true, // Jitter
-  },
+  retry: { maxAttempts: 4, minTimeoutInMs: 2000, factor: 2, randomize: true },
   run: async (payload: { tenantId: string; month: string }, { ctx }) => {
-    // Automatic checkpointing: each step runs durably
+    // Each step is a durable checkpoint — survives crashes
     const data = await ctx.run('fetch-telemetry', async () => {
       return await fetchTelemetryFromWarehouse(payload.tenantId, payload.month);
     });
-
     const pdfUrl = await ctx.run('render-pdf', async () => {
       return await generateReportPdf(data);
     });
-
     await ctx.run('dispatch-webhook', async () => {
       return await sendWebhookNotification(payload.tenantId, pdfUrl);
     });
-
     return { success: true, pdfUrl };
   },
 });
@@ -118,14 +127,60 @@ export const generateEnterpriseAnalyticsReport = task({
 
 ---
 
+### Tier 3: Temporal.io — Distributed Saga with Compensations
+
+```typescript
+import { proxyActivities, ApplicationFailure } from '@temporalio/workflow';
+import type * as activities from './activities';
+
+const { chargeCustomer, provisionLicense, sendWelcomeEmail, refundCustomer, revokeLicense } =
+  proxyActivities<typeof activities>({
+    startToCloseTimeout: '1 minute',
+    retry: {
+      initialInterval: '1s', backoffCoefficient: 2, maximumAttempts: 5,
+      nonRetryableErrorTypes: ['InvalidCardError', 'AccountSuspendedError'],
+    },
+  });
+
+export async function subscriptionSagaWorkflow(input: {
+  customerId: string; planId: string; amountCents: number;
+}) {
+  const compensations: Array<() => Promise<void>> = [];
+  try {
+    const charge = await chargeCustomer(input.customerId, input.amountCents);
+    compensations.unshift(() => refundCustomer(charge.chargeId));
+
+    const license = await provisionLicense(input.customerId, input.planId);
+    compensations.unshift(() => revokeLicense(license.licenseId));
+
+    await sendWelcomeEmail(input.customerId, license.licenseKey);
+    return { status: 'COMPLETED' };
+  } catch (error) {
+    for (const compensate of compensations) {
+      try { await compensate(); } catch (e) { console.error('Compensation failed:', e); }
+    }
+    throw ApplicationFailure.create({
+      message: `Saga rolled back: ${(error as Error).message}`, nonRetryable: true,
+    });
+  }
+}
+```
+
+> **Temporal Determinism Rule**: Never use `Math.random()`, `Date.now()`, or direct DB calls inside workflow files. Run them inside activities.
+
+---
+
 ### Implementation Checklist
-- [ ] Implement Saga rollback handlers for multi-step distributed payments and user provisioning.
-- [ ] Enforce deterministic code inside Temporal workflows (never use `Math.random()`, `Date.now()`, or direct DB calls in workflow files; run them inside activities).
-- [ ] Store large payloads in object storage (S3/R2); pass only IDs and signed URLs through queues.
-- [ ] Configure DLQ (Dead Letter Queue) and alert thresholds for persistent failures.
+- [ ] Configure `maxRetriesPerRequest: null` on ioredis for BullMQ v5.
+- [ ] Use deterministic `jobId` from business logic (`order_${orderId}`) for deduplication.
+- [ ] Forward permanently dead jobs to DLQ via `worker.on('failed')` listener.
+- [ ] Implement rate limiting via worker `limiter` to protect third-party APIs.
+- [ ] Enforce deterministic code inside Temporal workflows (activities for side-effects).
+- [ ] Store large payloads in S3/R2; pass only IDs through queues.
+- [ ] Implement Saga rollback handlers for multi-step distributed payments.
 
 ## Orchestration & Integration
-- Integrates with: `js-backend-expert`, `background-jobs-queue-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`.
+- Integrates with: `js-backend-expert`, `cron-scheduler-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`, `data-telemetry-expert`.
 
 ---
 
@@ -133,108 +188,30 @@ export const generateEnterpriseAnalyticsReport = task({
 ## Bahasa Indonesia
 
 ### Tujuan & Gambaran Umum
-Panduan arsitektur tingkat produksi untuk merancang pipeline eksekusi background yang tahan-gagal (durable execution), antrean tugas asinkron, dan state machine terdistribusi menggunakan **Temporal.io**, **Trigger.dev v3**, **Inngest**, dan **BullMQ v5**. Menjamin penyelesaian mutlak tugas berdurasi panjang terhadap pembatasan rate limit API, kegagalan worker, dan partisi jaringan.
+Panduan terpadu tingkat produksi untuk pipeline eksekusi latar belakang, antrean job asinkron, dan state machine terdistribusi. Mencakup spektrum penuh dari antrean Redis sederhana hingga saga multi-layanan dengan rollback kompensasi.
+
+### Model Eksekusi 3-Tier
+| Tier | Engine | Cocok Untuk |
+|------|--------|-------------|
+| **Tier 1: Antrean Redis** | BullMQ v5 | Job worker throughput tinggi, prioritas, rate limiting, DLQ |
+| **Tier 2: Task Serverless** | Trigger.dev v3 / Inngest | Task dengan checkpoint, resume otomatis, tanpa infra |
+| **Tier 3: Saga Terdistribusi** | Temporal.io | Orkestrasi multi-layanan, rollback kompensasi, workflow jangka panjang |
 
 ### Kemampuan Utama
-1. **State Machine Tahan-Gagal (Durable Execution)**: Alur kerja (workflow) tetap bertahan saat restart server, deployment, atau gangguan database tanpa kehilangan progres state.
-2. **Pola Transaksi Terdistribusi (Saga Pattern)**: Transaksi multi-langkah yang dilengkapi dengan aktivitas kompensasi (rollback otomatis) jika langkah lanjutan gagal permanen.
-3. **Idempotensi & Anti-Duplikasi**: Menjamin kunci idempotensi unik pada setiap transaksi guna mencegah duplikasi penagihan atau email berulang.
-4. **Pembatasan Rate Limit & DLQ**: Throttling berbasis token bucket, exponential backoff dengan jitter acak, dan dead-letter queue (DLQ) untuk mengisolasi tugas beracun (*poison pills*).
-
----
-
-### Resep Implementasi Produksi
-
-#### Resep 1: Pola Saga Temporal.io dengan Logika Kompensasi (TypeScript)
-```typescript
-import { proxyActivities, ApplicationFailure } from '@temporalio/workflow';
-import type * as activities from './activities';
-
-const { tagihPelanggan, aktifkanLisensi, kirimEmailSambutan, kembalikanDana, cabutLisensi } =
-  proxyActivities<typeof activities>({
-    startToCloseTimeout: '1 minute',
-    retry: {
-      initialInterval: '1s',
-      backoffCoefficient: 2,
-      maximumAttempts: 5,
-    },
-  });
-
-export interface InputWorkflowLangganan {
-  customerId: string;
-  planId: string;
-  amountCents: number;
-}
-
-export async function workflowSagaLangganan(input: InputWorkflowLangganan) {
-  const kompensasi: Array<() => Promise<void>> = [];
-
-  try {
-    // Langkah 1: Tagih Pembayaran
-    const hasilTagihan = await tagihPelanggan(input.customerId, input.amountCents);
-    kompensasi.unshift(() => kembalikanDana(hasilTagihan.chargeId));
-
-    // Langkah 2: Aktifkan Lisensi
-    const hasilLisensi = await aktifkanLisensi(input.customerId, input.planId);
-    kompensasi.unshift(() => cabutLisensi(hasilLisensi.licenseId));
-
-    // Langkah 3: Kirim Notifikasi
-    await kirimEmailSambutan(input.customerId, hasilLisensi.licenseKey);
-
-    return { status: 'SELESAI' };
-  } catch (error) {
-    // Eksekusi kompensasi rollback secara berurutan mundur
-    for (const compensate of kompensasi) {
-      try {
-        await compensate();
-      } catch (err) {
-        console.error('Kompensasi gagal:', err);
-      }
-    }
-    throw ApplicationFailure.create({
-      message: `Saga gagal dan dilakukan rollback: ${(error as Error).message}`,
-      nonRetryable: true,
-    });
-  }
-}
-```
-
-#### Resep 2: Tugas Background Tahan-Gagal Trigger.dev v3
-```typescript
-import { task } from '@trigger.dev/sdk/v3';
-
-export const buatLaporanAnalitik = task({
-  id: 'buat-laporan-analitik',
-  retry: {
-    maxAttempts: 4,
-    factor: 2,
-    randomize: true, // Jitter
-  },
-  run: async (payload: { tenantId: string; bulan: string }, { ctx }) => {
-    const data = await ctx.run('ambil-data', async () => {
-      return await ambilDataWarehouse(payload.tenantId, payload.bulan);
-    });
-
-    const urlPdf = await ctx.run('buat-pdf', async () => {
-      return await renderDokumenPdf(data);
-    });
-
-    await ctx.run('kirim-webhook', async () => {
-      return await notifikasiWebhook(payload.tenantId, urlPdf);
-    });
-
-    return { sukses: true, urlPdf };
-  },
-});
-```
-
----
+1. **Idempotensi & Deduplikasi**: Kunci `jobId` deterministik mencegah duplikasi penagihan atau email.
+2. **Dead Letter Queue (DLQ)**: Pemindahan otomatis job gagal total untuk audit.
+3. **Backoff Eksponensial + Jitter**: Mencegah thundering herd pada server hilir.
+4. **Prioritas Tenant**: Tier VIP/enterprise mendapat prioritas lebih tinggi (angka lebih kecil di BullMQ).
+5. **State Machine Tahan-Gagal**: Workflow bertahan saat restart, deployment, dan partisi jaringan.
+6. **Kompensasi Saga**: Transaksi multi-langkah dengan rollback otomatis urutan mundur.
 
 ### Checklist Implementasi
-- [ ] Terapkan penanganan rollback (Saga) untuk alur transaksi pembayaran dan provisi akun bertahap.
-- [ ] Pastikan kode di dalam alur Temporal selalu deterministik (jangan gunakan `Math.random()` atau kueri DB langsung di dalam workflow, tempatkan di dalam activities).
-- [ ] Pindahkan berkas besar ke S3/R2 dan hanya teruskan referensi ID melalui queue.
-- [ ] Pasang konfigurasi DLQ (Dead Letter Queue) dan notifikasi peringatan jika ada job yang macet.
+- [ ] Atur `maxRetriesPerRequest: null` pada ioredis untuk BullMQ v5.
+- [ ] Gunakan `jobId` deterministik dari ID bisnis (`invoice_${invoiceId}`) untuk deduplikasi.
+- [ ] Pasang listener `worker.on('failed')` untuk forward job gagal ke DLQ.
+- [ ] Terapkan rate limiter pada worker untuk stabilitas API eksternal.
+- [ ] Pastikan kode Temporal selalu deterministik (side-effect hanya di activities).
+- [ ] Simpan file besar di S3/R2; kirim hanya referensi ID melalui queue.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `js-backend-expert`, `background-jobs-queue-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`.
+- Terintegrasi dengan: `js-backend-expert`, `cron-scheduler-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`, `data-telemetry-expert`.

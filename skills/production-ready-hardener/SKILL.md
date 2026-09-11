@@ -31,22 +31,20 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │                                                                  │
 │  ┌─── PHASE 1: Architecture & Code Quality ───────────────────┐  │
 │  │  • scalability-clean-code (SOLID, DRY, Clean Architecture)  │  │
-│  │  • fullstack-expert / senior-fullstack (Design & patterns) │  │
-│  │  • app-analyzer-optimizer (Deep codebase & bottleneck audit)│ │
+│  │  • fullstack-expert (Design & polyglot patterns)            │  │
+│  │  • app-analyzer-optimizer (Deep codebase & bottleneck audit)│  │
 │  │  • monorepo-architect (Turborepo & pnpm workspace structure)│  │
 │  │  • dependency-upgrade-migrator (Codemod & package audits)  │  │
-│  │  • vibe-code-gardener (Purge AI slop & context drift)      │  │
 │  │  • anti-slop (Eliminate conversational & code slop)        │  │
 │  │  • typescript-expert (Strict mode & type-safe patterns)    │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
 │  ┌─── PHASE 2: Frontend Hardening ────────────────────────────┐  │
 │  │  • senior-frontend (React 19, Next.js 15 App Router)       │  │
-│  │  • design-system-architect (Tokens, Radix, CVA, WCAG 2.2)  │  │
+│  │  • design-system-architect (Tokens, Radix, Base UI, WCAG)  │  │
 │  │  • tailwind-expert (CSS-first config, OKLCH, responsive)   │  │
 │  │  • form-validation-expert (React Hook Form, Zod validation)│  │
 │  │  • state-management-expert (Zustand, Jotai, TanStack Store)│  │
-│  │  • ui-components-expert (Input, nav, container primitives) │  │
 │  │  • ui-ux-pro-max / hig (HIG principles & design system)    │  │
 │  │  • global-a11y-i18n-expert (Web accessibility & i18n)      │  │
 │  │  • mobile-expo-expert / tauri-expert (Mobile & Desktop)    │  │
@@ -54,17 +52,15 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │                                                                  │
 │  ┌─── PHASE 3: Backend & AI Services ─────────────────────────┐  │
 │  │  • js-backend-expert (Node 24, Bun 1.2, Fastify, Hono)     │  │
-│  │  • go-programming-expert (Go 1.24+, microservices, gRPC)   │  │
+│  │  • go-programming-expert (Go 1.25+, microservices, gRPC)   │  │
 │  │  • python-programming-expert (Python 3.13+, FastAPI, uv)   │  │
 │  │  • rust-programming-expert (Rust 2024, Axum, async)        │  │
-│  │  • database-orm-expert (Prisma 6, Drizzle, migrations)    │  │
-│  │  • edge-serverless-db-expert (Neon, Cloudflare D1, Turso)  │  │
+│  │  • database-orm-expert (Prisma 6, Drizzle, Edge DBs, RLS)  │  │
 │  │  • cron-scheduler-expert / async-queue-temporal-expert     │  │
-│  │  • email-notification-expert (Transactional emails)        │  │
+│  │  • email-notification-expert (Email & Push notifications)  │  │
 │  │  • file-upload-media-expert (S3, Presigned URLs, CDN)      │  │
 │  │  • mcp-server-architect (MCP Server Tools & Zod schemas)   │  │
 │  │  • multi-agent-orchestration / ai-llm-integration-expert   │  │
-│  │  • ai-cost-token-optimizer (Prompt caching & token budget) │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
 │  ┌─── PHASE 4: Security Hardening ────────────────────────────┐  │
@@ -98,8 +94,8 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  │  • ci-cd-devops-architect (GitHub Actions, Docker, IaC)    │  │
 │  │  • cloud-hosting-expert (Vercel, Cloudflare Workers, AWS)  │  │
 │  │  • data-telemetry-expert (OpenTelemetry, PostHog metrics)  │  │
-│  │  • session-handoff-resume (Save state checkpoint)          │  │
-│  │  • auto-doc-updater (CHANGELOG & BLUEPRINT automation)     │  │
+│  │  • session-memory-manager (State checkpoints & handoff)    │  │
+│  │  • prd-architect (ADR records & changelog updates)         │  │
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
@@ -324,13 +320,13 @@ Skill ini TIDAK menggantikan skill individual — ia **mengoordinasikan** mereka
 
 | Fase | Skill yang Digunakan | Fokus Utama |
 |------|---------------------|-------------|
-| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `anti-slop`, `typescript-expert` | SOLID, DRY, Clean Architecture, RFC 9457 errors, pembersihan AI slop, strict TS |
-| 2. Pengerasan Frontend | `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-components-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19, Error Boundaries, validasi Zod + RHF, a11y, state management, UI primitives |
-| 3. Pengerasan Backend | `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `edge-serverless-db-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-cost-token-optimizer` | Database migration, ORM, connection pooling, durable background jobs, transactional email, MCP tools, token budget |
+| 1. Arsitektur & Kualitas Kode | `scalability-clean-code`, `fullstack-expert`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `anti-slop`, `typescript-expert` | SOLID, DRY, Clean Architecture, RFC 9457 errors, pembersihan AI slop, strict TS |
+| 2. Pengerasan Frontend | `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert` | React 19, Error Boundaries, validasi Zod + RHF, a11y, state management, UI primitives |
+| 3. Pengerasan Backend | `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-llm-integration-expert` | Database migration, ORM, connection pooling, durable background jobs, transactional email, MCP tools, FinOps |
 | 4. Pengerasan Keamanan | `supabase-security-expert`, `firebase-security-expert`, `authentication-identity-expert`, `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `secure-fuzz-testing`, `fullstack-expert` | RLS, RBAC, OAuth2, Turnstile bot protection, Upstash rate limit, secret vault, fuzzing, XSS/CSRF |
 | 5. Testing & QA | `e2e-testing-expert`, `browser-automation-expert`, `coderabbit`, `secure-fuzz-testing`, `error-resilience-expert`, `logging-error-tracking-expert` | E2E (Playwright), visual testing, Unit (Vitest), circuit breaker, Sentry & Pino logging |
 | 6. Performa & SEO | `seo`, `seo-geo`, `seo-aeo-landing-page-writer`, `performance-web-vitals`, `app-analyzer-optimizer` | Core Web Vitals (LCP, INP, CLS), bundle, CDN, sitemap, llms.txt & AEO |
-| 7. DevOps & Observability | `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-handoff-resume`, `auto-doc-updater` | Docker, CI/CD pipeline, OpenTelemetry, PostHog, Vercel/Cloudflare, state checkpoint & CHANGELOG |
+| 7. DevOps & Observability | `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-memory-manager`, `prd-architect` | Docker, CI/CD pipeline, OpenTelemetry, PostHog, Vercel/Cloudflare, state checkpoint & CHANGELOG |
 
 ### Protokol Eksekusi
 
@@ -347,7 +343,7 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] TypeScript strict mode aktif (`strict: true`), tanpa tipe `any` (`typescript-expert`)
 - [ ] Validasi input di semua batas API (Zod, Pydantic)
 - [ ] Tidak ada hardcoded value — semua konfigurasi via environment variable
-- [ ] Dead code & AI slop dieliminasi via `vibe-code-gardener` dan `anti-slop`
+- [ ] Dead code & AI slop dieliminasi via `anti-slop`
 - [ ] Audit dependensi — semua paket up-to-date, tanpa CVE (`dependency-upgrade-migrator`)
 
 #### FASE 2: Pengerasan Frontend
