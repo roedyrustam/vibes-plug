@@ -17,8 +17,9 @@ author: "Roedy Rustam"
 Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies.
 
 ### Orchestration & Integration
-- `ui-components-expert`: For building robust UI components (Radix, shadcn).
+- `design-system-architect`: For building robust UI components (Radix, Base UI, shadcn) and design tokens.
 - `tailwind-expert`: For styling and custom @theme configurations.
+- `svg-animation-motion-expert`: For advanced animations, GSAP timelines, and motion physics.
 - `nextjs-app-router-expert`: For RSC, caching, and Next.js routing patterns.
 - `state-management-expert`: For client-side state (Zustand, Jotai).
 - `tanstack-query-expert`: For advanced data fetching and server state caching.
@@ -69,10 +70,8 @@ Use CSS-first configuration. Define custom tokens with `@theme` and register plu
 - **SPA (`spa-orchestrator`)**: Use **TanStack Router** for type-safe client routing and **TanStack Query v5** for server state. Never use bare `useEffect` for data fetching.
 - **MPA (`mpa-orchestrator`)**: Use **Alpine.js** or **HTMX** for micro-interactions. Apply Progressive Enhancement.
 
-#### 7. Advanced Animations
-- **GSAP (GreenSock)**: Use for complex, timeline-based, scroll-driven animations (`ScrollTrigger`). Enforce `@gsap/react` `useGSAP()` hook for auto-cleanup.
-- **Anime.js**: Use as a lightweight alternative for simple sequencing, SVG path animations, and DOM attribute animations.
-- Prefer JS animations over CSS when timeline control (pause, reverse, dynamic stagger) is required.
+#### 7. Animations & Motion
+For web animations, scroll-driven timelines, GSAP choreographies, and Framer Motion spring physics, delegate directly to `svg-animation-motion-expert`.
 
 ---
 
@@ -83,8 +82,9 @@ Use CSS-first configuration. Define custom tokens with `@theme` and register plu
 Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA.
 
 ### Integrasi Orkestrasi
-- `ui-components-expert`: Untuk membangun komponen UI yang kuat (Radix, shadcn).
+- `design-system-architect`: Untuk membangun komponen UI yang kuat (Radix, Base UI, shadcn) dan design token.
 - `tailwind-expert`: Untuk styling dan konfigurasi @theme kustom.
+- `svg-animation-motion-expert`: Untuk animasi web, timeline GSAP, dan fisika spring.
 - `nextjs-app-router-expert`: Untuk RSC, caching, dan pola routing Next.js.
 - `state-management-expert`: Untuk state client-side (Zustand, Jotai).
 - `tanstack-query-expert`: Untuk fetching data lanjutan dan caching server state.
@@ -123,7 +123,7 @@ Jangan gunakan `useMemo`, `useCallback`, atau `React.memo` kecuali sangat diperl
 Terapkan View Transitions API bawaan browser untuk transisi halaman. Gunakan `<Link viewTransition>` pada Next.js 15.
 
 #### 4. Tailwind CSS v4
-Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama.
+Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama (lihat `tailwind-expert`).
 
 #### 5. Aksesibilitas (WCAG 2.2) & Pengujian
 - Wajib gunakan HTML semantik (`<button>`, `<nav>`, `<main>`).
@@ -135,7 +135,5 @@ Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plug
 - **SPA (`spa-orchestrator`)**: Gunakan **TanStack Router** untuk routing klien dan **TanStack Query v5** untuk server state. Jangan gunakan `useEffect` murni untuk fetching data.
 - **MPA (`mpa-orchestrator`)**: Gunakan **Alpine.js** atau **HTMX** untuk interaksi mikro. Terapkan Progressive Enhancement.
 
-#### 7. Animasi Tingkat Lanjut
-- **GSAP (GreenSock)**: Gunakan untuk animasi kompleks, berbasis timeline, dan scroll-driven. Wajib gunakan hook `useGSAP()` dari `@gsap/react`.
-- **Anime.js**: Gunakan untuk staggering sederhana, animasi SVG, dan DOM.
-- Utamakan animasi JS (GSAP/Anime.js) daripada CSS murni jika kontrol timeline (pause, reverse) dibutuhkan.
+#### 7. Animasi & Motion
+Untuk animasi web, timeline scroll-driven, koreografi GSAP, dan fisika spring Framer Motion, delegasikan langsung ke `svg-animation-motion-expert`.

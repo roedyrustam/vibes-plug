@@ -91,11 +91,19 @@ Build high-precision RAG pipelines:
 4. **Cross-Encoder Reranking**: Reorder top-K candidates using Cohere Rerank 3 or FlashRank before feeding into the prompt.
 5. **Context Window vs RAG Decision**: If document sets fit comfortably under 200k tokens and are queried repeatedly, prefer **Native Context Caching** over RAG chunking to eliminate retrieval boundary errors.
 
-#### 5. Native Context Caching (Cost & Latency Optimization)
-Leverage provider-native context caching for large, repeated context (>32k tokens):
-- **Anthropic**: Use ephemeral prompt caching with `cache_control: { type: "ephemeral" }` on system prompts and tools.
-- **OpenAI**: Take advantage of automatic prefix caching for matching prompt prefixes >1024 tokens.
-- **Google Gemini**: Explicitly create and reuse cached content via `cachedContent` API for huge repositories, reducing costs up to 90%.
+#### 5. FinOps, Context Caching & Dynamic Model Routing
+- **Native Context Caching**: Store static system prompts or large codebases in cache (>32k tokens) to reduce costs by up to 90% (Anthropic ephemeral cache, OpenAI prefix cache, Gemini `cachedContent`).
+- **Dynamic Model Router**: Route queries based on complexity scoring (prompt length, required schema, reasoning requirements):
+  ```typescript
+  export function selectOptimalModel(promptLength: number, taskType: 'classification' | 'reasoning' | 'summary') {
+    if (taskType === 'classification' || promptLength < 500) {
+      return 'gemini-3.8-flash'; // High speed, minimal cost
+    }
+    return 'gemini-3.1-pro'; // Deep reasoning
+  }
+  ```
+- **Semantic Caching**: Hash query vector embeddings into Redis / vector DB to return cached completions for semantically identical questions before calling LLM APIs.
+- **Tenant Token Quotas**: Implement per-tenant token budgeting and alert thresholds to prevent cost overruns.
 
 #### 6. Structured Output & Guardrails
 - Utilize native Structured Outputs (`response_format: { type: "json_schema" }`) guaranteed by model token-level grammar masks.
@@ -103,11 +111,10 @@ Leverage provider-native context caching for large, repeated context (>32k token
 - Implement rate limiting, circuit breakers, and semantic caching (Redis / Upstash vector cache) to prevent runaway recursive tool loops.
 
 ## Orchestration & Integration
-- **`mcp-server-architect`**: Delegate custom MCP server implementation, schema definitions, and transport adapters.
+- **`mcp-server-architect`**: Delegate custom MCP server implementation, client consumption, schema definitions, and transport adapters.
 - **`multi-agent-orchestration`**: Delegate complex multi-agent state graphs, swarm workflows, and supervisor patterns.
 - **`gemini-agent-booster`**: Delegate Gemini 3.x long-context optimization, Multimodal Live API, and thinking budget controls.
-- **`ai-prompt-engineering-expert`**: Delegate advanced prompt design, few-shot calibration, and system prompt evals.
-- **`ai-cost-token-optimizer`**: Delegate API cost optimization, model routing, and token budget management.
+- **`ai-prompt-engineering-expert`**: Delegate advanced prompt design, few-shot calibration, automated Promptfoo evals, and system prompt testing.
 - **`vector-db-rag-expert`**: Delegate pgvector HNSW indexing and hybrid retrieval fine-tuning.
 - **`zero-to-prod-orchestrator`**: Executes this skill during Phase 4 architecture and implementation.
 
@@ -168,20 +175,20 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
 4. **Cross-Encoder Reranking**: Susun ulang kandidat terbaik menggunakan Cohere Rerank 3 atau FlashRank sebelum diteruskan ke system prompt.
 5. **Keputusan Cache vs RAG**: Jika dokumen stabil dan berada di bawah 200k token, utamakan **Context Caching Native** daripada RAG chunking untuk menghindari hilangnya konteks di perbatasan potongan teks.
 
-#### 5. Context Caching Native (Optimasi Biaya & Latensi)
-- **Anthropic**: Terapkan prompt caching ephemeral dengan `cache_control: { type: "ephemeral" }`.
-- **OpenAI**: Manfaatkan prefix caching otomatis untuk teks berulang >1024 token.
-- **Google Gemini**: Buat objek cache eksplisit via API `cachedContent` untuk repositori kode besar guna menghemat hingga 90% biaya input token.
+#### 5. FinOps, Context Caching & Routing Model Dinamis
+- **Context Caching Native**: Simpan prompt sistem atau repositori besar di cache (>32k token) via API `cachedContent` Gemini, ephemeral cache Anthropic, atau prefix cache OpenAI untuk menghemat hingga 90% biaya.
+- **Router Model Dinamis**: Arahkan kueri secara cerdas (tugas klasifikasi/parsing ke Flash, penalaran mendalam ke Pro/Opus).
+- **Semantic Caching**: Simpan embedding kueri di Redis / Vector DB untuk menyajikan jawaban cache pada pertanyaan identik tanpa memanggil ulang API LLM.
+- **Kuota & Anggaran Token**: Terapkan batas konsumsi token harian per pengguna/penyewa guna mencegah pembengkakan biaya.
 
 #### 6. Output Terstruktur & Guardrails
 - Manfaatkan mode Structured Outputs native model dengan skema Zod untuk menjamin integritas JSON.
 - Terapkan rate limiting, circuit breaker, dan semantic caching (Redis / Upstash) untuk mencegah pemanggilan tool secara rekursif tak berujung.
 
 ## Integrasi Orkestrasi
-- **`mcp-server-architect`**: Delegasikan pembuatan server MCP kustom, definisi skema, dan transport adapter.
+- **`mcp-server-architect`**: Delegasikan pembuatan server MCP kustom, konsumsi klien, definisi skema, dan transport adapter.
 - **`multi-agent-orchestration`**: Delegasikan alur kerja graph multi-agen, topologi swarm, dan pattern supervisor.
 - **`gemini-agent-booster`**: Delegasikan optimasi long-context Gemini 3.x, Multimodal Live API, dan kontrol thinking budget.
-- **`ai-prompt-engineering-expert`**: Delegasikan desain prompt lanjutan, kalibrasi few-shot, dan evaluasi prompt.
-- **`ai-cost-token-optimizer`**: Delegasikan optimasi biaya API, routing model cerdas, dan token budget.
+- **`ai-prompt-engineering-expert`**: Delegasikan desain prompt lanjutan, kalibrasi few-shot, evaluasi Promptfoo, dan pengujian prompt.
 - **`vector-db-rag-expert`**: Delegasikan tuning indeks HNSW pgvector dan pencarian hibrida.
 - **`zero-to-prod-orchestrator`**: Mengeksekusi skill ini pada Fase 4 perancangan arsitektur dan implementasi.
