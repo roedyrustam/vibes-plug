@@ -11,7 +11,7 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 144+ Skills Multi-Platform Agentic Swarm Architecture
+### ⚡ Universal 145+ Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
@@ -23,7 +23,7 @@ graph TD
 
     DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    subgraph SWARM["⚡ 144+ Specialized Engineering Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 145+ Specialized Engineering Skills Swarm Ecosystem"]
         D1["💡 Discovery, Ideation & Architecture (14 Skills)<br/>brainstorming • prd-architect • project-context-mapper • auto-doc-updater"]
         D2["🤖 AI, LLM & Agentic Systems (17 Skills)<br/>ai-llm-integration • vercel-ai-sdk • deep-research • pydantic-ai • synthetic-data • mcp-server"]
         D3["🎨 Design Systems, UI/UX & Visuals (15 Skills)<br/>design-system • modern-css-native • hig • ui-components • data-visualization"]
@@ -85,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **144+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **145+ specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -160,7 +160,7 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Features and Available Skills
 
-This plugin provides the following **144+ specialized skills** across 9 core engineering domains:
+This plugin provides the following **145+ specialized skills** across 9 core engineering domains:
 
 #### 🤖 AI & Agentic Systems
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), RAG architecture, vector databases, and AI agents.
@@ -318,6 +318,7 @@ This plugin provides the following **144+ specialized skills** across 9 core eng
 - **Data Telemetry Expert** (`data-telemetry-expert`): Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel).
 - **Coderabbit** (`coderabbit`): AI-powered automated code review, PR summarization, and interactive developer feedback.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Purger of AI slop, code bloat, context drift, and architectural decay in vibe-coded projects.
+- **Anti Slop** (`anti-slop`): Comprehensive Anti-AI Slop enforcement guide. Eliminates conversational pleasantries, placeholder code, truncated implementations, hallucinated packages, speculative over-engineering, and decorative comments.
 - **Web Scraper** (`web-scraper`): Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export.
 - **Website Design Cloner** (`website-design-cloner`): Analyzes and reverse-engineers website designs directly from a target URL, extracting layout structures, design tokens (colors, typography, spacing), component hierarchies, visual assets, and responsive behaviors to enable full 1:1 duplication into modern code (Tailwind CSS v4, React/Next.js, HTML/CSS).
 - **Documentation Site Expert** (`documentation-site-expert`): Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation.
@@ -354,7 +355,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.12.0 (2026 Edition) — 144+ skills | Supports AGY + Claude + Cursor
+v2.13.0 (2026 Edition) — 145+ skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -370,7 +371,7 @@ Copyright (c) 2026 Roedy Rustam.
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **144+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **145+ _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -445,7 +446,7 @@ mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.o
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **144+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
+Plugin ini menyediakan **145+ kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
 
 #### 🤖 AI & Sistem Agen
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), arsitektur RAG, vector database, dan agen AI.
@@ -603,6 +604,7 @@ Plugin ini menyediakan **144+ kemampuan (*skills*) terspesialisasi** di 9 domain
 - **Data Telemetry Expert** (`data-telemetry-expert`): Panduan ahli untuk observabilitas, telemetri, dan analitik.
 - **Coderabbit** (`coderabbit`): Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif.
 - **Vibe Code Gardener** (`vibe-code-gardener`): Pembersih AI slop, kode membengkak, konteks drift, dan pembusukan arsitektur pada proyek vibe coding.
+- **Anti Slop** (`anti-slop`): Panduan penegakan anti-AI slop komprehensif. Menghapus basa-basi AI, placeholder code, implementasi terpotong, paket halusinasi, dan komentar dekoratif.
 - **Web Scraper** (`web-scraper`): Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur.
 - **Website Design Cloner** (`website-design-cloner`): Mempelajari dan merekayasa balik desain situs web langsung dari URL target, mengekstrak struktur layout, design token (warna, tipografi, spacing), hierarki komponen, aset visual, dan perilaku responsif untuk duplikasi 1:1 penuh ke kode modern.
 - **Documentation Site Expert** (`documentation-site-expert`): Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen.
@@ -639,7 +641,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.12.0 (Edisi 2026) — 144+ skills | Mendukung AGY + Claude + Cursor
+v2.13.0 (Edisi 2026) — 145+ skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)

@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.13.0] - 2026-09-11
+
+### Added / Ditambahkan
+- **New Frontier Skill: `anti-slop` (145+ Skills Total)**:
+  - Added dedicated zero-tolerance Anti-AI Slop quality gate skill (`skills/anti-slop/SKILL.md`).
+  - Covers the 5 Pillars of AI Slop: elimination of conversational sycophancy/fluff, strict ban on lazy code truncation (`// TODO`, `// ... rest of code unchanged`, mock arrays in production), speculative over-engineering avoidance, elimination of syntax-narrating decorative comments, and enforcement of high technical density documentation.
+  - Added automated pre-commit/CI validator script `scripts/check-anti-slop.js` to catch AI slop and placeholder omissions deterministically.
+- **Bilingual Gold Standard Compliance**:
+  - Restructured and upgraded `graph-rag-knowledge-expert`, `pwa-offline-first-expert`, and `voice-ai-realtime-agent` to provide 100% compliant English and Bahasa Indonesia sections with standard bilingual anchor links and `## Integrasi Orkestrasi`.
+
+### Changed / Diubah
+- **Orchestrators & Swarm Integration**:
+  - Registered `anti-slop` in `skills/brainstorming/SKILL.md` across Testing & Security and Execution Handoff matrices.
+  - Integrated `anti-slop` into `skills/zero-to-prod-orchestrator/SKILL.md` (Phase 1, Phase 6 Code Quality Audit, and general token efficiency guidelines in both English & Indonesian).
+  - Cross-referenced `anti-slop` in `production-ready-hardener`, `vibe-code-gardener`, and `token-saver`.
+  - Updated all ecosystem documentation and counts to 145+ skills (`package.json`, `plugin.json`, `AGENTS.md`, `CLAUDE.md`, `BLUEPRINT.md`, `README.md`).
+
+---
+
 ## [2.12.0] - 2026-09-10
 
 ### Added / Ditambahkan

@@ -6,9 +6,21 @@ author: "Roedy Rustam"
 
 # Voice AI Realtime Agent (2026 Edition)
 
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
+
+---
+
+<a name="english"></a>
+## English
+
+### Description
 Expert guide for building ultra-low-latency (<300ms), bi-directional conversational voice AI applications. Covers WebRTC, full-duplex WebSocket audio streaming (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, and smart interruption (barge-in) handling.
 
-*Panduan ahli untuk membangun aplikasi AI suara percakapan dua arah berlatensi ultra-rendah (<300ms) menggunakan WebRTC, WebSocket full-duplex, OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi (barge-in).*
+### Trigger Conditions
+- Applications requiring sub-second, spoken conversation with an AI agent.
+- Voice customer service bots, verbal copilots, language tutors, and interactive voice assistants.
+- Implementation of WebRTC audio streaming, full-duplex WebSocket audio (PCM 24kHz), and Silero VAD.
+- Setting up OpenAI Realtime API (`gpt-4o-realtime-preview`) or Gemini Multimodal Live API.
 
 ---
 
@@ -200,3 +212,31 @@ export class GeminiVoiceAgent {
 - **`realtime-collaboration-expert`**: For syncing WebRTC tracks and room states with client applications.
 - **`gemini-agent-booster`**: Connects Gemini 3.x / 2.0 Flash thinking models to live voice agents.
 - **`mobile-expo-expert`**: Audio streaming implementation in React Native with `expo-av` and WebRTC shim.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Panduan ahli untuk membangun aplikasi AI suara percakapan dua arah berlatensi ultra-rendah (<300ms). Mencakup integrasi WebRTC, streaming audio WebSocket full-duplex (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi cerdas (*barge-in*).
+
+### Kondisi Pemicu
+- Kebutuhan interaksi percakapan verbal instan di bawah satu detik dengan agen AI.
+- Bot layanan pelanggan berbasis suara, asisten verbal, tutor bahasa interaktif.
+- Implementasi streaming audio WebRTC, WebSocket PCM 24kHz dua arah, dan Silero Voice Activity Detection (VAD).
+- Konfigurasi OpenAI Realtime API (`gpt-4o-realtime-preview`) atau Gemini Multimodal Live API.
+
+### Panduan Inti Arsitektur Suara Real-time
+1. **Full-Duplex Speech-to-Speech**: Mengganti pipeline sekuensial tradisional (STT ➔ LLM ➔ TTS) dengan pipeline streamable WebRTC atau model native speech-to-speech untuk memangkas latensi dari ~2000ms menjadi ~300ms.
+2. **Penanganan Interupsi (Barge-In)**: Saat VAD mendeteksi suara pengguna baru saat bot sedang berbicara, buffer audio keluar harus di-flush dalam waktu <150ms tanpa menunggu LLM menyelesaikan kalimatnya.
+3. **Standar Format Audio**: Input mikrofon PCM 16-bit 16kHz/24kHz Mono, dan output speaker 24kHz untuk intonasi yang alami dan jernih.
+
+---
+
+## Integrasi Orkestrasi
+
+- **`ai-llm-integration-expert`**: Routing instruksi sistem dasar dan pemanggilan tool fungsi selama percakapan suara.
+- **`realtime-collaboration-expert`**: Sinkronisasi track audio WebRTC dan status room pengguna.
+- **`gemini-agent-booster`**: Integrasi model multimodal Gemini 2.0/3.x Flash untuk live audio.
+- **`mobile-expo-expert`**: Implementasi audio streaming di React Native menggunakan `expo-av` dan WebRTC shim.

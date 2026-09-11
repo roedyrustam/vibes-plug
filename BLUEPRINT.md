@@ -14,9 +14,9 @@
 ## English
 
 ### Overview
-Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 144+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
+Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Cursor IDE that houses 145+ high-performance custom skills designed for SaaS architectures, database management, premium UI/UX design, AI & LLM agentic integrations, frontend performance optimization, and advanced SEO strategies.
 
-### Skill Modules (144 Total)
+### Skill Modules (145 Total)
 - **accessibility-testing-expert**: Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance
 - **ai-cost-token-optimizer**: Expert guide for LLM API cost optimization, Prompt Caching, model routing (Flash/Pro/Opus), semantic caching, and token budgeting
 - **ai-evals-benchmark-expert**: Expert guide for LLM & AI Agent automated evaluations (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, and deterministic assertions
@@ -24,6 +24,7 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 - **ai-media-generation-expert**: Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration
 - **ai-prompt-engineering-expert**: Expert guide for systematic Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output (JSON mode), prompt versioning, and LLM evaluation
 - **angular-expert**: Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3
+- **anti-slop**: Comprehensive Anti-AI Slop enforcement guide. Eliminates conversational pleasantries, placeholder code, truncated implementations, hallucinated packages, speculative over-engineering, and decorative comments
 - **api-design-expert**: Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design
 - **api-gateway-proxy-expert**: Expert guide for API Gateways, Reverse Proxies, and Service Mesh. Covers Kong, Traefik, NGINX, Cloudflare Gateway, and load balancing
 - **app-analyzer-optimizer**: Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization
@@ -168,9 +169,9 @@ Vibes Plug is a universal AI plugin for Antigravity (AGY), Claude Code, and Curs
 ## Bahasa Indonesia
 
 ### Ringkasan
-Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 144+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
+Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan Cursor IDE yang memuat 145+ modul kemampuan (*skills*) berkinerja tinggi. Dirancang khusus untuk arsitektur SaaS, manajemen database, desain UI/UX premium, integrasi agen AI & LLM, optimasi performa frontend, dan strategi SEO lanjutan.
 
-### Modul Skills (Total 144 Modul)
+### Modul Skills (Total 145 Modul)
 - **accessibility-testing-expert**: Panduan ahli pengujian aksesibilitas web
 - **ai-cost-token-optimizer**: Panduan ahli optimasi biaya API LLM, Prompt Caching, model routing, dan semantic caching
 - **ai-evals-benchmark-expert**: Panduan ahli evaluasi otomatis LLM & AI Agent (Evals), Promptfoo, DeepEval, Ragas, regression benchmarking, dan deterministic assertions
@@ -178,6 +179,7 @@ Vibes Plug adalah plugin AI universal untuk Antigravity (AGY), Claude Code, dan 
 - **ai-media-generation-expert**: Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)
 - **ai-prompt-engineering-expert**: Panduan ahli rekayasa prompt dan evaluasi LLM
 - **angular-expert**: Panduan ahli aplikasi enterprise Angular 19+
+- **anti-slop**: Panduan penegakan anti-AI slop komprehensif. Menghapus basa-basi AI, placeholder code, implementasi terpotong, paket halusinasi, dan komentar dekoratif
 - **api-design-expert**: Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first
 - **api-gateway-proxy-expert**: Panduan ahli untuk API Gateway, Reverse Proxy, dan Service Mesh
 - **app-analyzer-optimizer**: Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode

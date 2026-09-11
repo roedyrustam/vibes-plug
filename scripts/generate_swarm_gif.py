@@ -121,8 +121,8 @@ for frame_idx in range(NUM_FRAMES):
     draw.text((START_X + 20, 18), 'VIBES PLUG', fill='#38bdf8', font=font_title)
     draw.text((START_X + 135, 21), '— Universal Agentic Swarm Workflow (2026 Edition)', fill='#94a3b8', font=font_subtitle)
 
-    # 144+ Skills Badge (Pill)
-    badge_text = '144+ SKILLS ACTIVE'
+    # 145+ Skills Badge (Pill)
+    badge_text = '145+ SKILLS ACTIVE'
     badge_w, badge_h = 138, 24
     badge_x = START_X + TOTAL_CARDS_W - badge_w
     badge_y = 17

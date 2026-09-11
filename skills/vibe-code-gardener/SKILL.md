@@ -175,7 +175,7 @@ Tambahkan aturan ESLint, `depcheck` di CI, dan architecture test untuk menjaga c
 ---
 
 ## Orchestration & Integration
-- Integrates with `zero-to-prod-orchestrator`, `brainstorming`, `coderabbit`, and `dependency-upgrade-migrator`.
+- Integrates with `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`, `coderabbit`, and `dependency-upgrade-migrator`.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan `zero-to-prod-orchestrator`, `brainstorming`, `coderabbit`, dan `dependency-upgrade-migrator`.
+- Terintegrasi dengan `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`, `coderabbit`, dan `dependency-upgrade-migrator`.

@@ -29,7 +29,7 @@ The **Zero to Production Orchestrator** is the ultimate master skill designed to
 2. **Continuous Auto-Documentation**: Invoke `auto-doc-updater` to log changes in `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
 3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
 4. **State Preservation & Context**: Utilize `session-handoff-resume` when pausing work, and `session-context-loader` on every new session to preserve full context.
-5. **Efficiency**: Keep `token-saver` active during large refactors to maintain a lean, powerful execution loop.
+5. **Efficiency**: Keep `token-saver` and `anti-slop` active during large refactors to maintain a lean, powerful, and zero-placeholder execution loop.
 
 ---
 
@@ -45,7 +45,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `asisten-ramah`, `skill-baru`
+**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `asisten-ramah`, `skill-baru`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOKUMENTASI.md) alongside the Roadmap (ROADMAP.md).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
@@ -89,14 +89,14 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-evals-benchmark-expert`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-evals-benchmark-expert`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Write resilient E2E browser tests with Playwright and automated WCAG 2.2 accessibility tests with `@axe-core/playwright` and Pa11y.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
 - [ ] Implement Error Boundaries, retry patterns, circuit breakers, and graceful degradation.
 - [ ] Set up structured logging (Pino) and error tracking (Sentry) with source map uploads.
 - [ ] Audit CORS, CSP headers, rate-limiting, and input sanitization.
-- [ ] Run code quality audit to purge AI slop and architectural decay.
+- [ ] Run code quality audit to purge AI slop and architectural decay with anti-slop and vibe-code-gardener.
 
 #### PHASE 7: DevOps, Deployment & Proactive Monitoring
 **Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `ai-cost-token-optimizer`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `autonomous-chaos-monkey`, `self-healing-cloud-orchestrator`
@@ -134,14 +134,14 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 2. **Otomatisasi Dokumentasi**: Panggil `auto-doc-updater` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap milestone utama.
 3. **Pelacakan Progres**: Pelihara daftar periksa `PROGRESS.md` di root repositori.
 4. **Preservasi State & Konteks**: Gunakan `session-handoff-resume` saat menjeda pekerjaan, dan `session-context-loader` di awal setiap sesi baru untuk menjaga konteks penuh.
-5. **Efisiensi**: Aktifkan `token-saver` selama refactoring besar-besaran untuk mempertahankan *loop* eksekusi yang ringkas dan *powerful*.
+5. **Efisiensi**: Aktifkan `token-saver` dan `anti-slop` selama refactoring besar-besaran untuk mempertahankan *loop* eksekusi yang ringkas, powerful, dan bebas dari placeholder.
 
 ---
 
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `asisten-ramah`, `skill-baru`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-context-loader`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `project-context-mapper`, `self-evolving-memory-graph`, `saas-mvp-launcher`, `web-scraper`, `website-design-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `asisten-ramah`, `skill-baru`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOKUMENTASI.md) yang komprehensif beserta Roadmap (ROADMAP.md).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
@@ -185,14 +185,14 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-evals-benchmark-expert`
+**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `vibe-code-gardener`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-evals-benchmark-expert`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Menulis pengujian browser E2E Playwright dan pengujian aksesibilitas WCAG 2.2 otomatis (`@axe-core/playwright` dan Pa11y).
 - [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
 - [ ] Mengimplementasikan Error Boundary, pola retry, circuit breaker, dan degradasi anggun.
 - [ ] Menyiapkan logging terstruktur (Pino) dan pelacakan error (Sentry) dengan upload source map.
 - [ ] Mengaudit CORS, CSP headers, rate-limiting, dan sanitasi input.
-- [ ] Menjalankan audit kualitas kode untuk membersihkan AI slop dan pembusukan arsitektur.
+- [ ] Menjalankan audit kualitas kode untuk membersihkan AI slop dan pembusukan arsitektur dengan anti-slop dan vibe-code-gardener.
 
 #### FASE 7: Hardening Pra-Peluncuran, Monitoring & DevOps Sentinel
 **Mengorkestrasi:** `production-ready-hardener`, `app-analyzer-optimizer`, `seo`, `logging-error-tracking-expert`, `proactive-background-watcher`, `ai-cost-token-optimizer`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `autonomous-chaos-monkey`, `self-healing-cloud-orchestrator`

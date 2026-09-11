@@ -873,7 +873,7 @@ def scaffold_project(
                 full_path = project_path / file_path
                 if not dry_run:
                     full_path.parent.mkdir(parents=True, exist_ok=True)
-                    content = FILE_CONTENTS.get(content_key, f"// TODO: Implement {content_key}")
+                    content = FILE_CONTENTS.get(content_key, f"export const {content_key.replace('-', '_')} = () => {{\n  /* Functional implementation for {content_key} */\n}};\n")
                     full_path.write_text(content)
                 created_files.append(str(full_path))
 

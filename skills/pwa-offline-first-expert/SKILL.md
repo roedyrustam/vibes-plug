@@ -6,9 +6,21 @@ author: "Roedy Rustam"
 
 # PWA & Offline-First Expert (2026 Edition)
 
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
+
+---
+
+<a name="english"></a>
+## English
+
+### Description
 Expert guide for building enterprise-grade **Local-First** and **Progressive Web Applications (PWA)**. Eliminates loading spinners by reading and writing to local databases (OPFS SQLite, RxDB, IndexedDB) first, replicating seamlessly in the background with zero conflict (CRDTs, ElectricSQL, PowerSync), and packaging to native stores via PWABuilder.
 
-*Panduan ahli untuk membangun aplikasi web Local-First dan PWA kelas enterprise. Menghilangkan loading spinner dengan membaca dan menulis langsung ke database lokal, sinkronisasi otomatis di latar belakang tanpa bentrok data, dan packaging ke app store.*
+### Trigger Conditions
+- Applications requiring full offline functionality (field operations, mobile dashboards, transit apps).
+- User experience demands 0ms local read/write latency without loading spinners.
+- Multi-device sync architecture with automatic conflict resolution.
+- Packaging web apps for distribution on Google Play Store, iOS Safari PWA, or Microsoft Store.
 
 ---
 
@@ -183,3 +195,32 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 - **`state-management-expert`**: For connecting RxDB / local stores with Zustand or TanStack Store.
 - **`database-orm-expert`**: For designing compatible backend schemas with ElectricSQL / Postgres.
 - **`mobile-push-notification-expert`**: For Web Push Notification subscription handling.
+
+---
+
+<a name="bahasa-indonesia"></a>
+## Bahasa Indonesia
+
+### Deskripsi
+Panduan ahli untuk membangun aplikasi web **Local-First** dan **Progressive Web Applications (PWA)** kelas enterprise. Menghilangkan ketergantungan loading spinner dengan membaca dan menulis langsung ke database lokal (OPFS SQLite, RxDB, IndexedDB) terlebih dahulu, sinkronisasi otomatis di latar belakang tanpa bentrok data (CRDTs, ElectricSQL, PowerSync), dan packaging ke toko aplikasi native melalui PWABuilder.
+
+### Kondisi Pemicu
+- Aplikasi yang memerlukan fungsionalitas offline penuh (pekerjaan lapangan, dashboard mobile, aplikasi transit).
+- Tuntutan pengalaman pengguna dengan latensi baca/tulis lokal 0ms tanpa loading spinner.
+- Arsitektur sinkronisasi multi-perangkat dengan resolusi konflik data otomatis.
+- Kebutuhan rilis aplikasi web ke Google Play Store, iOS Safari PWA, atau Microsoft Store.
+
+### Ringkasan Prinsip Local-First & PWA
+1. **0ms Latensi Lokal**: Komponen membaca dan menulis ke IndexedDB / OPFS lokal secara instan.
+2. **Sinkronisasi Reaktif Latar Belakang**: Replikasi data berjalan di background worker; mutasi offline dicatat dalam antrean IndexedDB dan di-flush saat jaringan online.
+3. **Pola Service Worker**: Stale-While-Revalidate untuk asset statis dan rute shell utama menggunakan Service Worker v3.
+4. **Distribusi Native**: Menggunakan PWABuilder CLI untuk menghasilkan APK Android TWA dan paket MSIX Windows.
+
+---
+
+## Integrasi Orkestrasi
+
+- **`senior-frontend`**: Integrasi UI indikator status offline dan hook mutasi optimistik.
+- **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
+- **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.
+- **`mobile-push-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.
