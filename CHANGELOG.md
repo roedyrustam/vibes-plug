@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes search <query>`**: Pencarian semantik berbasis frekuensi kata kunci di seluruh 125 skill. Hasil diurutkan berdasarkan relevansi (score). Contoh: `vibes search payment` → 18 skill relevan, dipimpin oleh `doku-mcp-server` dan `payment-gateway-expert`.
+- **CLI: `vibes recipe list`**: Tampilkan 6 built-in skill bundles yang dikurasi dengan deskripsi dan daftar skill di tiap resep.
+- **CLI: `vibes recipe apply <name>`**: Install semua skill dari sebuah resep ke `.agents/skills/` sekaligus. Skip skill yang sudah terinstall. 6 resep tersedia:
+  - `ai-stack` — AI/LLM + RAG + Vector DB + Multi-Agent
+  - `fullstack-pro` — Next.js 15 + Auth + DB + Payments + Testing
+  - `security-hardened` — Zero-Trust + Rate-Limit + GDPR + Red Team
+  - `realtime-app` — WebSockets + SSE + CRDT + State
+  - `mobile-first` — Expo + PWA Offline + Push Notifications
+  - `data-platform` — ETL + Visualization + Telemetry + Search
+
+---
+
 ## [3.5.0] - 2026-09-14
 
 ### Added / Ditambahkan

@@ -815,9 +815,149 @@ node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" || exit 1
   }
 }
 
+// Built-in skill recipes (curated bundles)
+const RECIPES = {
+  'ai-stack': {
+    description: 'Full AI/LLM integration stack with RAG, vector DB, and agent orchestration',
+    skills: ['ai-llm-integration-expert', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'ai-prompt-engineering-expert', 'multi-agent-orchestration']
+  },
+  'fullstack-pro': {
+    description: 'Production-grade fullstack: Next.js 15, auth, DB, payments, testing',
+    skills: ['nextjs-app-router-expert', 'authentication-identity-expert', 'database-orm-expert', 'payment-gateway-expert', 'e2e-testing-expert', 'error-resilience-expert']
+  },
+  'security-hardened': {
+    description: 'Security-first stack: zero-trust, rate limiting, auth, GDPR compliance',
+    skills: ['zero-trust-secret-vault', 'rate-limit-abuse-prevention', 'authentication-identity-expert', 'compliance-gdpr-privacy-expert', 'autonomous-red-teamer', 'supabase-security-expert']
+  },
+  'realtime-app': {
+    description: 'Real-time collaboration: WebSockets, SSE, CRDTs, streaming',
+    skills: ['realtime-collaboration-expert', 'sse-websocket-streaming-expert', 'state-management-expert', 'error-resilience-expert']
+  },
+  'mobile-first': {
+    description: 'Mobile app stack: Expo, offline-first PWA, push notifications',
+    skills: ['mobile-expo-expert', 'pwa-offline-first-expert', 'authentication-identity-expert', 'api-design-expert', 'email-notification-expert']
+  },
+  'data-platform': {
+    description: 'Data engineering: ETL pipelines, visualization, telemetry, analytics',
+    skills: ['data-pipeline-etl-expert', 'data-visualization-expert', 'data-telemetry-expert', 'search-engine-expert']
+  }
+};
+
+async function runRecipe(action, recipeName) {
+  if (!action || action === 'list') {
+    console.log('\n\ud83e\uddc9 Available Vibes-Plug Recipes:\n');
+    for (const [name, { description, skills }] of Object.entries(RECIPES)) {
+      console.log(`  \x1b[36m${name}\x1b[0m`);
+      console.log(`    ${description}`);
+      console.log(`    Skills (${skills.length}): ${skills.join(', ')}\n`);
+    }
+    console.log('Usage: vibes recipe apply <recipe-name>');
+    rl.close();
+    return;
+  }
+
+  if (action === 'apply') {
+    if (!recipeName) {
+      console.error('\u274c Error: Recipe name required.');
+      console.log('Usage: vibes recipe apply <recipe-name>');
+      console.log('Run "vibes recipe list" to see available recipes.');
+      process.exit(1);
+    }
+
+    const recipe = RECIPES[recipeName];
+    if (!recipe) {
+      console.error(`\u274c Recipe '${recipeName}' not found.`);
+      console.log(`Available: ${Object.keys(RECIPES).join(', ')}`);
+      process.exit(1);
+    }
+
+    console.log(`\n\ud83e\uddc9 Applying recipe: ${recipeName}`);
+    console.log(`\ud83d\udcdd ${recipe.description}\n`);
+
+    const targetAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    let installed = 0, skipped = 0;
+    for (const skill of recipe.skills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const targetDir = path.join(targetAgentsDir, skill);
+      const alreadyInstalled = await fs.access(targetDir).then(() => true).catch(() => false);
+      if (alreadyInstalled) {
+        console.log(`  \u23ed\ufe0f Already installed: ${skill}`);
+        skipped++;
+      } else {
+        const exists = await fs.access(sourceDir).then(() => true).catch(() => false);
+        if (exists) {
+          await fs.cp(sourceDir, targetDir, { recursive: true });
+          console.log(`  \u2705 Installed: ${skill}`);
+          installed++;
+        } else {
+          console.warn(`  \u26a0\ufe0f  Not found in registry: ${skill}`);
+        }
+      }
+    }
+
+    console.log(`\n\ud83c\udf89 Recipe '${recipeName}' applied! ${installed} new, ${skipped} already installed.`);
+    console.log('\ud83d\udca1 Ask your AI agent to read the injected skills and begin development.');
+
+  } else {
+    console.error('\u274c Usage: vibes recipe list  OR  vibes recipe apply <name>');
+    process.exit(1);
+  }
+
+  rl.close();
+}
+
+async function runSearch(query) {
+  if (!query) {
+    console.error('\u274c Error: Search query required.');
+    console.log('Usage: vibes search <query>');
+    process.exit(1);
+  }
+
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+  const skills = entries.filter(d => d.isDirectory()).map(d => d.name);
+
+  const q = query.toLowerCase();
+  const results = [];
+
+  for (const skill of skills) {
+    const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
+    try {
+      const content = await fs.readFile(skillMdPath, 'utf8');
+      const lower = content.toLowerCase();
+      // Score by keyword frequency
+      const score = (lower.match(new RegExp(q, 'g')) || []).length;
+      if (score > 0) {
+        // Extract description from frontmatter
+        const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
+        const desc = descMatch ? descMatch[1].trim() : '';
+        results.push({ skill, score, desc });
+      }
+    } catch { /* skip unreadable */ }
+  }
+
+  results.sort((a, b) => b.score - a.score);
+
+  if (results.length === 0) {
+    console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
+    console.log('Try: vibes list  to browse all 125 skills.');
+  } else {
+    console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
+    results.slice(0, 10).forEach(({ skill, score, desc }) => {
+      console.log(`  \x1b[36m${skill}\x1b[0m  (relevance: ${score})`);
+      if (desc) console.log(`    ${desc.slice(0, 100)}`);
+    });
+    if (results.length > 10) console.log(`  ... and ${results.length - 10} more. Use "vibes list" to see all.`);
+  }
+
+  rl.close();
+}
+
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.5.0)
+🌊 Vibes-Plug CLI (v3.6.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -828,9 +968,12 @@ Commands:
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
+  search <query>            Search all 125 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
+  recipe list               List all built-in skill bundles/recipes
+  recipe apply <name>       Apply a recipe bundle to your project (ai-stack, fullstack-pro, ...)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   version current           Show current version
@@ -859,11 +1002,17 @@ switch (command) {
   case 'list':
     runListSkills(args[1]);
     break;
+  case 'search':
+    runSearch(args[1]);
+    break;
   case 'add':
     runAddSkill(args[1]);
     break;
   case 'remove':
     runRemoveSkill(args[1]);
+    break;
+  case 'recipe':
+    runRecipe(args[1], args[2]);
     break;
   case 'version':
     runVersion(args[1], args[2]);
