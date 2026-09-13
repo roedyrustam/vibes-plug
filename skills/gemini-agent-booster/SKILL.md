@@ -1,6 +1,6 @@
 ---
 name: gemini-agent-booster
-version: "2.8.0"
+version: "3.0.0"
 description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ long-context reasoning, Gemini 3.x thinking budget control, native context caching, Multimodal Live API protocols, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+, kontrol thinking budget Gemini 3.x, context caching native, protokol Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
 author: "Roedy Rustam"
 ---
@@ -15,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 3.x (Gemini 3.8 Flash, Gemini 3.5/3.1 Pro/Flash) capabilities — including 1M–2M token context window, dynamic thinking budget control, native context caching (`cachedContent`), Multimodal Live API integration, visual UI auditing, and parallel tool calling.
@@ -41,10 +41,16 @@ Master optimization protocol for the Gemini Agent (Antigravity) to leverage nati
 | TTFT (Time to First Token) | Optimized for depth | 3–5x lower latency |
 | Relative Cost Profile | Higher (for critical paths) | Ultra-low cost (ideal for high-frequency loops) |
 
-### 1. Dynamic Thinking Budget & Reasoning Protocol
+### 1. Thinking Budget Optimization for Frontier Tasks
 For complex architectural decisions, security audits, or debugging race conditions, control the reasoning depth via `thinkingConfig`:
-- **Flash Thinking for Rapid Tasks**: Set lower or default thinking budgets for quick bug fixes, linting, and boilerplate generation.
-- **Extended Thinking for Critical Paths**: Allocate high thinking budgets (e.g. 8k–32k thinking tokens) when designing distributed schemas, refactoring core engines, or evaluating cryptographic trade-offs.
+- **Dynamic Thinking Budget Allocation**: Allocate budgets dynamically based on task complexity classification.
+- **Cost-Performance Tradeoff Matrix**: Balance costs between Flash Thinking, Extended 32k thinking, and Full Pro reasoning.
+- **Tier Guidelines**:
+  - **Quick Fixes (2k)**: Linting, boilerplate, typo fixes.
+  - **Standard Dev (8k)**: Feature implementation, UI alignment.
+  - **Architecture Design (16k)**: Designing distributed schemas, refactoring core engines.
+  - **Critical System Design (32k)**: Evaluating cryptographic trade-offs, deeply complex race conditions.
+- **Token Monitoring**: Actively monitor thinking tokens and track reasoning costs.
 - **Reasoning Token Separation**: Ensure internal thinking tokens (`<thought>`) are isolated from client-facing output streams so that final responses remain crisp, clean, and token-efficient.
 
 ### 2. Native Context Caching (`cachedContent`)
@@ -54,7 +60,10 @@ Reduce token costs by up to 75–90% and drastically cut latency on large reposi
 - **Structure**:
   ```typescript
   // Native Gemini Context Caching Example
-  const cache = await ai.createCachedContent({
+  import { GoogleGenAI } from '@google/genai';
+  const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+  
+  const cache = await ai.caches.create({
     model: 'gemini-3.1-pro',
     contents: [{ role: 'user', parts: [{ text: fullCodebaseDump }] }],
     ttl: '3600s',
@@ -74,15 +83,47 @@ When inspecting massive codebases:
 3. **Cross-Service Traceability**: Analyze upstream microservice contracts, protobufs, and frontend consumers concurrently in the same session.
 4. **Massive Server Logs**: Ingest complete production logs to uncover subtle intermittent race conditions and memory leaks.
 
-### 4. Multimodal Live API & Screen Grounding
-Integrate real-time, low-latency multimodal interaction:
-- **Bidirectional Streaming**: Stream audio input and receive audio/text responses over WebSockets using Gemini Multimodal Live API.
-- **Screen & UI Grounding**: Capture frames from browser subagents or desktop windows; Gemini grounds user queries directly to coordinate points on screen.
+### 4. Multimodal Live API & Screen Grounding (Astra Paradigm)
+Integrate real-time, low-latency multimodal interaction using Astra-paradigm patterns:
+- **Bidirectional Streaming**: Stream audio input and receive audio/text responses over WebSockets using Gemini Multimodal Live API with sub-200ms interruption handling for conversational turn-taking.
+- **Continuous Video Perception**: Process 60fps video streams with spatial grounding.
+- **Spatial Memory Protocol**: Track object locations across video frames, maintaining a spatial state map.
+- **Episodic Memory Buffer Management**: Compress video segments into episodic summaries stored beyond the context window.
+- **Screen & UI Grounding**: Capture frames and map GUI interactions using exact screen grounding coordinates.
+- **Code Example - Spatial Memory**:
+  ```typescript
+  // Astra Paradigm: Spatial Tracking
+  liveSession.on('frame', async (frame) => {
+    const locations = await ai.analyzeSpatialState(frame);
+    spatialMemory.updateCoordinates(locations);
+  });
+  ```
 - **Visual UI Auditing Protocol**:
-  1. Capture current running application via `browser_subagent`.
+  1. Capture current running application (delegate to `browser-automation-expert` skill using Playwright/Stagehand).
   2. Audit layout, typography, contrast, and visual hierarchy against HIG and WCAG standards.
-  3. Compare visually with target design using `generate_image` or design system guidelines.
+  3. Compare visually with target design using `generate_image` or design system guidelines. (Note: If `generate_image` is not available in the current environment, delegate to the `ai-media-generation-expert` skill for visual asset generation.)
   4. Perform targeted micro-edits to CSS/Tailwind tokens until alignment reaches pixel perfection.
+
+### 4.5 Gemini as Narrative Simulation Engine
+Leveraging Gemini's 2M+ context window for persistent world-state in narrative simulations:
+- **Persistent World-State**: Maintain complete environment state within the context window.
+- **Character AI Persona Management**: Utilize system instructions to manage personality vectors and emotional states.
+- **Multi-turn Narrative Coherence**: Use context caching to cache the world state and only stream new character interactions.
+- **Cost Optimization**: Cache world-state/character definitions (75-90% cost reduction), only stream new dialogue/actions.
+- **Integration Pattern**: Act as the "World Engine" coordinating specialized character agents.
+- **Code Example - Cached World-State**:
+  ```typescript
+  const worldCache = await ai.caches.create({
+    model: 'gemini-3.1-pro',
+    contents: [{ role: 'system', parts: [{ text: fullWorldStateAndPersonas }] }],
+    ttl: '3600s',
+  });
+  const characterResponse = await ai.models.generateContent({
+    model: 'gemini-3.1-pro',
+    contents: [{ role: 'user', parts: [{ text: 'Character X walks into the tavern.' }] }],
+    cachedContent: worldCache.name,
+  });
+  ```
 
 ### 5. Deep Research & Search Grounding
 Gemini's native Search Grounding connects the agent directly to real-time web knowledge:
@@ -100,7 +141,7 @@ Gemini natively supports concurrent function calls:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas ekosistem Gemini 3.x (Gemini 3.8 Flash, Gemini 3.5/3.1 Pro/Flash) — termasuk context window 1M–2M token, kontrol dynamic thinking budget, native context caching (`cachedContent`), integrasi Multimodal Live API, audit visual UI, dan pemanggilan tool secara paralel.
@@ -126,10 +167,16 @@ Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilita
 | TTFT (Latensi Token Pertama) | Dioptimalkan untuk kedalaman | 3–5x lebih cepat |
 | Profil Biaya | Lebih tinggi (untuk alur kritis) | Sangat hemat (ideal untuk perulangan cepat) |
 
-### 1. Dynamic Thinking Budget & Protokol Penalaran
+### 1. Thinking Budget Optimization for Frontier Tasks
 Untuk keputusan arsitektur kompleks, audit keamanan, atau perbaikan race condition yang rumit, atur kedalaman penalaran via `thinkingConfig`:
-- **Flash Thinking untuk Tugas Cepat**: Gunakan alokasi budget penalaran default atau rendah untuk perbaikan bug ringan, formatting, dan boilerplate.
-- **Extended Thinking untuk Alur Kritis**: Alokasikan budget penalaran tinggi (misal: 8k–32k thinking tokens) saat mendesain skema terdistribusi, refaktor engine inti, atau evaluasi kriptografi.
+- **Dynamic Thinking Budget Allocation**: Alokasikan budget secara dinamis berdasarkan klasifikasi kompleksitas tugas.
+- **Cost-Performance Tradeoff Matrix**: Seimbangkan biaya antara Flash Thinking, Extended 32k thinking, dan Full Pro reasoning.
+- **Panduan Tingkat Budget**:
+  - **Quick Fixes (2k)**: Perbaikan bug ringan, formatting, dan boilerplate.
+  - **Standard Dev (8k)**: Implementasi fitur, penyesuaian UI.
+  - **Architecture Design (16k)**: Mendesain skema terdistribusi, refaktor engine inti.
+  - **Critical System Design (32k)**: Evaluasi kriptografi, perbaikan race condition rumit.
+- **Token Monitoring**: Pantau penggunaan thinking token dan lacak biaya penalaran.
 - **Pemisahan Token Penalaran**: Pastikan token pemikiran internal (`<thought>`) dipisahkan dari aliran output pengguna agar respons akhir tetap ringkas, bersih, dan efisien token.
 
 ### 2. Native Context Caching (`cachedContent`)
@@ -138,7 +185,10 @@ Pangkas biaya API sebesar 75–90% serta kurangi latensi respons pada repositori
 - **Manajemen TTL**: Tetapkan masa aktif cache (misal: 1–2 jam untuk sesi development aktif, 24 jam untuk dokumentasi statis).
 - **Contoh Implementasi**:
   ```typescript
-  const cache = await ai.createCachedContent({
+  import { GoogleGenAI } from '@google/genai';
+  const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+  
+  const cache = await ai.caches.create({
     model: 'gemini-3.1-pro',
     contents: [{ role: 'user', parts: [{ text: fullCodebaseDump }] }],
     ttl: '3600s',
@@ -152,15 +202,26 @@ Saat menganalisis repositori besar:
 3. **Pelacakan Antar Layanan**: Analisis kontrak upstream microservice, skema database, dan frontend consumer secara bersamaan dalam satu sesi.
 4. **Log Produksi Lengkap**: Masukkan ratusan ribu baris log untuk mengungkap anomali memori dan race condition intermiten.
 
-### 4. Multimodal Live API & Screen Grounding
-Integrasikan interaksi multimodal latensi rendah secara langsung:
-- **Streaming Dua Arah**: Streaming input suara dan terima respons audio/teks via WebSockets menggunakan Gemini Multimodal Live API.
-- **Screen & UI Grounding**: Tangkap frame layar dari browser subagent; Gemini memetakan perintah ke koordinat visual yang presisi di layar.
+### 4. Multimodal Live API & Screen Grounding (Astra Paradigm)
+Integrasikan interaksi multimodal latensi rendah secara langsung menggunakan pola Astra-paradigm:
+- **Streaming Dua Arah**: Streaming input suara dan terima respons audio/teks via WebSockets menggunakan Gemini Multimodal Live API dengan sub-200ms interruption handling untuk percakapan.
+- **Continuous Video Perception**: Proses aliran video 60fps dengan spatial grounding.
+- **Spatial Memory Protocol**: Lacak lokasi objek di seluruh frame video, mempertahankan peta status spasial.
+- **Episodic Memory Buffer Management**: Kompresi segmen video menjadi ringkasan episodik di luar context window.
+- **Screen & UI Grounding**: Tangkap frame layar dan petakan interaksi GUI menggunakan koordinat grounding layar yang presisi.
 - **Protokol Audit UI Visual**:
-  1. Ambil screenshot aplikasi yang sedang berjalan via `browser_subagent`.
+  1. Ambil screenshot aplikasi yang sedang berjalan (delegasikan ke skill `browser-automation-expert` dengan Playwright/Stagehand).
   2. Audit tata letak, tipografi, kontras, dan konsistensi terhadap pedoman HIG dan WCAG.
-  3. Bandingkan dengan referensi desain target menggunakan `generate_image`.
+  3. Bandingkan dengan referensi desain target menggunakan `generate_image`. (Catatan: Jika `generate_image` tidak tersedia, delegasikan ke skill `ai-media-generation-expert`.)
   4. Lakukan penyesuaian presisi pada token CSS/Tailwind hingga tampilan mencapai pixel-perfect.
+
+### 4.5 Gemini as Narrative Simulation Engine
+Memanfaatkan context window 2M+ Gemini untuk status dunia yang persisten dalam simulasi naratif:
+- **Persistent World-State**: Pertahankan status lingkungan lengkap dalam context window.
+- **Character AI Persona Management**: Kelola vektor kepribadian dan status emosional via system instructions.
+- **Multi-turn Narrative Coherence**: Gunakan context caching untuk world state dan hanya streaming interaksi karakter baru.
+- **Cost Optimization**: Cache world-state/karakter (hemat biaya 75-90%), hanya memproses dialog/aksi baru.
+- **Integration Pattern**: Bertindak sebagai "World Engine" yang mengoordinasikan agen karakter khusus.
 
 ### 5. Penelitian Mendalam & Search Grounding
 Search Grounding native Gemini menghubungkan agen langsung ke informasi web terkini:

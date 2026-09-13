@@ -1,4 +1,4 @@
----
+﻿---
 name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -374,7 +374,7 @@ export function MultiStepForm() {
 
 - `senior-frontend` — React 19 form patterns, useActionState, useOptimistic
 - `global-a11y-i18n-expert` — WCAG 2.2 form accessibility requirements
-- `ui-components-expert` — Input control primitives, form field components
+- `design-system-architect, senior-frontend` — Input control primitives, form field components
 - `authentication-identity-expert` — Login/signup form patterns
 - `error-resilience-expert` — Form submission error handling and retry
 - `tailwind-expert` — Form styling with Tailwind CSS v4
@@ -385,7 +385,7 @@ export function MultiStepForm() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).
@@ -402,6 +402,6 @@ Aktifkan skill ini ketika:
 
 - `senior-frontend` — Pola formulir React 19, useActionState, useOptimistic
 - `global-a11y-i18n-expert` — Persyaratan aksesibilitas formulir WCAG 2.2
-- `ui-components-expert` — Primitif kontrol input, komponen field formulir
+- `design-system-architect, senior-frontend` — Primitif kontrol input, komponen field formulir
 - `authentication-identity-expert` — Pola formulir login/signup
 - `error-resilience-expert` — Penanganan error submission formulir dan retry

@@ -1,4 +1,4 @@
----
+﻿---
 name: micro-frontend-architect
 description: "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Production-grade guidance for breaking down monolithic frontend applications into scalable, independently deployable **Micro-Frontends (MFE)**. Covers integration via **Webpack Module Federation**, **Vite Federation**, and run-time container orchestration using patterns suitable for massive Enterprise applications in Vue or React.
@@ -95,7 +95,7 @@ This skill works best when combined with:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan arsitektur untuk memecah aplikasi frontend raksasa menjadi **Micro-Frontends (MFE)** yang terukur dan dapat di-deploy secara independen. Mencakup **Webpack Module Federation** dan **Vite Federation**.

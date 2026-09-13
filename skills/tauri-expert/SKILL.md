@@ -1,4 +1,4 @@
----
+﻿---
 name: tauri-expert
 description: "Expert skill for Tauri (v2) development, Rust backend, IPC, and security / Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 This skill provides best practice guidance for building cross-platform desktop and mobile applications using Tauri (specifically Tauri v2). It covers frontend integration with the Rust backend, Inter-Process Communication (IPC), state management, and security.
@@ -61,7 +61,7 @@ Active when:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini memberikan panduan praktik terbaik (best practices) untuk membangun aplikasi desktop dan mobile lintas platform menggunakan Tauri (terutama Tauri v2). Skill ini mencakup integrasi frontend dengan backend Rust, Inter-Process Communication (IPC), manajemen state, serta keamanan.

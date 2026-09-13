@@ -1,4 +1,4 @@
----
+﻿---
 name: doku-payment-gateway
 description: "Expert guide for integrating DOKU Payment Gateway (Jokul API v2). Covers HMAC-SHA256 header signature calculation, Checkout & Direct APIs (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup / Panduan ahli integrasi DOKU Payment Gateway."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for implementing DOKU Payment Gateway (Jokul API v2) integrations based on official [DOKU Developers Documentation](https://developers.doku.com/). Covers authentication headers, SHA-256 Digest generation, HMAC-SHA256 request signature construction, Webhook notification verification, Checkout Payment Links, Direct Payments (Virtual Account, QRIS, E-Wallet, Credit Card), error handling, and sandbox/production deployment.
@@ -201,7 +201,7 @@ export function verifyDokuWebhook(req: Request, secretKey: string): boolean {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan DOKU Payment Gateway (Jokul API v2) sesuai standar dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/). Mencakup header autentikasi, pembuatan Digest SHA-256, pembuatan Signature HMAC-SHA256, verifikasi Webhook/Notifikasi, Checkout Payment Link, Direct Payment (Virtual Account, QRIS, E-Wallet, Kartu Kredit), penanganan error, dan migrasi Sandbox ke Production.

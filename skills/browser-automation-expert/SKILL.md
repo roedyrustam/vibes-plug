@@ -2,6 +2,7 @@
 name: browser-automation-expert
 description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
 author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Autonomous Web Agent & Automation Expert (2026 Edition)
@@ -114,8 +115,31 @@ if __name__ == "__main__":
 - **Fail-safe**: Set maximum navigation step thresholds (`max_steps <= 30`) to prevent infinite looping.
 - **Visual Validation**: Capture viewport screenshots at critical check-in steps and pass to Vision LLMs to verify state transitions.
 
+### Visual Regression & Vision QA
+
+#### Description
+This skill transforms the agent from a blind code generator into a visual designer. Instead of hoping the CSS looks correct, the agent is instructed to write a script that takes a screenshot of the newly created component, analyzes the screenshot using its own Vision AI capabilities, and iteratively tweaks the CSS until it matches the design intent perfectly.
+
+#### Trigger Conditions
+Activate this skill when the user says:
+- "Fix the CSS, the button is misaligned."
+- "Make it look exactly like this mockup."
+- "Ensure the UI is responsive on mobile screens."
+
+#### The Visual QA Loop
+1. **Code:** The agent writes the HTML/CSS/React component.
+2. **Serve:** The agent starts a local dev server in the background.
+3. **Capture:** The agent runs a quick Playwright/Puppeteer script to take screenshots at various viewports (Mobile, Tablet, Desktop).
+4. **Analyze:** The agent receives the screenshot (via the `view_file` tool on the image) and analyzes the visual hierarchy, contrast, and alignment.
+5. **Correct:** The agent fixes margin, padding, or flexbox issues based on what it *saw*, not just what the code says.
+
+#### Agent Constraints (Mandatory Visual Verification)
+- **NO BLIND CSS GUESSING**: You are strictly prohibited from finalizing a frontend component without verifying it visually first. You MUST use a `browser_subagent` to capture a screenshot of your work.
+- **Pixel-Perfect Validation**: Compare the screenshot against the initial design spec or generic UI/UX best practices. Iterate on the CSS until the visual output is flawless.
+- Always check contrast ratios visually if design tokens are overridden.
+
 ## Orchestration & Integration
-- Integrates with: `web-scraper`, `autonomous-chaos-monkey`, `visual-qa-vision-agent`, `e2e-testing-expert`.
+- Integrates with: `web-scraper`, `autonomous-chaos-monkey`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.
 
 ---
 
@@ -218,5 +242,19 @@ if __name__ == "__main__":
 - **Fail-safe**: Batasi jumlah langkah navigasi (`max_steps <= 30`) agar agen tidak terjebak dalam perulangan tak berujung.
 - **Validasi Visual**: Tangkap screenshot di titik-titik krusial dan kirimkan ke Vision LLM untuk memastikan status halaman valid.
 
+### Regresi Visual & QA Visi
+
+#### Deskripsi
+Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakukan *Quality Assurance* (QA) visual. Agen tidak lagi sekadar menebak CSS secara buta, melainkan mengambil *screenshot* dari halaman yang dibuatnya, melihat hasilnya, dan mengkoreksi *margin/padding* secara mandiri.
+
+#### Kondisi Pemicu
+- Saat pengguna meminta untuk merapikan UI yang berantakan.
+- Saat melakukan *cloning* desain dari gambar *mockup*.
+
+#### Panduan Singkat
+- **Gunakan Mata Anda (Wajib Verifikasi Visual):** Anda dilarang keras memfinalisasi atau menyelesaikan tugas frontend tanpa melihat hasilnya terlebih dahulu. Anda WAJIB mengambil *screenshot*, melihatnya menggunakan tool `view_file`, dan memverifikasi layout secara visual (*pixel-perfect*).
+- **Siklus Visual:** Tulis Kode ➔ Ambil Screenshot ➔ Analisis dengan *Vision* ➔ Perbaiki Tailwind/CSS ➔ Selesai.
+- **Jangan Menebak:** Terkadang `justify-center` tidak berfungsi karena ada pembungkus (*wrapper*) absolut. Jangan menebak-nebak di dalam kode; lihat hasil akhirnya secara visual!
+
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `web-scraper`, `autonomous-chaos-monkey`, `visual-qa-vision-agent`, `e2e-testing-expert`.
+- Terintegrasi dengan: `web-scraper`, `autonomous-chaos-monkey`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.

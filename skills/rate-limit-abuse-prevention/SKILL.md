@@ -1,4 +1,4 @@
----
+﻿---
 name: rate-limit-abuse-prevention
 description: "Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection / Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for protecting APIs and web applications from abuse, overuse, and attacks. Covers **rate limiting algorithms** (Token Bucket, Sliding Window), **Upstash Ratelimit**, **bot protection** (Cloudflare Turnstile, hCaptcha), **DDoS mitigation** at edge, **brute-force login prevention**, **API key management & usage quotas**, and **response headers** (X-RateLimit, Retry-After).
@@ -354,7 +354,7 @@ export async function validateApiKey(rawKey: string) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk melindungi API dan aplikasi web dari penyalahgunaan, penggunaan berlebihan, dan serangan. Mencakup **algoritma rate limiting** (Token Bucket, Sliding Window), **Upstash Ratelimit**, **perlindungan bot** (Cloudflare Turnstile, hCaptcha), **mitigasi DDoS** di edge, **pencegahan brute-force login**, **manajemen API key & kuota penggunaan**, dan **header respons** (X-RateLimit, Retry-After).

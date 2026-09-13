@@ -1,4 +1,4 @@
----
+﻿---
 name: event-driven-architect
 description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 This skill provides architectural guidance for breaking down large monolithic applications into scalable, decoupled services. It focuses on Event-Driven Architecture (EDA), message brokers, and advanced patterns like Event Sourcing and CQRS (Command Query Responsibility Segregation).
@@ -53,7 +53,7 @@ Instead of storing just the current state of an entity (e.g., `AccountBalance = 
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Skill ini memberikan panduan arsitektural untuk memecah aplikasi monolit yang besar menjadi layanan yang terdesentralisasi (*decoupled*) dan dapat diskalakan. Fokus utamanya adalah pada *Event-Driven Architecture* (Arsitektur Berbasis Peristiwa), *message brokers* (pialang pesan), serta pola lanjutan seperti *Event Sourcing* dan CQRS (*Command Query Responsibility Segregation*).

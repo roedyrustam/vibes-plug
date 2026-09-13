@@ -1,4 +1,4 @@
----
+﻿---
 name: modern-css-native-expert
 description: "Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, and :has() / Panduan ahli fitur CSS native modern 2026."
 author: "Roedy Rustam"
@@ -98,7 +98,7 @@ dialog[open]::backdrop {
 - [ ] Organize design tokens and reset styles into `@layer` (e.g. `@layer base, components, utilities;`).
 
 ## Orchestration & Integration
-- Integrates with: `design-system-architect`, `ui-components-expert`, `tailwind-expert`, `senior-frontend`.
+- Integrates with: `design-system-architect`, `design-system-architect, senior-frontend`, `tailwind-expert`, `senior-frontend`.
 
 ---
 
@@ -186,4 +186,4 @@ dialog[open]::backdrop {
 - [ ] Tata arsitektur CSS menggunakan `@layer base, components, utilities;`.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `design-system-architect`, `ui-components-expert`, `tailwind-expert`, `senior-frontend`.
+- Terintegrasi dengan: `design-system-architect`, `design-system-architect, senior-frontend`, `tailwind-expert`, `senior-frontend`.

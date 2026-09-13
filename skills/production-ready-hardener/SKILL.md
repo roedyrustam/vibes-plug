@@ -1,4 +1,4 @@
----
+﻿---
 name: production-ready-hardener
 description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 The **Production-Ready Hardener** is a master orchestrator skill that combines and delegates to all relevant vibes-plug skills to ensure your application is rock-solid, secure, performant, and production-grade before deployment. It acts as a comprehensive pre-production checklist that leaves no stone unturned — from frontend polish to backend resilience, from data security to observability.
@@ -125,7 +125,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 2: Frontend Hardening
-**Orchestrates:** `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `ui-components-expert`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert`
+**Orchestrates:** `senior-frontend`, `design-system-architect`, `tailwind-expert`, `form-validation-expert`, `state-management-expert`, `design-system-architect, senior-frontend`, `ui-ux-pro-max`, `hig`, `tanstack-query-expert`, `global-a11y-i18n-expert`
 
 **Checklist:**
 - [ ] **Server Components by default** — `'use client'` only when truly needed (state, events, browser APIs)
@@ -220,7 +220,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 7: DevOps & Deployment Readiness
-**Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-handoff-resume`, `auto-doc-updater`
+**Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `data-telemetry-expert`, `session-memory-manager`, `prd-architect`
 
 **Checklist:**
 - [ ] **Docker** — multi-stage builds, non-root user, HEALTHCHECK, `.dockerignore` configured
@@ -231,7 +231,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 - [ ] **SLIs/SLOs defined** — error rate < 0.1%, p99 latency < 500ms, uptime > 99.9%
 - [ ] **Incident response & Runbooks** — documented runbooks for common failure scenarios
 - [ ] **Backup & disaster recovery** — automated database backups, tested restore procedure
-- [ ] **Session Checkpoint & Docs** — `session-handoff-resume` checkpoint saved, `CHANGELOG.md` & `BLUEPRINT.md` updated (`auto-doc-updater`)
+- [ ] **Session Checkpoint & Docs** — `session-memory-manager` checkpoint saved, `CHANGELOG.md` & `BLUEPRINT.md` updated (`prd-architect`)
 
 ---
 
@@ -309,7 +309,7 @@ Active whenever the user asks to:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 **Production-Ready Hardener** adalah skill orkestrator utama yang menggabungkan dan mendelegasikan ke semua skill vibes-plug yang relevan untuk memastikan aplikasi Anda kokoh, aman, berperforma tinggi, dan siap produksi sebelum deployment. Skill ini berfungsi sebagai checklist pra-produksi komprehensif yang tidak meninggalkan celah — dari polish frontend hingga ketahanan backend, dari keamanan data hingga observability.
@@ -414,8 +414,8 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] Telemetri & observability (OpenTelemetry, PostHog, Sentry) (`data-telemetry-expert`)
 - [ ] Structured logging format JSON
 - [ ] SLI/SLO terdefinisi & backup database otomatis
-- [ ] Session state checkpoint disimpan (`session-handoff-resume`)
-- [ ] Dokumentasi terkini (`CHANGELOG.md`, `BLUEPRINT.md`, `README`) (`auto-doc-updater`)
+- [ ] Session state checkpoint disimpan (`session-memory-manager`)
+- [ ] Dokumentasi terkini (`CHANGELOG.md`, `BLUEPRINT.md`, `README`) (`prd-architect`)
 
 ---
 

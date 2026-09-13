@@ -2,6 +2,7 @@
 name: mpa-orchestrator
 description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
 author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Multi-Page Application (MPA) Orchestrator (2026 Edition)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -38,6 +39,33 @@ A structured approach for building and orchestrating Multi-Page Application (MPA
    - Maintain a `components/` directory for reusable UI elements.
 6. **Asset Management**: Centralize static assets in `public/`. Implement cache-busting for production.
 7. **Session-based State**: Use secure HTTP-only cookies and server sessions for auth, tenant context, and flash messages.
+
+### Bundler & Multi-Entry Configuration
+In a modern frontend context (especially for MPAs), define multiple entry points in the bundler configuration. This generates separate, optimized JavaScript and CSS bundles for the public site versus the complex admin dashboard, drastically reducing overall payload sizes for general users.
+
+**Implementation Checklist:**
+- [ ] Create separate HTML entry points in the root/public directory (e.g., `index.html`, `admin.html`).
+- [ ] Configure the frontend bundler (Vite/Webpack) to output multiple bundles.
+- [ ] Set up server-side routing (Nginx or Node.js) to serve the correct entry HTML based on the URL path.
+- [ ] Ensure shared components and utilities are properly tree-shaken and split into common chunks.
+
+**Example: Vite Config for Multiple Entries**
+```javascript
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+
+export default defineConfig({
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html'),
+        admin: resolve(__dirname, 'admin.html'),
+        app: resolve(__dirname, 'app.html')
+      }
+    }
+  }
+});
+```
 
 ### Framework Selection Guide
 
@@ -70,7 +98,7 @@ A structured approach for building and orchestrating Multi-Page Application (MPA
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
@@ -82,6 +110,15 @@ Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page 
 4. **HTMX 2 — Interaktivitas HTML-First**: Tingkatkan halaman server-rendered dengan pertukaran HTML parsial tanpa menulis JavaScript.
 5. **Ekosistem UI Bersama**: Direktori `layouts/` dan `components/` untuk elemen UI yang dapat digunakan kembali.
 6. **State Berbasis Session**: Cookie HTTP-only dan session sisi server untuk autentikasi dan konteks tenant.
+
+### Konfigurasi Bundler & Multi-Entry
+Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry points* pada konfigurasi *bundler*. Ini akan menghasilkan bundel JavaScript dan CSS yang terpisah dan optimal antara situs publik dan dashboard admin, sehingga secara drastis mengurangi ukuran *payload* bagi pengguna umum.
+
+**Checklist Implementasi:**
+- [ ] Buat titik entri HTML terpisah di direktori utama/publik (misal: `index.html`, `admin.html`).
+- [ ] Konfigurasi bundler frontend (Vite/Webpack) untuk menghasilkan multiple bundle.
+- [ ] Siapkan routing di sisi server (Nginx atau Node.js) untuk menyajikan HTML entri yang benar berdasarkan path URL.
+- [ ] Pastikan komponen dan utilitas yang dipakai bersama dioptimalkan (tree-shaking) dan dipisah ke dalam *common chunks*.
 
 ### Panduan Pemilihan Framework
 

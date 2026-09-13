@@ -1,4 +1,4 @@
----
+﻿---
 name: scalability-clean-code
 description: "Software architecture guidelines to maintain code readability (Clean Code, SOLID, DRY) and application scalability / Panduan arsitektur perangkat lunak untuk menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan kemampuan skalabilitas aplikasi."
 author: "Roedy Rustam"
@@ -14,7 +14,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Software architecture guidelines for writing clean, scalable, and maintainable code. Covers SOLID principles, DRY/YAGNI/KISS, Clean Architecture layers, **Vertical Slice Architecture** (the modern alternative to layered architecture), Domain-Driven Design (DDD) patterns, and practical refactoring techniques.
@@ -172,7 +172,7 @@ When choosing an architecture, ask:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan arsitektur perangkat lunak untuk menulis kode yang bersih, skalabel, dan mudah dirawat. Mencakup prinsip SOLID, DRY/YAGNI/KISS, lapisan Clean Architecture, **Vertical Slice Architecture** (alternatif modern dari layered architecture), pola Domain-Driven Design (DDD), dan teknik refactoring praktis.
