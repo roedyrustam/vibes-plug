@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-09-13
+
+### Added / Ditambahkan
+- **CLI Enhancements**:
+  - Added `vibes create-skill <skill-name>` command to easily scaffold new skills using a standard template.
+  - Added `vibes audit` command to manually run the Anti-AI Slop quality gate check.
+- **New Frontier Skill: `frontier-ai-models-expert`**:
+  - Added a dedicated skill for late-2026 frontier AI models, including Claude 5.1 (Fable/Mythos) and Project Astra (Gemini 3.1).
+  - Covers Enterprise Frontier Safeguards (EFS), zero data retention, and multimodal capabilities.
+  - Orchestrated in `brainstorming` and `zero-to-prod-orchestrator`.
+
+### Changed / Diubah
+- Synchronized orchestrator matrices in `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md` to include `frontier-ai-models-expert`.
+- Bumped versions in `package.json` and `plugin.json` to 3.2.0.
+
+---
+
 ## [2.13.0] - 2026-09-11
 
 ### Added / Ditambahkan

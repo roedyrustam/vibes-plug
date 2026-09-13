@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env node
+#!/usr/bin/env node
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -68,18 +68,78 @@ async function runValidate() {
   rl.close();
 }
 
+async function runAudit() {
+  console.log('Running Anti-AI Slop Audit...\n');
+  try {
+    const { execSync } = await import('child_process');
+    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.js'), { stdio: 'inherit' });
+  } catch (err) {
+    // Error is already printed by the child process
+  }
+  rl.close();
+}
+
+async function runCreateSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes create-skill <skill-name>');
+    process.exit(1);
+  }
+
+  const kebabCaseRegex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+  if (!kebabCaseRegex.test(skillName)) {
+    console.error('❌ Error: Skill name must be in kebab-case (e.g., my-new-skill).');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(PLUGIN_ROOT, 'skills', skillName);
+  const templatePath = path.join(PLUGIN_ROOT, 'templates', 'SKILL_TEMPLATE.md');
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Skill directory '${skillName}' already exists.`);
+      process.exit(1);
+    }
+
+    await fs.mkdir(targetDir, { recursive: true });
+    
+    let templateContent = await fs.readFile(templatePath, 'utf8');
+    
+    // Basic string replacements
+    templateContent = templateContent.replace(/skill-baru/g, skillName);
+    templateContent = templateContent.replace(/\[Skill Name\]/g, skillName);
+
+    await fs.writeFile(path.join(targetDir, 'SKILL.md'), templateContent, 'utf8');
+    
+    console.log(`\n🎉 Scaffolded new skill: ${skillName}`);
+    console.log(`📂 Location: skills/${skillName}/SKILL.md`);
+    console.log('\nNext steps:');
+    console.log('  1. Open the file and follow the checklist at the bottom.');
+    console.log('  2. Replace all [...] placeholders with actual content.');
+    console.log('  3. Register your new skill in brainstorming/SKILL.md');
+    
+  } catch (err) {
+    console.error(`\n❌ Error creating skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.1.0)
+🌊 Vibes-Plug CLI (v3.2.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
   vibes <command> [options]
 
 Commands:
-  init <project-name>   Scaffold a new zero-to-prod 8-Phase project structure
-  validate              Run the strict 124-skill ecosystem validation check
-  help                  Show this help menu
+  init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
+  create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
+  audit                     Run the strict Anti-AI Slop quality gate check
+  validate                  Run the strict 125-skill ecosystem validation check
+  help                      Show this help menu
 `);
   rl.close();
 }
@@ -88,6 +148,12 @@ Commands:
 switch (command) {
   case 'init':
     runInit(args[1]);
+    break;
+  case 'create-skill':
+    runCreateSkill(args[1]);
+    break;
+  case 'audit':
+    runAudit();
     break;
   case 'validate':
     runValidate();
