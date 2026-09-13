@@ -80,26 +80,10 @@ async function runBootstrap(templateName, projectName) {
       process.exit(1);
     }
 
-    console.log(`\n🚀 Bootstrapping Next.js 15 for template: ${templateName.toUpperCase()}...`);
-    console.log('⏳ This may take a minute or two as npm installs dependencies...\n');
-
-    const { execSync } = await import('child_process');
-    execSync(scaffoldCmd, { stdio: 'inherit' });
-
-    console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
-
-    // Core skills needed for any Next.js app
-    const coreSkills = [
-      'zero-to-prod-orchestrator',
-      'senior-frontend',
-      'tailwind-expert',
-      'anti-slop',
-      'session-memory-manager'
-    ];
-
-    let specificSkills = [];
+    // Resolve template-specific config first
     let scaffoldCmd = null;
     let prdTitle = projectName;
+    let specificSkills = [];
 
     if (templateName === 'saas') {
       prdTitle = 'Multi-Tenant SaaS';
@@ -122,6 +106,23 @@ async function runBootstrap(templateName, projectName) {
       scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
       specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
     }
+
+    console.log(`\n\ud83d\ude80 Bootstrapping ${prdTitle} project: ${projectName}...`);
+    console.log('\u23f3 This may take a minute or two as npm installs dependencies...\n');
+
+    const { execSync } = await import('child_process');
+    execSync(scaffoldCmd, { stdio: 'inherit' });
+
+    console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
+
+    // Core skills for all templates
+    const coreSkills = [
+      'zero-to-prod-orchestrator',
+      'senior-frontend',
+      'tailwind-expert',
+      'anti-slop',
+      'session-memory-manager'
+    ];
 
     const allSkills = [...coreSkills, ...specificSkills];
     const targetAgentsDir = path.join(targetDir, '.agents', 'skills');
@@ -722,9 +723,101 @@ async function runDoctor() {
   rl.close();
 }
 
+async function runSkillInfo(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes skill info <skill-name>');
+    process.exit(1);
+  }
+
+  const skillPath = path.join(PLUGIN_ROOT, 'skills', skillName, 'SKILL.md');
+  try {
+    const content = await fs.readFile(skillPath, 'utf8');
+
+    // Parse frontmatter
+    const fmMatch = content.match(/---[\r\n]+([\s\S]*?)[\r\n]+---/);
+    if (!fmMatch) {
+      console.error(`❌ Skill '${skillName}' has no frontmatter.`);
+      process.exit(1);
+    }
+
+    const fm = fmMatch[1];
+    const get = (key) => { const m = fm.match(new RegExp(`${key}:\\s*["']?([^"'\\n]+)["']?`)); return m ? m[1].trim() : 'N/A'; };
+
+    const name = get('name');
+    const version = get('version');
+    const description = get('description');
+    const author = get('author');
+
+    // Extract orchestration section
+    const orchMatch = content.match(/## (?:Orchestration & Integration|Integrasi Orkestrasi)[\r\n]+([\s\S]*?)(?=\n##|$)/);
+    const orchText = orchMatch ? orchMatch[1].trim().split('\n').slice(0, 5).join('\n') : 'N/A';
+
+    // Check local installation status
+    const localPath = path.join(process.cwd(), '.agents', 'skills', skillName);
+    const isLocal = await fs.access(localPath).then(() => true).catch(() => false);
+
+    console.log(`\n📖 ${name} (v${version})`);
+    console.log(`📝 ${description}`);
+    console.log(`👤 Author : ${author}`);
+    console.log(`📍 Status : ${isLocal ? '✅ Installed locally (.agents/skills/)' : '❌ Not installed in this project'}`);
+    console.log(`\n🔗 Orchestration:`);
+    console.log(orchText);
+    console.log(`\n💡 To install: vibes add ${skillName}`);
+
+  } catch {
+    console.error(`❌ Skill '${skillName}' not found in the global registry.`);
+    console.log('Run "vibes list" to see all available skills.');
+  } finally {
+    rl.close();
+  }
+}
+
+async function runHooks(action) {
+  const gitDir = path.join(process.cwd(), '.git');
+  const hookPath = path.join(gitDir, 'hooks', 'pre-commit');
+
+  const gitExists = await fs.access(gitDir).then(() => true).catch(() => false);
+  if (!gitExists) {
+    console.error('❌ No .git directory found. Run this command inside a git repository.');
+    process.exit(1);
+  }
+
+  try {
+    if (!action || action === 'install') {
+      const hookContent = `#!/bin/sh
+# Installed by vibes-plug — Anti-AI Slop pre-commit gate
+echo "🔍 Running Vibes Anti-Slop Audit..."
+node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" || exit 1
+`;
+      await fs.mkdir(path.join(gitDir, 'hooks'), { recursive: true });
+      await fs.writeFile(hookPath, hookContent, { mode: 0o755 });
+      console.log('\n\u2705 Git pre-commit hook installed!');
+      console.log('🛡️  Anti-Slop Audit will now run automatically before every commit.');
+      console.log(`📂 Hook location: ${hookPath}`);
+
+    } else if (action === 'remove') {
+      const exists = await fs.access(hookPath).then(() => true).catch(() => false);
+      if (!exists) {
+        console.log('ℹ️  No vibes pre-commit hook found to remove.');
+      } else {
+        await fs.rm(hookPath, { force: true });
+        console.log('✅ Git pre-commit hook removed.');
+      }
+    } else {
+      console.error('❌ Usage: vibes hooks install  OR  vibes hooks remove');
+      process.exit(1);
+    }
+  } catch (err) {
+    console.error(`❌ Error managing hooks: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.4.0)
+🌊 Vibes-Plug CLI (v3.5.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -732,15 +825,18 @@ Usage:
 
 Commands:
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
-  bootstrap <type> <name>   Super-scaffold a full Next.js 15 app + AI Skills (saas | ecommerce)
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
+  skill info <skill-name>   Show metadata, description, and orchestration info for a skill
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   version current           Show current version
   version bump <type>       Bump version across all files (type: major | minor | patch)
+  hooks install             Install Git pre-commit Anti-Slop gate
+  hooks remove              Remove the Git pre-commit hook
   doctor                    Run environment health diagnostics
   audit                     Run the strict Anti-AI Slop quality gate check
   validate                  Run the strict skill ecosystem validation check
@@ -774,6 +870,12 @@ switch (command) {
     break;
   case 'doctor':
     runDoctor();
+    break;
+  case 'skill':
+    runSkillInfo(args[2]);
+    break;
+  case 'hooks':
+    runHooks(args[1]);
     break;
   case 'create-skill':
     runCreateSkill(args[1]);

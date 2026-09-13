@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.5.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes skill info <name>`**: Tampilkan metadata lengkap sebuah skill (name, version, description, author, orchestration links) langsung dari terminal. Juga menunjukkan apakah skill sudah terinstall di project lokal.
+- **CLI: `vibes hooks install`**: Install Git pre-commit hook yang menjalankan Anti-Slop Audit secara otomatis sebelum setiap `git commit`. Melindungi codebase dari AI placeholder code.
+- **CLI: `vibes hooks remove`**: Hapus Git pre-commit hook dengan aman.
+- **Bootstrap: 3 template baru** — `mobile` (Expo SDK), `api` (Hono/Node.js), `fullstack` (T3 Stack). Total kini 5 template: `saas`, `ecommerce`, `mobile`, `api`, `fullstack`. Setiap template dilengkapi dengan skill set yang sesuai domain.
+
+---
+
 ## [3.4.0] - 2026-09-14
 
 ### Added / Ditambahkan
