@@ -1,7 +1,8 @@
----
+﻿---
 name: email-notification-expert
 description: "Expert guide for transactional email (Resend, Postmark, SES), React Email templates, in-app notifications, and unified communication pipelines / Panduan ahli untuk email transaksional (Resend, Postmark, SES), template React Email, notifikasi in-app, dan pipeline komunikasi terpadu."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Email & Notification Expert (2026 Edition)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for building reliable email delivery systems and unified notification pipelines. Covers **Resend**, **Postmark**, **AWS SES**, **React Email** / **MJML** template engines, **email deliverability** (SPF, DKIM, DMARC), **in-app notification systems** (bell icon, toast, notification center), **webhook-triggered email flows**, **email queuing** with BullMQ/Inngest, and **CAN-SPAM/GDPR** compliance.
@@ -346,7 +347,7 @@ export async function registerForPushNotificationsAsync() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem pengiriman email yang andal dan pipeline notifikasi terpadu. Mencakup **Resend**, **Postmark**, **AWS SES**, mesin template **React Email** / **MJML**, **deliverabilitas email** (SPF, DKIM, DMARC), **sistem notifikasi in-app** (bell icon, toast, pusat notifikasi), **alur email berbasis webhook**, **antrean email** dengan BullMQ/Inngest, dan kepatuhan **CAN-SPAM/GDPR**.

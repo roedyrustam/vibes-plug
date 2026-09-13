@@ -1,7 +1,8 @@
----
+﻿---
 name: wordpress-headless-expert
 description: "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # WordPress Headless Expert (2026 Edition)

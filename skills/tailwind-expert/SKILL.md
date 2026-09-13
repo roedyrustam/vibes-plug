@@ -1,7 +1,8 @@
----
+﻿---
 name: tailwind-expert
 description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Tailwind CSS Expert (v4 Edition)
@@ -25,7 +26,7 @@ Strict guidelines and best practices for Tailwind CSS v4. Enforces the CSS-first
 ## Orchestration & Integration
 Integrates tightly with the following skills:
 - **`senior-frontend`**: Feeds modern CSS capabilities into Next.js/React component architecture.
-- **`ui-components-expert`**: Provides the styling primitives for Radix/shadcn-style components.
+- **`design-system-architect, senior-frontend`**: Provides the styling primitives for Radix/shadcn-style components.
 - **`design-system-architect`**: Establishes the core tokens mapped inside `@theme`.
 
 ### Execution Standards
@@ -75,6 +76,34 @@ When upgrading older codebases:
 - **Specificity**: Use `@layer utilities` strictly when custom CSS requires Tailwind's specificity tier.
 - **No `@apply` Abuse**: Avoid `@apply` in loops or highly repeated components; use HTML utility classes to leverage Lightning CSS tree-shaking.
 
+#### 5. Bootstrap to Tailwind Migration Guide
+1. **Analyze the Legacy Structure**:
+   - Identify the version of Bootstrap being used.
+   - Locate custom CSS files that override Bootstrap defaults.
+   - Identify interactive components (modals, dropdowns, tooltips, tabs, carousels) that rely on Bootstrap's JavaScript or jQuery.
+2. **Setup Modern Tools**:
+   - Ensure **Tailwind CSS v4** is properly set up in the project (e.g., via CDN for simple projects, or PostCSS/Vite for build steps).
+   - Inject **Alpine.js** via CDN or module bundler to handle interactivity.
+3. **Migration Strategy**:
+   - **Grid & Layout**: Convert Bootstrap grids (`container`, `row`, `col-*`) to Tailwind flexbox (`flex`, `flex-col`, `gap-*`) or CSS Grid (`grid`, `grid-cols-*`).
+   - **Spacing & Typography**: Map Bootstrap spacing (`m-3`, `p-4`) to Tailwind spacing (`m-4`, `p-6`—noting scale differences). Map typography utilities (`text-center`, `font-weight-bold`) to Tailwind equivalents (`text-center`, `font-bold`).
+   - **Colors**: Update Bootstrap semantic colors (`primary`, `success`, `danger`) to Tailwind color palettes (e.g., `blue-600`, `green-500`, `red-500`) or define custom themes in CSS variables for Tailwind v4.
+   - **Components**: Rebuild Bootstrap components (cards, buttons, alerts, navbars) using Tailwind utility classes to match or improve the original design.
+4. **Interactivity with Alpine.js**:
+   - Remove jQuery and Bootstrap JS dependencies.
+   - Replace interactive Bootstrap components with Alpine.js data and directives.
+   - **Dropdowns**: Use `x-data="{ open: false }"` and `@click="open = !open"`.
+   - **Modals**: Use Alpine.js to manage the open state and handle background overlays and click-away events (`@click.outside`).
+   - **Tabs**: Manage active tab state with `x-data="{ tab: 'home' }"`.
+5. **UI/UX Modernization & Skill Integration**:
+   - Do NOT just do a 1:1 translation of Bootstrap classes. The goal is to elevate the design.
+   - You MUST orchestrate and apply guidelines from other UI/UX skills (`ui-ux-expert`, `ui-ux-pro-max`, and `hig`).
+   - Implement Human Interface Guidelines (HIG) principles: Hierarchy, Harmony, and Consistency.
+   - Use vibrant colors, smooth micro-animations, glassmorphism (if appropriate), and modern typography to "WOW" the user.
+6. **Quality Assurance**:
+   - Verify that responsive design behaves correctly across breakpoints (`sm:`, `md:`, `lg:`).
+   - Ensure interactive components (modals, dropdowns) feel premium with Alpine.js transitions (`x-transition`).
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -92,7 +121,7 @@ Panduan ketat dan praktik terbaik untuk Tailwind CSS v4. Memaksa penggunaan mode
 ## Integrasi Orkestrasi
 Terintegrasi erat dengan skill berikut:
 - **`senior-frontend`**: Menyuplai kapabilitas CSS modern ke dalam arsitektur komponen Next.js/React.
-- **`ui-components-expert`**: Menyediakan primitif styling untuk komponen gaya Radix/shadcn.
+- **`design-system-architect, senior-frontend`**: Menyediakan primitif styling untuk komponen gaya Radix/shadcn.
 - **`design-system-architect`**: Membangun token utama yang dipetakan di dalam `@theme`.
 
 ### Standar Eksekusi
@@ -138,3 +167,31 @@ Saat memperbarui codebase lama:
 - **Konfigurasi Nol**: Andalkan deteksi konten otomatis v4. Jangan tentukan path konten secara manual.
 - **Spesifisitas**: Gunakan `@layer utilities` secara ketat hanya jika CSS kustom memerlukan tingkat spesifisitas Tailwind.
 - **Dilarang Menyalahgunakan `@apply`**: Hindari `@apply` pada loop atau komponen berulang; gunakan kelas utilitas di HTML untuk memaksimalkan tree-shaking Lightning CSS.
+
+#### 5. Panduan Migrasi Bootstrap ke Tailwind
+1. **Analisis Struktur Lama**:
+   - Identifikasi versi Bootstrap yang digunakan.
+   - Temukan file CSS kustom yang menimpa (override) default Bootstrap.
+   - Identifikasi komponen interaktif (modal, dropdown, tooltip, tab, carousel) yang mengandalkan JavaScript Bootstrap atau jQuery.
+2. **Setup Tools Modern**:
+   - Pastikan **Tailwind CSS v4** disiapkan dengan benar di proyek (misalnya, melalui CDN untuk proyek sederhana, atau PostCSS/Vite jika ada build step).
+   - Masukkan **Alpine.js** melalui CDN atau module bundler untuk menangani interaktivitas.
+3. **Strategi Migrasi**:
+   - **Grid & Layout**: Ubah grid Bootstrap (`container`, `row`, `col-*`) menjadi flexbox Tailwind (`flex`, `flex-col`, `gap-*`) atau CSS Grid (`grid`, `grid-cols-*`).
+   - **Spacing & Tipografi**: Petakan spasi Bootstrap (`m-3`, `p-4`) ke Tailwind (`m-4`, `p-6`—perhatikan perbedaan skala). Petakan utilitas teks (`text-center`, `font-weight-bold`) ke padanan Tailwind (`text-center`, `font-bold`).
+   - **Warna**: Perbarui warna semantik Bootstrap (`primary`, `success`, `danger`) ke palet warna Tailwind (misal: `blue-600`, `green-500`, `red-500`) atau definisikan tema kustom di variabel CSS untuk Tailwind v4.
+   - **Komponen**: Bangun ulang komponen Bootstrap (card, button, alert, navbar) menggunakan kelas utilitas Tailwind untuk mencocokkan atau memperbaiki desain aslinya.
+4. **Interaktivitas dengan Alpine.js**:
+   - Hapus dependensi jQuery dan Bootstrap JS.
+   - Ganti komponen interaktif Bootstrap dengan data dan direktif Alpine.js.
+   - **Dropdown**: Gunakan `x-data="{ open: false }"` dan `@click="open = !open"`.
+   - **Modal**: Gunakan Alpine.js untuk mengelola state terbuka, overlay latar belakang, dan event klik di luar (`@click.outside`).
+   - **Tab**: Kelola state tab aktif dengan `x-data="{ tab: 'home' }"`.
+5. **Modernisasi UI/UX & Integrasi Skill**:
+   - JANGAN hanya menerjemahkan kelas Bootstrap 1:1. Tujuannya adalah meningkatkan kualitas desain.
+   - Anda WAJIB mengorkestrasi dan menerapkan pedoman dari skill UI/UX lainnya (`ui-ux-expert`, `ui-ux-pro-max`, dan `hig`).
+   - Terapkan prinsip Human Interface Guidelines (HIG): Hierarchy, Harmony, dan Consistency.
+   - Gunakan warna cerah, mikro-animasi halus, glassmorphism (jika sesuai), dan tipografi modern untuk memberikan kesan "WOW" pada pengguna.
+6. **Quality Assurance**:
+   - Verifikasi bahwa desain responsif berfungsi dengan benar di semua breakpoint (`sm:`, `md:`, `lg:`).
+   - Pastikan komponen interaktif (modal, dropdown) terasa premium dengan transisi Alpine.js (`x-transition`).

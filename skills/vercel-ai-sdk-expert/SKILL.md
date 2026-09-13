@@ -1,7 +1,8 @@
----
+﻿---
 name: vercel-ai-sdk-expert
 description: "Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering / Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15."
-author: vibes-plug-swarm
+author: vibes-plug-swarm
+version: "3.0.0"
 ---
 
 # Vercel AI SDK Expert (Core, UI & Fullstack AI Engineering)
@@ -14,7 +15,7 @@ author: vibes-plug-swarm
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `ui-components-expert`, and `multi-agent-orchestration` to deliver reactive, streaming AI interfaces.
+Connects and orchestrates with domain skills like `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `design-system-architect, senior-frontend`, and `multi-agent-orchestration` to deliver reactive, streaming AI interfaces.
 
 ### Description
 Production-grade guide for building AI applications using the **Vercel AI SDK (Core & UI)**. Covers unified model provider abstraction (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), streaming text and structured objects (`streamText`, `streamObject`), dynamic multi-step tool execution loops with `maxSteps`, client-side React 19 hooks (`useChat`, `useCompletion`), streaming data attachments (`createDataStreamResponse`), and generative UI rendering.
@@ -97,7 +98,7 @@ export async function POST(req: Request) {
   const { codeDiff } = await req.json();
 
   const result = streamObject({
-    model: google('gemini-2.5-flash'),
+    model: google('gemini-3.8-flash'),
     schema: z.object({
       securityVulnerabilities: z.array(z.object({
         severity: z.enum(['low', 'medium', 'high', 'critical']),
@@ -160,13 +161,57 @@ export function AgenticChat() {
 }
 ```
 
+#### 4. Reasoning Token Streaming
+Handle `part.type === 'reasoning'` in streamText responses to build collapsible thinking UIs.
+
+Provider-specific thinking configuration:
+- Anthropic: `thinking: { type: 'enabled', budgetTokens: 10000 }`
+- Google: `thinkingConfig: { thinkingBudget: 10000 }`
+- OpenAI: `reasoningEffort: 'high'`
+
+```typescript
+// Server: Route handler with reasoning streaming
+const result = streamText({
+  model: anthropic('claude-3-7-sonnet-20250219'),
+  prompt: userMessage,
+  providerOptions: {
+    anthropic: { thinking: { type: 'enabled', budgetTokens: 10000 } }
+  }
+});
+```
+
+```tsx
+// Client: React component rendering reasoning accordion
+{message.parts?.map((part, i) => {
+  if (part.type === 'reasoning') {
+    return <ThinkingAccordion key={i} content={part.reasoning} />;
+  }
+  if (part.type === 'text') {
+    return <Markdown key={i}>{part.text}</Markdown>;
+  }
+})}
+```
+
+#### 5. Multimodal Attachments in useChat
+Handle user-uploaded images and documents in `useChat` using `experimental_attachments` in the chat input. This allows sending base64 or URL-based image attachments to vision models.
+
+```tsx
+const { messages, input, handleSubmit, handleInputChange } = useChat();
+
+const handleFileUpload = (files: FileList) => {
+  // Convert to data URLs or upload to storage
+};
+
+handleSubmit(e, { experimental_attachments: attachments });
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `ui-components-expert`, dan `multi-agent-orchestration` untuk menghadirkan antarmuka AI yang reaktif dan berlatensi rendah.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `design-system-architect, senior-frontend`, dan `multi-agent-orchestration` untuk menghadirkan antarmuka AI yang reaktif dan berlatensi rendah.
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core & UI)**. Mencakup abstraksi penyedia model terpadu (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), streaming teks dan objek terstruktur (`streamText`, `streamObject`), siklus eksekusi tool multi-langkah otonom dengan `maxSteps`, hook klien React 19 (`useChat`, `useCompletion`), streaming respons saluran data (`createDataStreamResponse`), dan rendering Generative UI.

@@ -1,7 +1,8 @@
----
+﻿---
 name: self-healing-cloud-orchestrator
 description: "Real-time log monitoring, crash detection, and auto-hotfixing code without human intervention / Pemantauan log real-time, deteksi kerusakan, dan perbaikan kode hotfix otomatis tanpa intervensi manusia."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Self-Healing Cloud Orchestrator (Code-to-Cloud Auto Remediation)

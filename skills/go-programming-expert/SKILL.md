@@ -1,7 +1,8 @@
----
+﻿---
 name: go-programming-expert
 description: "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Go Programming Expert (Go 1.25 Edition)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert-level Go development for building high-performance microservices, APIs, and CLI tools. Covers **Go 1.25** features (range-over-func iterators, generic type aliases, weak pointers), structured logging with `slog`, `net/http` with the new ServeMux patterns, Gin/Echo/Fiber frameworks, sqlc for type-safe SQL, gRPC, and production testing patterns.
@@ -254,7 +255,7 @@ func TestGetUser(t *testing.T) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan Go tingkat ahli untuk membangun microservices, API, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.25** (range-over-func, generic type alias, weak pointer), structured logging dengan `slog`, ServeMux `net/http` dengan pola baru (Go 1.22+), framework Gin/Echo/Fiber, sqlc untuk SQL type-safe, gRPC, dan pola pengujian produksi.

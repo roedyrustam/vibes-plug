@@ -1,7 +1,8 @@
----
+﻿---
 name: openapi-swagger-codegen-expert
 description: "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # OpenAPI & Swagger Codegen Expert
@@ -39,7 +40,7 @@ Dedicated expert guide for API contract-first development using OpenAPI 3.1, Swa
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli khusus untuk pengembangan API dengan pendekatan *contract-first* menggunakan OpenAPI 3.1, Swagger UI, dan otomatisasi pembuatan kode (codegen). Mencakup pembuatan klien API yang *strictly typed* (menggunakan `openapi-typescript`, `Orval`, atau Microsoft `Kiota`), *scaffolding* untuk server, dan implementasi *contract testing* untuk memastikan backend selalu sesuai dengan dokumentasinya.

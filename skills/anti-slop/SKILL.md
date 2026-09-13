@@ -1,7 +1,8 @@
----
+﻿---
 name: anti-slop
 description: "Comprehensive Anti-AI Slop enforcement guide. Updated to include token efficiency and code gardening / Panduan penegakan anti-AI slop komprehensif. Diperbarui dengan efisiensi token dan perawatan kode."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Anti-Slop, Token Efficiency & Code Gardening Protocol (2026 Edition)

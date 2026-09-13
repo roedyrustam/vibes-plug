@@ -1,8 +1,8 @@
----
+﻿---
 name: multi-agent-orchestration
-version: "2.8.0"
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)
@@ -15,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers core agentic design patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), stateful graph engines (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared episodic/semantic memory, tool execution sandboxes, and human-in-the-loop (HITL) guardrails.
@@ -63,12 +63,18 @@ Production systems should favor explicit **Workflows** over unbounded autonomous
                    [Output]
 ```
 
+### Bridging Internal Swarm Patterns
+vibes-plug's internal Swarm Director patterns (from `AGENTS.md`) map directly to these external frameworks:
+- **Fan-Out / Fan-In topology**: Mapped via LangGraph parallel node execution + reducer functions, or Google ADK sub-agent arrays.
+- **Pipeline Saga topology**: Mapped via OpenAI Agents SDK sequential handoffs or Mastra.ai sequential chains.
+- **Critic-Validator Loop topology**: Mapped via LangGraph conditional edges routing back to generator nodes.
+
 ### Agent Framework Comparison (2026)
 
 | Framework | Language | Best For | Key Differentiator |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Complex stateful workflows & graphs | Graph-based, persistent checkpointers, time-travel debugging |
-| **OpenAI Agents SDK** | Python | GPT-5 / o-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
+| **OpenAI Agents SDK** | Python | GPT-4.5 / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
 | **Google ADK** | Python | Gemini-powered swarms | Native Vertex AI, multi-agent streaming, search grounding |
 | **Mastra.ai** | TypeScript | TS-first web apps & microservices | Built-in memory, evals, RAG, and native MCP support |
 | **CrewAI** | Python | Role-playing business teams | Fast initial prototyping for business analyst teams |
@@ -116,6 +122,29 @@ builder.add_conditional_edges("evaluator", route_next, {"generator": "generator"
 # Persist state with checkpointer for HITL interruption before destructive actions
 checkpointer = MemorySaver()
 graph = builder.compile(checkpointer=checkpointer, interrupt_before=["generator"])
+```
+
+**TypeScript LangGraph Implementation:**
+```typescript
+import { StateGraph, MemorySaver, END } from "@langchain/langgraph";
+
+const graphState = {
+  messages: { value: (x, y) => x.concat(y), default: () => [] },
+  approved: { value: (x, y) => y, default: () => false }
+};
+
+const builder = new StateGraph({ channels: graphState })
+  .addNode("generator", async (state) => ({ messages: [await coder.invoke(state)] }))
+  .addNode("evaluator", async (state) => {
+    const res = await auditor.invoke(state);
+    return { messages: [res.critique], approved: res.isPassing };
+  })
+  .addEdge("__start__", "generator")
+  .addEdge("generator", "evaluator")
+  .addConditionalEdges("evaluator", (state) => state.approved ? END : "generator");
+
+const checkpointer = new MemorySaver();
+const graph = builder.compile({ checkpointer, interruptBefore: ["generator"] });
 ```
 
 #### 2. OpenAI Agents SDK — Agent Handoffs & Guardrails
@@ -185,13 +214,90 @@ Mandatory safeguards before executing irreversible operations:
 - **Fallback Escalation**: If a specialist agent stalls or loops, the Swarm Director gracefully fallbacks to `fullstack-expert` or requests human guidance.
 - **Checkpoint Persistence**: Always persist intermediate progress to `PROGRESS.md` or `BLUEPRINT.md` so sessions can resume without losing context.
 
+#### 7. Narrative Simulation Swarms (Fable Paradigm)
+Multi-agent autonomous story world simulation architecture where agents act as characters.
+- **Character-Agent Personality Encoding:** Uses Big Five personality model + emotional valence vectors (joy, anger, fear, surprise, sadness, disgust).
+- **Inter-Agent Dialogue Protocols:** Constrained by narrative coherence.
+- **World-State Consensus Protocol:** Distributed shared memory with conflict resolution to maintain a consistent simulated reality.
+- **Autonomous Episodic Generation:** Agents create story episodes dynamically without human prompting.
+- **Director Agent Pattern:** A meta-agent that monitors the swarm and ensures narrative arc consistency.
+
+```typescript
+import { StateGraph, END } from "@langchain/langgraph";
+import { BaseMessage, SystemMessage } from "@langchain/core/messages";
+
+interface WorldState {
+  messages: BaseMessage[];
+  events: string[];
+}
+
+const romeoAgent = async (state: WorldState) => {
+  // Encoded with High Openness, High Neuroticism, emotional vectors
+  const response = await llm.invoke([
+    new SystemMessage("You are Romeo. You are feeling [Joy: 0.8, Sadness: 0.2]. Respond to the world state."),
+    ...state.messages
+  ]);
+  return { messages: [response] };
+};
+
+const directorAgent = async (state: WorldState) => {
+  // Ensures narrative arc consistency
+  const evaluation = await evaluatorLLM.invoke(state.messages);
+  return { events: [evaluation.content] };
+};
+```
+
+#### 8. Computer-Using Agent (CUA) Orchestration
+- **CUA Agent Delegation:** Swarm director delegates specific UI tasks to CUA worker agents.
+- **Screen-Sharing Observation:** Orchestrator agent observes CUA's visual stream to verify progress.
+- **Recovery Protocols:** Handles CUA failures like stuck UI states or navigation errors via visual feedback loops.
+- **Parallel CUA Execution:** Multiple CUA workers operate different browser tabs/windows simultaneously.
+
+```typescript
+import { CUARunner, CUAWorker } from "cua-orchestration-sdk";
+
+const orchestrator = new CUARunner();
+const worker1 = new CUAWorker({ id: "tab-1", objective: "Scrape pricing page" });
+const worker2 = new CUAWorker({ id: "tab-2", objective: "Monitor system health" });
+
+orchestrator.registerWorkers([worker1, worker2]);
+orchestrator.on("worker_stuck", async (worker, screenshot) => {
+  await orchestrator.recoverWorker(worker, screenshot);
+});
+await orchestrator.executeParallel();
+```
+
+#### 9. Continuous Perception Swarms
+- **Always-on Monitoring:** 24/7 perception loops capturing multimodal input.
+- **Live Video/Audio Triage Agents:** (Intake → Classify → Route) pipelines processing continuous streams.
+- **Spatial Awareness Distribution:** Sharing spatial context across the agent swarm.
+- **Event-Driven Wakeup Protocols:** Agents remain dormant until a relevant stimulus is detected.
+- **Gemini Multimodal Live API Integration:** Native hooks for continuous audio/video perception.
+
+```typescript
+import { MultimodalLiveClient } from "gemini-live-sdk";
+import { TriageSwarm } from "./swarm";
+
+const client = new MultimodalLiveClient({ apiKey: process.env.GEMINI_API_KEY });
+const swarm = new TriageSwarm();
+
+client.on("video_frame", async (frame) => {
+  const classification = await swarm.intake(frame);
+  if (classification.isCritical) {
+    swarm.wakeupSpecialists(classification.type);
+    await swarm.route(frame, classification.type);
+  }
+});
+client.connect();
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup pola desain agentik inti (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), engine graph stateful (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), memori bersama episodik/semantik, sandbox eksekusi tool, dan guardrail human-in-the-loop (HITL).
@@ -221,7 +327,7 @@ Untuk sistem produksi yang handal, utamakan arsitektur **Workflows** terstruktur
 | Framework | Bahasa | Terbaik Untuk | Keunggulan Utama |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Alur kerja graf stateful kompleks | Berbasis graf, checkpointer persisten, time-travel debugging |
-| **OpenAI Agents SDK** | Python | Agen native GPT-5 / o-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
+| **OpenAI Agents SDK** | Python | Agen native GPT-4.5 / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
 | **Google ADK** | Python | Swarm agen bertenaga Gemini | Integrasi Vertex AI native, streaming multi-agen, search grounding |
 | **Mastra.ai** | TypeScript | Web apps & microservice TS-first | Memori bawaan, evaluasi otomatis, RAG, dan dukungan MCP native |
 | **CrewAI** | Python | Tim simulasi peran | Cepat untuk membuat prototipe kolaborasi tim bisnis |
@@ -252,3 +358,22 @@ Pengamanan wajib sebelum melakukan tindakan yang tidak dapat dibatalkan:
 - **Batas Percobaan Ulang**: Maksimal 2 kali perbaikan otomatis per sub-agen.
 - **Eskalasi Fallback**: Jika agen spesialis mengalami kendala konteks atau gagal berulang kali, Swarm Director segera mengalihkan tugas ke `fullstack-expert` atau meminta masukan pengguna.
 - **Persistensi Kemajuan**: Simpan selalu checkpoint di `PROGRESS.md` atau `BLUEPRINT.md` agar alur kerja dapat dilanjutkan secara efisien tanpa token berlebih.
+
+#### 7. Swarm Simulasi Naratif (Paradigma Fable)
+Arsitektur simulasi dunia cerita otonom multi-agen di mana agen bertindak sebagai karakter.
+- **Pengkodean Kepribadian Karakter-Agen:** Menggunakan model kepribadian Big Five + vektor valensi emosional.
+- **Protokol Dialog Antar-Agen:** Dibatasi oleh koherensi naratif.
+- **Protokol Konsensus Status Dunia:** Memori bersama terdistribusi dengan penyelesaian konflik.
+- **Pola Agen Sutradara (Director):** Meta-agen yang memastikan konsistensi alur cerita.
+
+#### 8. Orkestrasi Computer-Using Agent (CUA)
+- **Delegasi Agen CUA:** Sutradara mendelegasikan tugas UI ke agen pekerja CUA.
+- **Observasi Berbagi Layar:** Orkestrator memantau aliran visual CUA.
+- **Protokol Pemulihan:** Menangani kegagalan CUA (UI macet) melalui loop umpan balik visual.
+- **Eksekusi CUA Paralel:** Berbagai agen mengoperasikan tab browser berbeda secara bersamaan.
+
+#### 9. Swarm Persepsi Berkelanjutan
+- **Pemantauan Selalu Aktif:** Loop persepsi 24/7 yang menangkap input multimodal (video/audio).
+- **Agen Triase Langsung:** Pipeline (Intake → Klasifikasi → Rute).
+- **Protokol Bangun Berbasis Peristiwa (Event-Driven):** Agen tidur hingga mendeteksi stimulus yang relevan.
+- **Integrasi API Live Multimodal Gemini:** Hook bawaan untuk pemrosesan persepsi berkelanjutan.

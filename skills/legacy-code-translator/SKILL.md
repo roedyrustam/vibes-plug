@@ -1,7 +1,8 @@
----
+﻿---
 name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Legacy Code Translator (Refactoring Engine)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 A rigid methodology for the AI agent to reverse-engineer and translate legacy codebases into modern architectures without losing business logic. This gives the agent the "superpower" to handle massive enterprise migrations safely, avoiding the common hallucination trap of rewriting everything at once.
@@ -43,7 +44,7 @@ The agent MUST follow this exact sequence:
 
 ### Integration with Other Skills (MANDATORY)
 - `prd-architect` — To document the extracted business rules before writing modern code.
-- `project-context-mapper` — To understand how the legacy files intertwine before pulling them apart.
+- `session-memory-manager` — To understand how the legacy files intertwine before pulling them apart.
 - `autonomous-tdd-debugger` — To write tests against the old code, ensuring the new code passes the exact same tests.
 
 ### Referenced By Orchestrators (MANDATORY)
@@ -56,7 +57,7 @@ The agent MUST follow this exact sequence:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan metodologis ketat bagi Agen AI untuk membongkar, menerjemahkan, dan memodernisasi *codebase* warisan (legacy) berskala raksasa (seperti PHP 5 atau React lawas) ke arsitektur modern tanpa kehilangan atau merusak *business logic* yang ada.

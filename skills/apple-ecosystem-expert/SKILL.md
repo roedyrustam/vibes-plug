@@ -1,7 +1,8 @@
----
+﻿---
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill
@@ -89,7 +90,7 @@ This skill works best when combined with:
 - `hig` — For detailed implementation of Apple Human Interface Guidelines styling.
 - `mobile-expo-expert` — When building React Native/Expo apps for iOS.
 - `tailwind-expert` — To apply CSS adjustments like `dvh` and safe-areas using Tailwind utility classes.
-- `ui-components-expert` — To ensure UI components are sized correctly for iOS touch targets (44x44).
+- `design-system-architect, senior-frontend` — To ensure UI components are sized correctly for iOS touch targets (44x44).
 
 ### Referenced By Orchestrators (MANDATORY)
 
@@ -104,7 +105,7 @@ This skill should be referenced by the following orchestrators:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk pengembangan ekosistem Apple. Mencakup kompatibilitas Safari WebKit, Progressive Web Apps (PWA) khusus iOS, interaksi sentuhan, konfigurasi `manifest.json`, dan penerapan prinsip Human Interface Guidelines (HIG) untuk web dan aplikasi iOS.
@@ -141,5 +142,5 @@ Skill ini harus direferensikan oleh orchestrator berikut:
 
 
 ## Orchestration & Integration
-- Integrates with: `hig`, `mobile-expo-expert`, `tailwind-expert`, `ui-components-expert`.
+- Integrates with: `hig`, `mobile-expo-expert`, `tailwind-expert`, `design-system-architect, senior-frontend`.
 - Orchestrated by: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`.

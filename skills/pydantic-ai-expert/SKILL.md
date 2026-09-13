@@ -1,7 +1,8 @@
----
+﻿---
 name: pydantic-ai-expert
 description: "Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows / Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI."
-author: vibes-plug-swarm
+author: vibes-plug-swarm
+version: "3.0.0"
 ---
 
 # Pydantic AI Expert (Type-Safe Python Agent Engineering)

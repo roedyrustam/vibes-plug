@@ -1,7 +1,8 @@
----
+﻿---
 name: coderabbit
 description: "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # CodeRabbit (2026 Edition — CodeRabbit 2.x)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for configuring and leveraging **CodeRabbit 2.x** — AI-powered automated code review, pull request summarization, and interactive developer feedback. Covers configuration, custom review rules, integration with CI/CD, and agentic review mode.
@@ -155,7 +156,7 @@ jobs:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk mengonfigurasi dan memanfaatkan **CodeRabbit 2.x** — review kode otomatis bertenaga AI, ringkasan pull request, dan umpan balik developer interaktif. Mencakup konfigurasi, aturan review kustom, integrasi dengan CI/CD, dan mode review agentik.

@@ -1,7 +1,8 @@
----
+﻿---
 name: e2e-testing-expert
 description: "Expert guide for End-to-End (E2E) testing with Playwright, unit/integration testing with Vitest, and CI/CD automated testing pipeline setup / Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi CI/CD."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # E2E Testing Expert (Playwright 1.49+ / Vitest 3 Edition)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for building comprehensive automated test suites using **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integration), and robust CI/CD pipelines. Covers modern testing patterns for Next.js 15, React 19, and API backends.
@@ -283,7 +284,7 @@ jobs:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk membangun test suite otomatis yang komprehensif menggunakan **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integrasi), dan pipeline CI/CD yang kuat. Mencakup pola pengujian modern untuk Next.js 15, React 19, dan backend API.

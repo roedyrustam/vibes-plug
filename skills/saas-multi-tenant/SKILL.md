@@ -1,7 +1,8 @@
----
+﻿---
 name: saas-multi-tenant
 description: "Design and implement multi-tenant SaaS architectures with RLS, tenant isolation, and PostgreSQL / Desain dan implementasikan arsitektur SaaS multi-tenant dengan RLS, isolasi tenant, dan PostgreSQL."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # SaaS Multi-Tenant Expert (2026 Edition)
@@ -14,7 +15,7 @@ author: "Roedy Rustam"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `project-context-mapper` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for designing and implementing multi-tenant SaaS architectures with full tenant isolation, Supabase/PostgreSQL Row Level Security (RLS), schema-per-org patterns, RBAC, and Super Admin access controls.
@@ -199,7 +200,7 @@ if (!can(currentMember.role, 'project:delete')) {
 
 ### Skill Orchestration & Handoff
 - **Upstream Orchestrator**: Executes during **Phase 3** of `zero-to-prod-orchestrator` or SaaS design lock in `brainstorming`.
-- **Database & Security**: Delegate database schema migrations to `supabase-migration` and security audit / App Check rules to `supabase-security-expert`.
+- **Database & Security**: Delegate database schema migrations to `database-orm-expert` and security audit / App Check rules to `supabase-security-expert`.
 - **SaaS Billing & Monitization**: Delegate subscription state machines and Stripe/Polar integration to `saas-billing` and `payment-gateway-expert`.
 - **Multi-Entry Points**: Delegate Super Admin domain isolation (`admin.yourdomain.com`) to `multiple-entry-points`.
 - **Transformation Roadmap**: Coordinate with `saas-transformer` and `saas-mvp-launcher` when upgrading single-tenant apps to multi-tenant.
@@ -210,7 +211,7 @@ if (!can(currentMember.role, 'project:delete')) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `project-context-mapper` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk merancang dan mengimplementasikan arsitektur SaaS multi-tenant dengan isolasi tenant penuh, Row Level Security (RLS) Supabase/PostgreSQL, pola schema-per-org, RBAC, dan kontrol akses Super Admin.
@@ -251,7 +252,7 @@ Definisikan peta izin per role (`owner`, `admin`, `member`, `viewer`) dan fungsi
 
 ### Orkestrasi Skill & Serah Terima
 - **Orkestrator Utama**: Dieksekusi pada **Fase 3** dari `zero-to-prod-orchestrator` atau saat finalisasi SaaS di `brainstorming`.
-- **Database & Keamanan**: Delegasikan migrasi skema ke `supabase-migration` dan audit keamanan / RLS ke `supabase-security-expert`.
+- **Database & Keamanan**: Delegasikan migrasi skema ke `database-orm-expert` dan audit keamanan / RLS ke `supabase-security-expert`.
 - **SaaS Billing & Monitisasi**: Delegasikan state machine langganan dan integrasi Stripe/Polar ke `saas-billing` dan `payment-gateway-expert`.
 - **Multi-Entry Points**: Delegasikan isolasi domain Super Admin (`admin.domain.com`) ke `multiple-entry-points`.
 - **Roadmap Transformasi**: Koordinasikan dengan `saas-transformer` dan `saas-mvp-launcher` saat mentransformasi aplikasi single-tenant ke multi-tenant.

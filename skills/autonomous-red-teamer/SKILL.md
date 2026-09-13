@@ -1,7 +1,8 @@
----
+﻿---
 name: autonomous-red-teamer
 description: "AI-driven dynamic security fuzzing, exploit generation (XSS, SQLi, SSRF, Prompt Injection), and automated patch remediation / Fuzzing keamanan dinamis berbasis AI, eksploitasi, dan remediasi otomatis."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Autonomous Red Teamer (AI Hacker & Adversarial Pen-Tester)
@@ -104,6 +105,73 @@ describe('Red Team Security: SSRF Protection', () => {
 - **Gate 2**: If any exploit test passes (vulnerability confirmed), emit a CVE report and block deployment.
 - **Gate 3**: Automatically apply remediation (parameterized queries, SSRF IP resolver filter, or system prompt guard delimiters).
 
+---
+
+### Coverage-Guided Fuzzing (Python/Rust/Go)
+Coverage-guided fuzzers need a target function that accepts a stream of bytes and processes it.
+
+#### 1. Python Fuzzing (Atheris)
+`Atheris` is a coverage-guided fuzzer for Python. It can fuzz Python code and native extensions:
+```python
+import sys
+import atheris
+
+with atheris.instrument_imports():
+    import our_parser  # Import target module inside instrument_imports
+
+def TestOneInput(data):
+    if len(data) < 4:
+        return
+    try:
+        # Decode and parse the byte data
+        text = data.decode("utf-8", errors="ignore")
+        our_parser.parse_config(text)
+    except our_parser.ParseException:
+        # Expected exceptions should be caught to avoid false positives
+        pass
+
+atheris.Setup(sys.argv, TestOneInput)
+atheris.Fuzz()
+```
+
+#### 2. Rust Fuzzing (cargo-fuzz & libFuzzer)
+Rust has first-class fuzzing support via `cargo-fuzz` which wraps `libFuzzer`:
+```rust
+#![no_main]
+use libfuzzer_sys::fuzz_target;
+
+fuzz_target!(|data: &[u8]| {
+    if let Ok(input_str) = std::str::from_utf8(data) {
+        let _ = our_crate::parse_config(input_str);
+    }
+});
+```
+- **Run Fuzzer**: Execute `cargo +nightly fuzz run <target_name>`.
+
+#### 3. Go Fuzzing (Native Go Fuzz)
+Go supports native fuzzing in its standard library (`testing` package):
+```go
+package main
+
+import (
+	"testing"
+	"ourmodule/parser"
+)
+
+func FuzzParseConfig(f *testing.F) {
+	// Add seed corpus for initial coverage guidance
+	f.Add([]byte("config_key = value"))
+	
+	f.Fuzz(func(t *testing.T, data []byte) {
+		_, err := parser.ParseConfig(data)
+		if err != nil {
+			t.Skip() // Skip expected/graceful errors
+		}
+	})
+}
+```
+- **Run Fuzzer**: Run `go test -fuzz=FuzzParseConfig -fuzztime=10m`.
+
 ## Orchestration & Integration
 - Connects to: `secure-fuzz-testing`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.
 
@@ -198,6 +266,73 @@ describe('Uji Keamanan Red Team: Perlindungan SSRF', () => {
 - **Gerbang 1**: Jalankan uji fuzzing adversarial otomatis di pipeline CI.
 - **Gerbang 2**: Jika ada serangan yang berhasil menembus sistem, buat laporan kerentanan dan hentikan proses deployment.
 - **Gerbang 3**: Pasang patch mitigasi secara otomatis (query berparameter, filter IP resolver SSRF, atau pembatas prompt sistem).
+
+---
+
+### Fuzzing Berpanduan Cakupan (Python/Rust/Go)
+Fuzzer berbasis cakupan memerlukan fungsi target yang menerima aliran byte untuk kemudian diproses secara dinamis.
+
+#### 1. Fuzzing Python (Atheris)
+`Atheris` adalah fuzzer berbasis cakupan untuk kode Python dan ekstensi native (C/C++):
+```python
+import sys
+import atheris
+
+with atheris.instrument_imports():
+    import our_parser  # Impor modul target di dalam instrument_imports
+
+def TestOneInput(data):
+    if len(data) < 4:
+        return
+    try:
+        # Dekode data byte menjadi teks
+        text = data.decode("utf-8", errors="ignore")
+        our_parser.parse_config(text)
+    except our_parser.ParseException:
+        # Tangkap exception yang diharapkan agar tidak dianggap crash palsu
+        pass
+
+atheris.Setup(sys.argv, TestOneInput)
+atheris.Fuzz()
+```
+
+#### 2. Fuzzing Rust (cargo-fuzz & libFuzzer)
+Rust memiliki dukungan fuzzing kelas satu melalui utilitas `cargo-fuzz` yang menggunakan pustaka `libFuzzer`:
+```rust
+#![no_main]
+use libfuzzer_sys::fuzz_target;
+
+fuzz_target!(|data: &[u8]| {
+    if let Ok(input_str) = std::str::from_utf8(data) {
+        let _ = our_crate::parse_config(input_str);
+    }
+});
+```
+- **Jalankan Fuzzer**: Eksekusi perintah `cargo +nightly fuzz run <nama_target>`.
+
+#### 3. Fuzzing Go (Native Go Fuzz)
+Go mendukung pengujian fuzzing secara native dalam pustaka standarnya (`testing` package):
+```go
+package main
+
+import (
+	"testing"
+	"ourmodule/parser"
+)
+
+func FuzzParseConfig(f *testing.F) {
+	// Tambahkan seed corpus awal sebagai panduan awal cakupan fuzzer
+	f.Add([]byte("config_key = value"))
+	
+	f.Fuzz(func(t *testing.T, data []byte) {
+		_, err := parser.ParseConfig(data)
+		if err != nil {
+			t.Skip() // Lewati error yang memang diharapkan (ditangani dengan aman)
+		}
+	})
+}
+```
+- **Jalankan Fuzzer**: Eksekusi perintah `go test -fuzz=FuzzParseConfig -fuzztime=10m`.
 
 ## Integrasi Orkestrasi
 - Terintegrasi dengan: `secure-fuzz-testing`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.

@@ -1,7 +1,8 @@
----
+﻿---
 name: local-slm-edge-ai-expert
 description: "Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings / Panduan ahli SLM lokal dan AI edge di browser."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Local SLM & Edge AI Expert (WebGPU & In-Browser Intelligence)
