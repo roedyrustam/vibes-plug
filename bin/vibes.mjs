@@ -297,6 +297,41 @@ server.run().catch(console.error);
   }
 }
 
+async function runAddSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes add <skill-name>');
+    process.exit(1);
+  }
+
+  const sourceDir = path.join(PLUGIN_ROOT, 'skills', skillName);
+  
+  try {
+    const exists = await fs.access(sourceDir).then(() => true).catch(() => false);
+    if (!exists) {
+      console.error(`❌ Error: Skill '${skillName}' not found in vibes-plug global registry.`);
+      process.exit(1);
+    }
+
+    // Default to .agents/skills for local project injection
+    const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+    const targetDir = path.join(targetBaseDir, skillName);
+
+    await fs.mkdir(targetBaseDir, { recursive: true });
+    
+    // Node v16.7.0+ required for fs.cp
+    await fs.cp(sourceDir, targetDir, { recursive: true });
+
+    console.log(`\n🎉 Successfully added '${skillName}' to your local project!`);
+    console.log(`📂 Location: .agents/skills/${skillName}/SKILL.md`);
+    console.log('\nYour AI agents will now automatically load this skill when working in this repository.');
+  } catch (err) {
+    console.error(`\n❌ Error adding skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
 function showHelp() {
   console.log(`
 🌊 Vibes-Plug CLI (v3.2.0)
@@ -309,6 +344,7 @@ Commands:
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
+  add <skill-name>          Inject a skill from the global registry into your local project (.agents/skills)
   audit                     Run the strict Anti-AI Slop quality gate check
   validate                  Run the strict 125-skill ecosystem validation check
   help                      Show this help menu
@@ -326,6 +362,9 @@ switch (command) {
     break;
   case 'create-mcp':
     runCreateMcp(args[1]);
+    break;
+  case 'add':
+    runAddSkill(args[1]);
     break;
   case 'audit':
     runAudit();
