@@ -5,10 +5,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.4.0] - 2026-09-13
+## [3.4.0] - 2026-09-14
 
-### Changed
-- Version bumped from 3.3.0 to 3.4.0
+### Added / Ditambahkan
+- **CLI: `vibes version current`**: Tampilkan versi saat ini dari `package.json`.
+- **CLI: `vibes version bump <major|minor|patch>`**: Bump versi secara terpusat dan sinkron di `package.json`, `plugin.json`, `vibes.mjs`, dan `CHANGELOG.md` sekaligus — eliminasi human error saat rilis.
+- **CLI: `vibes doctor`**: Health diagnostics — memeriksa Node.js version, npx, global skills directory, `@inquirer/prompts`, dan local `.agents/skills/` sekaligus dalam satu perintah.
+
+### Changed / Diubah
+- **CJS → ESM Migration**: Konversi `scripts/check-anti-slop.js` → `scripts/check-anti-slop.mjs` dan `scripts/update_skills.js` → `scripts/update_skills.mjs` menggunakan `import/export` syntax. Seluruh codebase kini 100% ESM.
+- **`package.json` scripts**: Ditambahkan `"audit"` dan `"update-skills"` npm script agar bisa dijalankan via `npm run audit` dan `npm run update-skills`.
+- **`runAudit`**: Diperbarui untuk menggunakan `check-anti-slop.mjs` (ESM) menggantikan versi CJS lama.
 
 ---
 

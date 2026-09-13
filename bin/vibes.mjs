@@ -65,7 +65,7 @@ async function runBootstrap(templateName, projectName) {
     process.exit(1);
   }
 
-  const validTemplates = ['saas', 'ecommerce'];
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack'];
   if (!validTemplates.includes(templateName)) {
     console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
     process.exit(1);
@@ -84,8 +84,7 @@ async function runBootstrap(templateName, projectName) {
     console.log('⏳ This may take a minute or two as npm installs dependencies...\n');
 
     const { execSync } = await import('child_process');
-    // Run npx create-next-app in non-interactive mode
-    execSync(`npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`, { stdio: 'inherit' });
+    execSync(scaffoldCmd, { stdio: 'inherit' });
 
     console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
 
@@ -99,21 +98,29 @@ async function runBootstrap(templateName, projectName) {
     ];
 
     let specificSkills = [];
+    let scaffoldCmd = null;
+    let prdTitle = projectName;
+
     if (templateName === 'saas') {
-      specificSkills = [
-        'saas-architect',
-        'saas-multi-tenant',
-        'saas-billing',
-        'payment-gateway-expert',
-        'supabase-security-expert'
-      ];
+      prdTitle = 'Multi-Tenant SaaS';
+      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'supabase-security-expert'];
     } else if (templateName === 'ecommerce') {
-      specificSkills = [
-        'ecommerce-expert',
-        'payment-gateway-expert',
-        'database-orm-expert',
-        'doku-payment-gateway'
-      ];
+      prdTitle = 'E-Commerce Platform';
+      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      specificSkills = ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway'];
+    } else if (templateName === 'mobile') {
+      prdTitle = 'Mobile App (Expo)';
+      scaffoldCmd = `npx create-expo-app@latest ${projectName} --template blank-typescript --yes`;
+      specificSkills = ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'];
+    } else if (templateName === 'api') {
+      prdTitle = 'Backend API (Hono/Node.js)';
+      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      specificSkills = ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'];
+    } else if (templateName === 'fullstack') {
+      prdTitle = 'Full-Stack T3 App';
+      scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
+      specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
     }
 
     const allSkills = [...coreSkills, ...specificSkills];
@@ -134,7 +141,6 @@ async function runBootstrap(templateName, projectName) {
     }
 
     // Overwrite README and PRD
-    const prdTitle = templateName === 'saas' ? 'Multi-Tenant SaaS' : 'E-Commerce Platform';
     const filesToCreate = {
       'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
       'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document\n\n(To be filled by the deep-research-analyst agent based on the ${templateName} template)`
