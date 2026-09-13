@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v2.14.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-125%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v3.2.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-126%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Cursor](https://img.shields.io/badge/cursor-compatible-3b82f6.svg)](https://github.com/roedyrustam/vibes-plug)
@@ -11,7 +11,7 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 125 Skills Multi-Platform Agentic Swarm Architecture
+### ⚡ Universal 126 Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
@@ -23,7 +23,7 @@ graph TD
 
     DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    subgraph SWARM["⚡ 125 Specialized Engineering Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 126 Specialized Engineering Skills Swarm Ecosystem"]
         D1["💡 Discovery, Ideation & Architecture (10 Skills)<br/>brainstorming • prd-architect • session-memory-manager • anti-slop"]
         D2["🤖 AI, LLM & Agentic Systems (14 Skills)<br/>ai-llm-integration • vercel-ai-sdk • deep-research • pydantic-ai • synthetic-data • mcp-server"]
         D3["🎨 Design Systems, UI/UX & Visuals (13 Skills)<br/>design-system • modern-css-native • hig • ui-ux-pro-max • data-visualization"]
@@ -85,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **125 specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **126 specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -153,14 +153,34 @@ npm install vibes-plug
 
 **Using curl & tar:**
 ```bash
-mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-2.14.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.2.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+```
+
+---
+
+### CLI Usage (New in v3.2.0)
+
+Vibes Plug now includes a powerful built-in CLI to accelerate your workflow. Run it using `node bin/vibes.mjs` or alias it as `vibes` globally.
+
+```bash
+# Scaffold a new standard skill with boilerplate
+vibes create-skill <skill-name>
+
+# Generate a fully configured TypeScript MCP server
+vibes create-mcp <mcp-name>
+
+# Install specific skills locally to a project (AI Package Manager)
+vibes add <skill-name>
+
+# Run Anti-AI Slop audit across your repository
+vibes audit
 ```
 
 ---
 
 ### Features and Available Skills
 
-This plugin provides the following **125 specialized skills** across 9 core engineering domains:
+This plugin provides the following **126 specialized skills** across 9 core engineering domains:
 
 #### 🤖 AI & Agentic Systems
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), dynamic model routing, prompt caching, RAG architecture, vector databases, and AI agents.
@@ -178,6 +198,7 @@ This plugin provides the following **125 specialized skills** across 9 core engi
 - **Gemini Agent Booster** (`gemini-agent-booster`): Master optimization protocol for Gemini Agent (Antigravity) to unlock native 1M+ long-context reasoning, multimodal vision UI audits, visual subagent feedback, and high-speed problem solving.
 - **Proactive Background Watcher** (`proactive-background-watcher`): Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts.
 - **Doku Mcp Server** (`doku-mcp-server`): Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for payment links, Virtual Accounts, QRIS, transaction status checks, and client configuration (Claude Desktop, Cursor, AGY).
+- **Frontier Ai Models Expert** (`frontier-ai-models-expert`): Expert guide for late-2026 frontier AI models — Claude 5.1 (Fable/Mythos), Project Astra, Gemini 3.1, and Enterprise Frontier Safeguards (EFS).
 
 #### 🎨 Design & UI/UX
 - **Design System Architect** (`design-system-architect`): Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, 4-pillar headless primitives (Radix UI, Base UI), Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility.
@@ -335,7 +356,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v2.14.0 (2026 Edition) — 125 active skills | Supports AGY + Claude + Cursor
+v3.2.0 (2026 Edition) — 126 active skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -351,7 +372,7 @@ Copyright (c) 2026 Roedy Rustam.
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **125 _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **126 _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -419,14 +440,34 @@ npm install vibes-plug
 
 **Menggunakan curl & tar:**
 ```bash
-mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-2.14.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.2.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+```
+
+---
+
+### Penggunaan CLI (Baru di v3.2.0)
+
+Vibes Plug kini dilengkapi dengan CLI bawaan yang kuat untuk mempercepat alur kerja Anda. Jalankan menggunakan `node bin/vibes.mjs` atau alias sebagai `vibes` secara global.
+
+```bash
+# Buat kerangka skill baru dengan standar baku
+vibes create-skill <nama-skill>
+
+# Hasilkan server MCP TypeScript yang terkonfigurasi penuh
+vibes create-mcp <nama-mcp>
+
+# Instal skill tertentu secara lokal ke dalam proyek Anda (AI Package Manager)
+vibes add <nama-skill>
+
+# Jalankan audit Anti-AI Slop di seluruh repositori Anda
+vibes audit
 ```
 
 ---
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **125 kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
+Plugin ini menyediakan **126 kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
 
 #### 🤖 AI & Sistem Agen
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), dynamic model routing, prompt caching, arsitektur RAG, vector database, dan agen AI.
@@ -444,6 +485,7 @@ Plugin ini menyediakan **125 kemampuan (*skills*) terspesialisasi** di 9 domain 
 - **Gemini Agent Booster** (`gemini-agent-booster`): Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 1M+, audit UI visual multimodal, dan pemecahan masalah kecepatan tinggi.
 - **Proactive Background Watcher** (`proactive-background-watcher`): Memberikan AI kemampuan proaktif menggunakan cron/timer native. Agen dapat memantau sistem, polling API, atau memantau log di latar belakang secara mandiri tanpa menunggu prompt pengguna.
 - **Doku Mcp Server** (`doku-mcp-server`): Panduan ahli DOKU MCP Server untuk AI Agentic Commerce.
+- **Frontier Ai Models Expert** (`frontier-ai-models-expert`): Panduan ahli model AI frontier akhir-2026 — Claude 5.1 (Fable/Mythos), Project Astra, Gemini 3.1, dan Enterprise Frontier Safeguards (EFS).
 
 #### 🎨 Desain & UI/UX
 - **Design System Architect** (`design-system-architect`): Panduan ahli merancang, membangun, dan memelihara design system UI skalabel dengan design tokens, 4-pillar headless primitives (Radix UI, Base UI), Material Design 3 (M3), Tailwind v4 @theme, dan aksesibilitas WCAG 2.2.
@@ -601,7 +643,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v2.14.0 (Edisi 2026) — 125 skills | Mendukung AGY + Claude + Cursor
+v3.2.0 (Edisi 2026) — 126 skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
