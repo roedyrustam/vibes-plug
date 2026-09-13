@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.4.0] - 2026-09-13
+
+### Changed
+- Version bumped from 3.3.0 to 3.4.0
+
+---
+
+## [3.3.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes list [filter]`**: New command to list all 125+ skills from the global registry. Shows which skills are already installed locally (✅ marker). Supports optional keyword filter (e.g., `vibes list saas` → shows 3 saas-related skills).
+- **CLI: `vibes remove <skill-name>`**: New command to cleanly uninstall a skill from the local project's `.agents/skills/` directory. Simetris dengan `vibes add`.
+- **CLI: `vibes bootstrap`**: Super-scaffold a full Next.js 15 app with auto-injected AI skills. Templates: `saas` and `ecommerce`.
+- **CLI: `vibes ui`**: Interactive TUI using `@inquirer/prompts` for visual multiselect skill installation.
+
+### Fixed / Diperbaiki
+- **Hardcoded skill count** di `scripts/validate-skills.mjs` — sebelumnya hardcode `"All 124 skills"`, sekarang dinamis menggunakan variabel `totalSkills`.
+- **Missing `version` tag** di frontmatter `frontier-ai-models-expert/SKILL.md` — menyebabkan validation gagal. Sekarang `version: "3.0.0"` ditambahkan.
+
+---
+
 ## [3.2.0] - 2026-09-13
 
 ### Added / Ditambahkan

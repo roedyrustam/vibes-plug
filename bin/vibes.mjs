@@ -172,7 +172,7 @@ async function runAudit() {
   console.log('Running Anti-AI Slop Audit...\n');
   try {
     const { execSync } = await import('child_process');
-    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.js'), { stdio: 'inherit' });
+    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs'), { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
@@ -501,9 +501,224 @@ async function runUi() {
   }
 }
 
+async function runRemoveSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes remove <skill-name>');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), '.agents', 'skills', skillName);
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (!exists) {
+      console.error(`❌ Skill '${skillName}' is not installed in this project.`);
+      console.log('Run "vibes list" to see available skills or "vibes ui" to manage them.');
+      process.exit(1);
+    }
+
+    await fs.rm(targetDir, { recursive: true, force: true });
+    console.log(`\n✅ Successfully removed '${skillName}' from your local project.`);
+    console.log('💡 Run "vibes add" or "vibes ui" to re-install skills anytime.');
+
+  } catch (err) {
+    console.error(`\n❌ Error removing skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runListSkills(filter) {
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const allSkills = entries
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name)
+      .sort();
+
+    // Check which skills are already installed locally
+    const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+    let localSkills = new Set();
+    const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+    if (localExists) {
+      const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+      localEntries
+        .filter(d => d.isDirectory())
+        .forEach(d => localSkills.add(d.name));
+    }
+
+    // Apply filter if provided
+    const filtered = filter
+      ? allSkills.filter(s => s.includes(filter.toLowerCase()))
+      : allSkills;
+
+    if (filtered.length === 0) {
+      console.log(`❌ No skills found matching "${filter}".`);
+      rl.close();
+      return;
+    }
+
+    const title = filter ? `Skills matching "${filter}"` : 'All Available Skills';
+    console.log(`\n🌊 Vibes-Plug Registry — ${title}`);
+    console.log(`📊 ${filtered.length} skill(s) found | ✅ = installed locally\n`);
+
+    // Group by domain prefix for readability
+    filtered.forEach(skill => {
+      const installed = localSkills.has(skill) ? ' ✅' : '';
+      console.log(`  • ${skill}${installed}`);
+    });
+
+    console.log(`
+💡 Commands:`);
+    console.log('  vibes add <skill-name>    — Install a skill into this project');
+    console.log('  vibes remove <skill-name> — Remove a skill from this project');
+    console.log('  vibes ui               — Interactive multiselect menu');
+
+  } catch (err) {
+    console.error(`\n❌ Error listing skills: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runVersion(action, type) {
+  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
+  const pluginJsonPath = path.join(PLUGIN_ROOT, 'plugin.json');
+  const changelogPath = path.join(PLUGIN_ROOT, 'CHANGELOG.md');
+  const vivesMjsPath = path.join(PLUGIN_ROOT, 'bin', 'vibes.mjs');
+
+  try {
+    const pkgRaw = await fs.readFile(pkgPath, 'utf8');
+    const pkg = JSON.parse(pkgRaw);
+    const current = pkg.version;
+    const [major, minor, patch] = current.split('.').map(Number);
+
+    if (!action || action === 'current') {
+      console.log(`📦 Current version: v${current}`);
+      rl.close();
+      return;
+    }
+
+    if (action !== 'bump') {
+      console.error('❌ Usage: vibes version current  OR  vibes version bump <major|minor|patch>');
+      process.exit(1);
+    }
+
+    let next;
+    if (type === 'major') next = `${major + 1}.0.0`;
+    else if (type === 'minor') next = `${major}.${minor + 1}.0`;
+    else if (type === 'patch') next = `${major}.${minor}.${patch + 1}`;
+    else {
+      console.error('❌ Bump type must be: major | minor | patch');
+      process.exit(1);
+    }
+
+    const files = [
+      { path: pkgPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: pluginJsonPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
+    ];
+
+    for (const { path: filePath, from, to } of files) {
+      const raw = await fs.readFile(filePath, 'utf8');
+      if (raw.includes(from)) {
+        await fs.writeFile(filePath, raw.replaceAll(from, to), 'utf8');
+        console.log(`  ✅ Updated: ${path.basename(filePath)}  ${current} → ${next}`);
+      } else {
+        console.log(`  ⏭️ Skipped (pattern not found): ${path.basename(filePath)}`);
+      }
+    }
+
+    // Prepend a new changelog entry
+    const today = new Date().toISOString().split('T')[0];
+    const entry = `## [${next}] - ${today}\n\n### Changed\n- Version bumped from ${current} to ${next}\n\n---\n\n`;
+    const changelog = await fs.readFile(changelogPath, 'utf8');
+    const insertIdx = changelog.indexOf('## [');
+    const updated = changelog.slice(0, insertIdx) + entry + changelog.slice(insertIdx);
+    await fs.writeFile(changelogPath, updated, 'utf8');
+    console.log(`  ✅ Updated: CHANGELOG.md  added [${next}] entry`);
+
+    console.log(`
+🎉 Version bumped: v${current} → v${next}`);
+    console.log('💡 Don\'t forget to commit and tag: git tag v' + next);
+
+  } catch (err) {
+    console.error(`❌ Error: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runDoctor() {
+  console.log('\n🧬 Vibes-Plug Doctor — Running diagnostics...\n');
+  const checks = [];
+
+  // 1. Node.js version
+  const nodeVersion = process.versions.node;
+  const nodeMajor = parseInt(nodeVersion.split('.')[0], 10);
+  checks.push(nodeMajor >= 18
+    ? `✅ Node.js v${nodeVersion} (>= 18 required)`
+    : `❌ Node.js v${nodeVersion} is too old. Please upgrade to v18+`);
+
+  // 2. npx available
+  try {
+    const { execSync } = await import('child_process');
+    execSync('npx --version', { stdio: 'pipe' });
+    checks.push('✅ npx is available');
+  } catch {
+    checks.push('❌ npx not found. Install Node.js from https://nodejs.org');
+  }
+
+  // 3. Global skills directory
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  try {
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const count = entries.filter(d => d.isDirectory()).length;
+    checks.push(`✅ Global skills registry: ${count} skills found`);
+  } catch {
+    checks.push('❌ Skills directory missing! Run: npm install -g vibes-plug');
+  }
+
+  // 4. @inquirer/prompts installed
+  try {
+    await import('@inquirer/prompts');
+    checks.push('✅ @inquirer/prompts is installed (vibes ui works)');
+  } catch {
+    checks.push(`⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
+  }
+
+  // 5. Local project .agents/skills
+  const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+  const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+  if (localExists) {
+    const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+    const localCount = localEntries.filter(d => d.isDirectory()).length;
+    checks.push(`✅ Local project: ${localCount} skill(s) installed in .agents/skills/`);
+  } else {
+    checks.push('ℹ️  No local .agents/skills/ found (run vibes add or vibes ui to install skills)');
+  }
+
+  // 6. Package version
+  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
+  const pkgRaw = await fs.readFile(pkgPath, 'utf8');
+  const pkg = JSON.parse(pkgRaw);
+  checks.push(`📦 vibes-plug version: v${pkg.version}`);
+
+  checks.forEach(c => console.log('  ' + c));
+
+  const failed = checks.filter(c => c.startsWith('  ❌')).length;
+  console.log(failed > 0
+    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor`
+    : '\n🎉 All checks passed! Your Vibes-Plug environment is healthy.');
+
+  rl.close();
+}
+
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.2.0)
+🌊 Vibes-Plug CLI (v3.4.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -513,11 +728,16 @@ Commands:
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
   bootstrap <type> <name>   Super-scaffold a full Next.js 15 app + AI Skills (saas | ecommerce)
   ui                        Launch the interactive TUI to visually select and install skills
+  list [filter]             List all available skills (optional: filter by keyword)
+  add <skill-name>          Inject a skill from the global registry into your local project
+  remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
-  add <skill-name>          Inject a skill from the global registry into your local project (.agents/skills)
+  version current           Show current version
+  version bump <type>       Bump version across all files (type: major | minor | patch)
+  doctor                    Run environment health diagnostics
   audit                     Run the strict Anti-AI Slop quality gate check
-  validate                  Run the strict 125-skill ecosystem validation check
+  validate                  Run the strict skill ecosystem validation check
   help                      Show this help menu
 `);
   rl.close();
@@ -534,14 +754,26 @@ switch (command) {
   case 'ui':
     runUi();
     break;
+  case 'list':
+    runListSkills(args[1]);
+    break;
+  case 'add':
+    runAddSkill(args[1]);
+    break;
+  case 'remove':
+    runRemoveSkill(args[1]);
+    break;
+  case 'version':
+    runVersion(args[1], args[2]);
+    break;
+  case 'doctor':
+    runDoctor();
+    break;
   case 'create-skill':
     runCreateSkill(args[1]);
     break;
   case 'create-mcp':
     runCreateMcp(args[1]);
-    break;
-  case 'add':
-    runAddSkill(args[1]);
     break;
   case 'audit':
     runAudit();

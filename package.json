@@ -1,6 +1,6 @@
 {
   "name": "vibes-plug",
-  "version": "3.2.0",
+  "version": "3.4.0",
   "description": "Universal AI plugin with 124 specialized skills for Antigravity, Claude, and Cursor. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, AI Safety, CUA). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "bin": {
@@ -28,6 +28,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "generate:gif": "python scripts/generate_swarm_gif.py",
+    "update-skills": "node scripts/update_skills.mjs",
+    "audit": "node scripts/check-anti-slop.mjs",
     "install-all": "node scripts/install.js --all",
     "install-claude": "node scripts/install.js --claude",
     "install-cursor": "node scripts/install.js --cursor"
