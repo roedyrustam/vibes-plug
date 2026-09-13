@@ -57,6 +57,106 @@ async function runInit(projectName) {
   }
 }
 
+async function runBootstrap(templateName, projectName) {
+  if (!templateName || !projectName) {
+    console.error('❌ Error: Template name and Project name are required.');
+    console.log('Usage: vibes bootstrap <template> <project-name>');
+    console.log('Available templates: saas, ecommerce');
+    process.exit(1);
+  }
+
+  const validTemplates = ['saas', 'ecommerce'];
+  if (!validTemplates.includes(templateName)) {
+    console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), projectName);
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Directory '${projectName}' already exists.`);
+      process.exit(1);
+    }
+
+    console.log(`\n🚀 Bootstrapping Next.js 15 for template: ${templateName.toUpperCase()}...`);
+    console.log('⏳ This may take a minute or two as npm installs dependencies...\n');
+
+    const { execSync } = await import('child_process');
+    // Run npx create-next-app in non-interactive mode
+    execSync(`npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`, { stdio: 'inherit' });
+
+    console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
+
+    // Core skills needed for any Next.js app
+    const coreSkills = [
+      'zero-to-prod-orchestrator',
+      'senior-frontend',
+      'tailwind-expert',
+      'anti-slop',
+      'session-memory-manager'
+    ];
+
+    let specificSkills = [];
+    if (templateName === 'saas') {
+      specificSkills = [
+        'saas-architect',
+        'saas-multi-tenant',
+        'saas-billing',
+        'payment-gateway-expert',
+        'supabase-security-expert'
+      ];
+    } else if (templateName === 'ecommerce') {
+      specificSkills = [
+        'ecommerce-expert',
+        'payment-gateway-expert',
+        'database-orm-expert',
+        'doku-payment-gateway'
+      ];
+    }
+
+    const allSkills = [...coreSkills, ...specificSkills];
+    const targetAgentsDir = path.join(targetDir, '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    for (const skill of allSkills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const skillTargetDir = path.join(targetAgentsDir, skill);
+      
+      const skillExists = await fs.access(sourceDir).then(() => true).catch(() => false);
+      if (skillExists) {
+        await fs.cp(sourceDir, skillTargetDir, { recursive: true });
+        console.log(`  ➕ Injected skill: ${skill}`);
+      } else {
+        console.warn(`  ⚠️ Warning: Skill '${skill}' not found in global registry.`);
+      }
+    }
+
+    // Overwrite README and PRD
+    const prdTitle = templateName === 'saas' ? 'Multi-Tenant SaaS' : 'E-Commerce Platform';
+    const filesToCreate = {
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document\n\n(To be filled by the deep-research-analyst agent based on the ${templateName} template)`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log(`\n🎉 Super-Scaffolding complete for ${projectName}!`);
+    console.log('\nTo get started:');
+    console.log(`  cd ${projectName}`);
+    console.log('  Ask your AI (Claude/Cursor/Antigravity): "Begin phase 1 using zero-to-prod-orchestrator"');
+
+  } catch (err) {
+    console.error(`\n❌ Error during bootstrap: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
 async function runValidate() {
   console.log('Running ecosystem validation...\n');
   try {
@@ -342,6 +442,7 @@ Usage:
 
 Commands:
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
+  bootstrap <type> <name>   Super-scaffold a full Next.js 15 app + AI Skills (saas | ecommerce)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   add <skill-name>          Inject a skill from the global registry into your local project (.agents/skills)
@@ -356,6 +457,9 @@ Commands:
 switch (command) {
   case 'init':
     runInit(args[1]);
+    break;
+  case 'bootstrap':
+    runBootstrap(args[1], args[2]);
     break;
   case 'create-skill':
     runCreateSkill(args[1]);
