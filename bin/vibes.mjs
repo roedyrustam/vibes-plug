@@ -432,6 +432,75 @@ async function runAddSkill(skillName) {
   }
 }
 
+async function runUi() {
+  let checkbox;
+  try {
+    const prompts = await import('@inquirer/prompts');
+    checkbox = prompts.checkbox;
+  } catch (err) {
+    console.error('❌ Error: The Interactive TUI requires the @inquirer/prompts package.');
+    console.error('Please run "npm install" inside the vibes-plug directory first:');
+    console.error(`  cd ${PLUGIN_ROOT}`);
+    console.error('  npm install');
+    process.exit(1);
+  }
+
+  // Close the global readline so inquirer can take over stdin
+  rl.close();
+
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const skills = entries
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name)
+      .sort();
+
+    const choices = skills.map(skill => ({ name: skill, value: skill }));
+
+    console.log(`\n🌊 Vibes-Plug Interactive TUI`);
+    const selectedSkills = await checkbox({
+      message: 'Select the AI skills to install into this project:',
+      choices: choices,
+      loop: false,
+      pageSize: 15
+    });
+
+    if (!selectedSkills || selectedSkills.length === 0) {
+      console.log('No skills selected. Exiting.');
+      return;
+    }
+
+    const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+    await fs.mkdir(targetBaseDir, { recursive: true });
+
+    let count = 0;
+    for (const skill of selectedSkills) {
+      const sourceDir = path.join(skillsDir, skill);
+      const targetDir = path.join(targetBaseDir, skill);
+      
+      const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+      if (!exists) {
+        await fs.cp(sourceDir, targetDir, { recursive: true });
+        console.log(`  ➕ Added: ${skill}`);
+        count++;
+      } else {
+        console.log(`  ⏭️ Skipped (already exists): ${skill}`);
+      }
+    }
+    
+    console.log(`\n🎉 Successfully installed ${count} skill(s) into .agents/skills/`);
+    console.log('Your AI agents will now automatically load these skills when working in this repository.');
+    
+  } catch (err) {
+    if (err.name === 'ExitPromptError') {
+      console.log('Interactive prompt cancelled.');
+    } else {
+      console.error(`\n❌ Error: ${err.message}`);
+    }
+  }
+}
+
 function showHelp() {
   console.log(`
 🌊 Vibes-Plug CLI (v3.2.0)
@@ -443,6 +512,7 @@ Usage:
 Commands:
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
   bootstrap <type> <name>   Super-scaffold a full Next.js 15 app + AI Skills (saas | ecommerce)
+  ui                        Launch the interactive TUI to visually select and install skills
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   add <skill-name>          Inject a skill from the global registry into your local project (.agents/skills)
@@ -460,6 +530,9 @@ switch (command) {
     break;
   case 'bootstrap':
     runBootstrap(args[1], args[2]);
+    break;
+  case 'ui':
+    runUi();
     break;
   case 'create-skill':
     runCreateSkill(args[1]);

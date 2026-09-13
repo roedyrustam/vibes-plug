@@ -32,6 +32,9 @@
     "install-claude": "node scripts/install.js --claude",
     "install-cursor": "node scripts/install.js --cursor"
   },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roedyrustam/vibes-plug.git"
