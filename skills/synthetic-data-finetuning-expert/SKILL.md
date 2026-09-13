@@ -1,7 +1,8 @@
----
+﻿---
 name: synthetic-data-finetuning-expert
 description: "Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs / Panduan ahli generasi data sintetis, fine-tuning QLoRA, DPO, dan ekspor GGUF/Ollama."
-author: vibes-plug-swarm
+author: vibes-plug-swarm
+version: "3.0.0"
 ---
 
 # Synthetic Data & Fine-Tuning Expert (Custom Domain SLMs)

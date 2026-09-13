@@ -1,7 +1,8 @@
 ﻿---
 name: rust-programming-expert
 description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Rust Programming Expert (2024 Edition / v1.88+)

@@ -1,7 +1,8 @@
 ﻿---
 name: autonomous-tdd-debugger
 description: "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Autonomous TDD Debugger & Self-Healing Agent

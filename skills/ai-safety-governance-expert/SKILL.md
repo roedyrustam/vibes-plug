@@ -1,8 +1,8 @@
----
+﻿---
 name: ai-safety-governance-expert
-version: "3.0.0"
 description: "Expert guide for AI Safety, Governance, and Responsible AI in production — Constitutional AI enforcement, runtime guardrails (NeMo Guardrails 2.0, Llama Guard 3), bias auditing, hallucination detection, EU AI Act compliance, model cards, and content provenance / Panduan ahli untuk Keamanan AI, Tata Kelola, dan AI Bertanggung Jawab di produksi."
-author: "vibes-plug-swarm"
+author: "vibes-plug-swarm"
+version: "3.0.0"
 ---
 
 # AI Safety, Governance, and Responsible AI Expert
@@ -213,3 +213,6 @@ This skill connects to the broader ecosystem to enforce safety across all capabi
 - `production-ready-hardener`
 - `brainstorming`
 - `zero-to-prod-orchestrator`
+
+## English
+## Bahasa Indonesia

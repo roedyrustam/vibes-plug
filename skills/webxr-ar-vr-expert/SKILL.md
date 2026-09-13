@@ -1,7 +1,8 @@
----
+﻿---
 name: webxr-ar-vr-expert
 description: "Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR)."
-author: "vibes-plug-swarm"
+author: "vibes-plug-swarm"
+version: "3.0.0"
 ---
 
 # WebXR Spatial Computing Expert (VR, AR & MR)

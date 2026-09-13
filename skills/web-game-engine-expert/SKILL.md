@@ -1,7 +1,8 @@
----
+﻿---
 name: web-game-engine-expert
 description: "Expert guide for modern web-based game development. Covers PlayCanvas, Babylon.js Havok, Three.js/R3F Rapier & Jolt Physics, Fixed-Timestep Accumulators, Zero-GC Pooling, ECS (bitECS/Miniplex), Spatial Audio (HRTF), and WebTransport networking / Panduan ahli pengembangan game web modern dan efisien."
-author: "vibes-plug-swarm"
+author: "vibes-plug-swarm"
+version: "3.0.0"
 ---
 
 # Web Game Engine Expert (Physics, Architecture & Game Loops)

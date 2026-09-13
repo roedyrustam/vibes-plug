@@ -1,8 +1,8 @@
----
+﻿---
 name: composable-mach-architect
-version: "3.0.0"
 description: "Expert guide for Composable MACH Architecture (Microservices, API-first, Cloud-native, Headless) — dynamic UI composition, federated API mesh, Backend-for-Frontend patterns, plugin/extension architectures, event-driven composition, and composable AI routing / Panduan ahli Arsitektur MACH Komposabel — komposisi UI dinamis, API mesh federasi, pola Backend-for-Frontend, arsitektur plugin/ekstensi, komposisi event-driven, dan routing AI komposabel."
-author: "vibes-plug-swarm"
+author: "vibes-plug-swarm"
+version: "3.0.0"
 ---
 
 # Composable MACH Architecture / Arsitektur MACH Komposabel

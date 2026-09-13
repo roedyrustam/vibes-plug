@@ -1,7 +1,8 @@
----
+﻿---
 name: web-3d-graphics-expert
 description: "Expert guide for modern WebGPU and WebGL 3D graphics in the browser using Three.js (WebGPURenderer + TSL), Babylon.js, PlayCanvas, React Three Fiber (R3F), and TresJS. Covers scene optimization, compute shaders, KTX2/Meshopt compression, and memory management / Panduan ahli grafis 3D web dan WebGPU modern."
-author: "vibes-plug-swarm"
+author: "vibes-plug-swarm"
+version: "3.0.0"
 ---
 
 # Web 3D Graphics Expert (WebGPU, Three.js, Babylon.js & PlayCanvas)

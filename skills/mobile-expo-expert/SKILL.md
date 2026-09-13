@@ -1,7 +1,8 @@
 ﻿---
 name: mobile-expo-expert
 description: "Expert guide for React Native 0.79+ and Expo SDK 53+ development. Covers cross-platform mobile architecture, Expo Router v4, New Architecture, OTA updates, and native modules / Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ untuk aplikasi mobile."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "3.0.0"
 ---
 
 # Mobile Expert — React Native & Expo (SDK 53 / RN 0.79 Edition)

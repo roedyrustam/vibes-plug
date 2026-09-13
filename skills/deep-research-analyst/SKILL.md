@@ -1,7 +1,7 @@
----
+﻿---
 name: deep-research-analyst
 description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."
-author: vibes-plug-swarm
+author: vibes-plug-swarm
 version: "3.0.0"
 ---
 
