@@ -5,6 +5,59 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.6.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes search <query>`**: Pencarian semantik berbasis frekuensi kata kunci di seluruh 125 skill. Hasil diurutkan berdasarkan relevansi (score). Contoh: `vibes search payment` → 18 skill relevan, dipimpin oleh `doku-mcp-server` dan `payment-gateway-expert`.
+- **CLI: `vibes recipe list`**: Tampilkan 6 built-in skill bundles yang dikurasi dengan deskripsi dan daftar skill di tiap resep.
+- **CLI: `vibes recipe apply <name>`**: Install semua skill dari sebuah resep ke `.agents/skills/` sekaligus. Skip skill yang sudah terinstall. 6 resep tersedia:
+  - `ai-stack` — AI/LLM + RAG + Vector DB + Multi-Agent
+  - `fullstack-pro` — Next.js 15 + Auth + DB + Payments + Testing
+  - `security-hardened` — Zero-Trust + Rate-Limit + GDPR + Red Team
+  - `realtime-app` — WebSockets + SSE + CRDT + State
+  - `mobile-first` — Expo + PWA Offline + Push Notifications
+  - `data-platform` — ETL + Visualization + Telemetry + Search
+
+---
+
+## [3.5.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes skill info <name>`**: Tampilkan metadata lengkap sebuah skill (name, version, description, author, orchestration links) langsung dari terminal. Juga menunjukkan apakah skill sudah terinstall di project lokal.
+- **CLI: `vibes hooks install`**: Install Git pre-commit hook yang menjalankan Anti-Slop Audit secara otomatis sebelum setiap `git commit`. Melindungi codebase dari AI placeholder code.
+- **CLI: `vibes hooks remove`**: Hapus Git pre-commit hook dengan aman.
+- **Bootstrap: 3 template baru** — `mobile` (Expo SDK), `api` (Hono/Node.js), `fullstack` (T3 Stack). Total kini 5 template: `saas`, `ecommerce`, `mobile`, `api`, `fullstack`. Setiap template dilengkapi dengan skill set yang sesuai domain.
+
+---
+
+## [3.4.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes version current`**: Tampilkan versi saat ini dari `package.json`.
+- **CLI: `vibes version bump <major|minor|patch>`**: Bump versi secara terpusat dan sinkron di `package.json`, `plugin.json`, `vibes.mjs`, dan `CHANGELOG.md` sekaligus — eliminasi human error saat rilis.
+- **CLI: `vibes doctor`**: Health diagnostics — memeriksa Node.js version, npx, global skills directory, `@inquirer/prompts`, dan local `.agents/skills/` sekaligus dalam satu perintah.
+
+### Changed / Diubah
+- **CJS → ESM Migration**: Konversi `scripts/check-anti-slop.js` → `scripts/check-anti-slop.mjs` dan `scripts/update_skills.js` → `scripts/update_skills.mjs` menggunakan `import/export` syntax. Seluruh codebase kini 100% ESM.
+- **`package.json` scripts**: Ditambahkan `"audit"` dan `"update-skills"` npm script agar bisa dijalankan via `npm run audit` dan `npm run update-skills`.
+- **`runAudit`**: Diperbarui untuk menggunakan `check-anti-slop.mjs` (ESM) menggantikan versi CJS lama.
+
+---
+
+## [3.3.0] - 2026-09-14
+
+### Added / Ditambahkan
+- **CLI: `vibes list [filter]`**: New command to list all 125+ skills from the global registry. Shows which skills are already installed locally (✅ marker). Supports optional keyword filter (e.g., `vibes list saas` → shows 3 saas-related skills).
+- **CLI: `vibes remove <skill-name>`**: New command to cleanly uninstall a skill from the local project's `.agents/skills/` directory. Simetris dengan `vibes add`.
+- **CLI: `vibes bootstrap`**: Super-scaffold a full Next.js 15 app with auto-injected AI skills. Templates: `saas` and `ecommerce`.
+- **CLI: `vibes ui`**: Interactive TUI using `@inquirer/prompts` for visual multiselect skill installation.
+
+### Fixed / Diperbaiki
+- **Hardcoded skill count** di `scripts/validate-skills.mjs` — sebelumnya hardcode `"All 124 skills"`, sekarang dinamis menggunakan variabel `totalSkills`.
+- **Missing `version` tag** di frontmatter `frontier-ai-models-expert/SKILL.md` — menyebabkan validation gagal. Sekarang `version: "3.0.0"` ditambahkan.
+
+---
+
 ## [3.2.0] - 2026-09-13
 
 ### Added / Ditambahkan

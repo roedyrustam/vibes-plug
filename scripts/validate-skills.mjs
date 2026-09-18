@@ -1,4 +1,4 @@
-﻿import fs from 'fs/promises';
+import fs from 'fs/promises';
 import path from 'path';
 
 const SKILLS_DIR = path.join(process.cwd(), 'skills');
@@ -97,7 +97,7 @@ async function validateSkills() {
       console.log('\n❌ CI Pipeline Failed! Please fix the errors above.');
       process.exit(1);
     } else {
-      console.log('🎉 All 124 skills passed strict validation! Ecosystem is perfectly healthy.');
+      console.log(`🎉 All ${totalSkills} skills passed strict validation! Ecosystem is perfectly healthy.`);
       process.exit(0);
     }
 
