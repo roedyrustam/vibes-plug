@@ -1,7 +1,8 @@
 ---
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "3.0.0"
 ---
 
@@ -54,7 +55,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
 
 #### PHASE 2: Project Foundation & Monorepo Setup
-**Orchestrates:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`
+**Orchestrates:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`
 - [ ] Initialize monorepo (Turborepo + pnpm workspaces) or single repo foundation.
 - [ ] Set up language runtimes: Node.js 24 LTS / Bun 1.2+ / Python 3.14+ (uv) / Go 1.25+ / Rust 2024.
 - [ ] Configure `Biome v2` (Rust-based linter + formatter) or `Ruff`, `ESLint`, `Prettier`, and TypeScript strict configurations.
@@ -95,7 +96,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `utonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Write resilient E2E browser tests with Playwright and automated WCAG 2.2 accessibility tests with `@axe-core/playwright` and Pa11y.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
@@ -155,7 +156,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.
 
 #### FASE 2: Pondasi Proyek & Setup Monorepo
-**Mengorkestrasi:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`
+**Mengorkestrasi:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`
 - [ ] Inisialisasi monorepo (Turborepo + pnpm workspaces) atau repositori tunggal.
 - [ ] Menyiapkan runtime bahasa: Node.js 24 LTS / Bun 1.2+ / Python 3.14+ (uv) / Go 1.25+ / Rust 2024.
 - [ ] Konfigurasi `Biome v2` (Rust linter & formatter) atau `Ruff`, `ESLint`, `Prettier`, dan TypeScript ketat.
@@ -196,7 +197,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `secure-fuzz-testing`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
+**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `utonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Menulis pengujian browser E2E Playwright dan pengujian aksesibilitas WCAG 2.2 otomatis (`@axe-core/playwright` dan Pa11y).
 - [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
