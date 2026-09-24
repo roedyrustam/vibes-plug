@@ -1,8 +1,8 @@
-﻿---
+---
 name: saas-billing
 description: "Implement and audit SaaS billing systems, subscription state machines, secure webhooks, and local database synchronization / Implementasi dan audit sistem billing SaaS, state machine langganan, webhook aman, dan sinkronisasi database lokal."
-author: "Roedy Rustam"
-version: "3.0.0"
+author: "Roedy Rustam"
+version: "4.0.0"
 ---
 
 # SaaS Billing Expert (2026 Edition)
@@ -18,13 +18,13 @@ version: "3.0.0"
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
-Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, PayPal, and Midtrans (for Southeast Asia).
+Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, atomic database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (SNAP BI), and Midtrans (for Southeast Asia).
 
 ### Trigger Conditions
-- Integrating any payment gateway (Stripe, Polar.sh, LemonSqueezy, Midtrans, PayPal) into a SaaS application.
+- Integrating any payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU SNAP BI, Midtrans, PayPal) into a SaaS application.
 - Using a Static-to-Dynamic QRIS alternative (with unique nominals and mutation webhooks) for local developers without PG accounts.
 - Implementing subscription state machines (active → past_due → canceled → reactivated).
-- Building secure webhook handlers with signature verification and idempotency.
+- Building secure webhook handlers with signature verification and atomic idempotency.
 - Syncing external subscription status to a local database.
 - Implementing usage-based billing or metered API pricing.
 - Building the customer billing portal (manage subscription, download invoices).
@@ -38,6 +38,7 @@ Expert guide for implementing and auditing SaaS billing systems. Covers subscrip
 | **Polar.sh** | Developer-first, open-source products | ✅ | ✅ (optional) |
 | **LemonSqueezy** | Indie hackers, simple pricing, global | ❌ | ✅ |
 | **Paddle** | B2B SaaS, EU VAT compliance | ❌ | ✅ |
+| **DOKU (SNAP BI)** | Indonesia & SE Asia enterprise, QRIS, VA | ❌ | ❌ |
 | **Midtrans** | Southeast Asia / Indonesia | ❌ | ❌ |
 | **PayPal** | Global, consumer trust | ❌ | ❌ |
 
@@ -109,7 +110,7 @@ FREE ──subscribe──> TRIALING ──trial_ends──> ACTIVE
                           CANCELED
 ```
 
-#### Idempotent Webhook Handler
+#### Idempotent Webhook Handler (Race Condition Prevention)
 ```typescript
 // app/api/webhooks/stripe/route.ts
 import Stripe from 'stripe';
@@ -118,7 +119,7 @@ import { db } from '@/lib/db';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(req: Request) {
-  const body = await req.text();
+  const body = await req.text(); // Raw body is mandatory
   const sig = req.headers.get('stripe-signature')!;
   
   let event: Stripe.Event;
@@ -128,11 +129,21 @@ export async function POST(req: Request) {
     return new Response('Invalid signature', { status: 400 });
   }
 
-  // Idempotency: skip already-processed events
-  const processed = await db.webhookEvent.findUnique({ where: { stripeEventId: event.id } });
-  if (processed) return new Response(null, { status: 200 });
+  // Idempotency: Atomic insert on unique constraint to guarantee zero race conditions
+  try {
+    await db.webhookEvent.create({
+      data: {
+        stripeEventId: event.id,
+        eventType: event.type,
+        processedAt: new Date(),
+      },
+    });
+  } catch (err: any) {
+    // Unique violation (e.g. Prisma code P2002) means this event is ALREADY processed or currently processing
+    return new Response(JSON.stringify({ message: 'Event already received' }), { status: 200 });
+  }
 
-  // Process event
+  // Process event safely knowing this invocation is guaranteed unique
   switch (event.type) {
     case 'customer.subscription.created':
     case 'customer.subscription.updated': {
@@ -151,8 +162,6 @@ export async function POST(req: Request) {
     }
   }
 
-  // Mark as processed
-  await db.webhookEvent.create({ data: { stripeEventId: event.id } });
   return new Response(null, { status: 200 });
 }
 ```
@@ -256,25 +265,26 @@ export async function POST(req: Request) {
   
   for (const mutation of mutations) {
     if (mutation.type === 'CR' && mutation.amount > 0) {
-      // Find pending transaction matching the exact unique amount
-      const tx = await db.transaction.findFirst({
+      // Atomic Update: Only update if still pending
+      const updateResult = await db.transaction.updateMany({
         where: {
           totalAmount: mutation.amount,
           status: 'pending',
           provider: 'qris_static',
           expiresAt: { gt: new Date() }
-        }
+        },
+        data: { status: 'paid' }
       });
       
-      if (tx) {
-        // Mark as paid and activate subscription
-        await db.transaction.update({ where: { id: tx.id }, data: { status: 'paid' } });
-        await db.subscription.create({
-          data: { userId: tx.userId, provider: 'qris_static', status: 'active' }
-        });
-        
-        // Trigger real-time notification to frontend
-        await pusherServer.trigger(`payment-${tx.id}`, 'payment-success', { success: true });
+      if (updateResult.count > 0) {
+        const tx = await db.transaction.findFirst({ where: { totalAmount: mutation.amount, status: 'paid' } });
+        if (tx) {
+          await db.subscription.create({
+            data: { userId: tx.userId, provider: 'qris_static', status: 'active' }
+          });
+          // Trigger real-time notification to frontend
+          await pusherServer.trigger(`payment-${tx.id}`, 'payment-success', { success: true });
+        }
       }
     }
   }
@@ -285,11 +295,11 @@ export async function POST(req: Request) {
 
 ### Database Schema for Multi-Provider Billing
 ```typescript
-// Drizzle ORM — supports Stripe, Polar, LemonSqueezy, PayPal, QRIS Static
+// Drizzle ORM — supports Stripe, Polar, LemonSqueezy, PayPal, DOKU, QRIS Static
 export const subscriptions = pgTable('subscriptions', {
   id: text('id').primaryKey(),
   workspaceId: text('workspace_id').references(() => workspaces.id).notNull(),
-  provider: text('provider').$type<'stripe' | 'polar' | 'lemonsqueezy' | 'paypal' | 'qris_static'>().notNull(),
+  provider: text('provider').$type<'stripe' | 'polar' | 'lemonsqueezy' | 'doku' | 'paypal' | 'qris_static'>().notNull(),
   externalCustomerId: text('external_customer_id').notNull(),
   externalSubId: text('external_sub_id').notNull().unique(),
   status: text('status').$type<'active' | 'trialing' | 'past_due' | 'canceled' | 'paused'>().notNull(),
@@ -303,7 +313,7 @@ export const subscriptions = pgTable('subscriptions', {
 
 ### Billing Security Checklist
 - [ ] Webhook signature verified on every request — reject without valid signature.
-- [ ] Webhook idempotency implemented — never process the same event twice.
+- [ ] Webhook idempotency implemented with Atomic Lock — never process the same event twice.
 - [ ] Session Management Optimization: Secure the billing portal route with strict session validation and CSRF protection. Do not cache session-dependent billing states.
 - [ ] Use Stripe CLI / Polar.sh test webhooks for local development.
 - [ ] All billing API calls use server-side code only — never expose secret keys to frontend.
@@ -320,13 +330,13 @@ export const subscriptions = pgTable('subscriptions', {
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, PayPal, dan Midtrans (untuk Asia Tenggara).
+Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (SNAP BI), dan Midtrans (untuk Asia Tenggara).
 
 ### Kondisi Pemicu
-- Mengintegrasikan payment gateway (Stripe, Polar.sh, LemonSqueezy, Midtrans, PayPal) ke aplikasi SaaS.
+- Mengintegrasikan payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU SNAP BI, Midtrans, PayPal) ke aplikasi SaaS.
 - Menggunakan alternatif QRIS Statis menjadi Dinamis (dengan nominal unik dan webhook mutasi) untuk developer lokal tanpa akun PG.
 - Mengimplementasikan state machine langganan.
-- Membangun webhook handler aman dengan verifikasi tanda tangan dan idempotency.
+- Membangun webhook handler aman dengan verifikasi tanda tangan dan idempotency berbasis atomic lock.
 - Menyinkronkan status langganan eksternal ke database lokal.
 - Mengimplementasikan billing berbasis penggunaan (metered pricing).
 - Membangun portal billing pelanggan.
@@ -340,6 +350,7 @@ Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencak
 | **Polar.sh** | Developer-first, produk open-source | ✅ | ✅ (opsional) |
 | **LemonSqueezy** | Indie hackers, harga sederhana | ❌ | ✅ |
 | **Paddle** | B2B SaaS, kepatuhan PPN EU | ❌ | ✅ |
+| **DOKU (SNAP BI)** | Indonesia & Asia Tenggara, QRIS, Virtual Account | ❌ | ❌ |
 | **Midtrans** | Asia Tenggara / Indonesia | ❌ | ❌ |
 | **PayPal** | Global, kepercayaan konsumen (consumer trust) | ❌ | ❌ |
 
@@ -358,25 +369,25 @@ PayPal sering digunakan sebagai gateway alternatif atau utama karena tingginya k
 #### State Machine Langganan
 Kelola transisi status: `FREE → TRIALING → ACTIVE → PAST_DUE → CANCELED → (reaktivasi)`.
 
-#### Webhook Handler Idempoten
-Selalu verifikasi tanda tangan webhook, tandai event sebagai diproses di database untuk mencegah duplikasi.
+#### Webhook Handler Idempoten (Pencegahan Race Condition)
+Selalu verifikasi tanda tangan webhook dari raw body. Gunakan insert unik atomic di database (bukan sekadar `findUnique`) agar request retry simultan tidak menyebabkan penambahan saldo atau perpanjangan langganan ganda. Jika terdeteksi duplikat, langsung kembalikan status HTTP `200 OK`.
 
 #### Billing Berbasis Penggunaan (Metered)
 Laporkan penggunaan API dengan `stripe.subscriptionItems.createUsageRecord()` di akhir periode billing.
 
 ### Alternatif Lokal: QRIS Statis Rasa Dinamis (Tanpa Akun Payment Gateway)
-Bagi pengguna/developer di Indonesia yang belum memiliki Payment Gateway (seperti Midtrans), Anda dapat membuat pengalaman QRIS "Dinamis" menggunakan satu gambar QRIS statis biasa.
+Bagi pengguna/developer di Indonesia yang belum memiliki Payment Gateway (seperti Midtrans/DOKU), Anda dapat membuat pengalaman QRIS "Dinamis" menggunakan satu gambar QRIS statis biasa.
 - **Generate Nominal Unik (Endpoint)**: Tambahkan angka unik (misalnya 3 digit acak) ke harga dasar (contoh: Rp 100.000 menjadi Rp 100.123). Simpan ke database sebagai transaksi `pending` dengan batas waktu kadaluarsa (misal 15 menit). Tampilkan gambar QRIS beserta instruksi transfer sesuai nominal unik.
 - **Webhook Mutasi Bank**: Gunakan layanan pihak ketiga (seperti Moota, Cekmutasi) yang mengirimkan notifikasi webhook (ke `/api/webhooks/mutation`) setiap kali ada uang masuk.
-- **Validasi Otomatis**: Saat webhook menerima payload mutasi kredit (`CR`), sistem mencari transaksi `pending` yang jumlahnya sama persis (`totalAmount`). Jika cocok, sistem menandai tagihan sebagai lunas (`paid`) dan mengaktifkan langganan.
+- **Validasi Otomatis & Atomic Lock**: Saat webhook menerima payload mutasi kredit (`CR`), sistem memperbarui transaksi pending secara atomik. Jika cocok, sistem menandai tagihan sebagai lunas (`paid`) dan mengaktifkan langganan.
 - **Notifikasi Klien**: Gunakan WebSocket (seperti Pusher atau Socket.io) di backend untuk melakukan *trigger event* "pembayaran berhasil". Di frontend, *listen* ke event tersebut dan tampilkan notifikasi *real-time* kepada pengguna secara instan tanpa perlu me-refresh halaman.
 
 ### Skema Database Multi-Provider
-Rancang tabel `subscriptions` yang mendukung beberapa provider (`stripe`, `polar`, `lemonsqueezy`, `paypal`, `qris_static`) dengan kolom `provider` dan ID eksternal yang terpisah.
+Rancang tabel `subscriptions` yang mendukung beberapa provider (`stripe`, `polar`, `lemonsqueezy`, `doku`, `paypal`, `qris_static`) dengan kolom `provider` dan ID eksternal yang terpisah.
 
 ### Checklist Keamanan Billing
-- [ ] Tanda tangan webhook diverifikasi pada setiap permintaan.
-- [ ] Idempotency webhook diimplementasikan.
+- [ ] Tanda tangan webhook diverifikasi pada setiap permintaan menggunakan raw body.
+- [ ] Idempotency webhook diimplementasikan dengan penguncian atomic.
 - [ ] Optimasi Session Management: Amankan rute portal billing dengan validasi sesi yang ketat dan perlindungan CSRF. Jangan gunakan cache untuk state billing yang bergantung pada sesi pengguna.
 - [ ] Semua panggilan API billing menggunakan kode sisi server saja.
 - [ ] Batas plan diterapkan pada setiap rute yang dilindungi.
