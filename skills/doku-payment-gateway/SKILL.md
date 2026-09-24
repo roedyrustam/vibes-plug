@@ -190,14 +190,27 @@ export function verifyDokuSnapWebhook(req: Request, clientSecret: string): boole
 
 ---
 
+### Webhook Idempotency & Race Condition Prevention
+
+When processing DOKU webhooks, you MUST implement Idempotency and prevent Race Conditions. DOKU may retry sending the same webhook if your server takes too long to respond.
+
+**Best Practices:**
+1. **Raw Body Parser**: Always use a raw body parser (e.g., `express.raw({ type: 'application/json' })`) for the webhook route. `JSON.stringify(req.body)` can alter spacing/key order, causing signature validation to fail.
+2. **Atomic Updates**: Use database-level locks or atomic updates to ensure a transaction is only processed once. Update the database record `WHERE invoice_number = 'X' AND status = 'PENDING'`. If the update affects 0 rows, the webhook was already processed.
+3. **Return 200 OK Early**: If the signature is valid but the transaction is already processed (duplicate), immediately return `200 OK` to DOKU so they stop retrying.
+4. **B2B Token Caching**: Generating the B2B Access Token requires an RSA signature and network request. Cache this token (e.g., in Redis or Memory) until its expiry to reduce latency on transactional endpoints.
+
+---
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Issue | Solution |
 |---|---|---|
-| Non-minified JSON body | Signature validation fails (`Invalid Signature`) | Always stringify JSON without extra spaces before hashing. |
+| Non-minified JSON body | Signature validation fails (`Invalid Signature`) | Always stringify JSON without extra spaces before hashing. For webhooks, use the raw unparsed request body. |
 | Using HMAC-SHA256 | Signature validation fails | SNAP BI transactional signature uses **HMAC-SHA512** (Note: B2B Access Token uses RSA-SHA256). |
 | Capitalized Hex Hash | Signature mismatch | Ensure the SHA-256 body hash hex string is converted to lowercase before appending to `stringToSign`. |
 | Missing `Bearer` in Authorization | Unauthorized error | The `Authorization` header must include `Bearer <Token>`, but the `stringToSign` component must **only** be the token. |
+| Processing webhook twice | Double balance top-up (Race Condition) | Use Atomic Updates (`UPDATE ... WHERE status = 'PENDING'`) and return 200 OK for duplicates. |
 
 ---
 
