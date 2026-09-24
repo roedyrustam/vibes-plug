@@ -957,7 +957,7 @@ async function runSearch(query) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.6.0)
+🌊 Vibes-Plug CLI (v3.7.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:

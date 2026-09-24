@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - 2026-09-24
+
+### Added / Ditambahkan
+- **Standar SNAP BI 1.0 (Bank Indonesia)**: Implementasi penuh standar SNAP BI pada `doku-payment-gateway` dan `payment-gateway-expert`. Menggunakan enkripsi Asimetrik RSA-SHA256 untuk B2B Access Token (`/api/v1.0/access-token/b2b`) dan Simetrik **HMAC-SHA512** untuk endpoint transaksional (Virtual Account, QRIS, E-Wallet).
+- **Pencegahan Race Condition & Atomic Idempotency**:
+  - Pola **Atomic Update** (`UPDATE ... WHERE status = 'PENDING'`) dan penguncian tabel unik pada `saas-billing` dan `payment-gateway-expert`. Mencegah saldo/langganan bertambah ganda saat webhook DOKU/Stripe terpanggil serentak.
+  - Kewajiban penggunaan **Raw Body Parser** (`req.text()` atau `express.raw({ type: 'application/json' })`) untuk menjamin signature validasi tidak rusak akibat spasi atau serialisasi ulang JSON.
+- **Swarm Execution Topologies (2026 Master Protocol)**:
+  - Protokol pendelegasian subagent di `zero-to-prod-orchestrator` dan `brainstorming`: **Fan-Out / Fan-In** (paralel lintas UI, Backend, DB), **Pipeline Saga** (eksekusi 8-Fase berurutan), dan **Critic-Validator Gate** (audit mandiri sebelum serah terima).
+  - Integrasi loop pengujian otomatis perbaikan mandiri (**`autonomous-tdd-debugger`**) di `senior-frontend` dan `js-backend-expert`.
+
+### Changed / Diubah
+- **DOKU Gateway Integration**: Migrasi penuh dari legacy Jokul API v2 (HMAC-SHA256) ke standar SNAP BI (HMAC-SHA512).
+- **Frontend & Backend Standards**: Penegasan Tailwind CSS v4 CSS-first (`@theme`), Next.js 15 Partial Prerendering (PPR), React 19 Compiler tanpa `useMemo`/`useCallback`, dan Node.js 24 LTS.
+- **Version Bump**: Versi aplikasi dan plugin dinaikkan dari `3.6.0` ke `3.7.0` di `package.json`, `plugin.json`, `bin/vibes.mjs`, dan `CHANGELOG.md`.
+
+### Fixed / Diperbaiki
+- **Typo Skill References**: Memperbaiki salah ketik referensi skill (` utonomous-red-teamer` → `autonomous-red-teamer`) di `brainstorming/SKILL.md` dan `zero-to-prod-orchestrator/SKILL.md`.
+- **Duplicate ORM Reference**: Membersihkan penyebutan ganda `database-orm-expert` pada matriks orkestrasi `js-backend-expert`.
+
+---
+
 ## [3.6.0] - 2026-09-14
 
 ### Added / Ditambahkan
