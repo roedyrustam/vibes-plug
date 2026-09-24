@@ -1,8 +1,8 @@
-﻿---
+---
 name: doku-payment-gateway
-description: "Expert guide for integrating DOKU Payment Gateway (Jokul API v2). Covers HMAC-SHA256 header signature calculation, Checkout & Direct APIs (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup / Panduan ahli integrasi DOKU Payment Gateway."
-author: "Roedy Rustam"
-version: "3.0.0"
+description: "Expert guide for integrating DOKU Payment Gateway (SNAP BI Standard). Covers B2B Access Token, HMAC-SHA512 signature calculation, SNAP API integrations (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup / Panduan ahli integrasi DOKU Payment Gateway (Standar SNAP BI)."
+author: "Roedy Rustam"
+version: "4.0.0"
 ---
 
 # DOKU Payment Gateway Integration / Integrasi Payment Gateway DOKU
@@ -18,53 +18,58 @@ version: "3.0.0"
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
-Expert guide for implementing DOKU Payment Gateway (Jokul API v2) integrations based on official [DOKU Developers Documentation](https://developers.doku.com/). Covers authentication headers, SHA-256 Digest generation, HMAC-SHA256 request signature construction, Webhook notification verification, Checkout Payment Links, Direct Payments (Virtual Account, QRIS, E-Wallet, Credit Card), error handling, and sandbox/production deployment.
+Expert guide for implementing DOKU Payment Gateway integrations based on official [DOKU Developers Documentation](https://developers.doku.com/). As of the mandate, all integrations MUST use the SNAP API v1.0 standard (Standard Nasional Open API Pembayaran) instead of the legacy Jokul API v2.
+Covers B2B Access Token generation, SHA-256 Body hashing, HMAC-SHA512 request signature construction, Webhook notification verification, Payment implementations (Virtual Account, QRIS, E-Wallet, Credit Card), error handling, and sandbox/production deployment.
 
 ### Trigger Conditions
 Activate this skill when the user is:
 - Building or refactoring DOKU Payment Gateway integration in Node.js, TypeScript, Python, Go, PHP, or Java.
-- Implementing HMAC-SHA256 signature calculations or notification signature verification for DOKU API.
-- Setting up DOKU Virtual Account (BCA, Mandiri, BRI, BNI, Permata, DOKU VA), QRIS, E-Wallet (OVO, ShopeePay, DANA, LinkAja), or Credit Card APIs.
-- Debugging DOKU API authorization errors (e.g., `Authorization Failed`, invalid signature, incorrect timestamp format).
+- Implementing SNAP BI B2B Access Token and HMAC-SHA512 signature calculations (`X-SIGNATURE`).
+- Setting up DOKU SNAP APIs for Virtual Account, QRIS, E-Wallet, or Credit Card.
+- Debugging DOKU API authorization errors (e.g., `Unauthorized`, invalid signature, incorrect timestamp format).
 
 ---
 
 ### Core Architecture & Credentials
 
 #### Environment Gateways
-| Environment | Base URL | Dashboard Portal |
-|---|---|---|
-| **Sandbox** | `https://api-sandbox.doku.com` | `https://sandbox.doku.com` |
-| **Production** | `https://api.doku.com` | `https://dashboard.doku.com` |
+| Environment | Base URL | Dashboard Portal | Simulator |
+|---|---|---|---|
+| **Sandbox** | `https://api-sandbox.doku.com` | `https://sandbox.doku.com` | `https://sandbox.doku.com/gtw-config-v2/simulator` |
+| **Production** | `https://api.doku.com` | `https://dashboard.doku.com` | N/A |
 
-#### Mandatory Headers
-Every request sent to DOKU API requires the following headers:
-- `Client-Id`: Merchant Client ID from DOKU Back Office.
-- `Request-Id`: Unique random string generated for each request (e.g., UUID v4).
-- `Request-Timestamp`: UTC ISO8601 timestamp string (e.g., `2026-08-07T13:00:00Z`).
-- `Request-Target`: Target API endpoint path (e.g., `/checkout/v1/payment` or `/doku-virtual-account/v2/payment-code`).
-- `Digest`: Base64 encoded SHA-256 hash of the JSON payload string (Omitted for `GET` requests).
-- `Signature`: Format `HMACSHA256=<base64-signature>`.
+#### Mandatory Headers (SNAP BI Standard)
+For B2B Access Token Generation (`/api/v1.0/access-token/b2b`):
+- `X-CLIENT-KEY`: Merchant Client ID from DOKU Back Office.
+- `X-TIMESTAMP`: ISO8601 timestamp string (e.g., `2026-08-07T13:00:00+07:00`).
+- `X-SIGNATURE`: RSA-SHA256 signature (Base64) - *Note: The token generation uses Asymmetric RSA, but subsequent transactional APIs use Symmetric HMAC-SHA512.*
+
+For Transactional Endpoints (e.g., `/bi-snap-va/v1/transfer-va/create-va`):
+- `Authorization`: Format `Bearer <B2B_ACCESS_TOKEN>`.
+- `X-TIMESTAMP`: ISO8601 timestamp string (e.g., `2026-08-07T13:00:00+07:00`).
+- `X-SIGNATURE`: HMAC-SHA512 signature (Base64 encoded string).
+- `X-PARTNER-ID`: Client ID.
+- `X-EXTERNAL-ID`: Unique string (e.g. UUID) for the request.
 
 ---
 
-### Signature Calculation Formula
+### Signature Calculation Formula (SNAP Transactional API)
 
-#### 1. Digest Calculation (POST / PUT / PATCH)
+#### 1. Body Hash (POST / PUT / PATCH)
 ```text
-Raw Body -> SHA-256 Hash -> Base64 Encode -> Digest String
+Minified JSON Body -> SHA-256 Hash -> Hex Encode -> Lowercase
 ```
 
-#### 2. Signature Component String
-The components MUST be concatenated with newline `\n` without extra whitespace:
+#### 2. String to Sign Component
+The components MUST be concatenated with `:` without extra whitespace:
 ```text
-Client-Id:<CLIENT_ID>\nRequest-Id:<REQUEST_ID>\nRequest-Timestamp:<TIMESTAMP>\nRequest-Target:<TARGET_PATH>\nDigest:<DIGEST_STRING>
+HTTPMethod:EndpointURL:AccessToken:LowercaseHexBodyHash:Timestamp
 ```
-*Note: For GET requests, omit `\nDigest:<DIGEST_STRING>`.*
+*Example:* `POST:/bi-snap-va/v1/transfer-va/create-va:eyJhb...:a1b2c3d4...:2026-08-07T13:00:00+07:00`
 
-#### 3. HMAC-SHA256 Signing
+#### 3. HMAC-SHA512 Signing
 ```text
-Raw String + Secret Key -> HMAC-SHA256 Hash -> Base64 Encode -> Prepend "HMACSHA256="
+String to Sign + Client Secret -> HMAC-SHA512 Hash -> Base64 Encode -> X-SIGNATURE
 ```
 
 ---
@@ -74,70 +79,68 @@ Raw String + Secret Key -> HMAC-SHA256 Hash -> Base64 Encode -> Prepend "HMACSHA
 ```typescript
 import crypto from 'crypto';
 
-interface DokuConfig {
+interface DokuSnapConfig {
   clientId: string;
-  secretKey: string;
+  clientSecret: string;
   isProduction: boolean;
 }
 
-export class DokuService {
+export class DokuSnapService {
   private clientId: string;
-  private secretKey: string;
+  private clientSecret: string;
   private baseUrl: string;
 
-  constructor(config: DokuConfig) {
+  constructor(config: DokuSnapConfig) {
     this.clientId = config.clientId;
-    this.secretKey = config.secretKey;
+    this.clientSecret = config.clientSecret;
     this.baseUrl = config.isProduction
       ? 'https://api.doku.com'
       : 'https://api-sandbox.doku.com';
   }
 
-  private generateDigest(body: object): string {
-    const jsonBody = JSON.stringify(body);
-    return crypto.createHash('sha256').update(jsonBody, 'utf8').digest('base64');
+  private generateBodyHash(body: object): string {
+    const minifiedBody = JSON.stringify(body);
+    return crypto.createHash('sha256').update(minifiedBody, 'utf8').digest('hex').toLowerCase();
   }
 
-  private generateSignature(
-    requestId: string,
-    timestamp: string,
+  public generateSignature(
+    method: string,
     targetPath: string,
-    digest?: string
+    accessToken: string,
+    timestamp: string,
+    body?: object
   ): string {
-    let rawComponent = `Client-Id:${this.clientId}\nRequest-Id:${requestId}\nRequest-Timestamp:${timestamp}\nRequest-Target:${targetPath}`;
-    
-    if (digest) {
-      rawComponent += `\nDigest:${digest}`;
+    let bodyHash = '';
+    if (body && ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
+      bodyHash = this.generateBodyHash(body);
     }
 
-    const hmac = crypto.createHmac('sha256', this.secretKey);
-    hmac.update(rawComponent);
-    const base64Hmac = hmac.digest('base64');
-
-    return `HMACSHA256=${base64Hmac}`;
+    const stringToSign = `${method.toUpperCase()}:${targetPath}:${accessToken}:${bodyHash}:${timestamp}`;
+    
+    return crypto
+      .createHmac('sha512', this.clientSecret)
+      .update(stringToSign, 'utf8')
+      .digest('base64');
   }
 
-  public async createCheckoutPayment(payload: {
-    order: { amount: number; invoice_number: string };
-    payment: { payment_due_date?: number };
-    customer: { name: string; email: string };
-  }) {
-    const targetPath = '/checkout/v1/payment';
-    const requestId = crypto.randomUUID();
-    const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
-    const digest = this.generateDigest(payload);
-    const signature = this.generateSignature(requestId, timestamp, targetPath, digest);
+  public async createVirtualAccount(accessToken: string, payload: any) {
+    const targetPath = '/bi-snap-va/v1/transfer-va/create-va';
+    const externalId = crypto.randomUUID();
+    // Example format: 2026-09-24T19:30:00+07:00
+    const timestamp = new Date().toISOString(); 
+    
+    const signature = this.generateSignature('POST', targetPath, accessToken, timestamp, payload);
 
     const response = await fetch(`${this.baseUrl}${targetPath}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Client-Id': this.clientId,
-        'Request-Id': requestId,
-        'Request-Timestamp': timestamp,
-        'Request-Target': targetPath,
-        'Digest': digest,
-        'Signature': signature,
+        'Authorization': `Bearer ${accessToken}`,
+        'X-TIMESTAMP': timestamp,
+        'X-SIGNATURE': signature,
+        'X-PARTNER-ID': this.clientId,
+        'X-EXTERNAL-ID': externalId,
+        'CHANNEL-ID': 'SDK'
       },
       body: JSON.stringify(payload),
     });
@@ -151,30 +154,32 @@ export class DokuService {
 
 ### Webhook / Notification Signature Verification
 
-When DOKU sends a payment status notification to your webhook URL, you MUST verify its signature before processing.
+When DOKU sends a webhook/notification in SNAP format, you MUST verify its signature.
+The process is identical to generating the signature: recreate the `stringToSign` using the incoming headers, the minified raw body, and your `Client Secret`, then compare the resulting HMAC-SHA512 Base64 string with the `X-SIGNATURE` header.
 
 ```typescript
 import crypto from 'crypto';
 import { Request, Response } from 'express';
 
-export function verifyDokuWebhook(req: Request, secretKey: string): boolean {
-  const clientId = req.headers['client-id'] as string;
-  const requestId = req.headers['request-id'] as string;
-  const timestamp = req.headers['request-timestamp'] as string;
-  const targetPath = req.originalUrl || req.url;
-  const receivedSignature = req.headers['signature'] as string;
+export function verifyDokuSnapWebhook(req: Request, clientSecret: string): boolean {
+  const method = req.method.toUpperCase();
+  const targetPath = req.originalUrl || req.url; // e.g., /api/webhook
+  const timestamp = req.headers['x-timestamp'] as string;
+  const receivedSignature = req.headers['x-signature'] as string;
+  // B2B token in Authorization header, remove 'Bearer '
+  const authHeader = req.headers['authorization'] as string;
+  const accessToken = authHeader ? authHeader.replace(/^Bearer\s+/i, '') : '';
 
-  const rawBody = JSON.stringify(req.body);
-  const digest = crypto.createHash('sha256').update(rawBody, 'utf8').digest('base64');
+  // Use raw body for exact minification match
+  const rawBody = typeof req.body === 'string' ? req.body : JSON.stringify(req.body);
+  const bodyHash = crypto.createHash('sha256').update(rawBody, 'utf8').digest('hex').toLowerCase();
 
-  const component = `Client-Id:${clientId}\nRequest-Id:${requestId}\nRequest-Timestamp:${timestamp}\nRequest-Target:${targetPath}\nDigest:${digest}`;
+  const stringToSign = `${method}:${targetPath}:${accessToken}:${bodyHash}:${timestamp}`;
   
-  const calculatedHmac = crypto
-    .createHmac('sha256', secretKey)
-    .update(component)
+  const expectedSignature = crypto
+    .createHmac('sha512', clientSecret)
+    .update(stringToSign, 'utf8')
     .digest('base64');
-  
-  const expectedSignature = `HMACSHA256=${calculatedHmac}`;
 
   return crypto.timingSafeEqual(
     Buffer.from(receivedSignature),
@@ -183,18 +188,16 @@ export function verifyDokuWebhook(req: Request, secretKey: string): boolean {
 }
 ```
 
-
 ---
 
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Issue | Solution |
 |---|---|---|
-| Extra trailing newline in component string | Signature validation fails (`Authorization Failed`) | Do not add `\n` at the end of the raw component string. |
-| Non-UTC ISO8601 timestamp | Timestamp mismatch error | Always format timestamp with UTC Z timezone (e.g. `2026-08-07T13:00:00Z`). |
-| Including Digest on `GET` requests | Signature mismatch | Omit `Digest` line completely when calculating signature for `GET` endpoints. |
-| Unsorted JSON body in digest calculation | Body hash mismatch | Pass exact raw stringified JSON body used in HTTP POST. |
-| Missing Idempotency Check | Duplicate processing on webhooks | Save `invoice_number` / `transaction_id` status in DB before executing state changes. |
+| Non-minified JSON body | Signature validation fails (`Invalid Signature`) | Always stringify JSON without extra spaces before hashing. |
+| Using HMAC-SHA256 | Signature validation fails | SNAP BI transactional signature uses **HMAC-SHA512** (Note: B2B Access Token uses RSA-SHA256). |
+| Capitalized Hex Hash | Signature mismatch | Ensure the SHA-256 body hash hex string is converted to lowercase before appending to `stringToSign`. |
+| Missing `Bearer` in Authorization | Unauthorized error | The `Authorization` header must include `Bearer <Token>`, but the `stringToSign` component must **only** be the token. |
 
 ---
 
@@ -205,21 +208,22 @@ export function verifyDokuWebhook(req: Request, secretKey: string): boolean {
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Panduan ahli untuk mengintegrasikan DOKU Payment Gateway (Jokul API v2) sesuai standar dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/). Mencakup header autentikasi, pembuatan Digest SHA-256, pembuatan Signature HMAC-SHA256, verifikasi Webhook/Notifikasi, Checkout Payment Link, Direct Payment (Virtual Account, QRIS, E-Wallet, Kartu Kredit), penanganan error, dan migrasi Sandbox ke Production.
+Panduan ahli untuk mengintegrasikan DOKU Payment Gateway dengan standar dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/). Berdasarkan mandat, seluruh integrasi WAJIB menggunakan standar SNAP API v1.0 (Standard Nasional Open API Pembayaran) sebagai pengganti Jokul API v2.
+Mencakup pembuatan B2B Access Token, Hash Body SHA-256, pembuatan Signature HMAC-SHA512, verifikasi Webhook/Notifikasi, dan implementasi API (Virtual Account, QRIS, E-Wallet, Kartu Kredit).
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika pengguna sedang:
 - Membangun atau merefaktor integrasi DOKU Payment Gateway di Node.js, TypeScript, Python, Go, PHP, atau Java.
-- Mengimplementasikan kalkulasi signature HMAC-SHA256 atau verifikasi signature notifikasi webhook DOKU.
-- Mengatur API Virtual Account (BCA, Mandiri, BRI, BNI, Permata, DOKU VA), QRIS, E-Wallet (OVO, ShopeePay, DANA, LinkAja), atau Kartu Kredit.
-- Melakukan debugging error otorisasi DOKU API (`Authorization Failed`, signature tidak valid, timestamp tidak sesuai format).
+- Mengimplementasikan kalkulasi signature HMAC-SHA512 (`X-SIGNATURE`) standar SNAP BI.
+- Mengatur API SNAP untuk Virtual Account, QRIS, E-Wallet, atau Kartu Kredit.
+- Melakukan debugging error otorisasi DOKU API (`Invalid Signature`, token kedaluwarsa).
 
-### Ringkasan Langkah Integrasi
-1. **Dapatkan Kredensial**: Buat akun di DOKU Sandbox untuk mendapatkan `Client-Id` dan `Secret-Key`.
-2. **Hitung Digest**: Untuk request `POST`, hash body JSON dengan SHA-256 lalu Base64.
-3. **Format Signature String**: Gabungkan `Client-Id`, `Request-Id`, `Request-Timestamp`, `Request-Target`, dan `Digest` dipisahkan dengan `\n`.
-4. **Sign HMAC-SHA256**: Hash string komponen menggunakan `Secret-Key` dengan algoritma HMAC-SHA256, ubah ke Base64, tambahkan awalan `HMACSHA256=`.
-5. **Verifikasi Webhook**: Gunakan formula yang sama pada header notifikasi masuk untuk memastikan pesan valid berasal dari DOKU.
+### Ringkasan Langkah Integrasi (SNAP BI)
+1. **Dapatkan Kredensial**: Ambil `Client-Id` dan `Secret-Key` dari DOKU Sandbox.
+2. **Generate B2B Access Token**: Hitung signature Asimetrik RSA-SHA256 dan panggil `/api/v1.0/access-token/b2b`.
+3. **Hitung Body Hash**: Untuk request transaksional `POST`, minify body JSON lalu hash menggunakan SHA-256, ubah ke Hex, dan format ke huruf kecil (lowercase).
+4. **Format String to Sign**: Gabungkan `HTTPMethod`, `EndpointURL`, `AccessToken`, `BodyHash`, dan `Timestamp` dipisahkan dengan titik dua `:`.
+5. **Sign HMAC-SHA512**: Hash string komponen menggunakan `Secret-Key` dengan algoritma HMAC-SHA512, ubah ke Base64, jadikan header `X-SIGNATURE`.
 
 ### Integrasi dengan Skill Lain
 - `payment-gateway-expert` — Untuk arsitektur billing SaaS umum dan state machine langganan.
