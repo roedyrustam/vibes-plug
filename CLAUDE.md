@@ -1,10 +1,10 @@
-# Vibes-Plug — 145+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 127+ Skills Ecosystem for AI-Powered Development
 
-> **v2.13.0 (2026 Edition)** — Universal AI plugin with 145+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v3.7.0 (2026 Edition)** — Universal AI plugin with 127+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 
-This repository contains **145+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **127+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
 
 **Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
 
@@ -26,6 +26,13 @@ This repository contains **145+ specialized skill files** in the `skills/` direc
 ---
 
 ## Core Rules
+
+### 0. Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
+**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all interactions.
+- The AI agent MUST NOT wait for the user to specify skill names or `@` tags.
+- Every user prompt is automatically intercepted and routed through `brainstorming` and `zero-to-prod-orchestrator`.
+- The agent automatically binds and synchronizes cooperating skills across all involved domains (Frontend, Backend, Database, Payments, AI, QA).
+- For complex, multi-step requests, the agent automatically acts as a Swarm Director (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator).
 
 ### 1. Deep Reasoning Before Action
 Do not act impulsively. Before writing code, modifying files, or making architectural decisions, engage in a mandatory reasoning phase:

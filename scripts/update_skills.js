@@ -62,7 +62,7 @@ function updateSkills() {
             content = content.replace(/Tailwind CSS(?:&nbsp;|\\u0026nbsp;| )v3/g, (match) => match.replace('v3', 'v4'));
             content = content.replace(/Tailwind(?:&nbsp;|\\u0026nbsp;| )v3/g, (match) => match.replace('v3', 'v4'));
             content = content.replace(/TanStack Query(?:&nbsp;|\\u0026nbsp;| )v4/g, (match) => match.replace('v4', 'v5'));
-            content = content.replace(/Bun(?:&nbsp;|\\u0026nbsp;| )v1\.0/g, (match) => match.replace('v1.0', 'v1.1+'));
+            content = content.replace(/Bun(?:&nbsp;|\\u0026nbsp;| )v1\.0/g, (match) => match.replace('v1.0', 'v1.2+'));
             
             if (content !== originalContent) {
                 fs.writeFileSync(filePath, content, 'utf-8');

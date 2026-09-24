@@ -48,7 +48,8 @@ async function validateSkills() {
             skillErrors.push('Missing "version" tag (Rule: All skills must be 3.0.0+)');
           } else {
             const version = versionMatch[1];
-            if (!version.startsWith('3.')) {
+            const major = parseInt(version.split('.')[0], 10);
+            if (isNaN(major) || major < 3) {
               skillErrors.push(`Version outdated: ${version} (expected >= 3.0.0)`);
             }
           }
