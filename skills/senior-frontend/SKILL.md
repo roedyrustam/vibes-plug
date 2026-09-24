@@ -1,8 +1,8 @@
-﻿---
+---
 name: senior-frontend
 description: "Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 / Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4."
-author: "Roedy Rustam"
-version: "3.0.0"
+author: "Roedy Rustam"
+version: "4.0.0"
 ---
 
 # Senior Frontend Specialist (2026 Edition)
@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Description
-Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies.
+Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies with automated self-healing testing loops.
 
 ### Orchestration & Integration
 - `design-system-architect`: For building robust UI components (Radix, Base UI, shadcn) and design tokens.
@@ -26,6 +26,7 @@ Production-grade frontend development patterns, performance optimization, and mo
 - `tanstack-query-expert`: For advanced data fetching and server state caching.
 - `spa-orchestrator`: For Single-Page Application architectures.
 - `mpa-orchestrator`: For Multi-Page Application architectures.
+- `autonomous-tdd-debugger`: For automated unit/component test execution and stack-trace self-healing.
 
 ### Trigger Conditions
 - Scaffold a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
@@ -59,13 +60,14 @@ Do not use `useMemo`, `useCallback`, or `React.memo` unless explicitly required;
 Implement native View Transitions API for smooth page transitions. Use Next.js 15 `<Link viewTransition>` natively.
 
 #### 4. Tailwind CSS v4
-Use CSS-first configuration. Define custom tokens with `@theme` and register plugins with `@plugin` in the main CSS file.
+Use CSS-first configuration. Define custom tokens with `@theme` and register plugins with `@plugin` in the main CSS file. Never create `tailwind.config.js`.
 
-#### 5. Accessibility (WCAG 2.2) & Testing
+#### 5. Accessibility (WCAG 2.2) & Self-Healing Testing
 - Enforce semantic HTML (`<button>`, `<nav>`, `<main>`, `<article>`).
 - Enforce full keyboard navigability and valid `aria-*` labels.
+- Run typecheck (`tsc --noEmit`) to verify zero compiler diagnostics.
 - Write unit tests using **Vitest** and **React Testing Library**.
-- Write E2E tests using **Playwright** via `e2e-testing-expert`.
+- When tests fail, activate `autonomous-tdd-debugger` to self-heal until 100% passing.
 
 #### 6. Architecture Integration
 - **SPA (`spa-orchestrator`)**: Use **TanStack Router** for type-safe client routing and **TanStack Query v5** for server state. Never use bare `useEffect` for data fetching.
@@ -80,7 +82,7 @@ For web animations, scroll-driven timelines, GSAP choreographies, and Framer Mot
 ## Bahasa Indonesia
 
 ### Deskripsi
-Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA.
+Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA dengan loop pengujian perbaikan mandiri (self-healing).
 
 ### Integrasi Orkestrasi
 - `design-system-architect`: Untuk membangun komponen UI yang kuat (Radix, Base UI, shadcn) dan design token.
@@ -91,6 +93,7 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 - `tanstack-query-expert`: Untuk fetching data lanjutan dan caching server state.
 - `spa-orchestrator`: Untuk arsitektur Single-Page Application.
 - `mpa-orchestrator`: Untuk arsitektur Multi-Page Application.
+- `autonomous-tdd-debugger`: Untuk eksekusi pengujian otomatis dan perbaikan mandiri berdasarkan stack trace terminal.
 
 ### Kondisi Pemicu
 - Buat proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
@@ -124,13 +127,14 @@ Jangan gunakan `useMemo`, `useCallback`, atau `React.memo` kecuali sangat diperl
 Terapkan View Transitions API bawaan browser untuk transisi halaman. Gunakan `<Link viewTransition>` pada Next.js 15.
 
 #### 4. Tailwind CSS v4
-Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama (lihat `tailwind-expert`).
+Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama (lihat `tailwind-expert`). Jangan pernah membuat file `tailwind.config.js`.
 
-#### 5. Aksesibilitas (WCAG 2.2) & Pengujian
+#### 5. Aksesibilitas (WCAG 2.2) & Pengujian Self-Healing
 - Wajib gunakan HTML semantik (`<button>`, `<nav>`, `<main>`).
 - Wajib pastikan navigasi keyboard dengan label `aria-*` yang valid.
+- Jalankan pemeriksaan tipe (`tsc --noEmit`) untuk memastikan nol eror diagnostik.
 - Tulis pengujian unit dengan **Vitest** dan **React Testing Library**.
-- Tulis pengujian E2E dengan **Playwright** via `e2e-testing-expert`.
+- Jika pengujian gagal, aktifkan `autonomous-tdd-debugger` untuk memulihkan kode hingga 100% lolos.
 
 #### 6. Integrasi Arsitektur
 - **SPA (`spa-orchestrator`)**: Gunakan **TanStack Router** untuk routing klien dan **TanStack Query v5** untuk server state. Jangan gunakan `useEffect` murni untuk fetching data.

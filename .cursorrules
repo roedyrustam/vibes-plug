@@ -1,8 +1,14 @@
-# Vibes-Plug — 144+ Skills Ecosystem (v2.12.0)
+# Vibes-Plug — 127+ Skills Ecosystem (v3.7.0)
 # Universal AI Plugin for Antigravity, Claude, and Cursor
 
+## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
+Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all Cursor AI interactions.
+- The AI agent MUST automatically intercept prompts and synchronize relevant skills without waiting for explicit `@` mentions.
+- Automatically connects cooperating skills (e.g. `doku-payment-gateway` + `saas-billing` + `payment-gateway-expert`; `senior-frontend` + `tailwind-expert`).
+- Multi-domain workflows trigger Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
+
 ## About
-This project uses the vibes-plug skills ecosystem with 144+ specialized skills.
+This project uses the vibes-plug skills ecosystem with 127+ specialized skills.
 Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
 instructions, patterns, and best practices for the modern 2026 tech stack.
 

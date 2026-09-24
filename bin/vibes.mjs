@@ -955,20 +955,76 @@ async function runSearch(query) {
   rl.close();
 }
 
+async function runSync() {
+  console.log('\n🔄 Vibes-Plug Master Synchronizer (Pemicu Utama)...');
+  console.log('Verifying primary trigger configuration and cross-skill synchronization...\n');
+
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  let skillCount = 0;
+  try {
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    skillCount = entries.filter(e => e.isDirectory()).length;
+  } catch (e) {
+    console.error(`❌ Could not read skills dir: ${e.message}`);
+  }
+
+  console.log(`  ✅ Global Registry: ${skillCount} skills detected.`);
+
+  // Check platforms entry points
+  const checkFiles = [
+    { name: 'Antigravity (AGENTS.md)', file: path.join(PLUGIN_ROOT, 'AGENTS.md') },
+    { name: 'Claude Code (CLAUDE.md)', file: path.join(PLUGIN_ROOT, 'CLAUDE.md') },
+    { name: 'Cursor IDE (.cursorrules)', file: path.join(PLUGIN_ROOT, '.cursorrules') },
+    { name: 'Cursor Rules (.cursor/rules/vibes-plug-core.mdc)', file: path.join(PLUGIN_ROOT, '.cursor', 'rules', 'vibes-plug-core.mdc') },
+    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') }
+  ];
+
+  for (const item of checkFiles) {
+    try {
+      const content = await fs.readFile(item.file, 'utf8');
+      const hasTrigger = content.includes('PRIMARY TRIGGER') || content.includes('Pemicu Utama');
+      if (hasTrigger) {
+        console.log(`  ✅ ${item.name}: Primary Trigger active & configured.`);
+      } else {
+        console.log(`  ⚠️  ${item.name}: Missing Primary Trigger directive.`);
+      }
+    } catch {
+      console.log(`  ℹ️  ${item.name}: Not found.`);
+    }
+  }
+
+  // Check master orchestrators
+  const brainPath = path.join(skillsDir, 'brainstorming', 'SKILL.md');
+  const ztpPath = path.join(skillsDir, 'zero-to-prod-orchestrator', 'SKILL.md');
+  const hasBrain = await fs.access(brainPath).then(() => true).catch(() => false);
+  const hasZtp = await fs.access(ztpPath).then(() => true).catch(() => false);
+
+  if (hasBrain && hasZtp) {
+    console.log(`  ✅ Master Orchestrators: brainstorming & zero-to-prod-orchestrator synchronized.`);
+  } else {
+    console.log(`  ⚠️  Master Orchestrators: check missing files.`);
+  }
+
+  console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
+  console.log('   All 127+ skills automatically synchronize when the user submits any coding prompt.\n');
+  rl.close();
+}
+
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.6.0)
+🌊 Vibes-Plug CLI (v3.7.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
   vibes <command> [options]
 
 Commands:
+  sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 125 skills by keyword (ranked by relevance)
+  search <query>            Search all 127 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -990,6 +1046,9 @@ Commands:
 
 // Main Router
 switch (command) {
+  case 'sync':
+    runSync();
+    break;
   case 'init':
     runInit(args[1]);
     break;

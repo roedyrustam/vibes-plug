@@ -2,8 +2,7 @@
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
 author: "Roedy Rustam"
-
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Zero to Production Orchestrator (2026 Master Edition)
@@ -32,6 +31,26 @@ The **Zero to Production Orchestrator** is the ultimate master skill designed to
 3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
 4. **State Preservation & Context**: Utilize `session-memory-manager` when pausing work or starting a new session to preserve full context.
 5. **Efficiency**: Keep `anti-slop` active during large refactors to maintain a lean, powerful, and zero-placeholder execution loop.
+
+---
+
+### 🐝 Swarm Execution Topologies & Subagent Delegation Protocols (2026 Master)
+
+Whenever executing complex multi-domain phases, the Orchestrator MUST act as **Swarm Director** and delegate to specialized subagents in parallel:
+
+#### 1. Topology Selection
+- **Fan-Out / Fan-In**: Used in Phase 4 (APIs + MCP + DB) and Phase 5 (Frontend UI + Mobile + Animations).
+  - *Director* dispatches Subagent A (Frontend UI via `senior-frontend`), Subagent B (Backend API via `js-backend-expert`), Subagent C (DB Migration via `database-orm-expert`).
+  - Collects results and runs integration verification.
+- **Pipeline Saga**: Sequential execution across Phases 1 to 8. Each phase produces a checkpoint artifact (`CONTEXT_MAP.md`, `BLUEPRINT.md`).
+- **Critic-Validator Gate**: Used in Phase 6. Implementer agent submits code -> Auditor agent (`coderabbit`, `autonomous-red-teamer`) reviews -> Fixer agent (`autonomous-tdd-debugger`) resolves failures.
+
+#### 2. Subagent Context Passing Protocol
+When delegating to any subagent, ALWAYS pass:
+1. Exact scope and non-goals.
+2. File paths of relevant schemas (`schema.prisma` / `schema.ts`) and API routes.
+3. Path to `PRD.md` and `BLUEPRINT.md`.
+4. Verification command (e.g. `npm test`, `tsc --noEmit`) to confirm completion before returning.
 
 ---
 
@@ -69,7 +88,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
 #### PHASE 4: Backend APIs, Microservices & AI Agents
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `graph-rag-knowledge-expert`, `browser-automation-expert`
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`
 - [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
@@ -84,7 +103,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
 **Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `visual-qa-vision-agent`, `hig`, `global-a11y-i18n-expert`, `bootstrap-to-modern`, `state-management-expert`, `ui-ux-pro-max`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`
-- [ ] **MANDATORY**: Run `modern-web-guidance` FIRST before implementing any frontend HTML/CSS/JS features to ensure compliance with modern Google standards.
+- [ ] **MANDATORY**: Run `modern-web-guidance` FIRST before implementing any frontend HTML/CSS/JS features to ensure compliance with modern standards.
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Integrate data visualizations (Recharts/Tremor/D3) and rich text editors (Tiptap/Lexical).
@@ -96,7 +115,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `utonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Write resilient E2E browser tests with Playwright and automated WCAG 2.2 accessibility tests with `@axe-core/playwright` and Pa11y.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
@@ -116,7 +135,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 **Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`
 - [ ] Deploy backend and edge services to Vercel, Cloudflare, AWS, or Railway.
 - [ ] For SaaS applications: deploy Super Admin dashboard on a **separate subdomain** (e.g., `admin.yourdomain.com`) with strict role-based access (`isSuperAdmin` flag).
-- [ ] Configure Stripe / Polar.sh / LemonSqueezy billing and webhooks.
+- [ ] Configure Stripe / Polar.sh / LemonSqueezy / DOKU SNAP BI billing and webhooks.
 - [ ] Finalize `CHANGELOG.md`, `BLUEPRINT.md`, and `PROGRESS.md`.
 - [ ] Handover the production-grade application to the user.
 
@@ -145,6 +164,26 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 
 ---
 
+### 🐝 Topologi Eksekusi Swarm & Protokol Delegasi Subagent (Master 2026)
+
+Saat mengeksekusi fase multi-domain yang kompleks, Orkestrator WAJIB bertindak sebagai **Swarm Director** dan mendelegasikan tugas ke subagent spesialis secara paralel:
+
+#### 1. Pemilihan Topologi
+- **Fan-Out / Fan-In**: Digunakan pada Fase 4 (API + MCP + DB) dan Fase 5 (Frontend UI + Mobile + Animasi).
+  - *Director* mengirimkan tugas ke Subagent A (Frontend UI via `senior-frontend`), Subagent B (Backend API via `js-backend-expert`), Subagent C (Migrasi DB via `database-orm-expert`).
+  - Mengumpulkan hasil dan menjalankan verifikasi integrasi.
+- **Pipeline Saga**: Eksekusi berurutan dari Fase 1 hingga 8. Setiap fase menghasilkan artefak checkpoint (`CONTEXT_MAP.md`, `BLUEPRINT.md`).
+- **Critic-Validator Gate**: Digunakan pada Fase 6. Agen implementor menyerahkan kode -> Agen auditor (`coderabbit`, `autonomous-red-teamer`) mereview -> Agen perbaikan (`autonomous-tdd-debugger`) menuntaskan kegagalan pengujian secara mandiri.
+
+#### 2. Protokol Pengiriman Konteks Subagent
+Saat mendelegasikan tugas ke subagent, SELALU berikan:
+1. Ruang lingkup tugas dan non-goals yang tegas.
+2. Path file skema terkait (`schema.prisma` / `schema.ts`) dan route API.
+3. Lokasi dokumen panduan `PRD.md` dan `BLUEPRINT.md`.
+4. Perintah verifikasi (seperti `npm test`, `tsc --noEmit`) untuk memastikan kode tervalidasi sebelum kembali ke Director.
+
+---
+
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
@@ -170,7 +209,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
 #### FASE 4: Backend API, Microservices & Agen AI
-**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `graph-rag-knowledge-expert`, `browser-automation-expert`
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`
 - [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
@@ -197,7 +236,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `utonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `autonomous-red-teamer`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
+**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Menulis pengujian browser E2E Playwright dan pengujian aksesibilitas WCAG 2.2 otomatis (`@axe-core/playwright` dan Pa11y).
 - [ ] Menjalankan pengujian fuzzing keamanan (Atheris / cargo-fuzz / native Go fuzzing).
@@ -217,7 +256,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 **Mengorkestrasi:** `cloud-hosting-expert`, `saas-billing`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`
 - [ ] Deploy backend dan edge services ke Vercel, Cloudflare, AWS, atau Railway.
 - [ ] Untuk aplikasi SaaS: deploy dashboard Super Admin pada **subdomain terpisah** (misal: `admin.domain.com`) dengan kontrol akses berbasis role (`isSuperAdmin`).
-- [ ] Konfigurasi billing Stripe / Polar.sh / LemonSqueezy dan webhooks.
+- [ ] Konfigurasi billing Stripe / Polar.sh / LemonSqueezy / DOKU SNAP BI dan webhooks.
 - [ ] Menyelesaikan `CHANGELOG.md`, `BLUEPRINT.md`, dan `PROGRESS.md`.
 - [ ] Serah terima aplikasi siap produksi kepada pengguna.
 

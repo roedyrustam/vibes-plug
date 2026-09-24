@@ -1,7 +1,7 @@
 # Vibes Plug
 
-[![Version](https://img.shields.io/badge/version-v3.2.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
-[![Skills](https://img.shields.io/badge/skills-126%20active-06b6d4.svg)](skills/)
+[![Version](https://img.shields.io/badge/version-v3.7.0-8b5cf6.svg)](https://github.com/roedyrustam/vibes-plug)
+[![Skills](https://img.shields.io/badge/skills-127%20active-06b6d4.svg)](skills/)
 [![Antigravity](https://img.shields.io/badge/antigravity-2026%20ready-10b981.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Claude](https://img.shields.io/badge/claude-compatible-f97316.svg)](https://github.com/roedyrustam/vibes-plug)
 [![Cursor](https://img.shields.io/badge/cursor-compatible-3b82f6.svg)](https://github.com/roedyrustam/vibes-plug)
@@ -11,7 +11,7 @@
 
 ![Vibes Plug Banner](banner.png)
 
-### ⚡ Universal 126 Skills Multi-Platform Agentic Swarm Architecture
+### ⚡ Universal 127 Skills Multi-Platform Agentic Swarm Architecture
 
 ```mermaid
 graph TD
@@ -23,7 +23,7 @@ graph TD
 
     DIRECTOR["🎯 Swarm Director & Orchestration Protocol<br/>brainstorming • zero-to-prod • multi-agent-orchestration • prd-architect"]
 
-    subgraph SWARM["⚡ 126 Specialized Engineering Skills Swarm Ecosystem"]
+    subgraph SWARM["⚡ 127 Specialized Engineering Skills Swarm Ecosystem"]
         D1["💡 Discovery, Ideation & Architecture (10 Skills)<br/>brainstorming • prd-architect • session-memory-manager • anti-slop"]
         D2["🤖 AI, LLM & Agentic Systems (14 Skills)<br/>ai-llm-integration • vercel-ai-sdk • deep-research • pydantic-ai • synthetic-data • mcp-server"]
         D3["🎨 Design Systems, UI/UX & Visuals (13 Skills)<br/>design-system • modern-css-native • hig • ui-ux-pro-max • data-visualization"]
@@ -85,7 +85,7 @@ graph TD
 <a name="english"></a>
 ## English
 
-**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **126 specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
+**2026 Edition** — Universal AI plugin for **Antigravity**, **Claude**, and **Cursor** containing **127 specialized _skills_** updated for the modern 2026 tech stack (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Designed to support software development, UI/UX design, AI/LLM integration, SEO optimization, and SaaS business strategies.
 
 ### Installation
 
@@ -153,16 +153,45 @@ npm install vibes-plug
 
 **Using curl & tar:**
 ```bash
-mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.2.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.7.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
 ```
 
 ---
 
-### CLI Usage (New in v3.2.0)
+### ⚡ Primary Trigger & Autonomous Skill Auto-Synchronization (Pemicu Utama)
 
-Vibes Plug now includes a powerful built-in CLI to accelerate your workflow. Run it using `node bin/vibes.mjs` or alias it as `vibes` globally.
+Upon installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent **does not wait** for manual skill invocations or `@skill` tags:
+
+1. **Autonomous Request Interception**: Every prompt is automatically analyzed and routed through `brainstorming` and `zero-to-prod-orchestrator`.
+2. **Cross-Skill Auto-Synchronization**: Automatically binds cooperating skills across domains:
+   - **Payments & Billing**: `doku-payment-gateway` (SNAP BI, HMAC-SHA512) ↔ `payment-gateway-expert` (raw webhook payload) ↔ `saas-billing` (state machine) ↔ `database-orm-expert` (atomic locks & idempotency).
+   - **Frontend & UI**: `senior-frontend` (React 19) ↔ `tailwind-expert` (v4 CSS-first) ↔ `design-system-architect` (tokens) ↔ `form-validation-expert` (Zod).
+   - **Backend & APIs**: `js-backend-expert` (Hono/Fastify/Node 24) ↔ `database-orm-expert` ↔ `api-design-expert` ↔ `authentication-identity-expert`.
+   - **QA & Hardening**: `autonomous-tdd-debugger` (self-healing CI) ↔ `e2e-testing-expert` ↔ `autonomous-red-teamer` (fuzzing) ↔ `production-ready-hardener` ↔ `anti-slop`.
+3. **2026 Swarm Execution Topologies**: Complex, multi-step requests automatically trigger Swarm Director mode (**Fan-Out/Fan-In**, **Pipeline Saga**, or **Critic-Validator Loop**) to coordinate specialized subagents in parallel.
+
+---
+
+### CLI Usage (v3.7.0)
+
+Vibes Plug includes a powerful built-in CLI to manage your agentic environment. Run it using `node bin/vibes.mjs` or alias it as `vibes` globally.
 
 ```bash
+# Verify and synchronize primary trigger & cross-skill orchestration
+vibes sync
+
+# Run environment diagnostics and check 127 active skills
+vibes doctor
+
+# Validate skill ecosystem compliance and bilingual integrity
+vibes validate
+
+# Run strict Anti-AI Slop quality gate check
+vibes audit
+
+# Launch the interactive TUI to visually select and install skills
+vibes ui
+
 # Scaffold a new standard skill with boilerplate
 vibes create-skill <skill-name>
 
@@ -172,15 +201,15 @@ vibes create-mcp <mcp-name>
 # Install specific skills locally to a project (AI Package Manager)
 vibes add <skill-name>
 
-# Run Anti-AI Slop audit across your repository
-vibes audit
+# Scaffold a zero-to-prod 8-Phase project structure
+vibes init <project-name>
 ```
 
 ---
 
 ### Features and Available Skills
 
-This plugin provides the following **126 specialized skills** across 9 core engineering domains:
+This plugin provides the following **127 specialized skills** across 9 core engineering domains:
 
 #### 🤖 AI & Agentic Systems
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP), dynamic model routing, prompt caching, RAG architecture, vector databases, and AI agents.
@@ -268,7 +297,7 @@ This plugin provides the following **126 specialized skills** across 9 core engi
 - **Saas Billing** (`saas-billing`): Implement and audit SaaS billing systems, subscription state machines, secure webhooks, and local database synchronization.
 - **Feature Flag Analytics Expert** (`feature-flag-analytics-expert`): Expert guide for Feature Flags & Progressive Rollout (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU) and secure webhooks into SaaS platforms.
-- **Doku Payment Gateway** (`doku-payment-gateway`): Expert guide for integrating DOKU Payment Gateway (Jokul API v2). Covers HMAC-SHA256 header signature calculation, Checkout & Direct APIs (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, and sandbox/production setup.
+- **Doku Payment Gateway** (`doku-payment-gateway`): Expert guide for integrating DOKU Payment Gateway (SNAP BI Standard). Covers B2B Access Token, HMAC-SHA512 signature calculation, SNAP API integrations (VA, QRIS, E-Wallet, Credit Card), webhook notification verification, raw body parser, atomic lock idempotency, and sandbox/production setup.
 - **Ecommerce Expert** (`ecommerce-expert`): Expert guide for e-commerce architecture (Shopify Storefront, Medusa.js, Saleor), product catalogs, cart/checkout UX, and order management.
 - **Headless Cms Expert** (`headless-cms-expert`): Expert guide for Headless CMS integration (Sanity, Payload CMS, Strapi, Contentful, Storyblok) with modern frameworks.
 - **Wordpress Headless Expert** (`wordpress-headless-expert`): Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching.
@@ -356,7 +385,7 @@ For those who want to contribute by adding new skills or updating existing ones,
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via `skills/` directory |
 
 ### Version
-v3.2.0 (2026 Edition) — 126 active skills | Supports AGY + Claude + Cursor
+v3.7.0 (2026 Edition) — 127 active skills | Supports AGY + Claude + Cursor
 
 ### Repository
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
@@ -372,7 +401,7 @@ Copyright (c) 2026 Roedy Rustam.
 
 ![Vibes Swarm Demo](vibes-swarm-demo.gif)
 
-**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **126 _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
+**Edisi 2026** — Plugin AI universal untuk **Antigravity**, **Claude**, dan **Cursor** yang berisi **127 _skills_ khusus** yang diperbarui untuk tech stack modern 2026 (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+). Dirancang untuk menunjang pengembangan perangkat lunak, desain UI/UX, integrasi AI/LLM, optimasi SEO, hingga strategi bisnis SaaS.
 
 ### Instalasi
 
@@ -440,16 +469,45 @@ npm install vibes-plug
 
 **Menggunakan curl & tar:**
 ```bash
-mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.2.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
+mkdir -p ~/.gemini/config/plugins/vibes-plug && curl -L https://registry.npmjs.org/vibes-plug/-/vibes-plug-3.7.0.tgz | tar -xz -C ~/.gemini/config/plugins/vibes-plug --strip-components=1
 ```
 
 ---
 
-### Penggunaan CLI (Baru di v3.2.0)
+### ⚡ Pemicu Utama & Sinkronisasi Skill Otomatis (Primary Trigger)
 
-Vibes Plug kini dilengkapi dengan CLI bawaan yang kuat untuk mempercepat alur kerja Anda. Jalankan menggunakan `node bin/vibes.mjs` atau alias sebagai `vibes` secara global.
+Begitu di-install oleh pengguna, `vibes-plug` menjadi **PEMICU UTAMA (Primary Trigger)** dan **KONDUKTOR INDUK** untuk seluruh aktivitas AI. AI **tidak perlu menunggu** pengguna memanggil skill secara manual atau mengetik tag `@skill`:
+
+1. **Intersepsi Prompt Mandiri**: Setiap prompt otomatis diproses dan diarahkan melalui mesin routing `brainstorming` dan `zero-to-prod-orchestrator`.
+2. **Sinkronisasi Antar-Skill Otomatis**: Secara dinamis mengikat skill-skill terkait:
+   - **Pembayaran & Billing**: `doku-payment-gateway` (SNAP BI, HMAC-SHA512) ↔ `payment-gateway-expert` (raw webhook payload) ↔ `saas-billing` (state machine) ↔ `database-orm-expert` (atomic locks & idempotency).
+   - **Frontend & UI**: `senior-frontend` (React 19) ↔ `tailwind-expert` (v4 CSS-first) ↔ `design-system-architect` (tokens) ↔ `form-validation-expert` (Zod).
+   - **Backend & API**: `js-backend-expert` (Hono/Fastify/Node 24) ↔ `database-orm-expert` ↔ `api-design-expert` ↔ `authentication-identity-expert`.
+   - **QA & Hardening**: `autonomous-tdd-debugger` (self-healing CI) ↔ `e2e-testing-expert` ↔ `autonomous-red-teamer` (fuzzing) ↔ `production-ready-hardener` ↔ `anti-slop`.
+3. **Topologi Swarm 2026**: Mengaktifkan mode Swarm Director secara otomatis (**Fan-Out/Fan-In**, **Pipeline Saga**, atau **Critic-Validator Loop**) untuk tugas kompleks multi-langkah.
+
+---
+
+### Penggunaan CLI (v3.7.0)
+
+Vibes Plug kini dilengkapi dengan CLI bawaan yang kuat untuk mengelola ekosistem agentic Anda. Jalankan menggunakan `node bin/vibes.mjs` atau alias sebagai `vibes` secara global.
 
 ```bash
+# Verifikasi dan sinkronkan pemicu utama & orkestrasi antar-skill
+vibes sync
+
+# Jalankan diagnostik kesehatan lingkungan dan periksa 127 skill aktif
+vibes doctor
+
+# Validasi kepatuhan ekosistem skill dan integritas dwibahasa
+vibes validate
+
+# Jalankan audit kualitas ketat Anti-AI Slop
+vibes audit
+
+# Buka TUI interaktif untuk memilih dan memasang skill secara visual
+vibes ui
+
 # Buat kerangka skill baru dengan standar baku
 vibes create-skill <nama-skill>
 
@@ -459,15 +517,15 @@ vibes create-mcp <nama-mcp>
 # Instal skill tertentu secara lokal ke dalam proyek Anda (AI Package Manager)
 vibes add <nama-skill>
 
-# Jalankan audit Anti-AI Slop di seluruh repositori Anda
-vibes audit
+# Buat kerangka proyek terstruktur 8-Fase Zero to Prod
+vibes init <nama-proyek>
 ```
 
 ---
 
 ### Fitur dan Skills yang Tersedia
 
-Plugin ini menyediakan **126 kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
+Plugin ini menyediakan **127 kemampuan (*skills*) terspesialisasi** di 9 domain rekayasa utama:
 
 #### 🤖 AI & Sistem Agen
 - **Ai Llm Integration Expert** (`ai-llm-integration-expert`): Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), dynamic model routing, prompt caching, arsitektur RAG, vector database, dan agen AI.
@@ -555,7 +613,7 @@ Plugin ini menyediakan **126 kemampuan (*skills*) terspesialisasi** di 9 domain 
 - **Saas Billing** (`saas-billing`): Implementasi dan audit sistem billing SaaS, state machine langganan, webhook aman, dan sinkronisasi database lokal.
 - **Feature Flag Analytics Expert** (`feature-flag-analytics-expert`): Panduan ahli Feature Flags, A/B testing, dan rilis bertahap.
 - **Payment Gateway Expert** (`payment-gateway-expert`): Panduan ahli integrasi payment gateway dan webhook aman.
-- **Doku Payment Gateway** (`doku-payment-gateway`): Panduan ahli integrasi DOKU Payment Gateway.
+- **Doku Payment Gateway** (`doku-payment-gateway`): Panduan ahli integrasi DOKU Payment Gateway (Standar SNAP BI). Mencakup B2B Access Token, tanda tangan HMAC-SHA512, integrasi SNAP API (VA, QRIS, E-Wallet, Kartu Kredit), verifikasi webhook raw body, atomic lock idempotency, serta setup sandbox dan produksi.
 - **Ecommerce Expert** (`ecommerce-expert`): Panduan ahli arsitektur e-commerce (Shopify, Medusa.js, Saleor), katalog produk, UX keranjang/checkout, dan manajemen pesanan.
 - **Headless Cms Expert** (`headless-cms-expert`): Panduan ahli integrasi Headless CMS (Sanity, Payload, Strapi, Contentful) dengan framework modern.
 - **Wordpress Headless Expert** (`wordpress-headless-expert`): Panduan ahli arsitektur WordPress headless.
@@ -643,7 +701,7 @@ Bagi Anda yang ingin berkontribusi menambahkan skill baru atau memperbarui skill
 | **Cursor IDE** | `.cursorrules` | `.cursor/rules/*.mdc` | Via direktori `skills/` |
 
 ### Versi
-v3.2.0 (Edisi 2026) — 126 skills | Mendukung AGY + Claude + Cursor
+v3.7.0 (Edisi 2026) — 127 skills | Mendukung AGY + Claude + Cursor
 
 ### Repositori
 [https://github.com/roedyrustam/vibes-plug.git](https://github.com/roedyrustam/vibes-plug.git)
