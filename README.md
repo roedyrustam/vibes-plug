@@ -5,53 +5,67 @@
 ![Status](https://img.shields.io/badge/status-Production_Ready-ff0080?style=for-the-badge)
 ![Compliance](https://img.shields.io/badge/compliance-Zero_Tech_Debt-10B981?style=for-the-badge)
 
+[🇬🇧 English](#english) | [🇮🇩 Bahasa Indonesia](#bahasa-indonesia)
+
+---
+
+<a name="english"></a>
+## 🇬🇧 English Version
+
 Welcome to **VibesPlug Pro**—the most advanced Agentic Mixture of Experts (MoE) orchestration plugin designed for autonomous AI IDEs (Antigravity, Claude Code, and Cursor). 
 
 Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**. It seamlessly orchestrates 131 highly specialized AI subagents to plan, design, code, audit, and deploy massive applications without requiring complex manual micromanagement.
 
+### 💎 The Four Pillars of 2026 Architecture
+1. **Agentic Swarm Orchestration:** Divides workloads, spawns subagents, and stitches PRDs and code together seamlessly.
+2. **Ephemeral Generative UI:** Streams dynamic React Server Components (RSC) straight to the client in real-time.
+3. **M2M FinOps & Micro-Economies:** Autonomous digital wallets, secure payment webhooks (Stripe/DOKU), and transaction guards.
+4. **Zero Technical Debt:** Powered by `zero-tech-debt-auditor`. The AI will autonomously self-correct, deduplicate, and strict-type the codebase before handoff.
+
+### 🚀 Installation Guide
+1. **Download the Plugin:** Download or clone the `vibes-plug` directory.
+2. **Move to IDE Config:** Place the entire folder into your AI IDE's global plugin directory:
+   - For **Antigravity**: Move it to `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) or `C:\Users\YOUR_NAME\.gemini\config\plugins\vibes-plug` (Windows).
+   - For **Cursor/Claude Code**: Reference the rules via `.cursorrules` or `.claude/rules`.
+3. **Restart the IDE:** Reload your AI editor to allow the engine to index the `plugin.json` and all 131 skills.
+
+### 💻 How to Use (Zero-Friction)
+VibesPlug acts as the **Primary Trigger**. You do *not* need to manually tag skills like `@senior-frontend` or `/ask-skill`.
+
+1. **Open AI Chat:** Open your IDE's AI assistant panel.
+2. **Type a Natural Prompt:** Give a high-level instruction.
+   > *"Build me a micro-SaaS platform with Stripe payments and a Next.js 15 Tailwind v4 dark mode UI."*
+3. **Watch the Swarm Work:** The orchestrator will automatically detect the domains, invoke the necessary specialized skills, and execute the 9-Phase Zero-To-Prod workflow autonomously.
+
 ---
 
-## 💎 The Four Pillars of 2026 Architecture
+<a name="bahasa-indonesia"></a>
+## 🇮🇩 Versi Bahasa Indonesia
 
-### 1. 🤖 Agentic Swarm Orchestration
-Through the `zero-to-prod-orchestrator` and `brainstorming` mandates, your AI doesn't just write code—it acts as an entire engineering firm. It divides workloads, spawns subagents for parallel tasks, writes PRDs, constructs Entity Relationship Diagrams (ERD), and stitches them together for you.
+Selamat datang di **VibesPlug Pro**—plugin orkestrasi AI *Agentic Mixture of Experts* (MoE) paling mutakhir yang dirancang untuk IDE AI otonom (Antigravity, Claude Code, dan Cursor).
 
-### 2. 🎨 Ephemeral Generative UI
-Say goodbye to rigid frontend development. The `ephemeral-generative-ui-architect` skill instructs the AI to stream dynamic, context-aware React Server Components (RSC) straight to the client in real-time based on pure user intent.
+Berbeda dengan pustaka *prompt* biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)**. Sistem ini secara mulus mengorkestrasi 131 sub-agen AI spesialis untuk merencanakan, mendesain, menulis kode, mengaudit, dan merilis aplikasi berskala besar tanpa campur tangan manual.
 
-### 3. 💸 M2M FinOps & Micro-Economies
-Build apps where agents can trade. Utilizing `agentic-micro-economy-architect`, `saas-billing`, and `doku-payment-gateway` skills, your systems are trained to handle autonomous digital wallets, secure payment webhooks, and zero-latency transaction guards.
+### 💎 Empat Pilar Arsitektur 2026
+1. **Agentic Swarm Orchestration:** Membagi beban kerja, memanggil sub-agen, dan merangkai dokumen (PRD) beserta kode secara utuh.
+2. **Ephemeral Generative UI:** Melakukan *streaming* komponen React Server (RSC) secara instan dan dinamis langsung ke pengguna.
+3. **M2M FinOps & Micro-Economies:** Dompet digital otonom, *webhook* pembayaran aman (DOKU/Stripe), dan sistem anti-eror transaksi.
+4. **Zero Technical Debt (Nol Utang Teknis):** Ditenagai oleh `zero-tech-debt-auditor`. AI akan secara otomatis merefaktor, menghapus duplikasi, dan merapikan kode sebelum tugas diserahkan ke tangan Anda.
 
-### 4. 🧹 Zero Technical Debt
-Powered by the uncompromising `zero-tech-debt-auditor` (Phase 9 Protocol). Your code is never handed over to you with "TODOs", magic numbers, or dead logic. The AI will autonomously self-correct, deduplicate (DRY), and strict-type (`any`-eradication) the codebase before declaring the task "Complete".
+### 🚀 Panduan Instalasi
+1. **Unduh Plugin:** Unduh atau *clone* direktori `vibes-plug`.
+2. **Pindahkan ke Konfigurasi IDE:** Letakkan seluruh folder ke dalam direktori plugin global IDE AI Anda:
+   - Untuk **Antigravity**: Pindahkan ke `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) atau `C:\Users\NAMA_ANDA\.gemini\config\plugins\vibes-plug` (Windows).
+   - Untuk **Cursor/Claude Code**: Referensikan panduan melalui `.cursorrules` atau `.claude/rules`.
+3. **Restart IDE:** Muat ulang (reload) editor AI Anda agar mesin dapat mengindeks `plugin.json` dan ke-131 *skill* yang ada.
 
----
+### 💻 Cara Penggunaan (Bebas Hambatan)
+VibesPlug bertindak sebagai **Pemicu Utama (Primary Trigger)**. Anda *tidak* perlu lagi memanggil nama skill satu per satu (seperti `@senior-frontend`).
 
-## 🚀 How to Use (Zero-Friction)
-
-Because VibesPlug acts as the **Primary Trigger**, there is no steep learning curve.
-
-1. **Install:** Ensure this folder is placed at `.gemini/config/plugins/vibes-plug`.
-2. **Trigger:** Simply open your AI chat and type a natural instruction.
+1. **Buka Panel Chat AI:** Buka asisten AI di IDE Anda.
+2. **Ketik Perintah Bahasa Manusia:** Berikan instruksi tingkat tinggi (*high-level*).
    > *"Buatkan saya platform SaaS micro-frontend terintegrasi pembayaran DOKU QRIS, lengkap dengan Tailwind v4 dark mode."*
-3. **Watch:** The Swarm Director will automatically detect the domains, invoke the necessary specialized skills out of the 131 available, and execute a 9-Phase Zero-To-Prod workflow autonomously.
-
----
-
-## 🗂️ Ecosystem Map
-
-```
-vibes-plug/
-├── AGENTS.md        # Core rules, primary triggers, and Swarm topology constraints
-├── CHANGELOG.md     # Version history (Currently v3.9.0)
-├── plugin.json      # IDE Manifest registration
-└── skills/          # The 131 Specialized Subagent Instructions
-    ├── zero-to-prod-orchestrator/
-    ├── zero-tech-debt-auditor/
-    ├── ephemeral-generative-ui-architect/
-    ├── affective-computing-emotion-ai/
-    └── ... (127 more specialized domains)
-```
+3. **Biarkan Swarm Bekerja:** Orkestrator akan otomatis mendeteksi kebutuhan domain, memanggil spesialis yang tepat, dan mengeksekusi alur kerja 9-Fase (*Zero-To-Prod*) secara mandiri hingga selesai.
 
 ---
 *Built for the Gemini 4 Pro / Claude 3.5 Frontier Model Era. Designed to ship 10x faster.*
