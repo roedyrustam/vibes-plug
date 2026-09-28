@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.9.0] - 2026-09-29
+
+### Added / Ditambahkan
+- **Universal Multi-Agent Swarm Integration**: Dukungan konfigurasi aturan Swarm lintas IDE (`AGENTS.md` untuk Antigravity, `CLAUDE.md` untuk Claude Code, `.cursorrules` untuk Cursor, Windsurf, Trae, Cline, Kimi, dan Kiro).
+- **131-Skill Strict Validation**: Seluruh 131 skill diverifikasi dengan pipeline CI ketat (`scripts/validate-skills.mjs`), memastikan kepatuhan frontmatter YAML v3.0+, bebas referensi usang, dan struktur dwibahasa (Inggris & Indonesia).
+- **Zero Tech Debt Auditor Enhancements**: Standardisasi penuh spesifikasi `zero-tech-debt-auditor` dengan panduan bilingual dan protokol eliminasi dead code (Knip Protocol).
+
+### Fixed / Diperbaiki
+- **Frontmatter Deduplication**: Membersihkan duplikasi metadata header pada 114 skill untuk menjaga integritas pembacaan skill oleh runner model.
+- **Skill Count Synchronization**: Sinkronisasi total 131 skill di seluruh dokumentasi `package.json`, `plugin.json`, `README.md`, dan CLI.
+
 ## [3.8.0] - 2026-09-28
 
 ### Added / Ditambahkan
