@@ -1012,7 +1012,7 @@ async function runSync() {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.7.0)
+🌊 Vibes-Plug CLI (v3.8.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:

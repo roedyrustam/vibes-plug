@@ -1,4 +1,4 @@
-﻿---
+---
 name: multi-agent-orchestration
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
 author: "Roedy Rustam"
@@ -291,6 +291,11 @@ client.on("video_frame", async (frame) => {
 client.connect();
 ```
 
+#### 10. Massive Parallel Swarms (Agentic MoE) for Next-Gen LLMs
+For next-gen models like **Gemini 4 Pro**:
+- **Batched Tool Invocation**: Transition from sequential step-by-step orchestrators to massive batched function calling.
+- **Monolithic Context Flow**: Pass the entire massive context (codebase snapshot) directly via KV-Cache rather than using chunked RAG retrieval per agent, allowing subagents to natively attend to the exact same shared memory state instantly.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -377,3 +382,7 @@ Arsitektur simulasi dunia cerita otonom multi-agen di mana agen bertindak sebaga
 - **Agen Triase Langsung:** Pipeline (Intake → Klasifikasi → Rute).
 - **Protokol Bangun Berbasis Peristiwa (Event-Driven):** Agen tidur hingga mendeteksi stimulus yang relevan.
 - **Integrasi API Live Multimodal Gemini:** Hook bawaan untuk pemrosesan persepsi berkelanjutan.
+#### 10. Swarm Paralel Masif (Agentic MoE) untuk LLM Next-Gen
+Untuk model generasi berikutnya seperti **Gemini 4 Pro**:
+- **Pemanggilan Tool Massal (Batching)**: Beralih dari orkestrator sekuensial (bertahap) ke pemanggilan fungsi massal secara serentak.
+- **Aliran Konteks Monolitik**: Kirimkan seluruh konteks masif (snapshot codebase) secara langsung melalui KV-Cache, hindari RAG terfragmentasi per agen. Ini memungkinkan sub-agen menganalisis *state* memori yang sama secara instan.

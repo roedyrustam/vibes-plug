@@ -1,4 +1,4 @@
-﻿---
+---
 name: mcp-server-architect
 description: "Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python / Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python."
 author: "Roedy Rustam"
@@ -160,6 +160,10 @@ When acting as an AI Agent consuming external MCP servers:
 3. **Cross-System Workflow Loop**: Dynamically chain tools across domains: GitHub MCP (find issue) -> `grep_search` (locate file) -> `autonomous-tdd-debugger` (test & fix) -> GitHub MCP (create PR).
 4. **Rate Limit Awareness**: Avoid rapid unthrottled loops against external MCP servers.
 
+### High-Throughput / Batched MCP Tool Execution (Gemini 4 Pro Readiness)
+- Ensure your MCP endpoints can handle **Massive Parallel Tool Execution** as models shift towards Agentic MoE architectures.
+- Implement parallel sub-processing in tools that expect to be called concurrently (e.g., using Promise.all or syncio.gather for batch database queries instead of blocking sequentially).
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -307,3 +311,6 @@ Ketika agen bertindak sebagai Klien MCP:
 
 ## Integrasi Orkestrasi
 - Terintegrasi dengan: `ai-llm-integration-expert`, `doku-mcp-server`, `zero-trust-secret-vault`.
+### Eksekusi Tool MCP Batch / Throughput Tinggi (Kesiapan Gemini 4 Pro)
+- Pastikan endpoint MCP Anda mampu menangani **Eksekusi Tool Paralel Masif** seiring transisi model menuju arsitektur Agentic MoE.
+- Terapkan pemrosesan sub-tugas paralel pada tools yang mungkin dipanggil secara bersamaan (misal: gunakan Promise.all atau syncio.gather untuk query batch, alih-alih mengeblok secara berurutan).

@@ -1,4 +1,4 @@
-﻿---
+---
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ long-context reasoning, Gemini 3.x thinking budget control, native context caching, Multimodal Live API protocols, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+, kontrol thinking budget Gemini 3.x, context caching native, protokol Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
 author: "Roedy Rustam"
@@ -135,6 +135,14 @@ Gemini natively supports concurrent function calls:
 - Read and edit multiple independent files in a single pass.
 - Trigger parallel web searches or subagent workers simultaneously to minimize round-trip latency.
 
+
+### 7. Gemini 4 Pro Architecture Readiness (Next-Gen)
+As the ecosystem transitions towards **Gemini 4 Pro**, implement these foundational architectural shifts:
+- **Monolithic Context Loading (SSM/Ring Attention)**: Move away from highly fragmented RAG pipelines. Inject the entire codebase natively into the 10M+ context window to leverage zero-loss cross-file attention.
+- **Aggressive Prefix KV-Caching**: Ensure strict deterministic hierarchies in orchestrator prompts (e.g., rainstorming/SKILL.md). Static prefix structures enable up to 90% TTFT latency reduction via KV cache reuse.
+- **Native Any-to-Any Multimodal Tokens**: Evolve oice-ai-realtime-agent and i-media-generation-expert to bypass external STT/TTS pipelines and transmit raw audio/visual tokens directly through the transformer attention layers.
+- **Native System-2 Budgeting vs. Prompted Reasoning**: Replace forced <thought> tags with API-level easoning_effort and 	hinking_budget manipulation to leverage test-time compute.
+- **Massive Parallel Tool Execution (Agentic MoE)**: Scale mcp-server-architect to support batched, high-throughput asynchronous MCP tool calls (10-20 concurrent subagents per inference cycle) to maximize Mixture-of-Experts parallel throughput.
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -232,3 +240,10 @@ Search Grounding native Gemini menghubungkan agen langsung ke informasi web terk
 Gemini secara native mendukung pemanggilan banyak function call dalam satu giliran (turn):
 - Baca dan modifikasi beberapa file independen sekaligus.
 - Jalankan pencarian web atau spawn subagent pekerja secara simultan guna meminimalkan total round-trip latency.
+### 7. Kesiapan Arsitektur Gemini 4 Pro (Next-Gen)
+Seiring transisi ekosistem menuju **Gemini 4 Pro**, terapkan pergeseran arsitektur fundamental berikut:
+- **Monolithic Context Loading (SSM/Ring Attention)**: Tinggalkan RAG yang sangat terfragmentasi. Masukkan seluruh codebase ke dalam *context window* masif (10M+) untuk memanfaatkan pemahaman atensi lintas-file tanpa kehilangan informasi (zero-loss).
+- **Prefix KV-Caching Agresif**: Pastikan hirarki prompt pada orkestrator (seperti rainstorming/SKILL.md) sangat deterministik. Struktur *prefix* statis dapat memangkas latensi TTFT hingga 90% dengan meminjam *KV Cache* dari iterasi sebelumnya.
+- **Native Any-to-Any Multimodal Tokens**: Kembangkan oice-ai-realtime-agent dan i-media-generation-expert agar menghindari pipeline STT/TTS eksternal, dan langsung mengirim/menerima raw token audio/visual melalui arsitektur transformer asli.
+- **Native System-2 Budgeting**: Ganti kebiasaan menggunakan tag <thought> paksaan di prompt dengan mengelola parameter API level komputasi seperti easoning_effort dan 	hinking_budget untuk memanfaatkan komputasi pada saat tes (*test-time compute*).
+- **Eksekusi Tool Paralel Skala Masif (Agentic MoE)**: Perluas mcp-server-architect untuk mendukung pemanggilan banyak *tool* MCP sekaligus (*batched asynchronous tool calls*), memungkinkan 10-20 agen sub-pekerja memproses instruksi secara simultan dengan throughput MoE tinggi.
