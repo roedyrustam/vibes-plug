@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.8.0] - 2026-09-28
+
+### Added / Ditambahkan
+- **Gemini 4 Pro (Next-Gen Readiness)**: Mengintegrasikan prinsip arsitektur masa depan ke orkestrator inti (gemini-agent-booster, multi-agent-orchestration, mcp-server-architect, rainstorming).
+- **Determinisme Prefix KV-Caching**: Mengunci struktur prompt statis (*static prefix*) pada orkestrator rainstorming/SKILL.md untuk memangkas latensi TTFT (*Time-to-First-Token*) hingga 90% pada konteks raksasa.
+- **Agentic MoE & Swarm Paralel Masif**: Mendorong eksekusi *subagent* massal serentak (*batch tooling*) dan penggunaan *state* memori monolitik daripada RAG terfragmentasi per agen.
+- **High-Throughput MCP Server**: Panduan penanganan konkurensi (pemanggilan serentak via Promise.all atau syncio.gather) di mcp-server-architect untuk mengimbangi kecepatan model-model *frontier* gen-4.
+- **Native Any-to-Any Multimodal Tokens**: Standarisasi integrasi API tanpa melalui perantara STT/TTS pada arsitektur agen real-time.
+
 ## [3.7.0] - 2026-09-24
 
 ### Added / Ditambahkan
@@ -504,3 +513,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed / Diubah
 - Updated the `saas-mvp-launcher` skill file with state-of-the-art 2026 patterns.
   *(Memperbarui file skill `saas-mvp-launcher` dengan pola mutakhir 2026.)*
+
