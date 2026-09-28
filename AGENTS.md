@@ -4,6 +4,9 @@
 > **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/`
 > Each platform has its own entry point, but the core rules and 127+ skills are shared.
 
+## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
+**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 3.5/4.0, GPT-4.5/O3, OpenAI Codex, and DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window.
+
 ## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
 
@@ -109,3 +112,5 @@ If it is missing from these files, the Swarm Auditor is authorized to add it.
 No generic "As an AI language model..." or overly verbose fluff. Instructions must be imperative, direct, and token-efficient. Use `token-saver` guidelines.
 
 > **Memory Graph Update:** 2026-08-12 - Initialized Gold Standard for Swarm Auditors.
+
+

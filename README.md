@@ -36,7 +36,7 @@ VibesPlug is powered by 131 specialized AI subagents. Here is a high-level group
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**—the most advanced Agentic Mixture of Experts (MoE) orchestration plugin designed for autonomous AI IDEs (Antigravity, Claude Code, and Cursor). 
+Welcome to **VibesPlug Pro**—the most advanced Agentic Mixture of Experts (MoE) orchestration plugin designed for autonomous AI IDEs (Antigravity, Cursor, Windsurf, and Claude Code). 
 
 Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**. It seamlessly orchestrates 131 highly specialized AI subagents to plan, design, code, audit, and deploy massive applications without requiring complex manual micromanagement.
 
@@ -74,7 +74,7 @@ VibesPlug acts as the **Primary Trigger**. You do *not* need to manually tag ski
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Versi Bahasa Indonesia
 
-Selamat datang di **VibesPlug Pro**—plugin orkestrasi AI *Agentic Mixture of Experts* (MoE) paling mutakhir yang dirancang untuk IDE AI otonom (Antigravity, Claude Code, dan Cursor).
+Selamat datang di **VibesPlug Pro**—plugin orkestrasi AI *Agentic Mixture of Experts* (MoE) paling mutakhir yang dirancang untuk IDE AI otonom (Antigravity, Cursor, Windsurf, dan Claude Code).
 
 Berbeda dengan pustaka *prompt* biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)**. Sistem ini mengorkestrasi 131 sub-agen AI spesialis untuk merencanakan, mendesain, menulis kode, mengaudit, dan merilis aplikasi berskala besar tanpa campur tangan manual.
 
@@ -111,7 +111,7 @@ VibesPlug bertindak sebagai **Pemicu Utama**. Anda *tidak* perlu memanggil nama 
 <a name="mandarin"></a>
 ## 🇨🇳 中文版 (Mandarin)
 
-欢迎来到 **VibesPlug Pro**——专为自主 AI IDE（Antigravity、Claude Code 和 Cursor）设计的最先进的混合专家 (MoE) 编排插件。
+欢迎来到 **VibesPlug Pro**——专为自主 AI IDE（Antigravity、Cursor、Windsurf 和 Claude Code）设计的最先进的混合专家 (MoE) 编排插件。
 
 与普通的提示词库不同，VibesPlug 充当 **集群指挥官 (Swarm Director)**。它无缝编排 131 个高度专业的 AI 子代理，用于规划、设计、编码、审计和部署大型应用程序，而无需复杂的人工微观管理。
 
@@ -148,7 +148,7 @@ VibesPlug 充当 **主要触发器**。您*不需要*手动标记技能（例如
 <a name="german"></a>
 ## 🇩🇪 Deutsche Version (German)
 
-Willkommen bei **VibesPlug Pro** – dem fortschrittlichsten Orchestrierungs-Plugin für Agentic Mixture of Experts (MoE), entwickelt für autonome KI-IDEs (Antigravity, Claude Code und Cursor).
+Willkommen bei **VibesPlug Pro** – dem fortschrittlichsten Orchestrierungs-Plugin für Agentic Mixture of Experts (MoE), entwickelt für autonome KI-IDEs (Antigravity, Cursor, Windsurf und Claude Code).
 
 Im Gegensatz zu generischen Prompt-Bibliotheken fungiert VibesPlug als **Swarm Director**. Es orchestriert nahtlos 131 hochspezialisierte KI-Subagenten, um massive Anwendungen zu planen, zu entwerfen, zu programmieren, zu prüfen und bereitzustellen, ohne komplexes manuelles Mikromanagement.
 
@@ -185,7 +185,7 @@ VibesPlug fungiert als **Hauptauslöser (Primary Trigger)**. Sie müssen Skills 
 <a name="japanese"></a>
 ## 🇯🇵 日本語版 (Japanese)
 
-**VibesPlug Pro** へようこそ — 自律型 AI IDE（Antigravity、Claude Code、Cursor）向けに設計された、最も高度な Agentic Mixture of Experts (MoE) オーケストレーションプラグインです。
+**VibesPlug Pro** へようこそ — 自律型 AI IDE（Antigravity、Cursor、Windsurf、Claude Code）向けに設計された、最も高度な Agentic Mixture of Experts (MoE) オーケストレーションプラグインです。
 
 一般的なプロンプトライブラリとは異なり、VibesPlug は **スウォームディレクター (Swarm Director)** として機能します。複雑な手動のマイクロマネジメントを必要とせずに、131の高度に専門化された AI サブエージェントをシームレスにオーケストレーションし、大規模なアプリケーションの計画、設計、コーディング、監査、デプロイを行います。
 
@@ -218,5 +218,7 @@ VibesPlug は **主要なトリガー (Primary Trigger)** として機能しま�
 3. **スウォームの作業を観察する:** オーケストレーターは自動的にドメインを検出し、必要な専門スキルを呼び出し、9段階の Zero-To-Prod ワークフローを自律的に実行します。
 
 ---
-*Built for the Gemini 4 Pro / Claude 3.5 Frontier Model Era. Designed to ship 10x faster.*
+*Built for the Frontier Model Era (Gemini 4 Pro, Claude 4, GPT-4.5/O3, OpenAI Codex, DeepSeek). Designed to ship 10x faster.*
+
+
 
