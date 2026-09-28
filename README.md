@@ -21,17 +21,15 @@ VibesPlug is powered by 131 specialized AI subagents. Here is a high-level group
 
 | 🎨 **Frontend & UI/UX** | ⚙️ **Backend & Architecture** |
 | :--- | :--- |
-| `senior-frontend` <br> `ephemeral-generative-ui-architect` <br> `tailwind-expert` <br> `modern-css-native-expert` <br> `ui-ux-pro-max` <br> `micro-frontend-architect` <br> `web-3d-graphics-expert` | `js-backend-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `api-design-expert` <br> `database-orm-expert` <br> `graphql-apollo-expert` <br> `domain-driven-design-expert` |
+| `senior-frontend` <br> `ephemeral-generative-ui-architect` <br> `tailwind-expert` <br> `modern-css-native-expert` <br> `ui-ux-pro-max` <br> `micro-frontend-architect` | `js-backend-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `api-design-expert` <br> `database-orm-expert` <br> `domain-driven-design-expert` |
 
 | 🤖 **Frontier AI & LLM** | 💸 **FinOps & Micro-Economy** |
 | :--- | :--- |
-| `affective-computing-emotion-ai` <br> `gemini-agent-booster` <br> `vercel-ai-sdk-expert` <br> `mcp-server-architect` <br> `vector-db-rag-expert` <br> `pydantic-ai-expert` | `agentic-micro-economy-architect` <br> `saas-billing` <br> `doku-payment-gateway` <br> `payment-gateway-expert` <br> `ecommerce-expert` |
+| `affective-computing-emotion-ai` <br> `gemini-agent-booster` <br> `vercel-ai-sdk-expert` <br> `mcp-server-architect` <br> `pydantic-ai-expert` | `agentic-micro-economy-architect` <br> `saas-billing` <br> `doku-payment-gateway` <br> `payment-gateway-expert` <br> `ecommerce-expert` |
 
 | 🛡️ **DevOps, QA & Orchestration** | 🌐 **Web Ecosystem & Platforms** |
 | :--- | :--- |
-| `zero-to-prod-orchestrator` <br> `zero-tech-debt-auditor` *(Phase 9)* <br> `autonomous-red-teamer` <br> `ci-cd-devops-architect` <br> `self-healing-cloud-orchestrator` <br> `brainstorming` | `chrome-extensions` <br> `mobile-expo-expert` <br> `desktop-electron-expert` <br> `pwa-offline-first-expert` <br> `blockchain-web3-expert` |
-
-*(This is a curated highlight. The full ecosystem contains 131 distinct routing skills).*
+| `zero-to-prod-orchestrator` <br> `zero-tech-debt-auditor` *(Phase 9)* <br> `autonomous-red-teamer` <br> `ci-cd-devops-architect` <br> `brainstorming` | `chrome-extensions` <br> `mobile-expo-expert` <br> `desktop-electron-expert` <br> `pwa-offline-first-expert` <br> `blockchain-web3-expert` |
 
 ---
 
@@ -49,6 +47,14 @@ Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**. It seam
 4. **Zero Technical Debt:** Powered by `zero-tech-debt-auditor`. The AI will autonomously self-correct, deduplicate, and strict-type the codebase before handoff.
 
 ### 🚀 Installation Guide
+
+#### Method 1: Via NPM / CLI (Recommended)
+The fastest way to install. The CLI will automatically detect your IDE and inject the 131 skills.
+```bash
+npx vibes-plug@latest init
+```
+
+#### Method 2: Manual / Direct Installation
 1. **Download the Plugin:** Download or clone the `vibes-plug` directory.
 2. **Move to IDE Config:** Place the entire folder into your AI IDE's global plugin directory:
    - For **Antigravity**: Move it to `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) or `C:\Users\YOUR_NAME\.gemini\config\plugins\vibes-plug` (Windows).
@@ -79,6 +85,14 @@ Berbeda dengan pustaka *prompt* biasa, VibesPlug bertindak sebagai **Swarm Direc
 4. **Zero Technical Debt (Nol Utang Teknis):** Ditenagai oleh `zero-tech-debt-auditor`. AI akan secara otomatis merefaktor, menghapus duplikasi, dan merapikan kode sebelum tugas diserahkan ke tangan Anda.
 
 ### 🚀 Panduan Instalasi
+
+#### Metode 1: Via NPM / CLI (Rekomendasi)
+Cara tercepat untuk instalasi. CLI akan otomatis mendeteksi IDE Anda dan menyuntikkan ke-131 skill ke dalamnya.
+```bash
+npx vibes-plug@latest init
+```
+
+#### Metode 2: Instalasi Langsung / Manual
 1. **Unduh Plugin:** Unduh direktori `vibes-plug`.
 2. **Pindahkan ke Konfigurasi IDE:** Letakkan folder ke dalam direktori plugin IDE Anda:
    - Untuk **Antigravity**: Pindahkan ke `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) atau `C:\Users\NAMA_ANDA\.gemini\config\plugins\vibes-plug` (Windows).
@@ -108,6 +122,14 @@ VibesPlug bertindak sebagai **Pemicu Utama**. Anda *tidak* perlu memanggil nama 
 4. **Zero Technical Debt (零技术债务):** 由 `zero-tech-debt-auditor` 驱动。AI 将在交付前自主进行自我修正、消除重复代码并实施严格的类型检查。
 
 ### 🚀 安装指南
+
+#### 方法 1: 通过 NPM / CLI (推荐)
+最快的安装方法。CLI 将自动检测您的 IDE 并注入 131 个技能。
+```bash
+npx vibes-plug@latest init
+```
+
+#### 方法 2: 手动/直接安装
 1. **下载插件:** 下载或克隆 `vibes-plug` 目录。
 2. **移动到 IDE 配置:** 将整个文件夹放入 AI IDE 的全局插件目录中：
    - 对于 **Antigravity**: 移动到 `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) 或 `C:\Users\YOUR_NAME\.gemini\config\plugins\vibes-plug` (Windows)。
@@ -137,6 +159,14 @@ Im Gegensatz zu generischen Prompt-Bibliotheken fungiert VibesPlug als **Swarm D
 4. **Zero Technical Debt (Null technische Schulden):** Angetrieben vom `zero-tech-debt-auditor`. Die KI wird die Codebasis vor der Übergabe autonom korrigieren, deduplizieren und streng typisieren.
 
 ### 🚀 Installationsanleitung
+
+#### Methode 1: Über NPM / CLI (Empfohlen)
+Der schnellste Weg zur Installation. Die CLI erkennt automatisch Ihre IDE und injiziert die 131 Skills.
+```bash
+npx vibes-plug@latest init
+```
+
+#### Methode 2: Manuelle / Direkte Installation
 1. **Plugin herunterladen:** Laden Sie das Verzeichnis `vibes-plug` herunter oder klonen Sie es.
 2. **Verschieben in die IDE-Konfiguration:** Platzieren Sie den gesamten Ordner im globalen Plugin-Verzeichnis Ihrer KI-IDE:
    - Für **Antigravity**: Verschieben Sie ihn nach `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) oder `C:\Users\IHR_NAME\.gemini\config\plugins\vibes-plug` (Windows).
@@ -166,6 +196,14 @@ VibesPlug fungiert als **Hauptauslöser (Primary Trigger)**. Sie müssen Skills 
 4. **技術的負債ゼロ (Zero Technical Debt):** `zero-tech-debt-auditor` を搭載。AI は、引き渡し前にコードベースの自動修正、重複排除、厳密な型指定を自律的に行います。
 
 ### 🚀 インストールガイド
+
+#### 方法 1: NPM / CLI 経由 (推奨)
+最も速いインストール方法です。CLI が自動的に IDE を検出し、131 のスキルを注入します。
+```bash
+npx vibes-plug@latest init
+```
+
+#### 方法 2: 手動 / 直接インストール
 1. **プラグインのダウンロード:** `vibes-plug` ディレクトリをダウンロードまたはクローンします。
 2. **IDE 構成への移動:** フォルダ全体を AI IDE のグローバルプラグインディレクトリに配置します：
    - **Antigravity** の場合: `~/.gemini/config/plugins/vibes-plug` (Mac/Linux) または `C:\Users\あなたの名前\.gemini\config\plugins\vibes-plug` (Windows) に移動します。
