@@ -1,6 +1,6 @@
 # These are supported funding model platforms
 
-github: # 
+github: [roedyrustam]
 patreon: # Replace with a single Patreon username
 open_collective: # Replace with a single Open Collective username
 ko_fi: # Replace with a single Ko-fi username
@@ -12,4 +12,4 @@ lfx_crowdfunding: # Replace with a single LFX Crowdfunding project-name e.g., cl
 polar: # Replace with a single Polar username
 buy_me_a_coffee: # roedyrustam                
 thanks_dev: # Replace with a single thanks.dev username
-custom: # https://paypal.me/rudyrustam?locale.x=id_ID&country.x=ID
+custom: ["https://paypal.me/rudyrustam?locale.x=id_ID&country.x=ID"]
