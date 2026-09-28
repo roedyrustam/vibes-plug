@@ -1,3 +1,9 @@
+---
+name: firebase-security-expert
+description: Expert protocol for firebase security expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: firebase-security-expert
 description: "Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration / Ahli keamanan Firebase untuk audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check."

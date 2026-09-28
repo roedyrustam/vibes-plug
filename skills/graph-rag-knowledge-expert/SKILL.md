@@ -1,3 +1,9 @@
+---
+name: graph-rag-knowledge-expert
+description: Expert protocol for graph rag knowledge expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: graph-rag-knowledge-expert
 description: "Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search / Panduan ahli Knowledge Graph, GraphRAG, dan pencarian relasional multi-hop."

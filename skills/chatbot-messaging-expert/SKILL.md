@@ -1,3 +1,9 @@
+---
+name: chatbot-messaging-expert
+description: Expert protocol for chatbot messaging expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: chatbot-messaging-expert
 description: "Expert guide for chatbot and messaging platform integration (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) and conversational AI / Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan."

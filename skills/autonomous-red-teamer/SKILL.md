@@ -1,3 +1,9 @@
+---
+name: autonomous-red-teamer
+description: Expert protocol for autonomous red teamer
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: autonomous-red-teamer
 description: "AI-driven dynamic security fuzzing, exploit generation (XSS, SQLi, SSRF, Prompt Injection), and automated patch remediation / Fuzzing keamanan dinamis berbasis AI, eksploitasi, dan remediasi otomatis."

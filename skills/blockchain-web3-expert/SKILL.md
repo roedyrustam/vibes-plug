@@ -1,3 +1,9 @@
+---
+name: blockchain-web3-expert
+description: Expert protocol for blockchain web3 expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: blockchain-web3-expert
 description: "Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state / Panduan ahli integrasi Web3 dan blockchain."

@@ -1,3 +1,9 @@
+---
+name: saas-architect
+description: Expert protocol for saas architect
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: saas-architect
 description: "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N) / Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N)."

@@ -1,3 +1,9 @@
+---
+name: deep-research-analyst
+description: Expert protocol for deep research analyst
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: deep-research-analyst
 description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."

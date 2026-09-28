@@ -1,3 +1,9 @@
+---
+name: app-analyzer-optimizer
+description: Expert protocol for app analyzer optimizer
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: app-analyzer-optimizer
 description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."

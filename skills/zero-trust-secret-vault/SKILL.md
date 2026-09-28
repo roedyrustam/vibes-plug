@@ -1,3 +1,9 @@
+---
+name: zero-trust-secret-vault
+description: Expert protocol for zero trust secret vault
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: zero-trust-secret-vault
 description: "Expert guide for Zero-Trust Secret Management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment security / Panduan ahli manajemen rahasia Zero-Trust, rotasi kunci API, dan keamanan variabel lingkungan."

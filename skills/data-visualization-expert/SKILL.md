@@ -1,3 +1,9 @@
+---
+name: data-visualization-expert
+description: Expert protocol for data visualization expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: data-visualization-expert
 description: "Expert guide for data visualization, charts, and dashboards using D3.js, Recharts, Chart.js, Nivo, and Tremor / Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts, Chart.js, Nivo, dan Tremor."

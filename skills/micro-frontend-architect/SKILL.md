@@ -1,3 +1,9 @@
+---
+name: micro-frontend-architect
+description: Expert protocol for micro frontend architect
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: micro-frontend-architect
 description: "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications."

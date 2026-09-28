@@ -1,3 +1,9 @@
+---
+name: svg-animation-motion-expert
+description: Expert protocol for svg animation motion expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: svg-animation-motion-expert
 description: "Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API / Panduan ahli animasi web."

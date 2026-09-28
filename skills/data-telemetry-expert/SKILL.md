@@ -1,3 +1,9 @@
+---
+name: data-telemetry-expert
+description: Expert protocol for data telemetry expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: data-telemetry-expert
 description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."

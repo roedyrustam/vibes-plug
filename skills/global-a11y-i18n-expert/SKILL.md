@@ -1,3 +1,9 @@
+---
+name: global-a11y-i18n-expert
+description: Expert protocol for global a11y i18n expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."

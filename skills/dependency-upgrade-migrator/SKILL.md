@@ -1,3 +1,9 @@
+---
+name: dependency-upgrade-migrator
+description: Expert protocol for dependency upgrade migrator
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: dependency-upgrade-migrator
 description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
@@ -18,7 +24,7 @@ version: "3.0.0"
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
-Production-grade guide for safely upgrading dependencies, migrating through breaking changes, and maintaining healthy dependency trees. Covers **automated upgrade tooling** (`npm-check-updates`, `taze`, Renovate Bot), **major framework migration guides** (React 18→19, Next.js 14→15, Tailwind v3→v4), **codemod automation** (jscodeshift, ts-morph), **vulnerability remediation** (`npm audit`, `pnpm audit`), **lockfile hygiene**, **monorepo alignment** (pnpm catalogs), and **breaking change detection workflows**.
+Production-grade guide for safely upgrading dependencies, migrating through breaking changes, and maintaining healthy dependency trees. Covers **automated upgrade tooling** (`npm-check-updates`, `taze`, Renovate Bot), **major framework migration guides** (React 19→19, Next.js 15→15, Tailwind v3→v4), **codemod automation** (jscodeshift, ts-morph), **vulnerability remediation** (`npm audit`, `pnpm audit`), **lockfile hygiene**, **monorepo alignment** (pnpm catalogs), and **breaking change detection workflows**.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -110,11 +116,11 @@ npx ncu --target minor  # Only show minor updates
 
 ### 4. Major Framework Migration Guides
 
-#### React 18 → 19
+#### React 19 → 19
 ```typescript
 // Key breaking changes:
 // 1. forwardRef no longer needed (ref is a regular prop)
-// ❌ Before (React 18)
+// ❌ Before (React 19)
 const Input = forwardRef<HTMLInputElement, Props>((props, ref) => (
   <input ref={ref} {...props} />
 ));
@@ -133,7 +139,7 @@ function Input({ ref, ...props }: Props & { ref?: React.Ref<HTMLInputElement> })
 // ✅ New: const theme = use(ThemeContext);
 ```
 
-#### Next.js 14 → 15
+#### Next.js 15 → 15
 ```typescript
 // Key changes:
 // 1. params/searchParams are now async in page/layout/route
@@ -149,7 +155,7 @@ function Input({ ref, ...props }: Props & { ref?: React.Ref<HTMLInputElement> })
 // Add: export const dynamic = 'force-static' if you want caching
 ```
 
-#### Tailwind CSS v3 → v4
+#### Tailwind CSS v4 → v4
 ```css
 /* Key changes: */
 /* 1. Configuration moves from JS to CSS */
@@ -283,7 +289,7 @@ catalog:
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Panduan tingkat produksi untuk upgrade dependensi yang aman, migrasi melalui breaking change, dan pemeliharaan dependency tree yang sehat. Mencakup **tooling upgrade otomatis** (`taze`, Renovate Bot), **panduan migrasi framework utama** (React 18→19, Next.js 14→15, Tailwind v3→v4), **otomasi codemod** (jscodeshift, ts-morph), **remediasi kerentanan** (`pnpm audit`), **kebersihan lockfile**, dan **penyelarasan dependensi monorepo** (pnpm catalogs).
+Panduan tingkat produksi untuk upgrade dependensi yang aman, migrasi melalui breaking change, dan pemeliharaan dependency tree yang sehat. Mencakup **tooling upgrade otomatis** (`taze`, Renovate Bot), **panduan migrasi framework utama** (React 19→19, Next.js 15→15, Tailwind v3→v4), **otomasi codemod** (jscodeshift, ts-morph), **remediasi kerentanan** (`pnpm audit`), **kebersihan lockfile**, dan **penyelarasan dependensi monorepo** (pnpm catalogs).
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:

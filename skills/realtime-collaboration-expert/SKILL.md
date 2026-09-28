@@ -1,3 +1,9 @@
+---
+name: realtime-collaboration-expert
+description: Expert protocol for realtime collaboration expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: realtime-collaboration-expert
 description: "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time."
