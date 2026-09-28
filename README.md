@@ -51,7 +51,7 @@ Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**. It seam
 #### Method 1: Via NPM / CLI (Recommended)
 The fastest way to install. The CLI will automatically detect your IDE and inject the 131 skills.
 ```bash
-npx vibes-plug@latest init
+npm i vibes-plug
 ```
 
 #### Method 2: Manual / Direct Installation
@@ -89,7 +89,7 @@ Berbeda dengan pustaka *prompt* biasa, VibesPlug bertindak sebagai **Swarm Direc
 #### Metode 1: Via NPM / CLI (Rekomendasi)
 Cara tercepat untuk instalasi. CLI akan otomatis mendeteksi IDE Anda dan menyuntikkan ke-131 skill ke dalamnya.
 ```bash
-npx vibes-plug@latest init
+npm i vibes-plug
 ```
 
 #### Metode 2: Instalasi Langsung / Manual
@@ -126,7 +126,7 @@ VibesPlug bertindak sebagai **Pemicu Utama**. Anda *tidak* perlu memanggil nama 
 #### 方法 1: 通过 NPM / CLI (推荐)
 最快的安装方法。CLI 将自动检测您的 IDE 并注入 131 个技能。
 ```bash
-npx vibes-plug@latest init
+npm i vibes-plug
 ```
 
 #### 方法 2: 手动/直接安装
@@ -163,7 +163,7 @@ Im Gegensatz zu generischen Prompt-Bibliotheken fungiert VibesPlug als **Swarm D
 #### Methode 1: Über NPM / CLI (Empfohlen)
 Der schnellste Weg zur Installation. Die CLI erkennt automatisch Ihre IDE und injiziert die 131 Skills.
 ```bash
-npx vibes-plug@latest init
+npm i vibes-plug
 ```
 
 #### Methode 2: Manuelle / Direkte Installation
@@ -200,7 +200,7 @@ VibesPlug fungiert als **Hauptauslöser (Primary Trigger)**. Sie müssen Skills 
 #### 方法 1: NPM / CLI 経由 (推奨)
 最も速いインストール方法です。CLI が自動的に IDE を検出し、131 のスキルを注入します。
 ```bash
-npx vibes-plug@latest init
+npm i vibes-plug
 ```
 
 #### 方法 2: 手動 / 直接インストール
@@ -219,3 +219,4 @@ VibesPlug は **主要なトリガー (Primary Trigger)** として機能しま�
 
 ---
 *Built for the Gemini 4 Pro / Claude 3.5 Frontier Model Era. Designed to ship 10x faster.*
+
