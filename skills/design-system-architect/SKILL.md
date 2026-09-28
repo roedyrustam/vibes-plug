@@ -1,11 +1,5 @@
 ---
 name: design-system-architect
-description: Expert protocol for design system architect
-author: vibes-plug-swarm
----
-
-﻿---
-name: design-system-architect
 description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
 author: "Roedy Rustam"
 version: "3.0.0"

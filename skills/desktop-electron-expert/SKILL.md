@@ -1,11 +1,5 @@
 ---
 name: desktop-electron-expert
-description: Expert protocol for desktop electron expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: desktop-electron-expert
 description: "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+."
 author: "Roedy Rustam"
 version: "3.0.0"

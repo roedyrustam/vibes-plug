@@ -1,11 +1,5 @@
 ---
 name: pdf-document-generation-expert
-description: Expert protocol for pdf document generation expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: pdf-document-generation-expert
 description: "Expert guide for PDF generation and document processing (React PDF, Puppeteer, jsPDF, pdf-lib) / Panduan ahli generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer, jsPDF, pdf-lib)."
 author: "Roedy Rustam"
 version: "3.0.0"

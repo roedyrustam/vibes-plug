@@ -1,11 +1,5 @@
 ---
 name: authentication-identity-expert
-description: Expert protocol for authentication identity expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: mpa-orchestrator
-description: Expert protocol for mpa orchestrator
-author: vibes-plug-swarm
----
-
-﻿---
-name: mpa-orchestrator
 description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: n8n-automation-expert
-description: Expert protocol for n8n automation expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: n8n-automation-expert
 description: "Expert guide for workflow automation (n8n, Zapier, Make), custom nodes, webhook triggers, and AI-powered automation chains / Panduan ahli otomasi workflow (n8n, Zapier, Make), custom nodes, webhook triggers, dan rantai otomasi berbasis AI."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: self-healing-cloud-orchestrator
-description: Expert protocol for self healing cloud orchestrator
-author: vibes-plug-swarm
----
-
-﻿---
-name: self-healing-cloud-orchestrator
 description: "Real-time log monitoring, crash detection, and auto-hotfixing code without human intervention / Pemantauan log real-time, deteksi kerusakan, dan perbaikan kode hotfix otomatis tanpa intervensi manusia."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: session-memory-manager
-description: Expert protocol for session memory manager
-author: vibes-plug-swarm
----
-
-﻿---
-name: session-memory-manager
 description: "Manages the entire session lifecycle: from context loading (PRD, Tech Stack) at startup, to maintaining project memory during active sessions, and creating ultra-compact checkpoints for handoff. / Mengelola siklus hidup sesi: dari pemuatan konteks awal, pemeliharaan memori proyek, hingga pembuatan checkpoint ringkas untuk handoff."
 author: "Roedy Rustam"
 version: "3.0.0"

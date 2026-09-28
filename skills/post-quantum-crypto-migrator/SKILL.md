@@ -1,11 +1,5 @@
 ---
 name: post-quantum-crypto-migrator
-description: Expert protocol for post quantum crypto migrator
-author: vibes-plug-swarm
----
-
-﻿---
-name: post-quantum-crypto-migrator
 description: "FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (PQC) / Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech."
 author: "Roedy Rustam"
 version: "3.0.0"

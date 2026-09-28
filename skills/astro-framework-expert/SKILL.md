@@ -1,11 +1,5 @@
 ---
 name: astro-framework-expert
-description: Expert protocol for astro framework expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: astro-framework-expert
 description: "Expert guide for Astro 5+ framework — Content Collections, Islands Architecture, View Transitions, partial hydration, and MDX integration / Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: rate-limit-abuse-prevention
-description: Expert protocol for rate limit abuse prevention
-author: vibes-plug-swarm
----
-
-﻿---
-name: rate-limit-abuse-prevention
 description: "Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection / Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan."
 author: "Roedy Rustam"
 version: "3.0.0"
