@@ -1,3 +1,9 @@
+---
+name: autonomous-tdd-debugger
+description: Expert protocol for autonomous tdd debugger
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: autonomous-tdd-debugger
 description: "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger."

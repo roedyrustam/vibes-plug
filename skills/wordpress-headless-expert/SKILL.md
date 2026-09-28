@@ -1,3 +1,9 @@
+---
+name: wordpress-headless-expert
+description: Expert protocol for wordpress headless expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: wordpress-headless-expert
 description: "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless."

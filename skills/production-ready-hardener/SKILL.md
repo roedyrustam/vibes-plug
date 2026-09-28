@@ -1,3 +1,9 @@
+---
+name: production-ready-hardener
+description: Expert protocol for production ready hardener
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: production-ready-hardener
 description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."

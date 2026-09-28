@@ -1,3 +1,9 @@
+---
+name: database-orm-expert
+description: Expert protocol for database orm expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: database-orm-expert
 description: "Updated to be the unified database skill covering ORM, migrations, edge DBs, and Supabase CLI / Keahlian database terpadu untuk ORM, migrasi, edge DB, dan Supabase CLI."

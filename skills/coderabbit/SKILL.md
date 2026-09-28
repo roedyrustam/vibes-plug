@@ -1,3 +1,9 @@
+---
+name: coderabbit
+description: Expert protocol for coderabbit
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: coderabbit
 description: "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif."

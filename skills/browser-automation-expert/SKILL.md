@@ -1,3 +1,9 @@
+---
+name: browser-automation-expert
+description: Expert protocol for browser automation expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: browser-automation-expert
 description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."

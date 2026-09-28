@@ -1,3 +1,9 @@
+---
+name: prd-architect
+description: Expert protocol for prd architect
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: prd-architect
 description: "Updated to cover both pre-code PRD/ERD/Docs generation AND post-code continuous documentation updates / Diperbarui untuk mencakup pembuatan PRD/ERD/Docs pra-kode DAN pembaruan dokumentasi kontinu pasca-kode."

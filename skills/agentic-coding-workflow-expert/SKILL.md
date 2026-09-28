@@ -1,3 +1,9 @@
+---
+name: agentic-coding-workflow-expert
+description: Expert protocol for agentic coding workflow expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: agentic-coding-workflow-expert
 description: "Expert guide for AI-assisted coding workflows — agentic code generation, multi-agent code swarms, self-healing CI/CD, automated PR review, spec-to-code pipelines, codebase knowledge graphs, and human-in-the-loop approval gates / Panduan ahli untuk workflow pengkodean berbasis AI — generasi kode agentic, code swarm multi-agen, CI/CD self-healing, review PR otomatis, pipeline spec-to-code, knowledge graph codebase, dan gate persetujuan human-in-the-loop."
@@ -290,3 +296,8 @@ Gabungkan skill ini dengan modul vibes-plug lainnya untuk workflow yang komprehe
 
 ## English
 ## Bahasa Indonesia
+
+
+## Orchestration & Integration
+- Connects to `zero-to-prod-orchestrator`
+- Connects to `brainstorming`

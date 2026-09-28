@@ -1,3 +1,9 @@
+---
+name: geospatial-maps-expert
+description: Expert protocol for geospatial maps expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: geospatial-maps-expert
 description: "Expert guide for maps and geospatial data (Mapbox GL JS, Leaflet, Google Maps, PostGIS) / Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS)."

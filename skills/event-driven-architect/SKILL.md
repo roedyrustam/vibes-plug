@@ -1,3 +1,9 @@
+---
+name: event-driven-architect
+description: Expert protocol for event driven architect
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: event-driven-architect
 description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."

@@ -1,3 +1,9 @@
+---
+name: angular-expert
+description: Expert protocol for angular expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: angular-expert
 description: "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3 / Panduan ahli aplikasi enterprise Angular 19+."

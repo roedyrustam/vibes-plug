@@ -1,3 +1,9 @@
+---
+name: ai-media-generation-expert
+description: Expert protocol for ai media generation expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: ai-media-generation-expert
 description: "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration / Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)."

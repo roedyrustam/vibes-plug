@@ -1,3 +1,9 @@
+---
+name: seo
+description: Expert protocol for seo
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: seo
 description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO / Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)"

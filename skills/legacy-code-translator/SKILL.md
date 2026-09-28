@@ -1,3 +1,9 @@
+---
+name: legacy-code-translator
+description: Expert protocol for legacy code translator
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."

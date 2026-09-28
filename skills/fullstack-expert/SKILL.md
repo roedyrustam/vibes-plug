@@ -1,3 +1,9 @@
+---
+name: fullstack-expert
+description: Expert protocol for fullstack expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: fullstack-expert
 description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), API design (OpenAPI 3.1, gRPC), microservices, system design patterns, and polyglot architecture / Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot."

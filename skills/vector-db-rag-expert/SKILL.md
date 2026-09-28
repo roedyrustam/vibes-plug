@@ -1,3 +1,9 @@
+---
+name: vector-db-rag-expert
+description: Expert protocol for vector db rag expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: vector-db-rag-expert
 description: "Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking / Panduan ahli Vector DB, arsitektur Deep RAG, pgvector HNSW, RRF, dan Re-ranking."

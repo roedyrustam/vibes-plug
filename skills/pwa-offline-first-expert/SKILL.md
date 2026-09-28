@@ -1,3 +1,9 @@
+---
+name: pwa-offline-first-expert
+description: Expert protocol for pwa offline first expert
+author: vibes-plug-swarm
+---
+
 ﻿---
 name: pwa-offline-first-expert
 description: "Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment / Panduan ahli arsitektur Offline-First & Local-First PWA."
