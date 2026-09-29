@@ -1,7 +1,7 @@
 {
   "name": "vibes-plug",
-  "version": "3.9.0",
-  "description": "Universal AI plugin with 131 specialized skills for Antigravity, Claude, and Cursor.",
+  "version": "3.10.0",
+  "description": "Universal AI plugin with 132 specialized skills for Antigravity, Claude, and Cursor.",
   "author": "Roedy Rustam",
   "license": "MIT",
   "repository": "https://github.com/roedyrustam/vibes-plug.git",
