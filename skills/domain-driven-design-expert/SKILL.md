@@ -1,11 +1,5 @@
 ---
 name: domain-driven-design-expert
-description: Expert protocol for domain driven design expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: domain-driven-design-expert
 description: "Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS / Panduan ahli Desain Berbasis Domain (DDD)."
 author: "Roedy Rustam"
 version: "3.0.0"

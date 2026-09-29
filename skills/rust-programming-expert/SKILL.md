@@ -1,11 +1,5 @@
 ---
 name: rust-programming-expert
-description: Expert protocol for rust programming expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: rust-programming-expert
 description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian."
 author: "Roedy Rustam"
 version: "3.0.0"

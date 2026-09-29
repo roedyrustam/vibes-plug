@@ -1,11 +1,5 @@
 ---
 name: scalability-clean-code
-description: Expert protocol for scalability clean code
-author: vibes-plug-swarm
----
-
-﻿---
-name: scalability-clean-code
 description: "Software architecture guidelines to maintain code readability (Clean Code, SOLID, DRY) and application scalability / Panduan arsitektur perangkat lunak untuk menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan kemampuan skalabilitas aplikasi."
 author: "Roedy Rustam"
 version: "3.0.0"

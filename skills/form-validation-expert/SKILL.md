@@ -1,11 +1,5 @@
 ---
 name: form-validation-expert
-description: Expert protocol for form validation expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
 author: "Roedy Rustam"
 version: "3.0.0"

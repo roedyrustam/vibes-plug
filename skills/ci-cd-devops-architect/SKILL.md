@@ -1,11 +1,5 @@
 ---
 name: ci-cd-devops-architect
-description: Expert protocol for ci cd devops architect
-author: vibes-plug-swarm
----
-
-﻿---
-name: ci-cd-devops-architect
 description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
 author: "Roedy Rustam"
 version: "3.0.0"

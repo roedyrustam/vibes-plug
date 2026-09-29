@@ -1,11 +1,5 @@
 ---
 name: performance-web-vitals
-description: Expert protocol for performance web vitals
-author: vibes-plug-swarm
----
-
-﻿---
-name: performance-web-vitals
 description: "Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement / Panduan ahli untuk optimasi performa web: Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, strategi rendering, dan peningkatan skor Lighthouse."
 author: "Roedy Rustam"
 version: "3.0.0"

@@ -1,11 +1,5 @@
 ---
 name: wasm-edge-computing-expert
-description: Expert protocol for wasm edge computing expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: wasm-edge-computing-expert
 description: "Expert guide for WebAssembly (WASM) and Edge Computing. Covers WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, and high-performance browser computing / Panduan ahli untuk WebAssembly (WASM) dan Edge Computing. Mencakup WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, dan komputasi performa tinggi di browser."
 author: "Roedy Rustam"
 version: "3.0.0"

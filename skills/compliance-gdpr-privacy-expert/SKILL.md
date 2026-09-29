@@ -1,11 +1,5 @@
 ---
 name: compliance-gdpr-privacy-expert
-description: Expert protocol for compliance gdpr privacy expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: compliance-gdpr-privacy-expert
 description: "Expert guide for Data Privacy, GDPR, CCPA, and PDPA compliance. Covers consent management, data retention, privacy-by-design, and audit trails / Panduan kepatuhan Privasi Data, GDPR, dan PDPA."
 author: "Roedy Rustam"
 version: "3.0.0"

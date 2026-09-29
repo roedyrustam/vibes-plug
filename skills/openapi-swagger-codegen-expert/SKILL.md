@@ -1,11 +1,5 @@
 ---
 name: openapi-swagger-codegen-expert
-description: Expert protocol for openapi swagger codegen expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: openapi-swagger-codegen-expert
 description: "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak."
 author: "Roedy Rustam"
 version: "3.0.0"

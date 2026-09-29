@@ -1,11 +1,5 @@
 ---
 name: local-slm-edge-ai-expert
-description: Expert protocol for local slm edge ai expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: local-slm-edge-ai-expert
 description: "Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings / Panduan ahli SLM lokal dan AI edge di browser."
 author: "Roedy Rustam"
 version: "3.0.0"

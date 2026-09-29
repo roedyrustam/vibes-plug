@@ -1,11 +1,5 @@
 ---
 name: documentation-site-expert
-description: Expert protocol for documentation site expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: documentation-site-expert
 description: "Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation / Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen."
 author: "Roedy Rustam"
 version: "3.0.0"

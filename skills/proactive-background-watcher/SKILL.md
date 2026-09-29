@@ -1,11 +1,5 @@
 ---
 name: proactive-background-watcher
-description: Expert protocol for proactive background watcher
-author: vibes-plug-swarm
----
-
-﻿---
-name: proactive-background-watcher
 description: "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts."
 author: "Roedy Rustam"
 version: "3.0.0"

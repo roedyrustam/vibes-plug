@@ -1,11 +1,5 @@
 ---
 name: glsl-shader-expert
-description: Expert protocol for glsl shader expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: glsl-shader-expert
 description: "Expert guide for modern web shaders: Three Shading Language (TSL), WebGPU WGSL, Compute Shaders, and WebGL GLSL in Three.js and Babylon.js. Covers procedural generation, compute kernels, and post-processing / Panduan ahli shader web modern: TSL, WGSL, Compute Shader, dan GLSL."
 author: "vibes-plug-swarm"
 version: "3.0.0"

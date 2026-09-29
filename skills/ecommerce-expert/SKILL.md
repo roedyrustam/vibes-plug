@@ -1,11 +1,5 @@
 ---
 name: ecommerce-expert
-description: Expert protocol for ecommerce expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: ecommerce-expert
 description: "Expert guide for e-commerce architecture (Shopify Storefront, Medusa.js, Saleor), product catalogs, cart/checkout UX, and order management / Panduan ahli arsitektur e-commerce (Shopify, Medusa.js, Saleor), katalog produk, UX keranjang/checkout, dan manajemen pesanan."
 author: "Roedy Rustam"
 version: "3.0.0"

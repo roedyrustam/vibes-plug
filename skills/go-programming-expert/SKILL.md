@@ -1,11 +1,5 @@
 ---
 name: go-programming-expert
-description: Expert protocol for go programming expert
-author: vibes-plug-swarm
----
-
-﻿---
-name: go-programming-expert
 description: "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian."
 author: "Roedy Rustam"
 version: "3.0.0"
