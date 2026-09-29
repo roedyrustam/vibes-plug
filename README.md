@@ -1,17 +1,54 @@
 <div align="center">
-  <img src="./logo.jpg" alt="VibesPlug Logo" width="250" style="border-radius: 20px; margin-bottom: 20px;" />
+  <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
 # ⚡ VibesPlug Pro: 131-Skill AI Agent Swarm Architecture
 
-  <p>
-    <img src="https://img.shields.io/badge/version-3.9.0-0070f3?style=for-the-badge" alt="Version" />
-    <img src="https://img.shields.io/badge/ecosystem-Next.js_15_|_React_19_|_Tailwind_v4-7928ca?style=for-the-badge" alt="Ecosystem" />
-    <img src="https://img.shields.io/badge/status-Production_Ready-ff0080?style=for-the-badge" alt="Status" />
-    <img src="https://img.shields.io/badge/compliance-Zero_Tech_Debt-10B981?style=for-the-badge" alt="Compliance" />
-  </p>
+**Turn any IDE into an autonomous 131-agent software development studio.**  
+*Zero AI Slop • Zero Tech Debt • Pure Production Velocity*
 
-[🇬🇧 English](#english) | [🇮🇩 Bahasa Indonesia](#bahasa-indonesia) | [🇨🇳 中文 (Mandarin)](#mandarin) | [🇩🇪 Deutsch (German)](#german) | [🇯🇵 日本語 (Japanese)](#japanese)
+<p align="center">
+  <a href="https://github.com/roedyrustam/vibes-plug/stargazers"><img src="https://img.shields.io/github/stars/roedyrustam/vibes-plug?style=for-the-badge&logo=github&color=FFD700&labelColor=0d1117" alt="GitHub Stars" /></a>
+  <a href="https://github.com/roedyrustam/vibes-plug/network/members"><img src="https://img.shields.io/github/forks/roedyrustam/vibes-plug?style=for-the-badge&logo=github&color=58a6ff&labelColor=0d1117" alt="GitHub Forks" /></a>
+  <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/v/vibes-plug?style=for-the-badge&logo=npm&color=ef4444&labelColor=0d1117" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/dt/vibes-plug?style=for-the-badge&logo=npm&color=10b981&labelColor=0d1117" alt="NPM Downloads" /></a>
+  <a href="https://github.com/roedyrustam/vibes-plug/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&labelColor=0d1117" alt="License" /></a>
+  <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20131-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/roedyrustam/vibes-plug">⭐ <b>Star this repo</b></a> to support the project & help it trend!
+</p>
+
+[🇬🇧 English](#english) | [🇮🇩 Bahasa Indonesia](#bahasa-indonesia) | [🇨🇳 中文 (Mandarin)](#mandarin) | [🇩🇪 Deutsch (German)](#german) | [🇯🇵 日本語 (Japanese)](#japanese) | [📈 Star History](#star-history)
 </div>
+
+---
+
+### 🎬 Swarm Director in Action
+
+<div align="center">
+  <img src="./vibes-swarm-demo.gif" alt="VibesPlug Swarm Demo" width="95%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 12px 36px rgba(0,0,0,0.5);" />
+</div>
+
+<br />
+
+```bash
+# ⚡ Instant 1-Command Scaffold (No Config Needed)
+npx vibes-plug init
+```
+
+---
+
+## 💥 Why VibesPlug? (The Paradigm Shift)
+
+| Metric / Capability | Vanilla Vibe Coding (Prompts) | Static IDE Rules (.cursorrules) | ⚡ VibesPlug Pro (Swarm) |
+| :--- | :--- | :--- | :--- |
+| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration |  **Swarm Director & 131 Specialists** |
+| **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance |  **Autonomous 9-Phase Zero-To-Prod** |
+| **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts |  **React 19, Next 15, Tailwind v4, Bun 1.2+** |
+| **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check |  **Zero-Tech-Debt Auditor & Red Teaming** |
+| **Payment & Micro-Economy** | ❌ Incomplete integrations | ⚠️ Basic docs |  **DOKU SNAP, Stripe, M2M Agent Wallets** |
+| **IDE Portability** | ❌ Locked to one interface | ⚠️ Cursor only |  **Antigravity, Cursor, Claude Code, Windsurf, Trae, VSCode** |
 
 ---
 
@@ -213,4 +250,35 @@ vibes-plug init
    - `vibes-plug list` - メモリにロードされているすべてのスキルを表示します。
 
 ---
-*Frontier Model Era (Gemini 4 Pro, Claude 4, GPT-4.5/O3, OpenAI Codex, DeepSeek). Designed to ship 10x faster.*
+
+<a name="star-history"></a>
+## 📈 Star History & Growth
+
+Support open-source AI innovation! Drop a ⭐ star on this repo to help it reach more developers worldwide.
+
+<div align="center">
+  <a href="https://star-history.com/#roedyrustam/vibes-plug&Date">
+    <img src="https://api.star-history.com/svg?repos=roedyrustam/vibes-plug&type=Date" alt="Star History Chart" width="100%" style="max-width: 800px; border-radius: 12px; margin-top: 10px;" />
+  </a>
+</div>
+
+---
+
+## 🤝 Community & Contributing
+
+Contributions are warmly welcome! Whether you are:
+- Submitting a new AI domain skill
+- Reporting a bug or edge-case
+- Improving multilingual prompts & docs
+
+Check out our [Contributing Guide](CONTRIBUTING.md) to get started.
+
+## 📄 License
+
+Distributed under the [MIT License](LICENSE). Built for the global developer ecosystem.
+
+---
+<div align="center">
+  <sub>Engineered by <a href="https://github.com/roedyrustam">Roedy Rustam</a> & Open-Source Contributors. Empowered by Frontier AI.</sub>
+</div>
+
