@@ -19,6 +19,10 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 async function runInit(projectName) {
   if (!projectName) {
     console.error('❌ Error: Project name is required.');
@@ -920,6 +924,7 @@ async function runSearch(query) {
   const skills = entries.filter(d => d.isDirectory()).map(d => d.name);
 
   const q = query.toLowerCase();
+  const safeQ = escapeRegExp(q);
   const results = [];
 
   for (const skill of skills) {
@@ -928,7 +933,7 @@ async function runSearch(query) {
       const content = await fs.readFile(skillMdPath, 'utf8');
       const lower = content.toLowerCase();
       // Score by keyword frequency
-      const score = (lower.match(new RegExp(q, 'g')) || []).length;
+      const score = (lower.match(new RegExp(safeQ, 'g')) || []).length;
       if (score > 0) {
         // Extract description from frontmatter
         const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
