@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.10.0] - 2026-09-29
+
+### Added / Ditambahkan
+- **Skill `app-promo-media-expert`**: Panduan ahli untuk memproduksi media promosi aplikasi visual (gambar) dan video animasi gerak (App Store & Google Play screenshots, social cards Product Hunt/Twitter/LinkedIn, banner dinamis Open Graph via `@vercel/og`, video teaser terprogram dengan Remotion React, formula storyboard 30 detik berkonversi tinggi, dan otomasi headless screenshot via Playwright).
+- **132-Skill Ecosystem Expansion**: Sinkronisasi 132 skill di `brainstorming/SKILL.md` (Domain File & Media), `zero-to-prod-orchestrator/SKILL.md` (Fase 5 & Fase 8), `package.json`, `plugin.json`, dan `README.md`.
+
 ## [3.9.0] - 2026-09-29
 
 ### Added / Ditambahkan
