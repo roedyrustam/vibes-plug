@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Expert guide for configuring and leveraging **CodeRabbit 2.x** — AI-powered automated code review, pull request summarization, and interactive developer feedback. Covers configuration, custom review rules, integration with CI/CD, and agentic review mode.
@@ -92,6 +92,7 @@ reviews:
     3. PERFORMANCE: N+1 queries, unnecessary re-renders, bundle size
     4. MAINTAINABILITY: Code duplication, naming, SOLID violations
     5. STYLE: Only comment if it's a significant clarity issue
+    6. SOVEREIGN ANTI-SLOP: Flag placeholders (// TODO, // ...), mock data in prod, syntax comments, and silent error suppression
 
 # PR summary format
 summary:

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * scripts/check-anti-slop.js
+ * skills/anti-slop/scripts/check-anti-slop.js
  * Sovereign Anti-AI Slop Validator Engine (2026 Edition)
  * Fast, zero-dependency AST/Regex scanner for catching AI slop, lazy placeholders,
  * obvious narration comments, zombie code, and sycophantic artifacts.
@@ -83,7 +83,6 @@ const DOC_ERROR_PATTERNS = [
   {
     id: 'AI_DISCLAIMER_SLOP',
     name: 'Generic AI Disclaimer Slop',
-    // Check if not explicitly part of an anti-slop prohibition rule or inside quotation
     regex: /^(?!.*(No generic|Forbidden|Dilarang|prohibit|Standard|Avoid|Eliminate|Rule)).*(As an AI language model|As an artificial intelligence|Note: In a real-world scenario|Note: For production, you should consult)/i,
     description: 'Unhelpful generic disclaimer slop.'
   }
@@ -127,7 +126,6 @@ function scanFile(filePath) {
   const isDoc = DOC_EXTENSIONS.includes(ext);
 
   if (!isCode && !isDoc) return;
-  // Skip scanning the anti-slop rules / validator definitions themselves to prevent self-matching
   if (filePath.includes('check-anti-slop') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
     return;
   }
@@ -141,7 +139,6 @@ function scanFile(filePath) {
     const trimmed = line.trim();
 
     if (isCode) {
-      // Check Error Patterns
       CODE_ERROR_PATTERNS.forEach(pattern => {
         if (pattern.regex.test(line)) {
           violations.push({
@@ -156,9 +153,7 @@ function scanFile(filePath) {
         }
       });
 
-      // Check Warning Patterns
       CODE_WARN_PATTERNS.forEach(pattern => {
-        // Console log in test files or CLI scripts is permitted
         if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (isTestFile(filePath) || isCliScript(filePath))) {
           return;
         }
@@ -174,7 +169,6 @@ function scanFile(filePath) {
             description: pattern.description
           });
 
-          // Auto-fix if enabled and it's a syntax narration comment
           if (isFix && pattern.id === 'SYNTAX_NARRATION' && trimmed.startsWith('//')) {
             lines[index] = '';
             fileModified = true;
@@ -185,7 +179,6 @@ function scanFile(filePath) {
     }
 
     if (isDoc) {
-      // Check Doc Patterns
       DOC_ERROR_PATTERNS.forEach(pattern => {
         if (pattern.regex.test(trimmed)) {
           violations.push({

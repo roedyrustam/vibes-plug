@@ -1,53 +1,265 @@
 #!/usr/bin/env node
 /**
  * scripts/check-anti-slop.mjs
- * Automated Anti-AI Slop Validator for vibes-plug & user codebases.
+ * Sovereign Anti-AI Slop Validator Engine (2026 Edition - ESM)
  */
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const SLOP_PATTERNS = [
-  { name: 'Lazy Truncation Placeholder', regex: /\/\/\s*\.\.\.\s*(rest|code|implement|logic)/i },
-  { name: 'Unfinished TODO Stub', regex: /\/\/\s*TODO:\s*(implement|add logic|fill in|later)/i },
-  { name: 'Mock Data in Production', regex: /\/\/\s*mock data for now/i },
-  { name: 'Syntax Narration Comment', regex: /\/\/\s*(increment\s+\w+|return\s+(the\s+)?\w+|import\s+\w+\s+from)/i },
+// CLI Arguments
+const args = process.argv.slice(2);
+const isStrict = args.includes('--strict');
+const isFix = args.includes('--fix');
+const isJson = args.includes('--json');
+const isSummary = args.includes('--summary');
+const targetPathArg = args.find(a => !a.startsWith('--'));
+const rootDir = targetPathArg ? path.resolve(targetPathArg) : process.cwd();
+
+// Patterns Definition
+const CODE_ERROR_PATTERNS = [
+  {
+    id: 'LAZY_TRUNCATION',
+    name: 'Lazy Truncation / Ellipsis Placeholder',
+    regex: /\/\/\s*(\.\.\.|…)\s*(rest|code|implement|logic|remain|existing|unchanged|here)/i,
+    description: 'Never truncate code with ellipses; output complete implementation.'
+  },
+  {
+    id: 'UNFINISHED_TODO',
+    name: 'Unfinished AI Stub or TODO',
+    regex: /\/\/\s*(TODO|FIXME|HACK|XXX):\s*(implement|add logic|fill in|later|placeholder|write here)/i,
+    description: 'Unfinished stubs left by lazy model generations.'
+  },
+  {
+    id: 'NOT_IMPLEMENTED_THROW',
+    name: 'Unimplemented Exception Throw',
+    regex: /throw\s+new\s+(Error|NotImplementedError|UnsupportedOperationException)\s*\(\s*['"`](Not implemented|TODO|stub|WIP)['"`]\s*\)/i,
+    description: 'Code throwing stubbed "Not implemented" exceptions.'
+  },
+  {
+    id: 'MOCK_DATA_LEFTOVER',
+    name: 'Mock Data Leftover in Production',
+    regex: /\/\/\s*(mock data for now|dummy data|placeholder for real api)/i,
+    description: 'Hardcoded fake data comment instead of real database/API queries.'
+  },
+  {
+    id: 'SILENT_ERROR_SUPPRESSION',
+    name: 'Silent Catch Block (Swallowed Error)',
+    regex: /catch\s*(\([a-zA-Z0-9_]*\))?\s*\{\s*(\/\/[^\n]*)?\s*\}/,
+    description: 'Empty catch block that silently suppresses errors without handling or logging.'
+  },
+  {
+    id: 'PYTHON_PASS_STUB',
+    name: 'Python Pass / Ellipsis Stub',
+    regex: /^\s*(def|class)\s+[a-zA-Z0-9_]+.*:\s*(#\s*TODO.*)?\n\s*(pass|\.\.\.)\s*$/m,
+    description: 'Unfinished Python function or class stubbed with pass/...'
+  }
 ];
 
-const IGNORE_DIRS = ['node_modules', '.git', '.next', 'dist', 'build', 'artifacts', '.gemini'];
+const CODE_WARN_PATTERNS = [
+  {
+    id: 'SYNTAX_NARRATION',
+    name: 'Syntax-Narrating Obvious Comment',
+    regex: /\/\/\s*(increment\s+\w+|return\s+(the\s+)?\w+|import\s+\w+\s+from|set\s+\w+\s+to\s+\w+|initialize\s+\w+|define\s+\w+|call\s+\w+)/i,
+    description: 'Comments narrating obvious code mechanics rather than explaining business/architectural rationale.'
+  },
+  {
+    id: 'CONSOLE_LOG_DEBRIS',
+    name: 'Console Debugging Debris',
+    regex: /(?<!\/\/\s*)console\.(log|debug|warn)\s*\(/,
+    description: 'Unstructured console.log call left in production code (use structured logger like Pino).'
+  }
+];
 
-let slopCount = 0;
+const DOC_ERROR_PATTERNS = [
+  {
+    id: 'CONVERSATIONAL_PREAMBLE',
+    name: 'Conversational AI Preamble / Sycophancy',
+    regex: /^(Certainly!|I'd be happy to|Sure thing!|Of course!|As requested,|Here is the updated|I hope this helps!|Let me know if you need anything else!)/i,
+    description: 'Conversational fluff and sycophantic pleasantries in documentation.'
+  },
+  {
+    id: 'AI_DISCLAIMER_SLOP',
+    name: 'Generic AI Disclaimer Slop',
+    regex: /^(?!.*(No generic|Forbidden|Dilarang|prohibit|Standard|Avoid|Eliminate|Rule)).*(As an AI language model|As an artificial intelligence|Note: In a real-world scenario|Note: For production, you should consult)/i,
+    description: 'Unhelpful generic disclaimer slop.'
+  }
+];
+
+const IGNORE_DIRS = [
+  'node_modules',
+  '.git',
+  '.next',
+  'dist',
+  'build',
+  'artifacts',
+  '.gemini',
+  '.turbo',
+  'coverage',
+  '.cache'
+];
+
+const CLI_SCRIPT_DIRS = ['scripts', 'bin', 'cli'];
+
+const CODE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.py', '.go', '.rs'];
+const DOC_EXTENSIONS = ['.md', '.mdx', '.txt'];
+
+let totalFilesScanned = 0;
+let violations = [];
+let fixesApplied = 0;
+
+function isTestFile(filePath) {
+  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(filePath);
+}
+
+function isCliScript(filePath) {
+  const normalized = filePath.replace(/\\/g, '/');
+  return CLI_SCRIPT_DIRS.some(dir => normalized.includes(`/${dir}/`) || normalized.startsWith(`${dir}/`));
+}
+
+function scanFile(filePath) {
+  totalFilesScanned++;
+  const ext = path.extname(filePath).toLowerCase();
+  const isCode = CODE_EXTENSIONS.includes(ext);
+  const isDoc = DOC_EXTENSIONS.includes(ext);
+
+  if (!isCode && !isDoc) return;
+  if (filePath.includes('check-anti-slop') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
+    return;
+  }
+
+  let content = fs.readFileSync(filePath, 'utf8');
+  let lines = content.split('\n');
+  let fileModified = false;
+
+  lines.forEach((line, index) => {
+    const lineNum = index + 1;
+    const trimmed = line.trim();
+
+    if (isCode) {
+      CODE_ERROR_PATTERNS.forEach(pattern => {
+        if (pattern.regex.test(line)) {
+          violations.push({
+            severity: 'ERROR',
+            file: filePath,
+            line: lineNum,
+            ruleId: pattern.id,
+            name: pattern.name,
+            snippet: trimmed,
+            description: pattern.description
+          });
+        }
+      });
+
+      CODE_WARN_PATTERNS.forEach(pattern => {
+        if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (isTestFile(filePath) || isCliScript(filePath))) {
+          return;
+        }
+
+        if (pattern.regex.test(line)) {
+          violations.push({
+            severity: isStrict ? 'ERROR' : 'WARN',
+            file: filePath,
+            line: lineNum,
+            ruleId: pattern.id,
+            name: pattern.name,
+            snippet: trimmed,
+            description: pattern.description
+          });
+
+          if (isFix && pattern.id === 'SYNTAX_NARRATION' && trimmed.startsWith('//')) {
+            lines[index] = '';
+            fileModified = true;
+            fixesApplied++;
+          }
+        }
+      });
+    }
+
+    if (isDoc) {
+      DOC_ERROR_PATTERNS.forEach(pattern => {
+        if (pattern.regex.test(trimmed)) {
+          violations.push({
+            severity: 'ERROR',
+            file: filePath,
+            line: lineNum,
+            ruleId: pattern.id,
+            name: pattern.name,
+            snippet: trimmed,
+            description: pattern.description
+          });
+        }
+      });
+    }
+  });
+
+  if (fileModified && isFix) {
+    fs.writeFileSync(filePath, lines.filter(l => l !== '').join('\n'), 'utf8');
+  }
+}
 
 function scanDir(dir) {
   if (!fs.existsSync(dir)) return;
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    if (IGNORE_DIRS.includes(file)) continue;
-    const fullPath = path.join(dir, file);
-    const stat = fs.statSync(fullPath);
-    if (stat.isDirectory()) {
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    if (IGNORE_DIRS.includes(entry.name)) continue;
+    const fullPath = path.join(dir, entry.name);
+
+    if (entry.isDirectory()) {
       scanDir(fullPath);
-    } else if (/\.(ts|tsx|js|jsx|mjs|py|go|rs)$/.test(file) && !file.includes('check-anti-slop')) {
-      const content = fs.readFileSync(fullPath, 'utf8');
-      const lines = content.split('\n');
-      lines.forEach((line, index) => {
-        SLOP_PATTERNS.forEach(({ name, regex }) => {
-          if (regex.test(line)) {
-            console.error(`🚨 [AI SLOP DETECTED] ${fullPath}:${index + 1} (${name}) -> ${line.trim()}`);
-            slopCount++;
-          }
-        });
-      });
+    } else if (entry.isFile()) {
+      scanFile(fullPath);
     }
   }
 }
 
-console.log('🔍 Scanning repository for AI slop and placeholder code...');
-scanDir(process.cwd());
+// Execution
+if (!isJson) {
+  console.log(`\n🛡️  [Vibes-Plug] Sovereign Anti-Slop Validator (2026 Edition)`);
+  console.log(`📁 Scanning: ${rootDir}`);
+  console.log(`⚙️  Mode: ${isStrict ? 'STRICT (All warnings treated as errors)' : 'STANDARD'}${isFix ? ' | AUTO-FIX ENABLED' : ''}\n`);
+}
 
-if (slopCount > 0) {
-  console.error(`\n❌ Failed: ${slopCount} AI slop violations detected. Purge placeholders before commit.`);
-  process.exit(1);
+scanDir(rootDir);
+
+const errors = violations.filter(v => v.severity === 'ERROR');
+const warnings = violations.filter(v => v.severity === 'WARN');
+
+if (isJson) {
+  console.log(JSON.stringify({
+    totalFilesScanned,
+    errorCount: errors.length,
+    warningCount: warnings.length,
+    fixesApplied,
+    violations
+  }, null, 2));
 } else {
-  console.log('✅ Anti-Slop Audit Passed: Clean code, zero AI slop detected.');
+  if (violations.length > 0) {
+    violations.forEach(v => {
+      const colorTag = v.severity === 'ERROR' ? '\x1b[31m[ERROR]\x1b[0m' : '\x1b[33m[WARN]\x1b[0m';
+      const relPath = path.relative(rootDir, v.file);
+      console.log(`${colorTag} \x1b[1m${relPath}:${v.line}\x1b[0m — \x1b[36m${v.name}\x1b[0m`);
+      console.log(`       \x1b[90mSnippet:\x1b[0m ${v.snippet}`);
+      console.log(`       \x1b[90mRule:\x1b[0m    ${v.description}\n`);
+    });
+  }
+
+  console.log(`------------------------------------------------------------`);
+  console.log(`📊 Scan Summary:`);
+  console.log(`   • Files scanned:   ${totalFilesScanned}`);
+  console.log(`   • Slop Errors:     ${errors.length > 0 ? `\x1b[31m${errors.length}\x1b[0m` : `\x1b[32m0\x1b[0m`}`);
+  console.log(`   • Slop Warnings:   ${warnings.length > 0 ? `\x1b[33m${warnings.length}\x1b[0m` : `\x1b[32m0\x1b[0m`}`);
+  if (fixesApplied > 0) {
+    console.log(`   • Fixes applied:   \x1b[32m${fixesApplied}\x1b[0m`);
+  }
+  console.log(`------------------------------------------------------------`);
+
+  if (errors.length > 0) {
+    console.error(`\x1b[31m❌ Anti-Slop Audit Failed: Purge placeholders, stubs, and slop before proceeding.\x1b[0m\n`);
+    process.exit(1);
+  } else {
+    console.log(`\x1b[32m✅ Anti-Slop Audit Passed: Clean code, zero AI slop detected.\x1b[0m\n`);
+    process.exit(0);
+  }
 }

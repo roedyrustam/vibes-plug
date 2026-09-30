@@ -161,6 +161,7 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 - **Durable Async Jobs**: Delegate fault-tolerant long-running workflows to `async-queue-temporal-expert`.
 - **Error Resilience**: Implement error handling patterns and circuit breakers via `error-resilience-expert`.
 - **Automated Testing & Self-Healing**: Delegate test suites to `e2e-testing-expert` and autonomous terminal stack trace fixing to `autonomous-tdd-debugger`. Update change logs via `prd-architect`.
+- **Zero-Slop Production Readiness**: Enforce `anti-slop` compliance (100% complete handlers, no placeholder returns, no swallowed catch blocks) and verify with `node scripts/check-anti-slop.js --strict`.
 
 ---
 

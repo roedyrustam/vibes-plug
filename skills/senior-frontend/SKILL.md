@@ -27,6 +27,7 @@ Production-grade frontend development patterns, performance optimization, and mo
 - `spa-orchestrator`: For Single-Page Application architectures.
 - `mpa-orchestrator`: For Multi-Page Application architectures.
 - `autonomous-tdd-debugger`: For automated unit/component test execution and stack-trace self-healing.
+- `anti-slop`: For enforcing complete, stub-free component implementations and zero syntax narration comments.
 
 ### Trigger Conditions
 - Scaffold a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.

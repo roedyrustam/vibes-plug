@@ -108,10 +108,14 @@ Whenever a skill is created or audited, it MUST be registered in:
 2. `skills/zero-to-prod-orchestrator/SKILL.md` (Phase Execution)
 If it is missing from these files, the Swarm Auditor is authorized to add it.
 
-## 5. Prohibition of AI Slop
-No generic "As an AI language model..." or overly verbose fluff. Instructions must be imperative, direct, and token-efficient. Use `token-saver` guidelines.
+## 5. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
+Strictly eliminate all AI slop across conversations, code generation, architecture, and documentation. All agents, subagents, and skills must strictly enforce the 6 pillars defined in `skills/anti-slop/SKILL.md`:
+1. **Conversational Slop**: Code-first, zero sycophancy, zero robotic apologies, zero trailing cheerleading.
+2. **Placeholder & Truncation Slop**: Never use `// TODO`, `// ... rest of code`, or fake mocks in production routines. Output must be 100% complete and working on the first try.
+3. **Speculative Over-Engineering (Hyper-YAGNI)**: Ban speculative abstraction layers, endless factories, or needless DTO wrappers. Trust static types and schema contracts.
+4. **Syntax Narration**: Comments must explain non-obvious business/architectural WHY, never obvious syntax mechanics (`// increment count`). Delete dead code permanently.
+5. **Ghost Hallucinations & AI Smells**: Ban phantom imports, fabricated SDK methods, and silent error suppression (`catch (e) {}`).
+6. **Documentation Slop**: Zero marketing buzzwords in PRD or architectural specs; mandate concrete PostgreSQL DDL schemas, JSON API contracts, and verifiable NFR budgets.
+7. **Automated Verification**: Run `node scripts/check-anti-slop.js` to validate codebases before completing tasks.
 
-> **Memory Graph Update:** 2026-08-12 - Initialized Gold Standard for Swarm Auditors.
-
-
-
+> **Memory Graph Update:** 2026-09-30 - Upgraded to Sovereign Anti-Slop Directive across all swarm skills.
