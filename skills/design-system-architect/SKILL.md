@@ -2,7 +2,7 @@
 name: design-system-architect
 description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -24,6 +24,13 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
 - Using headless primitives (Radix UI, Base UI 1.x) with custom styling.
 - Distributing components via the **shadcn/ui registry** format.
 - Auditing a component library for WCAG 2.2 accessibility compliance.
+- Enforcing `anti-slop` quality standards on component primitives and tokens.
+
+### Anti-Slop Component Design Contract
+- **Zero Div-Soup Primitives**: Build exclusively on accessible headless primitives (Radix UI, Base UI 1.x) using semantic HTML (`<button>`, `<dialog>`, `<nav>`, `<input>`).
+- **Mandatory 5 States**: Every component primitive must explicitly define: default, hover/active, visible keyboard `focus-visible:ring-2`, loading/skeleton state, and disabled/error styling.
+- **Contracted Contrast Tokens**: All semantic tokens must pass WCAG 2.2 AA contrast ratios (>= 4.5:1 text, >= 3:1 graphical elements) in both light and dark themes.
+- **Strict Scale Compliance**: Ban arbitrary pixel values (`p-[13px]`); enforce unified `@theme` tokens.
 
 ### Design Token Foundation (Tailwind v4 + OKLCH)
 
@@ -257,7 +264,7 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Mencakup design token dengan OKLCH dan `@theme` Tailwind v4, primitif komponen headless (Radix UI, **Base UI 1.x**), **registry shadcn/ui** untuk distribusi library komponen, CVA untuk varian type-safe, dan kepatuhan aksesibilitas WCAG 2.2.
@@ -269,6 +276,13 @@ Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Menc
 - Menggunakan primitif headless (Radix UI, Base UI 1.x) dengan styling kustom.
 - Mendistribusikan komponen via format **registry shadcn/ui**.
 - Mengaudit library komponen untuk kepatuhan aksesibilitas WCAG 2.2.
+- Menegakkan standar kualitas `anti-slop` pada primitif komponen dan token visual.
+
+### Kontrak Desain Komponen Anti-Slop
+- **Nol Primitif Div-Soup**: Bangun komponen secara eksklusif menggunakan primitif headless aksesibel (Radix UI, Base UI 1.x) dengan HTML5 semantik (`<button>`, `<dialog>`, `<nav>`, `<input>`).
+- **Wajib 5 Status Komponen**: Setiap primitif komponen wajib mengekspor status: default, hover/active, cincin fokus keyboard `focus-visible:ring-2`, status loading/skeleton, dan status disabled/error.
+- **Token Kontras Terjamin**: Semua token warna semantik wajib lolos rasio kontras WCAG 2.2 AA (≥ 4.5:1 teks, ≥ 3:1 komponen antarmuka) di mode terang maupun gelap.
+- **Kepatuhan Skala Ketat**: Dilarang menggunakan nilai piksel sembarangan (`p-[13px]`); tegakkan token `@theme` yang terpadu.
 
 ### Fondasi Design Token (Tailwind v4 + OKLCH)
 Definisikan semua token di CSS menggunakan direktif `@theme`. Gunakan warna OKLCH untuk tampilan P3 wide-gamut. Definisikan token semantik (`--color-primary`, `--color-surface`, `--color-border`) yang secara otomatis beradaptasi antara mode terang/gelap melalui `@variant dark`.
@@ -307,4 +321,4 @@ Base UI (dari tim MUI) adalah alternatif Radix UI untuk 2026 dengan dukungan nat
 
 
 ## Orchestration & Integration
-- Integrates with frontend orchestrators, Tailwind v4, Base UI, and shadcn/ui.
+- Integrates with `anti-slop` (ensures zero stubbed components, complete token sets, and 5-state resilience), frontend orchestrators, Tailwind v4, Base UI, and shadcn/ui.

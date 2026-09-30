@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-10-01
+
+### Added / Ditambahkan
+- **Sovereign Anti-Slop Directive (v4.0.0 Edition)**:
+  - Penegakan doktrin anti-AI slop tanpa toleransi terhadap placeholder malas (`// TODO`, `// ...`), basa-basi percakapan, narasi sintaksis, dan kode halusinasi di seluruh agen, subagen, dan skill.
+  - Injeksi Sovereign Anti-Slop Directive ke seluruh konfigurasi IDE (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `.windsurfrules`, `.traerules`, `.clinerules`, `.kimirules`, `.kirorules`, `.cursor/rules/vibes-plug-core.mdc`, `.claude/rules/vibes-plug-core.md`).
+  - Pemindai & Validator AST mandiri tanpa dependensi eksternal: `scripts/check-anti-slop.js`, `check-anti-slop.mjs`, dan `skills/anti-slop/scripts/check-anti-slop.js` dengan opsi `--strict`, `--fix`, dan `--json`.
+  - Integrasi perintah terminal baru: `vibes anti-slop`, `npm run anti-slop`, `npm run anti-slop:strict`, dan `npm run anti-slop:fix`.
+  - Pembaruan pipeline `npm test` yang mewajibkan validasi ketat ekosistem skill dan pemindaian anti-slop tanpa kompromi (zero slop errors).
+- **UI/UX Anti-Slop Architecture Upgrade**:
+  - `ui-ux-pro-max`: 6 Pilar Anti-Slop UI/UX (pelarangan gradien neon AI ungu/sian generik, kontrak wajib 5-status komponen interaktif, struktur DOM semantik bebas div-soup, tata letak adaptif bebas horizontal clipping, mikro-animasi berfaedah yang menghormati `prefers-reduced-motion`, dan konten mock autentik).
+  - `design-system-architect`: Kontrak Desain Komponen Anti-Slop dengan token kontras rasio WCAG 2.2 Level AA dan token `@theme` terstandarisasi.
+  - `hig`: Poin pemeriksaan ke-6 Kebersihan Visual Anti-Slop pada protokol audit HIG.
+  - `tailwind-expert`: Bagian 6 Arahan Anti-Slop Tailwind v4 (larangan hack nilai arbitrer, kewajiban cincin fokus aksesibel, eliminasi pembungkus redundant).
+  - `form-validation-expert`: Arahan Anti-Slop Formulir (larangan pesan error samar, proteksi status pending double-submission, pengikatan error ARIA, hukum perlindungan input pengguna, dan paritas kontrak skema server-side).
+  - `accessibility-testing-expert`: Gerbang Verifikasi Aksesibilitas Anti-Slop (larangan outline fokus terlucuti, elemen interaktif semantik, target sentuh minimum).
+  - `svg-animation-motion-expert`: Arahan Anti-Slop Gerakan & Animasi (kepatuhan mutlak `prefers-reduced-motion`, animasi khusus compositor, eliminasi bouncy slop).
+  - `brainstorming`: Mendaftarkan `anti-slop` pada domain UI/UX & Design Systems.
+
+### Changed / Diubah
+- **Universal Ecosystem Version Bump to v4.0.0**: Seluruh 132 skill di `skills/*/SKILL.md` dinaikkan versinya secara resmi ke `version: "4.0.0"`.
+- **Validation CI Enforcement**: `scripts/validate-skills.mjs` diperbarui untuk menegakkan standar minimum versi 4.0.0 (`major >= 4`).
+- **Core Package Alignment**: `package.json`, `plugin.json`, dan `README.md` diperbarui serentak ke versi `4.0.0`.
+
 ## [3.10.0] - 2026-09-29
 
 ### Added / Ditambahkan

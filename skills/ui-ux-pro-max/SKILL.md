@@ -2,7 +2,7 @@
 name: ui-ux-pro-max
 description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `anti-slop`, `design-system-architect`, `hig`, `tailwind-expert`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, **Material Design 3 (M3)**, and stack-specific best practices across **11 technology stacks**.
@@ -105,6 +105,41 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 
 ---
 
+### Sovereign UI/UX Anti-Slop Directive (6 Design Pillars)
+
+The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and incomplete user experiences:
+
+1. **Ban on Generic "AI Gradient" Aesthetic**:
+   - 🔴 **Forbidden**: Defaulting to the cliché dark-slate backdrop with purple/cyan glowing neon gradients (`bg-slate-900 from-purple-500 to-indigo-600`), indiscriminate glassmorphic cards with faint `border-white/10`, and floating glowing dots with zero brand context.
+   - ✅ **Standard**: Purpose-driven brand aesthetic. Deliberately choose and enforce a coherent design philosophy matching the domain: Swiss International Typography, Clean Scandinavian Editorial, High-Density Data Monochrome, Precision Industrial, or Warm Handcrafted Minimal.
+
+2. **Mandatory 5-State Component Rule (Zero Happy-Path Bias)**:
+   - 🔴 **Forbidden**: Generating only the static happy-path layout while omitting edge-case states.
+   - ✅ **Standard**: Every interactive view or data component must explicitly support all 5 core states:
+     - **Ideal State**: Clean, structured layout with realistic domain content.
+     - **Loading State**: Content-shaped pulsing skeleton layout matching exact element geometry (no layout shifts or jarring full-screen spinners).
+     - **Empty State**: Contextual vector icon/illustration, concise explanatory copy, and a primary action button to create the first record.
+     - **Error State**: Inline accessible alert with actionable retry trigger and clear explanation (RFC 9457 friendly).
+     - **Interactive / Disabled State**: Clear hover, active, keyboard `focus-visible:ring-2`, and `aria-disabled="true"` with tooltip explanation.
+
+3. **Semantic & Accessible DOM (Zero Div-Soup Slop)**:
+   - 🔴 **Forbidden**: Using `<div onClick={...}>` instead of `<button>`, omitting `<label>` tags on inputs, or icon-only buttons without accessible names.
+   - ✅ **Standard**: Semantic HTML5 (`<button type="button">`, `<nav>`, `<main>`, `<dialog>`), explicit `<label htmlFor="...">`, `aria-label` or `<span className="sr-only">` on icon buttons, and visible keyboard navigation focus rings (`focus-visible:ring-2 focus-visible:ring-offset-2`).
+
+4. **Fluid Responsiveness & Mobile Insets**:
+   - 🔴 **Forbidden**: Hardcoded fixed pixel widths (`w-[480px]`) causing horizontal scrolling on 360px mobile viewports; applying `overflow-x: hidden` on `<body>` to hide layout clipping bugs.
+   - ✅ **Standard**: Fluid layout constraints (`max-w-md w-full`), CSS Grid with `minmax()`, dynamic viewport units (`dvh` over `vh`), and safe-area padding (`pb-safe`).
+
+5. **Intentional Micro-Motion & Reduced Motion**:
+   - 🔴 **Forbidden**: Jarring 0ms instant state snaps, sluggish 800ms+ animations that delay task completion, and hover effects that trigger layout shifts.
+   - ✅ **Standard**: Snappy 150ms–250ms transitions with `ease-out`, zero layout shifts on hover, and strict respect for `@media (prefers-reduced-motion: reduce)`.
+
+6. **Domain-Authentic Content (No Lorem Ipsum Slop)**:
+   - 🔴 **Forbidden**: Filling UI mockups with "Lorem ipsum dolor sit amet", "John Doe", "Jane Doe", or dummy placeholder avatars.
+   - ✅ **Standard**: Use realistic, contextual domain content matching the business use-case (real currency, realistic timestamps, localized names, authentic domain terms).
+
+---
+
 ### UI/UX Design Pre-Delivery Checklist
 - [ ] **Visual Quality**: No emojis used as UI icons (use SVG icons from Lucide/Heroicons). Hover states do not cause layout shifts.
 - [ ] **Interaction**: `cursor-pointer` applied to all interactive elements. Smooth 150–300ms transitions.
@@ -118,7 +153,7 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `design-system-architect`, `hig`, `tailwind-expert`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, **Material Design 3 (M3)**, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
@@ -204,6 +239,41 @@ python scripts/search.py "<kueri>" --stack <stack> --max-results 3
 - **Alur Tata Letak**: Kartu ringkasan KPI di atas -> Grafik tren di tengah -> Tabel detail data di bawah.
 - **Grid Visual**: Konsistensi gap/padding (16px / 24px). Gunakan border halus daripada pembatas tebal hitam.
 - **Visualisasi Data**: Maksimal 3–5 warna terkoordinasi dalam grafik. Tooltip responsif & perataan legenda yang rapi.
+
+---
+
+### Direktif Anti-Slop UI/UX Berdaulat (6 Pilar Desain)
+
+Tingkat UI/UX vibes-plug melarang keras slop visual AI generik dan pengalaman pengguna separuh jadi:
+
+1. **Larangan Estetika "Gradien AI" Generik**:
+   - 🔴 **Dilarang**: Menggunakan *default* klise latar belakang dark-slate dengan gradien neon ungu/sian menyala (`bg-slate-900 from-purple-500 to-indigo-600`), kartu *glassmorphic* berlebihan dengan `border-white/10`, serta titik-titik neon mengambang tanpa konteks merek.
+   - ✅ **Standar**: Estetika berbasis tujuan merek. Terapkan filosofi desain yang disengaja sesuai domain produk: Tipografi Internasional Swiss, Editorial Skandinavia Bersih, Monokrom Data Densitas Tinggi, Presisi Industrial, atau Desain Minimalis Hangat.
+
+2. **Aturan Wajib 5 Status Komponen (Nol Bias Happy-Path)**:
+   - 🔴 **Dilarang**: Hanya menghasilkan tata letak statis saat kondisi data ideal dan melupakan status di dunia nyata.
+   - ✅ **Standar**: Setiap tampilan interaktif atau komponen data WAJIB mendukung 5 status inti:
+     - **Status Ideal**: Tata letak rapi, terstruktur, dengan konten domain realistis.
+     - **Status Loading**: Skeleton loader berdenyut halus dengan geometri persis sesuai elemen (tanpa pergeseran layout / CLS, tanpa spinner layar penuh yang mengganggu).
+     - **Status Kosong (Empty State)**: Ikon/ilustrasi kontekstual, teks penjelasan ringkas dan ramah, serta tombol CTA utama untuk membuat data pertama.
+     - **Status Error**: Banner/kartu error inline yang aksesibel disertai pesan jelas dan tombol coba lagi (*retry*).
+     - **Status Interaktif / Nonaktif (Disabled)**: Status hover, active, cincin fokus keyboard `focus-visible:ring-2`, serta atribut `aria-disabled="true"` dengan penjelasan tooltip.
+
+3. **DOM Semantik & Aksesibel (Nol Slop Div-Soup)**:
+   - 🔴 **Dilarang**: Menggunakan `<div onClick={...}>` menggantikan tombol asli, menghilangkan tag `<label>` pada input, atau tombol ikon tanpa nama aksesibel.
+   - ✅ **Standar**: Gunakan elemen HTML5 semantik (`<button type="button">`, `<nav>`, `<main>`, `<dialog>`), `<label htmlFor="...">` eksplisit, `aria-label` atau `<span className="sr-only">` pada tombol ikon, dan cincin fokus navigasi keyboard yang jelas (`focus-visible:ring-2 focus-visible:ring-offset-2`).
+
+4. **Responsif Fluid & Inset Layar Mobile**:
+   - 🔴 **Dilarang**: Menetapkan lebar piksel statis (`w-[480px]`) yang merusak tampilan mobile 360px; menggunakan trik `overflow-x: hidden` pada `<body>` untuk menyembunyikan bug layout bocor.
+   - ✅ **Standar**: Batasan layout fleksibel (`max-w-md w-full`), CSS Grid dengan `minmax()`, unit viewport dinamis (`dvh`), dan padding area aman mobile (`pb-safe`).
+
+5. **Mikro-Gerakan Disengaja & Reduced Motion**:
+   - 🔴 **Dilarang**: Transisi kaku 0ms, animasi lambat >800ms yang memperlambat interaksi, dan efek hover yang memicu pergeseran tata letak (layout shift).
+   - ✅ **Standar**: Transisi responsif 150ms–250ms dengan `ease-out`, tanpa layout shift saat hover, serta kepatuhan mutlak pada `@media (prefers-reduced-motion: reduce)`.
+
+6. **Konten Domain Autentik (Nol Slop Lorem Ipsum)**:
+   - 🔴 **Dilarang**: Memenuhi antarmuka pengguna dengan "Lorem ipsum dolor sit amet", "John Doe", "Jane Doe", atau avatar tiruan kosong.
+   - ✅ **Standar**: Gunakan konten realistis sesuai domain bisnis produk (mata uang nyata, stempel waktu realistis, nama lokal, istilah bisnis autentik).
 
 ---
 

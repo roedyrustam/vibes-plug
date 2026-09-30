@@ -1,10 +1,10 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro: 132-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.0: 132-Skill AI Agent Swarm Architecture
 
 **Turn any IDE into an autonomous 132-agent software development studio.**  
-*Zero AI Slop • Zero Tech Debt • Pure Production Velocity*
+*Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
 
 <p align="center">
   <a href="https://github.com/roedyrustam/vibes-plug/stargazers"><img src="https://img.shields.io/github/stars/roedyrustam/vibes-plug?style=for-the-badge&logo=github&color=FFD700&labelColor=0d1117" alt="GitHub Stars" /></a>
@@ -46,7 +46,8 @@ npx vibes-plug init
 | **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration |  **Swarm Director & 132 Specialists** |
 | **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance |  **Autonomous 9-Phase Zero-To-Prod** |
 | **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts |  **React 19, Next 15, Tailwind v4, Bun 1.2+** |
-| **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check |  **Zero-Tech-Debt Auditor & Red Teaming** |
+| **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check | 🧹 **Zero-Tech-Debt Auditor & Red Teaming** |
+| **Sovereign Anti-Slop** | ❌ Lazy stubs, `// TODO`, & chat fluff | ⚠️ Untested static prompts | 🛡️ **Zero-Tolerance Anti-Slop Engine & Scanner** |
 | **Payment & Micro-Economy** | ❌ Incomplete integrations | ⚠️ Basic docs |  **DOKU SNAP, Stripe, M2M Agent Wallets** |
 | **IDE Portability** | ❌ Locked to one interface | ⚠️ Cursor only |  **Antigravity, Cursor, Claude Code, Windsurf, Trae, VSCode** |
 
@@ -66,7 +67,7 @@ VibesPlug is powered by 132 specialized AI subagents. Here is a high-level group
 
 | 🛡️ **DevOps, QA & Orchestration** | 🌐 **Web Ecosystem & Platforms** |
 | :--- | :--- |
-| `zero-to-prod-orchestrator` <br> `zero-tech-debt-auditor` *(Phase 9)* <br> `autonomous-red-teamer` <br> `ci-cd-devops-architect` <br> `brainstorming` | `chrome-extensions` <br> `mobile-expo-expert` <br> `desktop-electron-expert` <br> `pwa-offline-first-expert` <br> `blockchain-web3-expert` |
+| `zero-to-prod-orchestrator` <br> `anti-slop` *(v4.0)* <br> `zero-tech-debt-auditor` *(Phase 9)* <br> `autonomous-red-teamer` <br> `ci-cd-devops-architect` <br> `brainstorming` | `chrome-extensions` <br> `mobile-expo-expert` <br> `desktop-electron-expert` <br> `pwa-offline-first-expert` <br> `blockchain-web3-expert` |
 
 ---
 
@@ -108,6 +109,9 @@ VibesPlug comes with a powerful terminal toolkit:
 - `vibes-plug init` - Injects the 132-skill Swarm Architecture into your current workspace.
 - `vibes-plug audit` - Triggers the `zero-tech-debt-auditor` to scan for dead code and magic numbers manually.
 - `vibes-plug list` - Displays all active agentic skills loaded in memory.
+- `vibes anti-slop` (or `npm run anti-slop`) - Runs the Sovereign Anti-Slop Scanner to detect and eliminate placeholders, `// TODO`, conversational fluff, and unhandled stubs.
+- `vibes anti-slop --strict` - Hard CI validation where warnings fail the build.
+- `vibes anti-slop --fix` - Automatically removes redundant syntax-narrating comments.
 
 ---
 
@@ -149,6 +153,9 @@ VibesPlug dilengkapi dengan sistem terminal yang perkasa:
 - `vibes-plug init` - Menyuntikkan arsitektur Swarm 132-skill ke direktori proyek Anda saat ini.
 - `vibes-plug audit` - Memicu agen `zero-tech-debt-auditor` secara manual untuk memindai utang teknis dan kode mati.
 - `vibes-plug list` - Menampilkan semua *skill* agen yang sedang aktif di dalam memori.
+- `vibes anti-slop` (atau `npm run anti-slop`) - Menjalankan Sovereign Anti-Slop Scanner untuk mendeteksi dan menghapus placeholder, `// TODO`, basa-basi percakapan, dan stub palsu.
+- `vibes anti-slop --strict` - Validasi CI ketat di mana setiap peringatan slop dianggap sebagai error build.
+- `vibes anti-slop --fix` - Menghapus otomatis komentar narasi sintaksis yang tidak perlu.
 
 ---
 

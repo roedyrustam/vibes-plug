@@ -2,7 +2,7 @@
 name: accessibility-testing-expert
 description: "Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance / Panduan ahli pengujian aksesibilitas web."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Accessibility Testing Expert (2026 Edition)
@@ -19,6 +19,7 @@ version: "3.0.0"
 - **`e2e-testing-expert`**: Integrating automated accessibility assertions into Playwright/Vitest CI suites.
 - **`design-system-architect, senior-frontend`**: Accessible component primitives (Radix UI, Base UI, ARIA patterns).
 - **`visual-qa-vision-agent`**: Visual audits for focus rings, contrast ratios, and layout flow.
+- **`anti-slop`**: Enforces strict accessibility rules (preventing stripped focus outlines, div-soup buttons, and color contrast violations).
 
 ### Description
 Production guide for automated, semi-automated, and manual web accessibility (a11y) testing. Covers WCAG 2.2 Level AA/AAA compliance validation using `@axe-core/playwright`, Pa11y, Google Lighthouse CI, screen reader verification (NVDA, VoiceOver), keyboard navigation audits, focus management, and color contrast compliance.
@@ -98,6 +99,14 @@ test.describe('Accessibility Automated Audits', () => {
 - **Landmarks**: Proper semantic tags (`<header>`, `<nav>`, `<main>`, `<footer>`, `<aside>`).
 - **ARIA Attributes**: `aria-expanded`, `aria-controls`, `aria-haspopup`, and `aria-live` updated dynamically.
 
+#### 4. Sovereign Anti-Slop A11y Verification Gate
+Zero-tolerance accessibility criteria for all generated interfaces:
+- **No Stripped Focus Outlines**: Zero tolerance for `outline: none` or `focus:outline-none` without an explicit, high-contrast replacement ring (`focus-visible:ring-2 focus-visible:ring-offset-2`).
+- **Semantic Elements Only**: Ban on non-semantic clickable divs/spans (`<div onClick=...>`). Every click target must be an authentic `<button>`, `<a>`, or provide `role="button"` + `tabIndex={0}` + keyboard event handlers (`onKeyDown` for Enter & Space).
+- **Touch Target Minimums**: All interactive controls must satisfy WCAG 2.2 SC 2.5.8 (minimum 24×24px, recommended 44×44px with adequate padding).
+- **Text Contrast Non-Negotiable**: Minimum 4.5:1 for normal body text, 3:1 for large text (18pt / 14pt bold).
+- **Meaningful Labels**: Zero icon buttons without `aria-label` or screen-reader-only text (`<span className="sr-only">`).
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -107,6 +116,7 @@ test.describe('Accessibility Automated Audits', () => {
 - **`global-a11y-i18n-expert`**: Pedoman standar WCAG, pola ARIA, dan aksesibilitas internasional.
 - **`e2e-testing-expert`**: Integrasi pengujian aksesibilitas otomatis ke pipeline Playwright CI.
 - **`design-system-architect, senior-frontend`**: Validasi aksesibilitas komponen headless dan desain UI.
+- **`anti-slop`**: Menegakkan aturan aksesibilitas tanpa kompromi (mencegah penghapusan outline fokus, div-soup tombol, dan pelanggaran kontras warna).
 
 ### Deskripsi
 Panduan produksi untuk pengujian aksesibilitas web (a11y) otomatis dan manual. Memastikan kepatuhan terhadap standar WCAG 2.2 Level AA/AAA menggunakan `@axe-core/playwright`, Pa11y, Lighthouse CI, pengujian screen reader, navigasi keyboard, dan kontras warna.
@@ -115,3 +125,11 @@ Panduan produksi untuk pengujian aksesibilitas web (a11y) otomatis dan manual. M
 - Menjalankan audit aksesibilitas otomatis di pipeline CI/CD.
 - Memverifikasi kepatuhan hukum aksesibilitas (WCAG 2.2, ADA, EAA).
 - Menguji alur keyboard dan pembaca layar (screen reader) pada komponen kompleks seperti modal dan dropdown.
+
+### Gerbang Verifikasi Aksesibilitas Anti-Slop
+Kriteria aksesibilitas tanpa toleransi untuk seluruh antarmuka yang dihasilkan:
+- **Dilarang Menghapus Outline Fokus**: Standar nol toleransi untuk `outline: none` atau `focus:outline-none` tanpa pengganti ring berlatar kontras tinggi (`focus-visible:ring-2 focus-visible:ring-offset-2`).
+- **Wajib Elemen Semantik**: Larangan keras membuat div/span non-semantik yang dapat diklik (`<div onClick=...>`). Setiap target klik harus merupakan `<button>`, `<a>`, atau menyediakan `role="button"` + `tabIndex={0}` + penangan keyboard (`onKeyDown` untuk tombol Enter & Space).
+- **Target Sentuh Minimum**: Semua kontrol interaktif harus memenuhi standar WCAG 2.2 SC 2.5.8 (minimal 24×24px, direkomendasikan 44×44px dengan padding memadai).
+- **Kontras Teks Non-Negosiabel**: Minimal rasio 4.5:1 untuk teks biasa, dan 3:1 untuk teks berukuran besar (18pt / 14pt bold).
+- **Label Bermakna**: Dilarang membuat tombol ikon tanpa `aria-label` atau teks khusus pembaca layar (`<span className="sr-only">`).

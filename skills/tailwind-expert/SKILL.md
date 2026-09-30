@@ -2,7 +2,7 @@
 name: tailwind-expert
 description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Tailwind CSS Expert (v4 Edition)
@@ -25,6 +25,7 @@ Strict guidelines and best practices for Tailwind CSS v4. Enforces the CSS-first
 
 ## Orchestration & Integration
 Integrates tightly with the following skills:
+- **`anti-slop`**: Enforces strict anti-slop rules on Tailwind usage (no arbitrary value hacks, accessible focus rings, zero div-soup, and no cliché AI gradients).
 - **`senior-frontend`**: Feeds modern CSS capabilities into Next.js/React component architecture.
 - **`design-system-architect, senior-frontend`**: Provides the styling primitives for Radix/shadcn-style components.
 - **`design-system-architect`**: Establishes the core tokens mapped inside `@theme`.
@@ -104,6 +105,15 @@ When upgrading older codebases:
    - Verify that responsive design behaves correctly across breakpoints (`sm:`, `md:`, `lg:`).
    - Ensure interactive components (modals, dropdowns) feel premium with Alpine.js transitions (`x-transition`).
 
+#### 6. Sovereign Anti-Slop Directives for Tailwind v4
+Enforces zero-tolerance code standards for utility-first styling:
+- **No Arbitrary Value Hacks**: Ban arbitrary values (e.g., `p-[13px]`, `w-[372px]`, `text-[15px]`) when canonical spacing or typography scales exist. If a custom dimension is truly needed, declare it once in `@theme` as a semantic CSS variable token.
+- **Accessible Focus Indicator Law**: Never use `focus:outline-none` alone. You MUST pair it with `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-<color>` or an explicit high-contrast focus indicator.
+- **Zero Div-Soup Wrapper Bloat**: Do not nest redundant layout wrappers (`<div className="w-full"><div className="flex">...</div></div>`). Leverage modern CSS grid and subgrid directly on semantic containers (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`).
+- **Ban AI Gradient Slop**: Never apply generic cliché AI gradients (`bg-gradient-to-r from-purple-600 to-indigo-600` or `from-violet-500 to-fuchsia-500`) as default backgrounds. Use deliberate, brand-specific color palettes using OKLCH color spaces.
+- **Mandatory 5 Interactive States**: Interactive elements (buttons, inputs, links) must declare utility variants for all 5 lifecycle states: default, hover (`hover:`), active/press (`active:`), keyboard focus (`focus-visible:`), and disabled (`disabled:pointer-events-none disabled:opacity-50`).
+- **No Responsive Layout Clipping**: Avoid fixed hardcoded widths (`w-[600px]`); use fluid responsive primitives (`max-w-2xl w-full mx-auto`) and container queries (`@container`) to ensure zero horizontal scroll on mobile viewports.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -120,6 +130,7 @@ Panduan ketat dan praktik terbaik untuk Tailwind CSS v4. Memaksa penggunaan mode
 
 ## Integrasi Orkestrasi
 Terintegrasi erat dengan skill berikut:
+- **`anti-slop`**: Menegakkan aturan anti-slop ketat pada penggunaan Tailwind (tanpa hack nilai arbitrer, accessible focus ring wajib, tanpa div-soup, dan larangan gradien AI generik).
 - **`senior-frontend`**: Menyuplai kapabilitas CSS modern ke dalam arsitektur komponen Next.js/React.
 - **`design-system-architect, senior-frontend`**: Menyediakan primitif styling untuk komponen gaya Radix/shadcn.
 - **`design-system-architect`**: Membangun token utama yang dipetakan di dalam `@theme`.
@@ -195,3 +206,12 @@ Saat memperbarui codebase lama:
 6. **Quality Assurance**:
    - Verifikasi bahwa desain responsif berfungsi dengan benar di semua breakpoint (`sm:`, `md:`, `lg:`).
    - Pastikan komponen interaktif (modal, dropdown) terasa premium dengan transisi Alpine.js (`x-transition`).
+
+#### 6. Arahan Anti-Slop Tailwind v4
+Menegakkan standar tanpa toleransi untuk styling utility-first:
+- **Larangan Hack Nilai Arbitrer**: Dilarang menggunakan nilai arbitrer (misal `p-[13px]`, `w-[372px]`, `text-[15px]`) jika skala bawaan atau `@theme` sudah ada. Jika dimensi kustom benar-benar dibutuhkan, daftarkan sebagai token semantik di `@theme`.
+- **Hukum Aksesibilitas Indikator Fokus**: Dilarang mematikan outline fokus (`focus:outline-none`) sendirian. WAJIB sertakan `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-<color>` atau indikator visual kontras tinggi yang jelas.
+- **Nol Div-Soup Pembungkus Berlebih**: Hindari nesting pembungkus redundant (`<div className="w-full"><div className="flex">...</div></div>`). Manfaatkan CSS grid atau flexbox langsung pada elemen semantik HTML5 (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`).
+- **Larangan Gradien AI Slop Generik**: Dilarang keras memakai gradien ungu-sian klise AI (`bg-gradient-to-r from-purple-600 to-indigo-600`) sebagai latar belakang default. Gunakan palet warna terencana yang relevan dengan identitas brand menggunakan ruang warna OKLCH.
+- **Wajib 5 Status Interaktif**: Komponen interaktif (tombol, input, link) harus mendefinisikan utilitas untuk kelima status: normal, hover (`hover:`), active (`active:`), keyboard focus (`focus-visible:`), dan disabled (`disabled:pointer-events-none disabled:opacity-50`).
+- **Bebas Layout Terpotong**: Hindari lebar statis kaku (`w-[600px]`); gunakan utilitas responsif (`max-w-2xl w-full mx-auto`) dan container query (`@container`) untuk mencegah horizontal scrollbar pada layar mobile.

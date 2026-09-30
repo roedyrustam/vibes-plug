@@ -2,7 +2,7 @@
 name: rich-text-editor-expert
 description: "Expert guide for rich text editor integration (Tiptap, Lexical, ProseMirror), collaborative editing, and custom extensions / Panduan ahli integrasi editor rich text (Tiptap, Lexical, ProseMirror), editing kolaboratif, dan ekstensi kustom."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Rich Text Editor Expert (2026 Edition)

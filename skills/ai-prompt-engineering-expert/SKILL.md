@@ -2,7 +2,7 @@
 name: ai-prompt-engineering-expert
 description: "Expert guide for Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output, prompt injection defense, and automated AI evaluations & regression benchmarking (Promptfoo, DeepEval) / Panduan ahli rekayasa prompt dan evaluasi otomatis AI."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # AI Prompt Engineering & Automated Evals Expert (2026 Edition)

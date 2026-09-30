@@ -180,10 +180,10 @@ async function runValidate() {
 }
 
 async function runAudit() {
-  console.log('Running Anti-AI Slop Audit...\n');
+  const auditArgs = args.slice(1).join(' ');
   try {
     const { execSync } = await import('child_process');
-    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs'), { stdio: 'inherit' });
+    execSync(`node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" ${auditArgs}`.trim(), { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
@@ -1017,7 +1017,7 @@ async function runSync() {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v3.9.0)
+🌊 Vibes-Plug CLI (v4.0.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1029,7 +1029,7 @@ Commands:
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 131 skills by keyword (ranked by relevance)
+  search <query>            Search all 132 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1097,6 +1097,7 @@ switch (command) {
     runCreateMcp(args[1]);
     break;
   case 'audit':
+  case 'anti-slop':
     runAudit();
     break;
   case 'validate':
