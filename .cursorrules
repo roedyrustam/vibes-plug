@@ -30,13 +30,18 @@ instructions, patterns, and best practices for the modern 2026 tech stack.
 - ⚙️ Backend: js-backend-expert, python-programming-expert, go-programming-expert, rust-programming-expert, api-design-expert
 - ☁️ SaaS & Cloud: saas-transformer, saas-billing, ci-cd-devops-architect, cloud-hosting-expert, payment-gateway-expert
 - 🗄️ Database: database-orm-expert, edge-serverless-db-expert, supabase-migration
-- 🔒 Security: authentication-identity-expert, e2e-testing-expert, production-ready-hardener, zero-trust-secret-vault
+- 🔒 Security: authentication-identity-expert, e2e-testing-expert, production-ready-hardener, zero-trust-secret-vault, anti-slop
 - 🔍 SEO: seo
 - 🛠️ Utilities: brainstorming, prd-architect, auto-doc-updater, token-saver, vibe-code-gardener
 
-## Code Quality
+## Code Quality & Sovereign Anti-Slop Directive
+- Zero-tolerance for AI slop (`anti-slop` skill):
+  * Code-first delivery with 100% complete implementations (no `// TODO`, `// ...`, or mock stubs).
+  * Hyper-YAGNI: avoid speculative abstractions and redundant wrapper layers.
+  * Meaningful comments only: explain non-obvious business/architectural WHY, never syntax mechanics.
+  * No swallowed errors (`catch(e){}` prohibited); structured logging (`Pino`) required.
+  * Run `node scripts/check-anti-slop.js` to verify zero violations.
 - Clean Code, SOLID, DRY — see `scalability-clean-code` skill.
-- No AI slop — be imperative, direct, token-efficient.
 - Bilingual support (English & Bahasa Indonesia) for all skills.
 
 ## Orchestration Flow
@@ -45,4 +50,4 @@ instructions, patterns, and best practices for the modern 2026 tech stack.
 3. Backend: js-backend-expert → event-driven-architect → autonomous-tdd-debugger
 4. AI: ai-llm-integration-expert → mcp-server-architect
 5. SaaS: saas-transformer → saas-billing + saas-multi-tenant
-6. Launch: e2e-testing-expert → seo → production-ready-hardener
+6. Launch: e2e-testing-expert → seo → anti-slop → production-ready-hardener

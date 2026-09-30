@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects with `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager` to ensure cohesive execution and documentation updates.
+Connects with `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager` to ensure cohesive execution and zero-slop documentation updates.
 
 ### Description
 A mandatory lifecycle guardrail covering two distinct phases:
@@ -32,7 +32,7 @@ A mandatory lifecycle guardrail covering two distinct phases:
 #### Enforcement Protocol
 1. **Detect**: When user requests a new project build.
 2. **Pause**: Do NOT generate any code.
-3. **Generate Assets**: Automatically create `PRD.md`, `ERD.md`, `DOKUMENTASI.md`, and `ROADMAP.md` (or `PROGRESS.md`).
+3. **Generate Assets (Zero-Slop Standard)**: Automatically draft `PRD.md`, `ERD.md`, `DOKUMENTASI.md`, and `ROADMAP.md` (or `PROGRESS.md`). Enforce `anti-slop`: zero marketing buzzwords; mandate concrete PostgreSQL DDL schemas, explicit REST/RPC contracts, and verified latency NFR budgets.
 4. **Review**: Present to user for approval/edits.
 5. **Confirm**: Proceed to code generation ONLY after approval.
 6. **Reference**: Cite these documents in all subsequent decisions.

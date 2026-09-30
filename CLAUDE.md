@@ -50,8 +50,13 @@ When a new skill `SKILL.md` is created or modified:
 ### 3. Bilingual Ecosystem
 This ecosystem serves English and Indonesian developers. Every `SKILL.md` must provide bilingual context for critical concepts. Headings can be in either language.
 
-### 4. Anti-Slop (Zero-Tolerance Standard)
-Strictly eliminate conversational pleasantries ("Certainly!", "I'd be happy to..."), prompt repeating, syntax-narrating comments, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Always consult and enforce the `anti-slop` skill. Instructions and code must be imperative, direct, complete, and token-efficient.
+### 4. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
+Strictly eliminate conversational pleasantries, prompt repeating, syntax-narrating comments, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Always enforce the `anti-slop` skill and verify clean code:
+- **Code-First**: Deliver fully functional code immediately without conversational preambles or cheerleading.
+- **Completeness**: 100% complete files, functions, and tests on the first try. No lazy stubs or fake mocks in production routines.
+- **Hyper-YAGNI**: No speculative layers, factory bloat, or unnecessary DTO wrappers.
+- **Meaningful Comments Only**: Explain non-obvious business/architectural WHY, never syntax mechanics.
+- **Automated Verification**: Use `node scripts/check-anti-slop.js` to ensure zero slop violations.
 
 ### 5. Mandatory Documentation for New Projects
 When initiating a new project from scratch, ensure the automatic generation of:

@@ -39,6 +39,7 @@ Activate this skill when the user asks to:
 - **Zero-Human Intervention**: Do NOT ask the user "Please run this and tell me the error." You are fully authorized and mandated to run it yourself iteratively until it works.
 - Avoid modifying the test files to make them pass unless the test itself is fundamentally flawed or outdated. Fix the implementation first.
 - If a terminal command hangs, use `kill` on the task and try again with a timeout.
+- **Zero-Slop Test & Fix Enforcement (`anti-slop`)**: Never write dummy assertions (`expect(true).toBe(true)`), never comment out or skip failing tests to fake exit code 0, and never insert fake mock returns in production code. The fix must be complete and real.
 
 ---
 
@@ -70,3 +71,4 @@ Memberdayakan agen AI untuk menjalankan *test*, membaca *stack trace* di termina
 - **Jangan Meminta Bantuan User (Zero-Human Intervention):** Jangan pernah berkata "Tolong jalankan kode ini dan berikan saya error-nya." Anda memiliki alat `run_command` untuk menjalankannya sendiri secara berulang (rekursif) dalam *background* hingga sukses.
 - **Siklus Mandiri:** Tulis Kode ➔ Jalankan Test (via `run_command`) ➔ Baca Output Terminal ➔ Perbaiki Kode ➔ Ulangi hingga *exit code 0* (Sukses).
 - **Hargai File Test:** Kecuali *test file*-nya memang salah konfigurasi, usahakan perbaiki kode implementasinya, bukan memanipulasi *test* agar hijau.
+- **Penegakan Anti-Slop Mutlak (`anti-slop`):** Dilarang keras menulis asersi tiruan (`expect(true).toBe(true)`), dilarang me-skip atau menonaktifkan test gagal demi memalsukan exit code 0, dan dilarang menyisipkan mock return palsu ke kode produksi. Perbaikan harus tuntas dan nyata.

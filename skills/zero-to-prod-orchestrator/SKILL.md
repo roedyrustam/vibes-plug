@@ -30,7 +30,7 @@ The **Zero to Production Orchestrator** is the ultimate master skill designed to
 2. **Continuous Auto-Documentation**: Invoke `prd-architect` to log changes in `CHANGELOG.md` and `BLUEPRINT.md` after every major milestone.
 3. **Strict Progress Tracking**: Maintain a `PROGRESS.md` checklist in the repository root.
 4. **State Preservation & Context**: Utilize `session-memory-manager` when pausing work or starting a new session to preserve full context.
-5. **Efficiency**: Keep `anti-slop` active during large refactors to maintain a lean, powerful, and zero-placeholder execution loop.
+5. **Sovereign Anti-Slop Mandate**: Zero-tolerance for placeholders (`// TODO`, `// ...`), mock data in prod, syntax comments, and sycophancy across all phases. Run `node scripts/check-anti-slop.js --strict` as a mandatory validation gate before phase completion.
 
 ---
 
@@ -122,7 +122,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement Error Boundaries, retry patterns, circuit breakers, and graceful degradation.
 - [ ] Set up structured logging (Pino) and error tracking (Sentry) with source map uploads.
 - [ ] Audit CORS, CSP headers, rate-limiting, and input sanitization.
-- [ ] Run code quality audit to purge AI slop and architectural decay with anti-slop.
+- [ ] Run automated Anti-Slop Audit (`node scripts/check-anti-slop.js --strict`) to eliminate placeholders, syntax comments, and mock data before user handoff.
 
 #### PHASE 7: DevOps, Deployment & Proactive Monitoring
 **Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`
@@ -161,7 +161,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 2. **Otomatisasi Dokumentasi**: Panggil `prd-architect` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md` setelah setiap milestone utama.
 3. **Pelacakan Progres**: Pelihara daftar periksa `PROGRESS.md` di root repositori.
 4. **Preservasi State & Konteks**: Gunakan `session-memory-manager` saat menjeda pekerjaan atau memulai sesi baru untuk menjaga konteks penuh.
-5. **Efisiensi**: Aktifkan `anti-slop` selama refactoring besar-besaran untuk mempertahankan *loop* eksekusi yang ringkas, powerful, dan bebas dari placeholder.
+5. **Amanat Anti-Slop Berdaulat**: Nol toleransi terhadap placeholder (`// TODO`, `// ...`), data mock di produksi, komentar sintaksis, dan basa-basi robotik di seluruh fase. Jalankan `node scripts/check-anti-slop.js --strict` sebagai *gate* verifikasi wajib sebelum penyelesaian fase.
 
 ---
 
@@ -244,7 +244,7 @@ Saat mendelegasikan tugas ke subagent, SELALU berikan:
 - [ ] Mengimplementasikan Error Boundary, pola retry, circuit breaker, dan degradasi anggun.
 - [ ] Menyiapkan logging terstruktur (Pino) dan pelacakan error (Sentry) dengan upload source map.
 - [ ] Mengaudit CORS, CSP headers, rate-limiting, dan sanitasi input.
-- [ ] Menjalankan audit kualitas kode untuk membersihkan AI slop dan pembusukan arsitektur dengan anti-slop.
+- [ ] Menjalankan audit Anti-Slop otomatis (`node scripts/check-anti-slop.js --strict`) untuk membersihkan placeholder, komentar sintaksis, dan data tiruan sebelum serah terima ke pengguna.
 
 #### FASE 7: Hardening Pra-Peluncuran, Monitoring & DevOps Sentinel
 **Mengorkestrasi:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`

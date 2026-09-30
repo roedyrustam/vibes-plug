@@ -3,7 +3,7 @@
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor.
 - Claude automatically intercepts every request, evaluates user intent against the 127+ skills, and activates cooperating skills without waiting for manual invocation.
-- Multiple domains automatically synchronize: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), QA (`autonomous-tdd-debugger`), Hardening (`production-ready-hardener`).
+- Multiple domains automatically synchronize: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), QA (`autonomous-tdd-debugger`), Hardening (`production-ready-hardener`, `anti-slop`).
 
 ## Skill Resolution Protocol
 1. Before any task, identify relevant skills from `skills/` directory.
@@ -17,10 +17,14 @@ Before writing code or making architectural decisions:
 3. Validate against project NFRs and best practices.
 4. Only then execute.
 
-## Code Quality Standards
+## Code Quality Standards & Sovereign Anti-Slop Directive
 - Use modern 2026 tech stack versions: React 19, Next.js 15, Tailwind v4, TypeScript 5.8+, Node.js 24 LTS, Bun 1.2+, Python 3.14, Go 1.25+, Rust 2024.
 - Follow Clean Code, SOLID, DRY principles (see `scalability-clean-code` skill).
-- No AI slop — be imperative, direct, and token-efficient.
+- **Sovereign Anti-Slop Standard (`anti-slop` skill)**:
+  * Zero-tolerance for lazy stubs (`// TODO`, `// ...`), mock data left in prod, and syntax narration comments.
+  * Output 100% complete, fully working implementations on first attempt.
+  * No swallowed errors (`catch (e) {}` prohibited).
+  * Run `node scripts/check-anti-slop.js` to ensure clean code.
 
 ## New Project Protocol
 When creating a new project from scratch, MUST auto-generate before any code:

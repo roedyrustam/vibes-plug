@@ -120,7 +120,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 - [ ] **TypeScript strict mode** enabled (`strict: true` in tsconfig), no `any` types (`typescript-expert`)
 - [ ] **Input validation** on all API boundaries (Zod, Pydantic, or equivalent)
 - [ ] **No hardcoded values** — all config via environment variables or config files
-- [ ] **Dead code & AI slop eliminated** — unneeded boilerplate cleaned via `vibe-code-gardener` and `anti-slop`
+- [ ] **Sovereign Anti-Slop Audit Passed** — mandatory validation via `node scripts/check-anti-slop.js --strict` to verify 0 placeholders, 0 stubs, 0 syntax comments, and 0 debug logs (`anti-slop`)
 - [ ] **Dependency audit** — all packages up-to-date, no known CVEs (`dependency-upgrade-migrator`, `npm audit`)
 
 ---
@@ -344,7 +344,7 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 - [ ] TypeScript strict mode aktif (`strict: true`), tanpa tipe `any` (`typescript-expert`)
 - [ ] Validasi input di semua batas API (Zod, Pydantic)
 - [ ] Tidak ada hardcoded value — semua konfigurasi via environment variable
-- [ ] Dead code & AI slop dieliminasi via `anti-slop`
+- [ ] Audit Anti-Slop Berdaulat Lolos — validasi wajib via `node scripts/check-anti-slop.js --strict` untuk menjamin 0 placeholder, 0 stub, 0 komentar sintaksis, dan 0 sampah debug (`anti-slop`)
 - [ ] Audit dependensi — semua paket up-to-date, tanpa CVE (`dependency-upgrade-migrator`)
 
 #### FASE 2: Pengerasan Frontend

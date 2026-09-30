@@ -148,6 +148,13 @@ export async function handleCreateUser(input: CreateUserInput) {
 - **YAGNI**: You Aren't Gonna Need It — don't build features "just in case".
 - **KISS**: Keep It Simple, Stupid — the simplest solution that works is usually best.
 
+#### Anti-Slop & Hyper-YAGNI Directive
+- **Zero Placeholder/Stub Code**: Never deliver incomplete functions with `// TODO` or `// ...`. All code must be 100% complete and operational.
+- **Zero Speculative Abstractions**: Do not build abstract factory patterns, endless DTO mappings, or premature generic interfaces for single-use implementations.
+- **Zero Syntax Narration**: Reject comments that narrate obvious syntax (`// return user`, `// increment count`). Comments must explain non-obvious business invariants or vendor bugs only.
+- **Zero Zombie Code**: Permanently purge commented-out code blocks; git history preserves deleted lines.
+- **Automated Verification**: Enforce `anti-slop` compliance via `node scripts/check-anti-slop.js --strict`.
+
 ### Code Smells & Refactoring
 
 | Smell | Symptom | Refactoring |
@@ -225,6 +232,13 @@ Alternatif modern dari layered architecture tradisional. Organisasikan kode berd
 - **DRY**: Jangan ulangi diri sendiri — ekstrak logika bersama.
 - **YAGNI**: Anda tidak akan membutuhkannya — jangan bangun fitur "untuk jaga-jaga".
 - **KISS**: Tetap sederhana — solusi paling sederhana yang berfungsi biasanya terbaik.
+
+#### Direktif Anti-Slop & Hyper-YAGNI
+- **Nol Kode Placeholder/Stub**: Dilarang menyajikan kode yang belum selesai dengan `// TODO` atau `// ...`. Seluruh kode harus 100% lengkap dan fungsional.
+- **Nol Abstraksi Spekulatif**: Hindari pola abstract factory, mapping DTO berlapis, atau interface generik prematur untuk implementasi sekali pakai.
+- **Nol Komentar Sintaksis**: Tolak komentar yang sekadar menarasikan sintaks kode (`// return user`, `// increment count`). Komentar hanya untuk menjelaskan alasan arsitektural atau aturan bisnis non-obvious.
+- **Nol Bangkai Kode (Zombie Code)**: Hapus permanen blok kode yang dikomentari; riwayat git menjaga baris yang dihapus.
+- **Verifikasi Otomatis**: Tegakkan kepatuhan `anti-slop` via `node scripts/check-anti-slop.js --strict`.
 
 ### Code Smell & Refactoring
 Identifikasi dan perbaiki: God Class, Long Method, Feature Envy, Data Clumps, Magic Numbers, Shotgun Surgery, Primitive Obsession.

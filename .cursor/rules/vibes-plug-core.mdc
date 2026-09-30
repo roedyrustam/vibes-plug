@@ -9,7 +9,7 @@ globs: "**/*"
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor for all tasks.
 - Cursor AI automatically detects user intent and auto-synchronizes cooperating skills without waiting for manual `@` mentions.
-- Cross-domain cooperation is automatic: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), Hardening (`production-ready-hardener`).
+- Cross-domain cooperation is automatic: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), Hardening (`production-ready-hardener`, `anti-slop`).
 
 ## Skill Resolution Protocol
 This project uses 127+ specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
@@ -30,7 +30,7 @@ This project uses 127+ specialized skills in the `skills/` directory. Each skill
 | ⚙️ Backend | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert` |
 | ☁️ SaaS & Cloud | `saas-transformer`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `payment-gateway-expert`, `event-driven-architect`, `monorepo-architect` |
 | 🗄️ Database | `database-orm-expert`, `edge-serverless-db-expert`, `supabase-migration`, `database-migration-versioning-expert` |
-| 🔒 Security & QA | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `zero-trust-secret-vault`, `supabase-security-expert` |
+| 🔒 Security & QA | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `zero-trust-secret-vault`, `supabase-security-expert`, `anti-slop` |
 | 🔍 SEO | `seo` |
 | 🛠️ Utilities | `brainstorming`, `prd-architect`, `auto-doc-updater`, `token-saver`, `vibe-code-gardener`, `web-scraper`, `project-context-mapper` |
 
@@ -42,7 +42,7 @@ This project uses 127+ specialized skills in the `skills/` directory. Each skill
 
 ## Behavioral Rules
 1. **Deep Reasoning:** Think before acting. Analyze constraints → question assumptions → validate → execute.
-2. **No AI Slop:** Be imperative, direct, token-efficient. No "As an AI language model..." filler.
+2. **Sovereign Anti-Slop Directive:** Strict zero-tolerance for placeholders (`// TODO`, `// ...`), mock data in prod, obvious syntax comments, and conversational sycophancy. 100% complete implementations on first try. Audit with `node scripts/check-anti-slop.js`.
 3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOKUMENTASI.md` before any code.
 4. **Bilingual:** Skills support English & Bahasa Indonesia.
 5. **Clean Code:** Follow SOLID, DRY, Clean Code principles (ref: `scalability-clean-code`).
@@ -53,4 +53,4 @@ This project uses 127+ specialized skills in the `skills/` directory. Each skill
 3. **Build:** `js-backend-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
 4. **AI:** `ai-llm-integration-expert` → `mcp-server-architect`
 5. **SaaS:** `saas-transformer` → auto-coordinates billing, tenancy, payments
-6. **Ship:** `e2e-testing-expert` → `seo` → `production-ready-hardener`
+6. **Ship:** `e2e-testing-expert` → `seo` → `anti-slop` → `production-ready-hardener`
