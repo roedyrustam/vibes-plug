@@ -2,7 +2,7 @@
 name: svg-animation-motion-expert
 description: "Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API / Panduan ahli animasi web."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # SVG & Web Animation Motion Expert
@@ -75,10 +75,18 @@ Where possible, leverage modern native CSS to tie animations to scroll position 
 - Keep `viewBox` responsive.
 - Target `<path>`, `<circle>`, and `<mask/>` elements via CSS vars or inline Framer Motion logic.
 
+#### 5. Sovereign Anti-Slop Motion Directives
+Zero-tolerance principles for intentional, high-performance web motion:
+- **Strict `prefers-reduced-motion` Enforcement**: Every animation MUST respect user accessibility settings. In Framer Motion, check `useReducedMotion()`; in CSS, provide `@media (prefers-reduced-motion: reduce) { animation: none !important; transition: none !important; }`.
+- **Compositor-Only Animations (Zero Layout Thrashing)**: Only animate `transform` and `opacity`. Strictly ban animating layout triggers (`top`, `left`, `width`, `height`, `margin`, `padding`).
+- **Ban Bouncy Slop & Excessive Springs**: Avoid cartoonish, excessive spring bounces (`damping: 5, stiffness: 500`) on UI controls. Interactive components must use subtle, purposeful easings (`cubic-bezier(0.16, 1, 0.3, 1)`).
+- **No Orphan Infinite Animations**: Eliminate infinite CSS/JS loops that run off-screen, eating CPU and mobile battery. Use `IntersectionObserver` or CSS `content-visibility` to halt animations when not in viewport.
+
 ## Orchestration & Integration
 - Works hand-in-hand with `ui-ux-pro-max` and `monday-design-aesthetic` to bring designs to life.
 - Complements `senior-frontend` by handling the motion layer of the UI.
 - Integrates with `seo-aeo-landing-page-writer` to build visually stunning landing pages.
+- **`anti-slop`**: Enforces zero-bouncy slop, strict `prefers-reduced-motion` fallbacks, and compositor-only transforms.
 
 ---
 
@@ -110,7 +118,15 @@ Manfaatkan CSS modern (`animation-timeline: view()`) untuk mengikat animasi ke p
 - Selalu optimasi SVG (buang tag tidak perlu) sebelum dianimasikan.
 - Gunakan `<clipPath>` dan `<mask>` untuk transisi transisi pengungkapan gambar yang dramatis.
 
+#### 5. Arahan Anti-Slop Gerakan & Animasi
+Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
+- **Kepatuhan Mutlak `prefers-reduced-motion`**: Semua animasi WAJIB menghormati preferensi aksesibilitas pengguna (`useReducedMotion()` di Framer Motion, atau `@media (prefers-reduced-motion: reduce)` di CSS).
+- **Animasi Khusus Compositor (Bebas Layout Thrashing)**: Hanya animasikan `transform` dan `opacity`. Dilarang menganimasikan `top`, `left`, `width`, `height`, atau `margin` yang memicu re-layout dan lag.
+- **Larangan Bouncy Slop Berlebihan**: Hindari efek pegas memantul ekstrem dan kekanak-kanakan pada kontrol tombol/menu. Gunakan kurva easing profesional (`cubic-bezier(0.16, 1, 0.3, 1)`).
+- **Larangan Loop Tanpa Batas di Luar Layar**: Matikan animasi yang tidak terlihat di viewport menggunakan `IntersectionObserver` untuk mencegah boros baterai dan beban CPU.
+
 ## Integrasi Orkestrasi
 - Bekerja sama dengan `ui-ux-pro-max` dan `monday-design-aesthetic` untuk menghidupkan desain statis.
 - Melengkapi `senior-frontend` dengan menangani lapisan pergerakan (motion layer) UI.
 - Terintegrasi dengan `seo-aeo-landing-page-writer` untuk merancang landing page yang memukau secara visual.
+- **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback `prefers-reduced-motion`, dan animasi khusus compositor.

@@ -2,7 +2,7 @@
 name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -379,6 +379,15 @@ export function MultiStepForm() {
 - `authentication-identity-expert` — Login/signup form patterns
 - `error-resilience-expert` — Form submission error handling and retry
 - `tailwind-expert` — Form styling with Tailwind CSS v4
+- `anti-slop` — Enforcing actionable error messages, locked pending states, accessible focus indicators, and server-side parity
+
+### Sovereign Anti-Slop Form Directives
+Zero-tolerance standards for form engineering:
+1. **Zero Vague Error Copy**: Banning generic "Invalid field", "Input error", or "Something went wrong". Every validation rule must specify what failed and how to fix it (e.g., "Password must be at least 8 characters and include at least one number").
+2. **Double-Submission Lock & Accessible Pending State**: Submit buttons must be disabled while a request is in flight (`disabled={isSubmitting || isPending}`), display an inline accessible spinner, and declare `aria-busy="true"`.
+3. **A11y Field Error Binding**: Every input in an error state must bind `aria-invalid="true"` and `aria-describedby="{field}-error"`, with the error container declared as `role="alert"`.
+4. **Input Preservation Law**: Never reset, wipe, or clear user inputs when validation errors or server exceptions occur. Keep user data intact so they can correct errors without retyping.
+5. **End-to-End Schema Contract Parity**: Never rely solely on client-side validation. Server actions and API routes must validate request payloads against the identical Zod/Valibot schema.
 
 ---
 
@@ -386,7 +395,7 @@ export function MultiStepForm() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).
@@ -406,3 +415,12 @@ Aktifkan skill ini ketika:
 - `design-system-architect, senior-frontend` — Primitif kontrol input, komponen field formulir
 - `authentication-identity-expert` — Pola formulir login/signup
 - `error-resilience-expert` — Penanganan error submission formulir dan retry
+- `anti-slop` — Penegakan pesan error yang jelas, proteksi status pending, cincin fokus aksesibel, dan paritas skema server-side
+
+### Arahan Anti-Slop Formulir
+Standar nol toleransi untuk rekayasa formulir:
+1. **Dilarang Menulis Pesan Error Samar**: Melarang pesan generik "Field tidak valid", "Input salah", atau "Terjadi kesalahan". Setiap aturan validasi wajib menjelaskan apa yang keliru dan cara memperbaikinya (misal: "Kata sandi minimal 8 karakter dan mengandung minimal satu angka").
+2. **Kunci Double-Submission & Indikator Pending Aksesibel**: Tombol submit wajib dinonaktifkan selama proses pengiriman (`disabled={isSubmitting || isPending}`), menampilkan spinner inline, dan memiliki atribut `aria-busy="true"`.
+3. **Pengikatan Error ARIA pada Field**: Setiap input yang berada dalam status error wajib menyematkan `aria-invalid="true"` dan `aria-describedby="{field}-error"`, serta membungkus pesan error dengan `role="alert"`.
+4. **Hukum Perlindungan Input Pengguna**: Dilarang mengosongkan atau menghapus input pengguna saat validasi gagal atau server error. Biarkan data pengguna tetap ada agar mereka dapat memperbaikinya tanpa mengetik ulang dari awal.
+5. **Paritas Kontrak Skema End-to-End**: Dilarang hanya mengandalkan validasi di sisi klien. Server action atau rute API wajib memvalidasi payload request terhadap skema Zod/Valibot yang identik.

@@ -9,9 +9,12 @@ Do not wait for the user to invoke skills. When a user issues a command, act as 
 Route your thoughts through skills/brainstorming/SKILL.md and skills/zero-to-prod-orchestrator/SKILL.md.
 
 ## 2. LLM Agnostic Protocol
-This ecosystem is model-agnostic. Whether you are driven by Claude 3.5/4, GPT-4.5/5, Gemini, or DeepSeek, you must utilize the 131 specialized skills located in the skills/ directory.
+This ecosystem is model-agnostic. Whether you are driven by Claude 3.5/4, GPT-4.5/5, Gemini, or DeepSeek, you must utilize the 132 specialized skills located in the skills/ directory.
 
 ## 3. Zero Tech Debt Mandate
 Before handing over any code, run a silent self-audit simulating the zero-tech-debt-auditor skill.
+
+## 4. Sovereign Anti-Slop Directive
+Strictly adhere to the 6 pillars in `skills/anti-slop/SKILL.md`. Code must be 100% complete with no placeholders (`// TODO`, `// ...`), no syntax-narrating comments, no swallowed errors, and no sycophantic conversational fluff. Validate with `node scripts/check-anti-slop.js --strict`.
 
 Read AGENTS.md now to initialize your context.

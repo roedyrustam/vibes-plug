@@ -45,12 +45,12 @@ async function validateSkills() {
           
           const versionMatch = fm.match(/version:\s*"([^"]+)"/);
           if (!versionMatch) {
-            skillErrors.push('Missing "version" tag (Rule: All skills must be 3.0.0+)');
+            skillErrors.push('Missing "version" tag (Rule: All skills must be 4.0.0+)');
           } else {
             const version = versionMatch[1];
             const major = parseInt(version.split('.')[0], 10);
-            if (isNaN(major) || major < 3) {
-              skillErrors.push(`Version outdated: ${version} (expected >= 3.0.0)`);
+            if (isNaN(major) || major < 4) {
+              skillErrors.push(`Version outdated: ${version} (expected >= 4.0.0)`);
             }
           }
         }

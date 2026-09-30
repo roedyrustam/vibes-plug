@@ -55,6 +55,12 @@ const CODE_ERROR_PATTERNS = [
     name: 'Python Pass / Ellipsis Stub',
     regex: /^\s*(def|class)\s+[a-zA-Z0-9_]+.*:\s*(#\s*TODO.*)?\n\s*(pass|\.\.\.)\s*$/m,
     description: 'Unfinished Python function or class stubbed with pass/...'
+  },
+  {
+    id: 'UI_LOREM_IPSUM',
+    name: 'Lorem Ipsum Placeholder in Code',
+    regex: /(Lorem\s+ipsum\s+dolor\s+sit\s+amet|consectetur\s+adipiscing\s+elit)/i,
+    description: 'Never use Lorem Ipsum text in production code; use domain-authentic mock content.'
   }
 ];
 
@@ -70,6 +76,12 @@ const CODE_WARN_PATTERNS = [
     name: 'Console Debugging Debris',
     regex: /(?<!\/\/\s*)console\.(log|debug|warn)\s*\(/,
     description: 'Unstructured console.log call left in production code (use structured logger like Pino).'
+  },
+  {
+    id: 'FOCUS_OUTLINE_STRIPPED',
+    name: 'Stripped Focus Outline Without Ring Replacement',
+    regex: /focus:outline-none(?!\s.*focus-visible:ring)/,
+    description: 'Stripping focus outline without focus-visible replacement breaks accessibility (WCAG 2.2).'
   }
 ];
 

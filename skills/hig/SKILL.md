@@ -2,7 +2,7 @@
 name: hig
 description: "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces / Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif."
 author: "Roedy Rustam"
-version: "3.0.0"
+version: "4.0.0"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)
@@ -15,7 +15,7 @@ version: "3.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX designs. Covers the core triad (Hierarchy, Harmony, Consistency), Apple's HIG 2025 updates, Google Material Design 3, spatial design for Apple Vision Pro, and modern accessibility requirements.
@@ -134,6 +134,7 @@ When reviewing a design, check:
 3. **Consistency**: Do interactive elements follow platform conventions?
 4. **Accessibility**: Does it pass WCAG 2.2? Are touch targets ≥ 24×24px?
 5. **Platform fit**: Does it feel native to its target platform?
+6. **Anti-Slop Visual Cleanliness (`anti-slop`)**: Are generic purple/cyan AI gradients banned? Are all 5 interactive states accounted for? Is the content free of "Lorem Ipsum" filler? Are border-radii coherent across the entire view?
 
 ---
 
@@ -141,7 +142,7 @@ When reviewing a design, check:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mobile. Mencakup triad inti (Hierarchy, Harmony, Consistency), pembaruan Apple HIG 2025, Google Material Design 3, desain spasial untuk Apple Vision Pro, dan persyaratan aksesibilitas modern.
@@ -192,4 +193,10 @@ Hasilkan sistem warna penuh dari satu warna seed menggunakan `@material/material
 - **Navigasi**: Bottom bar (≤5 item), Rail (tablet), Drawer (desktop).
 
 ### Protokol Audit HIG
-Saat meninjau desain, periksa: Hierarki (apakah aksi utama langsung terlihat jelas?), Harmoni (apakah spacing konsisten?), Konsistensi (apakah elemen interaktif mengikuti konvensi platform?), Aksesibilitas (lulus WCAG 2.2? Target sentuh ≥ 24×24px?), dan Kesesuaian Platform (apakah terasa native untuk platform target?).
+Saat meninjau desain, periksa:
+1. **Hierarki**: Apakah aksi utama langsung terlihat jelas? Apakah kontras teks memadai?
+2. **Harmoni**: Apakah spacing konsisten (grid 8pt)? Apakah border radius seragam?
+3. **Konsistensi**: Apakah elemen interaktif mengikuti konvensi platform?
+4. **Aksesibilitas**: Apakah lulus WCAG 2.2? Apakah target sentuh ≥ 24×24px?
+5. **Kesesuaian Platform**: Apakah terasa native untuk platform target?
+6. **Kebersihan Visual Anti-Slop (`anti-slop`)**: Apakah gradien neon AI ungu/sian generik dilarang? Apakah kelima status interaktif terpenuhi? Apakah konten bebas dari teks pengisi "Lorem Ipsum"? Apakah border-radius seragam dan koheren di seluruh layar?

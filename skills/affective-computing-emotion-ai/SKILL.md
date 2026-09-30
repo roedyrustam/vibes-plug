@@ -2,7 +2,7 @@
 name: affective-computing-emotion-ai
 description: "Expert guide for Affective Computing, emotional AI, and real-time sentiment analysis through native multimodal tokens (voice intonation and facial micro-expressions) / Panduan ahli komputasi afektif, AI emosional, dan analisis sentimen real-time melalui token multimodal native."
 author: "vibes-plug-swarm"
-version: "3.8.0"
+version: "4.0.0"
 ---
 
 # Affective Computing & Emotion AI Expert (2026 Edition)
