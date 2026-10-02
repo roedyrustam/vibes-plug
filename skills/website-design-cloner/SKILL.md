@@ -1,7 +1,8 @@
 ---
 name: website-design-cloner
 description: "Analyzes and reverse-engineers website designs directly from a target URL, extracting layout structures, design tokens (colors, typography, spacing), component hierarchies, visual assets, and responsive behaviors to enable full 1:1 duplication into modern code (Tailwind CSS v4, React/Next.js, HTML/CSS). / Mempelajari dan merekayasa balik desain situs web langsung dari URL target, mengekstrak struktur layout, design token (warna, tipografi, spacing), hierarki komponen, aset visual, dan perilaku responsif untuk duplikasi 1:1 penuh ke kode modern."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "4.0.0"
 ---
 
@@ -124,6 +125,12 @@ export function HeroSection() {
   );
 }
 ```
+
+##### Material Design 3 (M3) Pattern Recognition (https://m3.material.io/)
+When cloning target sites utilizing Material Design 3 (Google products, Flutter web apps, Android dashboards):
+- **Detect M3 Surface Containers**: Identify background layering using tonal container levels (`surface-container-low` to `highest`) rather than drop shadows.
+- **Identify M3 Primitives**: Map Floating Action Buttons (FAB), Navigation Rails (tablet/desktop), Navigation Bars (mobile), and Tonal/Filled/Outlined buttons directly to canonical M3 component tokens.
+- **Extract Dynamic Colors**: Group related primary/container and secondary/container pairs into semantic M3 color roles.
 
 #### Phase 5: Visual Verification & Polish
 - Ensure color contrast passes WCAG 2.2 AAA standard (4.5:1 ratio).

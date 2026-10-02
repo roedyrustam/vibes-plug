@@ -77,6 +77,28 @@ Use CSS-first configuration. Define custom tokens with `@theme` and register plu
 #### 7. Animations & Motion
 For web animations, scroll-driven timelines, GSAP choreographies, and Framer Motion spring physics, delegate directly to `svg-animation-motion-expert`.
 
+
+#### 8. Material Design 3 (M3) Web Integration (https://m3.material.io/)
+In modern React 19 / Next.js 15 apps, incorporate Google's official Material Web Components (`@material/web`) or token-mapped headless primitives:
+- **Material Web Components**: Use Lit-based web components (`@material/web/button/filled-button.js`, `@material/web/textfield/outlined-text-field.js`) with React 19 native custom element support.
+- **Dynamic CSS Variable Theming**: Map tokens dynamically at the root:
+```tsx
+'use client';
+
+import '@material/web/button/filled-button.js';
+import '@material/web/elevation/elevation.js';
+
+export function M3ActionButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <div className="relative inline-flex">
+      <md-filled-button onClick={onClick} className="m3-button">
+        {label}
+      </md-filled-button>
+    </div>
+  );
+}
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -143,3 +165,8 @@ Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plug
 
 #### 7. Animasi & Motion
 Untuk animasi web, timeline scroll-driven, koreografi GSAP, dan fisika spring Framer Motion, delegasikan langsung ke `svg-animation-motion-expert`.
+
+#### 8. Integrasi Web Material Design 3 (M3) (https://m3.material.io/)
+Pada aplikasi React 19 / Next.js 15 modern, terapkan komponen web resmi Google (`@material/web`) atau primitif headless yang dipetakan ke token M3:
+- **Komponen Material Web**: Manfaatkan komponen berbasis Lit (`@material/web`) yang didukung secara native oleh React 19 tanpa wrapper tambahan.
+- **Theming Variabel CSS Dinamis**: Terapkan token M3 (`--md-sys-color-primary`, `--md-sys-color-surface-container`) pada elemen root untuk menjamin paritas kontras WCAG di seluruh komponen antarmuka.

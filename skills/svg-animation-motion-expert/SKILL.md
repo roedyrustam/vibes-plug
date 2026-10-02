@@ -1,7 +1,8 @@
 ---
 name: svg-animation-motion-expert
 description: "Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API / Panduan ahli animasi web."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "4.0.0"
 ---
 
@@ -75,7 +76,81 @@ Where possible, leverage modern native CSS to tie animations to scroll position 
 - Keep `viewBox` responsive.
 - Target `<path>`, `<circle>`, and `<mask/>` elements via CSS vars or inline Framer Motion logic.
 
-#### 5. Sovereign Anti-Slop Motion Directives
+#### 5. Material Design 3 (M3) Motion Architecture (https://m3.material.io/styles/motion/overview)
+M3 motion establishes physical purpose, directing user focus through spatial continuity:
+
+**M3 Easing & Duration Tokens:**
+```css
+:root {
+  /* M3 Easing Curves */
+  --md-sys-motion-easing-emphasized:             cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-emphasized-decelerate:  cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --md-sys-motion-easing-emphasized-accelerate:  cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --md-sys-motion-easing-standard:               cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-standard-decelerate:     cubic-bezier(0, 0, 0.2, 1.0);
+
+  /* M3 Durations */
+  --md-sys-motion-duration-short-4:  200ms;
+  --md-sys-motion-duration-medium-2: 300ms;
+  --md-sys-motion-duration-medium-4: 400ms;
+  --md-sys-motion-duration-long-2:   600ms;
+}
+```
+
+**M3 Container Transform Pattern (Framer Motion `layoutId`):**
+Morphing a card into a modal detail view with shared geometry:
+```tsx
+import { motion, AnimatePresence } from 'framer-motion';
+
+// M3 Container Transform with Emphasized Decelerate Easing
+const m3Transition = {
+  duration: 0.4,
+  ease: [0.05, 0.7, 0.1, 1.0], // M3 Emphasized Decelerate
+};
+
+export function M3CardToDetail({ selectedId, onSelect, item }: any) {
+  return (
+    <>
+      <motion.div
+        layoutId={`m3-container-${item.id}`}
+        onClick={() => onSelect(item.id)}
+        className="bg-surface-container rounded-2xl p-4 cursor-pointer shadow-sm hover:shadow-md transition-shadow"
+        transition={m3Transition}
+      >
+        <motion.h3 layoutId={`m3-title-${item.id}`} className="text-lg font-medium text-on-surface">
+          {item.title}
+        </motion.h3>
+        <p className="text-sm text-on-surface-variant mt-1">{item.subtitle}</p>
+      </motion.div>
+
+      <AnimatePresence>
+        {selectedId === item.id && (
+          <motion.div
+            layoutId={`m3-container-${item.id}`}
+            className="fixed inset-4 md:inset-20 z-50 bg-surface-container-high rounded-3xl p-8 shadow-2xl flex flex-col"
+            transition={m3Transition}
+          >
+            <motion.h3 layoutId={`m3-title-${item.id}`} className="text-2xl font-bold text-on-surface">
+              {item.title}
+            </motion.h3>
+            <div className="mt-4 flex-1 overflow-y-auto text-on-surface-variant">
+              {item.fullContent}
+            </div>
+            <button
+              onClick={() => onSelect(null)}
+              className="mt-4 self-end bg-primary text-on-primary rounded-full px-6 py-2.5 font-medium"
+            >
+              Close
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+```
+
+#### 6. Sovereign Anti-Slop Motion Directives
 Zero-tolerance principles for intentional, high-performance web motion:
 - **Strict `prefers-reduced-motion` Enforcement**: Every animation MUST respect user accessibility settings. In Framer Motion, check `useReducedMotion()`; in CSS, provide `@media (prefers-reduced-motion: reduce) { animation: none !important; transition: none !important; }`.
 - **Compositor-Only Animations (Zero Layout Thrashing)**: Only animate `transform` and `opacity`. Strictly ban animating layout triggers (`top`, `left`, `width`, `height`, `margin`, `padding`).
@@ -118,7 +193,18 @@ Manfaatkan CSS modern (`animation-timeline: view()`) untuk mengikat animasi ke p
 - Selalu optimasi SVG (buang tag tidak perlu) sebelum dianimasikan.
 - Gunakan `<clipPath>` dan `<mask>` untuk transisi transisi pengungkapan gambar yang dramatis.
 
-#### 5. Arahan Anti-Slop Gerakan & Animasi
+#### 5. Arsitektur Gerak Material Design 3 (M3 Motion) (https://m3.material.io/styles/motion/overview)
+Gerak dalam M3 memberikan kontinuitas spasial dan mengarahkan fokus pengguna:
+- **Kurva Easing M3**:
+  - `emphasized-decelerate` (`cubic-bezier(0.05, 0.7, 0.1, 1.0)`): Digunakan untuk elemen yang masuk ke layar (modal, drawer, sheet) dengan durasi 400ms.
+  - `emphasized-accelerate` (`cubic-bezier(0.3, 0.0, 0.8, 0.15)`): Digunakan untuk elemen yang meninggalkan layar dengan durasi 200ms.
+  - `standard` (`cubic-bezier(0.2, 0.0, 0, 1.0)`): Digunakan untuk transformasi bentuk dan pergeseran posisi dalam layar dengan durasi 300ms.
+- **Pola Transisi M3**:
+  - **Container Transform**: Transformasi morphing mulus dari kartu/chip kecil menjadi tampilan detail layar penuh menggunakan `layoutId` pada Framer Motion.
+  - **Shared Axis**: Transisi geser sepanjang sumbu X (alur wizard maju/mundur), sumbu Y (pindah level atas/bawah), atau sumbu Z (zoom in/out).
+  - **Fade Through**: Penggantian tampilan saat beralih antar destinasi navigasi utama (Bottom Navigation Bar atau Navigation Rail).
+
+#### 6. Arahan Anti-Slop Gerakan & Animasi
 Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
 - **Kepatuhan Mutlak `prefers-reduced-motion`**: Semua animasi WAJIB menghormati preferensi aksesibilitas pengguna (`useReducedMotion()` di Framer Motion, atau `@media (prefers-reduced-motion: reduce)` di CSS).
 - **Animasi Khusus Compositor (Bebas Layout Thrashing)**: Hanya animasikan `transform` dan `opacity`. Dilarang menganimasikan `top`, `left`, `width`, `height`, atau `margin` yang memicu re-layout dan lag.
