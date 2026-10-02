@@ -1,7 +1,8 @@
 ---
 name: tailwind-expert
 description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "4.0.0"
 ---
 
@@ -114,6 +115,67 @@ Enforces zero-tolerance code standards for utility-first styling:
 - **Mandatory 5 Interactive States**: Interactive elements (buttons, inputs, links) must declare utility variants for all 5 lifecycle states: default, hover (`hover:`), active/press (`active:`), keyboard focus (`focus-visible:`), and disabled (`disabled:pointer-events-none disabled:opacity-50`).
 - **No Responsive Layout Clipping**: Avoid fixed hardcoded widths (`w-[600px]`); use fluid responsive primitives (`max-w-2xl w-full mx-auto`) and container queries (`@container`) to ensure zero horizontal scroll on mobile viewports.
 
+
+#### 7. Material Design 3 (M3) System Mapping in Tailwind v4
+Tailwind CSS v4 seamlessly implements Google Material Design 3 (M3) tokens inside `@theme` without external UI dependencies:
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  /* M3 System Color Roles (HCT / OKLCH mapped) */
+  --color-md-primary:               oklch(55% 0.22 270);
+  --color-md-on-primary:            oklch(100% 0 0);
+  --color-md-primary-container:     oklch(90% 0.08 270);
+  --color-md-on-primary-container:  oklch(20% 0.12 270);
+
+  --color-md-secondary-container:    oklch(92% 0.03 270);
+  --color-md-on-secondary-container: oklch(22% 0.06 270);
+
+  /* M3 Surface Container Tiers (Zero-Shadow Elevation) */
+  --color-md-surface:               oklch(98% 0.005 270);
+  --color-md-surface-container-low: oklch(96% 0.008 270);
+  --color-md-surface-container:     oklch(94% 0.012 270);
+  --color-md-surface-container-high:oklch(92% 0.015 270);
+
+  --color-md-outline:               oklch(55% 0.02 270);
+  --color-md-outline-variant:       oklch(82% 0.015 270);
+
+  /* M3 Shape Families */
+  --radius-md-xs:   4px;
+  --radius-md-sm:   8px;
+  --radius-md-md:   12px;
+  --radius-md-lg:   16px;
+  --radius-md-xl:   28px;
+  --radius-md-full: 9999px;
+
+  /* M3 Elevation Shadows */
+  --shadow-md-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+}
+```
+
+**M3 Component Patterns with Tailwind v4 Utilities:**
+```html
+<!-- M3 Filled Button (High Emphasis Primary CTA) -->
+<button class="bg-md-primary text-md-on-primary rounded-md-full px-6 h-10 font-medium inline-flex items-center gap-2 transition hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2 disabled:opacity-38 disabled:pointer-events-none">
+  Primary Action
+</button>
+
+<!-- M3 Tonal Button (Medium-High Emphasis Secondary) -->
+<button class="bg-md-secondary-container text-md-on-secondary-container rounded-md-full px-6 h-10 font-medium inline-flex items-center gap-2 transition hover:brightness-95 active:brightness-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2">
+  Tonal Action
+</button>
+
+<!-- M3 Elevated Card with Surface Container Hierarchy -->
+<div class="bg-md-surface-container rounded-md-lg p-6 shadow-md-elevation-1 hover:shadow-md-elevation-2 transition-shadow">
+  <h3 class="text-lg font-medium text-slate-900 dark:text-slate-100">Elevated Card</h3>
+  <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">Layered with M3 tonal surface container and ambient elevation.</p>
+</div>
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -215,3 +277,58 @@ Menegakkan standar tanpa toleransi untuk styling utility-first:
 - **Larangan Gradien AI Slop Generik**: Dilarang keras memakai gradien ungu-sian klise AI (`bg-gradient-to-r from-purple-600 to-indigo-600`) sebagai latar belakang default. Gunakan palet warna terencana yang relevan dengan identitas brand menggunakan ruang warna OKLCH.
 - **Wajib 5 Status Interaktif**: Komponen interaktif (tombol, input, link) harus mendefinisikan utilitas untuk kelima status: normal, hover (`hover:`), active (`active:`), keyboard focus (`focus-visible:`), dan disabled (`disabled:pointer-events-none disabled:opacity-50`).
 - **Bebas Layout Terpotong**: Hindari lebar statis kaku (`w-[600px]`); gunakan utilitas responsif (`max-w-2xl w-full mx-auto`) dan container query (`@container`) untuk mencegah horizontal scrollbar pada layar mobile.
+
+#### 7. Pemetaan Sistem Material Design 3 (M3) pada Tailwind v4
+Tailwind CSS v4 memudahkan implementasi token Google Material Design 3 (M3) langsung di dalam direktif `@theme` tanpa library tambahan:
+
+```css
+/* app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  /* Peran Warna M3 (Dipetakan ke OKLCH / HCT) */
+  --color-md-primary:               oklch(55% 0.22 270);
+  --color-md-on-primary:            oklch(100% 0 0);
+  --color-md-primary-container:     oklch(90% 0.08 270);
+  --color-md-on-primary-container:  oklch(20% 0.12 270);
+
+  --color-md-secondary-container:    oklch(92% 0.03 270);
+  --color-md-on-secondary-container: oklch(22% 0.06 270);
+
+  /* Tingkatan Surface Container M3 (Elevasi Tonal) */
+  --color-md-surface:               oklch(98% 0.005 270);
+  --color-md-surface-container-low: oklch(96% 0.008 270);
+  --color-md-surface-container:     oklch(94% 0.012 270);
+  --color-md-surface-container-high:oklch(92% 0.015 270);
+
+  --color-md-outline:               oklch(55% 0.02 270);
+  --color-md-outline-variant:       oklch(82% 0.015 270);
+
+  /* Keluarga Bentuk M3 */
+  --radius-md-xs:   4px;
+  --radius-md-sm:   8px;
+  --radius-md-md:   12px;
+  --radius-md-lg:   16px;
+  --radius-md-xl:   28px;
+  --radius-md-full: 9999px;
+
+  /* Bayangan Elevasi M3 */
+  --shadow-md-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-elevation-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-elevation-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+}
+```
+
+**Pola Komponen M3 dengan Utilitas Tailwind v4:**
+```html
+<!-- Tombol Filled M3 (CTA Utama Berpenekanan Tinggi) -->
+<button class="bg-md-primary text-md-on-primary rounded-md-full px-6 h-10 font-medium inline-flex items-center gap-2 transition hover:brightness-110 active:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2 disabled:opacity-38 disabled:pointer-events-none">
+  Aksi Utama
+</button>
+
+<!-- Kartu Elevated M3 dengan Hierarki Surface Container -->
+<div class="bg-md-surface-container rounded-md-lg p-6 shadow-md-elevation-1 hover:shadow-md-elevation-2 transition-shadow">
+  <h3 class="text-lg font-medium text-slate-900 dark:text-slate-100">Kartu Elevated</h3>
+  <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">Diberi lapisan container tonal M3 dan bayangan elevasi ambient.</p>
+</div>
+```

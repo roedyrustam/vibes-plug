@@ -1,7 +1,8 @@
 ---
 name: mobile-expo-expert
 description: "Expert guide for React Native 0.79+ and Expo SDK 53+ development. Covers cross-platform mobile architecture, Expo Router v4, New Architecture, OTA updates, and native modules / Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ untuk aplikasi mobile."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "4.0.0"
 ---
 
@@ -131,6 +132,37 @@ Use **channels** to target specific user groups (production, staging, beta).
 - Use **react-native-gesture-handler** for gesture recognition on the native thread.
 - Enable **Hermes** engine (default in SDK 53) for faster startup and reduced memory.
 
+
+#### 9. Material Design 3 (M3 / Material You) Cross-Platform Theming
+Adhere to M3 specifications (https://m3.material.io/) for dynamic theming across Android and iOS:
+```typescript
+import { MD3LightTheme, MD3DarkTheme, PaperProvider } from 'react-native-paper';
+import { themeFromSourceColor, argbFromHex } from '@material/material-color-utilities';
+import { useColorScheme } from 'react-native';
+
+// Generate dynamic M3 color scheme from brand seed
+const seedColor = '#6750A4';
+const m3Theme = themeFromSourceColor(argbFromHex(seedColor));
+
+export function AppThemeProvider({ children }: { children: React.ReactNode }) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
+  const theme = {
+    ...(isDark ? MD3DarkTheme : MD3LightTheme),
+    colors: {
+      ...(isDark ? MD3DarkTheme.colors : MD3LightTheme.colors),
+      primary: isDark ? '#D0BCFF' : '#6750A4',
+      primaryContainer: isDark ? '#4F378B' : '#EADDFF',
+      surface: isDark ? '#1C1B1F' : '#FFFBFE',
+      surfaceVariant: isDark ? '#49454F' : '#E7E0EC',
+    },
+  };
+
+  return <PaperProvider theme={theme}>{children}</PaperProvider>;
+}
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -191,3 +223,8 @@ Dorong pembaruan instan ke pengguna tanpa melalui review App Store. Gunakan chan
 - **react-native-reanimated v3**: Animasi 60/120fps yang berjalan di UI thread.
 - **react-native-gesture-handler**: Pengenalan gesture di native thread.
 - **Hermes Engine**: Default di SDK 53 — startup lebih cepat, memori lebih sedikit.
+
+#### 7. Theming Lintas Platform Material Design 3 (M3 / Material You)
+Terapkan spesifikasi M3 (https://m3.material.io/) untuk theming dinamis pada Android dan iOS:
+- Gunakan `@material/material-color-utilities` untuk mengekstrak 5 palet tonal M3 dari warna seed brand.
+- Integrasikan dengan `react-native-paper` (MD3Theme) atau custom design tokens untuk memastikan peran warna (`primary`, `primaryContainer`, `surface`, `surfaceContainer`) dan elevasi tonal beradaptasi sempurna dengan tema terang dan gelap sistem.

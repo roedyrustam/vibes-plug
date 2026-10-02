@@ -1,7 +1,8 @@
 ---
 name: angular-expert
 description: "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3 / Panduan ahli aplikasi enterprise Angular 19+."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+
 version: "4.0.0"
 ---
 
@@ -129,6 +130,113 @@ export const ProductsStore = signalStore(
 }
 ```
 
+
+#### 4. Angular Material 3 (M3) Theming & Components (Angular 19+)
+Angular Material 18/19+ natively adheres to Material Design 3 via `mat.define-theme()`, outputting semantic CSS tokens (`--mat-sys-*`):
+
+**Theme Configuration (`src/styles.scss`):**
+```scss
+@use '@angular/material' as mat;
+
+// Define M3 Theme with Color, Typography, and Density
+$app-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$teal-palette,
+    use-system-variables: true,
+  ),
+  typography: (
+    brand-family: 'Google Sans, Roboto, sans-serif',
+    plain-family: 'Roboto, sans-serif',
+    bold-weight: 700,
+    medium-weight: 500,
+    regular-weight: 400,
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// Apply M3 theme globally
+html {
+  @include mat.all-component-themes($app-theme);
+  color-scheme: light;
+}
+
+// Scoped M3 Dark Theme
+html.dark-theme {
+  $dark-theme: mat.define-theme((
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$teal-palette,
+    ),
+  ));
+  @include mat.all-component-colors($dark-theme);
+  color-scheme: dark;
+}
+```
+
+**M3 Standalone Component with Signals & Angular Material:**
+```typescript
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+
+@Component({
+  selector: 'app-product-m3-card',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule],
+  template: `
+    <mat-card appearance="outlined" class="m3-product-card">
+      <mat-card-header>
+        <mat-card-title>{{ title() }}</mat-card-title>
+        <mat-card-subtitle>{{ category() }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ description() }}</p>
+        <mat-chip-set aria-label="Product tags">
+          @for (tag of tags(); track tag) {
+            <mat-chip>{{ tag }}</mat-chip>
+          }
+        </mat-chip-set>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="onBookmark()">Bookmark</button>
+        <button mat-flat-button color="primary" (click)="onBuy()">Buy Now</button>
+      </mat-card-actions>
+    </mat-card>
+  `,
+  styles: [`
+    .m3-product-card {
+      max-width: 380px;
+      border-radius: var(--mat-sys-corner-medium, 12px);
+      background-color: var(--mat-sys-surface-container-low);
+      padding: 16px;
+    }
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductM3CardComponent {
+  title = signal('Material 3 Enterprise Suite');
+  category = signal('Design Engineering');
+  description = signal('Production ready Angular 19 component leveraging M3 tokens and signals.');
+  tags = signal(['Angular 19', 'M3', 'Signals']);
+
+  onBookmark() {
+    // Action handled via Signals / Services
+  }
+
+  onBuy() {
+    // Primary purchase flow trigger
+  }
+}
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -147,3 +255,106 @@ Panduan produksi untuk membangun aplikasi web skala enterprise menggunakan Angul
 - Migrasi Angular lama (berbasis NgModule/RxJS berat) ke Angular 19+ Standalone & Signals.
 - Mengelola state aplikasi menggunakan NgRx SignalStore.
 - Mengoptimalkan performa rendering dengan deferrable views dan SSR hydration.
+
+#### 4. Theming & Komponen Angular Material 3 (M3) (Angular 19+)
+Angular Material 18/19+ menerapkan standar Material Design 3 melalui fungsi `mat.define-theme()`, menghasilkan token CSS semantik (`--mat-sys-*`):
+
+**Konfigurasi Tema (`src/styles.scss`):**
+```scss
+@use '@angular/material' as mat;
+
+// Definisi Tema M3 dengan Warna, Tipografi, dan Densitas
+$app-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$violet-palette,
+    tertiary: mat.$teal-palette,
+    use-system-variables: true,
+  ),
+  typography: (
+    brand-family: 'Google Sans, Roboto, sans-serif',
+    plain-family: 'Roboto, sans-serif',
+  ),
+  density: (
+    scale: 0,
+  ),
+));
+
+// Terapkan tema M3 secara global
+html {
+  @include mat.all-component-themes($app-theme);
+  color-scheme: light;
+}
+
+// Mode Gelap Terisolasi (Scoped M3 Dark Theme)
+html.dark-theme {
+  $dark-theme: mat.define-theme((
+    color: (
+      theme-type: dark,
+      primary: mat.$violet-palette,
+      tertiary: mat.$teal-palette,
+    ),
+  ));
+  @include mat.all-component-colors($dark-theme);
+  color-scheme: dark;
+}
+```
+
+**Komponen Standalone Berbasis Signals & Angular Material 3:**
+```typescript
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+
+@Component({
+  selector: 'app-product-m3-card',
+  standalone: true,
+  imports: [CommonModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule],
+  template: `
+    <mat-card appearance="outlined" class="m3-product-card">
+      <mat-card-header>
+        <mat-card-title>{{ title() }}</mat-card-title>
+        <mat-card-subtitle>{{ category() }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ description() }}</p>
+        <mat-chip-set aria-label="Tag Produk">
+          @for (tag of tags(); track tag) {
+            <mat-chip>{{ tag }}</mat-chip>
+          }
+        </mat-chip-set>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="onBookmark()">Simpan</button>
+        <button mat-flat-button color="primary" (click)="onBuy()">Beli Sekarang</button>
+      </mat-card-actions>
+    </mat-card>
+  `,
+  styles: [`
+    .m3-product-card {
+      max-width: 380px;
+      border-radius: var(--mat-sys-corner-medium, 12px);
+      background-color: var(--mat-sys-surface-container-low);
+      padding: 16px;
+    }
+  `],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ProductM3CardComponent {
+  title = signal('Material 3 Enterprise Suite');
+  category = signal('Teknik Desain');
+  description = signal('Komponen Angular 19 siap produksi dengan token M3 dan Signals.');
+  tags = signal(['Angular 19', 'M3', 'Signals']);
+
+  onBookmark() {
+    // Logika bookmark via Signal
+  }
+
+  onBuy() {
+    // Alur pembelian utama
+  }
+}
+```

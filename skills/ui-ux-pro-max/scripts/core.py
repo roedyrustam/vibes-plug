@@ -69,6 +69,11 @@ CSV_CONFIG = {
         "file": "web-interface.csv",
         "search_cols": ["Category", "Issue", "Keywords", "Description"],
         "output_cols": ["Category", "Issue", "Platform", "Description", "Do", "Don't", "Code Example Good", "Code Example Bad", "Severity"]
+    },
+    "m3": {
+        "file": "m3.csv",
+        "search_cols": ["Category", "Token/Element", "M3 Spec / Role", "Description", "Usage & Best Practices"],
+        "output_cols": ["Category", "Token/Element", "M3 Spec / Role", "Description", "CSS Token / Implementation", "Values / Specs", "Usage & Best Practices"]
     }
 }
 
