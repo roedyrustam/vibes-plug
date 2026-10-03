@@ -1,8 +1,9 @@
 ---
 name: ui-ux-pro-max
 description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
-author: "Roedy Rustam"
-version: "4.0.0"
+author: "Roedy Rustam"
+
+version: "4.1.0"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -98,7 +99,11 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 - **Dark Mode**: High contrast foreground elements over dark slate/gray backgrounds; avoid pure black `#000000` text containers unless requested.
 
 #### 5. Dashboard & Information Hierarchy
-- **Material Design 3 (M3) Integration**: Follow M3 Layouts (compact, medium, expanded). Use M3 elevation for layering instead of heavy borders.
+- **Material Design 3 (M3) Integration (https://m3.material.io/)**:
+  - **Window Size Classes**: Adaptive layout scaling across Compact (<600dp / bottom nav), Medium (600–839dp / navigation rail), and Expanded (≥840dp / persistent drawer).
+  - **Surface Container Tiers**: Layer views using `surface-container-lowest` up to `surface-container-highest` for subtle tonal elevation without harsh borders or heavy drop shadows.
+  - **Tonal Elevation**: 6 levels (Level 0–5) with primary surface tinting overlays (0% to 14%).
+  - **Query M3 Design Tokens**: Run `python scripts/search.py "<component or token>" --domain m3` to fetch exact M3 specs, color roles, and CSS variables.
 - **Layout Flow**: KPI summary cards top -> Trend charts middle -> Detailed data tables bottom.
 - **Visual Grid**: Consistent gaps/padding (16px / 24px). Clean subtle borders instead of heavy black dividers.
 - **Data Viz**: Maximum 3–5 coordinated colors in graphs. Responsive tooltips and legend alignment.
@@ -235,7 +240,11 @@ python scripts/search.py "<kueri>" --stack <stack> --max-results 3
 - **Mode Gelap**: Kontras tinggi antara elemen latar depan dengan latar belakang gelap; hindari kontainer teks serba hitam pekat `#000000` kecuali diminta khusus.
 
 #### 5. Dashboard & Hierarki Informasi
-- **Integrasi Material Design 3 (M3)**: Ikuti tata letak M3 (compact, medium, expanded). Gunakan elevasi M3 untuk pelapisan alih-alih border tebal.
+- **Integrasi Material Design 3 (M3) (https://m3.material.io/)**:
+  - **Kelas Ukuran Jendela Adaptif**: Tata letak beradaptasi pada Compact (<600dp / navigasi bawah), Medium (600–839dp / navigation rail), dan Expanded (≥840dp / navigation drawer permanen).
+  - **Tingkatan Surface Container**: Pelapisan kontainer visual menggunakan `surface-container-lowest` hingga `surface-container-highest` untuk kedalaman tonal tanpa border tebal atau bayangan berlebihan.
+  - **Elevasi Tonal**: 6 tingkat (Level 0–5) dengan overlay warna tint primer (0% hingga 14%).
+  - **Pencarian Token Desain M3**: Jalankan `python scripts/search.py "<komponen atau token>" --domain m3` untuk mengekstrak spesifikasi, peran warna, dan variabel CSS M3 secara instan.
 - **Alur Tata Letak**: Kartu ringkasan KPI di atas -> Grafik tren di tengah -> Tabel detail data di bawah.
 - **Grid Visual**: Konsistensi gap/padding (16px / 24px). Gunakan border halus daripada pembatas tebal hitam.
 - **Visualisasi Data**: Maksimal 3–5 warna terkoordinasi dalam grafik. Tooltip responsif & perataan legenda yang rapi.

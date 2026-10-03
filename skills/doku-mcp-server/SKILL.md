@@ -1,8 +1,8 @@
 ---
 name: doku-mcp-server
-description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for payment links, Virtual Accounts, QRIS, transaction status checks, and client configuration (Claude Desktop, Cursor, AGY) / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
-author: "Roedy Rustam"
-version: "4.0.0"
+description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for DOKU Checkout, payment links, Virtual Accounts, QRIS, and order status checks / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
+author: "Roedy Rustam"
+version: "4.1.0"
 ---
 
 # DOKU MCP Server / Server Model Context Protocol DOKU
@@ -15,16 +15,20 @@ version: "4.0.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `doku-payment-gateway` — Core DOKU Checkout specifications, HMAC-SHA256 signature algorithms, and SNAP BI protocols.
+- `mcp-server-architect` — Enterprise-grade MCP tool design, transport safety, and schema validation.
+- `multi-agent-orchestration` — Connecting AI shopping agents and autonomous checkout swarms.
+- `saas-billing` — Agentic subscription provisioning and autonomous order payment verification.
 
 ### Description
-Expert guide for integrating and building Model Context Protocol (MCP) servers with DOKU Payment Gateway based on [DOKU Developers Documentation](https://developers.doku.com/). Enables AI Agents (Claude Desktop, Antigravity, Cursor, n8n, LangChain) to execute payment tasks autonomously using Agentic Commerce capabilities (generating payment links, issuing Virtual Account numbers, generating QRIS codes, querying transaction statuses).
+Expert guide for integrating and building Model Context Protocol (MCP) servers with DOKU Payment Gateway based on the [DOKU Developers Documentation](https://developers.doku.com/). Enables AI Agents (Claude Desktop, Antigravity, Cursor, n8n, LangChain) to execute payment tasks autonomously using Agentic Commerce capabilities (generating DOKU Checkout links, issuing Virtual Account numbers, generating QRIS codes, and querying order-level transaction statuses).
 
 ### Trigger Conditions
 Activate this skill when the user is:
 - Setting up or configuring DOKU MCP server for Claude Desktop, Antigravity (AGY), Cursor, or LLM agents.
-- Implementing AI Agentic Commerce or autonomous AI-driven checkout workflows using DOKU.
-- Building a custom TypeScript or Python MCP server wrapping DOKU Jokul API.
+- Implementing AI Agentic Commerce or autonomous AI-driven checkout workflows using DOKU Checkout.
+- Building a custom TypeScript or Python MCP server wrapping DOKU Checkout (`/checkout/v1/payment`) or SNAP BI APIs.
 - Defining MCP tools and resources for payment generation and status verification.
 
 ---
@@ -33,10 +37,10 @@ Activate this skill when the user is:
 
 | MCP Tool Name | Description | Key Input Parameters |
 |---|---|---|
-| `create_checkout_payment` | Generates a DOKU Checkout URL / Payment Link for host-managed payment page | `amount`, `invoice_number`, `customer_name`, `customer_email` |
-| `create_virtual_account` | Generates a specific bank Virtual Account number (BCA, Mandiri, BRI, BNI, Permata, DOKU) | `bank_code`, `amount`, `invoice_number`, `customer_name` |
+| `create_checkout_payment` | Generates a DOKU Checkout URL supporting all payment methods (VA, CC, QRIS, E-Wallet, etc.) | `amount`, `invoice_number`, `customer_name`, `customer_email`, `customer_phone`, `callback_url`, `payment_method_types`, `payment_due_date` |
+| `check_transaction_status` | Queries real-time order and transaction status from DOKU (`/orders/v1/status/{invoice_number}`) | `invoice_number` |
+| `create_virtual_account` | Generates a direct bank Virtual Account number via Direct SNAP BI API | `bank_code`, `amount`, `invoice_number`, `customer_name` |
 | `create_qris_payment` | Generates a dynamic QRIS string/image for instant wallet payments | `amount`, `invoice_number`, `store_name` |
-| `check_transaction_status` | Queries real-time transaction payment status | `invoice_number` or `transaction_id` |
 
 ---
 
@@ -86,14 +90,9 @@ Activate this skill when the user is:
 }
 ```
 
-#### 3. Environment Variables & Authentication
-DOKU API authentication requires API Key credentials. When using standard HTTP header authentication:
-- API Keys are configured in your environment or encoded as Base64 for the MCP `Authorization` header.
-- Use Sandbox (`https://api-sandbox.doku.com`) during development and testing.
-
 ---
 
-### Building a Custom TypeScript MCP Server for DOKU
+### Building a Production TypeScript MCP Server for DOKU
 
 ```typescript
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
@@ -107,28 +106,34 @@ const BASE_URL = process.env.DOKU_IS_PRODUCTION === 'true'
   ? 'https://api.doku.com' 
   : 'https://api-sandbox.doku.com';
 
-function generateHeaders(targetPath: string, payload: object) {
+function generateNonSnapHeaders(targetPath: string, payload?: object) {
   const requestId = crypto.randomUUID();
   const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
-  const jsonBody = JSON.stringify(payload);
-  const digest = crypto.createHash('sha256').update(jsonBody, 'utf8').digest('base64');
+  let component = `Client-Id:${CLIENT_ID}\nRequest-Id:${requestId}\nRequest-Timestamp:${timestamp}\nRequest-Target:${targetPath}`;
 
-  const component = `Client-Id:${CLIENT_ID}\nRequest-Id:${requestId}\nRequest-Timestamp:${timestamp}\nRequest-Target:${targetPath}\nDigest:${digest}`;
-  const signature = 'HMACSHA256=' + crypto.createHmac('sha256', SECRET_KEY).update(component).digest('base64');
-
-  return {
-    'Content-Type': 'application/json',
+  const headers: Record<string, string> = {
     'Client-Id': CLIENT_ID,
     'Request-Id': requestId,
     'Request-Timestamp': timestamp,
     'Request-Target': targetPath,
-    'Digest': digest,
-    'Signature': signature
   };
+
+  if (payload) {
+    const jsonBody = JSON.stringify(payload);
+    const digest = crypto.createHash('sha256').update(jsonBody, 'utf8').digest('base64');
+    headers['Digest'] = digest;
+    headers['Content-Type'] = 'application/json';
+    component += `\nDigest:${digest}`;
+  }
+
+  const signature = 'HMACSHA256=' + crypto.createHmac('sha256', SECRET_KEY).update(component, 'utf8').digest('base64');
+  headers['Signature'] = signature;
+
+  return headers;
 }
 
 const server = new Server(
-  { name: 'doku-mcp-server', version: '1.0.0' },
+  { name: 'doku-mcp-server', version: '2.0.0' },
   { capabilities: { tools: {} } }
 );
 
@@ -136,25 +141,33 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
   tools: [
     {
       name: 'create_checkout_payment',
-      description: 'Generate a DOKU payment checkout URL for customer order',
+      description: 'Generate a DOKU Checkout URL allowing customers to pay with all supported payment methods (VA, CC, QRIS, E-Wallet, Paylater)',
       inputSchema: {
         type: 'object',
         properties: {
-          amount: { type: 'number', description: 'Total payment amount in IDR' },
+          amount: { type: 'number', description: 'Total payment amount in IDR (integer without decimals)' },
           invoice_number: { type: 'string', description: 'Unique order invoice number' },
           customer_name: { type: 'string', description: 'Customer full name' },
-          customer_email: { type: 'string', description: 'Customer email address' }
+          customer_email: { type: 'string', description: 'Customer email address' },
+          customer_phone: { type: 'string', description: 'Customer phone number in international format (e.g. 6281234567890)' },
+          callback_url: { type: 'string', description: 'Merchant redirect URL upon transaction completion' },
+          payment_method_types: {
+            type: 'array',
+            items: { type: 'string' },
+            description: 'Optional filter for payment channels (e.g. ["VIRTUAL_ACCOUNT_BCA", "CREDIT_CARD", "QRIS", "EMONEY_SHOPEEPAY"]). Omit to show all.'
+          },
+          payment_due_date: { type: 'number', description: 'Payment expiration time in minutes (default 60)' }
         },
         required: ['amount', 'invoice_number', 'customer_name', 'customer_email']
       }
     },
     {
       name: 'check_transaction_status',
-      description: 'Check payment status of a transaction',
+      description: 'Check real-time order and transaction payment status using DOKU Check Status API',
       inputSchema: {
         type: 'object',
         properties: {
-          invoice_number: { type: 'string', description: 'Invoice number to query' }
+          invoice_number: { type: 'string', description: 'Merchant invoice number to query' }
         },
         required: ['invoice_number']
       }
@@ -168,14 +181,44 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   if (name === 'create_checkout_payment') {
     const targetPath = '/checkout/v1/payment';
     const body = {
-      order: { amount: args?.amount, invoice_number: args?.invoice_number },
-      customer: { name: args?.customer_name, email: args?.customer_email }
+      order: {
+        amount: args?.amount,
+        invoice_number: args?.invoice_number,
+        currency: 'IDR',
+        callback_url: args?.callback_url,
+        auto_redirect: true
+      },
+      payment: {
+        payment_due_date: args?.payment_due_date || 60,
+        ...(args?.payment_method_types ? { payment_method_types: args.payment_method_types } : {})
+      },
+      customer: {
+        id: args?.customer_email,
+        name: args?.customer_name,
+        email: args?.customer_email,
+        phone: args?.customer_phone || '6281234567890'
+      }
     };
 
     const response = await fetch(`${BASE_URL}${targetPath}`, {
       method: 'POST',
-      headers: generateHeaders(targetPath, body),
+      headers: generateNonSnapHeaders(targetPath, body),
       body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+    return {
+      content: [{ type: 'text', text: JSON.stringify(data, null, 2) }]
+    };
+  }
+
+  if (name === 'check_transaction_status') {
+    const invoiceNumber = args?.invoice_number;
+    const targetPath = `/orders/v1/status/${invoiceNumber}`;
+
+    const response = await fetch(`${BASE_URL}${targetPath}`, {
+      method: 'GET',
+      headers: generateNonSnapHeaders(targetPath)
     });
 
     const data = await response.json();
@@ -201,9 +244,10 @@ main().catch(console.error);
 
 | Anti-Pattern | Issue | Solution |
 |---|---|---|
-| Hardcoding Merchant Secrets | Security vulnerability | Always load `DOKU_CLIENT_ID` and `DOKU_SECRET_KEY` from environment variables. |
+| Hardcoding Merchant Secrets | Security leak | Always read `DOKU_CLIENT_ID` and `DOKU_SECRET_KEY` from environment variables. |
 | Incomplete Tool Schema Descriptions | AI Agent misinterprets tool usage | Provide clear parameter descriptions and strict `required` fields in JSON schema. |
-| Returning Raw Errors | Unfriendly LLM agent experience | Catch API errors and return structured error JSON response in MCP tool text output. |
+| Omitting Digest on POST | 401 Unauthorized / Signature Mismatch | For DOKU Checkout (`/checkout/v1/payment`), calculate Base64 SHA-256 Digest of minified body and include it in component string. |
+| Including Digest on GET Check Status | 401 Signature Mismatch | For GET requests (`/orders/v1/status/...`), do NOT include `Digest` in headers or signature component string. |
 
 ---
 
@@ -211,48 +255,15 @@ main().catch(console.error);
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `doku-payment-gateway` — Spesifikasi teknis DOKU Checkout, algoritma HMAC-SHA256, dan standar SNAP BI.
+- `mcp-server-architect` — Arsitektur server MCP tingkat lanjut dan skema type-safe.
+- `multi-agent-orchestration` — Agen AI otonom untuk pembelian dan checkout otomatis.
+- `saas-billing` — Verifikasi pembayaran tagihan langganan secara otonom.
 
 ### Deskripsi
-Panduan ahli untuk mengintegrasikan dan membuat server Model Context Protocol (MCP) dengan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Documentation](https://developers.doku.com/). Memungkinkan Agen AI (Claude Desktop, Antigravity, Cursor, n8n, LangChain) menjalankan transaksi pembayaran secara otonom dalam alur Agentic Commerce (membuat link pembayaran, membuat nomor Virtual Account, membuat kode QRIS, dan memeriksa status transaksi).
+Panduan ahli untuk mengintegrasikan dan membuat server Model Context Protocol (MCP) dengan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Documentation](https://developers.doku.com/). Memungkinkan Agen AI (Claude Desktop, Antigravity, Cursor, n8n, LangChain) menjalankan transaksi pembayaran secara otonom dalam alur Agentic Commerce (membuat URL DOKU Checkout, memeriksa status pembayaran order, dan mengelola invoice).
 
-### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Mengatur atau mengonfigurasi server DOKU MCP untuk Claude Desktop, Antigravity (AGY), Cursor, atau agen LLM.
-- Mengimplementasikan alur kerja checkout otonom berbasis AI (AI Agentic Commerce) menggunakan DOKU.
-- Membangun server MCP TypeScript atau Python kustom yang membungkus DOKU Jokul API.
-- Mendefinisikan tool dan resource MCP untuk pembuatan dan verifikasi status pembayaran.
-
-### Konfigurasi Client untuk Antigravity & Gemini
-
-**Lokasi File Konfigurasi (`mcp.json`):**
-- **Global:** `~/.gemini/config/mcp.json` (Windows: `%USERPROFILE%\.gemini\config\mcp.json`)
-- **Workspace:** `.agents/mcp.json` (di dalam folder proyek)
-
-```json
-{
-  "mcpServers": {
-    "doku-payment": {
-      "command": "node",
-      "args": ["/path/to/doku-mcp-server/dist/index.js"],
-      "env": {
-        "DOKU_CLIENT_ID": "CLIENT_ID_SANDBOX_ATAU_PROD",
-        "DOKU_SECRET_KEY": "SECRET_KEY_SANDBOX_ATAU_PROD",
-        "DOKU_IS_PRODUCTION": "false"
-      }
-    }
-  }
-}
-```
-
-### Integrasi dengan Skill Lain
-- `mcp-server-architect` — Untuk arsitektur dan pengamanan server MCP tingkat lanjut.
-- `doku-payment-gateway` — Untuk rumus signature HMAC-SHA256 dan API spesifik DOKU.
-- `multi-agent-orchestration` — Untuk mengaitkan DOKU MCP Server dengan swarm agen AI otonom.
-
----
-### 🚨 SNAP Integration Mandate (CRITICAL)
-**MANDATORY**: The AI Agent MUST automatically apply the SNAP API v1.0 standard (Standard Nasional Open API Pembayaran) for all DOKU integrations, instead of the legacy Jokul API v2, unless the user explicitly requests otherwise. All generated signatures, headers, and endpoints MUST follow the SNAP BI standard.
-
-### 🧪 DOKU Sandbox Simulator
-**MANDATORY**: When testing in Sandbox mode and needing to access the Payment Simulator, the AI Agent MUST use this exact URL: `https://sandbox.doku.com/gtw-config-v2/simulator`.
+### Tool Utama yang Disediakan
+1. `create_checkout_payment`: Menghasilkan URL DOKU Checkout yang mendukung seluruh metode pembayaran (VA, Kartu Kredit, QRIS, E-Wallet, Paylater).
+2. `check_transaction_status`: Memeriksa status transaksi dan order secara real-time via `GET /orders/v1/status/{invoice_number}`.

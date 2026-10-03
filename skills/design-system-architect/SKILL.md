@@ -1,8 +1,9 @@
 ---
 name: design-system-architect
 description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
-author: "Roedy Rustam"
-version: "4.0.0"
+author: "Roedy Rustam"
+
+version: "4.1.0"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -94,12 +95,124 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
 }
 ```
 
-### Material Design 3 (M3) Integration
-When requested to follow **Material Design 3 (https://m3.material.io/)**, implement the following M3 token principles in your design system:
-1. **Color Roles**: Map Tailwind colors to M3 roles (`Primary`, `Secondary`, `Tertiary`, `Error`, `Surface`, `Outline`). Implement `On-*` colors for text/icons on top of those roles, and `*-Container` / `On-*-Container` for lower emphasis. Support Dynamic Color if applicable.
-2. **Typography Scale**: Use M3 naming conventions: `Display`, `Headline`, `Title`, `Body`, `Label` (each with `Large`, `Medium`, `Small` sizes).
-3. **Elevation & Surface**: Use M3 Elevation levels (0 to 5) implemented via subtle shadows and surface tint colors, not just heavy drop shadows.
-4. **Shapes**: Map `--radius-*` to M3 shape families: `None`, `Extra Small`, `Small`, `Medium`, `Large`, `Extra Large`, `Full`.
+### Material Design 3 (M3) Complete Architecture (https://m3.material.io/)
+When implementing or adhering to **Google Material Design 3 (Material You)**, strictly apply the 8 foundational pillars and token system:
+
+#### 1. 3-Tier Token Architecture
+M3 organizes design tokens into three strict tiers:
+- **Reference Tokens (`md.ref.*`)**: Primitive building blocks storing raw values (e.g. `md.ref.palette.primary40: #6750A4`).
+- **System Tokens (`md.sys.*`)**: Context-aware decisions that dynamically adapt between light and dark modes (e.g. `md.sys.color.primary`, `md.sys.elevation.level2`, `md.sys.shape.corner-large`).
+- **Component Tokens (`md.comp.*`)**: Element-specific styling attributes (e.g. `md.comp.filled-button.container.color: var(--md-sys-color-primary)`).
+
+#### 2. Dynamic Color & Algorithmic HCT (Hue, Chroma, Tone)
+M3 replaces RGB/HSL color matching with the perceptually uniform **HCT space**. Tone (0 to 100) dictates absolute luminance, mathematically guaranteeing WCAG contrast across all hues:
+- Difference of $\Delta \text{Tone} \ge 40$ guarantees $\ge 3:1$ contrast (large text/graphics).
+- Difference of $\Delta \text{Tone} \ge 50$ guarantees $\ge 4.5:1$ contrast (standard body text).
+
+Dynamic color extraction pipeline from seed color via `@material/material-color-utilities`:
+```typescript
+import { argbFromHex, themeFromSourceColor } from '@material/material-color-utilities';
+
+// Generate 5 core tonal palettes from a single brand seed
+const theme = themeFromSourceColor(argbFromHex('#6750A4'));
+// Schemes contain full light/dark role maps:
+// theme.schemes.light.primary, theme.schemes.dark.primary
+```
+
+#### 3. Complete 25+ Color Roles & Surface Container Tier
+Never use static hex colors. Map all elements to semantic M3 color roles:
+- **Accent Keys & Containers**:
+  - `primary` / `on-primary` (High-emphasis CTA)
+  - `primary-container` / `on-primary-container` (Medium-high emphasis fill)
+  - `secondary` / `on-secondary` (Filter chips, secondary elements)
+  - `secondary-container` / `on-secondary-container` (Active nav pill, subtle highlight)
+  - `tertiary` / `on-tertiary` (Balanced contrasting accent, creative accents)
+  - `tertiary-container` / `on-tertiary-container` (Callouts, tags, contextual banners)
+  - `error` / `on-error` & `error-container` / `on-error-container` (Alerts, validation errors)
+- **Modern Surface Container Hierarchy (Zero-Shadow Elevation)**:
+  Modern M3 deprecates heavy drop shadows in favor of **Surface Container Tonal Tiers**:
+  - `surface-dim` (Tone 87 L / Tone 6 D): Background grounding
+  - `surface` (Tone 98 L / Tone 6 D): Baseline surface
+  - `surface-bright` (Tone 98 L / Tone 24 D): High-contrast surface
+  - `surface-container-lowest` (Tone 100 L / Tone 4 D): Contained elements on dark canvas
+  - `surface-container-low` (Tone 96 L / Tone 10 D): Contained cards, grouped lists
+  - `surface-container` (Tone 94 L / Tone 12 D): Default cards, dialogs, bottom sheets
+  - `surface-container-high` (Tone 92 L / Tone 17 D): Floating search bars, action popups
+  - `surface-container-highest` (Tone 90 L / Tone 22 D): Top-level modal overlays
+- **Borders & Outlines**:
+  - `outline`: High-contrast borders (text field boundaries, unselected buttons).
+  - `outline-variant`: Subtle dividers, table row borders, card outlines.
+
+#### 4. Elevation & Surface Tinting (Levels 0–5)
+Elevation conveys z-axis separation using **surface tinting** (primary color blended onto surface) and ambient diffuse shadow:
+- **Level 0 (0dp)**: Flat surface, 0% tint overlay, no shadow.
+- **Level 1 (1dp)**: Resting cards, search bar, 5% tint overlay, `box-shadow: 0 1px 3px rgba(0,0,0,0.12)`.
+- **Level 2 (3dp)**: Hovered cards, small menus, 8% tint overlay, `box-shadow: 0 2px 6px rgba(0,0,0,0.15)`.
+- **Level 3 (6dp)**: Floating Action Button (FAB), 11% tint overlay, `box-shadow: 0 4px 12px rgba(0,0,0,0.18)`.
+- **Level 4 (8dp)**: Active/pressed FAB, 12% tint overlay, `box-shadow: 0 6px 16px rgba(0,0,0,0.20)`.
+- **Level 5 (12dp)**: Modal dialogs, time pickers, 14% tint overlay, `box-shadow: 0 8px 24px rgba(0,0,0,0.24)`.
+
+#### 5. Typography Scale (15 Baseline + 15 Emphasized)
+M3 defines 5 type roles in Large, Medium, Small with strict optical sizing and tracking:
+- `display-large` (57px/64px -0.25 tracking) | `display-medium` (45px/52px) | `display-small` (36px/44px)
+- `headline-large` (32px/40px) | `headline-medium` (28px/36px) | `headline-small` (24px/32px)
+- `title-large` (22px/28px) | `title-medium` (16px/24px 0.15 tracking) | `title-small` (14px/20px 0.1 tracking)
+- `body-large` (16px/24px 0.5 tracking) | `body-medium` (14px/20px 0.25 tracking) | `body-small` (12px/16px 0.4 tracking)
+- `label-large` (14px/20px 0.1 tracking, weight 500) | `label-medium` (12px/16px 0.5 tracking) | `label-small` (11px/16px 0.5 tracking)
+
+#### 6. Shape Scale & Corner Radii
+Corner radius communicates component structure:
+- `corner-none`: 0px (Full-bleed images, dividers)
+- `corner-extra-small`: 4px (Text fields, snackbars, autocomplete)
+- `corner-small`: 8px (Chips, tooltips)
+- `corner-medium`: 12px (Cards, compact dialogs)
+- `corner-large`: 16px (Navigation drawers, modal bottom sheets, standard FABs)
+- `corner-extra-large`: 28px (Large modal dialogs, date/time pickers)
+- `corner-full`: 9999px (Pill buttons, badges, active search bar, navigation indicators)
+
+#### 7. Adaptive Window Size Classes
+M3 adapts navigation and layout structures according to window size classes:
+- **Compact (< 600dp)**: Mobile portrait. Navigation Bar (bottom 80dp), 16dp screen margins, 4-column layout.
+- **Medium (600–839dp)**: Tablets & foldables. Navigation Rail (side 80dp), 24dp margins, 8-column layout.
+- **Expanded (≥ 840dp)**: Desktops & landscape tablets. Persistent Navigation Drawer (280–360dp), 24dp margins, 12-column layout, multi-pane list-detail views.
+
+#### 8. M3 Tailwind v4 `@theme` Mapping Architecture
+```css
+@theme {
+  /* M3 System Color Roles (OKLCH mapping) */
+  --color-md-sys-primary:                 oklch(55% 0.22 270);
+  --color-md-sys-on-primary:              oklch(100% 0 0);
+  --color-md-sys-primary-container:       oklch(90% 0.08 270);
+  --color-md-sys-on-primary-container:    oklch(20% 0.12 270);
+
+  --color-md-sys-secondary:               oklch(58% 0.08 270);
+  --color-md-sys-on-secondary:            oklch(100% 0 0);
+  --color-md-sys-secondary-container:     oklch(92% 0.03 270);
+  --color-md-sys-on-secondary-container:  oklch(22% 0.06 270);
+
+  --color-md-sys-surface:                 oklch(98% 0.005 270);
+  --color-md-sys-on-surface:              oklch(18% 0.015 270);
+  --color-md-sys-surface-container-low:   oklch(96% 0.008 270);
+  --color-md-sys-surface-container:       oklch(94% 0.012 270);
+  --color-md-sys-surface-container-high:  oklch(92% 0.015 270);
+
+  --color-md-sys-outline:                 oklch(55% 0.02 270);
+  --color-md-sys-outline-variant:         oklch(82% 0.015 270);
+
+  /* M3 Shapes */
+  --radius-md-sys-xs:   4px;
+  --radius-md-sys-sm:   8px;
+  --radius-md-sys-md:   12px;
+  --radius-md-sys-lg:   16px;
+  --radius-md-sys-xl:   28px;
+  --radius-md-sys-full: 9999px;
+
+  /* M3 Elevation Shadows */
+  --shadow-md-sys-1: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-sys-2: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.30);
+  --shadow-md-sys-3: 0 4px 8px 3px rgba(0, 0, 0, 0.15), 0 1px 3px 0 rgba(0, 0, 0, 0.30);
+}
+```
 
 ### Component Architecture
 
@@ -287,12 +400,85 @@ Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Menc
 ### Fondasi Design Token (Tailwind v4 + OKLCH)
 Definisikan semua token di CSS menggunakan direktif `@theme`. Gunakan warna OKLCH untuk tampilan P3 wide-gamut. Definisikan token semantik (`--color-primary`, `--color-surface`, `--color-border`) yang secara otomatis beradaptasi antara mode terang/gelap melalui `@variant dark`.
 
-### Integrasi Material Design 3 (M3)
-Jika diminta mengikuti **Material Design 3 (https://m3.material.io/)**, terapkan prinsip token M3 berikut:
-1. **Peran Warna (Color Roles)**: Petakan warna ke peran M3 (`Primary`, `Secondary`, `Tertiary`, `Error`, `Surface`, `Outline`). Gunakan warna `On-*` untuk teks di atasnya, dan `*-Container` / `On-*-Container` untuk penekanan lebih rendah.
-2. **Skala Tipografi**: Gunakan penamaan M3: `Display`, `Headline`, `Title`, `Body`, `Label` (dengan ukuran `Large`, `Medium`, `Small`).
-3. **Elevasi & Permukaan**: Gunakan tingkat Elevasi M3 (0 hingga 5) melalui bayangan halus dan warna tint permukaan (surface tint).
-4. **Bentuk (Shapes)**: Petakan `--radius-*` ke keluarga bentuk M3: `None`, `Extra Small`, `Small`, `Medium`, `Large`, `Extra Large`, `Full`.
+### Arsitektur Lengkap Material Design 3 (M3) (https://m3.material.io/)
+Ketika menerapkan atau mengacu pada **Google Material Design 3 (Material You)**, tegakkan 8 pilar fondasi dan sistem token berikut:
+
+#### 1. Arsitektur Token 3 Tingkat
+M3 mengorganisasi token desain ke dalam tiga hierarki:
+- **Reference Tokens (`md.ref.*`)**: Blok pembangun primitif yang menyimpan nilai mentah (misal `md.ref.palette.primary40: #6750A4`).
+- **System Tokens (`md.sys.*`)**: Keputusan desain berbasis konteks yang beradaptasi otomatis antara tema terang/gelap (misal `md.sys.color.primary`, `md.sys.elevation.level2`, `md.sys.shape.corner-large`).
+- **Component Tokens (`md.comp.*`)**: Atribut styling spesifik komponen (misal `md.comp.filled-button.container.color: var(--md-sys-color-primary)`).
+
+#### 2. Ruang Warna HCT Algoritmik & Warna Dinamis
+M3 menggantikan pencocokan warna RGB/HSL dengan **ruang warna HCT (Hue, Chroma, Tone)** yang perseptual seragam. Tone (0 hingga 100) menentukan luminansi absolut dan menjamin kepatuhan kontras WCAG secara matematis pada semua rona:
+- Selisih $\Delta \text{Tone} \ge 40$ menjamin kontras $\ge 3:1$ (teks besar/grafis UI).
+- Selisih $\Delta \text{Tone} \ge 50$ menjamin kontras $\ge 4.5:1$ (teks isi standar).
+
+Ekstraksi warna dinamis dari seed color via `@material/material-color-utilities`:
+```typescript
+import { argbFromHex, themeFromSourceColor } from '@material/material-color-utilities';
+
+// Buat 5 palet tonal inti dari satu warna seed brand
+const theme = themeFromSourceColor(argbFromHex('#6750A4'));
+// Skema menghasilkan peran lengkap untuk mode terang dan gelap:
+// theme.schemes.light.primary, theme.schemes.dark.primary
+```
+
+#### 3. 25+ Peran Warna & Tingkatan Surface Container
+Dilarang menggunakan hex warna statis. Petakan elemen ke peran warna semantik M3:
+- **Warna Aksen & Wadah**:
+  - `primary` / `on-primary` (Tombol aksi utama/CTA kontras tinggi)
+  - `primary-container` / `on-primary-container` (Wadah berbobot visual sedang-tinggi)
+  - `secondary` / `on-secondary` (Filter chip, elemen aksen sekunder)
+  - `secondary-container` / `on-secondary-container` (Indikator pil navigasi aktif)
+  - `tertiary` / `on-tertiary` (Aksen kontras penyeimbang yang kreatif)
+  - `tertiary-container` / `on-tertiary-container` (Callout, banner kontekstual)
+  - `error` / `on-error` & `error-container` / `on-error-container` (Peringatan & error validasi)
+- **Hierarki Surface Container Modern (Elevasi Tanpa Bayangan Tebal)**:
+  M3 modern merekomendasikan **Surface Container Tiers** tonal alih-alih drop shadow tebal:
+  - `surface-dim` (Tone 87 L / Tone 6 D): Latar belakang terdalam
+  - `surface` (Tone 98 L / Tone 6 D): Permukaan dasar aplikasi
+  - `surface-bright` (Tone 98 L / Tone 24 D): Permukaan kontras tinggi di mode gelap
+  - `surface-container-lowest` (Tone 100 L / Tone 4 D): Wadah terendah pada kanvas gelap
+  - `surface-container-low` (Tone 96 L / Tone 10 D): Kartu bersarang, pengelompokan list
+  - `surface-container` (Tone 94 L / Tone 12 D): Wadah kartu default, dialog, bottom sheet
+  - `surface-container-high` (Tone 92 L / Tone 17 D): Search bar melayang, menu popup
+  - `surface-container-highest` (Tone 90 L / Tone 22 D): Overlay modal tingkat atas
+- **Garis Batas (Borders & Outlines)**:
+  - `outline`: Batas kontras tinggi (field teks, tombol unselected).
+  - `outline-variant`: Pemisah halus (garis batas kartu, pemisah baris tabel).
+
+#### 4. Tingkat Elevasi & Surface Tinting (Tingkat 0–5)
+Elevasi menyampaikan kedalaman sumbu Z menggunakan **surface tinting** (warna primer yang ditumpangkan di atas surface) dipadukan dengan bayangan difus ambient:
+- **Tingkat 0 (0dp)**: Permukaan datar, tint 0%, tanpa bayangan.
+- **Tingkat 1 (1dp)**: Kartu resting, search bar, tint 5%, `box-shadow: 0 1px 3px rgba(0,0,0,0.12)`.
+- **Tingkat 2 (3dp)**: Kartu saat di-hover, menu kecil, tint 8%, `box-shadow: 0 2px 6px rgba(0,0,0,0.15)`.
+- **Tingkat 3 (6dp)**: Floating Action Button (FAB), tint 11%, `box-shadow: 0 4px 12px rgba(0,0,0,0.18)`.
+- **Tingkat 4 (8dp)**: FAB saat ditekan/aktif, tint 12%, `box-shadow: 0 6px 16px rgba(0,0,0,0.20)`.
+- **Tingkat 5 (12dp)**: Dialog modal, date/time picker, tint 14%, `box-shadow: 0 8px 24px rgba(0,0,0,0.24)`.
+
+#### 5. Skala Tipografi (15 Baseline + 15 Emphasized)
+M3 mendefinisikan 5 peran tipe dengan ukuran Large, Medium, Small serta tracking presisi:
+- `display-large` (57px/64px -0.25 tracking) | `display-medium` (45px/52px) | `display-small` (36px/44px)
+- `headline-large` (32px/40px) | `headline-medium` (28px/36px) | `headline-small` (24px/32px)
+- `title-large` (22px/28px) | `title-medium` (16px/24px 0.15 tracking) | `title-small` (14px/20px 0.1 tracking)
+- `body-large` (16px/24px 0.5 tracking) | `body-medium` (14px/20px 0.25 tracking) | `body-small` (12px/16px 0.4 tracking)
+- `label-large` (14px/20px 0.1 tracking, weight 500) | `label-medium` (12px/16px 0.5 tracking) | `label-small` (11px/16px 0.5 tracking)
+
+#### 6. Skala Bentuk & Radius Sudut
+- `corner-none`: 0px (Gambar full-bleed, divider)
+- `corner-extra-small`: 4px (Text field container, snackbar)
+- `corner-small`: 8px (Chip, tooltip)
+- `corner-medium`: 12px (Kartu, dialog kecil)
+- `corner-large`: 16px (Navigation drawer, modal bottom sheet, FAB standar)
+- `corner-extra-large`: 28px (Dialog modal penuh, date/time picker)
+- `corner-full`: 9999px (Tombol bentuk pil, badge, search bar aktif)
+
+#### 7. Kelas Ukuran Jendela Adaptif (Window Size Classes)
+M3 membagi adaptasi tata letak berdasarkan lebar jendela:
+- **Compact (< 600dp)**: Layar portrait ponsel. Navigation Bar (bawah 80dp), margin 16dp, tata letak 4-kolom.
+- **Medium (600–839dp)**: Tablet & ponsel lipat. Navigation Rail (sisi 80dp), margin 24dp, tata letak 8-kolom.
+- **Expanded (≥ 840dp)**: Desktop & tablet lanskap. Navigation Drawer permanen (280–360dp), margin 24dp, tata letak 12-kolom dengan multi-pane list-detail.
 
 ### Arsitektur Komponen
 Gunakan pola Headless + Styled: primitif headless (Base UI/Radix) untuk aksesibilitas, gaya melalui Tailwind + CVA (class-variance-authority) untuk varian type-safe.

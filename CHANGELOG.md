@@ -5,6 +5,43 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.1.0] - 2026-10-03
+
+### Added / Ditambahkan
+- **DOKU Payment Gateway Architecture Upgrade (v5.1.0)**:
+  - **DOKU Checkout Integration**:
+    - Dukungan penuh Hosted Checkout dan Modal Popup (`jokul-checkout-1.0.0.js`) melalui `/checkout/v1/payment`.
+    - Skema otentikasi Non-SNAP `HMAC-SHA256` dengan Base64 `Digest` body SHA-256 dan API Pengecekan Status Order `/orders/v1/status/{invoice}`.
+    - Panduan pemilihan solusi: Rekomendasi DOKU Checkout untuk 90% use case SaaS dan web application.
+  - **Direct API: Standar SNAP BI (Mandat Bank Indonesia)**:
+    - Autentikasi dua lapis: OAuth B2B Access Token via Asymmetric RSA-SHA256 PKCS#1 v1.5 (`/authorization/v1/access-token/b2b`).
+    - API Transaksional dengan Symmetric `HMAC-SHA512` berdasar formula `HTTPMethod:EndpointUrl:AccessToken:LowercaseHexBodyHash:Timestamp` dan header `CHANNEL-ID: H2H`.
+    - Cakupan lengkap Virtual Account SNAP (`FIX_BILL`, `NO_BILL`, `BILL_VARIABLE_AMOUNT`, `PARTIAL_AMOUNT`), reusable VA (DIPC/MGPC), serta callback inquiry dan notification.
+    - Cakupan lengkap QRIS SNAP (`/qr-mpm-generate`, `/qr-mpm-query`, `/qr-mpm-decode`, `/qr-mpm-cancel`, dan `/qr-mpm-refund`).
+  - **Direct API: Non-SNAP**:
+    - Form Credit Card Payment Page dengan 3D Secure (3DS).
+    - OVO Push Payment (`/ovo-emoney/v1/payment`) dengan parameter keamanan SHA-256 Checksum dan protokol polling/webhook timeout 70 detik.
+  - **Production-Ready TypeScript Service**:
+    - Service class `DokuService` lengkap, menangani token B2B caching, pembuatan invoice checkout, pembuatan VA & QRIS SNAP, dan verifikasi webhook berbasis raw-body.
+    - Matriks Anti-Pattern Integrasi DOKU dan penegakan atomic idempotency transaksi.
+- **DOKU MCP Server (v5.0.0)**:
+  - Tool MCP baru `create_doku_checkout_session` untuk inisiasi transaksi hosted/modal.
+  - Tool MCP baru `check_doku_order_status` untuk verifikasi status transaksi tingkat invoice.
+  - Helper fungsi pembuat header autentikasi SNAP BI (`generateSnapSignature`) dan Non-SNAP (`generateNonSnapSignature`).
+- **Payment & SaaS Billing Cross-Skill Synchronization**:
+  - `payment-gateway-expert`: Standardisasi pemisahan algoritma signature antara DOKU Checkout (`HMAC-SHA256` + Digest) dan Direct API SNAP BI (`HMAC-SHA512`).
+  - `saas-billing`: Integrasi eksplisit DOKU Checkout & SNAP BI ke dalam lanskap payment gateway SaaS Indonesia dengan panduan raw-body parsing dan proteksi race condition database.
+  - `brainstorming`: Pembaruan matriks orkestrator domain SaaS, e-commerce, dan fintech untuk merekomendasikan `doku-payment-gateway` dan `doku-mcp-server`.
+
+### Changed / Diubah
+- **Core Package & CLI Alignment**:
+  - `package.json`, `plugin.json`, dan CLI `bin/vibes.mjs` dinaikkan versinya secara resmi ke `4.1.0`.
+  - `README.md` diperbarui mencerminkan rilis VibesPlug Pro v4.1.
+- **Quality & Anti-Slop Audit**:
+  - Lolos 100% pemindaian ketat `npm test` (132 skill valid, 228 file AST anti-slop lolos dengan 0 error dan 0 warning).
+
+---
+
 ## [4.0.0] - 2026-10-01
 
 ### Added / Ditambahkan

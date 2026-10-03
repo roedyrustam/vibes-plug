@@ -1,8 +1,9 @@
 ---
 name: accessibility-testing-expert
 description: "Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance / Panduan ahli pengujian aksesibilitas web."
-author: "Roedy Rustam"
-version: "4.0.0"
+author: "Roedy Rustam"
+
+version: "4.1.0"
 ---
 
 # Accessibility Testing Expert (2026 Edition)
@@ -99,7 +100,39 @@ test.describe('Accessibility Automated Audits', () => {
 - **Landmarks**: Proper semantic tags (`<header>`, `<nav>`, `<main>`, `<footer>`, `<aside>`).
 - **ARIA Attributes**: `aria-expanded`, `aria-controls`, `aria-haspopup`, and `aria-live` updated dynamically.
 
-#### 4. Sovereign Anti-Slop A11y Verification Gate
+#### 4. Material Design 3 (M3) Accessibility & State Layer Assertions (https://m3.material.io/foundations/accessible-design/overview)
+M3 enforces rigorous interaction states via standardized **State Layer Opacities** and an expanded **48×48dp Target Size**:
+
+**1. M3 State Layer Opacity Matrix:**
+- **Hover**: 8% (`0.08`) overlay of `on-surface` or `primary`.
+- **Focus**: 10% (`0.10`) overlay with high-contrast ring.
+- **Pressed**: 10% (`0.10`) overlay.
+- **Dragged**: 16% (`0.16`) overlay.
+- **Disabled**: Container opacity `38%` (`0.38`), content opacity `38%` (`0.38`).
+
+**2. 48×48dp Minimum Touch Target Assertion (Playwright):**
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('interactive controls satisfy M3 48x48dp touch target standard', async ({ page }) => {
+  await page.goto('/');
+
+  const buttons = page.locator('button, a[role="button"], input[type="checkbox"]');
+  const count = await buttons.count();
+
+  for (let i = 0; i < count; i++) {
+    const btn = buttons.nth(i);
+    const box = await btn.boundingBox();
+    if (box && await btn.isVisible()) {
+      // M3 requires min 48x48dp bounding box for touch targets
+      expect(box.width).toBeGreaterThanOrEqual(48);
+      expect(box.height).toBeGreaterThanOrEqual(48);
+    }
+  }
+});
+```
+
+#### 5. Sovereign Anti-Slop A11y Verification Gate
 Zero-tolerance accessibility criteria for all generated interfaces:
 - **No Stripped Focus Outlines**: Zero tolerance for `outline: none` or `focus:outline-none` without an explicit, high-contrast replacement ring (`focus-visible:ring-2 focus-visible:ring-offset-2`).
 - **Semantic Elements Only**: Ban on non-semantic clickable divs/spans (`<div onClick=...>`). Every click target must be an authentic `<button>`, `<a>`, or provide `role="button"` + `tabIndex={0}` + keyboard event handlers (`onKeyDown` for Enter & Space).
@@ -125,6 +158,16 @@ Panduan produksi untuk pengujian aksesibilitas web (a11y) otomatis dan manual. M
 - Menjalankan audit aksesibilitas otomatis di pipeline CI/CD.
 - Memverifikasi kepatuhan hukum aksesibilitas (WCAG 2.2, ADA, EAA).
 - Menguji alur keyboard dan pembaca layar (screen reader) pada komponen kompleks seperti modal dan dropdown.
+
+### Kepatuhan Aksesibilitas & State Layer Material Design 3 (M3) (https://m3.material.io/foundations/accessible-design/overview)
+M3 menetapkan standar interaksi yang konsisten melalui **Matriks Opacity State Layer** dan **Target Sentuh Minimum 48×48dp**:
+- **Matriks State Layer**:
+  - Hover: Opacity 8% (`0.08`)
+  - Focus: Opacity 10% (`0.10`)
+  - Pressed: Opacity 10% (`0.10`)
+  - Dragged: Opacity 16% (`0.16`)
+  - Disabled: Opacity container dan konten 38% (`0.38`)
+- **Target Sentuh 48×48dp**: Meskipun aset visual (misal checkbox atau ikon) hanya berukuran 24×24px, area sentuh interaktif wajib diperluas menjadi minimal 48×48dp menggunakan padding atau pseudo-elemen `::after`.
 
 ### Gerbang Verifikasi Aksesibilitas Anti-Slop
 Kriteria aksesibilitas tanpa toleransi untuk seluruh antarmuka yang dihasilkan:

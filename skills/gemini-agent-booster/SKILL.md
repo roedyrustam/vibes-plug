@@ -2,7 +2,7 @@
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ long-context reasoning, Gemini 3.x thinking budget control, native context caching, Multimodal Live API protocols, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+, kontrol thinking budget Gemini 3.x, context caching native, protokol Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
 author: "Roedy Rustam"
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # Gemini Agent Booster (2026 Edition — Gemini 3.x Ecosystem)

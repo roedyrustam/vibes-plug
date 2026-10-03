@@ -1,8 +1,9 @@
 ---
 name: modern-css-native-expert
 description: "Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, and :has() / Panduan ahli fitur CSS native modern 2026."
-author: "Roedy Rustam"
-version: "4.0.0"
+author: "Roedy Rustam"
+
+version: "4.1.0"
 ---
 
 # Modern Native CSS Expert (2026 Standard & Primitives)
@@ -87,6 +88,51 @@ dialog[open]::backdrop {
   dialog[open]::backdrop {
     background-color: rgb(0 0 0 / 0%);
   }
+}
+```
+
+---
+
+#### Recipe 5: Material Design 3 (M3) Top-Layer Overlays with Emphasized Decelerate Easing
+Implement M3 dialogs and modal bottom sheets natively using `<dialog>` and `@starting-style` with M3 Emphasized Decelerate Easing (`cubic-bezier(0.05, 0.7, 0.1, 1.0)`):
+
+```css
+/* M3 Modal Dialog using Native CSS Top-Layer with M3 Tokens */
+dialog.m3-dialog {
+  border: none;
+  border-radius: var(--md-sys-shape-corner-extra-large, 28px);
+  background-color: var(--md-sys-color-surface-container-high, #ECE6F0);
+  color: var(--md-sys-color-on-surface, #1D1B20);
+  box-shadow: var(--md-sys-elevation-level3, 0 4px 12px rgba(0, 0, 0, 0.18));
+  padding: 24px;
+  max-width: 560px;
+  opacity: 0;
+  transform: scale(0.9) translateY(16px);
+  transition: 
+    opacity 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0),
+    transform 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0),
+    display 0.4s allow-discrete;
+}
+
+dialog.m3-dialog[open] {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+@starting-style {
+  dialog.m3-dialog[open] {
+    opacity: 0;
+    transform: scale(0.9) translateY(16px);
+  }
+}
+
+dialog.m3-dialog::backdrop {
+  background-color: rgb(0 0 0 / 0%);
+  transition: background-color 0.4s cubic-bezier(0.05, 0.7, 0.1, 1.0), display 0.4s allow-discrete;
+}
+
+dialog.m3-dialog[open]::backdrop {
+  background-color: rgb(0 0 0 / 32%); /* M3 Scrim */
 }
 ```
 
@@ -185,6 +231,13 @@ dialog[open]::backdrop {
 - [ ] Gunakan `@starting-style` dan `transition-behavior: allow-discrete` untuk animasi modal tanpa jeda JavaScript.
 - [ ] Gunakan `@container` pada komponen reusable agar adaptif di semua layout.
 - [ ] Tata arsitektur CSS menggunakan `@layer base, components, utilities;`.
+
+#### Resep 5: Overlay Top-Layer Material Design 3 (M3) dengan Easing Emphasized
+Implementasikan dialog M3 dan modal bottom sheet secara native menggunakan `<dialog>` dan `@starting-style` dengan kurva Emphasized Decelerate M3 (`cubic-bezier(0.05, 0.7, 0.1, 1.0)`):
+- Hubungkan token bentuk M3 (`--md-sys-shape-corner-extra-large: 28px`) dan surface container (`--md-sys-color-surface-container-high`).
+- Backdrop scrim M3 transparan bertransisi halus ke opasitas 32% hitam (`rgb(0 0 0 / 32%)`).
+
+---
 
 ## Integrasi Orkestrasi
 - Terintegrasi dengan: `design-system-architect`, `design-system-architect, senior-frontend`, `tailwind-expert`, `senior-frontend`.

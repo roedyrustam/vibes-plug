@@ -2,7 +2,7 @@
 name: compliance-gdpr-privacy-expert
 description: "Expert guide for Data Privacy, GDPR, CCPA, and PDPA compliance. Covers consent management, data retention, privacy-by-design, and audit trails / Panduan kepatuhan Privasi Data, GDPR, dan PDPA."
 author: "Roedy Rustam"
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # Data Privacy & Compliance Expert

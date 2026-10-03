@@ -2,7 +2,7 @@
 name: prd-architect
 description: "Updated to cover both pre-code PRD/ERD/Docs generation AND post-code continuous documentation updates / Diperbarui untuk mencakup pembuatan PRD/ERD/Docs pra-kode DAN pembaruan dokumentasi kontinu pasca-kode."
 author: "Roedy Rustam"
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # PRD Architect & Documentation Lifecycle (2026 Edition)

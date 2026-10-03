@@ -2,7 +2,7 @@
 name: realtime-collaboration-expert
 description: "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time."
 author: "Roedy Rustam"
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # Real-Time Collaboration Expert / Ahli Kolaborasi Real-Time

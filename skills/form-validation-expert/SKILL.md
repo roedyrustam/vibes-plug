@@ -1,8 +1,9 @@
 ---
 name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
-author: "Roedy Rustam"
-version: "4.0.0"
+author: "Roedy Rustam"
+
+version: "4.1.0"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -358,6 +359,89 @@ export function MultiStepForm() {
 
 ---
 
+### Material Design 3 (M3) Text Field Architecture (https://m3.material.io/components/text-fields/overview)
+M3 defines two canonical text field variants with precise interactive state layers, animated floating labels, and accessible error binding:
+
+#### 1. M3 Outlined Text Field Component
+```tsx
+import * as React from 'react';
+import { useFormContext } from 'react-hook-form';
+
+interface M3TextFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+  label: string;
+  helperText?: string;
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
+}
+
+export function M3OutlinedTextField({
+  name,
+  label,
+  helperText,
+  leadingIcon,
+  trailingIcon,
+  ...props
+}: M3TextFieldProps) {
+  const { register, formState: { errors } } = useFormContext();
+  const error = errors[name]?.message as string | undefined;
+  const inputId = `m3-input-${name}`;
+  const helperId = `m3-helper-${name}`;
+
+  return (
+    <div className="relative w-full text-left">
+      <div className="relative flex items-center">
+        {leadingIcon && (
+          <span className="absolute left-3 text-slate-500 pointer-events-none">
+            {leadingIcon}
+          </span>
+        )}
+        <input
+          id={inputId}
+          placeholder=" " /* Required for :placeholder-shown floating label */
+          {...register(name)}
+          {...props}
+          aria-invalid={!!error}
+          aria-describedby={helperId}
+          className={`peer w-full h-14 bg-transparent rounded-md border text-base text-slate-900 dark:text-slate-100 transition-colors
+            focus:outline-none focus:ring-0
+            ${leadingIcon ? 'pl-10' : 'pl-4'} ${trailingIcon ? 'pr-10' : 'pr-4'} pt-4 pb-1
+            ${error 
+              ? 'border-red-600 focus:border-red-600' 
+              : 'border-slate-400 hover:border-slate-600 focus:border-indigo-600 dark:border-slate-600 dark:focus:border-indigo-400'
+            }`}
+        />
+        <label
+          htmlFor={inputId}
+          className={`absolute text-sm duration-200 transform origin-[0] pointer-events-none transition-all
+            ${leadingIcon ? 'left-10' : 'left-4'}
+            top-4 peer-focus:top-1.5 peer-focus:scale-75
+            peer-[:not(:placeholder-shown)]:top-1.5 peer-[:not(:placeholder-shown)]:scale-75
+            ${error ? 'text-red-600' : 'text-slate-500 peer-focus:text-indigo-600 dark:peer-focus:text-indigo-400'}`}
+        >
+          {label}
+        </label>
+        {trailingIcon && (
+          <span className="absolute right-3 text-slate-500">
+            {trailingIcon}
+          </span>
+        )}
+      </div>
+
+      <div id={helperId} className="flex justify-between px-4 mt-1 text-xs min-h-[16px]">
+        {error ? (
+          <span role="alert" className="text-red-600 font-medium">{error}</span>
+        ) : helperText ? (
+          <span className="text-slate-500">{helperText}</span>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Problem | Correct Approach |
@@ -407,6 +491,12 @@ Aktifkan skill ini ketika:
 - Membuat wizard formulir multi-langkah dengan persistensi state.
 - Membangun formulir dinamis dari definisi skema.
 - Membuat formulir yang aksesibel (atribut ARIA, pengumuman error).
+
+### Arsitektur Text Field Material Design 3 (M3) (https://m3.material.io/components/text-fields/overview)
+M3 menetapkan dua format input utama (Filled dan Outlined) dengan animasi floating label dan indikator status:
+- **Outlined Text Field**: Garis batas perimetral bersih (`border-outline`), label mengapung saat fokus atau terisi (`peer-focus:top-1.5 peer-focus:scale-75`).
+- **Filled Text Field**: Latar belakang kontainer `surface-container-highest` dengan garis indikator aktif di bagian bawah (2px saat fokus).
+- **Aksesibilitas & Ikon**: Dukungan ikon leading/trailing (misal tombol visibilitas kata sandi), helper text terikat via `aria-describedby`, dan error alert berkontras tinggi yang lolos uji WCAG.
 
 ### Integrasi dengan Skill Lain
 

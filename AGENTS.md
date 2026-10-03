@@ -90,7 +90,8 @@ Every `SKILL.md` MUST begin with YAML frontmatter:
 ---
 name: skill-name
 description: Brief description in English / Deskripsi singkat dalam Bahasa Indonesia
-author: vibes-plug-swarm
+author: "Roedy Rustam"
+version: "4.1.0"
 ---
 ```
 

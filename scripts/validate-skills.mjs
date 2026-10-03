@@ -45,13 +45,18 @@ async function validateSkills() {
           
           const versionMatch = fm.match(/version:\s*"([^"]+)"/);
           if (!versionMatch) {
-            skillErrors.push('Missing "version" tag (Rule: All skills must be 4.0.0+)');
+            skillErrors.push('Missing "version" tag (Rule: All skills must be 4.1.0+)');
           } else {
             const version = versionMatch[1];
-            const major = parseInt(version.split('.')[0], 10);
-            if (isNaN(major) || major < 4) {
-              skillErrors.push(`Version outdated: ${version} (expected >= 4.0.0)`);
+            const [major, minor] = version.split('.').map(Number);
+            if (isNaN(major) || major < 4 || (major === 4 && minor < 1)) {
+              skillErrors.push(`Version outdated: ${version} (expected >= 4.1.0)`);
             }
+          }
+
+          const authorMatch = fm.match(/author:\s*"([^"]+)"/);
+          if (!authorMatch || !authorMatch[1].includes('Roedy Rustam')) {
+            skillErrors.push('Missing or invalid "author" tag (expected "Roedy Rustam")');
           }
         }
 
