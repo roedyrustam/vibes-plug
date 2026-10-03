@@ -171,8 +171,8 @@ async function runBootstrap(templateName, projectName) {
 async function runValidate() {
   console.log('Running ecosystem validation...\n');
   try {
-    const { execSync } = await import('child_process');
-    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'validate-skills.mjs'), { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    execFileSync('node', [path.join(PLUGIN_ROOT, 'scripts', 'validate-skills.mjs')], { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
@@ -180,10 +180,10 @@ async function runValidate() {
 }
 
 async function runAudit() {
-  const auditArgs = args.slice(1).join(' ');
+  const auditArgs = args.slice(1);
   try {
-    const { execSync } = await import('child_process');
-    execSync(`node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" ${auditArgs}`.trim(), { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    execFileSync('node', [path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs'), ...auditArgs], { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
