@@ -286,6 +286,6 @@ Distributed under the [MIT License](LICENSE). Built for the global developer eco
 
 ---
 <div align="center">
-  <sub>Engineered by <a href="https://github.com/roedyrustam">Roedy Rustam</a> & Open-Source Contributors. Empowered by Frontier AI.</sub>
+  <sub>Engineered by <a href="https://github.com/roedyrustam">Roedy Rustam</a> & Open-Source Contributors. Empowered by Frontier AI wiht Human Reasoning.</sub>
 </div>
 
