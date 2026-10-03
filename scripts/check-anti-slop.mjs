@@ -80,6 +80,18 @@ const CODE_WARN_PATTERNS = [
     name: 'Stripped Focus Outline Without Ring Replacement',
     regex: /focus:outline-none(?!\s.*focus-visible:ring)/,
     description: 'Stripping focus outline without focus-visible replacement breaks accessibility (WCAG 2.2).'
+  },
+  {
+    id: 'UI_GENERIC_GRADIENT',
+    name: 'Generic AI Blue-Purple/Neon Gradient',
+    regex: /(bg-gradient-to-[trbl]+\s+from-(blue|indigo|cyan)-[456]00\s+(via-[a-z]+-[456]00\s+)?to-(purple|pink|violet)-[456]00)/i,
+    description: 'Generic AI blue-purple gradient detected. Pull palette from DESIGN.md (antislop-ui).'
+  },
+  {
+    id: 'UI_DECORATIVE_EMOJI',
+    name: 'Decorative Emoji in UI Component',
+    regex: /<(h[1-6]|button|span|p)[^>]*>[^<]*[🚀✨🔥🎉💡][^<]*<\/(h[1-6]|button|span|p)>/u,
+    description: 'Decorative emojis in headings or buttons scream AI slop. Remove or replace with real icons (antislop-ui).'
   }
 ];
 
