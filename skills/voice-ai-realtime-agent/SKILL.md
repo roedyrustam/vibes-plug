@@ -2,7 +2,7 @@
 name: voice-ai-realtime-agent
 description: "Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD / Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Voice AI Realtime Agent (2026 Edition)
@@ -21,7 +21,7 @@ Expert guide for building ultra-low-latency (<300ms), bi-directional conversatio
 - Applications requiring sub-second, spoken conversation with an AI agent.
 - Voice customer service bots, verbal copilots, language tutors, and interactive voice assistants.
 - Implementation of WebRTC audio streaming, full-duplex WebSocket audio (PCM 24kHz), and Silero VAD.
-- Setting up OpenAI Realtime API (`gpt-4o-realtime-preview`) or Gemini Multimodal Live API.
+- Setting up OpenAI Realtime API (`gpt-5-realtime-preview` / `gpt-4o-realtime-preview`) or Gemini Multimodal Live API.
 
 ---
 
@@ -226,7 +226,7 @@ Panduan ahli untuk membangun aplikasi AI suara percakapan dua arah berlatensi ul
 - Kebutuhan interaksi percakapan verbal instan di bawah satu detik dengan agen AI.
 - Bot layanan pelanggan berbasis suara, asisten verbal, tutor bahasa interaktif.
 - Implementasi streaming audio WebRTC, WebSocket PCM 24kHz dua arah, dan Silero Voice Activity Detection (VAD).
-- Konfigurasi OpenAI Realtime API (`gpt-4o-realtime-preview`) atau Gemini Multimodal Live API.
+- Konfigurasi OpenAI Realtime API (`gpt-5-realtime-preview` / `gpt-4o-realtime-preview`) atau Gemini Multimodal Live API.
 
 ### Panduan Inti Arsitektur Suara Real-time
 1. **Full-Duplex Speech-to-Speech**: Mengganti pipeline sekuensial tradisional (STT ➔ LLM ➔ TTS) dengan pipeline streamable WebRTC atau model native speech-to-speech untuk memangkas latensi dari ~2000ms menjadi ~300ms.

@@ -2,7 +2,7 @@
 name: tauri-expert
 description: "Expert skill for Tauri (v2) development, Rust backend, IPC, and security / Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Tauri Expert

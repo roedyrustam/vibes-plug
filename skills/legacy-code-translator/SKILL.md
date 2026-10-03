@@ -2,7 +2,7 @@
 name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Legacy Code Translator (Refactoring Engine)

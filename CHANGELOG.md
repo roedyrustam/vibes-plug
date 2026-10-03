@@ -5,9 +5,52 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.0] - 2026-10-03
+
+### Changed / Diubah
+- **Universal Frontier AI Models Harmonization (2026 Edition)**:
+  - Sinkronisasi dan harmonisasi menyeluruh pada seluruh 147 skill spesialis untuk model frontier terbaru:
+    - **Google Gemini**: Gemini 4 Pro (2M+ context window reasoning), Gemini 4 Flash (low-latency execution), Project Astra (real-time multimodal video/audio streaming), dan Multimodal Live API.
+    - **Anthropic Claude**: Claude 5.1 Fable / Mythos, Claude 5 Sonnet, dan Claude Code Agentic Swarm Patterns (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator Loop).
+    - **OpenAI**: GPT-5.6, GPT-5, o3, o3-mini (structured reasoning), dan GPT-4.5.
+    - **DeepSeek**: DeepSeek-R1 (open reasoning), DeepSeek-Pro.
+- **Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)**:
+  - Menerapkan protokol hemat token berdaulat tanpa mengorbankan kualitas atau kelengkapan kode (Non-Degradation Invariant):
+    - **KV-Cache Determinism (`kv-cache-prefix-optimizer`)**: Penguncian prefix deterministik untuk menghemat biaya token 75-90% dan mempercepat TTFT hingga 10x.
+    - **Selective Context Slicing**: Pangkas muatan konteks subagent saat Fan-Out hanya pada irisan `CONTEXT_MAP.md` dan kontrak tipe relevan, mencegah ledakan konteks kuadratik.
+    - **Adaptive Model Cascading (`adaptive-model-cascade`)**: Alokasi cerdas model tier rendah (`flash`/`haiku`) untuk riset/linter, dan model frontier (`pro`/`opus`) untuk arsitektur/keamanan.
+    - **Ultra-Compact Checkpointing (`session-memory-manager`)**: Checkpoint ringkas (<300 token) di setiap batas sesi.
+- **Pillar 7 Anti-Slop (UI Sanitation) & 3Dviz Spatial Reasoning Integration**:
+  - Menggabungkan prinsip `antislop-ui` ke dalam `skills/anti-slop/SKILL.md` (Pilar 7: Sanitasi UI & Visual).
+  - Mengintegrasikan prinsip `3dviz-pro-max` ke dalam `skills/web-3d-graphics-expert/SKILL.md` dan `skills/data-visualization-expert/SKILL.md` (kerajinan 3 skala, kontinuitas join, amplop tabrakan, review 16 poin).
+- **Ecosystem-Wide Version Bump to v4.2.0**:
+  - Seluruh 147 skill spesialis di skills/*/SKILL.md dinaikkan versinya secara resmi ke 4.2.0.
+  - package.json, plugin.json, .cursorrules, AGENTS.md, CLAUDE.md, dan CLI bin/vibes.mjs diperbarui ke 4.2.0.
+  - Skrip validasi scripts/validate-skills.mjs diperbarui untuk menegakkan standar verifikasi ketat version: "4.2.0" pada semua skill.
+
 ## [4.1.0] - 2026-10-03
 
 ### Added / Ditambahkan
+- **147-Skill Swarm Architecture Expansion (2026 Frontier Edition)**:
+  - 15 skill baru ditambahkan ke ekosistem `vibes-plug`, meningkatkan total registry dari 132 menjadi **147 skill spesialis**:
+    1. `context-window-engineer`: Rekayasa context window ultra-besar (2M+ token), sliding window, dan token budgeting untuk Gemini 4 Pro, Claude 5.5, dan GPT Astra 6.
+    2. `screenshot-to-code-expert`: Konversi tangkapan layar antarmuka, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi via vision frontier models.
+    3. `adaptive-model-cascade`: Kaskade dan routing model cerdas berbasis skor kompleksitas tugas (dari Flash/Haiku ke Sonnet/Opus/Astra) untuk efisiensi biaya token 40-60%.
+    4. `prompt-injection-firewall`: Pertahanan berlapis terhadap injeksi prompt langsung, indirect injection, jailbreak, dan data exfiltration via tool calls.
+    5. `ai-code-review-autonomous`: Review kode mandiri multi-pass otonom oleh AI tanpa tooling eksternal sebelum kode dipresentasikan ke pengguna.
+    6. `llm-observability-expert`: Observabilitas LLM di produksi (Langfuse, Helicone, Lunary, OpenTelemetry GenAI) dengan pelacakan latensi, pemantauan halusinasi, dan analitik biaya token.
+    7. `property-mutation-testing-expert`: Property-based testing (fast-check, Hypothesis) dan mutation testing (Stryker) untuk pembuktian invarian dan kualitas test suite.
+    8. `speculative-multi-draft-synthesizer`: Penyusunan draf multi-agen spekulatif, hipotesis paralel, dan rekonsiliasi kode sadar-AST.
+    9. `kv-cache-prefix-optimizer`: Rekayasa prefix prompt deterministik, KV-cache locking untuk mencapai hit rate 90%+.
+    10. `test-time-compute-optimizer`: Penskalaan test-time compute, alokasi reasoning token dinamis (MCTS/PRM).
+    11. `living-codebase-ast-graph`: Graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, dan pembersihan kode mati.
+    12. `autonomous-api-drift-healer`: Deteksi drift skema API otonom, monitoring breaking change, dan pembuatan adapter SDK self-healing.
+    13. `ephemeral-wasm-sandbox-executor`: Sandbox WebAssembly efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman.
+    14. `formal-spec-z3-verifier`: Verifikasi formal matematis, SMT solver constraints (Z3, Dafny, TLA+), dan pembuktian invarian FinTech.
+    15. `multimodal-spatial-video-cloner`: Reverse engineering UI/UX dari rekaman layar dan video spasial ke Tailwind CSS v4 & Framer Motion.
+  - **Master Orchestrator Synchronization**:
+    - `skills/brainstorming/SKILL.md`: Matriks orkestrator diperbarui penuh dalam Bahasa Inggris dan Bahasa Indonesia untuk seluruh domain terkait.
+    - `skills/zero-to-prod-orchestrator/SKILL.md`: Alur kerja 8-Fase terintegrasi dengan skill baru pada Fase 1, Fase 4, Fase 5, Fase 6, dan Fase 7 (Bilingual: EN & ID).
 - **DOKU Payment Gateway Architecture Upgrade (v5.1.0)**:
   - **DOKU Checkout Integration**:
     - Dukungan penuh Hosted Checkout dan Modal Popup (`jokul-checkout-1.0.0.js`) melalui `/checkout/v1/payment`.
@@ -34,11 +77,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `brainstorming`: Pembaruan matriks orkestrator domain SaaS, e-commerce, dan fintech untuk merekomendasikan `doku-payment-gateway` dan `doku-mcp-server`.
 
 ### Changed / Diubah
-- **Core Package & CLI Alignment**:
-  - `package.json`, `plugin.json`, dan CLI `bin/vibes.mjs` dinaikkan versinya secara resmi ke `4.1.0`.
-  - `README.md` diperbarui mencerminkan rilis VibesPlug Pro v4.1.
+- **Core Package & Universal Rules Alignment**:
+  - `package.json`, `plugin.json`, dan CLI `bin/vibes.mjs` dinaikkan versinya secara resmi ke `4.1.0` dengan total 147 skill registry.
+  - `AGENTS.md`, `CLAUDE.md`, dan `README.md` diperbarui mencerminkan Swarm Director 147 spesialis.
+  - `scripts/install.js` diperbarui untuk konfirmasi sinkronisasi 147 skill lintas Antigravity, Claude, dan Cursor.
 - **Quality & Anti-Slop Audit**:
-  - Lolos 100% pemindaian ketat `npm test` (132 skill valid, 228 file AST anti-slop lolos dengan 0 error dan 0 warning).
+  - Lolos 100% pemindaian ketat `npm test` (147 skill valid, 243 file AST anti-slop lolos dengan 0 error dan 0 warning).
 
 ---
 

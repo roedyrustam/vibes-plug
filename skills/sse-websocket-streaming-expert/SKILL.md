@@ -2,7 +2,7 @@
 name: sse-websocket-streaming-expert
 description: "Expert guide for Server-Sent Events (SSE), WebSockets, and Streaming Architectures. Covers real-time data push, Socket.IO, Hono WebSocket, and AI response streaming / Panduan ahli streaming real-time."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # SSE, WebSocket & Streaming Expert

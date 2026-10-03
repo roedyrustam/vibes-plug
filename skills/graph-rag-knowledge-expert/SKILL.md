@@ -2,7 +2,7 @@
 name: graph-rag-knowledge-expert
 description: "Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search / Panduan ahli Knowledge Graph, GraphRAG, dan pencarian relasional multi-hop."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # GraphRAG & Knowledge Graph Expert (2026 Edition)

@@ -2,7 +2,7 @@
 name: scalability-clean-code
 description: "Software architecture guidelines to maintain code readability (Clean Code, SOLID, DRY) and application scalability / Panduan arsitektur perangkat lunak untuk menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan kemampuan skalabilitas aplikasi."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Scalability & Clean Code (2026 Edition)

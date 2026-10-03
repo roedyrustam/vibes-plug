@@ -1,6 +1,6 @@
 ---
 alwaysApply: true
-description: "Vibes-Plug 132-Skill AI Agent Swarm Architecture — Universal AI plugin for modern 2026 development"
+description: "Vibes-Plug 147-Skill AI Agent Swarm Architecture — Universal AI plugin for modern 2026 development"
 globs: "**/*"
 ---
 
@@ -12,7 +12,7 @@ globs: "**/*"
 - Cross-domain cooperation is automatic: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), Hardening (`production-ready-hardener`, `anti-slop`).
 
 ## Skill Resolution Protocol
-This project uses 132 specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
+This project uses 147 specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
 
 **Before any task:**
 1. Identify relevant skills from the domain table below.
@@ -46,6 +46,7 @@ This project uses 132 specialized skills in the `skills/` directory. Each skill 
 3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOKUMENTASI.md` before any code.
 4. **Bilingual:** Skills support English & Bahasa Indonesia.
 5. **Clean Code:** Follow SOLID, DRY, Clean Code principles (ref: `scalability-clean-code`).
+6. **Sovereign Token Optimization:** Deterministic KV-cache prefixing (`kv-cache-prefix-optimizer`), subagent context pruning, adaptive model cascading (`adaptive-model-cascade`), compact checkpoints (<300 tokens), and zero code truncation.
 
 ## Orchestration Flow
 1. **Plan:** `brainstorming` → `prd-architect`

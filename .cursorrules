@@ -1,4 +1,4 @@
-# Vibes-Plug — 132-Skill AI Agent Swarm Architecture (v4.1.0)
+# Vibes-Plug — 147-Skill AI Agent Swarm Architecture (v4.2.0)
 # Universal AI Plugin for Antigravity, Claude, and Cursor
 
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
@@ -41,8 +41,12 @@ instructions, patterns, and best practices for the modern 2026 tech stack.
   * Meaningful comments only: explain non-obvious business/architectural WHY, never syntax mechanics.
   * No swallowed errors (`catch(e){}` prohibited); structured logging (`Pino`) required.
   * Run `node scripts/check-anti-slop.js` to verify zero violations.
-- Clean Code, SOLID, DRY — see `scalability-clean-code` skill.
-- Bilingual support (English & Bahasa Indonesia) for all skills.
+## Sovereign Token Optimization Protocol (Hemat Token)
+- Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer` (75-90% prompt cache hit rates).
+- Prune subagent context payloads: pass only targeted `CONTEXT_MAP.md` slices, not raw chat transcripts.
+- Use dynamic model cascading (`adaptive-model-cascade`): `flash` for research/linting, `pro` for architecture/security.
+- Ultra-compact session checkpoints (<300 tokens) via `session-memory-manager`.
+- Non-Degradation Invariant: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete.
 
 ## Orchestration Flow
 1. Ideation: brainstorming → prd-architect
