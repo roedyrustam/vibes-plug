@@ -18,7 +18,7 @@ version: "4.0.0"
 Expert guide for integrating major payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) into modern SaaS platforms. Covers checkout flows, secure raw-body webhook handling, atomic idempotency to prevent race conditions, subscription state machines, and local database synchronization.
 
 ### Core Principles
-- **Security First**: Always validate webhook signatures using the raw, unparsed request body before processing any payment event. Never trust client-side data for prices or payment status. For Indonesian gateways (DOKU, Midtrans, Xendit), strictly enforce the **SNAP BI standard (HMAC-SHA512)** and ISO8601 UTC/WIB timestamps.
+- **Security First**: Always validate webhook signatures using the raw, unparsed request body before processing any payment event. Never trust client-side data for prices or payment status. For Indonesian gateways (DOKU, Midtrans, Xendit), accurately apply the required signature protocol: **DOKU Checkout** uses **HMAC-SHA256 with body Digest**, while **SNAP BI Direct APIs** enforce **HMAC-SHA512** with ISO8601 timestamps.
 - **Idempotency & Race Condition Prevention**: Implement idempotency keys for all payment creation requests. For webhook ingestion, **DO NOT rely solely on `findUnique` checks**, as concurrent webhook retries cause race conditions. Always use **Atomic Updates** (`UPDATE ... WHERE status = 'PENDING'`) or database pessimistic locks (`SELECT ... FOR UPDATE`).
 - **Raw Body Ingestion**: Webhook signature verification fails if JSON is parsed or re-serialized with modified key ordering. Extract the exact raw string buffer (`req.text()` in Fetch API or `express.raw({ type: 'application/json' })` in Express).
 - **Early 200 OK Acknowledgment**: If a webhook event is verified but already processed, immediately return `200 OK` so the payment gateway halts retries.
@@ -26,9 +26,9 @@ Expert guide for integrating major payment gateways (Stripe, PayPal, Xendit, Mid
 - **Subscription Management**: Map provider subscription statuses (`trialing`, `active`, `past_due`, `canceled`) accurately to internal SaaS state machines.
 
 ### Implementation Checklist
-- [ ] Create dedicated raw Webhook endpoint (e.g., `/api/webhooks/stripe`, `/api/webhooks/doku`).
+- [ ] Create dedicated raw Webhook endpoint (e.g., `/api/webhooks/stripe`, `/api/webhooks/doku/checkout`).
 - [ ] Use raw request body string for signature verification (never parsed JSON).
-- [ ] Verify signature using proper algorithm (HMAC-SHA256 for Stripe/PayPal; HMAC-SHA512 for SNAP BI).
+- [ ] Verify signature using proper algorithm (HMAC-SHA256 + Digest for DOKU Checkout, Stripe, PayPal; HMAC-SHA512 for SNAP BI Direct API).
 - [ ] Implement Atomic Update idempotency (`WHERE status = 'PENDING'`) to eliminate race conditions.
 - [ ] Acknowledge duplicate webhooks immediately with HTTP `200 OK`.
 - [ ] Offload heavy post-payment operations (invoicing, emails, webhooks) to background job queues (BullMQ/Temporal).
@@ -110,7 +110,7 @@ Active whenever the user is working on billing integration, payment checkout, we
 Panduan ahli untuk mengintegrasikan payment gateway utama (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) ke platform SaaS modern. Mencakup alur checkout, penanganan webhook raw-body aman, pencegahan race condition melalui atomic update, state machine langganan, dan sinkronisasi database lokal.
 
 ### Prinsip Utama
-- **Keamanan Utama**: Selalu validasi signature webhook menggunakan *raw request body* murni sebelum memproses event pembayaran. Jangan pernah mempercayai data dari sisi klien untuk harga atau status pembayaran. Untuk gateway Indonesia (DOKU, Midtrans, Xendit), terapkan **standar SNAP BI (HMAC-SHA512)** dan format timestamp ISO8601.
+- **Keamanan Utama**: Selalu validasi signature webhook menggunakan *raw request body* murni sebelum memproses event pembayaran. Jangan pernah mempercayai data dari sisi klien untuk harga atau status pembayaran. Untuk gateway Indonesia (DOKU, Midtrans, Xendit), gunakan algoritma yang tepat: **DOKU Checkout** menggunakan **HMAC-SHA256 dengan Digest body**, sedangkan **Direct API SNAP BI** menggunakan **HMAC-SHA512** dengan timestamp ISO8601.
 - **Idempotensi & Pencegahan Race Condition**: Implementasikan kunci idempotensi untuk semua pembuatan pembayaran. Pada penerimaan webhook, **JANGAN hanya mengandalkan pengecekan `findUnique`**, karena panggilan webhook paralel dari gateway dapat memicu race condition. Selalu gunakan **Atomic Update** (`UPDATE ... WHERE status = 'PENDING'`) atau database lock (`SELECT ... FOR UPDATE`).
 - **Raw Body Webhook**: Verifikasi tanda tangan akan gagal jika JSON di-parse atau di-serialize ulang karena perubahan urutan key atau spasi. Ambil buffer teks mentah (`req.text()` pada Fetch API atau `express.raw({ type: 'application/json' })` di Express).
 - **Balasan Cepat 200 OK**: Jika signature valid namun transaksi sudah berstatus lunas (webhook duplikat/retry), segera kembalikan HTTP `200 OK` agar payment gateway berhenti mengirimkan retry.
@@ -118,9 +118,9 @@ Panduan ahli untuk mengintegrasikan payment gateway utama (Stripe, PayPal, Xendi
 - **Manajemen Langganan**: Petakan status langganan dari provider (`trialing`, `active`, `past_due`, `canceled`) secara akurat ke state machine internal SaaS.
 
 ### Checklist Implementasi
-- [ ] Buat endpoint Webhook raw khusus (misal: `/api/webhooks/stripe`, `/api/webhooks/doku`).
+- [ ] Buat endpoint Webhook raw khusus (misal: `/api/webhooks/stripe`, `/api/webhooks/doku/checkout`).
 - [ ] Gunakan raw request body string untuk verifikasi signature (jangan parse JSON sebelum verifikasi).
-- [ ] Verifikasi signature dengan algoritma yang tepat (HMAC-SHA256 untuk Stripe/PayPal; HMAC-SHA512 untuk SNAP BI).
+- [ ] Verifikasi signature dengan algoritma yang tepat (HMAC-SHA256 + Digest untuk DOKU Checkout, Stripe, PayPal; HMAC-SHA512 untuk SNAP BI Direct API).
 - [ ] Terapkan Atomic Update (`WHERE status = 'PENDING'`) untuk mematikan peluang race condition.
 - [ ] Balas webhook duplikat secara instan dengan HTTP `200 OK`.
 - [ ] Lemparkan proses berat pasca-bayar (pembuatan invoice PDF, email, push notification) ke antrean latar belakang (BullMQ/Temporal).

@@ -18,10 +18,10 @@ version: "4.0.0"
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
-Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, atomic database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (SNAP BI), and Midtrans (for Southeast Asia).
+Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, atomic database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), and Midtrans (for Southeast Asia).
 
 ### Trigger Conditions
-- Integrating any payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU SNAP BI, Midtrans, PayPal) into a SaaS application.
+- Integrating any payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU Checkout / SNAP BI, Midtrans, PayPal) into a SaaS application.
 - Using a Static-to-Dynamic QRIS alternative (with unique nominals and mutation webhooks) for local developers without PG accounts.
 - Implementing subscription state machines (active → past_due → canceled → reactivated).
 - Building secure webhook handlers with signature verification and atomic idempotency.
@@ -38,7 +38,7 @@ Expert guide for implementing and auditing SaaS billing systems. Covers subscrip
 | **Polar.sh** | Developer-first, open-source products | ✅ | ✅ (optional) |
 | **LemonSqueezy** | Indie hackers, simple pricing, global | ❌ | ✅ |
 | **Paddle** | B2B SaaS, EU VAT compliance | ❌ | ✅ |
-| **DOKU (SNAP BI)** | Indonesia & SE Asia enterprise, QRIS, VA | ❌ | ❌ |
+| **DOKU (Checkout & SNAP BI)** | Indonesia & SE Asia enterprise, QRIS, VA, Multi-channel | ❌ | ❌ |
 | **Midtrans** | Southeast Asia / Indonesia | ❌ | ❌ |
 | **PayPal** | Global, consumer trust | ❌ | ❌ |
 
@@ -330,10 +330,10 @@ export const subscriptions = pgTable('subscriptions', {
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (SNAP BI), dan Midtrans (untuk Asia Tenggara).
+Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), dan Midtrans (untuk Asia Tenggara).
 
 ### Kondisi Pemicu
-- Mengintegrasikan payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU SNAP BI, Midtrans, PayPal) ke aplikasi SaaS.
+- Mengintegrasikan payment gateway (Stripe, Polar.sh, LemonSqueezy, DOKU Checkout / SNAP BI, Midtrans, PayPal) ke aplikasi SaaS.
 - Menggunakan alternatif QRIS Statis menjadi Dinamis (dengan nominal unik dan webhook mutasi) untuk developer lokal tanpa akun PG.
 - Mengimplementasikan state machine langganan.
 - Membangun webhook handler aman dengan verifikasi tanda tangan dan idempotency berbasis atomic lock.
@@ -350,7 +350,7 @@ Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencak
 | **Polar.sh** | Developer-first, produk open-source | ✅ | ✅ (opsional) |
 | **LemonSqueezy** | Indie hackers, harga sederhana | ❌ | ✅ |
 | **Paddle** | B2B SaaS, kepatuhan PPN EU | ❌ | ✅ |
-| **DOKU (SNAP BI)** | Indonesia & Asia Tenggara, QRIS, Virtual Account | ❌ | ❌ |
+| **DOKU (Checkout & SNAP BI)** | Indonesia & Asia Tenggara, QRIS, Virtual Account, Multi-kanal | ❌ | ❌ |
 | **Midtrans** | Asia Tenggara / Indonesia | ❌ | ❌ |
 | **PayPal** | Global, kepercayaan konsumen (consumer trust) | ❌ | ❌ |
 
