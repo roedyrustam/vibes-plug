@@ -26,7 +26,7 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 - Integrating conversational chat, streaming completions, or generative UI in React 19 / Next.js 15.
 - Implementing structured data extraction using `generateObject` or `streamObject` with Zod schemas.
 - Building autonomous multi-step tool-calling loops on Next.js Route Handlers or Server Actions.
-- Switching seamlessly across frontier providers (Claude 3.7 Sonnet, Gemini 3.8 Flash, OpenAI o3/GPT-4.5, Ollama).
+- Switching seamlessly across frontier providers (Claude 5.1 Fable / 5 Sonnet, Gemini 4 Pro / Flash, OpenAI GPT-5.6 / o3 / GPT-4.5, Ollama).
 - Building streaming data channels with custom metadata, tool status indicators, and citations.
 
 ### Vercel AI SDK Architecture (Core vs UI)
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
   const { codeDiff } = await req.json();
 
   const result = streamObject({
-    model: google('gemini-3.8-flash'),
+    model: google('gemini-4-flash'),
     schema: z.object({
       securityVulnerabilities: z.array(z.object({
         severity: z.enum(['low', 'medium', 'high', 'critical']),
@@ -222,5 +222,5 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 - Mengintegrasikan chat percakapan, streaming respons, atau generative UI di React 19 / Next.js 15.
 - Menerapkan ekstraksi data terstruktur dengan validasi skema Zod via `generateObject` atau `streamObject`.
 - Membangun loop pemanggilan tool (*tool-calling loops*) multi-langkah di Route Handler atau Server Actions.
-- Beralih fleksibel antar penyedia model frontier (Claude 3.7 Sonnet, Gemini 3.8 Flash, OpenAI o3/GPT-4.5, Ollama).
+- Beralih fleksibel antar penyedia model frontier (Claude 5.1 Fable / 5 Sonnet, Gemini 4 Pro / Flash, OpenAI GPT-5.6 / o3 / GPT-4.5, Ollama).
 - Mengelola status eksekusi tool, indikator loading, dan rendering komponen UI secara dinamis saat streaming berlangsung.

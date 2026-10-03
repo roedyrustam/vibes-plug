@@ -5,7 +5,7 @@
 > Each platform has its own entry point, but the core rules and 147 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
-**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 3.5/4.0, GPT-4.5/O3, OpenAI Codex, and DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window.
+**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
 
 ## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).

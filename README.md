@@ -74,7 +74,7 @@ VibesPlug is powered by 147 specialized AI subagents. Here is a high-level group
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 147 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 4, GPT-4.5/O3, OpenAI Codex, and DeepSeek).
+Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 147 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex, and DeepSeek).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
 *Supported Platforms: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), and Claude Code.*
@@ -162,7 +162,7 @@ VibesPlug dilengkapi dengan sistem terminal yang perkasa:
 <a name="mandarin"></a>
 ## 🇨🇳 中文版 (Mandarin)
 
-欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 147 个专业的 AI 子代理。它经过严格设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 4、GPT-4.5/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
+欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 147 个专业的 AI 子代理。它经过严格设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
 
 ### 🚀 通用安装指南 (所有 IDE 和 LLM)
 *支持的平台: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), 和 Claude Code。*
@@ -195,7 +195,7 @@ vibes-plug init
 <a name="german"></a>
 ## 🇩🇪 Deutsche Version (German)
 
-Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 147 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 4, GPT-4.5/O3, OpenAI Codex und DeepSeek) zu extrahieren.
+Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 147 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
 
 ### 🚀 Universelle Installationsanleitung (Alle IDEs & LLMs)
 *Unterstützte Plattformen: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline) und Claude Code.*
@@ -228,7 +228,7 @@ vibes-plug init
 <a name="japanese"></a>
 ## 🇯🇵 日本語版 (Japanese)
 
-**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、147 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 4、GPT-4.5/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
+**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、147 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
 
 ### 🚀 ユニバーサルインストールガイド (すべての IDE と LLM)
 *サポートされているプラットフォーム: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code.*
@@ -286,6 +286,6 @@ Distributed under the [MIT License](LICENSE). Built for the global developer eco
 
 ---
 <div align="center">
-  <sub>Engineered by <a href="https://github.com/roedyrustam">Roedy Rustam</a> & Open-Source Contributors. Empowered by Frontier AI wiht Human Reasoning.</sub>
+  <sub>Engineered by <a href="https://github.com/roedyrustam">Roedy Rustam</a> & Open-Source Contributors. Empowered by Frontier AI with Human Reasoning.</sub>
 </div>
 
