@@ -1,8 +1,8 @@
 ---
 name: frontier-ai-models-expert
 description: "Expert guide for late-2026 frontier AI models — Claude 5.1 (Fable/Mythos), Project Astra, Gemini 3.1, and Enterprise Frontier Safeguards (EFS) / Panduan ahli model AI frontier akhir-2026 — Claude 5.1, Project Astra, Gemini 3.1, dan Enterprise Frontier Safeguards (EFS)."
-author: "vibes-plug-swarm"
-version: "4.0.0"
+author: "Roedy Rustam"
+version: "4.1.0"
 ---
 
 # frontier-ai-models-expert — vibes-plug Skill

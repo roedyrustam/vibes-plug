@@ -1,8 +1,8 @@
 ---
 name: agentic-memory-architect
 description: Expert guide for long-term episodic memory integration (Mem0, Letta/MemGPT, Zep) and unified context management for autonomous AI agents / Panduan ahli untuk integrasi memori episodik jangka panjang dan manajemen konteks agen AI otonom.
-version: "4.0.0"
-author: vibes-plug-swarm
+version: "4.1.0"
+author: "Roedy Rustam"
 ---
 
 # Agentic Memory Architect & Episodic Memory Guide

@@ -2,7 +2,7 @@
 name: proactive-background-watcher
 description: "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts."
 author: "Roedy Rustam"
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # Proactive Background Watcher (Sentinel Agent)

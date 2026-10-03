@@ -3,7 +3,7 @@ name: angular-expert
 description: "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3 / Panduan ahli aplikasi enterprise Angular 19+."
 author: "Roedy Rustam"
 
-version: "4.0.0"
+version: "4.1.0"
 ---
 
 # Angular Expert (2026 Edition)

@@ -1,8 +1,8 @@
 ---
 name: anti-slop
 description: "Sovereign Anti-AI Slop Directive & Enforcement Engine. Absolute zero-tolerance standard for lazy placeholders, conversational fluff, syntax narration, speculative over-engineering, and hallucinated code / Doktrin dan mesin penegakan anti-AI slop mutlak. Standar nol toleransi terhadap placeholder malas, basa-basi, komentar sintaksis, dan over-engineering."
-author: "vibes-plug-swarm"
-version: "4.0.0"
+author: "Roedy Rustam"
+version: "4.1.0"
 ---
 
 # Sovereign Anti-AI Slop & Code Gardening Protocol (2026 Edition)

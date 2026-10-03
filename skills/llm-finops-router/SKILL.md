@@ -1,8 +1,8 @@
 ---
 name: llm-finops-router
 description: Expert guide for AI FinOps, dynamic model routing (LiteLLM, Portkey), cost optimization, and latency-based fallback architectures / Panduan ahli untuk AI FinOps, routing model dinamis, optimasi biaya, dan arsitektur fallback.
-version: "4.0.0"
-author: vibes-plug-swarm
+version: "4.1.0"
+author: "Roedy Rustam"
 ---
 
 # LLM FinOps & Dynamic Model Router

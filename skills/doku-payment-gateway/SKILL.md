@@ -1,8 +1,8 @@
 ---
 name: doku-payment-gateway
 description: "Expert guide for integrating DOKU Payment Gateway: DOKU Checkout (Hosted & Modal Popup with HMAC-SHA256), Direct API SNAP BI Standard (VA, QRIS, Direct Debit with HMAC-SHA512), and Direct API Non-SNAP (Card Payment Page, OVO Push). Covers single-integration checkout, direct host-to-host APIs, webhook verification, and atomic idempotency / Panduan ahli integrasi DOKU Payment Gateway (DOKU Checkout & Direct API)."
-author: "vibes-plug-swarm"
-version: "5.1.0"
+author: "Roedy Rustam"
+version: "4.1.0"
 ---
 
 # DOKU Payment Gateway Integration / Integrasi Payment Gateway DOKU
