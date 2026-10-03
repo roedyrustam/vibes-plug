@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro v4.1: 147-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.2: 147-Skill AI Agent Swarm Architecture
 
 **Turn any IDE into an autonomous 147-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*

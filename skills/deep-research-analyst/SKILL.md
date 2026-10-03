@@ -2,7 +2,7 @@
 name: deep-research-analyst
 description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Deep Research Analyst (2026 Autonomous Research Edition)

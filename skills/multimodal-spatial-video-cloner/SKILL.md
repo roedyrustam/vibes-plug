@@ -2,7 +2,7 @@
 name: multimodal-spatial-video-cloner
 description: "Expert guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan ahli rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # multimodal-spatial-video-cloner — vibes-plug Skill

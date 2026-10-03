@@ -2,7 +2,7 @@
 name: coderabbit
 description: "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # CodeRabbit (2026 Edition — CodeRabbit 2.x)

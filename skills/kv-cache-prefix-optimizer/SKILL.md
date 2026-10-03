@@ -2,7 +2,7 @@
 name: kv-cache-prefix-optimizer
 description: "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Pro / Claude 5.5 / GPT Astra 6, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik, penguncian KV-cache untuk Gemini 4 Pro / Claude 5.5 / GPT Astra 6, pengurutan kanonikal tool, dan pencapaian 90%+ cache hit rate."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # kv-cache-prefix-optimizer — vibes-plug Skill

@@ -2,7 +2,7 @@
 name: vercel-ai-sdk-expert
 description: "Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering / Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15."
 author: "Roedy Rustam"
-version: "4.1.0"
+version: "4.2.0"
 ---
 
 # Vercel AI SDK Expert (Core, UI & Fullstack AI Engineering)

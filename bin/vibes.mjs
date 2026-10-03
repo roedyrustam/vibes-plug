@@ -1006,13 +1006,13 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 127+ skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 147 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.1.0)
+🌊 Vibes-Plug CLI (v4.2.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
