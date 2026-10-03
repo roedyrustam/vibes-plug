@@ -1,27 +1,26 @@
-# Vibes-Plug — 127+ Skills Ecosystem for AI-Powered Development
+# Vibes-Plug — 132-Skill AI Agent Swarm Architecture
 
-> **v3.7.0 (2026 Edition)** — Universal AI plugin with 127+ specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v4.1.0 (2026 Edition)** — Universal AI plugin with 132 specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
 
 ## How This Plugin Works
 
-This repository contains **127+ specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **132 specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
 
 **Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
 
 | Domain | Skills |
-|--------|--------|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-cost-token-optimizer`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `mcp-client-orchestrator`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `ai-evals-benchmark-expert`, `gemini-agent-booster`, `doku-mcp-server` |
-| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `monday-design-aesthetic`, `ui-components-expert`, `ui-ux-pro-max`, `visual-qa-vision-agent`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert` |
-| 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `spa-orchestrator`, `mpa-orchestrator`, `multiple-entry-points`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `bootstrap-to-modern`, `form-validation-expert`, `project-context-mapper`, `tauri-expert`, `web-game-engine-expert` |
-| 📱 Mobile | `mobile-expo-expert`, `mobile-push-notification-expert` |
-| ⚙️ Backend & Languages | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `fullstack-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `mvc-expert`, `openapi-swagger-codegen-expert` |
-| ☁️ SaaS & Cloud | `saas-transformer`, `saas-mvp-launcher`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `monorepo-architect`, `micro-frontend-architect`, `event-driven-architect`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `legacy-code-translator` |
-| 🗄️ Database & ORM | `database-orm-expert`, `edge-serverless-db-expert`, `supabase-migration`, `database-migration-versioning-expert` |
-| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `autonomous-chaos-monkey`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `secure-fuzz-testing`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator`, `anti-slop` |
-| 🔍 SEO | `seo` |
-| ⏱️ Async & Scheduling | `async-queue-temporal-expert`, `background-jobs-queue-expert`, `cron-scheduler-expert`, `sse-websocket-streaming-expert`, `realtime-collaboration-expert` |
-| 📊 Data & Observability | `data-telemetry-expert`, `data-pipeline-etl-expert`, `logging-error-tracking-expert`, `email-notification-expert`, `file-upload-media-expert` |
-| 🛠️ Utilities | `brainstorming`, `prd-architect`, `auto-doc-updater`, `token-saver`, `session-context-loader`, `session-handoff-resume`, `project-context-mapper`, `vibe-code-gardener`, `web-scraper`, `website-design-cloner`, `coderabbit`, `asisten-ramah`, `skill-baru`, `dependency-upgrade-migrator`, `self-evolving-memory-graph`, `self-healing-cloud-orchestrator`, `proactive-background-watcher`, `domain-driven-design-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `global-a11y-i18n-expert`, `zero-to-prod-orchestrator` |
+|---|---|
+| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `llm-finops-router`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `gemini-agent-booster`, `doku-mcp-server`, `agentic-memory-architect`, `agentic-micro-economy-architect`, `agentic-coding-workflow-expert`, `ai-safety-governance-expert`, `frontier-ai-models-expert` |
+| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert`, `data-visualization-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`, `modern-css-native-expert` |
+| 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `spa-orchestrator`, `mpa-orchestrator`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `form-validation-expert`, `tauri-expert`, `web-game-engine-expert`, `pwa-offline-first-expert`, `blockchain-web3-expert` |
+| 📱 Mobile & Desktop | `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `pwa-offline-first-expert` |
+| ⚙️ Backend & Languages | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `fullstack-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `mvc-expert`, `openapi-swagger-codegen-expert`, `domain-driven-design-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert` |
+| ☁️ SaaS & Cloud | `saas-architect`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `monorepo-architect`, `micro-frontend-architect`, `event-driven-architect`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `ecommerce-expert`, `legacy-code-translator` |
+| 🗄️ Database & ORM | `database-orm-expert`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `geospatial-maps-expert` |
+| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator`, `anti-slop`, `accessibility-testing-expert`, `zero-tech-debt-auditor`, `biome-linter-formatter-expert` |
+| 🔍 SEO & Telemetry | `seo`, `data-telemetry-expert` |
+| ⏱️ Async & Messaging | `async-queue-temporal-expert`, `cron-scheduler-expert`, `sse-websocket-streaming-expert`, `realtime-collaboration-expert`, `email-notification-expert`, `file-upload-media-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert` |
+| 🛠️ Orchestration & Memory | `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `deep-research-analyst`, `web-scraper`, `website-design-cloner`, `coderabbit`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator`, `proactive-background-watcher`, `documentation-site-expert`, `headless-cms-expert`, `wordpress-headless-expert`, `composable-mach-architect`, `app-promo-media-expert` |
 
 ---
 
@@ -75,8 +74,8 @@ Every `SKILL.md` MUST have:
 ## Orchestration Workflow
 
 1. **Ideation & Planning:** `brainstorming` → `prd-architect` → `gemini-agent-booster`
-2. **Design & Frontend:** `design-system-architect` → `ui-ux-pro-max` → `senior-frontend` + `ui-components-expert`
+2. **Design & Frontend:** `design-system-architect` → `ui-ux-pro-max` → `senior-frontend` + `tailwind-expert`
 3. **Backend & Architecture:** `js-backend-expert` / `go-programming-expert` / `rust-programming-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
 4. **AI Integration:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`
-5. **SaaS Transformation:** `saas-transformer` / `saas-mvp-launcher` → auto-coordinates billing, tenancy, payments
-6. **Quality & Launch:** `e2e-testing-expert` → `vibe-code-gardener` + `anti-slop` → `seo` → `production-ready-hardener`
+5. **SaaS Transformation:** `saas-architect` → auto-coordinates billing, tenancy, payments (`saas-billing`, `saas-multi-tenant`, `doku-payment-gateway`)
+6. **Quality & Launch:** `e2e-testing-expert` → `zero-tech-debt-auditor` + `anti-slop` → `seo` → `production-ready-hardener`

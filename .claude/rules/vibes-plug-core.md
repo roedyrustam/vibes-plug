@@ -2,7 +2,7 @@
 
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor.
-- Claude automatically intercepts every request, evaluates user intent against the 127+ skills, and activates cooperating skills without waiting for manual invocation.
+- Claude automatically intercepts every request, evaluates user intent against the 132 skills, and activates cooperating skills without waiting for manual invocation.
 - Multiple domains automatically synchronize: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), QA (`autonomous-tdd-debugger`), Hardening (`production-ready-hardener`, `anti-slop`).
 
 ## Skill Resolution Protocol

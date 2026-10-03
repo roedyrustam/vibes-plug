@@ -195,7 +195,7 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 - **`senior-frontend`**: For UI integration with offline state bars and optimistic mutation hooks.
 - **`state-management-expert`**: For connecting RxDB / local stores with Zustand or TanStack Store.
 - **`database-orm-expert`**: For designing compatible backend schemas with ElectricSQL / Postgres.
-- **`mobile-push-notification-expert`**: For Web Push Notification subscription handling.
+- **`email-notification-expert`**: For Web Push Notification subscription handling.
 
 ---
 
@@ -224,4 +224,4 @@ Panduan ahli untuk membangun aplikasi web **Local-First** dan **Progressive Web 
 - **`senior-frontend`**: Integrasi UI indikator status offline dan hook mutasi optimistik.
 - **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
 - **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.
-- **`mobile-push-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.
+- **`email-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.

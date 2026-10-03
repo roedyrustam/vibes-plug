@@ -269,7 +269,7 @@ catalog:
 ### Integration with Other Skills
 
 - `monorepo-architect` — pnpm catalogs, workspace dependency alignment
-- `vibe-code-gardener` — Post-upgrade cleanup, dead code removal
+- `zero-tech-debt-auditor` — Post-upgrade cleanup, dead code removal
 - `production-ready-hardener` — Security audit phase
 - `ci-cd-devops-architect` — Renovate Bot CI/CD integration
 - `e2e-testing-expert` — Regression testing after major upgrades
@@ -296,7 +296,7 @@ Aktifkan skill ini ketika:
 ### Integrasi dengan Skill Lain
 
 - `monorepo-architect` — pnpm catalogs, penyelarasan dependensi workspace
-- `vibe-code-gardener` — Pembersihan pasca-upgrade, penghapusan dead code
+- `zero-tech-debt-auditor` — Pembersihan pasca-upgrade, penghapusan dead code
 - `production-ready-hardener` — Fase audit keamanan
 - `ci-cd-devops-architect` — Integrasi Renovate Bot CI/CD
 - `e2e-testing-expert` — Pengujian regresi setelah upgrade mayor

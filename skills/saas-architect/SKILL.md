@@ -48,7 +48,7 @@ The **SaaS Architect** is the master lifecycle orchestrator for building commerc
 - **Deployment**: Vercel / Cloudflare Edge with zero-config CI/CD.
 
 #### 3. Architecture & Entry Points Isolation
-Apply the `multiple-entry-points` pattern to segregate responsibilities:
+Apply the multiple-entry-points architecture (guided by `cloud-hosting-expert`) to segregate responsibilities:
 - **Public Entry (`app.example.com` or `example.com`)**: Marketing landing, pricing, documentation, and blog.
 - **Tenant Dashboard (`app.example.com/dashboard` or `[tenant].example.com`)**: Authenticated customer workspace.
 - **Super Admin Subdomain (`admin.example.com`)**: Dedicated subdomain strictly isolated from customer tenant routes for global metrics, tenant provisioning, user moderation, and feature override controls.

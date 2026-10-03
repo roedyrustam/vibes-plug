@@ -99,7 +99,7 @@ When upgrading older codebases:
    - **Tabs**: Manage active tab state with `x-data="{ tab: 'home' }"`.
 5. **UI/UX Modernization & Skill Integration**:
    - Do NOT just do a 1:1 translation of Bootstrap classes. The goal is to elevate the design.
-   - You MUST orchestrate and apply guidelines from other UI/UX skills (`ui-ux-expert`, `ui-ux-pro-max`, and `hig`).
+   - You MUST orchestrate and apply guidelines from other UI/UX skills (`design-system-architect`, `ui-ux-pro-max`, and `hig`).
    - Implement Human Interface Guidelines (HIG) principles: Hierarchy, Harmony, and Consistency.
    - Use vibrant colors, smooth micro-animations, glassmorphism (if appropriate), and modern typography to "WOW" the user.
 6. **Quality Assurance**:
@@ -262,7 +262,7 @@ Saat memperbarui codebase lama:
    - **Tab**: Kelola state tab aktif dengan `x-data="{ tab: 'home' }"`.
 5. **Modernisasi UI/UX & Integrasi Skill**:
    - JANGAN hanya menerjemahkan kelas Bootstrap 1:1. Tujuannya adalah meningkatkan kualitas desain.
-   - Anda WAJIB mengorkestrasi dan menerapkan pedoman dari skill UI/UX lainnya (`ui-ux-expert`, `ui-ux-pro-max`, dan `hig`).
+   - Anda WAJIB mengorkestrasi dan menerapkan pedoman dari skill UI/UX lainnya (`design-system-architect`, `ui-ux-pro-max`, dan `hig`).
    - Terapkan prinsip Human Interface Guidelines (HIG): Hierarchy, Harmony, dan Consistency.
    - Gunakan warna cerah, mikro-animasi halus, glassmorphism (jika sesuai), dan tipografi modern untuk memberikan kesan "WOW" pada pengguna.
 6. **Quality Assurance**:

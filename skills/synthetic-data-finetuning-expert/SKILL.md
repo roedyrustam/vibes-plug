@@ -15,7 +15,7 @@ version: "4.1.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `ai-evals-benchmark-expert`, `python-programming-expert`, and `ai-cost-token-optimizer` to build high-performance, cost-effective domain models.
+Connects and orchestrates with domain skills like `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `python-programming-expert`, and `llm-finops-router` to build high-performance, cost-effective domain models.
 
 ### Description
 Production-grade guide for generating synthetic training datasets, curating high-signal instruction pairs, executing Parameter-Efficient Fine-Tuning (QLoRA / LoRA) with **Unsloth** and Hugging Face TRL, performing Direct Preference Optimization (DPO), and quantizing custom Small Language Models (SLMs) to GGUF for edge or on-premise execution.
@@ -141,7 +141,7 @@ model.save_pretrained_gguf("custom-domain-coder", tokenizer, quantization_method
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `ai-evals-benchmark-expert`, `python-programming-expert`, dan `ai-cost-token-optimizer` untuk membangun model spesialis domain dengan performa tinggi dan biaya hemat.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `python-programming-expert`, dan `llm-finops-router` untuk membangun model spesialis domain dengan performa tinggi dan biaya hemat.
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dataset pelatihan sintetis, mengurasi pasangan instruksi bernilai tinggi, mengeksekusi Parameter-Efficient Fine-Tuning (QLoRA / LoRA) dengan **Unsloth** dan Hugging Face TRL, menerapkan Direct Preference Optimization (DPO), dan mengkuantisasi Small Language Models (SLM) kustom ke format GGUF untuk inferensi lokal atau on-premise berlatensi ultra-rendah.

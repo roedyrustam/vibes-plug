@@ -112,7 +112,7 @@ export async function rerankCandidates(query: string, candidates: { id: string; 
 - [ ] Apply Late Chunking or Contextual Chunking to retain parent document continuity.
 
 ## Orchestration & Integration
-- Integrates with: `ai-llm-integration-expert`, `database-orm-expert`, `ai-cost-token-optimizer`, `app-analyzer-optimizer`.
+- Integrates with: `ai-llm-integration-expert`, `database-orm-expert`, `llm-finops-router`, `app-analyzer-optimizer`.
 
 ---
 
@@ -206,4 +206,4 @@ export async function susunUlangKandidat(kueri: string, kandidat: { id: string; 
 - [ ] Terapkan Late Chunking agar konteks dokumen utuh tidak hilang saat dipotong.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `ai-llm-integration-expert`, `database-orm-expert`, `ai-cost-token-optimizer`, `app-analyzer-optimizer`.
+- Terintegrasi dengan: `ai-llm-integration-expert`, `database-orm-expert`, `llm-finops-router`, `app-analyzer-optimizer`.

@@ -158,9 +158,9 @@ Zero-tolerance principles for intentional, high-performance web motion:
 - **No Orphan Infinite Animations**: Eliminate infinite CSS/JS loops that run off-screen, eating CPU and mobile battery. Use `IntersectionObserver` or CSS `content-visibility` to halt animations when not in viewport.
 
 ## Orchestration & Integration
-- Works hand-in-hand with `ui-ux-pro-max` and `monday-design-aesthetic` to bring designs to life.
+- Works hand-in-hand with `ui-ux-pro-max` and `design-system-architect` to bring designs to life.
 - Complements `senior-frontend` by handling the motion layer of the UI.
-- Integrates with `seo-aeo-landing-page-writer` to build visually stunning landing pages.
+- Integrates with `seo` to build visually stunning landing pages.
 - **`anti-slop`**: Enforces zero-bouncy slop, strict `prefers-reduced-motion` fallbacks, and compositor-only transforms.
 
 ---
@@ -212,7 +212,7 @@ Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
 - **Larangan Loop Tanpa Batas di Luar Layar**: Matikan animasi yang tidak terlihat di viewport menggunakan `IntersectionObserver` untuk mencegah boros baterai dan beban CPU.
 
 ## Integrasi Orkestrasi
-- Bekerja sama dengan `ui-ux-pro-max` dan `monday-design-aesthetic` untuk menghidupkan desain statis.
+- Bekerja sama dengan `ui-ux-pro-max` dan `design-system-architect` untuk menghidupkan desain statis.
 - Melengkapi `senior-frontend` dengan menangani lapisan pergerakan (motion layer) UI.
-- Terintegrasi dengan `seo-aeo-landing-page-writer` untuk merancang landing page yang memukau secara visual.
+- Terintegrasi dengan `seo` untuk merancang landing page yang memukau secara visual.
 - **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback `prefers-reduced-motion`, dan animasi khusus compositor.
