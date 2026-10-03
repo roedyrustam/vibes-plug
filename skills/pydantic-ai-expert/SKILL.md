@@ -15,7 +15,7 @@ version: "4.1.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-evals-benchmark-expert`, and `database-orm-expert` to engineer type-safe, resilient backend AI agents.
+Connects and orchestrates with domain skills like `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, and `database-orm-expert` to engineer type-safe, resilient backend AI agents.
 
 ### Description
 Production-grade guide for building enterprise AI agents using **Pydantic AI** (from the creators of Pydantic). Unlike untyped or fragile agent libraries, Pydantic AI provides strict static typing (`Agent[DepsType, ReturnType]`), first-class dependency injection (`RunContext[Deps]`), automatic tool parameter validation via Pydantic v2 schemas, model-agnostic provider switching (Anthropic, OpenAI, Gemini, Groq, Ollama), dynamic system prompts, and deterministic structured outputs.
@@ -147,7 +147,7 @@ async def test_security_agent_tool_dispatch():
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-evals-benchmark-expert`, dan `database-orm-expert` untuk membangun agen AI backend yang aman secara tipe (*type-safe*) dan tangguh.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, dan `database-orm-expert` untuk membangun agen AI backend yang aman secara tipe (*type-safe*) dan tangguh.
 
 ### Deskripsi
 Panduan produksi untuk membangun agen AI kelas perusahaan menggunakan **Pydantic AI** (dari pembuat library Pydantic). Tidak seperti library agen yang tidak bertipe statis atau mudah mengalami galat runtime, Pydantic AI menyediakan sistem tipe statis yang ketat (`Agent[DepsType, ReturnType]`), *dependency injection* bawaan kelas satu (`RunContext[Deps]`), validasi parameter tool otomatis melalui skema Pydantic v2, fleksibilitas pergantian model (*model-agnostic*), dan hasil output terstruktur yang terjamin validitasnya.

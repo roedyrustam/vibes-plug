@@ -335,9 +335,9 @@ export async function registerForPushNotificationsAsync() {
 ### Integration with Other Skills
 
 - `saas-billing` — Payment receipt emails, failed payment dunning sequences
-- `saas-transformer` — Team invitation emails, workspace notifications
+- `saas-architect` — Team invitation emails, workspace notifications
 - `authentication-identity-expert` — Password reset emails, email verification, MFA codes
-- `mobile-push-notification-expert` — Unified notification strategy (email + push + in-app)
+- `mobile-expo-expert` — Unified notification strategy (email + push + in-app)
 - `async-queue-temporal-expert` — Email queue workers with BullMQ/Inngest
 - `production-ready-hardener` — Email deliverability audit before launch
 

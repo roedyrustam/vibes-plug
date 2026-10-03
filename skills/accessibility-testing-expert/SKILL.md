@@ -19,7 +19,7 @@ version: "4.1.0"
 - **`global-a11y-i18n-expert`**: Core WCAG rules, ARIA patterns, and internationalization standards.
 - **`e2e-testing-expert`**: Integrating automated accessibility assertions into Playwright/Vitest CI suites.
 - **`design-system-architect, senior-frontend`**: Accessible component primitives (Radix UI, Base UI, ARIA patterns).
-- **`visual-qa-vision-agent`**: Visual audits for focus rings, contrast ratios, and layout flow.
+- **`browser-automation-expert`**: Visual QA audits for focus rings, contrast ratios, and layout flow using Vision LLM agents.
 - **`anti-slop`**: Enforces strict accessibility rules (preventing stripped focus outlines, div-soup buttons, and color contrast violations).
 
 ### Description

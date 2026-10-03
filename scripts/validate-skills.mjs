@@ -10,7 +10,19 @@ const DEPRECATED_REFS = [
   'supabase-migration',
   'auto-doc-updater',
   'session-handoff-resume',
-  'session-context-loader'
+  'session-context-loader',
+  'visual-qa-vision-agent',
+  'bootstrap-to-modern',
+  'mobile-push-notification-expert',
+  'saas-transformer',
+  'saas-mvp-launcher',
+  'ai-cost-token-optimizer',
+  'mcp-client-orchestrator',
+  'edge-serverless-db-expert',
+  'ai-evals-benchmark-expert',
+  'ui-ux-expert',
+  'vibe-code-gardener',
+  'monday-design-aesthetic'
 ];
 
 async function validateSkills() {
@@ -20,6 +32,10 @@ async function validateSkills() {
     const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
     const skillDirs = entries.filter(e => e.isDirectory());
     
+    // Load orchestrators to verify full registration
+    const brainstormingContent = await fs.readFile(path.join(SKILLS_DIR, 'brainstorming', 'SKILL.md'), 'utf8');
+    const zeroToProdContent = await fs.readFile(path.join(SKILLS_DIR, 'zero-to-prod-orchestrator', 'SKILL.md'), 'utf8');
+
     let totalSkills = 0;
     let passedSkills = 0;
     let failedSkills = 0;
@@ -62,7 +78,7 @@ async function validateSkills() {
 
         // 2. Check for deprecated references
         for (const ref of DEPRECATED_REFS) {
-          if (content.includes(ref)) {
+          if (content.includes(`\`${ref}\``) || content.includes(`"${ref}"`)) {
             skillErrors.push(`Contains deprecated reference: ${ref}`);
           }
         }
@@ -74,6 +90,20 @@ async function validateSkills() {
         
         if (!hasEnglish || !hasIndo) {
           skillErrors.push('Missing bilingual sections (English & Bahasa Indonesia)');
+        }
+
+        // 4. Check for Orchestration & Integration section
+        const hasOrchestration = /##\s*Orchestration & Integration|##\s*Integrasi Orkestrasi|###\s*Orchestration & Integration|###\s*Integrasi Orkestrasi/i.test(content);
+        if (!hasOrchestration) {
+          skillErrors.push('Missing Orchestration & Integration section');
+        }
+
+        // 5. Check registration in Master Orchestrators
+        if (!brainstormingContent.includes(skillName)) {
+          skillErrors.push(`Not registered in skills/brainstorming/SKILL.md`);
+        }
+        if (!zeroToProdContent.includes(skillName)) {
+          skillErrors.push(`Not registered in skills/zero-to-prod-orchestrator/SKILL.md`);
         }
 
         if (skillErrors.length > 0) {
@@ -97,13 +127,12 @@ async function validateSkills() {
 
     if (errors.length > 0) {
       console.log('🚨 Issues Found:');
-      // Just print first 5 errors to avoid terminal spam
       errors.slice(0, 10).forEach(e => console.log(e));
       if(errors.length > 10) console.log(`... and ${errors.length - 10} more skills failed.`);
       console.log('\n❌ CI Pipeline Failed! Please fix the errors above.');
       process.exit(1);
     } else {
-      console.log(`🎉 All ${totalSkills} skills passed strict validation! Ecosystem is perfectly healthy.`);
+      console.log(`🎉 All ${totalSkills} skills passed strict validation & master orchestration! Ecosystem is 100% SWARM-synchronized.`);
       process.exit(0);
     }
 

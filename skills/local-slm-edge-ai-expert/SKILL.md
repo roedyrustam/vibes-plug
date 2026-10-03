@@ -87,7 +87,7 @@ export async function createLocalChatEngine(onProgress?: (report: webllm.InitPro
 - [ ] Provide automatic fallback to lightweight serverless APIs when client device VRAM is constrained.
 
 ## Orchestration & Integration
-- Integrates with: `ai-cost-token-optimizer`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.
+- Integrates with: `llm-finops-router`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.
 
 ---
 
@@ -165,4 +165,4 @@ export async function inisialisasiMesinLokal(laporanProgres?: (laporan: webllm.I
 - [ ] Siapkan jalur fallback ke API cloud jika memori klien tidak mencukupi.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `ai-cost-token-optimizer`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.
+- Terintegrasi dengan: `llm-finops-router`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.

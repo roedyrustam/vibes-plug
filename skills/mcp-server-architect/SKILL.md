@@ -15,7 +15,7 @@ version: "4.1.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills: `ai-llm-integration-expert` for core LLM routing and RAG pipelines, `mcp-client-orchestrator` for agent client consumption, and `doku-mcp-server` for payments integration examples. Ensure cohesive execution when spawning subagents.
+Connects and orchestrates with relevant domain skills: `ai-llm-integration-expert` for core LLM routing and RAG pipelines, `multi-agent-orchestration` for agent client consumption, and `doku-mcp-server` for payments integration examples. Ensure cohesive execution when spawning subagents.
 
 ### Description
 Ultimate architectural guide for engineering high-performance, production-ready AI Tools/Bots via the **Model Context Protocol (MCP v1.x)**. Enforces the use of `FastMCP` (Python) and `@modelcontextprotocol/sdk` (TypeScript). Mandates strict security guardrails, schema validation, stateful resource streaming, and support for both Standard Stdio and Streamable HTTP / Server-Sent Events (SSE) transports.
@@ -170,7 +170,7 @@ When acting as an AI Agent consuming external MCP servers:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan skill domain relevan: `ai-llm-integration-expert` untuk perutean LLM inti dan pipeline RAG, `mcp-client-orchestrator` untuk konsumsi klien agen, serta `doku-mcp-server` untuk contoh integrasi pembayaran.
+Terhubung dan mengorkestrasi dengan skill domain relevan: `ai-llm-integration-expert` untuk perutean LLM inti dan pipeline RAG, `multi-agent-orchestration` untuk konsumsi klien agen, serta `doku-mcp-server` untuk contoh integrasi pembayaran.
 
 ### Deskripsi
 Panduan arsitektur utama untuk membangun AI Tools/Bots modern dan siap produksi via **Model Context Protocol (MCP v1.x)**. Mewajibkan penggunaan `FastMCP` (Python) dan `@modelcontextprotocol/sdk` (TypeScript). Menerapkan pengamanan ketat, validasi skema, streaming resource stateful, serta dukungan transport Standar Stdio maupun Streamable HTTP / SSE.

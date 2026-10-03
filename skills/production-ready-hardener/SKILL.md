@@ -109,7 +109,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 1: Architecture & Code Quality Audit
-**Orchestrates:** `scalability-clean-code`, `fullstack-expert`, `senior-fullstack`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `vibe-code-gardener`, `typescript-expert`
+**Orchestrates:** `scalability-clean-code`, `fullstack-expert`, `app-analyzer-optimizer`, `monorepo-architect`, `dependency-upgrade-migrator`, `zero-tech-debt-auditor`, `typescript-expert`
 
 **Checklist:**
 - [ ] **Project structure** follows clean architecture (Domain → Use Cases → Adapters → Infrastructure)
@@ -147,11 +147,11 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 #### PHASE 3: Backend & AI Services Hardening
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `edge-serverless-db-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `ai-cost-token-optimizer`
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `cron-scheduler-expert`, `async-queue-temporal-expert`, `email-notification-expert`, `file-upload-media-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `llm-finops-router`
 
 **Checklist:**
 - [ ] **Database migrations** — schema changes via managed migrations (Prisma 6 / Drizzle ORM)
-- [ ] **Connection pooling** configured (PgBouncer/Supavisor, edge poolers via `edge-serverless-db-expert`)
+- [ ] **Connection pooling** configured (PgBouncer/Supavisor, edge poolers via `database-orm-expert`)
 - [ ] **Proper indexes** on all frequently queried columns (`WHERE`, `JOIN`, `ORDER BY`)
 - [ ] **N+1 query prevention** — eager loading or DataLoader pattern for relational data
 - [ ] **Query profiling** — `EXPLAIN ANALYZE` run on critical queries, no Seq Scans on large tables
@@ -161,7 +161,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 - [ ] **Pagination** — cursor-based for large datasets, with consistent response format
 - [ ] **Background jobs & cron** — durable workflows (Temporal, BullMQ, Inngest) via `async-queue-temporal-expert`
 - [ ] **Transactional Email & Media** — Resend/SES setup (`email-notification-expert`) & Presigned URLs (`file-upload-media-expert`)
-- [ ] **MCP & AI Cost Optimization** — MCP schemas guarded (`mcp-server-architect`) & prompt caching active (`ai-cost-token-optimizer`)
+- [ ] **MCP & AI Cost Optimization** — MCP schemas guarded (`mcp-server-architect`) & prompt caching active (`llm-finops-router`)
 - [ ] **Graceful shutdown** — proper SIGTERM handling, drain connections before exit
 - [ ] **Health check endpoints** — `/healthz` (liveness) and `/readyz` (readiness) implemented
 
@@ -362,13 +362,13 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 
 #### FASE 3: Pengerasan Backend
 - [ ] Semua perubahan schema via database migration (Prisma 6 / Drizzle ORM)
-- [ ] Connection pooling dikonfigurasi (`edge-serverless-db-expert`)
+- [ ] Connection pooling dikonfigurasi (`database-orm-expert`)
 - [ ] Index yang tepat pada kolom yang sering di-query
 - [ ] Pencegahan N+1 query
 - [ ] API rate limiting & idempotency keys aktif
 - [ ] Durable background jobs & cron queues (`async-queue-temporal-expert`)
 - [ ] Email transaksional & upload media presigned (`email-notification-expert`, `file-upload-media-expert`)
-- [ ] Skema MCP Server guarded & optimasi prompt caching (`ai-cost-token-optimizer`)
+- [ ] Skema MCP Server guarded & optimasi prompt caching (`llm-finops-router`)
 - [ ] Graceful shutdown dengan penanganan SIGTERM
 - [ ] Health check endpoint (`/healthz`, `/readyz`)
 

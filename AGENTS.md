@@ -2,7 +2,7 @@
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
 > **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/`
-> Each platform has its own entry point, but the core rules and 127+ skills are shared.
+> Each platform has its own entry point, but the core rules and 132 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
 **CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 3.5/4.0, GPT-4.5/O3, OpenAI Codex, and DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window.
@@ -12,8 +12,8 @@
 
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
-2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 127+ skill registry:
-   - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-components-expert`.
+2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 132 skill registry:
+   - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `authentication-identity-expert`.
    - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & idempotency).
    - **AI & MCP**: `ai-llm-integration-expert` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server`.
@@ -60,11 +60,11 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 ```
 
 ### Swarm Director Protocols
-1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 127+ specialized skills in `vibes-plug`.
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 132 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
 4. **Agent Synergy**: Rely on the `vibes-plug` skills ecosystem:
-   - For UI/Frontend: Delegate to subagents guided by `senior-frontend`, `ui-components-expert`, `tailwind-expert`, `data-visualization-expert`.
+   - For UI/Frontend: Delegate to subagents guided by `senior-frontend`, `design-system-architect`, `tailwind-expert`, `data-visualization-expert`.
    - For Backend/APIs: Delegate to `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `api-design-expert`.
    - For AI/MCP: Delegate to `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `ai-media-generation-expert`, `mcp-server-architect`.
    - For QA/Testing: Delegate to `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-tdd-debugger`.
