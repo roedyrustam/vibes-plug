@@ -16,6 +16,7 @@ version: "4.2.0"
 
 ### Orchestration & Integration
 - **`senior-frontend`**: React component architecture for chart components.
+- **`web-3d-graphics-expert`**: 3D spatial data visualization, WebGPU/Three.js scientific models, anatomical explainers, and 3Dviz spatial reasoning.
 - **`data-telemetry-expert`**: Analytics data pipelines feeding visualizations.
 - **`state-management-expert`**: Managing chart state, filters, and drill-down navigation.
 - **`performance-web-vitals`**: Optimizing chart rendering performance with large datasets.
@@ -129,6 +130,12 @@ function LiveMetricsChart() {
 - Use **windowed rendering** — only render visible data points.
 - Apply **debounced zoom/pan** to prevent excessive re-renders.
 
+#### 5. 3D Spatial Visualization & Scientific Grounded Truth
+For volumetric, anatomical, geospatial, or scientific datasets, escalate to `web-3d-graphics-expert`:
+- **Grounded Truth Protocol**: Verify the chain: **Scientific Claim → Mathematical Model → Rendered Result**. An aesthetic 3D mesh does not certify a scientific claim.
+- **Explicit Units & Scale**: Never leave scale ambiguous; render interactive 3D scale bars or known spatial benchmarks.
+- **Truthful Controls**: Sliders and toggle states must alter physical parameters in the model, not just trigger decorative visual noise.
+
 ### Dashboard Layout Patterns
 - **KPI Row → Charts → Tables**: Top metrics cards, then charts, then detail tables.
 - **Filter Sidebar**: Global date range, category, and dimension filters.
@@ -142,6 +149,7 @@ function LiveMetricsChart() {
 
 ### Integrasi Orkestrasi
 - **`senior-frontend`**: Arsitektur komponen React untuk komponen chart.
+- **`web-3d-graphics-expert`**: Visualisasi data spasial 3D, model ilmiah WebGPU/Three.js, explainer anatomi, dan penalaran spasial 3Dviz.
 - **`data-telemetry-expert`**: Pipeline data analitik yang mengisi visualisasi.
 - **`state-management-expert`**: Mengelola state chart, filter, dan navigasi drill-down.
 

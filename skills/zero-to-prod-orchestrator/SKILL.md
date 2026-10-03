@@ -52,6 +52,17 @@ When delegating to any subagent, ALWAYS pass:
 3. Path to `PRD.md` and `BLUEPRINT.md`.
 4. Verification command (e.g. `npm test`, `tsc --noEmit`) to confirm completion before returning.
 
+#### 3. Sovereign Token Frugality & Context Pruning Protocol
+To maintain token efficiency without sacrificing skill capabilities:
+1. **Selective Context Slicing**: Never pass the entire global chat transcript to subagents. Pass only targeted interface types, local schema slices, and the active task boundary (`CONTEXT_MAP.md` slice).
+2. **Deterministic KV-Cache Prefix Locking**: Ensure static prompt instructions, tool definitions, and skill contracts remain byte-identical across calls (`kv-cache-prefix-optimizer`) to maximize prompt caching hit rates (75-90% discount).
+3. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
+   - `flash_lite` / `flash`: Discovery, AST scans, file searches, lint checks, and localized test validations.
+   - `pro` / `inherit`: Architectural synthesis, multi-domain schemas, and security red-teaming.
+4. **Ultra-Compact Phase Checkpointing (`session-memory-manager`)**:
+   - At the completion of each phase, persist a compressed checkpoint (<300 tokens) in `PROGRESS.md` and `CHECKPOINT.md`.
+5. **Non-Degradation Invariant**: Never truncate code with `// TODO`, `// ...`, or partial stubs to save tokens. Code quality and completeness must remain 100%.
+
 ---
 
 ### The 8-Phase Master Fullstack Pipeline
@@ -105,9 +116,9 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate episodic memory system for long-term agent context retention.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `antislop-ui`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
+**Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
 - [ ] **MANDATORY**: Run `modern-web-guidance` FIRST before implementing any frontend HTML/CSS/JS features to ensure compliance with modern standards.
-- [ ] Enforce Sovereign Anti-Slop UI standards (`antislop-ui`): eradicate generic gradients, bento defaults, excessive glassmorphism, decorative dots/badges, and fake stat cards.
+- [ ] Enforce Sovereign Anti-Slop UI standards (`anti-slop`): eradicate generic gradients, bento defaults, excessive glassmorphism, decorative dots/badges, and fake stat cards.
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Convert UI screenshots, Figma frames, or whiteboard sketches into pixel-perfect frontend components with `screenshot-to-code-expert`.
@@ -120,7 +131,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `antislop-ui`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Run autonomous multi-pass AI code self-review (`ai-code-review-autonomous`) across syntax, logic correctness, and security.
 - [ ] Execute property-based testing and mutation testing (`property-mutation-testing-expert`) with fast-check and Stryker to verify test suite invariants.
@@ -194,6 +205,17 @@ Saat mendelegasikan tugas ke subagent, SELALU berikan:
 3. Lokasi dokumen panduan `PRD.md` dan `BLUEPRINT.md`.
 4. Perintah verifikasi (seperti `npm test`, `tsc --noEmit`) untuk memastikan kode tervalidasi sebelum kembali ke Director.
 
+#### 3. Protokol Efisiensi Token & Pemangkasan Konteks (Hemat Token)
+Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsional skill:
+1. **Pemangkasan Konteks Selektif (Selective Slicing)**: Jangan pernah mengirimkan seluruh transkrip obrolan global ke subagent. Kirimkan hanya tipe interface terkait, irisan skema lokal, dan batasan tugas yang relevan (`CONTEXT_MAP.md` slice).
+2. **Penguncian Prefix KV-Cache Deterministik (`kv-cache-prefix-optimizer`)**: Pastikan instruksi statis, definisi tools, dan kontrak antarmuka tetap konsisten pada tingkat byte agar tingkat keberhasilan prompt cache mencapai 75-90%.
+3. **Kaskade Model Dinamis (`adaptive-model-cascade`)**:
+   - `flash_lite` / `flash`: Pencarian file, pemindaian simbol AST, verifikasi linter, dan pengecekan sintaks.
+   - `pro` / `inherit`: Desain arsitektur multi-domain, pembuktian invarian Z3, dan audit keamanan mendalam.
+4. **Checkpoint Fase Ultra-Ringkas (`session-memory-manager`)**:
+   - Di akhir setiap fase, simpan checkpoint terkompresi (<300 token) di `PROGRESS.md` dan `CHECKPOINT.md`.
+5. **Hukum Mutlak Non-Degradasi**: Dilarang memotong kode dengan `// TODO`, `// ...`, atau stub parsial demi menghemat token. Kualitas kode dan kelengkapan logika wajib 100%.
+
 ---
 
 ### Master Pipeline Fullstack 8-Fase
@@ -238,9 +260,9 @@ Saat mendelegasikan tugas ke subagent, SELALU berikan:
 - [ ] Mengintegrasikan sistem memori episodik untuk retensi konteks agen jangka panjang.
 
 #### FASE 5: Frontend, Design System & Mobile App
-**Mengorkestrasi:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `antislop-ui`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
+**Mengorkestrasi:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
 - [ ] **MANDATORY**: Jalankan `modern-web-guidance` PERTAMA KALI sebelum mengimplementasikan fitur frontend HTML/CSS/JS untuk memastikan kepatuhan dengan standar modern Google.
-- [ ] Tegakkan standar Anti-Slop UI Berdaulat (`antislop-ui`): basmi gradien klise, bento default, glassmorphism berlebih, titik status dekoratif, dan metrik tiruan.
+- [ ] Tegakkan standar Anti-Slop UI Berdaulat (`anti-slop`): basmi gradien klise, bento default, glassmorphism berlebih, titik status dekoratif, dan metrik tiruan.
 - [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Konversi screenshot antarmuka, frame Figma, atau sketsa whiteboard menjadi komponen frontend siap produksi dengan `screenshot-to-code-expert`.
@@ -253,7 +275,7 @@ Saat mendelegasikan tugas ke subagent, SELALU berikan:
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `antislop-ui`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
+**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Jalankan self-review kode otonom multi-pass (`ai-code-review-autonomous`) mencakup validasi sintaks, logika, arsitektur, dan keamanan.
 - [ ] Eksekusi property-based testing dan mutation testing (`property-mutation-testing-expert`) dengan fast-check dan Stryker untuk validasi invarian sistem.

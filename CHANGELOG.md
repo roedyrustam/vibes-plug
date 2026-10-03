@@ -14,6 +14,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
     - **Anthropic Claude**: Claude 5.1 Fable / Mythos, Claude 5 Sonnet, dan Claude Code Agentic Swarm Patterns (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator Loop).
     - **OpenAI**: GPT-5.6, GPT-5, o3, o3-mini (structured reasoning), dan GPT-4.5.
     - **DeepSeek**: DeepSeek-R1 (open reasoning), DeepSeek-Pro.
+- **Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)**:
+  - Menerapkan protokol hemat token berdaulat tanpa mengorbankan kualitas atau kelengkapan kode (Non-Degradation Invariant):
+    - **KV-Cache Determinism (`kv-cache-prefix-optimizer`)**: Penguncian prefix deterministik untuk menghemat biaya token 75-90% dan mempercepat TTFT hingga 10x.
+    - **Selective Context Slicing**: Pangkas muatan konteks subagent saat Fan-Out hanya pada irisan `CONTEXT_MAP.md` dan kontrak tipe relevan, mencegah ledakan konteks kuadratik.
+    - **Adaptive Model Cascading (`adaptive-model-cascade`)**: Alokasi cerdas model tier rendah (`flash`/`haiku`) untuk riset/linter, dan model frontier (`pro`/`opus`) untuk arsitektur/keamanan.
+    - **Ultra-Compact Checkpointing (`session-memory-manager`)**: Checkpoint ringkas (<300 token) di setiap batas sesi.
+- **Pillar 7 Anti-Slop (UI Sanitation) & 3Dviz Spatial Reasoning Integration**:
+  - Menggabungkan prinsip `antislop-ui` ke dalam `skills/anti-slop/SKILL.md` (Pilar 7: Sanitasi UI & Visual).
+  - Mengintegrasikan prinsip `3dviz-pro-max` ke dalam `skills/web-3d-graphics-expert/SKILL.md` dan `skills/data-visualization-expert/SKILL.md` (kerajinan 3 skala, kontinuitas join, amplop tabrakan, review 16 poin).
 - **Ecosystem-Wide Version Bump to v4.2.0**:
   - Seluruh 147 skill spesialis di skills/*/SKILL.md dinaikkan versinya secara resmi ke 4.2.0.
   - package.json, plugin.json, .cursorrules, AGENTS.md, CLAUDE.md, dan CLI bin/vibes.mjs diperbarui ke 4.2.0.

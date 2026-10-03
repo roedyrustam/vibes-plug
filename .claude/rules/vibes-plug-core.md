@@ -2,7 +2,7 @@
 
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor.
-- Claude automatically intercepts every request, evaluates user intent against the 132 skills, and activates cooperating skills without waiting for manual invocation.
+- Claude automatically intercepts every request, evaluates user intent against the 147 skills, and activates cooperating skills without waiting for manual invocation.
 - Multiple domains automatically synchronize: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), QA (`autonomous-tdd-debugger`), Hardening (`production-ready-hardener`, `anti-slop`).
 
 ## Skill Resolution Protocol
@@ -25,6 +25,13 @@ Before writing code or making architectural decisions:
   * Output 100% complete, fully working implementations on first attempt.
   * No swallowed errors (`catch (e) {}` prohibited).
   * Run `node scripts/check-anti-slop.js` to ensure clean code.
+
+## Sovereign Token Optimization Protocol (Hemat Token)
+- Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer` (75-90% prompt cache hit rates).
+- Prune subagent context payloads: pass only targeted `CONTEXT_MAP.md` slices and relevant file interfaces, not global chat history.
+- Use dynamic model cascading (`adaptive-model-cascade`): `flash`/`haiku` for searches and lint checks, `pro`/`opus` for architecture and security audits.
+- Ultra-compact session checkpoints (<300 tokens) via `session-memory-manager`.
+- Non-Degradation Invariant: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete.
 
 ## New Project Protocol
 When creating a new project from scratch, MUST auto-generate before any code:

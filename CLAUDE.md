@@ -69,6 +69,13 @@ Every `SKILL.md` MUST have:
 - A section named `## Orchestration & Integration` or `## Integrasi Orkestrasi`
 - Registration in `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md`
 
+### 7. Sovereign Token Optimization Protocol (Hemat Token)
+- **KV-Cache Determinism**: Maintain static prompt prefix order (`kv-cache-prefix-optimizer`) to maximize prompt caching hit rates (75-90% discount).
+- **Subagent Context Pruning**: During Swarm Fan-Out, pass only targeted `CONTEXT_MAP.md` slices and relevant file interfaces, not global chat history.
+- **Adaptive Model Cascading**: Use lightweight models (`flash` / `haiku`) for searches and validations, reserving frontier models for architecture and security audits (`adaptive-model-cascade`).
+- **Compact Handoffs**: Store concise checkpoints (<300 tokens) via `session-memory-manager`.
+- **Non-Degradation Invariant**: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete and working.
+
 ---
 
 ## Orchestration Workflow

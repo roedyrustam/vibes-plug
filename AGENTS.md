@@ -80,6 +80,30 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 3. **Validate**: Double-check the proposed solution against the project's non-functional requirements (NFRs) and standard best practices.
 4. **Execute**: Only after this reasoning chain is complete should you invoke file-editing tools.
 
+## MANDATORY: Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)
+**CRITICAL RULE**: The AI agent MUST enforce aggressive token frugality across all activities WITHOUT sacrificing the depth, rigor, or power of any skill. Token efficiency is achieved through architectural precision, prompt cache reuse, and context hygiene — NEVER through code truncations or superficial stubs.
+
+### The 6 Laws of Token Optimization (Hukum Hemat Token):
+1. **The Non-Degradation Invariant (Hukum Mutlak Non-Degradasi)**:
+   - Token frugality must NEVER degrade output fidelity, security audits, formal verification, or 3D precision.
+   - Code must be 100% complete, fully implemented, and working on the first try. Truncating with `// TODO`, `// ...rest of code`, or fake mocks is strictly prohibited under Anti-Slop Pillar 2.
+2. **Deterministic KV-Cache Prefix Pinning (`kv-cache-prefix-optimizer`)**:
+   - Maximize Prompt Caching (KV-Cache reuse) on Gemini 4 Pro / 3.x, Claude 5.1/Sonnet, and GPT-5/Astra to slash billing by 75-90% and accelerate TTFT by 10x.
+   - Maintain byte-identical prefixes: static instructions, tool definitions, and skill indices must be canonically sorted and placed at the top. Volatile timestamps and turn-specific inputs must strictly remain at the tail.
+3. **Selective Context Slicing (Fan-Out Context Pruning)**:
+   - When the Swarm Director spawns subagents via `invoke_subagent`, NEVER dump the entire conversation history or global workspace transcript into the subagent prompt.
+   - Pass only surgically targeted slices: exact subtask goal, relevant interface types, target file paths, and local schema contracts (`CONTEXT_MAP.md` slice).
+4. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
+   - Dynamically match task complexity to the optimal model tier:
+     - **flash_lite / flash**: AST scans, file discovery, linting verification, simple diff validations, and translation tasks.
+     - **inherit / pro**: High-level system architecture, cross-domain synthesis, security fuzzing, and complex fullstack refactoring.
+5. **Ultra-Compact Session Checkpoints (`session-memory-manager`)**:
+   - In extended sessions (>25 turns), compress conversational state into ultra-compact YAML checkpoints (<300 tokens) in `CHECKPOINT.md` and keep `CONTEXT_MAP.md` lean.
+   - Do not re-ingest past turns when the checkpoint provides sufficient state.
+6. **High Information Density & Zero Conversational Waste**:
+   - Eliminate sycophancy, preambles, and conversational fluff. Present architectural decisions using concise tables, typed contracts, and structured markdown.
+   - Target specific line ranges (`StartLine`/`EndLine` in `view_file`) instead of dumping thousands of unnecessary lines into the context.
+
 # LEARNING GRAPH: Skill Ecosystem Gold Standard
 
 This document serves as the persistent memory and standard operating procedure for the `vibes-plug` AI ecosystem. Any AI agent modifying or creating a skill must adhere strictly to these standards.
@@ -110,13 +134,22 @@ Whenever a skill is created or audited, it MUST be registered in:
 If it is missing from these files, the Swarm Auditor is authorized to add it.
 
 ## 5. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
-Strictly eliminate all AI slop across conversations, code generation, architecture, and documentation. All agents, subagents, and skills must strictly enforce the 6 pillars defined in `skills/anti-slop/SKILL.md`:
+Strictly eliminate all AI slop across conversations, code generation, architecture, and documentation. All agents, subagents, and skills must strictly enforce the 7 pillars defined in `skills/anti-slop/SKILL.md`:
 1. **Conversational Slop**: Code-first, zero sycophancy, zero robotic apologies, zero trailing cheerleading.
 2. **Placeholder & Truncation Slop**: Never use `// TODO`, `// ... rest of code`, or fake mocks in production routines. Output must be 100% complete and working on the first try.
 3. **Speculative Over-Engineering (Hyper-YAGNI)**: Ban speculative abstraction layers, endless factories, or needless DTO wrappers. Trust static types and schema contracts.
 4. **Syntax Narration**: Comments must explain non-obvious business/architectural WHY, never obvious syntax mechanics (`// increment count`). Delete dead code permanently.
 5. **Ghost Hallucinations & AI Smells**: Ban phantom imports, fabricated SDK methods, and silent error suppression (`catch (e) {}`).
 6. **Documentation Slop**: Zero marketing buzzwords in PRD or architectural specs; mandate concrete PostgreSQL DDL schemas, JSON API contracts, and verifiable NFR budgets.
-7. **Automated Verification**: Run `node scripts/check-anti-slop.js` to validate codebases before completing tasks.
+7. **UI & Visual Sanitation**: Zero generic purple/violet gradients, no default bento-grid templates, no gratuitous dark glassmorphism, no fake metric counters.
+8. **Automated Verification**: Run `node scripts/check-anti-slop.js` to validate codebases before completing tasks.
 
-> **Memory Graph Update:** 2026-09-30 - Upgraded to Sovereign Anti-Slop Directive across all swarm skills.
+## 6. Sovereign Token Optimization Protocol (Hemat Token)
+All skills must preserve maximum reasoning power while maintaining minimal token consumption:
+- Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer`.
+- Implement dynamic model cascading via `adaptive-model-cascade`.
+- Manage context sliding windows and injection via `context-window-engineer`.
+- Store ultra-compact handoffs via `session-memory-manager`.
+- Prune subagent context payloads to task-specific slices during Swarm Fan-Out.
+
+> **Memory Graph Update:** 2026-10-03 - Codified Sovereign Token Optimization & KV-Cache Protocol across all swarm skills.
