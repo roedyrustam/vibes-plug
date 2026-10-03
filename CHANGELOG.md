@@ -8,6 +8,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.1.0] - 2026-10-03
 
 ### Added / Ditambahkan
+- **147-Skill Swarm Architecture Expansion (2026 Frontier Edition)**:
+  - 15 skill baru ditambahkan ke ekosistem `vibes-plug`, meningkatkan total registry dari 132 menjadi **147 skill spesialis**:
+    1. `context-window-engineer`: Rekayasa context window ultra-besar (2M+ token), sliding window, dan token budgeting untuk Gemini 4 Pro, Claude 5.5, dan GPT Astra 6.
+    2. `screenshot-to-code-expert`: Konversi tangkapan layar antarmuka, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi via vision frontier models.
+    3. `adaptive-model-cascade`: Kaskade dan routing model cerdas berbasis skor kompleksitas tugas (dari Flash/Haiku ke Sonnet/Opus/Astra) untuk efisiensi biaya token 40-60%.
+    4. `prompt-injection-firewall`: Pertahanan berlapis terhadap injeksi prompt langsung, indirect injection, jailbreak, dan data exfiltration via tool calls.
+    5. `ai-code-review-autonomous`: Review kode mandiri multi-pass otonom oleh AI tanpa tooling eksternal sebelum kode dipresentasikan ke pengguna.
+    6. `llm-observability-expert`: Observabilitas LLM di produksi (Langfuse, Helicone, Lunary, OpenTelemetry GenAI) dengan pelacakan latensi, pemantauan halusinasi, dan analitik biaya token.
+    7. `property-mutation-testing-expert`: Property-based testing (fast-check, Hypothesis) dan mutation testing (Stryker) untuk pembuktian invarian dan kualitas test suite.
+    8. `speculative-multi-draft-synthesizer`: Penyusunan draf multi-agen spekulatif, hipotesis paralel, dan rekonsiliasi kode sadar-AST.
+    9. `kv-cache-prefix-optimizer`: Rekayasa prefix prompt deterministik, KV-cache locking untuk mencapai hit rate 90%+.
+    10. `test-time-compute-optimizer`: Penskalaan test-time compute, alokasi reasoning token dinamis (MCTS/PRM).
+    11. `living-codebase-ast-graph`: Graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, dan pembersihan kode mati.
+    12. `autonomous-api-drift-healer`: Deteksi drift skema API otonom, monitoring breaking change, dan pembuatan adapter SDK self-healing.
+    13. `ephemeral-wasm-sandbox-executor`: Sandbox WebAssembly efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman.
+    14. `formal-spec-z3-verifier`: Verifikasi formal matematis, SMT solver constraints (Z3, Dafny, TLA+), dan pembuktian invarian FinTech.
+    15. `multimodal-spatial-video-cloner`: Reverse engineering UI/UX dari rekaman layar dan video spasial ke Tailwind CSS v4 & Framer Motion.
+  - **Master Orchestrator Synchronization**:
+    - `skills/brainstorming/SKILL.md`: Matriks orkestrator diperbarui penuh dalam Bahasa Inggris dan Bahasa Indonesia untuk seluruh domain terkait.
+    - `skills/zero-to-prod-orchestrator/SKILL.md`: Alur kerja 8-Fase terintegrasi dengan skill baru pada Fase 1, Fase 4, Fase 5, Fase 6, dan Fase 7 (Bilingual: EN & ID).
 - **DOKU Payment Gateway Architecture Upgrade (v5.1.0)**:
   - **DOKU Checkout Integration**:
     - Dukungan penuh Hosted Checkout dan Modal Popup (`jokul-checkout-1.0.0.js`) melalui `/checkout/v1/payment`.
@@ -34,11 +54,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - `brainstorming`: Pembaruan matriks orkestrator domain SaaS, e-commerce, dan fintech untuk merekomendasikan `doku-payment-gateway` dan `doku-mcp-server`.
 
 ### Changed / Diubah
-- **Core Package & CLI Alignment**:
-  - `package.json`, `plugin.json`, dan CLI `bin/vibes.mjs` dinaikkan versinya secara resmi ke `4.1.0`.
-  - `README.md` diperbarui mencerminkan rilis VibesPlug Pro v4.1.
+- **Core Package & Universal Rules Alignment**:
+  - `package.json`, `plugin.json`, dan CLI `bin/vibes.mjs` dinaikkan versinya secara resmi ke `4.1.0` dengan total 147 skill registry.
+  - `AGENTS.md`, `CLAUDE.md`, dan `README.md` diperbarui mencerminkan Swarm Director 147 spesialis.
+  - `scripts/install.js` diperbarui untuk konfirmasi sinkronisasi 147 skill lintas Antigravity, Claude, dan Cursor.
 - **Quality & Anti-Slop Audit**:
-  - Lolos 100% pemindaian ketat `npm test` (132 skill valid, 228 file AST anti-slop lolos dengan 0 error dan 0 warning).
+  - Lolos 100% pemindaian ketat `npm test` (147 skill valid, 243 file AST anti-slop lolos dengan 0 error dan 0 warning).
 
 ---
 

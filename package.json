@@ -1,7 +1,7 @@
 {
   "name": "vibes-plug",
   "version": "4.1.0",
-  "description": "Universal AI plugin with 132 specialized skills for Antigravity, Claude, and Cursor. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, AI Safety, CUA). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
+  "description": "Universal AI plugin with 147 specialized skills for Antigravity, Claude, and Cursor. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, AI Safety, CUA). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "bin": {
     "vibes-plug": "scripts/install.js",

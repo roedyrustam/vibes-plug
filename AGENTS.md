@@ -2,7 +2,7 @@
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
 > **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/`
-> Each platform has its own entry point, but the core rules and 132 skills are shared.
+> Each platform has its own entry point, but the core rules and 147 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
 **CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 3.5/4.0, GPT-4.5/O3, OpenAI Codex, and DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window.
@@ -12,7 +12,7 @@
 
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
-2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 132 skill registry:
+2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 147 skill registry:
    - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `authentication-identity-expert`.
    - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & idempotency).
@@ -60,7 +60,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 ```
 
 ### Swarm Director Protocols
-1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 132 specialized skills in `vibes-plug`.
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 147 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
 4. **Agent Synergy**: Rely on the `vibes-plug` skills ecosystem:
