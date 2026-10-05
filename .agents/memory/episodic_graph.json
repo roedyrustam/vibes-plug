@@ -1,0 +1,24 @@
+{
+  "project": "vibes-plug",
+  "decisions": [
+    {
+      "id": "MEM_1791223415205",
+      "timestamp": "2026-10-05T18:03:35.205Z",
+      "decision": "Use Drizzle ORM instead of Prisma for edge serverless latency",
+      "category": "Database",
+      "skillsInvolved": [
+        "database-orm-expert"
+      ],
+      "rationale": "Architectural consensus"
+    },
+    {
+      "id": "MEM_1791223676791",
+      "timestamp": "2026-10-05T18:07:56.791Z",
+      "decision": "Adopt Drizzle ORM for serverless edge cold starts",
+      "category": "Database",
+      "skillsInvolved": [],
+      "rationale": "Architectural consensus"
+    }
+  ],
+  "checkpoints": []
+}

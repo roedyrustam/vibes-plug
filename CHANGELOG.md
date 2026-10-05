@@ -19,10 +19,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - **P3: AST Subgraph Query Engine** (`scripts/ast-query.mjs`, `vibes ast`): Ekstraksi bedah simbol kode (`symbols`), isolasi fungsi (`inspect`), dan kalkulasi radius dampak dependensi (`blast-radius`) tanpa membanjiri context window Transformer.
   - **P4: Speculative Multi-Draft & PRM Arbiter** (`scripts/speculative-arbiter.mjs`, `vibes arbitrate`): Evaluator Process Reward Model (PRM) heuristik untuk menilai dan mengarbitrasi draf kode kompetitif berdasarkan Type Safety, Anti-Slop, Ketahanan Error, dan Kompleksitas Algoritma.
   - **P5: Neuro-Symbolic Invariant Verifier** (`scripts/verify-invariants.mjs`, `vibes verify-invariants`): Solver verifikasi formal transisi state machine (SaaS billing, auth, order flow), deteksi deadlock dan unreachable states, serta generasi spesifikasi SMT-LIB 2.0 untuk Z3/CVC5 theorem provers.
-- **Native Model Context Protocol (MCP v1.x) Server (`bin/mcp-server.mjs`, `vibes mcp`)**:
-  - Menyediakan server MCP mandiri berbasis stdio JSON-RPC 2.0 yang mengekspos 5 tools agen: `vibes_ast_query`, `vibes_eval_sql`, `vibes_arbitrate_code`, `vibes_verify_invariants`, dan `vibes_get_skill`.
+- **Native Model Context Protocol (MCP v1.x) Server (`bin/mcp-server.mjs`, `vibes mcp`, `npm run mcp`)**:
+  - Menyediakan server MCP mandiri berbasis stdio JSON-RPC 2.0 yang mengekspos 8 tools AI frontier:
+    1. `vibes_ast_query`: Query simbol AST bedah dan kalkulasi blast radius.
+    2. `vibes_eval_sql`: Evaluasi skema DDL & audit kebijakan RLS in-memory.
+    3. `vibes_arbitrate_code`: Arbitrase PRM multi-draf kode kompetitif.
+    4. `vibes_verify_invariants`: Verifikasi formal invarian transisi state machine & generasi SMT-LIB 2.0.
+    5. `vibes_get_skill`: Akses instan ke 147 skill spesialis langsung dari agen AI.
+    6. `vibes_compile_cache`: Kompilasi dan verifikasi prefix KV-cache deterministik (>1024 token).
+    7. `vibes_memory`: Manajemen memori episodik arsitektur dan pembuatan checkpoint ultra-kompak.
+    8. `vibes_swarm`: Perencanaan dan eksekusi swarm multi-agen otonom.
+- **Autonomous Swarm Runner (`scripts/swarm-runner.mjs`, `vibes swarm`, `npm run swarm`)**:
+  - Engine orkestrasi swarm otonom dengan 3 topologi eksekusi 2026: **Fan-Out/Fan-In** (paralel multi-domain), **Pipeline Saga** (eksekusi fase dependen berurutan), dan **Critic-Validator Loop** (pintu gerbang kualitas anti-slop).
+- **Local Episodic Memory Store & Daemon (`scripts/memory-daemon.mjs`, `vibes memory`, `npm run memory`)**:
+  - Penyimpanan keputusan arsitektur lintas-sesi dalam `.agents/memory/episodic_graph.json` dan generator checkpoint ultra-kompak `CHECKPOINT.md` (<150 token) untuk mengatasi amnesia konteks pada obrolan berulang.
 - **Unified Sovereign Guard (`vibes guard`, `npm run guard`)**:
-  - Menggabungkan validasi seluruh ekosistem (147 skill), pemindaian Anti-Slop ketat, kompilasi KV-Cache (P1), simulasi database in-memory (P2), dan verifikasi formal SMT (P5) dalam 1 perintah otomatis.
+  - Menggabungkan validasi seluruh ekosistem (147 skill), pemindaian Anti-Slop ketat (256 file), kompilasi KV-Cache (P1), simulasi database in-memory (P2), verifikasi formal SMT (P5), Swarm runner self-test, dan pembaharuan memory checkpoint dalam 1 pipeline CI otomatis.
 
 ### Changed / Diubah
 - **Universal Frontier AI Models Harmonization (2026 Edition)**:

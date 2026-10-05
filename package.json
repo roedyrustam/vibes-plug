@@ -9,6 +9,7 @@
   },
   "files": [
     "index.js",
+    "bin",
     "plugin.json",
     "AGENTS.md",
     "CLAUDE.md",
@@ -44,8 +45,10 @@
     "ast": "node scripts/ast-query.mjs",
     "arbitrate": "node scripts/speculative-arbiter.mjs",
     "verify:invariants": "node scripts/verify-invariants.mjs",
+    "swarm": "node scripts/swarm-runner.mjs",
+    "memory": "node scripts/memory-daemon.mjs",
     "mcp": "node bin/mcp-server.mjs",
-    "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs"
+    "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs && node scripts/swarm-runner.mjs && node scripts/memory-daemon.mjs checkpoint"
   },
   "dependencies": {
     "@inquirer/prompts": "^7.0.0"

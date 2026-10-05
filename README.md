@@ -113,6 +113,15 @@ VibesPlug comes with a powerful terminal toolkit:
 - `vibes anti-slop` (or `npm run anti-slop`) - Runs the Sovereign Anti-Slop Scanner to detect and eliminate placeholders, `// TODO`, conversational fluff, and unhandled stubs.
 - `vibes anti-slop --strict` - Hard CI validation where warnings fail the build.
 - `vibes anti-slop --fix` - Automatically removes redundant syntax-narrating comments.
+- `vibes mcp` (or `npm run mcp`) - Launches the native Model Context Protocol (MCP v1.x) server on stdio with 8 AI tools.
+- `vibes swarm "<task>"` - Executes the Autonomous Swarm Director (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
+- `vibes memory <record|query|checkpoint>` - Local episodic memory daemon & ultra-compact checkpointing (<150 tokens).
+- `vibes guard` (or `npm run guard`) - Runs the complete Sovereign Guard CI verification pipeline (P1–P5 + Anti-Slop).
+- `vibes compile-cache` - Compiles and locks deterministic KV-cache prefix (>1024 tokens) for 75-90% token savings.
+- `vibes db:eval` - Simulates and validates SQL DDL migrations in-memory for RLS and schema safety.
+- `vibes ast <action>` - Performs surgical AST symbol queries and calculates dependency blast radius.
+- `vibes arbitrate` - Scores and arbitrates competing code drafts using Process Reward Models (PRM).
+- `vibes verify-invariants` - Formally proves state machine invariants & generates SMT-LIB 2.0 specs for Z3.
 
 ---
 
@@ -158,6 +167,15 @@ VibesPlug dilengkapi dengan sistem terminal yang perkasa:
 - `vibes anti-slop` (atau `npm run anti-slop`) - Menjalankan Sovereign Anti-Slop Scanner untuk mendeteksi dan menghapus placeholder, `// TODO`, basa-basi percakapan, dan stub palsu.
 - `vibes anti-slop --strict` - Validasi CI ketat di mana setiap peringatan slop dianggap sebagai error build.
 - `vibes anti-slop --fix` - Menghapus otomatis komentar narasi sintaksis yang tidak perlu.
+- `vibes mcp` (atau `npm run mcp`) - Memulai server native Model Context Protocol (MCP v1.x) melalui stdio dengan 8 AI tools.
+- `vibes swarm "<task>"` - Menjalankan Swarm Director otonom (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
+- `vibes memory <record|query|checkpoint>` - Daemon memori episodik & generator checkpoint ultra-ringkas (<150 token).
+- `vibes guard` (atau `npm run guard`) - Menjalankan seluruh pipeline verifikasi Sovereign Guard CI (P1–P5 + Anti-Slop).
+- `vibes compile-cache` - Mengompilasi dan mengunci prefix KV-cache deterministik (>1024 token) untuk hemat biaya 75-90%.
+- `vibes db:eval` - Simulasi dan validasi migrasi SQL DDL di memori untuk perlindungan RLS.
+- `vibes ast <action>` - Kueri bedah simbol AST dan kalkulasi radius dampak dependensi.
+- `vibes arbitrate` - Menilai dan mengarbitrasi draf kode kompetitif dengan Process Reward Model (PRM).
+- `vibes verify-invariants` - Membuktikan formal invarian state machine & menghasilkan spesifikasi SMT-LIB 2.0 untuk Z3.
 
 ---
 

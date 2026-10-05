@@ -19,9 +19,12 @@ const __dirname = path.dirname(__filename);
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
-async function compileCache() {
-  console.log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  console.log('📦 Scanning 147-Skill Ecosystem for canonical prefix ordering...\n');
+export async function compileCache(options = {}) {
+  const quiet = !!options.quiet;
+  const log = (...args) => { if (!quiet) console.log(...args); };
+
+  log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
+  log('📦 Scanning 147-Skill Ecosystem for canonical prefix ordering...\n');
 
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -128,28 +131,28 @@ async function compileCache() {
   const byteSize = Buffer.byteLength(jsonString, 'utf8');
   const estimatedTokens = Math.ceil(byteSize / 3.8); // Accurate empirical ratio for structured JSON
 
-  console.log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
-  console.log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  console.log(`  🎯 Total Skills Included    : ${skillsData.length}/147`);
+  log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
+  log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length}/147`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;
   const openAiEligible = estimatedTokens >= 1024;
   const geminiEligible = estimatedTokens >= 1024;
 
-  console.log('\n  ⚡ Platform Prompt Caching Status:');
-  console.log(`    ${claudeEligible ? '✅' : '⚠️'} Anthropic Claude Prompt Caching  : ${claudeEligible ? 'QUALIFIED (>1024 tokens)' : 'Below threshold'}`);
-  console.log(`    ${openAiEligible ? '✅' : '⚠️'} OpenAI Codex / GPT-4.5/o3 Cache : ${openAiEligible ? 'QUALIFIED (>1024 tokens)' : 'Below threshold'}`);
-  console.log(`    ${geminiEligible ? '✅' : '⚠️'} Google Gemini KV-Cache Caching   : ${geminiEligible ? 'QUALIFIED (Prefix Pinning Active)' : 'Below threshold'}`);
-  console.log(`    ✅ Cursor IDE Rules Alignment     : Pinned & Synchronized`);
+  log('\n  ⚡ Platform Prompt Caching Status:');
+  log(`    ${claudeEligible ? '✅' : '⚠️'} Anthropic Claude Prompt Caching  : ${claudeEligible ? 'QUALIFIED (>1024 tokens)' : 'Below threshold'}`);
+  log(`    ${openAiEligible ? '✅' : '⚠️'} OpenAI Codex / GPT-4.5/o3 Cache : ${openAiEligible ? 'QUALIFIED (>1024 tokens)' : 'Below threshold'}`);
+  log(`    ${geminiEligible ? '✅' : '⚠️'} Google Gemini KV-Cache Caching   : ${geminiEligible ? 'QUALIFIED (Prefix Pinning Active)' : 'Below threshold'}`);
+  log(`    ✅ Cursor IDE Rules Alignment     : Pinned & Synchronized`);
 
   // 4. Save Compiled Cache Prefix Artifact
   const outputPath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
   await fs.writeFile(outputPath, jsonString, 'utf8');
-  console.log(`\n  💾 Compiled Cache Prefix written to: .cache-prefix.json`);
+  log(`\n  💾 Compiled Cache Prefix written to: .cache-prefix.json`);
 
   // 5. Verify Prefix Alignment across AGENTS.md, CLAUDE.md, CODEX.md, .cursorrules
-  console.log('\n  🔍 Verifying Entry-Point Prefix Alignment...');
+  log('\n  🔍 Verifying Entry-Point Prefix Alignment...');
   const entryFiles = [
     { name: 'AGENTS.md', path: path.join(PLUGIN_ROOT, 'AGENTS.md') },
     { name: 'CLAUDE.md', path: path.join(PLUGIN_ROOT, 'CLAUDE.md') },
@@ -164,16 +167,26 @@ async function compileCache() {
       const hasPrimary = content.includes('PRIMARY TRIGGER') || content.includes('Pemicu Utama');
       const hasAntiSlop = content.includes('Anti-Slop') || content.includes('anti-slop');
       const status = hasUniversal && hasPrimary && hasAntiSlop ? '✅ Synchronized' : '⚠️ Drift detected';
-      console.log(`    • ${entry.name.padEnd(16)}: ${status}`);
+      log(`    • ${entry.name.padEnd(16)}: ${status}`);
     } catch (e) {
-      console.log(`    • ${entry.name.padEnd(16)}: ❌ Missing (${e.message})`);
+      log(`    • ${entry.name.padEnd(16)}: ❌ Missing (${e.message})`);
     }
   }
 
-  console.log('\n✨ [P1 Complete] KV-Cache Prefix successfully compiled and locked for all frontier models!\n');
+  log('\n✨ [P1 Complete] KV-Cache Prefix successfully compiled and locked for all frontier models!\n');
+
+  return {
+    success: true,
+    byteSize,
+    estimatedTokens,
+    skillsCount: skillsData.length,
+    outputPath
+  };
 }
 
-compileCache().catch(err => {
-  console.error(`\n❌ Error during cache compilation: ${err.message}`);
-  process.exit(1);
-});
+if (process.argv[1] && process.argv[1].endsWith('compile-cache.mjs')) {
+  compileCache().catch(err => {
+    console.error(`\n❌ Error during cache compilation: ${err.message}`);
+    process.exit(1);
+  });
+}

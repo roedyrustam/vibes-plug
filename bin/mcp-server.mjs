@@ -21,6 +21,9 @@ import { parseSymbols, extractSymbolCode, calculateBlastRadius } from '../script
 import { evaluateSql } from '../scripts/eval-migration.mjs';
 import { scoreDraft, arbitrateCandidates } from '../scripts/speculative-arbiter.mjs';
 import { verifyStateMachine, parseTypeScriptStates } from '../scripts/verify-invariants.mjs';
+import { compileCache } from '../scripts/compile-cache.mjs';
+import { recordDecision, queryMemory, generateCompactCheckpoint, loadMemory } from '../scripts/memory-daemon.mjs';
+import { executeSwarm } from '../scripts/swarm-runner.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -121,6 +124,51 @@ const TOOLS = [
       },
       required: ['skillName']
     }
+  },
+  {
+    name: 'vibes_memory',
+    description: 'Local Episodic Memory Engine: record architectural decisions, query past project invariants, or generate ultra-compact handoff checkpoints (<150 tokens) to eliminate context amnesia.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['record', 'query', 'checkpoint', 'list'],
+          description: 'Memory action to perform.'
+        },
+        text: {
+          type: 'string',
+          description: 'Decision text (for action: record) or search keyword (for action: query).'
+        },
+        category: {
+          type: 'string',
+          description: 'Optional category (Architecture, Database, Security, UI).'
+        }
+      },
+      required: ['action']
+    }
+  },
+  {
+    name: 'vibes_swarm',
+    description: 'Autonomous Swarm Orchestrator: plan and execute Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator topologies for complex multi-domain development tasks.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        taskDescription: {
+          type: 'string',
+          description: 'Natural language description of the development task.'
+        }
+      },
+      required: ['taskDescription']
+    }
+  },
+  {
+    name: 'vibes_compile_cache',
+    description: 'Deterministic KV-Cache Prefix Compiler: compiles and verifies canonical instruction prefix (>1024 tokens) for prompt caching across Gemini, Claude, Codex, and Cursor.',
+    inputSchema: {
+      type: 'object',
+      properties: {}
+    }
   }
 ];
 
@@ -204,6 +252,33 @@ async function handleRpcRequest(request) {
         }
         if (!spec) throw new Error('Either stateMachine or typeScriptCode with state union is required.');
         const res = verifyStateMachine(spec);
+        contentText = JSON.stringify(res, null, 2);
+      } else if (name === 'vibes_compile_cache') {
+        const res = await compileCache({ quiet: true });
+        contentText = JSON.stringify(res, null, 2);
+      } else if (name === 'vibes_memory') {
+        const action = args?.action;
+        if (action === 'record') {
+          if (!args.text) throw new Error("Argument 'text' is required for action 'record'.");
+          const item = await recordDecision(args.text, { category: args.category || 'Architecture' });
+          contentText = JSON.stringify({ success: true, item }, null, 2);
+        } else if (action === 'query') {
+          if (!args.text) throw new Error("Argument 'text' (search keyword) is required for action 'query'.");
+          const matches = await queryMemory(args.text);
+          contentText = JSON.stringify({ count: matches.length, matches }, null, 2);
+        } else if (action === 'checkpoint') {
+          const res = await generateCompactCheckpoint();
+          contentText = JSON.stringify({ success: true, checkpoint: res }, null, 2);
+        } else if (action === 'list') {
+          const mem = await loadMemory();
+          contentText = JSON.stringify(mem, null, 2);
+        } else {
+          throw new Error(`Unknown memory action: ${action}`);
+        }
+      } else if (name === 'vibes_swarm') {
+        const taskDescription = args?.taskDescription;
+        if (!taskDescription) throw new Error("Argument 'taskDescription' is required.");
+        const res = await executeSwarm(taskDescription);
         contentText = JSON.stringify(res, null, 2);
       } else if (name === 'vibes_get_skill') {
         const skillName = args?.skillName?.trim();

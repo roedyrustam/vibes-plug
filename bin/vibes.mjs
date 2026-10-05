@@ -1045,6 +1045,8 @@ Commands:
   ast <action> [args]       Query AST symbols, inspect code, or blast-radius
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
+  swarm [task]              Execute or plan autonomous multi-agent swarm (Fan-Out, Saga, Critic)
+  memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
@@ -1102,6 +1104,20 @@ switch (command) {
     const { execSync } = await import('child_process');
     const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
     execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/swarm-runner.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'memory': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/memory-daemon.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
