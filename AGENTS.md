@@ -141,7 +141,7 @@ Strictly eliminate all AI slop across conversations, code generation, architectu
 4. **Syntax Narration**: Comments must explain non-obvious business/architectural WHY, never obvious syntax mechanics (`// increment count`). Delete dead code permanently.
 5. **Ghost Hallucinations & AI Smells**: Ban phantom imports, fabricated SDK methods, and silent error suppression (`catch (e) {}`).
 6. **Documentation Slop**: Zero marketing buzzwords in PRD or architectural specs; mandate concrete PostgreSQL DDL schemas, JSON API contracts, and verifiable NFR budgets.
-7. **UI & Visual Sanitation**: Zero generic purple/violet gradients, no default bento-grid templates, no gratuitous dark glassmorphism, no fake metric counters.
+7. **UI & Visual Sanitation (Sovereign Professional UI Craft)**: Enforce Linear/Stripe/Apple-caliber design. Zero generic blue-purple gradients, no blurred neon glow orbs, no pill button addiction (`rounded-full` on standard rectangular elements), no stacked glassmorphism, mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), crisp 1px borders, and 20-point checklist compliance.
 8. **Automated Verification**: Run `node scripts/check-anti-slop.js` to validate codebases before completing tasks.
 
 ## 6. Sovereign Token Optimization Protocol (Hemat Token)

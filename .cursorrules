@@ -40,6 +40,7 @@ instructions, patterns, and best practices for the modern 2026 tech stack.
   * Hyper-YAGNI: avoid speculative abstractions and redundant wrapper layers.
   * Meaningful comments only: explain non-obvious business/architectural WHY, never syntax mechanics.
   * No swallowed errors (`catch(e){}` prohibited); structured logging (`Pino`) required.
+  * UI & Visual Sanitation: Enforce Linear/Stripe-caliber design. Zero generic blue-purple gradients, no neon glow orbs, no pill button addiction (`rounded-full` on rectangular elements), mandatory 5-state contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
   * Run `node scripts/check-anti-slop.js` to verify zero violations.
 ## Sovereign Token Optimization Protocol (Hemat Token)
 - Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer` (75-90% prompt cache hit rates).
