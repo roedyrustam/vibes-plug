@@ -43,7 +43,9 @@
     "db:eval": "node scripts/eval-migration.mjs",
     "ast": "node scripts/ast-query.mjs",
     "arbitrate": "node scripts/speculative-arbiter.mjs",
-    "verify:invariants": "node scripts/verify-invariants.mjs"
+    "verify:invariants": "node scripts/verify-invariants.mjs",
+    "mcp": "node bin/mcp-server.mjs",
+    "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^7.0.0"

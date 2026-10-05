@@ -19,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - **P3: AST Subgraph Query Engine** (`scripts/ast-query.mjs`, `vibes ast`): Ekstraksi bedah simbol kode (`symbols`), isolasi fungsi (`inspect`), dan kalkulasi radius dampak dependensi (`blast-radius`) tanpa membanjiri context window Transformer.
   - **P4: Speculative Multi-Draft & PRM Arbiter** (`scripts/speculative-arbiter.mjs`, `vibes arbitrate`): Evaluator Process Reward Model (PRM) heuristik untuk menilai dan mengarbitrasi draf kode kompetitif berdasarkan Type Safety, Anti-Slop, Ketahanan Error, dan Kompleksitas Algoritma.
   - **P5: Neuro-Symbolic Invariant Verifier** (`scripts/verify-invariants.mjs`, `vibes verify-invariants`): Solver verifikasi formal transisi state machine (SaaS billing, auth, order flow), deteksi deadlock dan unreachable states, serta generasi spesifikasi SMT-LIB 2.0 untuk Z3/CVC5 theorem provers.
+- **Native Model Context Protocol (MCP v1.x) Server (`bin/mcp-server.mjs`, `vibes mcp`)**:
+  - Menyediakan server MCP mandiri berbasis stdio JSON-RPC 2.0 yang mengekspos 5 tools agen: `vibes_ast_query`, `vibes_eval_sql`, `vibes_arbitrate_code`, `vibes_verify_invariants`, dan `vibes_get_skill`.
+- **Unified Sovereign Guard (`vibes guard`, `npm run guard`)**:
+  - Menggabungkan validasi seluruh ekosistem (147 skill), pemindaian Anti-Slop ketat, kompilasi KV-Cache (P1), simulasi database in-memory (P2), dan verifikasi formal SMT (P5) dalam 1 perintah otomatis.
 
 ### Changed / Diubah
 - **Universal Frontier AI Models Harmonization (2026 Edition)**:

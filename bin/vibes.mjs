@@ -1045,6 +1045,8 @@ Commands:
   ast <action> [args]       Query AST symbols, inspect code, or blast-radius
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
+  mcp                       Start the native Model Context Protocol (MCP) server on stdio
+  guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
   help                      Show this help menu
 `);
@@ -1056,6 +1058,19 @@ switch (command) {
   case 'sync':
     runSync();
     break;
+  case 'mcp':
+  case 'serve-mcp': {
+    const { spawn } = await import('child_process');
+    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')], { stdio: 'inherit' });
+    child.on('exit', (code) => process.exit(code || 0));
+    break;
+  }
+  case 'guard': {
+    const { execSync } = await import('child_process');
+    execSync('npm run guard', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
   case 'compile-cache': {
     const { execSync } = await import('child_process');
     execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
