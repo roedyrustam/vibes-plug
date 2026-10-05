@@ -1040,6 +1040,9 @@ Commands:
   hooks remove              Remove the Git pre-commit hook
   doctor                    Run environment health diagnostics
   audit                     Run the strict Anti-AI Slop quality gate check
+  compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
+  db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
+  ast <action> [args]       Query AST symbols, inspect code, or blast-radius
   validate                  Run the strict skill ecosystem validation check
   help                      Show this help menu
 `);
@@ -1051,6 +1054,26 @@ switch (command) {
   case 'sync':
     runSync();
     break;
+  case 'compile-cache': {
+    const { execSync } = await import('child_process');
+    execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'db:eval': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/eval-migration.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'ast': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
   case 'init':
     runInit(args[1]);
     break;

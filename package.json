@@ -38,7 +38,10 @@
     "install-all": "node scripts/install.js --all",
     "install-claude": "node scripts/install.js --claude",
     "install-cursor": "node scripts/install.js --cursor",
-    "install-codex": "node scripts/install.js --codex"
+    "install-codex": "node scripts/install.js --codex",
+    "compile-cache": "node scripts/compile-cache.mjs",
+    "db:eval": "node scripts/eval-migration.mjs",
+    "ast": "node scripts/ast-query.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^7.0.0"
