@@ -1043,6 +1043,8 @@ Commands:
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
   ast <action> [args]       Query AST symbols, inspect code, or blast-radius
+  arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
+  verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   validate                  Run the strict skill ecosystem validation check
   help                      Show this help menu
 `);
@@ -1071,6 +1073,20 @@ switch (command) {
     const { execSync } = await import('child_process');
     const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
     execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'arbitrate': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/speculative-arbiter.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'verify-invariants': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }

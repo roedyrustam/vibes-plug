@@ -41,7 +41,9 @@
     "install-codex": "node scripts/install.js --codex",
     "compile-cache": "node scripts/compile-cache.mjs",
     "db:eval": "node scripts/eval-migration.mjs",
-    "ast": "node scripts/ast-query.mjs"
+    "ast": "node scripts/ast-query.mjs",
+    "arbitrate": "node scripts/speculative-arbiter.mjs",
+    "verify:invariants": "node scripts/verify-invariants.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^7.0.0"

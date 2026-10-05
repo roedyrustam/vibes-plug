@@ -13,7 +13,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Menambahkan **`.codex/rules/vibes-plug-core.md`** untuk modular rules engine platform Codex.
   - Memperbarui installer CLI **`scripts/install.js`** dengan flag `--codex` dan deteksi platform `~/.codex/` (global maupun per-project).
   - Mengintegrasikan verifikasi otomatis `CODEX.md` dan `.codex/rules/` pada `bin/vibes.mjs` (`vibes sync`).
-  - Memperbarui metadata ekosistem di `package.json`, `plugin.json`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, dan `README.md` (5 bahasa) untuk memasukkan OpenAI Codex ke dalam Universal Compatibility Matrix.
+- **Superintelligence Engineering Substrate (P1 - P5 Engines)**:
+  - **P1: Canonical Prompt-Cache Compiler** (`scripts/compile-cache.mjs`, `vibes compile-cache`): Mengompilasi prefix instruksi deterministik 147 skill ke dalam `.cache-prefix.json` (5.469 bytes / ~1.440 tokens), mengunci efisiensi prompt caching >1024 token untuk Anthropic Claude, OpenAI Codex/o3, Google Gemini, dan Cursor.
+  - **P2: In-Memory DB & Migration Sandbox** (`scripts/eval-migration.mjs`, `vibes db:eval`): Menjalankan simulasi DDL/SQL di memori untuk menguji keamanan RLS, mencegah penghapusan destruktif (`DROP TABLE/COLUMN`), dan memverifikasi indeks Foreign Key sebelum dieksekusi ke DB produksi.
+  - **P3: AST Subgraph Query Engine** (`scripts/ast-query.mjs`, `vibes ast`): Ekstraksi bedah simbol kode (`symbols`), isolasi fungsi (`inspect`), dan kalkulasi radius dampak dependensi (`blast-radius`) tanpa membanjiri context window Transformer.
+  - **P4: Speculative Multi-Draft & PRM Arbiter** (`scripts/speculative-arbiter.mjs`, `vibes arbitrate`): Evaluator Process Reward Model (PRM) heuristik untuk menilai dan mengarbitrasi draf kode kompetitif berdasarkan Type Safety, Anti-Slop, Ketahanan Error, dan Kompleksitas Algoritma.
+  - **P5: Neuro-Symbolic Invariant Verifier** (`scripts/verify-invariants.mjs`, `vibes verify-invariants`): Solver verifikasi formal transisi state machine (SaaS billing, auth, order flow), deteksi deadlock dan unreachable states, serta generasi spesifikasi SMT-LIB 2.0 untuk Z3/CVC5 theorem provers.
 
 ### Changed / Diubah
 - **Universal Frontier AI Models Harmonization (2026 Edition)**:
