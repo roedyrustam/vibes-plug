@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.0] - 2026-10-03
+## [4.2.0] - 2026-10-06
+
+### Added / Ditambahkan
+- **OpenAI Codex CLI Native Integration**:
+  - Menambahkan file konfigurasi utama **`CODEX.md`** di root repositori khusus untuk **OpenAI Codex CLI** (`codex`) dan OpenAI coding agents.
+  - Menambahkan **`.codex/rules/vibes-plug-core.md`** untuk modular rules engine platform Codex.
+  - Memperbarui installer CLI **`scripts/install.js`** dengan flag `--codex` dan deteksi platform `~/.codex/` (global maupun per-project).
+  - Mengintegrasikan verifikasi otomatis `CODEX.md` dan `.codex/rules/` pada `bin/vibes.mjs` (`vibes sync`).
+  - Memperbarui metadata ekosistem di `package.json`, `plugin.json`, `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, dan `README.md` (5 bahasa) untuk memasukkan OpenAI Codex ke dalam Universal Compatibility Matrix.
 
 ### Changed / Diubah
 - **Universal Frontier AI Models Harmonization (2026 Edition)**:

@@ -1,7 +1,7 @@
 # Core Rule for Vibes-Plug Agents
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
-> **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/`
+> **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
 > Each platform has its own entry point, but the core rules and 147 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility

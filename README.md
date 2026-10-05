@@ -77,7 +77,7 @@ VibesPlug is powered by 147 specialized AI subagents. Here is a high-level group
 Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 147 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex, and DeepSeek).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
-*Supported Platforms: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), and Claude Code.*
+*Supported Platforms: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code, and OpenAI Codex.*
 
 #### Method 1: CLI (NPM Installation - Recommended)
 The CLI automatically scaffolds the required master rules for your specific IDE.
@@ -95,6 +95,7 @@ If you download the `.zip` archive, extract it and configure your IDE as follows
 - **Kimi / Kiro:** Copy `.kimirules` or `.kirorules` to your project root.
 - **VSCode (Cline/Roo):** Copy `.clinerules` to your project root.
 - **Claude Code:** Copy `CLAUDE.md` and `.claude/rules/` to your project root.
+- **OpenAI Codex:** Copy `CODEX.md` and `.codex/rules/` to your project root (or run `npx vibes-plug --codex`).
 
 ### 💻 How to Use the Plugin & CLI
 
@@ -121,7 +122,7 @@ VibesPlug comes with a powerful terminal toolkit:
 Selamat datang di **VibesPlug Pro**. Sistem ini bertindak sebagai **Swarm Director (Sutradara Utama)** untuk mengorkestrasi 147 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex, dan DeepSeek).
 
 ### 🚀 Panduan Instalasi Universal (Semua IDE & LLM)
-*Platform Didukung: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), dan Claude Code.*
+*Platform Didukung: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code, dan OpenAI Codex.*
 
 #### Metode 1: CLI (Instalasi NPM - Rekomendasi)
 CLI akan otomatis mengonfigurasi aturan utama (*master rules*) sesuai dengan IDE yang Anda gunakan.
@@ -139,6 +140,7 @@ Jika Anda mengunduh arsip `.zip`, ekstrak dan konfigurasikan IDE Anda sebagai be
 - **Kimi / Kiro:** Salin `.kimirules` atau `.kirorules` ke *root* proyek Anda.
 - **VSCode (Cline/Roo):** Salin `.clinerules` ke *root* proyek Anda.
 - **Claude Code:** Salin `CLAUDE.md` dan `.claude/rules/` ke *root* proyek Anda.
+- **OpenAI Codex:** Salin `CODEX.md` dan `.codex/rules/` ke *root* proyek Anda (atau jalankan `npx vibes-plug --codex`).
 
 ### 💻 Cara Penggunaan Plugin & CLI
 
@@ -165,7 +167,7 @@ VibesPlug dilengkapi dengan sistem terminal yang perkasa:
 欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 147 个专业的 AI 子代理。它经过严格设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
 
 ### 🚀 通用安装指南 (所有 IDE 和 LLM)
-*支持的平台: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), 和 Claude Code。*
+*支持的平台: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code, 和 OpenAI Codex。*
 
 #### 方法 1: CLI (NPM 安装 - 推荐)
 CLI 将自动为您的特定 IDE 构建所需的主规则。
@@ -182,6 +184,7 @@ vibes-plug init
 - **Kimi / Kiro:** 将 `.kimirules` 或 `.kirorules` 复制到项目根目录。
 - **VSCode (Cline):** 将 `.clinerules` 复制到项目根目录。
 - **Claude Code:** 将 `CLAUDE.md` 复制到项目根目录。
+- **OpenAI Codex:** 将 `CODEX.md` 复制到项目根目录。
 
 ### 💻 如何使用插件和 CLI
 1. **IDE 内使用:** 无需手动标记技能。只需在 AI 聊天中输入自然语言指令。
@@ -198,7 +201,7 @@ vibes-plug init
 Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 147 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
 
 ### 🚀 Universelle Installationsanleitung (Alle IDEs & LLMs)
-*Unterstützte Plattformen: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline) und Claude Code.*
+*Unterstützte Plattformen: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code und OpenAI Codex.*
 
 #### Methode 1: CLI (NPM-Installation - Empfohlen)
 Die CLI erstellt automatisch die erforderlichen Hauptregeln für Ihre spezifische IDE.
@@ -215,6 +218,7 @@ vibes-plug init
 - **Kimi / Kiro:** Kopieren Sie `.kimirules` oder `.kirorules` in Ihr Projektstammverzeichnis.
 - **VSCode (Cline):** Kopieren Sie `.clinerules` in Ihr Projektstammverzeichnis.
 - **Claude Code:** Kopieren Sie `CLAUDE.md` in Ihr Projektstammverzeichnis.
+- **OpenAI Codex:** Kopieren Sie `CODEX.md` in Ihr Projektstammverzeichnis.
 
 ### 💻 Verwendung des Plugins & der CLI
 1. **In-IDE-Nutzung:** Keine manuelle Markierung von Skills erforderlich. Geben Sie einfach einen natürlichen Befehl in den KI-Chat ein.
@@ -231,7 +235,7 @@ vibes-plug init
 **VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、147 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
 
 ### 🚀 ユニバーサルインストールガイド (すべての IDE と LLM)
-*サポートされているプラットフォーム: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code.*
+*サポートされているプラットフォーム: Antigravity, Cursor, Windsurf, Trae, Kimi, Kiro, VSCode (Cline), Claude Code, OpenAI Codex.*
 
 #### 方法 1: CLI (NPM インストール - 推奨)
 CLI は、特定の IDE に必要なマスタールールを自動的に構築します。
@@ -248,6 +252,7 @@ vibes-plug init
 - **Kimi / Kiro:** `.kimirules` または `.kirorules` をプロジェクトのルートにコピーします。
 - **VSCode (Cline):** `.clinerules` をプロジェクトのルートにコピーします。
 - **Claude Code:** `CLAUDE.md` をプロジェクトのルートにコピーします。
+- **OpenAI Codex:** `CODEX.md` をプロジェクトのルートにコピーします。
 
 ### 💻 プラグインと CLI の使い方
 1. **IDE 内での使用:** スキルを手動でタグ付けする必要はありません。AI チャットに自然な指示を入力するだけです。

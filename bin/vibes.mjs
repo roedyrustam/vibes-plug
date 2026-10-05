@@ -48,7 +48,7 @@ async function runInit(projectName) {
     console.log('\n🎉 Project scaffolded successfully!');
     console.log('\nTo get started:');
     console.log(`  cd ${projectName}`);
-    console.log('  Ask your AI (Claude/Cursor/Antigravity): "Begin phase 1 using zero-to-prod-orchestrator"');
+    console.log('  Ask your AI (Claude/Cursor/Antigravity/Codex): "Begin phase 1 using zero-to-prod-orchestrator"');
     
   } catch (err) {
     console.error(`\n❌ Error creating project: ${err.message}`);
@@ -975,8 +975,10 @@ async function runSync() {
     { name: 'Antigravity (AGENTS.md)', file: path.join(PLUGIN_ROOT, 'AGENTS.md') },
     { name: 'Claude Code (CLAUDE.md)', file: path.join(PLUGIN_ROOT, 'CLAUDE.md') },
     { name: 'Cursor IDE (.cursorrules)', file: path.join(PLUGIN_ROOT, '.cursorrules') },
+    { name: 'OpenAI Codex (CODEX.md)', file: path.join(PLUGIN_ROOT, 'CODEX.md') },
     { name: 'Cursor Rules (.cursor/rules/vibes-plug-core.mdc)', file: path.join(PLUGIN_ROOT, '.cursor', 'rules', 'vibes-plug-core.mdc') },
-    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') }
+    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') },
+    { name: 'Codex Rules (.codex/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.codex', 'rules', 'vibes-plug-core.md') }
   ];
 
   for (const item of checkFiles) {

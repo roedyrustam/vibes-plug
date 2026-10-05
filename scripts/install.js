@@ -30,6 +30,11 @@ const platforms = {
             return true;
         },
     },
+    codex: {
+        name: 'OpenAI Codex CLI',
+        globalDir: path.join(HOME, '.codex'),
+        detect: () => fs.existsSync(path.join(HOME, '.codex')),
+    },
 };
 
 function copyRecursiveSync(src, dest) {
@@ -127,6 +132,50 @@ function installForCursor(projectDir) {
     }
 }
 
+function installForCodex(projectDir) {
+    // Global: Copy CODEX.md to ~/.codex/CODEX.md (or global config)
+    const globalCodexDir = platforms.codex.globalDir;
+    if (!fs.existsSync(globalCodexDir)) {
+        fs.mkdirSync(globalCodexDir, { recursive: true });
+    }
+
+    const codexMdSrc = path.join(PLUGIN_ROOT, 'CODEX.md');
+    const codexMdDest = path.join(globalCodexDir, 'CODEX.md');
+    if (fs.existsSync(codexMdSrc)) {
+        fs.copyFileSync(codexMdSrc, codexMdDest);
+        console.log(`  ✅ Copied CODEX.md → ${codexMdDest}`);
+    }
+
+    // Copy .codex/rules/
+    const rulesDir = path.join(PLUGIN_ROOT, '.codex', 'rules');
+    const targetRulesDir = path.join(globalCodexDir, 'rules');
+    if (fs.existsSync(rulesDir)) {
+        copyRecursiveSync(rulesDir, targetRulesDir);
+        console.log(`  ✅ Copied rules → ${targetRulesDir}`);
+    }
+
+    // Copy skills directory
+    const skillsSrc = path.join(PLUGIN_ROOT, 'skills');
+    const skillsDest = path.join(globalCodexDir, 'skills');
+    if (fs.existsSync(skillsSrc)) {
+        copyRecursiveSync(skillsSrc, skillsDest);
+        console.log(`  ✅ Copied skills → ${skillsDest}`);
+    }
+
+    // Per-project install
+    if (projectDir) {
+        const projCodex = path.join(projectDir, '.codex');
+        if (!fs.existsSync(projCodex)) fs.mkdirSync(projCodex, { recursive: true });
+        if (fs.existsSync(codexMdSrc)) {
+            fs.copyFileSync(codexMdSrc, path.join(projectDir, 'CODEX.md'));
+        }
+        if (fs.existsSync(rulesDir)) {
+            copyRecursiveSync(rulesDir, path.join(projCodex, 'rules'));
+        }
+        console.log(`  ✅ Per-project install → ${projectDir}`);
+    }
+}
+
 // --- CLI ---
 function main() {
     const args = process.argv.slice(2);
@@ -135,17 +184,18 @@ function main() {
     const agyFlag = args.includes('--antigravity') || args.includes('--agy');
     const claudeFlag = args.includes('--claude');
     const cursorFlag = args.includes('--cursor');
+    const codexFlag = args.includes('--codex');
     const projectIdx = args.indexOf('--project');
     const projectDir = projectIdx !== -1 ? args[projectIdx + 1] : null;
 
     const pkg = require('../package.json');
-    const version = pkg.version || '2.11.0';
+    const version = pkg.version || '4.2.0';
 
     if (helpFlag || args.length === 0) {
         console.log(`
 ╔══════════════════════════════════════════════════════════╗
 ║       vibes-plug installer v${version.padEnd(6)} (2026 Edition)        ║
-║    Universal AI Plugin for AGY, Claude, and Cursor       ║
+║   Universal AI Plugin for AGY, Claude, Cursor & Codex   ║
 ╚══════════════════════════════════════════════════════════╝
 
 Usage: npx vibes-plug [options] or node install.js [options]
@@ -155,12 +205,14 @@ Options:
   --antigravity, --agy    Install for Antigravity
   --claude                Install for Claude Code (global + optional per-project)
   --cursor                Install for Cursor IDE (requires --project)
-  --project <path>        Target project directory (for Claude/Cursor per-project install)
+  --codex                 Install for OpenAI Codex CLI (global + optional per-project)
+  --project <path>        Target project directory (for Claude/Cursor/Codex per-project install)
   --help, -h              Show this help message
 
 Examples:
   npx vibes-plug --all
   npx vibes-plug --claude
+  npx vibes-plug --codex
   npx vibes-plug --cursor --project ./my-app
   node scripts/install.js --all
 `);
@@ -195,9 +247,15 @@ Examples:
         console.log('');
     }
 
+    if (allFlag || codexFlag) {
+        console.log('🔧 Installing for OpenAI Codex CLI...');
+        installForCodex(projectDir);
+        console.log('');
+    }
+
     console.log('✨ Installation complete!');
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
-    console.log('🔗 All 147 skills are automatically synchronized across Antigravity, Claude, and Cursor!\n');
+    console.log('🔗 All 147 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
 }
 
 main();

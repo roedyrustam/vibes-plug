@@ -1,5 +1,5 @@
 # Vibes-Plug — 147-Skill AI Agent Swarm Architecture (v4.2.0)
-# Universal AI Plugin for Antigravity, Claude, and Cursor
+# Universal AI Plugin for Antigravity, Claude, Cursor, and OpenAI Codex
 
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all Cursor AI interactions.
