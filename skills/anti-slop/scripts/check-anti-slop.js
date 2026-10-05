@@ -82,6 +82,48 @@ const CODE_WARN_PATTERNS = [
     name: 'Stripped Focus Outline Without Ring Replacement',
     regex: /focus:outline-none(?!\s.*focus-visible:ring)/,
     description: 'Stripping focus outline without focus-visible replacement breaks accessibility (WCAG 2.2).'
+  },
+  {
+    id: 'UI_GENERIC_GRADIENT',
+    name: 'Generic AI Blue-Purple/Neon Gradient',
+    regex: /(bg-gradient-to-[trbl]+\s+from-(blue|indigo|cyan)-[456]00\s+(via-[a-z]+-[456]00\s+)?to-(purple|pink|violet)-[456]00)/i,
+    description: 'Generic AI blue-purple gradient detected. Pull palette from DESIGN.md (antislop-ui).'
+  },
+  {
+    id: 'UI_DECORATIVE_EMOJI',
+    name: 'Decorative Emoji in UI Component',
+    regex: /<(h[1-6]|button|span|p)[^>]*>[^<]*[🚀✨🔥🎉💡][^<]*<\/(h[1-6]|button|span|p)>/u,
+    description: 'Decorative emojis in headings or buttons scream AI slop. Remove or replace with real icons (antislop-ui).'
+  },
+  {
+    id: 'UI_NEON_GLOW_ORB',
+    name: 'Generic AI Blurred Neon Radial Orb',
+    regex: /(bg-(purple|blue|cyan|fuchsia|violet|indigo)-[456]00\/[0-9]+\s+rounded-full\s+blur-[23]xl|blur-[23]xl\s+bg-(purple|blue|cyan|fuchsia|violet|indigo)-[456]00)/i,
+    description: 'Blurred neon radial orb detected. AI slop hero backdrop; use purposeful lighting or clean solid surfaces (antislop-ui).'
+  },
+  {
+    id: 'UI_PILL_ADDICTION',
+    name: 'Pill Button Gradient Slop',
+    regex: /<button[^>]*className="[^"]*\brounded-full\b[^"]*(bg-gradient|from-)[^"]*"/i,
+    description: 'Pill button with gradient detected. Use structured 3-tier radius scale (6px/8px/12px) without generic gradient (antislop-ui).'
+  },
+  {
+    id: 'UI_FAKE_PING_DOT',
+    name: 'Decorative Pulsing Status Ping',
+    regex: /<span[^>]*className="[^"]*\banimate-ping\b[^"]*"\s*(?:\/>|>[^<]*<\/span>)/i,
+    description: 'Decorative pulsing status ping detected. Only use status dots for verified real-time telemetry (antislop-ui).'
+  },
+  {
+    id: 'UI_ZERO_GRAVITY_SHADOW',
+    name: 'Zero-Gravity Colored Drop-Shadow',
+    regex: /\bshadow-2xl\s+shadow-(purple|indigo|blue|violet)-[456]00/i,
+    description: 'Zero-gravity colored drop-shadow detected. Use crisp 1px borders and subtle physical elevation (antislop-ui).'
+  },
+  {
+    id: 'UI_UNSTYLED_CLICKABLE_DIV',
+    name: 'Clickable Div Without Keyboard/Button Role',
+    regex: /<div[^>]+onClick=(?!.*(role=["']button["']|onKeyDown|tabIndex|aria-))/i,
+    description: 'Clickable <div> without keyboard accessibility or button role. Use semantic <button type="button"> (antislop-ui).'
   }
 ];
 

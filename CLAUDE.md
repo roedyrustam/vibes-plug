@@ -55,6 +55,7 @@ Strictly eliminate conversational pleasantries, prompt repeating, syntax-narrati
 - **Completeness**: 100% complete files, functions, and tests on the first try. No lazy stubs or fake mocks in production routines.
 - **Hyper-YAGNI**: No speculative layers, factory bloat, or unnecessary DTO wrappers.
 - **Meaningful Comments Only**: Explain non-obvious business/architectural WHY, never syntax mechanics.
+- **UI & Visual Sanitation**: Enforce Sovereign Professional UI Craft (Linear/Stripe caliber). No generic blue-purple gradients, no blurred neon orbs, no pill button addiction (`rounded-full` on standard rectangular elements), no stacked glassmorphism, mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
 - **Automated Verification**: Use `node scripts/check-anti-slop.js` to ensure zero slop violations.
 
 ### 5. Mandatory Documentation for New Projects
