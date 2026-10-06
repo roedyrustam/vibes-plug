@@ -1,13 +1,15 @@
-# Vibes-Plug — 147-Skill AI Agent Swarm Architecture
+# Vibes-Plug — 147-Skill AI Agent Swarm Architecture (OpenAI Codex Edition)
 
 > **v4.2.0 (2026 Edition)** — Universal AI plugin with 147 specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
-> **🌐 Universal Compatibility:** Antigravity (AGY) via `AGENTS.md` | Claude Code via `CLAUDE.md` + `.claude/rules/` | Cursor IDE via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex via `CODEX.md` + `.codex/rules/`**
+> **🌐 Universal Compatibility:** Antigravity (AGY) via `AGENTS.md` | Claude Code via `CLAUDE.md` | Cursor IDE via `.cursorrules` | **OpenAI Codex via `CODEX.md`**
 
-## How This Plugin Works
+## How This Plugin Works with OpenAI Codex CLI
 
-This repository contains **147 specialized skill files** in the `skills/` directory. Each skill is a `SKILL.md` file with domain-specific instructions, best practices, and code patterns.
+This repository contains **147 specialized skill files** in the `skills/` directory. Each skill is a self-contained `SKILL.md` file with domain-specific architecture guidelines, edge-case hardening, and production patterns.
 
-**Before starting any task**, identify which skills are relevant and read their `SKILL.md` files. Skills are organized by domain:
+When running OpenAI Codex CLI (`codex`) or OpenAI Coding Agents, this file serves as the **Master System Directive**.
+
+**Before starting any task**, identify which skills are relevant and consult their `skills/<skill-name>/SKILL.md` files:
 
 | Domain | Skills |
 |---|---|
@@ -25,64 +27,48 @@ This repository contains **147 specialized skill files** in the `skills/` direct
 
 ---
 
-## Core Rules
+## Core Rules for Codex AI Agents
 
 ### 0. Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all interactions.
-- The AI agent MUST NOT wait for the user to specify skill names or `@` tags.
+**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all OpenAI Codex interactions.
+- The Codex agent MUST NOT wait for the user to explicitly specify skill names or `@` tags.
 - Every user prompt is automatically intercepted and routed through `brainstorming` and `zero-to-prod-orchestrator`.
 - The agent automatically binds and synchronizes cooperating skills across all involved domains (Frontend, Backend, Database, Payments, AI, QA).
-- For complex, multi-step requests, the agent automatically acts as a Swarm Director (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator).
+- For complex, multi-step requests, the agent operates under Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator).
 
-### 1. Deep Reasoning Before Action
-Do not act impulsively. Before writing code, modifying files, or making architectural decisions, engage in a mandatory reasoning phase:
-1. **Analyze** constraints, edge cases, and implications.
-2. **Critique** your initial assumptions — is there a more scalable or modern approach?
-3. **Validate** the solution against best practices and non-functional requirements.
+### 1. Deep Reasoning Before Action (o1/o3-Style Thinking)
+Do not act impulsively. Before writing code, editing files, or executing shell commands, engage in structured reasoning:
+1. **Analyze** constraints, edge cases, cross-file impact, and non-functional requirements.
+2. **Critique** initial assumptions — verify whether a modern 2026 pattern is better suited.
+3. **Validate** the proposed approach against project schemas and security policies.
 4. **Execute** only after the reasoning chain is complete.
 
-### 2. Skill Orchestration Protocol
-When a new skill `SKILL.md` is created or modified:
-1. Update `skills/brainstorming/SKILL.md` — add to the Skill Integration & Orchestration Matrix.
-2. Update `skills/zero-to-prod-orchestrator/SKILL.md` — add to the relevant Phase.
-3. Verify both English and Bahasa Indonesia sections are accurate.
+### 2. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
+Strictly eliminate conversational fluff, unnecessary narration, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Enforce the `anti-slop` skill:
+- **Code-First Delivery**: Output clean, working, fully implemented code without conversational preambles.
+- **Completeness**: 100% complete files and tests on the first try. Never leave placeholders or incomplete mock stubs.
+- **Hyper-YAGNI**: No speculative layers, endless factory classes, or boilerplate wrappers.
+- **Meaningful Comments Only**: Explain architectural and business WHY, never obvious syntax mechanics.
+- **UI & Visual Sanitation**: Enforce Linear/Stripe-caliber UI. Zero generic blue-purple gradients, no neon glow orbs, no pill button addiction (`rounded-full` on standard rectangular buttons), mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
+- **Verification**: Run `node scripts/check-anti-slop.js` to ensure zero slop violations.
 
-### 3. Bilingual Ecosystem
-This ecosystem serves English and Indonesian developers. Every `SKILL.md` must provide bilingual context for critical concepts. Headings can be in either language.
-
-### 4. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
-Strictly eliminate conversational pleasantries, prompt repeating, syntax-narrating comments, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Always enforce the `anti-slop` skill and verify clean code:
-- **Code-First**: Deliver fully functional code immediately without conversational preambles or cheerleading.
-- **Completeness**: 100% complete files, functions, and tests on the first try. No lazy stubs or fake mocks in production routines.
-- **Hyper-YAGNI**: No speculative layers, factory bloat, or unnecessary DTO wrappers.
-- **Meaningful Comments Only**: Explain non-obvious business/architectural WHY, never syntax mechanics.
-- **UI & Visual Sanitation**: Enforce Sovereign Professional UI Craft (Linear/Stripe caliber). No generic blue-purple gradients, no blurred neon orbs, no pill button addiction (`rounded-full` on standard rectangular elements), no stacked glassmorphism, mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
-- **Automated Verification**: Use `node scripts/check-anti-slop.js` to ensure zero slop violations.
-
-### 5. Mandatory Documentation for New Projects
-When initiating a new project from scratch, ensure the automatic generation of:
+### 3. Mandatory Documentation for New Projects
+When starting any greenfield project, automatically generate:
 - Product Requirements Document (`PRD.md`)
 - Entity Relationship Diagram (`ERD.md`)
-- General Documentation (`DOKUMENTASI.md`)
+- Architecture & Setup Documentation (`DOKUMENTASI.md`)
 
-### 6. SKILL.md File Standard
-Every `SKILL.md` MUST have:
-- YAML frontmatter (`name`, `description`, `author`)
-- A section named `## Orchestration & Integration` or `## Integrasi Orkestrasi`
-- Registration in `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md`
-
-### 7. Sovereign Token Optimization Protocol (Hemat Token)
-- **KV-Cache Determinism**: Maintain static prompt prefix order (`kv-cache-prefix-optimizer`) to maximize prompt caching hit rates (75-90% discount).
-- **Subagent Context Pruning**: During Swarm Fan-Out, pass only targeted `CONTEXT_MAP.md` slices and relevant file interfaces, not global chat history.
-- **Adaptive Model Cascading**: Use lightweight models (`flash` / `haiku`) for searches and validations, reserving frontier models for architecture and security audits (`adaptive-model-cascade`).
-- **Compact Handoffs**: Store concise checkpoints (<300 tokens) via `session-memory-manager`.
+### 4. Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)
+- **KV-Cache Determinism**: Keep instruction prefixes canonically ordered (`kv-cache-prefix-optimizer`) to maximize prompt caching efficiency (75-90% savings).
+- **Context Slicing**: When passing context to sub-prompts or sub-tasks, pass only relevant file contracts and schema interfaces, never raw bulk conversation histories.
+- **Adaptive Model Cascading**: Use fast models (e.g. `gpt-4o-mini` / `o3-mini`) for linting, file discovery, and tests; reserve frontier models (`o3` / `gpt-4.5` / `gpt-5`) for system architecture, refactoring, and security fuzzing.
 - **Non-Degradation Invariant**: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete and working.
 
 ---
 
 ## Orchestration Workflow
 
-1. **Ideation & Planning:** `brainstorming` → `prd-architect` → `gemini-agent-booster`
+1. **Ideation & Planning:** `brainstorming` → `prd-architect`
 2. **Design & Frontend:** `design-system-architect` → `ui-ux-pro-max` → `senior-frontend` + `tailwind-expert`
 3. **Backend & Architecture:** `js-backend-expert` / `go-programming-expert` / `rust-programming-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
 4. **AI Integration:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`

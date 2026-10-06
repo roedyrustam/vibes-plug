@@ -116,6 +116,29 @@ Enforces zero-tolerance code standards for utility-first styling:
 - **No Responsive Layout Clipping**: Avoid fixed hardcoded widths (`w-[600px]`); use fluid responsive primitives (`max-w-2xl w-full mx-auto`) and container queries (`@container`) to ensure zero horizontal scroll on mobile viewports.
 
 
+#### 8. Sovereign Visual Hierarchy Utilities & Recipes
+Implement production-grade visual hierarchy using concise, reusable Tailwind v4 utility clusters:
+
+- **Modular Typographic Scale with Optical Tracking**:
+  - *Eyebrow Label*: `text-[11px] font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400`
+  - *Hero / Display 1*: `text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.08]`
+  - *Section Title (H2)*: `text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 leading-snug`
+  - *Card Title (H3)*: `text-lg font-semibold tracking-tight text-neutral-900 dark:text-neutral-100`
+  - *Body Paragraph*: `text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed`
+  - *Tabular Metric*: `text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums text-neutral-900 dark:text-neutral-50`
+
+- **60-30-10 Color Layering Recipes**:
+  - *60% Canvas*: `bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100`
+  - *30% Surface Cards*: `bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs`
+  - *10% Primary CTA (Single Focal Accent)*: `bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-100 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-offset-2`
+  - *Secondary Action (Ghost/Outline)*: `border border-neutral-200 dark:border-neutral-700 bg-transparent text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800`
+
+- **Gestalt Proximity Spacing Clusters**:
+  - *Label to Input*: `flex flex-col gap-1.5`
+  - *Form Fieldsets*: `space-y-4` or `space-y-6`
+  - *Card Padding vs Child Gap*: `p-6 space-y-4` (container padding > child separation)
+  - *Page Sections*: `py-16 sm:py-24 space-y-12`
+
 #### 7. Material Design 3 (M3) System Mapping in Tailwind v4
 Tailwind CSS v4 seamlessly implements Google Material Design 3 (M3) tokens inside `@theme` without external UI dependencies:
 
@@ -332,3 +355,20 @@ Tailwind CSS v4 memudahkan implementasi token Google Material Design 3 (M3) lang
   <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">Diberi lapisan container tonal M3 dan bayangan elevasi ambient.</p>
 </div>
 ```
+
+#### 8. Utilitas & Pola Hierarki Visual Berdaulat
+Menerapkan hierarki visual tingkat produksi menggunakan kelompok utilitas Tailwind v4 yang ringkas dan teruji:
+- **Skala Tipografi Modular & Tracking Optik**:
+  - *Label Eyebrow*: `text-[11px] font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400`
+  - *Judul Utama (H1)*: `text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.08]`
+  - *Judul Seksi (H2)*: `text-2xl sm:text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 leading-snug`
+  - *Teks Tubuh*: `text-sm sm:text-base text-neutral-600 dark:text-neutral-300 leading-relaxed`
+  - *Metrik Tabular*: `text-3xl sm:text-4xl font-extrabold tracking-tight tabular-nums text-neutral-900 dark:text-neutral-50`
+- **Resep Pewarnaan 60-30-10**:
+  - *60% Kanvas*: `bg-neutral-50 dark:bg-neutral-950`
+  - *30% Kartu Permukaan*: `bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs`
+  - *10% CTA Utama (Fokus Tunggal)*: `bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:bg-neutral-800 active:scale-[0.98] focus-visible:ring-2`
+- **Pola Jarak Kedekatan Gestalt**:
+  - *Label ke Input*: `flex flex-col gap-1.5`
+  - *Jarak Form*: `space-y-4`
+  - *Jarak Seksi Halaman*: `py-16 sm:py-24`

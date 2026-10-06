@@ -31,28 +31,38 @@ Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX desi
 ### The Core HIG Triad
 
 #### 1. Hierarchy — Guide the User's Eye
-Visual hierarchy controls where the user looks first and how they navigate information.
+Visual hierarchy controls where the user looks first, how attention flows across information, and how confident they feel taking action (Linear/Apple/Stripe caliber).
 
-**Typography Hierarchy:**
+**Modular Typographic Hierarchy & Optical Tracking:**
 ```css
-/* Clear hierarchy with size and weight — 4 levels max */
-.h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.02em; }
-.h2 { font-size: 1.5rem;  font-weight: 600; letter-spacing: -0.01em; }
-.h3 { font-size: 1.25rem; font-weight: 600; }
-.body { font-size: 1rem;    font-weight: 400; }
-.caption { font-size: 0.875rem; font-weight: 400; color: var(--color-text-muted); }
+/* Strict 5-tier typographic scale with optical letter-spacing */
+.eyebrow { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-muted); }
+.h1      { font-size: 2.5rem;    font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; color: var(--color-text-primary); }
+.h2      { font-size: 1.75rem;   font-weight: 600; letter-spacing: -0.02em;  line-height: 1.25; color: var(--color-text-primary); }
+.h3      { font-size: 1.25rem;   font-weight: 600; letter-spacing: -0.01em;  line-height: 1.35; color: var(--color-text-primary); }
+.body    { font-size: 0.9375rem; font-weight: 400; letter-spacing: 0em;      line-height: 1.6;  color: var(--color-text-secondary); }
+.caption { font-size: 0.75rem;   font-weight: 400; letter-spacing: 0.01em;   color: var(--color-text-tertiary); }
+.metric  { font-size: 2rem;      font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
 ```
 
-**Spatial Hierarchy (Z-axis):**
-- Surface level: cards, panels — `shadow-sm`
-- Raised level: dropdowns, tooltips — `shadow-md`
-- Overlay level: modals, drawers — `shadow-xl`
-- Floating level: toasts, command palette — `shadow-2xl`
+**Spatial & Depth Hierarchy (Z-axis Surface Tiers):**
+- **Canvas (L0)**: Neutral background base (`bg-neutral-50 dark:bg-neutral-950`).
+- **Surface (L1)**: Content cards and panels — crisp 1px border (`border-neutral-200/80 dark:border-neutral-800`) + subtle ambient shadow (`shadow-xs`).
+- **Raised (L2)**: Active popovers, dropdown menus, hover elevation — (`shadow-md border border-neutral-200 dark:border-neutral-700`).
+- **Overlay (L3)**: Modals, slide-over sheets with backdrop blur — (`shadow-xl`).
+- **Floating (L4)**: Global toasts, command palette, floating action docks — (`shadow-2xl`).
 
-**Color Hierarchy:**
-- Primary action: brand color (1 per screen)
-- Secondary action: muted/ghost variant
-- Destructive action: red — far from primary CTA
+**Color & Focus Hierarchy (60-30-10 Principle):**
+- **60% Base**: Canvas and neutral containers.
+- **30% Structure**: Cards, borders, headers, and secondary surfaces.
+- **10% Accent**: Reserved strictly for the single primary conversion moment.
+- **Single Primary CTA Law**: Exactly ONE primary emphasized button per screen. All secondary actions must use outline, tonal, or ghost styling to eliminate choice paralysis.
+- **Destructive Actions**: Placed apart from primary paths, styled in danger color, with mandatory confirmation modals.
+
+**Gestalt Proximity & Layout Scanability:**
+- **Law of Proximity**: Control-label pairs must sit within 4–6px (`gap-1.5`). Distinct fieldsets sit at 16–24px. Page sections sit at 64–96px (`py-16 md:py-24`).
+- **F-Pattern Layout**: Left-aligned anchors for analytical dashboards, documents, and data tables.
+- **Z-Pattern Layout**: Diagonal flow for landing heroes and marketing narratives.
 
 #### 2. Harmony — Visual Cohesion
 All elements should feel like they belong to the same family.
@@ -92,11 +102,14 @@ Users should never wonder "how does this work?" — patterns should be predictab
 - Empty states: Always provide an actionable CTA
 
 **Component Consistency Checklist:**
+- [ ] Visual hierarchy is unmistakable: primary CTA stands out, secondary actions are subdued.
+- [ ] Typographic scale applies optical tracking (`tracking-tight` on large titles, `tracking-wider` on eyebrows).
+- [ ] Tabular numerals (`tabular-nums`) are enforced on all metrics, prices, and counters.
 - [ ] All buttons use the same radius (`rounded-md` everywhere).
 - [ ] All modals have the same padding (`p-6`) and close behavior (Escape key).
 - [ ] All form inputs have the same height (`h-9`) and focus ring style.
 - [ ] All error messages appear in the same position (below the input field).
-- [ ] All tables use the same row height and hover style.
+- [ ] All tables use the same row height, tabular numerals, and hover style.
 
 ### Apple HIG 2025 Updates
 
@@ -185,10 +198,34 @@ Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mo
 ### Triad HIG Inti
 
 #### 1. Hierarki — Pandu Mata Pengguna
-Hierarki visual mengontrol di mana pengguna melihat pertama dan bagaimana mereka menavigasi informasi.
-- **Hierarki tipografi**: 4 level maksimal — H1 (2.25rem, 700), H2 (1.5rem, 600), H3 (1.25rem, 600), body (1rem, 400).
-- **Hierarki spasial (sumbu-Z)**: Surface (shadow-sm), Raised (shadow-md), Overlay (shadow-xl), Floating (shadow-2xl).
-- **Hierarki warna**: Satu warna brand per layar, aksi sekunder dengan varian muted/ghost, aksi destruktif dengan merah — jauh dari CTA utama.
+Hierarki visual mengontrol ke mana pengguna melihat pertama kali, bagaimana perhatian mengalir melintasi informasi, dan memunculkan rasa percaya diri saat mengambil aksi (standar kaliber Apple/Linear/Stripe).
+
+- **Skala Tipografi Modular & Tracking Optik**:
+  - **Eyebrow**: 11px / 0.6875rem, bobot 600, `tracking-wider`, uppercase — konteks kategori tanpa berebut fokus.
+  - **Judul Utama (H1)**: 40px / 2.5rem, bobot 700, `tracking-tight`, leading padat (1.15) — jangkar otoritas visual.
+  - **Subjudul (H2)**: 28px / 1.75rem, bobot 600, `tracking-tight`, leading 1.25.
+  - **Judul Bagian (H3)**: 20px / 1.25rem, bobot 600, leading 1.35.
+  - **Teks Tubuh (Body)**: 15–16px, bobot 400, leading santai (1.6) untuk kenyamanan membaca.
+  - **Angka Metrik**: Wajib menggunakan angka tabular (`tabular-nums`) agar angka metrik dan tabel tidak bergeser horizontal saat berubah.
+
+- **Tingkatan Permukaan & Elevasi Sumbu-Z**:
+  - **Kanvas (L0)**: Latar belakang aplikasi netral (`bg-neutral-50 dark:bg-neutral-950`).
+  - **Surface (L1)**: Kartu dan panel konten — border 1px tajam (`border-neutral-200/80 dark:border-neutral-800`) dipadu bayangan ambient mikro (`shadow-xs`).
+  - **Raised (L2)**: Popover, dropdown, kartu hover (`shadow-md border border-neutral-200 dark:border-neutral-700`).
+  - **Overlay (L3)**: Dialog modal, slide-over dengan backdrop halus (`shadow-xl`).
+  - **Floating (L4)**: Toast notifikasi, command palette, dock navigasi melayang (`shadow-2xl`).
+
+- **Hierarki Warna & Fokus (Aturan 60-30-10)**:
+  - **60% Basis**: Kanvas dan latar belakang netral.
+  - **30% Struktur**: Kartu, batas pembatas, header, dan permukaan sekunder.
+  - **10% Aksen**: Dikhususkan eksklusif untuk momen konversi utama.
+  - **Hukum Single Primary CTA**: Hanya SATU tombol aksi utama yang menonjol per layar. Aksi sekunder wajib bergaya outline atau ghost.
+  - **Aksi Destruktif**: Berwarna merah, diletakkan terpisah dari CTA utama, wajib dengan dialog konfirmasi.
+
+- **Kedekatan Gestalt & Pola Pindai**:
+  - **Hukum Kedekatan**: Label dan kontrol berjarak rapat (4–6px). Grup form berjarak 16–24px. Seksi halaman berjarak lega (64–96px).
+  - **Pola F**: Untuk dashboard analitik, feed data, dan tabel.
+  - **Pola Z**: Untuk landing page promosi dan alur pengenalan produk.
 
 #### 2. Harmoni — Kohesi Visual
 Semua elemen harus terasa seperti milik keluarga yang sama.

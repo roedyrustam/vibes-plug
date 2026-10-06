@@ -82,7 +82,7 @@ export async function executeOptimizedReasoning(
     });
     
     const result = await generateText({
-      model: google('gemini-2.5-pro', {
+      model: google('gemini-4-pro', {
         useSearchGrounding: false
       }),
       prompt,

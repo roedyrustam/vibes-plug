@@ -52,7 +52,7 @@ async function runInit(projectName) {
     console.log('\n🎉 Project scaffolded successfully!');
     console.log('\nTo get started:');
     console.log(`  cd ${projectName}`);
-    console.log('  Ask your AI (Claude/Cursor/Antigravity): "Begin phase 1 using zero-to-prod-orchestrator"');
+    console.log('  Ask your AI (Claude/Cursor/Antigravity/Codex): "Begin phase 1 using zero-to-prod-orchestrator"');
     
   } catch (err) {
     console.error(`\n❌ Error creating project: ${err.message}`);
@@ -980,8 +980,10 @@ async function runSync() {
     { name: 'Antigravity (AGENTS.md)', file: path.join(PLUGIN_ROOT, 'AGENTS.md') },
     { name: 'Claude Code (CLAUDE.md)', file: path.join(PLUGIN_ROOT, 'CLAUDE.md') },
     { name: 'Cursor IDE (.cursorrules)', file: path.join(PLUGIN_ROOT, '.cursorrules') },
+    { name: 'OpenAI Codex (CODEX.md)', file: path.join(PLUGIN_ROOT, 'CODEX.md') },
     { name: 'Cursor Rules (.cursor/rules/vibes-plug-core.mdc)', file: path.join(PLUGIN_ROOT, '.cursor', 'rules', 'vibes-plug-core.mdc') },
-    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') }
+    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') },
+    { name: 'Codex Rules (.codex/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.codex', 'rules', 'vibes-plug-core.md') }
   ];
 
   for (const item of checkFiles) {
@@ -1043,6 +1045,15 @@ Commands:
   hooks remove              Remove the Git pre-commit hook
   doctor                    Run environment health diagnostics
   audit                     Run the strict Anti-AI Slop quality gate check
+  compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
+  db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
+  ast <action> [args]       Query AST symbols, inspect code, or blast-radius
+  arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
+  verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
+  swarm [task]              Execute or plan autonomous multi-agent swarm (Fan-Out, Saga, Critic)
+  memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
+  mcp                       Start the native Model Context Protocol (MCP) server on stdio
+  guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
   help                      Show this help menu
 `);
@@ -1054,6 +1065,67 @@ switch (command) {
   case 'sync':
     runSync();
     break;
+  case 'mcp':
+  case 'serve-mcp': {
+    const { spawn } = await import('child_process');
+    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')], { stdio: 'inherit' });
+    child.on('exit', (code) => process.exit(code || 0));
+    break;
+  }
+  case 'guard': {
+    const { execSync } = await import('child_process');
+    execSync('npm run guard', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'compile-cache': {
+    const { execSync } = await import('child_process');
+    execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'db:eval': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/eval-migration.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'ast': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'arbitrate': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/speculative-arbiter.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'verify-invariants': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/swarm-runner.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'memory': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/memory-daemon.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
   case 'init':
     runInit(args[1]);
     break;

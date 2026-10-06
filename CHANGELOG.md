@@ -5,7 +5,36 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.0] - 2026-10-03
+## [4.2.0] - 2026-10-06
+
+### Added / Ditambahkan
+- **OpenAI Codex CLI Native Integration**:
+  - Menambahkan file konfigurasi utama **`CODEX.md`** di root repositori khusus untuk **OpenAI Codex CLI** (`codex`) dan OpenAI coding agents.
+  - Menambahkan **`.codex/rules/vibes-plug-core.md`** untuk modular rules engine platform Codex.
+  - Memperbarui installer CLI **`scripts/install.js`** dengan flag `--codex` dan deteksi platform `~/.codex/` (global maupun per-project).
+  - Mengintegrasikan verifikasi otomatis `CODEX.md` dan `.codex/rules/` pada `bin/vibes.mjs` (`vibes sync`).
+- **Superintelligence Engineering Substrate (P1 - P5 Engines)**:
+  - **P1: Canonical Prompt-Cache Compiler** (`scripts/compile-cache.mjs`, `vibes compile-cache`): Mengompilasi prefix instruksi deterministik 147 skill ke dalam `.cache-prefix.json` (5.469 bytes / ~1.440 tokens), mengunci efisiensi prompt caching >1024 token untuk Anthropic Claude, OpenAI Codex/o3, Google Gemini, dan Cursor.
+  - **P2: In-Memory DB & Migration Sandbox** (`scripts/eval-migration.mjs`, `vibes db:eval`): Menjalankan simulasi DDL/SQL di memori untuk menguji keamanan RLS, mencegah penghapusan destruktif (`DROP TABLE/COLUMN`), dan memverifikasi indeks Foreign Key sebelum dieksekusi ke DB produksi.
+  - **P3: AST Subgraph Query Engine** (`scripts/ast-query.mjs`, `vibes ast`): Ekstraksi bedah simbol kode (`symbols`), isolasi fungsi (`inspect`), dan kalkulasi radius dampak dependensi (`blast-radius`) tanpa membanjiri context window Transformer.
+  - **P4: Speculative Multi-Draft & PRM Arbiter** (`scripts/speculative-arbiter.mjs`, `vibes arbitrate`): Evaluator Process Reward Model (PRM) heuristik untuk menilai dan mengarbitrasi draf kode kompetitif berdasarkan Type Safety, Anti-Slop, Ketahanan Error, dan Kompleksitas Algoritma.
+  - **P5: Neuro-Symbolic Invariant Verifier** (`scripts/verify-invariants.mjs`, `vibes verify-invariants`): Solver verifikasi formal transisi state machine (SaaS billing, auth, order flow), deteksi deadlock dan unreachable states, serta generasi spesifikasi SMT-LIB 2.0 untuk Z3/CVC5 theorem provers.
+- **Native Model Context Protocol (MCP v1.x) Server (`bin/mcp-server.mjs`, `vibes mcp`, `npm run mcp`)**:
+  - Menyediakan server MCP mandiri berbasis stdio JSON-RPC 2.0 yang mengekspos 8 tools AI frontier:
+    1. `vibes_ast_query`: Query simbol AST bedah dan kalkulasi blast radius.
+    2. `vibes_eval_sql`: Evaluasi skema DDL & audit kebijakan RLS in-memory.
+    3. `vibes_arbitrate_code`: Arbitrase PRM multi-draf kode kompetitif.
+    4. `vibes_verify_invariants`: Verifikasi formal invarian transisi state machine & generasi SMT-LIB 2.0.
+    5. `vibes_get_skill`: Akses instan ke 147 skill spesialis langsung dari agen AI.
+    6. `vibes_compile_cache`: Kompilasi dan verifikasi prefix KV-cache deterministik (>1024 token).
+    7. `vibes_memory`: Manajemen memori episodik arsitektur dan pembuatan checkpoint ultra-kompak.
+    8. `vibes_swarm`: Perencanaan dan eksekusi swarm multi-agen otonom.
+- **Autonomous Swarm Runner (`scripts/swarm-runner.mjs`, `vibes swarm`, `npm run swarm`)**:
+  - Engine orkestrasi swarm otonom dengan 3 topologi eksekusi 2026: **Fan-Out/Fan-In** (paralel multi-domain), **Pipeline Saga** (eksekusi fase dependen berurutan), dan **Critic-Validator Loop** (pintu gerbang kualitas anti-slop).
+- **Local Episodic Memory Store & Daemon (`scripts/memory-daemon.mjs`, `vibes memory`, `npm run memory`)**:
+  - Penyimpanan keputusan arsitektur lintas-sesi dalam `.agents/memory/episodic_graph.json` dan generator checkpoint ultra-kompak `CHECKPOINT.md` (<150 token) untuk mengatasi amnesia konteks pada obrolan berulang.
+- **Unified Sovereign Guard (`vibes guard`, `npm run guard`)**:
+  - Menggabungkan validasi seluruh ekosistem (147 skill), pemindaian Anti-Slop ketat (256 file), kompilasi KV-Cache (P1), simulasi database in-memory (P2), verifikasi formal SMT (P5), Swarm runner self-test, dan pembaharuan memory checkpoint dalam 1 pipeline CI otomatis.
 
 ### Changed / Diubah
 - **Universal Frontier AI Models Harmonization (2026 Edition)**:
