@@ -98,15 +98,42 @@ python scripts/search.py "<query>" --stack <stack> --max-results 3
 - **Light Mode**: High-contrast text (e.g. Slate-900 `#0F172A`); avoid pale grays for primary text. Ensure borders (`border-slate-200`) remain visible.
 - **Dark Mode**: High contrast foreground elements over dark slate/gray backgrounds; avoid pure black `#000000` text containers unless requested.
 
-#### 5. Dashboard & Information Hierarchy
-- **Material Design 3 (M3) Integration (https://m3.material.io/)**:
-  - **Window Size Classes**: Adaptive layout scaling across Compact (<600dp / bottom nav), Medium (600–839dp / navigation rail), and Expanded (≥840dp / persistent drawer).
-  - **Surface Container Tiers**: Layer views using `surface-container-lowest` up to `surface-container-highest` for subtle tonal elevation without harsh borders or heavy drop shadows.
-  - **Tonal Elevation**: 6 levels (Level 0–5) with primary surface tinting overlays (0% to 14%).
-  - **Query M3 Design Tokens**: Run `python scripts/search.py "<component or token>" --domain m3` to fetch exact M3 specs, color roles, and CSS variables.
-- **Layout Flow**: KPI summary cards top -> Trend charts middle -> Detailed data tables bottom.
-- **Visual Grid**: Consistent gaps/padding (16px / 24px). Clean subtle borders instead of heavy black dividers.
-- **Data Viz**: Maximum 3–5 coordinated colors in graphs. Responsive tooltips and legend alignment.
+#### 5. Sovereign Visual Hierarchy & Elegant Aesthetic Architecture
+Visual hierarchy guides the user's perception through deliberate scale, contrast, spacing, depth, and rhythm (Linear/Apple/Stripe-caliber design):
+
+- **Modular Typographic Rhythm & Optical Tracking**:
+  - **Eyebrow / Overline**: `text-[11px] font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400` — sets immediate context with deliberate breathing room.
+  - **Hero / Display Title**: `text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.1]` — tight optical tracking creates punchy authority.
+  - **Section / H2**: `text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100` — anchored section landmark.
+  - **Subheading / Body**: `text-sm md:text-base font-normal leading-relaxed text-neutral-600 dark:text-neutral-300` — comfortable reading flow.
+  - **Tabular Figures Contract**: Mandatory `tabular-nums` (`font-variant-numeric: tabular-nums`) on all metrics, counters, currency values, dates, and data tables to prevent horizontal layout jiggle.
+
+- **The 60-30-10 Color Rule & Single Primary CTA Dominance**:
+  - **60% Neutral Base**: Main canvas/background (`bg-neutral-50 dark:bg-neutral-950`).
+  - **30% Structural Surface**: Cards, sidebars, headers, table shells (`bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800`).
+  - **10% Intentional Accent**: Reserved exclusively for key conversion moments (Primary CTA, active navigation marker, key KPI badge).
+  - **Single Focal Point Rule**: Maximum ONE primary button per viewport. Secondary actions must use outline/subtle treatments; tertiary actions use ghost/text-only variants.
+  - **3-Tier Semantic Text Contrast**: Primary text (`text-neutral-900 dark:text-neutral-50` >= 7:1 contrast), secondary text (`text-neutral-600 dark:text-neutral-400` >= 4.5:1), tertiary/metadata (`text-neutral-400 dark:text-neutral-500`).
+
+- **Gestalt Proximity & Spatial Breathing Room**:
+  - **Label-Input Tightness**: Place form labels tightly to their fields (`gap-1.5` / 6px).
+  - **Internal vs External Gaps**: Card internal padding (`p-5` or `p-6`) must exceed element gaps (`gap-3` or `gap-4`).
+  - **Section Cadence**: Separate major blocks with generous whitespace (`py-16 md:py-24` or `gap-8 md:gap-12`). Whitespace is an active structural design asset.
+
+- **Surface Layering, Tactile Depth & Crisp 1px Borders**:
+  - **Physical Elevation Tiers**:
+    - *Canvas (L0)*: App background (`bg-neutral-50/50 dark:bg-neutral-950`).
+    - *Card (L1)*: Content container (`bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs`).
+    - *Raised (L2)*: Dropdown menu, popover, hover card (`shadow-md border border-neutral-200 dark:border-neutral-700`).
+    - *Overlay (L3)*: Modal dialog with backdrop (`shadow-xl`).
+    - *Floating (L4)*: Toast alert, persistent dock (`shadow-2xl`).
+  - **Sanitation**: Ban blurry muddy 30px black shadows and ungrounded glowing neon orbs. Enforce crisp 1px borders paired with directional micro-shadows.
+
+- **Scanability & Layout Flow Patterns**:
+  - **F-Pattern**: Apply to dense data views, dashboards, and feeds (strong left-anchor for headings, metrics, and row labels).
+  - **Z-Pattern**: Apply to marketing hero sections and conversion landing pages (Logo -> Secondary CTA -> Value Prop -> Primary CTA).
+  - **Progressive Chunking**: Break large datasets into clear card modules with distinct header, metric, and footer zones.
+  - **Material Design 3 (M3) Integration**: Support Adaptive Window Size Classes (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) and tonal elevation tiers (`surface-container-lowest` to `surface-container-highest`).
 
 ---
 
@@ -146,9 +173,14 @@ The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and inco
 ---
 
 ### UI/UX Design Pre-Delivery Checklist
+- [ ] **Visual Hierarchy**: Clear typographic scale (H1 -> H2 -> Body -> Eyebrow) with optical tracking (`tracking-tight` on large headings, `tracking-wider` on uppercase eyebrows).
+- [ ] **Single Focal CTA**: Only 1 primary conversion action per viewport; secondary actions use subtle/outline variants.
+- [ ] **Tabular Numerals**: `tabular-nums` applied to all metrics, currency, timestamps, and table numbers.
+- [ ] **Gestalt Proximity**: Related items grouped tightly (`gap-1.5`), unrelated sections separated with generous breathing room (`py-16`/`gap-8`).
+- [ ] **Surface & Border Layering**: Crisp 1px borders (`border-neutral-200/80 dark:border-neutral-800`) paired with subtle micro-shadows (`shadow-xs`/`shadow-sm`); zero muddy 30px shadows or floating neon orbs.
 - [ ] **Visual Quality**: No emojis used as UI icons (use SVG icons from Lucide/Heroicons). Hover states do not cause layout shifts.
-- [ ] **Interaction**: `cursor-pointer` applied to all interactive elements. Smooth 150–300ms transitions.
-- [ ] **Contrast**: Text contrast ratio >= 4.5:1 in light mode. Visible borders in both light and dark modes.
+- [ ] **Interaction**: `cursor-pointer` applied to all interactive elements. Smooth 150–300ms transitions with `active:scale-[0.98]`.
+- [ ] **Contrast**: Text contrast ratio >= 4.5:1 in light mode (>= 7:1 for headings). Visible borders in both light and dark modes.
 - [ ] **Layout & Responsive**: Tested across 375px, 768px, 1024px, 1440px breakpoints. No unintentional horizontal scrolling on mobile.
 - [ ] **Accessibility**: All images have meaningful `alt` text. Form inputs have explicitly connected `<label>` elements or `aria-label`.
 
@@ -239,15 +271,42 @@ python scripts/search.py "<kueri>" --stack <stack> --max-results 3
 - **Mode Terang**: Teks gelap kontras tinggi (misal Slate-900 `#0F172A`); hindari teks abu-abu pudar. Pastikan batas/border (`border-slate-200`) tetap terlihat.
 - **Mode Gelap**: Kontras tinggi antara elemen latar depan dengan latar belakang gelap; hindari kontainer teks serba hitam pekat `#000000` kecuali diminta khusus.
 
-#### 5. Dashboard & Hierarki Informasi
-- **Integrasi Material Design 3 (M3) (https://m3.material.io/)**:
-  - **Kelas Ukuran Jendela Adaptif**: Tata letak beradaptasi pada Compact (<600dp / navigasi bawah), Medium (600–839dp / navigation rail), dan Expanded (≥840dp / navigation drawer permanen).
-  - **Tingkatan Surface Container**: Pelapisan kontainer visual menggunakan `surface-container-lowest` hingga `surface-container-highest` untuk kedalaman tonal tanpa border tebal atau bayangan berlebihan.
-  - **Elevasi Tonal**: 6 tingkat (Level 0–5) dengan overlay warna tint primer (0% hingga 14%).
-  - **Pencarian Token Desain M3**: Jalankan `python scripts/search.py "<komponen atau token>" --domain m3` untuk mengekstrak spesifikasi, peran warna, dan variabel CSS M3 secara instan.
-- **Alur Tata Letak**: Kartu ringkasan KPI di atas -> Grafik tren di tengah -> Tabel detail data di bawah.
-- **Grid Visual**: Konsistensi gap/padding (16px / 24px). Gunakan border halus daripada pembatas tebal hitam.
-- **Visualisasi Data**: Maksimal 3–5 warna terkoordinasi dalam grafik. Tooltip responsif & perataan legenda yang rapi.
+#### 5. Hierarki Visual & Arsitektur Estetika Elegan Berdaulat
+Hierarki visual memandu persepsi pengguna secara intuitif dan elegan melalui skala ukuran, kontras warna, jarak spasial, kedalaman elevasi, dan irama membaca (standar kaliber Apple/Linear/Stripe):
+
+- **Irama Tipografi Modular & Tracking Optik**:
+  - **Eyebrow / Overline**: `text-[11px] font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400` — menetapkan konteks kategori secara presisi dengan jarak antarhuruf yang lega.
+  - **Judul Utama / Display H1**: `text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.1]` — tracking rapat memberikan ketegasan visual tanpa memakan ruang vertikal berlebih.
+  - **Subjudul Seksi / H2**: `text-xl md:text-2xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100` — jangkar struktural seksi.
+  - **Teks Tubuh / Body**: `text-sm md:text-base font-normal leading-relaxed text-neutral-600 dark:text-neutral-300` — alur membaca yang nyaman dan tidak melelahkan mata.
+  - **Angka Tabular Wajib**: Terapkan `tabular-nums` (`font-variant-numeric: tabular-nums`) pada semua metrik angka, harga/mata uang, stempel waktu, dan tabel data agar angka sejajar vertikal dan tidak bergoyang saat nilai berubah.
+
+- **Aturan Warna 60-30-10 & Dominasi Single Primary CTA**:
+  - **60% Basis Netral**: Kanvas utama latar belakang (`bg-neutral-50 dark:bg-neutral-950`).
+  - **30% Permukaan Struktural**: Kartu, panel, sidebar, header (`bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800`).
+  - **10% Aksen Fokal Intensional**: Dikhususkan HANYA untuk titik konversi utama (Primary CTA, status aktif, lencana KPI kritis).
+  - **Aturan Titik Fokus Tunggal**: Maksimal SATU tombol utama per viewport. Tombol aksi lain wajib menggunakan varian outline/subtle atau ghost/text-only agar pengguna tidak mengalami kelelahan kognitif (*choice paralysis*).
+  - **3 Tingkat Kontras Teks Semantik**: Teks utama (`text-neutral-900 dark:text-neutral-50` rasio >= 7:1), teks sekunder (`text-neutral-600 dark:text-neutral-400` rasio >= 4.5:1), teks tersier/metadata (`text-neutral-400 dark:text-neutral-500`).
+
+- **Hukum Kedekatan Gestalt (Proximity) & Ruang Bernapas (Whitespace)**:
+  - **Kerapatan Label & Input**: Label form harus sangat dekat dengan field inputnya (`gap-1.5` / 6px).
+  - **Hierarki Padding Internal vs Margin Luar**: Padding internal card (`p-5` atau `p-6`) harus lebih besar daripada jarak antar-elemen di dalamnya (`gap-3` atau `gap-4`).
+  - **Irama Antar-Seksi**: Pisahkan blok utama halaman dengan ruang kosong yang lega (`py-16 md:py-24` atau `gap-8 md:gap-12`). Ruang kosong (*negative space*) adalah elemen desain aktif bernilai tinggi yang menciptakan kesan premium dan tenang.
+
+- **Pelapisan Permukaan (Surface Layering), Kedalaman Taktil & Border 1px Presisi**:
+  - **Tingkatan Elevasi Fisik**:
+    - *Kanvas (L0)*: Latar belakang dasar aplikasi (`bg-neutral-50/50 dark:bg-neutral-950`).
+    - *Kartu Konten (L1)*: Kontainer data (`bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 shadow-xs`).
+    - *Terangkat (L2)*: Menu dropdown, popover, hover state (`shadow-md border border-neutral-200 dark:border-neutral-700`).
+    - *Overlay (L3)*: Dialog modal dengan backdrop halus (`shadow-xl`).
+    - *Mengambang (L4)*: Toast notifikasi, floating action dock (`shadow-2xl`).
+  - **Sanitasi Elevasi**: Larang bayangan hitam buram 30px yang kotor serta lingkaran neon mengambang tanpa dasar fisik. Terapkan garis border tajam 1px yang dipadukan dengan micro-shadows halus terarah.
+
+- **Pola Pemindaian Mata (Scanability) & Alur Tata Letak**:
+  - **Pola F (F-Pattern)**: Terapkan pada tampilan padat data, dashboard, dan daftar tabel (orientasi kuat di sisi kiri untuk judul, metrik, dan baris data).
+  - **Pola Z (Z-Pattern)**: Terapkan pada landing page promosi dan alur onboarding (Logo kiri atas -> Navigasi kanan -> Pesan Nilai Utama -> Tombol CTA).
+  - **Chunking Progresif**: Pecah kumpulan informasi kompleks menjadi modul-modul kartu terstruktur dengan header, metrik, dan footer yang jelas.
+  - **Integrasi Material Design 3 (M3)**: Mendukung Kelas Ukuran Jendela Adaptif (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) serta tingkatan elevasi tonal (`surface-container-lowest` hingga `surface-container-highest`).
 
 ---
 
@@ -287,11 +346,16 @@ Tingkat UI/UX vibes-plug melarang keras slop visual AI generik dan pengalaman pe
 ---
 
 ### Checklist Desain UI/UX Sebelum Delivery
-- [ ] **Visual**: Tidak menggunakan emoji sebagai ikon UI (gunakan ikon SVG seperti Lucide/Heroicons). Efek hover tidak menggeser tata letak.
-- [ ] **Interaksi**: `cursor-pointer` diterapkan pada semua elemen interaktif. Transisi halus 150–300ms.
-- [ ] **Kontras**: Rasio kontras teks minimal 4.5:1 pada mode terang. Border terlihat di kedua mode (terang & gelap).
+- [ ] **Hierarki Visual**: Skala tipografi terstruktur jelas (H1 -> H2 -> Body -> Eyebrow) dengan tracking optik (`tracking-tight` pada judul besar, `tracking-wider` pada eyebrow huruf besar).
+- [ ] **Single Focal CTA**: Hanya 1 aksi konversi utama per viewport; tombol aksi lain menggunakan varian subtle atau outline.
+- [ ] **Angka Tabular**: `tabular-nums` diterapkan pada semua metrik data, mata uang, tanggal/waktu, dan tabel.
+- [ ] **Kedekatan Gestalt (Proximity)**: Elemen terkait terkelompok rapat (`gap-1.5`), seksi yang berbeda dipisahkan ruang bernapas yang lega (`py-16`/`gap-8`).
+- [ ] **Pelapisan Permukaan & Border 1px**: Border 1px tajam (`border-neutral-200/80 dark:border-neutral-800`) dipadukan dengan micro-shadows halus (`shadow-xs`/`shadow-sm`); bebas dari bayangan hitam buram 30px atau neon orbs.
+- [ ] **Kualitas Visual**: Tidak menggunakan emoji sebagai ikon UI (gunakan ikon SVG seperti Lucide/Heroicons). Efek hover tidak menggeser tata letak.
+- [ ] **Interaksi**: `cursor-pointer` diterapkan pada semua elemen interaktif. Transisi halus 150–300ms dengan respons `active:scale-[0.98]`.
+- [ ] **Kontras**: Rasio kontras teks minimal 4.5:1 pada mode terang (>= 7:1 untuk judul utama). Border terlihat jelas di kedua mode (terang & gelap).
 - [ ] **Tata Letak & Responsif**: Diuji pada breakpoint 375px, 768px, 1024px, 1440px. Tidak ada scroll horizontal tak disengaja pada perangkat mobile.
-- [ ] **Aksesibilitas**: Semua gambar memiliki `alt` text yang bermakna. Form input memiliki `<label>` terhubung atau `aria-label`.
+- [ ] **Aksesibilitas**: Semua gambar memiliki `alt` text yang bermakna. Form input memiliki `<label>` terhubung eksplisit atau `aria-label`.
 
 ---
 ### 🎨 Automatic Visual Assets Generation Mandate (CRITICAL)

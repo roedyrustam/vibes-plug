@@ -29,7 +29,10 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
 
 ### Anti-Slop Component Design Contract
 - **Zero Div-Soup Primitives**: Build exclusively on accessible headless primitives (Radix UI, Base UI 1.x) using semantic HTML (`<button>`, `<dialog>`, `<nav>`, `<input>`).
+- **Visual Hierarchy & Surface Layering Contract**: Enforce explicit surface container tiers (Canvas L0, Card L1, Raised L2, Overlay L3) with crisp 1px solid borders (`border-border`) and directional micro-shadows (`shadow-xs`). Ban muddy 30px black shadows and ungrounded neon glow orbs.
+- **Single Focal Primary Action**: Component presets must enforce a single primary CTA variant per view; secondary and tertiary actions must map to outline, tonal, or ghost variants.
 - **Mandatory 5 States**: Every component primitive must explicitly define: default, hover/active, visible keyboard `focus-visible:ring-2`, loading/skeleton state, and disabled/error styling.
+- **Optical Typography & Tabular Figures**: Headings must default to tight letter-spacing (`tracking-tight`), uppercase eyebrows to wide letter-spacing (`tracking-wider`), and all numeric/counter/price components must enforce `tabular-nums`.
 - **Contracted Contrast Tokens**: All semantic tokens must pass WCAG 2.2 AA contrast ratios (>= 4.5:1 text, >= 3:1 graphical elements) in both light and dark themes.
 - **Strict Scale Compliance**: Ban arbitrary pixel values (`p-[13px]`); enforce unified `@theme` tokens.
 
@@ -52,11 +55,23 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
   --color-primary:     var(--color-brand-500);
   --color-primary-fg:  oklch(100% 0 0);        /* White */
   --color-surface:     oklch(100% 0 0);        /* White */
+  --color-surface-canvas:  oklch(98.5% 0.005 250); /* L0 Canvas */
+  --color-surface-card:    oklch(100% 0 0);        /* L1 Card */
+  --color-surface-raised:  oklch(100% 0 0);        /* L2 Popover/Raised */
+  --color-surface-overlay: oklch(99% 0.005 250);   /* L3 Modal Dialog */
   --color-surface-2:   oklch(97% 0.005 250);
   --color-border:      oklch(90% 0.01  250);
-  --color-text:        oklch(15% 0.02  250);
+  --color-text:        oklch(15% 0.02  250);        /* >= 7:1 Contrast */
+  --color-text-secondary: oklch(45% 0.015 250);    /* >= 4.5:1 Contrast */
   --color-text-muted:  oklch(50% 0.015 250);
   --color-destructive: oklch(55% 0.22  25);    /* Red */
+
+  /* Optical Letter-Spacing */
+  --tracking-tighter: -0.04em;
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.025em;
+  --tracking-wider:    0.05em;
 
   /* --- Fluid Typography (clamp) --- */
   --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -393,6 +408,9 @@ Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Menc
 
 ### Kontrak Desain Komponen Anti-Slop
 - **Nol Primitif Div-Soup**: Bangun komponen secara eksklusif menggunakan primitif headless aksesibel (Radix UI, Base UI 1.x) dengan HTML5 semantik (`<button>`, `<dialog>`, `<nav>`, `<input>`).
+- **Kontrak Hierarki Visual & Pelapisan Permukaan**: Tegakkan tingkatan surface container yang tegas (Kanvas L0, Kartu L1, Terangkat L2, Overlay L3) dengan border solid 1px tajam (`border-border`) dan micro-shadow terarah (`shadow-xs`). Dilarang keras bayangan hitam buram 30px dan lingkaran neon mengambang tanpa dasar fisik.
+- **Hukum Aksi Utama Tunggal**: Preset komponen wajib membatasi hanya satu varian CTA utama per tampilan; aksi sekunder dan tersier wajib menggunakan varian outline, tonal, atau ghost.
+- **Tipografi Optik & Angka Tabular**: Judul harus default menggunakan tracking rapat (`tracking-tight`), eyebrow menggunakan tracking renggang (`tracking-wider`), dan semua komponen angka/metrik/harga wajib menerapkan `tabular-nums`.
 - **Wajib 5 Status Komponen**: Setiap primitif komponen wajib mengekspor status: default, hover/active, cincin fokus keyboard `focus-visible:ring-2`, status loading/skeleton, dan status disabled/error.
 - **Token Kontras Terjamin**: Semua token warna semantik wajib lolos rasio kontras WCAG 2.2 AA (≥ 4.5:1 teks, ≥ 3:1 komponen antarmuka) di mode terang maupun gelap.
 - **Kepatuhan Skala Ketat**: Dilarang menggunakan nilai piksel sembarangan (`p-[13px]`); tegakkan token `@theme` yang terpadu.

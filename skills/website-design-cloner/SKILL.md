@@ -92,32 +92,41 @@ Synthesize clean, accessible, modern code matching the extracted structure.
 ##### Example: Recreated Hero Component (`HeroSection.tsx`)
 ```tsx
 import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-surface-dark py-24 text-white">
-      {/* Background Glow */}
-      <div className="absolute top-1/4 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-brand-primary/20 blur-3xl" />
-      
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        <span className="inline-block rounded-full bg-brand-primary/10 px-4 py-1.5 text-xs font-semibold text-brand-accent backdrop-blur-md">
-          ✨ Replicated Design Template
+    <section className="relative bg-neutral-50 dark:bg-neutral-950 py-20 md:py-28 px-6">
+      <div className="mx-auto max-w-4xl text-center">
+        {/* Eyebrow: Crisp typographic landmark with optical tracking */}
+        <span className="inline-flex items-center rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-600 dark:text-neutral-400 shadow-xs">
+          Architecture Verified
         </span>
         
-        <h1 className="mt-6 font-sans text-5xl font-extrabold tracking-tight sm:text-6xl">
-          Duplicated Full-Fidelity <span className="bg-gradient-to-r from-brand-primary to-brand-accent bg-clip-text text-transparent">Website Layout</span>
+        {/* Title: Punchy authority with tight tracking */}
+        <h1 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 leading-[1.1]">
+          Precision Web Engineering with Sovereign Aesthetics
         </h1>
         
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
-          Extracted directly from URL using website-design-cloner. Includes precise typography, exact color tokens, and responsive component structure.
+        {/* Subtitle: High-readability body copy */}
+        <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed">
+          Cleanly engineered, fully accessible UI components extracted with precision tokens and robust visual hierarchy.
         </p>
-
-        <div className="mt-8 flex justify-center gap-4">
-          <button className="rounded-card bg-brand-primary px-6 py-3.5 font-medium text-white shadow-lg shadow-brand-primary/25 transition-all hover:scale-105">
-            Get Started
+        
+        {/* Actions: Single primary CTA dominance + subtle ghost action */}
+        <div className="mt-10 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-neutral-900 dark:bg-neutral-100 px-6 py-3 text-sm font-medium text-white dark:text-neutral-900 shadow-xs transition hover:bg-neutral-800 dark:hover:bg-white active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
+          >
+            Explore System
+            <ArrowRight className="h-4 w-4" />
           </button>
-          <button className="rounded-card border border-slate-700 bg-slate-800/50 px-6 py-3.5 font-medium text-slate-200 backdrop-blur-md hover:bg-slate-800">
-            View Live Demo
+          <button
+            type="button"
+            className="cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 px-6 py-3 text-sm font-medium text-neutral-700 dark:text-neutral-300 transition hover:bg-neutral-100 dark:hover:bg-neutral-800 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-neutral-400"
+          >
+            Documentation
           </button>
         </div>
       </div>
@@ -163,8 +172,9 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
    - Mengambil snapshot tampilan visual pada breakpoint Mobile (`375px`), Tablet (`768px`), dan Desktop (`1440px`).
    - Ekstraksi ikon SVG, URL gambar, logo, dan gradien latar belakang.
 
-2. **Tahap 2: Ekstraksi Design Token & CSS**:
-   - Mengekstrak properti CSS computed dan menyintesisnya ke dalam token `@theme` Tailwind CSS v4 (sistem warna OKLCH/HEX, tipografi Google Fonts, skala spacing, border radius, dan efek shadow/glassmorphism).
+2. **Tahap 2: Ekstraksi Design Token & Hierarki Visual**:
+   - Mengekstrak properti CSS computed dan menyintesisnya ke dalam token `@theme` Tailwind CSS v4 (sistem warna OKLCH/HEX, tipografi Google Fonts, skala spacing, border radius, dan hierarki permukaan L0-L4).
+   - Memetakan rasio kontras 60-30-10, optical letter-spacing (`tracking-tight` pada judul, `tracking-wider` pada eyebrow), serta memastikan angka memakai format `tabular-nums`.
 
 3. **Tahap 3: Pembongkaran Hierarki Komponen**:
    - Membagi halaman web target menjadi komponen modular: `HeaderNav`, `HeroSection`, `FeatureBento`, `TestimonialGrid`, `PricingSection`, dan `FooterNav`.

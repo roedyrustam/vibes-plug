@@ -81,20 +81,83 @@ For web animations, scroll-driven timelines, GSAP choreographies, and Framer Mot
 #### 8. Material Design 3 (M3) Web Integration (https://m3.material.io/)
 In modern React 19 / Next.js 15 apps, incorporate Google's official Material Web Components (`@material/web`) or token-mapped headless primitives:
 - **Material Web Components**: Use Lit-based web components (`@material/web/button/filled-button.js`, `@material/web/textfield/outlined-text-field.js`) with React 19 native custom element support.
-- **Dynamic CSS Variable Theming**: Map tokens dynamically at the root:
+- **Dynamic CSS Variable Theming**: Map tokens dynamically at the root.
+
+#### 9. Sovereign Visual Hierarchy & Scanability Engineering
+Every React 19 / Next.js 15 view must demonstrate Linear/Apple-caliber visual hierarchy:
+- **Typographic Cadence**: Eyebrows (`text-[11px] font-semibold tracking-wider uppercase text-neutral-500`) -> Hero Titles (`text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.1]`) -> Section Headings (`text-xl md:text-2xl font-semibold tracking-tight`) -> Body (`text-sm md:text-base text-neutral-600 leading-relaxed`).
+- **Tabular Figures**: Always wrap metrics, currency, and counters in `tabular-nums`.
+- **Single Focal CTA**: Exactly one high-contrast primary button per screen view; secondary actions use subtle/outline treatments.
+- **Gestalt Proximity**: Related controls sit within `gap-1.5` (6px); distinct groups sit at `space-y-4` (16px); section boundaries use generous whitespace (`py-16 md:py-24`).
+- **Crisp 1px Surface Layering**: Pair `border border-neutral-200/80 dark:border-neutral-800` with subtle directional `shadow-xs` instead of blurry 30px drop-shadows.
+
 ```tsx
-'use client';
+// Example: Production Component with Sovereign Visual Hierarchy
+import { ArrowRight } from 'lucide-react';
 
-import '@material/web/button/filled-button.js';
-import '@material/web/elevation/elevation.js';
+interface MetricBannerProps {
+  category: string;
+  title: string;
+  metricValue: string;
+  metricLabel: string;
+  onPrimaryAction: () => void;
+  onSecondaryAction?: () => void;
+}
 
-export function M3ActionButton({ label, onClick }: { label: string; onClick: () => void }) {
+export function MetricBanner({
+  category,
+  title,
+  metricValue,
+  metricLabel,
+  onPrimaryAction,
+  onSecondaryAction,
+}: MetricBannerProps) {
   return (
-    <div className="relative inline-flex">
-      <md-filled-button onClick={onClick} className="m3-button">
-        {label}
-      </md-filled-button>
-    </div>
+    <section className="bg-neutral-50/50 dark:bg-neutral-950 py-12 px-6">
+      <div className="mx-auto max-w-5xl rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-8 shadow-xs">
+        {/* Eyebrow: Context landmark with optical tracking */}
+        <span className="text-[11px] font-semibold tracking-wider uppercase text-neutral-500 dark:text-neutral-400">
+          {category}
+        </span>
+
+        {/* Title: Punchy authority with tight tracking */}
+        <h1 className="mt-2 text-2xl md:text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+          {title}
+        </h1>
+
+        {/* Metric block with tabular numerals to eliminate horizontal jitter */}
+        <div className="mt-6 flex items-baseline gap-3">
+          <span className="text-4xl font-extrabold tracking-tight tabular-nums text-neutral-900 dark:text-neutral-50">
+            {metricValue}
+          </span>
+          <span className="text-sm font-medium text-neutral-500 dark:text-neutral-400">
+            {metricLabel}
+          </span>
+        </div>
+
+        {/* Actions: Single primary CTA dominance + subtle ghost action */}
+        <div className="mt-8 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onPrimaryAction}
+            className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-neutral-900 dark:bg-neutral-100 px-4 py-2 text-sm font-medium text-white dark:text-neutral-900 transition hover:bg-neutral-800 dark:hover:bg-white active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-2"
+          >
+            Deploy Pipeline
+            <ArrowRight className="h-4 w-4" />
+          </button>
+
+          {onSecondaryAction && (
+            <button
+              type="button"
+              onClick={onSecondaryAction}
+              className="cursor-pointer rounded-lg px-4 py-2 text-sm font-medium text-neutral-600 dark:text-neutral-400 transition hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-neutral-400"
+            >
+              View Documentation
+            </button>
+          )}
+        </div>
+      </div>
+    </section>
   );
 }
 ```
@@ -170,3 +233,11 @@ Untuk animasi web, timeline scroll-driven, koreografi GSAP, dan fisika spring Fr
 Pada aplikasi React 19 / Next.js 15 modern, terapkan komponen web resmi Google (`@material/web`) atau primitif headless yang dipetakan ke token M3:
 - **Komponen Material Web**: Manfaatkan komponen berbasis Lit (`@material/web`) yang didukung secara native oleh React 19 tanpa wrapper tambahan.
 - **Theming Variabel CSS Dinamis**: Terapkan token M3 (`--md-sys-color-primary`, `--md-sys-color-surface-container`) pada elemen root untuk menjamin paritas kontras WCAG di seluruh komponen antarmuka.
+
+#### 9. Rekayasa Hierarki Visual & Kemampuan Pindai
+Setiap tampilan React 19 / Next.js 15 wajib memancarkan hierarki visual kaliber Stripe/Linear:
+- **Irama Tipografi**: Eyebrow (`text-[11px] font-semibold tracking-wider uppercase text-neutral-500`) -> Judul Utama (`text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.1]`) -> Subjudul (`text-xl md:text-2xl font-semibold tracking-tight`) -> Body (`text-sm md:text-base text-neutral-600 leading-relaxed`).
+- **Angka Tabular Wajib**: Selalu terapkan `tabular-nums` pada metrik, saldo mata uang, dan pencacah data.
+- **Dominasi Single Primary CTA**: Maksimal satu tombol utama kontras tinggi per layar; aksi sekunder menggunakan gaya subtle/outline.
+- **Kedekatan Gestalt (Proximity)**: Kontrol dan label terhubung duduk berjarak rapat `gap-1.5` (6px); batas antar-seksi menggunakan ruang kosong yang lega (`py-16 md:py-24`).
+- **Pelapisan Permukaan 1px Tajam**: Padukan border tajam `border border-neutral-200/80 dark:border-neutral-800` dengan micro-shadow terarah `shadow-xs` alih-alih bayangan hitam buram 30px.
