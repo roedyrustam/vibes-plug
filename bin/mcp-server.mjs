@@ -185,7 +185,7 @@ async function handleRpcRequest(request) {
         capabilities: { tools: {} },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.2.0'
+          version: '4.2.1'
         }
       }
     };
@@ -320,7 +320,7 @@ function startServer() {
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.0] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.1] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();

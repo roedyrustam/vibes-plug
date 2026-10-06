@@ -1,6 +1,6 @@
 {
   "name": "vibes-plug",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Universal AI plugin with 147 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, AI Safety, CUA). Designed to support software development, UI/UX design, SEO optimization, and SaaS business strategies",
   "main": "index.js",
   "bin": {
