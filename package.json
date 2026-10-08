@@ -11,6 +11,8 @@
     "index.js",
     "bin",
     "assets",
+    "agents",
+    "mcp_config.json",
     "plugin.json",
     "AGENTS.md",
     "CLAUDE.md",
