@@ -66,6 +66,18 @@ const CODE_ERROR_PATTERNS = [
 
 const CODE_WARN_PATTERNS = [
   {
+    id: 'DECORATIVE_SEPARATOR_BANNER',
+    name: 'Decorative Banner / Separator Box Comment (R-31)',
+    regex: /\/\/\s*([=*-]{5,}|#\s*={5,})/i,
+    description: 'Decorative box-drawing and separator banners signal AI-generated code. Use clean single-line comments or code structure.'
+  },
+  {
+    id: 'AI_MARKETING_BUZZWORDS',
+    name: 'AI Copywriting Buzzwords (R-16)',
+    regex: /\b(unlock(ing)?\s+the\s+power|game-changer|delve|testament\s+to|revolutionary\s+new\s+era|seamless(ly)?\s+elevat(e|ing))\b/i,
+    description: 'Generic AI marketing buzzwords detected. Replace with direct, plain factual statements.'
+  },
+  {
     id: 'SYNTAX_NARRATION',
     name: 'Syntax-Narrating Obvious Comment',
     regex: /\/\/\s*(increment\s+\w+|return\s+(the\s+)?\w+|import\s+\w+\s+from|set\s+\w+\s+to\s+\w+|initialize\s+\w+|define\s+\w+|call\s+\w+)/i,
