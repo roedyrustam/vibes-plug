@@ -1,0 +1,11 @@
+{
+  "name": "vibes-plug",
+  "displayName": "vibes-plug",
+  "description": "Universal AI plugin with 147 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex.",
+  "version": "4.2.1",
+  "logo": "assets/logo.svg",
+  "icon": "assets/logo.svg",
+  "author": {
+    "name": "Roedy Rustam"
+  }
+}
