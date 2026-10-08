@@ -2,7 +2,7 @@
 name: glsl-shader-expert
 description: "Expert guide for modern web shaders: Three Shading Language (TSL), WebGPU WGSL, Compute Shaders, and WebGL GLSL in Three.js and Babylon.js. Covers procedural generation, compute kernels, and post-processing / Panduan ahli shader web modern: TSL, WGSL, Compute Shader, dan GLSL."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Modern Web Shader Expert (TSL, WGSL, Compute Shaders & GLSL)

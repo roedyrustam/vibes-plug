@@ -2,7 +2,7 @@
 name: context-window-engineer
 description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Pro, Claude 5.5, and GPT Astra 6 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Pro, Claude 5.5, dan GPT Astra 6 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # context-window-engineer — vibes-plug Skill

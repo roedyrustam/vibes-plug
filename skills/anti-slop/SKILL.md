@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Sovereign Anti-AI Slop Directive & Enforcement Engine. Absolute zero-tolerance standard for lazy placeholders, conversational fluff, syntax narration, speculative over-engineering, hallucinated code, and generic UI clichés / Doktrin dan mesin penegakan anti-AI slop mutlak. Standar nol toleransi terhadap placeholder malas, basa-basi, komentar sintaksis, over-engineering, dan klise visual UI."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Sovereign Anti-AI Slop & Code Gardening Protocol (2026 Edition)

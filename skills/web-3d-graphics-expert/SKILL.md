@@ -2,7 +2,7 @@
 name: web-3d-graphics-expert
 description: "Expert guide for modern WebGPU and WebGL 3D graphics in the browser using Three.js (WebGPURenderer + TSL), Babylon.js, PlayCanvas, React Three Fiber (R3F), and 3Dviz spatial reasoning — covers object craft across 3 scales, surface continuity at joins, physical interaction envelopes, grounded scientific visualization, KTX2/Meshopt optimization, and 3D visual anti-slop / Panduan ahli grafis 3D web, WebGPU modern, dan penalaran spasial 3Dviz."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Web 3D Graphics & Spatial Reasoning Expert (WebGPU, Three.js, Babylon.js & 3Dviz)

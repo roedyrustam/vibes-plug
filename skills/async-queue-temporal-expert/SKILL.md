@@ -2,7 +2,7 @@
 name: async-queue-temporal-expert
 description: "Unified expert guide for async job queues & durable workflows: BullMQ v5 (Redis queues), Trigger.dev v3 (serverless tasks), Inngest, and Temporal.io (distributed sagas) / Panduan ahli terpadu untuk antrean job asinkron & workflow tahan-gagal: BullMQ v5, Trigger.dev v3, Inngest, dan Temporal.io."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Async Queue & Durable Workflow Expert (2026 Unified Edition)

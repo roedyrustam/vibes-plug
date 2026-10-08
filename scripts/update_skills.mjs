@@ -65,12 +65,12 @@ function updateSkills() {
         content = content.replace(/â Œ/g, '❌');
       }
 
-      // Update technologies to keep them current
-      content = content.replace(/React(?:&nbsp;|\\u0026nbsp;| )18/g, m => m.replace('18', '19'));
-      content = content.replace(/Next\.js(?:&nbsp;|\\u0026nbsp;| )14/g, m => m.replace('14', '15'));
-      content = content.replace(/Tailwind CSS(?:&nbsp;|\\u0026nbsp;| )v3/g, m => m.replace('v3', 'v4'));
-      content = content.replace(/Tailwind(?:&nbsp;|\\u0026nbsp;| )v3/g, m => m.replace('v3', 'v4'));
-      content = content.replace(/TanStack Query(?:&nbsp;|\\u0026nbsp;| )v4/g, m => m.replace('v4', 'v5'));
+      // Update technologies to keep them current (avoid corrupting migration arrows like v3 -> v4)
+      content = content.replace(/React(?:&nbsp;|\\u0026nbsp;| )18(?!\s*(?:→|->|to|ke)\s*19)/g, m => m.replace('18', '19'));
+      content = content.replace(/Next\.js(?:&nbsp;|\\u0026nbsp;| )14(?!\s*(?:→|->|to|ke)\s*15)/g, m => m.replace('14', '15'));
+      content = content.replace(/Tailwind CSS(?:&nbsp;|\\u0026nbsp;| )v3(?!\s*(?:→|->|to|ke)\s*v?4)/g, m => m.replace('v3', 'v4'));
+      content = content.replace(/Tailwind(?:&nbsp;|\\u0026nbsp;| )v3(?!\s*(?:→|->|to|ke)\s*v?4)/g, m => m.replace('v3', 'v4'));
+      content = content.replace(/TanStack Query(?:&nbsp;|\\u0026nbsp;| )v4(?!\s*(?:→|->|to|ke)\s*v?5)/g, m => m.replace('v4', 'v5'));
       content = content.replace(/Bun(?:&nbsp;|\\u0026nbsp;| )v1\.0/g, m => m.replace('v1.0', 'v1.2+'));
 
       if (content !== originalContent) {

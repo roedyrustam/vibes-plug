@@ -2,7 +2,7 @@
 name: test-time-compute-optimizer
 description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Pro, Claude 5.5, GPT Astra 6), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute), alokasi dinamis budget penalaran, MCTS, dan Process Reward Models."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # test-time-compute-optimizer — vibes-plug Skill

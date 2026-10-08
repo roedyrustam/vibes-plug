@@ -2,7 +2,7 @@
 name: ai-media-generation-expert
 description: "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration / Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # AI Media Generation Expert (2026 Edition)

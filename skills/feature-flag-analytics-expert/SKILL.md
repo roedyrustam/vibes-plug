@@ -2,7 +2,7 @@
 name: feature-flag-analytics-expert
 description: "Expert guide for Feature Flags & Progressive Rollout (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases / Panduan ahli Feature Flags, A/B testing, dan rilis bertahap."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Feature Flag & Progressive Rollout Expert
