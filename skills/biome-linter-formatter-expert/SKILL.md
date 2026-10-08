@@ -2,7 +2,7 @@
 name: biome-linter-formatter-expert
 description: "Expert guide for Biome (Rust-based linter + formatter), ESLint/Prettier migration, and code quality tooling / Panduan ahli Biome (linter + formatter berbasis Rust), migrasi dari ESLint/Prettier, dan tooling kualitas kode."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Biome Linter & Formatter Expert (2026 Edition)

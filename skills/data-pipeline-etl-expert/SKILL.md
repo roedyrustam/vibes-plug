@@ -2,7 +2,7 @@
 name: data-pipeline-etl-expert
 description: "Expert guide for Data Pipelines, ETL/ELT, and Analytics Engineering. Covers dbt, Apache Airflow, Dagster, BigQuery, ClickHouse, and DuckDB / Panduan ahli untuk Data Pipelines, ETL/ELT. Mencakup dbt, Airflow, Dagster, BigQuery, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Data Pipeline & ETL Expert

@@ -3,7 +3,7 @@ name: tailwind-expert
 description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
 author: "Roedy Rustam"
 
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Tailwind CSS Expert (v4 Edition)
@@ -20,7 +20,7 @@ Strict guidelines and best practices for Tailwind CSS v4. Enforces the CSS-first
 
 ### Trigger Conditions
 - Scaffold or configure a Tailwind CSS v4 project.
-- Migrate a codebase from Tailwind CSS v4 to v4.
+- Migrate a codebase from Tailwind CSS v3 to v4.
 - Implement design tokens via `@theme`.
 - Apply 3D transforms, CSS container queries, or `field-sizing`.
 
@@ -209,7 +209,7 @@ Panduan ketat dan praktik terbaik untuk Tailwind CSS v4. Memaksa penggunaan mode
 
 ### Kondisi Pemicu
 - Menyiapkan atau mengonfigurasi proyek Tailwind CSS v4.
-- Migrasi codebase dari Tailwind CSS v4 ke v4.
+- Migrasi codebase dari Tailwind CSS v3 ke v4.
 - Implementasi design token via `@theme`.
 - Menggunakan 3D transform, container query, atau `field-sizing`.
 

@@ -2,7 +2,7 @@
 name: autonomous-api-drift-healer
 description: "Expert guide for autonomous API schema drift detection, OpenAPI / gRPC breaking change monitoring, self-healing SDK adapter generation, and zero-downtime client-server synchronization / Panduan ahli deteksi drift skema API otonom, pemantauan breaking change OpenAPI / gRPC, pembuatan adapter SDK self-healing, dan sinkronisasi client-server tanpa downtime."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # autonomous-api-drift-healer — vibes-plug Skill

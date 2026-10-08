@@ -2,7 +2,7 @@
 name: screenshot-to-code-expert
 description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Pro, Claude 5.5, GPT Astra 6) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # screenshot-to-code-expert — vibes-plug Skill

@@ -1,4 +1,4 @@
-# Vibes-Plug — 147-Skill AI Agent Swarm Architecture (v4.2.0)
+# Vibes-Plug — 147-Skill AI Agent Swarm Architecture (v4.2.1)
 # Universal AI Plugin for Antigravity, Claude, Cursor, and OpenAI Codex
 
 ## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
@@ -8,15 +8,15 @@ Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for al
 - Multi-domain workflows trigger Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
 
 ## About
-This project uses the vibes-plug skills ecosystem with 132 specialized skills.
+This project uses the vibes-plug skills ecosystem with 147 specialized skills.
 Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
 instructions, patterns, and best practices for the modern 2026 tech stack.
 
 ## Core Stack (2026 Edition)
-- Frontend: React 19, Next.js 15, Tailwind CSS v4, TypeScript 5.8+
+- Frontend: React 19, Next.js 15 App Router, Tailwind CSS v4 (@theme), TypeScript 5.8+
 - Backend: Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
 - Database: Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
-- AI/LLM: Vercel AI SDK 5.x, MCP v1.9+, pgvector, RAG pipelines
+- AI/LLM: Vercel AI SDK 5.x/6.x, MCP v1.x (FastMCP / Streamable HTTP), pgvector, RAG pipelines
 
 ## Mandatory Before Coding
 1. Read the relevant `skills/<skill-name>/SKILL.md` files before writing code.

@@ -2,7 +2,7 @@
 name: multi-agent-orchestration
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)

@@ -18,7 +18,7 @@ Before writing code or making architectural decisions:
 4. Only then execute.
 
 ## Code Quality Standards & Sovereign Anti-Slop Directive
-- Use modern 2026 tech stack versions: React 19, Next.js 15, Tailwind v4, TypeScript 5.8+, Node.js 24 LTS, Bun 1.2+, Python 3.14, Go 1.25+, Rust 2024.
+- Use modern 2026 tech stack versions: React 19, Next.js 15 App Router, Tailwind CSS v4 (@theme), TypeScript 5.8+, Node.js 24 LTS, Bun 1.2+, Python 3.14, Go 1.25+, Rust 2024 / v1.85+.
 - Follow Clean Code, SOLID, DRY principles (see `scalability-clean-code` skill).
 - **Sovereign Anti-Slop Standard (`anti-slop` skill)**:
   * Zero-tolerance for lazy stubs (`// TODO`, `// ...`), mock data left in prod, and syntax narration comments.

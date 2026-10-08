@@ -2,7 +2,7 @@
 name: brainstorming
 description: "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Brainstorming & Skill Orchestration Protocol

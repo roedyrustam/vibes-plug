@@ -2,7 +2,7 @@
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Global Accessibility (a11y) & i18n Expert
@@ -45,7 +45,7 @@ Handling multiple languages requires structural foresight.
 #### 3. Timezones and Dates
 Time is incredibly difficult to manage globally.
 - **Storage**: ALWAYS store dates in the database as UTC (`TIMESTAMPTZ` in PostgreSQL). Never store local time.
-- **Transport**: Send dates across APIs in ISO 8601 format (e.g., `2024-03-15T12:00:00Z`).
+- **Transport**: Send dates across APIs in ISO 8601 format (e.g., `2026-03-15T12:00:00Z`).
 - **Display**: Convert UTC to the user's local timezone only at the UI layer just before rendering (using native `Intl.DateTimeFormat` or libraries like `date-fns-tz`).
 
 ---
@@ -84,5 +84,5 @@ Menangani berbagai bahasa memerlukan perencanaan struktural.
 #### 3. Zona Waktu dan Tanggal
 Mengelola waktu secara global sangatlah rumit.
 - **Penyimpanan**: SELALU simpan tanggal di dalam database dalam format UTC (`TIMESTAMPTZ` pada PostgreSQL). Jangan pernah menyimpan waktu lokal komputer.
-- **Transportasi**: Kirimkan tanggal melalui API dalam format ISO 8601 (mis., `2024-03-15T12:00:00Z`).
+- **Transportasi**: Kirimkan tanggal melalui API dalam format ISO 8601 (mis., `2026-03-15T12:00:00Z`).
 - **Tampilan UI**: Konversikan waktu UTC ke zona waktu lokal pengguna *hanya di lapisan UI* sesaat sebelum dirender (menggunakan `Intl.DateTimeFormat` bawaan browser atau pustaka seperti `date-fns-tz`).

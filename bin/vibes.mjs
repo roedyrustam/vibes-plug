@@ -1019,7 +1019,7 @@ async function runSync() {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.2.0)
+🌊 Vibes-Plug CLI (v4.2.1)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1168,6 +1168,13 @@ switch (command) {
   case 'create-mcp':
     runCreateMcp(args[1]);
     break;
+  case 'create-agent': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/create-agent.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
   case 'audit':
   case 'anti-slop':
     runAudit();

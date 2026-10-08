@@ -2,7 +2,7 @@
 name: python-programming-expert
 description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Python Programming Expert (3.14 Edition)
@@ -35,7 +35,7 @@ Expert-level Python development guidance for **Python 3.13 / 3.14+** covering JI
 
 | Version | Status | Key Feature |
 |---|---|---|
-| **Python 3.14** | Latest (Oct 2025) | PEP 696 defaults, improved JIT, `@` on types |
+| **Python 3.14** | Latest Stable | PEP 696 type defaults, PEP 749 deferred evaluation, Tier-2 JIT |
 | **Python 3.13** | Stable LTS | JIT compiler, free-threaded mode (no GIL) |
 | **Python 3.12** | Supported | PEP 695 generics, `type` alias statement |
 | **Python 3.11** | Security only | `asyncio.TaskGroup`, `ExceptionGroup` |

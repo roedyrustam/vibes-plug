@@ -1,6 +1,6 @@
 # Vibes-Plug — 147-Skill AI Agent Swarm Architecture (OpenAI Codex Edition)
 
-> **v4.2.0 (2026 Edition)** — Universal AI plugin with 147 specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024).
+> **v4.2.1 (2026 Edition)** — Universal AI plugin with 147 specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024 / v1.85+).
 > **🌐 Universal Compatibility:** Antigravity (AGY) via `AGENTS.md` | Claude Code via `CLAUDE.md` | Cursor IDE via `.cursorrules` | **OpenAI Codex via `CODEX.md`**
 
 ## How This Plugin Works with OpenAI Codex CLI

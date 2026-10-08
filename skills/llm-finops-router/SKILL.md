@@ -2,7 +2,7 @@
 name: llm-finops-router
 description: Expert guide for AI FinOps, dynamic model routing (LiteLLM, Portkey, RouteLLM), cost optimization, budget enforcement, semantic caching, and latency-based fallback architectures / Panduan ahli untuk AI FinOps, routing model dinamis, optimasi biaya, penegakan anggaran, semantic caching, dan arsitektur fallback berbasis latensi.
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # LLM FinOps & Dynamic Model Router
@@ -50,7 +50,7 @@ litellm --config litellm_config.yaml --port 4000
 model_list:
   - model_name: fast-tier            # Virtual name used by clients
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-3.8-flash
       api_key: os.environ/GEMINI_API_KEY
       rpm: 1000
       tpm: 2000000
@@ -63,14 +63,14 @@ model_list:
 
   - model_name: reasoning-tier
     litellm_params:
-      model: anthropic/claude-opus-4-5
+      model: anthropic/claude-5-sonnet
       api_key: os.environ/ANTHROPIC_API_KEY
       rpm: 100
       tpm: 400000
 
   - model_name: reasoning-tier       # Fallback 1 for reasoning-tier
     litellm_params:
-      model: gemini/gemini-2.5-pro
+      model: gemini/gemini-4-pro
       api_key: os.environ/GEMINI_API_KEY
       rpm: 60
 
@@ -87,9 +87,9 @@ router_settings:
   timeout: 60
   fallbacks:
     - fast-tier: [groq/llama-3.1-8b-instant, openai/gpt-4o-mini]
-    - reasoning-tier: [gemini/gemini-2.5-pro, openai/gpt-4.1]
+    - reasoning-tier: [gemini/gemini-4-pro, openai/gpt-5]
   context_window_fallbacks:
-    - reasoning-tier: [gemini/gemini-2.5-pro]  # 2M context fallback
+    - reasoning-tier: [gemini/gemini-4-pro]  # 2M+ context fallback
 
 litellm_settings:
   success_callback: ["langfuse"]

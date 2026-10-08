@@ -35,10 +35,10 @@ This project uses 147 specialized skills in the `skills/` directory. Each skill 
 | 🛠️ Utilities | `brainstorming`, `prd-architect`, `session-memory-manager`, `web-scraper`, `website-design-cloner`, `zero-to-prod-orchestrator` |
 
 ## Core Stack (2026 Edition)
-- **Frontend:** React 19, Next.js 15, Tailwind CSS v4, TypeScript 5.8+
+- **Frontend:** React 19, Next.js 15 App Router, Tailwind CSS v4 (@theme), TypeScript 5.8+
 - **Backend:** Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
 - **Database:** Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
-- **AI/LLM:** Vercel AI SDK 5.x, MCP v1.9+, pgvector, RAG pipelines
+- **AI/LLM:** Vercel AI SDK 5.x/6.x, MCP v1.x (FastMCP / Streamable HTTP), pgvector, RAG pipelines
 
 ## Behavioral Rules
 1. **Deep Reasoning:** Think before acting. Analyze constraints → question assumptions → validate → execute.

@@ -2,7 +2,7 @@
 name: adaptive-model-cascade
 description: "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Flash/Haiku to Sonnet/Opus/Astra, dynamic escalation with quality gates, 40-60% token cost reduction while maintaining output quality / Panduan ahli untuk kaskade dan routing model cerdas — routing tugas berbasis skor kompleksitas dari Flash/Haiku ke Sonnet/Opus/Astra, eskalasi dinamis dengan gerbang kualitas, pengurangan biaya token 40-60% dengan kualitas output terjaga."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # adaptive-model-cascade — vibes-plug Skill

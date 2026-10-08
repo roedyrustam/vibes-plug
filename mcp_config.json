@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vibes-plug-tools": {
+      "command": "node",
+      "args": ["bin/mcp-server.mjs"]
+    }
+  }
+}

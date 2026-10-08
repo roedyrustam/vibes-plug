@@ -113,6 +113,7 @@ VibesPlug comes with a powerful terminal toolkit:
 - `vibes anti-slop` (or `npm run anti-slop`) - Runs the Sovereign Anti-Slop Scanner to detect and eliminate placeholders, `// TODO`, conversational fluff, and unhandled stubs.
 - `vibes anti-slop --strict` - Hard CI validation where warnings fail the build.
 - `vibes anti-slop --fix` - Automatically removes redundant syntax-narrating comments.
+- `vibes create-agent --name <name> --skills <skills>` - Scaffolds a project-specific custom agent across Antigravity (`.agents/agents/`), Cursor (`.cursor/rules/`), and Claude Code (`.claude/rules/`).
 - `vibes mcp` (or `npm run mcp`) - Launches the native Model Context Protocol (MCP v1.x) server on stdio with 8 AI tools.
 - `vibes swarm "<task>"` - Executes the Autonomous Swarm Director (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
 - `vibes memory <record|query|checkpoint>` - Local episodic memory daemon & ultra-compact checkpointing (<150 tokens).
@@ -167,6 +168,7 @@ VibesPlug dilengkapi dengan sistem terminal yang perkasa:
 - `vibes anti-slop` (atau `npm run anti-slop`) - Menjalankan Sovereign Anti-Slop Scanner untuk mendeteksi dan menghapus placeholder, `// TODO`, basa-basi percakapan, dan stub palsu.
 - `vibes anti-slop --strict` - Validasi CI ketat di mana setiap peringatan slop dianggap sebagai error build.
 - `vibes anti-slop --fix` - Menghapus otomatis komentar narasi sintaksis yang tidak perlu.
+- `vibes create-agent --name <name> --skills <skills>` - Membuat custom agent spesifik proyek secara lintas-platform (`.agents/agents/`, `.cursor/rules/`, `.claude/rules/`).
 - `vibes mcp` (atau `npm run mcp`) - Memulai server native Model Context Protocol (MCP v1.x) melalui stdio dengan 8 AI tools.
 - `vibes swarm "<task>"` - Menjalankan Swarm Director otonom (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
 - `vibes memory <record|query|checkpoint>` - Daemon memori episodik & generator checkpoint ultra-ringkas (<150 token).

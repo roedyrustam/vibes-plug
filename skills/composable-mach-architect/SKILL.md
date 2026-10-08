@@ -2,7 +2,7 @@
 name: composable-mach-architect
 description: "Expert guide for Composable MACH Architecture (Microservices, API-first, Cloud-native, Headless) — dynamic UI composition, federated API mesh, Backend-for-Frontend patterns, plugin/extension architectures, event-driven composition, and composable AI routing / Panduan ahli Arsitektur MACH Komposabel — komposisi UI dinamis, API mesh federasi, pola Backend-for-Frontend, arsitektur plugin/ekstensi, komposisi event-driven, dan routing AI komposabel."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Composable MACH Architecture / Arsitektur MACH Komposabel
@@ -294,12 +294,12 @@ async function routePrompt(prompt, context) {
   const complexityScore = evaluateComplexity(prompt); // Fast heuristic check
 
   if (complexityScore < 0.3) {
-    // Simple task: Route to fast, cheap model (e.g., Claude 3 Haiku / GPT-4o-mini)
+    // Simple task: Route to fast, cheap model (e.g., Gemini 3.8 Flash / Claude 3.5 Haiku / GPT-4o-mini)
     return await callModel('fast-cheap-model', prompt);
   } 
   
   if (context.requiresReasoning) {
-    // Complex reasoning: Route to advanced model (e.g., Claude 3.5 Sonnet / GPT-4o)
+    // Complex reasoning: Route to advanced model (e.g., Gemini 4 Pro / Claude 3.7 Sonnet / Claude 5.1 / GPT-5)
     try {
       return await callModel('advanced-reasoning-model', prompt);
     } catch (error) {

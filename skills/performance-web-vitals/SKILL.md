@@ -2,7 +2,7 @@
 name: performance-web-vitals
 description: "Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement / Panduan ahli untuk optimasi performa web: Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, strategi rendering, dan peningkatan skor Lighthouse."
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Web Performance & Core Web Vitals Expert
@@ -31,7 +31,7 @@ Expert guide for measuring, diagnosing, and optimizing web application performan
 
 ---
 
-### Core Web Vitals Targets (2024+)
+### Core Web Vitals Targets (2026 Standards)
 
 | Metric | Good | Needs Improvement | Poor | Measures |
 |---|---|---|---|---|

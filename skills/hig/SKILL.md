@@ -3,7 +3,7 @@ name: hig
 description: "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces / Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif."
 author: "Roedy Rustam"
 
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)
@@ -19,7 +19,7 @@ version: "4.2.0"
 Connects and orchestrates with relevant domain skills like `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
-Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX designs. Covers the core triad (Hierarchy, Harmony, Consistency), Apple's HIG 2025 updates, Google Material Design 3, spatial design for Apple Vision Pro, and modern accessibility requirements.
+Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX designs. Covers the core triad (Hierarchy, Harmony, Consistency), Apple's HIG 2026 updates, Google Material Design 3, spatial design for Apple Vision Pro, and modern accessibility requirements.
 
 ### Trigger Conditions
 - Reviewing or critiquing a UI design for HIG violations.
@@ -111,7 +111,7 @@ Users should never wonder "how does this work?" — patterns should be predictab
 - [ ] All error messages appear in the same position (below the input field).
 - [ ] All tables use the same row height, tabular numerals, and hover style.
 
-### Apple HIG 2025 Updates
+### Apple HIG 2026 Updates
 
 #### Spatial Design (Vision Pro)
 - Use **depth** as an organizational tool — foreground elements are more important.
@@ -186,7 +186,7 @@ When reviewing a design, check:
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
-Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mobile. Mencakup triad inti (Hierarchy, Harmony, Consistency), pembaruan Apple HIG 2025, Google Material Design 3, desain spasial untuk Apple Vision Pro, dan persyaratan aksesibilitas modern.
+Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mobile. Mencakup triad inti (Hierarchy, Harmony, Consistency), pembaruan Apple HIG 2026, Google Material Design 3, desain spasial untuk Apple Vision Pro, dan persyaratan aksesibilitas modern.
 
 ### Kondisi Pemicu
 - Meninjau atau mengkritik desain UI untuk pelanggaran HIG.
@@ -239,7 +239,7 @@ Pengguna tidak pernah bertanya-tanya "bagaimana cara ini bekerja?" — pola haru
 - Aksi destruktif selalu memerlukan dialog konfirmasi.
 - Semua komponen sejenis menggunakan radius, padding, dan perilaku yang sama.
 
-### Pembaruan Apple HIG 2025
+### Pembaruan Apple HIG 2026
 
 #### Desain Spasial (Vision Pro)
 Gunakan kedalaman sebagai alat organisasi. Gunakan glass-morphism (`backdrop-blur`) untuk panel. Hindari elemen interaktif di luar sudut pandang yang nyaman.

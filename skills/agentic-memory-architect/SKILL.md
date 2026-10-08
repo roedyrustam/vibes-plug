@@ -2,7 +2,7 @@
 name: agentic-memory-architect
 description: Expert guide for long-term episodic memory integration (Mem0 v2, Letta/MemGPT, Zep v2), memory tier architecture, pgvector HNSW storage, and unified context management for autonomous AI agents / Panduan ahli untuk integrasi memori episodik jangka panjang (Mem0 v2, Letta/MemGPT, Zep v2), arsitektur tier memori, penyimpanan pgvector HNSW, dan manajemen konteks terpadu untuk agen AI otonom.
 author: "Roedy Rustam"
-version: "4.2.0"
+version: "4.2.1"
 ---
 
 # Agentic Memory Architect & Episodic Memory Guide
