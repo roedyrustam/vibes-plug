@@ -5,7 +5,7 @@
 > Each platform has its own entry point, but the core rules and 147 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
-**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
+**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra / Gemini 3.8 Flash, Anthropic Claude 5.1 Fable / Mythos / Claude 3.7 Sonnet / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro / DeepSeek-V3). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
 
 ## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
@@ -13,12 +13,12 @@
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
 2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 147 skill registry:
-   - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max`.
-   - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `authentication-identity-expert`.
-   - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & idempotency).
-   - **AI & MCP**: `ai-llm-integration-expert` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server`.
-   - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop`.
-   - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator`.
+   - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
+   - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
+   - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
+   - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `multi-agent-orchestration`.
+   - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop` + `zero-tech-debt-auditor`.
+   - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator` + `session-memory-manager`.
 3. **Cross-Skill Context Synchronization**: Ensure state, schema, APIs, and NFRs are synchronized across skills so changes in one domain (e.g., database schema) automatically propagate to others (e.g., backend models, API contracts, frontend types).
 4. **Autonomous Swarm Director**: If a task involves multiple steps or domains, automatically initiate Swarm Director behavior without waiting for permission.
 
@@ -152,4 +152,4 @@ All skills must preserve maximum reasoning power while maintaining minimal token
 - Store ultra-compact handoffs via `session-memory-manager`.
 - Prune subagent context payloads to task-specific slices during Swarm Fan-Out.
 
-> **Memory Graph Update:** 2026-10-03 - Codified Sovereign Token Optimization & KV-Cache Protocol across all swarm skills.
+> **Memory Graph Update:** 2026-10-09 - Codified Sovereign Token Optimization & KV-Cache Protocol across all swarm skills.
