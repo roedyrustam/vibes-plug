@@ -63,11 +63,13 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 147 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
-4. **Agent Synergy**: Rely on the `vibes-plug` skills ecosystem:
-   - For UI/Frontend: Delegate to subagents guided by `senior-frontend`, `design-system-architect`, `tailwind-expert`, `data-visualization-expert`.
-   - For Backend/APIs: Delegate to `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `api-design-expert`.
-   - For AI/MCP: Delegate to `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `ai-media-generation-expert`, `mcp-server-architect`.
-   - For QA/Testing: Delegate to `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-tdd-debugger`.
+4. **Agent Synergy & Native Subagents**: Rely on the `vibes-plug` native subagent registry located in `agents/`:
+   - **System Architecture**: Delegate to `swarm-architect` (guided by `brainstorming`, `prd-architect`, `domain-driven-design-expert`, `saas-architect`).
+   - **Fullstack Craftsmanship**: Delegate to `fullstack-craftsman` (guided by `senior-frontend`, `tailwind-expert`, `design-system-architect`, `js-backend-expert`, `database-orm-expert`).
+   - **Quality & Anti-Slop Gate**: Delegate to `quality-guardian` (guided by `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-red-teamer`).
+   - **FinTech & Payments**: Delegate to `fintech-payment-sentinel` (guided by `doku-payment-gateway`, `saas-billing`, `payment-gateway-expert`).
+   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `ai-llm-integration-expert`, `gemini-agent-booster`).
+   - **Custom Agent Generation**: Scaffold new project-specific agents anytime using `vibes create-agent --name <name> --skills <skills>`.
 5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
 6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.
 7. **Circuit Breakers**: If a subagent encounters a blocker or failure >2 retries, gracefully fallback or reassign the sub-task to an alternative specialized skill.

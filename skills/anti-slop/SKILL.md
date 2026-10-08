@@ -474,3 +474,19 @@ Sebelum menyelesaikan tugas coding atau UI, Anda **WAJIB** menyertakan 4 blok la
 2. **Checklist Kepatuhan 38 Aturan**: Evaluasi PASS/FAIL pada Hard Gate, Purpose-Gate, dan Quality Locks.
 3. **Bukti Click-Through Elemen Interaktif (R-35)**: Daftar elemen yang telah dicoba langsung beserta perilakunya.
 4. **Keputusan Akhir (Verdict)**: PASS atau FAIL.
+
+---
+
+## Orchestration & Integration
+
+This skill serves as the foundational quality, craftsmanship, and anti-slop gate across the entire `vibes-plug` swarm architecture. It actively connects to and hardens:
+
+| Skill | Relationship & Integration Flow |
+| :--- | :--- |
+| `senior-frontend` | Sanitizes React 19 / Next.js 15 components from generic AI templates and unhandled states. |
+| `tailwind-expert` | Enforces CSS-first styling, eliminates excessive pill buttons, and prevents stacked neon glows. |
+| `design-system-architect` | Validates 5-state interactive contracts, accessible tokens, and solid borders. |
+| `autonomous-tdd-debugger` | Enforces 100% complete implementations on the first try without test skips or fake mocks. |
+| `production-ready-hardener` | Acts as the final delivery quality gate before any release or production deployment. |
+| `zero-tech-debt-auditor` | Scans and eradicates syntax narration comments, dead code, and speculative abstractions. |
+| `coderabbit` | Powers the autonomous PR review and code inspection engine. |
