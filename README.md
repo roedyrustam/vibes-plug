@@ -67,7 +67,21 @@ VibesPlug is powered by 147 specialized AI subagents. Here is a high-level group
 
 | 🛡️ **DevOps, QA & Orchestration** | 🌐 **Web Ecosystem & Platforms** |
 | :--- | :--- |
-| `zero-to-prod-orchestrator` <br> `anti-slop` *(v4.0)* <br> `zero-tech-debt-auditor` *(Phase 9)* <br> `autonomous-red-teamer` <br> `ci-cd-devops-architect` <br> `brainstorming` | `chrome-extensions` <br> `mobile-expo-expert` <br> `desktop-electron-expert` <br> `pwa-offline-first-expert` <br> `blockchain-web3-expert` |
+---
+
+## 🤖 Native Specialist Subagents (Antigravity & Swarm Topologies)
+
+VibesPlug bundles 5 dedicated specialist subagents residing in `agents/`, ready to execute complex cross-domain tasks autonomously via Fan-Out / Fan-In and Critic-Validator loops:
+
+| Specialist Subagent | File | Core Mission & Bound Skills |
+| :--- | :--- | :--- |
+| **`swarm-architect`** | [`agents/swarm-architect.md`](agents/swarm-architect.md) | **Discovery, PRD & ERD**: High-level system architecture, PostgreSQL DDL schemas, and DDD bounded contexts. |
+| **`fullstack-craftsman`** | [`agents/fullstack-craftsman.md`](agents/fullstack-craftsman.md) | **Production Fullstack**: React 19, Next.js 15, Tailwind v4, Hono/Bun/Node backend, and Prisma/Drizzle ORM. |
+| **`quality-guardian`** | [`agents/quality-guardian.md`](agents/quality-guardian.md) | **Zero-Tolerance Quality Gate**: TDD self-healing, Playwright E2E, adversarial security fuzzing, and Anti-Slop audit. |
+| **`fintech-payment-sentinel`** | [`agents/fintech-payment-sentinel.md`](agents/fintech-payment-sentinel.md) | **FinTech & Payments**: DOKU Checkout, SNAP BI Direct API, HMAC-SHA512 webhook security, and atomic idempotency. |
+| **`ai-mcp-engineer`** | [`agents/ai-mcp-engineer.md`](agents/ai-mcp-engineer.md) | **AI & MCP Protocols**: Model Context Protocol (MCP v1.x) servers, Vercel AI SDK, RAG vector pipelines, and Gemini booster. |
+
+> 💡 **Custom Agent Generation**: Create tailored subagents for any project across Antigravity, Cursor, and Claude Code using `vibes create-agent --name <name> --skills <skills>`.
 
 ---
 
