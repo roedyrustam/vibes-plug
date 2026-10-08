@@ -20,6 +20,7 @@
     ".cursorrules",
     "scripts",
     "skills",
+    "rules",
     "!**/__pycache__/**",
     "!**/*.pyc",
     "!**/*.pyo",
