@@ -2,7 +2,7 @@
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # Zero to Production Orchestrator (2026 Master Edition)

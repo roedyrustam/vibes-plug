@@ -2,7 +2,7 @@
 name: typescript-expert
 description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # TypeScript Expert (TypeScript 5.8+ Edition)

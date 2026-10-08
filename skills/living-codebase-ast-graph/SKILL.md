@@ -2,7 +2,7 @@
 name: living-codebase-ast-graph
 description: "Expert guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, real-time symbol dependency mapping, refactoring blast radius calculation, and dead code eradication / Panduan ahli graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, kalkulasi radius dampak refaktor, dan pembersihan kode mati."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # living-codebase-ast-graph — vibes-plug Skill

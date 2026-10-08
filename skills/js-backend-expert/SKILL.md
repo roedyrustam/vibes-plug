@@ -2,7 +2,7 @@
 name: js-backend-expert
 description: "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # JS Backend Expert (Node.js 24 LTS / Bun 1.2 / Deno 2.x Edition)

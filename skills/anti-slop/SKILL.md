@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Sovereign Anti-AI Slop Directive & Enforcement Engine (2026 Unified Edition). Absolute zero-tolerance standard for lazy placeholders, conversational fluff, syntax narration, speculative over-engineering, hallucinated code, generic UI clichés, and 38 mandatory rules (R-01 to R-38) with Liveliness Dials (ENERGY/RHYTHM/MOTION), Two Usage Modes (During vs Audit After), and Delivery Gate verification / Doktrin dan mesin penegakan anti-AI slop mutlak v5.0."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)

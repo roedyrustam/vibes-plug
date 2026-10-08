@@ -2,7 +2,7 @@
 name: llm-observability-expert
 description: "Expert guide for LLM observability in production — token cost tracking, hallucination rate monitoring, latency analysis, prompt/completion logging, model comparison dashboards, and AI-specific tracing (Langfuse, Helicone, Lunary, OpenTelemetry GenAI) / Panduan ahli observabilitas LLM di produksi — pelacakan biaya token, pemantauan tingkat halusinasi, analisis latensi, logging prompt/completion, dashboard perbandingan model, dan tracing khusus AI."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # llm-observability-expert — vibes-plug Skill

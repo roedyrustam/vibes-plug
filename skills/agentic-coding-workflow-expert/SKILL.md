@@ -2,7 +2,7 @@
 name: agentic-coding-workflow-expert
 description: "Expert guide for AI-assisted coding workflows — agentic code generation, multi-agent code swarms, self-healing CI/CD, automated PR review, spec-to-code pipelines, codebase knowledge graphs, and human-in-the-loop approval gates / Panduan ahli untuk workflow pengkodean berbasis AI — generasi kode agentic, code swarm multi-agen, CI/CD self-healing, review PR otomatis, pipeline spec-to-code, knowledge graph codebase, dan gate persetujuan human-in-the-loop."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # Agentic Coding Workflow Expert

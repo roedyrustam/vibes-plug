@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] - 2026-10-09
+
+### Added / Ditambahkan
+- **Antigravity (AGY) Full Native Plugin Integration & Sync**:
+  - Penyelarasan direktori aturan standar `rules/AGENTS.md` sesuai spesifikasi Plugin Antigravity bundle standard.
+  - Konfigurasi `rulesDir: "rules/"` pada platform Antigravity di `plugin.json` dan penyertaan direktori `rules/` di `package.json` files list.
+  - Verifikasi otomatis dan sinkronisasi menyeluruh 147 skill spesialis serta native MCP Server `vibes-plug-tools` untuk ekosistem Google Antigravity.
+
 ## [4.2.1] - 2026-10-06
 
 ### Fixed / Diperbaiki

@@ -2,7 +2,7 @@
 name: formal-spec-z3-verifier
 description: "Expert guide for mathematical formal verification, SMT solver constraints (Z3, Dafny, TLA+), invariant theorem proving for FinTech billing state machines, RBAC/ABAC authorization, and zero-violation architecture / Panduan ahli verifikasi formal matematis, SMT solver (Z3, Dafny, TLA+), pembuktian invarian state machine billing FinTech, otorisasi RBAC/ABAC, dan arsitektur zero-violation."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # formal-spec-z3-verifier — vibes-plug Skill

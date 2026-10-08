@@ -2,7 +2,7 @@
 name: data-telemetry-expert
 description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # Data & Telemetry Expert (OpenTelemetry 1.x / ClickHouse Edition)

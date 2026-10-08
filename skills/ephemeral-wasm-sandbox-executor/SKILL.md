@@ -2,7 +2,7 @@
 name: ephemeral-wasm-sandbox-executor
 description: "Expert guide for ephemeral WebAssembly (WASM) and isolated micro-runtime sandboxes to securely execute AI-generated code, validate database migrations in-memory, and perform sub-millisecond fuzzing / Panduan ahli sandbox WebAssembly (WASM) efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman, validasi migrasi database in-memory, dan fuzzing sub-milidetik."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # ephemeral-wasm-sandbox-executor — vibes-plug Skill

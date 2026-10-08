@@ -2,7 +2,7 @@
 name: api-gateway-proxy-expert
 description: "Expert guide for API Gateways, Reverse Proxies, and Service Mesh. Covers Kong, Traefik, NGINX, Cloudflare Gateway, and load balancing / Panduan ahli untuk API Gateway, Reverse Proxy, dan Service Mesh."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # API Gateway & Reverse Proxy Expert

@@ -2,7 +2,7 @@
 name: voice-ai-realtime-agent
 description: "Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD / Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah."
 author: "Roedy Rustam"
-version: "4.2.1"
+version: "4.2.2"
 ---
 
 # Voice AI Realtime Agent (2026 Edition)
