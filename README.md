@@ -223,9 +223,14 @@ vibes-plug init
 ### 💻 如何使用插件和 CLI
 1. **IDE 内使用:** 无需手动标记技能。只需在 AI 聊天中输入自然语言指令。
 2. **CLI 命令:** 
-   - `vibes-plug init` - 注入集群架构。
-   - `vibes-plug audit` - 扫描技术债务。
+   - `vibes-plug init` - 注入 147 技能集群架构。
+   - `vibes-plug audit` - 扫描技术债务与死代码。
    - `vibes-plug list` - 显示加载的所有活动技能。
+   - `vibes anti-slop` - 运行零废话 (Anti-Slop) 验证器与代码清理。
+   - `vibes create-agent --name <name> --skills <skills>` - 跨平台自动生成自定义专家代理 (`.agents/agents/`, `.cursor/rules/`, `.claude/rules/`)。
+   - `vibes mcp` - 启动原生 Model Context Protocol (MCP v1.x) 工具服务。
+   - `vibes swarm "<task>"` - 运行自主 Swarm Director (Fan-Out/Fan-In, Pipeline, Critic-Validator)。
+   - `vibes guard` - 运行完整的 Sovereign Guard CI 生产就绪验证。
 
 ---
 
@@ -257,9 +262,14 @@ vibes-plug init
 ### 💻 Verwendung des Plugins & der CLI
 1. **In-IDE-Nutzung:** Keine manuelle Markierung von Skills erforderlich. Geben Sie einfach einen natürlichen Befehl in den KI-Chat ein.
 2. **CLI-Befehle:**
-   - `vibes-plug init` - Injiziert die Swarm-Architektur.
-   - `vibes-plug audit` - Sucht nach technischen Schulden.
+   - `vibes-plug init` - Injiziert die 147-Skill-Swarm-Architektur.
+   - `vibes-plug audit` - Sucht nach technischen Schulden und totem Code.
    - `vibes-plug list` - Zeigt alle aktiven Agenten-Skills an.
+   - `vibes anti-slop` - Führt den Sovereign Anti-Slop Scanner aus (keine Platzhalter oder leere Stubs).
+   - `vibes create-agent --name <name> --skills <skills>` - Erstellt maßgeschneiderte Subagenten für Antigravity, Cursor und Claude Code.
+   - `vibes mcp` - Startet den nativen Model Context Protocol (MCP v1.x) Server mit KI-Tools.
+   - `vibes swarm "<task>"` - Führt den autonomen Swarm Director aus.
+   - `vibes guard` - Führt die vollständige Sovereign Guard CI-Validierung aus.
 
 ---
 
@@ -291,9 +301,14 @@ vibes-plug init
 ### 💻 プラグインと CLI の使い方
 1. **IDE 内での使用:** スキルを手動でタグ付けする必要はありません。AI チャットに自然な指示を入力するだけです。
 2. **CLI コマンド:**
-   - `vibes-plug init` - スウォームアーキテクチャを注入します。
-   - `vibes-plug audit` - 技術的負債をスキャンします。
+   - `vibes-plug init` - 147スキルのスウォームアーキテクチャを注入します。
+   - `vibes-plug audit` - 技術的負債とデッドコードをスキャンします。
    - `vibes-plug list` - メモリにロードされているすべてのスキルを表示します。
+   - `vibes anti-slop` - Anti-Slopスキャナーを実行し、未完成コードやプレースホルダーを排除します。
+   - `vibes create-agent --name <name> --skills <skills>` - Antigravity、Cursor、Claude Code向けのカスタムエージェントを自動生成します。
+   - `vibes mcp` - ネイティブModel Context Protocol (MCP v1.x) サーバーを起動します。
+   - `vibes swarm "<task>"` - 自律型スウォームディレクターを実行します。
+   - `vibes guard` - 完全なSovereign Guard CI検証パイプラインを実行します。
 
 ---
 
