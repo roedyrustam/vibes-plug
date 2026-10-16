@@ -844,6 +844,14 @@ const RECIPES = {
   'data-platform': {
     description: 'Data engineering: ETL pipelines, visualization, telemetry, analytics',
     skills: ['data-pipeline-etl-expert', 'data-visualization-expert', 'data-telemetry-expert', 'search-engine-expert']
+  },
+  'agentic-commerce': {
+    description: 'Autonomous M2M Agentic Commerce: micro-economies, DOKU Checkout & SNAP BI, dual-rail settlement, and SaaS billing',
+    skills: ['agentic-micro-economy-architect', 'agentic-m2m-settlement', 'doku-payment-gateway', 'doku-mcp-server', 'saas-billing', 'payment-gateway-expert', 'formal-spec-z3-verifier']
+  },
+  'frontier-ai': {
+    description: 'Frontier AI engineering: Gemini 4 Pro / Claude 5.1, KV-cache locking, model cascading, test-time compute, and MCP servers',
+    skills: ['frontier-ai-models-expert', 'gemini-agent-booster', 'mcp-server-architect', 'kv-cache-prefix-optimizer', 'adaptive-model-cascade', 'test-time-compute-optimizer']
   }
 };
 

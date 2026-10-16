@@ -27,6 +27,8 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `doku-payment-gateway` (DOKU Checkout Hosted & SNAP BI Direct API)
 - `payment-gateway-expert` (Multi-Gateway Integrations, Webhooks, Reconciliation)
 - `saas-billing` (Subscription State Machines, Invoicing, Proration)
+- `agentic-m2m-settlement` (M2M Agent Settlement, Dual-Rail Micro-Clearing, Invoicing)
+- `agentic-micro-economy-architect` (Agent Wallets, Swarm Budgets, Escrow)
 - `database-orm-expert` (Pessimistic / Optimistic Row Locks, Idempotency Keys)
 
 ---
