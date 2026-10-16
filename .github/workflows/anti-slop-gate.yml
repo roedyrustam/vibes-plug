@@ -38,3 +38,6 @@ jobs:
         run: |
           node bin/vibes.mjs --help
           node bin/vibes.mjs version current
+
+      - name: Run CLI Test Suite
+        run: node --test scripts/test-cli.mjs

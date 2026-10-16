@@ -32,7 +32,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node scripts/validate-skills.mjs && node scripts/check-anti-slop.js --strict",
+    "test": "node scripts/validate-skills.mjs && node scripts/check-anti-slop.js --strict && node --test scripts/test-cli.mjs",
+    "test:cli": "node --test scripts/test-cli.mjs",
     "anti-slop": "node scripts/check-anti-slop.js",
     "anti-slop:strict": "node scripts/check-anti-slop.js --strict",
     "anti-slop:fix": "node scripts/check-anti-slop.js --fix",
