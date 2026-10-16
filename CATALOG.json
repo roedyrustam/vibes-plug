@@ -1,5 +1,5 @@
 {
-  "total": 150,
+  "total": 155,
   "skills": [
     {
       "name": "accessibility-testing-expert",
@@ -494,6 +494,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "mcp-sampling-critic",
+      "description": "Expert guide for MCP client sampling (sampling/createMessage), Critic-in-the-Loop agentic quality gates, autonomous human-in-the-loop emulation, and multi-model consensus verification / Panduan ahli sampling MCP client, quality gate agen Critic-in-the-Loop, dan verifikasi konsensus multi-model.",
+      "version": "4.2.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "mcp-server-architect",
       "description": "Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python / Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python.",
       "version": "4.2.1",
@@ -563,6 +569,12 @@
       "name": "openapi-swagger-codegen-expert",
       "description": "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak.",
       "version": "4.2.1",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "parallel-tool-orchestrator",
+      "description": "Expert guide for parallel tool execution, MCP batching (vibes_batch), asynchronous Promise.allSettled pipelines, subagent concurrent fan-out, and latency-optimized tool calling loops / Panduan ahli eksekusi tool paralel dan batching MCP.",
+      "version": "4.2.2",
       "author": "Roedy Rustam"
     },
     {
@@ -758,6 +770,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "structured-output-contracts",
+      "description": "Expert guide for agent-native structured outputs, JSON Schema strict mode enforcement (OpenAI response_format, Gemini schema mode, Claude tool_use), MCP resource schemas, and zero-hallucination type contracts / Panduan ahli kontrak output terstruktur native agen dan penegakan JSON schema ketat.",
+      "version": "4.2.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "supabase-security-expert",
       "description": "Supabase security expert to audit RLS (Row Level Security), RBAC, relational databases, prevent data leakage, and utilize Supabase Linter / Ahli keamanan Supabase untuk audit RLS (Row Level Security), RBAC, database relasional, pencegahan kebocoran data, dan pemanfaatan Supabase Linter.",
       "version": "4.2.1",
@@ -806,6 +824,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "thinking-budget-orchestrator",
+      "description": "Expert guide for dynamic thinking budget allocation, test-time reasoning scaling (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3/o4-mini), and task complexity heuristics / Panduan ahli alokasi budget penalaran dinamis dan penskalaan reasoning test-time.",
+      "version": "4.2.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "typescript-expert",
       "description": "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe.",
       "version": "4.2.1",
@@ -827,6 +851,12 @@
       "name": "vercel-ai-sdk-expert",
       "description": "Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering / Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15.",
       "version": "4.2.1",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "visual-ui-auditor",
+      "description": "Expert guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 / 5.1 Sonnet, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan ahli audit visual UI berbasis vision multimodal.",
+      "version": "4.2.2",
       "author": "Roedy Rustam"
     },
     {

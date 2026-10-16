@@ -1,9 +1,9 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro v4.2.2: 150-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.3.0: 155-Skill AI Agent Swarm Architecture
 
-**Turn any IDE into an autonomous 150-agent software development studio.**  
+**Turn any IDE into an autonomous 155-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
 
 <p align="center">
@@ -12,7 +12,7 @@
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/v/vibes-plug?style=for-the-badge&logo=npm&color=ef4444&labelColor=0d1117" alt="NPM Version" /></a>
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/dt/vibes-plug?style=for-the-badge&logo=npm&color=10b981&labelColor=0d1117" alt="NPM Downloads" /></a>
   <a href="https://github.com/roedyrustam/vibes-plug/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&labelColor=0d1117" alt="License" /></a>
-  <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20150-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
+  <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20155-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@ npx github:roedyrustam/vibes-plug --all
 
 | Metric / Capability | Vanilla Vibe Coding (Prompts) | Static IDE Rules (.cursorrules) | ⚡ VibesPlug Pro (Swarm) |
 | :--- | :--- | :--- | :--- |
-| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 150 Specialists** |
+| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 155 Specialists** |
 | **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance | 🚀 **Autonomous 8-Phase Zero-To-Prod** |
 | **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts | ⚡ **React 19, Next 15, Tailwind v4, Bun 1.2+** |
 | **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check | 🧹 **Zero-Tech-Debt Auditor & Red Teaming** |
@@ -58,24 +58,24 @@ npx github:roedyrustam/vibes-plug --all
 
 ---
 
-## 🧩 The 150-Skill Arsenal (Category Breakdown)
+## 🧩 The 155-Skill Arsenal (Category Breakdown)
 
-VibesPlug Pro is powered by **150 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
+VibesPlug Pro is powered by **155 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
 
-> 📖 **Browse Complete Directory**: View the comprehensive [150-Skill Interactive Catalog (`CATALOG.md`)](CATALOG.md) or generate machine-readable indexes anytime via `vibes docs markdown` or `vibes docs json`.
+> 📖 **Browse Complete Directory**: View the comprehensive [155-Skill Interactive Catalog (`CATALOG.md`)](CATALOG.md) or generate machine-readable indexes anytime via `vibes docs markdown` or `vibes docs json`.
 
 
-| 🎨 **Frontend & Mobile UI/UX** (29 Skills) | ⚙️ **Backend, Systems & API Design** (25 Skills) |
+| 🎨 **Frontend & Mobile UI/UX** (30 Skills) | ⚙️ **Backend, Systems & API Design** (26 Skills) |
 | :--- | :--- |
-| `senior-frontend` <br> `nextjs-app-router-expert` <br> `tailwind-expert` <br> `ui-ux-pro-max` <br> `design-system-architect` <br> `modern-css-native-expert` <br> `form-validation-expert` <br> `state-management-expert` <br> `tanstack-query-expert` <br> `svg-animation-motion-expert` <br> `web-3d-graphics-expert` <br> `glsl-shader-expert` <br> `webxr-ar-vr-expert` <br> `mobile-expo-expert` <br> `apple-ecosystem-expert` <br> `desktop-electron-expert` <br> `tauri-expert` <br> `vue-frontend-expert` <br> `svelte-sveltekit-expert` <br> `solidjs-expert` <br> `angular-expert` <br> `astro-framework-expert` <br> `pwa-offline-first-expert` <br> `browser-extension-mv3-pro` <br> `micro-frontend-architect` <br> `spa-orchestrator` <br> `mpa-orchestrator` <br> `rich-text-editor-expert` <br> `hig` | `js-backend-expert` <br> `bun-runtime-expert` <br> `python-programming-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `typescript-expert` <br> `fullstack-expert` <br> `database-orm-expert` <br> `api-design-expert` <br> `openapi-swagger-codegen-expert` <br> `spec-driven-development-expert` <br> `graphql-apollo-expert` <br> `api-gateway-proxy-expert` <br> `async-queue-temporal-expert` <br> `cron-scheduler-expert` <br> `event-driven-architect` <br> `domain-driven-design-expert` <br> `composable-mach-architect` <br> `mvc-expert` <br> `wasm-edge-computing-expert` <br> `ephemeral-wasm-sandbox-executor` <br> `legacy-code-translator` <br> `monorepo-architect` <br> `scalability-clean-code` <br> `web-game-engine-expert` |
+| `senior-frontend` <br> `nextjs-app-router-expert` <br> `tailwind-expert` <br> `ui-ux-pro-max` <br> `design-system-architect` <br> `modern-css-native-expert` <br> `form-validation-expert` <br> `state-management-expert` <br> `tanstack-query-expert` <br> `svg-animation-motion-expert` <br> `web-3d-graphics-expert` <br> `glsl-shader-expert` <br> `webxr-ar-vr-expert` <br> `mobile-expo-expert` <br> `apple-ecosystem-expert` <br> `desktop-electron-expert` <br> `tauri-expert` <br> `vue-frontend-expert` <br> `svelte-sveltekit-expert` <br> `solidjs-expert` <br> `angular-expert` <br> `astro-framework-expert` <br> `pwa-offline-first-expert` <br> `browser-extension-mv3-pro` <br> `micro-frontend-architect` <br> `spa-orchestrator` <br> `mpa-orchestrator` <br> `rich-text-editor-expert` <br> `visual-ui-auditor` <br> `hig` | `js-backend-expert` <br> `bun-runtime-expert` <br> `python-programming-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `typescript-expert` <br> `fullstack-expert` <br> `database-orm-expert` <br> `api-design-expert` <br> `openapi-swagger-codegen-expert` <br> `spec-driven-development-expert` <br> `graphql-apollo-expert` <br> `api-gateway-proxy-expert` <br> `async-queue-temporal-expert` <br> `cron-scheduler-expert` <br> `event-driven-architect` <br> `domain-driven-design-expert` <br> `composable-mach-architect` <br> `mvc-expert` <br> `wasm-edge-computing-expert` <br> `ephemeral-wasm-sandbox-executor` <br> `structured-output-contracts` <br> `legacy-code-translator` <br> `monorepo-architect` <br> `scalability-clean-code` <br> `web-game-engine-expert` |
 
-| 🤖 **Frontier AI, LLM, MCP & Multi-Agent** (27 Skills) | 💸 **SaaS, FinTech, E-Commerce & Growth** (16 Skills) |
+| 🤖 **Frontier AI, LLM, MCP & Multi-Agent** (29 Skills) | 💸 **SaaS, FinTech, E-Commerce & Growth** (16 Skills) |
 | :--- | :--- |
-| `ai-llm-integration-expert` <br> `frontier-ai-models-expert` <br> `gemini-agent-booster` <br> `mcp-server-architect` <br> `doku-mcp-server` <br> `vercel-ai-sdk-expert` <br> `pydantic-ai-expert` <br> `multi-agent-orchestration` <br> `agentic-coding-workflow-expert` <br> `agentic-memory-architect` <br> `agentic-micro-economy-architect` <br> `adaptive-model-cascade` <br> `context-window-engineer` <br> `kv-cache-prefix-optimizer` <br> `test-time-compute-optimizer` <br> `speculative-multi-draft-synthesizer` <br> `living-codebase-ast-graph` <br> `local-slm-edge-ai-expert` <br> `voice-ai-realtime-agent` <br> `affective-computing-emotion-ai` <br> `graph-rag-knowledge-expert` <br> `vector-db-rag-expert` <br> `llm-observability-expert` <br> `llm-finops-router` <br> `ai-prompt-engineering-expert` <br> `synthetic-data-finetuning-expert` <br> `ai-safety-governance-expert` | `saas-architect` <br> `saas-multi-tenant` <br> `saas-billing` <br> `agentic-m2m-settlement` <br> `doku-payment-gateway` <br> `payment-gateway-expert` <br> `ecommerce-expert` <br> `feature-flag-analytics-expert` <br> `seo` <br> `data-telemetry-expert` <br> `app-promo-media-expert` <br> `email-notification-expert` <br> `chatbot-messaging-expert` <br> `n8n-automation-expert` <br> `headless-cms-expert` <br> `wordpress-headless-expert` |
+| `ai-llm-integration-expert` <br> `frontier-ai-models-expert` <br> `gemini-agent-booster` <br> `mcp-server-architect` <br> `doku-mcp-server` <br> `vercel-ai-sdk-expert` <br> `pydantic-ai-expert` <br> `multi-agent-orchestration` <br> `agentic-coding-workflow-expert` <br> `agentic-memory-architect` <br> `agentic-micro-economy-architect` <br> `adaptive-model-cascade` <br> `context-window-engineer` <br> `kv-cache-prefix-optimizer` <br> `test-time-compute-optimizer` <br> `speculative-multi-draft-synthesizer` <br> `living-codebase-ast-graph` <br> `local-slm-edge-ai-expert` <br> `voice-ai-realtime-agent` <br> `affective-computing-emotion-ai` <br> `graph-rag-knowledge-expert` <br> `vector-db-rag-expert` <br> `llm-observability-expert` <br> `llm-finops-router` <br> `ai-prompt-engineering-expert` <br> `synthetic-data-finetuning-expert` <br> `thinking-budget-orchestrator` <br> `parallel-tool-orchestrator` <br> `ai-safety-governance-expert` | `saas-architect` <br> `saas-multi-tenant` <br> `saas-billing` <br> `agentic-m2m-settlement` <br> `doku-payment-gateway` <br> `payment-gateway-expert` <br> `ecommerce-expert` <br> `feature-flag-analytics-expert` <br> `seo` <br> `data-telemetry-expert` <br> `app-promo-media-expert` <br> `email-notification-expert` <br> `chatbot-messaging-expert` <br> `n8n-automation-expert` <br> `headless-cms-expert` <br> `wordpress-headless-expert` |
 
-| 🛡️ **Testing, Security, Anti-Slop & Quality** (24 Skills) | 🚀 **Data, Media, Lifecycle & Orchestration** (29 Skills) |
+| 🛡️ **Testing, Security, Anti-Slop & Quality** (25 Skills) | 🚀 **Data, Media, Lifecycle & Orchestration** (29 Skills) |
 | :--- | :--- |
-| `anti-slop` <br> `autonomous-tdd-debugger` <br> `e2e-testing-expert` <br> `autonomous-red-teamer` <br> `ai-code-review-autonomous` <br> `property-mutation-testing-expert` <br> `formal-spec-z3-verifier` <br> `prompt-injection-firewall` <br> `accessibility-testing-expert` <br> `supabase-security-expert` <br> `firebase-security-expert` <br> `zero-trust-secret-vault` <br> `authentication-identity-expert` <br> `rate-limit-abuse-prevention` <br> `post-quantum-crypto-migrator` <br> `compliance-gdpr-privacy-expert` <br> `error-resilience-expert` <br> `logging-error-tracking-expert` <br> `coderabbit` <br> `autonomous-api-drift-healer` <br> `biome-linter-formatter-expert` <br> `global-a11y-i18n-expert` <br> `app-analyzer-optimizer` <br> `zero-tech-debt-auditor` | `zero-to-prod-orchestrator` <br> `brainstorming` <br> `prd-architect` <br> `production-ready-hardener` <br> `session-memory-manager` <br> `deep-research-analyst` <br> `web-scraper` <br> `website-design-cloner` <br> `multimodal-spatial-video-cloner` <br> `screenshot-to-code-expert` <br> `browser-automation-expert` <br> `ephemeral-generative-ui-architect` <br> `data-pipeline-etl-expert` <br> `data-visualization-expert` <br> `search-engine-expert` <br> `geospatial-maps-expert` <br> `realtime-collaboration-expert` <br> `sse-websocket-streaming-expert` <br> `file-upload-media-expert` <br> `ai-media-generation-expert` <br> `pdf-document-generation-expert` <br> `ci-cd-devops-architect` <br> `cloud-hosting-expert` <br> `self-healing-cloud-orchestrator` <br> `dependency-upgrade-migrator` <br> `proactive-background-watcher` <br> `documentation-site-expert` <br> `blockchain-web3-expert` <br> `agy-customizations` |
+| `anti-slop` <br> `autonomous-tdd-debugger` <br> `e2e-testing-expert` <br> `autonomous-red-teamer` <br> `ai-code-review-autonomous` <br> `property-mutation-testing-expert` <br> `formal-spec-z3-verifier` <br> `prompt-injection-firewall` <br> `accessibility-testing-expert` <br> `supabase-security-expert` <br> `firebase-security-expert` <br> `zero-trust-secret-vault` <br> `authentication-identity-expert` <br> `rate-limit-abuse-prevention` <br> `post-quantum-crypto-migrator` <br> `compliance-gdpr-privacy-expert` <br> `error-resilience-expert` <br> `logging-error-tracking-expert` <br> `coderabbit` <br> `autonomous-api-drift-healer` <br> `biome-linter-formatter-expert` <br> `global-a11y-i18n-expert` <br> `app-analyzer-optimizer` <br> `mcp-sampling-critic` <br> `zero-tech-debt-auditor` | `zero-to-prod-orchestrator` <br> `brainstorming` <br> `prd-architect` <br> `production-ready-hardener` <br> `session-memory-manager` <br> `deep-research-analyst` <br> `web-scraper` <br> `website-design-cloner` <br> `multimodal-spatial-video-cloner` <br> `screenshot-to-code-expert` <br> `browser-automation-expert` <br> `ephemeral-generative-ui-architect` <br> `data-pipeline-etl-expert` <br> `data-visualization-expert` <br> `search-engine-expert` <br> `geospatial-maps-expert` <br> `realtime-collaboration-expert` <br> `sse-websocket-streaming-expert` <br> `file-upload-media-expert` <br> `ai-media-generation-expert` <br> `pdf-document-generation-expert` <br> `ci-cd-devops-architect` <br> `cloud-hosting-expert` <br> `self-healing-cloud-orchestrator` <br> `dependency-upgrade-migrator` <br> `proactive-background-watcher` <br> `documentation-site-expert` <br> `blockchain-web3-expert` <br> `agy-customizations` |
 
 ---
 
@@ -124,8 +124,8 @@ vibes mcp
 2. `vibes_eval_sql` — Evaluate DDL schemas and audit PostgreSQL RLS policies in an in-memory sandbox.
 3. `vibes_arbitrate_code` — Score and arbitrate competing code solutions via Process Reward Model (PRM).
 4. `vibes_verify_invariants` — Formally prove state machine invariants and generate SMT-LIB 2.0 formulas.
-5. `vibes_get_skill` — Fetch instructions and contracts from any of the 150 specialized skills.
-6. `vibes_list_skills` — Discover all 150 skills with domain categories, summaries, and tags.
+5. `vibes_get_skill` — Fetch instructions and contracts from any of the 155 specialized skills.
+6. `vibes_list_skills` — Discover all 155 skills with domain categories, summaries, and tags.
 7. `vibes_inject_skill` — Directly inject one or more skills into `.agents/skills/<name>`.
 8. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
 9. `vibes_memory` — Read and write cross-session architectural decisions and emit compact checkpoints.
@@ -149,7 +149,7 @@ vibes guard
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 150 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
+Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 155 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
 *Supported Platforms: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, and Kiro.*
@@ -249,15 +249,15 @@ vibes init <project-name>        # Scaffolds 8-Phase Zero-To-Prod structure (REA
 vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecommerce | mobile | api | fullstack | spec-api)
 vibes sync                       # Verifies & synchronizes master trigger across all IDE rules
 vibes ui                         # Interactive terminal TUI to visually select & install skills
-vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 150-skill explorer)
-vibes list [filter]              # Lists all 150 skills (optional: keyword filter)
-vibes search <query>             # Searches 150 skills with relevance ranking
+vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 155-skill explorer)
+vibes list [filter]              # Lists all 155 skills (optional: keyword filter)
+vibes search <query>             # Searches 155 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
 vibes remove <skill-name>        # Removes an installed skill from local project
 vibes skill info <skill-name>    # Shows metadata, description, and orchestration connections
 vibes recipe list                # Lists curated skill bundles (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Applies a curated skill recipe to current workspace
-vibes docs [markdown|json]       # Exports full 150-skill catalog to terminal, CATALOG.md, or CATALOG.json
+vibes docs [markdown|json]       # Exports full 155-skill catalog to terminal, CATALOG.md, or CATALOG.json
 vibes create-skill <name>        # Scaffolds a new skill following the standard specification
 vibes create-agent --name <n>    # Generates a custom subagent across Antigravity, Cursor, and Claude
 vibes create-mcp <server-name>   # Scaffolds a new Model Context Protocol server
@@ -287,7 +287,7 @@ vibes hooks install              # Installs pre-commit Git hook enforcing zero-s
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Versi Bahasa Indonesia
 
-Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 150 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
+Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 155 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
 
 ### 🚀 Panduan Instalasi Universal (Semua IDE & LLM)
 *Platform Didukung: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, dan Kiro.*
@@ -354,7 +354,7 @@ cp .clinerules /path/ke/proyek-anda/
 ```
 
 **Opsi E: Pembaruan Rutin via GitHub**
-Untuk mendapatkan update 150 skill dan engine terbaru:
+Untuk mendapatkan update 155 skill dan engine terbaru:
 ```bash
 cd ~/.gemini/config/plugins/vibes-plug  # (atau folder hasil clone Anda)
 git pull origin main
@@ -387,15 +387,15 @@ vibes init <project-name>        # Men-scaffold struktur Zero-To-Prod 8-Fase (RE
 vibes bootstrap <type> <name>    # Super-scaffold proyek + skill (saas | ecommerce | mobile | api | fullstack | spec-api)
 vibes sync                       # Verifikasi & sinkronisasi aturan pemicu utama di semua IDE
 vibes ui                         # TUI terminal interaktif untuk memilih dan memasang skill secara visual
-vibes studio [--port <n>]        # Membuka dashboard web lokal Studio Cockpit (eksplorasi visual 150 skill)
-vibes list [filter]              # Menampilkan daftar 150 skill (opsional: filter kata kunci)
-vibes search <query>             # Mencari 150 skill berdasarkan relevansi kata kunci
+vibes studio [--port <n>]        # Membuka dashboard web lokal Studio Cockpit (eksplorasi visual 155 skill)
+vibes list [filter]              # Menampilkan daftar 155 skill (opsional: filter kata kunci)
+vibes search <query>             # Mencari 155 skill berdasarkan relevansi kata kunci
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
 vibes remove <skill-name>        # Menghapus skill yang terpasang dari proyek lokal
 vibes skill info <skill-name>    # Menampilkan metadata, deskripsi, dan relasi orkestrasi skill
 vibes recipe list                # Menampilkan daftar paket resep skill (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Menerapkan paket resep skill ke workspace proyek saat ini
-vibes docs [markdown|json]       # Mengekspor katalog 150 skill ke terminal, CATALOG.md, atau CATALOG.json
+vibes docs [markdown|json]       # Mengekspor katalog 155 skill ke terminal, CATALOG.md, atau CATALOG.json
 vibes create-skill <name>        # Membuat boilerplate skill baru sesuai standar spesifikasi
 vibes create-agent --name <n>    # Menghasilkan custom subagent lintas Antigravity, Cursor, dan Claude
 vibes create-mcp <server-name>   # Men-scaffold server Model Context Protocol baru
@@ -425,7 +425,7 @@ vibes hooks install              # Memasang Git pre-commit hook untuk menegakkan
 <a name="mandarin"></a>
 ## 🇨🇳 中文版 (Mandarin)
 
-欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 150 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
+欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 155 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
 
 ### 🚀 通用安装指南 (所有 IDE 和 LLM)
 *支持的平台: Google Antigravity, Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*
@@ -495,9 +495,9 @@ npm test
 ### 💻 核心 CLI 命令
 - `vibes init <project-name>` — 初始化 8 阶段端到端项目架构。
 - `vibes ui` — 终端交互式 TUI 界面，可视化选择与安装技能。
-- `vibes studio [--port <n>]` — 启动本地 Web Studio 驾驶舱仪表板 (150 个技能可视化探索、子代理集群与 P1-P5 引擎)。
+- `vibes studio [--port <n>]` — 启动本地 Web Studio 驾驶舱仪表板 (155 个技能可视化探索、子代理集群与 P1-P5 引擎)。
 - `vibes recipe list` — 列出预置技能配方套件 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
-- `vibes docs [markdown|json]` — 导出 150 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
+- `vibes docs [markdown|json]` — 导出 155 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
 - `vibes guard` — 运行完整的 Sovereign Guard CI 生产就绪验证流水线 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 编译并锁定确定性 KV-Cache 前缀 (>1024 tokens)，降低 75-90% 代币开销。
 - `vibes db:eval` — 在内存沙箱中模拟和审计 SQL DDL 迁移及 RLS 策略。
@@ -514,7 +514,7 @@ npm test
 <a name="german"></a>
 ## 🇩🇪 Deutsche Version (German)
 
-Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 150 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
+Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 155 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
 
 ### 🚀 Universelle Installationsanleitung (Alle IDEs & LLMs)
 *Unterstützte Plattformen: Antigravity, Claude Code, Cursor, OpenAI Codex, Windsurf, Trae, VSCode (Cline), Kimi, Kiro.*
@@ -584,9 +584,9 @@ npm test
 ### 💻 Wichtigste CLI-Befehle
 - `vibes init <project-name>` — Initialisiert die 8-Phasen-Zero-To-Prod-Architektur.
 - `vibes ui` — Interaktives Terminal-TUI zur visuellen Auswahl und Installation von Skills.
-- `vibes studio [--port <n>]` — Startet das lokale Web-Studio-Dashboard (visueller 150-Skill-Explorer, Subagenten-Swarm und P1–P5 Cockpit).
+- `vibes studio [--port <n>]` — Startet das lokale Web-Studio-Dashboard (visueller 155-Skill-Explorer, Subagenten-Swarm und P1–P5 Cockpit).
 - `vibes recipe list` — Listet kuratierte Skill-Pakete auf (ai-stack, fullstack-pro, fintech-core, spec-driven-api).
-- `vibes docs [markdown|json]` — Exportiert den vollständigen 150-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
+- `vibes docs [markdown|json]` — Exportiert den vollständigen 155-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
 - `vibes guard` — Führt die vollständige Sovereign Guard CI-Validierung aus (P1–P5 + Anti-Slop).
 - `vibes compile-cache` — Kompiliert deterministische KV-Cache-Präfixe (>1024 Tokens) für 75–90% Kostensenkung.
 - `vibes db:eval` — Simuliert und prüft SQL-DDL-Migrationen im Speicher auf RLS-Sicherheit.
@@ -603,7 +603,7 @@ npm test
 <a name="japanese"></a>
 ## 🇯🇵 日本語版 (Japanese)
 
-**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、150 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
+**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、155 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
 
 ### 🚀 ユニバーサルインストールガイド (すべての IDE と LLM)
 *サポートされているプラットフォーム: Google Antigravity, Claude Code, Cursor, OpenAI Codex, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*
@@ -673,9 +673,9 @@ npm test
 ### 💻 主な CLI コマンド
 - `vibes init <project-name>` — 8フェーズ Zero-To-Prod 開発プロジェクトを初期化。
 - `vibes ui` — スキルを視覚的に選択してインストールするインタラクティブなターミナル TUI。
-- `vibes studio [--port <n>]` — ローカル Web Studio コックピットダッシュボードを起動 (150スキルの視覚的探索、サブエージェント、P1-P5)。
+- `vibes studio [--port <n>]` — ローカル Web Studio コックピットダッシュボードを起動 (155スキルの視覚的探索、サブエージェント、P1-P5)。
 - `vibes recipe list` — キュレーションされたスキルレシピ一覧 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
-- `vibes docs [markdown|json]` — 150のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
+- `vibes docs [markdown|json]` — 155のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
 - `vibes guard` — 完全な Sovereign Guard CI パイプラインを実行 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 決定論的 KV-Cache プレフィックス (>1024 トークン) をコンパイルし、コストを 75-90% 削減。
 - `vibes db:eval` — インメモリで SQL DDL マイグレーションをシミュレーションし、RLS ポリシーを監査。

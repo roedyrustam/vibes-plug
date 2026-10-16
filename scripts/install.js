@@ -37,12 +37,15 @@ const platforms = {
     },
 };
 
-function copyRecursiveSync(src, dest) {
+const DEFAULT_EXCLUDES = new Set(['.git', 'node_modules', 'vibes-plug']);
+
+function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES) {
     const stat = fs.statSync(src);
     if (stat.isDirectory()) {
         if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
         fs.readdirSync(src).forEach(child => {
-            copyRecursiveSync(path.join(src, child), path.join(dest, child));
+            if (excludes && excludes.has(child)) return;
+            copyRecursiveSync(path.join(src, child), path.join(dest, child), excludes);
         });
     } else {
         fs.copyFileSync(src, dest);
@@ -255,7 +258,7 @@ Examples:
 
     console.log('✨ Installation complete!');
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
-    console.log('🔗 All 150 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
+    console.log('🔗 All 155 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
 }
 
 main();

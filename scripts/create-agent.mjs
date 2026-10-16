@@ -2,7 +2,7 @@
 
 /**
  * Vibes-Plug Custom Agent Scaffolder
- * Generates custom agents bound to the 150 skills for Antigravity, Cursor, and Claude Code.
+ * Generates custom agents bound to the 155 skills for Antigravity, Cursor, and Claude Code.
  * 
  * Usage:
  *   node scripts/create-agent.mjs --name my-specialist --skills "senior-frontend,tailwind-expert"

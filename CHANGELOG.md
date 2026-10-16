@@ -5,10 +5,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.2] - 2026-10-16
+## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan
-- **Skill Baru: `spec-driven-development-expert` (Milestone 150 Skills!)**:
+- **5 Skill Frontier Baru (Milestone 155 Skills!)**:
+  - **`thinking-budget-orchestrator`**: Pengaturan dinamis budget token penalaran (thinking budget) lintas model frontier (Gemini 4 Pro, Claude 5.1 Fable/Mythos, GPT-5/o3) dengan 4 profil teruji (`speed`, `balanced`, `deep`, `exhaustive`).
+  - **`structured-output-contracts`**: Standardisasi skema output terstruktur multi-bahasa (Pydantic v2, Zod v3, Rust Serde, Go Struct) dengan garansi zero-markdown-fencing dan validasi skema runtime ketat.
+  - **`mcp-sampling-critic`**: Integrasi Model Context Protocol (MCP v1.x) `sampling/createMessage` untuk review gate Critic-in-the-Loop otonom sebelum kode atau PRD diserahkan.
+  - **`visual-ui-auditor`**: Audit kepatuhan visual antarmuka (Pillar 7 Anti-Slop) berbasis Multimodal Vision LLM dengan rubrik 20 poin (kontras, hierarki, tabular numerals, 5-state contract).
+  - **`parallel-tool-orchestrator`**: Eksekusi batch paralel multi-tool otonom (`vibes_batch`) dengan dependensi topologis DAG dan circuit breaker terisolasi.
+- **CLI Commands Baru**:
+  - `vibes critic <file>`: Audit file kode / PRD melalui arsitektur Critic-in-the-Loop.
+  - `vibes visual-audit <file|code>`: Audit kepatuhan visual UI kode / tangkapan layar terhadap Pilar 7.
+- **Skill Baru: `spec-driven-development-expert`**:
   - Panduan ahli untuk **Spec-Driven Development (SDD)**: TypeSpec, OpenAPI 3.1 contract-first design, Behavior-Driven Development (Cucumber/Gherkin BDD), Consumer-Driven Contract Testing (Pact), dan mock virtualization (Prism).
 - **Skill Baru: `agentic-m2m-settlement`**:
   - Protokol kliring dan settlement otonom Machine-to-Machine (M2M) dengan Dual-Rail (Fiat DOKU SNAP BI QRIS/VA & Crypto ERC-4337 Base/USDC), FinOps velocity caps, dan AP2AP invoicing.

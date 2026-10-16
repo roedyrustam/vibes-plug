@@ -23,6 +23,7 @@ import { TOOLS as MCP_TOOLS, handleRpcRequest } from '../bin/mcp-server.mjs';
 import { createCustomAgent } from './create-agent.mjs';
 import { planSwarm, executeSwarm } from './swarm-runner.mjs';
 import { loadMemory, recordDecision, queryMemory, generateCompactCheckpoint } from './memory-daemon.mjs';
+import { compileCache, getCacheStatus } from './compile-cache.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -83,6 +84,7 @@ const SKILL_DOMAIN_MAP = {
   'solidjs-expert': 'frontend', 'spa-orchestrator': 'frontend', 'state-management-expert': 'frontend',
   'svg-animation-motion-expert': 'frontend', 'svelte-sveltekit-expert': 'frontend', 'tailwind-expert': 'frontend',
   'tanstack-query-expert': 'frontend', 'tauri-expert': 'frontend', 'ui-ux-pro-max': 'frontend', 'vue-frontend-expert': 'frontend',
+  'visual-ui-auditor': 'frontend',
 
   // Backend
   'api-design-expert': 'backend', 'api-gateway-proxy-expert': 'backend', 'async-queue-temporal-expert': 'backend',
@@ -93,7 +95,7 @@ const SKILL_DOMAIN_MAP = {
   'living-codebase-ast-graph': 'backend', 'monorepo-architect': 'backend', 'mvc-expert': 'backend',
   'openapi-swagger-codegen-expert': 'backend', 'python-programming-expert': 'backend', 'rust-programming-expert': 'backend',
   'scalability-clean-code': 'backend', 'spec-driven-development-expert': 'backend', 'typescript-expert': 'backend',
-  'wasm-edge-computing-expert': 'backend', 'web-game-engine-expert': 'backend',
+  'wasm-edge-computing-expert': 'backend', 'web-game-engine-expert': 'backend', 'structured-output-contracts': 'backend',
 
   // AI & LLM
   'adaptive-model-cascade': 'ai', 'affective-computing-emotion-ai': 'ai', 'agentic-coding-workflow-expert': 'ai',
@@ -105,6 +107,7 @@ const SKILL_DOMAIN_MAP = {
   'local-slm-edge-ai-expert': 'ai', 'mcp-server-architect': 'ai', 'multi-agent-orchestration': 'ai',
   'pydantic-ai-expert': 'ai', 'speculative-multi-draft-synthesizer': 'ai', 'synthetic-data-finetuning-expert': 'ai',
   'test-time-compute-optimizer': 'ai', 'vector-db-rag-expert': 'ai', 'vercel-ai-sdk-expert': 'ai', 'voice-ai-realtime-agent': 'ai',
+  'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai',
 
   // SaaS & FinTech
   'agentic-m2m-settlement': 'saas', 'app-promo-media-expert': 'saas', 'chatbot-messaging-expert': 'saas',
@@ -121,6 +124,7 @@ const SKILL_DOMAIN_MAP = {
   'logging-error-tracking-expert': 'security', 'post-quantum-crypto-migrator': 'security', 'prompt-injection-firewall': 'security',
   'property-mutation-testing-expert': 'security', 'rate-limit-abuse-prevention': 'security', 'supabase-security-expert': 'security',
   'zero-tech-debt-auditor': 'security', 'zero-trust-secret-vault': 'security', 'coderabbit': 'security', 'app-analyzer-optimizer': 'security',
+  'mcp-sampling-critic': 'security',
 
   // Data & Orchestration
   'agy-customizations': 'data', 'brainstorming': 'data', 'browser-automation-expert': 'data',
@@ -315,9 +319,17 @@ async function getSystemStatus() {
     installedCount = 0;
   }
 
+  let totalSkills = 155;
+  try {
+    const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
+    totalSkills = entries.filter(e => e.isDirectory()).length;
+  } catch {
+    totalSkills = 155;
+  }
+
   return {
     version: pkg.version,
-    totalSkills: 150,
+    totalSkills,
     installedCount,
     nodeVersion: process.version,
     platform: process.platform,
@@ -333,7 +345,7 @@ function generateStudioHtml(currentPort) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vibes-Plug Studio Cockpit | 150-Skill Swarm Architecture</title>
+  <title>Vibes-Plug Studio Cockpit | 155-Skill Swarm Architecture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1177,14 +1189,14 @@ function generateStudioHtml(currentPort) {
             <div class="brand-title">VibesPlug Pro Studio</div>
             <div class="brand-tag">v4.2.2</div>
           </div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 150-Agent Swarm Operating System</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 155-Agent Swarm Operating System</div>
         </div>
       </div>
 
       <div class="header-stats">
         <div class="stat-chip">
           <span>Skills:</span>
-          <span class="num" id="stat-total-skills">150</span>
+          <span class="num" id="stat-total-skills">155</span>
         </div>
         <div class="stat-chip">
           <span>Installed:</span>
@@ -1204,7 +1216,7 @@ function generateStudioHtml(currentPort) {
 
   <!-- Tab Navigation -->
   <nav class="tab-nav">
-    <button type="button" class="tab-btn active" data-tab="tab-arsenal">150-Skill Arsenal</button>
+    <button type="button" class="tab-btn active" data-tab="tab-arsenal">155-Skill Arsenal</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P5)</button>
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
@@ -1214,15 +1226,15 @@ function generateStudioHtml(currentPort) {
 
   <!-- Main Content -->
   <main>
-    <!-- View 1: 150-Skill Arsenal -->
+    <!-- View 1: 155-Skill Arsenal -->
     <div id="tab-arsenal" class="view-pane active">
       <div class="filter-bar">
         <div class="search-input-wrapper">
           <span class="search-icon">Search:</span>
-          <input type="text" id="skill-search" class="search-input" placeholder="Search 150 skills (press '/' to focus)...">
+          <input type="text" id="skill-search" class="search-input" placeholder="Search 155 skills (press '/' to focus)...">
         </div>
         <div class="category-pills">
-          <button type="button" class="pill-btn active" data-category="all">All Domains (150)</button>
+          <button type="button" class="pill-btn active" data-category="all">All Domains (155)</button>
           <button type="button" class="pill-btn" data-category="frontend">Frontend &amp; UI</button>
           <button type="button" class="pill-btn" data-category="backend">Backend &amp; API</button>
           <button type="button" class="pill-btn" data-category="ai">Frontier AI &amp; MCP</button>
@@ -1256,9 +1268,21 @@ function generateStudioHtml(currentPort) {
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="swarm-task-input">Task Specification</label>
-            <input type="text" id="swarm-task-input" class="text-input" placeholder="e.g. Build multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and PostgreSQL RLS" />
+          <div class="grid-2col" style="margin-top: 12px; margin-bottom: 12px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="swarm-task-input">Task Specification</label>
+              <input type="text" id="swarm-task-input" class="text-input" placeholder="e.g. Build multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and PostgreSQL RLS" />
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="swarm-reasoning-select">Thinking Budget Profile (Reasoning Depth)</label>
+              <select id="swarm-reasoning-select" class="text-input" style="background: rgba(15,23,42,0.7); color: #fff;">
+                <option value="auto">Auto-Detect (Adaptive Complexity Cascade)</option>
+                <option value="speed">Speed (Flash-Lite / Haiku — 1K tokens)</option>
+                <option value="balanced" selected>Balanced (Flash / Sonnet — 8K tokens)</option>
+                <option value="deep">Deep Thinking (Pro / Opus / o3 — 32K tokens)</option>
+                <option value="exhaustive">Exhaustive Invariant Prover (Pro Ext / o3 High — 64K tokens)</option>
+              </select>
+            </div>
           </div>
 
           <div style="display: flex; gap: 12px;">
@@ -1381,6 +1405,38 @@ function generateStudioHtml(currentPort) {
           </div>
         </div>
       </div>
+
+      <!-- Token Economics & KV-Cache Monitor -->
+      <div class="panel-box" style="margin-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.1rem; color: #fff; font-weight: 700;">Prompt Cache Hit Rate &amp; Token Economics</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Empirical cost savings and TTFT acceleration across Gemini, Claude, and OpenAI via deterministic prefix pinning.
+            </p>
+          </div>
+          <button type="button" id="btn-recompile-cache" class="btn btn-secondary" onclick="recompileCacheFromUi()">Recompile Prefix</button>
+        </div>
+
+        <div class="grid-2col">
+          <div style="background: rgba(15,23,42,0.6); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Active Prefix Status</div>
+            <div id="cache-stats-text" style="font-family: var(--font-mono); font-size: 0.88rem; color: #38bdf8; line-height: 1.6;">
+              Prefix Size: ~1,468 tokens (5,576 bytes)<br>
+              TTFT Speedup: 10x (&lt;100ms first token)<br>
+              Status: Locked (.cache-prefix.json)
+            </div>
+          </div>
+          <div style="background: rgba(15,23,42,0.6); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Estimated Savings (per 1,000 requests)</div>
+            <div id="cache-savings-text" style="font-family: var(--font-mono); font-size: 0.88rem; color: #4ade80; line-height: 1.6;">
+              Anthropic Claude (90% off) : Save $3.96 / 1k reqs<br>
+              Google Gemini (75% off)    : Save $3.30 / 1k reqs<br>
+              OpenAI o3/GPT-5 (50% off)  : Save $2.20 / 1k reqs
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- View 4: Curated Recipes -->
@@ -1403,7 +1459,7 @@ function generateStudioHtml(currentPort) {
           <div>
             <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
-              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 150 skills and P1–P5 engines.
+              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 155 skills and P1–P5 engines.
             </p>
           </div>
           <div style="font-family: var(--font-mono); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 14px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; gap: 12px;">
@@ -1418,7 +1474,7 @@ function generateStudioHtml(currentPort) {
             <div class="form-group">
               <label for="mcp-tool-select">Select MCP Tool</label>
               <select id="mcp-tool-select" class="select-input" onchange="onMcpToolChange()">
-                <option value="vibes_list_skills">vibes_list_skills (Discover 150 skills)</option>
+                <option value="vibes_list_skills">vibes_list_skills (Discover 155 skills)</option>
                 <option value="vibes_get_skill">vibes_get_skill (Inspect skill markdown)</option>
                 <option value="vibes_ast_query">vibes_ast_query (P3 AST symbol query)</option>
                 <option value="vibes_eval_sql">vibes_eval_sql (P2 In-memory SQL simulator)</option>
@@ -1427,6 +1483,8 @@ function generateStudioHtml(currentPort) {
                 <option value="vibes_compile_cache">vibes_compile_cache (P1 Cache prefix compiler)</option>
                 <option value="vibes_memory">vibes_memory (Episodic project memory)</option>
                 <option value="vibes_swarm">vibes_swarm (Autonomous multi-agent swarm)</option>
+                <option value="vibes_batch">vibes_batch (Parallel multi-tool execution)</option>
+                <option value="vibes_critic_validate">vibes_critic_validate (Critic-in-the-Loop Quality Gate)</option>
               </select>
             </div>
 
@@ -1558,7 +1616,7 @@ function generateStudioHtml(currentPort) {
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.2.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 150 Skills</p>
+    <p>Vibes-Plug Pro v4.2.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
   </footer>
 
   <script>
@@ -1824,31 +1882,37 @@ function generateStudioHtml(currentPort) {
     // Swarm Planner & Simulator Handlers
     function setSwarmPreset(type) {
       const input = document.getElementById('swarm-task-input');
+      const reasoningSelect = document.getElementById('swarm-reasoning-select');
       if (type === 'saas') {
         input.value = 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and Supabase RLS';
+        if (reasoningSelect) reasoningSelect.value = 'deep';
       } else if (type === 'api') {
         input.value = 'Design a spec-driven contract API with TypeSpec, OpenAPI 3.1, and BDD contract testing';
+        if (reasoningSelect) reasoningSelect.value = 'balanced';
       } else if (type === 'audit') {
         input.value = 'Perform strict security audit and formal verification of billing state machines';
+        if (reasoningSelect) reasoningSelect.value = 'exhaustive';
       }
       runSwarmPlan();
     }
 
     async function runSwarmPlan() {
       const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
+      const reasoningSelect = document.getElementById('swarm-reasoning-select');
+      const reasoning = reasoningSelect ? reasoningSelect.value : 'auto';
       const term = document.getElementById('swarm-plan-output');
-      term.textContent = '// Synthesizing Swarm Topology for: ' + task + '...';
+      term.textContent = '// Synthesizing Swarm Topology for: ' + task + ' [' + reasoning + ']...';
 
       try {
         const res = await fetch('/api/swarm/plan', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ task })
+          body: JSON.stringify({ task, reasoning })
         });
         const data = await res.json();
         if (data.success) {
           term.textContent = JSON.stringify(data.plan, null, 2);
-          showToast('Synthesized topology: ' + data.plan.topology.toUpperCase());
+          showToast('Topology: ' + data.plan.topology.toUpperCase() + ' | Budget: ' + data.plan.reasoningProfile.toUpperCase());
         }
       } catch (err) {
         term.textContent = '// Error: ' + err.message;
@@ -1857,19 +1921,21 @@ function generateStudioHtml(currentPort) {
 
     async function runSwarmExecute() {
       const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
+      const reasoningSelect = document.getElementById('swarm-reasoning-select');
+      const reasoning = reasoningSelect ? reasoningSelect.value : 'auto';
       const term = document.getElementById('swarm-plan-output');
-      term.textContent = '// Running Autonomous Swarm simulation...';
+      term.textContent = '// Running Autonomous Swarm simulation with ' + reasoning + ' budget...';
 
       try {
         const res = await fetch('/api/swarm/execute', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ task })
+          body: JSON.stringify({ task, reasoning })
         });
         const data = await res.json();
         if (data.success) {
-          term.textContent = data.logs.join('\\n');
-          showToast('Swarm simulation complete!');
+          term.textContent = data.logs.join('\n');
+          showToast('Swarm simulation complete (' + (data.plan?.reasoningProfile || 'balanced').toUpperCase() + ')');
         }
       } catch (err) {
         term.textContent = '// Error: ' + err.message;
@@ -2029,7 +2095,10 @@ function generateStudioHtml(currentPort) {
       vibes_verify_invariants: '{\\n  "typeScriptCode": "type Status = \\"idle\\" | \\"running\\" | \\"done\\";"\\n}',
       vibes_compile_cache: '{}',
       vibes_memory: '{\\n  "action": "query",\\n  "text": "Architecture"\\n}',
-      vibes_swarm: '{\\n  "taskDescription": "Build a secure webhook handler for DOKU SNAP BI"\\n}'
+      vibes_swarm: '{\\n  "taskDescription": "Build a secure webhook handler for DOKU SNAP BI",\\n  "reasoningProfile": "deep"\\n}',
+      vibes_batch: '{\\n  "calls": [\\n    { "tool": "vibes_list_skills", "arguments": {} },\\n    { "tool": "vibes_memory", "arguments": { "action": "checkpoint" } }\\n  ]\\n}',
+      vibes_critic_validate: '{\\n  "target": "function saveUser(user: any) {\\n  return db.query(\\"SELECT * FROM users WHERE id = \\" + user.id);\\n}",\\n  "language": "typescript",\\n  "strictness": "standard"\\n}',
+      vibes_visual_audit: '{\\n  "target": "<button className=\\"rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums\\">Pay Rp 150.000</button>",\\n  "viewport": "desktop"\\n}'
     };
 
     function onMcpToolChange() {
@@ -2101,8 +2170,51 @@ function generateStudioHtml(currentPort) {
         renderSubagents(subagents);
         renderRecipes(recipes);
         onMcpToolChange();
+        loadCacheStatus();
       } catch (err) {
         showToast('Failed to load studio data: ' + err.message);
+      }
+    }
+
+    async function recompileCacheFromUi() {
+      const btn = document.getElementById('btn-recompile-cache');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Recompiling...';
+      }
+      try {
+        const res = await fetch('/api/cache/compile', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Prompt cache prefix recompiled and locked!');
+          await loadCacheStatus();
+        }
+      } catch (err) {
+        showToast('Recompile error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Recompile Prefix';
+        }
+      }
+    }
+
+    async function loadCacheStatus() {
+      try {
+        const res = await fetch('/api/cache/status');
+        const data = await res.json();
+        if (data.success) {
+          const statsEl = document.getElementById('cache-stats-text');
+          const savingsEl = document.getElementById('cache-savings-text');
+          if (statsEl) {
+            statsEl.innerHTML = 'Prefix Size: ~' + data.estimatedTokens + ' tokens (' + data.byteSize + ' bytes)<br>TTFT Speedup: ' + data.economics.estimatedTtfSpeedup + '<br>Status: Locked (.cache-prefix.json)';
+          }
+          if (savingsEl) {
+            savingsEl.innerHTML = 'Anthropic Claude (90% off) : Save $' + data.economics.claudeSavingsPer1k + ' / 1k reqs<br>Google Gemini (75% off)    : Save $' + data.economics.geminiSavingsPer1k + ' / 1k reqs<br>OpenAI o3/GPT-5 (50% off)  : Save $' + data.economics.openAiSavingsPer1k + ' / 1k reqs';
+          }
+        }
+      } catch {
+        // Fallback
       }
     }
 
@@ -2236,12 +2348,12 @@ export async function startStudioServer(options = {}) {
       req.on('data', chunk => { body += chunk; });
       req.on('end', async () => {
         try {
-          const { task } = JSON.parse(body);
+          const { task, reasoning } = JSON.parse(body);
           if (!task) {
             sendJson({ error: 'Task description is required' }, 400);
             return;
           }
-          const plan = planSwarm(task);
+          const plan = planSwarm(task, { reasoning: reasoning === 'auto' ? null : reasoning });
           sendJson({ success: true, plan });
         } catch (err) {
           sendJson({ error: err.message }, 500);
@@ -2256,12 +2368,12 @@ export async function startStudioServer(options = {}) {
       req.on('data', chunk => { body += chunk; });
       req.on('end', async () => {
         try {
-          const { task } = JSON.parse(body);
+          const { task, reasoning } = JSON.parse(body);
           if (!task) {
             sendJson({ error: 'Task description is required' }, 400);
             return;
           }
-          const result = await executeSwarm(task);
+          const result = await executeSwarm(task, { reasoning: reasoning === 'auto' ? null : reasoning });
           sendJson({ success: true, ...result });
         } catch (err) {
           sendJson({ error: err.message }, 500);
@@ -2332,6 +2444,29 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Cache status endpoint
+    if (req.method === 'GET' && pathname === '/api/cache/status') {
+      try {
+        const status = await getCacheStatus();
+        sendJson({ success: true, ...status });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Cache recompile endpoint
+    if (req.method === 'POST' && pathname === '/api/cache/compile') {
+      try {
+        const compile = await compileCache({ quiet: true });
+        const status = await getCacheStatus();
+        sendJson({ success: true, compile, ...status });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     // API Routes for Skills & Status
     if (req.method === 'GET' && pathname === '/api/skills') {
       const skills = await loadSkillsCatalog();
@@ -2352,6 +2487,48 @@ export async function startStudioServer(options = {}) {
 
     if (req.method === 'GET' && pathname === '/api/subagents') {
       sendJson(SUBAGENTS);
+      return;
+    }
+
+    // Critic Validate endpoint
+    if (req.method === 'POST' && pathname === '/api/critic/validate') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { target, language, strictness } = JSON.parse(body);
+          if (!target) {
+            sendJson({ error: 'Target code or text is required' }, 400);
+            return;
+          }
+          const { criticValidate } = await import('./critic-validator.mjs');
+          const report = criticValidate(target, { language, strictness });
+          sendJson({ success: true, report });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Visual Audit endpoint
+    if (req.method === 'POST' && pathname === '/api/visual-audit') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { target, viewport } = JSON.parse(body);
+          if (!target) {
+            sendJson({ error: 'Target code or file path is required' }, 400);
+            return;
+          }
+          const { visualAudit } = await import('./visual-critic.mjs');
+          const report = visualAudit(target, { viewport });
+          sendJson({ success: true, report });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
       return;
     }
 

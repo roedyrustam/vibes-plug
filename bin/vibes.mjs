@@ -92,7 +92,7 @@ async function runBootstrap(templateName, projectName) {
     if (templateName === 'saas') {
       prdTitle = 'Multi-Tenant SaaS';
       scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
-      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'supabase-security-expert'];
+      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'doku-payment-gateway', 'supabase-security-expert'];
     } else if (templateName === 'ecommerce') {
       prdTitle = 'E-Commerce Platform';
       scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
@@ -482,14 +482,14 @@ async function runUi() {
       .map(dirent => dirent.name)
       .sort();
 
-    console.log(`\n🌊 Vibes-Plug Interactive TUI (150 Skills)`);
+    console.log(`\n🌊 Vibes-Plug Interactive TUI (${allSkills.length} Skills)`);
 
     const mode = await select({
       message: 'Choose installation mode:',
       choices: [
         { name: '📦 Curated Recipe Bundles (Quickest: AI, Fullstack, FinTech, API)', value: 'recipe' },
         { name: '📂 Browse by Domain Category (Frontend, Backend, AI, Security...)', value: 'domain' },
-        { name: '🧩 Custom Selection from All 150 Skills', value: 'all' }
+        { name: `🧩 Custom Selection from All ${allSkills.length} Skills`, value: 'all' }
       ]
     });
 
@@ -1152,7 +1152,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 150 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 155 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1221,7 +1221,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.2.2)
+🌊 Vibes-Plug CLI (v4.3.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1233,7 +1233,7 @@ Commands:
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 150 skills by keyword (ranked by relevance)
+  search <query>            Search all 155 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1247,12 +1247,15 @@ Commands:
   hooks remove              Remove the Git pre-commit hook
   doctor                    Run environment health diagnostics
   audit                     Run the strict Anti-AI Slop quality gate check
+  critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
+  visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
+  cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
   ast <action> [args]       Query AST symbols, inspect code, or blast-radius
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
-  swarm [task]              Execute or plan autonomous multi-agent swarm (Fan-Out, Saga, Critic)
+  swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
@@ -1286,51 +1289,74 @@ switch (command) {
     execSync('node scripts/test-cli.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
     break;
   }
+  case 'cache': {
+    rl.close();
+    const subCmd = args[1];
+    if (subCmd === 'compile') {
+      const { compileCache } = await import('../scripts/compile-cache.mjs');
+      await compileCache();
+    } else {
+      const { getCacheStatus } = await import('../scripts/compile-cache.mjs');
+      const status = await getCacheStatus();
+      console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    Vibes-Plug Deterministic Prompt Cache Status          ║
+╚══════════════════════════════════════════════════════════╝
+
+📦 Artifact File    : .cache-prefix.json (${status.byteSize} bytes)
+🔢 Estimated Tokens : ~${status.estimatedTokens} tokens (${status.totalSkills} skills indexed)
+⚡ TTFT Acceleration: ${status.economics.estimatedTtfSpeedup}
+
+Platform Eligibility & Economics:
+  • Anthropic Claude : ${status.platforms.claude.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (90% discount — saves $${status.economics.claudeSavingsPer1k}/1k reqs)
+  • Google Gemini    : ${status.platforms.gemini.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (75% discount — saves $${status.economics.geminiSavingsPer1k}/1k reqs)
+  • OpenAI Codex / o3: ${status.platforms.openai.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (50% discount — saves $${status.economics.openAiSavingsPer1k}/1k reqs)
+
+💡 Baseline Input Cost (1k reqs un-cached) : $${status.economics.standardCostPer1kReqs}
+🚀 To recompile: vibes cache compile
+`);
+    }
+    break;
+  }
   case 'compile-cache': {
-    const { execSync } = await import('child_process');
-    execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'compile-cache.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'db:eval': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/eval-migration.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'eval-migration.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'ast': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'ast-query.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'arbitrate': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/speculative-arbiter.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'speculative-arbiter.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'verify-invariants': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'verify-invariants.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'swarm': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/swarm-runner.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'memory': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/memory-daemon.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'memory-daemon.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
@@ -1377,9 +1403,42 @@ switch (command) {
     runCreateMcp(args[1]);
     break;
   case 'create-agent': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/create-agent.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'create-agent.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'critic': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'critic-validator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'visual-audit':
+  case 'visual-critic': {
+    const { visualAudit } = await import('../scripts/visual-critic.mjs');
+    const targetPath = args[1];
+    if (!targetPath) {
+      console.error('❌ Error: Target file or code is required.');
+      console.log('Usage: vibes visual-audit <file-or-image>');
+      process.exit(1);
+    }
+    const report = visualAudit(targetPath);
+    console.log('\n🎨 === Vibes-Plug Visual UI Audit Report ===');
+    console.log(`Target     : ${report.targetFile || 'inline_code'}`);
+    console.log(`Score      : ${report.score}/100`);
+    console.log(`Verdict    : ${report.verdict === 'APPROVED' ? '\x1b[32mAPPROVED\x1b[0m' : '\x1b[31mREJECTED\x1b[0m'}`);
+    console.log(`Findings   : ${report.findingsCount}`);
+    if (report.findings?.length > 0) {
+      console.log('\nFindings:');
+      for (const f of report.findings) {
+        console.log(`  - [${f.severity}] ${f.ruleName}: ${f.message}`);
+        console.log(`    Fix: ${f.fix}`);
+      }
+    }
+    if (report.visionPrompt) {
+      console.log('\n' + report.visionPrompt);
+    }
     rl.close();
     break;
   }

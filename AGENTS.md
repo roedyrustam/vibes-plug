@@ -2,7 +2,7 @@
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
 > **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
-> Each platform has its own entry point, but the core rules and 150 skills are shared.
+> Each platform has its own entry point, but the core rules and 155 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
 **CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra / Gemini 3.8 Flash, Anthropic Claude 5.1 Fable / Mythos / Claude 3.7 Sonnet / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro / DeepSeek-V3). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
@@ -12,7 +12,7 @@
 
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
-2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 150 skill registry:
+2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 155 skill registry:
    - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `spec-driven-development-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
    - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
@@ -60,7 +60,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 ```
 
 ### Swarm Director Protocols
-1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 150 specialized skills in `vibes-plug`.
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 155 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
 4. **Agent Synergy & Native Subagents**: Rely on the `vibes-plug` native subagent registry located in `agents/`:

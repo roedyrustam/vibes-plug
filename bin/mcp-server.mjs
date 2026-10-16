@@ -9,8 +9,8 @@
  * - vibes_arbitrate_code (P4: Process Reward Model Multi-Draft Arbiter)
  * - vibes_verify_invariants (P5: Neuro-Symbolic Invariant Verifier & SMT Generator)
  * - vibes_compile_cache (P1: Canonical Deterministic KV-Cache Prefix Compiler)
- * - vibes_get_skill (Registry: Instant access to any of the 150 skills)
- * - vibes_list_skills (Registry: Discover all 150 skills with domains and summaries)
+ * - vibes_get_skill (Registry: Instant access to any of the 155 skills)
+ * - vibes_list_skills (Registry: Discover all 155 skills with domains and summaries)
  * - vibes_inject_skill (Registry: Direct 1-click project skill injection)
  * - vibes_memory (Episodic Project Memory & ultra-compact checkpoints)
  * - vibes_swarm (Autonomous Multi-Agent Swarm Orchestrator)
@@ -30,6 +30,8 @@ import { verifyStateMachine, parseTypeScriptStates } from '../scripts/verify-inv
 import { compileCache } from '../scripts/compile-cache.mjs';
 import { recordDecision, queryMemory, generateCompactCheckpoint, loadMemory } from '../scripts/memory-daemon.mjs';
 import { executeSwarm } from '../scripts/swarm-runner.mjs';
+import { criticValidate, formatSamplingRequest } from '../scripts/critic-validator.mjs';
+import { visualAudit } from '../scripts/visual-critic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -119,7 +121,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 150 specialized skills in the vibes-plug registry.',
+    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 155 specialized skills in the vibes-plug registry.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -133,7 +135,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_list_skills',
-    description: 'List all 150 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
+    description: 'List all 155 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -183,13 +185,18 @@ export const TOOLS = [
   },
   {
     name: 'vibes_swarm',
-    description: 'Autonomous Swarm Orchestrator: plan and execute Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator topologies for complex multi-domain development tasks.',
+    description: 'Autonomous Swarm Orchestrator: plan and execute Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator topologies with Dynamic Thinking Budget control for complex multi-domain development tasks.',
     inputSchema: {
       type: 'object',
       properties: {
         taskDescription: {
           type: 'string',
           description: 'Natural language description of the development task.'
+        },
+        reasoningProfile: {
+          type: 'string',
+          enum: ['speed', 'balanced', 'deep', 'exhaustive'],
+          description: 'Optional thinking budget profile: speed (0-1K tokens), balanced (4-8K tokens), deep (16-32K tokens), or exhaustive (64K+ tokens).'
         }
       },
       required: ['taskDescription']
@@ -202,6 +209,104 @@ export const TOOLS = [
       type: 'object',
       properties: {}
     }
+  },
+  {
+    name: 'vibes_batch',
+    description: 'Parallel Tool Execution: execute multiple vibes-plug tools concurrently in a single turn and return aggregated results.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        calls: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              tool: { type: 'string', description: 'Name of the tool to execute' },
+              arguments: { type: 'object', description: 'Arguments object for the tool' }
+            },
+            required: ['tool']
+          },
+          description: 'Array of tool invocations to run in parallel'
+        }
+      },
+      required: ['calls']
+    }
+  },
+  {
+    name: 'vibes_critic_validate',
+    description: 'Autonomous Critic-in-the-Loop Quality Gate: audits code drafts, PRDs, or SQL against 7 Anti-Slop pillars, type safety, silent catch blocks, and 5-state UI contracts before disk writes.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'The code, SQL, or specification text to audit.'
+        },
+        language: {
+          type: 'string',
+          enum: ['typescript', 'javascript', 'sql', 'markdown', 'python', 'go', 'general'],
+          description: 'Programming or specification language.'
+        },
+        strictness: {
+          type: 'string',
+          enum: ['standard', 'hardcore', 'production-release'],
+          description: 'Audit strictness level.'
+        }
+      },
+      required: ['target']
+    }
+  },
+  {
+    name: 'vibes_visual_audit',
+    description: 'Multimodal Vision UI Auditor (Pillar 6): audits UI code or screenshot image files against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius, tabular numbers, and generates multimodal vision prompt rubrics for Gemini 4 Pro / Flash Vision and Claude 3.7 / 5.1.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'UI source code string or path to screenshot image file (.png, .webp, .jpg) or component file (.tsx, .jsx, .html).'
+        },
+        viewport: {
+          type: 'string',
+          enum: ['desktop', 'tablet', 'mobile'],
+          description: 'Target viewport for visual responsive audit.'
+        }
+      },
+      required: ['target']
+    }
+  }
+];
+
+export const MCP_RESOURCES = [
+  {
+    uri: 'vibes://schemas/swarm-plan',
+    name: 'Swarm Plan Output Schema',
+    description: 'JSON Schema contract for Autonomous Swarm Director execution plans',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://schemas/memory-checkpoint',
+    name: 'Episodic Memory Checkpoint Schema',
+    description: 'JSON Schema contract for ultra-compact project state handoff',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://schemas/anti-slop-contract',
+    name: 'Sovereign Anti-Slop Directive Contract',
+    description: 'JSON Schema contract for 5-state UI, zero-placeholder, and error resilience',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://cache/prefix',
+    name: 'Deterministic KV-Cache Prefix',
+    description: 'Compiled 150-skill canonical prefix (>1024 tokens) for prompt caching',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://memory/active',
+    name: 'Active Episodic Memory Graph',
+    description: 'Currently recorded architectural decisions and project state',
+    mimeType: 'application/json'
   }
 ];
 
@@ -215,7 +320,10 @@ export async function handleRpcRequest(request) {
       id,
       result: {
         protocolVersion: '2024-11-05',
-        capabilities: { tools: {} },
+        capabilities: {
+          tools: {},
+          resources: {}
+        },
         serverInfo: {
           name: 'vibes-plug-mcp',
           version: '4.2.2'
@@ -226,6 +334,114 @@ export async function handleRpcRequest(request) {
 
   if (method === 'notifications/initialized') {
     return null; // Notification, no response
+  }
+
+  if (method === 'resources/list') {
+    return {
+      jsonrpc: '2.0',
+      id,
+      result: { resources: MCP_RESOURCES }
+    };
+  }
+
+  if (method === 'resources/read') {
+    const uri = params?.uri;
+    if (!uri) {
+      return {
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32602, message: "Missing 'uri' parameter" }
+      };
+    }
+
+    let textContent = '';
+    if (uri === 'vibes://schemas/swarm-plan') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'SwarmPlanOutput',
+        type: 'object',
+        properties: {
+          topology: { type: 'string', enum: ['fan_out_fan_in', 'pipeline_saga', 'critic_validator'] },
+          reasoningProfile: { type: 'string', enum: ['speed', 'balanced', 'deep', 'exhaustive'] },
+          thinkingBudgetTokens: { type: 'number' },
+          targetModelTier: { type: 'string' },
+          totalWorkers: { type: 'number' },
+          subagents: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                name: { type: 'string' },
+                skill: { type: 'string' },
+                focus: { type: 'string' },
+                thinkingBudget: { type: 'string' }
+              },
+              required: ['name', 'skill', 'focus']
+            }
+          }
+        },
+        required: ['topology', 'reasoningProfile', 'subagents', 'totalWorkers']
+      }, null, 2);
+    } else if (uri === 'vibes://schemas/memory-checkpoint') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'MemoryCheckpointOutput',
+        type: 'object',
+        properties: {
+          schema: { type: 'string' },
+          generatedAt: { type: 'string' },
+          tokensApprox: { type: 'number' },
+          invariants: { type: 'array', items: { type: 'string' } },
+          decisions: { type: 'array', items: { type: 'object' } }
+        },
+        required: ['schema', 'invariants', 'decisions']
+      }, null, 2);
+    } else if (uri === 'vibes://schemas/anti-slop-contract') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'AntiSlopContract',
+        type: 'object',
+        properties: {
+          strictMode: { type: 'boolean' },
+          interactiveContract: { type: 'string', const: '5-state (default, hover, focus-visible, active, disabled)' },
+          prohibitedPatterns: {
+            type: 'array',
+            items: { type: 'string' },
+            default: ['// TODO', '// ...', 'empty catch blocks', 'rounded-full on rectangular buttons', 'dangerouslySetInnerHTML']
+          }
+        }
+      }, null, 2);
+    } else if (uri === 'vibes://cache/prefix') {
+      const cachePath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+      try {
+        textContent = await fs.readFile(cachePath, 'utf8');
+      } catch {
+        textContent = JSON.stringify({ error: 'Cache prefix not compiled. Run vibes_compile_cache first.' });
+      }
+    } else if (uri === 'vibes://memory/active') {
+      const mem = await loadMemory();
+      textContent = JSON.stringify(mem, null, 2);
+    } else {
+      return {
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32602, message: `Resource '${uri}' not found` }
+      };
+    }
+
+    return {
+      jsonrpc: '2.0',
+      id,
+      result: {
+        contents: [
+          {
+            uri,
+            mimeType: 'application/json',
+            text: textContent
+          }
+        ]
+      }
+    };
   }
 
   if (method === 'tools/list') {
@@ -311,7 +527,8 @@ export async function handleRpcRequest(request) {
       } else if (name === 'vibes_swarm') {
         const taskDescription = args?.taskDescription;
         if (!taskDescription) throw new Error("Argument 'taskDescription' is required.");
-        const res = await executeSwarm(taskDescription);
+        const reasoningProfile = args?.reasoningProfile;
+        const res = await executeSwarm(taskDescription, { reasoningProfile });
         contentText = JSON.stringify(res, null, 2);
       } else if (name === 'vibes_get_skill') {
         const skillName = args?.skillName?.trim();
@@ -345,6 +562,61 @@ export async function handleRpcRequest(request) {
         await fs.mkdir(targetBaseDir, { recursive: true });
         await fs.cp(sourceDir, targetDir, { recursive: true });
         contentText = JSON.stringify({ success: true, message: `Skill '${sName}' injected successfully into ${targetDir}` }, null, 2);
+      } else if (name === 'vibes_batch') {
+        const calls = args?.calls;
+        if (!Array.isArray(calls) || calls.length === 0) {
+          throw new Error("Argument 'calls' must be a non-empty array of tool invocations.");
+        }
+        const executed = await Promise.allSettled(
+          calls.map(async (c, idx) => {
+            if (c.tool === 'vibes_batch') {
+              throw new Error("Nested 'vibes_batch' execution is disallowed.");
+            }
+            const subRes = await handleRpcRequest({
+              jsonrpc: '2.0',
+              id: `batch-${idx}`,
+              method: 'tools/call',
+              params: { name: c.tool, arguments: c.arguments || {} }
+            });
+            if (subRes.error) {
+              throw new Error(subRes.error.message);
+            }
+            const text = subRes.result?.content?.[0]?.text;
+            try {
+              return { tool: c.tool, success: true, data: JSON.parse(text) };
+            } catch {
+              return { tool: c.tool, success: true, data: text };
+            }
+          })
+        );
+
+        const results = executed.map((res, i) => {
+          if (res.status === 'fulfilled') {
+            return res.value;
+          }
+          return { tool: calls[i].tool, success: false, error: res.reason?.message || 'Execution failed' };
+        });
+
+        const successCount = results.filter(r => r.success).length;
+        contentText = JSON.stringify({
+          batchSize: calls.length,
+          successful: successCount,
+          failed: calls.length - successCount,
+          results
+        }, null, 2);
+      } else if (name === 'vibes_critic_validate') {
+        const target = args?.target;
+        if (!target) throw new Error("Argument 'target' is required.");
+        const language = args?.language;
+        const strictness = args?.strictness;
+        const report = criticValidate(target, { language, strictness });
+        contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_visual_audit') {
+        const target = args?.target;
+        if (!target) throw new Error("Argument 'target' is required.");
+        const viewport = args?.viewport;
+        const report = visualAudit(target, { viewport });
+        contentText = JSON.stringify(report, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
