@@ -1195,7 +1195,7 @@ async function runDocs(format = 'markdown', outputFile) {
       md += `| Skill Name | Version | Description |\n`;
       md += `| :--- | :---: | :--- |\n`;
       for (const item of catalog) {
-        md += `| \`${item.name}\` | \`${item.version}\` | ${item.description.replace(/\|/g, '\\|')} |\n`;
+        md += `| \`${item.name}\` | \`${item.version}\` | ${item.description.replace(/\\/g, '\\\\').replace(/\|/g, '\\|')} |\n`;
       }
 
       if (outputFile) {
