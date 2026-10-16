@@ -8,12 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.2.2] - 2026-10-16
 
 ### Added / Ditambahkan
+- **Skill Baru: `spec-driven-development-expert` (Milestone 150 Skills!)**:
+  - Panduan ahli untuk **Spec-Driven Development (SDD)**: TypeSpec, OpenAPI 3.1 contract-first design, Behavior-Driven Development (Cucumber/Gherkin BDD), Consumer-Driven Contract Testing (Pact), dan mock virtualization (Prism).
 - **Skill Baru: `agentic-m2m-settlement`**:
   - Protokol kliring dan settlement otonom Machine-to-Machine (M2M) dengan Dual-Rail (Fiat DOKU SNAP BI QRIS/VA & Crypto ERC-4337 Base/USDC), FinOps velocity caps, dan AP2AP invoicing.
 - **Skill Baru: `browser-extension-mv3-pro`**:
   - Panduan ahli rekayasa ekstensi peramban modern berbasis **Manifest V3 (MV3)**: Chrome SidePanel API, Background Service Worker lifecycle, Offscreen Document WASM/Audio sandbox, dan declarativeNetRequest.
+- **Test Suite Otomatis CLI (`scripts/test-cli.mjs`)**:
+  - Unit test suite berbasis `node:test` untuk memverifikasi fungsionalitas CLI: `--help`, `version`, `doctor`, `search`, `recipe list`, dan `skill info`.
 - **GitHub Actions CI & Anti-Slop Gate (`.github/workflows/anti-slop-gate.yml`)**:
-  - Workflow CI otomatis untuk memvalidasi kepatuhan 149 skill dan menjalankan audit Sovereign Anti-Slop ketat pada setiap push/PR ke branch main.
+  - Workflow CI otomatis untuk memvalidasi kepatuhan 150 skill, menjalankan CLI test suite, dan audit Sovereign Anti-Slop ketat pada setiap push/PR ke branch main.
 - **Paket Resep Baru CLI (`bin/vibes.mjs`)**:
   - `agentic-commerce`: Bundel 7 skill untuk ekosistem agen niaga & settlement otonom.
   - `frontier-ai`: Bundel 6 skill untuk rekayasa frontier model, KV-cache locking, dan MCP.
@@ -25,7 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Changed / Diubah
 - Sinkronisasi versi paket ke 4.2.2 di `package.json`, `bin/vibes.mjs`, `.cursorrules`, dan seluruh direktif IDE.
-- Peningkatan katalog ekosistem dari 147 skill menjadi **149 skill tersinkronisasi penuh**.
+- Peningkatan katalog ekosistem dari 147 skill menjadi **150 skill tersinkronisasi penuh (Milestone 150 Skills)**.
 
 ## [4.2.1] - 2026-10-06
 

@@ -24,9 +24,9 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /4\.2\.2/);
   });
 
-  await t.test('vibes doctor should verify 149 skills and pass health checks', async () => {
+  await t.test('vibes doctor should verify 150 skills and pass health checks', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor']);
-    assert.match(stdout, /Global skills registry: 149 skills found/);
+    assert.match(stdout, /Global skills registry: 150 skills found/);
     assert.match(stdout, /All checks passed/);
   });
 
@@ -40,6 +40,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /browser-extension-mv3-pro/);
   });
 
+  await t.test('vibes search spec should find spec-driven-development-expert', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'spec']);
+    assert.match(stdout, /spec-driven-development-expert/);
+  });
+
   await t.test('vibes recipe list should contain agentic-commerce and frontier-ai', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
     assert.match(stdout, /agentic-commerce/);
@@ -48,9 +53,9 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
   });
 
   await t.test('vibes skill info should display accurate metadata and orchestration', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'browser-extension-mv3-pro']);
-    assert.match(stdout, /browser-extension-mv3-pro/);
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'spec-driven-development-expert']);
+    assert.match(stdout, /spec-driven-development-expert/);
     assert.match(stdout, /Roedy Rustam/);
-    assert.match(stdout, /senior-frontend/);
+    assert.match(stdout, /openapi-swagger-codegen-expert/);
   });
 });

@@ -24,7 +24,7 @@ export async function compileCache(options = {}) {
   const log = (...args) => { if (!quiet) console.log(...args); };
 
   log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  log('📦 Scanning 149-Skill Ecosystem for canonical prefix ordering...\n');
+  log('📦 Scanning 150-Skill Ecosystem for canonical prefix ordering...\n');
 
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -49,7 +49,7 @@ export async function compileCache(options = {}) {
   const canonicalPayload = {
     version: '4.2.2',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
-    architecture: 'Vibes-Plug Swarm Architecture (149 Skills)',
+    architecture: 'Vibes-Plug Swarm Architecture (150 Skills)',
     orchestrator: 'Primary Trigger (Pemicu Utama)',
     domains: {
       ai_agentic: [
@@ -82,8 +82,8 @@ export async function compileCache(options = {}) {
         'bun-runtime-expert', 'domain-driven-design-expert', 'fullstack-expert',
         'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
         'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
-        'python-programming-expert', 'rust-programming-expert', 'typescript-expert',
-        'wasm-edge-computing-expert'
+        'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
+        'typescript-expert', 'wasm-edge-computing-expert'
       ],
       saas_cloud: [
         'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
@@ -133,7 +133,7 @@ export async function compileCache(options = {}) {
 
   log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
   log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  log(`  🎯 Total Skills Included    : ${skillsData.length}/149`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length}/150`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;

@@ -1021,7 +1021,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 149 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 150 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1039,7 +1039,7 @@ Commands:
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 149 skills by keyword (ranked by relevance)
+  search <query>            Search all 150 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
