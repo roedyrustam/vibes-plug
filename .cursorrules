@@ -1,0 +1,58 @@
+# Vibes-Plug — 147-Skill AI Agent Swarm Architecture (v4.2.2)
+# Universal AI Plugin for Antigravity, Claude, Cursor, and OpenAI Codex
+
+## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
+Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all Cursor AI interactions.
+- The AI agent MUST automatically intercept prompts and synchronize relevant skills without waiting for explicit `@` mentions.
+- Automatically connects cooperating skills (e.g. `doku-payment-gateway` + `saas-billing` + `payment-gateway-expert`; `senior-frontend` + `tailwind-expert`).
+- Multi-domain workflows trigger Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, Critic-Validator).
+
+## About
+This project uses the vibes-plug skills ecosystem with 147 specialized skills.
+Each skill is a `SKILL.md` file in the `skills/` directory containing domain-specific
+instructions, patterns, and best practices for the modern 2026 tech stack.
+
+## Core Stack (2026 Edition)
+- Frontend: React 19, Next.js 15 App Router, Tailwind CSS v4 (@theme), TypeScript 5.8+
+- Backend: Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
+- Database: Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
+- AI/LLM: Vercel AI SDK 5.x/6.x, MCP v1.x (FastMCP / Streamable HTTP), pgvector, RAG pipelines
+
+## Mandatory Before Coding
+1. Read the relevant `skills/<skill-name>/SKILL.md` files before writing code.
+2. Think deeply before acting — analyze constraints, question assumptions, validate approach.
+3. For new projects, auto-generate: PRD.md, ERD.md, DOKUMENTASI.md.
+
+## Skill Domains
+- 🤖 AI & Agentic: ai-llm-integration-expert, vercel-ai-sdk-expert, deep-research-analyst, synthetic-data-finetuning-expert, pydantic-ai-expert, mcp-server-architect, vector-db-rag-expert, multi-agent-orchestration, graph-rag-knowledge-expert, local-slm-edge-ai-expert, llm-finops-router, agentic-memory-architect
+- 🎨 Design & UI/UX: design-system-architect, hig, ui-ux-pro-max, tailwind-expert, modern-css-native-expert
+- 🖥️ Frontend: senior-frontend, tailwind-expert, nextjs-app-router-expert, tanstack-query-expert, vue-frontend-expert, astro-framework-expert, svelte-sveltekit-expert, solidjs-expert, angular-expert
+- ⚙️ Backend: js-backend-expert, python-programming-expert, go-programming-expert, rust-programming-expert, api-design-expert, fullstack-expert
+- ☁️ SaaS & Cloud: saas-architect, saas-billing, saas-multi-tenant, ci-cd-devops-architect, cloud-hosting-expert, payment-gateway-expert, doku-payment-gateway
+- 🗄️ Database: database-orm-expert, supabase-security-expert, data-pipeline-etl-expert
+- 🔒 Security: authentication-identity-expert, e2e-testing-expert, production-ready-hardener, zero-trust-secret-vault, anti-slop, autonomous-tdd-debugger, zero-tech-debt-auditor
+- 🔍 SEO & Telemetry: seo, data-telemetry-expert
+- 🛠️ Utilities: brainstorming, prd-architect, session-memory-manager, zero-to-prod-orchestrator, web-scraper, website-design-cloner
+
+## Code Quality & Sovereign Anti-Slop Directive
+- Zero-tolerance for AI slop (`anti-slop` skill):
+  * Code-first delivery with 100% complete implementations (no `// TODO`, `// ...`, or mock stubs).
+  * Hyper-YAGNI: avoid speculative abstractions and redundant wrapper layers.
+  * Meaningful comments only: explain non-obvious business/architectural WHY, never syntax mechanics.
+  * No swallowed errors (`catch(e){}` prohibited); structured logging (`Pino`) required.
+  * UI & Visual Sanitation: Enforce Linear/Stripe-caliber design. Zero generic blue-purple gradients, no neon glow orbs, no pill button addiction (`rounded-full` on rectangular elements), mandatory 5-state contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
+  * Run `node scripts/check-anti-slop.js` to verify zero violations.
+## Sovereign Token Optimization Protocol (Hemat Token)
+- Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer` (75-90% prompt cache hit rates).
+- Prune subagent context payloads: pass only targeted `CONTEXT_MAP.md` slices, not raw chat transcripts.
+- Use dynamic model cascading (`adaptive-model-cascade`): `flash` for research/linting, `pro` for architecture/security.
+- Ultra-compact session checkpoints (<300 tokens) via `session-memory-manager`.
+- Non-Degradation Invariant: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete.
+
+## Orchestration Flow
+1. Ideation: brainstorming → prd-architect
+2. Design: design-system-architect → senior-frontend → ui-ux-pro-max
+3. Backend: js-backend-expert → event-driven-architect → autonomous-tdd-debugger
+4. AI: ai-llm-integration-expert → mcp-server-architect → multi-agent-orchestration
+5. SaaS: saas-architect → saas-billing + saas-multi-tenant + doku-payment-gateway
+6. Launch: e2e-testing-expert → zero-tech-debt-auditor → seo → anti-slop → production-ready-hardener

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Community Discussions & Showcase
+    url: https://github.com/roedyrustam/vibes-plug/discussions
+    about: Ask questions, share apps you built with VibesPlug, or join open swarm discussions!
+  - name: ⚡ Request a Feature
+    url: https://github.com/roedyrustam/vibes-plug/issues/new?template=feature_request.md
+    about: Suggest enhancements to existing features or CLI tools.

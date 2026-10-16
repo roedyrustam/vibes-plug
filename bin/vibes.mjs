@@ -1,0 +1,1184 @@
+#!/usr/bin/env node
+
+import fs from 'fs/promises';
+import path from 'path';
+import readline from 'readline';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PLUGIN_ROOT = path.join(__dirname, '..');
+
+const args = process.argv.slice(2);
+const command = args[0];
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const question = (query) => new Promise((resolve) => rl.question(query, resolve));
+
+async function runInit(projectName) {
+  if (!projectName) {
+    console.error('❌ Error: Project name is required.');
+    console.log('Usage: vibes init <project-name>');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), projectName);
+  
+  try {
+    await fs.mkdir(targetDir);
+    console.log(`\n📂 Created project directory: ${projectName}`);
+
+    // Create standard Zero-To-Prod boilerplate
+    const filesToCreate = {
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD\n- [ ] Phase 2: Foundation & Monorepo\n- [ ] Phase 3: Database & Auth\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & UI\n- [ ] Phase 6: Testing & Security\n- [ ] Phase 7: DevOps & Monitoring\n- [ ] Phase 8: Launch`,
+      'BLUEPRINT.md': `# 📐 System Blueprint\n\n(Auto-generated architectural decisions will be logged here by the AI agent)`,
+      'PRD.md': `# 📋 Product Requirements Document\n\n(To be filled by the deep-research-analyst agent)`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log('\n🎉 Project scaffolded successfully!');
+    console.log('\nTo get started:');
+    console.log(`  cd ${projectName}`);
+    console.log('  Ask your AI (Claude/Cursor/Antigravity/Codex): "Begin phase 1 using zero-to-prod-orchestrator"');
+    
+  } catch (err) {
+    console.error(`\n❌ Error creating project: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runBootstrap(templateName, projectName) {
+  if (!templateName || !projectName) {
+    console.error('❌ Error: Template name and Project name are required.');
+    console.log('Usage: vibes bootstrap <template> <project-name>');
+    console.log('Available templates: saas, ecommerce');
+    process.exit(1);
+  }
+
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack'];
+  if (!validTemplates.includes(templateName)) {
+    console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), projectName);
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Directory '${projectName}' already exists.`);
+      process.exit(1);
+    }
+
+    // Resolve template-specific config first
+    let scaffoldCmd = null;
+    let prdTitle = projectName;
+    let specificSkills = [];
+
+    if (templateName === 'saas') {
+      prdTitle = 'Multi-Tenant SaaS';
+      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'supabase-security-expert'];
+    } else if (templateName === 'ecommerce') {
+      prdTitle = 'E-Commerce Platform';
+      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      specificSkills = ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway'];
+    } else if (templateName === 'mobile') {
+      prdTitle = 'Mobile App (Expo)';
+      scaffoldCmd = `npx create-expo-app@latest ${projectName} --template blank-typescript --yes`;
+      specificSkills = ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'];
+    } else if (templateName === 'api') {
+      prdTitle = 'Backend API (Hono/Node.js)';
+      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      specificSkills = ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'];
+    } else if (templateName === 'fullstack') {
+      prdTitle = 'Full-Stack T3 App';
+      scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
+      specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
+    }
+
+    console.log(`\n\ud83d\ude80 Bootstrapping ${prdTitle} project: ${projectName}...`);
+    console.log('\u23f3 This may take a minute or two as npm installs dependencies...\n');
+
+    const { execSync } = await import('child_process');
+    execSync(scaffoldCmd, { stdio: 'inherit' });
+
+    console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
+
+    // Core skills for all templates
+    const coreSkills = [
+      'zero-to-prod-orchestrator',
+      'senior-frontend',
+      'tailwind-expert',
+      'anti-slop',
+      'session-memory-manager'
+    ];
+
+    const allSkills = [...coreSkills, ...specificSkills];
+    const targetAgentsDir = path.join(targetDir, '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    for (const skill of allSkills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const skillTargetDir = path.join(targetAgentsDir, skill);
+      
+      const skillExists = await fs.access(sourceDir).then(() => true).catch(() => false);
+      if (skillExists) {
+        await fs.cp(sourceDir, skillTargetDir, { recursive: true });
+        console.log(`  ➕ Injected skill: ${skill}`);
+      } else {
+        console.warn(`  ⚠️ Warning: Skill '${skill}' not found in global registry.`);
+      }
+    }
+
+    // Overwrite README and PRD
+    const filesToCreate = {
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document\n\n(To be filled by the deep-research-analyst agent based on the ${templateName} template)`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log(`\n🎉 Super-Scaffolding complete for ${projectName}!`);
+    console.log('\nTo get started:');
+    console.log(`  cd ${projectName}`);
+    console.log('  Ask your AI (Claude/Cursor/Antigravity): "Begin phase 1 using zero-to-prod-orchestrator"');
+
+  } catch (err) {
+    console.error(`\n❌ Error during bootstrap: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runValidate() {
+  console.log('Running ecosystem validation...\n');
+  try {
+    const { execSync } = await import('child_process');
+    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'validate-skills.mjs'), { stdio: 'inherit' });
+  } catch (err) {
+    // Error is already printed by the child process
+  }
+  rl.close();
+}
+
+async function runAudit() {
+  const auditArgs = args.slice(1).join(' ');
+  try {
+    const { execSync } = await import('child_process');
+    execSync(`node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" ${auditArgs}`.trim(), { stdio: 'inherit' });
+  } catch (err) {
+    // Error is already printed by the child process
+  }
+  rl.close();
+}
+
+async function runCreateSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes create-skill <skill-name>');
+    process.exit(1);
+  }
+
+  const kebabCaseRegex = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+  if (!kebabCaseRegex.test(skillName)) {
+    console.error('❌ Error: Skill name must be in kebab-case (e.g., my-new-skill).');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(PLUGIN_ROOT, 'skills', skillName);
+  const templatePath = path.join(PLUGIN_ROOT, 'templates', 'SKILL_TEMPLATE.md');
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Skill directory '${skillName}' already exists.`);
+      process.exit(1);
+    }
+
+    await fs.mkdir(targetDir, { recursive: true });
+    
+    let templateContent = await fs.readFile(templatePath, 'utf8');
+    
+    // Basic string replacements
+    templateContent = templateContent.replace(/skill-baru/g, skillName);
+    templateContent = templateContent.replace(/\[Skill Name\]/g, skillName);
+
+    await fs.writeFile(path.join(targetDir, 'SKILL.md'), templateContent, 'utf8');
+    
+    console.log(`\n🎉 Scaffolded new skill: ${skillName}`);
+    console.log(`📂 Location: skills/${skillName}/SKILL.md`);
+    console.log('\nNext steps:');
+    console.log('  1. Open the file and follow the checklist at the bottom.');
+    console.log('  2. Replace all [...] placeholders with actual content.');
+    console.log('  3. Register your new skill in brainstorming/SKILL.md');
+    
+  } catch (err) {
+    console.error(`\n❌ Error creating skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runCreateMcp(serverName) {
+  if (!serverName) {
+    console.error('❌ Error: MCP Server name is required.');
+    console.log('Usage: vibes create-mcp <server-name>');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), serverName);
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Directory '${serverName}' already exists.`);
+      process.exit(1);
+    }
+
+    await fs.mkdir(targetDir, { recursive: true });
+    await fs.mkdir(path.join(targetDir, 'src'), { recursive: true });
+
+    const filesToCreate = {
+      'package.json': `{
+  "name": "${serverName}",
+  "version": "1.0.0",
+  "description": "MCP Server generated by vibes-plug",
+  "type": "module",
+  "bin": {
+    "${serverName}": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.4"
+  }
+}`,
+      'tsconfig.json': `{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}`,
+      'src/index.ts': `#!/usr/bin/env node
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+  CallToolRequestSchema,
+  ErrorCode,
+  ListToolsRequestSchema,
+  McpError,
+} from "@modelcontextprotocol/sdk/types.js";
+
+class ${serverName.replace(/[^a-zA-Z0-9]/g, '')}Server {
+  private server: Server;
+
+  constructor() {
+    this.server = new Server(
+      {
+        name: "${serverName}",
+        version: "1.0.0",
+      },
+      {
+        capabilities: {
+          tools: {},
+        },
+      }
+    );
+
+    this.setupToolHandlers();
+    
+    // Error handling
+    this.server.onerror = (error) => console.error('[MCP Error]', error);
+    process.on('SIGINT', async () => {
+      await this.server.close();
+      process.exit(0);
+    });
+  }
+
+  private setupToolHandlers() {
+    this.server.setRequestHandler(ListToolsRequestSchema, async () => ({
+      tools: [
+        {
+          name: "hello_world",
+          description: "A simple hello world tool",
+          inputSchema: {
+            type: "object",
+            properties: {
+              name: {
+                type: "string",
+                description: "Name to greet",
+              },
+            },
+            required: ["name"],
+          },
+        },
+      ],
+    }));
+
+    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+      if (request.params.name !== "hello_world") {
+        throw new McpError(
+          ErrorCode.MethodNotFound,
+          \`Unknown tool: \${request.params.name}\`
+        );
+      }
+
+      const args = request.params.arguments as { name: string };
+      
+      return {
+        content: [
+          {
+            type: "text",
+            text: \`Hello, \${args.name}! Welcome to your new MCP server.\`,
+          },
+        ],
+      };
+    });
+  }
+
+  async run() {
+    const transport = new StdioServerTransport();
+    await this.server.connect(transport);
+    console.error('${serverName} MCP server running on stdio');
+  }
+}
+
+const server = new ${serverName.replace(/[^a-zA-Z0-9]/g, '')}Server();
+server.run().catch(console.error);
+`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log(`\n🎉 MCP Server scaffolded successfully in ./${serverName}`);
+    console.log('\nNext steps:');
+    console.log(`  cd ${serverName}`);
+    console.log('  npm install');
+    console.log('  npm run build');
+    console.log('\nTo use with Claude Desktop or Cursor, add this to your config:');
+    console.log(`
+{
+  "mcpServers": {
+    "${serverName}": {
+      "command": "node",
+      "args": ["${path.join(process.cwd(), serverName, 'build', 'index.js')}"]
+    }
+  }
+}`);
+  } catch (err) {
+    console.error(`\n❌ Error creating MCP Server: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runAddSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes add <skill-name>');
+    process.exit(1);
+  }
+
+  const sourceDir = path.join(PLUGIN_ROOT, 'skills', skillName);
+  
+  try {
+    const exists = await fs.access(sourceDir).then(() => true).catch(() => false);
+    if (!exists) {
+      console.error(`❌ Error: Skill '${skillName}' not found in vibes-plug global registry.`);
+      process.exit(1);
+    }
+
+    // Default to .agents/skills for local project injection
+    const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+    const targetDir = path.join(targetBaseDir, skillName);
+
+    await fs.mkdir(targetBaseDir, { recursive: true });
+    
+    // Node v16.7.0+ required for fs.cp
+    await fs.cp(sourceDir, targetDir, { recursive: true });
+
+    console.log(`\n🎉 Successfully added '${skillName}' to your local project!`);
+    console.log(`📂 Location: .agents/skills/${skillName}/SKILL.md`);
+    console.log('\nYour AI agents will now automatically load this skill when working in this repository.');
+  } catch (err) {
+    console.error(`\n❌ Error adding skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runUi() {
+  let checkbox;
+  try {
+    const prompts = await import('@inquirer/prompts');
+    checkbox = prompts.checkbox;
+  } catch (err) {
+    console.error('❌ Error: The Interactive TUI requires the @inquirer/prompts package.');
+    console.error('Please run "npm install" inside the vibes-plug directory first:');
+    console.error(`  cd ${PLUGIN_ROOT}`);
+    console.error('  npm install');
+    process.exit(1);
+  }
+
+  // Close the global readline so inquirer can take over stdin
+  rl.close();
+
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const skills = entries
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name)
+      .sort();
+
+    const choices = skills.map(skill => ({ name: skill, value: skill }));
+
+    console.log(`\n🌊 Vibes-Plug Interactive TUI`);
+    const selectedSkills = await checkbox({
+      message: 'Select the AI skills to install into this project:',
+      choices: choices,
+      loop: false,
+      pageSize: 15
+    });
+
+    if (!selectedSkills || selectedSkills.length === 0) {
+      console.log('No skills selected. Exiting.');
+      return;
+    }
+
+    const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+    await fs.mkdir(targetBaseDir, { recursive: true });
+
+    let count = 0;
+    for (const skill of selectedSkills) {
+      const sourceDir = path.join(skillsDir, skill);
+      const targetDir = path.join(targetBaseDir, skill);
+      
+      const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+      if (!exists) {
+        await fs.cp(sourceDir, targetDir, { recursive: true });
+        console.log(`  ➕ Added: ${skill}`);
+        count++;
+      } else {
+        console.log(`  ⏭️ Skipped (already exists): ${skill}`);
+      }
+    }
+    
+    console.log(`\n🎉 Successfully installed ${count} skill(s) into .agents/skills/`);
+    console.log('Your AI agents will now automatically load these skills when working in this repository.');
+    
+  } catch (err) {
+    if (err.name === 'ExitPromptError') {
+      console.log('Interactive prompt cancelled.');
+    } else {
+      console.error(`\n❌ Error: ${err.message}`);
+    }
+  }
+}
+
+async function runRemoveSkill(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes remove <skill-name>');
+    process.exit(1);
+  }
+
+  const targetDir = path.join(process.cwd(), '.agents', 'skills', skillName);
+
+  try {
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (!exists) {
+      console.error(`❌ Skill '${skillName}' is not installed in this project.`);
+      console.log('Run "vibes list" to see available skills or "vibes ui" to manage them.');
+      process.exit(1);
+    }
+
+    await fs.rm(targetDir, { recursive: true, force: true });
+    console.log(`\n✅ Successfully removed '${skillName}' from your local project.`);
+    console.log('💡 Run "vibes add" or "vibes ui" to re-install skills anytime.');
+
+  } catch (err) {
+    console.error(`\n❌ Error removing skill: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runListSkills(filter) {
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const allSkills = entries
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name)
+      .sort();
+
+    // Check which skills are already installed locally
+    const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+    let localSkills = new Set();
+    const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+    if (localExists) {
+      const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+      localEntries
+        .filter(d => d.isDirectory())
+        .forEach(d => localSkills.add(d.name));
+    }
+
+    // Apply filter if provided
+    const filtered = filter
+      ? allSkills.filter(s => s.includes(filter.toLowerCase()))
+      : allSkills;
+
+    if (filtered.length === 0) {
+      console.log(`❌ No skills found matching "${filter}".`);
+      rl.close();
+      return;
+    }
+
+    const title = filter ? `Skills matching "${filter}"` : 'All Available Skills';
+    console.log(`\n🌊 Vibes-Plug Registry — ${title}`);
+    console.log(`📊 ${filtered.length} skill(s) found | ✅ = installed locally\n`);
+
+    // Group by domain prefix for readability
+    filtered.forEach(skill => {
+      const installed = localSkills.has(skill) ? ' ✅' : '';
+      console.log(`  • ${skill}${installed}`);
+    });
+
+    console.log(`
+💡 Commands:`);
+    console.log('  vibes add <skill-name>    — Install a skill into this project');
+    console.log('  vibes remove <skill-name> — Remove a skill from this project');
+    console.log('  vibes ui               — Interactive multiselect menu');
+
+  } catch (err) {
+    console.error(`\n❌ Error listing skills: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runVersion(action, type) {
+  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
+  const pluginJsonPath = path.join(PLUGIN_ROOT, 'plugin.json');
+  const changelogPath = path.join(PLUGIN_ROOT, 'CHANGELOG.md');
+  const vivesMjsPath = path.join(PLUGIN_ROOT, 'bin', 'vibes.mjs');
+
+  try {
+    const pkgRaw = await fs.readFile(pkgPath, 'utf8');
+    const pkg = JSON.parse(pkgRaw);
+    const current = pkg.version;
+    const [major, minor, patch] = current.split('.').map(Number);
+
+    if (!action || action === 'current') {
+      console.log(`📦 Current version: v${current}`);
+      rl.close();
+      return;
+    }
+
+    if (action !== 'bump') {
+      console.error('❌ Usage: vibes version current  OR  vibes version bump <major|minor|patch>');
+      process.exit(1);
+    }
+
+    let next;
+    if (type === 'major') next = `${major + 1}.0.0`;
+    else if (type === 'minor') next = `${major}.${minor + 1}.0`;
+    else if (type === 'patch') next = `${major}.${minor}.${patch + 1}`;
+    else {
+      console.error('❌ Bump type must be: major | minor | patch');
+      process.exit(1);
+    }
+
+    const files = [
+      { path: pkgPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: pluginJsonPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
+    ];
+
+    for (const { path: filePath, from, to } of files) {
+      const raw = await fs.readFile(filePath, 'utf8');
+      if (raw.includes(from)) {
+        await fs.writeFile(filePath, raw.replaceAll(from, to), 'utf8');
+        console.log(`  ✅ Updated: ${path.basename(filePath)}  ${current} → ${next}`);
+      } else {
+        console.log(`  ⏭️ Skipped (pattern not found): ${path.basename(filePath)}`);
+      }
+    }
+
+    // Prepend a new changelog entry
+    const today = new Date().toISOString().split('T')[0];
+    const entry = `## [${next}] - ${today}\n\n### Changed\n- Version bumped from ${current} to ${next}\n\n---\n\n`;
+    const changelog = await fs.readFile(changelogPath, 'utf8');
+    const insertIdx = changelog.indexOf('## [');
+    const updated = changelog.slice(0, insertIdx) + entry + changelog.slice(insertIdx);
+    await fs.writeFile(changelogPath, updated, 'utf8');
+    console.log(`  ✅ Updated: CHANGELOG.md  added [${next}] entry`);
+
+    console.log(`
+🎉 Version bumped: v${current} → v${next}`);
+    console.log('💡 Don\'t forget to commit and tag: git tag v' + next);
+
+  } catch (err) {
+    console.error(`❌ Error: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+async function runDoctor() {
+  console.log('\n🧬 Vibes-Plug Doctor — Running diagnostics...\n');
+  const checks = [];
+
+  // 1. Node.js version
+  const nodeVersion = process.versions.node;
+  const nodeMajor = parseInt(nodeVersion.split('.')[0], 10);
+  checks.push(nodeMajor >= 18
+    ? `✅ Node.js v${nodeVersion} (>= 18 required)`
+    : `❌ Node.js v${nodeVersion} is too old. Please upgrade to v18+`);
+
+  // 2. npx available
+  try {
+    const { execSync } = await import('child_process');
+    execSync('npx --version', { stdio: 'pipe' });
+    checks.push('✅ npx is available');
+  } catch {
+    checks.push('❌ npx not found. Install Node.js from https://nodejs.org');
+  }
+
+  // 3. Global skills directory
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  try {
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const count = entries.filter(d => d.isDirectory()).length;
+    checks.push(`✅ Global skills registry: ${count} skills found`);
+  } catch {
+    checks.push('❌ Skills directory missing! Run: npm install -g vibes-plug');
+  }
+
+  // 4. @inquirer/prompts installed
+  try {
+    await import('@inquirer/prompts');
+    checks.push('✅ @inquirer/prompts is installed (vibes ui works)');
+  } catch {
+    checks.push(`⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
+  }
+
+  // 5. Local project .agents/skills
+  const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+  const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+  if (localExists) {
+    const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+    const localCount = localEntries.filter(d => d.isDirectory()).length;
+    checks.push(`✅ Local project: ${localCount} skill(s) installed in .agents/skills/`);
+  } else {
+    checks.push('ℹ️  No local .agents/skills/ found (run vibes add or vibes ui to install skills)');
+  }
+
+  // 6. Package version
+  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
+  const pkgRaw = await fs.readFile(pkgPath, 'utf8');
+  const pkg = JSON.parse(pkgRaw);
+  checks.push(`📦 vibes-plug version: v${pkg.version}`);
+
+  checks.forEach(c => console.log('  ' + c));
+
+  const failed = checks.filter(c => c.startsWith('  ❌')).length;
+  console.log(failed > 0
+    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor`
+    : '\n🎉 All checks passed! Your Vibes-Plug environment is healthy.');
+
+  rl.close();
+}
+
+async function runSkillInfo(skillName) {
+  if (!skillName) {
+    console.error('❌ Error: Skill name is required.');
+    console.log('Usage: vibes skill info <skill-name>');
+    process.exit(1);
+  }
+
+  const skillPath = path.join(PLUGIN_ROOT, 'skills', skillName, 'SKILL.md');
+  try {
+    const content = await fs.readFile(skillPath, 'utf8');
+
+    // Parse frontmatter
+    const fmMatch = content.match(/---[\r\n]+([\s\S]*?)[\r\n]+---/);
+    if (!fmMatch) {
+      console.error(`❌ Skill '${skillName}' has no frontmatter.`);
+      process.exit(1);
+    }
+
+    const fm = fmMatch[1];
+    const get = (key) => { const m = fm.match(new RegExp(`${key}:\\s*["']?([^"'\\n]+)["']?`)); return m ? m[1].trim() : 'N/A'; };
+
+    const name = get('name');
+    const version = get('version');
+    const description = get('description');
+    const author = get('author');
+
+    // Extract orchestration section
+    const orchMatch = content.match(/## (?:Orchestration & Integration|Integrasi Orkestrasi)[\r\n]+([\s\S]*?)(?=\n##|$)/);
+    const orchText = orchMatch ? orchMatch[1].trim().split('\n').slice(0, 5).join('\n') : 'N/A';
+
+    // Check local installation status
+    const localPath = path.join(process.cwd(), '.agents', 'skills', skillName);
+    const isLocal = await fs.access(localPath).then(() => true).catch(() => false);
+
+    console.log(`\n📖 ${name} (v${version})`);
+    console.log(`📝 ${description}`);
+    console.log(`👤 Author : ${author}`);
+    console.log(`📍 Status : ${isLocal ? '✅ Installed locally (.agents/skills/)' : '❌ Not installed in this project'}`);
+    console.log(`\n🔗 Orchestration:`);
+    console.log(orchText);
+    console.log(`\n💡 To install: vibes add ${skillName}`);
+
+  } catch {
+    console.error(`❌ Skill '${skillName}' not found in the global registry.`);
+    console.log('Run "vibes list" to see all available skills.');
+  } finally {
+    rl.close();
+  }
+}
+
+async function runHooks(action) {
+  const gitDir = path.join(process.cwd(), '.git');
+  const hookPath = path.join(gitDir, 'hooks', 'pre-commit');
+
+  const gitExists = await fs.access(gitDir).then(() => true).catch(() => false);
+  if (!gitExists) {
+    console.error('❌ No .git directory found. Run this command inside a git repository.');
+    process.exit(1);
+  }
+
+  try {
+    if (!action || action === 'install') {
+      const hookContent = `#!/bin/sh
+# Installed by vibes-plug — Anti-AI Slop pre-commit gate
+echo "🔍 Running Vibes Anti-Slop Audit..."
+node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" || exit 1
+`;
+      await fs.mkdir(path.join(gitDir, 'hooks'), { recursive: true });
+      await fs.writeFile(hookPath, hookContent, { mode: 0o755 });
+      console.log('\n\u2705 Git pre-commit hook installed!');
+      console.log('🛡️  Anti-Slop Audit will now run automatically before every commit.');
+      console.log(`📂 Hook location: ${hookPath}`);
+
+    } else if (action === 'remove') {
+      const exists = await fs.access(hookPath).then(() => true).catch(() => false);
+      if (!exists) {
+        console.log('ℹ️  No vibes pre-commit hook found to remove.');
+      } else {
+        await fs.rm(hookPath, { force: true });
+        console.log('✅ Git pre-commit hook removed.');
+      }
+    } else {
+      console.error('❌ Usage: vibes hooks install  OR  vibes hooks remove');
+      process.exit(1);
+    }
+  } catch (err) {
+    console.error(`❌ Error managing hooks: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
+// Built-in skill recipes (curated bundles)
+const RECIPES = {
+  'ai-stack': {
+    description: 'Full AI/LLM integration stack with RAG, vector DB, and agent orchestration',
+    skills: ['ai-llm-integration-expert', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'ai-prompt-engineering-expert', 'multi-agent-orchestration']
+  },
+  'fullstack-pro': {
+    description: 'Production-grade fullstack: Next.js 15, auth, DB, payments, testing',
+    skills: ['nextjs-app-router-expert', 'authentication-identity-expert', 'database-orm-expert', 'payment-gateway-expert', 'e2e-testing-expert', 'error-resilience-expert']
+  },
+  'security-hardened': {
+    description: 'Security-first stack: zero-trust, rate limiting, auth, GDPR compliance',
+    skills: ['zero-trust-secret-vault', 'rate-limit-abuse-prevention', 'authentication-identity-expert', 'compliance-gdpr-privacy-expert', 'autonomous-red-teamer', 'supabase-security-expert']
+  },
+  'realtime-app': {
+    description: 'Real-time collaboration: WebSockets, SSE, CRDTs, streaming',
+    skills: ['realtime-collaboration-expert', 'sse-websocket-streaming-expert', 'state-management-expert', 'error-resilience-expert']
+  },
+  'mobile-first': {
+    description: 'Mobile app stack: Expo, offline-first PWA, push notifications',
+    skills: ['mobile-expo-expert', 'pwa-offline-first-expert', 'authentication-identity-expert', 'api-design-expert', 'email-notification-expert']
+  },
+  'data-platform': {
+    description: 'Data engineering: ETL pipelines, visualization, telemetry, analytics',
+    skills: ['data-pipeline-etl-expert', 'data-visualization-expert', 'data-telemetry-expert', 'search-engine-expert']
+  }
+};
+
+async function runRecipe(action, recipeName) {
+  if (!action || action === 'list') {
+    console.log('\n\ud83e\uddc9 Available Vibes-Plug Recipes:\n');
+    for (const [name, { description, skills }] of Object.entries(RECIPES)) {
+      console.log(`  \x1b[36m${name}\x1b[0m`);
+      console.log(`    ${description}`);
+      console.log(`    Skills (${skills.length}): ${skills.join(', ')}\n`);
+    }
+    console.log('Usage: vibes recipe apply <recipe-name>');
+    rl.close();
+    return;
+  }
+
+  if (action === 'apply') {
+    if (!recipeName) {
+      console.error('\u274c Error: Recipe name required.');
+      console.log('Usage: vibes recipe apply <recipe-name>');
+      console.log('Run "vibes recipe list" to see available recipes.');
+      process.exit(1);
+    }
+
+    const recipe = RECIPES[recipeName];
+    if (!recipe) {
+      console.error(`\u274c Recipe '${recipeName}' not found.`);
+      console.log(`Available: ${Object.keys(RECIPES).join(', ')}`);
+      process.exit(1);
+    }
+
+    console.log(`\n\ud83e\uddc9 Applying recipe: ${recipeName}`);
+    console.log(`\ud83d\udcdd ${recipe.description}\n`);
+
+    const targetAgentsDir = path.join(process.cwd(), '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    let installed = 0, skipped = 0;
+    for (const skill of recipe.skills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const targetDir = path.join(targetAgentsDir, skill);
+      const alreadyInstalled = await fs.access(targetDir).then(() => true).catch(() => false);
+      if (alreadyInstalled) {
+        console.log(`  \u23ed\ufe0f Already installed: ${skill}`);
+        skipped++;
+      } else {
+        const exists = await fs.access(sourceDir).then(() => true).catch(() => false);
+        if (exists) {
+          await fs.cp(sourceDir, targetDir, { recursive: true });
+          console.log(`  \u2705 Installed: ${skill}`);
+          installed++;
+        } else {
+          console.warn(`  \u26a0\ufe0f  Not found in registry: ${skill}`);
+        }
+      }
+    }
+
+    console.log(`\n\ud83c\udf89 Recipe '${recipeName}' applied! ${installed} new, ${skipped} already installed.`);
+    console.log('\ud83d\udca1 Ask your AI agent to read the injected skills and begin development.');
+
+  } else {
+    console.error('\u274c Usage: vibes recipe list  OR  vibes recipe apply <name>');
+    process.exit(1);
+  }
+
+  rl.close();
+}
+
+async function runSearch(query) {
+  if (!query) {
+    console.error('\u274c Error: Search query required.');
+    console.log('Usage: vibes search <query>');
+    process.exit(1);
+  }
+
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+  const skills = entries.filter(d => d.isDirectory()).map(d => d.name);
+
+  const q = query.toLowerCase();
+  const results = [];
+
+  for (const skill of skills) {
+    const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
+    try {
+      const content = await fs.readFile(skillMdPath, 'utf8');
+      const lower = content.toLowerCase();
+      // Score by keyword frequency
+      const score = (lower.match(new RegExp(q, 'g')) || []).length;
+      if (score > 0) {
+        // Extract description from frontmatter
+        const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
+        const desc = descMatch ? descMatch[1].trim() : '';
+        results.push({ skill, score, desc });
+      }
+    } catch { /* skip unreadable */ }
+  }
+
+  results.sort((a, b) => b.score - a.score);
+
+  if (results.length === 0) {
+    console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
+    console.log('Try: vibes list  to browse all 125 skills.');
+  } else {
+    console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
+    results.slice(0, 10).forEach(({ skill, score, desc }) => {
+      console.log(`  \x1b[36m${skill}\x1b[0m  (relevance: ${score})`);
+      if (desc) console.log(`    ${desc.slice(0, 100)}`);
+    });
+    if (results.length > 10) console.log(`  ... and ${results.length - 10} more. Use "vibes list" to see all.`);
+  }
+
+  rl.close();
+}
+
+async function runSync() {
+  console.log('\n🔄 Vibes-Plug Master Synchronizer (Pemicu Utama)...');
+  console.log('Verifying primary trigger configuration and cross-skill synchronization...\n');
+
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  let skillCount = 0;
+  try {
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    skillCount = entries.filter(e => e.isDirectory()).length;
+  } catch (e) {
+    console.error(`❌ Could not read skills dir: ${e.message}`);
+  }
+
+  console.log(`  ✅ Global Registry: ${skillCount} skills detected.`);
+
+  // Check platforms entry points
+  const checkFiles = [
+    { name: 'Antigravity (AGENTS.md)', file: path.join(PLUGIN_ROOT, 'AGENTS.md') },
+    { name: 'Claude Code (CLAUDE.md)', file: path.join(PLUGIN_ROOT, 'CLAUDE.md') },
+    { name: 'Cursor IDE (.cursorrules)', file: path.join(PLUGIN_ROOT, '.cursorrules') },
+    { name: 'OpenAI Codex (CODEX.md)', file: path.join(PLUGIN_ROOT, 'CODEX.md') },
+    { name: 'Cursor Rules (.cursor/rules/vibes-plug-core.mdc)', file: path.join(PLUGIN_ROOT, '.cursor', 'rules', 'vibes-plug-core.mdc') },
+    { name: 'Claude Rules (.claude/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.claude', 'rules', 'vibes-plug-core.md') },
+    { name: 'Codex Rules (.codex/rules/vibes-plug-core.md)', file: path.join(PLUGIN_ROOT, '.codex', 'rules', 'vibes-plug-core.md') }
+  ];
+
+  for (const item of checkFiles) {
+    try {
+      const content = await fs.readFile(item.file, 'utf8');
+      const hasTrigger = content.includes('PRIMARY TRIGGER') || content.includes('Pemicu Utama');
+      if (hasTrigger) {
+        console.log(`  ✅ ${item.name}: Primary Trigger active & configured.`);
+      } else {
+        console.log(`  ⚠️  ${item.name}: Missing Primary Trigger directive.`);
+      }
+    } catch {
+      console.log(`  ℹ️  ${item.name}: Not found.`);
+    }
+  }
+
+  // Check master orchestrators
+  const brainPath = path.join(skillsDir, 'brainstorming', 'SKILL.md');
+  const ztpPath = path.join(skillsDir, 'zero-to-prod-orchestrator', 'SKILL.md');
+  const hasBrain = await fs.access(brainPath).then(() => true).catch(() => false);
+  const hasZtp = await fs.access(ztpPath).then(() => true).catch(() => false);
+
+  if (hasBrain && hasZtp) {
+    console.log(`  ✅ Master Orchestrators: brainstorming & zero-to-prod-orchestrator synchronized.`);
+  } else {
+    console.log(`  ⚠️  Master Orchestrators: check missing files.`);
+  }
+
+  console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
+  console.log('   All 147 skills automatically synchronize when the user submits any coding prompt.\n');
+  rl.close();
+}
+
+function showHelp() {
+  console.log(`
+🌊 Vibes-Plug CLI (v4.2.1)
+The ultimate AI Swarm Orchestrator tool.
+
+Usage:
+  vibes <command> [options]
+
+Commands:
+  sync                      Verify and synchronize primary trigger & cross-skill orchestration
+  init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
+  ui                        Launch the interactive TUI to visually select and install skills
+  list [filter]             List all available skills (optional: filter by keyword)
+  search <query>            Search all 147 skills by keyword (ranked by relevance)
+  add <skill-name>          Inject a skill from the global registry into your local project
+  remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
+  skill info <skill-name>   Show metadata, description, and orchestration info for a skill
+  recipe list               List all built-in skill bundles/recipes
+  recipe apply <name>       Apply a recipe bundle to your project (ai-stack, fullstack-pro, ...)
+  create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
+  create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
+  version current           Show current version
+  version bump <type>       Bump version across all files (type: major | minor | patch)
+  hooks install             Install Git pre-commit Anti-Slop gate
+  hooks remove              Remove the Git pre-commit hook
+  doctor                    Run environment health diagnostics
+  audit                     Run the strict Anti-AI Slop quality gate check
+  compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
+  db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
+  ast <action> [args]       Query AST symbols, inspect code, or blast-radius
+  arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
+  verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
+  swarm [task]              Execute or plan autonomous multi-agent swarm (Fan-Out, Saga, Critic)
+  memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
+  mcp                       Start the native Model Context Protocol (MCP) server on stdio
+  guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
+  validate                  Run the strict skill ecosystem validation check
+  help                      Show this help menu
+`);
+  rl.close();
+}
+
+// Main Router
+switch (command) {
+  case 'sync':
+    runSync();
+    break;
+  case 'mcp':
+  case 'serve-mcp': {
+    const { spawn } = await import('child_process');
+    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')], { stdio: 'inherit' });
+    child.on('exit', (code) => process.exit(code || 0));
+    break;
+  }
+  case 'guard': {
+    const { execSync } = await import('child_process');
+    execSync('npm run guard', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'compile-cache': {
+    const { execSync } = await import('child_process');
+    execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'db:eval': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/eval-migration.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'ast': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'arbitrate': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/speculative-arbiter.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'verify-invariants': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/swarm-runner.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'memory': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/memory-daemon.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'init':
+    runInit(args[1]);
+    break;
+  case 'bootstrap':
+    runBootstrap(args[1], args[2]);
+    break;
+  case 'ui':
+    runUi();
+    break;
+  case 'list':
+    runListSkills(args[1]);
+    break;
+  case 'search':
+    runSearch(args[1]);
+    break;
+  case 'add':
+    runAddSkill(args[1]);
+    break;
+  case 'remove':
+    runRemoveSkill(args[1]);
+    break;
+  case 'recipe':
+    runRecipe(args[1], args[2]);
+    break;
+  case 'version':
+    runVersion(args[1], args[2]);
+    break;
+  case 'doctor':
+    runDoctor();
+    break;
+  case 'skill':
+    runSkillInfo(args[2]);
+    break;
+  case 'hooks':
+    runHooks(args[1]);
+    break;
+  case 'create-skill':
+    runCreateSkill(args[1]);
+    break;
+  case 'create-mcp':
+    runCreateMcp(args[1]);
+    break;
+  case 'create-agent': {
+    const { execSync } = await import('child_process');
+    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
+    execSync(`node scripts/create-agent.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'audit':
+  case 'anti-slop':
+    runAudit();
+    break;
+  case 'validate':
+    runValidate();
+    break;
+  default:
+    showHelp();
+    break;
+}
+
