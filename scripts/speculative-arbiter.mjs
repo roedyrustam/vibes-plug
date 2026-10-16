@@ -51,7 +51,7 @@ export function scoreDraft(code, options = {}) {
     breakdown.typeSafety -= 10;
     logs.push("[-10 TypeSafety] Unsafe type assertion 'as any' detected.");
   }
-  if (/function\s+\w+\([^)]*\)\s*\{/.test(code) && !/:\s*[A-Z\w<>[\]|&]+\s*\{/.test(code)) {
+  if (/function\s+\w+\([^)]*\)\s*\{/.test(code) && !/:\s*[\w<>[\]|&]+\s*\{/.test(code)) {
     breakdown.typeSafety -= 5;
     logs.push("[-5 TypeSafety] Missing explicit return type annotation on function.");
   }
