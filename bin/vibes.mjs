@@ -3,7 +3,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1392,7 +1392,8 @@ switch (command) {
     break;
   case 'studio': {
     rl.close();
-    const { startStudioServer } = await import(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'));
+    const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;
+    const { startStudioServer } = await import(studioModuleUrl);
     const portIdx = args.indexOf('--port');
     const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
     const noOpen = args.includes('--no-open');
