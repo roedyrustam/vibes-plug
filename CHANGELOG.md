@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.2.2] - 2026-10-16
 
 ### Added / Ditambahkan
+- **Skill Baru: `agentic-m2m-settlement`**:
+  - Protokol kliring dan settlement otonom Machine-to-Machine (M2M) dengan Dual-Rail (Fiat DOKU SNAP BI QRIS/VA & Crypto ERC-4337 Base/USDC), FinOps velocity caps, dan AP2AP invoicing.
+- **Skill Baru: `browser-extension-mv3-pro`**:
+  - Panduan ahli rekayasa ekstensi peramban modern berbasis **Manifest V3 (MV3)**: Chrome SidePanel API, Background Service Worker lifecycle, Offscreen Document WASM/Audio sandbox, dan declarativeNetRequest.
+- **GitHub Actions CI & Anti-Slop Gate (`.github/workflows/anti-slop-gate.yml`)**:
+  - Workflow CI otomatis untuk memvalidasi kepatuhan 149 skill dan menjalankan audit Sovereign Anti-Slop ketat pada setiap push/PR ke branch main.
+- **Paket Resep Baru CLI (`bin/vibes.mjs`)**:
+  - `agentic-commerce`: Bundel 7 skill untuk ekosistem agen niaga & settlement otonom.
+  - `frontier-ai`: Bundel 6 skill untuk rekayasa frontier model, KV-cache locking, dan MCP.
 - **Dokumentasi Instalasi Universal via GitHub**:
   - Menambahkan panduan instalasi lengkap via GitHub di `README.md` dalam 5 bahasa (English, Bahasa Indonesia, Mandarin, Deutsch, Japanese).
   - Mendukung eksekusi langsung via NPX tanpa kloning (`npx github:roedyrustam/vibes-plug --all` / `npm i -g git+...`).
@@ -15,7 +24,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Menambahkan panduan injeksi rules terarah per-proyek untuk Claude Code, Cursor IDE, Codex, Windsurf, Trae, dan VSCode (Cline).
 
 ### Changed / Diubah
-- Sinkronisasi versi paket ke 4.2.2 di `package.json`, `bin/vibes.mjs`, dan dokumentasi terkait.
+- Sinkronisasi versi paket ke 4.2.2 di `package.json`, `bin/vibes.mjs`, `.cursorrules`, dan seluruh direktif IDE.
+- Peningkatan katalog ekosistem dari 147 skill menjadi **149 skill tersinkronisasi penuh**.
 
 ## [4.2.1] - 2026-10-06
 

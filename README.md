@@ -1,9 +1,9 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro v4.2.2: 148-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.2.2: 149-Skill AI Agent Swarm Architecture
 
-**Turn any IDE into an autonomous 148-agent software development studio.**  
+**Turn any IDE into an autonomous 149-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
 
 <p align="center">
@@ -12,7 +12,7 @@
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/v/vibes-plug?style=for-the-badge&logo=npm&color=ef4444&labelColor=0d1117" alt="NPM Version" /></a>
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/dt/vibes-plug?style=for-the-badge&logo=npm&color=10b981&labelColor=0d1117" alt="NPM Downloads" /></a>
   <a href="https://github.com/roedyrustam/vibes-plug/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&labelColor=0d1117" alt="License" /></a>
-  <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20148-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
+  <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20149-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
 </p>
 
 <p align="center">
@@ -46,7 +46,7 @@ npx github:roedyrustam/vibes-plug --all
 
 | Metric / Capability | Vanilla Vibe Coding (Prompts) | Static IDE Rules (.cursorrules) | ⚡ VibesPlug Pro (Swarm) |
 | :--- | :--- | :--- | :--- |
-| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 148 Specialists** |
+| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 149 Specialists** |
 | **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance | 🚀 **Autonomous 8-Phase Zero-To-Prod** |
 | **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts | ⚡ **React 19, Next 15, Tailwind v4, Bun 1.2+** |
 | **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check | 🧹 **Zero-Tech-Debt Auditor & Red Teaming** |
@@ -58,13 +58,13 @@ npx github:roedyrustam/vibes-plug --all
 
 ---
 
-## 🧩 The 148-Skill Arsenal (Category Breakdown)
+## 🧩 The 149-Skill Arsenal (Category Breakdown)
 
-VibesPlug Pro is powered by **148 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
+VibesPlug Pro is powered by **149 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
 
-| 🎨 **Frontend & Mobile UI/UX** (28 Skills) | ⚙️ **Backend, Systems & API Design** (24 Skills) |
+| 🎨 **Frontend & Mobile UI/UX** (29 Skills) | ⚙️ **Backend, Systems & API Design** (24 Skills) |
 | :--- | :--- |
-| `senior-frontend` <br> `nextjs-app-router-expert` <br> `tailwind-expert` <br> `ui-ux-pro-max` <br> `design-system-architect` <br> `modern-css-native-expert` <br> `form-validation-expert` <br> `state-management-expert` <br> `tanstack-query-expert` <br> `svg-animation-motion-expert` <br> `web-3d-graphics-expert` <br> `glsl-shader-expert` <br> `webxr-ar-vr-expert` <br> `mobile-expo-expert` <br> `apple-ecosystem-expert` <br> `desktop-electron-expert` <br> `tauri-expert` <br> `vue-frontend-expert` <br> `svelte-sveltekit-expert` <br> `solidjs-expert` <br> `angular-expert` <br> `astro-framework-expert` <br> `pwa-offline-first-expert` <br> `micro-frontend-architect` <br> `spa-orchestrator` <br> `mpa-orchestrator` <br> `rich-text-editor-expert` <br> `hig` | `js-backend-expert` <br> `bun-runtime-expert` <br> `python-programming-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `typescript-expert` <br> `fullstack-expert` <br> `database-orm-expert` <br> `api-design-expert` <br> `openapi-swagger-codegen-expert` <br> `graphql-apollo-expert` <br> `api-gateway-proxy-expert` <br> `async-queue-temporal-expert` <br> `cron-scheduler-expert` <br> `event-driven-architect` <br> `domain-driven-design-expert` <br> `composable-mach-architect` <br> `mvc-expert` <br> `wasm-edge-computing-expert` <br> `ephemeral-wasm-sandbox-executor` <br> `legacy-code-translator` <br> `monorepo-architect` <br> `scalability-clean-code` <br> `web-game-engine-expert` |
+| `senior-frontend` <br> `nextjs-app-router-expert` <br> `tailwind-expert` <br> `ui-ux-pro-max` <br> `design-system-architect` <br> `modern-css-native-expert` <br> `form-validation-expert` <br> `state-management-expert` <br> `tanstack-query-expert` <br> `svg-animation-motion-expert` <br> `web-3d-graphics-expert` <br> `glsl-shader-expert` <br> `webxr-ar-vr-expert` <br> `mobile-expo-expert` <br> `apple-ecosystem-expert` <br> `desktop-electron-expert` <br> `tauri-expert` <br> `vue-frontend-expert` <br> `svelte-sveltekit-expert` <br> `solidjs-expert` <br> `angular-expert` <br> `astro-framework-expert` <br> `pwa-offline-first-expert` <br> `browser-extension-mv3-pro` <br> `micro-frontend-architect` <br> `spa-orchestrator` <br> `mpa-orchestrator` <br> `rich-text-editor-expert` <br> `hig` | `js-backend-expert` <br> `bun-runtime-expert` <br> `python-programming-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `typescript-expert` <br> `fullstack-expert` <br> `database-orm-expert` <br> `api-design-expert` <br> `openapi-swagger-codegen-expert` <br> `graphql-apollo-expert` <br> `api-gateway-proxy-expert` <br> `async-queue-temporal-expert` <br> `cron-scheduler-expert` <br> `event-driven-architect` <br> `domain-driven-design-expert` <br> `composable-mach-architect` <br> `mvc-expert` <br> `wasm-edge-computing-expert` <br> `ephemeral-wasm-sandbox-executor` <br> `legacy-code-translator` <br> `monorepo-architect` <br> `scalability-clean-code` <br> `web-game-engine-expert` |
 
 | 🤖 **Frontier AI, LLM, MCP & Multi-Agent** (27 Skills) | 💸 **SaaS, FinTech, E-Commerce & Growth** (16 Skills) |
 | :--- | :--- |
@@ -121,7 +121,7 @@ vibes mcp
 2. `vibes_eval_sql` — Evaluate DDL schemas and audit PostgreSQL RLS policies in an in-memory sandbox.
 3. `vibes_arbitrate_code` — Score and arbitrate competing code solutions via Process Reward Model (PRM).
 4. `vibes_verify_invariants` — Formally prove state machine invariants and generate SMT-LIB 2.0 formulas.
-5. `vibes_get_skill` — Fetch instructions and contracts from any of the 148 specialized skills.
+5. `vibes_get_skill` — Fetch instructions and contracts from any of the 149 specialized skills.
 6. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
 7. `vibes_memory` — Read and write cross-session architectural decisions and emit compact checkpoints.
 8. `vibes_swarm` — Generate multi-agent execution plans (Fan-Out/Fan-In, Saga, Critic-Validator).
@@ -131,7 +131,7 @@ vibes mcp
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 148 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
+Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 149 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
 *Supported Platforms: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, and Kiro.*
@@ -231,8 +231,8 @@ vibes init <project-name>        # Scaffolds 8-Phase Zero-To-Prod structure (REA
 vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecommerce | mobile | api | fullstack)
 vibes sync                       # Verifies & synchronizes master trigger across all IDE rules
 vibes ui                         # Interactive terminal TUI to visually select & install skills
-vibes list [filter]              # Lists all 148 skills (optional: keyword filter)
-vibes search <query>             # Searches 148 skills with relevance ranking
+vibes list [filter]              # Lists all 149 skills (optional: keyword filter)
+vibes search <query>             # Searches 149 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
 vibes remove <skill-name>        # Removes an installed skill from local project
 vibes skill info <skill-name>    # Shows metadata, description, and orchestration connections
@@ -267,7 +267,7 @@ vibes hooks install              # Installs pre-commit Git hook enforcing zero-s
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Versi Bahasa Indonesia
 
-Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 148 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
+Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 149 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
 
 ### 🚀 Panduan Instalasi Universal (Semua IDE & LLM)
 *Platform Didukung: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, dan Kiro.*
@@ -334,7 +334,7 @@ cp .clinerules /path/ke/proyek-anda/
 ```
 
 **Opsi E: Pembaruan Rutin via GitHub**
-Untuk mendapatkan update 148 skill dan engine terbaru:
+Untuk mendapatkan update 149 skill dan engine terbaru:
 ```bash
 cd ~/.gemini/config/plugins/vibes-plug  # (atau folder hasil clone Anda)
 git pull origin main
@@ -367,8 +367,8 @@ vibes init <project-name>        # Men-scaffold struktur Zero-To-Prod 8-Fase (RE
 vibes bootstrap <type> <name>    # Super-scaffold proyek + skill (saas | ecommerce | mobile | api | fullstack)
 vibes sync                       # Verifikasi & sinkronisasi aturan pemicu utama di semua IDE
 vibes ui                         # TUI terminal interaktif untuk memilih dan memasang skill secara visual
-vibes list [filter]              # Menampilkan daftar 148 skill (opsional: filter kata kunci)
-vibes search <query>             # Mencari 148 skill berdasarkan relevansi kata kunci
+vibes list [filter]              # Menampilkan daftar 149 skill (opsional: filter kata kunci)
+vibes search <query>             # Mencari 149 skill berdasarkan relevansi kata kunci
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
 vibes remove <skill-name>        # Menghapus skill yang terpasang dari proyek lokal
 vibes skill info <skill-name>    # Menampilkan metadata, deskripsi, dan relasi orkestrasi skill
@@ -403,7 +403,7 @@ vibes hooks install              # Memasang Git pre-commit hook untuk menegakkan
 <a name="mandarin"></a>
 ## 🇨🇳 中文版 (Mandarin)
 
-欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 148 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
+欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 149 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
 
 ### 🚀 通用安装指南 (所有 IDE 和 LLM)
 *支持的平台: Google Antigravity, Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*
@@ -488,7 +488,7 @@ npm test
 <a name="german"></a>
 ## 🇩🇪 Deutsche Version (German)
 
-Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 148 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
+Willkommen bei **VibesPlug Pro**. VibesPlug fungiert als **Swarm Director** und orchestriert 149 spezialisierte KI-Subagenten. Es wurde streng dafür entwickelt, maximale Schlussfolgerungsfähigkeiten aus ALLEN Frontier-Modellen (Gemini 4 Pro, Claude 5, GPT-5.6/O3, OpenAI Codex und DeepSeek) zu extrahieren.
 
 ### 🚀 Universelle Installationsanleitung (Alle IDEs & LLMs)
 *Unterstützte Plattformen: Antigravity, Claude Code, Cursor, OpenAI Codex, Windsurf, Trae, VSCode (Cline), Kimi, Kiro.*
@@ -573,7 +573,7 @@ npm test
 <a name="japanese"></a>
 ## 🇯🇵 日本語版 (Japanese)
 
-**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、148 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
+**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、149 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
 
 ### 🚀 ユニバーサルインストールガイド (すべての IDE と LLM)
 *サポートされているプラットフォーム: Google Antigravity, Claude Code, Cursor, OpenAI Codex, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*

@@ -255,7 +255,7 @@ Examples:
 
     console.log('✨ Installation complete!');
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
-    console.log('🔗 All 148 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
+    console.log('🔗 All 149 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
 }
 
 main();

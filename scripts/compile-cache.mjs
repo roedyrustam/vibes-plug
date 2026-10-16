@@ -24,7 +24,7 @@ export async function compileCache(options = {}) {
   const log = (...args) => { if (!quiet) console.log(...args); };
 
   log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  log('📦 Scanning 148-Skill Ecosystem for canonical prefix ordering...\n');
+  log('📦 Scanning 149-Skill Ecosystem for canonical prefix ordering...\n');
 
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -49,7 +49,7 @@ export async function compileCache(options = {}) {
   const canonicalPayload = {
     version: '4.2.2',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
-    architecture: 'Vibes-Plug Swarm Architecture (148 Skills)',
+    architecture: 'Vibes-Plug Swarm Architecture (149 Skills)',
     orchestrator: 'Primary Trigger (Pemicu Utama)',
     domains: {
       ai_agentic: [
@@ -71,7 +71,7 @@ export async function compileCache(options = {}) {
       ],
       frontend: [
         'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
-        'blockchain-web3-expert', 'form-validation-expert', 'global-a11y-i18n-expert',
+        'blockchain-web3-expert', 'browser-extension-mv3-pro', 'form-validation-expert', 'global-a11y-i18n-expert',
         'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
         'pwa-offline-first-expert', 'senior-frontend', 'solidjs-expert',
         'spa-orchestrator', 'state-management-expert', 'svelte-sveltekit-expert',
@@ -133,7 +133,7 @@ export async function compileCache(options = {}) {
 
   log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
   log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  log(`  🎯 Total Skills Included    : ${skillsData.length}/148`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length}/149`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;
