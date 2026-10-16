@@ -45,10 +45,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /spec-driven-development-expert/);
   });
 
-  await t.test('vibes recipe list should contain agentic-commerce and frontier-ai', async () => {
+  await t.test('vibes recipe list should contain agentic-commerce, frontier-ai, and spec-driven-api', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
     assert.match(stdout, /agentic-commerce/);
     assert.match(stdout, /frontier-ai/);
+    assert.match(stdout, /spec-driven-api/);
     assert.match(stdout, /ai-stack/);
   });
 
@@ -57,5 +58,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /spec-driven-development-expert/);
     assert.match(stdout, /Roedy Rustam/);
     assert.match(stdout, /openapi-swagger-codegen-expert/);
+  });
+
+  await t.test('vibes docs should generate 150-skill ecosystem preview', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'docs']);
+    assert.match(stdout, /Vibes-Plug Skills Catalog \(150 Skills\)/);
+    assert.match(stdout, /accessibility-testing-expert/);
   });
 });

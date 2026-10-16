@@ -21,6 +21,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Paket Resep Baru CLI (`bin/vibes.mjs`)**:
   - `agentic-commerce`: Bundel 7 skill untuk ekosistem agen niaga & settlement otonom.
   - `frontier-ai`: Bundel 6 skill untuk rekayasa frontier model, KV-cache locking, dan MCP.
+  - `spec-driven-api`: Bundel 6 skill untuk arsitektur API contract-first, TypeSpec, BDD, dan Pact testing.
+- **Peningkatan TUI Interaktif (`vibes ui`)**:
+  - Menu selektor 3-mode: instalasi instan berdasarkan Paket Resep (Curated Recipes), Eksplorasi per Kategori Domain (Frontend, Backend, AI, SaaS, Keamanan, Data), atau kustomisasi penuh dari 150 skill.
+- **Perintah Generator Katalog Dokumentasi (`vibes docs`)**:
+  - Perintah baru `vibes docs [markdown|json] [outputFile]` untuk menghasilkan tabel markdown atau JSON catalog dari seluruh 150 skill secara otomatis (`CATALOG.md` & `CATALOG.json`).
 - **Dokumentasi Instalasi Universal via GitHub**:
   - Menambahkan panduan instalasi lengkap via GitHub di `README.md` dalam 5 bahasa (English, Bahasa Indonesia, Mandarin, Deutsch, Japanese).
   - Mendukung eksekusi langsung via NPX tanpa kloning (`npx github:roedyrustam/vibes-plug --all` / `npm i -g git+...`).

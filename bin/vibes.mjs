@@ -444,10 +444,11 @@ async function runAddSkill(skillName) {
 }
 
 async function runUi() {
-  let checkbox;
+  let checkbox, select;
   try {
     const prompts = await import('@inquirer/prompts');
     checkbox = prompts.checkbox;
+    select = prompts.select;
   } catch (err) {
     console.error('❌ Error: The Interactive TUI requires the @inquirer/prompts package.');
     console.error('Please run "npm install" inside the vibes-plug directory first:');
@@ -462,20 +463,132 @@ async function runUi() {
   try {
     const skillsDir = path.join(PLUGIN_ROOT, 'skills');
     const entries = await fs.readdir(skillsDir, { withFileTypes: true });
-    const skills = entries
+    const allSkills = entries
       .filter(dirent => dirent.isDirectory())
       .map(dirent => dirent.name)
       .sort();
 
-    const choices = skills.map(skill => ({ name: skill, value: skill }));
+    console.log(`\n🌊 Vibes-Plug Interactive TUI (150 Skills)`);
 
-    console.log(`\n🌊 Vibes-Plug Interactive TUI`);
-    const selectedSkills = await checkbox({
-      message: 'Select the AI skills to install into this project:',
-      choices: choices,
-      loop: false,
-      pageSize: 15
+    const mode = await select({
+      message: 'Choose installation mode:',
+      choices: [
+        { name: '📦 Curated Recipe Bundles (Quickest: AI, Fullstack, FinTech, API)', value: 'recipe' },
+        { name: '📂 Browse by Domain Category (Frontend, Backend, AI, Security...)', value: 'domain' },
+        { name: '🧩 Custom Selection from All 150 Skills', value: 'all' }
+      ]
     });
+
+    let selectedSkills = [];
+
+    if (mode === 'recipe') {
+      const recipeChoices = Object.entries(RECIPES).map(([name, r]) => ({
+        name: `${name.padEnd(20)} — ${r.description} (${r.skills.length} skills)`,
+        value: name
+      }));
+
+      const chosenRecipeName = await select({
+        message: 'Select a curated recipe bundle to install:',
+        choices: recipeChoices,
+        pageSize: 10
+      });
+
+      selectedSkills = RECIPES[chosenRecipeName]?.skills || [];
+      console.log(`\nSelected recipe "${chosenRecipeName}" with ${selectedSkills.length} skills.`);
+    } else if (mode === 'domain') {
+      const chosenDomain = await select({
+        message: 'Select domain category:',
+        choices: [
+          { name: '🎨 Frontend & Mobile UI/UX (29 Skills)', value: 'frontend' },
+          { name: '⚙️ Backend, Systems & API Design (25 Skills)', value: 'backend' },
+          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (27 Skills)', value: 'ai' },
+          { name: '💸 SaaS, FinTech, E-Commerce & Growth (16 Skills)', value: 'saas' },
+          { name: '🛡️ Testing, Security, Anti-Slop & Quality (24 Skills)', value: 'security' },
+          { name: '🚀 Data, Media, Lifecycle & Orchestration (29 Skills)', value: 'data' }
+        ]
+      });
+
+      const DOMAIN_SKILL_MAP = {
+        frontend: [
+          'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
+          'blockchain-web3-expert', 'browser-extension-mv3-pro', 'design-system-architect',
+          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'form-validation-expert',
+          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'micro-frontend-architect',
+          'mobile-expo-expert', 'modern-css-native-expert', 'mpa-orchestrator',
+          'multimodal-spatial-video-cloner', 'nextjs-app-router-expert', 'pwa-offline-first-expert',
+          'rich-text-editor-expert', 'screenshot-to-code-expert', 'senior-frontend',
+          'solidjs-expert', 'spa-orchestrator', 'state-management-expert',
+          'svg-animation-motion-expert', 'svelte-sveltekit-expert', 'tailwind-expert',
+          'tanstack-query-expert', 'tauri-expert', 'ui-ux-pro-max', 'vue-frontend-expert'
+        ],
+        backend: [
+          'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
+          'autonomous-api-drift-healer', 'bun-runtime-expert', 'composable-mach-architect',
+          'cron-scheduler-expert', 'domain-driven-design-expert', 'ephemeral-wasm-sandbox-executor',
+          'event-driven-architect', 'fullstack-expert', 'go-programming-expert',
+          'graphql-apollo-expert', 'js-backend-expert', 'legacy-code-translator',
+          'living-codebase-ast-graph', 'monorepo-architect', 'mvc-expert',
+          'openapi-swagger-codegen-expert', 'python-programming-expert', 'rust-programming-expert',
+          'scalability-clean-code', 'spec-driven-development-expert', 'typescript-expert',
+          'wasm-edge-computing-expert', 'web-game-engine-expert'
+        ],
+        ai: [
+          'adaptive-model-cascade', 'affective-computing-emotion-ai', 'agentic-coding-workflow-expert',
+          'agentic-memory-architect', 'agentic-micro-economy-architect', 'ai-llm-integration-expert',
+          'ai-media-generation-expert', 'ai-prompt-engineering-expert', 'ai-safety-governance-expert',
+          'context-window-engineer', 'deep-research-analyst', 'doku-mcp-server',
+          'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
+          'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
+          'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
+          'pydantic-ai-expert', 'speculative-multi-draft-synthesizer', 'synthetic-data-finetuning-expert',
+          'test-time-compute-optimizer', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+        ],
+        saas: [
+          'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
+          'doku-payment-gateway', 'ecommerce-expert', 'email-notification-expert',
+          'feature-flag-analytics-expert', 'headless-cms-expert', 'n8n-automation-expert',
+          'payment-gateway-expert', 'saas-architect', 'saas-billing', 'saas-multi-tenant',
+          'seo', 'data-telemetry-expert', 'wordpress-headless-expert'
+        ],
+        security: [
+          'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
+          'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
+          'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
+          'error-resilience-expert', 'firebase-security-expert', 'formal-spec-z3-verifier',
+          'logging-error-tracking-expert', 'post-quantum-crypto-migrator', 'production-ready-hardener',
+          'prompt-injection-firewall', 'property-mutation-testing-expert', 'rate-limit-abuse-prevention',
+          'supabase-security-expert', 'zero-tech-debt-auditor', 'zero-trust-secret-vault',
+          'coderabbit'
+        ],
+        data: [
+          'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
+          'ci-cd-devops-architect', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
+          'data-visualization-expert', 'dependency-upgrade-migrator', 'documentation-site-expert',
+          'file-upload-media-expert', 'geospatial-maps-expert', 'pdf-document-generation-expert',
+          'performance-web-vitals', 'prd-architect', 'proactive-background-watcher',
+          'realtime-collaboration-expert', 'search-engine-expert', 'self-healing-cloud-orchestrator',
+          'session-memory-manager', 'sse-websocket-streaming-expert', 'web-scraper',
+          'website-design-cloner', 'zero-to-prod-orchestrator'
+        ]
+      };
+
+      const domainSkills = (DOMAIN_SKILL_MAP[chosenDomain] || []).filter(s => allSkills.includes(s));
+      const choices = domainSkills.map(skill => ({ name: skill, value: skill }));
+
+      selectedSkills = await checkbox({
+        message: 'Select skills to install:',
+        choices: choices,
+        pageSize: 15
+      });
+    } else {
+      const choices = allSkills.map(skill => ({ name: skill, value: skill }));
+      selectedSkills = await checkbox({
+        message: 'Select the AI skills to install into this project:',
+        choices: choices,
+        loop: false,
+        pageSize: 15
+      });
+    }
 
     if (!selectedSkills || selectedSkills.length === 0) {
       console.log('No skills selected. Exiting.');
@@ -852,6 +965,10 @@ const RECIPES = {
   'frontier-ai': {
     description: 'Frontier AI engineering: Gemini 4 Pro / Claude 5.1, KV-cache locking, model cascading, test-time compute, and MCP servers',
     skills: ['frontier-ai-models-expert', 'gemini-agent-booster', 'mcp-server-architect', 'kv-cache-prefix-optimizer', 'adaptive-model-cascade', 'test-time-compute-optimizer']
+  },
+  'spec-driven-api': {
+    description: 'Contract-first API engineering: TypeSpec, OpenAPI 3.1, BDD Gherkin, consumer-driven Pact contracts, and API drift healing',
+    skills: ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'formal-spec-z3-verifier', 'e2e-testing-expert']
   }
 };
 
@@ -1025,6 +1142,69 @@ async function runSync() {
   rl.close();
 }
 
+async function runDocs(format = 'markdown', outputFile) {
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+
+    const catalog = [];
+    for (const skillName of skillDirs) {
+      const skillPath = path.join(skillsDir, skillName, 'SKILL.md');
+      try {
+        const content = await fs.readFile(skillPath, 'utf8');
+        const descMatch = content.match(/description:\s*["']?([^"'\n\r]+)/);
+        const versionMatch = content.match(/version:\s*["']?([^"'\n\r]+)/);
+        const authorMatch = content.match(/author:\s*["']?([^"'\n\r]+)/);
+        catalog.push({
+          name: skillName,
+          description: descMatch ? descMatch[1].trim() : '',
+          version: versionMatch ? versionMatch[1].trim() : '4.2.2',
+          author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
+        });
+      } catch (e) {
+        // Skip unreadable files
+      }
+    }
+
+    if (format === 'json') {
+      const jsonOutput = JSON.stringify({ total: catalog.length, skills: catalog }, null, 2);
+      if (outputFile) {
+        await fs.writeFile(outputFile, jsonOutput, 'utf8');
+        console.log(`\n📄 Exported JSON catalog of ${catalog.length} skills to: ${outputFile}`);
+      } else {
+        console.log(jsonOutput);
+      }
+    } else {
+      let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.2.2)*\n\n`;
+      md += `| Skill Name | Version | Description |\n`;
+      md += `| :--- | :---: | :--- |\n`;
+      for (const item of catalog) {
+        md += `| \`${item.name}\` | \`${item.version}\` | ${item.description.replace(/\|/g, '\\|')} |\n`;
+      }
+
+      if (outputFile) {
+        await fs.writeFile(outputFile, md, 'utf8');
+        console.log(`\n📄 Exported Markdown catalog of ${catalog.length} skills to: ${outputFile}`);
+      } else {
+        console.log(`\n🌊 Vibes-Plug Skills Catalog (${catalog.length} Skills)\n`);
+        console.log(`| Skill Name | Version | Description |`);
+        console.log(`| :--- | :---: | :--- |`);
+        catalog.slice(0, 15).forEach(item => {
+          console.log(`| \`${item.name}\` | \`${item.version}\` | ${item.description.slice(0, 70)}... |`);
+        });
+        console.log(`\n... and ${catalog.length - 15} more skills.`);
+        console.log(`\n💡 To export full catalog: vibes docs markdown CATALOG.md  OR  vibes docs json CATALOG.json`);
+      }
+    }
+  } catch (err) {
+    console.error(`\n❌ Error generating docs: ${err.message}`);
+  } finally {
+    rl.close();
+  }
+}
+
 function showHelp() {
   console.log(`
 🌊 Vibes-Plug CLI (v4.2.2)
@@ -1063,6 +1243,7 @@ Commands:
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
+  docs [markdown|json]      Export or preview the complete 150-skill ecosystem catalog
   help                      Show this help menu
 `);
   rl.close();
@@ -1189,6 +1370,10 @@ switch (command) {
     break;
   case 'validate':
     runValidate();
+    break;
+  case 'docs':
+  case 'catalog':
+    runDocs(args[1], args[2]);
     break;
   default:
     showHelp();
