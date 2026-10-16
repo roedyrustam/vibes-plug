@@ -62,6 +62,9 @@ npx github:roedyrustam/vibes-plug --all
 
 VibesPlug Pro is powered by **150 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
 
+> 📖 **Browse Complete Directory**: View the comprehensive [150-Skill Interactive Catalog (`CATALOG.md`)](CATALOG.md) or generate machine-readable indexes anytime via `vibes docs markdown` or `vibes docs json`.
+
+
 | 🎨 **Frontend & Mobile UI/UX** (29 Skills) | ⚙️ **Backend, Systems & API Design** (25 Skills) |
 | :--- | :--- |
 | `senior-frontend` <br> `nextjs-app-router-expert` <br> `tailwind-expert` <br> `ui-ux-pro-max` <br> `design-system-architect` <br> `modern-css-native-expert` <br> `form-validation-expert` <br> `state-management-expert` <br> `tanstack-query-expert` <br> `svg-animation-motion-expert` <br> `web-3d-graphics-expert` <br> `glsl-shader-expert` <br> `webxr-ar-vr-expert` <br> `mobile-expo-expert` <br> `apple-ecosystem-expert` <br> `desktop-electron-expert` <br> `tauri-expert` <br> `vue-frontend-expert` <br> `svelte-sveltekit-expert` <br> `solidjs-expert` <br> `angular-expert` <br> `astro-framework-expert` <br> `pwa-offline-first-expert` <br> `browser-extension-mv3-pro` <br> `micro-frontend-architect` <br> `spa-orchestrator` <br> `mpa-orchestrator` <br> `rich-text-editor-expert` <br> `hig` | `js-backend-expert` <br> `bun-runtime-expert` <br> `python-programming-expert` <br> `go-programming-expert` <br> `rust-programming-expert` <br> `typescript-expert` <br> `fullstack-expert` <br> `database-orm-expert` <br> `api-design-expert` <br> `openapi-swagger-codegen-expert` <br> `spec-driven-development-expert` <br> `graphql-apollo-expert` <br> `api-gateway-proxy-expert` <br> `async-queue-temporal-expert` <br> `cron-scheduler-expert` <br> `event-driven-architect` <br> `domain-driven-design-expert` <br> `composable-mach-architect` <br> `mvc-expert` <br> `wasm-edge-computing-expert` <br> `ephemeral-wasm-sandbox-executor` <br> `legacy-code-translator` <br> `monorepo-architect` <br> `scalability-clean-code` <br> `web-game-engine-expert` |
@@ -236,8 +239,9 @@ vibes search <query>             # Searches 150 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
 vibes remove <skill-name>        # Removes an installed skill from local project
 vibes skill info <skill-name>    # Shows metadata, description, and orchestration connections
-vibes recipe list                # Lists curated skill bundles (ai-stack, fullstack-pro, fintech-core)
+vibes recipe list                # Lists curated skill bundles (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Applies a curated skill recipe to current workspace
+vibes docs [markdown|json]       # Exports full 150-skill catalog to terminal, CATALOG.md, or CATALOG.json
 vibes create-skill <name>        # Scaffolds a new skill following the standard specification
 vibes create-agent --name <n>    # Generates a custom subagent across Antigravity, Cursor, and Claude
 vibes create-mcp <server-name>   # Scaffolds a new Model Context Protocol server
@@ -372,8 +376,9 @@ vibes search <query>             # Mencari 150 skill berdasarkan relevansi kata 
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
 vibes remove <skill-name>        # Menghapus skill yang terpasang dari proyek lokal
 vibes skill info <skill-name>    # Menampilkan metadata, deskripsi, dan relasi orkestrasi skill
-vibes recipe list                # Menampilkan daftar paket resep skill bawaan
+vibes recipe list                # Menampilkan daftar paket resep skill (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Menerapkan paket resep skill ke workspace proyek saat ini
+vibes docs [markdown|json]       # Mengekspor katalog 150 skill ke terminal, CATALOG.md, atau CATALOG.json
 vibes create-skill <name>        # Membuat boilerplate skill baru sesuai standar spesifikasi
 vibes create-agent --name <n>    # Menghasilkan custom subagent lintas Antigravity, Cursor, dan Claude
 vibes create-mcp <server-name>   # Men-scaffold server Model Context Protocol baru
@@ -472,6 +477,9 @@ npm test
 
 ### 💻 核心 CLI 命令
 - `vibes init <project-name>` — 初始化 8 阶段端到端项目架构。
+- `vibes ui` — 终端交互式 TUI 界面，可视化选择与安装技能。
+- `vibes recipe list` — 列出预置技能配方套件 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
+- `vibes docs [markdown|json]` — 导出 150 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
 - `vibes guard` — 运行完整的 Sovereign Guard CI 生产就绪验证流水线 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 编译并锁定确定性 KV-Cache 前缀 (>1024 tokens)，降低 75-90% 代币开销。
 - `vibes db:eval` — 在内存沙箱中模拟和审计 SQL DDL 迁移及 RLS 策略。
@@ -557,6 +565,9 @@ npm test
 
 ### 💻 Wichtigste CLI-Befehle
 - `vibes init <project-name>` — Initialisiert die 8-Phasen-Zero-To-Prod-Architektur.
+- `vibes ui` — Interaktives Terminal-TUI zur visuellen Auswahl und Installation von Skills.
+- `vibes recipe list` — Listet kuratierte Skill-Pakete auf (ai-stack, fullstack-pro, fintech-core, spec-driven-api).
+- `vibes docs [markdown|json]` — Exportiert den vollständigen 150-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
 - `vibes guard` — Führt die vollständige Sovereign Guard CI-Validierung aus (P1–P5 + Anti-Slop).
 - `vibes compile-cache` — Kompiliert deterministische KV-Cache-Präfixe (>1024 Tokens) für 75–90% Kostensenkung.
 - `vibes db:eval` — Simuliert und prüft SQL-DDL-Migrationen im Speicher auf RLS-Sicherheit.
@@ -642,6 +653,9 @@ npm test
 
 ### 💻 主な CLI コマンド
 - `vibes init <project-name>` — 8フェーズ Zero-To-Prod 開発プロジェクトを初期化。
+- `vibes ui` — スキルを視覚的に選択してインストールするインタラクティブなターミナル TUI。
+- `vibes recipe list` — キュレーションされたスキルレシピ一覧 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
+- `vibes docs [markdown|json]` — 150のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
 - `vibes guard` — 完全な Sovereign Guard CI パイプラインを実行 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 決定論的 KV-Cache プレフィックス (>1024 トークン) をコンパイルし、コストを 75-90% 削減。
 - `vibes db:eval` — インメモリで SQL DDL マイグレーションをシミュレーションし、RLS ポリシーを監査。

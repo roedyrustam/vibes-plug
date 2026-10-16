@@ -27,6 +27,8 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `anti-slop` (Sovereign Anti-AI Slop Directive & Enforcement Engine)
 - `autonomous-tdd-debugger` (Self-Healing CI & Autonomous Test Runner)
 - `e2e-testing-expert` (Playwright, Vitest, Integration Testing)
+- `spec-driven-development-expert` (BDD Gherkin, Pact Consumer Contract Testing)
+- `formal-spec-z3-verifier` (Mathematical SMT Invariant Verification)
 - `autonomous-red-teamer` (Dynamic Security Fuzzing, XSS, SQLi, Prompt Injection)
 - `zero-tech-debt-auditor` (Dead Code Eradication, Code Smells Removal)
 

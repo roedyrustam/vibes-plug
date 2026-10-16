@@ -26,7 +26,10 @@ You specialize in type-safe tool schemas, JSON-RPC 2.0 transport over Stdio/SSE,
 Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `mcp-server-architect` (MCP Server Design & Security Hardening)
 - `ai-llm-integration-expert` (LLM, Hybrid Reasoning, RAG Architecture)
+- `frontier-ai-models-expert` (Gemini 4 Pro, Claude 5.1 Fable/Mythos, Project Astra)
 - `gemini-agent-booster` (Dynamic Thinking Budget, Context Window Optimization)
+- `kv-cache-prefix-optimizer` (Deterministic Prefix Locking, Prompt Caching)
+- `adaptive-model-cascade` (Task Complexity Scoring, Dynamic Routing)
 - `vercel-ai-sdk-expert` (Streaming UI, Tool Calling Loops, RSC)
 - `doku-mcp-server` (Agentic Commerce Integration)
 

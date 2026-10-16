@@ -27,9 +27,11 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `senior-frontend` (React 19, Next.js 15 App Router, Server Components)
 - `tailwind-expert` (Tailwind CSS v4 `@theme`, CSS-first modern layouts)
 - `design-system-architect` (Accessible Design Tokens, Headless UI Primitives)
+- `browser-extension-mv3-pro` (Manifest V3, Chrome SidePanel, Offscreen Sandbox)
 - `js-backend-expert` (Hono, Node 24, Bun, Fastify, WebSockets)
 - `database-orm-expert` (Prisma, Drizzle, Atomic Transactions, Migrations)
 - `api-design-expert` (REST, tRPC, OpenAPI 3.1 Contract-First)
+- `spec-driven-development-expert` (TypeSpec, Consumer Contracts, Mock Servers)
 
 ---
 
