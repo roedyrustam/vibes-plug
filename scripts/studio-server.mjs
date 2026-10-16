@@ -4,7 +4,8 @@
  * Vibes-Plug Studio Cockpit Server
  * Lightweight, zero-dependency local web dashboard for Vibes-Plug Pro.
  * Visualizes the 150 AI domain skills, subagent swarm topologies, superintelligence engines,
- * Visual Recipe Builder, and Remote Model Context Protocol (MCP v1.x) SSE transport.
+ * Visual Recipe Builder, Remote Model Context Protocol (MCP v1.x) SSE transport,
+ * Autonomous Swarm Planner & Simulator, Visual Agent Builder, and Episodic Memory Manager.
  * 
  * Usage:
  *   node scripts/studio-server.mjs [--port 3888] [--no-open]
@@ -19,6 +20,9 @@ import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
 
 import { TOOLS as MCP_TOOLS, handleRpcRequest } from '../bin/mcp-server.mjs';
+import { createCustomAgent } from './create-agent.mjs';
+import { planSwarm, executeSwarm } from './swarm-runner.mjs';
+import { loadMemory, recordDecision, queryMemory, generateCompactCheckpoint } from './memory-daemon.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -369,7 +373,6 @@ function generateStudioHtml(currentPort) {
       line-height: 1.5;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -480,6 +483,7 @@ function generateStudioHtml(currentPort) {
       gap: 8px;
       border-bottom: 1px solid var(--card-border);
       width: 100%;
+      overflow-x: auto;
     }
 
     .tab-btn {
@@ -496,6 +500,7 @@ function generateStudioHtml(currentPort) {
       align-items: center;
       gap: 8px;
       transition: all 0.2s ease;
+      white-space: nowrap;
     }
 
     .tab-btn:hover {
@@ -950,44 +955,8 @@ function generateStudioHtml(currentPort) {
       color: var(--danger);
     }
 
-    /* Remote MCP Console Tab */
-    .mcp-console-container {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .mcp-banner {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
-      border: 1px solid var(--card-border-active);
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .mcp-url-box {
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 8px 14px;
-      border-radius: 8px;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .mcp-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 24px;
-    }
-
-    .mcp-card {
+    /* General Layout Panels */
+    .panel-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
@@ -995,6 +964,22 @@ function generateStudioHtml(currentPort) {
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+
+    .panel-box h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2col { grid-template-columns: 1fr; }
     }
 
     .form-group {
@@ -1011,7 +996,7 @@ function generateStudioHtml(currentPort) {
       color: var(--text-muted);
     }
 
-    .select-input, .textarea-input {
+    .select-input, .text-input, .textarea-input {
       width: 100%;
       background: #090e1a;
       border: 1px solid var(--card-border);
@@ -1023,13 +1008,13 @@ function generateStudioHtml(currentPort) {
       outline: none;
     }
 
-    .select-input:focus, .textarea-input:focus {
+    .select-input:focus, .text-input:focus, .textarea-input:focus {
       border-color: var(--primary);
       box-shadow: 0 0 0 2px var(--primary-glow);
     }
 
     .textarea-input {
-      min-height: 160px;
+      min-height: 120px;
       resize: vertical;
       line-height: 1.4;
     }
@@ -1042,7 +1027,7 @@ function generateStudioHtml(currentPort) {
       font-family: var(--font-mono);
       font-size: 0.82rem;
       color: #cbd5e1;
-      min-height: 240px;
+      min-height: 200px;
       max-height: 480px;
       overflow-y: auto;
       white-space: pre-wrap;
@@ -1170,7 +1155,6 @@ function generateStudioHtml(currentPort) {
       to { transform: translateX(0); opacity: 1; }
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--card-border);
       padding: 20px 24px;
@@ -1221,10 +1205,11 @@ function generateStudioHtml(currentPort) {
   <!-- Tab Navigation -->
   <nav class="tab-nav">
     <button type="button" class="tab-btn active" data-tab="tab-arsenal">150-Skill Arsenal</button>
-    <button type="button" class="tab-btn" data-tab="tab-subagents">Native Subagent Swarm</button>
+    <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P5)</button>
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
     <button type="button" class="tab-btn" data-tab="tab-mcp">Remote MCP (SSE)</button>
+    <button type="button" class="tab-btn" data-tab="tab-memory">Memory &amp; Checkpoints</button>
   </nav>
 
   <!-- Main Content -->
@@ -1252,16 +1237,83 @@ function generateStudioHtml(currentPort) {
       </div>
     </div>
 
-    <!-- View 2: Native Subagents Swarm -->
+    <!-- View 2: Swarm & Agent Studio -->
     <div id="tab-subagents" class="view-pane">
-      <div style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Native Specialist Subagent Registry</h2>
-        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
-          Autonomous Swarm Topologies: Fan-Out / Fan-In Parallel Assembly, Pipeline Saga, and Critic-Validator Quality Gates.
-        </p>
-      </div>
-      <div id="subagents-container" class="subagent-grid">
-        <!-- Rendered by JavaScript -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <!-- Swarm Planner & Topology Simulator -->
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <h3>Autonomous Swarm Planner &amp; Topology Simulator</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Enter a task to dynamically synthesize topology (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator) and map domain workers.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary" onclick="setSwarmPreset('saas')">SaaS &amp; Billing</button>
+              <button type="button" class="btn btn-secondary" onclick="setSwarmPreset('api')">Contract API</button>
+              <button type="button" class="btn btn-secondary" onclick="setSwarmPreset('audit')">Security Audit</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="swarm-task-input">Task Specification</label>
+            <input type="text" id="swarm-task-input" class="text-input" placeholder="e.g. Build multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and PostgreSQL RLS" />
+          </div>
+
+          <div style="display: flex; gap: 12px;">
+            <button type="button" id="btn-plan-swarm" class="btn btn-primary" onclick="runSwarmPlan()">Plan Swarm Topology</button>
+            <button type="button" id="btn-exec-swarm" class="btn btn-secondary" onclick="runSwarmExecute()">Simulate Execution</button>
+          </div>
+
+          <div id="swarm-plan-output" class="result-terminal">// Enter a task and click 'Plan Swarm Topology' to inspect execution topology...</div>
+        </div>
+
+        <!-- Visual Subagent Creator -->
+        <div class="panel-box">
+          <h3>Visual Custom Specialist Agent Builder</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Scaffold customized specialist subagents bound to skills, formatted universally for Antigravity, Claude Code, and Cursor.
+          </p>
+
+          <div class="grid-2col">
+            <div class="form-group">
+              <label for="agent-name-input">Agent Name (kebab-case)</label>
+              <input type="text" id="agent-name-input" class="text-input" placeholder="e.g. fintech-auditor" />
+            </div>
+            <div class="form-group">
+              <label for="agent-platform-select">Target Platform</label>
+              <select id="agent-platform-select" class="select-input">
+                <option value="all">Universal (Antigravity, Claude Code, Cursor)</option>
+                <option value="antigravity">Antigravity (.agents/agents/)</option>
+                <option value="claude">Claude Code (.claude/agents/)</option>
+                <option value="cursor">Cursor IDE (.cursor/rules/)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="agent-desc-input">Agent Role &amp; Mission Description</label>
+            <input type="text" id="agent-desc-input" class="text-input" placeholder="e.g. Specialist for payment gateways, SNAP BI idempotency, and audit compliance" />
+          </div>
+
+          <div class="form-group">
+            <label>Select Active Skills (click cards or type comma-separated)</label>
+            <input type="text" id="agent-skills-input" class="text-input" placeholder="senior-frontend, doku-payment-gateway, anti-slop" />
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-primary" onclick="createCustomAgentFromUi()">Scaffold Custom Subagent</button>
+          </div>
+        </div>
+
+        <!-- Native Subagents Cards -->
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 16px;">Core Native Subagent Registry (Swarm Topologies)</h3>
+          <div id="subagents-container" class="subagent-grid">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1346,24 +1398,23 @@ function generateStudioHtml(currentPort) {
 
     <!-- View 5: Remote MCP Console -->
     <div id="tab-mcp" class="view-pane">
-      <div class="mcp-console-container">
-        <div class="mcp-banner">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1)); border: 1px solid var(--card-border-active); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
           <div>
             <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
               Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 150 skills and P1–P5 engines.
             </p>
           </div>
-          <div class="mcp-url-box">
+          <div style="font-family: var(--font-mono); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 14px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; gap: 12px;">
             <span>http://localhost:${currentPort}/sse</span>
             <button type="button" class="btn-action" onclick="copyMcpUrl()">Copy URL</button>
           </div>
         </div>
 
-        <div class="mcp-layout">
-          <!-- Left: Tool Runner -->
-          <div class="mcp-card">
-            <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Interactive MCP Tool Runner</h3>
+        <div class="grid-2col">
+          <div class="panel-box">
+            <h3>Interactive MCP Tool Runner</h3>
             <div class="form-group">
               <label for="mcp-tool-select">Select MCP Tool</label>
               <select id="mcp-tool-select" class="select-input" onchange="onMcpToolChange()">
@@ -1394,10 +1445,9 @@ function generateStudioHtml(currentPort) {
             </div>
           </div>
 
-          <!-- Right: Result & Client Config -->
-          <div class="mcp-card">
+          <div class="panel-box">
             <div style="display: flex; align-items: center; justify-content: space-between;">
-              <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Tool Execution Output</h3>
+              <h3>Tool Execution Output</h3>
               <button type="button" class="btn-action" onclick="copyMcpOutput()">Copy JSON</button>
             </div>
             <div id="mcp-output-terminal" class="result-terminal">// Select a tool and click 'Execute Tool' to inspect live response...</div>
@@ -1415,6 +1465,57 @@ function generateStudioHtml(currentPort) {
   }
 }</pre>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View 6: Memory & Checkpoints -->
+    <div id="tab-memory" class="view-pane">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <h3>Episodic Project Memory &amp; Checkpoint Manager</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Zero Context Amnesia: Record architectural decisions and compile ultra-compact handoff checkpoints (&lt;150t) into CHECKPOINT.md.
+              </p>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="generateCheckpointFromUi()">Generate Compact Checkpoint</button>
+          </div>
+
+          <!-- Add Decision Inline -->
+          <div class="grid-2col" style="margin-top: 8px;">
+            <div class="form-group">
+              <label for="mem-text-input">Architectural Decision</label>
+              <input type="text" id="mem-text-input" class="text-input" placeholder="e.g. Use Drizzle ORM instead of Prisma for sub-millisecond edge cold-starts" />
+            </div>
+            <div class="form-group">
+              <label for="mem-cat-select">Category</label>
+              <select id="mem-cat-select" class="select-input">
+                <option value="Architecture">Architecture</option>
+                <option value="Database">Database &amp; Schema</option>
+                <option value="Security">Security &amp; Auth</option>
+                <option value="FinTech">FinTech &amp; Billing</option>
+                <option value="Frontend">Frontend &amp; UI</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <button type="button" class="btn btn-secondary" onclick="recordDecisionFromUi()">Record Architectural Decision</button>
+          </div>
+        </div>
+
+        <!-- Decisions Log -->
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <h3>Recorded Project Decisions</h3>
+            <span id="mem-count-badge" class="stat-chip">0 decisions logged</span>
+          </div>
+
+          <div id="memory-log-container" class="result-terminal" style="min-height: 240px;">
+            // Loading project memory graph...
           </div>
         </div>
       </div>
@@ -1468,7 +1569,6 @@ function generateStudioHtml(currentPort) {
     const selectedSkills = new Set();
     const studioPort = ${currentPort};
 
-    // Toast helper
     function showToast(message) {
       const toast = document.getElementById('toast');
       document.getElementById('toast-message').textContent = message;
@@ -1484,6 +1584,7 @@ function generateStudioHtml(currentPort) {
         btn.classList.add('active');
         const targetId = btn.getAttribute('data-tab');
         document.getElementById(targetId).classList.add('active');
+        if (targetId === 'tab-memory') loadMemoryView();
       });
     });
 
@@ -1504,9 +1605,8 @@ function generateStudioHtml(currentPort) {
       renderSkills();
     });
 
-    // Keyboard shortcut '/' to search
     window.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== searchInput && document.activeElement.tagName !== 'TEXTAREA') {
+      if (e.key === '/' && document.activeElement !== searchInput && document.activeElement.tagName !== 'TEXTAREA' && document.activeElement.tagName !== 'INPUT') {
         e.preventDefault();
         searchInput.focus();
       }
@@ -1554,7 +1654,6 @@ function generateStudioHtml(currentPort) {
       }
     }
 
-    // Modal copy prompt button
     document.getElementById('modal-copy-prompt').addEventListener('click', () => {
       if (!activeModalSkill) return;
       const promptText = \`Use the \${activeModalSkill.name} skill to execute this task following standard operating procedures.\`;
@@ -1562,7 +1661,6 @@ function generateStudioHtml(currentPort) {
       showToast('Copied trigger prompt to clipboard!');
     });
 
-    // Modal inject button
     document.getElementById('modal-inject-btn').addEventListener('click', async () => {
       if (!activeModalSkill) return;
       try {
@@ -1721,6 +1819,152 @@ function generateStudioHtml(currentPort) {
           </div>
         </div>
       \`).join('');
+    }
+
+    // Swarm Planner & Simulator Handlers
+    function setSwarmPreset(type) {
+      const input = document.getElementById('swarm-task-input');
+      if (type === 'saas') {
+        input.value = 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and Supabase RLS';
+      } else if (type === 'api') {
+        input.value = 'Design a spec-driven contract API with TypeSpec, OpenAPI 3.1, and BDD contract testing';
+      } else if (type === 'audit') {
+        input.value = 'Perform strict security audit and formal verification of billing state machines';
+      }
+      runSwarmPlan();
+    }
+
+    async function runSwarmPlan() {
+      const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
+      const term = document.getElementById('swarm-plan-output');
+      term.textContent = '// Synthesizing Swarm Topology for: ' + task + '...';
+
+      try {
+        const res = await fetch('/api/swarm/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task })
+        });
+        const data = await res.json();
+        if (data.success) {
+          term.textContent = JSON.stringify(data.plan, null, 2);
+          showToast('Synthesized topology: ' + data.plan.topology.toUpperCase());
+        }
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+      }
+    }
+
+    async function runSwarmExecute() {
+      const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
+      const term = document.getElementById('swarm-plan-output');
+      term.textContent = '// Running Autonomous Swarm simulation...';
+
+      try {
+        const res = await fetch('/api/swarm/execute', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task })
+        });
+        const data = await res.json();
+        if (data.success) {
+          term.textContent = data.logs.join('\\n');
+          showToast('Swarm simulation complete!');
+        }
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+      }
+    }
+
+    // Custom Agent Creator Handler
+    async function createCustomAgentFromUi() {
+      const name = document.getElementById('agent-name-input').value.trim();
+      const description = document.getElementById('agent-desc-input').value.trim();
+      const platform = document.getElementById('agent-platform-select').value;
+      const skillsRaw = document.getElementById('agent-skills-input').value.trim();
+
+      if (!name) {
+        showToast('Agent name is required!');
+        return;
+      }
+
+      const skills = skillsRaw ? skillsRaw.split(',').map(s => s.trim()).filter(Boolean) : ['senior-frontend', 'anti-slop'];
+
+      try {
+        const res = await fetch('/api/agents/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, description, platform, skills })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast(\`Custom agent '\${name}' created successfully across platforms!\`);
+          document.getElementById('agent-name-input').value = '';
+          document.getElementById('agent-desc-input').value = '';
+          document.getElementById('agent-skills-input').value = '';
+        } else {
+          showToast('Failed to create agent: ' + data.error);
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message);
+      }
+    }
+
+    // Memory View Handlers
+    async function loadMemoryView() {
+      const term = document.getElementById('memory-log-container');
+      const badge = document.getElementById('mem-count-badge');
+      try {
+        const res = await fetch('/api/memory');
+        const data = await res.json();
+        if (data.success && data.memory) {
+          const decisions = data.memory.decisions || [];
+          badge.textContent = \`\${decisions.length} decisions logged\`;
+          if (decisions.length === 0) {
+            term.textContent = '// No decisions logged yet. Use the form above or "vibes memory record" to persist decisions.';
+          } else {
+            term.textContent = decisions.map(d => \`[\${d.timestamp.slice(0, 10)}] (\${d.category}) \${d.decision} [Skills: \${d.skillsInvolved.join(', ') || 'core'}]\`).join('\\n\\n');
+          }
+        }
+      } catch (err) {
+        term.textContent = '// Error loading memory: ' + err.message;
+      }
+    }
+
+    async function recordDecisionFromUi() {
+      const decision = document.getElementById('mem-text-input').value.trim();
+      const category = document.getElementById('mem-cat-select').value;
+      if (!decision) {
+        showToast('Decision text is required!');
+        return;
+      }
+      try {
+        const res = await fetch('/api/memory/record', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ decision, category })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('Decision logged to episodic memory!');
+          document.getElementById('mem-text-input').value = '';
+          loadMemoryView();
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message);
+      }
+    }
+
+    async function generateCheckpointFromUi() {
+      try {
+        const res = await fetch('/api/memory/checkpoint', { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast(\`Generated CHECKPOINT.md (~ \${data.checkpoint.tokensApprox} tokens)\`);
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message);
+      }
     }
 
     // Render Recipes
@@ -1986,7 +2230,109 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
-    // API Routes
+    // Swarm Planning endpoint
+    if (req.method === 'POST' && pathname === '/api/swarm/plan') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { task } = JSON.parse(body);
+          if (!task) {
+            sendJson({ error: 'Task description is required' }, 400);
+            return;
+          }
+          const plan = planSwarm(task);
+          sendJson({ success: true, plan });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Swarm Execution Simulation endpoint
+    if (req.method === 'POST' && pathname === '/api/swarm/execute') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { task } = JSON.parse(body);
+          if (!task) {
+            sendJson({ error: 'Task description is required' }, 400);
+            return;
+          }
+          const result = await executeSwarm(task);
+          sendJson({ success: true, ...result });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Custom Agent Creator endpoint
+    if (req.method === 'POST' && pathname === '/api/agents/create') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { name, description, skills, platform } = JSON.parse(body);
+          if (!name) {
+            sendJson({ error: 'Agent name is required' }, 400);
+            return;
+          }
+          const res = await createCustomAgent({ name, description, skills, platform });
+          sendJson({ success: true, agent: res });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Memory Query endpoint
+    if (req.method === 'GET' && pathname === '/api/memory') {
+      try {
+        const mem = await loadMemory();
+        sendJson({ success: true, memory: mem });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Memory Record endpoint
+    if (req.method === 'POST' && pathname === '/api/memory/record') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { decision, category, skills } = JSON.parse(body);
+          if (!decision) {
+            sendJson({ error: 'Decision text is required' }, 400);
+            return;
+          }
+          const item = await recordDecision(decision, { category, skills });
+          sendJson({ success: true, item });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Memory Checkpoint endpoint
+    if (req.method === 'POST' && pathname === '/api/memory/checkpoint') {
+      try {
+        const res = await generateCompactCheckpoint();
+        sendJson({ success: true, checkpoint: res });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // API Routes for Skills & Status
     if (req.method === 'GET' && pathname === '/api/skills') {
       const skills = await loadSkillsCatalog();
       sendJson(skills);

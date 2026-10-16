@@ -98,6 +98,21 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
   await t.test('studio server should serve 150 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
+    const memFilePath = path.join(process.cwd(), '.agents', 'memory', 'episodic_graph.json');
+    const checkpointFilePath = path.join(process.cwd(), 'CHECKPOINT.md');
+    let origMem = null;
+    let origCheckpoint = null;
+    try {
+      origMem = await fs.readFile(memFilePath, 'utf8');
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err;
+    }
+    try {
+      origCheckpoint = await fs.readFile(checkpointFilePath, 'utf8');
+    } catch (err) {
+      if (err.code !== 'ENOENT') throw err;
+    }
+
     const { server, url } = await startStudioServer({ port: testPort, noOpen: true });
     try {
       const htmlRes = await fetch(url);
@@ -140,8 +155,63 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const batchData = await batchRes.json();
       assert.equal(batchData.success, true);
       assert.equal(batchData.count, 1);
+
+      // Test Swarm Planner endpoint
+      const swarmPlanRes = await fetch(`${url}/api/swarm/plan`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task: 'Build a fintech payment integration with DOKU' })
+      });
+      const swarmPlanData = await swarmPlanRes.json();
+      assert.equal(swarmPlanRes.status, 200);
+      assert.equal(swarmPlanData.success, true);
+      assert.ok(swarmPlanData.plan.topology);
+      assert.ok(swarmPlanData.plan.subagents.length > 0);
+      assert.ok(swarmPlanData.plan.totalWorkers > 0);
+
+      // Test Swarm Execution simulation endpoint
+      const swarmExecRes = await fetch(`${url}/api/swarm/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task: 'Build a fintech payment integration with DOKU' })
+      });
+      const swarmExecData = await swarmExecRes.json();
+      assert.equal(swarmExecRes.status, 200);
+      assert.equal(swarmExecData.success, true);
+      assert.ok(Array.isArray(swarmExecData.logs));
+      assert.ok(swarmExecData.logs.length > 0);
+
+      // Test Memory query & record endpoints
+      const memGetRes = await fetch(`${url}/api/memory`);
+      const memGetData = await memGetRes.json();
+      assert.equal(memGetRes.status, 200);
+      assert.equal(memGetData.success, true);
+      assert.ok(memGetData.memory);
+
+      const memRecordRes = await fetch(`${url}/api/memory/record`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ decision: 'Adopt PostgreSQL with Drizzle ORM', category: 'architecture', skills: ['database-orm-expert'] })
+      });
+      const memRecordData = await memRecordRes.json();
+      assert.equal(memRecordRes.status, 200);
+      assert.equal(memRecordData.success, true);
+      assert.equal(memRecordData.item.decision, 'Adopt PostgreSQL with Drizzle ORM');
+
+      const memCheckpointRes = await fetch(`${url}/api/memory/checkpoint`, { method: 'POST' });
+      const memCheckpointData = await memCheckpointRes.json();
+      assert.equal(memCheckpointRes.status, 200);
+      assert.equal(memCheckpointData.success, true);
+      assert.ok(memCheckpointData.checkpoint.tokensApprox < 500);
     } finally {
       await new Promise((resolve) => server.close(resolve));
+      await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
+      if (origMem !== null) {
+        await fs.writeFile(memFilePath, origMem, 'utf8');
+      }
+      if (origCheckpoint !== null) {
+        await fs.writeFile(checkpointFilePath, origCheckpoint, 'utf8');
+      }
     }
   });
 });
