@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.2.2] - 2026-10-16
+
+### Added / Ditambahkan
+- **Dokumentasi Instalasi Universal via GitHub**:
+  - Menambahkan panduan instalasi lengkap via GitHub di `README.md` dalam 5 bahasa (English, Bahasa Indonesia, Mandarin, Deutsch, Japanese).
+  - Mendukung eksekusi langsung via NPX tanpa kloning (`npx github:roedyrustam/vibes-plug --all` / `npm i -g git+...`).
+  - Menambahkan panduan Git Clone untuk installer multi-platform (`npm run install-all`) dan kloning langsung ke direktori plugin Antigravity (`~/.gemini/config/plugins/vibes-plug`).
+  - Menambahkan panduan injeksi rules terarah per-proyek untuk Claude Code, Cursor IDE, Codex, Windsurf, Trae, dan VSCode (Cline).
+
+### Changed / Diubah
+- Sinkronisasi versi paket ke 4.2.2 di `package.json`, `bin/vibes.mjs`, dan dokumentasi terkait.
+
 ## [4.2.1] - 2026-10-06
 
 ### Fixed / Diperbaiki
