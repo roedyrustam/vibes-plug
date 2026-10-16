@@ -26,6 +26,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Menu selektor 3-mode: instalasi instan berdasarkan Paket Resep (Curated Recipes), Eksplorasi per Kategori Domain (Frontend, Backend, AI, SaaS, Keamanan, Data), atau kustomisasi penuh dari 150 skill.
 - **Perintah Generator Katalog Dokumentasi (`vibes docs`)**:
   - Perintah baru `vibes docs [markdown|json] [outputFile]` untuk menghasilkan tabel markdown atau JSON catalog dari seluruh 150 skill secara otomatis (`CATALOG.md` & `CATALOG.json`).
+- **Peningkatan Template Scaffolding (`vibes bootstrap` & `vibes init`)**:
+  - Menambahkan template ke-6: `spec-api` untuk inisialisasi Contract-First API berbasis Hono/Node.js, TypeSpec, dan OpenAPI 3.1.
+  - Memperkaya dokumen bawaan (`PRD.md`, `BLUEPRINT.md`, `PROGRESS.md`) dengan spesifikasi teknis konkret (PostgreSQL DDL schema, API JSON contract, NFR latency & accessibility budgets) sesuai Sovereign Anti-Slop Directive.
 - **Dokumentasi Instalasi Universal via GitHub**:
   - Menambahkan panduan instalasi lengkap via GitHub di `README.md` dalam 5 bahasa (English, Bahasa Indonesia, Mandarin, Deutsch, Japanese).
   - Mendukung eksekusi langsung via NPX tanpa kloning (`npx github:roedyrustam/vibes-plug --all` / `npm i -g git+...`).

@@ -38,10 +38,10 @@ async function runInit(projectName) {
 
     // Create standard Zero-To-Prod boilerplate
     const filesToCreate = {
-      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
-      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD\n- [ ] Phase 2: Foundation & Monorepo\n- [ ] Phase 3: Database & Auth\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & UI\n- [ ] Phase 6: Testing & Security\n- [ ] Phase 7: DevOps & Monitoring\n- [ ] Phase 8: Launch`,
-      'BLUEPRINT.md': `# 📐 System Blueprint\n\n(Auto-generated architectural decisions will be logged here by the AI agent)`,
-      'PRD.md': `# 📋 Product Requirements Document\n\n(To be filled by the deep-research-analyst agent)`
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Frontend / Fullstack**: Next.js 15 App Router / React 19 / Hono\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Styling**: Tailwind CSS v4 (@theme tokens)\n- **Database ORM**: Prisma 6 / Drizzle ORM\n- **Testing**: Vitest + Playwright E2E\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first API schema definition with automated TypeScript client codegen.\n- **ADR-002**: Stateless session tokens with short expiration and refresh rotation.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
+      'PRD.md': `# 📋 ${projectName} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Product Name**: ${projectName}\n- **Lifecycle**: 8-Phase Zero-To-Prod Swarm Lifecycle\n- **Target Audience**: Developers, enterprise teams, and end-users requiring high-velocity reliability.\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation with RBAC.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
     };
 
     for (const [filename, content] of Object.entries(filesToCreate)) {
@@ -65,11 +65,11 @@ async function runBootstrap(templateName, projectName) {
   if (!templateName || !projectName) {
     console.error('❌ Error: Template name and Project name are required.');
     console.log('Usage: vibes bootstrap <template> <project-name>');
-    console.log('Available templates: saas, ecommerce');
+    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api');
     process.exit(1);
   }
 
-  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack'];
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api'];
   if (!validTemplates.includes(templateName)) {
     console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
     process.exit(1);
@@ -109,6 +109,18 @@ async function runBootstrap(templateName, projectName) {
       prdTitle = 'Full-Stack T3 App';
       scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
       specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
+    } else if (templateName === 'spec-api') {
+      prdTitle = 'Contract-First Spec-Driven API (TypeSpec & OpenAPI 3.1)';
+      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      specificSkills = [
+        'spec-driven-development-expert',
+        'openapi-swagger-codegen-expert',
+        'api-design-expert',
+        'autonomous-api-drift-healer',
+        'database-orm-expert',
+        'authentication-identity-expert',
+        'logging-error-tracking-expert'
+      ];
     }
 
     console.log(`\n\ud83d\ude80 Bootstrapping ${prdTitle} project: ${projectName}...`);
@@ -145,10 +157,12 @@ async function runBootstrap(templateName, projectName) {
       }
     }
 
-    // Overwrite README and PRD
+    // Overwrite README, PROGRESS, BLUEPRINT, and PRD
     const filesToCreate = {
-      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
-      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document\n\n(To be filled by the deep-research-analyst agent based on the ${templateName} template)`
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker (${templateName.toUpperCase()})\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture (${templateName.toUpperCase()})\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Template**: ${templateName}\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Active Skills**: ${allSkills.join(', ')}\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first domain boundaries with automated schema validation.\n- **ADR-002**: Zero-tolerance Anti-Slop quality gates across all routines.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Project Name**: ${projectName}\n- **Template Archetype**: ${templateName.toUpperCase()}\n- **Bound Skills**: ${allSkills.join(', ')}\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation with RBAC.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
     };
 
     for (const [filename, content] of Object.entries(filesToCreate)) {
@@ -1216,7 +1230,7 @@ Usage:
 Commands:
   sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
-  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
   search <query>            Search all 150 skills by keyword (ranked by relevance)
