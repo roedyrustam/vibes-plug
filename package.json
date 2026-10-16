@@ -55,7 +55,7 @@
     "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs && node scripts/swarm-runner.mjs && node scripts/memory-daemon.mjs checkpoint"
   },
   "dependencies": {
-    "@inquirer/prompts": "^7.0.0"
+    "@inquirer/prompts": "^8.7.3"
   },
   "repository": {
     "type": "git",
