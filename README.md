@@ -125,9 +125,24 @@ vibes mcp
 3. `vibes_arbitrate_code` — Score and arbitrate competing code solutions via Process Reward Model (PRM).
 4. `vibes_verify_invariants` — Formally prove state machine invariants and generate SMT-LIB 2.0 formulas.
 5. `vibes_get_skill` — Fetch instructions and contracts from any of the 150 specialized skills.
-6. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
-7. `vibes_memory` — Read and write cross-session architectural decisions and emit compact checkpoints.
-8. `vibes_swarm` — Generate multi-agent execution plans (Fan-Out/Fan-In, Saga, Critic-Validator).
+6. `vibes_list_skills` — Discover all 150 skills with domain categories, summaries, and tags.
+7. `vibes_inject_skill` — Directly inject one or more skills into `.agents/skills/<name>`.
+8. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
+9. `vibes_memory` — Read and write cross-session architectural decisions and emit compact checkpoints.
+10. `vibes_swarm` — Generate multi-agent execution plans (Fan-Out/Fan-In, Saga, Critic-Validator).
+
+### ⚡ Vibes Studio & Remote MCP (Visual Cockpit)
+Vibes-Plug features a zero-dependency visual web cockpit and Server-Sent Events (SSE) remote transport:
+```bash
+# Launch visual web cockpit (opens http://localhost:3888)
+vibes studio
+
+# Or run standalone Remote MCP Server for Claude Desktop, Cursor, or remote agents
+vibes mcp --transport sse --port 3333
+
+# Run the complete Sovereign Quality & Anti-Slop Guard (281 files + 13 tests)
+vibes guard
+```
 
 ---
 

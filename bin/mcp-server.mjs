@@ -9,12 +9,18 @@
  * - vibes_arbitrate_code (P4: Process Reward Model Multi-Draft Arbiter)
  * - vibes_verify_invariants (P5: Neuro-Symbolic Invariant Verifier & SMT Generator)
  * - vibes_compile_cache (P1: Canonical Deterministic KV-Cache Prefix Compiler)
- * - vibes_get_skill (Registry: Instant access to any of the 147 skills)
+ * - vibes_get_skill (Registry: Instant access to any of the 150 skills)
+ * - vibes_list_skills (Registry: Discover all 150 skills with domains and summaries)
+ * - vibes_inject_skill (Registry: Direct 1-click project skill injection)
+ * - vibes_memory (Episodic Project Memory & ultra-compact checkpoints)
+ * - vibes_swarm (Autonomous Multi-Agent Swarm Orchestrator)
  */
 
 import fs from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
+import http from 'http';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 import { parseSymbols, extractSymbolCode, calculateBlastRadius } from '../scripts/ast-query.mjs';
@@ -30,7 +36,7 @@ const __dirname = path.dirname(__filename);
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
-const TOOLS = [
+export const TOOLS = [
   {
     name: 'vibes_ast_query',
     description: 'Surgically inspect code symbols, extract function bodies, or calculate dependency blast-radius without dumping thousands of tokens into the context window.',
@@ -113,13 +119,40 @@ const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 147 specialized skills in the vibes-plug registry.',
+    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 150 specialized skills in the vibes-plug registry.',
     inputSchema: {
       type: 'object',
       properties: {
         skillName: {
           type: 'string',
           description: 'Name of the skill (e.g. senior-frontend, database-orm-expert, doku-payment-gateway, anti-slop).'
+        }
+      },
+      required: ['skillName']
+    }
+  },
+  {
+    name: 'vibes_list_skills',
+    description: 'List all 150 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: {
+          type: 'string',
+          description: 'Optional filter by domain: frontend, backend, ai, saas, security, data.'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_inject_skill',
+    description: 'Inject one or more skills from the global registry into the active project (.agents/skills/<name>).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skillName: {
+          type: 'string',
+          description: 'Name of the skill to inject (e.g. senior-frontend, spec-driven-development-expert).'
         }
       },
       required: ['skillName']
@@ -172,8 +205,8 @@ const TOOLS = [
   }
 ];
 
-// JSON-RPC Transport Handler over stdio
-async function handleRpcRequest(request) {
+// JSON-RPC Transport Handler over stdio or SSE
+export async function handleRpcRequest(request) {
   const { id, method, params } = request;
 
   if (method === 'initialize') {
@@ -185,7 +218,7 @@ async function handleRpcRequest(request) {
         capabilities: { tools: {} },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.2.1'
+          version: '4.2.2'
         }
       }
     };
@@ -285,6 +318,33 @@ async function handleRpcRequest(request) {
         const skillPath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
         const content = await fs.readFile(skillPath, 'utf8');
         contentText = content;
+      } else if (name === 'vibes_list_skills') {
+        const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
+        const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+        const list = [];
+        for (const sName of skillDirs) {
+          const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
+          try {
+            const raw = await fs.readFile(sPath, 'utf8');
+            const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
+            list.push({
+              name: sName,
+              description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
+            });
+          } catch {
+            list.push({ name: sName, description: 'Specialized AI domain skill' });
+          }
+        }
+        contentText = JSON.stringify({ total: list.length, skills: list }, null, 2);
+      } else if (name === 'vibes_inject_skill') {
+        const sName = args?.skillName?.trim();
+        if (!sName) throw new Error("Argument 'skillName' is required.");
+        const sourceDir = path.join(SKILLS_DIR, sName);
+        const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+        const targetDir = path.join(targetBaseDir, sName);
+        await fs.mkdir(targetBaseDir, { recursive: true });
+        await fs.cp(sourceDir, targetDir, { recursive: true });
+        contentText = JSON.stringify({ success: true, message: `Skill '${sName}' injected successfully into ${targetDir}` }, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
@@ -313,14 +373,14 @@ async function handleRpcRequest(request) {
   };
 }
 
-function startServer() {
+export function startStdioServer() {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.1] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.2] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -341,4 +401,109 @@ function startServer() {
   process.on('SIGTERM', () => process.exit(0));
 }
 
-startServer();
+export function startSseServer(port = 3333) {
+  const sseClients = new Map();
+
+  const server = http.createServer(async (req, res) => {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const { pathname, searchParams } = parsedUrl;
+
+    // Standard CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-session-id');
+
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+
+    if (req.method === 'GET' && pathname === '/sse') {
+      const sessionId = crypto.randomUUID();
+      res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+        'X-Accel-Buffering': 'no'
+      });
+
+      res.write(`event: endpoint\ndata: /messages?sessionId=${sessionId}\n\n`);
+      sseClients.set(sessionId, res);
+
+      req.on('close', () => {
+        sseClients.delete(sessionId);
+      });
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/messages') {
+      const sessionId = searchParams.get('sessionId') || req.headers['x-session-id'];
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const request = JSON.parse(body);
+          const response = await handleRpcRequest(request);
+
+          if (sessionId && sseClients.has(sessionId)) {
+            const clientRes = sseClients.get(sessionId);
+            clientRes.write(`event: message\ndata: ${JSON.stringify(response)}\n\n`);
+          }
+
+          res.writeHead(202, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'accepted', response }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'GET' && (pathname === '/' || pathname === '/health' || pathname === '/status')) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        status: 'online',
+        service: 'vibes-plug-mcp',
+        version: '4.2.2',
+        transport: 'sse',
+        endpoints: {
+          sse: '/sse',
+          messages: '/messages?sessionId=:id'
+        },
+        toolsCount: TOOLS.length
+      }, null, 2));
+      return;
+    }
+
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
+  });
+
+  return new Promise((resolve, reject) => {
+    server.on('error', reject);
+    server.listen(port, () => {
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.2.2] Listening on SSE at: http://localhost:${port}/sse`);
+      console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
+      resolve({ server, port });
+    });
+  });
+}
+
+export function startServer(options = {}) {
+  const transport = options.transport || (process.argv.includes('--transport') ? process.argv[process.argv.indexOf('--transport') + 1] : 'stdio');
+  const portArgIdx = process.argv.indexOf('--port');
+  const port = options.port || (portArgIdx !== -1 ? parseInt(process.argv[portArgIdx + 1], 10) : 3333);
+
+  if (transport === 'sse') {
+    return startSseServer(port);
+  }
+
+  return startStdioServer();
+}
+
+// Standalone execution check
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+  startServer();
+}

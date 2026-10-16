@@ -3,7 +3,8 @@
 /**
  * Vibes-Plug Studio Cockpit Server
  * Lightweight, zero-dependency local web dashboard for Vibes-Plug Pro.
- * Visualizes the 150 AI domain skills, subagent swarm topologies, superintelligence engines, and project diagnostics.
+ * Visualizes the 150 AI domain skills, subagent swarm topologies, superintelligence engines,
+ * Visual Recipe Builder, and Remote Model Context Protocol (MCP v1.x) SSE transport.
  * 
  * Usage:
  *   node scripts/studio-server.mjs [--port 3888] [--no-open]
@@ -13,8 +14,11 @@
 import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
+
+import { TOOLS as MCP_TOOLS, handleRpcRequest } from '../bin/mcp-server.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,37 +32,37 @@ const DOMAIN_CATEGORIES = {
   frontend: {
     id: 'frontend',
     label: 'Frontend & Mobile UI/UX',
-    icon: '🎨',
+    icon: 'UI',
     color: '#06b6d4'
   },
   backend: {
     id: 'backend',
     label: 'Backend & System Design',
-    icon: '⚙️',
+    icon: 'SYS',
     color: '#3b82f6'
   },
   ai: {
     id: 'ai',
     label: 'Frontier AI, LLM & MCP',
-    icon: '🤖',
+    icon: 'AI',
     color: '#a855f7'
   },
   saas: {
     id: 'saas',
     label: 'SaaS, FinTech & Growth',
-    icon: '💸',
+    icon: 'BIZ',
     color: '#10b981'
   },
   security: {
     id: 'security',
     label: 'Testing, Security & Anti-Slop',
-    icon: '🛡️',
+    icon: 'SEC',
     color: '#ef4444'
   },
   data: {
     id: 'data',
     label: 'Data, Media & Orchestration',
-    icon: '🚀',
+    icon: 'DATA',
     color: '#f59e0b'
   }
 };
@@ -148,27 +152,12 @@ const RECIPES = {
   'fullstack-pro': {
     title: 'Fullstack Pro',
     description: 'Production-grade fullstack: Next.js 15, auth, DB, payments, E2E testing, and error resilience',
-    skills: ['nextjs-app-router-expert', 'authentication-identity-expert', 'database-orm-expert', 'payment-gateway-expert', 'e2e-testing-expert', 'error-resilience-expert']
+    skills: ['senior-frontend', 'tailwind-expert', 'js-backend-expert', 'database-orm-expert', 'authentication-identity-expert', 'e2e-testing-expert', 'error-resilience-expert']
   },
-  'security-hardened': {
-    title: 'Security Hardened',
-    description: 'Security-first stack: zero-trust, rate limiting, auth, GDPR compliance, and dynamic red teaming',
-    skills: ['zero-trust-secret-vault', 'rate-limit-abuse-prevention', 'authentication-identity-expert', 'compliance-gdpr-privacy-expert', 'autonomous-red-teamer', 'supabase-security-expert']
-  },
-  'realtime-app': {
-    title: 'Real-Time App',
-    description: 'Real-time collaboration: WebSockets, SSE, CRDT state sync, and streaming',
-    skills: ['realtime-collaboration-expert', 'sse-websocket-streaming-expert', 'state-management-expert', 'error-resilience-expert']
-  },
-  'mobile-first': {
-    title: 'Mobile First',
-    description: 'Cross-platform mobile stack: Expo, offline-first PWA, push notifications, and API design',
-    skills: ['mobile-expo-expert', 'pwa-offline-first-expert', 'authentication-identity-expert', 'api-design-expert', 'email-notification-expert']
-  },
-  'data-platform': {
-    title: 'Data Platform',
-    description: 'Data engineering: ETL pipelines, visualization dashboards, OpenTelemetry telemetry, and full-text search',
-    skills: ['data-pipeline-etl-expert', 'data-visualization-expert', 'data-telemetry-expert', 'search-engine-expert']
+  'sovereign-guard': {
+    title: 'Sovereign Quality Guard',
+    description: 'Zero-slop verification: dynamic fuzzing, invariant proving, AST queries, and automated self-healing CI',
+    skills: ['anti-slop', 'autonomous-red-teamer', 'formal-spec-z3-verifier', 'living-codebase-ast-graph', 'autonomous-tdd-debugger', 'zero-tech-debt-auditor']
   }
 };
 
@@ -176,23 +165,23 @@ const SUBAGENTS = [
   {
     id: 'swarm-architect',
     name: 'Swarm Architect',
-    role: 'System Discovery, PRD Architecture & Database ERD',
-    skills: ['brainstorming', 'prd-architect', 'domain-driven-design-expert', 'saas-architect', 'spec-driven-development-expert'],
-    topology: 'Fan-Out / Fan-In Orchestrator'
+    role: 'System Discovery, PRD, ERD, and High-Level Architecture',
+    skills: ['brainstorming', 'prd-architect', 'domain-driven-design-expert', 'saas-architect'],
+    topology: 'Lead System Director'
   },
   {
     id: 'fullstack-craftsman',
     name: 'Fullstack Craftsman',
-    role: 'Fullstack Craftsmanship & Type-Safe Implementation',
-    skills: ['senior-frontend', 'tailwind-expert', 'design-system-architect', 'js-backend-expert', 'database-orm-expert', 'spec-driven-development-expert', 'browser-extension-mv3-pro'],
-    topology: 'Pipeline Saga Implementer'
+    role: 'Frontend, Backend, Design Systems & Database Implementation',
+    skills: ['senior-frontend', 'tailwind-expert', 'design-system-architect', 'js-backend-expert', 'database-orm-expert'],
+    topology: 'Primary Implementer'
   },
   {
     id: 'quality-guardian',
     name: 'Quality Guardian',
-    role: 'Zero-Tolerance Anti-Slop, TDD & Security Red Teaming',
-    skills: ['anti-slop', 'autonomous-tdd-debugger', 'e2e-testing-expert', 'autonomous-red-teamer', 'formal-spec-z3-verifier', 'spec-driven-development-expert'],
-    topology: 'Critic-Validator Gatekeeper'
+    role: 'Testing, Security Fuzzing, Invariants, and Anti-Slop Enforcement',
+    skills: ['anti-slop', 'autonomous-tdd-debugger', 'e2e-testing-expert', 'autonomous-red-teamer', 'formal-spec-z3-verifier'],
+    topology: 'Critic & Security Gate'
   },
   {
     id: 'fintech-payment-sentinel',
@@ -329,11 +318,12 @@ async function getSystemStatus() {
     nodeVersion: process.version,
     platform: process.platform,
     workingDirectory: process.cwd(),
-    cachePrefix: cacheStatus
+    cachePrefix: cacheStatus,
+    mcpToolsCount: MCP_TOOLS.length
   };
 }
 
-function generateStudioHtml() {
+function generateStudioHtml(currentPort) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -431,7 +421,9 @@ function generateStudioHtml() {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 14px;
+      font-weight: 800;
+      font-family: var(--font-mono);
       box-shadow: 0 4px 12px var(--primary-glow);
     }
 
@@ -578,7 +570,8 @@ function generateStudioHtml() {
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 14px;
+      font-size: 13px;
+      font-family: var(--font-mono);
       pointer-events: none;
     }
 
@@ -600,18 +593,19 @@ function generateStudioHtml() {
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
+      transition: all 0.15s ease;
     }
 
     .pill-btn:hover {
-      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--card-hover);
       color: var(--text);
+      border-color: rgba(255, 255, 255, 0.2);
     }
 
     .pill-btn.active {
       background: rgba(6, 182, 212, 0.15);
-      border-color: var(--primary);
       color: var(--primary);
+      border-color: var(--primary);
       font-weight: 600;
     }
 
@@ -626,14 +620,14 @@ function generateStudioHtml() {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      gap: 12px;
+      transition: all 0.2s ease;
       cursor: pointer;
       position: relative;
-      overflow: hidden;
     }
 
     .skill-card:hover {
@@ -643,48 +637,63 @@ function generateStudioHtml() {
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     }
 
+    .skill-card.selected {
+      border-color: var(--primary);
+      background: rgba(6, 182, 212, 0.08);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+
     .skill-header {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 8px;
+    }
+
+    .skill-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-select-box {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
     }
 
     .skill-title {
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.01em;
-      color: #ffffff;
       font-family: var(--font-mono);
-      word-break: break-word;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
     }
 
     .skill-badge {
       font-size: 0.7rem;
-      font-weight: 600;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 6px;
+      font-weight: 600;
       border: 1px solid transparent;
       white-space: nowrap;
     }
 
     .skill-desc {
+      font-size: 0.84rem;
       color: var(--text-muted);
-      font-size: 0.85rem;
-      line-height: 1.45;
-      margin-bottom: 16px;
       display: -webkit-box;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      line-height: 1.45;
     }
 
     .skill-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 12px;
+      padding-top: 10px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       font-size: 0.78rem;
     }
@@ -693,8 +702,7 @@ function generateStudioHtml() {
       display: flex;
       align-items: center;
       gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
     .status-dot {
@@ -702,28 +710,26 @@ function generateStudioHtml() {
       height: 8px;
       border-radius: 50%;
     }
-    .status-dot.installed { background: var(--success); box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
-    .status-dot.available { background: var(--text-muted); opacity: 0.4; }
+    .status-dot.installed { background-color: var(--success); box-shadow: 0 0 8px var(--success); }
+    .status-dot.available { background-color: rgba(255, 255, 255, 0.2); }
 
     .btn-action {
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
       color: var(--text);
       padding: 4px 10px;
       border-radius: 6px;
       font-size: 0.78rem;
-      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      font-weight: 500;
+      transition: all 0.15s ease;
     }
-
     .btn-action:hover {
-      background: var(--primary);
-      color: #000;
-      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
     }
 
-    /* Subagent Topology Section */
+    /* Subagents Topology Section */
     .subagent-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
@@ -733,23 +739,11 @@ function generateStudioHtml() {
     .subagent-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .subagent-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
+      gap: 14px;
     }
 
     .subagent-header {
@@ -759,19 +753,19 @@ function generateStudioHtml() {
     }
 
     .subagent-name {
-      font-size: 1.15rem;
       font-weight: 700;
+      font-size: 1.05rem;
       color: #fff;
     }
 
     .subagent-topology {
-      font-size: 0.75rem;
       font-family: var(--font-mono);
-      background: rgba(139, 92, 246, 0.15);
-      border: 1px solid rgba(139, 92, 246, 0.3);
+      font-size: 0.75rem;
       color: var(--accent);
-      padding: 3px 8px;
-      border-radius: 6px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
     }
 
     .subagent-role {
@@ -780,7 +774,7 @@ function generateStudioHtml() {
     }
 
     .subagent-skills-label {
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -795,108 +789,298 @@ function generateStudioHtml() {
 
     .subagent-skill-tag {
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
       font-family: var(--font-mono);
-      font-size: 0.78rem;
-      padding: 3px 8px;
-      border-radius: 6px;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
       color: #cbd5e1;
     }
 
-    /* Superintelligence Engines Cockpit */
-    .engines-grid {
+    /* Superintelligence Engines (P1-P5) */
+    .engine-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
     }
 
     .engine-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 10px;
     }
 
-    .engine-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .engine-title h3 {
-      font-size: 1.05rem;
-      font-weight: 700;
-    }
-
-    .engine-code {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      padding: 10px 14px;
+    .engine-tier {
       font-family: var(--font-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--primary);
     }
 
-    /* Recipe Bundles */
-    .recipes-grid {
+    .engine-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+    }
+
+    .engine-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .engine-status-badge {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      padding: 4px 10px;
+      border-radius: 6px;
+      width: fit-content;
+      font-weight: 600;
+      margin-top: auto;
+    }
+
+    /* Curated Recipes */
+    .recipe-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
       gap: 20px;
     }
 
     .recipe-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 12px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
     }
 
     .recipe-title {
-      font-size: 1.15rem;
       font-weight: 700;
+      font-size: 1.1rem;
       color: #fff;
     }
 
     .recipe-desc {
       font-size: 0.88rem;
       color: var(--text-muted);
+      line-height: 1.45;
     }
 
-    /* Modal Drawer */
+    /* Floating Recipe Builder Drawer */
+    .recipe-drawer {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0d1527;
+      border: 1px solid var(--primary);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), 0 0 20px var(--primary-glow);
+      border-radius: 14px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      animation: slideUp 0.25s ease-out;
+      max-width: 90vw;
+    }
+
+    @keyframes slideUp {
+      from { transform: translate(-50%, 40px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+
+    .drawer-count {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    .drawer-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      font-family: var(--font-sans);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #070b13;
+    }
+    .btn-primary:hover {
+      background: #22d3ee;
+      box-shadow: 0 0 12px var(--primary-glow);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--card-border);
+      color: var(--text);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+    }
+    .btn-ghost:hover {
+      color: var(--danger);
+    }
+
+    /* Remote MCP Console Tab */
+    .mcp-console-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .mcp-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+      border: 1px solid var(--card-border-active);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .mcp-url-box {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 14px;
+      border-radius: 8px;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mcp-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+    }
+
+    .mcp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .select-input, .textarea-input {
+      width: 100%;
+      background: #090e1a;
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .select-input:focus, .textarea-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px var(--primary-glow);
+    }
+
+    .textarea-input {
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.4;
+    }
+
+    .result-terminal {
+      background: #05080e;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      min-height: 240px;
+      max-height: 480px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+    }
+
+    /* Modal */
     .modal-backdrop {
       position: fixed;
       inset: 0;
       background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(6px);
+      z-index: 150;
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 100;
       padding: 20px;
     }
 
     .modal-backdrop.open {
       display: flex;
+      animation: modalFade 0.2s ease-out;
     }
 
-    .modal-dialog {
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
       background: #0d1527;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 16px;
-      max-width: 800px;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
       width: 100%;
+      max-width: 840px;
       max-height: 85vh;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
       overflow: hidden;
     }
 
@@ -920,13 +1104,16 @@ function generateStudioHtml() {
       background: transparent;
       border: none;
       color: var(--text-muted);
-      font-size: 24px;
+      font-size: 20px;
       cursor: pointer;
       line-height: 1;
+      padding: 4px 8px;
+      border-radius: 4px;
     }
 
     .close-btn:hover {
       color: #fff;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .modal-body {
@@ -1000,7 +1187,7 @@ function generateStudioHtml() {
   <header>
     <div class="header-inner">
       <div class="brand">
-        <div class="brand-badge">⚡</div>
+        <div class="brand-badge">VP</div>
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
@@ -1020,6 +1207,10 @@ function generateStudioHtml() {
           <span class="num" id="stat-installed-skills">0</span>
         </div>
         <div class="stat-chip">
+          <span>MCP Transport:</span>
+          <span class="num" style="color: var(--success);">SSE ACTIVE</span>
+        </div>
+        <div class="stat-chip">
           <span>KV-Cache:</span>
           <span class="num" id="stat-cache-status">LOCKED (P1)</span>
         </div>
@@ -1033,6 +1224,7 @@ function generateStudioHtml() {
     <button type="button" class="tab-btn" data-tab="tab-subagents">Native Subagent Swarm</button>
     <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P5)</button>
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
+    <button type="button" class="tab-btn" data-tab="tab-mcp">Remote MCP (SSE)</button>
   </nav>
 
   <!-- Main Content -->
@@ -1048,137 +1240,224 @@ function generateStudioHtml() {
           <button type="button" class="pill-btn active" data-category="all">All Domains (150)</button>
           <button type="button" class="pill-btn" data-category="frontend">Frontend &amp; UI</button>
           <button type="button" class="pill-btn" data-category="backend">Backend &amp; API</button>
-          <button type="button" class="pill-btn" data-category="ai">AI &amp; MCP</button>
+          <button type="button" class="pill-btn" data-category="ai">Frontier AI &amp; MCP</button>
           <button type="button" class="pill-btn" data-category="saas">SaaS &amp; FinTech</button>
-          <button type="button" class="pill-btn" data-category="security">Security &amp; Anti-Slop</button>
-          <button type="button" class="pill-btn" data-category="data">Data &amp; Lifecycle</button>
+          <button type="button" class="pill-btn" data-category="security">Testing &amp; Security</button>
+          <button type="button" class="pill-btn" data-category="data">Data &amp; DevOps</button>
         </div>
       </div>
 
       <div id="skills-container" class="skills-grid">
-        <!-- Dynamically rendered skill cards -->
+        <!-- Rendered by JavaScript -->
       </div>
     </div>
 
-    <!-- View 2: Subagents Swarm Topology -->
+    <!-- View 2: Native Subagents Swarm -->
     <div id="tab-subagents" class="view-pane">
       <div style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 6px;">Native Specialist Subagents (Agents Registry)</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">
-          These 5 dedicated specialist agents coordinate dynamically via Fan-Out/Fan-In and Critic-Validator loops across all IDEs.
+        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Native Specialist Subagent Registry</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+          Autonomous Swarm Topologies: Fan-Out / Fan-In Parallel Assembly, Pipeline Saga, and Critic-Validator Quality Gates.
         </p>
       </div>
       <div id="subagents-container" class="subagent-grid">
-        <!-- Dynamically rendered subagents -->
+        <!-- Rendered by JavaScript -->
       </div>
     </div>
 
-    <!-- View 3: Superintelligence Engines (P1-P5) -->
+    <!-- View 3: Superintelligence (P1-P5) -->
     <div id="tab-engines" class="view-pane">
       <div style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 6px;">Superintelligence Engineering Substrate (P1 – P5)</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">
-          Hardcore deterministic engines providing sub-millisecond AST queries, in-memory sandboxing, and mathematical theorem verification.
+        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Sovereign Superintelligence Engines (P1–P5)</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+          Sub-millisecond static verification, deterministic caching, AST symbol inspection, and theorem-proving engines.
         </p>
       </div>
-      <div class="engines-grid">
+      <div class="engine-grid">
         <div class="engine-card">
-          <div class="engine-title">
-            <h3>P1: Prompt-Cache Compiler</h3>
-            <span class="skill-badge" style="background: rgba(6, 182, 212, 0.15); color: var(--primary);">ACTIVE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Compiles deterministic instruction set into <code>.cache-prefix.json</code> (>1024 tokens) to lock KV-Cache reuse, slashing LLM API billing by 75–90%.
+          <div class="engine-tier">P1 ENGINE</div>
+          <div class="engine-title">KV-Cache Prefix Optimizer</div>
+          <p class="engine-desc">
+            Locks deterministic >1024 token prompt prefix for Gemini 4 Pro, Claude 5.1, and GPT-5 to slash billing by 75-90% and achieve 10x TTFT.
           </p>
-          <div class="engine-code">vibes compile-cache</div>
+          <div class="engine-status-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success);">
+            ACTIVE (1468 Tokens)
+          </div>
         </div>
 
         <div class="engine-card">
-          <div class="engine-title">
-            <h3>P2: In-Memory DB Sandbox</h3>
-            <span class="skill-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">ACTIVE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            In-memory SQLite simulation to audit PostgreSQL DDL migrations, verify RLS policies, and prevent destructive schema migrations.
+          <div class="engine-tier">P2 ENGINE</div>
+          <div class="engine-title">In-Memory SQL Sandbox</div>
+          <p class="engine-desc">
+            Simulates PostgreSQL DDL, validates schema migrations in-memory, detects destructive drops, and enforces Row-Level Security (RLS).
           </p>
-          <div class="engine-code">vibes db:eval [migration.sql]</div>
+          <div class="engine-status-badge" style="background: rgba(6, 182, 212, 0.15); color: var(--primary); border: 1px solid var(--primary);">
+            READY (vibes db:eval)
+          </div>
         </div>
 
         <div class="engine-card">
-          <div class="engine-title">
-            <h3>P3: AST Subgraph Query Engine</h3>
-            <span class="skill-badge" style="background: rgba(139, 92, 246, 0.15); color: var(--accent);">ACTIVE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            In-memory symbol extraction, function isolation, and blast radius calculation without bloating AI context windows.
+          <div class="engine-tier">P3 ENGINE</div>
+          <div class="engine-title">Living AST Codebase Graph</div>
+          <p class="engine-desc">
+            Parses TypeScript, Python, and Go symbols surgically. Extracts function bodies and calculates dependency blast-radius without context dumping.
           </p>
-          <div class="engine-code">vibes ast symbols [file.ts]</div>
+          <div class="engine-status-badge" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid #3b82f6);">
+            READY (vibes ast)
+          </div>
         </div>
 
         <div class="engine-card">
-          <div class="engine-title">
-            <h3>P4: Speculative PRM Arbiter</h3>
-            <span class="skill-badge" style="background: rgba(245, 158, 11, 0.15); color: var(--warning);">ACTIVE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Process Reward Model (PRM) scoring competing code drafts across Type Safety, Anti-Slop, and Algorithmic Complexity.
+          <div class="engine-tier">P4 ENGINE</div>
+          <div class="engine-title">Process Reward Arbiter (PRM)</div>
+          <p class="engine-desc">
+            Multi-draft speculative consensus engine. Scores competing AI code generations across Type Safety, Anti-Slop, and Resilience.
           </p>
-          <div class="engine-code">vibes arbitrate draftA.ts draftB.ts</div>
+          <div class="engine-status-badge" style="background: rgba(168, 85, 247, 0.15); color: var(--accent); border: 1px solid var(--accent);">
+            READY (vibes arbitrate)
+          </div>
         </div>
 
         <div class="engine-card">
-          <div class="engine-title">
-            <h3>P5: Neuro-Symbolic Invariant Verifier</h3>
-            <span class="skill-badge" style="background: rgba(239, 68, 68, 0.15); color: var(--danger);">ACTIVE</span>
-          </div>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Mathematical proof of state machine transitions (billing, auth, orders) and SMT-LIB 2.0 generation for Z3/CVC5 solver verification.
+          <div class="engine-tier">P5 ENGINE</div>
+          <div class="engine-title">Neuro-Symbolic Invariant SMT</div>
+          <p class="engine-desc">
+            Mathematically proves state machine transitions, reachability, and deadlock freedom, generating formal SMT-LIB 2.0 specs for Z3.
           </p>
-          <div class="engine-code">vibes verify-invariants state.json</div>
+          <div class="engine-status-badge" style="background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid var(--danger);">
+            READY (vibes verify)
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- View 4: Curated Recipe Bundles -->
+    <!-- View 4: Curated Recipes -->
     <div id="tab-recipes" class="view-pane">
       <div style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 6px;">Curated Skill Recipe Bundles</h2>
-        <p style="color: var(--text-muted); font-size: 0.9rem;">
-          One-click battle-tested bundles pre-packaged for specific project architectures.
+        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Curated Skill Bundles &amp; Recipes</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+          Pre-assembled production bundles designed to instantly equip AI agents for specialized domains.
         </p>
       </div>
-      <div id="recipes-container" class="recipes-grid">
-        <!-- Dynamically rendered recipes -->
+      <div id="recipes-container" class="recipe-grid">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- View 5: Remote MCP Console -->
+    <div id="tab-mcp" class="view-pane">
+      <div class="mcp-console-container">
+        <div class="mcp-banner">
+          <div>
+            <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 150 skills and P1–P5 engines.
+            </p>
+          </div>
+          <div class="mcp-url-box">
+            <span>http://localhost:${currentPort}/sse</span>
+            <button type="button" class="btn-action" onclick="copyMcpUrl()">Copy URL</button>
+          </div>
+        </div>
+
+        <div class="mcp-layout">
+          <!-- Left: Tool Runner -->
+          <div class="mcp-card">
+            <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Interactive MCP Tool Runner</h3>
+            <div class="form-group">
+              <label for="mcp-tool-select">Select MCP Tool</label>
+              <select id="mcp-tool-select" class="select-input" onchange="onMcpToolChange()">
+                <option value="vibes_list_skills">vibes_list_skills (Discover 150 skills)</option>
+                <option value="vibes_get_skill">vibes_get_skill (Inspect skill markdown)</option>
+                <option value="vibes_ast_query">vibes_ast_query (P3 AST symbol query)</option>
+                <option value="vibes_eval_sql">vibes_eval_sql (P2 In-memory SQL simulator)</option>
+                <option value="vibes_arbitrate_code">vibes_arbitrate_code (P4 PRM draft arbiter)</option>
+                <option value="vibes_verify_invariants">vibes_verify_invariants (P5 Invariant prover)</option>
+                <option value="vibes_compile_cache">vibes_compile_cache (P1 Cache prefix compiler)</option>
+                <option value="vibes_memory">vibes_memory (Episodic project memory)</option>
+                <option value="vibes_swarm">vibes_swarm (Autonomous multi-agent swarm)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mcp-payload-input">Tool Arguments (JSON)</label>
+              <textarea id="mcp-payload-input" class="textarea-input">{}</textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span id="mcp-elapsed" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); font-variant-numeric: tabular-nums;">
+                Latency: 0ms
+              </span>
+              <button type="button" id="mcp-exec-btn" class="btn btn-primary" onclick="executeMcpTool()">
+                Execute Tool
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Result & Client Config -->
+          <div class="mcp-card">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <h3 style="font-size: 1rem; font-weight: 700; color: #fff;">Tool Execution Output</h3>
+              <button type="button" class="btn-action" onclick="copyMcpOutput()">Copy JSON</button>
+            </div>
+            <div id="mcp-output-terminal" class="result-terminal">// Select a tool and click 'Execute Tool' to inspect live response...</div>
+
+            <div style="border-top: 1px solid var(--card-border); padding-top: 14px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">IDE MCP Config (Claude Desktop / Cursor)</span>
+                <button type="button" class="btn-action" onclick="copyIdeConfig()">Copy Config</button>
+              </div>
+              <pre style="background: rgba(0,0,0,0.5); padding: 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: #94a3b8; overflow-x: auto;">{
+  "mcpServers": {
+    "vibes-plug": {
+      "url": "http://localhost:${currentPort}/sse"
+    }
+  }
+}</pre>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </main>
 
-  <!-- Modal Dialog -->
+  <!-- Floating Recipe Builder Drawer (Multi-select) -->
+  <div id="recipe-builder-drawer" class="recipe-drawer" style="display: none;">
+    <div class="drawer-count">
+      <span id="drawer-selected-count">0</span> Skills Selected
+    </div>
+    <div class="drawer-actions">
+      <button type="button" class="btn btn-primary" onclick="injectSelectedSkills()">Inject to Project</button>
+      <button type="button" class="btn btn-secondary" onclick="exportSelectedJson()">Export JSON</button>
+      <button type="button" class="btn btn-secondary" onclick="copySelectedCli()">Copy CLI</button>
+      <button type="button" class="btn btn-ghost" onclick="clearSelectedSkills()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Skill Detail Modal -->
   <div id="skill-modal" class="modal-backdrop">
-    <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <h2 id="modal-skill-title">Skill Title</h2>
+        <h2 id="modal-skill-title">skill-name</h2>
         <button type="button" id="modal-close" class="close-btn" aria-label="Close modal">&times;</button>
       </div>
-      <div class="modal-body" id="modal-skill-body">
-        <!-- Markdown content -->
+      <div id="modal-skill-body" class="modal-body">
+        <!-- Content -->
       </div>
       <div class="modal-footer">
-        <button type="button" id="modal-copy-prompt" class="btn-action" style="padding: 8px 16px;">Copy AI Trigger Prompt</button>
-        <button type="button" id="modal-inject-btn" class="btn-action" style="background: var(--primary); color: #000; padding: 8px 16px;">Inject into Project</button>
+        <button type="button" id="modal-copy-prompt" class="btn btn-secondary">Copy Trigger Prompt</button>
+        <button type="button" id="modal-inject-btn" class="btn btn-primary">Inject into Local Project</button>
       </div>
     </div>
   </div>
 
   <!-- Toast Notification -->
   <div id="toast" class="toast">
-    <span id="toast-icon">✅</span>
-    <span id="toast-message">Action successful!</span>
+    <span id="toast-message">Message</span>
   </div>
 
-  <!-- Footer -->
   <footer>
-    VibesPlug Pro v4.2.2 &bull; Engineered by Roedy Rustam &bull; Universal Swarm Architecture &bull; Zero AI Slop
+    <p>Vibes-Plug Pro v4.2.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 150 Skills</p>
   </footer>
 
   <script>
@@ -1186,16 +1465,15 @@ function generateStudioHtml() {
     let currentCategory = 'all';
     let searchQuery = '';
     let activeModalSkill = null;
+    const selectedSkills = new Set();
+    const studioPort = ${currentPort};
 
     // Toast helper
-    function showToast(message, icon = '✅') {
+    function showToast(message) {
       const toast = document.getElementById('toast');
-      document.getElementById('toast-icon').textContent = icon;
       document.getElementById('toast-message').textContent = message;
       toast.style.display = 'flex';
-      setTimeout(() => {
-        toast.style.display = 'none';
-      }, 3000);
+      setTimeout(() => { toast.style.display = 'none'; }, 3500);
     }
 
     // Tab Navigation
@@ -1228,7 +1506,7 @@ function generateStudioHtml() {
 
     // Keyboard shortcut '/' to search
     window.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== searchInput) {
+      if (e.key === '/' && document.activeElement !== searchInput && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault();
         searchInput.focus();
       }
@@ -1261,18 +1539,18 @@ function generateStudioHtml() {
         
         const injectBtn = document.getElementById('modal-inject-btn');
         if (data.isInstalled) {
-          injectBtn.textContent = '✅ Already Installed Locally';
+          injectBtn.textContent = 'Already Installed Locally';
           injectBtn.style.opacity = '0.7';
           injectBtn.disabled = true;
         } else {
-          injectBtn.textContent = '➕ Inject into Local Project (.agents/skills)';
+          injectBtn.textContent = 'Inject into Local Project (.agents/skills)';
           injectBtn.style.opacity = '1';
           injectBtn.disabled = false;
         }
 
         modal.classList.add('open');
       } catch (err) {
-        showToast('Error loading skill: ' + err.message, '❌');
+        showToast('Error loading skill: ' + err.message);
       }
     }
 
@@ -1297,14 +1575,14 @@ function generateStudioHtml() {
         if (result.success) {
           showToast(\`Injected '\${activeModalSkill.name}' successfully!\`);
           activeModalSkill.isInstalled = true;
-          document.getElementById('modal-inject-btn').textContent = '✅ Already Installed Locally';
+          document.getElementById('modal-inject-btn').textContent = 'Already Installed Locally';
           document.getElementById('modal-inject-btn').disabled = true;
           loadData();
         } else {
-          showToast(result.error || 'Failed to inject', '❌');
+          showToast(result.error || 'Failed to inject');
         }
       } catch (err) {
-        showToast('Error injecting skill: ' + err.message, '❌');
+        showToast('Error injecting skill: ' + err.message);
       }
     });
 
@@ -1315,6 +1593,70 @@ function generateStudioHtml() {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+    }
+
+    // Multi-select Recipe Builder Handlers
+    function toggleSkillSelection(skillName, e) {
+      if (e) e.stopPropagation();
+      if (selectedSkills.has(skillName)) {
+        selectedSkills.delete(skillName);
+      } else {
+        selectedSkills.add(skillName);
+      }
+      updateDrawer();
+      renderSkills();
+    }
+
+    function updateDrawer() {
+      const drawer = document.getElementById('recipe-builder-drawer');
+      const countEl = document.getElementById('drawer-selected-count');
+      countEl.textContent = selectedSkills.size;
+      drawer.style.display = selectedSkills.size > 0 ? 'flex' : 'none';
+    }
+
+    function clearSelectedSkills() {
+      selectedSkills.clear();
+      updateDrawer();
+      renderSkills();
+    }
+
+    async function injectSelectedSkills() {
+      if (selectedSkills.size === 0) return;
+      try {
+        const res = await fetch('/api/recipes/inject', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ skills: Array.from(selectedSkills) })
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast(\`Successfully injected \${result.count} skills into .agents/skills/\`);
+          clearSelectedSkills();
+          loadData();
+        } else {
+          showToast('Injection failed: ' + result.error);
+        }
+      } catch (err) {
+        showToast('Error: ' + err.message);
+      }
+    }
+
+    function exportSelectedJson() {
+      const payload = {
+        name: 'custom-bundle',
+        version: '1.0.0',
+        skills: Array.from(selectedSkills)
+      };
+      const jsonStr = JSON.stringify(payload, null, 2);
+      navigator.clipboard.writeText(jsonStr);
+      showToast('Copied recipe JSON bundle to clipboard!');
+    }
+
+    function copySelectedCli() {
+      const skillList = Array.from(selectedSkills).join(' ');
+      const cmd = \`vibes add \${skillList}\`;
+      navigator.clipboard.writeText(cmd);
+      showToast(\`Copied CLI command: "\${cmd}"\`);
     }
 
     // Render Skills Grid
@@ -1334,11 +1676,15 @@ function generateStudioHtml() {
       }
 
       container.innerHTML = filtered.map(s => {
+        const isSelected = selectedSkills.has(s.name);
         return \`
-          <div class="skill-card" role="button" tabindex="0" onclick="openSkillModal('\${s.name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSkillModal('\${s.name}')}">
+          <div class="skill-card \${isSelected ? 'selected' : ''}" role="button" tabindex="0" onclick="openSkillModal('\${s.name}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openSkillModal('\${s.name}')}">
             <div>
               <div class="skill-header">
-                <span class="skill-title">\${s.name}</span>
+                <div class="skill-title-group">
+                  <input type="checkbox" class="skill-select-box" aria-label="Select \${s.name}" \${isSelected ? 'checked' : ''} onclick="toggleSkillSelection('\${s.name}', event)" />
+                  <span class="skill-title">\${s.name}</span>
+                </div>
                 <span class="skill-badge" style="background: \${s.domainColor}22; color: \${s.domainColor}; border-color: \${s.domainColor}44;">
                   \${s.domainLabel.split(' ')[0]}
                 </span>
@@ -1392,7 +1738,7 @@ function generateStudioHtml() {
               \${r.skills.map(s => \`<span class="subagent-skill-tag">\${s}</span>\`).join('')}
             </div>
           </div>
-          <div style="display: flex; justify-content: flex-end; pt-2;">
+          <div style="display: flex; justify-content: flex-end; padding-top: 10px;">
             <button type="button" class="btn-action" onclick="applyRecipe('\${key}')">Apply Recipe via CLI</button>
           </div>
         </div>
@@ -1403,6 +1749,90 @@ function generateStudioHtml() {
       const cmd = \`vibes recipe apply \${key}\`;
       navigator.clipboard.writeText(cmd);
       showToast(\`Copied command: "\${cmd}" to clipboard!\`);
+    }
+
+    // Remote MCP Console Handlers
+    function copyMcpUrl() {
+      const url = \`http://localhost:\${studioPort}/sse\`;
+      navigator.clipboard.writeText(url);
+      showToast('Copied Remote MCP SSE URL to clipboard!');
+    }
+
+    function copyIdeConfig() {
+      const cfg = JSON.stringify({
+        mcpServers: {
+          "vibes-plug": {
+            url: \`http://localhost:\${studioPort}/sse\`
+          }
+        }
+      }, null, 2);
+      navigator.clipboard.writeText(cfg);
+      showToast('Copied IDE configuration to clipboard!');
+    }
+
+    function copyMcpOutput() {
+      const out = document.getElementById('mcp-output-terminal').textContent;
+      navigator.clipboard.writeText(out);
+      showToast('Copied output JSON to clipboard!');
+    }
+
+    const TOOL_SAMPLES = {
+      vibes_list_skills: '{}',
+      vibes_get_skill: '{\\n  "skillName": "senior-frontend"\\n}',
+      vibes_ast_query: '{\\n  "action": "symbols",\\n  "filePath": "bin/vibes.mjs"\\n}',
+      vibes_eval_sql: '{\\n  "sql": "CREATE TABLE users (id UUID PRIMARY KEY, email TEXT NOT NULL);"\\n}',
+      vibes_arbitrate_code: '{\\n  "candidates": [\\n    { "id": "A", "label": "Draft A", "code": "export const add = (a: number, b: number): number => a + b;" }\\n  ]\\n}',
+      vibes_verify_invariants: '{\\n  "typeScriptCode": "type Status = \\"idle\\" | \\"running\\" | \\"done\\";"\\n}',
+      vibes_compile_cache: '{}',
+      vibes_memory: '{\\n  "action": "query",\\n  "text": "Architecture"\\n}',
+      vibes_swarm: '{\\n  "taskDescription": "Build a secure webhook handler for DOKU SNAP BI"\\n}'
+    };
+
+    function onMcpToolChange() {
+      const select = document.getElementById('mcp-tool-select');
+      const tool = select.value;
+      const input = document.getElementById('mcp-payload-input');
+      input.value = TOOL_SAMPLES[tool] || '{}';
+    }
+
+    async function executeMcpTool() {
+      const tool = document.getElementById('mcp-tool-select').value;
+      const payloadStr = document.getElementById('mcp-payload-input').value;
+      const term = document.getElementById('mcp-output-terminal');
+      const elapsedEl = document.getElementById('mcp-elapsed');
+      const execBtn = document.getElementById('mcp-exec-btn');
+
+      let args = {};
+      try {
+        args = JSON.parse(payloadStr);
+      } catch (err) {
+        showToast('Invalid JSON in arguments: ' + err.message);
+        return;
+      }
+
+      term.textContent = '// Executing ' + tool + ' via Remote MCP...';
+      execBtn.disabled = true;
+      execBtn.textContent = 'Executing...';
+
+      try {
+        const start = performance.now();
+        const res = await fetch('/api/mcp/execute', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ tool, arguments: args })
+        });
+        const data = await res.json();
+        const elapsed = Math.round(performance.now() - start);
+        elapsedEl.textContent = \`Latency: \${elapsed}ms\`;
+        term.textContent = JSON.stringify(data, null, 2);
+        showToast(\`Executed \${tool} successfully (\${elapsed}ms)\`);
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+        showToast('Execution error: ' + err.message);
+      } finally {
+        execBtn.disabled = false;
+        execBtn.textContent = 'Execute Tool';
+      }
     }
 
     // Load initial data
@@ -1426,8 +1856,9 @@ function generateStudioHtml() {
         renderSkills();
         renderSubagents(subagents);
         renderRecipes(recipes);
+        onMcpToolChange();
       } catch (err) {
-        showToast('Failed to load studio data: ' + err.message, '❌');
+        showToast('Failed to load studio data: ' + err.message);
       }
     }
 
@@ -1440,26 +1871,122 @@ function generateStudioHtml() {
 export async function startStudioServer(options = {}) {
   const port = options.port || DEFAULT_PORT;
   const noOpen = options.noOpen || false;
+  const sseClients = new Map();
 
   const server = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const pathname = url.pathname;
+    const searchParams = url.searchParams;
 
     // Set CORS and JSON helper
     const sendJson = (data, statusCode = 200) => {
       res.writeHead(statusCode, {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-session-id'
       });
       res.end(JSON.stringify(data));
     };
 
-    if (req.method === 'GET' && pathname === '/') {
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(generateStudioHtml());
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-session-id'
+      });
+      res.end();
       return;
     }
 
+    // Static HTML Studio UI
+    if (req.method === 'GET' && (pathname === '/' || pathname === '/index.html')) {
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Access-Control-Allow-Origin': '*'
+      });
+      res.end(generateStudioHtml(port));
+      return;
+    }
+
+    // Remote MCP Server-Sent Events (SSE) Stream
+    if (req.method === 'GET' && pathname === '/sse') {
+      const sessionId = crypto.randomUUID();
+      res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+        'X-Accel-Buffering': 'no',
+        'Access-Control-Allow-Origin': '*'
+      });
+
+      res.write(`event: endpoint\ndata: /messages?sessionId=${sessionId}\n\n`);
+      sseClients.set(sessionId, res);
+
+      req.on('close', () => {
+        sseClients.delete(sessionId);
+      });
+      return;
+    }
+
+    // Remote MCP message receiver
+    if (req.method === 'POST' && pathname === '/messages') {
+      const sessionId = searchParams.get('sessionId') || req.headers['x-session-id'];
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const request = JSON.parse(body);
+          const response = await handleRpcRequest(request);
+
+          if (sessionId && sseClients.has(sessionId)) {
+            const clientRes = sseClients.get(sessionId);
+            clientRes.write(`event: message\ndata: ${JSON.stringify(response)}\n\n`);
+          }
+
+          sendJson({ status: 'accepted', response }, 202);
+        } catch (err) {
+          sendJson({ error: err.message }, 400);
+        }
+      });
+      return;
+    }
+
+    // MCP Tools catalog for UI
+    if (req.method === 'GET' && pathname === '/api/mcp/tools') {
+      sendJson(MCP_TOOLS);
+      return;
+    }
+
+    // Direct MCP execute endpoint for Studio console
+    if (req.method === 'POST' && pathname === '/api/mcp/execute') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { tool, arguments: args } = JSON.parse(body);
+          if (!tool) {
+            sendJson({ error: 'Tool name is required' }, 400);
+            return;
+          }
+          const rpcReq = {
+            jsonrpc: '2.0',
+            id: Date.now(),
+            method: 'tools/call',
+            params: { name: tool, arguments: args || {} }
+          };
+          const start = Date.now();
+          const rpcRes = await handleRpcRequest(rpcReq);
+          const elapsedMs = Date.now() - start;
+          sendJson({ result: rpcRes, elapsedMs });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // API Routes
     if (req.method === 'GET' && pathname === '/api/skills') {
       const skills = await loadSkillsCatalog();
       sendJson(skills);
@@ -1493,6 +2020,7 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Single skill inject endpoint
     if (req.method === 'POST' && pathname === '/api/inject') {
       let body = '';
       req.on('data', chunk => { body += chunk; });
@@ -1517,6 +2045,38 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Batch recipe injection endpoint
+    if (req.method === 'POST' && pathname === '/api/recipes/inject') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { skills } = JSON.parse(body);
+          if (!Array.isArray(skills) || skills.length === 0) {
+            sendJson({ error: 'Array of skill names is required' }, 400);
+            return;
+          }
+          const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
+          await fs.mkdir(targetBaseDir, { recursive: true });
+          const injected = [];
+          for (const sName of skills) {
+            const sourceDir = path.join(SKILLS_DIR, sName);
+            const targetDir = path.join(targetBaseDir, sName);
+            try {
+              await fs.cp(sourceDir, targetDir, { recursive: true });
+              injected.push(sName);
+            } catch {
+              // skip missing
+            }
+          }
+          sendJson({ success: true, count: injected.length, injected });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });
@@ -1534,6 +2094,7 @@ export async function startStudioServer(options = {}) {
     server.listen(port, () => {
       const localUrl = `http://localhost:${port}`;
       console.log(`\n⚡ Vibes-Plug Studio Cockpit is running at: \x1b[36m${localUrl}\x1b[0m`);
+      console.log(`📡 Remote MCP SSE stream available at: \x1b[35m${localUrl}/sse\x1b[0m`);
       console.log('Press Ctrl+C to stop the Studio server.\n');
 
       if (!noOpen) {

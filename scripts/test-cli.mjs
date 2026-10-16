@@ -95,7 +95,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     }
   });
 
-  await t.test('studio server should serve 150 skills and cockpit HTML', async () => {
+  await t.test('studio server should serve 150 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
     const { server, url } = await startStudioServer({ port: testPort, noOpen: true });
@@ -104,6 +104,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const htmlText = await htmlRes.text();
       assert.match(htmlText, /VibesPlug Pro Studio/);
       assert.match(htmlText, /150-Skill Swarm Architecture/);
+      assert.match(htmlText, /Remote Model Context Protocol/);
 
       const skillsRes = await fetch(`${url}/api/skills`);
       const skills = await skillsRes.json();
@@ -114,10 +115,31 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const status = await statusRes.json();
       assert.equal(status.totalSkills, 150);
       assert.equal(status.version, '4.2.2');
+      assert.equal(status.mcpToolsCount >= 10, true);
 
       const subagentsRes = await fetch(`${url}/api/subagents`);
       const subagents = await subagentsRes.json();
       assert.equal(subagents.length, 5);
+
+      // Test Remote MCP execute endpoint
+      const mcpExecRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tool: 'vibes_list_skills', arguments: {} })
+      });
+      const mcpData = await mcpExecRes.json();
+      assert.equal(mcpExecRes.status, 200);
+      assert.match(mcpData.result.result.content[0].text, /"total": 150/);
+
+      // Test Batch recipe injection validation
+      const batchRes = await fetch(`${url}/api/recipes/inject`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ skills: ['spec-driven-development-expert'] })
+      });
+      const batchData = await batchRes.json();
+      assert.equal(batchData.success, true);
+      assert.equal(batchData.count, 1);
     } finally {
       await new Promise((resolve) => server.close(resolve));
     }

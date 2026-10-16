@@ -1271,15 +1271,19 @@ switch (command) {
     break;
   case 'mcp':
   case 'serve-mcp': {
+    rl.close();
     const { spawn } = await import('child_process');
-    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')], { stdio: 'inherit' });
+    const extraArgs = args.slice(1);
+    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), ...extraArgs], { stdio: 'inherit' });
     child.on('exit', (code) => process.exit(code || 0));
     break;
   }
   case 'guard': {
-    const { execSync } = await import('child_process');
-    execSync('npm run guard', { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { execSync } = await import('child_process');
+    console.log('🛡️ Running full Sovereign Guard validation...');
+    execSync('node scripts/check-anti-slop.js', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execSync('node scripts/test-cli.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
     break;
   }
   case 'compile-cache': {

@@ -26,9 +26,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Menu selektor 3-mode: instalasi instan berdasarkan Paket Resep (Curated Recipes), Eksplorasi per Kategori Domain (Frontend, Backend, AI, SaaS, Keamanan, Data), atau kustomisasi penuh dari 150 skill.
 - **Perintah Generator Katalog Dokumentasi (`vibes docs`)**:
   - Perintah baru `vibes docs [markdown|json] [outputFile]` untuk menghasilkan tabel markdown atau JSON catalog dari seluruh 150 skill secara otomatis (`CATALOG.md` & `CATALOG.json`).
-- **Vibes-Plug Studio Cockpit (`vibes studio`, `scripts/studio-server.mjs`)**:
-  - Dashboard web lokal interaktif dengan arsitektur single-page application (SPA) tanpa dependensi eksternal (menggunakan `node:http`).
+- **Vibes-Plug Studio Cockpit & Visual Recipe Builder (`vibes studio`, `scripts/studio-server.mjs`)**:
+  - Dashboard web lokal interaktif dengan arsitektur single-page application (SPA) tanpa dependensi eksternal (menggunakan native `node:http`).
   - Fitur lengkap: Visualisasi 150 skill dengan filter 6 domain dan pencarian instan, topologi visual 5 subagent spesialis, status live engine P1–P5 (KV-cache, AST, in-memory DB, PRM, SMT), drawer detail skill, dan penyuntikan skill 1-klik (`/api/inject`) ke `.agents/skills/`.
+  - **Visual Recipe Builder & Batch Injection**: Seleksi multi-skill dengan checkbox, floating drawer tray, ekspor custom recipe JSON, generator CLI command, dan batch injection (`POST /api/recipes/inject`).
+  - **Remote Model Context Protocol (MCP v1.x) SSE Transport**: Integrasi streaming Server-Sent Events (`/sse` & `/messages`) langsung di Vibes Studio dan CLI (`vibes mcp --transport sse --port <n>`), memungkinkan Claude Desktop, Cursor, dan remote AI agents terhubung langsung ke 150 skill dan P1–P5 tools.
+  - **Konsol Interaktif MCP**: Tab konsol live di Studio untuk menguji eksekusi tool MCP secara langsung dengan pengukur latensi real-time dan konfigurasi 1-klik copy untuk IDE.
+- **Perintah CLI Baru (`vibes guard` & `vibes mcp`)**:
+  - `vibes guard`: Menjalankan validasi Sovereign Anti-Slop (281 berkas) dan seluruh rangkaian pengujian CLI (13 test suite) dalam satu perintah terpadu.
+  - `vibes mcp`: Menjalankan server Model Context Protocol bawaan baik melalui mode stdio maupun mode remote streaming HTTP/SSE (`--transport sse --port 3333`).
 - **Peningkatan Template Scaffolding (`vibes bootstrap` & `vibes init`)**:
   - Menambahkan template ke-6: `spec-api` untuk inisialisasi Contract-First API berbasis Hono/Node.js, TypeSpec, dan OpenAPI 3.1.
   - Memperkaya dokumen bawaan (`PRD.md`, `BLUEPRINT.md`, `PROGRESS.md`) dengan spesifikasi teknis konkret (PostgreSQL DDL schema, API JSON contract, NFR latency & accessibility budgets) sesuai Sovereign Anti-Slop Directive.
