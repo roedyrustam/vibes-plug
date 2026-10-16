@@ -24,7 +24,7 @@ export async function compileCache(options = {}) {
   const log = (...args) => { if (!quiet) console.log(...args); };
 
   log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  log('📦 Scanning 147-Skill Ecosystem for canonical prefix ordering...\n');
+  log('📦 Scanning 148-Skill Ecosystem for canonical prefix ordering...\n');
 
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -47,9 +47,9 @@ export async function compileCache(options = {}) {
 
   // 2. Build Canonical Deterministic Prefix Payload
   const canonicalPayload = {
-    version: '4.2.0',
+    version: '4.2.2',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
-    architecture: 'Vibes-Plug Swarm Architecture (147 Skills)',
+    architecture: 'Vibes-Plug Swarm Architecture (148 Skills)',
     orchestrator: 'Primary Trigger (Pemicu Utama)',
     domains: {
       ai_agentic: [
@@ -86,7 +86,7 @@ export async function compileCache(options = {}) {
         'wasm-edge-computing-expert'
       ],
       saas_cloud: [
-        'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
+        'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
         'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
         'feature-flag-analytics-expert', 'legacy-code-translator', 'micro-frontend-architect',
         'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
@@ -133,7 +133,7 @@ export async function compileCache(options = {}) {
 
   log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
   log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  log(`  🎯 Total Skills Included    : ${skillsData.length}/147`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length}/148`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;
