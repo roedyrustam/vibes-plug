@@ -166,7 +166,7 @@
     {
       "name": "brainstorming",
       "description": "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai.",
-      "version": "4.2.1",
+      "version": "4.2.2",
       "author": "Roedy Rustam"
     },
     {
@@ -922,7 +922,7 @@
     {
       "name": "zero-to-prod-orchestrator",
       "description": "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap.",
-      "version": "4.2.1",
+      "version": "4.2.2",
       "author": "Roedy Rustam"
     },
     {

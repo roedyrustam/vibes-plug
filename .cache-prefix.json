@@ -1,5 +1,5 @@
 {
-  "version": "4.2.2",
+  "version": "4.3.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
   "architecture": "Vibes-Plug Swarm Architecture (155 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
@@ -131,6 +131,7 @@
       "error-resilience-expert",
       "firebase-security-expert",
       "formal-spec-z3-verifier",
+      "logging-error-tracking-expert",
       "mcp-sampling-critic",
       "post-quantum-crypto-migrator",
       "production-ready-hardener",

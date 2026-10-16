@@ -12,12 +12,23 @@
     "bin",
     "assets",
     "agents",
+    "templates",
     "mcp_config.json",
     "plugin.json",
+    "gemini-extension.json",
+    ".codex-plugin",
     "AGENTS.md",
     "CLAUDE.md",
     "CODEX.md",
+    "CATALOG.md",
+    "CATALOG.json",
     ".cursorrules",
+    ".clinerules",
+    ".windsurfrules",
+    ".traerules",
+    ".kimirules",
+    ".kirorules",
+    ".cache-prefix.json",
     "scripts",
     "skills",
     "!**/__pycache__/**",
@@ -27,7 +38,6 @@
     ".cursor",
     ".codex",
     "README.md",
-    "BLUEPRINT.md",
     "CHANGELOG.md",
     "LICENSE"
   ],
@@ -87,5 +97,3 @@
   },
   "homepage": "https://github.com/roedyrustam/vibes-plug#readme"
 }
-
-

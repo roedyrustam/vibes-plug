@@ -23,9 +23,13 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+function isValidIdentifier(value) {
+  return typeof value === 'string' && /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(value);
+}
+
 async function runInit(projectName) {
-  if (!projectName) {
-    console.error('❌ Error: Project name is required.');
+  if (!projectName || !isValidIdentifier(projectName)) {
+    console.error('❌ Error: A valid alphanumeric project name is required.');
     console.log('Usage: vibes init <project-name>');
     process.exit(1);
   }
@@ -84,34 +88,38 @@ async function runBootstrap(templateName, projectName) {
       process.exit(1);
     }
 
-    // Resolve template-specific config first
-    let scaffoldCmd = null;
+    if (!isValidIdentifier(projectName)) {
+      console.error('❌ Error: Project name must be a safe alphanumeric/kebab-case identifier.');
+      process.exit(1);
+    }
+
+    let scaffoldArgs = [];
     let prdTitle = projectName;
     let specificSkills = [];
 
     if (templateName === 'saas') {
       prdTitle = 'Multi-Tenant SaaS';
-      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
       specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'doku-payment-gateway', 'supabase-security-expert'];
     } else if (templateName === 'ecommerce') {
       prdTitle = 'E-Commerce Platform';
-      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
       specificSkills = ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway'];
     } else if (templateName === 'mobile') {
       prdTitle = 'Mobile App (Expo)';
-      scaffoldCmd = `npx create-expo-app@latest ${projectName} --template blank-typescript --yes`;
+      scaffoldArgs = ['create-expo-app@latest', projectName, '--template', 'blank-typescript', '--yes'];
       specificSkills = ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'];
     } else if (templateName === 'api') {
       prdTitle = 'Backend API (Hono/Node.js)';
-      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
       specificSkills = ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'];
     } else if (templateName === 'fullstack') {
       prdTitle = 'Full-Stack T3 App';
-      scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
+      scaffoldArgs = ['create-t3-app@latest', projectName, '--CI', '--noGit', '--appRouter', '--tailwind', '--trpc', '--prisma', '--nextAuth'];
       specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
     } else if (templateName === 'spec-api') {
       prdTitle = 'Contract-First Spec-Driven API (TypeSpec & OpenAPI 3.1)';
-      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
       specificSkills = [
         'spec-driven-development-expert',
         'openapi-swagger-codegen-expert',
@@ -126,8 +134,9 @@ async function runBootstrap(templateName, projectName) {
     console.log(`\n\ud83d\ude80 Bootstrapping ${prdTitle} project: ${projectName}...`);
     console.log('\u23f3 This may take a minute or two as npm installs dependencies...\n');
 
-    const { execSync } = await import('child_process');
-    execSync(scaffoldCmd, { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    const npxBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    execFileSync(npxBin, scaffoldArgs, { stdio: 'inherit' });
 
     console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
 
@@ -252,7 +261,7 @@ async function runCreateSkill(skillName) {
 }
 
 async function runCreateMcp(serverName) {
-  if (!serverName) {
+  if (!serverName || !/^[a-zA-Z][a-zA-Z0-9-_]{0,63}$/.test(serverName)) {
     console.error('❌ Error: MCP Server name is required.');
     console.log('Usage: vibes create-mcp <server-name>');
     process.exit(1);
@@ -423,7 +432,7 @@ server.run().catch(console.error);
 }
 
 async function runAddSkill(skillName) {
-  if (!skillName) {
+  if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
     console.error('❌ Error: Skill name is required.');
     console.log('Usage: vibes add <skill-name>');
     process.exit(1);
@@ -513,12 +522,12 @@ async function runUi() {
       const chosenDomain = await select({
         message: 'Select domain category:',
         choices: [
-          { name: '🎨 Frontend & Mobile UI/UX (29 Skills)', value: 'frontend' },
-          { name: '⚙️ Backend, Systems & API Design (25 Skills)', value: 'backend' },
-          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (27 Skills)', value: 'ai' },
+          { name: '🎨 Frontend & Mobile UI/UX (35 Skills)', value: 'frontend' },
+          { name: '⚙️ Backend, Systems & API Design (27 Skills)', value: 'backend' },
+          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (30 Skills)', value: 'ai' },
           { name: '💸 SaaS, FinTech, E-Commerce & Growth (16 Skills)', value: 'saas' },
-          { name: '🛡️ Testing, Security, Anti-Slop & Quality (24 Skills)', value: 'security' },
-          { name: '🚀 Data, Media, Lifecycle & Orchestration (29 Skills)', value: 'data' }
+          { name: '🛡️ Testing, Security, Anti-Slop & Quality (23 Skills)', value: 'security' },
+          { name: '🚀 Data, Media, Lifecycle & Orchestration (24 Skills)', value: 'data' }
         ]
       });
 
@@ -533,7 +542,8 @@ async function runUi() {
           'rich-text-editor-expert', 'screenshot-to-code-expert', 'senior-frontend',
           'solidjs-expert', 'spa-orchestrator', 'state-management-expert',
           'svg-animation-motion-expert', 'svelte-sveltekit-expert', 'tailwind-expert',
-          'tanstack-query-expert', 'tauri-expert', 'ui-ux-pro-max', 'vue-frontend-expert'
+          'tanstack-query-expert', 'tauri-expert', 'ui-ux-pro-max', 'visual-ui-auditor',
+          'vue-frontend-expert', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
         ],
         backend: [
           'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
@@ -543,8 +553,8 @@ async function runUi() {
           'graphql-apollo-expert', 'js-backend-expert', 'legacy-code-translator',
           'living-codebase-ast-graph', 'monorepo-architect', 'mvc-expert',
           'openapi-swagger-codegen-expert', 'python-programming-expert', 'rust-programming-expert',
-          'scalability-clean-code', 'spec-driven-development-expert', 'typescript-expert',
-          'wasm-edge-computing-expert', 'web-game-engine-expert'
+          'scalability-clean-code', 'spec-driven-development-expert', 'structured-output-contracts',
+          'typescript-expert', 'wasm-edge-computing-expert', 'web-game-engine-expert'
         ],
         ai: [
           'adaptive-model-cascade', 'affective-computing-emotion-ai', 'agentic-coding-workflow-expert',
@@ -554,8 +564,9 @@ async function runUi() {
           'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
           'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
           'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
-          'pydantic-ai-expert', 'speculative-multi-draft-synthesizer', 'synthetic-data-finetuning-expert',
-          'test-time-compute-optimizer', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+          'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
+          'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
+          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
         ],
         saas: [
           'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
@@ -569,20 +580,20 @@ async function runUi() {
           'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
           'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
           'error-resilience-expert', 'firebase-security-expert', 'formal-spec-z3-verifier',
-          'logging-error-tracking-expert', 'post-quantum-crypto-migrator', 'production-ready-hardener',
-          'prompt-injection-firewall', 'property-mutation-testing-expert', 'rate-limit-abuse-prevention',
-          'supabase-security-expert', 'zero-tech-debt-auditor', 'zero-trust-secret-vault',
-          'coderabbit'
+          'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
+          'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
+          'rate-limit-abuse-prevention', 'supabase-security-expert', 'zero-tech-debt-auditor',
+          'zero-trust-secret-vault', 'coderabbit'
         ],
         data: [
           'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
           'ci-cd-devops-architect', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
-          'data-visualization-expert', 'dependency-upgrade-migrator', 'documentation-site-expert',
-          'file-upload-media-expert', 'geospatial-maps-expert', 'pdf-document-generation-expert',
-          'performance-web-vitals', 'prd-architect', 'proactive-background-watcher',
-          'realtime-collaboration-expert', 'search-engine-expert', 'self-healing-cloud-orchestrator',
-          'session-memory-manager', 'sse-websocket-streaming-expert', 'web-scraper',
-          'website-design-cloner', 'zero-to-prod-orchestrator'
+          'data-visualization-expert', 'database-orm-expert', 'dependency-upgrade-migrator',
+          'documentation-site-expert', 'file-upload-media-expert', 'geospatial-maps-expert',
+          'pdf-document-generation-expert', 'performance-web-vitals', 'prd-architect',
+          'proactive-background-watcher', 'realtime-collaboration-expert', 'search-engine-expert',
+          'self-healing-cloud-orchestrator', 'session-memory-manager', 'sse-websocket-streaming-expert',
+          'web-scraper', 'website-design-cloner', 'zero-to-prod-orchestrator'
         ]
       };
 
@@ -640,7 +651,7 @@ async function runUi() {
 }
 
 async function runRemoveSkill(skillName) {
-  if (!skillName) {
+  if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
     console.error('❌ Error: Skill name is required.');
     console.log('Usage: vibes remove <skill-name>');
     process.exit(1);
@@ -756,7 +767,11 @@ async function runVersion(action, type) {
     const files = [
       { path: pkgPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: pluginJsonPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, 'gemini-extension.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, '.codex-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
+      { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` }
     ];
 
     for (const { path: filePath, from, to } of files) {
@@ -1086,7 +1101,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 125 skills.');
+    console.log('Try: vibes list  to browse all 155 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1173,7 +1188,7 @@ async function runDocs(format = 'markdown', outputFile) {
         catalog.push({
           name: skillName,
           description: descMatch ? descMatch[1].trim() : '',
-          version: versionMatch ? versionMatch[1].trim() : '4.2.2',
+          version: versionMatch ? versionMatch[1].trim() : '4.3.0',
           author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
         });
       } catch (e) {
@@ -1191,7 +1206,7 @@ async function runDocs(format = 'markdown', outputFile) {
       }
     } else {
       let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
-      md += `*Universal AI Agent Swarm Architecture (v4.2.2)*\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.3.0)*\n\n`;
       md += `| Skill Name | Version | Description |\n`;
       md += `| :--- | :---: | :--- |\n`;
       for (const item of catalog) {
@@ -1260,8 +1275,8 @@ Commands:
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 150-skill ecosystem catalog
-  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 150-skill explorer)
+  docs [markdown|json]      Export or preview the complete 155-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 155-skill explorer)
   help                      Show this help menu
 `);
   rl.close();
@@ -1283,10 +1298,11 @@ switch (command) {
   }
   case 'guard': {
     rl.close();
-    const { execSync } = await import('child_process');
+    const { execFileSync } = await import('child_process');
     console.log('🛡️ Running full Sovereign Guard validation...');
-    execSync('node scripts/check-anti-slop.js', { stdio: 'inherit', cwd: PLUGIN_ROOT });
-    execSync('node scripts/test-cli.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execFileSync(process.execPath, ['scripts/validate-skills.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execFileSync(process.execPath, ['scripts/check-anti-slop.js', '--strict'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execFileSync(process.execPath, ['--test', 'scripts/test-cli.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     break;
   }
   case 'cache': {

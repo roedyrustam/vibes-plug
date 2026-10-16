@@ -38,7 +38,7 @@ export async function compileCache(options = {}) {
       const descMatch = content.match(/description:\s*["']?([^"'\n\r]+)/);
       const versionMatch = content.match(/version:\s*["']?([^"'\n\r]+)/);
       const desc = descMatch ? descMatch[1].trim() : '';
-      const version = versionMatch ? versionMatch[1].trim() : '4.2.0';
+      const version = versionMatch ? versionMatch[1].trim() : '4.3.0';
       skillsData.push({ name: skillName, description: desc, version });
     } catch (e) {
       console.warn(`  ⚠️ Could not read ${skillName}: ${e.message}`);
@@ -47,7 +47,7 @@ export async function compileCache(options = {}) {
 
   // 2. Build Canonical Deterministic Prefix Payload
   const canonicalPayload = {
-    version: '4.2.2',
+    version: '4.3.0',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
     architecture: 'Vibes-Plug Swarm Architecture (155 Skills)',
     orchestrator: 'Primary Trigger (Pemicu Utama)',
@@ -102,7 +102,7 @@ export async function compileCache(options = {}) {
         'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
         'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
         'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'firebase-security-expert',
-        'formal-spec-z3-verifier', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
+        'formal-spec-z3-verifier', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
         'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
         'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault'
       ],
@@ -220,7 +220,7 @@ export async function getCacheStatus() {
     mtime,
     estimatedTokens,
     totalSkills: data?.totalSkills || 155,
-    version: data?.version || '4.2.2',
+    version: data?.version || '4.3.0',
     platforms: {
       claude: { eligible: eligibleClaude, threshold: 1024, discountPct: 90, savingsPer1k: Number(claudeSavingsPer1k.toFixed(3)) },
       gemini: { eligible: eligibleGemini, threshold: 1024, discountPct: 75, savingsPer1k: Number(geminiSavingsPer1k.toFixed(3)) },

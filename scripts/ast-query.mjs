@@ -93,8 +93,10 @@ export async function extractSymbolCode(filePath, symbolName) {
   let started = false;
 
   for (let i = startIdx; i < lines.length; i++) {
-    const l = lines[i];
-    for (const char of l) {
+    const strippedLine = lines[i]
+      .replace(/\/\/.*$/, '')
+      .replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, '');
+    for (const char of strippedLine) {
       if (char === '{') {
         bracketCount++;
         started = true;
@@ -106,7 +108,7 @@ export async function extractSymbolCode(filePath, symbolName) {
       endIdx = i;
       break;
     }
-    if (i > startIdx + 100) { // Safety ceiling
+    if (i > startIdx + 500) {
       endIdx = i;
       break;
     }

@@ -1,6 +1,6 @@
 # Vibes-Plug Skills Catalog (155 Skills)
 
-*Universal AI Agent Swarm Architecture (v4.2.2)*
+*Universal AI Agent Swarm Architecture (v4.3.0)*
 
 | Skill Name | Version | Description |
 | :--- | :---: | :--- |
@@ -31,7 +31,7 @@
 | `autonomous-tdd-debugger` | `4.2.1` | Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger. |
 | `biome-linter-formatter-expert` | `4.2.1` | Expert guide for Biome (Rust-based linter + formatter), ESLint/Prettier migration, and code quality tooling / Panduan ahli Biome (linter + formatter berbasis Rust), migrasi dari ESLint/Prettier, dan tooling kualitas kode. |
 | `blockchain-web3-expert` | `4.2.1` | Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state / Panduan ahli integrasi Web3 dan blockchain. |
-| `brainstorming` | `4.2.1` | Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai. |
+| `brainstorming` | `4.2.2` | Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai. |
 | `browser-automation-expert` | `4.2.1` | Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM. |
 | `browser-extension-mv3-pro` | `4.2.2` | Expert guide for modern browser extension development (Manifest V3) — Chrome SidePanel API, Background Service Workers, Offscreen Documents, declarativeNetRequest, WebAssembly in MV3, and cross-browser WebExtensions / Panduan ahli pengembangan ekstensi browser modern (Manifest V3). |
 | `bun-runtime-expert` | `4.2.1` | Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun. |
@@ -157,5 +157,5 @@
 | `webxr-ar-vr-expert` | `4.2.1` | Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR). |
 | `wordpress-headless-expert` | `4.2.1` | Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless. |
 | `zero-tech-debt-auditor` | `4.2.1` | Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a Zero Debt codebase / Orkestrator otonom untuk menghapus utang teknis sebelum rilis. |
-| `zero-to-prod-orchestrator` | `4.2.1` | Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap. |
+| `zero-to-prod-orchestrator` | `4.2.2` | Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap. |
 | `zero-trust-secret-vault` | `4.2.1` | Expert guide for Zero-Trust Secret Management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment security / Panduan ahli manajemen rahasia Zero-Trust, rotasi kunci API, dan keamanan variabel lingkungan. |

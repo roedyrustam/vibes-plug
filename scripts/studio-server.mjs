@@ -3,7 +3,7 @@
 /**
  * Vibes-Plug Studio Cockpit Server
  * Lightweight, zero-dependency local web dashboard for Vibes-Plug Pro.
- * Visualizes the 150 AI domain skills, subagent swarm topologies, superintelligence engines,
+ * Visualizes the 155 AI domain skills, subagent swarm topologies, superintelligence engines,
  * Visual Recipe Builder, Remote Model Context Protocol (MCP v1.x) SSE transport,
  * Autonomous Swarm Planner & Simulator, Visual Agent Builder, and Episodic Memory Manager.
  * 
@@ -84,7 +84,7 @@ const SKILL_DOMAIN_MAP = {
   'solidjs-expert': 'frontend', 'spa-orchestrator': 'frontend', 'state-management-expert': 'frontend',
   'svg-animation-motion-expert': 'frontend', 'svelte-sveltekit-expert': 'frontend', 'tailwind-expert': 'frontend',
   'tanstack-query-expert': 'frontend', 'tauri-expert': 'frontend', 'ui-ux-pro-max': 'frontend', 'vue-frontend-expert': 'frontend',
-  'visual-ui-auditor': 'frontend',
+  'visual-ui-auditor': 'frontend', 'performance-web-vitals': 'frontend', 'web-3d-graphics-expert': 'frontend', 'webxr-ar-vr-expert': 'frontend',
 
   // Backend
   'api-design-expert': 'backend', 'api-gateway-proxy-expert': 'backend', 'async-queue-temporal-expert': 'backend',
@@ -133,7 +133,7 @@ const SKILL_DOMAIN_MAP = {
   'documentation-site-expert': 'data', 'file-upload-media-expert': 'data', 'geospatial-maps-expert': 'data',
   'pdf-document-generation-expert': 'data', 'prd-architect': 'data', 'proactive-background-watcher': 'data',
   'production-ready-hardener': 'data', 'search-engine-expert': 'data', 'self-healing-cloud-orchestrator': 'data',
-  'session-memory-manager': 'data', 'web-scraper': 'data', 'website-design-cloner': 'data', 'zero-to-prod-orchestrator': 'data'
+  'session-memory-manager': 'data', 'realtime-collaboration-expert': 'data', 'sse-websocket-streaming-expert': 'data', 'web-scraper': 'data', 'website-design-cloner': 'data', 'zero-to-prod-orchestrator': 'data'
 };
 
 const RECIPES = {
@@ -231,7 +231,7 @@ async function loadSkillsCatalog() {
         const fmMatch = content.match(/---[\r\n]+([\s\S]*?)[\r\n]+---/);
         let description = 'Specialized AI domain skill';
         let author = 'Roedy Rustam';
-        let version = '4.2.2';
+        let version = '4.3.0';
 
         if (fmMatch) {
           const fm = fmMatch[1];
@@ -1187,7 +1187,7 @@ function generateStudioHtml(currentPort) {
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
-            <div class="brand-tag">v4.2.2</div>
+            <div class="brand-tag">v4.3.0</div>
           </div>
           <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 155-Agent Swarm Operating System</div>
         </div>
@@ -1616,7 +1616,7 @@ function generateStudioHtml(currentPort) {
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.2.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
+    <p>Vibes-Plug Pro v4.3.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
   </footer>
 
   <script>
@@ -2224,6 +2224,46 @@ function generateStudioHtml(currentPort) {
 </html>`;
 }
 
+const KEBAB_SLUG_REGEX = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const MAX_BODY_BYTES = 1024 * 1024;
+
+function isValidSkillSlug(name) {
+  return typeof name === 'string' && KEBAB_SLUG_REGEX.test(name.trim());
+}
+
+function resolveAllowedOrigin(req, port) {
+  const origin = req.headers.origin;
+  if (!origin) return `http://localhost:${port}`;
+  if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) {
+    return origin;
+  }
+  return 'null';
+}
+
+function readJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = '';
+    let bytes = 0;
+    req.on('data', chunk => {
+      bytes += chunk.length;
+      if (bytes > MAX_BODY_BYTES) {
+        req.destroy();
+        reject(new Error('Request payload exceeds 1MB limit'));
+        return;
+      }
+      body += chunk;
+    });
+    req.on('end', () => {
+      try {
+        resolve(body ? JSON.parse(body) : {});
+      } catch (err) {
+        reject(err);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
 export async function startStudioServer(options = {}) {
   const port = options.port || DEFAULT_PORT;
   const noOpen = options.noOpen || false;
@@ -2233,12 +2273,12 @@ export async function startStudioServer(options = {}) {
     const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const pathname = url.pathname;
     const searchParams = url.searchParams;
+    const allowedOrigin = resolveAllowedOrigin(req, port);
 
-    // Set CORS and JSON helper
     const sendJson = (data, statusCode = 200) => {
       res.writeHead(statusCode, {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': allowedOrigin,
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-session-id'
       });
@@ -2476,6 +2516,10 @@ export async function startStudioServer(options = {}) {
 
     if (req.method === 'GET' && pathname.startsWith('/api/skills/')) {
       const skillName = pathname.replace('/api/skills/', '').trim();
+      if (!isValidSkillSlug(skillName)) {
+        sendJson({ error: 'Invalid skill name format' }, 400);
+        return;
+      }
       const details = await getSkillDetails(skillName);
       if (details) {
         sendJson(details);
@@ -2545,58 +2589,56 @@ export async function startStudioServer(options = {}) {
 
     // Single skill inject endpoint
     if (req.method === 'POST' && pathname === '/api/inject') {
-      let body = '';
-      req.on('data', chunk => { body += chunk; });
-      req.on('end', async () => {
-        try {
-          const { skill } = JSON.parse(body);
-          if (!skill) {
-            sendJson({ error: 'Skill name is required' }, 400);
-            return;
-          }
-          const sourceDir = path.join(SKILLS_DIR, skill);
-          const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
-          const targetDir = path.join(targetBaseDir, skill);
-
-          await fs.mkdir(targetBaseDir, { recursive: true });
-          await fs.cp(sourceDir, targetDir, { recursive: true });
-          sendJson({ success: true, message: `Skill ${skill} injected successfully` });
-        } catch (err) {
-          sendJson({ error: err.message }, 500);
+      try {
+        const { skill } = await readJsonBody(req);
+        if (!skill || !isValidSkillSlug(skill)) {
+          sendJson({ error: 'Valid kebab-case skill name is required' }, 400);
+          return;
         }
-      });
+        const sourceDir = path.resolve(SKILLS_DIR, skill.trim());
+        if (!sourceDir.startsWith(SKILLS_DIR + path.sep)) {
+          sendJson({ error: 'Path traversal blocked' }, 400);
+          return;
+        }
+        const targetBaseDir = path.resolve(process.cwd(), '.agents', 'skills');
+        const targetDir = path.resolve(targetBaseDir, skill.trim());
+
+        await fs.mkdir(targetBaseDir, { recursive: true });
+        await fs.cp(sourceDir, targetDir, { recursive: true });
+        sendJson({ success: true, message: `Skill ${skill} injected successfully` });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
       return;
     }
 
     // Batch recipe injection endpoint
     if (req.method === 'POST' && pathname === '/api/recipes/inject') {
-      let body = '';
-      req.on('data', chunk => { body += chunk; });
-      req.on('end', async () => {
-        try {
-          const { skills } = JSON.parse(body);
-          if (!Array.isArray(skills) || skills.length === 0) {
-            sendJson({ error: 'Array of skill names is required' }, 400);
-            return;
-          }
-          const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
-          await fs.mkdir(targetBaseDir, { recursive: true });
-          const injected = [];
-          for (const sName of skills) {
-            const sourceDir = path.join(SKILLS_DIR, sName);
-            const targetDir = path.join(targetBaseDir, sName);
-            try {
-              await fs.cp(sourceDir, targetDir, { recursive: true });
-              injected.push(sName);
-            } catch {
-              // skip missing
-            }
-          }
-          sendJson({ success: true, count: injected.length, injected });
-        } catch (err) {
-          sendJson({ error: err.message }, 500);
+      try {
+        const { skills } = await readJsonBody(req);
+        if (!Array.isArray(skills) || skills.length === 0) {
+          sendJson({ error: 'Array of skill names is required' }, 400);
+          return;
         }
-      });
+        const targetBaseDir = path.resolve(process.cwd(), '.agents', 'skills');
+        await fs.mkdir(targetBaseDir, { recursive: true });
+        const injected = [];
+        for (const sName of skills) {
+          if (!isValidSkillSlug(sName)) continue;
+          const sourceDir = path.resolve(SKILLS_DIR, sName.trim());
+          if (!sourceDir.startsWith(SKILLS_DIR + path.sep)) continue;
+          const targetDir = path.resolve(targetBaseDir, sName.trim());
+          try {
+            await fs.cp(sourceDir, targetDir, { recursive: true });
+            injected.push(sName.trim());
+          } catch {
+            // skip missing
+          }
+        }
+        sendJson({ success: true, count: injected.length, injected });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
       return;
     }
 

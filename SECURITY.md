@@ -2,20 +2,24 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the latest minor release series of **Vibes-Plug** receives active security patches and hardening updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| 4.3.x   | :white_check_mark: |
+| 4.2.x   | :white_check_mark: |
+| < 4.2.0 | :x:                |
+
+## Security Scope
+
+Vibes-Plug enforces strict local execution boundaries across:
+- **CLI Scaffolding (`bin/vibes.mjs`)**: Parameterized child process execution (`execFileSync`) and strict `kebab-case` identifier validation to prevent command injection and path traversal.
+- **Native & Remote MCP Server (`bin/mcp-server.mjs`)**: Localhost binding (`127.0.0.1`), origin validation, request payload size caps (1 MB), and directory confinement on skill read/inject operations.
+- **Studio Cockpit (`scripts/studio-server.mjs`)**: Local-only origin policy and path-sanitized skill/recipe injection.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If you discover a security vulnerability within Vibes-Plug:
+1. **Do not open a public GitHub issue.**
+2. Report the vulnerability privately via [GitHub Security Advisories](https://github.com/roedyrustam/vibes-plug/security/advisories/new) or contact the maintainer directly through the repository profile.
+3. Include a minimal reproduction case, affected CLI command or MCP tool name, and environment details. You can expect an initial maintainer response within 48 hours.

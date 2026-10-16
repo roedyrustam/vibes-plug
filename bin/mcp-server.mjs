@@ -299,7 +299,7 @@ export const MCP_RESOURCES = [
   {
     uri: 'vibes://cache/prefix',
     name: 'Deterministic KV-Cache Prefix',
-    description: 'Compiled 150-skill canonical prefix (>1024 tokens) for prompt caching',
+    description: 'Compiled 155-skill canonical prefix (>1024 tokens) for prompt caching',
     mimeType: 'application/json'
   },
   {
@@ -326,7 +326,7 @@ export async function handleRpcRequest(request) {
         },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.2.2'
+          version: '4.3.0'
         }
       }
     };
@@ -532,7 +532,13 @@ export async function handleRpcRequest(request) {
         contentText = JSON.stringify(res, null, 2);
       } else if (name === 'vibes_get_skill') {
         const skillName = args?.skillName?.trim();
-        const skillPath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+        if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
+          throw new Error("Invalid 'skillName': must be a valid kebab-case skill identifier.");
+        }
+        const skillPath = path.resolve(SKILLS_DIR, skillName, 'SKILL.md');
+        if (!skillPath.startsWith(SKILLS_DIR + path.sep)) {
+          throw new Error('Path traversal is prohibited.');
+        }
         const content = await fs.readFile(skillPath, 'utf8');
         contentText = content;
       } else if (name === 'vibes_list_skills') {
@@ -555,10 +561,15 @@ export async function handleRpcRequest(request) {
         contentText = JSON.stringify({ total: list.length, skills: list }, null, 2);
       } else if (name === 'vibes_inject_skill') {
         const sName = args?.skillName?.trim();
-        if (!sName) throw new Error("Argument 'skillName' is required.");
-        const sourceDir = path.join(SKILLS_DIR, sName);
-        const targetBaseDir = path.join(process.cwd(), '.agents', 'skills');
-        const targetDir = path.join(targetBaseDir, sName);
+        if (!sName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(sName)) {
+          throw new Error("Argument 'skillName' must be a valid kebab-case skill identifier.");
+        }
+        const sourceDir = path.resolve(SKILLS_DIR, sName);
+        if (!sourceDir.startsWith(SKILLS_DIR + path.sep)) {
+          throw new Error('Path traversal is prohibited.');
+        }
+        const targetBaseDir = path.resolve(process.cwd(), '.agents', 'skills');
+        const targetDir = path.resolve(targetBaseDir, sName);
         await fs.mkdir(targetBaseDir, { recursive: true });
         await fs.cp(sourceDir, targetDir, { recursive: true });
         contentText = JSON.stringify({ success: true, message: `Skill '${sName}' injected successfully into ${targetDir}` }, null, 2);
@@ -652,7 +663,7 @@ export function startStdioServer() {
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.2] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.3.0] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -712,7 +723,15 @@ export function startSseServer(port = 3333) {
     if (req.method === 'POST' && pathname === '/messages') {
       const sessionId = searchParams.get('sessionId') || req.headers['x-session-id'];
       let body = '';
-      req.on('data', chunk => { body += chunk; });
+      let bytes = 0;
+      req.on('data', chunk => {
+        bytes += chunk.length;
+        if (bytes > 1048576) {
+          req.destroy();
+          return;
+        }
+        body += chunk;
+      });
       req.on('end', async () => {
         try {
           const request = JSON.parse(body);
@@ -738,7 +757,7 @@ export function startSseServer(port = 3333) {
       res.end(JSON.stringify({
         status: 'online',
         service: 'vibes-plug-mcp',
-        version: '4.2.2',
+        version: '4.3.0',
         transport: 'sse',
         endpoints: {
           sse: '/sse',
@@ -756,7 +775,7 @@ export function startSseServer(port = 3333) {
   return new Promise((resolve, reject) => {
     server.on('error', reject);
     server.listen(port, () => {
-      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.2.2] Listening on SSE at: http://localhost:${port}/sse`);
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.3.0] Listening on SSE at: http://localhost:${port}/sse`);
       console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
       resolve({ server, port });
     });
