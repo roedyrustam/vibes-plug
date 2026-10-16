@@ -1258,6 +1258,7 @@ Commands:
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
   docs [markdown|json]      Export or preview the complete 150-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 150-skill explorer)
   help                      Show this help menu
 `);
   rl.close();
@@ -1389,6 +1390,15 @@ switch (command) {
   case 'catalog':
     runDocs(args[1], args[2]);
     break;
+  case 'studio': {
+    rl.close();
+    const { startStudioServer } = await import(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'));
+    const portIdx = args.indexOf('--port');
+    const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
+    const noOpen = args.includes('--no-open');
+    await startStudioServer({ port, noOpen });
+    break;
+  }
   default:
     showHelp();
     break;

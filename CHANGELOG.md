@@ -26,6 +26,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Menu selektor 3-mode: instalasi instan berdasarkan Paket Resep (Curated Recipes), Eksplorasi per Kategori Domain (Frontend, Backend, AI, SaaS, Keamanan, Data), atau kustomisasi penuh dari 150 skill.
 - **Perintah Generator Katalog Dokumentasi (`vibes docs`)**:
   - Perintah baru `vibes docs [markdown|json] [outputFile]` untuk menghasilkan tabel markdown atau JSON catalog dari seluruh 150 skill secara otomatis (`CATALOG.md` & `CATALOG.json`).
+- **Vibes-Plug Studio Cockpit (`vibes studio`, `scripts/studio-server.mjs`)**:
+  - Dashboard web lokal interaktif dengan arsitektur single-page application (SPA) tanpa dependensi eksternal (menggunakan `node:http`).
+  - Fitur lengkap: Visualisasi 150 skill dengan filter 6 domain dan pencarian instan, topologi visual 5 subagent spesialis, status live engine P1–P5 (KV-cache, AST, in-memory DB, PRM, SMT), drawer detail skill, dan penyuntikan skill 1-klik (`/api/inject`) ke `.agents/skills/`.
 - **Peningkatan Template Scaffolding (`vibes bootstrap` & `vibes init`)**:
   - Menambahkan template ke-6: `spec-api` untuk inisialisasi Contract-First API berbasis Hono/Node.js, TypeSpec, dan OpenAPI 3.1.
   - Memperkaya dokumen bawaan (`PRD.md`, `BLUEPRINT.md`, `PROGRESS.md`) dengan spesifikasi teknis konkret (PostgreSQL DDL schema, API JSON contract, NFR latency & accessibility budgets) sesuai Sovereign Anti-Slop Directive.

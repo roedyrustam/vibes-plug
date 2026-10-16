@@ -94,4 +94,32 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       await fs.rm(tempDir, { recursive: true, force: true });
     }
   });
+
+  await t.test('studio server should serve 150 skills and cockpit HTML', async () => {
+    const { startStudioServer } = await import('./studio-server.mjs');
+    const testPort = 3991;
+    const { server, url } = await startStudioServer({ port: testPort, noOpen: true });
+    try {
+      const htmlRes = await fetch(url);
+      const htmlText = await htmlRes.text();
+      assert.match(htmlText, /VibesPlug Pro Studio/);
+      assert.match(htmlText, /150-Skill Swarm Architecture/);
+
+      const skillsRes = await fetch(`${url}/api/skills`);
+      const skills = await skillsRes.json();
+      assert.equal(Array.isArray(skills), true);
+      assert.equal(skills.length, 150);
+
+      const statusRes = await fetch(`${url}/api/status`);
+      const status = await statusRes.json();
+      assert.equal(status.totalSkills, 150);
+      assert.equal(status.version, '4.2.2');
+
+      const subagentsRes = await fetch(`${url}/api/subagents`);
+      const subagents = await subagentsRes.json();
+      assert.equal(subagents.length, 5);
+    } finally {
+      await new Promise((resolve) => server.close(resolve));
+    }
+  });
 });

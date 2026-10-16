@@ -231,9 +231,10 @@ The Swarm Director automatically intercepts the request, runs Step 1 Context Dis
 ```bash
 # Workspace & Skill Management
 vibes init <project-name>        # Scaffolds 8-Phase Zero-To-Prod structure (README, PROGRESS, BLUEPRINT, PRD)
-vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecommerce | mobile | api | fullstack)
+vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecommerce | mobile | api | fullstack | spec-api)
 vibes sync                       # Verifies & synchronizes master trigger across all IDE rules
 vibes ui                         # Interactive terminal TUI to visually select & install skills
+vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 150-skill explorer)
 vibes list [filter]              # Lists all 150 skills (optional: keyword filter)
 vibes search <query>             # Searches 150 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
@@ -368,9 +369,10 @@ Swarm Director akan otomatis mencegat permintaan, menjalankan Tahap 1 Penemuan K
 ```bash
 # Manajemen Workspace & Skill
 vibes init <project-name>        # Men-scaffold struktur Zero-To-Prod 8-Fase (README, PROGRESS, BLUEPRINT, PRD)
-vibes bootstrap <type> <name>    # Super-scaffold proyek + skill (saas | ecommerce | mobile | api | fullstack)
+vibes bootstrap <type> <name>    # Super-scaffold proyek + skill (saas | ecommerce | mobile | api | fullstack | spec-api)
 vibes sync                       # Verifikasi & sinkronisasi aturan pemicu utama di semua IDE
 vibes ui                         # TUI terminal interaktif untuk memilih dan memasang skill secara visual
+vibes studio [--port <n>]        # Membuka dashboard web lokal Studio Cockpit (eksplorasi visual 150 skill)
 vibes list [filter]              # Menampilkan daftar 150 skill (opsional: filter kata kunci)
 vibes search <query>             # Mencari 150 skill berdasarkan relevansi kata kunci
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
@@ -478,6 +480,7 @@ npm test
 ### 💻 核心 CLI 命令
 - `vibes init <project-name>` — 初始化 8 阶段端到端项目架构。
 - `vibes ui` — 终端交互式 TUI 界面，可视化选择与安装技能。
+- `vibes studio [--port <n>]` — 启动本地 Web Studio 驾驶舱仪表板 (150 个技能可视化探索、子代理集群与 P1-P5 引擎)。
 - `vibes recipe list` — 列出预置技能配方套件 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
 - `vibes docs [markdown|json]` — 导出 150 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
 - `vibes guard` — 运行完整的 Sovereign Guard CI 生产就绪验证流水线 (P1–P5 + Anti-Slop)。
@@ -566,6 +569,7 @@ npm test
 ### 💻 Wichtigste CLI-Befehle
 - `vibes init <project-name>` — Initialisiert die 8-Phasen-Zero-To-Prod-Architektur.
 - `vibes ui` — Interaktives Terminal-TUI zur visuellen Auswahl und Installation von Skills.
+- `vibes studio [--port <n>]` — Startet das lokale Web-Studio-Dashboard (visueller 150-Skill-Explorer, Subagenten-Swarm und P1–P5 Cockpit).
 - `vibes recipe list` — Listet kuratierte Skill-Pakete auf (ai-stack, fullstack-pro, fintech-core, spec-driven-api).
 - `vibes docs [markdown|json]` — Exportiert den vollständigen 150-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
 - `vibes guard` — Führt die vollständige Sovereign Guard CI-Validierung aus (P1–P5 + Anti-Slop).
@@ -654,6 +658,7 @@ npm test
 ### 💻 主な CLI コマンド
 - `vibes init <project-name>` — 8フェーズ Zero-To-Prod 開発プロジェクトを初期化。
 - `vibes ui` — スキルを視覚的に選択してインストールするインタラクティブなターミナル TUI。
+- `vibes studio [--port <n>]` — ローカル Web Studio コックピットダッシュボードを起動 (150スキルの視覚的探索、サブエージェント、P1-P5)。
 - `vibes recipe list` — キュレーションされたスキルレシピ一覧 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
 - `vibes docs [markdown|json]` — 150のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
 - `vibes guard` — 完全な Sovereign Guard CI パイプラインを実行 (P1–P5 + Anti-Slop)。
