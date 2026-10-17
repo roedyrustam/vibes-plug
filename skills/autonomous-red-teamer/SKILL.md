@@ -173,7 +173,7 @@ func FuzzParseConfig(f *testing.F) {
 - **Run Fuzzer**: Run `go test -fuzz=FuzzParseConfig -fuzztime=10m`.
 
 ## Orchestration & Integration
-- Connects to: `secure-fuzz-testing`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.
+- Connects to: `property-mutation-testing-expert`, `autonomous-tdd-debugger`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.
 
 ---
 
@@ -335,4 +335,4 @@ func FuzzParseConfig(f *testing.F) {
 - **Jalankan Fuzzer**: Eksekusi perintah `go test -fuzz=FuzzParseConfig -fuzztime=10m`.
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `secure-fuzz-testing`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.
+- Terintegrasi dengan: `property-mutation-testing-expert`, `autonomous-tdd-debugger`, `authentication-identity-expert`, `doku-payment-gateway`, `rate-limit-abuse-prevention`, `zero-trust-secret-vault`.
