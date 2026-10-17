@@ -2,7 +2,7 @@
 name: thinking-budget-orchestrator
 description: "Expert guide for dynamic thinking budget allocation, test-time reasoning scaling (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3/o4-mini), and task complexity heuristics / Panduan ahli alokasi budget penalaran dinamis dan penskalaan reasoning test-time."
 author: "Roedy Rustam"
-version: "4.2.2"
+version: "4.3.0"
 ---
 
 # thinking-budget-orchestrator — vibes-plug Skill

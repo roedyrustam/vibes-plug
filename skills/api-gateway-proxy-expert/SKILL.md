@@ -1,11 +1,11 @@
 ---
 name: api-gateway-proxy-expert
 description: "Expert guide for API Gateways, Reverse Proxies, and Service Mesh. Covers Kong, Traefik, NGINX, Cloudflare Gateway, and load balancing / Panduan ahli untuk API Gateway, Reverse Proxy, dan Service Mesh."
-author: "Roedy Rustam"
-version: "4.2.1"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
-# API Gateway & Reverse Proxy Expert
+# API Gateway, Reverse Proxy & Service Perimeter Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -15,36 +15,109 @@ version: "4.2.1"
 ## English
 
 ### Description
-A comprehensive guide for routing, load balancing, and managing traffic at the perimeter of your microservices architecture. Covers configuring API Gateways (Kong, Tyk), modern reverse proxies (Traefik, Caddy, NGINX), and understanding Service Mesh patterns.
+Production architectural guide for API Gateways, Edge Proxies, and perimeter traffic management in modern microservices and serverless topologies. Covers zero-downtime routing, SSL/TLS termination, automatic certificate issuance (Let's Encrypt), rate limiting at L7, Server-Sent Events (SSE) and WebSocket connection proxying, canary traffic splitting, and configuration templates for Caddy, Traefik, and NGINX.
 
 ### Trigger Conditions
-- When architecting a microservices backend that needs a unified entry point (BFF - Backend for Frontend).
-- When configuring SSL/TLS termination, rate limiting, or IP allowlisting at the infrastructure level.
-- When the user asks about "Traefik", "NGINX config", "Kong", or "API routing".
-- When implementing blue-green deployments or canary releases via traffic splitting.
+- Architecting a unified API entry point (Backend-for-Frontend / BFF) in front of multiple microservices.
+- Configuring reverse proxies for SSE, WebSockets, or streaming AI model outputs without proxy buffer truncation.
+- Implementing edge-level DDoS mitigation, IP allowlisting, or API key validation.
+- Configuring automatic SSL/TLS termination with modern HTTP/2 and HTTP/3 (QUIC) support.
 
-### Core Architectural Guidelines
+### Level 1: Production Caddyfile (Automatic TLS + WebSocket/SSE Proxying)
 
-#### 1. API Gateway Pattern
-Instead of client applications calling individual microservices, route all traffic through an API Gateway.
-- **Cross-Cutting Concerns**: Offload authentication (JWT verification), rate limiting, and CORS handling to the Gateway.
-- **Routing**: Use path-based routing (e.g., `/api/users` -> Users Service, `/api/billing` -> Billing Service).
+```caddyfile
+# /etc/caddy/Caddyfile
+api.vibesplug.internal {
+    # Modern TLS 1.3 enforcement
+    tls admin@vibesplug.internal
 
-#### 2. Tool Selection
-- **Traefik**: Best for Docker/Kubernetes environments due to its auto-discovery capabilities via labels/annotations.
-- **Caddy**: Best for simplicity and automatic HTTPS (Let's Encrypt provisioning).
-- **Kong API Gateway**: Best for enterprise environments requiring extensive plugins (OIDC, rate limiting, analytics).
-- **Cloudflare (Edge)**: Use Cloudflare rules for edge-level caching, WAF, and DDoS protection before traffic even reaches your origin proxy.
+    # Global compression
+    encode zstd gzip
 
-#### 3. Configuration Best Practices
-- **Timeouts**: Always configure strict proxy read/write timeouts to prevent stalled connections from exhausting worker pools.
-- **Health Checks**: Configure active health checks so the proxy can automatically remove failing backend instances from the load balancer pool.
-- **X-Forwarded Headers**: Ensure your proxy correctly sets `X-Forwarded-For` and `X-Forwarded-Proto` so backend services know the client's real IP and protocol.
+    # Security Headers
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+
+    # Route 1: Auth Service (Rate limited)
+    handle /v1/auth/* {
+        reverse_proxy localhost:4001 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # Route 2: Streaming Real-time SSE / WebSockets (Buffer disabled)
+    handle /v1/ai/stream* {
+        reverse_proxy localhost:4002 {
+            flush_interval -1
+            header_up Connection "upgrade"
+            header_up Upgrade {http.request.header.Upgrade}
+        }
+    }
+
+    # Route 3: Default Core Microservice Pool (Round-Robin Load Balanced)
+    handle /v1/* {
+        reverse_proxy localhost:5001 localhost:5002 {
+            lb_policy round_robin
+            lb_try_duration 2s
+            fail_duration 10s
+            max_fails 3
+        }
+    }
+}
+```
+
+### Level 2: High-Performance NGINX Reverse Proxy for AI Streaming & SSE
+
+```nginx
+# /etc/nginx/conf.d/api_gateway.conf
+upstream backend_nodes {
+    server 127.0.0.1:3001 max_fails=3 fail_timeout=10s;
+    server 127.0.0.1:3002 max_fails=3 fail_timeout=10s;
+    keepalive 64;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name api.vibesplug.internal;
+
+    ssl_certificate /etc/ssl/certs/bundle.crt;
+    ssl_certificate_key /etc/ssl/private/privkey.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    # Crucial for SSE & LLM Streaming: disable proxy buffering and set long timeouts
+    location /v1/stream {
+        proxy_pass http://backend_nodes;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_buffering off;
+        proxy_cache off;
+        chunked_transfer_encoding on;
+        proxy_read_timeout 600s;
+        proxy_send_timeout 600s;
+    }
+}
+```
+
+### Key Perimeter Architectural Rules
+1. **Always Set `proxy_buffering off` for Streaming**: If proxy buffering is enabled, LLM tokens and Server-Sent Events will be delayed and batched until the buffer fills (~4KB-16KB), destroying the perceived TTFT.
+2. **Forwarded Header Sanitation**: Strip spoofed incoming `X-Forwarded-For` headers from untrusted clients to prevent security bypasses in IP-based rate limiters.
+3. **Health Check Probes**: Always configure active health checks so the proxy immediately drops unhealthy microservice pods without returning 502 Bad Gateway to users.
 
 ## Orchestration & Integration
-- Sits in front of `js-backend-expert`, `go-programming-expert`, and `rust-programming-expert` services.
-- Offloads work from `rate-limit-abuse-prevention` by handling rate limits at the L7 proxy layer.
-- Complements `ci-cd-devops-architect` when configuring Docker Compose or Kubernetes Ingress.
+- **`rate-limit-abuse-prevention`**: Enforces L7 token bucket and sliding-window rate limits at the gateway layer.
+- **`ci-cd-devops-architect`**: Automates Caddy/NGINX reload in containerized environments.
+- **`js-backend-expert`**: Connects gateway proxy endpoints with Node.js, Bun, and Hono microservices.
+- **`sse-websocket-streaming-expert`**: Validates non-buffered real-time streaming pipelines.
 
 ---
 
@@ -52,31 +125,46 @@ Instead of client applications calling individual microservices, route all traff
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan komprehensif untuk routing, load balancing, dan manajemen trafik di lapisan terluar (perimeter) arsitektur microservices. Mencakup konfigurasi API Gateway (Kong), reverse proxy modern (Traefik, Caddy, NGINX), dan Service Mesh.
+Panduan arsitektur produksi untuk API Gateway, Edge Proxy, dan manajemen trafik perimeter dalam topologi microservices dan serverless modern. Mencakup routing tanpa downtime, terminasi SSL/TLS otomatis (Let's Encrypt), rate limiting pada layer L7, proxy koneksi Server-Sent Events (SSE) dan WebSocket tanpa buffering, pemisahan trafik canary, serta template konfigurasi untuk Caddy, Traefik, dan NGINX.
 
 ### Kondisi Pemicu
-- Saat merancang backend microservices yang membutuhkan satu pintu masuk terpadu (BFF).
-- Saat mengonfigurasi terminasi SSL/TLS, rate limiting, atau IP allowlisting di tingkat infrastruktur.
-- Saat menerapkan rilis canary atau blue-green deployment melalui pembagian trafik (traffic splitting).
+- Merancang pintu gerbang masuk tunggal (BFF) di depan kumpulan microservices backend.
+- Mengonfigurasi reverse proxy untuk streaming token AI atau SSE agar respons tidak terpotong.
+- Menerapkan pertahanan DDoS tingkat edge, pembatasan IP (allowlisting), atau verifikasi API key.
+- Menyiapkan terminasi SSL/TLS dengan protokol HTTP/2 dan HTTP/3 (QUIC).
 
-### Panduan Arsitektur Inti
+### Contoh Konfigurasi Docker Compose dengan Traefik (Auto-Discovery)
 
-#### 1. Pola API Gateway
-Jangan biarkan klien (frontend/mobile) memanggil microservices secara langsung.
-- Gunakan Gateway untuk menangani masalah lintas-layanan (cross-cutting) seperti verifikasi JWT, CORS, dan rate limiting.
-- Gunakan routing berbasis *path* (jalur).
+```yaml
+# docker-compose.yml
+services:
+  traefik:
+    image: traefik:v3.1
+    command:
+      - "--providers.docker=true"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+    ports:
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
-#### 2. Pemilihan Tool
-- **Traefik**: Pilihan terbaik untuk lingkungan Docker/Kubernetes karena penemuan layanan otomatis (auto-discovery) melalui label.
-- **Caddy**: Pilihan terbaik untuk kemudahan setup dan HTTPS otomatis (Let's Encrypt).
-- **Kong**: Standar industri untuk kebutuhan Enterprise dengan sistem plugin yang kuat.
-- **Cloudflare**: Lini pertahanan pertama untuk WAF dan perlindungan DDoS di sisi Edge.
+  api-service:
+    image: my-company/api:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`api.vibesplug.internal`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+```
 
-#### 3. Praktik Terbaik Konfigurasi
-- **Timeouts**: Selalu tetapkan batas waktu (timeout) koneksi proxy untuk mencegah server kehabisan resource karena koneksi yang menggantung.
-- **Health Checks**: Aktifkan health check agar proxy tidak mengirimkan request ke service yang sedang mati.
-- **Header X-Forwarded**: Pastikan proxy menyertakan header `X-Forwarded-For` agar backend mengetahui IP asli klien.
+### 3 Praktik Wajib Proxy Streaming
+1. **Matikan Buffering Proxy**: Untuk endpoint streaming AI atau Server-Sent Events, wajib matikan buffering (`proxy_buffering off` di NGINX, `flush_interval -1` di Caddy) agar token muncul seketika di layar pengguna.
+2. **Atur Timeout Panjang**: Berikan batas waktu pembacaan (`proxy_read_timeout 600s`) agar koneksi streaming tidak terputus di tengah jalan saat respons AI panjang.
+3. **Penyaringan Header Asli**: Teruskan `X-Real-IP` dan `X-Forwarded-Proto` agar backend dapat mendeteksi lokasi dan skema enkripsi klien secara akurat.
 
 ## Integrasi Orkestrasi
-- Berada di depan service yang dibangun dengan `js-backend-expert`, `go-programming-expert`, atau `rust-programming-expert`.
-- Bekerja sama dengan `ci-cd-devops-architect` untuk konfigurasi Ingress Kubernetes atau Docker Compose.
+- **`rate-limit-abuse-prevention`**: Melindungi gateway dari banjir request berbahaya.
+- **`ci-cd-devops-architect`**: Menangani reload konfigurasi proxy tanpa memutus koneksi aktif (*graceful reload*).
+- **`js-backend-expert`**: Menjadi target proxy upstream bagi backend Node.js atau Bun.
+- **`sse-websocket-streaming-expert`**: Mengawal kelancaran streaming data asinkron.

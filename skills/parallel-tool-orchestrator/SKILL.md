@@ -2,7 +2,7 @@
 name: parallel-tool-orchestrator
 description: "Expert guide for parallel tool execution, MCP batching (vibes_batch), asynchronous Promise.allSettled pipelines, subagent concurrent fan-out, and latency-optimized tool calling loops / Panduan ahli eksekusi tool paralel dan batching MCP."
 author: "Roedy Rustam"
-version: "4.2.2"
+version: "4.3.0"
 ---
 
 # parallel-tool-orchestrator — vibes-plug Skill
