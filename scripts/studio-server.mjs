@@ -1934,7 +1934,7 @@ function generateStudioHtml(currentPort) {
         });
         const data = await res.json();
         if (data.success) {
-          term.textContent = data.logs.join('\n');
+          term.textContent = data.logs.join('\\n');
           showToast('Swarm simulation complete (' + (data.plan?.reasoningProfile || 'balanced').toUpperCase() + ')');
         }
       } catch (err) {
