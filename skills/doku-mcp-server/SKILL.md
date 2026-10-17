@@ -257,13 +257,188 @@ main().catch(console.error);
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan:
 - `doku-payment-gateway` — Spesifikasi teknis DOKU Checkout, algoritma HMAC-SHA256, dan standar SNAP BI.
-- `mcp-server-architect` — Arsitektur server MCP tingkat lanjut dan skema type-safe.
+- `mcp-server-architect` — Arsitektur server MCP tingkat lanjut, standardisasi schema Zod/JSON Schema, dan transportasi stdio.
 - `multi-agent-orchestration` — Agen AI otonom untuk pembelian dan checkout otomatis.
 - `saas-billing` — Verifikasi pembayaran tagihan langganan secara otonom.
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan dan membuat server Model Context Protocol (MCP) dengan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Documentation](https://developers.doku.com/). Memungkinkan Agen AI (Claude Desktop, Antigravity, Cursor, n8n, LangChain) menjalankan transaksi pembayaran secara otonom dalam alur Agentic Commerce (membuat URL DOKU Checkout, memeriksa status pembayaran order, dan mengelola invoice).
 
-### Tool Utama yang Disediakan
-1. `create_checkout_payment`: Menghasilkan URL DOKU Checkout yang mendukung seluruh metode pembayaran (VA, Kartu Kredit, QRIS, E-Wallet, Paylater).
-2. `check_transaction_status`: Memeriksa status transaksi dan order secara real-time via `GET /orders/v1/status/{invoice_number}`.
+### Kondisi Pemicu
+- Mengonfigurasi server DOKU MCP untuk Claude Desktop, Antigravity (AGY), atau Cursor IDE.
+- Membangun alur belanja otonom (*Agentic Commerce*) di mana agen AI dapat membuat tautan pembayaran.
+- Membungkus endpoint API DOKU Checkout (`/checkout/v1/payment`) ke dalam tool MCP standar.
+- Melakukan verifikasi status pembayaran transaksi secara otomatis melalui query invoice.
+
+---
+
+### Konfigurasi Klien MCP
+
+#### 1. Konfigurasi Antigravity & Gemini (`mcp.json`)
+Lokasi file: `~/.gemini/config/mcp.json` (Global) atau `.agents/mcp.json` (Workspace):
+```json
+{
+  "mcpServers": {
+    "doku-payment": {
+      "command": "node",
+      "args": ["/path/to/doku-mcp-server/dist/index.js"],
+      "env": {
+        "DOKU_CLIENT_ID": "CLIENT_ID_MERCHANT",
+        "DOKU_SECRET_KEY": "SECRET_KEY_MERCHANT",
+        "DOKU_IS_PRODUCTION": "false"
+      }
+    }
+  }
+}
+```
+
+#### 2. Konfigurasi Claude Desktop (`claude_desktop_config.json`)
+Lokasi file pada Windows: `%APPDATA%\Claude\claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "doku-payment": {
+      "command": "node",
+      "args": ["/path/to/doku-mcp-server/dist/index.js"],
+      "env": {
+        "DOKU_CLIENT_ID": "CLIENT_ID_MERCHANT",
+        "DOKU_SECRET_KEY": "SECRET_KEY_MERCHANT",
+        "DOKU_IS_PRODUCTION": "false"
+      }
+    }
+  }
+}
+```
+
+---
+
+### Implementasi Server MCP DOKU Berbasis TypeScript
+
+```typescript
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import crypto from 'crypto';
+
+const CLIENT_ID = process.env.DOKU_CLIENT_ID || '';
+const SECRET_KEY = process.env.DOKU_SECRET_KEY || '';
+const BASE_URL = process.env.DOKU_IS_PRODUCTION === 'true'
+  ? 'https://api.doku.com'
+  : 'https://api-sandbox.doku.com';
+
+function buatHeaderNonSnap(pathTarget: string, payload?: object) {
+  const requestId = crypto.randomUUID();
+  const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
+  let komponen = `Client-Id:${CLIENT_ID}\nRequest-Id:${requestId}\nRequest-Timestamp:${timestamp}\nRequest-Target:${pathTarget}`;
+
+  const headers: Record<string, string> = {
+    'Client-Id': CLIENT_ID,
+    'Request-Id': requestId,
+    'Request-Timestamp': timestamp,
+    'Request-Target': pathTarget,
+  };
+
+  if (payload) {
+    const jsonBody = JSON.stringify(payload);
+    const digest = crypto.createHash('sha256').update(jsonBody, 'utf8').digest('base64');
+    headers['Digest'] = digest;
+    headers['Content-Type'] = 'application/json';
+    komponen += `\nDigest:${digest}`;
+  }
+
+  const signature = 'HMACSHA256=' + crypto.createHmac('sha256', SECRET_KEY).update(komponen, 'utf8').digest('base64');
+  headers['Signature'] = signature;
+  return headers;
+}
+
+const server = new Server(
+  { name: 'doku-mcp-server', version: '2.0.0' },
+  { capabilities: { tools: {} } }
+);
+
+server.setRequestHandler(ListToolsRequestSchema, async () => ({
+  tools: [
+    {
+      name: 'create_checkout_payment',
+      description: 'Menghasilkan URL pembayaran DOKU Checkout untuk seluruh metode pembayaran',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          amount: { type: 'number', description: 'Total pembayaran dalam IDR' },
+          invoice_number: { type: 'string', description: 'Nomor invoice unik' },
+          customer_name: { type: 'string', description: 'Nama lengkap pelanggan' },
+          customer_email: { type: 'string', description: 'Email pelanggan' },
+        },
+        required: ['amount', 'invoice_number', 'customer_name', 'customer_email']
+      }
+    },
+    {
+      name: 'check_transaction_status',
+      description: 'Memeriksa status pembayaran transaksi secara real-time via nomor invoice',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          invoice_number: { type: 'string', description: 'Nomor invoice yang ingin diperiksa' }
+        },
+        required: ['invoice_number']
+      }
+    }
+  ]
+}));
+
+server.setRequestHandler(CallToolRequestSchema, async (request) => {
+  const { name, arguments: args } = request.params;
+
+  if (name === 'create_checkout_payment') {
+    const targetPath = '/checkout/v1/payment';
+    const body = {
+      order: {
+        amount: args?.amount,
+        invoice_number: args?.invoice_number,
+        currency: 'IDR',
+        auto_redirect: true
+      },
+      payment: { payment_due_date: 60 },
+      customer: {
+        name: args?.customer_name,
+        email: args?.customer_email
+      }
+    };
+
+    const res = await fetch(`${BASE_URL}${targetPath}`, {
+      method: 'POST',
+      headers: buatHeaderNonSnap(targetPath, body),
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+    return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+  }
+
+  if (name === 'check_transaction_status') {
+    const invoiceNumber = args?.invoice_number;
+    const targetPath = `/orders/v1/status/${invoiceNumber}`;
+
+    const res = await fetch(`${BASE_URL}${targetPath}`, {
+      method: 'GET',
+      headers: buatHeaderNonSnap(targetPath)
+    });
+
+    const data = await res.json();
+    return { content: [{ type: 'text', text: JSON.stringify(data, null, 2) }] };
+  }
+
+  throw new Error(`Tool tidak ditemukan: ${name}`);
+});
+
+async function main() {
+  const transport = new StdioServerTransport();
+  await server.connect(transport);
+}
+
+main().catch(console.error);
+```
+
+### Jebakan Umum yang Wajib Dihindari
+- **Hardcoding Secret Key**: Jangan pernah menaruh Secret Key di file kodingan. Gunakan variabel lingkungan.
+- **Menyertakan Header Digest pada Request GET**: Header `Digest` hanya dihitung pada request POST yang memiliki body JSON. Menyertakan Digest pada GET menghasilkan error 401 Signature Mismatch.

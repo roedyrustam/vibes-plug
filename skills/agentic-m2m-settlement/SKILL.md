@@ -220,3 +220,121 @@ Aktifkan skill ini ketika:
 2. **Penagihan Kriptografis (AP2AP Protocol)**: Setiap tagihan ditandatangani menggunakan Ed25519 atau HMAC-SHA512 mencakup parameter `taskId`, `nonce`, `callerAgentId`, `targetAgentId`, dan rincian biaya.
 3. **Escrow Berbasis Validasi Critic**: Dana ditahan pada brankas escrow atomik. Pelepasan dana memerlukan persetujuan tanda tangan dari sub-agen auditor/critic independen yang memeriksa kualitas hasil kerja.
 4. **Idempotensi & Pencegahan Replay**: Seluruh penyelesaian transaksi mencatat token unik UUIDv7 dan header idempoten SNAP BI (`X-EXTERNAL-ID`) pada database PostgreSQL dengan kunci pengaman atomik.
+
+---
+
+### Resep Implementasi Mesin Settlement (TypeScript + Node.js 24)
+
+```typescript
+import { createHmac, randomUUID } from 'node:crypto';
+
+export interface TagihanSettlement {
+  invoiceId: string;
+  sourceAgentId: string;
+  workerAgentId: string;
+  taskId: string;
+  amountMinor: bigint;
+  currency: 'IDR' | 'USD';
+  rail: 'DOKU_SNAP_BI' | 'USDC_BASE_SMART_ACCOUNT';
+  timestamp: string;
+  signature: string;
+}
+
+export interface KontrakEscrow {
+  escrowId: string;
+  invoice: TagihanSettlement;
+  maxBudgetMinor: bigint;
+  status: 'PENDING' | 'CRITIC_VERIFIED' | 'RELEASED' | 'REFUNDED';
+  criticAgentId: string;
+}
+
+export class MesinSettlementM2MAgen {
+  private readonly secretKunci: string;
+  private readonly tabelEscrow = new Map<string, KontrakEscrow>();
+
+  constructor(secretKunci: string) {
+    if (!secretKunci || secretKunci.length < 32) {
+      throw new Error('Kunci rahasia minimal 32 karakter untuk HMAC-SHA512.');
+    }
+    this.secretKunci = secretKunci;
+  }
+
+  // Buat tagihan kriptografis dari agen pekerja
+  public buatTagihanAgen(params: {
+    sourceAgentId: string;
+    workerAgentId: string;
+    taskId: string;
+    amountMinor: bigint;
+    currency: 'IDR' | 'USD';
+    rail: 'DOKU_SNAP_BI' | 'USDC_BASE_SMART_ACCOUNT';
+  }): TagihanSettlement {
+    const invoiceId = `inv_${randomUUID()}`;
+    const timestamp = new Date().toISOString();
+    const payload = `${invoiceId}|${params.sourceAgentId}|${params.workerAgentId}|${params.taskId}|${params.amountMinor.toString()}|${params.currency}|${timestamp}`;
+
+    const signature = createHmac('sha512', this.secretKunci)
+      .update(payload)
+      .digest('hex');
+
+    return {
+      invoiceId,
+      sourceAgentId: params.sourceAgentId,
+      workerAgentId: params.workerAgentId,
+      taskId: params.taskId,
+      amountMinor: params.amountMinor,
+      currency: params.currency,
+      rail: params.rail,
+      timestamp,
+      signature
+    };
+  }
+
+  // Buka brankas escrow dengan pagu anggaran ketat
+  public bukaEscrow(invoice: TagihanSettlement, maxBudgetMinor: bigint, criticAgentId: string): KontrakEscrow {
+    const payload = `${invoice.invoiceId}|${invoice.sourceAgentId}|${invoice.workerAgentId}|${invoice.taskId}|${invoice.amountMinor.toString()}|${invoice.currency}|${invoice.timestamp}`;
+    const expectedSignature = createHmac('sha512', this.secretKunci)
+      .update(payload)
+      .digest('hex');
+
+    if (invoice.signature !== expectedSignature) {
+      throw new Error('Settlement Ditolak: Tanda tangan kriptografis tagihan tidak valid.');
+    }
+
+    if (invoice.amountMinor > maxBudgetMinor) {
+      throw new Error(`Pagar FinOps Terpicu: Nilai tagihan ${invoice.amountMinor} melebihi batas anggaran ${maxBudgetMinor}.`);
+    }
+
+    const escrow: KontrakEscrow = {
+      escrowId: `escrow_${randomUUID()}`,
+      invoice,
+      maxBudgetMinor,
+      status: 'PENDING',
+      criticAgentId
+    };
+
+    this.tabelEscrow.set(escrow.escrowId, escrow);
+    return escrow;
+  }
+
+  // Sub-agen Critic memvalidasi kualitas output dan melepaskan pembayaran
+  public lepaskanSettlement(escrowId: string, skorKualitas: number): { berhasil: boolean; hashTransaksi: string } {
+    const escrow = this.tabelEscrow.get(escrowId);
+    if (!escrow) {
+      throw new Error(`Escrow ${escrowId} tidak ditemukan.`);
+    }
+
+    if (escrow.status !== 'PENDING') {
+      throw new Error(`Escrow ${escrowId} sudah dalam status ${escrow.status}. Proteksi double-spend aktif.`);
+    }
+
+    if (skorKualitas < 0.85) {
+      escrow.status = 'REFUNDED';
+      throw new Error(`Settlement Ditolak: Skor evaluasi (${skorKualitas}) di bawah ambang batas 0.85. Dana dikembalikan.`);
+    }
+
+    escrow.status = 'RELEASED';
+    const hashTransaksi = `tx_${randomUUID().replace(/-/g, '')}`;
+    return { berhasil: true, hashTransaksi };
+  }
+}
+```

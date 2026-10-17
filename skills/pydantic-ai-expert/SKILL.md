@@ -1,7 +1,7 @@
 ---
 name: pydantic-ai-expert
 description: "Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows / Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -158,5 +158,72 @@ Panduan produksi untuk membangun agen AI kelas perusahaan menggunakan **Pydantic
 - Membangun agen otonom Python yang menuntut keamanan tipe statis dan validasi skema data ketat.
 - Menerapkan injeksi dependensi (koneksi database, klien HTTP, session user) ke dalam tool agen tanpa variabel global.
 - Mengekstrak data terstruktur yang dijamin valid dari model penalaran tanpa kegagalan parsing JSON.
-- Merancang delegasi tugas antar agen (*agent handoffs*) pada arsitektur microservices berbasis Python.
-- Menjalankan unit test deterministik dan evaluasi agen dengan `TestModel` tanpa konsumsi token API nyata.
+- Menjalankan unit test dan evaluasi deterministik pada agen menggunakan model tiruan (`TestModel`).
+
+---
+
+### Implementasi Pola Kunci (Python 3.13+)
+
+#### 1. Agen Type-Safe dengan Injeksi Dependensi Database
+```python
+from dataclasses import dataclass
+import asyncpg
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent, RunContext
+
+@dataclass
+class DependensiDatabase:
+    pool: asyncpg.Pool
+    tenant_id: str
+
+class LaporanAnomali(BaseModel):
+    user_id: str
+    skor_risiko: float = Field(ge=0.0, le=1.0)
+    peristiwa_anomali: list[str]
+    tindakan_disarankan: str
+
+# Agen dengan tipe statis ketat: Agent[TipeDependensi, TipeHasil]
+agen_keamanan = Agent[DependensiDatabase, LaporanAnomali](
+    model='google-gla:gemini-2.5-flash',
+    result_type=LaporanAnomali,
+    system_prompt=(
+        "Anda adalah auditor keamanan SecOps otomatis. Analisis log aktivitas "
+        "dan hasilkan evaluasi anomali terstruktur."
+    ),
+)
+
+@agen_keamanan.system_prompt
+async def tambahkan_konteks_tenant(ctx: RunContext[DependensiDatabase]) -> str:
+    return f"Tenant ID Aktif: {ctx.deps.tenant_id}. Hanya audit catatan milik tenant ini."
+
+@agen_keamanan.tool
+async def query_log_audit(ctx: RunContext[DependensiDatabase], user_id: str, batas: int = 50) -> list[dict]:
+    """Mengambil riwayat autentikasi pengguna dari database audit."""
+    async with ctx.deps.pool.acquire() as conn:
+        baris = await conn.fetch(
+            "SELECT event_time, ip_address, action, status FROM audit_logs "
+            "WHERE tenant_id = $1 AND user_id = $2 ORDER BY event_time DESC LIMIT $3",
+            ctx.deps.tenant_id, user_id, batas
+        )
+        return [dict(b) for b in baris]
+
+# Eksekusi agen secara aman:
+async def jalankan_audit(pool: asyncpg.Pool, tenant_id: str, target_user: str) -> LaporanAnomali:
+    deps = DependensiDatabase(pool=pool, tenant_id=tenant_id)
+    hasil = await agen_keamanan.run(f"Audit aktivitas user {target_user}", deps=deps)
+    return hasil.data  # Dijamin merupakan instance tervalidasi dari LaporanAnomali
+```
+
+#### 2. Pengujian Unit Deterministik Menggunakan `TestModel`
+```python
+import pytest
+from pydantic_ai.models.test import TestModel
+
+@pytest.mark.asyncio
+async def test_eksekusi_tool_agen():
+    model_tes = TestModel(call_tools=['query_log_audit'])
+    with agen_keamanan.override(model=model_tes):
+        deps = DependensiDatabase(pool=mock_pool, tenant_id="tenant_123")
+        hasil = await agen_keamanan.run("Audit user 456", deps=deps)
+        assert hasil.data is not None
+```

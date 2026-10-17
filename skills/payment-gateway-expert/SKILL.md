@@ -106,27 +106,66 @@ Active whenever the user is working on billing integration, payment checkout, we
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **`saas-billing`**: Alur penagihan langganan dan state machine status akun.
+- **`doku-payment-gateway`**: Integrasi teknis spesifik DOKU Checkout dan Direct API SNAP BI.
+- **`doku-mcp-server`**: Pemanggilan tool otonom pembuatan invoice oleh agen AI.
+- **`async-queue-temporal-expert`**: Antrean tugas pasca-pembayaran (invoicing, notifikasi).
+- **`database-orm-expert`**: Transaksi atomik dan locking database untuk mencegah race condition.
+
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan payment gateway utama (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) ke platform SaaS modern. Mencakup alur checkout, penanganan webhook raw-body aman, pencegahan race condition melalui atomic update, state machine langganan, dan sinkronisasi database lokal.
 
-### Prinsip Utama
-- **Keamanan Utama**: Selalu validasi signature webhook menggunakan *raw request body* murni sebelum memproses event pembayaran. Jangan pernah mempercayai data dari sisi klien untuk harga atau status pembayaran. Untuk gateway Indonesia (DOKU, Midtrans, Xendit), gunakan algoritma yang tepat: **DOKU Checkout** menggunakan **HMAC-SHA256 dengan Digest body**, sedangkan **Direct API SNAP BI** menggunakan **HMAC-SHA512** dengan timestamp ISO8601.
-- **Idempotensi & Pencegahan Race Condition**: Implementasikan kunci idempotensi untuk semua pembuatan pembayaran. Pada penerimaan webhook, **JANGAN hanya mengandalkan pengecekan `findUnique`**, karena panggilan webhook paralel dari gateway dapat memicu race condition. Selalu gunakan **Atomic Update** (`UPDATE ... WHERE status = 'PENDING'`) atau database lock (`SELECT ... FOR UPDATE`).
-- **Raw Body Webhook**: Verifikasi tanda tangan akan gagal jika JSON di-parse atau di-serialize ulang karena perubahan urutan key atau spasi. Ambil buffer teks mentah (`req.text()` pada Fetch API atau `express.raw({ type: 'application/json' })` di Express).
-- **Balasan Cepat 200 OK**: Jika signature valid namun transaksi sudah berstatus lunas (webhook duplikat/retry), segera kembalikan HTTP `200 OK` agar payment gateway berhenti mengirimkan retry.
-- **Sinkronisasi State**: Pastikan database lokal (PostgreSQL/Supabase via Drizzle/Prisma) diperbarui secara transaksional saat menerima webhook sukses.
-- **Manajemen Langganan**: Petakan status langganan dari provider (`trialing`, `active`, `past_due`, `canceled`) secara akurat ke state machine internal SaaS.
-
-### Checklist Implementasi
-- [ ] Buat endpoint Webhook raw khusus (misal: `/api/webhooks/stripe`, `/api/webhooks/doku/checkout`).
-- [ ] Gunakan raw request body string untuk verifikasi signature (jangan parse JSON sebelum verifikasi).
-- [ ] Verifikasi signature dengan algoritma yang tepat (HMAC-SHA256 + Digest untuk DOKU Checkout, Stripe, PayPal; HMAC-SHA512 untuk SNAP BI Direct API).
-- [ ] Terapkan Atomic Update (`WHERE status = 'PENDING'`) untuk mematikan peluang race condition.
-- [ ] Balas webhook duplikat secara instan dengan HTTP `200 OK`.
-- [ ] Lemparkan proses berat pasca-bayar (pembuatan invoice PDF, email, push notification) ke antrean latar belakang (BullMQ/Temporal).
-
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `saas-billing`, `doku-payment-gateway`, `doku-mcp-server`, `async-queue-temporal-expert`, `database-orm-expert`.
-
 ### Kondisi Pemicu
 Aktif setiap kali pengguna sedang mengerjakan integrasi billing, checkout pembayaran, penanganan webhook, atau mengintegrasikan platform seperti PayPal, Stripe, Xendit, Midtrans, atau DOKU SNAP BI.
+
+---
+
+### Prinsip Utama & Kode Implementasi Webhook Idempoten (TypeScript)
+
+```typescript
+import { headers } from 'next/headers';
+import crypto from 'crypto';
+import { db } from '@/lib/db';
+
+export async function POST(req: Request) {
+  const rawBody = await req.text(); // Wajib membaca raw body mentah sebelum diparse
+  const headerList = await headers();
+
+  const timestamp = headerList.get('x-timestamp') || '';
+  const signatureDiterima = headerList.get('x-signature') || '';
+  const authHeader = headerList.get('authorization') || '';
+  const token = authHeader.replace(/^Bearer\s+/i, '');
+  const path = new URL(req.url).pathname;
+
+  // 1. Verifikasi Signature HMAC-SHA512 SNAP BI
+  const bodyHash = crypto.createHash('sha256').update(rawBody, 'utf8').digest('hex').toLowerCase();
+  const stringToSign = `POST:${path}:${token}:${bodyHash}:${timestamp}`;
+  const signatureDihitung = crypto
+    .createHmac('sha512', process.env.DOKU_SECRET_KEY!)
+    .update(stringToSign, 'utf8')
+    .digest('base64');
+
+  if (!crypto.timingSafeEqual(Buffer.from(signatureDiterima), Buffer.from(signatureDihitung))) {
+    return new Response('Tanda Tangan Tidak Valid', { status: 401 });
+  }
+
+  const payload = JSON.parse(rawBody);
+  const nomorInvoice = payload.order?.invoice_number;
+
+  // 2. Atomic Update: Kunci hanya baris dengan status 'PENDING' untuk mencegah race condition
+  const diperbarui = await db.transaksi.updateMany({
+    where: { nomorInvoice, status: 'PENDING' },
+    data: { status: 'PAID', dibayarPada: new Date() },
+  });
+
+  // 3. Penanganan Webhook Duplikat (Idempotensi)
+  if (diperbarui.count === 0) {
+    return new Response(JSON.stringify({ status: 'SUDAH_DIPROSES' }), { status: 200 });
+  }
+
+  // 4. Aktivasi Layanan Pengguna (Hanya dieksekusi 1 kali)
+  await aktifkanLangganan(nomorInvoice);
+  return new Response(JSON.stringify({ status: 'BERHASIL' }), { status: 200 });
+}
+```

@@ -159,18 +159,73 @@ Panduan produksi untuk pengujian aksesibilitas web (a11y) otomatis dan manual. M
 - Memverifikasi kepatuhan hukum aksesibilitas (WCAG 2.2, ADA, EAA).
 - Menguji alur keyboard dan pembaca layar (screen reader) pada komponen kompleks seperti modal dan dropdown.
 
-### Kepatuhan Aksesibilitas & State Layer Material Design 3 (M3) (https://m3.material.io/foundations/accessible-design/overview)
-M3 menetapkan standar interaksi yang konsisten melalui **Matriks Opacity State Layer** dan **Target Sentuh Minimum 48×48dp**:
+---
+
+### Alur Pengujian Otomatis
+
+#### 1. Pengujian Aksesibilitas Otomatis dengan Playwright & Axe-Core
+```typescript
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test.describe('Audit Otomatis Aksesibilitas Web', () => {
+  test('beranda bebas dari pelanggaran a11y kritis atau serius', async ({ page }) => {
+    await page.goto('/');
+
+    const hasilAudit = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
+      .analyze();
+
+    expect(hasilAudit.violations).toEqual([]);
+  });
+
+  test('dialog modal mengunci fokus keyboard dan lolos audit a11y', async ({ page }) => {
+    await page.goto('/dashboard');
+    await page.click('button#buka-modal');
+
+    const modal = page.locator('[role="dialog"]');
+    await expect(modal).toBeVisible();
+
+    const auditModal = await new AxeBuilder({ page })
+      .include('[role="dialog"]')
+      .analyze();
+
+    expect(auditModal.violations).toEqual([]);
+
+    // Verifikasi tombol Escape menutup modal
+    await page.keyboard.press('Escape');
+    await expect(modal).toBeHidden();
+  });
+});
+```
+
+#### 2. Konfigurasi CI Otomatis Pa11y (`.pa11yci.json`)
+```json
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 15000,
+    "runners": ["axe", "htmlcs"]
+  },
+  "urls": [
+    "http://localhost:3000/",
+    "http://localhost:3000/masuk",
+    "http://localhost:3000/harga",
+    "http://localhost:3000/dokumentasi"
+  ]
+}
+```
+
+#### 3. Standar State Layer & Target Sentuh Material Design 3 (M3)
 - **Matriks State Layer**:
   - Hover: Opacity 8% (`0.08`)
-  - Focus: Opacity 10% (`0.10`)
+  - Focus: Opacity 10% (`0.10`) dengan ring kontras tinggi
   - Pressed: Opacity 10% (`0.10`)
   - Dragged: Opacity 16% (`0.16`)
-  - Disabled: Opacity container dan konten 38% (`0.38`)
-- **Target Sentuh 48×48dp**: Meskipun aset visual (misal checkbox atau ikon) hanya berukuran 24×24px, area sentuh interaktif wajib diperluas menjadi minimal 48×48dp menggunakan padding atau pseudo-elemen `::after`.
+  - Disabled: Opacity kontainer dan konten 38% (`0.38`)
+- **Target Sentuh Minimum 48×48dp**: Meskipun aset visual hanya berukuran 24×24px, area sentuh interaktif wajib diperluas menjadi minimal 48×48dp menggunakan padding atau pseudo-elemen `::after`.
 
-### Gerbang Verifikasi Aksesibilitas Anti-Slop
-Kriteria aksesibilitas tanpa toleransi untuk seluruh antarmuka yang dihasilkan:
+#### 4. Gerbang Verifikasi Aksesibilitas Anti-Slop
 - **Dilarang Menghapus Outline Fokus**: Standar nol toleransi untuk `outline: none` atau `focus:outline-none` tanpa pengganti ring berlatar kontras tinggi (`focus-visible:ring-2 focus-visible:ring-offset-2`).
 - **Wajib Elemen Semantik**: Larangan keras membuat div/span non-semantik yang dapat diklik (`<div onClick=...>`). Setiap target klik harus merupakan `<button>`, `<a>`, atau menyediakan `role="button"` + `tabIndex={0}` + penangan keyboard (`onKeyDown` untuk tombol Enter & Space).
 - **Target Sentuh Minimum**: Semua kontrol interaktif harus memenuhi standar WCAG 2.2 SC 2.5.8 (minimal 24×24px, direkomendasikan 44×44px dengan padding memadai).

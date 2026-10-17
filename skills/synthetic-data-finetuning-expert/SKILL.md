@@ -1,7 +1,7 @@
 ---
 name: synthetic-data-finetuning-expert
 description: "Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs / Panduan ahli generasi data sintetis, fine-tuning QLoRA, DPO, dan ekspor GGUF/Ollama."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -154,3 +154,36 @@ Panduan produksi untuk menghasilkan dataset pelatihan sintetis, mengurasi pasang
 - Melakukan fine-tuning model berbobot terbuka (Llama 3.3, Qwen 2.5, Mistral) dengan QLoRA 4-bit secara hemat memori VRAM.
 - Menyelaraskan respon model dengan Direct Preference Optimization (DPO) agar mematuhi aturan format dan gaya tertentu.
 - Mengkuantisasi model hasil fine-tuning ke format GGUF (q4_k_m, q8_0) untuk inferensi lokal instan di Ollama atau llama.cpp.
+
+---
+
+### Implementasi Pola Kunci (Python)
+
+#### 1. Fine-Tuning Cepat QLoRA 4-Bit dengan Unsloth
+```python
+from unsloth import FastLanguageModel
+import torch
+from trl import SFTTrainer
+from transformers import TrainingArguments
+
+# 1. Muat Model dan Tokenizer dalam mode 4-bit hemat VRAM
+panjang_maksimum = 2048
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name="unsloth/Qwen2.5-Coder-7B-Instruct-bnb-4bit",
+    max_seq_length=panjang_maksimum,
+    load_in_4bit=True,
+)
+
+# 2. Pasang Adapter PEFT LoRA
+model = FastLanguageModel.get_peft_model(
+    model,
+    r=16,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    lora_alpha=16,
+    lora_dropout=0,
+    bias="none",
+)
+
+# 3. Ekspor Langsung ke GGUF untuk Ollama Lokal
+model.save_pretrained_gguf("model-koding-kustom", tokenizer, quantization_method="q4_k_m")
+```

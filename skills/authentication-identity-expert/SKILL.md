@@ -1,7 +1,7 @@
 ---
 name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -154,21 +154,127 @@ export async function getPasskeyRegistrationOptions(userId: string, userEmail: s
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **`supabase-security-expert`**: Konfigurasi otentikasi Supabase SSR, token cookie PKCE, dan kebijakan Row-Level Security (RLS) PostgreSQL.
+- **`saas-architect`**: Desain multi-tenancy, isolasi data organisasi, dan alur kerja autentikasi B2B SaaS.
+- **`js-backend-expert`**: Middleware otorisasi, penanganan sesi JWT stateless, dan sanitasi header.
+- **`production-ready-hardener`**: Audit keamanan otentikasi pra-rilis dan penegakan header CSP.
+
 ### Deskripsi
-Panduan tingkat produksi untuk autentikasi, otorisasi, dan manajemen identitas modern (Clerk, Supabase Auth, Auth.js v5, Better Auth, OAuth 2.1 PKCE, RBAC, dan Passkeys).
+Panduan tingkat produksi untuk implementasi autentikasi aman, otorisasi (RBAC/ABAC), dan manajemen identitas pengguna pada aplikasi web dan mobile modern. Mencakup integrasi **Clerk**, **Supabase Auth**, **Auth.js v5 (NextAuth)**, **Better Auth**, OAuth 2.1 dengan alur PKCE, rotasi Refresh Token HttpOnly, Passkeys (WebAuthn), dan Multi-Factor Authentication (MFA) untuk stack React 19 / Next.js 15.
 
-### Rekomendasi Identity Provider
-- **Clerk**: Terbaik untuk SaaS baru (UI bawaan, manajemen tim/organisasi).
-- **Supabase Auth**: Terbaik jika memakai database Supabase (integrasi native RLS).
-- **Auth.js v5**: Self-hosted, kontrol penuh tanpa vendor lock-in.
-- **Better Auth**: TypeScript-first, fitur 2FA dan passkey bawaan.
+### Rekomendasi Pemilihan Identity Provider
 
-### Poin Kunci Keamanan
-1. **Password Hashing**: Gunakan `argon2id` atau `bcrypt` (cost >= 12).
-2. **Token Berumur Pendek**: Access token <= 15 menit, refresh token di cookie HttpOnly dengan rotasi token.
-3. **PKCE Wajib**: Terapkan PKCE untuk semua klien publik OAuth.
-4. **Otorisasi Server-Side**: Wajibkan verifikasi hak akses di server (bukan hanya UI).
-5. **Supabase Auth**: Untuk setup SSR dan RLS mendalam, delegasikan ke `supabase-security-expert`.
+| Provider | Pilihan Terbaik Untuk | Keunggulan Utama | Model Harga |
+|---|---|---|---|
+| **Clerk** | Produk SaaS baru & B2B | DX terbaik, UI bawaan siap pakai, manajemen tim/organisasi instan | Per MAU (gratis hingga 10.000 pengguna) |
+| **Supabase Auth** | Aplikasi dengan database Supabase | Integrasi native Row-Level Security (RLS), OAuth multi-provider | Termasuk dalam kuota Supabase |
+| **Auth.js v5** | Aplikasi mandiri (*Self-hosted*) | Kepemilikan data penuh, zero vendor lock-in, kompatibel Edge | 100% Gratis / Open-Source |
+| **Better Auth** | Proyek TypeScript-first modern | Ekosistem plugin komprehensif, 2FA, passkeys bawaan | 100% Gratis / Open-Source |
 
-## Integrasi Orkestrasi
-- Terhubung dengan `supabase-security-expert`, `saas-architect`, `js-backend-expert`, `firebase-security-expert`, dan `production-ready-hardener`.
+---
+
+### Resep & Pedoman Teknis Implementasi
+
+#### 1. Standar Hashing Password (Argon2id)
+```typescript
+import argon2 from 'argon2';
+
+export async function hashPasswordAman(passwordPolos: string): Promise<string> {
+  return argon2.hash(passwordPolos, {
+    type: argon2.argon2id,
+    memoryCost: 65536, // 64 MB
+    timeCost: 3,
+    parallelism: 4,
+  });
+}
+
+export async function verifikasiPassword(hashTersimpan: string, passwordInput: string): Promise<boolean> {
+  return argon2.verify(hashTersimpan, passwordInput);
+}
+```
+
+#### 2. Clerk Middleware pada Next.js 15 App Router
+```typescript
+// middleware.ts
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+
+// Definisikan rute yang dapat diakses publik tanpa login
+const rutePublik = createRouteMatcher([
+  '/',
+  '/masuk(.*)',
+  '/daftar(.*)',
+  '/api/webhooks(.*)',
+]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (!rutePublik(req)) {
+    await auth.protect();
+  }
+});
+
+export const config = {
+  matcher: [
+    '/((?!_next|[^?]*\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/(api|trpc)(.*)',
+  ],
+};
+```
+
+#### 3. Auth.js v5 (NextAuth) dengan Adapter Database Drizzle ORM
+```typescript
+// auth.ts
+import NextAuth from 'next-auth';
+import GitHub from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { db } from '@/db';
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: DrizzleAdapter(db),
+  providers: [
+    GitHub({ clientId: process.env.AUTH_GITHUB_ID, clientSecret: process.env.AUTH_GITHUB_SECRET }),
+    Google({ clientId: process.env.AUTH_GOOGLE_ID, clientSecret: process.env.AUTH_GOOGLE_SECRET }),
+  ],
+  session: { strategy: 'jwt' },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as any).role || 'user';
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token && session.user) {
+        (session.user as any).role = token.role;
+      }
+      return session;
+    },
+  },
+});
+```
+
+#### 4. Kontrol Akses Berbasis Peran (RBAC) di Sisi Server
+```typescript
+export type PeranPengguna = 'tamu' | 'anggota' | 'manajer' | 'administrator';
+
+const matriksIzin: Record<PeranPengguna, string[]> = {
+  tamu: ['baca:artikel'],
+  anggota: ['baca:artikel', 'buat:komentar'],
+  manajer: ['baca:artikel', 'buat:komentar', 'kelola:konten'],
+  administrator: ['*'],
+};
+
+export function validasiIzin(peran: PeranPengguna, izinYangDibutuhkan: string): boolean {
+  const daftarIzin = matriksIzin[peran] || [];
+  return daftarIzin.includes('*') || daftarIzin.includes(izinYangDibutuhkan);
+}
+```
+
+### Checklist Keamanan Otentikasi Produksi
+- [ ] Password di-hash menggunakan `argon2id` atau `bcrypt` dengan work factor minimal 12.
+- [ ] Access token berumur pendek (maksimal 15 menit) disimpan di memori runtime.
+- [ ] Refresh token disimpan di cookie berflag `HttpOnly`, `Secure`, dan `SameSite=Strict` dengan rotasi token.
+- [ ] Alur OAuth 2.1 publik wajib menerapkan `PKCE` (Proof Key for Code Exchange) dengan challenge SHA-256.
+- [ ] Otorisasi hak akses divalidasi ketat pada Server Action dan API Route (bukan sekadar menyembunyikan tombol UI).
+- [ ] Proteksi brute-force dengan pembatasan laju (*Rate Limiting*) pada endpoint login dan pendaftaran.

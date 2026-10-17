@@ -1,7 +1,7 @@
 ---
 name: state-management-expert
 description: "Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, and server state patterns with TanStack Query / Panduan ahli untuk manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, dan pola server state dengan TanStack Query."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -256,10 +256,10 @@ export function StoreProvider({ children, initialUser }: Props) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan arsitektur state yang bersih dan bebas re-render berlebihan.
 
 ### Deskripsi
-Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React dan Next.js. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.
+Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 15. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.
 
 ### Kondisi Pemicu
 - Memilih library state management untuk proyek React/Next.js baru.
@@ -269,11 +269,86 @@ Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang t
 - Mengimplementasikan undo/redo, optimistic update, atau derived state.
 - Migrasi dari Redux ke alternatif yang lebih ringan.
 
-### Prinsip Utama
+---
 
-- **Pisahkan server state dari client state**: Server state (data dari API) dikelola TanStack Query. Client state (UI, preferensi) dikelola Zustand/Jotai.
-- **Gunakan Zustand sebagai default** untuk state global umum.
-- **Gunakan Jotai** untuk state atomik yang sangat granular dan reaktif.
-- **Hindari menyimpan data server di client state** — ini adalah sumber bug terbesar di aplikasi React.
-- **Selective subscription**: Selalu gunakan selector untuk menghindari re-render yang tidak perlu.
-- **DevTools**: Selalu integrasikan devtools di development untuk debugging yang efektif.
+### Pemisahan Kategori State (Prinsip Terpenting)
+
+| Kategori | Definisi | Solusi Standar 2026 |
+|---|---|---|
+| **Server State** | Data yang berasal dari database atau endpoint API | TanStack Query v5 / SWR |
+| **URL State** | Filter pencarian, pagination, parameter routing | `useSearchParams`, `nuqs` |
+| **Form State** | Input formulir, status validasi, pesan kesalahan | React Hook Form + Zod |
+| **UI Local State** | Buka/tutup modal, dropdown, toggle accordion | `useState` / `useReducer` |
+| **Global Client State** | Status autentikasi, tema, preferensi UI, keranjang belanja | Zustand 5 / Jotai 2 |
+
+**Aturan Emas**: Jangan pernah menyimpan salinan data server di dalam store klien. Serahkan seluruh sinkronisasi data async ke TanStack Query.
+
+---
+
+### Pola Kunci Zustand 5 (TypeScript)
+
+#### 1. Store Global dengan Middleware DevTools & Persistensi
+```typescript
+// stores/ui.store.ts
+import { create } from 'zustand';
+import { devtools, persist, subscribeWithSelector } from 'zustand/middleware';
+import { immer } from 'zustand/middleware/immer';
+
+interface UiState {
+  tema: 'terang' | 'gelap' | 'sistem';
+  sidebarBuka: boolean;
+  modalAktif: string | null;
+  aturTema: (tema: UiState['tema']) => void;
+  toggleSidebar: () => void;
+  bukaModal: (idModal: string) => void;
+  tutupModal: () => void;
+}
+
+export const useUiStore = create<UiState>()(
+  devtools(
+    persist(
+      subscribeWithSelector(
+        immer((set) => ({
+          tema: 'sistem',
+          sidebarBuka: true,
+          modalAktif: null,
+          aturTema: (tema) => set((draft) => { draft.tema = tema; }),
+          toggleSidebar: () => set((draft) => { draft.sidebarBuka = !draft.sidebarBuka; }),
+          bukaModal: (idModal) => set((draft) => { draft.modalAktif = idModal; }),
+          tutupModal: () => set((draft) => { draft.modalAktif = null; }),
+        }))
+      ),
+      { name: 'penyimpanan-ui', partialize: (s) => ({ tema: s.tema }) }
+    ),
+    { name: 'UiStore' }
+  )
+);
+```
+
+#### 2. Selective Subscriptions untuk Mencegah Re-render Berlebih
+```typescript
+// Hanya komponen yang membutuhkan tema yang akan re-render saat tema berubah
+const tema = useUiStore((s) => s.tema);
+const isModalHapusBuka = useUiStore((s) => s.modalAktif === 'konfirmasi-hapus');
+
+// Langganan di luar siklus React untuk manipulasi DOM langsung
+useUiStore.subscribe(
+  (s) => s.tema,
+  (tema) => { document.documentElement.dataset.theme = tema; },
+  { fireImmediately: true }
+);
+```
+
+#### 3. Provider Jotai 2 pada Next.js App Router
+```typescript
+// providers/store-provider.tsx
+'use client';
+
+import { createStore, Provider } from 'jotai';
+import { useRef } from 'react';
+
+export function StoreProvider({ children }: { children: React.ReactNode }) {
+  const storeRef = useRef(createStore());
+  return <Provider store={storeRef.current}>{children}</Provider>;
+}
+```

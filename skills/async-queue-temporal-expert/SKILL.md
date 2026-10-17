@@ -1,7 +1,7 @@
 ---
 name: async-queue-temporal-expert
 description: "Unified expert guide for async job queues & durable workflows: BullMQ v5 (Redis queues), Trigger.dev v3 (serverless tasks), Inngest, and Temporal.io (distributed sagas) / Panduan ahli terpadu untuk antrean job asinkron & workflow tahan-gagal: BullMQ v5, Trigger.dev v3, Inngest, dan Temporal.io."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -194,25 +194,142 @@ Panduan terpadu tingkat produksi untuk pipeline eksekusi latar belakang, antrean
 ### Model Eksekusi 3-Tier
 | Tier | Engine | Cocok Untuk |
 |------|--------|-------------|
-| **Tier 1: Antrean Redis** | BullMQ v5 | Job worker throughput tinggi, prioritas, rate limiting, DLQ |
-| **Tier 2: Task Serverless** | Trigger.dev v3 / Inngest | Task dengan checkpoint, resume otomatis, tanpa infra |
-| **Tier 3: Saga Terdistribusi** | Temporal.io | Orkestrasi multi-layanan, rollback kompensasi, workflow jangka panjang |
+| **Tier 1: Antrean Redis** | BullMQ v5 | Job worker throughput tinggi, antrean prioritas, rate limiting, DLQ |
+| **Tier 2: Task Serverless** | Trigger.dev v3 / Inngest | Task dengan checkpoint, resume otomatis, tanpa perlu mengelola infra server |
+| **Tier 3: Saga Terdistribusi** | Temporal.io | Orkestrasi multi-layanan, rollback kompensasi, workflow berdurasi panjang |
 
 ### Kemampuan Utama
-1. **Idempotensi & Deduplikasi**: Kunci `jobId` deterministik mencegah duplikasi penagihan atau email.
-2. **Dead Letter Queue (DLQ)**: Pemindahan otomatis job gagal total untuk audit.
-3. **Backoff Eksponensial + Jitter**: Mencegah thundering herd pada server hilir.
-4. **Prioritas Tenant**: Tier VIP/enterprise mendapat prioritas lebih tinggi (angka lebih kecil di BullMQ).
-5. **State Machine Tahan-Gagal**: Workflow bertahan saat restart, deployment, dan partisi jaringan.
-6. **Kompensasi Saga**: Transaksi multi-langkah dengan rollback otomatis urutan mundur.
+1. **Idempotensi & Deduplikasi**: Kunci `jobId` deterministik mencegah duplikasi penagihan atau email ganda.
+2. **Dead Letter Queue (DLQ)**: Pemindahan otomatis job yang gagal berulang kali untuk proses audit dan peringatan darurat.
+3. **Backoff Eksponensial + Jitter**: Mencegah beban serentak (*thundering herd*) pada server hilir atau API pihak ketiga.
+4. **Prioritas Tenant**: Pengguna VIP/enterprise dialokasikan prioritas lebih tinggi (`priority: 1` di BullMQ).
+5. **State Machine Tahan-Gagal**: Alur kerja tetap berlanjut meskipun server restart, deploy ulang, atau terjadi gangguan jaringan.
+6. **Kompensasi Saga**: Transaksi bertahap dengan pembatalan otomatis secara berurutan terbalik jika salah satu langkah gagal.
 
-### Checklist Implementasi
-- [ ] Atur `maxRetriesPerRequest: null` pada ioredis untuk BullMQ v5.
-- [ ] Gunakan `jobId` deterministik dari ID bisnis (`invoice_${invoiceId}`) untuk deduplikasi.
-- [ ] Pasang listener `worker.on('failed')` untuk forward job gagal ke DLQ.
-- [ ] Terapkan rate limiter pada worker untuk stabilitas API eksternal.
-- [ ] Pastikan kode Temporal selalu deterministik (side-effect hanya di activities).
-- [ ] Simpan file besar di S3/R2; kirim hanya referensi ID melalui queue.
+---
 
-## Integrasi Orkestrasi
+### Implementasi Pola Kunci (TypeScript)
+
+#### 1. Tier 1: Antrean BullMQ v5 Berbasis Redis & DLQ
+```typescript
+import { Queue, Worker, Job } from 'bullmq';
+import Redis from 'ioredis';
+
+const koneksiRedis = new Redis(process.env.REDIS_URL!, {
+  maxRetriesPerRequest: null, // Wajib untuk BullMQ v5
+});
+
+export interface NotifikasiPayload {
+  tenantId: string;
+  userId: string;
+  jenis: 'email' | 'webhook';
+  konten: Record<string, unknown>;
+  kunciIdempotensi: string;
+}
+
+export const antreanNotifikasi = new Queue<NotifikasiPayload>('notifikasi', {
+  connection: koneksiRedis,
+  defaultJobOptions: {
+    attempts: 5,
+    backoff: { type: 'exponential', delay: 1500 },
+    removeOnComplete: { age: 86400, count: 5000 },
+    removeOnFail: false, // Pertahankan untuk audit DLQ
+  },
+});
+
+export const antreanDLQ = new Queue('notifikasi-dlq', { connection: koneksiRedis });
+
+// Masukkan job dengan deduplikasi deterministik
+export async function jadwalkanNotifikasi(data: NotifikasiPayload, isVip = false) {
+  return await antreanNotifikasi.add('kirim_notifikasi', data, {
+    jobId: `notif_${data.kunciIdempotensi}`,
+    priority: isVip ? 1 : 10,
+  });
+}
+
+// Worker dengan konkurensi dan pembatas laju
+export const workerNotifikasi = new Worker<NotifikasiPayload>(
+  'notifikasi',
+  async (job: Job<NotifikasiPayload>) => {
+    if (job.data.jenis === 'email') await kirimEmail(job.data);
+  },
+  {
+    connection: koneksiRedis,
+    concurrency: 20,
+    limiter: { max: 100, duration: 1000 },
+  }
+);
+
+// Teruskan ke DLQ setelah batas retry habis
+workerNotifikasi.on('failed', async (job, error) => {
+  if (job && job.attemptsMade >= (job.opts.attempts || 5)) {
+    await antreanDLQ.add('notifikasi_gagal_permanen', {
+      originalJobId: job.id,
+      alasanGagal: error.message,
+      data: job.data,
+      waktuGagal: new Date().toISOString(),
+    });
+  }
+});
+```
+
+#### 2. Tier 2: Trigger.dev v3 Serverless Durable Tasks
+```typescript
+import { task } from '@trigger.dev/sdk/v3';
+
+export const tugasLaporanBulanan = task({
+  id: 'generate-laporan-bulanan',
+  retry: { maxAttempts: 4, minTimeoutInMs: 2000, factor: 2, randomize: true },
+  run: async (payload: { tenantId: string; bulan: string }, { ctx }) => {
+    const data = await ctx.run('ambil-telemetri', async () => {
+      return await ambilDataGudang(payload.tenantId, payload.bulan);
+    });
+    const urlPdf = await ctx.run('render-pdf', async () => {
+      return await renderDokumenPdf(data);
+    });
+    await ctx.run('kirim-webhook', async () => {
+      return await kirimWebhookNotifikasi(payload.tenantId, urlPdf);
+    });
+    return { status: 'sukses', urlPdf };
+  },
+});
+```
+
+#### 3. Tier 3: Temporal.io Distributed Saga & Kompensasi Rollback
+```typescript
+import { proxyActivities, ApplicationFailure } from '@temporalio/workflow';
+import type * as activities from './activities';
+
+const { debitRekening, alokasikanLisensi, kirimEmailSelamatDatang, kembalikanDana, batalkanLisensi } =
+  proxyActivities<typeof activities>({
+    startToCloseTimeout: '1 minute',
+    retry: { initialInterval: '1s', backoffCoefficient: 2, maximumAttempts: 5 },
+  });
+
+export async function sagaLanggananWorkflow(input: {
+  pelangganId: string; paketId: string; totalBayar: number;
+}) {
+  const daftarKompensasi: Array<() => Promise<void>> = [];
+  try {
+    const transaksi = await debitRekening(input.pelangganId, input.totalBayar);
+    daftarKompensasi.unshift(() => kembalikanDana(transaksi.transaksiId));
+
+    const lisensi = await alokasikanLisensi(input.pelangganId, input.paketId);
+    daftarKompensasi.unshift(() => batalkanLisensi(lisensi.lisensiId));
+
+    await kirimEmailSelamatDatang(input.pelangganId, lisensi.kodeLisensi);
+    return { status: 'SELESAI' };
+  } catch (error) {
+    // Eksekusi kompensasi rollback dalam urutan terbalik
+    for (const kompensasi of daftarKompensasi) {
+      try { await kompensasi(); } catch (e) { console.error('Kompensasi gagal:', e); }
+    }
+    throw ApplicationFailure.create({
+      message: `Saga berhasil di-rollback: ${(error as Error).message}`, nonRetryable: true,
+    });
+  }
+}
+```
+
+### Integrasi Orkestrasi
 - Terintegrasi dengan: `js-backend-expert`, `cron-scheduler-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`, `data-telemetry-expert`.

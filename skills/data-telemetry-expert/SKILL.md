@@ -1,7 +1,7 @@
 ---
 name: data-telemetry-expert
 description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -189,32 +189,90 @@ Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tra
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan observabilitas terpadu.
 
 ### Deskripsi
-Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. Mencakup **OpenTelemetry 1.x** (stabil, vendor-neutral traces/metrics/logs), **PostHog** (analitik produk open-source), **ClickHouse** (database analitik OLAP), dan pola observabilitas agen AI.
+Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. Mencakup **OpenTelemetry 1.x** (standar traces, metrics, logs netral vendor), **PostHog** (analitik produk open-source), **ClickHouse** (database analitik OLAP berkecepatan tinggi), Grafana stack, dan pola pemantauan agen AI.
 
 ### Kondisi Pemicu
 - Menambahkan distributed tracing ke microservice atau aplikasi Next.js.
-- Menyiapkan structured logging dan pengumpulan metrik.
-- Mengimplementasikan analitik produk (analisis funnel, feature flags, session replay).
-- Membangun pipeline analitik berkinerja tinggi dengan ClickHouse.
-- Memantau run agen AI, biaya token LLM, dan kualitas respons.
+- Menyiapkan structured logging dan pengumpulan metrik performa.
+- Mengimplementasikan analitik produk (funnel, feature flag, session replay).
+- Membangun pipeline analitik berkecepatan tinggi menggunakan ClickHouse.
 
-### OpenTelemetry 1.x — Observabilitas Vendor-Neutral
+---
 
-Tiga pilar OTel:
-- **Traces**: Aliran permintaan antar layanan.
-- **Metrics**: Pengukuran numerik dari waktu ke waktu.
-- **Logs**: Catatan peristiwa terstruktur.
+### Tiga Pilar OpenTelemetry (Traces, Metrics, Logs)
 
-Integrasikan dengan Next.js 15 melalui file `instrumentation.ts` bawaan — OTel SDK otomatis mendistribusikan trace ke backend pilihan (Grafana Tempo, Jaeger, Honeycomb, Datadog, dll.).
+| Sinyal | Definisi | Contoh Kasus |
+|---|---|---|
+| **Traces** | Alur request di berbagai microservice | `GET /api/pesanan` → query DB → redis cache |
+| **Metrics** | Pengukuran numerik sepanjang waktu | `http_requests_total`, durasi query DB |
+| **Logs** | Catatan kejadian terstruktur | `{"level":"error","pesan":"Koneksi DB timeout"}` |
 
-### ClickHouse — Database Analitik Berkinerja Tinggi
-ClickHouse adalah standar 2026 untuk workload analitik — menyerap miliaran event dan melakukan query dalam milidetik. Gunakan engine `MergeTree` dengan partisi per bulan dan pengurutan berdasarkan kolom yang sering di-filter.
+---
 
-### PostHog — Analitik Produk Open-Source
-PostHog menyediakan analisis funnel, feature flags, session replay, dan A/B testing dalam satu platform yang dapat di-self-host. Integrasikan dengan Next.js App Router menggunakan `posthog-js`.
+### Implementasi Pola Kunci (TypeScript)
 
-### Observabilitas Agen AI
-Lacak biaya LLM, latensi, dan kualitas untuk aplikasi AI produksi menggunakan custom OTel attributes. Gunakan LangSmith, OpenAI Tracing, atau Langfuse (open-source) sebagai backend tracing LLM.
+#### 1. Instrumentasi OpenTelemetry di Next.js 15
+```typescript
+// instrumentation.ts
+export async function register() {
+  if (process.env.NEXT_RUNTIME === 'nodejs') {
+    const { NodeSDK } = await import('@opentelemetry/sdk-node');
+    const { OTLPTraceExporter } = await import('@opentelemetry/exporter-trace-otlp-http');
+    const { OTLPMetricExporter } = await import('@opentelemetry/exporter-metrics-otlp-http');
+    const { PeriodicExportingMetricReader } = await import('@opentelemetry/sdk-metrics');
+    const { Resource } = await import('@opentelemetry/resources');
+    const { SEMRESATTRS_SERVICE_NAME } = await import('@opentelemetry/semantic-conventions');
+
+    const sdk = new NodeSDK({
+      resource: new Resource({
+        [SEMRESATTRS_SERVICE_NAME]: 'saas-produksi-app',
+      }),
+      traceExporter: new OTLPTraceExporter({
+        url: process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
+      }),
+      metricReader: new PeriodicExportingMetricReader({
+        exporter: new OTLPMetricExporter(),
+        exportIntervalMillis: 30_000,
+      }),
+    });
+
+    sdk.start();
+  }
+}
+```
+
+#### 2. Klien ClickHouse untuk Ingestion Event Skala Masif
+```typescript
+import { createClient } from '@clickhouse/client';
+
+const clickhouse = createClient({ url: process.env.CLICKHOUSE_URL });
+
+export async function rekamEventTelemetri(namaEvent: string, dataProperti: Record<string, unknown>) {
+  await clickhouse.insert({
+    table: 'events',
+    values: [{
+      event_name: namaEvent,
+      properties: dataProperti,
+      timestamp: new Date().toISOString(),
+    }],
+    format: 'JSONEachRow',
+  });
+}
+```
+
+#### 3. Pelacakan Event PostHog di Sisi Klien
+```typescript
+import posthog from 'posthog-js';
+
+posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+  api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://app.posthog.com',
+  capture_pageview: false,
+});
+
+export function lacakAktivitasPengguna(namaFitur: string) {
+  posthog.capture('fitur_digunakan', { fitur: namaFitur, timestamp: new Date().toISOString() });
+}
+```

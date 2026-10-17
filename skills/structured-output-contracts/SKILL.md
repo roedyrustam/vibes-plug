@@ -146,3 +146,46 @@ Standar produksi untuk menegakkan kontrak output JSON Schema ketat pada model-mo
 - Merancang output agen AI yang harus diproses otomatis oleh API backend atau pipeline CI/CD.
 - Mendefinisikan tool atau resource MCP yang memerlukan validasi parameter mutlak.
 - Menghilangkan kegagalan format JSON atau field halusinasi pada swarm multi-agen.
+- Menerapkan kontrak skema API seragam antara agen AI dan layer basis data.
+
+---
+
+### Pola Implementasi Penegakan Skema Ketat Multi-Provider (TypeScript)
+
+```typescript
+export function terapkanKontrakTerstruktur(skema: object, penyedia: 'openai' | 'gemini' | 'claude') {
+  if (penyedia === 'openai') {
+    return {
+      response_format: {
+        type: 'json_schema',
+        json_schema: {
+          name: (skema as any).title || 'OutputTerstruktur',
+          strict: true,
+          schema: skema
+        }
+      }
+    };
+  }
+
+  if (penyedia === 'gemini') {
+    return {
+      generationConfig: {
+        responseMimeType: 'application/json',
+        responseSchema: skema
+      }
+    };
+  }
+
+  // Claude: Gunakan pola tool_use dengan tool_choice eksplisit untuk respon terstruktur
+  return {
+    tools: [
+      {
+        name: 'kirim_output_terstruktur',
+        description: 'Kirimkan data hasil akhir yang sesuai dengan skema JSON',
+        input_schema: skema
+      }
+    ],
+    tool_choice: { type: 'tool', name: 'kirim_output_terstruktur' }
+  };
+}
+```

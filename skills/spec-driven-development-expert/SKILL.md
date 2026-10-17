@@ -333,3 +333,43 @@ Pengembangan Berbasis Spesifikasi (*Spec-Driven Development* / SDD) adalah fonda
    - Dari spesifikasi resmi, server mock (Prism/MSW) langsung tersedia sehingga tim frontend dan backend dapat bekerja paralel tanpa saling menunggu.
 5. **Verifikasi Formal Invarian**:
    - State machine penting (misalnya alur billing dan otorisasi) diverifikasi bersama skill `formal-spec-z3-verifier` untuk membuktikan matematis ketiadaan kebocoran state atau deadlock.
+
+---
+
+### Contoh Spesifikasi Microsoft TypeSpec (`specs/billing-api.tsp`)
+```tsp
+import "@typespec/http";
+import "@typespec/rest";
+
+using TypeSpec.Http;
+using TypeSpec.Rest;
+
+@service({ title: "Layanan Billing Vibes", version: "2026-10-01" })
+namespace Vibes.Billing;
+
+enum StatusTagihan { Draf, MenungguPembayaran, Lunas, Dibatalkan }
+
+model PermintaanBuatTagihan {
+  @header("Idempotency-Key") idempotencyKey: string;
+  idPelanggan: string;
+  totalJumlahIDR: int64;
+  metodePembayaran: "SNAP_BI" | "DOKU_CHECKOUT";
+}
+
+model ResponsTagihan {
+  id: string;
+  idPelanggan: string;
+  status: StatusTagihan;
+  totalJumlahIDR: int64;
+  dibuatPada: utcDateTime;
+}
+
+@route("/v1/tagihan")
+interface TagihanResource {
+  @post
+  buat(@body permintaan: PermintaanBuatTagihan): {
+    @statusCode statusCode: 201;
+    @body tagihan: ResponsTagihan;
+  };
+}
+```

@@ -1,7 +1,7 @@
 ---
 name: logging-error-tracking-expert
 description: "Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management / Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -322,10 +322,15 @@ const LOG_RETENTION = {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan pemantauan produksi yang andal.
+- `data-telemetry-expert` — Span OpenTelemetry + korelasi log.
+- `error-resilience-expert` — Setup pelacakan error dan monitoring.
+- `js-backend-expert` — Middleware logging sisi server (Fastify/Hono/Express).
+- `ci-cd-devops-architect` — Upload source map dalam pipeline CI/CD.
+- `production-ready-hardener` — Audit logging dan monitoring pra-peluncuran.
 
 ### Deskripsi
-Panduan tingkat produksi untuk mengimplementasikan logging terstruktur, pelacakan error, dan pemantauan aplikasi. Mencakup **Pino** (logging JSON berkinerja tinggi), integrasi SDK **Sentry** (React, Node.js, Next.js), **upload source map** untuk error produksi, **korelasi request ID** lintas microservice, **agregasi log** (Axiom, Datadog, Logflare), **aturan alerting**, **redaksi log sesuai GDPR** (masking PII), dan integrasi **OpenTelemetry**.
+Panduan tingkat produksi untuk mengimplementasikan logging terstruktur, pelacakan error, dan pemantauan aplikasi. Mencakup **Pino** (logging JSON berkinerja tinggi), integrasi SDK **Sentry** (React, Node.js, Next.js), **upload source map** untuk error produksi, **korelasi request ID** lintas microservice, **agregasi log** (Axiom, Datadog, Logflare), **aturan alerting**, **redaksi log sesuai GDPR / UU PDP** (masking PII), dan integrasi **OpenTelemetry**.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
@@ -334,12 +339,70 @@ Aktifkan skill ini ketika:
 - Mengimplementasikan korelasi request ID lintas microservice.
 - Menyiapkan agregasi dan pencarian log (Axiom, Datadog, Grafana Loki).
 - Mengonfigurasi aturan alerting untuk error produksi.
-- Mengimplementasikan manajemen log sesuai GDPR (redaksi PII).
+- Mengimplementasikan manajemen log sesuai GDPR dan UU PDP (redaksi PII).
 
-### Integrasi dengan Skill Lain
+---
 
-- `data-telemetry-expert` — Span OpenTelemetry + korelasi log
-- `error-resilience-expert` — Setup pelacakan error dan monitoring
-- `js-backend-expert` — Middleware logging sisi server (Fastify/Hono/Express)
-- `ci-cd-devops-architect` — Upload source map dalam pipeline CI/CD
-- `production-ready-hardener` — Audit logging dan monitoring pra-peluncuran
+### Implementasi Pola Kunci (TypeScript)
+
+#### 1. Logger Terstruktur Berkinerja Tinggi dengan Pino & Redaksi PII
+```typescript
+// lib/logger.ts
+import pino from 'pino';
+
+export const logger = pino({
+  level: process.env.LOG_LEVEL ?? 'info',
+  // Redaksi field sensitif otomatis (Kepatuhan UU PDP & GDPR)
+  redact: {
+    paths: [
+      'req.headers.authorization',
+      'req.headers.cookie',
+      '*.password',
+      '*.token',
+      '*.nik',
+      '*.nomorKartu',
+    ],
+    censor: '[TEREDAKSI]',
+  },
+  formatters: {
+    level: (label) => ({ level: label }),
+    bindings: (bindings) => ({
+      layanan: process.env.SERVICE_NAME ?? 'backend-api',
+      lingkungan: process.env.NODE_ENV,
+      pid: bindings.pid,
+      hostname: bindings.hostname,
+    }),
+  },
+  timestamp: pino.stdTimeFunctions.isoTime,
+});
+
+export const dbLogger = logger.child({ modul: 'database' });
+export const paymentLogger = logger.child({ modul: 'pembayaran' });
+```
+
+#### 2. Korelasi Request ID dengan AsyncLocalStorage
+```typescript
+import { randomUUID } from 'crypto';
+import { AsyncLocalStorage } from 'async_hooks';
+import { logger } from './logger';
+
+export const konteksRequest = new AsyncLocalStorage<{ requestId: string }>();
+
+export function getLoggerRequest() {
+  const ctx = konteksRequest.getStore();
+  return ctx ? logger.child({ requestId: ctx.requestId }) : logger;
+}
+```
+
+#### 3. Inisialisasi Sentry Klien di Next.js 15
+```typescript
+// sentry.client.config.ts
+import * as Sentry from '@sentry/nextjs';
+
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  environment: process.env.NODE_ENV,
+  tracesSampleRate: process.env.NODE_ENV === 'production' ? 0.1 : 1.0,
+  replaysOnErrorSampleRate: 1.0, // Rekam 100% sesi yang mengalami error
+});
+```

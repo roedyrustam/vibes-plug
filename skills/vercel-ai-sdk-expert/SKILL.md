@@ -1,7 +1,7 @@
 ---
 name: vercel-ai-sdk-expert
 description: "Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering / Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -224,3 +224,119 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 - Membangun loop pemanggilan tool (*tool-calling loops*) multi-langkah di Route Handler atau Server Actions.
 - Beralih fleksibel antar penyedia model frontier (Claude 5.1 Fable / 5 Sonnet, Gemini 4 Pro / Flash, OpenAI GPT-5.6 / o3 / GPT-4.5, Ollama).
 - Mengelola status eksekusi tool, indikator loading, dan rendering komponen UI secara dinamis saat streaming berlangsung.
+
+---
+
+### Implementasi Pola Kunci (TypeScript & React 19)
+
+#### 1. Next.js 15 Route Handler dengan Multi-Step Tool Calling Loop
+```typescript
+// app/api/chat/route.ts
+import { anthropic } from '@ai-sdk/anthropic';
+import { streamText, tool } from 'ai';
+import { z } from 'zod';
+
+export const maxDuration = 60; // Izinkan penalaran agen hingga 60 detik
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+
+  const hasil = streamText({
+    model: anthropic('claude-3-7-sonnet-20250219'),
+    messages,
+    maxSteps: 5, // Mengaktifkan siklus pemanggilan tool multi-langkah
+    tools: {
+      hitungMetrikPerforma: tool({
+        description: 'Menghitung metrik performa aplikasi dari data mentah',
+        parameters: z.object({
+          datasetId: z.string(),
+          metrik: z.enum(['p95_latensi', 'tingkat_error', 'throughput']),
+        }),
+        execute: async ({ datasetId, metrik }) => {
+          const data = await ambilMetrikSistem(datasetId, metrik);
+          return { datasetId, metrik, nilai: data.hasil };
+        },
+      }),
+    },
+    system: 'Anda adalah auditor performa perangkat lunak elit. Selalu sertakan bukti dari pemanggilan tool.',
+  });
+
+  return hasil.toDataStreamResponse();
+}
+```
+
+#### 2. Streaming Objek Terstruktur Type-Safe (`streamObject`)
+```typescript
+import { google } from '@ai-sdk/google';
+import { streamObject } from 'ai';
+import { z } from 'zod';
+
+export async function POST(req: Request) {
+  const { diffKode } = await req.json();
+
+  const hasil = streamObject({
+    model: google('gemini-4-flash'),
+    schema: z.object({
+      kerentananKeamanan: z.array(z.object({
+        tingkatKeparahan: z.enum(['rendah', 'sedang', 'tinggi', 'kritis']),
+        cwe: z.string(),
+        penjelasan: z.string(),
+        saranPerbaikan: z.string(),
+      })),
+      skorRisikoGlobal: z.number().min(0).max(100),
+      lolosReview: z.boolean(),
+    }),
+    prompt: `Audit perubahan kode berikut untuk regresi keamanan:\n${diffKode}`,
+  });
+
+  return hasil.toTextStreamResponse();
+}
+```
+
+#### 3. Integrasi Hook Klien React 19 (`useChat` dengan Invocations Tool)
+```tsx
+'use client';
+
+import { useChat } from '@ai-sdk/react';
+
+export function AntarmukaChatAgen() {
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    maxSteps: 5,
+  });
+
+  return (
+    <div className="flex flex-col h-[600px] w-full max-w-2xl mx-auto border border-slate-200 dark:border-slate-800 rounded-lg p-4 bg-white dark:bg-slate-900">
+      <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+        {messages.map((m) => (
+          <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`p-3 rounded-lg max-w-[80%] text-sm ${m.role === 'user' ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900' : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'}`}>
+              <div className="whitespace-pre-wrap">{m.content}</div>
+              {m.toolInvocations?.map((invokasi) => (
+                <div key={invokasi.toolCallId} className="mt-2 text-xs p-2 bg-black/10 dark:bg-white/10 rounded font-mono">
+                  <span className="font-semibold">Tool [{invokasi.toolName}]:</span>{' '}
+                  {'result' in invokasi ? JSON.stringify(invokasi.result) : 'Mengeksekusi...'}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <form onSubmit={handleSubmit} className="flex gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
+        <input
+          value={input}
+          onChange={handleInputChange}
+          placeholder="Tanyakan analisis pada agen..."
+          className="flex-1 px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 rounded bg-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 dark:focus:ring-slate-100"
+        />
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="px-4 py-2 text-sm font-medium bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded disabled:opacity-50"
+        >
+          Kirim
+        </button>
+      </form>
+    </div>
+  );
+}
+```

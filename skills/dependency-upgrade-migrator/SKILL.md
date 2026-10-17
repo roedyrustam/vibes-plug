@@ -1,7 +1,7 @@
 ---
 name: dependency-upgrade-migrator
 description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -288,15 +288,93 @@ Panduan tingkat produksi untuk upgrade dependensi yang aman, migrasi melalui bre
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
 - Mengupgrade versi mayor framework (React, Next.js, Tailwind, dll).
-- Menjalankan audit keamanan dan memperbaiki kerentanan.
+- Menjalankan audit keamanan dan memperbaiki kerentanan paket.
 - Menyiapkan bot update dependensi otomatis (Renovate, Dependabot).
-- Menulis atau menjalankan codemod untuk migrasi API.
-- Membersihkan dependency tree dan menghapus paket yang tidak digunakan.
+- Menulis atau menjalankan codemod untuk refaktor API usang secara massal.
+- Membersihkan dependency tree dan menghapus paket yang tidak lagi terpakai.
 
-### Integrasi dengan Skill Lain
+---
 
-- `monorepo-architect` — pnpm catalogs, penyelarasan dependensi workspace
-- `zero-tech-debt-auditor` — Pembersihan pasca-upgrade, penghapusan dead code
-- `production-ready-hardener` — Fase audit keamanan
-- `ci-cd-devops-architect` — Integrasi Renovate Bot CI/CD
-- `e2e-testing-expert` — Pengujian regresi setelah upgrade mayor
+### Matriks Strategi Upgrade Dependensi
+
+| Tipe Upgrade | Tingkat Risiko | Strategi Penanganan | Tooling yang Dianjurkan |
+|---|---|---|---|
+| **Patch** (1.0.x) | 🟢 Rendah | Auto-merge setelah seluruh test suite lulus | Renovate, Dependabot |
+| **Minor** (1.x.0) | 🟡 Sedang | Auto-merge dengan review PR singkat | Renovate + CI pipeline test |
+| **Mayor** (x.0.0) | 🔴 Tinggi | Review manual, pelajari changelog, branch terpisah | Manual + Codemod AST |
+| **Keamanan** (CVE) | 🔴 Kritis | Upgrade darurat dan rilis hotfix langsung | `pnpm audit --fix` / manual patch |
+
+---
+
+### Resep & Panduan Migrasi Kunci
+
+#### 1. Tooling Pemindaian Upgrade (`taze`)
+```bash
+# Tampilkan upgrade versi mayor yang tersedia di workspace
+npx taze major
+
+# Tulis otomatis pembaruan minor ke package.json
+npx taze minor -w
+
+# Jalankan pemindaian secara rekursif di seluruh paket monorepo
+npx taze -r
+```
+
+#### 2. Konfigurasi Renovate Bot Otomatis (`renovate.json`)
+```json
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:best-practices"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "requiredStatusChecks": ["ci/test", "ci/build"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "labels": ["major-upgrade", "manual-review"]
+    }
+  ]
+}
+```
+
+#### 3. Ringkasan Migrasi Framework Utama (2026 Standard)
+- **React 18 ke 19**: `forwardRef` tidak lagi dibutuhkan (prop `ref` diteruskan seperti prop biasa). `useActionState` menggantikan `useFormState`. Hook `use()` dapat membaca promise dan React Context secara langsung.
+- **Next.js 14 ke 15**: Parameter `params` dan `searchParams` pada page/layout/route kini bersifat asinkron (`Promise<{ id: string }>`). Default `fetch()` tidak lagi di-cache secara otomatis (`cache: 'force-cache'` harus dideklarasikan secara eksplisit jika diinginkan).
+- **Tailwind CSS v3 ke v4**: Konfigurasi berpindah dari `tailwind.config.js` ke CSS native melalui direktif `@theme`. Direktif lama `@tailwind base;` diganti dengan `@import 'tailwindcss';`.
+
+#### 4. Otomasi Codemod Menghapus `forwardRef` Menggunakan `jscodeshift`
+```typescript
+// codemods/hapus-forward-ref.ts
+import type { API, FileInfo } from 'jscodeshift';
+
+export default function transform(fileInfo: FileInfo, api: API) {
+  const j = api.jscodeshift;
+  const root = j(fileInfo.source);
+
+  root.find(j.CallExpression, {
+    callee: { name: 'forwardRef' },
+  }).forEach((path) => {
+    const args = path.node.arguments;
+    if (args.length > 0) {
+      j(path).replaceWith(args[0]);
+    }
+  });
+
+  root.find(j.ImportSpecifier, { imported: { name: 'forwardRef' } }).remove();
+  return root.toSource({ quote: 'single' });
+}
+```
+
+### Jebakan Umum yang Wajib Dihindari
+- **Mengupgrade Seluruh Dependensi Sekaligus**: Sulit melacak sumber error saat build rusak. Upgrade dependensi mayor satu per satu.
+- **Mengabaikan Peringatan Peer Dependencies**: Menimbulkan konflik runtime tersembunyi.
+- **Menjalankan `npm audit fix --force` Secara Membabi Buta**: Dapat memaksa install versi mayor yang merusak kode aplikasi.

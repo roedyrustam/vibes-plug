@@ -1,7 +1,7 @@
 ---
 name: ai-media-generation-expert
 description: "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration / Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -157,17 +157,124 @@ async function generateVideo(prompt: string) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`ai-llm-integration-expert`**: Pola LLM inti dan pemilihan model.
-- **`file-upload-media-expert`**: Penyimpanan, CDN, dan pipeline media untuk aset yang dihasilkan.
-- **`sse-websocket-streaming-expert`**: Streaming real-time untuk generasi gambar/audio progresif.
-- **`async-queue-temporal-expert`**: Pemrosesan job latar belakang untuk tugas generasi yang lama.
+- **`ai-llm-integration-expert`**: Pola LLM inti, pemilihan model penalaran, dan arsitektur orkestrasi prompt.
+- **`file-upload-media-expert`**: Penyimpanan Cloudflare R2 / S3, optimasi CDN, dan pipeline media untuk aset yang dihasilkan.
+- **`sse-websocket-streaming-expert`**: Streaming progresif untuk generasi gambar, status tugas, dan audio real-time.
+- **`async-queue-temporal-expert`**: Pemrosesan background job (BullMQ/Temporal) untuk tugas generasi media berdurasi panjang.
+- **`zero-trust-secret-vault`**: Manajemen rahasia aman untuk token Replicate, OpenAI, dan ElevenLabs.
 
 ### Deskripsi
-Panduan tingkat produksi untuk mengintegrasikan generasi media berbasis AI ke dalam aplikasi web dan mobile. Mencakup generasi gambar (Flux 1.1 Pro, SDXL, DALL-E 3), generasi video (Sora, Runway Gen-3), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), dan kloning suara.
+Panduan tingkat produksi untuk mengintegrasikan generasi media berbasis AI ke dalam aplikasi web dan mobile modern. Mencakup generasi gambar (Flux 1.1 Pro, SDXL, DALL-E 3), generasi video (Sora, Runway Gen-3, MiniMax), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), dan kloning audio. Dilengkapi pola pemrosesan asinkron via webhook, mitigasi biaya, serta penyaringan keamanan konten (NSFW/moderasi).
 
 ### Kondisi Pemicu
-- Mengintegrasikan generasi gambar AI (Flux, DALL-E, Stable Diffusion).
-- Membangun fitur text-to-speech atau speech-to-text.
-- Mengimplementasikan kloning suara atau generasi avatar AI.
-- Menambahkan kemampuan generasi atau editing video AI.
-- Membangun pipeline pemrosesan media dengan model AI.
+- Mengintegrasikan API generasi gambar AI beresolusi tinggi (Flux 1.1 Pro, DALL-E 3, SDXL).
+- Membangun fitur sintesis suara ekspresif (Text-to-Speech) atau transkripsi audio otomatis (Speech-to-Text).
+- Mengembangkan pipeline video AI asinkron berbasis webhook callback.
+- Menerapkan pembatasan kuota generasi dan verifikasi keamanan konten pengguna.
+
+---
+
+### Matriks Pemilihan Model Generasi Media
+
+| Tipe Media | Provider & Model | Latensi | Kualitas Visual/Audio | Estimasi Biaya | Rekomendasi Penggunaan |
+|---|---|---|---|---|---|
+| **Gambar** | Replicate (Flux 1.1 Pro) | ~3 detik | ★★★★★ | $0.04 / gambar | Gambar fotorealistik & tipografi akurat |
+| **Gambar (Draft)** | Replicate (Flux Schnell) | ~1 detik | ★★★★ | $0.003 / gambar | Pratinjau instan & volume tinggi |
+| **Gambar** | OpenAI (DALL-E 3) | ~5 detik | ★★★★ | $0.04 / gambar | Ilustrasi kreatif & pemahaman prompt deskriptif |
+| **Suara (TTS)** | ElevenLabs (eleven_v3) | ~500 ms | ★★★★★ | $0.30 / 1K karakter | Narasi audio buku & karakter ekspresif |
+| **Suara (Realtime)**| ElevenLabs (eleven_flash_v2_5) | ~200 ms | ★★★★ | $0.15 / 1K karakter | Agen percakapan AI & voicebot interaktif |
+| **Transkripsi** | OpenAI (Whisper large-v3) | Cepat | ★★★★★ | $0.006 / menit | Transkripsi rapat & subtitling multibahasa |
+
+---
+
+### Pola Implementasi Teknis (TypeScript)
+
+#### 1. Generasi Gambar Berkualitas Tinggi dengan Replicate (Flux 1.1 Pro)
+```typescript
+import Replicate from 'replicate';
+
+const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN!,
+});
+
+interface ImageGenOptions {
+  width?: number;
+  height?: number;
+  mode?: 'production' | 'preview';
+}
+
+export async function hasilkanGambarAI(promptTeks: string, options: ImageGenOptions = {}) {
+  const isPreview = options.mode === 'preview';
+  const modelIdentifier = isPreview 
+    ? 'black-forest-labs/flux-schnell' 
+    : 'black-forest-labs/flux-1.1-pro';
+
+  const output = await replicate.run(modelIdentifier, {
+    input: {
+      prompt: promptTeks,
+      width: options.width ?? 1024,
+      height: options.height ?? 1024,
+      num_inference_steps: isPreview ? 4 : 28,
+      output_format: 'webp',
+      output_quality: 90,
+    },
+  });
+
+  return output; // Mengembalikan URL langsung ke aset WebP yang dihasilkan
+}
+```
+
+#### 2. Streaming Text-to-Speech (TTS) ElevenLabs
+```typescript
+export async function streamSuaraTeks(teks: string, voiceId: string): Promise<ReadableStream<Uint8Array>> {
+  const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}/stream`, {
+    method: 'POST',
+    headers: {
+      'xi-api-key': process.env.ELEVENLABS_API_KEY!,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      text: teks,
+      model_id: 'eleven_v3',
+      voice_settings: {
+        stability: 0.5,
+        similarity_boost: 0.8,
+        style: 0.2,
+      },
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`ElevenLabs API error: ${response.statusText}`);
+  }
+
+  return response.body as ReadableStream<Uint8Array>;
+}
+```
+
+#### 3. Transkripsi Audio Whisper Berpresisi Tinggi
+```typescript
+import OpenAI from 'openai';
+import fs from 'fs';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+export async function transkripsiAudio(fileBuffer: Buffer, namaFile: string) {
+  const file = await OpenAI.toFile(fileBuffer, namaFile);
+  
+  const hasil = await openai.audio.transcriptions.create({
+    file,
+    model: 'whisper-1',
+    response_format: 'verbose_json',
+    timestamp_granularities: ['word', 'segment'],
+  });
+
+  return hasil;
+}
+```
+
+#### 4. Pola Produksi Kritis
+- **Arsitektur Asinkron**: Wajib menggunakan antrean tugas latar belakang (`BullMQ` atau `Inngest`) untuk setiap operasi media yang memerlukan waktu komputasi >2 detik.
+- **Penerimaan Callback Webhook**: Jangan gunakan polling HTTP terus-menerus; gunakan endpoint webhook yang divalidasi dengan tanda tangan kriptografis untuk menerima hasil generasi dari Replicate.
+- **Pencegahan Konten Terlarang (NSFW)**: Lakukan penyaringan ganda menggunakan OpenAI Moderation API sebelum memproses prompt dan verifikasi gambar hasil sebelum ditampilkan kepada pengguna umum.
+- **Penyimpanan Permanen**: Jangan bergantung pada URL hosting sementara dari vendor AI. Segera unduh dan simpan aset ke Cloudflare R2 atau AWS S3, lalu sajikan melalui domain CDN kustom.

@@ -112,7 +112,7 @@ Output JSON: { "verdict": "APPROVED" | "REJECTED", "score": 0-100, "rationale": 
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill `mcp-server-architect`, `autonomous-red-teamer`, `ai-code-review-autonomous`, `speculative-multi-draft-synthesizer`, `anti-slop`, dan `zero-to-prod-orchestrator` untuk menetapkan validasi Critic-in-the-Loop otonom sebelum mutasi file atau database.
+Terhubung dan mengorkestrasikan skill `mcp-server-architect`, `autonomous-red-teamer`, `ai-code-review-autonomous`, `speculative-multi-draft-synthesizer`, `anti-slop`, dan `zero-to-prod-orchestrator` untuk menetapkan validasi Critic-in-the-Loop otonom sebelum mutasi file atau database.
 
 ### Deskripsi
 Protokol produksi untuk memanfaatkan *Client Sampling* pada Model Context Protocol (`sampling/createMessage`) guna membangun gerbang kualitas adversarial rekursif. Menggunakan MCP Sampling, server atau subagen menghentikan eksekusi sementara, melakukan panggilan sampling ke LLM host untuk mengaudit usulan perubahan kode terhadap 7 Pilar Anti-Slop, keamanan injeksi SQL, dan penanganan error. Kode hanya ditulis ke disk apabila mendapatkan status `APPROVED`.
@@ -121,3 +121,44 @@ Protokol produksi untuk memanfaatkan *Client Sampling* pada Model Context Protoc
 - Merancang alur agen otonom yang memodifikasi file repositori atau migrasi basis data.
 - Menjalankan topologi swarm `CRITIC_VALIDATOR` di mana draf implementer harus diverifikasi auditor independen.
 - Menghapus stub placeholder malas (`// TODO`) dan penelanan error secara otomatis sebelum commit.
+
+---
+
+### Pembuatan Payload Permintaan MCP Sampling (TypeScript)
+
+```typescript
+export interface PayloadPesanSampling {
+  messages: Array<{
+    role: 'user' | 'assistant';
+    content: { type: 'text'; text: string };
+  }>;
+  systemPrompt: string;
+  maxTokens: number;
+}
+
+export function bangunPayloadSamplingCritic(
+  fileTarget: string,
+  drafKode: string,
+  peringatanAwal: string[]
+): PayloadPesanSampling {
+  return {
+    systemPrompt: `Anda adalah Auditor Anti-Slop Berdaulat (Edisi 2026).
+Lakukan audit kode ketat terhadap:
+1. Ketiadaan stub placeholder (// TODO, // ...rest of code).
+2. Ketiadaan penelanan error diam-diam (empty catch block).
+3. Kontrak 5-state UI interaktif (hover, focus-visible, active, disabled).
+4. Pencegahan injeksi SQL (wajib parameterized query).
+Keluarkan JSON: { "verdict": "APPROVED" | "REJECTED", "score": 0-100, "rationale": "..." }`,
+    maxTokens: 2048,
+    messages: [
+      {
+        role: 'user',
+        content: {
+          type: 'text',
+          text: `File: ${fileTarget}\nPeringatan AST Awal: ${peringatanAwal.join(', ')}\n\nKode yang Diaudit:\n\`\`\`typescript\n${drafKode}\n\`\`\``
+        }
+      }
+    ]
+  };
+}
+```

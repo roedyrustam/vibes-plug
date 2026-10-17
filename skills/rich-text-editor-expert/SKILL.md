@@ -1,7 +1,7 @@
 ---
 name: rich-text-editor-expert
 description: "Expert guide for rich text editor integration (Tiptap, Lexical, ProseMirror), collaborative editing, and custom extensions / Panduan ahli integrasi editor rich text (Tiptap, Lexical, ProseMirror), editing kolaboratif, dan ekstensi kustom."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -164,15 +164,58 @@ function LexicalEditor() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`realtime-collaboration-expert`**: CRDT Yjs/Automerge untuk editing kolaboratif.
-- **`form-validation-expert`**: Pola integrasi form untuk konten editor.
-- **`headless-cms-expert`**: Integrasi skema CMS untuk field rich text.
+- **`realtime-collaboration-expert`**: CRDT Yjs/Automerge untuk editing dokumen kolaboratif real-time.
+- **`form-validation-expert`**: Pola integrasi formulir untuk konten rich text (Zod + React Hook Form).
+- **`headless-cms-expert`**: Integrasi skema CMS untuk field rich text dan Portable Text.
+- **`file-upload-media-expert`**: Upload gambar/video dengan presigned URL ke dalam konten editor.
 
 ### Deskripsi
-Panduan ahli untuk mengintegrasikan editor rich text berkualitas produksi ke dalam aplikasi web. Mencakup Tiptap v2, Lexical (Meta), dan ProseMirror. Termasuk pembuatan node/mark kustom, editing kolaboratif dengan Yjs, slash commands, sistem mention, embedding gambar/video, dan output Portable Text.
+Panduan ahli untuk mengintegrasikan editor rich text berkualitas produksi ke dalam aplikasi web. Mencakup Tiptap v2 (berbasis ProseMirror, modular), Lexical (framework berperforma tinggi dari Meta), dan ProseMirror murni. Termasuk pembuatan ekstensi kustom (slash commands, mention, blockquote kustom), kolaborasi real-time dengan Yjs, sanitasi DOMPurify, dan output JSON/HTML.
 
 ### Kondisi Pemicu
-- Menambahkan editor WYSIWYG atau rich text ke aplikasi.
-- Membangun fitur editing dokumen kolaboratif.
-- Membuat ekstensi editor kustom (mention, slash commands, embed).
-- Memilih antara Tiptap, Lexical, atau ProseMirror.
+- Menambahkan editor WYSIWYG atau rich text ke aplikasi SaaS.
+- Membangun fitur kolaborasi pengeditan dokumen langsung antar banyak pengguna.
+- Membuat ekstensi kustom seperti slash commands (`/`), tag mention (`@`), atau embedding media.
+
+---
+
+### Implementasi Pola Kunci (TypeScript & React)
+
+#### 1. Konfigurasi Editor Tiptap v2 dengan Ekstensi Lengkap
+```tsx
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Placeholder from '@tiptap/extension-placeholder';
+import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
+
+export function EditorDokumen({ onPerubahan }: { onPerubahan: (json: object) => void }) {
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Placeholder.configure({ placeholder: 'Ketik "/" untuk perintah...' }),
+      Image.configure({ inline: true, allowBase64: false }),
+      Link.configure({ openOnClick: false, autolink: true }),
+    ],
+    onUpdate: ({ editor }) => onPerubahan(editor.getJSON()),
+  });
+
+  return (
+    <div className="border border-slate-200 dark:border-slate-800 rounded-lg p-4 bg-white dark:bg-slate-900">
+      <EditorContent editor={editor} className="prose dark:prose-invert max-w-none focus:outline-none" />
+    </div>
+  );
+}
+```
+
+#### 2. Sanitasi Output HTML Mencegah XSS (DOMPurify)
+```typescript
+import DOMPurify from 'isomorphic-dompurify';
+
+export function bersihkanHtmlKonten(htmlMentah: string): string {
+  return DOMPurify.sanitize(htmlMentah, {
+    ALLOWED_TAGS: ['p', 'b', 'i', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'a', 'img', 'pre', 'code'],
+    ALLOWED_ATTR: ['href', 'src', 'alt', 'title', 'target'],
+  });
+}
+```

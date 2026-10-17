@@ -131,3 +131,33 @@ Arsitektur produksi untuk mengalokasikan dan mengendalikan *reasoning thinking t
 - Menjalankan swarm multi-agen di mana subagen pelaksana membutuhkan budget ringan sedangkan agen auditor membutuhkan budget mendalam.
 - Mengoptimalkan efisiensi biaya token dan latensi P99 pada pipeline AI enterprise.
 - Memvalidasi logika berisiko tinggi (state machine finansial, billing SaaS, kriptografi).
+
+---
+
+### Implementasi Pola Kunci Alokasi Budget Penalaran (TypeScript)
+
+```typescript
+export interface KonfigurasiPenalaran {
+  profil: 'speed' | 'balanced' | 'deep' | 'exhaustive';
+  budgetTokens: number;
+}
+
+export function tentukanBudgetPenalaran(deskripsiTugas: string): KonfigurasiPenalaran {
+  const teks = deskripsiTugas.toLowerCase();
+  
+  // 1. Tugas formal matematika/kriptografi: Berikan budget maksimal
+  if (/(invarian|formal|pqc|smt|z3|kriptografi)/.test(teks)) {
+    return { profil: 'exhaustive', budgetTokens: 65536 };
+  }
+  // 2. Audit keamanan, payment, dan migrasi arsitektur: Budget mendalam
+  if (/(keamanan|audit|red-team|refaktor|migrasi|payment|doku|stripe)/.test(teks)) {
+    return { profil: 'deep', budgetTokens: 32768 };
+  }
+  // 3. Perbaikan typo, formatting, dan dokumentasi: Budget super cepat
+  if (/(typo|lint|format|dokumentasi|readme)/.test(teks)) {
+    return { profil: 'speed', budgetTokens: 1024 };
+  }
+  // 4. Default pengembangan fitur fullstack: Budget seimbang
+  return { profil: 'balanced', budgetTokens: 8192 };
+}
+```

@@ -1,7 +1,7 @@
 ---
 name: voice-ai-realtime-agent
 description: "Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD / Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
 version: "4.3.0"
 ---
 
@@ -219,25 +219,116 @@ export class GeminiVoiceAgent {
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **`ai-llm-integration-expert`**: Integrasi model LLM frontier dan streaming token dua arah.
+- **`sse-websocket-streaming-expert`**: Penanganan koneksi WebSocket full-duplex dan transmisi buffer PCM 24kHz.
+- **`ai-media-generation-expert`**: Pipeline suara Text-to-Speech (Cartesia, ElevenLabs, OpenAI Audio).
+- **`multi-agent-orchestration`**: Penanganan interupsi suara (*barge-in*) dalam alur percakapan agen.
+
 ### Deskripsi
-Panduan ahli untuk membangun aplikasi AI suara percakapan dua arah berlatensi ultra-rendah (<300ms). Mencakup integrasi WebRTC, streaming audio WebSocket full-duplex (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi cerdas (*barge-in*).
+Panduan ahli untuk membangun aplikasi AI suara percakapan berlatensi ultra-rendah (<300ms) dan dua arah (*bi-directional*). Mencakup WebRTC, streaming audio WebSocket full-duplex (PCM 16-bit 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi percakapan cerdas (*smart barge-in*).
 
 ### Kondisi Pemicu
-- Kebutuhan interaksi percakapan verbal instan di bawah satu detik dengan agen AI.
-- Bot layanan pelanggan berbasis suara, asisten verbal, tutor bahasa interaktif.
-- Implementasi streaming audio WebRTC, WebSocket PCM 24kHz dua arah, dan Silero Voice Activity Detection (VAD).
-- Konfigurasi OpenAI Realtime API (`gpt-5-realtime-preview` / `gpt-4o-realtime-preview`) atau Gemini Multimodal Live API.
-
-### Panduan Inti Arsitektur Suara Real-time
-1. **Full-Duplex Speech-to-Speech**: Mengganti pipeline sekuensial tradisional (STT ➔ LLM ➔ TTS) dengan pipeline streamable WebRTC atau model native speech-to-speech untuk memangkas latensi dari ~2000ms menjadi ~300ms.
-2. **Penanganan Interupsi (Barge-In)**: Saat VAD mendeteksi suara pengguna baru saat bot sedang berbicara, buffer audio keluar harus di-flush dalam waktu <150ms tanpa menunggu LLM menyelesaikan kalimatnya.
-3. **Standar Format Audio**: Input mikrofon PCM 16-bit 16kHz/24kHz Mono, dan output speaker 24kHz untuk intonasi yang alami dan jernih.
+- Aplikasi yang memerlukan percakapan suara langsung dengan agen AI dalam latensi sub-detik.
+- Voicebot layanan pelanggan, verbal co-pilot, tutor bahasa interaktif, dan asisten suara pintar.
+- Implementasi streaming audio WebRTC, WebSocket audio full-duplex, dan Silero VAD (Voice Activity Detection).
+- Konfigurasi model native OpenAI Realtime atau Gemini Multimodal Live.
 
 ---
 
-## Integrasi Orkestrasi
+### Implementasi Pola Kunci
 
-- **`ai-llm-integration-expert`**: Routing instruksi sistem dasar dan pemanggilan tool fungsi selama percakapan suara.
-- **`realtime-collaboration-expert`**: Sinkronisasi track audio WebRTC dan status room pengguna.
-- **`gemini-agent-booster`**: Integrasi model multimodal Gemini 2.0/3.x Flash untuk live audio.
-- **`mobile-expo-expert`**: Implementasi audio streaming di React Native menggunakan `expo-av` dan WebRTC shim.
+#### 1. Worker Agen Suara dengan LiveKit Agents & OpenAI Realtime (Python)
+```python
+# agen_suara.py - Worker Agen Suara LiveKit Produksi
+import asyncio
+from livekit import rtc
+from livekit.agents import AutoSubscribe, JobContext, WorkerOptions, cli, llm
+from livekit.agents.pipeline import VoicePipelineAgent
+from livekit.plugins import deepgram, openai, silero
+
+async def entrypoint(ctx: JobContext):
+    # Sambungkan ke room hanya dengan audio untuk meminimalkan bandwidth & latensi
+    await ctx.connect(auto_subscribe=AutoSubscribe.AUDIO_ONLY)
+    peserta = await ctx.wait_for_participant()
+
+    konteks_awal = llm.ChatContext().append(
+        role="system",
+        text=(
+            "Anda adalah asisten suara yang ramah dan ringkas. "
+            "Jawablah dengan 1-2 kalimat pendek secara natural. Jangan pernah mengeluarkan format markdown atau emoji."
+        )
+    )
+
+    agen = VoicePipelineAgent(
+        vad=silero.VAD.load(
+            min_speech_duration=0.1,
+            min_silence_duration=0.3, # Pengambilan giliran bicara yang responsif
+            prefix_padding_duration=0.2,
+        ),
+        stt=deepgram.STT(model="nova-2", language="id"),
+        llm=openai.LLM(model="gpt-4o-mini"),
+        tts=openai.TTS(voice="alloy"),
+        chat_ctx=konteks_awal,
+        allow_interruptions=True, # Memungkinkan interupsi pengguna (barge-in)
+        interrupt_speech_duration=0.3,
+    )
+
+    agen.start(ctx.room, peserta)
+    await agen.say("Halo! Ada yang bisa saya bantu hari ini?", now=True)
+
+if __name__ == "__main__":
+    cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
+```
+
+#### 2. Klien Audio Streaming Gemini Multimodal Live (TypeScript)
+```typescript
+// gemini-suara-agent.ts
+import WebSocket from 'ws';
+
+export class AgenSuaraGemini {
+  private ws: WebSocket | null = null;
+  private terhubung = false;
+
+  constructor(private apiKey: string) {}
+
+  public async hubungkan(): Promise<void> {
+    const url = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${this.apiKey}`;
+    this.ws = new WebSocket(url);
+
+    this.ws.on('open', () => {
+      this.terhubung = true;
+      this.kirimHandshakeAwal();
+    });
+  }
+
+  private kirimHandshakeAwal(): void {
+    const konfigurasi = {
+      setup: {
+        model: 'models/gemini-2.0-flash-exp',
+        generationConfig: {
+          responseModalities: ['AUDIO'],
+          speechConfig: {
+            voiceConfig: { prebuiltVoiceConfig: { voiceName: 'Puck' } }
+          }
+        },
+        systemInstruction: {
+          parts: [{ text: 'Anda adalah asisten suara cerdas. Berikan jawaban yang singkat dan padat.' }]
+        }
+      }
+    };
+    this.ws?.send(JSON.stringify(konfigurasi));
+  }
+
+  // Alirkan potongan audio mentah PCM 16-bit 24kHz dari mikrofon
+  public alirkanAudio(chunkPcm: Buffer): void {
+    if (!this.terhubung || !this.ws) return;
+    const pesanAudio = {
+      realtimeInput: {
+        mediaChunks: [{ mimeType: 'audio/pcm;rate=24000', data: chunkPcm.toString('base64') }]
+      }
+    };
+    this.ws.send(JSON.stringify(pesanAudio));
+  }
+}
+```

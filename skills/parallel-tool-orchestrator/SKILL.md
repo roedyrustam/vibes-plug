@@ -114,7 +114,7 @@ export async function executeParallelBatch(
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill `multi-agent-orchestration`, `async-queue-temporal-expert`, `mcp-server-architect`, `performance-web-vitals`, `event-driven-architect`, dan `zero-to-prod-orchestrator` untuk mengakselerasi pipeline eksekusi multi-tool.
+Terhubung dan mengorkestrasikan skill `multi-agent-orchestration`, `async-queue-temporal-expert`, `mcp-server-architect`, `performance-web-vitals`, `event-driven-architect`, dan `zero-to-prod-orchestrator` untuk mengakselerasi pipeline eksekusi multi-tool.
 
 ### Deskripsi
 Panduan produksi untuk mengoptimalkan throughput eksekusi tool agen AI dengan menjalankan pemanggilan tool independen secara bersamaan (paralel). Model frontier modern dapat menghasilkan beberapa tool call dalam satu giliran. Menjalankan panggilan secara berurutan menghasilkan latensi jaringan yang lambat. Skill ini menyediakan arsitektur orkestrasi tool paralel memanfaatkan batching Model Context Protocol (`vibes_batch`), eksekusi tangguh `Promise.allSettled`, resolusi DAG dependensi, dan penanganan kegagalan isolatif.
@@ -124,3 +124,63 @@ Panduan produksi untuk mengoptimalkan throughput eksekusi tool agen AI dengan me
 - Menjalankan topologi swarm Fan-Out / Fan-In dengan banyak pekerja konkuren.
 - Mengurangi latensi pada workflow agentic yang kompleks.
 - Mencegah kegagalan parsial tool menggugurkan keseluruhan sesi percakapan agen.
+
+---
+
+### Implementasi Dispatcher Paralel yang Tangguh (TypeScript)
+
+```typescript
+export interface PanggilanTool {
+  tool: string;
+  arguments: Record<string, any>;
+}
+
+export interface HasilBatch<T = any> {
+  totalPanggilan: number;
+  sukses: number;
+  gagal: number;
+  rincian: Array<{
+    tool: string;
+    berhasil: boolean;
+    data?: T;
+    pesanError?: string;
+  }>;
+}
+
+export async function eksekusiBatchParalel(
+  daftarPanggilan: PanggilanTool[],
+  eksekutor: (panggilan: PanggilanTool) => Promise<any>
+): Promise<HasilBatch> {
+  if (!Array.isArray(daftarPanggilan) || daftarPanggilan.length === 0) {
+    throw new Error('Daftar panggilan tool tidak boleh kosong.');
+  }
+
+  // Eksekusi seluruh tool call secara bersamaan
+  const eksekusi = await Promise.allSettled(
+    daftarPanggilan.map(async (p) => {
+      const data = await eksekutor(p);
+      return { tool: p.tool, berhasil: true, data };
+    })
+  );
+
+  const rincian = eksekusi.map((res, i) => {
+    if (res.status === 'fulfilled') {
+      return res.value;
+    }
+    return {
+      tool: daftarPanggilan[i].tool,
+      berhasil: false,
+      pesanError: res.reason?.message || 'Galat eksekusi tool'
+    };
+  });
+
+  const sukses = rincian.filter((r) => r.berhasil).length;
+
+  return {
+    totalPanggilan: daftarPanggilan.length,
+    sukses,
+    gagal: daftarPanggilan.length - sukses,
+    rincian
+  };
+}
+```
