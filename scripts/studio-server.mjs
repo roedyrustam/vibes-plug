@@ -1614,7 +1614,11 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
           <div style="background: rgba(15,23,42,0.6); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
               <span style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted);">Realized Session FinOps</span>
-              <button type="button" class="btn-action" onclick="resetFinOpsFromUi()">Reset Telemetry</button>
+              <div style="display: flex; gap: 6px;">
+                <a href="/api/finops/export?format=markdown" download="FINOPS_REPORT.md" class="btn-action" style="text-decoration: none; display: inline-flex; align-items: center;">📥 Export MD</a>
+                <a href="/api/finops/export?format=csv" download="finops_report.csv" class="btn-action" style="text-decoration: none; display: inline-flex; align-items: center;">📥 Export CSV</a>
+                <button type="button" class="btn-action" onclick="resetFinOpsFromUi()">Reset</button>
+              </div>
             </div>
             <div id="finops-realized-text" style="font-family: var(--font-mono); font-size: 0.88rem; color: #4ade80; line-height: 1.6;">
               Realized Savings: $0.000 USD<br>
@@ -1642,16 +1646,23 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
     <!-- View 5: Remote MCP Console -->
     <div id="tab-mcp" class="view-pane">
       <div style="display: flex; flex-direction: column; gap: 24px;">
-        <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1)); border: 1px solid var(--card-border-active); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+        <div style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1)); border: 1px solid var(--card-border-active); border-radius: 12px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
           <div>
             <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
-              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 155 skills and P1–P6 engines.
+              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, Windsurf, or Zed to access the 155 skills and P1–P6 engines.
             </p>
           </div>
-          <div style="font-family: var(--font-mono); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 14px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; gap: 12px;">
-            <span>http://localhost:${currentPort}/sse</span>
-            <button type="button" class="btn-action" onclick="copyMcpUrl()">Copy URL</button>
+          <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+            <div style="font-family: var(--font-mono); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 14px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; gap: 12px;">
+              <span>http://localhost:${currentPort}/sse</span>
+              <button type="button" class="btn-action" onclick="copyMcpUrl()">Copy URL</button>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button type="button" class="btn-action" onclick="autoConfigureMcpFromUi('claude')">⚡ Auto-Config Claude</button>
+              <button type="button" class="btn-action" onclick="autoConfigureMcpFromUi('cursor')">⚡ Auto-Config Cursor</button>
+              <button type="button" class="btn-action" onclick="autoConfigureMcpFromUi('all')">⚡ Config All</button>
+            </div>
           </div>
         </div>
 
@@ -2460,6 +2471,26 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       }
     }
 
+    async function autoConfigureMcpFromUi(client) {
+      try {
+        showToast('Configuring MCP for ' + client + '...');
+        const res = await fetch('/api/mcp/setup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ client })
+        });
+        const json = await res.json();
+        if (json.success && json.results) {
+          const summary = json.results.map(r => r.client + ': ' + r.status).join(', ');
+          showToast('MCP Setup: ' + summary);
+        } else {
+          showToast('Setup error: ' + (json.error || 'Failed'));
+        }
+      } catch (err) {
+        showToast('Setup error: ' + err.message);
+      }
+    }
+
     async function evalSandboxFromUi() {
       const btn = document.getElementById('btn-eval-sandbox');
       const codeInput = document.getElementById('sandbox-code-input');
@@ -2764,6 +2795,23 @@ export async function startStudioServer(options = {}) {
           const rpcRes = await handleRpcRequest(rpcReq);
           const elapsedMs = Date.now() - start;
           sendJson({ result: rpcRes, elapsedMs });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // MCP Client Setup endpoint
+    if (req.method === 'POST' && pathname === '/api/mcp/setup') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { client = 'all', force = false } = JSON.parse(body || '{}');
+          const { setupAllClients } = await import('./mcp-setup.mjs');
+          const results = await setupAllClients({ client, force });
+          sendJson({ success: true, results });
         } catch (err) {
           sendJson({ error: err.message }, 500);
         }

@@ -473,6 +473,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpResReadRes.status, 202);
       assert.match(mcpResReadData.response.result.contents[0].text, /SwarmPlan/);
 
+      // Test Studio MCP Client Setup endpoint
+      const mcpSetupApiRes = await fetch(`${url}/api/mcp/setup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ client: 'claude', force: false })
+      });
+      const mcpSetupApiData = await mcpSetupApiRes.json();
+      assert.equal(mcpSetupApiRes.status, 200);
+      assert.equal(mcpSetupApiData.success, true);
+      assert.ok(Array.isArray(mcpSetupApiData.results));
+      assert.equal(mcpSetupApiData.results[0].client, 'Claude Desktop');
+
       // Test Visual Audit API endpoint
       const visualApiRes = await fetch(`${url}/api/visual-audit`, {
         method: 'POST',

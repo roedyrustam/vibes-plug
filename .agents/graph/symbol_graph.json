@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:19:44.990Z",
+  "generatedAt": "2026-10-18T18:23:25.938Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 44,
-  "totalSymbolsIndexed": 220,
+  "totalSymbolsIndexed": 221,
   "symbols": {
     "to": [
       {
@@ -1020,7 +1020,7 @@
     "showToast": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1826,
+        "line": 1837,
         "type": "function",
         "signature": "function showToast(message)"
       }
@@ -1028,7 +1028,7 @@
     "closeModal": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1881,
+        "line": 1892,
         "type": "function",
         "signature": "function closeModal()"
       }
@@ -1036,7 +1036,7 @@
     "openSkillModal": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1886,
+        "line": 1897,
         "type": "function",
         "signature": "function openSkillModal(skillName)"
       }
@@ -1044,7 +1044,7 @@
     "escapeHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1943,
+        "line": 1954,
         "type": "function",
         "signature": "function escapeHtml(text)"
       }
@@ -1052,7 +1052,7 @@
     "toggleSkillSelection": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1953,
+        "line": 1964,
         "type": "function",
         "signature": "function toggleSkillSelection(skillName, e)"
       }
@@ -1060,7 +1060,7 @@
     "updateDrawer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1964,
+        "line": 1975,
         "type": "function",
         "signature": "function updateDrawer()"
       }
@@ -1068,7 +1068,7 @@
     "clearSelectedSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1971,
+        "line": 1982,
         "type": "function",
         "signature": "function clearSelectedSkills()"
       }
@@ -1076,7 +1076,7 @@
     "injectSelectedSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1977,
+        "line": 1988,
         "type": "function",
         "signature": "function injectSelectedSkills()"
       }
@@ -1084,7 +1084,7 @@
     "exportSelectedJson": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1998,
+        "line": 2009,
         "type": "function",
         "signature": "function exportSelectedJson()"
       }
@@ -1092,7 +1092,7 @@
     "copySelectedCli": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2009,
+        "line": 2020,
         "type": "function",
         "signature": "function copySelectedCli()"
       }
@@ -1100,7 +1100,7 @@
     "renderSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2017,
+        "line": 2028,
         "type": "function",
         "signature": "function renderSkills()"
       }
@@ -1108,7 +1108,7 @@
     "renderSubagents": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2061,
+        "line": 2072,
         "type": "function",
         "signature": "function renderSubagents(subagents)"
       }
@@ -1116,7 +1116,7 @@
     "setSwarmPreset": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2081,
+        "line": 2092,
         "type": "function",
         "signature": "function setSwarmPreset(type)"
       }
@@ -1124,7 +1124,7 @@
     "runSwarmPlan": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2097,
+        "line": 2108,
         "type": "function",
         "signature": "function runSwarmPlan()"
       }
@@ -1132,7 +1132,7 @@
     "runSwarmExecute": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2120,
+        "line": 2131,
         "type": "function",
         "signature": "function runSwarmExecute()"
       }
@@ -1140,7 +1140,7 @@
     "createCustomAgentFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2144,
+        "line": 2155,
         "type": "function",
         "signature": "function createCustomAgentFromUi()"
       }
@@ -1148,7 +1148,7 @@
     "loadMemoryView": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2178,
+        "line": 2189,
         "type": "function",
         "signature": "function loadMemoryView()"
       }
@@ -1156,7 +1156,7 @@
     "recordDecisionFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2198,
+        "line": 2209,
         "type": "function",
         "signature": "function recordDecisionFromUi()"
       }
@@ -1164,7 +1164,7 @@
     "generateCheckpointFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2222,
+        "line": 2233,
         "type": "function",
         "signature": "function generateCheckpointFromUi()"
       }
@@ -1172,7 +1172,7 @@
     "renderRecipes": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2235,
+        "line": 2246,
         "type": "function",
         "signature": "function renderRecipes(recipes)"
       }
@@ -1180,7 +1180,7 @@
     "applyRecipe": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2256,
+        "line": 2267,
         "type": "function",
         "signature": "function applyRecipe(key)"
       }
@@ -1188,7 +1188,7 @@
     "copyMcpUrl": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2263,
+        "line": 2274,
         "type": "function",
         "signature": "function copyMcpUrl()"
       }
@@ -1196,7 +1196,7 @@
     "copyIdeConfig": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2269,
+        "line": 2280,
         "type": "function",
         "signature": "function copyIdeConfig()"
       }
@@ -1204,7 +1204,7 @@
     "copyMcpOutput": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2281,
+        "line": 2292,
         "type": "function",
         "signature": "function copyMcpOutput()"
       }
@@ -1212,7 +1212,7 @@
     "Status": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2293,
+        "line": 2304,
         "type": "type",
         "signature": "vibes_verify_invariants: '{\\\\n  \"typeScriptCode\": \"type Status = \\\\\"idle\\\\\" | \\\\\"running\\\\\" | \\\\\"done\\\\\";\"\\\\n}',"
       },
@@ -1226,7 +1226,7 @@
     "saveUser": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2298,
+        "line": 2309,
         "type": "function",
         "signature": "function saveUser(user: any)"
       }
@@ -1234,7 +1234,7 @@
     "onMcpToolChange": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2310,
+        "line": 2321,
         "type": "function",
         "signature": "function onMcpToolChange()"
       }
@@ -1242,7 +1242,7 @@
     "executeMcpTool": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2317,
+        "line": 2328,
         "type": "function",
         "signature": "function executeMcpTool()"
       }
@@ -1250,7 +1250,7 @@
     "loadData": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2358,
+        "line": 2369,
         "type": "function",
         "signature": "function loadData()"
       }
@@ -1258,7 +1258,7 @@
     "recompileCacheFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2386,
+        "line": 2397,
         "type": "function",
         "signature": "function recompileCacheFromUi()"
       }
@@ -1266,7 +1266,7 @@
     "loadCacheStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2409,
+        "line": 2420,
         "type": "function",
         "signature": "function loadCacheStatus()"
       }
@@ -1274,7 +1274,7 @@
     "loadFinOpsStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2428,
+        "line": 2439,
         "type": "function",
         "signature": "function loadFinOpsStatus()"
       }
@@ -1282,15 +1282,23 @@
     "resetFinOpsFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2450,
+        "line": 2461,
         "type": "function",
         "signature": "function resetFinOpsFromUi()"
+      }
+    ],
+    "autoConfigureMcpFromUi": [
+      {
+        "file": "scripts/studio-server.mjs",
+        "line": 2474,
+        "type": "function",
+        "signature": "function autoConfigureMcpFromUi(client)"
       }
     ],
     "evalSandboxFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2463,
+        "line": 2494,
         "type": "function",
         "signature": "function evalSandboxFromUi()"
       }
@@ -1298,7 +1306,7 @@
     "loadDagPreset": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2508,
+        "line": 2539,
         "type": "function",
         "signature": "function loadDagPreset(presetId)"
       }
@@ -1306,7 +1314,7 @@
     "renderDagGraph": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2528,
+        "line": 2559,
         "type": "function",
         "signature": "function renderDagGraph(preset)"
       }
@@ -1314,7 +1322,7 @@
     "drawDagEdges": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2548,
+        "line": 2579,
         "type": "function",
         "signature": "function drawDagEdges(preset)"
       }
@@ -1322,7 +1330,7 @@
     "simulateDagExecution": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2577,
+        "line": 2608,
         "type": "function",
         "signature": "function simulateDagExecution()"
       }
@@ -1330,7 +1338,7 @@
     "isValidSkillSlug": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2619,
+        "line": 2650,
         "type": "function",
         "signature": "function isValidSkillSlug(name)"
       }
@@ -1338,7 +1346,7 @@
     "resolveAllowedOrigin": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2623,
+        "line": 2654,
         "type": "function",
         "signature": "function resolveAllowedOrigin(req, port)"
       }
@@ -1346,7 +1354,7 @@
     "readJsonBody": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2632,
+        "line": 2663,
         "type": "function",
         "signature": "function readJsonBody(req)"
       }
@@ -1354,7 +1362,7 @@
     "startStudioServer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2656,
+        "line": 2687,
         "type": "function",
         "signature": "function startStudioServer(options = {})"
       }
@@ -1362,7 +1370,7 @@
     "sendJson": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2667,
+        "line": 2698,
         "type": "arrow-function",
         "signature": "const sendJson = (data, statusCode = 200) =>"
       }
@@ -1434,7 +1442,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 546,
+        "line": 558,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1782,8 +1790,8 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3333,
-      "symbolCount": 47
+      "totalLines": 3381,
+      "symbolCount": 48
     },
     "scripts/swarm-dispatcher.mjs": {
       "totalLines": 242,
@@ -1794,7 +1802,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 753,
+      "totalLines": 765,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {
