@@ -41,3 +41,13 @@ jobs:
 
       - name: Run CLI Test Suite
         run: node --test scripts/test-cli.mjs
+
+      - name: Package VS Code / Cursor VSIX Extension
+        run: node scripts/package-extension.mjs
+
+      - name: Upload VSIX Extension Artifact
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: vibes-plug-companion-vsix
+          path: extensions/vscode/*.vsix
+          retention-days: 14

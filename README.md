@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro v4.3.0: 155-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.4.0: 155-Skill AI Agent Swarm Architecture
 
 **Turn any IDE into an autonomous 155-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
@@ -95,9 +95,9 @@ VibesPlug bundles 5 dedicated specialist subagents residing in `agents/`, ready 
 
 ---
 
-## 🧠 Superintelligence Engineering Substrate (P1 – P5 Engines)
+## 🧠 Superintelligence Engineering Substrate (P1 – P6 Engines)
 
-VibesPlug Pro embeds 5 foundational engineering engines that give AI models sub-millisecond AST precision, deterministic caching, in-memory sandboxing, and mathematical theorem proving:
+VibesPlug Pro embeds 6 foundational engineering engines that give AI models sub-millisecond AST precision, deterministic caching, in-memory sandboxing, and mathematical theorem proving:
 
 | Engine | Command | Description |
 | :--- | :--- | :--- |
@@ -106,12 +106,13 @@ VibesPlug Pro embeds 5 foundational engineering engines that give AI models sub-
 | **P3: AST Subgraph Engine** | `vibes ast <action> [args]` | In-memory AST symbol inspection (`symbols`), targeted function isolation (`inspect`), and dependency blast radius calculation without token bloat. |
 | **P4: Speculative PRM Arbiter**| `vibes arbitrate [draftA] [draftB]`| Heuristic Process Reward Model (PRM) evaluator scoring competing code drafts across Type Safety, Anti-Slop, Error Resilience, and Algorithmic Complexity. |
 | **P5: Invariant Verifier (SMT)**| `vibes verify-invariants [file]` | Proves state machine transitions (SaaS billing, auth, orders), detects unreachable states and deadlocks, and generates SMT-LIB 2.0 specifications for Z3/CVC5. |
+| **P6: Ephemeral WASM/VM Sandbox**| `vibes sandbox "<code\|file>"` | Ultra-low latency (<2ms) isolated micro-sandbox evaluating AI code with wall-clock timeout kill and zero host access. |
 
 ---
 
 ## 🔌 Native Model Context Protocol (MCP v1.x) Server
 
-VibesPlug provides a native standalone MCP server running over standard I/O (JSON-RPC 2.0). Connect it to Claude Desktop, Cursor, Antigravity, or Codex via `mcp_config.json`:
+VibesPlug provides a native standalone MCP server running over standard I/O (JSON-RPC 2.0) and Server-Sent Events (SSE). Connect it to Claude Desktop, Cursor, Antigravity, or Codex via `mcp_config.json`:
 
 ```bash
 # Start the MCP server manually or via vibes CLI
@@ -135,12 +136,42 @@ vibes mcp
 13. `vibes_visual_audit` — Multimodal visual UI compliance audit for Anti-Slop Pillar 7 rubrics.
 14. `vibes_swarm_dispatch` — Concurrently dispatch parallel multi-agent workers with automated skill binding, sandbox verification, and Critic-in-the-Loop auditing.
 15. `vibes_finops_report` — Query local FinOps token consumption metrics and estimated prompt caching (KV-Cache) cost savings.
+16. `vibes_graph_query` — Query indexed AST symbols and dependency blast radius in `.agents/graph/symbol_graph.json`.
+17. `vibes_graph_search` — High-precision local Hybrid GraphRAG search combining BM25, TF-IDF vector, and AST boost.
+18. `vibes_pr_review` — Autonomous GitHub PR review bot auditing git diffs against Sovereign Anti-Slop rubrics.
+19. `vibes_self_heal` — Autonomous test runner and self-healing failure diagnoser with proposed patch generation.
+20. `vibes_registry_search` — Search decentralized community skills registry by keyword or category.
+21. `vibes_registry_install` — Install gold-standard verified skills directly from registry into `.agents/skills/`.
+22. `vibes_bridge_status` — Inspect Universal Cross-IDE Bridge status across Antigravity, Claude, Cursor, and Codex.
+23. `vibes_bridge_sync` — Synchronize rules, skills, and context bundles across all detected AI platforms.
+24. `vibes_verify_gate` — Atomic in-memory pre-commit verification gate evaluating candidate code before writing to disk.
+25. `vibes_swarm_bus` — Query active swarms, telemetry events, or emit inter-agent broadcast coordination signals.
+26. `vibes_package_extension` — Build zero-dependency `.vsix` companion extension archive for VS Code and Cursor.
+27. `vibes_learn_skill` — Synthesize complete gold-standard bilingual skills from raw project codebases or repository patterns.
 
-### ⚡ Vibes Studio, Visual DAG Canvas & Remote MCP (Visual Cockpit)
-Vibes-Plug features a zero-dependency visual web cockpit, topological DAG workflow designer, and Server-Sent Events (SSE) remote transport:
+### ⚡ Vibes Studio Cockpit & Remote MCP (Visual Dashboard)
+Vibes-Plug features a zero-dependency local web cockpit with interactive panels, topological DAG workflow designer, and Server-Sent Events (SSE) remote transport:
 ```bash
-# Launch visual web cockpit (opens http://localhost:3888) with Visual DAG Canvas & Remote MCP
+# Launch visual web cockpit (opens http://localhost:3888) with 11 interactive tabs & Remote MCP
 vibes studio
+
+# Universal Cross-IDE State Bridge: synchronize rules & 155 skills across Antigravity, Claude, Cursor, Codex
+vibes bridge [status|sync|bundle]
+
+# Autonomous Skill Synthesizer: synthesize gold-standard bilingual skills from raw codebase patterns
+vibes learn <skill-name> [--repo <url>] [--category <cat>]
+
+# Pre-Disk Verification Gate: validate candidate code in-memory (AST, Anti-Slop, security, sandbox)
+vibes verify-gate <code|file>
+
+# Real-Time Swarm Concurrency Bus: observe active agent swarms and broadcast coordination events
+vibes swarm:bus [status|events|broadcast]
+
+# Local Hybrid GraphRAG Search: search codebase symbols via BM25 + Vector Cosine + AST connectivity
+vibes graph:search "<query>" [--top-k 5]
+
+# Zero-Dependency VSIX Packager: build companion extension archive for VS Code & Cursor in <50ms
+vibes package:vscode
 
 # Interactive Project Scaffolding Wizard (custom stack & tailored skills)
 vibes wizard
@@ -163,15 +194,15 @@ vibes visual-audit <file|code>
 # Or run standalone Remote MCP Server for Claude Desktop, Cursor, or remote agents
 vibes mcp --transport sse --port 3333
 
-# Run the complete Sovereign Quality & Anti-Slop Guard (300 files + 21 tests)
+# Run the complete Sovereign Quality & Anti-Slop Guard (313 files + 34 tests)
 vibes guard
 ```
 
 ### 💻 Native VSCode & Cursor IDE Companion Extension
 Vibes-Plug includes a native extension package in [`extensions/vscode/`](extensions/vscode/):
 - **Status Bar Indicator**: Live status displaying `$(zap) VibesPlug: 155 Skills Active`.
-- **Command Palette & Context Menus**: 1-Click access to Studio Cockpit, Scaffolding Wizard, Sovereign Guard, Active Document Critic, and Token FinOps Report.
-- **Packaging & Installation**: Build `.vsix` anytime via `cd extensions/vscode && vsce package` and install directly into VSCode, Cursor, or Windsurf.
+- **Command Palette & Context Menus**: 11 native commands including Studio Cockpit, Scaffolding Wizard, Sovereign Guard, Active Document Critic, Token FinOps Report, Pre-Disk Gate, and Swarm Dispatcher.
+- **Packaging & Installation**: Build zero-dependency `.vsix` anytime via `vibes package:vscode` or `npm run package:vscode` in <50ms and install directly into VSCode, Cursor, or Windsurf.
 
 ---
 

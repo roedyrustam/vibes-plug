@@ -1298,7 +1298,7 @@ export function generateStudioHtml(currentPort) {
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
-            <div class="brand-tag">v4.3.0</div>
+            <div class="brand-tag">v4.4.0</div>
           </div>
           <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 155-Agent Swarm Operating System</div>
         </div>
@@ -1338,6 +1338,10 @@ export function generateStudioHtml(currentPort) {
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
     <button type="button" class="tab-btn" data-tab="tab-mcp">Remote MCP (SSE)</button>
     <button type="button" class="tab-btn" data-tab="tab-memory">Memory &amp; Checkpoints</button>
+    <button type="button" class="tab-btn" data-tab="tab-bridge">Cross-IDE Bridge</button>
+    <button type="button" class="tab-btn" data-tab="tab-graphrag">Hybrid GraphRAG</button>
+    <button type="button" class="tab-btn" data-tab="tab-synthesizer">Skill Synthesizer &amp; Gate</button>
+    <button type="button" class="tab-btn" data-tab="tab-swarm-bus">Live Swarm Stream</button>
   </nav>
 
   <!-- Main Content -->
@@ -1692,6 +1696,13 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
                 <option value="vibes_self_heal">vibes_self_heal (Autonomous self-healing test runner)</option>
                 <option value="vibes_registry_search">vibes_registry_search (Search skill registry hub)</option>
                 <option value="vibes_registry_install">vibes_registry_install (Install modular skill from registry)</option>
+                <option value="vibes_bridge_status">vibes_bridge_status (Universal Cross-IDE Bridge status)</option>
+                <option value="vibes_bridge_sync">vibes_bridge_sync (Synchronize Cross-IDE Bridge)</option>
+                <option value="vibes_verify_gate">vibes_verify_gate (In-memory Pre-Disk Verification Gate)</option>
+                <option value="vibes_swarm_bus">vibes_swarm_bus (Query or broadcast Swarm Event Bus)</option>
+                <option value="vibes_graph_search">vibes_graph_search (Local Hybrid GraphRAG BM25+Vector)</option>
+                <option value="vibes_package_extension">vibes_package_extension (Package companion VSIX archive)</option>
+                <option value="vibes_learn_skill">vibes_learn_skill (Autonomous skill synthesis engine)</option>
               </select>
             </div>
 
@@ -1785,6 +1796,224 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         </div>
       </div>
     </div>
+
+    <!-- View: Cross-IDE Bridge -->
+    <div id="tab-bridge" class="view-pane">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3>Universal Cross-IDE State Bridge</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Synchronize 155 skills, core rules, and memory across Antigravity, Claude Code, Cursor IDE, and OpenAI Codex.
+              </p>
+            </div>
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <select id="bridge-target-select" class="select-input" style="width: auto; padding: 6px 12px;">
+                <option value="all">Target: All Platforms</option>
+                <option value="antigravity">Antigravity (.agents/)</option>
+                <option value="claude">Claude Code (.claude/)</option>
+                <option value="cursor">Cursor IDE (.cursor/)</option>
+                <option value="codex">OpenAI Codex (.codex/)</option>
+              </select>
+              <button type="button" id="btn-sync-bridge" class="btn btn-primary" onclick="syncBridgeFromUi()">⚡ Sync Universal Bridge</button>
+              <button type="button" class="btn btn-secondary" onclick="downloadBridgeBundle()">📦 Download Context Bundle</button>
+            </div>
+          </div>
+
+          <div id="bridge-platform-cards" class="grid-2col" style="margin-top: 20px;">
+            <!-- Rendered dynamically by loadBridgeView() -->
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+            <h4 style="font-size: 0.95rem; font-weight: 600; color: #fff;">Bridge Diagnostic Output</h4>
+            <button type="button" class="btn-action" onclick="loadBridgeView()">Refresh Status</button>
+          </div>
+          <pre id="bridge-terminal" class="result-terminal">// Click 'Sync Universal Bridge' or 'Refresh Status' to inspect platform parity...</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Hybrid GraphRAG Search -->
+    <div id="tab-graphrag" class="view-pane">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <h3>Local Hybrid GraphRAG Codebase Search</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Lexical BM25 (Lucene) + TF-IDF Vector Cosine Similarity + AST symbol connectivity ranking. Sub-millisecond local execution.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary" onclick="setGraphSearchPreset('start studio server')">Studio Server</button>
+              <button type="button" class="btn btn-secondary" onclick="setGraphSearchPreset('doku checkout payment')">DOKU Payment</button>
+              <button type="button" class="btn btn-secondary" onclick="setGraphSearchPreset('token cache prefix')">Token Cache</button>
+              <button type="button" class="btn btn-secondary" onclick="setGraphSearchPreset('anti slop verify')">Anti-Slop</button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; margin-top: 16px;">
+            <div style="position: relative; flex: 1;">
+              <input type="text" id="graph-search-input" class="text-input" placeholder="Enter natural language query or symbol name (e.g. 'verify candidate code sandbox')..." onkeydown="if(event.key==='Enter') runGraphSearchFromUi();" />
+            </div>
+            <select id="graph-topk-select" class="select-input" style="width: 120px;">
+              <option value="3">Top 3</option>
+              <option value="5" selected>Top 5</option>
+              <option value="10">Top 10</option>
+              <option value="20">Top 20</option>
+            </select>
+            <button type="button" id="btn-graph-search" class="btn btn-primary" onclick="runGraphSearchFromUi()">🔍 Search Graph</button>
+          </div>
+        </div>
+
+        <div id="graph-results-container" style="display: flex; flex-direction: column; gap: 14px;">
+          <div class="result-terminal" style="text-align: center; color: var(--text-muted);">
+            Type a query or click a preset above to search indexed codebase symbols and definitions.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Skill Synthesizer & Pre-Disk Gate -->
+    <div id="tab-synthesizer" class="view-pane">
+      <div class="grid-2col" style="align-items: flex-start;">
+        <!-- Left: Autonomous Skill Synthesizer -->
+        <div class="panel-box">
+          <h3>Autonomous Skill Synthesizer</h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+            Scaffold and integrate production-grade bilingual skills, auto-registered into brainstorming and zero-to-prod orchestrators.
+          </p>
+
+          <div class="form-group" style="margin-top: 16px;">
+            <label for="synth-name-input">Skill Name (kebab-case)</label>
+            <input type="text" id="synth-name-input" class="text-input" placeholder="e.g. temporal-workflow-orchestrator" />
+          </div>
+
+          <div class="grid-2col">
+            <div class="form-group">
+              <label for="synth-cat-select">Domain Category</label>
+              <select id="synth-cat-select" class="select-input">
+                <option value="backend">Backend &amp; System Design</option>
+                <option value="frontend">Frontend &amp; UI/UX</option>
+                <option value="ai">Frontier AI &amp; MCP</option>
+                <option value="saas">SaaS &amp; FinTech</option>
+                <option value="security">Testing &amp; Security</option>
+                <option value="data">Data &amp; Orchestration</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="synth-dest-select">Destination</label>
+              <select id="synth-dest-select" class="select-input">
+                <option value="project">Active Project (.agents/skills/)</option>
+                <option value="plugin">Plugin Core (skills/)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="synth-repo-input">Source Repository / Pattern Path (Optional)</label>
+            <input type="text" id="synth-repo-input" class="text-input" placeholder="e.g. https://github.com/temporalio/sdk-typescript or ./packages/core" />
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); cursor: pointer;">
+              <input type="checkbox" id="synth-dry-run" style="accent-color: var(--primary);" /> Dry Run (Preview Only)
+            </label>
+            <button type="button" id="btn-synthesize-skill" class="btn btn-primary" onclick="synthesizeSkillFromUi()">⚡ Synthesize Skill</button>
+          </div>
+
+          <pre id="synth-output-terminal" class="result-terminal" style="margin-top: 16px; max-height: 280px;">// Skill synthesis output will display here...</pre>
+        </div>
+
+        <!-- Right: Pre-Disk Verification Gate -->
+        <div class="panel-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <h3>Pre-Disk Verification Gate</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Atomic in-memory AST syntax, Anti-Slop, security taint, and micro-sandbox verification before writing to disk.
+              </p>
+            </div>
+            <select id="gate-lang-select" class="select-input" style="width: auto; padding: 4px 10px;">
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="python">Python</option>
+              <option value="json">JSON</option>
+            </select>
+          </div>
+
+          <div style="display: flex; gap: 6px; margin-top: 14px; margin-bottom: 8px;">
+            <button type="button" class="btn-action" onclick="setGatePreset('valid')">Clean Code</button>
+            <button type="button" class="btn-action" onclick="setGatePreset('catch-slop')">Empty Catch Slop</button>
+            <button type="button" class="btn-action" onclick="setGatePreset('infinite-loop')">Infinite Loop</button>
+            <button type="button" class="btn-action" onclick="setGatePreset('syntax-error')">Syntax Error</button>
+          </div>
+
+          <div class="form-group">
+            <textarea id="gate-code-input" class="textarea-input" style="height: 180px; font-family: var(--font-mono); font-size: 0.82rem;" placeholder="// Paste candidate code here to test against the Pre-Disk Gate..."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div id="gate-status-badge" style="font-size: 0.85rem; font-weight: 600; color: var(--text-muted);">Status: Ready</div>
+            <button type="button" id="btn-verify-gate" class="btn btn-primary" onclick="verifyGateCandidateFromUi()">🛡️ Verify Candidate</button>
+          </div>
+
+          <pre id="gate-output-terminal" class="result-terminal" style="margin-top: 14px; max-height: 240px;">// Verification report will appear here...</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Live Swarm Event Bus & SSE Stream -->
+    <div id="tab-swarm-bus" class="view-pane">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="panel-box">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h3>Real-Time Swarm Concurrency Bus</h3>
+                <span id="swarm-bus-status" class="stat-chip" style="background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success);">
+                  ● Connected (SSE)
+                </span>
+              </div>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Live Server-Sent Events stream from the Swarm Dispatcher. Observes subagent lifecycles, memory writes, tool calls, and broadcast signals.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" id="btn-toggle-stream" class="btn btn-secondary" onclick="toggleSwarmStream()">Pause Stream</button>
+              <button type="button" class="btn btn-ghost" onclick="clearSwarmStream()">Clear Terminal</button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px;">
+            <input type="text" id="swarm-broadcast-input" class="text-input" placeholder="Broadcast inter-agent signal or coordination message..." onkeydown="if(event.key==='Enter') broadcastSwarmFromUi();" />
+            <button type="button" class="btn btn-primary" onclick="broadcastSwarmFromUi()">📡 Broadcast Signal</button>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-top: 14px; align-items: center; flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Filter:</span>
+            <button type="button" class="pill-btn active" data-swarm-filter="all" onclick="filterSwarmEvents('all', this)">All Events</button>
+            <button type="button" class="pill-btn" data-swarm-filter="agent" onclick="filterSwarmEvents('agent', this)">Agent Lifecycle</button>
+            <button type="button" class="pill-btn" data-swarm-filter="tool" onclick="filterSwarmEvents('tool', this)">Tool Execution</button>
+            <button type="button" class="pill-btn" data-swarm-filter="memory" onclick="filterSwarmEvents('memory', this)">Memory</button>
+            <button type="button" class="pill-btn" data-swarm-filter="broadcast" onclick="filterSwarmEvents('broadcast', this)">Broadcasts</button>
+          </div>
+        </div>
+
+        <div class="panel-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Streaming Event Stream (/api/swarm/stream)</span>
+            <span id="swarm-event-count" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--primary);">0 events captured</span>
+          </div>
+          <div id="swarm-live-log" class="result-terminal" style="min-height: 380px; max-height: 520px; overflow-y: auto; font-size: 0.8rem; line-height: 1.6;">
+            // Connecting to real-time Swarm Event Bus SSE stream...
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- Floating Recipe Builder Drawer (Multi-select) -->
@@ -1823,7 +2052,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.3.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
+    <p>Vibes-Plug Pro v4.4.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
   </footer>
 
   <script>
@@ -1852,6 +2081,8 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         if (targetId === 'tab-memory') loadMemoryView();
         if (targetId === 'tab-dag') loadDagPreset(currentDagPreset);
         if (targetId === 'tab-engines') { loadCacheStatus(); loadFinOpsStatus(); }
+        if (targetId === 'tab-bridge') loadBridgeView();
+        if (targetId === 'tab-swarm-bus') initSwarmBusStream();
       });
     });
 
@@ -2635,6 +2866,459 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         }
       } catch (err) {
         traceOutput.textContent = 'Simulation failed: ' + err.message;
+      }
+    }
+
+    // ==========================================
+    // Cross-IDE Bridge Functions
+    // ==========================================
+    async function loadBridgeView() {
+      const cardsEl = document.getElementById('bridge-platform-cards');
+      const termEl = document.getElementById('bridge-terminal');
+      if (!cardsEl) return;
+      try {
+        const res = await fetch('/api/bridge/status');
+        const json = await res.json();
+        if (!json.success || !json.report) {
+          if (termEl) termEl.textContent = '// Failed to load bridge status: ' + (json.error || 'Unknown error');
+          return;
+        }
+        const rep = json.report;
+        if (termEl) termEl.textContent = JSON.stringify(rep, null, 2);
+
+        const platforms = [
+          { id: 'antigravity', name: 'Google Antigravity IDE', icon: '🌌', dir: '.agents/', file: rep.antigravity ? 'AGENTS.md' : 'Missing', status: rep.antigravity },
+          { id: 'claude', name: 'Anthropic Claude Code', icon: '🤖', dir: '.claude/', file: rep.claude ? 'CLAUDE.md' : 'Missing', status: rep.claude },
+          { id: 'cursor', name: 'Cursor AI IDE', icon: '⚡', dir: '.cursor/', file: rep.cursor ? '.cursorrules' : 'Missing', status: rep.cursor },
+          { id: 'codex', name: 'OpenAI Codex IDE', icon: '🧠', dir: '.codex/', file: rep.codex ? 'CODEX.md' : 'Missing', status: rep.codex }
+        ];
+
+        cardsEl.innerHTML = platforms.map(function(p) {
+          const color = p.status ? 'var(--success)' : 'var(--warning)';
+          const badgeText = p.status ? 'SYNCHRONIZED' : 'UNINITIALIZED';
+          const ruleStatus = (rep.rules && rep.rules[p.id]) ? '✓ Valid' : '— Missing';
+          const symlinkStatus = (rep.symlinks && rep.symlinks[p.id]) ? '✓ Active' : '— Standard';
+
+          return '<div class="panel-box" style="margin-bottom: 0; border-left: 3px solid ' + color + ';">' +
+            '<div style="display: flex; justify-content: space-between; align-items: flex-start;">' +
+              '<div>' +
+                '<div style="font-weight: 700; color: #fff; font-size: 1rem; display: flex; align-items: center; gap: 8px;">' +
+                  '<span>' + p.icon + '</span> <span>' + p.name + '</span>' +
+                '</div>' +
+                '<div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">Config: ' + p.file + ' | Base: ' + p.dir + '</div>' +
+              '</div>' +
+              '<span class="stat-chip" style="color: ' + color + '; border: 1px solid ' + color + '; font-size: 0.7rem;">' + badgeText + '</span>' +
+            '</div>' +
+            '<div style="display: flex; gap: 12px; margin-top: 14px; font-size: 0.8rem; color: var(--text-muted);">' +
+              '<span>Rules: ' + ruleStatus + '</span>' +
+              '<span>Symlinks: ' + symlinkStatus + '</span>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+      } catch (err) {
+        if (termEl) termEl.textContent = '// Bridge view load error: ' + err.message;
+      }
+    }
+
+    async function syncBridgeFromUi() {
+      const btn = document.getElementById('btn-sync-bridge');
+      const select = document.getElementById('bridge-target-select');
+      const term = document.getElementById('bridge-terminal');
+      const target = select ? select.value : 'all';
+      if (btn) { btn.disabled = true; btn.textContent = 'Syncing...'; }
+      try {
+        const res = await fetch('/api/bridge/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ target: target })
+        });
+        const json = await res.json();
+        if (term) term.textContent = JSON.stringify(json, null, 2);
+        showToast('Universal Bridge synchronized for target: ' + target);
+        await loadBridgeView();
+      } catch (err) {
+        showToast('Sync error: ' + err.message);
+        if (term) term.textContent = '// Sync error: ' + err.message;
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '⚡ Sync Universal Bridge'; }
+      }
+    }
+
+    function downloadBridgeBundle() {
+      window.open('/api/bridge/bundle', '_blank');
+    }
+
+    // ==========================================
+    // Hybrid GraphRAG Search Functions
+    // ==========================================
+    function setGraphSearchPreset(q) {
+      const input = document.getElementById('graph-search-input');
+      if (input) {
+        input.value = q;
+        runGraphSearchFromUi();
+      }
+    }
+
+    async function runGraphSearchFromUi() {
+      const input = document.getElementById('graph-search-input');
+      const select = document.getElementById('graph-topk-select');
+      const container = document.getElementById('graph-results-container');
+      const btn = document.getElementById('btn-graph-search');
+      if (!input || !container) return;
+
+      const query = input.value.trim();
+      if (!query) {
+        showToast('Please enter a search query');
+        return;
+      }
+
+      const topK = select ? parseInt(select.value, 10) : 5;
+      if (btn) { btn.disabled = true; btn.textContent = 'Searching...'; }
+      container.innerHTML = '<div class="result-terminal">// Performing Hybrid BM25 + Vector + AST search...</div>';
+
+      try {
+        const res = await fetch('/api/graph/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: query, topK: topK })
+        });
+        const json = await res.json();
+        if (!json.success || !json.results) {
+          container.innerHTML = '<div class="result-terminal">// No matches or error: ' + (json.error || 'Unknown error') + '</div>';
+          return;
+        }
+
+        if (json.results.length === 0) {
+          container.innerHTML = '<div class="result-terminal">// 0 matches found for "' + escapeHtml(query) + '". Try a different keyword or symbol.</div>';
+          return;
+        }
+
+        const headerHtml = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">' +
+          '<span style="font-size: 0.85rem; color: var(--text-muted);">' +
+            'Found <strong style="color: #fff;">' + json.count + '</strong> matches across <strong style="color: #fff;">' + (json.totalSymbolsIndexed || 249) + '</strong> indexed symbols in <strong style="color: var(--primary);">' + (json.searchTimeMs || '<1') + 'ms</strong>' +
+          '</span>' +
+          '<span class="stat-chip" style="color: var(--success); border: 1px solid var(--success);">HYBRID BM25+VECTOR ACTIVE</span>' +
+        '</div>';
+
+        const cardsHtml = json.results.map(function(r) {
+          const bm25Percent = Math.min(100, Math.round((r.bm25Score || 0) * 100));
+          const vecPercent = Math.min(100, Math.round((r.vectorScore || 0) * 100));
+          const kindBadgeColor = r.kind === 'function' ? '#38bdf8' : r.kind === 'class' ? '#a855f7' : '#f59e0b';
+          const astBadge = r.astBoosted ? '<span style="font-size: 0.7rem; background: rgba(16,185,129,0.15); color: #10b981; padding: 2px 6px; border-radius: 4px; border: 1px solid #10b981;">AST +20%</span>' : '';
+          const snippetHtml = r.snippet ? ('<pre style="background: rgba(0,0,0,0.4); padding: 10px; border-radius: 6px; font-family: var(--font-mono); font-size: 0.76rem; color: #a5f3fc; margin-top: 12px; max-height: 120px; overflow-y: auto;">' + escapeHtml(r.snippet) + '</pre>') : '';
+
+          return '<div class="panel-box" style="margin-bottom: 0; padding: 16px;">' +
+            '<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">' +
+              '<div>' +
+                '<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">' +
+                  '<span style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 600; text-transform: uppercase; background: rgba(255,255,255,0.08); color: ' + kindBadgeColor + ';">' + (r.kind || 'symbol') + '</span>' +
+                  '<strong style="font-family: var(--font-mono); font-size: 1rem; color: #fff;">' + escapeHtml(r.symbolName) + '</strong>' +
+                  '<span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);">' + escapeHtml(r.file) + ':' + (r.startLine || 1) + '</span>' +
+                  astBadge +
+                '</div>' +
+                '<div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 6px;">' + escapeHtml(r.description || ('Codebase symbol in ' + r.file)) + '</div>' +
+              '</div>' +
+              '<div style="text-align: right; min-width: 120px;">' +
+                '<div style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; color: var(--primary); font-variant-numeric: tabular-nums;">' + (r.score || 0).toFixed(3) + '</div>' +
+                '<div style="font-size: 0.7rem; color: var(--text-muted);">Hybrid Score</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="display: flex; gap: 16px; margin-top: 12px; font-size: 0.75rem; color: var(--text-muted);">' +
+              '<div style="flex: 1;">' +
+                '<div style="display: flex; justify-content: space-between; margin-bottom: 3px;">' +
+                  '<span>BM25 Lexical</span>' +
+                  '<span style="font-family: var(--font-mono);">' + (r.bm25Score || 0).toFixed(2) + '</span>' +
+                '</div>' +
+                '<div style="height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;">' +
+                  '<div style="width: ' + bm25Percent + '%; height: 100%; background: #06b6d4;"></div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="flex: 1;">' +
+                '<div style="display: flex; justify-content: space-between; margin-bottom: 3px;">' +
+                  '<span>TF-IDF Vector</span>' +
+                  '<span style="font-family: var(--font-mono);">' + (r.vectorScore || 0).toFixed(2) + '</span>' +
+                '</div>' +
+                '<div style="height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden;">' +
+                  '<div style="width: ' + vecPercent + '%; height: 100%; background: #a855f7;"></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            snippetHtml +
+          '</div>';
+        }).join('');
+
+        container.innerHTML = headerHtml + cardsHtml;
+      } catch (err) {
+        container.innerHTML = '<div class="result-terminal">// Search error: ' + err.message + '</div>';
+        showToast('Search error: ' + err.message);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '🔍 Search Graph'; }
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ==========================================
+    // Skill Synthesizer & Gate Functions
+    // ==========================================
+    async function synthesizeSkillFromUi() {
+      const nameInput = document.getElementById('synth-name-input');
+      const catSelect = document.getElementById('synth-cat-select');
+      const destSelect = document.getElementById('synth-dest-select');
+      const repoInput = document.getElementById('synth-repo-input');
+      const dryRunCheckbox = document.getElementById('synth-dry-run');
+      const btn = document.getElementById('btn-synthesize-skill');
+      const term = document.getElementById('synth-output-terminal');
+      if (!nameInput || !term) return;
+
+      const name = nameInput.value.trim();
+      if (!name) {
+        showToast('Please enter a skill name');
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Synthesizing...'; }
+      term.textContent = '// Synthesizing skill ' + name + '...';
+
+      try {
+        const res = await fetch('/api/skill/learn', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            category: catSelect ? catSelect.value : 'backend',
+            dest: destSelect ? destSelect.value : 'project',
+            fromRepo: repoInput ? repoInput.value.trim() : undefined,
+            dryRun: dryRunCheckbox ? dryRunCheckbox.checked : false
+          })
+        });
+        const json = await res.json();
+        term.textContent = JSON.stringify(json, null, 2);
+        if (json.success) {
+          showToast('Skill ' + name + ' synthesized successfully!');
+          await loadSkillsCatalog();
+        } else {
+          showToast('Synthesizer error: ' + (json.error || 'Failed'));
+        }
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+        showToast('Synthesizer error: ' + err.message);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '⚡ Synthesize Skill'; }
+      }
+    }
+
+    const GATE_PRESETS = {
+      valid: 'export function calculateTax(amount, rate = 0.11) {\\n  if (typeof amount !== "number" || amount < 0) {\\n    throw new TypeError("Amount must be a non-negative number");\\n  }\\n  return Number((amount * rate).toFixed(2));\\n}',
+      'catch-slop': 'function badWorker() {\\n  try {\\n    doRiskyThing();\\n  } catch {\\n    // silent catch violation of anti-slop\\n  }\\n}',
+      'infinite-loop': 'function lockup() {\\n  while (true) {\\n    // will be killed by sandbox watchdog\\n  }\\n}',
+      'syntax-error': 'const invalid = { missingClosingBrace:'
+    };
+
+    function setGatePreset(key) {
+      const ta = document.getElementById('gate-code-input');
+      if (ta && GATE_PRESETS[key]) {
+        ta.value = GATE_PRESETS[key];
+        verifyGateCandidateFromUi();
+      }
+    }
+
+    async function verifyGateCandidateFromUi() {
+      const codeInput = document.getElementById('gate-code-input');
+      const langSelect = document.getElementById('gate-lang-select');
+      const badge = document.getElementById('gate-status-badge');
+      const term = document.getElementById('gate-output-terminal');
+      const btn = document.getElementById('btn-verify-gate');
+      if (!codeInput || !term) return;
+
+      const code = codeInput.value;
+      if (!code.trim()) {
+        showToast('Please enter candidate code to verify');
+        return;
+      }
+
+      const language = langSelect ? langSelect.value : 'javascript';
+      if (btn) { btn.disabled = true; btn.textContent = 'Verifying...'; }
+      term.textContent = '// Running candidate code through Pre-Disk Verification Gate...';
+
+      try {
+        const res = await fetch('/api/sandbox/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code: code, language: language })
+        });
+        const json = await res.json();
+        term.textContent = JSON.stringify(json, null, 2);
+
+        if (json.passed) {
+          if (badge) {
+            badge.textContent = 'Status: PASSED (Verified ' + (json.verificationTimeMs || 1) + 'ms)';
+            badge.style.color = 'var(--success)';
+          }
+          showToast('Candidate passed Pre-Disk Verification Gate!');
+        } else {
+          if (badge) {
+            badge.textContent = 'Status: REJECTED (' + (json.error || json.reason || 'Failed') + ')';
+            badge.style.color = 'var(--danger)';
+          }
+          showToast('Candidate rejected by Verification Gate');
+        }
+      } catch (err) {
+        term.textContent = '// Verification error: ' + err.message;
+        if (badge) { badge.textContent = 'Status: ERROR'; badge.style.color = 'var(--danger)'; }
+        showToast('Gate error: ' + err.message);
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = '🛡️ Verify Candidate'; }
+      }
+    }
+
+    // ==========================================
+    // Live Swarm Event Bus SSE Stream Functions
+    // ==========================================
+    let swarmEventSource = null;
+    let swarmEventsList = [];
+    let swarmFilter = 'all';
+    let swarmStreamPaused = false;
+
+    function initSwarmBusStream() {
+      if (swarmEventSource) return;
+      const logEl = document.getElementById('swarm-live-log');
+      const statusEl = document.getElementById('swarm-bus-status');
+
+      try {
+        swarmEventSource = new EventSource('/api/swarm/stream');
+
+        swarmEventSource.onopen = function() {
+          if (statusEl) {
+            statusEl.textContent = '● Connected (SSE)';
+            statusEl.style.color = 'var(--success)';
+            statusEl.style.borderColor = 'var(--success)';
+          }
+          if (logEl && swarmEventsList.length === 0) {
+            logEl.innerHTML = '<div style="color: var(--success);">// Connected to live Swarm Event Bus SSE stream. Waiting for events...</div>';
+          }
+        };
+
+        swarmEventSource.onmessage = function(e) {
+          if (swarmStreamPaused) return;
+          try {
+            const data = JSON.parse(e.data);
+            if (data.type === 'init') {
+              if (Array.isArray(data.recentEvents)) {
+                swarmEventsList = data.recentEvents.slice(-50);
+                renderSwarmEvents();
+              }
+              return;
+            }
+            swarmEventsList.unshift(data);
+            if (swarmEventsList.length > 100) swarmEventsList.pop();
+            renderSwarmEvents();
+          } catch (_err) {
+            // Non-JSON SSE ping
+          }
+        };
+
+        swarmEventSource.onerror = function() {
+          if (statusEl) {
+            statusEl.textContent = '○ Reconnecting (SSE)';
+            statusEl.style.color = 'var(--warning)';
+            statusEl.style.borderColor = 'var(--warning)';
+          }
+        };
+      } catch (err) {
+        if (logEl) logEl.textContent = '// SSE connection error: ' + err.message;
+      }
+    }
+
+    function toggleSwarmStream() {
+      const btn = document.getElementById('btn-toggle-stream');
+      swarmStreamPaused = !swarmStreamPaused;
+      if (btn) {
+        btn.textContent = swarmStreamPaused ? 'Resume Stream' : 'Pause Stream';
+        btn.classList.toggle('btn-primary', swarmStreamPaused);
+      }
+      showToast(swarmStreamPaused ? 'Swarm stream paused' : 'Swarm stream resumed');
+    }
+
+    function clearSwarmStream() {
+      swarmEventsList = [];
+      renderSwarmEvents();
+      showToast('Swarm event log cleared');
+    }
+
+    function filterSwarmEvents(type, btn) {
+      swarmFilter = type;
+      document.querySelectorAll('[data-swarm-filter]').forEach(function(b) { b.classList.remove('active'); });
+      if (btn) btn.classList.add('active');
+      renderSwarmEvents();
+    }
+
+    function renderSwarmEvents() {
+      const logEl = document.getElementById('swarm-live-log');
+      const countEl = document.getElementById('swarm-event-count');
+      if (!logEl) return;
+
+      const filtered = swarmEventsList.filter(function(ev) {
+        if (swarmFilter === 'all') return true;
+        if (swarmFilter === 'agent') return ev.type && ev.type.startsWith('agent:');
+        if (swarmFilter === 'tool') return ev.type && ev.type.startsWith('tool:');
+        if (swarmFilter === 'memory') return ev.type && ev.type.startsWith('memory:');
+        if (swarmFilter === 'broadcast') return ev.type === 'agent:broadcast';
+        return true;
+      });
+
+      if (countEl) countEl.textContent = filtered.length + ' events captured';
+
+      if (filtered.length === 0) {
+        logEl.innerHTML = '<div style="color: var(--text-muted);">// No events match filter "' + swarmFilter + '"</div>';
+        return;
+      }
+
+      logEl.innerHTML = filtered.map(function(ev) {
+        const time = ev.timestamp ? new Date(ev.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
+        let badgeColor = 'var(--primary)';
+        if (ev.type && ev.type.startsWith('agent:')) badgeColor = '#a855f7';
+        if (ev.type && ev.type.startsWith('tool:')) badgeColor = '#38bdf8';
+        if (ev.type && ev.type.startsWith('memory:')) badgeColor = '#f59e0b';
+        if (ev.type === 'agent:broadcast') badgeColor = '#ec4899';
+        if ((ev.type && ev.type.includes('fail')) || (ev.type && ev.type.includes('error'))) badgeColor = 'var(--danger)';
+
+        const payloadStr = (ev.payload && ev.payload.message) ? ev.payload.message : JSON.stringify(ev.payload || {});
+
+        return '<div style="padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px;">' +
+          '<span style="color: var(--text-muted); font-size: 0.72rem; min-width: 65px;">[' + time + ']</span>' +
+          '<span style="background: rgba(255,255,255,0.06); color: ' + badgeColor + '; border: 1px solid ' + badgeColor + '; padding: 1px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase;">' + (ev.type || 'EVENT') + '</span>' +
+          '<span style="color: var(--text-muted); font-size: 0.75rem;">' + (ev.source || 'SYSTEM') + '</span>' +
+          '<div style="flex: 1; word-break: break-word;">' +
+            '<span style="color: #fff;">' + escapeHtml(payloadStr) + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    async function broadcastSwarmFromUi() {
+      const input = document.getElementById('swarm-broadcast-input');
+      if (!input) return;
+      const message = input.value.trim();
+      if (!message) {
+        showToast('Please enter a message to broadcast');
+        return;
+      }
+      try {
+        const res = await fetch('/api/swarm/broadcast', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: message, source: 'STUDIO_COCKPIT' })
+        });
+        const json = await res.json();
+        if (json.success) {
+          input.value = '';
+          showToast('Broadcast signal emitted across Swarm Bus!');
+        }
+      } catch (err) {
+        showToast('Broadcast error: ' + err.message);
       }
     }
 
@@ -3495,8 +4179,8 @@ export async function startStudioServer(options = {}) {
           try {
             await fs.cp(sourceDir, targetDir, { recursive: true });
             injected.push(sName.trim());
-          } catch {
-            // skip missing
+          } catch (_err) {
+            // skip missing skill directories
           }
         }
         sendJson({ success: true, count: injected.length, injected });

@@ -1058,7 +1058,7 @@ export function startStdioServer() {
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.3.0] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.4.0] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -1170,7 +1170,7 @@ export function startSseServer(port = 3333) {
   return new Promise((resolve, reject) => {
     server.on('error', reject);
     server.listen(port, () => {
-      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.3.0] Listening on SSE at: http://localhost:${port}/sse`);
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.4.0] Listening on SSE at: http://localhost:${port}/sse`);
       console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
       resolve({ server, port });
     });

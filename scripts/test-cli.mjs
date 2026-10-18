@@ -11,6 +11,7 @@ import vm from 'node:vm';
 const execFileAsync = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLI_PATH = path.resolve(__dirname, '../bin/vibes.mjs');
+const PLUGIN_ROOT = path.resolve(__dirname, '..');
 
 test('Vibes-Plug CLI Test Suite', async (t) => {
   await t.test('vibes --help should output banner and commands', async () => {
@@ -23,9 +24,10 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /recipe/);
   });
 
-  await t.test('vibes version current should return 4.3.0', async () => {
+  await t.test('vibes version current should return active package version', async () => {
+    const pkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'version', 'current']);
-    assert.match(stdout, /4\.3\.0/);
+    assert.match(stdout, new RegExp(pkg.version.replace(/\./g, '\\.')));
   });
 
   await t.test('vibes doctor should verify 155 skills and pass health checks', async () => {
@@ -234,7 +236,8 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const raw = await fs.readFile(pkgPath, 'utf8');
     const pkg = JSON.parse(raw);
     assert.equal(pkg.name, 'vibes-plug-companion');
-    assert.equal(pkg.version, '4.3.0');
+    const rootPkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
+    assert.equal(pkg.version, rootPkg.version);
     assert.equal(pkg.contributes.commands.length >= 6, true);
     assert.ok(pkg.contributes.configuration.properties['vibes.studioPort']);
   });
@@ -352,7 +355,8 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const statusRes = await fetch(`${url}/api/status`);
       const status = await statusRes.json();
       assert.equal(status.totalSkills, 155);
-      assert.equal(status.version, '4.3.0');
+      const pkgJson = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
+      assert.equal(status.version, pkgJson.version);
       assert.equal(status.mcpToolsCount >= 10, true);
 
       const subagentsRes = await fetch(`${url}/api/subagents`);

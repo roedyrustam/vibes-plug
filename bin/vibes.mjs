@@ -998,7 +998,8 @@ async function runVersion(action, type) {
       { path: path.join(PLUGIN_ROOT, '.codex-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
-      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` }
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'extensions', 'vscode', 'package.json'), from: `"version": "${current}"`, to: `"version": "${next}"` }
     ];
 
     for (const { path: filePath, from, to } of files) {
@@ -1486,7 +1487,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.3.0)
+🌊 Vibes-Plug CLI (v4.4.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
