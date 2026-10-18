@@ -32,9 +32,12 @@ async function validateSkills() {
     const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
     const skillDirs = entries.filter(e => e.isDirectory());
     
-    // Load orchestrators to verify full registration
+    // Load orchestrators and domain maps to verify full registration
     const brainstormingContent = await fs.readFile(path.join(SKILLS_DIR, 'brainstorming', 'SKILL.md'), 'utf8');
     const zeroToProdContent = await fs.readFile(path.join(SKILLS_DIR, 'zero-to-prod-orchestrator', 'SKILL.md'), 'utf8');
+    const studioServerContent = await fs.readFile(path.join(process.cwd(), 'scripts', 'studio-server.mjs'), 'utf8');
+    const compileCacheContent = await fs.readFile(path.join(process.cwd(), 'scripts', 'compile-cache.mjs'), 'utf8');
+    const vibesCliContent = await fs.readFile(path.join(process.cwd(), 'bin', 'vibes.mjs'), 'utf8');
 
     let totalSkills = 0;
     let passedSkills = 0;
@@ -61,18 +64,18 @@ async function validateSkills() {
           
           const versionMatch = fm.match(/version:\s*"([^"]+)"/);
           if (!versionMatch) {
-            skillErrors.push('Missing "version" tag (Rule: All skills must be 4.2.0+)');
+            skillErrors.push('Missing "version" tag (Rule: All skills must be 4.3.0+)');
           } else {
             const version = versionMatch[1];
             const [major, minor] = version.split('.').map(Number);
-            if (isNaN(major) || major < 4 || (major === 4 && minor < 2)) {
-              skillErrors.push(`Version outdated: ${version} (expected >= 4.2.0)`);
+            if (isNaN(major) || major < 4 || (major === 4 && minor < 3)) {
+              skillErrors.push(`Version outdated: ${version} (expected >= 4.3.0)`);
             }
           }
 
           const authorMatch = fm.match(/author:\s*"([^"]+)"/);
-          if (!authorMatch || !authorMatch[1].includes('Roedy Rustam')) {
-            skillErrors.push('Missing or invalid "author" tag (expected "Roedy Rustam")');
+          if (!authorMatch || authorMatch[1].trim().length < 2) {
+            skillErrors.push('Missing or invalid "author" tag in frontmatter');
           }
         }
 
@@ -104,6 +107,17 @@ async function validateSkills() {
         }
         if (!zeroToProdContent.includes(skillName)) {
           skillErrors.push(`Not registered in skills/zero-to-prod-orchestrator/SKILL.md`);
+        }
+        if (skillName !== 'agy-customizations') {
+          if (!studioServerContent.includes(`'${skillName}'`)) {
+            skillErrors.push(`Not mapped in scripts/studio-server.mjs SKILL_DOMAIN_MAP`);
+          }
+          if (!compileCacheContent.includes(`'${skillName}'`)) {
+            skillErrors.push(`Not mapped in scripts/compile-cache.mjs domains`);
+          }
+          if (!vibesCliContent.includes(`'${skillName}'`)) {
+            skillErrors.push(`Not mapped in bin/vibes.mjs DOMAIN_SKILL_MAP`);
+          }
         }
 
         if (skillErrors.length > 0) {

@@ -1,8 +1,8 @@
 ---
 name: pwa-offline-first-expert
 description: "Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment / Panduan ahli arsitektur Offline-First & Local-First PWA."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # PWA & Offline-First Expert (2026 Edition)
@@ -202,6 +202,12 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **`senior-frontend`**: Integrasi UI indikator status offline dan hook mutasi optimistik.
+- **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
+- **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.
+- **`email-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.
+
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi web **Local-First** dan **Progressive Web Applications (PWA)** kelas enterprise. Menghilangkan ketergantungan loading spinner dengan membaca dan menulis langsung ke database lokal (OPFS SQLite, RxDB, IndexedDB) terlebih dahulu, sinkronisasi otomatis di latar belakang tanpa bentrok data (CRDTs, ElectricSQL, PowerSync), dan packaging ke toko aplikasi native melalui PWABuilder.
 
@@ -211,17 +217,89 @@ Panduan ahli untuk membangun aplikasi web **Local-First** dan **Progressive Web 
 - Arsitektur sinkronisasi multi-perangkat dengan resolusi konflik data otomatis.
 - Kebutuhan rilis aplikasi web ke Google Play Store, iOS Safari PWA, atau Microsoft Store.
 
-### Ringkasan Prinsip Local-First & PWA
-1. **0ms Latensi Lokal**: Komponen membaca dan menulis ke IndexedDB / OPFS lokal secara instan.
-2. **Sinkronisasi Reaktif Latar Belakang**: Replikasi data berjalan di background worker; mutasi offline dicatat dalam antrean IndexedDB dan di-flush saat jaringan online.
-3. **Pola Service Worker**: Stale-While-Revalidate untuk asset statis dan rute shell utama menggunakan Service Worker v3.
-4. **Distribusi Native**: Menggunakan PWABuilder CLI untuk menghasilkan APK Android TWA dan paket MSIX Windows.
-
 ---
 
-## Integrasi Orkestrasi
+### Implementasi Pola Kunci (TypeScript)
 
-- **`senior-frontend`**: Integrasi UI indikator status offline dan hook mutasi optimistik.
-- **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
-- **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.
-- **`email-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.
+#### 1. Service Worker Produksi dengan Strategi Stale-While-Revalidate (`sw.ts`)
+```typescript
+/// <reference lib="webworker" />
+declare const self: ServiceWorkerGlobalScope;
+
+const NAMA_CACHE = 'aplikasi-shell-v4.3.0';
+const ASET_STATIS = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/styles/global.css',
+  '/icons/icon-512x512.png',
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(NAMA_CACHE).then((cache) => cache.addAll(ASET_STATIS))
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== NAMA_CACHE).map((k) => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.open(NAMA_CACHE).then(async (cache) => {
+      const responsTercache = await cache.match(event.request);
+      const janjiJaringan = fetch(event.request)
+        .then((networkRes) => {
+          if (networkRes.status === 200) {
+            cache.put(event.request, networkRes.clone());
+          }
+          return networkRes;
+        })
+        .catch(() => responsTercache || Response.error());
+
+      return responsTercache || janjiJaringan;
+    })
+  );
+});
+```
+
+#### 2. Database Reaktif Lokal RxDB dengan Replikasi Latar Belakang
+```typescript
+import { createRxDatabase } from 'rxdb';
+import { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';
+
+export async function inisialisasiDatabaseLokal() {
+  const db = await createRxDatabase({
+    name: 'db_lokal_pengguna',
+    storage: getRxStorageDexie(),
+  });
+
+  await db.addCollections({
+    tugas: {
+      schema: {
+        version: 0,
+        primaryKey: 'id',
+        type: 'object',
+        properties: {
+          id: { type: 'string', maxLength: 100 },
+          judul: { type: 'string' },
+          selesai: { type: 'boolean' },
+          diperbaruiPada: { type: 'string', format: 'date-time' },
+        },
+        required: ['id', 'judul', 'selesai', 'diperbaruiPada'],
+      },
+    },
+  });
+
+  return db;
+}
+```

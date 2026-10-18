@@ -1,0 +1,43 @@
+name: VibesPlug CI & Anti-Slop Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-audit:
+    name: Skill Integrity & Sovereign Anti-Slop Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Validate Skills Ecosystem & Orchestrator Sync
+        run: node scripts/validate-skills.mjs
+
+      - name: Run Sovereign Anti-Slop Strict Audit
+        run: node scripts/check-anti-slop.js --strict
+
+      - name: Verify CLI Help & Version Synchronization
+        run: |
+          node bin/vibes.mjs --help
+          node bin/vibes.mjs version current
+
+      - name: Run CLI Test Suite
+        run: node --test scripts/test-cli.mjs

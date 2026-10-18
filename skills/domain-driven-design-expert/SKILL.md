@@ -1,11 +1,11 @@
 ---
 name: domain-driven-design-expert
 description: "Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS / Panduan ahli Desain Berbasis Domain (DDD)."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
-# Domain-Driven Design (DDD) Expert
+# Domain-Driven Design (DDD) Expert (Strategic & Tactical 2026)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -15,69 +15,133 @@ version: "4.2.2"
 ## English
 
 ### Description
-A software architecture guide focused on tackling complexity in the heart of software. This skill bridges the gap between business rules and codebase structure using Domain-Driven Design (DDD). It covers Strategic Design (Bounded Contexts, Ubiquitous Language) and Tactical Design (Aggregates, Value Objects, Domain Events, Repositories).
+Comprehensive architectural guide for tackling core business complexity using Domain-Driven Design (DDD). Covers Strategic Design (Bounded Contexts, Context Mapping, Ubiquitous Language, Subdomains) and Tactical Design (immutable Value Objects, Aggregate Roots, Domain Events, Repositories, Specification pattern, and CQRS separation). Emphasizes keeping core domain logic pure and independent of database schemas, ORMs, and web delivery frameworks.
 
 ### Trigger Conditions
-- When refactoring a massive, monolithic "Big Ball of Mud" codebase.
-- When defining microservice boundaries (Bounded Contexts).
-- When the user asks about "Clean Architecture", "CQRS", or "Event Sourcing".
-- When building core business logic that is highly complex and rule-heavy (e.g., banking, logistics, SaaS billing engines).
+- Decomposing monolithic applications (*"Big Ball of Mud"*) into clean, decoupled Bounded Contexts.
+- Designing rule-heavy, high-invariant business logic (FinTech billing, multi-tier pricing, insurance, logistics).
+- Structuring Clean / Hexagonal / Onion architectures in TypeScript, Go, Python, or Rust.
+- Defining event payloads and boundaries for Event-Driven Microservices.
 
-### Core Architectural Guidelines
+### Tactical Pattern: Immutable Value Object & Aggregate Root (TypeScript)
 
-#### 1. Strategic Design (The Big Picture)
-- **Ubiquitous Language**: The code must speak the language of the business. Do not use generic terms like `UserData` if the business calls it a `Subscriber`.
-- **Bounded Contexts**: Divide large systems into distinct contexts. A `Product` in the Inventory context has different attributes than a `Product` in the Billing context. Do not try to create one massive, unified `Product` model.
+```typescript
+// src/domain/shared/value-objects/Money.ts
+export class Money {
+  readonly amountCents: number;
+  readonly currency: 'USD' | 'IDR' | 'EUR';
 
-#### 2. Tactical Design (The Code)
-- **Value Objects**: Use immutable Value Objects for attributes (e.g., `Money`, `Address`, `Email`) instead of primitives (`int`, `string`). Value Objects validate themselves upon creation.
-- **Entities & Aggregates**: Group related Entities together under a single Aggregate Root. External objects may only hold a reference to the Aggregate Root, never to its internal children.
-- **Repositories**: Only create Repositories for Aggregate Roots.
+  private constructor(amountCents: number, currency: 'USD' | 'IDR' | 'EUR') {
+    if (amountCents < 0) throw new Error('Money amount cannot be negative.');
+    this.amountCents = Math.round(amountCents);
+    this.currency = currency;
+  }
 
-#### 3. Domain Events
-When an Aggregate changes state in a way that other parts of the system care about, it should publish a Domain Event (e.g., `OrderPlacedEvent`). This decouples side-effects (like sending an email) from the core business transaction.
+  static create(amountCents: number, currency: 'USD' | 'IDR' | 'EUR' = 'USD'): Money {
+    return new Money(amountCents, currency);
+  }
 
-#### 4. CQRS (Command Query Responsibility Segregation)
-For highly scalable systems, separate the models used for writing data (Commands) from the models used for reading data (Queries).
-- **Commands**: Modify state via the rich Domain Model.
-- **Queries**: Read data directly from optimized database views or read models, bypassing the Domain Model entirely for performance.
+  add(other: Money): Money {
+    if (this.currency !== other.currency) throw new Error('Currency mismatch.');
+    return new Money(this.amountCents + other.amountCents, this.currency);
+  }
+
+  equals(other: Money): boolean {
+    return this.amountCents === other.amountCents && this.currency === other.currency;
+  }
+}
+
+// src/domain/order/OrderAggregate.ts
+export interface DomainEvent {
+  eventName: string;
+  occurredOn: Date;
+  aggregateId: string;
+}
+
+export class OrderPaidEvent implements DomainEvent {
+  eventName = 'OrderPaidEvent';
+  occurredOn = new Date();
+  constructor(public aggregateId: string, public totalAmount: Money) {}
+}
+
+export class OrderAggregate {
+  private _domainEvents: DomainEvent[] = [];
+
+  constructor(
+    public readonly id: string,
+    public readonly customerId: string,
+    private _total: Money,
+    private _status: 'DRAFT' | 'PAID' | 'CANCELLED' = 'DRAFT'
+  ) {}
+
+  get status() { return this._status; }
+  get total() { return this._total; }
+
+  // Enforces domain invariant: an order cannot be marked PAID if status is not DRAFT
+  markAsPaid(): void {
+    if (this._status !== 'DRAFT') {
+      throw new Error(`Invalid transition: Cannot pay an order in ${this._status} status.`);
+    }
+    this._status = 'PAID';
+    this._domainEvents.push(new OrderPaidEvent(this.id, this._total));
+  }
+
+  pullDomainEvents(): DomainEvent[] {
+    const events = [...this._domainEvents];
+    this._domainEvents = [];
+    return events;
+  }
+}
+```
+
+### The 4 Non-Negotiable DDD Invariants
+1. **Model Purity**: Domain Entities and Value Objects MUST NOT import database libraries (Prisma, Drizzle, TypeORM) or HTTP frameworks (Express, Next.js). They are pure TypeScript/POJOs.
+2. **Access Strictly Through Aggregate Roots**: Never allow external controllers or services to mutate child entities directly. All mutations must pass through methods on the Aggregate Root to guarantee data consistency.
+3. **Repository Per Aggregate Root**: Never create repositories for child entities or junction tables. Only Aggregate Roots possess repositories (`OrderRepository`, not `OrderItemRepository`).
+4. **Ubiquitous Language**: Code identifiers must strictly mirror real business terminology. Reject vague names like `handleData()` in favor of explicit domain verbs like `authorizePayment()`.
 
 ## Orchestration & Integration
-- Extends `scalability-clean-code` with strict domain isolation patterns.
-- Essential for `event-driven-architect` when defining what events flow through the message broker.
-- Complements `micro-frontend-architect` by aligning frontend boundaries with backend Bounded Contexts.
+- **`scalability-clean-code`**: Aligns DDD tactical models with SOLID, DRY, and Clean Architecture principles.
+- **`event-driven-architect`**: Dispatches domain events collected from Aggregate Roots to Kafka / BullMQ.
+- **`database-orm-expert`**: Maps pure domain aggregates to persistence schemas via Data Mappers.
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi bersama `scalability-clean-code`, `event-driven-architect`, `database-orm-expert`, dan `saas-architect`.
+
 ### Deskripsi
-Panduan arsitektur perangkat lunak yang berfokus pada penanganan kompleksitas bisnis. Skill ini menjembatani aturan bisnis dan struktur kode menggunakan Domain-Driven Design (DDD). Meliputi Desain Strategis (Bounded Contexts, Ubiquitous Language) dan Desain Taktis (Aggregates, Value Objects, Domain Events).
+Panduan arsitektur komprehensif untuk menangani kompleksitas bisnis inti menggunakan *Domain-Driven Design* (DDD). Mencakup Desain Strategis (*Bounded Contexts*, *Context Mapping*, *Ubiquitous Language*, Pemisahan Subdomain) dan Desain Taktis (*Value Objects* imutabel, *Aggregate Roots*, *Domain Events*, *Repositories*, dan pola CQRS). Menekankan pentingnya menjaga logika bisnis tetap murni dan terisolasi dari database, ORM, maupun framework pengiriman web.
 
 ### Kondisi Pemicu
-- Saat melakukan refactoring codebase monolitik yang sudah berantakan (Big Ball of Mud).
-- Saat mendefinisikan batas-batas layanan microservices.
-- Saat membangun logika bisnis inti yang sangat kompleks (misal: mesin penagihan SaaS, sistem perbankan).
+- Merefaktor monolit yang kusut (*Big Ball of Mud*) menjadi *Bounded Contexts* yang mandiri dan terpisah.
+- Merancang logika bisnis yang sarat dengan aturan dan invarian ketat (FinTech, sistem penagihan, logistik).
+- Menerapkan arsitektur Bersih (*Clean Architecture* / *Hexagonal Architecture*).
+- Menentukan payload event yang bersih untuk arsitektur *Event-Driven Microservices*.
 
-### Panduan Arsitektur Inti
+### Pola Repository Khusus Aggregate Root
 
-#### 1. Desain Strategis
-- **Ubiquitous Language**: Kode harus menggunakan bahasa yang sama dengan pihak bisnis. Hindari istilah teknis generik jika ada istilah bisnis yang lebih tepat.
-- **Bounded Contexts**: Jangan mencoba membuat satu model data raksasa (misal: tabel `User` dengan 100 kolom). Pisahkan berdasarkan konteks; entitas `User` di konteks Penagihan berbeda dengan `User` di konteks Pengiriman.
+```typescript
+// src/domain/order/IOrderRepository.ts
+import { OrderAggregate } from './OrderAggregate';
 
-#### 2. Desain Taktis (Implementasi Kode)
-- **Value Objects**: Gunakan objek *immutable* (tidak dapat diubah) untuk atribut seperti `Uang`, `Alamat`, atau `Email` daripada tipe data primitif biasa (string/int).
-- **Aggregates**: Kelompokkan entitas-entitas yang saling berhubungan ke dalam satu Aggregate Root. Interaksi dari luar hanya boleh melalui Root ini untuk menjaga konsistensi data.
-- **Repositories**: Buat Repository hanya untuk Aggregate Root, bukan untuk setiap tabel di database.
+export interface IOrderRepository {
+  findById(id: string): Promise<OrderAggregate | null>;
+  save(order: OrderAggregate): Promise<void>; // Menyimpan agregat & mempublikasikan Domain Event
+}
+```
 
-#### 3. Domain Events
-Pisahkan efek samping (side-effects). Daripada membuat modul Pesanan memanggil modul Email secara langsung, buat modul Pesanan menerbitkan `OrderPlacedEvent`. Modul Email akan bereaksi terhadap event tersebut.
-
-#### 4. CQRS
-Pisahkan model data untuk operasi *Write* (Command) dan *Read* (Query). Model baca dapat dioptimalkan secara drastis dengan melakukan bypass penuh pada logika domain.
+### 4 Aturan Emas Domain-Driven Design
+1. **Kemurnian Model Bisnis**: Entitas Domain dilarang mengimpor pustaka database atau framework HTTP. Logika domain harus dapat diuji 100% tanpa koneksi database.
+2. **Akses Hanya Melalui Aggregate Root**: Objek luar dilarang memodifikasi entitas anak secara langsung. Seluruh perubahan wajib melalui metode pada Aggregate Root.
+3. **Satu Repository untuk Satu Root**: Hanya buat Repository untuk Aggregate Root (`OrderRepository`), bukan untuk tabel pembantu (`OrderItemRepository`).
+4. **Bahasa Seragam (Ubiquitous Language)**: Kode wajib mencerminkan bahasa asli bisnis (contoh: gunakan `terbitkanFaktur()` daripada `updateStatusTable()`).
 
 ## Integrasi Orkestrasi
-- Mengembangkan `scalability-clean-code` dengan pola isolasi domain yang ketat.
-- Sangat penting bagi `event-driven-architect` untuk menentukan struktur event di message broker.
-- Membantu `micro-frontend-architect` menyelaraskan batas-batas frontend dengan Bounded Contexts backend.
+- **`scalability-clean-code`**: Menjaga keterbacaan kode dan pemisahan lapisan logika (Separation of Concerns).
+- **`event-driven-architect`**: Mengirimkan Domain Events ke broker pesan tanpa merusak transaksi atomik.
+- **`database-orm-expert`**: Mengonversi model domain murni ke tabel database melalui Data Mapper.
+- **`saas-architect`**: Menyelaraskan batas modul bisnis dengan paket harga dan hak akses pengguna.

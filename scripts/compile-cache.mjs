@@ -24,7 +24,7 @@ export async function compileCache(options = {}) {
   const log = (...args) => { if (!quiet) console.log(...args); };
 
   log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  log('📦 Scanning 147-Skill Ecosystem for canonical prefix ordering...\n');
+  log('📦 Scanning 155-Skill Ecosystem for canonical prefix ordering...\n');
 
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -38,7 +38,7 @@ export async function compileCache(options = {}) {
       const descMatch = content.match(/description:\s*["']?([^"'\n\r]+)/);
       const versionMatch = content.match(/version:\s*["']?([^"'\n\r]+)/);
       const desc = descMatch ? descMatch[1].trim() : '';
-      const version = versionMatch ? versionMatch[1].trim() : '4.2.0';
+      const version = versionMatch ? versionMatch[1].trim() : '4.3.0';
       skillsData.push({ name: skillName, description: desc, version });
     } catch (e) {
       console.warn(`  ⚠️ Could not read ${skillName}: ${e.message}`);
@@ -47,9 +47,9 @@ export async function compileCache(options = {}) {
 
   // 2. Build Canonical Deterministic Prefix Payload
   const canonicalPayload = {
-    version: '4.2.0',
+    version: '4.3.0',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
-    architecture: 'Vibes-Plug Swarm Architecture (147 Skills)',
+    architecture: 'Vibes-Plug Swarm Architecture (155 Skills)',
     orchestrator: 'Primary Trigger (Pemicu Utama)',
     domains: {
       ai_agentic: [
@@ -60,18 +60,19 @@ export async function compileCache(options = {}) {
         'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
         'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
         'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
-        'pydantic-ai-expert', 'speculative-multi-draft-synthesizer', 'synthetic-data-finetuning-expert',
-        'test-time-compute-optimizer', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+        'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
+        'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
+        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
       ],
       design_ui_ux: [
         'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',
         'hig', 'modern-css-native-expert', 'multimodal-spatial-video-cloner',
         'rich-text-editor-expert', 'screenshot-to-code-expert', 'svg-animation-motion-expert',
-        'tailwind-expert', 'ui-ux-pro-max', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
+        'tailwind-expert', 'ui-ux-pro-max', 'visual-ui-auditor', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
       ],
       frontend: [
         'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
-        'blockchain-web3-expert', 'form-validation-expert', 'global-a11y-i18n-expert',
+        'blockchain-web3-expert', 'browser-extension-mv3-pro', 'form-validation-expert', 'global-a11y-i18n-expert',
         'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
         'pwa-offline-first-expert', 'senior-frontend', 'solidjs-expert',
         'spa-orchestrator', 'state-management-expert', 'svelte-sveltekit-expert',
@@ -82,11 +83,11 @@ export async function compileCache(options = {}) {
         'bun-runtime-expert', 'domain-driven-design-expert', 'fullstack-expert',
         'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
         'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
-        'python-programming-expert', 'rust-programming-expert', 'typescript-expert',
-        'wasm-edge-computing-expert'
+        'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
+        'structured-output-contracts', 'typescript-expert', 'wasm-edge-computing-expert'
       ],
       saas_cloud: [
-        'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
+        'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
         'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
         'feature-flag-analytics-expert', 'legacy-code-translator', 'micro-frontend-architect',
         'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
@@ -101,9 +102,9 @@ export async function compileCache(options = {}) {
         'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
         'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
         'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'firebase-security-expert',
-        'formal-spec-z3-verifier', 'post-quantum-crypto-migrator', 'production-ready-hardener',
-        'prompt-injection-firewall', 'property-mutation-testing-expert', 'rate-limit-abuse-prevention',
-        'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault'
+        'formal-spec-z3-verifier', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
+        'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
+        'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault'
       ],
       orchestration_utilities: [
         'app-analyzer-optimizer', 'app-promo-media-expert', 'async-queue-temporal-expert',
@@ -133,7 +134,7 @@ export async function compileCache(options = {}) {
 
   log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
   log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  log(`  🎯 Total Skills Included    : ${skillsData.length}/147`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length}/155`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;
@@ -181,6 +182,57 @@ export async function compileCache(options = {}) {
     estimatedTokens,
     skillsCount: skillsData.length,
     outputPath
+  };
+}
+
+export async function getCacheStatus() {
+  const cachePath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+  let data = null;
+  let exists = false;
+  let byteSize = 0;
+  let mtime = null;
+
+  try {
+    const stat = await fs.stat(cachePath);
+    const content = await fs.readFile(cachePath, 'utf8');
+    data = JSON.parse(content);
+    exists = true;
+    byteSize = stat.size;
+    mtime = stat.mtime;
+  } catch {
+    exists = false;
+  }
+
+  const estimatedTokens = Math.ceil(byteSize / 3.8);
+  const eligibleClaude = estimatedTokens >= 1024;
+  const eligibleOpenAi = estimatedTokens >= 1024;
+  const eligibleGemini = estimatedTokens >= 1024;
+
+  const standardCostPer1kReqs = ((estimatedTokens * 1000) / 1000000) * 3.00;
+  const claudeSavingsPer1k = standardCostPer1kReqs * 0.90;
+  const geminiSavingsPer1k = standardCostPer1kReqs * 0.75;
+  const openAiSavingsPer1k = standardCostPer1kReqs * 0.50;
+
+  return {
+    exists,
+    cachePath,
+    byteSize,
+    mtime,
+    estimatedTokens,
+    totalSkills: data?.totalSkills || 155,
+    version: data?.version || '4.3.0',
+    platforms: {
+      claude: { eligible: eligibleClaude, threshold: 1024, discountPct: 90, savingsPer1k: Number(claudeSavingsPer1k.toFixed(3)) },
+      gemini: { eligible: eligibleGemini, threshold: 1024, discountPct: 75, savingsPer1k: Number(geminiSavingsPer1k.toFixed(3)) },
+      openai: { eligible: eligibleOpenAi, threshold: 1024, discountPct: 50, savingsPer1k: Number(openAiSavingsPer1k.toFixed(3)) }
+    },
+    economics: {
+      standardCostPer1kReqs: Number(standardCostPer1kReqs.toFixed(3)),
+      claudeSavingsPer1k: Number(claudeSavingsPer1k.toFixed(3)),
+      geminiSavingsPer1k: Number(geminiSavingsPer1k.toFixed(3)),
+      openAiSavingsPer1k: Number(openAiSavingsPer1k.toFixed(3)),
+      estimatedTtfSpeedup: '10x (<100ms TTFT)'
+    }
   };
 }
 

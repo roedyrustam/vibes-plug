@@ -1,8 +1,8 @@
 ---
 name: deep-research-analyst
 description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Deep Research Analyst (2026 Autonomous Research Edition)
@@ -175,8 +175,111 @@ Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Oton
 - Mengeliminasi halusinasi LLM pada dokumen teknis atau strategi bisnis berisiko tinggi.
 - Merangkum informasi web yang rumit dan tersebar menjadi dokumen ringkasan terstruktur dengan sitasi klik langsung.
 
-### Protokol Triangulasi Fakta & Skor Keyakinan
-1. **Tier 1 (Otoritatif):** Dokumentasi resmi, repositori kode sumber terbuka, RFC/spesifikasi teknis, laporan audit resmi.
-2. **Tier 2 (Dapat Diandalkan):** Blog teknik produksi resmi (Netflix, Cloudflare, Uber), analisis tim pengembang inti.
-3. **Tier 3 (Perlu Verifikasi Lanjutan):** Thread diskusi komunitas, tutorial umum.
-4. **Aturan Triangulasi:** Setiap klaim teknis penting wajib diverifikasi silang oleh sekurang-kurangnya 2 sumber independen sebelum dimasukkan ke dalam blueprint arsitektur.
+---
+
+### Alur Kerja Operasional Riset Mendalam
+
+```
+1. DEKOMPOSISI KUERI & HIPOTESIS
+   [Tujuan Riset] ──► [Query Expander] ──┬──► Sub-kueri A (Spesifikasi Teknis)
+                                         ├──► Sub-kueri B (Benchmark & Batasan)
+                                         └──► Sub-kueri C (Isu Komunitas & Regresi)
+
+2. PERAYAPAN SUMBER REKURSIF
+   [Sub-kueri] ──► [Crawl4AI / Firecrawl / SerpAPI] ──► Dokumen Mentah (Markdown/HTML)
+
+3. TRIANGULASI FAKTA & KREDIBILITAS
+   Dokumen Mentah ──► [Evidence Evaluator] ──► Validasi Silang (>= 2 Sumber Independen)
+                                           ──► Eliminasi Konten SEO-Spam & Blog Rendah Kredibilitas
+
+4. SINTESIS GRAF BUKTI & LAPORAN
+   Fakta Terverifikasi ──► [Synthesizer Node] ──► Laporan Terstruktur dengan Sitasi Klik Langsung
+```
+
+---
+
+### Panduan Implementasi Inti
+
+#### 1. Dekomposisi Kueri Rekursif (TypeScript & AI SDK)
+```typescript
+import { generateObject } from 'ai';
+import { z } from 'zod';
+
+interface RencanaRiset {
+  tujuanUtama: string;
+  subKueri: Array<{
+    kueri: string;
+    fokus: 'arsitektur' | 'benchmark' | 'keamanan' | 'kelemahan';
+    jenisSumber: 'dokumentasi' | 'repositori_github' | 'paper_teknis';
+  }>;
+}
+
+export async function dekomposisiTujuanRiset(promptPengguna: string): Promise<RencanaRiset> {
+  const { object } = await generateObject({
+    model: customModel('gemini-3.8-flash'),
+    schema: z.object({
+      tujuanUtama: z.string(),
+      subKueri: z.array(z.object({
+        kueri: z.string().describe('Kueri kata kunci spesifik dengan operator pencarian teknis'),
+        fokus: z.enum(['arsitektur', 'benchmark', 'keamanan', 'kelemahan']),
+        jenisSumber: z.enum(['dokumentasi', 'repositori_github', 'paper_teknis']),
+      })).min(3).max(6),
+    }),
+    prompt: `Analisis tujuan riset berikut dan pecah menjadi 4-6 vektor pencarian teknis yang spesifik: "${promptPengguna}"`,
+  });
+
+  return object;
+}
+```
+
+#### 2. Ekstraksi Otonom & Evaluasi Klaim (Python & Crawl4AI)
+```python
+from crawl4ai import AsyncWebCrawler, CrawlerRunConfig, CacheMode
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+class TemuanRiset(BaseModel):
+    klaim_teknis: str = Field(description="Klaim teknis spesifik yang diekstraksi")
+    skor_keyakinan: float = Field(ge=0, le=1, description="Skor keyakinan bukti (0 sampai 1)")
+    url_sumber: str = Field(description="URL sumber primer")
+    sumber_pendukung: list[str] = Field(default_factory=list, description="Daftar URL sumber pembanding")
+
+agen_analis = Agent(
+    'google:gemini-3.8-flash',
+    result_type=list[TemuanRiset],
+    system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
+)
+
+async def eksekusi_riset_mendalam(kueri: str) -> list[TemuanRiset]:
+    config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
+    async with AsyncWebCrawler() as crawler:
+        halaman = await crawler.arun(url=f"https://search-engine.internal/q={kueri}", config=config)
+        hasil = await agen_analis.run(halaman.markdown)
+        return hasil.data
+```
+
+#### 3. Protokol Triangulasi Fakta & Skor Keyakinan
+1. **Tier 1 (Otoritas Tertinggi):** Dokumentasi resmi, repositori kode sumber terbuka, spesifikasi RFC, dan laporan audit formal.
+2. **Tier 2 (Dapat Diandalkan):** Blog teknik produksi dari tim rekayasa industri (Netflix, Cloudflare, Uber, Stripe).
+3. **Tier 3 (Perlu Verifikasi Lanjutan):** Thread forum komunitas dan tutorial opini pribadi.
+4. **Aturan Mutlak Triangulasi:** Setiap keputusan arsitektural krusial wajib didukung oleh sekurang-kurangnya 2 sumber Tier 1/2 independen.
+
+#### 4. Format Laporan Riset Terstruktur (Evidence Dossier)
+Setiap ringkasan intelijen riset wajib disusun dalam format markdown berikut:
+```markdown
+# [Topik Riset] — Laporan Riset Mendalam & Graf Bukti
+
+## Ringkasan Eksekutif
+- Sintesis ringkas 3-5 poin keputusan utama.
+
+## Matriks Bukti Teknis
+| Klaim Teknis | Status Validasi | Skor Keyakinan | Sumber Primer | Sumber Pendukung |
+|---|---|---|---|---|
+| Penjelasan Klaim | Terverifikasi / Dibantah | 95% | [Sumber A](url) | [Sumber B](url) |
+
+## Analisis Komparatif & Risiko Kunci
+- Trade-off latensi, batas memori, konsumsi biaya, atau kurva migrasi.
+
+## Keputusan Arsitektur yang Direkomendasikan
+- Arahan preskriptif untuk tim pengembang dengan justifikasi berbasis bukti.
+```

@@ -1,8 +1,8 @@
 ---
 name: vue-frontend-expert
 description: "Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Vue Frontend Expert (Vue 3 / Nuxt 3)
@@ -113,6 +113,9 @@ This skill should be referenced by the following orchestrators:
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- `design-system-architect` — Komponen headless UI menggunakan Radix Vue.
+- `tailwind-expert` — Penataan gaya komponen Vue/Nuxt dengan Tailwind CSS v4.
+- `performance-web-vitals` — Optimasi metrik SSR Nuxt 3 (LCP, INP).
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun aplikasi frontend reaktif dan terukur menggunakan **Vue 3 (Composition API)** dan **Nuxt 3**. Mencakup pengelolaan state dengan **Pinia**, utilitas **VueUse**, dan integrasi **Tailwind CSS v4**.
@@ -124,10 +127,50 @@ Aktifkan skill ini ketika pengguna sedang:
 - Mengelola state global dengan Pinia (bukan Vuex).
 - Menerapkan SSR (Server-Side Rendering) dengan Nuxt 3.
 
-### Panduan Singkat
+---
 
-- **Composition API Default:** Selalu gunakan sintaks `<script setup lang="ts">`. Lebih ringkas, type-safe, dan efisien.
-- **Pinia:** Gunakan Pinia dengan pola *Setup Store* (mirip Composition API) alih-alih pola Options (state, getters, actions).
-- **Nuxt 3 Fetching:** Gunakan `useFetch` atau `useAsyncData` di dalam komponen Nuxt untuk pengambilan data saat SSR, bukan `onMounted` dengan `fetch` biasa.
-- **Reaktivitas:** Gunakan `ref` untuk nilai primitif (string, number) dan `reactive` untuk objek bersarang yang kompleks. Utamakan `computed` daripada `watch` untuk state turunan.
-- **VueUse:** Jangan menulis fungsi utilitas dari nol jika sudah ada di *library* VueUse (contoh: `useIntersectionObserver`, `useLocalStorage`).
+### Implementasi Pola Kunci (Vue 3 & Nuxt 3)
+
+#### 1. Komponen Reaktif Modern dengan `<script setup lang="ts">`
+```vue
+<script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
+
+const jumlah = ref(0)
+const kelipatanDua = computed(() => jumlah.value * 2)
+
+function tambah() {
+  jumlah.value++
+}
+
+onMounted(() => {
+  console.log('Komponen Vue 3 berhasil dimuat!')
+})
+</script>
+
+<template>
+  <button 
+    @click="tambah"
+    class="px-4 py-2 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded font-medium"
+  >
+    Jumlah: {{ jumlah }} (Kelipatan: {{ kelipatanDua }})
+  </button>
+</template>
+```
+
+#### 2. Store Global Pinia dengan Pola Setup Store
+```typescript
+// stores/counter.ts
+import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
+
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, doubleCount, increment }
+})
+```

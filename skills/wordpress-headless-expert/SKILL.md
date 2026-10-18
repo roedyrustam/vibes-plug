@@ -1,8 +1,8 @@
 ---
 name: wordpress-headless-expert
 description: "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # WordPress Headless Expert (2026 Edition)
@@ -135,6 +135,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 - **`headless-cms-expert`**: Pemilihan dan perbandingan CMS backend.
 - **`nextjs-app-router-expert`**: Integrasi Next.js App Router dengan query WPGraphQL.
 - **`seo`**: Sinkronisasi data meta Yoast/RankMath ke tag metadata frontend modern.
+- **`performance-web-vitals`**: Caching dan Edge SSR optimization untuk decoupled WordPress.
 
 ### Deskripsi
 Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 15, atau Astro 5, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.
@@ -143,3 +144,37 @@ Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. M
 - Memisahkan frontend WordPress ke arsitektur decoupled (Next.js/Astro).
 - Mengambil konten WordPress via WPGraphQL dan grup field ACF Pro.
 - Mengonfigurasi revalidasi instan saat konten diterbitkan di WordPress.
+
+---
+
+### Implementasi Pola Kunci (TypeScript & Next.js 15)
+
+```typescript
+const WP_GRAPHQL_ENDPOINT = process.env.WORDPRESS_API_URL || 'https://cms.example.com/graphql';
+
+export async function ambilArtikelWordPress() {
+  const query = `
+    query DapatkanArtikelTerbaru {
+      posts(first: 10, where: { orderby: { field: DATE, order: DESC } }) {
+        nodes {
+          id
+          title
+          slug
+          date
+          excerpt
+        }
+      }
+    }
+  `;
+
+  const res = await fetch(WP_GRAPHQL_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query }),
+    next: { tags: ['wordpress:artikel'], revalidate: 3600 },
+  });
+
+  const { data } = await res.json();
+  return data?.posts?.nodes ?? [];
+}
+```

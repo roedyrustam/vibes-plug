@@ -27,6 +27,7 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `brainstorming` (Master Ideation & Architectural Matrix)
 - `prd-architect` (Continuous PRD & ERD Generation)
 - `domain-driven-design-expert` (Bounded Contexts & Aggregate Roots)
+- `spec-driven-development-expert` (TypeSpec Contract-First Design & OpenAPI 3.1)
 - `saas-architect` (Multi-tenant & Scalable SaaS Design)
 - `zero-to-prod-orchestrator` (Phase 1: Discovery & Planning)
 

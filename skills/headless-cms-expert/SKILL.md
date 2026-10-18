@@ -1,8 +1,8 @@
 ---
 name: headless-cms-expert
 description: "Expert guide for Headless CMS integration (Sanity, Payload CMS, Strapi, Contentful, Storyblok) with modern frameworks / Panduan ahli integrasi Headless CMS (Sanity, Payload, Strapi, Contentful) dengan framework modern."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Headless CMS Expert (2026 Edition)
@@ -167,16 +167,76 @@ export async function GET(req: NextRequest) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`nextjs-app-router-expert`**: Strategi pengambilan konten SSR/ISR dan caching.
+- **`nextjs-app-router-expert`**: Pola pengambilan konten SSR/ISR dan strategi caching.
 - **`api-design-expert`**: Pola API REST/GraphQL untuk query CMS.
-- **`seo`**: Data terstruktur, sitemap, dan metadata dari konten CMS.
+- **`seo`**: Data terstruktur, sitemap, dan sinkronisasi metadata CMS.
+- **`astro-framework-expert`**: Content collections dan static site generation.
 
 ### Deskripsi
-Panduan ahli untuk memilih, mengintegrasikan, dan mengoptimalkan platform Headless CMS dalam aplikasi web modern. Mencakup Sanity v3, Payload CMS 3.x, Strapi 5, Contentful, dan Storyblok. Termasuk pemodelan konten, mode preview, revalidasi berbasis webhook, dan strategi migrasi.
+Panduan ahli untuk memilih, mengintegrasikan, dan mengoptimalkan platform Headless CMS dalam aplikasi web modern. Mencakup Sanity v3 (GROQ, Portable Text), Payload CMS 3.x (TypeScript-first, schema-as-code), Strapi 5 (open-source self-hosted), Contentful, dan Storyblok (visual editor). Termasuk modeling konten, preview mode, dan revalidasi instan berbasis webhook.
 
 ### Kondisi Pemicu
-- Memilih atau mengintegrasikan headless CMS.
-- Membangun website berbasis konten (blog, docs, marketing).
-- Mengimplementasikan mode preview/draft CMS di Next.js atau Astro.
-- Merancang model konten dan skema konten terstruktur.
-- Migrasi dari WordPress atau CMS monolitik ke headless.
+- Memilih dan mengintegrasikan headless CMS untuk aplikasi konten.
+- Membangun situs web kaya konten (blog, portal media, dokumentasi, landing page).
+- Menerapkan fitur live preview / draft mode di Next.js atau Astro.
+- Mengonfigurasi revalidasi cache instan saat konten diterbitkan di CMS.
+
+---
+
+### Implementasi Pola Kunci (TypeScript)
+
+#### 1. Definisi Skema Sanity v3 (Schema-as-Code)
+```typescript
+// sanity.config.ts
+import { defineConfig, defineField, defineType } from 'sanity';
+
+export const skemaArtikel = defineType({
+  name: 'artikel',
+  title: 'Artikel Blog',
+  type: 'document',
+  fields: [
+    defineField({ name: 'judul', type: 'string', validation: (r) => r.required() }),
+    defineField({ name: 'slug', type: 'slug', options: { source: 'judul' } }),
+    defineField({ name: 'isi', type: 'array', of: [{ type: 'block' }] }),
+    defineField({ name: 'diterbitkanPada', type: 'datetime' }),
+  ],
+});
+```
+
+#### 2. Query GROQ di Next.js 15 Server Component
+```typescript
+import { createClient } from 'next-sanity';
+
+const sanity = createClient({
+  projectId: process.env.SANITY_PROJECT_ID!,
+  dataset: 'production',
+  apiVersion: '2026-08-01',
+  useCdn: true,
+});
+
+export async function ambilDaftarArtikel() {
+  return await sanity.fetch(
+    `*[_type == "artikel"] | order(diterbitkanPada desc) {
+      judul, slug, diterbitkanPada,
+      "ringkasan": pt::text(isi)[0..200]
+    }`
+  );
+}
+```
+
+#### 3. Revalidasi Cache Otomatis via Webhook Next.js
+```typescript
+// app/api/revalidasi/route.ts
+import { revalidateTag } from 'next/cache';
+import { NextRequest, NextResponse } from 'next/server';
+
+export async function POST(req: NextRequest) {
+  const secret = req.headers.get('x-webhook-secret');
+  if (secret !== process.env.REVALIDATION_SECRET) {
+    return NextResponse.json({ error: 'Tidak sah' }, { status: 401 });
+  }
+  const body = await req.json();
+  revalidateTag(body._type); // Revalidasi cache berdasarkan tipe konten
+  return NextResponse.json({ sukses: true });
+}
+```

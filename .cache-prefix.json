@@ -1,7 +1,7 @@
 {
-  "version": "4.2.0",
+  "version": "4.3.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
-  "architecture": "Vibes-Plug Swarm Architecture (147 Skills)",
+  "architecture": "Vibes-Plug Swarm Architecture (155 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
   "domains": {
     "ai_agentic": [
@@ -26,10 +26,12 @@
       "local-slm-edge-ai-expert",
       "mcp-server-architect",
       "multi-agent-orchestration",
+      "parallel-tool-orchestrator",
       "pydantic-ai-expert",
       "speculative-multi-draft-synthesizer",
       "synthetic-data-finetuning-expert",
       "test-time-compute-optimizer",
+      "thinking-budget-orchestrator",
       "vector-db-rag-expert",
       "vercel-ai-sdk-expert",
       "voice-ai-realtime-agent"
@@ -46,6 +48,7 @@
       "svg-animation-motion-expert",
       "tailwind-expert",
       "ui-ux-pro-max",
+      "visual-ui-auditor",
       "web-3d-graphics-expert",
       "webxr-ar-vr-expert"
     ],
@@ -54,6 +57,7 @@
       "apple-ecosystem-expert",
       "astro-framework-expert",
       "blockchain-web3-expert",
+      "browser-extension-mv3-pro",
       "form-validation-expert",
       "global-a11y-i18n-expert",
       "mpa-orchestrator",
@@ -84,10 +88,13 @@
       "openapi-swagger-codegen-expert",
       "python-programming-expert",
       "rust-programming-expert",
+      "spec-driven-development-expert",
+      "structured-output-contracts",
       "typescript-expert",
       "wasm-edge-computing-expert"
     ],
     "saas_cloud": [
+      "agentic-m2m-settlement",
       "ci-cd-devops-architect",
       "cloud-hosting-expert",
       "composable-mach-architect",
@@ -124,6 +131,8 @@
       "error-resilience-expert",
       "firebase-security-expert",
       "formal-spec-z3-verifier",
+      "logging-error-tracking-expert",
+      "mcp-sampling-critic",
       "post-quantum-crypto-migrator",
       "production-ready-hardener",
       "prompt-injection-firewall",
@@ -167,7 +176,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 147,
+  "totalSkills": 155,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

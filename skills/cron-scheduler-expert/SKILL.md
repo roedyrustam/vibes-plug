@@ -1,8 +1,8 @@
 ---
 name: cron-scheduler-expert
 description: "Expert guide for scheduled tasks, cron jobs, recurring background work (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron), and distributed scheduling / Panduan ahli untuk tugas terjadwal, cron job, pekerjaan latar belakang berulang, dan penjadwalan terdistribusi."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Cron & Scheduler Expert (2026 Edition)
@@ -284,9 +284,13 @@ export async function GET(request: Request) {
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- `async-queue-temporal-expert` — BullMQ repeatable jobs dan alur kerja Inngest.
+- `cloud-hosting-expert` — Konfigurasi Vercel Cron dan Cloudflare Workers Cron.
+- `saas-billing` — Pemeriksaan siklus perpanjangan invoice langganan berkala.
+- `email-notification-expert` — Pengiriman digest email harian/mingguan terjadwal.
 
 ### Deskripsi
-Panduan tingkat produksi untuk mengimplementasikan tugas terjadwal, cron job, dan pekerjaan latar belakang berulang di aplikasi web modern. Mencakup **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **node-cron**, **BullMQ repeatable jobs**, **distributed cron locking** (berbasis Redis), **penjadwalan sadar zona waktu**, dan kasus penggunaan umum (pembersihan data, pembuatan laporan, health check, perpanjangan langganan).
+Panduan tingkat produksi untuk mengimplementasikan tugas terjadwal, cron job, dan pekerjaan latar belakang berulang di aplikasi web modern. Mencakup **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **BullMQ repeatable jobs**, **distributed cron locking** (berbasis Redis), **penjadwalan sadar zona waktu**, dan kasus penggunaan umum (pembersihan data, pembuatan laporan, health check, perpanjangan langganan).
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
@@ -296,10 +300,104 @@ Aktifkan skill ini ketika:
 - Membangun pipeline agregasi data atau ETL pada jadwal tertentu.
 - Membutuhkan penguncian cron terdistribusi untuk mencegah eksekusi duplikat.
 
-### Integrasi dengan Skill Lain
+---
 
-- `async-queue-temporal-expert` — BullMQ repeatable jobs, Inngest scheduled functions
-- `cloud-hosting-expert` — Konfigurasi Vercel Cron, Cloudflare Workers Cron
-- `saas-billing` — Pemeriksaan perpanjangan langganan, siklus billing
-- `email-notification-expert` — Digest email terjadwal, ringkasan harian
-- `data-telemetry-expert` — Agregasi metrik terjadwal dan pelaporan
+### Panduan Pemilihan Solusi Cron
+
+| Platform | Pilihan Terbaik Untuk | Frekuensi Maksimum | Model Pemicu |
+|---|---|---|---|
+| **Vercel Cron** | Aplikasi Next.js di Vercel | 1x/menit (Pro), 1x/hari (Hobby) | Pemicu HTTP endpoint internal |
+| **Cloudflare Workers Cron** | Arsitektur Edge murni | 1x/menit | Scheduled event script worker |
+| **Inngest** | Alur bertahap (*step-functions*) multi-langkah | Fleksibel & event-driven | Serverless durable execution |
+| **BullMQ Repeatable** | Aplikasi mandiri berbasis Redis | Fleksibel | Antrean worker Node.js terpisah |
+
+---
+
+### Implementasi Pola Kunci (TypeScript)
+
+#### 1. Vercel Cron dengan Proteksi Autentikasi Rahasia (`CRON_SECRET`)
+```json
+// vercel.json
+{
+  "crons": [
+    {
+      "path": "/api/cron/pembersihan-harian",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
+```
+
+```typescript
+// app/api/cron/pembersihan-harian/route.ts
+import { NextResponse } from 'next/server';
+
+export async function GET(request: Request) {
+  // Verifikasi permintaan resmi berasal dari scheduler Vercel
+  const authHeader = request.headers.get('authorization');
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return NextResponse.json({ error: 'Tidak memiliki otorisasi' }, { status: 401 });
+  }
+
+  try {
+    // Jalankan operasi pembersihan sesi kadaluarsa
+    const hasil = await db.delete(sesiPengguna)
+      .where(lt(sesiPengguna.kadaluarsaPada, new Date()));
+
+    return NextResponse.json({ ok: true, terhapus: hasil.rowCount });
+  } catch (error) {
+    console.error('Pembersihan cron gagal:', error);
+    return NextResponse.json({ ok: false, error: 'Gagal membersihkan data' }, { status: 500 });
+  }
+}
+
+export const runtime = 'nodejs';
+export const maxDuration = 60; // Izinkan eksekusi hingga 60 detik
+```
+
+#### 2. Inngest Scheduled Functions Sadar Zona Waktu (`TZ=Asia/Jakarta`)
+```typescript
+import { inngest } from '@/lib/inngest';
+
+export const jobLaporanMingguan = inngest.createFunction(
+  { id: 'laporan-mingguan-admin', name: 'Kirim Laporan Penggunaan Mingguan' },
+  { cron: 'TZ=Asia/Jakarta 0 9 * * 1' }, // Setiap Senin pukul 09:00 WIB
+  async ({ step }) => {
+    const dataMetrik = await step.run('ambil-data-metrik', async () => {
+      return await kumpulkanMetrik7HariTerakhir();
+    });
+
+    const fileLaporan = await step.run('buat-dokumen-laporan', async () => {
+      return await generateReportPdf(dataMetrik);
+    });
+
+    await step.run('kirimkan-email-admin', async () => {
+      await emailQueue.add('kirim-laporan', { file: fileLaporan });
+    });
+
+    return { status: 'sukses', terkirim: true };
+  }
+);
+```
+
+#### 3. Distributed Cron Locking Berbasis Redis (`SET NX`)
+```typescript
+import { Redis } from 'ioredis';
+
+const redis = new Redis(process.env.REDIS_URL!);
+
+export async function dapatkanKunciCron(namaTugas: string, durasiDetik: number = 300): Promise<boolean> {
+  const kunci = `kunci-cron:${namaTugas}`;
+  const status = await redis.set(kunci, Date.now().toString(), 'EX', durasiDetik, 'NX');
+  return status === 'OK';
+}
+
+export async function lepaskanKunciCron(namaTugas: string): Promise<void> {
+  await redis.del(`kunci-cron:${namaTugas}`);
+}
+```
+
+### Praktik Terbaik Keamanan Cron
+- **Gunakan Distributed Lock**: Mencegah eksekusi ganda ketika aplikasi berjalan pada banyak instans server (cluster/autoscaling).
+- **Tentukan `maxDuration`**: Hindari cron menggantung tanpa henti yang menghabiskan alokasi sumber daya komputasi.
+- **Zona Waktu Eksplisit**: Selalu sertakan parameter timezone (`TZ=Asia/Jakarta`) agar jadwal tidak bergeser saat Daylight Saving Time (DST) di cloud server.

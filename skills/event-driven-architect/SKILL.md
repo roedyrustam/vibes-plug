@@ -1,11 +1,11 @@
 ---
 name: event-driven-architect
 description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
-# Event-Driven Architecture Expert
+# Event-Driven Architecture Expert (Transactional Outbox & Sagas 2026)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,39 +14,98 @@ version: "4.2.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
-
 ### Description
-This skill provides architectural guidance for breaking down large monolithic applications into scalable, decoupled services. It focuses on Event-Driven Architecture (EDA), message brokers, and advanced patterns like Event Sourcing and CQRS (Command Query Responsibility Segregation).
+Production architectural guide for Event-Driven Architecture (EDA), asynchronous messaging topologies, and distributed consistency. Covers transactional Outbox patterns (preventing dual-write anomalies), distributed Saga orchestrations with compensating transactions, consumer idempotency keys, Event Sourcing, and message brokers (BullMQ v5, Apache Kafka / Redpanda, RabbitMQ, and AWS SQS).
 
 ### Trigger Conditions
-- Scaling a system that handles extremely high throughput or traffic spikes.
-- Implementing background jobs, asynchronous workers, or heavy data processing.
-- Transitioning from a monolith to microservices.
-- Integrating message brokers like RabbitMQ, Apache Kafka, AWS SQS, or Redis Pub/Sub.
-- Resolving distributed transaction issues (e.g., handling the Saga pattern).
+- Decomposing synchronous HTTP request chains between microservices to prevent cascading failures.
+- Designing high-volume asynchronous background workers (video rendering, batch billing, analytics).
+- Preventing dual-write failures (e.g., writing to PostgreSQL succeeds, but publishing to message broker fails).
+- Coordinating multi-service distributed transactions (Saga choreography vs orchestration).
 
-### Core Architecture Guidelines
+### The Transactional Outbox Pattern (PostgreSQL / TypeScript)
+Guarantees at-least-once delivery without distributed dual-write race conditions:
 
-#### 1. Decoupling via Events
-Do not use synchronous HTTP calls between microservices for state mutations. It creates tightly coupled systems that fail in cascades.
-- **Publisher/Subscriber**: When Service A does something, it publishes an event (e.g., `UserCreated`). Service B and Service C listen to this event and react asynchronously.
-- Use **RabbitMQ** or **AWS SQS** for standard task queues (where order and exact-once delivery might be managed).
-- Use **Apache Kafka** or **Redpanda** for high-throughput event streaming where logs need to be replayed.
+```typescript
+// src/services/outbox-publisher.ts
+import { db } from '@/lib/db';
+import { sql } from 'drizzle-orm';
+import crypto from 'node:crypto';
 
-#### 2. The Saga Pattern (Distributed Transactions)
-In microservices, you cannot use simple database transactions (ACID) across different databases.
-- Use the **Saga Pattern** to coordinate multiple operations. If Step 3 in a 4-step process fails, the system must publish "compensating events" to undo Steps 1 and 2 in the other services.
+export async function createOrderWithOutbox(orderData: { customerId: string; totalCents: number }) {
+  return await db.transaction(async (tx) => {
+    const orderId = crypto.randomUUID();
 
-#### 3. CQRS (Command Query Responsibility Segregation)
-For high-read applications (like social media or analytics dashboards), split the read operations from the write operations.
-- **Commands**: Mutate state (write database).
-- **Queries**: Read state (read replica or materialized views/Elasticsearch).
-- Events synchronize the Write DB with the Read DB.
+    // 1. Mutate business state
+    await tx.execute(sql`
+      INSERT INTO orders (id, customer_id, total_cents, status)
+      VALUES (${orderId}, ${orderData.customerId}, ${orderData.totalCents}, 'PENDING')
+    `);
 
-#### 4. Event Sourcing
-Instead of storing just the current state of an entity (e.g., `AccountBalance = $100`), store the *history of events* that led to that state (`Deposited $150`, `Withdrew $50`). The current state is derived by replaying the events. This is mandatory for financial and highly auditable systems.
+    // 2. Insert event into outbox table in the SAME atomic transaction
+    const eventPayload = JSON.stringify({
+      orderId,
+      customerId: orderData.customerId,
+      totalCents: orderData.totalCents,
+      timestamp: new Date().toISOString(),
+    });
+
+    await tx.execute(sql`
+      INSERT INTO outbox_events (id, aggregate_type, aggregate_id, event_type, payload, status)
+      VALUES (gen_random_uuid(), 'Order', ${orderId}, 'ORDER_CREATED', ${eventPayload}::jsonb, 'PENDING')
+    `);
+
+    return { orderId };
+  });
+}
+```
+
+### Idempotent Consumer Pattern (BullMQ / Redis)
+Ensures duplicate messages delivered by the broker do not cause duplicate charges:
+
+```typescript
+// src/workers/payment-consumer.ts
+import { Worker, Job } from 'bullmq';
+import { db } from '@/lib/db';
+import { sql } from 'drizzle-orm';
+
+export const paymentWorker = new Worker(
+  'payment-processing',
+  async (job: Job<{ orderId: string; totalCents: number }>) => {
+    const { orderId, totalCents } = job.data;
+    const idempotencyKey = `job-exec-${job.id}`;
+
+    // Atomically claim the job execution
+    const [claimed] = await db.execute(sql`
+      INSERT INTO processed_jobs (idempotency_key, processed_at)
+      VALUES (${idempotencyKey}, NOW())
+      ON CONFLICT (idempotency_key) DO NOTHING
+      RETURNING idempotency_key
+    `);
+
+    if (!claimed) {
+      console.warn(`[PaymentWorker] Duplicate job detected: ${job.id}. Skipping.`);
+      return { status: 'already_processed' };
+    }
+
+    // Execute real payment processing...
+    console.log(`[PaymentWorker] Charging ${totalCents}¢ for order ${orderId}`);
+    return { status: 'completed' };
+  },
+  { connection: { host: process.env.REDIS_HOST || 'localhost', port: 6379 } }
+);
+```
+
+### Key Event-Driven Invariants
+1. **Never Make Synchronous State Mutations Over HTTP**: Service A should not call Service B's `/mutate` endpoint synchronously. Publish an event and let Service B consume it asynchronously.
+2. **Always Enforce Idempotency**: Network retries will cause message duplicates. Every consumer MUST check an `idempotency_key` or message UUID before executing side effects.
+3. **Dead Letter Queues (DLQ)**: Failed jobs must be routed to a DLQ after 3-5 retries with exponential backoff to prevent poison pills from blocking the queue.
+
+## Orchestration & Integration
+- **`domain-driven-design-expert`**: Sources domain events directly from Aggregate Roots.
+- **`async-queue-temporal-expert`**: Extends BullMQ queues with durable temporal distributed sagas.
+- **`database-orm-expert`**: Maintains outbox schema tables and database transaction boundaries.
+- **`logging-error-tracking-expert`**: Correlates trace IDs (`x-trace-id`) across distributed event consumers.
 
 ---
 
@@ -54,35 +113,40 @@ Instead of storing just the current state of an entity (e.g., `AccountBalance = 
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama `domain-driven-design-expert`, `async-queue-temporal-expert`, `database-orm-expert`, dan `logging-error-tracking-expert`.
 
 ### Deskripsi
-Skill ini memberikan panduan arsitektural untuk memecah aplikasi monolit yang besar menjadi layanan yang terdesentralisasi (*decoupled*) dan dapat diskalakan. Fokus utamanya adalah pada *Event-Driven Architecture* (Arsitektur Berbasis Peristiwa), *message brokers* (pialang pesan), serta pola lanjutan seperti *Event Sourcing* dan CQRS (*Command Query Responsibility Segregation*).
+Panduan arsitektur produksi untuk Arsitektur Berbasis Peristiwa (*Event-Driven Architecture* / EDA), topologi pengiriman pesan asinkron, dan konsistensi data terdistribusi. Mencakup pola *Transactional Outbox* (mencegah anomali *dual-write* saat database sukses tetapi broker pesan gagal), orkestrasi Saga terdistribusi dengan transaksi kompensasi, idempotensi *consumer*, serta integrasi broker pesan (BullMQ v5, Apache Kafka, RabbitMQ, Redis).
 
 ### Kondisi Pemicu
-- Menskalakan sistem untuk menangani lonjakan *traffic* atau volume data yang sangat tinggi.
-- Mengimplementasikan pekerjaan latar belakang (*background jobs*), *worker asinkron*, atau pemrosesan data berat.
-- Bertransisi dari arsitektur monolit ke layanan mikro (*microservices*).
-- Mengintegrasikan *message brokers* seperti RabbitMQ, Apache Kafka, AWS SQS, atau Redis Pub/Sub.
-- Menyelesaikan masalah transaksi terdistribusi (misalnya menerapkan pola Saga).
+- Menghilangkan rantai panggilan HTTP sinkron antar microservices yang rentan memicu kegagalan beruntun (*cascading failure*).
+- Merancang pemrosesan latar belakang volume tinggi (pembuatan video, pemrosesan batch, analitik).
+- Menjamin konsistensi data antara database relasional dengan antrean pesan.
+- Mengelola transaksi multi-layanan menggunakan pola Saga.
 
-### Panduan Arsitektur Inti
+### Pola Konsumen Idempoten di Sisi Pekerja
 
-#### 1. Desentralisasi melalui Event
-Jangan gunakan panggilan HTTP yang sinkron antar *microservices* untuk memutasi data. Hal ini menciptakan sistem yang saling bergantung ketat (*tightly coupled*) dan bisa menyebabkan kegagalan beruntun (*cascading failures*).
-- **Publisher/Subscriber**: Saat Layanan A melakukan sesuatu, ia menerbitkan sebuah event (misalnya `UserCreated`). Layanan B dan C akan mendengarkan event ini dan bereaksi secara asinkron.
-- Gunakan **RabbitMQ** atau **AWS SQS** untuk antrean tugas standar.
-- Gunakan **Apache Kafka** atau **Redpanda** untuk *streaming event* throughput tinggi yang memerlukan *replay* log.
+```typescript
+// Memastikan pemrosesan tidak terulang meskipun broker mengirim pesan ganda
+export async function handleOrderEvent(event: { id: string; payload: any }) {
+  const isDuplicate = await redis.set(`event:${event.id}`, 'locked', 'EX', 86400, 'NX');
+  if (!isDuplicate) {
+    console.log(`Event ${event.id} sudah pernah diproses. Lewati.`);
+    return;
+  }
 
-#### 2. Pola Saga (Transaksi Terdistribusi)
-Dalam arsitektur *microservices*, Anda tidak dapat menggunakan transaksi database ACID standar lintas database yang berbeda.
-- Gunakan **Saga Pattern** untuk mengoordinasikan beberapa operasi. Jika Langkah 3 dalam proses 4-langkah gagal, sistem harus menerbitkan "event kompensasi" (pembatalan) untuk membatalkan Langkah 1 dan 2 pada layanan sebelumnya.
+  // Jalankan logika bisnis aman
+  await prosesKirimEmailNotifikasi(event.payload);
+}
+```
 
-#### 3. CQRS (Command Query Responsibility Segregation)
-Untuk aplikasi dengan tingkat pembacaan yang sangat tinggi (seperti dasbor analitik), pisahkan operasi baca dari operasi tulis.
-- **Command**: Memutasi state/data (Database Tulis).
-- **Query**: Membaca state (Read Replica, Materialized Views, atau Elasticsearch).
-- Event bertugas menyinkronkan Database Tulis ke Database Baca di latar belakang.
+### 3 Hukum Utama Arsitektur Berbasis Event
+1. **Pola Transactional Outbox**: Selalu simpan entitas bisnis dan event outbox dalam satu transaksi SQL yang sama. Jangan memanggil `kafka.send()` langsung di dalam kode kontroler.
+2. **Wajib Idempoten**: Karena broker pesan menjamin pengiriman *at-least-once*, konsumen pesan wajib memeriksa apakah event telah diproses sebelumnya.
+3. **Dead Letter Queue (DLQ)**: Jika pemrosesan gagal berulang kali (setelah 3-5 retry), pindahkan pesan ke DLQ agar tidak menyumbat antrean utama.
 
-#### 4. Event Sourcing
-Daripada hanya menyimpan kondisi terbaru sebuah data (mis. `SaldoAkun = Rp1.000.000`), simpan *sejarah lengkap peristiwa* yang mengarah ke saldo tersebut (`Setor Rp1.500.000`, `Tarik Rp500.000`). Kondisi saat ini diturunkan (dikalkulasi) dengan memutar ulang (*replaying*) event tersebut. Pola ini wajib untuk sistem finansial dan sistem yang membutuhkan jejak audit tingkat tinggi.
+## Integrasi Orkestrasi
+- **`domain-driven-design-expert`**: Mengambil event domain langsung dari Aggregate Root.
+- **`async-queue-temporal-expert`**: Menyediakan alur workflow tahan banting untuk orkestrasi Saga.
+- **`database-orm-expert`**: Mengelola tabel outbox dan indeks status pesan.
+- **`logging-error-tracking-expert`**: Melacak `trace_id` yang melintasi berbagai layanan asinkron.

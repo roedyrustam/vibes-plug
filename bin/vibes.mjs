@@ -3,7 +3,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +19,17 @@ const rl = readline.createInterface({
 
 const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function isValidIdentifier(value) {
+  return typeof value === 'string' && /^[a-zA-Z0-9][a-zA-Z0-9._-]{0,63}$/.test(value);
+}
+
 async function runInit(projectName) {
-  if (!projectName) {
-    console.error('❌ Error: Project name is required.');
+  if (!projectName || !isValidIdentifier(projectName)) {
+    console.error('❌ Error: A valid alphanumeric project name is required.');
     console.log('Usage: vibes init <project-name>');
     process.exit(1);
   }
@@ -34,10 +42,10 @@ async function runInit(projectName) {
 
     // Create standard Zero-To-Prod boilerplate
     const filesToCreate = {
-      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
-      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD\n- [ ] Phase 2: Foundation & Monorepo\n- [ ] Phase 3: Database & Auth\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & UI\n- [ ] Phase 6: Testing & Security\n- [ ] Phase 7: DevOps & Monitoring\n- [ ] Phase 8: Launch`,
-      'BLUEPRINT.md': `# 📐 System Blueprint\n\n(Auto-generated architectural decisions will be logged here by the AI agent)`,
-      'PRD.md': `# 📋 Product Requirements Document\n\n(To be filled by the deep-research-analyst agent)`
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Frontend / Fullstack**: Next.js 15 App Router / React 19 / Hono\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Styling**: Tailwind CSS v4 (@theme tokens)\n- **Database ORM**: Prisma 6 / Drizzle ORM\n- **Testing**: Vitest + Playwright E2E\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first API schema definition with automated TypeScript client codegen.\n- **ADR-002**: Stateless session tokens with short expiration and refresh rotation.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
+      'PRD.md': `# 📋 ${projectName} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Product Name**: ${projectName}\n- **Lifecycle**: 8-Phase Zero-To-Prod Swarm Lifecycle\n- **Target Audience**: Developers, enterprise teams, and end-users requiring high-velocity reliability.\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation with RBAC.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
     };
 
     for (const [filename, content] of Object.entries(filesToCreate)) {
@@ -57,15 +65,242 @@ async function runInit(projectName) {
   }
 }
 
+async function runWizard() {
+  let select, input;
+  try {
+    const prompts = await import('@inquirer/prompts');
+    select = prompts.select;
+    input = prompts.input;
+  } catch (err) {
+    console.error('❌ Error: The Interactive Wizard requires the @inquirer/prompts package.');
+    process.exit(1);
+  }
+
+  rl.close();
+
+  console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    🌊 Vibes-Plug Interactive Scaffolding Wizard          ║
+║    Zero-to-Prod Sovereign Architecture (2026 Edition)    ║
+╚══════════════════════════════════════════════════════════╝
+`);
+
+  try {
+    const projectName = await input({
+      message: 'Enter your project name (alphanumeric/kebab-case):',
+      default: 'my-vibe-app',
+      validate: (val) => {
+        if (!isValidIdentifier(val)) return 'Must be a safe alphanumeric/kebab-case identifier.';
+        return true;
+      }
+    });
+
+    const targetDir = path.join(process.cwd(), projectName);
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Directory '${projectName}' already exists.`);
+      process.exit(1);
+    }
+
+    const archetype = await select({
+      message: 'Select project architecture archetype:',
+      choices: [
+        { name: '🏢 Multi-Tenant SaaS (Next.js 15, Supabase RLS, DOKU / Stripe Billing)', value: 'saas' },
+        { name: '📜 Contract-First Spec-Driven API (Hono, TypeSpec, OpenAPI 3.1, BDD)', value: 'spec-api' },
+        { name: '⚡ Fullstack Modern App (T3 / Next.js 15, tRPC, Drizzle / Prisma)', value: 'fullstack' },
+        { name: '🛍️ E-Commerce & Agentic Commerce (Next.js, QRIS / Base, Medusa)', value: 'ecommerce' },
+        { name: '📱 Cross-Platform Mobile App (React Native, Expo SDK 53, Router v4)', value: 'mobile' },
+        { name: '🚀 High-Performance Backend API (Bun / Hono / Node.js 24+)', value: 'api' },
+        { name: '🎯 Custom Tailored Stack (Choose components manually)', value: 'custom' }
+      ]
+    });
+
+    let frontend = 'Next.js 15 (App Router)';
+    let backend = 'Hono / Node.js 24+';
+    let db = 'Drizzle ORM + PostgreSQL';
+    let auth = 'Supabase Auth';
+    let payment = 'None';
+    let chosenSkills = [];
+
+    if (archetype === 'custom') {
+      frontend = await select({
+        message: 'Select Frontend Framework:',
+        choices: [
+          { name: 'Next.js 15 App Router (React 19 + Tailwind v4)', value: 'nextjs' },
+          { name: 'Vite + React 19 SPA', value: 'vite-react' },
+          { name: 'Astro 5 (Islands Architecture + MDX)', value: 'astro' },
+          { name: 'SvelteKit 2 (Svelte 5 Runes)', value: 'svelte' },
+          { name: 'SolidStart (SolidJS 2)', value: 'solid' },
+          { name: 'None (Pure Backend / Headless API)', value: 'none' }
+        ]
+      });
+
+      backend = await select({
+        message: 'Select Backend / Runtime:',
+        choices: [
+          { name: 'Hono v4 (Bun 1.2+ / Node 24+)', value: 'hono' },
+          { name: 'Node.js Express 5 / Fastify 5', value: 'express' },
+          { name: 'Go 1.25+ (Fiber / Echo / gRPC)', value: 'go' },
+          { name: 'Python FastAPI 0.115+ (Pydantic v2)', value: 'python' },
+          { name: 'Rust 2024 (Axum + SQLx)', value: 'rust' }
+        ]
+      });
+
+      db = await select({
+        message: 'Select Database & ORM:',
+        choices: [
+          { name: 'PostgreSQL + Drizzle ORM', value: 'drizzle' },
+          { name: 'PostgreSQL + Prisma 6', value: 'prisma' },
+          { name: 'Supabase (PostgreSQL + RLS)', value: 'supabase' },
+          { name: 'None / In-Memory / SQLite', value: 'none' }
+        ]
+      });
+
+      auth = await select({
+        message: 'Select Authentication & Identity:',
+        choices: [
+          { name: 'Better-Auth / Auth.js', value: 'better-auth' },
+          { name: 'Clerk Identity', value: 'clerk' },
+          { name: 'Supabase Auth', value: 'supabase-auth' },
+          { name: 'Custom JWT / Session Tokens', value: 'custom-jwt' }
+        ]
+      });
+
+      payment = await select({
+        message: 'Select Payment / Monetization:',
+        choices: [
+          { name: 'DOKU Payment Gateway (SNAP BI QRIS / VA)', value: 'doku' },
+          { name: 'Stripe Billing', value: 'stripe' },
+          { name: 'Agentic M2M Settlement (Fiat & Stablecoin)', value: 'm2m' },
+          { name: 'None', value: 'none' }
+        ]
+      });
+
+      const customSkillSet = new Set(['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager']);
+      if (frontend === 'nextjs') {
+        customSkillSet.add('senior-frontend');
+        customSkillSet.add('nextjs-app-router-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'vite-react') {
+        customSkillSet.add('senior-frontend');
+        customSkillSet.add('spa-orchestrator');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'astro') {
+        customSkillSet.add('astro-framework-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'svelte') {
+        customSkillSet.add('svelte-sveltekit-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'solid') {
+        customSkillSet.add('solidjs-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+
+      if (backend === 'hono' || backend === 'express') {
+        customSkillSet.add('js-backend-expert');
+        customSkillSet.add('api-design-expert');
+      }
+      if (backend === 'go') {
+        customSkillSet.add('go-programming-expert');
+        customSkillSet.add('api-design-expert');
+      }
+      if (backend === 'python') {
+        customSkillSet.add('python-programming-expert');
+        customSkillSet.add('pydantic-ai-expert');
+      }
+      if (backend === 'rust') {
+        customSkillSet.add('rust-programming-expert');
+      }
+
+      if (db === 'drizzle' || db === 'prisma') {
+        customSkillSet.add('database-orm-expert');
+      }
+      if (db === 'supabase') {
+        customSkillSet.add('supabase-security-expert');
+        customSkillSet.add('database-orm-expert');
+      }
+
+      if (auth !== 'none') {
+        customSkillSet.add('authentication-identity-expert');
+      }
+      if (payment === 'doku') {
+        customSkillSet.add('doku-payment-gateway');
+        customSkillSet.add('payment-gateway-expert');
+        customSkillSet.add('saas-billing');
+      }
+      if (payment === 'stripe') {
+        customSkillSet.add('payment-gateway-expert');
+        customSkillSet.add('saas-billing');
+      }
+      if (payment === 'm2m') {
+        customSkillSet.add('agentic-m2m-settlement');
+        customSkillSet.add('agentic-micro-economy-architect');
+      }
+
+      chosenSkills = Array.from(customSkillSet);
+    } else {
+      const templateSkillMap = {
+        'saas': ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'doku-payment-gateway', 'supabase-security-expert', 'senior-frontend', 'tailwind-expert'],
+        'spec-api': ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'],
+        'fullstack': ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert', 'senior-frontend'],
+        'ecommerce': ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway', 'senior-frontend', 'tailwind-expert'],
+        'mobile': ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'],
+        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert']
+      };
+      chosenSkills = ['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager', ...(templateSkillMap[archetype] || [])];
+    }
+
+    console.log(`\n📦 Initializing project structure for "${projectName}"...`);
+    await fs.mkdir(targetDir, { recursive: true });
+
+    const targetAgentsDir = path.join(targetDir, '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    for (const skill of chosenSkills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const skillTargetDir = path.join(targetAgentsDir, skill);
+      const skillExists = await fs.access(sourceDir).then(() => true).catch(() => false);
+      if (skillExists) {
+        await fs.cp(sourceDir, skillTargetDir, { recursive: true });
+        console.log(`  ➕ Injected skill: ${skill}`);
+      }
+    }
+
+    const prdTitle = `${projectName} (${archetype.toUpperCase()})`;
+    const filesToCreate = {
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Wizard (${archetype.toUpperCase()} archetype).\n\n## Next Steps\nAsk your AI agent (Antigravity, Claude Code, Cursor, Codex) to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker (${archetype.toUpperCase()})\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient Layer ──► API Gateway / Reverse Proxy ──► Service Logic ──► Database & Storage\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Archetype**: ${archetype}\n- **Frontend**: ${frontend}\n- **Backend**: ${backend}\n- **Database / ORM**: ${db}\n- **Auth**: ${auth}\n- **Payment**: ${payment}\n- **Bound AI Skills**: ${chosenSkills.join(', ')}\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first architecture with strict typing.\n- **ADR-002**: Zero AI slop, zero placeholder stubs (Anti-Slop Pillar 1-8).\n- **ADR-003**: Deterministic prompt caching for sub-second orchestration.\n`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Project Name**: ${projectName}\n- **Archetype**: ${archetype.toUpperCase()}\n- **Bound Skills**: ${chosenSkills.join(', ')}\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log(`\n🎉 Project "${projectName}" successfully scaffolded with ${chosenSkills.length} bound AI skills!`);
+    console.log('\nTo get started:');
+    console.log(`  cd ${projectName}`);
+    console.log('  Ask your AI: "Begin Phase 1 using zero-to-prod-orchestrator"');
+  } catch (err) {
+    console.error(`\n❌ Error during wizard: ${err.message}`);
+  }
+}
+
 async function runBootstrap(templateName, projectName) {
   if (!templateName || !projectName) {
     console.error('❌ Error: Template name and Project name are required.');
     console.log('Usage: vibes bootstrap <template> <project-name>');
-    console.log('Available templates: saas, ecommerce');
+    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api');
     process.exit(1);
   }
 
-  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack'];
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api'];
   if (!validTemplates.includes(templateName)) {
     console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
     process.exit(1);
@@ -80,38 +315,55 @@ async function runBootstrap(templateName, projectName) {
       process.exit(1);
     }
 
-    // Resolve template-specific config first
-    let scaffoldCmd = null;
+    if (!isValidIdentifier(projectName)) {
+      console.error('❌ Error: Project name must be a safe alphanumeric/kebab-case identifier.');
+      process.exit(1);
+    }
+
+    let scaffoldArgs = [];
     let prdTitle = projectName;
     let specificSkills = [];
 
     if (templateName === 'saas') {
       prdTitle = 'Multi-Tenant SaaS';
-      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
-      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'supabase-security-expert'];
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
+      specificSkills = ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'doku-payment-gateway', 'supabase-security-expert'];
     } else if (templateName === 'ecommerce') {
       prdTitle = 'E-Commerce Platform';
-      scaffoldCmd = `npx create-next-app@latest ${projectName} --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes`;
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
       specificSkills = ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway'];
     } else if (templateName === 'mobile') {
       prdTitle = 'Mobile App (Expo)';
-      scaffoldCmd = `npx create-expo-app@latest ${projectName} --template blank-typescript --yes`;
+      scaffoldArgs = ['create-expo-app@latest', projectName, '--template', 'blank-typescript', '--yes'];
       specificSkills = ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'];
     } else if (templateName === 'api') {
       prdTitle = 'Backend API (Hono/Node.js)';
-      scaffoldCmd = `npx create-hono@latest ${projectName} --template nodejs --pm npm --install`;
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
       specificSkills = ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'];
     } else if (templateName === 'fullstack') {
       prdTitle = 'Full-Stack T3 App';
-      scaffoldCmd = `npx create-t3-app@latest ${projectName} --CI --noGit --appRouter --tailwind --trpc --prisma --nextAuth`;
+      scaffoldArgs = ['create-t3-app@latest', projectName, '--CI', '--noGit', '--appRouter', '--tailwind', '--trpc', '--prisma', '--nextAuth'];
       specificSkills = ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert'];
+    } else if (templateName === 'spec-api') {
+      prdTitle = 'Contract-First Spec-Driven API (TypeSpec & OpenAPI 3.1)';
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
+      specificSkills = [
+        'spec-driven-development-expert',
+        'openapi-swagger-codegen-expert',
+        'api-design-expert',
+        'autonomous-api-drift-healer',
+        'database-orm-expert',
+        'authentication-identity-expert',
+        'logging-error-tracking-expert'
+      ];
     }
 
     console.log(`\n\ud83d\ude80 Bootstrapping ${prdTitle} project: ${projectName}...`);
     console.log('\u23f3 This may take a minute or two as npm installs dependencies...\n');
 
-    const { execSync } = await import('child_process');
-    execSync(scaffoldCmd, { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    const npxBin = process.platform === 'win32' ? 'npx.cmd' : 'npx';
+    execFileSync(npxBin, scaffoldArgs, { stdio: 'inherit' });
 
     console.log(`\n📂 Project scaffolded. Injecting AI skills for ${templateName}...`);
 
@@ -141,10 +393,12 @@ async function runBootstrap(templateName, projectName) {
       }
     }
 
-    // Overwrite README and PRD
+    // Overwrite README, PROGRESS, BLUEPRINT, and PRD
     const filesToCreate = {
-      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.`,
-      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document\n\n(To be filled by the deep-research-analyst agent based on the ${templateName} template)`
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator (${templateName.toUpperCase()} template).\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker (${templateName.toUpperCase()})\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture (${templateName.toUpperCase()})\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Template**: ${templateName}\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Active Skills**: ${allSkills.join(', ')}\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first domain boundaries with automated schema validation.\n- **ADR-002**: Zero-tolerance Anti-Slop quality gates across all routines.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Project Name**: ${projectName}\n- **Template Archetype**: ${templateName.toUpperCase()}\n- **Bound Skills**: ${allSkills.join(', ')}\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation with RBAC.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
     };
 
     for (const [filename, content] of Object.entries(filesToCreate)) {
@@ -167,8 +421,8 @@ async function runBootstrap(templateName, projectName) {
 async function runValidate() {
   console.log('Running ecosystem validation...\n');
   try {
-    const { execSync } = await import('child_process');
-    execSync('node ' + path.join(PLUGIN_ROOT, 'scripts', 'validate-skills.mjs'), { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    execFileSync('node', [path.join(PLUGIN_ROOT, 'scripts', 'validate-skills.mjs')], { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
@@ -176,10 +430,10 @@ async function runValidate() {
 }
 
 async function runAudit() {
-  const auditArgs = args.slice(1).join(' ');
+  const auditArgs = args.slice(1);
   try {
-    const { execSync } = await import('child_process');
-    execSync(`node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" ${auditArgs}`.trim(), { stdio: 'inherit' });
+    const { execFileSync } = await import('child_process');
+    execFileSync('node', [path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs'), ...auditArgs], { stdio: 'inherit' });
   } catch (err) {
     // Error is already printed by the child process
   }
@@ -234,7 +488,7 @@ async function runCreateSkill(skillName) {
 }
 
 async function runCreateMcp(serverName) {
-  if (!serverName) {
+  if (!serverName || !/^[a-zA-Z][a-zA-Z0-9-_]{0,63}$/.test(serverName)) {
     console.error('❌ Error: MCP Server name is required.');
     console.log('Usage: vibes create-mcp <server-name>');
     process.exit(1);
@@ -405,7 +659,7 @@ server.run().catch(console.error);
 }
 
 async function runAddSkill(skillName) {
-  if (!skillName) {
+  if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
     console.error('❌ Error: Skill name is required.');
     console.log('Usage: vibes add <skill-name>');
     process.exit(1);
@@ -440,10 +694,11 @@ async function runAddSkill(skillName) {
 }
 
 async function runUi() {
-  let checkbox;
+  let checkbox, select;
   try {
     const prompts = await import('@inquirer/prompts');
     checkbox = prompts.checkbox;
+    select = prompts.select;
   } catch (err) {
     console.error('❌ Error: The Interactive TUI requires the @inquirer/prompts package.');
     console.error('Please run "npm install" inside the vibes-plug directory first:');
@@ -458,20 +713,134 @@ async function runUi() {
   try {
     const skillsDir = path.join(PLUGIN_ROOT, 'skills');
     const entries = await fs.readdir(skillsDir, { withFileTypes: true });
-    const skills = entries
+    const allSkills = entries
       .filter(dirent => dirent.isDirectory())
       .map(dirent => dirent.name)
       .sort();
 
-    const choices = skills.map(skill => ({ name: skill, value: skill }));
+    console.log(`\n🌊 Vibes-Plug Interactive TUI (${allSkills.length} Skills)`);
 
-    console.log(`\n🌊 Vibes-Plug Interactive TUI`);
-    const selectedSkills = await checkbox({
-      message: 'Select the AI skills to install into this project:',
-      choices: choices,
-      loop: false,
-      pageSize: 15
+    const mode = await select({
+      message: 'Choose installation mode:',
+      choices: [
+        { name: '📦 Curated Recipe Bundles (Quickest: AI, Fullstack, FinTech, API)', value: 'recipe' },
+        { name: '📂 Browse by Domain Category (Frontend, Backend, AI, Security...)', value: 'domain' },
+        { name: `🧩 Custom Selection from All ${allSkills.length} Skills`, value: 'all' }
+      ]
     });
+
+    let selectedSkills = [];
+
+    if (mode === 'recipe') {
+      const recipeChoices = Object.entries(RECIPES).map(([name, r]) => ({
+        name: `${name.padEnd(20)} — ${r.description} (${r.skills.length} skills)`,
+        value: name
+      }));
+
+      const chosenRecipeName = await select({
+        message: 'Select a curated recipe bundle to install:',
+        choices: recipeChoices,
+        pageSize: 10
+      });
+
+      selectedSkills = RECIPES[chosenRecipeName]?.skills || [];
+      console.log(`\nSelected recipe "${chosenRecipeName}" with ${selectedSkills.length} skills.`);
+    } else if (mode === 'domain') {
+      const chosenDomain = await select({
+        message: 'Select domain category:',
+        choices: [
+          { name: '🎨 Frontend & Mobile UI/UX (35 Skills)', value: 'frontend' },
+          { name: '⚙️ Backend, Systems & API Design (27 Skills)', value: 'backend' },
+          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (30 Skills)', value: 'ai' },
+          { name: '💸 SaaS, FinTech, E-Commerce & Growth (16 Skills)', value: 'saas' },
+          { name: '🛡️ Testing, Security, Anti-Slop & Quality (23 Skills)', value: 'security' },
+          { name: '🚀 Data, Media, Lifecycle & Orchestration (24 Skills)', value: 'data' }
+        ]
+      });
+
+      const DOMAIN_SKILL_MAP = {
+        frontend: [
+          'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
+          'blockchain-web3-expert', 'browser-extension-mv3-pro', 'design-system-architect',
+          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'form-validation-expert',
+          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'micro-frontend-architect',
+          'mobile-expo-expert', 'modern-css-native-expert', 'mpa-orchestrator',
+          'multimodal-spatial-video-cloner', 'nextjs-app-router-expert', 'pwa-offline-first-expert',
+          'rich-text-editor-expert', 'screenshot-to-code-expert', 'senior-frontend',
+          'solidjs-expert', 'spa-orchestrator', 'state-management-expert',
+          'svg-animation-motion-expert', 'svelte-sveltekit-expert', 'tailwind-expert',
+          'tanstack-query-expert', 'tauri-expert', 'ui-ux-pro-max', 'visual-ui-auditor',
+          'vue-frontend-expert', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
+        ],
+        backend: [
+          'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
+          'autonomous-api-drift-healer', 'bun-runtime-expert', 'composable-mach-architect',
+          'cron-scheduler-expert', 'domain-driven-design-expert', 'ephemeral-wasm-sandbox-executor',
+          'event-driven-architect', 'fullstack-expert', 'go-programming-expert',
+          'graphql-apollo-expert', 'js-backend-expert', 'legacy-code-translator',
+          'living-codebase-ast-graph', 'monorepo-architect', 'mvc-expert',
+          'openapi-swagger-codegen-expert', 'python-programming-expert', 'rust-programming-expert',
+          'scalability-clean-code', 'spec-driven-development-expert', 'structured-output-contracts',
+          'typescript-expert', 'wasm-edge-computing-expert', 'web-game-engine-expert'
+        ],
+        ai: [
+          'adaptive-model-cascade', 'affective-computing-emotion-ai', 'agentic-coding-workflow-expert',
+          'agentic-memory-architect', 'agentic-micro-economy-architect', 'ai-llm-integration-expert',
+          'ai-media-generation-expert', 'ai-prompt-engineering-expert', 'ai-safety-governance-expert',
+          'context-window-engineer', 'deep-research-analyst', 'doku-mcp-server',
+          'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
+          'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
+          'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
+          'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
+          'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
+          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+        ],
+        saas: [
+          'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
+          'doku-payment-gateway', 'ecommerce-expert', 'email-notification-expert',
+          'feature-flag-analytics-expert', 'headless-cms-expert', 'n8n-automation-expert',
+          'payment-gateway-expert', 'saas-architect', 'saas-billing', 'saas-multi-tenant',
+          'seo', 'data-telemetry-expert', 'wordpress-headless-expert'
+        ],
+        security: [
+          'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
+          'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
+          'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
+          'error-resilience-expert', 'firebase-security-expert', 'formal-spec-z3-verifier',
+          'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
+          'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
+          'rate-limit-abuse-prevention', 'supabase-security-expert', 'zero-tech-debt-auditor',
+          'zero-trust-secret-vault', 'coderabbit'
+        ],
+        data: [
+          'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
+          'ci-cd-devops-architect', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
+          'data-visualization-expert', 'database-orm-expert', 'dependency-upgrade-migrator',
+          'documentation-site-expert', 'file-upload-media-expert', 'geospatial-maps-expert',
+          'pdf-document-generation-expert', 'performance-web-vitals', 'prd-architect',
+          'proactive-background-watcher', 'realtime-collaboration-expert', 'search-engine-expert',
+          'self-healing-cloud-orchestrator', 'session-memory-manager', 'sse-websocket-streaming-expert',
+          'web-scraper', 'website-design-cloner', 'zero-to-prod-orchestrator'
+        ]
+      };
+
+      const domainSkills = (DOMAIN_SKILL_MAP[chosenDomain] || []).filter(s => allSkills.includes(s));
+      const choices = domainSkills.map(skill => ({ name: skill, value: skill }));
+
+      selectedSkills = await checkbox({
+        message: 'Select skills to install:',
+        choices: choices,
+        pageSize: 15
+      });
+    } else {
+      const choices = allSkills.map(skill => ({ name: skill, value: skill }));
+      selectedSkills = await checkbox({
+        message: 'Select the AI skills to install into this project:',
+        choices: choices,
+        loop: false,
+        pageSize: 15
+      });
+    }
 
     if (!selectedSkills || selectedSkills.length === 0) {
       console.log('No skills selected. Exiting.');
@@ -509,7 +878,7 @@ async function runUi() {
 }
 
 async function runRemoveSkill(skillName) {
-  if (!skillName) {
+  if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
     console.error('❌ Error: Skill name is required.');
     console.log('Usage: vibes remove <skill-name>');
     process.exit(1);
@@ -625,7 +994,11 @@ async function runVersion(action, type) {
     const files = [
       { path: pkgPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: pluginJsonPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, 'gemini-extension.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, '.codex-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
+      { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` }
     ];
 
     for (const { path: filePath, from, to } of files) {
@@ -658,8 +1031,8 @@ async function runVersion(action, type) {
   }
 }
 
-async function runDoctor() {
-  console.log('\n🧬 Vibes-Plug Doctor — Running diagnostics...\n');
+async function runDoctor(autoFix = false) {
+  console.log(`\n🧬 Vibes-Plug Doctor — Running diagnostics${autoFix ? ' (with auto-fix enabled)' : ''}...\n`);
   const checks = [];
 
   // 1. Node.js version
@@ -696,18 +1069,41 @@ async function runDoctor() {
     checks.push(`⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
   }
 
-  // 5. Local project .agents/skills
-  const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
-  const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+  // 5. Local project .agents/ structure
+  const localAgentsDir = path.join(process.cwd(), '.agents');
+  const localSkillsDir = path.join(localAgentsDir, 'skills');
+  const localExists = await fs.access(localSkillsDir).then(() => true).catch(() => false);
   if (localExists) {
-    const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+    const localEntries = await fs.readdir(localSkillsDir, { withFileTypes: true });
     const localCount = localEntries.filter(d => d.isDirectory()).length;
     checks.push(`✅ Local project: ${localCount} skill(s) installed in .agents/skills/`);
+  } else if (autoFix) {
+    await fs.mkdir(path.join(localAgentsDir, 'skills'), { recursive: true });
+    await fs.mkdir(path.join(localAgentsDir, 'graph'), { recursive: true });
+    await fs.mkdir(path.join(localAgentsDir, 'telemetry'), { recursive: true });
+    checks.push('🛠️  [FIXED] Scaffolded .agents/ directory (.agents/skills, .agents/graph, .agents/telemetry)');
   } else {
-    checks.push('ℹ️  No local .agents/skills/ found (run vibes add or vibes ui to install skills)');
+    checks.push('ℹ️  No local .agents/skills/ found (run vibes doctor --fix or vibes add to initialize)');
   }
 
-  // 6. Package version
+  // 6. Deterministic KV-Cache prefix
+  const cachePrefixPath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+  const cacheExists = await fs.access(cachePrefixPath).then(() => true).catch(() => false);
+  if (cacheExists) {
+    checks.push('✅ Prompt cache prefix locked (.cache-prefix.json)');
+  } else if (autoFix) {
+    try {
+      const { compileCache } = await import('../scripts/compile-cache.mjs');
+      await compileCache();
+      checks.push('🛠️  [FIXED] Recompiled and locked .cache-prefix.json');
+    } catch {
+      checks.push('⚠️  Could not auto-compile .cache-prefix.json');
+    }
+  } else {
+    checks.push('⚠️  Prompt cache prefix missing (run vibes cache compile or vibes doctor --fix)');
+  }
+
+  // 7. Package version
   const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
   const pkgRaw = await fs.readFile(pkgPath, 'utf8');
   const pkg = JSON.parse(pkgRaw);
@@ -717,7 +1113,7 @@ async function runDoctor() {
 
   const failed = checks.filter(c => c.startsWith('  ❌')).length;
   console.log(failed > 0
-    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor`
+    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor --fix`
     : '\n🎉 All checks passed! Your Vibes-Plug environment is healthy.');
 
   rl.close();
@@ -840,6 +1236,18 @@ const RECIPES = {
   'data-platform': {
     description: 'Data engineering: ETL pipelines, visualization, telemetry, analytics',
     skills: ['data-pipeline-etl-expert', 'data-visualization-expert', 'data-telemetry-expert', 'search-engine-expert']
+  },
+  'agentic-commerce': {
+    description: 'Autonomous M2M Agentic Commerce: micro-economies, DOKU Checkout & SNAP BI, dual-rail settlement, and SaaS billing',
+    skills: ['agentic-micro-economy-architect', 'agentic-m2m-settlement', 'doku-payment-gateway', 'doku-mcp-server', 'saas-billing', 'payment-gateway-expert', 'formal-spec-z3-verifier']
+  },
+  'frontier-ai': {
+    description: 'Frontier AI engineering: Gemini 4 Pro / Claude 5.1, KV-cache locking, model cascading, test-time compute, and MCP servers',
+    skills: ['frontier-ai-models-expert', 'gemini-agent-booster', 'mcp-server-architect', 'kv-cache-prefix-optimizer', 'adaptive-model-cascade', 'test-time-compute-optimizer']
+  },
+  'spec-driven-api': {
+    description: 'Contract-first API engineering: TypeSpec, OpenAPI 3.1, BDD Gherkin, consumer-driven Pact contracts, and API drift healing',
+    skills: ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'formal-spec-z3-verifier', 'e2e-testing-expert']
   }
 };
 
@@ -920,6 +1328,7 @@ async function runSearch(query) {
   const skills = entries.filter(d => d.isDirectory()).map(d => d.name);
 
   const q = query.toLowerCase();
+  const safeQ = escapeRegExp(q);
   const results = [];
 
   for (const skill of skills) {
@@ -928,7 +1337,7 @@ async function runSearch(query) {
       const content = await fs.readFile(skillMdPath, 'utf8');
       const lower = content.toLowerCase();
       // Score by keyword frequency
-      const score = (lower.match(new RegExp(q, 'g')) || []).length;
+      const score = (lower.match(new RegExp(safeQ, 'g')) || []).length;
       if (score > 0) {
         // Extract description from frontmatter
         const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
@@ -942,7 +1351,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 125 skills.');
+    console.log('Try: vibes list  to browse all 155 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1008,13 +1417,76 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 147 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 155 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
+}
+
+async function runDocs(format = 'markdown', outputFile) {
+  try {
+    const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
+    const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+
+    const catalog = [];
+    for (const skillName of skillDirs) {
+      const skillPath = path.join(skillsDir, skillName, 'SKILL.md');
+      try {
+        const content = await fs.readFile(skillPath, 'utf8');
+        const descMatch = content.match(/description:\s*["']?([^"'\n\r]+)/);
+        const versionMatch = content.match(/version:\s*["']?([^"'\n\r]+)/);
+        const authorMatch = content.match(/author:\s*["']?([^"'\n\r]+)/);
+        catalog.push({
+          name: skillName,
+          description: descMatch ? descMatch[1].trim() : '',
+          version: versionMatch ? versionMatch[1].trim() : '4.3.0',
+          author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
+        });
+      } catch (e) {
+        // Skip unreadable files
+      }
+    }
+
+    if (format === 'json') {
+      const jsonOutput = JSON.stringify({ total: catalog.length, skills: catalog }, null, 2);
+      if (outputFile) {
+        await fs.writeFile(outputFile, jsonOutput, 'utf8');
+        console.log(`\n📄 Exported JSON catalog of ${catalog.length} skills to: ${outputFile}`);
+      } else {
+        console.log(jsonOutput);
+      }
+    } else {
+      let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.3.0)*\n\n`;
+      md += `| Skill Name | Version | Description |\n`;
+      md += `| :--- | :---: | :--- |\n`;
+      for (const item of catalog) {
+        md += `| \`${item.name}\` | \`${item.version}\` | ${item.description.replace(/\\/g, '\\\\').replace(/\|/g, '\\|')} |\n`;
+      }
+
+      if (outputFile) {
+        await fs.writeFile(outputFile, md, 'utf8');
+        console.log(`\n📄 Exported Markdown catalog of ${catalog.length} skills to: ${outputFile}`);
+      } else {
+        console.log(`\n🌊 Vibes-Plug Skills Catalog (${catalog.length} Skills)\n`);
+        console.log(`| Skill Name | Version | Description |`);
+        console.log(`| :--- | :---: | :--- |`);
+        catalog.slice(0, 15).forEach(item => {
+          console.log(`| \`${item.name}\` | \`${item.version}\` | ${item.description.slice(0, 70)}... |`);
+        });
+        console.log(`\n... and ${catalog.length - 15} more skills.`);
+        console.log(`\n💡 To export full catalog: vibes docs markdown CATALOG.md  OR  vibes docs json CATALOG.json`);
+      }
+    }
+  } catch (err) {
+    console.error(`\n❌ Error generating docs: ${err.message}`);
+  } finally {
+    rl.close();
+  }
 }
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.2.1)
+🌊 Vibes-Plug CLI (v4.3.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1023,10 +1495,11 @@ Usage:
 Commands:
   sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
-  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack)
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
+  wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 147 skills by keyword (ranked by relevance)
+  search <query>            Search all 155 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1038,18 +1511,31 @@ Commands:
   version bump <type>       Bump version across all files (type: major | minor | patch)
   hooks install             Install Git pre-commit Anti-Slop gate
   hooks remove              Remove the Git pre-commit hook
-  doctor                    Run environment health diagnostics
+  doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
+  critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
+  pr:review [diff|file]     Run automated Sovereign PR Review Critic Bot on git diff or files
+  visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
+  heal [cmd|file] [--apply] Autonomous self-healing test runner & failure diagnosis
+  registry <cmd> [args]     Community skill registry hub (list | search | install | pack)
+  graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
+  graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
+  sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
+  cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
   ast <action> [args]       Query AST symbols, inspect code, or blast-radius
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
-  swarm [task]              Execute or plan autonomous multi-agent swarm (Fan-Out, Saga, Critic)
+  swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
+  swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
+  finops [status|record]    Track token economics & prompt caching (KV-cache) financial savings
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
+  docs [markdown|json]      Export or preview the complete 155-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 155-skill explorer)
   help                      Show this help menu
 `);
   rl.close();
@@ -1062,62 +1548,107 @@ switch (command) {
     break;
   case 'mcp':
   case 'serve-mcp': {
+    rl.close();
     const { spawn } = await import('child_process');
-    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')], { stdio: 'inherit' });
+    const extraArgs = args.slice(1);
+    const child = spawn(process.execPath, [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), ...extraArgs], { stdio: 'inherit' });
     child.on('exit', (code) => process.exit(code || 0));
     break;
   }
   case 'guard': {
-    const { execSync } = await import('child_process');
-    execSync('npm run guard', { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { execFileSync } = await import('child_process');
+    console.log('🛡️ Running full Sovereign Guard validation...');
+    execFileSync(process.execPath, ['scripts/validate-skills.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execFileSync(process.execPath, ['scripts/check-anti-slop.js', '--strict'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    execFileSync(process.execPath, ['--test', 'scripts/test-cli.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
+  case 'cache': {
+    rl.close();
+    const subCmd = args[1];
+    if (subCmd === 'compile') {
+      const { compileCache } = await import('../scripts/compile-cache.mjs');
+      await compileCache();
+    } else {
+      const { getCacheStatus } = await import('../scripts/compile-cache.mjs');
+      const status = await getCacheStatus();
+      console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    Vibes-Plug Deterministic Prompt Cache Status          ║
+╚══════════════════════════════════════════════════════════╝
+
+📦 Artifact File    : .cache-prefix.json (${status.byteSize} bytes)
+🔢 Estimated Tokens : ~${status.estimatedTokens} tokens (${status.totalSkills} skills indexed)
+⚡ TTFT Acceleration: ${status.economics.estimatedTtfSpeedup}
+
+Platform Eligibility & Economics:
+  • Anthropic Claude : ${status.platforms.claude.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (90% discount — saves $${status.economics.claudeSavingsPer1k}/1k reqs)
+  • Google Gemini    : ${status.platforms.gemini.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (75% discount — saves $${status.economics.geminiSavingsPer1k}/1k reqs)
+  • OpenAI Codex / o3: ${status.platforms.openai.eligible ? '✅ QUALIFIED' : '⚠️ BELOW THRESHOLD'} (50% discount — saves $${status.economics.openAiSavingsPer1k}/1k reqs)
+
+💡 Baseline Input Cost (1k reqs un-cached) : $${status.economics.standardCostPer1kReqs}
+🚀 To recompile: vibes cache compile
+`);
+    }
     break;
   }
   case 'compile-cache': {
-    const { execSync } = await import('child_process');
-    execSync('node scripts/compile-cache.mjs', { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'compile-cache.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'db:eval': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/eval-migration.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'eval-migration.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'ast': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/ast-query.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'ast-query.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'arbitrate': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/speculative-arbiter.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'speculative-arbiter.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'verify-invariants': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/verify-invariants.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'verify-invariants.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'swarm': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/swarm-runner.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    if (args[1] === 'dispatch') {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    } else {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    }
+    rl.close();
+    break;
+  }
+  case 'swarm:dispatch':
+  case 'dispatch': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'finops': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'finops-tracker.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
   case 'memory': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/memory-daemon.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'memory-daemon.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
@@ -1126,6 +1657,9 @@ switch (command) {
     break;
   case 'bootstrap':
     runBootstrap(args[1], args[2]);
+    break;
+  case 'wizard':
+    runWizard();
     break;
   case 'ui':
     runUi();
@@ -1149,7 +1683,7 @@ switch (command) {
     runVersion(args[1], args[2]);
     break;
   case 'doctor':
-    runDoctor();
+    runDoctor(args.includes('--fix'));
     break;
   case 'skill':
     runSkillInfo(args[2]);
@@ -1164,9 +1698,76 @@ switch (command) {
     runCreateMcp(args[1]);
     break;
   case 'create-agent': {
-    const { execSync } = await import('child_process');
-    const extraArgs = args.slice(1).map(a => `"${a}"`).join(' ');
-    execSync(`node scripts/create-agent.mjs ${extraArgs}`, { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'create-agent.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'critic': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'critic-validator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'sandbox': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'graph:build':
+  case 'graph:query': {
+    const { spawnSync } = await import('child_process');
+    const subCmd = command === 'graph:query' ? 'query' : 'build';
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'pr:review':
+  case 'pr-review': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'heal':
+  case 'self-heal': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'registry': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'registry-manager.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'visual-audit':
+  case 'visual-critic': {
+    const { visualAudit } = await import('../scripts/visual-critic.mjs');
+    const targetPath = args[1];
+    if (!targetPath) {
+      console.error('❌ Error: Target file or code is required.');
+      console.log('Usage: vibes visual-audit <file-or-image>');
+      process.exit(1);
+    }
+    const report = visualAudit(targetPath);
+    console.log('\n🎨 === Vibes-Plug Visual UI Audit Report ===');
+    console.log(`Target     : ${report.targetFile || 'inline_code'}`);
+    console.log(`Score      : ${report.score}/100`);
+    console.log(`Verdict    : ${report.verdict === 'APPROVED' ? '\x1b[32mAPPROVED\x1b[0m' : '\x1b[31mREJECTED\x1b[0m'}`);
+    console.log(`Findings   : ${report.findingsCount}`);
+    if (report.findings?.length > 0) {
+      console.log('\nFindings:');
+      for (const f of report.findings) {
+        console.log(`  - [${f.severity}] ${f.ruleName}: ${f.message}`);
+        console.log(`    Fix: ${f.fix}`);
+      }
+    }
+    if (report.visionPrompt) {
+      console.log('\n' + report.visionPrompt);
+    }
     rl.close();
     break;
   }
@@ -1177,6 +1778,20 @@ switch (command) {
   case 'validate':
     runValidate();
     break;
+  case 'docs':
+  case 'catalog':
+    runDocs(args[1], args[2]);
+    break;
+  case 'studio': {
+    rl.close();
+    const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;
+    const { startStudioServer } = await import(studioModuleUrl);
+    const portIdx = args.indexOf('--port');
+    const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
+    const noOpen = args.includes('--no-open');
+    await startStudioServer({ port, noOpen });
+    break;
+  }
   default:
     showHelp();
     break;

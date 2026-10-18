@@ -21,6 +21,7 @@ export async function evaluateSql(sqlContent, options = {}) {
   const warnings = [];
   const tablesCreated = [];
   const rlsEnabled = new Set();
+  const policiesCreated = new Set();
   const foreignKeys = [];
   const indexesCreated = new Set();
 
@@ -59,11 +60,16 @@ export async function evaluateSql(sqlContent, options = {}) {
       }
     }
 
-    // 2. Detect RLS enablement
+    // 2. Detect RLS enablement & policy creation
     const rlsMatch = cleanStmt.match(/ALTER\s+TABLE\s+(?:["']?(\w+)["']?\.)?["']?(\w+)["']?\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY/i);
     if (rlsMatch) {
       const tableName = rlsMatch[2] || rlsMatch[1];
       rlsEnabled.add(tableName);
+    }
+    const policyMatch = cleanStmt.match(/CREATE\s+POLICY\s+["']?[\w\s-]+["']?\s+ON\s+(?:["']?(\w+)["']?\.)?["']?(\w+)["']?/i);
+    if (policyMatch) {
+      const tableName = policyMatch[2] || policyMatch[1];
+      policiesCreated.add(tableName);
     }
 
     // 3. Detect CREATE INDEX
@@ -118,6 +124,7 @@ export async function evaluateSql(sqlContent, options = {}) {
     statementsCount: statements.length,
     tablesCreated,
     rlsVerifiedCount: rlsEnabled.size,
+    policiesCreatedCount: policiesCreated.size,
     foreignKeysCount: foreignKeys.length,
     issues,
     warnings,

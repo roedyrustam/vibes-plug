@@ -1,11 +1,11 @@
 ---
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
-# Global Accessibility (a11y) & i18n Expert
+# Global Accessibility (WCAG 2.2 AA) & i18n Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,39 +14,113 @@ version: "4.2.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
-
 ### Description
-This skill focuses on making enterprise web applications universally accessible and globally adaptable. It covers Web Content Accessibility Guidelines (WCAG) compliance and Internationalization (i18n) patterns for multi-language, multi-timezone software.
+Production guide for building universally accessible, globally adaptable web applications adhering to WCAG 2.2 Level AA standards and modern Internationalization (i18n) architecture. Covers type-safe translation schemas (`next-intl`), CSS logical properties for bidirectional layout flow (LTR & RTL), accessible keyboard trap navigation, screen reader affordances, and timezone-resilient UTC serialization.
 
 ### Trigger Conditions
-- Selling software to government, education, or large enterprise sectors (where WCAG AA compliance is legally required).
-- Implementing multi-language support (i18n).
-- Designing UIs that must support RTL (Right-to-Left) languages like Arabic or Hebrew.
-- Fixing "tab trap" or screen reader issues.
-- Handling complex timezone/date calculations across global users.
+- Enterprise and public sector readiness requiring legal WCAG 2.2 AA compliance.
+- Adding multi-language routing (`/en`, `/id`, `/ja`, `/ar`) to Next.js 15 App Router.
+- Supporting Right-to-Left (RTL) reading flows for Arabic or Hebrew markets.
+- Fixing keyboard navigation focus traps or screen reader accessibility bugs.
+- Localizing currency formatting (`Intl.NumberFormat`) and localized date displays.
 
-### Core Architecture Guidelines
+### Accessible Modal Component with Focus Trap (HTML5 Native Dialog)
 
-#### 1. Web Accessibility (a11y)
-Do not treat accessibility as an afterthought. It is a core engineering requirement.
-- **Semantic HTML**: Always prefer native HTML elements (`<button>`, `<nav>`, `<dialog>`) over building custom ones with `<div>`. Native elements come with free accessibility baked in by the browser.
-- **ARIA Attributes**: If you must build custom UI, use WAI-ARIA roles (`role="tablist"`, `aria-expanded="true"`) to tell screen readers what the component is doing.
-- **Keyboard Navigation**: The entire app MUST be usable without a mouse. Ensure interactive elements are focusable (`tabindex="0"`) and visual focus outlines are distinct (do not use `outline: none` without providing an alternative styling).
-- **Color Contrast**: Ensure text has a minimum contrast ratio of 4.5:1 against its background (WCAG AA standard).
+```tsx
+// src/components/ui/AccessibleModal.tsx
+'use client';
 
-#### 2. Internationalization (i18n)
-Handling multiple languages requires structural foresight.
-- **Locale Routing**: Use URL structures like `/en/pricing` or `/id/pricing`.
-- **String Externalization**: Never hardcode UI text. Use translation files (`en.json`, `id.json`) and a library like `next-intl` or `react-i18next`.
-- **RTL Support**: Use CSS logical properties (e.g., `margin-inline-start` instead of `margin-left`) so your UI automatically flips when rendering RTL languages.
+import { useEffect, useRef } from 'react';
 
-#### 3. Timezones and Dates
-Time is incredibly difficult to manage globally.
-- **Storage**: ALWAYS store dates in the database as UTC (`TIMESTAMPTZ` in PostgreSQL). Never store local time.
-- **Transport**: Send dates across APIs in ISO 8601 format (e.g., `2026-03-15T12:00:00Z`).
-- **Display**: Convert UTC to the user's local timezone only at the UI layer just before rendering (using native `Intl.DateTimeFormat` or libraries like `date-fns-tz`).
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}
+
+export function AccessibleModal({ isOpen, onClose, title, children }: ModalProps) {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal(); // Native browser focus-trap and backdrop handling
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      onClose={onClose}
+      aria-labelledby="modal-title"
+      className="rounded-xl border border-slate-200 bg-white p-6 shadow-xl backdrop:bg-slate-950/50 max-w-lg w-full outline-none"
+    >
+      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h2 id="modal-title" className="text-lg font-bold text-slate-900">
+          {title}
+        </h2>
+        <button
+          onClick={onClose}
+          aria-label="Close dialog"
+          className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 focus-visible:ring-2 focus-visible:ring-slate-950"
+        >
+          ✕
+        </button>
+      </div>
+      <div className="mt-4">{children}</div>
+    </dialog>
+  );
+}
+```
+
+### Type-Safe Locale Routing with `next-intl` (Next.js 15)
+
+```typescript
+// src/i18n/request.ts
+import { getRequestConfig } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+
+export const locales = ['en', 'id', 'ar'] as const;
+export type Locale = (typeof locales)[number];
+
+export default getRequestConfig(async ({ locale }) => {
+  if (!locales.includes(locale as any)) notFound();
+
+  return {
+    messages: (await import(`../../messages/${locale}.json`)).default,
+  };
+});
+```
+
+### CSS Logical Properties for RTL Support
+Never use physical directional properties (`left`, `right`). Use logical properties so layouts flip automatically in RTL locales:
+
+```css
+/* Bad: Physical properties break in RTL */
+.card-bad {
+  margin-left: 16px;
+  text-align: left;
+  border-left: 2px solid #0f172a;
+}
+
+/* Good: Logical properties adapt seamlessly */
+.card-good {
+  margin-inline-start: 1rem;
+  text-align: start;
+  border-inline-start: 2px solid #0f172a;
+}
+```
+
+## Orchestration & Integration
+- **`accessibility-testing-expert`**: Automates axe-core and Pa11y compliance tests in CI.
+- **`ui-ux-pro-max`**: Ensures color contrast ratios meet the 4.5:1 WCAG AA baseline.
+- **`senior-frontend`**: Implements accessible headless primitives and semantic HTML.
+- **`nextjs-app-router-expert`**: Configures multi-locale middleware and streaming localized routes.
 
 ---
 
@@ -54,35 +128,46 @@ Time is incredibly difficult to manage globally.
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama `accessibility-testing-expert`, `ui-ux-pro-max`, `senior-frontend`, dan `nextjs-app-router-expert`.
 
 ### Deskripsi
-Skill ini berfokus pada pembuatan aplikasi web skala *enterprise* yang dapat diakses secara universal dan diadaptasi secara global. Panduan ini mencakup kepatuhan pedoman Aksesibilitas Web (WCAG) serta pola Internasionalisasi (i18n) untuk perangkat lunak multi-bahasa dan multi-zona-waktu.
+Panduan produksi untuk membangun aplikasi web yang dapat diakses secara universal dan diadaptasi secara global sesuai standar WCAG 2.2 Level AA dan arsitektur Internasionalisasi (i18n) modern. Mencakup skema terjemahan type-safe (`next-intl`), properti logika CSS (*CSS logical properties*) untuk alur dua arah (LTR & RTL), navigasi keyboard tanpa jebakan fokus (*focus trap*), dukungan pembaca layar (*screen reader*), serta serialisasi waktu UTC yang kebal anomali zona waktu.
 
 ### Kondisi Pemicu
-- Menjual perangkat lunak ke sektor pemerintah, pendidikan, atau perusahaan besar (di mana kepatuhan WCAG AA diwajibkan secara hukum).
-- Menerapkan dukungan multi-bahasa (i18n).
-- Merancang UI yang harus mendukung bahasa yang dibaca dari Kanan ke Kiri (RTL) seperti Arab atau Ibrani.
-- Memperbaiki masalah navigasi *keyboard* (*tab trap*) atau dukungan *screen reader* (pembaca layar).
-- Menangani kalkulasi tanggal dan zona waktu yang kompleks untuk pengguna global.
+- Kesiapan pengadaan software untuk enterprise atau sektor publik dengan kewajiban hukum kepatuhan WCAG 2.2 AA.
+- Menambahkan dukungan multi-bahasa (`/en`, `/id`, `/ar`) pada Next.js 15 App Router.
+- Mendukung bahasa yang dibaca dari Kanan ke Kiri (RTL) seperti Bahasa Arab.
+- Mengatasi masalah navigasi keyboard atau hilangnya garis fokus (*focus outline*).
+- Memformat mata uang lokal (Rupiah, Dollar) menggunakan API `Intl.NumberFormat` native.
 
-### Panduan Arsitektur Inti
+### Format Mata Uang dan Tanggal Terlokalisasi
 
-#### 1. Aksesibilitas Web (a11y)
-Jangan anggap aksesibilitas sebagai fitur tambahan. Ini adalah syarat mutlak *engineering*.
-- **HTML Semantik**: Selalu utamakan elemen HTML bawaan (`<button>`, `<nav>`, `<dialog>`) daripada membuat elemen kustom menggunakan `<div>`. Elemen bawaan sudah memiliki fitur aksesibilitas yang ditangani langsung oleh browser.
-- **Atribut ARIA**: Jika Anda terpaksa membuat komponen UI kustom, gunakan peran WAI-ARIA (`role="tablist"`, `aria-expanded="true"`) untuk memberi tahu *screen reader* apa fungsi komponen tersebut.
-- **Navigasi Keyboard**: Seluruh aplikasi HARUS bisa digunakan tanpa *mouse*. Pastikan elemen interaktif bisa difokuskan (`tabindex="0"`) dan garis tepi fokus (*focus ring*) terlihat jelas (jangan gunakan `outline: none` tanpa memberikan gaya alternatif).
-- **Kontras Warna**: Pastikan teks memiliki rasio kontras minimal 4.5:1 terhadap warna latar belakangnya (standar WCAG AA).
+```typescript
+// src/lib/formatters.ts
+export function formatCurrency(amountCents: number, locale = 'id-ID', currency = 'IDR') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: 0,
+  }).format(amountCents / (currency === 'IDR' ? 1 : 100));
+}
 
-#### 2. Internasionalisasi (i18n)
-Menangani berbagai bahasa memerlukan perencanaan struktural.
-- **Routing Lokal (Locale Routing)**: Gunakan struktur URL seperti `/en/pricing` atau `/id/pricing`.
-- **Eksternalisasi Teks**: Jangan pernah menulis teks UI langsung (*hardcode*) di dalam kode. Gunakan berkas terjemahan (`en.json`, `id.json`) dan pustaka seperti `next-intl` atau `react-i18next`.
-- **Dukungan RTL**: Gunakan properti logika CSS (*CSS logical properties*, mis. `margin-inline-start` alih-alih `margin-left`) agar tata letak UI Anda secara otomatis berbalik saat merender bahasa RTL.
+export function formatLocalizedDate(date: Date | string, locale = 'id-ID') {
+  return new Intl.DateTimeFormat(locale, {
+    dateStyle: 'long',
+    timeStyle: 'short',
+    timeZone: 'Asia/Jakarta',
+  }).format(new Date(date));
+}
+```
 
-#### 3. Zona Waktu dan Tanggal
-Mengelola waktu secara global sangatlah rumit.
-- **Penyimpanan**: SELALU simpan tanggal di dalam database dalam format UTC (`TIMESTAMPTZ` pada PostgreSQL). Jangan pernah menyimpan waktu lokal komputer.
-- **Transportasi**: Kirimkan tanggal melalui API dalam format ISO 8601 (mis., `2026-03-15T12:00:00Z`).
-- **Tampilan UI**: Konversikan waktu UTC ke zona waktu lokal pengguna *hanya di lapisan UI* sesaat sebelum dirender (menggunakan `Intl.DateTimeFormat` bawaan browser atau pustaka seperti `date-fns-tz`).
+### 3 Hukum Wajib Aksesibilitas Web
+1. **Utamakan HTML Semantik**: Gunakan tag asli seperti `<button>`, `<nav>`, `<dialog>` daripada tag `<div>` yang diberi handler `onClick`. Browser sudah menyediakan dukungan keyboard dan screen reader gratis pada elemen asli.
+2. **Kontras Warna Minimal 4.5:1**: Teks harus memiliki kontras minimal 4.5:1 terhadap warna latar belakangnya (standar WCAG 2.2 AA).
+3. **Gunakan Properti Logika CSS**: Hindari `margin-left` atau `padding-right`. Gunakan `margin-inline-start` dan `padding-inline-end` agar tata letak otomatis menyesuaikan saat dibuka dalam mode bahasa Arab (RTL).
+
+## Integrasi Orkestrasi
+- **`accessibility-testing-expert`**: Menjalankan pengujian otomatis axe-core di pipeline CI/CD.
+- **`ui-ux-pro-max`**: Menjamin keterbacaan tipografi dan kontras warna yang nyaman di mata.
+- **`senior-frontend`**: Membangun komponen UI aksesibel menggunakan HTML semantik.
+- **`nextjs-app-router-expert`**: Mengelola perutean dinamis berbasis bahasa pada URL.

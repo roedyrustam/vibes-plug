@@ -45,7 +45,7 @@ git checkout -b feat/add-skill-<skill-name>
 #### 3. Create a New Skill Module
 1. Navigate to the `skills/` directory.
 2. Create a new folder with your skill name using **kebab-case** (e.g., `skills/fast-api`).
-3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill-baru/SKILL.md).
+3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](templates/SKILL_TEMPLATE.md).
 
 Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 
@@ -54,6 +54,7 @@ Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 name: kebab-case-skill-name
 description: "Short English description / Deskripsi singkat"
 author: "Your Name or GitHub Username"
+version: "4.3.0"
 ---
 ```
 
@@ -143,7 +144,7 @@ git checkout -b feat/add-skill-<nama-skill>
 #### 3. Buat Modul Skill Baru
 1. Masuk ke direktori `skills/`.
 2. Buat folder baru dengan nama skill Anda menggunakan format **kebab-case** (misalnya `skills/fast-api`).
-3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL.md](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/skill-baru/SKILL.md).
+3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL.md](templates/SKILL_TEMPLATE.md).
 
 Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 
@@ -152,6 +153,7 @@ Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 name: nama-skill-kebab-case
 description: "Deskripsi singkat / Short description"
 author: "Nama Anda atau Username GitHub"
+version: "4.3.0"
 ---
 ```
 

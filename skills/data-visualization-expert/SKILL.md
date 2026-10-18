@@ -1,8 +1,8 @@
 ---
 name: data-visualization-expert
 description: "Expert guide for data visualization, charts, and dashboards using D3.js, Recharts, Chart.js, Nivo, and Tremor / Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts, Chart.js, Nivo, dan Tremor."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Data Visualization Expert (2026 Edition)
@@ -65,7 +65,7 @@ function RevenueChart({ data }: { data: { date: string; revenue: number }[] }) {
           contentStyle={{ backgroundColor: '#1F2937', border: 'none', borderRadius: 8 }}
           formatter={(value: number) => [`$${value.toLocaleString()}`, 'Revenue']}
         />
-        <Line type="monotone" dataKey="revenue" stroke="#8B5CF6" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="revenue" stroke="#0284c7" strokeWidth={2} dot={false} />
       </LineChart>
     </ResponsiveContainer>
   );
@@ -148,16 +148,143 @@ For volumetric, anatomical, geospatial, or scientific datasets, escalate to `web
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`senior-frontend`**: Arsitektur komponen React untuk komponen chart.
+- **`senior-frontend`**: Arsitektur komponen React untuk komponen chart dan layout dashboard responsif.
 - **`web-3d-graphics-expert`**: Visualisasi data spasial 3D, model ilmiah WebGPU/Three.js, explainer anatomi, dan penalaran spasial 3Dviz.
-- **`data-telemetry-expert`**: Pipeline data analitik yang mengisi visualisasi.
-- **`state-management-expert`**: Mengelola state chart, filter, dan navigasi drill-down.
+- **`data-telemetry-expert`**: Pipeline data analitik yang mengisi visualisasi real-time.
+- **`state-management-expert`**: Mengelola state filter global, parameter rentang tanggal, dan navigasi drill-down.
+- **`performance-web-vitals`**: Optimasi komputasi grafis untuk dataset besar (>10.000 titik data).
+- **`sse-websocket-streaming-expert`**: Feed data real-time untuk dashboard telemetri langsung.
 
 ### Deskripsi
-Panduan ahli untuk membangun visualisasi data dan dashboard analitik berkualitas produksi. Mencakup D3.js v7, Recharts, Chart.js 4, Nivo, Tremor, dan Apache ECharts. Termasuk chart responsif, update real-time, aksesibilitas, optimasi dataset besar, dan pola layout dashboard.
+Panduan ahli untuk membangun visualisasi data dan dashboard analitik berkualitas produksi. Mencakup D3.js v7 (manipulasi SVG/Canvas tingkat rendah), Recharts (grafik native React), Chart.js 4 (canvas ringan), Nivo (komponen animasi berbasis D3), Tremor (kartu KPI dan visualisasi analitik SaaS), dan Apache ECharts. Menyediakan panduan chart responsif, pembaruan real-time, aksesibilitas WCAG, optimasi dataset besar, dan pola tata letak dashboard.
 
 ### Kondisi Pemicu
-- Membangun dashboard analitik atau panel admin dengan chart.
-- Membuat visualisasi data (line, bar, pie, scatter, heatmap, treemap).
-- Mengimplementasikan chart yang update real-time atau feed data langsung.
-- Memilih library charting untuk React, Vue, atau vanilla JS.
+- Membangun dashboard analitik, admin panel, atau portal metrik finansial.
+- Membuat visualisasi data kompleks (garis tren, batang, scatter plot, heatmap, treemap).
+- Mengimplementasikan chart yang diperbarui secara langsung via WebSocket atau SSE.
+- Mengoptimalkan performa visualisasi saat menangani lebih dari 10.000 titik data.
+
+---
+
+### Panduan Pemilihan Library Visualisasi
+
+| Library | Lingkungan | Mesin Render | Kustomisasi | Tingkat Kesulitan | Kasus Penggunaan Terbaik |
+|---|---|---|---|---|---|
+| **D3.js v7** | Agnostik | SVG/Canvas | ★★★★★ | Tinggi | Visualisasi ilmiah & kustom tingkat lanjut |
+| **Recharts** | React | SVG | ★★★★ | Rendah | Grafik standar web app dan SaaS |
+| **Nivo** | React | SVG/Canvas | ★★★★★ | Sedang | Grafik artistik dengan animasi interaktif |
+| **Tremor** | React | SVG (Recharts) | ★★★ | Sangat Rendah | Dashboard MVP cepat, kartu KPI modern |
+| **Chart.js 4** | Agnostik | Canvas | ★★★ | Rendah | Grafik sederhana dan efisien |
+| **ECharts** | Agnostik | Canvas/SVG | ★★★★★ | Sedang | Grafik kompleks skala masif & data finansial |
+
+---
+
+### Pola Kunci Implementasi (TypeScript/React)
+
+#### 1. Recharts Standar Dashboard Produksi
+```tsx
+import React from 'react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+
+interface DataPoint {
+  tanggal: string;
+  pendapatan: number;
+}
+
+export function GrafikPendapatan({ data }: { data: DataPoint[] }) {
+  return (
+    <div className="w-full h-80 bg-white dark:bg-slate-900 rounded-lg p-4 border border-slate-200 dark:border-slate-800">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-medium text-slate-700 dark:text-slate-300">Tren Pendapatan Bulanan</h3>
+        <span className="text-xs text-slate-500 tabular-nums">Performa 30 Hari</span>
+      </div>
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.3} />
+          <XAxis dataKey="tanggal" stroke="#64748b" tick={{ fontSize: 12 }} />
+          <YAxis
+            stroke="#64748b"
+            tick={{ fontSize: 12 }}
+            tickFormatter={(val: number) => `Rp ${(val / 1000000).toFixed(0)}jt`}
+          />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#0f172a',
+              borderColor: '#1e293b',
+              borderRadius: '6px',
+              color: '#f8fafc',
+            }}
+            formatter={(value: number) => [`Rp ${value.toLocaleString('id-ID')}`, 'Pendapatan']}
+          />
+          <Line
+            type="monotone"
+            dataKey="pendapatan"
+            stroke="#0284c7"
+            strokeWidth={2}
+            dot={false}
+            activeDot={{ r: 4, stroke: '#0284c7', strokeWidth: 2, fill: '#0f172a' }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+```
+
+#### 2. Update Data Real-Time via Server-Sent Events (SSE)
+```tsx
+import { useEffect, useState } from 'react';
+
+export function GrafikMetrikRealtime() {
+  const [dataPoints, setDataPoints] = useState<{ waktu: string; nilai: number }[]>([]);
+
+  useEffect(() => {
+    const eventSource = new EventSource('/api/metrik/stream');
+
+    eventSource.onmessage = (event) => {
+      const dataBaru = JSON.parse(event.data);
+      setDataPoints((riwayat) => {
+        // Pertahankan maksimal 60 titik data terakhir untuk efisiensi render
+        const buffer = [...riwayat, dataBaru];
+        return buffer.length > 60 ? buffer.slice(buffer.length - 60) : buffer;
+      });
+    };
+
+    eventSource.onerror = (err) => {
+      console.error('Koneksi stream metrik terputus:', err);
+      eventSource.close();
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+
+  return (
+    <div className="p-4 border border-slate-200 dark:border-slate-800 rounded">
+      <div className="text-xs text-emerald-600 font-semibold mb-2 flex items-center gap-1.5">
+        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Live Telemetry
+      </div>
+      {/* Komponen LineChart mengonsumsi dataPoints */}
+    </div>
+  );
+}
+```
+
+#### 3. Optimasi Dataset Skala Masif (>10.000 Titik Data)
+1. **Pilih Canvas atau WebGL**: Hindari SVG untuk dataset >5.000 elemen guna mencegah kelebihan DOM node. Gunakan Chart.js (Canvas) atau Apache ECharts.
+2. **Server-Side Downsampling**: Lakukan reduksi titik data di server menggunakan algoritma Largest-Triangle-Three-Buckets (LTTB) sebelum dikirim ke browser.
+3. **Windowed / Virtualized Range**: Hanya gambar data yang berada dalam rentang zoom yang aktif saat ini.
+
+#### 4. Visualisasi Spasial 3D & Grounded Truth
+Untuk dataset ilmiah, geospasial, atau volumetrik, delegasikan ke `web-3d-graphics-expert`:
+- **Rantai Validasi Ilmiah**: Wajib mematuhi rantai: **Klaim Ilmiah → Model Matematika → Hasil Render**. Jangan tampilkan visualisasi acak tanpa data acuan numerik.
+- **Skala dan Unit Eksplisit**: Sertakan skala interaktif dan satuan metrik yang jelas pada canvas.

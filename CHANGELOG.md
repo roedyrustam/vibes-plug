@@ -5,13 +5,85 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.2] - 2026-10-09
+## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan
-- **Antigravity (AGY) Full Native Plugin Integration & Sync**:
-  - Penyelarasan direktori aturan standar `rules/AGENTS.md` sesuai spesifikasi Plugin Antigravity bundle standard.
-  - Konfigurasi `rulesDir: "rules/"` pada platform Antigravity di `plugin.json` dan penyertaan direktori `rules/` di `package.json` files list.
-  - Verifikasi otomatis dan sinkronisasi menyeluruh 147 skill spesialis serta native MCP Server `vibes-plug-tools` untuk ekosistem Google Antigravity.
+- **Autonomous Self-Healing Test Runner & Failure Diagnoser (`scripts/self-healer.mjs`)**:
+  - Mesin diagnosa kegagalan pengujian otonom yang mengeksekusi test suite atau perintah kode, menyadap stack trace, mengkorelasikan dan mengisolasi simbol AST yang rusak via Codebase Symbol Graph, memverifikasi perbaikan di Ephemeral Micro-Sandbox, dan menghasilkan proposal patch diff terverifikasi. Terintegrasi ke CLI `vibes heal [cmd|file] [--apply]`, API Studio `/api/heal/diagnose`, dan Remote MCP tool `vibes_self_heal`.
+- **Decentralized Community Skill Registry Hub (`scripts/registry-manager.mjs`)**:
+  - Sistem registry terdesentralisasi untuk penemuan, pencarian berbobot relevansi, instalasi lokal ke `.agents/skills/`, dan pemaketan audit skill kustom terhadap 155 Gold Standard (frontmatter, bilingual, matrix orkestrasi, zero slop) dengan verifikasi hash SHA-256. Terkoneksi ke CLI `vibes registry [list|search|install|pack]`, API Studio `/api/registry/*`, dan Remote MCP tool `vibes_registry_search` & `vibes_registry_install`.
+- **Codebase AST Symbol Knowledge Graph Indexer (`scripts/graphrag-indexer.mjs`)**:
+  - Pengindeksan simbol AST kode lokal multi-bahasa (`.js`, `.mjs`, `.ts`, `.tsx`, `.jsx`, `.py`, `.go`) super cepat (<60ms) yang mengekstrak fungsi, kelas, antarmuka, dan tipe ke `.agents/graph/symbol_graph.json`. Terkoneksi ke CLI `vibes graph:build`, `vibes graph:query <symbol>`, endpoint API `/api/graph/query`, dan Remote MCP tool `vibes_graph_query` tanpa membanjiri context window AI.
+- **Autonomous GitHub PR Review Critic Bot (`scripts/github-pr-bot.mjs`)**:
+  - Bot peninjau Pull Request cerdas yang mengaudit git diff atau berkas lokal terhadap Doktrin Sovereign Anti-Slop (Pilar 1–6) dan Standar Visual UI 2026 (Pilar 7). Menghasilkan laporan scorecard Markdown GitHub siap tempel dengan skor numerik dan putusan `APPROVED` / `CHANGES_REQUESTED`. Terintegrasi ke CLI `vibes pr:review [diff|file]`, API `/api/pr/review`, dan MCP `vibes_pr_review`.
+- **Self-Healing Diagnostics (`vibes doctor --fix`)**:
+  - Opsi perbaikan otomatis pada `vibes doctor` yang secara mandiri memulihkan direktori `.agents/` yang hilang (`skills`, `graph`, `telemetry`), mengompilasi ulang `.cache-prefix.json`, dan memasang git pre-commit hook untuk mencegah regresi slop ke repositori.
+- **Studio Cockpit Visual & Syntax Polish (`scripts/studio-server.mjs`)**:
+  - Perbaikan tuntas string template literal newline escaping pada trace logs, eliminasi text overlap pada input pencarian dengan SVG search icon 15x15 crisp, serta penambahan dropdown tool MCP baru `vibes_graph_query` dan `vibes_pr_review`.
+- **Interactive Scaffolding Wizard (`vibes wizard`)**:
+  - Perintah baru `vibes wizard` berbasis `@inquirer/prompts` untuk scaffolding proyek dan pemilihan stack kustom interaktif (Frontend, Backend, Database/ORM, Auth, Payment) serta injeksi otomatis skill bundel terkurasi ke `.agents/skills/`.
+- **Automated Documentation Code Block Audit (`scripts/validate-skills.mjs`)**:
+  - Validasi sintaksis dan integritas 847 blok kode dokumentasi lintas 155 skill (JSON schema strict parsing dan deteksi placeholder slop).
+- **Ephemeral Micro-Sandbox Engine (`vibes sandbox`, `scripts/wasm-sandbox.mjs`)**:
+  - Mesin eksekusi kode terisolasi berbasis `node:vm` berkecepatan ultra-tinggi (<2ms) dengan pengamanan batas waktu (timeout kill 200ms default), isolasi memori, penyadapan log konsol, dan penolakan statis identifier berbahaya (`process`, `child_process`, `fs`, `require`, `__proto__`). Terkoneksi ke CLI `vibes sandbox <code|file>` dan tool Remote MCP `vibes_eval_sandbox`.
+- **Visual DAG Workflow Canvas di Studio Cockpit (`scripts/studio-server.mjs`)**:
+  - Visualisasi alur kerja topologis DAG interaktif dengan konektor kurva Bézier SVG, pelacakan trace log simulasi real-time, dan 3 preset orkestrasi bawaan: `zero-to-prod` (8 fase), `critic-validator` (gate 5 langkah), dan `agentic-commerce` (alur settlement M2M).
+- **Headless Concurrent Swarm Dispatcher (`vibes swarm:dispatch`, `scripts/swarm-dispatcher.mjs`)**:
+  - Orkestrasi multi-agen asinkron non-blocking dengan pembatasan konkurensi (concurrency throttling), auto-binding instruksi domain dari 155 skill, verifikasi sandbox in-memory, audit Critic-in-the-Loop, dan sintesis kontrak lintas domain terpadu. Terintegrasi ke CLI (`vibes swarm:dispatch`) dan tool Remote MCP (`vibes_swarm_dispatch`).
+- **Local FinOps & Token Savings Tracker (`vibes finops`, `scripts/finops-tracker.mjs`)**:
+  - Pelacak telemetri konsumsi token lokal dan kalkulator penghematan biaya *prompt caching* (KV-cache 75–90% discount) untuk model Gemini 4 Pro, Claude 5.1, dan GPT-5. Terkoneksi ke CLI (`vibes finops [status|record|reset]`), API Studio Cockpit (`/api/finops`), dan tool Remote MCP (`vibes_finops_report`).
+- **Native VSCode & Cursor Extension Companion (`extensions/vscode/`)**:
+  - Paket ekstensi siap pakai untuk VSCode, Cursor, dan Windsurf: indikator status bar `155 Skills Active`, 1-klik buka Studio Cockpit, Command Palette runner untuk Scaffolding Wizard, Sovereign Guard, Active Document Critic, dan FinOps report.
+- **Official Reusable GitHub Action (`.github/actions/vibes-guard/action.yml`)**:
+  - Composite GitHub Action siap pakai untuk menjalankan Sovereign Anti-Slop Gate dan Critic-in-the-Loop Validator di repositori CI/CD mana pun.
+- **5 Skill Frontier Baru (Milestone 155 Skills!)**:
+  - **`thinking-budget-orchestrator`**: Pengaturan dinamis budget token penalaran (thinking budget) lintas model frontier (Gemini 4 Pro, Claude 5.1 Fable/Mythos, GPT-5/o3) dengan 4 profil teruji (`speed`, `balanced`, `deep`, `exhaustive`).
+  - **`structured-output-contracts`**: Standardisasi skema output terstruktur multi-bahasa (Pydantic v2, Zod v3, Rust Serde, Go Struct) dengan garansi zero-markdown-fencing dan validasi skema runtime ketat.
+  - **`mcp-sampling-critic`**: Integrasi Model Context Protocol (MCP v1.x) `sampling/createMessage` untuk review gate Critic-in-the-Loop otonom sebelum kode atau PRD diserahkan.
+  - **`visual-ui-auditor`**: Audit kepatuhan visual antarmuka (Pillar 7 Anti-Slop) berbasis Multimodal Vision LLM dengan rubrik 20 poin (kontras, hierarki, tabular numerals, 5-state contract).
+  - **`parallel-tool-orchestrator`**: Eksekusi batch paralel multi-tool otonom (`vibes_batch`) dengan dependensi topologis DAG dan circuit breaker terisolasi.
+- **CLI Commands Baru**:
+  - `vibes critic <file>`: Audit file kode / PRD melalui arsitektur Critic-in-the-Loop.
+  - `vibes visual-audit <file|code>`: Audit kepatuhan visual UI kode / tangkapan layar terhadap Pilar 7.
+- **Skill Baru: `spec-driven-development-expert`**:
+  - Panduan ahli untuk **Spec-Driven Development (SDD)**: TypeSpec, OpenAPI 3.1 contract-first design, Behavior-Driven Development (Cucumber/Gherkin BDD), Consumer-Driven Contract Testing (Pact), dan mock virtualization (Prism).
+- **Skill Baru: `agentic-m2m-settlement`**:
+  - Protokol kliring dan settlement otonom Machine-to-Machine (M2M) dengan Dual-Rail (Fiat DOKU SNAP BI QRIS/VA & Crypto ERC-4337 Base/USDC), FinOps velocity caps, dan AP2AP invoicing.
+- **Skill Baru: `browser-extension-mv3-pro`**:
+  - Panduan ahli rekayasa ekstensi peramban modern berbasis **Manifest V3 (MV3)**: Chrome SidePanel API, Background Service Worker lifecycle, Offscreen Document WASM/Audio sandbox, dan declarativeNetRequest.
+- **Test Suite Otomatis CLI (`scripts/test-cli.mjs`)**:
+  - Unit test suite berbasis `node:test` untuk memverifikasi fungsionalitas CLI: `--help`, `version`, `doctor`, `search`, `recipe list`, dan `skill info`.
+- **GitHub Actions CI & Anti-Slop Gate (`.github/workflows/anti-slop-gate.yml`)**:
+  - Workflow CI otomatis untuk memvalidasi kepatuhan 150 skill, menjalankan CLI test suite, dan audit Sovereign Anti-Slop ketat pada setiap push/PR ke branch main.
+- **Paket Resep Baru CLI (`bin/vibes.mjs`)**:
+  - `agentic-commerce`: Bundel 7 skill untuk ekosistem agen niaga & settlement otonom.
+  - `frontier-ai`: Bundel 6 skill untuk rekayasa frontier model, KV-cache locking, dan MCP.
+  - `spec-driven-api`: Bundel 6 skill untuk arsitektur API contract-first, TypeSpec, BDD, dan Pact testing.
+- **Peningkatan TUI Interaktif (`vibes ui`)**:
+  - Menu selektor 3-mode: instalasi instan berdasarkan Paket Resep (Curated Recipes), Eksplorasi per Kategori Domain (Frontend, Backend, AI, SaaS, Keamanan, Data), atau kustomisasi penuh dari 150 skill.
+- **Perintah Generator Katalog Dokumentasi (`vibes docs`)**:
+  - Perintah baru `vibes docs [markdown|json] [outputFile]` untuk menghasilkan tabel markdown atau JSON catalog dari seluruh 150 skill secara otomatis (`CATALOG.md` & `CATALOG.json`).
+- **Vibes-Plug Studio Cockpit & Visual Recipe Builder (`vibes studio`, `scripts/studio-server.mjs`)**:
+  - Dashboard web lokal interaktif dengan arsitektur single-page application (SPA) tanpa dependensi eksternal (menggunakan native `node:http`).
+  - Fitur lengkap: Visualisasi 150 skill dengan filter 6 domain dan pencarian instan, topologi visual 5 subagent spesialis, status live engine P1–P5 (KV-cache, AST, in-memory DB, PRM, SMT), drawer detail skill, dan penyuntikan skill 1-klik (`/api/inject`) ke `.agents/skills/`.
+  - **Visual Recipe Builder & Batch Injection**: Seleksi multi-skill dengan checkbox, floating drawer tray, ekspor custom recipe JSON, generator CLI command, dan batch injection (`POST /api/recipes/inject`).
+  - **Remote Model Context Protocol (MCP v1.x) SSE Transport**: Integrasi streaming Server-Sent Events (`/sse` & `/messages`) langsung di Vibes Studio dan CLI (`vibes mcp --transport sse --port <n>`), memungkinkan Claude Desktop, Cursor, dan remote AI agents terhubung langsung ke 150 skill dan P1–P5 tools.
+  - **Konsol Interaktif MCP**: Tab konsol live di Studio untuk menguji eksekusi tool MCP secara langsung dengan pengukur latensi real-time dan konfigurasi 1-klik copy untuk IDE.
+- **Perintah CLI Baru (`vibes guard` & `vibes mcp`)**:
+  - `vibes guard`: Menjalankan validasi Sovereign Anti-Slop (281 berkas) dan seluruh rangkaian pengujian CLI (13 test suite) dalam satu perintah terpadu.
+  - `vibes mcp`: Menjalankan server Model Context Protocol bawaan baik melalui mode stdio maupun mode remote streaming HTTP/SSE (`--transport sse --port 3333`).
+- **Peningkatan Template Scaffolding (`vibes bootstrap` & `vibes init`)**:
+  - Menambahkan template ke-6: `spec-api` untuk inisialisasi Contract-First API berbasis Hono/Node.js, TypeSpec, dan OpenAPI 3.1.
+  - Memperkaya dokumen bawaan (`PRD.md`, `BLUEPRINT.md`, `PROGRESS.md`) dengan spesifikasi teknis konkret (PostgreSQL DDL schema, API JSON contract, NFR latency & accessibility budgets) sesuai Sovereign Anti-Slop Directive.
+- **Dokumentasi Instalasi Universal via GitHub**:
+  - Menambahkan panduan instalasi lengkap via GitHub di `README.md` dalam 5 bahasa (English, Bahasa Indonesia, Mandarin, Deutsch, Japanese).
+  - Mendukung eksekusi langsung via NPX tanpa kloning (`npx github:roedyrustam/vibes-plug --all` / `npm i -g git+...`).
+  - Menambahkan panduan Git Clone untuk installer multi-platform (`npm run install-all`) dan kloning langsung ke direktori plugin Antigravity (`~/.gemini/config/plugins/vibes-plug`).
+  - Menambahkan panduan injeksi rules terarah per-proyek untuk Claude Code, Cursor IDE, Codex, Windsurf, Trae, dan VSCode (Cline).
+
+### Changed / Diubah
+- Sinkronisasi versi paket ke 4.2.2 di `package.json`, `bin/vibes.mjs`, `.cursorrules`, dan seluruh direktif IDE.
+- Peningkatan katalog ekosistem dari 147 skill menjadi **150 skill tersinkronisasi penuh (Milestone 150 Skills)**.
 
 ## [4.2.1] - 2026-10-06
 

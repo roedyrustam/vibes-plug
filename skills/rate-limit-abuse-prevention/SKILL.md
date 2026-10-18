@@ -1,8 +1,8 @@
 ---
 name: rate-limit-abuse-prevention
 description: "Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection / Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Rate Limit & Abuse Prevention (2026 Edition)
@@ -355,24 +355,99 @@ export async function validateApiKey(rawKey: string) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan proteksi sistem yang menyeluruh.
+- `authentication-identity-expert` — Pencegahan brute-force pada endpoint login/signup.
+- `api-design-expert` — Header standar rate limit dan pola verifikasi API key.
+- `js-backend-expert` — Integrasi middleware rate limiting pada Next.js, Fastify, dan Hono.
+- `saas-billing` — Rate limit bertingkat sesuai tier paket langganan.
+- `cloud-hosting-expert` — Perlindungan WAF dan mitigasi DDoS pada layer edge.
 
 ### Deskripsi
-Panduan tingkat produksi untuk melindungi API dan aplikasi web dari penyalahgunaan, penggunaan berlebihan, dan serangan. Mencakup **algoritma rate limiting** (Token Bucket, Sliding Window), **Upstash Ratelimit**, **perlindungan bot** (Cloudflare Turnstile, hCaptcha), **mitigasi DDoS** di edge, **pencegahan brute-force login**, **manajemen API key & kuota penggunaan**, dan **header respons** (X-RateLimit, Retry-After).
+Panduan tingkat produksi untuk melindungi API dan aplikasi web dari penyalahgunaan, beban berlebih, dan serangan cyber. Mencakup **algoritma rate limiting** (Token Bucket, Sliding Window), **Upstash Ratelimit** (kompatibel edge), **perlindungan bot** (Cloudflare Turnstile), **mitigasi DDoS**, **pencegahan brute-force login**, **manajemen API key & kuota penggunaan**, serta format header respons standar (X-RateLimit, Retry-After).
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
-- Mengimplementasikan rate limiting API untuk endpoint publik atau terautentikasi.
-- Menambahkan perlindungan bot (CAPTCHA) ke formulir.
-- Menyiapkan perlindungan DDoS di edge.
-- Mencegah serangan brute-force pada endpoint autentikasi.
-- Mengimplementasikan penerbitan API key dan kuota penggunaan untuk SaaS.
+- Mengimplementasikan pembatasan laju (*Rate Limiting*) pada API publik atau terotentikasi.
+- Menambahkan verifikasi bot tanpa CAPTCHA yang menyusahkan (Cloudflare Turnstile) pada formulir.
+- Mencegah serangan brute-force credential stuffing pada endpoint otentikasi.
+- Menetapkan kuota pemanggilan API bertingkat berdasarkan paket langganan SaaS pengguna.
 
-### Integrasi dengan Skill Lain
+---
 
-- `authentication-identity-expert` — Pencegahan brute-force pada endpoint login/signup
-- `api-design-expert` — Header rate limit, pola API key
-- `js-backend-expert` — Integrasi middleware Express/Fastify/Hono
-- `saas-billing` — Rate limit bertingkat per paket langganan
-- `production-ready-hardener` — Audit keamanan pra-peluncuran
-- `cloud-hosting-expert` — Perlindungan WAF dan DDoS di edge
+### Implementasi Pola Kunci (TypeScript)
+
+#### 1. Rate Limiting di Edge dengan Upstash Redis & Next.js Middleware
+```typescript
+// lib/pembatas-laju.ts
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+
+const redis = Redis.fromEnv();
+
+export const pembatasLaju = {
+  publik: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(20, '10s'),
+    prefix: 'rl:publik',
+  }),
+  login: new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, '15m'), // Maks 5 percobaan per 15 menit
+    prefix: 'rl:login',
+  }),
+};
+```
+
+```typescript
+// middleware.ts
+import { NextResponse, type NextRequest } from 'next/server';
+import { pembatasLaju } from '@/lib/pembatas-laju';
+
+export async function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    const isLogin = request.nextUrl.pathname.startsWith('/api/auth/login');
+    const limiter = isLogin ? pembatasLaju.login : pembatasLaju.publik;
+
+    const { success, limit, remaining, reset } = await limiter.limit(ip);
+
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Terlalu banyak permintaan. Silakan coba lagi nanti.' },
+        {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': limit.toString(),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': reset.toString(),
+            'Retry-After': Math.ceil((reset - Date.now()) / 1000).toString(),
+          },
+        }
+      );
+    }
+
+    const response = NextResponse.next();
+    response.headers.set('X-RateLimit-Limit', limit.toString());
+    response.headers.set('X-RateLimit-Remaining', remaining.toString());
+    return response;
+  }
+}
+```
+
+#### 2. Verifikasi Token Bot Cloudflare Turnstile di Sisi Server
+```typescript
+export async function verifikasiTurnstile(token: string, ipPengguna: string): Promise<boolean> {
+  const formData = new FormData();
+  formData.append('secret', process.env.TURNSTILE_SECRET_KEY!);
+  formData.append('response', token);
+  formData.append('remoteip', ipPengguna);
+
+  const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    body: formData,
+  });
+
+  const hasil = await res.json();
+  return hasil.success === true;
+}
+```

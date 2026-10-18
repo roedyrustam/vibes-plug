@@ -2,7 +2,7 @@
 name: browser-automation-expert
 description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
 author: "Roedy Rustam"
-version: "4.2.2"
+version: "4.3.0"
 ---
 
 # Autonomous Web Agent & Automation Expert (2026 Edition)
@@ -139,7 +139,7 @@ Activate this skill when the user says:
 - Always check contrast ratios visually if design tokens are overridden.
 
 ## Orchestration & Integration
-- Integrates with: `web-scraper`, `autonomous-chaos-monkey`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.
+- Integrates with: `web-scraper`, `autonomous-red-teamer`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.
 
 ---
 
@@ -257,4 +257,4 @@ Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakuka
 - **Jangan Menebak:** Terkadang `justify-center` tidak berfungsi karena ada pembungkus (*wrapper*) absolut. Jangan menebak-nebak di dalam kode; lihat hasil akhirnya secara visual!
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `web-scraper`, `autonomous-chaos-monkey`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.
+- Terintegrasi dengan: `web-scraper`, `autonomous-red-teamer`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.

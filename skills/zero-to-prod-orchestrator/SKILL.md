@@ -2,7 +2,7 @@
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
 author: "Roedy Rustam"
-version: "4.2.2"
+version: "4.3.0"
 ---
 
 # Zero to Production Orchestrator (2026 Master Edition)
@@ -77,32 +77,37 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`
+**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOKUMENTASI.md) alongside the Roadmap (ROADMAP.md).
+- [ ] Determine dynamic thinking budget profile (`thinking-budget-orchestrator`) across speed (1,024t), balanced (4,096t), deep (32,768t), or exhaustive (65,536t).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
 - [ ] For existing projects: audit dependency health and plan upgrades with `dependency-upgrade-migrator`.
 - [ ] Initialize `BLUEPRINT.md` and `PROGRESS.md`.
 
 #### PHASE 2: Project Foundation & Monorepo Setup
-**Orchestrates:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`, `living-codebase-ast-graph`, `formal-spec-z3-verifier`
+**Orchestrates:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`, `living-codebase-ast-graph`, `formal-spec-z3-verifier`, `structured-output-contracts`
 - [ ] Initialize monorepo (Turborepo + pnpm workspaces) or single repo foundation.
 - [ ] Set up language runtimes: Node.js 24 LTS / Bun 1.2+ / Python 3.14+ (uv) / Go 1.25+ / Rust 2024.
 - [ ] Configure `Biome v2` (Rust-based linter + formatter) or `Ruff`, `ESLint`, `Prettier`, and TypeScript strict configurations.
+- [ ] Establish strict JSON Schema and type contracts with `structured-output-contracts`.
 - [ ] Setup initial CI/CD pipeline template (GitHub Actions, Docker).
 
 #### PHASE 3: Database & Multi-Tenant Core Architecture
-**Orchestrates:** `fullstack-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `geospatial-maps-expert`, `graph-rag-knowledge-expert`
+**Orchestrates:** `fullstack-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `xerj-search-expert`, `geospatial-maps-expert`, `graph-rag-knowledge-expert`
 - [ ] Design normalized relational schemas, document models, and geospatial PostGIS structures.
-- [ ] Configure ORM layer (Drizzle ORM / Prisma 6 / SQLx / sqlc) and full-text search indexing (Typesense/Meilisearch).
+- [ ] Configure ORM layer (Drizzle ORM / Prisma 6 / SQLx / sqlc) and full-text search indexing (Typesense/Meilisearch/XERJ).
 - [ ] Implement Row-Level Security (RLS) policies and tenant isolation.
 - [ ] Apply initial database migrations and connection poolers (PgBouncer/Supavisor/Neon).
 
 #### PHASE 4: Backend APIs, Microservices & AI Agents
-**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `agentic-micro-economy-architect`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`
+**Orchestrates:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `xerj-search-expert`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`, `thinking-budget-orchestrator`, `structured-output-contracts`, `parallel-tool-orchestrator`
 - [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
+- [ ] Orchestrate concurrent parallel tool execution (`parallel-tool-orchestrator`) with `vibes_batch` and `Promise.allSettled`.
+- [ ] Enforce strict schema guarantees and zero-drift output types (`structured-output-contracts`).
+- [ ] Allocate dynamic thinking token budgets (`thinking-budget-orchestrator`) per subagent complexity.
 - [ ] Integrate AI media generation (Flux/ElevenLabs/Whisper), chatbot platforms (WhatsApp/Telegram/Discord), and n8n automations.
 - [ ] Implement context window engineering (sliding window, retrieval-augmented injection) and dynamic model cascading (`adaptive-model-cascade`, `context-window-engineer`).
 - [ ] Integrate prompt injection defenses, input sanitization, and output guardrails (`prompt-injection-firewall`).
@@ -116,9 +121,10 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate episodic memory system for long-term agent context retention.
 
 #### PHASE 5: Frontend, Design Systems & Mobile Apps
-**Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
+**Orchestrates:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `browser-extension-mv3-pro`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`, `visual-ui-auditor`, `parallel-tool-orchestrator`
 - [ ] **MANDATORY**: Run `modern-web-guidance` FIRST before implementing any frontend HTML/CSS/JS features to ensure compliance with modern standards.
 - [ ] Enforce Sovereign Anti-Slop UI standards (`anti-slop`): eradicate generic gradients, bento defaults, excessive glassmorphism, decorative dots/badges, and fake stat cards.
+- [ ] Audit rendered UI elements against Pillar 7 standards with multimodal vision critic (`visual-ui-auditor`).
 - [ ] Implement design tokens (OKLCH) and Tailwind CSS v4 `@theme` directive tokens.
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Convert UI screenshots, Figma frames, or whiteboard sketches into pixel-perfect frontend components with `screenshot-to-code-expert`.
@@ -131,12 +137,12 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`, `spec-driven-development-expert`, `mcp-sampling-critic`, `visual-ui-auditor`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Run autonomous multi-pass AI code self-review (`ai-code-review-autonomous`) across syntax, logic correctness, and security.
+- [ ] Execute `sampling/createMessage` Critic-in-the-Loop review gates (`mcp-sampling-critic`) before merging or deployment.
+- [ ] Execute visual UI regression audits (`visual-ui-auditor`) against Pillar 7 design standards.
 - [ ] Execute property-based testing and mutation testing (`property-mutation-testing-expert`) with fast-check and Stryker to verify test suite invariants.
-- [ ] Execute prompt injection and jailbreak fuzzing with `prompt-injection-firewall`.
-- [ ] Write resilient E2E browser tests with Playwright and automated WCAG 2.2 accessibility tests with `@axe-core/playwright` and Pa11y.
 - [ ] Execute security fuzz testing (Atheris / cargo-fuzz / native Go fuzzing).
 - [ ] Implement Error Boundaries, retry patterns, circuit breakers, and graceful degradation.
 - [ ] Set up structured logging (Pino) and error tracking (Sentry) with source map uploads.
@@ -153,7 +159,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Generate structured Schema.org JSON-LD markup and AEO conversion landing pages.
 
 #### PHASE 8: Launch, Deployment & Handover
-**Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `agentic-micro-economy-architect`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`, `autonomous-api-drift-healer`
+**Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`, `autonomous-api-drift-healer`
 - [ ] Deploy backend and edge services to Vercel, Cloudflare, AWS, or Railway.
 - [ ] For SaaS applications: deploy Super Admin dashboard on a **separate subdomain** (e.g., `admin.yourdomain.com`) with strict role-based access (`isSuperAdmin` flag).
 - [ ] Configure Stripe / Polar.sh / LemonSqueezy / DOKU SNAP BI billing and webhooks.
@@ -221,32 +227,37 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 ### Master Pipeline Fullstack 8-Fase
 
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
-**Mengorkestrasi:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`
+**Mengorkestrasi:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
 - [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOKUMENTASI.md) yang komprehensif beserta Roadmap (ROADMAP.md).
+- [ ] Tentukan profil thinking budget dinamis (`thinking-budget-orchestrator`) antara speed (1.024t), balanced (4.096t), deep (32.768t), atau exhaustive (65.536t).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Untuk proyek yang sudah ada: audit kesehatan dependensi dan rencanakan upgrade dengan `dependency-upgrade-migrator`.
 - [ ] Menginisialisasi `BLUEPRINT.md` dan `PROGRESS.md`.
 
 #### FASE 2: Pondasi Proyek & Setup Monorepo
-**Mengorkestrasi:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`, `living-codebase-ast-graph`, `formal-spec-z3-verifier`
+**Mengorkestrasi:** `monorepo-architect`, `micro-frontend-architect`, `bun-runtime-expert`, `python-programming-expert`, `go-programming-expert`, `ci-cd-devops-architect`, `spa-orchestrator`, `mpa-orchestrator`, `cloud-hosting-expert`, `mvc-expert`, `scalability-clean-code`, `api-design-expert`, `legacy-code-translator`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `rust-programming-expert`, `typescript-expert`, `biome-linter-formatter-expert`, `composable-mach-architect`, `living-codebase-ast-graph`, `formal-spec-z3-verifier`, `structured-output-contracts`
 - [ ] Inisialisasi monorepo (Turborepo + pnpm workspaces) atau repositori tunggal.
 - [ ] Menyiapkan runtime bahasa: Node.js 24 LTS / Bun 1.2+ / Python 3.14+ (uv) / Go 1.25+ / Rust 2024.
 - [ ] Konfigurasi `Biome v2` (Rust linter & formatter) atau `Ruff`, `ESLint`, `Prettier`, dan TypeScript ketat.
+- [ ] Tegakkan kontrak tipe skema JSON Schema terstruktur strict dengan `structured-output-contracts`.
 - [ ] Menyiapkan template pipeline CI/CD awal (GitHub Actions, Docker).
 
 #### FASE 3: Database & Arsitektur Multi-Tenant
-**Mengorkestrasi:** `fullstack-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `geospatial-maps-expert`, `graph-rag-knowledge-expert`
+**Mengorkestrasi:** `fullstack-expert`, `database-orm-expert`, `domain-driven-design-expert`, `saas-multi-tenant`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `xerj-search-expert`, `geospatial-maps-expert`, `graph-rag-knowledge-expert`
 - [ ] Merancang skema relasional ter-normalisasi, pemodelan dokumen, dan struktur geospasial PostGIS.
-- [ ] Konfigurasi lapisan ORM (Drizzle ORM / Prisma 6 / SQLx / sqlc) dan indexing mesin pencari (Typesense/Meilisearch).
+- [ ] Konfigurasi lapisan ORM (Drizzle ORM / Prisma 6 / SQLx / sqlc) dan indexing mesin pencari (Typesense/Meilisearch/XERJ).
 - [ ] Mengimplementasikan kebijakan Row-Level Security (RLS) dan isolasi tenant.
 - [ ] Menerapkan migrasi database awal dan connection poolers (PgBouncer/Supavisor/Neon).
 
 #### FASE 4: Backend API, Microservices & Agen AI
-**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `agentic-micro-economy-architect`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`
+**Mengorkestrasi:** `js-backend-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `authentication-identity-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `xerj-search-expert`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`, `thinking-budget-orchestrator`, `structured-output-contracts`, `parallel-tool-orchestrator`
 - [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
+- [ ] Orkestrasikan eksekusi paralel multi-tool concurrent (`parallel-tool-orchestrator`) dengan `vibes_batch` dan `Promise.allSettled`.
+- [ ] Tegakkan penjaminan skema terstruktur zero-drift (`structured-output-contracts`).
+- [ ] Alokasikan budget token penalaran dinamis (`thinking-budget-orchestrator`) sesuai kompleksitas subagent.
 - [ ] Mengintegrasikan generasi media AI (Flux/ElevenLabs/Whisper), bot perpesanan (WhatsApp/Telegram/Discord), dan otomasi n8n.
 - [ ] Implementasikan rekayasa context window (sliding window, injeksi berbasis retrieval) dan kaskade model cerdas (`context-window-engineer`, `adaptive-model-cascade`).
 - [ ] Integrasikan pertahanan prompt injection dan guardrail input/output runtime (`prompt-injection-firewall`).
@@ -260,9 +271,10 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Mengintegrasikan sistem memori episodik untuk retensi konteks agen jangka panjang.
 
 #### FASE 5: Frontend, Design System & Mobile App
-**Mengorkestrasi:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`
+**Mengorkestrasi:** `modern-web-guidance`, `design-system-architect`, `senior-frontend`, `anti-slop`, `vercel-ai-sdk-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tailwind-expert`, `tanstack-query-expert`, `spa-orchestrator`, `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `browser-extension-mv3-pro`, `form-validation-expert`, `svg-animation-motion-expert`, `app-promo-media-expert`, `web-3d-graphics-expert`, `web-game-engine-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`, `browser-automation-expert`, `hig`, `global-a11y-i18n-expert`, `state-management-expert`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `data-visualization-expert`, `rich-text-editor-expert`, `documentation-site-expert`, `blockchain-web3-expert`, `modern-css-native-expert`, `pwa-offline-first-expert`, `ephemeral-generative-ui-architect`, `multimodal-spatial-video-cloner`, `screenshot-to-code-expert`, `visual-ui-auditor`, `parallel-tool-orchestrator`
 - [ ] **MANDATORY**: Jalankan `modern-web-guidance` PERTAMA KALI sebelum mengimplementasikan fitur frontend HTML/CSS/JS untuk memastikan kepatuhan dengan standar modern Google.
 - [ ] Tegakkan standar Anti-Slop UI Berdaulat (`anti-slop`): basmi gradien klise, bento default, glassmorphism berlebih, titik status dekoratif, dan metrik tiruan.
+- [ ] Audit elemen UI yang dirender terhadap standar Pillar 7 dengan penguji visi multimodal (`visual-ui-auditor`).
 - [ ] Implementasikan token desain (OKLCH) dan konfigurasi tema Tailwind CSS v4.
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Konversi screenshot antarmuka, frame Figma, atau sketsa whiteboard menjadi komponen frontend siap produksi dengan `screenshot-to-code-expert`.
@@ -275,9 +287,11 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Mengintegrasikan manajemen state frontend dengan TanStack Query v5.
 
 #### FASE 6: Pengujian Otomatis, Ketahanan Error & Audit Keamanan
-**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`
+**Mengorkestrasi:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`, `spec-driven-development-expert`, `mcp-sampling-critic`, `visual-ui-auditor`
 - [ ] Menulis unit test dan integration test dengan Vitest dan pytest.
 - [ ] Jalankan self-review kode otonom multi-pass (`ai-code-review-autonomous`) mencakup validasi sintaks, logika, arsitektur, dan keamanan.
+- [ ] Eksekusi gerbang validasi review Critic-in-the-Loop berbasis `sampling/createMessage` (`mcp-sampling-critic`) sebelum merge atau rilis.
+- [ ] Eksekusi audit regresi visual antarmuka (`visual-ui-auditor`) terhadap standar kepatuhan Pillar 7.
 - [ ] Eksekusi property-based testing dan mutation testing (`property-mutation-testing-expert`) dengan fast-check dan Stryker untuk validasi invarian sistem.
 - [ ] Jalankan pengujian prompt injection dan mitigasi serangan jailbreak dengan `prompt-injection-firewall`.
 - [ ] Menulis pengujian browser E2E Playwright dan pengujian aksesibilitas WCAG 2.2 otomatis (`@axe-core/playwright` dan Pa11y).
@@ -297,7 +311,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Membuat markup terstruktur Schema.org JSON-LD dan landing page konversi AEO.
 
 #### FASE 8: Peluncuran, Deployment & Serah Terima
-**Mengorkestrasi:** `cloud-hosting-expert`, `saas-billing`, `agentic-micro-economy-architect`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`
+**Mengorkestrasi:** `cloud-hosting-expert`, `saas-billing`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`
 - [ ] Deploy backend dan edge services ke Vercel, Cloudflare, AWS, atau Railway.
 - [ ] Untuk aplikasi SaaS: deploy dashboard Super Admin pada **subdomain terpisah** (misal: `admin.domain.com`) dengan kontrol akses berbasis role (`isSuperAdmin`).
 - [ ] Konfigurasi billing Stripe / Polar.sh / LemonSqueezy / DOKU SNAP BI dan webhooks.

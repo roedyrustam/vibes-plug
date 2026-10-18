@@ -1,8 +1,8 @@
 ---
 name: cloud-hosting-expert
 description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Cloud Hosting Expert (2026 Edition)
@@ -220,32 +220,89 @@ Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landi
 
 ### Kondisi Pemicu
 - Men-deploy aplikasi Next.js, Hono, atau Astro ke Vercel, Cloudflare, atau Railway.
-- Mengonfigurasi domain kustom dan routing subdomain.
+- Mengonfigurasi domain kustom dan routing subdomain (`app.domain.com`, `admin.domain.com`).
 - Menyiapkan Edge Middleware untuk identifikasi tenant multi-tenant.
 - Men-deploy workload inferensi AI ke **Cloudflare Workers AI**.
 - Men-deploy layanan backend long-running ke **Railway** atau **Fly.io**.
 
+---
+
 ### Panduan Pemilihan Platform (2026)
 
-Pilih Vercel untuk Next.js dan aplikasi full-stack. Cloudflare Workers untuk API dengan latensi ultra-rendah dan logika edge. Railway/Fly.io untuk layanan backend long-running (Node.js, Bun, Go, Python). Cloudflare R2 untuk penyimpanan objek (pengganti S3 yang lebih murah).
+| Platform | Pilihan Terbaik Untuk | Tier Gratis | Cold Start |
+|---|---|---|---|
+| **Vercel** | Next.js, situs statis, serverless functions | ✅ | ~200ms |
+| **Cloudflare Workers** | API latensi ultra-rendah, logika edge | ✅ (100k req/hari) | ~0ms |
+| **Cloudflare Pages** | Statis + full-stack (via Workers) | ✅ | ~0ms |
+| **Railway** | Layanan Node.js/Bun/Go/Python long-running | ✅ ($5 kredit/bln) | Nol |
+| **Fly.io** | Kontainer Docker terdistribusi global | ✅ (3 shared VM) | ~500ms |
 
-### Arsitektur Deployment Multi-Entry Point
+---
 
-Pisahkan deployment untuk setiap entry point SaaS:
-- `domain.com` → Landing page (Vercel, statis)
-- `app.domain.com` → Aplikasi SaaS (Vercel, dinamis)
-- `admin.domain.com` → Dashboard Super Admin (Vercel, akses terbatas)
-- `api.domain.com` → Backend API (Railway/Fly.io, long-running)
-- `cdn.domain.com` → Aset statis & upload pengguna (Cloudflare R2)
+### Implementasi Pola Kunci (TypeScript)
 
-### Edge Middleware (Vercel)
-Gunakan `middleware.ts` untuk routing tenant berdasarkan subdomain dan perlindungan rute admin — berjalan di edge sebelum setiap permintaan.
+#### 1. Edge Middleware untuk Routing Subdomain & Tenant (Next.js 15)
+```typescript
+// middleware.ts
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-### Cloudflare Workers AI
-Jalankan model AI (Llama 3.1, Mistral, BGE embedding) langsung di edge Cloudflare — tanpa panggilan API eksternal, latensi sangat rendah, dan ditagih per token.
+export function middleware(request: NextRequest) {
+  const hostname = request.headers.get('host') ?? '';
+  const subdomain = hostname.split('.')[0];
 
-### Railway — Layanan Long-Running
-Gunakan Railway untuk backend yang tidak cocok dengan model serverless (WebSocket, background job, koneksi database persisten). Mendukung Bun, Node.js, Go, Python, Rust dengan deployment otomatis dari GitHub.
+  // Rute subdomain admin — tegakkan pemeriksaan otentikasi ketat
+  if (subdomain === 'admin') {
+    const sesiAdmin = request.cookies.get('admin-session')?.value;
+    if (!sesiAdmin) {
+      return NextResponse.redirect(new URL('/masuk', request.url));
+    }
+  }
 
-### Manajemen Environment Variable & Secret
-Gunakan panel secret bawaan di masing-masing platform. Jangan pernah commit file `.env` — gunakan `.env.example` sebagai dokumentasi saja.
+  // Identifikasi tenant dari subdomain pada aplikasi multi-tenant
+  if (subdomain !== 'www' && subdomain !== 'app' && subdomain !== 'admin') {
+    const response = NextResponse.next();
+    response.headers.set('x-tenant-slug', subdomain);
+    return response;
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+};
+```
+
+#### 2. Cloudflare Workers AI (Inferensi AI di Edge)
+```typescript
+export default {
+  async fetch(request: Request, env: Env) {
+    const { teks } = (await request.json()) as { teks: string };
+
+    // Jalankan inferensi Llama 3.1 langsung di edge tanpa server eksternal
+    const response = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
+      messages: [
+        { role: 'system', content: 'Anda adalah asisten AI yang akurat.' },
+        { role: 'user', content: teks },
+      ],
+      stream: true,
+    });
+
+    return new Response(response, {
+      headers: { 'Content-Type': 'text/event-stream' },
+    });
+  },
+};
+```
+
+#### 3. Railway Dockerfile untuk Runtime Bun Berkecepatan Tinggi
+```dockerfile
+FROM oven/bun:1.2-alpine
+WORKDIR /app
+COPY package.json bun.lockb ./
+RUN bun install --frozen-lockfile
+COPY . .
+EXPOSE 3000
+CMD ["bun", "run", "src/server.ts"]
+```

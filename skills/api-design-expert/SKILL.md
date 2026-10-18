@@ -1,8 +1,8 @@
 ---
 name: api-design-expert
 description: "Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design / Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # API Design Expert
@@ -284,35 +284,124 @@ components:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, dan `session-memory-manager` untuk memastikan arsitektur API yang tangguh dan terstandarisasi.
 
 ### Deskripsi
 Panduan ahli untuk merancang, mendokumentasikan, dan mengembangkan API berkualitas produksi. Mencakup pemodelan resource **REST** dan semantik HTTP, desain skema **GraphQL**, **gRPC** dengan protobuf, dan **tRPC** untuk API end-to-end type-safe di TypeScript. Termasuk dokumentasi OpenAPI 3.1, strategi versioning API, rate limiting, idempotency, dan alur kerja contract-first.
 
 ### Kondisi Pemicu
 - Merancang API baru dari nol (REST, GraphQL, gRPC, atau tRPC).
-- Mengembangkan API yang ada tanpa merusak klien.
-- Mendokumentasikan API dengan OpenAPI/Swagger.
-- Mengimplementasikan rate limiting, throttling, atau idempotency.
-- Memilih antara REST, GraphQL, gRPC, dan tRPC.
-- Merancang sistem webhook.
+- Mengembangkan API yang ada tanpa merusak klien (*breaking changes*).
+- Mendokumentasikan API dengan OpenAPI 3.1 / Swagger.
+- Mengimplementasikan rate limiting, throttling, atau header idempotency.
+- Memilih protokol API yang optimal (REST vs GraphQL vs gRPC vs tRPC).
+- Merancang sistem webhook yang aman dengan verifikasi signature HMAC.
+
+---
 
 ### Panduan Pemilihan Protokol API
 
-- **REST**: API publik, klien mobile, konsumsi universal.
-- **GraphQL**: Data graph kompleks, kebutuhan query fleksibel dari klien.
-- **gRPC**: Komunikasi layanan-ke-layanan dengan performa tinggi.
-- **tRPC**: Proyek full-stack TypeScript monorepo (Next.js + backend).
+| Kriteria | REST | GraphQL | gRPC | tRPC |
+|---|---|---|---|---|
+| **Type Safety** | Manual (OpenAPI) | Berbasis Skema | Protobuf | End-to-end TypeScript |
+| **Performa** | Baik | Baik | Luar Biasa (HTTP/2) | Baik |
+| **Dukungan Browser** | Native | Native | Butuh gRPC-Web proxy | Hanya TypeScript/JS |
+| **Streaming** | SSE / WebSocket | Subscriptions | Native dua-arah | Server-Sent Events |
+| **Kasus Terbaik** | API Publik & Mobile | Graf data relasional kompleks | Komunikasi Antar Microservice | Fullstack Next.js Monorepo |
 
-### Prinsip REST
+---
 
-1. **Penamaan resource**: Gunakan kata benda jamak (`/posts`, bukan `/getPost`).
-2. **Status HTTP**: Gunakan kode yang tepat (201 untuk create, 204 untuk delete).
-3. **Konsistensi respons**: Selalu kembalikan struktur `data` + `meta` yang konsisten.
-4. **Versioning**: Gunakan URL path (`/api/v1/`) untuk API publik.
-5. **Idempotency**: Implementasikan `Idempotency-Key` header untuk operasi mutasi yang kritis.
-6. **Rate Limiting**: Selalu sertakan header `X-RateLimit-*` dan kode `429` yang benar.
+### Pola Kunci Implementasi (TypeScript)
 
+#### 1. Struktur Error Standar RFC 9457 (Problem Details)
+```typescript
+// Format standar penanganan error yang konsisten di seluruh endpoint
+export interface ErrorDetailRFC9457 {
+  type: string;
+  title: string;
+  status: number;
+  detail: string;
+  instance: string;
+  errors?: Array<{ field: string; message: string }>;
+}
+```
 
-## Orchestration & Integration
-- Connects to other backend skills as part of the orchestration flow.
+#### 2. tRPC Router Type-Safe End-to-End
+```typescript
+import { initTRPC, TRPCError } from '@trpc/server';
+import { z } from 'zod';
+
+const t = initTRPC.context<Context>().create();
+export const router = t.router;
+export const publicProcedure = t.procedure;
+
+export const appRouter = router({
+  pengguna: router({
+    daftar: publicProcedure
+      .input(z.object({ halaman: z.number().int().min(1).default(1) }))
+      .query(async ({ input, ctx }) => {
+        return ctx.db.user.findMany({ skip: (input.halaman - 1) * 20, take: 20 });
+      }),
+    buat: publicProcedure
+      .input(z.object({ email: z.string().email(), nama: z.string().min(2) }))
+      .mutation(async ({ input, ctx }) => {
+        return ctx.db.user.create({ data: input });
+      }),
+  }),
+});
+
+export type AppRouter = typeof appRouter;
+```
+
+#### 3. Middleware Rate Limiting Berbasis Redis Sliding Window
+```typescript
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
+
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 request per menit
+  analytics: true,
+  prefix: 'api:ratelimit',
+});
+
+export async function middlewarePembatasLaju(req: Request) {
+  const ip = req.headers.get('x-forwarded-for') ?? '127.0.0.1';
+  const { success, limit, remaining, reset } = await ratelimit.limit(ip);
+
+  if (!success) {
+    return new Response(JSON.stringify({ error: 'Terlalu Banyak Permintaan' }), {
+      status: 429,
+      headers: {
+        'X-RateLimit-Limit': limit.toString(),
+        'X-RateLimit-Remaining': remaining.toString(),
+        'X-RateLimit-Reset': new Date(reset).toISOString(),
+        'Retry-After': Math.ceil((reset - Date.now()) / 1000).toString(),
+      },
+    });
+  }
+}
+```
+
+#### 4. Kunci Idempotensi Mutasi Kritis (`Idempotency-Key`)
+```typescript
+export async function tanganiPembayaranIdempoten(req: Request) {
+  const kunciIdempotensi = req.headers.get('idempotency-key');
+  if (!kunciIdempotensi) {
+    return Response.json({ error: 'Header Idempotency-Key wajib disertakan' }, { status: 400 });
+  }
+
+  // Cek cache Redis terlebih dahulu
+  const hasilTersimpan = await redis.get(`idempotency:${kunciIdempotensi}`);
+  if (hasilTersimpan) {
+    return Response.json(JSON.parse(hasilTersimpan), { status: 200 });
+  }
+
+  // Proses transaksi finansial
+  const hasil = await prosesTransaksi(await req.json());
+
+  // Simpan hasil selama 24 jam untuk pengulangan aman
+  await redis.setex(`idempotency:${kunciIdempotensi}`, 86400, JSON.stringify(hasil));
+  return Response.json(hasil, { status: 201 });
+}
+```

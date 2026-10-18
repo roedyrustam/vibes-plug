@@ -1,8 +1,8 @@
 ---
 name: graphql-apollo-expert
 description: "Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # GraphQL & Apollo Expert
@@ -100,16 +100,76 @@ This skill works best when combined with:
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- `js-backend-expert` — Setup arsitektur server Node.js/NestJS.
+- `database-orm-expert` — Menghubungkan Prisma/Drizzle ORM ke resolver GraphQL dan DataLoader.
+- `senior-frontend` / `vue-frontend-expert` — Integrasi Apollo Client ke aplikasi frontend.
 
 ### Deskripsi
-Panduan produksi untuk membangun dan mengkonsumsi API **GraphQL**. Mencakup ekosistem **Apollo**, **NestJS GraphQL**, dan teknik optimasi performa seperti *DataLoader*.
+Panduan produksi untuk membangun dan mengonsumsi API **GraphQL**. Mencakup ekosistem **Apollo** (Apollo Server, Apollo Client, Federation), integrasi **NestJS GraphQL**, dan pemecahan masalah bottleneck query N+1 menggunakan DataLoader.
 
 ### Kondisi Pemicu
-- Saat mengkonfigurasi server GraphQL menggunakan NestJS atau Apollo.
-- Saat menggunakan Apollo Client di aplikasi React atau Vue.
-- Saat menghadapi masalah performa N+1 query pada resolusi data.
+- Mengonfigurasi server GraphQL menggunakan NestJS atau Apollo Server.
+- Mengintegrasikan Apollo Client pada frontend React atau Vue.
+- Memilih antara pendekatan Code-First vs Schema-First di TypeScript.
+- Menyelesaikan masalah query berulang N+1 pada relasi database bersarang.
 
-### Panduan Singkat
-- **Pilih Code-First di TypeScript:** Di NestJS atau TypeScript murni, gunakan pendekatan *Code-First* (`@nestjs/graphql` atau TypeGraphQL) agar Anda tidak perlu mengelola file `.gql` dan *interface* TS secara terpisah.
-- **Gunakan DataLoader Wajib:** Jangan pernah melakukan *query* database langsung di dalam resolver yang mengembalikan *list of objects* bersarang. Gunakan `DataLoader` dari Facebook untuk mengumpulkan (batching) request database.
-- **Frontend Caching:** Manfaatkan normalisasi *cache* bawaan Apollo Client agar Anda tidak perlu menggunakan Redux atau state manager lain untuk menyimpan data dari server.
+---
+
+### Implementasi Pola Kunci
+
+#### 1. Pendekatan Code-First dengan NestJS GraphQL
+```typescript
+import { ObjectType, Field, Int, Resolver, Query } from '@nestjs/graphql';
+
+@ObjectType()
+export class Pengguna {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  email: string;
+}
+
+@Resolver(() => Pengguna)
+export class PenggunaResolver {
+  @Query(() => [Pengguna])
+  async daftarPengguna(): Promise<Pengguna[]> {
+    return [{ id: 1, email: 'pengguna@example.com' }];
+  }
+}
+```
+
+#### 2. Mengatasi Masalah N+1 Query dengan DataLoader
+```typescript
+import DataLoader from 'dataloader';
+
+// Kumpulkan ID dan lakukan satu query batch (IN clause)
+export const pemuatDataPenulis = new DataLoader<string, Penulis>(async (daftarId) => {
+  const baris = await db.penulis.findMany({
+    where: { id: { in: [...daftarId] } },
+  });
+  const mapPenulis = new Map(baris.map((p) => [p.id, p]));
+  return daftarId.map((id) => mapPenulis.get(id)!);
+});
+```
+
+#### 3. Konsumsi di Sisi Klien dengan Apollo Client
+```tsx
+import { useQuery, gql } from '@apollo/client';
+
+const QUERY_PENGGUNA = gql`
+  query AmbilDaftarPengguna {
+    daftarPengguna {
+      id
+      email
+    }
+  }
+`;
+
+export function KomponenDaftarPengguna() {
+  const { loading, error, data } = useQuery(QUERY_PENGGUNA);
+  if (loading) return <p>Memuat data...</p>;
+  if (error) return <p>Terjadi galat: {error.message}</p>;
+  return <div>Email: {data.daftarPengguna[0]?.email}</div>;
+}
+```

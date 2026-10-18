@@ -1,8 +1,8 @@
 ---
 name: graph-rag-knowledge-expert
 description: "Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search / Panduan ahli Knowledge Graph, GraphRAG, dan pencarian relasional multi-hop."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # GraphRAG & Knowledge Graph Expert (2026 Edition)
@@ -176,26 +176,66 @@ For high-level summaries ("Summarize all technical debts reported across the sys
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **`vector-db-rag-expert`**: Integrasi hybrid RAG (penggabungan penelusuran vektor teks dan graf relasional).
+- **`ai-llm-integration-expert`**: Sintesis jawaban berbasis graf dan mitigasi halusinasi.
+- **`database-orm-expert`**: Desain skema data relasional dan konektivitas Neo4j / PostgreSQL.
+
 ### Deskripsi
-Panduan ahli untuk mengimplementasikan Knowledge Graph-augmented Retrieval (GraphRAG) guna mengatasi kelemahan mendasar vector search murni: pemikiran multi-hop, penemuan relasi entitas tersembunyi, dan pemahaman korpus global. Mencakup Microsoft GraphRAG, Neo4j Text2Cypher, FalkorDB, dan pipeline pencarian hibrida Vector + Graph.
+Panduan ahli untuk mengimplementasikan Knowledge Graph-augmented Retrieval (GraphRAG), memecahkan kelemahan fatal pencarian vektor konvensional: penalaran multi-langkah (*multi-hop reasoning*), penemuan relasi antar-entitas, dan pemahaman korpus global. Mencakup Microsoft GraphRAG, Neo4j Text2Cypher, FalkorDB, dan pipeline hybrid Vector + Graph.
 
 ### Kondisi Pemicu
-- Kueri kompleks multi-hop di mana entitas saling terhubung melalui beberapa simpul perantara.
-- Tingkat halusinasi tinggi saat menggunakan RAG vektor standar pada data relasional yang rumit.
-- Kueri korpus global yang membutuhkan ringkasan tematik menyeluruh di ribuan dokumen.
-- Knowledge base enterprise dengan entitas terstruktur eksplisit (organisasi, dependensi kode, regulasi).
-
-### Ringkasan Strategi GraphRAG
-1. **Mengapa GraphRAG?**: Pencarian vektor murni buta terhadap lintasan relasi multi-hop. GraphRAG menautkan entitas melalui edge terarah sehingga model dapat menavigasi dependensi secara deterministik.
-2. **Text2Cypher yang Aman**: Menghasilkan kueri Cypher Neo4j read-only berdasarkan schema meta yang diinjeksi secara ketat tanpa izin write (`CREATE`, `MERGE`, `DELETE`).
-3. **Ekstraksi Terstruktur**: Menggunakan Pydantic / Instructor untuk mengekstrak entitas dan relasi berkualifikasi tipe tinggi langsung dari teks bebas.
-4. **Komunitas Hirarkis (Microsoft GraphRAG)**: Algoritma Leiden untuk mengelompokkan simpul menjadi komunitas mikro hingga makro, memungkinkan kueri global tanpa membaca jutaan token saat inferensi.
+- Kueri multi-hop kompleks di mana entitas terhubung melalui banyak simpul perantara.
+- Tingkat halusinasi tinggi saat menggunakan RAG vektor standar pada data yang saling terhubung erat.
+- Kueri korpus global yang membutuhkan ringkasan tematis di seluruh dokumen enterprise.
+- Basis pengetahuan perusahaan yang mengandung relasi eksplisit (struktur organisasi, dependensi kode, kepatuhan regulasi).
 
 ---
 
-## Integrasi Orkestrasi
+### Implementasi Pola Kunci (TypeScript & Neo4j)
 
-- **`vector-db-rag-expert`**: Untuk pencarian kesamaan vektor padat hibrida yang digabungkan dengan traversal graf.
-- **`database-orm-expert`**: Untuk pemetaan data transaksional relasional bersama penyimpanan graf.
-- **`ai-llm-integration-expert`**: Menghubungkan model penalaran ke konteks graf multi-hop.
-- **`search-engine-expert`**: Pengindeksan leksikal kata kunci untuk atribut simpul graf.
+#### 1. Query Text2Cypher Aman dengan Introspeksi Skema
+```typescript
+import neo4j, { Driver } from 'neo4j-driver';
+import { generateText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+
+export class LayananGraphRAG {
+  private driver: Driver;
+
+  constructor(uri: string, user: string, pass: string) {
+    this.driver = neo4j.driver(uri, neo4j.auth.basic(user, pass));
+  }
+
+  // Ambil skema graf langsung untuk grounding LLM
+  private async ambilSkemaGraf(): Promise<string> {
+    const session = this.driver.session();
+    try {
+      const hasil = await session.run('CALL apoc.meta.schema() YIELD value RETURN value');
+      return JSON.stringify(hasil.records[0]?.get('value') || {});
+    } finally {
+      await session.close();
+    }
+  }
+
+  // Sintesis query Cypher read-only yang aman
+  public async tanyaGraf(pertanyaanPengguna: string): Promise<any[]> {
+    const skema = await this.ambilSkemaGraf();
+
+    const { text: queryCypher } = await generateText({
+      model: openai('gpt-4o-mini'),
+      system: `Anda adalah ahli pembuat query Neo4j Cypher. Buat HANYA query Cypher read-only berdasarkan skema:\n${skema}\nAturan: Dilarang membuat perintah mutasi CREATE/DELETE.`,
+      prompt: `Terjemahkan pertanyaan berikut ke Cypher: ${pertanyaanPengguna}`,
+    });
+
+    const cypherBersih = queryCypher.trim().replace(/^\`\`\`cypher|\`\`\`$/g, '');
+    const session = this.driver.session({ defaultAccessMode: neo4j.session.READ });
+    try {
+      const hasil = await session.run(cypherBersih);
+      return hasil.records.map((r) => r.toObject());
+    } finally {
+      await session.close();
+    }
+  }
+}
+```

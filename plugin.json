@@ -1,7 +1,18 @@
 {
   "name": "vibes-plug",
-  "version": "4.2.2",
-  "description": "Universal AI plugin with 147 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex.",
+  "version": "4.3.0",
+  "description": "Universal AI plugin with 156 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex.",
+  "homepage": "https://github.com/roedyrustam/vibes-plug",
+  "keywords": [
+    "ai",
+    "agent",
+    "mcp",
+    "skills",
+    "fullstack",
+    "fintech",
+    "zero-to-prod",
+    "anti-slop"
+  ],
   "logo": "assets/logo.svg",
   "icon": "assets/logo.svg",
   "author": "Roedy Rustam",
@@ -11,7 +22,6 @@
     "antigravity": {
       "entry": "AGENTS.md",
       "config": "plugin.json",
-      "rulesDir": "rules/",
       "skillsDir": "skills/"
     },
     "claude": {
@@ -31,4 +41,3 @@
     }
   }
 }
-

@@ -1,8 +1,8 @@
 ---
 name: fullstack-expert
 description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), API design (OpenAPI 3.1, gRPC), microservices, system design patterns, and polyglot architecture / Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot."
-author: "Roedy Rustam"
-version: "4.2.2"
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
 
 # Fullstack Expert (2026 Polyglot & Systems Edition)
@@ -167,19 +167,85 @@ export interface User {
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi skill domain seperti `brainstorming`, `zero-to-prod-orchestrator`, `senior-frontend`, `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, dan `rust-programming-expert`.
+
 ### Deskripsi
-Panduan pengembangan fullstack tingkat ahli multi-bahasa (TypeScript, Python, Go, Rust), desain kontrak API (OpenAPI 3.1, gRPC), pola arsitektur microservices (Saga, CQRS), dan monorepo shared types.
+Panduan pengembangan fullstack tingkat ahli lintas bahasa pemrograman dan framework. Berfokus pada arsitektur backend polyglot, pola desain sistem terdistribusi (Event-Driven Saga, CQRS), kontrak antarmuka API (OpenAPI 3.1, gRPC), dan monorepo dengan type sharing terpadu.
+
+### Kondisi Pemicu
+- Memilih bahasa dan framework yang tepat untuk arsitektur multi-service (TypeScript, Python, Go, Rust).
+- Merancang kontrak API (REST, gRPC, Hono RPC) antar-layanan heterogen.
+- Mengimplementasikan pola arsitektur terdistribusi (Saga dengan rollback kompensasi, CQRS).
+- Menyiapkan monorepo polyglot dengan tipe data yang dibagikan antara frontend dan backend.
+
+---
 
 ### Matriks Arsitektur Polyglot 2026
-- **TypeScript**: Hono, Fastify 5, NestJS (Serverless, Cloudflare Edge, Hono RPC).
-- **Python**: FastAPI 0.115+, Django 5 (AI/ML, orkestrasi LLM, pipeline asinkron).
-- **Go**: net/http (Go 1.25+), Gin (Microservices throughput tinggi, CLI).
-- **Rust**: Axum 0.8, Actix-web 4 (Performa ekstrem, komputasi berat, WASM).
 
-### Pola Sistem Terdistribusi
-1. **Saga Pattern**: Kompensasi rollback bertahap saat transaksi multi-layanan mengalami kegagalan.
-2. **CQRS**: Memisahkan database tulis (PostgreSQL) dari view proyeksi baca (ClickHouse/Redis) untuk beban baca tinggi.
-3. **Monorepo Shared Types**: Simpan definisi tipe bersama di `packages/types` sebagai single source of truth antara frontend dan backend.
+| Bahasa | Framework Utama | Kasus Penggunaan Ideal |
+|---|---|---|
+| **TypeScript** | Hono, Fastify 5, NestJS | Edge APIs, Serverless, RPC type-safe end-to-end |
+| **Python** | FastAPI 0.115+, Pydantic AI | Pipeline data, orkestrasi LLM, antrean tugas ML |
+| **Go** | net/http (Go 1.25+), Gin, Echo | Microservice throughput ultra-tinggi, networking, CLI tools |
+| **Rust** | Axum 0.8, Actix-web | Komputasi performa kritis, keamanan memori, WASM |
 
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `nextjs-app-router-expert`, `api-design-expert`.
+#### Infrastruktur & Database Multi-Service
+- **OLTP Primer**: PostgreSQL dengan connection pooling (PgBouncer / Supavisor).
+- **OLAP Analitik**: ClickHouse / DuckDB untuk agregasi metrik berkecepatan tinggi.
+- **Cache & State Ephemeral**: Redis / Upstash dengan TTL ketat.
+- **Pencarian Vektor**: pgvector (HNSW) atau Qdrant untuk penelusuran semantik.
+
+---
+
+### Implementasi Pola Kunci (TypeScript & OpenAPI 3.1)
+
+#### 1. Kontrak OpenAPI 3.1 untuk Layanan SaaS
+```yaml
+openapi: "3.1.0"
+info:
+  title: "API Multi-Layanan SaaS"
+  version: "1.0.0"
+paths:
+  /api/v1/workspaces/{id}:
+    get:
+      summary: "Mengambil data workspace berdasarkan ID"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Workspace" }
+```
+
+#### 2. Definisi Kontrak gRPC Protocol Buffers (`proto3`)
+```protobuf
+syntax = "proto3";
+package user.v1;
+
+service LayananPengguna {
+  rpc DapatkanPengguna (PermintaanPengguna) returns (Pengguna);
+  rpc BuatPengguna (PermintaanBuatPengguna) returns (Pengguna);
+}
+
+message Pengguna {
+  string id = 1;
+  string email = 2;
+  string nama = 3;
+}
+```
+
+#### 3. Tipe Bersama Monorepo (`packages/types/src/index.ts`)
+```typescript
+export interface ProfilPengguna {
+  id: string;
+  email: string;
+  nama: string;
+  paketLangganan: 'gratis' | 'pro' | 'enterprise';
+  isSuperAdmin: boolean;
+}
+```

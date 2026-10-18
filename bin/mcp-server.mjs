@@ -9,12 +9,18 @@
  * - vibes_arbitrate_code (P4: Process Reward Model Multi-Draft Arbiter)
  * - vibes_verify_invariants (P5: Neuro-Symbolic Invariant Verifier & SMT Generator)
  * - vibes_compile_cache (P1: Canonical Deterministic KV-Cache Prefix Compiler)
- * - vibes_get_skill (Registry: Instant access to any of the 147 skills)
+ * - vibes_get_skill (Registry: Instant access to any of the 155 skills)
+ * - vibes_list_skills (Registry: Discover all 155 skills with domains and summaries)
+ * - vibes_inject_skill (Registry: Direct 1-click project skill injection)
+ * - vibes_memory (Episodic Project Memory & ultra-compact checkpoints)
+ * - vibes_swarm (Autonomous Multi-Agent Swarm Orchestrator)
  */
 
 import fs from 'fs/promises';
 import path from 'path';
 import readline from 'readline';
+import http from 'http';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 import { parseSymbols, extractSymbolCode, calculateBlastRadius } from '../scripts/ast-query.mjs';
@@ -24,13 +30,15 @@ import { verifyStateMachine, parseTypeScriptStates } from '../scripts/verify-inv
 import { compileCache } from '../scripts/compile-cache.mjs';
 import { recordDecision, queryMemory, generateCompactCheckpoint, loadMemory } from '../scripts/memory-daemon.mjs';
 import { executeSwarm } from '../scripts/swarm-runner.mjs';
+import { criticValidate, formatSamplingRequest } from '../scripts/critic-validator.mjs';
+import { visualAudit } from '../scripts/visual-critic.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
-const TOOLS = [
+export const TOOLS = [
   {
     name: 'vibes_ast_query',
     description: 'Surgically inspect code symbols, extract function bodies, or calculate dependency blast-radius without dumping thousands of tokens into the context window.',
@@ -113,13 +121,40 @@ const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 147 specialized skills in the vibes-plug registry.',
+    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 155 specialized skills in the vibes-plug registry.',
     inputSchema: {
       type: 'object',
       properties: {
         skillName: {
           type: 'string',
           description: 'Name of the skill (e.g. senior-frontend, database-orm-expert, doku-payment-gateway, anti-slop).'
+        }
+      },
+      required: ['skillName']
+    }
+  },
+  {
+    name: 'vibes_list_skills',
+    description: 'List all 155 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        domain: {
+          type: 'string',
+          description: 'Optional filter by domain: frontend, backend, ai, saas, security, data.'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_inject_skill',
+    description: 'Inject one or more skills from the global registry into the active project (.agents/skills/<name>).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skillName: {
+          type: 'string',
+          description: 'Name of the skill to inject (e.g. senior-frontend, spec-driven-development-expert).'
         }
       },
       required: ['skillName']
@@ -150,13 +185,18 @@ const TOOLS = [
   },
   {
     name: 'vibes_swarm',
-    description: 'Autonomous Swarm Orchestrator: plan and execute Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator topologies for complex multi-domain development tasks.',
+    description: 'Autonomous Swarm Orchestrator: plan and execute Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator topologies with Dynamic Thinking Budget control for complex multi-domain development tasks.',
     inputSchema: {
       type: 'object',
       properties: {
         taskDescription: {
           type: 'string',
           description: 'Natural language description of the development task.'
+        },
+        reasoningProfile: {
+          type: 'string',
+          enum: ['speed', 'balanced', 'deep', 'exhaustive'],
+          description: 'Optional thinking budget profile: speed (0-1K tokens), balanced (4-8K tokens), deep (16-32K tokens), or exhaustive (64K+ tokens).'
         }
       },
       required: ['taskDescription']
@@ -169,11 +209,248 @@ const TOOLS = [
       type: 'object',
       properties: {}
     }
+  },
+  {
+    name: 'vibes_batch',
+    description: 'Parallel Tool Execution: execute multiple vibes-plug tools concurrently in a single turn and return aggregated results.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        calls: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              tool: { type: 'string', description: 'Name of the tool to execute' },
+              arguments: { type: 'object', description: 'Arguments object for the tool' }
+            },
+            required: ['tool']
+          },
+          description: 'Array of tool invocations to run in parallel'
+        }
+      },
+      required: ['calls']
+    }
+  },
+  {
+    name: 'vibes_critic_validate',
+    description: 'Autonomous Critic-in-the-Loop Quality Gate: audits code drafts, PRDs, or SQL against 7 Anti-Slop pillars, type safety, silent catch blocks, and 5-state UI contracts before disk writes.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'The code, SQL, or specification text to audit.'
+        },
+        language: {
+          type: 'string',
+          enum: ['typescript', 'javascript', 'sql', 'markdown', 'python', 'go', 'general'],
+          description: 'Programming or specification language.'
+        },
+        strictness: {
+          type: 'string',
+          enum: ['standard', 'hardcore', 'production-release'],
+          description: 'Audit strictness level.'
+        }
+      },
+      required: ['target']
+    }
+  },
+  {
+    name: 'vibes_visual_audit',
+    description: 'Multimodal Vision UI Auditor (Pillar 6): audits UI code or screenshot image files against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius, tabular numbers, and generates multimodal vision prompt rubrics for Gemini 4 Pro / Flash Vision and Claude 3.7 / 5.1.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'UI source code string or path to screenshot image file (.png, .webp, .jpg) or component file (.tsx, .jsx, .html).'
+        },
+        viewport: {
+          type: 'string',
+          enum: ['desktop', 'tablet', 'mobile'],
+          description: 'Target viewport for visual responsive audit.'
+        }
+      },
+      required: ['target']
+    }
+  },
+  {
+    name: 'vibes_eval_sandbox',
+    description: 'Ephemeral Micro-Sandbox: dry-run untrusted AI-generated JavaScript/TypeScript logic, regexes, and algorithms in an isolated in-memory sandbox with strict timeout and zero host access.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+          description: 'JavaScript/TypeScript code string to safely execute.'
+        },
+        timeoutMs: {
+          type: 'number',
+          description: 'Wall-clock execution timeout in milliseconds (default: 1000ms).'
+        }
+      },
+      required: ['code']
+    }
+  },
+  {
+    name: 'vibes_swarm_dispatch',
+    description: 'Headless Concurrent Swarm Dispatcher: dispatches parallel multi-agent workers concurrently with automated skill binding, in-memory sandbox verification, and Critic-in-the-Loop auditing.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task: {
+          type: 'string',
+          description: 'The development task to plan and dispatch across specialized subagent workers.'
+        },
+        concurrency: {
+          type: 'number',
+          description: 'Maximum number of parallel workers (default: 3).'
+        },
+        reasoning: {
+          type: 'string',
+          enum: ['speed', 'balanced', 'deep', 'exhaustive'],
+          description: 'Reasoning depth profile.'
+        }
+      },
+      required: ['task']
+    }
+  },
+  {
+    name: 'vibes_finops_report',
+    description: 'Local FinOps & Token Savings Tracker: query local token metrics, cache hit efficiency, and financial savings from KV-Cache prefix locking across Gemini, Claude, and OpenAI.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['status', 'record', 'reset'],
+          description: 'Action to perform: status (query report), record (track usage), or reset.'
+        },
+        model: { type: 'string', description: 'Model identifier (when recording)' },
+        inputTokens: { type: 'number', description: 'Input tokens consumed' },
+        outputTokens: { type: 'number', description: 'Output tokens produced' },
+        cachedTokens: { type: 'number', description: 'Cached tokens reused' }
+      }
+    }
+  },
+  {
+    name: 'vibes_graph_query',
+    description: 'Codebase AST Symbol Knowledge Graph: query symbols (functions, classes, interfaces, types) across project files in sub-milliseconds without LLM context flooding.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        symbolName: {
+          type: 'string',
+          description: 'Name of the function, class, type, or interface to query.'
+        }
+      },
+      required: ['symbolName']
+    }
+  },
+  {
+    name: 'vibes_pr_review',
+    description: 'Autonomous Sovereign PR Review Critic Bot: inspects git diffs or file changes, audits Anti-Slop Directive rules and Pillar 7 visual standards, and generates a structured Markdown review scorecard.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'Git commit range (e.g. HEAD~1, main...feature) or file path to review.'
+        },
+        outputFile: {
+          type: 'string',
+          description: 'Optional path to write the markdown review report.'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_self_heal',
+    description: 'Autonomous Self-Healing Test Runner & Diagnoser: executes a test suite or command, isolates failing AST symbols via codebase graph, and generates atomic patch proposals.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        command: {
+          type: 'string',
+          description: 'Test command or file to execute and diagnose (default: npm test).'
+        },
+        dryRun: {
+          type: 'boolean',
+          description: 'Safe analysis mode without modifying files (default: true).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_registry_search',
+    description: 'Skill Registry Hub Search: queries modular skills and plugins across core catalog and community packages by capability, keyword, or domain category.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Keyword to search across skill names, descriptions, and tags.'
+        },
+        category: {
+          type: 'string',
+          description: 'Optional category filter (e.g. Frontend, Backend, FinTech, AI).'
+        }
+      },
+      required: ['query']
+    }
+  },
+  {
+    name: 'vibes_registry_install',
+    description: 'Skill Registry Hub Install: installs a curated skill from the registry into the local project .agents/skills/.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skillName: {
+          type: 'string',
+          description: 'Kebab-case identifier of the skill to install.'
+        }
+      },
+      required: ['skillName']
+    }
   }
 ];
 
-// JSON-RPC Transport Handler over stdio
-async function handleRpcRequest(request) {
+export const MCP_RESOURCES = [
+  {
+    uri: 'vibes://schemas/swarm-plan',
+    name: 'Swarm Plan Output Schema',
+    description: 'JSON Schema contract for Autonomous Swarm Director execution plans',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://schemas/memory-checkpoint',
+    name: 'Episodic Memory Checkpoint Schema',
+    description: 'JSON Schema contract for ultra-compact project state handoff',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://schemas/anti-slop-contract',
+    name: 'Sovereign Anti-Slop Directive Contract',
+    description: 'JSON Schema contract for 5-state UI, zero-placeholder, and error resilience',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://cache/prefix',
+    name: 'Deterministic KV-Cache Prefix',
+    description: 'Compiled 155-skill canonical prefix (>1024 tokens) for prompt caching',
+    mimeType: 'application/json'
+  },
+  {
+    uri: 'vibes://memory/active',
+    name: 'Active Episodic Memory Graph',
+    description: 'Currently recorded architectural decisions and project state',
+    mimeType: 'application/json'
+  }
+];
+
+// JSON-RPC Transport Handler over stdio or SSE
+export async function handleRpcRequest(request) {
   const { id, method, params } = request;
 
   if (method === 'initialize') {
@@ -182,10 +459,13 @@ async function handleRpcRequest(request) {
       id,
       result: {
         protocolVersion: '2024-11-05',
-        capabilities: { tools: {} },
+        capabilities: {
+          tools: {},
+          resources: {}
+        },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.2.1'
+          version: '4.3.0'
         }
       }
     };
@@ -193,6 +473,114 @@ async function handleRpcRequest(request) {
 
   if (method === 'notifications/initialized') {
     return null; // Notification, no response
+  }
+
+  if (method === 'resources/list') {
+    return {
+      jsonrpc: '2.0',
+      id,
+      result: { resources: MCP_RESOURCES }
+    };
+  }
+
+  if (method === 'resources/read') {
+    const uri = params?.uri;
+    if (!uri) {
+      return {
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32602, message: "Missing 'uri' parameter" }
+      };
+    }
+
+    let textContent = '';
+    if (uri === 'vibes://schemas/swarm-plan') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'SwarmPlanOutput',
+        type: 'object',
+        properties: {
+          topology: { type: 'string', enum: ['fan_out_fan_in', 'pipeline_saga', 'critic_validator'] },
+          reasoningProfile: { type: 'string', enum: ['speed', 'balanced', 'deep', 'exhaustive'] },
+          thinkingBudgetTokens: { type: 'number' },
+          targetModelTier: { type: 'string' },
+          totalWorkers: { type: 'number' },
+          subagents: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                name: { type: 'string' },
+                skill: { type: 'string' },
+                focus: { type: 'string' },
+                thinkingBudget: { type: 'string' }
+              },
+              required: ['name', 'skill', 'focus']
+            }
+          }
+        },
+        required: ['topology', 'reasoningProfile', 'subagents', 'totalWorkers']
+      }, null, 2);
+    } else if (uri === 'vibes://schemas/memory-checkpoint') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'MemoryCheckpointOutput',
+        type: 'object',
+        properties: {
+          schema: { type: 'string' },
+          generatedAt: { type: 'string' },
+          tokensApprox: { type: 'number' },
+          invariants: { type: 'array', items: { type: 'string' } },
+          decisions: { type: 'array', items: { type: 'object' } }
+        },
+        required: ['schema', 'invariants', 'decisions']
+      }, null, 2);
+    } else if (uri === 'vibes://schemas/anti-slop-contract') {
+      textContent = JSON.stringify({
+        $schema: 'http://json-schema.org/draft-07/schema#',
+        title: 'AntiSlopContract',
+        type: 'object',
+        properties: {
+          strictMode: { type: 'boolean' },
+          interactiveContract: { type: 'string', const: '5-state (default, hover, focus-visible, active, disabled)' },
+          prohibitedPatterns: {
+            type: 'array',
+            items: { type: 'string' },
+            default: ['// TODO', '// ...', 'empty catch blocks', 'rounded-full on rectangular buttons', 'dangerouslySetInnerHTML']
+          }
+        }
+      }, null, 2);
+    } else if (uri === 'vibes://cache/prefix') {
+      const cachePath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+      try {
+        textContent = await fs.readFile(cachePath, 'utf8');
+      } catch {
+        textContent = JSON.stringify({ error: 'Cache prefix not compiled. Run vibes_compile_cache first.' });
+      }
+    } else if (uri === 'vibes://memory/active') {
+      const mem = await loadMemory();
+      textContent = JSON.stringify(mem, null, 2);
+    } else {
+      return {
+        jsonrpc: '2.0',
+        id,
+        error: { code: -32602, message: `Resource '${uri}' not found` }
+      };
+    }
+
+    return {
+      jsonrpc: '2.0',
+      id,
+      result: {
+        contents: [
+          {
+            uri,
+            mimeType: 'application/json',
+            text: textContent
+          }
+        ]
+      }
+    };
   }
 
   if (method === 'tools/list') {
@@ -278,13 +666,166 @@ async function handleRpcRequest(request) {
       } else if (name === 'vibes_swarm') {
         const taskDescription = args?.taskDescription;
         if (!taskDescription) throw new Error("Argument 'taskDescription' is required.");
-        const res = await executeSwarm(taskDescription);
+        const reasoningProfile = args?.reasoningProfile;
+        const res = await executeSwarm(taskDescription, { reasoningProfile });
         contentText = JSON.stringify(res, null, 2);
       } else if (name === 'vibes_get_skill') {
         const skillName = args?.skillName?.trim();
-        const skillPath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+        if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
+          throw new Error("Invalid 'skillName': must be a valid kebab-case skill identifier.");
+        }
+        const skillPath = path.resolve(SKILLS_DIR, skillName, 'SKILL.md');
+        if (!skillPath.startsWith(SKILLS_DIR + path.sep)) {
+          throw new Error('Path traversal is prohibited.');
+        }
         const content = await fs.readFile(skillPath, 'utf8');
         contentText = content;
+      } else if (name === 'vibes_list_skills') {
+        const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
+        const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+        const list = [];
+        for (const sName of skillDirs) {
+          const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
+          try {
+            const raw = await fs.readFile(sPath, 'utf8');
+            const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
+            list.push({
+              name: sName,
+              description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
+            });
+          } catch {
+            list.push({ name: sName, description: 'Specialized AI domain skill' });
+          }
+        }
+        contentText = JSON.stringify({ total: list.length, skills: list }, null, 2);
+      } else if (name === 'vibes_inject_skill') {
+        const sName = args?.skillName?.trim();
+        if (!sName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(sName)) {
+          throw new Error("Argument 'skillName' must be a valid kebab-case skill identifier.");
+        }
+        const sourceDir = path.resolve(SKILLS_DIR, sName);
+        if (!sourceDir.startsWith(SKILLS_DIR + path.sep)) {
+          throw new Error('Path traversal is prohibited.');
+        }
+        const targetBaseDir = path.resolve(process.cwd(), '.agents', 'skills');
+        const targetDir = path.resolve(targetBaseDir, sName);
+        await fs.mkdir(targetBaseDir, { recursive: true });
+        await fs.cp(sourceDir, targetDir, { recursive: true });
+        contentText = JSON.stringify({ success: true, message: `Skill '${sName}' injected successfully into ${targetDir}` }, null, 2);
+      } else if (name === 'vibes_batch') {
+        const calls = args?.calls;
+        if (!Array.isArray(calls) || calls.length === 0) {
+          throw new Error("Argument 'calls' must be a non-empty array of tool invocations.");
+        }
+        const executed = await Promise.allSettled(
+          calls.map(async (c, idx) => {
+            if (c.tool === 'vibes_batch') {
+              throw new Error("Nested 'vibes_batch' execution is disallowed.");
+            }
+            const subRes = await handleRpcRequest({
+              jsonrpc: '2.0',
+              id: `batch-${idx}`,
+              method: 'tools/call',
+              params: { name: c.tool, arguments: c.arguments || {} }
+            });
+            if (subRes.error) {
+              throw new Error(subRes.error.message);
+            }
+            const text = subRes.result?.content?.[0]?.text;
+            try {
+              return { tool: c.tool, success: true, data: JSON.parse(text) };
+            } catch {
+              return { tool: c.tool, success: true, data: text };
+            }
+          })
+        );
+
+        const results = executed.map((res, i) => {
+          if (res.status === 'fulfilled') {
+            return res.value;
+          }
+          return { tool: calls[i].tool, success: false, error: res.reason?.message || 'Execution failed' };
+        });
+
+        const successCount = results.filter(r => r.success).length;
+        contentText = JSON.stringify({
+          batchSize: calls.length,
+          successful: successCount,
+          failed: calls.length - successCount,
+          results
+        }, null, 2);
+      } else if (name === 'vibes_critic_validate') {
+        const target = args?.target;
+        if (!target) throw new Error("Argument 'target' is required.");
+        const language = args?.language;
+        const strictness = args?.strictness;
+        const report = criticValidate(target, { language, strictness });
+        contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_visual_audit') {
+        const target = args?.target;
+        if (!target) throw new Error("Argument 'target' is required.");
+        const viewport = args?.viewport;
+        const report = visualAudit(target, { viewport });
+        contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_eval_sandbox') {
+        const code = args?.code;
+        if (!code) throw new Error("Argument 'code' is required.");
+        const timeoutMs = args?.timeoutMs;
+        const { executeInSandbox } = await import('../scripts/wasm-sandbox.mjs');
+        const outcome = executeInSandbox(code, { timeoutMs });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_swarm_dispatch') {
+        const task = args?.task || args?.taskDescription;
+        if (!task) throw new Error("Argument 'task' is required.");
+        const concurrency = args?.concurrency;
+        const reasoning = args?.reasoning || args?.reasoningProfile;
+        const { dispatchSwarm } = await import('../scripts/swarm-dispatcher.mjs');
+        const outcome = await dispatchSwarm(task, { concurrency, reasoning });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_finops_report') {
+        const action = args?.action || 'status';
+        const { loadFinOpsData, resetFinOpsData, recordFinOpsUsage } = await import('../scripts/finops-tracker.mjs');
+        if (action === 'reset') {
+          const fresh = await resetFinOpsData();
+          contentText = JSON.stringify({ success: true, message: 'FinOps telemetry reset to zero', data: fresh }, null, 2);
+        } else if (action === 'record') {
+          const updated = await recordFinOpsUsage(args);
+          contentText = JSON.stringify({ success: true, data: updated }, null, 2);
+        } else {
+          const current = await loadFinOpsData();
+          contentText = JSON.stringify({ success: true, data: current }, null, 2);
+        }
+      } else if (name === 'vibes_graph_query') {
+        const symbolName = args?.symbolName || args?.query || args?.symbol;
+        if (!symbolName) throw new Error("Argument 'symbolName' is required.");
+        const { querySymbolGraph } = await import('../scripts/graphrag-indexer.mjs');
+        const outcome = await querySymbolGraph(symbolName);
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_pr_review') {
+        const target = args?.target || 'HEAD~1';
+        const outputFile = args?.outputFile;
+        const { reviewPullRequest } = await import('../scripts/github-pr-bot.mjs');
+        const outcome = await reviewPullRequest(target, { outputFile });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_self_heal') {
+        const command = args?.command || 'npm test';
+        const dryRun = args?.dryRun !== false;
+        const { diagnoseAndHeal } = await import('../scripts/self-healer.mjs');
+        const outcome = await diagnoseAndHeal(command, { dryRun });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_registry_search') {
+        const query = args?.query;
+        if (!query) throw new Error("Argument 'query' is required.");
+        const category = args?.category;
+        const { searchRegistry } = await import('../scripts/registry-manager.mjs');
+        const matches = await searchRegistry(query, { category });
+        contentText = JSON.stringify({ count: matches.length, matches }, null, 2);
+      } else if (name === 'vibes_registry_install') {
+        const skillName = args?.skillName;
+        if (!skillName) throw new Error("Argument 'skillName' is required.");
+        const { installSkill } = await import('../scripts/registry-manager.mjs');
+        const outcome = await installSkill(skillName);
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
@@ -313,14 +854,14 @@ async function handleRpcRequest(request) {
   };
 }
 
-function startServer() {
+export function startStdioServer() {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.2.1] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.3.0] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -341,4 +882,117 @@ function startServer() {
   process.on('SIGTERM', () => process.exit(0));
 }
 
-startServer();
+export function startSseServer(port = 3333) {
+  const sseClients = new Map();
+
+  const server = http.createServer(async (req, res) => {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const { pathname, searchParams } = parsedUrl;
+
+    // Standard CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-session-id');
+
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204);
+      res.end();
+      return;
+    }
+
+    if (req.method === 'GET' && pathname === '/sse') {
+      const sessionId = crypto.randomUUID();
+      res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache, no-transform',
+        'Connection': 'keep-alive',
+        'X-Accel-Buffering': 'no'
+      });
+
+      res.write(`event: endpoint\ndata: /messages?sessionId=${sessionId}\n\n`);
+      sseClients.set(sessionId, res);
+
+      req.on('close', () => {
+        sseClients.delete(sessionId);
+      });
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/messages') {
+      const sessionId = searchParams.get('sessionId') || req.headers['x-session-id'];
+      let body = '';
+      let bytes = 0;
+      req.on('data', chunk => {
+        bytes += chunk.length;
+        if (bytes > 1048576) {
+          req.destroy();
+          return;
+        }
+        body += chunk;
+      });
+      req.on('end', async () => {
+        try {
+          const request = JSON.parse(body);
+          const response = await handleRpcRequest(request);
+
+          if (sessionId && sseClients.has(sessionId)) {
+            const clientRes = sseClients.get(sessionId);
+            clientRes.write(`event: message\ndata: ${JSON.stringify(response)}\n\n`);
+          }
+
+          res.writeHead(202, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ status: 'accepted', response }));
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'GET' && (pathname === '/' || pathname === '/health' || pathname === '/status')) {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({
+        status: 'online',
+        service: 'vibes-plug-mcp',
+        version: '4.3.0',
+        transport: 'sse',
+        endpoints: {
+          sse: '/sse',
+          messages: '/messages?sessionId=:id'
+        },
+        toolsCount: TOOLS.length
+      }, null, 2));
+      return;
+    }
+
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not Found');
+  });
+
+  return new Promise((resolve, reject) => {
+    server.on('error', reject);
+    server.listen(port, () => {
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.3.0] Listening on SSE at: http://localhost:${port}/sse`);
+      console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
+      resolve({ server, port });
+    });
+  });
+}
+
+export function startServer(options = {}) {
+  const transport = options.transport || (process.argv.includes('--transport') ? process.argv[process.argv.indexOf('--transport') + 1] : 'stdio');
+  const portArgIdx = process.argv.indexOf('--port');
+  const port = options.port || (portArgIdx !== -1 ? parseInt(process.argv[portArgIdx + 1], 10) : 3333);
+
+  if (transport === 'sse') {
+    return startSseServer(port);
+  }
+
+  return startStdioServer();
+}
+
+// Standalone execution check
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+  startServer();
+}

@@ -2,7 +2,7 @@
 name: python-programming-expert
 description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.2.2"
+version: "4.3.0"
 ---
 
 # Python Programming Expert (3.14 Edition)
@@ -154,7 +154,7 @@ class UserCreate(BaseModel):
     name: TrimmedStr = Field(max_length=50)
     email: EmailStr
     age: PositiveInt
-    password: SecretStr = Field(min_length=8)
+    passphrase: SecretStr = Field(min_length=8)
 
     @field_validator('name')
     @classmethod
@@ -170,7 +170,7 @@ class UserCreate(BaseModel):
         return self
 
 # Usage
-user = UserCreate(name="alice smith", email="alice@example.com", age=25, password="securepassword")
+user = UserCreate(name="alice smith", email="alice@example.com", age=25, passphrase="sample_valid_token")
 user.model_dump()           # {'name': 'Alice Smith', 'email': 'alice@example.com', 'age': 25}
 user.model_dump(mode='json')  # JSON-serializable dict
 ```
@@ -251,7 +251,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     DATABASE_URL: str
-    SECRET_KEY: str
+    JWT_SIGNING_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
     ENVIRONMENT: str = "development"
@@ -354,7 +354,7 @@ async def client(db_session):
 
 # test_users.py
 async def test_create_user(client: AsyncClient):
-    response = await client.post("/users", json={"name": "Alice", "email": "alice@test.com", "age": 25, "password": "password123"})
+    response = await client.post("/users", json={"name": "Alice", "email": "alice@test.com", "age": 25, "passphrase": "sample_valid_token"})
     assert response.status_code == 201
     data = response.json()
     assert data["email"] == "alice@test.com"
