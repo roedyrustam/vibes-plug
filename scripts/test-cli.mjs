@@ -165,6 +165,31 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(resetOut, /reset to zero/);
   });
 
+  await t.test('vibes doctor --fix should run health checks and auto-remediate environment', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor', '--fix']);
+    assert.match(stdout, /Vibes-Plug Doctor/);
+    assert.match(stdout, /auto-fix enabled/);
+    assert.match(stdout, /All checks passed/);
+  });
+
+  await t.test('vibes graph:build and vibes graph:query should index and locate AST symbols', async () => {
+    const { stdout: buildOut } = await execFileAsync(process.execPath, [CLI_PATH, 'graph:build']);
+    assert.match(buildOut, /Building Codebase AST Symbol Knowledge Graph/);
+    assert.match(buildOut, /Symbol Knowledge Graph built/);
+    assert.match(buildOut, /Symbols Indexed/);
+
+    const { stdout: queryOut } = await execFileAsync(process.execPath, [CLI_PATH, 'graph:query', 'startStudioServer']);
+    assert.match(queryOut, /Query: "startStudioServer"/);
+    assert.match(queryOut, /scripts\/studio-server\.mjs/);
+  });
+
+  await t.test('vibes pr:review should audit code diffs or files and generate PR markdown report', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'pr:review', 'scripts/graphrag-indexer.mjs']);
+    assert.match(stdout, /Vibes-Plug PR Review Report/);
+    assert.match(stdout, /Files Reviewed/);
+    assert.match(stdout, /APPROVED/);
+  });
+
   await t.test('vscode extension companion should have valid manifest and commands', async () => {
     const pkgPath = path.resolve(__dirname, '../extensions/vscode/package.json');
     const raw = await fs.readFile(pkgPath, 'utf8');
@@ -533,6 +558,58 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpFinopsData = await mcpFinopsRes.json();
       assert.equal(mcpFinopsRes.status, 200);
       assert.match(mcpFinopsData.result.result.content[0].text, /"success":\s*true/);
+
+      // Test Studio Codebase Graph Query endpoint
+      const graphRes = await fetch(`${url}/api/graph/query`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: 'startStudioServer' })
+      });
+      const graphData = await graphRes.json();
+      assert.equal(graphRes.status, 200);
+      assert.equal(graphData.success, true);
+      assert.ok(graphData.matches.length > 0);
+      assert.match(graphData.matches[0].file, /studio-server\.mjs/);
+
+      // Test Studio PR Review endpoint
+      const prReviewRes = await fetch(`${url}/api/pr/review`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file: 'scripts/graphrag-indexer.mjs' })
+      });
+      const prReviewData = await prReviewRes.json();
+      assert.equal(prReviewRes.status, 200);
+      assert.equal(prReviewData.success, true);
+      assert.equal(prReviewData.verdict, 'APPROVED');
+      assert.match(prReviewData.markdownReport, /Files Reviewed/);
+
+      // Test MCP vibes_graph_query tool
+      const mcpGraphRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_graph_query',
+          arguments: { symbolName: 'startStudioServer' }
+        })
+      });
+      const mcpGraphData = await mcpGraphRes.json();
+      assert.equal(mcpGraphRes.status, 200);
+      assert.match(mcpGraphData.result.result.content[0].text, /"success":\s*true/);
+      assert.match(mcpGraphData.result.result.content[0].text, /studio-server\.mjs/);
+
+      // Test MCP vibes_pr_review tool
+      const mcpPrRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_pr_review',
+          arguments: { target: 'scripts/graphrag-indexer.mjs' }
+        })
+      });
+      const mcpPrData = await mcpPrRes.json();
+      assert.equal(mcpPrRes.status, 200);
+      assert.match(mcpPrData.result.result.content[0].text, /"success":\s*true/);
+      assert.match(mcpPrData.result.result.content[0].text, /"verdict":\s*"APPROVED"/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

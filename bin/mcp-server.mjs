@@ -333,6 +333,37 @@ export const TOOLS = [
         cachedTokens: { type: 'number', description: 'Cached tokens reused' }
       }
     }
+  },
+  {
+    name: 'vibes_graph_query',
+    description: 'Codebase AST Symbol Knowledge Graph: query symbols (functions, classes, interfaces, types) across project files in sub-milliseconds without LLM context flooding.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        symbolName: {
+          type: 'string',
+          description: 'Name of the function, class, type, or interface to query.'
+        }
+      },
+      required: ['symbolName']
+    }
+  },
+  {
+    name: 'vibes_pr_review',
+    description: 'Autonomous Sovereign PR Review Critic Bot: inspects git diffs or file changes, audits Anti-Slop Directive rules and Pillar 7 visual standards, and generates a structured Markdown review scorecard.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'Git commit range (e.g. HEAD~1, main...feature) or file path to review.'
+        },
+        outputFile: {
+          type: 'string',
+          description: 'Optional path to write the markdown review report.'
+        }
+      }
+    }
   }
 ];
 
@@ -715,6 +746,18 @@ export async function handleRpcRequest(request) {
           const current = await loadFinOpsData();
           contentText = JSON.stringify({ success: true, data: current }, null, 2);
         }
+      } else if (name === 'vibes_graph_query') {
+        const symbolName = args?.symbolName || args?.query || args?.symbol;
+        if (!symbolName) throw new Error("Argument 'symbolName' is required.");
+        const { querySymbolGraph } = await import('../scripts/graphrag-indexer.mjs');
+        const outcome = await querySymbolGraph(symbolName);
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_pr_review') {
+        const target = args?.target || 'HEAD~1';
+        const outputFile = args?.outputFile;
+        const { reviewPullRequest } = await import('../scripts/github-pr-bot.mjs');
+        const outcome = await reviewPullRequest(target, { outputFile });
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

@@ -1676,6 +1676,8 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
                 <option value="vibes_eval_sandbox">vibes_eval_sandbox (Ephemeral WASM/VM sandbox)</option>
                 <option value="vibes_swarm_dispatch">vibes_swarm_dispatch (Headless concurrent swarm)</option>
                 <option value="vibes_finops_report">vibes_finops_report (Local FinOps token tracker)</option>
+                <option value="vibes_graph_query">vibes_graph_query (Codebase AST symbol graph)</option>
+                <option value="vibes_pr_review">vibes_pr_review (Autonomous PR review bot)</option>
               </select>
             </div>
 
@@ -2294,7 +2296,9 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       vibes_visual_audit: '{\\n  "target": "<button className=\\"rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums\\">Pay Rp 150.000</button>",\\n  "viewport": "desktop"\\n}',
       vibes_eval_sandbox: '{\\n  "code": "const arr = [1, 2, 3]; arr.map(x => x * 10);",\\n  "timeoutMs": 500\\n}',
       vibes_swarm_dispatch: '{\\n  "task": "Build DOKU payment integration with Postgres RLS",\\n  "concurrency": 2,\\n  "reasoning": "deep"\\n}',
-      vibes_finops_report: '{\\n  "action": "status"\\n}'
+      vibes_finops_report: '{\\n  "action": "status"\\n}',
+      vibes_graph_query: '{\\n  "symbolName": "startStudioServer"\\n}',
+      vibes_pr_review: '{\\n  "target": "HEAD~1"\\n}'
     };
 
     function onMcpToolChange() {
@@ -3073,6 +3077,46 @@ export async function startStudioServer(options = {}) {
           }
           const { dispatchSwarm } = await import('./swarm-dispatcher.mjs');
           const outcome = await dispatchSwarm(task, { concurrency, reasoning });
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Codebase AST Symbol Knowledge Graph Query endpoint
+    if (req.method === 'POST' && pathname === '/api/graph/query') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const querySym = parsed.symbolName || parsed.query || parsed.symbol;
+          if (!querySym) {
+            sendJson({ error: 'Symbol name or query is required' }, 400);
+            return;
+          }
+          const { querySymbolGraph } = await import('./graphrag-indexer.mjs');
+          const outcome = await querySymbolGraph(querySym);
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Sovereign PR Review Critic Bot endpoint
+    if (req.method === 'POST' && pathname === '/api/pr/review') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const target = parsed.target || parsed.file || parsed.range || 'HEAD~1';
+          const { reviewPullRequest } = await import('./github-pr-bot.mjs');
+          const outcome = await reviewPullRequest(target);
           sendJson(outcome);
         } catch (err) {
           sendJson({ error: err.message }, 500);

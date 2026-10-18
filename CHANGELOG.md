@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan
+- **Codebase AST Symbol Knowledge Graph Indexer (`scripts/graphrag-indexer.mjs`)**:
+  - Pengindeksan simbol AST kode lokal multi-bahasa (`.js`, `.mjs`, `.ts`, `.tsx`, `.jsx`, `.py`, `.go`) super cepat (<60ms) yang mengekstrak fungsi, kelas, antarmuka, dan tipe ke `.agents/graph/symbol_graph.json`. Terkoneksi ke CLI `vibes graph:build`, `vibes graph:query <symbol>`, endpoint API `/api/graph/query`, dan Remote MCP tool `vibes_graph_query` tanpa membanjiri context window AI.
+- **Autonomous GitHub PR Review Critic Bot (`scripts/github-pr-bot.mjs`)**:
+  - Bot peninjau Pull Request cerdas yang mengaudit git diff atau berkas lokal terhadap Doktrin Sovereign Anti-Slop (Pilar 1–6) dan Standar Visual UI 2026 (Pilar 7). Menghasilkan laporan scorecard Markdown GitHub siap tempel dengan skor numerik dan putusan `APPROVED` / `CHANGES_REQUESTED`. Terintegrasi ke CLI `vibes pr:review [diff|file]`, API `/api/pr/review`, dan MCP `vibes_pr_review`.
+- **Self-Healing Diagnostics (`vibes doctor --fix`)**:
+  - Opsi perbaikan otomatis pada `vibes doctor` yang secara mandiri memulihkan direktori `.agents/` yang hilang (`skills`, `graph`, `telemetry`), mengompilasi ulang `.cache-prefix.json`, dan memasang git pre-commit hook untuk mencegah regresi slop ke repositori.
+- **Studio Cockpit Visual & Syntax Polish (`scripts/studio-server.mjs`)**:
+  - Perbaikan tuntas string template literal newline escaping pada trace logs, eliminasi text overlap pada input pencarian dengan SVG search icon 15x15 crisp, serta penambahan dropdown tool MCP baru `vibes_graph_query` dan `vibes_pr_review`.
 - **Interactive Scaffolding Wizard (`vibes wizard`)**:
   - Perintah baru `vibes wizard` berbasis `@inquirer/prompts` untuk scaffolding proyek dan pemilihan stack kustom interaktif (Frontend, Backend, Database/ORM, Auth, Payment) serta injeksi otomatis skill bundel terkurasi ke `.agents/skills/`.
 - **Automated Documentation Code Block Audit (`scripts/validate-skills.mjs`)**:

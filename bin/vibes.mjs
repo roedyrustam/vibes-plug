@@ -1031,8 +1031,8 @@ async function runVersion(action, type) {
   }
 }
 
-async function runDoctor() {
-  console.log('\n🧬 Vibes-Plug Doctor — Running diagnostics...\n');
+async function runDoctor(autoFix = false) {
+  console.log(`\n🧬 Vibes-Plug Doctor — Running diagnostics${autoFix ? ' (with auto-fix enabled)' : ''}...\n`);
   const checks = [];
 
   // 1. Node.js version
@@ -1069,18 +1069,41 @@ async function runDoctor() {
     checks.push(`⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
   }
 
-  // 5. Local project .agents/skills
-  const localAgentsDir = path.join(process.cwd(), '.agents', 'skills');
-  const localExists = await fs.access(localAgentsDir).then(() => true).catch(() => false);
+  // 5. Local project .agents/ structure
+  const localAgentsDir = path.join(process.cwd(), '.agents');
+  const localSkillsDir = path.join(localAgentsDir, 'skills');
+  const localExists = await fs.access(localSkillsDir).then(() => true).catch(() => false);
   if (localExists) {
-    const localEntries = await fs.readdir(localAgentsDir, { withFileTypes: true });
+    const localEntries = await fs.readdir(localSkillsDir, { withFileTypes: true });
     const localCount = localEntries.filter(d => d.isDirectory()).length;
     checks.push(`✅ Local project: ${localCount} skill(s) installed in .agents/skills/`);
+  } else if (autoFix) {
+    await fs.mkdir(path.join(localAgentsDir, 'skills'), { recursive: true });
+    await fs.mkdir(path.join(localAgentsDir, 'graph'), { recursive: true });
+    await fs.mkdir(path.join(localAgentsDir, 'telemetry'), { recursive: true });
+    checks.push('🛠️  [FIXED] Scaffolded .agents/ directory (.agents/skills, .agents/graph, .agents/telemetry)');
   } else {
-    checks.push('ℹ️  No local .agents/skills/ found (run vibes add or vibes ui to install skills)');
+    checks.push('ℹ️  No local .agents/skills/ found (run vibes doctor --fix or vibes add to initialize)');
   }
 
-  // 6. Package version
+  // 6. Deterministic KV-Cache prefix
+  const cachePrefixPath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+  const cacheExists = await fs.access(cachePrefixPath).then(() => true).catch(() => false);
+  if (cacheExists) {
+    checks.push('✅ Prompt cache prefix locked (.cache-prefix.json)');
+  } else if (autoFix) {
+    try {
+      const { compileCache } = await import('../scripts/compile-cache.mjs');
+      await compileCache();
+      checks.push('🛠️  [FIXED] Recompiled and locked .cache-prefix.json');
+    } catch {
+      checks.push('⚠️  Could not auto-compile .cache-prefix.json');
+    }
+  } else {
+    checks.push('⚠️  Prompt cache prefix missing (run vibes cache compile or vibes doctor --fix)');
+  }
+
+  // 7. Package version
   const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
   const pkgRaw = await fs.readFile(pkgPath, 'utf8');
   const pkg = JSON.parse(pkgRaw);
@@ -1090,7 +1113,7 @@ async function runDoctor() {
 
   const failed = checks.filter(c => c.startsWith('  ❌')).length;
   console.log(failed > 0
-    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor`
+    ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor --fix`
     : '\n🎉 All checks passed! Your Vibes-Plug environment is healthy.');
 
   rl.close();
@@ -1488,10 +1511,13 @@ Commands:
   version bump <type>       Bump version across all files (type: major | minor | patch)
   hooks install             Install Git pre-commit Anti-Slop gate
   hooks remove              Remove the Git pre-commit hook
-  doctor                    Run environment health diagnostics
+  doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
+  pr:review [diff|file]     Run automated Sovereign PR Review Critic Bot on git diff or files
   visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
+  graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
+  graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
   sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
   cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
@@ -1655,7 +1681,7 @@ Platform Eligibility & Economics:
     runVersion(args[1], args[2]);
     break;
   case 'doctor':
-    runDoctor();
+    runDoctor(args.includes('--fix'));
     break;
   case 'skill':
     runSkillInfo(args[2]);
@@ -1684,6 +1710,21 @@ Platform Eligibility & Economics:
   case 'sandbox': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'graph:build':
+  case 'graph:query': {
+    const { spawnSync } = await import('child_process');
+    const subCmd = command === 'graph:query' ? 'query' : 'build';
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'pr:review':
+  case 'pr-review': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
