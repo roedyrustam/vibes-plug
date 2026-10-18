@@ -403,7 +403,7 @@ async function getSystemStatus() {
   };
 }
 
-function generateStudioHtml(currentPort) {
+export function generateStudioHtml(currentPort) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -651,9 +651,10 @@ function generateStudioHtml(currentPort) {
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-muted);
-      font-size: 13px;
-      font-family: var(--font-mono);
       pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .category-pills {
@@ -1345,7 +1346,7 @@ function generateStudioHtml(currentPort) {
     <div id="tab-arsenal" class="view-pane active">
       <div class="filter-bar">
         <div class="search-input-wrapper">
-          <span class="search-icon">Search:</span>
+          <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input type="text" id="skill-search" class="search-input" placeholder="Search 155 skills (press '/' to focus)...">
         </div>
         <div class="category-pills">
@@ -2577,7 +2578,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         });
         const data = await res.json();
         if (data.success) {
-          traceOutput.textContent = data.traceLogs.join('\n');
+          traceOutput.textContent = data.traceLogs.join('\\n');
           showToast('DAG Execution simulated: ' + data.stepsCompleted + ' nodes executed successfully!');
 
           const nodes = data.preset.nodes;

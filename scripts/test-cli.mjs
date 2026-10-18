@@ -6,6 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fs from 'node:fs/promises';
 import os from 'node:os';
+import vm from 'node:vm';
 
 const execFileAsync = promisify(execFile);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -199,6 +200,12 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.match(htmlText, /VibesPlug Pro Studio/);
       assert.match(htmlText, /155-Skill Swarm Architecture/);
       assert.match(htmlText, /Remote Model Context Protocol/);
+
+      const scriptMatch = htmlText.match(/<script>([\s\S]*?)<\/script>/);
+      assert.ok(scriptMatch, 'Cockpit HTML must contain <script> tag');
+      assert.doesNotThrow(() => {
+        new vm.Script(scriptMatch[1], { filename: 'cockpit-client.js' });
+      }, 'Cockpit client script must parse without syntax errors');
 
       const skillsRes = await fetch(`${url}/api/skills`);
       const skills = await skillsRes.json();
