@@ -1,0 +1,129 @@
+{
+  "name": "vibes-plug-companion",
+  "displayName": "VibesPlug Pro: 155-Skill AI Swarm Companion",
+  "description": "Turn VSCode and Cursor into an autonomous 155-agent AI software studio. Zero AI Slop, Sovereign Anti-Slop Directive, Studio Cockpit, and MCP v1.x integration.",
+  "version": "4.3.0",
+  "publisher": "roedyrustam",
+  "author": {
+    "name": "Roedy Rustam"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roedyrustam/vibes-plug"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Linters",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "agents",
+    "swarm",
+    "anti-slop",
+    "mcp",
+    "cursor",
+    "claude",
+    "gemini",
+    "antigravity"
+  ],
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "vibes.openStudio",
+        "title": "VibesPlug: Open Studio Cockpit",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.wizard",
+        "title": "VibesPlug: Project Scaffolding Wizard",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.runGuard",
+        "title": "VibesPlug: Run Sovereign Anti-Slop Guard",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.criticValidate",
+        "title": "VibesPlug: Critic Validate Active File",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.finopsStatus",
+        "title": "VibesPlug: View Token Savings & FinOps Report",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.sync",
+        "title": "VibesPlug: Synchronize Primary Trigger & 155 Skills",
+        "category": "VibesPlug"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "vibes.criticValidate",
+          "group": "7_modification",
+          "when": "editorTextFocus"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vibes.openStudio"
+        },
+        {
+          "command": "vibes.wizard"
+        },
+        {
+          "command": "vibes.runGuard"
+        },
+        {
+          "command": "vibes.criticValidate"
+        },
+        {
+          "command": "vibes.finopsStatus"
+        },
+        {
+          "command": "vibes.sync"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VibesPlug Pro",
+      "properties": {
+        "vibes.studioPort": {
+          "type": "number",
+          "default": 3888,
+          "description": "Port number for the local Vibes Studio Cockpit web dashboard."
+        },
+        "vibes.antiSlopStrictMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Treat all Anti-Slop warnings as fatal errors in CI and local guard runs."
+        },
+        "vibes.defaultReasoningProfile": {
+          "type": "string",
+          "enum": [
+            "speed",
+            "balanced",
+            "deep",
+            "exhaustive"
+          ],
+          "default": "balanced",
+          "description": "Default reasoning profile & thinking token budget for Swarm Director tasks."
+        }
+      }
+    }
+  }
+}

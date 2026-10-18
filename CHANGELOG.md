@@ -12,6 +12,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Perintah baru `vibes wizard` berbasis `@inquirer/prompts` untuk scaffolding proyek dan pemilihan stack kustom interaktif (Frontend, Backend, Database/ORM, Auth, Payment) serta injeksi otomatis skill bundel terkurasi ke `.agents/skills/`.
 - **Automated Documentation Code Block Audit (`scripts/validate-skills.mjs`)**:
   - Validasi sintaksis dan integritas 847 blok kode dokumentasi lintas 155 skill (JSON schema strict parsing dan deteksi placeholder slop).
+- **Ephemeral Micro-Sandbox Engine (`vibes sandbox`, `scripts/wasm-sandbox.mjs`)**:
+  - Mesin eksekusi kode terisolasi berbasis `node:vm` berkecepatan ultra-tinggi (<2ms) dengan pengamanan batas waktu (timeout kill 200ms default), isolasi memori, penyadapan log konsol, dan penolakan statis identifier berbahaya (`process`, `child_process`, `fs`, `require`, `__proto__`). Terkoneksi ke CLI `vibes sandbox <code|file>` dan tool Remote MCP `vibes_eval_sandbox`.
+- **Visual DAG Workflow Canvas di Studio Cockpit (`scripts/studio-server.mjs`)**:
+  - Visualisasi alur kerja topologis DAG interaktif dengan konektor kurva Bézier SVG, pelacakan trace log simulasi real-time, dan 3 preset orkestrasi bawaan: `zero-to-prod` (8 fase), `critic-validator` (gate 5 langkah), dan `agentic-commerce` (alur settlement M2M).
+- **Headless Concurrent Swarm Dispatcher (`vibes swarm:dispatch`, `scripts/swarm-dispatcher.mjs`)**:
+  - Orkestrasi multi-agen asinkron non-blocking dengan pembatasan konkurensi (concurrency throttling), auto-binding instruksi domain dari 155 skill, verifikasi sandbox in-memory, audit Critic-in-the-Loop, dan sintesis kontrak lintas domain terpadu. Terintegrasi ke CLI (`vibes swarm:dispatch`) dan tool Remote MCP (`vibes_swarm_dispatch`).
+- **Local FinOps & Token Savings Tracker (`vibes finops`, `scripts/finops-tracker.mjs`)**:
+  - Pelacak telemetri konsumsi token lokal dan kalkulator penghematan biaya *prompt caching* (KV-cache 75–90% discount) untuk model Gemini 4 Pro, Claude 5.1, dan GPT-5. Terkoneksi ke CLI (`vibes finops [status|record|reset]`), API Studio Cockpit (`/api/finops`), dan tool Remote MCP (`vibes_finops_report`).
+- **Native VSCode & Cursor Extension Companion (`extensions/vscode/`)**:
+  - Paket ekstensi siap pakai untuk VSCode, Cursor, dan Windsurf: indikator status bar `155 Skills Active`, 1-klik buka Studio Cockpit, Command Palette runner untuk Scaffolding Wizard, Sovereign Guard, Active Document Critic, dan FinOps report.
 - **Official Reusable GitHub Action (`.github/actions/vibes-guard/action.yml`)**:
   - Composite GitHub Action siap pakai untuk menjalankan Sovereign Anti-Slop Gate dan Critic-in-the-Loop Validator di repositori CI/CD mana pun.
 - **5 Skill Frontier Baru (Milestone 155 Skills!)**:

@@ -127,6 +127,53 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(content, /check-anti-slop/);
   });
 
+  await t.test('vibes sandbox should execute pure code and reject forbidden primitives', async () => {
+    const { stdout: passOut } = await execFileAsync(process.execPath, [CLI_PATH, 'sandbox', '1 + 2 * 3']);
+    assert.match(passOut, /Status\s+:\s+✅ SUCCESS/);
+    assert.match(passOut, /Return Value\s+:\s+7/);
+
+    const { stdout: failOut } = await execFileAsync(process.execPath, [CLI_PATH, 'sandbox', 'process.exit(1)']);
+    assert.match(failOut, /Status\s+:\s+❌ FAILED/);
+    assert.match(failOut, /Security Violation/);
+  });
+
+  await t.test('vibes swarm:dispatch should concurrently dispatch workers with synthesis', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:dispatch', 'Build payment checkout']);
+    assert.match(stdout, /Swarm Dispatcher/);
+    assert.match(stdout, /Dispatching task/);
+    assert.match(stdout, /Overall Status:\s+SUCCESS/);
+    assert.match(stdout, /APPROVED/);
+  });
+
+  await t.test('vibes finops should report token economics, record telemetry, and reset', async () => {
+    const { stdout: statusOut } = await execFileAsync(process.execPath, [CLI_PATH, 'finops', 'status']);
+    assert.match(statusOut, /Local FinOps & Token Savings Tracker/);
+    assert.match(statusOut, /Estimated Financial Savings/);
+
+    const { stdout: recordOut } = await execFileAsync(process.execPath, [
+      CLI_PATH, 'finops', 'record',
+      '--model', 'gemini-4-pro',
+      '--input', '4000',
+      '--output', '1200',
+      '--cached', '30000'
+    ]);
+    assert.match(recordOut, /Recorded usage/);
+    assert.match(recordOut, /Claude Savings/);
+
+    const { stdout: resetOut } = await execFileAsync(process.execPath, [CLI_PATH, 'finops', 'reset']);
+    assert.match(resetOut, /reset to zero/);
+  });
+
+  await t.test('vscode extension companion should have valid manifest and commands', async () => {
+    const pkgPath = path.resolve(__dirname, '../extensions/vscode/package.json');
+    const raw = await fs.readFile(pkgPath, 'utf8');
+    const pkg = JSON.parse(raw);
+    assert.equal(pkg.name, 'vibes-plug-companion');
+    assert.equal(pkg.version, '4.3.0');
+    assert.equal(pkg.contributes.commands.length >= 6, true);
+    assert.ok(pkg.contributes.configuration.properties['vibes.studioPort']);
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
@@ -380,6 +427,105 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpVisualRes.status, 200);
       assert.match(mcpVisualData.result.result.content[0].text, /"verdict":\s*"APPROVED"/);
       assert.match(mcpVisualData.result.result.content[0].text, /"score":\s*100/);
+
+      // Test DAG workflow presets and simulation endpoints
+      const dagPresetsRes = await fetch(`${url}/api/dag/presets`);
+      const dagPresets = await dagPresetsRes.json();
+      assert.equal(dagPresetsRes.status, 200);
+      assert.ok(dagPresets['zero-to-prod']);
+      assert.ok(dagPresets['critic-validator']);
+      assert.ok(dagPresets['agentic-commerce']);
+
+      const dagSimRes = await fetch(`${url}/api/dag/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ presetId: 'critic-validator' })
+      });
+      const dagSimData = await dagSimRes.json();
+      assert.equal(dagSimRes.status, 200);
+      assert.equal(dagSimData.success, true);
+      assert.equal(dagSimData.stepsCompleted, 5);
+      assert.ok(dagSimData.traceLogs.length > 0);
+
+      // Test Ephemeral Sandbox API endpoint
+      const sandboxApiRes = await fetch(`${url}/api/sandbox/eval`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: 'const arr = [1, 2, 3]; arr.reduce((a, b) => a + b, 0)' })
+      });
+      const sandboxApiData = await sandboxApiRes.json();
+      assert.equal(sandboxApiRes.status, 200);
+      assert.equal(sandboxApiData.success, true);
+      assert.equal(sandboxApiData.result, 6);
+
+      // Test MCP vibes_eval_sandbox tool via /api/mcp/execute
+      const mcpSandboxRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_eval_sandbox',
+          arguments: { code: 'const sum = (a, b) => a + b; sum(10, 32)' }
+        })
+      });
+      const mcpSandboxData = await mcpSandboxRes.json();
+      assert.equal(mcpSandboxRes.status, 200);
+      assert.match(mcpSandboxData.result.result.content[0].text, /"success":\s*true/);
+      assert.match(mcpSandboxData.result.result.content[0].text, /"result":\s*42/);
+
+      // Test FinOps telemetry endpoints
+      const finopsGetRes = await fetch(`${url}/api/finops`);
+      const finopsGetData = await finopsGetRes.json();
+      assert.equal(finopsGetRes.status, 200);
+      assert.equal(finopsGetData.success, true);
+      assert.ok(finopsGetData.data.tokens);
+
+      const finopsRecordRes = await fetch(`${url}/api/finops/record`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'claude-3-7-sonnet', inputTokens: 2000, outputTokens: 800, cachedTokens: 18000 })
+      });
+      const finopsRecordData = await finopsRecordRes.json();
+      assert.equal(finopsRecordRes.status, 200);
+      assert.equal(finopsRecordData.success, true);
+      assert.ok(finopsRecordData.data.tokens.cachedTotal >= 18000);
+
+      // Test Swarm Dispatch endpoint
+      const swarmDispatchRes = await fetch(`${url}/api/swarm/dispatch`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task: 'Build payment and api backend', concurrency: 2 })
+      });
+      const swarmDispatchData = await swarmDispatchRes.json();
+      assert.equal(swarmDispatchRes.status, 200);
+      assert.equal(swarmDispatchData.success, true);
+      assert.ok(swarmDispatchData.totalWorkers > 0);
+      assert.ok(swarmDispatchData.traceLogs.length > 0);
+
+      // Test MCP vibes_swarm_dispatch tool
+      const mcpDispatchRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_swarm_dispatch',
+          arguments: { task: 'Verify formal billing state machine invariants', concurrency: 2 }
+        })
+      });
+      const mcpDispatchData = await mcpDispatchRes.json();
+      assert.equal(mcpDispatchRes.status, 200);
+      assert.match(mcpDispatchData.result.result.content[0].text, /"success":\s*true/);
+
+      // Test MCP vibes_finops_report tool
+      const mcpFinopsRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_finops_report',
+          arguments: { action: 'status' }
+        })
+      });
+      const mcpFinopsData = await mcpFinopsRes.json();
+      assert.equal(mcpFinopsRes.status, 200);
+      assert.match(mcpFinopsData.result.result.content[0].text, /"success":\s*true/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

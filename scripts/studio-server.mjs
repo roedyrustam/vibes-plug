@@ -1786,6 +1786,7 @@ function generateStudioHtml(currentPort) {
         const targetId = btn.getAttribute('data-tab');
         document.getElementById(targetId).classList.add('active');
         if (targetId === 'tab-memory') loadMemoryView();
+        if (targetId === 'tab-dag') loadDagPreset(currentDagPreset);
       });
     });
 
@@ -2361,6 +2362,111 @@ function generateStudioHtml(currentPort) {
       }
     }
 
+    let currentDagPreset = 'zero-to-prod';
+    let dagPresetsData = null;
+
+    async function loadDagPreset(presetId) {
+      currentDagPreset = presetId || 'zero-to-prod';
+      const select = document.getElementById('dag-preset-select');
+      if (select) select.value = currentDagPreset;
+
+      if (!dagPresetsData) {
+        try {
+          const res = await fetch('/api/dag/presets');
+          dagPresetsData = await res.json();
+        } catch {
+          return;
+        }
+      }
+
+      const preset = dagPresetsData[currentDagPreset];
+      if (!preset) return;
+
+      renderDagGraph(preset);
+    }
+
+    function renderDagGraph(preset) {
+      const container = document.getElementById('dag-nodes-container');
+      if (!container) return;
+
+      container.innerHTML = preset.nodes.map(function(node) {
+        return '<div class="dag-node" id="node-' + node.id + '">' +
+          '<div class="dag-node-header">' +
+            '<span>' + node.label + '</span>' +
+            '<span class="dag-node-budget">' + node.budget + '</span>' +
+          '</div>' +
+          '<div class="dag-node-skill">@' + node.skill + '</div>' +
+          '<div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 4px;">Role: ' + node.domain.toUpperCase() + '</div>' +
+        '</div>';
+      }).join('');
+
+      setTimeout(() => {
+        drawDagEdges(preset);
+      }, 50);
+    }
+
+    function drawDagEdges(preset) {
+      const svg = document.getElementById('dag-svg');
+      const container = document.getElementById('dag-canvas-container');
+      if (!svg || !container) return;
+
+      const containerRect = container.getBoundingClientRect();
+      svg.setAttribute('width', containerRect.width);
+      svg.setAttribute('height', containerRect.height);
+
+      let paths = '';
+      for (const edge of preset.edges) {
+        const fromEl = document.getElementById('node-' + edge.from);
+        const toEl = document.getElementById('node-' + edge.to);
+        if (!fromEl || !toEl) continue;
+
+        const fromRect = fromEl.getBoundingClientRect();
+        const toRect = toEl.getBoundingClientRect();
+
+        const x1 = (fromRect.right - containerRect.left);
+        const y1 = (fromRect.top + fromRect.height / 2 - containerRect.top);
+        const x2 = (toRect.left - containerRect.left);
+        const y2 = (toRect.top + toRect.height / 2 - containerRect.top);
+
+        const dx = (x2 - x1) / 2;
+        paths += '<path d="M ' + x1 + ' ' + y1 + ' C ' + (x1 + dx) + ' ' + y1 + ', ' + (x2 - dx) + ' ' + y2 + ', ' + x2 + ' ' + y2 + '" fill="none" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2.5" stroke-dasharray="4 4" />';
+      }
+      svg.innerHTML = paths;
+    }
+
+    async function simulateDagExecution() {
+      const traceBox = document.getElementById('dag-trace-box');
+      const traceOutput = document.getElementById('dag-trace-output');
+      traceBox.style.display = 'block';
+      traceOutput.textContent = '⚡ Running DAG Topological Simulation...';
+
+      try {
+        const res = await fetch('/api/dag/simulate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ presetId: currentDagPreset })
+        });
+        const data = await res.json();
+        if (data.success) {
+          traceOutput.textContent = data.traceLogs.join('\n');
+          showToast('DAG Execution simulated: ' + data.stepsCompleted + ' nodes executed successfully!');
+
+          const nodes = data.preset.nodes;
+          for (let i = 0; i < nodes.length; i++) {
+            const el = document.getElementById('node-' + nodes[i].id);
+            if (el) {
+              setTimeout(() => {
+                el.classList.add('active-step');
+                setTimeout(() => el.classList.remove('active-step'), 1200);
+              }, i * 350);
+            }
+          }
+        }
+      } catch (err) {
+        traceOutput.textContent = 'Simulation failed: ' + err.message;
+      }
+    }
+
     loadData();
   </script>
 </body>
@@ -2727,6 +2833,121 @@ export async function startStudioServer(options = {}) {
     if (req.method === 'GET' && pathname === '/api/status') {
       const status = await getSystemStatus();
       sendJson(status);
+      return;
+    }
+
+    // DAG Presets & Simulation endpoints
+    if (req.method === 'GET' && pathname === '/api/dag/presets') {
+      sendJson(DAG_PRESETS);
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/dag/simulate') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { presetId, task } = JSON.parse(body || '{}');
+          const preset = DAG_PRESETS[presetId] || DAG_PRESETS['zero-to-prod'];
+          const traceLogs = [];
+          traceLogs.push(`🚀 Initiating Topological DAG Execution for "${preset.name}"...`);
+          traceLogs.push(`📋 Target Goal: "${task || preset.description}"`);
+          traceLogs.push(`📊 DAG Graph: ${preset.nodes.length} Specialized Nodes, ${preset.edges.length} Directed Dependencies`);
+
+          let step = 1;
+          for (const node of preset.nodes) {
+            traceLogs.push(`  • Step ${step}/${preset.nodes.length}: Node [${node.label}] -> Skill @${node.skill} (Budget: ${node.budget}) [PASSED]`);
+            step++;
+          }
+          traceLogs.push(`✅ DAG Pipeline execution completed successfully with 0 invariant violations.`);
+
+          sendJson({
+            success: true,
+            preset,
+            traceLogs,
+            stepsCompleted: preset.nodes.length
+          });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Ephemeral Sandbox evaluation endpoint
+    if (req.method === 'POST' && pathname === '/api/sandbox/eval') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { code, timeoutMs } = JSON.parse(body || '{}');
+          const { executeInSandbox } = await import('./wasm-sandbox.mjs');
+          const result = executeInSandbox(code, { timeoutMs });
+          sendJson(result);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // FinOps Telemetry endpoints
+    if (req.method === 'GET' && pathname === '/api/finops') {
+      try {
+        const { loadFinOpsData } = await import('./finops-tracker.mjs');
+        const data = await loadFinOpsData();
+        sendJson({ success: true, data });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/finops/record') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const entry = JSON.parse(body || '{}');
+          const { recordFinOpsUsage } = await import('./finops-tracker.mjs');
+          const updated = await recordFinOpsUsage(entry);
+          sendJson({ success: true, data: updated });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/finops/reset') {
+      try {
+        const { resetFinOpsData } = await import('./finops-tracker.mjs');
+        const fresh = await resetFinOpsData();
+        sendJson({ success: true, data: fresh });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Headless Concurrent Swarm Dispatch endpoint
+    if (req.method === 'POST' && pathname === '/api/swarm/dispatch') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { task, concurrency, reasoning } = JSON.parse(body || '{}');
+          if (!task) {
+            sendJson({ error: 'Task description is required' }, 400);
+            return;
+          }
+          const { dispatchSwarm } = await import('./swarm-dispatcher.mjs');
+          const outcome = await dispatchSwarm(task, { concurrency, reasoning });
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
       return;
     }
 

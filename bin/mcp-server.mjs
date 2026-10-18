@@ -292,6 +292,47 @@ export const TOOLS = [
       },
       required: ['code']
     }
+  },
+  {
+    name: 'vibes_swarm_dispatch',
+    description: 'Headless Concurrent Swarm Dispatcher: dispatches parallel multi-agent workers concurrently with automated skill binding, in-memory sandbox verification, and Critic-in-the-Loop auditing.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task: {
+          type: 'string',
+          description: 'The development task to plan and dispatch across specialized subagent workers.'
+        },
+        concurrency: {
+          type: 'number',
+          description: 'Maximum number of parallel workers (default: 3).'
+        },
+        reasoning: {
+          type: 'string',
+          enum: ['speed', 'balanced', 'deep', 'exhaustive'],
+          description: 'Reasoning depth profile.'
+        }
+      },
+      required: ['task']
+    }
+  },
+  {
+    name: 'vibes_finops_report',
+    description: 'Local FinOps & Token Savings Tracker: query local token metrics, cache hit efficiency, and financial savings from KV-Cache prefix locking across Gemini, Claude, and OpenAI.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['status', 'record', 'reset'],
+          description: 'Action to perform: status (query report), record (track usage), or reset.'
+        },
+        model: { type: 'string', description: 'Model identifier (when recording)' },
+        inputTokens: { type: 'number', description: 'Input tokens consumed' },
+        outputTokens: { type: 'number', description: 'Output tokens produced' },
+        cachedTokens: { type: 'number', description: 'Cached tokens reused' }
+      }
+    }
   }
 ];
 
@@ -653,6 +694,27 @@ export async function handleRpcRequest(request) {
         const { executeInSandbox } = await import('../scripts/wasm-sandbox.mjs');
         const outcome = executeInSandbox(code, { timeoutMs });
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_swarm_dispatch') {
+        const task = args?.task || args?.taskDescription;
+        if (!task) throw new Error("Argument 'task' is required.");
+        const concurrency = args?.concurrency;
+        const reasoning = args?.reasoning || args?.reasoningProfile;
+        const { dispatchSwarm } = await import('../scripts/swarm-dispatcher.mjs');
+        const outcome = await dispatchSwarm(task, { concurrency, reasoning });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_finops_report') {
+        const action = args?.action || 'status';
+        const { loadFinOpsData, resetFinOpsData, recordFinOpsUsage } = await import('../scripts/finops-tracker.mjs');
+        if (action === 'reset') {
+          const fresh = await resetFinOpsData();
+          contentText = JSON.stringify({ success: true, message: 'FinOps telemetry reset to zero', data: fresh }, null, 2);
+        } else if (action === 'record') {
+          const updated = await recordFinOpsUsage(args);
+          contentText = JSON.stringify({ success: true, data: updated }, null, 2);
+        } else {
+          const current = await loadFinOpsData();
+          contentText = JSON.stringify({ success: true, data: current }, null, 2);
+        }
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

@@ -1500,6 +1500,8 @@ Commands:
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
+  swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
+  finops [status|record]    Track token economics & prompt caching (KV-cache) financial savings
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
@@ -1595,7 +1597,24 @@ Platform Eligibility & Economics:
   }
   case 'swarm': {
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    if (args[1] === 'dispatch') {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    } else {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    }
+    rl.close();
+    break;
+  }
+  case 'swarm:dispatch':
+  case 'dispatch': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'finops': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'finops-tracker.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
