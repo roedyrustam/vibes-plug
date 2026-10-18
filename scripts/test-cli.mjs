@@ -252,7 +252,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.match(htmlText, /155-Skill Swarm Architecture/);
       assert.match(htmlText, /Remote Model Context Protocol/);
 
-      const scriptMatch = htmlText.match(/<script>([\s\S]*?)<\/script>/);
+      const scriptMatch = htmlText.match(/<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/i);
       assert.ok(scriptMatch, 'Cockpit HTML must contain <script> tag');
       assert.doesNotThrow(() => {
         new vm.Script(scriptMatch[1], { filename: 'cockpit-client.js' });
