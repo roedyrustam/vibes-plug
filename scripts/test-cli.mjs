@@ -244,6 +244,30 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(printOut, /mcp-server\.mjs/);
   });
 
+  await t.test('vibes bridge status and sync should manage cross-IDE synchronization', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'status']);
+    assert.match(stdout, /Vibes-Plug Universal Cross-IDE State Bridge/);
+    assert.match(stdout, /Anthropic Claude Code/);
+    assert.match(stdout, /Cursor IDE/);
+    assert.match(stdout, /OpenAI Codex/);
+
+    const tempBridgeDir = path.join(process.cwd(), '.test-bridge-cli-tmp');
+    await fs.mkdir(tempBridgeDir, { recursive: true });
+    try {
+      const { stdout: syncOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'sync', '--dir', tempBridgeDir, '--target', 'cursor']);
+      assert.match(syncOut, /Synchronizing cross-IDE bridge rules for: \[cursor\]/);
+      assert.match(syncOut, /Cursor IDE: synced/);
+
+      const cursorRuleExists = await fs.access(path.join(tempBridgeDir, '.cursorrules')).then(() => true).catch(() => false);
+      assert.equal(cursorRuleExists, true);
+
+      const { stdout: bundleOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'bundle', '--dir', tempBridgeDir]);
+      assert.match(bundleOut, /Vibes-Plug (Universal|Sovereign) Context Bundle/i);
+    } finally {
+      await fs.rm(tempBridgeDir, { recursive: true, force: true });
+    }
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
@@ -750,6 +774,51 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpRegInstallData = await mcpRegInstallRes.json();
       assert.equal(mcpRegInstallRes.status, 200);
       assert.match(mcpRegInstallData.result.result.content[0].text, /"success":\s*true/);
+
+      // Test Studio Cross-IDE Bridge Status endpoint
+      const bridgeStatusRes = await fetch(`${url}/api/bridge/status`);
+      const bridgeStatusData = await bridgeStatusRes.json();
+      assert.equal(bridgeStatusRes.status, 200);
+      assert.equal(bridgeStatusData.success, true);
+      assert.ok(bridgeStatusData.report.platforms.claude);
+      assert.ok(bridgeStatusData.report.platforms.cursor);
+
+      // Test Studio Cross-IDE Bridge Sync endpoint
+      const testBridgeDir = path.join(process.cwd(), '.test-bridge-studio-tmp');
+      await fs.mkdir(testBridgeDir, { recursive: true });
+      try {
+        const bridgeSyncRes = await fetch(`${url}/api/bridge/sync`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ dir: testBridgeDir, target: 'claude' })
+        });
+        const bridgeSyncData = await bridgeSyncRes.json();
+        assert.equal(bridgeSyncRes.status, 200);
+        assert.equal(bridgeSyncData.success, true);
+        assert.equal(bridgeSyncData.results[0].status, 'synced');
+
+        // Test Studio Cross-IDE Context Bundle export endpoint
+        const bridgeBundleRes = await fetch(`${url}/api/bridge/bundle?dir=${encodeURIComponent(testBridgeDir)}`);
+        const bridgeBundleText = await bridgeBundleRes.text();
+        assert.equal(bridgeBundleRes.status, 200);
+        assert.match(bridgeBundleText, /Vibes-Plug (Universal|Sovereign) Context Bundle/i);
+      } finally {
+        await fs.rm(testBridgeDir, { recursive: true, force: true });
+      }
+
+      // Test MCP vibes_bridge_status tool
+      const mcpBridgeStatusRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_bridge_status',
+          arguments: {}
+        })
+      });
+      const mcpBridgeStatusData = await mcpBridgeStatusRes.json();
+      assert.equal(mcpBridgeStatusRes.status, 200);
+      assert.match(mcpBridgeStatusData.result.result.content[0].text, /"targetDir"/);
+      assert.match(mcpBridgeStatusData.result.result.content[0].text, /"platforms"/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

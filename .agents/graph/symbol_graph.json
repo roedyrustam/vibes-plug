@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:23:25.938Z",
+  "generatedAt": "2026-10-18T18:36:18.248Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 44,
-  "totalSymbolsIndexed": 221,
+  "totalFilesIndexed": 45,
+  "totalSymbolsIndexed": 226,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 453,
+        "line": 484,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 860,
+        "line": 902,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 888,
+        "line": 930,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 986,
+        "line": 1028,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -365,6 +365,12 @@
         "signature": "function main()"
       },
       {
+        "file": "scripts/cross-ide-bridge.mjs",
+        "line": 270,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
         "file": "scripts/eval-migration.mjs",
         "line": 135,
         "type": "function",
@@ -601,6 +607,38 @@
         "line": 163,
         "type": "function",
         "signature": "function formatSamplingRequest(target, options = {})"
+      }
+    ],
+    "checkBridgeStatus": [
+      {
+        "file": "scripts/cross-ide-bridge.mjs",
+        "line": 86,
+        "type": "function",
+        "signature": "function checkBridgeStatus(targetDir = process.cwd()"
+      }
+    ],
+    "getMasterRuleContent": [
+      {
+        "file": "scripts/cross-ide-bridge.mjs",
+        "line": 163,
+        "type": "function",
+        "signature": "function getMasterRuleContent()"
+      }
+    ],
+    "syncBridge": [
+      {
+        "file": "scripts/cross-ide-bridge.mjs",
+        "line": 178,
+        "type": "function",
+        "signature": "function syncBridge(targetDir = process.cwd()"
+      }
+    ],
+    "generateContextBundle": [
+      {
+        "file": "scripts/cross-ide-bridge.mjs",
+        "line": 229,
+        "type": "function",
+        "signature": "function generateContextBundle(targetDir = process.cwd()"
       }
     ],
     "evaluateSql": [
@@ -1442,7 +1480,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 558,
+        "line": 582,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1702,11 +1740,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1002,
+      "totalLines": 1044,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1814,
+      "totalLines": 1821,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1740,6 +1778,10 @@
     "scripts/critic-validator.mjs": {
       "totalLines": 237,
       "symbolCount": 3
+    },
+    "scripts/cross-ide-bridge.mjs": {
+      "totalLines": 344,
+      "symbolCount": 5
     },
     "scripts/eval-migration.mjs": {
       "totalLines": 213,
@@ -1790,7 +1832,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3381,
+      "totalLines": 3430,
       "symbolCount": 48
     },
     "scripts/swarm-dispatcher.mjs": {
@@ -1802,7 +1844,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 765,
+      "totalLines": 834,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {

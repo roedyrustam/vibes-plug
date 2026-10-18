@@ -3270,6 +3270,55 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Cross-IDE Bridge Status endpoint
+    if (req.method === 'GET' && pathname === '/api/bridge/status') {
+      try {
+        const targetDir = searchParams.get('dir') || process.cwd();
+        const { checkBridgeStatus } = await import('./cross-ide-bridge.mjs');
+        const report = await checkBridgeStatus(targetDir);
+        sendJson({ success: true, report });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Cross-IDE Bridge Sync endpoint
+    if (req.method === 'POST' && pathname === '/api/bridge/sync') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const targetDir = parsed.dir || parsed.targetDir || process.cwd();
+          const target = parsed.target || 'all';
+          const { syncBridge } = await import('./cross-ide-bridge.mjs');
+          const outcome = await syncBridge(targetDir, { target });
+          sendJson({ success: true, ...outcome });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Cross-IDE Bridge Context Bundle export endpoint
+    if (req.method === 'GET' && pathname === '/api/bridge/bundle') {
+      try {
+        const targetDir = searchParams.get('dir') || process.cwd();
+        const { generateContextBundle } = await import('./cross-ide-bridge.mjs');
+        const bundle = await generateContextBundle(targetDir);
+        res.writeHead(200, {
+          'Content-Type': 'text/markdown; charset=utf-8',
+          'Content-Disposition': 'attachment; filename="CONTEXT_BUNDLE.md"'
+        });
+        res.end(bundle);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     // Single skill inject endpoint
     if (req.method === 'POST' && pathname === '/api/inject') {
       try {

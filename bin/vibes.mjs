@@ -1530,6 +1530,7 @@ Commands:
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
   finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
+  bridge [status|sync|bundle] Universal cross-IDE multi-platform rule & episodic memory state bridge
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
@@ -1544,6 +1545,12 @@ Commands:
 
 // Main Router
 switch (command) {
+  case 'bridge': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'cross-ide-bridge.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
   case 'sync':
     runSync();
     break;

@@ -413,6 +413,37 @@ export const TOOLS = [
       },
       required: ['skillName']
     }
+  },
+  {
+    name: 'vibes_bridge_status',
+    description: 'Inspect cross-IDE state bridge: checks synchronization of rules, Anti-Slop Directive coverage, and episodic checkpoints across Google Gemini / Antigravity, Claude Code, Cursor IDE, OpenAI Codex, Windsurf, Trae, and Cline.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        targetDir: {
+          type: 'string',
+          description: 'Optional target project directory to inspect (defaults to current working directory).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_bridge_sync',
+    description: 'Synchronize 155-skill universal rules, Anti-Slop directives, and prompt caching prefixes to all or specific IDE platforms (claude, cursor, codex, windsurf, cline, trae, antigravity).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          enum: ['all', 'claude', 'cursor', 'codex', 'windsurf', 'cline', 'trae', 'antigravity'],
+          description: 'Target platform to synchronize (default: all).'
+        },
+        targetDir: {
+          type: 'string',
+          description: 'Optional target project directory (defaults to current working directory).'
+        }
+      }
+    }
   }
 ];
 
@@ -828,6 +859,17 @@ export async function handleRpcRequest(request) {
         if (!skillName) throw new Error("Argument 'skillName' is required.");
         const { installSkill } = await import('../scripts/registry-manager.mjs');
         const outcome = await installSkill(skillName);
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_bridge_status') {
+        const targetDir = args?.targetDir || process.cwd();
+        const { checkBridgeStatus } = await import('../scripts/cross-ide-bridge.mjs');
+        const outcome = await checkBridgeStatus(targetDir);
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_bridge_sync') {
+        const targetDir = args?.targetDir || process.cwd();
+        const target = args?.target || 'all';
+        const { syncBridge } = await import('../scripts/cross-ide-bridge.mjs');
+        const outcome = await syncBridge(targetDir, { target });
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
