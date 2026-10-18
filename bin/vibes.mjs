@@ -1529,7 +1529,7 @@ Commands:
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
-  finops [status|record]    Track token economics & prompt caching (KV-cache) financial savings
+  finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed

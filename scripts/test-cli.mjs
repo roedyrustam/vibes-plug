@@ -161,6 +161,13 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(recordOut, /Recorded usage/);
     assert.match(recordOut, /Claude Savings/);
 
+    const { stdout: exportMdOut } = await execFileAsync(process.execPath, [CLI_PATH, 'finops', 'export', '--format', 'markdown']);
+    assert.match(exportMdOut, /Vibes-Plug FinOps & Token Economics Report/);
+    assert.match(exportMdOut, /KV-Cache Hit Ratio/);
+
+    const { stdout: exportCsvOut } = await execFileAsync(process.execPath, [CLI_PATH, 'finops', 'export', '--format', 'csv']);
+    assert.match(exportCsvOut, /timestamp,model,task,input_tokens/);
+
     const { stdout: resetOut } = await execFileAsync(process.execPath, [CLI_PATH, 'finops', 'reset']);
     assert.match(resetOut, /reset to zero/);
   });
@@ -567,6 +574,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(finopsRecordRes.status, 200);
       assert.equal(finopsRecordData.success, true);
       assert.ok(finopsRecordData.data.tokens.cachedTotal >= 18000);
+
+      const finopsExportRes = await fetch(`${url}/api/finops/export?format=csv`);
+      const finopsExportText = await finopsExportRes.text();
+      assert.equal(finopsExportRes.status, 200);
+      assert.match(finopsExportText, /timestamp,model,task/);
 
       // Test Swarm Dispatch endpoint
       const swarmDispatchRes = await fetch(`${url}/api/swarm/dispatch`, {

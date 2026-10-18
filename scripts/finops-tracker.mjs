@@ -192,6 +192,62 @@ export async function getFinOpsReport() {
 `;
 }
 
+/**
+ * Exports FinOps report to Markdown, CSV, or JSON format
+ * @param {'markdown'|'csv'|'json'} format 
+ * @returns {Promise<string>}
+ */
+export async function exportFinOpsReport(format = 'markdown') {
+  const data = await loadFinOpsData();
+  const t = data.tokens;
+  const e = data.economics;
+
+  if (format === 'csv') {
+    const headers = 'timestamp,model,task,input_tokens,output_tokens,cached_tokens,est_claude_savings_usd';
+    const rows = (data.records || []).map(r => {
+      const savings = calculateSavings(r.cached || 0).claudeSaved;
+      const safeTask = `"${(r.task || '').replace(/"/g, '""')}"`;
+      return `${r.timestamp || ''},${r.model || ''},${safeTask},${r.input || 0},${r.output || 0},${r.cached || 0},${savings}`;
+    });
+    return [headers, ...rows].join('\n');
+  }
+
+  if (format === 'json') {
+    return JSON.stringify(data, null, 2);
+  }
+
+  // Default: Markdown table report
+  const recordRows = (data.records || []).slice(0, 10).map(r => 
+    `| ${r.timestamp ? r.timestamp.slice(11, 19) : '-'} | \`${r.model || '-'}\` | ${r.task || '-'} | ${r.input || 0} | ${r.output || 0} | ${r.cached || 0} |`
+  ).join('\n');
+
+  return `# 📊 Vibes-Plug FinOps & Token Economics Report
+
+*Generated on ${new Date().toISOString()}*
+
+## ⚡ Executive Token Economics
+| Metric | Value |
+| :--- | :--- |
+| **Total Model Invocations** | \`${data.totalRequests}\` |
+| **Total Input Tokens** | \`${t.inputTotal.toLocaleString()}\` |
+| **Total Output Tokens** | \`${t.outputTotal.toLocaleString()}\` |
+| **Reused / Cached Tokens** | \`${t.cachedTotal.toLocaleString()}\` |
+| **KV-Cache Hit Ratio** | **\`${e.cacheHitRatio}\`** |
+
+## 💰 Estimated Cost Reductions (KV-Cache Reuse)
+| Provider / Model Family | Cache Discount | Estimated Savings (USD) |
+| :--- | :---: | :---: |
+| **Anthropic Claude (Sonnet / 5.1)** | 90% | **$${e.claudeSavedUsd}** |
+| **Google Gemini (4 Pro / Flash)** | 75% | **$${e.geminiSavedUsd}** |
+| **OpenAI (o3 / GPT-5)** | 50% | **$${e.openAiSavedUsd}** |
+
+## 🕒 Recent Invocation History (Last 10 turns)
+| Timestamp | Model | Task | Input | Output | Cached |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+${recordRows || '| - | - | No records yet | - | - | - |'}
+`;
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const command = args[0] || 'status';
@@ -199,6 +255,25 @@ async function main() {
   if (command === 'reset') {
     await resetFinOpsData();
     console.log('✅ FinOps telemetry has been reset to zero.');
+    return;
+  }
+
+  if (command === 'export') {
+    let format = 'markdown';
+    let outputFile = null;
+    for (let i = 1; i < args.length; i++) {
+      if (args[i] === '--format' && args[i + 1]) format = args[++i];
+      else if ((args[i] === '--output' || args[i] === '-o') && args[i + 1]) outputFile = args[++i];
+    }
+    const reportText = await exportFinOpsReport(format);
+    if (outputFile) {
+      const resolved = path.resolve(process.cwd(), outputFile);
+      await fs.mkdir(path.dirname(resolved), { recursive: true });
+      await fs.writeFile(resolved, reportText, 'utf8');
+      console.log(`✅ FinOps report exported to: ${resolved}`);
+    } else {
+      console.log(reportText);
+    }
     return;
   }
 

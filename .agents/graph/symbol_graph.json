@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:15:03.830Z",
+  "generatedAt": "2026-10-18T18:19:44.990Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 44,
-  "totalSymbolsIndexed": 219,
+  "totalSymbolsIndexed": 220,
   "symbols": {
     "to": [
       {
@@ -372,7 +372,7 @@
       },
       {
         "file": "scripts/finops-tracker.mjs",
-        "line": 195,
+        "line": 251,
         "type": "function",
         "signature": "function main()"
       },
@@ -657,6 +657,14 @@
         "line": 168,
         "type": "function",
         "signature": "function getFinOpsReport()"
+      }
+    ],
+    "exportFinOpsReport": [
+      {
+        "file": "scripts/finops-tracker.mjs",
+        "line": 200,
+        "type": "function",
+        "signature": "function exportFinOpsReport(format = 'markdown')"
       }
     ],
     "draw_lightning": [
@@ -1426,7 +1434,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 539,
+        "line": 546,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1730,8 +1738,8 @@
       "symbolCount": 2
     },
     "scripts/finops-tracker.mjs": {
-      "totalLines": 236,
-      "symbolCount": 7
+      "totalLines": 311,
+      "symbolCount": 8
     },
     "scripts/generate_logo_svg.py": {
       "totalLines": 19,
@@ -1774,7 +1782,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3316,
+      "totalLines": 3333,
       "symbolCount": 47
     },
     "scripts/swarm-dispatcher.mjs": {
@@ -1786,7 +1794,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 741,
+      "totalLines": 753,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {

@@ -3070,6 +3070,23 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    if (req.method === 'GET' && pathname === '/api/finops/export') {
+      try {
+        const { exportFinOpsReport } = await import('./finops-tracker.mjs');
+        const format = searchParams.get('format') || 'markdown';
+        const report = await exportFinOpsReport(format);
+        const contentType = format === 'csv' ? 'text/csv' : format === 'json' ? 'application/json' : 'text/markdown';
+        res.writeHead(200, {
+          'Content-Type': `${contentType}; charset=utf-8`,
+          'Content-Disposition': `attachment; filename="finops-report.${format === 'json' ? 'json' : format === 'csv' ? 'csv' : 'md'}"`
+        });
+        res.end(report);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     // Headless Concurrent Swarm Dispatch endpoint
     if (req.method === 'POST' && pathname === '/api/swarm/dispatch') {
       let body = '';
