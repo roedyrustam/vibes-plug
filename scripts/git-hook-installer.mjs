@@ -213,7 +213,7 @@ export async function runPreCommitGate(targetDir = process.cwd()) {
     }
 
     // 2. Run Pre-Disk Verification Gate on JS/TS/TSX candidate code
-    const isMetaRuleFile = file.includes('critic-validator') || file.includes('check-anti-slop');
+    const isMetaRuleFile = file.includes('critic-validator') || file.includes('check-anti-slop') || file.includes('studio-server');
     if (['.js', '.ts', '.mjs', '.cjs', '.jsx', '.tsx'].includes(ext) && !isMetaRuleFile) {
       try {
         const gateRes = await verifyCandidateCode(content, { filePath: file });

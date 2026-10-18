@@ -65,7 +65,8 @@
     "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs && node scripts/swarm-runner.mjs && node scripts/memory-daemon.mjs checkpoint",
     "package:vscode": "node scripts/package-extension.mjs",
     "bench": "node scripts/benchmark-suite.mjs",
-    "hooks": "node scripts/git-hook-installer.mjs"
+    "hooks": "node scripts/git-hook-installer.mjs",
+    "budget": "node scripts/token-budget-optimizer.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.7.3"

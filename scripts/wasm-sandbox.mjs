@@ -205,7 +205,19 @@ export async function verifyCandidateCode(target, options = {}) {
 
   // 2. Anti-Slop Directive validation
   const { criticValidate } = await import('./critic-validator.mjs');
-  const antiSlopReport = criticValidate(code, { language: options.language || 'typescript', strictness: 'strict' });
+  let lang = options.language;
+  if (!lang && filePath) {
+    const ext = path.extname(filePath).toLowerCase();
+    if (ext === '.ts') lang = 'typescript';
+    else if (ext === '.tsx') lang = 'tsx';
+    else if (ext === '.jsx') lang = 'jsx';
+    else if (['.js', '.mjs', '.cjs'].includes(ext)) lang = 'javascript';
+    else if (ext === '.py') lang = 'python';
+    else if (ext === '.go') lang = 'go';
+    else if (ext === '.rs') lang = 'rust';
+    else if (ext === '.html') lang = 'html';
+  }
+  const antiSlopReport = criticValidate(code, { language: lang || 'typescript', strictness: options.strictness || 'strict' });
   report.antiSlop = {
     score: antiSlopReport.score,
     verdict: antiSlopReport.verdict,

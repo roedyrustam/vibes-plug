@@ -4190,6 +4190,24 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Dynamic Token Budget Optimizer endpoint
+    if (req.method === 'POST' && pathname === '/api/budget/analyze') {
+      try {
+        const body = await readJsonBody(req);
+        const task = body.task || body.input || body.prompt;
+        if (!task || typeof task !== 'string') {
+          sendJson({ error: 'Valid task description or code string is required' }, 400);
+          return;
+        }
+        const { optimizeThinkingBudget } = await import('./token-budget-optimizer.mjs');
+        const outcome = await optimizeThinkingBudget(task);
+        sendJson(outcome);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });

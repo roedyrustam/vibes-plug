@@ -590,6 +590,20 @@ export const TOOLS = [
       },
       required: ['action']
     }
+  },
+  {
+    name: 'vibes_optimize_budget',
+    description: 'Dynamic Token Budget Optimizer: scores multi-dimensional task complexity (domain breadth, architectural risk, code structure) and outputs calibrated thinking budgets (1K to 64K tokens), optimal model recommendations, and provider configurations for Gemini 4, Claude 3.7/5.1, and OpenAI o3.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task: {
+          type: 'string',
+          description: 'Task prompt description, code snippet, or path to source file to analyze.'
+        }
+      },
+      required: ['task']
+    }
   }
 ];
 
@@ -1072,6 +1086,12 @@ export async function handleRpcRequest(request) {
         } else {
           outcome = await checkHookStatus(targetDir);
         }
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_optimize_budget') {
+        const task = args?.task || args?.input || args?.prompt;
+        if (!task) throw new Error("Argument 'task' is required.");
+        const { optimizeThinkingBudget } = await import('../scripts/token-budget-optimizer.mjs');
+        const outcome = await optimizeThinkingBudget(task);
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

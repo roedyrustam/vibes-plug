@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T19:37:46.152Z",
+  "generatedAt": "2026-10-18T19:59:55.849Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 50,
-  "totalSymbolsIndexed": 274,
+  "totalFilesIndexed": 51,
+  "totalSymbolsIndexed": 277,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 630,
+        "line": 644,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1104,
+        "line": 1124,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1132,
+        "line": 1152,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1230,
+        "line": 1250,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -438,7 +438,7 @@
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 245,
+        "line": 258,
         "type": "function",
         "signature": "function main()"
       },
@@ -1853,6 +1853,30 @@
         "signature": "function calculateTotal(price, qty)"
       }
     ],
+    "analyzeCodeStructure": [
+      {
+        "file": "scripts/token-budget-optimizer.mjs",
+        "line": 154,
+        "type": "function",
+        "signature": "function analyzeCodeStructure(code = '')"
+      }
+    ],
+    "analyzeTaskComplexity": [
+      {
+        "file": "scripts/token-budget-optimizer.mjs",
+        "line": 199,
+        "type": "function",
+        "signature": "function analyzeTaskComplexity(input = '', options = {})"
+      }
+    ],
+    "optimizeThinkingBudget": [
+      {
+        "file": "scripts/token-budget-optimizer.mjs",
+        "line": 334,
+        "type": "function",
+        "signature": "function optimizeThinkingBudget(task, options = {})"
+      }
+    ],
     "walk": [
       {
         "file": "scripts/update_skills.js",
@@ -2116,11 +2140,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1246,
+      "totalLines": 1266,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1859,
+      "totalLines": 1866,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2180,7 +2204,7 @@
       "symbolCount": 3
     },
     "scripts/git-hook-installer.mjs": {
-      "totalLines": 300,
+      "totalLines": 301,
       "symbolCount": 4
     },
     "scripts/github-pr-bot.mjs": {
@@ -2224,7 +2248,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4246,
+      "totalLines": 4264,
       "symbolCount": 66
     },
     "scripts/swarm-bus.mjs": {
@@ -2240,8 +2264,12 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1082,
+      "totalLines": 1128,
       "symbolCount": 4
+    },
+    "scripts/token-budget-optimizer.mjs": {
+      "totalLines": 459,
+      "symbolCount": 3
     },
     "scripts/update_skills.js": {
       "totalLines": 76,
@@ -2264,7 +2292,7 @@
       "symbolCount": 4
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 327,
+      "totalLines": 340,
       "symbolCount": 4
     },
     "skills/anti-slop/scripts/check-anti-slop.js": {

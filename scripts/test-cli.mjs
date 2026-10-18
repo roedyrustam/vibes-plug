@@ -1026,6 +1026,31 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpHooksData = await mcpHooksRes.json();
       assert.equal(mcpHooksRes.status, 200);
       assert.match(mcpHooksData.result.result.content[0].text, /"isGitRepo":\s*true/);
+
+      // Test Studio /api/budget/analyze endpoint
+      const budgetRes = await fetch(`${url}/api/budget/analyze`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task: 'Build a DOKU SNAP BI QRIS and VA checkout integration with atomic locks' })
+      });
+      const budgetData = await budgetRes.json();
+      assert.equal(budgetRes.status, 200);
+      assert.equal(budgetData.success, true);
+      assert.equal(budgetData.tier, 'MODERATE');
+      assert.equal(budgetData.allocatedBudgetTokens, 8192);
+
+      // Test MCP vibes_optimize_budget tool
+      const mcpBudgetRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_optimize_budget',
+          arguments: { task: 'Fix typo in documentation' }
+        })
+      });
+      const mcpBudgetData = await mcpBudgetRes.json();
+      assert.equal(mcpBudgetRes.status, 200);
+      assert.match(mcpBudgetData.result.result.content[0].text, /"allocatedBudgetTokens":\s*1024/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1077,5 +1102,26 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       await fs.rm(tempTestRepo, { recursive: true, force: true });
     }
   });
+
+  await t.test('vibes budget should evaluate complexity score and allocate calibrated thinking tokens', async () => {
+    // 1. Simple task (speed / 1024 tokens)
+    const { stdout: speedOut } = await execFileAsync(process.execPath, [CLI_PATH, 'budget', 'Fix typo in documentation', '--json']);
+    const speedData = JSON.parse(speedOut);
+    assert.equal(speedData.success, true);
+    assert.equal(speedData.tier, 'LOW');
+    assert.equal(speedData.profile, 'speed');
+    assert.equal(speedData.allocatedBudgetTokens, 1024);
+    assert.ok(speedData.economics.tokensSavedPerCall > 60000);
+
+    // 2. Complex architectural task (deep / 32768 tokens)
+    const { stdout: deepOut } = await execFileAsync(process.execPath, [CLI_PATH, 'budget', 'scripts/studio-server.mjs', '--json']);
+    const deepData = JSON.parse(deepOut);
+    assert.equal(deepData.success, true);
+    assert.equal(deepData.tier, 'HIGH');
+    assert.equal(deepData.profile, 'deep');
+    assert.equal(deepData.allocatedBudgetTokens, 32768);
+    assert.ok(deepData.autoBoundSkills.length > 0);
+  });
 });
+
 
