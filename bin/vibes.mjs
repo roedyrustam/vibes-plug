@@ -1770,6 +1770,13 @@ Platform Eligibility & Economics:
     rl.close();
     break;
   }
+  case 'package:vscode':
+  case 'package-extension': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'package-extension.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
   case 'pr:review':
   case 'pr-review': {
     const { spawnSync } = await import('child_process');

@@ -89,6 +89,60 @@ export function activate(context) {
     runInTerminal('npx vibes-plug sync', 'Vibes Sync');
   });
   context.subscriptions.push(syncCmd);
+
+  // 8. Cross-IDE Multi-Platform Rule Sync
+  const bridgeSyncCmd = vscode.commands.registerCommand('vibes.bridgeSync', () => {
+    runInTerminal('npx vibes-plug bridge sync --target all', 'Vibes Bridge');
+  });
+  context.subscriptions.push(bridgeSyncCmd);
+
+  // 9. Synthesize Gold-Standard AI Skill
+  const learnCmd = vscode.commands.registerCommand('vibes.learnSkill', async () => {
+    const skillName = await vscode.window.showInputBox({
+      prompt: 'Enter skill name to synthesize (e.g. fast-api-expert, trpc-v11-expert)',
+      placeHolder: 'custom-tool-expert'
+    });
+    if (skillName) {
+      runInTerminal(`npx vibes-plug learn "${skillName.trim()}"`, 'Vibes Learn');
+    }
+  });
+  context.subscriptions.push(learnCmd);
+
+  // 10. Pre-Disk Verification Gate on Active Document
+  const verifyGateCmd = vscode.commands.registerCommand('vibes.verifyGate', () => {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) {
+      vscode.window.showWarningMessage('VibesPlug: No active file to verify.');
+      return;
+    }
+    const filePath = editor.document.uri.fsPath;
+    runInTerminal(`npx vibes-plug verify-gate "${filePath}"`, 'Vibes Verify Gate');
+  });
+  context.subscriptions.push(verifyGateCmd);
+
+  // 11. Dispatch Concurrent Multi-Agent Swarm
+  const swarmDispatchCmd = vscode.commands.registerCommand('vibes.swarmDispatch', async () => {
+    const task = await vscode.window.showInputBox({
+      prompt: 'Enter multi-agent swarm task goal',
+      placeHolder: 'Build multi-tenant SaaS with DOKU payment checkout'
+    });
+    if (task) {
+      runInTerminal(`npx vibes-plug swarm:dispatch "${task.trim()}"`, 'Vibes Swarm');
+    }
+  });
+  context.subscriptions.push(swarmDispatchCmd);
+
+  // 12. Local Hybrid GraphRAG Search
+  const graphSearchCmd = vscode.commands.registerCommand('vibes.graphSearch', async () => {
+    const query = await vscode.window.showInputBox({
+      prompt: 'Enter search query for codebase AST symbol knowledge graph',
+      placeHolder: 'payment checkout'
+    });
+    if (query) {
+      runInTerminal(`npx vibes-plug graph:search "${query.trim()}"`, 'Vibes GraphRAG');
+    }
+  });
+  context.subscriptions.push(graphSearchCmd);
 }
 
 /**

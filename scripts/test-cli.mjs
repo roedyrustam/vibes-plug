@@ -239,6 +239,14 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(pkg.contributes.configuration.properties['vibes.studioPort']);
   });
 
+  await t.test('vibes package:vscode should build a zero-dependency .vsix package', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'package:vscode', '--dry-run']);
+    assert.match(stdout, /Vibes-Plug VS Code & Cursor Extension Packager/);
+    assert.match(stdout, /Extension Package Built Successfully/);
+    assert.match(stdout, /11 contributed commands/);
+    assert.match(stdout, /DRY-RUN/);
+  });
+
   await t.test('vibes mcp:setup should detect client paths and generate valid json snippet', async () => {
     const { stdout: dryOut } = await execFileAsync(process.execPath, [CLI_PATH, 'mcp:setup', '--dry-run']);
     assert.match(dryOut, /Vibes-Plug MCP Client Auto-Configurator/);
@@ -963,6 +971,31 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpSwarmBusData = await mcpSwarmBusRes.json();
       assert.equal(mcpSwarmBusRes.status, 200);
       assert.match(mcpSwarmBusData.result.result.content[0].text, /"success":\s*true/);
+
+      // Test Studio Extension Package endpoint
+      const extPackageRes = await fetch(`${url}/api/extension/package`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dryRun: true })
+      });
+      const extPackageData = await extPackageRes.json();
+      assert.equal(extPackageRes.status, 200);
+      assert.equal(extPackageData.success, true);
+      assert.equal(extPackageData.commandsCount, 11);
+      assert.ok(extPackageData.sizeBytes > 1000);
+
+      // Test MCP vibes_package_extension tool
+      const mcpExtRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_package_extension',
+          arguments: { dryRun: true }
+        })
+      });
+      const mcpExtData = await mcpExtRes.json();
+      assert.equal(mcpExtRes.status, 200);
+      assert.match(mcpExtData.result.result.content[0].text, /"commandsCount":\s*11/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

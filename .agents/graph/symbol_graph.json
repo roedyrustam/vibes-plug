@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:56:36.874Z",
+  "generatedAt": "2026-10-18T19:00:33.923Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 47,
-  "totalSymbolsIndexed": 245,
+  "totalFilesIndexed": 48,
+  "totalSymbolsIndexed": 249,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 585,
+        "line": 598,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1036,
+        "line": 1054,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1064,
+        "line": 1082,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1162,
+        "line": 1180,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -296,7 +296,7 @@
     "deactivate": [
       {
         "file": "extensions/vscode/extension.js",
-        "line": 97,
+        "line": 151,
         "type": "function",
         "signature": "function deactivate()"
       }
@@ -391,6 +391,12 @@
       {
         "file": "scripts/memory-daemon.mjs",
         "line": 91,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
+        "file": "scripts/package-extension.mjs",
+        "line": 232,
         "type": "function",
         "signature": "function main()"
       },
@@ -939,6 +945,30 @@
         "line": 68,
         "type": "function",
         "signature": "function generateCompactCheckpoint(cwd = process.cwd()"
+      }
+    ],
+    "createZipArchive": [
+      {
+        "file": "scripts/package-extension.mjs",
+        "line": 30,
+        "type": "function",
+        "signature": "function createZipArchive(entries)"
+      }
+    ],
+    "validateExtensionPackage": [
+      {
+        "file": "scripts/package-extension.mjs",
+        "line": 113,
+        "type": "function",
+        "signature": "function validateExtensionPackage(extensionDir = EXTENSION_DIR)"
+      }
+    ],
+    "packageVsix": [
+      {
+        "file": "scripts/package-extension.mjs",
+        "line": 153,
+        "type": "function",
+        "signature": "function packageVsix(options = {})"
       }
     ],
     "parseSkillMarkdown": [
@@ -1596,7 +1626,7 @@
     "multiply": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 286,
+        "line": 294,
         "type": "arrow-function",
         "signature": "const multiply = (a, b) =>"
       }
@@ -1604,7 +1634,7 @@
     "divide": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 291,
+        "line": 299,
         "type": "arrow-function",
         "signature": "const divide = (a, b) =>"
       }
@@ -1612,7 +1642,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 618,
+        "line": 626,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1620,7 +1650,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 914,
+        "line": 922,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -1888,15 +1918,15 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1178,
+      "totalLines": 1196,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1847,
+      "totalLines": 1854,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
-      "totalLines": 98,
+      "totalLines": 152,
       "symbolCount": 3
     },
     "index.js": {
@@ -1967,6 +1997,10 @@
       "totalLines": 159,
       "symbolCount": 8
     },
+    "scripts/package-extension.mjs": {
+      "totalLines": 261,
+      "symbolCount": 4
+    },
     "scripts/registry-manager.mjs": {
       "totalLines": 355,
       "symbolCount": 6
@@ -1984,7 +2018,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3544,
+      "totalLines": 3562,
       "symbolCount": 48
     },
     "scripts/swarm-bus.mjs": {
@@ -2000,7 +2034,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 978,
+      "totalLines": 1011,
       "symbolCount": 4
     },
     "scripts/update_skills.js": {

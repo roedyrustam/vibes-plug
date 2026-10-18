@@ -545,6 +545,19 @@ export const TOOLS = [
       },
       required: ['query']
     }
+  },
+  {
+    name: 'vibes_package_extension',
+    description: 'VS Code & Cursor Marketplace Packager: validates companion extension manifest and builds a zero-dependency Open Packaging Conventions (OPC) compliant .vsix binary package.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        dryRun: {
+          type: 'boolean',
+          description: 'Dry run preview without persisting .vsix to disk (default: false).'
+        }
+      }
+    }
   }
 ];
 
@@ -1004,6 +1017,11 @@ export async function handleRpcRequest(request) {
         const topK = Number(args?.topK) || 5;
         const { hybridSearch } = await import('../scripts/graphrag-indexer.mjs');
         const outcome = await hybridSearch(query, { topK });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_package_extension') {
+        const dryRun = args?.dryRun === true;
+        const { packageVsix } = await import('../scripts/package-extension.mjs');
+        const outcome = await packageVsix({ dryRun });
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

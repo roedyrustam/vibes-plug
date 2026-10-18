@@ -68,12 +68,42 @@
         "command": "vibes.sync",
         "title": "VibesPlug: Synchronize Primary Trigger & 155 Skills",
         "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.bridgeSync",
+        "title": "VibesPlug: Synchronize Cross-IDE Rules & Bridge",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.learnSkill",
+        "title": "VibesPlug: Synthesize Gold-Standard AI Skill",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.verifyGate",
+        "title": "VibesPlug: Pre-Disk Verification Gate on Active File",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.swarmDispatch",
+        "title": "VibesPlug: Dispatch Concurrent Multi-Agent Swarm",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.graphSearch",
+        "title": "VibesPlug: Local Hybrid GraphRAG Search",
+        "category": "VibesPlug"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "command": "vibes.criticValidate",
+          "group": "7_modification",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "vibes.verifyGate",
           "group": "7_modification",
           "when": "editorTextFocus"
         }
@@ -96,6 +126,21 @@
         },
         {
           "command": "vibes.sync"
+        },
+        {
+          "command": "vibes.bridgeSync"
+        },
+        {
+          "command": "vibes.learnSkill"
+        },
+        {
+          "command": "vibes.verifyGate"
+        },
+        {
+          "command": "vibes.swarmDispatch"
+        },
+        {
+          "command": "vibes.graphSearch"
         }
       ]
     },

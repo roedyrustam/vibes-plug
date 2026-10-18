@@ -3264,6 +3264,24 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // VS Code / Cursor Companion Extension Packager endpoint
+    if (req.method === 'POST' && pathname === '/api/extension/package') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const dryRun = parsed.dryRun === true;
+          const { packageVsix } = await import('./package-extension.mjs');
+          const outcome = await packageVsix({ dryRun });
+          sendJson({ success: true, ...outcome });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     // Sovereign PR Review Critic Bot endpoint
     if (req.method === 'POST' && pathname === '/api/pr/review') {
       let body = '';
