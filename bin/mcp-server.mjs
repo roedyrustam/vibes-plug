@@ -558,6 +558,38 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_run_benchmark',
+    description: 'Performance Benchmark Suite & Regression Fuzzer: benchmarks all 7 sovereign engines (Micro-Sandbox, Pre-Disk Gate, AST Symbol Indexer, GraphRAG Search, Deterministic KV-Cache, Cross-IDE Bridge, and VSIX Packager) against strict SLA latency and throughput budgets.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        save: {
+          type: 'boolean',
+          description: 'Save telemetry results to .agents/telemetry/benchmark_results.json (default: true).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_git_hooks',
+    description: 'Git Pre-Commit Hook Manager: inspects status, installs, or removes the automated Anti-Slop and Pre-Disk Verification Gate pre-commit hook in the repository.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['status', 'install', 'remove'],
+          description: 'Action to perform: status (check hook), install (set up hook), remove (uninstall hook).'
+        },
+        targetDir: {
+          type: 'string',
+          description: 'Optional path to target git repository directory (defaults to current working directory).'
+        }
+      },
+      required: ['action']
+    }
   }
 ];
 
@@ -1022,6 +1054,24 @@ export async function handleRpcRequest(request) {
         const dryRun = args?.dryRun === true;
         const { packageVsix } = await import('../scripts/package-extension.mjs');
         const outcome = await packageVsix({ dryRun });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_run_benchmark') {
+        const save = args?.save !== false;
+        const { runBenchmarkSuite } = await import('../scripts/benchmark-suite.mjs');
+        const outcome = await runBenchmarkSuite({ json: true, save });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_git_hooks') {
+        const action = args?.action || 'status';
+        const targetDir = args?.targetDir || process.cwd();
+        const { installGitHook, removeGitHook, checkHookStatus } = await import('../scripts/git-hook-installer.mjs');
+        let outcome;
+        if (action === 'install') {
+          outcome = await installGitHook(targetDir);
+        } else if (action === 'remove') {
+          outcome = await removeGitHook(targetDir);
+        } else {
+          outcome = await checkHookStatus(targetDir);
+        }
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

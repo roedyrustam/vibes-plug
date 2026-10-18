@@ -42,6 +42,9 @@ jobs:
       - name: Run CLI Test Suite
         run: node --test scripts/test-cli.mjs
 
+      - name: Run Performance Benchmark Suite
+        run: node scripts/benchmark-suite.mjs
+
       - name: Package VS Code / Cursor VSIX Extension
         run: node scripts/package-extension.mjs
 

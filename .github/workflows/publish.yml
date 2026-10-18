@@ -1,23 +1,57 @@
-name: Publish to npm
+name: Publish Release & Marketplace VSIX
 
 on:
+  push:
+    tags:
+      - 'v*'
   release:
     types: [published]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  build:
+  publish:
+    name: Build VSIX & Publish Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      - name: Checkout Codebase
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: '20.x'
+          node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm publish
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Sovereign Quality Gate & Tests
+        run: |
+          node scripts/validate-skills.mjs
+          node scripts/check-anti-slop.js --strict
+          node --test scripts/test-cli.mjs
+
+      - name: Run Performance Benchmark Suite
+        run: node scripts/benchmark-suite.mjs
+
+      - name: Package VS Code & Cursor VSIX Extension
+        run: node scripts/package-extension.mjs
+
+      - name: Attach VSIX to GitHub Release
+        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
+        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        with:
+          files: extensions/vscode/*.vsix
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to npm
+        if: env.NPM_TOKEN != ''
+        run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

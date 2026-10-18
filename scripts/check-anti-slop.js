@@ -284,7 +284,14 @@ if (!isJson) {
   console.log(`⚙️  Mode: ${isStrict ? 'STRICT (All warnings treated as errors)' : 'STANDARD'}${isFix ? ' | AUTO-FIX ENABLED' : ''}\n`);
 }
 
-scanDir(rootDir);
+if (fs.existsSync(rootDir)) {
+  const stat = fs.statSync(rootDir);
+  if (stat.isFile()) {
+    scanFile(rootDir);
+  } else if (stat.isDirectory()) {
+    scanDir(rootDir);
+  }
+}
 
 const errors = violations.filter(v => v.severity === 'ERROR');
 const warnings = violations.filter(v => v.severity === 'WARN');

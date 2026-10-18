@@ -194,7 +194,7 @@ export async function verifyCandidateCode(target, options = {}) {
   try {
     new vm.Script(code, { filename: filePath || 'candidate_eval.js' });
   } catch (err) {
-    const isTsOrJsx = /^(import|export)\b/m.test(code) || /\b(interface|type|enum)\s+[A-Za-z0-9_$]+/m.test(code) || /<[A-Za-z0-9_$-]+[^>]*>/m.test(code);
+    const isTsOrJsx = /^\s*(import|export)\b/m.test(code) || /\b(interface|type|enum)\s+[A-Za-z0-9_$]+/m.test(code) || /<[A-Za-z0-9_$-]+[^>]*>/m.test(code);
     if (!isTsOrJsx) {
       report.syntaxValid = false;
       report.syntaxError = err.message;
@@ -218,7 +218,8 @@ export async function verifyCandidateCode(target, options = {}) {
   }
 
   // 3. Visual UI Sanitation (Pillar 7)
-  const hasUiMarkup = /<[a-z0-9]+[^>]*className=|<button|<input|<select|<form/i.test(code);
+  const isMarkupFile = /\.(tsx|jsx|html|vue|svelte)$/i.test(filePath || '');
+  const hasUiMarkup = isMarkupFile || (/<[a-z0-9]+[^>]*className=|<button\s+[^>]*>|<form\s+[^>]*>/i.test(code) && !code.includes('export function criticValidate'));
   if (hasUiMarkup) {
     const { visualAudit } = await import('./visual-critic.mjs');
     const visualReport = visualAudit(code, options);

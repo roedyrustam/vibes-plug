@@ -1171,44 +1171,34 @@ async function runSkillInfo(skillName) {
 }
 
 async function runHooks(action) {
-  const gitDir = path.join(process.cwd(), '.git');
-  const hookPath = path.join(gitDir, 'hooks', 'pre-commit');
-
-  const gitExists = await fs.access(gitDir).then(() => true).catch(() => false);
-  if (!gitExists) {
-    console.error('❌ No .git directory found. Run this command inside a git repository.');
-    process.exit(1);
-  }
-
+  rl.close();
+  const { installGitHook, removeGitHook, checkHookStatus } = await import('../scripts/git-hook-installer.mjs');
   try {
     if (!action || action === 'install') {
-      const hookContent = `#!/bin/sh
-# Installed by vibes-plug — Anti-AI Slop pre-commit gate
-echo "🔍 Running Vibes Anti-Slop Audit..."
-node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" || exit 1
-`;
-      await fs.mkdir(path.join(gitDir, 'hooks'), { recursive: true });
-      await fs.writeFile(hookPath, hookContent, { mode: 0o755 });
-      console.log('\n\u2705 Git pre-commit hook installed!');
-      console.log('🛡️  Anti-Slop Audit will now run automatically before every commit.');
-      console.log(`📂 Hook location: ${hookPath}`);
-
+      const res = await installGitHook(process.cwd());
+      console.log(`\n\u2705 ${res.message}`);
+      console.log('\ud83d\udee1\ufe0f  Anti-Slop & Pre-Disk Verification Gate active before every commit.');
+      console.log(`\ud83d\udcc2 Hook location: ${res.hookPath}`);
     } else if (action === 'remove') {
-      const exists = await fs.access(hookPath).then(() => true).catch(() => false);
-      if (!exists) {
-        console.log('ℹ️  No vibes pre-commit hook found to remove.');
-      } else {
-        await fs.rm(hookPath, { force: true });
-        console.log('✅ Git pre-commit hook removed.');
+      const res = await removeGitHook(process.cwd());
+      console.log(`\n\u2705 ${res.message}`);
+    } else if (action === 'status') {
+      const status = await checkHookStatus(process.cwd());
+      console.log('\n\ud83e\ude9d Vibes-Plug Git Pre-Commit Hook Status:');
+      console.log(`  Git Repository   : ${status.isGitRepo ? 'Yes' : 'No'}`);
+      console.log(`  Hook Installed   : ${status.installed ? 'Yes' : 'No'}`);
+      console.log(`  Managed by Vibes : ${status.managedByVibes ? 'Yes' : 'No'}`);
+      if (status.hookPath) {
+        console.log(`  Hook Location    : ${status.hookPath}`);
       }
+      console.log(`  Status Message   : ${status.message}\n`);
     } else {
-      console.error('❌ Usage: vibes hooks install  OR  vibes hooks remove');
+      console.error('\u274c Usage: vibes hooks [install|remove|status]');
       process.exit(1);
     }
   } catch (err) {
-    console.error(`❌ Error managing hooks: ${err.message}`);
-  } finally {
-    rl.close();
+    console.error(`\u274c Error managing hooks: ${err.message}`);
+    process.exit(1);
   }
 }
 
@@ -1510,8 +1500,8 @@ Commands:
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   version current           Show current version
   version bump <type>       Bump version across all files (type: major | minor | patch)
-  hooks install             Install Git pre-commit Anti-Slop gate
-  hooks remove              Remove the Git pre-commit hook
+  hooks [install|remove|status] Manage Git pre-commit Anti-Slop & Pre-Disk verification gate
+  bench [--json]            Run the 7-engine performance benchmark suite & regression fuzzer
   doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
@@ -1837,6 +1827,20 @@ Platform Eligibility & Economics:
   case 'catalog':
     runDocs(args[1], args[2]);
     break;
+  case 'bench':
+  case 'benchmark': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'benchmark-suite.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
+  case 'hook:install':
+  case 'hook:remove':
+  case 'hook:status': {
+    const subAction = command.split(':')[1];
+    runHooks(subAction);
+    break;
+  }
   case 'studio': {
     rl.close();
     const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;

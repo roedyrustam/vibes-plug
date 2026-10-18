@@ -1,76 +1,157 @@
-# Vibes-Plug — 155-Skill AI Agent Swarm Architecture (OpenAI Codex Edition)
+# Core Rule for Vibes-Plug Agents
 
-> **v4.3.0 (2026 Edition)** — Universal AI plugin with 155 specialized skills for modern tech stacks (React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono v4, Node.js 24 LTS, Python 3.14, TypeScript 5.8+, Go 1.25+, Rust 2024 / v1.85+).
-> **🌐 Universal Compatibility:** Antigravity (AGY) via `AGENTS.md` | Claude Code via `CLAUDE.md` | Cursor IDE via `.cursorrules` | **OpenAI Codex via `CODEX.md`**
+> **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
+> **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
+> Each platform has its own entry point, but the core rules and 155 skills are shared.
 
-## How This Plugin Works with OpenAI Codex CLI
+## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
+**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra / Gemini 3.8 Flash, Anthropic Claude 5.1 Fable / Mythos / Claude 3.7 Sonnet / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro / DeepSeek-V3). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
 
-This repository contains **155 specialized skill files** in the `skills/` directory. Each skill is a self-contained `SKILL.md` file with domain-specific architecture guidelines, edge-case hardening, and production patterns.
+## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
+**CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
 
-When running OpenAI Codex CLI (`codex`) or OpenAI Coding Agents, this file serves as the **Master System Directive**.
+Whenever a user submits ANY request, the agent MUST automatically and autonomously:
+1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
+2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 155 skill registry:
+   - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
+   - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `spec-driven-development-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
+   - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
+   - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `multi-agent-orchestration`.
+   - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop` + `zero-tech-debt-auditor`.
+   - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator` + `session-memory-manager`.
+3. **Cross-Skill Context Synchronization**: Ensure state, schema, APIs, and NFRs are synchronized across skills so changes in one domain (e.g., database schema) automatically propagate to others (e.g., backend models, API contracts, frontend types).
+4. **Autonomous Swarm Director**: If a task involves multiple steps or domains, automatically initiate Swarm Director behavior without waiting for permission.
 
-**Before starting any task**, identify which skills are relevant and consult their `skills/<skill-name>/SKILL.md` files:
+## MANDATORY: Skill Orchestration Update
+**CRITICAL RULE**: Every time a new skill is added or created within the `vibes-plug` ecosystem, the agent MUST immediately and automatically update the main orchestrator files. 
 
-| Domain | Skills |
-|---|---|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `llm-finops-router`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `gemini-agent-booster`, `doku-mcp-server`, `agentic-memory-architect`, `agentic-micro-economy-architect`, `agentic-coding-workflow-expert`, `ai-safety-governance-expert`, `frontier-ai-models-expert`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `parallel-tool-orchestrator` |
-| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `ui-ux-pro-max`, `affective-computing-emotion-ai`, `glsl-shader-expert`, `web-3d-graphics-expert`, `webxr-ar-vr-expert`, `svg-animation-motion-expert`, `data-visualization-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`, `modern-css-native-expert`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `visual-ui-auditor` |
-| 🖥️ Frontend & State | `senior-frontend`, `tailwind-expert`, `tanstack-query-expert`, `state-management-expert`, `nextjs-app-router-expert`, `vue-frontend-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `spa-orchestrator`, `mpa-orchestrator`, `performance-web-vitals`, `app-analyzer-optimizer`, `apple-ecosystem-expert`, `form-validation-expert`, `tauri-expert`, `web-game-engine-expert`, `pwa-offline-first-expert`, `blockchain-web3-expert` |
-| 📱 Mobile & Desktop | `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `browser-extension-mv3-pro`, `pwa-offline-first-expert` |
-| ⚙️ Backend & Languages | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `fullstack-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `mvc-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, `domain-driven-design-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `autonomous-api-drift-healer`, `living-codebase-ast-graph`, `structured-output-contracts` |
-| ☁️ SaaS & Cloud | `saas-architect`, `saas-billing`, `saas-multi-tenant`, `agentic-m2m-settlement`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `monorepo-architect`, `micro-frontend-architect`, `event-driven-architect`, `feature-flag-analytics-expert`, `payment-gateway-expert`, `doku-payment-gateway`, `ecommerce-expert`, `legacy-code-translator` |
-| 🗄️ Database & ORM | `database-orm-expert`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`, `geospatial-maps-expert` |
-| 🔒 Security & Quality | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `autonomous-red-teamer`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`, `scalability-clean-code`, `browser-automation-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`, `error-resilience-expert`, `post-quantum-crypto-migrator`, `anti-slop`, `accessibility-testing-expert`, `zero-tech-debt-auditor`, `biome-linter-formatter-expert`, `prompt-injection-firewall`, `ai-code-review-autonomous`, `property-mutation-testing-expert`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `mcp-sampling-critic`, `visual-ui-auditor` |
-| 🔍 SEO & Telemetry | `seo`, `data-telemetry-expert` |
-| ⏱️ Async & Messaging | `async-queue-temporal-expert`, `cron-scheduler-expert`, `sse-websocket-streaming-expert`, `realtime-collaboration-expert`, `email-notification-expert`, `file-upload-media-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert` |
-| 🛠️ Orchestration & Memory | `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `deep-research-analyst`, `web-scraper`, `website-design-cloner`, `coderabbit`, `dependency-upgrade-migrator`, `self-healing-cloud-orchestrator`, `proactive-background-watcher`, `documentation-site-expert`, `headless-cms-expert`, `wordpress-headless-expert`, `composable-mach-architect`, `app-promo-media-expert`, `speculative-multi-draft-synthesizer` |
+Failure to do so breaks the entire architectural orchestration flow.
 
+Whenever a new skill `SKILL.md` is generated, you must:
+1. **Update `brainstorming/SKILL.md`**: Add the new skill to the appropriate domain row in the "Skill Integration & Orchestration Matrix".
+2. **Update `zero-to-prod-orchestrator/SKILL.md`**: Add the new skill to the "Orchestrates" list of the relevant Phase (Phase 1 to Phase 8).
+3. **Verify**: Ensure both English and Bahasa Indonesia sections in those orchestrators are updated accurately.
+
+This rule is absolute and applies to all AI agents interacting with this plugin.
+
+## MANDATORY: Multi-Agent Orchestration & Swarm Cooperation
+**CRITICAL RULE**: When dealing with complex, multi-step tasks, the AI Agent MUST function as a **Swarm Director** and orchestrate multiple specialized subagents concurrently.
+
+**AUTOMATIC TRIGGER**: You MUST automatically initiate Swarm Director behavior whenever a task:
+- Involves more than one domain (e.g., Frontend + Backend + Database).
+- Requires extensive research across multiple files/repositories.
+- Consists of more than three independent steps.
+- Involves high-risk architectural changes or migrations.
+*Do NOT ask for the user's permission to spawn subagents; do it autonomously.*
+
+### Swarm Execution Topologies (2026 Edition)
+
+```
+1. FAN-OUT / FAN-IN (Parallel Research & Assembly)
+   Director ──┬──► Subagent A (Frontend / UI)   ──┐
+              ├──► Subagent B (Backend / API)    ──┼──► Synthesis & Assembly
+              └──► Subagent C (DB Schema / RLS)  ──┘
+
+2. PIPELINE SAGA (Sequential Dependent Execution)
+   Discovery ──► Foundation ──► Schema/DB ──► APIs ──► Frontend ──► QA/Hardening
+
+3. CRITIC-VALIDATOR LOOP (Zero-Tolerance Quality Gate)
+   Implementer Agent ──► Artifact/Code ──► Auditor Agent (code review/fuzzing) ──► Approved
+```
+
+### Swarm Director Protocols
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 155 specialized skills in `vibes-plug`.
+2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
+3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
+4. **Agent Synergy & Native Subagents**: Rely on the `vibes-plug` native subagent registry located in `agents/`:
+   - **System Architecture**: Delegate to `swarm-architect` (guided by `brainstorming`, `prd-architect`, `domain-driven-design-expert`, `saas-architect`).
+   - **Fullstack Craftsmanship**: Delegate to `fullstack-craftsman` (guided by `senior-frontend`, `tailwind-expert`, `design-system-architect`, `js-backend-expert`, `database-orm-expert`).
+   - **Quality & Anti-Slop Gate**: Delegate to `quality-guardian` (guided by `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-red-teamer`).
+   - **FinTech & Payments**: Delegate to `fintech-payment-sentinel` (guided by `doku-payment-gateway`, `saas-billing`, `payment-gateway-expert`).
+   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `ai-llm-integration-expert`, `gemini-agent-booster`).
+   - **Custom Agent Generation**: Scaffold new project-specific agents anytime using `vibes create-agent --name <name> --skills <skills>`.
+5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
+6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.
+7. **Circuit Breakers**: If a subagent encounters a blocker or failure >2 retries, gracefully fallback or reassign the sub-task to an alternative specialized skill.
+8. **Mandatory Documentation**: Whenever initiating a new project from scratch, the Swarm Director MUST ensure the automatic generation of a Product Requirements Document (`PRD.md`), Entity Relationship Diagram (`ERD.md`), and general Documentation (`DOKUMENTASI.md`) before any code is generated.
+
+## MANDATORY: Deep Reasoning (o1-Style Thinking)
+**CRITICAL RULE**: Do not act impulsively. Before writing any code, modifying files, or making architectural decisions, the AI Agent MUST engage in a mandatory "Internal Monologue" or deep reasoning phase (e.g., using `<thought>` tags or explicitly generating an execution plan). 
+1. **Analyze**: Evaluate constraints, edge cases, cross-domain dependencies, and implications.
+2. **Critique**: Question your own initial assumptions. Is there a more scalable, robust, or modern 2026 approach?
+3. **Validate**: Double-check the proposed solution against the project's non-functional requirements (NFRs) and standard best practices.
+4. **Execute**: Only after this reasoning chain is complete should you invoke file-editing tools.
+
+## MANDATORY: Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)
+**CRITICAL RULE**: The AI agent MUST enforce aggressive token frugality across all activities WITHOUT sacrificing the depth, rigor, or power of any skill. Token efficiency is achieved through architectural precision, prompt cache reuse, and context hygiene — NEVER through code truncations or superficial stubs.
+
+### The 6 Laws of Token Optimization (Hukum Hemat Token):
+1. **The Non-Degradation Invariant (Hukum Mutlak Non-Degradasi)**:
+   - Token frugality must NEVER degrade output fidelity, security audits, formal verification, or 3D precision.
+   - Code must be 100% complete, fully implemented, and working on the first try. Truncating with `// TODO`, `// ...rest of code`, or fake mocks is strictly prohibited under Anti-Slop Pillar 2.
+2. **Deterministic KV-Cache Prefix Pinning (`kv-cache-prefix-optimizer`)**:
+   - Maximize Prompt Caching (KV-Cache reuse) on Gemini 4 Pro / 3.x, Claude 5.1/Sonnet, and GPT-5/Astra to slash billing by 75-90% and accelerate TTFT by 10x.
+   - Maintain byte-identical prefixes: static instructions, tool definitions, and skill indices must be canonically sorted and placed at the top. Volatile timestamps and turn-specific inputs must strictly remain at the tail.
+3. **Selective Context Slicing (Fan-Out Context Pruning)**:
+   - When the Swarm Director spawns subagents via `invoke_subagent`, NEVER dump the entire conversation history or global workspace transcript into the subagent prompt.
+   - Pass only surgically targeted slices: exact subtask goal, relevant interface types, target file paths, and local schema contracts (`CONTEXT_MAP.md` slice).
+4. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
+   - Dynamically match task complexity to the optimal model tier:
+     - **flash_lite / flash**: AST scans, file discovery, linting verification, simple diff validations, and translation tasks.
+     - **inherit / pro**: High-level system architecture, cross-domain synthesis, security fuzzing, and complex fullstack refactoring.
+5. **Ultra-Compact Session Checkpoints (`session-memory-manager`)**:
+   - In extended sessions (>25 turns), compress conversational state into ultra-compact YAML checkpoints (<300 tokens) in `CHECKPOINT.md` and keep `CONTEXT_MAP.md` lean.
+   - Do not re-ingest past turns when the checkpoint provides sufficient state.
+6. **High Information Density & Zero Conversational Waste**:
+   - Eliminate sycophancy, preambles, and conversational fluff. Present architectural decisions using concise tables, typed contracts, and structured markdown.
+   - Target specific line ranges (`StartLine`/`EndLine` in `view_file`) instead of dumping thousands of unnecessary lines into the context.
+
+# LEARNING GRAPH: Skill Ecosystem Gold Standard
+
+This document serves as the persistent memory and standard operating procedure for the `vibes-plug` AI ecosystem. Any AI agent modifying or creating a skill must adhere strictly to these standards.
+
+## 1. File Structure & Frontmatter
+Every `SKILL.md` MUST begin with YAML frontmatter:
+```yaml
 ---
-
-## Core Rules for Codex AI Agents
-
-### 0. Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER (Pemicu Utama)** for all OpenAI Codex interactions.
-- The Codex agent MUST NOT wait for the user to explicitly specify skill names or `@` tags.
-- Every user prompt is automatically intercepted and routed through `brainstorming` and `zero-to-prod-orchestrator`.
-- The agent automatically binds and synchronizes cooperating skills across all involved domains (Frontend, Backend, Database, Payments, AI, QA).
-- For complex, multi-step requests, the agent operates under Swarm Topologies (Fan-Out/Fan-In, Pipeline Saga, or Critic-Validator).
-
-### 1. Deep Reasoning Before Action (o1/o3-Style Thinking)
-Do not act impulsively. Before writing code, editing files, or executing shell commands, engage in structured reasoning:
-1. **Analyze** constraints, edge cases, cross-file impact, and non-functional requirements.
-2. **Critique** initial assumptions — verify whether a modern 2026 pattern is better suited.
-3. **Validate** the proposed approach against project schemas and security policies.
-4. **Execute** only after the reasoning chain is complete.
-
-### 2. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
-Strictly eliminate conversational fluff, unnecessary narration, and placeholder code (`// TODO`, `// ... rest of code unchanged`). Enforce the `anti-slop` skill:
-- **Code-First Delivery**: Output clean, working, fully implemented code without conversational preambles.
-- **Completeness**: 100% complete files and tests on the first try. Never leave placeholders or incomplete mock stubs.
-- **Hyper-YAGNI**: No speculative layers, endless factory classes, or boilerplate wrappers.
-- **Meaningful Comments Only**: Explain architectural and business WHY, never obvious syntax mechanics.
-- **UI & Visual Sanitation**: Enforce Linear/Stripe-caliber UI. Zero generic blue-purple gradients, no neon glow orbs, no pill button addiction (`rounded-full` on standard rectangular buttons), mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), and crisp 1px borders.
-- **Verification**: Run `node scripts/check-anti-slop.js` to ensure zero slop violations.
-
-### 3. Mandatory Documentation for New Projects
-When starting any greenfield project, automatically generate:
-- Product Requirements Document (`PRD.md`)
-- Entity Relationship Diagram (`ERD.md`)
-- Architecture & Setup Documentation (`DOKUMENTASI.md`)
-
-### 4. Sovereign Token Optimization & KV-Cache Protocol (Skema Hemat Token)
-- **KV-Cache Determinism**: Keep instruction prefixes canonically ordered (`kv-cache-prefix-optimizer`) to maximize prompt caching efficiency (75-90% savings).
-- **Context Slicing**: When passing context to sub-prompts or sub-tasks, pass only relevant file contracts and schema interfaces, never raw bulk conversation histories.
-- **Adaptive Model Cascading**: Use fast models (e.g. `gpt-4o-mini` / `o3-mini`) for linting, file discovery, and tests; reserve frontier models (`o3` / `gpt-4.5` / `gpt-5`) for system architecture, refactoring, and security fuzzing.
-- **Non-Degradation Invariant**: Never truncate code with placeholders or stubs to save tokens. Code must be 100% complete and working.
-
+name: skill-name
+description: Brief description in English / Deskripsi singkat dalam Bahasa Indonesia
+author: "Roedy Rustam"
+version: "4.3.0"
 ---
+```
 
-## Orchestration Workflow
+## 2. Bilingual Requirement
+The ecosystem serves English and Indonesian developers. Every core concept in a `SKILL.md` must be understandable in both languages.
+- Headings can be in either language, but content MUST provide bilingual context or translations where critical.
 
-1. **Ideation & Planning:** `brainstorming` → `prd-architect`
-2. **Design & Frontend:** `design-system-architect` → `ui-ux-pro-max` → `senior-frontend` + `tailwind-expert`
-3. **Backend & Architecture:** `js-backend-expert` / `go-programming-expert` / `rust-programming-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
-4. **AI Integration:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`
-5. **SaaS Transformation:** `saas-architect` → auto-coordinates billing, tenancy, payments (`saas-billing`, `saas-multi-tenant`, `doku-payment-gateway`)
-6. **Quality & Launch:** `e2e-testing-expert` → `zero-tech-debt-auditor` + `anti-slop` → `seo` → `production-ready-hardener`
+## 3. Integration Matrix (Mandatory)
+Every `SKILL.md` MUST contain a section named exactly `## Orchestration & Integration` or `## Integrasi Orkestrasi`.
+This section MUST list what other skills this skill connects to.
+
+## 4. Architectural Registration
+Whenever a skill is created or audited, it MUST be registered in:
+1. `skills/brainstorming/SKILL.md` (Domain Matrix)
+2. `skills/zero-to-prod-orchestrator/SKILL.md` (Phase Execution)
+If it is missing from these files, the Swarm Auditor is authorized to add it.
+
+## 5. Sovereign Anti-Slop Directive (Zero-Tolerance Standard)
+Strictly eliminate all AI slop across conversations, code generation, architecture, and documentation. All agents, subagents, and skills must strictly enforce the 7 pillars defined in `skills/anti-slop/SKILL.md`:
+1. **Conversational Slop**: Code-first, zero sycophancy, zero robotic apologies, zero trailing cheerleading.
+2. **Placeholder & Truncation Slop**: Never use `// TODO`, `// ... rest of code`, or fake mocks in production routines. Output must be 100% complete and working on the first try.
+3. **Speculative Over-Engineering (Hyper-YAGNI)**: Ban speculative abstraction layers, endless factories, or needless DTO wrappers. Trust static types and schema contracts.
+4. **Syntax Narration**: Comments must explain non-obvious business/architectural WHY, never obvious syntax mechanics (`// increment count`). Delete dead code permanently.
+5. **Ghost Hallucinations & AI Smells**: Ban phantom imports, fabricated SDK methods, and silent error suppression (`catch (e) {}`).
+6. **Documentation Slop**: Zero marketing buzzwords in PRD or architectural specs; mandate concrete PostgreSQL DDL schemas, JSON API contracts, and verifiable NFR budgets.
+7. **UI & Visual Sanitation (Sovereign Professional UI Craft)**: Enforce Linear/Stripe/Apple-caliber design. Zero generic blue-purple gradients, no blurred neon glow orbs, no pill button addiction (`rounded-full` on standard rectangular elements), no stacked glassmorphism, mandatory 5-state interactive contract, tabular numerals (`tabular-nums`), crisp 1px borders, and 20-point checklist compliance.
+8. **Automated Verification**: Run `node scripts/check-anti-slop.js` to validate codebases before completing tasks.
+
+## 6. Sovereign Token Optimization Protocol (Hemat Token)
+All skills must preserve maximum reasoning power while maintaining minimal token consumption:
+- Enforce deterministic KV-cache prefixing via `kv-cache-prefix-optimizer`.
+- Implement dynamic model cascading via `adaptive-model-cascade`.
+- Manage context sliding windows and injection via `context-window-engineer`.
+- Store ultra-compact handoffs via `session-memory-manager`.
+- Prune subagent context payloads to task-specific slices during Swarm Fan-Out.
+
+> **Memory Graph Update:** 2026-10-09 - Codified Sovereign Token Optimization & KV-Cache Protocol across all swarm skills.

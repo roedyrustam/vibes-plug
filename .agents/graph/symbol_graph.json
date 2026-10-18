@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T19:16:06.409Z",
+  "generatedAt": "2026-10-18T19:37:46.152Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 48,
-  "totalSymbolsIndexed": 267,
+  "totalFilesIndexed": 50,
+  "totalSymbolsIndexed": 274,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 598,
+        "line": 630,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1054,
+        "line": 1104,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1082,
+        "line": 1132,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1180,
+        "line": 1230,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -240,7 +240,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1255,
+        "line": 1245,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)"
       }
@@ -248,7 +248,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1320,
+        "line": 1310,
         "type": "function",
         "signature": "function runSearch(query)"
       }
@@ -256,7 +256,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1368,
+        "line": 1358,
         "type": "function",
         "signature": "function runSync()"
       }
@@ -264,7 +264,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1425,
+        "line": 1415,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)"
       }
@@ -272,7 +272,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1488,
+        "line": 1478,
         "type": "function",
         "signature": "function showHelp()"
       }
@@ -489,6 +489,30 @@
         "line": 919,
         "type": "function",
         "signature": "def main():"
+      }
+    ],
+    "runBenchmarkSuite": [
+      {
+        "file": "scripts/benchmark-suite.mjs",
+        "line": 46,
+        "type": "function",
+        "signature": "function runBenchmarkSuite(options = {})"
+      }
+    ],
+    "fib": [
+      {
+        "file": "scripts/benchmark-suite.mjs",
+        "line": 55,
+        "type": "function",
+        "signature": "function fib(n)"
+      }
+    ],
+    "validateSessionToken": [
+      {
+        "file": "scripts/benchmark-suite.mjs",
+        "line": 92,
+        "type": "function",
+        "signature": "function validateSessionToken(token)"
       }
     ],
     "stubbed": [
@@ -745,6 +769,38 @@
         "line": 100,
         "type": "function",
         "signature": "def draw_play_arrow(draw, x, y, color):"
+      }
+    ],
+    "checkHookStatus": [
+      {
+        "file": "scripts/git-hook-installer.mjs",
+        "line": 35,
+        "type": "function",
+        "signature": "function checkHookStatus(targetDir = process.cwd()"
+      }
+    ],
+    "installGitHook": [
+      {
+        "file": "scripts/git-hook-installer.mjs",
+        "line": 84,
+        "type": "function",
+        "signature": "function installGitHook(targetDir = process.cwd()"
+      }
+    ],
+    "removeGitHook": [
+      {
+        "file": "scripts/git-hook-installer.mjs",
+        "line": 121,
+        "type": "function",
+        "signature": "function removeGitHook(targetDir = process.cwd()"
+      }
+    ],
+    "runPreCommitGate": [
+      {
+        "file": "scripts/git-hook-installer.mjs",
+        "line": 156,
+        "type": "function",
+        "signature": "function runPreCommitGate(targetDir = process.cwd()"
       }
     ],
     "getChangedFilesFromGit": [
@@ -2060,11 +2116,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1196,
+      "totalLines": 1246,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1855,
+      "totalLines": 1859,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2079,8 +2135,12 @@
       "totalLines": 226,
       "symbolCount": 5
     },
+    "scripts/benchmark-suite.mjs": {
+      "totalLines": 289,
+      "symbolCount": 3
+    },
     "scripts/check-anti-slop.js": {
-      "totalLines": 329,
+      "totalLines": 336,
       "symbolCount": 5
     },
     "scripts/check-anti-slop.mjs": {
@@ -2118,6 +2178,10 @@
     "scripts/generate_swarm_gif.py": {
       "totalLines": 296,
       "symbolCount": 3
+    },
+    "scripts/git-hook-installer.mjs": {
+      "totalLines": 300,
+      "symbolCount": 4
     },
     "scripts/github-pr-bot.mjs": {
       "totalLines": 256,
@@ -2176,7 +2240,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1015,
+      "totalLines": 1082,
       "symbolCount": 4
     },
     "scripts/update_skills.js": {

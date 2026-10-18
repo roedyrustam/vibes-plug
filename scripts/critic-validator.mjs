@@ -103,7 +103,7 @@ export function criticValidate(target, options = {}) {
   }
 
   // 3. Security & OWASP Guardrails
-  if (/dangerouslySetInnerHTML|innerHTML\s*=/.test(code)) {
+  if (/dangerouslySetInnerHTML\s*=|innerHTML\s*=/.test(code)) {
     score -= 25;
     violations.push({
       rule: 'SEC-01 (XSS Risk)',

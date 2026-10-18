@@ -1000,6 +1000,32 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpExtData = await mcpExtRes.json();
       assert.equal(mcpExtRes.status, 200);
       assert.match(mcpExtData.result.result.content[0].text, /"commandsCount":\s*11/);
+
+      // Test MCP vibes_run_benchmark tool
+      const mcpBenchRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_run_benchmark',
+          arguments: { save: false }
+        })
+      });
+      const mcpBenchData = await mcpBenchRes.json();
+      assert.equal(mcpBenchRes.status, 200);
+      assert.match(mcpBenchData.result.result.content[0].text, /"itemsTested":\s*7/);
+
+      // Test MCP vibes_git_hooks tool
+      const mcpHooksRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_git_hooks',
+          arguments: { action: 'status' }
+        })
+      });
+      const mcpHooksData = await mcpHooksRes.json();
+      assert.equal(mcpHooksRes.status, 200);
+      assert.match(mcpHooksData.result.result.content[0].text, /"isGitRepo":\s*true/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1011,4 +1037,45 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       }
     }
   });
+
+  await t.test('vibes bench should run performance benchmark suite and meet SLA budgets', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'bench', '--json']);
+    const parsed = JSON.parse(stdout);
+    assert.equal(parsed.itemsTested, 7);
+    assert.equal(parsed.allPassed, true);
+    assert.equal(parsed.score, 100);
+    assert.equal(parsed.results.length, 7);
+  });
+
+  await t.test('vibes hooks should inspect, install, and remove pre-commit gate in git repository', async () => {
+    const tempTestRepo = path.join(PLUGIN_ROOT, '.agents', 'scratch', 'test-git-hooks-repo');
+    await fs.mkdir(path.join(tempTestRepo, '.git'), { recursive: true });
+
+    try {
+      // 1. Initial status: repo exists, hook not installed
+      const { stdout: statusInit } = await execFileAsync(process.execPath, [CLI_PATH, 'hooks', 'status'], { cwd: tempTestRepo });
+      assert.match(statusInit, /Git Repository\s+:\s+Yes/);
+      assert.match(statusInit, /Hook Installed\s+:\s+No/);
+
+      // 2. Install pre-commit hook
+      const { stdout: installOut } = await execFileAsync(process.execPath, [CLI_PATH, 'hooks', 'install'], { cwd: tempTestRepo });
+      assert.match(installOut, /installed successfully/i);
+
+      // Verify installed status
+      const { stdout: statusInstalled } = await execFileAsync(process.execPath, [CLI_PATH, 'hooks', 'status'], { cwd: tempTestRepo });
+      assert.match(statusInstalled, /Hook Installed\s+:\s+Yes/);
+      assert.match(statusInstalled, /Managed by Vibes\s+:\s+Yes/);
+
+      // 3. Remove pre-commit hook
+      const { stdout: removeOut } = await execFileAsync(process.execPath, [CLI_PATH, 'hooks', 'remove'], { cwd: tempTestRepo });
+      assert.match(removeOut, /removed successfully/i);
+
+      // Verify removed status
+      const { stdout: statusFinal } = await execFileAsync(process.execPath, [CLI_PATH, 'hooks', 'status'], { cwd: tempTestRepo });
+      assert.match(statusFinal, /Hook Installed\s+:\s+No/);
+    } finally {
+      await fs.rm(tempTestRepo, { recursive: true, force: true });
+    }
+  });
 });
+
