@@ -247,6 +247,7 @@ The Swarm Director automatically intercepts the request, runs Step 1 Context Dis
 # Workspace & Skill Management
 vibes init <project-name>        # Scaffolds 8-Phase Zero-To-Prod structure (README, PROGRESS, BLUEPRINT, PRD)
 vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecommerce | mobile | api | fullstack | spec-api)
+vibes wizard                     # Interactive CLI wizard to scaffold project stack & custom skill bundle
 vibes sync                       # Verifies & synchronizes master trigger across all IDE rules
 vibes ui                         # Interactive terminal TUI to visually select & install skills
 vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 155-skill explorer)
@@ -278,8 +279,26 @@ vibes anti-slop                  # Runs Sovereign Anti-Slop scanner (detects pla
 vibes anti-slop --strict         # Strict CI mode: fails build on any warning
 vibes anti-slop --fix            # Automatically removes syntax-narrating redundant comments
 vibes audit                      # Runs zero-tech-debt-auditor for dead code, magic numbers & strict types
+vibes critic <file>              # Runs deep Critic-in-the-Loop audit on code/PRD before commit
+vibes visual-audit <file>        # Audits UI code or screenshot image against Pillar 7 & generates vision rubric
 vibes doctor                     # Checks environment health & IDE integration integrity
 vibes hooks install              # Installs pre-commit Git hook enforcing zero-slop gates
+```
+
+### 🛡️ Reusable GitHub Action (CI/CD Quality Gate)
+Integrate the Sovereign Anti-Slop Gate and Critic-Validator directly into any repository:
+```yaml
+name: Sovereign Guard Gate
+on: [push, pull_request]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: roedyrustam/vibes-plug/.github/actions/vibes-guard@main
+        with:
+          strict: 'true'
 ```
 
 ---

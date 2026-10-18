@@ -42,6 +42,7 @@ async function validateSkills() {
     let totalSkills = 0;
     let passedSkills = 0;
     let failedSkills = 0;
+    let totalCodeBlocksAudited = 0;
     const errors = [];
 
     for (const dir of skillDirs) {
@@ -120,6 +121,22 @@ async function validateSkills() {
           }
         }
 
+        // 6. Check Code Blocks (JSON syntax validity & documentation formatting)
+        const codeBlockRegex = /```([a-zA-Z0-9_-]*)\r?\n([\s\S]*?)```/g;
+        let blockMatch;
+        while ((blockMatch = codeBlockRegex.exec(content)) !== null) {
+          totalCodeBlocksAudited++;
+          const lang = (blockMatch[1] || '').toLowerCase().trim();
+          const code = blockMatch[2];
+          if (lang === 'json' && !code.includes('//') && !code.includes('/*') && !code.includes('...')) {
+            try {
+              JSON.parse(code.trim());
+            } catch (jsonErr) {
+              skillErrors.push(`Invalid JSON block in documentation: ${jsonErr.message}`);
+            }
+          }
+        }
+
         if (skillErrors.length > 0) {
           failedSkills++;
           errors.push(`❌ ${skillName}:\n    - ${skillErrors.join('\n    - ')}`);
@@ -136,6 +153,7 @@ async function validateSkills() {
     console.log(`📊 Validation Summary:`);
     console.log(`----------------------`);
     console.log(`Total Skills : ${totalSkills}`);
+    console.log(`Code Blocks  : ${totalCodeBlocksAudited} audited`);
     console.log(`✅ Passed    : ${passedSkills}`);
     console.log(`❌ Failed    : ${failedSkills}\n`);
 

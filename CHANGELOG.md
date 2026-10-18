@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan
+- **Interactive Scaffolding Wizard (`vibes wizard`)**:
+  - Perintah baru `vibes wizard` berbasis `@inquirer/prompts` untuk scaffolding proyek dan pemilihan stack kustom interaktif (Frontend, Backend, Database/ORM, Auth, Payment) serta injeksi otomatis skill bundel terkurasi ke `.agents/skills/`.
+- **Automated Documentation Code Block Audit (`scripts/validate-skills.mjs`)**:
+  - Validasi sintaksis dan integritas 847 blok kode dokumentasi lintas 155 skill (JSON schema strict parsing dan deteksi placeholder slop).
+- **Official Reusable GitHub Action (`.github/actions/vibes-guard/action.yml`)**:
+  - Composite GitHub Action siap pakai untuk menjalankan Sovereign Anti-Slop Gate dan Critic-in-the-Loop Validator di repositori CI/CD mana pun.
 - **5 Skill Frontier Baru (Milestone 155 Skills!)**:
   - **`thinking-budget-orchestrator`**: Pengaturan dinamis budget token penalaran (thinking budget) lintas model frontier (Gemini 4 Pro, Claude 5.1 Fable/Mythos, GPT-5/o3) dengan 4 profil teruji (`speed`, `balanced`, `deep`, `exhaustive`).
   - **`structured-output-contracts`**: Standardisasi skema output terstruktur multi-bahasa (Pydantic v2, Zod v3, Rust Serde, Go Struct) dengan garansi zero-markdown-fencing dan validasi skema runtime ketat.

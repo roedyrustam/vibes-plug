@@ -65,6 +65,233 @@ async function runInit(projectName) {
   }
 }
 
+async function runWizard() {
+  let select, input;
+  try {
+    const prompts = await import('@inquirer/prompts');
+    select = prompts.select;
+    input = prompts.input;
+  } catch (err) {
+    console.error('❌ Error: The Interactive Wizard requires the @inquirer/prompts package.');
+    process.exit(1);
+  }
+
+  rl.close();
+
+  console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    🌊 Vibes-Plug Interactive Scaffolding Wizard          ║
+║    Zero-to-Prod Sovereign Architecture (2026 Edition)    ║
+╚══════════════════════════════════════════════════════════╝
+`);
+
+  try {
+    const projectName = await input({
+      message: 'Enter your project name (alphanumeric/kebab-case):',
+      default: 'my-vibe-app',
+      validate: (val) => {
+        if (!isValidIdentifier(val)) return 'Must be a safe alphanumeric/kebab-case identifier.';
+        return true;
+      }
+    });
+
+    const targetDir = path.join(process.cwd(), projectName);
+    const exists = await fs.access(targetDir).then(() => true).catch(() => false);
+    if (exists) {
+      console.error(`❌ Error: Directory '${projectName}' already exists.`);
+      process.exit(1);
+    }
+
+    const archetype = await select({
+      message: 'Select project architecture archetype:',
+      choices: [
+        { name: '🏢 Multi-Tenant SaaS (Next.js 15, Supabase RLS, DOKU / Stripe Billing)', value: 'saas' },
+        { name: '📜 Contract-First Spec-Driven API (Hono, TypeSpec, OpenAPI 3.1, BDD)', value: 'spec-api' },
+        { name: '⚡ Fullstack Modern App (T3 / Next.js 15, tRPC, Drizzle / Prisma)', value: 'fullstack' },
+        { name: '🛍️ E-Commerce & Agentic Commerce (Next.js, QRIS / Base, Medusa)', value: 'ecommerce' },
+        { name: '📱 Cross-Platform Mobile App (React Native, Expo SDK 53, Router v4)', value: 'mobile' },
+        { name: '🚀 High-Performance Backend API (Bun / Hono / Node.js 24+)', value: 'api' },
+        { name: '🎯 Custom Tailored Stack (Choose components manually)', value: 'custom' }
+      ]
+    });
+
+    let frontend = 'Next.js 15 (App Router)';
+    let backend = 'Hono / Node.js 24+';
+    let db = 'Drizzle ORM + PostgreSQL';
+    let auth = 'Supabase Auth';
+    let payment = 'None';
+    let chosenSkills = [];
+
+    if (archetype === 'custom') {
+      frontend = await select({
+        message: 'Select Frontend Framework:',
+        choices: [
+          { name: 'Next.js 15 App Router (React 19 + Tailwind v4)', value: 'nextjs' },
+          { name: 'Vite + React 19 SPA', value: 'vite-react' },
+          { name: 'Astro 5 (Islands Architecture + MDX)', value: 'astro' },
+          { name: 'SvelteKit 2 (Svelte 5 Runes)', value: 'svelte' },
+          { name: 'SolidStart (SolidJS 2)', value: 'solid' },
+          { name: 'None (Pure Backend / Headless API)', value: 'none' }
+        ]
+      });
+
+      backend = await select({
+        message: 'Select Backend / Runtime:',
+        choices: [
+          { name: 'Hono v4 (Bun 1.2+ / Node 24+)', value: 'hono' },
+          { name: 'Node.js Express 5 / Fastify 5', value: 'express' },
+          { name: 'Go 1.25+ (Fiber / Echo / gRPC)', value: 'go' },
+          { name: 'Python FastAPI 0.115+ (Pydantic v2)', value: 'python' },
+          { name: 'Rust 2024 (Axum + SQLx)', value: 'rust' }
+        ]
+      });
+
+      db = await select({
+        message: 'Select Database & ORM:',
+        choices: [
+          { name: 'PostgreSQL + Drizzle ORM', value: 'drizzle' },
+          { name: 'PostgreSQL + Prisma 6', value: 'prisma' },
+          { name: 'Supabase (PostgreSQL + RLS)', value: 'supabase' },
+          { name: 'None / In-Memory / SQLite', value: 'none' }
+        ]
+      });
+
+      auth = await select({
+        message: 'Select Authentication & Identity:',
+        choices: [
+          { name: 'Better-Auth / Auth.js', value: 'better-auth' },
+          { name: 'Clerk Identity', value: 'clerk' },
+          { name: 'Supabase Auth', value: 'supabase-auth' },
+          { name: 'Custom JWT / Session Tokens', value: 'custom-jwt' }
+        ]
+      });
+
+      payment = await select({
+        message: 'Select Payment / Monetization:',
+        choices: [
+          { name: 'DOKU Payment Gateway (SNAP BI QRIS / VA)', value: 'doku' },
+          { name: 'Stripe Billing', value: 'stripe' },
+          { name: 'Agentic M2M Settlement (Fiat & Stablecoin)', value: 'm2m' },
+          { name: 'None', value: 'none' }
+        ]
+      });
+
+      const customSkillSet = new Set(['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager']);
+      if (frontend === 'nextjs') {
+        customSkillSet.add('senior-frontend');
+        customSkillSet.add('nextjs-app-router-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'vite-react') {
+        customSkillSet.add('senior-frontend');
+        customSkillSet.add('spa-orchestrator');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'astro') {
+        customSkillSet.add('astro-framework-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'svelte') {
+        customSkillSet.add('svelte-sveltekit-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'solid') {
+        customSkillSet.add('solidjs-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+
+      if (backend === 'hono' || backend === 'express') {
+        customSkillSet.add('js-backend-expert');
+        customSkillSet.add('api-design-expert');
+      }
+      if (backend === 'go') {
+        customSkillSet.add('go-programming-expert');
+        customSkillSet.add('api-design-expert');
+      }
+      if (backend === 'python') {
+        customSkillSet.add('python-programming-expert');
+        customSkillSet.add('pydantic-ai-expert');
+      }
+      if (backend === 'rust') {
+        customSkillSet.add('rust-programming-expert');
+      }
+
+      if (db === 'drizzle' || db === 'prisma') {
+        customSkillSet.add('database-orm-expert');
+      }
+      if (db === 'supabase') {
+        customSkillSet.add('supabase-security-expert');
+        customSkillSet.add('database-orm-expert');
+      }
+
+      if (auth !== 'none') {
+        customSkillSet.add('authentication-identity-expert');
+      }
+      if (payment === 'doku') {
+        customSkillSet.add('doku-payment-gateway');
+        customSkillSet.add('payment-gateway-expert');
+        customSkillSet.add('saas-billing');
+      }
+      if (payment === 'stripe') {
+        customSkillSet.add('payment-gateway-expert');
+        customSkillSet.add('saas-billing');
+      }
+      if (payment === 'm2m') {
+        customSkillSet.add('agentic-m2m-settlement');
+        customSkillSet.add('agentic-micro-economy-architect');
+      }
+
+      chosenSkills = Array.from(customSkillSet);
+    } else {
+      const templateSkillMap = {
+        'saas': ['saas-architect', 'saas-multi-tenant', 'saas-billing', 'payment-gateway-expert', 'doku-payment-gateway', 'supabase-security-expert', 'senior-frontend', 'tailwind-expert'],
+        'spec-api': ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'],
+        'fullstack': ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert', 'senior-frontend'],
+        'ecommerce': ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway', 'senior-frontend', 'tailwind-expert'],
+        'mobile': ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'],
+        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert']
+      };
+      chosenSkills = ['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager', ...(templateSkillMap[archetype] || [])];
+    }
+
+    console.log(`\n📦 Initializing project structure for "${projectName}"...`);
+    await fs.mkdir(targetDir, { recursive: true });
+
+    const targetAgentsDir = path.join(targetDir, '.agents', 'skills');
+    await fs.mkdir(targetAgentsDir, { recursive: true });
+
+    for (const skill of chosenSkills) {
+      const sourceDir = path.join(PLUGIN_ROOT, 'skills', skill);
+      const skillTargetDir = path.join(targetAgentsDir, skill);
+      const skillExists = await fs.access(sourceDir).then(() => true).catch(() => false);
+      if (skillExists) {
+        await fs.cp(sourceDir, skillTargetDir, { recursive: true });
+        console.log(`  ➕ Injected skill: ${skill}`);
+      }
+    }
+
+    const prdTitle = `${projectName} (${archetype.toUpperCase()})`;
+    const filesToCreate = {
+      'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Wizard (${archetype.toUpperCase()} archetype).\n\n## Next Steps\nAsk your AI agent (Antigravity, Claude Code, Cursor, Codex) to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
+      'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker (${archetype.toUpperCase()})\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient Layer ──► API Gateway / Reverse Proxy ──► Service Logic ──► Database & Storage\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Archetype**: ${archetype}\n- **Frontend**: ${frontend}\n- **Backend**: ${backend}\n- **Database / ORM**: ${db}\n- **Auth**: ${auth}\n- **Payment**: ${payment}\n- **Bound AI Skills**: ${chosenSkills.join(', ')}\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first architecture with strict typing.\n- **ADR-002**: Zero AI slop, zero placeholder stubs (Anti-Slop Pillar 1-8).\n- **ADR-003**: Deterministic prompt caching for sub-second orchestration.\n`,
+      'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Project Name**: ${projectName}\n- **Archetype**: ${archetype.toUpperCase()}\n- **Bound Skills**: ${chosenSkills.join(', ')}\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
+    };
+
+    for (const [filename, content] of Object.entries(filesToCreate)) {
+      await fs.writeFile(path.join(targetDir, filename), content, 'utf8');
+      console.log(`  📄 Created ${filename}`);
+    }
+
+    console.log(`\n🎉 Project "${projectName}" successfully scaffolded with ${chosenSkills.length} bound AI skills!`);
+    console.log('\nTo get started:');
+    console.log(`  cd ${projectName}`);
+    console.log('  Ask your AI: "Begin Phase 1 using zero-to-prod-orchestrator"');
+  } catch (err) {
+    console.error(`\n❌ Error during wizard: ${err.message}`);
+  }
+}
+
 async function runBootstrap(templateName, projectName) {
   if (!templateName || !projectName) {
     console.error('❌ Error: Template name and Project name are required.');
@@ -1246,6 +1473,7 @@ Commands:
   sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
   bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
+  wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
   search <query>            Search all 155 skills by keyword (ranked by relevance)
@@ -1381,6 +1609,9 @@ Platform Eligibility & Economics:
     break;
   case 'bootstrap':
     runBootstrap(args[1], args[2]);
+    break;
+  case 'wizard':
+    runWizard();
     break;
   case 'ui':
     runUi();

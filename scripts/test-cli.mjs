@@ -17,6 +17,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /Vibes-Plug CLI/);
     assert.match(stdout, /sync/);
     assert.match(stdout, /init/);
+    assert.match(stdout, /wizard/);
     assert.match(stdout, /doctor/);
     assert.match(stdout, /recipe/);
   });
@@ -115,6 +116,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     } finally {
       await fs.rm(tempDir, { recursive: true, force: true });
     }
+  });
+
+  await t.test('vibes-guard reusable GitHub Action should exist with valid schema', async () => {
+    const actionYamlPath = path.resolve(__dirname, '../.github/actions/vibes-guard/action.yml');
+    const content = await fs.readFile(actionYamlPath, 'utf8');
+    assert.match(content, /Vibes-Plug Sovereign Guard/);
+    assert.match(content, /using:\s*'composite'/);
+    assert.match(content, /inputs:/);
+    assert.match(content, /check-anti-slop/);
   });
 
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {

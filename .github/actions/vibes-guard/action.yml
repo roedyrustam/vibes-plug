@@ -1,0 +1,54 @@
+name: 'Vibes-Plug Sovereign Guard'
+description: 'Automated Sovereign Anti-Slop, critic validation, AST blast-radius, and invariant verification for AI-generated code.'
+author: 'Roedy Rustam'
+
+inputs:
+  strict:
+    description: 'Enforce strict mode (all warnings treated as errors)'
+    required: false
+    default: 'true'
+  critic-file:
+    description: 'Target file or component to audit via Critic-in-the-Loop'
+    required: false
+    default: ''
+  node-version:
+    description: 'Node.js version to use in the runtime environment'
+    required: false
+    default: '22.x'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js Runtime
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Run Sovereign Anti-Slop Audit
+      shell: bash
+      run: |
+        echo "🛡️ Executing Vibes-Plug Sovereign Anti-Slop Gate..."
+        if [ -f "scripts/check-anti-slop.js" ]; then
+          if [ "${{ inputs.strict }}" = "true" ]; then
+            node scripts/check-anti-slop.js --strict
+          else
+            node scripts/check-anti-slop.js
+          fi
+        else
+          if [ "${{ inputs.strict }}" = "true" ]; then
+            npx --yes vibes-plug audit --strict
+          else
+            npx --yes vibes-plug audit
+          fi
+        fi
+
+    - name: Run Critic-in-the-Loop Audit
+      if: ${{ inputs.critic-file != '' }}
+      shell: bash
+      run: |
+        echo "🧐 Executing Vibes-Plug Critic-in-the-Loop Validator..."
+        if [ -f "scripts/critic-validator.mjs" ]; then
+          node scripts/critic-validator.mjs "${{ inputs.critic-file }}"
+        else
+          npx --yes vibes-plug critic "${{ inputs.critic-file }}"
+        fi
