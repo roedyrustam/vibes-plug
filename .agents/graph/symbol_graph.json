@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T20:12:54.687Z",
+  "generatedAt": "2026-10-18T20:17:56.149Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 52,
-  "totalSymbolsIndexed": 283,
+  "totalFilesIndexed": 53,
+  "totalSymbolsIndexed": 288,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 657,
+        "line": 665,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1148,
+        "line": 1160,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1176,
+        "line": 1188,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1274,
+        "line": 1286,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -1867,6 +1867,46 @@
         "signature": "function executeSwarm(taskDescription, options = {})"
       }
     ],
+    "loadMonitorSnapshot": [
+      {
+        "file": "scripts/terminal-monitor.mjs",
+        "line": 31,
+        "type": "function",
+        "signature": "function loadMonitorSnapshot()"
+      }
+    ],
+    "formatMonitorDashboard": [
+      {
+        "file": "scripts/terminal-monitor.mjs",
+        "line": 125,
+        "type": "function",
+        "signature": "function formatMonitorDashboard(data)"
+      }
+    ],
+    "runTerminalMonitor": [
+      {
+        "file": "scripts/terminal-monitor.mjs",
+        "line": 202,
+        "type": "function",
+        "signature": "function runTerminalMonitor(options = {})"
+      }
+    ],
+    "renderFrame": [
+      {
+        "file": "scripts/terminal-monitor.mjs",
+        "line": 222,
+        "type": "function",
+        "signature": "function renderFrame()"
+      }
+    ],
+    "handleKeyPress": [
+      {
+        "file": "scripts/terminal-monitor.mjs",
+        "line": 252,
+        "type": "arrow-function",
+        "signature": "const handleKeyPress = (str, key) =>"
+      }
+    ],
     "multiply": [
       {
         "file": "scripts/test-cli.mjs",
@@ -2186,11 +2226,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1290,
+      "totalLines": 1302,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1873,
+      "totalLines": 1881,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2313,8 +2353,12 @@
       "totalLines": 230,
       "symbolCount": 4
     },
+    "scripts/terminal-monitor.mjs": {
+      "totalLines": 298,
+      "symbolCount": 5
+    },
     "scripts/test-cli.mjs": {
-      "totalLines": 1175,
+      "totalLines": 1206,
       "symbolCount": 4
     },
     "scripts/token-budget-optimizer.mjs": {

@@ -1504,6 +1504,7 @@ Commands:
   bench [--json]            Run the 7-engine performance benchmark suite & regression fuzzer
   budget <task|file> [--json] Dynamic token budget optimizer & multi-provider complexity scorer
   drift [skill] [--json]    Automated Skill Health & Framework Drift Monitor (2026 Gold Standard)
+  monitor [--once] [--json] Interactive terminal cockpit & live swarm telemetry monitor
   doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
@@ -1846,6 +1847,13 @@ Platform Eligibility & Economics:
     rl.close();
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-drift-monitor.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
+  case 'monitor':
+  case 'tui': {
+    rl.close();
+    const { runTerminalMonitor } = await import('../scripts/terminal-monitor.mjs');
+    await runTerminalMonitor({ once: args.includes('--once'), json: args.includes('--json') });
     break;
   }
   case 'hook:install':

@@ -617,6 +617,14 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_terminal_monitor',
+    description: 'Sovereign Cockpit & Live Monitor: queries current snapshot of Studio connectivity, Ecosystem Health, Token Economics & FinOps savings, Performance SLAs, and recent Swarm Event Bus telemetry.',
+    inputSchema: {
+      type: 'object',
+      properties: {}
+    }
   }
 ];
 
@@ -1117,6 +1125,10 @@ export async function handleRpcRequest(request) {
         } else {
           contentText = JSON.stringify(ecosystem, null, 2);
         }
+      } else if (name === 'vibes_terminal_monitor') {
+        const { loadMonitorSnapshot } = await import('../scripts/terminal-monitor.mjs');
+        const snapshot = await loadMonitorSnapshot();
+        contentText = JSON.stringify(snapshot, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

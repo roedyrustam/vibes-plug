@@ -1079,6 +1079,20 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpDriftRes.status, 200);
       assert.match(mcpDriftData.result.result.content[0].text, /"skillName":\s*"senior-frontend"/);
       assert.match(mcpDriftData.result.result.content[0].text, /"score":\s*100/);
+
+      // Test MCP vibes_terminal_monitor tool via /api/mcp/execute
+      const mcpMonitorRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_terminal_monitor',
+          arguments: {}
+        })
+      });
+      const mcpMonitorData = await mcpMonitorRes.json();
+      assert.equal(mcpMonitorRes.status, 200);
+      assert.match(mcpMonitorData.result.result.content[0].text, /"totalSkills":\s*155/);
+      assert.match(mcpMonitorData.result.result.content[0].text, /"ecosystemStatus":\s*"PRISTINE"/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1168,6 +1182,23 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.equal(singleData.score, 100);
     assert.equal(singleData.status, 'PRISTINE');
     assert.ok(singleData.inDegree > 10);
+  });
+
+  await t.test('vibes monitor should provide terminal dashboard snapshot and JSON telemetry', async () => {
+    // 1. Snapshot mode
+    const { stdout: snapOut } = await execFileAsync(process.execPath, [CLI_PATH, 'monitor', '--once']);
+    assert.match(snapOut, /VIBES-PLUG SOVEREIGN COCKPIT/);
+    assert.match(snapOut, /Ecosystem Health/);
+    assert.match(snapOut, /100\/100/);
+
+    // 2. JSON telemetry mode
+    const { stdout: jsonOut } = await execFileAsync(process.execPath, [CLI_PATH, 'monitor', '--json']);
+    const monitorData = JSON.parse(jsonOut);
+    assert.equal(typeof monitorData.drift, 'object');
+    assert.equal(monitorData.drift.totalSkills, 155);
+    assert.equal(monitorData.drift.ecosystemStatus, 'PRISTINE');
+    assert.ok(Array.isArray(monitorData.benchmarks.results));
+    assert.equal(monitorData.benchmarks.passedCount, 7);
   });
 });
 
