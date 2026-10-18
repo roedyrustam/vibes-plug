@@ -3079,6 +3079,28 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // In-memory Pre-Disk Verification Gate endpoint
+    if (req.method === 'POST' && pathname === '/api/sandbox/verify') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { code, target, language } = JSON.parse(body || '{}');
+          const toVerify = code || target;
+          if (!toVerify) {
+            sendJson({ error: 'Code or target is required' }, 400);
+            return;
+          }
+          const { verifyCandidateCode } = await import('./wasm-sandbox.mjs');
+          const outcome = await verifyCandidateCode(toVerify, { language });
+          sendJson({ success: true, ...outcome });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     // FinOps Telemetry endpoints
     if (req.method === 'GET' && pathname === '/api/finops') {
       try {

@@ -276,6 +276,17 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /Verified 100% complete with 0 placeholders/);
   });
 
+  await t.test('vibes sandbox --verify and verify-gate should validate candidate code pre-disk', async () => {
+    const { stdout: passOut } = await execFileAsync(process.execPath, [CLI_PATH, 'verify-gate', 'export const multiply = (a, b) => a * b;']);
+    assert.match(passOut, /Pre-Disk Verification Gate/);
+    assert.match(passOut, /APPROVED/);
+    assert.match(passOut, /Safe to write/);
+
+    const { stdout: sandboxVerifyOut } = await execFileAsync(process.execPath, [CLI_PATH, 'sandbox', '--verify', 'export const divide = (a, b) => a / b;']);
+    assert.match(sandboxVerifyOut, /Pre-Disk Verification Gate/);
+    assert.match(sandboxVerifyOut, /APPROVED/);
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
@@ -852,6 +863,32 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpLearnRes.status, 200);
       assert.match(mcpLearnData.result.result.content[0].text, /"success":\s*true/);
       assert.match(mcpLearnData.result.result.content[0].text, /duckdb-wasm-expert/);
+
+      // Test Studio Pre-Disk Verification Gate endpoint
+      const verifyApiRes = await fetch(`${url}/api/sandbox/verify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: 'export function calculateTotal(price, qty) { return price * qty; }' })
+      });
+      const verifyApiData = await verifyApiRes.json();
+      assert.equal(verifyApiRes.status, 200);
+      assert.equal(verifyApiData.success, true);
+      assert.equal(verifyApiData.verdict, 'APPROVED');
+      assert.equal(verifyApiData.canPersistToDisk, true);
+
+      // Test MCP vibes_verify_gate tool
+      const mcpVerifyRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_verify_gate',
+          arguments: { code: 'export const status = "READY";' }
+        })
+      });
+      const mcpVerifyData = await mcpVerifyRes.json();
+      assert.equal(mcpVerifyRes.status, 200);
+      assert.match(mcpVerifyData.result.result.content[0].text, /"verdict":\s*"APPROVED"/);
+      assert.match(mcpVerifyData.result.result.content[0].text, /"canPersistToDisk":\s*true/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

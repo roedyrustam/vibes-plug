@@ -1520,7 +1520,8 @@ Commands:
   registry <cmd> [args]     Community skill registry hub (list | search | install | pack)
   graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
   graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
-  sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
+  sandbox <file|code> [--verify] Dry-run code in micro-sandbox or run pre-disk verification gate
+  verify-gate <file|code>   In-memory pre-disk verification gate (Syntax + Anti-Slop + Visual UI)
   cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
@@ -1739,7 +1740,13 @@ Platform Eligibility & Economics:
   }
   case 'sandbox': {
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    rl.close();
+    break;
+  }
+  case 'verify-gate': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), '--verify', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
     rl.close();
     break;
   }

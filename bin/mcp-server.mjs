@@ -476,6 +476,27 @@ export const TOOLS = [
       },
       required: ['name']
     }
+  },
+  {
+    name: 'vibes_verify_gate',
+    description: 'Pre-Disk Verification Gate: performs in-memory pre-persistence audit on candidate code strings or files against AST syntax, Sovereign Anti-Slop Directive, and Pillar 7 visual standards before allowing disk write.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+          description: 'Candidate source code string to audit in-memory.'
+        },
+        filePath: {
+          type: 'string',
+          description: 'Optional path to candidate file.'
+        },
+        language: {
+          type: 'string',
+          description: 'Target language (e.g. typescript, javascript, python).'
+        }
+      }
+    }
   }
 ];
 
@@ -908,6 +929,12 @@ export async function handleRpcRequest(request) {
         if (!skillName) throw new Error("Argument 'name' is required.");
         const { synthesizeSkill } = await import('../scripts/skill-synthesizer.mjs');
         const outcome = await synthesizeSkill({ name: skillName, fromRepo, category, dest, dryRun });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_verify_gate') {
+        const target = args?.code || args?.filePath || args?.target;
+        if (!target) throw new Error("Argument 'code' or 'filePath' is required.");
+        const { verifyCandidateCode } = await import('../scripts/wasm-sandbox.mjs');
+        const outcome = await verifyCandidateCode(target, { language: args?.language });
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

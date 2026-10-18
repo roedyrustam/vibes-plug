@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:42:04.601Z",
+  "generatedAt": "2026-10-18T18:45:30.188Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 46,
-  "totalSymbolsIndexed": 233,
+  "totalSymbolsIndexed": 237,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 516,
+        "line": 537,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 940,
+        "line": 967,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 968,
+        "line": 995,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1066,
+        "line": 1093,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -426,7 +426,7 @@
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 157,
+        "line": 245,
         "type": "function",
         "signature": "function main()"
       },
@@ -1531,12 +1531,36 @@
         "signature": "function executeSwarm(taskDescription, options = {})"
       }
     ],
+    "multiply": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 280,
+        "type": "arrow-function",
+        "signature": "const multiply = (a, b) =>"
+      }
+    ],
+    "divide": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 285,
+        "type": "arrow-function",
+        "signature": "const divide = (a, b) =>"
+      }
+    ],
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 590,
+        "line": 601,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
+      }
+    ],
+    "calculateTotal": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 871,
+        "type": "function",
+        "signature": "function calculateTotal(price, qty)"
       }
     ],
     "walk": [
@@ -1629,6 +1653,14 @@
         "line": 89,
         "type": "function",
         "signature": "function executeInSandbox(code, options = {})"
+      }
+    ],
+    "verifyCandidateCode": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 165,
+        "type": "function",
+        "signature": "function verifyCandidateCode(target, options = {})"
       }
     ],
     "parse_hex": [
@@ -1794,11 +1826,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1082,
+      "totalLines": 1109,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1828,
+      "totalLines": 1835,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1890,7 +1922,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3458,
+      "totalLines": 3480,
       "symbolCount": 48
     },
     "scripts/swarm-dispatcher.mjs": {
@@ -1902,8 +1934,8 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 867,
-      "symbolCount": 1
+      "totalLines": 904,
+      "symbolCount": 4
     },
     "scripts/update_skills.js": {
       "totalLines": 76,
@@ -1926,8 +1958,8 @@
       "symbolCount": 4
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 218,
-      "symbolCount": 3
+      "totalLines": 327,
+      "symbolCount": 4
     },
     "skills/anti-slop/scripts/check-anti-slop.js": {
       "totalLines": 334,
