@@ -45,7 +45,7 @@ git checkout -b feat/add-skill-<skill-name>
 #### 3. Create a New Skill Module
 1. Navigate to the `skills/` directory.
 2. Create a new folder with your skill name using **kebab-case** (e.g., `skills/fast-api`).
-3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL.md](templates/SKILL_TEMPLATE.md).
+3. Create a `SKILL.md` file inside that folder. You can copy the template from [SKILL_TEMPLATE.md](templates/SKILL_TEMPLATE.md).
 
 Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 
@@ -60,25 +60,32 @@ version: "4.3.0"
 
 The document body must have the following sections:
 - `# Skill Name`
-- `## Description`
-- `## Instructions` (Contains detailed guidelines, code styling rules, etc.)
-- `## Trigger Conditions` (Conditions/context under which this skill should be activated by the agent)
+- `## Description` / `## Deskripsi`
+- `## Instructions` / `## Instruksi` (Detailed guidelines, code styling rules, concrete code examples)
+- `## Orchestration & Integration` / `## Integrasi Orkestrasi` (**Mandatory**: Specify cooperating skills from the 155 ecosystem)
+- `## Trigger Conditions` / `## Kondisi Pemicu` (Conditions and context when this skill must be auto-synchronized)
 
-#### 4. Register the Skill in README.md and BLUEPRINT.md
-To make your new skill recognized and easily discoverable:
+#### 4. Register the Skill in Catalog and Orchestrators
+To maintain architectural swarm cohesion, every new skill **must** be registered across the ecosystem:
 1. **`README.md`**: Register your skill in the **Features and Available Skills** section under the relevant category.
-2. **`BLUEPRINT.md`**: Register your skill module in the **Skill Modules** section.
+2. **`CATALOG.md` & `CATALOG.json`**: Register your skill entry with description, domain category, and version.
+3. **`skills/brainstorming/SKILL.md`**: Add your skill to the appropriate domain row in the *Skill Integration & Orchestration Matrix*.
+4. **`skills/zero-to-prod-orchestrator/SKILL.md`**: Add your skill to the *Orchestrates* list of the relevant Phase (Phase 1 to Phase 8).
 
-#### 5. Run the Standardization Script
-We provide an automated script to format markdown, align technology stack versions (e.g., React 19, Next.js 15), and fix emoji encoding issues.
+#### 5. Run Standardization, Anti-Slop Audit, and Tests
+We provide automated scripts to format markdown, align technology stack versions (e.g., React 19, Tailwind v4, Bun, Hono), audit anti-slop rules, and run end-to-end tests.
 
-Run the following command before committing:
+Run the following commands before committing:
 
 ```bash
-node scripts/update_skills.js
+# 1. Update and standardize skill formats
+node scripts/update_skills.mjs
+
+# 2. Run ecosystem validation, anti-slop strict audit, and CLI test suite
+npm test
 ```
 
-Ensure the script runs successfully and check if any of your new skill files were updated.
+Ensure all tests pass (100% green, 0 errors, 0 warnings).
 
 #### 6. Commit and Push Changes
 Once everything is neat and validated, commit your changes:
@@ -91,15 +98,17 @@ git push origin feat/add-skill-<skill-name>
 
 #### 7. Create a Pull Request (PR)
 1. Open your forked repository page on GitHub (e.g., `https://github.com/username/vibes-plug`).
-2. You will see a yellow button saying **"Compare & pull request"**. Click that button.
-3. Provide a clear description of the purpose and utility of the skill you added.
-4. Submit your Pull Request (PR) to the `main` branch of the original repository (`roedyrustam/vibes-plug`).
+2. Click the **"Compare & pull request"** button.
+3. Provide a clear description of the purpose, domain, and utility of the skill you added.
+4. Verify that the GitHub Actions CI (`anti-slop-gate` and `test`) passes.
+5. Submit your Pull Request (PR) to the `main` branch of the original repository (`roedyrustam/vibes-plug`).
 
-### Additional Rules & Tips
-> [!NOTE]
-> - Ensure instructions are written in a clear and instructive language.
-> - Avoid duplicate instructions with existing skills. If your skill is similar, consider updating an existing skill instead.
-> - Do not include extra frontmatter fields other than `name`, `description`, and `author`, as they will be cleaned automatically by the `update_skills.js` script.
+### Additional Rules & Anti-Slop Standards
+> [!IMPORTANT]
+> - **Sovereign Anti-Slop Directive (Zero-Tolerance)**: Never use `// TODO`, `// ...rest of code`, or fake mocks. Output must be 100% complete and working.
+> - **Bilingual Requirement**: Every skill must provide bilingual English & Bahasa Indonesia context.
+> - **5-State UI Contract**: Any UI component guidance must include all 5 interactive states (`default`, `hover`, `focus-visible`, `active`, `disabled`).
+> - **No Duplicate Skills**: If a similar skill already exists among the 155 catalog, enhance the existing skill rather than duplicating it.
 
 ---
 
@@ -144,7 +153,7 @@ git checkout -b feat/add-skill-<nama-skill>
 #### 3. Buat Modul Skill Baru
 1. Masuk ke direktori `skills/`.
 2. Buat folder baru dengan nama skill Anda menggunakan format **kebab-case** (misalnya `skills/fast-api`).
-3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL.md](templates/SKILL_TEMPLATE.md).
+3. Buat file `SKILL.md` di dalam folder tersebut. Anda bisa menyalin template dari [SKILL_TEMPLATE.md](templates/SKILL_TEMPLATE.md).
 
 Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 
@@ -157,27 +166,34 @@ version: "4.3.0"
 ---
 ```
 
-Struktur isi dokumen harus memiliki bagian berikut:
+Struktur isi dokumen wajib memiliki bagian berikut:
 - `# Nama Skill`
-- `## Deskripsi`
-- `## Instruksi` (Berisi panduan detail, aturan penulisan kode, dll.)
-- `## Kondisi Pemicu` (Kondisi/konteks kapan skill ini harus diaktifkan oleh agen)
+- `## Deskripsi` / `## Description`
+- `## Instruksi` / `## Instructions` (Berisi panduan detail, aturan penulisan kode, dan contoh kode konkret)
+- `## Integrasi Orkestrasi` / `## Orchestration & Integration` (**Wajib**: Daftar skill pasangan yang bekerja sama dalam ekosistem)
+- `## Kondisi Pemicu` / `## Trigger Conditions` (Kondisi/konteks kapan skill ini harus diaktifkan secara otomatis oleh agen)
 
-#### 4. Daftarkan Skill di README.md dan BLUEPRINT.md
-Agar skill baru Anda dikenali dan mudah ditemukan:
-1. **`README.md`**: Daftarkan skill Anda di bagian **Fitur dan Skills yang Tersedia** di bawah kategori yang relevan.
-2. **`BLUEPRINT.md`**: Daftarkan modul skill Anda di bagian **Skill Modules**.
+#### 4. Daftarkan Skill di Katalog dan Master Orchestrators
+Untuk menjaga keutuhan arsitektur multi-agent swarm, setiap skill baru **wajib** didaftarkan di:
+1. **`README.md`**: Daftarkan skill Anda di bagian **Fitur dan Skills yang Tersedia** di bawah kategori yang sesuai.
+2. **`CATALOG.md` & `CATALOG.json`**: Tambahkan entri skill dengan deskripsi, kategori domain, dan versinya.
+3. **`skills/brainstorming/SKILL.md`**: Daftarkan skill ke baris domain yang sesuai pada tabel *Skill Integration & Orchestration Matrix*.
+4. **`skills/zero-to-prod-orchestrator/SKILL.md`**: Tambahkan skill ke daftar *Orchestrates* pada Phase yang relevan (Phase 1 hingga Phase 8).
 
-#### 5. Jalankan Script Standardisasi
-Kami menyediakan script otomatis untuk merapikan markdown, menyelaraskan versi stack teknologi (misal React 19, Next.js 15), serta memperbaiki isu encoding emoji.
+#### 5. Jalankan Script Standardisasi, Anti-Slop Audit, dan Pengujian
+Kami menyediakan script otomatis untuk merapikan markdown, menyelaraskan versi stack teknologi (misal React 19, Tailwind v4, Bun, Hono), memeriksa aturan anti-slop, dan menjalankan pengujian menyeluruh.
 
 Jalankan perintah berikut sebelum melakukan commit:
 
 ```bash
-node scripts/update_skills.js
+# 1. Update dan standarisasi format skill
+node scripts/update_skills.mjs
+
+# 2. Jalankan validasi ekosistem, audit ketat anti-slop, dan test suite CLI
+npm test
 ```
 
-Pastikan script berjalan dengan sukses dan laporkan jika ada file skill baru Anda yang diperbarui.
+Pastikan seluruh pengujian lulus 100% (semua centang hijau, 0 error, 0 warning).
 
 #### 6. Commit dan Push Perubahan
 Setelah semuanya rapi dan tervalidasi, commit perubahan Anda:
@@ -190,12 +206,14 @@ git push origin feat/add-skill-<nama-skill>
 
 #### 7. Buat Pull Request (PR)
 1. Buka halaman repositori hasil fork Anda di GitHub (misal: `https://github.com/username/vibes-plug`).
-2. Anda akan melihat tombol kuning bertuliskan **"Compare & pull request"**. Klik tombol tersebut.
-3. Berikan deskripsi yang jelas mengenai tujuan dan kegunaan dari skill yang Anda tambahkan.
-4. Kirim Pull Request (PR) Anda ke branch `main` repositori asal (`roedyrustam/vibes-plug`).
+2. Klik tombol kuning bertuliskan **"Compare & pull request"**.
+3. Berikan deskripsi yang jelas mengenai tujuan, kategori domain, dan kegunaan dari skill yang Anda tambahkan.
+4. Pastikan pemeriksaan CI di GitHub Actions (`anti-slop-gate` dan `test`) lulus.
+5. Kirim Pull Request (PR) Anda ke branch `main` repositori asal (`roedyrustam/vibes-plug`).
 
-### Aturan Tambahan & Tips
-> [!NOTE]
-> - Pastikan instruksi ditulis dengan bahasa yang jelas dan instruktif.
-> - Hindari duplikasi instruksi dengan skill yang sudah ada. Jika skill Anda mirip, pertimbangkan untuk memperbarui skill yang telah ada.
-> - Jangan menyertakan frontmatter tambahan di luar `name`, `description`, dan `author`, karena akan dibersihkan secara otomatis oleh script `update_skills.js`.
+### Aturan Tambahan & Standar Anti-Slop
+> [!IMPORTANT]
+> - **Sovereign Anti-Slop Directive (Zero-Tolerance)**: Dilarang keras menggunakan `// TODO`, `// ...rest of code`, atau fungsi tiruan (*fake mock*). Seluruh kode harus 100% lengkap dan langsung berfungsi (*first-try*).
+> - **Kebutuhan Bilingual**: Setiap skill harus dapat dipahami oleh developer pengguna bahasa Inggris dan bahasa Indonesia.
+> - **Kontrak Interaktif 5-State UI**: Panduan komponen UI wajib mencakup 5 state interaktif (`default`, `hover`, `focus-visible`, `active`, `disabled`).
+> - **Hindari Duplikasi Skill**: Jika skill serupa sudah ada dalam 155 katalog, prioritaskan untuk memperbarui skill yang telah ada.

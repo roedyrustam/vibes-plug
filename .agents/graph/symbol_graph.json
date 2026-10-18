@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T08:02:44.488Z",
+  "generatedAt": "2026-10-18T18:11:24.110Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 43,
   "totalSymbolsIndexed": 215,
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 857,
+        "line": 860,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 885,
+        "line": 888,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 983,
+        "line": 986,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -694,7 +694,7 @@
     "reviewPullRequest": [
       {
         "file": "scripts/github-pr-bot.mjs",
-        "line": 51,
+        "line": 59,
         "type": "function",
         "signature": "function reviewPullRequest(targetOrRange = 'HEAD~1', options = {})"
       }
@@ -702,7 +702,7 @@
     "generatePrMarkdownReport": [
       {
         "file": "scripts/github-pr-bot.mjs",
-        "line": 170,
+        "line": 178,
         "type": "function",
         "signature": "function generatePrMarkdownReport(data)"
       }
@@ -1394,7 +1394,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 525,
+        "line": 528,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1654,7 +1654,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 999,
+      "totalLines": 1002,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
@@ -1710,7 +1710,7 @@
       "symbolCount": 3
     },
     "scripts/github-pr-bot.mjs": {
-      "totalLines": 248,
+      "totalLines": 256,
       "symbolCount": 3
     },
     "scripts/graphrag-indexer.mjs": {
@@ -1750,7 +1750,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 720,
+      "totalLines": 730,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {

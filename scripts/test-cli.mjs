@@ -517,18 +517,28 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(sandboxApiData.result, 6);
 
       // Test MCP vibes_eval_sandbox tool via /api/mcp/execute
-      const mcpSandboxRes = await fetch(`${url}/api/mcp/execute`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tool: 'vibes_eval_sandbox',
-          arguments: { code: 'const sum = (a, b) => a + b; sum(10, 32)' }
-        })
-      });
-      const mcpSandboxData = await mcpSandboxRes.json();
-      assert.equal(mcpSandboxRes.status, 200);
-      assert.match(mcpSandboxData.result.result.content[0].text, /"success":\s*true/);
-      assert.match(mcpSandboxData.result.result.content[0].text, /"result":\s*42/);
+      const prevSandboxEnv = process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL;
+      process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL = 'true';
+      try {
+        const mcpSandboxRes = await fetch(`${url}/api/mcp/execute`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tool: 'vibes_eval_sandbox',
+            arguments: { code: 'const sum = (a, b) => a + b; sum(10, 32)' }
+          })
+        });
+        const mcpSandboxData = await mcpSandboxRes.json();
+        assert.equal(mcpSandboxRes.status, 200);
+        assert.match(mcpSandboxData.result.result.content[0].text, /"success":\s*true/);
+        assert.match(mcpSandboxData.result.result.content[0].text, /"result":\s*42/);
+      } finally {
+        if (prevSandboxEnv === undefined) {
+          delete process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL;
+        } else {
+          process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL = prevSandboxEnv;
+        }
+      }
 
       // Test FinOps telemetry endpoints
       const finopsGetRes = await fetch(`${url}/api/finops`);
