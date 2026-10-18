@@ -274,6 +274,24 @@ export const TOOLS = [
       },
       required: ['target']
     }
+  },
+  {
+    name: 'vibes_eval_sandbox',
+    description: 'Ephemeral Micro-Sandbox: dry-run untrusted AI-generated JavaScript/TypeScript logic, regexes, and algorithms in an isolated in-memory sandbox with strict timeout and zero host access.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+          description: 'JavaScript/TypeScript code string to safely execute.'
+        },
+        timeoutMs: {
+          type: 'number',
+          description: 'Wall-clock execution timeout in milliseconds (default: 1000ms).'
+        }
+      },
+      required: ['code']
+    }
   }
 ];
 
@@ -628,6 +646,13 @@ export async function handleRpcRequest(request) {
         const viewport = args?.viewport;
         const report = visualAudit(target, { viewport });
         contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_eval_sandbox') {
+        const code = args?.code;
+        if (!code) throw new Error("Argument 'code' is required.");
+        const timeoutMs = args?.timeoutMs;
+        const { executeInSandbox } = await import('../scripts/wasm-sandbox.mjs');
+        const outcome = executeInSandbox(code, { timeoutMs });
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

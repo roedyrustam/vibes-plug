@@ -1492,6 +1492,7 @@ Commands:
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
   visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
+  sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
   cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
@@ -1658,6 +1659,12 @@ Platform Eligibility & Economics:
   case 'critic': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'critic-validator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'sandbox': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }

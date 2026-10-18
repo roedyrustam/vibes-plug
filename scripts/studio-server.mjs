@@ -207,6 +207,70 @@ const SUBAGENTS = [
   }
 ];
 
+export const DAG_PRESETS = {
+  'zero-to-prod': {
+    id: 'zero-to-prod',
+    name: '8-Phase Zero-to-Prod Saga',
+    description: 'Autonomous sequential pipeline from product discovery to production release.',
+    nodes: [
+      { id: 'phase1', label: '1. Discovery & PRD', skill: 'prd-architect', domain: 'data', budget: '8K' },
+      { id: 'phase2', label: '2. System Blueprint', skill: 'brainstorming', domain: 'data', budget: '8K' },
+      { id: 'phase3', label: '3. DB Isolation & RLS', skill: 'database-orm-expert', domain: 'backend', budget: '16K' },
+      { id: 'phase4', label: '4. Spec-Driven APIs', skill: 'spec-driven-development-expert', domain: 'backend', budget: '16K' },
+      { id: 'phase5', label: '5. Frontend UI/UX', skill: 'senior-frontend', domain: 'frontend', budget: '16K' },
+      { id: 'phase6', label: '6. TDD & Anti-Slop', skill: 'anti-slop', domain: 'security', budget: '32K' },
+      { id: 'phase7', label: '7. DevOps & CI/CD', skill: 'ci-cd-devops-architect', domain: 'data', budget: '8K' },
+      { id: 'phase8', label: '8. Production Gate', skill: 'production-ready-hardener', domain: 'security', budget: '64K' }
+    ],
+    edges: [
+      { from: 'phase1', to: 'phase2' },
+      { from: 'phase2', to: 'phase3' },
+      { from: 'phase3', to: 'phase4' },
+      { from: 'phase4', to: 'phase5' },
+      { from: 'phase5', to: 'phase6' },
+      { from: 'phase6', to: 'phase7' },
+      { from: 'phase7', to: 'phase8' }
+    ]
+  },
+  'critic-validator': {
+    id: 'critic-validator',
+    name: 'Critic-Validator Gate',
+    description: 'Zero-tolerance iterative verification loop: Implementer -> Auditor -> Invariant Proof.',
+    nodes: [
+      { id: 'impl', label: 'Implementer Agent', skill: 'fullstack-expert', domain: 'backend', budget: '16K' },
+      { id: 'slop', label: 'Sovereign Anti-Slop', skill: 'anti-slop', domain: 'security', budget: '16K' },
+      { id: 'smt', label: 'SMT Invariant Verifier', skill: 'formal-spec-z3-verifier', domain: 'security', budget: '32K' },
+      { id: 'vis', label: 'Visual UI Auditor', skill: 'visual-ui-auditor', domain: 'frontend', budget: '8K' },
+      { id: 'gate', label: 'Approved Release Gate', skill: 'zero-tech-debt-auditor', domain: 'security', budget: '16K' }
+    ],
+    edges: [
+      { from: 'impl', to: 'slop' },
+      { from: 'slop', to: 'smt' },
+      { from: 'slop', to: 'vis' },
+      { from: 'smt', to: 'gate' },
+      { from: 'vis', to: 'gate' }
+    ]
+  },
+  'agentic-commerce': {
+    id: 'agentic-commerce',
+    name: 'Agentic M2M & FinTech Settlement Flow',
+    description: 'Dual-Rail commerce flow: DOKU SNAP BI QRIS/VA + M2M Agent Wallets & cryptographic invoicing.',
+    nodes: [
+      { id: 'order', label: 'Agent Cart & Intent', skill: 'doku-mcp-server', domain: 'ai', budget: '8K' },
+      { id: 'settle', label: 'M2M Settlement Clearning', skill: 'agentic-m2m-settlement', domain: 'saas', budget: '32K' },
+      { id: 'doku', label: 'DOKU SNAP BI Gateway', skill: 'doku-payment-gateway', domain: 'saas', budget: '16K' },
+      { id: 'idem', label: 'Atomic Lock & Idempotency', skill: 'database-orm-expert', domain: 'backend', budget: '16K' },
+      { id: 'audit', label: 'Audit Trail & Telemetry', skill: 'data-telemetry-expert', domain: 'saas', budget: '8K' }
+    ],
+    edges: [
+      { from: 'order', to: 'settle' },
+      { from: 'settle', to: 'doku' },
+      { from: 'doku', to: 'idem' },
+      { from: 'idem', to: 'audit' }
+    ]
+  }
+};
+
 async function loadSkillsCatalog() {
   try {
     const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
@@ -994,6 +1058,52 @@ function generateStudioHtml(currentPort) {
       .grid-2col { grid-template-columns: 1fr; }
     }
 
+    /* Visual Topological DAG Canvas */
+    .dag-node {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      min-width: 170px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      transition: all 0.25s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .dag-node:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px var(--primary-glow);
+    }
+    .dag-node.active-step {
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+    .dag-node-header {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dag-node-skill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--primary);
+    }
+    .dag-node-budget {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      background: rgba(255,255,255,0.06);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #cbd5e1;
+    }
+
     .form-group {
       display: flex;
       flex-direction: column;
@@ -1218,6 +1328,7 @@ function generateStudioHtml(currentPort) {
   <nav class="tab-nav">
     <button type="button" class="tab-btn active" data-tab="tab-arsenal">155-Skill Arsenal</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
+    <button type="button" class="tab-btn" data-tab="tab-dag">Visual DAG Canvas</button>
     <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P5)</button>
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
     <button type="button" class="tab-btn" data-tab="tab-mcp">Remote MCP (SSE)</button>
@@ -1337,6 +1448,38 @@ function generateStudioHtml(currentPort) {
           <div id="subagents-container" class="subagent-grid">
             <!-- Rendered by JavaScript -->
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- View: Visual DAG Canvas -->
+    <div id="tab-dag" class="view-pane">
+      <div class="panel-box">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+          <div>
+            <h3>Visual Topological DAG Swarm Canvas</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Interactive directed acyclic graph editor. Design and simulate multi-agent pipelines with dynamic thinking budgets.
+            </p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <select id="dag-preset-select" class="form-input" style="width: auto; padding: 6px 14px;" onchange="loadDagPreset(this.value)">
+              <option value="zero-to-prod">8-Phase Zero-to-Prod Saga</option>
+              <option value="critic-validator">Critic-Validator Gate</option>
+              <option value="agentic-commerce">Agentic M2M &amp; FinTech Settlement</option>
+            </select>
+            <button type="button" class="btn btn-primary" onclick="simulateDagExecution()">▶ Run DAG Simulation</button>
+          </div>
+        </div>
+
+        <div id="dag-canvas-container" style="background: rgba(0,0,0,0.3); border: 1px solid var(--card-border); border-radius: 12px; min-height: 400px; position: relative; overflow-x: auto; padding: 24px;">
+          <svg id="dag-svg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;"></svg>
+          <div id="dag-nodes-container" style="display: flex; align-items: center; justify-content: space-around; min-height: 350px; position: relative; z-index: 2; gap: 24px; flex-wrap: wrap;"></div>
+        </div>
+
+        <div id="dag-trace-box" style="margin-top: 20px; display: none;">
+          <h4 style="font-size: 0.9rem; margin-bottom: 8px; color: var(--primary);">Execution Trace &amp; Topological Sequence:</h4>
+          <pre id="dag-trace-output" style="background: rgba(0,0,0,0.5); padding: 14px; border-radius: 8px; font-family: var(--font-mono); font-size: 0.82rem; color: #a5f3fc; border: 1px solid var(--card-border); max-height: 200px; overflow-y: auto;"></pre>
         </div>
       </div>
     </div>
