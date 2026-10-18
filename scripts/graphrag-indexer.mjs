@@ -189,6 +189,214 @@ export async function querySymbolGraph(symbolName, options = {}) {
   };
 }
 
+/**
+ * Tokenizes text into normalized lexical terms with camelCase and snake_case splitting
+ * @param {string} text 
+ * @returns {string[]}
+ */
+export function tokenizeCode(text = '') {
+  if (!text) return [];
+  // Split camelCase: fooBar -> foo Bar
+  const decamel = text.replace(/([a-z])([A-Z])/g, '$1 $2');
+  // Replace non-alphanumeric with space
+  const words = decamel.toLowerCase().split(/[^a-z0-9]+/);
+  return words.filter(w => w.length > 1);
+}
+
+/**
+ * Performs local hybrid GraphRAG search combining BM25 lexical ranking,
+ * vector space cosine similarity, and AST graph symbol associations.
+ * 
+ * @param {string} query 
+ * @param {Object} [options]
+ * @param {number} [options.topK=5]
+ * @param {string} [options.graphFile]
+ * @returns {Promise<Object>}
+ */
+export async function hybridSearch(query, options = {}) {
+  const target = String(query || '').trim();
+  const topK = Number(options.topK) || 5;
+
+  if (!target) {
+    return {
+      success: false,
+      error: 'Query string is required',
+      query: target,
+      totalMatches: 0,
+      results: []
+    };
+  }
+
+  const graph = await loadSymbolGraph(options.graphFile);
+  const queryTokens = tokenizeCode(target);
+  if (queryTokens.length === 0) {
+    return {
+      success: false,
+      error: 'Query contains no searchable tokens',
+      query: target,
+      totalMatches: 0,
+      results: []
+    };
+  }
+
+  // 1. Flatten all symbols into a search corpus
+  const documents = [];
+  let docIndex = 0;
+
+  for (const [symName, occurrences] of Object.entries(graph.symbols || {})) {
+    for (const occ of occurrences) {
+      const docText = `${symName} ${occ.type} ${occ.signature || ''} ${occ.file}`;
+      const tokens = tokenizeCode(docText);
+      documents.push({
+        id: `doc-${docIndex++}`,
+        name: symName,
+        file: occ.file,
+        line: occ.line,
+        type: occ.type,
+        signature: occ.signature,
+        tokens,
+        tokenFreqs: new Map()
+      });
+    }
+  }
+
+  const N = documents.length;
+  if (N === 0) {
+    return {
+      success: true,
+      query: target,
+      totalMatches: 0,
+      results: []
+    };
+  }
+
+  // 2. Precompute BM25 statistics
+  let totalLength = 0;
+  const docFreq = new Map();
+
+  for (const doc of documents) {
+    totalLength += doc.tokens.length;
+    const seen = new Set();
+    for (const t of doc.tokens) {
+      doc.tokenFreqs.set(t, (doc.tokenFreqs.get(t) || 0) + 1);
+      if (!seen.has(t)) {
+        seen.add(t);
+        docFreq.set(t, (docFreq.get(t) || 0) + 1);
+      }
+    }
+  }
+
+  const avgdl = totalLength / N;
+  const k1 = 1.2;
+  const b = 0.75;
+
+  // Precompute IDF for query terms
+  const queryTermIdf = new Map();
+  for (const qTerm of queryTokens) {
+    const df = docFreq.get(qTerm) || 0;
+    const idf = Math.log(1 + (N - df + 0.5) / (df + 0.5));
+    queryTermIdf.set(qTerm, Math.max(0.1, idf));
+  }
+
+  // Compute query vector magnitude for cosine similarity
+  let queryNormSq = 0;
+  for (const qTerm of queryTokens) {
+    const idf = queryTermIdf.get(qTerm) || 0.1;
+    queryNormSq += idf * idf;
+  }
+  const queryNorm = Math.sqrt(queryNormSq) || 1;
+
+  // 3. Score every document
+  const scoredDocs = [];
+
+  for (const doc of documents) {
+    let bm25Score = 0;
+    let dotProduct = 0;
+    let docNormSq = 0;
+    const dl = doc.tokens.length;
+
+    for (const qTerm of queryTokens) {
+      const tf = doc.tokenFreqs.get(qTerm) || 0;
+      if (tf > 0) {
+        const idf = queryTermIdf.get(qTerm);
+        const numerator = tf * (k1 + 1);
+        const denominator = tf + k1 * (1 - b + b * (dl / avgdl));
+        bm25Score += idf * (numerator / denominator);
+        dotProduct += (tf * idf) * idf;
+      }
+    }
+
+    const lowerName = doc.name.toLowerCase();
+    const exactNameMatch = lowerName === target.toLowerCase();
+    const nameContainsQuery = lowerName.includes(target.toLowerCase());
+
+    if (exactNameMatch) {
+      bm25Score *= 2.0;
+    } else if (nameContainsQuery) {
+      bm25Score *= 1.35;
+    }
+
+    for (const [t, tf] of doc.tokenFreqs.entries()) {
+      const termIdf = queryTermIdf.get(t) || 0.5;
+      const weight = tf * termIdf;
+      docNormSq += weight * weight;
+    }
+    const docNorm = Math.sqrt(docNormSq) || 1;
+    const vectorScore = dotProduct / (queryNorm * docNorm);
+
+    if (bm25Score > 0 || vectorScore > 0) {
+      scoredDocs.push({
+        doc,
+        bm25Score,
+        vectorScore
+      });
+    }
+  }
+
+  if (scoredDocs.length === 0) {
+    return {
+      success: true,
+      query: target,
+      totalMatches: 0,
+      results: []
+    };
+  }
+
+  const maxBm25 = Math.max(...scoredDocs.map(s => s.bm25Score), 1);
+  const maxVector = Math.max(...scoredDocs.map(s => s.vectorScore), 1);
+
+  const results = scoredDocs.map(({ doc, bm25Score, vectorScore }) => {
+    const normBm25 = bm25Score / maxBm25;
+    const normVector = vectorScore / maxVector;
+    const hybridScore = Number(((normBm25 * 0.55) + (normVector * 0.45)).toFixed(4));
+    const fileStats = graph.files?.[doc.file] || { symbolCount: 1 };
+
+    return {
+      name: doc.name,
+      file: doc.file,
+      line: doc.line,
+      type: doc.type,
+      signature: doc.signature,
+      score: hybridScore,
+      bm25Score: Number(normBm25.toFixed(4)),
+      vectorScore: Number(normVector.toFixed(4)),
+      context: {
+        fileSiblingSymbols: fileStats.symbolCount,
+        category: doc.file.startsWith('scripts') ? 'core-engine' : doc.file.startsWith('bin') ? 'cli-interface' : 'source-module'
+      }
+    };
+  });
+
+  results.sort((a, b) => b.score - a.score);
+
+  return {
+    success: true,
+    query: target,
+    totalMatches: results.length,
+    results: results.slice(0, topK)
+  };
+}
+
 // CLI Execution Router
 if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
   const args = process.argv.slice(2);
@@ -231,7 +439,34 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename
       console.error(`❌ Query error: ${err.message}`);
       process.exit(1);
     });
+  } else if (cmd === 'search') {
+    const queryWords = args.slice(1).filter(a => !a.startsWith('--'));
+    const searchQuery = queryWords.join(' ');
+    if (!searchQuery) {
+      console.error('❌ Error: Search query is required (e.g. node scripts/graphrag-indexer.mjs search "payment checkout")');
+      process.exit(1);
+    }
+    const topKIdx = args.indexOf('--top-k');
+    const topK = topKIdx !== -1 ? parseInt(args[topKIdx + 1], 10) : 5;
+
+    hybridSearch(searchQuery, { topK }).then(result => {
+      console.log(`\n🔎 Hybrid GraphRAG Search: "${searchQuery}" (Matches: ${result.totalMatches})`);
+      if (result.results.length === 0) {
+        console.log('❌ No matching symbols or files found in graph.');
+      } else {
+        console.log(`Top ${result.results.length} ranked matches:\n`);
+        for (const r of result.results) {
+          console.log(`  • [Score: ${r.score.toFixed(4)}] ${r.name} (${r.type})`);
+          console.log(`    File: ${r.file}:${r.line} (BM25: ${r.bm25Score.toFixed(4)}, Vector: ${r.vectorScore.toFixed(4)})`);
+          if (r.signature) console.log(`    Sig : ${r.signature}`);
+        }
+        console.log('');
+      }
+    }).catch(err => {
+      console.error(`❌ Search error: ${err.message}`);
+      process.exit(1);
+    });
   } else {
-    console.log(`Usage:\n  node scripts/graphrag-indexer.mjs build [rootDir]\n  node scripts/graphrag-indexer.mjs query <symbolName>`);
+    console.log(`Usage:\n  node scripts/graphrag-indexer.mjs build [rootDir]\n  node scripts/graphrag-indexer.mjs query <symbolName>\n  node scripts/graphrag-indexer.mjs search <query> [--top-k 5]`);
   }
 }

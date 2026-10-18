@@ -3241,6 +3241,29 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Codebase Local Hybrid GraphRAG Search endpoint
+    if (req.method === 'POST' && pathname === '/api/graph/search') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const searchQuery = parsed.query || parsed.search || parsed.target;
+          if (!searchQuery) {
+            sendJson({ error: 'Search query is required' }, 400);
+            return;
+          }
+          const topK = Number(parsed.topK) || 5;
+          const { hybridSearch } = await import('./graphrag-indexer.mjs');
+          const outcome = await hybridSearch(searchQuery, { topK });
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     // Sovereign PR Review Critic Bot endpoint
     if (req.method === 'POST' && pathname === '/api/pr/review') {
       let body = '';

@@ -527,6 +527,24 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_graph_search',
+    description: 'Local Hybrid GraphRAG Search: performs sub-millisecond lexical BM25 and TF-IDF vector cosine similarity search across AST symbol graph and project files.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Search query or concept to locate in the codebase graph.'
+        },
+        topK: {
+          type: 'number',
+          description: 'Maximum number of ranked results to return (default: 5).'
+        }
+      },
+      required: ['query']
+    }
   }
 ];
 
@@ -980,6 +998,13 @@ export async function handleRpcRequest(request) {
           const events = swarmBus.getEvents({ limit: 10 });
           contentText = JSON.stringify({ success: true, activeSwarms: active, recentEvents: events }, null, 2);
         }
+      } else if (name === 'vibes_graph_search') {
+        const query = args?.query || args?.target;
+        if (!query) throw new Error("Argument 'query' is required.");
+        const topK = Number(args?.topK) || 5;
+        const { hybridSearch } = await import('../scripts/graphrag-indexer.mjs');
+        const outcome = await hybridSearch(query, { topK });
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

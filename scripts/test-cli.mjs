@@ -179,7 +179,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /All checks passed/);
   });
 
-  await t.test('vibes graph:build and vibes graph:query should index and locate AST symbols', async () => {
+  await t.test('vibes graph:build, vibes graph:query, and vibes graph:search should index, locate, and hybrid search symbols', async () => {
     const { stdout: buildOut } = await execFileAsync(process.execPath, [CLI_PATH, 'graph:build']);
     assert.match(buildOut, /Building Codebase AST Symbol Knowledge Graph/);
     assert.match(buildOut, /Symbol Knowledge Graph built/);
@@ -188,6 +188,12 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: queryOut } = await execFileAsync(process.execPath, [CLI_PATH, 'graph:query', 'startStudioServer']);
     assert.match(queryOut, /Query: "startStudioServer"/);
     assert.match(queryOut, /scripts\/studio-server\.mjs/);
+
+    const { stdout: searchOut } = await execFileAsync(process.execPath, [CLI_PATH, 'graph:search', 'startStudioServer', '--top-k', '3']);
+    assert.match(searchOut, /Hybrid GraphRAG Search/);
+    assert.match(searchOut, /startStudioServer/);
+    assert.match(searchOut, /BM25/);
+    assert.match(searchOut, /Vector/);
   });
 
   await t.test('vibes pr:review should audit code diffs or files and generate PR markdown report', async () => {
@@ -721,6 +727,32 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpGraphRes.status, 200);
       assert.match(mcpGraphData.result.result.content[0].text, /"success":\s*true/);
       assert.match(mcpGraphData.result.result.content[0].text, /studio-server\.mjs/);
+
+      // Test Studio Codebase Graph Search endpoint
+      const graphSearchRes = await fetch(`${url}/api/graph/search`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: 'startStudioServer', topK: 3 })
+      });
+      const graphSearchData = await graphSearchRes.json();
+      assert.equal(graphSearchRes.status, 200);
+      assert.equal(graphSearchData.success, true);
+      assert.ok(graphSearchData.results.length > 0);
+      assert.equal(graphSearchData.results[0].name, 'startStudioServer');
+      assert.ok(graphSearchData.results[0].score > 0.5);
+
+      // Test MCP vibes_graph_search tool
+      const mcpGraphSearchRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_graph_search',
+          arguments: { query: 'startStudioServer', topK: 3 }
+        })
+      });
+      const mcpGraphSearchData = await mcpGraphSearchRes.json();
+      assert.equal(mcpGraphSearchRes.status, 200);
+      assert.match(mcpGraphSearchData.result.result.content[0].text, /startStudioServer/);
 
       // Test MCP vibes_pr_review tool
       const mcpPrRes = await fetch(`${url}/api/mcp/execute`, {

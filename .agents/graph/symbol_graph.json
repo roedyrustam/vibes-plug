@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:53:26.508Z",
+  "generatedAt": "2026-10-18T18:56:36.874Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 47,
-  "totalSymbolsIndexed": 243,
+  "totalSymbolsIndexed": 245,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 567,
+        "line": 585,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1011,
+        "line": 1036,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1039,
+        "line": 1064,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1137,
+        "line": 1162,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -795,6 +795,22 @@
         "line": 148,
         "type": "function",
         "signature": "function querySymbolGraph(symbolName, options = {})"
+      }
+    ],
+    "tokenizeCode": [
+      {
+        "file": "scripts/graphrag-indexer.mjs",
+        "line": 197,
+        "type": "function",
+        "signature": "function tokenizeCode(text = '')"
+      }
+    ],
+    "hybridSearch": [
+      {
+        "file": "scripts/graphrag-indexer.mjs",
+        "line": 216,
+        "type": "function",
+        "signature": "function hybridSearch(query, options = {})"
       }
     ],
     "copyRecursiveSync": [
@@ -1580,7 +1596,7 @@
     "multiply": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 280,
+        "line": 286,
         "type": "arrow-function",
         "signature": "const multiply = (a, b) =>"
       }
@@ -1588,7 +1604,7 @@
     "divide": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 285,
+        "line": 291,
         "type": "arrow-function",
         "signature": "const divide = (a, b) =>"
       }
@@ -1596,7 +1612,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 612,
+        "line": 618,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1604,7 +1620,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 882,
+        "line": 914,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -1872,11 +1888,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1153,
+      "totalLines": 1178,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1845,
+      "totalLines": 1847,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1936,8 +1952,8 @@
       "symbolCount": 3
     },
     "scripts/graphrag-indexer.mjs": {
-      "totalLines": 238,
-      "symbolCount": 4
+      "totalLines": 473,
+      "symbolCount": 6
     },
     "scripts/install.js": {
       "totalLines": 265,
@@ -1968,7 +1984,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3521,
+      "totalLines": 3544,
       "symbolCount": 48
     },
     "scripts/swarm-bus.mjs": {
@@ -1984,7 +2000,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 946,
+      "totalLines": 978,
       "symbolCount": 4
     },
     "scripts/update_skills.js": {

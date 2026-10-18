@@ -1520,6 +1520,7 @@ Commands:
   registry <cmd> [args]     Community skill registry hub (list | search | install | pack)
   graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
   graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
+  graph:search <query>      Local Hybrid GraphRAG search (BM25 + TF-IDF Vector cosine similarity)
   sandbox <file|code> [--verify] Dry-run code in micro-sandbox or run pre-disk verification gate
   verify-gate <file|code>   In-memory pre-disk verification gate (Syntax + Anti-Slop + Visual UI)
   cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
@@ -1761,9 +1762,10 @@ Platform Eligibility & Economics:
     break;
   }
   case 'graph:build':
-  case 'graph:query': {
+  case 'graph:query':
+  case 'graph:search': {
     const { spawnSync } = await import('child_process');
-    const subCmd = command === 'graph:query' ? 'query' : 'build';
+    const subCmd = command === 'graph:query' ? 'query' : command === 'graph:search' ? 'search' : 'build';
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
