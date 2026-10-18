@@ -268,6 +268,14 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     }
   });
 
+  await t.test('vibes learn should synthesize gold-standard skill without placeholders', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'learn', 'trpc-v11', '--dry-run']);
+    assert.match(stdout, /Vibes-Plug Autonomous Skill Synthesizer/);
+    assert.match(stdout, /Skill synthesized successfully/);
+    assert.match(stdout, /trpc-v11-expert/);
+    assert.match(stdout, /Verified 100% complete with 0 placeholders/);
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
@@ -819,6 +827,31 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpBridgeStatusRes.status, 200);
       assert.match(mcpBridgeStatusData.result.result.content[0].text, /"targetDir"/);
       assert.match(mcpBridgeStatusData.result.result.content[0].text, /"platforms"/);
+
+      // Test Studio Skill Learn/Synthesize endpoint
+      const learnApiRes = await fetch(`${url}/api/skill/learn`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: 'graphql-mesh-expert', dryRun: true })
+      });
+      const learnApiData = await learnApiRes.json();
+      assert.equal(learnApiRes.status, 200);
+      assert.equal(learnApiData.success, true);
+      assert.equal(learnApiData.skillName, 'graphql-mesh-expert');
+
+      // Test MCP vibes_learn_skill tool
+      const mcpLearnRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_learn_skill',
+          arguments: { name: 'duckdb-wasm-expert', dryRun: true }
+        })
+      });
+      const mcpLearnData = await mcpLearnRes.json();
+      assert.equal(mcpLearnRes.status, 200);
+      assert.match(mcpLearnData.result.result.content[0].text, /"success":\s*true/);
+      assert.match(mcpLearnData.result.result.content[0].text, /duckdb-wasm-expert/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

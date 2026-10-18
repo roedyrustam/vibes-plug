@@ -3319,6 +3319,34 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Autonomous Skill Learn/Synthesize endpoint
+    if (req.method === 'POST' && pathname === '/api/skill/learn') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const skillName = parsed.name || parsed.skillName;
+          if (!skillName) {
+            sendJson({ error: 'Skill name is required' }, 400);
+            return;
+          }
+          const { synthesizeSkill } = await import('./skill-synthesizer.mjs');
+          const outcome = await synthesizeSkill({
+            name: skillName,
+            fromRepo: parsed.fromRepo,
+            category: parsed.category,
+            dest: parsed.dest || 'project',
+            dryRun: parsed.dryRun === true
+          });
+          sendJson({ success: true, ...outcome });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     // Single skill inject endpoint
     if (req.method === 'POST' && pathname === '/api/inject') {
       try {

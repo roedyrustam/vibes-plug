@@ -444,6 +444,38 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_learn_skill',
+    description: 'Autonomous Skill Synthesizer: analyzes a local repository, TypeScript definitions, or documentation to synthesize a 100% complete, fully implemented, bilingual Gold-Standard AI skill with zero placeholders.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          description: 'Kebab-case skill identifier to synthesize (e.g. fast-api-expert, trpc-v11-expert).'
+        },
+        fromRepo: {
+          type: 'string',
+          description: 'Optional path to local package or repository directory to inspect.'
+        },
+        category: {
+          type: 'string',
+          enum: ['frontend', 'backend', 'ai', 'saas', 'security', 'data'],
+          description: 'Optional domain category.'
+        },
+        dest: {
+          type: 'string',
+          enum: ['project', 'core'],
+          description: 'Destination: project (.agents/skills) or core (vibes-plug/skills). Default: project.'
+        },
+        dryRun: {
+          type: 'boolean',
+          description: 'Dry run preview without writing to disk.'
+        }
+      },
+      required: ['name']
+    }
   }
 ];
 
@@ -870,6 +902,12 @@ export async function handleRpcRequest(request) {
         const target = args?.target || 'all';
         const { syncBridge } = await import('../scripts/cross-ide-bridge.mjs');
         const outcome = await syncBridge(targetDir, { target });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_learn_skill') {
+        const { name: skillName, fromRepo, category, dest, dryRun } = args || {};
+        if (!skillName) throw new Error("Argument 'name' is required.");
+        const { synthesizeSkill } = await import('../scripts/skill-synthesizer.mjs');
+        const outcome = await synthesizeSkill({ name: skillName, fromRepo, category, dest, dryRun });
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

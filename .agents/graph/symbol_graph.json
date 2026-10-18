@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:36:18.248Z",
+  "generatedAt": "2026-10-18T18:42:04.601Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 45,
-  "totalSymbolsIndexed": 226,
+  "totalFilesIndexed": 46,
+  "totalSymbolsIndexed": 233,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 484,
+        "line": 516,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 902,
+        "line": 940,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 930,
+        "line": 968,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1028,
+        "line": 1066,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -391,6 +391,12 @@
       {
         "file": "scripts/memory-daemon.mjs",
         "line": 91,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 488,
         "type": "function",
         "signature": "function main()"
       },
@@ -985,6 +991,54 @@
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
       }
     ],
+    "sanitizeSkillSlug": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 32,
+        "type": "function",
+        "signature": "function sanitizeSkillSlug(raw)"
+      }
+    ],
+    "inferDomainCategory": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 53,
+        "type": "function",
+        "signature": "function inferDomainCategory(name, context = {})"
+      }
+    ],
+    "inspectTargetRepository": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 79,
+        "type": "function",
+        "signature": "function inspectTargetRepository(repoDir)"
+      }
+    ],
+    "generateSkillMarkdown": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 159,
+        "type": "function",
+        "signature": "function generateSkillMarkdown(spec)"
+      }
+    ],
+    "registerInMasterOrchestrators": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 386,
+        "type": "function",
+        "signature": "function registerInMasterOrchestrators(skillName, category = 'backend')"
+      }
+    ],
+    "synthesizeSkill": [
+      {
+        "file": "scripts/skill-synthesizer.mjs",
+        "line": 439,
+        "type": "function",
+        "signature": "function synthesizeSkill(options = {})"
+      }
+    ],
     "scoreDraft": [
       {
         "file": "scripts/speculative-arbiter.mjs",
@@ -1480,7 +1534,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 582,
+        "line": 590,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1740,11 +1794,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1044,
+      "totalLines": 1082,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1821,
+      "totalLines": 1828,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1827,12 +1881,16 @@
       "totalLines": 264,
       "symbolCount": 3
     },
+    "scripts/skill-synthesizer.mjs": {
+      "totalLines": 543,
+      "symbolCount": 7
+    },
     "scripts/speculative-arbiter.mjs": {
       "totalLines": 213,
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3430,
+      "totalLines": 3458,
       "symbolCount": 48
     },
     "scripts/swarm-dispatcher.mjs": {
@@ -1844,7 +1902,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 834,
+      "totalLines": 867,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {
