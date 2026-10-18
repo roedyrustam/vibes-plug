@@ -3101,6 +3101,47 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Real-Time Swarm Event Bus SSE Stream
+    if (req.method === 'GET' && (pathname === '/api/swarm/stream' || pathname === '/sse')) {
+      const { swarmBus } = await import('./swarm-bus.mjs');
+      swarmBus.attachSseStream(res);
+      return;
+    }
+
+    // Real-Time Swarm Event Bus query endpoint
+    if (req.method === 'GET' && pathname === '/api/swarm/events') {
+      try {
+        const type = searchParams.get('type') || undefined;
+        const swarmId = searchParams.get('swarmId') || undefined;
+        const limit = parseInt(searchParams.get('limit') || '50', 10);
+        const { swarmBus } = await import('./swarm-bus.mjs');
+        const events = swarmBus.getEvents({ type, swarmId, limit });
+        const activeSwarms = swarmBus.getActiveSwarms();
+        sendJson({ success: true, count: events.length, activeSwarms, events });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Swarm Broadcast signal endpoint
+    if (req.method === 'POST' && pathname === '/api/swarm/broadcast') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const message = parsed.message || 'Inter-agent broadcast signal';
+          const { emitSwarmEvent } = await import('./swarm-bus.mjs');
+          const event = emitSwarmEvent('agent:broadcast', { message, source: parsed.source || 'STUDIO' });
+          sendJson({ success: true, event });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
     // FinOps Telemetry endpoints
     if (req.method === 'GET' && pathname === '/api/finops') {
       try {

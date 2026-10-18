@@ -497,6 +497,36 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_swarm_bus',
+    description: 'Real-Time Swarm Concurrency Bus: queries active multi-agent swarms, event telemetry ring buffer, or broadcasts an inter-agent synchronization signal.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['status', 'events', 'broadcast'],
+          description: 'Action to perform: status (active swarms), events (recent telemetry), broadcast (emit message).'
+        },
+        type: {
+          type: 'string',
+          description: 'Filter events by type (e.g. swarm:start, worker:done).'
+        },
+        swarmId: {
+          type: 'string',
+          description: 'Filter events by specific swarm ID.'
+        },
+        limit: {
+          type: 'number',
+          description: 'Max events to return (default: 20).'
+        },
+        message: {
+          type: 'string',
+          description: 'Message to broadcast when action is broadcast.'
+        }
+      }
+    }
   }
 ];
 
@@ -936,6 +966,20 @@ export async function handleRpcRequest(request) {
         const { verifyCandidateCode } = await import('../scripts/wasm-sandbox.mjs');
         const outcome = await verifyCandidateCode(target, { language: args?.language });
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_swarm_bus') {
+        const { action = 'status', type, swarmId, limit = 20, message } = args || {};
+        const { swarmBus, emitSwarmEvent } = await import('../scripts/swarm-bus.mjs');
+        if (action === 'broadcast') {
+          const ev = emitSwarmEvent('agent:broadcast', { message: message || 'Broadcast via MCP', source: 'MCP' });
+          contentText = JSON.stringify({ success: true, event: ev }, null, 2);
+        } else if (action === 'events') {
+          const events = swarmBus.getEvents({ type, swarmId, limit });
+          contentText = JSON.stringify({ success: true, count: events.length, events }, null, 2);
+        } else {
+          const active = swarmBus.getActiveSwarms();
+          const events = swarmBus.getEvents({ limit: 10 });
+          contentText = JSON.stringify({ success: true, activeSwarms: active, recentEvents: events }, null, 2);
+        }
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

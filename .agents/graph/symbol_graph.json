@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:45:30.188Z",
+  "generatedAt": "2026-10-18T18:53:26.508Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 46,
-  "totalSymbolsIndexed": 237,
+  "totalFilesIndexed": 47,
+  "totalSymbolsIndexed": 243,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 537,
+        "line": 567,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 967,
+        "line": 1011,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 995,
+        "line": 1039,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1093,
+        "line": 1137,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -407,8 +407,14 @@
         "signature": "function main()"
       },
       {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 179,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 191,
+        "line": 235,
         "type": "function",
         "signature": "function main()"
       },
@@ -1467,10 +1473,50 @@
         "signature": "const sendJson = (data, statusCode = 200) =>"
       }
     ],
+    "SwarmEventBus": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 17,
+        "type": "class",
+        "signature": "class SwarmEventBus extends EventEmitter {"
+      }
+    ],
+    "onEvent": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 130,
+        "type": "arrow-function",
+        "signature": "const onEvent = (event) =>"
+      }
+    ],
+    "cleanup": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 140,
+        "type": "arrow-function",
+        "signature": "const cleanup = () =>"
+      }
+    ],
+    "emitSwarmEvent": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 166,
+        "type": "function",
+        "signature": "function emitSwarmEvent(type, payload = {})"
+      }
+    ],
+    "getRecentSwarmEvents": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 175,
+        "type": "function",
+        "signature": "function getRecentSwarmEvents(options = {})"
+      }
+    ],
     "runWithConcurrency": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 34,
+        "line": 36,
         "type": "function",
         "signature": "function runWithConcurrency(tasks, concurrency = 3)"
       }
@@ -1478,7 +1524,7 @@
     "worker": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 38,
+        "line": 40,
         "type": "function",
         "signature": "function worker()"
       }
@@ -1486,7 +1532,7 @@
     "loadWorkerSkillContext": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 59,
+        "line": 61,
         "type": "function",
         "signature": "function loadWorkerSkillContext(skillName)"
       }
@@ -1494,15 +1540,15 @@
     "executeWorkerTask": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 93,
+        "line": 95,
         "type": "function",
-        "signature": "function executeWorkerTask(workerSpec, taskDescription, profile)"
+        "signature": "function executeWorkerTask(workerSpec, taskDescription, profile, swarmId)"
       }
     ],
     "dispatchSwarm": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 140,
+        "line": 164,
         "type": "function",
         "signature": "function dispatchSwarm(taskDescription, options = {})"
       }
@@ -1550,7 +1596,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 601,
+        "line": 612,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1558,7 +1604,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 871,
+        "line": 882,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -1826,11 +1872,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1109,
+      "totalLines": 1153,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1835,
+      "totalLines": 1845,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1922,11 +1968,15 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3480,
+      "totalLines": 3521,
       "symbolCount": 48
     },
+    "scripts/swarm-bus.mjs": {
+      "totalLines": 225,
+      "symbolCount": 6
+    },
     "scripts/swarm-dispatcher.mjs": {
-      "totalLines": 242,
+      "totalLines": 286,
       "symbolCount": 6
     },
     "scripts/swarm-runner.mjs": {
@@ -1934,7 +1984,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 904,
+      "totalLines": 946,
       "symbolCount": 4
     },
     "scripts/update_skills.js": {

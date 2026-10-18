@@ -14,11 +14,13 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 import { planSwarm, resolveReasoningProfile, TOPOLOGIES } from './swarm-runner.mjs';
 import { criticValidate } from './critic-validator.mjs';
 import { executeInSandbox } from './wasm-sandbox.mjs';
+import { emitSwarmEvent } from './swarm-bus.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -90,8 +92,18 @@ async function loadWorkerSkillContext(skillName) {
  * @param {Object} profile
  * @returns {Promise<Object>}
  */
-async function executeWorkerTask(workerSpec, taskDescription, profile) {
+async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) {
   const startTime = Date.now();
+  const workerId = `worker-${workerSpec.skill}`;
+
+  emitSwarmEvent('worker:dispatch', {
+    swarmId,
+    workerId,
+    domain: workerSpec.name,
+    skill: workerSpec.skill,
+    focus: workerSpec.focus
+  });
+
   const skillContext = await loadWorkerSkillContext(workerSpec.skill);
 
   // Generate synthetic contract draft based on domain
@@ -114,9 +126,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile) {
   }
 
   const durationMs = Date.now() - startTime;
-
-  return {
-    workerId: `worker-${workerSpec.skill}`,
+  const outcome = {
+    workerId,
     domain: workerSpec.name,
     skill: workerSpec.skill,
     focus: workerSpec.focus,
@@ -129,6 +140,19 @@ async function executeWorkerTask(workerSpec, taskDescription, profile) {
     durationMs,
     contractSummary: `Bound skill instructions from @${workerSpec.skill} v${skillContext.version}. Enforced ${profile.id} thinking depth (${profile.budgetTokens.toLocaleString()} tokens).`
   };
+
+  emitSwarmEvent('worker:done', {
+    swarmId,
+    workerId,
+    domain: workerSpec.name,
+    skill: workerSpec.skill,
+    status: outcome.status,
+    criticScore: outcome.criticScore,
+    sandboxVerified: outcome.sandboxVerified,
+    durationMs
+  });
+
+  return outcome;
 }
 
 /**
@@ -139,10 +163,21 @@ async function executeWorkerTask(workerSpec, taskDescription, profile) {
  */
 export async function dispatchSwarm(taskDescription, options = {}) {
   const startTime = Date.now();
+  const swarmId = options.swarmId || crypto.randomUUID();
   const concurrency = Number(options.concurrency) || 3;
   const requestedProfile = options.reasoning || options.reasoningProfile;
   const profile = resolveReasoningProfile(taskDescription, requestedProfile);
   const plan = planSwarm(taskDescription, { reasoning: profile.id });
+
+  emitSwarmEvent('swarm:start', {
+    swarmId,
+    task: taskDescription,
+    topology: plan.topology,
+    reasoningProfile: profile.id,
+    thinkingBudgetTokens: profile.budgetTokens,
+    totalWorkers: plan.subagents.length,
+    concurrency
+  });
 
   const traceLogs = [];
   traceLogs.push(`🚀 [Swarm Dispatcher] Dispatching task: "${taskDescription}"`);
@@ -152,7 +187,7 @@ export async function dispatchSwarm(taskDescription, options = {}) {
 
   // Build task closures
   const workerTasks = plan.subagents.map(subagent => {
-    return () => executeWorkerTask(subagent, taskDescription, profile);
+    return () => executeWorkerTask(subagent, taskDescription, profile, swarmId);
   });
 
   traceLogs.push(`⚡ Discarding sequential bottleneck; executing ${workerTasks.length} workers with concurrency ${concurrency}...`);
@@ -169,7 +204,16 @@ export async function dispatchSwarm(taskDescription, options = {}) {
 
   traceLogs.push(`✅ Swarm Dispatch Completed in ${totalDurationMs}ms. Overall Status: ${allApproved ? 'SUCCESS' : 'WARNING'}`);
 
+  emitSwarmEvent('swarm:complete', {
+    swarmId,
+    task: taskDescription,
+    success: allApproved,
+    totalDurationMs,
+    totalWorkers: plan.subagents.length
+  });
+
   return {
+    swarmId,
     success: allApproved,
     taskDescription,
     topology: plan.topology,

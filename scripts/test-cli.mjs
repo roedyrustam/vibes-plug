@@ -287,6 +287,17 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(sandboxVerifyOut, /APPROVED/);
   });
 
+  await t.test('vibes swarm:bus should report active swarms and broadcast telemetry', async () => {
+    const { stdout: statusOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:bus', 'status']);
+    assert.match(statusOut, /Real-Time Swarm Concurrency Bus/);
+    assert.match(statusOut, /Active Swarms/);
+    assert.match(statusOut, /Buffered Events/);
+
+    const { stdout: bcastOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:bus', 'broadcast', 'Agent sync beacon']);
+    assert.match(bcastOut, /Broadcast signal emitted/);
+    assert.match(bcastOut, /Agent sync beacon/);
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
@@ -889,6 +900,37 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpVerifyRes.status, 200);
       assert.match(mcpVerifyData.result.result.content[0].text, /"verdict":\s*"APPROVED"/);
       assert.match(mcpVerifyData.result.result.content[0].text, /"canPersistToDisk":\s*true/);
+
+      // Test Studio Swarm Bus Events & Broadcast endpoints
+      const swarmEventsRes = await fetch(`${url}/api/swarm/events`);
+      const swarmEventsData = await swarmEventsRes.json();
+      assert.equal(swarmEventsRes.status, 200);
+      assert.equal(swarmEventsData.success, true);
+      assert.ok(Array.isArray(swarmEventsData.events));
+
+      const swarmBcastRes = await fetch(`${url}/api/swarm/broadcast`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: 'Studio live beacon' })
+      });
+      const swarmBcastData = await swarmBcastRes.json();
+      assert.equal(swarmBcastRes.status, 200);
+      assert.equal(swarmBcastData.success, true);
+      assert.equal(swarmBcastData.event.type, 'agent:broadcast');
+      assert.equal(swarmBcastData.event.message, 'Studio live beacon');
+
+      // Test MCP vibes_swarm_bus tool
+      const mcpSwarmBusRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_swarm_bus',
+          arguments: { action: 'events' }
+        })
+      });
+      const mcpSwarmBusData = await mcpSwarmBusRes.json();
+      assert.equal(mcpSwarmBusRes.status, 200);
+      assert.match(mcpSwarmBusData.result.result.content[0].text, /"success":\s*true/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

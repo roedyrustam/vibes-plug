@@ -1530,6 +1530,7 @@ Commands:
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
+  swarm:bus [status|events] Real-time swarm concurrency event bus & multi-agent telemetry
   finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
   bridge [status|sync|bundle] Universal cross-IDE multi-platform rule & episodic memory state bridge
   learn <skill-name> [opts] Synthesize a Gold-Standard skill from codebase, OpenAPI, or docs
@@ -1656,6 +1657,8 @@ Platform Eligibility & Economics:
     const { spawnSync } = await import('child_process');
     if (args[1] === 'dispatch') {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    } else if (args[1] === 'bus') {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     } else {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     }
@@ -1666,6 +1669,13 @@ Platform Eligibility & Economics:
   case 'dispatch': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm:bus':
+  case 'bus': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
