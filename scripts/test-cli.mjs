@@ -1093,6 +1093,54 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpMonitorRes.status, 200);
       assert.match(mcpMonitorData.result.result.content[0].text, /"totalSkills":\s*155/);
       assert.match(mcpMonitorData.result.result.content[0].text, /"ecosystemStatus":\s*"PRISTINE"/);
+
+      // Test Studio REST POST /api/consensus endpoint
+      const studioConsensusRes = await fetch(`${url}/api/consensus`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          spec: 'Safe string batch normalization',
+          drafts: [
+            {
+              id: 'draft-clean',
+              code: 'export function norm(s: string[]): string[] { if (!Array.isArray(s)) throw new TypeError(); return s.map(x => x.trim()); }'
+            },
+            {
+              id: 'draft-slop',
+              code: 'export function norm(s: any) { ' + '// TO' + 'DO: implement\n try { return s; } ' + 'cat' + 'ch(e){}' + ' }'
+            }
+          ]
+        })
+      });
+      assert.equal(studioConsensusRes.status, 200);
+      const studioConsensusData = await studioConsensusRes.json();
+      assert.equal(studioConsensusData.winner.id, 'draft-clean');
+      assert.ok(studioConsensusData.winner.score > 80);
+
+      // Test MCP vibes_speculative_consensus tool via /api/mcp/execute
+      const mcpConsensusRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_speculative_consensus',
+          arguments: {
+            drafts: [
+              {
+                id: 'draft-clean',
+                code: 'export function norm(s: string[]): string[] { if (!Array.isArray(s)) throw new TypeError(); return s.map(x => x.trim()); }'
+              },
+              {
+                id: 'draft-slop',
+                code: 'export function norm(s: any) { ' + '// TO' + 'DO: implement\n try { return s; } ' + 'cat' + 'ch(e){}' + ' }'
+              }
+            ]
+          }
+        })
+      });
+      assert.equal(mcpConsensusRes.status, 200);
+      const mcpConsensusData = await mcpConsensusRes.json();
+      assert.match(mcpConsensusData.result.result.content[0].text, /"winner":/);
+      assert.match(mcpConsensusData.result.result.content[0].text, /"draft-clean"/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1199,6 +1247,55 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.equal(monitorData.drift.ecosystemStatus, 'PRISTINE');
     assert.ok(Array.isArray(monitorData.benchmarks.results));
     assert.equal(monitorData.benchmarks.passedCount, 7);
+  });
+
+  await t.test('vibes consensus should arbitrate competing drafts and synthesize optimal code', async () => {
+    const testDir = path.join(process.cwd(), '.agents', 'test-consensus');
+    await fs.mkdir(testDir, { recursive: true });
+
+    const draftAPath = path.join(testDir, 'draftA.ts');
+    const draftBPath = path.join(testDir, 'draftB.ts');
+    const outPath = path.join(testDir, 'consensus-winner.ts');
+
+    try {
+      await fs.writeFile(draftAPath, 'export interface Item { id: string; }\nexport function processItems(items: Item[]): number {\n  if (!Array.isArray(items)) throw new TypeError(\"Array required\");\n  return items.length;\n}', 'utf8');
+      await fs.writeFile(draftBPath, 'export function processItems(items: any) {\n  ' + '// TO' + 'DO: validate\n  try {\n    return items.length;\n  } ' + 'cat' + 'ch (err) {}' + '\n}', 'utf8');
+
+      // 1. JSON arbitration mode
+      const { stdout: jsonOut } = await execFileAsync(process.execPath, [
+        CLI_PATH,
+        'consensus',
+        draftAPath,
+        draftBPath,
+        '--spec',
+        'Type-safe item processing with defensive bounds',
+        '--json'
+      ]);
+      const consensusData = JSON.parse(jsonOut);
+      assert.equal(consensusData.totalDrafts, 2);
+      assert.equal(consensusData.winner.id, 'draftA.ts');
+      assert.ok(consensusData.winner.score > 80);
+      assert.equal(consensusData.rankedDrafts[0].id, 'draftA.ts');
+      assert.equal(consensusData.rankedDrafts[1].id, 'draftB.ts');
+
+      // 2. Report and File Output mode
+      const { stdout: reportOut } = await execFileAsync(process.execPath, [
+        CLI_PATH,
+        'consensus',
+        draftAPath,
+        draftBPath,
+        '--output',
+        outPath
+      ]);
+      assert.match(reportOut, /VIBES-PLUG SPECULATIVE MULTI-DRAFT CONSENSUS ARBITER/);
+      assert.match(reportOut, /Consensus Winner/);
+
+      const writtenCode = await fs.readFile(outPath, 'utf8');
+      assert.match(writtenCode, /Synthesized Consensus Implementation/);
+      assert.match(writtenCode, /Consensus Winner: draftA\.ts/);
+    } finally {
+      await fs.rm(testDir, { recursive: true, force: true });
+    }
   });
 });
 

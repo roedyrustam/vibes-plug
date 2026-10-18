@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T20:17:56.149Z",
+  "generatedAt": "2026-10-18T20:25:59.717Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 53,
-  "totalSymbolsIndexed": 288,
+  "totalFilesIndexed": 54,
+  "totalSymbolsIndexed": 302,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 665,
+        "line": 698,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1160,
+        "line": 1200,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1188,
+        "line": 1228,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1286,
+        "line": 1326,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -1231,6 +1231,70 @@
         "signature": "export interface UserProfile {"
       }
     ],
+    "calculateCyclomaticComplexity": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 47,
+        "type": "function",
+        "signature": "function calculateCyclomaticComplexity(code)"
+      }
+    ],
+    "analyzeResilience": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 83,
+        "type": "function",
+        "signature": "function analyzeResilience(code)"
+      }
+    ],
+    "analyzeTypeSafety": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 122,
+        "type": "function",
+        "signature": "function analyzeTypeSafety(code)"
+      }
+    ],
+    "analyzeCandidateDraft": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 159,
+        "type": "function",
+        "signature": "function analyzeCandidateDraft(draft, options = {})"
+      }
+    ],
+    "reconcileSpeculativeDrafts": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 272,
+        "type": "function",
+        "signature": "function reconcileSpeculativeDrafts(drafts, options = {})"
+      }
+    ],
+    "formatConsensusReport": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 389,
+        "type": "function",
+        "signature": "function formatConsensusReport(result)"
+      }
+    ],
+    "loadDraftsFromFiles": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 446,
+        "type": "function",
+        "signature": "function loadDraftsFromFiles(filePaths)"
+      }
+    ],
+    "runConsensusCli": [
+      {
+        "file": "scripts/speculative-consensus.mjs",
+        "line": 483,
+        "type": "function",
+        "signature": "function runConsensusCli()"
+      }
+    ],
     "loadSkillsCatalog": [
       {
         "file": "scripts/studio-server.mjs",
@@ -1939,6 +2003,46 @@
         "signature": "function calculateTotal(price, qty)"
       }
     ],
+    "norm": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1106,
+        "type": "function",
+        "signature": "function norm(s: string[])"
+      },
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1110,
+        "type": "function",
+        "signature": "function norm(s: any)"
+      },
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1130,
+        "type": "function",
+        "signature": "function norm(s: string[])"
+      },
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1134,
+        "type": "function",
+        "signature": "function norm(s: any)"
+      }
+    ],
+    "processItems": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1261,
+        "type": "function",
+        "signature": "function processItems(items: Item[])"
+      },
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 1262,
+        "type": "function",
+        "signature": "function processItems(items: any)"
+      }
+    ],
     "analyzeCodeStructure": [
       {
         "file": "scripts/token-budget-optimizer.mjs",
@@ -2226,11 +2330,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1302,
+      "totalLines": 1342,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1881,
+      "totalLines": 1890,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2337,8 +2441,12 @@
       "totalLines": 213,
       "symbolCount": 6
     },
+    "scripts/speculative-consensus.mjs": {
+      "totalLines": 592,
+      "symbolCount": 8
+    },
     "scripts/studio-server.mjs": {
-      "totalLines": 4286,
+      "totalLines": 4306,
       "symbolCount": 66
     },
     "scripts/swarm-bus.mjs": {
@@ -2358,8 +2466,8 @@
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1206,
-      "symbolCount": 4
+      "totalLines": 1303,
+      "symbolCount": 10
     },
     "scripts/token-budget-optimizer.mjs": {
       "totalLines": 459,

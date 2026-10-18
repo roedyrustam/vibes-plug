@@ -164,7 +164,7 @@ export function executeInSandbox(code, options = {}) {
  */
 export async function verifyCandidateCode(target, options = {}) {
   let code = String(target || '');
-  let filePath = null;
+  let filePath = options.filePath || null;
 
   try {
     const fileStat = await fs.stat(target);
