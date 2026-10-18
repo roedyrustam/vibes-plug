@@ -15,7 +15,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { criticValidate } from './critic-validator.mjs';
 import { visualAudit } from './visual-critic.mjs';
@@ -35,7 +35,15 @@ const CODE_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '
  */
 export function getChangedFilesFromGit(range = 'HEAD~1', cwd = process.cwd()) {
   try {
-    const raw = execSync(`git diff --name-only ${range}`, { cwd, encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] });
+    const result = spawnSync('git', ['diff', '--name-only', range], {
+      cwd,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    });
+    if (result.status !== 0) {
+      return [];
+    }
+    const raw = result.stdout || '';
     return raw.split(/\r?\n/).map(f => f.trim()).filter(Boolean);
   } catch {
     return [];
