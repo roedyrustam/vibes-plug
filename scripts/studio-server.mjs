@@ -4208,6 +4208,28 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Automated Skill Health & Framework Drift Monitor endpoint
+    if (req.method === 'GET' && (pathname === '/api/drift' || pathname.startsWith('/api/drift/'))) {
+      try {
+        const { auditEcosystem } = await import('./skill-drift-monitor.mjs');
+        const ecosystem = await auditEcosystem();
+        const skillName = pathname.startsWith('/api/drift/') ? pathname.replace('/api/drift/', '').trim() : null;
+        if (skillName) {
+          const single = ecosystem.skills.find(s => s.skillName === skillName);
+          if (!single) {
+            sendJson({ error: `Skill '${skillName}' not found in catalog` }, 404);
+            return;
+          }
+          sendJson(single);
+        } else {
+          sendJson(ecosystem);
+        }
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });

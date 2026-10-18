@@ -66,12 +66,12 @@ export interface SpatialCardProps {
   imageUrl: string;
 }
 
-export const ReverseEngineeredSpringCard: React.FC<SpatialCardProps> = ({
+export function ReverseEngineeredSpringCard({
   title,
   category,
   description,
   imageUrl
-}) => {
+}: SpatialCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   // Extracted physics from 60fps screen recording

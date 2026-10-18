@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T19:59:55.849Z",
+  "generatedAt": "2026-10-18T20:12:54.687Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 51,
-  "totalSymbolsIndexed": 277,
+  "totalFilesIndexed": 52,
+  "totalSymbolsIndexed": 283,
   "symbols": {
     "to": [
       {
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 644,
+        "line": 657,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1124,
+        "line": 1148,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1152,
+        "line": 1176,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1250,
+        "line": 1274,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -397,6 +397,12 @@
       {
         "file": "scripts/package-extension.mjs",
         "line": 232,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 494,
         "type": "function",
         "signature": "function main()"
       },
@@ -1097,6 +1103,46 @@
         "line": 177,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
+      }
+    ],
+    "component": [
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 51,
+        "type": "class",
+        "signature": "description: 'Deprecated React class component lifecycle method detected',"
+      }
+    ],
+    "Component": [
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 64,
+        "type": "function",
+        "signature": "function Component(props: Props)"
+      }
+    ],
+    "auditSkill": [
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 81,
+        "type": "function",
+        "signature": "function auditSkill(skillName, content, ecosystemContext)"
+      }
+    ],
+    "auditEcosystem": [
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 301,
+        "type": "function",
+        "signature": "function auditEcosystem(options = {})"
+      }
+    ],
+    "formatDriftReport": [
+      {
+        "file": "scripts/skill-drift-monitor.mjs",
+        "line": 426,
+        "type": "function",
+        "signature": "function formatDriftReport(result, options = {})"
       }
     ],
     "sanitizeSkillSlug": [
@@ -2140,11 +2186,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1266,
+      "totalLines": 1290,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1866,
+      "totalLines": 1873,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2239,6 +2285,10 @@
       "totalLines": 264,
       "symbolCount": 3
     },
+    "scripts/skill-drift-monitor.mjs": {
+      "totalLines": 560,
+      "symbolCount": 6
+    },
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
       "symbolCount": 7
@@ -2248,7 +2298,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4264,
+      "totalLines": 4286,
       "symbolCount": 66
     },
     "scripts/swarm-bus.mjs": {
@@ -2264,7 +2314,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1128,
+      "totalLines": 1175,
       "symbolCount": 4
     },
     "scripts/token-budget-optimizer.mjs": {

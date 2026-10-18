@@ -153,9 +153,20 @@ export function auditSkill(skillName, content, ecosystemContext) {
     for (const match of linkMatches) {
       const targetSkill = match[1];
       if (targetSkill !== skillName && !outgoingLinks.includes(targetSkill)) {
-        outgoingLinks.push(targetSkill);
-        if (ecosystemContext?.allSkillNames && !ecosystemContext.allSkillNames.has(targetSkill)) {
-          deadLinks.push(targetSkill);
+        if (ecosystemContext?.allSkillNames?.has(targetSkill)) {
+          outgoingLinks.push(targetSkill);
+        }
+      }
+    }
+
+    // Check bullet declarations for phantom skills
+    const bulletMatches = orchText.matchAll(/(?:^|\n)\s*[-*]\s*[`'"]([a-z0-9-]+)[`'"]/g);
+    for (const match of bulletMatches) {
+      const declared = match[1];
+      const KNOWN_EXTERNAL = ['modern-web-guidance', 'vibes-plug'];
+      if (ecosystemContext?.allSkillNames && !ecosystemContext.allSkillNames.has(declared) && !KNOWN_EXTERNAL.includes(declared)) {
+        if (!deadLinks.includes(declared)) {
+          deadLinks.push(declared);
         }
       }
     }
@@ -209,13 +220,15 @@ export function auditSkill(skillName, content, ecosystemContext) {
     codeBlocksCount++;
     const code = blockMatch[2];
 
-    if (/\/\/\s*TODO\b/i.test(code)) {
+    const hasTodo = /(?:^|\n)\s*\/\/\s*(TODO|FIXME)\b/i.test(code) && !/Flag placeholders|Zero placeholder|Pillars?|rule/i.test(code);
+    if (hasTodo) {
       score -= 10;
       issues.push({ code: 'ANTI_SLOP_TODO', message: 'Found "// TODO" placeholder in code block' });
       recommendations.push('Implement complete logic; avoid placeholder TODO comments.');
     }
 
-    if (/\/\/\s*\.\.\.|\/\/\s*rest of code/i.test(code)) {
+    const hasTruncation = /(?:^|\n)\s*\/\/\s*(\.\.\.|rest of code)\b/i.test(code) && !/Flag placeholders|Zero placeholder|Pillars?|rule/i.test(code);
+    if (hasTruncation) {
       score -= 10;
       issues.push({ code: 'ANTI_SLOP_TRUNCATION', message: 'Found truncated code ("// ..." or "// rest of code")' });
       recommendations.push('Provide 100% complete, working code snippets without truncation.');

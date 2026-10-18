@@ -213,11 +213,15 @@ Remotion allows developers to render MP4 promo videos completely from code, enab
 import { AbsoluteFill, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import React from 'react';
 
-export const AppPromoComposition: React.FC<{
+export function AppPromoComposition({
+  headline,
+  subheadline,
+  screenshotUrl
+}: {
   headline: string;
   subheadline: string;
   screenshotUrl: string;
-}> = ({ headline, subheadline, screenshotUrl }) => {
+}) {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 

@@ -47,6 +47,69 @@ Claude 5.1 sets the standard for agentic coding and knowledge work (Terminal-Ben
 #### 3. Enterprise Frontier Safeguards (EFS)
 EFS represents the 2026 standard for data privacy, replacing traditional zero data retention policies. EFS works by storing active data in cloud infrastructure **controlled entirely by the customer**, not the AI provider.
 
+### Implementation Examples
+
+#### 1. Gemini 4 Pro: Dynamic Thinking Budget & Context Caching
+```typescript
+import { GoogleGenAI } from '@google/genai';
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+
+export async function generateFrontierReasoning(task: string, repoContext: string) {
+  // Pre-compiled deterministic prefix cache (75-90% discount)
+  const cache = await ai.cachedContents.create({
+    model: 'gemini-4-pro-exp-0210',
+    contents: [{ role: 'user', parts: [{ text: repoContext }] }],
+    ttl: '3600s'
+  });
+
+  const response = await ai.models.generateContent({
+    model: 'gemini-4-pro-exp-0210',
+    contents: [{ role: 'user', parts: [{ text: task }] }],
+    config: {
+      cachedContent: cache.name,
+      thinkingConfig: {
+        thinkingBudget: 32768
+      }
+    }
+  });
+
+  return response.text;
+}
+```
+
+#### 2. Claude 5.1 Fable: Prompt Cache Breakpoints
+```typescript
+import Anthropic from '@anthropic-ai/sdk';
+
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+
+export async function dispatchFableWorker(systemPrompt: string, codebaseContext: string, task: string) {
+  const response = await anthropic.messages.create({
+    model: 'claude-5-1-fable-20261001',
+    max_tokens: 16384,
+    thinking: {
+      type: 'enabled',
+      budget_tokens: 8192
+    },
+    system: [
+      {
+        type: 'text',
+        text: systemPrompt
+      },
+      {
+        type: 'text',
+        text: codebaseContext,
+        cache_control: { type: 'ephemeral' }
+      }
+    ],
+    messages: [{ role: 'user', content: task }]
+  });
+
+  return response;
+}
+```
+
 ---
 
 ### Best Practices

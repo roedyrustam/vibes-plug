@@ -187,7 +187,8 @@ export async function POST(request: Request) {
         errors: parsed.error.flatten().fieldErrors,
       });
     }
-    // ...business logic
+    const user = { id: 'usr_101', ...parsed.data };
+    return Response.json(user, { status: 201 });
   } catch (error) {
     if (error instanceof ApiError) {
       return Response.json(error.toJSON(), { status: error.status });

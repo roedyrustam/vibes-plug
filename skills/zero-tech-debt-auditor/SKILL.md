@@ -57,6 +57,38 @@ When triggered, the Swarm Director must:
 3. **Eradicate:** Autonomously edit the files to fix the violations.
 4. **Verify:** Run `npm run lint` and `npm run build` to ensure the eradications did not break the app.
 
+
+### Implementation Examples
+
+#### 1. Knip Dead-Code Audit Command & Config
+```json
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": ["src/index.ts", "src/cli.ts"],
+  "project": ["src/**/*.ts", "src/**/*.tsx"],
+  "ignoreDependencies": ["@types/*"]
+}
+```
+
+#### 2. Automated Zero-Debt Pre-Release Audit Script
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "🧹 Running Zero Technical Debt Quality Sweeps..."
+
+# 1. Detect unused exports, dead files, and unlisted dependencies
+npx knip --production
+
+# 2. Strict type-safety scan (fail on 'any' or '@ts-ignore')
+npx tsc --noEmit --strict
+
+# 3. Enforce Sovereign Anti-Slop Directive
+node scripts/check-anti-slop.js --strict
+
+echo "✅ Zero Technical Debt Audit Passed: Codebase is 100% production-ready."
+```
+
 ### Orchestration & Integration
 - Connected to `zero-to-prod-orchestrator`: Acts as Phase 9 (Final Handoff).
 - Connected to `biome-linter-formatter-expert`: Uses strict linting rules to enforce consistency.

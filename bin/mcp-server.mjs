@@ -604,6 +604,19 @@ export const TOOLS = [
       },
       required: ['task']
     }
+  },
+  {
+    name: 'vibes_skill_drift',
+    description: 'Automated Skill Health & Framework Drift Monitor: audits all 155 skills across the Vibes-Plug catalog or deep dives into a specific skill. Verifies 2026 framework alignment (React 19, Next 15, Tailwind v4, Node 24), cross-skill dependency graph integrity (in/out-degree centrality, 0 dead links), master orchestrator registration, and Anti-Slop Directive compliance.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skillName: {
+          type: 'string',
+          description: 'Optional skill name to deep dive into (e.g. senior-frontend). If omitted, runs a full ecosystem audit.'
+        }
+      }
+    }
   }
 ];
 
@@ -1093,6 +1106,17 @@ export async function handleRpcRequest(request) {
         const { optimizeThinkingBudget } = await import('../scripts/token-budget-optimizer.mjs');
         const outcome = await optimizeThinkingBudget(task);
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_skill_drift') {
+        const skillName = args?.skillName || args?.skill;
+        const { auditEcosystem } = await import('../scripts/skill-drift-monitor.mjs');
+        const ecosystem = await auditEcosystem();
+        if (skillName) {
+          const single = ecosystem.skills.find(s => s.skillName === skillName);
+          if (!single) throw new Error(`Skill '${skillName}' not found in catalog.`);
+          contentText = JSON.stringify(single, null, 2);
+        } else {
+          contentText = JSON.stringify(ecosystem, null, 2);
+        }
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

@@ -259,7 +259,9 @@ import { pusherServer } from '@/lib/pusher';
 
 export async function POST(req: Request) {
   const signature = req.headers.get("signature");
-  // TODO: Verify signature from mutation service (e.g., Moota)
+  if (!signature || signature !== process.env.BANK_MUTATION_SECRET) {
+    return Response.json({ error: "Unauthorized: Invalid signature" }, { status: 401 });
+  }
   
   const mutations = await req.json();
   

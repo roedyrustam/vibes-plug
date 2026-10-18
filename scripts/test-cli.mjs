@@ -1051,6 +1051,34 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpBudgetData = await mcpBudgetRes.json();
       assert.equal(mcpBudgetRes.status, 200);
       assert.match(mcpBudgetData.result.result.content[0].text, /"allocatedBudgetTokens":\s*1024/);
+
+      // Test Studio /api/drift and /api/drift/senior-frontend endpoints
+      const driftRes = await fetch(`${url}/api/drift`);
+      const driftData = await driftRes.json();
+      assert.equal(driftRes.status, 200);
+      assert.equal(driftData.totalSkills, 155);
+      assert.equal(driftData.ecosystemStatus, 'PRISTINE');
+      assert.equal(driftData.averageScore, 100);
+
+      const singleDriftRes = await fetch(`${url}/api/drift/senior-frontend`);
+      const singleDriftData = await singleDriftRes.json();
+      assert.equal(singleDriftRes.status, 200);
+      assert.equal(singleDriftData.skillName, 'senior-frontend');
+      assert.equal(singleDriftData.score, 100);
+
+      // Test MCP vibes_skill_drift tool via /api/mcp/execute
+      const mcpDriftRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_skill_drift',
+          arguments: { skillName: 'senior-frontend' }
+        })
+      });
+      const mcpDriftData = await mcpDriftRes.json();
+      assert.equal(mcpDriftRes.status, 200);
+      assert.match(mcpDriftData.result.result.content[0].text, /"skillName":\s*"senior-frontend"/);
+      assert.match(mcpDriftData.result.result.content[0].text, /"score":\s*100/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1121,6 +1149,25 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.equal(deepData.profile, 'deep');
     assert.equal(deepData.allocatedBudgetTokens, 32768);
     assert.ok(deepData.autoBoundSkills.length > 0);
+  });
+
+  await t.test('vibes drift should monitor ecosystem framework drift, graph integrity, and skill health', async () => {
+    // 1. Full ecosystem scan
+    const { stdout: fullOut } = await execFileAsync(process.execPath, [CLI_PATH, 'drift', '--json']);
+    const fullData = JSON.parse(fullOut);
+    assert.equal(fullData.totalSkills, 155);
+    assert.equal(fullData.deadLinksCount, 0);
+    assert.equal(fullData.ecosystemStatus, 'PRISTINE');
+    assert.equal(fullData.averageScore, 100);
+    assert.ok(fullData.totalEdges > 700);
+
+    // 2. Single skill deep dive
+    const { stdout: singleOut } = await execFileAsync(process.execPath, [CLI_PATH, 'drift', 'senior-frontend', '--json']);
+    const singleData = JSON.parse(singleOut);
+    assert.equal(singleData.skillName, 'senior-frontend');
+    assert.equal(singleData.score, 100);
+    assert.equal(singleData.status, 'PRISTINE');
+    assert.ok(singleData.inDegree > 10);
   });
 });
 

@@ -56,6 +56,50 @@ Active when:
 - Writing IPC systems between the frontend (React/Svelte/Vue) and the Rust backend.
 - Configuring security (`tauri.conf.json`, capabilities, permissions).
 
+
+### Implementation Examples
+
+#### 1. Rust Backend Command Definition (`src-tauri/src/lib.rs`)
+```rust
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize)]
+pub struct MetricsPayload {
+    pub cpu_usage: f32,
+    pub memory_used_mb: u64,
+}
+
+#[tauri::command]
+pub async fn fetch_system_metrics() -> Result<MetricsPayload, String> {
+    Ok(MetricsPayload {
+        cpu_usage: 12.4,
+        memory_used_mb: 2048,
+    })
+}
+
+#[cfg_attr(mobile, tauri::mobile_entry_point)]
+pub fn run() {
+    tauri::Builder::default()
+        .invoke_handler(tauri::generate_handler![fetch_system_metrics])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+#### 2. Frontend TypeScript Invocation (`src/lib/metrics.ts`)
+```typescript
+import { invoke } from '@tauri-apps/api/core';
+
+export interface MetricsPayload {
+  cpu_usage: number;
+  memory_used_mb: number;
+}
+
+export async function getSystemMetrics(): Promise<MetricsPayload> {
+  return await invoke<MetricsPayload>('fetch_system_metrics');
+}
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>

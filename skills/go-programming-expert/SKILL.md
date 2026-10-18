@@ -132,7 +132,7 @@ func main() {
 
 func getUser(w http.ResponseWriter, r *http.Request) {
     id := r.PathValue("id")  // Extract path parameter
-    // ...
+    user := map[string]string{"id": id, "name": "Gopher"}
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(user)
 }
