@@ -1320,6 +1320,10 @@ function generateStudioHtml(currentPort) {
           <span>KV-Cache:</span>
           <span class="num" id="stat-cache-status">LOCKED (P1)</span>
         </div>
+        <div class="stat-chip">
+          <span>FinOps Saved:</span>
+          <span class="num" id="stat-finops-saved" style="color: #4ade80;">$0.000</span>
+        </div>
       </div>
     </div>
   </header>
@@ -1329,7 +1333,7 @@ function generateStudioHtml(currentPort) {
     <button type="button" class="tab-btn active" data-tab="tab-arsenal">155-Skill Arsenal</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-dag">Visual DAG Canvas</button>
-    <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P5)</button>
+    <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P6)</button>
     <button type="button" class="tab-btn" data-tab="tab-recipes">Curated Recipes</button>
     <button type="button" class="tab-btn" data-tab="tab-mcp">Remote MCP (SSE)</button>
     <button type="button" class="tab-btn" data-tab="tab-memory">Memory &amp; Checkpoints</button>
@@ -1487,7 +1491,7 @@ function generateStudioHtml(currentPort) {
     <!-- View 3: Superintelligence (P1-P5) -->
     <div id="tab-engines" class="view-pane">
       <div style="margin-bottom: 24px;">
-        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Sovereign Superintelligence Engines (P1–P5)</h2>
+        <h2 style="font-size: 1.2rem; font-weight: 700; color: #fff;">Sovereign Superintelligence Engines (P1–P6)</h2>
         <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
           Sub-millisecond static verification, deterministic caching, AST symbol inspection, and theorem-proving engines.
         </p>
@@ -1547,13 +1551,49 @@ function generateStudioHtml(currentPort) {
             READY (vibes verify)
           </div>
         </div>
+
+        <div class="engine-card">
+          <div class="engine-tier">P6 ENGINE</div>
+          <div class="engine-title">Ephemeral WASM/VM Sandbox</div>
+          <p class="engine-desc">
+            Ultra-low latency (&lt;2ms) isolated micro-sandbox for evaluating AI-generated code with wall-clock timeout kill and zero host access.
+          </p>
+          <div class="engine-status-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success);">
+            READY (vibes sandbox)
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Ephemeral Sandbox Playground -->
+      <div class="panel-box" style="margin-top: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.1rem; color: #fff; font-weight: 700;">Ephemeral Micro-Sandbox Playground (P6)</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+              Dry-run arbitrary untrusted JavaScript/TypeScript logic in an isolated micro-sandbox with sub-millisecond execution.
+            </p>
+          </div>
+          <button type="button" id="btn-eval-sandbox" class="btn btn-primary" onclick="evalSandboxFromUi()">▶ Run in Sandbox</button>
+        </div>
+
+        <div class="grid-2col">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="sandbox-code-input">Sandbox Code (JavaScript)</label>
+            <textarea id="sandbox-code-input" class="textarea-input" style="height: 120px; font-family: var(--font-mono); font-size: 0.82rem;">const nums = [1, 2, 3, 4, 5];
+nums.map(n => n * 2).filter(n => n > 4);</textarea>
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label>Sandbox Output &amp; Diagnostics</label>
+            <div id="sandbox-output-terminal" class="result-terminal" style="height: 120px; min-height: 120px; padding: 12px; font-size: 0.8rem;">// Click 'Run in Sandbox' to execute logic in isolated micro-sandbox...</div>
+          </div>
+        </div>
       </div>
 
       <!-- Token Economics & KV-Cache Monitor -->
       <div class="panel-box" style="margin-top: 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
-            <h3 style="font-size: 1.1rem; color: #fff; font-weight: 700;">Prompt Cache Hit Rate &amp; Token Economics</h3>
+            <h3 style="font-size: 1.1rem; color: #fff; font-weight: 700;">Prompt Cache Hit Rate &amp; Local FinOps Telemetry</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
               Empirical cost savings and TTFT acceleration across Gemini, Claude, and OpenAI via deterministic prefix pinning.
             </p>
@@ -1571,11 +1611,14 @@ function generateStudioHtml(currentPort) {
             </div>
           </div>
           <div style="background: rgba(15,23,42,0.6); padding: 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
-            <div style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Estimated Savings (per 1,000 requests)</div>
-            <div id="cache-savings-text" style="font-family: var(--font-mono); font-size: 0.88rem; color: #4ade80; line-height: 1.6;">
-              Anthropic Claude (90% off) : Save $3.96 / 1k reqs<br>
-              Google Gemini (75% off)    : Save $3.30 / 1k reqs<br>
-              OpenAI o3/GPT-5 (50% off)  : Save $2.20 / 1k reqs
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 0.78rem; text-transform: uppercase; color: var(--text-muted);">Realized Session FinOps</span>
+              <button type="button" class="btn-action" onclick="resetFinOpsFromUi()">Reset Telemetry</button>
+            </div>
+            <div id="finops-realized-text" style="font-family: var(--font-mono); font-size: 0.88rem; color: #4ade80; line-height: 1.6;">
+              Realized Savings: $0.000 USD<br>
+              Cached Tokens: 0 / 0 (0.0% hit ratio)<br>
+              Total Turns Tracked: 0
             </div>
           </div>
         </div>
@@ -1602,7 +1645,7 @@ function generateStudioHtml(currentPort) {
           <div>
             <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
-              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 155 skills and P1–P5 engines.
+              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, or remote agents to access the 155 skills and P1–P6 engines.
             </p>
           </div>
           <div style="font-family: var(--font-mono); font-size: 0.9rem; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.12); padding: 8px 14px; border-radius: 8px; color: var(--primary); display: flex; align-items: center; gap: 12px;">
@@ -1628,6 +1671,10 @@ function generateStudioHtml(currentPort) {
                 <option value="vibes_swarm">vibes_swarm (Autonomous multi-agent swarm)</option>
                 <option value="vibes_batch">vibes_batch (Parallel multi-tool execution)</option>
                 <option value="vibes_critic_validate">vibes_critic_validate (Critic-in-the-Loop Quality Gate)</option>
+                <option value="vibes_visual_audit">vibes_visual_audit (Pillar 7 UI visual critic)</option>
+                <option value="vibes_eval_sandbox">vibes_eval_sandbox (Ephemeral WASM/VM sandbox)</option>
+                <option value="vibes_swarm_dispatch">vibes_swarm_dispatch (Headless concurrent swarm)</option>
+                <option value="vibes_finops_report">vibes_finops_report (Local FinOps token tracker)</option>
               </select>
             </div>
 
@@ -1787,6 +1834,7 @@ function generateStudioHtml(currentPort) {
         document.getElementById(targetId).classList.add('active');
         if (targetId === 'tab-memory') loadMemoryView();
         if (targetId === 'tab-dag') loadDagPreset(currentDagPreset);
+        if (targetId === 'tab-engines') { loadCacheStatus(); loadFinOpsStatus(); }
       });
     });
 
@@ -2242,7 +2290,10 @@ function generateStudioHtml(currentPort) {
       vibes_swarm: '{\\n  "taskDescription": "Build a secure webhook handler for DOKU SNAP BI",\\n  "reasoningProfile": "deep"\\n}',
       vibes_batch: '{\\n  "calls": [\\n    { "tool": "vibes_list_skills", "arguments": {} },\\n    { "tool": "vibes_memory", "arguments": { "action": "checkpoint" } }\\n  ]\\n}',
       vibes_critic_validate: '{\\n  "target": "function saveUser(user: any) {\\n  return db.query(\\"SELECT * FROM users WHERE id = \\" + user.id);\\n}",\\n  "language": "typescript",\\n  "strictness": "standard"\\n}',
-      vibes_visual_audit: '{\\n  "target": "<button className=\\"rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums\\">Pay Rp 150.000</button>",\\n  "viewport": "desktop"\\n}'
+      vibes_visual_audit: '{\\n  "target": "<button className=\\"rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums\\">Pay Rp 150.000</button>",\\n  "viewport": "desktop"\\n}',
+      vibes_eval_sandbox: '{\\n  "code": "const arr = [1, 2, 3]; arr.map(x => x * 10);",\\n  "timeoutMs": 500\\n}',
+      vibes_swarm_dispatch: '{\\n  "task": "Build DOKU payment integration with Postgres RLS",\\n  "concurrency": 2,\\n  "reasoning": "deep"\\n}',
+      vibes_finops_report: '{\\n  "action": "status"\\n}'
     };
 
     function onMcpToolChange() {
@@ -2315,6 +2366,7 @@ function generateStudioHtml(currentPort) {
         renderRecipes(recipes);
         onMcpToolChange();
         loadCacheStatus();
+        loadFinOpsStatus();
       } catch (err) {
         showToast('Failed to load studio data: ' + err.message);
       }
@@ -2359,6 +2411,83 @@ function generateStudioHtml(currentPort) {
         }
       } catch {
         // Fallback
+      }
+    }
+
+    async function loadFinOpsStatus() {
+      try {
+        const res = await fetch('/api/finops');
+        const json = await res.json();
+        if (json.success && json.data) {
+          const d = json.data;
+          const savedEl = document.getElementById('stat-finops-saved');
+          if (savedEl) {
+            savedEl.textContent = '$' + (d.economics.primaryEstSavedUsd || '0.000');
+          }
+          const realizedEl = document.getElementById('finops-realized-text');
+          if (realizedEl) {
+            realizedEl.innerHTML = 'Realized Savings: $' + (d.economics.primaryEstSavedUsd || '0.000') + ' USD<br>' +
+              'Cached Tokens: ' + (d.tokens.cachedTotal || 0).toLocaleString() + ' / ' + (d.tokens.inputTotal || 0).toLocaleString() + ' (' + (d.economics.cacheHitRatio || '0.0%') + ' hit ratio)<br>' +
+              'Total Turns Tracked: ' + (d.totalRequests || 0);
+          }
+        }
+      } catch {
+        // Fallback
+      }
+    }
+
+    async function resetFinOpsFromUi() {
+      try {
+        const res = await fetch('/api/finops/reset', { method: 'POST' });
+        const json = await res.json();
+        if (json.success) {
+          showToast('FinOps telemetry reset successfully');
+          await loadFinOpsStatus();
+        }
+      } catch (err) {
+        showToast('Reset error: ' + err.message);
+      }
+    }
+
+    async function evalSandboxFromUi() {
+      const btn = document.getElementById('btn-eval-sandbox');
+      const codeInput = document.getElementById('sandbox-code-input');
+      const term = document.getElementById('sandbox-output-terminal');
+      if (!codeInput || !term) return;
+
+      const code = codeInput.value;
+      if (!code.trim()) {
+        showToast('Please enter code to evaluate in sandbox');
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Running...';
+      }
+      term.textContent = '// Executing isolated micro-sandbox evaluation...';
+
+      try {
+        const res = await fetch('/api/sandbox/eval', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, timeoutMs: 1000 })
+        });
+        const data = await res.json();
+        term.textContent = JSON.stringify(data, null, 2);
+        if (data.success) {
+          showToast('Sandbox execution completed (' + data.executionTimeMs + 'ms)');
+        } else {
+          showToast('Sandbox execution error: ' + (data.error || 'Failed'));
+        }
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+        showToast('Sandbox error: ' + err.message);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '▶ Run in Sandbox';
+        }
       }
     }
 
