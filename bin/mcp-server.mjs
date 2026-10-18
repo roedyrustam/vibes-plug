@@ -364,6 +364,55 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_self_heal',
+    description: 'Autonomous Self-Healing Test Runner & Diagnoser: executes a test suite or command, isolates failing AST symbols via codebase graph, and generates atomic patch proposals.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        command: {
+          type: 'string',
+          description: 'Test command or file to execute and diagnose (default: npm test).'
+        },
+        dryRun: {
+          type: 'boolean',
+          description: 'Safe analysis mode without modifying files (default: true).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_registry_search',
+    description: 'Skill Registry Hub Search: queries modular skills and plugins across core catalog and community packages by capability, keyword, or domain category.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Keyword to search across skill names, descriptions, and tags.'
+        },
+        category: {
+          type: 'string',
+          description: 'Optional category filter (e.g. Frontend, Backend, FinTech, AI).'
+        }
+      },
+      required: ['query']
+    }
+  },
+  {
+    name: 'vibes_registry_install',
+    description: 'Skill Registry Hub Install: installs a curated skill from the registry into the local project .agents/skills/.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skillName: {
+          type: 'string',
+          description: 'Kebab-case identifier of the skill to install.'
+        }
+      },
+      required: ['skillName']
+    }
   }
 ];
 
@@ -757,6 +806,25 @@ export async function handleRpcRequest(request) {
         const outputFile = args?.outputFile;
         const { reviewPullRequest } = await import('../scripts/github-pr-bot.mjs');
         const outcome = await reviewPullRequest(target, { outputFile });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_self_heal') {
+        const command = args?.command || 'npm test';
+        const dryRun = args?.dryRun !== false;
+        const { diagnoseAndHeal } = await import('../scripts/self-healer.mjs');
+        const outcome = await diagnoseAndHeal(command, { dryRun });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_registry_search') {
+        const query = args?.query;
+        if (!query) throw new Error("Argument 'query' is required.");
+        const category = args?.category;
+        const { searchRegistry } = await import('../scripts/registry-manager.mjs');
+        const matches = await searchRegistry(query, { category });
+        contentText = JSON.stringify({ count: matches.length, matches }, null, 2);
+      } else if (name === 'vibes_registry_install') {
+        const skillName = args?.skillName;
+        if (!skillName) throw new Error("Argument 'skillName' is required.");
+        const { installSkill } = await import('../scripts/registry-manager.mjs');
+        const outcome = await installSkill(skillName);
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

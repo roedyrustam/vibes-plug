@@ -1516,6 +1516,8 @@ Commands:
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
   pr:review [diff|file]     Run automated Sovereign PR Review Critic Bot on git diff or files
   visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
+  heal [cmd|file] [--apply] Autonomous self-healing test runner & failure diagnosis
+  registry <cmd> [args]     Community skill registry hub (list | search | install | pack)
   graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
   graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
   sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
@@ -1725,6 +1727,19 @@ Platform Eligibility & Economics:
   case 'pr-review': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'heal':
+  case 'self-heal': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'registry': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'registry-manager.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }

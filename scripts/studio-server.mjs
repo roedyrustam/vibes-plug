@@ -1678,6 +1678,9 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
                 <option value="vibes_finops_report">vibes_finops_report (Local FinOps token tracker)</option>
                 <option value="vibes_graph_query">vibes_graph_query (Codebase AST symbol graph)</option>
                 <option value="vibes_pr_review">vibes_pr_review (Autonomous PR review bot)</option>
+                <option value="vibes_self_heal">vibes_self_heal (Autonomous self-healing test runner)</option>
+                <option value="vibes_registry_search">vibes_registry_search (Search skill registry hub)</option>
+                <option value="vibes_registry_install">vibes_registry_install (Install modular skill from registry)</option>
               </select>
             </div>
 
@@ -2298,7 +2301,10 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       vibes_swarm_dispatch: '{\\n  "task": "Build DOKU payment integration with Postgres RLS",\\n  "concurrency": 2,\\n  "reasoning": "deep"\\n}',
       vibes_finops_report: '{\\n  "action": "status"\\n}',
       vibes_graph_query: '{\\n  "symbolName": "startStudioServer"\\n}',
-      vibes_pr_review: '{\\n  "target": "HEAD~1"\\n}'
+      vibes_pr_review: '{\\n  "target": "HEAD~1"\\n}',
+      vibes_self_heal: '{\\n  "command": "npm test",\\n  "dryRun": true\\n}',
+      vibes_registry_search: '{\\n  "query": "payment"\\n}',
+      vibes_registry_install: '{\\n  "skillName": "spec-driven-development-expert"\\n}'
     };
 
     function onMcpToolChange() {
@@ -3117,6 +3123,80 @@ export async function startStudioServer(options = {}) {
           const target = parsed.target || parsed.file || parsed.range || 'HEAD~1';
           const { reviewPullRequest } = await import('./github-pr-bot.mjs');
           const outcome = await reviewPullRequest(target);
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Autonomous Self-Healing Test Runner & Diagnoser endpoint
+    if (req.method === 'POST' && pathname === '/api/heal/diagnose') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const parsed = JSON.parse(body || '{}');
+          const command = parsed.command || parsed.cmd || 'npm test';
+          const dryRun = parsed.dryRun !== false;
+          const { diagnoseAndHeal } = await import('./self-healer.mjs');
+          const outcome = await diagnoseAndHeal(command, { dryRun });
+          sendJson(outcome);
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Skill Registry Catalog list endpoint
+    if (req.method === 'GET' && pathname === '/api/registry/list') {
+      try {
+        const category = searchParams.get('category');
+        const { listRegistrySkills } = await import('./registry-manager.mjs');
+        const skills = await listRegistrySkills({ category });
+        sendJson({ success: true, count: skills.length, skills });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Skill Registry Search endpoint
+    if (req.method === 'POST' && pathname === '/api/registry/search') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { query: searchQuery, category } = JSON.parse(body || '{}');
+          if (!searchQuery) {
+            sendJson({ error: 'Search query is required' }, 400);
+            return;
+          }
+          const { searchRegistry } = await import('./registry-manager.mjs');
+          const matches = await searchRegistry(searchQuery, { category });
+          sendJson({ success: true, count: matches.length, matches });
+        } catch (err) {
+          sendJson({ error: err.message }, 500);
+        }
+      });
+      return;
+    }
+
+    // Skill Registry Install endpoint
+    if (req.method === 'POST' && pathname === '/api/registry/install') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', async () => {
+        try {
+          const { skillName } = JSON.parse(body || '{}');
+          if (!skillName) {
+            sendJson({ error: 'Skill name is required' }, 400);
+            return;
+          }
+          const { installSkill } = await import('./registry-manager.mjs');
+          const outcome = await installSkill(skillName);
           sendJson(outcome);
         } catch (err) {
           sendJson({ error: err.message }, 500);

@@ -190,6 +190,32 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /APPROVED/);
   });
 
+  await t.test('vibes heal should execute tests and report zero failures on healthy commands', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'heal', 'node -v']);
+    assert.match(stdout, /Vibes-Plug Autonomous Self-Healer/);
+    assert.match(stdout, /All test suites and checks passed with 0 failures/);
+  });
+
+  await t.test('vibes registry list should display skills catalog with category and version', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'registry', 'list']);
+    assert.match(stdout, /Vibes-Plug Skill Registry Catalog/);
+    assert.match(stdout, /skills found/);
+    assert.match(stdout, /spec-driven-development-expert/);
+  });
+
+  await t.test('vibes registry search should find skills matching query', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'registry', 'search', 'payment']);
+    assert.match(stdout, /Search results for "payment"/);
+    assert.match(stdout, /payment-gateway-expert/);
+  });
+
+  await t.test('vibes registry pack should audit custom skill against 155 gold standards', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'registry', 'pack', 'skills/spec-driven-development-expert']);
+    assert.match(stdout, /Skill validated and packaged successfully/);
+    assert.match(stdout, /"goldStandardCompliant":\s*true/);
+    await fs.rm(path.resolve(__dirname, '../skills/spec-driven-development-expert/skill.json'), { force: true });
+  });
+
   await t.test('vscode extension companion should have valid manifest and commands', async () => {
     const pkgPath = path.resolve(__dirname, '../extensions/vscode/package.json');
     const raw = await fs.readFile(pkgPath, 'utf8');
@@ -610,6 +636,75 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(mcpPrRes.status, 200);
       assert.match(mcpPrData.result.result.content[0].text, /"success":\s*true/);
       assert.match(mcpPrData.result.result.content[0].text, /"verdict":\s*"APPROVED"/);
+
+      // Test Studio Self-Heal Diagnose endpoint
+      const healRes = await fetch(`${url}/api/heal/diagnose`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: 'node -v', dryRun: true })
+      });
+      const healData = await healRes.json();
+      assert.equal(healRes.status, 200);
+      assert.equal(healData.passed, true);
+      assert.equal(healData.status, 'PASSED');
+
+      // Test Studio Registry List endpoint
+      const regListRes = await fetch(`${url}/api/registry/list`);
+      const regListData = await regListRes.json();
+      assert.equal(regListRes.status, 200);
+      assert.equal(regListData.success, true);
+      assert.ok(regListData.count >= 155);
+
+      // Test Studio Registry Search endpoint
+      const regSearchRes = await fetch(`${url}/api/registry/search`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: 'settlement' })
+      });
+      const regSearchData = await regSearchRes.json();
+      assert.equal(regSearchRes.status, 200);
+      assert.equal(regSearchData.success, true);
+      assert.ok(regSearchData.count > 0);
+      assert.match(regSearchData.matches[0].name, /settlement/i);
+
+      // Test MCP vibes_self_heal tool
+      const mcpHealRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_self_heal',
+          arguments: { command: 'node -v' }
+        })
+      });
+      const mcpHealData = await mcpHealRes.json();
+      assert.equal(mcpHealRes.status, 200);
+      assert.match(mcpHealData.result.result.content[0].text, /"status":\s*"PASSED"/);
+
+      // Test MCP vibes_registry_search tool
+      const mcpRegSearchRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_registry_search',
+          arguments: { query: 'spec' }
+        })
+      });
+      const mcpRegSearchData = await mcpRegSearchRes.json();
+      assert.equal(mcpRegSearchRes.status, 200);
+      assert.match(mcpRegSearchData.result.result.content[0].text, /spec-driven-development-expert/);
+
+      // Test MCP vibes_registry_install tool
+      const mcpRegInstallRes = await fetch(`${url}/api/mcp/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool: 'vibes_registry_install',
+          arguments: { skillName: 'spec-driven-development-expert' }
+        })
+      });
+      const mcpRegInstallData = await mcpRegInstallRes.json();
+      assert.equal(mcpRegInstallRes.status, 200);
+      assert.match(mcpRegInstallData.result.result.content[0].text, /"success":\s*true/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

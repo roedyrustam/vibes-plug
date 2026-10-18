@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan
+- **Autonomous Self-Healing Test Runner & Failure Diagnoser (`scripts/self-healer.mjs`)**:
+  - Mesin diagnosa kegagalan pengujian otonom yang mengeksekusi test suite atau perintah kode, menyadap stack trace, mengkorelasikan dan mengisolasi simbol AST yang rusak via Codebase Symbol Graph, memverifikasi perbaikan di Ephemeral Micro-Sandbox, dan menghasilkan proposal patch diff terverifikasi. Terintegrasi ke CLI `vibes heal [cmd|file] [--apply]`, API Studio `/api/heal/diagnose`, dan Remote MCP tool `vibes_self_heal`.
+- **Decentralized Community Skill Registry Hub (`scripts/registry-manager.mjs`)**:
+  - Sistem registry terdesentralisasi untuk penemuan, pencarian berbobot relevansi, instalasi lokal ke `.agents/skills/`, dan pemaketan audit skill kustom terhadap 155 Gold Standard (frontmatter, bilingual, matrix orkestrasi, zero slop) dengan verifikasi hash SHA-256. Terkoneksi ke CLI `vibes registry [list|search|install|pack]`, API Studio `/api/registry/*`, dan Remote MCP tool `vibes_registry_search` & `vibes_registry_install`.
 - **Codebase AST Symbol Knowledge Graph Indexer (`scripts/graphrag-indexer.mjs`)**:
   - Pengindeksan simbol AST kode lokal multi-bahasa (`.js`, `.mjs`, `.ts`, `.tsx`, `.jsx`, `.py`, `.go`) super cepat (<60ms) yang mengekstrak fungsi, kelas, antarmuka, dan tipe ke `.agents/graph/symbol_graph.json`. Terkoneksi ke CLI `vibes graph:build`, `vibes graph:query <symbol>`, endpoint API `/api/graph/query`, dan Remote MCP tool `vibes_graph_query` tanpa membanjiri context window AI.
 - **Autonomous GitHub PR Review Critic Bot (`scripts/github-pr-bot.mjs`)**:
