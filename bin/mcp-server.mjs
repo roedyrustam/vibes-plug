@@ -770,6 +770,9 @@ export async function handleRpcRequest(request) {
       } else if (name === 'vibes_eval_sandbox') {
         const code = args?.code;
         if (!code) throw new Error("Argument 'code' is required.");
+        if (process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL !== 'true') {
+          throw new Error("Sandbox eval is disabled. Set VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL=true to enable.");
+        }
         const timeoutMs = args?.timeoutMs;
         const { executeInSandbox } = await import('../scripts/wasm-sandbox.mjs');
         const outcome = executeInSandbox(code, { timeoutMs });
