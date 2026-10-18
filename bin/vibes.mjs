@@ -1532,6 +1532,7 @@ Commands:
   finops [status|record]    Track token economics & prompt caching (KV-cache) financial savings
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
+  mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
   docs [markdown|json]      Export or preview the complete 155-skill ecosystem catalog
@@ -1546,8 +1547,21 @@ switch (command) {
   case 'sync':
     runSync();
     break;
+  case 'mcp:setup':
+  case 'mcp-setup': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'mcp-setup.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
   case 'mcp':
   case 'serve-mcp': {
+    if (args[1] === 'setup') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'mcp-setup.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+      break;
+    }
     rl.close();
     const { spawn } = await import('child_process');
     const extraArgs = args.slice(1);

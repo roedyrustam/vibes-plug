@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T18:11:24.110Z",
+  "generatedAt": "2026-10-18T18:15:03.830Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 43,
-  "totalSymbolsIndexed": 215,
+  "totalFilesIndexed": 44,
+  "totalSymbolsIndexed": 219,
   "symbols": {
     "to": [
       {
@@ -779,6 +779,38 @@
         "signature": "function installForCodex(projectDir)"
       }
     ],
+    "getMcpServerDefinition": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 31,
+        "type": "function",
+        "signature": "function getMcpServerDefinition(serverBinPath = MCP_SERVER_BIN)"
+      }
+    ],
+    "detectClientConfigPaths": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 42,
+        "type": "function",
+        "signature": "function detectClientConfigPaths()"
+      }
+    ],
+    "configureClient": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 87,
+        "type": "function",
+        "signature": "function configureClient(clientKey, options = {})"
+      }
+    ],
+    "setupAllClients": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 173,
+        "type": "function",
+        "signature": "function setupAllClients(options = {})"
+      }
+    ],
     "getMemoryDir": [
       {
         "file": "scripts/memory-daemon.mjs",
@@ -1394,7 +1426,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 528,
+        "line": 539,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -1658,7 +1690,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1800,
+      "totalLines": 1814,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -1721,6 +1753,10 @@
       "totalLines": 265,
       "symbolCount": 6
     },
+    "scripts/mcp-setup.mjs": {
+      "totalLines": 231,
+      "symbolCount": 4
+    },
     "scripts/memory-daemon.mjs": {
       "totalLines": 159,
       "symbolCount": 8
@@ -1750,7 +1786,7 @@
       "symbolCount": 4
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 730,
+      "totalLines": 741,
       "symbolCount": 1
     },
     "scripts/update_skills.js": {

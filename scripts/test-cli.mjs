@@ -226,6 +226,17 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(pkg.contributes.configuration.properties['vibes.studioPort']);
   });
 
+  await t.test('vibes mcp:setup should detect client paths and generate valid json snippet', async () => {
+    const { stdout: dryOut } = await execFileAsync(process.execPath, [CLI_PATH, 'mcp:setup', '--dry-run']);
+    assert.match(dryOut, /Vibes-Plug MCP Client Auto-Configurator/);
+    assert.match(dryOut, /Claude Desktop/);
+    assert.match(dryOut, /Cursor IDE/);
+
+    const { stdout: printOut } = await execFileAsync(process.execPath, [CLI_PATH, 'mcp', 'setup', '--print']);
+    assert.match(printOut, /vibes-plug-mcp/);
+    assert.match(printOut, /mcp-server\.mjs/);
+  });
+
   await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
