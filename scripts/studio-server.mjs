@@ -4230,6 +4230,26 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Speculative Multi-Draft Consensus Synthesizer endpoint
+    if (req.method === 'POST' && pathname === '/api/consensus') {
+      try {
+        const body = await readJsonBody(req);
+        const drafts = Array.isArray(body?.drafts) ? body.drafts : [];
+        if (drafts.length === 0) {
+          sendJson({ error: 'At least one candidate draft is required in drafts array' }, 400);
+          return;
+        }
+        const { reconcileSpeculativeDrafts } = await import('./speculative-consensus.mjs');
+        const spec = body?.spec || 'Optimal, production-ready implementation adhering to Anti-Slop gold standards.';
+        const verify = Boolean(body?.verify);
+        const result = await reconcileSpeculativeDrafts(drafts, { spec, verify });
+        sendJson(result);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });

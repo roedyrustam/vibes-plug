@@ -68,7 +68,8 @@
     "hooks": "node scripts/git-hook-installer.mjs",
     "budget": "node scripts/token-budget-optimizer.mjs",
     "drift": "node scripts/skill-drift-monitor.mjs",
-    "monitor": "node scripts/terminal-monitor.mjs"
+    "monitor": "node scripts/terminal-monitor.mjs",
+    "consensus": "node scripts/speculative-consensus.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.7.3"

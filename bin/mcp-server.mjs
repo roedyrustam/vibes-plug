@@ -625,6 +625,39 @@ export const TOOLS = [
       type: 'object',
       properties: {}
     }
+  },
+  {
+    name: 'vibes_speculative_consensus',
+    description: 'Speculative Multi-Draft Consensus Synthesizer: analyzes competing code implementations across 5 orthogonal vectors (Anti-Slop, Error Resilience, Cyclomatic Simplicity, Type Safety, and Micro-Sandbox Performance), ranks candidates, and synthesizes the optimal consensus code.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        drafts: {
+          type: 'array',
+          description: 'Array of candidate draft objects with code, model, and optional rationale.',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' },
+              name: { type: 'string' },
+              code: { type: 'string' },
+              model: { type: 'string' },
+              rationale: { type: 'string' }
+            },
+            required: ['code']
+          }
+        },
+        spec: {
+          type: 'string',
+          description: 'Optional specification or user requirement describing the expected functionality.'
+        },
+        verify: {
+          type: 'boolean',
+          description: 'Whether to benchmark candidate code in the ephemeral WASM/VM micro-sandbox.'
+        }
+      },
+      required: ['drafts']
+    }
   }
 ];
 
@@ -1129,6 +1162,13 @@ export async function handleRpcRequest(request) {
         const { loadMonitorSnapshot } = await import('../scripts/terminal-monitor.mjs');
         const snapshot = await loadMonitorSnapshot();
         contentText = JSON.stringify(snapshot, null, 2);
+      } else if (name === 'vibes_speculative_consensus') {
+        const { reconcileSpeculativeDrafts } = await import('../scripts/speculative-consensus.mjs');
+        const drafts = Array.isArray(args?.drafts) ? args.drafts : [];
+        const spec = args?.spec || 'Optimal, production-ready implementation adhering to Anti-Slop gold standards.';
+        const verify = Boolean(args?.verify);
+        const result = await reconcileSpeculativeDrafts(drafts, { spec, verify });
+        contentText = JSON.stringify(result, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

@@ -1505,6 +1505,7 @@ Commands:
   budget <task|file> [--json] Dynamic token budget optimizer & multi-provider complexity scorer
   drift [skill] [--json]    Automated Skill Health & Framework Drift Monitor (2026 Gold Standard)
   monitor [--once] [--json] Interactive terminal cockpit & live swarm telemetry monitor
+  consensus <f1> <f2> [opts] Speculative multi-draft consensus synthesizer & arbitration engine
   doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
@@ -1854,6 +1855,14 @@ Platform Eligibility & Economics:
     rl.close();
     const { runTerminalMonitor } = await import('../scripts/terminal-monitor.mjs');
     await runTerminalMonitor({ once: args.includes('--once'), json: args.includes('--json') });
+    break;
+  }
+  case 'consensus':
+  case 'reconcile': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'speculative-consensus.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'hook:install':
