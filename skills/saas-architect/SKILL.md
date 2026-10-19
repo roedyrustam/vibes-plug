@@ -16,7 +16,7 @@ version: "4.3.0"
 
 ### Orchestration & Integration
 Connects and orchestrates with domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `saas-multi-tenant`, `saas-billing`, `session-memory-manager`, `prd-architect`, and `production-ready-hardener`.
-- **MANDATORY**: Execute `modern-web-guidance` FIRST for all frontend HTML/CSS/JS features to ensure compliance with modern standards.
+- **MANDATORY**: Execute `senior-frontend` FIRST for all frontend HTML/CSS/JS features to ensure compliance with modern standards.
 
 ### Description
 The **SaaS Architect** is the master lifecycle orchestrator for building commercial SaaS platforms. It operates in two specialized modes:
@@ -114,7 +114,7 @@ Every SaaS application must scaffold complete, functional implementations for:
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain seperti `brainstorming`, `zero-to-prod-orchestrator`, `saas-multi-tenant`, `saas-billing`, `session-memory-manager`, `prd-architect`, dan `production-ready-hardener`.
-- **WAJIB**: Jalankan `modern-web-guidance` PERTAMA KALI untuk semua pengerjaan frontend web.
+- **WAJIB**: Jalankan `senior-frontend` PERTAMA KALI untuk semua pengerjaan frontend web.
 
 ### Deskripsi
 **SaaS Architect** adalah orkestrator siklus hidup utama untuk membangun platform SaaS komersial. Beroperasi dalam dua mode:

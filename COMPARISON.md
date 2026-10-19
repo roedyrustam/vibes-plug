@@ -4,7 +4,7 @@
 
 **How does VibesPlug Pro compare to other AI coding agent tools?**
 
-*Last updated: October 2026 • v4.4.0 (160 Skills)*
+*Last updated: October 2026 • v4.4.1 (160 Skills)*
 </div>
 
 ---

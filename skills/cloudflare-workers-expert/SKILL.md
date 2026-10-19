@@ -15,7 +15,7 @@ version: "4.4.0"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `authentication-identity-expert`, `wasm-edge-computing-expert`, `ci-cd-devops-architect`, `cloud-hosting-expert`, `hono-backend` (via `js-backend-expert`), `session-memory-manager`.
+Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `authentication-identity-expert`, `wasm-edge-computing-expert`, `ci-cd-devops-architect`, `cloud-hosting-expert`, `session-memory-manager`.
 
 ### Description
 Expert guide for building full-stack edge applications using the **Cloudflare Workers** ecosystem. Covers Workers runtime, D1 (SQLite at edge), KV (key-value store), R2 (S3-compatible object storage), Queues (message queues), Durable Objects (stateful edge), Hyperdrive (database connection pooling), Workers AI (inference at edge), and Wrangler CLI for development and deployment.

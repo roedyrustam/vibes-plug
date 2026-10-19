@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-19T19:41:33.183Z",
+  "generatedAt": "2026-10-19T20:00:25.363Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 57,
-  "totalSymbolsIndexed": 319,
+  "totalFilesIndexed": 58,
+  "totalSymbolsIndexed": 320,
   "symbols": {
     "to": [
       {
@@ -112,7 +112,7 @@
       },
       {
         "file": "bin/vibes.mjs",
-        "line": 401,
+        "line": 439,
         "type": "interface",
         "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Template Archetype**: ${templateName.toUpperCase()}\\n- **Bound Skills**: ${allSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       }
@@ -136,7 +136,7 @@
     "runValidate": [
       {
         "file": "bin/vibes.mjs",
-        "line": 421,
+        "line": 459,
         "type": "function",
         "signature": "function runValidate()"
       }
@@ -144,7 +144,7 @@
     "runAudit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 432,
+        "line": 470,
         "type": "function",
         "signature": "function runAudit()"
       }
@@ -152,7 +152,7 @@
     "runCreateSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 443,
+        "line": 481,
         "type": "function",
         "signature": "function runCreateSkill(skillName)"
       }
@@ -160,7 +160,7 @@
     "runCreateMcp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 490,
+        "line": 528,
         "type": "function",
         "signature": "function runCreateMcp(serverName)"
       }
@@ -168,7 +168,7 @@
     "runAddSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 661,
+        "line": 699,
         "type": "function",
         "signature": "function runAddSkill(skillName)"
       }
@@ -176,7 +176,7 @@
     "runUi": [
       {
         "file": "bin/vibes.mjs",
-        "line": 696,
+        "line": 734,
         "type": "function",
         "signature": "function runUi()"
       }
@@ -184,7 +184,7 @@
     "runRemoveSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 880,
+        "line": 918,
         "type": "function",
         "signature": "function runRemoveSkill(skillName)"
       }
@@ -192,7 +192,7 @@
     "runListSkills": [
       {
         "file": "bin/vibes.mjs",
-        "line": 908,
+        "line": 946,
         "type": "function",
         "signature": "function runListSkills(filter)"
       }
@@ -200,7 +200,7 @@
     "runVersion": [
       {
         "file": "bin/vibes.mjs",
-        "line": 962,
+        "line": 1000,
         "type": "function",
         "signature": "function runVersion(action, type)"
       }
@@ -208,7 +208,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1035,
+        "line": 1073,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)"
       }
@@ -216,7 +216,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1123,
+        "line": 1161,
         "type": "function",
         "signature": "function runSkillInfo(skillName)"
       }
@@ -224,7 +224,7 @@
     "get": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1142,
+        "line": 1180,
         "type": "arrow-function",
         "signature": "const get = (key) =>"
       }
@@ -232,7 +232,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1173,
+        "line": 1211,
         "type": "function",
         "signature": "function runHooks(action)"
       }
@@ -240,7 +240,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1245,
+        "line": 1295,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)"
       }
@@ -248,7 +248,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1310,
+        "line": 1360,
         "type": "function",
         "signature": "function runSearch(query)"
       }
@@ -256,7 +256,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1358,
+        "line": 1408,
         "type": "function",
         "signature": "function runSync()"
       }
@@ -264,7 +264,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1415,
+        "line": 1465,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)"
       }
@@ -272,7 +272,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1478,
+        "line": 1528,
         "type": "function",
         "signature": "function showHelp()"
       }
@@ -501,6 +501,14 @@
         "line": 919,
         "type": "function",
         "signature": "def main():"
+      }
+    ],
+    "auditGraph": [
+      {
+        "file": "scripts/audit-graph.mjs",
+        "line": 6,
+        "type": "function",
+        "signature": "function auditGraph()"
       }
     ],
     "runBenchmarkSuite": [
@@ -2034,7 +2042,7 @@
     "multiply": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 297,
+        "line": 305,
         "type": "arrow-function",
         "signature": "const multiply = (a, b) =>"
       }
@@ -2042,7 +2050,7 @@
     "divide": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 302,
+        "line": 310,
         "type": "arrow-function",
         "signature": "const divide = (a, b) =>"
       }
@@ -2050,7 +2058,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 630,
+        "line": 638,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -2058,7 +2066,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 926,
+        "line": 934,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -2066,25 +2074,25 @@
     "norm": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1106,
+        "line": 1114,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1110,
+        "line": 1118,
         "type": "function",
         "signature": "function norm(s: any)"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1130,
+        "line": 1138,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1134,
+        "line": 1142,
         "type": "function",
         "signature": "function norm(s: any)"
       }
@@ -2092,13 +2100,13 @@
     "processItems": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1280,
+        "line": 1288,
         "type": "function",
         "signature": "function processItems(items: Item[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1281,
+        "line": 1289,
         "type": "function",
         "signature": "function processItems(items: any)"
       }
@@ -2458,7 +2466,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1917,
+      "totalLines": 1967,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2472,6 +2480,10 @@
     "scripts/ast-query.mjs": {
       "totalLines": 226,
       "symbolCount": 5
+    },
+    "scripts/audit-graph.mjs": {
+      "totalLines": 64,
+      "symbolCount": 1
     },
     "scripts/benchmark-suite.mjs": {
       "totalLines": 289,
@@ -2594,7 +2606,7 @@
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1351,
+      "totalLines": 1359,
       "symbolCount": 10
     },
     "scripts/token-budget-optimizer.mjs": {

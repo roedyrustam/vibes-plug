@@ -99,8 +99,16 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       await execFileAsync(process.execPath, [CLI_PATH, 'bootstrap']);
       assert.fail('Should have exited with code 1');
     } catch (err) {
-      assert.match(err.stdout + err.stderr, /Available templates: saas, ecommerce, mobile, api, fullstack, spec-api/);
+      assert.match(err.stdout + err.stderr, /Available templates: saas, ecommerce, mobile, api, fullstack, spec-api, ai-agent, fintech, cloud-native/);
     }
+  });
+
+  await t.test('vibes recipe list should show curated recipes including cloud-native, ai-agent, and fintech', async () => {
+    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
+    assert.match(stdout, /cloud-native/);
+    assert.match(stdout, /ai-agent/);
+    assert.match(stdout, /fintech/);
+    assert.match(stdout, /agentic-commerce/);
   });
 
   await t.test('vibes init should generate concrete PRD, BLUEPRINT, and PROGRESS', async () => {

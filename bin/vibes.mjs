@@ -296,11 +296,11 @@ async function runBootstrap(templateName, projectName) {
   if (!templateName || !projectName) {
     console.error('❌ Error: Template name and Project name are required.');
     console.log('Usage: vibes bootstrap <template> <project-name>');
-    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api');
+    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api, ai-agent, fintech, cloud-native');
     process.exit(1);
   }
 
-  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api'];
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api', 'ai-agent', 'fintech', 'cloud-native'];
   if (!validTemplates.includes(templateName)) {
     console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
     process.exit(1);
@@ -355,6 +355,44 @@ async function runBootstrap(templateName, projectName) {
         'database-orm-expert',
         'authentication-identity-expert',
         'logging-error-tracking-expert'
+      ];
+    } else if (templateName === 'ai-agent') {
+      prdTitle = 'Autonomous Multi-Agent AI System';
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
+      specificSkills = [
+        'multi-agent-orchestration',
+        'mcp-server-architect',
+        'ai-llm-integration-expert',
+        'frontier-ai-models-expert',
+        'agentic-memory-architect',
+        'pydantic-ai-expert',
+        'vector-db-rag-expert',
+        'anti-slop'
+      ];
+    } else if (templateName === 'fintech') {
+      prdTitle = 'FinTech & Sovereign Payment Engine';
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
+      specificSkills = [
+        'doku-payment-gateway',
+        'payment-gateway-expert',
+        'saas-billing',
+        'agentic-m2m-settlement',
+        'database-orm-expert',
+        'authentication-identity-expert',
+        'formal-spec-z3-verifier',
+        'anti-slop'
+      ];
+    } else if (templateName === 'cloud-native') {
+      prdTitle = 'Cloud-Native Resilient Microservices';
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
+      specificSkills = [
+        'ci-cd-devops-architect',
+        'github-actions-expert',
+        'docker-container-expert',
+        'cloud-hosting-expert',
+        'logging-error-tracking-expert',
+        'self-healing-cloud-orchestrator',
+        'anti-slop'
       ];
     }
 
@@ -1239,6 +1277,18 @@ const RECIPES = {
   'spec-driven-api': {
     description: 'Contract-first API engineering: TypeSpec, OpenAPI 3.1, BDD Gherkin, consumer-driven Pact contracts, and API drift healing',
     skills: ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'formal-spec-z3-verifier', 'e2e-testing-expert']
+  },
+  'cloud-native': {
+    description: 'Resilient Cloud & CI/CD: Docker containerization, GitHub Actions, cloud hosting, and self-healing telemetry',
+    skills: ['ci-cd-devops-architect', 'github-actions-expert', 'docker-container-expert', 'cloud-hosting-expert', 'logging-error-tracking-expert', 'self-healing-cloud-orchestrator', 'anti-slop']
+  },
+  'ai-agent': {
+    description: 'Autonomous Multi-Agent Swarms: MCP protocol, agentic memory, model cascade, and structured reasoning',
+    skills: ['multi-agent-orchestration', 'mcp-server-architect', 'ai-llm-integration-expert', 'frontier-ai-models-expert', 'agentic-memory-architect', 'pydantic-ai-expert', 'vector-db-rag-expert', 'anti-slop']
+  },
+  'fintech': {
+    description: 'FinTech, Billing & Payments: DOKU Checkout, SNAP BI standard, atomic idempotency, and SaaS subscriptions',
+    skills: ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop']
   }
 };
 
@@ -1477,7 +1527,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.4.0)
+🌊 Vibes-Plug CLI (v4.4.1)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1486,7 +1536,7 @@ Usage:
 Commands:
   sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
-  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api | ai-agent | fintech | cloud-native)
   wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)

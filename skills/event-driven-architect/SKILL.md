@@ -105,7 +105,7 @@ export const paymentWorker = new Worker(
 - **`domain-driven-design-expert`**: Sources domain events directly from Aggregate Roots.
 - **`async-queue-temporal-expert`**: Extends BullMQ queues with durable temporal distributed sagas.
 - **`database-orm-expert`**: Maintains outbox schema tables and database transaction boundaries.
-- **`logging-error-tracking-expert`**: Correlates trace IDs (`x-trace-id`) across distributed event consumers.
+- **`logging-error-tracking-expert`**: Correlates trace IDs (x-trace-id) across distributed event consumers.
 
 ---
 

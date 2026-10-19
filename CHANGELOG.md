@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
   - Deployed publicly to Vercel at [**https://vibes-plug.vercel.app/**](https://vibes-plug.vercel.app/) with automated continuous deployment on git push.
   - Automated GitHub Actions deployment pipeline (`.github/workflows/deploy-showcase.yml`) for GitHub Pages fallback.
 - **CI/CD Quality Gates & Test Suite Expansion**:
-  - Expanded test suite in `scripts/test-cli.mjs` to 41 passing tests (covering all 160 skills, doctor diagnostics, studio endpoints, and showcase assets).
+  - Expanded test suite in `scripts/test-cli.mjs` to 42 passing tests (covering all 160 skills, doctor diagnostics, studio endpoints, and showcase assets).
   - All 160 skills verified with 0 errors across frontmatter, author, version, bilingual requirement, and code block formatting.
 
 ### Changed / Diubah

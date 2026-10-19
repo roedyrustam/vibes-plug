@@ -15,7 +15,7 @@ version: "4.3.0"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills like `htmx-hypermedia-expert`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -78,7 +78,7 @@ export default defineConfig({
 | React MPA with SSR | **Next.js 15** Pages Router or App Router |
 
 ### Orchestration Guidelines
-- **With `modern-web-guidance`**: MUST execute FIRST before any HTML/CSS task to ensure modern frontend standards.
+- **With `htmx-hypermedia-expert`**: MUST execute FIRST before any HTML/CSS task to ensure modern frontend standards.
 - **With `mvc-expert`**: Enforce MVC pattern — Controllers handle logic, Views handle rendering.
 - **With `saas-multi-tenant`**: Integrate tenant identification in core routing middleware — every page load initializes `tenant_id` context securely.
 - **With `senior-frontend` / `ui-ux-pro-max`**: Enhance with Alpine.js for reactive UI or HTMX 2 for HTML-driven partial updates — no heavy client-side bundles.
@@ -98,7 +98,7 @@ export default defineConfig({
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `modern-web-guidance`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan seperti `htmx-hypermedia-expert`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.

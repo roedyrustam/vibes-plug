@@ -4,12 +4,12 @@
 
 **Comprehensive latency, throughput, token economics, and anti-slop verification metrics**
 
-*Published: October 2026 • Platform Version: v4.4.0 • Ecosystem Scale: 160 Specialized Skills*
+*Published: October 2026 • Platform Version: v4.4.1 • Ecosystem Scale: 160 Specialized Skills*
 
 [![SLA Compliance](https://img.shields.io/badge/SLA%20Compliance-100%25%20(7%2F7)-brightgreen.svg)](#the-7-sovereign-engine-benchmark-results)
 [![Anti-Slop](https://img.shields.io/badge/Anti--Slop%20Strict-0%20Violations%20(330%20Files)-blue.svg)](#anti-slop-directive-compliance--code-quality)
 [![Prompt Caching](https://img.shields.io/badge/KV--Cache%20Hit%20Rate-90%25%2B%20Cost%20Reduction-blueviolet.svg)](#token-economics--finops-empirical-analysis)
-[![Test Suite](https://img.shields.io/badge/CI%20Test%20Suite-41%2F41%20Passed-success.svg)](#test-suite-and-reliability)
+[![Test Suite](https://img.shields.io/badge/CI%20Test%20Suite-42%2F42%20Passed-success.svg)](#test-suite-and-reliability)
 
 </div>
 
@@ -124,7 +124,7 @@ npx vibes cache status
 # 3. Execute strict Anti-Slop audit across 330 files
 node scripts/check-anti-slop.js --strict
 
-# 4. Run the full 41-case CLI and engine integration test suite
+# 4. Run the full 42-case CLI and engine integration test suite
 node --test scripts/test-cli.mjs
 ```
 
