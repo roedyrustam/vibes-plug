@@ -90,6 +90,16 @@ Reduce token costs by up to 75–90% and drastically cut latency on large reposi
   });
   ```
 
+### 2.5 Automated Budget & Cache Advisor CLI (`gemini-budget-advisor.js`)
+Use the included zero-dependency CLI tool to evaluate repository token volume, calculate task entropy, and generate dynamic `thinkingBudget` and `cachedContent` recommendations:
+```bash
+# Scan current repository with specific task description
+node skills/gemini-agent-booster/scripts/gemini-budget-advisor.js --task "Refactor multi-tenant schema and RLS policies"
+
+# Scan with active git diff and output JSON for automated agent pipelines
+node skills/gemini-agent-booster/scripts/gemini-budget-advisor.js --diff --json
+```
+
 ### 3. Monolithic Context Loading (2M+ to 10M+ Tokens)
 When inspecting massive codebases with Gemini 4 Pro:
 1. **Pass Full File Trees**: Use `list_dir` to obtain the complete project structure, then supply full source files into context.
@@ -227,6 +237,16 @@ Pangkas biaya API sebesar 75–90% serta kurangi latensi respons pada repositori
     cachedContent: cache.name,
   });
   ```
+
+### 2.5 Utilitas CLI Advisor Budget & Cache Otomatis (`gemini-budget-advisor.js`)
+Gunakan utilitas CLI bawaan (zero-dependency) untuk mengestimasi footprint token repositori, mengevaluasi entropi tugas, serta menghasilkan rekomendasi `thinkingBudget` dan `cachedContent` secara otomatis:
+```bash
+# Analisis repositori saat ini dengan deskripsi tugas spesifik
+node skills/gemini-agent-booster/scripts/gemini-budget-advisor.js --task "Refactor multi-tenant schema dan RLS policies"
+
+# Analisis dengan git diff aktif dan keluaran format JSON untuk pipeline agen
+node skills/gemini-agent-booster/scripts/gemini-budget-advisor.js --diff --json
+```
 
 ### 3. Strategi Ingesti Konteks Monolitik (2M+ hingga 10M+ Token)
 Saat menganalisis repositori besar dengan Gemini 4 Pro:
