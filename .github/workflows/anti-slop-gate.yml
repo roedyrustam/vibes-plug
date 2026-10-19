@@ -7,20 +7,25 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
-  validate-and-audit:
-    name: Skill Integrity & Sovereign Anti-Slop Verification
+  sovereign-guard:
+    name: Sovereign Guard & Anti-Slop Audit
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Codebase
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js Runtime
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           cache: 'npm'
@@ -28,29 +33,74 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Validate Skills Ecosystem & Orchestrator Sync
+      - name: Validate 158 Skills Ecosystem & Orchestrator Sync
         run: node scripts/validate-skills.mjs
 
-      - name: Run Sovereign Anti-Slop Strict Audit
+      - name: Run Sovereign Anti-Slop Strict Audit (Zero Slop Standard)
         run: node scripts/check-anti-slop.js --strict
 
-      - name: Verify CLI Help & Version Synchronization
+      - name: Verify Web Showcase Syntax & Data Integrity
         run: |
-          node bin/vibes.mjs --help
+          node --check showcase/app.js
+          node --check showcase/skills-data.js
+
+      - name: Verify CLI Help, Version & Commands
+        run: |
+          node bin/vibes.mjs help
           node bin/vibes.mjs version current
+          node bin/vibes.mjs detect --help
 
-      - name: Run CLI Test Suite
-        run: node --test scripts/test-cli.mjs
-
-      - name: Run Performance Benchmark Suite
+      - name: Run Performance Benchmark Suite (7 SLAs)
         run: node scripts/benchmark-suite.mjs
 
-      - name: Package VS Code / Cursor VSIX Extension
-        run: node scripts/package-extension.mjs
+      - name: Package VS Code & Cursor Companion Extension (.vsix)
+        run: node bin/vibes.mjs package:vscode
 
       - name: Upload VSIX Extension Artifact
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@v4
         with:
           name: vibes-plug-companion-vsix
           path: extensions/vscode/*.vsix
           retention-days: 14
+
+  test-matrix:
+    name: Test Matrix (${{ matrix.os }} - Node ${{ matrix.node-version }})
+    needs: sovereign-guard
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: ['20.x', '22.x', '24.x']
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Full CLI, Studio & MCP Integration Test Suite (41 Tests)
+        run: node --test scripts/test-cli.mjs
+
+  security-audit:
+    name: Security & Dependency Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Run npm Audit
+        run: npm audit --audit-level=high
+        continue-on-error: true

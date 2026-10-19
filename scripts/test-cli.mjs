@@ -1141,6 +1141,25 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const mcpConsensusData = await mcpConsensusRes.json();
       assert.match(mcpConsensusData.result.result.content[0].text, /"winner":/);
       assert.match(mcpConsensusData.result.result.content[0].text, /"draft-clean"/);
+
+      // Test Studio /showcase endpoint & static assets
+      const showcaseRes = await fetch(`${url}/showcase`);
+      assert.equal(showcaseRes.status, 200);
+      assert.match(showcaseRes.headers.get('content-type'), /text\/html/);
+      const showcaseHtml = await showcaseRes.text();
+      assert.match(showcaseHtml, /158 Skill Ecosystem/);
+
+      const showcaseCssRes = await fetch(`${url}/showcase/styles.css`);
+      assert.equal(showcaseCssRes.status, 200);
+      assert.match(showcaseCssRes.headers.get('content-type'), /text\/css/);
+
+      const showcaseJsRes = await fetch(`${url}/showcase/app.js`);
+      assert.equal(showcaseJsRes.status, 200);
+      assert.match(showcaseJsRes.headers.get('content-type'), /application\/javascript/);
+
+      const showcaseDataRes = await fetch(`${url}/showcase/skills-data.js`);
+      assert.equal(showcaseDataRes.status, 200);
+      assert.match(showcaseDataRes.headers.get('content-type'), /application\/javascript/);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

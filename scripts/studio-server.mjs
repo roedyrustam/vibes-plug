@@ -1326,6 +1326,9 @@ export function generateStudioHtml(currentPort) {
           <span>FinOps Saved:</span>
           <span class="num" id="stat-finops-saved" style="color: #4ade80;">$0.000</span>
         </div>
+        <a href="/showcase" target="_blank" rel="noopener noreferrer" class="stat-chip" style="text-decoration: none; color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.08); font-weight: 600;">
+          🌐 Web Showcase
+        </a>
       </div>
     </div>
   </header>
@@ -3541,6 +3544,52 @@ export async function startStudioServer(options = {}) {
       });
       res.end(generateStudioHtml(port));
       return;
+    }
+
+    // Redirect /showcase to /showcase/ for proper relative asset resolution
+    if (req.method === 'GET' && pathname === '/showcase') {
+      res.writeHead(302, { 'Location': '/showcase/' });
+      res.end();
+      return;
+    }
+
+    // Static Web Showcase UI & Assets
+    if (req.method === 'GET' && (pathname === '/showcase/' || pathname.startsWith('/showcase/') || ['/styles.css', '/app.js', '/skills-data.js'].includes(pathname))) {
+      let relPath = pathname === '/showcase/' ? 'index.html' : pathname.replace(/^\/showcase\//, '');
+      if (['/styles.css', '/app.js', '/skills-data.js'].includes(pathname)) {
+        relPath = pathname.slice(1);
+      }
+      const safePath = path.normalize(relPath).replace(/^(\.\.[\/\\])+/, '');
+      const filePath = path.join(PLUGIN_ROOT, 'showcase', safePath);
+
+      const ext = path.extname(filePath).toLowerCase();
+      const mimeTypes = {
+        '.html': 'text/html; charset=utf-8',
+        '.css': 'text/css; charset=utf-8',
+        '.js': 'application/javascript; charset=utf-8',
+        '.mjs': 'application/javascript; charset=utf-8',
+        '.json': 'application/json; charset=utf-8',
+        '.png': 'image/png',
+        '.jpg': 'image/jpeg',
+        '.jpeg': 'image/jpeg',
+        '.svg': 'image/svg+xml',
+        '.gif': 'image/gif'
+      };
+      const contentType = mimeTypes[ext] || 'application/octet-stream';
+
+      try {
+        const fileContent = await fs.readFile(filePath);
+        res.writeHead(200, {
+          'Content-Type': contentType,
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(fileContent);
+        return;
+      } catch (_err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('Showcase file not found');
+        return;
+      }
     }
 
     // Remote MCP Server-Sent Events (SSE) Stream

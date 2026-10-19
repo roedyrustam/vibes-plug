@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   publish:
@@ -17,13 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Codebase
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js Runtime
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        uses: actions/setup-node@v4
         with:
           node-version: '22.x'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
@@ -38,13 +42,19 @@ jobs:
         run: node scripts/benchmark-suite.mjs
 
       - name: Package VS Code & Cursor VSIX Extension
-        run: node scripts/package-extension.mjs
+        run: |
+          node bin/vibes.mjs package:vscode
+          cd extensions/vscode
+          sha256sum *.vsix > checksums.sha256
+          cat checksums.sha256
 
-      - name: Attach VSIX to GitHub Release
-        uses: softprops/action-gh-release@c062e08bd532815e2082a85e87e3ef29c3e6d191 # v2.0.8
+      - name: Attach VSIX & Checksums to GitHub Release
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
         with:
-          files: extensions/vscode/*.vsix
+          files: |
+            extensions/vscode/*.vsix
+            extensions/vscode/checksums.sha256
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

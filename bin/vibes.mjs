@@ -1537,6 +1537,7 @@ Commands:
   validate                  Run the strict skill ecosystem validation check
   docs [markdown|json]      Export or preview the complete 158-skill ecosystem catalog
   studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 158-skill explorer)
+  showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   help                      Show this help menu
 `);
@@ -1887,6 +1888,25 @@ Platform Eligibility & Economics:
     const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
     const noOpen = args.includes('--no-open');
     await startStudioServer({ port, noOpen });
+    break;
+  }
+  case 'showcase': {
+    rl.close();
+    const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;
+    const { startStudioServer } = await import(studioModuleUrl);
+    const portIdx = args.indexOf('--port');
+    const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
+    const noOpen = args.includes('--no-open');
+    const { url } = await startStudioServer({ port, noOpen: true });
+    const showcaseUrl = `${url}/showcase`;
+    console.log(`\n🌐 Vibes-Plug Web Showcase is running at: \x1b[36m${showcaseUrl}\x1b[0m\n`);
+    if (!noOpen) {
+      const { exec } = await import('child_process');
+      const cmd = process.platform === 'win32' ? `start ${showcaseUrl}` :
+                  process.platform === 'darwin' ? `open ${showcaseUrl}` :
+                  `xdg-open ${showcaseUrl}`;
+      exec(cmd, () => {});
+    }
     break;
   }
   default:
