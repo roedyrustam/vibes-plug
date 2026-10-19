@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.1] - 2026-10-20
+
+### Added / Ditambahkan
+- **160-Skill Milestone & Enterprise Gap Closure**:
+  - `github-actions-expert`: Enterprise guide for GitHub Actions CI/CD workflows, reusable workflows (`workflow_call`), composite actions, multi-platform test matrices, zero-secret OIDC cloud role authentication for AWS/GCP/Azure, immutable 40-character commit SHA action pinning, and least-privilege `GITHUB_TOKEN` permissions.
+  - `docker-container-expert`: Production-grade containerization with Docker 27+ and Docker Compose v2, BuildKit persistent cache mounts (`--mount=type=cache`), rootless execution (UID 65532 non-root) on Google Distroless and Scratch, internal network isolation (`internal: true`), container health checks, and compose dependency sequencing (`condition: service_healthy`).
+  - Full registration of both skills in `skills/brainstorming/SKILL.md` (Domain Matrix in EN & ID) and `skills/zero-to-prod-orchestrator/SKILL.md` (Phase 7 DevOps & Hardening in EN & ID).
+- **Public Web Showcase & Live Vercel Deployment (`showcase/`)**:
+  - Built zero-dependency, ultra-fast vanilla HTML/CSS/JS Web Showcase with live interactive 160-skill explorer, category tabs, real-time search, terminal CLI simulator, benchmark audit viewer, and IDE quick-copy snippets.
+  - Deployed publicly to Vercel at [**https://vibes-plug.vercel.app/**](https://vibes-plug.vercel.app/) with automated continuous deployment on git push.
+  - Automated GitHub Actions deployment pipeline (`.github/workflows/deploy-showcase.yml`) for GitHub Pages fallback.
+- **CI/CD Quality Gates & Test Suite Expansion**:
+  - Expanded test suite in `scripts/test-cli.mjs` to 41 passing tests (covering all 160 skills, doctor diagnostics, studio endpoints, and showcase assets).
+  - All 160 skills verified with 0 errors across frontmatter, author, version, bilingual requirement, and code block formatting.
+
+### Changed / Diubah
+- Updated all catalogs, documentation, Studio Cockpit, and README across English, Indonesian, Mandarin, German, and Japanese to reflect 160 verified skills.
+
+---
+
 ## [4.4.0] - 2026-10-18
 
 ### Added / Ditambahkan
