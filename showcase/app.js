@@ -321,6 +321,39 @@ Actual Vibes-Plug Billing   : $5.75 USD
 [OK] Companion Extension    : VSIX bundle built (5,631 bytes, 12 commands)
 
 🎉 System is 100% HEALTHY and production ready.
+`,
+
+  'vibes bootstrap ai-agent': `
+<span class="term-badge term-badge-cyan">BOOTSTRAP</span> Super-Scaffolding Autonomous Multi-Agent AI System:
+----------------------------------------------------------------------
+📁 Target Directory   : ./my-agent-swarm
+⚡ Base Framework     : Hono v4 + Node.js 24+ LTS / TypeScript 5.8
+📦 Bound AI Skills (12 Skills):
+   ➕ zero-to-prod-orchestrator  ➕ senior-frontend
+   ➕ tailwind-expert            ➕ anti-slop
+   ➕ session-memory-manager     ➕ multi-agent-orchestration
+   ➕ mcp-server-architect       ➕ ai-llm-integration-expert
+   ➕ frontier-ai-models-expert  ➕ agentic-memory-architect
+   ➕ pydantic-ai-expert         ➕ vector-db-rag-expert
+
+📄 Generated PRD.md (Executive Vision, DDL Schemas, NFR Budgets)
+📄 Generated BLUEPRINT.md (Architectural Topology, ADRs)
+📄 Generated PROGRESS.md (8-Phase Swarm Progression)
+🎉 Super-Scaffolding complete! Ask your AI: "Begin Phase 1 using zero-to-prod-orchestrator".
+`,
+
+  'vibes verify-gate': `
+<span class="term-badge term-badge-yellow">VERIFY GATE</span> Pre-Disk In-Memory Verification Gate:
+----------------------------------------------------------------------
+🔍 Candidate Code     : In-memory AST syntax & Anti-Slop evaluation
+⚙️  Verification SLA   : 0.28 ms execution (budget &lt; 50.00 ms)
+
+=== Verification Gate Scorecard ===
+Verdict     : <span class="check-pass">APPROVED</span>
+Persistable : ✅ Safe to write to disk
+Syntax      : ✅ Valid AST Symbol Structure
+Anti-Slop   : 100/100 (APPROVED - Zero stubs, zero TODOs)
+Summary     : Pre-Disk Verification Passed (100/100 Anti-Slop, Syntax OK)
 `
 };
 
@@ -354,6 +387,8 @@ Available interactive commands:
   • <span class="term-cmd">vibes detect</span>         : Run AST project stack detector
   • <span class="term-cmd">vibes studio</span>         : Launch Studio Cockpit & Remote MCP
   • <span class="term-cmd">vibes swarm:dispatch</span> : Execute multi-agent concurrent swarm
+  • <span class="term-cmd">vibes bootstrap</span>      : Super-scaffold project + AI skill bundle
+  • <span class="term-cmd">vibes verify-gate</span>    : Run pre-disk in-memory verification gate
   • <span class="term-cmd">vibes bench</span>          : Run 7-item performance benchmark
   • <span class="term-cmd">vibes finops</span>         : View KV-cache token savings report
   • <span class="term-cmd">vibes doctor</span>         : Health check environment & 6 IDE bridges
@@ -376,7 +411,14 @@ Total 160 Verified Skills in Vibes-Plug:
     return;
   }
 
-  const output = TERMINAL_OUTPUTS[cleanCmd];
+  let output = TERMINAL_OUTPUTS[cleanCmd];
+  if (!output && cleanCmd.startsWith('vibes bootstrap')) {
+    output = TERMINAL_OUTPUTS['vibes bootstrap ai-agent'];
+  }
+  if (!output && cleanCmd.startsWith('vibes verify-gate')) {
+    output = TERMINAL_OUTPUTS['vibes verify-gate'];
+  }
+
   if (output) {
     appendTerminalLine(output);
   } else {

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-19T20:11:07.036Z",
+  "generatedAt": "2026-10-19T20:14:18.282Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 58,
   "totalSymbolsIndexed": 320,
@@ -2262,7 +2262,7 @@
     "appendTerminalLine": [
       {
         "file": "showcase/app.js",
-        "line": 327,
+        "line": 360,
         "type": "function",
         "signature": "function appendTerminalLine(content, isCommand = false)"
       }
@@ -2270,7 +2270,7 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 340,
+        "line": 373,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)"
       }
@@ -2278,7 +2278,7 @@
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 510,
+        "line": 552,
         "type": "function",
         "signature": "function renderTopology(id)"
       }
@@ -2286,7 +2286,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 604,
+        "line": 646,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)"
       }
@@ -2294,7 +2294,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 617,
+        "line": 659,
         "type": "function",
         "signature": "function initShowcase()"
       }
@@ -2638,7 +2638,7 @@
       "symbolCount": 4
     },
     "showcase/app.js": {
-      "totalLines": 738,
+      "totalLines": 780,
       "symbolCount": 12
     },
     "showcase/skills-data.js": {
