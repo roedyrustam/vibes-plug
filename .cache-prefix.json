@@ -1,7 +1,7 @@
 {
   "version": "4.3.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
-  "architecture": "Vibes-Plug Swarm Architecture (155 Skills)",
+  "architecture": "Vibes-Plug Swarm Architecture (158 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
   "domains": {
     "ai_agentic": [
@@ -58,8 +58,10 @@
       "astro-framework-expert",
       "blockchain-web3-expert",
       "browser-extension-mv3-pro",
+      "flutter-dart-expert",
       "form-validation-expert",
       "global-a11y-i18n-expert",
+      "htmx-hypermedia-expert",
       "mpa-orchestrator",
       "nextjs-app-router-expert",
       "performance-web-vitals",
@@ -78,6 +80,7 @@
       "api-gateway-proxy-expert",
       "autonomous-api-drift-healer",
       "bun-runtime-expert",
+      "cloudflare-workers-expert",
       "domain-driven-design-expert",
       "fullstack-expert",
       "go-programming-expert",
@@ -176,7 +179,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 155,
+  "totalSkills": 158,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

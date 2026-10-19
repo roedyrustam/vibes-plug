@@ -85,10 +85,11 @@ const SKILL_DOMAIN_MAP = {
   'svg-animation-motion-expert': 'frontend', 'svelte-sveltekit-expert': 'frontend', 'tailwind-expert': 'frontend',
   'tanstack-query-expert': 'frontend', 'tauri-expert': 'frontend', 'ui-ux-pro-max': 'frontend', 'vue-frontend-expert': 'frontend',
   'visual-ui-auditor': 'frontend', 'performance-web-vitals': 'frontend', 'web-3d-graphics-expert': 'frontend', 'webxr-ar-vr-expert': 'frontend',
+  'flutter-dart-expert': 'frontend', 'htmx-hypermedia-expert': 'frontend',
 
   // Backend
   'api-design-expert': 'backend', 'api-gateway-proxy-expert': 'backend', 'async-queue-temporal-expert': 'backend',
-  'autonomous-api-drift-healer': 'backend', 'bun-runtime-expert': 'backend', 'composable-mach-architect': 'backend',
+  'autonomous-api-drift-healer': 'backend', 'bun-runtime-expert': 'backend', 'cloudflare-workers-expert': 'backend', 'composable-mach-architect': 'backend',
   'cron-scheduler-expert': 'backend', 'domain-driven-design-expert': 'backend', 'ephemeral-wasm-sandbox-executor': 'backend',
   'event-driven-architect': 'backend', 'fullstack-expert': 'backend', 'go-programming-expert': 'backend',
   'graphql-apollo-expert': 'backend', 'js-backend-expert': 'backend', 'legacy-code-translator': 'backend',
@@ -4244,6 +4245,24 @@ export async function startStudioServer(options = {}) {
         const verify = Boolean(body?.verify);
         const result = await reconcileSpeculativeDrafts(drafts, { spec, verify });
         sendJson(result);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Smart Project Stack Detector endpoint
+    if (req.method === 'POST' && pathname === '/api/detect') {
+      try {
+        const body = await readJsonBody(req);
+        const targetDir = body?.targetDir || process.cwd();
+        const apply = Boolean(body?.apply);
+        const { detectProjectStack, applyDetectedSkills } = await import('./project-detector.mjs');
+        const outcome = await detectProjectStack(targetDir);
+        if (apply) {
+          outcome.installation = await applyDetectedSkills(targetDir, outcome.recommendedSkills);
+        }
+        sendJson(outcome);
       } catch (err) {
         sendJson({ error: err.message }, 500);
       }

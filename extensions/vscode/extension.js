@@ -2,7 +2,7 @@
  * VibesPlug Pro VSCode & Cursor Extension Companion (2026 Edition)
  * 
  * Provides native IDE command integration for Vibes-Plug:
- * - Status bar indicator for 155 active skills
+ * - Status bar indicator for 158 active skills
  * - 1-Click Studio Cockpit launch
  * - Integrated terminal runner for Scaffolding Wizard, Sovereign Guard, and FinOps Tracker
  * - Active file Critic-in-the-Loop validation
@@ -38,8 +38,8 @@ export function activate(context) {
 
   // 1. Status Bar Item
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBar.text = '$(zap) VibesPlug: 155 Skills';
-  statusBar.tooltip = 'VibesPlug Pro: 155-Skill AI Swarm Orchestrator active. Click to open Studio Cockpit.';
+  statusBar.text = '$(zap) VibesPlug: 158 Skills';
+  statusBar.tooltip = 'VibesPlug Pro: 158-Skill AI Swarm Orchestrator active. Click to open Studio Cockpit.';
   statusBar.command = 'vibes.openStudio';
   statusBar.show();
   context.subscriptions.push(statusBar);

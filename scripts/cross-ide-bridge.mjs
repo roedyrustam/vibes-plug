@@ -122,8 +122,9 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       try {
         const content = await fs.readFile(fPath, 'utf8');
         pInfo.filesPresent.push(f);
-        if (content.includes('155') || content.includes('156') || /15\d-Skill/i.test(content) || /skills/i.test(content)) {
+        if (content.includes('155') || content.includes('156') || content.includes('158') || /15\d-Skill/i.test(content) || /skills/i.test(content)) {
           pInfo.has155Skills = true;
+          pInfo.has158Skills = true;
         }
         if (content.includes('Anti-Slop') || content.includes('anti-slop')) {
           pInfo.hasAntiSlop = true;
@@ -294,7 +295,7 @@ async function main() {
     for (const [key, p] of Object.entries(report.platforms)) {
       const icon = p.configured ? '✅' : '⚪';
       const slopIcon = p.hasAntiSlop ? '🛡️' : '⚠️';
-      const skillIcon = p.has155Skills ? '155' : '???';
+      const skillIcon = (p.has158Skills || p.has155Skills) ? '158' : '???';
       console.log(`  ${icon} [${p.name.padEnd(28)}] Present: ${p.filesPresent.join(', ') || 'None'}`);
       console.log(`     Metrics: Anti-Slop: ${slopIcon} | Skills: ${skillIcon} Skills\n`);
     }

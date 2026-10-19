@@ -30,9 +30,9 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, new RegExp(pkg.version.replace(/\./g, '\\.')));
   });
 
-  await t.test('vibes doctor should verify 155 skills and pass health checks', async () => {
+  await t.test('vibes doctor should verify 158 skills and pass health checks', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor']);
-    assert.match(stdout, /Global skills registry: 155 skills found/);
+    assert.match(stdout, /Global skills registry: 158 skills found/);
     assert.match(stdout, /All checks passed/);
   });
 
@@ -66,9 +66,9 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /openapi-swagger-codegen-expert/);
   });
 
-  await t.test('vibes docs should generate 155-skill ecosystem preview', async () => {
+  await t.test('vibes docs should generate 158-skill ecosystem preview', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'docs']);
-    assert.match(stdout, /Vibes-Plug Skills Catalog \(155 Skills\)/);
+    assert.match(stdout, /Vibes-Plug Skills Catalog \(158 Skills\)/);
     assert.match(stdout, /accessibility-testing-expert/);
   });
 
@@ -350,11 +350,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const skillsRes = await fetch(`${url}/api/skills`);
       const skills = await skillsRes.json();
       assert.equal(Array.isArray(skills), true);
-      assert.equal(skills.length, 155);
+      assert.equal(skills.length, 158);
 
       const statusRes = await fetch(`${url}/api/status`);
       const status = await statusRes.json();
-      assert.equal(status.totalSkills, 155);
+      assert.equal(status.totalSkills, 158);
       const pkgJson = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
       assert.equal(status.version, pkgJson.version);
       assert.equal(status.mcpToolsCount >= 10, true);
@@ -371,7 +371,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       });
       const mcpData = await mcpExecRes.json();
       assert.equal(mcpExecRes.status, 200);
-      assert.match(mcpData.result.result.content[0].text, /"total": 155/);
+      assert.match(mcpData.result.result.content[0].text, /"total": 158/);
 
       // Test Batch recipe injection validation
       const batchRes = await fetch(`${url}/api/recipes/inject`, {
@@ -1056,7 +1056,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const driftRes = await fetch(`${url}/api/drift`);
       const driftData = await driftRes.json();
       assert.equal(driftRes.status, 200);
-      assert.equal(driftData.totalSkills, 155);
+      assert.equal(driftData.totalSkills, 158);
       assert.equal(driftData.ecosystemStatus, 'PRISTINE');
       assert.equal(driftData.averageScore, 100);
 
@@ -1091,7 +1091,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       });
       const mcpMonitorData = await mcpMonitorRes.json();
       assert.equal(mcpMonitorRes.status, 200);
-      assert.match(mcpMonitorData.result.result.content[0].text, /"totalSkills":\s*155/);
+      assert.match(mcpMonitorData.result.result.content[0].text, /"totalSkills":\s*158/);
       assert.match(mcpMonitorData.result.result.content[0].text, /"ecosystemStatus":\s*"PRISTINE"/);
 
       // Test Studio REST POST /api/consensus endpoint
@@ -1217,7 +1217,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     // 1. Full ecosystem scan
     const { stdout: fullOut } = await execFileAsync(process.execPath, [CLI_PATH, 'drift', '--json']);
     const fullData = JSON.parse(fullOut);
-    assert.equal(fullData.totalSkills, 155);
+    assert.equal(fullData.totalSkills, 158);
     assert.equal(fullData.deadLinksCount, 0);
     assert.equal(fullData.ecosystemStatus, 'PRISTINE');
     assert.equal(fullData.averageScore, 100);
@@ -1243,7 +1243,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: jsonOut } = await execFileAsync(process.execPath, [CLI_PATH, 'monitor', '--json']);
     const monitorData = JSON.parse(jsonOut);
     assert.equal(typeof monitorData.drift, 'object');
-    assert.equal(monitorData.drift.totalSkills, 155);
+    assert.equal(monitorData.drift.totalSkills, 158);
     assert.equal(monitorData.drift.ecosystemStatus, 'PRISTINE');
     assert.ok(Array.isArray(monitorData.benchmarks.results));
     assert.equal(monitorData.benchmarks.passedCount, 7);
@@ -1293,6 +1293,35 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const writtenCode = await fs.readFile(outPath, 'utf8');
       assert.match(writtenCode, /Synthesized Consensus Implementation/);
       assert.match(writtenCode, /Consensus Winner: draftA\.ts/);
+    } finally {
+      await fs.rm(testDir, { recursive: true, force: true });
+    }
+  });
+
+  await t.test('vibes detect should analyze workspace dependencies and recommend skills', async () => {
+    const testDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vibes-detect-test-'));
+    try {
+      await fs.writeFile(path.join(testDir, 'package.json'), JSON.stringify({
+        name: 'test-app',
+        dependencies: {
+          'next': '^15.0.0',
+          'tailwindcss': '^4.0.0',
+          'wrangler': '^3.0.0'
+        }
+      }, null, 2));
+
+      const { stdout: detectOut } = await execFileAsync(process.execPath, [
+        CLI_PATH,
+        'detect',
+        testDir,
+        '--json'
+      ]);
+      const data = JSON.parse(detectOut);
+      assert.ok(data.detectedStacks.includes('Node.js / JavaScript'));
+      assert.ok(data.recommendedSkills.includes('nextjs-app-router-expert'));
+      assert.ok(data.recommendedSkills.includes('tailwind-expert'));
+      assert.ok(data.recommendedSkills.includes('cloudflare-workers-expert'));
+      assert.ok(data.recommendedSkills.includes('anti-slop'));
     } finally {
       await fs.rm(testDir, { recursive: true, force: true });
     }

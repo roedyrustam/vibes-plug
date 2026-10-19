@@ -23,12 +23,12 @@ export async function compileCache(options = {}) {
   const quiet = !!options.quiet;
   const log = (...args) => { if (!quiet) console.log(...args); };
 
-  log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
-  log('📦 Scanning 155-Skill Ecosystem for canonical prefix ordering...\n');
-
   // 1. Read all skill directories
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
   const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+
+  log('\n⚡ [Vibes-Plug] Compiling Deterministic KV-Cache Prefix...');
+  log(`📦 Scanning ${skillDirs.length}-Skill Ecosystem for canonical prefix ordering...\n`);
 
   const skillsData = [];
   for (const skillName of skillDirs) {
@@ -49,7 +49,7 @@ export async function compileCache(options = {}) {
   const canonicalPayload = {
     version: '4.3.0',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
-    architecture: 'Vibes-Plug Swarm Architecture (155 Skills)',
+    architecture: `Vibes-Plug Swarm Architecture (${skillsData.length} Skills)`,
     orchestrator: 'Primary Trigger (Pemicu Utama)',
     domains: {
       ai_agentic: [
@@ -72,15 +72,15 @@ export async function compileCache(options = {}) {
       ],
       frontend: [
         'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
-        'blockchain-web3-expert', 'browser-extension-mv3-pro', 'form-validation-expert', 'global-a11y-i18n-expert',
-        'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
+        'blockchain-web3-expert', 'browser-extension-mv3-pro', 'flutter-dart-expert', 'form-validation-expert', 'global-a11y-i18n-expert',
+        'htmx-hypermedia-expert', 'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
         'pwa-offline-first-expert', 'senior-frontend', 'solidjs-expert',
         'spa-orchestrator', 'state-management-expert', 'svelte-sveltekit-expert',
         'tanstack-query-expert', 'vue-frontend-expert', 'web-game-engine-expert'
       ],
       backend_languages: [
         'api-design-expert', 'api-gateway-proxy-expert', 'autonomous-api-drift-healer',
-        'bun-runtime-expert', 'domain-driven-design-expert', 'fullstack-expert',
+        'bun-runtime-expert', 'cloudflare-workers-expert', 'domain-driven-design-expert', 'fullstack-expert',
         'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
         'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
         'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
@@ -134,7 +134,7 @@ export async function compileCache(options = {}) {
 
   log(`  📊 Canonical Prefix Size    : ${byteSize} bytes`);
   log(`  🔢 Estimated Token Count    : ~${estimatedTokens} tokens`);
-  log(`  🎯 Total Skills Included    : ${skillsData.length}/155`);
+  log(`  🎯 Total Skills Included    : ${skillsData.length} skills`);
 
   // Cache Eligibility Matrix
   const claudeEligible = estimatedTokens >= 1024;

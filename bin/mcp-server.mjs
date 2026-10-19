@@ -9,8 +9,8 @@
  * - vibes_arbitrate_code (P4: Process Reward Model Multi-Draft Arbiter)
  * - vibes_verify_invariants (P5: Neuro-Symbolic Invariant Verifier & SMT Generator)
  * - vibes_compile_cache (P1: Canonical Deterministic KV-Cache Prefix Compiler)
- * - vibes_get_skill (Registry: Instant access to any of the 155 skills)
- * - vibes_list_skills (Registry: Discover all 155 skills with domains and summaries)
+ * - vibes_get_skill (Registry: Instant access to any of the 158 skills)
+ * - vibes_list_skills (Registry: Discover all 158 skills with domains and summaries)
  * - vibes_inject_skill (Registry: Direct 1-click project skill injection)
  * - vibes_memory (Episodic Project Memory & ultra-compact checkpoints)
  * - vibes_swarm (Autonomous Multi-Agent Swarm Orchestrator)
@@ -121,7 +121,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 155 specialized skills in the vibes-plug registry.',
+    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 158 specialized skills in the vibes-plug registry.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -135,7 +135,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_list_skills',
-    description: 'List all 155 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
+    description: 'List all 158 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -429,7 +429,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_bridge_sync',
-    description: 'Synchronize 155-skill universal rules, Anti-Slop directives, and prompt caching prefixes to all or specific IDE platforms (claude, cursor, codex, windsurf, cline, trae, antigravity).',
+    description: 'Synchronize 158-skill universal rules, Anti-Slop directives, and prompt caching prefixes to all or specific IDE platforms (claude, cursor, codex, windsurf, cline, trae, antigravity).',
     inputSchema: {
       type: 'object',
       properties: {
@@ -607,7 +607,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_skill_drift',
-    description: 'Automated Skill Health & Framework Drift Monitor: audits all 155 skills across the Vibes-Plug catalog or deep dives into a specific skill. Verifies 2026 framework alignment (React 19, Next 15, Tailwind v4, Node 24), cross-skill dependency graph integrity (in/out-degree centrality, 0 dead links), master orchestrator registration, and Anti-Slop Directive compliance.',
+    description: 'Automated Skill Health & Framework Drift Monitor: audits all 158 skills across the Vibes-Plug catalog or deep dives into a specific skill. Verifies 2026 framework alignment (React 19, Next 15, Tailwind v4, Node 24), cross-skill dependency graph integrity (in/out-degree centrality, 0 dead links), master orchestrator registration, and Anti-Slop Directive compliance.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -658,6 +658,23 @@ export const TOOLS = [
       },
       required: ['drafts']
     }
+  },
+  {
+    name: 'vibes_detect_stack',
+    description: 'Smart Project & Stack Detector: inspects target workspace files (package.json, Cargo.toml, go.mod, pubspec.yaml, wrangler.toml, etc.) to detect frameworks and recommend a tailored bundle of specialized Vibes-Plug skills.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        targetDir: {
+          type: 'string',
+          description: 'Path to target workspace directory to inspect (defaults to current working directory).'
+        },
+        apply: {
+          type: 'boolean',
+          description: 'Whether to automatically install recommended skills to .agents/skills/ in target directory (default: false).'
+        }
+      }
+    }
   }
 ];
 
@@ -683,7 +700,7 @@ export const MCP_RESOURCES = [
   {
     uri: 'vibes://cache/prefix',
     name: 'Deterministic KV-Cache Prefix',
-    description: 'Compiled 155-skill canonical prefix (>1024 tokens) for prompt caching',
+    description: 'Compiled 158-skill canonical prefix (>1024 tokens) for prompt caching',
     mimeType: 'application/json'
   },
   {
@@ -1169,6 +1186,15 @@ export async function handleRpcRequest(request) {
         const verify = Boolean(args?.verify);
         const result = await reconcileSpeculativeDrafts(drafts, { spec, verify });
         contentText = JSON.stringify(result, null, 2);
+      } else if (name === 'vibes_detect_stack') {
+        const targetDir = args?.targetDir || process.cwd();
+        const apply = Boolean(args?.apply);
+        const { detectProjectStack, applyDetectedSkills } = await import('../scripts/project-detector.mjs');
+        const outcome = await detectProjectStack(targetDir);
+        if (apply) {
+          outcome.installation = await applyDetectedSkills(targetDir, outcome.recommendedSkills);
+        }
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

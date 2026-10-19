@@ -4,7 +4,7 @@
 
 **How does VibesPlug Pro compare to other AI coding agent tools?**
 
-*Last updated: October 2026 • v4.4.0 (155 Skills)*
+*Last updated: October 2026 • v4.4.0 (158 Skills)*
 </div>
 
 ---
@@ -13,7 +13,7 @@
 
 | Tool | Best For | Limitation |
 |:---|:---|:---|
-| **⚡ VibesPlug Pro** | **Full lifecycle autonomous development with 155 domain-specialist skills** | Newer project, growing community |
+| **⚡ VibesPlug Pro** | **Full lifecycle autonomous development with 158 domain-specialist skills** | Newer project, growing community |
 | `@primeinc/swarm` | Simple swarm coordination via `/swarm` command | Limited skill depth, no domain specialization |
 | `aiwg` (AI Workgroup CLI) | Role-based SDLC governance | No skill ecosystem, no anti-slop engine |
 | `@phnx-labs/agents-cli` | Unified multi-agent CLI management | No domain expertise, no quality gates |
@@ -32,7 +32,7 @@
 | Feature | VibesPlug Pro | @primeinc/swarm | aiwg | Karpathy Rules | Mastra | LangGraph.js |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 | **Multi-Agent Swarm Director** | ✅ 3 topologies | ✅ Basic | ✅ | ❌ | ✅ | ✅ |
-| **Specialized Domain Skills** | ✅ **155 skills** | ❌ ~5 | ❌ | ❌ | ❌ | ❌ |
+| **Specialized Domain Skills** | ✅ **158 skills** | ❌ ~5 | ❌ | ❌ | ❌ | ❌ |
 | **Native Subagents** | ✅ 5 specialists | ❌ | ✅ | ❌ | ❌ | ✅ |
 | **Autonomous Zero-to-Prod Pipeline** | ✅ 8 phases | ❌ | ⚠️ Partial | ❌ | ❌ | ❌ |
 | **Built-in MCP Server** | ✅ Stdio v1.x | ❌ | ❌ | ❌ | ❌ | ❌ |
@@ -144,7 +144,7 @@
 
 | Metric | VibesPlug Pro | @primeinc/swarm | aiwg | Karpathy Rules |
 |:---|:---:|:---:|:---:|:---:|
-| **Domain Skills** | **155** | ~5 | ~10 | 1 file |
+| **Domain Skills** | **158** | ~5 | ~10 | 1 file |
 | **Native Subagents** | **5** | 0 | ~3 | 0 |
 | **CLI Scripts** | **38** | ~3 | ~5 | 0 |
 | **IDE Platforms** | **8** | 1 | 3 | 1 |
@@ -157,7 +157,7 @@
 ## When to Choose What
 
 ### Choose VibesPlug Pro When:
-- You want a **complete AI-powered development studio** with 155 domain specialists
+- You want a **complete AI-powered development studio** with 158 domain specialists
 - You need **multi-IDE portability** (Antigravity, Cursor, Claude Code, Codex, Windsurf, Trae)
 - You want **zero AI slop** — the only tool with a 38-rule anti-slop enforcement engine
 - You're building **SaaS, FinTech, or AI products** and need deep domain expertise

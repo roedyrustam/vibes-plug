@@ -1,5 +1,5 @@
 {
-  "total": 155,
+  "total": 158,
   "skills": [
     {
       "name": "accessibility-testing-expert",
@@ -206,6 +206,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "cloudflare-workers-expert",
+      "description": "Expert guide for Cloudflare Workers ecosystem — Workers, D1 (SQLite at edge), KV, R2 (S3-compatible storage), Queues, Durable Objects, Hyperdrive, and Workers AI / Panduan ahli ekosistem Cloudflare Workers — Workers, D1, KV, R2, Queues, Durable Objects, Hyperdrive, dan Workers AI.",
+      "version": "4.4.0",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "coderabbit",
       "description": "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif.",
       "version": "4.3.0",
@@ -368,6 +374,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "flutter-dart-expert",
+      "description": "Expert guide for Flutter 3.27+ and Dart 3.7+ cross-platform development. Covers Material 3 adaptive theming, Riverpod 3, go_router, Impeller rendering, platform channels, and Firebase/Supabase integration / Panduan ahli pengembangan lintas platform Flutter 3.27+ dan Dart 3.7+.",
+      "version": "4.4.0",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "form-validation-expert",
       "description": "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel.",
       "version": "4.3.0",
@@ -443,6 +455,12 @@
       "name": "hig",
       "description": "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces / Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif.",
       "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "htmx-hypermedia-expert",
+      "description": "Expert guide for HTMX 2.0+, Hypermedia-Driven Applications (HDA), server-side rendering with htmx attributes, Alpine.js integration, and modern HTML-over-the-wire patterns / Panduan ahli HTMX 2.0+, Hypermedia-Driven Applications, dan pola HTML-over-the-wire modern.",
+      "version": "4.4.0",
       "author": "Roedy Rustam"
     },
     {

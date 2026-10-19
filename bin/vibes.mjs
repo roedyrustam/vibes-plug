@@ -762,8 +762,8 @@ async function runUi() {
         frontend: [
           'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
           'blockchain-web3-expert', 'browser-extension-mv3-pro', 'design-system-architect',
-          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'form-validation-expert',
-          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'micro-frontend-architect',
+          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'flutter-dart-expert', 'form-validation-expert',
+          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'htmx-hypermedia-expert', 'micro-frontend-architect',
           'mobile-expo-expert', 'modern-css-native-expert', 'mpa-orchestrator',
           'multimodal-spatial-video-cloner', 'nextjs-app-router-expert', 'pwa-offline-first-expert',
           'rich-text-editor-expert', 'screenshot-to-code-expert', 'senior-frontend',
@@ -774,7 +774,7 @@ async function runUi() {
         ],
         backend: [
           'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
-          'autonomous-api-drift-healer', 'bun-runtime-expert', 'composable-mach-architect',
+          'autonomous-api-drift-healer', 'bun-runtime-expert', 'cloudflare-workers-expert', 'composable-mach-architect',
           'cron-scheduler-expert', 'domain-driven-design-expert', 'ephemeral-wasm-sandbox-executor',
           'event-driven-architect', 'fullstack-expert', 'go-programming-expert',
           'graphql-apollo-expert', 'js-backend-expert', 'legacy-code-translator',
@@ -1342,7 +1342,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 155 skills.');
+    console.log('Try: vibes list  to browse all 158 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1408,7 +1408,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 155 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 158 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1490,7 +1490,7 @@ Commands:
   wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 155 skills by keyword (ranked by relevance)
+  search <query>            Search all 158 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1535,8 +1535,9 @@ Commands:
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 155-skill ecosystem catalog
-  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 155-skill explorer)
+  docs [markdown|json]      Export or preview the complete 158-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 158-skill explorer)
+  detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   help                      Show this help menu
 `);
   rl.close();
@@ -1544,6 +1545,12 @@ Commands:
 
 // Main Router
 switch (command) {
+  case 'detect': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'project-detector.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
   case 'learn': {
     rl.close();
     const { spawnSync } = await import('child_process');

@@ -240,7 +240,7 @@ integration_test/app_test.dart:
     await tester.pumpAndSettle();
     await tester.tap(find.text('Products'));
     await tester.pumpAndSettle();
-    // ...assert purchase completion
+    expect(find.byType(HomeScreen), findsOneWidget);
   });
 ```
 
