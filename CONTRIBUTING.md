@@ -103,6 +103,12 @@ git push origin feat/add-skill-<skill-name>
 4. Verify that the GitHub Actions CI (`anti-slop-gate` and `test`) passes.
 5. Submit your Pull Request (PR) to the `main` branch of the original repository (`roedyrustam/vibes-plug`).
 
+### Contributor License Agreement (CLA)
+All contributors must sign the Contributor License Agreement before their pull request can be merged.
+- Signing is a one-time act per contributor.
+- Read [CLA.md](CLA.md) and open a small pull request adding your GitHub username to [.contributors](.contributors).
+- Once merged, comment @cla-bot check on your original pull request and the CLA check will turn green.
+
 ### Additional Rules & Anti-Slop Standards
 > [!IMPORTANT]
 > - **Sovereign Anti-Slop Directive (Zero-Tolerance)**: Never use `// TODO`, `// ...rest of code`, or fake mocks. Output must be 100% complete and working.
@@ -210,6 +216,12 @@ git push origin feat/add-skill-<nama-skill>
 3. Berikan deskripsi yang jelas mengenai tujuan, kategori domain, dan kegunaan dari skill yang Anda tambahkan.
 4. Pastikan pemeriksaan CI di GitHub Actions (`anti-slop-gate` dan `test`) lulus.
 5. Kirim Pull Request (PR) Anda ke branch `main` repositori asal (`roedyrustam/vibes-plug`).
+
+### Perjanjian Lisensi Kontributor (CLA)
+Seluruh kontributor wajib menandatangani Contributor License Agreement (CLA) sebelum pull request dapat di-merge.
+- Penandatanganan cukup dilakukan satu kali per kontributor.
+- Baca [CLA.md](CLA.md) dan buka pull request kecil yang menambahkan username GitHub Anda ke [.contributors](.contributors).
+- Setelah di-merge, ketik komentar @cla-bot check pada pull request Anda yang lain agar pemeriksaan CLA berubah menjadi hijau.
 
 ### Aturan Tambahan & Standar Anti-Slop
 > [!IMPORTANT]

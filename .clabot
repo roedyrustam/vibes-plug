@@ -1,0 +1,6 @@
+{
+  "contributors": "https://api.github.com/repos/roedyrustam/vibes-plug/contents/.contributors",
+  "label": "cla-signed",
+  "message": "Thanks for this contribution to Vibes-Plug! We'd like to merge it.\n\nBefore we can, we need a signed Contributor License Agreement (CLA) from: {{usersWithoutCLA}}\n\nSigning is a simple one-time act per contributor, not per pull request:\n1. Read [CLA.md](https://github.com/roedyrustam/vibes-plug/blob/main/CLA.md).\n2. Open a small pull request adding your GitHub username to [.contributors](https://github.com/roedyrustam/vibes-plug/blob/main/.contributors) - that pull request is your durable signature made from your own GitHub account.\n\nOnce that PR is merged, comment @cla-bot check on this pull request to turn the check green.",
+  "recheckComment": "Re-checking the CLA status for every commit author on this pull request."
+}
