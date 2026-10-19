@@ -12,7 +12,7 @@
  *   vibes detect [targetDir] [--apply] [--json]
  * 
  * @author Roedy Rustam
- * @version 4.4.0
+ * @version 4.4.1
  */
 
 import fs from 'node:fs/promises';
@@ -107,8 +107,10 @@ const FILE_INDICATORS = [
   { file: 'wrangler.toml', skills: ['cloudflare-workers-expert'], stack: 'Cloudflare Workers' },
   { file: 'wrangler.json', skills: ['cloudflare-workers-expert'], stack: 'Cloudflare Workers' },
   { file: 'wrangler.jsonc', skills: ['cloudflare-workers-expert'], stack: 'Cloudflare Workers' },
-  { file: 'Dockerfile', skills: ['ci-cd-devops-architect'], stack: 'Docker' },
-  { file: 'docker-compose.yml', skills: ['ci-cd-devops-architect'], stack: 'Docker Compose' },
+  { file: 'Dockerfile', skills: ['docker-container-expert', 'ci-cd-devops-architect'], stack: 'Docker' },
+  { file: 'docker-compose.yml', skills: ['docker-container-expert', 'ci-cd-devops-architect'], stack: 'Docker Compose' },
+  { file: 'compose.yaml', skills: ['docker-container-expert', 'ci-cd-devops-architect'], stack: 'Docker Compose v2' },
+  { file: '.github/workflows', skills: ['github-actions-expert', 'ci-cd-devops-architect'], stack: 'GitHub Actions' },
   { file: 'openapi.yaml', skills: ['openapi-swagger-codegen-expert', 'spec-driven-development-expert'], stack: 'OpenAPI' },
   { file: 'openapi.json', skills: ['openapi-swagger-codegen-expert', 'spec-driven-development-expert'], stack: 'OpenAPI' }
 ];

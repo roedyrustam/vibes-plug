@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-19T20:00:25.363Z",
+  "generatedAt": "2026-10-19T20:11:07.036Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
   "totalFilesIndexed": 58,
   "totalSymbolsIndexed": 320,
@@ -106,13 +106,13 @@
       },
       {
         "file": "bin/vibes.mjs",
-        "line": 278,
+        "line": 284,
         "type": "interface",
         "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Archetype**: ${archetype.toUpperCase()}\\n- **Bound Skills**: ${chosenSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       },
       {
         "file": "bin/vibes.mjs",
-        "line": 439,
+        "line": 445,
         "type": "interface",
         "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Template Archetype**: ${templateName.toUpperCase()}\\n- **Bound Skills**: ${allSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       }
@@ -128,7 +128,7 @@
     "runBootstrap": [
       {
         "file": "bin/vibes.mjs",
-        "line": 295,
+        "line": 301,
         "type": "function",
         "signature": "function runBootstrap(templateName, projectName)"
       }
@@ -136,7 +136,7 @@
     "runValidate": [
       {
         "file": "bin/vibes.mjs",
-        "line": 459,
+        "line": 465,
         "type": "function",
         "signature": "function runValidate()"
       }
@@ -144,7 +144,7 @@
     "runAudit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 470,
+        "line": 476,
         "type": "function",
         "signature": "function runAudit()"
       }
@@ -152,7 +152,7 @@
     "runCreateSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 481,
+        "line": 487,
         "type": "function",
         "signature": "function runCreateSkill(skillName)"
       }
@@ -160,7 +160,7 @@
     "runCreateMcp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 528,
+        "line": 534,
         "type": "function",
         "signature": "function runCreateMcp(serverName)"
       }
@@ -168,7 +168,7 @@
     "runAddSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 699,
+        "line": 705,
         "type": "function",
         "signature": "function runAddSkill(skillName)"
       }
@@ -176,7 +176,7 @@
     "runUi": [
       {
         "file": "bin/vibes.mjs",
-        "line": 734,
+        "line": 740,
         "type": "function",
         "signature": "function runUi()"
       }
@@ -184,7 +184,7 @@
     "runRemoveSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 918,
+        "line": 924,
         "type": "function",
         "signature": "function runRemoveSkill(skillName)"
       }
@@ -192,7 +192,7 @@
     "runListSkills": [
       {
         "file": "bin/vibes.mjs",
-        "line": 946,
+        "line": 952,
         "type": "function",
         "signature": "function runListSkills(filter)"
       }
@@ -200,7 +200,7 @@
     "runVersion": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1000,
+        "line": 1006,
         "type": "function",
         "signature": "function runVersion(action, type)"
       }
@@ -208,7 +208,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1073,
+        "line": 1079,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)"
       }
@@ -216,7 +216,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1161,
+        "line": 1167,
         "type": "function",
         "signature": "function runSkillInfo(skillName)"
       }
@@ -224,7 +224,7 @@
     "get": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1180,
+        "line": 1186,
         "type": "arrow-function",
         "signature": "const get = (key) =>"
       }
@@ -232,7 +232,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1211,
+        "line": 1217,
         "type": "function",
         "signature": "function runHooks(action)"
       }
@@ -240,7 +240,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1295,
+        "line": 1301,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)"
       }
@@ -248,7 +248,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1360,
+        "line": 1366,
         "type": "function",
         "signature": "function runSearch(query)"
       }
@@ -256,7 +256,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1408,
+        "line": 1414,
         "type": "function",
         "signature": "function runSync()"
       }
@@ -264,7 +264,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1465,
+        "line": 1471,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)"
       }
@@ -272,7 +272,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1528,
+        "line": 1534,
         "type": "function",
         "signature": "function showHelp()"
       }
@@ -402,7 +402,7 @@
       },
       {
         "file": "scripts/project-detector.mjs",
-        "line": 272,
+        "line": 274,
         "type": "function",
         "signature": "function main()"
       },
@@ -648,7 +648,7 @@
       },
       {
         "file": "scripts/project-detector.mjs",
-        "line": 228,
+        "line": 230,
         "type": "function",
         "signature": "function getAvailableSkills()"
       }
@@ -1056,7 +1056,7 @@
     "detectProjectStack": [
       {
         "file": "scripts/project-detector.mjs",
-        "line": 121,
+        "line": 123,
         "type": "function",
         "signature": "function detectProjectStack(targetDir = process.cwd()"
       }
@@ -1064,7 +1064,7 @@
     "applyDetectedSkills": [
       {
         "file": "scripts/project-detector.mjs",
-        "line": 243,
+        "line": 245,
         "type": "function",
         "signature": "function applyDetectedSkills(targetDir, skills)"
       }
@@ -2466,7 +2466,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1967,
+      "totalLines": 1973,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2558,7 +2558,7 @@
       "symbolCount": 4
     },
     "scripts/project-detector.mjs": {
-      "totalLines": 334,
+      "totalLines": 336,
       "symbolCount": 4
     },
     "scripts/registry-manager.mjs": {

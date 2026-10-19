@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-19T20:00:25.522Z",
+  "timestamp": "2026-10-19T20:11:07.217Z",
   "score": 100,
-  "totalElapsedMs": 200.78,
+  "totalElapsedMs": 216.97,
   "itemsTested": 7,
   "passedCount": 7,
   "allPassed": true,
@@ -9,60 +9,60 @@
     {
       "id": "sandbox_exec",
       "name": "Ephemeral Micro-Sandbox Execution",
-      "measured": "0.99 ms",
+      "measured": "0.96 ms",
       "budget": "< 25.00 ms",
       "passed": true,
-      "rawMs": 0.986610000000001
+      "rawMs": 0.9591000000000001
     },
     {
       "id": "verify_gate",
       "name": "Pre-Disk Verification Gate",
-      "measured": "1.16 ms",
+      "measured": "1.08 ms",
       "budget": "< 50.00 ms",
       "passed": true,
-      "rawMs": 1.1623400000000004
+      "rawMs": 1.0818399999999997
     },
     {
       "id": "ast_indexing",
       "name": "AST Symbol Indexing Throughput",
-      "measured": "4.814 sym/s",
+      "measured": "5.036 sym/s",
       "budget": "> 300 sym/s",
       "passed": true,
-      "rawThroughput": 4814,
+      "rawThroughput": 5036,
       "totalSymbols": 320,
       "totalFiles": 58
     },
     {
       "id": "graph_search",
       "name": "Hybrid GraphRAG Search (Top-5)",
-      "measured": "5.84 ms",
+      "measured": "6.14 ms",
       "budget": "< 60.00 ms",
       "passed": true,
-      "rawMs": 5.84135
+      "rawMs": 6.143140000000001
     },
     {
       "id": "kv_cache",
       "name": "Deterministic KV-Cache Prefix Compilation",
-      "measured": "35.46 ms",
+      "measured": "44.60 ms",
       "budget": "< 500.00 ms",
       "passed": true,
-      "rawMs": 35.45609999999999
+      "rawMs": 44.596900000000005
     },
     {
       "id": "cross_ide_bridge",
       "name": "Cross-IDE Bridge Synchronization",
-      "measured": "7.77 ms",
+      "measured": "14.02 ms",
       "budget": "< 120.00 ms",
       "passed": true,
-      "rawMs": 7.773300000000006
+      "rawMs": 14.017200000000003
     },
     {
       "id": "vsix_packager",
       "name": "Zero-Dependency VSIX Package Builder",
-      "measured": "3.36 ms",
+      "measured": "4.56 ms",
       "budget": "< 200.00 ms",
       "passed": true,
-      "rawMs": 3.3628000000000213
+      "rawMs": 4.564099999999996
     }
   ]
 }

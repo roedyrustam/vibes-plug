@@ -111,6 +111,9 @@ async function runWizard() {
         { name: '🛍️ E-Commerce & Agentic Commerce (Next.js, QRIS / Base, Medusa)', value: 'ecommerce' },
         { name: '📱 Cross-Platform Mobile App (React Native, Expo SDK 53, Router v4)', value: 'mobile' },
         { name: '🚀 High-Performance Backend API (Bun / Hono / Node.js 24+)', value: 'api' },
+        { name: '🤖 Autonomous Multi-Agent AI System (MCP, Vector RAG, Memory, Cascade)', value: 'ai-agent' },
+        { name: '💳 FinTech & Sovereign Payment Engine (SNAP BI, DOKU Checkout, Z3 Verifier)', value: 'fintech' },
+        { name: '☁️ Cloud-Native Microservices (Docker Multi-Stage, GitHub Actions, Telemetry)', value: 'cloud-native' },
         { name: '🎯 Custom Tailored Stack (Choose components manually)', value: 'custom' }
       ]
     });
@@ -249,7 +252,10 @@ async function runWizard() {
         'fullstack': ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert', 'senior-frontend'],
         'ecommerce': ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway', 'senior-frontend', 'tailwind-expert'],
         'mobile': ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'],
-        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert']
+        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'],
+        'ai-agent': ['multi-agent-orchestration', 'mcp-server-architect', 'ai-llm-integration-expert', 'frontier-ai-models-expert', 'agentic-memory-architect', 'pydantic-ai-expert', 'vector-db-rag-expert', 'anti-slop'],
+        'fintech': ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop'],
+        'cloud-native': ['ci-cd-devops-architect', 'github-actions-expert', 'docker-container-expert', 'cloud-hosting-expert', 'logging-error-tracking-expert', 'self-healing-cloud-orchestrator', 'anti-slop']
       };
       chosenSkills = ['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager', ...(templateSkillMap[archetype] || [])];
     }
