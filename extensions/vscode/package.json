@@ -93,6 +93,11 @@
         "command": "vibes.graphSearch",
         "title": "VibesPlug: Local Hybrid GraphRAG Search",
         "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.detect",
+        "title": "VibesPlug: Detect Project Stack & Recommend Skills",
+        "category": "VibesPlug"
       }
     ],
     "menus": {

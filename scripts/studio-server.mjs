@@ -1301,14 +1301,14 @@ export function generateStudioHtml(currentPort) {
             <div class="brand-title">VibesPlug Pro Studio</div>
             <div class="brand-tag">v4.4.0</div>
           </div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 155-Agent Swarm Operating System</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 158-Agent Swarm Operating System</div>
         </div>
       </div>
 
       <div class="header-stats">
         <div class="stat-chip">
           <span>Skills:</span>
-          <span class="num" id="stat-total-skills">155</span>
+          <span class="num" id="stat-total-skills">158</span>
         </div>
         <div class="stat-chip">
           <span>Installed:</span>
@@ -1332,7 +1332,8 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Tab Navigation -->
   <nav class="tab-nav">
-    <button type="button" class="tab-btn active" data-tab="tab-arsenal">155-Skill Arsenal</button>
+    <button type="button" class="tab-btn active" data-tab="tab-arsenal">158-Skill Arsenal</button>
+    <button type="button" class="tab-btn" data-tab="tab-detector">🔍 Stack Detector</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-dag">Visual DAG Canvas</button>
     <button type="button" class="tab-btn" data-tab="tab-engines">Superintelligence (P1–P6)</button>
@@ -1347,15 +1348,15 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Main Content -->
   <main>
-    <!-- View 1: 155-Skill Arsenal -->
+    <!-- View 1: 158-Skill Arsenal -->
     <div id="tab-arsenal" class="view-pane active">
       <div class="filter-bar">
         <div class="search-input-wrapper">
           <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="skill-search" class="search-input" placeholder="Search 155 skills (press '/' to focus)...">
+          <input type="text" id="skill-search" class="search-input" placeholder="Search 158 skills (press '/' to focus)...">
         </div>
         <div class="category-pills">
-          <button type="button" class="pill-btn active" data-category="all">All Domains (155)</button>
+          <button type="button" class="pill-btn active" data-category="all">All Domains (158)</button>
           <button type="button" class="pill-btn" data-category="frontend">Frontend &amp; UI</button>
           <button type="button" class="pill-btn" data-category="backend">Backend &amp; API</button>
           <button type="button" class="pill-btn" data-category="ai">Frontier AI &amp; MCP</button>
@@ -2015,6 +2016,66 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         </div>
       </div>
     </div>
+
+    <!-- View: Smart Project Stack Detector -->
+    <div id="tab-detector" class="view-pane">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div class="panel-box">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;">
+            <div>
+              <h3>🔍 Smart Project Stack Detector &amp; Auto-Bundler</h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
+                Inspects workspace files (package.json, Cargo.toml, go.mod, pubspec.yaml, wrangler.toml, Dockerfile, etc.) to automatically detect frameworks and recommend a tailored bundle of specialized Vibes-Plug skills.
+              </p>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-secondary" onclick="runStackDetect(false)">Inspect Workspace</button>
+              <button type="button" class="btn btn-primary" onclick="runStackDetect(true)">⚡ Inspect &amp; Inject Bundle</button>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <div class="form-group" style="margin-bottom: 0;">
+              <label for="detect-dir-input">Target Project Directory (defaults to current project root)</label>
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="detect-dir-input" class="text-input" placeholder="Leave empty for current workspace or enter absolute path..." style="flex: 1;" />
+                <button type="button" class="btn btn-primary" onclick="runStackDetect(false)">Run Detection</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2col" style="gap: 20px;">
+          <div class="panel-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Detected Stacks &amp; Heuristics</span>
+              <span id="detect-stack-count" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--primary);">0 Stacks</span>
+            </div>
+            <div id="detect-stacks-list" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;">
+              <div style="color: var(--text-muted); font-size: 0.85rem;">Click 'Run Detection' to scan the workspace.</div>
+            </div>
+
+            <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Trigger Rules &amp; Manifest Sources</span>
+            <div id="detect-rules-list" style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px; max-height: 240px; overflow-y: auto;">
+              <!-- Rules output -->
+            </div>
+          </div>
+
+          <div class="panel-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Recommended Skill Bundle</span>
+              <span id="detect-skills-count" style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--success);">0 Skills</span>
+            </div>
+            <div id="detect-skills-container" style="display: flex; flex-direction: column; gap: 8px; max-height: 320px; overflow-y: auto;">
+              <!-- Recommended skills list -->
+            </div>
+            <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 10px;">
+              <button type="button" id="btn-detect-apply" class="btn btn-primary" style="display: none;" onclick="runStackDetect(true)">Install Detected Skills to .agents/skills/</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <!-- Floating Recipe Builder Drawer (Multi-select) -->
@@ -2053,7 +2114,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.4.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 155 Skills</p>
+    <p>Vibes-Plug Pro v4.4.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 158 Skills</p>
   </footer>
 
   <script>
@@ -2084,6 +2145,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         if (targetId === 'tab-engines') { loadCacheStatus(); loadFinOpsStatus(); }
         if (targetId === 'tab-bridge') loadBridgeView();
         if (targetId === 'tab-swarm-bus') initSwarmBusStream();
+        if (targetId === 'tab-detector') runStackDetect(false);
       });
     });
 
@@ -3320,6 +3382,77 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         }
       } catch (err) {
         showToast('Broadcast error: ' + err.message);
+      }
+    }
+
+    async function runStackDetect(apply = false) {
+      const dirInput = document.getElementById('detect-dir-input');
+      const targetDir = dirInput ? dirInput.value.trim() : '';
+      const stacksContainer = document.getElementById('detect-stacks-list');
+      const rulesContainer = document.getElementById('detect-rules-list');
+      const skillsContainer = document.getElementById('detect-skills-container');
+      const stackCountEl = document.getElementById('detect-stack-count');
+      const skillCountEl = document.getElementById('detect-skills-count');
+      const applyBtn = document.getElementById('btn-detect-apply');
+
+      if (!stacksContainer || !rulesContainer || !skillsContainer) return;
+
+      stacksContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Inspecting workspace files...</div>';
+      rulesContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Evaluating heuristic detection rules...</div>';
+      skillsContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">Synthesizing tailored skill bundle...</div>';
+
+      try {
+        const res = await fetch('/api/detect', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ targetDir: targetDir || undefined, apply: apply })
+        });
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+
+        if (stackCountEl) stackCountEl.textContent = data.detectedStacks.length + ' Stacks';
+        if (data.detectedStacks.length === 0) {
+          stacksContainer.innerHTML = '<span class="pill-btn active">Generic Project</span>';
+        } else {
+          stacksContainer.innerHTML = data.detectedStacks.map(function(s) {
+            return '<span style="padding: 4px 10px; background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); border-radius: 6px; font-size: 0.82rem; font-weight: 600;">' + escapeHtml(s) + '</span>';
+          }).join('');
+        }
+
+        if (data.matchedRules.length === 0) {
+          rulesContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 0.82rem;">No package.json dependencies matched (standard universal rules applied).</div>';
+        } else {
+          rulesContainer.innerHTML = data.matchedRules.map(function(r) {
+            return '<div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: rgba(255,255,255,0.03); border-radius: 6px; font-size: 0.8rem;">' +
+              '<span style="font-family: var(--font-mono); color: var(--primary);">' + escapeHtml(r.source) + '</span>' +
+              '<span style="color: var(--text-muted); font-size: 0.75rem;">' + escapeHtml(r.skills.join(', ')) + '</span>' +
+            '</div>';
+          }).join('');
+        }
+
+        if (skillCountEl) skillCountEl.textContent = data.recommendedSkills.length + ' Skills';
+        skillsContainer.innerHTML = data.recommendedSkills.map(function(s) {
+          return '<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border); border-radius: 6px;">' +
+            '<div style="display: flex; align-items: center; gap: 8px;">' +
+              '<span style="color: #4ade80;">✅</span>' +
+              '<strong style="font-family: var(--font-mono); font-size: 0.85rem; color: #fff;">' + escapeHtml(s) + '</strong>' +
+            '</div>' +
+            '<button type="button" class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.72rem;" data-skill="' + escapeHtml(s) + '" onclick="openSkillModal(this.getAttribute(&quot;data-skill&quot;))">View Details</button>' +
+          '</div>';
+        }).join('');
+
+        if (applyBtn) {
+          applyBtn.style.display = 'inline-flex';
+        }
+
+        if (apply && data.installation) {
+          showToast('Successfully installed ' + data.installation.installedCount + ' skills to .agents/skills/!');
+        } else {
+          showToast('Detected ' + data.detectedStacks.length + ' stacks & ' + data.recommendedSkills.length + ' recommended skills!');
+        }
+      } catch (err) {
+        showToast('Detection error: ' + err.message);
+        stacksContainer.innerHTML = '<div style="color: #ef4444; font-size: 0.85rem;">Error: ' + escapeHtml(err.message) + '</div>';
       }
     }
 

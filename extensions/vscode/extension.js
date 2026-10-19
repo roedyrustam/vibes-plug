@@ -143,6 +143,12 @@ export function activate(context) {
     }
   });
   context.subscriptions.push(graphSearchCmd);
+
+  // 13. Smart Project Stack Detector
+  const detectCmd = vscode.commands.registerCommand('vibes.detect', () => {
+    runInTerminal('npx vibes-plug detect', 'Vibes Detect');
+  });
+  context.subscriptions.push(detectCmd);
 }
 
 /**

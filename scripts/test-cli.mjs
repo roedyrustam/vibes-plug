@@ -246,7 +246,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'package:vscode', '--dry-run']);
     assert.match(stdout, /Vibes-Plug VS Code & Cursor Extension Packager/);
     assert.match(stdout, /Extension Package Built Successfully/);
-    assert.match(stdout, /11 contributed commands/);
+    assert.match(stdout, /12 contributed commands/);
     assert.match(stdout, /DRY-RUN/);
   });
 
@@ -985,7 +985,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const extPackageData = await extPackageRes.json();
       assert.equal(extPackageRes.status, 200);
       assert.equal(extPackageData.success, true);
-      assert.equal(extPackageData.commandsCount, 11);
+      assert.equal(extPackageData.commandsCount, 12);
       assert.ok(extPackageData.sizeBytes > 1000);
 
       // Test MCP vibes_package_extension tool
@@ -999,7 +999,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       });
       const mcpExtData = await mcpExtRes.json();
       assert.equal(mcpExtRes.status, 200);
-      assert.match(mcpExtData.result.result.content[0].text, /"commandsCount":\s*11/);
+      assert.match(mcpExtData.result.result.content[0].text, /"commandsCount":\s*12/);
 
       // Test MCP vibes_run_benchmark tool
       const mcpBenchRes = await fetch(`${url}/api/mcp/execute`, {
