@@ -1,5 +1,5 @@
 {
-  "total": 158,
+  "total": 160,
   "skills": [
     {
       "name": "accessibility-testing-expert",
@@ -290,6 +290,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "docker-container-expert",
+      "description": "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology / Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2.",
+      "version": "4.4.0",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "documentation-site-expert",
       "description": "Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation / Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen.",
       "version": "4.3.0",
@@ -413,6 +419,12 @@
       "name": "geospatial-maps-expert",
       "description": "Expert guide for maps and geospatial data (Mapbox GL JS, Leaflet, Google Maps, PostGIS) / Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS).",
       "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "github-actions-expert",
+      "description": "Expert guide for GitHub Actions CI/CD workflows, reusable workflows, composite actions, matrix builds, OIDC cloud auth, security hardening, and artifact automation / Panduan ahli GitHub Actions CI/CD workflows, reusable workflows, aksi komposit, autentikasi cloud OIDC, pengerasan keamanan, dan otomasi rilis.",
+      "version": "4.4.0",
       "author": "Roedy Rustam"
     },
     {

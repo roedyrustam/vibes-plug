@@ -1,5 +1,5 @@
 /**
- * Vibes-Plug 158 Verified Skills Registry
+ * Vibes-Plug 160 Verified Skills Registry
  * Auto-synchronized dataset for Public Web Showcase & Interactive Explorer
  */
 
@@ -17,7 +17,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli pengujian aksesibilitas web.",
     "tags": [
       "accessibility",
-      "testing"
+      "testing",
+      "security"
     ]
   },
   {
@@ -34,7 +35,8 @@ export const SKILLS_DATA = [
     "tags": [
       "adaptive",
       "model",
-      "cascade"
+      "cascade",
+      "ai"
     ]
   },
   {
@@ -70,8 +72,7 @@ export const SKILLS_DATA = [
       "agentic",
       "coding",
       "workflow",
-      "agent",
-      "swarm"
+      "ai"
     ]
   },
   {
@@ -89,7 +90,7 @@ export const SKILLS_DATA = [
       "agentic",
       "m2m",
       "settlement",
-      "agent"
+      "saas"
     ]
   },
   {
@@ -105,7 +106,9 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk integrasi memori episodik jangka panjang (Mem0 v2, Letta/MemGPT, Zep v2), arsitektur tier memori, penyimpanan pgvector HNSW, dan manajemen konteks terpadu untuk agen AI otonom.",
     "tags": [
       "agentic",
-      "memory"
+      "memory",
+      "architect",
+      "ai"
     ]
   },
   {
@@ -123,8 +126,8 @@ export const SKILLS_DATA = [
       "agentic",
       "micro",
       "economy",
-      "agent",
-      "swarm"
+      "architect",
+      "ai"
     ]
   },
   {
@@ -139,11 +142,10 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for multi-pass autonomous AI code self-review — syntax validation, logic correctness, architectural conformance, security audit, and performance analysis without external tooling — enabling the agent to catch its own errors before presenting code",
     "summaryId": "Panduan ahli review kode otonom multi-pass oleh AI — validasi sintaks, kebenaran logika, konformitas arsitektur, audit keamanan, dan analisis performa tanpa tooling eksternal — memungkinkan agen menangkap errornya sendiri sebelum menampilkan kode.",
     "tags": [
-      "ai",
       "code",
       "review",
       "autonomous",
-      "agent"
+      "security"
     ]
   },
   {
@@ -158,10 +160,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP v1.x), hybrid reasoning models, RAG architecture, vector databases, and AI agents",
     "summaryId": "Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), model hybrid reasoning, arsitektur RAG, vector database, dan agen AI.",
     "tags": [
-      "ai",
       "llm",
       "integration",
-      "mcp"
+      "ai"
     ]
   },
   {
@@ -176,9 +177,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration",
     "summaryId": "Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT).",
     "tags": [
-      "ai",
       "media",
-      "generation"
+      "generation",
+      "ai"
     ]
   },
   {
@@ -193,9 +194,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output, prompt injection defense, and automated AI evaluations & regression benchmarking (Promptfoo, DeepEval)",
     "summaryId": "Panduan ahli rekayasa prompt dan evaluasi otomatis AI.",
     "tags": [
-      "ai",
       "prompt",
-      "engineering"
+      "engineering",
+      "ai"
     ]
   },
   {
@@ -210,9 +211,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for AI Safety, Governance, and Responsible AI in production — Constitutional AI enforcement, runtime guardrails (NeMo Guardrails 2.0, Llama Guard 3), bias auditing, hallucination detection, EU AI Act compliance, model cards, and content provenance",
     "summaryId": "Panduan ahli untuk Keamanan AI, Tata Kelola, dan AI Bertanggung Jawab di produksi.",
     "tags": [
-      "ai",
       "safety",
-      "governance"
+      "governance",
+      "ai"
     ]
   },
   {
@@ -227,7 +228,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3",
     "summaryId": "Panduan ahli aplikasi enterprise Angular 19+.",
     "tags": [
-      "angular"
+      "angular",
+      "frontend"
     ]
   },
   {
@@ -243,7 +245,8 @@ export const SKILLS_DATA = [
     "summaryId": "Doktrin dan mesin penegakan anti-AI slop mutlak v5.0.",
     "tags": [
       "anti",
-      "slop"
+      "slop",
+      "security"
     ]
   },
   {
@@ -260,7 +263,7 @@ export const SKILLS_DATA = [
     "tags": [
       "api",
       "design",
-      "graphql"
+      "backend"
     ]
   },
   {
@@ -277,7 +280,8 @@ export const SKILLS_DATA = [
     "tags": [
       "api",
       "gateway",
-      "proxy"
+      "proxy",
+      "backend"
     ]
   },
   {
@@ -294,7 +298,8 @@ export const SKILLS_DATA = [
     "tags": [
       "app",
       "analyzer",
-      "optimizer"
+      "optimizer",
+      "security"
     ]
   },
   {
@@ -311,7 +316,8 @@ export const SKILLS_DATA = [
     "tags": [
       "app",
       "promo",
-      "media"
+      "media",
+      "saas"
     ]
   },
   {
@@ -327,7 +333,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli pengembangan ekosistem Apple (iOS & Web).",
     "tags": [
       "apple",
-      "ecosystem"
+      "ecosystem",
+      "frontend"
     ]
   },
   {
@@ -343,7 +350,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX.",
     "tags": [
       "astro",
-      "framework"
+      "framework",
+      "frontend"
     ]
   },
   {
@@ -360,7 +368,8 @@ export const SKILLS_DATA = [
     "tags": [
       "async",
       "queue",
-      "temporal"
+      "temporal",
+      "backend"
     ]
   },
   {
@@ -376,7 +385,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk autentikasi dan otorisasi.",
     "tags": [
       "authentication",
-      "identity"
+      "identity",
+      "security"
     ]
   },
   {
@@ -394,7 +404,8 @@ export const SKILLS_DATA = [
       "autonomous",
       "api",
       "drift",
-      "healer"
+      "healer",
+      "backend"
     ]
   },
   {
@@ -425,12 +436,12 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@autonomous-tdd-debugger",
     "summaryEn": "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger.",
-    "summaryId": "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger.",
+    "summaryId": "",
     "tags": [
       "autonomous",
       "tdd",
       "debugger",
-      "agent"
+      "security"
     ]
   },
   {
@@ -448,7 +459,7 @@ export const SKILLS_DATA = [
       "biome",
       "linter",
       "formatter",
-      "rust"
+      "security"
     ]
   },
   {
@@ -464,7 +475,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli integrasi Web3 dan blockchain.",
     "tags": [
       "blockchain",
-      "web3"
+      "web3",
+      "frontend"
     ]
   },
   {
@@ -479,7 +491,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins",
     "summaryId": "Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai.",
     "tags": [
-      "brainstorming"
+      "brainstorming",
+      "data"
     ]
   },
   {
@@ -496,7 +509,7 @@ export const SKILLS_DATA = [
     "tags": [
       "browser",
       "automation",
-      "vision"
+      "data"
     ]
   },
   {
@@ -515,7 +528,7 @@ export const SKILLS_DATA = [
       "extension",
       "mv3",
       "pro",
-      "api"
+      "frontend"
     ]
   },
   {
@@ -532,7 +545,7 @@ export const SKILLS_DATA = [
     "tags": [
       "bun",
       "runtime",
-      "typescript"
+      "backend"
     ]
   },
   {
@@ -548,7 +561,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan.",
     "tags": [
       "chatbot",
-      "messaging"
+      "messaging",
+      "saas"
     ]
   },
   {
@@ -563,10 +577,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC)",
     "summaryId": "Panduan ahli untuk CI/CD dan infrastruktur.",
     "tags": [
-      "ci",
-      "cd",
       "devops",
-      "docker"
+      "architect",
+      "data"
     ]
   },
   {
@@ -582,7 +595,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare.",
     "tags": [
       "cloud",
-      "hosting"
+      "hosting",
+      "data"
     ]
   },
   {
@@ -598,7 +612,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli ekosistem Cloudflare Workers — Workers, D1, KV, R2, Queues, Durable Objects, Hyperdrive, dan Workers AI.",
     "tags": [
       "cloudflare",
-      "workers"
+      "workers",
+      "backend"
     ]
   },
   {
@@ -613,7 +628,8 @@ export const SKILLS_DATA = [
     "summaryEn": "AI-powered automated code review, PR summarization, and interactive developer feedback",
     "summaryId": "Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif.",
     "tags": [
-      "coderabbit"
+      "coderabbit",
+      "security"
     ]
   },
   {
@@ -630,7 +646,8 @@ export const SKILLS_DATA = [
     "tags": [
       "compliance",
       "gdpr",
-      "privacy"
+      "privacy",
+      "security"
     ]
   },
   {
@@ -647,7 +664,8 @@ export const SKILLS_DATA = [
     "tags": [
       "composable",
       "mach",
-      "api"
+      "architect",
+      "backend"
     ]
   },
   {
@@ -664,8 +682,8 @@ export const SKILLS_DATA = [
     "tags": [
       "context",
       "window",
-      "gemini",
-      "claude"
+      "engineer",
+      "ai"
     ]
   },
   {
@@ -681,7 +699,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk tugas terjadwal, cron job, pekerjaan latar belakang berulang, dan penjadwalan terdistribusi.",
     "tags": [
       "cron",
-      "scheduler"
+      "scheduler",
+      "backend"
     ]
   },
   {
@@ -714,7 +733,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk observabilitas, telemetri, dan analitik.",
     "tags": [
       "data",
-      "telemetry"
+      "telemetry",
+      "saas"
     ]
   },
   {
@@ -746,7 +766,8 @@ export const SKILLS_DATA = [
     "summaryId": "Keahlian database terpadu untuk ORM, migrasi, edge DB, dan Supabase CLI.",
     "tags": [
       "database",
-      "orm"
+      "orm",
+      "data"
     ]
   },
   {
@@ -763,7 +784,8 @@ export const SKILLS_DATA = [
     "tags": [
       "deep",
       "research",
-      "analyst"
+      "analyst",
+      "ai"
     ]
   },
   {
@@ -780,7 +802,8 @@ export const SKILLS_DATA = [
     "tags": [
       "dependency",
       "upgrade",
-      "migrator"
+      "migrator",
+      "data"
     ]
   },
   {
@@ -793,11 +816,12 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@design-system-architect",
     "summaryEn": "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility.",
-    "summaryId": "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility.",
+    "summaryId": "",
     "tags": [
       "design",
       "system",
-      "tailwind"
+      "architect",
+      "frontend"
     ]
   },
   {
@@ -814,7 +838,24 @@ export const SKILLS_DATA = [
     "tags": [
       "desktop",
       "electron",
-      "security"
+      "frontend"
+    ]
+  },
+  {
+    "name": "docker-container-expert",
+    "domain": "data",
+    "domainLabel": "Data, Media & Orchestration",
+    "domainColor": "#f59e0b",
+    "domainIcon": "DATA",
+    "version": "4.4.0",
+    "author": "Roedy Rustam",
+    "trigger": "@docker-container-expert",
+    "summaryEn": "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology",
+    "summaryId": "Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2.",
+    "tags": [
+      "docker",
+      "container",
+      "data"
     ]
   },
   {
@@ -830,7 +871,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen.",
     "tags": [
       "documentation",
-      "site"
+      "site",
+      "data"
     ]
   },
   {
@@ -847,7 +889,8 @@ export const SKILLS_DATA = [
     "tags": [
       "doku",
       "mcp",
-      "server"
+      "server",
+      "ai"
     ]
   },
   {
@@ -865,7 +908,7 @@ export const SKILLS_DATA = [
       "doku",
       "payment",
       "gateway",
-      "api"
+      "saas"
     ]
   },
   {
@@ -882,7 +925,8 @@ export const SKILLS_DATA = [
     "tags": [
       "domain",
       "driven",
-      "design"
+      "design",
+      "backend"
     ]
   },
   {
@@ -898,7 +942,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi CI/CD.",
     "tags": [
       "e2e",
-      "testing"
+      "testing",
+      "security"
     ]
   },
   {
@@ -913,7 +958,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for e-commerce architecture (Shopify Storefront, Medusa.js, Saleor), product catalogs, cart/checkout UX, and order management",
     "summaryId": "Panduan ahli arsitektur e-commerce (Shopify, Medusa.js, Saleor), katalog produk, UX keranjang/checkout, dan manajemen pesanan.",
     "tags": [
-      "ecommerce"
+      "ecommerce",
+      "saas"
     ]
   },
   {
@@ -930,7 +976,7 @@ export const SKILLS_DATA = [
     "tags": [
       "email",
       "notification",
-      "react"
+      "saas"
     ]
   },
   {
@@ -947,9 +993,8 @@ export const SKILLS_DATA = [
     "tags": [
       "ephemeral",
       "generative",
-      "ui",
-      "react",
-      "gemini"
+      "architect",
+      "frontend"
     ]
   },
   {
@@ -967,7 +1012,8 @@ export const SKILLS_DATA = [
       "ephemeral",
       "wasm",
       "sandbox",
-      "executor"
+      "executor",
+      "backend"
     ]
   },
   {
@@ -984,7 +1030,7 @@ export const SKILLS_DATA = [
     "tags": [
       "error",
       "resilience",
-      "react"
+      "security"
     ]
   },
   {
@@ -1000,7 +1046,9 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi.",
     "tags": [
       "event",
-      "driven"
+      "driven",
+      "architect",
+      "backend"
     ]
   },
   {
@@ -1017,7 +1065,8 @@ export const SKILLS_DATA = [
     "tags": [
       "feature",
       "flag",
-      "analytics"
+      "analytics",
+      "saas"
     ]
   },
   {
@@ -1034,7 +1083,8 @@ export const SKILLS_DATA = [
     "tags": [
       "file",
       "upload",
-      "media"
+      "media",
+      "data"
     ]
   },
   {
@@ -1050,8 +1100,7 @@ export const SKILLS_DATA = [
     "summaryId": "Ahli keamanan Firebase untuk audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check.",
     "tags": [
       "firebase",
-      "security",
-      "api"
+      "security"
     ]
   },
   {
@@ -1068,7 +1117,7 @@ export const SKILLS_DATA = [
     "tags": [
       "flutter",
       "dart",
-      "go"
+      "frontend"
     ]
   },
   {
@@ -1085,7 +1134,7 @@ export const SKILLS_DATA = [
     "tags": [
       "form",
       "validation",
-      "react"
+      "frontend"
     ]
   },
   {
@@ -1102,9 +1151,8 @@ export const SKILLS_DATA = [
     "tags": [
       "formal",
       "spec",
-      "z3",
       "verifier",
-      "billing"
+      "security"
     ]
   },
   {
@@ -1120,10 +1168,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli model AI frontier akhir-2026 — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), dan Enterprise Frontier Safeguards (EFS).",
     "tags": [
       "frontier",
-      "ai",
       "models",
-      "gemini",
-      "claude"
+      "ai"
     ]
   },
   {
@@ -1139,10 +1185,7 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot.",
     "tags": [
       "fullstack",
-      "typescript",
-      "python",
-      "rust",
-      "go"
+      "backend"
     ]
   },
   {
@@ -1160,7 +1203,7 @@ export const SKILLS_DATA = [
       "gemini",
       "agent",
       "booster",
-      "api"
+      "ai"
     ]
   },
   {
@@ -1176,7 +1219,25 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS).",
     "tags": [
       "geospatial",
-      "maps"
+      "maps",
+      "data"
+    ]
+  },
+  {
+    "name": "github-actions-expert",
+    "domain": "data",
+    "domainLabel": "Data, Media & Orchestration",
+    "domainColor": "#f59e0b",
+    "domainIcon": "DATA",
+    "version": "4.4.0",
+    "author": "Roedy Rustam",
+    "trigger": "@github-actions-expert",
+    "summaryEn": "Expert guide for GitHub Actions CI/CD workflows, reusable workflows, composite actions, matrix builds, OIDC cloud auth, security hardening, and artifact automation",
+    "summaryId": "Panduan ahli GitHub Actions CI/CD workflows, reusable workflows, aksi komposit, autentikasi cloud OIDC, pengerasan keamanan, dan otomasi rilis.",
+    "tags": [
+      "github",
+      "actions",
+      "data"
     ]
   },
   {
@@ -1193,7 +1254,8 @@ export const SKILLS_DATA = [
     "tags": [
       "global",
       "a11y",
-      "i18n"
+      "i18n",
+      "frontend"
     ]
   },
   {
@@ -1210,7 +1272,7 @@ export const SKILLS_DATA = [
     "tags": [
       "glsl",
       "shader",
-      "webgpu"
+      "frontend"
     ]
   },
   {
@@ -1223,10 +1285,10 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@go-programming-expert",
     "summaryEn": "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian.",
-    "summaryId": "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian.",
+    "summaryId": "",
     "tags": [
-      "go",
-      "programming"
+      "programming",
+      "backend"
     ]
   },
   {
@@ -1243,7 +1305,8 @@ export const SKILLS_DATA = [
     "tags": [
       "graph",
       "rag",
-      "knowledge"
+      "knowledge",
+      "ai"
     ]
   },
   {
@@ -1256,10 +1319,11 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@graphql-apollo-expert",
     "summaryEn": "Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization.",
-    "summaryId": "Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization.",
+    "summaryId": "",
     "tags": [
       "graphql",
-      "apollo"
+      "apollo",
+      "backend"
     ]
   },
   {
@@ -1275,7 +1339,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli integrasi Headless CMS (Sanity, Payload, Strapi, Contentful) dengan framework modern.",
     "tags": [
       "headless",
-      "cms"
+      "cms",
+      "saas"
     ]
   },
   {
@@ -1290,7 +1355,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces",
     "summaryId": "Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif.",
     "tags": [
-      "hig"
+      "hig",
+      "frontend"
     ]
   },
   {
@@ -1306,7 +1372,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli HTMX 2.0+, Hypermedia-Driven Applications, dan pola HTML-over-the-wire modern.",
     "tags": [
       "htmx",
-      "hypermedia"
+      "hypermedia",
+      "frontend"
     ]
   },
   {
@@ -1319,9 +1386,8 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@js-backend-expert",
     "summaryEn": "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian.",
-    "summaryId": "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian.",
+    "summaryId": "",
     "tags": [
-      "js",
       "backend"
     ]
   },
@@ -1337,11 +1403,10 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Pro",
     "summaryId": "Claude 5.5",
     "tags": [
-      "kv",
       "cache",
       "prefix",
       "optimizer",
-      "gemini"
+      "ai"
     ]
   },
   {
@@ -1354,13 +1419,12 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@legacy-code-translator",
     "summaryEn": "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks.",
-    "summaryId": "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks.",
+    "summaryId": "",
     "tags": [
       "legacy",
       "code",
       "translator",
-      "react",
-      "python"
+      "backend"
     ]
   },
   {
@@ -1378,7 +1442,8 @@ export const SKILLS_DATA = [
       "living",
       "codebase",
       "ast",
-      "graph"
+      "graph",
+      "backend"
     ]
   },
   {
@@ -1395,7 +1460,8 @@ export const SKILLS_DATA = [
     "tags": [
       "llm",
       "finops",
-      "router"
+      "router",
+      "ai"
     ]
   },
   {
@@ -1411,7 +1477,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli observabilitas LLM di produksi — pelacakan biaya token, pemantauan tingkat halusinasi, analisis latensi, logging prompt/completion, dashboard perbandingan model, dan tracing khusus AI.",
     "tags": [
       "llm",
-      "observability"
+      "observability",
+      "ai"
     ]
   },
   {
@@ -1429,8 +1496,7 @@ export const SKILLS_DATA = [
       "local",
       "slm",
       "edge",
-      "ai",
-      "webgpu"
+      "ai"
     ]
   },
   {
@@ -1447,7 +1513,8 @@ export const SKILLS_DATA = [
     "tags": [
       "logging",
       "error",
-      "tracking"
+      "tracking",
+      "security"
     ]
   },
   {
@@ -1464,7 +1531,8 @@ export const SKILLS_DATA = [
     "tags": [
       "mcp",
       "sampling",
-      "critic"
+      "critic",
+      "security"
     ]
   },
   {
@@ -1481,9 +1549,8 @@ export const SKILLS_DATA = [
     "tags": [
       "mcp",
       "server",
-      "typescript",
-      "python",
-      "security"
+      "architect",
+      "ai"
     ]
   },
   {
@@ -1496,12 +1563,11 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@micro-frontend-architect",
     "summaryEn": "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications.",
-    "summaryId": "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications.",
+    "summaryId": "",
     "tags": [
       "micro",
       "frontend",
-      "react",
-      "vue"
+      "architect"
     ]
   },
   {
@@ -1518,7 +1584,7 @@ export const SKILLS_DATA = [
     "tags": [
       "mobile",
       "expo",
-      "react"
+      "frontend"
     ]
   },
   {
@@ -1535,7 +1601,8 @@ export const SKILLS_DATA = [
     "tags": [
       "modern",
       "css",
-      "native"
+      "native",
+      "frontend"
     ]
   },
   {
@@ -1550,7 +1617,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages",
     "summaryId": "Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces.",
     "tags": [
-      "monorepo"
+      "monorepo",
+      "architect",
+      "backend"
     ]
   },
   {
@@ -1566,7 +1635,8 @@ export const SKILLS_DATA = [
     "summaryId": "Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya.",
     "tags": [
       "mpa",
-      "orchestrator"
+      "orchestrator",
+      "frontend"
     ]
   },
   {
@@ -1579,11 +1649,12 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@multi-agent-orchestration",
     "summaryEn": "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian.",
-    "summaryId": "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian.",
+    "summaryId": "",
     "tags": [
       "multi",
       "agent",
-      "orchestration"
+      "orchestration",
+      "ai"
     ]
   },
   {
@@ -1602,7 +1673,7 @@ export const SKILLS_DATA = [
       "spatial",
       "video",
       "cloner",
-      "tailwind"
+      "frontend"
     ]
   },
   {
@@ -1617,7 +1688,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects",
     "summaryId": "Pedoman ahli untuk merefaktor codebase PHP lama menjadi proyek terstruktur MVC yang bersih, modern, dan skalabel.",
     "tags": [
-      "mvc"
+      "mvc",
+      "backend"
     ]
   },
   {
@@ -1633,7 +1705,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli otomasi workflow (n8n, Zapier, Make), custom nodes, webhook triggers, dan rantai otomasi berbasis AI.",
     "tags": [
       "n8n",
-      "automation"
+      "automation",
+      "saas"
     ]
   },
   {
@@ -1650,7 +1723,8 @@ export const SKILLS_DATA = [
     "tags": [
       "nextjs",
       "app",
-      "router"
+      "router",
+      "frontend"
     ]
   },
   {
@@ -1668,7 +1742,7 @@ export const SKILLS_DATA = [
       "openapi",
       "swagger",
       "codegen",
-      "typescript"
+      "backend"
     ]
   },
   {
@@ -1686,7 +1760,7 @@ export const SKILLS_DATA = [
       "parallel",
       "tool",
       "orchestrator",
-      "mcp"
+      "ai"
     ]
   },
   {
@@ -1703,7 +1777,7 @@ export const SKILLS_DATA = [
     "tags": [
       "payment",
       "gateway",
-      "doku"
+      "saas"
     ]
   },
   {
@@ -1721,7 +1795,7 @@ export const SKILLS_DATA = [
       "pdf",
       "document",
       "generation",
-      "react"
+      "data"
     ]
   },
   {
@@ -1738,7 +1812,8 @@ export const SKILLS_DATA = [
     "tags": [
       "performance",
       "web",
-      "vitals"
+      "vitals",
+      "frontend"
     ]
   },
   {
@@ -1756,7 +1831,8 @@ export const SKILLS_DATA = [
       "post",
       "quantum",
       "crypto",
-      "migrator"
+      "migrator",
+      "security"
     ]
   },
   {
@@ -1771,7 +1847,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Updated to cover both pre-code PRD/ERD/Docs generation AND post-code continuous documentation updates",
     "summaryId": "Diperbarui untuk mencakup pembuatan PRD/ERD/Docs pra-kode DAN pembaruan dokumentasi kontinu pasca-kode.",
     "tags": [
-      "prd"
+      "prd",
+      "architect",
+      "data"
     ]
   },
   {
@@ -1784,12 +1862,12 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@proactive-background-watcher",
     "summaryEn": "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts.",
-    "summaryId": "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts.",
+    "summaryId": "",
     "tags": [
       "proactive",
       "background",
       "watcher",
-      "agent"
+      "data"
     ]
   },
   {
@@ -1807,7 +1885,7 @@ export const SKILLS_DATA = [
       "production",
       "ready",
       "hardener",
-      "security"
+      "data"
     ]
   },
   {
@@ -1824,7 +1902,8 @@ export const SKILLS_DATA = [
     "tags": [
       "prompt",
       "injection",
-      "firewall"
+      "firewall",
+      "security"
     ]
   },
   {
@@ -1841,7 +1920,8 @@ export const SKILLS_DATA = [
     "tags": [
       "property",
       "mutation",
-      "testing"
+      "testing",
+      "security"
     ]
   },
   {
@@ -1858,7 +1938,8 @@ export const SKILLS_DATA = [
     "tags": [
       "pwa",
       "offline",
-      "first"
+      "first",
+      "frontend"
     ]
   },
   {
@@ -1874,9 +1955,7 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI.",
     "tags": [
       "pydantic",
-      "ai",
-      "python",
-      "agent"
+      "ai"
     ]
   },
   {
@@ -1889,10 +1968,11 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@python-programming-expert",
     "summaryEn": "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian.",
-    "summaryId": "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian.",
+    "summaryId": "",
     "tags": [
       "python",
-      "programming"
+      "programming",
+      "backend"
     ]
   },
   {
@@ -1911,7 +1991,7 @@ export const SKILLS_DATA = [
       "limit",
       "abuse",
       "prevention",
-      "api"
+      "security"
     ]
   },
   {
@@ -1928,7 +2008,7 @@ export const SKILLS_DATA = [
     "tags": [
       "realtime",
       "collaboration",
-      "webrtc"
+      "data"
     ]
   },
   {
@@ -1945,7 +2025,8 @@ export const SKILLS_DATA = [
     "tags": [
       "rich",
       "text",
-      "editor"
+      "editor",
+      "frontend"
     ]
   },
   {
@@ -1961,7 +2042,8 @@ export const SKILLS_DATA = [
     "summaryId": "v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian.",
     "tags": [
       "rust",
-      "programming"
+      "programming",
+      "backend"
     ]
   },
   {
@@ -1976,7 +2058,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N)",
     "summaryId": "Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N).",
     "tags": [
-      "saas"
+      "saas",
+      "architect"
     ]
   },
   {
@@ -2026,7 +2109,8 @@ export const SKILLS_DATA = [
     "tags": [
       "scalability",
       "clean",
-      "code"
+      "code",
+      "backend"
     ]
   },
   {
@@ -2042,10 +2126,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token.",
     "tags": [
       "screenshot",
-      "to",
       "code",
-      "gemini",
-      "claude"
+      "frontend"
     ]
   },
   {
@@ -2061,7 +2143,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli mesin pencarian full-text (Typesense, Meilisearch, Elasticsearch), pencarian berfaset, dan autocomplete.",
     "tags": [
       "search",
-      "engine"
+      "engine",
+      "data"
     ]
   },
   {
@@ -2079,7 +2162,8 @@ export const SKILLS_DATA = [
       "self",
       "healing",
       "cloud",
-      "orchestrator"
+      "orchestrator",
+      "data"
     ]
   },
   {
@@ -2095,10 +2179,7 @@ export const SKILLS_DATA = [
     "summaryId": "Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4.",
     "tags": [
       "senior",
-      "frontend",
-      "react",
-      "tailwind",
-      "typescript"
+      "frontend"
     ]
   },
   {
@@ -2113,7 +2194,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO",
     "summaryId": "Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)",
     "tags": [
-      "seo"
+      "seo",
+      "saas"
     ]
   },
   {
@@ -2130,7 +2212,8 @@ export const SKILLS_DATA = [
     "tags": [
       "session",
       "memory",
-      "manager"
+      "manager",
+      "data"
     ]
   },
   {
@@ -2145,7 +2228,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for SolidJS 2 and SolidStart — fine-grained reactivity, signals, createResource, and server-first rendering",
     "summaryId": "Panduan ahli SolidJS 2 dan SolidStart — reaktivitas fine-grained, signals, createResource, dan rendering server-first.",
     "tags": [
-      "solidjs"
+      "solidjs",
+      "frontend"
     ]
   },
   {
@@ -2162,7 +2246,7 @@ export const SKILLS_DATA = [
     "tags": [
       "spa",
       "orchestrator",
-      "api"
+      "frontend"
     ]
   },
   {
@@ -2179,7 +2263,8 @@ export const SKILLS_DATA = [
     "tags": [
       "spec",
       "driven",
-      "development"
+      "development",
+      "backend"
     ]
   },
   {
@@ -2198,7 +2283,7 @@ export const SKILLS_DATA = [
       "multi",
       "draft",
       "synthesizer",
-      "agent"
+      "ai"
     ]
   },
   {
@@ -2215,7 +2300,8 @@ export const SKILLS_DATA = [
     "tags": [
       "sse",
       "websocket",
-      "streaming"
+      "streaming",
+      "data"
     ]
   },
   {
@@ -2231,7 +2317,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, dan pola server state dengan TanStack Query.",
     "tags": [
       "state",
-      "management"
+      "management",
+      "frontend"
     ]
   },
   {
@@ -2249,8 +2336,7 @@ export const SKILLS_DATA = [
       "structured",
       "output",
       "contracts",
-      "mcp",
-      "gemini"
+      "backend"
     ]
   },
   {
@@ -2282,7 +2368,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG.",
     "tags": [
       "svelte",
-      "sveltekit"
+      "sveltekit",
+      "frontend"
     ]
   },
   {
@@ -2300,7 +2387,7 @@ export const SKILLS_DATA = [
       "svg",
       "animation",
       "motion",
-      "api"
+      "frontend"
     ]
   },
   {
@@ -2317,7 +2404,8 @@ export const SKILLS_DATA = [
     "tags": [
       "synthetic",
       "data",
-      "finetuning"
+      "finetuning",
+      "ai"
     ]
   },
   {
@@ -2332,7 +2420,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design",
     "summaryId": "Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern.",
     "tags": [
-      "tailwind"
+      "tailwind",
+      "frontend"
     ]
   },
   {
@@ -2349,7 +2438,7 @@ export const SKILLS_DATA = [
     "tags": [
       "tanstack",
       "query",
-      "react"
+      "frontend"
     ]
   },
   {
@@ -2365,8 +2454,7 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan.",
     "tags": [
       "tauri",
-      "rust",
-      "security"
+      "frontend"
     ]
   },
   {
@@ -2385,7 +2473,7 @@ export const SKILLS_DATA = [
       "time",
       "compute",
       "optimizer",
-      "gemini"
+      "ai"
     ]
   },
   {
@@ -2403,8 +2491,7 @@ export const SKILLS_DATA = [
       "thinking",
       "budget",
       "orchestrator",
-      "gemini",
-      "claude"
+      "ai"
     ]
   },
   {
@@ -2419,7 +2506,8 @@ export const SKILLS_DATA = [
     "summaryEn": "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns",
     "summaryId": "Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe.",
     "tags": [
-      "typescript"
+      "typescript",
+      "backend"
     ]
   },
   {
@@ -2434,10 +2522,9 @@ export const SKILLS_DATA = [
     "summaryEn": "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks",
     "summaryId": "Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack.",
     "tags": [
-      "ui",
-      "ux",
       "pro",
-      "max"
+      "max",
+      "frontend"
     ]
   },
   {
@@ -2453,8 +2540,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli Vector DB, arsitektur Deep RAG, pgvector HNSW, RRF, dan Re-ranking.",
     "tags": [
       "vector",
-      "db",
-      "rag"
+      "rag",
+      "ai"
     ]
   },
   {
@@ -2470,9 +2557,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15.",
     "tags": [
       "vercel",
-      "ai",
       "sdk",
-      "react"
+      "ai"
     ]
   },
   {
@@ -2488,10 +2574,8 @@ export const SKILLS_DATA = [
     "summaryId": "Flash Vision, Claude 3.7",
     "tags": [
       "visual",
-      "ui",
       "auditor",
-      "gemini",
-      "claude"
+      "frontend"
     ]
   },
   {
@@ -2507,10 +2591,9 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah.",
     "tags": [
       "voice",
-      "ai",
       "realtime",
       "agent",
-      "gemini"
+      "ai"
     ]
   },
   {
@@ -2523,11 +2606,10 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@vue-frontend-expert",
     "summaryEn": "Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian.",
-    "summaryId": "Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian.",
+    "summaryId": "",
     "tags": [
       "vue",
-      "frontend",
-      "api"
+      "frontend"
     ]
   },
   {
@@ -2544,7 +2626,8 @@ export const SKILLS_DATA = [
     "tags": [
       "wasm",
       "edge",
-      "computing"
+      "computing",
+      "backend"
     ]
   },
   {
@@ -2560,10 +2643,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli grafis 3D web, WebGPU modern, dan penalaran spasial 3Dviz.",
     "tags": [
       "web",
-      "3d",
       "graphics",
-      "react",
-      "webgpu"
+      "frontend"
     ]
   },
   {
@@ -2581,7 +2662,7 @@ export const SKILLS_DATA = [
       "web",
       "game",
       "engine",
-      "audio"
+      "backend"
     ]
   },
   {
@@ -2597,7 +2678,8 @@ export const SKILLS_DATA = [
     "summaryId": "Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur.",
     "tags": [
       "web",
-      "scraper"
+      "scraper",
+      "data"
     ]
   },
   {
@@ -2615,8 +2697,7 @@ export const SKILLS_DATA = [
       "website",
       "design",
       "cloner",
-      "react",
-      "tailwind"
+      "data"
     ]
   },
   {
@@ -2632,9 +2713,7 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli WebXR spatial computing (VR/AR/MR).",
     "tags": [
       "webxr",
-      "ar",
-      "vr",
-      "vision"
+      "frontend"
     ]
   },
   {
@@ -2650,7 +2729,8 @@ export const SKILLS_DATA = [
     "summaryId": "Panduan ahli arsitektur WordPress headless.",
     "tags": [
       "wordpress",
-      "headless"
+      "headless",
+      "saas"
     ]
   },
   {
@@ -2668,7 +2748,8 @@ export const SKILLS_DATA = [
       "zero",
       "tech",
       "debt",
-      "auditor"
+      "auditor",
+      "security"
     ]
   },
   {
@@ -2684,9 +2765,9 @@ export const SKILLS_DATA = [
     "summaryId": "Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap.",
     "tags": [
       "zero",
-      "to",
       "prod",
-      "orchestrator"
+      "orchestrator",
+      "data"
     ]
   },
   {

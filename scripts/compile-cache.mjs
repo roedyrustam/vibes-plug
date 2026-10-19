@@ -88,8 +88,8 @@ export async function compileCache(options = {}) {
       ],
       saas_cloud: [
         'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
-        'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
-        'feature-flag-analytics-expert', 'legacy-code-translator', 'micro-frontend-architect',
+        'docker-container-expert', 'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
+        'feature-flag-analytics-expert', 'github-actions-expert', 'legacy-code-translator', 'micro-frontend-architect',
         'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
         'saas-billing', 'saas-multi-tenant'
       ],

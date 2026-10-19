@@ -151,7 +151,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Run Zero Technical Debt audit (`zero-tech-debt-auditor`) for dead code elimination (Knip protocol), DRY enforcement, and TypeScript strictness.
 
 #### PHASE 7: DevOps, Deployment & Proactive Monitoring
-**Orchestrates:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`, `llm-observability-expert`
+**Orchestrates:** `ci-cd-devops-architect`, `github-actions-expert`, `docker-container-expert`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`, `llm-observability-expert`
 - [ ] Perform pre-launch audit across Core Web Vitals (LCP, INP, CLS) and bundle sizes.
 - [ ] Configure production monitoring, alerting rules, and on-call notifications.
 - [ ] Configure LLM observability dashboards (Langfuse/Helicone) and production token spend alerting (`llm-observability-expert`).
@@ -303,7 +303,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Menjalankan audit Zero Technical Debt (`zero-tech-debt-auditor`) untuk eliminasi kode mati (protokol Knip), penegakan DRY, dan ketelitian TypeScript.
 
 #### FASE 7: Hardening Pra-Peluncuran, Monitoring & DevOps Sentinel
-**Mengorkestrasi:** `ci-cd-devops-architect`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`, `llm-observability-expert`
+**Mengorkestrasi:** `ci-cd-devops-architect`, `github-actions-expert`, `docker-container-expert`, `cloud-hosting-expert`, `performance-web-vitals`, `logging-error-tracking-expert`, `production-ready-hardener`, `proactive-background-watcher`, `data-telemetry-expert`, `feature-flag-analytics-expert`, `error-resilience-expert`, `self-healing-cloud-orchestrator`, `llm-observability-expert`
 - [ ] Audit pra-peluncuran pada Core Web Vitals (LCP, INP, CLS) dan ukuran bundle.
 - [ ] Mengonfigurasi monitoring produksi, aturan alerting, dan notifikasi on-call.
 - [ ] Konfigurasi dashboard observabilitas LLM (Langfuse/Helicone) dan pemantauan pengeluaran token produksi (`llm-observability-expert`).

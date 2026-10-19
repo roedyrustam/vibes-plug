@@ -129,7 +129,7 @@ const SKILL_DOMAIN_MAP = {
 
   // Data & Orchestration
   'agy-customizations': 'data', 'brainstorming': 'data', 'browser-automation-expert': 'data',
-  'ci-cd-devops-architect': 'data', 'cloud-hosting-expert': 'data', 'data-pipeline-etl-expert': 'data',
+  'ci-cd-devops-architect': 'data', 'github-actions-expert': 'data', 'docker-container-expert': 'data', 'cloud-hosting-expert': 'data', 'data-pipeline-etl-expert': 'data',
   'data-visualization-expert': 'data', 'database-orm-expert': 'data', 'dependency-upgrade-migrator': 'data',
   'documentation-site-expert': 'data', 'file-upload-media-expert': 'data', 'geospatial-maps-expert': 'data',
   'pdf-document-generation-expert': 'data', 'prd-architect': 'data', 'proactive-background-watcher': 'data',
@@ -1301,14 +1301,14 @@ export function generateStudioHtml(currentPort) {
             <div class="brand-title">VibesPlug Pro Studio</div>
             <div class="brand-tag">v4.4.0</div>
           </div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 158-Agent Swarm Operating System</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 160-Agent Swarm Operating System</div>
         </div>
       </div>
 
       <div class="header-stats">
         <div class="stat-chip">
           <span>Skills:</span>
-          <span class="num" id="stat-total-skills">158</span>
+          <span class="num" id="stat-total-skills">160</span>
         </div>
         <div class="stat-chip">
           <span>Installed:</span>
@@ -1335,7 +1335,7 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Tab Navigation -->
   <nav class="tab-nav">
-    <button type="button" class="tab-btn active" data-tab="tab-arsenal">158-Skill Arsenal</button>
+    <button type="button" class="tab-btn active" data-tab="tab-arsenal">160-Skill Arsenal</button>
     <button type="button" class="tab-btn" data-tab="tab-detector">🔍 Stack Detector</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-dag">Visual DAG Canvas</button>
@@ -1351,15 +1351,15 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Main Content -->
   <main>
-    <!-- View 1: 158-Skill Arsenal -->
+    <!-- View 1: 160-Skill Arsenal -->
     <div id="tab-arsenal" class="view-pane active">
       <div class="filter-bar">
         <div class="search-input-wrapper">
           <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="skill-search" class="search-input" placeholder="Search 158 skills (press '/' to focus)...">
+          <input type="text" id="skill-search" class="search-input" placeholder="Search 160 skills (press '/' to focus)...">
         </div>
         <div class="category-pills">
-          <button type="button" class="pill-btn active" data-category="all">All Domains (158)</button>
+          <button type="button" class="pill-btn active" data-category="all">All Domains (160)</button>
           <button type="button" class="pill-btn" data-category="frontend">Frontend &amp; UI</button>
           <button type="button" class="pill-btn" data-category="backend">Backend &amp; API</button>
           <button type="button" class="pill-btn" data-category="ai">Frontier AI &amp; MCP</button>
@@ -2117,7 +2117,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.4.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 158 Skills</p>
+    <p>Vibes-Plug Pro v4.4.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 160 Skills</p>
   </footer>
 
   <script>

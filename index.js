@@ -1,5 +1,5 @@
 /**
- * Vibes Plug - Universal AI Plugin with 158 Specialized Skills
+ * Vibes Plug - Universal AI Plugin with 160 Specialized Skills
  * Platform support: Antigravity (AGY), Claude Code, and Cursor IDE
  */
 
