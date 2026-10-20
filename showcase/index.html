@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibes-Plug Pro | The Universal AI Agent Swarm & 160 Skill Ecosystem</title>
+  <meta name="description" content="Universal AI Agent plugin with 160 specialized domain skills for Antigravity, Claude Code, Cursor, Windsurf, Trae, and OpenAI Codex. Zero-slop engineering, deterministic KV-caching, and sub-millisecond local tools.">
+  <meta name="keywords" content="AI agent, agent swarm, vibes-plug, cursorrules, claude code, antigravity, MCP server, software engineering, LLM skills, anti-slop">
+  <meta name="author" content="Roedy Rustam">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="Vibes-Plug Pro | Universal AI Agent Swarm & Skill Ecosystem">
+  <meta property="og:description" content="160 verified skills, 6 IDE bridges, deterministic KV-caching, sub-millisecond local tools, and zero AI slop.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../assets/vibes-logo.png">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container navbar">
+      <a href="#hero" class="brand-group" id="brandLogo">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-text">
+          <span class="brand-name">Vibes-Plug</span>
+          <span class="brand-tag">v4.4.1 Pro Swarm</span>
+        </div>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#terminal" class="nav-link" id="navLinkTerminal">Live Terminal</a></li>
+          <li><a href="#explorer" class="nav-link" id="navLinkExplorer">160 Skills</a></li>
+          <li><a href="#topologies" class="nav-link" id="navLinkTopologies">Swarm Architectures</a></li>
+          <li><a href="#benchmarks" class="nav-link" id="navLinkBenchmarks">Benchmarks</a></li>
+          <li><a href="#bridge" class="nav-link" id="navLinkBridge">6 IDE Bridges</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="http://localhost:3888" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="btnLaunchStudio">
+          ⚡ Studio Cockpit
+        </a>
+        <a href="https://github.com/roedyrustam/vibes-plug" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm" id="btnGitHubStar">
+          ★ Star on GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-badge-wrap">
+          <span class="hero-badge-pulse"></span>
+          <span>160 Skills Verified • Universal Multi-IDE Swarm Orchestration</span>
+        </div>
+
+        <h1 class="hero-title">
+          The Universal AI Agent Swarm &amp; <span class="highlight">160 Skill Ecosystem</span>
+        </h1>
+
+        <p class="hero-description">
+          Transform your IDE into a sovereign engineering studio. Universal compatibility across Antigravity, Claude Code, Cursor, Windsurf, Trae, and Codex. Zero-slop code generation, deterministic prompt KV-caching, and sub-millisecond local tools.
+        </p>
+
+        <div class="hero-actions">
+          <div class="install-box" id="heroInstallBox">
+            <span>$ npx vibes-plug init</span>
+            <button type="button" class="copy-btn" id="btnCopyInit" data-copy="npx vibes-plug init">Copy</button>
+          </div>
+          <a href="#explorer" class="btn btn-primary" id="btnExploreSkills">Explore 160 Skills</a>
+          <a href="#terminal" class="btn btn-secondary" id="btnTryTerminal">Try Live Terminal</a>
+        </div>
+
+        <!-- 4 Stat Counters -->
+        <div class="hero-stats" id="heroStatsGrid">
+          <div class="stat-card">
+            <div class="stat-value tabular-nums" id="statSkillsCount">160</div>
+            <div class="stat-label">Verified Domain Skills</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value tabular-nums" id="statIdeBridges">6</div>
+            <div class="stat-label">Unified IDE Platforms</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value tabular-nums" id="statTokenSavings">76.8%</div>
+            <div class="stat-label">KV-Cache Token Savings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value tabular-nums" id="statAntiSlopRate">100%</div>
+            <div class="stat-label">Anti-Slop Strict Pass</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Live Terminal Simulator -->
+    <section class="terminal-section" id="terminal">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Interactive CLI Experience</span>
+          <h2 class="section-title">Developer Studio in Your Terminal</h2>
+          <p class="section-subtitle">Simulate real Vibes-Plug autonomous commands. Click any preset pill or type commands below to test local AST detection, benchmark verification, and multi-agent fan-out.</p>
+        </div>
+
+        <div class="terminal-window" id="terminalWindow">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="terminal-title">vibes-plug-agent-session — bash</div>
+            <div class="terminal-badges">
+              <span class="terminal-chip">AST Engine: READY</span>
+              <span class="terminal-chip">MCP v1.x: SSE</span>
+            </div>
+          </div>
+
+          <div class="terminal-preset-bar" id="terminalPresetBar">
+            <span class="preset-label">Quick Commands:</span>
+            <button type="button" class="preset-btn active" data-cmd="vibes detect" id="presetDetect">vibes detect</button>
+            <button type="button" class="preset-btn" data-cmd="vibes studio" id="presetStudio">vibes studio</button>
+            <button type="button" class="preset-btn" data-cmd="vibes swarm:dispatch" id="presetSwarm">vibes swarm:dispatch</button>
+            <button type="button" class="preset-btn" data-cmd="vibes bootstrap ai-agent" id="presetBootstrap">vibes bootstrap</button>
+            <button type="button" class="preset-btn" data-cmd="vibes verify-gate" id="presetVerifyGate">vibes verify-gate</button>
+            <button type="button" class="preset-btn" data-cmd="vibes bench" id="presetBench">vibes bench</button>
+            <button type="button" class="preset-btn" data-cmd="vibes finops" id="presetFinops">vibes finops</button>
+            <button type="button" class="preset-btn" data-cmd="vibes doctor" id="presetDoctor">vibes doctor</button>
+          </div>
+
+          <div class="terminal-body" id="terminalBody" role="log" aria-live="polite">
+            <!-- Terminal lines generated by app.js -->
+          </div>
+
+          <div class="terminal-input-row">
+            <span class="terminal-prompt-sym">$</span>
+            <input type="text" class="terminal-input" id="terminalInput" placeholder="Type a command (e.g. 'help', 'skills', 'vibes detect') and press Enter..." autocomplete="off" spellcheck="false">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Skill Explorer -->
+    <section class="explorer-section" id="explorer">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Registry Catalog</span>
+          <h2 class="section-title">Explore 160 Specialized Domain Skills</h2>
+          <p class="section-subtitle">Every skill contains concrete non-placeholder specifications, bilingual documentation (English &amp; Indonesian), universal IDE bindings, and atomic execution contracts.</p>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" id="skillSearchInput" placeholder="Search by skill name, technology, or keywords (e.g. 'nextjs', 'doku', 'postgres', 'security')..." aria-label="Search skills">
+          </div>
+
+          <div class="category-tabs" id="categoryTabs" role="tablist">
+            <button type="button" class="category-tab active" data-category="all" id="tabAll">
+              <span>All Skills</span>
+              <span class="category-badge-count tabular-nums">160</span>
+            </button>
+            <button type="button" class="category-tab" data-category="frontend" id="tabFrontend">
+              <span>Frontend &amp; UI</span>
+              <span class="category-badge-count tabular-nums">35</span>
+            </button>
+            <button type="button" class="category-tab" data-category="backend" id="tabBackend">
+              <span>Backend &amp; Systems</span>
+              <span class="category-badge-count tabular-nums">28</span>
+            </button>
+            <button type="button" class="category-tab" data-category="ai" id="tabAi">
+              <span>Frontier AI &amp; MCP</span>
+              <span class="category-badge-count tabular-nums">28</span>
+            </button>
+            <button type="button" class="category-tab" data-category="saas" id="tabSaas">
+              <span>SaaS &amp; FinTech</span>
+              <span class="category-badge-count tabular-nums">17</span>
+            </button>
+            <button type="button" class="category-tab" data-category="security" id="tabSecurity">
+              <span>Testing &amp; Anti-Slop</span>
+              <span class="category-badge-count tabular-nums">23</span>
+            </button>
+            <button type="button" class="category-tab" data-category="data" id="tabData">
+              <span>Data &amp; Infra</span>
+              <span class="category-badge-count tabular-nums">27</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="skills-meta-bar">
+          <span id="skillCountDisplay">Showing <strong id="skillCountBadge" class="tabular-nums">160 of 160</strong> verified skills</span>
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);">Click any card to inspect full specification</span>
+        </div>
+
+        <!-- Skills Card Grid -->
+        <div class="skills-grid" id="skillsGrid">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Swarm Topologies Section -->
+    <section class="topologies-section" id="topologies">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Multi-Agent Swarm Director</span>
+          <h2 class="section-title">2026 Autonomous Swarm Topologies</h2>
+          <p class="section-subtitle">Vibes-Plug functions as an autonomous Swarm Director, coordinating specialized subagents concurrently without manual orchestration fatigue.</p>
+        </div>
+
+        <div class="topology-container">
+          <div class="topology-nav" role="tablist">
+            <button type="button" class="topo-tab-btn active" data-topo="fan-out" id="btnTopoFanOut">
+              <div class="topo-tab-title">1. Fan-Out / Fan-In</div>
+              <div class="topo-tab-desc">Concurrent multi-agent research across UI, Backend, and DB with unified final assembly.</div>
+            </button>
+            <button type="button" class="topo-tab-btn" data-topo="pipeline-saga" id="btnTopoPipeline">
+              <div class="topo-tab-title">2. Pipeline Saga</div>
+              <div class="topo-tab-desc">Sequential dependent execution from PRD to production release with living documentation.</div>
+            </button>
+            <button type="button" class="topo-tab-btn" data-topo="critic-validator" id="btnTopoCritic">
+              <div class="topo-tab-title">3. Critic-Validator Loop</div>
+              <div class="topo-tab-desc">Zero-tolerance gate with in-memory sandbox verification, SMT solvers, and anti-slop audits.</div>
+            </button>
+          </div>
+
+          <div class="topology-viewer">
+            <div class="topo-diagram" id="topoDiagram">
+              <!-- Rendered dynamically by app.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Comparative Benchmark Section -->
+    <section class="benchmark-section" id="benchmarks">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Verified Benchmarks</span>
+          <h2 class="section-title">Vibes-Plug vs Alternative Paradigms</h2>
+          <p class="section-subtitle">Engineered to eliminate token waste and enforce sovereign code quality across all coding tasks.</p>
+        </div>
+
+        <div class="benchmark-table-wrap">
+          <table class="bench-table" id="benchmarkTable">
+            <thead>
+              <tr>
+                <th>Capability / Metric</th>
+                <th class="highlight-col">Vibes-Plug Pro (v4.4.1)</th>
+                <th>Vanilla Raw Prompting</th>
+                <th>Single .cursorrules</th>
+                <th>Heavyweight Frameworks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Domain Skill Coverage</strong></td>
+                <td class="highlight-col"><strong style="color: var(--accent-cyan);">160 Verified Skills</strong></td>
+                <td>0 skills (unprompted)</td>
+                <td>1 static file</td>
+                <td>Framework-dependent</td>
+              </tr>
+              <tr>
+                <td><strong>Multi-IDE Portability</strong></td>
+                <td class="highlight-col"><span class="check-pass">6 IDEs Unified</span></td>
+                <td>Manual copy-paste</td>
+                <td>Cursor only</td>
+                <td>Requires Python / Node server</td>
+              </tr>
+              <tr>
+                <td><strong>Token Cost Efficiency</strong></td>
+                <td class="highlight-col"><strong style="color: var(--accent-emerald);">76.8% Savings (KV-Cache)</strong></td>
+                <td>0% (Full cost billed)</td>
+                <td>10-20% static caching</td>
+                <td>Excessive context bloat</td>
+              </tr>
+              <tr>
+                <td><strong>Sovereign Anti-Slop Gate</strong></td>
+                <td class="highlight-col"><span class="check-pass">Strict AST &amp; Lint (0 Slop)</span></td>
+                <td>Frequent Hallucinations</td>
+                <td>Basic style guidelines</td>
+                <td>No built-in anti-slop gate</td>
+              </tr>
+              <tr>
+                <td><strong>Local Execution Speed</strong></td>
+                <td class="highlight-col"><strong style="color: var(--text-primary);">< 15 ms Local Latency</strong></td>
+                <td>Cloud latency only</td>
+                <td>Instant (Text only)</td>
+                <td>200ms - 2000ms overhead</td>
+              </tr>
+              <tr>
+                <td><strong>Zero-Dependency VSIX Companion</strong></td>
+                <td class="highlight-col"><span class="check-pass">Included (12 Commands)</span></td>
+                <td>None</td>
+                <td>None</td>
+                <td>Heavy extensions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Universal IDE Bridge Section -->
+    <section class="bridge-section" id="bridge">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-tag">Universal IDE Bridge</span>
+          <h2 class="section-title">One Ecosystem, Six AI Platforms</h2>
+          <p class="section-subtitle">No lock-in. Switch between Antigravity, Claude Code, Cursor, Windsurf, Codex, and Trae seamlessly with identical reasoning and skill triggers.</p>
+        </div>
+
+        <div class="bridge-tabs" id="bridgeTabs">
+          <button type="button" class="bridge-tab-btn active" data-ide="antigravity" id="bridgeTabAgy">Antigravity (AGY)</button>
+          <button type="button" class="bridge-tab-btn" data-ide="claude" id="bridgeTabClaude">Claude Code</button>
+          <button type="button" class="bridge-tab-btn" data-ide="cursor" id="bridgeTabCursor">Cursor IDE</button>
+          <button type="button" class="bridge-tab-btn" data-ide="windsurf" id="bridgeTabWindsurf">Windsurf</button>
+          <button type="button" class="bridge-tab-btn" data-ide="codex" id="bridgeTabCodex">OpenAI Codex</button>
+          <button type="button" class="bridge-tab-btn" data-ide="trae" id="bridgeTabTrae">Trae IDE</button>
+        </div>
+
+        <div class="bridge-card" id="bridgeCard">
+          <div class="bridge-card-head">
+            <span class="bridge-file-title" id="bridgeFileName">AGENTS.md &amp; .agents/skills/</span>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnCopyBridgeRule" onclick="navigator.clipboard.writeText(document.getElementById('bridgeCode').textContent).then(() => window.showToast ? window.showToast('Rule config copied', 'success') : null)">Copy Config</button>
+          </div>
+          <div class="bridge-card-body">
+            <pre class="bridge-pre" id="bridgeCode">Loading configuration...</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer" id="siteFooter">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-group">
+            <div class="brand-icon">⚡</div>
+            <span class="brand-name">Vibes-Plug Pro</span>
+          </div>
+          <p>
+            The sovereign multi-agent swarm architecture &amp; 160 verified skill ecosystem. Engineered for developer supremacy in 2026.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Core Features</h4>
+          <ul>
+            <li><a href="#explorer">160 Skills Registry</a></li>
+            <li><a href="#terminal">Live Terminal Simulator</a></li>
+            <li><a href="#topologies">Swarm Director</a></li>
+            <li><a href="#benchmarks">Benchmark Report</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>IDE Ecosystem</h4>
+          <ul>
+            <li><a href="#bridge">Antigravity (AGENTS.md)</a></li>
+            <li><a href="#bridge">Claude Code (CLAUDE.md)</a></li>
+            <li><a href="#bridge">Cursor (.cursorrules)</a></li>
+            <li><a href="#bridge">VS Code Companion VSIX</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Resources &amp; Open Source</h4>
+          <ul>
+            <li><a href="https://github.com/roedyrustam/vibes-plug" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+            <li><a href="http://localhost:3888" target="_blank" rel="noopener noreferrer">Studio Cockpit</a></li>
+            <li><a href="https://www.npmjs.com/package/vibes-plug" target="_blank" rel="noopener noreferrer">NPM Package</a></li>
+            <li><a href="https://github.com/roedyrustam/vibes-plug/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Roedy Rustam. Released under the MIT License.</div>
+        <div>Vibes-Plug v4.4.1 • Zero AI Slop Standard</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Skill Detail Modal Dialog -->
+  <div class="modal-backdrop" id="skillModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalSkillTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalSkillTitle" style="font-size: 1.15rem; color: var(--text-primary);">Skill Specification</h3>
+        <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalContent">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Application Script -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>

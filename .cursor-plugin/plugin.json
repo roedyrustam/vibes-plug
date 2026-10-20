@@ -1,0 +1,32 @@
+{
+  "name": "vibes-plug",
+  "displayName": "Vibes Plug",
+  "version": "4.4.1",
+  "description": "Universal AI Swarm Architecture with 159 specialized domain skills, 5 native agents, and anti-slop engineering.",
+  "author": {
+    "name": "Roedy Rustam"
+  },
+  "homepage": "https://github.com/roedyrustam/vibes-plug",
+  "repository": "https://github.com/roedyrustam/vibes-plug",
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": [
+    "vibes-plug",
+    "swarm",
+    "skills",
+    "agents",
+    "fullstack",
+    "anti-slop",
+    "mcp"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "orchestration",
+    "multi-agent",
+    "fullstack",
+    "skills"
+  ],
+  "skills": "./skills/",
+  "rules": "./rules/",
+  "agents": "./agents/"
+}

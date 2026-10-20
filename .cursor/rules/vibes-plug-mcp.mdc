@@ -1,0 +1,36 @@
+---
+alwaysApply: false
+description: "Vibes-Plug & XERJ MCP Tools Guide — How Cursor AI leverages local MCP servers for AST analysis, SQL evaluation, code validation, and deep search"
+globs: "**/*"
+---
+
+# Vibes-Plug & XERJ MCP Tools Guide for Cursor
+
+Cursor natively connects to the MCP servers configured in `.cursor/mcp.json`.
+
+## Active MCP Servers
+
+### 1. `vibes-plug-tools`
+The core developer tooling suite:
+- `vibes_critic_validate`: Run deep Critic-in-the-Loop audits on files against anti-slop rules before committing.
+- `vibes_eval_sql`: Safely simulate, parse, and dry-run PostgreSQL DDL migrations in-memory.
+- `vibes_ast_query`: Query symbol definitions, call graphs, and blast-radius across TypeScript and JavaScript.
+- `vibes_verify_invariants`: Verify state machine invariants (e.g. billing statuses, order transitions).
+- `vibes_visual_audit`: Audit rendered UI elements against Pillar 7 rules (borders, padding, contrast, 5-state contract).
+- `vibes_get_skill` / `vibes_list_skills`: Fetch full skill instructions dynamically during active coding.
+
+### 2. `xerj`
+The unified search engine and vector memory store for AI agents:
+- `xerj_search`: Fast hybrid text and keyword search across local codebase and documentation.
+- `xerj_semantic_search`: Deep vector embedding similarity search across indexed project files.
+- `xerj_code_search`: Precision structural code symbol and function search.
+- `xerj_memory_store` / `xerj_memory_recall`: Long-term cross-session memory store (`/_memory/{namespace}`).
+
+## Setup in Any Project
+To configure these MCP servers for your project in Cursor:
+```bash
+npx vibes-plug --cursor
+# or
+vibes mcp:setup --client cursor
+```
+This generates `.cursor/mcp.json` automatically.

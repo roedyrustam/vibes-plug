@@ -96,6 +96,7 @@ const SKILL_DOMAIN_MAP = {
   'openapi-swagger-codegen-expert': 'backend', 'python-programming-expert': 'backend', 'rust-programming-expert': 'backend',
   'scalability-clean-code': 'backend', 'spec-driven-development-expert': 'backend', 'typescript-expert': 'backend',
   'wasm-edge-computing-expert': 'backend', 'web-game-engine-expert': 'backend', 'structured-output-contracts': 'backend',
+  'cloudflare-workers-expert': 'backend',
 
   // AI & LLM
   'adaptive-model-cascade': 'ai', 'affective-computing-emotion-ai': 'ai', 'agentic-coding-workflow-expert': 'ai',
@@ -107,7 +108,7 @@ const SKILL_DOMAIN_MAP = {
   'local-slm-edge-ai-expert': 'ai', 'mcp-server-architect': 'ai', 'multi-agent-orchestration': 'ai',
   'pydantic-ai-expert': 'ai', 'speculative-multi-draft-synthesizer': 'ai', 'synthetic-data-finetuning-expert': 'ai',
   'test-time-compute-optimizer': 'ai', 'vector-db-rag-expert': 'ai', 'vercel-ai-sdk-expert': 'ai', 'voice-ai-realtime-agent': 'ai',
-  'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai',
+  'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai', 'xerj-search-expert': 'ai',
 
   // SaaS & FinTech
   'agentic-m2m-settlement': 'saas', 'app-promo-media-expert': 'saas', 'chatbot-messaging-expert': 'saas',
@@ -129,6 +130,7 @@ const SKILL_DOMAIN_MAP = {
   // Data & Orchestration
   'agy-customizations': 'data', 'brainstorming': 'data', 'browser-automation-expert': 'data',
   'ci-cd-devops-architect': 'data', 'cloud-hosting-expert': 'data', 'data-pipeline-etl-expert': 'data',
+  'docker-container-expert': 'data', 'github-actions-expert': 'data',
   'data-visualization-expert': 'data', 'database-orm-expert': 'data', 'dependency-upgrade-migrator': 'data',
   'documentation-site-expert': 'data', 'file-upload-media-expert': 'data', 'geospatial-maps-expert': 'data',
   'pdf-document-generation-expert': 'data', 'prd-architect': 'data', 'proactive-background-watcher': 'data',

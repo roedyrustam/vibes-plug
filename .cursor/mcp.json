@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "vibes-plug-tools": {
+      "command": "node",
+      "args": ["bin/mcp-server.mjs"]
+    },
+    "xerj": {
+      "command": "xerj",
+      "args": ["mcp"],
+      "env": {
+        "XERJ_URL": "http://localhost:9200"
+      }
+    }
+  }
+}

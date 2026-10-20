@@ -479,7 +479,7 @@ Sebelum menyelesaikan tugas coding atau UI, Anda **WAJIB** menyertakan 4 blok la
 
 ## Orchestration & Integration
 
-This skill serves as the foundational quality, craftsmanship, and anti-slop gate across the entire `vibes-plug` swarm architecture. It actively connects to and hardens:
+This skill serves as the foundational quality, craftsmanship, and anti-slop gate across the entire vibes-plug swarm architecture. It actively connects to and hardens:
 
 | Skill | Relationship & Integration Flow |
 | :--- | :--- |

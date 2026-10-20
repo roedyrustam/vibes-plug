@@ -1,5 +1,5 @@
 {
-  "total": 155,
+  "total": 159,
   "skills": [
     {
       "name": "accessibility-testing-expert",
@@ -206,6 +206,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "cloudflare-workers-expert",
+      "description": "Expert guide for Cloudflare Workers ecosystem — Workers, D1 (SQLite at edge), KV, R2 (S3-compatible storage), Queues, Durable Objects, Hyperdrive, and Workers AI / Panduan ahli ekosistem Cloudflare Workers — Workers, D1, KV, R2, Queues, Durable Objects, Hyperdrive, dan Workers AI.",
+      "version": "4.4.0",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "coderabbit",
       "description": "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif.",
       "version": "4.3.0",
@@ -281,6 +287,12 @@
       "name": "desktop-electron-expert",
       "description": "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+.",
       "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "docker-container-expert",
+      "description": "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology / Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2.",
+      "version": "4.4.0",
       "author": "Roedy Rustam"
     },
     {
@@ -401,6 +413,12 @@
       "name": "geospatial-maps-expert",
       "description": "Expert guide for maps and geospatial data (Mapbox GL JS, Leaflet, Google Maps, PostGIS) / Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS).",
       "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "github-actions-expert",
+      "description": "Expert guide for GitHub Actions CI/CD workflows, reusable workflows, composite actions, matrix builds, OIDC cloud auth, security hardening, and artifact automation / Panduan ahli GitHub Actions CI/CD workflows, reusable workflows, aksi komposit, autentikasi cloud OIDC, pengerasan keamanan, dan otomasi rilis.",
+      "version": "4.4.0",
       "author": "Roedy Rustam"
     },
     {
@@ -910,6 +928,12 @@
     {
       "name": "wordpress-headless-expert",
       "description": "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless.",
+      "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "xerj-search-expert",
+      "description": "Expert guide for XERJ: the unified search engine for AI, vector database, zero-config autoindexer, agent memory store (/_memory/{ns}), and embedded 13-tool MCP server / Panduan ahli XERJ: mesin pencari terpadu untuk AI, vector database, autoindex tanpa konfigurasi, memori agen, dan 13 tool MCP server bawaan.",
       "version": "4.3.0",
       "author": "Roedy Rustam"
     },

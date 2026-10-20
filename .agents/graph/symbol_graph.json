@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-18T08:03:04.508Z",
+  "generatedAt": "2026-10-20T07:41:34.552Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 86,
-  "totalSymbolsIndexed": 430,
+  "totalFilesIndexed": 47,
+  "totalSymbolsIndexed": 242,
   "symbols": {
     "to": [
       {
@@ -23,35 +23,11 @@
         "line": 152,
         "type": "class",
         "signature": "fix: \"Add 'tabular-nums' class to numerical values.\""
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
-        "line": 59,
-        "type": "class",
-        "signature": "description: 'Name of the function or class to inspect (required for action: inspect).'"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
-        "line": 345,
-        "type": "interface",
-        "signature": "description: 'Name of the function, class, type, or interface to query.'"
-      },
-      {
-        "file": "vibes-plug/scripts/visual-critic.mjs",
-        "line": 152,
-        "type": "class",
-        "signature": "fix: \"Add 'tabular-nums' class to numerical values.\""
       }
     ],
     "State": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 117,
-        "type": "type",
-        "signature": "description: 'Optional raw TypeScript code containing state union type definitions (e.g. type State = \"A\" | \"B\").'"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
         "line": 117,
         "type": "type",
         "signature": "description: 'Optional raw TypeScript code containing state union type definitions (e.g. type State = \"A\" | \"B\").'"
@@ -63,23 +39,11 @@
         "line": 453,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
-        "line": 453,
-        "type": "function",
-        "signature": "function handleRpcRequest(request)"
       }
     ],
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 857,
-        "type": "function",
-        "signature": "function startStdioServer()"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
         "line": 857,
         "type": "function",
         "signature": "function startStdioServer()"
@@ -91,23 +55,11 @@
         "line": 885,
         "type": "function",
         "signature": "function startSseServer(port = 3333)"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
-        "line": 885,
-        "type": "function",
-        "signature": "function startSseServer(port = 3333)"
       }
     ],
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 983,
-        "type": "function",
-        "signature": "function startServer(options = {})"
-      },
-      {
-        "file": "vibes-plug/bin/mcp-server.mjs",
         "line": 983,
         "type": "function",
         "signature": "function startServer(options = {})"
@@ -119,23 +71,11 @@
         "line": 20,
         "type": "arrow-function",
         "signature": "const question = (query) =>"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 20,
-        "type": "arrow-function",
-        "signature": "const question = (query) =>"
       }
     ],
     "escapeRegExp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 22,
-        "type": "function",
-        "signature": "function escapeRegExp(value)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
         "line": 22,
         "type": "function",
         "signature": "function escapeRegExp(value)"
@@ -147,23 +87,11 @@
         "line": 26,
         "type": "function",
         "signature": "function isValidIdentifier(value)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 26,
-        "type": "function",
-        "signature": "function isValidIdentifier(value)"
       }
     ],
     "runInit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 30,
-        "type": "function",
-        "signature": "function runInit(projectName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
         "line": 30,
         "type": "function",
         "signature": "function runInit(projectName)"
@@ -178,31 +106,13 @@
       },
       {
         "file": "bin/vibes.mjs",
-        "line": 278,
+        "line": 284,
         "type": "interface",
         "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Archetype**: ${archetype.toUpperCase()}\\n- **Bound Skills**: ${chosenSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       },
       {
         "file": "bin/vibes.mjs",
-        "line": 401,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Template Archetype**: ${templateName.toUpperCase()}\\n- **Bound Skills**: ${allSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 48,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${projectName} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Product Name**: ${projectName}\\n- **Lifecycle**: 8-Phase Zero-To-Prod Swarm Lifecycle\\n- **Target Audience**: Developers, enterprise teams, and end-users requiring high-velocity reliability.\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 278,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Archetype**: ${archetype.toUpperCase()}\\n- **Bound Skills**: ${chosenSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 401,
+        "line": 445,
         "type": "interface",
         "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Template Archetype**: ${templateName.toUpperCase()}\\n- **Bound Skills**: ${allSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       }
@@ -213,24 +123,12 @@
         "line": 68,
         "type": "function",
         "signature": "function runWizard()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 68,
-        "type": "function",
-        "signature": "function runWizard()"
       }
     ],
     "runBootstrap": [
       {
         "file": "bin/vibes.mjs",
-        "line": 295,
-        "type": "function",
-        "signature": "function runBootstrap(templateName, projectName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 295,
+        "line": 301,
         "type": "function",
         "signature": "function runBootstrap(templateName, projectName)"
       }
@@ -238,13 +136,7 @@
     "runValidate": [
       {
         "file": "bin/vibes.mjs",
-        "line": 421,
-        "type": "function",
-        "signature": "function runValidate()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 421,
+        "line": 465,
         "type": "function",
         "signature": "function runValidate()"
       }
@@ -252,13 +144,7 @@
     "runAudit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 432,
-        "type": "function",
-        "signature": "function runAudit()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 432,
+        "line": 476,
         "type": "function",
         "signature": "function runAudit()"
       }
@@ -266,13 +152,7 @@
     "runCreateSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 443,
-        "type": "function",
-        "signature": "function runCreateSkill(skillName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 443,
+        "line": 487,
         "type": "function",
         "signature": "function runCreateSkill(skillName)"
       }
@@ -280,13 +160,7 @@
     "runCreateMcp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 490,
-        "type": "function",
-        "signature": "function runCreateMcp(serverName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 490,
+        "line": 534,
         "type": "function",
         "signature": "function runCreateMcp(serverName)"
       }
@@ -294,13 +168,7 @@
     "runAddSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 661,
-        "type": "function",
-        "signature": "function runAddSkill(skillName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 661,
+        "line": 705,
         "type": "function",
         "signature": "function runAddSkill(skillName)"
       }
@@ -308,13 +176,7 @@
     "runUi": [
       {
         "file": "bin/vibes.mjs",
-        "line": 696,
-        "type": "function",
-        "signature": "function runUi()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 696,
+        "line": 740,
         "type": "function",
         "signature": "function runUi()"
       }
@@ -322,13 +184,7 @@
     "runRemoveSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 880,
-        "type": "function",
-        "signature": "function runRemoveSkill(skillName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 880,
+        "line": 925,
         "type": "function",
         "signature": "function runRemoveSkill(skillName)"
       }
@@ -336,13 +192,7 @@
     "runListSkills": [
       {
         "file": "bin/vibes.mjs",
-        "line": 908,
-        "type": "function",
-        "signature": "function runListSkills(filter)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 908,
+        "line": 953,
         "type": "function",
         "signature": "function runListSkills(filter)"
       }
@@ -350,13 +200,7 @@
     "runVersion": [
       {
         "file": "bin/vibes.mjs",
-        "line": 962,
-        "type": "function",
-        "signature": "function runVersion(action, type)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 962,
+        "line": 1007,
         "type": "function",
         "signature": "function runVersion(action, type)"
       }
@@ -364,13 +208,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1034,
-        "type": "function",
-        "signature": "function runDoctor(autoFix = false)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1034,
+        "line": 1080,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)"
       }
@@ -378,13 +216,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1122,
-        "type": "function",
-        "signature": "function runSkillInfo(skillName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1122,
+        "line": 1168,
         "type": "function",
         "signature": "function runSkillInfo(skillName)"
       }
@@ -392,13 +224,7 @@
     "get": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1141,
-        "type": "arrow-function",
-        "signature": "const get = (key) =>"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1141,
+        "line": 1187,
         "type": "arrow-function",
         "signature": "const get = (key) =>"
       }
@@ -406,13 +232,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1172,
-        "type": "function",
-        "signature": "function runHooks(action)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1172,
+        "line": 1218,
         "type": "function",
         "signature": "function runHooks(action)"
       }
@@ -420,13 +240,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1254,
-        "type": "function",
-        "signature": "function runRecipe(action, recipeName)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1254,
+        "line": 1302,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)"
       }
@@ -434,13 +248,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1319,
-        "type": "function",
-        "signature": "function runSearch(query)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1319,
+        "line": 1367,
         "type": "function",
         "signature": "function runSearch(query)"
       }
@@ -448,13 +256,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1367,
-        "type": "function",
-        "signature": "function runSync()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1367,
+        "line": 1415,
         "type": "function",
         "signature": "function runSync()"
       }
@@ -462,13 +264,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1424,
-        "type": "function",
-        "signature": "function runDocs(format = 'markdown', outputFile)"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1424,
+        "line": 1472,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)"
       }
@@ -476,13 +272,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1487,
-        "type": "function",
-        "signature": "function showHelp()"
-      },
-      {
-        "file": "vibes-plug/bin/vibes.mjs",
-        "line": 1487,
+        "line": 1535,
         "type": "function",
         "signature": "function showHelp()"
       }
@@ -490,12 +280,6 @@
     "runInTerminal": [
       {
         "file": "extensions/vscode/extension.js",
-        "line": 23,
-        "type": "function",
-        "signature": "function runInTerminal(cmd, name = 'VibesPlug')"
-      },
-      {
-        "file": "vibes-plug/extensions/vscode/extension.js",
         "line": 23,
         "type": "function",
         "signature": "function runInTerminal(cmd, name = 'VibesPlug')"
@@ -507,23 +291,11 @@
         "line": 36,
         "type": "function",
         "signature": "function activate(context)"
-      },
-      {
-        "file": "vibes-plug/extensions/vscode/extension.js",
-        "line": 36,
-        "type": "function",
-        "signature": "function activate(context)"
       }
     ],
     "deactivate": [
       {
         "file": "extensions/vscode/extension.js",
-        "line": 97,
-        "type": "function",
-        "signature": "function deactivate()"
-      },
-      {
-        "file": "vibes-plug/extensions/vscode/extension.js",
         "line": 97,
         "type": "function",
         "signature": "function deactivate()"
@@ -535,12 +307,6 @@
         "line": 14,
         "type": "function",
         "signature": "function parseSymbols(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/ast-query.mjs",
-        "line": 14,
-        "type": "function",
-        "signature": "function parseSymbols(filePath)"
       }
     ],
     "extractSymbolCode": [
@@ -549,23 +315,11 @@
         "line": 79,
         "type": "function",
         "signature": "function extractSymbolCode(filePath, symbolName)"
-      },
-      {
-        "file": "vibes-plug/scripts/ast-query.mjs",
-        "line": 79,
-        "type": "function",
-        "signature": "function extractSymbolCode(filePath, symbolName)"
       }
     ],
     "calculateBlastRadius": [
       {
         "file": "scripts/ast-query.mjs",
-        "line": 127,
-        "type": "function",
-        "signature": "function calculateBlastRadius(rootDir, targetFile)"
-      },
-      {
-        "file": "vibes-plug/scripts/ast-query.mjs",
         "line": 127,
         "type": "function",
         "signature": "function calculateBlastRadius(rootDir, targetFile)"
@@ -592,30 +346,6 @@
       },
       {
         "file": "skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 269,
-        "type": "function",
-        "signature": "function scanDir(dir)"
-      },
-      {
-        "file": "vibes-plug/scripts/ast-query.mjs",
-        "line": 131,
-        "type": "function",
-        "signature": "function scanDir(currentDir)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.js",
-        "line": 264,
-        "type": "function",
-        "signature": "function scanDir(dir)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.mjs",
-        "line": 255,
-        "type": "function",
-        "signature": "function scanDir(dir)"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js",
         "line": 269,
         "type": "function",
         "signature": "function scanDir(dir)"
@@ -655,6 +385,12 @@
       {
         "file": "scripts/memory-daemon.mjs",
         "line": 91,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
+        "file": "scripts/project-detector.mjs",
+        "line": 274,
         "type": "function",
         "signature": "function main()"
       },
@@ -735,120 +471,6 @@
         "line": 919,
         "type": "function",
         "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/scripts/ast-query.mjs",
-        "line": 166,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/critic-validator.mjs",
-        "line": 184,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/eval-migration.mjs",
-        "line": 135,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
-        "line": 195,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/install.js",
-        "line": 183,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
-        "line": 91,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
-        "line": 116,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
-        "line": 191,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-runner.mjs",
-        "line": 193,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/verify-invariants.mjs",
-        "line": 139,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/scripts/wasm-sandbox.mjs",
-        "line": 157,
-        "type": "function",
-        "signature": "function main()"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
-        "line": 144,
-        "type": "function",
-        "signature": "def main(argv):"
-      },
-      {
-        "file": "vibes-plug/skills/fullstack-expert/scripts/api_contract_validator.py",
-        "line": 209,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/fullstack-expert/scripts/architecture_analyzer.py",
-        "line": 282,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py",
-        "line": 807,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/saas-architect/scripts/saas_transformation_scanner.py",
-        "line": 253,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/senior-frontend/scripts/bundle_analyzer.py",
-        "line": 356,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/senior-frontend/scripts/component_generator.py",
-        "line": 247,
-        "type": "function",
-        "signature": "def main():"
-      },
-      {
-        "file": "vibes-plug/skills/senior-frontend/scripts/frontend_scaffolder.py",
-        "line": 919,
-        "type": "function",
-        "signature": "def main():"
       }
     ],
     "stubbed": [
@@ -866,24 +488,6 @@
       },
       {
         "file": "skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 57,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.js",
-        "line": 57,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.mjs",
-        "line": 55,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js",
         "line": 57,
         "type": "class",
         "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
@@ -907,24 +511,6 @@
         "line": 179,
         "type": "function",
         "signature": "function isTestFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.js",
-        "line": 168,
-        "type": "function",
-        "signature": "function isTestFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.mjs",
-        "line": 165,
-        "type": "function",
-        "signature": "function isTestFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 179,
-        "type": "function",
-        "signature": "function isTestFile(filePath)"
       }
     ],
     "isCliScript": [
@@ -942,24 +528,6 @@
       },
       {
         "file": "skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 183,
-        "type": "function",
-        "signature": "function isCliScript(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.js",
-        "line": 172,
-        "type": "function",
-        "signature": "function isCliScript(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.mjs",
-        "line": 169,
-        "type": "function",
-        "signature": "function isCliScript(filePath)"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js",
         "line": 183,
         "type": "function",
         "signature": "function isCliScript(filePath)"
@@ -983,35 +551,11 @@
         "line": 188,
         "type": "function",
         "signature": "function scanFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.js",
-        "line": 177,
-        "type": "function",
-        "signature": "function scanFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/scripts/check-anti-slop.mjs",
-        "line": 174,
-        "type": "function",
-        "signature": "function scanFile(filePath)"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 188,
-        "type": "function",
-        "signature": "function scanFile(filePath)"
       }
     ],
     "compileCache": [
       {
         "file": "scripts/compile-cache.mjs",
-        "line": 22,
-        "type": "function",
-        "signature": "function compileCache(options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/compile-cache.mjs",
         "line": 22,
         "type": "function",
         "signature": "function compileCache(options = {})"
@@ -1023,24 +567,12 @@
         "line": 24,
         "type": "arrow-function",
         "signature": "const log = (...args) =>"
-      },
-      {
-        "file": "vibes-plug/scripts/compile-cache.mjs",
-        "line": 24,
-        "type": "arrow-function",
-        "signature": "const log = (...args) =>"
       }
     ],
     "getCacheStatus": [
       {
         "file": "scripts/compile-cache.mjs",
-        "line": 188,
-        "type": "function",
-        "signature": "function getCacheStatus()"
-      },
-      {
-        "file": "vibes-plug/scripts/compile-cache.mjs",
-        "line": 188,
+        "line": 189,
         "type": "function",
         "signature": "function getCacheStatus()"
       }
@@ -1053,8 +585,8 @@
         "signature": "function getAvailableSkills()"
       },
       {
-        "file": "vibes-plug/scripts/create-agent.mjs",
-        "line": 21,
+        "file": "scripts/project-detector.mjs",
+        "line": 230,
         "type": "function",
         "signature": "function getAvailableSkills()"
       }
@@ -1062,12 +594,6 @@
     "createCustomAgent": [
       {
         "file": "scripts/create-agent.mjs",
-        "line": 30,
-        "type": "function",
-        "signature": "function createCustomAgent(options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/create-agent.mjs",
         "line": 30,
         "type": "function",
         "signature": "function createCustomAgent(options = {})"
@@ -1079,23 +605,11 @@
         "line": 20,
         "type": "function",
         "signature": "function criticValidate(target, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/critic-validator.mjs",
-        "line": 20,
-        "type": "function",
-        "signature": "function criticValidate(target, options = {})"
       }
     ],
     "formatSamplingRequest": [
       {
         "file": "scripts/critic-validator.mjs",
-        "line": 163,
-        "type": "function",
-        "signature": "function formatSamplingRequest(target, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/critic-validator.mjs",
         "line": 163,
         "type": "function",
         "signature": "function formatSamplingRequest(target, options = {})"
@@ -1107,23 +621,11 @@
         "line": 19,
         "type": "function",
         "signature": "function evaluateSql(sqlContent, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/eval-migration.mjs",
-        "line": 19,
-        "type": "function",
-        "signature": "function evaluateSql(sqlContent, options = {})"
       }
     ],
     "createDefaultData": [
       {
         "file": "scripts/finops-tracker.mjs",
-        "line": 49,
-        "type": "function",
-        "signature": "function createDefaultData()"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
         "line": 49,
         "type": "function",
         "signature": "function createDefaultData()"
@@ -1135,23 +637,11 @@
         "line": 75,
         "type": "function",
         "signature": "function loadFinOpsData()"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
-        "line": 75,
-        "type": "function",
-        "signature": "function loadFinOpsData()"
       }
     ],
     "calculateSavings": [
       {
         "file": "scripts/finops-tracker.mjs",
-        "line": 89,
-        "type": "function",
-        "signature": "function calculateSavings(cachedTokens)"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
         "line": 89,
         "type": "function",
         "signature": "function calculateSavings(cachedTokens)"
@@ -1163,23 +653,11 @@
         "line": 107,
         "type": "function",
         "signature": "function recordFinOpsUsage(entry = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
-        "line": 107,
-        "type": "function",
-        "signature": "function recordFinOpsUsage(entry = {})"
       }
     ],
     "resetFinOpsData": [
       {
         "file": "scripts/finops-tracker.mjs",
-        "line": 157,
-        "type": "function",
-        "signature": "function resetFinOpsData()"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
         "line": 157,
         "type": "function",
         "signature": "function resetFinOpsData()"
@@ -1191,23 +669,11 @@
         "line": 168,
         "type": "function",
         "signature": "function getFinOpsReport()"
-      },
-      {
-        "file": "vibes-plug/scripts/finops-tracker.mjs",
-        "line": 168,
-        "type": "function",
-        "signature": "function getFinOpsReport()"
       }
     ],
     "draw_lightning": [
       {
         "file": "scripts/generate_swarm_gif.py",
-        "line": 83,
-        "type": "function",
-        "signature": "def draw_lightning(draw, x, y, color='#38bdf8'):"
-      },
-      {
-        "file": "vibes-plug/scripts/generate_swarm_gif.py",
         "line": 83,
         "type": "function",
         "signature": "def draw_lightning(draw, x, y, color='#38bdf8'):"
@@ -1219,23 +685,11 @@
         "line": 96,
         "type": "function",
         "signature": "def draw_checkmark(draw, x, y, color='#10b981'):"
-      },
-      {
-        "file": "vibes-plug/scripts/generate_swarm_gif.py",
-        "line": 96,
-        "type": "function",
-        "signature": "def draw_checkmark(draw, x, y, color='#10b981'):"
       }
     ],
     "draw_play_arrow": [
       {
         "file": "scripts/generate_swarm_gif.py",
-        "line": 100,
-        "type": "function",
-        "signature": "def draw_play_arrow(draw, x, y, color):"
-      },
-      {
-        "file": "vibes-plug/scripts/generate_swarm_gif.py",
         "line": 100,
         "type": "function",
         "signature": "def draw_play_arrow(draw, x, y, color):"
@@ -1247,23 +701,11 @@
         "line": 36,
         "type": "function",
         "signature": "function getChangedFilesFromGit(range = 'HEAD~1', cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/github-pr-bot.mjs",
-        "line": 36,
-        "type": "function",
-        "signature": "function getChangedFilesFromGit(range = 'HEAD~1', cwd = process.cwd()"
       }
     ],
     "reviewPullRequest": [
       {
         "file": "scripts/github-pr-bot.mjs",
-        "line": 51,
-        "type": "function",
-        "signature": "function reviewPullRequest(targetOrRange = 'HEAD~1', options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/github-pr-bot.mjs",
         "line": 51,
         "type": "function",
         "signature": "function reviewPullRequest(targetOrRange = 'HEAD~1', options = {})"
@@ -1275,23 +717,11 @@
         "line": 170,
         "type": "function",
         "signature": "function generatePrMarkdownReport(data)"
-      },
-      {
-        "file": "vibes-plug/scripts/github-pr-bot.mjs",
-        "line": 170,
-        "type": "function",
-        "signature": "function generatePrMarkdownReport(data)"
       }
     ],
     "collectSourceFiles": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 51,
-        "type": "function",
-        "signature": "function collectSourceFiles(dir, fileList = [])"
-      },
-      {
-        "file": "vibes-plug/scripts/graphrag-indexer.mjs",
         "line": 51,
         "type": "function",
         "signature": "function collectSourceFiles(dir, fileList = [])"
@@ -1303,23 +733,11 @@
         "line": 79,
         "type": "function",
         "signature": "function buildSymbolGraph(rootDir = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/graphrag-indexer.mjs",
-        "line": 79,
-        "type": "function",
-        "signature": "function buildSymbolGraph(rootDir = process.cwd()"
       }
     ],
     "loadSymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 133,
-        "type": "function",
-        "signature": "function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE)"
-      },
-      {
-        "file": "vibes-plug/scripts/graphrag-indexer.mjs",
         "line": 133,
         "type": "function",
         "signature": "function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE)"
@@ -1331,23 +749,11 @@
         "line": 148,
         "type": "function",
         "signature": "function querySymbolGraph(symbolName, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/graphrag-indexer.mjs",
-        "line": 148,
-        "type": "function",
-        "signature": "function querySymbolGraph(symbolName, options = {})"
       }
     ],
     "copyRecursiveSync": [
       {
         "file": "scripts/install.js",
-        "line": 42,
-        "type": "function",
-        "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)"
-      },
-      {
-        "file": "vibes-plug/scripts/install.js",
         "line": 42,
         "type": "function",
         "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)"
@@ -1359,23 +765,11 @@
         "line": 55,
         "type": "function",
         "signature": "function installForAntigravity()"
-      },
-      {
-        "file": "vibes-plug/scripts/install.js",
-        "line": 55,
-        "type": "function",
-        "signature": "function installForAntigravity()"
       }
     ],
     "installForClaude": [
       {
         "file": "scripts/install.js",
-        "line": 66,
-        "type": "function",
-        "signature": "function installForClaude(projectDir)"
-      },
-      {
-        "file": "vibes-plug/scripts/install.js",
         "line": 66,
         "type": "function",
         "signature": "function installForClaude(projectDir)"
@@ -1387,12 +781,6 @@
         "line": 107,
         "type": "function",
         "signature": "function installForCursor(projectDir)"
-      },
-      {
-        "file": "vibes-plug/scripts/install.js",
-        "line": 107,
-        "type": "function",
-        "signature": "function installForCursor(projectDir)"
       }
     ],
     "installForCodex": [
@@ -1401,23 +789,43 @@
         "line": 138,
         "type": "function",
         "signature": "function installForCodex(projectDir)"
-      },
+      }
+    ],
+    "getMcpServerDefinition": [
       {
-        "file": "vibes-plug/scripts/install.js",
-        "line": 138,
+        "file": "scripts/mcp-setup.mjs",
+        "line": 31,
         "type": "function",
-        "signature": "function installForCodex(projectDir)"
+        "signature": "function getMcpServerDefinition(serverBinPath = MCP_SERVER_BIN)"
+      }
+    ],
+    "detectClientConfigPaths": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 42,
+        "type": "function",
+        "signature": "function detectClientConfigPaths()"
+      }
+    ],
+    "configureClient": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 87,
+        "type": "function",
+        "signature": "function configureClient(clientKey, options = {})"
+      }
+    ],
+    "setupAllClients": [
+      {
+        "file": "scripts/mcp-setup.mjs",
+        "line": 173,
+        "type": "function",
+        "signature": "function setupAllClients(options = {})"
       }
     ],
     "getMemoryDir": [
       {
         "file": "scripts/memory-daemon.mjs",
-        "line": 14,
-        "type": "function",
-        "signature": "function getMemoryDir(cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
         "line": 14,
         "type": "function",
         "signature": "function getMemoryDir(cwd = process.cwd()"
@@ -1429,23 +837,11 @@
         "line": 18,
         "type": "function",
         "signature": "function getMemoryFile(cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
-        "line": 18,
-        "type": "function",
-        "signature": "function getMemoryFile(cwd = process.cwd()"
       }
     ],
     "loadMemory": [
       {
         "file": "scripts/memory-daemon.mjs",
-        "line": 22,
-        "type": "function",
-        "signature": "function loadMemory(cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
         "line": 22,
         "type": "function",
         "signature": "function loadMemory(cwd = process.cwd()"
@@ -1457,23 +853,11 @@
         "line": 35,
         "type": "function",
         "signature": "function saveMemory(data, cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
-        "line": 35,
-        "type": "function",
-        "signature": "function saveMemory(data, cwd = process.cwd()"
       }
     ],
     "recordDecision": [
       {
         "file": "scripts/memory-daemon.mjs",
-        "line": 42,
-        "type": "function",
-        "signature": "function recordDecision(decisionText, metadata = {}, cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
         "line": 42,
         "type": "function",
         "signature": "function recordDecision(decisionText, metadata = {}, cwd = process.cwd()"
@@ -1485,12 +869,6 @@
         "line": 58,
         "type": "function",
         "signature": "function queryMemory(keyword, cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
-        "line": 58,
-        "type": "function",
-        "signature": "function queryMemory(keyword, cwd = process.cwd()"
       }
     ],
     "generateCompactCheckpoint": [
@@ -1499,23 +877,27 @@
         "line": 68,
         "type": "function",
         "signature": "function generateCompactCheckpoint(cwd = process.cwd()"
-      },
+      }
+    ],
+    "detectProjectStack": [
       {
-        "file": "vibes-plug/scripts/memory-daemon.mjs",
-        "line": 68,
+        "file": "scripts/project-detector.mjs",
+        "line": 123,
         "type": "function",
-        "signature": "function generateCompactCheckpoint(cwd = process.cwd()"
+        "signature": "function detectProjectStack(targetDir = process.cwd()"
+      }
+    ],
+    "applyDetectedSkills": [
+      {
+        "file": "scripts/project-detector.mjs",
+        "line": 245,
+        "type": "function",
+        "signature": "function applyDetectedSkills(targetDir, skills)"
       }
     ],
     "parseSkillMarkdown": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 25,
-        "type": "function",
-        "signature": "function parseSkillMarkdown(content)"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
         "line": 25,
         "type": "function",
         "signature": "function parseSkillMarkdown(content)"
@@ -1527,23 +909,11 @@
         "line": 64,
         "type": "function",
         "signature": "function categorizeSkill(name, desc = '')"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
-        "line": 64,
-        "type": "function",
-        "signature": "function categorizeSkill(name, desc = '')"
       }
     ],
     "listRegistrySkills": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 91,
-        "type": "function",
-        "signature": "function listRegistrySkills(options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
         "line": 91,
         "type": "function",
         "signature": "function listRegistrySkills(options = {})"
@@ -1555,23 +925,11 @@
         "line": 174,
         "type": "function",
         "signature": "function searchRegistry(query, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
-        "line": 174,
-        "type": "function",
-        "signature": "function searchRegistry(query, options = {})"
       }
     ],
     "installSkill": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 208,
-        "type": "function",
-        "signature": "function installSkill(skillName, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
         "line": 208,
         "type": "function",
         "signature": "function installSkill(skillName, options = {})"
@@ -1583,23 +941,11 @@
         "line": 244,
         "type": "function",
         "signature": "function packageSkill(skillDir, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/registry-manager.mjs",
-        "line": 244,
-        "type": "function",
-        "signature": "function packageSkill(skillDir, options = {})"
       }
     ],
     "parseFailureOutput": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 29,
-        "type": "function",
-        "signature": "function parseFailureOutput(output)"
-      },
-      {
-        "file": "vibes-plug/scripts/self-healer.mjs",
         "line": 29,
         "type": "function",
         "signature": "function parseFailureOutput(output)"
@@ -1611,23 +957,11 @@
         "line": 91,
         "type": "function",
         "signature": "function diagnoseFailure(failure, cwd = process.cwd()"
-      },
-      {
-        "file": "vibes-plug/scripts/self-healer.mjs",
-        "line": 91,
-        "type": "function",
-        "signature": "function diagnoseFailure(failure, cwd = process.cwd()"
       }
     ],
     "diagnoseAndHeal": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 177,
-        "type": "function",
-        "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/self-healer.mjs",
         "line": 177,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
@@ -1639,23 +973,11 @@
         "line": 17,
         "type": "function",
         "signature": "function scoreDraft(code, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
-        "line": 17,
-        "type": "function",
-        "signature": "function scoreDraft(code, options = {})"
       }
     ],
     "arbitrateCandidates": [
       {
         "file": "scripts/speculative-arbiter.mjs",
-        "line": 96,
-        "type": "function",
-        "signature": "function arbitrateCandidates(candidates)"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
         "line": 96,
         "type": "function",
         "signature": "function arbitrateCandidates(candidates)"
@@ -1673,18 +995,6 @@
         "line": 172,
         "type": "function",
         "signature": "function getUser(id: string)"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
-        "line": 158,
-        "type": "function",
-        "signature": "function getUser(id: any)"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
-        "line": 172,
-        "type": "function",
-        "signature": "function getUser(id: string)"
       }
     ],
     "UserProfile": [
@@ -1693,24 +1003,12 @@
         "line": 167,
         "type": "interface",
         "signature": "export interface UserProfile {"
-      },
-      {
-        "file": "vibes-plug/scripts/speculative-arbiter.mjs",
-        "line": 167,
-        "type": "interface",
-        "signature": "export interface UserProfile {"
       }
     ],
     "loadSkillsCatalog": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 274,
-        "type": "function",
-        "signature": "function loadSkillsCatalog()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 274,
+        "line": 276,
         "type": "function",
         "signature": "function loadSkillsCatalog()"
       }
@@ -1718,13 +1016,7 @@
     "getSkillDetails": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 335,
-        "type": "function",
-        "signature": "function getSkillDetails(name)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 335,
+        "line": 337,
         "type": "function",
         "signature": "function getSkillDetails(name)"
       }
@@ -1732,13 +1024,7 @@
     "getSystemStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 358,
-        "type": "function",
-        "signature": "function getSystemStatus()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 358,
+        "line": 360,
         "type": "function",
         "signature": "function getSystemStatus()"
       }
@@ -1746,13 +1032,7 @@
     "generateStudioHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 406,
-        "type": "function",
-        "signature": "function generateStudioHtml(currentPort)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 406,
+        "line": 408,
         "type": "function",
         "signature": "function generateStudioHtml(currentPort)"
       }
@@ -1760,27 +1040,21 @@
     "showToast": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1826,
+        "line": 1828,
         "type": "function",
         "signature": "function showToast(message)"
       },
       {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1826,
+        "file": "showcase/app.js",
+        "line": 44,
         "type": "function",
-        "signature": "function showToast(message)"
+        "signature": "function showToast(message, type = 'info')"
       }
     ],
     "closeModal": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1881,
-        "type": "function",
-        "signature": "function closeModal()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1881,
+        "line": 1883,
         "type": "function",
         "signature": "function closeModal()"
       }
@@ -1788,41 +1062,35 @@
     "openSkillModal": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1886,
+        "line": 1888,
         "type": "function",
         "signature": "function openSkillModal(skillName)"
       },
       {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1886,
+        "file": "showcase/app.js",
+        "line": 164,
         "type": "function",
-        "signature": "function openSkillModal(skillName)"
+        "signature": "function openSkillModal(skill)"
       }
     ],
     "escapeHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1943,
+        "line": 1945,
         "type": "function",
         "signature": "function escapeHtml(text)"
       },
       {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1943,
+        "file": "showcase/app.js",
+        "line": 59,
         "type": "function",
-        "signature": "function escapeHtml(text)"
+        "signature": "function escapeHtml(str)"
       }
     ],
     "toggleSkillSelection": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1953,
-        "type": "function",
-        "signature": "function toggleSkillSelection(skillName, e)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1953,
+        "line": 1955,
         "type": "function",
         "signature": "function toggleSkillSelection(skillName, e)"
       }
@@ -1830,13 +1098,7 @@
     "updateDrawer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1964,
-        "type": "function",
-        "signature": "function updateDrawer()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1964,
+        "line": 1966,
         "type": "function",
         "signature": "function updateDrawer()"
       }
@@ -1844,13 +1106,7 @@
     "clearSelectedSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1971,
-        "type": "function",
-        "signature": "function clearSelectedSkills()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1971,
+        "line": 1973,
         "type": "function",
         "signature": "function clearSelectedSkills()"
       }
@@ -1858,13 +1114,7 @@
     "injectSelectedSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1977,
-        "type": "function",
-        "signature": "function injectSelectedSkills()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1977,
+        "line": 1979,
         "type": "function",
         "signature": "function injectSelectedSkills()"
       }
@@ -1872,13 +1122,7 @@
     "exportSelectedJson": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 1998,
-        "type": "function",
-        "signature": "function exportSelectedJson()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 1998,
+        "line": 2000,
         "type": "function",
         "signature": "function exportSelectedJson()"
       }
@@ -1886,13 +1130,7 @@
     "copySelectedCli": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2009,
-        "type": "function",
-        "signature": "function copySelectedCli()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2009,
+        "line": 2011,
         "type": "function",
         "signature": "function copySelectedCli()"
       }
@@ -1900,13 +1138,13 @@
     "renderSkills": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2017,
+        "line": 2019,
         "type": "function",
         "signature": "function renderSkills()"
       },
       {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2017,
+        "file": "showcase/app.js",
+        "line": 94,
         "type": "function",
         "signature": "function renderSkills()"
       }
@@ -1914,13 +1152,7 @@
     "renderSubagents": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2061,
-        "type": "function",
-        "signature": "function renderSubagents(subagents)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2061,
+        "line": 2063,
         "type": "function",
         "signature": "function renderSubagents(subagents)"
       }
@@ -1928,13 +1160,7 @@
     "setSwarmPreset": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2081,
-        "type": "function",
-        "signature": "function setSwarmPreset(type)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2081,
+        "line": 2083,
         "type": "function",
         "signature": "function setSwarmPreset(type)"
       }
@@ -1942,13 +1168,7 @@
     "runSwarmPlan": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2097,
-        "type": "function",
-        "signature": "function runSwarmPlan()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2097,
+        "line": 2099,
         "type": "function",
         "signature": "function runSwarmPlan()"
       }
@@ -1956,13 +1176,7 @@
     "runSwarmExecute": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2120,
-        "type": "function",
-        "signature": "function runSwarmExecute()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2120,
+        "line": 2122,
         "type": "function",
         "signature": "function runSwarmExecute()"
       }
@@ -1970,13 +1184,7 @@
     "createCustomAgentFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2144,
-        "type": "function",
-        "signature": "function createCustomAgentFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2144,
+        "line": 2146,
         "type": "function",
         "signature": "function createCustomAgentFromUi()"
       }
@@ -1984,13 +1192,7 @@
     "loadMemoryView": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2178,
-        "type": "function",
-        "signature": "function loadMemoryView()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2178,
+        "line": 2180,
         "type": "function",
         "signature": "function loadMemoryView()"
       }
@@ -1998,13 +1200,7 @@
     "recordDecisionFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2198,
-        "type": "function",
-        "signature": "function recordDecisionFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2198,
+        "line": 2200,
         "type": "function",
         "signature": "function recordDecisionFromUi()"
       }
@@ -2012,13 +1208,7 @@
     "generateCheckpointFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2222,
-        "type": "function",
-        "signature": "function generateCheckpointFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2222,
+        "line": 2224,
         "type": "function",
         "signature": "function generateCheckpointFromUi()"
       }
@@ -2026,13 +1216,7 @@
     "renderRecipes": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2235,
-        "type": "function",
-        "signature": "function renderRecipes(recipes)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2235,
+        "line": 2237,
         "type": "function",
         "signature": "function renderRecipes(recipes)"
       }
@@ -2040,13 +1224,7 @@
     "applyRecipe": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2256,
-        "type": "function",
-        "signature": "function applyRecipe(key)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2256,
+        "line": 2258,
         "type": "function",
         "signature": "function applyRecipe(key)"
       }
@@ -2054,13 +1232,7 @@
     "copyMcpUrl": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2263,
-        "type": "function",
-        "signature": "function copyMcpUrl()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2263,
+        "line": 2265,
         "type": "function",
         "signature": "function copyMcpUrl()"
       }
@@ -2068,13 +1240,7 @@
     "copyIdeConfig": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2269,
-        "type": "function",
-        "signature": "function copyIdeConfig()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2269,
+        "line": 2271,
         "type": "function",
         "signature": "function copyIdeConfig()"
       }
@@ -2082,13 +1248,7 @@
     "copyMcpOutput": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2281,
-        "type": "function",
-        "signature": "function copyMcpOutput()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2281,
+        "line": 2283,
         "type": "function",
         "signature": "function copyMcpOutput()"
       }
@@ -2096,7 +1256,7 @@
     "Status": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2293,
+        "line": 2295,
         "type": "type",
         "signature": "vibes_verify_invariants: '{\\\\n  \"typeScriptCode\": \"type Status = \\\\\"idle\\\\\" | \\\\\"running\\\\\" | \\\\\"done\\\\\";\"\\\\n}',"
       },
@@ -2105,30 +1265,12 @@
         "line": 128,
         "type": "type",
         "signature": "// Extract union types e.g. type Status = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2293,
-        "type": "type",
-        "signature": "vibes_verify_invariants: '{\\\\n  \"typeScriptCode\": \"type Status = \\\\\"idle\\\\\" | \\\\\"running\\\\\" | \\\\\"done\\\\\";\"\\\\n}',"
-      },
-      {
-        "file": "vibes-plug/scripts/verify-invariants.mjs",
-        "line": 128,
-        "type": "type",
-        "signature": "// Extract union types e.g. type Status = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';"
       }
     ],
     "saveUser": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2298,
-        "type": "function",
-        "signature": "function saveUser(user: any)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2298,
+        "line": 2300,
         "type": "function",
         "signature": "function saveUser(user: any)"
       }
@@ -2136,13 +1278,7 @@
     "onMcpToolChange": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2310,
-        "type": "function",
-        "signature": "function onMcpToolChange()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2310,
+        "line": 2312,
         "type": "function",
         "signature": "function onMcpToolChange()"
       }
@@ -2150,13 +1286,7 @@
     "executeMcpTool": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2317,
-        "type": "function",
-        "signature": "function executeMcpTool()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2317,
+        "line": 2319,
         "type": "function",
         "signature": "function executeMcpTool()"
       }
@@ -2164,13 +1294,7 @@
     "loadData": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2358,
-        "type": "function",
-        "signature": "function loadData()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2358,
+        "line": 2360,
         "type": "function",
         "signature": "function loadData()"
       }
@@ -2178,13 +1302,7 @@
     "recompileCacheFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2386,
-        "type": "function",
-        "signature": "function recompileCacheFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2386,
+        "line": 2388,
         "type": "function",
         "signature": "function recompileCacheFromUi()"
       }
@@ -2192,13 +1310,7 @@
     "loadCacheStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2409,
-        "type": "function",
-        "signature": "function loadCacheStatus()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2409,
+        "line": 2411,
         "type": "function",
         "signature": "function loadCacheStatus()"
       }
@@ -2206,13 +1318,7 @@
     "loadFinOpsStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2428,
-        "type": "function",
-        "signature": "function loadFinOpsStatus()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2428,
+        "line": 2430,
         "type": "function",
         "signature": "function loadFinOpsStatus()"
       }
@@ -2220,13 +1326,7 @@
     "resetFinOpsFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2450,
-        "type": "function",
-        "signature": "function resetFinOpsFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2450,
+        "line": 2452,
         "type": "function",
         "signature": "function resetFinOpsFromUi()"
       }
@@ -2234,13 +1334,7 @@
     "evalSandboxFromUi": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2463,
-        "type": "function",
-        "signature": "function evalSandboxFromUi()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2463,
+        "line": 2465,
         "type": "function",
         "signature": "function evalSandboxFromUi()"
       }
@@ -2248,13 +1342,7 @@
     "loadDagPreset": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2508,
-        "type": "function",
-        "signature": "function loadDagPreset(presetId)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2508,
+        "line": 2510,
         "type": "function",
         "signature": "function loadDagPreset(presetId)"
       }
@@ -2262,13 +1350,7 @@
     "renderDagGraph": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2528,
-        "type": "function",
-        "signature": "function renderDagGraph(preset)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2528,
+        "line": 2530,
         "type": "function",
         "signature": "function renderDagGraph(preset)"
       }
@@ -2276,13 +1358,7 @@
     "drawDagEdges": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2548,
-        "type": "function",
-        "signature": "function drawDagEdges(preset)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2548,
+        "line": 2550,
         "type": "function",
         "signature": "function drawDagEdges(preset)"
       }
@@ -2290,13 +1366,7 @@
     "simulateDagExecution": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2577,
-        "type": "function",
-        "signature": "function simulateDagExecution()"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2577,
+        "line": 2579,
         "type": "function",
         "signature": "function simulateDagExecution()"
       }
@@ -2304,13 +1374,7 @@
     "isValidSkillSlug": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2619,
-        "type": "function",
-        "signature": "function isValidSkillSlug(name)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2619,
+        "line": 2621,
         "type": "function",
         "signature": "function isValidSkillSlug(name)"
       }
@@ -2318,13 +1382,7 @@
     "resolveAllowedOrigin": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2623,
-        "type": "function",
-        "signature": "function resolveAllowedOrigin(req, port)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2623,
+        "line": 2625,
         "type": "function",
         "signature": "function resolveAllowedOrigin(req, port)"
       }
@@ -2332,13 +1390,7 @@
     "readJsonBody": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2632,
-        "type": "function",
-        "signature": "function readJsonBody(req)"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2632,
+        "line": 2634,
         "type": "function",
         "signature": "function readJsonBody(req)"
       }
@@ -2346,13 +1398,7 @@
     "startStudioServer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2656,
-        "type": "function",
-        "signature": "function startStudioServer(options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2656,
+        "line": 2658,
         "type": "function",
         "signature": "function startStudioServer(options = {})"
       }
@@ -2360,13 +1406,7 @@
     "sendJson": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 2667,
-        "type": "arrow-function",
-        "signature": "const sendJson = (data, statusCode = 200) =>"
-      },
-      {
-        "file": "vibes-plug/scripts/studio-server.mjs",
-        "line": 2667,
+        "line": 2669,
         "type": "arrow-function",
         "signature": "const sendJson = (data, statusCode = 200) =>"
       }
@@ -2374,12 +1414,6 @@
     "runWithConcurrency": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 34,
-        "type": "function",
-        "signature": "function runWithConcurrency(tasks, concurrency = 3)"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
         "line": 34,
         "type": "function",
         "signature": "function runWithConcurrency(tasks, concurrency = 3)"
@@ -2391,23 +1425,11 @@
         "line": 38,
         "type": "function",
         "signature": "function worker()"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
-        "line": 38,
-        "type": "function",
-        "signature": "function worker()"
       }
     ],
     "loadWorkerSkillContext": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 59,
-        "type": "function",
-        "signature": "function loadWorkerSkillContext(skillName)"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
         "line": 59,
         "type": "function",
         "signature": "function loadWorkerSkillContext(skillName)"
@@ -2419,23 +1441,11 @@
         "line": 93,
         "type": "function",
         "signature": "function executeWorkerTask(workerSpec, taskDescription, profile)"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
-        "line": 93,
-        "type": "function",
-        "signature": "function executeWorkerTask(workerSpec, taskDescription, profile)"
       }
     ],
     "dispatchSwarm": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 140,
-        "type": "function",
-        "signature": "function dispatchSwarm(taskDescription, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-dispatcher.mjs",
         "line": 140,
         "type": "function",
         "signature": "function dispatchSwarm(taskDescription, options = {})"
@@ -2447,23 +1457,11 @@
         "line": 60,
         "type": "function",
         "signature": "function resolveReasoningProfile(taskDescription = '', requestedProfile = null)"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-runner.mjs",
-        "line": 60,
-        "type": "function",
-        "signature": "function resolveReasoningProfile(taskDescription = '', requestedProfile = null)"
       }
     ],
     "planSwarm": [
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 83,
-        "type": "function",
-        "signature": "function planSwarm(taskDescription, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-runner.mjs",
         "line": 83,
         "type": "function",
         "signature": "function planSwarm(taskDescription, options = {})"
@@ -2475,23 +1473,11 @@
         "line": 139,
         "type": "function",
         "signature": "function executeSwarm(taskDescription, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/swarm-runner.mjs",
-        "line": 139,
-        "type": "function",
-        "signature": "function executeSwarm(taskDescription, options = {})"
       }
     ],
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 525,
-        "type": "arrow-function",
-        "signature": "const sum = (a, b) =>"
-      },
-      {
-        "file": "vibes-plug/scripts/test-cli.mjs",
         "line": 525,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
@@ -2509,18 +1495,6 @@
         "line": 15,
         "type": "function",
         "signature": "function walk(dir)"
-      },
-      {
-        "file": "vibes-plug/scripts/update_skills.js",
-        "line": 6,
-        "type": "function",
-        "signature": "function walk(dir)"
-      },
-      {
-        "file": "vibes-plug/scripts/update_skills.mjs",
-        "line": 15,
-        "type": "function",
-        "signature": "function walk(dir)"
       }
     ],
     "updateSkills": [
@@ -2535,29 +1509,11 @@
         "line": 30,
         "type": "function",
         "signature": "function updateSkills()"
-      },
-      {
-        "file": "vibes-plug/scripts/update_skills.js",
-        "line": 21,
-        "type": "function",
-        "signature": "function updateSkills()"
-      },
-      {
-        "file": "vibes-plug/scripts/update_skills.mjs",
-        "line": 30,
-        "type": "function",
-        "signature": "function updateSkills()"
       }
     ],
     "validateSkills": [
       {
         "file": "scripts/validate-skills.mjs",
-        "line": 28,
-        "type": "function",
-        "signature": "function validateSkills()"
-      },
-      {
-        "file": "vibes-plug/scripts/validate-skills.mjs",
         "line": 28,
         "type": "function",
         "signature": "function validateSkills()"
@@ -2569,23 +1525,11 @@
         "line": 17,
         "type": "function",
         "signature": "function verifyStateMachine(definition)"
-      },
-      {
-        "file": "vibes-plug/scripts/verify-invariants.mjs",
-        "line": 17,
-        "type": "function",
-        "signature": "function verifyStateMachine(definition)"
       }
     ],
     "parseTypeScriptStates": [
       {
         "file": "scripts/verify-invariants.mjs",
-        "line": 127,
-        "type": "function",
-        "signature": "function parseTypeScriptStates(tsContent)"
-      },
-      {
-        "file": "vibes-plug/scripts/verify-invariants.mjs",
         "line": 127,
         "type": "function",
         "signature": "function parseTypeScriptStates(tsContent)"
@@ -2597,23 +1541,11 @@
         "line": 59,
         "type": "function",
         "signature": "function visualAudit(content, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/visual-critic.mjs",
-        "line": 59,
-        "type": "function",
-        "signature": "function visualAudit(content, options = {})"
       }
     ],
     "auditImageFile": [
       {
         "file": "scripts/visual-critic.mjs",
-        "line": 215,
-        "type": "function",
-        "signature": "function auditImageFile(imagePath, options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/visual-critic.mjs",
         "line": 215,
         "type": "function",
         "signature": "function auditImageFile(imagePath, options = {})"
@@ -2625,23 +1557,11 @@
         "line": 261,
         "type": "function",
         "signature": "function formatVisionPrompt({ targetFile, score, verdict, findings })"
-      },
-      {
-        "file": "vibes-plug/scripts/visual-critic.mjs",
-        "line": 261,
-        "type": "function",
-        "signature": "function formatVisionPrompt({ targetFile, score, verdict, findings })"
       }
     ],
     "createIsolatedSandbox": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 41,
-        "type": "function",
-        "signature": "function createIsolatedSandbox(options = {})"
-      },
-      {
-        "file": "vibes-plug/scripts/wasm-sandbox.mjs",
         "line": 41,
         "type": "function",
         "signature": "function createIsolatedSandbox(options = {})"
@@ -2653,23 +1573,75 @@
         "line": 89,
         "type": "function",
         "signature": "function executeInSandbox(code, options = {})"
-      },
+      }
+    ],
+    "initDom": [
       {
-        "file": "vibes-plug/scripts/wasm-sandbox.mjs",
-        "line": 89,
+        "file": "showcase/app.js",
+        "line": 24,
         "type": "function",
-        "signature": "function executeInSandbox(code, options = {})"
+        "signature": "function initDom()"
+      }
+    ],
+    "filterSkills": [
+      {
+        "file": "showcase/app.js",
+        "line": 73,
+        "type": "function",
+        "signature": "function filterSkills()"
+      }
+    ],
+    "closeSkillModal": [
+      {
+        "file": "showcase/app.js",
+        "line": 229,
+        "type": "function",
+        "signature": "function closeSkillModal()"
+      }
+    ],
+    "appendTerminalLine": [
+      {
+        "file": "showcase/app.js",
+        "line": 360,
+        "type": "function",
+        "signature": "function appendTerminalLine(content, isCommand = false)"
+      }
+    ],
+    "executeTerminalCommand": [
+      {
+        "file": "showcase/app.js",
+        "line": 373,
+        "type": "function",
+        "signature": "function executeTerminalCommand(cmdText)"
+      }
+    ],
+    "renderTopology": [
+      {
+        "file": "showcase/app.js",
+        "line": 552,
+        "type": "function",
+        "signature": "function renderTopology(id)"
+      }
+    ],
+    "renderBridgeCode": [
+      {
+        "file": "showcase/app.js",
+        "line": 646,
+        "type": "function",
+        "signature": "function renderBridgeCode(ideId)"
+      }
+    ],
+    "initShowcase": [
+      {
+        "file": "showcase/app.js",
+        "line": 659,
+        "type": "function",
+        "signature": "function initShowcase()"
       }
     ],
     "parse_hex": [
       {
         "file": "skills/anti-slop/scripts/contrast-check.py",
-        "line": 26,
-        "type": "function",
-        "signature": "def parse_hex(value):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
         "line": 26,
         "type": "function",
         "signature": "def parse_hex(value):"
@@ -2681,23 +1653,11 @@
         "line": 35,
         "type": "function",
         "signature": "def parse_pairing(pairing):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
-        "line": 35,
-        "type": "function",
-        "signature": "def parse_pairing(pairing):"
       }
     ],
     "linearize": [
       {
         "file": "skills/anti-slop/scripts/contrast-check.py",
-        "line": 52,
-        "type": "function",
-        "signature": "def linearize(channel):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
         "line": 52,
         "type": "function",
         "signature": "def linearize(channel):"
@@ -2709,23 +1669,11 @@
         "line": 59,
         "type": "function",
         "signature": "def luminance(rgb):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
-        "line": 59,
-        "type": "function",
-        "signature": "def luminance(rgb):"
       }
     ],
     "contrast_ratio": [
       {
         "file": "skills/anti-slop/scripts/contrast-check.py",
-        "line": 64,
-        "type": "function",
-        "signature": "def contrast_ratio(color_a, color_b):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
         "line": 64,
         "type": "function",
         "signature": "def contrast_ratio(color_a, color_b):"
@@ -2737,23 +1685,11 @@
         "line": 70,
         "type": "function",
         "signature": "def reference_doc_path():"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
-        "line": 70,
-        "type": "function",
-        "signature": "def reference_doc_path():"
       }
     ],
     "parse_reference_rows": [
       {
         "file": "skills/anti-slop/scripts/contrast-check.py",
-        "line": 76,
-        "type": "function",
-        "signature": "def parse_reference_rows(path):"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
         "line": 76,
         "type": "function",
         "signature": "def parse_reference_rows(path):"
@@ -2765,23 +1701,11 @@
         "line": 108,
         "type": "function",
         "signature": "def selftest():"
-      },
-      {
-        "file": "vibes-plug/skills/anti-slop/scripts/contrast-check.py",
-        "line": 108,
-        "type": "function",
-        "signature": "def selftest():"
       }
     ],
     "ApiContractValidator": [
       {
         "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
-        "line": 15,
-        "type": "class",
-        "signature": "class ApiContractValidator:"
-      },
-      {
-        "file": "vibes-plug/skills/fullstack-expert/scripts/api_contract_validator.py",
         "line": 15,
         "type": "class",
         "signature": "class ApiContractValidator:"
@@ -2793,23 +1717,67 @@
         "line": 15,
         "type": "class",
         "signature": "class ArchitectureAnalyzer:"
-      },
+      }
+    ],
+    "getArgValue": [
       {
-        "file": "vibes-plug/skills/fullstack-expert/scripts/architecture_analyzer.py",
-        "line": 15,
-        "type": "class",
-        "signature": "class ArchitectureAnalyzer:"
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 23,
+        "type": "function",
+        "signature": "function getArgValue(flag)"
+      }
+    ],
+    "estimateTokens": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 117,
+        "type": "function",
+        "signature": "function estimateTokens(charCount)"
+      }
+    ],
+    "scanDirectory": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 122,
+        "type": "function",
+        "signature": "function scanDirectory(dir, fileList = [])"
+      }
+    ],
+    "getGitDiffText": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 168,
+        "type": "function",
+        "signature": "function getGitDiffText(dir)"
+      }
+    ],
+    "evaluateComplexity": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 178,
+        "type": "function",
+        "signature": "function evaluateComplexity(taskText, diffText, totalTokens)"
+      }
+    ],
+    "evaluateCaching": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 255,
+        "type": "function",
+        "signature": "function evaluateCaching(totalTokens)"
+      }
+    ],
+    "recommendModel": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 280,
+        "type": "function",
+        "signature": "function recommendModel(complexity, caching)"
       }
     ],
     "ProductionReadinessScanner": [
       {
         "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
-        "line": 24,
-        "type": "class",
-        "signature": "class ProductionReadinessScanner:"
-      },
-      {
-        "file": "vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py",
         "line": 24,
         "type": "class",
         "signature": "class ProductionReadinessScanner:"
@@ -2821,23 +1789,11 @@
         "line": 22,
         "type": "class",
         "signature": "class SaasTransformationScanner:"
-      },
-      {
-        "file": "vibes-plug/skills/saas-architect/scripts/saas_transformation_scanner.py",
-        "line": 22,
-        "type": "class",
-        "signature": "class SaasTransformationScanner:"
       }
     ],
     "BM25": [
       {
         "file": "skills/ui-ux-pro-max/scripts/core.py",
-        "line": 104,
-        "type": "class",
-        "signature": "class BM25:"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
         "line": 104,
         "type": "class",
         "signature": "class BM25:"
@@ -2849,23 +1805,11 @@
         "line": 167,
         "type": "function",
         "signature": "def _load_csv(filepath):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
-        "line": 167,
-        "type": "function",
-        "signature": "def _load_csv(filepath):"
       }
     ],
     "_search_csv": [
       {
         "file": "skills/ui-ux-pro-max/scripts/core.py",
-        "line": 173,
-        "type": "function",
-        "signature": "def _search_csv(filepath, search_cols, output_cols, query, max_results):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
         "line": 173,
         "type": "function",
         "signature": "def _search_csv(filepath, search_cols, output_cols, query, max_results):"
@@ -2877,23 +1821,11 @@
         "line": 198,
         "type": "function",
         "signature": "def detect_domain(query):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
-        "line": 198,
-        "type": "function",
-        "signature": "def detect_domain(query):"
       }
     ],
     "search": [
       {
         "file": "skills/ui-ux-pro-max/scripts/core.py",
-        "line": 221,
-        "type": "function",
-        "signature": "def search(query, domain=None, max_results=MAX_RESULTS):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
         "line": 221,
         "type": "function",
         "signature": "def search(query, domain=None, max_results=MAX_RESULTS):"
@@ -2905,12 +1837,6 @@
         "line": 243,
         "type": "function",
         "signature": "def search_stack(query, stack, max_results=MAX_RESULTS):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/core.py",
-        "line": 243,
-        "type": "function",
-        "signature": "def search_stack(query, stack, max_results=MAX_RESULTS):"
       }
     ],
     "DesignSystemGenerator": [
@@ -2919,23 +1845,11 @@
         "line": 36,
         "type": "class",
         "signature": "class DesignSystemGenerator:"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/design_system.py",
-        "line": 36,
-        "type": "class",
-        "signature": "class DesignSystemGenerator:"
       }
     ],
     "format_output": [
       {
         "file": "skills/ui-ux-pro-max/scripts/search.py",
-        "line": 22,
-        "type": "function",
-        "signature": "def format_output(result):"
-      },
-      {
-        "file": "vibes-plug/skills/ui-ux-pro-max/scripts/search.py",
         "line": 22,
         "type": "function",
         "signature": "def format_output(result):"
@@ -2948,7 +1862,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1800,
+      "totalLines": 1974,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2972,7 +1886,7 @@
       "symbolCount": 5
     },
     "scripts/compile-cache.mjs": {
-      "totalLines": 245,
+      "totalLines": 246,
       "symbolCount": 3
     },
     "scripts/create-agent.mjs": {
@@ -3011,9 +1925,17 @@
       "totalLines": 265,
       "symbolCount": 6
     },
+    "scripts/mcp-setup.mjs": {
+      "totalLines": 231,
+      "symbolCount": 4
+    },
     "scripts/memory-daemon.mjs": {
       "totalLines": 159,
       "symbolCount": 8
+    },
+    "scripts/project-detector.mjs": {
+      "totalLines": 336,
+      "symbolCount": 4
     },
     "scripts/registry-manager.mjs": {
       "totalLines": 355,
@@ -3028,7 +1950,7 @@
       "symbolCount": 6
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 3316,
+      "totalLines": 3318,
       "symbolCount": 47
     },
     "scripts/swarm-dispatcher.mjs": {
@@ -3067,6 +1989,10 @@
       "totalLines": 218,
       "symbolCount": 3
     },
+    "showcase/app.js": {
+      "totalLines": 780,
+      "symbolCount": 12
+    },
     "skills/anti-slop/scripts/check-anti-slop.js": {
       "totalLines": 334,
       "symbolCount": 5
@@ -3082,6 +2008,10 @@
     "skills/fullstack-expert/scripts/architecture_analyzer.py": {
       "totalLines": 327,
       "symbolCount": 2
+    },
+    "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js": {
+      "totalLines": 408,
+      "symbolCount": 7
     },
     "skills/production-ready-hardener/scripts/production_readiness_scanner.py": {
       "totalLines": 882,
@@ -3112,178 +2042,6 @@
       "symbolCount": 1
     },
     "skills/ui-ux-pro-max/scripts/search.py": {
-      "totalLines": 82,
-      "symbolCount": 1
-    },
-    "vibes-plug/bin/mcp-server.mjs": {
-      "totalLines": 999,
-      "symbolCount": 7
-    },
-    "vibes-plug/bin/vibes.mjs": {
-      "totalLines": 1800,
-      "symbolCount": 27
-    },
-    "vibes-plug/extensions/vscode/extension.js": {
-      "totalLines": 98,
-      "symbolCount": 3
-    },
-    "vibes-plug/index.js": {
-      "totalLines": 20,
-      "symbolCount": 0
-    },
-    "vibes-plug/scripts/ast-query.mjs": {
-      "totalLines": 226,
-      "symbolCount": 5
-    },
-    "vibes-plug/scripts/check-anti-slop.js": {
-      "totalLines": 329,
-      "symbolCount": 5
-    },
-    "vibes-plug/scripts/check-anti-slop.mjs": {
-      "totalLines": 320,
-      "symbolCount": 5
-    },
-    "vibes-plug/scripts/compile-cache.mjs": {
-      "totalLines": 245,
-      "symbolCount": 3
-    },
-    "vibes-plug/scripts/create-agent.mjs": {
-      "totalLines": 164,
-      "symbolCount": 2
-    },
-    "vibes-plug/scripts/critic-validator.mjs": {
-      "totalLines": 237,
-      "symbolCount": 3
-    },
-    "vibes-plug/scripts/eval-migration.mjs": {
-      "totalLines": 213,
-      "symbolCount": 2
-    },
-    "vibes-plug/scripts/finops-tracker.mjs": {
-      "totalLines": 236,
-      "symbolCount": 7
-    },
-    "vibes-plug/scripts/generate_logo_svg.py": {
-      "totalLines": 19,
-      "symbolCount": 0
-    },
-    "vibes-plug/scripts/generate_swarm_gif.py": {
-      "totalLines": 296,
-      "symbolCount": 3
-    },
-    "vibes-plug/scripts/github-pr-bot.mjs": {
-      "totalLines": 248,
-      "symbolCount": 3
-    },
-    "vibes-plug/scripts/graphrag-indexer.mjs": {
-      "totalLines": 238,
-      "symbolCount": 4
-    },
-    "vibes-plug/scripts/install.js": {
-      "totalLines": 265,
-      "symbolCount": 6
-    },
-    "vibes-plug/scripts/memory-daemon.mjs": {
-      "totalLines": 159,
-      "symbolCount": 8
-    },
-    "vibes-plug/scripts/registry-manager.mjs": {
-      "totalLines": 355,
-      "symbolCount": 6
-    },
-    "vibes-plug/scripts/self-healer.mjs": {
-      "totalLines": 264,
-      "symbolCount": 3
-    },
-    "vibes-plug/scripts/speculative-arbiter.mjs": {
-      "totalLines": 213,
-      "symbolCount": 6
-    },
-    "vibes-plug/scripts/studio-server.mjs": {
-      "totalLines": 3316,
-      "symbolCount": 47
-    },
-    "vibes-plug/scripts/swarm-dispatcher.mjs": {
-      "totalLines": 242,
-      "symbolCount": 6
-    },
-    "vibes-plug/scripts/swarm-runner.mjs": {
-      "totalLines": 230,
-      "symbolCount": 4
-    },
-    "vibes-plug/scripts/test-cli.mjs": {
-      "totalLines": 720,
-      "symbolCount": 1
-    },
-    "vibes-plug/scripts/update_skills.js": {
-      "totalLines": 76,
-      "symbolCount": 2
-    },
-    "vibes-plug/scripts/update_skills.mjs": {
-      "totalLines": 87,
-      "symbolCount": 2
-    },
-    "vibes-plug/scripts/validate-skills.mjs": {
-      "totalLines": 177,
-      "symbolCount": 1
-    },
-    "vibes-plug/scripts/verify-invariants.mjs": {
-      "totalLines": 235,
-      "symbolCount": 4
-    },
-    "vibes-plug/scripts/visual-critic.mjs": {
-      "totalLines": 277,
-      "symbolCount": 4
-    },
-    "vibes-plug/scripts/wasm-sandbox.mjs": {
-      "totalLines": 218,
-      "symbolCount": 3
-    },
-    "vibes-plug/skills/anti-slop/scripts/check-anti-slop.js": {
-      "totalLines": 334,
-      "symbolCount": 5
-    },
-    "vibes-plug/skills/anti-slop/scripts/contrast-check.py": {
-      "totalLines": 166,
-      "symbolCount": 9
-    },
-    "vibes-plug/skills/fullstack-expert/scripts/api_contract_validator.py": {
-      "totalLines": 254,
-      "symbolCount": 2
-    },
-    "vibes-plug/skills/fullstack-expert/scripts/architecture_analyzer.py": {
-      "totalLines": 327,
-      "symbolCount": 2
-    },
-    "vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py": {
-      "totalLines": 882,
-      "symbolCount": 2
-    },
-    "vibes-plug/skills/saas-architect/scripts/saas_transformation_scanner.py": {
-      "totalLines": 265,
-      "symbolCount": 2
-    },
-    "vibes-plug/skills/senior-frontend/scripts/bundle_analyzer.py": {
-      "totalLines": 408,
-      "symbolCount": 1
-    },
-    "vibes-plug/skills/senior-frontend/scripts/component_generator.py": {
-      "totalLines": 330,
-      "symbolCount": 1
-    },
-    "vibes-plug/skills/senior-frontend/scripts/frontend_scaffolder.py": {
-      "totalLines": 1006,
-      "symbolCount": 1
-    },
-    "vibes-plug/skills/ui-ux-pro-max/scripts/core.py": {
-      "totalLines": 263,
-      "symbolCount": 6
-    },
-    "vibes-plug/skills/ui-ux-pro-max/scripts/design_system.py": {
-      "totalLines": 494,
-      "symbolCount": 1
-    },
-    "vibes-plug/skills/ui-ux-pro-max/scripts/search.py": {
       "totalLines": 82,
       "symbolCount": 1
     }

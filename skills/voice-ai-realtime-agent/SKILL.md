@@ -212,7 +212,7 @@ export class GeminiVoiceAgent {
 - **`ai-llm-integration-expert`**: For base LLM prompt routing and function calling during conversation.
 - **`realtime-collaboration-expert`**: For syncing WebRTC tracks and room states with client applications.
 - **`gemini-agent-booster`**: Connects Gemini 3.x / 2.0 Flash thinking models to live voice agents.
-- **`mobile-expo-expert`**: Audio streaming implementation in React Native with `expo-av` and WebRTC shim.
+- **`mobile-expo-expert`**: Audio streaming implementation in React Native with expo-av and WebRTC shim.
 
 ---
 

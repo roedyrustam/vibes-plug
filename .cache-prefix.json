@@ -34,7 +34,8 @@
       "thinking-budget-orchestrator",
       "vector-db-rag-expert",
       "vercel-ai-sdk-expert",
-      "voice-ai-realtime-agent"
+      "voice-ai-realtime-agent",
+      "xerj-search-expert"
     ],
     "design_ui_ux": [
       "design-system-architect",
@@ -78,6 +79,7 @@
       "api-gateway-proxy-expert",
       "autonomous-api-drift-healer",
       "bun-runtime-expert",
+      "cloudflare-workers-expert",
       "domain-driven-design-expert",
       "fullstack-expert",
       "go-programming-expert",
@@ -98,10 +100,12 @@
       "ci-cd-devops-architect",
       "cloud-hosting-expert",
       "composable-mach-architect",
+      "docker-container-expert",
       "doku-payment-gateway",
       "ecommerce-expert",
       "event-driven-architect",
       "feature-flag-analytics-expert",
+      "github-actions-expert",
       "legacy-code-translator",
       "micro-frontend-architect",
       "monorepo-architect",
@@ -176,7 +180,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 155,
+  "totalSkills": 159,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

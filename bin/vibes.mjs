@@ -111,6 +111,9 @@ async function runWizard() {
         { name: '🛍️ E-Commerce & Agentic Commerce (Next.js, QRIS / Base, Medusa)', value: 'ecommerce' },
         { name: '📱 Cross-Platform Mobile App (React Native, Expo SDK 53, Router v4)', value: 'mobile' },
         { name: '🚀 High-Performance Backend API (Bun / Hono / Node.js 24+)', value: 'api' },
+        { name: '🤖 Autonomous Multi-Agent AI System (MCP, Vector RAG, Memory, Cascade)', value: 'ai-agent' },
+        { name: '💳 FinTech & Sovereign Payment Engine (SNAP BI, DOKU Checkout, Z3 Verifier)', value: 'fintech' },
+        { name: '☁️ Cloud-Native Microservices (Docker Multi-Stage, GitHub Actions, Telemetry)', value: 'cloud-native' },
         { name: '🎯 Custom Tailored Stack (Choose components manually)', value: 'custom' }
       ]
     });
@@ -249,7 +252,10 @@ async function runWizard() {
         'fullstack': ['nextjs-app-router-expert', 'saas-architect', 'database-orm-expert', 'authentication-identity-expert', 'tailwind-expert', 'senior-frontend'],
         'ecommerce': ['ecommerce-expert', 'payment-gateway-expert', 'database-orm-expert', 'doku-payment-gateway', 'senior-frontend', 'tailwind-expert'],
         'mobile': ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'],
-        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert']
+        'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'],
+        'ai-agent': ['multi-agent-orchestration', 'mcp-server-architect', 'ai-llm-integration-expert', 'frontier-ai-models-expert', 'agentic-memory-architect', 'pydantic-ai-expert', 'vector-db-rag-expert', 'anti-slop'],
+        'fintech': ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop'],
+        'cloud-native': ['ci-cd-devops-architect', 'github-actions-expert', 'docker-container-expert', 'cloud-hosting-expert', 'logging-error-tracking-expert', 'self-healing-cloud-orchestrator', 'anti-slop']
       };
       chosenSkills = ['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager', ...(templateSkillMap[archetype] || [])];
     }
@@ -296,11 +302,11 @@ async function runBootstrap(templateName, projectName) {
   if (!templateName || !projectName) {
     console.error('❌ Error: Template name and Project name are required.');
     console.log('Usage: vibes bootstrap <template> <project-name>');
-    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api');
+    console.log('Available templates: saas, ecommerce, mobile, api, fullstack, spec-api, ai-agent, fintech, cloud-native');
     process.exit(1);
   }
 
-  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api'];
+  const validTemplates = ['saas', 'ecommerce', 'mobile', 'api', 'fullstack', 'spec-api', 'ai-agent', 'fintech', 'cloud-native'];
   if (!validTemplates.includes(templateName)) {
     console.error(`❌ Error: Invalid template '${templateName}'. Valid options: ${validTemplates.join(', ')}`);
     process.exit(1);
@@ -355,6 +361,44 @@ async function runBootstrap(templateName, projectName) {
         'database-orm-expert',
         'authentication-identity-expert',
         'logging-error-tracking-expert'
+      ];
+    } else if (templateName === 'ai-agent') {
+      prdTitle = 'Autonomous Multi-Agent AI System';
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
+      specificSkills = [
+        'multi-agent-orchestration',
+        'mcp-server-architect',
+        'ai-llm-integration-expert',
+        'frontier-ai-models-expert',
+        'agentic-memory-architect',
+        'pydantic-ai-expert',
+        'vector-db-rag-expert',
+        'anti-slop'
+      ];
+    } else if (templateName === 'fintech') {
+      prdTitle = 'FinTech & Sovereign Payment Engine';
+      scaffoldArgs = ['create-next-app@latest', projectName, '--ts', '--tailwind', '--eslint', '--app', '--src-dir', '--import-alias', '@/*', '--use-npm', '--yes'];
+      specificSkills = [
+        'doku-payment-gateway',
+        'payment-gateway-expert',
+        'saas-billing',
+        'agentic-m2m-settlement',
+        'database-orm-expert',
+        'authentication-identity-expert',
+        'formal-spec-z3-verifier',
+        'anti-slop'
+      ];
+    } else if (templateName === 'cloud-native') {
+      prdTitle = 'Cloud-Native Resilient Microservices';
+      scaffoldArgs = ['create-hono@latest', projectName, '--template', 'nodejs', '--pm', 'npm', '--install'];
+      specificSkills = [
+        'ci-cd-devops-architect',
+        'github-actions-expert',
+        'docker-container-expert',
+        'cloud-hosting-expert',
+        'logging-error-tracking-expert',
+        'self-healing-cloud-orchestrator',
+        'anti-slop'
       ];
     }
 
@@ -762,8 +806,8 @@ async function runUi() {
         frontend: [
           'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
           'blockchain-web3-expert', 'browser-extension-mv3-pro', 'design-system-architect',
-          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'form-validation-expert',
-          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'micro-frontend-architect',
+          'desktop-electron-expert', 'ephemeral-generative-ui-architect', 'flutter-dart-expert', 'form-validation-expert',
+          'global-a11y-i18n-expert', 'glsl-shader-expert', 'hig', 'htmx-hypermedia-expert', 'micro-frontend-architect',
           'mobile-expo-expert', 'modern-css-native-expert', 'mpa-orchestrator',
           'multimodal-spatial-video-cloner', 'nextjs-app-router-expert', 'pwa-offline-first-expert',
           'rich-text-editor-expert', 'screenshot-to-code-expert', 'senior-frontend',
@@ -774,7 +818,7 @@ async function runUi() {
         ],
         backend: [
           'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
-          'autonomous-api-drift-healer', 'bun-runtime-expert', 'composable-mach-architect',
+          'autonomous-api-drift-healer', 'bun-runtime-expert', 'cloudflare-workers-expert', 'composable-mach-architect',
           'cron-scheduler-expert', 'domain-driven-design-expert', 'ephemeral-wasm-sandbox-executor',
           'event-driven-architect', 'fullstack-expert', 'go-programming-expert',
           'graphql-apollo-expert', 'js-backend-expert', 'legacy-code-translator',
@@ -793,7 +837,8 @@ async function runUi() {
           'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
           'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
           'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent',
+          'xerj-search-expert'
         ],
         saas: [
           'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
@@ -814,7 +859,7 @@ async function runUi() {
         ],
         data: [
           'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
-          'ci-cd-devops-architect', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
+          'ci-cd-devops-architect', 'docker-container-expert', 'github-actions-expert', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
           'data-visualization-expert', 'database-orm-expert', 'dependency-upgrade-migrator',
           'documentation-site-expert', 'file-upload-media-expert', 'geospatial-maps-expert',
           'pdf-document-generation-expert', 'performance-web-vitals', 'prd-architect',
@@ -998,7 +1043,8 @@ async function runVersion(action, type) {
       { path: path.join(PLUGIN_ROOT, '.codex-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
-      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` }
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'extensions', 'vscode', 'package.json'), from: `"version": "${current}"`, to: `"version": "${next}"` }
     ];
 
     for (const { path: filePath, from, to } of files) {
@@ -1170,44 +1216,34 @@ async function runSkillInfo(skillName) {
 }
 
 async function runHooks(action) {
-  const gitDir = path.join(process.cwd(), '.git');
-  const hookPath = path.join(gitDir, 'hooks', 'pre-commit');
-
-  const gitExists = await fs.access(gitDir).then(() => true).catch(() => false);
-  if (!gitExists) {
-    console.error('❌ No .git directory found. Run this command inside a git repository.');
-    process.exit(1);
-  }
-
+  rl.close();
+  const { installGitHook, removeGitHook, checkHookStatus } = await import('../scripts/git-hook-installer.mjs');
   try {
     if (!action || action === 'install') {
-      const hookContent = `#!/bin/sh
-# Installed by vibes-plug — Anti-AI Slop pre-commit gate
-echo "🔍 Running Vibes Anti-Slop Audit..."
-node "${path.join(PLUGIN_ROOT, 'scripts', 'check-anti-slop.mjs')}" || exit 1
-`;
-      await fs.mkdir(path.join(gitDir, 'hooks'), { recursive: true });
-      await fs.writeFile(hookPath, hookContent, { mode: 0o755 });
-      console.log('\n\u2705 Git pre-commit hook installed!');
-      console.log('🛡️  Anti-Slop Audit will now run automatically before every commit.');
-      console.log(`📂 Hook location: ${hookPath}`);
-
+      const res = await installGitHook(process.cwd());
+      console.log(`\n\u2705 ${res.message}`);
+      console.log('\ud83d\udee1\ufe0f  Anti-Slop & Pre-Disk Verification Gate active before every commit.');
+      console.log(`\ud83d\udcc2 Hook location: ${res.hookPath}`);
     } else if (action === 'remove') {
-      const exists = await fs.access(hookPath).then(() => true).catch(() => false);
-      if (!exists) {
-        console.log('ℹ️  No vibes pre-commit hook found to remove.');
-      } else {
-        await fs.rm(hookPath, { force: true });
-        console.log('✅ Git pre-commit hook removed.');
+      const res = await removeGitHook(process.cwd());
+      console.log(`\n\u2705 ${res.message}`);
+    } else if (action === 'status') {
+      const status = await checkHookStatus(process.cwd());
+      console.log('\n\ud83e\ude9d Vibes-Plug Git Pre-Commit Hook Status:');
+      console.log(`  Git Repository   : ${status.isGitRepo ? 'Yes' : 'No'}`);
+      console.log(`  Hook Installed   : ${status.installed ? 'Yes' : 'No'}`);
+      console.log(`  Managed by Vibes : ${status.managedByVibes ? 'Yes' : 'No'}`);
+      if (status.hookPath) {
+        console.log(`  Hook Location    : ${status.hookPath}`);
       }
+      console.log(`  Status Message   : ${status.message}\n`);
     } else {
-      console.error('❌ Usage: vibes hooks install  OR  vibes hooks remove');
+      console.error('\u274c Usage: vibes hooks [install|remove|status]');
       process.exit(1);
     }
   } catch (err) {
-    console.error(`❌ Error managing hooks: ${err.message}`);
-  } finally {
-    rl.close();
+    console.error(`\u274c Error managing hooks: ${err.message}`);
+    process.exit(1);
   }
 }
 
@@ -1248,6 +1284,18 @@ const RECIPES = {
   'spec-driven-api': {
     description: 'Contract-first API engineering: TypeSpec, OpenAPI 3.1, BDD Gherkin, consumer-driven Pact contracts, and API drift healing',
     skills: ['spec-driven-development-expert', 'openapi-swagger-codegen-expert', 'api-design-expert', 'autonomous-api-drift-healer', 'formal-spec-z3-verifier', 'e2e-testing-expert']
+  },
+  'cloud-native': {
+    description: 'Resilient Cloud & CI/CD: Docker containerization, GitHub Actions, cloud hosting, and self-healing telemetry',
+    skills: ['ci-cd-devops-architect', 'github-actions-expert', 'docker-container-expert', 'cloud-hosting-expert', 'logging-error-tracking-expert', 'self-healing-cloud-orchestrator', 'anti-slop']
+  },
+  'ai-agent': {
+    description: 'Autonomous Multi-Agent Swarms: MCP protocol, agentic memory, model cascade, and structured reasoning',
+    skills: ['multi-agent-orchestration', 'mcp-server-architect', 'ai-llm-integration-expert', 'frontier-ai-models-expert', 'agentic-memory-architect', 'pydantic-ai-expert', 'vector-db-rag-expert', 'anti-slop']
+  },
+  'fintech': {
+    description: 'FinTech, Billing & Payments: DOKU Checkout, SNAP BI standard, atomic idempotency, and SaaS subscriptions',
+    skills: ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop']
   }
 };
 
@@ -1351,7 +1399,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 155 skills.');
+    console.log('Try: vibes list  to browse all 160 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1417,7 +1465,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 155 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 160 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1486,7 +1534,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.3.0)
+🌊 Vibes-Plug CLI (v4.4.1)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1495,11 +1543,11 @@ Usage:
 Commands:
   sync                      Verify and synchronize primary trigger & cross-skill orchestration
   init <project-name>       Scaffold a new zero-to-prod 8-Phase project structure
-  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api)
+  bootstrap <type> <name>   Super-scaffold a project + AI Skills (saas | ecommerce | mobile | api | fullstack | spec-api | ai-agent | fintech | cloud-native)
   wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 155 skills by keyword (ranked by relevance)
+  search <query>            Search all 160 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1509,8 +1557,12 @@ Commands:
   create-mcp <server-name>  Scaffold a new Model Context Protocol (MCP) server
   version current           Show current version
   version bump <type>       Bump version across all files (type: major | minor | patch)
-  hooks install             Install Git pre-commit Anti-Slop gate
-  hooks remove              Remove the Git pre-commit hook
+  hooks [install|remove|status] Manage Git pre-commit Anti-Slop & Pre-Disk verification gate
+  bench [--json]            Run the 7-engine performance benchmark suite & regression fuzzer
+  budget <task|file> [--json] Dynamic token budget optimizer & multi-provider complexity scorer
+  drift [skill] [--json]    Automated Skill Health & Framework Drift Monitor (2026 Gold Standard)
+  monitor [--once] [--json] Interactive terminal cockpit & live swarm telemetry monitor
+  consensus <f1> <f2> [opts] Speculative multi-draft consensus synthesizer & arbitration engine
   doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
@@ -1520,7 +1572,9 @@ Commands:
   registry <cmd> [args]     Community skill registry hub (list | search | install | pack)
   graph:build [dir]         Build local AST symbol knowledge graph (.agents/graph/symbol_graph.json)
   graph:query <symbol>      Query symbol knowledge graph for instant definition & line numbers
-  sandbox <file|code>       Dry-run JS/TS code in Ephemeral Sandbox with zero host blast radius
+  graph:search <query>      Local Hybrid GraphRAG search (BM25 + TF-IDF Vector cosine similarity)
+  sandbox <file|code> [--verify] Dry-run code in micro-sandbox or run pre-disk verification gate
+  verify-gate <file|code>   In-memory pre-disk verification gate (Syntax + Anti-Slop + Visual UI)
   cache [status|compile]    Inspect prompt cache hit rate, token economics, or recompile prefix
   compile-cache             Compile and lock deterministic KV-Cache prefix (>1024 tokens)
   db:eval [file|--sql]      Evaluate and simulate SQL DDL migrations in-memory
@@ -1529,13 +1583,19 @@ Commands:
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
-  finops [status|record]    Track token economics & prompt caching (KV-cache) financial savings
+  swarm:bus [status|events] Real-time swarm concurrency event bus & multi-agent telemetry
+  finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
+  bridge [status|sync|bundle] Universal cross-IDE multi-platform rule & episodic memory state bridge
+  learn <skill-name> [opts] Synthesize a Gold-Standard skill from codebase, OpenAPI, or docs
   memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
+  mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 155-skill ecosystem catalog
-  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 155-skill explorer)
+  docs [markdown|json]      Export or preview the complete 160-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 160-skill explorer)
+  showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
+  detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   help                      Show this help menu
 `);
   rl.close();
@@ -1543,11 +1603,42 @@ Commands:
 
 // Main Router
 switch (command) {
+  case 'detect': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'project-detector.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
+  case 'learn': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-synthesizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
+  case 'bridge': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'cross-ide-bridge.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
   case 'sync':
     runSync();
     break;
+  case 'mcp:setup':
+  case 'mcp-setup': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'mcp-setup.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
   case 'mcp':
   case 'serve-mcp': {
+    if (args[1] === 'setup') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'mcp-setup.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+      break;
+    }
     rl.close();
     const { spawn } = await import('child_process');
     const extraArgs = args.slice(1);
@@ -1627,6 +1718,8 @@ Platform Eligibility & Economics:
     const { spawnSync } = await import('child_process');
     if (args[1] === 'dispatch') {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    } else if (args[1] === 'bus') {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     } else {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     }
@@ -1637,6 +1730,13 @@ Platform Eligibility & Economics:
   case 'dispatch': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm:bus':
+  case 'bus': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
@@ -1711,15 +1811,29 @@ Platform Eligibility & Economics:
   }
   case 'sandbox': {
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    rl.close();
+    break;
+  }
+  case 'verify-gate': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), '--verify', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
     rl.close();
     break;
   }
   case 'graph:build':
-  case 'graph:query': {
+  case 'graph:query':
+  case 'graph:search': {
     const { spawnSync } = await import('child_process');
-    const subCmd = command === 'graph:query' ? 'query' : 'build';
+    const subCmd = command === 'graph:query' ? 'query' : command === 'graph:search' ? 'search' : 'build';
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'package:vscode':
+  case 'package-extension': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'package-extension.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }
@@ -1782,6 +1896,47 @@ Platform Eligibility & Economics:
   case 'catalog':
     runDocs(args[1], args[2]);
     break;
+  case 'bench':
+  case 'benchmark': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'benchmark-suite.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
+  case 'budget': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'token-budget-optimizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
+  case 'drift': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-drift-monitor.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    break;
+  }
+  case 'monitor':
+  case 'tui': {
+    rl.close();
+    const { runTerminalMonitor } = await import('../scripts/terminal-monitor.mjs');
+    await runTerminalMonitor({ once: args.includes('--once'), json: args.includes('--json') });
+    break;
+  }
+  case 'consensus':
+  case 'reconcile': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'speculative-consensus.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
+  case 'hook:install':
+  case 'hook:remove':
+  case 'hook:status': {
+    const subAction = command.split(':')[1];
+    runHooks(subAction);
+    break;
+  }
   case 'studio': {
     rl.close();
     const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;
@@ -1790,6 +1945,25 @@ Platform Eligibility & Economics:
     const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
     const noOpen = args.includes('--no-open');
     await startStudioServer({ port, noOpen });
+    break;
+  }
+  case 'showcase': {
+    rl.close();
+    const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;
+    const { startStudioServer } = await import(studioModuleUrl);
+    const portIdx = args.indexOf('--port');
+    const port = portIdx !== -1 ? parseInt(args[portIdx + 1], 10) : 3888;
+    const noOpen = args.includes('--no-open');
+    const { url } = await startStudioServer({ port, noOpen: true });
+    const showcaseUrl = `${url}/showcase`;
+    console.log(`\n🌐 Vibes-Plug Web Showcase is running at: \x1b[36m${showcaseUrl}\x1b[0m\n`);
+    if (!noOpen) {
+      const { exec } = await import('child_process');
+      const cmd = process.platform === 'win32' ? `start ${showcaseUrl}` :
+                  process.platform === 'darwin' ? `open ${showcaseUrl}` :
+                  `xdg-open ${showcaseUrl}`;
+      exec(cmd, () => {});
+    }
     break;
   }
   default:

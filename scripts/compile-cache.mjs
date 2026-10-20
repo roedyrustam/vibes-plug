@@ -62,7 +62,8 @@ export async function compileCache(options = {}) {
         'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
         'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
         'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent',
+        'xerj-search-expert'
       ],
       design_ui_ux: [
         'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',
@@ -80,7 +81,7 @@ export async function compileCache(options = {}) {
       ],
       backend_languages: [
         'api-design-expert', 'api-gateway-proxy-expert', 'autonomous-api-drift-healer',
-        'bun-runtime-expert', 'domain-driven-design-expert', 'fullstack-expert',
+        'bun-runtime-expert', 'cloudflare-workers-expert', 'domain-driven-design-expert', 'fullstack-expert',
         'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
         'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
         'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
@@ -88,8 +89,8 @@ export async function compileCache(options = {}) {
       ],
       saas_cloud: [
         'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
-        'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
-        'feature-flag-analytics-expert', 'legacy-code-translator', 'micro-frontend-architect',
+        'docker-container-expert', 'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
+        'feature-flag-analytics-expert', 'github-actions-expert', 'legacy-code-translator', 'micro-frontend-architect',
         'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
         'saas-billing', 'saas-multi-tenant'
       ],

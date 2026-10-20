@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.1] - 2026-10-20
+
+### Added / Ditambahkan
+- **160-Skill Milestone & Enterprise Gap Closure**:
+  - `github-actions-expert`: Enterprise guide for GitHub Actions CI/CD workflows, reusable workflows (`workflow_call`), composite actions, multi-platform test matrices, zero-secret OIDC cloud role authentication for AWS/GCP/Azure, immutable 40-character commit SHA action pinning, and least-privilege `GITHUB_TOKEN` permissions.
+  - `docker-container-expert`: Production-grade containerization with Docker 27+ and Docker Compose v2, BuildKit persistent cache mounts (`--mount=type=cache`), rootless execution (UID 65532 non-root) on Google Distroless and Scratch, internal network isolation (`internal: true`), container health checks, and compose dependency sequencing (`condition: service_healthy`).
+  - Full registration of both skills in `skills/brainstorming/SKILL.md` (Domain Matrix in EN & ID) and `skills/zero-to-prod-orchestrator/SKILL.md` (Phase 7 DevOps & Hardening in EN & ID).
+- **Public Web Showcase & Live Vercel Deployment (`showcase/`)**:
+  - Built zero-dependency, ultra-fast vanilla HTML/CSS/JS Web Showcase with live interactive 160-skill explorer, category tabs, real-time search, terminal CLI simulator, benchmark audit viewer, and IDE quick-copy snippets.
+  - Deployed publicly to Vercel at [**https://vibes-plug.vercel.app/**](https://vibes-plug.vercel.app/) with automated continuous deployment on git push.
+  - Automated GitHub Actions deployment pipeline (`.github/workflows/deploy-showcase.yml`) for GitHub Pages fallback.
+- **CI/CD Quality Gates & Test Suite Expansion**:
+  - Expanded test suite in `scripts/test-cli.mjs` to 42 passing tests (covering all 160 skills, doctor diagnostics, studio endpoints, and showcase assets).
+  - All 160 skills verified with 0 errors across frontmatter, author, version, bilingual requirement, and code block formatting.
+
+### Changed / Diubah
+- Updated all catalogs, documentation, Studio Cockpit, and README across English, Indonesian, Mandarin, German, and Japanese to reflect 160 verified skills.
+
+### Fixed / Diperbaiki
+- Regenerated `CATALOG.json` and `CATALOG.md` from disk (159 skills), including `cloudflare-workers-expert`, `docker-container-expert`, `github-actions-expert`, and `xerj-search-expert`.
+- Removed the accidental nested gitlink `vibes-plug/` from the git index (folder may remain locked by Cursor until restart).
+- Wired Cursor MCP at `~/.cursor/mcp.json` for `vibes-plug-tools` and `xerj`.
+
+---
+
+## [4.4.0] - 2026-10-18
+
+### Added / Ditambahkan
+- **Pillar 1: Universal Cross-IDE State Bridge (`scripts/cross-ide-bridge.mjs`)**:
+  - Full bidirectional state bridge across Google Antigravity (`.agents/`), Anthropic Claude Code (`.claude/`), Cursor IDE (`.cursor/`), and OpenAI Codex (`.codex/`).
+  - Seamlessly links core rules (`AGENTS.md`, `CLAUDE.md`, `.cursorrules`, `CODEX.md`), synchronizes the 155 specialized skills via relative symlinks with graceful copy fallback, and generates unified markdown context bundles (`CONTEXT_BUNDLE.md`).
+  - Integrated into CLI `vibes bridge [status|sync|bundle]`, Studio API `/api/bridge/*`, and MCP tools `vibes_bridge_status` & `vibes_bridge_sync`.
+- **Pillar 2: Autonomous Skill Synthesizer (`scripts/skill-synthesizer.mjs`)**:
+  - Autonomous engine that synthesizes complete, gold-standard bilingual skills from raw project codebases or repository patterns (`vibes learn <skill-name>`).
+  - Automatically analyzes source code symbols, generates complete frontmatter, bilingual docs (English & Indonesian), domain integration matrices, and auto-registers the synthesized skill into both `brainstorming/SKILL.md` and `zero-to-prod-orchestrator/SKILL.md`.
+  - Integrated into CLI `vibes learn <skill-name>`, Studio endpoint `/api/skill/learn`, and MCP tool `vibes_learn_skill`.
+- **Pillar 3: Pre-Disk Verification Gate (`scripts/wasm-sandbox.mjs`)**:
+  - Atomic in-memory pre-commit gate that validates candidate code before writing to disk (`vibes verify-gate` / `vibes sandbox --verify`).
+  - Evaluates AST syntax parsing, checks compliance against the 7 Anti-Slop Pillars (detecting empty catches, placeholders, and syntax narration), validates against dangerous API calls (`process.exit`, `child_process`, `eval`), and runs in-memory micro-sandbox execution in <2ms.
+  - Integrated into CLI `vibes verify-gate`, Studio endpoint `/api/sandbox/verify`, and MCP tool `vibes_verify_gate`.
+- **Pillar 4: Real-Time Swarm Concurrency Bus (`scripts/swarm-bus.mjs`)**:
+  - High-performance in-memory event bus and Server-Sent Events (SSE) telemetry transport for autonomous agent swarms (`vibes swarm:bus`).
+  - Captures agent lifecycle events (`agent:spawn`, `agent:complete`, `agent:fail`), tool calls (`tool:call`), memory writes (`memory:write`), and inter-agent broadcasts (`agent:broadcast`).
+  - Wired into `scripts/swarm-dispatcher.mjs` for live observability. Integrated into CLI `vibes swarm:bus [status|events|broadcast]`, Studio SSE endpoints `/api/swarm/stream` and `/sse`, query `/api/swarm/events`, broadcast `/api/swarm/broadcast`, and MCP tool `vibes_swarm_bus`.
+- **Pillar 5: Local Hybrid GraphRAG Search (`scripts/graphrag-indexer.mjs`)**:
+  - High-precision hybrid search combining Lexical BM25 (Lucene formula) + TF-IDF Vector cosine similarity + AST symbol connectivity ranking.
+  - Features camelCase and snake_case code tokenization and multi-field weighted indexing across 48 codebase files and 249 indexed symbols with sub-millisecond query latency.
+  - Integrated into CLI `vibes graph:search <query> [--top-k 5]`, Studio endpoint `/api/graph/search`, and MCP tool `vibes_graph_search`.
+- **Pillar 6: Zero-Dependency VSIX Extension Packager (`scripts/package-extension.mjs`)**:
+  - Native Open Packaging Conventions (OPC) `.vsix` builder using built-in `node:zlib` (`deflateRawSync` and `crc32`) in <50ms without pulling external dependencies like `@vscode/vsce`.
+  - Packages the companion extension for VS Code, Cursor, and Windsurf containing 11 native commands.
+  - Integrated into CLI `vibes package:vscode`, npm script `npm run package:vscode`, Studio endpoint `/api/extension/package`, and MCP tool `vibes_package_extension`.
+- **Studio Cockpit Interactive UI Expansion (`scripts/studio-server.mjs`)**:
+  - Added 4 brand new interactive cockpit panels in the web UI:
+    - **Cross-IDE Bridge Panel**: Visual status cards for all 4 AI platforms (Antigravity, Claude Code, Cursor, Codex), 1-click universal sync, and context bundle download.
+    - **Hybrid GraphRAG Search Studio**: Live search bar with instant presets, top-K selection, and visual breakdown bars for BM25 score, Vector cosine similarity, and AST boost (+20%).
+    - **Skill Synthesizer & Pre-Disk Gate Studio**: Scaffolding UI for synthesizing custom skills and interactive code sandbox for validating candidate code against the Pre-Disk Gate.
+    - **Live Swarm Stream Panel**: Real-time SSE streaming log terminal connected to `/api/swarm/stream` with event filtering chips, broadcast input, and status indicator.
+  - Updated MCP tool select dropdown with 7 newly added MCP tools (total 27 tools supported).
+
+### Changed / Diubah
+- Version bumped from 4.3.0 to 4.4.0 across all package manifests, extensions, and documentation.
+- Test suite expanded to 34 passing tests covering all 6 strategic pillars, CLI commands, and Studio server endpoints.
+
+---
+
 ## [4.3.0] - 2026-10-17
 
 ### Added / Ditambahkan

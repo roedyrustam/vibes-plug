@@ -161,7 +161,7 @@ Zero-tolerance principles for intentional, high-performance web motion:
 - Works hand-in-hand with `ui-ux-pro-max` and `design-system-architect` to bring designs to life.
 - Complements `senior-frontend` by handling the motion layer of the UI.
 - Integrates with `seo` to build visually stunning landing pages.
-- **`anti-slop`**: Enforces zero-bouncy slop, strict `prefers-reduced-motion` fallbacks, and compositor-only transforms.
+- **`anti-slop`**: Enforces zero-bouncy slop, strict prefers-reduced-motion fallbacks, and compositor-only transforms.
 
 ---
 
@@ -215,4 +215,4 @@ Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
 - Bekerja sama dengan `ui-ux-pro-max` dan `design-system-architect` untuk menghidupkan desain statis.
 - Melengkapi `senior-frontend` dengan menangani lapisan pergerakan (motion layer) UI.
 - Terintegrasi dengan `seo` untuk merancang landing page yang memukau secara visual.
-- **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback `prefers-reduced-motion`, dan animasi khusus compositor.
+- **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback prefers-reduced-motion, dan animasi khusus compositor.
