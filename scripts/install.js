@@ -165,7 +165,12 @@ function installForCursor(projectDir) {
         const globalMcpDest = path.join(globalCursorDir, 'mcp.json');
         let existingGlobalMcp = { mcpServers: {} };
         if (fs.existsSync(globalMcpDest)) {
-            try { existingGlobalMcp = JSON.parse(fs.readFileSync(globalMcpDest, 'utf8')); } catch {}
+            try {
+                existingGlobalMcp = JSON.parse(fs.readFileSync(globalMcpDest, 'utf8'));
+            } catch (err) {
+                console.warn(`  ⚠️ Could not parse existing global MCP config: ${err.message}`);
+                existingGlobalMcp = { mcpServers: {} };
+            }
             if (!existingGlobalMcp.mcpServers) existingGlobalMcp.mcpServers = {};
         }
         existingGlobalMcp.mcpServers["vibes-plug-tools"] = mcpConfig.mcpServers["vibes-plug-tools"];

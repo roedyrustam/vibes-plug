@@ -1,12 +1,16 @@
 {
   "mcpServers": {
     "vibes-plug-tools": {
-      "command": "node",
-      "args": ["bin/mcp-server.mjs"]
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\bin\\mcp-server.mjs"
+      ]
     },
     "xerj": {
       "command": "xerj",
-      "args": ["mcp"],
+      "args": [
+        "mcp"
+      ],
       "env": {
         "XERJ_URL": "http://localhost:9200"
       }

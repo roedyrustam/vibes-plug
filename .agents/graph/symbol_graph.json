@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-20T08:31:27.715Z",
+  "generatedAt": "2026-10-20T08:34:55.051Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 59,
   "totalSymbolsIndexed": 327,
@@ -384,7 +384,7 @@
       },
       {
         "file": "scripts/install.js",
-        "line": 223,
+        "line": 228,
         "type": "function",
         "signature": "function main()"
       },
@@ -936,7 +936,7 @@
     "installForCodex": [
       {
         "file": "scripts/install.js",
-        "line": 178,
+        "line": 183,
         "type": "function",
         "signature": "function installForCodex(projectDir)"
       }
@@ -2598,7 +2598,7 @@
       "symbolCount": 6
     },
     "scripts/install.js": {
-      "totalLines": 305,
+      "totalLines": 310,
       "symbolCount": 6
     },
     "scripts/mcp-setup.mjs": {
