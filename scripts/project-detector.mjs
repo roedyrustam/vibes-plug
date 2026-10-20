@@ -327,7 +327,12 @@ async function main() {
   console.log('');
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('project-detector.mjs')
+);
+
+if (isDirectExecution) {
   main().catch(err => {
     console.error(`❌ Error detecting stack: ${err.message}`);
     process.exit(1);

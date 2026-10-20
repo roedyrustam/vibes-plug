@@ -392,7 +392,12 @@ export async function optimizeThinkingBudget(task, options = {}) {
 }
 
 // Standalone CLI Execution
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('token-budget-optimizer.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const isJson = args.includes('--json');
   const taskArg = args.find(a => !a.startsWith('--'));

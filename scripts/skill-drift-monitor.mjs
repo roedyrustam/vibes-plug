@@ -533,7 +533,7 @@ async function main() {
       if (isStrict && (single.score < 85 || single.issues.length > 0)) {
         process.exit(1);
       }
-      process.exit(0);
+      return;
     }
 
     if (isJson) {
@@ -547,13 +547,18 @@ async function main() {
       process.exit(1);
     }
 
-    process.exit(0);
+    return;
   } catch (err) {
     console.error(`❌ Drift monitor failed: ${err.message}`);
     process.exit(1);
   }
 }
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === fileURLToPath(import.meta.url).toLowerCase() ||
+  process.argv[1].endsWith('skill-drift-monitor.mjs')
+);
+
+if (isDirectExecution) {
   main();
 }

@@ -35,7 +35,7 @@ export function parseSkillMarkdown(content) {
 
   const frontmatterMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (frontmatterMatch) {
-    const lines = frontmatterMatch[1].split('\n');
+    const lines = frontmatterMatch[1].split(/\r?\n/);
     for (const line of lines) {
       const nameMatch = line.match(/^name:\s*(.+)$/);
       const descMatch = line.match(/^description:\s*(.+)$/);
@@ -49,7 +49,7 @@ export function parseSkillMarkdown(content) {
     }
   }
 
-  meta.hasIntegrationMatrix = /##\s+(Orchestration & Integration|Integrasi Orkestrasi)/i.test(content);
+  meta.hasIntegrationMatrix = /#{2,3}\s+(Orchestration & Integration|Integrasi Orkestrasi)/i.test(content);
   meta.hasBilingualContent = /panduan|arsitektur|keahlian|pengujian|integrasi|orchestrat|expert/i.test(content);
 
   return meta;
@@ -242,8 +242,19 @@ export async function installSkill(skillName, options = {}) {
  * @returns {Promise<Object>}
  */
 export async function packageSkill(skillDir, options = {}) {
-  const resolvedDir = path.resolve(process.cwd(), skillDir);
-  const skillFile = path.join(resolvedDir, 'SKILL.md');
+  let resolvedDir = path.resolve(process.cwd(), skillDir);
+  let skillFile = path.join(resolvedDir, 'SKILL.md');
+
+  const exists = await fs.access(skillFile).then(() => true).catch(() => false);
+  if (!exists) {
+    const normalizedName = skillDir.replace(/^[./\\]+/, '').replace(/^skills[/\\]/, '');
+    const altDir = path.resolve(GLOBAL_SKILLS_DIR, normalizedName);
+    const altFile = path.join(altDir, 'SKILL.md');
+    if (await fs.access(altFile).then(() => true).catch(() => false)) {
+      resolvedDir = altDir;
+      skillFile = altFile;
+    }
+  }
 
   try {
     const raw = await fs.readFile(skillFile, 'utf8');
@@ -287,63 +298,64 @@ export async function packageSkill(skillDir, options = {}) {
 }
 
 // Standalone CLI Router
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('registry-manager.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const command = args[0] || 'list';
 
   if (command === 'list') {
     const category = args[1] && !args[1].startsWith('--') ? args[1] : null;
-    listRegistrySkills({ category }).then(skills => {
-      console.log(`\n📦 Vibes-Plug Skill Registry Catalog (${skills.length} skills found)\n`);
-      for (const s of skills) {
-        const installBadge = s.installed ? '\x1b[32m[INSTALLED]\x1b[0m' : '[REGISTRY]';
-        console.log(`  • \x1b[1m${s.name}\x1b[0m (v${s.version}) ${installBadge}`);
-        console.log(`    Category: ${s.category} | Author: ${s.author}`);
-        console.log(`    ${s.description}\n`);
-      }
-    });
+    const skills = await listRegistrySkills({ category });
+    console.log(`\n📦 Vibes-Plug Skill Registry Catalog (${skills.length} skills found)\n`);
+    for (const s of skills) {
+      const installBadge = s.installed ? '\x1b[32m[INSTALLED]\x1b[0m' : '[REGISTRY]';
+      console.log(`  • \x1b[1m${s.name}\x1b[0m (v${s.version}) ${installBadge}`);
+      console.log(`    Category: ${s.category} | Author: ${s.author}`);
+      console.log(`    ${s.description}\n`);
+    }
   } else if (command === 'search') {
     const query = args[1];
     if (!query) {
       console.error('❌ Query term is required (e.g. vibes registry search payment)');
       process.exit(1);
     }
-    searchRegistry(query).then(matches => {
-      console.log(`\n🔎 Search results for "${query}" (${matches.length} matches):\n`);
-      for (const m of matches) {
-        console.log(`  • \x1b[1m${m.name}\x1b[0m (Score: ${m.relevanceScore})`);
-        console.log(`    ${m.description}\n`);
-      }
-    });
+    const matches = await searchRegistry(query);
+    console.log(`\n🔎 Search results for "${query}" (${matches.length} matches):\n`);
+    for (const m of matches) {
+      console.log(`  • \x1b[1m${m.name}\x1b[0m (Score: ${m.relevanceScore})`);
+      console.log(`    ${m.description}\n`);
+    }
   } else if (command === 'install') {
     const skillName = args[1];
     if (!skillName) {
       console.error('❌ Skill name is required (e.g. vibes registry install spec-driven-development-expert)');
       process.exit(1);
     }
-    installSkill(skillName).then(res => {
-      if (res.success) {
-        console.log(`✅ ${res.message}`);
-      } else {
-        console.error(`❌ ${res.error}`);
-        process.exit(1);
-      }
-    });
+    const res = await installSkill(skillName);
+    if (res.success) {
+      console.log(`✅ ${res.message}`);
+    } else {
+      console.error(`❌ ${res.error}`);
+      process.exit(1);
+    }
   } else if (command === 'pack') {
     const skillDir = args[1];
     if (!skillDir) {
       console.error('❌ Skill path is required (e.g. vibes registry pack skills/my-custom-skill)');
       process.exit(1);
     }
-    packageSkill(skillDir, { writeManifest: true }).then(res => {
-      if (res.success) {
-        console.log(`✅ Skill validated and packaged successfully!`);
-        console.log(`Manifest: ${JSON.stringify(res.manifest, null, 2)}`);
-      } else {
-        console.error(`❌ Packaging failed: ${res.error || res.manifest?.issues?.join(', ')}`);
-        process.exit(1);
-      }
-    });
+    const res = await packageSkill(skillDir, { writeManifest: true });
+    if (res.success) {
+      console.log(`✅ Skill validated and packaged successfully!`);
+      console.log(`Manifest: ${JSON.stringify(res.manifest, null, 2)}`);
+    } else {
+      console.error(`❌ Packaging failed: ${res.error || res.manifest?.issues?.join(', ')}`);
+      process.exit(1);
+    }
   } else {
     console.log(`Usage:
   node scripts/registry-manager.mjs list [category]

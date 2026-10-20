@@ -229,7 +229,12 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
 }
 
 // CLI Standalone Execution
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('self-healer.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const target = args[0] || 'npm test';
   const dryRun = !args.includes('--apply');
@@ -238,10 +243,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename
   console.log(`Target Command : ${target}`);
   console.log(`Mode           : ${dryRun ? 'DRY-RUN (Safe Analysis)' : 'AUTO-APPLY'}\n`);
 
-  diagnoseAndHeal(target, { dryRun }).then(rep => {
+  try {
+    const rep = await diagnoseAndHeal(target, { dryRun });
     if (rep.passed) {
       console.log(`✅ ${rep.summary}\n`);
-      process.exit(0);
     } else {
       console.log(`❌ Failures Detected: ${rep.failuresDetected}`);
       console.log(`📋 Summary: ${rep.summary}\n`);
@@ -256,8 +261,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename
       }
       process.exit(1);
     }
-  }).catch(err => {
+  } catch (err) {
     console.error(`❌ Diagnostic error: ${err.message}`);
     process.exit(1);
-  });
+  }
 }

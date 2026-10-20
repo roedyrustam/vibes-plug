@@ -1797,63 +1797,71 @@ Platform Eligibility & Economics:
     runCreateMcp(args[1]);
     break;
   case 'create-agent': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'create-agent.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'create-agent.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'critic': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'critic-validator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'critic-validator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'sandbox': {
+    rl.close();
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
-    rl.close();
     break;
   }
   case 'verify-gate': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), '--verify', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs'), '--verify', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'graph:build':
   case 'graph:query':
   case 'graph:search': {
+    rl.close();
     const { spawnSync } = await import('child_process');
     const subCmd = command === 'graph:query' ? 'query' : command === 'graph:search' ? 'search' : 'build';
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
-    rl.close();
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'graphrag-indexer.mjs'), subCmd, ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'package:vscode':
   case 'package-extension': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'package-extension.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'package-extension.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'pr:review':
   case 'pr-review': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'heal':
   case 'self-heal': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'registry': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'registry-manager.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'registry-manager.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'visual-audit':
@@ -1899,19 +1907,22 @@ Platform Eligibility & Economics:
   case 'benchmark': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'benchmark-suite.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'benchmark-suite.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'budget': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'token-budget-optimizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'token-budget-optimizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'drift': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-drift-monitor.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-drift-monitor.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'monitor':

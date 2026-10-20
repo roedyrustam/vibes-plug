@@ -188,7 +188,12 @@ export async function setupAllClients(options = {}) {
 }
 
 // CLI Execution entry point
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === fileURLToPath(import.meta.url).toLowerCase() ||
+  process.argv[1].endsWith('mcp-setup.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const clientIdx = args.indexOf('--client');
   const client = clientIdx !== -1 ? args[clientIdx + 1] : 'all';
@@ -210,21 +215,20 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         'vibes-plug-mcp': getMcpServerDefinition()
       }
     }, null, 2));
-    process.exit(0);
+  } else {
+    setupAllClients({ client, dryRun, force })
+      .then((results) => {
+        for (const r of results) {
+          const icon = r.status === 'created' || r.status === 'updated' ? '✅' :
+                       r.status === 'already_configured' ? '⚡' :
+                       r.status === 'dry_run' ? '🔍' : '⚠️';
+          console.log(`${icon} [${r.client}] -> ${r.message}`);
+          console.log(`   File: ${r.targetPath}\n`);
+        }
+      })
+      .catch((err) => {
+        console.error(`❌ Setup Error: ${err.message}`);
+        process.exit(1);
+      });
   }
-
-  setupAllClients({ client, dryRun, force })
-    .then((results) => {
-      for (const r of results) {
-        const icon = r.status === 'created' || r.status === 'updated' ? '✅' :
-                     r.status === 'already_configured' ? '⚡' :
-                     r.status === 'dry_run' ? '🔍' : '⚠️';
-        console.log(`${icon} [${r.client}] -> ${r.message}`);
-        console.log(`   File: ${r.targetPath}\n`);
-      }
-    })
-    .catch((err) => {
-      console.error(`❌ Setup Error: ${err.message}`);
-      process.exit(1);
-    });
 }

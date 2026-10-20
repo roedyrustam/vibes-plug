@@ -140,7 +140,12 @@ Instructions:
 }
 
 // CLI Execution
-if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === fileURLToPath(import.meta.url).toLowerCase() ||
+  process.argv[1].endsWith('create-agent.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   let name = 'custom-specialist';
   let skills = [];

@@ -4485,7 +4485,12 @@ export async function startStudioServer(options = {}) {
 }
 
 // Standalone execution check
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('studio-server.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   let port = DEFAULT_PORT;
   let noOpen = false;

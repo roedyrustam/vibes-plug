@@ -252,7 +252,12 @@ async function main() {
   console.log(`🚀 Mode         : ${outcome.dryRun ? 'DRY-RUN (In-memory verification)' : 'PERSISTED (Ready for Marketplace install)'}\n`);
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('package-extension.mjs')
+);
+
+if (isDirectExecution) {
   main().catch(err => {
     console.error(`\n❌ Packaging Error: ${err.message}`);
     process.exit(1);

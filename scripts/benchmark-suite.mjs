@@ -274,7 +274,12 @@ export async function runBenchmarkSuite(options = {}) {
 }
 
 // Standalone execution check
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('benchmark-suite.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const json = args.includes('--json');
   runBenchmarkSuite({ json }).then(report => {

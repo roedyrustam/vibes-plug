@@ -251,7 +251,12 @@ export async function runPreCommitGate(targetDir = process.cwd()) {
 }
 
 // Standalone CLI Router
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('git-hook-installer.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const command = args[0] || 'status';
   const targetDir = args[1] ? path.resolve(args[1]) : process.cwd();

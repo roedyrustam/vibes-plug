@@ -228,7 +228,12 @@ function generatePrMarkdownReport(data) {
 }
 
 // Standalone execution router
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('github-pr-bot.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const target = args[0] || 'HEAD~1';
   const outIdx = args.indexOf('--output');

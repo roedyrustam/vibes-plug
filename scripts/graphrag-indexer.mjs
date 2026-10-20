@@ -398,7 +398,12 @@ export async function hybridSearch(query, options = {}) {
 }
 
 // CLI Execution Router
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('graphrag-indexer.mjs')
+);
+
+if (isDirectExecution) {
   const args = process.argv.slice(2);
   const cmd = args[0] || 'build';
 

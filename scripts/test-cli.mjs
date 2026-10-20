@@ -8,7 +8,9 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import vm from 'node:vm';
 
-const execFileAsync = promisify(execFile);
+const execFileAsync = (file, args, options = {}) => {
+  return promisify(execFile)(file, args, { maxBuffer: 20 * 1024 * 1024, ...options });
+};
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLI_PATH = path.resolve(__dirname, '../bin/vibes.mjs');
 const PLUGIN_ROOT = path.resolve(__dirname, '..');

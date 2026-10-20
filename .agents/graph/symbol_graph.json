@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-20T10:17:54.847Z",
+  "generatedAt": "2026-10-20T18:57:12.980Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 60,
-  "totalSymbolsIndexed": 328,
+  "totalSymbolsIndexed": 329,
   "symbols": {
     "to": [
       {
@@ -2047,10 +2047,18 @@
         "signature": "const handleKeyPress = (str, key) =>"
       }
     ],
+    "execFileAsync": [
+      {
+        "file": "scripts/test-cli.mjs",
+        "line": 11,
+        "type": "arrow-function",
+        "signature": "const execFileAsync = (file, args, options = {}) =>"
+      }
+    ],
     "multiply": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 305,
+        "line": 307,
         "type": "arrow-function",
         "signature": "const multiply = (a, b) =>"
       }
@@ -2058,7 +2066,7 @@
     "divide": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 310,
+        "line": 312,
         "type": "arrow-function",
         "signature": "const divide = (a, b) =>"
       }
@@ -2066,7 +2074,7 @@
     "sum": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 638,
+        "line": 640,
         "type": "arrow-function",
         "signature": "const sum = (a, b) =>"
       }
@@ -2074,7 +2082,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 934,
+        "line": 936,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -2082,25 +2090,25 @@
     "norm": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1114,
+        "line": 1116,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1118,
+        "line": 1120,
         "type": "function",
         "signature": "function norm(s: any)"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1138,
+        "line": 1140,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1142,
+        "line": 1144,
         "type": "function",
         "signature": "function norm(s: any)"
       }
@@ -2108,13 +2116,13 @@
     "processItems": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1288,
+        "line": 1290,
         "type": "function",
         "signature": "function processItems(items: Item[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1289,
+        "line": 1291,
         "type": "function",
         "signature": "function processItems(items: any)"
       }
@@ -2530,7 +2538,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1973,
+      "totalLines": 1984,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2550,7 +2558,7 @@
       "symbolCount": 1
     },
     "scripts/benchmark-suite.mjs": {
-      "totalLines": 289,
+      "totalLines": 294,
       "symbolCount": 3
     },
     "scripts/check-anti-slop.js": {
@@ -2566,7 +2574,7 @@
       "symbolCount": 3
     },
     "scripts/create-agent.mjs": {
-      "totalLines": 164,
+      "totalLines": 169,
       "symbolCount": 2
     },
     "scripts/critic-validator.mjs": {
@@ -2594,15 +2602,15 @@
       "symbolCount": 3
     },
     "scripts/git-hook-installer.mjs": {
-      "totalLines": 301,
+      "totalLines": 306,
       "symbolCount": 4
     },
     "scripts/github-pr-bot.mjs": {
-      "totalLines": 256,
+      "totalLines": 261,
       "symbolCount": 3
     },
     "scripts/graphrag-indexer.mjs": {
-      "totalLines": 473,
+      "totalLines": 478,
       "symbolCount": 6
     },
     "scripts/install.js": {
@@ -2610,7 +2618,7 @@
       "symbolCount": 6
     },
     "scripts/mcp-setup.mjs": {
-      "totalLines": 231,
+      "totalLines": 235,
       "symbolCount": 4
     },
     "scripts/memory-daemon.mjs": {
@@ -2618,23 +2626,23 @@
       "symbolCount": 8
     },
     "scripts/package-extension.mjs": {
-      "totalLines": 261,
+      "totalLines": 266,
       "symbolCount": 4
     },
     "scripts/project-detector.mjs": {
-      "totalLines": 336,
+      "totalLines": 341,
       "symbolCount": 4
     },
     "scripts/registry-manager.mjs": {
-      "totalLines": 355,
+      "totalLines": 367,
       "symbolCount": 6
     },
     "scripts/self-healer.mjs": {
-      "totalLines": 264,
+      "totalLines": 269,
       "symbolCount": 3
     },
     "scripts/skill-drift-monitor.mjs": {
-      "totalLines": 560,
+      "totalLines": 565,
       "symbolCount": 6
     },
     "scripts/skill-synthesizer.mjs": {
@@ -2646,11 +2654,11 @@
       "symbolCount": 6
     },
     "scripts/speculative-consensus.mjs": {
-      "totalLines": 592,
+      "totalLines": 597,
       "symbolCount": 8
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4507,
+      "totalLines": 4512,
       "symbolCount": 67
     },
     "scripts/swarm-bus.mjs": {
@@ -2670,15 +2678,15 @@
       "symbolCount": 1
     },
     "scripts/terminal-monitor.mjs": {
-      "totalLines": 298,
+      "totalLines": 303,
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1359,
-      "symbolCount": 10
+      "totalLines": 1361,
+      "symbolCount": 11
     },
     "scripts/token-budget-optimizer.mjs": {
-      "totalLines": 459,
+      "totalLines": 464,
       "symbolCount": 3
     },
     "scripts/update_skills.js": {

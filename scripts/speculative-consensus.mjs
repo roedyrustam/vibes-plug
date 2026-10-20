@@ -586,6 +586,11 @@ Options:
 }
 
 // Direct execution check
-if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(__filename)) {
+const isDirectExecution = process.argv[1] && (
+  path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
+  process.argv[1].endsWith('speculative-consensus.mjs')
+);
+
+if (isDirectExecution) {
   runConsensusCli();
 }
