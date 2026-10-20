@@ -2,7 +2,8 @@
 name: visual-ui-auditor
 description: "Expert guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 / 5.1 Sonnet, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan ahli audit visual UI berbasis vision multimodal."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Visual UI Auditor & Vision Quality Gate (Anti-Slop Pillar 7)

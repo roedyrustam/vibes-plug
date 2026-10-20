@@ -1,7 +1,9 @@
 ---
 name: nextjs-app-router-expert
 description: "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "4.4.1"
+
 version: "4.3.0"
 ---
 

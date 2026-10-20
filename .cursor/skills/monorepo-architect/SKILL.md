@@ -1,7 +1,9 @@
 ---
 name: monorepo-architect
 description: "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages / Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "4.4.1"
+
 version: "4.3.0"
 ---
 

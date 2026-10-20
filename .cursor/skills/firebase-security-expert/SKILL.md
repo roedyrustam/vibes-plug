@@ -1,7 +1,9 @@
 ---
 name: firebase-security-expert
 description: "Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration / Ahli keamanan Firebase untuk audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check."
-author: "Roedy Rustam"
+author: "Roedy Rustam"
+version: "4.4.1"
+
 version: "4.3.0"
 ---
 

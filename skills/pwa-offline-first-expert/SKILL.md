@@ -2,7 +2,8 @@
 name: pwa-offline-first-expert
 description: "Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment / Panduan ahli arsitektur Offline-First & Local-First PWA."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # PWA & Offline-First Expert (2026 Edition)

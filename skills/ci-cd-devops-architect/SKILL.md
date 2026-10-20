@@ -2,7 +2,8 @@
 name: ci-cd-devops-architect
 description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # CI/CD & DevOps Architect (Production Standard 2026)

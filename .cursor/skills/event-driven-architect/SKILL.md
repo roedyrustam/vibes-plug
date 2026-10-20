@@ -2,7 +2,8 @@
 name: event-driven-architect
 description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Event-Driven Architecture Expert (Transactional Outbox & Sagas 2026)

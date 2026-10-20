@@ -54,7 +54,8 @@ Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 name: kebab-case-skill-name
 description: "Short English description / Deskripsi singkat"
 author: "Your Name or GitHub Username"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 ```
 
@@ -168,7 +169,8 @@ Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 name: nama-skill-kebab-case
 description: "Deskripsi singkat / Short description"
 author: "Nama Anda atau Username GitHub"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 ```
 

@@ -2,7 +2,8 @@
 name: ephemeral-generative-ui-architect
 description: "Expert guide for Generative UI architectures, ephemeral dynamic interfaces, and real-time streaming of React Server Components (RSC) driven by Gemini 4 Pro / Panduan ahli arsitektur Generative UI, antarmuka dinamis efemeral, dan streaming RSC real-time yang didorong oleh Gemini 4 Pro."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Ephemeral Generative UI Architect (2026 Edition)

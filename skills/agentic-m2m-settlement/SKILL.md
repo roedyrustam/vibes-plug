@@ -2,7 +2,8 @@
 name: agentic-m2m-settlement
 description: "Expert guide for autonomous Machine-to-Machine (M2M) agent settlement, dual-rail fiat & stablecoin micro-clearing, dynamic budget envelopes, and cryptographic agent invoicing / Panduan ahli settlement otonom antar-agen (M2M), kliring mikro dual-rail fiat & stablecoin, pagu anggaran dinamis, dan penagihan agen kriptografis."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Agentic M2M Settlement & Clearing Protocol (2026 Edition)

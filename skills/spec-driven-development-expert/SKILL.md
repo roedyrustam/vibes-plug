@@ -2,7 +2,8 @@
 name: spec-driven-development-expert
 description: "Expert guide for Spec-Driven Development (SDD) & Contract-First Architecture — TypeSpec, OpenAPI 3.1, Gherkin BDD, Pact consumer-driven contracts, Spectral linting, and automated spec-to-code pipelines / Panduan ahli pengembangan berbasis spesifikasi (SDD) dan arsitektur contract-first."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # 📐 Spec-Driven Development (SDD) & Contract-First Expert (2026 Edition)

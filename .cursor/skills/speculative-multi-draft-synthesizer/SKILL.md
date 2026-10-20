@@ -2,7 +2,8 @@
 name: speculative-multi-draft-synthesizer
 description: "Expert guide for speculative multi-agent drafting, parallel hypothesis generation, AST-aware consensus arbitration, and multi-model code reconciliation / Panduan ahli penyusunan draf multi-agen spekulatif, generasi hipotesis paralel, arbitrase konsensus sadar-AST, dan rekonsiliasi kode multi-model."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # speculative-multi-draft-synthesizer — vibes-plug Skill

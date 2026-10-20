@@ -2,7 +2,8 @@
 name: xerj-search-expert
 description: "Expert guide for XERJ: the unified search engine for AI, vector database, zero-config autoindexer, agent memory store (/_memory/{ns}), and embedded 13-tool MCP server / Panduan ahli XERJ: mesin pencari terpadu untuk AI, vector database, autoindex tanpa konfigurasi, memori agen, dan 13 tool MCP server bawaan."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # XERJ Search & Agent Memory Expert / Panduan Ahli Mesin Pencari & Memori Agen XERJ

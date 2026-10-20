@@ -2,7 +2,8 @@
 name: blockchain-web3-expert
 description: "Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state / Panduan ahli integrasi Web3 dan blockchain."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Blockchain & Web3 dApp Expert (EVM & Viem Standard 2026)

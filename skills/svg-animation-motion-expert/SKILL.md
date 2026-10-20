@@ -3,7 +3,8 @@ name: svg-animation-motion-expert
 description: "Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API / Panduan ahli animasi web."
 author: "Roedy Rustam"
 
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # SVG & Web Animation Motion Expert

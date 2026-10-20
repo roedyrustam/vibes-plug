@@ -2,7 +2,8 @@
 name: mcp-sampling-critic
 description: "Expert guide for MCP client sampling (sampling/createMessage), Critic-in-the-Loop agentic quality gates, autonomous human-in-the-loop emulation, and multi-model consensus verification / Panduan ahli sampling MCP client, quality gate agen Critic-in-the-Loop, dan verifikasi konsensus multi-model."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # mcp-sampling-critic — vibes-plug Skill

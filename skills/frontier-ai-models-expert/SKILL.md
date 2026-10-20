@@ -2,7 +2,8 @@
 name: frontier-ai-models-expert
 description: "Expert guide for late-2026 frontier AI models — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), and Enterprise Frontier Safeguards (EFS) / Panduan ahli model AI frontier akhir-2026 — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), dan Enterprise Frontier Safeguards (EFS)."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # frontier-ai-models-expert — vibes-plug Skill

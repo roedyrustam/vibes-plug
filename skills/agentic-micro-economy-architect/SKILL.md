@@ -2,7 +2,8 @@
 name: agentic-micro-economy-architect
 description: "Expert guide for designing Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, and swarm budget allocation / Panduan ahli merancang ekonomi mikro antar-agen (M2M), dompet agen otonom, dan alokasi anggaran swarm."
 author: "Roedy Rustam"
-version: "4.3.0"
+version: "4.4.1"
+
 ---
 
 # Agentic Micro-Economy Architect (M2M Protocols 2026)
