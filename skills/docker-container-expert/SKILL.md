@@ -2,7 +2,7 @@
 name: docker-container-expert
 description: "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology / Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2."
 author: "Roedy Rustam"
-version: "4.4.0"
+version: "4.4.1"
 ---
 
 # Docker Container Expert (Production Standard 2026)

@@ -30,7 +30,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, new RegExp(pkg.version.replace(/\./g, '\\.')));
   });
 
-  await t.test('vibes doctor should verify 160+ skills and pass health checks', async () => {
+  await t.test('vibes doctor should verify 161 skills and pass health checks', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor']);
     assert.match(stdout, /Global skills registry: 16[01] skills found/);
     assert.match(stdout, /All checks passed/);
@@ -66,7 +66,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /openapi-swagger-codegen-expert/);
   });
 
-  await t.test('vibes docs should generate 160+ skill ecosystem preview', async () => {
+  await t.test('vibes docs should generate 161 skill ecosystem preview', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'docs']);
     assert.match(stdout, /Vibes-Plug Skills Catalog \(16[01] Skills\)/);
     assert.match(stdout, /accessibility-testing-expert/);
@@ -232,7 +232,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(stdout, /payment-gateway-expert/);
   });
 
-  await t.test('vibes registry pack should audit custom skill against 155 gold standards', async () => {
+  await t.test('vibes registry pack should audit custom skill against 161 gold standards', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'registry', 'pack', 'skills/spec-driven-development-expert']);
     assert.match(stdout, /Skill validated and packaged successfully/);
     assert.match(stdout, /"goldStandardCompliant":\s*true/);
@@ -323,7 +323,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.match(bcastOut, /Agent sync beacon/);
   });
 
-  await t.test('studio server should serve 155 skills, cockpit HTML, and Remote MCP SSE', async () => {
+  await t.test('studio server should serve 161 skills, cockpit HTML, and Remote MCP SSE', async () => {
     const { startStudioServer } = await import('./studio-server.mjs');
     const testPort = 3991;
     const memFilePath = path.join(process.cwd(), '.agents', 'memory', 'episodic_graph.json');
@@ -346,7 +346,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const htmlRes = await fetch(url);
       const htmlText = await htmlRes.text();
       assert.match(htmlText, /VibesPlug Pro Studio/);
-      assert.match(htmlText, /155-Skill Swarm Architecture/);
+      assert.match(htmlText, /161-Skill Swarm Architecture/);
       assert.match(htmlText, /Remote Model Context Protocol/);
 
       const scriptMatch = htmlText.match(/<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/i);
@@ -358,11 +358,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const skillsRes = await fetch(`${url}/api/skills`);
       const skills = await skillsRes.json();
       assert.equal(Array.isArray(skills), true);
-      assert.ok(skills.length >= 160);
+      assert.ok(skills.length >= 161);
 
       const statusRes = await fetch(`${url}/api/status`);
       const status = await statusRes.json();
-      assert.ok(status.totalSkills >= 160);
+      assert.ok(status.totalSkills >= 161);
       const pkgJson = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
       assert.equal(status.version, pkgJson.version);
       assert.equal(status.mcpToolsCount >= 10, true);
@@ -804,7 +804,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const regListData = await regListRes.json();
       assert.equal(regListRes.status, 200);
       assert.equal(regListData.success, true);
-      assert.ok(regListData.count >= 155);
+      assert.ok(regListData.count >= 161);
 
       // Test Studio Registry Search endpoint
       const regSearchRes = await fetch(`${url}/api/registry/search`, {
@@ -1064,7 +1064,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const driftRes = await fetch(`${url}/api/drift`);
       const driftData = await driftRes.json();
       assert.equal(driftRes.status, 200);
-      assert.ok(driftData.totalSkills >= 160);
+      assert.ok(driftData.totalSkills >= 161);
       assert.equal(driftData.ecosystemStatus, 'PRISTINE');
       assert.equal(driftData.averageScore, 100);
 
@@ -1155,7 +1155,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(showcaseRes.status, 200);
       assert.match(showcaseRes.headers.get('content-type'), /text\/html/);
       const showcaseHtml = await showcaseRes.text();
-      assert.match(showcaseHtml, /160 Skill Ecosystem/);
+      assert.match(showcaseHtml, /161 Skill Ecosystem/);
 
       const showcaseCssRes = await fetch(`${url}/showcase/styles.css`);
       assert.equal(showcaseCssRes.status, 200);
@@ -1244,7 +1244,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     // 1. Full ecosystem scan
     const { stdout: fullOut } = await execFileAsync(process.execPath, [CLI_PATH, 'drift', '--json']);
     const fullData = JSON.parse(fullOut);
-    assert.ok(fullData.totalSkills >= 160);
+    assert.ok(fullData.totalSkills >= 161);
     assert.equal(fullData.deadLinksCount, 0);
     assert.equal(fullData.ecosystemStatus, 'PRISTINE');
     assert.equal(fullData.averageScore, 100);
@@ -1270,7 +1270,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: jsonOut } = await execFileAsync(process.execPath, [CLI_PATH, 'monitor', '--json']);
     const monitorData = JSON.parse(jsonOut);
     assert.equal(typeof monitorData.drift, 'object');
-    assert.ok(monitorData.drift.totalSkills >= 160);
+    assert.ok(monitorData.drift.totalSkills >= 161);
     assert.equal(monitorData.drift.ecosystemStatus, 'PRISTINE');
     assert.ok(Array.isArray(monitorData.benchmarks.results));
     assert.equal(monitorData.benchmarks.passedCount, 7);

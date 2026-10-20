@@ -1,9 +1,9 @@
 <div align="center">
   <img src="./logo.jpg" alt="VibesPlug Logo" width="220" style="border-radius: 20px; margin-bottom: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.25);" />
 
-# ⚡ VibesPlug Pro v4.4.1: 160-Skill AI Agent Swarm Architecture
+# ⚡ VibesPlug Pro v4.4.1: 161-Skill AI Agent Swarm Architecture
 
-**Turn any IDE into an autonomous 160-agent software development studio.**  
+**Turn any IDE into an autonomous 161-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
 
 <p align="center">
@@ -47,7 +47,7 @@ npx github:roedyrustam/vibes-plug --all
 
 | Metric / Capability | Vanilla Vibe Coding (Prompts) | Static IDE Rules (.cursorrules) | ⚡ VibesPlug Pro (Swarm) |
 | :--- | :--- | :--- | :--- |
-| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 160 Specialists** |
+| **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 161 Specialists** |
 | **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance | 🚀 **Autonomous 8-Phase Zero-To-Prod** |
 | **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts | ⚡ **React 19, Next 15, Tailwind v4, Bun 1.2+** |
 | **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check | 🧹 **Zero-Tech-Debt Auditor & Red Teaming** |
@@ -59,11 +59,11 @@ npx github:roedyrustam/vibes-plug --all
 
 ---
 
-## 🧩 The 160-Skill Arsenal (Category Breakdown)
+## 🧩 The 161-Skill Arsenal (Category Breakdown)
 
-VibesPlug Pro is powered by **160 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
+VibesPlug Pro is powered by **161 specialized AI domain skills**, coordinated autonomously by the master ideation orchestrators (`brainstorming` and `zero-to-prod-orchestrator`).
 
-> 📖 **Browse Complete Directory**: View the comprehensive [160-Skill Interactive Catalog (`CATALOG.md`)](CATALOG.md) or explore the interactive live showcase at [**vibes-plug.vercel.app**](https://vibes-plug.vercel.app/) or generate machine-readable indexes anytime via `vibes docs markdown` or `vibes docs json`.
+> 📖 **Browse Complete Directory**: View the comprehensive [161-Skill Interactive Catalog (`CATALOG.md`)](CATALOG.md) or explore the interactive live showcase at [**vibes-plug.vercel.app**](https://vibes-plug.vercel.app/) or generate machine-readable indexes anytime via `vibes docs markdown` or `vibes docs json`.
 
 
 | 🎨 **Frontend & Mobile UI/UX** (38 Skills) | ⚙️ **Backend, Systems & API Design** (28 Skills) |
@@ -126,8 +126,8 @@ vibes mcp
 2. `vibes_eval_sql` — Evaluate DDL schemas and audit PostgreSQL RLS policies in an in-memory sandbox.
 3. `vibes_arbitrate_code` — Score and arbitrate competing code solutions via Process Reward Model (PRM).
 4. `vibes_verify_invariants` — Formally prove state machine invariants and generate SMT-LIB 2.0 formulas.
-5. `vibes_get_skill` — Fetch instructions and contracts from any of the 160 specialized skills.
-6. `vibes_list_skills` — Discover all 160 skills with domain categories, summaries, and tags.
+5. `vibes_get_skill` — Fetch instructions and contracts from any of the 161 specialized skills.
+6. `vibes_list_skills` — Discover all 161 skills with domain categories, summaries, and tags.
 7. `vibes_inject_skill` — Directly inject one or more skills into `.agents/skills/<name>`.
 8. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
 9. `vibes_memory` — Read and write cross-session architectural decisions and emit compact checkpoints.
@@ -156,7 +156,7 @@ Vibes-Plug features a zero-dependency local web cockpit with interactive panels,
 # Launch visual web cockpit (opens http://localhost:3888) with 11 interactive tabs & Remote MCP
 vibes studio
 
-# Universal Cross-IDE State Bridge: synchronize rules & 160 skills across Antigravity, Claude, Cursor, Codex
+# Universal Cross-IDE State Bridge: synchronize rules & 161 skills across Antigravity, Claude, Cursor, Codex
 vibes bridge [status|sync|bundle]
 
 # Autonomous Skill Synthesizer: synthesize gold-standard bilingual skills from raw codebase patterns
@@ -201,7 +201,7 @@ vibes guard
 
 ### 💻 Native VSCode & Cursor IDE Companion Extension
 Vibes-Plug includes a native extension package in [`extensions/vscode/`](extensions/vscode/):
-- **Status Bar Indicator**: Live status displaying `$(zap) VibesPlug: 160 Skills Active`.
+- **Status Bar Indicator**: Live status displaying `$(zap) VibesPlug: 161 Skills Active`.
 - **Command Palette & Context Menus**: 11 native commands including Studio Cockpit, Scaffolding Wizard, Sovereign Guard, Active Document Critic, Token FinOps Report, Pre-Disk Gate, and Swarm Dispatcher.
 - **Packaging & Installation**: Build zero-dependency `.vsix` anytime via `vibes package:vscode` or `npm run package:vscode` in <50ms and install directly into VSCode, Cursor, or Windsurf.
 
@@ -210,7 +210,7 @@ Vibes-Plug includes a native extension package in [`extensions/vscode/`](extensi
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 160 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
+Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 161 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
 *Supported Platforms: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, and Kiro.*
@@ -311,15 +311,15 @@ vibes bootstrap <type> <name>    # Super-scaffolds project + skills (saas | ecom
 vibes wizard                     # Interactive CLI wizard to scaffold project stack & custom skill bundle
 vibes sync                       # Verifies & synchronizes master trigger across all IDE rules
 vibes ui                         # Interactive terminal TUI to visually select & install skills
-vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 160-skill explorer)
-vibes list [filter]              # Lists all 160 skills (optional: keyword filter)
-vibes search <query>             # Searches 160 skills with relevance ranking
+vibes studio [--port <n>]        # Launches local web Studio Cockpit dashboard (visual 161-skill explorer)
+vibes list [filter]              # Lists all 161 skills (optional: keyword filter)
+vibes search <query>             # Searches 161 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
 vibes remove <skill-name>        # Removes an installed skill from local project
 vibes skill info <skill-name>    # Shows metadata, description, and orchestration connections
 vibes recipe list                # Lists curated skill bundles (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Applies a curated skill recipe to current workspace
-vibes docs [markdown|json]       # Exports full 160-skill catalog to terminal, CATALOG.md, or CATALOG.json
+vibes docs [markdown|json]       # Exports full 161-skill catalog to terminal, CATALOG.md, or CATALOG.json
 vibes create-skill <name>        # Scaffolds a new skill following the standard specification
 vibes create-agent --name <n>    # Generates a custom subagent across Antigravity, Cursor, and Claude
 vibes create-mcp <server-name>   # Scaffolds a new Model Context Protocol server
@@ -367,7 +367,7 @@ jobs:
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Versi Bahasa Indonesia
 
-Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 160 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
+Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 161 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
 
 ### 🚀 Panduan Instalasi Universal (Semua IDE & LLM)
 *Platform Didukung: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, dan Kiro.*
@@ -434,7 +434,7 @@ cp .clinerules /path/ke/proyek-anda/
 ```
 
 **Opsi E: Pembaruan Rutin via GitHub**
-Untuk mendapatkan update 160 skill dan engine terbaru:
+Untuk mendapatkan update 161 skill dan engine terbaru:
 ```bash
 cd ~/.gemini/config/plugins/vibes-plug  # (atau folder hasil clone Anda)
 git pull origin main
@@ -467,15 +467,15 @@ vibes init <project-name>        # Men-scaffold struktur Zero-To-Prod 8-Fase (RE
 vibes bootstrap <type> <name>    # Super-scaffold proyek + skill (saas | ecommerce | mobile | api | fullstack | spec-api)
 vibes sync                       # Verifikasi & sinkronisasi aturan pemicu utama di semua IDE
 vibes ui                         # TUI terminal interaktif untuk memilih dan memasang skill secara visual
-vibes studio [--port <n>]        # Membuka dashboard web lokal Studio Cockpit (eksplorasi visual 160 skill)
-vibes list [filter]              # Menampilkan daftar 160 skill (opsional: filter kata kunci)
-vibes search <query>             # Mencari 160 skill berdasarkan relevansi kata kunci
+vibes studio [--port <n>]        # Membuka dashboard web lokal Studio Cockpit (eksplorasi visual 161 skill)
+vibes list [filter]              # Menampilkan daftar 161 skill (opsional: filter kata kunci)
+vibes search <query>             # Mencari 161 skill berdasarkan relevansi kata kunci
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
 vibes remove <skill-name>        # Menghapus skill yang terpasang dari proyek lokal
 vibes skill info <skill-name>    # Menampilkan metadata, deskripsi, dan relasi orkestrasi skill
 vibes recipe list                # Menampilkan daftar paket resep skill (ai-stack, fullstack-pro, fintech-core, spec-driven-api)
 vibes recipe apply <name>        # Menerapkan paket resep skill ke workspace proyek saat ini
-vibes docs [markdown|json]       # Mengekspor katalog 160 skill ke terminal, CATALOG.md, atau CATALOG.json
+vibes docs [markdown|json]       # Mengekspor katalog 161 skill ke terminal, CATALOG.md, atau CATALOG.json
 vibes create-skill <name>        # Membuat boilerplate skill baru sesuai standar spesifikasi
 vibes create-agent --name <n>    # Menghasilkan custom subagent lintas Antigravity, Cursor, dan Claude
 vibes create-mcp <server-name>   # Men-scaffold server Model Context Protocol baru
@@ -505,7 +505,7 @@ vibes hooks install              # Memasang Git pre-commit hook untuk menegakkan
 <a name="mandarin"></a>
 ## 🇨🇳 中文版 (Mandarin)
 
-欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 160 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
+欢迎来到 **VibesPlug Pro**。VibesPlug 充当 **集群指挥官 (Swarm Director)**，编排 161 个专业的 AI 子代理。它经过严格工程化设计，旨在从所有前沿模型 (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex 和 DeepSeek) 中提取最大的推理能力。
 
 ### 🚀 通用安装指南 (所有 IDE 和 LLM)
 *支持的平台: Google Antigravity, Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*
@@ -575,9 +575,9 @@ npm test
 ### 💻 核心 CLI 命令
 - `vibes init <project-name>` — 初始化 8 阶段端到端项目架构。
 - `vibes ui` — 终端交互式 TUI 界面，可视化选择与安装技能。
-- `vibes studio [--port <n>]` — 启动本地 Web Studio 驾驶舱仪表板 (160 个技能可视化探索、子代理集群与 P1-P5 引擎)。
+- `vibes studio [--port <n>]` — 启动本地 Web Studio 驾驶舱仪表板 (161 个技能可视化探索、子代理集群与 P1-P5 引擎)。
 - `vibes recipe list` — 列出预置技能配方套件 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
-- `vibes docs [markdown|json]` — 导出 160 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
+- `vibes docs [markdown|json]` — 导出 161 个技能的完整目录至终端、`CATALOG.md` 或 `CATALOG.json`。
 - `vibes guard` — 运行完整的 Sovereign Guard CI 生产就绪验证流水线 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 编译并锁定确定性 KV-Cache 前缀 (>1024 tokens)，降低 75-90% 代币开销。
 - `vibes db:eval` — 在内存沙箱中模拟和审计 SQL DDL 迁移及 RLS 策略。
@@ -664,9 +664,9 @@ npm test
 ### 💻 Wichtigste CLI-Befehle
 - `vibes init <project-name>` — Initialisiert die 8-Phasen-Zero-To-Prod-Architektur.
 - `vibes ui` — Interaktives Terminal-TUI zur visuellen Auswahl und Installation von Skills.
-- `vibes studio [--port <n>]` — Startet das lokale Web-Studio-Dashboard (visueller 160-Skill-Explorer, Subagenten-Swarm und P1–P5 Cockpit).
+- `vibes studio [--port <n>]` — Startet das lokale Web-Studio-Dashboard (visueller 161-Skill-Explorer, Subagenten-Swarm und P1–P5 Cockpit).
 - `vibes recipe list` — Listet kuratierte Skill-Pakete auf (ai-stack, fullstack-pro, fintech-core, spec-driven-api).
-- `vibes docs [markdown|json]` — Exportiert den vollständigen 160-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
+- `vibes docs [markdown|json]` — Exportiert den vollständigen 161-Skill-Katalog ins Terminal, als `CATALOG.md` oder `CATALOG.json`.
 - `vibes guard` — Führt die vollständige Sovereign Guard CI-Validierung aus (P1–P5 + Anti-Slop).
 - `vibes compile-cache` — Kompiliert deterministische KV-Cache-Präfixe (>1024 Tokens) für 75–90% Kostensenkung.
 - `vibes db:eval` — Simuliert und prüft SQL-DDL-Migrationen im Speicher auf RLS-Sicherheit.
@@ -683,7 +683,7 @@ npm test
 <a name="japanese"></a>
 ## 🇯🇵 日本語版 (Japanese)
 
-**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、160 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
+**VibesPlug Pro** へようこそ。VibesPlug は **スウォームディレクター (Swarm Director)** として機能し、161 の専門的な AI サブエージェントをオーケストレーションします。すべての最先端モデル (Gemini 4 Pro、Claude 5、GPT-5.6/O3、OpenAI Codex、DeepSeek) から最大の推論能力を引き出すように厳密に設計されています。
 
 ### 🚀 ユニバーサルインストールガイド (すべての IDE と LLM)
 *サポートされているプラットフォーム: Google Antigravity, Claude Code, Cursor, OpenAI Codex, Windsurf, Trae, VSCode (Cline), Kimi, Kiro。*
@@ -753,9 +753,9 @@ npm test
 ### 💻 主な CLI コマンド
 - `vibes init <project-name>` — 8フェーズ Zero-To-Prod 開発プロジェクトを初期化。
 - `vibes ui` — スキルを視覚的に選択してインストールするインタラクティブなターミナル TUI。
-- `vibes studio [--port <n>]` — ローカル Web Studio コックピットダッシュボードを起動 (160スキルの視覚的探索、サブエージェント、P1-P5)。
+- `vibes studio [--port <n>]` — ローカル Web Studio コックピットダッシュボードを起動 (161スキルの視覚的探索、サブエージェント、P1-P5)。
 - `vibes recipe list` — キュレーションされたスキルレシピ一覧 (ai-stack, fullstack-pro, fintech-core, spec-driven-api)。
-- `vibes docs [markdown|json]` — 160のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
+- `vibes docs [markdown|json]` — 161のスキル全カタログをターミナル、`CATALOG.md`、または `CATALOG.json` に出力。
 - `vibes guard` — 完全な Sovereign Guard CI パイプラインを実行 (P1–P5 + Anti-Slop)。
 - `vibes compile-cache` — 決定論的 KV-Cache プレフィックス (>1024 トークン) をコンパイルし、コストを 75-90% 削減。
 - `vibes db:eval` — インメモリで SQL DDL マイグレーションをシミュレーションし、RLS ポリシーを監査。

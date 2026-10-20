@@ -38,7 +38,7 @@ async function auditGraph() {
     }
   }
 
-  console.log(`\n🕸️  Skill Dependency Graph Audit (160 Skills):`);
+  console.log(`\n🕸️  Skill Dependency Graph Audit (161 Skills):`);
   console.log(`-----------------------------------------------`);
   console.log(`Total Skills in Registry : ${allSkills.size}`);
   console.log(`Broken Skill References   : ${broken.length}`);

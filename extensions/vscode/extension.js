@@ -38,7 +38,7 @@ export function activate(context) {
 
   // 1. Status Bar Item
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBar.text = '$(zap) VibesPlug: 160 Skills';
+  statusBar.text = '$(zap) VibesPlug: 161 Skills';
   statusBar.tooltip = 'VibesPlug Pro: 160-Skill AI Swarm Orchestrator active. Click to open Studio Cockpit.';
   statusBar.command = 'vibes.openStudio';
   statusBar.show();

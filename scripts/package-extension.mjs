@@ -4,7 +4,7 @@
  * Vibes-Plug VS Code & Cursor Extension Packager (2026 Edition)
  * 
  * Part of Pillar 6: High-Performance Native VSIX Packaging for VS Code & Cursor Marketplaces.
- * Audits extension manifest, registers 155-skill companion commands, and packages
+ * Audits extension manifest, registers 161-skill companion commands, and packages
  * an Open Packaging Conventions (OPC) compliant .vsix archive with zero external dependencies.
  * 
  * Usage:

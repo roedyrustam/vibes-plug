@@ -4,7 +4,7 @@
 
 **Comprehensive latency, throughput, token economics, and anti-slop verification metrics**
 
-*Published: October 2026 • Platform Version: v4.4.1 • Ecosystem Scale: 160 Specialized Skills*
+*Published: October 2026 • Platform Version: v4.4.1 • Ecosystem Scale: 161 Specialized Skills*
 
 [![SLA Compliance](https://img.shields.io/badge/SLA%20Compliance-100%25%20(7%2F7)-brightgreen.svg)](#the-7-sovereign-engine-benchmark-results)
 [![Anti-Slop](https://img.shields.io/badge/Anti--Slop%20Strict-0%20Violations%20(330%20Files)-blue.svg)](#anti-slop-directive-compliance--code-quality)
@@ -50,7 +50,7 @@ All benchmarks were recorded using `vibes bench` (embedded performance fuzzer an
 
 Frontier models (Google Gemini 4 Pro / Flash, Anthropic Claude 3.7 / 5.1, and OpenAI o3 / GPT-4.5) support native context prompt caching for byte-deterministic instruction prefixes exceeding 1,024 tokens.
 
-VibesPlug dynamically compiles a canonical 160-skill ecosystem prefix (`.cache-prefix.json`) that locks the system instructions into a deterministic memory block.
+VibesPlug dynamically compiles a canonical 161-skill ecosystem prefix (`.cache-prefix.json`) that locks the system instructions into a deterministic memory block.
 
 ### Canonical Prefix Metrics
 - **Canonical Payload Size**: `5,878 bytes`
@@ -99,7 +99,7 @@ How does VibesPlug Pro compare against other market alternatives?
 
 | Capability | VibesPlug Pro | @primeinc/swarm | aiwg | Mastra | Karpathy Rules |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Domain Skills Catalog** | **160 skills** | ~5 skills | ~10 skills | Framework only | 1 file |
+| **Domain Skills Catalog** | **161 skills** | ~5 skills | ~10 skills | Framework only | 1 file |
 | **In-Memory Verification Gate** | **1.2 ms** | ❌ None | ❌ None | ❌ None | ❌ None |
 | **Deterministic KV-Cache Prefix** | ✅ **Locked (>1024t)** | ❌ | ❌ | ❌ | ❌ |
 | **Multi-IDE Rule Synchronization** | ✅ **8 IDEs** | 1 IDE | 3 IDEs | ❌ | 1 IDE |

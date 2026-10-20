@@ -2,7 +2,7 @@
 name: github-actions-expert
 description: "Expert guide for GitHub Actions CI/CD workflows, reusable workflows, composite actions, matrix builds, OIDC cloud auth, security hardening, and artifact automation / Panduan ahli GitHub Actions CI/CD workflows, reusable workflows, aksi komposit, autentikasi cloud OIDC, pengerasan keamanan, dan otomasi rilis."
 author: "Roedy Rustam"
-version: "4.4.0"
+version: "4.4.1"
 ---
 
 # GitHub Actions Expert (Enterprise CI/CD Standard 2026)

@@ -1,6 +1,6 @@
 {
   "name": "vibes-plug-companion",
-  "displayName": "VibesPlug Pro: 160-Skill AI Swarm Companion",
+  "displayName": "VibesPlug Pro: 161-Skill AI Swarm Companion",
   "description": "Turn VSCode and Cursor into an autonomous 160-agent AI software studio. Zero AI Slop, Sovereign Anti-Slop Directive, Studio Cockpit, and MCP v1.x integration.",
   "version": "4.4.1",
   "publisher": "roedyrustam",
@@ -66,7 +66,7 @@
       },
       {
         "command": "vibes.sync",
-        "title": "VibesPlug: Synchronize Primary Trigger & 160 Skills",
+        "title": "VibesPlug: Synchronize Primary Trigger & 161 Skills",
         "category": "VibesPlug"
       },
       {

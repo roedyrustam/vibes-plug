@@ -1398,7 +1398,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 160 skills.');
+    console.log('Try: vibes list  to browse all 161 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1464,7 +1464,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 160 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 161 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1503,7 +1503,7 @@ async function runDocs(format = 'markdown', outputFile) {
       }
     } else {
       let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
-      md += `*Universal AI Agent Swarm Architecture (v4.3.0)*\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.4.1)*\n\n`;
       md += `| Skill Name | Version | Description |\n`;
       md += `| :--- | :---: | :--- |\n`;
       for (const item of catalog) {
@@ -1546,7 +1546,7 @@ Commands:
   wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 160 skills by keyword (ranked by relevance)
+  search <query>            Search all 161 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1591,8 +1591,8 @@ Commands:
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 160-skill ecosystem catalog
-  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 160-skill explorer)
+  docs [markdown|json]      Export or preview the complete 161-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 161-skill explorer)
   showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   help                      Show this help menu

@@ -5,7 +5,7 @@
  * 
  * Provides an event-driven pub/sub substrate and real-time SSE streaming bus
  * for concurrent multi-agent worker coordination, live state telemetry,
- * and inter-agent synchronization across the 155-skill swarm ecosystem.
+ * and inter-agent synchronization across the 161-skill swarm ecosystem.
  * 
  * @author Roedy Rustam
  * @version 4.4.0

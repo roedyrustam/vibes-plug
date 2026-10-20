@@ -6,7 +6,7 @@ Ready-to-use launch drafts tailored for developer communities.
 
 ## 1. r/ChatGPTCoding & r/ClaudeAI (Reddit)
 
-**Title**: I spent 9 months building a 160-skill AI agent swarm to eliminate vibe-coding code slop. Here's what I learned.
+**Title**: I spent 9 months building a 161-skill AI agent swarm to eliminate vibe-coding code slop. Here's what I learned.
 
 **Body**:
 Hey everyone,
@@ -21,7 +21,7 @@ I got tired of fixing the same AI hallucinations every day, so I built **VibesPl
 👉 Live Web Showcase: https://vibes-plug.vercel.app/
 
 ### What it actually is:
-It's an orchestration layer that injects **160 specialized skills** (TypeScript, Next 15, Hono, DOKU/Stripe, Docker, Z3 formal verification, AST graphs) into your AI coding assistant.
+It's an orchestration layer that injects **161 specialized skills** (TypeScript, Next 15, Hono, DOKU/Stripe, Docker, Z3 formal verification, AST graphs) into your AI coding assistant.
 
 Instead of one model winging it:
 1. **Primary Trigger**: Any user prompt is intercepted and broken down into subtasks.
@@ -47,7 +47,7 @@ Would love feedback from anyone using AI coding agents daily!
 **Tweet 1 (Hook)**:
 Stop letting AI write code slop. 🛑
 
-After 9 months of testing Claude 3.7, Gemini 2.0 & GPT-4o, I built VibesPlug: an open-source 160-skill AI Swarm Architecture that turns Cursor, Antigravity & Claude Code into an autonomous software studio.
+After 9 months of testing Claude 3.7, Gemini 2.0 & GPT-4o, I built VibesPlug: an open-source 161-skill AI Swarm Architecture that turns Cursor, Antigravity & Claude Code into an autonomous software studio.
 
 ⚡ https://github.com/roedyrustam/vibes-plug 🧵👇
 

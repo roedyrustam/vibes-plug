@@ -3,7 +3,7 @@
  * 🌊 Vibes-Plug Interactive Terminal Cockpit & Live Monitor (2026 Edition)
  *
  * Provides a high-density, real-time terminal dashboard displaying:
- * 1. Ecosystem Health & Framework Drift Index (155 skills)
+ * 1. Ecosystem Health & Framework Drift Index (161 skills)
  * 2. Token FinOps & KV-Cache Economic Savings
  * 3. 7-Engine Performance Benchmarks & SLA Verification
  * 4. Real-time Swarm Concurrency Bus Event Stream

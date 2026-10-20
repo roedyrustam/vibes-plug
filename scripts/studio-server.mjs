@@ -3,7 +3,7 @@
 /**
  * Vibes-Plug Studio Cockpit Server
  * Lightweight, zero-dependency local web dashboard for Vibes-Plug Pro.
- * Visualizes the 155 AI domain skills, subagent swarm topologies, superintelligence engines,
+ * Visualizes the 161 AI domain skills, subagent swarm topologies, superintelligence engines,
  * Visual Recipe Builder, Remote Model Context Protocol (MCP v1.x) SSE transport,
  * Autonomous Swarm Planner & Simulator, Visual Agent Builder, and Episodic Memory Manager.
  * 
@@ -384,12 +384,12 @@ async function getSystemStatus() {
     installedCount = 0;
   }
 
-  let totalSkills = 155;
+  let totalSkills = 161;
   try {
     const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
     totalSkills = entries.filter(e => e.isDirectory()).length;
   } catch {
-    totalSkills = 155;
+    totalSkills = 161;
   }
 
   return {
@@ -410,7 +410,7 @@ export function generateStudioHtml(currentPort) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vibes-Plug Studio Cockpit | 155-Skill Swarm Architecture</title>
+  <title>Vibes-Plug Studio Cockpit | 161-Skill Swarm Architecture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -1301,14 +1301,14 @@ export function generateStudioHtml(currentPort) {
             <div class="brand-title">VibesPlug Pro Studio</div>
             <div class="brand-tag">v4.4.1</div>
           </div>
-          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 160-Agent Swarm Operating System</div>
+          <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 161-Agent Swarm Operating System</div>
         </div>
       </div>
 
       <div class="header-stats">
         <div class="stat-chip">
           <span>Skills:</span>
-          <span class="num" id="stat-total-skills">160</span>
+          <span class="num" id="stat-total-skills">161</span>
         </div>
         <div class="stat-chip">
           <span>Installed:</span>
@@ -1335,7 +1335,7 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Tab Navigation -->
   <nav class="tab-nav">
-    <button type="button" class="tab-btn active" data-tab="tab-arsenal">160-Skill Arsenal</button>
+    <button type="button" class="tab-btn active" data-tab="tab-arsenal">161-Skill Arsenal</button>
     <button type="button" class="tab-btn" data-tab="tab-detector">🔍 Stack Detector</button>
     <button type="button" class="tab-btn" data-tab="tab-subagents">Swarm &amp; Agent Studio</button>
     <button type="button" class="tab-btn" data-tab="tab-dag">Visual DAG Canvas</button>
@@ -1351,15 +1351,15 @@ export function generateStudioHtml(currentPort) {
 
   <!-- Main Content -->
   <main>
-    <!-- View 1: 160-Skill Arsenal -->
+    <!-- View 1: 161-Skill Arsenal -->
     <div id="tab-arsenal" class="view-pane active">
       <div class="filter-bar">
         <div class="search-input-wrapper">
           <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="skill-search" class="search-input" placeholder="Search 160 skills (press '/' to focus)...">
+          <input type="text" id="skill-search" class="search-input" placeholder="Search 161 skills (press '/' to focus)...">
         </div>
         <div class="category-pills">
-          <button type="button" class="pill-btn active" data-category="all">All Domains (160)</button>
+          <button type="button" class="pill-btn active" data-category="all">All Domains (161)</button>
           <button type="button" class="pill-btn" data-category="frontend">Frontend &amp; UI</button>
           <button type="button" class="pill-btn" data-category="backend">Backend &amp; API</button>
           <button type="button" class="pill-btn" data-category="ai">Frontier AI &amp; MCP</button>
@@ -1659,7 +1659,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
           <div>
             <h2 style="font-size: 1.15rem; font-weight: 700; color: #fff;">Remote Model Context Protocol (MCP v1.x)</h2>
             <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
-              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, Windsurf, or Zed to access the 155 skills and P1–P6 engines.
+              Server-Sent Events (SSE) stream active. Connect Claude Desktop, Cursor, Windsurf, or Zed to access the 161 skills and P1–P6 engines.
             </p>
           </div>
           <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
@@ -1681,7 +1681,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
             <div class="form-group">
               <label for="mcp-tool-select">Select MCP Tool</label>
               <select id="mcp-tool-select" class="select-input" onchange="onMcpToolChange()">
-                <option value="vibes_list_skills">vibes_list_skills (Discover 155 skills)</option>
+                <option value="vibes_list_skills">vibes_list_skills (Discover 161 skills)</option>
                 <option value="vibes_get_skill">vibes_get_skill (Inspect skill markdown)</option>
                 <option value="vibes_ast_query">vibes_ast_query (P3 AST symbol query)</option>
                 <option value="vibes_eval_sql">vibes_eval_sql (P2 In-memory SQL simulator)</option>
@@ -1810,7 +1810,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
             <div>
               <h3>Universal Cross-IDE State Bridge</h3>
               <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">
-                Synchronize 155 skills, core rules, and memory across Antigravity, Claude Code, Cursor IDE, and OpenAI Codex.
+                Synchronize 161 skills, core rules, and memory across Antigravity, Claude Code, Cursor IDE, and OpenAI Codex.
               </p>
             </div>
             <div style="display: flex; gap: 10px; align-items: center;">
@@ -2117,7 +2117,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.4.1 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 160 Skills</p>
+    <p>Vibes-Plug Pro v4.4.1 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 161 Skills</p>
   </footer>
 
   <script>

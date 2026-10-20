@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-20T09:46:35.784Z",
+  "generatedAt": "2026-10-20T10:05:39.189Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 59,
-  "totalSymbolsIndexed": 327,
+  "totalFilesIndexed": 60,
+  "totalSymbolsIndexed": 328,
   "symbols": {
     "to": [
       {
@@ -1999,6 +1999,14 @@
         "signature": "function executeSwarm(taskDescription, options = {})"
       }
     ],
+    "replaceInFile": [
+      {
+        "file": "scripts/sync-all-skill-counts.mjs",
+        "line": 7,
+        "type": "function",
+        "signature": "function replaceInFile(relPath, replacements)"
+      }
+    ],
     "loadMonitorSnapshot": [
       {
         "file": "scripts/terminal-monitor.mjs",
@@ -2656,6 +2664,10 @@
     "scripts/swarm-runner.mjs": {
       "totalLines": 230,
       "symbolCount": 4
+    },
+    "scripts/sync-all-skill-counts.mjs": {
+      "totalLines": 318,
+      "symbolCount": 1
     },
     "scripts/terminal-monitor.mjs": {
       "totalLines": 298,
