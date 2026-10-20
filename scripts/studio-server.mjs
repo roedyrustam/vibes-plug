@@ -108,7 +108,7 @@ const SKILL_DOMAIN_MAP = {
   'local-slm-edge-ai-expert': 'ai', 'mcp-server-architect': 'ai', 'multi-agent-orchestration': 'ai',
   'pydantic-ai-expert': 'ai', 'speculative-multi-draft-synthesizer': 'ai', 'synthetic-data-finetuning-expert': 'ai',
   'test-time-compute-optimizer': 'ai', 'vector-db-rag-expert': 'ai', 'vercel-ai-sdk-expert': 'ai', 'voice-ai-realtime-agent': 'ai',
-  'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai',
+  'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai', 'xerj-search-expert': 'ai',
 
   // SaaS & FinTech
   'agentic-m2m-settlement': 'saas', 'app-promo-media-expert': 'saas', 'chatbot-messaging-expert': 'saas',

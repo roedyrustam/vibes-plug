@@ -1,0 +1,19 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "vibes-plug-tools": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/bin/mcp-server.mjs"],
+      "cwd": "${PLUGIN_ROOT}"
+    },
+    "xerj": {
+      "type": "stdio",
+      "command": "xerj",
+      "args": ["mcp"],
+      "env": {
+        "XERJ_URL": "http://localhost:9200"
+      }
+    }
+  }
+}

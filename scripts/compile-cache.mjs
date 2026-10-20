@@ -62,7 +62,7 @@ export async function compileCache(options = {}) {
         'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
         'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
         'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert'
       ],
       design_ui_ux: [
         'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',

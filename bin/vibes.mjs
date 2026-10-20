@@ -837,7 +837,7 @@ async function runUi() {
           'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
           'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
           'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent'
+          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert'
         ],
         saas: [
           'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
