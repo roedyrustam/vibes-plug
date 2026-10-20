@@ -1,5 +1,5 @@
 {
-  "total": 160,
+  "total": 161,
   "skills": [
     {
       "name": "accessibility-testing-expert",
@@ -940,6 +940,12 @@
     {
       "name": "wordpress-headless-expert",
       "description": "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless.",
+      "version": "4.3.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "xerj-search-expert",
+      "description": "Expert guide for XERJ: the unified search engine for AI, vector database, zero-config autoindexer, agent memory store (/_memory/{ns}), and embedded 13-tool MCP server / Panduan ahli XERJ: mesin pencari terpadu untuk AI, vector database, autoindex tanpa konfigurasi, memori agen, dan 13 tool MCP server bawaan.",
       "version": "4.3.0",
       "author": "Roedy Rustam"
     },

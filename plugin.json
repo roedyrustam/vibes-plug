@@ -1,11 +1,18 @@
 {
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "vibes-plug",
   "version": "4.4.1",
-  "description": "Universal AI plugin with 160 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex.",
+  "description": "Universal AI plugin with 159 specialized skills for Cursor, Antigravity, Claude, and OpenAI Codex.",
+  "author": {
+    "name": "Roedy Rustam"
+  },
   "homepage": "https://github.com/roedyrustam/vibes-plug",
+  "repository": "https://github.com/roedyrustam/vibes-plug.git",
+  "license": "MIT",
   "keywords": [
     "ai",
     "agent",
+    "cursor",
     "mcp",
     "skills",
     "fullstack",
@@ -13,31 +20,34 @@
     "zero-to-prod",
     "anti-slop"
   ],
-  "logo": "assets/logo.svg",
-  "icon": "assets/logo.svg",
-  "author": "Roedy Rustam",
-  "license": "MIT",
-  "repository": "https://github.com/roedyrustam/vibes-plug.git",
-  "platforms": {
-    "antigravity": {
-      "entry": "AGENTS.md",
-      "config": "plugin.json",
-      "skillsDir": "skills/"
-    },
-    "claude": {
-      "entry": "CLAUDE.md",
-      "rulesDir": ".claude/rules/",
-      "skillsDir": "skills/"
-    },
-    "cursor": {
-      "entry": ".cursorrules",
+  "extensions": {
+    "com.cursor": {
       "rulesDir": ".cursor/rules/",
-      "skillsDir": "skills/"
+      "rulesFile": ".cursorrules",
+      "mcpConfig": ".cursor/mcp.json"
     },
-    "codex": {
-      "entry": "CODEX.md",
-      "rulesDir": ".codex/rules/",
-      "skillsDir": "skills/"
+    "org.vibesplug.platforms": {
+      "antigravity": {
+        "entry": "AGENTS.md",
+        "config": "plugin.json",
+        "skillsDir": "skills/"
+      },
+      "claude": {
+        "entry": "CLAUDE.md",
+        "rulesDir": ".claude/rules/",
+        "skillsDir": "skills/"
+      },
+      "cursor": {
+        "entry": ".cursorrules",
+        "rulesDir": ".cursor/rules/",
+        "mcp": ".cursor/mcp.json",
+        "skillsDir": "skills/"
+      },
+      "codex": {
+        "entry": "CODEX.md",
+        "rulesDir": ".codex/rules/",
+        "skillsDir": "skills/"
+      }
     }
   }
 }

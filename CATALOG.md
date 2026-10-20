@@ -1,4 +1,4 @@
-# Vibes-Plug Skills Catalog (160 Skills)
+# Vibes-Plug Skills Catalog (161 Skills)
 
 *Universal AI Agent Swarm Architecture (v4.3.0)*
 
@@ -161,6 +161,7 @@
 | `website-design-cloner` | `4.3.0` | Analyzes and reverse-engineers website designs directly from a target URL, extracting layout structures, design tokens (colors, typography, spacing), component hierarchies, visual assets, and responsive behaviors to enable full 1:1 duplication into modern code (Tailwind CSS v4, React/Next.js, HTML/CSS). / Mempelajari dan merekayasa balik desain situs web langsung dari URL target, mengekstrak struktur layout, design token (warna, tipografi, spacing), hierarki komponen, aset visual, dan perilaku responsif untuk duplikasi 1:1 penuh ke kode modern. |
 | `webxr-ar-vr-expert` | `4.3.0` | Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR). |
 | `wordpress-headless-expert` | `4.3.0` | Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless. |
+| `xerj-search-expert` | `4.3.0` | Expert guide for XERJ: the unified search engine for AI, vector database, zero-config autoindexer, agent memory store (/_memory/{ns}), and embedded 13-tool MCP server / Panduan ahli XERJ: mesin pencari terpadu untuk AI, vector database, autoindex tanpa konfigurasi, memori agen, dan 13 tool MCP server bawaan. |
 | `zero-tech-debt-auditor` | `4.3.0` | Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a Zero Debt codebase / Orkestrator otonom untuk menghapus utang teknis sebelum rilis. |
 | `zero-to-prod-orchestrator` | `4.3.0` | Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap. |
 | `zero-trust-secret-vault` | `4.3.0` | Expert guide for Zero-Trust Secret Management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment security / Panduan ahli manajemen rahasia Zero-Trust, rotasi kunci API, dan keamanan variabel lingkungan. |

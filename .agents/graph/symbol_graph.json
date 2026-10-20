@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-19T20:14:18.282Z",
-  "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\vibes-plug",
-  "totalFilesIndexed": 58,
-  "totalSymbolsIndexed": 320,
+  "generatedAt": "2026-10-20T07:59:57.367Z",
+  "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
+  "totalFilesIndexed": 59,
+  "totalSymbolsIndexed": 327,
   "symbols": {
     "to": [
       {
@@ -2379,6 +2379,62 @@
         "signature": "class ArchitectureAnalyzer:"
       }
     ],
+    "getArgValue": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 23,
+        "type": "function",
+        "signature": "function getArgValue(flag)"
+      }
+    ],
+    "estimateTokens": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 117,
+        "type": "function",
+        "signature": "function estimateTokens(charCount)"
+      }
+    ],
+    "scanDirectory": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 122,
+        "type": "function",
+        "signature": "function scanDirectory(dir, fileList = [])"
+      }
+    ],
+    "getGitDiffText": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 168,
+        "type": "function",
+        "signature": "function getGitDiffText(dir)"
+      }
+    ],
+    "evaluateComplexity": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 178,
+        "type": "function",
+        "signature": "function evaluateComplexity(taskText, diffText, totalTokens)"
+      }
+    ],
+    "evaluateCaching": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 255,
+        "type": "function",
+        "signature": "function evaluateCaching(totalTokens)"
+      }
+    ],
+    "recommendModel": [
+      {
+        "file": "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js",
+        "line": 280,
+        "type": "function",
+        "signature": "function recommendModel(complexity, caching)"
+      }
+    ],
     "ProductionReadinessScanner": [
       {
         "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
@@ -2660,6 +2716,10 @@
     "skills/fullstack-expert/scripts/architecture_analyzer.py": {
       "totalLines": 327,
       "symbolCount": 2
+    },
+    "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js": {
+      "totalLines": 408,
+      "symbolCount": 7
     },
     "skills/production-ready-hardener/scripts/production_readiness_scanner.py": {
       "totalLines": 882,

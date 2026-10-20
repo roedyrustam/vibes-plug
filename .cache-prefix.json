@@ -1,7 +1,7 @@
 {
   "version": "4.3.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
-  "architecture": "Vibes-Plug Swarm Architecture (160 Skills)",
+  "architecture": "Vibes-Plug Swarm Architecture (161 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
   "domains": {
     "ai_agentic": [
@@ -34,7 +34,8 @@
       "thinking-budget-orchestrator",
       "vector-db-rag-expert",
       "vercel-ai-sdk-expert",
-      "voice-ai-realtime-agent"
+      "voice-ai-realtime-agent",
+      "xerj-search-expert"
     ],
     "design_ui_ux": [
       "design-system-architect",
@@ -181,7 +182,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 160,
+  "totalSkills": 161,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

@@ -114,7 +114,7 @@ npx ncu --target minor  # Only show minor updates
 ```typescript
 // Key breaking changes:
 // 1. forwardRef no longer needed (ref is a regular prop)
-// ❌ Before (React 18)
+// ❌ Before (React 19)
 const Input = forwardRef<HTMLInputElement, Props>((props, ref) => (
   <input ref={ref} {...props} />
 ));
