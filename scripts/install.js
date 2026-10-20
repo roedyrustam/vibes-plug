@@ -105,33 +105,73 @@ function installForClaude(projectDir) {
 }
 
 function installForCursor(projectDir) {
-    if (!projectDir) {
-        console.log('  ⚠️  Cursor requires a project directory. Usage: node install.js --cursor --project /path/to/project');
-        return;
-    }
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    console.log(`  🎯 Target project: ${targetDir}`);
 
-    // Copy .cursorrules to project root
+    // 1. Copy .cursorrules to project root
     const cursorRulesSrc = path.join(PLUGIN_ROOT, '.cursorrules');
-    const cursorRulesDest = path.join(projectDir, '.cursorrules');
+    const cursorRulesDest = path.join(targetDir, '.cursorrules');
     if (fs.existsSync(cursorRulesSrc)) {
         fs.copyFileSync(cursorRulesSrc, cursorRulesDest);
         console.log(`  ✅ Copied .cursorrules → ${cursorRulesDest}`);
     }
 
-    // Copy .cursor/rules/ to project
+    // 2. Copy .cursor/rules/ to project
     const mdcSrc = path.join(PLUGIN_ROOT, '.cursor', 'rules');
-    const mdcDest = path.join(projectDir, '.cursor', 'rules');
+    const mdcDest = path.join(targetDir, '.cursor', 'rules');
     if (fs.existsSync(mdcSrc)) {
         copyRecursiveSync(mdcSrc, mdcDest);
-        console.log(`  ✅ Copied .cursor/rules/ → ${mdcDest}`);
+        console.log(`  ✅ Copied .cursor/rules/ (*.mdc) → ${mdcDest}`);
     }
 
-    // Copy skills/ for reference
+    // 3. Configure .cursor/mcp.json for native Cursor MCP server support
+    const cursorMcpDir = path.join(targetDir, '.cursor');
+    if (!fs.existsSync(cursorMcpDir)) fs.mkdirSync(cursorMcpDir, { recursive: true });
+    const cursorMcpDest = path.join(cursorMcpDir, 'mcp.json');
+    const mcpConfig = {
+        mcpServers: {
+            "vibes-plug-tools": {
+                command: process.execPath,
+                args: [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')]
+            },
+            "xerj": {
+                command: "xerj",
+                args: ["mcp"],
+                env: {
+                    "XERJ_URL": "http://localhost:9200"
+                }
+            }
+        }
+    };
+    fs.writeFileSync(cursorMcpDest, JSON.stringify(mcpConfig, null, 2), 'utf8');
+    console.log(`  ✅ Configured .cursor/mcp.json → ${cursorMcpDest}`);
+
+    // 4. Copy skills/ for reference (both in .cursor/skills and .agents/skills)
     const skillsSrc = path.join(PLUGIN_ROOT, 'skills');
-    const skillsDest = path.join(projectDir, '.cursor', 'skills');
+    const skillsDest = path.join(targetDir, '.cursor', 'skills');
     if (fs.existsSync(skillsSrc)) {
         copyRecursiveSync(skillsSrc, skillsDest);
         console.log(`  ✅ Copied skills → ${skillsDest}`);
+    }
+
+    // 5. Global Cursor configuration if ~/.cursor exists
+    const globalCursorDir = path.join(HOME, '.cursor');
+    if (fs.existsSync(globalCursorDir)) {
+        const globalRulesDir = path.join(globalCursorDir, 'rules');
+        if (fs.existsSync(mdcSrc)) {
+            copyRecursiveSync(mdcSrc, globalRulesDir);
+            console.log(`  🌐 Copied global Cursor rules → ${globalRulesDir}`);
+        }
+        const globalMcpDest = path.join(globalCursorDir, 'mcp.json');
+        let existingGlobalMcp = { mcpServers: {} };
+        if (fs.existsSync(globalMcpDest)) {
+            try { existingGlobalMcp = JSON.parse(fs.readFileSync(globalMcpDest, 'utf8')); } catch {}
+            if (!existingGlobalMcp.mcpServers) existingGlobalMcp.mcpServers = {};
+        }
+        existingGlobalMcp.mcpServers["vibes-plug-tools"] = mcpConfig.mcpServers["vibes-plug-tools"];
+        existingGlobalMcp.mcpServers["xerj"] = mcpConfig.mcpServers["xerj"];
+        fs.writeFileSync(globalMcpDest, JSON.stringify(existingGlobalMcp, null, 2), 'utf8');
+        console.log(`  🌐 Updated global Cursor MCP config → ${globalMcpDest}`);
     }
 }
 
