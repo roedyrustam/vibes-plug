@@ -3,6 +3,13 @@
     "vibes-plug-tools": {
       "command": "node",
       "args": ["bin/mcp-server.mjs"]
+    },
+    "xerj": {
+      "command": "C:\\Users\\roedy\\AppData\\Local\\Programs\\xerj\\xerj.exe",
+      "args": ["mcp"],
+      "env": {
+        "XERJ_URL": "http://localhost:9200"
+      }
     }
   }
 }

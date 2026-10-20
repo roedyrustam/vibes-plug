@@ -1,57 +1,52 @@
 ---
 alwaysApply: true
-description: "Vibes-Plug 155-Skill AI Agent Swarm Architecture — Universal AI plugin for modern 2026 development"
+description: "Vibes-Plug 159-Skill AI Agent Swarm Architecture — Universal AI conductor for modern 2026 development in Cursor IDE"
 globs: "**/*"
 ---
 
-# Vibes-Plug Core Rules
+# Vibes-Plug Core Conductor (Cursor IDE Edition v4.4.1)
 
-## Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**MANDATORY**: Upon installation, `vibes-plug` acts as the PRIMARY TRIGGER and master conductor for all tasks.
-- Cursor AI automatically detects user intent and auto-synchronizes cooperating skills without waiting for manual `@` mentions.
-- Cross-domain cooperation is automatic: Frontend (`senior-frontend`), Backend (`js-backend-expert`), Database (`database-orm-expert`), Payments (`doku-payment-gateway`, `saas-billing`), Hardening (`production-ready-hardener`, `anti-slop`).
+## Primary Trigger & Autonomous Swarm Activation (Pemicu Utama)
+**MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER** and master orchestrator for all Cursor AI interactions.
+- Cursor AI MUST intercept every prompt and auto-synchronize cooperating skills without waiting for manual `@` mentions.
+- Automatically connects multi-domain skills (e.g., `doku-payment-gateway` + `saas-billing` + `payment-gateway-expert`; `senior-frontend` + `tailwind-expert` + `design-system-architect`).
+- Multi-domain workflows automatically trigger Swarm Topologies:
+  1. **Fan-Out / Fan-In**: Parallel research and execution across Frontend, Backend, and DB.
+  2. **Pipeline Saga**: Sequential discovery → foundation → schema → APIs → UI → hardening.
+  3. **Critic-Validator Loop**: Implementer writes code → Auditor agent reviews & fuzzes.
 
 ## Skill Resolution Protocol
-This project uses 155 specialized skills in the `skills/` directory. Each skill is a `SKILL.md` file.
+This repository contains 159 specialized skills in the `skills/` directory (or `.cursor/skills/` / `.agents/skills/`). Each skill is defined by its `SKILL.md`.
 
-**Before any task:**
-1. Identify relevant skills from the domain table below.
-2. Read their `skills/<skill-name>/SKILL.md` file.
-3. Follow the patterns and best practices defined in the skill.
+**Cursor AI Execution Protocol:**
+1. **Discover & Identify**: Match task intent against the 159-skill registry.
+2. **Read Skill**: Open and read the relevant `skills/<skill-name>/SKILL.md` before generating code.
+3. **Execute Invariants**: Strictly follow patterns, contracts, and guardrails specified in the skill.
 
-## Skill Domain Map
-
-| Domain | Key Skills |
-|---|---|
-| 🤖 AI & Agentic | `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `deep-research-analyst`, `synthetic-data-finetuning-expert`, `pydantic-ai-expert`, `ai-media-generation-expert`, `mcp-server-architect`, `vector-db-rag-expert`, `multi-agent-orchestration`, `llm-finops-router`, `ai-prompt-engineering-expert` |
-| 🎨 Design & UI/UX | `design-system-architect`, `hig`, `ui-ux-pro-max`, `svg-animation-motion-expert`, `data-visualization-expert`, `rich-text-editor-expert`, `modern-css-native-expert` |
-| 🖥️ Frontend | `senior-frontend`, `tailwind-expert`, `nextjs-app-router-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `tanstack-query-expert`, `state-management-expert`, `vue-frontend-expert`, `performance-web-vitals`, `form-validation-expert`, `blockchain-web3-expert` |
-| 📱 Mobile & Desktop | `mobile-expo-expert`, `apple-ecosystem-expert`, `tauri-expert`, `desktop-electron-expert`, `pwa-offline-first-expert` |
-| ⚙️ Backend | `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `api-design-expert`, `graphql-apollo-expert`, `bun-runtime-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert` |
-| ☁️ SaaS & Cloud | `saas-architect`, `saas-billing`, `saas-multi-tenant`, `cloud-hosting-expert`, `ci-cd-devops-architect`, `payment-gateway-expert`, `doku-payment-gateway`, `event-driven-architect`, `monorepo-architect` |
-| 🗄️ Database | `database-orm-expert`, `supabase-security-expert`, `data-pipeline-etl-expert` |
-| 🔒 Security & QA | `authentication-identity-expert`, `e2e-testing-expert`, `production-ready-hardener`, `autonomous-tdd-debugger`, `zero-trust-secret-vault`, `supabase-security-expert`, `anti-slop`, `zero-tech-debt-auditor` |
-| 🔍 SEO | `seo`, `data-telemetry-expert` |
-| 🛠️ Utilities | `brainstorming`, `prd-architect`, `session-memory-manager`, `web-scraper`, `website-design-cloner`, `zero-to-prod-orchestrator` |
+## Domain Overview
+- 🤖 **AI & Agentic**: `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `xerj-search-expert`, `pydantic-ai-expert`, `vector-db-rag-expert`, `agentic-memory-architect`, `thinking-budget-orchestrator`, `structured-output-contracts`
+- 🎨 **Design & UI/UX**: `design-system-architect`, `hig`, `ui-ux-pro-max`, `tailwind-expert`, `modern-css-native-expert`, `visual-ui-auditor`, `svg-animation-motion-expert`
+- 🖥️ **Frontend**: `senior-frontend`, `nextjs-app-router-expert`, `tanstack-query-expert`, `state-management-expert`, `form-validation-expert`, `astro-framework-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `vue-frontend-expert`, `pwa-offline-first-expert`
+- ⚙️ **Backend & Systems**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `typescript-expert`, `api-design-expert`, `spec-driven-development-expert`, `bun-runtime-expert`, `cloudflare-workers-expert`
+- ☁️ **SaaS, DevOps & Cloud**: `saas-architect`, `saas-billing`, `saas-multi-tenant`, `docker-container-expert`, `github-actions-expert`, `ci-cd-devops-architect`, `cloud-hosting-expert`, `doku-payment-gateway`, `agentic-m2m-settlement`
+- 🗄️ **Database & Storage**: `database-orm-expert`, `supabase-security-expert`, `data-pipeline-etl-expert`, `search-engine-expert`
+- 🔒 **Security, QA & Verification**: `anti-slop`, `production-ready-hardener`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-red-teamer`, `formal-spec-z3-verifier`, `zero-tech-debt-auditor`, `zero-trust-secret-vault`
+- 🛠️ **Lifecycle Orchestrators**: `brainstorming`, `prd-architect`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ## Core Stack (2026 Edition)
-- **Frontend:** React 19, Next.js 15 App Router, Tailwind CSS v4 (@theme), TypeScript 5.8+
+- **Frontend:** React 19, Next.js 15 App Router, Tailwind CSS v4 (`@theme`), TypeScript 5.8+
 - **Backend:** Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Python 3.14, Go 1.25+, Rust 2024
-- **Database:** Prisma 6, Drizzle ORM, PostgreSQL, Supabase, Neon, Turso
-- **AI/LLM:** Vercel AI SDK 5.x/6.x, MCP v1.x (FastMCP / Streamable HTTP), pgvector, RAG pipelines
+- **Database:** Prisma 6, Drizzle ORM, PostgreSQL (Supabase / Neon / Turso), pgvector
+- **AI/MCP:** Model Context Protocol (MCP v1.x), Vercel AI SDK 5/6, XERJ Vector Search Engine
 
-## Behavioral Rules
-1. **Deep Reasoning:** Think before acting. Analyze constraints → question assumptions → validate → execute.
-2. **Sovereign Anti-Slop Directive:** Strict zero-tolerance for placeholders (`// TODO`, `// ...`), mock data in prod, obvious syntax comments, and conversational sycophancy. 100% complete implementations on first try. Audit with `node scripts/check-anti-slop.js`.
-3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOKUMENTASI.md` before any code.
-4. **Bilingual:** Skills support English & Bahasa Indonesia.
-5. **Clean Code:** Follow SOLID, DRY, Clean Code principles (ref: `scalability-clean-code`).
-6. **Sovereign Token Optimization:** Deterministic KV-cache prefixing (`kv-cache-prefix-optimizer`), subagent context pruning, adaptive model cascading (`adaptive-model-cascade`), compact checkpoints (<300 tokens), and zero code truncation.
+## Mandatory Pre-Code Deliverables (Greenfield Projects)
+When starting a new project from scratch, Cursor AI MUST generate before any code:
+1. `PRD.md` — Concrete features, user stories, acceptance criteria, typed API contracts. Zero marketing fluff.
+2. `ERD.md` — PostgreSQL DDL with Foreign Keys and Row Level Security (RLS) policies.
+3. `DOKUMENTASI.md` — System topology, component boundaries, and directory layout.
 
-## Orchestration Flow
-1. **Plan:** `brainstorming` → `prd-architect`
-2. **Design:** `design-system-architect` → `senior-frontend` → `ui-ux-pro-max`
-3. **Build:** `js-backend-expert` → `event-driven-architect` → `autonomous-tdd-debugger`
-4. **AI:** `ai-llm-integration-expert` → `mcp-server-architect` → `multi-agent-orchestration`
-5. **SaaS:** `saas-architect` → auto-coordinates billing, tenancy, payments (`saas-billing`, `saas-multi-tenant`, `doku-payment-gateway`)
-6. **Ship:** `e2e-testing-expert` → `zero-tech-debt-auditor` → `seo` → `anti-slop` → `production-ready-hardener`
+## Sovereign Anti-Slop Directive
+- Zero tolerance for placeholders (`// TODO`, `// ...rest of code`, or fake mock stubs).
+- 100% complete, working implementations on the first try.
+- UI Sanitation: Linear/Stripe-caliber aesthetics. No generic purple-blue gradients, 5-state interactive contract (`default`, `hover`, `focus-visible`, `active`, `disabled`), `tabular-nums` for numbers, crisp 1px borders.
+- Verify with `node scripts/check-anti-slop.js --strict`.

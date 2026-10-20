@@ -1,0 +1,132 @@
+---
+alwaysApply: false
+description: "Vibes-Plug 159-Skill Domain Registry — Use this rule whenever identifying specialized domain guidance, design patterns, or technical skills in Cursor"
+globs: "**/*"
+---
+
+# Vibes-Plug 159-Skill Domain Registry
+
+When addressing specific technical domains in Cursor, look up and read the corresponding skill instruction file in `skills/<skill-name>/SKILL.md` (or `.cursor/skills/<skill-name>/SKILL.md` or `.agents/skills/<skill-name>/SKILL.md`).
+
+## 1. AI, LLM, MCP & Multi-Agent Systems
+| Skill Name | Purpose |
+|---|---|
+| `ai-llm-integration-expert` | LLM integration, MCP v1.x, hybrid reasoning, pgvector RAG |
+| `frontier-ai-models-expert` | Gemini 4 Pro, Claude 5.1 (Fable/Mythos), EFS safeguards |
+| `multi-agent-orchestration` | Agent swarms, LangGraph, graph workflows, Human-in-the-Loop |
+| `mcp-server-architect` | Model Context Protocol v1.x server design (TypeScript & Python) |
+| `mcp-sampling-critic` | MCP client sampling (`sampling/createMessage`) quality gates |
+| `xerj-search-expert` | XERJ AI search engine, vector DB, auto-indexer, 13-tool MCP server |
+| `doku-mcp-server` | DOKU Payment Gateway MCP Server for Agentic Commerce |
+| `pydantic-ai-expert` | Type-safe Python agent development with Pydantic AI |
+| `vector-db-rag-expert` | High-performance vector databases, pgvector 0.8+ HNSW, RRF re-ranking |
+| `agentic-memory-architect` | Long-term episodic memory (Mem0, Letta, Zep), pgvector HNSW tier |
+| `agentic-micro-economy-architect` | M2M micro-economies, autonomous agent wallets, swarm budgets |
+| `agentic-m2m-settlement` | Dual-rail fiat & stablecoin micro-clearing for AI agents |
+| `thinking-budget-orchestrator` | Dynamic reasoning token budgeting (Gemini 4 Pro, Claude 3.7/5.1) |
+| `test-time-compute-optimizer` | Scaling test-time compute, MCTS, Process Reward Models (PRM) |
+| `kv-cache-prefix-optimizer` | Deterministic prompt prefix engineering (90%+ prompt cache hit rate) |
+| `adaptive-model-cascade` | Complexity-scored task routing from Flash to Sonnet/Opus/Pro |
+| `structured-output-contracts` | Agent-native strict JSON Schema output contracts, zero-hallucination |
+| `parallel-tool-orchestrator` | Concurrent parallel MCP batching & Promise.allSettled pipelines |
+| `speculative-multi-draft-synthesizer` | Parallel hypothesis drafting and AST code reconciliation |
+| `context-window-engineer` | Ultra-large context window engineering (2M+ tokens) & partitioning |
+| `llm-finops-router` | Dynamic model routing, semantic caching, budget enforcement |
+| `llm-observability-expert` | AI tracing, hallucination rate monitoring, Langfuse/Helicone |
+| `voice-ai-realtime-agent` | Ultra-low latency conversational voice AI (<300ms WebRTC) |
+| `local-slm-edge-ai-expert` | In-browser small language models (WebLLM, ONNX Runtime Web, WebGPU) |
+| `synthetic-data-finetuning-expert` | Synthetic dataset generation, QLoRA (Unsloth), DPO alignment |
+| `ai-prompt-engineering-expert` | Prompt engineering, chain-of-thought, automated AI evals (DeepEval) |
+| `ai-safety-governance-expert` | Constitutional AI, runtime guardrails (NeMo, Llama Guard), bias audit |
+| `gemini-agent-booster` | Gemini 4 Pro agent optimization, multimodal reasoning, tool calling |
+| `vercel-ai-sdk-expert` | Vercel AI SDK Core/UI streaming, React 19 RSC AI engineering |
+
+## 2. Frontend & Modern Web
+| Skill Name | Purpose |
+|---|---|
+| `senior-frontend` | React 19, Next.js 15, TypeScript 5.8+, modern web standards |
+| `tailwind-expert` | Tailwind CSS v4, CSS-first `@theme` configuration |
+| `modern-css-native-expert` | Native CSS 2026: CSS Anchor Positioning, `@starting-style`, View Transitions L2 |
+| `design-system-architect` | UI design systems, design tokens (OKLCH), headless primitives |
+| `ui-ux-pro-max` | Comprehensive UI/UX design guide across 11 tech stacks |
+| `visual-ui-auditor` | Multimodal visual UI compliance audit (Pillar 7, 1px crisp borders, 5-state) |
+| `nextjs-app-router-expert` | Next.js 15 App Router: Server Components, Server Actions, Parallel Routes |
+| `tanstack-query-expert` | TanStack Query v5, optimistic updates, SSR hydration |
+| `state-management-expert` | Zustand, Jotai, Valtio, TanStack Store |
+| `form-validation-expert` | React Hook Form, server-side validation (`useActionState` + Zod) |
+| `astro-framework-expert` | Astro 5+ Islands architecture, View Transitions, Content Collections |
+| `svelte-sveltekit-expert` | Svelte 5 (Runes) and SvelteKit 2+ |
+| `solidjs-expert` | SolidJS 2 and SolidStart fine-grained reactivity |
+| `angular-expert` | Angular 19+ Signals, Standalone Components, NgRx SignalStore |
+| `vue-frontend-expert` | Vue 3 Composition API, Nuxt 3, Pinia |
+| `pwa-offline-first-expert` | Local-First & Offline-First PWA, OPFS SQLite, CRDT sync |
+| `micro-frontend-architect` | Webpack / Vite Module Federation, Single-SPA |
+| `svg-animation-motion-expert` | Framer Motion 12+, GSAP 3, Scroll-Driven Animations |
+| `web-3d-graphics-expert` | Three.js WebGPU / TSL, Babylon.js, PlayCanvas, R3F, 3Dviz |
+| `webxr-ar-vr-expert` | WebXR spatial computing, Vision Pro & Meta Quest 3 WebVR |
+| `web-game-engine-expert` | Web game engines, Havok / Rapier WASM physics, Fixed-Timestep ECS |
+| `glsl-shader-expert` | Three Shading Language (TSL), WebGPU WGSL, Compute Shaders |
+
+## 3. Backend, Languages & Microservices
+| Skill Name | Purpose |
+|---|---|
+| `js-backend-expert` | Node.js 24 LTS, Bun 1.2+, Hono v4, Fastify 5, Express 5, Prisma 6, Drizzle |
+| `python-programming-expert` | Python 3.14+, FastAPI 0.115+, Pydantic v2, TaskGroups, uv |
+| `go-programming-expert` | Go 1.25+ microservices, concurrency patterns, sqlc, gRPC |
+| `rust-programming-expert` | Rust 2024 / v1.85+, Axum, SQLx, memory safety |
+| `typescript-expert` | TypeScript 5.8+ type system, branded types, inferred predicates |
+| `api-design-expert` | REST, GraphQL, gRPC, tRPC, OpenAPI, rate limiting |
+| `spec-driven-development-expert` | TypeSpec, OpenAPI 3.1, BDD Gherkin, Pact contract testing |
+| `openapi-swagger-codegen-expert` | OpenAPI 3.1 authoring and client/server automated codegen |
+| `autonomous-api-drift-healer` | API schema drift detection, breaking change monitoring, self-healing SDKs |
+| `database-orm-expert` | Prisma 6, Drizzle ORM, zero-downtime migrations, PostgreSQL |
+| `supabase-security-expert` | Supabase RLS, tenant isolation, security policies |
+| `data-pipeline-etl-expert` | ETL/ELT pipelines, dbt, DuckDB, ClickHouse, Dagster |
+| `async-queue-temporal-expert` | BullMQ v5, Trigger.dev v3, Temporal.io distributed sagas |
+| `cron-scheduler-expert` | Distributed cron jobs and background workers |
+| `event-driven-architect` | Event Sourcing, microservices, message queues |
+| `api-gateway-proxy-expert` | Kong, Traefik, NGINX, Cloudflare Gateway |
+| `cloudflare-workers-expert` | Cloudflare Workers, D1, KV, R2, Queues, Hyperdrive, Workers AI |
+| `wasm-edge-computing-expert` | WebAssembly edge computing, WASI preview 2, Spin/Fermyon |
+| `ephemeral-wasm-sandbox-executor` | Ephemeral WASM micro-runtime sandboxes for isolated code execution |
+| `living-codebase-ast-graph` | In-memory AST symbol knowledge graphs, blast-radius calculation |
+
+## 4. SaaS, FinTech & Cloud
+| Skill Name | Purpose |
+|---|---|
+| `saas-architect` | Master SaaS lifecycle: MVP launch (0 to 1) & SaaS transformation (1 to N) |
+| `saas-billing` | Subscription state machines, webhooks, reconciliation |
+| `saas-multi-tenant` | Multi-tenant SaaS with RLS and tenant data isolation |
+| `doku-payment-gateway` | DOKU Checkout, SNAP BI (VA, QRIS, Direct Debit), idempotency |
+| `payment-gateway-expert` | Stripe, PayPal, Midtrans, Xendit payment gateways |
+| `docker-container-expert` | Production Docker multi-stage builds, distroless, rootless, Compose v2 |
+| `github-actions-expert` | CI/CD workflows, reusable actions, matrix builds, OIDC auth |
+| `ci-cd-devops-architect` | CI/CD pipelines, Docker, Kubernetes, Terraform IaC |
+| `cloud-hosting-expert` | Edge and serverless deployment (Vercel, Cloudflare, AWS) |
+| `self-healing-cloud-orchestrator` | Real-time crash detection and automated hotfixing |
+
+## 5. Testing, Security & Quality Gate
+| Skill Name | Purpose |
+|---|---|
+| `anti-slop` | Sovereign Anti-AI Slop Directive (Pillars 1–8 enforcement) |
+| `production-ready-hardener` | Ultimate production readiness hardening before release |
+| `autonomous-tdd-debugger` | Autonomous test runner, stack trace diagnosis, and self-healing |
+| `e2e-testing-expert` | Playwright E2E suites, Vitest unit & integration testing |
+| `accessibility-testing-expert` | axe-core, Pa11y, WCAG 2.2 Level AA/AAA compliance |
+| `autonomous-red-teamer` | Dynamic security fuzzing, exploit simulation, automated remediation |
+| `formal-spec-z3-verifier` | Mathematical formal verification, Z3 SMT solver, invariant proving |
+| `zero-tech-debt-auditor` | Dead code eradication (Knip), DRY enforcement, zero debt codebase |
+| `zero-trust-secret-vault` | Zero-Trust secret management (Infisical, Vault, Doppler), key rotation |
+| `authentication-identity-expert` | OAuth2, RBAC/ABAC, Clerk, Auth.js, Supabase Auth |
+| `coderabbit` | Automated AI code review, PR summaries, actionable feedback |
+
+## 6. Orchestration & Utilities
+| Skill Name | Purpose |
+|---|---|
+| `brainstorming` | Master ideation protocol & architectural matrix before coding |
+| `prd-architect` | Continuous PRD.md, ERD.md, DOKUMENTASI.md generation |
+| `zero-to-prod-orchestrator` | 8-phase master roadmap from discovery to production release |
+| `session-memory-manager` | Cross-session episodic memory & ultra-compact checkpoints (<300 tokens) |
+| `deep-research-analyst` | Autonomous deep research, web search triangulation, citation graph |
+| `web-scraper` | Agentic web scraping (Crawl4AI, Firecrawl), anti-bot bypass |
+| `website-design-cloner` | Reverse-engineer website designs from live URLs into clean code |
