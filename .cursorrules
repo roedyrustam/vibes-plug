@@ -16,7 +16,7 @@ Whenever a user submits ANY request, the agent MUST automatically and autonomous
    - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `spec-driven-development-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
    - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
-   - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `xerj-search-expert` + `multi-agent-orchestration`.
+   - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `multi-agent-orchestration`.
    - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop` + `zero-tech-debt-auditor`.
    - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator` + `session-memory-manager`.
 3. **Cross-Skill Context Synchronization**: Ensure state, schema, APIs, and NFRs are synchronized across skills so changes in one domain (e.g., database schema) automatically propagate to others (e.g., backend models, API contracts, frontend types).
