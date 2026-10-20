@@ -1,8 +1,11 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "vibes-plug",
+  "displayName": "Vibes-Plug",
   "version": "4.4.1",
   "description": "Universal AI plugin with 161 specialized skills for Cursor, Antigravity, Claude, and OpenAI Codex.",
+  "logo": "assets/logo.svg",
+  "icon": "assets/logo.svg",
   "author": {
     "name": "Roedy Rustam"
   },
@@ -30,7 +33,9 @@
       "antigravity": {
         "entry": "AGENTS.md",
         "config": "plugin.json",
-        "skillsDir": "skills/"
+        "skillsDir": "skills/",
+        "logo": "assets/logo.svg",
+        "icon": "assets/logo.svg"
       },
       "claude": {
         "entry": "CLAUDE.md",
