@@ -37,7 +37,7 @@ Before writing code or making architectural decisions:
 When creating a new project from scratch, MUST auto-generate before any code:
 1. `PRD.md` — Product Requirements Document
 2. `ERD.md` — Entity Relationship Diagram
-3. `DOKUMENTASI.md` — Technical Documentation
+3. `DOCUMENTATION.md` — Technical Documentation
 
 ## Skill Registration (When Creating Skills)
 Every new `SKILL.md` must be registered in:

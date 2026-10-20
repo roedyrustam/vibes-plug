@@ -43,7 +43,7 @@ This repository contains 161 specialized skills in the `skills/` directory (or `
 When starting a new project from scratch, Cursor AI MUST generate before any code:
 1. `PRD.md` — Concrete features, user stories, acceptance criteria, typed API contracts. Zero marketing fluff.
 2. `ERD.md` — PostgreSQL DDL with Foreign Keys and Row Level Security (RLS) policies.
-3. `DOKUMENTASI.md` — System topology, component boundaries, and directory layout.
+3. `DOCUMENTATION.md` — System topology, component boundaries, and directory layout.
 
 ## Sovereign Anti-Slop Directive
 - Zero tolerance for placeholders (`// TODO`, `// ...rest of code`, or fake mock stubs).

@@ -43,7 +43,7 @@ This project uses 161 specialized skills in the `skills/` directory. Each skill 
 ## Behavioral Rules
 1. **Deep Reasoning:** Think before acting. Analyze constraints → question assumptions → validate → execute.
 2. **Sovereign Anti-Slop Directive:** Strict zero-tolerance for placeholders (`// TODO`, `// ...`), mock data in prod, obvious syntax comments, and conversational sycophancy. 100% complete implementations on first try. Audit with `node scripts/check-anti-slop.js`.
-3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOKUMENTASI.md` before any code.
+3. **New Projects:** Auto-generate `PRD.md`, `ERD.md`, `DOCUMENTATION.md` before any code.
 4. **Bilingual:** Skills support English & Bahasa Indonesia.
 5. **Clean Code:** Follow SOLID, DRY, Clean Code principles (ref: `scalability-clean-code`).
 6. **Sovereign Token Optimization:** Deterministic KV-cache prefixing (`kv-cache-prefix-optimizer`), subagent context pruning, adaptive model cascading (`adaptive-model-cascade`), compact checkpoints (<300 tokens), and zero code truncation.

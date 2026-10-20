@@ -43,7 +43,7 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
    Before releasing control back to the Director or user, generate:
    - `PRD.md`: Concrete features, user stories, acceptance criteria, and API contracts. Zero marketing fluff.
    - `ERD.md`: Full entity schemas, PostgreSQL DDL with proper Foreign Keys, and Row Level Security (RLS) policies.
-   - `DOKUMENTASI.md`: System topology, component boundaries, and directory layout.
+   - `DOCUMENTATION.md`: System topology, component boundaries, and directory layout.
 
 3. **Subagent Fan-Out Preparation**:
    - Create a clean `CONTEXT_MAP.md` slice summarizing types and contracts so downstream subagents (`fullstack-craftsman`, `quality-guardian`) can execute without token waste.

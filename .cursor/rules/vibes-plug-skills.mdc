@@ -124,7 +124,7 @@ When addressing specific technical domains in Cursor, look up and read the corre
 | Skill Name | Purpose |
 |---|---|
 | `brainstorming` | Master ideation protocol & architectural matrix before coding |
-| `prd-architect` | Continuous PRD.md, ERD.md, DOKUMENTASI.md generation |
+| `prd-architect` | Continuous PRD.md, ERD.md, DOCUMENTATION.md generation |
 | `zero-to-prod-orchestrator` | 8-phase master roadmap from discovery to production release |
 | `session-memory-manager` | Cross-session episodic memory & ultra-compact checkpoints (<300 tokens) |
 | `deep-research-analyst` | Autonomous deep research, web search triangulation, citation graph |

@@ -34,7 +34,7 @@ A mandatory lifecycle guardrail covering two distinct phases:
 #### Enforcement Protocol
 1. **Detect**: When user requests a new project build.
 2. **Pause**: Do NOT generate any code.
-3. **Generate Assets (Zero-Slop Standard)**: Automatically draft `PRD.md`, `ERD.md`, `DOKUMENTASI.md`, and `ROADMAP.md` (or `PROGRESS.md`). Enforce `anti-slop`: zero marketing buzzwords; mandate concrete PostgreSQL DDL schemas, explicit REST/RPC contracts, and verified latency NFR budgets.
+3. **Generate Assets (Zero-Slop Standard)**: Automatically draft `PRD.md`, `ERD.md`, `DOCUMENTATION.md`, and `ROADMAP.md` (or `PROGRESS.md`). Enforce `anti-slop`: zero marketing buzzwords; mandate concrete PostgreSQL DDL schemas, explicit REST/RPC contracts, and verified latency NFR budgets.
 4. **Review**: Present to user for approval/edits.
 5. **Confirm**: Proceed to code generation ONLY after approval.
 6. **Reference**: Cite these documents in all subsequent decisions.
@@ -187,7 +187,7 @@ Guardrail siklus hidup wajib untuk rekayasa perangkat lunak modern:
 ### Fase 1: Protokol Penegakan 6 Langkah
 1. **Deteksi (Detect)**: Kenali instruksi pembuatan proyek baru dari pengguna.
 2. **Jeda (Pause)**: JANGAN membuat atau mengedit berkas kode program apa pun.
-3. **Hasilkan Berkas Spesifikasi (Zero-Slop)**: Secara otomatis susun draf `PRD.md`, `ERD.md`, `DOKUMENTASI.md`, dan `PROGRESS.md`.
+3. **Hasilkan Berkas Spesifikasi (Zero-Slop)**: Secara otomatis susun draf `PRD.md`, `ERD.md`, `DOCUMENTATION.md`, dan `PROGRESS.md`.
 4. **Tinjau (Review)**: Sajikan draf kepada pengguna untuk validasi dan penyesuaian parameter bisnis.
 5. **Konfirmasi (Confirm)**: Mulai penulisan kode sumber HANYA setelah pengguna memberikan persetujuan ("Proceed", "Lanjut", atau perbaikan disetujui).
 6. **Jadikan Referensi (Reference)**: Rujuk dokumen PRD ini dalam setiap keputusan arsitektur dan penulisan tes TDD.
