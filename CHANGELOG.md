@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.2] - 2026-10-22
+
+### Changed / Diubah
+- Catalog-count consistency pass across live surfaces: Cursor/Claude/Codex core rules, Cursor plugin manifest, VS Code status tooltip, CONTRIBUTING, README share link, and Studio/showcase version labels now all read **161 skills** (leftover 155/159/160 copy from the 4.4.1 sync gap).
+- Plugin manifests bumped to **4.4.2** (`package.json`, `plugin.json`, `gemini-extension.json`, `.cursor-plugin`, `.codex-plugin`, VS Code companion).
+- `scripts/sync-all-skill-counts.mjs` now covers the missed phrases (`159-skill registry`, `against the 155 skills`, `.cursor-plugin` description, VS Code `160-Skill` tooltip).
+
+---
+
 ## [4.4.1] - 2026-10-20
 
 ### Added / Ditambahkan

@@ -4,7 +4,7 @@ description: "Vibes-Plug 161-Skill AI Agent Swarm Architecture — Universal AI 
 globs: "**/*"
 ---
 
-# Vibes-Plug Core Conductor (Cursor IDE Edition v4.4.1)
+# Vibes-Plug Core Conductor (Cursor IDE Edition v4.4.2)
 
 ## Primary Trigger & Autonomous Swarm Activation (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER** and master orchestrator for all Cursor AI interactions.
@@ -19,7 +19,7 @@ globs: "**/*"
 This repository contains 161 specialized skills in the `skills/` directory (or `.cursor/skills/` / `.agents/skills/`). Each skill is defined by its `SKILL.md`.
 
 **Cursor AI Execution Protocol:**
-1. **Discover & Identify**: Match task intent against the 159-skill registry.
+1. **Discover & Identify**: Match task intent against the 161-skill registry.
 2. **Read Skill**: Open and read the relevant `skills/<skill-name>/SKILL.md` before generating code.
 3. **Execute Invariants**: Strictly follow patterns, contracts, and guardrails specified in the skill.
 

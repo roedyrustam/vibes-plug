@@ -65,7 +65,7 @@ When you tell an LLM "build me an app", it tries to be the designer, database ar
 
 Context floods. Abstractions collapse. Code rots.
 
-Instead, VibesPlug injects an autonomous Swarm Director that coordinates 155 specialized domain agents across 8 strict Zero-to-Prod phases.
+Instead, VibesPlug injects an autonomous Swarm Director that coordinates 161 specialized domain agents across 8 strict Zero-to-Prod phases.
 ```
 
 **Tweet 3 (The 161-Skill Arsenal):**
@@ -129,7 +129,7 @@ We built and open-sourced VibesPlug (MIT): https://github.com/roedyrustam/vibes-
 
 Key architectural components:
 1. Swarm Director Pattern: User prompts are intercepted, classified, and decomposed into cooperating subagent workflows rather than executed as a single monolithic generation.
-2. 155 Domain-Specific Skills: Structured markdown contracts covering UI design tokens (Tailwind v4, modern CSS native), backend runtimes (Bun, Hono, Go, Rust), payment standards (DOKU SNAP BI, Stripe), and verification (TDD self-healing, in-memory DB sandboxing, Z3 theorem proving).
+2. 161 Domain-Specific Skills: Structured markdown contracts covering UI design tokens (Tailwind v4, modern CSS native), backend runtimes (Bun, Hono, Go, Rust), payment standards (DOKU SNAP BI, Stripe), and verification (TDD self-healing, in-memory DB sandboxing, Z3 theorem proving).
 3. Sovereign Anti-Slop Directive: Automated AST-based static auditor (scripts/check-anti-slop.js) that enforces 0 placeholder comments, 0 fake mocks, and strictly typed contracts before code is accepted.
 4. Model & IDE Portability: Automatically provisions config files for Antigravity, Claude Code (CLAUDE.md), Cursor (.cursorrules), Windsurf, Codex, and Trae.
 5. Vibes Studio & Native MCP Server: Zero-dependency web cockpit and JSON-RPC 2.0 MCP server with 10 tools (AST symbol queries, SQL RLS validation, and KV-cache prefixing).
@@ -184,14 +184,14 @@ Check out the repo, try it on a greenfield or existing project, and let me know 
 
 **Post LinkedIn / Facebook:**
 ```text
-🚀 Vibe Coding 2.0: Memperkenalkan VibesPlug Pro v4.3.0 (Open Source)
+🚀 Vibe Coding 2.0: Memperkenalkan VibesPlug Pro v4.4.2 (Open Source)
 
 Bagi kita yang sehari-hari coding didampingi AI (Cursor, Claude Code, Antigravity, Windsurf), kita pasti sering mengalami: satu prompt panjang menghasilkan kode yang "halu", utang teknis menumpuk, import yang tidak ada, dan arsitektur berantakan.
 
-Untuk memecahkan masalah ini, saya merilis VibesPlug Pro: Arsitektur Multi-Agent Swarm dengan 155 sub-agen spesialis yang mengubah IDE Anda menjadi software development studio mandiri dan terstruktur.
+Untuk memecahkan masalah ini, saya merilis VibesPlug Pro: Arsitektur Multi-Agent Swarm dengan 161 sub-agen spesialis yang mengubah IDE Anda menjadi software development studio mandiri dan terstruktur.
 
-✨ Fitur Unggulan v4.3.0:
-1. 155 Skill Domain Spesialis: Mulai dari Modern Frontend (React 19, Tailwind v4), Backend (Bun, Hono, Go, Rust), Payment Gateway lokal & global (DOKU SNAP BI QRIS/VA & Stripe), hingga Autonomous Red Teamer.
+✨ Fitur Unggulan v4.4.2:
+1. 161 Skill Domain Spesialis: Mulai dari Modern Frontend (React 19, Tailwind v4), Backend (Bun, Hono, Go, Rust), Payment Gateway lokal & global (DOKU SNAP BI QRIS/VA & Stripe), hingga Autonomous Red Teamer.
 2. Swarm Director Otomatis: Mengorkestrasi multi-agen secara otomatis tanpa perlu repot mengetik nama skill satu per satu.
 3. Sovereign Anti-Slop Engine: Scanner otomatis yang membasmi kode stubs "// TODO", komentar basi, dan implementasi setengah matang.
 4. Vibes Studio Cockpit: Dashboard web lokal interaktif (http://localhost:3888) untuk menjelajahi dan mengaudit skill.
@@ -217,7 +217,7 @@ Salah satu sumber star organik paling konsisten adalah terdaftar di repositori "
    - Link: `[VibesPlug](https://github.com/roedyrustam/vibes-plug) - Universal 161-skill multi-agent swarm architecture for Cursor, Claude Code, and Antigravity.`
 2. **`awesome-mcp-servers`** (`https://github.com/punkpeye/awesome-mcp-servers`):
    - Category: Developer Tools / Code Intelligence
-   - Link: `[VibesPlug MCP](https://github.com/roedyrustam/vibes-plug) - MCP v1.x server with AST querying, in-memory DB sandboxing, and 155 specialized AI skills.`
+   - Link: `[VibesPlug MCP](https://github.com/roedyrustam/vibes-plug) - MCP v1.x server with AST querying, in-memory DB sandboxing, and 161 specialized AI skills.`
 3. **`awesome-ai-agents`**:
    - Add under Developer Assistant & Autonomous Coding Swarms.
 

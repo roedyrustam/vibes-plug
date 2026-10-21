@@ -53,7 +53,8 @@ replaceInFile('extensions/vscode/package.json', [
 ]);
 
 replaceInFile('extensions/vscode/extension.js', [
-  ['160 Skills', '161 Skills']
+  ['160 Skills', '161 Skills'],
+  ['160-Skill', '161-Skill']
 ]);
 
 replaceInFile('extensions/vscode/README.md', [
@@ -86,16 +87,23 @@ replaceInFile('rules/AGENTS.md', [
 ]);
 
 replaceInFile('.claude/rules/vibes-plug-core.md', [
-  ['core rules and 155 skills are shared.', 'core rules and 161 skills are shared.']
+  ['core rules and 155 skills are shared.', 'core rules and 161 skills are shared.'],
+  ['against the 155 skills', 'against the 161 skills']
 ]);
 
 replaceInFile('.codex/rules/vibes-plug-core.md', [
-  ['core rules and 155 skills are shared.', 'core rules and 161 skills are shared.']
+  ['core rules and 155 skills are shared.', 'core rules and 161 skills are shared.'],
+  ['against the 155 skills', 'against the 161 skills']
 ]);
 
 replaceInFile('.cursor/rules/vibes-plug-core.mdc', [
   ['159-Skill', '161-Skill'],
+  ['159-skill registry', '161-skill registry'],
   ['159 specialized skills', '161 specialized skills']
+]);
+
+replaceInFile('.cursor-plugin/plugin.json', [
+  ['159 specialized domain skills', '161 specialized domain skills']
 ]);
 
 replaceInFile('.cursor/rules/vibes-plug-skills.mdc', [
@@ -126,7 +134,7 @@ replaceInFile('bin/vibes.mjs', [
   ['Search all 160 skills by keyword', 'Search all 161 skills by keyword'],
   ['Export or preview the complete 160-skill ecosystem catalog', 'Export or preview the complete 161-skill ecosystem catalog'],
   ['Launch local web Studio Cockpit dashboard (visual 160-skill explorer)', 'Launch local web Studio Cockpit dashboard (visual 161-skill explorer)'],
-  ['v4.3.0', 'v4.4.1']
+  ['v4.3.0', 'v4.4.2']
 ]);
 
 replaceInFile('bin/mcp-server.mjs', [
@@ -229,6 +237,12 @@ replaceInFile('showcase/app.js', [
 ]);
 
 // 6. Documentation Files
+replaceInFile('CONTRIBUTING.md', [
+  ['the 155 ecosystem', 'the 161 ecosystem'],
+  ['the 155 catalog', 'the 161 catalog'],
+  ['dalam 155 katalog', 'dalam 161 katalog']
+]);
+
 replaceInFile('README.md', [
   ['160-Skill AI Agent Swarm Architecture', '161-Skill AI Agent Swarm Architecture'],
   ['160-agent software development studio', '161-agent software development studio'],

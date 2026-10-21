@@ -635,7 +635,7 @@ Enforce deep reasoning prior to code generation:
   trae: {
     file: '.traerules',
     code: `# Trae IDE Universal Bridge
-ecosystem: vibes-plug-v4.4.1
+ecosystem: vibes-plug-v4.4.2
 skills_total: 161
 orchestrator: zero-to-prod-orchestrator
 quality_gate: sovereign-anti-slop-strict
@@ -764,7 +764,7 @@ export function initShowcase() {
 
   // Welcome terminal line
   appendTerminalLine(`
-<span class="term-badge term-badge-cyan">VIBES-PLUG v4.4.1</span> Sovereign AI Agent Swarm & Skill Ecosystem
+<span class="term-badge term-badge-cyan">VIBES-PLUG v4.4.2</span> Sovereign AI Agent Swarm & Skill Ecosystem
 Type '<span class="term-cmd">help</span>' or click any preset badge above to simulate real agent workflows.
 `);
 }

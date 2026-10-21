@@ -1,6 +1,6 @@
 # Vibes-Plug Skills Catalog (161 Skills)
 
-*Universal AI Agent Swarm Architecture (v4.4.1)*
+*Universal AI Agent Swarm Architecture (v4.4.2)*
 
 | Skill Name | Version | Description |
 | :--- | :---: | :--- |

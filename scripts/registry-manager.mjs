@@ -236,7 +236,7 @@ export async function installSkill(skillName, options = {}) {
 }
 
 /**
- * Audits and packages a custom skill directory against the 155 Gold Standard
+ * Audits and packages a custom skill directory against the 161 Gold Standard
  * @param {string} skillDir 
  * @param {Object} [options]
  * @returns {Promise<Object>}
