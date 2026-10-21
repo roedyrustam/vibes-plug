@@ -4,7 +4,6 @@ description: "AI-powered automated code review, PR summarization, and interactiv
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # CodeRabbit (2026 Edition — CodeRabbit 2.x)

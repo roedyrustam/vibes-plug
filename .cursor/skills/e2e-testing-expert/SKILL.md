@@ -4,7 +4,6 @@ description: "Expert guide for End-to-End (E2E) testing with Playwright, unit/in
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # E2E Testing Expert (Playwright 1.49+ / Vitest 3 Edition)

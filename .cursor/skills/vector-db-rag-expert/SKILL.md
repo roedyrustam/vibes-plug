@@ -4,7 +4,6 @@ description: "Expert guide for high-performance Vector Databases, Deep RAG archi
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Vector DB & Deep RAG Expert (2026 Edition)

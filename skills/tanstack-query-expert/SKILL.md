@@ -4,7 +4,6 @@ description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infi
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # TanStack Query Expert (v5 + TanStack Router/Start Edition)

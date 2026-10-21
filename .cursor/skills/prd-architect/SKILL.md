@@ -4,7 +4,6 @@ description: "Updated to cover both pre-code PRD/ERD/Docs generation AND post-co
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # PRD Architect & Documentation Lifecycle (2026 Edition)

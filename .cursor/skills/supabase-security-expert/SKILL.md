@@ -4,7 +4,6 @@ description: "Supabase security expert to audit RLS (Row Level Security), RBAC, 
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Supabase Security Expert (2026 Edition — Auth v3 / PKCE)

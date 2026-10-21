@@ -4,7 +4,6 @@ description: "Ultimate guide for designing, building, and security-hardening mod
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # MCP Server Architect (Modern AI Tools & Agentic Protocol)

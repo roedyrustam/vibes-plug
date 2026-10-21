@@ -4,7 +4,6 @@ description: "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middl
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Next.js 15 App Router Expert

@@ -4,7 +4,6 @@ description: "Expert guide for Composable MACH Architecture (Microservices, API-
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Composable MACH Architecture / Arsitektur MACH Komposabel

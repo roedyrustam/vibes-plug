@@ -4,7 +4,6 @@ description: "Orchestrates Multi-Page Application (MPA) architecture within a si
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Multi-Page Application (MPA) Orchestrator (2026 Edition)

@@ -4,7 +4,6 @@ description: "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and le
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # SaaS Architect (MVP Launcher & Transformation Master)

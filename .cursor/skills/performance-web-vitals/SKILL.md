@@ -4,7 +4,6 @@ description: "Expert guide for Web Performance optimization: Core Web Vitals (LC
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Web Performance & Core Web Vitals Expert

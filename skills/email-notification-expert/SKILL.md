@@ -4,7 +4,6 @@ description: "Expert guide for transactional email (Resend, Postmark, SES), Reac
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Email & Notification Expert (2026 Edition)

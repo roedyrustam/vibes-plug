@@ -4,7 +4,6 @@ description: "Expert-level skill for Python programming (Python 3.13/3.14+). Cov
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Python Programming Expert (3.14 Edition)

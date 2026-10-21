@@ -4,7 +4,6 @@ description: "Expert guide for AI Safety, Governance, and Responsible AI in prod
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # AI Safety, Governance, and Responsible AI Expert

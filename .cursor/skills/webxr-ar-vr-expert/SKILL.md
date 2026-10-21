@@ -4,7 +4,6 @@ description: "Expert guide for WebXR spatial computing, Web-based Virtual Realit
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # WebXR Spatial Computing Expert (VR, AR & MR)

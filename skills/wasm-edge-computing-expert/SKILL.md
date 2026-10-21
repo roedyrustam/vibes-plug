@@ -4,7 +4,6 @@ description: "Expert guide for WebAssembly (WASM) and Edge Computing. Covers WAS
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # WASM & Edge Computing Expert

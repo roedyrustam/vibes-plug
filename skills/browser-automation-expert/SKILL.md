@@ -4,7 +4,6 @@ description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Autonomous Web Agent & Automation Expert (2026 Edition)

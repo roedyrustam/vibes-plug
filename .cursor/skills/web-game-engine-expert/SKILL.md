@@ -4,7 +4,6 @@ description: "Expert guide for modern web-based game development. Covers PlayCan
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Web Game Engine Expert (Physics, Architecture & Game Loops)

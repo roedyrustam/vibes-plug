@@ -4,7 +4,6 @@ description: "Expert guide for designing and managing scalable monorepos using T
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Monorepo Architect (Turborepo 2.x / Moon Edition)

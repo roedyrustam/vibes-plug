@@ -4,7 +4,6 @@ description: "Orchestrates Single-Page Application (SPA) architecture, integrati
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Single-Page Application (SPA) Orchestrator (2026 Edition)

@@ -4,7 +4,6 @@ description: "Expert guide for integrating Large Language Models (LLMs), Model C
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # AI & LLM Integration Expert (2026 Edition)

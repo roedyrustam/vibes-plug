@@ -4,7 +4,6 @@ description: "Expert guide for designing and orchestrating multi-agent systems, 
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Multi-Agent Orchestration Expert (2026 Edition)

@@ -4,7 +4,6 @@ description: "Expert guide for Local Small Language Models (SLMs) and Edge AI ex
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Local SLM & Edge AI Expert (WebGPU & In-Browser Intelligence)

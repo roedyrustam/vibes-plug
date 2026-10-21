@@ -4,7 +4,6 @@ description: "Smart agentic web data extraction with multi-strategy scraping (Cr
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Agentic Web Scraper Expert (2026 Edition)

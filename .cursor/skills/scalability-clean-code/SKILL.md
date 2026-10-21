@@ -4,7 +4,6 @@ description: "Software architecture guidelines to maintain code readability (Cle
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Scalability & Clean Code (2026 Edition)

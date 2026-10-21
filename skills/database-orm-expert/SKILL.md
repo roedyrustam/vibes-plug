@@ -4,7 +4,6 @@ description: "Updated to be the unified database skill covering ORM, migrations,
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Unified Database & ORM Expert

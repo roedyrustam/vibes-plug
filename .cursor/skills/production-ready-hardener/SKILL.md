@@ -4,7 +4,6 @@ description: "Ultimate production readiness skill that orchestrates all relevant
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Production-Ready Hardener

@@ -4,7 +4,6 @@ description: "AI-driven dynamic security fuzzing, exploit generation (XSS, SQLi,
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Autonomous Red Teamer (AI Hacker & Adversarial Pen-Tester)

@@ -4,7 +4,6 @@ description: "Expert skill for Tauri (v2) development, Rust backend, IPC, and se
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Tauri Expert

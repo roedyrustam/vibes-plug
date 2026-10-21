@@ -4,7 +4,6 @@ description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # TypeScript Expert (TypeScript 5.8+ Edition)

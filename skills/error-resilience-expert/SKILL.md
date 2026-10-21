@@ -4,7 +4,6 @@ description: "Expert guide for error handling patterns, resilience engineering, 
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Error & Resilience Expert (2026 Edition)

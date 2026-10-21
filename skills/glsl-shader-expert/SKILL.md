@@ -4,7 +4,6 @@ description: "Expert guide for modern web shaders: Three Shading Language (TSL),
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Modern Web Shader Expert (TSL, WGSL, Compute Shaders & GLSL)

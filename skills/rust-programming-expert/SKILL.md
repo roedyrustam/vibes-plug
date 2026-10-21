@@ -4,7 +4,6 @@ description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Cove
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Rust Programming Expert (2024 Edition / v1.88+)

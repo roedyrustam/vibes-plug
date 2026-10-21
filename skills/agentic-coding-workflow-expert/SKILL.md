@@ -4,7 +4,6 @@ description: "Expert guide for AI-assisted coding workflows — agentic code gen
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Agentic Coding Workflow Expert

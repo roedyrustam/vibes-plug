@@ -4,7 +4,6 @@ description: "Expert guidelines to refactor legacy PHP codebases into clean, mod
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # PHP MVC Expert & Modernization

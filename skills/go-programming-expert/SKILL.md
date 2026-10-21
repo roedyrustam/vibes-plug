@@ -4,7 +4,6 @@ description: "Expert-level skill for Go programming (Go 1.25+). Covers high-perf
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Go Programming Expert (Go 1.25 Edition)

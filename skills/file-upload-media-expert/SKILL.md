@@ -4,7 +4,6 @@ description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigne
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # File Upload & Media Expert (2026 Edition)

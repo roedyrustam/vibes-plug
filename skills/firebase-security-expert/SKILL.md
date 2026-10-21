@@ -4,7 +4,6 @@ description: "Firebase security expert to audit Security Rules (Firestore/Realti
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Firebase Security Expert

@@ -4,7 +4,6 @@ description: "Deeply analyzes application architecture and structure to perform 
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # App Analyzer & Optimizer (2026 Edition)

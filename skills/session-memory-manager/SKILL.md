@@ -4,7 +4,6 @@ description: "Manages the entire session lifecycle: from context loading (PRD, T
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # Session Memory Manager

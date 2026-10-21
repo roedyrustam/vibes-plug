@@ -4,7 +4,6 @@ description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, s
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # SEO Expert (2026 — AI Mode & Core Web Vitals Edition)

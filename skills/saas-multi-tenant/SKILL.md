@@ -4,7 +4,6 @@ description: "Design and implement multi-tenant SaaS architectures with RLS, ten
 author: "Roedy Rustam"
 version: "4.4.1"
 
-version: "4.3.0"
 ---
 
 # SaaS Multi-Tenant Expert (2026 Edition)
