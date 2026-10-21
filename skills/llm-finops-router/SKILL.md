@@ -2,7 +2,7 @@
 name: llm-finops-router
 description: Expert guide for AI FinOps, dynamic model routing (LiteLLM, Portkey, RouteLLM), cost optimization, budget enforcement, semantic caching, and latency-based fallback architectures / Panduan ahli untuk AI FinOps, routing model dinamis, optimasi biaya, penegakan anggaran, semantic caching, dan arsitektur fallback berbasis latensi.
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,15 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-
-Connects and orchestrates with:
-- `ai-llm-integration-expert` — base LLM integration patterns
-- `vercel-ai-sdk-expert` — streaming + tool-call routing on the edge
-- `multi-agent-orchestration` — per-agent budget allocation
-- `cloud-hosting-expert` — gateway deployment (Vercel, Cloudflare, AWS)
-- `llm-observability-expert` — Langfuse traces + cost dashboards
-- `adaptive-model-cascade` — complexity-scored model selection
-- `kv-cache-prefix-optimizer` — KV-cache hit maximization to cut costs
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI integration), `brainstorming`, `session-memory-manager`.
+- **Model Routing & Cascading**: `adaptive-model-cascade` (complexity-scored model selection), `thinking-budget-orchestrator` (reasoning token envelopes), `test-time-compute-optimizer` (compute cost scaling).
+- **Prompt Caching & Context**: `kv-cache-prefix-optimizer` (KV-cache hit maximization), `context-window-engineer` (per-zone token cost accounting).
+- **Observability & Infrastructure**: `llm-observability-expert` (Langfuse traces + cost dashboards), `cloud-hosting-expert` (gateway deployment on Vercel, Cloudflare, AWS), `vercel-ai-sdk-expert` (edge streaming & tool-call routing), `multi-agent-orchestration` (per-agent budget envelopes).
 
 ---
 
@@ -553,15 +548,10 @@ export async function smartRoute(
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-
-Terhubung dan mengorkestrasi bersama:
-- `ai-llm-integration-expert` — pola integrasi LLM dasar
-- `vercel-ai-sdk-expert` — routing streaming + tool-call di edge
-- `multi-agent-orchestration` — alokasi anggaran per-agen
-- `cloud-hosting-expert` — deployment gateway (Vercel, Cloudflare, AWS)
-- `llm-observability-expert` — trace Langfuse + dashboard biaya
-- `adaptive-model-cascade` — pemilihan model berbasis skor kompleksitas
-- `kv-cache-prefix-optimizer` — maksimasi KV-cache hit untuk memangkas biaya
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi AI Fase 4), `brainstorming`, `session-memory-manager`.
+- **Routing Model & Kaskade**: `adaptive-model-cascade` (pemilihan model berbasis skor kompleksitas), `thinking-budget-orchestrator` (envelope token penalaran), `test-time-compute-optimizer` (skala biaya komputasi).
+- **Caching Prompt & Konteks**: `kv-cache-prefix-optimizer` (maksimasi hit KV-cache), `context-window-engineer` (akuntansi biaya token per zona).
+- **Observabilitas & Infrastruktur**: `llm-observability-expert` (trace Langfuse + dashboard biaya), `cloud-hosting-expert` (deployment gateway di Vercel, Cloudflare, AWS), `vercel-ai-sdk-expert` (routing streaming & tool-call di edge), `multi-agent-orchestration` (anggaran per-agen).
 
 ---
 
