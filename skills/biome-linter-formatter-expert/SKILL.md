@@ -2,7 +2,7 @@
 name: biome-linter-formatter-expert
 description: "Expert guide for Biome (Rust-based linter + formatter), ESLint/Prettier migration, and code quality tooling / Panduan ahli Biome (linter + formatter berbasis Rust), migrasi dari ESLint/Prettier, dan tooling kualitas kode."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Code Review & Quality Gate**: `anti-slop`, `ai-code-review-autonomous`, `coderabbit`, `zero-tech-debt-auditor`
+- **Testing & Test-Driven Development**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **TypeScript & Compilers**: `typescript-expert`, `spec-driven-development-expert`
+- **Monorepo & CI/CD Tooling**: `monorepo-architect`, `ci-cd-devops-architect`, `github-actions-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for Biome v2, the unified, ultra-fast Rust-based linter, formatter, and import organizer designed to replace legacy ESLint + Prettier toolchains. Covers single-file configuration (`biome.json`), automated zero-loss migration (`biome migrate`), Lefthook/Husky Git pre-commit hooks, strict type-checking lint rules for React 19 and TypeScript 5.8+, monorepo workspace partitioning, and CI/CD quality gate enforcement.
@@ -111,16 +118,17 @@ npx @biomejs/biome check --write ./src
 npx @biomejs/biome ci ./src
 ```
 
-## Orchestration & Integration
-- **`monorepo-architect`**: Configures Biome extends across Turborepo and pnpm workspaces.
-- **`ci-cd-devops-architect`**: Embeds `biome ci` into GitHub Actions before test runs.
-- **`typescript-expert`**: Aligns Biome rules with TypeScript strict mode compiler settings.
-- **`anti-slop`**: Complements anti-slop AST checks by enforcing clean, dead-code-free repositories.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Review Kode & Gerbang Kualitas**: `anti-slop`, `ai-code-review-autonomous`, `coderabbit`, `zero-tech-debt-auditor`
+- **Pengujian & TDD**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **TypeScript & Kompiler**: `typescript-expert`, `spec-driven-development-expert`
+- **Monorepo & Tooling CI/CD**: `monorepo-architect`, `ci-cd-devops-architect`, `github-actions-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk Biome v2, linter, formatter, dan pengatur impor terpadu berbasis Rust yang dirancang untuk menggantikan rantai perkakas ESLint + Prettier yang lambat. Mencakup konfigurasi satu file (`biome.json`), migrasi otomatis bebas kendala (`biome migrate`), integrasi Git pre-commit hooks via Lefthook/Husky, aturan linting ketat untuk React 19 dan TypeScript 5.8+, serta pengawasan kualitas di pipeline CI/CD.
@@ -158,9 +166,3 @@ jobs:
       - name: Run Biome CI Gate
         run: biome ci .
 ```
-
-## Integrasi Orkestrasi
-- **`monorepo-architect`**: Mengatur pewarisan konfigurasi Biome pada monorepo pnpm.
-- **`ci-cd-devops-architect`**: Menjalankan pemeriksaan `biome ci` secara otomatis pada setiap pull request.
-- **`typescript-expert`**: Menyelaraskan aturan penamaan dan deteksi tipe data TypeScript.
-- **`anti-slop`**: Membantu membersihkan kode mati (*dead code*) dan variabel tak terpakai secara instan.

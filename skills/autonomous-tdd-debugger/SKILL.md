@@ -2,7 +2,7 @@
 name: autonomous-tdd-debugger
 description: "Empowers the agent to autonomously run tests, read terminal stack traces, and self-heal code until tests pass. Transforms the agent from a passive coder to an active CI pipeline debugger."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Test Frameworks & E2E**: `e2e-testing-expert`, `property-mutation-testing-expert`, `accessibility-testing-expert`
+- **Quality Gates & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`
+- **Formal Verification & Contracts**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
+- **Error Resilience & Healing**: `error-resilience-expert`, `self-healing-cloud-orchestrator`, `living-codebase-ast-graph`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Transforms the AI agent from a passive code generator into an active, autonomous Test-Driven Development (TDD) engineer. When invoked, the agent is mandated to execute tests, parse terminal stack traces, analyze failing assertions, and autonomously modify code in an iterative self-healing loop until all tests pass (exit code 0)—without prompting the user to manually run commands or debug errors.
@@ -111,19 +118,17 @@ export function runTDDLoop(testPattern = '', maxAttempts = 5): boolean {
    - Fix the production source code first. Only modify test files if the test specification itself is demonstrably obsolete or contradictory.
 3. **Circuit Breaker**: Capped at 5 self-healing iterations. If an issue remains unresolved after 5 cycles, pause to re-verify fundamental architectural assumptions.
 
-## Orchestration & Integration
-- **`e2e-testing-expert`**: Provides Playwright and Vitest configuration and fixture best practices.
-- **`anti-slop`**: Enforces strict code quality, zero placeholders, and non-trivial assertions during fixes.
-- **`error-resilience-expert`**: Guides the choice of resilient recovery patterns (retries, timeouts, fallbacks).
-- **`session-memory-manager`**: Keeps track of failing symbols and modifications in `CHECKPOINT.md`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `e2e-testing-expert`, `anti-slop`, `error-resilience-expert`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Framework Pengujian & E2E**: `e2e-testing-expert`, `property-mutation-testing-expert`, `accessibility-testing-expert`
+- **Gerbang Kualitas & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`
+- **Verifikasi Formal & Kontrak**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
+- **Ketahanan Error & Pemulihan**: `error-resilience-expert`, `self-healing-cloud-orchestrator`, `living-codebase-ast-graph`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Mengubah agen AI dari sekadar pembuat kode pasif menjadi insinyur *Test-Driven Development* (TDD) yang aktif dan mandiri. Saat diaktifkan, agen diwajibkan menjalankan pengujian otomatis, mem-parsing *stack trace* di terminal, menganalisis kegagalan asersi, dan memodifikasi kode secara otonom dalam siklus perbaikan (*self-healing loop*) berulang hingga seluruh pengujian lulus (*exit code 0*)—tanpa meminta pengguna untuk melakukan pengujian manual.
@@ -165,9 +170,3 @@ Mengubah agen AI dari sekadar pembuat kode pasif menjadi insinyur *Test-Driven D
    - Dilarang mengubah asersi menjadi bernilai selalu benar (`expect(true).toBe(true)`).
    - Selalu perbaiki kode implementasi produksi terlebih dahulu.
 3. **Circuit Breaker 5 Siklus**: Jika kode belum berhasil diperbaiki setelah 5 kali iterasi, hentikan loop dan evaluasi ulang arsitektur logika dasar agar tidak menghabiskan konteks.
-
-## Integrasi Orkestrasi
-- **`e2e-testing-expert`**: Menyediakan konfigurasi dan test runner Playwright/Vitest.
-- **`anti-slop`**: Menegakkan asersi pengujian yang nyata dan bebas dari placeholder.
-- **`error-resilience-expert`**: Memberikan panduan pola perbaikan error yang andal.
-- **`session-memory-manager`**: Mencatat file yang diperbaiki ke `CHECKPOINT.md`.

@@ -2,7 +2,7 @@
 name: production-ready-hardener
 description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Testing & Quality Assurance**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `coderabbit`, `zero-tech-debt-auditor`
+- **Security & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`
+- **Frontend & Design Systems**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `ui-ux-pro-max`, `global-a11y-i18n-expert`
+- **Backend & Data Integrity**: `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `spec-driven-development-expert`, `authentication-identity-expert`
+- **DevOps, CI/CD & Observability**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
+- **Performance & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
 
 ### Description
 The **Production-Ready Hardener** is a master orchestrator skill that combines and delegates to all relevant vibes-plug skills to ensure your application is rock-solid, secure, performant, and production-grade before deployment. It acts as a comprehensive pre-production checklist that leaves no stone unturned — from frontend polish to backend resilience, from data security to observability.
@@ -311,7 +317,13 @@ Active whenever the user asks to:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Pengujian & Jaminan Kualitas**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `coderabbit`, `zero-tech-debt-auditor`
+- **Keamanan & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `zero-trust-secret-vault`, `supabase-security-expert`, `firebase-security-expert`
+- **Frontend & Design System**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `ui-ux-pro-max`, `global-a11y-i18n-expert`
+- **Backend & Integritas Data**: `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `spec-driven-development-expert`, `authentication-identity-expert`
+- **DevOps, CI/CD & Observabilitas**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
+- **Performa & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 **Production-Ready Hardener** adalah skill orkestrator utama yang menggabungkan dan mendelegasikan ke semua skill vibes-plug yang relevan untuk memastikan aplikasi Anda kokoh, aman, berperforma tinggi, dan siap produksi sebelum deployment. Skill ini berfungsi sebagai checklist pra-produksi komprehensif yang tidak meninggalkan celah — dari polish frontend hingga ketahanan backend, dari keamanan data hingga observability.

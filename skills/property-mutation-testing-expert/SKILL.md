@@ -2,7 +2,7 @@
 name: property-mutation-testing-expert
 description: "Expert guide for property-based testing (fast-check, Hypothesis) and mutation testing (Stryker, mutmut) — AI-generated test properties, invariant discovery, mutation score optimization, and test suite quality verification / Panduan ahli property-based testing (fast-check, Hypothesis) dan mutation testing (Stryker, mutmut) — properti tes yang dihasilkan AI, penemuan invarian, optimasi skor mutasi, dan verifikasi kualitas suite tes."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `e2e-testing-expert`, `autonomous-tdd-debugger`, `ai-code-review-autonomous`, `formal-spec-z3-verifier`, `anti-slop`, `typescript-expert`, `python-programming-expert`, and `production-ready-hardener` to enforce mathematically rigorous test quality across the entire codebase.
+- **TDD & Test Runners**: `autonomous-tdd-debugger`, `e2e-testing-expert`
+- **Formal Verification & Invariants**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
+- **Quality Gates & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `production-ready-hardener`, `zero-tech-debt-auditor`
+- **Language Type Systems**: `typescript-expert`, `python-programming-expert`, `rust-programming-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production guide for two advanced testing techniques that frontier AI models unlock at unprecedented scale: (1) Property-Based Testing — generating thousands of randomized test inputs guided by algebraic properties and invariants, catching edge cases that example-based tests miss; and (2) Mutation Testing — systematically introducing bugs into the codebase and verifying that the test suite catches every one of them, measuring the actual "kill rate" of your tests. Together, these techniques expose false confidence in code coverage percentages.
@@ -198,26 +202,15 @@ For each property, use appropriate fast-check arbitraries.
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `e2e-testing-expert` — Complement property/mutation tests with end-to-end Playwright tests for full coverage.
-- `autonomous-tdd-debugger` — Auto-fix failing property tests in the TDD self-healing loop.
-- `formal-spec-z3-verifier` — For safety-critical logic, complement property tests with formal Z3/SMT proofs.
-- `ai-code-review-autonomous` — Include mutation score in the Pass 5 (Performance) self-review checklist.
-- `production-ready-hardener` — Enforce minimum mutation kill rates as a pre-deployment gate.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Testing & Security" matrix row.
-- `zero-to-prod-orchestrator` — Integrated in Phase 6 (Automated Testing, Error Resilience & Security Audit).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `e2e-testing-expert`, `autonomous-tdd-debugger`, `ai-code-review-autonomous`, `formal-spec-z3-verifier`, `anti-slop`, `typescript-expert`, `python-programming-expert`, dan `production-ready-hardener` untuk menegakkan kualitas tes yang ketat secara matematis di seluruh codebase.
+- **TDD & Runner Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`
+- **Verifikasi Formal & Invarian**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
+- **Gerbang Kualitas & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `production-ready-hardener`, `zero-tech-debt-auditor`
+- **Sistem Tipe Bahasa**: `typescript-expert`, `python-programming-expert`, `rust-programming-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk dua teknik testing lanjutan yang model frontier AI buka pada skala belum pernah ada: (1) Property-Based Testing — menghasilkan ribuan input tes acak yang dipandu oleh properti aljabar dan invarian, menangkap edge case yang tes berbasis contoh lewatkan; dan (2) Mutation Testing — secara sistematis menyisipkan bug ke codebase dan memverifikasi bahwa suite tes menangkap setiap bug, mengukur "kill rate" aktual tes Anda.
@@ -249,17 +242,3 @@ Kalkulasi keuangan: ≥95%. Autentikasi/otorisasi: ≥95%. Domain bisnis inti: �
 2. **Targetkan Skor Mutasi, Bukan Coverage**: 100% line coverage dengan 50% mutation score berarti separuh tes Anda tidak berguna.
 3. **Gunakan AI untuk Menemukan Properti**: Minta model frontier mengidentifikasi properti aljabar dari fungsi Anda.
 4. **Jalankan Stryker pada Jalur Kritis Saja**: Mutation testing mahal secara komputasi.
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `e2e-testing-expert` — Lengkapi property/mutation tests dengan tes end-to-end Playwright.
-- `autonomous-tdd-debugger` — Auto-fix tes properti yang gagal dalam loop self-healing TDD.
-- `formal-spec-z3-verifier` — Untuk logika kritis, lengkapi property tests dengan bukti formal Z3/SMT.
-- `production-ready-hardener` — Terapkan minimum kill rate mutasi sebagai gerbang pre-deployment.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "Testing & Security" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 6 (Automated Testing, Error Resilience & Security Audit).

@@ -2,7 +2,7 @@
 name: formal-spec-z3-verifier
 description: "Expert guide for mathematical formal verification, SMT solver constraints (Z3, Dafny, TLA+), invariant theorem proving for FinTech billing state machines, RBAC/ABAC authorization, and zero-violation architecture / Panduan ahli verifikasi formal matematis, SMT solver (Z3, Dafny, TLA+), pembuktian invarian state machine billing FinTech, otorisasi RBAC/ABAC, dan arsitektur zero-violation."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `saas-billing`, `doku-payment-gateway`, `authentication-identity-expert`, and `database-orm-expert` to mathematically prove software invariants, state transitions, and authorization policies using formal SMT solvers before writing production code.
+- **FinTech & SaaS Billing**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **Identity & Authorization Proofs**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Database & Constraint Enforcement**: `database-orm-expert`, `spec-driven-development-expert`
+- **Testing & Mutation Verification**: `property-mutation-testing-expert`, `autonomous-tdd-debugger`, `anti-slop`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production guide for applying formal methods, mathematical specifications, and SMT (Satisfiability Modulo Theories) solvers (Z3, Dafny, TLA+) to mission-critical software systems. Proves zero-invariant violation across double-entry ledger bookkeeping, billing subscription state machines, multi-tenant isolation boundaries, and cryptographic key lifecycle models.
@@ -135,25 +139,15 @@ Any edge attempting to move from `Canceled` directly back to `Active` without pa
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `saas-billing` — Formally prove subscription state transitions and balance deductions.
-- `doku-payment-gateway` — Validate atomic idempotency and payment settlement invariants.
-- `authentication-identity-expert` — Mathematically verify RBAC/ABAC role hierarchies.
-- `database-orm-expert` — Implement proven invariants as SQL check constraints and foreign keys.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Testing & Keamanan" and "Desain API & Kontrak" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 2 (Foundation) and Phase 6 (Testing & QA).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `saas-billing`, `doku-payment-gateway`, `authentication-identity-expert`, dan `database-orm-expert` untuk membuktikan invarian perangkat lunak, transisi state, dan kebijakan otorisasi secara matematis sebelum penulisan kode produksi.
+- **FinTech & Billing SaaS**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **Pembuktian Identitas & Otorisasi**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Database & Penegakan Constraint**: `database-orm-expert`, `spec-driven-development-expert`
+- **Pengujian & Verifikasi Mutasi**: `property-mutation-testing-expert`, `autonomous-tdd-debugger`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk menerapkan metode formal, spesifikasi matematis, dan SMT (*Satisfiability Modulo Theories*) solver (seperti Z3, Dafny, TLA+) pada sistem perangkat lunak misi kritis. Membuktikan ketiadaan pelanggaran invarian (*zero-invariant violation*) pada pembukuan entri ganda FinTech, transisi siklus langganan SaaS, batas isolasi multi-tenant, dan hierarki akses.
@@ -198,17 +192,3 @@ Pastikan tidak ada alur ilegal dalam sistem langganan:
 | Menggunakan tipe data float untuk saldo keuangan | Selisih sen akibat rounding error yang menumpuk | Gunakan tipe integer (satuan sen) dengan validasi solver |
 | Mengizinkan transisi state tanpa validasi prasyarat | Pengguna mendapat akses gratis setelah membatalkan langganan | Buktikan matriks transisi dengan formal state graph |
 | Validasi hanya di lapisan aplikasi | Transaksi paralel dapat menembus pengecekan (race condition) | Gabungkan bukti formal dengan kunci transaksi database (`SELECT FOR UPDATE`) |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `saas-billing` — Membuktikan transisi state langganan dan deduksi kuota secara formal.
-- `doku-payment-gateway` — Memvalidasi invarian idempotensi transaksi pembayaran.
-- `authentication-identity-expert` — Memverifikasi hierarki peran RBAC/ABAC tanpa celah eskalasi.
-- `database-orm-expert` — Mengimplementasikan invarian terbukti ke dalam constraint database.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "Testing & Keamanan" dan "Desain API & Kontrak" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 2 (Pondasi Proyek) dan Fase 6 (Pengujian Otomatis & Keamanan).
