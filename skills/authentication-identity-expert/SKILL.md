@@ -2,7 +2,7 @@
 name: authentication-identity-expert
 description: "Expert guide for implementing secure authentication, authorization (RBAC/ABAC), OAuth2, and identity management (Clerk, Auth.js, Supabase Auth) / Panduan ahli untuk autentikasi dan otorisasi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,17 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 2 - Foundation, Auth & Identity Architecture) to implement secure user authentication.
+- **Downstream Cooperating Skills**:
+  - `saas-architect` — B2B multi-tenant auth workflows, organization switching, and onboarding.
+  - `saas-multi-tenant` — RBAC permission matrices, custom session claims, and workspace member access.
+  - `supabase-security-expert` — Supabase SSR auth, PKCE token cookies, and RLS policies.
+  - `firebase-security-expert` — Firebase Auth, custom token minting, and security rules.
+  - `js-backend-expert` — Authorization middleware, JWT token verification, and session stores.
+  - `production-ready-hardener` — Pre-release auth security audits, rate-limiting, and CSP headers.
+  - `session-memory-manager` — Store authentication topology decisions and credential schemas.
 
 ### Description
 Production-grade guide for implementing secure authentication, authorization, and identity management in modern web and mobile applications. Covers **Clerk**, **Supabase Auth**, **Auth.js v5**, **Better Auth**, JWT patterns, OAuth 2.1, PKCE flows, RBAC/ABAC, passkeys (WebAuthn), and MFA implementations for React 19 / Next.js 15 stacks.
@@ -147,19 +158,19 @@ export async function getPasskeyRegistrationOptions(userId: string, userEmail: s
 - [ ] Authorization enforced on server actions and API routes (never UI only).
 - [ ] Rate limiting on login and signup endpoints.
 
-## Orchestration & Integration
-- Connects with `supabase-security-expert`, `saas-architect`, `js-backend-expert`, `firebase-security-expert`, and `production-ready-hardener`.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`supabase-security-expert`**: Konfigurasi otentikasi Supabase SSR, token cookie PKCE, dan kebijakan Row-Level Security (RLS) PostgreSQL.
-- **`saas-architect`**: Desain multi-tenancy, isolasi data organisasi, dan alur kerja autentikasi B2B SaaS.
-- **`js-backend-expert`**: Middleware otorisasi, penanganan sesi JWT stateless, dan sanitasi header.
-- **`production-ready-hardener`**: Audit keamanan otentikasi pra-rilis dan penegakan header CSP.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 2 - Fondasi, Autentikasi & Arsitektur Identitas) untuk mengimplementasikan autentikasi pengguna yang aman.
+- **Skill Hilir & Kerja Sama**:
+  - `saas-architect` — Alur kerja autentikasi B2B SaaS, perpindahan organisasi, dan onboarding.
+  - `saas-multi-tenant` — Matriks izin RBAC, custom claims sesi, dan akses anggota workspace.
+  - `supabase-security-expert` — Konfigurasi otentikasi Supabase SSR, cookie PKCE, dan kebijakan RLS.
+  - `firebase-security-expert` — Firebase Auth, custom token minting, dan security rules.
+  - `js-backend-expert` — Middleware otorisasi, verifikasi token JWT, dan session store.
+  - `production-ready-hardener` — Audit keamanan autentikasi pra-rilis, rate-limiting, dan header CSP.
+  - `session-memory-manager` — Menyimpan keputusan topologi autentikasi dan skema kredensial.
 
 ### Deskripsi
 Panduan tingkat produksi untuk implementasi autentikasi aman, otorisasi (RBAC/ABAC), dan manajemen identitas pengguna pada aplikasi web dan mobile modern. Mencakup integrasi **Clerk**, **Supabase Auth**, **Auth.js v5 (NextAuth)**, **Better Auth**, OAuth 2.1 dengan alur PKCE, rotasi Refresh Token HttpOnly, Passkeys (WebAuthn), dan Multi-Factor Authentication (MFA) untuk stack React 19 / Next.js 15.
