@@ -2,7 +2,7 @@
 name: ai-media-generation-expert
 description: "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration / Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,11 +16,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-- **`ai-llm-integration-expert`**: Core LLM patterns and model selection.
-- **`file-upload-media-expert`**: Storage, CDN, and media pipeline for generated assets.
-- **`sse-websocket-streaming-expert`**: Real-time streaming for progressive image/audio generation.
-- **`async-queue-temporal-expert`**: Background job processing for long-running generation tasks.
-- **`zero-trust-secret-vault`**: Secure API key management for Replicate, OpenAI, ElevenLabs.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 5 - Core Feature Development & Media Generation) to integrate multimodal generative pipelines.
+- **Downstream Cooperating Skills**:
+  - `ai-llm-integration-expert` — Prompt engineering, reasoning model selection, and orchestration chains.
+  - `file-upload-media-expert` — Persistent storage (R2/S3), CDN distribution, and media pipeline handling.
+  - `sse-websocket-streaming-expert` — Progressive image generation streaming and real-time audio playback.
+  - `async-queue-temporal-expert` — Durable background queue execution for long-running video/audio generation.
+  - `zero-trust-secret-vault` — Secure API key rotation and credential vault for Replicate, OpenAI, and ElevenLabs.
+  - `session-memory-manager` — Store generation task metadata, prompt history, and asset references.
 
 ### Description
 Production-grade guide for integrating AI-powered media generation into web and mobile applications. Covers image generation (Flux 1.1 Pro, SDXL, DALL-E 3), video generation (Sora, Runway Gen-3), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), and voice cloning. Includes async processing patterns, cost optimization, and content safety filtering.
@@ -158,11 +161,14 @@ async function generateVideo(prompt: string) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`ai-llm-integration-expert`**: Pola LLM inti, pemilihan model penalaran, dan arsitektur orkestrasi prompt.
-- **`file-upload-media-expert`**: Penyimpanan Cloudflare R2 / S3, optimasi CDN, dan pipeline media untuk aset yang dihasilkan.
-- **`sse-websocket-streaming-expert`**: Streaming progresif untuk generasi gambar, status tugas, dan audio real-time.
-- **`async-queue-temporal-expert`**: Pemrosesan background job (BullMQ/Temporal) untuk tugas generasi media berdurasi panjang.
-- **`zero-trust-secret-vault`**: Manajemen rahasia aman untuk token Replicate, OpenAI, dan ElevenLabs.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 5 - Pengembangan Fitur Utama & Generasi Media) untuk mengintegrasikan pipeline generatif multimodal.
+- **Skill Hilir & Kerja Sama**:
+  - `ai-llm-integration-expert` — Rekayasa prompt, pemilihan model penalaran, dan rantai orkestrasi.
+  - `file-upload-media-expert` — Penyimpanan permanen (R2/S3), distribusi CDN, dan pipeline media.
+  - `sse-websocket-streaming-expert` — Streaming generasi gambar progresif dan pemutaran audio real-time.
+  - `async-queue-temporal-expert` — Eksekusi antrean background job untuk generasi video dan audio panjang.
+  - `zero-trust-secret-vault` — Rotasi kunci API aman dan brankas kredensial Replicate, OpenAI, dan ElevenLabs.
+  - `session-memory-manager` — Menyimpan metadata tugas generasi, riwayat prompt, dan referensi aset.
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan generasi media berbasis AI ke dalam aplikasi web dan mobile modern. Mencakup generasi gambar (Flux 1.1 Pro, SDXL, DALL-E 3), generasi video (Sora, Runway Gen-3, MiniMax), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), dan kloning audio. Dilengkapi pola pemrosesan asinkron via webhook, mitigasi biaya, serta penyaringan keamanan konten (NSFW/moderasi).

@@ -2,11 +2,33 @@
 name: agentic-coding-workflow-expert
 description: "Expert guide for AI-assisted coding workflows — agentic code generation, multi-agent code swarms, self-healing CI/CD, automated PR review, spec-to-code pipelines, codebase knowledge graphs, and human-in-the-loop approval gates / Panduan ahli untuk workflow pengkodean berbasis AI — generasi kode agentic, code swarm multi-agen, CI/CD self-healing, review PR otomatis, pipeline spec-to-code, knowledge graph codebase, dan gate persetujuan human-in-the-loop."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
-# Agentic Coding Workflow Expert
+# Agentic Coding Workflow Expert (2026 Edition)
+
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
+
+---
+
+<a name="english"></a>
+## English
+
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 5 - Core Feature Development & Swarm Execution) to automate agentic coding pipelines.
+- **Downstream Cooperating Skills**:
+  - `multi-agent-orchestration` — Coordinate multi-agent code swarms and task fan-out/fan-in topologies.
+  - `autonomous-tdd-debugger` — Self-healing test runner and automated error resolution.
+  - `coderabbit` — AI-powered PR review, automated diff summarization, and interactive feedback.
+  - `living-codebase-ast-graph` — AST semantic analysis and cross-module impact radius calculation.
+  - `scalability-clean-code` — Architectural compliance, DRY/SOLID enforcement, and code hygiene.
+  - `session-memory-manager` — Persist agent learning history, architectural choices, and session memory.
+
+### Description
+Production-grade framework for AI-assisted coding workflows and agent swarms. Covers autonomous code generation, multi-agent code swarms, self-healing CI/CD pipelines, automated PR reviews, codebase knowledge graphs, and human-in-the-loop approval gates.
+
+---
 
 ## 1. Agentic Code Generation Patterns / Pola Generasi Kode Agentic
 
@@ -273,26 +295,20 @@ Pastikan keamanan dengan pengawasan manusia.
 - **Destructive Approvals:** Mandate human sign-off for DB migrations or breaking API changes.
 - **Escalation:** Alert human developers when agent loop is stuck or oscillating.
 
-## 9. Orchestration & Integration
+---
 
-Combine this skill with other vibes-plug modules for comprehensive workflows.
-Gabungkan skill ini dengan modul vibes-plug lainnya untuk workflow yang komprehensif.
-
-### Connected Skills:
-- `multi-agent-orchestration`
-- `autonomous-tdd-debugger`
-- `coderabbit`
-- `ci-cd-devops-architect`
-- `scalability-clean-code`
-- `session-memory-manager`
-- `app-analyzer-optimizer`
-- `brainstorming`
-- `zero-to-prod-orchestrator`
-
-## English
+<a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 5 - Pengembangan Fitur Utama & Eksekusi Swarm) untuk mengotomasi alur pembuatan kode agentic.
+- **Skill Hilir & Kerja Sama**:
+  - `multi-agent-orchestration` — Mengoordinasikan swarm multi-agen dan topologi fan-out/fan-in tugas.
+  - `autonomous-tdd-debugger` — Runner tes self-healing dan remediasi error otomatis.
+  - `coderabbit` — Review PR berbasis AI, ringkasan diff otomatis, dan feedback interaktif.
+  - `living-codebase-ast-graph` — Analisis semantik AST dan kalkulasi radius dampak lintas modul.
+  - `scalability-clean-code` — Kepatuhan arsitektur, penegakan prinsip DRY/SOLID, dan kebersihan kode.
+  - `session-memory-manager` — Menyimpan histori pembelajaran agen, pilihan arsitektur, dan memori sesi.
 
-## Orchestration & Integration
-- Connects to `zero-to-prod-orchestrator`
-- Connects to `brainstorming`
+### Deskripsi
+Panduan produksi untuk alur kerja pembuatan kode berbasis AI dan swarm agen. Mencakup pembuatan kode otonom, koordinasi swarm multi-agen, pipeline CI/CD self-healing, review PR otomatis, graph pengetahuan codebase AST, dan gerbang persetujuan human-in-the-loop.

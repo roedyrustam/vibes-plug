@@ -2,7 +2,7 @@
 name: xerj-search-expert
 description: "Expert guide for XERJ: the unified search engine for AI, vector database, zero-config autoindexer, agent memory store (/_memory/{ns}), and embedded 13-tool MCP server / Panduan ahli XERJ: mesin pencari terpadu untuk AI, vector database, autoindex tanpa konfigurasi, memori agen, dan 13 tool MCP server bawaan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,13 +16,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills:
-- `search-engine-expert` — Integrating Elasticsearch wire-compatible endpoints, query DSLs, BM25 ranking, and faceted search.
-- `vector-db-rag-expert` — Hybrid search (BM25 + vector RRF), dense vector indexing, and HNSW graph retrieval.
-- `agentic-memory-architect` — Persistent agent episodic memory with `/_memory/{ns}` and namespace partitioning.
-- `mcp-server-architect` — Configuring and routing the 13 built-in Model Context Protocol (MCP) tools via `xerj mcp`.
-- `brainstorming` & `zero-to-prod-orchestrator` — Phase 3 (Database & Search) and Phase 4 (Backend APIs & AI Agents).
-- `anti-slop` — Enforcing honest claims, verified benchmark numbers, and zero-hallucination citations.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 3 - Database & Search Architecture and Phase 4 - Backend APIs & AI Agents) as the unified retrieval and memory engine.
+- **Downstream Cooperating Skills**:
+  - `search-engine-expert` — Integrating Elasticsearch wire-compatible endpoints, query DSLs, BM25 ranking, and faceted search.
+  - `vector-db-rag-expert` — Hybrid search (BM25 + vector RRF), dense vector indexing, and HNSW graph retrieval.
+  - `agentic-memory-architect` — Persistent agent episodic memory with `/_memory/{ns}` and namespace partitioning.
+  - `mcp-server-architect` — Configuring and routing the 13 built-in Model Context Protocol (MCP) tools via `xerj mcp`.
+  - `anti-slop` — Enforcing honest claims, verified benchmark numbers, and zero-hallucination citations.
+  - `session-memory-manager` — Store XERJ index definitions and agent memory configuration checkpoints.
 
 ### Description
 Expert guide for installing, running, autoindexing, and querying **XERJ** — the unified, AI-native search engine, vector database, agent memory store, and log analytics engine written from scratch in Rust (Apache-2.0). XERJ replaces the complex retrieval stack an AI system normally assembles (Elasticsearch + vector database + embedding service + memory store) with a single native binary, speaking both native REST and Elasticsearch 8.x wire protocol (0-failure conformance gate) and exposing 13 native MCP tools.
@@ -141,13 +142,14 @@ Expert guide for installing, running, autoindexing, and querying **XERJ** — th
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasikan skill domain berikut:
-- `search-engine-expert` — Integrasi endpoint kompatibel Elasticsearch, query DSL, skor BM25, dan faceted search.
-- `vector-db-rag-expert` — Pencarian hybrid (BM25 + vector RRF), pengindeksan vektor densitas tinggi, dan graf HNSW.
-- `agentic-memory-architect` — Penyimpanan memori episodik jangka panjang agen melalui `/_memory/{ns}`.
-- `mcp-server-architect` — Konfigurasi dan perutean 13 alat Model Context Protocol (MCP) native via `xerj mcp`.
-- `brainstorming` & `zero-to-prod-orchestrator` — Fase 3 (Database & Search) dan Fase 4 (Backend APIs & AI Agents).
-- `anti-slop` — Penegakan klaim jujur, verifikasi angka benchmark, dan atribusi tanpa halusinasi.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 3 - Arsitektur Database & Search dan Fase 4 - Backend API & Agen AI) sebagai mesin retrieval dan memori terpadu.
+- **Skill Hilir & Kerja Sama**:
+  - `search-engine-expert` — Integrasi endpoint kompatibel Elasticsearch, query DSL, skor BM25, dan faceted search.
+  - `vector-db-rag-expert` — Pencarian hybrid (BM25 + vector RRF), pengindeksan vektor densitas tinggi, dan graf HNSW.
+  - `agentic-memory-architect` — Penyimpanan memori episodik jangka panjang agen melalui `/_memory/{ns}`.
+  - `mcp-server-architect` — Konfigurasi dan perutean 13 alat Model Context Protocol (MCP) native via `xerj mcp`.
+  - `anti-slop` — Penegakan klaim jujur, verifikasi angka benchmark, dan atribusi tanpa halusinasi.
+  - `session-memory-manager` — Menyimpan definisi indeks XERJ dan checkpoint konfigurasi memori agen.
 
 ### Deskripsi
 Panduan ahli untuk instalasi, pengoperasian, pengindeksan otomatis (*autoindex*), dan pencarian menggunakan **XERJ** — mesin pencari AI-native, vector database, memori agen, dan analitik log terpadu yang dibangun dari nol dalam bahasa Rust (Apache-2.0). XERJ menggantikan seluruh tumpukan retrieval terpisah (Elasticsearch + vector database + embedding service + memory store) menjadi satu binary mandiri, mendukung protokol Elasticsearch 8.x (gerbang conformance CI 0-failure) dan menyediakan 13 tool MCP bawaan.
