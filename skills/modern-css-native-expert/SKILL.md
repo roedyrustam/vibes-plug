@@ -1,10 +1,8 @@
 ---
 name: modern-css-native-expert
-description: "Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, and :has() / Panduan ahli fitur CSS native modern 2026."
+description: "Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, :has(), and Modern Web Guidance / Panduan ahli fitur CSS native modern 2026."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Modern Native CSS Expert (2026 Standard & Primitives)
@@ -15,6 +13,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Integrates tightly with the following domain skills:
+- **`modern-web-guidance`**: Primary companion tool to look up standardized native CSS best practices (`npx -y modern-web-guidance@latest search "<query>"`).
+- **`design-system-architect`**: Supplies headless token definitions and surface container hierarchies.
+- **`tailwind-expert`**: Bridges native CSS primitives with Tailwind v4 `@theme` and dynamic utility classes.
+- **`visual-ui-auditor`**: Validates smooth top-layer transitions, focus rings, and layout stability.
+- **`anti-slop`**: Eliminates unnecessary JS polyfills and div-soup wrappers.
+- **`senior-frontend`**: Integrates native CSS features into React 19 / Next.js 15 architectures.
 
 ### Purpose & Overview
 Production-grade engineering guide for modern **Native CSS features (2026 Edition)** that replace cumbersome JavaScript libraries with pure browser-native primitives. Covers the **CSS Anchor Positioning API** for tooltips/popovers, **`@starting-style`** for smooth entry/exit animations on top-layer elements (`<dialog>`, `popover`), **View Transitions API Level 2**, **Container Queries (`@container`)**, and the **`:has()`** relational selector.
@@ -238,7 +245,11 @@ Implementasikan dialog M3 dan modal bottom sheet secara native menggunakan `<dia
 - Hubungkan token bentuk M3 (`--md-sys-shape-corner-extra-large: 28px`) dan surface container (`--md-sys-color-surface-container-high`).
 - Backdrop scrim M3 transparan bertransisi halus ke opasitas 32% hitam (`rgb(0 0 0 / 32%)`).
 
----
-
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `design-system-architect`, `design-system-architect, senior-frontend`, `tailwind-expert`, `senior-frontend`.
+Terintegrasi erat dengan skill berikut:
+- **`modern-web-guidance`**: Tool pendamping utama untuk menelusuri standar terbaik CSS native modern (`npx -y modern-web-guidance@latest search "<query>"`).
+- **`design-system-architect`**: Menyuplai definisi token headless dan hierarki kontainer permukaan.
+- **`tailwind-expert`**: Menjembatani primitif CSS native dengan direktif `@theme` dan utilitas dinamis Tailwind v4.
+- **`visual-ui-auditor`**: Memvalidasi transisi top-layer yang halus, indikator fokus, dan stabilitas tata letak.
+- **`anti-slop`**: Menghilangkan polyfill JavaScript yang tidak diperlukan dan pembungkus div-soup.
+- **`senior-frontend`**: Mengintegrasikan fitur CSS native ke dalam arsitektur React 19 / Next.js 15.

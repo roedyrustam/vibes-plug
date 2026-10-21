@@ -2,8 +2,7 @@
 name: anti-slop
 description: "Sovereign Anti-AI Slop Directive & Enforcement Engine (2026 Unified Edition). Absolute zero-tolerance standard for lazy placeholders, conversational fluff, syntax narration, speculative over-engineering, hallucinated code, generic UI clichés, and 38 mandatory rules (R-01 to R-38) with Liveliness Dials (ENERGY/RHYTHM/MOTION), Two Usage Modes (During vs Audit After), and Delivery Gate verification / Doktrin dan mesin penegakan anti-AI slop mutlak v5.0."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)
@@ -484,9 +483,13 @@ This skill serves as the foundational quality, craftsmanship, and anti-slop gate
 
 | Skill | Relationship & Integration Flow |
 | :--- | :--- |
+| `modern-web-guidance` | Queries and enforces modern web platform best practices before generating UI code. |
 | `senior-frontend` | Sanitizes React 19 / Next.js 15 components from generic AI templates and unhandled states. |
 | `tailwind-expert` | Enforces CSS-first styling, eliminates excessive pill buttons, and prevents stacked neon glows. |
 | `design-system-architect` | Validates 5-state interactive contracts, accessible tokens, and solid borders. |
+| `modern-css-native-expert` | Enforces native CSS anchor positioning and top-layer `@starting-style` transitions. |
+| `ui-ux-pro-max` | Audits visual hierarchy, 60-30-10 color balance, and F/Z reading patterns. |
+| `visual-ui-auditor` | Evaluates rendered screenshots and AST against the 20-point visual quality rubric. |
 | `autonomous-tdd-debugger` | Enforces 100% complete implementations on the first try without test skips or fake mocks. |
 | `production-ready-hardener` | Acts as the final delivery quality gate before any release or production deployment. |
 | `zero-tech-debt-auditor` | Scans and eradicates syntax narration comments, dead code, and speculative abstractions. |

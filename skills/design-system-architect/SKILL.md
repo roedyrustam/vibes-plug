@@ -1,10 +1,8 @@
 ---
 name: design-system-architect
-description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, and WCAG 2.2 accessibility."
+description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, Modern Web Guidance, and WCAG 2.2 accessibility."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -15,6 +13,16 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Search and enforce 2026 web platform best practices before building UI primitives.
+- **`modern-css-native-expert`**: Pure CSS anchor positioning, `@starting-style`, and top-layer transitions.
+- **`tailwind-expert`**: Translates design tokens into CSS-first `@theme` variables.
+- **`ui-ux-pro-max`**: Design intelligence, F/Z scan patterns, 60-30-10 color layering, and typography scales.
+- **`visual-ui-auditor`**: Automated multimodal vision auditing and 20-point rubric verification.
+- **`anti-slop`**: Eliminates AI visual clichés (Pillar 7), pill-button addiction, and fake states.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
 
 ### Description
 Expert guide for building and maintaining scalable UI design systems. Covers design tokens with OKLCH and Tailwind v4 `@theme`, **Material Design 3 (M3)** integration, headless component primitives (Radix UI, **Base UI 1.x**), **shadcn/ui registry** for distributable component libraries, CVA for type-safe variants, and WCAG 2.2 accessibility compliance.
@@ -393,7 +401,14 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Mencari dan menegakkan standar terbaik platform web 2026 sebelum membangun primitif UI.
+- **`modern-css-native-expert`**: Pemosisi jangkar CSS native, `@starting-style`, dan transisi top-layer.
+- **`tailwind-expert`**: Menerjemahkan token desain ke dalam variabel CSS-first `@theme`.
+- **`ui-ux-pro-max`**: Kecerdasan desain, pola pindai F/Z, pelapisan warna 60-30-10, dan skala tipografi.
+- **`visual-ui-auditor`**: Audit vision multimodal otomatis dan verifikasi rubrik 20-poin.
+- **`anti-slop`**: Menghilangkan klise visual AI (Pilar 7), adiksi tombol lonjong (pill button), dan status palsu.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara berkelanjutan.
 
 ### Deskripsi
 Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Mencakup design token dengan OKLCH dan `@theme` Tailwind v4, primitif komponen headless (Radix UI, **Base UI 1.x**), **registry shadcn/ui** untuk distribusi library komponen, CVA untuk varian type-safe, dan kepatuhan aksesibilitas WCAG 2.2.
