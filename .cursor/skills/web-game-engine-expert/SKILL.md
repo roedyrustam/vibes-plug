@@ -139,6 +139,65 @@ export function GamePhysicsWorld({ children }: { children: React.ReactNode }) {
 #### Option B: Jolt Physics WASM (`jolt-physics`)
 The AAA open-source physics engine used in titles like *Horizon Forbidden West*. Best for massive simulations (>2,000 rigid bodies) and advanced ragdolls in vanilla Three.js or Babylon.js.
 
+#### Option C: Babylon.js + Havok Physics V2 (`@babylonjs/havok`)
+The industry standard AAA physics engine compiled to WebAssembly with SIMD acceleration. Provides native sub-stepping, character controllers, convex hull decomposition, and constraint solvers:
+
+```typescript
+import {
+  Scene,
+  Vector3,
+  MeshBuilder,
+  HavokPlugin,
+  PhysicsAggregate,
+  PhysicsShapeType,
+  PhysicsCharacterController
+} from '@babylonjs/core';
+import HavokPhysics from '@babylonjs/havok';
+
+export async function initBabylonHavokPhysics(scene: Scene) {
+  // 1. Initialize Havok WASM binary and plugin
+  const havokInstance = await HavokPhysics();
+  const havokPlugin = new HavokPlugin(true, havokInstance);
+  scene.enablePhysics(new Vector3(0, -9.81, 0), havokPlugin);
+
+  // 2. Static Ground PhysicsAggregate
+  const ground = MeshBuilder.CreateGround('ground', { width: 40, height: 40 }, scene);
+  const groundAggregate = new PhysicsAggregate(
+    ground,
+    PhysicsShapeType.BOX,
+    { mass: 0, restitution: 0.1, friction: 0.8 },
+    scene
+  );
+
+  // 3. Dynamic Rigid Body (Crate)
+  const crate = MeshBuilder.CreateBox('crate', { size: 1.5 }, scene);
+  crate.position.set(0, 5, 0);
+  const crateAggregate = new PhysicsAggregate(
+    crate,
+    PhysicsShapeType.BOX,
+    { mass: 10, restitution: 0.3, friction: 0.5 },
+    scene
+  );
+
+  // 4. Kinematic Character Controller with slope limit and step handling
+  const playerCapsule = MeshBuilder.CreateCapsule('playerCapsule', { radius: 0.5, height: 1.8 }, scene);
+  playerCapsule.position.set(0, 1, 0);
+  
+  const characterController = new PhysicsCharacterController(
+    playerCapsule.position,
+    {
+      capsuleHeight: 1.8,
+      capsuleRadius: 0.5,
+      maxSlope: Math.PI / 4, // 45 degree slope climbing limit
+      stepHeight: 0.3
+    },
+    scene
+  );
+
+  return { havokPlugin, groundAggregate, crateAggregate, characterController };
+}
+```
+
 > **Physics Best Practice**: ALWAYS use primitive colliders (`Sphere`, `Box`, `Capsule`) for moving dynamic bodies. NEVER use `Trimesh` (triangle mesh) for dynamic objects; `Trimesh` should only be used for static world terrain.
 
 ---
@@ -320,7 +379,36 @@ Aktifkan skill ini ketika pengguna:
 2. **Mesin Fisika WASM (Rapier / Jolt / Havok)**:
    - Gunakan **Rapier 3D** (Rust WASM + SIMD) untuk Three.js/R3F.
    - Gunakan **Jolt Physics** untuk simulasi skala besar ribuan objek dinamis.
-   - Gunakan **Havok** jika membangun di atas Babylon.js.
+   - Gunakan **Babylon.js + Havok Physics V2 (`@babylonjs/havok`)** untuk simulasi kelas AAA:
+   ```typescript
+   import { Scene, Vector3, MeshBuilder, HavokPlugin, PhysicsAggregate, PhysicsShapeType, PhysicsCharacterController } from '@babylonjs/core';
+   import HavokPhysics from '@babylonjs/havok';
+
+   export async function inisialisasiFisikaHavok(scene: Scene) {
+     const havokInstance = await HavokPhysics();
+     const havokPlugin = new HavokPlugin(true, havokInstance);
+     scene.enablePhysics(new Vector3(0, -9.81, 0), havokPlugin);
+
+     // Batas lantai statis
+     const lantai = MeshBuilder.CreateGround('lantai', { width: 40, height: 40 }, scene);
+     new PhysicsAggregate(lantai, PhysicsShapeType.BOX, { mass: 0, friction: 0.8 }, scene);
+
+     // Objek kotak dinamis
+     const kotak = MeshBuilder.CreateBox('kotak', { size: 1.5 }, scene);
+     kotak.position.set(0, 5, 0);
+     new PhysicsAggregate(kotak, PhysicsShapeType.BOX, { mass: 10, restitution: 0.3 }, scene);
+
+     // Character Controller dengan batas kemiringan (slope) dan tangga
+     const pemain = MeshBuilder.CreateCapsule('pemain', { radius: 0.5, height: 1.8 }, scene);
+     const controller = new PhysicsCharacterController(
+       pemain.position,
+       { capsuleHeight: 1.8, capsuleRadius: 0.5, maxSlope: Math.PI / 4, stepHeight: 0.3 },
+       scene
+     );
+
+     return { havokPlugin, controller };
+   }
+   ```
    - Hindari penggunaan *mesh collider* (Trimesh) pada objek bergerak; selalu gunakan primitif (Bola, Kotak, Kapsul).
 
 3. **Manajemen Memori Zero-GC**:

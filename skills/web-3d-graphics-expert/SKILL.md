@@ -197,6 +197,74 @@ export function SceneViewer() {
 useGLTF.preload('/models/scientific-apparatus.glb');
 ```
 
+### C. Babylon.js WebGPUEngine, 3D Gaussian Splatting & CSG 2.0 (Manifold Math)
+```typescript
+import {
+  WebGPUEngine,
+  Engine,
+  Scene,
+  Vector3,
+  HemisphericLight,
+  MeshBuilder,
+  Constants,
+  GaussianSplattingMesh,
+  CSG2
+} from '@babylonjs/core';
+
+export async function createBabylonWebGPUScene(canvas: HTMLCanvasElement) {
+  // 1. Initialize WebGPUEngine with automatic WebGL2 fallback
+  let engine: WebGPUEngine | Engine;
+  const isWebGPUSupported = await WebGPUEngine.IsSupportedAsync;
+  
+  if (isWebGPUSupported) {
+    const webgpuEngine = new WebGPUEngine(canvas, {
+      antialias: true,
+      adaptToDeviceRatio: true
+    });
+    await webgpuEngine.initAsync();
+    // Enable Snapshot Rendering for up to 10x draw call CPU performance boost
+    webgpuEngine.snapshotRendering = true;
+    webgpuEngine.snapshotRenderingMode = Constants.SNAPSHOTRENDERING_FAST;
+    engine = webgpuEngine;
+  } else {
+    engine = new Engine(canvas, true);
+  }
+
+  const scene = new Scene(engine);
+
+  // 2. 3D Gaussian Splatting (.spz / .splat / .ply) with WebGPU compute radix sort
+  const splatMesh = new GaussianSplattingMesh('heroSplat', null, scene);
+  await splatMesh.loadFileAsync('https://assets.babylonjs.com/splats/lod.spz');
+  splatMesh.position.set(0, 0, 0);
+
+  // 3. CSG 2.0 Procedural Boolean Modeling (Manifold Math Kernel)
+  // Ensures seamless join continuity and purges hidden internal faces
+  const baseBox = MeshBuilder.CreateBox('baseBox', { size: 2 }, scene);
+  const drillHole = MeshBuilder.CreateCylinder('drillHole', { diameter: 1.2, height: 3 }, scene);
+  
+  const csgBase = CSG2.FromMesh(baseBox);
+  const csgDrill = CSG2.FromMesh(drillHole);
+  const hollowCSG = csgBase.subtract(csgDrill);
+  
+  const manufacturedMesh = hollowCSG.toMesh('perforatedStructure', null, scene);
+  baseBox.dispose();
+  drillHole.dispose();
+
+  const light = new HemisphericLight('ambientLight', new Vector3(0, 1, 0), scene);
+  light.intensity = 0.8;
+
+  engine.runRenderLoop(() => {
+    scene.render();
+  });
+
+  window.addEventListener('resize', () => {
+    engine.resize();
+  });
+
+  return { engine, scene };
+}
+```
+
 ---
 
 ## 5. Physical Interaction, Colliders & Spatial Constraints
@@ -368,6 +436,63 @@ Menambahkan banyak objek pendukung tidak akan menutupi kelemahan pemodelan pada 
 ### Skala 3: Perlakuan Permukaan & Material
 - Berikan detail permukaan (arah serat kayu, jahitan kain, area kontak aus) hanya pada skala yang terlihat oleh kamera.
 - Hindari kebisingan prosedural (*random procedural noise*) yang seragam di seluruh permukaan.
+
+### Implementasi Babylon.js WebGPU, Gaussian Splatting & CSG 2.0
+```typescript
+import {
+  WebGPUEngine,
+  Engine,
+  Scene,
+  Vector3,
+  HemisphericLight,
+  MeshBuilder,
+  Constants,
+  GaussianSplattingMesh,
+  CSG2
+} from '@babylonjs/core';
+
+export async function inisialisasiSceneBabylon(canvas: HTMLCanvasElement) {
+  // 1. Inisialisasi WebGPUEngine dengan fallback otomatis ke WebGL2
+  let engine: WebGPUEngine | Engine;
+  if (await WebGPUEngine.IsSupportedAsync) {
+    const webgpuEngine = new WebGPUEngine(canvas, { antialias: true, adaptToDeviceRatio: true });
+    await webgpuEngine.initAsync();
+    // Snapshot Rendering mode FAST: mereduksi overhead CPU draw call hingga 10x lipat
+    webgpuEngine.snapshotRendering = true;
+    webgpuEngine.snapshotRenderingMode = Constants.SNAPSHOTRENDERING_FAST;
+    engine = webgpuEngine;
+  } else {
+    engine = new Engine(canvas, true);
+  }
+
+  const scene = new Scene(engine);
+
+  // 2. 3D Gaussian Splatting (.spz / .splat / .ply) dengan GPU compute radix sorting
+  const splatMesh = new GaussianSplattingMesh('heroSplat', null, scene);
+  await splatMesh.loadFileAsync('https://assets.babylonjs.com/splats/lod.spz');
+
+  // 3. CSG 2.0 (Manifold Math Kernel): operasi boolean solid tanpa cacat internal face
+  const kotak = MeshBuilder.CreateBox('kotak', { size: 2 }, scene);
+  const silinder = MeshBuilder.CreateCylinder('silinder', { diameter: 1.2, height: 3 }, scene);
+  
+  const csgKotak = CSG2.FromMesh(kotak);
+  const csgSilinder = CSG2.FromMesh(silinder);
+  const hasilCSG = csgKotak.subtract(csgSilinder);
+  
+  const meshHasil = hasilCSG.toMesh('strukturBerlubang', null, scene);
+  kotak.dispose();
+  silinder.dispose();
+
+  const light = new HemisphericLight('cahaya', new Vector3(0, 1, 0), scene);
+  light.intensity = 0.8;
+
+  engine.runRenderLoop(() => {
+    scene.render();
+  });
+
+  return { engine, scene };
+}
+```
 
 ---
 

@@ -128,7 +128,61 @@ const computeParticles = Fn(() => {
 
 ---
 
-### 3. High-Performance Shader Rules (GPU Architecture)
+### 3. Babylon.js Node Material & WebGPU WGSL Compute Shader
+
+Babylon.js compiles Node Materials (NME) to WGSL on WebGPU and GLSL on WebGL2. For raw mathematical simulation, Babylon.js provides first-class native WGSL compute shaders:
+
+```typescript
+import {
+  Scene,
+  Mesh,
+  NodeMaterial,
+  ComputeShader,
+  StorageBuffer,
+  UniformBuffer
+} from '@babylonjs/core';
+
+export async function initBabylonNodeAndCompute(scene: Scene, targetMesh: Mesh) {
+  // 1. Node Material: Type-safe visual shader graph
+  const nodeMaterial = new NodeMaterial('oceanNodeMat', scene);
+  await nodeMaterial.loadAsync('https://assets.babylonjs.com/materials/nme/ocean.json');
+  nodeMaterial.build(false);
+  targetMesh.material = nodeMaterial;
+
+  // 2. Native WebGPU WGSL Compute Shader
+  const wgslSource = `
+    struct Particle {
+      position : vec3<f32>,
+      velocity : vec3<f32>,
+    };
+
+    @group(0) @binding(0) var<storage, read_write> particles : array<Particle>;
+
+    @compute @workgroup_size(64)
+    fn main(@builtin(global_invocation_id) global_id : vec3<u32>) {
+      let index = global_id.x;
+      particles[index].position += particles[index].velocity * 0.016;
+    }
+  `;
+
+  const computeShader = new ComputeShader(
+    'particleCompute',
+    scene.getEngine(),
+    { computeSource: wgslSource },
+    {
+      bindingsMapping: {
+        particles: { group: 0, binding: 0 }
+      }
+    }
+  );
+
+  return { nodeMaterial, computeShader };
+}
+```
+
+---
+
+### 4. High-Performance Shader Rules (GPU Architecture)
 
 1. **Eliminate Branching Divergence:**
    - GPU threads execute in lockstep warps (NVIDIA: 32 threads, AMD/Apple: 32-64 threads).
@@ -194,3 +248,32 @@ Aktifkan skill ini ketika pengguna:
 4. **Manajemen Presisi**:
    - Gunakan `mediump` (16-bit float) untuk warna, koordinat UV, dan vektor normal untuk melipatgandakan kecepatan komputasi pada GPU smartphone.
    - Gunakan `highp` (32-bit float) hanya untuk posisi ruang dunia (*world space*) dan perhitungan kedalaman (*depth*).
+
+5. **Babylon.js Node Material (NME) & WGSL Compute Shader**:
+   - Manfaatkan Node Material (`NodeMaterial`) yang otomatis mengompilasi graf visual menjadi WGSL pada WebGPU dan GLSL pada WebGL2.
+   - Gunakan `ComputeShader` untuk pemrosesan paralel GPU berbasis kode native WGSL:
+   ```typescript
+   import { Scene, Mesh, NodeMaterial, ComputeShader } from '@babylonjs/core';
+
+   export async function inisialisasiNodeDanCompute(scene: Scene, targetMesh: Mesh) {
+     const nodeMaterial = new NodeMaterial('oceanNodeMat', scene);
+     await nodeMaterial.loadAsync('https://assets.babylonjs.com/materials/nme/ocean.json');
+     nodeMaterial.build(false);
+     targetMesh.material = nodeMaterial;
+
+     const wgslSource = `
+       @group(0) @binding(0) var<storage, read_write> partikel : array<vec4<f32>>;
+       @compute @workgroup_size(64)
+       fn main(@builtin(global_invocation_id) global_id : vec3<u32>) {
+         let index = global_id.x;
+         partikel[index].y += 0.016 * partikel[index].w;
+       }
+     `;
+
+     const computeShader = new ComputeShader('partikelCompute', scene.getEngine(), { computeSource: wgslSource }, {
+       bindingsMapping: { partikel: { group: 0, binding: 0 } }
+     });
+
+     return { nodeMaterial, computeShader };
+   }
+   ```

@@ -51,35 +51,75 @@ Activate this skill when the user is:
 
 ### 1. Babylon.js WebXR Setup (Gold Standard)
 
-Babylon.js provides the most comprehensive out-of-the-box WebXR implementation with integrated teleportation, controller profiles, and physics:
+Babylon.js provides the most comprehensive out-of-the-box WebXR implementation with integrated teleportation, controller profiles, hand tracking, and hit-testing:
 
 ```typescript
-import { Scene, WebXRExperienceHelper, WebXRFeatureName } from '@babylonjs/core';
+import {
+  Scene,
+  Vector3,
+  MeshBuilder,
+  WebXRFeatureName,
+  WebXRDefaultExperience,
+  IWebXRHitResult
+} from '@babylonjs/core';
 
-export async function initBabylonXR(scene: Scene) {
-  const xr = await scene.createDefaultXRExperienceAsync({
+export async function initBabylonWebXR(scene: Scene) {
+  // 1. Initialize Default WebXR Experience with AR + VR fallbacks
+  const xr: WebXRDefaultExperience = await scene.createDefaultXRExperienceAsync({
     uiOptions: {
-      sessionMode: 'immersive-ar', // Fallback to 'immersive-vr' if AR is unsupported
+      sessionMode: 'immersive-ar',
       referenceSpaceType: 'local-floor'
     },
-    optionalFeatures: ['hit-test', 'hand-tracking', 'anchors', 'plane-detection']
+    optionalFeatures: ['hit-test', 'hand-tracking', 'anchors', 'plane-detection', 'mesh-detection']
   });
 
-  // Enable Fixed Foveated Rendering to reclaim 20-30% GPU performance on Quest
-  const foveation = xr.baseExperience.featuresManager.enableFeature(
-    WebXRFeatureName.FOVEATION,
-    'latest',
-    { foveationLevel: 2 }
-  );
+  const fm = xr.baseExperience.featuresManager;
 
-  // Listen for Hand Tracking
-  const handTracking = xr.baseExperience.featuresManager.enableFeature(
-    WebXRFeatureName.HAND_TRACKING,
-    'latest',
-    { xrInput: xr.input }
-  );
+  // 2. Fixed Foveated Rendering: 20-30% GPU saving on Quest 3 / Vision Pro
+  fm.enableFeature(WebXRFeatureName.FOVEATION, 'latest', {
+    foveationLevel: 2
+  });
 
-  return xr;
+  // 3. Hand Tracking with Joint & Pinch Detection
+  const handTracking = fm.enableFeature(WebXRFeatureName.HAND_TRACKING, 'latest', {
+    xrInput: xr.input,
+    jointMeshes: {
+      invisible: false,
+      scaleFactor: 1
+    }
+  });
+
+  // 4. Real-World Surface Hit-Testing & Reticle Placement
+  const marker = MeshBuilder.CreateTorus('reticle', { diameter: 0.15, thickness: 0.02 }, scene);
+  marker.isVisible = false;
+  marker.rotation.x = Math.PI / 2;
+
+  const hitTest = fm.enableFeature(WebXRFeatureName.HIT_TESTING, 'latest', {
+    testOnPointerDownOnly: false
+  });
+
+  hitTest.onHitTestResultObservable.add((results: IWebXRHitResult[]) => {
+    if (results.length > 0) {
+      marker.isVisible = true;
+      results[0].transformationMatrix.decompose(
+        marker.scaling,
+        marker.rotationQuaternion!,
+        marker.position
+      );
+    } else {
+      marker.isVisible = false;
+    }
+  });
+
+  // 5. Spawn object on user tap/pinch
+  scene.onPointerDown = () => {
+    if (marker.isVisible) {
+      const box = MeshBuilder.CreateBox('placedBox', { size: 0.2 }, scene);
+      box.position.copyFrom(marker.position);
+    }
+  };
+
+  return { xr, handTracking, hitTest };
 }
 ```
 
@@ -166,3 +206,34 @@ Aktifkan skill ini ketika pengguna:
    - Elemen HTML standar tidak dapat ditampilkan di dalam sesi imersif. Buat UI berupa panel 3D melayang (*world-space meshes*).
 4. **Hit-Testing untuk AR**:
    - Manfaatkan *Hit-Test API* bawaan WebXR untuk mendeteksi bidang nyata permukaan meja atau lantai secara instan sebelum meletakkan objek 3D.
+5. **Implementasi Lengkap Babylon.js WebXR (AR/VR/MR)**:
+   ```typescript
+   import { Scene, MeshBuilder, WebXRFeatureName, WebXRDefaultExperience, IWebXRHitResult } from '@babylonjs/core';
+
+   export async function inisialisasiBabylonWebXR(scene: Scene) {
+     const xr: WebXRDefaultExperience = await scene.createDefaultXRExperienceAsync({
+       uiOptions: { sessionMode: 'immersive-ar', referenceSpaceType: 'local-floor' },
+       optionalFeatures: ['hit-test', 'hand-tracking', 'plane-detection', 'mesh-detection']
+     });
+
+     const fm = xr.baseExperience.featuresManager;
+     fm.enableFeature(WebXRFeatureName.FOVEATION, 'latest', { foveationLevel: 2 });
+     fm.enableFeature(WebXRFeatureName.HAND_TRACKING, 'latest', { xrInput: xr.input });
+
+     const reticle = MeshBuilder.CreateTorus('reticle', { diameter: 0.15, thickness: 0.02 }, scene);
+     reticle.isVisible = false;
+     reticle.rotation.x = Math.PI / 2;
+
+     const hitTest = fm.enableFeature(WebXRFeatureName.HIT_TESTING, 'latest', { testOnPointerDownOnly: false });
+     hitTest.onHitTestResultObservable.add((results: IWebXRHitResult[]) => {
+       if (results.length > 0) {
+         reticle.isVisible = true;
+         results[0].transformationMatrix.decompose(reticle.scaling, reticle.rotationQuaternion!, reticle.position);
+       } else {
+         reticle.isVisible = false;
+       }
+     });
+
+     return { xr, hitTest };
+   }
+   ```
