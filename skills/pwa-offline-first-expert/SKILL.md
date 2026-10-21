@@ -2,7 +2,7 @@
 name: pwa-offline-first-expert
 description: "Expert guide for Local-First & Offline-First architectures, CRDT conflict-free sync (RxDB, ElectricSQL, PowerSync), OPFS SQLite, Service Worker v3, and PWABuilder deployment / Panduan ahli arsitektur Offline-First & Local-First PWA."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -193,6 +193,11 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 
 ## Orchestration & Integration
 
+- **`modern-web-guidance`**: Modern Web APIs, PWA install prompts, and service worker best practices.
+- **`design-system-architect`**: Offline state indicators, sync status chips, and install prompt modals.
+- **`ui-ux-pro-max`**: Offline UX patterns, optimistic mutation feedback, and 0ms instantaneous navigation.
+- **`visual-ui-auditor`**: Multimodal vision auditing of offline banners, install dialogs, and standalone PWA windows.
+- **`anti-slop`**: Anti-slop PWA engineering, zero fake offline mockups, and complete Service Worker lifecycles.
 - **`senior-frontend`**: For UI integration with offline state bars and optimistic mutation hooks.
 - **`state-management-expert`**: For connecting RxDB / local stores with Zustand or TanStack Store.
 - **`database-orm-expert`**: For designing compatible backend schemas with ElectricSQL / Postgres.
@@ -204,6 +209,11 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`modern-web-guidance`**: API Web Modern, prompt instalasi PWA, dan praktik terbaik service worker.
+- **`design-system-architect`**: Indikator status offline, chip status sinkronisasi, dan modal prompt instalasi.
+- **`ui-ux-pro-max`**: Pola UX offline, feedback mutasi optimistik, dan navigasi instan 0ms.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk banner offline, dialog instalasi, dan window PWA standalone.
+- **`anti-slop`**: Rekayasa PWA anti-slop, nol mockup offline palsu, dan siklus hidup Service Worker lengkap.
 - **`senior-frontend`**: Integrasi UI indikator status offline dan hook mutasi optimistik.
 - **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
 - **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.

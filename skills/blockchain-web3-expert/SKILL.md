@@ -2,7 +2,7 @@
 name: blockchain-web3-expert
 description: "Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state / Panduan ahli integrasi Web3 dan blockchain."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,14 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **UI & dApp Components**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for RainbowKit / Reown AppKit wallet connect modals, transaction progress toasts, gas fee badges, and 5-state interactive contract buttons.
+- **Visual Auditing**: `visual-ui-auditor` for verifying wallet modal responsive sheets, contrast ratios, and tabular numerals (`tabular-nums`) for balances and token amounts.
+- **Identity & Auth**: `authentication-identity-expert` for Sign-In with Ethereum (SIWE / ERC-4361) and session cookie persistence.
+- **Resilience & Security**: `error-resilience-expert` for RPC failover transports and `post-quantum-crypto-migrator` for future-proof cryptography.
+- **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for dApp product roadmaps.
 
 ### Description
 Production guide for architecting decentralized applications (dApps) across EVM-compatible blockchains (Ethereum, Base, Arbitrum, Optimism, Polygon). Focuses on lightweight, type-safe contract interactions using **viem** and **wagmi v2**, seamless multi-wallet modal integration (**RainbowKit / Reown AppKit**), Sign-In with Ethereum (**SIWE / ERC-4361**), optimistic transaction UI lifecycles, gas fee estimation, and resilient multi-RPC fallback configurations.
@@ -116,19 +124,18 @@ export function TokenBalanceBadge({ tokenAddress }: { tokenAddress: `0x${string}
 }
 ```
 
-## Orchestration & Integration
-- **`senior-frontend`**: Manages Web3 React 19 hydration wrappers and client providers.
-- **`authentication-identity-expert`**: Connects SIWE wallet logins with user sessions in PostgreSQL.
-- **`error-resilience-expert`**: Provides fallback transports for flaky RPC endpoints.
-- **`post-quantum-crypto-migrator`**: Prepares cryptography pipelines for future post-quantum signature schemes.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `senior-frontend`, `authentication-identity-expert`, `error-resilience-expert`, dan `post-quantum-crypto-migrator`.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **UI & Komponen dApp**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk modal koneksi dompet RainbowKit / Reown AppKit, notifikasi toast progres transaksi, badge gas fee, dan tombol interaktif kontrak pintar 5-state.
+- **Audit Visual**: `visual-ui-auditor` untuk memverifikasi tata letak modal responsif, kontras warna, dan angka tabular (`tabular-nums`) untuk saldo dan token.
+- **Identitas & Autentikasi**: `authentication-identity-expert` untuk Sign-In with Ethereum (SIWE / ERC-4361) dan persistensi cookie sesi.
+- **Ketahanan & Keamanan**: `error-resilience-expert` untuk fallback transport multi-RPC dan `post-quantum-crypto-migrator` untuk algoritma kriptografi tahan-kuantum masa depan.
+- **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk peta jalan produk dApp end-to-end.
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi terdesentralisasi (*dApps*) di seluruh jaringan blockchain kompatibel EVM (Ethereum, Base, Arbitrum, Optimism, Polygon). Berfokus pada interaksi kontrak pintar type-safe yang ringan menggunakan **viem** dan **wagmi v2**, integrasi modal multi-dompet (**RainbowKit / Reown AppKit**), login kriptografis Sign-In with Ethereum (**SIWE / ERC-4361**), siklus transaksi optimistik, estimasi biaya gas, serta konfigurasi multi-RPC fallback yang tangguh.
@@ -181,9 +188,3 @@ export function TransferButton({ tokenAddress, recipient, amount }: Props) {
 1. **Gunakan Viem daripada Ethers v5 Lawas**: Viem dirancang khusus dengan performa tinggi, ukuran bundle 70% lebih kecil, dan inferensi tipe ABI otomatis.
 2. **Wajib Transpor Multi-RPC Fallback**: Jangan bergantung pada satu URL RPC publik yang sering mengalami *rate-limit*. Konfigurasikan penyedia cadangan (Alchemy, Infura, QuickNode).
 3. **Pemberitahuan Status Transaksi Lengkap**: Tampilkan umpan balik visual yang jelas bagi setiap fase: menunggu konfirmasi dompet, proses penambangan blok (*mining*), hingga konfirmasi akhir di blockchain.
-
-## Integrasi Orkestrasi
-- **`senior-frontend`**: Mengatur penyedia WagmiProvider di root aplikasi Next.js.
-- **`authentication-identity-expert`**: Menghubungkan alamat dompet dengan data profil pengguna di database.
-- **`error-resilience-expert`**: Mengatur strategi percobaan ulang saat terjadi kegagalan jaringan RPC.
-- **`post-quantum-crypto-migrator`**: Memantau perkembangan keamanan algoritma tanda tangan kriptografi generasi berikutnya.

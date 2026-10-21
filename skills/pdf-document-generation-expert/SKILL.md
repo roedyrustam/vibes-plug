@@ -2,7 +2,7 @@
 name: pdf-document-generation-expert
 description: "Expert guide for PDF generation and document processing (React PDF, Puppeteer, jsPDF, pdf-lib) / Panduan ahli generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer, jsPDF, pdf-lib)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,14 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **UI & Design Systems**: `design-system-architect`, `senior-frontend`, `ui-ux-pro-max`, and `anti-slop` for aligning PDF document typography, color tokens (slate/monochrome palettes), tabular numerals (`font-variant-numeric: tabular-nums`), and 1px borders with the primary application design system.
+- **Visual Auditing**: `visual-ui-auditor` for verifying print stylesheets, contrast ratios, and layout precision across A4/Letter viewports.
+- **FinTech & Billing**: `saas-billing` and `doku-payment-gateway` for automated invoice generation, tax receipts, and payment proofs.
+- **Delivery & Media**: `email-notification-expert` for PDF email attachments and `file-upload-media-expert` for Cloudflare R2 / S3 archival.
+- **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for structured document generation workflows.
 
 ### Description
 Production guide for generating high-fidelity PDF documents, transactional invoices, financial reports, and certificates in modern web backends and serverless runtimes. Covers `@react-pdf/renderer` component architecture, server-side streaming buffers, font embedding with custom TrueType/WOFF metrics, Typst/WASM ultra-fast document compilation, and memory-safe PDF manipulation using `pdf-lib`. Enforces sovereign anti-slop visual standards (crisp monochrome/slate palettes, tabular numerals, 1px borders, zero generic purple gradients).
@@ -116,16 +124,18 @@ export async function generateInvoicePdfBuffer(invoice: InvoiceData): Promise<Bu
 }
 ```
 
-## Orchestration & Integration
-- **`saas-billing`**: Generates automated billing receipts and downloadable VAT invoices.
-- **`email-notification-expert`**: Attaches generated PDF buffers to transactional customer emails.
-- **`file-upload-media-expert`**: Streams generated PDFs to S3 or Cloudflare R2 bucket storage.
-- **`anti-slop`**: Eliminates generic neon/purple design slop from official documentation.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi bersama skill domain:
+- **UI & Design System**: `design-system-architect`, `senior-frontend`, `ui-ux-pro-max`, dan `anti-slop` untuk menyelaraskan tipografi dokumen PDF, token warna (palet monokrom/slate), angka tabular (`font-variant-numeric: tabular-nums`), dan border 1px dengan sistem desain aplikasi utama.
+- **Audit Visual**: `visual-ui-auditor` untuk memverifikasi stylesheet cetak (print CSS), rasio kontras warna, dan presisi tata letak pada viewport A4/Letter.
+- **FinTech & Billing**: `saas-billing` dan `doku-payment-gateway` untuk pembuatan faktur otomatis, tanda terima pajak, dan bukti pembayaran.
+- **Pengiriman & Media**: `email-notification-expert` untuk lampiran PDF email dan `file-upload-media-expert` untuk pengarsipan ke Cloudflare R2 / AWS S3.
+- **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk alur kerja pembuatan dokumen terstruktur.
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dokumen PDF berkualitas tinggi, faktur tagihan (*invoice*), laporan keuangan, dan sertifikat pada backend web modern maupun lingkungan serverless. Mencakup arsitektur komponen `@react-pdf/renderer`, streaming buffer di sisi server tanpa penyimpanan disk sementara, penyematan font kustom, serta manipulasi dokumen PDF menggunakan `pdf-lib`. Menegakkan standar estetika visual anti-slop (palet warna slate/monokrom profesional, angka tabular, border 1px yang tajam, bebas gradien ungu generik).
@@ -166,9 +176,3 @@ export async function GET(request: Request, { params }: { params: { id: string }
 1. **Palet Warna Profesional**: Gunakan warna monokrom slate (`#0f172a`, `#64748b`) untuk menjaga kesan kredibel perbankan/FinTech. Hindari warna ungu mencolok atau efek bayangan berlebihan.
 2. **Angka Tabular**: Pastikan kolom harga dan total menggunakan angka dengan lebar seragam agar desimal sejajar secara vertikal.
 3. **Buffer Tanpa File Sementara**: Render langsung ke `Buffer` di memori untuk mencegah kebocoran penyimpanan disk pada container atau fungsi serverless.
-
-## Integrasi Orkestrasi
-- **`saas-billing`**: Menghasilkan faktur langganan dan rincian pajak secara otomatis.
-- **`email-notification-expert`**: Melampirkan buffer file PDF pada email konfirmasi pembayaran.
-- **`file-upload-media-expert`**: Mengunggah salinan arsip faktur ke penyimpanan Cloudflare R2 atau S3.
-- **`anti-slop`**: Menjaga tata letak dokumen bebas dari artefak visual tiruan yang tidak rapi.

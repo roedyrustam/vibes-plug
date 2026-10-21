@@ -2,7 +2,7 @@
 name: documentation-site-expert
 description: "Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation / Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,8 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`design-system-architect`**: Component documentation, design token references, and Storybook integration.
+- **`ui-ux-pro-max`**: Documentation typography hierarchy, syntax themes, and search UX.
+- **`visual-ui-auditor`**: Multimodal vision auditing of component documentation previews and Storybook.
+- **`anti-slop`**: Anti-slop technical documentation, zero marketing buzzwords, concrete code samples.
 - **`openapi-swagger-codegen-expert`**: Auto-generate API reference pages from OpenAPI 3.1 specs.
-- **`design-system-architect`**: Component documentation and design token references with Storybook.
 - **`astro-framework-expert`**: Astro Starlight as a full-featured docs site platform.
 - **`seo`**: Documentation SEO — canonical URLs, sitemap.xml, structured data, and GEO.
 - **`ci-cd-devops-architect`**: Automated deployment pipelines to Vercel, Cloudflare Pages, GitHub Pages.
@@ -815,8 +819,12 @@ jobs:
 ---
 
 ## Orchestration & Integration
-- `openapi-swagger-codegen-expert` — API reference auto-generation
+- `modern-web-guidance` — HTML5/CSS standards, accessibility, and modern web platform APIs
 - `design-system-architect` — design token docs, Storybook integration
+- `ui-ux-pro-max` — documentation typography hierarchy, syntax themes, and search UX
+- `visual-ui-auditor` — vision auditing of component documentation previews and Storybook
+- `anti-slop` — technical documentation anti-slop, zero marketing buzzwords, concrete code samples
+- `openapi-swagger-codegen-expert` — API reference auto-generation
 - `astro-framework-expert` — Starlight configuration
 - `seo` — sitemap, canonical, structured data
 - `ci-cd-devops-architect` — automated deployment pipelines
@@ -829,8 +837,12 @@ jobs:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`openapi-swagger-codegen-expert`**: Otomatisasi halaman referensi API dari spesifikasi OpenAPI 3.1.
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
 - **`design-system-architect`**: Dokumentasi komponen dan referensi design token dengan Storybook.
+- **`ui-ux-pro-max`**: Hierarki tipografi dokumentasi, tema sintaksis, dan UX pencarian.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk preview komponen dokumentasi dan Storybook.
+- **`anti-slop`**: Dokumentasi teknis anti-slop, bebas buzzword pemasaran, contoh kode konkret.
+- **`openapi-swagger-codegen-expert`**: Otomatisasi halaman referensi API dari spesifikasi OpenAPI 3.1.
 - **`astro-framework-expert`**: Astro Starlight sebagai platform situs dokumentasi lengkap.
 - **`seo`**: SEO dokumentasi — canonical URL, sitemap.xml, structured data, dan GEO.
 - **`ci-cd-devops-architect`**: Pipeline deployment otomatis ke Vercel, Cloudflare Pages, GitHub Pages.

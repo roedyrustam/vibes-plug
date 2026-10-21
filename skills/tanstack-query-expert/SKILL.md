@@ -2,7 +2,7 @@
 name: tanstack-query-expert
 description: "Advanced TanStack Query (v5) expert. Covers useSuspenseQuery, infinite scrolling, optimistic mutations, SSR/React Server Components hydration, and advanced cache invalidation / Pakar manajemen state asinkron menggunakan TanStack Query (React Query) v5 dan Next.js App Router (SSR)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `senior-frontend` — React 19 integration, Server Actions, and Suspense boundary UX.
+- `state-management-expert` — Clean separation of async server data from global client stores (Zustand/Jotai).
+- `nextjs-app-router-expert` — Prefetching in React Server Components and `HydrationBoundary` hydration.
+- `ui-ux-pro-max` — Optimistic mutation UX, infinite scroll indicators, and skeleton streaming states.
+- `visual-ui-auditor` — Multimodal vision auditing of loading, error, and optimistic UI transitions.
+- `anti-slop` — Anti-slop query implementations, eliminating fake mocks and broken retry loops.
 
 ### Description
 Production-grade TanStack Query (v5) mastery for modern React (v18/19) and Next.js (App Router) applications. Covers declarative data fetching, advanced cache invalidation, optimistic UI updates, Suspense boundaries, SSR hydration, and the new **TanStack Router** + **TanStack Start** ecosystem for full-stack type-safe applications.
@@ -157,7 +163,13 @@ export default async function UsersPage() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `senior-frontend` — Integrasi React 19, Server Actions, dan UX batas Suspense.
+- `state-management-expert` — Pemisahan bersih data server asinkron dari store klien global (Zustand/Jotai).
+- `nextjs-app-router-expert` — Prefetching pada React Server Components dan hidrasi `HydrationBoundary`.
+- `ui-ux-pro-max` — UX mutasi optimistik, indikator infinite scroll, dan status streaming skeleton.
+- `visual-ui-auditor` — Audit visual multimodal untuk status loading, error, dan transisi UI optimistik.
+- `anti-slop` — Implementasi query anti-slop, mengeliminasi mock palsu dan loop retry rusak.
 
 ### Deskripsi
 Penguasaan TanStack Query (v5) tingkat produksi untuk aplikasi React modern (v18/19) dan Next.js (App Router). Mencakup data fetching deklaratif, invalidasi cache lanjutan, optimistic UI, Suspense boundaries, hidrasi SSR, serta ekosistem **TanStack Router** + **TanStack Start** untuk aplikasi full-stack yang type-safe.

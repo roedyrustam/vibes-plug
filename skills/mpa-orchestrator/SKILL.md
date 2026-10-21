@@ -2,7 +2,7 @@
 name: mpa-orchestrator
 description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,16 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `htmx-hypermedia-expert`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `modern-web-guidance`: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- `htmx-hypermedia-expert`: Hypermedia-Driven Applications (HDA) and HTML-over-the-wire swaps.
+- `astro-framework-expert`: Islands Architecture and zero-JS-by-default static rendering.
+- `design-system-architect`: Server-rendered HTML templates and consistent component tokens.
+- `tailwind-expert`: Tailwind CSS v4 styling across server templates.
+- `ui-ux-pro-max`: Multi-page layout hierarchy, editorial typography, and breadcrumb navigation.
+- `visual-ui-auditor`: Multimodal vision auditing of server-rendered pages and standard boilerplate pages.
+- `anti-slop`: Anti-slop MPA layouts, zero incomplete placeholder views, and strict adherence to mandatory standard pages.
+- `seo`: Comprehensive technical and on-page SEO optimization.
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -99,7 +108,16 @@ export default defineConfig({
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `htmx-hypermedia-expert`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `modern-web-guidance`: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- `htmx-hypermedia-expert`: Hypermedia-Driven Applications (HDA) dan pertukaran HTML-over-the-wire.
+- `astro-framework-expert`: Islands Architecture dan rendering statis zero-JS-by-default.
+- `design-system-architect`: Template HTML server-rendered dan token komponen konsisten.
+- `tailwind-expert`: Styling Tailwind CSS v4 di seluruh template server.
+- `ui-ux-pro-max`: Hierarki tata letak multi-page, tipografi editorial, dan navigasi breadcrumb.
+- `visual-ui-auditor`: Audit visual multimodal untuk halaman server-rendered dan halaman standar wajib.
+- `anti-slop`: Layout MPA anti-slop, nol tampilan placeholder tidak lengkap, kepatuhan halaman standar wajib.
+- `seo`: Optimasi SEO teknis dan on-page menyeluruh.
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.

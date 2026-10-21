@@ -2,7 +2,7 @@
 name: wordpress-headless-expert
 description: "Expert guide for headless WordPress architecture — WPGraphQL, ACF Pro, Faust.js, Next.js/Astro frontend, webhooks, and caching / Panduan ahli arsitektur WordPress headless."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,11 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-- **`headless-cms-expert`**: Comparing and migrating between CMS backends.
-- **`nextjs-app-router-expert`**: Next.js App Router integration with WPGraphQL.
-- **`astro-framework-expert`**: Static site generation and content pipelines from WordPress.
-- **`seo`**: Syncing Yoast SEO / Rank Math metadata to modern frontend head tags.
-- **`performance-web-vitals`**: Caching and Edge SSR optimization for decoupled WordPress.
+Connects and orchestrates with domain skills:
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for headless frontend rendering (Next.js 15 / Astro 5), Faust.js template components, typography tokens, and responsive layouts.
+- **Visual Auditing**: `visual-ui-auditor` for verifying WordPress preview iframe fidelity, responsive breakpoints, and 1px crisp borders.
+- **CMS & Backend**: `headless-cms-expert` (CMS comparison and migration) and `nextjs-app-router-expert` (Next.js App Router with WPGraphQL).
+- **SEO & Performance**: `seo` (Yoast/RankMath metadata syncing) and `performance-web-vitals` (ISR caching and edge SSR).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for decoupled web architecture.
 
 ### Description
 Production guide for architecting, deploying, and maintaining headless WordPress systems. Covers decoupled WordPress backends with WPGraphQL and Advanced Custom Fields (ACF Pro), frontend rendering with Next.js 15 or Astro 5, Faust.js framework integration, webhook-triggered on-demand revalidation, authentication (JWT / Application Passwords), and WooCommerce headless setups.
@@ -133,10 +134,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`headless-cms-expert`**: Pemilihan dan perbandingan CMS backend.
-- **`nextjs-app-router-expert`**: Integrasi Next.js App Router dengan query WPGraphQL.
-- **`seo`**: Sinkronisasi data meta Yoast/RankMath ke tag metadata frontend modern.
-- **`performance-web-vitals`**: Caching dan Edge SSR optimization untuk decoupled WordPress.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk perenderan frontend headless (Next.js 15 / Astro 5), komponen template Faust.js, token tipografi, dan tata letak responsif.
+- **Audit Visual**: `visual-ui-auditor` untuk memverifikasi fidelitas iframe pratinjau WordPress, breakpoint responsif, dan border tajam 1px.
+- **CMS & Backend**: `headless-cms-expert` (perbandingan dan migrasi CMS) dan `nextjs-app-router-expert` (Next.js App Router dengan WPGraphQL).
+- **SEO & Performa**: `seo` (sinkronisasi metadata Yoast/RankMath) dan `performance-web-vitals` (caching ISR dan edge SSR).
+- **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk arsitektur web decoupled.
 
 ### Deskripsi
 Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 15, atau Astro 5, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.

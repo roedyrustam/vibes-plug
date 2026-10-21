@@ -2,7 +2,7 @@
 name: file-upload-media-expert
 description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigned URLs, image/video processing, CDN optimization, and media pipeline architecture / Panduan ahli untuk upload file (S3, R2, Supabase Storage), presigned URL, pemrosesan gambar/video, optimasi CDN, dan arsitektur pipeline media."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with domain skills:
+- **UI & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, `modern-css-native-expert`, and `anti-slop` for accessible drag-and-drop dropzones, file preview cards, progress rings, and WCAG 2.2 AA compliant upload states.
+- **Visual Auditing**: `visual-ui-auditor` for verifying 5-state interactive contracts (idle, dragover, uploading, success, error) and 1px crisp borders.
+- **Cloud & Performance**: `cloud-hosting-expert`, `performance-web-vitals`, and `database-orm-expert` for CDN delivery, responsive image variants, and atomic metadata storage.
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for end-to-end media pipeline delivery.
 
 ### Description
 Production-grade guide for building secure, performant file upload systems and media processing pipelines. Covers **presigned URL upload patterns** (S3, R2, Supabase Storage), **multipart uploads** with progress tracking, **image optimization** (Sharp, Cloudflare Images, Vercel OG), **video transcoding** (Mux, Cloudflare Stream), **PDF generation**, **file validation & virus scanning**, **CDN configuration**, and **drag-and-drop UI components**.
@@ -381,8 +385,12 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 
 ### Integration with Other Skills
 
-- `cloud-hosting-expert` — CDN setup, Cloudflare R2/S3 configuration
 - `senior-frontend` — Upload UI components, image optimization in Next.js
+- `design-system-architect` — Design tokens for dropzones, progress indicators, and file preview cards
+- `ui-ux-pro-max` — Micro-interactions, feedback toasts, and drag-and-drop affordances
+- `visual-ui-auditor` — Visual audit of upload states, contrast, and crisp 1px borders
+- `anti-slop` — Enforcing zero placeholder slop and complete upload handling
+- `cloud-hosting-expert` — CDN setup, Cloudflare R2/S3 configuration
 - `performance-web-vitals` — Image loading strategy (lazy loading, srcset, blur placeholder)
 - `database-orm-expert` — Storing file metadata and references
 - `production-ready-hardener` — File upload security audit
@@ -394,7 +402,11 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **UI & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, `modern-css-native-expert`, dan `anti-slop` untuk dropzone drag-and-drop yang aksesibel, kartu pratinjau berkas, cincin progres, serta status unggah yang sesuai standar WCAG 2.2 AA.
+- **Audit Visual**: `visual-ui-auditor` untuk memverifikasi kontrak interaktif 5-state (idle, dragover, uploading, success, error) dan border tajam 1px.
+- **Cloud & Performa**: `cloud-hosting-expert`, `performance-web-vitals`, dan `database-orm-expert` untuk pengiriman CDN, varian gambar responsif, dan penyimpanan metadata atomik.
+- **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi pipeline media end-to-end.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem upload file yang aman dan performa tinggi serta pipeline pemrosesan media. Mencakup **pola upload presigned URL** (S3, R2, Supabase Storage), **upload multipart** dengan pelacakan progres, **optimasi gambar** (Sharp, Cloudflare Images, Vercel OG), **transcoding video** (Mux, Cloudflare Stream), **pembuatan PDF**, **validasi file & pemindaian virus**, **konfigurasi CDN**, dan **komponen UI drag-and-drop**.
@@ -431,8 +443,12 @@ Aktifkan skill ini ketika:
 
 ### Integrasi dengan Skill Lain
 
-- `cloud-hosting-expert` — Setup CDN, konfigurasi Cloudflare R2/S3
 - `senior-frontend` — Komponen UI upload, optimasi gambar di Next.js
+- `design-system-architect` — Desain token untuk dropzone, indikator progres, dan kartu pratinjau berkas
+- `ui-ux-pro-max` — Mikro-interaksi, notifikasi toast feedback, dan affordance drag-and-drop
+- `visual-ui-auditor` — Audit visual status upload, kontras warna, dan border 1px
+- `anti-slop` — Penegakan implementasi bebas placeholder slop dan penanganan error tuntas
+- `cloud-hosting-expert` — Setup CDN, konfigurasi Cloudflare R2/S3
 - `performance-web-vitals` — Strategi loading gambar (lazy loading, srcset, blur placeholder)
 - `database-orm-expert` — Menyimpan metadata file dan referensi
 - `production-ready-hardener` — Audit keamanan upload file

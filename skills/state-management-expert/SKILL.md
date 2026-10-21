@@ -2,7 +2,7 @@
 name: state-management-expert
 description: "Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, and server state patterns with TanStack Query / Panduan ahli untuk manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, dan pola server state dengan TanStack Query."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `senior-frontend` — Component architecture and avoiding prop drilling in React 19.
+- `tanstack-query-expert` — Decoupling server state from client state.
+- `design-system-architect` — Global UI state for theme, modals, drawers, and toasts.
+- `ui-ux-pro-max` — Ephemeral UI state management and user interaction feedback.
+- `visual-ui-auditor` — Multimodal vision auditing of UI state transitions and modal triggers.
+- `anti-slop` — Anti-slop state architecture, preventing over-engineered stores and redundant duplicated state.
 
 ### Description
 Expert guide for selecting and implementing the right state management solution for React and Next.js applications. Covers **Zustand 5**, **Jotai 2**, **Valtio**, **TanStack Store**, and **Redux Toolkit 2**, with clear guidance on when to use each, proper separation of server state (TanStack Query) from client state, and advanced patterns like slices, persistence, and devtools integration.
@@ -257,7 +263,13 @@ export function StoreProvider({ children, initialUser }: Props) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan arsitektur state yang bersih dan bebas re-render berlebihan.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `senior-frontend` — Arsitektur komponen dan eliminasi prop drilling pada React 19.
+- `tanstack-query-expert` — Pemisahan server state dari client state secara bersih.
+- `design-system-architect` — State UI global untuk tema, modal, drawer, dan toast.
+- `ui-ux-pro-max` — Manajemen state interaksi UI dan respons antarmuka pengguna.
+- `visual-ui-auditor` — Audit visual multimodal transisi state UI dan trigger modal.
+- `anti-slop` — Arsitektur state anti-slop, mencegah store berlebihan (over-engineered) dan duplikasi state.
 
 ### Deskripsi
 Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 15. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.

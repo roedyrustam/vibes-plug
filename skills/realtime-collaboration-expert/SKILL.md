@@ -2,7 +2,7 @@
 name: realtime-collaboration-expert
 description: "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -50,7 +50,15 @@ yarray.observe(event => {
 ```
 
 ## Orchestration & Integration
-- Integrates with: `state-management-expert`, `event-driven-architect`, `mcp-server-architect`.
+- `senior-frontend` — React 19 UI component bindings, live cursor canvas, and optimistic multiplayer rendering.
+- `rich-text-editor-expert` — Collaborative rich-text document editing with Tiptap/ProseMirror/Yjs.
+- `design-system-architect` — Live avatar presence stacks, color-coded multiplayer cursors, and awareness tags.
+- `ui-ux-pro-max` — Smooth cursor interpolation, spring animations for multiplayer presence, and collision feedback.
+- `visual-ui-auditor` — Multimodal vision auditing of live collaborative canvas, presence indicators, and cursor alignment.
+- `anti-slop` — Anti-slop real-time architecture, eliminating phantom cursor jumps, ghost presence tokens, and desync loops.
+- `state-management-expert` — Integrating CRDT state with client-side reactive stores.
+- `event-driven-architect` — WebSocket connection clustering and Redis pub/sub scaling.
+- `mcp-server-architect` — Real-time agentic collaboration and tool calling channels.
 
 ### Trigger Conditions
 Active whenever the user is building multiplayer features, live cursors, document co-editing, real-time chats, or working with WebSockets, Yjs, or WebRTC.
@@ -95,7 +103,15 @@ yarray.observe(event => {
 ```
 
 ## Integrasi Orkestrasi
-- Terintegrasi dengan: `state-management-expert`, `event-driven-architect`, `mcp-server-architect`.
+- `senior-frontend` — Binding komponen UI React 19, kanvas kursor langsung, dan rendering multiplayer optimistik.
+- `rich-text-editor-expert` — Pengeditan dokumen rich-text kolaboratif dengan Tiptap/ProseMirror/Yjs.
+- `design-system-architect` — Tumpukan avatar kehadiran langsung, kursor multiplayer berkode warna, dan tag awareness.
+- `ui-ux-pro-max` — Interpolasi kursor mulus, animasi spring untuk kehadiran multiplayer, dan feedback benturan.
+- `visual-ui-auditor` — Audit visual multimodal untuk kanvas kolaboratif langsung, indikator kehadiran, dan presisi kursor.
+- `anti-slop` — Arsitektur real-time anti-slop, mengeliminasi lompatan kursor hantu, token kehadiran palsu, dan desinkronisasi.
+- `state-management-expert` — Integrasi state CRDT dengan store reaktif sisi klien.
+- `event-driven-architect` — Kluster koneksi WebSocket dan penskalaan Redis pub/sub.
+- `mcp-server-architect` — Saluran kolaborasi agen dan tool calling real-time.
 
 ### Kondisi Pemicu
 Aktif setiap kali pengguna sedang membangun fitur *multiplayer*, kursor langsung (live cursors), pengeditan dokumen bersama, obrolan real-time, atau bekerja dengan WebSockets, Yjs, atau WebRTC.

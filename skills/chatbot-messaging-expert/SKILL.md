@@ -2,7 +2,7 @@
 name: chatbot-messaging-expert
 description: "Expert guide for chatbot and messaging platform integration (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) and conversational AI / Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,14 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **UI & Chat Components**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for web chat drawer widgets, message bubbles, typing indicators, quick reply chips, and streaming Markdown UI.
+- **Visual Auditing**: `visual-ui-auditor` for validating chat bubble contrast, mobile drawer responsiveness, and 1px borders.
+- **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, and `voice-ai-realtime-agent` for generative responses, RAG retrieval, and real-time socket connections.
+- **Queue & Resilience**: `async-queue-temporal-expert` and `rate-limit-abuse-prevention` for webhook ingestion, BullMQ job queues, and anti-spam protection.
+- **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for structured conversational system delivery.
 
 ### Description
 Production guide for architecting, deploying, and scaling conversational bots across enterprise messaging platforms: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), and LINE Messaging API. Covers cryptographic webhook verification (Meta `hub.challenge` and Slack `v0` HMAC signatures), interactive UI components (buttons, carousels, quick replies), session state persistence, media streaming, and integration with AI tool calling engines.
@@ -115,19 +123,18 @@ bot.callbackQuery('action_order', async (ctx) => {
 });
 ```
 
-## Orchestration & Integration
-- **`ai-llm-integration-expert`**: Directs conversational AI responses, RAG retrieval, and function calling.
-- **`sse-websocket-streaming-expert`**: Bridges real-time chat websockets between web and bot channels.
-- **`async-queue-temporal-expert`**: Offloads long-running message handling to BullMQ workers.
-- **`rate-limit-abuse-prevention`**: Protects public bot webhooks against volumetric spam and DDoS attacks.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, `async-queue-temporal-expert`, dan `rate-limit-abuse-prevention`.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **UI & Komponen Obrolan**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk widget laci obrolan web (chat drawer), gelembung pesan, indikator mengetik, pill quick reply, dan antarmuka streaming Markdown.
+- **Audit Visual**: `visual-ui-auditor` untuk validasi kontras warna balon obrolan, responsivitas drawer mobile, dan border tajam 1px.
+- **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, dan `voice-ai-realtime-agent` untuk jawaban generatif cerdas, RAG retrieval, dan koneksi socket dua arah.
+- **Antrean & Ketahanan**: `async-queue-temporal-expert` dan `rate-limit-abuse-prevention` untuk penyerapan webhook, antrean job BullMQ, dan pencegahan spam DDoS.
+- **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi sistem percakapan end-to-end.
 
 ### Deskripsi
 Panduan produksi untuk merancang, meluncurkan, dan menskalakan bot percakapan di berbagai platform perpesanan terkemuka: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), dan LINE Messaging API. Mencakup verifikasi webhook kriptografis (jabat tangan Meta `hub.challenge` dan tanda tangan HMAC Slack `v0`), komponen interaktif (tombol, list menu, keyboard inline), persistensi sesi pengguna, penanganan media, serta integrasi pemanggilan fungsi AI (*tool calling*).
@@ -184,9 +191,3 @@ slackApp.command('/faktur', async ({ command, ack, respond }) => {
 1. **Respons Webhook < 3 Detik**: WhatsApp, Slack, dan Telegram akan memutus koneksi jika endpoint tidak mengembalikan HTTP 200 dalam 3 detik. Kembalikan respons 200 terlebih dahulu, lalu proses pembuatan jawaban AI secara asinkron di latar belakang (*background job*).
 2. **Validasi Tanda Tangan Kriptografis**: Selalu periksa tanda tangan incoming payload (`x-hub-signature-256` di WhatsApp atau `x-slack-signature` di Slack) untuk mencegah pihak ketiga mengirim pesan palsu ke server Anda.
 3. **Penyimpanan Sesi Percakapan**: Simpan konteks percakapan di Redis dengan TTL terukur agar pengguna dapat melanjutkan percakapan tanpa kehilangan konteks.
-
-## Integrasi Orkestrasi
-- **`ai-llm-integration-expert`**: Menghasilkan respon cerdas dan memanggil tool API.
-- **`sse-websocket-streaming-expert`**: Menghubungkan antarmuka obrolan web langsung ke saluran bot perpesanan.
-- **`async-queue-temporal-expert`**: Mengantrekan pengiriman pesan massal (*broadcast notification*) menggunakan BullMQ.
-- **`rate-limit-abuse-prevention`**: Melindungi endpoint webhook bot dari serangan spam.
