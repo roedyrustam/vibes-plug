@@ -383,20 +383,7 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 
 ---
 
-### Integration with Other Skills
 
-- `senior-frontend` — Upload UI components, image optimization in Next.js
-- `design-system-architect` — Design tokens for dropzones, progress indicators, and file preview cards
-- `ui-ux-pro-max` — Micro-interactions, feedback toasts, and drag-and-drop affordances
-- `visual-ui-auditor` — Visual audit of upload states, contrast, and crisp 1px borders
-- `anti-slop` — Enforcing zero placeholder slop and complete upload handling
-- `cloud-hosting-expert` — CDN setup, Cloudflare R2/S3 configuration
-- `performance-web-vitals` — Image loading strategy (lazy loading, srcset, blur placeholder)
-- `database-orm-expert` — Storing file metadata and references
-- `production-ready-hardener` — File upload security audit
-- `error-resilience-expert` — Upload retry logic and failure recovery
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -440,16 +427,3 @@ Aktifkan skill ini ketika:
 | Tidak ada batas ukuran file | Penyalahgunaan storage, error OOM | Terapkan batas di sisi klien dan server |
 | Menyimpan file asli saja | Waktu muat lambat, bandwidth berlebih | Buat varian responsif yang teroptimasi |
 | Bucket S3 publik | Risiko kebocoran data | Gunakan presigned URL atau CDN dengan signed URL |
-
-### Integrasi dengan Skill Lain
-
-- `senior-frontend` — Komponen UI upload, optimasi gambar di Next.js
-- `design-system-architect` — Desain token untuk dropzone, indikator progres, dan kartu pratinjau berkas
-- `ui-ux-pro-max` — Mikro-interaksi, notifikasi toast feedback, dan affordance drag-and-drop
-- `visual-ui-auditor` — Audit visual status upload, kontras warna, dan border 1px
-- `anti-slop` — Penegakan implementasi bebas placeholder slop dan penanganan error tuntas
-- `cloud-hosting-expert` — Setup CDN, konfigurasi Cloudflare R2/S3
-- `performance-web-vitals` — Strategi loading gambar (lazy loading, srcset, blur placeholder)
-- `database-orm-expert` — Menyimpan metadata file dan referensi
-- `production-ready-hardener` — Audit keamanan upload file
-- `error-resilience-expert` — Logika retry upload dan pemulihan kegagalan

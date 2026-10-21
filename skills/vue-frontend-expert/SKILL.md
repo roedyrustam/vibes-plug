@@ -102,20 +102,7 @@ Always leverage [VueUse](https://vueuse.org/) for common composables (e.g., `use
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-This skill works best when combined with:
-- `design-system-architect` — To build headless UI components using Radix Vue or VueUse components.
-- `tailwind-expert` — For styling Vue/Nuxt components with Tailwind CSS v4.
-- `performance-web-vitals` — To optimize Nuxt 3 SSR metrics (LCP, INP).
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to "Frontend Frameworks" row in the Matrix.
-- `zero-to-prod-orchestrator` — Phase 5 (Frontend Implementation).
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia

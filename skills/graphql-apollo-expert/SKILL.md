@@ -88,17 +88,8 @@ function UserList() {
 }
 ```
 
-### Integration with Other Skills (MANDATORY)
-This skill works best when combined with:
-- `js-backend-expert` — For setting up the underlying Node.js/NestJS server architecture.
-- `database-orm-expert` — For connecting Prisma/Drizzle ORM directly to GraphQL resolvers and DataLoaders.
-- `senior-frontend` / `vue-frontend-expert` — For integrating Apollo Client into React or Vue applications.
-
-### Referenced By Orchestrators (MANDATORY)
-- `brainstorming` — Add to "API Design & Contracts".
-- `zero-to-prod-orchestrator` — Phase 4 (Backend APIs).
-
 ---
+
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia

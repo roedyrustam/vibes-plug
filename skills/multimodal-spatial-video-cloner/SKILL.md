@@ -153,19 +153,7 @@ export function ReverseEngineeredSpringCard({
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-- `website-design-cloner` — Complement static URL cloning with dynamic video micro-interaction extraction.
-- `senior-frontend` — Integrate generated motion components into React 19 and Next.js 15 apps.
-- `tailwind-expert` — Map extracted spacing and colors to Tailwind CSS v4 `@theme` directives.
-- `svg-animation-motion-expert` — Implement complex vector path interpolations seen in recorded demos.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "UI/UX & Design Systems" and "Penemuan & Audit" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 1 (Discovery & PRD) and Phase 5 (Frontend & Design Systems).
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -214,17 +202,3 @@ Aktifkan skill ini ketika:
 | Mengira-ngira durasi animasi secara sembarangan | Gerakan terasa kaku dan tidak natural | Kalibrasi nilai stiffness dan damping dari video |
 | Menghapus outline fokus pada kartu interaktif | Tidak lulus uji aksesibilitas navigasi keyboard | Berikan `focus-visible:ring-2 focus-visible:outline-none` |
 | Mengabaikan layout layar kecil | Tampilan berantakan saat dibuka di perangkat mobile | Periksa perilaku responsif dari rekaman video |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `website-design-cloner` — Melengkapi kloning URL statis dengan ekstraksi mikro-interaksi dari video.
-- `senior-frontend` — Integrasi komponen animasi ke aplikasi React 19 dan Next.js 15.
-- `tailwind-expert` — Memetakan warna dan ukuran ke konfigurasi tema Tailwind CSS v4.
-- `svg-animation-motion-expert` — Mengimplementasikan animasi path vektor yang tampak pada video.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "UI/UX & Design Systems" dan "Penemuan & Audit" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 1 (Discovery & PRD) dan Fase 5 (Frontend, Design Systems & Mobile Apps).

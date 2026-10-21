@@ -96,22 +96,7 @@ To achieve native feel on iOS, touch interactions must be smooth. Use CSS proper
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-This skill works best when combined with:
-- `hig` — For detailed implementation of Apple Human Interface Guidelines styling.
-- `mobile-expo-expert` — When building React Native/Expo apps for iOS.
-- `tailwind-expert` — To apply CSS adjustments like `dvh` and safe-areas using Tailwind utility classes.
-- `design-system-architect, senior-frontend` — To ensure UI components are sized correctly for iOS touch targets (44x44).
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Mobile & Web Ecosystems" row in the Skill Integration & Orchestration Matrix
-- `zero-to-prod-orchestrator` — Add to Phase 4 (Frontend Implementation) & Phase 8 (Production Audit)
-- `production-ready-hardener` — Add to Phase 2 (PWA & Compatibility Audit)
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -145,22 +130,3 @@ Panduan praktis untuk dukungan Ekosistem Apple (iOS & Web):
 - **[Meta Tag PWA Khusus]:** Wajib menggunakan `<link rel="apple-touch-icon">` dan `<meta name="apple-mobile-web-app-capable" content="yes">` agar PWA berjalan optimal saat ditambahkan ke Home Screen.
 - **[Safe Area]:** Terapkan padding `env(safe-area-inset-top)` dsb, untuk menghindari notch (poni) dan Dynamic Island iPhone.
 - **[Touch Targets HIG]:** Area sentuh minimum untuk elemen interaktif di iOS adalah 44x44 points.
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `hig` — Untuk menerapkan struktur dan prinsip desain dari Human Interface Guidelines Apple.
-- `mobile-expo-expert` — Jika menggunakan React Native untuk aplikasi iOS.
-- `tailwind-expert` — Mengatur penyesuaian WebKit seperti `dvh` dan safe-areas dengan utility class.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Bagian Mobile & Web Ecosystems.
-- `zero-to-prod-orchestrator` — Fase 4 dan 8 (Kesiapan Produksi).
-- `production-ready-hardener` — Fase 2 (Audit Kompatibilitas Lintas Browser & PWA).
-
-
-## Orchestration & Integration
-- Integrates with: `hig`, `mobile-expo-expert`, `tailwind-expert`, `design-system-architect, senior-frontend`.
-- Orchestrated by: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`.

@@ -88,17 +88,7 @@ export default {
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-This skill works best when combined with:
-- `vue-frontend-expert` / `senior-frontend` — For building the individual micro-apps.
-- `design-system-architect` — For ensuring all MFEs consume a shared, versioned UI component library.
-- `monorepo-architect` — For managing the codebases of multiple MFEs in a single Turborepo/pnpm workspace.
 
-### Referenced By Orchestrators (MANDATORY)
-- `brainstorming` — Add to "Architecture & Scale".
-- `zero-to-prod-orchestrator` — Phase 2 (Architecture Strategy).
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia

@@ -460,15 +460,6 @@ export function M3OutlinedTextField({
 
 ---
 
-### Integration with Other Skills
-
-- `senior-frontend` — React 19 form patterns, useActionState, useOptimistic
-- `global-a11y-i18n-expert` — WCAG 2.2 form accessibility requirements
-- `design-system-architect, senior-frontend` — Input control primitives, form field components
-- `authentication-identity-expert` — Login/signup form patterns
-- `error-resilience-expert` — Form submission error handling and retry
-- `tailwind-expert` — Form styling with Tailwind CSS v4
-- `anti-slop` — Enforcing actionable error messages, locked pending states, accessible focus indicators, and server-side parity
 
 ### Sovereign Anti-Slop Form Directives
 Zero-tolerance standards for form engineering:
@@ -508,16 +499,6 @@ M3 menetapkan dua format input utama (Filled dan Outlined) dengan animasi floati
 - **Outlined Text Field**: Garis batas perimetral bersih (`border-outline`), label mengapung saat fokus atau terisi (`peer-focus:top-1.5 peer-focus:scale-75`).
 - **Filled Text Field**: Latar belakang kontainer `surface-container-highest` dengan garis indikator aktif di bagian bawah (2px saat fokus).
 - **Aksesibilitas & Ikon**: Dukungan ikon leading/trailing (misal tombol visibilitas kata sandi), helper text terikat via `aria-describedby`, dan error alert berkontras tinggi yang lolos uji WCAG.
-
-### Integrasi dengan Skill Lain
-
-- `senior-frontend` — Pola formulir React 19, useActionState, useOptimistic
-- `global-a11y-i18n-expert` — Persyaratan aksesibilitas formulir WCAG 2.2
-- `design-system-architect, senior-frontend` — Primitif kontrol input, komponen field formulir
-- `authentication-identity-expert` — Pola formulir login/signup
-- `error-resilience-expert` — Penanganan error submission formulir dan retry
-- `anti-slop` — Penegakan pesan error yang jelas, proteksi status pending, cincin fokus aksesibel, dan paritas skema server-side
-
 ### Arahan Anti-Slop Formulir
 Standar nol toleransi untuk rekayasa formulir:
 1. **Dilarang Menulis Pesan Error Samar**: Melarang pesan generik "Field tidak valid", "Input salah", atau "Terjadi kesalahan". Setiap aturan validasi wajib menjelaskan apa yang keliru dan cara memperbaikinya (misal: "Kata sandi minimal 8 karakter dan mengandung minimal satu angka").
