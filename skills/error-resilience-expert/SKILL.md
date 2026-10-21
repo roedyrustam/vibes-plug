@@ -2,7 +2,7 @@
 name: error-resilience-expert
 description: "Expert guide for error handling patterns, resilience engineering, retry strategies, circuit breakers, and graceful degradation across React, Next.js, and Node.js / Panduan ahli pola penanganan error, rekayasa ketahanan, strategi retry, circuit breaker, dan degradasi anggun di React, Next.js, dan Node.js."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,16 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 6 - Production Hardening & Resilience) to ensure fault-tolerant application architectures.
+- **Downstream Cooperating Skills**:
+  - `logging-error-tracking-expert` — Sentry/BugSnag integration and structured error logging.
+  - `data-telemetry-expert` — Feed error rates and latency anomalies into circuit breakers.
+  - `js-backend-expert` — API middleware error handling and RFC 9457 Problem Details formatting.
+  - `senior-frontend` — React 19 Error Boundaries, suspense fallbacks, and resilient UI states.
+  - `database-orm-expert` — Transaction retry strategies, deadlocks, and rollback policies.
+  - `async-queue-temporal-expert` — Dead letter queues, retry backoffs, and durable saga recovery.
+  - `production-ready-hardener` — Pre-launch failure mode verification and chaos testing.
+  - `session-memory-manager` — Persist failure recovery logs and resilient state checkpoints.
 
 ### Description
 Production-grade guide for building resilient applications that fail gracefully, recover automatically, and provide actionable error feedback to users and developers. Covers **React Error Boundaries**, **Next.js error handling** (`error.tsx`, `global-error.tsx`, `not-found.tsx`), **API error response standards** (RFC 9457 Problem Details), **retry patterns** with exponential backoff, **circuit breaker patterns**, **dead letter queues**, and **Sentry/BugSnag** integration.
@@ -438,23 +447,20 @@ worker.on('failed', async (job, err) => {
 
 ---
 
-### Integration with Other Skills
-
-- `js-backend-expert` — API middleware error handling and response formatting
-- `senior-frontend` — React Error Boundaries and Suspense patterns
-- `database-orm-expert` — Transaction error handling and rollback patterns
-- `logging-error-tracking-expert` — Sentry/BugSnag integration and structured error logging
-- `async-queue-temporal-expert` — Dead letter queues and retry strategies for background jobs
-- `production-ready-hardener` — Pre-launch error handling audit checklist
-- `api-design-expert` — RFC 9457 error response specification
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 6 - Hardening Produksi & Ketahanan) untuk memastikan arsitektur aplikasi yang toleran terhadap kegagalan.
+- **Skill Hilir & Kerja Sama**:
+  - `logging-error-tracking-expert` — Integrasi Sentry/BugSnag dan logging error terstruktur.
+  - `data-telemetry-expert` — Menyalurkan tingkat error dan anomali latensi ke circuit breaker.
+  - `js-backend-expert` — Middleware penanganan error API dan pemformatan RFC 9457 Problem Details.
+  - `senior-frontend` — Error Boundary React 19, fallback suspense, dan UI state yang resilien.
+  - `database-orm-expert` — Strategi retry transaksi, deadlock, dan kebijakan rollback.
+  - `async-queue-temporal-expert` — Dead letter queue, backoff retry, dan pemulihan saga terdistribusi.
+  - `production-ready-hardener` — Verifikasi mode kegagalan pra-peluncuran dan uji chaos.
+  - `session-memory-manager` — Menyimpan log pemulihan kegagalan dan checkpoint status resilien.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun aplikasi yang tahan banting — gagal secara anggun, pulih otomatis, dan memberikan umpan balik error yang dapat ditindaklanjuti kepada pengguna maupun developer. Mencakup **React Error Boundaries**, **penanganan error Next.js** (`error.tsx`, `global-error.tsx`, `not-found.tsx`), **standar respons error API** (RFC 9457 Problem Details), **pola retry** dengan exponential backoff, **pola circuit breaker**, **dead letter queues**, dan integrasi **Sentry/BugSnag**.
@@ -498,13 +504,3 @@ Aktifkan skill ini ketika:
 | Retry operasi non-idempoten | Charge ganda, insert duplikat | Hanya retry operasi baca dan write idempoten |
 | Tidak ada timeout pada panggilan eksternal | Thread/pool koneksi habis | Pasang `AbortSignal.timeout()` pada semua panggilan fetch |
 | Pesan generik "Terjadi kesalahan" untuk semua error | Pengguna tidak bisa menyelesaikan sendiri | Tampilkan pesan yang actionable (retry, hubungi support, periksa input) |
-
-### Integrasi dengan Skill Lain
-
-- `js-backend-expert` — Middleware penanganan error API dan pemformatan respons
-- `senior-frontend` — React Error Boundaries dan pola Suspense
-- `database-orm-expert` — Penanganan error transaksi dan pola rollback
-- `logging-error-tracking-expert` — Integrasi Sentry/BugSnag dan logging error terstruktur
-- `async-queue-temporal-expert` — Dead letter queue dan strategi retry untuk background job
-- `production-ready-hardener` — Checklist audit penanganan error sebelum peluncuran
-- `api-design-expert` — Spesifikasi respons error RFC 9457

@@ -2,7 +2,7 @@
 name: llm-observability-expert
 description: "Expert guide for LLM observability in production — token cost tracking, hallucination rate monitoring, latency analysis, prompt/completion logging, model comparison dashboards, and AI-specific tracing (Langfuse, Helicone, Lunary, OpenTelemetry GenAI) / Panduan ahli observabilitas LLM di produksi — pelacakan biaya token, pemantauan tingkat halusinasi, analisis latensi, logging prompt/completion, dashboard perbandingan model, dan tracing khusus AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,15 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `data-telemetry-expert`, `logging-error-tracking-expert`, `llm-finops-router`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `context-window-engineer`, `kv-cache-prefix-optimizer`, `adaptive-model-cascade`, and `ai-safety-governance-expert` to provide end-to-end visibility into AI application behavior in production.
+- **Upstream Orchestrators**: Works under `brainstorming` (AI & LLM Integration matrix row) and `zero-to-prod-orchestrator` (Phase 7 - Monitoring & Production Telemetry) to provide observability for AI applications.
+- **Downstream Cooperating Skills**:
+  - `data-telemetry-expert` — Extend OpenTelemetry instrumentation with LLM-specific spans and metrics.
+  - `llm-finops-router` — Feed real-time cost data to the FinOps router for dynamic model selection.
+  - `kv-cache-prefix-optimizer` — Monitor cache hit rates to detect prefix cache invalidation.
+  - `logging-error-tracking-expert` — Integrate LLM traces with Sentry error tracking and Pino structured logs.
+  - `ai-safety-governance-expert` — Log and audit AI outputs for compliance with safety policies.
+  - `adaptive-model-cascade` — Feed model latency and error statistics to dynamic model cascading routers.
+  - `session-memory-manager` — Store AI session traces and token usage checkpoints.
 
 ### Description
 Production observability framework for LLM-powered applications. Addresses the biggest blind spot in 2026 AI applications: teams deploy AI features to production with zero visibility into token costs, hallucination rates, latency distributions, cache hit ratios, or user satisfaction scores. This skill provides the instrumentation patterns, tool integrations, and dashboard architectures to make LLM behavior fully observable.
@@ -222,26 +230,19 @@ export function detectCostAnomalies(
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `data-telemetry-expert` — Extend OpenTelemetry instrumentation with LLM-specific spans and metrics.
-- `llm-finops-router` — Feed real-time cost data to the FinOps router for dynamic model selection.
-- `kv-cache-prefix-optimizer` — Monitor cache hit rates to detect prefix cache invalidation.
-- `logging-error-tracking-expert` — Integrate LLM traces with Sentry error tracking and Pino structured logs.
-- `ai-safety-governance-expert` — Log and audit AI outputs for compliance with safety policies.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "AI & LLM Integration" matrix row.
-- `zero-to-prod-orchestrator` — Integrated in Phase 7 (DevOps, Deployment & Proactive Monitoring).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `data-telemetry-expert`, `logging-error-tracking-expert`, `llm-finops-router`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `context-window-engineer`, `kv-cache-prefix-optimizer`, `adaptive-model-cascade`, dan `ai-safety-governance-expert` untuk memberikan visibilitas end-to-end terhadap perilaku aplikasi AI di produksi.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` (baris "AI & LLM Integration" pada Matriks Orkestrasi) dan `zero-to-prod-orchestrator` (Fase 7 - Pemantauan & Telemetri Produksi) untuk menyediakan observabilitas aplikasi AI.
+- **Skill Hilir & Kerja Sama**:
+  - `data-telemetry-expert` — Memperluas instrumentasi OpenTelemetry dengan span dan metrik khusus LLM.
+  - `llm-finops-router` — Mengirim data biaya real-time ke router FinOps untuk pemilihan model dinamis.
+  - `kv-cache-prefix-optimizer` — Memantau cache hit rate untuk mendeteksi invalidasi prefix cache.
+  - `logging-error-tracking-expert` — Mengintegrasikan trace LLM dengan pelacakan error Sentry dan log Pino.
+  - `ai-safety-governance-expert` — Mencatat dan mengaudit output AI untuk kepatuhan kebijakan keamanan.
+  - `adaptive-model-cascade` — Menyalurkan statistik latensi dan error model ke router cascade model.
+  - `session-memory-manager` — Menyimpan trace sesi AI dan checkpoint penggunaan token.
 
 ### Deskripsi
 Kerangka observabilitas produksi untuk aplikasi berbasis LLM. Mengatasi blind spot terbesar di aplikasi AI 2026: tim men-deploy fitur AI ke produksi tanpa visibilitas terhadap biaya token, tingkat halusinasi, distribusi latensi, rasio cache hit, atau skor kepuasan pengguna.
@@ -275,16 +276,4 @@ Implementasikan alert otomatis untuk: anggaran harian terlampaui, lonjakan biaya
 3. **Atur Alert Anggaran Sejak Awal**: Konfigurasikan alert biaya harian/mingguan sebelum ke produksi.
 4. **Kumpulkan Sinyal Feedback Pengguna**: Implementasikan tombol thumbs up/down pada output AI.
 
----
 
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `data-telemetry-expert` — Perluas instrumentasi OpenTelemetry dengan span dan metrik khusus LLM.
-- `llm-finops-router` — Kirim data biaya real-time ke router FinOps.
-- `kv-cache-prefix-optimizer` — Pantau cache hit rate untuk deteksi invalidasi prefix cache.
-- `logging-error-tracking-expert` — Integrasikan trace LLM dengan pelacakan error Sentry.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "AI & LLM Integration" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 7 (DevOps, Deployment & Proactive Monitoring).
