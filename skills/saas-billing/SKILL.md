@@ -2,7 +2,7 @@
 name: saas-billing
 description: "Implement and audit SaaS billing systems, subscription state machines, secure webhooks, and local database synchronization / Implementasi dan audit sistem billing SaaS, state machine langganan, webhook aman, dan sinkronisasi database lokal."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Payment Gateways & Providers**: `payment-gateway-expert`, `doku-payment-gateway`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **Database & Subscription State**: `database-orm-expert`, `saas-multi-tenant`, `saas-architect`
+- **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Background Queues & Notifications**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`
+- **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, atomic database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), and Midtrans (for Southeast Asia).
@@ -330,7 +334,11 @@ export const subscriptions = pgTable('subscriptions', {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Payment Gateway & Provider**: `payment-gateway-expert`, `doku-payment-gateway`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **Database & Status Langganan**: `database-orm-expert`, `saas-multi-tenant`, `saas-architect`
+- **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Antrean Latar Belakang & Notifikasi**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`
+- **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), dan Midtrans (untuk Asia Tenggara).

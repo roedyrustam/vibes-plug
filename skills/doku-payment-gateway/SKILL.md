@@ -2,7 +2,7 @@
 name: doku-payment-gateway
 description: "Expert guide for integrating DOKU Payment Gateway: DOKU Checkout (Hosted & Modal Popup with HMAC-SHA256), Direct API SNAP BI Standard (VA, QRIS, Direct Debit with HMAC-SHA512), and Direct API Non-SNAP (Card Payment Page, OVO Push). Covers single-integration checkout, direct host-to-host APIs, webhook verification, and atomic idempotency / Panduan ahli integrasi DOKU Payment Gateway (DOKU Checkout & Direct API)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,12 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills:
-- `payment-gateway-expert` — Multi-gateway routing, SaaS billing architectures, subscription state machines.
-- `saas-billing` — Database synchronization, atomic locks, invoice fulfillment.
-- `doku-mcp-server` — Exposes DOKU Checkout & Direct APIs to AI agents via Model Context Protocol.
-- `database-orm-expert` — Transactional database models, race-condition mitigation.
-- `async-queue-temporal-expert` — Background job retries and async payment reconciliation.
+- **Payments & Multi-Gateway Routing**: `payment-gateway-expert`, `saas-billing`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **AI Agentic Commerce & MCP**: `doku-mcp-server`, `mcp-server-architect`, `ai-llm-integration-expert`
+- **Database & Atomic Idempotency**: `database-orm-expert`, `saas-multi-tenant`
+- **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Async Processing & Observability**: `async-queue-temporal-expert`, `data-telemetry-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Expert guide for implementing DOKU Payment Gateway based on the official [DOKU Developers Documentation](https://developers.doku.com/).
@@ -546,12 +546,12 @@ export class DokuService {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan:
-- `payment-gateway-expert` — Arsitektur checkout SaaS, perutean multi-gateway, dan state machine langganan.
-- `saas-billing` — Sinkronisasi database lokal, penguncian atomik (atomic locks), dan penerbitan invoice.
-- `doku-mcp-server` — Membuka tool DOKU Checkout dan Direct API ke Agen AI via Model Context Protocol.
-- `database-orm-expert` — Model database transaksional dan pencegahan race-condition.
-- `async-queue-temporal-expert` — Antrean job latar belakang untuk retry dan rekonsiliasi pembayaran.
+- **Pembayaran & Routing Multi-Gateway**: `payment-gateway-expert`, `saas-billing`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **AI Agentic Commerce & MCP**: `doku-mcp-server`, `mcp-server-architect`, `ai-llm-integration-expert`
+- **Database & Idempotensi Atomik**: `database-orm-expert`, `saas-multi-tenant`
+- **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Pemrosesan Asinkron & Observabilitas**: `async-queue-temporal-expert`, `data-telemetry-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/).

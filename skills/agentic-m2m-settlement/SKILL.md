@@ -2,7 +2,7 @@
 name: agentic-m2m-settlement
 description: "Expert guide for autonomous Machine-to-Machine (M2M) agent settlement, dual-rail fiat & stablecoin micro-clearing, dynamic budget envelopes, and cryptographic agent invoicing / Panduan ahli settlement otonom antar-agen (M2M), kliring mikro dual-rail fiat & stablecoin, pagu anggaran dinamis, dan penagihan agen kriptografis."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `agentic-micro-economy-architect`, `doku-payment-gateway`, `doku-mcp-server`, `payment-gateway-expert`, `saas-billing`, `multi-agent-orchestration`, `formal-spec-z3-verifier`, `database-orm-expert`, and `zero-trust-secret-vault`.
+- **Agentic Economies & Settlement**: `agentic-micro-economy-architect`, `blockchain-web3-expert`, `formal-spec-z3-verifier`
+- **Payment Gateways & Clearing Rails**: `doku-payment-gateway`, `doku-mcp-server`, `payment-gateway-expert`, `saas-billing`
+- **Swarm Orchestration & Critic Gate**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `mcp-sampling-critic`
+- **Database & Cryptographic Secrets**: `database-orm-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 In multi-agent swarms where sub-agents consume paid third-party APIs, compute clusters, specialized data scraping, or delegated reasoning, agents require an autonomous, real-time clearing and settlement rail. **Agentic M2M Settlement** establishes production-grade financial rails for autonomous Agent-to-Agent (A2A) and Agent-to-Infrastructure (A2I) transactions. It supports **Dual-Rail Clearing**:
@@ -191,7 +195,11 @@ export class AgentM2MSettlementEngine {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `agentic-micro-economy-architect`, `doku-payment-gateway`, `doku-mcp-server`, `payment-gateway-expert`, `saas-billing`, `multi-agent-orchestration`, `formal-spec-z3-verifier`, `database-orm-expert`, dan `zero-trust-secret-vault`.
+- **Ekonomi Agen & Settlement**: `agentic-micro-economy-architect`, `blockchain-web3-expert`, `formal-spec-z3-verifier`
+- **Payment Gateway & Rel Kliring**: `doku-payment-gateway`, `doku-mcp-server`, `payment-gateway-expert`, `saas-billing`
+- **Orkestrasi Swarm & Gerbang Critic**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `mcp-sampling-critic`
+- **Database & Rahasia Kriptografis**: `database-orm-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Dalam swarm multi-agen skala produksi di mana sub-agen mengonsumsi API pihak ketiga berbayar, komputasi GPU, scraping web berbayar, atau inferensi penalaran terdelegasi, agen memerlukan rel kliring dan settlement pembayaran otomatis secara real-time. **Agentic M2M Settlement** menyediakan infrastruktur finansial tangguh untuk transaksi Mesin-ke-Mesin (Agent-to-Agent / A2A) dan Agen-ke-Infrastruktur (A2I). Protokol ini mendukung **Kliring Dual-Rail**:

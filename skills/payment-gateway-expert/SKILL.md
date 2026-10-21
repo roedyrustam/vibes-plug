@@ -2,7 +2,7 @@
 name: payment-gateway-expert
 description: "Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) and secure webhooks into SaaS platforms / Panduan ahli integrasi payment gateway dan webhook aman."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,14 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Gateways & Payment Integrations**: `doku-payment-gateway`, `saas-billing`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **AI Agentic Commerce & MCP**: `doku-mcp-server`, `mcp-server-architect`, `ai-llm-integration-expert`
+- **Database & Atomic Idempotency**: `database-orm-expert`, `saas-multi-tenant`
+- **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Background Jobs & Observability**: `async-queue-temporal-expert`, `data-telemetry-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Expert guide for integrating major payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) into modern SaaS platforms. Covers checkout flows, secure raw-body webhook handling, atomic idempotency to prevent race conditions, subscription state machines, and local database synchronization.
@@ -96,9 +104,6 @@ async function grantUserSubscription(invoiceNumber: string) {
 }
 ```
 
-## Orchestration & Integration
-- Integrates with: `saas-billing`, `doku-payment-gateway`, `doku-mcp-server`, `async-queue-temporal-expert`, `database-orm-expert`.
-
 ### Trigger Conditions
 Active whenever the user is working on billing integration, payment checkout, webhook handling, or integrating platforms like PayPal, Stripe, Xendit, Midtrans, or DOKU SNAP BI.
 
@@ -108,11 +113,12 @@ Active whenever the user is working on billing integration, payment checkout, we
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`saas-billing`**: Alur penagihan langganan dan state machine status akun.
-- **`doku-payment-gateway`**: Integrasi teknis spesifik DOKU Checkout dan Direct API SNAP BI.
-- **`doku-mcp-server`**: Pemanggilan tool otonom pembuatan invoice oleh agen AI.
-- **`async-queue-temporal-expert`**: Antrean tugas pasca-pembayaran (invoicing, notifikasi).
-- **`database-orm-expert`**: Transaksi atomik dan locking database untuk mencegah race condition.
+- **Gateway & Integrasi Pembayaran**: `doku-payment-gateway`, `saas-billing`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
+- **AI Agentic Commerce & MCP**: `doku-mcp-server`, `mcp-server-architect`, `ai-llm-integration-expert`
+- **Database & Idempotensi Atomik**: `database-orm-expert`, `saas-multi-tenant`
+- **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **Antrean Latar Belakang & Observabilitas**: `async-queue-temporal-expert`, `data-telemetry-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan payment gateway utama (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) ke platform SaaS modern. Mencakup alur checkout, penanganan webhook raw-body aman, pencegahan race condition melalui atomic update, state machine langganan, dan sinkronisasi database lokal.
