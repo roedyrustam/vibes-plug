@@ -2,7 +2,7 @@
 name: adaptive-model-cascade
 description: "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Flash/Haiku to Sonnet/Opus/Astra, dynamic escalation with quality gates, 40-60% token cost reduction while maintaining output quality / Panduan ahli untuk kaskade dan routing model cerdas — routing tugas berbasis skor kompleksitas dari Flash/Haiku ke Sonnet/Opus/Astra, eskalasi dinamis dengan gerbang kualitas, pengurangan biaya token 40-60% dengan kualitas output terjaga."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `llm-finops-router`, `frontier-ai-models-expert`, `context-window-engineer`, `kv-cache-prefix-optimizer`, `llm-observability-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, and `test-time-compute-optimizer` to implement cost-optimal model selection across all AI-powered features.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI integration), `brainstorming`, `session-memory-manager`.
+- **FinOps & Routing Gateways**: `llm-finops-router` (ROI tracking & cost caps), `llm-observability-expert` (cascade decisions, escalations, & tracing).
+- **Frontier Models & Context Engineering**: `frontier-ai-models-expert` (model tier scoring & benchmarks), `context-window-engineer` (context threshold overflow routing), `kv-cache-prefix-optimizer` (tier prefix cache locking).
+- **Inference & Compute Orchestration**: `test-time-compute-optimizer` (dynamic reasoning tokens during escalation), `ai-llm-integration-expert`, `vercel-ai-sdk-expert` (multi-provider cascade fallbacks).
 
 ### Description
 Production architecture for routing AI requests to the optimal model tier based on real-time task complexity assessment. Instead of sending every request to the most expensive frontier model, this skill implements a cascade: try the fastest/cheapest model first, evaluate output quality via automated judges, and escalate to more capable (expensive) models only when the cheaper tier fails the quality gate. Achieves 40-60% cost reduction for typical production workloads where 60-70% of requests are simple enough for smaller models.
@@ -249,27 +252,14 @@ function calculateCost(usage: { promptTokens: number; completionTokens: number }
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `llm-finops-router` — Feed cascade cost data to the FinOps dashboard for ROI tracking.
-- `llm-observability-expert` — Log all cascade decisions, escalations, and quality gate results.
-- `frontier-ai-models-expert` — Reference model capabilities for tier assignment.
-- `context-window-engineer` — Route to larger-context models when context exceeds smaller model limits.
-- `kv-cache-prefix-optimizer` — Apply cache optimization at each tier to minimize base cost.
-- `vercel-ai-sdk-expert` — Implement cascade routing using Vercel AI SDK's multi-provider support.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "AI & LLM Integration" matrix row.
-- `zero-to-prod-orchestrator` — Integrated in Phase 4 (Backend APIs, Microservices & AI Agents).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `llm-finops-router`, `frontier-ai-models-expert`, `context-window-engineer`, `kv-cache-prefix-optimizer`, `llm-observability-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, dan `test-time-compute-optimizer` untuk mengimplementasikan pemilihan model optimal dari segi biaya di seluruh fitur berbasis AI.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi AI Fase 4), `brainstorming`, `session-memory-manager`.
+- **FinOps & Gateway Routing**: `llm-finops-router` (pelacakan ROI & batas biaya), `llm-observability-expert` (keputusan kaskade, eskalasi, & tracing).
+- **Model Frontier & Rekayasa Konteks**: `frontier-ai-models-expert` (skor tier model & tolok ukur), `context-window-engineer` (routing luapan batas konteks), `kv-cache-prefix-optimizer` (penguncian cache prefix tier).
+- **Inferensi & Orkestrasi Komputasi**: `test-time-compute-optimizer` (token penalaran dinamis saat eskalasi), `ai-llm-integration-expert`, `vercel-ai-sdk-expert` (fallback kaskade multi-provider).
 
 ### Deskripsi
 Arsitektur produksi untuk merutekan permintaan AI ke tier model optimal berdasarkan penilaian kompleksitas tugas secara real-time. Alih-alih mengirim setiap permintaan ke model frontier termahal, skill ini mengimplementasikan kaskade: coba model tercepat/termurah dulu, evaluasi kualitas output via penilai otomatis, dan eskalasi ke model lebih capable (mahal) hanya jika tier murah gagal melewati gerbang kualitas. Menghemat 40-60% biaya untuk beban kerja produksi tipikal.
@@ -301,17 +291,3 @@ Evaluasi cepat berbasis heuristik (<200ms): substansi respons, blok kode valid, 
 2. **Gerbang Kualitas Harus Cepat**: Evaluator harus menambahkan <200ms overhead.
 3. **Log Setiap Eskalasi**: Lacak frekuensi eskalasi per fitur.
 4. **Cache Sebelum Kaskade**: Terapkan pola `kv-cache-prefix-optimizer` untuk mengurangi biaya dasar di setiap tier.
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `llm-finops-router` — Kirim data biaya kaskade ke dashboard FinOps.
-- `llm-observability-expert` — Log semua keputusan kaskade, eskalasi, dan hasil gerbang kualitas.
-- `frontier-ai-models-expert` — Referensi kemampuan model untuk penugasan tier.
-- `context-window-engineer` — Rutekan ke model berkonteks lebih besar saat konteks melebihi batas model kecil.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "AI & LLM Integration" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 4 (Backend APIs, Microservices & AI Agents).

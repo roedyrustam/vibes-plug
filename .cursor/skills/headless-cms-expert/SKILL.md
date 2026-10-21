@@ -2,7 +2,7 @@
 name: headless-cms-expert
 description: "Expert guide for Headless CMS integration (Sanity, Payload CMS, Strapi, Contentful, Storyblok) with modern frameworks / Panduan ahli integrasi Headless CMS (Sanity, Payload, Strapi, Contentful) dengan framework modern."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,11 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-- **`nextjs-app-router-expert`**: SSR/ISR content fetching and caching strategies.
-- **`api-design-expert`**: REST/GraphQL API patterns for CMS queries.
-- **`seo`**: Structured data, sitemaps, and metadata from CMS content.
-- **`astro-framework-expert`**: Content collections and static site generation with CMS.
-- **`rich-text-editor-expert`**: Custom editor components for CMS authoring.
+Connects and orchestrates with domain skills:
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for rendering structured CMS blocks (Portable Text, Lexical, Blocks), typography hierarchies, and component layouts.
+- **Visual Auditing & Previews**: `visual-ui-auditor` for validating real-time visual draft mode, iframe preview boundaries, and responsive layout fidelity.
+- **Frameworks**: `nextjs-app-router-expert` (SSR/ISR on-demand tag revalidation) and `astro-framework-expert` (Content Collections and static site generation).
+- **Editor & SEO**: `rich-text-editor-expert` (custom authoring tools) and `seo` (schema markup, dynamic sitemaps, Open Graph images).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for structured content architecture.
 
 ### Description
 Expert guide for selecting, integrating, and optimizing Headless CMS platforms in modern web applications. Covers Sanity v3 (GROQ, Portable Text, Content Lake), Payload CMS 3.x (TypeScript-first, code-defined schemas), Strapi 5 (open-source, self-hosted), Contentful (enterprise, GraphQL), and Storyblok (visual editing). Includes content modeling, preview mode, webhook-based revalidation, and migration strategies.
@@ -168,10 +169,12 @@ export async function GET(req: NextRequest) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`nextjs-app-router-expert`**: Pola pengambilan konten SSR/ISR dan strategi caching.
-- **`api-design-expert`**: Pola API REST/GraphQL untuk query CMS.
-- **`seo`**: Data terstruktur, sitemap, dan sinkronisasi metadata CMS.
-- **`astro-framework-expert`**: Content collections dan static site generation.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk perenderan blok konten terstruktur CMS (Portable Text, Lexical, Blocks), hierarki tipografi, dan tata letak komponen.
+- **Audit Visual & Preview**: `visual-ui-auditor` untuk validasi mode pratinjau langsung (draft mode), batas iframe preview, dan fidelitas tata letak responsif.
+- **Framework Modern**: `nextjs-app-router-expert` (revalidasi tag on-demand SSR/ISR) dan `astro-framework-expert` (Content Collections dan static site generation).
+- **Editor & SEO**: `rich-text-editor-expert` (komponen editor konten) dan `seo` (data terstruktur schema, sitemap dinamis, Open Graph).
+- **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk arsitektur konten yang terstruktur.
 
 ### Deskripsi
 Panduan ahli untuk memilih, mengintegrasikan, dan mengoptimalkan platform Headless CMS dalam aplikasi web modern. Mencakup Sanity v3 (GROQ, Portable Text), Payload CMS 3.x (TypeScript-first, schema-as-code), Strapi 5 (open-source self-hosted), Contentful, dan Storyblok (visual editor). Termasuk modeling konten, preview mode, dan revalidasi instan berbasis webhook.

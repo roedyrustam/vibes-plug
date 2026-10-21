@@ -2,7 +2,7 @@
 name: session-memory-manager
 description: "Manages the entire session lifecycle: from context loading (PRD, Tech Stack) at startup, to maintaining project memory during active sessions, and creating ultra-compact checkpoints for handoff. / Mengelola siklus hidup sesi: dari pemuatan konteks awal, pemeliharaan memori proyek, hingga pembuatan checkpoint ringkas untuk handoff."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming` and `zero-to-prod-orchestrator` to ensure cohesive execution across the entire session lifecycle.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phases 1-8 Master Lifecycle) as the persistent session memory and context controller.
+- **Downstream Cooperating Skills**:
+  - `prd-architect` — Read and maintain PRD, ERD, and continuous blueprint files.
+  - `living-codebase-ast-graph` — Synchronize AST symbol graphs with `CONTEXT_MAP.md`.
+  - `agentic-memory-architect` — Integrate episodic memory persistence with long-term agent stores.
+  - `multi-agent-orchestration` — Pass concise subagent context slices during Swarm Fan-Out.
+  - `anti-slop` — Enforce ultra-compact YAML checkpoints (<300 tokens) and zero conversational fluff.
 
 ### Description
 This skill acts as the agent's memory controller. It handles loading project context at session startup, dynamically updating the context map and learning graph during the session, and seamlessly generating ultra-compact handoff checkpoints at session end.
@@ -90,7 +96,13 @@ Start by reading the critical files, then confirm understanding before proceedin
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain seperti `brainstorming` dan `zero-to-prod-orchestrator` untuk memastikan eksekusi kohesif selama siklus hidup sesi.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Master Lifecycle Fase 1-8) sebagai pengontrol memori sesi persisten dan konteks proyek.
+- **Skill Hilir & Kerja Sama**:
+  - `prd-architect` — Membaca dan memelihara PRD, ERD, dan file cetak biru berkelanjutan.
+  - `living-codebase-ast-graph` — Sinkronisasi graf simbol AST dengan `CONTEXT_MAP.md`.
+  - `agentic-memory-architect` — Mengintegrasikan persistensi memori episodik dengan memory store jangka panjang.
+  - `multi-agent-orchestration` — Mengirimkan irisan konteks subagen yang ringkas saat Swarm Fan-Out.
+  - `anti-slop` — Menegakkan checkpoint YAML ultra-ringkas (<300 token) tanpa pemborosan kata.
 
 ### Deskripsi
 Skill ini mengatur memori agen: memuat konteks di awal sesi, memperbarui peta proyek dan grafik pembelajaran selama sesi berjalan, dan membuat checkpoint ringkas untuk perpindahan sesi (handoff).

@@ -8,9 +8,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [4.4.2] - 2026-10-22
 
 ### Changed / Diubah
-- Catalog-count consistency pass across live surfaces: Cursor/Claude/Codex core rules, Cursor plugin manifest, VS Code status tooltip, CONTRIBUTING, README share link, and Studio/showcase version labels now all read **161 skills** (leftover 155/159/160 copy from the 4.4.1 sync gap).
-- Plugin manifests bumped to **4.4.2** (`package.json`, `plugin.json`, `gemini-extension.json`, `.cursor-plugin`, `.codex-plugin`, VS Code companion).
-- `scripts/sync-all-skill-counts.mjs` now covers the missed phrases (`159-skill registry`, `against the 155 skills`, `.cursor-plugin` description, VS Code `160-Skill` tooltip).
+- **161 / 161 Universal Skill Harmonization & Upgrade to `v4.4.2`**:
+  - Full ecosystem audit across all 161 skills in `skills/` and `.cursor/skills/` upgraded to frontmatter `version: "4.4.2"`.
+  - Harmonized orchestration architecture: categorized markdown cross-references standardized directly under `## English` (`### Orchestration & Integration`) and `## Bahasa Indonesia` (`### Integrasi Orkestrasi`).
+  - Eradicated all residual trailing duplicate blocks (`### Integration with Other Skills`, `### Referenced By Orchestrators`, and Indonesian counterparts) across all skills.
+  - Strict Anti-Slop verification: 100% compliant with 0 errors and 0 warnings across all 579 files under `node scripts/check-anti-slop.js --strict`.
+- **Catalogs & Registries Synchronization**:
+  - `CATALOG.md` and `CATALOG.json` completely re-indexed and synchronized with all 161 skills reflecting version `4.4.2`.
+  - Template `templates/SKILL_TEMPLATE.md` upgraded to `4.4.2` with standardized bilingual orchestration layout.
+  - Rule files (`AGENTS.md`, `rules/AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.traerules`, `.windsurfrules`) and `CONTRIBUTING.md` aligned to version `4.4.2`.
+- **Ecosystem Consistency Pass**:
+  - Catalog-count consistency pass across live surfaces: Cursor/Claude/Codex core rules, Cursor plugin manifest, VS Code status tooltip, CONTRIBUTING, README share link, and Studio/showcase version labels now all read **161 skills**.
+  - Plugin manifests bumped to **4.4.2** (`package.json`, `plugin.json`, `gemini-extension.json`, `.cursor-plugin`, `.codex-plugin`, VS Code companion).
+  - `scripts/sync-all-skill-counts.mjs` now covers the missed phrases (`159-skill registry`, `against the 155 skills`, `.cursor-plugin` description, VS Code `160-Skill` tooltip).
 
 ---
 

@@ -2,7 +2,7 @@
 name: zero-tech-debt-auditor
 description: "Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a Zero Debt codebase / Orkestrator otonom untuk menghapus utang teknis sebelum rilis."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Code Quality & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `coderabbit`, `biome-linter-formatter-expert`
+- **Testing & Self-Healing CI**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **Architecture & Refactoring**: `scalability-clean-code`, `legacy-code-translator`, `app-analyzer-optimizer`, `living-codebase-ast-graph`
+- **Production Hardening**: `production-ready-hardener`, `ci-cd-devops-architect`, `github-actions-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a "Zero Debt" codebase before production release.
@@ -90,15 +97,17 @@ node scripts/check-anti-slop.js --strict
 echo "✅ Zero Technical Debt Audit Passed: Codebase is 100% production-ready."
 ```
 
-### Orchestration & Integration
-- Connected to `zero-to-prod-orchestrator`: Acts as Phase 9 (Final Handoff).
-- Connected to `biome-linter-formatter-expert`: Uses strict linting rules to enforce consistency.
-- Connected to `autonomous-tdd-debugger`: Fixes any tests broken during the refactoring process.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Kualitas Kode & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `coderabbit`, `biome-linter-formatter-expert`
+- **Pengujian & Self-Healing CI**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **Arsitektur & Refaktorisasi**: `scalability-clean-code`, `legacy-code-translator`, `app-analyzer-optimizer`, `living-codebase-ast-graph`
+- **Pengerasan Produksi**: `production-ready-hardener`, `ci-cd-devops-architect`, `github-actions-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Orkestrator otonom yang memindai, melakukan refactoring, dan menghapus utang teknis (technical debt) di akhir siklus hidup pengembangan untuk mencapai basis kode "Zero Debt" sebelum rilis ke produksi.
@@ -141,8 +150,3 @@ Utang teknis memperlambat skalabilitas masa depan. `zero-tech-debt-auditor` bert
 2. **Laporan:** Buat artifak `TECH_DEBT_REPORT.md` yang merinci pelanggaran yang ditemukan.
 3. **Pemberantasan:** Edit file secara mandiri untuk memperbaiki masalah.
 4. **Verifikasi:** Jalankan linting dan build untuk memastikan perbaikan tidak merusak aplikasi.
-
-### Integrasi Orkestrasi
-- Terhubung ke `zero-to-prod-orchestrator`: Bertindak sebagai Fase 9 (Serah Terima Akhir).
-- Terhubung ke `biome-linter-formatter-expert`: Memakai aturan linting ketat untuk menjaga konsistensi.
-- Terhubung ke `autonomous-tdd-debugger`: Memperbaiki pengujian yang terganggu selama proses refactoring.

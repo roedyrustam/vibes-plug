@@ -2,7 +2,7 @@
 name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,12 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream & Reverse Engineering**: `prd-architect` (document reverse-engineered business rules into `PRD.md`), `brainstorming`, `session-memory-manager`.
+- **AST & Codebase Intelligence**: `living-codebase-ast-graph` (module dependencies & blast radius), `scalability-clean-code` (Clean Architecture boundaries), `typescript-expert` (strict type contracts).
+- **Backend & Database Migration**: `database-orm-expert` (legacy SQL to Prisma/Drizzle schemas), `js-backend-expert` (Bun/Hono targets), `go-programming-expert` / `rust-programming-expert`.
+- **Testing & Anti-Slop Gates**: `autonomous-tdd-debugger` (shadow execution comparison suites), `anti-slop` (zero truncation, no stubbed mocks), `zero-tech-debt-auditor`.
 
 ### Description
 A systematic, risk-mitigated engineering methodology for migrating large, business-critical legacy codebases (PHP 5/7, Python 2, jQuery, old React Class Components, AngularJS) to modern 2026 enterprise stacks (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) without business downtime or regression. Employs the Strangler Fig pattern, Shadow Execution Harnesses, and AST-driven module decomposition to prevent context exhaustion and hallucinated logic.
@@ -104,16 +110,16 @@ export async function executeWithShadowTesting<TInput, TOutput>(
 3. **Preserve "Quirks as Features"**: Legacy edge cases (e.g., custom rounding rules or implicit type coercion) are often relied upon by downstream billing systems. Document and preserve them with explicit regression tests.
 4. **Enforce Type Contracts**: The modern code MUST be 100% strictly typed (no `any`, no phantom SDK imports).
 
-## Orchestration & Integration
-- **`autonomous-tdd-debugger`**: Runs comparison tests against legacy fixtures to prove zero regression.
-- **`prd-architect`**: Documents reverse-engineered business rules into `PRD.md` before coding.
-- **`database-orm-expert`**: Bridges legacy SQL schemas with Prisma or Drizzle ORM models.
-- **`anti-slop`**: Eliminates lazy mock returns and incomplete stubs during refactoring.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Hulu & Rekayasa Balik**: `prd-architect` (dokumentasi aturan bisnis ke `PRD.md`), `brainstorming`, `session-memory-manager`.
+- **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (dependensi modul & radius dampak), `scalability-clean-code` (batas Clean Architecture), `typescript-expert` (kontrak tipe ketat).
+- **Migrasi Backend & Database**: `database-orm-expert` (SQL lama ke skema Prisma/Drizzle), `js-backend-expert` (target Bun/Hono), `go-programming-expert` / `rust-programming-expert`.
+- **Pengujian & Gerbang Anti-Slop**: `autonomous-tdd-debugger` (suite komparasi shadow execution), `anti-slop` (nol pemotongan kode, tanpa stub pura-pura), `zero-tech-debt-auditor`.
 
 ### Deskripsi
 Metodologi rekayasa sistematis dan aman bagi agen AI untuk memigrasikan basis kode warisan (*legacy codebase*) skala besar (PHP 5/7, Python 2, jQuery, React Class Component lawas) ke stack modern 2026 (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) tanpa gangguan operasional (*zero downtime*) dan tanpa regresi logika bisnis. Menerapkan pola *Strangler Fig*, *Shadow Execution*, dan dekomposisi berbasis pohon sintaks (AST).
@@ -141,9 +147,3 @@ const total = await executeWithShadowTesting(
   (diff) => catatKeLogMonitoring(diff)
 );
 ```
-
-## Integrasi Orkestrasi
-- **`autonomous-tdd-debugger`**: Memvalidasi kesesuaian output antara fungsi lama dan fungsi baru.
-- **`prd-architect`**: Mencatat aturan bisnis yang diekstraksi dari kode lama ke dalam dokumentasi formal.
-- **`database-orm-expert`**: Memetakan kueri SQL lama ke skema ORM modern.
-- **`anti-slop`**: Memastikan kode modern yang dihasilkan utuh, bersih, dan dapat langsung dieksekusi.

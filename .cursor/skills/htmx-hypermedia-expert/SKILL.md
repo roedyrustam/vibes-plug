@@ -2,7 +2,7 @@
 name: htmx-hypermedia-expert
 description: "Expert guide for HTMX 2.0+, Hypermedia-Driven Applications (HDA), server-side rendering with htmx attributes, Alpine.js integration, and modern HTML-over-the-wire patterns / Panduan ahli HTMX 2.0+, Hypermedia-Driven Applications, dan pola HTML-over-the-wire modern."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 ---
 
 # HTMX & Hypermedia Expert (HTMX 2.0 / HDA Edition)
@@ -15,7 +15,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `tailwind-expert`, `design-system-architect`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+Connects with: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
 
 ### Description
 Expert guide for building Hypermedia-Driven Applications (HDA) using **HTMX 2.0+**. Covers htmx core attributes (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), server-side rendering patterns, partial page updates, WebSocket/SSE integration, Alpine.js companion patterns, and transitioning from SPA frameworks to lightweight hypermedia architecture.
@@ -268,7 +268,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `tailwind-expert`, `design-system-architect`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+Terhubung dengan: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
 
 ### Deskripsi
 Panduan ahli untuk membangun Hypermedia-Driven Applications (HDA) menggunakan **HTMX 2.0+**. Mencakup atribut inti htmx (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), pola rendering server-side, pembaruan halaman parsial, integrasi WebSocket/SSE, pola pendamping Alpine.js, dan transisi dari framework SPA ke arsitektur hypermedia ringan.

@@ -2,7 +2,7 @@
 name: fullstack-expert
 description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), API design (OpenAPI 3.1, gRPC), microservices, system design patterns, and polyglot architecture / Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `senior-frontend`, `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, and `rust-programming-expert`.
+Connects and orchestrates with domain skills:
+- **Frontend & Fullstack DX**: `senior-frontend`, `nextjs-app-router-expert`, `design-system-architect`, and `monorepo-architect` for shared workspace types and end-to-end type safety.
+- **Polyglot Backends**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, and `rust-programming-expert` for heterogeneous microservices and high-throughput pipelines.
+- **Contracts & APIs**: `api-design-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, and `graphql-apollo-expert`.
+- **Database & State**: `database-orm-expert` (Prisma/Drizzle/SQLx) and `vector-db-rag-expert` (pgvector).
+- **Quality & Anti-Slop**: `anti-slop`, `autonomous-tdd-debugger`, and `e2e-testing-expert`.
+- **Master Orchestrator**: `brainstorming` and `zero-to-prod-orchestrator`.
 
 ### Description
 Expert-level fullstack development across multiple languages and frameworks. Focuses on polyglot backend architectures, system design patterns (Event-Driven Saga, CQRS), API contracts (OpenAPI 3.1, gRPC), and monorepo shared types.
@@ -160,16 +166,19 @@ export interface User {
 - [ ] Rate limiting on all public endpoints (`rate-limit-abuse-prevention`).
 - [ ] Super Admin routes strictly isolated to dedicated subdomain.
 
-## Orchestration & Integration
-- Integrates with: `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, `rust-programming-expert`, `nextjs-app-router-expert`, `api-design-expert`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain seperti `brainstorming`, `zero-to-prod-orchestrator`, `senior-frontend`, `js-backend-expert`, `go-programming-expert`, `python-programming-expert`, dan `rust-programming-expert`.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Frontend & Fullstack DX**: `senior-frontend`, `nextjs-app-router-expert`, `design-system-architect`, dan `monorepo-architect` untuk tipe data bersama monorepo dan keamanan tipe end-to-end.
+- **Backend Polyglot**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, dan `rust-programming-expert` untuk microservices heterogen dan pipeline komputasi tinggi.
+- **Kontrak & API**: `api-design-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, dan `graphql-apollo-expert`.
+- **Database & State**: `database-orm-expert` (Prisma/Drizzle/SQLx) dan `vector-db-rag-expert` (pgvector).
+- **Kualitas & Anti-Slop**: `anti-slop`, `autonomous-tdd-debugger`, dan `e2e-testing-expert`.
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator`.
 
 ### Deskripsi
 Panduan pengembangan fullstack tingkat ahli lintas bahasa pemrograman dan framework. Berfokus pada arsitektur backend polyglot, pola desain sistem terdistribusi (Event-Driven Saga, CQRS), kontrak antarmuka API (OpenAPI 3.1, gRPC), dan monorepo dengan type sharing terpadu.

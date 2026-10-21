@@ -2,7 +2,7 @@
 name: mvc-expert
 description: "Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects / Pedoman ahli untuk merefaktor codebase PHP lama menjadi proyek terstruktur MVC yang bersih, modern, dan skalabel."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with domain skills:
+- **Modernization & Translation**: `legacy-code-translator` (migrating legacy PHP to modern stacks like Next.js, Node.js, Go, or Laravel) and `zero-tech-debt-auditor` (eradicating dead spaghetti scripts).
+- **Architecture & Routing**: `mpa-orchestrator` (centralized Front Controller and shared layouts) and `api-design-expert` (converting raw PHP endpoints into RESTful APIs).
+- **Security & Database**: `database-orm-expert` (migrating raw `mysql_*` to PDO prepared statements) and `zero-trust-secret-vault` (replacing hardcoded credentials with `.env`).
+- **Quality & Anti-Slop**: `anti-slop` (eliminating code smells, strict type declarations `declare(strict_types=1);`).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator`.
 
 ### Description
 This skill provides the agent with structured protocols, coding patterns, and architectural guidelines to audit, refactor, and modernize legacy/obsolete PHP codebases (plain spaghetti PHP) into a clean, modern, secure, and scalable Model-View-Controller (MVC) structure adhering to PSR standards and modern PHP (v8.2+) capabilities.
@@ -130,7 +135,12 @@ Active whenever the user requests to:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Modernisasi & Translasi**: `legacy-code-translator` (migrasi PHP lama ke stack modern seperti Next.js, Node.js, Go, atau Laravel) dan `zero-tech-debt-auditor` (pembersihan skrip spageti dan dead code).
+- **Arsitektur & Routing**: `mpa-orchestrator` (Front Controller terpusat dan layout bersama) dan `api-design-expert` (mengonversi endpoint PHP mentah ke RESTful API).
+- **Keamanan & Database**: `database-orm-expert` (migrasi dari `mysql_*` mentah ke PDO prepared statements) dan `zero-trust-secret-vault` (mengganti kredensial hardcoded dengan `.env`).
+- **Kualitas & Anti-Slop**: `anti-slop` (eliminasi code smells, deklarasi tipe ketat `declare(strict_types=1);`).
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator`.
 
 ### Deskripsi
 Skill ini memberikan protokol terstruktur, pola penulisan kode, dan panduan arsitektur bagi agen untuk melakukan audit, refaktorisasi, dan modernisasi terhadap codebase PHP lama yang usang (Plain Spaghetti PHP) menjadi struktur Model-View-Controller (MVC) yang bersih, modern, aman, dan skalabel yang mematuhi standar PSR serta kemampuan PHP modern (v8.2+).

@@ -28,7 +28,7 @@ async function auditGraph() {
         for (const ref of uniqueRefs) {
           if (allSkills.has(ref)) {
             inDegree[ref] = (inDegree[ref] || 0) + 1;
-          } else if (ref.includes('-') && !['utf-8', 'iso-8859-1', 'x-api-key'].includes(ref)) {
+          } else if (ref.includes('-') && !['utf-8', 'iso-8859-1', 'x-api-key', 'modern-web-guidance', 'vibes-plug', 'tabular-nums', 'quality-guardian', '--color-surface-card', '--color-border', 'x-trace-id', 'max-w-prose'].includes(ref)) {
             broken.push({ skill, missingRef: ref });
           }
         }

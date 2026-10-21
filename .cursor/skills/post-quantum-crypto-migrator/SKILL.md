@@ -2,7 +2,7 @@
 name: post-quantum-crypto-migrator
 description: "FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (PQC) / Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **FinTech & Payments Hardening**: `doku-payment-gateway`, `payment-gateway-expert`, `saas-billing`
+- **Security & Red Teaming**: `autonomous-red-teamer`, `zero-trust-secret-vault`, `prompt-injection-firewall`
+- **Identity & Cryptographic Tokens**: `authentication-identity-expert`, `compliance-gdpr-privacy-expert`
+- **Database & Serialization**: `database-orm-expert`, `api-design-expert`
+- **Lifecycle & Production Readiness**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 An advanced cryptographic engineering skill designed to future-proof FinTech, SaaS, and payment architectures (such as DOKU, Stripe, and banking APIs) against the "Harvest Now, Decrypt Later" (HNDL) quantum threat. It audits existing RSA (<3072-bit) and classical ECC (NIST P-256, secp256k1) implementations, systematically migrating them to NIST-standardized Post-Quantum Cryptography (FIPS 203 ML-KEM, FIPS 204 ML-DSA, and FIPS 205 SLH-DSA) using production-grade hybrid schemes.
@@ -86,16 +93,17 @@ export class HybridPQCEngine {
 - [ ] **HTTP Headers**: Base64 signatures (~4.4 KB) exceed default NGINX/Caddy header limits (typically 4 KB - 8 KB). Adjust `large_client_header_buffers 4 16k;`.
 - [ ] **Idempotency Keys**: Ensure payload hashing (SHA-512) incorporates the larger signature fields safely.
 
-## Orchestration & Integration
-- **`doku-payment-gateway`**: Upgrades payment link and SNAP BI payload validation to quantum-safe hybrid HMAC signatures.
-- **`authentication-identity-expert`**: Implements hybrid JWT signing keys for zero-trust identity tokens.
-- **`database-orm-expert`**: Adjusts Prisma/Drizzle schema definitions to support `BYTEA` columns for ML-KEM and ML-DSA keys.
-- **`production-ready-hardener`**: Audits cryptographic dependencies during pre-deployment checks.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Pengerasan FinTech & Pembayaran**: `doku-payment-gateway`, `payment-gateway-expert`, `saas-billing`
+- **Keamanan & Red Teaming**: `autonomous-red-teamer`, `zero-trust-secret-vault`, `prompt-injection-firewall`
+- **Identitas & Token Kriptografi**: `authentication-identity-expert`, `compliance-gdpr-privacy-expert`
+- **Database & Serialisasi**: `database-orm-expert`, `api-design-expert`
+- **Siklus Hidup & Kesiapan Produksi**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Keterampilan rekayasa kriptografi tingkat lanjut yang dirancang untuk melindungi arsitektur FinTech, SaaS, dan sistem pembayaran (seperti DOKU, Stripe, dan API perbankan) dari ancaman kuantum *"Harvest Now, Decrypt Later"* (HNDL). Agen ini mengaudit implementasi lama berbasis RSA (<3072-bit) dan ECC klasik (NIST P-256, secp256k1), lalu secara bertahap memigrasikannya ke standar resmi Kriptografi Pasca-Kuantum NIST (FIPS 203 ML-KEM, FIPS 204 ML-DSA, dan FIPS 205 SLH-DSA) menggunakan skema hibrida siap produksi.
@@ -147,9 +155,3 @@ export function encryptPaymentPayload(payload: object, recipientKeys: { classica
 - [ ] **Lebar Kolom Database**: Kunci publik PQC (1.184 byte) dan tanda tangan (3.309 byte) tidak muat di `VARCHAR(255)`. Gunakan kolom `BYTEA` (PostgreSQL) atau `BLOB` (MySQL).
 - [ ] **Header HTTP**: Tanda tangan Base64 berukuran ~4.4 KB. Tingkatkan batas header pada reverse proxy (NGINX `large_client_header_buffers` atau Caddy).
 - [ ] **Idempotensi**: Pastikan kalkulasi hash payload (SHA-512) mengikutsertakan parameter kunci PQC secara deterministik.
-
-## Integrasi Orkestrasi
-- **`doku-payment-gateway`**: Memperkuat keamanan payload webhook dan tanda tangan SNAP BI ke standar pasca-kuantum.
-- **`authentication-identity-expert`**: Mengamankan kunci penandatanganan token JWT sesi pengguna.
-- **`database-orm-expert`**: Menyesuaikan tipe kolom skema Prisma/Drizzle menjadi `BYTEA`.
-- **`production-ready-hardener`**: Memverifikasi kesiapan primitif kriptografi sebelum rilis produksi.

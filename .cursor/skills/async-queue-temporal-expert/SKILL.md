@@ -2,7 +2,7 @@
 name: async-queue-temporal-expert
 description: "Unified expert guide for async job queues & durable workflows: BullMQ v5 (Redis queues), Trigger.dev v3 (serverless tasks), Inngest, and Temporal.io (distributed sagas) / Panduan ahli terpadu untuk antrean job asinkron & workflow tahan-gagal: BullMQ v5, Trigger.dev v3, Inngest, dan Temporal.io."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Triggers & APIs**: `api-design-expert`, `js-backend-expert`, `database-orm-expert`
+- **Billing & Payment Sagas**: `saas-billing`, `payment-gateway-expert`, `doku-payment-gateway`
+- **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`
+- **Resilience & Observability**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Purpose & Overview
 Unified production-grade guide for background execution pipelines, async job queues, and distributed state machines. Covers the full spectrum from simple Redis-backed task queues to complex multi-service sagas with compensating rollbacks.
@@ -189,6 +196,13 @@ export async function subscriptionSagaWorkflow(input: {
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Pemicu Hulu & API**: `api-design-expert`, `js-backend-expert`, `database-orm-expert`
+- **Saga Billing & Pembayaran**: `saas-billing`, `payment-gateway-expert`, `doku-payment-gateway`
+- **Terjadwal & Berulang**: `cron-scheduler-expert`, `event-driven-architect`
+- **Ketahanan & Observabilitas**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+
 ### Tujuan & Gambaran Umum
 Panduan terpadu tingkat produksi untuk pipeline eksekusi latar belakang, antrean job asinkron, dan state machine terdistribusi. Mencakup spektrum penuh dari antrean Redis sederhana hingga saga multi-layanan dengan rollback kompensasi.
 
@@ -331,6 +345,3 @@ export async function sagaLanggananWorkflow(input: {
   }
 }
 ```
-
-### Integrasi Orkestrasi
-- Terintegrasi dengan: `js-backend-expert`, `cron-scheduler-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`, `data-telemetry-expert`.

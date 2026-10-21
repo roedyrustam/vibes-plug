@@ -2,9 +2,7 @@
 name: svg-animation-motion-expert
 description: "Expert guide for web animations: SVG manipulation, Framer Motion 12+, GSAP 3, CSS Scroll-Driven Animations, and View Transitions API / Panduan ahli animasi web."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # SVG & Web Animation Motion Expert
@@ -159,9 +157,11 @@ Zero-tolerance principles for intentional, high-performance web motion:
 - **No Orphan Infinite Animations**: Eliminate infinite CSS/JS loops that run off-screen, eating CPU and mobile battery. Use `IntersectionObserver` or CSS `content-visibility` to halt animations when not in viewport.
 
 ## Orchestration & Integration
-- Works hand-in-hand with `ui-ux-pro-max` and `design-system-architect` to bring designs to life.
-- Complements `senior-frontend` by handling the motion layer of the UI.
-- Integrates with `seo` to build visually stunning landing pages.
+- **`modern-web-guidance`**: Evaluates modern web animation specifications and scroll-driven APIs before implementation.
+- **`modern-css-native-expert`**: Bridges CSS Scroll-Driven Animations and native View Transitions Level 2.
+- **`ui-ux-pro-max`** and **`design-system-architect`**: Brings static UI/UX designs to life with harmonious timing.
+- **`senior-frontend`**: Integrates declarative motion layers into React 19 / Next.js 15 architectures.
+- **`seo`**: Balances rich visual landing page transitions with Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Enforces zero-bouncy slop, strict prefers-reduced-motion fallbacks, and compositor-only transforms.
 
 ---
@@ -213,7 +213,9 @@ Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
 - **Larangan Loop Tanpa Batas di Luar Layar**: Matikan animasi yang tidak terlihat di viewport menggunakan `IntersectionObserver` untuk mencegah boros baterai dan beban CPU.
 
 ## Integrasi Orkestrasi
-- Bekerja sama dengan `ui-ux-pro-max` dan `design-system-architect` untuk menghidupkan desain statis.
-- Melengkapi `senior-frontend` dengan menangani lapisan pergerakan (motion layer) UI.
-- Terintegrasi dengan `seo` untuk merancang landing page yang memukau secara visual.
+- **`modern-web-guidance`**: Mengevaluasi spesifikasi animasi web modern dan API scroll-driven sebelum implementasi.
+- **`modern-css-native-expert`**: Menjembatani CSS Scroll-Driven Animations dan native View Transitions Level 2.
+- **`ui-ux-pro-max`** dan **`design-system-architect`**: Menghidupkan desain statis dengan ritme waktu yang harmonis.
+- **`senior-frontend`**: Mengintegrasikan lapisan animasi deklaratif ke dalam arsitektur React 19 / Next.js 15.
+- **`seo`**: Menyeimbangkan transisi landing page yang memukau dengan performa Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback prefers-reduced-motion, dan animasi khusus compositor.

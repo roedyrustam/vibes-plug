@@ -2,8 +2,7 @@
 name: visual-ui-auditor
 description: "Expert guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 / 5.1 Sonnet, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan ahli audit visual UI berbasis vision multimodal."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Visual UI Auditor & Vision Quality Gate (Anti-Slop Pillar 7)
@@ -14,6 +13,16 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Validates modern web standard implementations and platform compliance.
+- **`anti-slop`**: Primary enforcement engine for Pillar 7 visual sanitation, zero-tolerance on generic AI clichés.
+- **`design-system-architect`**: Establishes headless accessible primitives and token scales.
+- **`tailwind-expert`**: Verifies utility cluster correctness, 60-30-10 layering, and focus indicators.
+- **`modern-css-native-expert`**: Validates CSS Anchor Positioning and top-layer transitions.
+- **`ui-ux-pro-max`**: Provides design token palettes, spacing scales, and typography rules.
+- **`screenshot-to-code-expert`**: Validates generated code against the original Figma mockup screenshot.
 
 ### Description
 Production guide for automated visual quality auditing using multimodal vision frontier models (Gemini 4 Pro/Flash Vision, Claude 3.7/5.1 Sonnet Vision, GPT-5 Vision). Standard text-based AST linters cannot evaluate spatial breathing room, perceived elevation, optical alignment, or contrast degradation under dynamic lighting. This skill combines automated regex/AST scanners with multimodal vision evaluation to audit UI code and rendered screenshots against the strict Anti-Slop Pillar 7 visual standard: 1px crisp borders, structured 3-tier radius scales, tabular numerals, eradication of generic neon radial glow orbs, and mandatory 5-state interactive contracts.
@@ -106,7 +115,7 @@ vibes visual-audit assets/dashboard-screenshot.png
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `screenshot-to-code-expert`, `ui-ux-pro-max`, `design-system-architect`, `senior-frontend`, `tailwind-expert`, dan `anti-slop` untuk mengaudit antarmuka visual terhadap penegakan Anti-Slop Directive Pilar 7.
+Terhubung dan mengorkestrasi bersama `modern-web-guidance`, `anti-slop`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`, `ui-ux-pro-max`, `screenshot-to-code-expert`, dan `senior-frontend` untuk mengaudit antarmuka visual terhadap penegakan Anti-Slop Directive Pilar 7 dan standar WCAG 2.2 AA.
 
 ### Deskripsi
 Panduan produksi untuk audit kualitas visual otomatis menggunakan model frontier vision multimodal (Gemini 4 Pro/Flash Vision, Claude 3.7/5.1 Vision, GPT-5 Vision). Linter berbasis teks tidak dapat menilai bobot spasial, elevasi permukaan, maupun kontras warna dinamis. Skill ini menggabungkan heuristik kode statis dengan rubrik vision multimodal untuk memeriksa screenshot dan kode sumber UI terhadap 6 hukum visual utama: border 1px presisi, skala 3-tier radius, angka tabular, pembersihan gradien klise AI, dan kontrak interaktif 5-state.
@@ -150,9 +159,3 @@ export function PrimaryButton({ children, onClick, disabled }: Props) {
   );
 }
 ```
-
-## Integrasi Orkestrasi
-- **`screenshot-to-code-expert`**: Memverifikasi keselarasan visual hasil generasi kode dengan gambar referensi.
-- **`ui-ux-pro-max`**: Menyediakan pedoman jarak, tipografi, dan hierarki tata letak.
-- **`design-system-architect`**: Menjaga konsistensi token desain di seluruh aplikasi.
-- **`anti-slop`**: Menyingkirkan dekorasi berlebihan dan elemen desain tiruan.

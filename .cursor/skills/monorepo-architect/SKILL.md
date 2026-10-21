@@ -2,7 +2,7 @@
 name: monorepo-architect
 description: "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages / Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream & Project Topology**: `zero-to-prod-orchestrator` (Phase 2 project foundation), `brainstorming`, `session-memory-manager`.
+- **AST & Codebase Intelligence**: `living-codebase-ast-graph` (cross-package dependency topology & DAG sorting), `typescript-expert` (composite projects & isolated declarations).
+- **CI/CD & Deployment**: `ci-cd-devops-architect` (monorepo cache pipelines), `github-actions-expert` (matrix testing & sparse checkout), `cloud-hosting-expert` (multi-app deployments).
+- **Shared Design & Components**: `design-system-architect` (shared `packages/ui` tokens), `senior-frontend` / `js-backend-expert` (shared packages consumption).
 
 ### Description
 Expert guide for designing and managing scalable monorepos. Covers **Turborepo 2.x** (the 2026 standard for JS/TS monorepos), **moon** (polyglot task runner for teams mixing JS + Rust + Go), **pnpm workspaces**, shared package design, incremental builds, remote caching, and CI/CD pipeline optimization.
@@ -196,7 +199,10 @@ tasks:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Topologi Proyek**: `zero-to-prod-orchestrator` (Pondasi proyek Fase 2), `brainstorming`, `session-memory-manager`.
+- **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (topologi dependensi lintas paket & DAG sorting), `typescript-expert` (composite project & isolated declarations).
+- **CI/CD & Deployment**: `ci-cd-devops-architect` (pipeline cache monorepo), `github-actions-expert` (pengujian matriks & sparse checkout), `cloud-hosting-expert` (deployment multi-aplikasi).
+- **Desain Bersama & Komponen**: `design-system-architect` (token shared `packages/ui`), `senior-frontend` / `js-backend-expert` (konsumsi paket bersama).
 
 ### Deskripsi
 Panduan ahli untuk merancang dan mengelola monorepo yang skalabel. Mencakup **Turborepo 2.x** (standar 2026 untuk monorepo JS/TS), **moon** (task runner poliglot untuk tim yang memadukan JS + Rust + Go), **pnpm workspaces**, desain shared package, incremental build, remote caching, dan optimasi pipeline CI/CD.

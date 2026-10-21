@@ -2,7 +2,7 @@
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,17 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- `modern-web-guidance`: Safari WebKit standards, dynamic viewport units, and web platform features.
+- `hig`: Direct Human Interface Guidelines alignment, typography, and iconography.
+- `design-system-architect`: Apple design tokens, SF Pro font stack, and 44x44pt touch targets.
+- `modern-css-native-expert`: Modern CSS `@supports`, `env(safe-area-inset-*)`, and native scrolling.
+- `tailwind-expert`: Tailwind utility classes for iOS safe areas and dynamic viewport units.
+- `ui-ux-pro-max`: Apple HIG UX patterns, fluid transitions, and iOS layout conventions.
+- `visual-ui-auditor`: Multimodal vision auditing of iOS Safari interfaces and touch targets.
+- `anti-slop`: Anti-slop iOS UI craft, zero generic Android-style controls in iOS contexts.
+- `mobile-expo-expert`: Cross-platform React Native / Expo iOS implementations.
 
 ### Description
 Expert guide for Apple Ecosystem development. Covers Safari WebKit compatibility, Progressive Web Apps (PWAs) tailored for iOS, touch interactions, `manifest.json` configurations, and applying Human Interface Guidelines (HIG) principles to web and iOS applications.
@@ -85,28 +96,21 @@ To achieve native feel on iOS, touch interactions must be smooth. Use CSS proper
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-This skill works best when combined with:
-- `hig` — For detailed implementation of Apple Human Interface Guidelines styling.
-- `mobile-expo-expert` — When building React Native/Expo apps for iOS.
-- `tailwind-expert` — To apply CSS adjustments like `dvh` and safe-areas using Tailwind utility classes.
-- `design-system-architect, senior-frontend` — To ensure UI components are sized correctly for iOS touch targets (44x44).
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Mobile & Web Ecosystems" row in the Skill Integration & Orchestration Matrix
-- `zero-to-prod-orchestrator` — Add to Phase 4 (Frontend Implementation) & Phase 8 (Production Audit)
-- `production-ready-hardener` — Add to Phase 2 (PWA & Compatibility Audit)
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- `modern-web-guidance`: Standar Safari WebKit, unit viewport dinamis, dan fitur platform web modern.
+- `hig`: Penyelarasan langsung prinsip Human Interface Guidelines Apple.
+- `design-system-architect`: Token desain Apple, font stack SF Pro, dan target sentuh 44x44pt.
+- `modern-css-native-expert`: CSS modern `@supports`, `env(safe-area-inset-*)`, dan scrolling native.
+- `tailwind-expert`: Utility class Tailwind untuk safe area iOS dan viewport dinamis.
+- `ui-ux-pro-max`: Pola UX Apple HIG, transisi mulus, dan konvensi tata letak iOS.
+- `visual-ui-auditor`: Audit visual multimodal untuk antarmuka Safari iOS dan target sentuh.
+- `anti-slop`: Desain UI iOS anti-slop, nol kontrol generik gaya Android di konteks iOS.
+- `mobile-expo-expert`: Implementasi React Native / Expo untuk platform iOS.
 
 ### Deskripsi
 Panduan ahli untuk pengembangan ekosistem Apple. Mencakup kompatibilitas Safari WebKit, Progressive Web Apps (PWA) khusus iOS, interaksi sentuhan, konfigurasi `manifest.json`, dan penerapan prinsip Human Interface Guidelines (HIG) untuk web dan aplikasi iOS.
@@ -126,22 +130,3 @@ Panduan praktis untuk dukungan Ekosistem Apple (iOS & Web):
 - **[Meta Tag PWA Khusus]:** Wajib menggunakan `<link rel="apple-touch-icon">` dan `<meta name="apple-mobile-web-app-capable" content="yes">` agar PWA berjalan optimal saat ditambahkan ke Home Screen.
 - **[Safe Area]:** Terapkan padding `env(safe-area-inset-top)` dsb, untuk menghindari notch (poni) dan Dynamic Island iPhone.
 - **[Touch Targets HIG]:** Area sentuh minimum untuk elemen interaktif di iOS adalah 44x44 points.
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `hig` — Untuk menerapkan struktur dan prinsip desain dari Human Interface Guidelines Apple.
-- `mobile-expo-expert` — Jika menggunakan React Native untuk aplikasi iOS.
-- `tailwind-expert` — Mengatur penyesuaian WebKit seperti `dvh` dan safe-areas dengan utility class.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Bagian Mobile & Web Ecosystems.
-- `zero-to-prod-orchestrator` — Fase 4 dan 8 (Kesiapan Produksi).
-- `production-ready-hardener` — Fase 2 (Audit Kompatibilitas Lintas Browser & PWA).
-
-
-## Orchestration & Integration
-- Integrates with: `hig`, `mobile-expo-expert`, `tailwind-expert`, `design-system-architect, senior-frontend`.
-- Orchestrated by: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`.

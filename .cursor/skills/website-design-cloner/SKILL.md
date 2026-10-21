@@ -2,9 +2,7 @@
 name: website-design-cloner
 description: "Analyzes and reverse-engineers website designs directly from a target URL, extracting layout structures, design tokens (colors, typography, spacing), component hierarchies, visual assets, and responsive behaviors to enable full 1:1 duplication into modern code (Tailwind CSS v4, React/Next.js, HTML/CSS). / Mempelajari dan merekayasa balik desain situs web langsung dari URL target, mengekstrak struktur layout, design token (warna, tipografi, spacing), hierarki komponen, aset visual, dan perilaku responsif untuk duplikasi 1:1 penuh ke kode modern."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Website Design Cloner & Reverse Engineering Expert (2026 Edition)
@@ -17,7 +15,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Evaluates modern CSS and HTML standards to replace deprecated target patterns during cloning.
+- **`design-system-architect`**: Maps reverse-engineered palettes into semantic OKLCH tokens and surface container tiers.
+- **`tailwind-expert`**: Translates target layout dimensions into modern Tailwind v4 utilities.
+- **`visual-ui-auditor`**: Runs automated 20-point visual audits and screenshot diffing against the target URL.
+- **`ui-ux-pro-max`**: Standardizes typography scales, optical tracking, and 60-30-10 color balance.
+- **`anti-slop`**: Cleanses cloned components of div-soup wrappers and missing interactive states.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
 
 ### Description
 `website-design-cloner` is an advanced URL-to-Code visual reverse engineering skill. It enables AI agents to inspect any target website URL, analyze its visual aesthetic, layout grid, CSS design tokens (OKLCH/HEX colors, typography system, container bounds, shadow tiers, border-radii), DOM structure, and interactive components, and synthesize production-ready code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) to achieve a full 1:1 duplication.
@@ -153,7 +158,14 @@ When cloning target sites utilizing Material Design 3 (Google products, Flutter 
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Mengevaluasi standar CSS dan HTML modern untuk menggantikan pola usang dari situs target.
+- **`design-system-architect`**: Memetakan palet hasil rekayasa balik ke dalam token OKLCH semantik dan tingkatan permukaan.
+- **`tailwind-expert`**: Menerjemahkan dimensi layout target ke dalam utilitas Tailwind v4 modern.
+- **`visual-ui-auditor`**: Menjalankan audit visual 20-poin otomatis dan perbandingan screenshot terhadap URL target.
+- **`ui-ux-pro-max`**: Menstandarkan skala tipografi, tracking optik, dan keseimbangan warna 60-30-10.
+- **`anti-slop`**: Membersihkan komponen hasil kloning dari pembungkus div-soup dan status interaktif yang hilang.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara terpadu.
 
 ### Deskripsi
 `website-design-cloner` adalah skill rekayasa balik (*reverse engineering*) visual dari URL ke kode. Skill ini memungkinkan agen AI mempelajari situs web target dari URL, mengaudit estetika visual, grid layout, design token CSS (warna OKLCH/HEX, sistem tipografi, batas kontainer, bayangan, radius border), struktur DOM, dan komponen interaktif, lalu merekonstruksi kode siap produksi (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) untuk mencapai duplikasi 1:1 penuh.

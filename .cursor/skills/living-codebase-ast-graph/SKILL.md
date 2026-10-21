@@ -2,7 +2,7 @@
 name: living-codebase-ast-graph
 description: "Expert guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, real-time symbol dependency mapping, refactoring blast radius calculation, and dead code eradication / Panduan ahli graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, kalkulasi radius dampak refaktor, dan pembersihan kode mati."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `typescript-expert`, `scalability-clean-code`, `zero-tech-debt-auditor`, and `autonomous-api-drift-healer` to provide real-time AST dependency graphs, blast-radius calculation, and structural intelligence for multi-agent code transformations.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 2 foundation & Phase 6 QA), `brainstorming`, `session-memory-manager`.
+- **AST Manipulation & Type Systems**: `typescript-expert` (TS compiler API & symbol binding), `autonomous-api-drift-healer` (API contract drift blast radius).
+- **Architecture & Refactoring**: `scalability-clean-code` (Clean Architecture boundary enforcement), `legacy-code-translator` (strangler migration AST mapping), `monorepo-architect` (cross-package dependency graphs).
+- **Code Health & Debt Auditing**: `zero-tech-debt-auditor` (dead symbol & unreachable code eradication), `anti-slop` (AST anti-slop verification).
 
 ### Description
 Production guide for constructing and querying in-memory Abstract Syntax Tree (AST) knowledge graphs across multi-file and monorepo codebases. Enables autonomous agents to navigate complex symbol relationships, calculate refactoring blast radii, eliminate circular dependencies, determine optimal topological generation sequences, and prune unreachable code without relying on fuzzy string matching.
@@ -185,25 +188,14 @@ Autonomous swarms must construct files in strict topological order to avoid comp
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `typescript-expert` — Provide low-level TypeScript AST manipulation and type checking APIs.
-- `zero-tech-debt-auditor` — Feed dead symbol lists to the automated dead code elimination pipeline.
-- `autonomous-api-drift-healer` — Calculate client-side impact when backend API contracts drift.
-- `scalability-clean-code` — Enforce Clean Architecture boundary rules between modules.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Arsitektur & Skala" and "Penemuan & Audit" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 2 (Foundation) and Phase 6 (Testing & QA).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `typescript-expert`, `scalability-clean-code`, `zero-tech-debt-auditor`, dan `autonomous-api-drift-healer` untuk menyediakan graf dependensi AST real-time, kalkulasi radius dampak refaktor, dan inteligensi struktural untuk transformasi kode multi-agen.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Pondasi Fase 2 & QA Fase 6), `brainstorming`, `session-memory-manager`.
+- **Manipulasi AST & Sistem Tipe**: `typescript-expert` (compiler API TS & binding simbol), `autonomous-api-drift-healer` (radius dampak drift kontrak API).
+- **Arsitektur & Refaktor**: `scalability-clean-code` (penegakan batas Clean Architecture), `legacy-code-translator` (pemetaan AST migrasi strangler), `monorepo-architect` (graf dependensi lintas paket).
+- **Kesehatan Kode & Audit Utang**: `zero-tech-debt-auditor` (pembersihan simbol mati & kode tak terjangkau), `anti-slop` (verifikasi anti-slop AST).
 
 ### Deskripsi
 Panduan produksi untuk membangun dan menavigasi graf pengetahuan Abstract Syntax Tree (AST) in-memory pada proyek perangkat lunak berskala besar dan monorepo. Memungkinkan agen otonom untuk memahami relasi simbolik, menghitung radius dampak (*blast radius*) sebelum refaktor, mendeteksi dependensi melingkar (*circular dependency*), menentukan urutan pembuatan kode secara topologis, dan membersihkan kode mati tanpa mengandalkan pencarian teks biasa.
@@ -252,17 +244,3 @@ Pastikan sub-agen AI membangun file berdasarkan tingkatan hierarki DAG:
 | Mengganti nama fungsi dengan string replace biasa | Merusak properti objek atau komentar yang kebetulan memiliki nama yang sama | Gunakan binding simbol AST dari TypeScript Compiler API |
 | Memerintahkan sub-agen membuat UI sebelum tipe data siap | Muncul error tipe hilang dan kompilasi gagal | Susun urutan pembuatan secara topologis (Topological Sort) |
 | Membiarkan import melingkar (*circular imports*) | Bug runtime sulit dilacak saat aplikasi diinisialisasi | Lakukan pengecekan siklus AST pada CI pipeline |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `typescript-expert` — Manipulasi AST tingkat lanjut dan pemeriksaan tipe TypeScript.
-- `zero-tech-debt-auditor` — Menyuplai daftar ekspor mati ke pipeline pembersihan kode.
-- `autonomous-api-drift-healer` — Menghitung dampak pada sisi klien saat kontrak API backend berubah.
-- `scalability-clean-code` — Menegakkan batas arsitektur bersih antar modul.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "Arsitektur & Skala" dan "Penemuan & Audit" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 2 (Pondasi Proyek) dan Fase 6 (Pengujian Otomatis & Keamanan).

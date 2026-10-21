@@ -2,7 +2,7 @@
 name: self-healing-cloud-orchestrator
 description: "Real-time log monitoring, crash detection, and auto-hotfixing code without human intervention / Pemantauan log real-time, deteksi kerusakan, dan perbaikan kode hotfix otomatis tanpa intervensi manusia."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,12 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream & Polling Sentinel**: `proactive-background-watcher` (background poll loop & cron checks), `zero-to-prod-orchestrator` (Phase 8 operations).
+- **Telemetry & Error Ingestion**: `logging-error-tracking-expert` (structured JSON logs from Pino/Winston/Sentry), `data-telemetry-expert` (OpenTelemetry metrics & trace correlation).
+- **Local TDD Patching & Verification**: `autonomous-tdd-debugger` (iterative local unit/regression validation), `property-mutation-testing-expert` (preventing patch regressions).
+- **CI/CD & Cloud Deployment**: `ci-cd-devops-architect` (git branch creation, PRs, deployment pipelines), `cloud-hosting-expert` (Vercel/Railway rollback & redeploy).
 
 ### Description
 Bridges the gap between code generation and Cloud Operations (CloudOps). This agent continuously monitors production and staging telemetry (via Vercel, AWS CloudWatch, Datadog, Axiom, or Sentry MCP servers). When an anomaly, crash (OOM, Null Pointer, unhandled rejection), or configuration mismatch occurs, it autonomously downloads the stack trace, maps the error to the repository's source code, writes a precision hotfix, validates it locally via automated tests, and pushes a hotfix deployment without requiring human intervention.
@@ -118,16 +124,16 @@ export class SelfHealingCloudOrchestrator {
 2. **Blast Radius Isolation**: Never execute auto-fixes directly on production DB schemas. Schema migrations require explicit Human-in-the-Loop review.
 3. **KV-Cache Prefix & Token Discipline**: Strip internal Node.js runtime frames and vendor libraries before passing stack traces to the LLM to preserve prompt caching and prevent context waste.
 
-## Orchestration & Integration
-- **`proactive-background-watcher`**: Executes the background monitoring poll loop and cron checks.
-- **`logging-error-tracking-expert`**: Ingests structured JSON logs from Pino/Winston and Sentry issues.
-- **`autonomous-tdd-debugger`**: Runs test suites iteratively to validate patches before committing.
-- **`ci-cd-devops-architect`**: Manages git branch creation, pull requests, and automated deployment pipelines.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Hulu & Sentinel Polling**: `proactive-background-watcher` (siklus polling latar belakang & pengecekan cron), `zero-to-prod-orchestrator` (Operasi Fase 8).
+- **Telemetri & Penyerapan Error**: `logging-error-tracking-expert` (log terstruktur Pino/Winston/Sentry), `data-telemetry-expert` (metrik OpenTelemetry & korelasi trace).
+- **Patching TDD & Verifikasi Lokal**: `autonomous-tdd-debugger` (validasi unit/regresi lokal iteratif), `property-mutation-testing-expert` (mencegah regresi patch).
+- **CI/CD & Deployment Cloud**: `ci-cd-devops-architect` (pembuatan branch git, PR, pipeline deployment), `cloud-hosting-expert` (rollback & redeploy Vercel/Railway).
 
 ### Deskripsi
 Menjembatani kesenjangan antara penulisan kode dan Operasi Cloud (CloudOps). Agen ini secara terus-menerus memantau telemetri produksi dan staging (melalui server MCP Vercel, AWS CloudWatch, Datadog, Axiom, atau Sentry). Ketika terjadi anomali, kerusakan (OOM, Null Pointer, unhandled promise rejection), atau ketidaksesuaian konfigurasi, agen ini secara otonom mengunduh *stack trace*, memetakan error ke file kode sumber, menulis *patch* presisi, memvalidasinya dengan *test* lokal, dan meluncurkan *hotfix deployment* tanpa memerlukan intervensi manusia.
@@ -186,9 +192,3 @@ export async function POST(req: Request) {
 1. **Batas Retry Maksimal**: Dibatasi maksimal 3 kali perbaikan otomatis. Jika pengujian tetap gagal, sistem wajib melakukan *canary rollback* ke komit stabil sebelumnya.
 2. **Isolasi Radius Dampak**: Dilarang menjalankan perbaikan otomatis langsung pada skema database produksi. Migrasi skema wajib melalui review manusia (*Human-in-the-Loop*).
 3. **Efisiensi Token & KV-Cache**: Buang baris `node_modules` dan runtime internal sebelum mengirim *stack trace* ke LLM untuk menjaga prompt cache tetap optimal.
-
-## Integrasi Orkestrasi
-- **`proactive-background-watcher`**: Menjalankan siklus polling monitor latar belakang dan pengecekan cron.
-- **`logging-error-tracking-expert`**: Menyerap log terstruktur dari Pino/Winston dan isu Sentry.
-- **`autonomous-tdd-debugger`**: Menjalankan pengujian otomatis lokal untuk memverifikasi kebenaran patch sebelum komit.
-- **`ci-cd-devops-architect`**: Mengelola pembuatan branch, pull request, dan pipeline deployment otomatis.

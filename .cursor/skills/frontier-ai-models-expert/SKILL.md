@@ -2,7 +2,7 @@
 name: frontier-ai-models-expert
 description: "Expert guide for late-2026 frontier AI models — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), and Enterprise Frontier Safeguards (EFS) / Panduan ahli model AI frontier akhir-2026 — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), dan Enterprise Frontier Safeguards (EFS)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `gemini-agent-booster`, `test-time-compute-optimizer`, `vercel-ai-sdk-expert`, and `ai-llm-integration-expert` to integrate cutting-edge 2026 frontier models into production applications.
+- **Model Booster & Inference Engines**: `gemini-agent-booster`, `test-time-compute-optimizer`, `thinking-budget-orchestrator`
+- **Frameworks & SDKs**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `ai-llm-integration-expert`
+- **Multimodal & Realtime Streaming**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
+- **Prefix Caching & FinOps**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `llm-finops-router`
+- **Enterprise Safety & Governance**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Description
 Expert guide for integrating late-2026 frontier AI models, focusing on Google DeepMind's **Gemini 4 Pro** and **Project Astra**, Anthropic's **Claude 5.1 (Fable/Mythos)**, and OpenAI's **GPT-5 / o3**. Covers advanced frontier capabilities such as 2M+ to 10M+ monolithic context reasoning, System-2 test-time compute allocation, Enterprise Frontier Safeguards (EFS), zero data retention architectures, terminal-bench coding, agentic scientific research, real-time spatial processing, and raw multimodal token streaming.
@@ -133,28 +138,16 @@ export async function dispatchFableWorker(systemPrompt: string, codebaseContext:
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-This skill works best when combined with:
-- `gemini-agent-booster` — For unlocking native Gemini 4 Pro thinking budget, context caching, and Multimodal Live protocols.
-- `test-time-compute-optimizer` — For dynamic reasoning token allocation across Gemini 4 Pro, Claude, and OpenAI.
-- `vercel-ai-sdk-expert` — For implementing Gemini 4 Pro and Claude 5.1 streaming and tool calling in React/Next.js.
-- `ai-llm-integration-expert` — For underlying model context protocol (MCP) configurations and RAG setups.
-- `voice-ai-realtime-agent` — For integrating Project Astra's ultra-low latency voice capabilities.
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "Frontier AI & Simulation" row in the Skill Integration & Orchestration Matrix
-- `zero-to-prod-orchestrator` — Add to Phase 4: Backend & AI Agents
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `gemini-agent-booster`, `test-time-compute-optimizer`, `vercel-ai-sdk-expert`, dan `ai-llm-integration-expert` untuk mengintegrasikan model frontier akhir 2026 ke dalam aplikasi produksi.
+- **Booster Model & Engine Inferensi**: `gemini-agent-booster`, `test-time-compute-optimizer`, `thinking-budget-orchestrator`
+- **Framework & SDK**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `ai-llm-integration-expert`
+- **Streaming Multimodal & Realtime**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
+- **Caching Prefix & FinOps**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `llm-finops-router`
+- **Keamanan & Tata Kelola Enterprise**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan model AI frontier akhir 2026, berfokus pada **Gemini 4 Pro** dan **Project Astra** dari Google DeepMind, **Claude 5.1 (Fable/Mythos)** dari Anthropic, dan **GPT-5 / o3** dari OpenAI. Mencakup kemampuan tingkat lanjut seperti penalaran konteks monolitik 2M+ hingga 10M+, alokasi test-time compute System-2, Enterprise Frontier Safeguards (EFS), arsitektur retensi data nol (zero data retention), coding terminal-bench, riset ilmiah agentic, pemrosesan spasial real-time, dan streaming token multimodal langsung.
@@ -174,18 +167,3 @@ Aktifkan skill ini ketika pengguna sedang:
 - **Terapkan EFS untuk Keamanan Enterprise**: Untuk tingkat privasi tertinggi, gunakan Enterprise Frontier Safeguards yang menyimpan data di infrastruktur cloud yang dikendalikan penuh oleh pelanggan.
 - **Manfaatkan Project Astra untuk Multimodal Real-Time**: Gunakan kemampuan Astra untuk pemrosesan spasial, screensharing, dan interaksi latensi rendah tanpa harus mengonversi media menjadi teks terlebih dahulu.
 - **Perhatikan Akses Model**: Gunakan Mythos 5.1 khusus untuk tugas keamanan siber (deteksi kerentanan) dan ilmu hayat melalui program akses terpercaya (trusted access program).
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `gemini-agent-booster` — Untuk optimasi thinking budget, native context caching, dan live API Gemini 4 Pro.
-- `test-time-compute-optimizer` — Untuk pengaturan komputasi waktu inferensi di berbagai model frontier.
-- `vercel-ai-sdk-expert` — Untuk mengimplementasikan streaming Gemini 4 Pro dan Claude 5.1 di React/Next.js.
-- `ai-llm-integration-expert` — Untuk konfigurasi dasar Model Context Protocol (MCP) dan setup RAG.
-- `voice-ai-realtime-agent` — Untuk kapabilitas suara real-time latensi rendah Project Astra.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Tambahkan ke baris "Frontier AI & Simulation" di Matriks Orkestrasi
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 4 (Backend APIs & AI Agents)

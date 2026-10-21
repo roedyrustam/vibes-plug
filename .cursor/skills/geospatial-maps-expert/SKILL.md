@@ -2,7 +2,7 @@
 name: geospatial-maps-expert
 description: "Expert guide for maps and geospatial data (Mapbox GL JS, Leaflet, Google Maps, PostGIS) / Panduan ahli peta dan data geospasial (Mapbox GL JS, Leaflet, Google Maps, PostGIS)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -143,6 +143,12 @@ export function StoreLocatorMap({ stores }: { stores: StorePoint[] }) {
 ```
 
 ## Orchestration & Integration
+- **`modern-web-guidance`**: Modern Web APIs, canvas performance, and responsive map containers.
+- **`design-system-architect`**: Map controls, custom HTML pin markers, popover callouts, and location search inputs.
+- **`tailwind-expert`**: Map container overlays, HUD widgets, and sliding panel drawer styling.
+- **`ui-ux-pro-max`**: Map viewport ergonomics, smooth fly-to easing, and location pin micro-interactions.
+- **`visual-ui-auditor`**: Multimodal vision auditing of rendered map layers, marker contrast, and popups.
+- **`anti-slop`**: Anti-slop geospatial craft, zero broken tile rendering and zero unclustered DOM overloads.
 - **`database-orm-expert`**: Bridges PostGIS spatial types with Prisma / Drizzle ORM schemas.
 - **`senior-frontend`**: Integrates responsive map canvases without blocking main-thread UI interactivity.
 - **`performance-web-vitals`**: Lazy-loads vector tile stylesheets and WebGL libraries to maintain optimal LCP and INP.
@@ -187,6 +193,12 @@ export async function getNearbyStores(userLat: number, userLng: number, radiusMe
 3. **Kluster di Sisi Klien**: Jangan render ribuan node DOM untuk setiap marker. Gunakan fitur clustering WebGL bawaan MapLibre agar performa rendering tetap 60 FPS.
 
 ## Integrasi Orkestrasi
+- **`modern-web-guidance`**: API Web Modern, performa kanvas, dan kontainer peta responsif.
+- **`design-system-architect`**: Kontrol navigasi peta, marker pin kustom, popover callout, dan input pencarian lokasi.
+- **`tailwind-expert`**: Overlay kontainer peta, widget HUD, dan styling panel geser (drawer).
+- **`ui-ux-pro-max`**: Ergonomi viewport peta, transisi easing fly-to yang mulus, dan mikro-interaksi pin lokasi.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk layer peta, kontras marker, dan popup yang dirender.
+- **`anti-slop`**: Rekayasa geospasial anti-slop, nol rendering ubin rusak, dan nol overload DOM marker tanpa kluster.
 - **`database-orm-expert`**: Mengelola migrasi tabel dengan tipe data geospasial PostGIS.
 - **`senior-frontend`**: Menangani state interaksi klik marker dan jendela pop-up.
 - **`performance-web-vitals`**: Menerapkan dynamic import (`next/dynamic` dengan `ssr: false`) agar bundle peta tidak memperlambat pemuatan awal.

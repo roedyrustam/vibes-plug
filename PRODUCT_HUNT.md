@@ -1,4 +1,4 @@
-# Product Hunt Launch Kit – VibesPlug Pro (v4.4.1)
+# Product Hunt Launch Kit – VibesPlug Pro (v4.4.2)
 
 A complete, high-converting launch asset package for launching VibesPlug Pro on Product Hunt.
 
@@ -16,7 +16,7 @@ A complete, high-converting launch asset package for launching VibesPlug Pro on 
 ---
 
 ## 📝 Short Description (Max 260 characters)
-Turn Antigravity, Cursor & Claude Code into an autonomous 160-agent software engineering studio. Zero AI Code Slop, 100% verified cross-skill graph, deterministic KV-cache token savings (75%+), and real-time swarm orchestration.
+Turn Antigravity, Cursor & Claude Code into an autonomous 161-agent software engineering studio. Zero AI Code Slop, 100% verified cross-skill graph, deterministic KV-cache token savings (75%+), and real-time swarm orchestration.
 
 ---
 

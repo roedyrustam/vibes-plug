@@ -2,7 +2,7 @@
 name: ai-prompt-engineering-expert
 description: "Expert guide for Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output, prompt injection defense, and automated AI evaluations & regression benchmarking (Promptfoo, DeepEval) / Panduan ahli rekayasa prompt dan evaluasi otomatis AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Foundation Models & Reasoning**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`
+- **Output Contracts & Schemas**: `structured-output-contracts`, `spec-driven-development-expert`
+- **Security & Red Teaming**: `prompt-injection-firewall`, `autonomous-red-teamer`, `ai-safety-governance-expert`
+- **CI/CD & Regression Evals**: `ci-cd-devops-architect`, `autonomous-tdd-debugger`, `github-actions-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Production-grade guide covering prompt engineering and automated evaluation (Evals). Teaches how to write, version, defend, benchmark, and regression-test LLM prompts and agent workflows using **Promptfoo**, **DeepEval**, and structured JSON schemas.
@@ -169,13 +176,17 @@ prompts:
 - [ ] Automate eval suite execution on PRs modifying prompts or models.
 - [ ] Gate releases on >95% assertion pass rates.
 
-## Orchestration & Integration
-- Connects with `ai-llm-integration-expert`, `gemini-agent-booster`, `autonomous-red-teamer`, and `ci-cd-devops-architect`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Model Fondasi & Penalaran**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`
+- **Kontrak Output & Skema**: `structured-output-contracts`, `spec-driven-development-expert`
+- **Keamanan & Red Teaming**: `prompt-injection-firewall`, `autonomous-red-teamer`, `ai-safety-governance-expert`
+- **CI/CD & Evaluasi Regresi**: `ci-cd-devops-architect`, `autonomous-tdd-debugger`, `github-actions-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan komprehensif tingkat produksi untuk rekayasa prompt dan evaluasi otomatis AI (Evals). Memandu penulisan prompt, pertahanan dari injeksi, hingga pengujian regresi menggunakan **Promptfoo**, **DeepEval**, dan skema JSON.
@@ -199,7 +210,4 @@ Panduan komprehensif tingkat produksi untuk rekayasa prompt dan evaluasi otomati
 2. **DeepEval**: Uji metrik RAG Triad (Faithfulness dan Answer Relevancy) dengan threshold minimal 0.8.
 3. **Ragas Evaluation Coverage**: Integrasikan Ragas untuk mengukur metrik seperti `faithfulness`, `answer_relevancy`, `context_precision`, dan `context_recall`.
 4. **Pairwise LLM-as-a-Judge**: Gunakan LLM untuk membandingkan output dua model (A vs B) menggunakan skala penilaian 1-5, dengan mengacak urutan untuk mengurangi bias.
-5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.
-
-## Integrasi Orkestrasi
-- Terhubung dengan `ai-llm-integration-expert`, `gemini-agent-booster`, `autonomous-red-teamer`, dan `ci-cd-devops-architect`.
+5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.

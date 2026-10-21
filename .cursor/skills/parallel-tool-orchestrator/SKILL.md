@@ -2,7 +2,7 @@
 name: parallel-tool-orchestrator
 description: "Expert guide for parallel tool execution, MCP batching (vibes_batch), asynchronous Promise.allSettled pipelines, subagent concurrent fan-out, and latency-optimized tool calling loops / Panduan ahli eksekusi tool paralel dan batching MCP."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `multi-agent-orchestration`, `async-queue-temporal-expert`, `mcp-server-architect`, `performance-web-vitals`, `event-driven-architect`, and `zero-to-prod-orchestrator` to accelerate multi-tool execution pipelines.
+- **Multi-Agent & Swarm Execution**: `multi-agent-orchestration`, `speculative-multi-draft-synthesizer`
+- **MCP & Tool Protocols**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
+- **Async Queues & Sagas**: `async-queue-temporal-expert`, `event-driven-architect`, `cron-scheduler-expert`
+- **Performance & Latency**: `performance-web-vitals`, `context-window-engineer`, `llm-finops-router`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production guide for optimizing AI agent tool-calling throughput by executing independent tool invocations in parallel. Frontier models (Gemini 4, Claude 3.7/5.1, GPT-5) natively generate multi-tool calls in a single turn. Executing these calls sequentially creates unnecessary network round-trips and escalates latency. This skill provides architectures for parallel tool orchestration using Model Context Protocol batching (`vibes_batch`), resilient `Promise.allSettled` execution, automated dependency DAG resolution, and non-blocking background task workers.
@@ -115,7 +119,11 @@ export async function executeParallelBatch(
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasikan skill `multi-agent-orchestration`, `async-queue-temporal-expert`, `mcp-server-architect`, `performance-web-vitals`, `event-driven-architect`, dan `zero-to-prod-orchestrator` untuk mengakselerasi pipeline eksekusi multi-tool.
+- **Eksekusi Multi-Agen & Swarm**: `multi-agent-orchestration`, `speculative-multi-draft-synthesizer`
+- **Protokol MCP & Tools**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
+- **Antrean Asinkron & Saga**: `async-queue-temporal-expert`, `event-driven-architect`, `cron-scheduler-expert`
+- **Performa & Latensi**: `performance-web-vitals`, `context-window-engineer`, `llm-finops-router`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk mengoptimalkan throughput eksekusi tool agen AI dengan menjalankan pemanggilan tool independen secara bersamaan (paralel). Model frontier modern dapat menghasilkan beberapa tool call dalam satu giliran. Menjalankan panggilan secara berurutan menghasilkan latensi jaringan yang lambat. Skill ini menyediakan arsitektur orkestrasi tool paralel memanfaatkan batching Model Context Protocol (`vibes_batch`), eksekusi tangguh `Promise.allSettled`, resolusi DAG dependensi, dan penanganan kegagalan isolatif.

@@ -2,7 +2,7 @@
 name: scalability-clean-code
 description: "Software architecture guidelines to maintain code readability (Clean Code, SOLID, DRY) and application scalability / Panduan arsitektur perangkat lunak untuk menjaga keterbacaan kode (Clean Code, SOLID, DRY) dan kemampuan skalabilitas aplikasi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream & Architecture Design**: `zero-to-prod-orchestrator` (Phase 2 foundation & Phase 5 refactoring), `brainstorming`, `session-memory-manager`.
+- **Domain Modeling & AST Analysis**: `domain-driven-design-expert` (bounded contexts & entities), `living-codebase-ast-graph` (symbol dependency mapping & blast radius).
+- **Quality Gates & Debt Elimination**: `anti-slop` (Hyper-YAGNI & zero placeholder enforcement), `zero-tech-debt-auditor` (code smells & dead code removal), `biome-linter-formatter-expert`.
+- **Refactoring & Modernization**: `legacy-code-translator` (strangler fig architecture), `typescript-expert` (type-safe clean patterns).
 
 ### Description
 Software architecture guidelines for writing clean, scalable, and maintainable code. Covers SOLID principles, DRY/YAGNI/KISS, Clean Architecture layers, **Vertical Slice Architecture** (the modern alternative to layered architecture), Domain-Driven Design (DDD) patterns, and practical refactoring techniques.
@@ -181,7 +184,10 @@ When choosing an architecture, ask:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Desain Arsitektur**: `zero-to-prod-orchestrator` (Pondasi Fase 2 & refaktor Fase 5), `brainstorming`, `session-memory-manager`.
+- **Pemodelan Domain & Analisis AST**: `domain-driven-design-expert` (bounded context & entitas), `living-codebase-ast-graph` (pemetaan dependensi simbol & radius dampak).
+- **Quality Gate & Eliminasi Utang**: `anti-slop` (penegakan Hyper-YAGNI & nol placeholder), `zero-tech-debt-auditor` (pembersihan code smell & kode mati), `biome-linter-formatter-expert`.
+- **Refaktor & Modernisasi**: `legacy-code-translator` (arsitektur strangler fig), `typescript-expert` (pola clean type-safe).
 
 ### Deskripsi
 Panduan arsitektur perangkat lunak untuk menulis kode yang bersih, skalabel, dan mudah dirawat. Mencakup prinsip SOLID, DRY/YAGNI/KISS, lapisan Clean Architecture, **Vertical Slice Architecture** (alternatif modern dari layered architecture), pola Domain-Driven Design (DDD), dan teknik refactoring praktis.

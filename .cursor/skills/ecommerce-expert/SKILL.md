@@ -2,7 +2,7 @@
 name: ecommerce-expert
 description: "Expert guide for e-commerce architecture (Shopify Storefront, Medusa.js, Saleor), product catalogs, cart/checkout UX, and order management / Panduan ahli arsitektur e-commerce (Shopify, Medusa.js, Saleor), katalog produk, UX keranjang/checkout, dan manajemen pesanan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -133,6 +133,12 @@ export function ProductSchema({ product }: { product: any }) {
 ```
 
 ## Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern checkout forms, and web payment APIs.
+- **`design-system-architect`**: Storefront design tokens, product cards, pricing badges, and cart drawers.
+- **`tailwind-expert`**: Responsive e-commerce grid layouts, gallery carousels, and checkout steps.
+- **`ui-ux-pro-max`**: High-converting cart/checkout UX, tabular prices (`tabular-nums`), and 5-state interactive buttons.
+- **`visual-ui-auditor`**: Multimodal vision auditing of product storefronts, checkout flows, and mobile responsiveness.
+- **`anti-slop`**: Anti-slop e-commerce UI craft, eliminating fake placeholder items and broken cart drawers.
 - **`doku-payment-gateway`**: Manages DOKU Checkout modals, QRIS generation, and SNAP BI webhooks.
 - **`search-engine-expert`**: Implements full-text and faceted search for catalogs.
 - **`nextjs-app-router-expert`**: Fast Server Components for product detail pages with instant SSR.
@@ -190,6 +196,12 @@ export async function createDokuPaymentLink(order: { id: string; amount: number;
 3. **Data Terstruktur JSON-LD**: Selalu sertakan schema `Product` dan `Offer` agar informasi harga dan ketersediaan stok muncul langsung di hasil pencarian Google.
 
 ## Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, form checkout modern, dan API pembayaran web.
+- **`design-system-architect`**: Token desain etalase, kartu produk, badge harga, dan drawer keranjang.
+- **`tailwind-expert`**: Tata letak grid e-commerce responsif, carousel galeri, dan langkah checkout.
+- **`ui-ux-pro-max`**: UX keranjang/checkout berkonversi tinggi, harga tabular (`tabular-nums`), dan tombol 5-state.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk etalase produk, alur checkout, dan responsivitas mobile.
+- **`anti-slop`**: Desain UI e-commerce anti-slop, mengeliminasi barang dummy palsu dan drawer keranjang rusak.
 - **`doku-payment-gateway`**: Menangani otentikasi webhook SNAP BI dan verifikasi pembayaran.
 - **`search-engine-expert`**: Menyediakan fitur pencarian faset (filter merk, kategori, harga).
 - **`nextjs-app-router-expert`**: Menyajikan halaman produk dengan waktu muat ultra-cepat melalui streaming SSR.

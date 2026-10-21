@@ -3,7 +3,7 @@ name: mobile-expo-expert
 description: "Expert guide for React Native 0.79+ and Expo SDK 53+ development. Covers cross-platform mobile architecture, Expo Router v4, New Architecture, OTA updates, and native modules / Panduan ahli pengembangan React Native 0.79+ dan Expo SDK 53+ untuk aplikasi mobile."
 author: "Roedy Rustam"
 
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -17,7 +17,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `design-system-architect` — Cross-platform design tokens, Material Design 3 (M3 / Material You), and adaptive UI primitives.
+- `ui-ux-pro-max` — Mobile design patterns, touch targets (48x48dp minimum), navigation hierarchies, and safe area insets.
+- `visual-ui-auditor` — Multimodal vision auditing of mobile screens, contrast, and responsive layout scaling.
+- `apple-ecosystem-expert` — iOS Human Interface Guidelines (HIG), dynamic island, safe area, and Apple App Store compliance.
+- `svg-animation-motion-expert` — React Native Reanimated v3 spring curves, micro-interactions, and shared element transitions.
+- `anti-slop` — Anti-slop mobile engineering, zero mockup stubs, complete New Architecture component implementations.
+- `app-promo-media-expert` — App Store & Google Play screenshots, device frame mockups, and launch promo media.
 
 ### Description
 Expert guide for building production-grade cross-platform mobile applications using **React Native 0.79+** and **Expo SDK 53+**. Covers the New Architecture (stable), Expo Router v4, OTA updates, native modules, and modern state management patterns for iOS and Android.
@@ -170,7 +177,14 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `design-system-architect` — Token desain cross-platform, Material Design 3 (M3 / Material You), dan primitif UI adaptif.
+- `ui-ux-pro-max` — Pola desain mobile, target sentuh (minimal 48x48dp), hierarki navigasi, dan safe area insets.
+- `visual-ui-auditor` — Audit visual multimodal untuk layar mobile, kontras, dan penskalaan tata letak responsif.
+- `apple-ecosystem-expert` — Human Interface Guidelines (HIG) iOS, dynamic island, safe area, dan kepatuhan App Store.
+- `svg-animation-motion-expert` — Kurva pegas React Native Reanimated v3, mikro-interaksi, dan transisi elemen bersama.
+- `anti-slop` — Rekayasa mobile anti-slop, nol stub mockup, implementasi komponen New Architecture lengkap.
+- `app-promo-media-expert` — Screenshot App Store & Google Play, mockup frame gawai, dan media promosi peluncuran.
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi mobile cross-platform tingkat produksi menggunakan **React Native 0.79+** dan **Expo SDK 53+**. Mencakup New Architecture (stabil), Expo Router v4, OTA updates, native modules, dan pola state management modern untuk iOS dan Android.

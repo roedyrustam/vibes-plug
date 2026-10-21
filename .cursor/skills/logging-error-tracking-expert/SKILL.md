@@ -2,7 +2,7 @@
 name: logging-error-tracking-expert
 description: "Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management / Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,15 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 7 - Monitoring & Production Telemetry) to provide unified logging and alert handling.
+- **Downstream Cooperating Skills**:
+  - `data-telemetry-expert` — OpenTelemetry spans + log correlation.
+  - `error-resilience-expert` — Error tracking, circuit breakers, and monitoring setup.
+  - `js-backend-expert` — Server-side logging middleware (Fastify/Hono/Express).
+  - `ci-cd-devops-architect` — Source map upload in CI/CD pipelines.
+  - `production-ready-hardener` — Pre-launch logging and monitoring audit checklist.
+  - `zero-trust-secret-vault` — Secure redaction and logging of secret access patterns.
+  - `session-memory-manager` — Store error logs and operational telemetry states.
 
 ### Description
 Production-grade guide for implementing structured logging, error tracking, and application monitoring. Covers **Pino** (high-performance JSON logging), **Sentry** SDK integration (React, Node.js, Next.js), **source map upload** for production errors, **request ID correlation** across microservices, **log aggregation** (Axiom, Datadog, Logflare), **alert rules**, **GDPR-compliant log redaction** (PII masking), and **OpenTelemetry integration**.
@@ -308,27 +316,19 @@ const LOG_RETENTION = {
 
 ---
 
-### Integration with Other Skills
-
-- `data-telemetry-expert` — OpenTelemetry spans + log correlation
-- `error-resilience-expert` — Error tracking and monitoring setup
-- `js-backend-expert` — Server-side logging middleware (Fastify/Hono/Express)
-- `ci-cd-devops-architect` — Source map upload in CI/CD pipeline
-- `production-ready-hardener` — Pre-launch logging and monitoring audit
-- `zero-trust-secret-vault` — Secure logging of secret access patterns
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan pemantauan produksi yang andal.
-- `data-telemetry-expert` — Span OpenTelemetry + korelasi log.
-- `error-resilience-expert` — Setup pelacakan error dan monitoring.
-- `js-backend-expert` — Middleware logging sisi server (Fastify/Hono/Express).
-- `ci-cd-devops-architect` — Upload source map dalam pipeline CI/CD.
-- `production-ready-hardener` — Audit logging dan monitoring pra-peluncuran.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 7 - Pemantauan & Telemetri Produksi) untuk menyediakan logging terpadu dan penanganan alert.
+- **Skill Hilir & Kerja Sama**:
+  - `data-telemetry-expert` — Span OpenTelemetry + korelasi log.
+  - `error-resilience-expert` — Setup pelacakan error, circuit breaker, dan monitoring.
+  - `js-backend-expert` — Middleware logging sisi server (Fastify/Hono/Express).
+  - `ci-cd-devops-architect` — Upload source map dalam pipeline CI/CD.
+  - `production-ready-hardener` — Audit logging dan monitoring pra-peluncuran.
+  - `zero-trust-secret-vault` — Redaksi aman dan logging pola akses rahasia.
+  - `session-memory-manager` — Menyimpan log error dan status telemetri operasional.
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengimplementasikan logging terstruktur, pelacakan error, dan pemantauan aplikasi. Mencakup **Pino** (logging JSON berkinerja tinggi), integrasi SDK **Sentry** (React, Node.js, Next.js), **upload source map** untuk error produksi, **korelasi request ID** lintas microservice, **agregasi log** (Axiom, Datadog, Logflare), **aturan alerting**, **redaksi log sesuai GDPR / UU PDP** (masking PII), dan integrasi **OpenTelemetry**.

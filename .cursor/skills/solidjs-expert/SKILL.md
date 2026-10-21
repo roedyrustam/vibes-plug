@@ -2,7 +2,7 @@
 name: solidjs-expert
 description: "Expert guide for SolidJS 2 and SolidStart — fine-grained reactivity, signals, createResource, and server-first rendering / Panduan ahli SolidJS 2 dan SolidStart — reaktivitas fine-grained, signals, createResource, dan rendering server-first."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -104,8 +104,13 @@ export function CartManager() {
 ```
 
 ## Orchestration & Integration
-- **`performance-web-vitals`**: Leverages Solid's direct DOM manipulation for near-zero INP and top-tier Lighthouse scores.
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`modern-css-native-expert`**: Native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
 - **`tailwind-expert`**: Styles Solid components with Tailwind CSS v4 `@theme` design tokens.
+- **`ui-ux-pro-max`**: Design intelligence, layout patterns, and fine-grained reactive component aesthetics.
+- **`visual-ui-auditor`**: Multimodal vision auditing of rendered SolidJS views.
+- **`anti-slop`**: Enforces complete, stub-free SolidJS components with preserved reactive getters.
+- **`performance-web-vitals`**: Leverages Solid's direct DOM manipulation for near-zero INP and top-tier Lighthouse scores.
 - **`state-management-expert`**: Explains fine-grained signal patterns compared to React hooks and Zustand.
 - **`typescript-expert`**: Provides type-safe store and props interfaces.
 
@@ -157,7 +162,12 @@ export function UserCard(rawProps: CardProps) {
 ```
 
 ## Integrasi Orkestrasi
-- **`performance-web-vitals`**: Memaksimalkan manipulasi DOM langsung untuk mencapai responsivitas instan (<10ms).
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- **`modern-css-native-expert`**: CSS anchor positioning native, View Transitions, container queries, dan `@starting-style`.
 - **`tailwind-expert`**: Menata gaya komponen Solid dengan utilitas Tailwind CSS v4.
+- **`ui-ux-pro-max`**: Kecerdasan desain UI/UX, pola tata letak, dan estetika komponen reaktif fine-grained.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk tampilan SolidJS yang dirender.
+- **`anti-slop`**: Penegakan komponen SolidJS lengkap tanpa stub dengan getter reaktif terjaga.
+- **`performance-web-vitals`**: Memaksimalkan manipulasi DOM langsung untuk mencapai responsivitas instan (<10ms).
 - **`state-management-expert`**: Menjelaskan perbandingan arsitektur signal vs selector Zustand.
 - **`typescript-expert`**: Menjaga keamanan tipe pada Store dan Server Actions.

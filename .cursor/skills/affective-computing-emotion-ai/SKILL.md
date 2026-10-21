@@ -2,7 +2,7 @@
 name: affective-computing-emotion-ai
 description: "Expert guide for Affective Computing, emotional AI, and real-time sentiment analysis through native multimodal tokens (voice intonation and facial micro-expressions) / Panduan ahli komputasi afektif, AI emosional, dan analisis sentimen real-time melalui token multimodal native."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 4 - AI Agents & Multimodal Pipelines) to integrate real-time affective computing.
+- **Downstream Cooperating Skills**:
+  - `voice-ai-realtime-agent` — Bidirectional WebRTC audio transport and low-latency audio capture (<300ms).
+  - `ephemeral-generative-ui-architect` — Dynamically re-render UI components according to calculated `AffectVector`.
+  - `ui-ux-pro-max` — Ensure affective UI themes adhere to WCAG 2.2 contrast ratios and non-jarring transitions.
+  - `ai-llm-integration-expert` — Multimodal token handling via Gemini Multimodal Live API.
+  - `session-memory-manager` — Persist affective interaction history and user emotional state vectors.
 
 ### Description
 Comprehensive guide for Affective Computing, empathic conversational agents, and real-time biometric sentiment synthesis using native multimodal tokens (Gemini 4 Pro Multimodal Live API, WebRTC bidirectional audio streams). Interprets vocal pitch variance, speech rate, pause intervals, and facial micro-expressions. Maps affective signals into continuous 2D Valence-Arousal coordinate space (Russell Circumplex Model) to dynamically modulate agent voice prosody, conversation pacing, and generative UI layouts.
@@ -117,18 +126,17 @@ If the customer sounds irritated, lower your pitch, slow your speaking rate by 2
 }
 ```
 
-## Orchestration & Integration
-- **`voice-ai-realtime-agent`**: Provides bidirectional WebRTC audio transport and low-latency audio capture.
-- **`ephemeral-generative-ui-architect`**: Dynamically re-renders UI components according to the calculated `AffectVector`.
-- **`ui-ux-pro-max`**: Ensures affective UI themes adhere to WCAG 2.2 contrast ratios and non-jarring layout transitions.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `voice-ai-realtime-agent`, `ephemeral-generative-ui-architect`, `ai-llm-integration-expert`, dan `ui-ux-pro-max`.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4 - Agen AI & Pipeline Multimodal) untuk mengintegrasikan komputasi afektif real-time.
+- **Skill Hilir & Kerja Sama**:
+  - `voice-ai-realtime-agent` — Transport audio WebRTC dua arah dan penangkapan audio latensi rendah (<300ms).
+  - `ephemeral-generative-ui-architect` — Menyesuaikan tata letak komponen UI secara reaktif terhadap `AffectVector`.
+  - `ui-ux-pro-max` — Menjamin kontras tema UI afektif mematuhi WCAG 2.2 AA tanpa transisi yang mengejutkan.
+  - `ai-llm-integration-expert` — Penanganan token multimodal via Gemini Multimodal Live API.
+  - `session-memory-manager` — Menyimpan histori interaksi afektif dan vektor kondisi emosional pengguna.
 
 ### Deskripsi
 Panduan komprehensif untuk Komputasi Afektif, agen percakapan empatik, dan sintesis sentimen biometrik waktu-nyata menggunakan token multimodal native (Gemini Multimodal Live API, WebRTC audio streaming dua arah). Menafsirkan variasi nada suara, tempo bicara, jeda nafas, dan mikro-ekspresi wajah tanpa ketergantungan pada transkrip teks biasa. Memetakan sinyal emosi ke dalam ruang koordinat 2D *Valence-Arousal* (Model Sirkumpleks Russell) untuk secara dinamis mengatur prosodi suara agen, kecepatan interaksi, dan tata letak antarmuka pengguna (UI).
@@ -173,8 +181,3 @@ export function AdaptiveContainer({ affect, children }: { affect: AffectVector; 
 1. **Analisis Langsung pada Sinyal Audio (Zero-STT Latency)**: Jangan ubah suara menjadi teks terlebih dahulu. Analisis dilakukan langsung pada aliran PCM audio agar intonasi dan desahan nafas tidak hilang.
 2. **Koordinat Kontinu Valence-Arousal**: Jangan batasi emosi pada label kaku (*"senang"*, *"sedih"*). Gunakan nilai desimal kontinu antara -1.0 hingga +1.0 untuk modulasi yang halus.
 3. **Peredaman UI Ramah Stres**: Ketika pengguna frustrasi, jangan tampilkan notifikasi pop-up animasi yang ramai; sederhanakan tampilan hanya pada tindakan penyelesaian utama.
-
-## Integrasi Orkestrasi
-- **`voice-ai-realtime-agent`**: Mengalirkan paket audio WebRTC ultra-low latency (<300ms).
-- **`ephemeral-generative-ui-architect`**: Menyesuaikan tata letak komponen secara reaktif.
-- **`ui-ux-pro-max`**: Menjamin kontras warna tetap memenuhi standar aksesibilitas WCAG 2.2 AA.

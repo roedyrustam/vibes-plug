@@ -2,7 +2,7 @@
 name: global-a11y-i18n-expert
 description: "Expert guide for Web Accessibility (WCAG a11y) and Internationalization (i18n) / Panduan ahli untuk Aksesibilitas Web dan Internasionalisasi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -118,8 +118,12 @@ Never use physical directional properties (`left`, `right`). Use logical propert
 ```
 
 ## Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`design-system-architect`**: Accessible design tokens, semantic focus indicators, and headless primitives.
 - **`accessibility-testing-expert`**: Automates axe-core and Pa11y compliance tests in CI.
-- **`ui-ux-pro-max`**: Ensures color contrast ratios meet the 4.5:1 WCAG AA baseline.
+- **`ui-ux-pro-max`**: Ensures color contrast ratios meet the 4.5:1 WCAG AA baseline and RTL layouts.
+- **`visual-ui-auditor`**: Multimodal vision auditing of contrast, typography, and focus ring visibility.
+- **`anti-slop`**: Anti-slop accessibility, eliminating fake pseudo-buttons (`<div onClick>`) and missing labels.
 - **`senior-frontend`**: Implements accessible headless primitives and semantic HTML.
 - **`nextjs-app-router-expert`**: Configures multi-locale middleware and streaming localized routes.
 
@@ -129,7 +133,7 @@ Never use physical directional properties (`left`, `right`). Use logical propert
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `accessibility-testing-expert`, `ui-ux-pro-max`, `senior-frontend`, dan `nextjs-app-router-expert`.
+Terhubung dan mengorkestrasi bersama `modern-web-guidance`, `design-system-architect`, `accessibility-testing-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `senior-frontend`, dan `nextjs-app-router-expert`.
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi web yang dapat diakses secara universal dan diadaptasi secara global sesuai standar WCAG 2.2 Level AA dan arsitektur Internasionalisasi (i18n) modern. Mencakup skema terjemahan type-safe (`next-intl`), properti logika CSS (*CSS logical properties*) untuk alur dua arah (LTR & RTL), navigasi keyboard tanpa jebakan fokus (*focus trap*), dukungan pembaca layar (*screen reader*), serta serialisasi waktu UTC yang kebal anomali zona waktu.
@@ -168,7 +172,11 @@ export function formatLocalizedDate(date: Date | string, locale = 'id-ID') {
 3. **Gunakan Properti Logika CSS**: Hindari `margin-left` atau `padding-right`. Gunakan `margin-inline-start` dan `padding-inline-end` agar tata letak otomatis menyesuaikan saat dibuka dalam mode bahasa Arab (RTL).
 
 ## Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- **`design-system-architect`**: Token desain aksesibel, indikator fokus semantik, dan komponen headless.
 - **`accessibility-testing-expert`**: Menjalankan pengujian otomatis axe-core di pipeline CI/CD.
-- **`ui-ux-pro-max`**: Menjamin keterbacaan tipografi dan kontras warna yang nyaman di mata.
+- **`ui-ux-pro-max`**: Menjamin keterbacaan tipografi dan kontras warna yang nyaman di mata sesuai WCAG AA.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk kontras warna, tipografi, dan visibilitas garis fokus.
+- **`anti-slop`**: Aksesibilitas anti-slop, mengeliminasi pseudo-button palsu (`<div onClick>`) dan label hilang.
 - **`senior-frontend`**: Membangun komponen UI aksesibel menggunakan HTML semantik.
 - **`nextjs-app-router-expert`**: Mengelola perutean dinamis berbasis bahasa pada URL.

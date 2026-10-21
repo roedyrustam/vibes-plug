@@ -2,7 +2,7 @@
 name: nextjs-app-router-expert
 description: "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -103,6 +103,13 @@ export default function DashboardPage() {
 ```
 
 ## Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, streaming hydration, and modern web platform APIs.
+- **`design-system-architect`**: Server Component and Client Component boundary primitives, design tokens.
+- **`modern-css-native-expert`**: View Transitions API Level 2 and CSS container queries in Next.js 15.
+- **`tailwind-expert`**: Tailwind CSS v4 styling with `@theme` in Next.js 15.
+- **`ui-ux-pro-max`**: Layout composition, streaming skeleton loaders, and intercepting modal UX.
+- **`visual-ui-auditor`**: Multimodal vision auditing of streaming layouts and rendered pages.
+- **`anti-slop`**: Anti-slop RSC implementations, eliminating fake mocks and incomplete action handlers.
 - **`senior-frontend`**: Enhances UI/UX with Next.js App Router RSC and Next 15 caching.
 - **`js-backend-expert`**: Bridges frontend Server Actions with backend Node.js/Bun architectures.
 - **`tanstack-query-expert`**: Manages client-side state hydration from RSC.
@@ -144,6 +151,13 @@ Fungsi `fetch` **tidak di-cache default**. Aktifkan eksplisit via `{ cache: 'for
 Bungkus pengambilan data lambat dengan `<Suspense>` untuk menampilkan UI awal seketika sambil menunggu data (streaming).
 
 ## Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, hidrasi streaming, dan API platform web modern.
+- **`design-system-architect`**: Primitif batas Server Component dan Client Component, token desain.
+- **`modern-css-native-expert`**: View Transitions API Level 2 dan CSS container queries di Next.js 15.
+- **`tailwind-expert`**: Styling Tailwind CSS v4 dengan `@theme` di Next.js 15.
+- **`ui-ux-pro-max`**: Komposisi tata letak, skeleton loader streaming, dan UX modal intercepting.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk tata letak streaming dan halaman yang dirender.
+- **`anti-slop`**: Implementasi RSC anti-slop, mengeliminasi mock palsu dan handler action tidak lengkap.
 - **`senior-frontend`**: Menguatkan UI/UX dengan pemahaman arsitektur RSC dan cache Next 15.
 - **`js-backend-expert`**: Menghubungkan Server Actions dengan arsitektur backend Node.js/Bun.
 - **`tanstack-query-expert`**: Mengelola hidrasi state client-side dari RSC.

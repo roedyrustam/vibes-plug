@@ -2,7 +2,7 @@
 name: performance-web-vitals
 description: "Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement / Panduan ahli untuk optimasi performa web: Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, strategi rendering, dan peningkatan skor Lighthouse."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 6 - Production Hardening & Web Performance) to achieve Lighthouse 95+ and green Core Web Vitals.
+- **Downstream Cooperating Skills**:
+  - `senior-frontend` — Implement React 19 `useTransition`, memoization, and component virtualization.
+  - `modern-web-guidance` — Apply CSS content-visibility, fetchpriority, and modern browser APIs.
+  - `seo` — Align Core Web Vitals (LCP, INP, CLS) with search indexing criteria.
+  - `cloud-hosting-expert` — Optimize edge caching, Brotli/Gzip compression, and CDN asset delivery.
+  - `session-memory-manager` — Store performance benchmark results and bundle budgets.
 
 ### Description
 Expert guide for measuring, diagnosing, and optimizing web application performance with a focus on **Core Web Vitals** (LCP, INP, CLS), JavaScript bundle optimization, image and font loading strategies, rendering performance, and achieving high Lighthouse scores. Covers Next.js 15, React 19, and modern browser APIs.
@@ -310,7 +316,13 @@ onTTFB(sendToAnalytics);
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 6 - Hardening Produksi & Performa Web) untuk mencapai skor Lighthouse 95+ dan Core Web Vitals hijau.
+- **Skill Hilir & Kerja Sama**:
+  - `senior-frontend` — Implementasi `useTransition` React 19, memoization, dan virtualisasi komponen.
+  - `modern-web-guidance` — Menerapkan CSS content-visibility, fetchpriority, dan API browser modern.
+  - `seo` — Menyelaraskan metrik Core Web Vitals (LCP, INP, CLS) dengan kriteria pengindeksan search engine.
+  - `cloud-hosting-expert` — Optimasi edge caching, kompresi Brotli/Gzip, dan pengiriman aset CDN.
+  - `session-memory-manager` — Menyimpan hasil benchmark performa dan anggaran bundle.
 
 ### Deskripsi
 Panduan ahli untuk mengukur, mendiagnosis, dan mengoptimalkan performa aplikasi web dengan fokus pada **Core Web Vitals** (LCP, INP, CLS), optimasi JavaScript bundle, strategi loading gambar dan font, performa rendering, dan mencapai skor Lighthouse yang tinggi.

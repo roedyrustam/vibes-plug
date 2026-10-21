@@ -2,7 +2,7 @@
 name: ci-cd-devops-architect
 description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Pipelines**: `zero-to-prod-orchestrator` (Phase 7 CI/CD release), `brainstorming`.
+- **Infrastructure & Containerization**: `docker-container-expert` (multi-stage distroless images), `cloud-hosting-expert` (Vercel, Cloudflare, Railway targets).
+- **Security & Secrets**: `zero-trust-secret-vault` (OIDC federated auth, short-lived tokens), `production-ready-hardener` (container & SBOM security audits).
+- **Test Automation & Quality Gates**: `autonomous-tdd-debugger` (CI test runner execution), `e2e-testing-expert` (Playwright regression runs).
+- **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring).
 
 ### Description
 Enterprise guide for modern Continuous Integration & Continuous Delivery (CI/CD) pipelines, immutable container workflows (Docker & Kubernetes 1.30+), and Infrastructure as Code (Terraform / OpenTofu). Covers parallelized GitHub Actions workflows with dependency caching (pnpm/bun), multi-stage non-root distroless Docker builds, Trivy container vulnerability scanning, zero-downtime rolling/canary deployments, and zero-trust secret injection via OIDC.
@@ -125,16 +132,17 @@ jobs:
 2. **Non-Root Runtime**: Never run Docker containers as `root`. Always use unprivileged users (`nonroot` or `node`) to minimize container breakout vulnerabilities.
 3. **No Hardcoded Secrets**: Secrets must never be stored in GitHub Secrets as plaintext strings. Use GitHub OIDC tokens to fetch short-lived credentials from AWS IAM or Vault (`zero-trust-secret-vault`).
 
-## Orchestration & Integration
-- **`cloud-hosting-expert`**: Connects pipeline deployment triggers with Vercel, Railway, or AWS ECS.
-- **`zero-trust-secret-vault`**: Manages OIDC federated authentication and secret injection.
-- **`autonomous-tdd-debugger`**: Runs unit and integration tests inside the CI runner.
-- **`production-ready-hardener`**: Validates security headers, SBOM, and container scan outputs.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Pipeline Hulu**: `zero-to-prod-orchestrator` (Rilis CI/CD Fase 7), `brainstorming`.
+- **Infrastruktur & Kontainerisasi**: `docker-container-expert` (image distroless multi-stage), `cloud-hosting-expert` (target Vercel, Cloudflare, Railway).
+- **Keamanan & Rahasia**: `zero-trust-secret-vault` (otentikasi federasi OIDC, token berumur pendek), `production-ready-hardener` (audit keamanan kontainer & SBOM).
+- **Otomasi Pengujian & Quality Gate**: `autonomous-tdd-debugger` (eksekusi pengujian CI), `e2e-testing-expert` (regresi Playwright).
+- **Kesehatan Proaktif & Self-Healing**: `self-healing-cloud-orchestrator` (perbaikan otomatis deployment gagal), `proactive-background-watcher` (pemantau build pipeline).
 
 ### Deskripsi
 Panduan enterprise untuk pipeline *Continuous Integration & Continuous Delivery* (CI/CD) modern, alur kerja kontainer imutabel (Docker & Kubernetes 1.30+), dan *Infrastructure as Code* (Terraform/OpenTofu). Mencakup pipeline GitHub Actions paralel dengan caching dependensi (pnpm/bun), Dockerfile multi-stage berbasis distroless non-root yang aman, pemindaian kerentanan kontainer dengan Trivy, serta injeksi rahasia tanpa password via OIDC.
@@ -189,9 +197,3 @@ spec:
 1. **Artifak Imutabel**: Image kontainer yang diuji pada tahap Staging adalah file image yang sama persis yang dijalankan pada server Produksi.
 2. **Larangan Akses Root**: Kontainer dilarang keras dijalankan dengan hak akses root demi mencegah eksploitasi pelarian kontainer (*container escape*).
 3. **Rahasia Berumur Pendek**: Gunakan otentikasi OIDC tanpa kata kunci statis untuk mengakses registry dan server cloud.
-
-## Integrasi Orkestrasi
-- **`cloud-hosting-expert`**: Mengotomatisasi deployment akhir ke edge/cloud runner.
-- **`zero-trust-secret-vault`**: Memasok token autentikasi dinamis ke dalam pipeline.
-- **`autonomous-tdd-debugger`**: Memastikan seluruh test otomatis lolos sebelum komit di-merge.
-- **`production-ready-hardener`**: Memverifikasi kesiapan rilis produksi pada tahap akhir CI.

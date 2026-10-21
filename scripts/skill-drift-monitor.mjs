@@ -134,7 +134,7 @@ export function auditSkill(skillName, content, ecosystemContext) {
     } else {
       score -= 5;
       issues.push({ code: 'FM_VERSION_MISSING', message: 'Missing version tag in frontmatter' });
-      recommendations.push('Add version: "4.4.1" to frontmatter.');
+      recommendations.push('Add version: "4.4.2" to frontmatter.');
     }
   }
 

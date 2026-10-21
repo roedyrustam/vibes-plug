@@ -2,8 +2,7 @@
 name: accessibility-testing-expert
 description: "Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance / Panduan ahli pengujian aksesibilitas web."
 author: "Roedy Rustam"
-
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -17,6 +16,8 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
+- **`modern-web-guidance`**: Evaluates platform accessibility guidelines, ARIA specifications, and `:user-valid` patterns.
+- **`visual-ui-auditor`**: Multimodal vision verification for color contrast, visible focus rings, and spatial layout integrity.
 - **`global-a11y-i18n-expert`**: Core WCAG rules, ARIA patterns, and internationalization standards.
 - **`e2e-testing-expert`**: Integrating automated accessibility assertions into Playwright/Vitest CI suites.
 - **`design-system-architect, senior-frontend`**: Accessible component primitives (Radix UI, Base UI, ARIA patterns).
@@ -147,6 +148,8 @@ Zero-tolerance accessibility criteria for all generated interfaces:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`modern-web-guidance`**: Mengevaluasi pedoman aksesibilitas platform web, spesifikasi ARIA, dan pola form aksesibel.
+- **`visual-ui-auditor`**: Verifikasi vision multimodal untuk rasio kontras warna, cincin fokus terlihat, dan integritas tata letak visual.
 - **`global-a11y-i18n-expert`**: Pedoman standar WCAG, pola ARIA, dan aksesibilitas internasional.
 - **`e2e-testing-expert`**: Integrasi pengujian aksesibilitas otomatis ke pipeline Playwright CI.
 - **`design-system-architect, senior-frontend`**: Validasi aksesibilitas komponen headless dan desain UI.

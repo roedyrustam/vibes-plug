@@ -2,7 +2,7 @@
 name: ai-llm-integration-expert
 description: "Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP v1.x), hybrid reasoning models, RAG architecture, vector databases, and AI agents / Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), model hybrid reasoning, arsitektur RAG, vector database, dan agen AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Frontier Models & Providers**: `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`, `pydantic-ai-expert`
+- **MCP Ecosystem**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
+- **Multi-Agent & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Memory & Retrieval**: `agentic-memory-architect`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`
+- **Optimization & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
+- **Safety, Governance & Quality**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hybrid reasoning models, and Large Language Models (LLMs) into modern software architectures. Covers hybrid reasoning token streaming, Streamable HTTP MCP transports, agentic memory architectures, native context caching, RAG pipelines, and multi-model orchestration.
@@ -180,18 +189,19 @@ Build high-precision RAG pipelines:
 - Use Zod schemas to define tool parameters and final structured entities.
 - Implement rate limiting, circuit breakers, and semantic caching (Redis / Upstash vector cache) to prevent runaway recursive tool loops.
 
-## Orchestration & Integration
-- **`mcp-server-architect`**: Delegate custom MCP server implementation, client consumption, schema definitions, and transport adapters.
-- **`multi-agent-orchestration`**: Delegate complex multi-agent state graphs, swarm workflows, and supervisor patterns.
-- **`gemini-agent-booster`**: Delegate Gemini 3.x long-context optimization, Multimodal Live API, and thinking budget controls.
-- **`ai-prompt-engineering-expert`**: Delegate advanced prompt design, few-shot calibration, automated Promptfoo evals, and system prompt testing.
-- **`vector-db-rag-expert`**: Delegate pgvector HNSW indexing and hybrid retrieval fine-tuning.
-- **`zero-to-prod-orchestrator`**: Executes this skill during Phase 4 architecture and implementation.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Model Frontier & Provider**: `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`, `pydantic-ai-expert`
+- **Ekosistem MCP**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
+- **Multi-Agen & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Memori & Retrieval**: `agentic-memory-architect`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`
+- **Optimasi & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
+- **Keamanan, Tata Kelola & Kualitas**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP), model hybrid reasoning, dan Large Language Models (LLM) ke dalam arsitektur perangkat lunak modern. Mencakup penanganan streaming token penalaran, transport MCP Streamable HTTP, arsitektur memori agentik, context caching native, pipeline RAG, dan orkestrasi multi-model.
@@ -323,11 +333,3 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
 #### 10. Output Terstruktur & Guardrails
 - Manfaatkan mode Structured Outputs native model dengan skema Zod untuk menjamin integritas JSON.
 - Terapkan rate limiting, circuit breaker, dan semantic caching (Redis / Upstash) untuk mencegah pemanggilan tool secara rekursif tak berujung.
-
-## Integrasi Orkestrasi
-- **`mcp-server-architect`**: Delegasikan pembuatan server MCP kustom, konsumsi klien, definisi skema, dan transport adapter.
-- **`multi-agent-orchestration`**: Delegasikan alur kerja graph multi-agen, topologi swarm, dan pattern supervisor.
-- **`gemini-agent-booster`**: Delegasikan optimasi long-context Gemini 3.x, Multimodal Live API, dan kontrol thinking budget.
-- **`ai-prompt-engineering-expert`**: Delegasikan desain prompt lanjutan, kalibrasi few-shot, evaluasi Promptfoo, dan pengujian prompt.
-- **`vector-db-rag-expert`**: Delegasikan tuning indeks HNSW pgvector dan pencarian hibrida.
-- **`zero-to-prod-orchestrator`**: Mengeksekusi skill ini pada Fase 4 perancangan arsitektur dan implementasi.

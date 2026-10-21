@@ -2,7 +2,7 @@
 name: cloud-hosting-expert
 description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 7 deployment), `brainstorming`, `session-memory-manager`.
+- **CI/CD & Container Pipelines**: `ci-cd-devops-architect` (deployment automation), `github-actions-expert` (cloud actions & OIDC), `docker-container-expert` (container images for Railway/Fly).
+- **Edge Compute & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (edge routing & proxies).
+- **Monitoring & Auto-Remediation**: `proactive-background-watcher` (deployment health checks), `self-healing-cloud-orchestrator` (production crash hotfixing).
 
 ### Description
 Expert guide for deploying SaaS applications and their multiple entry points (landing page, app, super admin subdomain) on modern edge and serverless platforms. Covers Vercel, Cloudflare Workers & Pages, Railway, Fly.io, and **Cloudflare Workers AI** for AI-powered edge workloads.
@@ -214,7 +217,10 @@ if (cached) return cached;
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Deployment Fase 7), `brainstorming`, `session-memory-manager`.
+- **Pipeline CI/CD & Kontainer**: `ci-cd-devops-architect` (otomasi deployment), `github-actions-expert` (aksi cloud & OIDC), `docker-container-expert` (image kontainer Railway/Fly).
+- **Komputasi Edge & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (routing edge & proxy).
+- **Pemantauan & Auto-Remediasi**: `proactive-background-watcher` (pemeriksaan kesehatan deployment), `self-healing-cloud-orchestrator` (perbaikan otomatis crash produksi).
 
 ### Deskripsi
 Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landing page, aplikasi, subdomain super admin) di platform edge dan serverless modern. Mencakup Vercel, Cloudflare Workers & Pages, Railway, Fly.io, dan **Cloudflare Workers AI** untuk workload AI di edge.

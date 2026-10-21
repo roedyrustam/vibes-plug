@@ -2,7 +2,7 @@
 name: agentic-micro-economy-architect
 description: "Expert guide for designing Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, and swarm budget allocation / Panduan ahli merancang ekonomi mikro antar-agen (M2M), dompet agen otonom, dan alokasi anggaran swarm."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **M2M Settlement & Clearing**: `agentic-m2m-settlement`, `blockchain-web3-expert`, `formal-spec-z3-verifier`
+- **FinTech Billing & Quotas**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **AI FinOps & Model Cascading**: `llm-finops-router`, `adaptive-model-cascade`, `thinking-budget-orchestrator`
+- **Swarm Orchestration & Critic Gate**: `multi-agent-orchestration`, `quality-guardian`, `autonomous-tdd-debugger`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Architectural guide for Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, and swarm budget allocation. In modern multi-agent swarms, specialized subagents consume external APIs, GPU inference, and web scraping compute. This skill establishes autonomous budget envelopes, micro-escrow smart ledgers, HTTP 402 (*Payment Required*) headers, and cryptographic micro-settlements (Stripe Issuing virtual cards, stablecoins, or internal token ledgers) to make agent swarms financially self-regulating.
@@ -122,19 +129,17 @@ export class AgentTreasury {
 2. **Escrow TTL Deadlines**: Every escrow holds a hard time-to-live (TTL). If a worker subagent hangs or crashes, funds are automatically refunded to prevent capital freeze.
 3. **Critic Verification Gate**: Funds are released ONLY upon successful validation by an independent auditor or test suite (`quality-guardian` / `autonomous-tdd-debugger`).
 
-## Orchestration & Integration
-- **`multi-agent-orchestration`**: Coordinates task bidding across specialized subagent pools.
-- **`llm-finops-router`**: Dynamically routes prompts to cheaper models to preserve the task's budget envelope.
-- **`saas-billing`**: Connects agent treasury ledgers to customer billing quotas.
-- **`agentic-m2m-settlement`**: Handles low-level fiat and stablecoin settlement rails.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `multi-agent-orchestration`, `llm-finops-router`, `saas-billing`, dan `agentic-m2m-settlement`.
+- **Settlement & Kliring M2M**: `agentic-m2m-settlement`, `blockchain-web3-expert`, `formal-spec-z3-verifier`
+- **Billing FinTech & Kuota**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **FinOps AI & Kaskade Model**: `llm-finops-router`, `adaptive-model-cascade`, `thinking-budget-orchestrator`
+- **Orkestrasi Swarm & Gerbang Critic**: `multi-agent-orchestration`, `quality-guardian`, `autonomous-tdd-debugger`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan arsitektur untuk ekonomi mikro Mesin-ke-Mesin (*Machine-to-Machine* / M2M), dompet agen otonom, dan alokasi anggaran swarm. Dalam arsitektur multi-agen skala besar, subagen terspesialisasi mengonsumsi API eksternal, komputasi GPU, dan scraping berbayar. Skill ini merancang pagu anggaran (*budget envelope*), buku besar mikro-escrow cerdas, respons HTTP 402 (*Payment Required*), dan kliring mikro kriptografis untuk menciptakan swarm agen yang sadar biaya (*cost-aware*) dan mampu meregulasi keuangannya sendiri.
@@ -177,9 +182,3 @@ export async function executeDelegatedSubtask(
 1. **Batas Anggaran Keras**: Jika sisa anggaran treasury habis, agen dilarang melanjutkan eksekusi API berbayar dan wajib meminta persetujuan manusia (*Human-in-the-Loop*).
 2. **Batas Waktu Kontrak (TTL Escrow)**: Seluruh dana yang ditahan dalam escrow wajib memiliki masa kedaluwarsa agar dana tidak terkunci saat subagen mengalami kegagalan proses.
 3. **Pelepasan Dana Berdasarkan Kualitas**: Dana hanya dicairkan kepada agen pekerja jika hasil pekerjaan lulus audit gerbang kualitas (*Critic-Validator Gate*).
-
-## Integrasi Orkestrasi
-- **`multi-agent-orchestration`**: Menyelaraskan pembagian peran subagen dan delegasi tugas.
-- **`llm-finops-router`**: Mengoptimalkan pemilihan tier model agar tetap berada di bawah batas anggaran.
-- **`saas-billing`**: Menghubungkan konsumsi kredit agen dengan kuota langganan pengguna.
-- **`agentic-m2m-settlement`**: Menangani transfer nilai riil antar dompet agen AI.

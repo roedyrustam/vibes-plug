@@ -2,7 +2,7 @@
 name: ai-code-review-autonomous
 description: "Expert guide for multi-pass autonomous AI code self-review — syntax validation, logic correctness, architectural conformance, security audit, and performance analysis without external tooling — enabling the agent to catch its own errors before presenting code / Panduan ahli review kode otonom multi-pass oleh AI — validasi sintaks, kebenaran logika, konformitas arsitektur, audit keamanan, dan analisis performa tanpa tooling eksternal — memungkinkan agen menangkap errornya sendiri sebelum menampilkan kode."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `scalability-clean-code`, `production-ready-hardener`, `autonomous-red-teamer`, `typescript-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, and `formal-spec-z3-verifier` to enforce comprehensive code quality across all generated output.
+- **Anti-Slop & Quality Gates**: `anti-slop`, `coderabbit`, `zero-tech-debt-auditor`
+- **TDD & Automated Debugging**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`
+- **Security & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`
+- **Architecture & Clean Code**: `scalability-clean-code`, `living-codebase-ast-graph`, `typescript-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`
 
 ### Description
 A structured multi-pass self-review protocol that the AI agent executes on its own generated code before presenting it to the user. Each pass focuses on a distinct quality dimension — syntax correctness, business logic validation, architectural conformance, security vulnerabilities, and performance characteristics. This eliminates the most common AI code generation failure: confidently presenting broken or insecure code because the model never re-read what it wrote.
@@ -179,26 +183,15 @@ interface CrossFileCheck {
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `anti-slop` — Enforce zero placeholder content, dead code, and syntax narration in reviewed output.
-- `autonomous-tdd-debugger` — After self-review, execute tests to verify the code actually works.
-- `coderabbit` — For team-facing PR reviews, complement self-review with external automated review.
-- `production-ready-hardener` — Apply self-review as a pre-deployment quality gate.
-- `typescript-expert` — Validate TypeScript strict mode compliance during Pass 1.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Testing & Security" matrix row.
-- `zero-to-prod-orchestrator` — Integrated in Phase 6 (Automated Testing, Error Resilience & Security Audit).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `scalability-clean-code`, `production-ready-hardener`, `autonomous-red-teamer`, `typescript-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, dan `formal-spec-z3-verifier` untuk menegakkan kualitas kode komprehensif di seluruh output yang dihasilkan.
+- **Anti-Slop & Gerbang Kualitas**: `anti-slop`, `coderabbit`, `zero-tech-debt-auditor`
+- **TDD & Debugging Otomatis**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`
+- **Keamanan & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`
+- **Arsitektur & Kode Bersih**: `scalability-clean-code`, `living-codebase-ast-graph`, `typescript-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`
 
 ### Deskripsi
 Protokol self-review terstruktur multi-pass yang dieksekusi agen AI terhadap kode yang dihasilkannya sendiri sebelum ditampilkan ke pengguna. Setiap pass fokus pada dimensi kualitas yang berbeda — kebenaran sintaks, validasi logika bisnis, konformitas arsitektur, kerentanan keamanan, dan karakteristik performa. Mengeliminasi kegagalan paling umum generasi kode AI: menyajikan kode rusak atau tidak aman dengan percaya diri karena model tidak pernah membaca ulang apa yang ditulisnya.
@@ -228,17 +221,3 @@ P0 Blocker: perbaiki segera. P1 Critical: perbaiki sebelum ditampilkan. P2 Major
 3. **Periksa Validitas Import**: Halusinasi paling umum AI adalah mengimpor modul yang tidak ada.
 4. **Verifikasi Kontrak Antar-File**: Saat memodifikasi interface atau skema, periksa semua file konsumer.
 5. **Akui Ketidakpastian**: Jika ragu, nyatakan secara eksplisit daripada menghasilkan kode spekulatif.
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `anti-slop` — Tegakkan nol placeholder, kode mati, dan narasi sintaks.
-- `autonomous-tdd-debugger` — Setelah self-review, jalankan tes untuk verifikasi.
-- `coderabbit` — Untuk review PR tim, lengkapi self-review dengan review otomatis eksternal.
-- `typescript-expert` — Validasi kepatuhan TypeScript strict mode pada Pass 1.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "Testing & Security" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 6 (Automated Testing, Error Resilience & Security Audit).

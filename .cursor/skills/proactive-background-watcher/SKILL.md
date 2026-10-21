@@ -2,7 +2,7 @@
 name: proactive-background-watcher
 description: "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,12 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream & Task Lifecycle**: `zero-to-prod-orchestrator` (Phase 7-8 lifecycle), `session-memory-manager` (checkpoint sentinel state), `brainstorming`.
+- **Background Cron & Execution**: `cron-scheduler-expert` (app-level cron vs agent-native schedule tool), `parallel-tool-orchestrator` (concurrent polling jobs).
+- **Incident Escalation & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch upon anomaly detection), `logging-error-tracking-expert` (Sentry/Pino trace alerts).
+- **Build & CI/CD Watchers**: `ci-cd-devops-architect` (pipeline completion checks), `cloud-hosting-expert` (Vercel/Railway build state).
 
 ### Description
 Standard LLM chat sessions are strictly reactive—they remain dormant until the user submits a prompt. This skill unlocks proactive agency. Utilizing the runtime's native `schedule` tool (one-shot timers and recurring cron schedules), the agent can autonomously monitor background build pipelines, poll health endpoints, inspect server logs, or track deployment state machines. When an anomaly occurs or a long-running job finishes, the agent wakes up autonomously to diagnose, notify, or remediate without waiting for human prompting.
@@ -79,16 +85,16 @@ User Prompt: "Run migrations and alert me when complete"
 3. **KV-Cache Prefix Preservation**: Keep the recurring prompt byte-identical across iterations to trigger prompt caching and reduce inference billing by up to 90%.
 4. **Lifecycle Cleanup**: Once a watched task terminates, cancel lingering timers using `manage_task` (`Action: 'kill'`).
 
-## Orchestration & Integration
-- **`cron-scheduler-expert`**: Provides application-level cron scheduling, while this skill manages agent-native runtime timers.
-- **`self-healing-cloud-orchestrator`**: Awakens self-healing agents when crash metrics are discovered during background polling.
-- **`ci-cd-devops-architect`**: Monitors deployment pipelines and automated release status.
-- **`session-memory-manager`**: Persists sentinel status across extended multi-turn sessions.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Hulu & Siklus Hidup Tugas**: `zero-to-prod-orchestrator` (Siklus Fase 7-8), `session-memory-manager` (checkpoint status sentinel), `brainstorming`.
+- **Cron Latar Belakang & Eksekusi**: `cron-scheduler-expert` (cron aplikasi vs tool schedule native agen), `parallel-tool-orchestrator` (job polling konkuren).
+- **Eskalasi Insiden & Self-Healing**: `self-healing-cloud-orchestrator` (patch otomatis saat anomali), `logging-error-tracking-expert` (alert trace Sentry/Pino).
+- **Pemantau Build & CI/CD**: `ci-cd-devops-architect` (pemeriksaan penyelesaian pipeline), `cloud-hosting-expert` (status build Vercel/Railway).
 
 ### Deskripsi
 Sesi obrolan LLM standar bersifat sepenuhnya reaktif—hanya merespons saat pengguna mengetik instruksi. Skill ini memberikan kemampuan proaktif (Sentinel). Memanfaatkan tool `schedule` native (timer satu-kali atau cron berkala), agen dapat secara mandiri memantau proses build, melakukan polling pada *health check* API, memeriksa log server, atau memantau proses migrasi database di latar belakang. Jika terjadi error atau proses panjang selesai, agen akan "bangun" sendiri untuk menganalisis, melapor, atau melakukan perbaikan otomatis tanpa menunggu instruksi manual.
@@ -139,9 +145,3 @@ Instruksi: "Jalankan migrasi di background dan kabari jika selesai"
 2. **Prompt Bangun yang Jelas**: Selalu sertakan instruksi yang detail pada parameter `Prompt` di tool `schedule` agar agen yang terbangun langsung memahami tugas tanpa perlu membaca ulang seluruh riwayat.
 3. **Efisiensi Token & KV-Cache**: Gunakan struktur teks yang seragam pada prompt cron agar prompt caching tetap aktif dan hemat token hingga 90%.
 4. **Pembersihan Bersih (Clean Teardown)**: Segera matikan timer yang sudah tidak terpakai menggunakan `manage_task` (`Action: 'kill'`).
-
-## Integrasi Orkestrasi
-- **`cron-scheduler-expert`**: Mengatur cron pada level aplikasi, sedangkan skill ini mengatur timer pada level runtime agen AI.
-- **`self-healing-cloud-orchestrator`**: Menerima eskalasi otomatis ketika watcher menemukan anomali pada log.
-- **`ci-cd-devops-architect`**: Memantau kelulusan pipeline CI/CD di GitHub Actions atau Vercel.
-- **`session-memory-manager`**: Mencatat status watcher ke dalam `CHECKPOINT.md`.

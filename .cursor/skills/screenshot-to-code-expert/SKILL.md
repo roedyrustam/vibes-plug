@@ -2,8 +2,7 @@
 name: screenshot-to-code-expert
 description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Pro, Claude 5.5, GPT Astra 6) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # screenshot-to-code-expert — vibes-plug Skill
@@ -16,7 +15,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, and `anti-slop` to produce pixel-perfect, accessible, production-grade code from visual inputs.
+Connects and orchestrates with `modern-web-guidance`, `visual-ui-auditor`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, and `anti-slop` to produce pixel-perfect, accessible, production-grade code from visual inputs.
 
 ### Description
 Production workflow for transforming visual design artifacts (screenshots, Figma exports, whiteboard photos, PDF mockups) into clean, semantic, responsive frontend code. Leverages the native vision capabilities of frontier models (Gemini 4 Pro's 2M multimodal context, Claude 5.5's pixel-level visual understanding, GPT Astra 6's design comprehension) to extract layout structure, color palettes, typography, spacing, and interaction patterns — then maps them to the project's existing design system and component library.
@@ -179,27 +178,13 @@ After generating code, render it and compare against the original screenshot:
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-- `design-system-architect` — Map extracted design tokens to the project's token system.
-- `senior-frontend` — Generate code using React 19 / Next.js 15 patterns and component conventions.
-- `tailwind-expert` — Output Tailwind v4 utility classes aligned with `@theme` tokens.
-- `multimodal-spatial-video-cloner` — For animated UI extraction from screen recordings.
-- `website-design-cloner` — For full-page URL-based design extraction (complementary approach).
-- `anti-slop` — Enforce zero placeholder content and dead code in generated output.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "UI/UX & Design Systems" matrix row.
-- `zero-to-prod-orchestrator` — Integrated in Phase 5 (Frontend, Design Systems & Mobile Apps).
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, dan `anti-slop` untuk menghasilkan kode presisi-piksel, aksesibel, dan siap produksi dari input visual.
+Terhubung dan mengorkestrasi dengan `modern-web-guidance`, `visual-ui-auditor`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, dan `anti-slop` untuk menghasilkan kode presisi-piksel, aksesibel, dan siap produksi dari input visual.
 
 ### Deskripsi
 Alur kerja produksi untuk mentransformasi artefak desain visual (screenshot, ekspor Figma, foto whiteboard, mockup PDF) menjadi kode frontend yang bersih, semantik, dan responsif. Memanfaatkan kemampuan vision native model frontier untuk mengekstrak struktur layout, palet warna, tipografi, jarak, dan pola interaksi — kemudian memetakannya ke design system dan library komponen proyek yang sudah ada.
@@ -231,18 +216,3 @@ Setelah menghasilkan kode, render dan bandingkan screenshot hasil dengan screens
 2. **Petakan ke Design System yang Ada**: Jangan pernah gunakan hex atau piksel hardcode.
 3. **Validasi dengan Loop QA Visual**: Render kode dan bandingkan screenshot.
 4. **Spesifikasikan Stack Target**: Selalu beritahu model framework, sistem styling, dan library komponen target.
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `design-system-architect` — Petakan design token yang diekstrak ke sistem token proyek.
-- `senior-frontend` — Hasilkan kode menggunakan pola React 19 / Next.js 15.
-- `tailwind-expert` — Output kelas utilitas Tailwind v4 yang selaras dengan token `@theme`.
-- `multimodal-spatial-video-cloner` — Untuk ekstraksi UI animasi dari rekaman layar.
-- `anti-slop` — Tegakkan nol konten placeholder dan kode mati di output yang dihasilkan.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "UI/UX & Design Systems" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 5 (Frontend, Design Systems & Mobile Apps).

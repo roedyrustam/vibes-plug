@@ -2,7 +2,7 @@
 name: test-time-compute-optimizer
 description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Pro, Claude 5.5, GPT Astra 6), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute), alokasi dinamis budget penalaran, MCTS, dan Process Reward Models."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `llm-finops-router`, and `speculative-multi-draft-synthesizer` to dynamically balance reasoning depth, inference latency, and token expenditures across frontier models.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI agent integration), `brainstorming`, `session-memory-manager`.
+- **Reasoning Budget & Cascading**: `thinking-budget-orchestrator` (dynamic token budget allocation), `adaptive-model-cascade` (complexity threshold escalation), `llm-finops-router` (token expenditure tracking).
+- **Frontier LLMs & Sandboxes**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 5.5, GPT Astra 6 reasoning parameters), `ephemeral-wasm-sandbox-executor` (deterministic code candidate execution).
+- **Consensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (multi-candidate arbiter), `formal-spec-z3-verifier` (mathematical invariant proving).
 
 ### Description
 Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), and OpenAI GPT Astra 6 (`o6`). Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
@@ -150,25 +153,14 @@ User Prompt ──┬──► Candidate 1 (Thinking = 8k) ──► Ephemeral S
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `frontier-ai-models-expert` — Coordinate model parameters and feature flags across Gemini 4 Pro, Claude 5.5, and GPT Astra 6.
-- `llm-finops-router` — Calculate token costs and optimize token expenditure per tenant.
-- `ephemeral-wasm-sandbox-executor` — Serve as deterministic validation ground for Best-of-N search candidates.
-- `speculative-multi-draft-synthesizer` — Supply multi-candidate generations to the arbiter.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Integrasi AI & LLM" and "Frontier AI & Simulation" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 4 (Backend APIs, Microservices & AI Agents).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `llm-finops-router`, dan `speculative-multi-draft-synthesizer` untuk menyeimbangkan kedalaman penalaran, latensi inferensi, dan biaya token pada model frontier.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi agen AI Fase 4), `brainstorming`, `session-memory-manager`.
+- **Budget Penalaran & Kaskade**: `thinking-budget-orchestrator` (alokasi budget token dinamis), `adaptive-model-cascade` (eskalasi ambang kompleksitas), `llm-finops-router` (pelacakan pengeluaran token).
+- **LLM Frontier & Sandbox**: `frontier-ai-models-expert` (parameter penalaran Gemini 4 Pro, Claude 5.5, GPT Astra 6), `ephemeral-wasm-sandbox-executor` (eksekusi deterministik kandidat kode).
+- **Konsensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (arbiter multi-kandidat), `formal-spec-z3-verifier` (pembuktian invarian matematis).
 
 ### Deskripsi
 Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), dan OpenAI GPT Astra 6 (`o6`). Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
@@ -216,17 +208,3 @@ Alih-alih hanya mengevaluasi hasil akhir kode (*Outcome-based*), terapkan evalua
 | Menyetel token thinking maksimal untuk manipulasi string dasar | Latensi 10x lebih lambat dan biaya token melonjak 15x | Lewatkan ke pengklasifikasi ringan untuk menyetel `budget_tokens: 0` |
 | Menonaktifkan thinking untuk perancangan konkurensi database | Munculnya race condition dan deadlock tersembunyi | Wajibkan alokasi Tingkat 3 (`16384` token) |
 | Mengabaikan log internal penalaran (*thinking traces*) | Kehilangan visibilitas saat terjadi kesalahan logika | Simpan blok pemikiran ke penyimpanan telemetri |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `frontier-ai-models-expert` — Sinkronisasi parameter model untuk Gemini 4 Pro, Claude 5.5, dan GPT Astra 6.
-- `llm-finops-router` — Menghitung biaya token dan mengoptimalkan anggaran inferensi.
-- `ephemeral-wasm-sandbox-executor` — Lingkungan validasi deterministik untuk kandidat Best-of-N.
-- `speculative-multi-draft-synthesizer` — Memberikan kandidat multi-draft untuk ditengahi oleh arbiter.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "Integrasi AI & LLM" dan "Frontier AI & Simulation" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 4 (Backend APIs, Microservices & AI Agents).

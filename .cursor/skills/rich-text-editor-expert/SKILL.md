@@ -2,7 +2,7 @@
 name: rich-text-editor-expert
 description: "Expert guide for rich text editor integration (Tiptap, Lexical, ProseMirror), collaborative editing, and custom extensions / Panduan ahli integrasi editor rich text (Tiptap, Lexical, ProseMirror), editing kolaboratif, dan ekstensi kustom."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,6 +16,9 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
+- **`design-system-architect`**: Provides accessible toolbar primitives, floating bubble menus, and surface token styling.
+- **`ui-ux-pro-max`**: Typography scale, optical letter-spacing, and readable editorial prose width (`max-w-prose`).
+- **`anti-slop`**: Prevents empty paragraph bloat, unstyled placeholder flashes, and dead formatting buttons.
 - **`realtime-collaboration-expert`**: Yjs/Automerge CRDTs for collaborative editing.
 - **`form-validation-expert`**: Form integration patterns for editor content.
 - **`headless-cms-expert`**: CMS schema integration for rich text fields.
@@ -165,6 +168,9 @@ function LexicalEditor() {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`design-system-architect`**: Menyediakan primitif toolbar yang aksesibel, menu bubble melayang, dan token permukaan.
+- **`ui-ux-pro-max`**: Skala tipografi, tracking huruf optik, dan lebar kolom editorial yang nyaman dibaca (`max-w-prose`).
+- **`anti-slop`**: Mencegah penumpukan paragraf kosong, kedipan placeholder tak bergaya, dan tombol format tanpa fungsi nyata.
 - **`realtime-collaboration-expert`**: CRDT Yjs/Automerge untuk editing dokumen kolaboratif real-time.
 - **`form-validation-expert`**: Pola integrasi formulir untuk konten rich text (Zod + React Hook Form).
 - **`headless-cms-expert`**: Integrasi skema CMS untuk field rich text dan Portable Text.

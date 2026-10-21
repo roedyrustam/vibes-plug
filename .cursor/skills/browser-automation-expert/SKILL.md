@@ -2,7 +2,7 @@
 name: browser-automation-expert
 description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Testing & E2E Verification**: `e2e-testing-expert`, `visual-ui-auditor`, `screenshot-to-code-expert`, `accessibility-testing-expert`
+- **Security & Red Teaming**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`
+- **Web Scraping & Data Extraction**: `web-scraper`, `deep-research-analyst`
+- **Frontend & UI Craft**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Purpose & Overview
 Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute complex workflows without human intervention. Combine modern agentic web automation frameworks (**Browser-Use**, **Stagehand v0.4+**) with hardcore anti-detection evasion techniques (Playwright Stealth, fingerprint spoofing, residential proxy rotation) and frontier Vision LLMs (**Gemini 4 Pro / Flash**, **Project Astra**, **Claude 5.1 Fable / 5.0 Computer Use**, **OpenAI GPT-5.6 / o3 / GPT-4.5**) for pixel-accurate visual QA.
@@ -139,13 +146,17 @@ Activate this skill when the user says:
 - **Pixel-Perfect Validation**: Compare the screenshot against the initial design spec or generic UI/UX best practices. Iterate on the CSS until the visual output is flawless.
 - Always check contrast ratios visually if design tokens are overridden.
 
-## Orchestration & Integration
-- Integrates with: `web-scraper`, `autonomous-red-teamer`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Pengujian & Verifikasi E2E**: `e2e-testing-expert`, `visual-ui-auditor`, `screenshot-to-code-expert`, `accessibility-testing-expert`
+- **Keamanan & Red Teaming**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`
+- **Scraping Web & Ekstraksi Data**: `web-scraper`, `deep-research-analyst`
+- **Frontend & Craft UI**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Tujuan & Gambaran Umum
 Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengeksekusi alur kerja kompleks tanpa campur tangan manusia. Menggabungkan framework otomatisasi web agentic modern (**Browser-Use**, **Stagehand v0.4+**) dengan teknik penghindaran deteksi bot tingkat tinggi (Playwright Stealth, manipulasi sidik jari perangkat, rotasi proxy residential) dan model Vision frontier (**Gemini 4 Pro / Flash**, **Project Astra**, **Claude 5.1 Fable / 5.0 Computer Use**, **OpenAI GPT-5.6 / o3 / GPT-4.5**) untuk QA visual tingkat piksel.
@@ -256,6 +267,3 @@ Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakuka
 - **Gunakan Mata Anda (Wajib Verifikasi Visual):** Anda dilarang keras memfinalisasi atau menyelesaikan tugas frontend tanpa melihat hasilnya terlebih dahulu. Anda WAJIB mengambil *screenshot*, melihatnya menggunakan tool `view_file`, dan memverifikasi layout secara visual (*pixel-perfect*).
 - **Siklus Visual:** Tulis Kode ➔ Ambil Screenshot ➔ Analisis dengan *Vision* ➔ Perbaiki Tailwind/CSS ➔ Selesai.
 - **Jangan Menebak:** Terkadang `justify-center` tidak berfungsi karena ada pembungkus (*wrapper*) absolut. Jangan menebak-nebak di dalam kode; lihat hasil akhirnya secara visual!
-
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `web-scraper`, `autonomous-red-teamer`, `e2e-testing-expert`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `tailwind-expert`, `design-system-architect`, `senior-frontend`.

@@ -2,7 +2,7 @@
 name: app-analyzer-optimizer
 description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,12 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream & Lifecycle**: `zero-to-prod-orchestrator` (Phase 5 Optimization & Phase 6 QA), `brainstorming`, `session-memory-manager`.
+- **AST & Codebase Graph**: `living-codebase-ast-graph` (circular dependency & module size analysis), `scalability-clean-code` (code smell & God class refactoring).
+- **Performance & Vitals**: `performance-web-vitals` (Core Web Vitals LCP/INP profiling), `production-ready-hardener` (bundle audits & pre-flight hardening).
+- **Database & Backend Profiling**: `database-orm-expert` (N+1 query & index profiling), `coderabbit` (automated AI code review).
 
 ### Description
 Deep application analysis and optimization skill. Performs architectural audits, bottleneck detection, bundle analysis, database query profiling, and AI-assisted code review across Next.js, React, Node.js, Go, Python, and Rust applications.
@@ -149,7 +155,10 @@ go tool pprof -http=:8080 profile.out
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Siklus Hidup**: `zero-to-prod-orchestrator` (Optimasi Fase 5 & QA Fase 6), `brainstorming`, `session-memory-manager`.
+- **AST & Graf Basis Kode**: `living-codebase-ast-graph` (dependensi sirkular & analisis ukuran modul), `scalability-clean-code` (refaktor code smell & God class).
+- **Performa & Web Vitals**: `performance-web-vitals` (profiling Core Web Vitals LCP/INP), `production-ready-hardener` (audit bundle & pengerasan pra-rilis).
+- **Profiling Database & Backend**: `database-orm-expert` (query N+1 & profiling indeks), `coderabbit` (code review AI otomatis).
 
 ### Deskripsi
 Skill analisis dan optimasi aplikasi mendalam. Melakukan audit arsitektur, deteksi bottleneck, analisis bundle, profiling query database, dan code review berbantuan AI di aplikasi Next.js, React, Node.js, Go, Python, dan Rust.
@@ -192,7 +201,3 @@ Gunakan CodeRabbit untuk review PR otomatis, Sourcegraph Cody untuk pencarian se
 | Memblokir thread utama | INP tinggi, UI tidak responsif | `useTransition`, web workers |
 | Tanpa caching | Data yang sama diambil berulang kali | Redis, React Query staleTime, HTTP cache |
 | Bundle membengkak | Payload JS besar | Tree-shaking, code splitting, lazy imports |
-
-
-## Orchestration & Integration
-- Integrates with performance-web-vitals and production-ready-hardener.

@@ -2,7 +2,7 @@
 name: vue-frontend-expert
 description: "Expert guide for Vue 3 (Composition API), Nuxt 3, and Pinia. Covers advanced reactive state management, `<script setup>` syntax, Vue Router, VueUse, and SPA/SSR architectural patterns in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,15 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `modern-web-guidance` — HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- `design-system-architect` — Building headless UI components using Radix Vue or VueUse components.
+- `modern-css-native-expert` — Native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
+- `tailwind-expert` — Styling Vue/Nuxt components with Tailwind CSS v4.
+- `ui-ux-pro-max` — Design intelligence, layout hierarchies, and Vue component tokens.
+- `visual-ui-auditor` — Multimodal vision auditing of rendered Vue/Nuxt views.
+- `anti-slop` — Anti-slop component craft, zero placeholder stubs, complete reactivity implementations.
+- `performance-web-vitals` — Optimizing Nuxt 3 SSR metrics (LCP, INP, CLS).
 
 ### Description
 Production-grade guidance for building highly reactive and scalable frontend applications using **Vue 3 (Composition API)** and **Nuxt 3**. Covers the latest ecosystem tools including **Pinia** for state management, **VueUse** for composables, and **Tailwind CSS v4** integration.
@@ -94,29 +102,21 @@ Always leverage [VueUse](https://vueuse.org/) for common composables (e.g., `use
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-This skill works best when combined with:
-- `design-system-architect` — To build headless UI components using Radix Vue or VueUse components.
-- `tailwind-expert` — For styling Vue/Nuxt components with Tailwind CSS v4.
-- `performance-web-vitals` — To optimize Nuxt 3 SSR metrics (LCP, INP).
-
-### Referenced By Orchestrators (MANDATORY)
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to "Frontend Frameworks" row in the Matrix.
-- `zero-to-prod-orchestrator` — Phase 5 (Frontend Implementation).
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
-- `design-system-architect` — Komponen headless UI menggunakan Radix Vue.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `modern-web-guidance` — Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- `design-system-architect` — Komponen headless UI menggunakan Radix Vue atau VueUse.
+- `modern-css-native-expert` — CSS anchor positioning native, View Transitions, container queries, dan `@starting-style`.
 - `tailwind-expert` — Penataan gaya komponen Vue/Nuxt dengan Tailwind CSS v4.
-- `performance-web-vitals` — Optimasi metrik SSR Nuxt 3 (LCP, INP).
+- `ui-ux-pro-max` — Kecerdasan desain UI/UX, hierarki tata letak, dan token komponen Vue.
+- `visual-ui-auditor` — Audit visual multimodal untuk tampilan antarmuka Vue/Nuxt yang dirender.
+- `anti-slop` — Penegakan anti-slop, nol stub atau placeholder, implementasi reaktivitas penuh.
+- `performance-web-vitals` — Optimasi metrik SSR Nuxt 3 (LCP, INP, CLS).
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun aplikasi frontend reaktif dan terukur menggunakan **Vue 3 (Composition API)** dan **Nuxt 3**. Mencakup pengelolaan state dengan **Pinia**, utilitas **VueUse**, dan integrasi **Tailwind CSS v4**.

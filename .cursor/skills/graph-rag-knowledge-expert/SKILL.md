@@ -2,7 +2,7 @@
 name: graph-rag-knowledge-expert
 description: "Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search / Panduan ahli Knowledge Graph, GraphRAG, dan pencarian relasional multi-hop."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Vector & Hybrid Engines**: `vector-db-rag-expert`, `search-engine-expert`, `xerj-search-expert`
+- **Relational & Graph Storage**: `database-orm-expert`, `living-codebase-ast-graph`
+- **LLM Reasoning & Pipelines**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `context-window-engineer`
+- **Security & Hallucination Guardrails**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for implementing Knowledge Graph-augmented Retrieval (GraphRAG), solving the fatal weaknesses of vector search: multi-hop reasoning, relationship discovery, and global corpus understanding. Covers Microsoft GraphRAG, Neo4j Text2Cypher, FalkorDB, and hybrid Vector + Graph retrieval pipelines.
@@ -165,22 +172,15 @@ For high-level summaries ("Summarize all technical debts reported across the sys
 
 ---
 
-## Orchestration & Integration
-
-- **`vector-db-rag-expert`**: For hybrid dense-vector similarity search combined with graph path discovery.
-- **`database-orm-expert`**: For maintaining transactional relational mappings alongside graph stores.
-- **`ai-llm-integration-expert`**: Connects reasoning models to multi-hop graph context.
-- **`search-engine-expert`**: For keyword lexical indexing of graph node attributes.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`vector-db-rag-expert`**: Integrasi hybrid RAG (penggabungan penelusuran vektor teks dan graf relasional).
-- **`ai-llm-integration-expert`**: Sintesis jawaban berbasis graf dan mitigasi halusinasi.
-- **`database-orm-expert`**: Desain skema data relasional dan konektivitas Neo4j / PostgreSQL.
+- **Engine Vektor & Hybrid Hulu**: `vector-db-rag-expert`, `search-engine-expert`, `xerj-search-expert`
+- **Penyimpanan Relasional & Graf**: `database-orm-expert`, `living-codebase-ast-graph`
+- **Penalaran LLM & Pipeline**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `context-window-engineer`
+- **Keamanan & Mitigasi Halusinasi**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengimplementasikan Knowledge Graph-augmented Retrieval (GraphRAG), memecahkan kelemahan fatal pencarian vektor konvensional: penalaran multi-langkah (*multi-hop reasoning*), penemuan relasi antar-entitas, dan pemahaman korpus global. Mencakup Microsoft GraphRAG, Neo4j Text2Cypher, FalkorDB, dan pipeline hybrid Vector + Graph.

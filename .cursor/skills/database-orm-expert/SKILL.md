@@ -2,7 +2,7 @@
 name: database-orm-expert
 description: "Updated to be the unified database skill covering ORM, migrations, edge DBs, and Supabase CLI / Keahlian database terpadu untuk ORM, migrasi, edge DB, dan Supabase CLI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -15,6 +15,14 @@ version: "4.4.1"
 <a name="english"></a>
 ## English
 
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **Backend & Runtimes**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, and `rust-programming-expert` for integrating Drizzle, Prisma, SQLx, and SQLAlchemy/SQLModel.
+- **FinTech & SaaS**: `saas-billing`, `saas-multi-tenant`, and `doku-payment-gateway` for strict atomic database transactions, distributed locks, tenant isolation via RLS, and SNAP BI idempotent records.
+- **AI & Vectors**: `vector-db-rag-expert` for pgvector 0.8+ HNSW indexing and high-dimensional cosine similarity embeddings.
+- **Security & Cloud**: `supabase-security-expert`, `ci-cd-devops-architect`, and `cloud-hosting-expert` for automated migration pipelines, blue-green deployments, and pooler infrastructure.
+- **Master Orchestrators**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 3: Schema & Database Architecture).
+
 ### Description
 Design schemas, select ORMs, execute zero-downtime migrations, optimize queries, and implement edge serverless databases. Covers Prisma 6, Drizzle ORM, TypeORM, Supabase CLI workflows, and Edge DBs (Neon, Cloudflare D1, Turso, Upstash).
 
@@ -26,12 +34,6 @@ Design schemas, select ORMs, execute zero-downtime migrations, optimize queries,
 - Building edge-compatible serverless database connections.
 - Executing Supabase migrations and RLS patterns.
 - Managing backward-compatible massive data backfills.
-
-## Orchestration & Integration
-- `js-backend-expert`: For Node/Bun/Deno backend implementations integrating these ORMs.
-- `ci-cd-devops-architect`: For automated migration deployment steps.
-- `supabase-security-expert`: For Supabase RLS and security.
-- `cloud-hosting-expert`: For infrastructure integration.
 
 ---
 
@@ -125,6 +127,14 @@ export async function getCachedData(key: string) {
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Backend & Runtime**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, dan `rust-programming-expert` untuk integrasi Drizzle, Prisma, SQLx, dan SQLAlchemy/SQLModel.
+- **FinTech & SaaS**: `saas-billing`, `saas-multi-tenant`, dan `doku-payment-gateway` untuk transaksi database atomik yang ketat, distributed lock, isolasi tenant via RLS, dan pencatatan idempoten SNAP BI.
+- **AI & Vektor**: `vector-db-rag-expert` untuk pengindeksan pgvector 0.8+ HNSW dan pencarian embedding kesamaan kosinus dimensi tinggi.
+- **Keamanan & Cloud**: `supabase-security-expert`, `ci-cd-devops-architect`, dan `cloud-hosting-expert` untuk pipeline deployment migrasi otomatis, blue-green, dan infrastruktur connection pooler.
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 3: Arsitektur Skema & Database).
+
 ### Deskripsi
 Rancang skema, pilih ORM, eksekusi migrasi tanpa downtime, optimalkan query, dan implementasikan edge serverless DB. Mencakup Prisma 6, Drizzle, TypeORM, Supabase CLI, dan Edge DBs (Neon, Cloudflare D1, Turso, Upstash).
 
@@ -135,12 +145,6 @@ Rancang skema, pilih ORM, eksekusi migrasi tanpa downtime, optimalkan query, dan
 - Membuat koneksi serverless kompatibel dengan edge.
 - Mengeksekusi migrasi Supabase dan pola RLS.
 - Mengelola backfill data besar secara backward-compatible.
-
-## Integrasi Orkestrasi
-- `js-backend-expert`: Untuk implementasi Node/Bun/Deno.
-- `ci-cd-devops-architect`: Untuk otomatisasi langkah deployment migrasi.
-- `supabase-security-expert`: Untuk RLS dan keamanan Supabase.
-- `cloud-hosting-expert`: Untuk integrasi infrastruktur.
 
 ### Strategi Inti ORM & Query
 - **Drizzle ORM** direkomendasikan untuk aplikasi edge, **Prisma 6** untuk DX schema-first.

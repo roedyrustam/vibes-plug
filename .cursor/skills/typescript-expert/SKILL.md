@@ -2,7 +2,7 @@
 name: typescript-expert
 description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream & Foundation**: `zero-to-prod-orchestrator` (Phase 2 foundation), `brainstorming`, `session-memory-manager`.
+- **AST & Codebase Intelligence**: `living-codebase-ast-graph` (compiler API & type-checker symbols), `scalability-clean-code` (type-safe clean patterns).
+- **Backend & Fullstack Runtime**: `js-backend-expert` (Node.js/Bun strict types), `database-orm-expert` (Prisma/Drizzle schema type generation).
+- **Frontend & Monorepos**: `senior-frontend` (React 19 type safety), `monorepo-architect` (composite projects & isolated declarations), `form-validation-expert` (Zod schema inference).
 
 ### Description
 Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.8+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
@@ -305,7 +308,10 @@ config.port.toFixed(2); // Works! Literal type preserved.
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Pondasi**: `zero-to-prod-orchestrator` (Pondasi Fase 2), `brainstorming`, `session-memory-manager`.
+- **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (compiler API & simbol type-checker), `scalability-clean-code` (pola clean type-safe).
+- **Runtime Backend & Fullstack**: `js-backend-expert` (tipe ketat Node.js/Bun), `database-orm-expert` (generasi tipe skema Prisma/Drizzle).
+- **Frontend & Monorepo**: `senior-frontend` (type safety React 19), `monorepo-architect` (composite project & isolated declarations), `form-validation-expert` (inferensi skema Zod).
 
 ### Deskripsi
 Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.8+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.

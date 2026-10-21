@@ -2,7 +2,7 @@
 name: deep-research-analyst
 description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `prd-architect`, `web-scraper`, `browser-automation-expert`, `session-memory-manager`, and `multi-agent-orchestration` to form an evidence-backed intelligence swarm.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 1 - Product Discovery, PRD & Architecture Selection) to resolve critical technical unknowns.
+- **Downstream Cooperating Skills**:
+  - `web-scraper` — Multi-strategy web content extraction and anti-bot bypass.
+  - `browser-automation-expert` — Headless browser execution and interactive evidence gathering.
+  - `prd-architect` — Integrate research findings into grounded PRD specifications and NFRs.
+  - `multi-agent-orchestration` — Lead Intelligence Subagent in fan-out / fan-in research swarms.
+  - `session-memory-manager` — Store evidence dossiers, citation maps, and research state checkpoints.
 
 ### Description
 Production guide for architecting and executing autonomous **Deep Research** pipelines. Unlike simple one-shot retrieval (RAG), Deep Research operates as a goal-directed autonomous loop: decomposing queries into multi-perspective sub-questions, crawling and scraping academic/technical sources, scoring source credibility, cross-verifying facts across multiple independent citations, constructing an evidence graph, and synthesizing comprehensive, citation-grounded intelligence briefs.
@@ -162,7 +168,13 @@ Every research brief produced by this skill must adhere to the following markdow
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `prd-architect`, `web-scraper`, `browser-automation-expert`, `session-memory-manager`, dan `multi-agent-orchestration` untuk membentuk swarm intelijen berbasis bukti empiris.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 1 - Discovery Produk, PRD & Pemilihan Arsitektur) untuk mengatasi ketidakpastian teknis krusial.
+- **Skill Hilir & Kerja Sama**:
+  - `web-scraper` — Ekstraksi konten web multi-strategi dan bypass anti-bot.
+  - `browser-automation-expert` — Eksekusi browser headless dan pengumpulan bukti interaktif.
+  - `prd-architect` — Mengintegrasikan temuan riset ke dalam spesifikasi PRD dan NFR.
+  - `multi-agent-orchestration` — Subagen Analis Utama dalam swarm riset fan-out / fan-in.
+  - `session-memory-manager` — Menyimpan dokumen bukti, peta sitasi, dan checkpoint status riset.
 
 ### Deskripsi
 Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Otonom (Deep Research)**. Berbeda dari retrieval sederhana (RAG satu langkah), Deep Research beroperasi sebagai siklus otonom terarah: memecah pertanyaan menjadi sub-vektor dari berbagai sudut pandang, merayapi dan mengekstrak sumber teknis/akademis, menilai kredibilitas sumber, memvalidasi silang fakta (*fact triangulation*) di minimal 2 sumber independen, membangun graf bukti, dan menyusun laporan intelijen komprehensif berlandaskan sitasi yang valid.

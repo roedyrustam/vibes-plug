@@ -2,7 +2,7 @@
 name: wasm-edge-computing-expert
 description: "Expert guide for WebAssembly (WASM) and Edge Computing. Covers WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, and high-performance browser computing / Panduan ahli untuk WebAssembly (WASM) dan Edge Computing. Mencakup WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, dan komputasi performa tinggi di browser."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Languages & Toolchains**: `rust-programming-expert`, `go-programming-expert`, `bun-runtime-expert`
+- **Edge Deployment Targets**: `cloudflare-workers-expert`, `cloud-hosting-expert`, `api-gateway-proxy-expert`
+- **Sandbox & Execution**: `ephemeral-wasm-sandbox-executor`, `local-slm-edge-ai-expert`
+- **Client Performance**: `performance-web-vitals`, `web-3d-graphics-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 A specialized guide for writing, compiling, and deploying WebAssembly (WASM) modules both on the Edge and in the browser. Covers the new WebAssembly System Interface (WASI) Preview 2, serverless execution environments (Spin, Cloudflare Workers, Fastly Compute), and bidirectional JavaScript-to-WASM interop.
@@ -59,15 +66,17 @@ For multi-threaded browser WASM, use `SharedArrayBuffer` and Web Workers. Ensure
 - `Cross-Origin-Opener-Policy: same-origin`
 - `Cross-Origin-Embedder-Policy: require-corp`
 
-## Orchestration & Integration
-- Enhances `api-gateway-proxy-expert` for running custom logic at the edge (Cloudflare/Kong).
-- Integrates with `rust-programming-expert` or `go-programming-expert` for module compilation.
-- Pairs with `performance-web-vitals` to offload main-thread blocking tasks.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Bahasa & Toolchain Hulu**: `rust-programming-expert`, `go-programming-expert`, `bun-runtime-expert`
+- **Target Deployment Edge**: `cloudflare-workers-expert`, `cloud-hosting-expert`, `api-gateway-proxy-expert`
+- **Sandbox & Eksekusi**: `ephemeral-wasm-sandbox-executor`, `local-slm-edge-ai-expert`
+- **Performa Klien**: `performance-web-vitals`, `web-3d-graphics-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan khusus untuk menulis, mengompilasi, dan mendeploy modul WebAssembly (WASM) baik di Edge maupun di browser. Mencakup WebAssembly System Interface (WASI) Preview 2, lingkungan serverless (Spin, Cloudflare Workers), dan interoperabilitas JavaScript-ke-WASM dua arah.
@@ -92,8 +101,3 @@ WASI Preview 2 memungkinkan modul WASM mengakses resource sistem (HTTP, File) se
 
 #### 4. Shared Memory & Web Workers
 Untuk performa multi-threading sejati di browser menggunakan WASM, gunakan `SharedArrayBuffer`. Pastikan server Anda mengirimkan header keamanan COOP dan COEP yang diwajibkan oleh browser modern.
-
-## Integrasi Orkestrasi
-- Memperkuat `api-gateway-proxy-expert` untuk logika kustom di edge.
-- Terintegrasi dengan `rust-programming-expert` untuk kompilasi modul.
-- Melengkapi `performance-web-vitals` dengan memindahkan komputasi berat dari *main thread* JavaScript.

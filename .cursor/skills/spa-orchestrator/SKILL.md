@@ -2,7 +2,7 @@
 name: spa-orchestrator
 description: "Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management with API-driven backends / Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,17 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `senior-frontend`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `modern-web-guidance`: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- `senior-frontend`: Primary UI craftsmanship, React 19 component trees, and Vite setups.
+- `design-system-architect`: Headless primitives and unified design tokens for SPA interfaces.
+- `modern-css-native-expert`: Native CSS anchor positioning, View Transitions, and container queries.
+- `tailwind-expert`: Tailwind CSS v4 design tokens and responsive utility classes.
+- `state-management-expert`: Client-side state separation (Zustand/Jotai) from server state.
+- `tanstack-query-expert`: Data caching, optimistic updates, and declarative async state.
+- `ui-ux-pro-max`: Dashboard composition, data table layouts, and navigation feedback.
+- `visual-ui-auditor`: Multimodal vision auditing of rendered SPA routes and dialogs.
+- `anti-slop`: Anti-slop frontend architecture, eliminating broken stubs and excessive loading spinners.
 - **MANDATORY**: Execute `senior-frontend` FIRST for all HTML/CSS and client-side JS tasks to ensure modern web standards.
 
 ### Description
@@ -260,7 +270,17 @@ export default defineConfig({
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `senior-frontend`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `modern-web-guidance`: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- `senior-frontend`: Keahlian utama UI, pohon komponen React 19, dan setup Vite.
+- `design-system-architect`: Primitif headless dan token desain terpadu untuk antarmuka SPA.
+- `modern-css-native-expert`: CSS anchor positioning native, View Transitions, dan container queries.
+- `tailwind-expert`: Token desain Tailwind CSS v4 dan kelas utilitas responsif.
+- `state-management-expert`: Pemisahan state client-side (Zustand/Jotai) dari server state.
+- `tanstack-query-expert`: Caching data, update optimistik, dan state asinkron deklaratif.
+- `ui-ux-pro-max`: Komposisi dashboard, layout tabel data, dan feedback navigasi.
+- `visual-ui-auditor`: Audit visual multimodal untuk rute dan dialog SPA yang dirender.
+- `anti-slop`: Arsitektur frontend anti-slop, mengeliminasi stub rusak dan spinner loading berlebih.
 - **MANDATORY**: Eksekusi `senior-frontend` PERTAMA KALI untuk semua tugas HTML/CSS dan JS sisi klien guna memastikan standar web modern.
 
 ### Deskripsi

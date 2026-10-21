@@ -2,7 +2,7 @@
 name: composable-mach-architect
 description: "Expert guide for Composable MACH Architecture (Microservices, API-first, Cloud-native, Headless) — dynamic UI composition, federated API mesh, Backend-for-Frontend patterns, plugin/extension architectures, event-driven composition, and composable AI routing / Panduan ahli Arsitektur MACH Komposabel — komposisi UI dinamis, API mesh federasi, pola Backend-for-Frontend, arsitektur plugin/ekstensi, komposisi event-driven, dan routing AI komposabel."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -321,19 +321,16 @@ async function routePrompt(prompt, context) {
 
 ## 9. Orchestration & Integration / Orkestrasi & Integrasi
 
-### Connected Skills / Skill Terhubung:
-Integrate this architectural pattern with the following skills:
-- `micro-frontend-architect`
-- `event-driven-architect`
-- `api-design-expert`
-- `headless-cms-expert`
-- `ecommerce-expert`
-- `saas-architect`
-- `api-gateway-proxy-expert`
-- `cloud-hosting-expert`
-- `brainstorming`
-- `zero-to-prod-orchestrator`
+### English
+#### Orchestration & Integration
+- **Upstream & System Architecture**: `zero-to-prod-orchestrator` (Phase 1 discovery & Phase 3 architecture), `brainstorming`, `saas-architect`.
+- **Frontend & Composition**: `micro-frontend-architect` (runtime module federation & SDUI), `headless-cms-expert` (content APIs), `ecommerce-expert` (composable checkout).
+- **APIs, Gateways & BFF**: `api-design-expert` (OpenAPI contracts), `api-gateway-proxy-expert` (federated mesh & proxies), `event-driven-architect` (Kafka/RabbitMQ event choreography).
+- **Cloud Runtime & AI Routing**: `cloud-hosting-expert` (multi-region edge deployment), `adaptive-model-cascade` (composable AI model routing).
 
-## Orchestration & Integration
-- Connects to `zero-to-prod-orchestrator`
-- Connects to `brainstorming`
+### Indonesian (Bahasa Indonesia)
+#### Integrasi Orkestrasi
+- **Hulu & Arsitektur Sistem**: `zero-to-prod-orchestrator` (Penemuan Fase 1 & arsitektur Fase 3), `brainstorming`, `saas-architect`.
+- **Frontend & Komposisi**: `micro-frontend-architect` (federasi modul runtime & SDUI), `headless-cms-expert` (API konten), `ecommerce-expert` (checkout komposabel).
+- **API, Gateway & BFF**: `api-design-expert` (kontrak OpenAPI), `api-gateway-proxy-expert` (mesh terfederasi & proxy), `event-driven-architect` (koreografi event Kafka/RabbitMQ).
+- **Runtime Cloud & Routing AI**: `cloud-hosting-expert` (deployment edge multi-region), `adaptive-model-cascade` (routing model AI komposabel).

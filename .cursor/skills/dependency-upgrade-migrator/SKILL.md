@@ -2,7 +2,7 @@
 name: dependency-upgrade-migrator
 description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream & Lifecycle**: `zero-to-prod-orchestrator` (Phase 2 & Phase 7 upgrades), `brainstorming`, `session-memory-manager`.
+- **Monorepos & Package Architecture**: `monorepo-architect` (pnpm catalogs & workspace dependency alignment), `living-codebase-ast-graph` (breaking change blast radius).
+- **Quality Gates & Testing**: `e2e-testing-expert` (post-upgrade regression suites), `autonomous-tdd-debugger` (lockfile & test runner self-healing), `production-ready-hardener` (vulnerability audit).
+- **CI/CD & Debt Cleanup**: `ci-cd-devops-architect` (Renovate bot pipelines), `zero-tech-debt-auditor` (dead code & deprecated API removal).
 
 ### Description
 Production-grade guide for safely upgrading dependencies, migrating through breaking changes, and maintaining healthy dependency trees. Covers **automated upgrade tooling** (`npm-check-updates`, `taze`, Renovate Bot), **major framework migration guides** (React 18→19, Next.js 14→15, Tailwind v3→v4), **codemod automation** (jscodeshift, ts-morph), **vulnerability remediation** (`npm audit`, `pnpm audit`), **lockfile hygiene**, **monorepo alignment** (pnpm catalogs), and **breaking change detection workflows**.
@@ -267,21 +270,14 @@ catalog:
 
 ---
 
-### Integration with Other Skills
-
-- `monorepo-architect` — pnpm catalogs, workspace dependency alignment
-- `zero-tech-debt-auditor` — Post-upgrade cleanup, dead code removal
-- `production-ready-hardener` — Security audit phase
-- `ci-cd-devops-architect` — Renovate Bot CI/CD integration
-- `e2e-testing-expert` — Regression testing after major upgrades
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Hulu & Siklus Hidup**: `zero-to-prod-orchestrator` (Upgrade Fase 2 & Fase 7), `brainstorming`, `session-memory-manager`.
+- **Monorepo & Arsitektur Paket**: `monorepo-architect` (katalog pnpm & penyelarasan dependensi workspace), `living-codebase-ast-graph` (radius dampak breaking change).
+- **Quality Gate & Pengujian**: `e2e-testing-expert` (suite regresi pasca-upgrade), `autonomous-tdd-debugger` (pemulihan mandiri lockfile & test runner), `production-ready-hardener` (audit kerentanan).
+- **CI/CD & Pembersihan Utang**: `ci-cd-devops-architect` (pipeline bot Renovate), `zero-tech-debt-auditor` (penghapusan kode mati & API usang).
 
 ### Deskripsi
 Panduan tingkat produksi untuk upgrade dependensi yang aman, migrasi melalui breaking change, dan pemeliharaan dependency tree yang sehat. Mencakup **tooling upgrade otomatis** (`taze`, Renovate Bot), **panduan migrasi framework utama** (React 18→19, Next.js 14→15, Tailwind v3→v4), **otomasi codemod** (jscodeshift, ts-morph), **remediasi kerentanan** (`pnpm audit`), **kebersihan lockfile**, dan **penyelarasan dependensi monorepo** (pnpm catalogs).

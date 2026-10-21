@@ -2,7 +2,7 @@
 name: senior-frontend
 description: "Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 / Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -19,8 +19,12 @@ version: "4.4.1"
 Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies with automated self-healing testing loops.
 
 ### Orchestration & Integration
+- `modern-web-guidance`: For HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
 - `design-system-architect`: For building robust UI components (Radix, Base UI, shadcn) and design tokens.
+- `modern-css-native-expert`: For native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
 - `tailwind-expert`: For styling and custom @theme configurations.
+- `ui-ux-pro-max`: For UI/UX design intelligence, color harmonies, and 11-stack layout patterns.
+- `visual-ui-auditor`: For multimodal vision inspection of rendered interfaces and layout fidelity.
 - `svg-animation-motion-expert`: For advanced animations, GSAP timelines, and motion physics.
 - `nextjs-app-router-expert`: For RSC, caching, and Next.js routing patterns.
 - `state-management-expert`: For client-side state (Zustand, Jotai).
@@ -172,8 +176,12 @@ export function MetricBanner({
 Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA dengan loop pengujian perbaikan mandiri (self-healing).
 
 ### Integrasi Orkestrasi
+- `modern-web-guidance`: Untuk standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
 - `design-system-architect`: Untuk membangun komponen UI yang kuat (Radix, Base UI, shadcn) dan design token.
+- `modern-css-native-expert`: Untuk CSS anchor positioning native, View Transitions, container queries, dan `@starting-style`.
 - `tailwind-expert`: Untuk styling dan konfigurasi @theme kustom.
+- `ui-ux-pro-max`: Untuk kecerdasan desain UI/UX, harmoni warna, dan pola layout lintas 11 stack.
+- `visual-ui-auditor`: Untuk inspeksi vision multimodal terhadap antarmuka yang dirender dan fidelitas tata letak.
 - `svg-animation-motion-expert`: Untuk animasi web, timeline GSAP, dan fisika spring.
 - `nextjs-app-router-expert`: Untuk RSC, caching, dan pola routing Next.js.
 - `state-management-expert`: Untuk state client-side (Zustand, Jotai).
@@ -181,6 +189,7 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 - `spa-orchestrator`: Untuk arsitektur Single-Page Application.
 - `mpa-orchestrator`: Untuk arsitektur Multi-Page Application.
 - `autonomous-tdd-debugger`: Untuk eksekusi pengujian otomatis dan perbaikan mandiri berdasarkan stack trace terminal.
+- `anti-slop`: Untuk penegakan implementasi komponen lengkap tanpa stub dan tanpa komentar narasi sintaksis.
 
 ### Kondisi Pemicu
 - Buat proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.

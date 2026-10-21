@@ -2,9 +2,7 @@
 name: ui-ux-pro-max
 description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -17,7 +15,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `anti-slop`, `design-system-architect`, `hig`, `tailwind-expert`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Run focused queries for 2026 web UI patterns, accessibility standards, and native platform features.
+- **`design-system-architect`**: Establishes OKLCH token scales, surface container tiers (L0-L4), and Base UI / Radix primitives.
+- **`modern-css-native-expert`**: Implements pure CSS anchor positioning, `@starting-style`, and top-layer modal transitions.
+- **`tailwind-expert`**: Binds visual hierarchy recipes, 60-30-10 color layering, and optical tracking in Tailwind v4.
+- **`visual-ui-auditor`**: Conducts 20-point visual audits, multimodal screenshot inspections, and Playwright tests.
+- **`anti-slop`**: Enforces strict Pillar 7 visual sanitation, eliminating AI clichés, pill buttons, and fake states.
+- **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle alignment.
 
 ### Description
 UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, **Material Design 3 (M3)**, and stack-specific best practices across **11 technology stacks**.
@@ -191,7 +196,14 @@ The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and inco
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `design-system-architect`, `hig`, `tailwind-expert`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Menjalankan kueri fokus untuk pola UI web 2026, standar aksesibilitas, dan fitur platform browser native.
+- **`design-system-architect`**: Menetapkan skala token OKLCH, tingkatan kontainer permukaan (L0-L4), serta primitif Base UI / Radix.
+- **`modern-css-native-expert`**: Mengimplementasikan pemosisi jangkar CSS native, `@starting-style`, dan transisi modal top-layer.
+- **`tailwind-expert`**: Mengikat resep hierarki visual, pewarnaan 60-30-10, dan tracking optik di Tailwind v4.
+- **`visual-ui-auditor`**: Melakukan audit visual 20-poin, inspeksi screenshot vision multimodal, dan pengujian Playwright.
+- **`anti-slop`**: Menegakkan sanitasi visual Pilar 7 yang ketat, melenyapkan klise AI, pill-button, dan status palsu.
+- **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Sinkronisasi berkelanjutan di seluruh siklus hidup proyek.
 
 ### Deskripsi
 UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, **Material Design 3 (M3)**, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
@@ -200,6 +212,7 @@ UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks
 Gunakan pedoman ini atau jalankan mesin pencari CLI ketika:
 - Mendesain komponen UI baru, landing page, atau dashboard.
 - Memilih skema warna, pasangan font, dan token desain.
+- Mempelajari, merekayasa balik, atau mengkloning template & komponen desain web langsung dari URL target (Kombinasikan dengan `website-design-cloner`).
 - Menghasilkan rekomendasi sistem desain (design system) lengkap untuk proyek.
 - Mengaudit kode untuk masalah UX, aksesibilitas (a11y), atau kinerja.
 - Membutuhkan pola kode spesifik stack (React, Next.js, Vue, Nuxt, Svelte, Tailwind, SwiftUI, React Native, Flutter, Shadcn).

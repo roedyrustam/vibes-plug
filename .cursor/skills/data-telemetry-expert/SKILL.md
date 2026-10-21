@@ -2,7 +2,7 @@
 name: data-telemetry-expert
 description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 7 - Monitoring & Production Telemetry) to define system observability architectures.
+- **Downstream Cooperating Skills**:
+  - `logging-error-tracking-expert` — Correlate OpenTelemetry traces with structured Pino logs and Sentry alerts.
+  - `llm-observability-expert` — Extend trace contexts with GenAI token costs, prompt latencies, and evaluations.
+  - `error-resilience-expert` — Feed real-time telemetry metrics into circuit breaker thresholds and automated failovers.
+  - `session-memory-manager` — Persist telemetry pipeline configurations and observability checkpoints.
 
 ### Description
 Expert guide for production observability, product analytics, and data pipelines. Covers **OpenTelemetry 1.x** (stable, vendor-neutral traces/metrics/logs), **PostHog** (open-source product analytics), **ClickHouse** (OLAP analytics database), Grafana stack, and AI agent observability patterns.
@@ -190,7 +195,12 @@ Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tra
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan observabilitas terpadu.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 7 - Pemantauan & Telemetri Produksi) untuk merancang arsitektur observabilitas sistem.
+- **Skill Hilir & Kerja Sama**:
+  - `logging-error-tracking-expert` — Mengorelasikan trace OpenTelemetry dengan log terstruktur Pino dan alert Sentry.
+  - `llm-observability-expert` — Memperluas konteks trace dengan metrik GenAI, latensi prompt, dan evaluasi.
+  - `error-resilience-expert` — Menyalurkan metrik telemetri ke threshold circuit breaker dan failover otomatis.
+  - `session-memory-manager` — Menyimpan konfigurasi pipeline telemetri dan checkpoint observabilitas.
 
 ### Deskripsi
 Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. Mencakup **OpenTelemetry 1.x** (standar traces, metrics, logs netral vendor), **PostHog** (analitik produk open-source), **ClickHouse** (database analitik OLAP berkecepatan tinggi), Grafana stack, dan pola pemantauan agen AI.

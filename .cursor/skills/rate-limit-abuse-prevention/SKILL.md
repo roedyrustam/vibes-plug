@@ -2,7 +2,7 @@
 name: rate-limit-abuse-prevention
 description: "Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection / Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Threat Defense & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `zero-trust-secret-vault`
+- **Identity & Authentication**: `authentication-identity-expert`, `compliance-gdpr-privacy-expert`
+- **API Architecture & Backend**: `api-design-expert`, `js-backend-expert`, `api-gateway-proxy-expert`
+- **Edge Infrastructure & DDoS**: `cloud-hosting-expert`, `cloudflare-workers-expert`
+- **SaaS Billing & Quotas**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **Lifecycle & Hardening**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production-grade guide for protecting APIs and web applications from abuse, overuse, and attacks. Covers **rate limiting algorithms** (Token Bucket, Sliding Window), **Upstash Ratelimit**, **bot protection** (Cloudflare Turnstile, hCaptcha), **DDoS mitigation** at edge, **brute-force login prevention**, **API key management & usage quotas**, and **response headers** (X-RateLimit, Retry-After).
@@ -341,27 +346,16 @@ export async function validateApiKey(rawKey: string) {
 
 ---
 
-### Integration with Other Skills
-
-- `authentication-identity-expert` — Brute-force prevention on login/signup endpoints
-- `api-design-expert` — Rate limit headers, API key patterns
-- `js-backend-expert` — Express/Fastify/Hono middleware integration
-- `saas-billing` — Tiered rate limits per subscription plan
-- `production-ready-hardener` — Pre-launch security audit
-- `cloud-hosting-expert` — Edge-level WAF and DDoS protection
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan proteksi sistem yang menyeluruh.
-- `authentication-identity-expert` — Pencegahan brute-force pada endpoint login/signup.
-- `api-design-expert` — Header standar rate limit dan pola verifikasi API key.
-- `js-backend-expert` — Integrasi middleware rate limiting pada Next.js, Fastify, dan Hono.
-- `saas-billing` — Rate limit bertingkat sesuai tier paket langganan.
-- `cloud-hosting-expert` — Perlindungan WAF dan mitigasi DDoS pada layer edge.
+- **Pertahanan Ancaman & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `zero-trust-secret-vault`
+- **Identitas & Autentikasi**: `authentication-identity-expert`, `compliance-gdpr-privacy-expert`
+- **Arsitektur API & Backend**: `api-design-expert`, `js-backend-expert`, `api-gateway-proxy-expert`
+- **Infrastruktur Edge & DDoS**: `cloud-hosting-expert`, `cloudflare-workers-expert`
+- **SaaS Billing & Kuota**: `saas-billing`, `doku-payment-gateway`, `payment-gateway-expert`
+- **Siklus Hidup & Pengerasan**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan tingkat produksi untuk melindungi API dan aplikasi web dari penyalahgunaan, beban berlebih, dan serangan cyber. Mencakup **algoritma rate limiting** (Token Bucket, Sliding Window), **Upstash Ratelimit** (kompatibel edge), **perlindungan bot** (Cloudflare Turnstile), **mitigasi DDoS**, **pencegahan brute-force login**, **manajemen API key & kuota penggunaan**, serta format header respons standar (X-RateLimit, Retry-After).

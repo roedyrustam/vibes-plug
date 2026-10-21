@@ -1,10 +1,8 @@
 ---
 name: tailwind-expert
-description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, and modern responsive design / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
+description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, modern responsive design, and Modern Web Guidance / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Tailwind CSS Expert (v4 Edition)
@@ -27,10 +25,12 @@ Strict guidelines and best practices for Tailwind CSS v4. Enforces the CSS-first
 
 ## Orchestration & Integration
 Integrates tightly with the following skills:
+- **`modern-web-guidance`**: Query modern web platform best practices before implementing bespoke styles.
 - **`anti-slop`**: Enforces strict anti-slop rules on Tailwind usage (no arbitrary value hacks, accessible focus rings, zero div-soup, and no cliché AI gradients).
+- **`design-system-architect`**: Establishes core tokens mapped inside `@theme` and surface container tiers.
+- **`modern-css-native-expert`**: Pairs Tailwind utilities with pure native CSS anchor positioning, `@starting-style`, and View Transitions.
+- **`visual-ui-auditor`**: Audits rendered Tailwind UI against the 20-point visual quality rubric.
 - **`senior-frontend`**: Feeds modern CSS capabilities into Next.js/React component architecture.
-- **`design-system-architect, senior-frontend`**: Provides the styling primitives for Radix/shadcn-style components.
-- **`design-system-architect`**: Establishes the core tokens mapped inside `@theme`.
 
 ### Execution Standards
 
@@ -216,10 +216,12 @@ Panduan ketat dan praktik terbaik untuk Tailwind CSS v4. Memaksa penggunaan mode
 
 ## Integrasi Orkestrasi
 Terintegrasi erat dengan skill berikut:
-- **`anti-slop`**: Menegakkan aturan anti-slop ketat pada penggunaan Tailwind (tanpa hack nilai arbitrer, accessible focus ring wajib, tanpa div-soup, dan larangan gradien AI generik).
+- **`modern-web-guidance`**: Menelusuri praktik terbaik platform web modern sebelum mengimplementasikan styling kustom.
+- **`anti-slop`**: Menegakkan aturan anti-slop ketat pada Tailwind (tanpa hack nilai arbitrer, accessible focus ring wajib, tanpa div-soup, dan larangan gradien AI generik).
+- **`design-system-architect`**: Menetapkan token utama yang dipetakan di dalam `@theme` dan tingkatan kontainer permukaan.
+- **`modern-css-native-expert`**: Memadukan utilitas Tailwind dengan CSS anchor positioning murni, `@starting-style`, dan View Transitions.
+- **`visual-ui-auditor`**: Mengaudit antarmuka Tailwind yang dirender menggunakan rubrik kualitas visual 20-poin.
 - **`senior-frontend`**: Menyuplai kapabilitas CSS modern ke dalam arsitektur komponen Next.js/React.
-- **`design-system-architect, senior-frontend`**: Menyediakan primitif styling untuk komponen gaya Radix/shadcn.
-- **`design-system-architect`**: Membangun token utama yang dipetakan di dalam `@theme`.
 
 ### Standar Eksekusi
 

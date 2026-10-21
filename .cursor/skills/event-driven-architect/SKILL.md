@@ -2,7 +2,7 @@
 name: event-driven-architect
 description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 4 - Distributed Backend & Messaging Architecture) to decouple asynchronous services.
+- **Downstream Cooperating Skills**:
+  - `domain-driven-design-expert` — Source domain events directly from Aggregate Roots and bounded contexts.
+  - `async-queue-temporal-expert` — Extend BullMQ queues with durable Temporal distributed saga orchestration.
+  - `database-orm-expert` — Maintain transactional outbox schema tables and atomic SQL transaction boundaries.
+  - `logging-error-tracking-expert` — Correlate distributed trace IDs (`x-trace-id`) across async event workers.
+  - `session-memory-manager` — Persist event topology contracts and message schema checkpoints.
 
 ### Description
 Production architectural guide for Event-Driven Architecture (EDA), asynchronous messaging topologies, and distributed consistency. Covers transactional Outbox patterns (preventing dual-write anomalies), distributed Saga orchestrations with compensating transactions, consumer idempotency keys, Event Sourcing, and message brokers (BullMQ v5, Apache Kafka / Redpanda, RabbitMQ, and AWS SQS).
@@ -102,19 +111,17 @@ export const paymentWorker = new Worker(
 2. **Always Enforce Idempotency**: Network retries will cause message duplicates. Every consumer MUST check an `idempotency_key` or message UUID before executing side effects.
 3. **Dead Letter Queues (DLQ)**: Failed jobs must be routed to a DLQ after 3-5 retries with exponential backoff to prevent poison pills from blocking the queue.
 
-## Orchestration & Integration
-- **`domain-driven-design-expert`**: Sources domain events directly from Aggregate Roots.
-- **`async-queue-temporal-expert`**: Extends BullMQ queues with durable temporal distributed sagas.
-- **`database-orm-expert`**: Maintains outbox schema tables and database transaction boundaries.
-- **`logging-error-tracking-expert`**: Correlates trace IDs (x-trace-id) across distributed event consumers.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `domain-driven-design-expert`, `async-queue-temporal-expert`, `database-orm-expert`, dan `logging-error-tracking-expert`.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4 - Arsitektur Backend & Pengiriman Pesan Terdistribusi) untuk memisahkan ketergantungan layanan asinkron.
+- **Skill Hilir & Kerja Sama**:
+  - `domain-driven-design-expert` — Mengambil event domain langsung dari Aggregate Root dan bounded context.
+  - `async-queue-temporal-expert` — Menyediakan alur workflow tahan banting untuk orkestrasi Saga terdistribusi Temporal.
+  - `database-orm-expert` — Mengelola tabel skema transactional outbox dan batas transaksi SQL atomik.
+  - `logging-error-tracking-expert` — Melacak `trace_id` yang melintasi berbagai worker layanan asinkron.
+  - `session-memory-manager` — Menyimpan kontrak topologi event dan checkpoint skema pesan.
 
 ### Deskripsi
 Panduan arsitektur produksi untuk Arsitektur Berbasis Peristiwa (*Event-Driven Architecture* / EDA), topologi pengiriman pesan asinkron, dan konsistensi data terdistribusi. Mencakup pola *Transactional Outbox* (mencegah anomali *dual-write* saat database sukses tetapi broker pesan gagal), orkestrasi Saga terdistribusi dengan transaksi kompensasi, idempotensi *consumer*, serta integrasi broker pesan (BullMQ v5, Apache Kafka, RabbitMQ, Redis).
@@ -145,9 +152,3 @@ export async function handleOrderEvent(event: { id: string; payload: any }) {
 1. **Pola Transactional Outbox**: Selalu simpan entitas bisnis dan event outbox dalam satu transaksi SQL yang sama. Jangan memanggil `kafka.send()` langsung di dalam kode kontroler.
 2. **Wajib Idempoten**: Karena broker pesan menjamin pengiriman *at-least-once*, konsumen pesan wajib memeriksa apakah event telah diproses sebelumnya.
 3. **Dead Letter Queue (DLQ)**: Jika pemrosesan gagal berulang kali (setelah 3-5 retry), pindahkan pesan ke DLQ agar tidak menyumbat antrean utama.
-
-## Integrasi Orkestrasi
-- **`domain-driven-design-expert`**: Mengambil event domain langsung dari Aggregate Root.
-- **`async-queue-temporal-expert`**: Menyediakan alur workflow tahan banting untuk orkestrasi Saga.
-- **`database-orm-expert`**: Mengelola tabel outbox dan indeks status pesan.
-- **`logging-error-tracking-expert`**: Melacak `trace_id` yang melintasi berbagai layanan asinkron.

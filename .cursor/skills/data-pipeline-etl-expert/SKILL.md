@@ -2,7 +2,7 @@
 name: data-pipeline-etl-expert
 description: "Expert guide for Data Pipelines, ETL/ELT, and Analytics Engineering. Covers dbt, Apache Airflow, Dagster, BigQuery, ClickHouse, and DuckDB / Panduan ahli untuk Data Pipelines, ETL/ELT. Mencakup dbt, Airflow, Dagster, BigQuery, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Languages & Scripts**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Transactional & Analytics DBs**: `database-orm-expert`, `search-engine-expert`, `vector-db-rag-expert`
+- **Telemetry & Observability**: `data-telemetry-expert`, `logging-error-tracking-expert`
+- **Scheduling & Queues**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 A specialized skill for building robust data architectures, Analytics Engineering, and ETL (Extract, Transform, Load) or ELT pipelines. It covers modern data stack orchestration (Airflow, Dagster), transformation tools (dbt), and high-performance OLAP databases (BigQuery, Snowflake, ClickHouse, DuckDB).
@@ -100,15 +107,17 @@ FROM {{ ref('stg_telemetry_events') }}
 GROUP BY 1, 2
 ```
 
-## Orchestration & Integration
-- `data-telemetry-expert`: Pairs to process the raw telemetry events captured by PostHog/OpenTelemetry.
-- `python-programming-expert`: Complements as Python is the lingua franca of data engineering.
-- `cron-scheduler-expert`: Works when simpler, non-DAG cron jobs are sufficient for small ETL tasks.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Bahasa & Skrip Hulu**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Database Transaksional & Analitik**: `database-orm-expert`, `search-engine-expert`, `vector-db-rag-expert`
+- **Telemetri & Observabilitas**: `data-telemetry-expert`, `logging-error-tracking-expert`
+- **Penjadwalan & Antrean**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan khusus untuk membangun arsitektur data yang kuat, Analytics Engineering, dan pipeline ETL/ELT. Mencakup orkestrasi (Airflow, Dagster), alat transformasi (dbt), dan database OLAP berkinerja tinggi (BigQuery, Snowflake, ClickHouse, DuckDB).
@@ -134,8 +143,3 @@ Gunakan Apache Airflow atau Dagster untuk menjadwalkan dan memonitor alur kerja 
 - **BigQuery / Snowflake**: Gudang data cloud fully-managed untuk analitik skala masif.
 - **ClickHouse**: Sangat cepat untuk kueri analitik real-time. Cocok untuk data event stream/log.
 - **DuckDB**: SQLite untuk analitik. Sangat cepat untuk memproses file Parquet atau CSV secara lokal maupun di lingkungan edge/serverless (via Python/Node.js).
-
-## Integrasi Orkestrasi
-- `data-telemetry-expert`: Bekerja sama untuk memproses data mentah yang dikumpulkan.
-- `python-programming-expert`: Melengkapi dalam menulis skrip orkestrasi Airflow/Dagster.
-- `cron-scheduler-expert`: Mengelola penjadwalan berkala untuk job ETL.

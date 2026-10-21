@@ -2,7 +2,7 @@
 name: coderabbit
 description: "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Anti-Slop & Autonomous Review**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`
+- **TDD & Testing Automation**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **CI/CD Quality Gates**: `ci-cd-devops-architect`, `github-actions-expert`
+- **Architecture & Linters**: `scalability-clean-code`, `biome-linter-formatter-expert`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for configuring and leveraging **CodeRabbit 2.x** — AI-powered automated code review, pull request summarization, and interactive developer feedback. Covers configuration, custom review rules, integration with CI/CD, and agentic review mode.
@@ -158,7 +162,11 @@ jobs:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Anti-Slop & Review Otonom**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`
+- **TDD & Otomasi Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **Gerbang Kualitas CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`
+- **Arsitektur & Linter**: `scalability-clean-code`, `biome-linter-formatter-expert`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengonfigurasi dan memanfaatkan **CodeRabbit 2.x** — review kode otomatis bertenaga AI, ringkasan pull request, dan umpan balik developer interaktif. Mencakup konfigurasi, aturan review kustom, integrasi dengan CI/CD, dan mode review agentik.

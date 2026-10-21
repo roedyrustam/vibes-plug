@@ -2,7 +2,7 @@
 name: feature-flag-analytics-expert
 description: "Expert guide for Feature Flags & Progressive Rollout (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases / Panduan ahli Feature Flags, A/B testing, dan rilis bertahap."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 6 - Hardening, Canary Rollouts & Experimentation) to manage feature releases.
+- **Downstream Cooperating Skills**:
+  - `data-telemetry-expert` — Bridge flag evaluation events with analytics data pipelines.
+  - `nextjs-app-router-expert` — Implement zero-flicker server-side flag evaluation in Server Components.
+  - `e2e-testing-expert` — Mock feature flag overrides during automated Playwright test suites.
+  - `zero-tech-debt-auditor` — Scan and remove obsolete/deprecated flags to prevent code rot.
+  - `session-memory-manager` — Store active flag definitions and progressive rollout percentages.
 
 ### Description
 Production-grade engineering guide for feature flag management, progressive rollouts (canary releases), A/B testing statistical orchestration, and dynamic server-side/client-side flag evaluation using PostHog, LaunchDarkly, and GrowthBook. Covers zero-flicker server-side bootstrapping in Next.js 15 App Router, deterministic user bucketing, conversion metric tracking, and automated flag lifecycle deprecation.
@@ -103,16 +112,17 @@ export function CheckoutCTA({ orderTotal }: { orderTotal: number }) {
 - [ ] **Server-Side Fallbacks**: Always provide hardcoded safe fallbacks (`false` or `'control'`) if the flag provider times out (>100ms).
 - [ ] **Flag Cleanup Cadence**: Add calendar reminders or GitHub issues to remove flags that reach 100% rollout within 14 days.
 
-## Orchestration & Integration
-- **`data-telemetry-expert`**: Bridges flag evaluation events with analytics data pipelines.
-- **`nextjs-app-router-expert`**: Implements server-side flag evaluation to avoid Flash of Unstyled Content (FOUC).
-- **`e2e-testing-expert`**: Mocks feature flag overrides during automated Playwright tests.
-- **`zero-tech-debt-auditor`**: Scans and flags deprecated flags for systematic removal.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 6 - Hardening, Rilis Canary & Eksperimentasi) untuk mengelola peluncuran fitur.
+- **Skill Hilir & Kerja Sama**:
+  - `data-telemetry-expert` — Menghubungkan evaluasi fitur dengan pipeline data analitik.
+  - `nextjs-app-router-expert` — Mengoptimalkan evaluasi server-side agar tidak terjadi pergeseran tata letak (*layout shift*).
+  - `e2e-testing-expert` — Melakukan mock nilai flag pada pengujian otomatis Playwright.
+  - `zero-tech-debt-auditor` — Menemukan dan membersihkan flag yang sudah kedaluwarsa untuk mencegah code rot.
+  - `session-memory-manager` — Menyimpan definisi flag aktif dan persentase rollout progresif.
 
 ### Deskripsi
 Panduan tingkat produksi untuk manajemen *feature flags*, rilis bertahap (*canary rollout*), orkestrasi pengujian A/B berbasis statistik, dan evaluasi fitur dinamis pada sisi server maupun klien menggunakan PostHog, LaunchDarkly, dan GrowthBook. Mencakup evaluasi server-side tanpa kedip (*zero-flicker*) pada Next.js 15 App Router, segmentasi pengguna deterministik, pelacakan metrik konversi, dan pembersihan siklus hidup flag secara berkala.
@@ -154,9 +164,3 @@ export default async function CheckoutPage() {
 - [ ] **Identitas Pengguna Deterministik**: Gunakan ID pengguna yang konsisten agar pengguna yang sama tidak melihat tampilan yang berubah-ubah saat me-refresh halaman.
 - [ ] **Nilai Fallback Aman**: Tentukan nilai default aman jika layanan pihak ketiga mengalami latensi atau gangguan jaringan.
 - [ ] **Jadwal Pembersihan Flag**: Hapus pengecekan flag dari kode dalam waktu 14 hari setelah fitur diluncurkan 100%.
-
-## Integrasi Orkestrasi
-- **`data-telemetry-expert`**: Menghubungkan evaluasi fitur dengan pelacakan event analitik.
-- **`nextjs-app-router-expert`**: Mengoptimalkan evaluasi server-side agar tidak terjadi pergeseran tata letak (*layout shift*).
-- **`e2e-testing-expert`**: Melakukan mock nilai flag pada pengujian Playwright.
-- **`zero-tech-debt-auditor`**: Menemukan dan membersihkan flag yang sudah kedaluwarsa.

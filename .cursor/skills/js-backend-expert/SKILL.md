@@ -2,7 +2,7 @@
 name: js-backend-expert
 description: "Expert-level skill for Node.js 24+ (LTS), Bun 1.2+, and Deno 2.x backend development. Covers Express 5, Fastify 5, Hono v4, NestJS, Prisma 6, Drizzle ORM, WebSockets, BullMQ, OpenTelemetry, and microservices in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,15 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **API Contracts & Full-Stack**: `api-design-expert`, `spec-driven-development-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, and `senior-frontend` for end-to-end type safety, Hono RPC client binding, and OpenAPI 3.1 contracts.
+- **Database & Persistence**: `database-orm-expert` for Drizzle ORM, Prisma 6, connection pooling (PgBouncer/Supavisor), and zero-downtime migrations.
+- **Auth & Security**: `authentication-identity-expert` (JWT, OAuth2, RBAC/ABAC) and `zero-trust-secret-vault` (environment secret management).
+- **Asynchronous & Queues**: `async-queue-temporal-expert` (BullMQ / Temporal workflows) and `sse-websocket-streaming-expert` (real-time events).
+- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for strict code quality, self-healing test pipelines, and zero-slop error handlers.
+- **Master Orchestrators**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
 Production-grade guidance for building fast, scalable, and resilient JavaScript/TypeScript backend APIs, microservices, and serverless functions across **Node.js 24 (LTS)**, **Bun 1.2+**, and **Deno 2.x**. Covers high-throughput frameworks (Fastify 5, Hono, Express 5, NestJS), type-safe ORMs (Drizzle, Prisma 6), **Hono RPC** for type-safe full-stack communication, Edge Runtime patterns, WebSockets, BullMQ background jobs, graceful shutdown handling, and self-healing test pipelines.
@@ -154,20 +163,19 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 ```
 
-## Orchestration & Integration
-- **Upstream Orchestrator**: Executes during **Phase 4** of `zero-to-prod-orchestrator` or after backend decision lock in `brainstorming`.
-- **API Contracts & Specs**: Delegate OpenAPI / GraphQL / gRPC design to `api-design-expert` and TypeScript type generation to `typescript-expert`.
-- **Database & ORM Layer**: Delegate schema design, migrations, and pooling to `database-orm-expert`.
-- **Authentication & Security**: Delegate JWT/OAuth2 flows to `authentication-identity-expert` and environment secret security to `zero-trust-secret-vault`.
-- **Durable Async Jobs**: Delegate fault-tolerant long-running workflows to `async-queue-temporal-expert`.
-- **Error Resilience**: Implement error handling patterns and circuit breakers via `error-resilience-expert`.
-- **Automated Testing & Self-Healing**: Delegate test suites to `e2e-testing-expert` and autonomous terminal stack trace fixing to `autonomous-tdd-debugger`. Update change logs via `prd-architect`.
-- **Zero-Slop Production Readiness**: Enforce `anti-slop` compliance (100% complete handlers, no placeholder returns, no swallowed catch blocks) and verify with `node scripts/check-anti-slop.js --strict`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Kontrak API & Full-Stack**: `api-design-expert`, `spec-driven-development-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, dan `senior-frontend` untuk tipe end-to-end, binding klien Hono RPC, dan kontrak OpenAPI 3.1.
+- **Database & Persistensi**: `database-orm-expert` untuk Drizzle ORM, Prisma 6, connection pooling (PgBouncer/Supavisor), dan migrasi database tanpa downtime.
+- **Autentikasi & Keamanan**: `authentication-identity-expert` (JWT, OAuth2, RBAC/ABAC) dan `zero-trust-secret-vault` (pengelolaan rahasia lingkungan).
+- **Asinkron & Antrean**: `async-queue-temporal-expert` (BullMQ / workflow Temporal) dan `sse-websocket-streaming-expert` (event real-time).
+- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk penegakan kode bebas slop, perbaikan otomatis stack trace, dan penanganan error tuntas.
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun API backend JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 24 LTS**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono v4, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), **Hono RPC** untuk komunikasi full-stack type-safe, pola Edge Runtime, WebSocket, background jobs (BullMQ), OpenTelemetry, penanganan *graceful shutdown*, dan pipeline pengujian self-healing.
@@ -211,12 +219,3 @@ Gunakan BullMQ dengan Redis untuk pemrosesan tugas latar belakang yang andal den
 
 ### Graceful Shutdown
 Jangan hentikan proses secara mendadak. Bersihkan connection pool, HTTP server, dan worker queue sebelum keluar.
-
-## Integrasi Orkestrasi
-- **Orkestrator Utama**: Dieksekusi pada **Fase 4** dari `zero-to-prod-orchestrator` atau setelah finalisasi backend di `brainstorming`.
-- **Kontrak & Spesifikasi API**: Delegasikan desain OpenAPI / GraphQL / gRPC ke `api-design-expert` dan tipe TypeScript ke `typescript-expert`.
-- **Database & ORM**: Delegasikan desain skema, migrasi, dan pooling ke `database-orm-expert`.
-- **Autentikasi & Keamanan**: Delegasikan alur JWT/OAuth2 ke `authentication-identity-expert` dan keamanan kredensial ke `zero-trust-secret-vault`.
-- **Pekerjaan Asinkron Tahan Gagal**: Delegasikan workflow kompleks ke `async-queue-temporal-expert`.
-- **Ketahanan Error**: Terapkan pola penanganan error dan circuit breaker melalui `error-resilience-expert`.
-- **Pengujian & Self-Healing**: Delegasikan pengujian integrasi ke `e2e-testing-expert` dan perbaikan otomatis stack trace error terminal ke `autonomous-tdd-debugger`. Perbarui catatan perubahan via `prd-architect`.

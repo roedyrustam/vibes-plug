@@ -2,7 +2,7 @@
 name: web-scraper
 description: "Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export / Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `browser-automation-expert`, `ai-llm-integration-expert`, `brainstorming`, and `zero-to-prod-orchestrator` to ensure cohesive agentic execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 1 & Phase 5 - Extraction & Data Pipelines) to gather web data.
+- **Downstream Cooperating Skills**:
+  - `browser-automation-expert` — Hardcore anti-bot evasion, stealth Playwright execution, and Cloudflare bypass.
+  - `ai-llm-integration-expert` — LLM schema-driven structured data extraction from DOM markdown.
+  - `deep-research-analyst` — Feed extracted web sources to multi-source evidence synthesis.
+  - `data-pipeline-etl-expert` — Ingest extracted datasets into transformation and analytics storage.
+  - `session-memory-manager` — Cache scraped web structures and extraction progress checkpoints.
 
 ### Description
 Advanced Agentic Web Scraping utilizing modern multi-strategy data extraction. Leverages **Crawl4AI v4** and **Firecrawl** to convert raw DOMs into LLM-friendly Markdown. Implements Agentic Extraction loops where the LLM guides the scraper dynamically based on page state. Incorporates strategies for bypassing anti-bot measures (Cloudflare Turnstile, Datadome) and navigating dynamic Shadow DOMs.
@@ -120,7 +126,13 @@ async def agentic_scrape_loop(url: str, goal: str):
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `browser-automation-expert`, `ai-llm-integration-expert`, `brainstorming`, dan `zero-to-prod-orchestrator` untuk memastikan eksekusi agentic yang kohesif.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 1 & Fase 5 - Ekstraksi & Pipeline Data) untuk mengumpulkan data web.
+- **Skill Hilir & Kerja Sama**:
+  - `browser-automation-expert` — Bypass proteksi anti-bot, eksekusi stealth Playwright, dan Cloudflare bypass.
+  - `ai-llm-integration-expert` — Ekstraksi data terstruktur berbasis skema LLM dari DOM markdown.
+  - `deep-research-analyst` — Menyalurkan sumber web terekstraksi ke sintesis bukti multi-sumber.
+  - `data-pipeline-etl-expert` — Memasukkan dataset ekstraksi ke pipeline transformasi dan analitik.
+  - `session-memory-manager` — Menyimpan cache struktur web dan checkpoint progres ekstraksi.
 
 ### Deskripsi
 Scraping Web Agentic tingkat lanjut menggunakan ekstraksi data multi-strategi modern. Memanfaatkan **Crawl4AI v4** dan **Firecrawl** untuk mengubah DOM mentah menjadi Markdown yang ramah LLM. Mengimplementasikan loop Ekstraksi Agentic di mana LLM memandu scraper secara dinamis berdasarkan status halaman. Menggabungkan strategi untuk melewati tindakan anti-bot (Cloudflare Turnstile, Datadome) dan menavigasi Shadow DOM yang dinamis.

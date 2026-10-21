@@ -2,7 +2,7 @@
 name: go-programming-expert
 description: "Expert-level skill for Go programming (Go 1.25+). Covers high-performance microservices, concurrency patterns, sqlc, net/http, Gin/Echo/Fiber, gRPC, and testing in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with domain skills:
+- **API Design & Protocols**: `api-design-expert`, `openapi-swagger-codegen-expert`, and `spec-driven-development-expert` for gRPC/protobuf contract design, REST endpoints, and RFC 9457 Problem Details.
+- **Data Persistence**: `database-orm-expert` for sqlc type-safe query generation, `pgx/v5` connection pooling, and transactional data integrity.
+- **Realtime & Streaming**: `sse-websocket-streaming-expert` for goroutine-backed streaming pipelines and low-latency WebSocket hubs.
+- **Testing & Quality**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing `go test -v ./...`, table-driven tests, and enforcing strict Go error checking (`if err != nil`).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
 Expert-level Go development for building high-performance microservices, APIs, and CLI tools. Covers **Go 1.25** features (range-over-func iterators, generic type aliases, weak pointers), structured logging with `slog`, `net/http` with the new ServeMux patterns, Gin/Echo/Fiber frameworks, sqlc for type-safe SQL, gRPC, and production testing patterns.
@@ -256,7 +261,12 @@ func TestGetUser(t *testing.T) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Desain & Protokol API**: `api-design-expert`, `openapi-swagger-codegen-expert`, dan `spec-driven-development-expert` untuk kontrak gRPC/protobuf, endpoint REST, dan spesifikasi RFC 9457 Problem Details.
+- **Persistensi Data**: `database-orm-expert` untuk pembuatan query type-safe via sqlc, connection pooling `pgx/v5`, dan integritas transaksi database.
+- **Realtime & Streaming**: `sse-websocket-streaming-expert` untuk pipeline streaming berbasis channel goroutine dan hub WebSocket berlatensi rendah.
+- **Pengujian & Kualitas**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `go test -v ./...`, table-driven tests, dan penegakan penanganan error ketat (`if err != nil`).
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
 Panduan Go tingkat ahli untuk membangun microservices, API, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.25** (range-over-func, generic type alias, weak pointer), structured logging dengan `slog`, ServeMux `net/http` dengan pola baru (Go 1.22+), framework Gin/Echo/Fiber, sqlc untuk SQL type-safe, gRPC, dan pola pengujian produksi.

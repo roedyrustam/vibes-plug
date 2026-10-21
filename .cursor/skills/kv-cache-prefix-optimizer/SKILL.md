@@ -2,7 +2,7 @@
 name: kv-cache-prefix-optimizer
 description: "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Pro / Claude 5.5 / GPT Astra 6, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik, penguncian KV-cache untuk Gemini 4 Pro / Claude 5.5 / GPT Astra 6, pengurutan kanonikal tool, dan pencapaian 90%+ cache hit rate."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `frontier-ai-models-expert`, `llm-finops-router`, `gemini-agent-booster`, and `vercel-ai-sdk-expert` to structure multi-turn prompts for maximum KV-cache reuse, slashing token billing by up to 80% and reducing Time-to-First-Token (TTFT) by up to 10x.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI agent integration), `brainstorming`, `session-memory-manager`.
+- **Frontier LLM & Model Caching**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 5.5, GPT Astra 6 caching specs), `gemini-agent-booster` (Google 2M+ native context caching), `vercel-ai-sdk-expert` (provider cache controls).
+- **FinOps & Adaptive Execution**: `llm-finops-router` (cost calculation & cache routing), `adaptive-model-cascade` (cascade tier prefixing), `thinking-budget-orchestrator` (prefix pinning with thinking tokens).
+- **Prompt Engineering & Context Windows**: `ai-prompt-engineering-expert` (prompt canonicalization), `context-window-engineer` (large context sliding windows).
 
 ### Description
 Production guide for engineering deterministic prompt prefixes, stabilizing KV-cache boundaries, and optimizing context reuse across frontier models (Google Gemini 4 Pro / 3.x context caching, Anthropic Claude 5.5 prompt caching, and OpenAI prefix caching). Delivers architectures that guarantee 90%+ cache hit rates through canonical tool definition sorting, stable JSON serialization, and dynamic context partitioning.
@@ -143,25 +146,14 @@ export function constructCacheOptimizedPayload(
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `frontier-ai-models-expert` — Align with caching specs across Gemini 4 Pro, Claude 5.5, and GPT Astra 6.
-- `llm-finops-router` — Calculate financial savings and route cache-heavy workloads to optimal endpoints.
-- `gemini-agent-booster` — Exploit Google Cloud native 2M context caching mechanisms.
-- `vercel-ai-sdk-expert` — Implement provider options for Anthropic and Google cache controls.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Integrasi AI & LLM" and "Frontier AI & Simulation" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 4 (Backend APIs, Microservices & AI Agents).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `frontier-ai-models-expert`, `llm-finops-router`, `gemini-agent-booster`, dan `vercel-ai-sdk-expert` untuk menyusun prompt multi-turn dengan efisiensi KV-cache maksimal, menghemat biaya token hingga 80% dan memangkas waktu respons awal (TTFT) hingga 10x lebih cepat.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi agen AI Fase 4), `brainstorming`, `session-memory-manager`.
+- **LLM Frontier & Caching Model**: `frontier-ai-models-expert` (spesifikasi caching Gemini 4 Pro, Claude 5.5, GPT Astra 6), `gemini-agent-booster` (caching konteks native Google 2M+), `vercel-ai-sdk-expert` (kontrol cache provider).
+- **FinOps & Eksekusi Adaptif**: `llm-finops-router` (kalkulasi biaya & routing cache), `adaptive-model-cascade` (prefix tingkat cascade), `thinking-budget-orchestrator` (pinning prefix dengan token penalaran).
+- **Rekayasa Prompt & Context Window**: `ai-prompt-engineering-expert` (kanonikalisasi prompt), `context-window-engineer` (sliding window konteks besar).
 
 ### Deskripsi
 Panduan produksi untuk merekayasa awalan (*prefix*) prompt yang deterministik, mengunci batas KV-cache, dan memaksimalkan penggunaan ulang konteks pada model frontier (Google Gemini 4 Pro / 3.x context caching, Anthropic Claude 5.5 prompt caching, dan OpenAI prefix caching). Memberikan arsitektur yang menjamin tingkat keberhasilan cache (*cache hit rate*) di atas 90% melalui pengurutan definisi tool kanonikal, serialisasi JSON stabil, dan partisi konteks dinamis.
@@ -204,17 +196,3 @@ Kunci objek JSON wajib diurutkan secara alfabetis sebelum dikirimkan ke model ag
 | Menyisipkan ID sesi acak ke dalam system prompt | Cache batal 100% pada setiap sesi baru | Pindahkan ID sesi ke header aplikasi di luar prompt |
 | Urutan tool berubah-ubah dari `Object.values(tools)` | Representasi string berubah dan membatalkan KV cache | Urutkan tool secara alfabetis berdasarkan namanya |
 | Mengubah redaksi instruksi di tengah percakapan | Membaca ulang 100k+ token dengan harga penuh | Kunci template instruksi dalam keadaan statis dan terversi |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `frontier-ai-models-expert` — Sinkronisasi spesifikasi caching pada Gemini 4 Pro, Claude 5.5, dan GPT Astra 6.
-- `llm-finops-router` — Menghitung efisiensi anggaran dan mengarahkan beban kerja ber-cache tinggi.
-- `gemini-agent-booster` — Memanfaatkan mekanisme context caching native Google Cloud 2M.
-- `vercel-ai-sdk-expert` — Mengimplementasikan opsi provider untuk kontrol caching Anthropic dan Google.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "Integrasi AI & LLM" dan "Frontier AI & Simulation" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 4 (Backend APIs, Microservices & AI Agents).

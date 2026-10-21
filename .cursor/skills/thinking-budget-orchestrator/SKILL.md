@@ -2,7 +2,7 @@
 name: thinking-budget-orchestrator
 description: "Expert guide for dynamic thinking budget allocation, test-time reasoning scaling (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3/o4-mini), and task complexity heuristics / Panduan ahli alokasi budget penalaran dinamis dan penskalaan reasoning test-time."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `test-time-compute-optimizer`, `adaptive-model-cascade`, `frontier-ai-models-expert`, `gemini-agent-booster`, `llm-finops-router`, `multi-agent-orchestration`, and `zero-to-prod-orchestrator` to enforce optimal cognitive budget allocation across AI tasks.
+- **Upstream & Task Lifecycle**: `zero-to-prod-orchestrator` (Phase 4 AI agent integration), `brainstorming`, `session-memory-manager`.
+- **Reasoning Scaling & Search**: `test-time-compute-optimizer` (MCTS & process reward models), `multi-agent-orchestration` (swarm reasoning budgets).
+- **Frontier LLMs & Model Boosters**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3), `gemini-agent-booster` (native Gemini thinking allocation).
+- **FinOps & Adaptive Execution**: `adaptive-model-cascade` (complexity threshold routing), `llm-finops-router` (cost tracking & budget caps), `kv-cache-prefix-optimizer` (cache locking).
 
 ### Description
 Production architecture for dynamically allocating and controlling reasoning thinking tokens (Extended Thinking / Test-Time Compute) across frontier LLMs (Gemini 4 Pro/Flash, Claude 3.7/5.1 Sonnet/Opus, OpenAI o3/o4-mini). Instead of static uniform token limits that either starve complex mathematical verifications or waste massive token budgets on simple queries, this skill evaluates structural task signals (AST blast radius, security boundaries, multi-agent topologies) and applies calibrated reasoning envelopes: `speed` (1K tokens), `balanced` (8K tokens), `deep` (32K tokens), and `exhaustive` (64K tokens).
@@ -122,7 +125,10 @@ export function formatProviderThinkingPayload(provider: 'gemini' | 'claude' | 'o
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill `test-time-compute-optimizer`, `adaptive-model-cascade`, `frontier-ai-models-expert`, `gemini-agent-booster`, `llm-finops-router`, `multi-agent-orchestration`, dan `zero-to-prod-orchestrator` untuk menegakkan alokasi anggaran penalaran optimal di seluruh aktivitas agen AI.
+- **Hulu & Siklus Hidup Tugas**: `zero-to-prod-orchestrator` (Integrasi agen AI Fase 4), `brainstorming`, `session-memory-manager`.
+- **Penskalaan Penalaran & Pencarian**: `test-time-compute-optimizer` (MCTS & process reward models), `multi-agent-orchestration` (budget penalaran swarm).
+- **LLM Frontier & Booster Model**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3), `gemini-agent-booster` (alokasi thinking Gemini native).
+- **FinOps & Eksekusi Adaptif**: `adaptive-model-cascade` (routing ambang kompleksitas), `llm-finops-router` (pelacakan biaya & batas anggaran), `kv-cache-prefix-optimizer` (penguncian cache).
 
 ### Deskripsi
 Arsitektur produksi untuk mengalokasikan dan mengendalikan *reasoning thinking tokens* (Extended Thinking / Test-Time Compute) secara dinamis di seluruh LLM frontier (Gemini 4 Pro/Flash, Claude 3.7/5.1, OpenAI o3/o4-mini). Daripada menggunakan batas token statis seragam yang membuang biaya komputasi atau membatasi penalaran mendalam pada sistem kritis, skill ini mengevaluasi sinyal struktural tugas dan menerapkan profil reasoning terkalibrasi: `speed` (1K token), `balanced` (8K token), `deep` (32K token), dan `exhaustive` (64K token).

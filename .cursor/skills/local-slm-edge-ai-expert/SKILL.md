@@ -2,7 +2,7 @@
 name: local-slm-edge-ai-expert
 description: "Expert guide for Local Small Language Models (SLMs) and Edge AI execution — WebLLM, Transformers.js v3, ONNX Runtime Web, WebGPU, and zero-latency local embeddings / Panduan ahli SLM lokal dan AI edge di browser."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Model Routing & Cost Optimization**: `llm-finops-router`, `adaptive-model-cascade`, `frontier-ai-models-expert`
+- **Edge Runtimes & Frontend**: `senior-frontend`, `pwa-offline-first-expert`, `wasm-edge-computing-expert`
+- **Local Vectors & RAG**: `vector-db-rag-expert`, `agentic-memory-architect`, `session-memory-manager`
+- **Privacy & Safety Guardrails**: `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `zero-trust-secret-vault`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `anti-slop`
 
 ### Purpose & Overview
 Production-grade architectural guide for running **Small Language Models (SLMs)** and embedding models directly inside client browsers and edge runtimes. Eliminates cloud API costs, guarantees 100% data privacy (zero cloud data leakage), and enables instant, offline-capable AI features using **WebGPU**, **Transformers.js v3**, **WebLLM**, and **ONNX Runtime Web**.
@@ -87,13 +94,17 @@ export async function createLocalChatEngine(onProgress?: (report: webllm.InitPro
 - [ ] Cache model shards in IndexedDB or Cache API to ensure instant subsequent launches.
 - [ ] Provide automatic fallback to lightweight serverless APIs when client device VRAM is constrained.
 
-## Orchestration & Integration
-- Integrates with: `llm-finops-router`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Perutean Model & Optimasi Biaya**: `llm-finops-router`, `adaptive-model-cascade`, `frontier-ai-models-expert`
+- **Runtime Edge & Frontend**: `senior-frontend`, `pwa-offline-first-expert`, `wasm-edge-computing-expert`
+- **Vektor Lokal & RAG**: `vector-db-rag-expert`, `agentic-memory-architect`, `session-memory-manager`
+- **Privasi & Guardrail Keamanan**: `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `zero-trust-secret-vault`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `anti-slop`
 
 ### Tujuan & Gambaran Umum
 Panduan arsitektur tingkat produksi untuk menjalankan **Small Language Models (SLM)** dan model *embedding* langsung di dalam browser pengguna dan runtime edge. Menghilangkan biaya API cloud, menjamin privasi data 100% (tidak ada data yang keluar ke server pihak ketiga), dan mengaktifkan fitur AI instan yang dapat bekerja secara *offline* menggunakan **WebGPU**, **Transformers.js v3**, **WebLLM**, dan **ONNX Runtime Web**.
@@ -164,6 +175,4 @@ export async function inisialisasiMesinLokal(laporanProgres?: (laporan: webllm.I
 - [ ] Tampilkan indikator progres unduhan bobot model saat pertama kali diakses.
 - [ ] Simpan bobot model di Cache API atau IndexedDB agar kunjungan berikutnya instan tanpa unduh ulang.
 - [ ] Siapkan jalur fallback ke API cloud jika memori klien tidak mencukupi.
-
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `llm-finops-router`, `senior-frontend`, `vector-db-rag-expert`, `compliance-gdpr-privacy-expert`.
+

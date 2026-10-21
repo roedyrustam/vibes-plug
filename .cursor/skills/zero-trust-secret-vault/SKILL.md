@@ -2,7 +2,7 @@
 name: zero-trust-secret-vault
 description: "Expert guide for Zero-Trust Secret Management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment security / Panduan ahli manajemen rahasia Zero-Trust, rotasi kunci API, dan keamanan variabel lingkungan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Threat Defense & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `post-quantum-crypto-migrator`
+- **Identity & Access Management**: `authentication-identity-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
+- **Cloud Infrastructure & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `docker-container-expert`
+- **Database & FinTech Security**: `database-orm-expert`, `supabase-security-expert`, `doku-payment-gateway`, `saas-billing`
+- **Lifecycle & Hardening**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production security engineering guide for Zero-Trust Secret Management across microservices, edge deployments, and CI/CD pipelines. Eliminates plain-text `.env` files in git repositories and container images using Infisical, HashiCorp Vault, and Doppler. Covers automated API key rotation, dynamic short-lived database credentials, Gitleaks pre-commit scanning, and memory-safe secret injection in Node.js, Bun, and Next.js 15.
@@ -83,18 +90,17 @@ keywords = ["key", "api", "token", "secret", "password"]
 3. **No Secret Echo in Logs**: Never log `process.env` or print connection strings containing passwords to terminal stdout or APM error reports.
 4. **Principle of Least Privilege**: Subagents and microservices must have read access strictly to their own scoped directory path (`/services/billing/*`), never to the root vault.
 
-## Orchestration & Integration
-- **`ci-cd-devops-architect`**: Connects pipeline jobs via GitHub OIDC to fetch secrets without static tokens.
-- **`authentication-identity-expert`**: Rotates JWT signing secrets and OAuth client credentials.
-- **`production-ready-hardener`**: Audits the repository for accidental secret leaks before deployment.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `ci-cd-devops-architect`, `authentication-identity-expert`, dan `production-ready-hardener`.
+- **Pertahanan Ancaman & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `post-quantum-crypto-migrator`
+- **Manajemen Akses & Identitas**: `authentication-identity-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
+- **Infrastruktur Cloud & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `docker-container-expert`
+- **Keamanan Database & FinTech**: `database-orm-expert`, `supabase-security-expert`, `doku-payment-gateway`, `saas-billing`
+- **Siklus Hidup & Pengerasan**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan rekayasa keamanan produksi untuk Manajemen Rahasia Zero-Trust (*Zero-Trust Secret Management*) di seluruh microservices, edge computing, dan pipeline CI/CD. Menghilangkan file teks biasa `.env` dari repositori git dan image kontainer Docker menggunakan Infisical, HashiCorp Vault, dan Doppler. Mencakup rotasi kunci API otomatis, kredensial database sementara (*ephemeral*), pemindaian kebocoran Gitleaks pada pre-commit, dan injeksi memori aman pada Node.js, Bun, dan Next.js 15.
@@ -117,8 +123,3 @@ infisical run --env=prod -- node dist/index.js
 2. **Kredensial Dinamis Berumur Pendek**: Prioritaskan pembuatan user dan password database sementara dengan masa berlaku (TTL) 1 jam dari HashiCorp Vault alih-alih password permanen.
 3. **Sensor Kunci Rahasia**: Jangan pernah mencetak `console.log(process.env)` atau menampilkan connection string database di log terminal maupun Sentry.
 4. **Hak Akses Terkecil (Least Privilege)**: Batasi izin akses secret per modul. Layanan frontend hanya boleh mengakses kunci publik, sedangkan rahasia backend diisolasi di folder terpisah.
-
-## Integrasi Orkestrasi
-- **`ci-cd-devops-architect`**: Mengintegrasikan otentikasi OIDC ke GitHub Actions tanpa token statis.
-- **`authentication-identity-expert`**: Merotasi kunci privat JWT dan rahasia penyedia OAuth.
-- **`production-ready-hardener`**: Memindai repositori untuk memastikan tidak ada kunci rahasia yang tertinggal sebelum rilis.

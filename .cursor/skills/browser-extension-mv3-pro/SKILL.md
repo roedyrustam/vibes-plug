@@ -2,7 +2,7 @@
 name: browser-extension-mv3-pro
 description: "Expert guide for modern browser extension development (Manifest V3) — Chrome SidePanel API, Background Service Workers, Offscreen Documents, declarativeNetRequest, WebAssembly in MV3, and cross-browser WebExtensions / Panduan ahli pengembangan ekstensi browser modern (Manifest V3)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, and `anti-slop`.
+Connects and orchestrates with `modern-web-guidance`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, and `anti-slop`.
 
 ### Description
 Expert guide for engineering high-performance, secure, and cross-browser extensions using **Chrome Manifest V3 (MV3)**, Firefox WebExtensions MV3, and Safari Web Extensions. Manifest V3 fundamentally modernizes browser extension development by replacing persistent background pages with ephemeral service workers, enforcing strict declarative network rules, mandating modern native side panels, and providing offscreen sandboxes for complex computational workloads.
@@ -267,7 +267,7 @@ async function executeSandboxedBytecode(wasmBase64: string): Promise<number> {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasikan skill `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, dan `anti-slop`.
+Terhubung dan mengorkestrasikan skill `modern-web-guidance`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, dan `anti-slop`.
 
 ### Deskripsi
 Panduan komprehensif untuk merekayasa ekstensi peramban modern berkinerja tinggi, aman, dan lintas platform (Chrome, Edge, Firefox, Safari) berbasis **Manifest V3 (MV3)**. Standar Manifest V3 menggantikan background page persisten dengan service worker efemeral, menegakkan aturan declarative network yang aman, menyediakan SidePanel API native, serta sandbox dokumen offscreen untuk eksekusi WebAssembly dan pemrosesan audio/clipboard.

@@ -2,7 +2,7 @@
 name: web-game-engine-expert
 description: "Expert guide for modern web-based game development. Covers PlayCanvas, Babylon.js Havok, Three.js/R3F Rapier & Jolt Physics, Fixed-Timestep Accumulators, Zero-GC Pooling, ECS (bitECS/Miniplex), Spatial Audio (HRTF), and WebTransport networking / Panduan ahli pengembangan game web modern dan efisien."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -19,6 +19,10 @@ version: "4.4.1"
 Connects and orchestrates with relevant domain skills:
 - `web-3d-graphics-expert` — Visual rendering layer (WebGPU, Three.js, Babylon.js, PlayCanvas).
 - `glsl-shader-expert` — Custom gameplay shaders, damage flashes, VFX materials.
+- `ui-ux-pro-max` — In-game HUD overlays, crosshairs, radial inventory menus, and responsive virtual touch joysticks.
+- `design-system-architect` — Consistent game UI tokens, custom bitmap/web fonts, and health/resource bar theming.
+- `visual-ui-auditor` — Auditing responsive canvas scaling, DPI-aware pixel ratios (`window.devicePixelRatio`), and HUD contrast against 3D backgrounds.
+- `anti-slop` — Enforcing zero placeholder physics, non-jittering deterministic game loops, and complete asset lifecycles.
 - `webxr-ar-vr-expert` — Spatial controls and VR/AR controller tracking.
 - `realtime-collaboration-expert` — Low-latency multiplayer state synchronization (WebRTC / WebTransport).
 - `performance-web-vitals` — Frame budgeting (16.6ms for 60fps, 8.3ms for 120fps) and eliminating Garbage Collection stalls.
@@ -282,6 +286,10 @@ For fast-paced real-time action games:
 Terhubung dan mengorkestrasi skill domain yang relevan:
 - `web-3d-graphics-expert` — Lapisan visual rendering (WebGPU, Three.js, Babylon.js, PlayCanvas).
 - `glsl-shader-expert` — Shader kustom untuk efek visual, kilatan luka, dan partikel game.
+- `ui-ux-pro-max` — Overlay HUD dalam game, crosshair, menu inventaris radial, dan joystick virtual sentuh responsif.
+- `design-system-architect` — Desain token UI game yang konsisten, font bitmap/web kustom, dan tema bar health/stamina.
+- `visual-ui-auditor` — Audit visual penskalaan canvas responsif, pixel ratio sadar-DPI (`window.devicePixelRatio`), dan kontras HUD terhadap latar 3D.
+- `anti-slop` — Penegakan fisika bebas placeholder, game loop deterministik tanpa jitter, dan siklus hidup aset lengkap.
 - `webxr-ar-vr-expert` — Kontrol spasial dan pelacakan kontroler VR/AR.
 - `realtime-collaboration-expert` — Sinkronisasi state multiplayer real-time (WebRTC / WebTransport).
 - `performance-web-vitals` — Manajemen frame budget (16.6ms untuk 60fps) dan pencegahan Garbage Collection stall.

@@ -2,8 +2,7 @@
 name: brainstorming
 description: "Master ideation protocol & architectural orchestrator with Modern Web Guidance. Validates design ideas and orchestrates all specialized vibes-plug skills before coding begins / Protokol ideasi utama & orkestrator arsitektur dengan Modern Web Guidance. Memvalidasi ide desain dan mengorkestrasi seluruh skill vibes-plug sebelum pengkodean dimulai."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Brainstorming & Skill Orchestration Protocol
@@ -74,6 +73,11 @@ You operate as a **Principal Web Architect, Design Facilitator, and Swarm Direct
   - Route subagent tasks by complexity: use `flash_lite` or `flash` for research, search, and linting checks; reserve `pro` or `inherit` for system design and critical security audits.
   - Enforce ultra-compact handoffs via `session-memory-manager` (<300 tokens) to prevent context window exhaustion.
   - **Non-Degradation Invariant**: Never truncate code with `// TODO` or `// ...` to save tokens. Code must remain 100% complete and working.
+- **Tri-Track Adaptive Ideation Velocity**:
+  - *Track 1 (Fast-Track Mode)*: When the user provides a detailed prompt, semi-structured PRD, or mature architectural idea, skip slow interrogations. Directly synthesize Step 4 Understanding Lock + Step 5 Top 2 Architectural Approaches within 1-2 turns.
+  - *Track 2 (Socratic Interview Mode)*: For open-ended or raw ideas, conduct focused exploratory dialogue. Prefer native interactive UI modal options (e.g. `ask_question`) if supported, or structured multiple-choice markdown cards.
+  - *Track 3 (Deep Enterprise Mode)*: For FinTech, multi-agent swarms, complex compliance (GDPR/HIPAA/PCI-DSS), or mission-critical distributed systems, conduct deep technical scrutiny across data lineage, idempotency, and auditability.
+- **Native Interactive UI Modal Protocol**: When interactive UI tools (such as `ask_question`) are supported in the IDE environment, the agent MUST prefer using interactive modals with selectable multiple-choice options over plain text paragraphs to minimize user typing friction.
 - **Swarm Execution Topology**: When planning multi-domain phases, orchestrate subagents using:
   1. *Fan-Out / Fan-In*: Parallel execution across UI, Backend, and DB with selective context pruning.
   2. *Pipeline Saga*: Sequential execution across Phases 1-8.
@@ -88,27 +92,30 @@ Your job is to **slow the process down just enough to get the architecture, swar
 ```
   STEP 1                 STEP 2                STEP 3                 STEP 4
 Context Discovery ---> Product Ideation ---> Modern Stack & NFRs ---> Understanding Lock
-  (Audit Skills)        (Socratic Q&A)        (Domain Skills)          (Hard Gate)
+  (Audit Skills)        (Tri-Track Q&A)       (Domain Skills)          (Hard Gate)
         |                                                                   |
         v                                                                   v
   STEP 8                 STEP 7                STEP 6                 STEP 5
 Skill Execution <--- Decision Log & Docs <--- Design Presentation <--- Design Exploration
-(Handoff Pipeline)      (BLUEPRINT.md)        (Incremental UX/DX)     (Multi-Skill Design)
+(Handoff Pipeline)      (BLUEPRINT.md)        (Incremental UX/DX)     (Pre-Mortem/FinOps)
 ```
 
 #### Step 1️⃣: Context Discovery & Project Audit (Mandatory First Step)
 Before asking any questions, inspect the environment:
-- Audit existing project files, tech stack, ORM schemas, and current architecture.
-- Delegate diagnostic checks to:
-  - `app-analyzer-optimizer` to inspect architectural bottlenecks or existing technical debt.
-  - `prd-architect` to **mandatorily generate a `PRD.md` file** if this is a new application, or update it if it already exists.
-  - `web-scraper` if analyzing competitor solutions or external API specs.
+- **Parallel Discovery Swarm (Fan-Out Topology)**:
+  - *Subagent A (Repo & Living AST Audit)*: Delegate to `app-analyzer-optimizer` and `living-codebase-ast-graph` to inspect existing codebases, schemas, circular dependencies, and technical debt.
+  - *Subagent B (Market & Competitive Tech Discovery)*: Delegate to `deep-research-analyst` and `web-scraper` if analyzing external API specifications or competitor solutions.
+  - *Subagent C (Security & Compliance Bounds)*: Delegate to `compliance-gdpr-privacy-expert` and `zero-trust-secret-vault` to identify regulatory requirements.
+- **Episodic Memory Recall**: Consult `session-memory-manager` or `xerj-search-expert` (`xerj_memory_recall`) to identify prior architectural decisions, schema conventions, and workspace rules.
+- **PRD Mandatory Scaffolding**: Invoke `prd-architect` to **mandatorily generate a `PRD.md` file** if this is a new application, or update it if it already exists.
 - Identify implicit constraints and note missing requirements.
 
-#### Step 2️⃣: Product Ideation (One Question at a Time)
+#### Step 2️⃣: Product Ideation (Tri-Track Adaptive Dialogue)
 Your goal is **shared clarity**, not speed.
-- Ask **one targeted question per turn**.
-- Prefer **multiple-choice options** to accelerate alignment.
+- Apply the appropriate **Ideation Velocity Track**:
+  - *Fast-Track*: Immediately produce the Understanding Lock synthesis if user input is already structured.
+  - *Socratic Interview*: Ask **one targeted question per turn**. Utilize native UI interactive tools (e.g. `ask_question`) with multiple-choice options to accelerate alignment.
+  - *Deep Enterprise*: Clarify multi-tenant boundaries, audit trails, and data isolation constraints.
 - Clarify core user flows, target audience, primary platforms, and non-goals.
 
 #### Step 3️⃣: Modern Web & Stack Non-Functional Requirements (NFR Mapping)
@@ -138,10 +145,14 @@ Ask:
 
 **Do NOT proceed until explicit confirmation is given.**
 
-#### Step 5️⃣: Architectural & Multi-Skill Design Exploration
+#### Step 5️⃣: Architectural Exploration, Pre-Mortem & FinOps
 Once confirmed, present **2–3 viable design approaches**:
 - Lead with your recommended option.
 - Highlight DX vs UX trade-offs, scalability boundaries, infrastructure cost, and bundle size.
+- **Mermaid Visual Concept & Wireframe Flow**: Provide an initial architectural diagram or visual interaction flow using Mermaid so system topology is approved visually before code is written.
+- **Autonomous Pre-Mortem Stress Test**: Invoke `autonomous-red-teamer` and `error-resilience-expert` to simulate catastrophic failure points:
+  > *"If this system fails in production within 6 months, where will it break first?"* (e.g. LLM token cost explosion, DB connection exhaustion, third-party webhook dropouts, breaking API schema drift).
+- **FinOps Cost Envelope Projection**: Invoke `llm-finops-router` to estimate monthly cloud compute, DB tier, and LLM token budgets before committing.
 - Specify how specialized skills will execute each layer (e.g., `design-system-architect` for UI, `nextjs-app-router-expert`, `database-orm-expert`, `js-backend-expert` for APIs, `mcp-server-architect` for AI tools).
 
 #### Step 6️⃣: Incremental Design Presentation
@@ -154,7 +165,7 @@ Present the finalized design in short sections (200–300 words max):
 
 Ask after each section: *"Does this alignment look right so far?"*
 
-#### Step 7️⃣: Decision Log & Design Document Artifact
+#### Step 7️⃣: Decision Log (MADR), Blueprint & Subagent Contract Slice
 Produce a full **Design Document** and persist it to `DESIGN.md` or `BLUEPRINT.md`:
 
 ```markdown
@@ -174,21 +185,24 @@ Produce a full **Design Document** and persist it to `DESIGN.md` or `BLUEPRINT.m
 - Design System (`design-system-architect`, `tailwind-expert`)
 - RSC vs Client boundaries
 
-## 4. Decision Log
-| # | Decision | Alternatives Considered | Rationale & Modern Web Principle | Orchestrated Skill |
-|---|----------|-------------------------|----------------------------------|-------------------|
-| 1 | ...      | ...                     | ...                              | ...               |
+## 4. Architectural Decision Records (MADR Standard)
+| # | Decision Title | Status | Context & Problem | Chosen Solution & Rationale | Consequences & Trade-offs | Orchestrated Skill |
+|---|----------------|--------|-------------------|-----------------------------|---------------------------|-------------------|
+| 1 | ...            | Accepted| ...               | ...                         | ...                       | ...               |
 
-## 5. Risk Assessment & Mitigation
-- Identified bottlenecks, security bounds, cost estimates
+## 5. Pre-Mortem Risk Assessment & Mitigation
+- Identified bottlenecks, security bounds, failure modes, cost caps
+
+## 6. Subagent Contract Map Slice (CONTEXT_MAP.md slice)
+- Exact interface types, schema models, and API endpoints passed downstream to prevent context window bloat.
 ```
 
 #### Step 8️⃣: Skill Execution Handoff Pipeline (Orchestration Transition)
 After documentation is complete, initiate the handoff:
 - Trigger `zero-to-prod-orchestrator` to launch the 8-phase development roadmap.
-- Invoke `prd-architect` to update `CHANGELOG.md` and `BLUEPRINT.md`.
+- Invoke `prd-architect` to update `CHANGELOG.md`, `PROGRESS.md`, and `BLUEPRINT.md`.
 - Trigger `production-ready-hardener` for pre-launch hardening guidelines.
-- Trigger `session-memory-manager` if saving checkpoint state for cross-session execution.
+- Trigger `session-memory-manager` to persist an ultra-compact (<300 tokens) `CHECKPOINT.md` for cross-session continuity.
 
 ---
 
@@ -196,9 +210,11 @@ After documentation is complete, initiate the handoff:
 Exit brainstorming mode **only when all of the following are satisfied**:
 - Understanding Lock confirmed by user.
 - Architectural design option accepted.
+- Pre-Mortem stress test and FinOps cost envelope completed.
 - Skill Orchestration Matrix mapped out for execution.
 - Key NFRs (Performance, a11y, security) documented.
-- Decision Log and `DESIGN.md` artifact generated.
+- Decision Log (MADR) and `DESIGN.md` artifact generated.
+- Subagent `CONTEXT_MAP.md` contract slice initialized.
 - **`PRD.md` successfully generated** (for new applications).
 
 ---
@@ -265,6 +281,11 @@ Anda beroperasi sebagai **Principal Web Architect, Design Facilitator, dan Swarm
   - Alokasikan model berdasarkan kompleksitas: gunakan `flash_lite` atau `flash` untuk pencarian file, pemindaian AST, dan validasi linter; simpan `pro` atau `inherit` untuk desain arsitektur tingkat tinggi dan audit keamanan kritis.
   - Terapkan checkpoint ultra-ringkas via `session-memory-manager` (<300 token) untuk mencegah pembengkakan context window.
   - **Hukum Mutlak Non-Degradasi**: Dilarang memotong kode dengan `// TODO` atau `// ...` demi menghemat token. Kode yang dihasilkan harus 100% lengkap dan dapat langsung dieksekusi.
+- **Kecepatan Ideasi Adaptif Tri-Track (Tri-Track Velocity)**:
+  - *Jalur 1 (Fast-Track / Cepat)*: Saat pengguna memberikan prompt rinci, PRD semi-terstruktur, atau ide arsitektur matang, lewati tanya-jawab lambat. Langsung sintesis Kunci Pemahaman (Langkah 4) + Top 2 Pendekatan Arsitektur (Langkah 5) dalam 1–2 pesan.
+  - *Jalur 2 (Wawancara Sokratik / Socratic Interview)*: Untuk ide mentah atau terbuka, lakukan dialog terarah. Utamakan modal UI interaktif (seperti `ask_question`) jika didukung, atau kartu pilihan ganda markdown terstruktur.
+  - *Jalur 3 (Deep Enterprise / Skala Industri)*: Untuk FinTech, multi-agent swarms, kepatuhan ketat (GDPR/HIPAA/PCI-DSS), atau sistem terdistribusi misi kritis, lakukan eksplorasi mendalam terkait lineage data, idempotency, dan audit trail.
+- **Protokol Modal UI Interaktif Native**: Saat tool antarmuka interaktif (seperti `ask_question`) didukung di lingkungan IDE, agen WAJIB mengutamakan penggunaan modal interaktif dengan opsi pilihan ganda/multiselect daripada paragraf teks panjang untuk meminimalkan beban ketik pengguna.
 - **Topologi Eksekusi Swarm**: Saat merencanakan fase multi-domain, orkestrasikan subagent menggunakan:
   1. *Fan-Out / Fan-In*: Eksekusi paralel lintas UI, Backend, dan Database dengan pemangkasan konteks selektif.
   2. *Pipeline Saga*: Eksekusi bertahap berurutan dari Fase 1 hingga 8.
@@ -279,27 +300,30 @@ Tugas Anda adalah **memperlambat proses secukupnya agar arsitektur, delegasi swa
 ```
   LANGKAH 1               LANGKAH 2             LANGKAH 3              LANGKAH 4
 Audit Context Discovery -> Ideasi Produk -----> NFR & Stack Modern --> Understanding Lock
-   (Skill Audit)           (Socratic Q&A)        (Skill Domain)           (Hard Gate)
+   (Skill Audit)          (Tri-Track Q&A)       (Skill Domain)           (Hard Gate)
         |                                                                     |
         v                                                                     v
   LANGKAH 8               LANGKAH 7             LANGKAH 6              LANGKAH 5
 Eksekusi Skill <------- Log Keputusan & Docs <- Presentasi Desain <--- Eksplorasi Desain
- (Pipeline Handoff)       (BLUEPRINT.md)        (Inkremental UX/DX)    (Multi-Skill Design)
+ (Pipeline Handoff)       (BLUEPRINT.md)        (Inkremental UX/DX)    (Pre-Mortem/FinOps)
 ```
 
 #### Langkah 1️⃣: Penemuan Konteks & Audit Proyek (Langkah Wajib Pertama)
 Sebelum mengajukan pertanyaan, periksa lingkungan proyek:
-- Audit file proyek yang ada, stack teknologi, skema ORM, dan arsitektur saat ini.
-- Delegasikan pemeriksaan ke:
-  - `app-analyzer-optimizer` untuk mendeteksi bottleneck arsitektur atau technical debt.
-  - `prd-architect` untuk **wajib menghasilkan file `PRD.md`** jika ini adalah aplikasi baru, atau memperbaruinya jika sudah ada.
-  - `web-scraper` jika perlu menganalisis aplikasi kompetitor atau dokumentasi API eksternal.
+- **Swarm Penemuan Paralel (Topologi Fan-Out)**:
+  - *Subagent A (Audit Repo & AST Hidup)*: Delegasikan ke `app-analyzer-optimizer` dan `living-codebase-ast-graph` untuk memeriksa codebase lama, skema, dependensi melingkar, dan utang teknis.
+  - *Subagent B (Riset Pasar & Teknologi Kompetitor)*: Delegasikan ke `deep-research-analyst` dan `web-scraper` jika menganalisis spesifikasi API eksternal atau solusi kompetitor.
+  - *Subagent C (Batasan Keamanan & Kepatuhan)*: Delegasikan ke `compliance-gdpr-privacy-expert` dan `zero-trust-secret-vault` untuk mengidentifikasi regulasi dan batasan rahasia.
+- **Pemanggilan Memori Episodik**: Konsultasikan `session-memory-manager` atau `xerj-search-expert` (`xerj_memory_recall`) untuk mengenali keputusan arsitektur lampau, konvensi skema, dan aturan workspace.
+- **Pemicu Wajib PRD**: Panggil `prd-architect` untuk **wajib menghasilkan file `PRD.md`** jika ini adalah aplikasi baru, atau memperbaruinya jika sudah ada.
 - Catat batasan-batasan implisit dan persyaratan yang belum jelas.
 
-#### Langkah 2️⃣: Ideasi Produk (Satu Pertanyaan Per Pesan)
+#### Langkah 2️⃣: Ideasi Produk (Dialog Adaptif Tri-Track)
 Tujuan Anda adalah **kejelasan bersama**, bukan kecepatan.
-- Ajukan **satu pertanyaan terarah per pesan**.
-- Utamakan **pilihan ganda** untuk mempercepat penyelarasan.
+- Terapkan **Jalur Kecepatan Ideasi** yang sesuai:
+  - *Fast-Track*: Langsung berikan sintesis Kunci Pemahaman jika input pengguna sudah terstruktur.
+  - *Socratic Interview*: Ajukan **satu pertanyaan terarah per pesan**. Manfaatkan tool interaktif UI bawaan (misal `ask_question`) dengan opsi pilihan ganda untuk mempercepat penyelarasan.
+  - *Deep Enterprise*: Perjelas batas multi-tenant, jejak audit, dan isolasi data.
 - Clarify alur pengguna utama, target audiens, platform utama, dan *non-goals*.
 
 #### Langkah 3️⃣: Persyaratan Non-Fungsional (NFR) & Pemetaan Stack Modern
@@ -329,10 +353,14 @@ Tanyakan:
 
 **Jangan melanjutkan sebelum konfirmasi eksplisit diberikan.**
 
-#### Langkah 5️⃣: Eksplorasi Desain Arsitektur & Multi-Skill
+#### Langkah 5️⃣: Eksplorasi Desain Arsitektur, Pre-Mortem & FinOps
 Setelah dikonfirmasi, berikan **2–3 opsi pendekatan desain**:
 - Awali dengan opsi rekomendasi Anda.
 - Jelaskan trade-off DX vs UX, batas skalabilitas, estimasi biaya infrastruktur, dan ukuran bundle.
+- **Mockup Alur & Konsep Visual Mermaid**: Sajikan diagram topologi arsitektur atau alur interaksi visual menggunakan Mermaid agar struktur sistem tervalidasi visual sebelum kode dibuat.
+- **Stress Test Pre-Mortem Otonom**: Panggil `autonomous-red-teamer` dan `error-resilience-expert` untuk menyimulasikan skenario kegagalan fatal:
+  > *"Jika sistem ini mengalami kegagalan di produksi dalam 6 bulan pertama, di mana titik putus utamanya?"* (lonjakan biaya token LLM, kehabisan koneksi database pool, kegagalan webhook pihak ketiga, atau breaking drift skema API).
+- **Proyeksi Pagu Biaya FinOps**: Panggil `llm-finops-router` untuk mengestimasi pagu biaya bulanan komputasi cloud, tier DB, dan token LLM sebelum berkomitmen.
 - Tentukan skill spesialis yang mengeksekusi setiap lapisan (misal: `design-system-architect` untuk UI, `nextjs-app-router-expert`, `database-orm-expert`, `js-backend-expert` untuk API, `mcp-server-architect` untuk tools AI).
 
 #### Langkah 6️⃣: Presentasi Desain Secara Inkremental
@@ -345,7 +373,7 @@ Sajikan rancangan desain dalam bagian-bagian pendek (maksimal 200–300 kata):
 
 Tanyakan setelah setiap bagian: *"Apakah penyelarasan ini sudah sesuai sejauh ini?"*
 
-#### Langkah 7️⃣: Log Keputusan & Artifact Dokumen Desain
+#### Langkah 7️⃣: Log Keputusan (MADR), Blueprint & Irisan Kontrak Subagent
 Hasilkan Dokumen Desain lengkap dan simpan ke `DESIGN.md` atau `BLUEPRINT.md`:
 
 ```markdown
@@ -365,21 +393,24 @@ Hasilkan Dokumen Desain lengkap dan simpan ke `DESIGN.md` atau `BLUEPRINT.md`:
 - Design System (`design-system-architect`, `tailwind-expert`)
 - Pembagian batas RSC vs Klien
 
-## 4. Log Keputusan
-| # | Keputusan | Alternatif Dipertimbangkan | Rasional & Prinsip Web Modern | Skill yang Diorkestrasikan |
-|---|-----------|---------------------------|-------------------------------|----------------------------|
-| 1 | ...       | ...                       | ...                           | ...                        |
+## 4. Architectural Decision Records (Standar MADR)
+| # | Judul Keputusan | Status | Konteks & Masalah | Solusi Terpilih & Rasional | Konsekuensi & Trade-offs | Skill Terorkestrasi |
+|---|-----------------|--------|-------------------|----------------------------|--------------------------|---------------------|
+| 1 | ...             | Diterima| ...              | ...                        | ...                      | ...                 |
 
-## 5. Penilaian Risiko & Mitigasi
-- Potensi bottleneck, batas keamanan, estimasi biaya
+## 5. Penilaian Risiko Pre-Mortem & Mitigasi
+- Potensi bottleneck, batas keamanan, skenario kegagalan, batas biaya
+
+## 6. Irisan Kontrak Subagent (CONTEXT_MAP.md slice)
+- Tipe antarmuka presisi, skema model, dan endpoint API yang dipasok ke hilir untuk mencegah pembengkakan context window.
 ```
 
 #### Langkah 8️⃣: Serah Terima ke Pipeline Eksekusi (Transisi Orkestrasi)
 Setelah dokumentasi selesai, jalankan proses serah terima:
 - Picu `zero-to-prod-orchestrator` untuk memulai roadmap pembangunan 8-fase.
-- Panggil `prd-architect` untuk memperbarui `CHANGELOG.md` dan `BLUEPRINT.md`.
+- Panggil `prd-architect` untuk memperbarui `CHANGELOG.md`, `PROGRESS.md`, dan `BLUEPRINT.md`.
 - Picu `production-ready-hardener` untuk panduan pengerasan pra-rilis.
-- Picu `session-memory-manager` jika menyimpan checkpoint kondisi proyek untuk sesi berikutnya.
+- Picu `session-memory-manager` untuk menyimpan checkpoint ultra-ringkas (<300 token) `CHECKPOINT.md` demi kontinuitas lintas sesi.
 
 ---
 
@@ -387,9 +418,11 @@ Setelah dokumentasi selesai, jalankan proses serah terima:
 Mode brainstorming selesai **hanya jika seluruh kondisi berikut terpenuhi**:
 - Kunci Pemahaman (*Understanding Lock*) dikonfirmasi oleh pengguna.
 - Opsi desain arsitektur disetujui.
+- Pengujian stress test pre-mortem dan estimasi biaya FinOps selesai.
 - Matriks Orkestrasi Skill telah dipetakan untuk eksekusi.
 - Requirements NFR utama (Performa, a11y, keamanan) didokumentasikan.
-- Log Keputusan dan artifact `DESIGN.md` telah dibuat.
+- Log Keputusan (MADR) dan artifact `DESIGN.md` telah dibuat.
+- Irisan kontrak subagent `CONTEXT_MAP.md` telah diinisialisasi.
 - **File `PRD.md` telah berhasil dibuat** (untuk aplikasi baru).
 
 ---

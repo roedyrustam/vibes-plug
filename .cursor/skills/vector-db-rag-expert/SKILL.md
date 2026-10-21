@@ -2,7 +2,7 @@
 name: vector-db-rag-expert
 description: "Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking / Panduan ahli Vector DB, arsitektur Deep RAG, pgvector HNSW, RRF, dan Re-ranking."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream AI Models & Embeddings**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `vercel-ai-sdk-expert`
+- **Database & Storage Engines**: `database-orm-expert`, `graph-rag-knowledge-expert`, `search-engine-expert`
+- **Retrieval & Pipeline Tooling**: `xerj-search-expert`, `llm-finops-router`, `context-window-engineer`
+- **Security & Quality**: `prompt-injection-firewall`, `ai-safety-governance-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Purpose & Overview
 Production-grade architectural guide for Vector Databases (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), Deep RAG indexing strategies, HNSW iterative search, **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (Cohere Rerank v3, FlashRank, BGE-Reranker-v2), and **Late Chunking** to eliminate context fragmentation.
@@ -120,6 +127,13 @@ export async function rerankCandidates(query: string, candidates: { id: string; 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Model AI & Embedding Hulu**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `vercel-ai-sdk-expert`
+- **Engine Database & Penyimpanan**: `database-orm-expert`, `graph-rag-knowledge-expert`, `search-engine-expert`
+- **Tooling Retrieval & Pipeline**: `xerj-search-expert`, `llm-finops-router`, `context-window-engineer`
+- **Keamanan & Kualitas**: `prompt-injection-firewall`, `ai-safety-governance-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+
 ### Deskripsi
 Panduan arsitektur tingkat produksi untuk Vector Database (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), arsitektur Deep RAG modern, pencarian HNSW iteratif, **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (Cohere Rerank v3, FlashRank, BGE-Reranker-v2), dan **Late Chunking** untuk mencegah fragmentasi konteks.
 
@@ -205,6 +219,3 @@ export async function susunUlangKandidat(kueri: string, kandidat: { id: string; 
 - [ ] Terapkan Reciprocal Rank Fusion (RRF) dengan konstanta `k = 60` alih-alih pembobotan linear manual.
 - [ ] Tambahkan langkah Cross-Encoder Re-ranker sebelum menyuntikkan konteks ke prompt LLM.
 - [ ] Terapkan Late Chunking agar konteks dokumen utuh tidak hilang saat dipotong.
-
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `ai-llm-integration-expert`, `database-orm-expert`, `llm-finops-router`, `app-analyzer-optimizer`.

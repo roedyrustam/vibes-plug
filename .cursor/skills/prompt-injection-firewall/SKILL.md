@@ -2,7 +2,7 @@
 name: prompt-injection-firewall
 description: "Expert guide for defending AI applications against prompt injection, jailbreak attacks, indirect injection via tool outputs, and data exfiltration through tool calls — input sanitization, output filtering, canary token detection, and layered defense architecture / Panduan ahli pertahanan aplikasi AI terhadap prompt injection, serangan jailbreak, injeksi tidak langsung via output tool, dan eksfiltrasi data melalui tool calls — sanitasi input, filtering output, deteksi canary token, dan arsitektur pertahanan berlapis."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `autonomous-red-teamer`, `ai-safety-governance-expert`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `ai-llm-integration-expert`, `context-window-engineer`, and `zero-trust-secret-vault` to enforce comprehensive security across all AI-powered surfaces.
+- **Adversarial Testing & Guardrails**: `autonomous-red-teamer`, `ai-safety-governance-expert`, `ai-prompt-engineering-expert`
+- **MCP & Tool Call Execution**: `mcp-server-architect`, `ai-llm-integration-expert`, `mcp-sampling-critic`
+- **Identity & Secret Protection**: `zero-trust-secret-vault`, `authentication-identity-expert`, `rate-limit-abuse-prevention`
+- **Context Engineering & Memory**: `context-window-engineer`, `agentic-memory-architect`, `structured-output-contracts`
+- **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Production-grade defense framework for protecting LLM-powered applications against the full spectrum of prompt injection attacks — direct injection, indirect injection via retrieved documents or tool outputs, jailbreaks, system prompt extraction, and data exfiltration through tool call manipulation. In 2026, with frontier models gaining database access, code execution, and browser control via tool calls, a single unguarded prompt injection can cascade into full system compromise.
@@ -254,27 +258,15 @@ OUTPUT FORMAT CONSTRAINTS:
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `autonomous-red-teamer` — Generate adversarial prompt injection payloads to stress-test firewall layers.
-- `ai-safety-governance-expert` — Enforce Constitutional AI guardrails and compliance auditing.
-- `mcp-server-architect` — Apply tool call policies to MCP server tool definitions.
-- `rate-limit-abuse-prevention` — Rate-limit repeated injection attempts at the session and IP level.
-- `zero-trust-secret-vault` — Ensure API keys and secrets are never exposed via prompt extraction.
-- `context-window-engineer` — Coordinate canary token placement within context zone partitions.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Testing & Security" and "AI & LLM Integration" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 6 (Automated Testing, Error Resilience & Security Audit).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `autonomous-red-teamer`, `ai-safety-governance-expert`, `authentication-identity-expert`, `rate-limit-abuse-prevention`, `ai-prompt-engineering-expert`, `mcp-server-architect`, `ai-llm-integration-expert`, `context-window-engineer`, dan `zero-trust-secret-vault` untuk menegakkan keamanan komprehensif di seluruh permukaan aplikasi berbasis AI.
+- **Pengujian Adversarial & Guardrails**: `autonomous-red-teamer`, `ai-safety-governance-expert`, `ai-prompt-engineering-expert`
+- **Eksekusi MCP & Tool Call**: `mcp-server-architect`, `ai-llm-integration-expert`, `mcp-sampling-critic`
+- **Perlindungan Identitas & Rahasia**: `zero-trust-secret-vault`, `authentication-identity-expert`, `rate-limit-abuse-prevention`
+- **Rekayasa Konteks & Memori**: `context-window-engineer`, `agentic-memory-architect`, `structured-output-contracts`
+- **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Kerangka pertahanan tingkat produksi untuk melindungi aplikasi berbasis LLM dari seluruh spektrum serangan prompt injection — injeksi langsung, injeksi tidak langsung via dokumen yang di-retrieve atau output tool, jailbreak, ekstraksi system prompt, dan eksfiltrasi data melalui manipulasi tool call. Di 2026, dengan model frontier yang memiliki akses database, eksekusi kode, dan kontrol browser via tool calls, satu prompt injection tanpa perlindungan bisa menyebabkan kompromi sistem penuh.
@@ -321,17 +313,3 @@ Terapkan allowlist ketat untuk tool yang boleh dipanggil model. Validasi paramet
 | Mempercayai konten RAG sebagai aman | Injeksi tidak langsung via dokumen beracun | Sanitasi semua konten yang di-retrieve |
 | Membiarkan tool call sembarangan | Penghapusan data, pencurian kredensial | Terapkan allowlist ketat + validasi parameter |
 | Tanpa pemindaian output | Model membocorkan system prompt, PII | Pindai semua output untuk canary token dan pola sensitif |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `autonomous-red-teamer` — Generate payload prompt injection adversarial untuk stress-test.
-- `ai-safety-governance-expert` — Terapkan guardrail Constitutional AI.
-- `mcp-server-architect` — Terapkan kebijakan tool call ke definisi tool MCP server.
-- `zero-trust-secret-vault` — Pastikan kunci API dan rahasia tidak terekspos via ekstraksi prompt.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "Testing & Security" dan "AI & LLM Integration" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 6 (Automated Testing, Error Resilience & Security Audit).

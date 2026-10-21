@@ -2,7 +2,7 @@
 name: structured-output-contracts
 description: "Expert guide for agent-native structured outputs, JSON Schema strict mode enforcement (OpenAI response_format, Gemini schema mode, Claude tool_use), MCP resource schemas, and zero-hallucination type contracts / Panduan ahli kontrak output terstruktur native agen dan penegakan JSON schema ketat."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `spec-driven-development-expert`, `typescript-expert`, `openapi-swagger-codegen-expert`, `mcp-server-architect`, `anti-slop`, and `zero-to-prod-orchestrator` to guarantee zero-hallucination structured responses across multi-agent pipelines.
+- **Contracts & Spec Engineering**: `spec-driven-development-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`
+- **MCP & Protocol Schemas**: `mcp-server-architect`, `mcp-sampling-critic`, `parallel-tool-orchestrator`
+- **AI Agent Frameworks**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `multi-agent-orchestration`
+- **Quality & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `formal-spec-z3-verifier`
+- **Lifecycle & Memory**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production standard for enforcing strict JSON Schema output contracts across frontier LLMs. With modern models supporting grammar-constrained decoding (e.g. `response_format: { type: "json_schema", strict: true }` or Gemini `responseSchema`), AI agents must not rely on loose Markdown backticks (```json ... ```) with post-hoc regex parsing. This skill formalizes typed JSON schemas for Swarm Director plans, memory handoffs, anti-slop verification audits, and exposes them as native Model Context Protocol (MCP) resources (`vibes://schemas/*`).
@@ -138,7 +142,11 @@ export function applyStructuredContract(schema: object, provider: 'openai' | 'ge
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill `spec-driven-development-expert`, `typescript-expert`, `openapi-swagger-codegen-expert`, `mcp-server-architect`, `anti-slop`, dan `zero-to-prod-orchestrator` untuk menjamin respons terstruktur zero-hallucination pada pipeline multi-agen.
+- **Kontrak & Rekayasa Spesifikasi**: `spec-driven-development-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`
+- **Skema Protokol & MCP**: `mcp-server-architect`, `mcp-sampling-critic`, `parallel-tool-orchestrator`
+- **Framework Agen AI**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `multi-agent-orchestration`
+- **Kualitas & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `formal-spec-z3-verifier`
+- **Siklus Hidup & Memori**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Standar produksi untuk menegakkan kontrak output JSON Schema ketat pada model-model frontier. Memanfaatkan *grammar-constrained decoding* (seperti `response_format: { type: "json_schema", strict: true }` atau Gemini `responseSchema`), agen AI dilarang mengandalkan teks Markdown mentah dengan parsing regex rentan gagal. Skill ini meresmikan skema typed JSON untuk perencanaan swarm, checkpoint memori, dan audit kualitas MCP resources (`vibes://schemas/*`).

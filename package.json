@@ -51,6 +51,7 @@
     "anti-slop:fix": "node scripts/check-anti-slop.js --fix",
     "generate:gif": "python scripts/generate_swarm_gif.py",
     "update-skills": "node scripts/update_skills.mjs",
+    "catalog:sync": "node scripts/generate-catalog.mjs",
     "audit": "node scripts/check-anti-slop.mjs",
     "install-all": "node scripts/install.js --all",
     "install-claude": "node scripts/install.js --claude",

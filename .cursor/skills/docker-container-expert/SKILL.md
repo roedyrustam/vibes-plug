@@ -2,7 +2,7 @@
 name: docker-container-expert
 description: "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology / Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 ---
 
 # Docker Container Expert (Production Standard 2026)
@@ -15,7 +15,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `ci-cd-devops-architect`, `github-actions-expert`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `production-ready-hardener`, `session-memory-manager`.
+- **Upstream & Lifecycle**: `zero-to-prod-orchestrator` (Phase 7 containerization), `brainstorming`, `session-memory-manager`.
+- **CI/CD & Cloud Runtime**: `ci-cd-devops-architect` (K8s & deployment pipelines), `github-actions-expert` (BuildKit actions & registry push), `cloud-hosting-expert` (container runtime hosts).
+- **Backend & Database Runtimes**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (Postgres/Redis services).
+- **Security & Hardening**: `production-ready-hardener` (distroless & nonroot audit), `zero-trust-secret-vault` (build secret mounts).
 
 ### Description
 Enterprise guide for building ultra-lean, hardened, and reproducible container images and orchestrating local and production workloads with **Docker Engine 27+** and **Docker Compose v2**. Covers BuildKit cache mounts (`--mount=type=cache`), secret mounts (`--mount=type=secret`), multi-stage builds targeting Google Distroless or Alpine Linux, non-root execution (UID 65532), dropping Linux kernel capabilities (`cap_drop: ALL`), health checks (`HEALTHCHECK`), internal isolated bridge networks, compose dependency sequencing (`condition: service_healthy`), and multi-architecture builds via `docker buildx`.
@@ -237,7 +240,10 @@ secrets:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `ci-cd-devops-architect`, `github-actions-expert`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert`, `production-ready-hardener`, `session-memory-manager`.
+- **Hulu & Siklus Hidup**: `zero-to-prod-orchestrator` (Kontainerisasi Fase 7), `brainstorming`, `session-memory-manager`.
+- **CI/CD & Runtime Cloud**: `ci-cd-devops-architect` (pipeline K8s & deployment), `github-actions-expert` (aksi BuildKit & push registry), `cloud-hosting-expert` (host runtime kontainer).
+- **Runtime Backend & Database**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (layanan Postgres/Redis).
+- **Keamanan & Pengerasan**: `production-ready-hardener` (audit distroless & nonroot), `zero-trust-secret-vault` (secret mount saat build).
 
 ### Deskripsi
 Panduan standar industri enterprise untuk membangun image kontainer yang ramping, aman, dan dapat direproduksi serta mengorkestrasi lingkungan lokal dan produksi menggunakan **Docker Engine 27+** dan **Docker Compose v2**. Meliputi cache mount BuildKit (`--mount=type=cache`), secret mount (`--mount=type=secret`), multi-stage build berbasis Google Distroless atau Alpine Linux, eksekusi non-root (UID 65532), pelepasan kapabilitas Linux kernel (`cap_drop: ALL`), health check (`HEALTHCHECK`), isolasi jaringan internal (isolated bridge network), sequencing dependensi compose (`condition: service_healthy`), dan build multi-arsitektur menggunakan `docker buildx`.

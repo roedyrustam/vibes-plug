@@ -2,7 +2,7 @@
 name: synthetic-data-finetuning-expert
 description: "Expert guide for synthetic dataset generation, LLM-as-a-judge filtering, QLoRA fine-tuning (Unsloth), DPO alignment, and GGUF/Ollama export for local SLMs / Panduan ahli generasi data sintetis, fine-tuning QLoRA, DPO, dan ekspor GGUF/Ollama."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `python-programming-expert`, and `llm-finops-router` to build high-performance, cost-effective domain models.
+- **Local SLM & Quantization**: `local-slm-edge-ai-expert`, `wasm-edge-computing-expert`
+- **FinOps & Cost Optimization**: `llm-finops-router`, `adaptive-model-cascade`, `ai-llm-integration-expert`
+- **Prompting & Evals**: `ai-prompt-engineering-expert`, `structured-output-contracts`, `ai-safety-governance-expert`
+- **Python Pipelines & Tools**: `python-programming-expert`, `data-pipeline-etl-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Production-grade guide for generating synthetic training datasets, curating high-signal instruction pairs, executing Parameter-Efficient Fine-Tuning (QLoRA / LoRA) with **Unsloth** and Hugging Face TRL, performing Direct Preference Optimization (DPO), and quantizing custom Small Language Models (SLMs) to GGUF for edge or on-premise execution.
@@ -142,7 +146,11 @@ model.save_pretrained_gguf("custom-domain-coder", tokenizer, quantization_method
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `local-slm-edge-ai-expert`, `ai-prompt-engineering-expert`, `python-programming-expert`, dan `llm-finops-router` untuk membangun model spesialis domain dengan performa tinggi dan biaya hemat.
+- **SLM Lokal & Kuantisasi**: `local-slm-edge-ai-expert`, `wasm-edge-computing-expert`
+- **FinOps & Optimasi Biaya**: `llm-finops-router`, `adaptive-model-cascade`, `ai-llm-integration-expert`
+- **Prompting & Evaluasi**: `ai-prompt-engineering-expert`, `structured-output-contracts`, `ai-safety-governance-expert`
+- **Pipeline Python & Tools**: `python-programming-expert`, `data-pipeline-etl-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dataset pelatihan sintetis, mengurasi pasangan instruksi bernilai tinggi, mengeksekusi Parameter-Efficient Fine-Tuning (QLoRA / LoRA) dengan **Unsloth** dan Hugging Face TRL, menerapkan Direct Preference Optimization (DPO), dan mengkuantisasi Small Language Models (SLM) kustom ke format GGUF untuk inferensi lokal atau on-premise berlatensi ultra-rendah.

@@ -2,7 +2,7 @@
 name: saas-architect
 description: "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N) / Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,8 +16,16 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `saas-multi-tenant`, `saas-billing`, `session-memory-manager`, `prd-architect`, and `production-ready-hardener`.
-- **MANDATORY**: Execute `senior-frontend` FIRST for all frontend HTML/CSS/JS features to ensure compliance with modern standards.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 1-8 Master Lifecycle) as the central SaaS commercialization engine.
+- **Downstream Cooperating Skills**:
+  - `saas-multi-tenant` — Workspaces, RLS policies, tenant schema isolation, and super-admin routing.
+  - `saas-billing` — Subscription state machines, Stripe/Polar/Midtrans checkout, and webhook sync.
+  - `authentication-identity-expert` — Multi-tenant identity, RBAC, OAuth2/PKCE, and session tokens.
+  - `cloud-hosting-expert` — Subdomain routing and isolation (`app.*`, `admin.*`).
+  - `production-ready-hardener` — Launch readiness verification and security audits.
+  - `prd-architect` — Generate PRD, ERD, and continuous architecture documentation.
+  - `session-memory-manager` — Persist SaaS lifecycle blueprints and tenant state checkpoints.
+  - `senior-frontend` — Enforce modern UI/UX standards across app shells and marketing pages.
 
 ### Description
 The **SaaS Architect** is the master lifecycle orchestrator for building commercial SaaS platforms. It operates in two specialized modes:
@@ -114,8 +122,16 @@ Every SaaS application must scaffold complete, functional implementations for:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain seperti `brainstorming`, `zero-to-prod-orchestrator`, `saas-multi-tenant`, `saas-billing`, `session-memory-manager`, `prd-architect`, dan `production-ready-hardener`.
-- **WAJIB**: Jalankan `senior-frontend` PERTAMA KALI untuk semua pengerjaan frontend web.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Master Lifecycle Fase 1-8) sebagai mesin komersialisasi SaaS utama.
+- **Skill Hilir & Kerja Sama**:
+  - `saas-multi-tenant` — Workspace, kebijakan RLS, isolasi skema tenant, dan routing super-admin.
+  - `saas-billing` — State machine langganan, checkout Stripe/Polar/Midtrans, dan sinkronisasi webhook.
+  - `authentication-identity-expert` — Identitas multi-tenant, RBAC, OAuth2/PKCE, dan token sesi.
+  - `cloud-hosting-expert` — Routing dan isolasi subdomain (`app.*`, `admin.*`).
+  - `production-ready-hardener` — Verifikasi kesiapan peluncuran dan audit keamanan.
+  - `prd-architect` — Pembuatan PRD, ERD, dan dokumentasi arsitektur kontinu.
+  - `session-memory-manager` — Menyimpan cetak biru siklus SaaS dan checkpoint status tenant.
+  - `senior-frontend` — Menerapkan standar modern UI/UX pada app shell dan landing page.
 
 ### Deskripsi
 **SaaS Architect** adalah orkestrator siklus hidup utama untuk membangun platform SaaS komersial. Beroperasi dalam dua mode:

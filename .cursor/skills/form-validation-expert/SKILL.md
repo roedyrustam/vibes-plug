@@ -2,9 +2,7 @@
 name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -17,7 +15,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Evaluates native form validation features (`:user-valid`, `:user-invalid`), autofill tokens, and custom selects.
+- **`modern-css-native-expert`**: Leverages `field-sizing: content` for dynamic textareas and pure CSS validation feedback.
+- **`design-system-architect`**: Provides accessible form control primitives, input borders, and floating label tokens.
+- **`anti-slop`**: Eliminates vague error messages, double-submission bugs, and unhandled pending states.
+- **`senior-frontend`**: React 19 `useActionState`, `useOptimistic`, and server action form submission.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle execution.
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -456,15 +460,6 @@ export function M3OutlinedTextField({
 
 ---
 
-### Integration with Other Skills
-
-- `senior-frontend` — React 19 form patterns, useActionState, useOptimistic
-- `global-a11y-i18n-expert` — WCAG 2.2 form accessibility requirements
-- `design-system-architect, senior-frontend` — Input control primitives, form field components
-- `authentication-identity-expert` — Login/signup form patterns
-- `error-resilience-expert` — Form submission error handling and retry
-- `tailwind-expert` — Form styling with Tailwind CSS v4
-- `anti-slop` — Enforcing actionable error messages, locked pending states, accessible focus indicators, and server-side parity
 
 ### Sovereign Anti-Slop Form Directives
 Zero-tolerance standards for form engineering:
@@ -480,7 +475,13 @@ Zero-tolerance standards for form engineering:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Mengevaluasi fitur validasi form native (`:user-valid`, `:user-invalid`), token autofill, dan custom select.
+- **`modern-css-native-expert`**: Memanfaatkan `field-sizing: content` untuk textarea dinamis dan umpan balik validasi CSS murni.
+- **`design-system-architect`**: Menyediakan primitif kontrol form aksesibel, border input, dan token floating label.
+- **`anti-slop`**: Melenyapkan pesan error samar, bug pengiriman ganda, dan status pending yang tidak ditangani.
+- **`senior-frontend`**: Mengimplementasikan `useActionState`, `useOptimistic`, dan pengiriman form Server Actions di React 19.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Eksekusi siklus hidup proyek secara terpadu.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).
@@ -498,16 +499,6 @@ M3 menetapkan dua format input utama (Filled dan Outlined) dengan animasi floati
 - **Outlined Text Field**: Garis batas perimetral bersih (`border-outline`), label mengapung saat fokus atau terisi (`peer-focus:top-1.5 peer-focus:scale-75`).
 - **Filled Text Field**: Latar belakang kontainer `surface-container-highest` dengan garis indikator aktif di bagian bawah (2px saat fokus).
 - **Aksesibilitas & Ikon**: Dukungan ikon leading/trailing (misal tombol visibilitas kata sandi), helper text terikat via `aria-describedby`, dan error alert berkontras tinggi yang lolos uji WCAG.
-
-### Integrasi dengan Skill Lain
-
-- `senior-frontend` — Pola formulir React 19, useActionState, useOptimistic
-- `global-a11y-i18n-expert` — Persyaratan aksesibilitas formulir WCAG 2.2
-- `design-system-architect, senior-frontend` — Primitif kontrol input, komponen field formulir
-- `authentication-identity-expert` — Pola formulir login/signup
-- `error-resilience-expert` — Penanganan error submission formulir dan retry
-- `anti-slop` — Penegakan pesan error yang jelas, proteksi status pending, cincin fokus aksesibel, dan paritas skema server-side
-
 ### Arahan Anti-Slop Formulir
 Standar nol toleransi untuk rekayasa formulir:
 1. **Dilarang Menulis Pesan Error Samar**: Melarang pesan generik "Field tidak valid", "Input salah", atau "Terjadi kesalahan". Setiap aturan validasi wajib menjelaskan apa yang keliru dan cara memperbaikinya (misal: "Kata sandi minimal 8 karakter dan mengandung minimal satu angka").

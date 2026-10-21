@@ -2,7 +2,7 @@
 name: github-actions-expert
 description: "Expert guide for GitHub Actions CI/CD workflows, reusable workflows, composite actions, matrix builds, OIDC cloud auth, security hardening, and artifact automation / Panduan ahli GitHub Actions CI/CD workflows, reusable workflows, aksi komposit, autentikasi cloud OIDC, pengerasan keamanan, dan otomasi rilis."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 ---
 
 # GitHub Actions Expert (Enterprise CI/CD Standard 2026)
@@ -15,7 +15,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `ci-cd-devops-architect`, `e2e-testing-expert`, `autonomous-tdd-debugger`, `production-ready-hardener`, `anti-slop`, `zero-trust-secret-vault`, `cloud-hosting-expert`, `session-memory-manager`.
+- **Upstream & Lifecycle**: `zero-to-prod-orchestrator` (Phase 7 deployment), `brainstorming`, `session-memory-manager`.
+- **Infrastructure & Cloud Targets**: `ci-cd-devops-architect` (pipeline topology), `docker-container-expert` (container builds & SBOM), `cloud-hosting-expert` (edge & cloud deploys).
+- **Security & Secret Vaults**: `zero-trust-secret-vault` (OIDC federated auth), `anti-slop` (pipeline hygiene & strict gate validation).
+- **Test Automation & Quality**: `autonomous-tdd-debugger` (test runner execution), `e2e-testing-expert` (Playwright suites), `production-ready-hardener` (pre-flight checks).
 
 ### Description
 Enterprise-grade guide for engineering hardened, high-performance Continuous Integration & Continuous Delivery (CI/CD) pipelines on **GitHub Actions**. Covers deterministic dependency caching (pnpm/bun/uv/cargo), reusable workflows (`workflow_call`), composite actions (`using: 'composite'`), dynamic multi-platform matrix builds, OpenID Connect (OIDC) cloud federation for AWS/GCP/Azure with zero long-lived credentials, immutable action pinning by commit SHA, fine-grained `GITHUB_TOKEN` permissions, concurrency control, artifact attestation, and npm/OCI provenance publishing.
@@ -233,7 +236,10 @@ runs:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `ci-cd-devops-architect`, `e2e-testing-expert`, `autonomous-tdd-debugger`, `production-ready-hardener`, `anti-slop`, `zero-trust-secret-vault`, `cloud-hosting-expert`, `session-memory-manager`.
+- **Hulu & Siklus Hidup**: `zero-to-prod-orchestrator` (Deployment Fase 7), `brainstorming`, `session-memory-manager`.
+- **Infrastruktur & Target Cloud**: `ci-cd-devops-architect` (topologi pipeline), `docker-container-expert` (build kontainer & SBOM), `cloud-hosting-expert` (deploy edge & cloud).
+- **Keamanan & Brankas Rahasia**: `zero-trust-secret-vault` (otentikasi federasi OIDC), `anti-slop` (kebersihan pipeline & validasi gerbang ketat).
+- **Otomasi Pengujian & Kualitas**: `autonomous-tdd-debugger` (eksekusi pengujian otomatis), `e2e-testing-expert` (suite Playwright), `production-ready-hardener` (pemeriksaan pra-rilis).
 
 ### Deskripsi
 Panduan standar industri enterprise untuk merancang dan memelihara pipeline Continuous Integration & Continuous Delivery (CI/CD) berperforma tinggi dan aman di **GitHub Actions**. Meliputi optimasi cache dependensi deterministik (pnpm/bun/uv/cargo), workflow pakai ulang (`workflow_call`), aksi komposit modular (`using: 'composite'`), matriks pengujian multi-platform, autentikasi cloud OpenID Connect (OIDC) tanpa kunci statis untuk AWS/GCP/Azure, penguncian aksi pihak ketiga dengan full commit SHA, hak akses minimum `GITHUB_TOKEN`, manajemen konkurensi, atestasi artifak, dan publikasi paket dengan sertifikasi provenance.

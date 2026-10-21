@@ -2,7 +2,7 @@
 name: context-window-engineer
 description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Pro, Claude 5.5, and GPT Astra 6 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Pro, Claude 5.5, dan GPT Astra 6 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `kv-cache-prefix-optimizer`, `llm-finops-router`, `frontier-ai-models-expert`, `gemini-agent-booster`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `adaptive-model-cascade`, `session-memory-manager`, and `deep-research-analyst` to ensure context windows are utilized efficiently across all AI-powered workflows.
+- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI integration), `brainstorming`, `session-memory-manager` (context zone snapshots & handoff).
+- **Prefix Locking & Model Cascading**: `kv-cache-prefix-optimizer` (Zone 1-2 cache boundary alignment), `adaptive-model-cascade` (overflow routing across model sizes), `llm-finops-router` (per-zone token cost accounting).
+- **Frontier LLMs & Model Boosters**: `frontier-ai-models-expert` (2M+ token recall curves), `gemini-agent-booster` (Google 2M+ native context caching), `vercel-ai-sdk-expert` (context streaming & tools).
+- **Research & Deep Ingestion**: `deep-research-analyst` (retrieval-augmented injection), `vector-db-rag-expert` (retrieval vs context stuffing decisions).
 
 ### Description
 Production guide for engineering, partitioning, and optimizing ultra-large context windows (128k → 2M+ tokens) across frontier models. Prevents the most common failure mode in 2026 AI applications: dumping raw data into context without structure, causing degraded recall, wasted tokens, and hallucination amplification in the "lost in the middle" zone.
@@ -218,27 +221,14 @@ export function buildSlidingWindow(
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `kv-cache-prefix-optimizer` — Ensure Zone 1-2 boundaries align with cache-pinned prefixes for maximum cache hit rates.
-- `llm-finops-router` — Feed per-zone token costs to the FinOps dashboard for budget optimization.
-- `frontier-ai-models-expert` — Reference model-specific context window capacities and recall characteristics.
-- `adaptive-model-cascade` — Route to larger-context models only when context exceeds smaller model capacity.
-- `gemini-agent-booster` — Leverage Gemini 4 Pro's native 2M context caching for zero-latency re-reads.
-- `session-memory-manager` — Persist context zone snapshots across sessions for seamless handoff.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "AI & LLM Integration" and "Frontier AI & Simulation" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 4 (Backend APIs, Microservices & AI Agents).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `kv-cache-prefix-optimizer`, `llm-finops-router`, `frontier-ai-models-expert`, `gemini-agent-booster`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `adaptive-model-cascade`, `session-memory-manager`, dan `deep-research-analyst` untuk memastikan context window dimanfaatkan secara efisien di seluruh alur kerja berbasis AI.
+- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi AI Fase 4), `brainstorming`, `session-memory-manager` (snapshot zona konteks & handoff).
+- **Penguncian Prefix & Kaskade Model**: `kv-cache-prefix-optimizer` (penyelarasan batas cache Zona 1-2), `adaptive-model-cascade` (routing luapan kapasitas model), `llm-finops-router` (akuntansi biaya token per zona).
+- **LLM Frontier & Booster Model**: `frontier-ai-models-expert` (kurva recall 2M+ token), `gemini-agent-booster` (caching konteks native Google 2M+), `vercel-ai-sdk-expert` (streaming konteks & tools).
+- **Riset & Penyerapan Mendalam**: `deep-research-analyst` (injeksi berbasis retrieval), `vector-db-rag-expert` (keputusan retrieval vs penumpukan konteks).
 
 ### Deskripsi
 Panduan produksi untuk merekayasa, mempartisi, dan mengoptimalkan context window ultra-besar (128k → 2M+ token) pada model frontier. Mencegah kegagalan paling umum di aplikasi AI 2026: memasukkan data mentah ke konteks tanpa struktur, yang menyebabkan recall menurun, token terbuang, dan amplifikasi halusinasi di zona "lost in the middle".
@@ -287,17 +277,3 @@ Gunakan RAG untuk korpus >10M token dengan query spesifik dan sensitivitas biaya
 | Tanpa partisi zona | Instruksi kritis "hilang di tengah" | Implementasikan header zona eksplisit |
 | Mengabaikan penghitungan token | Pemotongan konteks diam-diam oleh API model | Hitung dan terapkan anggaran dari sisi klien |
 | Menyimpan seluruh riwayat percakapan | Konteks penuh setelah 10-15 giliran | Terapkan sliding window dengan ringkasan |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `kv-cache-prefix-optimizer` — Pastikan batas Zona 1-2 selaras dengan prefix cache untuk cache hit rate maksimal.
-- `llm-finops-router` — Kirim biaya token per-zona ke dashboard FinOps untuk optimasi anggaran.
-- `frontier-ai-models-expert` — Referensi kapasitas context window dan karakteristik recall spesifik model.
-- `adaptive-model-cascade` — Rutekan ke model berkonteks lebih besar hanya ketika konteks melebihi kapasitas model kecil.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Ditambahkan ke baris "Integrasi AI & LLM" dan "Frontier AI & Simulation" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Diintegrasikan di Fase 4 (Backend APIs, Microservices & AI Agents).

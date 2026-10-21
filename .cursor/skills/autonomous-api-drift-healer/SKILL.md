@@ -2,7 +2,7 @@
 name: autonomous-api-drift-healer
 description: "Expert guide for autonomous API schema drift detection, OpenAPI / gRPC breaking change monitoring, self-healing SDK adapter generation, and zero-downtime client-server synchronization / Panduan ahli deteksi drift skema API otonom, pemantauan breaking change OpenAPI / gRPC, pembuatan adapter SDK self-healing, dan sinkronisasi client-server tanpa downtime."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `api-design-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, and `zero-tech-debt-auditor` to autonomously detect breaking API drifts, update client SDKs, and generate compatibility adapters without human intervention.
+- **Upstream Specs & Contract SSoT**: `api-design-expert`, `spec-driven-development-expert`, `prd-architect`
+- **Client & SDK Codegen**: `openapi-swagger-codegen-expert`, `typescript-expert`, `tanstack-query-expert`
+- **Testing & Verification Sandbox**: `e2e-testing-expert`, `ephemeral-wasm-sandbox-executor`, `autonomous-tdd-debugger`
+- **Debt Auditing & Cleanup**: `zero-tech-debt-auditor`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Description
 Production guide for architecting autonomous API drift detection and self-healing pipelines across microservices and fullstack applications. Continuously analyzes schema differences across OpenAPI 3.1 specifications, gRPC Protocol Buffers, and GraphQL schemas, automatically synthesizing backward-compatible adapter layers, updating frontend Zod schemas, and issuing self-healing pull requests to eliminate client-server desynchronization.
@@ -165,25 +169,15 @@ export class AutonomousApiDriftHealer {
 
 ---
 
-### Integration with Other Skills (MANDATORY)
-
-- `api-design-expert` — Standardize OpenAPI and REST guidelines to minimize accidental drift.
-- `openapi-swagger-codegen-expert` — Regenerate client SDKs and TypeScript interfaces automatically.
-- `typescript-expert` — Guarantee compile-time safety and type exhaustiveness across adapters.
-- `zero-tech-debt-auditor` — Flag and clean up expired compatibility adapters after deprecation windows close.
-
-### Referenced By Orchestrators (MANDATORY)
-
-- `brainstorming` — Added to "Desain API & Kontrak" and "DevOps & CI/CD" matrix rows.
-- `zero-to-prod-orchestrator` — Integrated in Phase 4 (Backend APIs) and Phase 8 (Launch & Deployment).
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `api-design-expert`, `openapi-swagger-codegen-expert`, `typescript-expert`, dan `zero-tech-debt-auditor` untuk mendeteksi perubahan skema API yang berpotensi merusak (*breaking drift*), memperbarui SDK klien, dan menghasilkan adapter kompatibilitas secara otomatis.
+- **Spesifikasi Hulu & SSoT Kontrak**: `api-design-expert`, `spec-driven-development-expert`, `prd-architect`
+- **Codegen SDK & Klien**: `openapi-swagger-codegen-expert`, `typescript-expert`, `tanstack-query-expert`
+- **Sandbox Pengujian & Verifikasi**: `e2e-testing-expert`, `ephemeral-wasm-sandbox-executor`, `autonomous-tdd-debugger`
+- **Audit Utang Teknis & Pembersihan**: `zero-tech-debt-auditor`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk merancang pipeline deteksi drift skema API dan penyembuhan mandiri (*self-healing*) pada aplikasi fullstack dan microservices. Menganalisis perbedaan skema secara berkesinambungan pada spesifikasi OpenAPI 3.1, gRPC Protocol Buffers, dan GraphQL, menghasilkan adapter kompatibilitas mundur (*backward-compatible*), memperbarui skema Zod pada frontend, serta membuat pull request otomatis untuk mencegah desinkronisasi client-server.
@@ -228,17 +222,3 @@ Aktifkan skill ini ketika:
 | Menghapus field API tanpa memeriksa versi aplikasi mobile | Aplikasi versi lama langsung crash saat dibuka pengguna | Gunakan adapter kompatibilitas mundur pada middleware |
 | Mengabaikan properti tambahan secara diam-diam | Terjadi kehilangan data saat payload disimpan kembali | Gunakan validasi eksplisit dengan skema Zod |
 | Mengetik ulang interface API secara manual di frontend | Terjadi akumulasi desinkronisasi tipe data | Gunakan otomatisasi codegen dari OpenAPI pada setiap commit |
-
----
-
-### Integrasi dengan Skill Lain (WAJIB)
-
-- `api-design-expert` — Standardisasi spesifikasi REST dan OpenAPI untuk mencegah drift tak terduga.
-- `openapi-swagger-codegen-expert` — Regenerasi SDK klien dan interface TypeScript otomatis.
-- `typescript-expert` — Menjamin keamanan tipe data pada adapter.
-- `zero-tech-debt-auditor` — Menandai dan membersihkan adapter lawas yang sudah kedaluwarsa.
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-- `brainstorming` — Tambahkan ke baris "Desain API & Kontrak" dan "DevOps & CI/CD" pada Matriks Orkestrasi.
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase 4 (Backend APIs) dan Fase 8 (Peluncuran & Deployment).

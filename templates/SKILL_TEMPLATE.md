@@ -2,7 +2,7 @@
 name: skill-baru
 description: "Comprehensive template for creating new vibes-plug skills with proper structure, trigger conditions, and bilingual support / Template komprehensif untuk membuat skill vibes-plug baru dengan struktur yang tepat, kondisi pemicu, dan dukungan bilingual."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -99,25 +99,7 @@ const example = {
 
 ---
 
-### Integration with Other Skills (MANDATORY)
 
-> ⚠️ **Every skill MUST list at least 3 cross-references.** No skill should exist in isolation.
-
-This skill works best when combined with:
-- `[skill-name]` — [Why and when to combine]
-- `[skill-name]` — [Why and when to combine]
-- `[skill-name]` — [Why and when to combine]
-
-### Referenced By Orchestrators (MANDATORY)
-
-> ⚠️ **Update the orchestrator skills below when creating a new domain skill.**
-
-This skill should be referenced by the following orchestrators:
-- `brainstorming` — Add to the "[Domain]" row in the Skill Integration & Orchestration Matrix
-- `zero-to-prod-orchestrator` — Add to Phase [N]: [Phase Name]
-- `production-ready-hardener` — Add to Phase [N] if relevant to pre-launch audit
-
----
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -146,22 +128,6 @@ Aktifkan skill ini ketika pengguna sedang:
 - **[Prinsip 3]:** [Penjelasan singkat]
 - **[Prinsip 4]:** [Penjelasan singkat]
 
-### Integrasi dengan Skill Lain (WAJIB)
-
-> ⚠️ **Setiap skill WAJIB mencantumkan minimal 3 referensi silang.** Tidak ada skill yang boleh berdiri sendiri.
-
-Skill ini bekerja paling baik dikombinasikan dengan:
-- `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
-- `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
-- `[nama-skill]` — [Mengapa dan kapan dikombinasikan]
-
-### Direferensikan oleh Orchestrator (WAJIB)
-
-Skill ini harus direferensikan oleh orchestrator berikut:
-- `brainstorming` — Tambahkan ke baris "[Domain]" di Matriks Orkestrasi
-- `zero-to-prod-orchestrator` — Tambahkan ke Fase [N]
-- `production-ready-hardener` — Tambahkan ke Fase [N] jika relevan
-
 ---
 
 ## Checklist Sebelum Mempublikasikan Skill Ini
@@ -171,8 +137,7 @@ Skill ini harus direferensikan oleh orchestrator berikut:
 - [ ] Ada minimal 2 contoh kode yang nyata dan dapat dijalankan.
 - [ ] Ada tabel perbandingan atau selection guide jika relevan.
 - [ ] Ada bagian "Common Pitfalls" atau anti-pattern.
-- [ ] **Bagian "Integration with Other Skills" mencantumkan minimal 3 skill.**
-- [ ] **Bagian "Referenced By Orchestrators" sudah diisi.**
+- [ ] **Bagian "Orchestration & Integration" dan "Integrasi Orkestrasi" mencantumkan minimal 3 skill.**
 - [ ] Bagian Bahasa Indonesia sudah diterjemahkan dengan benar.
 - [ ] Blok instruksi ini sudah dihapus.
 - [ ] **Skill sudah ditambahkan ke matriks orkestrasi `brainstorming`.**

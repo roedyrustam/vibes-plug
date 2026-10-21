@@ -2,7 +2,7 @@
 name: web-3d-graphics-expert
 description: "Expert guide for modern WebGPU and WebGL 3D graphics in the browser using Three.js (WebGPURenderer + TSL), Babylon.js, PlayCanvas, React Three Fiber (R3F), and 3Dviz spatial reasoning — covers object craft across 3 scales, surface continuity at joins, physical interaction envelopes, grounded scientific visualization, KTX2/Meshopt optimization, and 3D visual anti-slop / Panduan ahli grafis 3D web, WebGPU modern, dan penalaran spasial 3Dviz."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -24,6 +24,8 @@ Connects and orchestrates with relevant domain skills:
 - `glsl-shader-expert` — Shading languages, WGSL compute shaders, and TSL nodes.
 - `webxr-ar-vr-expert` — WebXR immersive VR/AR experiences.
 - `data-visualization-expert` — 3D scientific data visualization and spatial explainers.
+- `ui-ux-pro-max` — Spatial UI design systems, canvas viewport ergonomics, and HUD controls.
+- `visual-ui-auditor` — Multimodal vision auditing of 3D canvases, frame rates, and lighting fidelity.
 - `anti-slop` — 3D visual anti-slop, eliminating generic glowing orbs and proxy meshes.
 - `performance-web-vitals` — Minimizing Total Blocking Time (TBT), asset streaming, and bundle sizing.
 
@@ -311,6 +313,8 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `glsl-shader-expert` — Bahasa shader, compute shader WGSL, dan node TSL.
 - `webxr-ar-vr-expert` — Pengalaman WebXR VR/AR imersif.
 - `data-visualization-expert` — Visualisasi data ilmiah 3D dan explainer spasial.
+- `ui-ux-pro-max` — Sistem desain antarmuka spasial, ergonomi viewport kanvas, dan kontrol HUD.
+- `visual-ui-auditor` — Audit visual multimodal untuk kanvas 3D, frame rate, dan fidelitas pencahayaan.
 - `anti-slop` — Anti-slop visual 3D, membasmi orbe bersinar generik dan model proksi murahan.
 - `performance-web-vitals` — Meminimalkan TBT (Total Blocking Time) dan optimasi ukuran bundle.
 

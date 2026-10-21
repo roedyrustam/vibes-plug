@@ -2,7 +2,7 @@
 name: supabase-security-expert
 description: "Supabase security expert to audit RLS (Row Level Security), RBAC, relational databases, prevent data leakage, and utilize Supabase Linter / Ahli keamanan Supabase untuk audit RLS (Row Level Security), RBAC, database relasional, pencegahan kebocoran data, dan pemanfaatan Supabase Linter."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Database Architecture & ORM**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identity & Authentication**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Threat Defense & Pen-Testing**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`, `prompt-injection-firewall`
+- **Frontend & Storage Integration**: `senior-frontend`, `nextjs-app-router-expert`, `file-upload-media-expert`
+- **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for auditing and hardening Supabase applications. Covers Row Level Security (RLS), Supabase Auth v3 (PKCE flow), API key hygiene, data leakage prevention, Supabase Linter, and production security checklists.
@@ -205,7 +209,11 @@ USING (bucket_id = 'user-uploads' AND auth.uid()::text = (storage.foldername(nam
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Arsitektur Database & ORM**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identitas & Autentikasi**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Pertahanan Ancaman & Pen-Testing**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`, `prompt-injection-firewall`
+- **Integrasi Frontend & Storage**: `senior-frontend`, `nextjs-app-router-expert`, `file-upload-media-expert`
+- **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengaudit dan mengeraskan aplikasi Supabase. Mencakup Row Level Security (RLS), Supabase Auth v3 (PKCE flow), kebersihan API key, pencegahan kebocoran data, Supabase Linter, dan checklist keamanan produksi.
