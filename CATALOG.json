@@ -843,7 +843,7 @@
     },
     {
       "name": "tauri-expert",
-      "description": "Expert skill for Tauri (v2) development, Rust backend, IPC, and security / Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan.",
+      "description": "Expert guide for Tauri 2.x / 2.12+ cross-platform desktop and mobile development: Rust 1.90+ MSRV, IPC Channel streaming, on_permission_request handlers, App-Bound domains, and Capabilities security / Panduan ahli pengembangan desktop dan mobile Tauri 2.x / 2.12+.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
