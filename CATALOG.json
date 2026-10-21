@@ -699,7 +699,7 @@
     },
     {
       "name": "rust-programming-expert",
-      "description": "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian.",
+      "description": "Expert-level skill for Rust programming (Rust 2024 / v1.88+). Covers memory safety, Grounded Permissions Model (R/W/O/F), async Axum 0.8/SQLx, CLI, and zero-cost optimization in English and Indonesian.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
