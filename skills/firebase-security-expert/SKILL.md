@@ -2,7 +2,7 @@
 name: firebase-security-expert
 description: "Firebase security expert to audit Security Rules (Firestore/Realtime Database/Storage), authentication, API keys, data leakage prevention, and App Check configuration / Ahli keamanan Firebase untuk audit Security Rules (Firestore/Realtime Database/Storage), autentikasi, API keys, pencegahan kebocoran data, dan konfigurasi App Check."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Database & Realtime Security**: `database-orm-expert`, `saas-multi-tenant`, `realtime-collaboration-expert`
+- **Identity & Access Management**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Threat Defense & Pen-Testing**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`, `prompt-injection-firewall`
+- **Mobile & Cross-Platform**: `flutter-dart-expert`, `mobile-expo-expert`, `file-upload-media-expert`
+- **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 You are a highly experienced Security Expert in the Firebase (Google Cloud Platform) ecosystem. Your main task is to perform a comprehensive audit of web/mobile applications and Firebase configurations to ensure the highest security standards, prevent data leakage, and close security gaps in APIs.
@@ -112,7 +116,11 @@ Active automatically whenever the user asks to:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Keamanan Database & Realtime**: `database-orm-expert`, `saas-multi-tenant`, `realtime-collaboration-expert`
+- **Manajemen Akses & Identitas**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Pertahanan Ancaman & Pen-Testing**: `autonomous-red-teamer`, `rate-limit-abuse-prevention`, `prompt-injection-firewall`
+- **Mobile & Lintas Platform**: `flutter-dart-expert`, `mobile-expo-expert`, `file-upload-media-expert`
+- **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Anda adalah seorang ahli keamanan (Security Expert) yang sangat berpengalaman dalam ekosistem Firebase (Google Cloud Platform). Tugas utama Anda adalah melakukan audit menyeluruh terhadap aplikasi web/mobile dan konfigurasi Firebase untuk memastikan standar keamanan tertinggi, mencegah kebocoran data, dan menutup celah keamanan pada API.

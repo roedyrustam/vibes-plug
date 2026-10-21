@@ -2,7 +2,7 @@
 name: compliance-gdpr-privacy-expert
 description: "Expert guide for Data Privacy, GDPR, CCPA, and PDPA compliance. Covers consent management, data retention, privacy-by-design, and audit trails / Panduan kepatuhan Privasi Data, GDPR, dan PDPA."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Database & Data Retention**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identity & Access Revocation**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Logging & Error Redaction**: `logging-error-tracking-expert`, `data-telemetry-expert`
+- **Security & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `rate-limit-abuse-prevention`
+- **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production engineering guide for regulatory data privacy and compliance across GDPR (EU), CCPA/CPRA (California), and UU PDP No. 27/2022 (Indonesia). Covers technical patterns for PII (Personally Identifiable Information) encryption at rest, cascading data anonymization (Right to be Forgotten while retaining immutable financial ledgers for tax authorities), consent state machines, and automated logger redaction.
@@ -96,19 +103,17 @@ export const logger = pino({
 2. **Prior Consent for Tracking Scripts**: Do NOT load Google Analytics, Meta Pixel, or third-party cookies until the user has actively opted in. Default to blocked.
 3. **Encryption at Rest**: Columns containing sensitive national IDs (KTP/NIK/SSN) or phone numbers must be encrypted using AES-256-GCM before database insertion.
 
-## Orchestration & Integration
-- **`database-orm-expert`**: Maintains schema definitions for encrypted columns and anonymization flags.
-- **`logging-error-tracking-expert`**: Enforces strict PII redaction rules across all application logs.
-- **`authentication-identity-expert`**: Handles secure account de-registration and session revocation.
-- **`saas-billing`**: Preserves financial audit ledgers during customer deletion workflows.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `database-orm-expert`, `logging-error-tracking-expert`, `authentication-identity-expert`, dan `saas-billing`.
+- **Database & Retensi Data**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identitas & Pencabutan Akses**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Logging & Redaksi Error**: `logging-error-tracking-expert`, `data-telemetry-expert`
+- **Keamanan & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `rate-limit-abuse-prevention`
+- **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan rekayasa produksi untuk kepatuhan regulasi privasi data global dan nasional, termasuk GDPR (Uni Eropa), CCPA (California), dan UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP Indonesia). Mencakup enkripsi data pribadi (PII) saat tersimpan (*at rest*), anonimisasi berjenjang untuk pemenuhan hak penghapusan data tanpa merusak pembukuan keuangan perpajakan, manajemen persetujuan cookie (*opt-in*), serta sensor otomatis pada sistem logging.
@@ -140,9 +145,3 @@ CREATE INDEX idx_user_consents ON user_privacy_consents (user_id, consent_type);
 1. **Pemisahan Data Transaksi dan Identitas**: UU Perpajakan mewajibkan penyimpanan bukti transaksi selama bertahun-tahun. Ketika pengguna meminta dihapus, anonimkan data identitas mereka (ganti menjadi anonim), namun pertahankan catatan nominal transaksi.
 2. **Opt-in Sebelum Pelacakan**: Skrip pelacak analitik dilarang berjalan sebelum pengguna mengklik tombol "Setuju" secara eksplisit.
 3. **Sensor Log Otomatis**: Pastikan pustaka logger (Pino/Winston) menyensor kata kunci sensitif (`password`, `email`, `token`) agar tidak tersimpan sebagai teks biasa pada log server.
-
-## Integrasi Orkestrasi
-- **`database-orm-expert`**: Mengatur migrasi skema tabel untuk enkripsi PII dan status anonimisasi.
-- **`logging-error-tracking-expert`**: Memastikan tidak ada data pribadi yang bocor ke log error.
-- **`authentication-identity-expert`**: Menutup sesi aktif dan mencabut hak akses saat akun dihapus.
-- **`saas-billing`**: Menjaga integritas pembukuan pembayaran SaaS sesuai regulasi akuntansi.
