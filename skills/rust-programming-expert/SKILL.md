@@ -2,7 +2,7 @@
 name: rust-programming-expert
 description: "Expert-level skill for Rust programming (Rust 2024 / v1.85+). Covers memory safety, async, Axum/SQLx, CLI, and optimization in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with domain skills:
+- **Systems, Desktop & WASM**: `tauri-expert` (desktop native IPC), `wasm-edge-computing-expert`, and `ephemeral-wasm-sandbox-executor` for safe in-memory sandboxing and edge execution.
+- **Backend & APIs**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), and `fullstack-expert` for polyglot services.
+- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing `cargo test`, compile-time SQL verification, and zero-panic error handling (`Result<T, E>` without lazy `.unwrap()`).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
 Expert-level Rust development for building memory-safe, high-performance systems, APIs, CLI tools, and WebAssembly. Covers the **Rust 2024 edition**, async/await with Tokio, Axum 0.8 web framework, SQLx for async database access, and modern Rust idioms.
@@ -203,7 +207,11 @@ async fn main() -> anyhow::Result<()> {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Sistem, Desktop & WASM**: `tauri-expert` (IPC aplikasi desktop native), `wasm-edge-computing-expert`, dan `ephemeral-wasm-sandbox-executor` untuk eksekusi WASM efemeral dan komputasi edge.
+- **Backend & API**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), dan `fullstack-expert` untuk arsitektur polyglot.
+- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `cargo test`, verifikasi SQL saat kompilasi, dan penanganan error tanpa panic (`Result<T, E>` tanpa unwrap ceroboh).
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
 Pengembangan Rust tingkat ahli untuk membangun sistem, API, CLI tool, dan WebAssembly yang aman di memori dan berkinerja tinggi. Mencakup **edisi Rust 2024**, async/await dengan Tokio, framework web Axum 0.8, SQLx untuk akses database async, dan idiom Rust modern.

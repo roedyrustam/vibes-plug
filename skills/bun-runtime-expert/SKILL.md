@@ -2,7 +2,7 @@
 name: bun-runtime-expert
 description: "Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,9 +16,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with domain skills:
+- **Backend & APIs**: `js-backend-expert` (Hono, Fastify, Express migration), `api-design-expert` (REST & WebSocket contracts), and `sse-websocket-streaming-expert` (native Bun.serve WebSockets).
+- **Database & Storage**: `database-orm-expert` (Drizzle ORM, Prisma, Bun.sql PostgreSQL/SQLite) and `file-upload-media-expert` (Bun.s3 object storage).
+- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for running rapid `bun test` suites, self-healing runtime stack traces, and zero-slop production code.
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
-Expert-level guidance for building high-performance applications with the Bun JavaScript/TypeScript runtime (v1.1+). Covers Bun's built-in HTTP server, database clients, bundler, test runner, package manager, and Node.js migration strategies.
+### Description
+Expert-level guidance for building high-performance applications with the Bun JavaScript/TypeScript runtime (v1.1+ / v1.2+). Covers Bun's built-in HTTP server, database clients, bundler, test runner, package manager, and Node.js migration strategies.
 
 ### Trigger Conditions
 - Use when scaffolding a new project with Bun as the runtime.
@@ -117,9 +122,14 @@ const users = await sql`SELECT * FROM users WHERE active = ${true}`;
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Backend & API**: `js-backend-expert` (migrasi Hono, Fastify, Express), `api-design-expert` (kontrak REST & WebSocket), dan `sse-websocket-streaming-expert` (WebSocket native Bun.serve).
+- **Database & Penyimpanan**: `database-orm-expert` (Drizzle ORM, Prisma, Bun.sql PostgreSQL/SQLite) dan `file-upload-media-expert` (object storage Bun.s3).
+- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi test runner `bun test` berkecepatan tinggi, perbaikan otomatis stack trace, dan kode produksi tanpa slop.
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
-Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
+### Deskripsi
+Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+ / v1.2+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
 
 ### Kondisi Pemicu
 - Gunakan saat merancang proyek baru menggunakan Bun sebagai runtime.

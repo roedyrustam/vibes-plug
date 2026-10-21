@@ -2,7 +2,7 @@
 name: api-gateway-proxy-expert
 description: "Expert guide for API Gateways, Reverse Proxies, and Service Mesh. Covers Kong, Traefik, NGINX, Cloudflare Gateway, and load balancing / Panduan ahli untuk API Gateway, Reverse Proxy, dan Service Mesh."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Specs & Routing**: `api-design-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`
+- **Backend Upstreams**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Streaming & Realtime**: `sse-websocket-streaming-expert`, `voice-ai-realtime-agent`
+- **Security & Perimeter**: `rate-limit-abuse-prevention`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **DevOps & Orchestration**: `ci-cd-devops-architect`, `docker-container-expert`, `zero-to-prod-orchestrator`
 
 ### Description
 Production architectural guide for API Gateways, Edge Proxies, and perimeter traffic management in modern microservices and serverless topologies. Covers zero-downtime routing, SSL/TLS termination, automatic certificate issuance (Let's Encrypt), rate limiting at L7, Server-Sent Events (SSE) and WebSocket connection proxying, canary traffic splitting, and configuration templates for Caddy, Traefik, and NGINX.
@@ -114,16 +121,17 @@ server {
 2. **Forwarded Header Sanitation**: Strip spoofed incoming `X-Forwarded-For` headers from untrusted clients to prevent security bypasses in IP-based rate limiters.
 3. **Health Check Probes**: Always configure active health checks so the proxy immediately drops unhealthy microservice pods without returning 502 Bad Gateway to users.
 
-## Orchestration & Integration
-- **`rate-limit-abuse-prevention`**: Enforces L7 token bucket and sliding-window rate limits at the gateway layer.
-- **`ci-cd-devops-architect`**: Automates Caddy/NGINX reload in containerized environments.
-- **`js-backend-expert`**: Connects gateway proxy endpoints with Node.js, Bun, and Hono microservices.
-- **`sse-websocket-streaming-expert`**: Validates non-buffered real-time streaming pipelines.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Spesifikasi Hulu & Routing**: `api-design-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`
+- **Upstream Backend**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Streaming & Realtime**: `sse-websocket-streaming-expert`, `voice-ai-realtime-agent`
+- **Keamanan & Perimeter**: `rate-limit-abuse-prevention`, `zero-trust-secret-vault`, `autonomous-red-teamer`
+- **DevOps & Orkestrasi**: `ci-cd-devops-architect`, `docker-container-expert`, `zero-to-prod-orchestrator`
 
 ### Deskripsi
 Panduan arsitektur produksi untuk API Gateway, Edge Proxy, dan manajemen trafik perimeter dalam topologi microservices dan serverless modern. Mencakup routing tanpa downtime, terminasi SSL/TLS otomatis (Let's Encrypt), rate limiting pada layer L7, proxy koneksi Server-Sent Events (SSE) dan WebSocket tanpa buffering, pemisahan trafik canary, serta template konfigurasi untuk Caddy, Traefik, dan NGINX.
@@ -163,9 +171,3 @@ services:
 1. **Matikan Buffering Proxy**: Untuk endpoint streaming AI atau Server-Sent Events, wajib matikan buffering (`proxy_buffering off` di NGINX, `flush_interval -1` di Caddy) agar token muncul seketika di layar pengguna.
 2. **Atur Timeout Panjang**: Berikan batas waktu pembacaan (`proxy_read_timeout 600s`) agar koneksi streaming tidak terputus di tengah jalan saat respons AI panjang.
 3. **Penyaringan Header Asli**: Teruskan `X-Real-IP` dan `X-Forwarded-Proto` agar backend dapat mendeteksi lokasi dan skema enkripsi klien secara akurat.
-
-## Integrasi Orkestrasi
-- **`rate-limit-abuse-prevention`**: Melindungi gateway dari banjir request berbahaya.
-- **`ci-cd-devops-architect`**: Menangani reload konfigurasi proxy tanpa memutus koneksi aktif (*graceful reload*).
-- **`js-backend-expert`**: Menjadi target proxy upstream bagi backend Node.js atau Bun.
-- **`sse-websocket-streaming-expert`**: Mengawal kelancaran streaming data asinkron.

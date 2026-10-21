@@ -2,7 +2,7 @@
 name: spec-driven-development-expert
 description: "Expert guide for Spec-Driven Development (SDD) & Contract-First Architecture — TypeSpec, OpenAPI 3.1, Gherkin BDD, Pact consumer-driven contracts, Spectral linting, and automated spec-to-code pipelines / Panduan ahli pengembangan berbasis spesifikasi (SDD) dan arsitektur contract-first."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `api-design-expert`, `openapi-swagger-codegen-expert`, `formal-spec-z3-verifier`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-api-drift-healer`, `typescript-expert`, `database-orm-expert`, and `anti-slop`.
+- **Upstream Specs & Discovery**: `prd-architect`, `brainstorming`, `domain-driven-design-expert`
+- **Contract & Spec Tooling**: `api-design-expert`, `openapi-swagger-codegen-expert`, `autonomous-api-drift-healer`
+- **Formal Verification & Typing**: `formal-spec-z3-verifier`, `typescript-expert`, `structured-output-contracts`
+- **Testing & Verification**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **Backend Implementation**: `js-backend-expert`, `database-orm-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Spec-Driven Development (SDD) is the foundational engineering antidote to unstructured AI code generation. Instead of prompting AI agents to write code directly from vague conversational prompts, SDD enforces a strict **Contract-First Lifecycle**: formal, machine-readable specifications (TypeSpec, OpenAPI 3.1, JSON Schema Draft 2020-12, Gherkin BDD, and Pact Consumer-Driven Contracts) are authored, linted, and mathematically verified *before* any production code or test suite is generated.
@@ -317,7 +322,12 @@ describe('Billing Service Contract Verification', () => {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasikan skill `api-design-expert`, `openapi-swagger-codegen-expert`, `formal-spec-z3-verifier`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-api-drift-healer`, `typescript-expert`, `database-orm-expert`, dan `anti-slop`.
+- **Ideasi Hulu & Penemuan**: `prd-architect`, `brainstorming`, `domain-driven-design-expert`
+- **Tooling Kontrak & Spesifikasi**: `api-design-expert`, `openapi-swagger-codegen-expert`, `autonomous-api-drift-healer`
+- **Verifikasi Formal & Pengetikan**: `formal-spec-z3-verifier`, `typescript-expert`, `structured-output-contracts`
+- **Pengujian & Verifikasi**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
+- **Implementasi Backend**: `js-backend-expert`, `database-orm-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Pengembangan Berbasis Spesifikasi (*Spec-Driven Development* / SDD) adalah fondasi rekayasa perangkat lunak modern untuk membasmi halusinasi kode AI. Alih-alih membiarkan model AI menulis kode langsung dari prompt instruksi yang tidak terstruktur, paradigma SDD mewajibkan penulisan **kontrak formal yang terbaca oleh mesin** (TypeSpec, OpenAPI 3.1, JSON Schema, Gherkin BDD, dan Pact Contracts) sebelum baris kode implementasi atau tes dibuat.

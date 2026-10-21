@@ -2,7 +2,7 @@
 name: graphql-apollo-expert
 description: "Expert guide for designing and consuming GraphQL APIs. Covers Apollo Server/Client, NestJS GraphQL (Code-First & Schema-First), TypeGraphQL, caching, and N+1 query optimization."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Specs & Design**: `api-design-expert`, `spec-driven-development-expert`, `brainstorming`
+- **Backend & Resolvers**: `js-backend-expert`, `database-orm-expert`, `sse-websocket-streaming-expert`
+- **Frontend Apollo Consumers**: `senior-frontend`, `vue-frontend-expert`, `tanstack-query-expert`
+- **Security & Quality**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production-grade guidance for building and consuming **GraphQL APIs**. Focuses on the **Apollo** ecosystem (Apollo Server, Apollo Client, Federation), **NestJS GraphQL** integration, and solving common performance pitfalls like the N+1 query problem using DataLoaders.
@@ -100,10 +104,11 @@ This skill works best when combined with:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
-- `js-backend-expert` — Setup arsitektur server Node.js/NestJS.
-- `database-orm-expert` — Menghubungkan Prisma/Drizzle ORM ke resolver GraphQL dan DataLoader.
-- `senior-frontend` / `vue-frontend-expert` — Integrasi Apollo Client ke aplikasi frontend.
+- **Ideasi Hulu & Desain**: `api-design-expert`, `spec-driven-development-expert`, `brainstorming`
+- **Backend & Resolver**: `js-backend-expert`, `database-orm-expert`, `sse-websocket-streaming-expert`
+- **Konsumen Frontend Apollo**: `senior-frontend`, `vue-frontend-expert`, `tanstack-query-expert`
+- **Keamanan & Kualitas**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk membangun dan mengonsumsi API **GraphQL**. Mencakup ekosistem **Apollo** (Apollo Server, Apollo Client, Federation), integrasi **NestJS GraphQL**, dan pemecahan masalah bottleneck query N+1 menggunakan DataLoader.

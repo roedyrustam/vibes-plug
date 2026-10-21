@@ -2,7 +2,7 @@
 name: api-design-expert
 description: "Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design / Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Ideation & Specs**: `brainstorming`, `prd-architect`, `spec-driven-development-expert`
+- **Downstream Implementations**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Contract & Gateway Tooling**: `openapi-swagger-codegen-expert`, `api-gateway-proxy-expert`, `autonomous-api-drift-healer`, `graphql-apollo-expert`
+- **Security & Quality**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for designing, documenting, and evolving production-grade APIs. Covers **REST** resource modeling and HTTP semantics, **GraphQL** schema design, **gRPC** with protobuf, and **tRPC** for end-to-end type-safe APIs in TypeScript monorepos. Includes OpenAPI 3.1 documentation, API versioning strategies, rate limiting, idempotency, and contract-first development workflows.
@@ -285,7 +292,11 @@ components:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, dan `session-memory-manager` untuk memastikan arsitektur API yang tangguh dan terstandarisasi.
+- **Ideasi Hulu & Spesifikasi**: `brainstorming`, `prd-architect`, `spec-driven-development-expert`
+- **Implementasi Hilir**: `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Tooling Kontrak & Gateway**: `openapi-swagger-codegen-expert`, `api-gateway-proxy-expert`, `autonomous-api-drift-healer`, `graphql-apollo-expert`
+- **Keamanan & Kualitas**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk merancang, mendokumentasikan, dan mengembangkan API berkualitas produksi. Mencakup pemodelan resource **REST** dan semantik HTTP, desain skema **GraphQL**, **gRPC** dengan protobuf, dan **tRPC** untuk API end-to-end type-safe di TypeScript. Termasuk dokumentasi OpenAPI 3.1, strategi versioning API, rate limiting, idempotency, dan alur kerja contract-first.

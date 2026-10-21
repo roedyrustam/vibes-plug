@@ -2,7 +2,7 @@
 name: n8n-automation-expert
 description: "Expert guide for workflow automation (n8n, Zapier, Make), custom nodes, webhook triggers, and AI-powered automation chains / Panduan ahli otomasi workflow (n8n, Zapier, Make), custom nodes, webhook triggers, dan rantai otomasi berbasis AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Triggers & Schedules**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
+- **AI Agent & LLM Nodes**: `ai-llm-integration-expert`, `mcp-server-architect`, `chatbot-messaging-expert`
+- **Communications & Billing**: `email-notification-expert`, `payment-gateway-expert`, `doku-payment-gateway`
+- **Security & Secrets**: `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production engineering guide for self-hosted workflow automation using n8n (v1.60+), Zapier, and Make. Covers building fault-tolerant automation pipelines, custom TypeScript nodes, webhook triggers with HMAC SHA-256 signature verification, AI Agent nodes integrating Model Context Protocol (MCP) tools, sub-workflow error triggers, and high-volume queuing via n8n Queue Mode (Redis + BullMQ).
@@ -99,19 +106,17 @@ services:
       replicas: 2
 ```
 
-## Orchestration & Integration
-- **`cron-scheduler-expert`**: Orchestrates scheduled cron triggers and distributed job executions.
-- **`ai-llm-integration-expert`**: Provides prompt templates and model routing inside n8n AI Agent nodes.
-- **`email-notification-expert`**: Delivers transactional alerts and summary digests from workflows.
-- **`payment-gateway-expert`**: Connects payment webhooks with automated CRM and billing sync.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `cron-scheduler-expert`, `ai-llm-integration-expert`, `email-notification-expert`, dan `payment-gateway-expert`.
+- **Pemicu & Penjadwalan Hulu**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
+- **Node AI Agent & LLM**: `ai-llm-integration-expert`, `mcp-server-architect`, `chatbot-messaging-expert`
+- **Komunikasi & Penagihan**: `email-notification-expert`, `payment-gateway-expert`, `doku-payment-gateway`
+- **Keamanan & Rahasia**: `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan rekayasa produksi untuk otomatisasi alur kerja (*workflow automation*) menggunakan n8n (v1.60+ *self-hosted*), Zapier, dan Make. Mencakup perancangan pipeline yang tahan gangguan, pembuatan *custom node* berbasis TypeScript, validasi tanda tangan kriptografis HMAC pada pemicu webhook, node AI Agent yang terhubung ke tool MCP, serta penskalaan pemrosesan beban tinggi melalui mode antrean n8n (Redis + BullMQ).
@@ -127,9 +132,3 @@ Dalam n8n produksi, selalu pasang alur kerja penanganan kesalahan (*Error Workfl
 1. Hubungkan pengaturan workflow ke `Error Trigger`.
 2. Tangkap detail node yang gagal, pesan error, dan waktu kejadian.
 3. Kirim notifikasi darurat secara instan ke kanal Slack/Telegram tim teknis.
-
-## Integrasi Orkestrasi
-- **`cron-scheduler-expert`**: Mengatur jadwal pemicu waktu berkala (*Cron Node*).
-- **`ai-llm-integration-expert`**: Mengintegrasikan node AI Agent dengan tool API internal.
-- **`email-notification-expert`**: Mengirimkan email ringkasan laporan otomatis ke pemangku kepentingan.
-- **`payment-gateway-expert`**: Memverifikasi keabsahan data webhook pembayaran sebelum mencatat pesanan.

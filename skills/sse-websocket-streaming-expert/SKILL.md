@@ -2,7 +2,7 @@
 name: sse-websocket-streaming-expert
 description: "Expert guide for Server-Sent Events (SSE), WebSockets, and Streaming Architectures. Covers real-time data push, Socket.IO, Hono WebSocket, and AI response streaming / Panduan ahli streaming real-time."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **Backend & Runtimes**: `js-backend-expert` (Hono, Fastify, Express), `bun-runtime-expert` (native Bun.serve WebSockets), `cloudflare-workers-expert` (Durable Objects WebSockets), and `go-programming-expert` (goroutine channels).
+- **AI Streaming**: `vercel-ai-sdk-expert`, `gemini-agent-booster`, `voice-ai-realtime-agent`, and `chatbot-messaging-expert` for chunk-by-chunk token streaming and bidirectional audio/text.
+- **Frontend & Realtime**: `senior-frontend` (EventSource & useChat hooks), `realtime-collaboration-expert` (CRDTs), and `api-gateway-proxy-expert` (unbuffered SSE reverse proxies).
+- **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator`.
 
 ### Description
 A focused guide for building real-time data push architectures. While `realtime-collaboration-expert` focuses on CRDTs (Yjs) for multi-player editing, this skill focuses on the transport layer: when to use Server-Sent Events (SSE) vs WebSockets vs HTTP Streaming, scaling pub/sub architectures, and streaming AI responses.
@@ -54,15 +61,17 @@ A single Node.js process can handle thousands of WebSockets, but when you scale 
 - Always assume connections will drop.
 - Clients must maintain a `lastEventId` or cursor. Upon reconnection, the client sends this cursor so the server can push any missed messages, preventing data loss.
 
-## Orchestration & Integration
-- Supplements `js-backend-expert` or `go-programming-expert` with real-time push capabilities.
-- Essential for `gemini-agent-booster` when building AI streaming chat interfaces.
-- Integrates with `api-gateway-proxy-expert` to ensure proxies do not buffer streaming responses.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Backend & Runtime**: `js-backend-expert` (Hono, Fastify, Express), `bun-runtime-expert` (WebSocket native Bun.serve), `cloudflare-workers-expert` (WebSocket Durable Objects), dan `go-programming-expert` (channel konkurensi goroutine).
+- **Streaming AI**: `vercel-ai-sdk-expert`, `gemini-agent-booster`, `voice-ai-realtime-agent`, dan `chatbot-messaging-expert` untuk streaming token AI chunk-by-chunk dan komunikasi suara/teks dua arah.
+- **Frontend & Realtime**: `senior-frontend` (hook EventSource & useChat), `realtime-collaboration-expert` (CRDT Yjs), dan `api-gateway-proxy-expert` (konfigurasi reverse proxy tanpa buffering streaming).
+- **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator`.
 
 ### Deskripsi
 Panduan terfokus untuk membangun arsitektur push data real-time. Skill ini berfokus pada lapisan transport: kapan harus menggunakan Server-Sent Events (SSE) vs WebSockets vs HTTP Streaming, penskalaan arsitektur pub/sub (Redis), dan streaming respons AI.
@@ -88,8 +97,3 @@ Saat aplikasi diskalakan ke beberapa server (horizontal scaling), pengguna yang 
 #### 4. Rekoneksi & Penanganan Kehilangan Data
 - Klien harus selalu mengirimkan kursor (misal: ID pesan terakhir yang diterima) saat melakukan rekoneksi.
 - Server menggunakan kursor tersebut untuk memutar ulang (replay) pesan yang terlewat selama klien terputus.
-
-## Integrasi Orkestrasi
-- Melengkapi `js-backend-expert` atau `go-programming-expert` dengan kemampuan push real-time.
-- Sangat penting bagi `gemini-agent-booster` saat membangun antarmuka chat AI.
-- Terintegrasi dengan `api-gateway-proxy-expert` (pastikan NGINX/proxy tidak melakukan *buffering* pada koneksi streaming).

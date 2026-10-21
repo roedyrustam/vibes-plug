@@ -2,7 +2,7 @@
 name: search-engine-expert
 description: "Expert guide for full-text search engines (Typesense, Meilisearch, Elasticsearch), faceted search, and autocomplete / Panduan ahli mesin pencarian full-text (Typesense, Meilisearch, Elasticsearch), pencarian berfaset, dan autocomplete."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Data & Schemas**: `database-orm-expert`, `data-pipeline-etl-expert`
+- **Vector & Hybrid Search**: `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `xerj-search-expert`
+- **Domain Applications**: `ecommerce-expert`, `headless-cms-expert`
+- **Frontend & Performance**: `senior-frontend`, `performance-web-vitals`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production guide for high-performance search engines, typo-tolerant autocomplete, faceted navigation, and hybrid retrieval. Covers native PostgreSQL Full-Text Search (`tsvector`, GIN index, `pg_trgm`), dedicated search engines (Typesense, Meilisearch), enterprise distributed clusters (OpenSearch/Elasticsearch), and hybrid search using Reciprocal Rank Fusion (RRF) to merge keyword matching with semantic vector embeddings.
@@ -102,16 +109,17 @@ When blending keyword search with vector semantic search, apply RRF to avoid sco
 $$\text{RRF Score}(d) = \sum_{m \in M} \frac{1}{60 + r_m(d)}$$
 Where $r_m(d)$ is the 1-based rank of document $d$ in system $m$ (BM25 or Dense Vector).
 
-## Orchestration & Integration
-- **`database-orm-expert`**: Maintains PostgreSQL generated `tsvector` columns in Drizzle/Prisma.
-- **`vector-db-rag-expert`**: Powers the dense vector half of hybrid search.
-- **`ecommerce-expert`**: Drives product catalog search, autocomplete, and facet filters.
-- **`performance-web-vitals`**: Ensures search autocomplete debouncing (<150ms) to prevent INP regression.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
+
+### Integrasi Orkestrasi
+- **Data & Skema Hulu**: `database-orm-expert`, `data-pipeline-etl-expert`
+- **Pencarian Vektor & Hibrida**: `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `xerj-search-expert`
+- **Aplikasi Domain**: `ecommerce-expert`, `headless-cms-expert`
+- **Frontend & Performa**: `senior-frontend`, `performance-web-vitals`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk mesin pencarian berkecepatan tinggi, autocomplete toleran salah ketik (*typo-tolerant*), navigasi berfaset (*faceted search*), dan pencarian hibrida (*hybrid search*). Mencakup Full-Text Search bawaan PostgreSQL (`tsvector`, GIN index, `pg_trgm`), mesin pencari khusus (Typesense, Meilisearch), kluster enterprise (OpenSearch/Elasticsearch), serta penggabungan skor kata kunci dan vektor semantik menggunakan formula *Reciprocal Rank Fusion* (RRF).
@@ -148,9 +156,3 @@ export async function GET(request: Request) {
 ### Kapan Menggunakan PostgreSQL vs Typesense?
 - **Gunakan PostgreSQL FTS**: Jika data di bawah 1 juta baris dan Anda ingin menghindari biaya/kompleksitas infrastruktur tambahan.
 - **Gunakan Typesense / Meilisearch**: Jika membutuhkan koreksi saltik otomatis yang instan (*instant typo-tolerance*), pencarian saat mengetik (*search-as-you-type* <10ms), dan filter faset kompleks tanpa membebani database utama.
-
-## Integrasi Orkestrasi
-- **`database-orm-expert`**: Sinkronisasi data antara PostgreSQL dengan index Typesense melalui webhook atau event outbox.
-- **`vector-db-rag-expert`**: Menyediakan ranking semantik untuk pencarian hibrida.
-- **`ecommerce-expert`**: Menghubungkan faset pencarian dengan katalog produk toko online.
-- **`performance-web-vitals`**: Mencegah pemanggilan API berlebihan dengan teknik *debounce* 150-200ms pada input pencarian.

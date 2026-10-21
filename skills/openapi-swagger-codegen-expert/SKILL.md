@@ -2,7 +2,7 @@
 name: openapi-swagger-codegen-expert
 description: "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Upstream Specs & Design**: `api-design-expert`, `spec-driven-development-expert`, `prd-architect`
+- **Frontend Consuming**: `tanstack-query-expert`, `senior-frontend`, `form-validation-expert`
+- **Backend & Drifts**: `js-backend-expert`, `autonomous-api-drift-healer`, `api-gateway-proxy-expert`
+- **CI/CD Quality & Security**: `ci-cd-devops-architect`, `e2e-testing-expert`, `anti-slop`
+- **Lifecycle**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Dedicated expert guide for API contract-first development using OpenAPI 3.1 (with full JSON Schema 2020-12 alignment), interactive documentation (Scalar, Swagger UI, Redoc), and automated end-to-end client code generation. Covers generating strictly typed SDKs using `openapi-typescript` and `openapi-fetch`, creating automatic TanStack Query v5 hooks with `Orval`, scaffolding multi-language SDKs with Microsoft `Kiota`, and enforcing API design governance via `Spectral` in CI/CD pipelines.
@@ -137,19 +144,17 @@ export async function submitOrder(customerId: string, productId: string, quantit
 }
 ```
 
-## Orchestration & Integration
-- **`api-design-expert`**: Provides REST architectural standards, versioning, and status code rules.
-- **`spec-driven-development-expert`**: Connects OpenAPI specs with TypeSpec and BDD test suites.
-- **`tanstack-query-expert`**: Consumes generated React Query hooks on the frontend.
-- **`ci-cd-devops-architect`**: Runs Spectral linting (`spectral lint specs/openapi.yaml`) in CI.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `api-design-expert`, `spec-driven-development-expert`, `tanstack-query-expert`, dan `ci-cd-devops-architect` untuk memastikan eksekusi yang kohesif.
+- **Ideasi & Desain Spesifikasi**: `api-design-expert`, `spec-driven-development-expert`, `prd-architect`
+- **Konsumsi Frontend**: `tanstack-query-expert`, `senior-frontend`, `form-validation-expert`
+- **Backend & Drifts**: `js-backend-expert`, `autonomous-api-drift-healer`, `api-gateway-proxy-expert`
+- **Kualitas & Keamanan CI/CD**: `ci-cd-devops-architect`, `e2e-testing-expert`, `anti-slop`
+- **Siklus Hidup**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli khusus untuk pengembangan API dengan pendekatan *contract-first* menggunakan OpenAPI 3.1 (dengan dukungan penuh JSON Schema 2020-12), dokumentasi interaktif modern (Scalar, Swagger UI, Redoc), dan otomatisasi pembuatan klien SDK. Mencakup pembuatan SDK tipe ketat (*strictly typed*) menggunakan `openapi-typescript` dan `openapi-fetch`, pembuatan hooks TanStack Query v5 otomatis via `Orval`, *scaffolding* SDK multi-bahasa dengan Microsoft `Kiota`, serta penegakan standar desain API menggunakan `Spectral` pada pipeline CI/CD.
@@ -201,9 +206,3 @@ rules:
   operation-description: warn
   no-eval-in-markdown: error
 ```
-
-## Integrasi Orkestrasi
-- **`api-design-expert`**: Menetapkan aturan penamaan endpoint, HTTP methods, dan struktur error standar.
-- **`spec-driven-development-expert`**: Mengintegrasikan OpenAPI dengan pipeline otomatisasi kode.
-- **`tanstack-query-expert`**: Mengelola status caching dan query invalidation di frontend.
-- **`ci-cd-devops-architect`**: Menjalankan pengujian kepatuhan kontrak pada setiap Pull Request.

@@ -2,7 +2,7 @@
 name: cloudflare-workers-expert
 description: "Expert guide for Cloudflare Workers ecosystem — Workers, D1 (SQLite at edge), KV, R2 (S3-compatible storage), Queues, Durable Objects, Hyperdrive, and Workers AI / Panduan ahli ekosistem Cloudflare Workers — Workers, D1, KV, R2, Queues, Durable Objects, Hyperdrive, dan Workers AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 ---
 
 # Cloudflare Workers Ecosystem Expert (2026 Edition)
@@ -15,7 +15,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `authentication-identity-expert`, `wasm-edge-computing-expert`, `ci-cd-devops-architect`, `cloud-hosting-expert`, `session-memory-manager`.
+Connects and orchestrates with domain skills:
+- **Edge Backend & APIs**: `js-backend-expert` (Hono v4 on Workers, V8 isolates), `api-design-expert` (edge REST & RPC endpoints), and `sse-websocket-streaming-expert` (Durable Objects WebSockets).
+- **Edge Storage & DBs**: `database-orm-expert` (Drizzle with D1, Hyperdrive pooling), `file-upload-media-expert` (R2 presigned URLs), and `vector-db-rag-expert` (Vectorize & Workers AI).
+- **Frontend & Cloud**: `cloud-hosting-expert` (custom domains, CDN rules), `senior-frontend` (Workers Static Assets), and `anti-slop` (clean edge architecture without node:fs polyfill traps).
+- **Lifecycle & DevOps**: `ci-cd-devops-architect` (GitHub Actions Wrangler deployments), `brainstorming`, and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
 Expert guide for building full-stack edge applications using the **Cloudflare Workers** ecosystem. Covers Workers runtime, D1 (SQLite at edge), KV (key-value store), R2 (S3-compatible object storage), Queues (message queues), Durable Objects (stateful edge), Hyperdrive (database connection pooling), Workers AI (inference at edge), and Wrangler CLI for development and deployment.
@@ -292,7 +296,11 @@ app.get('/api/users', async (c) => {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `authentication-identity-expert`, `wasm-edge-computing-expert`, `ci-cd-devops-architect`, `cloud-hosting-expert`, `session-memory-manager`.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Backend Edge & API**: `js-backend-expert` (Hono v4 di Workers, V8 isolates), `api-design-expert` (endpoint REST & RPC di edge), dan `sse-websocket-streaming-expert` (WebSocket Durable Objects).
+- **Penyimpanan Edge & Database**: `database-orm-expert` (Drizzle dengan D1, pooling Hyperdrive), `file-upload-media-expert` (presigned URL R2), dan `vector-db-rag-expert` (Vectorize & Workers AI).
+- **Frontend & Cloud**: `cloud-hosting-expert` (custom domain, aturan CDN), `senior-frontend` (Workers Static Assets), dan `anti-slop` (arsitektur edge bersih tanpa jebakan polyfill node:fs).
+- **Siklus Hidup & DevOps**: `ci-cd-devops-architect` (deployment Wrangler via GitHub Actions), `brainstorming`, dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi full-stack edge menggunakan ekosistem **Cloudflare Workers**. Mencakup runtime Workers, D1 (SQLite di edge), KV (key-value store), R2 (object storage kompatibel S3), Queues (antrean pesan), Durable Objects (stateful edge), Hyperdrive (connection pooling database), Workers AI (inferensi di edge), dan Wrangler CLI untuk pengembangan dan deployment.

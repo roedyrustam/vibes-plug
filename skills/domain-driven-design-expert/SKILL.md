@@ -2,7 +2,7 @@
 name: domain-driven-design-expert
 description: "Expert guide for Domain-Driven Design (DDD). Covers tactical patterns (Aggregates, Value Objects), strategic patterns (Bounded Contexts), event storming, and CQRS / Panduan ahli Desain Berbasis Domain (DDD)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+Connects and orchestrates with domain skills:
+- **Architecture & Modularity**: `scalability-clean-code` (SOLID, Hexagonal/Ports & Adapters), `event-driven-architect` (Domain Events, Kafka/RabbitMQ), and `saas-architect` (Bounded Context isolation).
+- **Persistence & Mapping**: `database-orm-expert` (Repository pattern, Data Mappers, pure domain models without ORM leakage).
+- **Formal Verification & Quality**: `formal-spec-z3-verifier` (mathematical invariant verification) and `anti-slop` (pure domain model hygiene, zero anemic domain models).
+- **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 2 & Phase 3: Domain Discovery & Architecture).
 
 ### Description
 Comprehensive architectural guide for tackling core business complexity using Domain-Driven Design (DDD). Covers Strategic Design (Bounded Contexts, Context Mapping, Ubiquitous Language, Subdomains) and Tactical Design (immutable Value Objects, Aggregate Roots, Domain Events, Repositories, Specification pattern, and CQRS separation). Emphasizes keeping core domain logic pure and independent of database schemas, ORMs, and web delivery frameworks.
@@ -101,18 +108,17 @@ export class OrderAggregate {
 3. **Repository Per Aggregate Root**: Never create repositories for child entities or junction tables. Only Aggregate Roots possess repositories (`OrderRepository`, not `OrderItemRepository`).
 4. **Ubiquitous Language**: Code identifiers must strictly mirror real business terminology. Reject vague names like `handleData()` in favor of explicit domain verbs like `authorizePayment()`.
 
-## Orchestration & Integration
-- **`scalability-clean-code`**: Aligns DDD tactical models with SOLID, DRY, and Clean Architecture principles.
-- **`event-driven-architect`**: Dispatches domain events collected from Aggregate Roots to Kafka / BullMQ.
-- **`database-orm-expert`**: Maps pure domain aggregates to persistence schemas via Data Mappers.
-
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `scalability-clean-code`, `event-driven-architect`, `database-orm-expert`, dan `saas-architect`.
+Terhubung dan mengorkestrasi bersama skill domain:
+- **Arsitektur & Modularitas**: `scalability-clean-code` (SOLID, Hexagonal/Ports & Adapters), `event-driven-architect` (Domain Events, Kafka/RabbitMQ), dan `saas-architect` (isolasi Bounded Context).
+- **Persistensi & Pemetaan**: `database-orm-expert` (pola Repository, Data Mapper, model domain murni tanpa kebocoran ORM).
+- **Verifikasi Formal & Kualitas**: `formal-spec-z3-verifier` (verifikasi invarian matematis) dan `anti-slop` (kebersihan model domain murni, anti anemic domain model).
+- **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 2 & Fase 3: Penemuan Domain & Arsitektur).
 
 ### Deskripsi
 Panduan arsitektur komprehensif untuk menangani kompleksitas bisnis inti menggunakan *Domain-Driven Design* (DDD). Mencakup Desain Strategis (*Bounded Contexts*, *Context Mapping*, *Ubiquitous Language*, Pemisahan Subdomain) dan Desain Taktis (*Value Objects* imutabel, *Aggregate Roots*, *Domain Events*, *Repositories*, dan pola CQRS). Menekankan pentingnya menjaga logika bisnis tetap murni dan terisolasi dari database, ORM, maupun framework pengiriman web.
@@ -140,9 +146,3 @@ export interface IOrderRepository {
 2. **Akses Hanya Melalui Aggregate Root**: Objek luar dilarang memodifikasi entitas anak secara langsung. Seluruh perubahan wajib melalui metode pada Aggregate Root.
 3. **Satu Repository untuk Satu Root**: Hanya buat Repository untuk Aggregate Root (`OrderRepository`), bukan untuk tabel pembantu (`OrderItemRepository`).
 4. **Bahasa Seragam (Ubiquitous Language)**: Kode wajib mencerminkan bahasa asli bisnis (contoh: gunakan `terbitkanFaktur()` daripada `updateStatusTable()`).
-
-## Integrasi Orkestrasi
-- **`scalability-clean-code`**: Menjaga keterbacaan kode dan pemisahan lapisan logika (Separation of Concerns).
-- **`event-driven-architect`**: Mengirimkan Domain Events ke broker pesan tanpa merusak transaksi atomik.
-- **`database-orm-expert`**: Mengonversi model domain murni ke tabel database melalui Data Mapper.
-- **`saas-architect`**: Menyelaraskan batas modul bisnis dengan paket harga dan hak akses pengguna.
