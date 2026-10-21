@@ -2,7 +2,7 @@
 name: prd-architect
 description: "Updated to cover both pre-code PRD/ERD/Docs generation AND post-code continuous documentation updates / Diperbarui untuk mencakup pembuatan PRD/ERD/Docs pra-kode DAN pembaruan dokumentasi kontinu pasca-kode."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager` to ensure cohesive execution and zero-slop documentation updates.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 1 - Discovery & PRD, and Phase 8 - Docs Handoff) as the primary specification guardrail.
+- **Downstream Cooperating Skills**:
+  - `spec-driven-development-expert` — Convert PRD requirements into executable OpenAPI and TypeSpec contracts.
+  - `domain-driven-design-expert` — Model domain bounded contexts and ubiquitous language in PRD sections.
+  - `session-memory-manager` — Ground session memory on approved PRD/ERD specifications and ADR records.
+  - `anti-slop` — Enforce concrete DDL schemas, verifiable NFR targets, and zero marketing buzzwords.
+  - `production-ready-hardener` — Audit documentation completeness before final release.
 
 ### Description
 A mandatory lifecycle guardrail covering two distinct phases:
@@ -160,7 +166,13 @@ After every successful feature implementation:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `spec-driven-development-expert`, dan `anti-slop`.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 1 - Discovery & PRD, dan Fase 8 - Handoff Dokumen) sebagai guardrail spesifikasi utama.
+- **Skill Hilir & Kerja Sama**:
+  - `spec-driven-development-expert` — Mengubah kebutuhan PRD menjadi kontrak executable OpenAPI dan TypeSpec.
+  - `domain-driven-design-expert` — Memodelkan bounded context domain dan bahasa terpadu dalam PRD.
+  - `session-memory-manager` — Melandaskan memori sesi pada spesifikasi PRD/ERD dan rekaman ADR yang disetujui.
+  - `anti-slop` — Menegakkan skema DDL konkret, target NFR terverifikasi, dan bebas buzzword pemasaran.
+  - `production-ready-hardener` — Mengaudit kelengkapan dokumentasi sebelum rilis final.
 
 ### Deskripsi
 Guardrail siklus hidup wajib untuk rekayasa perangkat lunak modern:

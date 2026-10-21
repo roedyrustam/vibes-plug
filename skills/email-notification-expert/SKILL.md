@@ -2,7 +2,7 @@
 name: email-notification-expert
 description: "Expert guide for transactional email (Resend, Postmark, SES), React Email templates, in-app notifications, and unified communication pipelines / Panduan ahli untuk email transaksional (Resend, Postmark, SES), template React Email, notifikasi in-app, dan pipeline komunikasi terpadu."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,15 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 4 - Backend, Messaging & Notification Pipelines) to deliver transactional and notification services.
+- **Downstream Cooperating Skills**:
+  - `saas-billing` — Payment receipt emails, invoice PDFs, and failed payment dunning sequences.
+  - `saas-architect` — Workspace team member invitations and tenant alert notifications.
+  - `authentication-identity-expert` — Magic links, password resets, verification emails, and MFA codes.
+  - `mobile-expo-expert` — Unified multi-channel notifications (email, APNs/FCM push, iOS Live Activities).
+  - `async-queue-temporal-expert` — Durable background queue execution via BullMQ and Inngest.
+  - `production-ready-hardener` — Pre-launch deliverability verification (SPF, DKIM, DMARC, and DNS records).
+  - `session-memory-manager` — Store email template catalogs, notification providers, and delivery settings.
 
 ### Description
 Production-grade guide for building reliable email delivery systems and unified notification pipelines. Covers **Resend**, **Postmark**, **AWS SES**, **React Email** / **MJML** template engines, **email deliverability** (SPF, DKIM, DMARC), **in-app notification systems** (bell icon, toast, notification center), **webhook-triggered email flows**, **email queuing** with BullMQ/Inngest, and **CAN-SPAM/GDPR** compliance.
@@ -333,22 +341,19 @@ export async function registerForPushNotificationsAsync() {
 
 ---
 
-### Integration with Other Skills
-
-- `saas-billing` — Payment receipt emails, failed payment dunning sequences
-- `saas-architect` — Team invitation emails, workspace notifications
-- `authentication-identity-expert` — Password reset emails, email verification, MFA codes
-- `mobile-expo-expert` — Unified notification strategy (email + push + in-app)
-- `async-queue-temporal-expert` — Email queue workers with BullMQ/Inngest
-- `production-ready-hardener` — Email deliverability audit before launch
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4 - Backend, Pengiriman Pesan & Pipeline Notifikasi) untuk menyediakan layanan email transaksional dan notifikasi.
+- **Skill Hilir & Kerja Sama**:
+  - `saas-billing` — Email kuitansi pembayaran, invoice PDF, dan sekuens dunning penagihan gagal.
+  - `saas-architect` — Undangan anggota tim workspace dan notifikasi tenant.
+  - `authentication-identity-expert` — Magic link, reset password, verifikasi email, dan kode MFA.
+  - `mobile-expo-expert` — Notifikasi multi-saluran terpadu (email, push APNs/FCM, iOS Live Activities).
+  - `async-queue-temporal-expert` — Eksekusi antrean background job tahan banting via BullMQ dan Inngest.
+  - `production-ready-hardener` — Verifikasi deliverabilitas pra-peluncuran (rekod DNS SPF, DKIM, DMARC).
+  - `session-memory-manager` — Menyimpan katalog template email, provider notifikasi, dan pengaturan pengiriman.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem pengiriman email yang andal dan pipeline notifikasi terpadu. Mencakup **Resend**, **Postmark**, **AWS SES**, mesin template **React Email** / **MJML**, **deliverabilitas email** (SPF, DKIM, DMARC), **sistem notifikasi in-app** (bell icon, toast, pusat notifikasi), **alur email berbasis webhook**, **antrean email** dengan BullMQ/Inngest, dan kepatuhan **CAN-SPAM/GDPR**.
@@ -387,11 +392,3 @@ Aktifkan skill ini ketika:
 | Menggunakan `@gmail.com` sebagai pengirim | Deliverabilitas buruk, filter spam | Gunakan domain kustom dengan SPF/DKIM |
 | Tidak ada fallback teks biasa | Email mungkin tampil tidak benar | Selalu sertakan `text` di samping HTML |
 | Tidak ada link unsubscribe | Pelanggaran CAN-SPAM, pemblokiran ISP | Selalu sertakan header List-Unsubscribe |
-
-### Integrasi dengan Skill Lain
-
-- `saas-billing` — Email kuitansi pembayaran, sekuens dunning gagal bayar
-- `saas-architect` — Email undangan tim, notifikasi workspace
-- `authentication-identity-expert` — Email reset password, verifikasi email, kode MFA
-- `async-queue-temporal-expert` — Worker antrean pengiriman email & push dengan BullMQ/Inngest
-- `production-ready-hardener` — Audit deliverabilitas email sebelum peluncuran

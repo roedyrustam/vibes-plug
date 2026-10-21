@@ -2,7 +2,7 @@
 name: seo
 description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO / Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)"
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 6 - SEO, Discovery & Launch Optimization) to maximize organic discovery and AI search citations.
+- **Downstream Cooperating Skills**:
+  - `performance-web-vitals` — Ensure Core Web Vitals (LCP, INP, CLS) comply with search ranking criteria.
+  - `senior-frontend` — Implement semantic HTML5 hierarchy, JSON-LD structured data, and metadata APIs.
+  - `nextjs-app-router-expert` — Generate dynamic `sitemap.ts`, `robots.ts`, and Open Graph tags.
+  - `app-promo-media-expert` — Generate high-converting `og:image` social preview banners.
+  - `session-memory-manager` — Store target keyword maps, SEO audit findings, and `/llms.txt` configurations.
 
 ### Description
 Comprehensive SEO audit covering technical SEO, on-page optimization, structured data, sitemaps, Core Web Vitals, E-E-A-T signals, and **Generative Engine Optimization (GEO)** for AI-powered search (Google AI Mode, ChatGPT Search, Perplexity).
@@ -209,7 +215,13 @@ Internal links: 3-5 per long-form page to related content
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 6 - SEO, Discovery & Optimasi Peluncuran) untuk memaksimalkan pencarian organik dan sitasi AI search.
+- **Skill Hilir & Kerja Sama**:
+  - `performance-web-vitals` — Menjamin Core Web Vitals (LCP, INP, CLS) memenuhi kriteria ranking mesin pencari.
+  - `senior-frontend` — Menerapkan hierarki HTML5 semantik, data terstruktur JSON-LD, dan Metadata API.
+  - `nextjs-app-router-expert` — Pembuatan dinamis `sitemap.ts`, `robots.ts`, dan tag Open Graph.
+  - `app-promo-media-expert` — Menghasilkan banner preview media sosial `og:image` berkonversi tinggi.
+  - `session-memory-manager` — Menyimpan peta kata kunci target, temuan audit SEO, dan konfigurasi `/llms.txt`.
 
 ### Deskripsi
 Audit SEO komprehensif mencakup SEO teknikal, optimasi on-page, data terstruktur, sitemap, Core Web Vitals, sinyal E-E-A-T, dan **Generative Engine Optimization (GEO)** untuk pencarian bertenaga AI (Google AI Mode, ChatGPT Search, Perplexity).
