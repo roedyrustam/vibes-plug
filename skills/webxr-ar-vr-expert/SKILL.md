@@ -2,7 +2,7 @@
 name: webxr-ar-vr-expert
 description: "Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -21,6 +21,8 @@ Connects and orchestrates with relevant domain skills:
 - `web-game-engine-expert` — Spatial physics, grabbing interactions, and fixed-timestep motion.
 - `apple-ecosystem-expert` — Apple Vision Pro visionOS Safari WebXR features and spatial guidelines.
 - `glsl-shader-expert` — Passthrough blending and spatial holographic shaders.
+- `ui-ux-pro-max` — Spatial UI design patterns, world-space HUDs, and gesture-driven navigation.
+- `anti-slop` — Anti-slop spatial ergonomics, zero nauseating jitter, and crisp readable 3D typography.
 - `performance-web-vitals` — Maintaining rock-solid 72/90/120 FPS to prevent simulator sickness.
 
 ### Description
@@ -136,6 +138,8 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `web-game-engine-expert` — Fisika spasial, interaksi menggenggam objek, dan pergerakan fixed-timestep.
 - `apple-ecosystem-expert` — Fitur WebXR Safari di Apple Vision Pro visionOS dan pedoman spasial.
 - `glsl-shader-expert` — Shader hologram dan blending passthrough AR.
+- `ui-ux-pro-max` — Pola desain UI spasial, HUD world-space, dan navigasi berbasis gestur.
+- `anti-slop` — Ergonomi spasial anti-slop, nol getaran pemicu mual, dan tipografi 3D yang tajam.
 - `performance-web-vitals` — Menjaga kestabilan 72/90/120 FPS demi mencegah *motion sickness*.
 
 ### Deskripsi

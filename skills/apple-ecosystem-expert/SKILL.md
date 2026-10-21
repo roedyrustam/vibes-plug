@@ -2,7 +2,7 @@
 name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,17 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- `modern-web-guidance`: Safari WebKit standards, dynamic viewport units, and web platform features.
+- `hig`: Direct Human Interface Guidelines alignment, typography, and iconography.
+- `design-system-architect`: Apple design tokens, SF Pro font stack, and 44x44pt touch targets.
+- `modern-css-native-expert`: Modern CSS `@supports`, `env(safe-area-inset-*)`, and native scrolling.
+- `tailwind-expert`: Tailwind utility classes for iOS safe areas and dynamic viewport units.
+- `ui-ux-pro-max`: Apple HIG UX patterns, fluid transitions, and iOS layout conventions.
+- `visual-ui-auditor`: Multimodal vision auditing of iOS Safari interfaces and touch targets.
+- `anti-slop`: Anti-slop iOS UI craft, zero generic Android-style controls in iOS contexts.
+- `mobile-expo-expert`: Cross-platform React Native / Expo iOS implementations.
 
 ### Description
 Expert guide for Apple Ecosystem development. Covers Safari WebKit compatibility, Progressive Web Apps (PWAs) tailored for iOS, touch interactions, `manifest.json` configurations, and applying Human Interface Guidelines (HIG) principles to web and iOS applications.
@@ -106,7 +117,15 @@ This skill should be referenced by the following orchestrators:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- `modern-web-guidance`: Standar Safari WebKit, unit viewport dinamis, dan fitur platform web modern.
+- `hig`: Penyelarasan langsung prinsip Human Interface Guidelines Apple.
+- `design-system-architect`: Token desain Apple, font stack SF Pro, dan target sentuh 44x44pt.
+- `modern-css-native-expert`: CSS modern `@supports`, `env(safe-area-inset-*)`, dan scrolling native.
+- `tailwind-expert`: Utility class Tailwind untuk safe area iOS dan viewport dinamis.
+- `ui-ux-pro-max`: Pola UX Apple HIG, transisi mulus, dan konvensi tata letak iOS.
+- `visual-ui-auditor`: Audit visual multimodal untuk antarmuka Safari iOS dan target sentuh.
+- `anti-slop`: Desain UI iOS anti-slop, nol kontrol generik gaya Android di konteks iOS.
+- `mobile-expo-expert`: Implementasi React Native / Expo untuk platform iOS.
 
 ### Deskripsi
 Panduan ahli untuk pengembangan ekosistem Apple. Mencakup kompatibilitas Safari WebKit, Progressive Web Apps (PWA) khusus iOS, interaksi sentuhan, konfigurasi `manifest.json`, dan penerapan prinsip Human Interface Guidelines (HIG) untuk web dan aplikasi iOS.

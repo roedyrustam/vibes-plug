@@ -3,7 +3,7 @@ name: angular-expert
 description: "Expert guide for Angular 19+ enterprise applications — Signals, Standalone Components, NgRx SignalStore, SSR with Hydration, and Angular Material 3 / Panduan ahli aplikasi enterprise Angular 19+."
 author: "Roedy Rustam"
 
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -17,6 +17,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`design-system-architect`**: Material Design 3 (M3) design tokens and headless component primitives.
+- **`ui-ux-pro-max`**: Enterprise dashboard patterns, tabular data layouts, and color harmony.
+- **`visual-ui-auditor`**: Multimodal vision auditing of rendered Angular components and M3 theming.
+- **`anti-slop`**: Enforces complete Angular component and service implementations with zero placeholder stubs.
 - **`typescript-expert`**: Strict TypeScript typing and decorators in Angular 19+.
 - **`api-design-expert`**: REST and GraphQL client architecture with Angular `HttpClient`.
 - **`e2e-testing-expert`**: Playwright and Cypress end-to-end testing for Angular apps.
@@ -244,9 +249,16 @@ export class ProductM3CardComponent {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- **`design-system-architect`**: Desain token Material Design 3 (M3) dan primitif komponen headless.
+- **`ui-ux-pro-max`**: Pola dashboard enterprise, tata letak data tabular, dan harmoni warna.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk komponen Angular dan theming M3 yang dirender.
+- **`anti-slop`**: Penegakan implementasi komponen dan layanan Angular lengkap tanpa stub.
 - **`typescript-expert`**: Penggunaan TypeScript ketat dan dekorator pada Angular 19+.
 - **`api-design-expert`**: Arsitektur klien REST dan GraphQL dengan `HttpClient`.
 - **`e2e-testing-expert`**: Pengujian end-to-end menggunakan Playwright atau Cypress.
+- **`global-a11y-i18n-expert`**: Terjemahan terlokalisasi Angular (`@angular/localize`) dan kepatuhan aksesibilitas.
+- **`ci-cd-devops-architect`**: Kontainerisasi Docker dan deployment aplikasi Angular SSR.
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi web skala enterprise menggunakan Angular 19+. Mencakup Standalone Components tanpa NgModule, reaktivitas modern berbasis Signals, NgRx SignalStore, deferrable views (`@defer`), SSR dengan hidrasi Event Replay, dan integrasi Angular Material 3.

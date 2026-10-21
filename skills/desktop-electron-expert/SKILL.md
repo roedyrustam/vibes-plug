@@ -2,7 +2,7 @@
 name: desktop-electron-expert
 description: "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -117,6 +117,10 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 ```
 
 ## Orchestration & Integration
+- **`design-system-architect`**: Desktop window chrome, custom titlebars, and native OS theming.
+- **`ui-ux-pro-max`**: Desktop ergonomics, keyboard accelerators, and system tray popover layouts.
+- **`visual-ui-auditor`**: Multimodal vision auditing of desktop application windows.
+- **`anti-slop`**: Anti-slop desktop UI craft, zero generic web-looking fake desktop windows.
 - **`tauri-expert`**: Provides architectural comparison (Electron's ecosystem matureness vs. Tauri's low memory footprint).
 - **`senior-frontend`**: Structures the React 19 UI running inside the sandboxed renderer window.
 - **`ci-cd-devops-architect`**: Configures GitHub Actions for macOS notarization and Windows code signing.
@@ -128,7 +132,7 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `tauri-expert`, `senior-frontend`, `ci-cd-devops-architect`, dan `error-resilience-expert`.
+Terhubung dan mengorkestrasi bersama `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `tauri-expert`, `senior-frontend`, `ci-cd-devops-architect`, dan `error-resilience-expert`.
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi desktop cross-platform yang aman dan efisien menggunakan Electron 33+. Mengutamakan keamanan IPC dengan Context Isolation, isolasi proses renderer berbasis sandbox, integrasi sistem operasi natif (system tray, menu bar, notifikasi desktop), pembaruan otomatis (*auto-updates*), dan packaging multi-OS (Windows .exe, macOS .dmg/.app, Linux .AppImage).
@@ -186,6 +190,10 @@ export function SystemInfoCard() {
 3. **Sandbox Chromium Aktif**: Selalu nyalakan `sandbox: true` untuk membatasi akses proses renderer ke tingkat kernel sistem operasi.
 
 ## Integrasi Orkestrasi
+- **`design-system-architect`**: Frame jendela desktop kustom, titlebar native, dan theming OS.
+- **`ui-ux-pro-max`**: Ergonomi desktop, pintasan keyboard, dan tata letak popover system tray.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk jendela aplikasi desktop yang dirender.
+- **`anti-slop`**: Desain UI desktop anti-slop, mengeliminasi mockup browser palsu di window desktop.
 - **`tauri-expert`**: Menjadi acuan pembanding jika pengguna mempertimbangkan framework alternatif berbasis Rust.
 - **`senior-frontend`**: Menyediakan arsitektur komponen UI yang responsif di dalam window aplikasi.
 - **`ci-cd-devops-architect`**: Menangani penandatanganan sertifikat digital (*code signing*) pada pipeline rilis.

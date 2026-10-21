@@ -2,9 +2,7 @@
 name: form-validation-expert
 description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -17,7 +15,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Evaluates native form validation features (`:user-valid`, `:user-invalid`), autofill tokens, and custom selects.
+- **`modern-css-native-expert`**: Leverages `field-sizing: content` for dynamic textareas and pure CSS validation feedback.
+- **`design-system-architect`**: Provides accessible form control primitives, input borders, and floating label tokens.
+- **`anti-slop`**: Eliminates vague error messages, double-submission bugs, and unhandled pending states.
+- **`senior-frontend`**: React 19 `useActionState`, `useOptimistic`, and server action form submission.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle execution.
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -480,7 +484,13 @@ Zero-tolerance standards for form engineering:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `senior-frontend`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Mengevaluasi fitur validasi form native (`:user-valid`, `:user-invalid`), token autofill, dan custom select.
+- **`modern-css-native-expert`**: Memanfaatkan `field-sizing: content` untuk textarea dinamis dan umpan balik validasi CSS murni.
+- **`design-system-architect`**: Menyediakan primitif kontrol form aksesibel, border input, dan token floating label.
+- **`anti-slop`**: Melenyapkan pesan error samar, bug pengiriman ganda, dan status pending yang tidak ditangani.
+- **`senior-frontend`**: Mengimplementasikan `useActionState`, `useOptimistic`, dan pengiriman form Server Actions di React 19.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Eksekusi siklus hidup proyek secara terpadu.
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).

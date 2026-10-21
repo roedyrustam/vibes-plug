@@ -2,7 +2,7 @@
 name: svelte-sveltekit-expert
 description: "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -139,7 +139,12 @@ export const actions: Actions = {
 ```
 
 ## Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`modern-css-native-expert`**: Native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
 - **`tailwind-expert`**: Configures Tailwind CSS v4 with SvelteKit `@theme` directives.
+- **`ui-ux-pro-max`**: Design system intelligence, modern color systems (OKLCH), and layout patterns.
+- **`visual-ui-auditor`**: Multimodal vision auditing of rendered Svelte 5 components and routes.
+- **`anti-slop`**: Anti-slop component craft, zero placeholder stubs, complete Runes implementations.
 - **`performance-web-vitals`**: Harnesses Svelte's compile-time optimization for zero bundle bloat.
 - **`e2e-testing-expert`**: End-to-end testing with Playwright for SvelteKit routes.
 - **`typescript-expert`**: Type-safe `$types` generation for page servers and actions.
@@ -195,7 +200,12 @@ Panduan komprehensif untuk Svelte 5 dan SvelteKit 2+. Berfokus pada model reakti
 ```
 
 ## Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- **`modern-css-native-expert`**: CSS anchor positioning native, View Transitions, container queries, dan `@starting-style`.
 - **`tailwind-expert`**: Mengatur style Tailwind CSS v4 pada template SvelteKit.
+- **`ui-ux-pro-max`**: Kecerdasan desain UI/UX, sistem warna modern (OKLCH), dan pola tata letak.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk komponen dan rute Svelte 5 yang dirender.
+- **`anti-slop`**: Penegakan anti-slop, nol stub atau placeholder, implementasi Runes lengkap.
 - **`performance-web-vitals`**: Memanfaatkan kompilasi efisien Svelte tanpa virtual DOM untuk waktu muat ultra-cepat.
 - **`e2e-testing-expert`**: Pengujian integrasi alur form dan rute menggunakan Playwright.
 - **`typescript-expert`**: Memastikan integritas tipe data antara file server dan komponen UI.

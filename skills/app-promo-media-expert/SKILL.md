@@ -2,7 +2,7 @@
 name: app-promo-media-expert
 description: "Expert guide for creating high-converting application promotional media — App Store & Google Play screenshots, social promo graphics, dynamic Open Graph banners, Remotion programmatic video teasers, and AI promo showcases / Panduan ahli pembuatan media promosi aplikasi — mockup screenshot App Store & Google Play, kartu promo media sosial, banner Open Graph dinamis, video teaser terprogram Remotion, dan showcase promo berbasis AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -20,6 +20,9 @@ version: "4.4.1"
 - **`svg-animation-motion-expert`**: High-performance SVG animations, Framer Motion transitions, and kinetic typography.
 - **`file-upload-media-expert`**: CDN asset distribution, lossy/lossless image compression (Sharp), and video transcoding.
 - **`seo`**: Dynamic Open Graph (`og:image`), Twitter Card metadata, and social crawlers previews.
+- **`ui-ux-pro-max`**: Design tokens, typography hierarchies, and promotional card layout styling.
+- **`visual-ui-auditor`**: Multimodal vision auditing of marketing screenshots, contrast, and device frames.
+- **`anti-slop`**: Anti-slop marketing graphics, eliminating generic stock mockups and fake UI artifacts.
 - **`senior-frontend` / `tailwind-expert`**: High-fidelity CSS device frames, canvas compositing, and responsive layout styling.
 - **`zero-to-prod-orchestrator`**: Coordinates Phase 5 (visual assets & UI branding) and Phase 8 (launch, deployment, marketing assets handover).
 
@@ -397,6 +400,9 @@ captureScreens().catch(console.error);
 - **`svg-animation-motion-expert`**: Animasi grafis SVG, transisi Framer Motion, dan tipografi kinetik.
 - **`file-upload-media-expert`**: Distribusi aset CDN, kompresi gambar (Sharp), dan transkoding video.
 - **`seo`**: Dynamic Open Graph (`og:image`), Twitter Card metadata, dan preview link media sosial.
+- **`ui-ux-pro-max`**: Design token, hierarki tipografi, dan komposisi kartu promosi visual.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk screenshot pemasaran, kontras, dan bingkai gawai.
+- **`anti-slop`**: Grafis promosi anti-slop, mengeliminasi mockup stok murahan dan artefak UI palsu.
 - **`senior-frontend` / `tailwind-expert`**: Mockup frame gadget CSS dengan presisi tinggi, komposisi canvas, dan styling Tailwind CSS v4.
 - **`zero-to-prod-orchestrator`**: Mengorkestrasi Fase 5 (aset visual UI) dan Fase 8 (peluncuran, deployment, serah terima materi promosi).
 

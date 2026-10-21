@@ -2,7 +2,7 @@
 name: astro-framework-expert
 description: "Expert guide for Astro 5+ framework — Content Collections, Islands Architecture, View Transitions, partial hydration, and MDX integration / Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,9 +16,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
+- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
+- **`modern-css-native-expert`**: Native CSS anchor positioning, View Transitions Level 2, and container queries.
+- **`tailwind-expert`**: Tailwind CSS v4 integration with Astro.
+- **`ui-ux-pro-max`**: Design intelligence, editorial typography, and multi-framework component layout tokens.
+- **`visual-ui-auditor`**: Multimodal vision auditing of rendered Astro content and Islands.
+- **`anti-slop`**: Enforces complete, stub-free template code and eliminates generic landing page slop.
 - **`seo`**: Astro's built-in SEO capabilities, sitemaps, and structured data.
 - **`performance-web-vitals`**: Astro's zero-JS-by-default performance optimization.
-- **`tailwind-expert`**: Tailwind CSS v4 integration with Astro.
 - **`headless-cms-expert`**: Content fetching from Sanity/Payload/Strapi in Astro.
 - **`ci-cd-devops-architect`**: Deploying Astro to Vercel, Cloudflare Pages, or Netlify.
 
@@ -187,9 +192,14 @@ import { ViewTransitions } from 'astro:transitions';
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
+- **`modern-css-native-expert`**: CSS anchor positioning native, View Transitions Level 2, dan container queries.
+- **`tailwind-expert`**: Integrasi Tailwind CSS v4 (@theme) dengan Astro.
+- **`ui-ux-pro-max`**: Kecerdasan desain UI/UX, tipografi editorial, dan token layout multi-framework.
+- **`visual-ui-auditor`**: Audit visual multimodal untuk halaman konten dan Island Astro yang dirender.
+- **`anti-slop`**: Penegakan kode template lengkap tanpa stub dan membasmi slop landing page generik.
 - **`seo`**: Kemampuan SEO bawaan Astro, sitemap otomatis, dan data terstruktur JSON-LD.
 - **`performance-web-vitals`**: Optimasi performa zero-JS-by-default Astro untuk Core Web Vitals (skor 100).
-- **`tailwind-expert`**: Integrasi Tailwind CSS v4 (@theme) dengan Astro.
 - **`headless-cms-expert`**: Pengambilan konten dari Sanity, Payload, atau Strapi secara type-safe di Astro.
 - **`ci-cd-devops-architect`**: Deployment ke Vercel, Cloudflare Pages, atau Node.js distroless container.
 

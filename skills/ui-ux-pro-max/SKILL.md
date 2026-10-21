@@ -212,6 +212,7 @@ UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks
 Gunakan pedoman ini atau jalankan mesin pencari CLI ketika:
 - Mendesain komponen UI baru, landing page, atau dashboard.
 - Memilih skema warna, pasangan font, dan token desain.
+- Mempelajari, merekayasa balik, atau mengkloning template & komponen desain web langsung dari URL target (Kombinasikan dengan `website-design-cloner`).
 - Menghasilkan rekomendasi sistem desain (design system) lengkap untuk proyek.
 - Mengaudit kode untuk masalah UX, aksesibilitas (a11y), atau kinerja.
 - Membutuhkan pola kode spesifik stack (React, Next.js, Vue, Nuxt, Svelte, Tailwind, SwiftUI, React Native, Flutter, Shadcn).

@@ -2,8 +2,7 @@
 name: ephemeral-generative-ui-architect
 description: "Expert guide for Generative UI architectures, ephemeral dynamic interfaces, and real-time streaming of React Server Components (RSC) driven by Gemini 4 Pro / Panduan ahli arsitektur Generative UI, antarmuka dinamis efemeral, dan streaming RSC real-time yang didorong oleh Gemini 4 Pro."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Ephemeral Generative UI Architect (2026 Edition)
@@ -16,7 +15,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `vercel-ai-sdk-expert`, `senior-frontend`, `ui-ux-pro-max`, `design-system-architect`, `gemini-agent-booster`, and `multi-agent-orchestration`.
+Connects and orchestrates with `vercel-ai-sdk-expert`, `senior-frontend`, `ui-ux-pro-max`, `design-system-architect`, `tailwind-expert`, `visual-ui-auditor`, `anti-slop`, `gemini-agent-booster`, and `multi-agent-orchestration`.
 
 ### Description
 Standard UIs are static and pre-compiled. In the Gemini 4 Pro era, interfaces are **ephemeral**: generated in real-time based on the user's immediate intent, and destroyed when no longer needed. This skill orchestrates Generative UI systems using React Server Components (RSC), Tool-Driven UI injection, and Vercel AI SDK, allowing LLMs to directly stream fully functional, interactive components (charts, forms, dashboards) instead of markdown text.
@@ -78,7 +77,7 @@ export async function submitMessage(userInput: string) {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `vercel-ai-sdk-expert`, `senior-frontend`, `ui-ux-pro-max`, `design-system-architect`, `gemini-agent-booster`, dan `multi-agent-orchestration`.
+Terhubung dan mengorkestrasi bersama `vercel-ai-sdk-expert`, `senior-frontend`, `ui-ux-pro-max`, `design-system-architect`, `tailwind-expert`, `visual-ui-auditor`, `anti-slop`, `gemini-agent-booster`, dan `multi-agent-orchestration`.
 
 ### Deskripsi
 UI standar bersifat statis dan di-compile sebelumnya. Di era Gemini 4 Pro, antarmuka bersifat **efemeral**: dihasilkan secara real-time berdasarkan niat langsung pengguna, dan dihancurkan saat tidak lagi dibutuhkan. Skill ini mengatur sistem Generative UI menggunakan React Server Components (RSC), injeksi UI berbasis Tool, dan Vercel AI SDK, memungkinkan LLM untuk langsung men-streaming komponen fungsional interaktif (grafik, formulir, dashboard) sebagai pengganti teks biasa.

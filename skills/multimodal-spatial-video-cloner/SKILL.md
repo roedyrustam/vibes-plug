@@ -2,8 +2,7 @@
 name: multimodal-spatial-video-cloner
 description: "Expert guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan ahli rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion."
 author: "Roedy Rustam"
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # multimodal-spatial-video-cloner — vibes-plug Skill
@@ -16,7 +15,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `svg-animation-motion-expert`, and `ui-ux-pro-max` to transform screen recordings, UI video captures, and spatial demos into production-ready React 19 and Tailwind CSS v4 code.
+Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `svg-animation-motion-expert`, `visual-ui-auditor`, `anti-slop`, and `ui-ux-pro-max` to transform screen recordings, UI video captures, and spatial demos into production-ready React 19 and Tailwind CSS v4 code.
 
 ### Description
 Production guide for analyzing UI/UX screen-recordings, dynamic software walkthroughs, and spatial video captures to reverse-engineer interface hierarchies, interaction flows, and physics-based motion. Extracts exact layout hierarchies, color palettes, spacing rhythm, spring physics (stiffness, damping, mass), and micro-interactions, emitting clean Tailwind CSS v4 components with Framer Motion or native CSS View Transitions.
@@ -172,7 +171,7 @@ export function ReverseEngineeredSpringCard({
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `svg-animation-motion-expert`, dan `ui-ux-pro-max` untuk mengubah rekaman layar, video antarmuka, dan demo spasial menjadi kode React 19 dan Tailwind CSS v4 siap produksi.
+Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `svg-animation-motion-expert`, `visual-ui-auditor`, `anti-slop`, dan `ui-ux-pro-max` untuk mengubah rekaman layar, video antarmuka, dan demo spasial menjadi kode React 19 dan Tailwind CSS v4 siap produksi.
 
 ### Deskripsi
 Panduan produksi untuk menganalisis rekaman layar UI/UX, video walkthrough software, dan rekaman spasial guna merekayasa balik hierarki visual, alur interaksi, dan fisika animasi. Mengekstrak tata letak, palet warna, ritme spasi, parameter pegas (*stiffness, damping, mass*), serta mikro-interaksi, menghasilkan komponen Tailwind CSS v4 dengan animasi Framer Motion atau CSS native yang presisi.

@@ -2,7 +2,7 @@
 name: flutter-dart-expert
 description: "Expert guide for Flutter 3.27+ and Dart 3.7+ cross-platform development. Covers Material 3 adaptive theming, Riverpod 3, go_router, Impeller rendering, platform channels, and Firebase/Supabase integration / Panduan ahli pengembangan lintas platform Flutter 3.27+ dan Dart 3.7+."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 ---
 
 # Flutter & Dart Expert (Flutter 3.27 / Dart 3.7 Edition)
@@ -15,7 +15,7 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
 
 ### Description
 Expert guide for building production-grade cross-platform applications using **Flutter 3.27+** and **Dart 3.7+**. Covers Material 3 adaptive theming, Riverpod 3 state management, go_router declarative navigation, Impeller rendering engine, platform channels, custom render objects, and Firebase/Supabase backend integration for iOS, Android, Web, macOS, Windows, and Linux targets.
@@ -258,7 +258,7 @@ integration_test/app_test.dart:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi lintas platform tingkat produksi menggunakan **Flutter 3.27+** dan **Dart 3.7+**. Mencakup theming adaptif Material 3, state management Riverpod 3, navigasi deklaratif go_router, mesin rendering Impeller, platform channels, custom render objects, dan integrasi backend Firebase/Supabase untuk target iOS, Android, Web, macOS, Windows, dan Linux.

@@ -2,7 +2,7 @@
 name: micro-frontend-architect
 description: "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `design-system-architect` — Shared versioned design systems, design tokens, and UI component libraries across host and remotes.
+- `ui-ux-pro-max` — Seamless navigation consistency, layout coherence, and style harmonization across micro-apps.
+- `visual-ui-auditor` — Multimodal vision auditing of cross-MFE visual integration and CSS encapsulation leaks.
+- `anti-slop` — Anti-slop MFE architecture, strict singleton dependency contracts, and zero styling bleed.
+- `senior-frontend` — React 19 and Next.js host/remote implementations.
+- `vue-frontend-expert` — Vue 3 and Nuxt host/remote implementations.
+- `monorepo-architect` — Managing multiple MFEs within a unified Turborepo/pnpm workspace.
 
 ### Description
 Production-grade guidance for breaking down monolithic frontend applications into scalable, independently deployable **Micro-Frontends (MFE)**. Covers integration via **Webpack Module Federation**, **Vite Federation**, and run-time container orchestration using patterns suitable for massive Enterprise applications in Vue or React.
@@ -97,7 +104,14 @@ This skill works best when combined with:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `design-system-architect` — Sistem desain terversi bersama, token desain, dan pustaka komponen UI lintas host dan remote.
+- `ui-ux-pro-max` — Konsistensi navigasi mulus, koherensi tata letak, dan harmonisasi gaya antar aplikasi mikro.
+- `visual-ui-auditor` — Audit visual multimodal untuk integrasi visual lintas MFE dan kebocoran enkapsulasi CSS.
+- `anti-slop` — Arsitektur MFE anti-slop, kontrak dependensi singleton yang ketat, dan nol kebocoran styling.
+- `senior-frontend` — Implementasi host/remote React 19 dan Next.js.
+- `vue-frontend-expert` — Implementasi host/remote Vue 3 dan Nuxt.
+- `monorepo-architect` — Pengelolaan multi-MFE dalam workspace Turborepo/pnpm terpadu.
 
 ### Deskripsi
 Panduan arsitektur untuk memecah aplikasi frontend raksasa menjadi **Micro-Frontends (MFE)** yang terukur dan dapat di-deploy secara independen. Mencakup **Webpack Module Federation** dan **Vite Federation**.

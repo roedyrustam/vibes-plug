@@ -2,7 +2,7 @@
 name: glsl-shader-expert
 description: "Expert guide for modern web shaders: Three Shading Language (TSL), WebGPU WGSL, Compute Shaders, and WebGL GLSL in Three.js and Babylon.js. Covers procedural generation, compute kernels, and post-processing / Panduan ahli shader web modern: TSL, WGSL, Compute Shader, dan GLSL."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -20,6 +20,8 @@ Connects and orchestrates with relevant domain skills:
 - `web-3d-graphics-expert` — WebGPU/WebGL scene rendering and NodeMaterial binding.
 - `web-game-engine-expert` — Physics simulations, particle systems, and VFX materials.
 - `ui-ux-pro-max` — Modern visual effects, glassmorphism, and screen-space distortion.
+- `visual-ui-auditor` — Visual validation of shader effects, color spaces, and post-processing aesthetics.
+- `anti-slop` — Anti-slop graphics enforcement, eliminating cheap neon glow and unoptimized fullscreen blurs.
 - `performance-web-vitals` — GPU profiling, draw call reduction, and compute shader optimization.
 
 ### Description
@@ -159,6 +161,8 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `web-3d-graphics-expert` — Rendering scene WebGPU/WebGL dan integrasi NodeMaterial.
 - `web-game-engine-expert` — Simulasi fisika, sistem partikel, dan material efek game.
 - `ui-ux-pro-max` — Efek visual modern, glassmorphism, dan distorsi screen-space.
+- `visual-ui-auditor` — Validasi visual efek shader, ruang warna, dan estetika post-processing.
+- `anti-slop` — Penegakan anti-slop grafis, membasmi neon glow murahan dan blur fullscreen tanpa optimasi.
 - `performance-web-vitals` — Profiling GPU, optimasi draw call, dan compute shader.
 
 ### Deskripsi

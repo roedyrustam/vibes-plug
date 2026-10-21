@@ -2,7 +2,7 @@
 name: data-visualization-expert
 description: "Expert guide for data visualization, charts, and dashboards using D3.js, Recharts, Chart.js, Nivo, and Tremor / Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts, Chart.js, Nivo, dan Tremor."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,10 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-- **`senior-frontend`**: React component architecture for chart components.
+- **`ui-ux-pro-max`**: Design system charts domain guidance, color role palettes, and accessible legend contrast.
+- **`design-system-architect`**: Establishes OKLCH semantic tokens (`--color-surface-card`, `--color-border`) and tabular numerals (`tabular-nums`).
+- **`anti-slop`**: Enforces authentic verified metric data (R-17), zero-hallucinated statistics, and clean 1px card borders.
+- **`senior-frontend`**: React component architecture for chart components and SSR hydration.
 - **`web-3d-graphics-expert`**: 3D spatial data visualization, WebGPU/Three.js scientific models, anatomical explainers, and 3Dviz spatial reasoning.
 - **`data-telemetry-expert`**: Analytics data pipelines feeding visualizations.
 - **`state-management-expert`**: Managing chart state, filters, and drill-down navigation.
@@ -149,6 +152,9 @@ For volumetric, anatomical, geospatial, or scientific datasets, escalate to `web
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **`ui-ux-pro-max`**: Pedoman domain visualisasi data sistem desain, palet warna berorientasi peran, dan kontras legenda aksesibel.
+- **`design-system-architect`**: Menetapkan token semantik OKLCH (`--color-surface-card`, `--color-border`) dan angka tabular (`tabular-nums`).
+- **`anti-slop`**: Menegakkan keaslian data metrik terverifikasi (R-17), nol halusinasi statistik, dan border kartu 1px yang tajam.
 - **`senior-frontend`**: Arsitektur komponen React untuk komponen chart dan layout dashboard responsif.
 - **`web-3d-graphics-expert`**: Visualisasi data spasial 3D, model ilmiah WebGPU/Three.js, explainer anatomi, dan penalaran spasial 3Dviz.
 - **`data-telemetry-expert`**: Pipeline data analitik yang mengisi visualisasi real-time.

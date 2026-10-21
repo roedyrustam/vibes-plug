@@ -2,7 +2,7 @@
 name: tauri-expert
 description: "Expert skill for Tauri (v2) development, Rust backend, IPC, and security / Panduan ahli untuk pengembangan Tauri v2, Rust backend, IPC, dan keamanan."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,13 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- `rust-programming-expert` — Writing memory-safe, asynchronous Rust commands and state backends.
+- `senior-frontend` — Building lightweight React 19 / Vite UI frontends for Tauri.
+- `design-system-architect` — Desktop UI design systems, custom window titlebars, and native OS theming.
+- `ui-ux-pro-max` — Desktop window ergonomics, system tray menus, and native keyboard shortcuts.
+- `visual-ui-auditor` — Multimodal vision auditing of rendered desktop window frames and dialogs.
+- `anti-slop` — Anti-slop desktop UI craft, zero fake browser window frames and zero placeholder commands.
 
 ### Description
 This skill provides best practice guidance for building cross-platform desktop and mobile applications using Tauri (specifically Tauri v2). It covers frontend integration with the Rust backend, Inter-Process Communication (IPC), state management, and security.
@@ -107,7 +113,13 @@ export async function getSystemMetrics(): Promise<MetricsPayload> {
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- `rust-programming-expert` — Penulisan perintah Rust asinkron yang aman memori dan backend state.
+- `senior-frontend` — Pembuatan frontend UI React 19 / Vite yang ringan untuk Tauri.
+- `design-system-architect` — Sistem desain UI desktop, titlebar jendela kustom, dan theming OS native.
+- `ui-ux-pro-max` — Ergonomi antarmuka desktop, menu system tray, dan pintasan keyboard native.
+- `visual-ui-auditor` — Audit visual multimodal untuk bingkai jendela desktop dan dialog yang dirender.
+- `anti-slop` — Penegakan UI desktop anti-slop, nol bingkai browser palsu, dan nol perintah placeholder.
 
 ### Deskripsi
 Skill ini memberikan panduan praktik terbaik (best practices) untuk membangun aplikasi desktop dan mobile lintas platform menggunakan Tauri (terutama Tauri v2). Skill ini mencakup integrasi frontend dengan backend Rust, Inter-Process Communication (IPC), manajemen state, serta keamanan.

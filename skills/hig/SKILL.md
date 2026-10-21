@@ -2,9 +2,7 @@
 name: hig
 description: "Applies Human Interface Guidelines (HIG) principles — Hierarchy, Harmony, and Consistency — to UI/UX designs to ensure intuitive and cohesive interfaces / Menerapkan prinsip Human Interface Guidelines (HIG) — Hierarchy, Harmony, dan Consistency — pada desain UI/UX untuk memastikan antarmuka yang intuitif dan kohesif."
 author: "Roedy Rustam"
-
-version: "4.4.1"
-
+version: "4.4.2"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)
@@ -17,7 +15,14 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+Connects and orchestrates with relevant domain skills:
+- **`modern-web-guidance`**: Enforces standardized accessible navigation and input paradigms.
+- **`visual-ui-auditor`**: Audits rendered visual hierarchies against HIG principles and 1px borders.
+- **`design-system-architect`**: Implements 3-tier radius scales, surface containers, and typography tokens.
+- **`tailwind-expert`**: Maps HIG optical letter-spacing and spacing scales to Tailwind v4 utilities.
+- **`ui-ux-pro-max`**: Design intelligence across F/Z reading patterns and 60-30-10 color distribution.
+- **`anti-slop`**: Eliminates fake avatars, generic gradients, and non-semantic button div-soups.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
 
 ### Description
 Applies Human Interface Guidelines (HIG) principles to web and mobile UI/UX designs. Covers the core triad (Hierarchy, Harmony, Consistency), Apple's HIG 2026 updates, Google Material Design 3, spatial design for Apple Vision Pro, and modern accessibility requirements.
@@ -184,7 +189,14 @@ When reviewing a design, check:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `anti-slop`, `ui-ux-pro-max`, `design-system-architect`, `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+Terhubung dan mengorkestrasi skill domain yang relevan:
+- **`modern-web-guidance`**: Menegakkan paradigma navigasi dan input aksesibel terstandarisasi.
+- **`visual-ui-auditor`**: Mengaudit hierarki visual hasil render terhadap prinsip HIG dan border 1px.
+- **`design-system-architect`**: Mengimplementasikan skala radius 3-tier, kontainer permukaan, dan token tipografi.
+- **`tailwind-expert`**: Memetakan tracking huruf optik HIG dan skala spasi ke utilitas Tailwind v4.
+- **`ui-ux-pro-max`**: Kecerdasan desain lintas pola baca F/Z dan distribusi warna 60-30-10.
+- **`anti-slop`**: Melenyapkan avatar palsu, gradien generik, dan tombol div-soup non-semantik.
+- **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara terpadu.
 
 ### Deskripsi
 Menerapkan prinsip Human Interface Guidelines (HIG) pada desain UI/UX web dan mobile. Mencakup triad inti (Hierarchy, Harmony, Consistency), pembaruan Apple HIG 2026, Google Material Design 3, desain spasial untuk Apple Vision Pro, dan persyaratan aksesibilitas modern.
