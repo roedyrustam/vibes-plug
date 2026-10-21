@@ -2,14 +2,27 @@
 name: ai-safety-governance-expert
 description: "Expert guide for AI Safety, Governance, and Responsible AI in production — Constitutional AI enforcement, runtime guardrails (NeMo Guardrails 2.0, Llama Guard 3), bias auditing, hallucination detection, EU AI Act compliance, model cards, and content provenance / Panduan ahli untuk Keamanan AI, Tata Kelola, dan AI Bertanggung Jawab di produksi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
 # AI Safety, Governance, and Responsible AI Expert
 
-## 1. Constitutional AI Enforcement / Penegakan AI Konstitusional
+[English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
+---
+
+<a name="english"></a>
+## English
+
+### Orchestration & Integration
+- **Prompt Defense & Firewalls**: `prompt-injection-firewall`, `ai-prompt-engineering-expert`
+- **Red Teaming & Security**: `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Compliance & Privacy**: `compliance-gdpr-privacy-expert`, `formal-spec-z3-verifier`
+- **Model Evaluation & Memory**: `ai-llm-integration-expert`, `session-memory-manager`, `agentic-memory-architect`
+- **Lifecycle & Hardening**: `zero-to-prod-orchestrator`, `production-ready-hardener`, `anti-slop`, `brainstorming`
+
+### 1. Constitutional AI Enforcement
 Define constitutional rules as structured guardrails for all AI operations. Implement policies at multiple interception points: pre-generation, post-generation, and retrieval.
 
 ### Principles & Configuration
@@ -201,24 +214,26 @@ Ensure transparency in AI-generated outputs by embedding provenance data.
 - **Invisible Text Watermarking**: Alter token probabilities during generation (e.g., SynthID text) to embed a detectable signature.
 - **Clear Disclosures**: Always present visible labels indicating content is AI-generated, especially for synthetic media and bots.
 
-## 8. Orchestration & Integration / Orkestrasi & Integrasi
+---
 
-This skill connects to the broader ecosystem to enforce safety across all capabilities.
-
-### Connected Skills
-- `ai-llm-integration-expert`
-- `ai-prompt-engineering-expert`
-- `autonomous-red-teamer`
-- `compliance-gdpr-privacy-expert`
-- `session-memory-manager`
-- `production-ready-hardener`
-- `brainstorming`
-- `zero-to-prod-orchestrator`
-
-## English
+<a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Pertahanan Prompt & Firewall**: `prompt-injection-firewall`, `ai-prompt-engineering-expert`
+- **Red Teaming & Keamanan**: `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Kepatuhan & Privasi**: `compliance-gdpr-privacy-expert`, `formal-spec-z3-verifier`
+- **Evaluasi Model & Memori**: `ai-llm-integration-expert`, `session-memory-manager`, `agentic-memory-architect`
+- **Siklus Hidup & Pengerasan**: `zero-to-prod-orchestrator`, `production-ready-hardener`, `anti-slop`, `brainstorming`
 
-## Orchestration & Integration
-- Connects to `zero-to-prod-orchestrator`
-- Connects to `brainstorming`
+### Deskripsi
+Panduan komprehensif tingkat produksi untuk Keamanan AI, Tata Kelola (*Governance*), dan AI Bertanggung Jawab (*Responsible AI*). Menerapkan penegakan AI Konstitusional, pengamanan waktu jalan (*runtime guardrails* via NeMo Guardrails dan Llama Guard), audit bias otomatis, deteksi halusinasi, kepatuhan regulasi EU AI Act / NIST RMF, kartu model terstandarisasi, dan tanda air bukti asal konten (C2PA / SynthID).
+
+### 7 Pilar Tata Kelola AI Produksi
+1. **Penegakan AI Konstitusional**: Definisikan aturan konstitusi sebagai guardrail terstruktur untuk seluruh operasi AI pada tahap pra-generasi, pasca-generasi, dan retrieval.
+2. **Runtime Safety Guardrails**: Terapkan pertahanan berlapis (filter input jailbreak/injeksi prompt, mitigasi toksisitas, dan redaksi PII).
+3. **Deteksi Halusinasi**: Hitung skor faktualitas menggunakan model Natural Language Inference (NLI) dan verifikasi bukti rujukan konteks.
+4. **Audit Bias Otomatis**: Pantau perbedaan paritas demografis (*demographic parity difference*) dan metrik keadilan secara berkala.
+5. **Kartu Model AI (Model Cards)**: Dokumentasikan batasan model, kasus penggunaan yang sah, dataset pelatihan, dan metrik etika secara transparan.
+6. **Matriks Kepatuhan Global**: Klasifikasikan tingkat risiko sistem AI berdasarkan kerangka regulasi EU AI Act (Risiko Tidak Diterima, Tinggi, Terbatas, Minimal), NIST AI RMF, dan Pasal 22 GDPR.
+7. **Asal Konten & Watermarking**: Sematkan kredensial kriptografis C2PA pada media sintetis dan terapkan penandaan SynthID agar keluaran AI transparan serta dapat diaudit.

@@ -2,7 +2,7 @@
 name: agentic-memory-architect
 description: Expert guide for long-term episodic memory integration (Mem0 v2, Letta/MemGPT, Zep v2), memory tier architecture, pgvector HNSW storage, and unified context management for autonomous AI agents / Panduan ahli untuk integrasi memori episodik jangka panjang (Mem0 v2, Letta/MemGPT, Zep v2), arsitektur tier memori, penyimpanan pgvector HNSW, dan manajemen konteks terpadu untuk agen AI otonom.
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,15 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-
-Connects and orchestrates with:
-- `multi-agent-orchestration` — shared memory state across agent swarms
-- `pydantic-ai-expert` — type-safe memory injection into Pydantic AI agents
-- `session-memory-manager` — short-term session checkpoint layer
-- `vector-db-rag-expert` — pgvector/HNSW for long-term episodic retrieval
-- `database-orm-expert` — Prisma/Drizzle schema for memory persistence
-- `ai-llm-integration-expert` — context window injection at inference time
-- `zero-to-prod-orchestrator` — memory layer provisioned in Phase 2 (Foundation)
+- **Agent Swarms & Multi-Agent State**: `multi-agent-orchestration`, `pydantic-ai-expert`, `speculative-multi-draft-synthesizer`
+- **Short-Term Context & Checkpoints**: `session-memory-manager`, `context-window-engineer`, `kv-cache-prefix-optimizer`
+- **Vector Storage & Long-Term Retrieval**: `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `database-orm-expert`
+- **Inference & LLM Routing**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `llm-finops-router`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `anti-slop`, `compliance-gdpr-privacy-expert`
 
 ---
 
@@ -676,15 +672,11 @@ export async function purgeUserMemory(
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-
-Terhubung dan mengorkestrasi bersama:
-- `multi-agent-orchestration` — state memori bersama di seluruh agent swarm
-- `pydantic-ai-expert` — injeksi memori type-safe ke agen Pydantic AI
-- `session-memory-manager` — lapisan checkpoint sesi jangka pendek
-- `vector-db-rag-expert` — pgvector/HNSW untuk retrieval episodik jangka panjang
-- `database-orm-expert` — skema Prisma/Drizzle untuk persistensi memori
-- `ai-llm-integration-expert` — injeksi context window saat inferensi
-- `zero-to-prod-orchestrator` — lapisan memori diprovisioning di Phase 2 (Foundation)
+- **Swarm Agen & State Multi-Agen**: `multi-agent-orchestration`, `pydantic-ai-expert`, `speculative-multi-draft-synthesizer`
+- **Konteks Jangka Pendek & Checkpoint**: `session-memory-manager`, `context-window-engineer`, `kv-cache-prefix-optimizer`
+- **Penyimpanan Vektor & Retrieval Episodik**: `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `database-orm-expert`
+- **Inferensi & Perutean LLM**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `llm-finops-router`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `anti-slop`, `compliance-gdpr-privacy-expert`
 
 ---
 

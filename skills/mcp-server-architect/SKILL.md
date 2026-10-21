@@ -2,7 +2,7 @@
 name: mcp-server-architect
 description: "Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python / Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills: `ai-llm-integration-expert` for core LLM routing and RAG pipelines, `multi-agent-orchestration` for agent client consumption, and `doku-mcp-server` for payments integration examples. Ensure cohesive execution when spawning subagents.
+- **Upstream AI Models & Protocol**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `mcp-sampling-critic`
+- **Agent Clients & Swarms**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `gemini-agent-booster`
+- **Domain Server Implementations**: `doku-mcp-server`, `xerj-search-expert`, `database-orm-expert`
+- **Security & Authorization**: `zero-trust-secret-vault`, `authentication-identity-expert`, `prompt-injection-firewall`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Ultimate architectural guide for engineering high-performance, production-ready AI Tools/Bots via the **Model Context Protocol (MCP v1.x)**. Enforces the use of `FastMCP` (Python) and `@modelcontextprotocol/sdk` (TypeScript). Mandates strict security guardrails, schema validation, stateful resource streaming, and support for both Standard Stdio and Streamable HTTP / Server-Sent Events (SSE) transports.
@@ -171,7 +175,11 @@ When acting as an AI Agent consuming external MCP servers:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan skill domain relevan: `ai-llm-integration-expert` untuk perutean LLM inti dan pipeline RAG, `multi-agent-orchestration` untuk konsumsi klien agen, serta `doku-mcp-server` untuk contoh integrasi pembayaran.
+- **Model AI & Protokol Hulu**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `mcp-sampling-critic`
+- **Klien Agen & Swarm**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `gemini-agent-booster`
+- **Implementasi Server Domain**: `doku-mcp-server`, `xerj-search-expert`, `database-orm-expert`
+- **Keamanan & Otorisasi**: `zero-trust-secret-vault`, `authentication-identity-expert`, `prompt-injection-firewall`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan arsitektur utama untuk membangun AI Tools/Bots modern dan siap produksi via **Model Context Protocol (MCP v1.x)**. Mewajibkan penggunaan `FastMCP` (Python) dan `@modelcontextprotocol/sdk` (TypeScript). Menerapkan pengamanan ketat, validasi skema, streaming resource stateful, serta dukungan transport Standar Stdio maupun Streamable HTTP / SSE.
@@ -310,8 +318,6 @@ Ketika agen bertindak sebagai Klien MCP:
 3. **Alur Kerja Lintas Sistem**: Rangkaikan pemanggilan tool antar-domain: GitHub MCP -> pencarian kode lokal -> perbaikan otonom -> Pull Request GitHub.
 4. **Kesadaran Batas Frekuensi**: Hindari loop pemanggilan berulang tanpa jeda waktu saat memanggil server MCP eksternal.
 
-## Integrasi Orkestrasi
-- Terintegrasi dengan: `ai-llm-integration-expert`, `doku-mcp-server`, `zero-trust-secret-vault`.
 ### Eksekusi Tool MCP Batch / Throughput Tinggi (Kesiapan Gemini 4 Pro)
 - Pastikan endpoint MCP Anda mampu menangani **Eksekusi Tool Paralel Masif** seiring transisi model menuju arsitektur Agentic MoE.
 - Terapkan pemrosesan sub-tugas paralel pada tools yang mungkin dipanggil secara bersamaan (misal: gunakan Promise.all atau syncio.gather untuk query batch, alih-alih mengeblok secara berurutan).

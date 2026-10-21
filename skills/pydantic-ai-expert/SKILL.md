@@ -2,7 +2,7 @@
 name: pydantic-ai-expert
 description: "Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows / Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, and `database-orm-expert` to engineer type-safe, resilient backend AI agents.
+- **Python Language & Runtime**: `python-programming-expert`, `structured-output-contracts`
+- **Agent Frameworks & Swarms**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `frontier-ai-models-expert`
+- **MCP & Tool Protocols**: `mcp-server-architect`, `parallel-tool-orchestrator`
+- **Persistence & Databases**: `database-orm-expert`, `vector-db-rag-expert`
+- **Evaluation & Testing**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `anti-slop`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production-grade guide for building enterprise AI agents using **Pydantic AI** (from the creators of Pydantic). Unlike untyped or fragile agent libraries, Pydantic AI provides strict static typing (`Agent[DepsType, ReturnType]`), first-class dependency injection (`RunContext[Deps]`), automatic tool parameter validation via Pydantic v2 schemas, model-agnostic provider switching (Anthropic, OpenAI, Gemini, Groq, Ollama), dynamic system prompts, and deterministic structured outputs.
@@ -148,7 +153,12 @@ async def test_security_agent_tool_dispatch():
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `python-programming-expert`, `multi-agent-orchestration`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, dan `database-orm-expert` untuk membangun agen AI backend yang aman secara tipe (*type-safe*) dan tangguh.
+- **Bahasa Python & Runtime**: `python-programming-expert`, `structured-output-contracts`
+- **Framework Agen & Swarm**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `frontier-ai-models-expert`
+- **Protokol MCP & Tools**: `mcp-server-architect`, `parallel-tool-orchestrator`
+- **Persistensi & Database**: `database-orm-expert`, `vector-db-rag-expert`
+- **Evaluasi & Pengujian**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `anti-slop`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan produksi untuk membangun agen AI kelas perusahaan menggunakan **Pydantic AI** (dari pembuat library Pydantic). Tidak seperti library agen yang tidak bertipe statis atau mudah mengalami galat runtime, Pydantic AI menyediakan sistem tipe statis yang ketat (`Agent[DepsType, ReturnType]`), *dependency injection* bawaan kelas satu (`RunContext[Deps]`), validasi parameter tool otomatis melalui skema Pydantic v2, fleksibilitas pergantian model (*model-agnostic*), dan hasil output terstruktur yang terjamin validitasnya.

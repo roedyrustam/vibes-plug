@@ -2,7 +2,7 @@
 name: vercel-ai-sdk-expert
 description: "Expert guide for Vercel AI SDK (Core, UI, RSC), streaming structured data, multi-provider model switching, tool calling loops, and React 19/Next.js 15 AI engineering / Panduan ahli Vercel AI SDK, streaming data terstruktur, dan integrasi AI pada React 19/Next.js 15."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with domain skills like `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `design-system-architect, senior-frontend`, and `multi-agent-orchestration` to deliver reactive, streaming AI interfaces.
+- **Upstream Models & Transports**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`
+- **Frontend Presentation & Generative UI**: `senior-frontend`, `nextjs-app-router-expert`, `ephemeral-generative-ui-architect`
+- **Tooling & Swarms**: `mcp-server-architect`, `multi-agent-orchestration`, `parallel-tool-orchestrator`
+- **Contracts & Schemas**: `structured-output-contracts`, `form-validation-expert`, `typescript-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Production-grade guide for building AI applications using the **Vercel AI SDK (Core & UI)**. Covers unified model provider abstraction (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), streaming text and structured objects (`streamText`, `streamObject`), dynamic multi-step tool execution loops with `maxSteps`, client-side React 19 hooks (`useChat`, `useCompletion`), streaming data attachments (`createDataStreamResponse`), and generative UI rendering.
@@ -212,7 +216,11 @@ handleSubmit(e, { experimental_attachments: attachments });
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `senior-frontend`, `nextjs-app-router-expert`, `ai-llm-integration-expert`, `design-system-architect, senior-frontend`, dan `multi-agent-orchestration` untuk menghadirkan antarmuka AI yang reaktif dan berlatensi rendah.
+- **Model Hulu & Transport**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`
+- **Presentasi Frontend & Generative UI**: `senior-frontend`, `nextjs-app-router-expert`, `ephemeral-generative-ui-architect`
+- **Tooling & Swarm**: `mcp-server-architect`, `multi-agent-orchestration`, `parallel-tool-orchestrator`
+- **Kontrak & Skema**: `structured-output-contracts`, `form-validation-expert`, `typescript-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core & UI)**. Mencakup abstraksi penyedia model terpadu (`@ai-sdk/anthropic`, `@ai-sdk/openai`, `@ai-sdk/google`), streaming teks dan objek terstruktur (`streamText`, `streamObject`), siklus eksekusi tool multi-langkah otonom dengan `maxSteps`, hook klien React 19 (`useChat`, `useCompletion`), streaming respons saluran data (`createDataStreamResponse`), dan rendering Generative UI.

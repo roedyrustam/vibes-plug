@@ -2,7 +2,7 @@
 name: doku-mcp-server
 description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for DOKU Checkout, payment links, Virtual Accounts, QRIS, and order status checks / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,11 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills:
-- `doku-payment-gateway` — Core DOKU Checkout specifications, HMAC-SHA256 signature algorithms, and SNAP BI protocols.
-- `mcp-server-architect` — Enterprise-grade MCP tool design, transport safety, and schema validation.
-- `multi-agent-orchestration` — Connecting AI shopping agents and autonomous checkout swarms.
-- `saas-billing` — Agentic subscription provisioning and autonomous order payment verification.
+- **Payment Engine & SNAP BI**: `doku-payment-gateway`, `payment-gateway-expert`, `saas-billing`
+- **MCP Protocol & Tools**: `mcp-server-architect`, `mcp-sampling-critic`, `parallel-tool-orchestrator`
+- **Agent Swarms & Commerce**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `agentic-m2m-settlement`
+- **Security & Secret Vault**: `zero-trust-secret-vault`, `authentication-identity-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Expert guide for integrating and building Model Context Protocol (MCP) servers with DOKU Payment Gateway based on the [DOKU Developers Documentation](https://developers.doku.com/). Enables AI Agents (Claude Desktop, Antigravity, Cursor, n8n, LangChain) to execute payment tasks autonomously using Agentic Commerce capabilities (generating DOKU Checkout links, issuing Virtual Account numbers, generating QRIS codes, and querying order-level transaction statuses).
@@ -256,11 +256,11 @@ main().catch(console.error);
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan:
-- `doku-payment-gateway` — Spesifikasi teknis DOKU Checkout, algoritma HMAC-SHA256, dan standar SNAP BI.
-- `mcp-server-architect` — Arsitektur server MCP tingkat lanjut, standardisasi schema Zod/JSON Schema, dan transportasi stdio.
-- `multi-agent-orchestration` — Agen AI otonom untuk pembelian dan checkout otomatis.
-- `saas-billing` — Verifikasi pembayaran tagihan langganan secara otonom.
+- **Mesin Pembayaran & SNAP BI**: `doku-payment-gateway`, `payment-gateway-expert`, `saas-billing`
+- **Protokol MCP & Tools**: `mcp-server-architect`, `mcp-sampling-critic`, `parallel-tool-orchestrator`
+- **Swarm Agen & Commerce**: `multi-agent-orchestration`, `ai-llm-integration-expert`, `agentic-m2m-settlement`
+- **Keamanan & Secret Vault**: `zero-trust-secret-vault`, `authentication-identity-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan dan membuat server Model Context Protocol (MCP) dengan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Documentation](https://developers.doku.com/). Memungkinkan Agen AI (Claude Desktop, Antigravity, Cursor, n8n, LangChain) menjalankan transaksi pembayaran secara otonom dalam alur Agentic Commerce (membuat URL DOKU Checkout, memeriksa status pembayaran order, dan mengelola invoice).

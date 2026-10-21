@@ -2,7 +2,7 @@
 name: multi-agent-orchestration
 description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, and `session-memory-manager` to ensure cohesive execution.
+- **Swarm Directorship & Planning**: `brainstorming`, `zero-to-prod-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Foundation Models & Providers**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`
+- **Tool Execution & MCP Protocols**: `mcp-server-architect`, `parallel-tool-orchestrator`, `doku-mcp-server`
+- **Agent Languages & Frameworks**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
+- **Memory, State & Telemetry**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
+- **Security & Quality Gates**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
 
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers core agentic design patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), stateful graph engines (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared episodic/semantic memory, tool execution sandboxes, and human-in-the-loop (HITL) guardrails.
@@ -303,7 +308,12 @@ For next-gen models like **Gemini 4 Pro**:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `mcp-server-architect`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Direktur Swarm & Perencanaan**: `brainstorming`, `zero-to-prod-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Model Fondasi & Penyedia**: `ai-llm-integration-expert`, `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`
+- **Eksekusi Alat & Protokol MCP**: `mcp-server-architect`, `parallel-tool-orchestrator`, `doku-mcp-server`
+- **Bahasa & Framework Agen**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
+- **Memori, State & Telemetri**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
+- **Keamanan & Gerbang Kualitas**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup pola desain agentik inti (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), engine graph stateful (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), memori bersama episodik/semantik, sandbox eksekusi tool, dan guardrail human-in-the-loop (HITL).

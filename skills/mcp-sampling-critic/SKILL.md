@@ -2,7 +2,7 @@
 name: mcp-sampling-critic
 description: "Expert guide for MCP client sampling (sampling/createMessage), Critic-in-the-Loop agentic quality gates, autonomous human-in-the-loop emulation, and multi-model consensus verification / Panduan ahli sampling MCP client, quality gate agen Critic-in-the-Loop, dan verifikasi konsensus multi-model."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,11 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with `mcp-server-architect`, `autonomous-red-teamer`, `ai-code-review-autonomous`, `speculative-multi-draft-synthesizer`, `anti-slop`, and `zero-to-prod-orchestrator` to establish autonomous Critic-in-the-Loop validation before any state or disk mutations.
+- **Protocol & Model Sampling**: `mcp-server-architect`, `ai-llm-integration-expert`, `frontier-ai-models-expert`
+- **Adversarial Audit & Quality**: `autonomous-red-teamer`, `ai-code-review-autonomous`, `anti-slop`
+- **Multi-Agent Consensus**: `speculative-multi-draft-synthesizer`, `multi-agent-orchestration`, `parallel-tool-orchestrator`
+- **Testing & Verification**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`
+- **Lifecycle Gate**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
 Production protocol for leveraging Model Context Protocol (MCP v1.x) Client Sampling (`sampling/createMessage`) to create recursive adversarial quality gates. In standard architectures, tools execute code blindly upon invocation. With MCP Sampling, a specialized Critic engine pauses execution, initiates a nested sampling call to the host LLM (or a secondary frontier model), and asks the Critic model to inspect proposed diffs against the 7 Anti-Slop Pillars, security boundaries, and invariant state machines. Writes are only permitted when the Critic grants an `APPROVED` verdict.
@@ -113,7 +117,11 @@ Output JSON: { "verdict": "APPROVED" | "REJECTED", "score": 0-100, "rationale": 
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasikan skill `mcp-server-architect`, `autonomous-red-teamer`, `ai-code-review-autonomous`, `speculative-multi-draft-synthesizer`, `anti-slop`, dan `zero-to-prod-orchestrator` untuk menetapkan validasi Critic-in-the-Loop otonom sebelum mutasi file atau database.
+- **Sampling Protokol & Model**: `mcp-server-architect`, `ai-llm-integration-expert`, `frontier-ai-models-expert`
+- **Audit Adversarial & Kualitas**: `autonomous-red-teamer`, `ai-code-review-autonomous`, `anti-slop`
+- **Konsensus Multi-Agen**: `speculative-multi-draft-synthesizer`, `multi-agent-orchestration`, `parallel-tool-orchestrator`
+- **Pengujian & Verifikasi**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `formal-spec-z3-verifier`
+- **Gerbang Siklus Hidup**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
 Protokol produksi untuk memanfaatkan *Client Sampling* pada Model Context Protocol (`sampling/createMessage`) guna membangun gerbang kualitas adversarial rekursif. Menggunakan MCP Sampling, server atau subagen menghentikan eksekusi sementara, melakukan panggilan sampling ke LLM host untuk mengaudit usulan perubahan kode terhadap 7 Pilar Anti-Slop, keamanan injeksi SQL, dan penanganan error. Kode hanya ditulis ke disk apabila mendapatkan status `APPROVED`.

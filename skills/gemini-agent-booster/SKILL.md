@@ -2,7 +2,7 @@
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 4 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 4 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -16,7 +16,12 @@ version: "4.4.1"
 ## English
 
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `test-time-compute-optimizer`, and `session-memory-manager` to ensure cohesive execution across all phases.
+- **Frontier Models & Runtimes**: `frontier-ai-models-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`
+- **Inference & Thinking Budgets**: `test-time-compute-optimizer`, `thinking-budget-orchestrator`, `adaptive-model-cascade`
+- **Context Caching & Long-Context**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `session-memory-manager`
+- **Multimodal & Realtime Audio/Video**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
+- **Tooling & Swarm Execution**: `parallel-tool-orchestrator`, `mcp-server-architect`, `browser-automation-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Description
 Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 4 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
@@ -155,7 +160,12 @@ Ensure all code and orchestration flows adhere to the following standards:
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, `ai-llm-integration-expert`, `frontier-ai-models-expert`, `test-time-compute-optimizer`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif di semua fase.
+- **Model Frontier & Runtime**: `frontier-ai-models-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`
+- **Inferensi & Thinking Budget**: `test-time-compute-optimizer`, `thinking-budget-orchestrator`, `adaptive-model-cascade`
+- **Context Caching & Long-Context**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `session-memory-manager`
+- **Multimodal & Audio/Video Realtime**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
+- **Tooling & Eksekusi Swarm**: `parallel-tool-orchestrator`, `mcp-server-architect`, `browser-automation-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Deskripsi
 Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 4 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.

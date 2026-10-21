@@ -2,7 +2,7 @@
 name: voice-ai-realtime-agent
 description: "Expert guide for Ultra-Low Latency Conversational Voice AI (<300ms), WebRTC bidirectional streaming, OpenAI Realtime API, Gemini Multimodal Live Audio, LiveKit Agents, and Semantic VAD / Panduan ahli AI suara percakapan real-time berlatensi ultra-rendah."
 author: "Roedy Rustam"
-version: "4.4.1"
+version: "4.4.2"
 
 ---
 
@@ -14,6 +14,13 @@ version: "4.4.1"
 
 <a name="english"></a>
 ## English
+
+### Orchestration & Integration
+- **Speech Models & Multimodal Streams**: `ai-llm-integration-expert`, `gemini-agent-booster`, `frontier-ai-models-expert`
+- **Realtime Protocols & WebSockets**: `realtime-collaboration-expert`, `sse-websocket-streaming-expert`
+- **Client Platforms & Audio Processing**: `senior-frontend`, `mobile-expo-expert`, `apple-ecosystem-expert`
+- **Agent Swarms & Tools**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `chatbot-messaging-expert`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Description
 Expert guide for building ultra-low-latency (<300ms), bi-directional conversational voice AI applications. Covers WebRTC, full-duplex WebSocket audio streaming (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, and smart interruption (barge-in) handling.
@@ -208,23 +215,15 @@ export class GeminiVoiceAgent {
 
 ---
 
-## Orchestration & Integration
-
-- **`ai-llm-integration-expert`**: For base LLM prompt routing and function calling during conversation.
-- **`realtime-collaboration-expert`**: For syncing WebRTC tracks and room states with client applications.
-- **`gemini-agent-booster`**: Connects Gemini 3.x / 2.0 Flash thinking models to live voice agents.
-- **`mobile-expo-expert`**: Audio streaming implementation in React Native with expo-av and WebRTC shim.
-
----
-
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **`ai-llm-integration-expert`**: Integrasi model LLM frontier dan streaming token dua arah.
-- **`sse-websocket-streaming-expert`**: Penanganan koneksi WebSocket full-duplex dan transmisi buffer PCM 24kHz.
-- **`ai-media-generation-expert`**: Pipeline suara Text-to-Speech (Cartesia, ElevenLabs, OpenAI Audio).
-- **`multi-agent-orchestration`**: Penanganan interupsi suara (*barge-in*) dalam alur percakapan agen.
+- **Model Suara & Aliran Multimodal**: `ai-llm-integration-expert`, `gemini-agent-booster`, `frontier-ai-models-expert`
+- **Protokol Realtime & WebSocket**: `realtime-collaboration-expert`, `sse-websocket-streaming-expert`
+- **Platform Klien & Pemrosesan Audio**: `senior-frontend`, `mobile-expo-expert`, `apple-ecosystem-expert`
+- **Swarm Agen & Tools**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `chatbot-messaging-expert`
+- **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi AI suara percakapan berlatensi ultra-rendah (<300ms) dan dua arah (*bi-directional*). Mencakup WebRTC, streaming audio WebSocket full-duplex (PCM 16-bit 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi percakapan cerdas (*smart barge-in*).
