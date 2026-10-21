@@ -1,6 +1,6 @@
 ---
 name: multi-agent-orchestration
-description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph-based workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
+description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph and flow engines (LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -83,7 +83,7 @@ vibes-plug's internal Swarm Director patterns (from `AGENTS.md`) map directly to
 | **OpenAI Agents SDK** | Python | GPT-4.5 / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
 | **Google ADK** | Python | Gemini-powered swarms | Native Vertex AI, multi-agent streaming, search grounding |
 | **Mastra.ai** | TypeScript | TS-first web apps & microservices | Built-in memory, evals, RAG, and native MCP support |
-| **CrewAI** | Python | Role-playing business teams | Fast initial prototyping for business analyst teams |
+| **CrewAI** | Python | Role-playing business teams & flows | Event-driven Flows, hierarchical manager execution, multi-tier memory |
 
 ### Core Implementation Guidelines
 
@@ -209,18 +209,116 @@ const researcher = new Agent({
 });
 ```
 
-#### 5. Human-in-the-Loop (HITL) Guardrails
+#### 5. CrewAI — Role-Playing Crews, Hierarchical Execution & Event-Driven Flows
+Combines event-driven application state flows (`Flow`) with autonomous role-playing agent crews (`Crew`), supporting hierarchical delegation and typed Pydantic outputs:
+
+```python
+from crewai import Agent, Crew, Process, Task
+from crewai.tools import tool
+from crewai.flow.flow import Flow, start, listen, router
+from pydantic import BaseModel, Field
+
+# 1. Typed State and Output Schemas
+class SecurityReport(BaseModel):
+    is_vulnerable: bool
+    vulnerabilities: list[str] = Field(default_factory=list)
+    mitigation_plan: str
+
+class PipelineState(BaseModel):
+    target_service: str = "payment-gateway"
+    audit_passed: bool = False
+    report: SecurityReport | None = None
+
+# 2. Custom Safe Tool
+@tool("scan_dependencies")
+def scan_dependencies(service_name: str) -> str:
+    """Scans service dependencies for known CVEs and outdated packages."""
+    return f"Scan complete for {service_name}: 0 critical, 1 low severity vulnerability in OpenSSL binding."
+
+# 3. Define Event-Driven Flow with State & Conditional Branching
+class DeploymentFlow(Flow[PipelineState]):
+    @start()
+    def initialize_pipeline(self):
+        print(f"Initializing security pipeline for: {self.state.target_service}")
+        return self.state.target_service
+
+    @listen(initialize_pipeline)
+    def run_security_crew(self, service: str):
+        # Define Specialized Role-Playing Agents
+        scanner = Agent(
+            role="Security Researcher",
+            goal=f"Audit dependencies and network vectors for {service}",
+            backstory="Veteran cybersecurity auditor specialized in FinTech compliance and OWASP Top 10.",
+            tools=[scan_dependencies],
+            verbose=True,
+            memory=True
+        )
+
+        hardener = Agent(
+            role="Systems Hardener",
+            goal="Formulate actionable mitigation plans for all identified security vectors",
+            backstory="Principal DevSecOps engineer with deep zero-trust and kernel security expertise.",
+            verbose=True,
+            memory=True
+        )
+
+        # Define Tasks with Structured Output and HITL Checkpoint
+        audit_task = Task(
+            description=f"Analyze all package dependencies and attack surfaces for {service}.",
+            expected_output="Raw vulnerability scan assessment.",
+            agent=scanner
+        )
+
+        remediation_task = Task(
+            description="Produce a structured mitigation report and verify if the service is safe for deploy.",
+            expected_output="A typed JSON security report matching the SecurityReport schema.",
+            agent=hardener,
+            output_pydantic=SecurityReport,
+            human_input=True
+        )
+
+        # Instantiate Hierarchical Crew with Manager LLM
+        security_crew = Crew(
+            agents=[scanner, hardener],
+            tasks=[audit_task, remediation_task],
+            process=Process.hierarchical,
+            manager_llm="gpt-4o",
+            memory=True,
+            verbose=True
+        )
+
+        result = security_crew.kickoff()
+        self.state.report = result.pydantic
+        self.state.audit_passed = not self.state.report.is_vulnerable
+        return self.state.audit_passed
+
+    @router(run_security_crew)
+    def evaluate_deployment(self):
+        if self.state.audit_passed:
+            return "deploy"
+        return "quarantine"
+
+    @listen("deploy")
+    def handle_deployment(self):
+        print(f"Service {self.state.target_service} approved for zero-downtime deployment.")
+
+    @listen("quarantine")
+    def handle_quarantine(self):
+        print(f"Deployment halted: {self.state.target_service} quarantined for remediation.")
+```
+
+#### 6. Human-in-the-Loop (HITL) Guardrails
 Mandatory safeguards before executing irreversible operations:
 - **Interrupt Checkpoints**: Halt workflow execution before executing code, migrating databases, or modifying production records.
 - **Approval Dashboards**: Surface diff previews and proposed shell commands to the user or admin before proceeding.
 - **Confidence Gates**: Auto-proceed only when model confidence score is >= 0.90; trigger human escalation otherwise.
 
-#### 6. Swarm Circuit Breakers & Fallback Protocols
+#### 7. Swarm Circuit Breakers & Fallback Protocols
 - **Retry Caps**: Maximum 2 automated retries per subagent.
 - **Fallback Escalation**: If a specialist agent stalls or loops, the Swarm Director gracefully fallbacks to `fullstack-expert` or requests human guidance.
 - **Checkpoint Persistence**: Always persist intermediate progress to `PROGRESS.md` or `BLUEPRINT.md` so sessions can resume without losing context.
 
-#### 7. Narrative Simulation Swarms (Fable Paradigm)
+#### 8. Narrative Simulation Swarms (Fable Paradigm)
 Multi-agent autonomous story world simulation architecture where agents act as characters.
 - **Character-Agent Personality Encoding:** Uses Big Five personality model + emotional valence vectors (joy, anger, fear, surprise, sadness, disgust).
 - **Inter-Agent Dialogue Protocols:** Constrained by narrative coherence.
@@ -253,7 +351,7 @@ const directorAgent = async (state: WorldState) => {
 };
 ```
 
-#### 8. Computer-Using Agent (CUA) Orchestration
+#### 9. Computer-Using Agent (CUA) Orchestration
 - **CUA Agent Delegation:** Swarm director delegates specific UI tasks to CUA worker agents.
 - **Screen-Sharing Observation:** Orchestrator agent observes CUA's visual stream to verify progress.
 - **Recovery Protocols:** Handles CUA failures like stuck UI states or navigation errors via visual feedback loops.
@@ -273,7 +371,7 @@ orchestrator.on("worker_stuck", async (worker, screenshot) => {
 await orchestrator.executeParallel();
 ```
 
-#### 9. Continuous Perception Swarms
+#### 10. Continuous Perception Swarms
 - **Always-on Monitoring:** 24/7 perception loops capturing multimodal input.
 - **Live Video/Audio Triage Agents:** (Intake → Classify → Route) pipelines processing continuous streams.
 - **Spatial Awareness Distribution:** Sharing spatial context across the agent swarm.
@@ -297,7 +395,7 @@ client.on("video_frame", async (frame) => {
 client.connect();
 ```
 
-#### 10. Massive Parallel Swarms (Agentic MoE) for Next-Gen LLMs
+#### 11. Massive Parallel Swarms (Agentic MoE) for Next-Gen LLMs
 For next-gen models like **Gemini 4 Pro**:
 - **Batched Tool Invocation**: Transition from sequential step-by-step orchestrators to massive batched function calling.
 - **Monolithic Context Flow**: Pass the entire massive context (codebase snapshot) directly via KV-Cache rather than using chunked RAG retrieval per agent, allowing subagents to natively attend to the exact same shared memory state instantly.
@@ -346,7 +444,7 @@ Untuk sistem produksi yang handal, utamakan arsitektur **Workflows** terstruktur
 | **OpenAI Agents SDK** | Python | Agen native GPT-4.5 / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
 | **Google ADK** | Python | Swarm agen bertenaga Gemini | Integrasi Vertex AI native, streaming multi-agen, search grounding |
 | **Mastra.ai** | TypeScript | Web apps & microservice TS-first | Memori bawaan, evaluasi otomatis, RAG, dan dukungan MCP native |
-| **CrewAI** | Python | Tim simulasi peran | Cepat untuk membuat prototipe kolaborasi tim bisnis |
+| **CrewAI** | Python | Tim kolaborasi peran & flow terstruktur | Event-driven Flows, eksekusi manajer hierarkis, memori multi-tier |
 
 ### Panduan Implementasi Inti
 
@@ -364,36 +462,135 @@ Bangun hierarki agen dengan model Gemini 3.x, di mana root agent mengoordinasika
 #### 4. Mastra.ai — Solusi TypeScript Penuh
 Gunakan Mastra untuk ekosistem Next.js dan Node.js: sediakan memori persisten ke Supabase/PostgreSQL, integrasikan tool MCP secara langsung, dan manfaatkan framework evaluasi bawaan.
 
-#### 5. Guardrails Human-in-the-Loop (HITL)
+#### 5. CrewAI — Tim Kolaborasi Agen, Eksekusi Hierarkis & Event-Driven Flows
+Menggabungkan alur status aplikasi berbasis peristiwa (`Flow`) dengan tim agen otonom berbasis peran (`Crew`), mendukung delegasi hierarkis dan output Pydantic yang terstruktur:
+
+```python
+from crewai import Agent, Crew, Process, Task
+from crewai.tools import tool
+from crewai.flow.flow import Flow, start, listen, router
+from pydantic import BaseModel, Field
+
+# 1. Skema State dan Output Terstruktur
+class LaporanKeamanan(BaseModel):
+    is_vulnerable: bool
+    vulnerabilities: list[str] = Field(default_factory=list)
+    mitigation_plan: str
+
+class StatePipeline(BaseModel):
+    target_service: str = "payment-gateway"
+    audit_passed: bool = False
+    laporan: LaporanKeamanan | None = None
+
+# 2. Tool Kustom Aman
+@tool("pindai_dependensi")
+def pindai_dependensi(service_name: str) -> str:
+    """Memindai dependensi layanan terhadap kerentanan CVE yang diketahui."""
+    return f"Pemindaian {service_name}: 0 kerentanan kritis, 1 peringatan tingkat rendah pada modul OpenSSL."
+
+# 3. Alur Kerja Event-Driven (Flow) dengan State & Percabangan Kondisional
+class PipelineDeploymentFlow(Flow[StatePipeline]):
+    @start()
+    def inisialisasi_pipeline(self):
+        print(f"Menginisialisasi pipeline audit keamanan untuk: {self.state.target_service}")
+        return self.state.target_service
+
+    @listen(inisialisasi_pipeline)
+    def jalankan_crew_keamanan(self, service: str):
+        # Definisikan Agen Kolaboratif Berbasis Peran
+        auditor = Agent(
+            role="Auditor Keamanan",
+            goal=f"Audit dependensi dan celah serangan untuk {service}",
+            backstory="Pakar keamanan siber spesialisasi regulasi FinTech dan standar OWASP Top 10.",
+            tools=[pindai_dependensi],
+            verbose=True,
+            memory=True
+        )
+
+        engineer = Agent(
+            role="DevSecOps Engineer",
+            goal="Menyusun langkah mitigasi terstruktur untuk seluruh temuan keamanan",
+            backstory="Arsitek infrastruktur zero-trust dan rekayasa keandalan sistem.",
+            verbose=True,
+            memory=True
+        )
+
+        # Definisikan Tugas dengan Output Terstruktur dan Checkpoint HITL
+        tugas_audit = Task(
+            description=f"Periksa seluruh dependensi pustaka dan attack surface pada {service}.",
+            expected_output="Hasil pemindaian dependensi mentah.",
+            agent=auditor
+        )
+
+        tugas_mitigasi = Task(
+            description="Buat laporan mitigasi dan verifikasi apakah layanan aman untuk di-deploy.",
+            expected_output="Laporan JSON terstruktur sesuai skema LaporanKeamanan.",
+            agent=engineer,
+            output_pydantic=LaporanKeamanan,
+            human_input=True
+        )
+
+        # Inisialisasi Crew dengan Eksekusi Manajer Hierarkis
+        crew_keamanan = Crew(
+            agents=[auditor, engineer],
+            tasks=[tugas_audit, tugas_mitigasi],
+            process=Process.hierarchical,
+            manager_llm="gpt-4o",
+            memory=True,
+            verbose=True
+        )
+
+        hasil = crew_keamanan.kickoff()
+        self.state.laporan = hasil.pydantic
+        self.state.audit_passed = not self.state.laporan.is_vulnerable
+        return self.state.audit_passed
+
+    @router(jalankan_crew_keamanan)
+    def evaluasi_rilis(self):
+        if self.state.audit_passed:
+            return "deploy"
+        return "karantina"
+
+    @listen("deploy")
+    def tangani_deploy(self):
+        print(f"Layanan {self.state.target_service} disetujui untuk rilis produksi zero-downtime.")
+
+    @listen("karantina")
+    def tangani_karantina(self):
+        print(f"Rilis ditangguhkan: {self.state.target_service} dikarantina untuk perbaikan celah keamanan.")
+```
+
+#### 6. Guardrails Human-in-the-Loop (HITL)
 Pengamanan wajib sebelum melakukan tindakan yang tidak dapat dibatalkan:
 - **Pos Henti Interupsi**: Hentikan eksekusi sebelum menjalankan skrip shell berbahaya, migrasi skema tabel, atau memodifikasi data produksi.
 - **Tinjauan Pratinjau**: Tampilkan ringkasan perbedaan (*diff*) kepada pengguna sebelum modifikasi dieksekusi.
 - **Ambang Keyakinan**: Otomatis lanjutkan hanya jika skor keyakinan model >= 0.90; eskalasikan ke manusia jika berada di bawah ambang batas.
 
-#### 6. Circuit Breakers & Protokol Pemulihan Swarm
+#### 7. Circuit Breakers & Protokol Pemulihan Swarm
 - **Batas Percobaan Ulang**: Maksimal 2 kali perbaikan otomatis per sub-agen.
 - **Eskalasi Fallback**: Jika agen spesialis mengalami kendala konteks atau gagal berulang kali, Swarm Director segera mengalihkan tugas ke `fullstack-expert` atau meminta masukan pengguna.
 - **Persistensi Kemajuan**: Simpan selalu checkpoint di `PROGRESS.md` atau `BLUEPRINT.md` agar alur kerja dapat dilanjutkan secara efisien tanpa token berlebih.
 
-#### 7. Swarm Simulasi Naratif (Paradigma Fable)
+#### 8. Swarm Simulasi Naratif (Paradigma Fable)
 Arsitektur simulasi dunia cerita otonom multi-agen di mana agen bertindak sebagai karakter.
 - **Pengkodean Kepribadian Karakter-Agen:** Menggunakan model kepribadian Big Five + vektor valensi emosional.
 - **Protokol Dialog Antar-Agen:** Dibatasi oleh koherensi naratif.
 - **Protokol Konsensus Status Dunia:** Memori bersama terdistribusi dengan penyelesaian konflik.
 - **Pola Agen Sutradara (Director):** Meta-agen yang memastikan konsistensi alur cerita.
 
-#### 8. Orkestrasi Computer-Using Agent (CUA)
+#### 9. Orkestrasi Computer-Using Agent (CUA)
 - **Delegasi Agen CUA:** Sutradara mendelegasikan tugas UI ke agen pekerja CUA.
 - **Observasi Berbagi Layar:** Orkestrator memantau aliran visual CUA.
 - **Protokol Pemulihan:** Menangani kegagalan CUA (UI macet) melalui loop umpan balik visual.
 - **Eksekusi CUA Paralel:** Berbagai agen mengoperasikan tab browser berbeda secara bersamaan.
 
-#### 9. Swarm Persepsi Berkelanjutan
+#### 10. Swarm Persepsi Berkelanjutan
 - **Pemantauan Selalu Aktif:** Loop persepsi 24/7 yang menangkap input multimodal (video/audio).
 - **Agen Triase Langsung:** Pipeline (Intake → Klasifikasi → Rute).
 - **Protokol Bangun Berbasis Peristiwa (Event-Driven):** Agen tidur hingga mendeteksi stimulus yang relevan.
 - **Integrasi API Live Multimodal Gemini:** Hook bawaan untuk pemrosesan persepsi berkelanjutan.
-#### 10. Swarm Paralel Masif (Agentic MoE) untuk LLM Next-Gen
+
+#### 11. Swarm Paralel Masif (Agentic MoE) untuk LLM Next-Gen
 Untuk model generasi berikutnya seperti **Gemini 4 Pro**:
 - **Pemanggilan Tool Massal (Batching)**: Beralih dari orkestrator sekuensial (bertahap) ke pemanggilan fungsi massal secara serentak.
 - **Aliran Konteks Monolitik**: Kirimkan seluruh konteks masif (snapshot codebase) secara langsung melalui KV-Cache, hindari RAG terfragmentasi per agen. Ini memungkinkan sub-agen menganalisis *state* memori yang sama secara instan.

@@ -128,6 +128,84 @@ class SwarmDirector {
 }
 ```
 
+### Code Example: Python CrewAI Engineering Swarm / Contoh Kode: Tim Rekayasa CrewAI
+
+```python
+# crewai_engineering_swarm.py
+from crewai import Agent, Crew, Process, Task
+from crewai.tools import tool
+from pydantic import BaseModel, Field
+
+class CodeReviewResult(BaseModel):
+    approved: bool
+    lint_score: float = Field(ge=0.0, le=10.0)
+    critical_findings: list[str] = Field(default_factory=list)
+    suggested_refactors: list[str] = Field(default_factory=list)
+
+@tool("run_linter_and_tests")
+def run_linter_and_tests(target_module: str) -> str:
+    """Runs automated AST linter, security scan, and test suite on target module."""
+    return f"Evaluation of {target_module}: 18 unit tests passed, 0 security vulnerabilities, lint score 9.8/10."
+
+def create_engineering_swarm(feature_spec: str) -> CodeReviewResult:
+    # 1. Specialized Agents: Architect, Implementer, QA Guardian
+    architect = Agent(
+        role="Software Architect",
+        goal="Decompose feature specifications into typed contracts and domain models",
+        backstory="Principal Systems Architect focused on Domain-Driven Design and modularity.",
+        verbose=True,
+        memory=True
+    )
+
+    implementer = Agent(
+        role="Senior Fullstack Craftsman",
+        goal="Produce production-grade, typed implementations with zero technical debt",
+        backstory="Senior polyglot engineer executing clean code patterns with complete test coverage.",
+        verbose=True,
+        memory=True
+    )
+
+    qa_guardian = Agent(
+        role="Quality Guardian",
+        goal="Audit code changes, verify test suites, and enforce static verification",
+        backstory="DevSecOps & QA lead specialized in automated verification, AST analysis, and fuzzing.",
+        tools=[run_linter_and_tests],
+        verbose=True,
+        memory=True
+    )
+
+    # 2. Sequential Engineering Tasks
+    architecture_task = Task(
+        description=f"Analyze specification: '{feature_spec}'. Design the data contracts and component interfaces.",
+        expected_output="Modular architecture blueprint with typed function signatures.",
+        agent=architect
+    )
+
+    coding_task = Task(
+        description="Implement the architecture blueprint into production code adhering to Clean Code standards.",
+        expected_output="Complete source code files without placeholders or stubs.",
+        agent=implementer
+    )
+
+    review_task = Task(
+        description="Run linting and test suite on the implemented code, verify security, and output formal review.",
+        expected_output="A structured JSON evaluation matching the CodeReviewResult schema.",
+        agent=qa_guardian,
+        output_pydantic=CodeReviewResult
+    )
+
+    # 3. Assemble Sequential Swarm
+    engineering_crew = Crew(
+        agents=[architect, implementer, qa_guardian],
+        tasks=[architecture_task, coding_task, review_task],
+        process=Process.sequential,
+        verbose=True
+    )
+
+    result = engineering_crew.kickoff()
+    return result.pydantic
+```
+
 ## 3. Spec-to-Code Pipeline / Pipeline Spec-to-Code
 
 Transform natural language specifications into tested implementation.
