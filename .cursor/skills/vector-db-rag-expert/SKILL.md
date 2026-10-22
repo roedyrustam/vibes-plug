@@ -23,20 +23,69 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Purpose & Overview
-Production-grade architectural guide for Vector Databases (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), Deep RAG indexing strategies, HNSW iterative search, **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (Cohere Rerank v3, FlashRank, BGE-Reranker-v2), and **Late Chunking** to eliminate context fragmentation.
+Production-grade architectural guide for Vector Databases (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), Deep RAG indexing strategies, HNSW iterative search, **Contextual Retrieval** (Anthropic 2026 standard), **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (FlashRank, BGE-Reranker-v2), and **Late Chunking** to eliminate context fragmentation.
 
 ### Key Capabilities
-1. **pgvector 0.8+ & HNSW Indexing**: High-dimensional vector storage, cosine/inner-product/L2 distance metric tuning, and iterative HNSW index scans with metadata filtering.
-2. **Reciprocal Rank Fusion (RRF)**: Combining sparse keyword BM25 ranks with dense semantic vector ranks using $RRF(d) = \sum \frac{1}{k + rank(d)}$, far outperforming naive linear score weighting.
-3. **Cross-Encoder Re-ranking**: Two-stage retrieval pipeline: retrieve Top-50 candidates via fast hybrid search, then re-rank down to Top-5 using a cross-encoder model to maximize NDCG@10.
-4. **Late Chunking & Contextual Retrieval**: Embed long-context documents in full before pooling token embeddings into individual chunks, preserving document-level semantics across boundaries.
-5. **RAG Evaluation**: Continuous retrieval precision and hallucination scoring using automated eval harnesses (Ragas, TruLens, DeepEval).
+1. **pgvector 0.8+ & Halfvec / Sparsevec**: High-dimensional vector storage with 50% RAM savings using `halfvec`, native BM25 sparse vectors via `sparsevec`, and iterative HNSW index scans with metadata filtering.
+2. **Contextual Retrieval (Anthropic 2026 Standard)**: Prepend 50-100 token LLM-generated document context to each chunk before embedding and BM25 indexing, reducing failed retrieval rates by up to 67%.
+3. **Reciprocal Rank Fusion (RRF)**: Combining sparse keyword BM25 ranks with dense semantic vector ranks using $RRF(d) = \sum \frac{1}{k + rank(d)}$ ($k = 60$).
+4. **Cross-Encoder Re-ranking**: Two-stage retrieval pipeline: retrieve Top-50 candidates via fast hybrid search, then re-rank down to Top-5 using a cross-encoder model to maximize NDCG@10.
+5. **Late Chunking**: Embed long-context documents in full before pooling token embeddings into individual chunks, preserving document-level semantics across boundaries.
 
 ---
 
 ### Production Implementation Recipes
 
-#### Recipe 1: Reciprocal Rank Fusion (RRF) Hybrid Search with Drizzle ORM
+#### Recipe 1: Contextual Chunk Prepending before Vector Indexing
+```typescript
+import { generateText } from 'ai';
+import { google } from '@ai-sdk/google';
+
+export interface ChunkWithContext {
+  id: string;
+  originalText: string;
+  contextualizedText: string;
+  contextSummary: string;
+}
+
+/**
+ * Generates chunk-specific context using a fast model (Gemini 2.5 Flash)
+ * following the Anthropic Contextual Retrieval methodology
+ */
+export async function generateContextualChunk(
+  documentText: string,
+  chunkText: string,
+  chunkId: string
+): Promise<ChunkWithContext> {
+  const prompt = `
+<document>
+${documentText}
+</document>
+
+Here is the chunk we want to situate within the whole document:
+<chunk>
+${chunkText}
+</chunk>
+
+Please give a short, succinct context (1-2 sentences) to situate this chunk within the overall document for search retrieval. Answer only with the context.`;
+
+  const { text: contextSummary } = await generateText({
+    model: google('gemini-2.5-flash'),
+    prompt,
+  });
+
+  const contextualizedText = `${contextSummary.trim()}\n\n${chunkText}`;
+
+  return {
+    id: chunkId,
+    originalText: chunkText,
+    contextualizedText,
+    contextSummary: contextSummary.trim(),
+  };
+}
+```
+
+#### Recipe 2: Reciprocal Rank Fusion (RRF) Hybrid Search with Drizzle ORM
 ```typescript
 import { sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
@@ -44,7 +93,7 @@ import { db } from '@/lib/db';
 export interface SearchResult {
   id: string;
   content: string;
-  score: number;
+  rrfScore: number;
 }
 
 /**
@@ -61,10 +110,10 @@ export async function reciprocalRankFusionSearch(
 
   const results = await db.execute(sql`
     WITH vector_matches AS (
-      SELECT id, ROW_NUMBER() OVER (ORDER BY embedding <=> ${formattedVector}::vector) AS rank
+      SELECT id, ROW_NUMBER() OVER (ORDER BY embedding <=> ${formattedVector}::halfvec) AS rank
       FROM documents
       WHERE status = 'published'
-      ORDER BY embedding <=> ${formattedVector}::vector
+      ORDER BY embedding <=> ${formattedVector}::halfvec
       LIMIT 50
     ),
     text_matches AS (
@@ -86,41 +135,37 @@ export async function reciprocalRankFusionSearch(
     LIMIT ${limit};
   `);
 
-  return results.rows as unknown as SearchResult[];
+  return (results.rows as any[]).map(row => ({
+    id: row.id,
+    content: row.content,
+    rrfScore: Number(row.rrf_score),
+  }));
 }
 ```
 
-#### Recipe 2: Two-Stage Re-Ranking Pipeline with FlashRank (Node.js / TypeScript)
+#### Recipe 3: Cross-Encoder Re-Ranking Pipeline with FlashRank
 ```typescript
 import { FlashRankRegistry } from 'flashrank';
 
 const ranker = new FlashRankRegistry();
 
-export async function rerankCandidates(query: string, candidates: { id: string; text: string }[], topN = 5) {
+export async function rerankCandidates(
+  query: string,
+  candidates: { id: string; text: string }[],
+  topN = 5
+) {
   const passages = candidates.map(c => ({ id: c.id, text: c.text }));
-  
-  // Ultra-fast client/server cross-encoder re-ranking
+
+  // Ultra-fast client/server cross-encoder re-ranking (<5ms)
   const reranked = await ranker.rerank({
     query,
     passages,
-    model: 'ms-marco-TinyBERT-L-2-v2', // Lightweight, 2ms latency
+    model: 'ms-marco-TinyBERT-L-2-v2',
   });
 
   return reranked.slice(0, topN);
 }
 ```
-
----
-
-### Implementation Checklist
-- [ ] Create `HNSW` index in PostgreSQL: `CREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);`
-- [ ] Configure `hnsw.ef_search = 100` for high-recall queries during production traffic.
-- [ ] Implement Reciprocal Rank Fusion (RRF) with constant `k = 60` instead of arbitrary linear weighting.
-- [ ] Add a Cross-Encoder Re-ranker step before injecting retrieved chunks into the LLM system prompt.
-- [ ] Apply Late Chunking or Contextual Chunking to retain parent document continuity.
-
-## Orchestration & Integration
-- Integrates with: `ai-llm-integration-expert`, `database-orm-expert`, `llm-finops-router`, `app-analyzer-optimizer`.
 
 ---
 
@@ -135,20 +180,58 @@ export async function rerankCandidates(query: string, candidates: { id: string; 
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
-Panduan arsitektur tingkat produksi untuk Vector Database (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), arsitektur Deep RAG modern, pencarian HNSW iteratif, **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (Cohere Rerank v3, FlashRank, BGE-Reranker-v2), dan **Late Chunking** untuk mencegah fragmentasi konteks.
+Panduan arsitektur tingkat produksi untuk Vector Database (PostgreSQL `pgvector 0.8+`, Qdrant, LanceDB, Pinecone), arsitektur Deep RAG modern, pencarian HNSW iteratif, **Contextual Retrieval** (standar Anthropic 2026), **Reciprocal Rank Fusion (RRF)** hybrid retrieval, **Cross-Encoder Re-ranking** (FlashRank, BGE-Reranker-v2), dan **Late Chunking** untuk mencegah fragmentasi konteks.
 
 ### Fitur Utama
-1. **pgvector 0.8+ & Indeks HNSW**: Penyimpanan vektor dimensi tinggi, tuning metrik jarak (cosine/inner-product/L2), dan pemindaian HNSW iteratif dengan filter metadata.
-2. **Reciprocal Rank Fusion (RRF)**: Menggabungkan peringkat kata kunci BM25 dengan peringkat semantik vektor menggunakan rumus $RRF(d) = \sum \frac{1}{k + rank(d)}$, jauh lebih akurat daripada pembobotan linear biasa.
-3. **Cross-Encoder Re-ranking**: Pipeline retrieval 2 tahap: ambil 50 kandidat teratas melalui pencarian hybrid, lalu urutkan ulang menjadi 5 dokumen paling relevan menggunakan model cross-encoder.
-4. **Late Chunking**: Melakukan embedding dokumen secara utuh dalam transformer sebelum memecahnya menjadi chunk-chunk terpisah, mempertahankan makna global dokumen.
-5. **Evaluasi RAG**: Pengukuran presisi retrieval dan deteksi halusinasi secara otomatis (Ragas, TruLens, DeepEval).
+1. **pgvector 0.8+ & Halfvec / Sparsevec**: Penyimpanan vektor dimensi tinggi dengan efisiensi RAM 50% via `halfvec`, dukungan native vektor renggang BM25 via `sparsevec`, dan pemindaian HNSW iteratif.
+2. **Contextual Retrieval (Metodologi Anthropic 2026)**: Menyematkan konteks ringkas (50-100 token) yang di-generate model LLM pada setiap chunk sebelum proses embedding dan indeks BM25, memangkas kegagalan retrieval hingga 67%.
+3. **Reciprocal Rank Fusion (RRF)**: Menggabungkan peringkat kata kunci BM25 dengan peringkat semantik vektor menggunakan rumus $RRF(d) = \sum \frac{1}{k + rank(d)}$ ($k = 60$).
+4. **Cross-Encoder Re-ranking**: Pipeline retrieval 2 tahap: ambil 50 kandidat teratas melalui pencarian hybrid, lalu urutkan ulang menjadi 5 dokumen paling relevan menggunakan model cross-encoder berlatensi rendah.
+5. **Late Chunking**: Melakukan embedding dokumen secara utuh dalam transformer sebelum memecahnya menjadi chunk-chunk terpisah, mempertahankan makna global dokumen.
 
 ---
 
 ### Resep Implementasi Produksi
 
-#### Resep 1: Pencarian Hybrid RRF dengan Drizzle ORM
+#### Resep 1: Pembuatan Contextual Chunk Sebelum Indeks Vektor
+```typescript
+import { generateText } from 'ai';
+import { google } from '@ai-sdk/google';
+
+export async function buatChunkKontekstual(
+  teksDokumen: string,
+  teksChunk: string,
+  chunkId: string
+) {
+  const prompt = `
+<document>
+${teksDokumen}
+</document>
+
+Berikut adalah potongan (chunk) yang ingin ditempatkan dalam dokumen:
+<chunk>
+${teksChunk}
+</chunk>
+
+Berikan konteks singkat (1-2 kalimat) untuk menempatkan chunk ini dalam dokumen secara utuh demi akurasi pencarian. Jawab hanya dengan kalimat konteks.`;
+
+  const { text: ringkasanKonteks } = await generateText({
+    model: google('gemini-2.5-flash'),
+    prompt,
+  });
+
+  const teksKontekstual = `${ringkasanKonteks.trim()}\n\n${teksChunk}`;
+
+  return {
+    id: chunkId,
+    teksAsli: teksChunk,
+    teksKontekstual,
+    ringkasanKonteks: ringkasanKonteks.trim(),
+  };
+}
+```
+
+#### Resep 2: Pencarian Hybrid RRF dengan Drizzle ORM
 ```typescript
 import { sql } from 'drizzle-orm';
 import { db } from '@/lib/db';
@@ -163,10 +246,10 @@ export async function cariDokumenRRF(
 
   const hasil = await db.execute(sql`
     WITH vector_matches AS (
-      SELECT id, ROW_NUMBER() OVER (ORDER BY embedding <=> ${vectorStr}::vector) AS rank
+      SELECT id, ROW_NUMBER() OVER (ORDER BY embedding <=> ${vectorStr}::halfvec) AS rank
       FROM documents
       WHERE status = 'published'
-      ORDER BY embedding <=> ${vectorStr}::vector
+      ORDER BY embedding <=> ${vectorStr}::halfvec
       LIMIT 50
     ),
     text_matches AS (
@@ -191,31 +274,3 @@ export async function cariDokumenRRF(
   return hasil.rows;
 }
 ```
-
-#### Resep 2: Pipeline Re-Ranking dengan FlashRank (Node.js / TypeScript)
-```typescript
-import { FlashRankRegistry } from 'flashrank';
-
-const ranker = new FlashRankRegistry();
-
-export async function susunUlangKandidat(kueri: string, kandidat: { id: string; text: string }[], topN = 5) {
-  const passages = kandidat.map(c => ({ id: c.id, text: c.text }));
-  
-  const hasilRerank = await ranker.rerank({
-    query: kueri,
-    passages,
-    model: 'ms-marco-TinyBERT-L-2-v2',
-  });
-
-  return hasilRerank.slice(0, topN);
-}
-```
-
----
-
-### Checklist Implementasi
-- [ ] Buat indeks `HNSW` di PostgreSQL: `CREATE INDEX ON documents USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64);`
-- [ ] Konfigurasikan `hnsw.ef_search = 100` untuk kueri dengan recall tinggi di lingkungan produksi.
-- [ ] Terapkan Reciprocal Rank Fusion (RRF) dengan konstanta `k = 60` alih-alih pembobotan linear manual.
-- [ ] Tambahkan langkah Cross-Encoder Re-ranker sebelum menyuntikkan konteks ke prompt LLM.
-- [ ] Terapkan Late Chunking agar konteks dokumen utuh tidak hilang saat dipotong.

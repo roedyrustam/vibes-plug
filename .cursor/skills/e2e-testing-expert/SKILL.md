@@ -1,12 +1,12 @@
 ---
 name: e2e-testing-expert
-description: "Expert guide for End-to-End (E2E) testing with Playwright, unit/integration testing with Vitest, and CI/CD automated testing pipeline setup / Panduan ahli pengujian End-to-End (E2E) dengan Playwright, pengujian unit/integrasi dengan Vitest, dan otomatisasi CI/CD."
+description: "Expert guide for End-to-End (E2E) testing with Playwright 1.50+, Clock API, ARIA snapshots, test fixtures, and Vitest 3+ / Panduan ahli pengujian E2E dengan Playwright 1.50+, Clock API, ARIA snapshots, dan Vitest 3+."
 author: "Roedy Rustam"
 version: "4.4.2"
 
 ---
 
-# E2E Testing Expert (Playwright 1.49+ / Vitest 3 Edition)
+# E2E Testing Expert (Playwright 1.50+ & Vitest 3 Standard)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -23,264 +23,149 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
-Expert guide for building comprehensive automated test suites using **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integration), and robust CI/CD pipelines. Covers modern testing patterns for Next.js 15, React 19, and API backends.
+Production-grade guide for automated browser and component testing using **Playwright 1.50+** and **Vitest 3+**. Covers virtual clock manipulation with `page.clock`, semantic accessibility assertions with `toMatchAriaSnapshot`, type-safe composable fixtures, dynamic UI banner interception (`page.addLocatorHandler`), session state reuse (`storageState`), and CI matrix sharding.
 
 ### Trigger Conditions
-- Writing E2E tests for web applications with Playwright.
-- Writing unit or integration tests with Vitest.
-- Setting up a full automated testing pipeline in GitHub Actions / GitLab CI.
-- Testing React components in isolation with Playwright Component Testing.
-- Mocking external services (APIs, databases) in tests.
-- Setting up visual regression tests.
+- Writing End-to-End (E2E) browser test suites for Next.js 15, React 19, or Svelte 5 applications.
+- Testing time-sensitive UI (countdown timers, session expiries, debounced search) deterministically.
+- Verifying WCAG accessibility tree structure using semantic `aria-snapshot`.
+- Creating composable test fixtures with authenticated contexts and isolated database state.
+- Setting up parallel CI test execution with artifact uploads on test failure.
 
-### Playwright 1.49+ — Key Updates
+---
 
-#### New in 2026
-- **`aria-snapshot`**: Assert the accessibility tree as a snapshot — more semantic than DOM snapshots.
-- **`page.addLocatorHandler()`**: Handle dynamic UI (modals, cookie banners) automatically.
-- **WebSocket testing**: Built-in `page.expectWebSocketEvent()`.
-- **Playwright MCP Server**: Expose a Playwright browser to AI agents via MCP tools.
+### Playwright 1.50+ Core Architectural Patterns
 
-#### Project Configuration
+#### 1. Deterministic Time Testing with the Clock API (`page.clock`)
+Eliminate flaky `page.waitForTimeout` by freezing, fast-forwarding, or setting system time:
 ```typescript
-// playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+// tests/e2e/timer.spec.ts
+import { test, expect } from '@playwright/test';
 
-export default defineConfig({
-  testDir: './tests/e2e',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 4 : undefined,
-  reporter: [
-    ['html', { open: 'never' }],
-    ['junit', { outputFile: 'results.xml' }],
-  ],
-  use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'on-first-retry',
-  },
-  projects: [
-    // Setup: seed test DB
-    { name: 'setup', testMatch: /.*\.setup\.ts/ },
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup'],
-    },
-    {
-      name: 'mobile-chrome',
-      use: { ...devices['Pixel 7'] },
-      dependencies: ['setup'],
-    },
-  ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
+test('advances countdown timer deterministically', async ({ page }) => {
+  // 1. Install virtual clock fixed at specific timestamp
+  await page.clock.install({ time: new Date('2026-03-01T12:00:00Z') });
+  await page.goto('/promotions/flash-sale');
+
+  // Verify initial state
+  const countdown = page.getByRole('timer');
+  await expect(countdown).toHaveText('24:00:00');
+
+  // 2. Fast forward 6 hours in 1 millisecond without waiting!
+  await page.clock.fastForward('06:00:00');
+  await expect(countdown).toHaveText('18:00:00');
+
+  // 3. Fast forward past expiration
+  await page.clock.fastForward('18:00:01');
+  await expect(page.getByRole('alert')).toHaveText('This promotion has ended.');
 });
 ```
 
-#### Page Object Model (POM)
+#### 2. Semantic Accessibility Assertions (`toMatchAriaSnapshot`)
+Assert the rendered accessible role tree rather than fragile DOM classes:
 ```typescript
-// tests/e2e/pages/LoginPage.ts
-import { type Page, type Locator, expect } from '@playwright/test';
+// tests/e2e/navigation.spec.ts
+import { test, expect } from '@playwright/test';
 
-export class LoginPage {
-  readonly page: Page;
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly submitButton: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-    this.emailInput = page.getByLabel('Email');
-    this.passwordInput = page.getByLabel('Password');
-    this.submitButton = page.getByRole('button', { name: 'Sign in' });
-  }
-
-  async goto() {
-    await this.page.goto('/login');
-  }
-
-  async login(email: string, password: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
-    await this.submitButton.click();
-    await this.page.waitForURL('/dashboard');
-  }
-}
-```
-
-#### API Mocking with `page.route()`
-```typescript
-test('shows error when API fails', async ({ page }) => {
-  // Intercept and mock API response
-  await page.route('**/api/users', (route) => {
-    route.fulfill({
-      status: 500,
-      body: JSON.stringify({ error: 'Internal server error' }),
-      contentType: 'application/json',
-    });
-  });
-
-  await page.goto('/users');
-  await expect(page.getByRole('alert')).toContainText('Something went wrong');
-});
-```
-
-#### Accessibility Assertions (aria-snapshot)
-```typescript
-test('navigation is accessible', async ({ page }) => {
+test('navigation bar renders semantic accessible structure', async ({ page }) => {
   await page.goto('/');
-  
-  // Assert accessibility tree structure
-  await expect(page.locator('nav')).toMatchAriaSnapshot(`
-    - navigation:
-      - link "Home"
-      - link "Products"
-      - link "Pricing"
-      - link "Sign in"
+
+  const header = page.locator('header');
+  await expect(header).toMatchAriaSnapshot(`
+    - banner:
+      - link "Brand Logo":
+        - /url: //
+      - navigation:
+        - link "Products"
+        - link "Docs"
+        - link "Pricing"
+      - button "Sign in"
   `);
 });
 ```
 
-#### Auth State Reuse (storageState)
+#### 3. Automatic Banner & Dialog Interception (`page.addLocatorHandler`)
+Dismiss cookie banners or dynamic popups automatically whenever they appear:
 ```typescript
-// tests/e2e/auth.setup.ts
-import { test as setup } from '@playwright/test';
+// tests/e2e/fixtures.ts
+import { test as base, expect } from '@playwright/test';
 
-setup('authenticate', async ({ page }) => {
-  await page.goto('/login');
-  await page.getByLabel('Email').fill('test@example.com');
-  await page.getByLabel('Password').fill('password');
-  await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.waitForURL('/dashboard');
-  
-  // Save session state for reuse in all tests
-  await page.context().storageState({ path: 'playwright/.auth/user.json' });
-});
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    // Automatically dismiss cookie consent modals whenever they overlay the page
+    const consentButton = page.getByRole('button', { name: 'Accept all cookies' });
+    await page.addLocatorHandler(consentButton, async () => {
+      await consentButton.click();
+    });
 
-// tests/e2e/dashboard.spec.ts
-import { test } from '@playwright/test';
-
-test.use({ storageState: 'playwright/.auth/user.json' });
-
-test('dashboard loads correctly', async ({ page }) => {
-  await page.goto('/dashboard');
-  // Already authenticated — no login needed
-});
-```
-
-### Vitest 3 — Unit & Integration Testing
-
-#### Configuration
-```typescript
-// vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
-
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./tests/setup.ts'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'lcov', 'html'],
-      thresholds: { lines: 80, functions: 80 },
-    },
+    await use(page);
   },
 });
 ```
 
-#### React Component Testing
+#### 4. Reusable Authentication State (`storageState`)
+Authenticate once in a setup project and inject session cookies into all test suites:
 ```typescript
-import { render, screen, userEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import { Counter } from './Counter';
+// tests/e2e/auth.setup.ts
+import { test as setup, expect } from '@playwright/test';
 
-describe('Counter', () => {
-  it('increments count on button click', async () => {
-    const user = userEvent.setup();
-    render(<Counter initialCount={0} />);
+const authFile = 'playwright/.auth/admin.json';
 
-    await user.click(screen.getByRole('button', { name: 'Increment' }));
+setup('authenticate admin user', async ({ page }) => {
+  await page.goto('/login');
+  await page.getByLabel('Email').fill('admin@enterprise.test');
+  await page.getByLabel('Password').fill('VaultP@ssw0rd2026!');
+  await page.getByRole('button', { name: 'Sign in' }).click();
 
-    expect(screen.getByText('Count: 1')).toBeInTheDocument();
-  });
+  await page.waitForURL('/dashboard');
+  await expect(page.getByRole('heading', { name: 'Overview' })).toBeVisible();
 
-  it('calls onMaxReached when limit hit', async () => {
-    const onMaxReached = vi.fn();
-    const user = userEvent.setup();
-    render(<Counter initialCount={9} max={10} onMaxReached={onMaxReached} />);
-
-    await user.click(screen.getByRole('button', { name: 'Increment' }));
-
-    expect(onMaxReached).toHaveBeenCalledOnce();
-  });
+  // Persist storage state (cookies, localStorage, session tokens)
+  await page.context().storageState({ path: authFile });
 });
 ```
 
-#### Server Action / API Route Testing
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { testClient } from 'hono/testing';
-import { app } from '../src/server';
-import { resetTestDb } from './helpers/db';
+// tests/e2e/billing.spec.ts
+import { test, expect } from '@playwright/test';
 
-describe('POST /api/users', () => {
-  beforeEach(resetTestDb);
+// Reuse authenticated state automatically
+test.use({ storageState: 'playwright/.auth/admin.json' });
 
-  it('creates a new user', async () => {
-    const client = testClient(app);
-    const res = await client.api.users.$post({
-      json: { name: 'Alice', email: 'alice@example.com' },
-    });
-
-    expect(res.status).toBe(201);
-    const data = await res.json();
-    expect(data.email).toBe('alice@example.com');
-  });
+test('admin can view billing invoices', async ({ page }) => {
+  await page.goto('/billing/invoices');
+  await expect(page.getByRole('heading', { name: 'Invoices' })).toBeVisible();
 });
 ```
 
-### GitHub Actions CI Pipeline
+#### 5. CI Test Sharding in GitHub Actions
+Split Playwright test executions across parallel workers in CI:
 ```yaml
-# .github/workflows/test.yml
-name: CI Tests
-
+# .github/workflows/e2e.yml
+name: Playwright Tests
 on: [push, pull_request]
 
 jobs:
-  unit:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '22', cache: 'pnpm' }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run typecheck
-      - run: pnpm run test:unit --coverage
-
-  e2e:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: { node-version: '22', cache: 'pnpm' }
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm run test:e2e
+      - name: Run Playwright Tests (Shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }})
+        run: pnpm exec playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: playwright-blob-${{ matrix.shardIndex }}
+          path: blob-report/
 ```
 
 ---
@@ -296,36 +181,76 @@ jobs:
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
-Panduan ahli untuk membangun test suite otomatis yang komprehensif menggunakan **Playwright 1.49+** (E2E + component testing), **Vitest 3** (unit/integrasi), dan pipeline CI/CD yang kuat. Mencakup pola pengujian modern untuk Next.js 15, React 19, dan backend API.
+Panduan produksi untuk pengujian browser dan komponen otomatis menggunakan **Playwright 1.50+** dan **Vitest 3+**. Mencakup manipulasi jam virtual deterministik dengan `page.clock`, asersi pohon aksesibilitas semantis dengan `toMatchAriaSnapshot`, pembuatan test fixture modular, penanganan banner modal dinamis (`page.addLocatorHandler`), penggunaan ulang sesi autentikasi (`storageState`), dan sharding paralel di CI.
 
 ### Kondisi Pemicu
-- Menulis E2E test untuk aplikasi web dengan Playwright.
-- Menulis unit atau integration test dengan Vitest.
-- Menyiapkan pipeline pengujian otomatis di GitHub Actions / GitLab CI.
-- Menguji komponen React secara terisolasi.
-- Mocking layanan eksternal (API, database) dalam test.
-- Menyiapkan visual regression test.
+- Menulis test suite E2E browser untuk aplikasi Next.js 15, React 19, atau Svelte 5.
+- Menguji antarmuka berbasis waktu (countdown timer, kedaluwarsa sesi) secara deterministik tanpa jeda waktu riil.
+- Memvalidasi struktur pohon aksesibilitas menggunakan asersi semantis `aria-snapshot`.
+- Mengonfigurasi fixture pengujian dengan isolasi state autentikasi dan database.
+- Menjalankan pipeline pengujian terdistribusi secara paralel di GitHub Actions.
 
-### Playwright 1.49+ — Fitur Baru 2026
-- **`aria-snapshot`**: Assert accessibility tree sebagai snapshot.
-- **`page.addLocatorHandler()`**: Tangani UI dinamis (modal, cookie banner) secara otomatis.
-- **WebSocket testing**: `page.expectWebSocketEvent()` bawaan.
-- **Playwright MCP Server**: Ekspos browser Playwright ke agen AI via MCP.
+---
 
-### Page Object Model (POM)
-Enkapsulasi selektor dan tindakan halaman dalam kelas terpisah untuk mengurangi duplikasi dan meningkatkan keterbacaan test.
+### Pola Kunci Playwright 1.50+
 
-### Mocking API dengan `page.route()`
-Gunakan `page.route()` untuk mencegat permintaan jaringan dan mengembalikan respons palsu — mengisolasi frontend dari backend dalam E2E test.
+#### 1. Pengujian Waktu Deterministik Menggunakan Clock API (`page.clock`)
+Hilangkan ketergantungan pada `time.Sleep` atau `waitForTimeout` dengan memajukan jam virtual seketika:
+```typescript
+import { test, expect } from '@playwright/test';
 
-### Aksesibilitas dengan aria-snapshot
-Gunakan `toMatchAriaSnapshot()` untuk memvalidasi struktur aksesibilitas navigasi, form, dan komponen interaktif — lebih semantis dari snapshot DOM biasa.
+test('menguji countdown diskon secara deterministik', async ({ page }) => {
+  // 1. Pasang jam virtual pada tanggal tertentu
+  await page.clock.install({ time: new Date('2026-03-01T12:00:00Z') });
+  await page.goto('/promo');
 
-### Auth State Reuse (storageState)
-Gunakan `storageState` untuk menyimpan state sesi setelah login sekali dan menggunakannya kembali di semua test yang memerlukan autentikasi — menghemat waktu secara signifikan.
+  const timer = page.getByRole('timer');
+  await expect(timer).toHaveText('24:00:00');
 
-### Vitest 3 — Unit & Integration Testing
-Vitest 3 adalah test runner yang cepat berbasis Vite dengan kompatibilitas Jest penuh. Gunakan untuk unit test React component, server action, dan logika bisnis.
+  // 2. Majukan waktu 6 jam secara instan (1 milidetik)
+  await page.clock.fastForward('06:00:00');
+  await expect(timer).toHaveText('18:00:00');
 
-### Pipeline CI GitHub Actions
-Pisahkan job `unit` dan `e2e` untuk feedback paralel yang lebih cepat. Upload `playwright-report` sebagai artifact saat gagal untuk debugging.
+  // 3. Majukan hingga waktu promo berakhir
+  await page.clock.fastForward('18:00:01');
+  await expect(page.getByRole('alert')).toHaveText('Promo ini telah berakhir.');
+});
+```
+
+#### 2. Asersi Aksesibilitas Semantis (`toMatchAriaSnapshot`)
+Validasi struktur aksesibilitas UI tanpa terikat pada class CSS atau tag DOM yang rapuh:
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('navigasi memenuhi standar aksesibilitas', async ({ page }) => {
+  await page.goto('/');
+
+  await expect(page.locator('header')).toMatchAriaSnapshot(`
+    - banner:
+      - link "Logo":
+        - /url: //
+      - navigation:
+        - link "Produk"
+        - link "Dokumentasi"
+        - link "Harga"
+      - button "Masuk"
+  `);
+});
+```
+
+#### 3. Penanganan Banner Otomatis (`page.addLocatorHandler`)
+Tutup banner persetujuan cookie atau modal promosi secara otomatis kapan pun elemen tersebut muncul:
+```typescript
+import { test as base } from '@playwright/test';
+
+export const test = base.extend({
+  page: async ({ page }, use) => {
+    const tombolCookie = page.getByRole('button', { name: 'Setujui semua' });
+    await page.addLocatorHandler(tombolCookie, async () => {
+      await tombolCookie.click();
+    });
+
+    await use(page);
+  },
+});
+```
