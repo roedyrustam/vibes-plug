@@ -1,6 +1,6 @@
 ---
 name: test-time-compute-optimizer
-description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Pro, Claude 5.5, GPT Astra 6), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute), alokasi dinamis budget penalaran, MCTS, dan Process Reward Models."
+description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute)."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -18,11 +18,11 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI agent integration), `brainstorming`, `session-memory-manager`.
 - **Reasoning Budget & Cascading**: `thinking-budget-orchestrator` (dynamic token budget allocation), `adaptive-model-cascade` (complexity threshold escalation), `llm-finops-router` (token expenditure tracking).
-- **Frontier LLMs & Sandboxes**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 5.5, GPT Astra 6 reasoning parameters), `ephemeral-wasm-sandbox-executor` (deterministic code candidate execution).
+- **Frontier LLMs & Sandboxes**: `frontier-ai-models-expert` (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7 reasoning parameters), `ephemeral-wasm-sandbox-executor` (deterministic code candidate execution).
 - **Consensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (multi-candidate arbiter), `formal-spec-z3-verifier` (mathematical invariant proving).
 
 ### Description
-Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), and OpenAI GPT Astra 6 (`o6`). Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
+Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, and xAI Grok 4.7. Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -105,7 +105,7 @@ export async function executeOptimizedReasoning(
   });
 
   const result = await generateText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
+    model: anthropic('claude-sonnet-5.5-20261022'),
     prompt,
     providerOptions: {
       anthropic: {
@@ -160,11 +160,11 @@ User Prompt ──┬──► Candidate 1 (Thinking = 8k) ──► Ephemeral S
 ### Integrasi Orkestrasi
 - **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi agen AI Fase 4), `brainstorming`, `session-memory-manager`.
 - **Budget Penalaran & Kaskade**: `thinking-budget-orchestrator` (alokasi budget token dinamis), `adaptive-model-cascade` (eskalasi ambang kompleksitas), `llm-finops-router` (pelacakan pengeluaran token).
-- **LLM Frontier & Sandbox**: `frontier-ai-models-expert` (parameter penalaran Gemini 4 Pro, Claude 5.5, GPT Astra 6), `ephemeral-wasm-sandbox-executor` (eksekusi deterministik kandidat kode).
+- **LLM Frontier & Sandbox**: `frontier-ai-models-expert` (parameter penalaran Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7), `ephemeral-wasm-sandbox-executor` (eksekusi deterministik kandidat kode).
 - **Konsensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (arbiter multi-kandidat), `formal-spec-z3-verifier` (pembuktian invarian matematis).
 
 ### Deskripsi
-Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), dan OpenAI GPT Astra 6 (`o6`). Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
+Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, dan xAI Grok 4.7. Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:

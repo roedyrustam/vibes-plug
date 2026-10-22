@@ -1,6 +1,6 @@
 ---
 name: visual-ui-auditor
-description: "Master guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 Sonnet Vision, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan utama audit visual UI berbasis vision multimodal."
+description: "Master guide for multimodal vision UI auditing (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, GPT-5.6 Sol Vision, Muse Wonder) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan utama audit visual UI berbasis vision multimodal."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---
@@ -17,7 +17,7 @@ version: "4.4.2"
 ### Executive Directive & The Vision Imperative (2026 Shift)
 Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. They are completely blind to **spatial breathing room, optical balance, perceived elevation, color clashing, and visual degradation**. A React component can be 100% syntactically valid yet visually repulsive, violating brand aesthetics and suffering from lazy AI design tropes.
 
-**The Visual UI Auditor** establishes an autonomous **Multimodal Vision Quality Gate**. By rendering components via Playwright or Headless Chrome, capturing high-DPI screenshots, and passing them to frontier vision models (Gemini 4 Pro Vision, Claude 3.7 Sonnet Vision), the auditor inspects rendered pixels against **Anti-Slop Pillar 7** and automatically synthesizes self-healing CSS diffs.
+**The Visual UI Auditor** establishes an autonomous **Multimodal Vision Quality Gate**. By rendering components via Playwright or Headless Chrome, capturing high-DPI screenshots, and passing them to frontier vision models (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), the auditor inspects rendered pixels against **Anti-Slop Pillar 7** and automatically synthesizes self-healing CSS diffs.
 
 ---
 
@@ -41,7 +41,7 @@ Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. T
 │ 2. High-DPI Screenshot Capture (1080p Desktop & 390p Mobile)           │
 │                                  │                                     │
 │                                  ▼                                     │
-│ 3. Frontier Vision LLM Audit (Gemini 4 Pro / Claude 3.7 Vision)        │
+│ 3. Frontier Vision LLM Audit (Gemini 4 Pro / Claude Sonnet 5.5 Vision) │
 │    • Pillar 7 Visual Checklist  • 1px Crisp Borders  • Tabular-Nums    │
 │    • 3-Tier Radius Compliance   • Ban Generic Slop Gradients / Orbs    │
 │                                  │                                     │
@@ -189,7 +189,7 @@ test.describe('Automated Visual UI Quality Gate', () => {
 ### Direktif Eksekutif & Kebutuhan Audit Visual Multimodal (Pergeseran 2026)
 Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis secara abstrak. Mereka sama sekali buta terhadap **keseimbangan optik, pernapasan tata letak (*spatial breathing room*), elevasi permukaan, dan tabrakan warna**. Sebuah komponen React bisa saja lolos 100% dari galat kompilasi namun secara visual terlihat buruk dan dipenuhi klise AI murahan.
 
-**Visual UI Auditor** menyediakan **Gerbang Kualitas Visual Multimodal** otonom. Dengan merender komponen melalui Playwright, menangkap tangkapan layar beresolusi tinggi, dan memeriksanya menggunakan model vision frontier (Gemini 4 Pro Vision, Claude 3.7 Sonnet Vision), auditor memeriksa setiap piksel terhadap **Pilar 7 Anti-Slop** serta menghasilkan rekomendasi perbaikan CSS secara otomatis.
+**Visual UI Auditor** menyediakan **Gerbang Kualitas Visual Multimodal** otonom. Dengan merender komponen melalui Playwright, menangkap tangkapan layar beresolusi tinggi, dan memeriksanya menggunakan model vision frontier (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), auditor memeriksa setiap piksel terhadap **Pilar 7 Anti-Slop** serta menghasilkan rekomendasi perbaikan CSS secara otomatis.
 
 ---
 

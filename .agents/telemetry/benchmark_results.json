@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-22T01:06:38.651Z",
+  "timestamp": "2026-10-22T01:11:03.640Z",
   "score": 100,
-  "totalElapsedMs": 246.48,
+  "totalElapsedMs": 221.07,
   "itemsTested": 7,
   "passedCount": 7,
   "allPassed": true,
@@ -9,60 +9,60 @@
     {
       "id": "sandbox_exec",
       "name": "Ephemeral Micro-Sandbox Execution",
-      "measured": "0.87 ms",
+      "measured": "0.78 ms",
       "budget": "< 25.00 ms",
       "passed": true,
-      "rawMs": 0.8651299999999992
+      "rawMs": 0.7845199999999999
     },
     {
       "id": "verify_gate",
       "name": "Pre-Disk Verification Gate",
-      "measured": "1.33 ms",
+      "measured": "0.95 ms",
       "budget": "< 50.00 ms",
       "passed": true,
-      "rawMs": 1.3293199999999985
+      "rawMs": 0.9525000000000006
     },
     {
       "id": "ast_indexing",
       "name": "AST Symbol Indexing Throughput",
-      "measured": "4.666 sym/s",
+      "measured": "5.120 sym/s",
       "budget": "> 300 sym/s",
       "passed": true,
-      "rawThroughput": 4666,
+      "rawThroughput": 5120,
       "totalSymbols": 340,
       "totalFiles": 62
     },
     {
       "id": "graph_search",
       "name": "Hybrid GraphRAG Search (Top-5)",
-      "measured": "6.96 ms",
+      "measured": "6.50 ms",
       "budget": "< 60.00 ms",
       "passed": true,
-      "rawMs": 6.9596
+      "rawMs": 6.498350000000002
     },
     {
       "id": "kv_cache",
       "name": "Deterministic KV-Cache Prefix Compilation",
-      "measured": "52.30 ms",
+      "measured": "47.26 ms",
       "budget": "< 500.00 ms",
       "passed": true,
-      "rawMs": 52.29850000000002
+      "rawMs": 47.26050000000001
     },
     {
       "id": "cross_ide_bridge",
       "name": "Cross-IDE Bridge Synchronization",
-      "measured": "9.48 ms",
+      "measured": "9.79 ms",
       "budget": "< 120.00 ms",
       "passed": true,
-      "rawMs": 9.478400000000022
+      "rawMs": 9.785599999999988
     },
     {
       "id": "vsix_packager",
       "name": "Zero-Dependency VSIX Package Builder",
-      "measured": "5.73 ms",
+      "measured": "3.70 ms",
       "budget": "< 200.00 ms",
       "passed": true,
-      "rawMs": 5.727700000000027
+      "rawMs": 3.70180000000002
     }
   ]
 }

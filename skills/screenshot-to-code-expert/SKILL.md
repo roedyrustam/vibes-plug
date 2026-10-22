@@ -1,6 +1,6 @@
 ---
 name: screenshot-to-code-expert
-description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Pro, Claude 5.5, GPT Astra 6) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token."
+description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Muse Wonder) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---
@@ -18,7 +18,7 @@ version: "4.4.2"
 Connects and orchestrates with `modern-web-guidance`, `visual-ui-auditor`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, and `anti-slop` to produce pixel-perfect, accessible, production-grade code from visual inputs.
 
 ### Description
-Production workflow for transforming visual design artifacts (screenshots, Figma exports, whiteboard photos, PDF mockups) into clean, semantic, responsive frontend code. Leverages the native vision capabilities of frontier models (Gemini 4 Pro's 2M multimodal context, Claude 5.5's pixel-level visual understanding, GPT Astra 6's design comprehension) to extract layout structure, color palettes, typography, spacing, and interaction patterns — then maps them to the project's existing design system and component library.
+Production workflow for transforming visual design artifacts (screenshots, Figma exports, whiteboard photos, PDF mockups) into clean, semantic, responsive frontend code. Leverages the native vision capabilities of late-2026 frontier models (Gemini 4 Argon/Pro 2M+ multimodal context, Claude Sonnet 5.5's pixel-level visual understanding, GPT-5.6 Sol, and Muse Wonder's generative layout comprehension) to extract layout structure, color palettes, typography, spacing, and interaction patterns — then maps them to the project's existing design system and component library.
 
 ### Trigger Conditions
 Activate this skill when:
