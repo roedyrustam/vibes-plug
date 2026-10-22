@@ -61,6 +61,7 @@ Production guide for architecting and executing autonomous **Deep Research** pip
 Break high-level user requests into diverse search vectors targeting technical documentation, GitHub issues, and benchmarks:
 ```typescript
 import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 
 interface ResearchPlan {
@@ -76,10 +77,10 @@ export async function decomposeResearchQuery(userPrompt: string): Promise<Resear
   // Invariant: Gemini 4 Argon primary with automatic fallback to Gemini 3.8 Flash
   let modelInstance;
   try {
-    modelInstance = customModel('gemini-4-argon');
+    modelInstance = google('gemini-4-argon');
   } catch (err) {
     console.warn('[DeepResearch] Gemini 4 Argon unavailable. Falling back to Gemini 3.8 Flash:', err);
-    modelInstance = customModel('gemini-3.8-flash');
+    modelInstance = google('gemini-3.8-flash');
   }
 
   const { object } = await generateObject({
@@ -114,13 +115,13 @@ class ResearchFinding(BaseModel):
 # Invariant: Try Gemini 4 Argon with graceful fallback to Gemini 3.8 Flash
 try:
     research_agent = Agent(
-        'google:gemini-4-argon',
+        'google-gla:gemini-4-argon',
         result_type=list[ResearchFinding],
         system_prompt="Extract and verify technical claims with confidence scores."
     )
 except Exception:
     research_agent = Agent(
-        'google:gemini-3.8-flash',
+        'google-gla:gemini-3.8-flash',
         result_type=list[ResearchFinding],
         system_prompt="Extract and verify technical claims with confidence scores."
     )
@@ -233,6 +234,7 @@ Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Oton
 #### 1. Dekomposisi Kueri Rekursif (TypeScript & AI SDK)
 ```typescript
 import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 
 interface RencanaRiset {
@@ -248,10 +250,10 @@ export async function dekomposisiTujuanRiset(promptPengguna: string): Promise<Re
   // Invarian: Gemini 4 Argon primer dengan pengalihan otomatis ke Gemini 3.8 Flash
   let modelTarget;
   try {
-    modelTarget = customModel('gemini-4-argon');
+    modelTarget = google('gemini-4-argon');
   } catch (galat) {
     console.warn('[DeepResearch] Gemini 4 Argon belum tersedia. Mengalihkan ke Gemini 3.8 Flash:', galat);
-    modelTarget = customModel('gemini-3.8-flash');
+    modelTarget = google('gemini-3.8-flash');
   }
 
   const { object } = await generateObject({
@@ -286,13 +288,13 @@ class TemuanRiset(BaseModel):
 # Invarian: Utamakan Gemini 4 Argon dengan pengalihan otomatis ke Gemini 3.8 Flash
 try:
     agen_analis = Agent(
-        'google:gemini-4-argon',
+        'google-gla:gemini-4-argon',
         result_type=list[TemuanRiset],
         system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
     )
 except Exception:
     agen_analis = Agent(
-        'google:gemini-3.8-flash',
+        'google-gla:gemini-3.8-flash',
         result_type=list[TemuanRiset],
         system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
     )
