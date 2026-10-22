@@ -68,14 +68,27 @@ class SyntheticInstructionPair(BaseModel):
     quality_score: int = Field(ge=1, le=5, description="Self-evaluated quality score")
 
 def generate_synthetic_samples(seed_text: str) -> list[SyntheticInstructionPair]:
-    response = client.beta.chat.completions.parse(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "Generate 5 diverse, hard edge-case instruction pairs based on the seed code."},
-            {"role": "user", "content": seed_text}
-        ],
-        response_format=SyntheticInstructionPair,
-    )
+    # Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    import os
+    model_name = "gemini-4-argon" if os.getenv("FRONTIER_MODEL_AVAILABLE", "true") == "true" else "gemini-3.8-flash"
+    try:
+        response = client.beta.chat.completions.parse(
+            model=model_name,
+            messages=[
+                {"role": "system", "content": "Generate 5 diverse, hard edge-case instruction pairs based on the seed code."},
+                {"role": "user", "content": seed_text}
+            ],
+            response_format=SyntheticInstructionPair,
+        )
+    except Exception:
+        response = client.beta.chat.completions.parse(
+            model="gemini-3.8-flash",
+            messages=[
+                {"role": "system", "content": "Generate 5 diverse, hard edge-case instruction pairs based on the seed code."},
+                {"role": "user", "content": seed_text}
+            ],
+            response_format=SyntheticInstructionPair,
+        )
     # Filter out anything below score 4 (Rejection Sampling)
     return [sample for sample in [response.choices[0].message.parsed] if sample.quality_score >= 4]
 ```

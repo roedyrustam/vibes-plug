@@ -73,8 +73,17 @@ interface ResearchPlan {
 }
 
 export async function decomposeResearchQuery(userPrompt: string): Promise<ResearchPlan> {
+  // Invariant: Gemini 4 Argon primary with automatic fallback to Gemini 3.8 Flash
+  let modelInstance;
+  try {
+    modelInstance = customModel('gemini-4-argon');
+  } catch (err) {
+    console.warn('[DeepResearch] Gemini 4 Argon unavailable. Falling back to Gemini 3.8 Flash:', err);
+    modelInstance = customModel('gemini-3.8-flash');
+  }
+
   const { object } = await generateObject({
-    model: customModel('gemini-3.8-flash'),
+    model: modelInstance,
     schema: z.object({
       coreObjective: z.string(),
       subQueries: z.array(z.object({
@@ -102,11 +111,19 @@ class ResearchFinding(BaseModel):
     source_url: str = Field(description="Source URL")
     corroborating_sources: list[str] = Field(default_factory=list)
 
-research_agent = Agent(
-    'google:gemini-3.8-flash',
-    result_type=list[ResearchFinding],
-    system_prompt="Extract and verify technical claims with confidence scores."
-)
+# Invariant: Try Gemini 4 Argon with graceful fallback to Gemini 3.8 Flash
+try:
+    research_agent = Agent(
+        'google:gemini-4-argon',
+        result_type=list[ResearchFinding],
+        system_prompt="Extract and verify technical claims with confidence scores."
+    )
+except Exception:
+    research_agent = Agent(
+        'google:gemini-3.8-flash',
+        result_type=list[ResearchFinding],
+        system_prompt="Extract and verify technical claims with confidence scores."
+    )
 
 async def deep_research(query: str) -> list[ResearchFinding]:
     config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
@@ -228,8 +245,17 @@ interface RencanaRiset {
 }
 
 export async function dekomposisiTujuanRiset(promptPengguna: string): Promise<RencanaRiset> {
+  // Invarian: Gemini 4 Argon primer dengan pengalihan otomatis ke Gemini 3.8 Flash
+  let modelTarget;
+  try {
+    modelTarget = customModel('gemini-4-argon');
+  } catch (galat) {
+    console.warn('[DeepResearch] Gemini 4 Argon belum tersedia. Mengalihkan ke Gemini 3.8 Flash:', galat);
+    modelTarget = customModel('gemini-3.8-flash');
+  }
+
   const { object } = await generateObject({
-    model: customModel('gemini-3.8-flash'),
+    model: modelTarget,
     schema: z.object({
       tujuanUtama: z.string(),
       subKueri: z.array(z.object({
@@ -257,11 +283,19 @@ class TemuanRiset(BaseModel):
     url_sumber: str = Field(description="URL sumber primer")
     sumber_pendukung: list[str] = Field(default_factory=list, description="Daftar URL sumber pembanding")
 
-agen_analis = Agent(
-    'google:gemini-3.8-flash',
-    result_type=list[TemuanRiset],
-    system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
-)
+# Invarian: Utamakan Gemini 4 Argon dengan pengalihan otomatis ke Gemini 3.8 Flash
+try:
+    agen_analis = Agent(
+        'google:gemini-4-argon',
+        result_type=list[TemuanRiset],
+        system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
+    )
+except Exception:
+    agen_analis = Agent(
+        'google:gemini-3.8-flash',
+        result_type=list[TemuanRiset],
+        system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
+    )
 
 async def eksekusi_riset_mendalam(kueri: str) -> list[TemuanRiset]:
     config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)

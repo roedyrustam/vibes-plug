@@ -214,15 +214,27 @@ async def quarantined_intent_extractor(untrusted_user_input: str, quarantined_ll
         "is_adversarial_attempt=True and action='reject_unsupported'."
     )
 
-    response = await quarantined_llm_client.chat.completions.create(
-        model="gemini-2.5-flash",
-        messages=[
-            {"role": "system", "content": system_instruction},
-            {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
-        ],
-        response_format={"type": "json_object"},
-        temperature=0.0
-    )
+    # Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    try:
+        response = await quarantined_llm_client.chat.completions.create(
+            model="gemini-4-argon",
+            messages=[
+                {"role": "system", "content": system_instruction},
+                {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.0
+        )
+    except Exception:
+        response = await quarantined_llm_client.chat.completions.create(
+            model="gemini-3.8-flash",
+            messages=[
+                {"role": "system", "content": system_instruction},
+                {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.0
+        )
 
     parsed_json = json.loads(response.choices[0].message.content)
     return ExtractedUserIntent.model_validate(parsed_json)

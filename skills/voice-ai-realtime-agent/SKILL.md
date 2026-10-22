@@ -91,7 +91,7 @@ async def entrypoint(ctx: JobContext):
             prefix_padding_duration=0.2,
         ),
         stt=deepgram.STT(model="nova-2", language="id"), # Multi-language support
-        llm=openai.LLM(model="gpt-4o-mini"),
+        llm=openai.LLM(model="gpt-5-mini"),
         tts=openai.TTS(voice="alloy"),
         chat_ctx=initial_ctx,
         allow_interruptions=True, # Barge-in capability
@@ -145,7 +145,8 @@ export class GeminiVoiceAgent {
   private sendInitialHandshake(): void {
     const setupMessage = {
       setup: {
-        model: `models/${this.config.model || 'gemini-2.0-flash-exp'}`,
+        // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+        model: `models/${this.config.model || (process.env.GEMINI_FALLBACK ? 'gemini-3.8-flash' : 'gemini-4-argon')}`,
         generationConfig: {
           responseModalities: ["AUDIO"],
           speechConfig: {
@@ -267,7 +268,7 @@ async def entrypoint(ctx: JobContext):
             prefix_padding_duration=0.2,
         ),
         stt=deepgram.STT(model="nova-2", language="id"),
-        llm=openai.LLM(model="gpt-4o-mini"),
+        llm=openai.LLM(model="gpt-5-mini"),
         tts=openai.TTS(voice="alloy"),
         chat_ctx=konteks_awal,
         allow_interruptions=True, # Memungkinkan interupsi pengguna (barge-in)
@@ -305,7 +306,8 @@ export class AgenSuaraGemini {
   private kirimHandshakeAwal(): void {
     const konfigurasi = {
       setup: {
-        model: 'models/gemini-2.0-flash-exp',
+        // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+        model: `models/${process.env.GEMINI_FALLBACK ? 'gemini-3.8-flash' : 'gemini-4-argon'}`,
         generationConfig: {
           responseModalities: ['AUDIO'],
           speechConfig: {

@@ -369,8 +369,8 @@ export async function guardedLLMCall(
   const estimatedCost = calculateCost(model, estimatedInputTokens, estimatedInputTokens * 2);
 
   if (spentTodayUSD + estimatedCost > dailyBudgetUSD) {
-    // Cascade to cheaper model instead of rejecting
-    const cheaperModel = "gemini-2.0-flash";
+    // Availability Fallback Invariant: Cascade to ultra-efficient Gemini 3.8 Flash
+    const cheaperModel = "gemini-3.8-flash";
     console.warn(`Budget cap approaching. Cascading to ${cheaperModel}.`);
     return guardedLLMCall(cheaperModel, messages, dailyBudgetUSD, spentTodayUSD);
   }
@@ -509,7 +509,13 @@ export function scoreComplexity(prompt: string): ComplexityScore {
 }
 
 export function selectModel(tier: "fast" | "reasoning"): string {
-  return tier === "reasoning" ? "claude-opus-4-5" : "gemini-2.0-flash";
+  // Availability Fallback Invariant:
+  // - reasoning: Claude Opus 5.5 -> fallback Claude Opus 4.6
+  // - fast: Gemini 4 Argon -> fallback Gemini 3.8 Flash
+  if (tier === "reasoning") {
+    return process.env.FRONTIER_MODEL_AVAILABLE === "false" ? "claude-opus-4.6" : "claude-opus-5.5";
+  }
+  return process.env.FRONTIER_MODEL_AVAILABLE === "false" ? "gemini-3.8-flash" : "gemini-4-argon";
 }
 ```
 

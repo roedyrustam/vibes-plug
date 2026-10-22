@@ -52,7 +52,7 @@ Using Neo4j with deterministic schema introspection, preventing arbitrary syntax
 // text2cypher.ts - Safe Neo4j Query Generation & Execution
 import neo4j, { Driver } from 'neo4j-driver';
 import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 
 export class GraphRAGService {
   private driver: Driver;
@@ -79,8 +79,17 @@ export class GraphRAGService {
   public async queryGraph(userQuestion: string): Promise<any[]> {
     const schema = await this.getGraphSchema();
 
+    // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    const getModel = () => {
+      try {
+        return google('gemini-4-argon');
+      } catch {
+        return google('gemini-3.8-flash');
+      }
+    };
+
     const { text: cypherQuery } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: getModel(),
       system: `
         You are an expert Neo4j Cypher generator.
         Generate ONLY valid, read-only CYPHER queries based on this schema:
@@ -143,21 +152,39 @@ class KnowledgeGraph(BaseModel):
 
 def extract_knowledge_graph(document_text: str) -> KnowledgeGraph:
     """Extracts entities and relationships from raw text into structured schema."""
-    return client.chat.completions.create(
-        model="gpt-4o-mini",
-        response_model=KnowledgeGraph,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Extract all named entities and factual relationships between them. "
-                    "Ensure entity names are canonicalized and relationships are directed."
-                ),
-            },
-            {"role": "user", "content": document_text},
-        ],
-        temperature=0.0,
-    )
+    # Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    try:
+        return client.chat.completions.create(
+            model="gemini-4-argon",
+            response_model=KnowledgeGraph,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract all named entities and factual relationships between them. "
+                        "Ensure entity names are canonicalized and relationships are directed."
+                    ),
+                },
+                {"role": "user", "content": document_text},
+            ],
+            temperature=0.0,
+        )
+    except Exception:
+        return client.chat.completions.create(
+            model="gemini-3.8-flash",
+            response_model=KnowledgeGraph,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract all named entities and factual relationships between them. "
+                        "Ensure entity names are canonicalized and relationships are directed."
+                    ),
+                },
+                {"role": "user", "content": document_text},
+            ],
+            temperature=0.0,
+        )
 ```
 
 ---
@@ -199,7 +226,7 @@ Panduan ahli untuk mengimplementasikan Knowledge Graph-augmented Retrieval (Grap
 ```typescript
 import neo4j, { Driver } from 'neo4j-driver';
 import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 
 export class LayananGraphRAG {
   private driver: Driver;
@@ -223,8 +250,17 @@ export class LayananGraphRAG {
   public async tanyaGraf(pertanyaanPengguna: string): Promise<any[]> {
     const skema = await this.ambilSkemaGraf();
 
+    // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+    const ambilModel = () => {
+      try {
+        return google('gemini-4-argon');
+      } catch {
+        return google('gemini-3.8-flash');
+      }
+    };
+
     const { text: queryCypher } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: ambilModel(),
       system: `Anda adalah ahli pembuat query Neo4j Cypher. Buat HANYA query Cypher read-only berdasarkan skema:\n${skema}\nAturan: Dilarang membuat perintah mutasi CREATE/DELETE.`,
       prompt: `Terjemahkan pertanyaan berikut ke Cypher: ${pertanyaanPengguna}`,
     });

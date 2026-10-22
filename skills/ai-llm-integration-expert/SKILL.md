@@ -64,8 +64,17 @@ Modern frontier models emit internal thinking/reasoning tokens during test-time 
   import { streamText } from 'ai';
   import { anthropic } from '@ai-sdk/anthropic';
 
+  // Availability Fallback Invariant: Claude Sonnet 5.5 / Opus 5.5 -> Claude Opus 4.6
+  const getThinkingModel = () => {
+    try {
+      return anthropic('claude-sonnet-5.5');
+    } catch {
+      return anthropic('claude-opus-4.6');
+    }
+  };
+
   const result = streamText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
+    model: getThinkingModel(),
     providerOptions: {
       anthropic: {
         thinking: { type: 'enabled', budgetTokens: 4096 },
@@ -117,7 +126,9 @@ Build high-precision RAG pipelines:
   // Basic Gemini Multimodal Live streaming setup
   const ws = new WebSocket('wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent');
   ws.onopen = () => {
-    ws.send(JSON.stringify({ setup: { model: 'models/gemini-2.0-flash-exp' } }));
+    // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    const liveModel = process.env.GEMINI_FALLBACK === 'true' ? 'models/gemini-3.8-flash' : 'models/gemini-4-argon';
+    ws.send(JSON.stringify({ setup: { model: liveModel } }));
   };
   ws.onmessage = (event) => {
     const response = JSON.parse(event.data);
@@ -274,7 +285,9 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
   // Setup dasar streaming Gemini Multimodal Live
   const ws = new WebSocket('wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent');
   ws.onopen = () => {
-    ws.send(JSON.stringify({ setup: { model: 'models/gemini-2.0-flash-exp' } }));
+    // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+    const liveModel = process.env.GEMINI_FALLBACK === 'true' ? 'models/gemini-3.8-flash' : 'models/gemini-4-argon';
+    ws.send(JSON.stringify({ setup: { model: liveModel } }));
   };
   ws.onmessage = (event) => {
     const response = JSON.parse(event.data);

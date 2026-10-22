@@ -133,16 +133,28 @@ import { z } from 'zod';
 
 app.post('/api/analyze', async (c) => {
   const { content } = await c.req.json();
-  const { object } = await generateObject({
-    model: anthropic('claude-3-7-sonnet-20250219'),
-    schema: z.object({
-      sentiment: z.enum(['positive', 'neutral', 'negative']),
-      topics: z.array(z.string()),
-      summary: z.string().max(200),
-    }),
-    prompt: `Analyze: ${content}`,
+  const schema = z.object({
+    sentiment: z.enum(['positive', 'neutral', 'negative']),
+    topics: z.array(z.string()),
+    summary: z.string().max(200),
   });
-  return c.json(object);
+
+  // Availability Fallback Invariant: Claude Opus 5.5 -> Claude Opus 4.6
+  let result;
+  try {
+    result = await generateObject({
+      model: anthropic('claude-opus-5.5'),
+      schema,
+      prompt: `Analyze: ${content}`,
+    });
+  } catch {
+    result = await generateObject({
+      model: anthropic('claude-opus-4.6'),
+      schema,
+      prompt: `Analyze: ${content}`,
+    });
+  }
+  return c.json(result.object);
 });
 ```
 

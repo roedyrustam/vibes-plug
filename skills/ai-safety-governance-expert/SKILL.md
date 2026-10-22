@@ -34,8 +34,11 @@ Define constitutional rules as structured guardrails for all AI operations. Impl
 # NeMo Guardrails configuration example (config.yml)
 models:
   - type: main
-    engine: openai
-    model: gpt-4o
+    engine: google
+    model: gemini-4-argon # Availability Fallback: degrades to gemini-3.8-flash
+  - type: fallback
+    engine: google
+    model: gemini-3.8-flash
 
 rails:
   input:

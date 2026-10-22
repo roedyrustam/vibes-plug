@@ -187,27 +187,35 @@ export class GeminiLiveAffectProcessor {
   }
 
   public async createEmpathicLiveSession(onAffectCalculated: (affect: AffectVector) => void) {
-    const session = await this.ai.models.createWebsocketSession({
-      model: 'gemini-2.5-flash',
-      config: {
-        generationConfig: {
-          responseModalities: ['AUDIO'],
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: { voiceName: 'Puck' },
-            },
+    const sessionConfig = {
+      generationConfig: {
+        responseModalities: ['AUDIO'],
+        speechConfig: {
+          voiceConfig: {
+            prebuiltVoiceConfig: { voiceName: 'Puck' },
           },
         },
-        systemInstruction: [
-          'You are an empathic, emotionally attuned system sentinel.',
-          'Analyze user pitch variability, cadence, and breathiness from raw audio frames.',
-          'Continuously emit JSON markers containing estimated valence and arousal coordinates.',
-          'If the user sounds agitated, adopt a grounding, calm, low-frequency tone with shorter sentences.',
-        ].join('\n'),
       },
-    });
+      systemInstruction: [
+        'You are an empathic, emotionally attuned system sentinel.',
+        'Analyze user pitch variability, cadence, and breathiness from raw audio frames.',
+        'Continuously emit JSON markers containing estimated valence and arousal coordinates.',
+        'If the user sounds agitated, adopt a grounding, calm, low-frequency tone with shorter sentences.',
+      ].join('\n'),
+    };
 
-    return session;
+    // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    try {
+      return await this.ai.models.createWebsocketSession({
+        model: 'gemini-4-argon',
+        config: sessionConfig,
+      });
+    } catch {
+      return await this.ai.models.createWebsocketSession({
+        model: 'gemini-3.8-flash',
+        config: sessionConfig,
+      });
+    }
   }
 }
 ```

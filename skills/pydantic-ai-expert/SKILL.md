@@ -41,7 +41,7 @@ Production-grade guide for building enterprise AI agents using **Pydantic AI** (
 ┌─────────────────────────────────────────────────────────────┐
 │                    AGENT DEFINITION                         │
 │  Agent[DatabaseDeps, AuditReport](                          │
-│    model='anthropic:claude-3-7-sonnet-latest',              │
+│    model='anthropic:claude-opus-5.5',                        │
 │    result_type=AuditReport,                                 │
 │  )                                                          │
 └──────────────────────────────┬──────────────────────────────┘
@@ -84,8 +84,11 @@ class UserAnomalyReport(BaseModel):
     action_recommended: str
 
 # Typed agent: Agent[DependencyType, ResultType]
+PRIMARY_MODEL = 'google-gla:gemini-4-argon'
+FALLBACK_MODEL = 'google-gla:gemini-3.8-flash'
+
 security_agent = Agent[DatabaseDeps, UserAnomalyReport](
-    model='google-gla:gemini-2.5-flash',
+    model=PRIMARY_MODEL,
     result_type=UserAnomalyReport,
     system_prompt=(
         "You are an automated SecOps auditor. Analyze the user access logs provided "
@@ -108,11 +111,17 @@ async def query_audit_logs(ctx: RunContext[DatabaseDeps], user_id: str, limit: i
         )
         return [dict(r) for r in rows]
 
-# Execution:
+# Execution with Availability Fallback (Gemini 4 -> Gemini 3.8 Flash):
 async def run_audit(pool: asyncpg.Pool, tenant_id: str, target_user: str) -> UserAnomalyReport:
     deps = DatabaseDeps(pool=pool, tenant_id=tenant_id)
-    result = await security_agent.run(f"Audit user activity for {target_user}", deps=deps)
-    return result.data  # Guaranteed instance of UserAnomalyReport
+    try:
+        result = await security_agent.run(f"Audit user activity for {target_user}", deps=deps)
+        return result.data  # Guaranteed instance of UserAnomalyReport
+    except Exception:
+        # Fallback invariant: degrade to gemini-3.8-flash
+        with security_agent.override(model=FALLBACK_MODEL):
+            result = await security_agent.run(f"Audit user activity for {target_user}", deps=deps)
+            return result.data
 ```
 
 #### 2. Model-Agnostic Switching & Local SLM Fallback
@@ -120,11 +129,26 @@ Pydantic AI allows switching between cloud APIs and local Ollama models effortle
 ```python
 import os
 from pydantic_ai.models.anthropic import AnthropicModel
+from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.ollama import OllamaModel
 
 def get_agent_model():
-    if os.getenv("ENV") == "production":
-        return AnthropicModel('claude-3-7-sonnet-20250219')
+    """
+    Availability Fallback Invariant:
+    - Gemini 4 Argon -> Gemini 3.8 Flash
+    - Claude Opus 5.5 -> Claude Opus 4.6
+    """
+    env = os.getenv("ENV", "production")
+    if env == "production":
+        try:
+            return AnthropicModel('claude-opus-5.5')
+        except Exception:
+            return AnthropicModel('claude-opus-4.6')
+    elif env == "staging":
+        try:
+            return GoogleModel('gemini-4-argon')
+        except Exception:
+            return GoogleModel('gemini-3.8-flash')
     else:
         # Zero cost local development with Ollama
         return OllamaModel(model_name='qwen2.5-coder:7b')
@@ -160,18 +184,26 @@ class IncidentTriage(BaseModel):
     root_cause_hypothesis: str
 
 triage_agent = Agent[None, IncidentTriage](
-    model='google-gla:gemini-2.5-flash',
+    model=PRIMARY_MODEL,
     result_type=IncidentTriage,
     system_prompt="You are a real-time site reliability incident responder."
 )
 
 async def stream_incident_triage(incident_log: str):
-    async with triage_agent.run_stream(f"Triage incident: {incident_log}") as response:
-        async for partial_triage in response.stream_structured():
-            print(f"[Streaming Partial Validation] Severity: {partial_triage.severity}, Actions: {len(partial_triage.immediate_actions)}")
-        
-        final_result = await response.get_data()
-        return final_result
+    try:
+        async with triage_agent.run_stream(f"Triage incident: {incident_log}") as response:
+            async for partial_triage in response.stream_structured():
+                print(f"[Streaming Partial Validation] Severity: {partial_triage.severity}, Actions: {len(partial_triage.immediate_actions)}")
+            
+            final_result = await response.get_data()
+            return final_result
+    except Exception:
+        # Availability Fallback Invariant: Seamless degradation to Gemini 3.8 Flash
+        with triage_agent.override(model=FALLBACK_MODEL):
+            async with triage_agent.run_stream(f"Triage incident: {incident_log}") as response:
+                async for partial_triage in response.stream_structured():
+                    print(f"[Streaming Fallback Validation] Severity: {partial_triage.severity}, Actions: {len(partial_triage.immediate_actions)}")
+                return await response.get_data()
 ```
 
 #### 5. Multi-Agent Delegation & Handoffs via `RunContext`
@@ -195,16 +227,20 @@ class SynthesisReport(BaseModel):
     executive_summary: str
     verified_facts: list[FactReport]
 
-# Specialist Sub-Agent
+# Specialist Sub-Agent (Fast validation)
 verifier_agent = Agent[ResearchContext, FactReport](
-    model='openai:gpt-4o-mini',
+    model='google-gla:gemini-3.8-flash',
     result_type=FactReport,
     system_prompt="Fact-check individual technical claims against primary specifications."
 )
 
+# Availability Fallback Invariant: Claude Opus 5.5 -> Claude Opus 4.6
+DIRECTOR_PRIMARY = 'anthropic:claude-opus-5.5'
+DIRECTOR_FALLBACK = 'anthropic:claude-opus-4.6'
+
 # Root Orchestrator Agent
 director_agent = Agent[ResearchContext, SynthesisReport](
-    model='anthropic:claude-3-7-sonnet-20250219',
+    model=DIRECTOR_PRIMARY,
     result_type=SynthesisReport,
     system_prompt="Analyze claims and delegate individual verification to the verifier tool."
 )
@@ -216,8 +252,14 @@ async def verify_claim(ctx: RunContext[ResearchContext], claim: str) -> FactRepo
     return sub_result.data
 
 async def conduct_synthesis(claim_text: str, context: ResearchContext) -> SynthesisReport:
-    result = await director_agent.run(claim_text, deps=context)
-    return result.data
+    try:
+        result = await director_agent.run(claim_text, deps=context)
+        return result.data
+    except Exception:
+        # Fallback invariant degradation
+        with director_agent.override(model=DIRECTOR_FALLBACK):
+            result = await director_agent.run(claim_text, deps=context)
+            return result.data
 ```
 
 #### 6. Observability & OpenTelemetry Instrumentation with Pydantic Logfire
@@ -232,7 +274,7 @@ logfire.instrument_pydantic_ai()
 
 # 2. Agent operations are automatically traced with token counts & tool timings
 monitor_agent = Agent(
-    model='anthropic:claude-3-7-sonnet-20250219',
+    model='anthropic:claude-opus-5.5', # Availability Fallback: degrades to claude-opus-4.6
     system_prompt="Autonomous database optimization auditor."
 )
 
@@ -289,8 +331,11 @@ class LaporanAnomali(BaseModel):
     tindakan_disarankan: str
 
 # Agen dengan tipe statis ketat: Agent[TipeDependensi, TipeHasil]
+MODEL_UTAMA = 'google-gla:gemini-4-argon'
+MODEL_PENGALIHAN = 'google-gla:gemini-3.8-flash'
+
 agen_keamanan = Agent[DependensiDatabase, LaporanAnomali](
-    model='google-gla:gemini-2.5-flash',
+    model=MODEL_UTAMA,
     result_type=LaporanAnomali,
     system_prompt=(
         "Anda adalah auditor keamanan SecOps otomatis. Analisis log aktivitas "
@@ -313,11 +358,17 @@ async def query_log_audit(ctx: RunContext[DependensiDatabase], user_id: str, bat
         )
         return [dict(b) for b in baris]
 
-# Eksekusi agen secara aman:
+# Eksekusi agen secara aman dengan Invarian Pengalihan Ketersediaan:
 async def jalankan_audit(pool: asyncpg.Pool, tenant_id: str, target_user: str) -> LaporanAnomali:
     deps = DependensiDatabase(pool=pool, tenant_id=tenant_id)
-    hasil = await agen_keamanan.run(f"Audit aktivitas user {target_user}", deps=deps)
-    return hasil.data  # Dijamin merupakan instance tervalidasi dari LaporanAnomali
+    try:
+        hasil = await agen_keamanan.run(f"Audit aktivitas user {target_user}", deps=deps)
+        return hasil.data  # Dijamin merupakan instance tervalidasi dari LaporanAnomali
+    except Exception:
+        # Fallback otomatis ke Gemini 3.8 Flash jika Gemini 4 belum siap
+        with agen_keamanan.override(model=MODEL_PENGALIHAN):
+            hasil = await agen_keamanan.run(f"Audit aktivitas user {target_user}", deps=deps)
+            return hasil.data
 ```
 
 #### 2. Pergantian Model Dinamis & Fallback SLM Lokal (Ollama)
@@ -325,11 +376,26 @@ Pydantic AI memungkinkan pergantian tanpa friksi antara model cloud frontier dan
 ```python
 import os
 from pydantic_ai.models.anthropic import AnthropicModel
+from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.models.ollama import OllamaModel
 
 def ambil_model_agen():
-    if os.getenv("ENV") == "production":
-        return AnthropicModel('claude-3-7-sonnet-20250219')
+    """
+    Invarian Pengalihan Ketersediaan:
+    - Gemini 4 Argon -> Gemini 3.8 Flash
+    - Claude Opus 5.5 -> Claude Opus 4.6
+    """
+    env = os.getenv("ENV", "production")
+    if env == "production":
+        try:
+            return AnthropicModel('claude-opus-5.5')
+        except Exception:
+            return AnthropicModel('claude-opus-4.6')
+    elif env == "staging":
+        try:
+            return GoogleModel('gemini-4-argon')
+        except Exception:
+            return GoogleModel('gemini-3.8-flash')
     else:
         # Pengembangan lokal zero-cost menggunakan Ollama
         return OllamaModel(model_name='qwen2.5-coder:7b')
@@ -363,18 +429,26 @@ class TriaseInsiden(BaseModel):
     hipotesis_akar_masalah: str
 
 agen_triase = Agent[None, TriaseInsiden](
-    model='google-gla:gemini-2.5-flash',
+    model=MODEL_UTAMA,
     result_type=TriaseInsiden,
     system_prompt="Anda adalah responder insiden keandalan infrastruktur real-time."
 )
 
 async def stream_triase_insiden(log_insiden: str):
-    async with agen_triase.run_stream(f"Triase insiden: {log_insiden}") as respons:
-        async for triase_parsial in respons.stream_structured():
-            print(f"[Streaming Validasi Parsial] Keparahan: {triase_parsial.tingkat_keparahan}, Tindakan: {len(triase_parsial.tindakan_segera)}")
-        
-        hasil_akhir = await respons.get_data()
-        return hasil_akhir
+    try:
+        async with agen_triase.run_stream(f"Triase insiden: {log_insiden}") as respons:
+            async for triase_parsial in respons.stream_structured():
+                print(f"[Streaming Validasi Parsial] Keparahan: {triase_parsial.tingkat_keparahan}, Tindakan: {len(triase_parsial.tindakan_segera)}")
+            
+            hasil_akhir = await respons.get_data()
+            return hasil_akhir
+    except Exception:
+        # Invarian Pengalihan: Degradasi mulus ke Gemini 3.8 Flash
+        with agen_triase.override(model=MODEL_PENGALIHAN):
+            async with agen_triase.run_stream(f"Triase insiden: {log_insiden}") as respons:
+                async for triase_parsial in respons.stream_structured():
+                    print(f"[Streaming Fallback Validasi] Keparahan: {triase_parsial.tingkat_keparahan}, Tindakan: {len(triase_parsial.tindakan_segera)}")
+                return await respons.get_data()
 ```
 
 #### 5. Delegasi & Handoff Multi-Agen Berbasis `RunContext`
@@ -398,16 +472,20 @@ class LaporanSintesis(BaseModel):
     ringkasan_eksekutif: str
     fakta_terverifikasi: list[LaporanFakta]
 
-# Sub-Agen Spesialis Verifikasi
+# Sub-Agen Spesialis Verifikasi (Cepat & Akurat)
 agen_verifikator = Agent[KonteksRiset, LaporanFakta](
-    model='openai:gpt-4o-mini',
+    model='google-gla:gemini-3.8-flash',
     result_type=LaporanFakta,
     system_prompt="Verifikasi kebenaran klaim teknis berdasarkan dokumen spesifikasi primer."
 )
 
+# Invarian Pengalihan Ketersediaan: Claude Opus 5.5 -> Claude Opus 4.6
+DIREKTUR_UTAMA = 'anthropic:claude-opus-5.5'
+DIREKTUR_PENGALIHAN = 'anthropic:claude-opus-4.6'
+
 # Agen Utama / Direktur Sintesis
 agen_direktur = Agent[KonteksRiset, LaporanSintesis](
-    model='anthropic:claude-3-7-sonnet-20250219',
+    model=DIREKTUR_UTAMA,
     result_type=LaporanSintesis,
     system_prompt="Analisis laporan dan delegasikan verifikasi klaim ke tool verifikator."
 )
@@ -419,8 +497,14 @@ async def verifikasi_klaim(ctx: RunContext[KonteksRiset], klaim: str) -> Laporan
     return sub_hasil.data
 
 async def jalankan_sintesis(teks_klaim: str, konteks: KonteksRiset) -> LaporanSintesis:
-    hasil = await agen_direktur.run(teks_klaim, deps=konteks)
-    return hasil.data
+    try:
+        hasil = await agen_direktur.run(teks_klaim, deps=konteks)
+        return hasil.data
+    except Exception:
+        # Fallback invariant degradasi
+        with agen_direktur.override(model=DIREKTUR_PENGALIHAN):
+            hasil = await agen_direktur.run(teks_klaim, deps=konteks)
+            return hasil.data
 ```
 
 #### 6. Observabilitas & Tracing OpenTelemetry dengan Pydantic Logfire
@@ -435,7 +519,7 @@ logfire.instrument_pydantic_ai()
 
 # 2. Operasi agen terlacak secara otomatis dalam dasbor telemetri
 agen_pemantau = Agent(
-    model='anthropic:claude-3-7-sonnet-20250219',
+    model='anthropic:claude-opus-5.5', # Invarian Pengalihan: degradasi ke claude-opus-4.6
     system_prompt="Auditor pengoptimalan database otonom."
 )
 

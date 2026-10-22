@@ -69,10 +69,21 @@ ${chunkText}
 
 Please give a short, succinct context (1-2 sentences) to situate this chunk within the overall document for search retrieval. Answer only with the context.`;
 
-  const { text: contextSummary } = await generateText({
-    model: google('gemini-2.5-flash'),
-    prompt,
-  });
+  // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+  let contextSummary = '';
+  try {
+    const res = await generateText({
+      model: google('gemini-4-argon'),
+      prompt,
+    });
+    contextSummary = res.text;
+  } catch {
+    const res = await generateText({
+      model: google('gemini-3.8-flash'),
+      prompt,
+    });
+    contextSummary = res.text;
+  }
 
   const contextualizedText = `${contextSummary.trim()}\n\n${chunkText}`;
 
@@ -215,10 +226,21 @@ ${teksChunk}
 
 Berikan konteks singkat (1-2 kalimat) untuk menempatkan chunk ini dalam dokumen secara utuh demi akurasi pencarian. Jawab hanya dengan kalimat konteks.`;
 
-  const { text: ringkasanKonteks } = await generateText({
-    model: google('gemini-2.5-flash'),
-    prompt,
-  });
+  // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+  let ringkasanKonteks = '';
+  try {
+    const res = await generateText({
+      model: google('gemini-4-argon'),
+      prompt,
+    });
+    ringkasanKonteks = res.text;
+  } catch {
+    const res = await generateText({
+      model: google('gemini-3.8-flash'),
+      prompt,
+    });
+    ringkasanKonteks = res.text;
+  }
 
   const teksKontekstual = `${ringkasanKonteks.trim()}\n\n${teksChunk}`;
 
