@@ -86,18 +86,33 @@ export async function executeOptimizedReasoning(
       apiKey: process.env.GEMINI_API_KEY || ''
     });
     
-    const result = await generateText({
-      model: google('gemini-4-pro', {
-        useSearchGrounding: false
-      }),
-      prompt,
-      providerOptions: {
-        google: {
-          thinkingBudget: budget.geminiThinkingBudget
+    try {
+      const result = await generateText({
+        model: google('gemini-4-pro', {
+          useSearchGrounding: false
+        }),
+        prompt,
+        providerOptions: {
+          google: {
+            thinkingBudget: budget.geminiThinkingBudget
+          }
         }
-      }
-    });
-    return result.text;
+      });
+      return result.text;
+    } catch (err) {
+      // Automatic availability fallback: Gemini 4 Pro -> Gemini 3.8 Flash
+      console.warn('[ComputeOptimizer] Gemini 4 Pro unavailable, falling back to Gemini 3.8 Flash...');
+      const fallbackResult = await generateText({
+        model: google('gemini-3.8-flash'),
+        prompt,
+        providerOptions: {
+          google: {
+            thinkingBudget: Math.min(budget.geminiThinkingBudget, 8192)
+          }
+        }
+      });
+      return fallbackResult.text;
+    }
   }
 
   const anthropic = createAnthropic({
@@ -199,6 +214,7 @@ Alih-alih hanya mengevaluasi hasil akhir kode (*Outcome-based*), terapkan evalua
 2. **Pisahkan Log Penalaran dari UI**: Simpan token penalaran di dalam sistem telemetri atau log audit internal, bukan ditampilkan mentah ke pengguna akhir.
 3. **Kombinasikan dengan Pengujian Otomatis**: Alokasikan daya komputasi tinggi untuk menghasilkan kode beserta unit test berbasis properti secara simultan.
 4. **Terapkan Batas Waktu Eksekusi**: Tetapkan timeout yang ketat pada panggilan penalaran guna mencegah lonjakan latensi (*tail latency*).
+5. **Protokol Pengalihan Ketersediaan**: Jika model penalaran utama (misal Gemini 4 Pro) belum aktif atau limit kuota, alihkan ke Gemini 3.8 Flash dengan batas budget thinking yang disesuaikan (maksimal 8192 token).
 
 ---
 

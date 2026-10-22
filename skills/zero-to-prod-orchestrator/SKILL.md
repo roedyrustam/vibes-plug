@@ -59,6 +59,7 @@ To maintain token efficiency without sacrificing skill capabilities:
 3. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
    - `flash_lite` / `flash`: Discovery, AST scans, file searches, lint checks, and localized test validations.
    - `pro` / `inherit`: Architectural synthesis, multi-domain schemas, and security red-teaming.
+   - **Model Availability Fallback Invariant**: If **Gemini 4** is unprovisioned, rate-limited, or unavailable, automatically redirect tasks to **Gemini 3.8 Flash**; if **Claude Opus 5.5** is unavailable, automatically redirect to **Claude Opus 4.6**.
 4. **Ultra-Compact Phase Checkpointing (`session-memory-manager`)**:
    - At the completion of each phase, persist a compressed checkpoint (<300 tokens) in `PROGRESS.md` and `CHECKPOINT.md`.
 5. **Non-Degradation Invariant**: Never truncate code with `// TODO`, `// ...`, or partial stubs to save tokens. Code quality and completeness must remain 100%.
@@ -218,6 +219,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 3. **Kaskade Model Dinamis (`adaptive-model-cascade`)**:
    - `flash_lite` / `flash`: Pencarian file, pemindaian simbol AST, verifikasi linter, dan pengecekan sintaks.
    - `pro` / `inherit`: Desain arsitektur multi-domain, pembuktian invarian Z3, dan audit keamanan mendalam.
+   - **Invarian Fallback Ketersediaan Model**: Jika **Gemini 4** belum aktif atau terkena batas kuota, alihkan tugas secara otomatis ke **Gemini 3.8 Flash**; jika **Claude Opus 5.5** tidak tersedia, alihkan ke **Claude Opus 4.6**.
 4. **Checkpoint Fase Ultra-Ringkas (`session-memory-manager`)**:
    - Di akhir setiap fase, simpan checkpoint terkompresi (<300 token) di `PROGRESS.md` dan `CHECKPOINT.md`.
 5. **Hukum Mutlak Non-Degradasi**: Dilarang memotong kode dengan `// TODO`, `// ...`, atau stub parsial demi menghemat token. Kualitas kode dan kelengkapan logika wajib 100%.

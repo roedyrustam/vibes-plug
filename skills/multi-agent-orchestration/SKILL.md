@@ -204,7 +204,7 @@ import { z } from 'zod';
 const researcher = new Agent({
   name: 'researcher',
   instructions: 'Find and summarize accurate technical documentation.',
-  model: { provider: 'ANTHROPIC', name: 'claude-3-7-sonnet-20250219' },
+  model: { provider: 'ANTHROPIC', name: 'claude-sonnet-5.5-20261022' },
   memory: new MastraMemory({ storage: supabaseStorage }),
 });
 ```
@@ -316,6 +316,9 @@ Mandatory safeguards before executing irreversible operations:
 #### 7. Swarm Circuit Breakers & Fallback Protocols
 - **Retry Caps**: Maximum 2 automated retries per subagent.
 - **Fallback Escalation**: If a specialist agent stalls or loops, the Swarm Director gracefully fallbacks to `fullstack-expert` or requests human guidance.
+- **Model Availability Fallback Invariant**: When orchestrating multi-agent swarms, if primary frontier models are unprovisioned or rate-limited:
+  - If **Gemini 4** (Argon/Pro) is unavailable, worker and synthesis tasks gracefully fall back to **Gemini 3.8 Flash** (preserving 1M+ context window and rapid TTFT).
+  - If **Claude Opus 5.5** is unavailable, deep architectural coordination gracefully falls back to **Claude Opus 4.6** (preserving complex cross-domain synthesis).
 - **Checkpoint Persistence**: Always persist intermediate progress to `PROGRESS.md` or `BLUEPRINT.md` so sessions can resume without losing context.
 
 #### 8. Narrative Simulation Swarms (Fable Paradigm)
@@ -569,6 +572,9 @@ Pengamanan wajib sebelum melakukan tindakan yang tidak dapat dibatalkan:
 #### 7. Circuit Breakers & Protokol Pemulihan Swarm
 - **Batas Percobaan Ulang**: Maksimal 2 kali perbaikan otomatis per sub-agen.
 - **Eskalasi Fallback**: Jika agen spesialis mengalami kendala konteks atau gagal berulang kali, Swarm Director segera mengalihkan tugas ke `fullstack-expert` atau meminta masukan pengguna.
+- **Invarian Fallback Ketersediaan Model**: Saat mengorkestrasi swarm multi-agen, jika model primer belum tersedia atau terkena batasan kuota:
+  - Jika **Gemini 4** (Argon/Pro) belum tersedia, tugas pekerja dan sintesis secara otomatis dialihkan ke **Gemini 3.8 Flash** (mempertahankan context window 1M+ dan latensi instan).
+  - Jika **Claude Opus 5.5** tidak tersedia, tugas koordinasi arsitektur dialihkan ke **Claude Opus 4.6** (mempertahankan penalaran mendalam dan sintesis lintas domain).
 - **Persistensi Kemajuan**: Simpan selalu checkpoint di `PROGRESS.md` atau `BLUEPRINT.md` agar alur kerja dapat dilanjutkan secara efisien tanpa token berlebih.
 
 #### 8. Swarm Simulasi Naratif (Paradigma Fable)
@@ -591,6 +597,6 @@ Arsitektur simulasi dunia cerita otonom multi-agen di mana agen bertindak sebaga
 - **Integrasi API Live Multimodal Gemini:** Hook bawaan untuk pemrosesan persepsi berkelanjutan.
 
 #### 11. Swarm Paralel Masif (Agentic MoE) untuk LLM Next-Gen
-Untuk model generasi berikutnya seperti **Gemini 4 Pro**:
+Untuk model generasi berikutnya seperti **Gemini 4 Pro** (Fallback: **Gemini 3.8 Flash**):
 - **Pemanggilan Tool Massal (Batching)**: Beralih dari orkestrator sekuensial (bertahap) ke pemanggilan fungsi massal secara serentak.
 - **Aliran Konteks Monolitik**: Kirimkan seluruh konteks masif (snapshot codebase) secara langsung melalui KV-Cache, hindari RAG terfragmentasi per agen. Ini memungkinkan sub-agen menganalisis *state* memori yang sama secara instan.

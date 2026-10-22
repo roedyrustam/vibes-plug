@@ -174,14 +174,22 @@ export interface ModelTierConfig {
   modelId: string;
   provider: string;
   costPer1MTokens: number;
+  fallbackModelId?: string;
+  fallbackProvider?: string;
 }
 
 export const CASCADE_TIERS: ModelTierConfig[] = [
-  { tier: 'FAST', modelId: 'composer-2.5-fast', provider: 'cursor', costPer1MTokens: 0.10 },
-  { tier: 'HIGH_FAST', modelId: 'grok-4.7-high-fast', provider: 'xai', costPer1MTokens: 0.50 },
-  { tier: 'MEDIUM', modelId: 'gemini-4-argon-medium', provider: 'google', costPer1MTokens: 1.25 },
-  { tier: 'HIGH', modelId: 'claude-sonnet-5.5-high', provider: 'anthropic', costPer1MTokens: 3.00 },
+  { tier: 'FAST', modelId: 'composer-2.5-fast', provider: 'cursor', costPer1MTokens: 0.10, fallbackModelId: 'grok-4.6-high-fast', fallbackProvider: 'xai' },
+  { tier: 'HIGH_FAST', modelId: 'grok-4.7-high-fast', provider: 'xai', costPer1MTokens: 0.50, fallbackModelId: 'grok-4.6-high-fast', fallbackProvider: 'xai' },
+  { tier: 'MEDIUM', modelId: 'gemini-4-argon-medium', provider: 'google', costPer1MTokens: 0.80, fallbackModelId: 'gemini-3.8-flash', fallbackProvider: 'google' },
+  { tier: 'HIGH', modelId: 'claude-sonnet-5.5-high', provider: 'anthropic', costPer1MTokens: 3.00, fallbackModelId: 'claude-opus-4.6', fallbackProvider: 'anthropic' },
 ];
+
+export const AVAILABILITY_FALLBACK_MATRIX: Record<string, { fallbackModel: string; fallbackProvider: string; reason: string }> = {
+  'gemini-4-argon-medium': { fallbackModel: 'gemini-3.8-flash', fallbackProvider: 'google', reason: 'Gemini 4 not yet available / regional quota limit' },
+  'gemini-4-pro': { fallbackModel: 'gemini-3.8-flash', fallbackProvider: 'google', reason: 'Gemini 4 not yet available / regional quota limit' },
+  'claude-opus-5.5-medium': { fallbackModel: 'claude-opus-4.6', fallbackProvider: 'anthropic', reason: 'Claude Opus 5.5 not yet available / tier fallback' },
+};
 
 const TIER_SEQUENCE: CascadeTier[] = ['FAST', 'HIGH_FAST', 'MEDIUM', 'HIGH'];
 
@@ -190,28 +198,50 @@ export async function cascadeRequest(
   signals: ComplexitySignals,
   systemPrompt: string,
   providerResolver: (provider: string, modelId: string) => any
-): Promise<{ text: string; modelId: string; tier: CascadeTier; escalations: number }> {
+): Promise<{ text: string; modelId: string; tier: CascadeTier; escalations: number; fellback: boolean }> {
   const initialTier = scoreComplexity(signals);
   const startIndex = TIER_SEQUENCE.indexOf(initialTier);
   let escalations = 0;
 
   for (let i = startIndex; i < CASCADE_TIERS.length; i++) {
     const tierConfig = CASCADE_TIERS[i];
+    let activeModelId = tierConfig.modelId;
+    let activeProvider = tierConfig.provider;
+    let fellback = false;
 
-    const result = await generateText({
-      model: providerResolver(tierConfig.provider, tierConfig.modelId),
-      system: systemPrompt,
-      prompt,
-    });
+    let result;
+    try {
+      result = await generateText({
+        model: providerResolver(activeProvider, activeModelId),
+        system: systemPrompt,
+        prompt,
+      });
+    } catch (error) {
+      // Automatic availability fallback (e.g. Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6)
+      if (tierConfig.fallbackModelId && tierConfig.fallbackProvider) {
+        console.warn(`[Cascade] Primary model ${activeModelId} unavailable, falling back to ${tierConfig.fallbackModelId}...`);
+        activeModelId = tierConfig.fallbackModelId;
+        activeProvider = tierConfig.fallbackProvider;
+        fellback = true;
+        result = await generateText({
+          model: providerResolver(activeProvider, activeModelId),
+          system: systemPrompt,
+          prompt,
+        });
+      } else {
+        throw error;
+      }
+    }
 
     const quality = await evaluateQualityGate(prompt, result.text, tierConfig.tier);
 
     if (quality.passed || i === CASCADE_TIERS.length - 1) {
       return {
         text: result.text,
-        modelId: tierConfig.modelId,
+        modelId: activeModelId,
         tier: tierConfig.tier,
         escalations,
+        fellback,
       };
     }
 
@@ -259,3 +289,7 @@ Aktifkan skill ini ketika:
 1. **Mulai dari Tier Tercepat yang Memadai**: Lakukan modifikasi kode dengan Composer 2.5 Fast atau Grok 4.7 High Fast sebelum beralih ke tier ber-budget tinggi.
 2. **Gerbang Kualitas Heuristik Deterministic**: Evaluasi kualitas harus selesai dalam <50ms menggunakan regex dan validasi struktur sintaks, tanpa panggilan LLM tambahan.
 3. **Kunci Prefix KV-Cache**: Pastikan prefix prompt sistem identik byte-for-byte antar-tier agar provider caching bekerja optimal.
+4. **Protokol Pengalihan Ketersediaan (Availability Fallback)**:
+   - Jika `Gemini 4 Argon` atau `Gemini 4 Pro` belum tersedia atau mengalami limit kuota regional, alihkan tugas secara instan ke **`Gemini 3.8 Flash`** (mempertahankan 1M+ konteks dan latensi sub-100ms).
+   - Jika `Claude Opus 5.5` belum tersedia, alihkan tugas secara instan ke **`Claude Opus 4.6`** (mempertahankan ketelitian pemahaman arsitektur).
+   - Pastikan agen tidak pernah berhenti karena error model tidak ditemukan.

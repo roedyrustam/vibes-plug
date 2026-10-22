@@ -154,6 +154,34 @@ Ensure all code and orchestration flows adhere to the following standards:
 - **Native System-2 Budgeting**: Replace forced `<thought>` tags with API-level `thinkingBudget` and `reasoning_effort` parameters to maximize test-time compute.
 - **Massive Parallel Tool Execution (Agentic MoE)**: Structure subagent pipelines so that `mcp-server-architect` tools can be executed concurrently without serial blocking.
 
+### 8. Graceful Availability Fallback Protocol (Gemini 4 -> Gemini 3.8 Flash)
+When `Gemini 4 Pro` or `Gemini 4 Argon` is not yet available, regionally unprovisioned, or encounters quota/concurrency limits:
+- **Instant Fallback**: Route all agentic tasks automatically to **`Gemini 3.8 Flash`** (or `gemini-3.8-flash-thinking`).
+- **Preserved Invariants**: Retain 1M+ token context window, native context caching via `cachedContent`, and sub-80ms TTFT.
+- **Implementation Blueprint**:
+  ```typescript
+  import { GoogleGenAI } from '@google/genai';
+
+  export async function executeGeminiWithFallback(prompt: string, codebaseDump?: string) {
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+    const primaryModel = 'gemini-4-argon';
+    const fallbackModel = 'gemini-3.8-flash';
+
+    try {
+      return await ai.models.generateContent({
+        model: primaryModel,
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      });
+    } catch (error) {
+      console.warn(`[GeminiBooster] Primary model ${primaryModel} unavailable. Fallback to ${fallbackModel}...`);
+      return await ai.models.generateContent({
+        model: fallbackModel,
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      });
+    }
+  }
+  ```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -296,3 +324,9 @@ Pastikan seluruh kode dan alur orkestrasi mematuhi standar berikut:
 - **Native Any-to-Any Multimodal Tokens**: Kembangkan `voice-ai-realtime-agent` dan `ai-media-generation-expert` agar menghindari wrapper STT/TTS eksternal, dan langsung mengirim/menerima raw token audio/visual melalui arsitektur transformer asli.
 - **Native System-2 Budgeting**: Ganti kebiasaan menggunakan tag `<thought>` paksaan di prompt dengan mengelola parameter API level komputasi seperti `thinkingBudget` dan `reasoning_effort` untuk memanfaatkan komputasi pada saat tes (*test-time compute*).
 - **Eksekusi Tool Paralel Skala Masif (Agentic MoE)**: Rancang alur kerja subagent agar tool `mcp-server-architect` dieksekusi secara konkuren tanpa pemblokiran serial.
+
+### 8. Protokol Pengalihan Ketersediaan (Gemini 4 -> Gemini 3.8 Flash)
+Ketika `Gemini 4 Pro` atau `Gemini 4 Argon` belum tersedia di lingkungan pengguna atau terbentur limit kuota:
+- **Pengalihan Otomatis**: Alihkan seluruh tugas agen secara langsung ke **`Gemini 3.8 Flash`** (atau `gemini-3.8-flash-thinking`).
+- **Jaminan Terjaga**: Tetap mempertahankan kapasitas konteks 1M+ token, caching konteks native (`cachedContent`), dan latensi TTFT sub-80ms.
+- **Tanpa Interupsi**: Alur kerja subagen tetap berlanjut tanpa melempar unhandled exception atau placeholder stub.

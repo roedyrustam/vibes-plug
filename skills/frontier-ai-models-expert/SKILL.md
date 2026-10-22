@@ -58,6 +58,18 @@ Activate this skill when:
 | **High** | `Muse Wonder High` | Muse / Frontier | 131,072 | Exploratory Reasoning | Generative UI composition, visual layout brainstorming, dynamic motion physics |
 | **High** | `Gemini 4 Pro` | Google DeepMind | 2,097,152+ | Exhaustive (up to 64K) | Monolithic codebase analysis, formal SMT invariant proving, spatial video cloner |
 
+#### 2. Availability Fallback Matrix (Graceful Degradation Protocol)
+
+When a late-2026 frontier model is pending regional provisioning, temporarily quota-throttled, or unavailable in the environment, the swarm enforces automatic, non-disruptive fallback:
+
+| Target Frontier Model | Fallback Target | Fallback Rationale & Preserved Guarantees |
+|---|---|---|
+| **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, native context caching (`cachedContent`), and sub-100ms TTFT. |
+| **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Preserves monolithic context ingestion and dynamic thinking budget control. |
+| **`Claude Opus 5.5 Medium`** | **`Claude Opus 4.6`** | Preserves deep architectural comprehension, cross-domain logic validation, and formal refactoring rigor. |
+| **`Grok 4.7 High Fast`** | **`Grok 4.6 High Fast`** | Preserves sub-second TTFT and low-latency AST scanning loops. |
+| **`Composer 2.5 Fast`** | **`Grok 4.6 High Fast`** | Fallback for non-Cursor environments to generate unified diff patches. |
+
 ---
 
 ### Implementation Blueprints
@@ -375,6 +387,18 @@ Aktifkan skill ini ketika:
 | **High** | `Claude Fable 5.1 High` | Anthropic | 200.000 | Diperluas (hingga 32K) | Alur agen hemat biaya, swarm multi-putaran panjang dengan cache tinggi |
 | **High** | `Muse Wonder High` | Muse / Frontier | 131.072 | Penalaran Eksploratif | Komposisi UI generatif, eksplorasi layout visual, fisika motion dinamis |
 | **High** | `Gemini 4 Pro` | Google DeepMind | 2.097.152+ | Lengkap (hingga 64K) | Analisis repositori monolitik, pembuktian invarian SMT, kloning video spasial |
+
+#### 2. Matriks Pengalihan Ketersediaan (Protokol Degradasi Anggun)
+
+Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalami pembatasan kuota, swarm secara otomatis mengalihkan tugas tanpa gangguan eksekusi:
+
+| Model Frontier Utama | Model Pengalihan (Fallback) | Alasan & Jaminan yang Dipertahankan |
+|---|---|---|
+| **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, caching konteks native (`cachedContent`), dan TTFT sub-100ms. |
+| **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Mempertahankan ingesti konteks monolitik dan kontrol budget penalaran dinamis. |
+| **`Claude Opus 5.5 Medium`** | **`Claude Opus 4.6`** | Mempertahankan pemahaman arsitektur mendalam, validasi logika lintas domain, dan ketelitian refaktor formal. |
+| **`Grok 4.7 High Fast`** | **`Grok 4.6 High Fast`** | Mempertahankan TTFT sub-detik dan loop pemindaian AST latensi rendah. |
+| **`Composer 2.5 Fast`** | **`Grok 4.6 High Fast`** | Pengalihan di luar lingkungan Cursor untuk menghasilkan patch unified diff. |
 
 ---
 

@@ -129,8 +129,17 @@ export const SecurityReportSchema = z.object({
 export async function POST(req: Request) {
   const { codeDiff } = await req.json();
 
+  // Invariant: Gracefully fall back to Gemini 3.8 Flash if Gemini 4 Pro is unprovisioned
+  let modelInstance;
+  try {
+    modelInstance = google('gemini-4-pro');
+  } catch (err) {
+    console.warn('[VercelAISDK] Gemini 4 Pro unavailable. Falling back to Gemini 3.8 Flash:', err);
+    modelInstance = google('gemini-3.8-flash');
+  }
+
   const result = streamObject({
-    model: google('gemini-2.5-pro'),
+    model: modelInstance,
     schema: SecurityReportSchema,
     prompt: `Audit the following git diff for security regressions:\n${codeDiff}`,
   });
@@ -227,8 +236,17 @@ import { streamText } from 'ai';
 export async function POST(req: Request) {
   const { prompt, pdfBase64, imageBase64 } = await req.json();
 
+  // Invariant: Gracefully fall back to Gemini 3.8 Flash if Gemini 4 Argon is unprovisioned
+  let modelInstance;
+  try {
+    modelInstance = google('gemini-4-argon');
+  } catch (err) {
+    console.warn('[VercelAISDK] Gemini 4 Argon unavailable. Falling back to Gemini 3.8 Flash:', err);
+    modelInstance = google('gemini-3.8-flash');
+  }
+
   const result = streamText({
-    model: google('gemini-2.5-flash'),
+    model: modelInstance,
     messages: [
       {
         role: 'user',
@@ -252,7 +270,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
 
 export const auditedModel = wrapLanguageModel({
-  model: anthropic('claude-3-7-sonnet-20250219'),
+  model: anthropic('claude-sonnet-5.5-20261022'),
   middleware: {
     wrapGenerate: async ({ doGenerate, params }) => {
       console.log(`[Audit Middleware] Pre-generation prompt tokens: ${params.prompt.length}`);
@@ -282,9 +300,17 @@ export async function POST(req: Request) {
       // 1. Send initial telemetry annotation
       dataStream.writeMessageAnnotation({ step: 'INITIALIZING_AUDIT', timestamp: Date.now() });
 
-      // 2. Stream LLM tokens
+      // 2. Stream LLM tokens (with Claude Opus 5.5 -> Claude Opus 4.6 fallback support)
+      let modelInstance;
+      try {
+        modelInstance = anthropic('claude-opus-5.5-20261022');
+      } catch (err) {
+        console.warn('[VercelAISDK] Claude Opus 5.5 unavailable. Falling back to Claude Opus 4.6:', err);
+        modelInstance = anthropic('claude-opus-4.6');
+      }
+
       const result = streamText({
-        model: anthropic('claude-3-7-sonnet-20250219'),
+        model: modelInstance,
         messages,
       });
 
@@ -396,8 +422,17 @@ export const SkemaLaporanKeamanan = z.object({
 export async function POST(req: Request) {
   const { diffKode } = await req.json();
 
+  // Invarian: Pengalihan otomatis ke Gemini 3.8 Flash jika Gemini 4 Pro belum aktif
+  let modelTarget;
+  try {
+    modelTarget = google('gemini-4-pro');
+  } catch (galat) {
+    console.warn('[VercelAISDK] Gemini 4 Pro belum tersedia. Mengalihkan ke Gemini 3.8 Flash:', galat);
+    modelTarget = google('gemini-3.8-flash');
+  }
+
   const hasil = streamObject({
-    model: google('gemini-2.5-pro'),
+    model: modelTarget,
     schema: SkemaLaporanKeamanan,
     prompt: `Audit perubahan kode berikut untuk potensi regresi keamanan:\n${diffKode}`,
   });
@@ -493,8 +528,17 @@ import { streamText } from 'ai';
 export async function POST(req: Request) {
   const { prompt, pdfBase64, imageBase64 } = await req.json();
 
+  // Invarian: Pengalihan otomatis ke Gemini 3.8 Flash jika Gemini 4 Argon belum aktif
+  let modelTarget;
+  try {
+    modelTarget = google('gemini-4-argon');
+  } catch (galat) {
+    console.warn('[VercelAISDK] Gemini 4 Argon belum tersedia. Mengalihkan ke Gemini 3.8 Flash:', galat);
+    modelTarget = google('gemini-3.8-flash');
+  }
+
   const hasil = streamText({
-    model: google('gemini-2.5-flash'),
+    model: modelTarget,
     messages: [
       {
         role: 'user',
@@ -518,7 +562,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
 
 export const modelAudit = wrapLanguageModel({
-  model: anthropic('claude-3-7-sonnet-20250219'),
+  model: anthropic('claude-sonnet-5.5-20261022'),
   middleware: {
     wrapGenerate: async ({ doGenerate, params }) => {
       console.log(`[Middleware Audit] Panjang prompt sebelum generasi: ${params.prompt.length}`);
@@ -548,9 +592,17 @@ export async function POST(req: Request) {
       // 1. Tulis anotasi status awal
       dataStream.writeMessageAnnotation({ status: 'MEMULAI_AUDIT', timestamp: Date.now() });
 
-      // 2. Stream token LLM
+      // 2. Stream token LLM (dengan fallback Claude Opus 5.5 -> Claude Opus 4.6)
+      let modelTarget;
+      try {
+        modelTarget = anthropic('claude-opus-5.5-20261022');
+      } catch (galat) {
+        console.warn('[VercelAISDK] Claude Opus 5.5 tidak tersedia. Mengalihkan ke Claude Opus 4.6:', galat);
+        modelTarget = anthropic('claude-opus-4.6');
+      }
+
       const hasil = streamText({
-        model: anthropic('claude-3-7-sonnet-20250219'),
+        model: modelTarget,
         messages,
       });
 

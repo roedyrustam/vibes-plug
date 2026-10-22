@@ -90,10 +90,10 @@ router_settings:
   timeout: 60
   fallbacks:
     - high-fast-tier: [xai/grok-4.6-high-fast, cursor/composer-2.5-fast]
-    - medium-tier: [openai/gpt-5.6-sol, anthropic/claude-opus-5.5]
-    - reasoning-tier: [gemini/gemini-4-pro, anthropic/claude-fable-5.1, muse/muse-wonder-high]
+    - medium-tier: [openai/gpt-5.6-sol, anthropic/claude-opus-5.5, anthropic/claude-opus-4.6, gemini/gemini-3.8-flash]
+    - reasoning-tier: [gemini/gemini-4-pro, gemini/gemini-3.8-flash, anthropic/claude-fable-5.1, anthropic/claude-opus-4.6, muse/muse-wonder-high]
   context_window_fallbacks:
-    - reasoning-tier: [gemini/gemini-4-argon, gemini/gemini-4-pro]  # 2M+ to 10M+ context fallback
+    - reasoning-tier: [gemini/gemini-4-argon, gemini/gemini-4-pro, gemini/gemini-3.8-flash]  # 1M+ to 10M+ context fallback
 
 litellm_settings:
   success_callback: ["langfuse"]
@@ -303,7 +303,9 @@ async def intelligent_route(task_type: str, prompt: str) -> str:
 | Grok 4.6 High Fast | \$0.40 | \$1.60 | \$0.08 |
 | Composer 2.5 Fast | \$0.30 | \$1.20 | \$0.05 |
 | Claude Opus 5.5 Medium | \$10.00 | \$50.00 | \$1.00 |
+| Claude Opus 4.6 (Fallback) | \$8.00 | \$40.00 | \$0.80 |
 | Gemini 4 Argon Medium | \$0.80 | \$3.20 | \$0.15 |
+| Gemini 3.8 Flash (Fallback) | \$0.10 | \$0.40 | \$0.025 |
 | GPT-5.6 Sol Medium | \$1.50 | \$6.00 | \$0.35 |
 | Claude Sonnet 5.5 High | \$3.00 | \$15.00 | \$0.30 |
 | Claude Fable 5.1 High | \$2.50 | \$12.50 | \$0.25 |
@@ -325,7 +327,9 @@ const MODEL_PRICING: Record<string, ModelPricing> = {
   "grok-4.6-high-fast":      { inputPerMillion: 0.40,  outputPerMillion: 1.60,  cachedInputPerMillion: 0.08 },
   "composer-2.5-fast":       { inputPerMillion: 0.30,  outputPerMillion: 1.20,  cachedInputPerMillion: 0.05 },
   "claude-opus-5.5":         { inputPerMillion: 10.00, outputPerMillion: 50.00, cachedInputPerMillion: 1.00 },
+  "claude-opus-4.6":         { inputPerMillion: 8.00,  outputPerMillion: 40.00, cachedInputPerMillion: 0.80 },
   "gemini-4-argon":          { inputPerMillion: 0.80,  outputPerMillion: 3.20,  cachedInputPerMillion: 0.15 },
+  "gemini-3.8-flash":        { inputPerMillion: 0.10,  outputPerMillion: 0.40,  cachedInputPerMillion: 0.025 },
   "gpt-5.6-sol":             { inputPerMillion: 1.50,  outputPerMillion: 6.00,  cachedInputPerMillion: 0.35 },
   "claude-sonnet-5.5":       { inputPerMillion: 3.00,  outputPerMillion: 15.00, cachedInputPerMillion: 0.30 },
   "claude-fable-5.1":        { inputPerMillion: 2.50,  outputPerMillion: 12.50, cachedInputPerMillion: 0.25 },

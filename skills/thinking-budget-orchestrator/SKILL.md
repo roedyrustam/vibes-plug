@@ -24,9 +24,9 @@ version: "4.4.2"
 ### Description
 Production architecture for dynamically allocating and controlling reasoning thinking tokens (Extended Thinking / Test-Time Compute) across late-2026 frontier models. Instead of static uniform token limits that either starve complex formal verifications or waste massive token budgets on simple queries, this skill evaluates structural task signals (AST blast radius, security boundaries, multi-agent topologies) and applies calibrated reasoning envelopes:
 - `speed` (1K tokens): Ultra-fast AST checks, typos, documentation, and single unit tests (`Grok 4.7 High Fast`, `Composer 2.5 Fast`).
-- `balanced` (8K tokens): Standard fullstack features, component assembly, and API contracts (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`).
+- `balanced` (8K tokens): Standard fullstack features, component assembly, and API contracts (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium` — fallback: `Gemini 3.8 Flash`, `Claude Opus 4.6`).
 - `deep` (32K tokens): Multi-domain architecture refactoring, security audits, and generative UI synthesis (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`).
-- `exhaustive` (64K tokens): Cryptographic proofs, SMT invariant solving, and distributed race-condition auditing (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think`).
+- `exhaustive` (64K tokens): Cryptographic proofs, SMT invariant solving, and distributed race-condition auditing (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think` — fallback: `Gemini 3.8 Flash`).
 
 ### Trigger Conditions
 Activate this skill when:
@@ -62,9 +62,9 @@ Composer    Argon /     Sonnet /    Sonnet /
 | Profile | Token Budget | Target Workload | Frontier Model Mapping |
 |---|---|---|---|
 | `speed` | 1,024 tokens | AST queries, documentation lookup, typos, single unit tests | Grok 4.7 High Fast / Composer 2.5 Fast |
-| `balanced` | 8,192 tokens | Feature implementation, component assembly, standard CRUD | Gemini 4 Argon Medium / GPT-5.6 Sol Medium / Claude Opus 5.5 Medium |
+| `balanced` | 8,192 tokens | Feature implementation, component assembly, standard CRUD | Gemini 4 Argon Medium / GPT-5.6 Sol Medium / Claude Opus 5.5 Medium *(Fallback: Gemini 3.8 Flash / Claude Opus 4.6)* |
 | `deep` | 32,768 tokens | Architecture synthesis, cross-domain migrations, security audits, generative layout | Claude Sonnet 5.5 High / Claude Fable 5.1 High / Muse Wonder High |
-| `exhaustive` | 65,536 tokens | Cryptographic verification, SMT invariant proving, distributed sagas | Claude Sonnet 5.5 High / Gemini 4 Pro Deep Think |
+| `exhaustive` | 65,536 tokens | Cryptographic verification, SMT invariant proving, distributed sagas | Claude Sonnet 5.5 High / Gemini 4 Pro Deep Think *(Fallback: Gemini 3.8 Flash)* |
 
 #### 2. Native Multi-Provider Payload Generation (TypeScript)
 
@@ -141,6 +141,7 @@ export function formatProviderThinkingPayload(
 2. **Critics and Auditors Use `deep` Profile**: Subagents reviewing pull requests, auditing security boundaries, or validating type safety must receive 32K thinking envelopes.
 3. **Guard High Budgets with Circuit Breakers**: If a deep thinking call fails twice, do not retry with 64K tokens; step down to balanced mode and log telemetry.
 4. **Coordinate Thinking Budget with KV-Cache**: Place dynamic thinking envelopes inside request configs while keeping system prompt prefixes statically cached.
+5. **Availability Fallback Envelopes**: If Gemini 4 (Argon/Pro) is temporarily unprovisioned or quota-limited, automatically redirect thinking envelopes to Gemini 3.8 Flash. If Claude Opus 5.5 is unavailable, redirect reasoning workloads to Claude Opus 4.6.
 
 ---
 
@@ -156,9 +157,9 @@ export function formatProviderThinkingPayload(
 ### Deskripsi
 Arsitektur produksi untuk mengalokasikan dan mengendalikan token penalaran (*Extended Thinking* / *Test-Time Compute*) secara dinamis di seluruh LLM frontier akhir 2026. Alih-alih menggunakan batas token statis seragam yang membuang biaya komputasi atau membatasi penalaran mendalam pada sistem kritis, skill ini mengevaluasi sinyal struktural tugas dan menerapkan profil reasoning terkalibrasi:
 - `speed` (1K token): Pemindaian AST kilat, typo, dokumentasi, dan unit test tunggal (`Grok 4.7 High Fast`, `Composer 2.5 Fast`).
-- `balanced` (8K token): Fitur fullstack standar, perakitan komponen, dan kontrak API (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`).
+- `balanced` (8K token): Fitur fullstack standar, perakitan komponen, dan kontrak API (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium` — fallback: `Gemini 3.8 Flash`, `Claude Opus 4.6`).
 - `deep` (32K token): Refaktor arsitektur lintas domain, audit keamanan, dan sintesis UI generatif (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`).
-- `exhaustive` (64K token): Pembuktian invarian matematis/SMT dan audit race-condition terdistribusi (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think`).
+- `exhaustive` (64K token): Pembuktian invarian matematis/SMT dan audit race-condition terdistribusi (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think` — fallback: `Gemini 3.8 Flash`).
 
 ### Kondisi Pemicu
 - Merancang alur agen yang memanfaatkan kontrol thinking budget native API.

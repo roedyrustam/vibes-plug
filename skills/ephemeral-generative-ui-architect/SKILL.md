@@ -15,7 +15,7 @@ version: "4.4.2"
 ## English
 
 ### Executive Directive & Ephemeral UI Paradigm (2026 Shift)
-Traditional web applications render pre-compiled, static templates. Even modern AI chatbots largely output passive markdown text or static charts. In the Gemini 4 / Claude 5.5 / Muse Wonder era, this architecture is obsolete for high-agency coding and autonomous workflows.
+Traditional web applications render pre-compiled, static templates. Even modern AI chatbots largely output passive markdown text or static charts. In the Gemini 4 (fallback: Gemini 3.8 Flash) / Claude 5.5 (fallback: Claude Opus 4.6) / Muse Wonder era, this architecture is obsolete for high-agency coding and autonomous workflows.
 
 **Ephemeral Generative UI** is an architectural paradigm where interfaces are:
 1. **Synthesized on-the-fly**: Generated dynamically based on the exact query context, underlying data topology, and user cognitive state.
@@ -468,6 +468,7 @@ export function MultiWidgetGrid({
 - **Hydration Target**: Under **450ms** from stream completion to interactive readiness.
 - **Input Sanitization**: All props supplied by the LLM MUST be strictly validated via Zod schemas before passing to client components to prevent indirect prompt injection (`prompt-injection-firewall`).
 - **Memory Hygiene**: Ephemeral components must clean up active polling subscriptions or event listeners when removed from the DOM.
+- **Model Availability Fallback**: If streaming structured UI manifests via Gemini 4 or Claude Opus 5.5, maintain seamless failover to Gemini 3.8 Flash and Claude Opus 4.6 to safeguard <100ms TTFS.
 
 ---
 
@@ -475,7 +476,7 @@ export function MultiWidgetGrid({
 ## Bahasa Indonesia
 
 ### Direktif Eksekutif & Paradigma UI Efemeral (Pergeseran 2026)
-Aplikasi web konvensional merender template statis yang telah dikompilasi sebelumnya. Bahkan chatbot AI modern sebagian besar masih menghasilkan teks markdown pasif atau diagram statis. Di era Gemini 4 / Claude 5.5 / Muse Wonder, arsitektur ini sudah usang untuk kebutuhan coding tingkat lanjut dan alur kerja agen otonom.
+Aplikasi web konvensional merender template statis yang telah dikompilasi sebelumnya. Bahkan chatbot AI modern sebagian besar masih menghasilkan teks markdown pasif atau diagram statis. Di era Gemini 4 (fallback: Gemini 3.8 Flash) / Claude 5.5 (fallback: Claude Opus 4.6) / Muse Wonder, arsitektur ini sudah usang untuk kebutuhan coding tingkat lanjut dan alur kerja agen otonom.
 
 **Generative UI Efemeral** adalah paradigma arsitektur di mana antarmuka:
 1. **Disintesis Secara Instan (On-the-fly)**: Dihasilkan secara dinamis berdasarkan konteks kueri pengguna, topologi data yang mendasari, dan beban kognitif pengguna.
@@ -561,3 +562,4 @@ Seluruh komponen efemeral wajib mematuhi **Pilar 7 Anti-Slop**:
 - **Target Hidrasi**: Maksimal **450ms** sejak aliran stream tuntas hingga komponen siap berinteraksi.
 - **Sanitasi Input**: Seluruh argumen dari LLM WAJIB divalidasi dengan skema Zod sebelum diteruskan ke komponen klien guna menangkal injeksi prompt tidak langsung (`prompt-injection-firewall`).
 - **Kebersihan Memori**: Komponen efemeral wajib membersihkan *event listener* atau langganan aktif saat dicopot dari DOM.
+- **Fallback Ketersediaan Model**: Jika men-streaming manifes UI terstruktur melalui Gemini 4 atau Claude Opus 5.5, alihkan secara otomatis ke Gemini 3.8 Flash dan Claude Opus 4.6 untuk mempertahankan TTFS <100ms.

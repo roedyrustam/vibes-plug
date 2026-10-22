@@ -11,6 +11,12 @@
 - **High / Extended Thinking Tier**: Anthropic Claude Sonnet 5.5 High (flagship fullstack reasoning & extended thinking), Anthropic Claude Fable 5.1 High (prompt-cache optimized agentic workflows), Muse Wonder High (exploratory reasoning & generative design synthesis), Google Gemini 4 Pro / Project Astra, and DeepSeek-R1 / Pro / V3.
 The AI MUST adapt the orchestration payload according to its native context window, execution tier, and thinking budget.
 
+### MANDATORY: Availability Fallback Invariant (Invarian Pengalihan Ketersediaan)
+When a frontier model is not yet provisioned, reaches rate/quota limits, or is temporarily unavailable in the user's environment:
+- **Gemini 4 Fallback (Argon & Pro)**: Automatically and seamlessly degrade tasks to **`Gemini 3.8 Flash`** (preserving 1M+ context window, native context caching, and sub-100ms TTFT).
+- **Claude Opus 5.5 Fallback**: Automatically and seamlessly degrade tasks to **`Claude Opus 4.6`** (preserving deep architectural reasoning and cross-domain logic validation).
+- Never fail with unhandled missing-model errors or stub implementations; execute immediately through the fallback path with zero disruption.
+
 ## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
 
@@ -102,8 +108,8 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 4. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
    - Dynamically match task complexity to the optimal model tier:
      - **High Fast / Fast (Grok 4.7 / Grok 4.6 / Composer 2.5)**: AST scans, rapid diff applications, single-unit test runs, linting verification, and fast multi-file edits.
-     - **Medium (Gemini 4 Argon / GPT-5.6 Sol / Claude Opus 5.5)**: Whole-repo context ingestion, balanced feature development, API contracts, and structured tool calling loops.
-     - **High (Claude Sonnet 5.5 / Claude Fable 5.1 / Muse Wonder / Gemini 4 Pro)**: High-level system architecture, cross-domain synthesis, deep security fuzzing, complex fullstack refactoring, and generative UI synthesis.
+     - **Medium (Gemini 4 Argon / GPT-5.6 Sol / Claude Opus 5.5)**: Whole-repo context ingestion, balanced feature development, API contracts, and structured tool calling loops. *(Fallback: Gemini 4 Argon → Gemini 3.8 Flash; Claude Opus 5.5 → Claude Opus 4.6).*
+     - **High (Claude Sonnet 5.5 / Claude Fable 5.1 / Muse Wonder / Gemini 4 Pro)**: High-level system architecture, cross-domain synthesis, deep security fuzzing, complex fullstack refactoring, and generative UI synthesis. *(Fallback: Gemini 4 Pro → Gemini 3.8 Flash).*
 5. **Ultra-Compact Session Checkpoints (`session-memory-manager`)**:
    - In extended sessions (>25 turns), compress conversational state into ultra-compact YAML checkpoints (<300 tokens) in `CHECKPOINT.md` and keep `CONTEXT_MAP.md` lean.
    - Do not re-ingest past turns when the checkpoint provides sufficient state.

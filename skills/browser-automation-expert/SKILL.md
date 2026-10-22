@@ -37,7 +37,7 @@ Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute
    - **Human Behavior Mimicry**: Inject natural Bezier-curve mouse movements, randomized typing cadences, and realistic scroll viewport dynamics.
 
 3. **Visual QA & Layout Diffing via Vision LLMs**
-   - Feed high-resolution viewport screenshots into **Gemini 4 Argon/Pro Vision** or **Claude Sonnet 5.5 Vision**.
+   - Feed high-resolution viewport screenshots into **Gemini 4 Argon/Pro Vision** (fallback: **Gemini 3.8 Flash Vision**) or **Claude Sonnet 5.5 Vision**.
    - Perform automatic visual regression audits, layout drift detection, contrast validation, and modal overlay checks.
 
 ---
@@ -52,7 +52,7 @@ import { z } from 'zod';
 export async function runAutonomousShoppingAgent(targetProduct: string) {
   const stagehand = new Stagehand({
     env: 'LOCAL',
-    modelName: 'claude-3-7-sonnet-20250219',
+    modelName: 'claude-sonnet-5.5-20261022',
     browserbaseSessionCreateParams: {
       projectId: process.env.BROWSERBASE_PROJECT_ID,
     },
@@ -173,7 +173,7 @@ Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengekse
    - **Mimikri Perilaku Manusia**: Menginjeksi gerakan kursor kurva Bezier, jeda pengetikan organik, dan dinamika scroll realistis.
 
 3. **QA Visual & Diffing via Vision LLM**
-   - Teruskan screenshot viewport resolusi tinggi ke **Gemini 4 Argon/Pro Vision** atau **Claude Sonnet 5.5 Vision**.
+   - Teruskan screenshot viewport resolusi tinggi ke **Gemini 4 Argon/Pro Vision** (fallback: **Gemini 3.8 Flash Vision**) atau **Claude Sonnet 5.5 Vision**.
    - Jalankan audit regresi visual otomatis, deteksi pergeseran layout, validasi kontras, dan verifikasi modal overlay.
 
 ---
@@ -188,7 +188,7 @@ import { z } from 'zod';
 export async function jalankanAgenBelanjaOtonom(produkSasaran: string) {
   const stagehand = new Stagehand({
     env: 'LOCAL',
-    modelName: 'claude-3-7-sonnet-20250219',
+    modelName: 'claude-sonnet-5.5-20261022',
   });
 
   await stagehand.init();
@@ -253,6 +253,7 @@ if __name__ == "__main__":
 - **Sebelum Eksekusi**: Selalu injeksikan header penyamaran dan acak dimensi viewport sebelum memuat halaman.
 - **Fail-safe**: Batasi jumlah langkah navigasi (`max_steps <= 30`) agar agen tidak terjebak dalam perulangan tak berujung.
 - **Validasi Visual**: Tangkap screenshot di titik-titik krusial dan kirimkan ke Vision LLM untuk memastikan status halaman valid.
+- **Invarian Fallback Ketersediaan**: Jika tugas penjelajahan atau QA visual menggunakan Gemini 4 namun model belum tersedia/mengalami batas kuota, alihkan secara otomatis ke Gemini 3.8 Flash yang menyediakan throughput multimodal sub-100ms.
 
 ### Regresi Visual & QA Visi
 

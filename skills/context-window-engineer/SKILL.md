@@ -42,7 +42,9 @@ Activate this skill when:
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Gemini 4 Argon** | Medium | 2,097,152 | ~1.9M (monolithic) | $0.80 | 75% (native context caching) |
 | **Gemini 4 Pro** | High | 2,097,152–10M | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
+| **Gemini 3.8 Flash (Fallback)** | Fast/Medium | 1,048,576 | ~900k | $0.10 | 75% (native context caching) |
 | **Claude Opus 5.5** | Medium | 500,000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Opus 4.6 (Fallback)** | Medium | 200,000 | ~180k | $8.00 | 90% (prompt cache) |
 | **Claude Sonnet 5.5** | High | 500,000 | ~480k | $3.00 | 90% (prompt cache) |
 | **Claude Fable 5.1** | High | 500,000 | ~480k | $2.50 | 90% (prompt cache) |
 | **GPT-5.6 Sol** | Medium | 500,000 | ~450k | $1.50 | 50% (prefix cache) |
@@ -253,7 +255,9 @@ Aktifkan skill ini ketika:
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Gemini 4 Argon** | Medium | 2.097.152 | ~1,9M (monolitik) | $0.80 | 75% (native context caching) |
 | **Gemini 4 Pro** | High | 2.097.152–10M | ~1,8M (andal) | $1.25 | 75% (explicit cache) |
+| **Gemini 3.8 Flash (Fallback)** | Fast/Medium | 1.048.576 | ~900k | $0.10 | 75% (native context caching) |
 | **Claude Opus 5.5** | Medium | 500.000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Opus 4.6 (Fallback)** | Medium | 200.000 | ~180k | $8.00 | 90% (prompt cache) |
 | **Claude Sonnet 5.5** | High | 500.000 | ~480k | $3.00 | 90% (prompt cache) |
 | **Claude Fable 5.1** | High | 500.000 | ~480k | $2.50 | 90% (prompt cache) |
 | **GPT-5.6 Sol** | Medium | 500.000 | ~450k | $1.50 | 50% (prefix cache) |

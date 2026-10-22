@@ -127,24 +127,47 @@ export class VisualUiAuditor {
       componentSourceCode ? `COMPONENT SOURCE CODE:\n${componentSourceCode}` : '',
     ].join('\n');
 
-    const result = await generateObject({
-      model: google('gemini-4-pro'),
-      schema: VisualAuditScorecardSchema,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'text', text: auditPrompt },
-            {
-              type: 'image',
-              image: `data:image/png;base64,${base64Image}`,
-            },
-          ],
-        },
-      ],
-    });
+    // Invariant: If Gemini 4 Pro is unavailable/unprovisioned, gracefully fall back to Gemini 3.8 Flash
+    try {
+      const result = await generateObject({
+        model: google('gemini-4-pro'),
+        schema: VisualAuditScorecardSchema,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: auditPrompt },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${base64Image}`,
+              },
+            ],
+          },
+        ],
+      });
 
-    return result.object;
+      return result.object;
+    } catch (error) {
+      console.warn('[VisualUiAuditor] Gemini 4 Pro unavailable. Falling back to Gemini 3.8 Flash:', error);
+      const fallbackResult = await generateObject({
+        model: google('gemini-3.8-flash'),
+        schema: VisualAuditScorecardSchema,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: auditPrompt },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${base64Image}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return fallbackResult.object;
+    }
   }
 }
 ```
@@ -297,24 +320,47 @@ export class VisualUiAuditorId {
       kodeSumberKomponen ? `KODE SUMBER KOMPONEN:\n${kodeSumberKomponen}` : '',
     ].join('\n');
 
-    const hasil = await generateObject({
-      model: google('gemini-4-pro'),
-      schema: SkemaKartuSkorVisual,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            { type: 'text', text: promptAudit },
-            {
-              type: 'image',
-              image: `data:image/png;base64,${gambarBase64}`,
-            },
-          ],
-        },
-      ],
-    });
+    // Invarian: Jika Gemini 4 Pro belum tersedia/unprovisioned, alihkan ke Gemini 3.8 Flash secara otomatis
+    try {
+      const hasil = await generateObject({
+        model: google('gemini-4-pro'),
+        schema: SkemaKartuSkorVisual,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: promptAudit },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${gambarBase64}`,
+              },
+            ],
+          },
+        ],
+      });
 
-    return hasil.object;
+      return hasil.object;
+    } catch (kesalahan) {
+      console.warn('[VisualUiAuditorId] Gemini 4 Pro tidak tersedia. Mengalihkan ke Gemini 3.8 Flash:', kesalahan);
+      const hasilCadangan = await generateObject({
+        model: google('gemini-3.8-flash'),
+        schema: SkemaKartuSkorVisual,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: promptAudit },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${gambarBase64}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return hasilCadangan.object;
+    }
   }
 }
 ```
@@ -326,4 +372,5 @@ export class VisualUiAuditorId {
 1. **Jadikan Gerbang Kualitas Otomatis**: Integrasikan pengujian tangkapan layar Playwright ke alur CI/CD agar setiap PR yang memuat perubahan visual diverifikasi sebelum rilis.
 2. **Prioritaskan Angka Tabular**: Selalu sertakan utilitas `tabular-nums` pada komponen tabel finansial, dashboard transaksi, dan penghitung mundur.
 3. **Patuhi Batas Skor Minimum 90**: Tolak kode yang memiliki skor visual < 90 atau melanggar aturan border 1px dan larangan tombol pil.
+4. **Protokol Fallback Ketersediaan**: Jika Gemini 4 Pro Vision belum terpasang atau mengalami pembatasan kuota, audit visual dialihkan secara otomatis ke Gemini 3.8 Flash Vision tanpa menghentikan pipeline CI.
 

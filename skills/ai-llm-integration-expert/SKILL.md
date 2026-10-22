@@ -44,8 +44,10 @@ Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hy
 | xAI | Grok 4.6 High Fast | High Fast | 128K | High-Throughput Reasoning | Fast unit testing, code linting, micro-benchmark verification |
 | Cursor | Composer 2.5 Fast | Fast | 200K | Native AST Diff Engine | Multi-file synchronized refactoring, zero-breakage diff generation |
 | Google | Gemini 4 Argon | Medium | 2M+ | Monolithic Balanced Reasoning | 2M+ whole-repo context, native caching, fullstack feature synthesis |
+| Google | Gemini 3.8 Flash (Fallback) | Fast/Medium | 1M+ | Flash Thinking (Dynamic Budget) | Fallback for Gemini 4; ultra-low latency (<100ms TTFT), subagent swarms |
 | OpenAI | GPT-5.6 Sol | Medium | 500K | Strict Schema & Contract Enforcement | Flawless tool-calling, OpenAPI validation, PRM verification |
 | Anthropic | Claude Opus 5.5 | Medium | 500K | Balanced Deep Comprehension | High-level architectural analysis, complex domain modeling |
+| Anthropic | Claude Opus 4.6 (Fallback) | Medium | 200K | Hybrid Deep Reasoning | Fallback for Claude Opus 5.5; deep architectural comprehension |
 | Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Flagship fullstack craftsmanship, zero-slop code, formal verification |
 | Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Agentic terminal execution, 45% cheaper cache reads, VPC safety |
 | Muse | Muse Wonder | High | 300K | Exploratory & Generative Design | Creative architecture synthesis, innovative generative UI layouts |
@@ -224,8 +226,10 @@ Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP)
 | xAI | Grok 4.6 High Fast | High Fast | 128K | Penalaran Throughput Tinggi | Pengujian unit cepat, linting kode, verifikasi micro-benchmark |
 | Cursor | Composer 2.5 Fast | Fast | 200K | Mesin Diff AST Native | Refactoring multi-berkas tersinkronisasi, generasi patch aman |
 | Google | Gemini 4 Argon | Medium | 2M+ | Penalaran Seimbang Monolitik | Konteks 2M+ seluruh repo, caching native, sintesis fitur fullstack |
+| Google | Gemini 3.8 Flash (Fallback) | Fast/Medium | 1M+ | Flash Thinking (Budget Dinamis) | Pengalihan jika Gemini 4 belum tersedia; latensi ultra-rendah (<100ms TTFT) |
 | OpenAI | GPT-5.6 Sol | Medium | 500K | Penegakan Skema & Kontrak Ketat | Tool-calling sempurna, validasi OpenAPI, verifikasi PRM |
 | Anthropic | Claude Opus 5.5 | Medium | 500K | Pemahaman Arsitektur Mendalam | Analisis arsitektur tingkat tinggi, pemodelan domain kompleks |
+| Anthropic | Claude Opus 4.6 (Fallback) | Medium | 200K | Penalaran Hibrida Mendalam | Pengalihan jika Claude Opus 5.5 belum tersedia; pemahaman arsitektur formal |
 | Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Keahlian fullstack unggulan, kode anti-slop, verifikasi formal |
 | Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Eksekusi terminal agentic, pembacaan cache 45% lebih hemat |
 | Muse | Muse Wonder | High | 300K | Desain Eksploratif & Generatif | Sintesis arsitektur kreatif, layout UI generatif inovatif |

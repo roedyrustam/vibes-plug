@@ -90,7 +90,12 @@ prompts:
   - 'file://prompts/support-v2.txt'
 providers:
   - id: 'google:gemini-4-argon'
+    config:
+      fallback: 'google:gemini-3.8-flash'
   - id: 'anthropic:claude-sonnet-5.5-20261022'
+  - id: 'anthropic:claude-opus-5.5-20261022'
+    config:
+      fallback: 'anthropic:claude-opus-4.6'
   - id: 'xai:grok-4.7-high-fast'
 tests:
   - description: 'Refund policy inquiry with strict JSON output'
@@ -176,6 +181,7 @@ prompts:
 - [ ] Maintain a golden dataset of at least 50 test scenarios.
 - [ ] Automate eval suite execution on PRs modifying prompts or models.
 - [ ] Gate releases on >95% assertion pass rates.
+- [ ] Configure availability fallback paths (Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6).
 
 ---
 
@@ -211,4 +217,5 @@ Panduan komprehensif tingkat produksi untuk rekayasa prompt dan evaluasi otomati
 2. **DeepEval**: Uji metrik RAG Triad (Faithfulness dan Answer Relevancy) dengan threshold minimal 0.8.
 3. **Ragas Evaluation Coverage**: Integrasikan Ragas untuk mengukur metrik seperti `faithfulness`, `answer_relevancy`, `context_precision`, dan `context_recall`.
 4. **Pairwise LLM-as-a-Judge**: Gunakan LLM untuk membandingkan output dua model (A vs B) menggunakan skala penilaian 1-5, dengan mengacak urutan untuk mengurangi bias.
-5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.
+5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.
+6. **Invarian Fallback Ketersediaan**: Konfigurasikan fallback otomatis pada suite pengujian jika Gemini 4 belum aktif (dialihkan ke Gemini 3.8 Flash) dan jika Claude Opus 5.5 belum tersedia (dialihkan ke Claude Opus 4.6).

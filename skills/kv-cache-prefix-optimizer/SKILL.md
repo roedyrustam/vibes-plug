@@ -41,7 +41,7 @@ Modern frontier models utilize prefix-matching algorithms. Even a single changed
 ```
 [STATIC PREFIX: CACHE PINNED (90%+ HIT RATE)]
   ├── System Directives & Behavioral Guardrails (Immutable)
-  ├── 140-Skill Ecosystem Registry (Canonical Alphabetical Order)
+  ├── 161-Skill Ecosystem Registry (Canonical Alphabetical Order)
   ├── Tool Definitions (Strictly Sorted Keys & Parameters)
   └── Workspace Schema & Architecture Map (Immutable per Session)
 ------------------------ [CACHE BOUNDARY PIN] ------------------------
@@ -133,6 +133,7 @@ export function constructCacheOptimizedPayload(
 2. **Sort Tool Definitions Alphabetically**: Always sort tool names and their JSON schema parameter keys canonically before sending requests.
 3. **Partition Dynamic Context to the Tail**: Ensure all large documentation and code context maps appear before volatile conversation history.
 4. **Monitor Cache Read Discrepancies**: Log `usage.prompt_tokens_details.cached_tokens` in application telemetry to catch accidental prefix cache busts immediately.
+5. **Cache Prefix Portability & Availability Fallback**: Preserve identical system prefix structures across model fallback pairs (Gemini 4 Argon/Pro <-> Gemini 3.8 Flash, Claude Opus 5.5 <-> Claude Opus 4.6) so that if an availability switch occurs, subsequent turns immediately re-warm the KV-cache without format discrepancies.
 
 ---
 
@@ -186,6 +187,7 @@ Kunci objek JSON wajib diurutkan secara alfabetis sebelum dikirimkan ke model ag
 2. **Urutkan Definisi Tool Secara Alfabetis**: Selalu lakukan *sorting* pada daftar nama fungsi dan parameter tool.
 3. **Posisikan Data Dinamis di Bagian Akhir**: Taruh seluruh dokumen referensi dan kode sebelum giliran pesan pengguna.
 4. **Pantau Metrik Cache**: Pantau token yang terbaca dari cache melalui telemetri guna mendeteksi jika terjadi *cache bust* yang tidak disengaja.
+5. **Portabilitas Prefix Saat Fallback**: Pertahankan struktur prefix sistem yang identik saat pengalihan ketersediaan model terjadi (Gemini 4 <-> Gemini 3.8 Flash, Claude Opus 5.5 <-> Claude Opus 4.6) agar pemanasan ulang (*re-warming*) KV-cache berlangsung instan tanpa inkonsistensi format.
 
 ---
 

@@ -114,18 +114,29 @@ export function traceLLMCall<T>(
   return fn(trace).finally(() => langfuse.flush());
 }
 
-// Usage in API route:
+// Usage in API route with graceful availability fallback:
 export async function handleChatRequest(req: Request) {
   const { message, userId } = await req.json();
 
   return traceLLMCall('chat-assistant', userId, async (trace) => {
+    let activeModel = 'gemini-4-pro';
+    let response: { text: string; usage: { promptTokens: number; completionTokens: number; totalTokens: number } };
+
+    try {
+      response = await callLLM(message, activeModel);
+    } catch (err) {
+      // Invariant: Gracefully fall back to Gemini 3.8 Flash if Gemini 4 Pro is unprovisioned/unavailable
+      console.warn('[LLMObservability] Gemini 4 Pro unavailable. Falling back to Gemini 3.8 Flash:', err);
+      activeModel = 'gemini-3.8-flash';
+      trace.update({ metadata: { fallbackTriggered: true, originalModel: 'gemini-4-pro', fallbackModel: activeModel } });
+      response = await callLLM(message, activeModel);
+    }
+
     const generation = trace.generation({
       name: 'chat-completion',
-      model: 'gemini-4-pro',
+      model: activeModel,
       input: message,
     });
-
-    const response = await callLLM(message);
 
     generation.end({
       output: response.text,
@@ -216,6 +227,7 @@ export function detectCostAnomalies(
 3. **Set Budget Alerts Early**: Configure daily/weekly cost alerts before going to production, not after the first billing shock.
 4. **Collect User Feedback Signals**: Implement thumbs up/down buttons on AI outputs and log them as quality scores in Langfuse.
 5. **Monitor Cache Hit Rates**: A drop in cache hit rate directly increases costs — alert on deviations from baseline.
+6. **Track Model Availability Fallbacks**: When Gemini 4 falls back to Gemini 3.8 Flash or Claude Opus 5.5 falls back to Claude Opus 4.6, tag trace metadata with `fallbackTriggered: true` to observe provider availability and SLA compliance.
 
 ---
 
@@ -275,5 +287,6 @@ Implementasikan alert otomatis untuk: anggaran harian terlampaui, lonjakan biaya
 2. **Lacak Biaya Per Fitur**: Agregasikan biaya berdasarkan nama fitur untuk mengidentifikasi fungsi AI termahal.
 3. **Atur Alert Anggaran Sejak Awal**: Konfigurasikan alert biaya harian/mingguan sebelum ke produksi.
 4. **Kumpulkan Sinyal Feedback Pengguna**: Implementasikan tombol thumbs up/down pada output AI.
+5. **Pantau Pengalihan Ketersediaan (Fallback)**: Saat model Gemini 4 dialihkan ke Gemini 3.8 Flash atau Claude Opus 5.5 ke Claude Opus 4.6, sematkan metadata `fallbackTriggered: true` pada trace untuk memantau SLA ketersediaan dan variasi biaya.
 
 

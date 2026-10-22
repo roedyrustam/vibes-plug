@@ -284,10 +284,10 @@ async function listenForOrders() {
 ## 8. Composable AI Routing / Routing AI Komposabel
 
 ### English
-Implement dynamic AI model routing based on request context (complexity, cost, latency). Chain specialized models for complex tasks. Build fallback chains (Primary → Secondary → Local SLM) for resilience. Manage model rollouts with feature flags.
+Implement dynamic AI model routing based on request context (complexity, cost, latency). Chain specialized models for complex tasks. Build fallback chains (Primary → Secondary → Local SLM: e.g., Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6) for resilience. Manage model rollouts with feature flags.
 
 ### Indonesian (Bahasa Indonesia)
-Terapkan routing model AI dinamis berdasarkan konteks permintaan (kompleksitas, biaya, latensi). Rangkai model spesialis untuk tugas kompleks. Buat rantai fallback (Primer → Sekunder → SLM Lokal). Kelola peluncuran model dengan feature flag.
+Terapkan routing model AI dinamis berdasarkan konteks permintaan (kompleksitas, biaya, latensi). Rangkai model spesialis untuk tugas kompleks. Buat rantai fallback (Primer → Sekunder → SLM Lokal: misal Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6) untuk ketahanan sistem. Kelola peluncuran model dengan feature flag.
 
 ```javascript
 // Dynamic AI model router with cost and latency optimization
@@ -300,13 +300,13 @@ async function routePrompt(prompt, context) {
   } 
   
   if (context.requiresReasoning) {
-    // Complex reasoning: Route to advanced model (e.g., Claude Sonnet 5.5 High / Gemini 4 Argon / GPT-5.6 Sol)
+    // Complex reasoning: Route to advanced model (e.g., Claude Sonnet 5.5 High / Gemini 4 Argon / Claude Opus 5.5 / GPT-5.6 Sol)
     try {
       return await callModel('advanced-reasoning-model', prompt);
     } catch (error) {
-      // Fallback chain implementation
-      console.warn("Primary model failed, falling back to secondary...");
-      return await callModel('secondary-fallback-model', prompt);
+      // Invariant fallback chain: Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6
+      console.warn("Primary model unavailable, falling back to secondary (e.g., Gemini 3.8 Flash / Claude Opus 4.6)...", error);
+      return await callModel('graceful-secondary-model', prompt);
     }
   }
 

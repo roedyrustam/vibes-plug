@@ -280,14 +280,14 @@ function evaluateCaching(totalTokens) {
 function recommendModel(complexity, caching) {
   if (complexity.budgetTokens >= 32768 || caching.recommended) {
     return {
-      primary: 'Gemini 4 Pro',
+      primary: 'Gemini 4 Pro (Fallback: Gemini 3.8 Flash)',
       role: 'Master System Architect & Critical Reasoning',
-      reason: 'Deep System-2 reasoning (32k–64k thinking budget) and native context caching (>32k tokens).'
+      reason: 'Deep System-2 reasoning (32k–64k thinking budget) and native context caching (>32k tokens). Gracefully falls back to Gemini 3.8 Flash if unprovisioned.'
     };
   }
 
   return {
-    primary: 'Gemini 3.8 Flash / Gemini 3.8 Flash',
+    primary: 'Gemini 3.8 Flash',
     role: 'Agile Interactive Pair Programming & High-Throughput Agentic Loops',
     reason: 'Ultra-low latency (<100ms), agile thinking mode, and optimal token cost efficiency for standard dev loops.'
   };

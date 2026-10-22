@@ -288,18 +288,36 @@ export class AstArbiter {
       )
       .join('\n\n---\n\n');
 
-    const result = await generateObject({
-      model: google('gemini-4-pro'),
-      schema: SynthesisSchema,
-      system: arbiterInstructions,
-      prompt: [
-        '### SPECIFICATION:',
-        spec,
-        '',
-        '### CANDIDATE DRAFTS:',
-        formattedDrafts,
-      ].join('\n'),
-    });
+    let result;
+    try {
+      result = await generateObject({
+        model: google('gemini-4-pro'),
+        schema: SynthesisSchema,
+        system: arbiterInstructions,
+        prompt: [
+          '### SPECIFICATION:',
+          spec,
+          '',
+          '### CANDIDATE DRAFTS:',
+          formattedDrafts,
+        ].join('\n'),
+      });
+    } catch (error) {
+      // Automatic availability fallback: Gemini 4 Pro -> Gemini 3.8 Flash
+      console.warn('[AstArbiter] Gemini 4 Pro unavailable, falling back to Gemini 3.8 Flash...');
+      result = await generateObject({
+        model: google('gemini-3.8-flash'),
+        schema: SynthesisSchema,
+        system: arbiterInstructions,
+        prompt: [
+          '### SPECIFICATION:',
+          spec,
+          '',
+          '### CANDIDATE DRAFTS:',
+          formattedDrafts,
+        ].join('\n'),
+      });
+    }
 
     return result.object;
   }

@@ -23,7 +23,7 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
-Production guide for optimizing AI agent tool-calling throughput by executing independent tool invocations in parallel. Late-2026 frontier models (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7) natively generate multi-tool calls in a single turn. Executing these calls sequentially creates unnecessary network round-trips and escalates latency. This skill provides architectures for parallel tool orchestration using Model Context Protocol batching (`vibes_batch`), resilient `Promise.allSettled` execution, automated dependency DAG resolution, and non-blocking background task workers.
+Production guide for optimizing AI agent tool-calling throughput by executing independent tool invocations in parallel. Late-2026 frontier models (Gemini 4 Argon/Pro [fallback: Gemini 3.8 Flash], Claude Sonnet 5.5, Claude Opus 5.5 [fallback: Claude Opus 4.6], GPT-5.6 Sol, Grok 4.7) natively generate multi-tool calls in a single turn. Executing these calls sequentially creates unnecessary network round-trips and escalates latency. This skill provides architectures for parallel tool orchestration using Model Context Protocol batching (`vibes_batch`), resilient `Promise.allSettled` execution, automated dependency DAG resolution, and non-blocking background task workers.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -113,6 +113,10 @@ export async function executeParallelBatch(
 }
 ```
 
+### Best Practices
+1. **Parallel Execution for Independent Tools**: Never execute read-only inspection tools sequentially; always dispatch via `executeParallelBatch`.
+2. **Model Availability Fallback Resilience**: When running parallel tool calling loops, ensure model router fallbacks (Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6) preserve tool calling schemas without schema loss.
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -126,7 +130,7 @@ export async function executeParallelBatch(
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
-Panduan produksi untuk mengoptimalkan throughput eksekusi tool agen AI dengan menjalankan pemanggilan tool independen secara bersamaan (paralel). Model frontier modern dapat menghasilkan beberapa tool call dalam satu giliran. Menjalankan panggilan secara berurutan menghasilkan latensi jaringan yang lambat. Skill ini menyediakan arsitektur orkestrasi tool paralel memanfaatkan batching Model Context Protocol (`vibes_batch`), eksekusi tangguh `Promise.allSettled`, resolusi DAG dependensi, dan penanganan kegagalan isolatif.
+Panduan produksi untuk mengoptimalkan throughput eksekusi tool agen AI dengan menjalankan pemanggilan tool independen secara bersamaan (paralel). Model frontier modern (Gemini 4 [fallback: Gemini 3.8 Flash], Claude Opus 5.5 [fallback: Claude Opus 4.6], GPT-5.6 Sol, Grok 4.7) dapat menghasilkan beberapa tool call dalam satu giliran. Menjalankan panggilan secara berurutan menghasilkan latensi jaringan yang lambat. Skill ini menyediakan arsitektur orkestrasi tool paralel memanfaatkan batching Model Context Protocol (`vibes_batch`), eksekusi tangguh `Promise.allSettled`, resolusi DAG dependensi, dan penanganan kegagalan isolatif.
 
 ### Kondisi Pemicu
 - Merancang agen AI yang memanggil beberapa tool analisis sekaligus dalam satu turn.
@@ -193,3 +197,7 @@ export async function eksekusiBatchParalel(
   };
 }
 ```
+
+### Praktik Terbaik
+1. **Eksekusi Paralel untuk Tool Independen**: Jangan jalankan tool inspeksi baca secara berurutan; gunakan `eksekusiBatchParalel`.
+2. **Ketahanan Fallback Ketersediaan Model**: Saat mengeksekusi loop pemanggilan tool paralel, pastikan fallback model (Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6) mempertahankan skema pemanggilan tool secara utuh tanpa kehilangan kontrak parameter.
