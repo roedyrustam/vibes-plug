@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-20T18:57:12.980Z",
+  "generatedAt": "2026-10-22T01:06:38.444Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 60,
-  "totalSymbolsIndexed": 329,
+  "totalFilesIndexed": 62,
+  "totalSymbolsIndexed": 340,
   "symbols": {
     "to": [
       {
@@ -371,6 +371,12 @@
         "signature": "function main()"
       },
       {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 284,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
         "file": "scripts/eval-migration.mjs",
         "line": 135,
         "type": "function",
@@ -707,6 +713,86 @@
         "line": 230,
         "type": "function",
         "signature": "function generateContextBundle(targetDir = process.cwd()"
+      }
+    ],
+    "formatHeader": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 36,
+        "type": "function",
+        "signature": "function formatHeader(title)"
+      }
+    ],
+    "formatCard": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 40,
+        "type": "function",
+        "signature": "function formatCard(label, value, color = c.white)"
+      }
+    ],
+    "runSpeculativeMultiDraftDemo": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 47,
+        "type": "function",
+        "signature": "function runSpeculativeMultiDraftDemo()"
+      }
+    ],
+    "AccountId": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 109,
+        "type": "type",
+        "signature": "export type AccountId = string & { readonly __brand: unique symbol };"
+      }
+    ],
+    "MinorCents": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 110,
+        "type": "type",
+        "signature": "export type MinorCents = bigint & { readonly __brand: unique symbol };"
+      }
+    ],
+    "LedgerOverdraftError": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 112,
+        "type": "class",
+        "signature": "export class LedgerOverdraftError extends Error {"
+      }
+    ],
+    "TransferRequest": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 119,
+        "type": "interface",
+        "signature": "export interface TransferRequest {"
+      }
+    ],
+    "AtomicLedgerEngine": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 126,
+        "type": "class",
+        "signature": "export class AtomicLedgerEngine {"
+      }
+    ],
+    "runFormalVerificationDemo": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 148,
+        "type": "function",
+        "signature": "function runFormalVerificationDemo()"
+      }
+    ],
+    "runVisualUiAuditDemo": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 195,
+        "type": "function",
+        "signature": "function runVisualUiAuditDemo()"
       }
     ],
     "evaluateSql": [
@@ -2585,6 +2671,10 @@
       "totalLines": 345,
       "symbolCount": 5
     },
+    "scripts/demo-sovereign-swarm.mjs": {
+      "totalLines": 321,
+      "symbolCount": 11
+    },
     "scripts/eval-migration.mjs": {
       "totalLines": 213,
       "symbolCount": 2
@@ -2592,6 +2682,10 @@
     "scripts/finops-tracker.mjs": {
       "totalLines": 311,
       "symbolCount": 8
+    },
+    "scripts/generate-catalog.mjs": {
+      "totalLines": 54,
+      "symbolCount": 0
     },
     "scripts/generate_logo_svg.py": {
       "totalLines": 19,
@@ -2674,7 +2768,7 @@
       "symbolCount": 4
     },
     "scripts/sync-all-skill-counts.mjs": {
-      "totalLines": 318,
+      "totalLines": 332,
       "symbolCount": 1
     },
     "scripts/terminal-monitor.mjs": {

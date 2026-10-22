@@ -24,10 +24,10 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Description
-Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 3.8 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
+Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 4 Argon** (balanced frontier context engine), **Gemini 3.8 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
 
 ### Trigger Conditions
-- Deploying or querying Google's flagship reasoning model: **Gemini 4 Pro**.
+- Deploying or querying Google's flagship reasoning models: **Gemini 4 Pro** and **Gemini 4 Argon**.
 - Analyzing massive codebases, full log histories, or monolithic documents requiring 1M–2M+ token context without chunk loss.
 - Managing test-time reasoning compute budgets with Gemini 4 Thinking Mode (`thinkingConfig`).
 - Implementing cost-saving architectures with native Gemini Context Caching (`cachedContent`).
@@ -37,16 +37,16 @@ Master optimization protocol for the Gemini Agent (Antigravity) to leverage nati
 
 ### Gemini 4.x & Frontier Model Capability Matrix (2026)
 
-| Capability | Gemini 4 Pro (Flagship) | Gemini 3.8 Flash / Project Astra | Gemini 3.8 Flash (Agile Reasoning) | Gemini 3.1 Pro (Fallback) |
+| Capability | Gemini 4 Pro (Flagship) | Gemini 4 Argon (Balanced Frontier) | Gemini 3.8 Flash / Project Astra | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
-| Context Window | 2,097,152+ tokens (up to 10M+ Ring Attention) | 1,048,576+ tokens (1M+) | 1,000,000 tokens | 2,000,000 tokens |
-| Thinking / Reasoning | System-2 Deep Thinking (Configurable up to 64K Budget) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |
-| Native Context Caching | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`) |
-| Multimodal | Native Any-to-Any Audio/Video/Text + Screen Grounding | Multimodal Live API (<100ms latency) | Multimodal Live Audio/Video | Native Multimodal |
-| Code Generation & Tool Calling | SOTA Architectural Synthesis, Zero-Loss AST, Parallel MoE Tools | Ultra-fast iteration & subagent swarms | High-speed pair programming & CLI coding | Complex reasoning |
+| Context Window | 2,097,152+ tokens (up to 10M+ Ring Attention) | 2,097,152 tokens (2M+) | 1,048,576+ tokens (1M+) | 2,000,000 tokens |
+| Thinking / Reasoning | System-2 Deep Thinking (Configurable up to 64K Budget) | Balanced Thinking (Configurable up to 16K) | Flash Thinking (Configurable Budget) | Extended Reasoning |
+| Native Context Caching | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`) |
+| Multimodal | Native Any-to-Any Audio/Video/Text + Screen Grounding | Native Multimodal Context Ingestion | Multimodal Live API (<100ms latency) | Native Multimodal |
+| Code Generation & Tool Calling | SOTA Architectural Synthesis, Zero-Loss AST, Parallel MoE Tools | Balanced Repository Engineering & Schema Extraction | Ultra-fast iteration & subagent swarms | Complex reasoning |
 | Search Grounding | Google Search Grounding with verified attribution | Google Search Grounding | Google Search Grounding | Google Search Grounding |
-| TTFT (Time to First Token) | Ultra-fast via Prefix KV-Cache Pinning | Sub-80ms ultra-low latency | Ultra-low latency (<100ms) | Balanced |
-| Primary Role | Master System Architect & High-Risk Auditor | High-Throughput Subagent Workers | Daily Driver Interactive Pair Programming | Legacy Baseline |
+| TTFT (Time to First Token) | Ultra-fast via Prefix KV-Cache Pinning | Fast Balanced TTFT (<150ms) | Sub-80ms ultra-low latency | Balanced |
+| Primary Role | Master System Architect & High-Risk Auditor | Whole-Repo Ingestion & Balanced Feature Dev | High-Throughput Subagent Workers | Legacy Baseline |
 
 ### 1. Thinking Budget Optimization for Gemini 4 Pro Tasks
 For complex architectural decisions, formal security audits, or debugging distributed race conditions, control the reasoning depth via `thinkingConfig`:
@@ -168,10 +168,10 @@ Ensure all code and orchestration flows adhere to the following standards:
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Deskripsi
-Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 3.8 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
+Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 4 Argon** (engine konteks frontier seimbang), **Gemini 3.8 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
 
 ### Kondisi Pemicu
-- Menerapkan atau mengirim prompt ke model penalaran unggulan Google: **Gemini 4 Pro**.
+- Menerapkan atau mengirim prompt ke model penalaran unggulan Google: **Gemini 4 Pro** dan **Gemini 4 Argon**.
 - Menganalisis codebase skala besar, histori log lengkap, atau dokumen monolitik yang membutuhkan konteks 1M–2M+ token tanpa kehilangan data chunking.
 - Mengatur alokasi reasoning budget dengan Gemini 4 Thinking Mode (`thinkingConfig`).
 - Menerapkan strategi pemangkasan biaya melalui native Gemini Context Caching (`cachedContent`).
@@ -181,16 +181,16 @@ Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilita
 
 ### Matriks Kapabilitas Gemini 4.x & Model Frontier (2026)
 
-| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 3.8 Flash / Project Astra | Gemini 3.8 Flash (Penalaran Gesit) | Gemini 3.1 Pro (Fallback) |
+| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 4 Argon (Frontier Seimbang) | Gemini 3.8 Flash / Project Astra | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
-| Context Window | 2.097.152+ token (hingga 10M+ Ring Attention) | 1.048.576+ token (1M+) | 1.000.000 token | 2.000.000 token |
-| Pemikiran / Penalaran | System-2 Deep Thinking (Budget hingga 64K) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |
-| Native Context Caching | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`) |
-| Multimodal | Native Any-to-Any Audio/Video/Teks + Screen Grounding | Multimodal Live API (latensi <100ms) | Multimodal Live Audio/Video | Native Multimodal |
-| Generasi Kode & Tool Calling | Sintesis Arsitektur SOTA, Zero-Loss AST, Parallel MoE Tools | Iterasi & subagent ultra-cepat | Pair programming interaktif & coding CLI cepat | Penalaran kompleks |
+| Context Window | 2.097.152+ token (hingga 10M+ Ring Attention) | 2.097.152 token (2M+) | 1.048.576+ token (1M+) | 2.000.000 token |
+| Pemikiran / Penalaran | System-2 Deep Thinking (Budget hingga 64K) | Penalaran Seimbang (Budget hingga 16K) | Flash Thinking (Configurable Budget) | Extended Reasoning |
+| Native Context Caching | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`) |
+| Multimodal | Native Any-to-Any Audio/Video/Teks + Screen Grounding | Ingesti Konteks Multimodal Native | Multimodal Live API (latensi <100ms) | Native Multimodal |
+| Generasi Kode & Tool Calling | Sintesis Arsitektur SOTA, Zero-Loss AST, Parallel MoE Tools | Rekayasa Repositori Seimbang & Ekstraksi Skema | Iterasi & subagent ultra-cepat | Penalaran kompleks |
 | Search Grounding | Google Search Grounding dengan atribusi sitasi terverifikasi | Google Search Grounding | Google Search Grounding | Google Search Grounding |
-| TTFT (Latensi Token Pertama) | Ultra-cepat via Prefix KV-Cache Pinning | Sub-80ms latensi ultra-rendah | Latensi ultra-rendah (<100ms) | Seimbang |
-| Peran Utama | Master Arsitek Sistem & Auditor Risiko Tinggi | Pekerja Subagent Throughput Tinggi | Daily Driver Pair Programming Interaktif | Baseline Warisan |
+| TTFT (Latensi Token Pertama) | Ultra-cepat via Prefix KV-Cache Pinning | TTFT Seimbang Cepat (<150ms) | Sub-80ms latensi ultra-rendah | Seimbang |
+| Peran Utama | Master Arsitek Sistem & Auditor Risiko Tinggi | Ingesti Whole-Repo & Pengembangan Fitur Seimbang | Pekerja Subagent Throughput Tinggi | Baseline Warisan |
 
 ### 1. Optimasi Thinking Budget untuk Tugas Gemini 4 Pro
 Untuk keputusan arsitektur kompleks, audit keamanan formal, atau perbaikan race condition terdistribusi, atur kedalaman penalaran via `thinkingConfig`:

@@ -1,6 +1,6 @@
 ---
 name: adaptive-model-cascade
-description: "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Flash/Haiku to Sonnet/Opus/Astra, dynamic escalation with quality gates, 40-60% token cost reduction while maintaining output quality / Panduan ahli untuk kaskade dan routing model cerdas — routing tugas berbasis skor kompleksitas dari Flash/Haiku ke Sonnet/Opus/Astra, eskalasi dinamis dengan gerbang kualitas, pengurangan biaya token 40-60% dengan kualitas output terjaga."
+description: "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Fast (Composer 2.5, Grok 4.7/4.6) to Medium (Gemini 4 Argon, GPT-5.6 Sol, Claude Opus 5.5) and High (Claude Sonnet 5.5, Claude Fable 5.1, Muse Wonder) / Panduan ahli untuk kaskade dan routing model cerdas."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -22,96 +22,101 @@ version: "4.4.2"
 - **Inference & Compute Orchestration**: `test-time-compute-optimizer` (dynamic reasoning tokens during escalation), `ai-llm-integration-expert`, `vercel-ai-sdk-expert` (multi-provider cascade fallbacks).
 
 ### Description
-Production architecture for routing AI requests to the optimal model tier based on real-time task complexity assessment. Instead of sending every request to the most expensive frontier model, this skill implements a cascade: try the fastest/cheapest model first, evaluate output quality via automated judges, and escalate to more capable (expensive) models only when the cheaper tier fails the quality gate. Achieves 40-60% cost reduction for typical production workloads where 60-70% of requests are simple enough for smaller models.
+Production architecture for routing AI requests to the optimal model tier based on real-time task complexity assessment. Instead of sending every request to the most expensive frontier model, this skill implements an intelligent cascade across four late-2026 tiers:
+1. **Fast Tier (`Composer 2.5 Fast`, `Grok 4.6 High Fast`)**: Rapid multi-file diff application, single-file AST scans, and simple syntax transformations.
+2. **High Fast Tier (`Grok 4.7 High Fast`)**: Sub-second TTFT, real-time web groundings, and rapid test-assert loops.
+3. **Medium Tier (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: 2M+ monolithic repository ingestion, strict JSON schema contracts, and balanced CRUD feature implementations.
+4. **High Tier (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro`)**: Extended System-2 thinking (up to 64K tokens), formal verification, mission-critical architectural synthesis, and exploratory generative UI design.
+
+Achieves 45–70% cost reduction for typical production workloads where 60–80% of tasks do not require maximum reasoning compute.
 
 ### Trigger Conditions
 Activate this skill when:
 - Running AI features in production with significant token spend (>$500/month).
-- Building applications where response quality varies by task complexity (some queries need GPT Astra 6, others need only Flash).
-- Implementing cost optimization for multi-model AI architectures.
-- Designing fallback and retry strategies across model providers.
+- Building applications where response latency and cost vary across task complexities.
+- Routing IDE and agent tasks dynamically across Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, and Muse Wonder.
+- Designing self-healing escalation loops with fast heuristic quality gates.
 
 ---
 
 ### Core Concepts & Patterns
 
-#### 1. The Model Cascade Architecture
+#### 1. The 4-Tier Model Cascade Architecture
 
 ```
 USER REQUEST
       │
       ▼
-┌──────────────────────┐
-│ COMPLEXITY SCORER    │  Classify request complexity: LOW / MEDIUM / HIGH / ULTRA
-│ (Fast heuristic or   │
-│  lightweight model)   │
-└──────┬───────────────┘
-       │
-       ├── LOW ──────────► Gemini 3.8 Flash-Lite / Claude Haiku ($0.025/1M)
-       │                        │
-       │                   ┌────▼────┐
-       │                   │ QUALITY  │  Pass? → Return response
-       │                   │ GATE     │  Fail? → Escalate to MEDIUM
-       │                   └─────────┘
-       │
-       ├── MEDIUM ───────► Gemini 3.8 Flash / Claude Sonnet ($0.30/1M)
-       │                        │
-       │                   ┌────▼────┐
-       │                   │ QUALITY  │  Pass? → Return response
-       │                   │ GATE     │  Fail? → Escalate to HIGH
-       │                   └─────────┘
-       │
-       ├── HIGH ─────────► Gemini 4 Pro / Claude Opus ($3-15/1M)
-       │                        │
-       │                   ┌────▼────┐
-       │                   │ QUALITY  │  Pass? → Return response
-       │                   │ GATE     │  Fail? → Escalate to ULTRA
-       │                   └─────────┘
-       │
-       └── ULTRA ────────► GPT Astra 6 + Extended Thinking ($15/1M)
-                                │
-                           Return response (final tier, no escalation)
+┌───────────────────────────┐
+│ COMPLEXITY SCORER         │  Classify task signals: FAST / HIGH_FAST / MEDIUM / HIGH
+│ (Heuristic AST Evaluator) │
+└─────────────┬─────────────┘
+              │
+              ├── FAST ─────────► Composer 2.5 Fast / Grok 4.6 ($0.10/1M)
+              │                        │
+              │                   ┌────▼────┐
+              │                   │ QUALITY │  Pass? → Return response
+              │                   │ GATE    │  Fail? → Escalate to HIGH_FAST
+              │                   └─────────┘
+              │
+              ├── HIGH_FAST ────► Grok 4.7 High Fast ($0.50/1M)
+              │                        │
+              │                   ┌────▼────┐
+              │                   │ QUALITY │  Pass? → Return response
+              │                   │ GATE    │  Fail? → Escalate to MEDIUM
+              │                   └─────────┘
+              │
+              ├── MEDIUM ───────► Gemini 4 Argon / GPT-5.6 Sol / Claude Opus 5.5 ($1.25/1M)
+              │                        │
+              │                   ┌────▼────┐
+              │                   │ QUALITY │  Pass? → Return response
+              │                   │ GATE    │  Fail? → Escalate to HIGH
+              │                   └─────────┘
+              │
+              └── HIGH ─────────► Claude Sonnet 5.5 / Fable 5.1 / Muse Wonder ($3.00/1M)
+                                       │
+                                  Return response (Apex tier, no escalation)
 ```
 
 #### 2. Complexity Scorer (TypeScript Implementation)
 
 ```typescript
-export type ComplexityLevel = 'LOW' | 'MEDIUM' | 'HIGH' | 'ULTRA';
+export type CascadeTier = 'FAST' | 'HIGH_FAST' | 'MEDIUM' | 'HIGH';
 
 export interface ComplexitySignals {
   tokenCount: number;
   hasCodeGeneration: boolean;
   requiresReasoning: boolean;
   hasMultiStep: boolean;
-  domainSpecificity: 'general' | 'technical' | 'specialized';
+  domainSpecificity: 'general' | 'technical' | 'mission_critical';
   requiresCreativity: boolean;
   hasToolCalls: boolean;
   contextSize: number;
 }
 
-export function scoreComplexity(signals: ComplexitySignals): ComplexityLevel {
+export function scoreComplexity(signals: ComplexitySignals): CascadeTier {
   let score = 0;
 
   if (signals.tokenCount > 2000) score += 1;
-  if (signals.tokenCount > 8000) score += 1;
+  if (signals.tokenCount > 8000) score += 2;
   if (signals.hasCodeGeneration) score += 2;
   if (signals.requiresReasoning) score += 2;
   if (signals.hasMultiStep) score += 1;
   if (signals.domainSpecificity === 'technical') score += 1;
-  if (signals.domainSpecificity === 'specialized') score += 2;
+  if (signals.domainSpecificity === 'mission_critical') score += 3;
   if (signals.requiresCreativity) score += 1;
   if (signals.hasToolCalls) score += 1;
   if (signals.contextSize > 100_000) score += 1;
   if (signals.contextSize > 500_000) score += 2;
 
-  if (score <= 2) return 'LOW';
-  if (score <= 5) return 'MEDIUM';
-  if (score <= 8) return 'HIGH';
-  return 'ULTRA';
+  if (score <= 2) return 'FAST';
+  if (score <= 5) return 'HIGH_FAST';
+  if (score <= 8) return 'MEDIUM';
+  return 'HIGH';
 }
 ```
 
-#### 3. Quality Gate Evaluator
+#### 3. Heuristic Quality Gate Evaluator
 
 ```typescript
 export interface QualityGateResult {
@@ -123,27 +128,27 @@ export interface QualityGateResult {
 export async function evaluateQualityGate(
   request: string,
   response: string,
-  tier: ComplexityLevel
+  tier: CascadeTier
 ): Promise<QualityGateResult> {
   const checks: Array<{ name: string; passed: boolean }> = [];
 
-  // Structural completeness: does the response address all parts of the request?
-  const hasSubstance = response.length > 50 && !response.includes("I don't know");
+  // 1. Substance check: response has meaningful length and is not a refusal
+  const hasSubstance = response.trim().length > 50 && !response.includes("I cannot assist");
   checks.push({ name: 'substance', passed: hasSubstance });
 
-  // Code validity: if code was requested, does the output contain valid-looking code blocks?
-  if (request.toLowerCase().includes('code') || request.toLowerCase().includes('function')) {
-    const hasCodeBlocks = /```[\s\S]+```/.test(response);
-    checks.push({ name: 'code_blocks', passed: hasCodeBlocks });
+  // 2. Code integrity check: if code was requested, verify balanced code fences
+  if (/code|function|interface|class|implementation/i.test(request)) {
+    const codeBlockCount = (response.match(/```/g) || []).length;
+    const hasBalancedFences = codeBlockCount > 0 && codeBlockCount % 2 === 0;
+    checks.push({ name: 'code_fences_balanced', passed: hasBalancedFences });
   }
 
-  // Refusal detection: did the model refuse or hedge excessively?
-  const refusalPatterns = /i('m| am) (unable|not able|can't|cannot)\s+(to|help)/i;
-  const noRefusal = !refusalPatterns.test(response);
-  checks.push({ name: 'no_refusal', passed: noRefusal });
+  // 3. Anti-Slop verification: zero placeholder markers
+  const hasNoPlaceholders = !/\/\/\s*(TODO|FIXME|\.\.\.rest of code)/i.test(response);
+  checks.push({ name: 'no_placeholders', passed: hasNoPlaceholders });
 
-  // Length adequacy: response should be proportional to request complexity
-  const minExpectedLength = tier === 'LOW' ? 100 : tier === 'MEDIUM' ? 300 : 500;
+  // 4. Tier-proportional length threshold
+  const minExpectedLength = tier === 'FAST' ? 80 : tier === 'HIGH_FAST' ? 160 : tier === 'MEDIUM' ? 320 : 600;
   const adequateLength = response.length >= minExpectedLength;
   checks.push({ name: 'adequate_length', passed: adequateLength });
 
@@ -164,48 +169,48 @@ export async function evaluateQualityGate(
 ```typescript
 import { generateText } from 'ai';
 
-export interface ModelTier {
-  level: ComplexityLevel;
+export interface ModelTierConfig {
+  tier: CascadeTier;
   modelId: string;
   provider: string;
   costPer1MTokens: number;
-  maxRetries: number;
 }
 
-const MODEL_TIERS: ModelTier[] = [
-  { level: 'LOW', modelId: 'gemini-4-flash-lite', provider: 'google', costPer1MTokens: 0.025, maxRetries: 1 },
-  { level: 'MEDIUM', modelId: 'claude-5.5-sonnet', provider: 'anthropic', costPer1MTokens: 3.0, maxRetries: 1 },
-  { level: 'HIGH', modelId: 'gemini-4-pro', provider: 'google', costPer1MTokens: 1.25, maxRetries: 1 },
-  { level: 'ULTRA', modelId: 'gpt-astra-6', provider: 'openai', costPer1MTokens: 15.0, maxRetries: 2 },
+export const CASCADE_TIERS: ModelTierConfig[] = [
+  { tier: 'FAST', modelId: 'composer-2.5-fast', provider: 'cursor', costPer1MTokens: 0.10 },
+  { tier: 'HIGH_FAST', modelId: 'grok-4.7-high-fast', provider: 'xai', costPer1MTokens: 0.50 },
+  { tier: 'MEDIUM', modelId: 'gemini-4-argon-medium', provider: 'google', costPer1MTokens: 1.25 },
+  { tier: 'HIGH', modelId: 'claude-sonnet-5.5-high', provider: 'anthropic', costPer1MTokens: 3.00 },
 ];
 
-const TIER_ORDER: ComplexityLevel[] = ['LOW', 'MEDIUM', 'HIGH', 'ULTRA'];
+const TIER_SEQUENCE: CascadeTier[] = ['FAST', 'HIGH_FAST', 'MEDIUM', 'HIGH'];
 
 export async function cascadeRequest(
   prompt: string,
   signals: ComplexitySignals,
-  systemPrompt: string
-): Promise<{ text: string; model: string; totalCost: number; escalations: number }> {
-  const startTier = scoreComplexity(signals);
-  const startIndex = TIER_ORDER.indexOf(startTier);
+  systemPrompt: string,
+  providerResolver: (provider: string, modelId: string) => any
+): Promise<{ text: string; modelId: string; tier: CascadeTier; escalations: number }> {
+  const initialTier = scoreComplexity(signals);
+  const startIndex = TIER_SEQUENCE.indexOf(initialTier);
   let escalations = 0;
 
-  for (let i = startIndex; i < MODEL_TIERS.length; i++) {
-    const tier = MODEL_TIERS[i];
+  for (let i = startIndex; i < CASCADE_TIERS.length; i++) {
+    const tierConfig = CASCADE_TIERS[i];
 
     const result = await generateText({
-      model: getModelProvider(tier.provider, tier.modelId),
+      model: providerResolver(tierConfig.provider, tierConfig.modelId),
       system: systemPrompt,
       prompt,
     });
 
-    const quality = await evaluateQualityGate(prompt, result.text, tier.level);
+    const quality = await evaluateQualityGate(prompt, result.text, tierConfig.tier);
 
-    if (quality.passed || i === MODEL_TIERS.length - 1) {
+    if (quality.passed || i === CASCADE_TIERS.length - 1) {
       return {
         text: result.text,
-        model: tier.modelId,
-        totalCost: calculateCost(result.usage, tier.costPer1MTokens),
+        modelId: tierConfig.modelId,
+        tier: tierConfig.tier,
         escalations,
       };
     }
@@ -213,42 +218,18 @@ export async function cascadeRequest(
     escalations++;
   }
 
-  throw new Error('All model tiers exhausted');
-}
-
-function calculateCost(usage: { promptTokens: number; completionTokens: number }, costPer1M: number): number {
-  return ((usage.promptTokens + usage.completionTokens) / 1_000_000) * costPer1M;
+  throw new Error('All cascade model tiers exhausted');
 }
 ```
-
-#### 5. Cost Savings Projection
-
-| Workload Distribution | Without Cascade | With Cascade | Savings |
-| :--- | :--- | :--- | :--- |
-| 60% simple, 30% medium, 10% complex | $1,500/month (all Opus) | $450/month | **70%** |
-| 40% simple, 40% medium, 20% complex | $2,000/month (all Pro) | $800/month | **60%** |
-| 20% simple, 50% medium, 30% complex | $3,000/month (mixed) | $1,500/month | **50%** |
 
 ---
 
 ### Best Practices
 
-1. **Start with the Cheapest Tier**: Always try the fastest model first. Escalation costs less than defaulting to the most expensive model.
-2. **Quality Gates Must Be Fast**: The evaluator should add <200ms overhead. Use heuristic checks, not another LLM call, for the gate.
-3. **Log Every Escalation**: Track escalation frequency per feature to identify tasks that always require frontier models (route directly).
-4. **Cache Before Cascade**: Apply `kv-cache-prefix-optimizer` patterns to reduce base cost at every tier.
-5. **A/B Test Tier Boundaries**: Use `feature-flag-analytics-expert` to experiment with complexity score thresholds.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Consequence | Remedy |
-| :--- | :--- | :--- |
-| Sending everything to the frontier model | 5-10x unnecessary cost | Implement complexity scoring and cascade |
-| Using another LLM call as the quality gate | Gate cost exceeds savings from cascading | Use fast heuristic checks (regex, length, structure) |
-| No fallback for model provider outages | Total feature outage when one provider is down | Cascade across providers, not just model sizes |
-| Static tier assignment without telemetry | Suboptimal routing as usage patterns evolve | Monitor and adjust complexity thresholds weekly |
+1. **Start with the Fastest Feasible Tier**: Attempt surgical edits using Composer 2.5 Fast or Grok 4.7 High Fast before escalating to high-budget models.
+2. **Deterministic Heuristic Quality Gates**: Gates must evaluate in <50ms using regex and structural checks. Never call another LLM as a quality gate.
+3. **Persist Escalation Telemetry**: Track which prompt clusters frequently trigger escalations to automatically bias their future initial routing towards Medium or High.
+4. **Lock KV-Cache Prefixes Across Tiers**: Ensure all tiers share byte-identical system prompt prefixes to maximize upstream provider prompt caching.
 
 ---
 
@@ -262,32 +243,19 @@ function calculateCost(usage: { promptTokens: number; completionTokens: number }
 - **Inferensi & Orkestrasi Komputasi**: `test-time-compute-optimizer` (token penalaran dinamis saat eskalasi), `ai-llm-integration-expert`, `vercel-ai-sdk-expert` (fallback kaskade multi-provider).
 
 ### Deskripsi
-Arsitektur produksi untuk merutekan permintaan AI ke tier model optimal berdasarkan penilaian kompleksitas tugas secara real-time. Alih-alih mengirim setiap permintaan ke model frontier termahal, skill ini mengimplementasikan kaskade: coba model tercepat/termurah dulu, evaluasi kualitas output via penilai otomatis, dan eskalasi ke model lebih capable (mahal) hanya jika tier murah gagal melewati gerbang kualitas. Menghemat 40-60% biaya untuk beban kerja produksi tipikal.
+Arsitektur produksi untuk merutekan permintaan AI ke tier model optimal berdasarkan penilaian kompleksitas tugas secara real-time. Alih-alih mengirim seluruh prompt ke model termahal, skill ini menerapkan kaskade cerdas melintasi empat tier frontier akhir 2026:
+1. **Tier Fast (`Composer 2.5 Fast`, `Grok 4.6 High Fast`)**: Aplikasi diff multi-file cepat, pemindaian AST satu file, dan transformasi sintaks sederhana.
+2. **Tier High Fast (`Grok 4.7 High Fast`)**: TTFT sub-detik, pencarian web real-time, dan loop validasi tes kilat.
+3. **Tier Medium (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: Ingesti repositori monolitik 2M+, kontrak skema JSON ketat, dan implementasi fitur standar.
+4. **Tier High (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro`)**: Penalaran System-2 mendalam (hingga 64K token), verifikasi formal, arsitektur misi-kritis, dan desain UI generatif.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
-- Menjalankan fitur AI di produksi dengan pengeluaran token signifikan (>$500/bulan).
-- Membangun aplikasi di mana kualitas respons bervariasi menurut kompleksitas tugas.
-- Mengimplementasikan optimasi biaya untuk arsitektur AI multi-model.
+- Menjalankan beban kerja produksi AI dengan biaya token substansial (>$500/bulan).
+- Merutekan tugas agen secara dinamis melintasi Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, dan Muse Wonder.
+- Membangun alur eskalasi mandiri dengan gerbang kualitas berbasis heuristik instan.
 
----
-
-### Konsep Inti & Pola Praktik
-
-#### 1. Arsitektur Kaskade Model
-Empat tier berurutan: LOW (Flash-Lite/Haiku), MEDIUM (Flash/Sonnet), HIGH (Pro/Opus), ULTRA (Astra 6 + Extended Thinking). Setiap tier memiliki gerbang kualitas. Jika gagal, eskalasi ke tier berikutnya.
-
-#### 2. Penilaian Kompleksitas
-Skor numerik berdasarkan sinyal: jumlah token, kebutuhan generasi kode, penalaran, langkah multi-step, spesifisitas domain, kreativitas, tool calls, dan ukuran konteks.
-
-#### 3. Gerbang Kualitas
-Evaluasi cepat berbasis heuristik (<200ms): substansi respons, blok kode valid, deteksi penolakan, dan kecukupan panjang. Tidak menggunakan panggilan LLM tambahan.
-
----
-
-### Praktik Terbaik
-
-1. **Mulai dari Tier Termurah**: Selalu coba model tercepat dulu.
-2. **Gerbang Kualitas Harus Cepat**: Evaluator harus menambahkan <200ms overhead.
-3. **Log Setiap Eskalasi**: Lacak frekuensi eskalasi per fitur.
-4. **Cache Sebelum Kaskade**: Terapkan pola `kv-cache-prefix-optimizer` untuk mengurangi biaya dasar di setiap tier.
+### Panduan Praktik Terbaik
+1. **Mulai dari Tier Tercepat yang Memadai**: Lakukan modifikasi kode dengan Composer 2.5 Fast atau Grok 4.7 High Fast sebelum beralih ke tier ber-budget tinggi.
+2. **Gerbang Kualitas Heuristik Deterministic**: Evaluasi kualitas harus selesai dalam <50ms menggunakan regex dan validasi struktur sintaks, tanpa panggilan LLM tambahan.
+3. **Kunci Prefix KV-Cache**: Pastikan prefix prompt sistem identik byte-for-byte antar-tier agar provider caching bekerja optimal.

@@ -44,7 +44,7 @@ Single-model code generation suffers from inherent cognitive blind spots:
 │                 ┌─────────────────┼─────────────────┐                  │
 │                 ▼                 ▼                 ▼                  │
 │           [Drafter Alpha]   [Drafter Beta]   [Drafter Gamma]           │
-│           (Gemini 3.8 Flash)  (Claude 3.7 S)    (DeepSeek-V3)            │
+│           (Grok 4.7 Fast)   (Claude Sonnet)  (Gemini 4 Argon)          │
 │            Target: Speed     Target: Types    Target: Guards           │
 │                 │                 │                 │                  │
 │                 └─────────────────┼─────────────────┘                  │
@@ -56,7 +56,7 @@ Single-model code generation suffers from inherent cognitive blind spots:
 │             (Complexity, Type Soundness, Defensive Branch)             │
 │                                   │                                    │
 │                                   ▼                                    │
-│                   FRONTIER ARBITER (Gemini 4 Pro / o3)                 │
+│             FRONTIER ARBITER (Claude Sonnet 5.5 / Gemini 4 Pro)        │
 │              AST Node Reconciliation & Hybrid Construction             │
 │                                   │                                    │
 │                                   ▼                                    │
@@ -69,9 +69,10 @@ Single-model code generation suffers from inherent cognitive blind spots:
 
 #### 1. Heterogeneous Prompt Specialization
 Never run identical prompts across drafters. Assign explicit structural roles:
-- **Drafter Alpha (Algorithmic Minimizer)**: Instructed to optimize asymptotic Big-O runtime, memory allocation profiles, and minimize allocations.
-- **Drafter Beta (Type & Invariant Maximizer)**: Instructed to construct zero-`any` branded types, tagged unions, immutable schema contracts, and strict compiler boundaries.
-- **Drafter Gamma (Error & Telemetry Sentinel)**: Instructed to build defensive retry budgets, explicit custom domain error hierarchies, rate limiting, and structured telemetry markers.
+- **Drafter Alpha (Algorithmic Minimizer — `Grok 4.7 High Fast` / `Composer 2.5 Fast`)**: Instructed to optimize asymptotic Big-O runtime, memory allocation profiles, and minimize allocations.
+- **Drafter Beta (Type & Invariant Maximizer — `Claude Sonnet 5.5 High` / `Claude Opus 5.5 Medium`)**: Instructed to construct zero-`any` branded types, tagged unions, immutable schema contracts, and strict compiler boundaries.
+- **Drafter Gamma (Error & Telemetry Sentinel — `Gemini 4 Argon Medium` / `GPT-5.6 Sol Medium`)**: Instructed to build defensive retry budgets, explicit custom domain error hierarchies, rate limiting, and structured telemetry markers.
+- **Drafter Delta (Generative UI Explorer — `Muse Wonder High`)**: Instructed to construct fluid responsive layouts, micro-animations, and aesthetic design systems.
 
 #### 2. AST Decomposition & Slicing Protocol
 The Arbiter decomposes each candidate draft into four distinct AST slices:
@@ -395,7 +396,7 @@ Generasi kode berbasis satu model tunggal selalu memiliki bias kognitif:
 │                 ┌─────────────────┼─────────────────┐                  │
 │                 ▼                 ▼                 ▼                  │
 │           [Drafter Alpha]   [Drafter Beta]   [Drafter Gamma]           │
-│           (Gemini 3.8 Flash)  (Claude 3.7 S)    (DeepSeek-V3)            │
+│           (Grok 4.7 Fast)   (Claude Sonnet)  (Gemini 4 Argon)          │
 │            Fokus: Kecepatan  Fokus: Tipe Data Fokus: Error             │
 │                 │                 │                 │                  │
 │                 └─────────────────┼─────────────────┘                  │
@@ -407,7 +408,7 @@ Generasi kode berbasis satu model tunggal selalu memiliki bias kognitif:
 │             (Kompleksitas, Ketepatan Tipe, Cabang Defensif)            │
 │                                   │                                    │
 │                                   ▼                                    │
-│                   ARBITER FRONTIER (Gemini 4 Pro / o3)                 │
+│             ARBITER FRONTIER (Claude Sonnet 5.5 / Gemini 4 Pro)        │
 │             Rekonsiliasi Simpul AST & Konstruksi Hibrida               │
 │                                   │                                    │
 │                                   ▼                                    │
@@ -420,9 +421,10 @@ Generasi kode berbasis satu model tunggal selalu memiliki bias kognitif:
 
 #### 1. Spesialisasi Prompt Heterogen
 Jangan pernah memberikan prompt yang identik ke setiap pembuat draf. Berikan peran struktural yang tegas:
-- **Drafter Alpha (Pengoptimal Algoritma & Memori)**: Ditugaskan mengoptimalkan kompleksitas waktu Big-O, jalur data zero-allocation, dan latensi terendah.
-- **Drafter Beta (Pengoptimal Tipe & Invarian)**: Ditugaskan membangun tipe bermerek tanpa `any`, *tagged unions*, pencocokan pola menyeluruh, dan batasan kompilasi yang ketat.
-- **Drafter Gamma (Sentinel Ketahanan & Operasional)**: Ditugaskan membangun penanganan error domain kustom, kuota *retry*, pembatalan sinyal *abort*, serta logging terstruktur.
+- **Drafter Alpha (Pengoptimal Algoritma & Memori — `Grok 4.7 High Fast` / `Composer 2.5 Fast`)**: Ditugaskan mengoptimalkan kompleksitas waktu Big-O, jalur data zero-allocation, dan latensi terendah.
+- **Drafter Beta (Pengoptimal Tipe & Invarian — `Claude Sonnet 5.5 High` / `Claude Opus 5.5 Medium`)**: Ditugaskan membangun tipe bermerek tanpa `any`, *tagged unions*, pencocokan pola menyeluruh, dan batasan kompilasi yang ketat.
+- **Drafter Gamma (Sentinel Ketahanan & Operasional — `Gemini 4 Argon Medium` / `GPT-5.6 Sol Medium`)**: Ditugaskan membangun penanganan error domain kustom, kuota *retry*, pembatalan sinyal *abort*, serta logging terstruktur.
+- **Drafter Delta (Eksplorasi Desain UI & Motion — `Muse Wonder High`)**: Ditugaskan merancang layout responsif generatif, animasi mikro dinamis, dan tata letak visual estetis.
 
 #### 2. Protokol Dekomposisi & Pemotongan AST
 Arbiter membedah setiap kandidat draf ke dalam empat potongan AST yang jelas:

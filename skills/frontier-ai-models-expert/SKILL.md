@@ -1,6 +1,6 @@
 ---
 name: frontier-ai-models-expert
-description: "Expert guide for late-2026 frontier AI models — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), and Enterprise Frontier Safeguards (EFS) / Panduan ahli model AI frontier akhir-2026 — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), dan Enterprise Frontier Safeguards (EFS)."
+description: "Expert guide for late-2026 frontier AI models — Grok 4.7 / 4.6 (High Fast), Cursor Composer 2.5 (Fast), Claude Opus 5.5 / GPT-5.6 Sol / Gemini 4 Argon (Medium), and Claude Sonnet 5.5 / Fable 5.1 / Muse Wonder (High) / Panduan ahli model AI frontier akhir-2026."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -17,6 +17,7 @@ version: "4.4.2"
 
 ### Orchestration & Integration
 - **Model Booster & Inference Engines**: `gemini-agent-booster`, `test-time-compute-optimizer`, `thinking-budget-orchestrator`
+- **Multi-Draft & Synthesizer**: `speculative-multi-draft-synthesizer`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`
 - **Frameworks & SDKs**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `ai-llm-integration-expert`
 - **Multimodal & Realtime Streaming**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
 - **Prefix Caching & FinOps**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `llm-finops-router`
@@ -24,95 +25,297 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Description
-Expert guide for integrating late-2026 frontier AI models, focusing on Google DeepMind's **Gemini 4 Pro** and **Project Astra**, Anthropic's **Claude 5.1 (Fable/Mythos)**, and OpenAI's **GPT-5 / o3**. Covers advanced frontier capabilities such as 2M+ to 10M+ monolithic context reasoning, System-2 test-time compute allocation, Enterprise Frontier Safeguards (EFS), zero data retention architectures, terminal-bench coding, agentic scientific research, real-time spatial processing, and raw multimodal token streaming.
+Comprehensive guide for late-2026 frontier AI models across all primary IDE execution tiers. Calibrates routing, reasoning budgets, context ingestion, and code generation across four standardized tiers:
+1. **High Fast Tier (`Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Sub-second Time-to-First-Token (TTFT), real-time web compute, and lightning-fast subagent review loops.
+2. **Fast Tier (`Composer 2.5 Fast`)**: Cursor native multi-file AST diff generation and surgical file system edits.
+3. **Medium / Balanced Tier (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: 2M+ monolithic context ingestion with native caching, strict JSON schema contracts, and balanced architectural refactoring.
+4. **High / Extended Thinking Tier (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro / Project Astra`)**: Deep System-2 thinking budgets (up to 64K tokens), zero-defect fullstack craftsmanship, generative UI layout synthesis, and multimodal spatial reasoning.
 
 ### Trigger Conditions
-Activate this skill when the user is:
-- Requesting integration of **Gemini 4 Pro**, **Gemini 3.8 Flash**, or **Project Astra**.
-- Asking to integrate **Claude 5.1**, **Claude Fable**, or **Claude Mythos**.
-- Building applications requiring zero data retention or Enterprise Frontier Safeguards (EFS).
-- Architecting test-time compute optimization or massive monolithic context ingestion (>1M tokens).
-- Developing agentic scientific research pipelines or terminal-based automated coding environments.
+Activate this skill when:
+- Selecting or configuring models in modern IDEs (Cursor, Antigravity, Claude Code, Windsurf).
+- Routing tasks across `High Fast`, `Fast`, `Medium`, and `High` model tiers.
+- Integrating Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, or Muse Wonder into agent workflows.
+- Calibrating extended thinking budgets, KV-cache prefixing, or multi-file diff application pipelines.
+- Building speculative multi-draft code synthesis engines or multi-agent swarms.
 
 ---
 
-### Core Concepts
+### Core Concepts & Tier Taxonomy
 
-#### 1. Google Gemini 4 Pro & Project Astra
-Gemini 4 Pro represents the 2026 apex of monolithic context processing and System-2 deep reasoning:
-- **Monolithic Context (2M+ to 10M+ tokens)**: Ingest entire enterprise codebases, full documentation suites, and extensive transaction logs simultaneously without needle-in-a-haystack retrieval degradation.
-- **System-2 Test-Time Compute**: Fine-grained `thinkingConfig` (up to 64k tokens thinking budget) for formal verification, distributed race-condition debugging, and cryptographic analysis.
-- **Native Context Caching (`cachedContent`)**: 75–90% cost reduction on cached repository dumps and persistent schemas.
-- **Project Astra & Multimodal Live API**: Real-time spatial perception, 60fps video ingestion, screensharing, and sub-100ms bidirectional voice conversation over WebSockets/WebRTC.
+#### 1. The 4-Tier Frontier Execution Matrix
 
-#### 2. Claude 5.1 (Fable & Mythos)
-Claude 5.1 sets the standard for agentic coding and knowledge work (Terminal-Bench 4.0).
-- **Fable 5.1**: The generally available model optimized for cost (25% less for typical workloads, up to 45% less for agentic work via reduced cache read pricing) and high reasoning capabilities.
-- **Mythos 5.1**: Available through trusted access programs, heavily safeguarded specifically to support high-risk work in cybersecurity (vulnerability discovery, not exploit generation) and life sciences.
+| Tier | Model Identifier | Primary Provider | Context Window | Thinking Support | Optimal Workload |
+|---|---|---|---|---|---|
+| **High Fast** | `Grok 4.7 High Fast` | xAI | 131,072 | Fast System-2 | Rapid test iterations, real-time web search grounding, sub-second code reviews |
+| **High Fast** | `Grok 4.6 High Fast` | xAI | 131,072 | Lightweight | High-throughput batch AST scanning, linting auto-fixes, and syntax transforms |
+| **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128,000 | Diff Specialized | Multi-file unified diff generation, cross-file renames, and atomic patch application |
+| **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Monolithic repository ingestion, persistent context caching, balanced feature work |
+| **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262,144 | Balanced (`reasoning_effort`) | Strict JSON schema extraction, OpenAPI tool calling, and spec-driven development |
+| **Medium** | `Claude Opus 5.5 Medium` | Anthropic | 200,000 | Balanced (up to 16K) | Architectural system refactoring, cross-domain logic validation, clean code audit |
+| **High** | `Claude Sonnet 5.5 High` | Anthropic | 200,000 | Extended (up to 64K) | Flagship fullstack coding, complex type system engineering, formal verification |
+| **High** | `Claude Fable 5.1 High` | Anthropic | 200,000 | Extended (up to 32K) | Cost-optimized agentic workflows, long multi-turn swarms with heavy cache reuse |
+| **High** | `Muse Wonder High` | Muse / Frontier | 131,072 | Exploratory Reasoning | Generative UI composition, visual layout brainstorming, dynamic motion physics |
+| **High** | `Gemini 4 Pro` | Google DeepMind | 2,097,152+ | Exhaustive (up to 64K) | Monolithic codebase analysis, formal SMT invariant proving, spatial video cloner |
 
-#### 3. Enterprise Frontier Safeguards (EFS)
-EFS represents the 2026 standard for data privacy, replacing traditional zero data retention policies. EFS works by storing active data in cloud infrastructure **controlled entirely by the customer**, not the AI provider.
+---
 
-### Implementation Examples
+### Implementation Blueprints
 
-#### 1. Gemini 4 Pro: Dynamic Thinking Budget & Context Caching
+#### 1. Grok 4.7 High Fast: Streaming Low-TTFT Agentic Loop
+
 ```typescript
-import { GoogleGenAI } from '@google/genai';
+import OpenAI from 'openai';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+export interface GrokAgentOptions {
+  apiKey: string;
+  enableSearch?: boolean;
+}
 
-export async function generateFrontierReasoning(task: string, repoContext: string) {
-  // Pre-compiled deterministic prefix cache (75-90% discount)
-  const cache = await ai.cachedContents.create({
-    model: 'gemini-4-pro-exp-0210',
-    contents: [{ role: 'user', parts: [{ text: repoContext }] }],
-    ttl: '3600s'
-  });
+export class GrokFastAgent {
+  private client: OpenAI;
 
-  const response = await ai.models.generateContent({
-    model: 'gemini-4-pro-exp-0210',
-    contents: [{ role: 'user', parts: [{ text: task }] }],
-    config: {
-      cachedContent: cache.name,
-      thinkingConfig: {
-        thinkingBudget: 32768
-      }
+  constructor(options: GrokAgentOptions) {
+    this.client = new OpenAI({
+      apiKey: options.apiKey,
+      baseURL: 'https://api.x.ai/v1',
+    });
+  }
+
+  async executeFastAudit(filePath: string, sourceCode: string): Promise<string> {
+    const stream = await this.client.chat.completions.create({
+      model: 'grok-4-7-high-fast',
+      stream: true,
+      temperature: 0.1,
+      messages: [
+        {
+          role: 'system',
+          content: 'You are Grok 4.7 High Fast. Provide instant, high-precision AST code critique. Identify vulnerabilities, performance bottlenecks, and type inconsistencies with zero conversational fluff.',
+        },
+        {
+          role: 'user',
+          content: `Audit target file [${filePath}]:\n\n\`\`\`typescript\n${sourceCode}\n\`\`\``,
+        },
+      ],
+    });
+
+    let result = '';
+    for await (const chunk of stream) {
+      const content = chunk.choices[0]?.delta?.content ?? '';
+      result += content;
     }
-  });
-
-  return response.text;
+    return result;
+  }
 }
 ```
 
-#### 2. Claude 5.1 Fable: Prompt Cache Breakpoints
+#### 2. Composer 2.5 Fast: Multi-File Unified Diff Engine
+
+```typescript
+export interface FilePatch {
+  filePath: string;
+  originalContent: string;
+  modifiedContent: string;
+}
+
+export interface UnifiedDiffResult {
+  filePath: string;
+  diffText: string;
+  hasChanges: boolean;
+}
+
+export class ComposerDiffEngine {
+  generateUnifiedDiff(patch: FilePatch): UnifiedDiffResult {
+    const origLines = patch.originalContent.split('\n');
+    const modLines = patch.modifiedContent.split('\n');
+
+    if (patch.originalContent === patch.modifiedContent) {
+      return { filePath: patch.filePath, diffText: '', hasChanges: false };
+    }
+
+    const diffLines: string[] = [
+      `--- a/${patch.filePath}`,
+      `+++ b/${patch.filePath}`,
+    ];
+
+    let i = 0;
+    let j = 0;
+    while (i < origLines.length || j < modLines.length) {
+      if (i < origLines.length && j < modLines.length && origLines[i] === modLines[j]) {
+        diffLines.push(` ${origLines[i]}`);
+        i++;
+        j++;
+      } else if (j < modLines.length && (i >= origLines.length || !origLines.slice(i).includes(modLines[j]))) {
+        diffLines.push(`+${modLines[j]}`);
+        j++;
+      } else if (i < origLines.length) {
+        diffLines.push(`-${origLines[i]}`);
+        i++;
+      }
+    }
+
+    return {
+      filePath: patch.filePath,
+      diffText: diffLines.join('\n'),
+      hasChanges: true,
+    };
+  }
+}
+```
+
+#### 3. Gemini 4 Argon Medium: Monolithic Context Caching
+
+```typescript
+import { GoogleGenAI } from '@google/genai';
+
+export interface RepositoryContext {
+  files: Array<{ path: string; content: string }>;
+}
+
+export async function queryGeminiArgon(
+  repo: RepositoryContext,
+  query: string,
+  apiKey: string
+): Promise<string> {
+  const ai = new GoogleGenAI({ apiKey });
+  const serializedRepo = repo.files
+    .map((f) => `// File: ${f.path}\n${f.content}\n`)
+    .join('\n\n');
+
+  // Utilize native context caching for 2M+ tokens with 75-90% read discount
+  const cache = await ai.cachedContents.create({
+    model: 'gemini-4-argon-medium',
+    contents: [{ role: 'user', parts: [{ text: serializedRepo }] }],
+    ttl: '7200s',
+  });
+
+  const response = await ai.models.generateContent({
+    model: 'gemini-4-argon-medium',
+    contents: [{ role: 'user', parts: [{ text: query }] }],
+    config: {
+      cachedContent: cache.name,
+      thinkingConfig: {
+        thinkingBudget: 8192,
+      },
+    },
+  });
+
+  return response.text ?? '';
+}
+```
+
+#### 4. Claude Sonnet 5.5 High: Extended Thinking & Ephemeral Prompt Caching
+
 ```typescript
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+export interface ExtendedThinkingTask {
+  systemContract: string;
+  architectureSpec: string;
+  prompt: string;
+  thinkingBudgetTokens?: number;
+}
 
-export async function dispatchFableWorker(systemPrompt: string, codebaseContext: string, task: string) {
+export async function executeSonnetHighCraftsman(
+  task: ExtendedThinkingTask,
+  apiKey: string
+): Promise<string> {
+  const anthropic = new Anthropic({ apiKey });
+  const budget = task.thinkingBudgetTokens ?? 32768;
+
   const response = await anthropic.messages.create({
-    model: 'claude-5-1-fable-20261001',
-    max_tokens: 16384,
+    model: 'claude-sonnet-5.5-20261022',
+    max_tokens: 64000,
     thinking: {
       type: 'enabled',
-      budget_tokens: 8192
+      budget_tokens: budget,
     },
     system: [
       {
         type: 'text',
-        text: systemPrompt
+        text: task.systemContract,
       },
       {
         type: 'text',
-        text: codebaseContext,
-        cache_control: { type: 'ephemeral' }
-      }
+        text: task.architectureSpec,
+        cache_control: { type: 'ephemeral' },
+      },
     ],
-    messages: [{ role: 'user', content: task }]
+    messages: [{ role: 'user', content: task.prompt }],
   });
 
-  return response;
+  const textBlock = response.content.find((block) => block.type === 'text');
+  return textBlock ? textBlock.text : '';
+}
+```
+
+#### 5. GPT-5.6 Sol Medium: Strict JSON Contracts & Tool Calls
+
+```typescript
+import OpenAI from 'openai';
+import { z } from 'zod';
+import { zodResponseFormat } from 'openai/helpers/zod';
+
+export const ArchitecturalDecisionSchema = z.object({
+  componentName: z.string(),
+  riskTier: z.enum(['LOW', 'MEDIUM', 'HIGH', 'CRITICAL']),
+  dependencies: z.array(z.string()),
+  interfaceSignature: z.string(),
+  invariants: z.array(z.string()),
+});
+
+export type ArchitecturalDecision = z.infer<typeof ArchitecturalDecisionSchema>;
+
+export async function extractStrictContract(
+  specText: string,
+  apiKey: string
+): Promise<ArchitecturalDecision> {
+  const openai = new OpenAI({ apiKey });
+
+  const completion = await openai.beta.chat.completions.parse({
+    model: 'gpt-5.6-sol-medium',
+    messages: [
+      {
+        role: 'system',
+        content: 'You are GPT-5.6 Sol. Extract strict architectural contracts adhering to zero-slop specifications.',
+      },
+      { role: 'user', content: specText },
+    ],
+    response_format: zodResponseFormat(ArchitecturalDecisionSchema, 'decision'),
+  });
+
+  const parsed = completion.choices[0]?.message.parsed;
+  if (!parsed) {
+    throw new Error('Failed to parse structured response from GPT-5.6 Sol');
+  }
+  return parsed;
+}
+```
+
+#### 6. Muse Wonder High: Exploratory Generative UI Synthesis
+
+```typescript
+export interface GenerativeUIConcept {
+  layoutPattern: 'bento' | 'split-rail' | 'spatial-card' | 'dock-centered';
+  motionCurve: string;
+  paletteTokens: Record<string, string>;
+  interactionStates: string[];
+}
+
+export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept {
+  // Generative UI concept mapping tailored for exploratory design
+  return {
+    layoutPattern: intent.includes('dashboard') ? 'bento' : 'spatial-card',
+    motionCurve: 'cubic-bezier(0.16, 1, 0.3, 1)',
+    paletteTokens: {
+      surfacePrimary: '#0A0D14',
+      surfaceSecondary: '#141824',
+      borderSubtle: 'rgba(255, 255, 255, 0.08)',
+      accentGlow: 'rgba(59, 130, 246, 0.25)',
+      textTabular: 'tabular-nums font-mono text-sm',
+    },
+    interactionStates: ['idle', 'hover', 'active', 'focused', 'disabled'],
+  };
 }
 ```
 
@@ -120,21 +323,12 @@ export async function dispatchFableWorker(systemPrompt: string, codebaseContext:
 
 ### Best Practices
 
-1. **Leverage Gemini 4 Pro for Full-Repo Architecture**: When designing cross-service schemas or refactoring legacy architectures, ingest complete project repositories into Gemini 4 Pro's 2M+ context window rather than fragmenting code into lossy RAG vectors.
-2. **Leverage Prompt Caching for Agentic Work**: When using Gemini 4 Pro (`cachedContent`) or Claude Fable 5.1 (prompt cache), always maintain deterministic prefix structures. Cache read discounts (75–90%) make iterative multi-agent loops economically viable.
-3. **Implement Customer-Controlled Storage for EFS**: For enterprise clients requiring maximum privacy, architecture must support provisioning infrastructure inside the client's VPC to handle EFS compliance.
-4. **Utilize Multimodal Context for Astra**: When integrating Astra-like capabilities, stream video frames and audio concurrently rather than converting everything to text, preserving spatial and temporal context.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Problem | Correct Approach |
-|---|---|---|
-| Relying on provider storage for sensitive data | Fails EFS zero-trust standards | Provision customer-controlled storage buckets for EFS data handling |
-| Using lossy RAG chunking for whole-repo analysis | Loses cross-file context and circular imports | Pass full repository into Gemini 4 Pro's 2M+ context window with caching |
-| Using Claude Mythos 5.1 without trusted access | API requests will be rejected | Default to Claude Fable 5.1 or Gemini 4 Pro for general applications |
-| Converting real-time video to text descriptions | Loses spatial processing capabilities of Astra | Use native multimodal APIs (e.g., Multimodal Live API) to stream raw frames |
+1. **Use `High Fast` for Outer Tight Loops**: Deploy Grok 4.7 or Grok 4.6 for quick AST scans, test assertions, and validation gates before initiating heavier tasks.
+2. **Use `Composer 2.5 Fast` for Atomic File Mutations**: Let Composer 2.5 handle surgical multi-file unified diff generation and patch applications to avoid AST disruption.
+3. **Use `Gemini 4 Argon` for Repositories >100K Tokens**: Ingest the entire codebase into Gemini 4 Argon's 2M+ context window with `cachedContent` to preserve full dependency topology without lossy RAG chunking.
+4. **Use `Claude Sonnet 5.5 High` for Core Production Code**: Direct all primary production feature development, complex type construction, and security-critical algorithms to Sonnet 5.5 with calibrated thinking budgets (8K–32K).
+5. **Use `GPT-5.6 Sol` for External API Schemas**: Leverage GPT-5.6 Sol when converting unstructured specifications into strict OpenAPI schemas or Zod contracts.
+6. **Use `Muse Wonder High` for Design Explorations**: Leverage Muse Wonder when brainstorming novel UX interactions, generative UI components, and dynamic micro-animations.
 
 ---
 
@@ -143,6 +337,7 @@ export async function dispatchFableWorker(systemPrompt: string, codebaseContext:
 
 ### Integrasi Orkestrasi
 - **Booster Model & Engine Inferensi**: `gemini-agent-booster`, `test-time-compute-optimizer`, `thinking-budget-orchestrator`
+- **Sintesis Multi-Draf & Validator**: `speculative-multi-draft-synthesizer`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`
 - **Framework & SDK**: `vercel-ai-sdk-expert`, `pydantic-ai-expert`, `ai-llm-integration-expert`
 - **Streaming Multimodal & Realtime**: `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `multimodal-spatial-video-cloner`
 - **Caching Prefix & FinOps**: `kv-cache-prefix-optimizer`, `context-window-engineer`, `llm-finops-router`
@@ -150,20 +345,44 @@ export async function dispatchFableWorker(systemPrompt: string, codebaseContext:
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`
 
 ### Deskripsi
-Panduan ahli untuk mengintegrasikan model AI frontier akhir 2026, berfokus pada **Gemini 4 Pro** dan **Project Astra** dari Google DeepMind, **Claude 5.1 (Fable/Mythos)** dari Anthropic, dan **GPT-5 / o3** dari OpenAI. Mencakup kemampuan tingkat lanjut seperti penalaran konteks monolitik 2M+ hingga 10M+, alokasi test-time compute System-2, Enterprise Frontier Safeguards (EFS), arsitektur retensi data nol (zero data retention), coding terminal-bench, riset ilmiah agentic, pemrosesan spasial real-time, dan streaming token multimodal langsung.
+Panduan komprehensif integrasi model AI frontier akhir 2026 di seluruh tier eksekusi IDE modern. Mengalibrasi perutean (*routing*), anggaran penalaran (*thinking budgets*), ingesti konteks, dan pembentukan kode ke dalam empat tier standar:
+1. **Tier High Fast (`Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Time-to-First-Token (TTFT) sub-detik, komputasi web real-time, dan siklus review subagen secepat kilat.
+2. **Tier Fast (`Composer 2.5 Fast`)**: Pembuat diff AST multi-file native Cursor dan mutasi sistem file yang presisi secara bedah.
+3. **Tier Medium / Seimbang (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: Ingesti konteks monolitik 2M+ dengan caching native, kepatuhan skema JSON ketat, dan refaktor arsitektur seimbang.
+4. **Tier High / Penalaran Mendalam (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro / Project Astra`)**: Anggaran penalaran System-2 mendalam (hingga 64K token), pengkodean fullstack tanpa cacat, eksplorasi desain UI generatif, dan penalaran spasial multimodal.
 
 ### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Meminta integrasi **Gemini 4 Pro**, **Gemini 3.8 Flash**, atau **Project Astra**.
-- Meminta integrasi **Claude 5.1**, **Claude Fable**, atau **Claude Mythos**.
-- Menginginkan kapabilitas asisten AI universal atau pemrosesan konteks monolitik masif (>1M token).
-- Membangun aplikasi yang memerlukan retensi data nol atau EFS.
-- Mengembangkan pipeline riset ilmiah agentic atau lingkungan coding otomatis berbasis terminal.
+Aktifkan skill ini ketika:
+- Memilih atau mengonfigurasi model pada IDE modern (Cursor, Antigravity, Claude Code, Windsurf).
+- Merutekan tugas di seluruh tier model `High Fast`, `Fast`, `Medium`, dan `High`.
+- Mengintegrasikan Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, atau Muse Wonder ke alur agen.
+- Mengalibrasi budget penalaran, penguncian prefix cache KV, atau generator diff multi-file.
+- Membangun mesin sintesis draf spekulatif atau swarm multi-agen.
 
-### Panduan Singkat
+---
 
-- **Manfaatkan Gemini 4 Pro untuk Arsitektur Repositori Lengkap**: Gunakan context window 2M+ Gemini 4 Pro untuk membaca seluruh file proyek sekaligus tanpa fragmentasi RAG, menghasilkan pemahaman dependensi yang utuh dan akurat.
-- **Gunakan Caching untuk Efisiensi Ekstrim**: Baik Gemini 4 Pro (`cachedContent`) maupun Claude Fable 5.1 memberikan diskon baca cache 75–90%, sangat penting untuk loop swarm multi-agen yang hemat biaya.
-- **Terapkan EFS untuk Keamanan Enterprise**: Untuk tingkat privasi tertinggi, gunakan Enterprise Frontier Safeguards yang menyimpan data di infrastruktur cloud yang dikendalikan penuh oleh pelanggan.
-- **Manfaatkan Project Astra untuk Multimodal Real-Time**: Gunakan kemampuan Astra untuk pemrosesan spasial, screensharing, dan interaksi latensi rendah tanpa harus mengonversi media menjadi teks terlebih dahulu.
-- **Perhatikan Akses Model**: Gunakan Mythos 5.1 khusus untuk tugas keamanan siber (deteksi kerentanan) dan ilmu hayat melalui program akses terpercaya (trusted access program).
+### Matriks Taksonomi 4-Tier Model Frontier
+
+| Tier | Nama Model | Penyedia Utama | Window Konteks | Dukungan Penalaran | Beban Kerja Optimal |
+|---|---|---|---|---|---|
+| **High Fast** | `Grok 4.7 High Fast` | xAI | 131.072 | System-2 Cepat | Iterasi tes cepat, pencarian web real-time, audit kode sub-detik |
+| **High Fast** | `Grok 4.6 High Fast` | xAI | 131.072 | Ringan | Pemindaian AST throughput tinggi, auto-fix linter, transformasi sintaks |
+| **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128.000 | Khusus Diff | Pembuatan diff multi-file, rename simbol lintas-file, aplikasi patch atomik |
+| **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Ingesti repositori monolitik, caching konteks persisten, fitur standar |
+| **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262.144 | Seimbang (`reasoning_effort`) | Ekstraksi skema JSON ketat, eksekusi tool OpenAPI, spec-driven dev |
+| **Medium** | `Claude Opus 5.5 Medium` | Anthropic | 200.000 | Seimbang (hingga 16K) | Refaktor arsitektur sistem, validasi logika lintas domain, audit clean code |
+| **High** | `Claude Sonnet 5.5 High` | Anthropic | 200.000 | Diperluas (hingga 64K) | Kode fullstack unggulan, rekayasa sistem tipe kompleks, verifikasi formal |
+| **High** | `Claude Fable 5.1 High` | Anthropic | 200.000 | Diperluas (hingga 32K) | Alur agen hemat biaya, swarm multi-putaran panjang dengan cache tinggi |
+| **High** | `Muse Wonder High` | Muse / Frontier | 131.072 | Penalaran Eksploratif | Komposisi UI generatif, eksplorasi layout visual, fisika motion dinamis |
+| **High** | `Gemini 4 Pro` | Google DeepMind | 2.097.152+ | Lengkap (hingga 64K) | Analisis repositori monolitik, pembuktian invarian SMT, kloning video spasial |
+
+---
+
+### Panduan Praktik Terbaik
+
+1. **Gunakan `High Fast` untuk Loop Iterasi Cepat**: Kerahkan Grok 4.7 atau Grok 4.6 untuk pemindaian AST awal, eksekusi unit test, dan validasi linter sebelum masuk ke tugas yang lebih berat.
+2. **Gunakan `Composer 2.5 Fast` untuk Mutasi File Atomik**: Serahkan pembuatan unified diff multi-file dan aplikasi patch ke Composer 2.5 agar modifikasi file berlangsung aman tanpa merusak struktur kode.
+3. **Gunakan `Gemini 4 Argon` untuk Proyek >100K Token**: Muat seluruh repositori ke context window 2M+ Gemini 4 Argon dengan `cachedContent` untuk mempertahankan seluruh relasi simbol tanpa terpotong oleh RAG.
+4. **Gunakan `Claude Sonnet 5.5 High` untuk Kode Produksi Utama**: Percayakan logika bisnis inti, arsitektur domain, dan sistem tipe TypeScript yang ketat pada Sonnet 5.5 dengan budget penalaran terkalibrasi.
+5. **Gunakan `GPT-5.6 Sol` untuk Skema API Eksternal**: Manfaatkan ketepatan ekstraksi skema GPT-5.6 Sol untuk kontrak OpenAPI dan skema Zod yang deterministik.
+6. **Gunakan `Muse Wonder High` untuk Eksplorasi Desain UI**: Manfaatkan penalaran divergen Muse Wonder saat merancang antarmuka generatif dan kurva animasi mikro yang memikat pengguna.

@@ -5,7 +5,11 @@
 > Each platform has its own entry point, but the core rules and 161 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
-**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models (Google Gemini 4 Pro / Gemini 4 Flash / Project Astra / Gemini 3.8 Flash, Anthropic Claude 5.1 Fable / Mythos / Claude 3.7 Sonnet / Claude 5, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, and DeepSeek-R1 / DeepSeek-Pro / DeepSeek-V3). The AI MUST adapt the orchestration payload according to its native context window and thinking budget.
+**CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models across all IDE tiers:
+- **High Fast / Low-Latency Tier**: xAI Grok 4.7 High Fast / Grok 4.6 High Fast (sub-second TTFT, real-time web compute, lightning test iterations), Cursor Composer 2.5 Fast (native multi-file diff engine & fast refactoring).
+- **Medium / Balanced Tier**: Google Gemini 4 Argon Medium (2M+ monolithic context, native caching), OpenAI GPT-5.6 Sol Medium (strict tool calling & structured contracts), Anthropic Claude Opus 5.5 Medium (balanced deep architectural comprehension).
+- **High / Extended Thinking Tier**: Anthropic Claude Sonnet 5.5 High (flagship fullstack reasoning & extended thinking), Anthropic Claude Fable 5.1 High (prompt-cache optimized agentic workflows), Muse Wonder High (exploratory reasoning & generative design synthesis), Google Gemini 4 Pro / Project Astra, and DeepSeek-R1 / Pro / V3.
+The AI MUST adapt the orchestration payload according to its native context window, execution tier, and thinking budget.
 
 ## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
 **CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
@@ -90,15 +94,16 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
    - Token frugality must NEVER degrade output fidelity, security audits, formal verification, or 3D precision.
    - Code must be 100% complete, fully implemented, and working on the first try. Truncating with `// TODO`, `// ...rest of code`, or fake mocks is strictly prohibited under Anti-Slop Pillar 2.
 2. **Deterministic KV-Cache Prefix Pinning (`kv-cache-prefix-optimizer`)**:
-   - Maximize Prompt Caching (KV-Cache reuse) on Gemini 4 Pro / 3.x, Claude 5.1/Sonnet, and GPT-5/Astra to slash billing by 75-90% and accelerate TTFT by 10x.
+   - Maximize Prompt Caching (KV-Cache reuse) on Gemini 4 Argon / Gemini 4 Pro, Claude 5.5 (Sonnet/Opus) / 5.1 Fable, GPT-5.6 Sol, and Grok 4.7 to slash billing by 75-90% and accelerate TTFT by 10x.
    - Maintain byte-identical prefixes: static instructions, tool definitions, and skill indices must be canonically sorted and placed at the top. Volatile timestamps and turn-specific inputs must strictly remain at the tail.
 3. **Selective Context Slicing (Fan-Out Context Pruning)**:
    - When the Swarm Director spawns subagents via `invoke_subagent`, NEVER dump the entire conversation history or global workspace transcript into the subagent prompt.
    - Pass only surgically targeted slices: exact subtask goal, relevant interface types, target file paths, and local schema contracts (`CONTEXT_MAP.md` slice).
 4. **Adaptive Model Cascading (`adaptive-model-cascade`)**:
    - Dynamically match task complexity to the optimal model tier:
-     - **flash_lite / flash**: AST scans, file discovery, linting verification, simple diff validations, and translation tasks.
-     - **inherit / pro**: High-level system architecture, cross-domain synthesis, security fuzzing, and complex fullstack refactoring.
+     - **High Fast / Fast (Grok 4.7 / Grok 4.6 / Composer 2.5)**: AST scans, rapid diff applications, single-unit test runs, linting verification, and fast multi-file edits.
+     - **Medium (Gemini 4 Argon / GPT-5.6 Sol / Claude Opus 5.5)**: Whole-repo context ingestion, balanced feature development, API contracts, and structured tool calling loops.
+     - **High (Claude Sonnet 5.5 / Claude Fable 5.1 / Muse Wonder / Gemini 4 Pro)**: High-level system architecture, cross-domain synthesis, deep security fuzzing, complex fullstack refactoring, and generative UI synthesis.
 5. **Ultra-Compact Session Checkpoints (`session-memory-manager`)**:
    - In extended sessions (>25 turns), compress conversational state into ultra-compact YAML checkpoints (<300 tokens) in `CHECKPOINT.md` and keep `CONTEXT_MAP.md` lean.
    - Do not re-ingest past turns when the checkpoint provides sufficient state.

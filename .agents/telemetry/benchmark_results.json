@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-20T18:57:13.188Z",
+  "timestamp": "2026-10-22T01:06:38.651Z",
   "score": 100,
-  "totalElapsedMs": 245.04,
+  "totalElapsedMs": 246.48,
   "itemsTested": 7,
   "passedCount": 7,
   "allPassed": true,
@@ -9,60 +9,60 @@
     {
       "id": "sandbox_exec",
       "name": "Ephemeral Micro-Sandbox Execution",
-      "measured": "1.03 ms",
+      "measured": "0.87 ms",
       "budget": "< 25.00 ms",
       "passed": true,
-      "rawMs": 1.0317899999999995
+      "rawMs": 0.8651299999999992
     },
     {
       "id": "verify_gate",
       "name": "Pre-Disk Verification Gate",
-      "measured": "1.14 ms",
+      "measured": "1.33 ms",
       "budget": "< 50.00 ms",
       "passed": true,
-      "rawMs": 1.139779999999999
+      "rawMs": 1.3293199999999985
     },
     {
       "id": "ast_indexing",
       "name": "AST Symbol Indexing Throughput",
-      "measured": "4.982 sym/s",
+      "measured": "4.666 sym/s",
       "budget": "> 300 sym/s",
       "passed": true,
-      "rawThroughput": 4982,
-      "totalSymbols": 329,
-      "totalFiles": 60
+      "rawThroughput": 4666,
+      "totalSymbols": 340,
+      "totalFiles": 62
     },
     {
       "id": "graph_search",
       "name": "Hybrid GraphRAG Search (Top-5)",
-      "measured": "8.32 ms",
+      "measured": "6.96 ms",
       "budget": "< 60.00 ms",
       "passed": true,
-      "rawMs": 8.320639999999994
+      "rawMs": 6.9596
     },
     {
       "id": "kv_cache",
       "name": "Deterministic KV-Cache Prefix Compilation",
-      "measured": "40.55 ms",
+      "measured": "52.30 ms",
       "budget": "< 500.00 ms",
       "passed": true,
-      "rawMs": 40.54940000000002
+      "rawMs": 52.29850000000002
     },
     {
       "id": "cross_ide_bridge",
       "name": "Cross-IDE Bridge Synchronization",
-      "measured": "17.81 ms",
+      "measured": "9.48 ms",
       "budget": "< 120.00 ms",
       "passed": true,
-      "rawMs": 17.81389999999999
+      "rawMs": 9.478400000000022
     },
     {
       "id": "vsix_packager",
       "name": "Zero-Dependency VSIX Package Builder",
-      "measured": "5.25 ms",
+      "measured": "5.73 ms",
       "budget": "< 200.00 ms",
       "passed": true,
-      "rawMs": 5.245899999999949
+      "rawMs": 5.727700000000027
     }
   ]
 }

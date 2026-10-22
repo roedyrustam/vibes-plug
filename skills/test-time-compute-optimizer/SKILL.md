@@ -39,11 +39,11 @@ Activate this skill when:
 
 Inference-time compute scaling operates across three distinct operational tiers based on prompt entropy and execution risk:
 
-| Complexity Tier | Target Problem Types | Gemini 4 Pro / 3.x (`thinkingBudget`) | Claude 5.5 (`budget_tokens`) | GPT Astra 6 (`reasoning_effort`) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Tier 1: Deterministic / CRUD** | Simple UI components, DTO mappings, regex conversions | `0` (Thinking disabled) or `1024` | `1024` | `low` |
-| **Tier 2: Business Logic & APIs** | Multi-table DB transactions, authentication flows, REST schemas | `4096` - `8192` | `4096` - `8192` | `medium` |
-| **Tier 3: Mission-Critical Hard** | Financial state machines, distributed consensus, cryptographic proofs, complex refactoring | `16384` - `32768` | `16384` - `32768` | `high` |
+| Complexity Tier | Target Problem Types | Gemini 4 Argon / Pro (`thinkingBudget`) | Claude Sonnet / Opus 5.5 (`budget_tokens`) | GPT-5.6 Sol (`reasoning_effort`) | Grok 4.7 (`thinking_mode`) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tier 1: Deterministic / CRUD** | Simple UI components, DTO mappings, regex conversions | `0` (Disabled) or `1024` | `1024` | `low` | `fast` |
+| **Tier 2: Business Logic & APIs** | Multi-table DB transactions, authentication flows, REST schemas | `4096` - `8192` | `4096` - `8192` | `medium` | `fast` |
+| **Tier 3: Mission-Critical Hard** | Financial state machines, distributed consensus, cryptographic proofs, complex refactoring | `16384` - `32768` | `16384` - `32768` | `high` | `system2` |
 
 #### 2. Entropy-Based Compute Dispatcher (TypeScript Implementation)
 
@@ -58,18 +58,19 @@ export interface ComputeAllocation {
   geminiThinkingBudget: number;
   claudeBudgetTokens: number;
   reasoningEffort: 'low' | 'medium' | 'high';
+  grokThinkingMode: 'fast' | 'system2';
 }
 
 export function resolveComputeBudget(complexity: TaskComplexity): ComputeAllocation {
   switch (complexity) {
     case 'trivial':
-      return { geminiThinkingBudget: 0, claudeBudgetTokens: 1024, reasoningEffort: 'low' };
+      return { geminiThinkingBudget: 0, claudeBudgetTokens: 1024, reasoningEffort: 'low', grokThinkingMode: 'fast' };
     case 'standard':
-      return { geminiThinkingBudget: 4096, claudeBudgetTokens: 4096, reasoningEffort: 'medium' };
+      return { geminiThinkingBudget: 4096, claudeBudgetTokens: 4096, reasoningEffort: 'medium', grokThinkingMode: 'fast' };
     case 'complex':
-      return { geminiThinkingBudget: 16384, claudeBudgetTokens: 16384, reasoningEffort: 'high' };
+      return { geminiThinkingBudget: 16384, claudeBudgetTokens: 16384, reasoningEffort: 'high', grokThinkingMode: 'system2' };
     case 'extreme':
-      return { geminiThinkingBudget: 32768, claudeBudgetTokens: 32768, reasoningEffort: 'high' };
+      return { geminiThinkingBudget: 32768, claudeBudgetTokens: 32768, reasoningEffort: 'high', grokThinkingMode: 'system2' };
   }
 }
 
