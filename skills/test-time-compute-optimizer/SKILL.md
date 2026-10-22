@@ -119,19 +119,37 @@ export async function executeOptimizedReasoning(
     apiKey: process.env.ANTHROPIC_API_KEY || ''
   });
 
-  const result = await generateText({
-    model: anthropic('claude-sonnet-5.5-20261022'),
-    prompt,
-    providerOptions: {
-      anthropic: {
-        thinking: {
-          type: 'enabled',
-          budgetTokens: budget.claudeBudgetTokens
+  try {
+    const result = await generateText({
+      model: anthropic('claude-opus-5.5-20261022'),
+      prompt,
+      providerOptions: {
+        anthropic: {
+          thinking: {
+            type: 'enabled',
+            budgetTokens: budget.claudeBudgetTokens
+          }
         }
       }
-    }
-  });
-  return result.text;
+    });
+    return result.text;
+  } catch (err) {
+    // Automatic availability fallback: Claude Opus 5.5 -> Claude Opus 4.6
+    console.warn('[ComputeOptimizer] Claude Opus 5.5 unavailable, falling back to Claude Opus 4.6...');
+    const fallbackResult = await generateText({
+      model: anthropic('claude-opus-4.6'),
+      prompt,
+      providerOptions: {
+        anthropic: {
+          thinking: {
+            type: 'enabled',
+            budgetTokens: Math.min(budget.claudeBudgetTokens, 16384)
+          }
+        }
+      }
+    });
+    return fallbackResult.text;
+  }
 }
 ```
 
@@ -156,6 +174,10 @@ User Prompt ──┬──► Candidate 1 (Thinking = 8k) ──► Ephemeral S
 2. **Decouple Thinking from Output Stream**: Ensure thinking tokens are captured in structured audit logs rather than directly streamed to end-user UI channels.
 3. **Combine Extended Thinking with Verifiable Tests**: Allocate maximum compute to generate both code and exhaustive property-based tests within the same execution loop.
 4. **Enforce Hard Timeout Bounds**: Set execution deadlines on reasoning calls to prevent tail latency explosions when models enter recursive chain-of-thought exploration.
+5. **Availability Fallback Invariant**:
+   - If `Gemini 4` (`Argon` or `Pro`) is unprovisioned, rate-limited, or unavailable, degrade reasoning tasks instantly to **`Gemini 3.8 Flash`** with calibrated thinking budget (capped at 8,192 tokens).
+   - If `Claude Opus 5.5` is unprovisioned, rate-limited, or unavailable, degrade reasoning tasks instantly to **`Claude Opus 4.6`** (capping thinking budget at 16,384 tokens) while preserving deep reasoning and invariant safety.
+   - Pacing and reasoning loops must execute continuously without failing on missing model tiers.
 
 ---
 
@@ -214,7 +236,10 @@ Alih-alih hanya mengevaluasi hasil akhir kode (*Outcome-based*), terapkan evalua
 2. **Pisahkan Log Penalaran dari UI**: Simpan token penalaran di dalam sistem telemetri atau log audit internal, bukan ditampilkan mentah ke pengguna akhir.
 3. **Kombinasikan dengan Pengujian Otomatis**: Alokasikan daya komputasi tinggi untuk menghasilkan kode beserta unit test berbasis properti secara simultan.
 4. **Terapkan Batas Waktu Eksekusi**: Tetapkan timeout yang ketat pada panggilan penalaran guna mencegah lonjakan latensi (*tail latency*).
-5. **Protokol Pengalihan Ketersediaan**: Jika model penalaran utama (misal Gemini 4 Pro) belum aktif atau limit kuota, alihkan ke Gemini 3.8 Flash dengan batas budget thinking yang disesuaikan (maksimal 8192 token).
+5. **Protokol Pengalihan Ketersediaan (Availability Fallback Invariant)**:
+   - Jika model penalaran utama **`Gemini 4`** (`Argon` atau `Pro`) belum aktif di lingkungan atau terkena batas kuota, alihkan ke **`Gemini 3.8 Flash`** dengan batas budget thinking yang disesuaikan (maksimal 8.192 token).
+   - Jika **`Claude Opus 5.5`** belum aktif atau terkena batas kuota, alihkan tugas penalaran ke **`Claude Opus 4.6`** (maksimal 16.384 token) dengan tetap menjaga ketelitian pemahaman arsitektur dan keselamatan invarian.
+   - Loop penalaran agen tidak boleh berhenti karena galat model yang tidak tersedia.
 
 ---
 

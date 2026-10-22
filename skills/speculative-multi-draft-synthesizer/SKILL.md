@@ -378,6 +378,10 @@ export class SpeculativeSynthesisPipeline {
 1. **Zero Cherry-Picking Fallacy**: An arbiter that simply outputs one unaltered candidate draft violates the protocol. The synthesis MUST demonstrate cross-pollination (e.g., Drafter Beta's types wrapping Drafter Alpha's inner compute loop).
 2. **Deterministic Imports Reconciliation**: All imports from different candidate modules must be canonically deduplicated and sorted. No phantom packages or fabricated methods allowed.
 3. **Purity Invariant**: Synthesized code must compile with zero errors under `strict: true`, `noImplicitAny: true`, and pass `scripts/check-anti-slop.js`.
+4. **Availability Fallback Invariant**:
+   - If `Gemini 4` (`Argon` or `Pro`) is unprovisioned, rate-limited, or unavailable, degrade candidate drafting or arbitration instantly to **`Gemini 3.8 Flash`** (preserving 1M+ context window and sub-100ms TTFT).
+   - If `Claude Opus 5.5` is unprovisioned, rate-limited, or unavailable, degrade tasks instantly to **`Claude Opus 4.6`** (preserving deep architectural reasoning and cross-domain logic validation).
+   - The speculative multi-draft pipeline must complete with zero interruption through fallback paths.
 
 ---
 
@@ -457,3 +461,7 @@ Arbiter membedah setiap kandidat draf ke dalam empat potongan AST yang jelas:
 1. **Larangan Cherry-Picking Mentah**: Arbiter dilarang hanya memilih satu file utuh tanpa rekonsiliasi. Kode hasil sintesis wajib menunjukkan penggabungan kekuatan antar draf.
 2. **Rekonsiliasi Modul & Import Bersih**: Seluruh modul yang diimpor harus divalidasi keasliannya dan diurutkan secara kanonikal.
 3. **Verifikasi Bebas Cacat**: Kode hasil rekonsiliasi wajib lulus kompilasi ketat dan diverifikasi bebas slop melalui `node scripts/check-anti-slop.js`.
+4. **Invarian Pengalihan Ketersediaan (Availability Fallback Invariant)**:
+   - Jika `Gemini 4` (`Argon` atau `Pro`) belum aktif di lingkungan atau terkena batas kuota, alihkan peran drafter maupun arbiter seketika ke **`Gemini 3.8 Flash`** (mempertahankan jendela konteks 1M+ dan latensi sub-100ms).
+   - Jika `Claude Opus 5.5` belum aktif atau terkena batas kuota, alihkan tugas seketika ke **`Claude Opus 4.6`** (mempertahankan ketelitian pemahaman arsitektur dan validasi logika lintas domain).
+   - Pipeline sintesis spekulatif multi-draf harus selesai tanpa interupsi melalui jalur pengalihan.

@@ -165,9 +165,13 @@ When acting as an AI Agent consuming external MCP servers:
 3. **Cross-System Workflow Loop**: Dynamically chain tools across domains: GitHub MCP (find issue) -> `grep_search` (locate file) -> `autonomous-tdd-debugger` (test & fix) -> GitHub MCP (create PR).
 4. **Rate Limit Awareness**: Avoid rapid unthrottled loops against external MCP servers.
 
-### High-Throughput / Batched MCP Tool Execution (Gemini 4 Pro Readiness)
-- Ensure your MCP endpoints can handle **Massive Parallel Tool Execution** as models shift towards Agentic MoE architectures.
-- Implement parallel sub-processing in tools that expect to be called concurrently (e.g., using Promise.all or syncio.gather for batch database queries instead of blocking sequentially).
+### High-Throughput / Batched MCP Tool Execution (Gemini 4 Pro Readiness & Fallback)
+- Ensure your MCP endpoints can handle **Massive Parallel Tool Execution** as models shift towards Agentic MoE architectures (Gemini 4 Pro / Gemini 4 Argon, Claude Opus 5.5).
+- **Availability Fallback Invariant**: When orchestrating multi-tool agent loops:
+  - Automatically and seamlessly degrade tasks from **Gemini 4** (`Argon` & `Pro`) to **`Gemini 3.8 Flash`** if Gemini 4 is unprovisioned, rate-limited, or unavailable (preserving native parallel tool call execution, sub-100ms TTFT, and 1M+ context window).
+  - Automatically and seamlessly degrade tasks from **Claude Opus 5.5** to **`Claude Opus 4.6`** if unprovisioned or rate-limited.
+  - Zero disruption: MCP tool dispatchers must execute immediately through fallback paths without throwing unhandled missing-model errors.
+- Implement parallel sub-processing in tools that expect to be called concurrently (e.g., using `Promise.all` or `asyncio.gather` for batch database queries instead of blocking sequentially).
 
 ---
 
@@ -318,6 +322,10 @@ Ketika agen bertindak sebagai Klien MCP:
 3. **Alur Kerja Lintas Sistem**: Rangkaikan pemanggilan tool antar-domain: GitHub MCP -> pencarian kode lokal -> perbaikan otonom -> Pull Request GitHub.
 4. **Kesadaran Batas Frekuensi**: Hindari loop pemanggilan berulang tanpa jeda waktu saat memanggil server MCP eksternal.
 
-### Eksekusi Tool MCP Batch / Throughput Tinggi (Kesiapan Gemini 4 Pro)
-- Pastikan endpoint MCP Anda mampu menangani **Eksekusi Tool Paralel Masif** seiring transisi model menuju arsitektur Agentic MoE.
-- Terapkan pemrosesan sub-tugas paralel pada tools yang mungkin dipanggil secara bersamaan (misal: gunakan Promise.all atau syncio.gather untuk query batch, alih-alih mengeblok secara berurutan).
+### Eksekusi Tool MCP Batch / Throughput Tinggi (Kesiapan Gemini 4 Pro & Fallback)
+- Pastikan endpoint MCP Anda mampu menangani **Eksekusi Tool Paralel Masif** seiring transisi model menuju arsitektur Agentic MoE (Gemini 4 Pro / Gemini 4 Argon, Claude Opus 5.5).
+- **Invarian Pengalihan Ketersediaan (Availability Fallback Invariant)**: Ketika mengorkestrasi loop agen multi-tool:
+  - Alihkan tugas dari **Gemini 4** (`Argon` & `Pro`) secara otomatis ke **`Gemini 3.8 Flash`** jika Gemini 4 belum provisioned, terkena batas kuota, atau tidak tersedia (mempertahankan eksekusi tool paralel native, latensi sub-100ms TTFT, dan jendela konteks 1M+).
+  - Alihkan tugas dari **Claude Opus 5.5** secara otomatis ke **`Claude Opus 4.6`** jika belum provisioned atau terbatas kuota.
+  - Tanpa interupsi: Dispatcher tool MCP harus segera dieksekusi melalui jalur fallback tanpa galat model tidak ditemukan yang tidak tertangani.
+- Terapkan pemrosesan sub-tugas paralel pada tools yang mungkin dipanggil secara bersamaan (misal: gunakan `Promise.all` atau `asyncio.gather` untuk query batch, alih-alih mengeblok secara berurutan).
