@@ -164,7 +164,10 @@ After generating code, render it and compare against the original screenshot:
 3. **Validate with Visual QA Loop**: Render the generated code and compare screenshots to catch pixel-level discrepancies.
 4. **Specify the Target Stack**: Always tell the model which framework (React/Vue/Svelte), styling system (Tailwind/CSS Modules), and component library (Radix/Shadcn) to target.
 5. **Handle Text Content Realistically**: Extract actual text visible in the screenshot. Never substitute with lorem ipsum.
-6. **Model Availability Fallback**: Configure Gemini 4 Argon/Pro Vision as primary with automated fallback to Gemini 3.8 Flash Vision if Gemini 4 is unprovisioned or experiencing rate limits.
+6. **Availability Fallback Invariant**:
+   - Primary vision analysis: Route to **`Gemini 4 Argon/Pro Vision`** with automated fallback to **`Gemini 3.8 Flash Vision`** if Gemini 4 is unprovisioned or experiencing quota limits.
+   - Architectural/layout reasoning: If using **`Claude Opus 5.5`**, automatically fallback to **`Claude Opus 4.6`**.
+   - Zero disruption: Extraction pipeline must execute immediately through fallback paths without throwing unhandled missing-model errors.
 
 ---
 
@@ -217,4 +220,7 @@ Setelah menghasilkan kode, render dan bandingkan screenshot hasil dengan screens
 2. **Petakan ke Design System yang Ada**: Jangan pernah gunakan hex atau piksel hardcode.
 3. **Validasi dengan Loop QA Visual**: Render kode dan bandingkan screenshot.
 4. **Spesifikasikan Stack Target**: Selalu beritahu model framework, sistem styling, dan library komponen target.
-5. **Fallback Ketersediaan Model**: Tetapkan Gemini 4 Argon/Pro Vision sebagai model primer dengan pengalihan otomatis (*fallback*) ke Gemini 3.8 Flash Vision jika model Gemini 4 belum aktif atau terkena pembatasan kuota.
+5. **Invarian Pengalihan Ketersediaan (Availability Fallback Invariant)**:
+   - Analisis vision primer: Tetapkan **`Gemini 4 Argon/Pro Vision`** dengan pengalihan otomatis (*fallback*) ke **`Gemini 3.8 Flash Vision`** jika Gemini 4 belum aktif atau terkena pembatasan kuota.
+   - Penalaran arsitektur/tata letak: Jika menggunakan **`Claude Opus 5.5`**, alihkan secara otomatis ke **`Claude Opus 4.6`**.
+   - Tanpa interupsi: Pipeline ekstraksi visual harus segera dieksekusi melalui jalur fallback tanpa galat model tidak ditemukan.
