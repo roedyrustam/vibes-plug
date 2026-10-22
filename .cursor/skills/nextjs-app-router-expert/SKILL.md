@@ -1,12 +1,12 @@
 ---
 name: nextjs-app-router-expert
-description: "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
+description: "Expert guide for Next.js 15 App Router: RSC, React 19 Server Actions, Async Request APIs, 'use cache', PPR, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
 author: "Roedy Rustam"
 version: "4.4.2"
 
 ---
 
-# Next.js 15 App Router Expert
+# Next.js 15 App Router Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -15,150 +15,470 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
+### Orchestration & Integration
+- **Upstream Ideation & System Design**: `brainstorming`, `zero-to-prod-orchestrator` (Phase 3 & Phase 4).
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
+- **State & Data Fetching**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
+- **Quality & Performance**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+
 ### Description
-Execute advanced Next.js 15 App Router architectural patterns: React Server Components (RSC), React 19 Server Actions, Middleware routing, Parallel/Intercepting Routes, Streaming/Suspense, Partial Prerendering (PPR), and explicit cache invalidation.
+Production-grade architectural guide for **Next.js 15+ App Router** and **React 19**. Enforces modern standards: asynchronous request APIs (`await params`, `await cookies()`), function-level `'use cache'` with `cacheLife` and `cacheTag`, Partial Prerendering (PPR), React Server Actions with `useActionState` and `useOptimistic`, Parallel & Intercepting Routes, and streaming layouts via `<Suspense>`.
 
 ### Trigger Conditions
-- Architecting new Next.js 15 `app/` directory applications.
-- Migrating `pages/` directory to App Router.
-- Implementing complex UI patterns (modals via Intercepting Routes).
-- Debugging caching (`force-cache`, `revalidatePath`, tags).
-- Building interfaces requiring Partial Prerendering (PPR) or Streaming.
+- Architecting new Next.js 15+ applications or migrating legacy `pages/` directory code.
+- Handling asynchronous request parameters (`params`, `searchParams`, `cookies`, `headers`).
+- Implementing atomic mutations using React 19 Server Actions without manual REST endpoints.
+- Setting up granular caching with the new `'use cache'` directive and cache invalidation tags.
+- Building complex modal navigation patterns with Parallel and Intercepting Routes.
+- Optimizing Core Web Vitals (LCP, INP, TTFB) with Partial Prerendering and Streaming.
+
+---
 
 ### Core Architectural Patterns
 
-#### 1. React Server Components (RSC) vs Client Components
-- **Default to Server**: All `app/` components are Server Components. No hooks (`useState`) or browser APIs.
-- **Client Boundaries**: Add `"use client"` only for interactivity/browser APIs. Push client boundaries down the component tree.
-- **Interleaving**: Pass Server Components as `children` to Client Components; do not import Server Components into Client Components directly.
-
-#### 2. React 19 Server Actions
-Use Server Actions (`useActionState`) for all mutations. Avoid separate API routes.
+#### 1. Async Request APIs (Mandatory in Next.js 15)
+In Next.js 15, dynamic APIs (`params`, `searchParams`, `cookies()`, `headers()`) are asynchronous Promises to enable future runtime streaming and static preloading:
 ```typescript
-'use server'
-
-import { revalidateTag } from 'next/cache';
-import { z } from 'zod';
+// app/blog/[slug]/page.tsx
+import { cookies, headers } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { db } from '@/lib/db';
 
-const schema = z.object({ email: z.string().email() });
-
-export async function subscribeUser(prevState: any, formData: FormData) {
-  const parsed = schema.safeParse({ email: formData.get('email') });
-  
-  if (!parsed.success) return { error: 'Invalid email' };
-
-  await db.subscribers.insert({ email: parsed.data.email });
-  revalidateTag('subscribers');
-  return { success: true };
+interface PageProps {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ preview?: string }>;
 }
-```
 
-#### 3. Parallel & Intercepting Routes (Modals)
-Render modals preserving background page context and URL shareability.
-- **Intercepting (`(.)[segment]`)**: Matches route on client-side navigation.
-- **Parallel (`@modal`)**: Renders simultaneously with `layout.tsx` children.
+export default async function BlogPostPage({ params, searchParams }: PageProps) {
+  // Await params and searchParams concurrently
+  const [{ slug }, { preview }] = await Promise.all([params, searchParams]);
+  const cookieStore = await cookies();
+  const headerStore = await headers();
 
-```
-app/
- ├── @modal/
- │   ├── (.)photos/[id]/page.tsx
- │   └── default.tsx
- ├── photos/
- │   └── [id]/page.tsx
- ├── layout.tsx
- └── page.tsx
-```
+  const isPreview = preview === 'true' && cookieStore.get('preview_token')?.value === process.env.PREVIEW_SECRET;
+  const post = await db.posts.findUnique({ where: { slug } });
 
-#### 4. Caching & Data Fetching (Next.js 15)
-Fetch requests are **not cached by default**. Opt-in explicitly:
-```typescript
-// Indefinite cache
-const res = await fetch('https://api.example.com/data', { cache: 'force-cache' });
+  if (!post || (!post.published && !isPreview)) {
+    notFound();
+  }
 
-// Time-Based Revalidation (ISR)
-const res = await fetch('https://api.example.com/data', { next: { revalidate: 3600 } });
-
-// On-Demand Revalidation
-const res = await fetch('https://api.example.com/data', { next: { tags: ['collection'] } });
-// In server action: revalidateTag('collection')
-```
-
-#### 5. Streaming & Partial Prerendering (PPR)
-Wrap slow fetches in `<Suspense>` to stream UI instantly:
-```tsx
-import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-
-export default function DashboardPage() {
   return (
-    <main>
-      <h1>Dashboard</h1>
-      <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-        <SlowRevenueChart />
-      </Suspense>
-    </main>
+    <article className="max-w-3xl mx-auto py-12 px-4">
+      <h1 className="text-4xl font-extrabold tracking-tight">{post.title}</h1>
+      <p className="mt-2 text-sm text-muted-foreground">User-Agent: {headerStore.get('user-agent')}</p>
+      <div className="mt-6 prose dark:prose-invert">{post.content}</div>
+    </article>
   );
 }
 ```
 
-## Orchestration & Integration
-- **`modern-web-guidance`**: HTML5/CSS standards, streaming hydration, and modern web platform APIs.
-- **`design-system-architect`**: Server Component and Client Component boundary primitives, design tokens.
-- **`modern-css-native-expert`**: View Transitions API Level 2 and CSS container queries in Next.js 15.
-- **`tailwind-expert`**: Tailwind CSS v4 styling with `@theme` in Next.js 15.
-- **`ui-ux-pro-max`**: Layout composition, streaming skeleton loaders, and intercepting modal UX.
-- **`visual-ui-auditor`**: Multimodal vision auditing of streaming layouts and rendered pages.
-- **`anti-slop`**: Anti-slop RSC implementations, eliminating fake mocks and incomplete action handlers.
-- **`senior-frontend`**: Enhances UI/UX with Next.js App Router RSC and Next 15 caching.
-- **`js-backend-expert`**: Bridges frontend Server Actions with backend Node.js/Bun architectures.
-- **`tanstack-query-expert`**: Manages client-side state hydration from RSC.
-- **`performance-web-vitals`**: Optimizes Core Web Vitals using Streaming and PPR.
+#### 2. Next-Gen Caching with `'use cache'`, `cacheLife()`, and `cacheTag()`
+Next.js 15 replaces opaque fetch options with explicit, declarative function and component-level caching:
+```typescript
+// lib/cached-data.ts
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { db } from '@/lib/db';
+
+export async function getProductCatalog(category: string) {
+  'use cache';
+  cacheLife('hours'); // Predefined profile: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'max'
+  cacheTag('products', `category-${category}`);
+
+  return await db.products.findMany({
+    where: { category, inStock: true },
+    select: { id: true, name: true, price: true, category: true },
+    orderBy: { createdAt: 'desc' },
+  });
+}
+```
+
+```typescript
+// In Server Action (app/actions/products.ts)
+'use server';
+
+import { revalidateTag } from 'next/cache';
+import { db } from '@/lib/db';
+
+export async function updateProductStock(productId: string, inStock: boolean) {
+  await db.products.update({ where: { id: productId }, data: { inStock } });
+  revalidateTag('products'); // Purges all cached product queries instantly
+  return { success: true };
+}
+```
+
+#### 3. React 19 Server Actions with `useActionState` & `useOptimistic`
+Atomic form mutations with automatic pending states, error validation, and zero-latency optimistic updates:
+```tsx
+// app/tasks/task-form.tsx
+'use client';
+
+import { useActionState, useOptimistic, startTransition } from 'react';
+import { createTaskAction, type TaskState } from '@/app/actions/task';
+
+interface Task {
+  id: string;
+  title: string;
+  pending?: boolean;
+}
+
+const initialState: TaskState = { success: false, error: null };
+
+export function TaskManager({ initialTasks }: { initialTasks: Task[] }) {
+  const [state, formAction, isPending] = useActionState(createTaskAction, initialState);
+
+  const [optimisticTasks, addOptimisticTask] = useOptimistic(
+    initialTasks,
+    (currentTasks, newTitle: string) => [
+      ...currentTasks,
+      { id: `temp-${Date.now()}`, title: newTitle, pending: true },
+    ]
+  );
+
+  const handleClientSubmit = (formData: FormData) => {
+    const title = formData.get('title') as string;
+    if (!title?.trim()) return;
+
+    startTransition(async () => {
+      addOptimisticTask(title);
+      await formAction(formData);
+    });
+  };
+
+  return (
+    <div className="space-y-4 max-w-md">
+      <form action={handleClientSubmit} className="flex gap-2">
+        <input
+          name="title"
+          placeholder="New task..."
+          required
+          className="flex-1 px-3 py-2 border rounded-md bg-background"
+        />
+        <button
+          type="submit"
+          disabled={isPending}
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-md disabled:opacity-50"
+        >
+          {isPending ? 'Adding...' : 'Add'}
+        </button>
+      </form>
+
+      {state.error && <p className="text-sm font-medium text-destructive">{state.error}</p>}
+
+      <ul className="divide-y divide-border border rounded-md">
+        {optimisticTasks.map((task) => (
+          <li key={task.id} className={`p-3 text-sm flex justify-between ${task.pending ? 'opacity-60' : ''}`}>
+            <span>{task.title}</span>
+            {task.pending && <span className="text-xs text-muted-foreground">Saving...</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+#### 4. Parallel & Intercepting Routes (URL-Preserving Modals)
+Enable modal dialogues with dedicated shareable URLs and seamless backdrop preservation:
+```
+app/
+ ├── @modal/
+ │   ├── (.)photos/[id]/page.tsx  <-- Intercepts client navigation to /photos/[id]
+ │   └── default.tsx              <-- Returns null when modal is inactive
+ ├── photos/
+ │   └── [id]/page.tsx            <-- Renders standalone full page on direct refresh
+ ├── layout.tsx                   <-- Renders children AND @modal slot
+ └── page.tsx
+```
+
+```tsx
+// app/@modal/(.)photos/[id]/page.tsx
+import { Modal } from '@/components/ui/modal';
+import { PhotoView } from '@/components/photo-view';
+
+export default async function PhotoModal({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  return (
+    <Modal>
+      <PhotoView photoId={id} />
+    </Modal>
+  );
+}
+```
+
+#### 5. Partial Prerendering (PPR) & Streaming Suspense
+Combines instantaneous static edge delivery with dynamic personalized punch-outs:
+```tsx
+// app/dashboard/page.tsx
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+
+export const experimental_ppr = true; // Enables PPR for this route segment
+
+export default function DashboardPage() {
+  return (
+    <main className="p-8 space-y-6">
+      {/* Static Shell: Prerendered at build time and served immediately from CDN */}
+      <header className="border-b pb-4">
+        <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
+        <p className="text-muted-foreground text-sm">Real-time telemetry and revenue tracking</p>
+      </header>
+
+      {/* Dynamic Punch-out: Streamed dynamically from the server */}
+      <Suspense fallback={<Skeleton className="h-64 w-full rounded-xl" />}>
+        <AsyncMetricsStream />
+      </Suspense>
+    </main>
+  );
+}
+
+async function AsyncMetricsStream() {
+  const metrics = await fetchLiveMetrics();
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      {metrics.map((m) => (
+        <div key={m.name} className="p-4 border rounded-xl bg-card">
+          <div className="text-xs text-muted-foreground">{m.name}</div>
+          <div className="text-2xl font-bold tabular-nums mt-1">{m.value}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function fetchLiveMetrics() {
+  return [
+    { name: 'Active Sessions', value: '4,281' },
+    { name: 'Average Latency', value: '18ms' },
+    { name: 'Success Rate', value: '99.98%' },
+  ];
+}
+```
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Ideasi Hulu & Desain Sistem**: `brainstorming`, `zero-to-prod-orchestrator` (Fase 3 & Fase 4).
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
+- **State & Pengambilan Data**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
+- **Kualitas & Performa**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+
 ### Deskripsi
-Terapkan pola arsitektur lanjutan Next.js 15 App Router: React Server Components (RSC), React 19 Server Actions, Middleware, Parallel/Intercepting Routes, Streaming/Suspense, Partial Prerendering (PPR), dan invalidasi cache eksplisit.
+Panduan arsitektur tingkat produksi untuk **Next.js 15+ App Router** dan **React 19**. Menegakkan standar modern: API request asinkron (`await params`, `await cookies()`), caching tingkat fungsi `'use cache'` dengan `cacheLife` dan `cacheTag`, Partial Prerendering (PPR), React Server Actions dengan `useActionState` dan `useOptimistic`, Parallel & Intercepting Routes, serta streaming layout via `<Suspense>`.
 
 ### Kondisi Pemicu
-- Merancang aplikasi Next.js 15 `app/` direktori baru.
-- Migrasi direktori `pages/` ke App Router.
-- Implementasi pola UI kompleks (modal via Intercepting Routes).
-- Debugging cache (`force-cache`, `revalidatePath`, tags).
-- Membangun antarmuka dengan Partial Prerendering (PPR) atau Streaming.
+- Merancang aplikasi Next.js 15+ baru atau migrasi kode dari direktori `pages/`.
+- Menangani parameter request asinkron (`params`, `searchParams`, `cookies`, `headers`).
+- Mengimplementasikan mutasi data atomik menggunakan Server Actions React 19 tanpa endpoint REST manual.
+- Mengonfigurasi strategi cache terperinci dengan direktif `'use cache'` dan tag invalidasi.
+- Membangun antarmuka modal URL-preserving dengan Parallel dan Intercepting Routes.
+- Mengoptimalkan Core Web Vitals (LCP, INP, TTFB) melalui Partial Prerendering dan Streaming.
 
-### Pola Arsitektur Inti
+---
 
-#### 1. RSC vs Client Components
-- **Default Server**: Semua komponen `app/` adalah Server Components. Tanpa hooks/API browser.
-- **Batas Klien**: Tambahkan `"use client"` hanya untuk interaktivitas. Dorong batas klien ke bawah struktur komponen.
-- **Interleaving**: Berikan Server Components sebagai `children` ke Client Components; jangan impor langsung.
+### Implementasi Pola Kunci
 
-#### 2. React 19 Server Actions
-Gunakan Server Actions (`useActionState`) untuk mutasi. Hindari pembuatan API routes terpisah.
-Validasi input di server dengan Zod dan gunakan `revalidateTag` untuk perbarui UI.
+#### 1. API Request Asinkron (Wajib di Next.js 15)
+Di Next.js 15, API dinamis (`params`, `searchParams`, `cookies()`, `headers()`) berbentuk Promise asinkron untuk mendukung streaming runtime dan optimasi preloading:
+```typescript
+// app/blog/[slug]/page.tsx
+import { cookies, headers } from 'next/headers';
+import { notFound } from 'next/navigation';
+import { db } from '@/lib/db';
 
-#### 3. Parallel & Intercepting Routes
-Gunakan untuk modal. Mencegat rute navigasi client-side (URL berubah, modal di atas halaman saat ini). Refresh langsung memuat halaman penuh.
+interface PageProps {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ preview?: string }>;
+}
 
-#### 4. Caching di Next.js 15
-Fungsi `fetch` **tidak di-cache default**. Aktifkan eksplisit via `{ cache: 'force-cache' }` atau `{ next: { revalidate: 3600 } }`. Gunakan cache tags untuk invalidasi spesifik.
+export default async function HalamanBlogPost({ params, searchParams }: PageProps) {
+  // Await params dan searchParams secara bersamaan
+  const [{ slug }, { preview }] = await Promise.all([params, searchParams]);
+  const cookieStore = await cookies();
+  const headerStore = await headers();
 
-#### 5. Streaming & Partial Prerendering (PPR)
-Bungkus pengambilan data lambat dengan `<Suspense>` untuk menampilkan UI awal seketika sambil menunggu data (streaming).
+  const isPreview = preview === 'true' && cookieStore.get('preview_token')?.value === process.env.PREVIEW_SECRET;
+  const post = await db.posts.findUnique({ where: { slug } });
 
-## Integrasi Orkestrasi
-- **`modern-web-guidance`**: Standar HTML5/CSS, hidrasi streaming, dan API platform web modern.
-- **`design-system-architect`**: Primitif batas Server Component dan Client Component, token desain.
-- **`modern-css-native-expert`**: View Transitions API Level 2 dan CSS container queries di Next.js 15.
-- **`tailwind-expert`**: Styling Tailwind CSS v4 dengan `@theme` di Next.js 15.
-- **`ui-ux-pro-max`**: Komposisi tata letak, skeleton loader streaming, dan UX modal intercepting.
-- **`visual-ui-auditor`**: Audit visual multimodal untuk tata letak streaming dan halaman yang dirender.
-- **`anti-slop`**: Implementasi RSC anti-slop, mengeliminasi mock palsu dan handler action tidak lengkap.
-- **`senior-frontend`**: Menguatkan UI/UX dengan pemahaman arsitektur RSC dan cache Next 15.
-- **`js-backend-expert`**: Menghubungkan Server Actions dengan arsitektur backend Node.js/Bun.
-- **`tanstack-query-expert`**: Mengelola hidrasi state client-side dari RSC.
-- **`performance-web-vitals`**: Optimalisasi Core Web Vitals menggunakan Streaming dan PPR.
+  if (!post || (!post.published && !isPreview)) {
+    notFound();
+  }
+
+  return (
+    <article className="max-w-3xl mx-auto py-12 px-4">
+      <h1 className="text-4xl font-extrabold tracking-tight">{post.title}</h1>
+      <p className="mt-2 text-sm text-slate-500">User-Agent: {headerStore.get('user-agent')}</p>
+      <div className="mt-6 prose dark:prose-invert">{post.content}</div>
+    </article>
+  );
+}
+```
+
+#### 2. Caching Generasi Baru dengan `'use cache'`, `cacheLife()`, dan `cacheTag()`
+Next.js 15 menggantikan opsi fetch manual dengan caching deklaratif tingkat fungsi dan komponen:
+```typescript
+// lib/cached-data.ts
+import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { db } from '@/lib/db';
+
+export async function ambilKatalogProduk(kategori: string) {
+  'use cache';
+  cacheLife('hours'); // Profil cache bawaan: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'max'
+  cacheTag('produk', `kategori-${kategori}`);
+
+  return await db.products.findMany({
+    where: { category: kategori, inStock: true },
+    select: { id: true, name: true, price: true, category: true },
+    orderBy: { createdAt: 'desc' },
+  });
+}
+```
+
+```typescript
+// Dalam Server Action (app/actions/products.ts)
+'use server';
+
+import { revalidateTag } from 'next/cache';
+import { db } from '@/lib/db';
+
+export async function perbaruiStokProduk(productId: string, inStock: boolean) {
+  await db.products.update({ where: { id: productId }, data: { inStock } });
+  revalidateTag('produk'); // Menghapus seluruh cache query produk seketika
+  return { success: true };
+}
+```
+
+#### 3. React 19 Server Actions dengan `useActionState` & `useOptimistic`
+Mutasi formulir atomik dengan penanganan loading otomatis, validasi error server, dan update UI optimistik instan:
+```tsx
+// app/tasks/task-form.tsx
+'use client';
+
+import { useActionState, useOptimistic, startTransition } from 'react';
+import { buatTugasAction, type StatusTugas } from '@/app/actions/task';
+
+interface Tugas {
+  id: string;
+  title: string;
+  pending?: boolean;
+}
+
+const statusAwal: StatusTugas = { success: false, error: null };
+
+export function PengelolaTugas({ tugasAwal }: { tugasAwal: Tugas[] }) {
+  const [state, formAction, isPending] = useActionState(buatTugasAction, statusAwal);
+
+  const [tugasOptimistik, tambahTugasOptimistik] = useOptimistic(
+    tugasAwal,
+    (daftarSekarang, judulBaru: string) => [
+      ...daftarSekarang,
+      { id: `temp-${Date.now()}`, title: judulBaru, pending: true },
+    ]
+  );
+
+  const tanganiSubmitKlien = (formData: FormData) => {
+    const title = formData.get('title') as string;
+    if (!title?.trim()) return;
+
+    startTransition(async () => {
+      tambahTugasOptimistik(title);
+      await formAction(formData);
+    });
+  };
+
+  return (
+    <div className="space-y-4 max-w-md">
+      <form action={tanganiSubmitKlien} className="flex gap-2">
+        <input
+          name="title"
+          placeholder="Tugas baru..."
+          required
+          className="flex-1 px-3 py-2 border rounded-md bg-white dark:bg-slate-900"
+        />
+        <button
+          type="submit"
+          disabled={isPending}
+          className="px-4 py-2 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-md disabled:opacity-50"
+        >
+          {isPending ? 'Menyimpan...' : 'Tambah'}
+        </button>
+      </form>
+
+      {state.error && <p className="text-sm font-medium text-rose-600">{state.error}</p>}
+
+      <ul className="divide-y divide-slate-200 dark:divide-slate-800 border rounded-md">
+        {tugasOptimistik.map((tugas) => (
+          <li key={tugas.id} className={`p-3 text-sm flex justify-between ${tugas.pending ? 'opacity-60' : ''}`}>
+            <span>{tugas.title}</span>
+            {tugas.pending && <span className="text-xs text-slate-400">Menyinkronkan...</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+#### 4. Parallel & Intercepting Routes (Modal Preservasi URL)
+Menghadirkan dialog modal dengan URL mandiri yang dapat dibagikan tanpa menghilangkan state halaman latar:
+```
+app/
+ ├── @modal/
+ │   ├── (.)photos/[id]/page.tsx  <-- Mencegat navigasi klien ke /photos/[id]
+ │   └── default.tsx              <-- Mengembalikan null saat modal tidak aktif
+ ├── photos/
+ │   └── [id]/page.tsx            <-- Memuat halaman utuh saat di-refresh langsung
+ ├── layout.tsx                   <-- Me-render children DAN slot @modal
+ └── page.tsx
+```
+
+#### 5. Partial Prerendering (PPR) & Streaming Suspense
+Menggabungkan kecepatan delivery shell statis dari CDN edge dengan data dinamis real-time:
+```tsx
+// app/dashboard/page.tsx
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+
+export const experimental_ppr = true; // Mengaktifkan PPR pada rute ini
+
+export default function HalamanDashboard() {
+  return (
+    <main className="p-8 space-y-6">
+      {/* Shell Statis: Di-prerender saat build time dan disajikan instan dari CDN */}
+      <header className="border-b pb-4">
+        <h1 className="text-2xl font-bold">Dashboard Analitik</h1>
+        <p className="text-slate-500 text-sm">Pelacakan telemetri dan pendapatan real-time</p>
+      </header>
+
+      {/* Bagian Dinamis: Di-stream secara bertahap dari server */}
+      <Suspense fallback={<Skeleton className="h-64 w-full rounded-xl" />}>
+        <StreamMetrikLangsung />
+      </Suspense>
+    </main>
+  );
+}
+
+async function StreamMetrikLangsung() {
+  const metrik = await ambilMetrikSistem();
+  return (
+    <div className="grid grid-cols-3 gap-4">
+      {metrik.map((m) => (
+        <div key={m.nama} className="p-4 border rounded-xl bg-white dark:bg-slate-900">
+          <div className="text-xs text-slate-500">{m.nama}</div>
+          <div className="text-2xl font-bold tabular-nums mt-1">{m.nilai}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+async function ambilMetrikSistem() {
+  return [
+    { nama: 'Sesi Aktif', nilai: '4,281' },
+    { nama: 'Rata-rata Latensi', nilai: '18ms' },
+    { nama: 'Tingkat Keberhasilan', nilai: '99.98%' },
+  ];
+}
+```

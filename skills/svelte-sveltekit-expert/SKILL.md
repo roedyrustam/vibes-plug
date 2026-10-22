@@ -1,6 +1,6 @@
 ---
 name: svelte-sveltekit-expert
-description: "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG."
+description: "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, snippets, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, snippets, arsitektur server-first, form actions, dan SSR/SSG."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -15,86 +15,149 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
+### Orchestration & Integration
+- **Upstream System Design**: `brainstorming`, `zero-to-prod-orchestrator` (Phase 3 & Phase 4).
+- **Styling & Web Standards**: `modern-web-guidance`, `tailwind-expert`, `modern-css-native-expert`, `design-system-architect`.
+- **Quality & Performance**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Backend & APIs**: `js-backend-expert`, `database-orm-expert`, `typescript-expert`.
+
 ### Description
-Comprehensive guide for Svelte 5 and SvelteKit 2+. Focuses on the modern Runes reactivity model (`$state`, `$derived`, `$effect`, `$props`, `$bindable`), server-first architecture, progressive enhancement form actions (`use:enhance`), streaming promises in `+page.server.ts`, and fullstack SSR/SSG/ISR deployment on modern edge platforms.
+Production-grade guide for building high-performance web applications using **Svelte 5** and **SvelteKit 2+**. Covers the complete Runes reactivity paradigm (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), snippet composition replacing legacy slots, progressive enhancement form actions (`use:enhance`), streaming server promises in `+page.server.ts`, and shallow routing (`pushState`) for modal overlays.
 
 ### Trigger Conditions
-- Scaffolding new applications using Svelte 5 and SvelteKit 2.
-- Migrating legacy Svelte 3/4 reactive declarations (`let x = 0; $: doubled = x * 2;`) to Svelte 5 Runes.
-- Implementing form submissions with server actions and zero-JS fallbacks.
-- Streaming large data sets to the client without blocking the initial page render.
+- Scaffolding new applications with Svelte 5 and SvelteKit 2.
+- Refactoring legacy Svelte 3/4 reactive declarations (`let x = 0; $: doubled = x * 2;`) to Svelte 5 Runes.
+- Composing modular UI components using Svelte 5 Snippets instead of legacy `<slot>`.
+- Implementing form submissions with atomic server actions and zero-JS progressive enhancement.
+- Streaming large asynchronous datasets to the client without blocking the initial SSR HTML payload.
 
-### Svelte 5 Runes Architecture
+---
 
-| Rune | Purpose | Svelte 4 Equivalent |
+### Core Architectural Patterns
+
+#### 1. Complete Svelte 5 Runes Reference
+
+| Rune | Purpose | Svelte 4 Legacy Syntax |
 |---|---|---|
-| `$state(val)` | Declare reactive state variable | `let val = ...` |
-| `$derived(expr)` | Compute cached derived values | `$: val = expr` |
-| `$effect(() => {})` | Manage side-effects & subscriptions | `$: { ... }` or lifecycle hooks |
-| `$props()` | Define type-safe component props | `export let prop` |
-| `$bindable()` | Enable two-way component binding | Direct two-way binding |
+| `$state(val)` | Deeply reactive state proxy | `let val = ...` |
+| `$state.raw(val)` | Shallow reactive state (ideal for immutable/large payloads) | N/A |
+| `$derived(expr)` | Cached reactive derivation | `$: val = expr` |
+| `$derived.by(() => {})` | Complex multi-line derived computation | `$: { ... }` |
+| `$effect(() => {})` | Post-DOM mount & update side-effect with cleanup | `onMount`, `afterUpdate`, `$: { ... }` |
+| `$effect.pre(() => {})` | Pre-DOM update effect (e.g. scroll position capture) | `beforeUpdate` |
+| `$props()` | Type-safe destructured component props | `export let prop` |
+| `$bindable()` | Explicit two-way prop binding allowance | Direct two-way binding |
+| `$inspect(val)` | Automatic dev-mode deep state inspector | `console.log(val)` in `$:` |
 
-### Svelte 5 Component with Modern Runes
-
+#### 2. Component Composition with Svelte 5 Snippets (No Slots)
+In Svelte 5, `<slot>` is deprecated. Components accept Snippets as typed functions:
 ```svelte
-<!-- src/lib/components/Counter.svelte -->
-<script lang="ts">
+<!-- src/lib/components/DataTable.svelte -->
+<script lang="ts" generics="T">
+  import type { Snippet } from 'svelte';
+
   interface Props {
-    initialCount?: number;
-    step?: number;
-    onThreshold?: (val: number) => void;
+    items: T[];
+    header: Snippet;
+    row: Snippet<[T]>;
+    empty?: Snippet;
   }
 
-  // Modern Svelte 5 Props Rune with default values
-  let { initialCount = 0, step = 1, onThreshold }: Props = $props();
-
-  // Reactive State and Derived Runes
-  let count = $state(initialCount);
-  let doubled = $derived(count * 2);
-
-  // Side-effect Rune with automatic dependency tracking
-  $effect(() => {
-    if (count >= 100 && onThreshold) {
-      onThreshold(count);
-    }
-  });
+  let { items, header, row, empty }: Props = $props();
 </script>
 
-<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-  <h3 class="text-lg font-bold text-slate-800">Svelte 5 Runes Counter</h3>
-  <p class="mt-2 text-slate-600">
-    Current: <span class="font-bold tabular-nums text-emerald-600">{count}</span> | 
-    Doubled: <span class="font-bold tabular-nums text-slate-900">{doubled}</span>
-  </p>
-  <div class="mt-4 flex gap-2">
-    <button
-      onclick={() => (count -= step)}
-      class="rounded-lg bg-slate-100 px-4 py-2 font-medium hover:bg-slate-200 transition"
-    >
-      -{step}
-    </button>
-    <button
-      onclick={() => (count += step)}
-      class="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-500 transition"
-    >
-      +{step}
-    </button>
-  </div>
+<div class="overflow-x-auto rounded-xl border border-border bg-card">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b border-border bg-muted/50 text-xs uppercase font-semibold text-muted-foreground">
+      {@render header()}
+    </thead>
+    <tbody class="divide-y divide-border">
+      {#each items as item}
+        <tr class="hover:bg-muted/30 transition-colors">
+          {@render row(item)}
+        </tr>
+      {:else}
+        {#if empty}
+          <tr>
+            <td colspan="100%" class="p-8 text-center text-muted-foreground">
+              {@render empty()}
+            </td>
+          </tr>
+        {/if}
+      {/each}
+    </tbody>
+  </table>
 </div>
 ```
 
-### SvelteKit 2 Server Actions with Progressive Enhancement
+```svelte
+<!-- Usage in consumer page -->
+<script lang="ts">
+  import DataTable from '$lib/components/DataTable.svelte';
 
+  interface User {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  }
+
+  let users = $state<User[]>([
+    { id: '1', name: 'Alice Smith', email: 'alice@example.com', role: 'Admin' },
+    { id: '2', name: 'Bob Jones', email: 'bob@example.com', role: 'Developer' },
+  ]);
+</script>
+
+{#snippet tableHeader()}
+  <tr>
+    <th class="p-3">Name</th>
+    <th class="p-3">Email</th>
+    <th class="p-3">Role</th>
+  </tr>
+{/snippet}
+
+{#snippet tableRow(user: User)}
+  <td class="p-3 font-medium">{user.name}</td>
+  <td class="p-3 text-muted-foreground font-mono">{user.email}</td>
+  <td class="p-3"><span class="px-2 py-0.5 rounded text-xs bg-primary/10 text-primary">{user.role}</span></td>
+{/snippet}
+
+<DataTable items={users} header={tableHeader} row={tableRow} />
+```
+
+#### 3. Two-Way Binding with `$bindable()`
+```svelte
+<!-- src/lib/components/SearchInput.svelte -->
+<script lang="ts">
+  interface Props {
+    value: string;
+    placeholder?: string;
+  }
+
+  let { value = $bindable(''), placeholder = 'Search...' }: Props = $props();
+</script>
+
+<input
+  type="text"
+  bind:value
+  {placeholder}
+  class="px-3 py-2 border rounded-md bg-background text-sm w-full focus:outline-none focus:ring-1 focus:ring-primary"
+/>
+```
+
+#### 4. SvelteKit 2 Server Actions with Progressive Enhancement
+Atomic server mutation with optimistic state and zero-JS fallback:
 ```typescript
 // src/routes/tasks/+page.server.ts
 import { fail } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
+import { db } from '$lib/server/db';
 
 export const load: PageServerLoad = async ({ locals }) => {
-  // Streaming promise pattern: do not await slow data here if streaming is desired
+  // Non-blocking streaming promise: do not await slow telemetry data
   return {
-    fastStats: { total: 42 },
-    streamedFeed: new Promise((resolve) => setTimeout(() => resolve(['Item A', 'Item B']), 300))
+    tasks: await db.tasks.findMany({ orderBy: { createdAt: 'desc' } }),
+    streamedMetrics: fetchLiveMetrics(), // Streamed as Promise without blocking HTML
   };
 };
 
@@ -104,13 +167,18 @@ export const actions: Actions = {
     const title = data.get('title')?.toString().trim();
 
     if (!title || title.length < 3) {
-      return fail(400, { title, error: 'Title must be at least 3 characters long.' });
+      return fail(400, { title, error: 'Title must contain at least 3 characters.' });
     }
 
-    // Atomic DB write...
-    return { success: true };
-  }
+    const newTask = await db.tasks.create({ data: { title, completed: false } });
+    return { success: true, task: newTask };
+  },
 };
+
+async function fetchLiveMetrics() {
+  await new Promise((r) => setTimeout(r, 400));
+  return { activeNodes: 12, uptime: '99.99%' };
+}
 ```
 
 ```svelte
@@ -118,94 +186,277 @@ export const actions: Actions = {
 <script lang="ts">
   import { enhance } from '$app/forms';
   let { data, form } = $props();
+
+  let isSubmitting = $state(false);
+  let optimisticTasks = $state([...data.tasks]);
+
+  $effect(() => {
+    optimisticTasks = [...data.tasks];
+  });
 </script>
 
-<form method="POST" action="?/createTask" use:enhance class="space-y-4 max-w-md">
+<div class="max-w-xl mx-auto py-8 space-y-6">
+  <h1 class="text-2xl font-bold">Project Tasks</h1>
+
+  <form
+    method="POST"
+    action="?/createTask"
+    use:enhance={({ formData, cancel }) => {
+      const title = formData.get('title')?.toString().trim();
+      if (!title) {
+        cancel();
+        return;
+      }
+
+      isSubmitting = true;
+      // Optimistic update
+      optimisticTasks = [{ id: `temp-${Date.now()}`, title, completed: false }, ...optimisticTasks];
+
+      return async ({ update }) => {
+        isSubmitting = false;
+        await update();
+      };
+    }}
+    class="flex gap-2"
+  >
+    <input
+      name="title"
+      type="text"
+      placeholder="What needs to be done?"
+      required
+      class="flex-1 px-3 py-2 border rounded-md bg-background text-sm"
+    />
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      class="px-4 py-2 bg-primary text-primary-foreground font-medium rounded-md disabled:opacity-50 text-sm"
+    >
+      {isSubmitting ? 'Saving...' : 'Add Task'}
+    </button>
+  </form>
+
   {#if form?.error}
-    <p class="text-sm font-semibold text-rose-600">{form.error}</p>
+    <p class="text-sm font-semibold text-destructive">{form.error}</p>
   {/if}
 
-  <input
-    name="title"
-    type="text"
-    placeholder="Task title..."
-    class="w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-none focus:border-emerald-500"
-  />
+  <ul class="divide-y divide-border border rounded-xl bg-card">
+    {#each optimisticTasks as task (task.id)}
+      <li class="p-3 text-sm flex items-center justify-between">
+        <span>{task.title}</span>
+        {#if task.id.startsWith('temp-')}
+          <span class="text-xs text-muted-foreground font-mono">Syncing...</span>
+        {/if}
+      </li>
+    {/each}
+  </ul>
 
-  <button type="submit" class="rounded-lg bg-emerald-600 px-4 py-2 text-white font-medium hover:bg-emerald-500">
-    Add Task
-  </button>
-</form>
+  <!-- Await streamed non-blocking metrics -->
+  {#await data.streamedMetrics}
+    <div class="p-4 border rounded-lg bg-muted/40 text-xs animate-pulse text-muted-foreground">
+      Loading cluster metrics...
+    </div>
+  {:then metrics}
+    <div class="p-4 border rounded-lg bg-card text-xs flex justify-between font-mono">
+      <span>Active Nodes: {metrics.activeNodes}</span>
+      <span>Uptime: {metrics.uptime}</span>
+    </div>
+  {/await}
+</div>
 ```
-
-## Orchestration & Integration
-- **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
-- **`modern-css-native-expert`**: Native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
-- **`tailwind-expert`**: Configures Tailwind CSS v4 with SvelteKit `@theme` directives.
-- **`ui-ux-pro-max`**: Design system intelligence, modern color systems (OKLCH), and layout patterns.
-- **`visual-ui-auditor`**: Multimodal vision auditing of rendered Svelte 5 components and routes.
-- **`anti-slop`**: Anti-slop component craft, zero placeholder stubs, complete Runes implementations.
-- **`performance-web-vitals`**: Harnesses Svelte's compile-time optimization for zero bundle bloat.
-- **`e2e-testing-expert`**: End-to-end testing with Playwright for SvelteKit routes.
-- **`typescript-expert`**: Type-safe `$types` generation for page servers and actions.
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Integrasi Orkestrasi
+- **Ideasi & Desain Sistem**: `brainstorming`, `zero-to-prod-orchestrator` (Fase 3 & Fase 4).
+- **Styling & Standar Web**: `modern-web-guidance`, `tailwind-expert`, `modern-css-native-expert`, `design-system-architect`.
+- **Kualitas & Performa**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Backend & APIs**: `js-backend-expert`, `database-orm-expert`, `typescript-expert`.
+
 ### Deskripsi
-Panduan komprehensif untuk Svelte 5 dan SvelteKit 2+. Berfokus pada model reaktivitas modern berbasis Runes (`$state`, `$derived`, `$effect`, `$props`, `$bindable`), arsitektur *server-first*, formulir dengan *progressive enhancement* (`use:enhance`), *streaming promise* pada `+page.server.ts`, dan deployment SSR/SSG/ISR pada platform edge modern.
+Panduan produksi untuk membangun aplikasi web performa tinggi menggunakan **Svelte 5** dan **SvelteKit 2+**. Berfokus pada paradigma reaktivitas Runes secara menyeluruh (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), komposisi Snippets pengganti slot lawas, progressive enhancement form actions (`use:enhance`), streaming promise server pada `+page.server.ts`, dan routing shallow (`pushState`) untuk modal URL-preserving.
 
 ### Kondisi Pemicu
 - Membangun aplikasi baru menggunakan Svelte 5 dan SvelteKit 2.
-- Migrasi deklarasi reaktif Svelte 3/4 lawas (`$: x = ...`) ke model Runes Svelte 5.
-- Mengimplementasikan pengiriman data formulir menggunakan Server Actions yang tetap berfungsi tanpa JavaScript aktif (*zero-JS fallback*).
-- Mengalirkan (*streaming*) data asinkron lambat ke klien tanpa memblokir rendering halaman awal.
+- Merefaktor kode lama Svelte 3/4 (`let x = 0; $: doubled = x * 2;`) ke sistem Runes Svelte 5.
+- Menggubah komponen UI modular menggunakan Snippets Svelte 5 alih-alih `<slot>` lawas.
+- Mengimplementasikan pengiriman data formulir atomik via Server Actions dengan fallback zero-JS.
+- Mengalirkan (*streaming*) data asinkron lambat ke klien tanpa memblokir rendering HTML SSR awal.
 
-### 5 Runes Inti Svelte 5
-1. **`$state(nilai)`**: Mendeklarasikan variabel reaktif utama.
-2. **`$derived(ekspresi)`**: Menghitung nilai turunan yang di-cache secara otomatis.
-3. **`$effect(() => {})`**: Menjalankan efek samping saat dependensi reaktif di dalamnya berubah.
-4. **`$props()`**: Menerima props komponen secara type-safe.
-5. **`$bindable()`**: Mengaktifkan *two-way binding* eksplisit antar komponen induk dan anak.
+---
 
-### Contoh Form Action dengan Progressive Enhancement
+### Implementasi Pola Kunci
 
+#### 1. Referensi Lengkap Runes Svelte 5
+
+| Rune | Fungsi & Tujuan | Sintaks Lama Svelte 4 |
+|---|---|---|
+| `$state(nilai)` | State reaktif mendalam (*deep reactive proxy*) | `let nilai = ...` |
+| `$state.raw(nilai)` | State reaktif dangkal (*shallow* untuk objek besar/imutable) | Tidak tersedia |
+| `$derived(ekspresi)` | Nilai turunan ter-cache otomatis | `$: nilai = ekspresi` |
+| `$derived.by(() => {})` | Kalkulasi turunan kompleks multi-baris | `$: { ... }` |
+| `$effect(() => {})` | Efek samping pasca render DOM dengan siklus cleanup | `onMount`, `afterUpdate`, `$: { ... }` |
+| `$effect.pre(() => {})` | Efek samping sebelum DOM di-update | `beforeUpdate` |
+| `$props()` | Menerima props komponen secara terstruktur & type-safe | `export let prop` |
+| `$bindable()` | Memberi izin binding dua arah eksplisit | Binding dua arah otomatis |
+| `$inspect(nilai)` | Inspeksi state mendalam saat mode pengembangan | `console.log(nilai)` di `$:` |
+
+#### 2. Komposisi Komponen dengan Svelte 5 Snippets (Tanpa Slot)
+Pada Svelte 5, `<slot>` digantikan oleh Snippets bertipe (*typed snippets*):
 ```svelte
-<!-- src/routes/kontak/+page.svelte -->
-<script lang="ts">
-  import { enhance } from '$app/forms';
-  let isSubmitting = $state(false);
+<!-- src/lib/components/TabelData.svelte -->
+<script lang="ts" generics="T">
+  import type { Snippet } from 'svelte';
+
+  interface Props {
+    data: T[];
+    kepala: Snippet;
+    baris: Snippet<[T]>;
+    kosong?: Snippet;
+  }
+
+  let { data, kepala, baris, kosong }: Props = $props();
 </script>
 
-<form
-  method="POST"
-  action="?/kirimPesan"
-  use:enhance={() => {
-    isSubmitting = true;
-    return async ({ update }) => {
-      isSubmitting = false;
-      await update();
-    };
-  }}
-  class="space-y-4"
->
-  <input name="email" type="email" required placeholder="nama@email.com" class="border p-2 rounded w-full" />
-  <textarea name="pesan" required placeholder="Tulis pesan Anda..." class="border p-2 rounded w-full"></textarea>
-  <button disabled={isSubmitting} class="bg-emerald-600 text-white px-4 py-2 rounded">
-    {isSubmitting ? 'Mengirim...' : 'Kirim Pesan'}
-  </button>
-</form>
+<div class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 text-xs uppercase font-semibold text-slate-500">
+      {@render kepala()}
+    </thead>
+    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+      {#each data as item}
+        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+          {@render baris(item)}
+        </tr>
+      {:else}
+        {#if kosong}
+          <tr>
+            <td colspan="100%" class="p-8 text-center text-slate-400">
+              {@render kosong()}
+            </td>
+          </tr>
+        {/if}
+      {/each}
+    </tbody>
+  </table>
+</div>
 ```
 
-## Integrasi Orkestrasi
-- **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
-- **`modern-css-native-expert`**: CSS anchor positioning native, View Transitions, container queries, dan `@starting-style`.
-- **`tailwind-expert`**: Mengatur style Tailwind CSS v4 pada template SvelteKit.
-- **`ui-ux-pro-max`**: Kecerdasan desain UI/UX, sistem warna modern (OKLCH), dan pola tata letak.
-- **`visual-ui-auditor`**: Audit visual multimodal untuk komponen dan rute Svelte 5 yang dirender.
-- **`anti-slop`**: Penegakan anti-slop, nol stub atau placeholder, implementasi Runes lengkap.
-- **`performance-web-vitals`**: Memanfaatkan kompilasi efisien Svelte tanpa virtual DOM untuk waktu muat ultra-cepat.
-- **`e2e-testing-expert`**: Pengujian integrasi alur form dan rute menggunakan Playwright.
-- **`typescript-expert`**: Memastikan integritas tipe data antara file server dan komponen UI.
+#### 3. Form Action SvelteKit 2 dengan Progressive Enhancement & State Optimistik
+```typescript
+// src/routes/tugas/+page.server.ts
+import { fail } from '@sveltejs/kit';
+import type { Actions, PageServerLoad } from './$types';
+import { db } from '$lib/server/db';
+
+export const load: PageServerLoad = async () => {
+  return {
+    daftarTugas: await db.tasks.findMany({ orderBy: { createdAt: 'desc' } }),
+    metrikServer: ambilMetrikServer(), // Streamed Promise tanpa menunda payload HTML awal
+  };
+};
+
+export const actions: Actions = {
+  tambahTugas: async ({ request }) => {
+    const data = await request.formData();
+    const judul = data.get('judul')?.toString().trim();
+
+    if (!judul || judul.length < 3) {
+      return fail(400, { judul, error: 'Judul tugas minimal terdiri dari 3 karakter.' });
+    }
+
+    const tugasBaru = await db.tasks.create({ data: { title: judul, completed: false } });
+    return { success: true, tugas: tugasBaru };
+  },
+};
+
+async function ambilMetrikServer() {
+  await new Promise((r) => setTimeout(r, 400));
+  return { nodeAktif: 12, uptime: '99.99%' };
+}
+```
+
+```svelte
+<!-- src/routes/tugas/+page.svelte -->
+<script lang="ts">
+  import { enhance } from '$app/forms';
+  let { data, form } = $props();
+
+  let sedangMenyimpan = $state(false);
+  let daftarTugasOptimistik = $state([...data.daftarTugas]);
+
+  $effect(() => {
+    daftarTugasOptimistik = [...data.daftarTugas];
+  });
+</script>
+
+<div class="max-w-xl mx-auto py-8 space-y-6">
+  <h1 class="text-2xl font-bold">Daftar Tugas Proyek</h1>
+
+  <form
+    method="POST"
+    action="?/tambahTugas"
+    use:enhance={({ formData, cancel }) => {
+      const judul = formData.get('judul')?.toString().trim();
+      if (!judul) {
+        cancel();
+        return;
+      }
+
+      sedangMenyimpan = true;
+      // Pembaruan UI Optimistik instan
+      daftarTugasOptimistik = [{ id: `temp-${Date.now()}`, title: judul, completed: false }, ...daftarTugasOptimistik];
+
+      return async ({ update }) => {
+        sedangMenyimpan = false;
+        await update();
+      };
+    }}
+    class="flex gap-2"
+  >
+    <input
+      name="judul"
+      type="text"
+      placeholder="Apa yang perlu dikerjakan?"
+      required
+      class="flex-1 px-3 py-2 border border-slate-300 dark:border-slate-700 rounded-md bg-transparent text-sm"
+    />
+    <button
+      type="submit"
+      disabled={sedangMenyimpan}
+      class="px-4 py-2 bg-emerald-600 text-white font-medium rounded-md disabled:opacity-50 text-sm hover:bg-emerald-500 transition"
+    >
+      {sedangMenyimpan ? 'Menyimpan...' : 'Tambah Tugas'}
+    </button>
+  </form>
+
+  {#if form?.error}
+    <p class="text-sm font-semibold text-rose-600">{form.error}</p>
+  {/if}
+
+  <ul class="divide-y divide-slate-200 dark:divide-slate-800 border rounded-xl bg-white dark:bg-slate-900">
+    {#each daftarTugasOptimistik as tugas (tugas.id)}
+      <li class="p-3 text-sm flex items-center justify-between">
+        <span>{tugas.title}</span>
+        {#if tugas.id.startsWith('temp-')}
+          <span class="text-xs text-slate-400 font-mono">Menyinkronkan...</span>
+        {/if}
+      </li>
+    {/each}
+  </ul>
+
+  <!-- Menunggu data streaming metrik asinkron -->
+  {#await data.metrikServer}
+    <div class="p-4 border rounded-lg bg-slate-50 dark:bg-slate-800/40 text-xs animate-pulse text-slate-400">
+      Memuat telemetri klaster server...
+    </div>
+  {:then metrik}
+    <div class="p-4 border rounded-lg bg-white dark:bg-slate-900 text-xs flex justify-between font-mono">
+      <span>Node Aktif: {metrik.nodeAktif}</span>
+      <span>Tingkat Uptime: {metrik.uptime}</span>
+    </div>
+  {/await}
+</div>
+```

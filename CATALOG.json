@@ -591,7 +591,7 @@
     },
     {
       "name": "nextjs-app-router-expert",
-      "description": "Expert guide for Next.js 15 App Router: RSC, Server Actions, Middleware, Parallel/Intercepting Routes, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router.",
+      "description": "Expert guide for Next.js 15 App Router: RSC, React 19 Server Actions, Async Request APIs, 'use cache', PPR, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -813,7 +813,7 @@
     },
     {
       "name": "svelte-sveltekit-expert",
-      "description": "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, arsitektur server-first, form actions, dan SSR/SSG.",
+      "description": "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, snippets, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, snippets, arsitektur server-first, form actions, dan SSR/SSG.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
