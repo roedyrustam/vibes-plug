@@ -31,7 +31,7 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 - Integrating conversational chat, streaming completions, or generative UI in React 19 / Next.js 15.
 - Implementing structured data extraction using `generateObject` or `streamObject` with Zod schemas.
 - Building autonomous multi-step tool-calling loops on Next.js Route Handlers or Server Actions.
-- Switching seamlessly across frontier providers (Claude 5.1 Fable / 5 Sonnet, Gemini 4 Pro / Flash, OpenAI GPT-5.6 / o3 / GPT-4.5, Ollama).
+- Switching seamlessly across frontier providers (Claude Sonnet 5.5 / Fable 5.1, Gemini 4 Argon / Pro, OpenAI GPT-5.6 Sol, Grok 4.7, Ollama).
 - Building streaming data channels with custom metadata, tool status indicators, and citations.
 
 ### Vercel AI SDK Architecture (Core vs UI)
@@ -46,7 +46,7 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 ┌──────────────────────────────▼──────────────────────────────┐
 │                    SERVER ROUTE / ACTION                    │
 │  streamText({                                               │
-│    model: anthropic('claude-3-7-sonnet-20250219'),          │
+│    model: anthropic('claude-sonnet-5.5-20261022'),          │
 │    tools: { weatherTool, dbQueryTool },                     │
 │    maxSteps: 5,                                             │
 │  }).toDataStreamResponse()                                  │
@@ -69,7 +69,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
+    model: anthropic('claude-sonnet-5.5-20261022'),
     messages,
     maxSteps: 10, // Iterative tool-calling loop up to 10 steps
     providerOptions: {
@@ -315,7 +315,7 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 - Mengintegrasikan chat percakapan, streaming respons, atau generative UI di React 19 / Next.js 15.
 - Menerapkan ekstraksi data terstruktur dengan validasi skema Zod via `generateObject` atau `streamObject`.
 - Membangun loop pemanggilan tool (*tool-calling loops*) multi-langkah di Route Handler atau Server Actions.
-- Beralih fleksibel antar penyedia model frontier (Claude 5.1 Fable / 5 Sonnet, Gemini 4 Pro / Flash, OpenAI GPT-5.6 / o3 / GPT-4.5, Ollama).
+- Beralih fleksibel antar penyedia model frontier (Claude Sonnet 5.5 / Fable 5.1, Gemini 4 Argon / Pro, OpenAI GPT-5.6 Sol, Grok 4.7, Ollama).
 - Mengelola status eksekusi tool, indikator loading, dan rendering komponen UI secara dinamis saat streaming berlangsung.
 
 ---
@@ -336,7 +336,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const hasil = streamText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
+    model: anthropic('claude-sonnet-5.5-20261022'),
     messages,
     maxSteps: 10, // Siklus iteratif pemanggilan tool hingga 10 langkah
     providerOptions: {

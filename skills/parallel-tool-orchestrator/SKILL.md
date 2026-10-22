@@ -23,7 +23,7 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
-Production guide for optimizing AI agent tool-calling throughput by executing independent tool invocations in parallel. Frontier models (Gemini 4, Claude 3.7/5.1, GPT-5) natively generate multi-tool calls in a single turn. Executing these calls sequentially creates unnecessary network round-trips and escalates latency. This skill provides architectures for parallel tool orchestration using Model Context Protocol batching (`vibes_batch`), resilient `Promise.allSettled` execution, automated dependency DAG resolution, and non-blocking background task workers.
+Production guide for optimizing AI agent tool-calling throughput by executing independent tool invocations in parallel. Late-2026 frontier models (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7) natively generate multi-tool calls in a single turn. Executing these calls sequentially creates unnecessary network round-trips and escalates latency. This skill provides architectures for parallel tool orchestration using Model Context Protocol batching (`vibes_batch`), resilient `Promise.allSettled` execution, automated dependency DAG resolution, and non-blocking background task workers.
 
 ### Trigger Conditions
 Activate this skill when:

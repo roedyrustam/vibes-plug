@@ -15,7 +15,7 @@ version: "4.4.2"
 ## English
 
 ### Executive Directive & Ephemeral UI Paradigm (2026 Shift)
-Traditional web applications render pre-compiled, static templates. Even modern AI chatbots largely output passive markdown text or static charts. In the Gemini 4 Pro / Claude 3.7+ era, this architecture is obsolete for high-agency coding and autonomous workflows.
+Traditional web applications render pre-compiled, static templates. Even modern AI chatbots largely output passive markdown text or static charts. In the Gemini 4 / Claude 5.5 / Muse Wonder era, this architecture is obsolete for high-agency coding and autonomous workflows.
 
 **Ephemeral Generative UI** is an architectural paradigm where interfaces are:
 1. **Synthesized on-the-fly**: Generated dynamically based on the exact query context, underlying data topology, and user cognitive state.
@@ -475,7 +475,7 @@ export function MultiWidgetGrid({
 ## Bahasa Indonesia
 
 ### Direktif Eksekutif & Paradigma UI Efemeral (Pergeseran 2026)
-Aplikasi web konvensional merender template statis yang telah dikompilasi sebelumnya. Bahkan chatbot AI modern sebagian besar masih menghasilkan teks markdown pasif atau diagram statis. Di era Gemini 4 Pro / Claude 3.7+, arsitektur ini sudah usang untuk kebutuhan coding tingkat lanjut dan alur kerja agen otonom.
+Aplikasi web konvensional merender template statis yang telah dikompilasi sebelumnya. Bahkan chatbot AI modern sebagian besar masih menghasilkan teks markdown pasif atau diagram statis. Di era Gemini 4 / Claude 5.5 / Muse Wonder, arsitektur ini sudah usang untuk kebutuhan coding tingkat lanjut dan alur kerja agen otonom.
 
 **Generative UI Efemeral** adalah paradigma arsitektur di mana antarmuka:
 1. **Disintesis Secara Instan (On-the-fly)**: Dihasilkan secara dinamis berdasarkan konteks kueri pengguna, topologi data yang mendasari, dan beban kognitif pengguna.

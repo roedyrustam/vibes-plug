@@ -37,7 +37,7 @@ Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute
    - **Human Behavior Mimicry**: Inject natural Bezier-curve mouse movements, randomized typing cadences, and realistic scroll viewport dynamics.
 
 3. **Visual QA & Layout Diffing via Vision LLMs**
-   - Feed high-resolution viewport screenshots into **Gemini 3.8 Flash** or **Claude 3.7 Sonnet**.
+   - Feed high-resolution viewport screenshots into **Gemini 4 Argon/Pro Vision** or **Claude Sonnet 5.5 Vision**.
    - Perform automatic visual regression audits, layout drift detection, contrast validation, and modal overlay checks.
 
 ---
@@ -173,7 +173,7 @@ Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengekse
    - **Mimikri Perilaku Manusia**: Menginjeksi gerakan kursor kurva Bezier, jeda pengetikan organik, dan dinamika scroll realistis.
 
 3. **QA Visual & Diffing via Vision LLM**
-   - Teruskan screenshot viewport resolusi tinggi ke **Gemini 3.8 Flash** atau **Claude 3.7 Sonnet**.
+   - Teruskan screenshot viewport resolusi tinggi ke **Gemini 4 Argon/Pro Vision** atau **Claude Sonnet 5.5 Vision**.
    - Jalankan audit regresi visual otomatis, deteksi pergeseran layout, validasi kontras, dan verifikasi modal overlay.
 
 ---
