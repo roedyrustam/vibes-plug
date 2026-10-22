@@ -41,7 +41,7 @@ Activate this skill when:
 | Model | Max Context | Effective Recall Zone | Cost per 1M Input Tokens | Cache Discount |
 | :--- | :--- | :--- | :--- | :--- |
 | **Gemini 4 Pro** | 2,097,152 | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
-| **Gemini 4 Flash** | 1,048,576 | ~900k | $0.075 | 75% |
+| **Gemini 3.8 Flash** | 1,048,576 | ~900k | $0.075 | 75% |
 | **Claude 5.5 Opus** | 500,000 | ~450k | $15.00 | 90% (prompt cache) |
 | **Claude 5.5 Sonnet** | 200,000 | ~180k | $3.00 | 90% |
 | **GPT Astra 6** | 256,000 | ~220k | $5.00 | 50% (prefix cache) |

@@ -287,7 +287,7 @@ function recommendModel(complexity, caching) {
   }
 
   return {
-    primary: 'Gemini 3.8 Flash / Gemini 4 Flash',
+    primary: 'Gemini 3.8 Flash / Gemini 3.8 Flash',
     role: 'Agile Interactive Pair Programming & High-Throughput Agentic Loops',
     reason: 'Ultra-low latency (<100ms), agile thinking mode, and optimal token cost efficiency for standard dev loops.'
   };

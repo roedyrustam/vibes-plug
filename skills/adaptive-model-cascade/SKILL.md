@@ -47,14 +47,14 @@ USER REQUEST
 │  lightweight model)   │
 └──────┬───────────────┘
        │
-       ├── LOW ──────────► Gemini 4 Flash-Lite / Claude Haiku ($0.025/1M)
+       ├── LOW ──────────► Gemini 3.8 Flash-Lite / Claude Haiku ($0.025/1M)
        │                        │
        │                   ┌────▼────┐
        │                   │ QUALITY  │  Pass? → Return response
        │                   │ GATE     │  Fail? → Escalate to MEDIUM
        │                   └─────────┘
        │
-       ├── MEDIUM ───────► Gemini 4 Flash / Claude Sonnet ($0.30/1M)
+       ├── MEDIUM ───────► Gemini 3.8 Flash / Claude Sonnet ($0.30/1M)
        │                        │
        │                   ┌────▼────┐
        │                   │ QUALITY  │  Pass? → Return response

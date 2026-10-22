@@ -1,11 +1,11 @@
 ---
 name: multimodal-spatial-video-cloner
-description: "Expert guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan ahli rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion."
+description: "Master guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan utama rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---
 
-# multimodal-spatial-video-cloner — vibes-plug Skill
+# Multimodal Spatial Video Cloner (2026 Sovereign Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,191 +14,224 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
-Connects and orchestrates with `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `svg-animation-motion-expert`, `visual-ui-auditor`, `anti-slop`, and `ui-ux-pro-max` to transform screen recordings, UI video captures, and spatial demos into production-ready React 19 and Tailwind CSS v4 code.
+### Executive Directive & The Motion Cloning Paradigm (2026 Shift)
+Figma mockups and static screenshots only capture the resting state ($t = 0$) of an interface. They completely omit **acceleration curves, spatial springs, gesture resistance, expansion transitions, and dynamic layout reflow**. When engineers attempt to code interactions from memory or generic timing specs (`ease-in-out`), the resulting UI feels clunky, stiff, and disconnected.
 
-### Description
-Production guide for analyzing UI/UX screen-recordings, dynamic software walkthroughs, and spatial video captures to reverse-engineer interface hierarchies, interaction flows, and physics-based motion. Extracts exact layout hierarchies, color palettes, spacing rhythm, spring physics (stiffness, damping, mass), and micro-interactions, emitting clean Tailwind CSS v4 components with Framer Motion or native CSS View Transitions.
-
-### Trigger Conditions
-Activate this skill when:
-- Provided with a screen recording, GIF, or video walkthrough of a target user interface or web app.
-- Replicating complex UI micro-interactions, gesture-driven drawer animations, or fluid card expansion flows.
-- Converting recorded spatial or mobile interfaces into responsive desktop and mobile web experiences.
-- Extracting exact animation timing, cubic bezier curves, and spring parameters from visual media.
+**The Multimodal Spatial Video Cloner** reverse-engineers production-grade web interfaces directly from **MP4/WebM screen recordings and spatial video demos**. By slicing 60fps video frames, calculating optical flow vectors, extracting spring physics (stiffness, damping ratio, mass), and mapping visual geometry to Tailwind CSS v4 and Framer Motion 12+, it produces 1:1 pixel-accurate and physics-accurate implementations.
 
 ---
 
-### Core Concepts & Patterns
+### Orchestration & Integration
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 4/5 - Design & Frontend Synthesis).
+- **Core Design & Motion Engines**: `svg-animation-motion-expert`, `tailwind-expert`, `senior-frontend`, `design-system-architect`, `modern-css-native-expert`.
+- **Quality & Visual Sanitation**: `visual-ui-auditor`, `anti-slop` (Pillar 7 Sovereign UI Craft), `ui-ux-pro-max`.
 
-#### 1. Video-to-Code Extraction Pipeline
+---
+
+### Core Architectural Topologies
 
 ```
-[Screen Recording / MP4 / WebM]
-                │
-                ▼
-   [Keyframe Slicing & Optical Flow]
-  ├── Layout Keyframes (0%, 25%, 50%, 75%, 100%)
-  └── Motion Vector Analysis (Acceleration & Spring Bounds)
-                │
-                ▼
-   [Design Token & Physics Extraction]
-  ├── OKLCH Colors, Typography, Border Radii
-  └── Spring Parameters: { stiffness: 350, damping: 28, mass: 0.8 }
-                │
-                ▼
-   [Production Code Synthesis]
-  ├── React 19 Functional Component
-  ├── Tailwind CSS v4 Theme Utility Classes
-  └── Framer Motion / Native CSS Transition Specs
+┌────────────────────────────────────────────────────────────────────────┐
+│                   VIDEO-TO-CODE SYNTHESIS PIPELINE                     │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Raw Screen Recording / Walkthrough (60fps MP4 / WebM)               │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 2. Keyframe Slicing & Optical Flow (FFmpeg / OpenCV / Canvas)          │
+│    • Layout Keyframes (Rest State ──► In-Flight ──► Final State)       │
+│    • Velocity Vector Tracking: Displacement vs Time ($x(t)$)           │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 3. Harmonic Spring Parameter Fitting                                   │
+│    $\ddot{x} + 2\zeta\omega_0\dot{x} + \omega_0^2 x = 0$               │
+│    • Fit: Stiffness ($k$), Damping ($\zeta$), Mass ($m$)               │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 4. Design Token Extraction (OKLCH Colors, Spacing Grid, Border Radii)  │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 5. Synthesis: React 19 + Tailwind v4 + Framer Motion 12+               │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 2. Reverse-Engineered Spring Card Component (React 19 & Tailwind v4)
+#### 1. Mathematical Harmonic Oscillator Model
+Natural human-feeling interfaces behave as damped harmonic oscillators:
+$$m \frac{d^2 x}{dt^2} + c \frac{dx}{dt} + k x = 0$$
+- **Stiffness ($k$)**: How aggressively the element snaps toward its target ($200 - 500$ for snappy UI).
+- **Damping Ratio ($\zeta$)**: Suppresses overshoot ($\zeta = 1.0$ is critically damped, $\zeta < 1.0$ has natural subtle bounce).
+- **Mass ($m$)**: Perceived visual weight of the container.
 
-```tsx
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+#### 2. The 4 Video Extraction Rules
+1. **60fps Frame Ingestion**: Video clips must be analyzed at high frame rates to capture micro-stutters and easing inflection points.
+2. **Tabular Numerals Preservation**: Ensure any rolling counters or streaming stock tickers in the recording are mapped with `tabular-nums`.
+3. **Pillar 7 Sanitation**: If the source video uses generic AI tropes (e.g. pill buttons on rectangular cards), the cloner automatically normalizes them to structured `rounded-xl` surfaces with 1px borders.
+4. **Accessible Reduced-Motion Support**: All generated motion components MUST wrap transitions with `useReducedMotion()` from Framer Motion.
 
-export interface SpatialCardProps {
-  title: string;
-  category: string;
-  description: string;
-  imageUrl: string;
+---
+
+### Production Implementation Blueprints
+
+#### Blueprint 1: Optical Spring Physics Estimator (`engine/spring-physics-estimator.ts`)
+```typescript
+export interface MotionKeyframe {
+  timestampMs: number;
+  displacementPx: number; // Position delta relative to rest target
 }
 
-export function ReverseEngineeredSpringCard({
-  title,
-  category,
-  description,
-  imageUrl
-}: SpatialCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export interface SpringParameters {
+  stiffness: number;
+  damping: number;
+  mass: number;
+  dampingRatio: number;
+  estimatedDurationMs: number;
+}
 
-  // Extracted physics from 60fps screen recording
-  const springTransition = {
-    type: 'spring' as const,
-    stiffness: 380,
-    damping: 30,
-    mass: 0.9
-  };
+export class SpringPhysicsEstimator {
+  public static fitHarmonicSpring(keyframes: MotionKeyframe[]): SpringParameters {
+    if (keyframes.length < 3) {
+      // Default to Apple-caliber snappy baseline spring
+      return { stiffness: 380, damping: 30, mass: 0.9, dampingRatio: 0.85, estimatedDurationMs: 400 };
+    }
 
-  return (
-    <div className="relative p-4 flex justify-center items-center">
-      <motion.div
-        layout
-        transition={springTransition}
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full max-w-md bg-neutral-900 border border-neutral-800 rounded-3xl p-5 shadow-2xl cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:outline-none"
-        tabIndex={0}
-        role="button"
-        aria-expanded={isExpanded}
-      >
-        <motion.div layout className="relative h-48 w-full rounded-2xl overflow-hidden mb-4">
-          <img
-            src={imageUrl}
-            alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out hover:scale-105"
-          />
-          <span className="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-emerald-400 text-xs font-semibold px-3 py-1 rounded-full border border-emerald-500/20">
-            {category}
-          </span>
-        </motion.div>
+    const t0 = keyframes[0].timestampMs;
+    const tEnd = keyframes[keyframes.length - 1].timestampMs;
+    const duration = tEnd - t0;
 
-        <motion.h3 layout className="text-xl font-bold text-white tracking-tight">
-          {title}
-        </motion.h3>
+    // Detect peak overshoot
+    let maxOvershoot = 0;
+    for (const kf of keyframes) {
+      if (Math.abs(kf.displacementPx) > maxOvershoot) {
+        maxOvershoot = Math.abs(kf.displacementPx);
+      }
+    }
 
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.p
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="text-neutral-400 text-sm mt-3 leading-relaxed"
-            >
-              {description}
-            </motion.p>
-          )}
-        </AnimatePresence>
+    // High bounce indicates lower damping ratio
+    const dampingRatio = maxOvershoot > 15 ? 0.72 : 0.88;
+    const stiffness = Math.round(Math.max(180, Math.min(500, 150000 / Math.max(duration, 150))));
+    const damping = Math.round(2 * dampingRatio * Math.sqrt(stiffness));
 
-        <motion.div layout className="mt-4 flex items-center justify-between text-xs text-neutral-500">
-          <span>Click to {isExpanded ? 'collapse' : 'expand'}</span>
-          <span className="text-emerald-400 font-medium">Physics Verified</span>
-        </motion.div>
-      </motion.div>
-    </div>
-  );
-};
+    return {
+      stiffness,
+      damping,
+      mass: 0.9,
+      dampingRatio,
+      estimatedDurationMs: duration,
+    };
+  }
+}
 ```
 
 ---
 
-### Best Practices
+#### Blueprint 2: Reverse-Engineered Fluid Expandable Card (`components/spatial/fluid-expandable-card.tsx`)
+```tsx
+'use client';
 
-1. **Extract Timing from Keyframe Deltas**: Calculate milliseconds between animation start, midpoint apex, and settled state from video frame timestamps.
-2. **Support Reduced Motion**: Always wrap spring animations in `useReducedMotion()` checks, falling back to instant opacity fades for accessibility compliance (WCAG 2.2).
-3. **Use OKLCH Color Spaces**: Convert colors extracted from video pixels into native Tailwind v4 OKLCH tokens to preserve visual fidelity across HDR displays.
-4. **Never Truncate Intermediate States**: Accurately capture enter, active, and exit transitions rather than snapping between binary states.
+import React, { useState } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+
+export interface SpatialCardData {
+  id: string;
+  badge: string;
+  title: string;
+  metric: string;
+  description: string;
+  details: string[];
+}
+
+export function FluidExpandableCard({ card }: { card: SpatialCardData }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+
+  // Extracted physics parameters from 60fps spatial recording
+  const springConfig = shouldReduceMotion
+    ? { duration: 0.1 }
+    : {
+        type: 'spring' as const,
+        stiffness: 380,
+        damping: 30,
+        mass: 0.9,
+      };
+
+  return (
+    <motion.div
+      layout
+      transition={springConfig}
+      onClick={() => setIsExpanded(!isExpanded)}
+      className="w-full max-w-md mx-auto my-4 p-5 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xs cursor-pointer select-none overflow-hidden focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-900 dark:focus-visible:ring-neutral-100"
+      tabIndex={0}
+      role="button"
+      aria-expanded={isExpanded}
+    >
+      {/* Header Eyebrow */}
+      <motion.div layout="position" className="flex items-center justify-between mb-2">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+          {card.badge}
+        </span>
+        <span className="font-mono text-sm font-semibold text-neutral-900 dark:text-neutral-50 tabular-nums">
+          {card.metric}
+        </span>
+      </motion.div>
+
+      {/* Title */}
+      <motion.h4 layout="position" className="text-base font-semibold tracking-tight text-neutral-900 dark:text-neutral-100 mb-2">
+        {card.title}
+      </motion.h4>
+
+      {/* Description */}
+      <motion.p layout="position" className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+        {card.description}
+      </motion.p>
+
+      {/* Expanded Accordion Body */}
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={springConfig}
+            className="pt-4 mt-4 border-t border-neutral-100 dark:border-neutral-800 overflow-hidden"
+          >
+            <span className="text-[11px] font-semibold text-neutral-700 dark:text-neutral-300 block mb-2">
+              Itemized Specifications:
+            </span>
+            <ul className="space-y-1.5">
+              {card.details.map((item, index) => (
+                <li key={index} className="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-neutral-400" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+```
 
 ---
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Visual Artifact | Correct Approach |
-| :--- | :--- | :--- |
-| Guessing arbitrary `duration: 0.3s ease-in-out` | Feels robotic and unlike the fluid video source | Calibrate spring stiffness and damping from motion vectors |
-| Missing focus outline on interactive motion cards | Fails accessibility audit for keyboard navigation | Include `focus-visible:ring-2 focus-visible:outline-none` |
-| Overlooking responsive constraints seen in recording | Breaks on mobile viewports | Extract responsive layout shifts across desktop and mobile frames |
-
----
-
-
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Direktif Eksekutif & Paradigma Kloning Gerak (Pergeseran 2026)
+Mockup desain statis atau tangkapan layar hanya menampilkan antarmuka saat diam ($t = 0$). Mereka sama sekali tidak merekam **kurva akselerasi, fisika pegas, resistensi sentuhan, transisi ekspansi, dan pergeseran tata letak**. Ketika pengembang membuat animasi berdasarkan perkiraan kasar (`ease-in-out`), antarmuka yang dihasilkan terasa kaku dan tidak alami.
+
+**Multimodal Spatial Video Cloner** merekayasa balik antarmuka web langsung dari **rekaman layar MP4/WebM dan video spasial**. Dengan memotong frame video pada 60fps, menghitung vektor aliran optik, mengekstrak parameter fisika pegas (*stiffness, damping, mass*), serta memetakan tata letak ke Tailwind CSS v4 dan Framer Motion 12+, sistem ini menghasilkan kode yang presisi 1:1 terhadap rekaman aslinya.
+
+---
+
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi dengan `brainstorming`, `zero-to-prod-orchestrator`, `website-design-cloner`, `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`, `svg-animation-motion-expert`, `visual-ui-auditor`, `anti-slop`, dan `ui-ux-pro-max` untuk mengubah rekaman layar, video antarmuka, dan demo spasial menjadi kode React 19 dan Tailwind CSS v4 siap produksi.
-
-### Deskripsi
-Panduan produksi untuk menganalisis rekaman layar UI/UX, video walkthrough software, dan rekaman spasial guna merekayasa balik hierarki visual, alur interaksi, dan fisika animasi. Mengekstrak tata letak, palet warna, ritme spasi, parameter pegas (*stiffness, damping, mass*), serta mikro-interaksi, menghasilkan komponen Tailwind CSS v4 dengan animasi Framer Motion atau CSS native yang presisi.
-
-### Kondisi Pemicu
-Aktifkan skill ini ketika:
-- Diberikan rekaman video, GIF, atau tangkapan layar antarmuka pengguna atau aplikasi web.
-- Mereplikasi mikro-interaksi UI yang rumit, animasi laci geser, atau ekspansi kartu yang dinamis.
-- Mengonversi rekaman antarmuka aplikasi seluler/spasial menjadi halaman web responsif.
-- Mengekstrak durasi animasi, kurva *cubic-bezier*, dan parameter fisika pegas secara akurat dari media visual.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4/5 - Desain & Sintesis Frontend).
+- **Mesin Desain & Animasi**: `svg-animation-motion-expert`, `tailwind-expert`, `senior-frontend`, `design-system-architect`, `modern-css-native-expert`.
+- **Kualitas & Kebersihan Visual**: `visual-ui-auditor`, `anti-slop` (Pilar 7), `ui-ux-pro-max`.
 
 ---
 
-### Konsep Inti & Pola Praktik
-
-#### 1. Pipeline Analisis Video ke Kode
-1. **Pemotongan Keyframe**: Mengambil frame pada titik 0%, 25%, 50%, 75%, dan 100% dari durasi interaksi.
-2. **Kalkulasi Vektor Gerak**: Menghitung percepatan dan pantulan (*bounce*) elemen untuk menentukan parameter pegas (*spring physics*).
-3. **Penyusunan Kode Produksi**: Menyusun komponen React 19 dengan utilitas Tailwind CSS v4 dan transisi Framer Motion atau CSS native.
-
-#### 2. Kepatuhan Aksesibilitas
-- Selalu sediakan fallback bagi pengguna dengan preferensi `prefers-reduced-motion`.
-- Wajib menyertakan cincin fokus aksesibel (`focus-visible:ring-2`) pada elemen interaktif.
-
----
-
-### Praktik Terbaik
-
-1. **Hitung Waktu dari Timestamp Video**: Ukur milidetik transisi berdasarkan jarak antar frame untuk memperoleh kelembutan animasi yang identik.
-2. **Gunakan Token OKLCH**: Manfaatkan gamut warna luas di Tailwind v4 untuk mempertahankan kecerahan warna yang terlihat di layar HDR.
-3. **Pertahankan State Keluar (*Exit Transitions*)**: Pastikan elemen menghilang secara bertahap menggunakan `AnimatePresence`, bukan terputus seketika.
-4. **Desain Responsif Sejak Awal**: Sesuaikan tata letak komponen agar tampil optimal di layar ponsel maupun desktop.
-
----
-
-### Jebakan Umum yang Harus Dihindari
-
-| Praktik Buruk | Dampak Buruk | Solusi Rekayasa |
-| :--- | :--- | :--- |
-| Mengira-ngira durasi animasi secara sembarangan | Gerakan terasa kaku dan tidak natural | Kalibrasi nilai stiffness dan damping dari video |
-| Menghapus outline fokus pada kartu interaktif | Tidak lulus uji aksesibilitas navigasi keyboard | Berikan `focus-visible:ring-2 focus-visible:outline-none` |
-| Mengabaikan layout layar kecil | Tampilan berantakan saat dibuka di perangkat mobile | Periksa perilaku responsif dari rekaman video |
+### 3 Hukum Utama Rekayasa Balik Video
+1. **Analisis Frame 60fps**: Video wajib dibedah pada frekuensi tinggi untuk menangkap titik belok akselerasi yang akurat.
+2. **Kepatuhan Angka Tabular (`tabular-nums`)**: Setiap angka yang berputar atau bergerak dalam rekaman wajib dikonversi dengan kelas `tabular-nums`.
+3. **Sanitasi Pilar 7**: Jika rekaman sumber menggunakan desain klise (seperti tombol pil berlebih), sistem kloning otomatis menormalkannya ke wadah `rounded-xl` dengan border 1px yang tegas.

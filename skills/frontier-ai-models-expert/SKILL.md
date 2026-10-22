@@ -28,7 +28,7 @@ Expert guide for integrating late-2026 frontier AI models, focusing on Google De
 
 ### Trigger Conditions
 Activate this skill when the user is:
-- Requesting integration of **Gemini 4 Pro**, **Gemini 4 Flash**, or **Project Astra**.
+- Requesting integration of **Gemini 4 Pro**, **Gemini 3.8 Flash**, or **Project Astra**.
 - Asking to integrate **Claude 5.1**, **Claude Fable**, or **Claude Mythos**.
 - Building applications requiring zero data retention or Enterprise Frontier Safeguards (EFS).
 - Architecting test-time compute optimization or massive monolithic context ingestion (>1M tokens).
@@ -154,7 +154,7 @@ Panduan ahli untuk mengintegrasikan model AI frontier akhir 2026, berfokus pada 
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika pengguna sedang:
-- Meminta integrasi **Gemini 4 Pro**, **Gemini 4 Flash**, atau **Project Astra**.
+- Meminta integrasi **Gemini 4 Pro**, **Gemini 3.8 Flash**, atau **Project Astra**.
 - Meminta integrasi **Claude 5.1**, **Claude Fable**, atau **Claude Mythos**.
 - Menginginkan kapabilitas asisten AI universal atau pemrosesan konteks monolitik masif (>1M token).
 - Membangun aplikasi yang memerlukan retensi data nol atau EFS.

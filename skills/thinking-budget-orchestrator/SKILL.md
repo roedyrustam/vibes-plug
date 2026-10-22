@@ -56,7 +56,7 @@ Simple typo  Fullstack  Security    Formal math /
 
 | Profile | Token Budget | Target Workload | Frontier Model Mapping |
 |---|---|---|---|
-| `speed` | 1,024 tokens | AST queries, documentation lookup, typos, single unit tests | Gemini 4 Flash / Claude 3.5 Haiku |
+| `speed` | 1,024 tokens | AST queries, documentation lookup, typos, single unit tests | Gemini 3.8 Flash / Claude 3.5 Haiku |
 | `balanced` | 8,192 tokens | Feature implementation, component assembly, standard CRUD | Claude 3.7 Sonnet / Gemini 4 Pro |
 | `deep` | 32,768 tokens | Architecture synthesis, cross-domain migrations, security audits | Claude 5.1 Sonnet / Gemini 4 Pro |
 | `exhaustive` | 65,536 tokens | Cryptographic verification, SMT invariant proving, distributed sagas | OpenAI o3 / Gemini 4 Pro Deep Think |

@@ -1,12 +1,11 @@
 ---
 name: living-codebase-ast-graph
-description: "Expert guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, real-time symbol dependency mapping, refactoring blast radius calculation, and dead code eradication / Panduan ahli graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, kalkulasi radius dampak refaktor, dan pembersihan kode mati."
+description: "Master guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, multi-language symbol dependency mapping (TS, Python, Go, Rust), refactoring blast radius calculation, circular cycle detection (Tarjan SCC), and topological swarm generation / Panduan utama graf pengetahuan AST kode in-memory, pemetaan dependensi multi-bahasa, kalkulasi radius dampak refaktor, deteksi siklus dependensi, dan pengurutan topologis swarm."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
-# living-codebase-ast-graph — vibes-plug Skill
+# Living Codebase AST Graph (2026 Sovereign Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -15,106 +14,151 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
-- **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 2 foundation & Phase 6 QA), `brainstorming`, `session-memory-manager`.
-- **AST Manipulation & Type Systems**: `typescript-expert` (TS compiler API & symbol binding), `autonomous-api-drift-healer` (API contract drift blast radius).
-- **Architecture & Refactoring**: `scalability-clean-code` (Clean Architecture boundary enforcement), `legacy-code-translator` (strangler migration AST mapping), `monorepo-architect` (cross-package dependency graphs).
-- **Code Health & Debt Auditing**: `zero-tech-debt-auditor` (dead symbol & unreachable code eradication), `anti-slop` (AST anti-slop verification).
+### Executive Directive & The AST Knowledge Paradigm (2026 Shift)
+Fuzzy text matching (Ripgrep, regex, or basic keyword search) is catastrophic for large-scale autonomous refactoring. Renaming a function like `init()` or `format()` via global search-and-replace corrupts unrelated variables, breaks third-party interfaces, and silently introduces critical bugs.
 
-### Description
-Production guide for constructing and querying in-memory Abstract Syntax Tree (AST) knowledge graphs across multi-file and monorepo codebases. Enables autonomous agents to navigate complex symbol relationships, calculate refactoring blast radii, eliminate circular dependencies, determine optimal topological generation sequences, and prune unreachable code without relying on fuzzy string matching.
-
-### Trigger Conditions
-Activate this skill when:
-- Executing large-scale codebase refactoring or renaming symbols across multiple packages.
-- Analyzing architectural blast radius before making breaking changes to data models or API signatures.
-- Detecting and resolving circular dependencies in TypeScript, JavaScript, Python, or Go codebases.
-- Ordering code generation tasks topologically so underlying dependencies are created before dependent modules.
-- Identifying dead exports, unreferenced functions, and ghost imports with absolute precision.
+**The Living Codebase AST Graph** represents a codebase not as flat text files, but as a dynamic, queryable **neural knowledge graph** built from native Abstract Syntax Trees across **TypeScript, Python, Go, and Rust**. It enables autonomous AI swarms to:
+1. **Calculate Blast Radius**: Determine every inbound caller, interface consumer, and database dependent before modifying any symbol.
+2. **Detect Cycles Mathematically**: Identify circular dependency loops using Tarjan's Strongly Connected Components (SCC) algorithm.
+3. **Enforce Topological Generation Order**: Sequence multi-agent code generation so base schemas and types are completed before downstream controllers or UI widgets are constructed.
+4. **Persist Across Sessions via XERJ MCP**: Store the graph in unified episodic memory (`xerj_brain_link`, `xerj_memory_store`) for instant context retrieval across agent restarts.
 
 ---
 
-### Core Concepts & Patterns
+### Orchestration & Integration
+- **Upstream Swarm Orchestration**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`.
+- **AST Mapping & Type Systems**: `typescript-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`.
+- **Refactoring & Debt Eradication**: `scalability-clean-code`, `legacy-code-translator`, `zero-tech-debt-auditor`, `anti-slop`.
+- **Persistent Graph Memory**: `xerj-search-expert`, `vector-db-rag-expert`.
 
-#### 1. In-Memory AST Dependency Extractor (TypeScript Compiler API)
+---
 
+### Core Architectural Graph Topologies
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                   LIVING CODEBASE AST GRAPH PIPELINE                   │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Multi-Language Source Code (TypeScript, Python, Go, Rust)           │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 2. Native AST Parsers (ts.createProgram, ast.parse, go/parser, syn)    │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 3. Symbol Registration & In-Memory Graph Index                         │
+│    • Node: SymbolKey (FileUri#SymbolName, Kind, Signature)             │
+│    • Inbound Edges (Callers) | Outbound Edges (Dependencies)           │
+│                                  │                                     │
+│        ┌─────────────────────────┼─────────────────────────┐           │
+│        ▼                         ▼                         ▼           │
+│  [Blast Radius]          [Tarjan SCC Cycles]      [Topological DAG]    │
+│  Recursive Inbound       Detect Circular Deps     Sequence Multi-Agent │
+│  Caller Traversal        Before Build Crash       Swarm Generation     │
+│        │                         │                         │           │
+│        └─────────────────────────┼─────────────────────────┘           │
+│                                  ▼                                     │
+│ 4. Persistent Memory Serialization (XERJ Graph Brain / Memory Store)   │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 1. Blast Radius Risk Categorization
+When a symbol $S$ is mutated, its blast radius $B(S)$ is calculated by transitively traversing all inbound dependency edges:
+- **Critical Risk (Public Contract)**: Exported API route handlers, shared database DDL schemas, or public SDK interfaces.
+- **Moderate Risk (Service Layer)**: Internal business logic interactors and domain services.
+- **Low Risk (Leaf Utility)**: Standalone private helper functions with zero external consumers.
+
+#### 2. Tarjan's Strongly Connected Components (Cycle Detection)
+Circular dependencies (`A -> B -> C -> A`) cause subtle runtime `undefined` initialization bugs in modern bundlers and runtimes. The living graph continuously runs Tarjan's SCC to isolate cycles and prevent commits until the cycle is untangled.
+
+#### 3. Kahn's Topological Sorter for Swarm Task Distribution
+Autonomous subagents must never attempt to write code for a consumer module before the producer module's interface is finalized. Kahn's algorithm groups AST nodes into dependency tiers (Tier 0 to Tier $N$) for parallel multi-agent execution.
+
+---
+
+### Production Implementation Blueprints
+
+#### Blueprint 1: Multi-Language AST Graph & Blast Radius Engine (`engine/codebase-ast-graph.ts`)
 ```typescript
 import ts from 'typescript';
-import fs from 'fs';
 import path from 'path';
 
-export interface SymbolNode {
+export interface AstSymbolNode {
+  id: string; // filePath#symbolName
   filePath: string;
-  name: string;
-  kind: 'function' | 'class' | 'interface' | 'variable' | 'type';
-  dependencies: string[];
+  symbolName: string;
+  kind: 'function' | 'class' | 'interface' | 'type' | 'variable';
+  exported: boolean;
+  dependencies: string[]; // outbound edges
 }
 
-export interface CodebaseGraph {
-  nodes: Map<string, SymbolNode>;
-  edges: Map<string, Set<string>>;
+export interface BlastRadiusReport {
+  targetSymbol: string;
+  totalAffectedNodes: number;
+  criticalPaths: string[];
+  affectedFiles: string[];
 }
 
-export class LivingCodebaseASTGraph {
-  private program: ts.Program;
-  private checker: ts.TypeChecker;
-  private graph: CodebaseGraph;
+export class LivingCodebaseAstGraph {
+  private nodes: Map<string, AstSymbolNode> = new Map();
+  private outboundEdges: Map<string, Set<string>> = new Map();
+  private inboundEdges: Map<string, Set<string>> = new Map();
 
-  constructor(rootFiles: string[], options: ts.CompilerOptions = {}) {
-    this.program = ts.createProgram(rootFiles, {
-      target: ts.ScriptTarget.ES2022,
-      module: ts.ModuleKind.NodeNext,
-      ...options
-    });
-    this.checker = this.program.getTypeChecker();
-    this.graph = {
-      nodes: new Map(),
-      edges: new Map()
-    };
-    this.buildGraph();
+  constructor(private rootFiles: string[], private compilerOptions: ts.CompilerOptions = {}) {
+    this.buildTypeScriptGraph();
   }
 
-  private buildGraph(): void {
-    for (const sourceFile of this.program.getSourceFiles()) {
+  private buildTypeScriptGraph(): void {
+    const program = ts.createProgram(this.rootFiles, {
+      target: ts.ScriptTarget.ES2022,
+      module: ts.ModuleKind.NodeNext,
+      ...this.compilerOptions,
+    });
+    const checker = program.getTypeChecker();
+
+    for (const sourceFile of program.getSourceFiles()) {
       if (sourceFile.isDeclarationFile || sourceFile.fileName.includes('node_modules')) {
         continue;
       }
-      this.analyzeSourceFile(sourceFile);
+
+      const filePath = path.resolve(sourceFile.fileName);
+
+      ts.forEachChild(sourceFile, (node) => {
+        if (ts.isFunctionDeclaration(node) && node.name) {
+          this.indexNode(filePath, node.name.text, 'function', node, sourceFile, checker);
+        } else if (ts.isClassDeclaration(node) && node.name) {
+          this.indexNode(filePath, node.name.text, 'class', node, sourceFile, checker);
+        } else if (ts.isInterfaceDeclaration(node) && node.name) {
+          this.indexNode(filePath, node.name.text, 'interface', node, sourceFile, checker);
+        } else if (ts.isTypeAliasDeclaration(node) && node.name) {
+          this.indexNode(filePath, node.name.text, 'type', node, sourceFile, checker);
+        }
+      });
     }
   }
 
-  private analyzeSourceFile(sourceFile: ts.SourceFile): void {
-    const filePath = path.resolve(sourceFile.fileName);
-
-    ts.forEachChild(sourceFile, (node) => {
-      if (ts.isFunctionDeclaration(node) && node.name) {
-        this.registerSymbol(filePath, node.name.text, 'function', node);
-      } else if (ts.isClassDeclaration(node) && node.name) {
-        this.registerSymbol(filePath, node.name.text, 'class', node);
-      } else if (ts.isInterfaceDeclaration(node) && node.name) {
-        this.registerSymbol(filePath, node.name.text, 'interface', node);
-      }
-    });
-  }
-
-  private registerSymbol(
+  private indexNode(
     filePath: string,
     name: string,
-    kind: SymbolNode['kind'],
-    node: ts.Node
+    kind: AstSymbolNode['kind'],
+    node: ts.Node,
+    sourceFile: ts.SourceFile,
+    checker: ts.TypeChecker
   ): void {
-    const symbolKey = `${filePath}#${name}`;
+    const symbolId = `${filePath}#${name}`;
     const dependencies: string[] = [];
+    const isExported = Boolean(
+      ts.getCombinedModifierFlags(node as ts.Declaration) & ts.ModifierFlags.Export
+    );
 
     const visit = (child: ts.Node) => {
       if (ts.isIdentifier(child)) {
-        const symbol = this.checker.getSymbolAtLocation(child);
-        if (symbol && symbol.declarations && symbol.declarations.length > 0) {
-          const declFile = symbol.declarations[0].getSourceFile().fileName;
-          if (!declFile.includes('node_modules') && !declFile.endsWith('.d.ts')) {
-            const targetKey = `${path.resolve(declFile)}#${symbol.getName()}`;
-            if (targetKey !== symbolKey) {
-              dependencies.push(targetKey);
+        const symbol = checker.getSymbolAtLocation(child);
+        if (symbol?.declarations && symbol.declarations.length > 0) {
+          const targetDeclFile = symbol.declarations[0].getSourceFile().fileName;
+          if (!targetDeclFile.includes('node_modules') && !targetDeclFile.endsWith('.d.ts')) {
+            const targetId = `${path.resolve(targetDeclFile)}#${symbol.getName()}`;
+            if (targetId !== symbolId) {
+              dependencies.push(targetId);
             }
           }
         }
@@ -124,123 +168,282 @@ export class LivingCodebaseASTGraph {
 
     visit(node);
 
-    this.graph.nodes.set(symbolKey, { filePath, name, kind, dependencies });
-    if (!this.graph.edges.has(symbolKey)) {
-      this.graph.edges.set(symbolKey, new Set(dependencies));
+    this.nodes.set(symbolId, {
+      id: symbolId,
+      filePath,
+      symbolName: name,
+      kind,
+      exported: isExported,
+      dependencies,
+    });
+
+    if (!this.outboundEdges.has(symbolId)) {
+      this.outboundEdges.set(symbolId, new Set());
+    }
+    for (const dep of dependencies) {
+      this.outboundEdges.get(symbolId)!.add(dep);
+      if (!this.inboundEdges.has(dep)) {
+        this.inboundEdges.set(dep, new Set());
+      }
+      this.inboundEdges.get(dep)!.add(symbolId);
     }
   }
 
-  public calculateBlastRadius(symbolKey: string): string[] {
+  public calculateBlastRadius(symbolId: string): BlastRadiusReport {
     const affected = new Set<string>();
-    const queue = [symbolKey];
+    const queue = [symbolId];
+    const affectedFiles = new Set<string>();
 
     while (queue.length > 0) {
       const current = queue.shift()!;
-      for (const [nodeKey, deps] of this.graph.edges.entries()) {
-        if (deps.has(current) && !affected.has(nodeKey)) {
-          affected.add(nodeKey);
-          queue.push(nodeKey);
+      const callers = this.inboundEdges.get(current) || new Set();
+
+      for (const caller of callers) {
+        if (!affected.has(caller)) {
+          affected.add(caller);
+          const [file] = caller.split('#');
+          affectedFiles.add(file);
+          queue.push(caller);
         }
       }
     }
-    return Array.from(affected);
+
+    const criticalPaths = Array.from(affected).filter((id) => {
+      const node = this.nodes.get(id);
+      return node?.exported && (id.includes('/api/') || id.includes('/routes/') || id.includes('/models/'));
+    });
+
+    return {
+      targetSymbol: symbolId,
+      totalAffectedNodes: affected.size,
+      criticalPaths,
+      affectedFiles: Array.from(affectedFiles),
+    };
+  }
+
+  public detectCircularDependencies(): string[][] {
+    let index = 0;
+    const stack: string[] = [];
+    const indices = new Map<string, number>();
+    const lowlink = new Map<string, number>();
+    const onStack = new Set<string>();
+    const cycles: string[][] = [];
+
+    const strongConnect = (v: string) => {
+      indices.set(v, index);
+      lowlink.set(v, index);
+      index += 1;
+      stack.push(v);
+      onStack.add(v);
+
+      const neighbors = this.outboundEdges.get(v) || new Set();
+      for (const w of neighbors) {
+        if (!indices.has(w)) {
+          strongConnect(w);
+          lowlink.set(v, Math.min(lowlink.get(v)!, lowlink.get(w)!));
+        } else if (onStack.has(w)) {
+          lowlink.set(v, Math.min(lowlink.get(v)!, indices.get(w)!));
+        }
+      }
+
+      if (lowlink.get(v) === indices.get(v)) {
+        const component: string[] = [];
+        let w = '';
+        do {
+          w = stack.pop()!;
+          onStack.delete(w);
+          component.push(w);
+        } while (w !== v);
+
+        if (component.length > 1) {
+          cycles.push(component);
+        }
+      }
+    };
+
+    for (const nodeId of this.nodes.keys()) {
+      if (!indices.has(nodeId)) {
+        strongConnect(nodeId);
+      }
+    }
+
+    return cycles;
+  }
+
+  public getTopologicalTiers(): string[][] {
+    const inDegree = new Map<string, number>();
+    for (const nodeId of this.nodes.keys()) {
+      inDegree.set(nodeId, 0);
+    }
+    for (const [, deps] of this.outboundEdges.entries()) {
+      for (const dep of deps) {
+        if (inDegree.has(dep)) {
+          inDegree.set(dep, inDegree.get(dep)! + 1);
+        }
+      }
+    }
+
+    const tiers: string[][] = [];
+    let currentTier = Array.from(inDegree.entries())
+      .filter(([, deg]) => deg === 0)
+      .map(([id]) => id);
+
+    while (currentTier.length > 0) {
+      tiers.push(currentTier);
+      const nextTier: string[] = [];
+
+      for (const nodeId of currentTier) {
+        const outgoing = this.outboundEdges.get(nodeId) || new Set();
+        for (const dep of outgoing) {
+          if (inDegree.has(dep)) {
+            const newDeg = inDegree.get(dep)! - 1;
+            inDegree.set(dep, newDeg);
+            if (newDeg === 0) {
+              nextTier.push(dep);
+            }
+          }
+        }
+      }
+      currentTier = nextTier;
+    }
+
+    return tiers;
   }
 }
 ```
 
-#### 2. Topological Code Generation Sorter
-Autonomous swarms must construct files in strict topological order to avoid compiling against non-existent types:
+---
 
-```
-[Core Domain Types / Schemas]
-             │
-             ▼
-[Persistence Layer & ORM Repositories]
-             │
-             ▼
-[Business Services & Interactors]
-             │
-             ▼
-[API Handlers / Controllers]
-             │
-             ▼
-[Client SDKs & Frontend Hooks]
+#### Blueprint 2: Python AST Graph Extractor (`engine/python_ast_extractor.py`)
+```python
+import ast
+import os
+from typing import Dict, List, Set
+
+class PythonSymbolNode:
+    def __init__(self, file_path: str, name: str, kind: str):
+        self.id = f"{file_path}#{name}"
+        self.file_path = file_path
+        self.name = name
+        self.kind = kind
+        self.dependencies: List[str] = []
+
+class PythonAstGraphExtractor(ast.NodeVisitor):
+    def __init__(self, file_path: str):
+        self.file_path = os.path.abspath(file_path)
+        self.current_symbol: str = ""
+        self.nodes: Dict[str, PythonSymbolNode] = {}
+        self.edges: Dict[str, Set[str]] = {}
+
+    def parse_file(self):
+        with open(self.file_path, "r", encoding="utf-8") as f:
+            tree = ast.parse(f.read(), filename=self.file_path)
+        self.visit(tree)
+        return self.nodes, self.edges
+
+    def visit_FunctionDef(self, node: ast.FunctionDef):
+        symbol_id = f"{self.file_path}#{node.name}"
+        self.nodes[symbol_id] = PythonSymbolNode(self.file_path, node.name, "function")
+        self.edges[symbol_id] = set()
+
+        prev_symbol = self.current_symbol
+        self.current_symbol = symbol_id
+        self.generic_visit(node)
+        self.current_symbol = prev_symbol
+
+    def visit_ClassDef(self, node: ast.ClassDef):
+        symbol_id = f"{self.file_path}#{node.name}"
+        self.nodes[symbol_id] = PythonSymbolNode(self.file_path, node.name, "class")
+        self.edges[symbol_id] = set()
+
+        prev_symbol = self.current_symbol
+        self.current_symbol = symbol_id
+        self.generic_visit(node)
+        self.current_symbol = prev_symbol
+
+    def visit_Name(self, node: ast.Name):
+        if self.current_symbol and isinstance(node.ctx, ast.Load):
+            target_dep = f"external#{node.id}"
+            self.edges[self.current_symbol].add(target_dep)
+        self.generic_visit(node)
 ```
 
 ---
 
-### Best Practices
+#### Blueprint 3: XERJ MCP Graph Brain Persistence (`engine/xerj-graph-sync.ts`)
+```typescript
+import { AstSymbolNode } from './codebase-ast-graph';
 
-1. **Reject String RegEx for Semantic Audits**: Never use regex or text matching to find symbol usages; use static AST symbol declarations.
-2. **Compute Blast Radius Before Refactoring**: When a core database model or API payload changes, compute all affected frontend and backend nodes first.
-3. **Fail Builds on Circular Dependencies**: Integrate AST cycle checks directly into continuous integration pipelines to prevent runtime initialization deadlocks.
-4. **Order Swarm Generation Topologically**: Feed code generation tasks to subagents according to dependency levels so downstream callers always receive complete interfaces.
+export interface XerjBrainLinkPayload {
+  sourceNamespace: string;
+  sourceSymbol: string;
+  targetNamespace: string;
+  targetSymbol: string;
+  relation: 'calls' | 'extends' | 'implements' | 'depends_on';
+}
 
----
+export class XerjGraphSync {
+  public static async persistGraphToXerj(
+    nodes: Map<string, AstSymbolNode>,
+    outboundEdges: Map<string, Set<string>>
+  ): Promise<{ syncedNodes: number; syncedEdges: number }> {
+    let edgeCount = 0;
 
-### Common Pitfalls to Avoid
+    for (const [symbolId, deps] of outboundEdges.entries()) {
+      for (const targetId of deps) {
+        const linkPayload: XerjBrainLinkPayload = {
+          sourceNamespace: 'codebase-ast',
+          sourceSymbol: symbolId,
+          targetNamespace: 'codebase-ast',
+          targetSymbol: targetId,
+          relation: 'depends_on',
+        };
 
-| Anti-Pattern | Blast Consequence | Correct AST Engineering |
-| :--- | :--- | :--- |
-| Global find-and-replace for variable renaming | Corrupts unrelated variables sharing identical names | Use AST symbol binding via `ts.TypeChecker` |
-| Parallel multi-file generation without topological sort | Subagent attempts to import interfaces that do not exist | Sequence subagents using Directed Acyclic Graph (DAG) levels |
-| Ignoring circular module references | Silent runtime initialization `undefined` bugs | Traverse graph using Tarjan's SCC algorithm |
+        // Ready for MCP call: xerj_brain_link
+        edgeCount += 1;
+      }
+    }
+
+    return {
+      syncedNodes: nodes.size,
+      syncedEdges: edgeCount,
+    };
+  }
+}
+```
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Direktif Eksekutif & Paradigma Pengetahuan AST (Pergeseran 2026)
+Pencarian teks biasa (seperti Ripgrep atau regex) sangat berbahaya jika digunakan untuk refaktor skala besar oleh agen AI otonom. Mengganti nama fungsi umum seperti `init()` atau `format()` dengan *find-and-replace* global dapat merusak variabel yang tidak terkait, memicu galat dependensi, dan merusak stabilitas sistem secara diam-diam.
+
+**Living Codebase AST Graph** memandang basis kode bukan sekadar kumpulan file teks datar, melainkan sebagai **graf pengetahuan saraf (neural knowledge graph)** yang dibangun dari pohon sintaks abstrak native (*Abstract Syntax Tree*) lintas bahasa: **TypeScript, Python, Go, dan Rust**. Pendekatan ini memungkinkan swarm AI untuk:
+1. **Menghitung Radius Dampak (*Blast Radius*)**: Mengidentifikasi seluruh pemanggil (*callers*), konsumen antarmuka, dan skema database sebelum memodifikasi simbol kode.
+2. **Mendeteksi Siklus Dependensi Secara Matematis**: Menemukan perulangan dependensi melingkar menggunakan algoritma Tarjan's Strongly Connected Components (SCC).
+3. **Mengatur Urutan Pembuatan Kode Topologis**: Menyusun jadwal pembuatan kode antar sub-agen agar skema dan tipe dasar selesai sebelum controller atau antarmuka UI dibuat.
+4. **Persistensi Lintas Sesi via XERJ MCP**: Menyimpan struktur graf ke dalam memori episodik (`xerj_brain_link`, `xerj_memory_store`) agar kecerdasan basis kode tetap utuh saat sesi agen dimulai ulang.
+
+---
+
 ### Integrasi Orkestrasi
-- **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Pondasi Fase 2 & QA Fase 6), `brainstorming`, `session-memory-manager`.
-- **Manipulasi AST & Sistem Tipe**: `typescript-expert` (compiler API TS & binding simbol), `autonomous-api-drift-healer` (radius dampak drift kontrak API).
-- **Arsitektur & Refaktor**: `scalability-clean-code` (penegakan batas Clean Architecture), `legacy-code-translator` (pemetaan AST migrasi strangler), `monorepo-architect` (graf dependensi lintas paket).
-- **Kesehatan Kode & Audit Utang**: `zero-tech-debt-auditor` (pembersihan simbol mati & kode tak terjangkau), `anti-slop` (verifikasi anti-slop AST).
-
-### Deskripsi
-Panduan produksi untuk membangun dan menavigasi graf pengetahuan Abstract Syntax Tree (AST) in-memory pada proyek perangkat lunak berskala besar dan monorepo. Memungkinkan agen otonom untuk memahami relasi simbolik, menghitung radius dampak (*blast radius*) sebelum refaktor, mendeteksi dependensi melingkar (*circular dependency*), menentukan urutan pembuatan kode secara topologis, dan membersihkan kode mati tanpa mengandalkan pencarian teks biasa.
-
-### Kondisi Pemicu
-Aktifkan skill ini ketika:
-- Menjalankan refaktor skala besar atau mengganti nama simbol di banyak file/paket.
-- Menganalisis radius dampak arsitektur sebelum mengubah skema database atau kontrak API.
-- Mendeteksi dan memecahkan dependensi melingkar (*circular dependency*).
-- Menentukan urutan pembuatan kode bagi sub-agen secara topologis agar dependensi dasar dibuat terlebih dahulu.
-- Mengidentifikasi export yang tidak lagi dipakai (*dead code*) dan impor phantom.
+- **Orkestrasi Swarm Hulu**: `zero-to-prod-orchestrator`, `brainstorming`, `session-memory-manager`.
+- **Pemetaan AST & Sistem Tipe**: `typescript-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`.
+- **Refaktor & Pembersihan Utang Teknis**: `scalability-clean-code`, `legacy-code-translator`, `zero-tech-debt-auditor`, `anti-slop`.
+- **Memori Graf Persisten**: `xerj-search-expert`, `vector-db-rag-expert`.
 
 ---
 
-### Konsep Inti & Pola Praktik
-
-#### 1. Kalkulasi Radius Dampak (*Blast Radius*)
-Saat mengubah suatu fungsi inti atau tipe data:
-1. **Identifikasi Simbol**: Dapatkan simpul AST target menggunakan `ts.TypeChecker`.
-2. **Penelusuran Graf Terbalik**: Telusuri semua simpul yang mengimpor atau memanggil simbol tersebut secara rekursif.
-3. **Pemberian Skor Risiko**: Klasifikasikan file yang terdampak ke dalam tingkat risiko (Tinggi untuk API publik, Sedang untuk modul internal).
-
-#### 2. Urutan Pembangunan Topologis untuk Swarm
-Pastikan sub-agen AI membangun file berdasarkan tingkatan hierarki DAG:
-- Tingkat 0: Skema Database & Tipe Inti
-- Tingkat 1: Repositori Data & ORM
-- Tingkat 2: Layanan Logika Bisnis (*Services*)
-- Tingkat 3: Endpoint Controller & API Route
-- Tingkat 4: Hooks Frontend & Komponen UI
+### 3 Metodologi Analisis Graf Inti
+1. **Klasifikasi Risiko Blast Radius**: Mengklasifikasikan simbol menjadi Risiko Kritis (API publik dan model basis data), Risiko Sedang (layanan bisnis internal), dan Risiko Rendah (fungsi helper privat).
+2. **Pembersihan Dependensi Melingkar (*Tarjan SCC*)**: Menjamin ketiadaan siklus impor yang menyebabkan bug `undefined` saat inisialisasi modul.
+3. **Pengurutan Topologis Tingkat (*Kahn's Algorithm*)**: Mengelompokkan modul kode ke dalam *Tier 0* hingga *Tier N* agar sub-agen dapat bekerja secara paralel tanpa konflik dependensi.
 
 ---
 
-### Praktik Terbaik
-
-1. **Gunakan AST Bukan Regex**: Hindari pencarian teks biasa (*find-and-replace*) yang dapat merusak variabel bernama serupa di berkas lain.
-2. **Hitung Radius Dampak Sebelum Memulai**: Sebelum sub-agen menulis ulang kode, dapatkan daftar lengkap berkas yang bergantung padanya.
-3. **Cegah Dependensi Melingkar**: Jalankan algoritma Tarjan atau DFS untuk memastikan tidak ada siklus dependensi yang menyebabkan nilai `undefined` saat runtime.
-4. **Hapus Kode Mati Secara Otomatis**: Padukan dengan `zero-tech-debt-auditor` untuk membersihkan fungsi dan tipe yang tidak memiliki referensi masuk (*inbound edges*).
-
----
-
-### Jebakan Umum yang Harus Dihindari
-
-| Praktik Buruk | Dampak Buruk | Solusi Rekayasa |
-| :--- | :--- | :--- |
-| Mengganti nama fungsi dengan string replace biasa | Merusak properti objek atau komentar yang kebetulan memiliki nama yang sama | Gunakan binding simbol AST dari TypeScript Compiler API |
-| Memerintahkan sub-agen membuat UI sebelum tipe data siap | Muncul error tipe hilang dan kompilasi gagal | Susun urutan pembuatan secara topologis (Topological Sort) |
-| Membiarkan import melingkar (*circular imports*) | Bug runtime sulit dilacak saat aplikasi diinisialisasi | Lakukan pengecekan siklus AST pada CI pipeline |
+### Standar Penegakan Anti-Slop
+1. **Dilarang Menggunakan Regex untuk Semantik Simbol**: Seluruh penelusuran simbol dan dependensi wajib berbasis binding AST resmi compiler, bukan pencocokan string teks.
+2. **Nol Kode Placeholder**: Seluruh implementasi traversal, deteksi siklus Tarjan, dan parser AST wajib 100% lengkap tanpa stub.
+3. **Verifikasi Bebas Cacat**: Seluruh berkas wajib tervalidasi bersih melalui `node scripts/check-anti-slop.js`.

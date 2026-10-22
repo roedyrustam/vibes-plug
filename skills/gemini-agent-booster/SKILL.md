@@ -1,6 +1,6 @@
 ---
 name: gemini-agent-booster
-description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 4 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 4 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
+description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 3.8 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 3.8 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -24,7 +24,7 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Description
-Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 4 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
+Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 3.8 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
 
 ### Trigger Conditions
 - Deploying or querying Google's flagship reasoning model: **Gemini 4 Pro**.
@@ -37,7 +37,7 @@ Master optimization protocol for the Gemini Agent (Antigravity) to leverage nati
 
 ### Gemini 4.x & Frontier Model Capability Matrix (2026)
 
-| Capability | Gemini 4 Pro (Flagship) | Gemini 4 Flash / Project Astra | Gemini 3.8 Flash (Agile Reasoning) | Gemini 3.1 Pro (Fallback) |
+| Capability | Gemini 4 Pro (Flagship) | Gemini 3.8 Flash / Project Astra | Gemini 3.8 Flash (Agile Reasoning) | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
 | Context Window | 2,097,152+ tokens (up to 10M+ Ring Attention) | 1,048,576+ tokens (1M+) | 1,000,000 tokens | 2,000,000 tokens |
 | Thinking / Reasoning | System-2 Deep Thinking (Configurable up to 64K Budget) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |
@@ -168,7 +168,7 @@ Ensure all code and orchestration flows adhere to the following standards:
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Deskripsi
-Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 4 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
+Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 3.8 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
 
 ### Kondisi Pemicu
 - Menerapkan atau mengirim prompt ke model penalaran unggulan Google: **Gemini 4 Pro**.
@@ -181,7 +181,7 @@ Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilita
 
 ### Matriks Kapabilitas Gemini 4.x & Model Frontier (2026)
 
-| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 4 Flash / Project Astra | Gemini 3.8 Flash (Penalaran Gesit) | Gemini 3.1 Pro (Fallback) |
+| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 3.8 Flash / Project Astra | Gemini 3.8 Flash (Penalaran Gesit) | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
 | Context Window | 2.097.152+ token (hingga 10M+ Ring Attention) | 1.048.576+ token (1M+) | 1.000.000 token | 2.000.000 token |
 | Pemikiran / Penalaran | System-2 Deep Thinking (Budget hingga 64K) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |

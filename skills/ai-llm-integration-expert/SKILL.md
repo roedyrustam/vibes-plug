@@ -28,7 +28,7 @@ version: "4.4.2"
 Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hybrid reasoning models, and Large Language Models (LLMs) into modern software architectures. Covers hybrid reasoning token streaming, Streamable HTTP MCP transports, agentic memory architectures, native context caching, RAG pipelines, and multi-model orchestration.
 
 ### Trigger Conditions
-- Integrating frontier reasoning models: Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, or open-source weights (Llama 4, Qwen 2.5/3 Coder).
+- Integrating frontier reasoning models: Google Gemini 4 Pro / Gemini 3.8 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, or open-source weights (Llama 4, Qwen 2.5/3 Coder).
 - Implementing Model Context Protocol (MCP) server or client integrations with Streamable HTTP transport or MCP Sampling.
 - Building AI chatbots, copilots, or autonomous AI agent workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Managing streaming reasoning tokens (`<think>` chunks) separately from final output in user interfaces.
@@ -41,7 +41,7 @@ Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hy
 | Provider | Model | Context | Reasoning Type | Primary Strength |
 |---|---|---|---|---|
 | Google | Gemini 4 Pro | 2M+ | Deep Thinking & Long-Context Synthesis | 2M+ context, whole-repo reasoning, multimodal live, native caching |
-| Google | Gemini 4 Flash / Astra | 1M–2M | Flash Thinking (Dynamic Budget) | Ultra-low latency (<100ms TTFT), subagent swarms, spatial audio/video |
+| Google | Gemini 3.8 Flash / Astra | 1M–2M | Flash Thinking (Dynamic Budget) | Ultra-low latency (<100ms TTFT), subagent swarms, spatial audio/video |
 | Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & EFS Guardrails | SOTA agentic coding, 45% cheaper cache reads, customer VPC privacy |
 | Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Complex refactoring, Computer Use (CUA), UI/UX spatial synthesis |
 | OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Native Multimodal | Native tool-use, multi-step planning, automated verification |
@@ -207,7 +207,7 @@ Build high-precision RAG pipelines:
 Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP), model hybrid reasoning, dan Large Language Models (LLM) ke dalam arsitektur perangkat lunak modern. Mencakup penanganan streaming token penalaran, transport MCP Streamable HTTP, arsitektur memori agentik, context caching native, pipeline RAG, dan orkestrasi multi-model.
 
 ### Kondisi Pemicu
-- Mengintegrasikan model frontier reasoning: Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, atau bobot open-source (Llama 4, Qwen 2.5/3 Coder).
+- Mengintegrasikan model frontier reasoning: Google Gemini 4 Pro / Gemini 3.8 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, atau bobot open-source (Llama 4, Qwen 2.5/3 Coder).
 - Mengimplementasikan server atau klien Model Context Protocol (MCP) dengan transport Streamable HTTP atau MCP Sampling.
 - Membangun chatbot AI, copilot, atau workflow agen otonom (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Mengelola streaming token penalaran (`<think>`) secara terpisah dari output akhir pada tampilan antarmuka pengguna.
@@ -220,7 +220,7 @@ Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP)
 | Provider | Model | Konteks | Tipe Penalaran | Keunggulan Utama |
 |---|---|---|---|---|
 | Google | Gemini 4 Pro | 2M+ | Deep Thinking & Sintesis Konteks Panjang | Konteks 2M+, penalaran seluruh repo, multimodal live, native caching |
-| Google | Gemini 4 Flash / Astra | 1M–2M | Flash Thinking (Budget Dinamis) | Latensi ultra-rendah (<100ms TTFT), swarm subagent, audio/video spasial |
+| Google | Gemini 3.8 Flash / Astra | 1M–2M | Flash Thinking (Budget Dinamis) | Latensi ultra-rendah (<100ms TTFT), swarm subagent, audio/video spasial |
 | Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & Guardrail EFS | Coding agentic SOTA, cache read 45% lebih hemat, privasi VPC enterprise |
 | Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Refactoring kompleks, Computer Use (CUA), sintesis spasial UI/UX |
 | OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Multimodal Native | Tool use native, perencanaan multi-langkah, verifikasi otomatis |
