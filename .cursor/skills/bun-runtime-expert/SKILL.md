@@ -1,12 +1,12 @@
 ---
 name: bun-runtime-expert
-description: "Expert guide for Bun JavaScript/TypeScript runtime. Use when building, testing, or deploying applications with Bun / Panduan ahli untuk runtime JavaScript/TypeScript Bun. Digunakan saat membuat, menguji, atau meluncurkan aplikasi dengan Bun."
+description: "Expert guide for Bun 1.2+ JavaScript/TypeScript runtime — native Bun.sql Postgres client, Bun.s3 object storage, text lockfile, multi-core HTTP clusters, and bun:test / Panduan ahli runtime Bun 1.2+."
 author: "Roedy Rustam"
 version: "4.4.2"
 
 ---
 
-# Bun Runtime Expert
+# Bun 1.2+ Runtime Expert (2026 High-Performance Standard)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -17,104 +17,176 @@ version: "4.4.2"
 
 ### Orchestration & Integration
 Connects and orchestrates with domain skills:
-- **Backend & APIs**: `js-backend-expert` (Hono, Fastify, Express migration), `api-design-expert` (REST & WebSocket contracts), and `sse-websocket-streaming-expert` (native Bun.serve WebSockets).
-- **Database & Storage**: `database-orm-expert` (Drizzle ORM, Prisma, Bun.sql PostgreSQL/SQLite) and `file-upload-media-expert` (Bun.s3 object storage).
-- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for running rapid `bun test` suites, self-healing runtime stack traces, and zero-slop production code.
+- **Backend & APIs**: `js-backend-expert` (Hono on Bun, Fastify/Express migration), `api-design-expert` (REST & WebSocket contracts), and `sse-websocket-streaming-expert` (native `Bun.serve` WebSockets).
+- **Database & Storage**: `database-orm-expert` (Drizzle ORM with native `bun:sql`, PostgreSQL/SQLite) and `file-upload-media-expert` (zero-dependency `Bun.s3` client).
+- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing high-speed `bun test` suites with snapshot matching.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
-Expert-level guidance for building high-performance applications with the Bun JavaScript/TypeScript runtime (v1.1+ / v1.2+). Covers Bun's built-in HTTP server, database clients, bundler, test runner, package manager, and Node.js migration strategies.
+Expert-level guidance for engineering ultra-low-latency backend microservices with **Bun 1.2+**. Covers the native PostgreSQL driver (`import { SQL } from 'bun'`), native S3 object storage (`Bun.s3`), git-friendly text lockfiles (`bun.lock`), multi-core HTTP clustering via `reusePort`, built-in SQLite, and high-speed Jest-compatible unit testing via `bun:test`.
 
 ### Trigger Conditions
-- Use when scaffolding a new project with Bun as the runtime.
-- Use when building HTTP servers or APIs with `Bun.serve()`.
-- Use when querying databases with `Bun.sql` (PostgreSQL, MySQL, SQLite).
-- Use when interacting with S3-compatible object storage via `Bun.s3`.
-- Use when bundling frontend or backend code with `bun build`.
-- Use when writing tests with `bun:test`.
-- Use when migrating an existing Node.js project to Bun.
-- Use when optimizing package installation speed or lockfile management.
+- Scaffolding new high-performance microservices, REST APIs, or WebSocket hubs using Bun.
+- Querying PostgreSQL or SQLite without external drivers using native `Bun.sql`.
+- Interacting with Amazon S3, Cloudflare R2, or MinIO using zero-dependency `Bun.s3`.
+- Running multi-core HTTP services with automatic load distribution across CPU cores.
+- Executing unit and integration tests using `bun test`.
+- Migrating legacy Node.js/npm codebases to Bun's native execution layer.
 
-### Core Architecture
+---
 
-#### Why Bun?
-Bun is a batteries-included JavaScript/TypeScript runtime that replaces Node.js, npm, Webpack/Vite, and Jest in a single binary:
+### Bun 1.2+ Core Architectural Features
 
-| Capability | Bun Built-in | Node.js Equivalent |
-|---|---|---|
-| Runtime | `bun run` | `node` |
-| Package Manager | `bun install` | `npm` / `pnpm` / `yarn` |
-| Bundler | `bun build` | Webpack / Vite / esbuild |
-| Test Runner | `bun test` | Jest / Vitest |
-| HTTP Server | `Bun.serve()` | Express / Fastify |
-| SQL Client | `Bun.sql` | `pg` / `mysql2` / `better-sqlite3` |
-| S3 Client | `Bun.s3` | `@aws-sdk/client-s3` |
-| Redis Client | Built-in | `ioredis` |
-| TypeScript | Native (zero config) | `ts-node` / `tsx` |
-| `.env` loading | Native | `dotenv` |
-
-### Quick Start
-
-#### 1. Install Bun
-```bash
-# macOS / Linux
-curl -fsSL https://bun.sh/install | bash
-
-# Windows (PowerShell)
-powershell -c "irm bun.sh/install.ps1 | iex"
-
-# Verify installation
-bun --version
-```
-
-#### 2. Initialize a New Project
-```bash
-bun init
-```
-This generates `package.json`, `tsconfig.json`, and an `index.ts` entry point. TypeScript works out of the box with zero configuration.
-
-#### 3. Install Dependencies
-```bash
-# Install all dependencies (10-100x faster than npm)
-bun install
-
-# Add a package
-bun add hono zod drizzle-orm
-
-# Add dev dependency
-bun add -d @types/bun vitest
-```
-
-### Bun.serve() — High-Performance HTTP Server
-`Bun.serve()` is a zero-dependency HTTP server with built-in TLS, WebSocket support, and hot module reloading.
-
-#### Basic HTTP Server
+#### 1. Native PostgreSQL Client (`import { SQL } from 'bun'`)
+Bun 1.2 includes a built-in, high-speed PostgreSQL driver that communicates directly via binary wire protocol without `pg` or `postgres.js`:
 ```typescript
-Bun.serve({
-  port: 3000,
-  fetch(req) {
-    const url = new URL(req.url);
-    if (url.pathname === '/api/health') {
-      return Response.json({ status: 'ok', runtime: 'bun' });
+// src/lib/db.ts
+import { SQL } from 'bun';
+
+// Instantiate pooled database client
+export const sql = new SQL({
+  url: process.env.DATABASE_URL || 'postgres://user:password@localhost:5432/production_db',
+  max: 20, // Connection pool size
+  idleTimeout: 30, // Max idle time in seconds
+});
+
+export interface UserAccount {
+  id: string;
+  email: string;
+  balance: number;
+}
+
+// 1. Tagged template query with automatic parameterized SQL injection defense
+export async function getActiveUser(email: string): Promise<UserAccount | null> {
+  const users = await sql<UserAccount[]>`
+    SELECT id, email, balance 
+    FROM users 
+    WHERE email = ${email} AND active = true 
+    LIMIT 1
+  `;
+  return users[0] ?? null;
+}
+
+// 2. Atomic Database Transaction
+export async function transferFunds(fromUserId: string, toUserId: string, amount: number) {
+  return await sql.begin(async (tx) => {
+    const debit = await tx`
+      UPDATE users 
+      SET balance = balance - ${amount} 
+      WHERE id = ${fromUserId} AND balance >= ${amount} 
+      RETURNING id, balance
+    `;
+
+    if (debit.length === 0) {
+      throw new Error('Insufficient funds or sender not found');
     }
+
+    await tx`
+      UPDATE users 
+      SET balance = balance + ${amount} 
+      WHERE id = ${toUserId}
+    `;
+
+    return { success: true };
+  });
+}
+```
+
+#### 2. Native Object Storage (`Bun.s3`)
+Interact with AWS S3, Cloudflare R2, or MinIO with zero external SDK dependencies:
+```typescript
+// src/lib/storage.ts
+import { s3 } from 'bun';
+
+// Configure credentials once or let Bun auto-detect AWS_* environment variables
+s3.credentials({
+  accessKeyId: process.env.S3_ACCESS_KEY_ID!,
+  secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
+  bucket: process.env.S3_BUCKET_NAME!,
+  region: process.env.S3_REGION || 'auto',
+  endpoint: process.env.S3_ENDPOINT, // e.g. https://<account_id>.r2.cloudflarestorage.com
+});
+
+// Upload file directly from memory buffer
+export async function uploadInvoicePdf(invoiceId: string, pdfBuffer: Buffer): Promise<string> {
+  const fileKey = `invoices/${invoiceId}.pdf`;
+  await s3.write(fileKey, pdfBuffer, {
+    type: 'application/pdf',
+  });
+  return fileKey;
+}
+
+// Generate presigned upload URL for direct browser uploads
+export function getDirectUploadUrl(fileName: string): string {
+  return s3.presign(`uploads/${fileName}`, {
+    method: 'PUT',
+    expiresIn: 300, // 5 minutes
+  });
+}
+```
+
+#### 3. Multi-Core HTTP Clustering with `Bun.serve()`
+Scale HTTP throughput across all CPU cores on a single host with `reusePort: true`:
+```typescript
+// src/server.ts
+import { serve } from 'bun';
+
+const server = serve({
+  port: Number(process.env.PORT) || 3000,
+  reusePort: true, // Enables SO_REUSEPORT: spawn multiple instances to scale across cores
+  async fetch(req) {
+    const url = new URL(req.url);
+
+    if (url.pathname === '/health') {
+      return Response.json({
+        status: 'healthy',
+        pid: process.pid,
+        timestamp: new Date().toISOString(),
+      });
+    }
+
     return new Response('Not Found', { status: 404 });
   },
+  error(error) {
+    return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
+  },
+});
+
+console.log(`Worker process ${process.pid} listening on port ${server.port}`);
+```
+
+#### 4. Human-Readable Text Lockfile (`bun.lock`)
+In Bun 1.2+, the default lockfile format is a plain text `bun.lock` file (replacing binary `bun.lockb`):
+- **Git-Friendly**: Clean line-by-line diffs in Pull Requests.
+- **Merge-Conflict Resilient**: Standard git conflict resolution tools work seamlessly.
+- **Auditable**: Dependencies and integrity hashes can be inspected with standard CLI tools (`cat`, `grep`).
+
+#### 5. Fast Testing with `bun:test`
+Jest/Vitest compatible test suite running natively on JavaScriptCore:
+```typescript
+// test/user.test.ts
+import { describe, expect, it, beforeEach } from 'bun:test';
+import { getActiveUser, sql } from '../src/lib/db';
+
+describe('User Database Service', () => {
+  beforeEach(async () => {
+    await sql`TRUNCATE TABLE users CASCADE`;
+    await sql`INSERT INTO users (id, email, balance, active) VALUES ('usr-1', 'test@example.com', 100.0, true)`;
+  });
+
+  it('retrieves active user by email', async () => {
+    const user = await getActiveUser('test@example.com');
+    expect(user).not.toBeNull();
+    expect(user?.email).toBe('test@example.com');
+    expect(user?.balance).toBe(100.0);
+  });
+
+  it('returns null for inactive or missing user', async () => {
+    const missing = await getActiveUser('missing@example.com');
+    expect(missing).toBeNull();
+  });
 });
 ```
-
-### Bun.sql — Unified Database Client
-Zero-dependency SQL client supporting PostgreSQL, MySQL/MariaDB, and SQLite via tagged template literals.
-
-#### PostgreSQL
-```typescript
-import { sql } from 'bun';
-const users = await sql`SELECT * FROM users WHERE active = ${true}`;
-```
-
-### Best Practices
-- **Performance:** Use `Bun.serve()` directly or Hono for HTTP — avoid Express (slower compat layer). Use `Bun.file()` for efficient file I/O.
-- **Security:** Always parameterize queries via template literals in `Bun.sql` (automatically prevents SQL injection).
-- **Testing:** Use `bun:test` — it's Jest-compatible and significantly faster.
 
 ---
 
@@ -123,107 +195,81 @@ const users = await sql`SELECT * FROM users WHERE active = ${true}`;
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi bersama skill domain:
-- **Backend & API**: `js-backend-expert` (migrasi Hono, Fastify, Express), `api-design-expert` (kontrak REST & WebSocket), dan `sse-websocket-streaming-expert` (WebSocket native Bun.serve).
-- **Database & Penyimpanan**: `database-orm-expert` (Drizzle ORM, Prisma, Bun.sql PostgreSQL/SQLite) dan `file-upload-media-expert` (object storage Bun.s3).
-- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi test runner `bun test` berkecepatan tinggi, perbaikan otomatis stack trace, dan kode produksi tanpa slop.
+- **Backend & API**: `js-backend-expert` (Hono di atas Bun, migrasi Fastify/Express), `api-design-expert` (kontrak REST & WebSocket), dan `sse-websocket-streaming-expert` (WebSocket native `Bun.serve`).
+- **Database & Penyimpanan**: `database-orm-expert` (Drizzle ORM dengan native `bun:sql`, PostgreSQL/SQLite) dan `file-upload-media-expert` (klien object storage `Bun.s3` zero-dependency).
+- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi test runner `bun test` berkecepatan tinggi dengan pencocokan snapshot.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
-Panduan tingkat ahli untuk membangun aplikasi berkinerja tinggi menggunakan runtime JavaScript/TypeScript Bun (v1.1+ / v1.2+). Mencakup server HTTP bawaan, klien database, bundler, test runner, package manager, dan strategi migrasi dari Node.js.
+Panduan tingkat ahli untuk rekayasa microservices backend berlatensi ultra-rendah menggunakan **Bun 1.2+**. Mencakup driver PostgreSQL native (`import { SQL } from 'bun'`), penyimpanan objek native S3 (`Bun.s3`), format lockfile teks yang ramah git (`bun.lock`), clustering HTTP multi-core melalui `reusePort`, SQLite bawaan, dan pengujian unit kompatibel Jest via `bun:test`.
 
 ### Kondisi Pemicu
-- Gunakan saat merancang proyek baru menggunakan Bun sebagai runtime.
-- Gunakan saat membangun server HTTP atau API dengan `Bun.serve()`.
-- Gunakan saat melakukan query database dengan `Bun.sql` (PostgreSQL, MySQL, SQLite).
-- Gunakan saat berinteraksi dengan object storage yang kompatibel dengan S3 via `Bun.s3`.
-- Gunakan saat membundel kode frontend atau backend dengan `bun build`.
-- Gunakan saat menulis pengujian (testing) menggunakan `bun:test`.
-- Gunakan saat memigrasikan proyek Node.js ke Bun.
-- Gunakan saat mengoptimalkan kecepatan instalasi paket atau manajemen lockfile.
-
-### Arsitektur Inti
-
-#### Mengapa Bun?
-Bun adalah runtime JavaScript/TypeScript serba ada yang menggantikan Node.js, npm, Webpack/Vite, dan Jest dalam satu berkas biner tunggal:
-
-| Kemampuan | Bawaan Bun | Setara di Node.js |
-|---|---|---|
-| Runtime | `bun run` | `node` |
-| Package Manager | `bun install` | `npm` / `pnpm` / `yarn` |
-| Bundler | `bun build` | Webpack / Vite / esbuild |
-| Test Runner | `bun test` | Jest / Vitest |
-| HTTP Server | `Bun.serve()` | Express / Fastify |
-| SQL Client | `Bun.sql` | `pg` / `mysql2` / `better-sqlite3` |
-| S3 Client | `Bun.s3` | `@aws-sdk/client-s3` |
-| Redis Client | Built-in | `ioredis` |
-| TypeScript | Native (tanpa config) | `ts-node` / `tsx` |
-| `.env` loading | Native | `dotenv` |
-
-### Memulai Cepat
-
-#### 1. Instal Bun
-```bash
-# Windows (PowerShell)
-powershell -c "irm bun.sh/install.ps1 | iex"
-
-# macOS / Linux
-curl -fsSL https://bun.sh/install | bash
-
-# Verifikasi instalasi
-bun --version
-```
-
-#### 2. Inisialisasi Proyek Baru
-```bash
-bun init
-```
-Ini menghasilkan `package.json`, `tsconfig.json`, dan file entry point `index.ts`. TypeScript langsung berfungsi tanpa konfigurasi tambahan.
-
-#### 3. Instal Dependensi
-```bash
-# Mengmenginstal semua dependensi (10-100x lebih cepat dari npm)
-bun install
-
-# Menambahkan paket
-bun add hono zod drizzle-orm
-
-# Menambahkan dev dependency
-bun add -d @types/bun vitest
-```
-
-### Bun.serve() — HTTP Server Berkinerja Tinggi
-`Bun.serve()` adalah server HTTP tanpa dependensi eksternal dengan dukungan TLS bawaan, WebSocket, dan hot module reloading.
-
-#### Server HTTP Dasar
-```typescript
-Bun.serve({
-  port: 3000,
-  fetch(req) {
-    const url = new URL(req.url);
-    if (url.pathname === '/api/health') {
-      return Response.json({ status: 'ok', runtime: 'bun' });
-    }
-    return new Response('Not Found', { status: 404 });
-  },
-});
-```
-
-### Bun.sql — Klien Database Terpadu
-Klien SQL tanpa dependensi eksternal yang mendukung PostgreSQL, MySQL/MariaDB, dan SQLite melalui tagged template literals.
-
-#### PostgreSQL
-```typescript
-import { sql } from 'bun';
-const users = await sql`SELECT * FROM users WHERE active = ${true}`;
-```
-
-### Praktik Terbaik
-- **Performa:** Gunakan `Bun.serve()` secara langsung atau bersama Hono — hindari Express (karena lapisan kompatibilitasnya lebih lambat). Gunakan `Bun.file()` untuk I/O file yang efisien.
-- **Keamanan:** Selalu gunakan parameterisasi query melalui template literals di `Bun.sql` untuk mencegah SQL Injection secara otomatis.
-- **Pengujian:** Gunakan `bun:test` yang kompatibel dengan Jest namun jauh lebih cepat.
+- Merancang microservices baru, REST API, atau hub WebSocket berkecepatan tinggi dengan Bun.
+- Melakukan query database PostgreSQL atau SQLite tanpa library eksternal menggunakan `Bun.sql`.
+- Berinteraksi dengan AWS S3, Cloudflare R2, atau MinIO tanpa dependensi AWS SDK via `Bun.s3`.
+- Menjalankan layanan HTTP multi-core dengan pembagian beban otomatis di semua core CPU.
+- Menjalankan pengujian unit dan integrasi berkecepatan tinggi menggunakan `bun test`.
 
 ---
 
-### Limitations / Batasan
-- Use this skill only when the task involves the Bun runtime specifically.
-- Bun's Node.js compatibility is extensive but not 100%. Always verify critical `node:*` API usage.
+### Fitur Arsitektur Inti Bun 1.2+
+
+#### 1. Klien PostgreSQL Native (`import { SQL } from 'bun'`)
+Bun 1.2 menyertakan driver PostgreSQL berkecepatan tinggi yang berkomunikasi langsung melalui protokol biner tanpa overhead library pihak ketiga:
+```typescript
+import { SQL } from 'bun';
+
+export const sql = new SQL({
+  url: process.env.DATABASE_URL || 'postgres://user:password@localhost:5432/db_produksi',
+  max: 20,
+});
+
+// Query aman terhadap SQL Injection melalui tagged template literals
+export async function cariPenggunaAktif(email: string) {
+  const pengguna = await sql`
+    SELECT id, email, balance 
+    FROM users 
+    WHERE email = ${email} AND active = true 
+    LIMIT 1
+  `;
+  return pengguna[0] ?? null;
+}
+```
+
+#### 2. Klien Object Storage Native (`Bun.s3`)
+Unggah dan kelola file di S3 atau Cloudflare R2 secara native:
+```typescript
+import { s3 } from 'bun';
+
+// Unggah buffer file dokumen langsung
+export async function simpanFaktur(fakturId: string, pdfBuffer: Buffer) {
+  const namaFile = `faktur/${fakturId}.pdf`;
+  await s3.write(namaFile, pdfBuffer, { type: 'application/pdf' });
+  return namaFile;
+}
+
+// Buat URL presigned untuk upload langsung dari browser klien
+export function buatUrlUploadLangsung(namaFile: string) {
+  return s3.presign(`unggah/${namaFile}`, {
+    method: 'PUT',
+    expiresIn: 300,
+  });
+}
+```
+
+#### 3. Clustering HTTP Multi-Core dengan `Bun.serve()`
+```typescript
+import { serve } from 'bun';
+
+const server = serve({
+  port: Number(process.env.PORT) || 3000,
+  reusePort: true, // Memungkinkan beberapa proses Bun berjalan di port yang sama lintas CPU cores
+  async fetch(req) {
+    return Response.json({
+      status: 'aktif',
+      pid: process.pid,
+      waktu: new Date().toISOString(),
+    });
+  },
+});
+```
