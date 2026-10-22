@@ -128,7 +128,7 @@ export class VisualUiAuditor {
     ].join('\n');
 
     const result = await generateObject({
-      model: google('gemini-2.5-pro'),
+      model: google('gemini-4-pro'),
       schema: VisualAuditScorecardSchema,
       messages: [
         {
@@ -208,3 +208,122 @@ Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis 
 4. **Larangan Gradien Klise AI**: Gradien ungu-ke-biru AI dan orb neon blur di belakang kartu dilarang keras.
 5. **Kontrak 5-State Interaktif Wajib**: Elemen tombol dan kontrol wajib menyediakan visual untuk state: `default`, `hover`, `active`, `focus-visible`, dan `disabled`/`loading`.
 6. **Kepatuhan Kontras WCAG 2.2 AA**: Rasio kontras teks minimal 4.5:1 untuk teks biasa dan 3:1 untuk judul besar pada mode terang maupun gelap.
+
+---
+
+### Topologi Arsitektur Audit Visual
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│               ALUR PIPA AUDIT UI VISUAL MULTIMODAL                     │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Render Komponen UI Target (Playwright / Headless Browser)           │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 2. Tangkap Screenshot High-DPI (1080p Desktop & 390p Mobile)           │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 3. Audit Model Vision Frontier (Gemini 4 Argon/Pro / Claude Sonnet)    │
+│    • Ceklis Visual Pilar 7      • Border 1px Tegas    • Tabular-Nums   │
+│    • Skala Radius 3-Tingkat     • Larangan Gradien AI Klise & Neon Orb │
+│                                  │                                     │
+│        ┌─────────────────────────┴─────────────────────────┐           │
+│        ▼                                                   ▼           │
+│  [Skor >= 90: Lolos Audit]                           [Pelanggaran Ada] │
+│  Terbitkan Sertifikat Audit                          Hasilkan Patch CSS│
+│  Lanjutkan ke Produksi                               Terapkan Tailwind │
+│                                                            │           │
+│                                                            ▼           │
+│                                                   Render Ulang & Uji   │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Blueprint Implementasi Produksi
+
+#### Blueprint 1: Mesin Audit UI Multimodal (`engine/visual-ui-auditor.ts`)
+```typescript
+import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
+import { z } from 'zod';
+import fs from 'node:fs/promises';
+
+export const SkemaPelanggaranVisual = z.object({
+  kategori: z.enum([
+    'TOMBOL_PIL_BERLEBIHAN',
+    'BORDER_1PX_HILANG',
+    'ANGKA_TABULAR_HILANG',
+    'GRADIEN_AI_KLISE',
+    'CACAT_KONTRAS',
+    'KETIDAKSEIMBANGAN_SPASIAL',
+  ]),
+  deskripsi: z.string(),
+  selektorElemen: z.string(),
+  saranPerbaikanTailwind: z.string(),
+  tingkatKeparahan: z.enum(['KRITIS', 'PERINGATAN', 'SARAN']),
+});
+
+export const SkemaKartuSkorVisual = z.object({
+  skorKeseluruhan: z.number().min(0).max(100),
+  kepatuhanPilar7: z.boolean(),
+  lolosWcagAa: z.boolean(),
+  ringkasan: z.string(),
+  pelanggaran: z.array(SkemaPelanggaranVisual),
+  patchKodePerbaikan: z.string().optional(),
+});
+
+export type KartuSkorVisual = z.infer<typeof SkemaKartuSkorVisual>;
+
+export class VisualUiAuditorId {
+  public static async auditScreenshot(
+    jalurScreenshot: string,
+    kodeSumberKomponen?: string
+  ): Promise<KartuSkorVisual> {
+    const bufferGambar = await fs.readFile(jalurScreenshot);
+    const gambarBase64 = bufferGambar.toString('base64');
+
+    const promptAudit = [
+      'Anda adalah Master Visual UI Auditor yang menegakkan Anti-Slop Pilar 7.',
+      'Analisis screenshot antarmuka web yang diberikan dengan ketelitian piksel tinggi.',
+      '',
+      'KRITERIA PEMERIKSAAN:',
+      '1. Border 1px Tegas: Pastikan seluruh kartu dan kontainer memiliki border 1px yang nyata.',
+      '2. Larangan Tombol Pil: Tandai tombol persegi panjang yang memakai rounded-full.',
+      '3. Angka Tabular: Pastikan harga, kuantitas, dan tanggal menggunakan tabular-nums.',
+      '4. Larangan Klise AI: Tandai gradien ungu-biru murah dan efek neon blur orb.',
+      '5. Hierarki Spasial: Periksa keselarasan padding, tipografi, dan kontras WCAG 2.2 AA.',
+      '',
+      kodeSumberKomponen ? `KODE SUMBER KOMPONEN:\n${kodeSumberKomponen}` : '',
+    ].join('\n');
+
+    const hasil = await generateObject({
+      model: google('gemini-4-pro'),
+      schema: SkemaKartuSkorVisual,
+      messages: [
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: promptAudit },
+            {
+              type: 'image',
+              image: `data:image/png;base64,${gambarBase64}`,
+            },
+          ],
+        },
+      ],
+    });
+
+    return hasil.object;
+  }
+}
+```
+
+---
+
+### Panduan Praktik Terbaik
+
+1. **Jadikan Gerbang Kualitas Otomatis**: Integrasikan pengujian tangkapan layar Playwright ke alur CI/CD agar setiap PR yang memuat perubahan visual diverifikasi sebelum rilis.
+2. **Prioritaskan Angka Tabular**: Selalu sertakan utilitas `tabular-nums` pada komponen tabel finansial, dashboard transaksi, dan penghitung mundur.
+3. **Patuhi Batas Skor Minimum 90**: Tolak kode yang memiliki skor visual < 90 atau melanggar aturan border 1px dan larangan tombol pil.
+
