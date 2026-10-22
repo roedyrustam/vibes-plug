@@ -210,7 +210,7 @@ Vibes-Plug includes a native extension package in [`extensions/vscode/`](extensi
 <a name="english"></a>
 ## 🇬🇧 English Version
 
-Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 161 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Frontier Models (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, and DeepSeek-R1 / Pro).
+Welcome to **VibesPlug Pro**. Unlike generic prompt libraries, VibesPlug acts as a **Swarm Director**, orchestrating 161 specialized AI subagents. It is strictly engineered to extract maximum reasoning capabilities from ALL Late-2026 Frontier Models across all IDE tiers (xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Muse Wonder High, and DeepSeek-R1 / Pro / V3).
 
 ### 🚀 Universal Installation Guide (All IDEs & LLMs)
 *Supported Platforms: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, and Kiro.*
@@ -367,7 +367,7 @@ jobs:
 <a name="bahasa-indonesia"></a>
 ## 🇮🇩 Versi Bahasa Indonesia
 
-Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 161 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier terkini (Google Gemini 4 Pro / Flash / Project Astra, Anthropic Claude 5.1 Fable / Mythos / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / Codex, dan DeepSeek-R1 / Pro).
+Selamat datang di **VibesPlug Pro**. Berbeda dengan kumpulan prompt biasa, VibesPlug bertindak sebagai **Swarm Director (Sutradara Utama)** yang mengorkestrasi 161 sub-agen AI spesialis. Sistem ini direkayasa secara ketat untuk mengekstrak penalaran maksimum dari SEMUA Model Frontier Terkini Akhir-2026 di seluruh tier IDE (xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Muse Wonder High, dan DeepSeek-R1 / Pro / V3).
 
 ### 🚀 Panduan Instalasi Universal (Semua IDE & LLM)
 *Platform Didukung: Google Antigravity (AGY), Claude Code, Cursor IDE, OpenAI Codex CLI, Windsurf, Trae, VSCode (Cline / Roo Code), Kimi, dan Kiro.*

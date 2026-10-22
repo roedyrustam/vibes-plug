@@ -44,25 +44,32 @@ litellm --config litellm_config.yaml --port 4000
 
 ```yaml
 model_list:
-  - model_name: fast-tier            # Virtual name used by clients
+  - model_name: high-fast-tier       # Virtual name used by clients
     litellm_params:
-      model: gemini/gemini-3.8-flash
-      api_key: os.environ/GEMINI_API_KEY
+      model: xai/grok-4.7-high-fast
+      api_key: os.environ/XAI_API_KEY
+      rpm: 1200
+      tpm: 3000000
+
+  - model_name: fast-tier            # Rapid AST diff and code edits
+    litellm_params:
+      model: cursor/composer-2.5-fast
+      api_key: os.environ/CURSOR_API_KEY
       rpm: 1000
+
+  - model_name: medium-tier          # Balanced architecture & strict schema contracts
+    litellm_params:
+      model: gemini/gemini-4-argon
+      api_key: os.environ/GEMINI_API_KEY
+      rpm: 300
       tpm: 2000000
 
-  - model_name: fast-tier            # Fallback 1 for fast-tier
+  - model_name: reasoning-tier       # High-complexity fullstack craftsmanship
     litellm_params:
-      model: groq/llama-3.1-8b-instant
-      api_key: os.environ/GROQ_API_KEY
-      rpm: 600
-
-  - model_name: reasoning-tier
-    litellm_params:
-      model: anthropic/claude-5-sonnet
+      model: anthropic/claude-sonnet-5.5
       api_key: os.environ/ANTHROPIC_API_KEY
       rpm: 100
-      tpm: 400000
+      tpm: 500000
 
   - model_name: reasoning-tier       # Fallback 1 for reasoning-tier
     litellm_params:
@@ -82,10 +89,11 @@ router_settings:
   retry_after: 2                      # seconds between retries
   timeout: 60
   fallbacks:
-    - fast-tier: [groq/llama-3.1-8b-instant, openai/gpt-4o-mini]
-    - reasoning-tier: [gemini/gemini-4-pro, openai/gpt-5]
+    - high-fast-tier: [xai/grok-4.6-high-fast, cursor/composer-2.5-fast]
+    - medium-tier: [openai/gpt-5.6-sol, anthropic/claude-opus-5.5]
+    - reasoning-tier: [gemini/gemini-4-pro, anthropic/claude-fable-5.1, muse/muse-wonder-high]
   context_window_fallbacks:
-    - reasoning-tier: [gemini/gemini-4-pro]  # 2M+ context fallback
+    - reasoning-tier: [gemini/gemini-4-argon, gemini/gemini-4-pro]  # 2M+ to 10M+ context fallback
 
 litellm_settings:
   success_callback: ["langfuse"]
@@ -243,15 +251,15 @@ from routellm.controller import Controller
 # Initialize with a pre-trained classifier (matrix-factorization or causal-llm)
 controller = Controller(
     routers=["mf"],                   # 'mf' = matrix-factorization (fastest)
-    strong_model="gpt-4.1",
-    weak_model="gpt-4o-mini",
+    strong_model="claude-sonnet-5.5",
+    weak_model="grok-4.7-high-fast",
     config={
         "mf": {
             "checkpoint_path": "routellm/mf-gpt4-turbo",  # HF checkpoint
         }
     },
-    api_base=None,                    # Uses OpenAI API directly
-    api_key=None,                     # Uses OPENAI_API_KEY env
+    api_base=None,                    # Uses provider API directly
+    api_key=None,
 )
 
 # Threshold: higher = use weak model more aggressively
@@ -267,12 +275,12 @@ print(response.choices[0].message.content)
 
 ```python
 async def intelligent_route(task_type: str, prompt: str) -> str:
-    """Route based on known task taxonomy."""
-    FAST_TASKS = {"classification", "extraction", "summarization", "translation"}
-    SLOW_TASKS = {"code_generation", "reasoning", "math", "planning", "creative"}
+    """Route based on known task taxonomy (late-2026 frontier tiers)."""
+    FAST_TASKS = {"classification", "extraction", "summarization", "translation", "ast_scan"}
+    SLOW_TASKS = {"code_generation", "reasoning", "math", "planning", "security_audit"}
 
     use_strong = task_type in SLOW_TASKS
-    model = "gpt-4.1" if use_strong else "gpt-4o-mini"
+    model = "claude-sonnet-5.5" if use_strong else "grok-4.7-high-fast"
 
     import openai
     client = openai.AsyncOpenAI()
@@ -287,17 +295,20 @@ async def intelligent_route(task_type: str, prompt: str) -> str:
 
 ### 4. Cost Calculation & Budget Enforcement
 
-#### Per-Model Pricing Table (2026 approximate, USD per 1M tokens)
+#### Per-Model Pricing Table (Late-2026 Frontier Models, USD per 1M tokens)
 
 | Model | Input | Output | Cached Input |
 |---|---|---|---|
-| GPT-4.1 | \$2.00 | \$8.00 | \$0.50 |
-| GPT-4o-mini | \$0.15 | \$0.60 | \$0.075 |
-| Claude Opus 4.5 | \$15.00 | \$75.00 | \$1.50 |
-| Claude Sonnet 4.5 | \$3.00 | \$15.00 | \$0.30 |
-| Gemini 2.5 Pro | \$1.25 | \$10.00 | \$0.31 |
-| Gemini 2.0 Flash | \$0.10 | \$0.40 | \$0.025 |
-| Llama 3.1 8B (Groq) | \$0.05 | \$0.08 | — |
+| Grok 4.7 High Fast | \$0.50 | \$2.00 | \$0.10 |
+| Grok 4.6 High Fast | \$0.40 | \$1.60 | \$0.08 |
+| Composer 2.5 Fast | \$0.30 | \$1.20 | \$0.05 |
+| Claude Opus 5.5 Medium | \$10.00 | \$50.00 | \$1.00 |
+| Gemini 4 Argon Medium | \$0.80 | \$3.20 | \$0.15 |
+| GPT-5.6 Sol Medium | \$1.50 | \$6.00 | \$0.35 |
+| Claude Sonnet 5.5 High | \$3.00 | \$15.00 | \$0.30 |
+| Claude Fable 5.1 High | \$2.50 | \$12.50 | \$0.25 |
+| Muse Wonder High | \$3.50 | \$17.50 | \$0.35 |
+| Gemini 4 Pro | \$1.25 | \$10.00 | \$0.31 |
 | text-embedding-3-small | \$0.02 | — | — |
 
 #### TypeScript: Real-Time Cost Calculator
@@ -310,13 +321,16 @@ interface ModelPricing {
 }
 
 const MODEL_PRICING: Record<string, ModelPricing> = {
-  "gpt-4.1":             { inputPerMillion: 2.00,  outputPerMillion: 8.00,  cachedInputPerMillion: 0.50 },
-  "gpt-4o-mini":         { inputPerMillion: 0.15,  outputPerMillion: 0.60,  cachedInputPerMillion: 0.075 },
-  "claude-opus-4-5":     { inputPerMillion: 15.00, outputPerMillion: 75.00, cachedInputPerMillion: 1.50 },
-  "claude-sonnet-4-5":   { inputPerMillion: 3.00,  outputPerMillion: 15.00, cachedInputPerMillion: 0.30 },
-  "gemini-2.5-pro":      { inputPerMillion: 1.25,  outputPerMillion: 10.00, cachedInputPerMillion: 0.31 },
-  "gemini-2.0-flash":    { inputPerMillion: 0.10,  outputPerMillion: 0.40,  cachedInputPerMillion: 0.025 },
-  "llama-3.1-8b-groq":   { inputPerMillion: 0.05,  outputPerMillion: 0.08 },
+  "grok-4.7-high-fast":      { inputPerMillion: 0.50,  outputPerMillion: 2.00,  cachedInputPerMillion: 0.10 },
+  "grok-4.6-high-fast":      { inputPerMillion: 0.40,  outputPerMillion: 1.60,  cachedInputPerMillion: 0.08 },
+  "composer-2.5-fast":       { inputPerMillion: 0.30,  outputPerMillion: 1.20,  cachedInputPerMillion: 0.05 },
+  "claude-opus-5.5":         { inputPerMillion: 10.00, outputPerMillion: 50.00, cachedInputPerMillion: 1.00 },
+  "gemini-4-argon":          { inputPerMillion: 0.80,  outputPerMillion: 3.20,  cachedInputPerMillion: 0.15 },
+  "gpt-5.6-sol":             { inputPerMillion: 1.50,  outputPerMillion: 6.00,  cachedInputPerMillion: 0.35 },
+  "claude-sonnet-5.5":       { inputPerMillion: 3.00,  outputPerMillion: 15.00, cachedInputPerMillion: 0.30 },
+  "claude-fable-5.1":        { inputPerMillion: 2.50,  outputPerMillion: 12.50, cachedInputPerMillion: 0.25 },
+  "muse-wonder-high":        { inputPerMillion: 3.50,  outputPerMillion: 17.50, cachedInputPerMillion: 0.35 },
+  "gemini-4-pro":            { inputPerMillion: 1.25,  outputPerMillion: 10.00, cachedInputPerMillion: 0.31 },
 };
 
 export function calculateCost(

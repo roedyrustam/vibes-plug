@@ -16,9 +16,9 @@ version: "4.4.2"
 
 ### Executive Directive & The Multi-Draft Paradigm (2026 Shift)
 Single-model code generation suffers from inherent cognitive blind spots:
-- **Algorithmic Optimizers** (e.g., Gemini 3.8 Flash / DeepSeek) produce hyper-efficient $O(N)$ logic but frequently omit edge-case boundary checks or defensive telemetry.
-- **Rigor-Biased Drafters** (e.g., Claude 3.7 / 5 Sonnet) write airtight branded types and exhaustive invariant guards, but occasionally default to conservative, sub-optimal $O(N^2)$ data structures.
-- **Spec-Adherent Drafters** (e.g., GPT-4o / o3-mini) produce strict interface compliance but may fail to leverage modern runtime optimizations (like Bun native SQL or Node 24 web streams).
+- **Algorithmic & Speed Optimizers** (e.g., Grok 4.7 High Fast / Grok 4.6 / Composer 2.5) produce sub-second hyper-efficient $O(N)$ logic and lightning AST passes but may overlook defensive telemetry.
+- **Rigor-Biased Drafters** (e.g., Claude Sonnet 5.5 High / Claude Fable 5.1) write airtight branded types and exhaustive invariant guards, but occasionally default to conservative data structures.
+- **Spec-Adherent Drafters** (e.g., GPT-5.6 Sol Medium / Claude Opus 5.5 / Gemini 4 Argon) produce strict schema compliance and clean API boundaries but may fail to leverage cutting-edge runtime optimizations.
 
 **Speculative Multi-Draft Synthesis** is an architectural protocol that transcends single-model limitations. Rather than relying on a single output, the swarm dispatches **heterogeneous drafting agents in parallel**, analyzes candidate outputs at the **Abstract Syntax Tree (AST) node level**, and invokes a **Frontier Arbiter** to fuse the optimal algorithmic core, error boundaries, and type definitions into a single flawless implementation.
 
@@ -97,7 +97,7 @@ $$S_{\text{total}} = 0.30 \cdot S_{\text{types}} + 0.30 \cdot S_{\text{algo}} + 
 #### Blueprint 1: High-Concurrency Multi-Model Dispatcher (`engine/multi-draft-dispatcher.ts`)
 ```typescript
 import { generateText } from 'ai';
-import { google } from '@ai-sdk/google';
+import { xai } from '@ai-sdk/xai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { openai } from '@ai-sdk/openai';
 
@@ -126,7 +126,7 @@ export class MultiDraftDispatcher {
     const timer = setTimeout(() => abortController.abort(), timeout);
 
     const drafterTasks = [
-      // Drafter Alpha: Algorithmic & Memory Efficiency
+      // Drafter Alpha: Algorithmic & Memory Efficiency (High Fast Tier)
       (async (): Promise<CandidateDraft> => {
         const start = performance.now();
         const systemPrompt = [
@@ -136,7 +136,7 @@ export class MultiDraftDispatcher {
         ].join('\n');
 
         const { text } = await generateText({
-          model: google('gemini-2.5-flash'),
+          model: xai('grok-4.7-high-fast'),
           system: systemPrompt,
           prompt: request.specification,
           abortSignal: abortController.signal,
@@ -144,7 +144,7 @@ export class MultiDraftDispatcher {
 
         return {
           drafterId: 'alpha',
-          modelName: 'gemini-2.5-flash',
+          modelName: 'grok-4.7-high-fast',
           focus: 'Algorithmic Efficiency',
           code: this.extractCodeBlock(text),
           latencyMs: Math.round(performance.now() - start),
@@ -152,7 +152,7 @@ export class MultiDraftDispatcher {
         };
       })(),
 
-      // Drafter Beta: Type Rigor & Static Correctness
+      // Drafter Beta: Type Rigor & Static Correctness (High Tier)
       (async (): Promise<CandidateDraft> => {
         const start = performance.now();
         const systemPrompt = [
@@ -162,7 +162,7 @@ export class MultiDraftDispatcher {
         ].join('\n');
 
         const { text } = await generateText({
-          model: anthropic('claude-3-7-sonnet-20250219'),
+          model: anthropic('claude-sonnet-5.5-20261022'),
           system: systemPrompt,
           prompt: request.specification,
           abortSignal: abortController.signal,
@@ -170,7 +170,7 @@ export class MultiDraftDispatcher {
 
         return {
           drafterId: 'beta',
-          modelName: 'claude-3-7-sonnet',
+          modelName: 'claude-sonnet-5.5-high',
           focus: 'Type Soundness & Invariants',
           code: this.extractCodeBlock(text),
           latencyMs: Math.round(performance.now() - start),
@@ -178,7 +178,7 @@ export class MultiDraftDispatcher {
         };
       })(),
 
-      // Drafter Gamma: Failure Resilience & Operational Boundary
+      // Drafter Gamma: Failure Resilience & Operational Boundary (Medium Tier)
       (async (): Promise<CandidateDraft> => {
         const start = performance.now();
         const systemPrompt = [
@@ -188,7 +188,7 @@ export class MultiDraftDispatcher {
         ].join('\n');
 
         const { text } = await generateText({
-          model: openai('gpt-4o'),
+          model: openai('gpt-5.6-sol-medium'),
           system: systemPrompt,
           prompt: request.specification,
           abortSignal: abortController.signal,
@@ -196,7 +196,7 @@ export class MultiDraftDispatcher {
 
         return {
           drafterId: 'gamma',
-          modelName: 'gpt-4o',
+          modelName: 'gpt-5.6-sol-medium',
           focus: 'Defensive Resilience',
           code: this.extractCodeBlock(text),
           latencyMs: Math.round(performance.now() - start),
@@ -289,7 +289,7 @@ export class AstArbiter {
       .join('\n\n---\n\n');
 
     const result = await generateObject({
-      model: google('gemini-2.5-pro'),
+      model: google('gemini-4-pro'),
       schema: SynthesisSchema,
       system: arbiterInstructions,
       prompt: [
@@ -368,9 +368,9 @@ export class SpeculativeSynthesisPipeline {
 
 ### Direktif Eksekutif & Paradigma Multi-Draf (Pergeseran 2026)
 Generasi kode berbasis satu model tunggal selalu memiliki bias kognitif:
-- **Model Pengoptimal Algoritma** (misal Gemini 3.8 Flash / DeepSeek) menghasilkan logika $O(N)$ yang sangat cepat namun kerap melewatkan pengecekan kasus batas (*edge case*) atau telemetri defensif.
-- **Model Berbasis Ketelitian Tipe** (misal Claude 3.7 / 5 Sonnet) menulis tipe data bermerek (*branded types*) dan invarian yang sangat kokoh, namun terkadang memilih struktur data konservatif $O(N^2)$ yang lebih lambat.
-- **Model Kepatuhan Spesifikasi** (misal GPT-4o / o3-mini) menghasilkan kontrak antarmuka yang rapi namun belum memanfaatkan fitur runtime modern secara maksimal.
+- **Model Pengoptimal Algoritma & Kecepatan** (misal Grok 4.7 High Fast / Grok 4.6 / Composer 2.5) menghasilkan logika sub-detik $O(N)$ yang sangat cepat dan transformasi AST instan namun kerap melewatkan telemetri defensif.
+- **Model Berbasis Ketelitian Tipe** (misal Claude Sonnet 5.5 High / Claude Fable 5.1) menulis tipe data bermerek (*branded types*) dan invarian yang sangat kokoh, namun terkadang memilih struktur data yang lebih konservatif.
+- **Model Kepatuhan Spesifikasi** (misal GPT-5.6 Sol Medium / Claude Opus 5.5 / Gemini 4 Argon) menghasilkan kontrak antarmuka dan kepatuhan skema yang ketat namun belum memanfaatkan optimasi runtime terdepan secara maksimal.
 
 **Sintesis Multi-Draf Spekulatif** adalah protokol arsitektur yang melampaui batasan model tunggal. Alih-alih bergantung pada satu respon, swarm menugaskan **beberapa agen pembuat draf heterogen secara paralel**, menganalisis keluaran pada **tingkat simpul Abstract Syntax Tree (AST)**, dan memanggil **Model Arbiter Frontier** untuk memadukan inti algoritma terbaik, batasan error terkuat, serta definisi tipe terbersih ke dalam satu implementasi yang sempurna.
 

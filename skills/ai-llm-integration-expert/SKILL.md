@@ -28,7 +28,7 @@ version: "4.4.2"
 Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hybrid reasoning models, and Large Language Models (LLMs) into modern software architectures. Covers hybrid reasoning token streaming, Streamable HTTP MCP transports, agentic memory architectures, native context caching, RAG pipelines, and multi-model orchestration.
 
 ### Trigger Conditions
-- Integrating frontier reasoning models: Google Gemini 4 Pro / Gemini 3.8 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, or open-source weights (Llama 4, Qwen 2.5/3 Coder).
+- Integrating frontier reasoning models: xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Muse Wonder High, or DeepSeek-R1 / Pro / V3.
 - Implementing Model Context Protocol (MCP) server or client integrations with Streamable HTTP transport or MCP Sampling.
 - Building AI chatbots, copilots, or autonomous AI agent workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Managing streaming reasoning tokens (`<think>` chunks) separately from final output in user interfaces.
@@ -36,20 +36,21 @@ Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hy
 - Building agentic memory systems (short-term, long-term semantic, episodic) using Mem0 or vector stores.
 - Implementing cost optimization with provider-native Context Caching (Gemini `cachedContent`, Anthropic ephemeral prompt cache, OpenAI prefix cache).
 
-### Model Capability Matrix (2026 Frontier Edition)
+### Model Capability Matrix (Late-2026 Frontier Edition)
 
-| Provider | Model | Context | Reasoning Type | Primary Strength |
-|---|---|---|---|---|
-| Google | Gemini 4 Pro | 2M+ | Deep Thinking & Long-Context Synthesis | 2M+ context, whole-repo reasoning, multimodal live, native caching |
-| Google | Gemini 3.8 Flash / Astra | 1M–2M | Flash Thinking (Dynamic Budget) | Ultra-low latency (<100ms TTFT), subagent swarms, spatial audio/video |
-| Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & EFS Guardrails | SOTA agentic coding, 45% cheaper cache reads, customer VPC privacy |
-| Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Complex refactoring, Computer Use (CUA), UI/UX spatial synthesis |
-| OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Native Multimodal | Native tool-use, multi-step planning, automated verification |
-| OpenAI | o3 / o3-mini | 200K | Native Test-Time Reasoning (`reasoning_effort`) | Competitive coding, formal invariant logic, mathematical proofs |
-| OpenAI | GPT-4.5 | 128K | High-Fidelity Instruction & Direct Tooling | Ultra-crisp structured output, low-latency agent orchestration |
-| DeepSeek | DeepSeek-R1 / Pro | 128K | Open Reasoning (Distill & MoE) | SOTA open-weights reasoning, math, algorithms, code refactoring |
-| DeepSeek | DeepSeek-V3 | 128K | General Multimodal / Text | High throughput, extremely cost-efficient coding loops |
-| Qwen | Qwen 2.5 / 3 Coder | 128K | Open Source Code Specialist | Self-hosted coding agent, local copilot integration |
+| Provider | Model | Tier | Context | Reasoning Type | Primary Strength |
+|---|---|---|---|---|---|
+| xAI | Grok 4.7 High Fast | High Fast | 256K | Sub-second Real-Time Compute | Lightning TTFT, live web search, rapid test-debug loops |
+| xAI | Grok 4.6 High Fast | High Fast | 128K | High-Throughput Reasoning | Fast unit testing, code linting, micro-benchmark verification |
+| Cursor | Composer 2.5 Fast | Fast | 200K | Native AST Diff Engine | Multi-file synchronized refactoring, zero-breakage diff generation |
+| Google | Gemini 4 Argon | Medium | 2M+ | Monolithic Balanced Reasoning | 2M+ whole-repo context, native caching, fullstack feature synthesis |
+| OpenAI | GPT-5.6 Sol | Medium | 500K | Strict Schema & Contract Enforcement | Flawless tool-calling, OpenAPI validation, PRM verification |
+| Anthropic | Claude Opus 5.5 | Medium | 500K | Balanced Deep Comprehension | High-level architectural analysis, complex domain modeling |
+| Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Flagship fullstack craftsmanship, zero-slop code, formal verification |
+| Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Agentic terminal execution, 45% cheaper cache reads, VPC safety |
+| Muse | Muse Wonder | High | 300K | Exploratory & Generative Design | Creative architecture synthesis, innovative generative UI layouts |
+| Google | Gemini 4 Pro | High | 2M–10M | Monolithic Multimodal Live | Long-context deep research, spatial audio/video, massive repo audits |
+| DeepSeek | DeepSeek-R1 / Pro | High | 128K | Open Weights Reasoning | High-power mathematical algorithms, complex AST transformation |
 
 ### Core Architecture Guidelines
 
@@ -207,7 +208,7 @@ Build high-precision RAG pipelines:
 Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP), model hybrid reasoning, dan Large Language Models (LLM) ke dalam arsitektur perangkat lunak modern. Mencakup penanganan streaming token penalaran, transport MCP Streamable HTTP, arsitektur memori agentik, context caching native, pipeline RAG, dan orkestrasi multi-model.
 
 ### Kondisi Pemicu
-- Mengintegrasikan model frontier reasoning: Google Gemini 4 Pro / Gemini 3.8 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, atau bobot open-source (Llama 4, Qwen 2.5/3 Coder).
+- Mengintegrasikan model frontier reasoning: xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Muse Wonder High, atau DeepSeek-R1 / Pro / V3.
 - Mengimplementasikan server atau klien Model Context Protocol (MCP) dengan transport Streamable HTTP atau MCP Sampling.
 - Membangun chatbot AI, copilot, atau workflow agen otonom (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Mengelola streaming token penalaran (`<think>`) secara terpisah dari output akhir pada tampilan antarmuka pengguna.
@@ -215,20 +216,21 @@ Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP)
 - Membangun sistem memori agentik (jangka pendek, semantik jangka panjang, episodik) menggunakan Mem0 atau vector store.
 - Menerapkan optimasi biaya dengan Context Caching native provider (Gemini `cachedContent`, Anthropic ephemeral prompt cache, OpenAI prefix cache).
 
-### Matriks Kapabilitas Model (Edisi Frontier 2026)
+### Matriks Kapabilitas Model (Edisi Frontier Akhir-2026)
 
-| Provider | Model | Konteks | Tipe Penalaran | Keunggulan Utama |
-|---|---|---|---|---|
-| Google | Gemini 4 Pro | 2M+ | Deep Thinking & Sintesis Konteks Panjang | Konteks 2M+, penalaran seluruh repo, multimodal live, native caching |
-| Google | Gemini 3.8 Flash / Astra | 1M–2M | Flash Thinking (Budget Dinamis) | Latensi ultra-rendah (<100ms TTFT), swarm subagent, audio/video spasial |
-| Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & Guardrail EFS | Coding agentic SOTA, cache read 45% lebih hemat, privasi VPC enterprise |
-| Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Refactoring kompleks, Computer Use (CUA), sintesis spasial UI/UX |
-| OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Multimodal Native | Tool use native, perencanaan multi-langkah, verifikasi otomatis |
-| OpenAI | o3 / o3-mini | 200K | Test-Time Reasoning Native (`reasoning_effort`) | Competitive coding, logika invarian formal, pembuktian matematis |
-| OpenAI | GPT-4.5 | 128K | Instruksi Presisi Tinggi & Tooling Cepat | Output terstruktur sangat presisi, orkestrasi agen latensi rendah |
-| DeepSeek | DeepSeek-R1 / Pro | 128K | Open Reasoning (Distill & MoE) | Penalaran open weights terdepan, matematika, algoritma, refactoring kode |
-| DeepSeek | DeepSeek-V3 | 128K | Teks & Multimodal Umum | Throughput tinggi, sangat hemat biaya untuk coding loops |
-| Qwen | Qwen 2.5 / 3 Coder | 128K | Spesialis Kode Open Source | Agen coding mandiri / self-hosted, copilot lokal |
+| Provider | Model | Tier | Konteks | Tipe Penalaran | Keunggulan Utama |
+|---|---|---|---|---|---|
+| xAI | Grok 4.7 High Fast | High Fast | 256K | Komputasi Real-Time Sub-Detik | TTFT kilat, pencarian web langsung, loop uji-debug cepat |
+| xAI | Grok 4.6 High Fast | High Fast | 128K | Penalaran Throughput Tinggi | Pengujian unit cepat, linting kode, verifikasi micro-benchmark |
+| Cursor | Composer 2.5 Fast | Fast | 200K | Mesin Diff AST Native | Refactoring multi-berkas tersinkronisasi, generasi patch aman |
+| Google | Gemini 4 Argon | Medium | 2M+ | Penalaran Seimbang Monolitik | Konteks 2M+ seluruh repo, caching native, sintesis fitur fullstack |
+| OpenAI | GPT-5.6 Sol | Medium | 500K | Penegakan Skema & Kontrak Ketat | Tool-calling sempurna, validasi OpenAPI, verifikasi PRM |
+| Anthropic | Claude Opus 5.5 | Medium | 500K | Pemahaman Arsitektur Mendalam | Analisis arsitektur tingkat tinggi, pemodelan domain kompleks |
+| Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Keahlian fullstack unggulan, kode anti-slop, verifikasi formal |
+| Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Eksekusi terminal agentic, pembacaan cache 45% lebih hemat |
+| Muse | Muse Wonder | High | 300K | Desain Eksploratif & Generatif | Sintesis arsitektur kreatif, layout UI generatif inovatif |
+| Google | Gemini 4 Pro | High | 2M–10M | Multimodal Live Monolitik | Riset mendalam long-context, audio/video spasial, audit repo raksasa |
+| DeepSeek | DeepSeek-R1 / Pro | High | 128K | Penalaran Open Weights | Algoritma matematika tinggi, transformasi AST kompleks |
 
 ### Panduan Arsitektur Inti
 

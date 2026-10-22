@@ -9,13 +9,13 @@
     },
     {
       "name": "adaptive-model-cascade",
-      "description": "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Flash/Haiku to Sonnet/Opus/Astra, dynamic escalation with quality gates, 40-60% token cost reduction while maintaining output quality / Panduan ahli untuk kaskade dan routing model cerdas — routing tugas berbasis skor kompleksitas dari Flash/Haiku ke Sonnet/Opus/Astra, eskalasi dinamis dengan gerbang kualitas, pengurangan biaya token 40-60% dengan kualitas output terjaga.",
+      "description": "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Fast (Composer 2.5, Grok 4.7/4.6) to Medium (Gemini 4 Argon, GPT-5.6 Sol, Claude Opus 5.5) and High (Claude Sonnet 5.5, Claude Fable 5.1, Muse Wonder) / Panduan ahli untuk kaskade dan routing model cerdas.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
     {
       "name": "affective-computing-emotion-ai",
-      "description": "Expert guide for Affective Computing, emotional AI, and real-time sentiment analysis through native multimodal tokens (voice intonation and facial micro-expressions) / Panduan ahli komputasi afektif, AI emosional, dan analisis sentimen real-time melalui token multimodal native.",
+      "description": "Master guide for Affective Computing, emotional AI, and real-time sentiment analysis through native multimodal tokens (voice intonation and facial micro-expressions) / Panduan utama komputasi afektif, AI emosional, dan analisis sentimen real-time melalui token multimodal native.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -27,7 +27,7 @@
     },
     {
       "name": "agentic-m2m-settlement",
-      "description": "Expert guide for autonomous Machine-to-Machine (M2M) agent settlement, dual-rail fiat & stablecoin micro-clearing, dynamic budget envelopes, and cryptographic agent invoicing / Panduan ahli settlement otonom antar-agen (M2M), kliring mikro dual-rail fiat & stablecoin, pagu anggaran dinamis, dan penagihan agen kriptografis.",
+      "description": "Master guide for autonomous Machine-to-Machine (M2M) agent settlement, dual-rail fiat (DOKU SNAP BI) & stablecoin micro-clearing, dynamic budget envelopes, and cryptographic agent invoicing / Panduan utama settlement otonom antar-agen (M2M), kliring mikro dual-rail fiat & stablecoin, pagu anggaran dinamis, dan penagihan agen kriptografis.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -39,7 +39,7 @@
     },
     {
       "name": "agentic-micro-economy-architect",
-      "description": "Expert guide for designing Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, and swarm budget allocation / Panduan ahli merancang ekonomi mikro antar-agen (M2M), dompet agen otonom, dan alokasi anggaran swarm.",
+      "description": "Master guide for designing Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, swarm budget envelopes, and HTTP 402 payment flows / Panduan utama merancang ekonomi mikro antar-agen (M2M), dompet agen otonom, pagu anggaran swarm, dan alur pembayaran HTTP 402.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -231,7 +231,7 @@
     },
     {
       "name": "context-window-engineer",
-      "description": "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Pro, Claude 5.5, and GPT Astra 6 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Pro, Claude 5.5, dan GPT Astra 6 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya.",
+      "description": "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, and Grok 4.7 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, dan Grok 4.7 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -339,13 +339,13 @@
     },
     {
       "name": "ephemeral-generative-ui-architect",
-      "description": "Expert guide for Generative UI architectures, ephemeral dynamic interfaces, and real-time streaming of React Server Components (RSC) driven by Gemini 4 Pro / Panduan ahli arsitektur Generative UI, antarmuka dinamis efemeral, dan streaming RSC real-time yang didorong oleh Gemini 4 Pro.",
+      "description": "Master guide for Ephemeral Generative UI, real-time dynamic component streaming (React 19 RSC & Vercel AI SDK v4+), multi-widget layout orchestration, bidirectional action loops, sandboxed error boundaries, and affective adaptive interfaces / Panduan ahli arsitektur Generative UI efemeral, streaming komponen real-time (React 19 RSC & Vercel AI SDK v4+), orkestrasi layout multi-widget, loop aksi dua arah, dan antarmuka adaptif afektif.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
     {
       "name": "ephemeral-wasm-sandbox-executor",
-      "description": "Expert guide for ephemeral WebAssembly (WASM) and isolated micro-runtime sandboxes to securely execute AI-generated code, validate database migrations in-memory, and perform sub-millisecond fuzzing / Panduan ahli sandbox WebAssembly (WASM) efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman, validasi migrasi database in-memory, dan fuzzing sub-milidetik.",
+      "description": "Master guide for ephemeral WebAssembly (WASM) and isolated micro-runtime sandboxes to securely execute AI-generated code, validate database migrations in-memory, and perform sub-millisecond fuzzing / Panduan utama sandbox WebAssembly (WASM) efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman, validasi migrasi database in-memory, dan fuzzing sub-milidetik.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -393,13 +393,13 @@
     },
     {
       "name": "formal-spec-z3-verifier",
-      "description": "Expert guide for mathematical formal verification, SMT solver constraints (Z3, Dafny, TLA+), invariant theorem proving for FinTech billing state machines, RBAC/ABAC authorization, and zero-violation architecture / Panduan ahli verifikasi formal matematis, SMT solver (Z3, Dafny, TLA+), pembuktian invarian state machine billing FinTech, otorisasi RBAC/ABAC, dan arsitektur zero-violation.",
+      "description": "Master guide for mathematical formal verification, SMT solver constraints (Z3 WebAssembly, Python Z3, TLA+, Dafny), invariant theorem proving for FinTech billing, RBAC authorization, and zero-violation architectures / Panduan utama verifikasi formal matematis, batasan SMT solver (Z3 WASM, Python Z3, TLA+, Dafny), pembuktian teorema invarian billing FinTech, otorisasi RBAC, dan arsitektur zero-violation.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
     {
       "name": "frontier-ai-models-expert",
-      "description": "Expert guide for late-2026 frontier AI models — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), and Enterprise Frontier Safeguards (EFS) / Panduan ahli model AI frontier akhir-2026 — Google Gemini 4 Pro & Project Astra, Anthropic Claude 5.1 (Fable/Mythos), dan Enterprise Frontier Safeguards (EFS).",
+      "description": "Expert guide for late-2026 frontier AI models — Grok 4.7 / 4.6 (High Fast), Cursor Composer 2.5 (Fast), Claude Opus 5.5 / GPT-5.6 Sol / Gemini 4 Argon (Medium), and Claude Sonnet 5.5 / Fable 5.1 / Muse Wonder (High) / Panduan ahli model AI frontier akhir-2026.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -411,7 +411,7 @@
     },
     {
       "name": "gemini-agent-booster",
-      "description": "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 4 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 4 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi.",
+      "description": "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 3.8 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 3.8 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -483,7 +483,7 @@
     },
     {
       "name": "kv-cache-prefix-optimizer",
-      "description": "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Pro / Claude 5.5 / GPT Astra 6, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik, penguncian KV-cache untuk Gemini 4 Pro / Claude 5.5 / GPT Astra 6, pengurutan kanonikal tool, dan pencapaian 90%+ cache hit rate.",
+      "description": "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Argon/Pro, Claude 5.5 (Sonnet/Opus) / 5.1 Fable, GPT-5.6 Sol, and Grok 4.7, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -495,7 +495,7 @@
     },
     {
       "name": "living-codebase-ast-graph",
-      "description": "Expert guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, real-time symbol dependency mapping, refactoring blast radius calculation, and dead code eradication / Panduan ahli graf pengetahuan AST kode in-memory, pemetaan dependensi simbol real-time, kalkulasi radius dampak refaktor, dan pembersihan kode mati.",
+      "description": "Master guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, multi-language symbol dependency mapping (TS, Python, Go, Rust), refactoring blast radius calculation, circular cycle detection (Tarjan SCC), and topological swarm generation / Panduan utama graf pengetahuan AST kode in-memory, pemetaan dependensi multi-bahasa, kalkulasi radius dampak refaktor, deteksi siklus dependensi, dan pengurutan topologis swarm.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -573,7 +573,7 @@
     },
     {
       "name": "multimodal-spatial-video-cloner",
-      "description": "Expert guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan ahli rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion.",
+      "description": "Master guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan utama rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -627,7 +627,7 @@
     },
     {
       "name": "post-quantum-crypto-migrator",
-      "description": "FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (PQC) / Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech.",
+      "description": "FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (FIPS 203 ML-KEM, FIPS 204 ML-DSA, FIPS 205 SLH-DSA) / Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -729,7 +729,7 @@
     },
     {
       "name": "screenshot-to-code-expert",
-      "description": "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Pro, Claude 5.5, GPT Astra 6) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token.",
+      "description": "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Muse Wonder) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -783,7 +783,7 @@
     },
     {
       "name": "speculative-multi-draft-synthesizer",
-      "description": "Expert guide for speculative multi-agent drafting, parallel hypothesis generation, AST-aware consensus arbitration, and multi-model code reconciliation / Panduan ahli penyusunan draf multi-agen spekulatif, generasi hipotesis paralel, arbitrase konsensus sadar-AST, dan rekonsiliasi kode multi-model.",
+      "description": "Master guide for speculative multi-agent drafting, parallel multi-model hypothesis generation, AST-aware consensus arbitration, and node-level code reconciliation / Panduan utama penyusunan draf multi-agen spekulatif, generasi hipotesis paralel multi-model, arbitrase konsensus sadar-AST, dan rekonsiliasi kode tingkat simpul.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -849,13 +849,13 @@
     },
     {
       "name": "test-time-compute-optimizer",
-      "description": "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Pro, Claude 5.5, GPT Astra 6), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute), alokasi dinamis budget penalaran, MCTS, dan Process Reward Models.",
+      "description": "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute).",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
     {
       "name": "thinking-budget-orchestrator",
-      "description": "Expert guide for dynamic thinking budget allocation, test-time reasoning scaling (Gemini 4 Pro, Claude 3.7/5.1 Extended Thinking, OpenAI o3/o4-mini), and task complexity heuristics / Panduan ahli alokasi budget penalaran dinamis dan penskalaan reasoning test-time.",
+      "description": "Expert guide for dynamic thinking budget allocation across late-2026 frontier models — Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, and Muse Wonder / Panduan ahli alokasi budget penalaran dinamis.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -885,7 +885,7 @@
     },
     {
       "name": "visual-ui-auditor",
-      "description": "Expert guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 / 5.1 Sonnet, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan ahli audit visual UI berbasis vision multimodal.",
+      "description": "Master guide for multimodal vision UI auditing (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, GPT-5.6 Sol Vision, Muse Wonder) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan utama audit visual UI berbasis vision multimodal.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },

@@ -80,7 +80,7 @@ vibes-plug's internal Swarm Director patterns (from `AGENTS.md`) map directly to
 | Framework | Language | Best For | Key Differentiator |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Complex stateful workflows & graphs | Graph-based, persistent checkpointers, time-travel debugging |
-| **OpenAI Agents SDK** | Python | GPT-4.5 / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
+| **OpenAI Agents SDK** | Python | GPT-5.6 Sol / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
 | **Google ADK** | Python | Gemini-powered swarms | Native Vertex AI, multi-agent streaming, search grounding |
 | **Mastra.ai** | TypeScript | TS-first web apps & microservices | Built-in memory, evals, RAG, and native MCP support |
 | **CrewAI** | Python | Role-playing business teams & flows | Event-driven Flows, hierarchical manager execution, multi-tier memory |
@@ -282,7 +282,7 @@ class DeploymentFlow(Flow[PipelineState]):
             agents=[scanner, hardener],
             tasks=[audit_task, remediation_task],
             process=Process.hierarchical,
-            manager_llm="gpt-4o",
+            manager_llm="gpt-5.6-sol",
             memory=True,
             verbose=True
         )
@@ -441,7 +441,7 @@ Untuk sistem produksi yang handal, utamakan arsitektur **Workflows** terstruktur
 | Framework | Bahasa | Terbaik Untuk | Keunggulan Utama |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Alur kerja graf stateful kompleks | Berbasis graf, checkpointer persisten, time-travel debugging |
-| **OpenAI Agents SDK** | Python | Agen native GPT-4.5 / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
+| **OpenAI Agents SDK** | Python | Agen native GPT-5.6 Sol / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
 | **Google ADK** | Python | Swarm agen bertenaga Gemini | Integrasi Vertex AI native, streaming multi-agen, search grounding |
 | **Mastra.ai** | TypeScript | Web apps & microservice TS-first | Memori bawaan, evaluasi otomatis, RAG, dan dukungan MCP native |
 | **CrewAI** | Python | Tim kolaborasi peran & flow terstruktur | Event-driven Flows, eksekusi manajer hierarkis, memori multi-tier |
@@ -535,7 +535,7 @@ class PipelineDeploymentFlow(Flow[StatePipeline]):
             agents=[auditor, engineer],
             tasks=[tugas_audit, tugas_mitigasi],
             process=Process.hierarchical,
-            manager_llm="gpt-4o",
+            manager_llm="gpt-5.6-sol",
             memory=True,
             verbose=True
         )

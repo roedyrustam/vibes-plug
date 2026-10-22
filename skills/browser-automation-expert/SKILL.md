@@ -23,7 +23,7 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Purpose & Overview
-Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute complex workflows without human intervention. Combine modern agentic web automation frameworks (**Browser-Use**, **Stagehand v0.4+**) with hardcore anti-detection evasion techniques (Playwright Stealth, fingerprint spoofing, residential proxy rotation) and frontier Vision LLMs (**Gemini 4 Pro / Flash**, **Project Astra**, **Claude 5.1 Fable / 5.0 Computer Use**, **OpenAI GPT-5.6 / o3 / GPT-4.5**) for pixel-accurate visual QA.
+Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute complex workflows without human intervention. Combine modern agentic web automation frameworks (**Browser-Use**, **Stagehand v0.4+**) with hardcore anti-detection evasion techniques (Playwright Stealth, fingerprint spoofing, residential proxy rotation) and frontier Vision LLMs (**Gemini 4 Argon / Gemini 4 Pro**, **Project Astra**, **Claude Sonnet 5.5 / Fable 5.1 Computer Use**, **OpenAI GPT-5.6 Sol / o3**, **Grok 4.7 High Fast**) for pixel-accurate visual QA.
 
 ### Core Capabilities
 
@@ -159,7 +159,7 @@ Activate this skill when the user says:
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
 
 ### Tujuan & Gambaran Umum
-Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengeksekusi alur kerja kompleks tanpa campur tangan manusia. Menggabungkan framework otomatisasi web agentic modern (**Browser-Use**, **Stagehand v0.4+**) dengan teknik penghindaran deteksi bot tingkat tinggi (Playwright Stealth, manipulasi sidik jari perangkat, rotasi proxy residential) dan model Vision frontier (**Gemini 4 Pro / Flash**, **Project Astra**, **Claude 5.1 Fable / 5.0 Computer Use**, **OpenAI GPT-5.6 / o3 / GPT-4.5**) untuk QA visual tingkat piksel.
+Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengeksekusi alur kerja kompleks tanpa campur tangan manusia. Menggabungkan framework otomatisasi web agentic modern (**Browser-Use**, **Stagehand v0.4+**) dengan teknik penghindaran deteksi bot tingkat tinggi (Playwright Stealth, manipulasi sidik jari perangkat, rotasi proxy residential) dan model Vision frontier (**Gemini 4 Argon / Gemini 4 Pro**, **Project Astra**, **Claude Sonnet 5.5 / Fable 5.1 Computer Use**, **OpenAI GPT-5.6 Sol / o3**, **Grok 4.7 High Fast**) untuk QA visual tingkat piksel.
 
 ### Kemampuan Utama
 

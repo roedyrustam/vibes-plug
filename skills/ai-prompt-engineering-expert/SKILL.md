@@ -63,7 +63,7 @@ Use Anthropic's prompt caching for cost optimization when dealing with large con
 - **Cost savings**: Cached input tokens are 90% cheaper.
 ```typescript
 const response = await anthropic.messages.create({
-  model: 'claude-3-7-sonnet-20250219',
+  model: 'claude-sonnet-5.5-20261022',
   max_tokens: 1024,
   system: [
     {
@@ -89,8 +89,9 @@ prompts:
   - 'file://prompts/support-v1.txt'
   - 'file://prompts/support-v2.txt'
 providers:
-  - id: 'google:gemini-3.8-flash'
-  - id: 'anthropic:claude-3-7-sonnet-20250219'
+  - id: 'google:gemini-4-argon'
+  - id: 'anthropic:claude-sonnet-5.5-20261022'
+  - id: 'xai:grok-4.7-high-fast'
 tests:
   - description: 'Refund policy inquiry with strict JSON output'
     vars:

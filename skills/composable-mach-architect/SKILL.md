@@ -295,12 +295,12 @@ async function routePrompt(prompt, context) {
   const complexityScore = evaluateComplexity(prompt); // Fast heuristic check
 
   if (complexityScore < 0.3) {
-    // Simple task: Route to fast, cheap model (e.g., Gemini 3.8 Flash / Claude 3.5 Haiku / GPT-4o-mini)
+    // Simple task: Route to fast, cheap model (e.g., Grok 4.7 High Fast / Grok 4.6 / Composer 2.5 Fast)
     return await callModel('fast-cheap-model', prompt);
   } 
   
   if (context.requiresReasoning) {
-    // Complex reasoning: Route to advanced model (e.g., Gemini 4 Pro / Claude 3.7 Sonnet / Claude 5.1 / GPT-5)
+    // Complex reasoning: Route to advanced model (e.g., Claude Sonnet 5.5 High / Gemini 4 Argon / GPT-5.6 Sol)
     try {
       return await callModel('advanced-reasoning-model', prompt);
     } catch (error) {

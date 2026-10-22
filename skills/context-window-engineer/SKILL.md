@@ -1,6 +1,6 @@
 ---
 name: context-window-engineer
-description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Pro, Claude 5.5, and GPT Astra 6 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Pro, Claude 5.5, dan GPT Astra 6 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
+description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, and Grok 4.7 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, dan Grok 4.7 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
 author: "Roedy Rustam"
 version: "4.4.2"
 
@@ -36,15 +36,18 @@ Activate this skill when:
 
 ### Core Concepts & Patterns
 
-#### 1. Context Window Capacity Map (October 2026)
+#### 1. Context Window Capacity Map (Late-2026 Frontier Models)
 
-| Model | Max Context | Effective Recall Zone | Cost per 1M Input Tokens | Cache Discount |
-| :--- | :--- | :--- | :--- | :--- |
-| **Gemini 4 Pro** | 2,097,152 | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
-| **Gemini 3.8 Flash** | 1,048,576 | ~900k | $0.075 | 75% |
-| **Claude 5.5 Opus** | 500,000 | ~450k | $15.00 | 90% (prompt cache) |
-| **Claude 5.5 Sonnet** | 200,000 | ~180k | $3.00 | 90% |
-| **GPT Astra 6** | 256,000 | ~220k | $5.00 | 50% (prefix cache) |
+| Model | Tier | Max Context | Effective Recall Zone | Cost per 1M Input Tokens | Cache Discount |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini 4 Argon** | Medium | 2,097,152 | ~1.9M (monolithic) | $0.80 | 75% (native context caching) |
+| **Gemini 4 Pro** | High | 2,097,152–10M | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
+| **Claude Opus 5.5** | Medium | 500,000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Sonnet 5.5** | High | 500,000 | ~480k | $3.00 | 90% (prompt cache) |
+| **Claude Fable 5.1** | High | 500,000 | ~480k | $2.50 | 90% (prompt cache) |
+| **GPT-5.6 Sol** | Medium | 500,000 | ~450k | $1.50 | 50% (prefix cache) |
+| **Grok 4.7 High Fast** | High Fast | 256,000 | ~240k | $0.50 | 80% (prompt cache) |
+| **Composer 2.5 Fast** | Fast | 200,000 | ~180k | $0.30 | 80% (AST diff cache) |
 
 #### 2. The Context Partitioning Architecture
 
@@ -244,7 +247,20 @@ Aktifkan skill ini ketika:
 
 ### Konsep Inti & Pola Praktik
 
-#### 1. Arsitektur Partisi Konteks
+#### 1. Peta Kapasitas Context Window (Model Frontier Akhir-2026)
+
+| Model | Tier | Konteks Maks | Zona Recall Efektif | Biaya per 1M Token Input | Diskon Cache |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini 4 Argon** | Medium | 2.097.152 | ~1,9M (monolitik) | $0.80 | 75% (native context caching) |
+| **Gemini 4 Pro** | High | 2.097.152–10M | ~1,8M (andal) | $1.25 | 75% (explicit cache) |
+| **Claude Opus 5.5** | Medium | 500.000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Sonnet 5.5** | High | 500.000 | ~480k | $3.00 | 90% (prompt cache) |
+| **Claude Fable 5.1** | High | 500.000 | ~480k | $2.50 | 90% (prompt cache) |
+| **GPT-5.6 Sol** | Medium | 500.000 | ~450k | $1.50 | 50% (prefix cache) |
+| **Grok 4.7 High Fast** | High Fast | 256.000 | ~240k | $0.50 | 80% (prompt cache) |
+| **Composer 2.5 Fast** | Fast | 200.000 | ~180k | $0.30 | 80% (AST diff cache) |
+
+#### 2. Arsitektur Partisi Konteks
 Jangan perlakukan context window sebagai buffer datar. Partisi menjadi zona bermakna secara semantik:
 - **Zona 1 (1-3%)**: Direktif sistem yang tidak berubah — prompt perilaku, format output.
 - **Zona 2 (10-40%)**: Referensi statis — skema codebase, spesifikasi API, definisi tool.
@@ -252,10 +268,10 @@ Jangan perlakukan context window sebagai buffer datar. Partisi menjadi zona berm
 - **Zona 4 (10-30%)**: Riwayat percakapan — giliran sebelumnya, ringkasan konteks lama.
 - **Zona 5 (1-5%)**: Query aktif — pesan pengguna saat ini, ruang kerja chain-of-thought.
 
-#### 2. Mitigasi "Lost in the Middle"
+#### 3. Mitigasi "Lost in the Middle"
 Model frontier menunjukkan recall yang menurun untuk informasi di tengah-tengah konteks. Mitigasi dengan penempatan informasi kritis di awal dan akhir, jangkar struktural, ringkasan redundan, dan retrieval berbasis chunk.
 
-#### 3. Keputusan RAG vs. Long-Context
+#### 4. Keputusan RAG vs. Long-Context
 Gunakan RAG untuk korpus >10M token dengan query spesifik dan sensitivitas biaya tinggi. Gunakan long-context stuffing untuk korpus <2M token dengan kebutuhan sintesis luas dan corpus statis per sesi.
 
 ---
