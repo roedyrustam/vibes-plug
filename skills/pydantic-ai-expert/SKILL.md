@@ -147,6 +147,101 @@ async def test_security_agent_tool_dispatch():
         assert result.data is not None
 ```
 
+#### 4. Streaming Structured Output Validation (`run_stream`)
+Stream typed Pydantic models with real-time field-level validation as tokens arrive:
+```python
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+class IncidentTriage(BaseModel):
+    severity: str = Field(description="Low, Medium, High, or Critical")
+    affected_components: list[str] = Field(default_factory=list)
+    immediate_actions: list[str] = Field(default_factory=list)
+    root_cause_hypothesis: str
+
+triage_agent = Agent[None, IncidentTriage](
+    model='google-gla:gemini-2.5-flash',
+    result_type=IncidentTriage,
+    system_prompt="You are a real-time site reliability incident responder."
+)
+
+async def stream_incident_triage(incident_log: str):
+    async with triage_agent.run_stream(f"Triage incident: {incident_log}") as response:
+        async for partial_triage in response.stream_structured():
+            print(f"[Streaming Partial Validation] Severity: {partial_triage.severity}, Actions: {len(partial_triage.immediate_actions)}")
+        
+        final_result = await response.get_data()
+        return final_result
+```
+
+#### 5. Multi-Agent Delegation & Handoffs via `RunContext`
+Sub-agents invoked as specialized tools with context isolation:
+```python
+from dataclasses import dataclass
+from pydantic import BaseModel
+from pydantic_ai import Agent, RunContext
+
+@dataclass
+class ResearchContext:
+    api_key: str
+    deep_mode: bool
+
+class FactReport(BaseModel):
+    statement: str
+    verified: bool
+    source_citation: str
+
+class SynthesisReport(BaseModel):
+    executive_summary: str
+    verified_facts: list[FactReport]
+
+# Specialist Sub-Agent
+verifier_agent = Agent[ResearchContext, FactReport](
+    model='openai:gpt-4o-mini',
+    result_type=FactReport,
+    system_prompt="Fact-check individual technical claims against primary specifications."
+)
+
+# Root Orchestrator Agent
+director_agent = Agent[ResearchContext, SynthesisReport](
+    model='anthropic:claude-3-7-sonnet-20250219',
+    result_type=SynthesisReport,
+    system_prompt="Analyze claims and delegate individual verification to the verifier tool."
+)
+
+@director_agent.tool
+async def verify_claim(ctx: RunContext[ResearchContext], claim: str) -> FactReport:
+    """Delegates verification of a specific claim to the specialized verifier agent."""
+    sub_result = await verifier_agent.run(claim, deps=ctx.deps)
+    return sub_result.data
+
+async def conduct_synthesis(claim_text: str, context: ResearchContext) -> SynthesisReport:
+    result = await director_agent.run(claim_text, deps=context)
+    return result.data
+```
+
+#### 6. Observability & OpenTelemetry Instrumentation with Pydantic Logfire
+Instrument agents with zero boilerplate for token tracking, tool latency, and structured traces:
+```python
+import logfire
+from pydantic_ai import Agent
+
+# 1. Initialize Logfire with automatic OpenTelemetry export
+logfire.configure(service_name="secops-pydantic-agent", send_to_logfire=True)
+logfire.instrument_pydantic_ai()
+
+# 2. Agent operations are automatically traced with token counts & tool timings
+monitor_agent = Agent(
+    model='anthropic:claude-3-7-sonnet-20250219',
+    system_prompt="Autonomous database optimization auditor."
+)
+
+@monitor_agent.tool_plain
+def calculate_index_efficiency(table_name: str, scan_count: int) -> float:
+    with logfire.span("evaluate_index_metrics", table=table_name):
+        return round(1.0 - (1.0 / (scan_count + 1)), 4)
+```
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -225,7 +320,23 @@ async def jalankan_audit(pool: asyncpg.Pool, tenant_id: str, target_user: str) -
     return hasil.data  # Dijamin merupakan instance tervalidasi dari LaporanAnomali
 ```
 
-#### 2. Pengujian Unit Deterministik Menggunakan `TestModel`
+#### 2. Pergantian Model Dinamis & Fallback SLM Lokal (Ollama)
+Pydantic AI memungkinkan pergantian tanpa friksi antara model cloud frontier dan model open-weights lokal:
+```python
+import os
+from pydantic_ai.models.anthropic import AnthropicModel
+from pydantic_ai.models.ollama import OllamaModel
+
+def ambil_model_agen():
+    if os.getenv("ENV") == "production":
+        return AnthropicModel('claude-3-7-sonnet-20250219')
+    else:
+        # Pengembangan lokal zero-cost menggunakan Ollama
+        return OllamaModel(model_name='qwen2.5-coder:7b')
+```
+
+#### 3. Pengujian Unit Deterministik Menggunakan `TestModel`
+Tulis pengujian unit yang memvalidasi pemanggilan tool dan parsing output terstruktur tanpa biaya API live:
 ```python
 import pytest
 from pydantic_ai.models.test import TestModel
@@ -237,4 +348,99 @@ async def test_eksekusi_tool_agen():
         deps = DependensiDatabase(pool=mock_pool, tenant_id="tenant_123")
         hasil = await agen_keamanan.run("Audit user 456", deps=deps)
         assert hasil.data is not None
+```
+
+#### 4. Validasi Output Terstruktur Real-Time (`run_stream()`)
+Stream model Pydantic dengan validasi level-properti saat token diterima secara bertahap:
+```python
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent
+
+class TriaseInsiden(BaseModel):
+    tingkat_keparahan: str = Field(description="Rendah, Sedang, Tinggi, atau Kritis")
+    komponen_terdampak: list[str] = Field(default_factory=list)
+    tindakan_segera: list[str] = Field(default_factory=list)
+    hipotesis_akar_masalah: str
+
+agen_triase = Agent[None, TriaseInsiden](
+    model='google-gla:gemini-2.5-flash',
+    result_type=TriaseInsiden,
+    system_prompt="Anda adalah responder insiden keandalan infrastruktur real-time."
+)
+
+async def stream_triase_insiden(log_insiden: str):
+    async with agen_triase.run_stream(f"Triase insiden: {log_insiden}") as respons:
+        async for triase_parsial in respons.stream_structured():
+            print(f"[Streaming Validasi Parsial] Keparahan: {triase_parsial.tingkat_keparahan}, Tindakan: {len(triase_parsial.tindakan_segera)}")
+        
+        hasil_akhir = await respons.get_data()
+        return hasil_akhir
+```
+
+#### 5. Delegasi & Handoff Multi-Agen Berbasis `RunContext`
+Panggil sub-agen sebagai tool terspesialisasi dengan isolasi konteks dependensi:
+```python
+from dataclasses import dataclass
+from pydantic import BaseModel
+from pydantic_ai import Agent, RunContext
+
+@dataclass
+class KonteksRiset:
+    kunci_api: str
+    mode_mendalam: bool
+
+class LaporanFakta(BaseModel):
+    pernyataan: str
+    terverifikasi: bool
+    sitasi_sumber: str
+
+class LaporanSintesis(BaseModel):
+    ringkasan_eksekutif: str
+    fakta_terverifikasi: list[LaporanFakta]
+
+# Sub-Agen Spesialis Verifikasi
+agen_verifikator = Agent[KonteksRiset, LaporanFakta](
+    model='openai:gpt-4o-mini',
+    result_type=LaporanFakta,
+    system_prompt="Verifikasi kebenaran klaim teknis berdasarkan dokumen spesifikasi primer."
+)
+
+# Agen Utama / Direktur Sintesis
+agen_direktur = Agent[KonteksRiset, LaporanSintesis](
+    model='anthropic:claude-3-7-sonnet-20250219',
+    result_type=LaporanSintesis,
+    system_prompt="Analisis laporan dan delegasikan verifikasi klaim ke tool verifikator."
+)
+
+@agen_direktur.tool
+async def verifikasi_klaim(ctx: RunContext[KonteksRiset], klaim: str) -> LaporanFakta:
+    """Mendelegasikan verifikasi klaim tertentu ke sub-agen spesialis."""
+    sub_hasil = await agen_verifikator.run(klaim, deps=ctx.deps)
+    return sub_hasil.data
+
+async def jalankan_sintesis(teks_klaim: str, konteks: KonteksRiset) -> LaporanSintesis:
+    hasil = await agen_direktur.run(teks_klaim, deps=konteks)
+    return hasil.data
+```
+
+#### 6. Observabilitas & Tracing OpenTelemetry dengan Pydantic Logfire
+Instrumentasi performa agen, pelacakan konsumsi token, dan latensi tool secara otomatis:
+```python
+import logfire
+from pydantic_ai import Agent
+
+# 1. Konfigurasi Logfire dengan ekspor OpenTelemetry otomatis
+logfire.configure(service_name="secops-pydantic-agent", send_to_logfire=True)
+logfire.instrument_pydantic_ai()
+
+# 2. Operasi agen terlacak secara otomatis dalam dasbor telemetri
+agen_pemantau = Agent(
+    model='anthropic:claude-3-7-sonnet-20250219',
+    system_prompt="Auditor pengoptimalan database otonom."
+)
+
+@agen_pemantau.tool_plain
+def hitung_efisiensi_indeks(nama_tabel: str, jumlah_scan: int) -> float:
+    with logfire.span("evaluasi_metrik_indeks", tabel=nama_tabel):
+        return round(1.0 - (1.0 / (jumlah_scan + 1)), 4)
 ```

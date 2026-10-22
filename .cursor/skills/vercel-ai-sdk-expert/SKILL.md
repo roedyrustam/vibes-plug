@@ -55,8 +55,8 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 
 ### Core Implementation Guidelines
 
-#### 1. Next.js 15 Route Handler with Multi-Step Tool Calling Loop
-Use `streamText` with `maxSteps` to enable the model to autonomously call tools, review results, and continue reasoning:
+#### 1. Next.js 15 Route Handler with Multi-Step Tool Calling & Step Hooks
+Use `streamText` with `maxSteps`, `onStepFinish`, and native prompt caching for iterative tool calling:
 ```typescript
 // app/api/chat/route.ts
 import { anthropic } from '@ai-sdk/anthropic';
@@ -71,49 +71,67 @@ export async function POST(req: Request) {
   const result = streamText({
     model: anthropic('claude-3-7-sonnet-20250219'),
     messages,
-    maxSteps: 5, // Enables iterative tool calling loop
+    maxSteps: 10, // Iterative tool-calling loop up to 10 steps
+    providerOptions: {
+      anthropic: {
+        cacheControl: { type: 'ephemeral' }, // Prompt caching for 90% TTFT acceleration
+      },
+    },
     tools: {
       calculateMetrics: tool({
         description: 'Computes analytical metrics from raw time series data',
         parameters: z.object({
-          datasetId: z.string(),
+          datasetId: z.string().min(1),
           metricType: z.enum(['p95_latency', 'error_rate', 'throughput']),
         }),
         execute: async ({ datasetId, metricType }) => {
-          const data = await fetchDatasetMetrics(datasetId, metricType);
-          return { datasetId, metricType, value: data.result };
+          const metrics = await fetchDatasetMetrics(datasetId, metricType);
+          return { datasetId, metricType, value: metrics.result, timestamp: new Date().toISOString() };
         },
       }),
     },
-    system: 'You are an elite software performance auditor. Always back up your conclusions with data tool outputs.',
+    system: 'You are an elite software performance auditor. Always ground conclusions with tool metrics.',
+    onStepFinish: ({ stepType, text, toolCalls, toolResults, finishReason, usage }) => {
+      console.log(`[Step ${stepType}] Finish: ${finishReason}, Prompt Tokens: ${usage.promptTokens}, Completion: ${usage.completionTokens}`);
+      if (toolCalls && toolCalls.length > 0) {
+        console.log(`Dispatched tools: ${toolCalls.map(t => t.toolName).join(', ')}`);
+      }
+    },
   });
 
   return result.toDataStreamResponse();
 }
+
+async function fetchDatasetMetrics(datasetId: string, metricType: string) {
+  return { result: metricType === 'p95_latency' ? '12.4ms' : '0.01%' };
+}
 ```
 
 #### 2. Streaming Type-Safe Structured Objects (`streamObject`)
-Stream structured JSON objects directly into the UI while generating:
+Stream validated structured objects to client components with partial object completion:
 ```typescript
 import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 import { z } from 'zod';
 
+export const SecurityReportSchema = z.object({
+  securityVulnerabilities: z.array(z.object({
+    severity: z.enum(['low', 'medium', 'high', 'critical']),
+    cwe: z.string(),
+    explanation: z.string(),
+    suggestedFix: z.string(),
+  })),
+  overallRiskScore: z.number().min(0).max(100),
+  passesReview: z.boolean(),
+  mitigationSummary: z.string(),
+});
+
 export async function POST(req: Request) {
   const { codeDiff } = await req.json();
 
   const result = streamObject({
-    model: google('gemini-4-flash'),
-    schema: z.object({
-      securityVulnerabilities: z.array(z.object({
-        severity: z.enum(['low', 'medium', 'high', 'critical']),
-        cwe: z.string(),
-        explanation: z.string(),
-        suggestedFix: z.string(),
-      })),
-      overallRiskScore: z.number().min(0).max(100),
-      passesReview: z.boolean(),
-    }),
+    model: google('gemini-2.5-pro'),
+    schema: SecurityReportSchema,
     prompt: `Audit the following git diff for security regressions:\n${codeDiff}`,
   });
 
@@ -121,43 +139,77 @@ export async function POST(req: Request) {
 }
 ```
 
-#### 3. Client Hook Integration (`useChat` with Tool Invocations)
-Render real-time streaming tokens, loading skeletons, and interactive tool call results:
+#### 3. Client Hook Integration (`useChat` with Interactive Tool Invocations)
+Render streaming markdown, reasoning tokens, and interactive human-in-the-loop tool approvals:
 ```tsx
 'use client';
 
 import { useChat } from '@ai-sdk/react';
 
 export function AgenticChat() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    maxSteps: 5,
+  const { messages, input, handleInputChange, handleSubmit, isLoading, addToolResult } = useChat({
+    maxSteps: 10,
   });
 
   return (
-    <div className="flex flex-col h-[600px] w-full max-w-2xl mx-auto border rounded-xl p-4 bg-background">
+    <div className="flex flex-col h-[650px] w-full max-w-3xl mx-auto border border-border rounded-xl p-4 bg-background">
       <div className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`p-3 rounded-lg max-w-[80%] ${m.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
-              <div className="whitespace-pre-wrap">{m.content}</div>
-              {m.toolInvocations?.map((toolInvocation) => (
-                <div key={toolInvocation.toolCallId} className="mt-2 text-xs p-2 bg-black/10 rounded">
-                  <span className="font-semibold">Tool [{toolInvocation.toolName}]:</span>{' '}
-                  {'result' in toolInvocation ? JSON.stringify(toolInvocation.result) : 'Executing...'}
+            <div className={`p-4 rounded-xl max-w-[85%] text-sm ${m.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted/80'}`}>
+              {/* Reasoning Accordion */}
+              {m.parts?.map((part, index) => {
+                if (part.type === 'reasoning') {
+                  return (
+                    <details key={index} className="mb-2 p-2 bg-black/5 dark:bg-white/5 rounded text-xs">
+                      <summary className="cursor-pointer font-medium text-muted-foreground">Thinking Process</summary>
+                      <pre className="mt-1 whitespace-pre-wrap font-mono text-muted-foreground">{part.reasoning}</pre>
+                    </details>
+                  );
+                }
+                return null;
+              })}
+
+              <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
+
+              {/* Tool Invocations & Interactive Action Requests */}
+              {m.toolInvocations?.map((inv) => (
+                <div key={inv.toolCallId} className="mt-3 p-3 bg-background border border-border rounded-lg text-xs font-mono">
+                  <div className="flex items-center justify-between font-semibold pb-1 border-b border-border">
+                    <span>Tool: {inv.toolName}</span>
+                    <span className="text-muted-foreground">{'result' in inv ? 'Done' : 'Running...'}</span>
+                  </div>
+                  {'result' in inv ? (
+                    <pre className="mt-2 text-muted-foreground overflow-x-auto">{JSON.stringify(inv.result, null, 2)}</pre>
+                  ) : (
+                    <div className="mt-2 flex gap-2">
+                      <button
+                        onClick={() => addToolResult({ toolCallId: inv.toolCallId, result: { approved: true } })}
+                        className="px-2 py-1 bg-primary text-primary-foreground rounded text-xs"
+                      >
+                        Approve Execution
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="flex gap-2 pt-3 border-t">
+
+      <form onSubmit={handleSubmit} className="flex gap-2 pt-3 border-t border-border">
         <input
           value={input}
           onChange={handleInputChange}
-          placeholder="Ask the agent..."
-          className="flex-1 px-3 py-2 border rounded-md"
+          placeholder="Ask the performance auditor..."
+          className="flex-1 px-3 py-2 text-sm border border-input rounded-md bg-background focus:outline-none focus:ring-1 focus:ring-ring"
         />
-        <button type="submit" disabled={isLoading} className="px-4 py-2 bg-primary text-primary-foreground rounded-md">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md disabled:opacity-50"
+        >
           Send
         </button>
       </form>
@@ -166,48 +218,80 @@ export function AgenticChat() {
 }
 ```
 
-#### 4. Reasoning Token Streaming
-Handle `part.type === 'reasoning'` in streamText responses to build collapsible thinking UIs.
-
-Provider-specific thinking configuration:
-- Anthropic: `thinking: { type: 'enabled', budgetTokens: 10000 }`
-- Google: `thinkingConfig: { thinkingBudget: 10000 }`
-- OpenAI: `reasoningEffort: 'high'`
-
+#### 4. Multimodal Attachments (Images, PDFs & Audio)
+Pass multimodal file buffers or URLs directly into `streamText` message arrays:
 ```typescript
-// Server: Route handler with reasoning streaming
-const result = streamText({
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
+
+export async function POST(req: Request) {
+  const { prompt, pdfBase64, imageBase64 } = await req.json();
+
+  const result = streamText({
+    model: google('gemini-2.5-flash'),
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { type: 'file', mimeType: 'application/pdf', data: pdfBase64 },
+          { type: 'image', image: imageBase64 },
+        ],
+      },
+    ],
+  });
+
+  return result.toDataStreamResponse();
+}
+```
+
+#### 5. Custom LanguageModelV1 Middleware (`wrapLanguageModel`)
+Implement security screening, prompt caching telemetry, or rate limiting via unified middleware:
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
+
+export const auditedModel = wrapLanguageModel({
   model: anthropic('claude-3-7-sonnet-20250219'),
-  prompt: userMessage,
-  providerOptions: {
-    anthropic: { thinking: { type: 'enabled', budgetTokens: 10000 } }
-  }
+  middleware: {
+    wrapGenerate: async ({ doGenerate, params }) => {
+      console.log(`[Audit Middleware] Pre-generation prompt tokens: ${params.prompt.length}`);
+      const result = await doGenerate();
+      console.log(`[Audit Middleware] Generated tokens: ${result.text?.length ?? 0}`);
+      return result;
+    },
+    wrapStream: async ({ doStream, params }) => {
+      console.log(`[Audit Middleware] Initiating stream for model: ${params.modelId}`);
+      return await doStream();
+    },
+  },
 });
 ```
 
-```tsx
-// Client: React component rendering reasoning accordion
-{message.parts?.map((part, i) => {
-  if (part.type === 'reasoning') {
-    return <ThinkingAccordion key={i} content={part.reasoning} />;
-  }
-  if (part.type === 'text') {
-    return <Markdown key={i}>{part.text}</Markdown>;
-  }
-})}
-```
+#### 6. Direct Data Stream Control with `createDataStreamResponse`
+Send custom progress updates, telemetry events, and citations alongside model tokens:
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { createDataStreamResponse, streamText } from 'ai';
 
-#### 5. Multimodal Attachments in useChat
-Handle user-uploaded images and documents in `useChat` using `experimental_attachments` in the chat input. This allows sending base64 or URL-based image attachments to vision models.
+export async function POST(req: Request) {
+  const { messages } = await req.json();
 
-```tsx
-const { messages, input, handleSubmit, handleInputChange } = useChat();
+  return createDataStreamResponse({
+    execute: async (dataStream) => {
+      // 1. Send initial telemetry annotation
+      dataStream.writeMessageAnnotation({ step: 'INITIALIZING_AUDIT', timestamp: Date.now() });
 
-const handleFileUpload = (files: FileList) => {
-  // Convert to data URLs or upload to storage
-};
+      // 2. Stream LLM tokens
+      const result = streamText({
+        model: anthropic('claude-3-7-sonnet-20250219'),
+        messages,
+      });
 
-handleSubmit(e, { experimental_attachments: attachments });
+      result.mergeIntoDataStream(dataStream);
+    },
+  });
+}
 ```
 
 ---
@@ -238,7 +322,8 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 
 ### Implementasi Pola Kunci (TypeScript & React 19)
 
-#### 1. Next.js 15 Route Handler dengan Multi-Step Tool Calling Loop
+#### 1. Next.js 15 Route Handler dengan Multi-Step Tool Calling & Hooks Langkah
+Gunakan `streamText` dengan `maxSteps: 10`, `onStepFinish`, dan prompt caching native untuk siklus pemanggilan tool iteratif otonom:
 ```typescript
 // app/api/chat/route.ts
 import { anthropic } from '@ai-sdk/anthropic';
@@ -253,99 +338,224 @@ export async function POST(req: Request) {
   const hasil = streamText({
     model: anthropic('claude-3-7-sonnet-20250219'),
     messages,
-    maxSteps: 5, // Mengaktifkan siklus pemanggilan tool multi-langkah
+    maxSteps: 10, // Siklus iteratif pemanggilan tool hingga 10 langkah
+    providerOptions: {
+      anthropic: {
+        cacheControl: { type: 'ephemeral' }, // Prompt caching untuk akselerasi TTFT hingga 90%
+      },
+    },
     tools: {
       hitungMetrikPerforma: tool({
-        description: 'Menghitung metrik performa aplikasi dari data mentah',
+        description: 'Menghitung metrik analitik aplikasi dari data deret waktu mentah',
         parameters: z.object({
-          datasetId: z.string(),
+          datasetId: z.string().min(1),
           metrik: z.enum(['p95_latensi', 'tingkat_error', 'throughput']),
         }),
         execute: async ({ datasetId, metrik }) => {
           const data = await ambilMetrikSistem(datasetId, metrik);
-          return { datasetId, metrik, nilai: data.hasil };
+          return { datasetId, metrik, nilai: data.hasil, timestamp: new Date().toISOString() };
         },
       }),
     },
-    system: 'Anda adalah auditor performa perangkat lunak elit. Selalu sertakan bukti dari pemanggilan tool.',
+    system: 'Anda adalah auditor performa perangkat lunak elit. Selalu sertakan bukti valid dari pemanggilan tool.',
+    onStepFinish: ({ stepType, text, toolCalls, toolResults, finishReason, usage }) => {
+      console.log(`[Langkah ${stepType}] Status: ${finishReason}, Prompt Tokens: ${usage.promptTokens}, Completion: ${usage.completionTokens}`);
+      if (toolCalls && toolCalls.length > 0) {
+        console.log(`Tool dipanggil: ${toolCalls.map(t => t.toolName).join(', ')}`);
+      }
+    },
   });
 
   return hasil.toDataStreamResponse();
 }
+
+async function ambilMetrikSistem(datasetId: string, metrik: string) {
+  return { hasil: metrik === 'p95_latensi' ? '12.4ms' : '0.01%' };
+}
 ```
 
 #### 2. Streaming Objek Terstruktur Type-Safe (`streamObject`)
+Streaming objek terstruktur tervalidasi skema Zod secara instan ke antarmuka klien:
 ```typescript
 import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 import { z } from 'zod';
 
+export const SkemaLaporanKeamanan = z.object({
+  kerentananKeamanan: z.array(z.object({
+    tingkatKeparahan: z.enum(['rendah', 'sedang', 'tinggi', 'kritis']),
+    cwe: z.string(),
+    penjelasan: z.string(),
+    saranPerbaikan: z.string(),
+  })),
+  skorRisikoGlobal: z.number().min(0).max(100),
+  lolosReview: z.boolean(),
+  ringkasanMitigasi: z.string(),
+});
+
 export async function POST(req: Request) {
   const { diffKode } = await req.json();
 
   const hasil = streamObject({
-    model: google('gemini-4-flash'),
-    schema: z.object({
-      kerentananKeamanan: z.array(z.object({
-        tingkatKeparahan: z.enum(['rendah', 'sedang', 'tinggi', 'kritis']),
-        cwe: z.string(),
-        penjelasan: z.string(),
-        saranPerbaikan: z.string(),
-      })),
-      skorRisikoGlobal: z.number().min(0).max(100),
-      lolosReview: z.boolean(),
-    }),
-    prompt: `Audit perubahan kode berikut untuk regresi keamanan:\n${diffKode}`,
+    model: google('gemini-2.5-pro'),
+    schema: SkemaLaporanKeamanan,
+    prompt: `Audit perubahan kode berikut untuk potensi regresi keamanan:\n${diffKode}`,
   });
 
   return hasil.toTextStreamResponse();
 }
 ```
 
-#### 3. Integrasi Hook Klien React 19 (`useChat` dengan Invocations Tool)
+#### 3. Integrasi Hook Klien React 19 (`useChat` dengan Invokasi Tool & Persetujuan)
+Render token streaming, akordion penalaran (*thinking process*), dan persetujuan eksekusi tool interaktif:
 ```tsx
 'use client';
 
 import { useChat } from '@ai-sdk/react';
 
 export function AntarmukaChatAgen() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    maxSteps: 5,
+  const { messages, input, handleInputChange, handleSubmit, isLoading, addToolResult } = useChat({
+    maxSteps: 10,
   });
 
   return (
-    <div className="flex flex-col h-[600px] w-full max-w-2xl mx-auto border border-slate-200 dark:border-slate-800 rounded-lg p-4 bg-white dark:bg-slate-900">
+    <div className="flex flex-col h-[650px] w-full max-w-3xl mx-auto border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-white dark:bg-slate-900">
       <div className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.map((m) => (
           <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`p-3 rounded-lg max-w-[80%] text-sm ${m.role === 'user' ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900' : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'}`}>
-              <div className="whitespace-pre-wrap">{m.content}</div>
-              {m.toolInvocations?.map((invokasi) => (
-                <div key={invokasi.toolCallId} className="mt-2 text-xs p-2 bg-black/10 dark:bg-white/10 rounded font-mono">
-                  <span className="font-semibold">Tool [{invokasi.toolName}]:</span>{' '}
-                  {'result' in invokasi ? JSON.stringify(invokasi.result) : 'Mengeksekusi...'}
+            <div className={`p-4 rounded-xl max-w-[85%] text-sm ${m.role === 'user' ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900' : 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'}`}>
+              {/* Bagian Penalaran Model / Thinking Process */}
+              {m.parts?.map((bagian, index) => {
+                if (bagian.type === 'reasoning') {
+                  return (
+                    <details key={index} className="mb-2 p-2 bg-black/5 dark:bg-white/5 rounded text-xs">
+                      <summary className="cursor-pointer font-medium text-slate-500 dark:text-slate-400">Proses Penalaran (Thinking)</summary>
+                      <pre className="mt-1 whitespace-pre-wrap font-mono text-slate-600 dark:text-slate-300">{bagian.reasoning}</pre>
+                    </details>
+                  );
+                }
+                return null;
+              })}
+
+              <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
+
+              {/* Status Pemanggilan Tool & Aksi Interaktif */}
+              {m.toolInvocations?.map((inv) => (
+                <div key={inv.toolCallId} className="mt-3 p-3 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono">
+                  <div className="flex items-center justify-between font-semibold pb-1 border-b border-slate-100 dark:border-slate-800">
+                    <span>Tool: {inv.toolName}</span>
+                    <span className="text-slate-400">{'result' in inv ? 'Selesai' : 'Sedang Berjalan...'}</span>
+                  </div>
+                  {'result' in inv ? (
+                    <pre className="mt-2 text-slate-600 dark:text-slate-300 overflow-x-auto">{JSON.stringify(inv.result, null, 2)}</pre>
+                  ) : (
+                    <div className="mt-2 flex gap-2">
+                      <button
+                        onClick={() => addToolResult({ toolCallId: inv.toolCallId, result: { disetujui: true } })}
+                        className="px-2 py-1 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded text-xs"
+                      >
+                        Setujui Eksekusi Tool
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
           </div>
         ))}
       </div>
+
       <form onSubmit={handleSubmit} className="flex gap-2 pt-3 border-t border-slate-200 dark:border-slate-800">
         <input
           value={input}
           onChange={handleInputChange}
           placeholder="Tanyakan analisis pada agen..."
-          className="flex-1 px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 rounded bg-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 dark:focus:ring-slate-100"
+          className="flex-1 px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 rounded-md bg-transparent focus:outline-none focus:ring-1 focus:ring-slate-900 dark:focus:ring-slate-100"
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="px-4 py-2 text-sm font-medium bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded disabled:opacity-50"
+          className="px-4 py-2 text-sm font-medium bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 rounded-md disabled:opacity-50"
         >
           Kirim
         </button>
       </form>
     </div>
   );
+}
+
+#### 4. Pemrosesan Lampiran Multimodal (Gambar, PDF & Dokumen)
+Kirim buffer file multimodal atau URL langsung ke dalam array pesan `streamText`:
+```typescript
+import { google } from '@ai-sdk/google';
+import { streamText } from 'ai';
+
+export async function POST(req: Request) {
+  const { prompt, pdfBase64, imageBase64 } = await req.json();
+
+  const hasil = streamText({
+    model: google('gemini-2.5-flash'),
+    messages: [
+      {
+        role: 'user',
+        content: [
+          { type: 'text', text: prompt },
+          { type: 'file', mimeType: 'application/pdf', data: pdfBase64 },
+          { type: 'image', image: imageBase64 },
+        ],
+      },
+    ],
+  });
+
+  return hasil.toDataStreamResponse();
+}
+```
+
+#### 5. Middleware Kustom LanguageModelV1 (`wrapLanguageModel`)
+Terapkan penyaringan keamanan, logging token, dan guardrail melalui middleware terpadu:
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
+
+export const modelAudit = wrapLanguageModel({
+  model: anthropic('claude-3-7-sonnet-20250219'),
+  middleware: {
+    wrapGenerate: async ({ doGenerate, params }) => {
+      console.log(`[Middleware Audit] Panjang prompt sebelum generasi: ${params.prompt.length}`);
+      const hasil = await doGenerate();
+      console.log(`[Middleware Audit] Token selesai di-generate: ${hasil.text?.length ?? 0}`);
+      return hasil;
+    },
+    wrapStream: async ({ doStream, params }) => {
+      console.log(`[Middleware Audit] Memulai streaming untuk model: ${params.modelId}`);
+      return await doStream();
+    },
+  },
+});
+```
+
+#### 6. Kendali Aliran Data Langsung dengan `createDataStreamResponse`
+Kirim pembaruan progres kustom, metadata status, dan anotasi telemetri bersamaan dengan token LLM:
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { createDataStreamResponse, streamText } from 'ai';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+
+  return createDataStreamResponse({
+    execute: async (dataStream) => {
+      // 1. Tulis anotasi status awal
+      dataStream.writeMessageAnnotation({ status: 'MEMULAI_AUDIT', timestamp: Date.now() });
+
+      // 2. Stream token LLM
+      const hasil = streamText({
+        model: anthropic('claude-3-7-sonnet-20250219'),
+        messages,
+      });
+
+      hasil.mergeIntoDataStream(dataStream);
+    },
+  });
 }
 ```
