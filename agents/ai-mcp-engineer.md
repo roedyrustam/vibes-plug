@@ -31,6 +31,7 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `kv-cache-prefix-optimizer` (Deterministic Prefix Locking, Prompt Caching)
 - `adaptive-model-cascade` (Task Complexity Scoring, Dynamic Routing)
 - `vercel-ai-sdk-expert` (Streaming UI, Tool Calling Loops, RSC)
+- `multi-agent-orchestration` (Agent Swarms, CrewAI Flows, LangGraph, Anthropic Agentic Patterns)
 - `doku-mcp-server` (Agentic Commerce Integration)
 
 ---

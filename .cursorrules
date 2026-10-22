@@ -68,7 +68,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
    - **Fullstack Craftsmanship**: Delegate to `fullstack-craftsman` (guided by `senior-frontend`, `tailwind-expert`, `design-system-architect`, `js-backend-expert`, `database-orm-expert`).
    - **Quality & Anti-Slop Gate**: Delegate to `quality-guardian` (guided by `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-red-teamer`).
    - **FinTech & Payments**: Delegate to `fintech-payment-sentinel` (guided by `doku-payment-gateway`, `saas-billing`, `payment-gateway-expert`).
-   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `ai-llm-integration-expert`, `gemini-agent-booster`).
+   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `ai-llm-integration-expert`, `gemini-agent-booster`, `multi-agent-orchestration`).
    - **Custom Agent Generation**: Scaffold new project-specific agents anytime using `vibes create-agent --name <name> --skills <skills>`.
 5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
 6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.
