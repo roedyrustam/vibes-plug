@@ -2,7 +2,7 @@
   "name": "vibes-plug",
   "displayName": "vibes-plug",
   "description": "Universal AI Agent Swarm & MCP plugin with 171 specialized skills and 8 autonomous subagents for Antigravity, Claude Code, Cursor, and OpenAI Codex.",
-  "version": "4.4.2",
+  "version": "4.4.3",
   "logo": "assets/logo.svg",
   "icon": "assets/logo.svg",
   "author": {
