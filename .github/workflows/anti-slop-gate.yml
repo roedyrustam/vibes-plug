@@ -57,7 +57,7 @@ jobs:
         run: node bin/vibes.mjs package:vscode
 
       - name: Upload VSIX Extension Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: vibes-plug-companion-vsix
           path: extensions/vscode/*.vsix
