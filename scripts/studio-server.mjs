@@ -3508,6 +3508,7 @@ function readJsonBody(req) {
 
 export async function startStudioServer(options = {}) {
   const port = options.port || DEFAULT_PORT;
+  const host = options.host || process.env.VIBES_HOST || '127.0.0.1';
   const noOpen = options.noOpen || false;
   const sseClients = new Map();
 
@@ -3516,6 +3517,14 @@ export async function startStudioServer(options = {}) {
     const pathname = url.pathname;
     const searchParams = url.searchParams;
     const allowedOrigin = resolveAllowedOrigin(req, port);
+
+    // Reject cross-origin requests from untrusted origins to prevent DNS rebinding and cross-site attacks
+    const origin = req.headers.origin;
+    if (origin && !/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Forbidden: Untrusted cross-origin request rejected' }));
+      return;
+    }
 
     const sendJson = (data, statusCode = 200) => {
       res.writeHead(statusCode, {
@@ -4177,8 +4186,13 @@ export async function startStudioServer(options = {}) {
           const parsed = JSON.parse(body || '{}');
           const command = parsed.command || parsed.cmd || 'npm test';
           const dryRun = parsed.dryRun !== false;
-          const { diagnoseAndHeal } = await import('./self-healer.mjs');
-          const outcome = await diagnoseAndHeal(command, { dryRun });
+          const { diagnoseAndHeal, validateTestCommand } = await import('./self-healer.mjs');
+          const validation = validateTestCommand(command);
+          if (!validation.valid) {
+            sendJson({ error: validation.error, status: 'REJECTED', passed: false }, 400);
+            return;
+          }
+          const outcome = await diagnoseAndHeal(validation.command, { dryRun });
           sendJson(outcome);
         } catch (err) {
           sendJson({ error: err.message }, 500);
@@ -4460,14 +4474,14 @@ export async function startStudioServer(options = {}) {
     server.on('error', (err) => {
       if (err.code === 'EADDRINUSE') {
         console.warn(`⚠️ Port ${port} is in use, trying ${port + 1}...`);
-        startStudioServer({ ...options, port: port + 1 }).then(resolve).catch(reject);
+        startStudioServer({ ...options, port: port + 1, host }).then(resolve).catch(reject);
       } else {
         reject(err);
       }
     });
 
-    server.listen(port, () => {
-      const localUrl = `http://localhost:${port}`;
+    server.listen(port, host, () => {
+      const localUrl = `http://${host === '0.0.0.0' ? 'localhost' : host}:${port}`;
       console.log(`\n⚡ Vibes-Plug Studio Cockpit is running at: \x1b[36m${localUrl}\x1b[0m`);
       console.log(`📡 Remote MCP SSE stream available at: \x1b[35m${localUrl}/sse\x1b[0m`);
       console.log('Press Ctrl+C to stop the Studio server.\n');
@@ -4480,7 +4494,7 @@ export async function startStudioServer(options = {}) {
         exec(cmd, () => {});
       }
 
-      resolve({ server, port, url: localUrl });
+      resolve({ server, port, host, url: localUrl });
     });
   });
 }

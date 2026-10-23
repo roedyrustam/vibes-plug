@@ -1251,15 +1251,25 @@ export function startStdioServer() {
   process.on('SIGTERM', () => process.exit(0));
 }
 
-export function startSseServer(port = 3333) {
+export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1') {
   const sseClients = new Map();
 
   const server = http.createServer(async (req, res) => {
     const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const { pathname, searchParams } = parsedUrl;
 
+    // Reject cross-origin requests from untrusted origins to prevent DNS rebinding
+    const origin = req.headers.origin;
+    if (origin && !/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) {
+      res.writeHead(403, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Forbidden: Untrusted cross-origin request rejected' }));
+      return;
+    }
+
+    const allowedOrigin = (origin && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/i.test(origin)) ? origin : `http://${host === '0.0.0.0' ? 'localhost' : host}:${port}`;
+
     // Standard CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-session-id');
 
@@ -1341,10 +1351,10 @@ export function startSseServer(port = 3333) {
 
   return new Promise((resolve, reject) => {
     server.on('error', reject);
-    server.listen(port, () => {
-      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.4.2] Listening on SSE at: http://localhost:${port}/sse`);
+    server.listen(port, host, () => {
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.4.2] Listening on SSE at: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/sse`);
       console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
-      resolve({ server, port });
+      resolve({ server, port, host });
     });
   });
 }
@@ -1353,9 +1363,10 @@ export function startServer(options = {}) {
   const transport = options.transport || (process.argv.includes('--transport') ? process.argv[process.argv.indexOf('--transport') + 1] : 'stdio');
   const portArgIdx = process.argv.indexOf('--port');
   const port = options.port || (portArgIdx !== -1 ? parseInt(process.argv[portArgIdx + 1], 10) : 3333);
+  const host = options.host || (process.argv.includes('--host') ? process.argv[process.argv.indexOf('--host') + 1] : (process.env.VIBES_HOST || '127.0.0.1'));
 
   if (transport === 'sse') {
-    return startSseServer(port);
+    return startSseServer(port, host);
   }
 
   return startStdioServer();

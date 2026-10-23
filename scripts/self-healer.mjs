@@ -168,6 +168,67 @@ export async function diagnoseFailure(failure, cwd = process.cwd()) {
   return diagnosis;
 }
 
+export const ALLOWED_TEST_RUNNERS = [
+  'npm test',
+  'npm run test',
+  'npm run',
+  'pnpm test',
+  'pnpm run test',
+  'pnpm run',
+  'bun test',
+  'yarn test',
+  'node -v',
+  'node --version',
+  'node --test',
+  'node',
+  'npx vitest',
+  'vitest',
+  'npx jest',
+  'jest',
+  'npx playwright test',
+  'playwright test',
+  'pytest',
+  'cargo test',
+  'go test'
+];
+
+/**
+ * Validates and sanitizes a test command to prevent command injection and unauthorized execution.
+ * @param {string} rawCommand
+ * @returns {{ valid: boolean, command?: string, error?: string }}
+ */
+export function validateTestCommand(rawCommand) {
+  if (!rawCommand || typeof rawCommand !== 'string') {
+    return { valid: true, command: 'npm test' };
+  }
+  const trimmed = rawCommand.trim();
+  if (!trimmed) {
+    return { valid: true, command: 'npm test' };
+  }
+
+  // Reject shell metacharacters and control characters that enable command chaining or shell injection
+  if (/[;&|`$><\\!]/g.test(trimmed) || /[\r\n]/.test(trimmed)) {
+    return {
+      valid: false,
+      error: 'Security Error: Command contains prohibited shell metacharacters (; & | ` $ > < \\ !) or newlines.'
+    };
+  }
+
+  // Enforce permitted test runner prefix
+  const isAllowed = ALLOWED_TEST_RUNNERS.some(runner => 
+    trimmed === runner || trimmed.startsWith(runner + ' ')
+  );
+
+  if (!isAllowed) {
+    return {
+      valid: false,
+      error: `Security Error: Command '${trimmed}' is not an authorized test runner. Permitted runners: ${ALLOWED_TEST_RUNNERS.join(', ')}`
+    };
+  }
+
+  return { valid: true, command: trimmed };
+}
+
 /**
  * Runs a test suite or command, detects failures, and produces an autonomous healing plan
  * @param {string} [commandOrFile] 
@@ -177,7 +238,21 @@ export async function diagnoseFailure(failure, cwd = process.cwd()) {
 export async function diagnoseAndHeal(commandOrFile, options = {}) {
   const cwd = options.cwd || process.cwd();
   const dryRun = options.dryRun !== false; // Default dry-run is true for safety
-  const cmd = commandOrFile || 'npm test';
+
+  const validation = validateTestCommand(commandOrFile);
+  if (!validation.valid) {
+    return {
+      command: commandOrFile,
+      status: 'REJECTED',
+      passed: false,
+      failuresDetected: 0,
+      diagnoses: [],
+      summary: validation.error,
+      dryRun
+    };
+  }
+
+  const cmd = validation.command;
 
   const report = {
     command: cmd,
@@ -245,6 +320,10 @@ if (isDirectExecution) {
 
   try {
     const rep = await diagnoseAndHeal(target, { dryRun });
+    if (rep.status === 'REJECTED') {
+      console.error(`🛡️ ${rep.summary}\n`);
+      process.exit(1);
+    }
     if (rep.passed) {
       console.log(`✅ ${rep.summary}\n`);
     } else {

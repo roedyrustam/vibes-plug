@@ -801,6 +801,38 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(healData.passed, true);
       assert.equal(healData.status, 'PASSED');
 
+      // Test Studio Self-Heal Security Rejections (GHSA-f63r-xxp2-3m23 regression checks)
+      const injectionRes = await fetch(`${url}/api/heal/diagnose`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: 'node -v; whoami', dryRun: true })
+      });
+      const injectionData = await injectionRes.json();
+      assert.equal(injectionRes.status, 400);
+      assert.equal(injectionData.status, 'REJECTED');
+      assert.match(injectionData.error, /prohibited shell metacharacters/i);
+
+      const untrustedCmdRes = await fetch(`${url}/api/heal/diagnose`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command: 'curl http://malicious.test', dryRun: true })
+      });
+      const untrustedCmdData = await untrustedCmdRes.json();
+      assert.equal(untrustedCmdRes.status, 400);
+      assert.equal(untrustedCmdData.status, 'REJECTED');
+      assert.match(untrustedCmdData.error, /not an authorized test runner/i);
+
+      // Test Cross-Origin security rejection
+      const untrustedOriginRes = await fetch(`${url}/api/heal/diagnose`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Origin': 'https://evil-attacker.example.com'
+        },
+        body: JSON.stringify({ command: 'node -v', dryRun: true })
+      });
+      assert.equal(untrustedOriginRes.status, 403);
+
       // Test Studio Registry List endpoint
       const regListRes = await fetch(`${url}/api/registry/list`);
       const regListData = await regListRes.json();

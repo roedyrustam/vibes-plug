@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-23T11:41:43.670Z",
-  "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
+  "generatedAt": "2026-10-23T21:59:45.112Z",
+  "rootDir": "C:\\Users\\roedy\\vibes-plug",
   "totalFilesIndexed": 62,
-  "totalSymbolsIndexed": 343,
+  "totalSymbolsIndexed": 344,
   "symbols": {
     "to": [
       {
@@ -54,13 +54,13 @@
         "file": "bin/mcp-server.mjs",
         "line": 1254,
         "type": "function",
-        "signature": "function startSseServer(port = 3333)"
+        "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
     ],
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1352,
+        "line": 1362,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -1227,10 +1227,18 @@
         "signature": "function diagnoseFailure(failure, cwd = process.cwd()"
       }
     ],
+    "validateTestCommand": [
+      {
+        "file": "scripts/self-healer.mjs",
+        "line": 200,
+        "type": "function",
+        "signature": "function validateTestCommand(rawCommand)"
+      }
+    ],
     "diagnoseAndHeal": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 177,
+        "line": 238,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
       }
@@ -1984,7 +1992,7 @@
     "sendJson": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3520,
+        "line": 3529,
         "type": "arrow-function",
         "signature": "const sendJson = (data, statusCode = 200) =>"
       }
@@ -2182,7 +2190,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 936,
+        "line": 968,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -2190,25 +2198,25 @@
     "norm": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1116,
+        "line": 1148,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1120,
+        "line": 1152,
         "type": "function",
         "signature": "function norm(s: any)"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1140,
+        "line": 1172,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1144,
+        "line": 1176,
         "type": "function",
         "signature": "function norm(s: any)"
       }
@@ -2216,13 +2224,13 @@
     "processItems": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1290,
+        "line": 1322,
         "type": "function",
         "signature": "function processItems(items: Item[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1291,
+        "line": 1323,
         "type": "function",
         "signature": "function processItems(items: any)"
       }
@@ -2642,7 +2650,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1368,
+      "totalLines": 1379,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
@@ -2754,8 +2762,8 @@
       "symbolCount": 6
     },
     "scripts/self-healer.mjs": {
-      "totalLines": 269,
-      "symbolCount": 3
+      "totalLines": 348,
+      "symbolCount": 4
     },
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
@@ -2774,7 +2782,7 @@
       "symbolCount": 8
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4513,
+      "totalLines": 4527,
       "symbolCount": 67
     },
     "scripts/swarm-bus.mjs": {
@@ -2798,7 +2806,7 @@
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1361,
+      "totalLines": 1393,
       "symbolCount": 11
     },
     "scripts/token-budget-optimizer.mjs": {
