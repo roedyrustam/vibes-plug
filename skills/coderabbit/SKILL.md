@@ -16,7 +16,7 @@ version: "4.4.2"
 ## English
 
 ### Orchestration & Integration
-- **Anti-Slop & Autonomous Review**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`
+- **Anti-Slop & Autonomous Review**: `anti-slop`, `ai-code-review-autonomous`, `zero-tech-debt-auditor`, `agentic-coding-workflow-expert`
 - **TDD & Testing Automation**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
 - **CI/CD Quality Gates**: `ci-cd-devops-architect`, `github-actions-expert`
 - **Architecture & Linters**: `scalability-clean-code`, `biome-linter-formatter-expert`

@@ -19,7 +19,7 @@ version: "4.4.2"
 - **Payment Gateways & Providers**: `payment-gateway-expert`, `doku-payment-gateway`, `agentic-m2m-settlement`, `agentic-micro-economy-architect`
 - **Database & Subscription State**: `database-orm-expert`, `saas-multi-tenant`, `saas-architect`
 - **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
-- **Background Queues & Notifications**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`
+- **Background Queues & Notifications**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`, `pdf-document-generation-expert` (automated tax invoice & receipt PDF generation)
 - **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description

@@ -85,7 +85,7 @@ const SKILL_DOMAIN_MAP = {
   'svg-animation-motion-expert': 'frontend', 'svelte-sveltekit-expert': 'frontend', 'tailwind-expert': 'frontend',
   'tanstack-query-expert': 'frontend', 'tauri-expert': 'frontend', 'ui-ux-pro-max': 'frontend', 'vue-frontend-expert': 'frontend',
   'visual-ui-auditor': 'frontend', 'performance-web-vitals': 'frontend', 'web-3d-graphics-expert': 'frontend', 'webxr-ar-vr-expert': 'frontend',
-  'flutter-dart-expert': 'frontend', 'htmx-hypermedia-expert': 'frontend',
+  'flutter-dart-expert': 'frontend', 'htmx-hypermedia-expert': 'frontend', 'reactive-sync-engine-expert': 'frontend',
 
   // Backend
   'api-design-expert': 'backend', 'api-gateway-proxy-expert': 'backend', 'async-queue-temporal-expert': 'backend',
@@ -109,13 +109,14 @@ const SKILL_DOMAIN_MAP = {
   'pydantic-ai-expert': 'ai', 'speculative-multi-draft-synthesizer': 'ai', 'synthetic-data-finetuning-expert': 'ai',
   'test-time-compute-optimizer': 'ai', 'vector-db-rag-expert': 'ai', 'vercel-ai-sdk-expert': 'ai', 'voice-ai-realtime-agent': 'ai',
   'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai', 'xerj-search-expert': 'ai',
+  'a2a-agent-protocol-expert': 'ai', 'durable-agent-execution-expert': 'ai', 'computer-use-os-agent-expert': 'ai',
 
   // SaaS & FinTech
   'agentic-m2m-settlement': 'saas', 'app-promo-media-expert': 'saas', 'chatbot-messaging-expert': 'saas',
   'doku-payment-gateway': 'saas', 'ecommerce-expert': 'saas', 'email-notification-expert': 'saas',
   'feature-flag-analytics-expert': 'saas', 'headless-cms-expert': 'saas', 'n8n-automation-expert': 'saas',
   'payment-gateway-expert': 'saas', 'saas-architect': 'saas', 'saas-billing': 'saas', 'saas-multi-tenant': 'saas',
-  'seo': 'saas', 'data-telemetry-expert': 'saas', 'wordpress-headless-expert': 'saas',
+  'seo': 'saas', 'data-telemetry-expert': 'saas', 'wordpress-headless-expert': 'saas', 'double-entry-ledger-fintech-expert': 'saas',
 
   // Testing & Security
   'accessibility-testing-expert': 'security', 'ai-code-review-autonomous': 'security', 'anti-slop': 'security',
@@ -125,7 +126,7 @@ const SKILL_DOMAIN_MAP = {
   'logging-error-tracking-expert': 'security', 'post-quantum-crypto-migrator': 'security', 'prompt-injection-firewall': 'security',
   'property-mutation-testing-expert': 'security', 'rate-limit-abuse-prevention': 'security', 'supabase-security-expert': 'security',
   'zero-tech-debt-auditor': 'security', 'zero-trust-secret-vault': 'security', 'coderabbit': 'security', 'app-analyzer-optimizer': 'security',
-  'mcp-sampling-critic': 'security',
+  'mcp-sampling-critic': 'security', 'fga-rebac-authorization-expert': 'security', 'passkeys-webauthn-identity-expert': 'security', 'sbom-supply-chain-security-expert': 'security',
 
   // Data & Orchestration
   'agy-customizations': 'data', 'brainstorming': 'data', 'browser-automation-expert': 'data',
@@ -134,7 +135,7 @@ const SKILL_DOMAIN_MAP = {
   'documentation-site-expert': 'data', 'file-upload-media-expert': 'data', 'geospatial-maps-expert': 'data',
   'pdf-document-generation-expert': 'data', 'prd-architect': 'data', 'proactive-background-watcher': 'data',
   'production-ready-hardener': 'data', 'search-engine-expert': 'data', 'self-healing-cloud-orchestrator': 'data',
-  'session-memory-manager': 'data', 'realtime-collaboration-expert': 'data', 'sse-websocket-streaming-expert': 'data', 'web-scraper': 'data', 'website-design-cloner': 'data', 'zero-to-prod-orchestrator': 'data'
+  'session-memory-manager': 'data', 'realtime-collaboration-expert': 'data', 'sse-websocket-streaming-expert': 'data', 'web-scraper': 'data', 'website-design-cloner': 'data', 'zero-to-prod-orchestrator': 'data', 'olap-columnar-analytics-expert': 'data', 'kubernetes-gitops-platform-expert': 'data'
 };
 
 const RECIPES = {
@@ -200,7 +201,7 @@ const SUBAGENTS = [
     topology: 'Atomic Idempotency Sentinel'
   },
   {
-    id: 'ai-mcp-engineer',
+    id: 'cloud-devops-sre', name: 'Cloud, DevOps & SRE', role: 'Kubernetes GitOps, Docker Hardening, CI/CD, SBOM & Zero-Trust Secrets', skills: ['kubernetes-gitops-platform-expert', 'docker-container-expert', 'ci-cd-devops-architect', 'github-actions-expert', 'sbom-supply-chain-security-expert', 'zero-trust-secret-vault'], topology: 'Platform & Supply Chain Guardian' }, { id: 'data-rag-architect', name: 'Data, Storage & RAG Architect', role: 'Database ORM, ClickHouse/DuckDB OLAP, Hybrid Vector/Graph RAG & ReBAC', skills: ['database-orm-expert', 'olap-columnar-analytics-expert', 'reactive-sync-engine-expert', 'vector-db-rag-expert', 'graph-rag-knowledge-expert', 'fga-rebac-authorization-expert'], topology: 'Polyglot Persistence Architect' }, { id: 'mobile-spatial-craftsman', name: 'Mobile, Desktop & Spatial Craftsman', role: 'React Native/Expo, Flutter, Tauri v2, WebGPU 3D/Shaders & WebXR', skills: ['mobile-expo-expert', 'flutter-dart-expert', 'tauri-expert', 'web-3d-graphics-expert', 'glsl-shader-expert', 'webxr-ar-vr-expert'], topology: 'Native & Spatial UI Specialist' }, { id: 'ai-mcp-engineer',
     name: 'AI & MCP Engineer',
     role: 'Model Context Protocol, Frontier LLMs & Prompt Prefixing',
     skills: ['mcp-server-architect', 'ai-llm-integration-expert', 'gemini-agent-booster', 'frontier-ai-models-expert', 'kv-cache-prefix-optimizer', 'adaptive-model-cascade'],

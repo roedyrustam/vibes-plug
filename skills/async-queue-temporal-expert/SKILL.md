@@ -18,7 +18,7 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Upstream Triggers & APIs**: `api-design-expert`, `js-backend-expert`, `database-orm-expert`
 - **Billing & Payment Sagas**: `saas-billing`, `payment-gateway-expert`, `doku-payment-gateway`
-- **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`
+- **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`, `n8n-automation-expert`, `pdf-document-generation-expert`
 - **Resilience & Observability**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
 

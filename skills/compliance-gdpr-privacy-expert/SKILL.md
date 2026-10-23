@@ -3,7 +3,6 @@ name: compliance-gdpr-privacy-expert
 description: "Expert guide for Data Privacy, GDPR, CCPA, and PDPA compliance. Covers consent management, data retention, privacy-by-design, and audit trails / Panduan kepatuhan Privasi Data, GDPR, dan PDPA."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
 # Data Privacy & Compliance Expert (GDPR, CCPA & UU PDP 2026)
@@ -16,23 +15,26 @@ version: "4.4.2"
 ## English
 
 ### Orchestration & Integration
-- **Database & Data Retention**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
-- **Identity & Access Revocation**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Database & Data Retention**: `database-orm-expert`, `double-entry-ledger-fintech-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identity & Access Revocation**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `zero-trust-secret-vault`
 - **Logging & Error Redaction**: `logging-error-tracking-expert`, `data-telemetry-expert`
 - **Security & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `rate-limit-abuse-prevention`
 - **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
-Production engineering guide for regulatory data privacy and compliance across GDPR (EU), CCPA/CPRA (California), and UU PDP No. 27/2022 (Indonesia). Covers technical patterns for PII (Personally Identifiable Information) encryption at rest, cascading data anonymization (Right to be Forgotten while retaining immutable financial ledgers for tax authorities), consent state machines, and automated logger redaction.
+Production engineering guide for regulatory data privacy and compliance across **GDPR (EU)**, **CCPA/CPRA (California)**, and **UU PDP No. 27/2022 (Indonesia)**. Covers cryptographic PII protection (crypto-shredding & blind indexing), cascading data anonymization (*Right to be Forgotten* while preserving immutable tax/financial ledgers), granular consent state machines, and automated logger redaction.
 
-### Trigger Conditions
-- Storing customer PII (names, emails, physical addresses, phone numbers, IP addresses, national IDs).
-- Implementing compliant cookie consent banners with opt-in tracking scripts.
-- Handling data deletion and export requests (*Right to Access* and *Right to be Forgotten*).
-- Sanitizing logging pipelines to prevent accidental PII leakage to Datadog, Axiom, or Sentry.
+### 1. Regulatory Privacy Controls Matrix (GDPR / CCPA / UU PDP)
 
-### Cascading PII Anonymization Routine (TypeScript / PostgreSQL)
-Erases personal identity while preserving aggregate transaction integrity for accounting compliance:
+| Regulatory Requirement | Naïve Anti-Pattern (Illegal / Risky) | 2026 Engineering Pattern |
+| :--- | :--- | :--- |
+| **Right to Erasure (Art. 17 GDPR / Pasal 43 UU PDP)** | `DELETE FROM users CASCADE` (destroys tax invoices & breaks ledger integrity) | **Crypto-Shredding + PII Tombstoning**: Scrub PII columns & destroy per-user DEK while retaining immutable ledger amounts |
+| **Searchable Encrypted PII (NIK / SSN / Email)** | Storing plaintext PII to allow `WHERE nik = $1` | **AES-256-GCM Ciphertext + HMAC-SHA256 Blind Index** (`nik_bidx`) |
+| **Analytics & Marketing Tracking** | Firing trackers on page load before banner interaction | **Default-Deny Consent Gate**: Block third-party scripts until explicit opt-in record is persisted |
+| **Observability & Error Logs** | Dumping `req.body` or `user` objects into stdout/Sentry | **Path-Based Structured Redaction** (`pino` `redact` + custom PII regex scrubbers) |
+
+### 2. Cascading PII Anonymization & Crypto-Shredding Routine (TypeScript / PostgreSQL)
+Erases personal identity irreversibly while preserving aggregate transaction integrity for tax and accounting audits:
 
 ```typescript
 // src/services/privacy-compliance.ts
@@ -40,19 +42,32 @@ import { db } from '@/lib/db';
 import { sql } from 'drizzle-orm';
 import crypto from 'node:crypto';
 
-export async function processRightToBeForgotten(userId: string): Promise<void> {
-  await db.transaction(async (tx) => {
-    // 1. Generate irreversible cryptographic pseudo-identifier
-    const pseudoHash = crypto.createHash('sha256').update(`${userId}-${process.env.PEPPER_SECRET}`).digest('hex').slice(0, 16);
-    const anonymizedEmail = `deleted-${pseudoHash}@anonymized.internal`;
+export async function processRightToBeForgotten(
+  userId: string,
+  pepperSecret: string
+): Promise<{ pseudoId: string; executedAt: string }> {
+  if (!pepperSecret || pepperSecret.length < 32) {
+    throw new Error('PRIVACY_CONFIG_ERROR: PEPPER_SECRET must be at least 32 characters.');
+  }
 
-    // 2. Anonymize user record: scrub sensitive fields
+  return db.transaction(async (tx) => {
+    const pseudoHash = crypto
+      .createHmac('sha256', pepperSecret)
+      .update(userId)
+      .digest('hex')
+      .slice(0, 20);
+    const anonymizedEmail = `erased-${pseudoHash}@anonymized.invalid`;
+    const executedAt = new Date().toISOString();
+
+    // 1. Scrub PII columns on user record while preserving foreign key integrity for financial ledgers
     await tx.execute(sql`
       UPDATE users
-      SET 
-        name = 'Anonymized Customer',
+      SET
+        name = 'Anonymized Subject',
         email = ${anonymizedEmail},
         phone_number = NULL,
+        national_id_ciphertext = NULL,
+        national_id_bidx = NULL,
         billing_address = NULL,
         ip_address = '0.0.0.0',
         is_anonymized = TRUE,
@@ -60,20 +75,25 @@ export async function processRightToBeForgotten(userId: string): Promise<void> {
       WHERE id = ${userId}
     `);
 
-    // 3. Scrub profile sessions and third-party provider tokens
+    // 2. Destroy per-subject encryption keys (Crypto-Shredding for historical backups)
+    await tx.execute(sql`DELETE FROM subject_encryption_keys WHERE user_id = ${userId}`);
+
+    // 3. Revoke active sessions, WebAuthn credentials, and OAuth tokens
     await tx.execute(sql`DELETE FROM user_sessions WHERE user_id = ${userId}`);
     await tx.execute(sql`DELETE FROM oauth_accounts WHERE user_id = ${userId}`);
 
-    // 4. Log compliance audit trail (immutable record of the erasure action)
+    // 4. Write immutable compliance audit log (stores only HMAC pseudo-identifier, zero plaintext PII)
     await tx.execute(sql`
       INSERT INTO privacy_audit_logs (id, action, target_pseudo_id, executed_at)
       VALUES (gen_random_uuid(), 'RIGHT_TO_BE_FORGOTTEN_EXECUTED', ${pseudoHash}, NOW())
     `);
+
+    return { pseudoId: pseudoHash, executedAt };
   });
 }
 ```
 
-### Pino Logger Automated PII Redaction Configuration
+### 3. Pino Logger Automated PII Redaction Configuration
 
 ```typescript
 // src/lib/logger.ts
@@ -87,9 +107,12 @@ export const logger = pino({
       'password',
       'token',
       'creditCard',
+      'nationalId',
+      'nik',
       'authorization',
       '*.email',
       '*.password',
+      '*.phone_number',
       'req.headers.authorization',
       'req.headers.cookie',
     ],
@@ -98,10 +121,11 @@ export const logger = pino({
 });
 ```
 
-### The 3 Golden Privacy Invariants
-1. **Never Hard Delete Financial Invoices**: Tax laws require preserving transaction records for 5-10 years. Anonymize the customer's PII, but keep the currency amounts, timestamps, and VAT records intact.
-2. **Prior Consent for Tracking Scripts**: Do NOT load Google Analytics, Meta Pixel, or third-party cookies until the user has actively opted in. Default to blocked.
-3. **Encryption at Rest**: Columns containing sensitive national IDs (KTP/NIK/SSN) or phone numbers must be encrypted using AES-256-GCM before database insertion.
+### 4. Production Verification Checklist
+- [ ] **Never Hard-Delete Financial Ledgers**: Tax laws require retaining invoice and ledger amounts for 5–10 years; anonymize the subject's PII while keeping ledger entries intact.
+- [ ] **Searchable PII Uses Blind Indexing**: Sensitive identifiers (NIK/KTP, SSN, Passport) are encrypted with AES-256-GCM and queried via a keyed `HMAC-SHA256` blind index column.
+- [ ] **Explicit Opt-In Consent Audit Trail**: Marketing and analytics scripts remain blocked until a signed row in `user_privacy_consents` records `policy_version` and `granted_at`.
+- [ ] **Zero Plaintext PII in Logs or LLMs**: Logger redaction (`[REDACTED_PII]`) is active across all microservices and AI prompt pipelines.
 
 ---
 
@@ -109,31 +133,24 @@ export const logger = pino({
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
-- **Database & Retensi Data**: `database-orm-expert`, `saas-multi-tenant`, `saas-billing`
-- **Identitas & Pencabutan Akses**: `authentication-identity-expert`, `zero-trust-secret-vault`
+- **Database & Retensi Data**: `database-orm-expert`, `double-entry-ledger-fintech-expert`, `saas-multi-tenant`, `saas-billing`
+- **Identitas & Pencabutan Akses**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `zero-trust-secret-vault`
 - **Logging & Redaksi Error**: `logging-error-tracking-expert`, `data-telemetry-expert`
 - **Keamanan & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `rate-limit-abuse-prevention`
 - **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
-Panduan rekayasa produksi untuk kepatuhan regulasi privasi data global dan nasional, termasuk GDPR (Uni Eropa), CCPA (California), dan UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP Indonesia). Mencakup enkripsi data pribadi (PII) saat tersimpan (*at rest*), anonimisasi berjenjang untuk pemenuhan hak penghapusan data tanpa merusak pembukuan keuangan perpajakan, manajemen persetujuan cookie (*opt-in*), serta sensor otomatis pada sistem logging.
-
-### Kondisi Pemicu
-- Menyimpan data pribadi pengguna (Nama, NIK/KTP, Email, Nomor Telepon, Alamat, Alamat IP).
-- Mengimplementasikan banner persetujuan privasi dan pelacak pihak ketiga (Tracking Pixels).
-- Menjalankan permintaan penghapusan akun (*Hak untuk Dilupakan* / *Right to be Forgotten*).
-- Mencegah kebocoran data sensitif ke layanan monitor eksternal seperti Datadog, Axiom, atau Sentry.
+Panduan rekayasa produksi untuk kepatuhan regulasi privasi data global dan nasional, termasuk **GDPR (Uni Eropa)**, **CCPA (California)**, dan **UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP Indonesia)**. Mencakup perlindungan PII kriptografis (*crypto-shredding* & *blind indexing*), anonimisasi berjenjang (*Hak untuk Dilupakan*) tanpa merusak pembukuan pajak, pencatatan persetujuan (*consent*), serta redaksi log otomatis.
 
 ### Skema Database Persetujuan Pengguna (UU PDP Compliant)
 
 ```sql
--- Tabel pencatatan riwayat persetujuan (Consent Audit Trail)
 CREATE TABLE IF NOT EXISTS user_privacy_consents (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   consent_type VARCHAR(64) NOT NULL, -- 'MARKETING', 'ANALYTICS', 'TERMS_OF_SERVICE'
   is_granted BOOLEAN NOT NULL DEFAULT FALSE,
-  policy_version VARCHAR(16) NOT NULL, -- misal 'v2.1'
+  policy_version VARCHAR(16) NOT NULL,
   ip_address VARCHAR(45) NOT NULL,
   granted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -141,7 +158,8 @@ CREATE TABLE IF NOT EXISTS user_privacy_consents (
 CREATE INDEX idx_user_consents ON user_privacy_consents (user_id, consent_type);
 ```
 
-### 3 Hukum Utama Kepatuhan Privasi Data
-1. **Pemisahan Data Transaksi dan Identitas**: UU Perpajakan mewajibkan penyimpanan bukti transaksi selama bertahun-tahun. Ketika pengguna meminta dihapus, anonimkan data identitas mereka (ganti menjadi anonim), namun pertahankan catatan nominal transaksi.
-2. **Opt-in Sebelum Pelacakan**: Skrip pelacak analitik dilarang berjalan sebelum pengguna mengklik tombol "Setuju" secara eksplisit.
-3. **Sensor Log Otomatis**: Pastikan pustaka logger (Pino/Winston) menyensor kata kunci sensitif (`password`, `email`, `token`) agar tidak tersimpan sebagai teks biasa pada log server.
+### Checklist Verifikasi Produksi
+- [ ] **Pemisahan Data Transaksi & Identitas**: Saat menjalankan *Right to be Forgotten*, hapus/anonimkan identitas PII dan kunci enkripsi subjek (*crypto-shredding*), namun pertahankan nominal jurnal buku besar keuangan untuk kepatuhan pajak.
+- [ ] **Enkripsi & Blind Index**: Enkripsi kolom sensitif (NIK/KTP/No. HP) menggunakan AES-256-GCM dan gunakan *HMAC-SHA256 blind index* untuk pencarian cepat.
+- [ ] **Opt-In Sebelum Pelacakan**: Blokir seluruh skrip pelacak analitik pihak ketiga sebelum pengguna memberikan persetujuan eksplisit.
+- [ ] **Sensor Log Otomatis**: Aktifkan redaksi otomatis (`[REDACTED_PII]`) pada logger Pino/Winston.

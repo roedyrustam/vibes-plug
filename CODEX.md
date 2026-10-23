@@ -2,7 +2,7 @@
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
 > **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
-> Each platform has its own entry point, but the core rules and 161 skills are shared.
+> Each platform has its own entry point, but the core rules and 171 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
 **CRITICAL RULE**: This Swarm Architecture is strictly model-agnostic. It is engineered to extract maximum reasoning capabilities from ALL Latest Frontier Models across all IDE tiers:
@@ -22,10 +22,11 @@ When a frontier model is not yet provisioned, reaches rate/quota limits, or is t
 
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
-2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 161 skill registry:
+2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 171 skill registry:
    - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `spec-driven-development-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
-   - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
+   - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `double-entry-ledger-fintech-expert` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
+   - **Data, Cloud & DevOps**: `olap-columnar-analytics-expert` + `reactive-sync-engine-expert` + `fga-rebac-authorization-expert` + `passkeys-webauthn-identity-expert` + `kubernetes-gitops-platform-expert` + `sbom-supply-chain-security-expert` + `zero-trust-secret-vault`.
    - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `multi-agent-orchestration`.
    - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop` + `zero-tech-debt-auditor`.
    - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator` + `session-memory-manager`.
@@ -70,7 +71,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 ```
 
 ### Swarm Director Protocols
-1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 161 specialized skills in `vibes-plug`.
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 171 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
 4. **Agent Synergy & Native Subagents**: Rely on the `vibes-plug` native subagent registry located in `agents/`:
@@ -78,7 +79,10 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
    - **Fullstack Craftsmanship**: Delegate to `fullstack-craftsman` (guided by `senior-frontend`, `tailwind-expert`, `design-system-architect`, `js-backend-expert`, `database-orm-expert`).
    - **Quality & Anti-Slop Gate**: Delegate to `quality-guardian` (guided by `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `autonomous-red-teamer`).
    - **FinTech & Payments**: Delegate to `fintech-payment-sentinel` (guided by `doku-payment-gateway`, `saas-billing`, `payment-gateway-expert`).
-   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `ai-llm-integration-expert`, `gemini-agent-booster`, `multi-agent-orchestration`).
+   - **AI & MCP Protocols**: Delegate to `ai-mcp-engineer` (guided by `mcp-server-architect`, `a2a-agent-protocol-expert`, `durable-agent-execution-expert`, `ai-llm-integration-expert`, `gemini-agent-booster`, `multi-agent-orchestration`).
+   - **Cloud, DevOps & SRE**: Delegate to `cloud-devops-sre` (guided by `kubernetes-gitops-platform-expert`, `docker-container-expert`, `ci-cd-devops-architect`, `sbom-supply-chain-security-expert`, `zero-trust-secret-vault`).
+   - **Data, Storage & RAG**: Delegate to `data-rag-architect` (guided by `database-orm-expert`, `olap-columnar-analytics-expert`, `reactive-sync-engine-expert`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `fga-rebac-authorization-expert`).
+   - **Mobile, Desktop & Spatial**: Delegate to `mobile-spatial-craftsman` (guided by `mobile-expo-expert`, `flutter-dart-expert`, `tauri-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`).
    - **Custom Agent Generation**: Scaffold new project-specific agents anytime using `vibes create-agent --name <name> --skills <skills>`.
 5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
 6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.

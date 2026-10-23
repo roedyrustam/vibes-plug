@@ -1,7 +1,7 @@
 {
   "version": "4.3.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
-  "architecture": "Vibes-Plug Swarm Architecture (161 Skills)",
+  "architecture": "Vibes-Plug Swarm Architecture (171 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
   "domains": {
     "ai_agentic": [
@@ -35,7 +35,10 @@
       "vector-db-rag-expert",
       "vercel-ai-sdk-expert",
       "voice-ai-realtime-agent",
-      "xerj-search-expert"
+      "xerj-search-expert",
+      "a2a-agent-protocol-expert",
+      "durable-agent-execution-expert",
+      "computer-use-os-agent-expert"
     ],
     "design_ui_ux": [
       "design-system-architect",
@@ -74,7 +77,8 @@
       "svelte-sveltekit-expert",
       "tanstack-query-expert",
       "vue-frontend-expert",
-      "web-game-engine-expert"
+      "web-game-engine-expert",
+      "reactive-sync-engine-expert"
     ],
     "backend_languages": [
       "api-design-expert",
@@ -114,14 +118,17 @@
       "payment-gateway-expert",
       "saas-architect",
       "saas-billing",
-      "saas-multi-tenant"
+      "saas-multi-tenant",
+      "double-entry-ledger-fintech-expert",
+      "kubernetes-gitops-platform-expert"
     ],
     "database_data": [
       "data-pipeline-etl-expert",
       "database-orm-expert",
       "geospatial-maps-expert",
       "search-engine-expert",
-      "supabase-security-expert"
+      "supabase-security-expert",
+      "olap-columnar-analytics-expert"
     ],
     "security_testing": [
       "accessibility-testing-expert",
@@ -146,7 +153,10 @@
       "rate-limit-abuse-prevention",
       "scalability-clean-code",
       "zero-tech-debt-auditor",
-      "zero-trust-secret-vault"
+      "zero-trust-secret-vault",
+      "fga-rebac-authorization-expert",
+      "passkeys-webauthn-identity-expert",
+      "sbom-supply-chain-security-expert"
     ],
     "orchestration_utilities": [
       "app-analyzer-optimizer",
@@ -182,7 +192,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 161,
+  "totalSkills": 171,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

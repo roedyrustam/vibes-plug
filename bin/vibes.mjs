@@ -814,7 +814,7 @@ async function runUi() {
           'solidjs-expert', 'spa-orchestrator', 'state-management-expert',
           'svg-animation-motion-expert', 'svelte-sveltekit-expert', 'tailwind-expert',
           'tanstack-query-expert', 'tauri-expert', 'ui-ux-pro-max', 'visual-ui-auditor',
-          'vue-frontend-expert', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
+          'vue-frontend-expert', 'web-3d-graphics-expert', 'webxr-ar-vr-expert', 'reactive-sync-engine-expert'
         ],
         backend: [
           'api-design-expert', 'api-gateway-proxy-expert', 'async-queue-temporal-expert',
@@ -837,14 +837,15 @@ async function runUi() {
           'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
           'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
           'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert'
+          'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert',
+          'a2a-agent-protocol-expert', 'durable-agent-execution-expert', 'computer-use-os-agent-expert'
         ],
         saas: [
           'agentic-m2m-settlement', 'app-promo-media-expert', 'chatbot-messaging-expert',
           'doku-payment-gateway', 'ecommerce-expert', 'email-notification-expert',
           'feature-flag-analytics-expert', 'headless-cms-expert', 'n8n-automation-expert',
           'payment-gateway-expert', 'saas-architect', 'saas-billing', 'saas-multi-tenant',
-          'seo', 'data-telemetry-expert', 'wordpress-headless-expert'
+          'seo', 'data-telemetry-expert', 'wordpress-headless-expert', 'double-entry-ledger-fintech-expert'
         ],
         security: [
           'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
@@ -854,7 +855,7 @@ async function runUi() {
           'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
           'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
           'rate-limit-abuse-prevention', 'supabase-security-expert', 'zero-tech-debt-auditor',
-          'zero-trust-secret-vault', 'coderabbit'
+          'zero-trust-secret-vault', 'coderabbit', 'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert'
         ],
         data: [
           'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
@@ -864,7 +865,7 @@ async function runUi() {
           'pdf-document-generation-expert', 'performance-web-vitals', 'prd-architect',
           'proactive-background-watcher', 'realtime-collaboration-expert', 'search-engine-expert',
           'self-healing-cloud-orchestrator', 'session-memory-manager', 'sse-websocket-streaming-expert',
-          'web-scraper', 'website-design-cloner', 'zero-to-prod-orchestrator'
+          'web-scraper', 'website-design-cloner', 'zero-to-prod-orchestrator', 'olap-columnar-analytics-expert', 'kubernetes-gitops-platform-expert'
         ]
       };
 

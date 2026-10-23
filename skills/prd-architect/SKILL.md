@@ -23,6 +23,7 @@ version: "4.4.2"
   - `session-memory-manager` — Ground session memory on approved PRD/ERD specifications and ADR records.
   - `anti-slop` — Enforce concrete DDL schemas, verifiable NFR targets, and zero marketing buzzwords.
   - `production-ready-hardener` — Audit documentation completeness before final release.
+  - `documentation-site-expert` — Publish approved PRD, API references, and architecture guides to Mintlify, VitePress, or Fumadocs sites.
 
 ### Description
 A mandatory lifecycle guardrail covering two distinct phases:

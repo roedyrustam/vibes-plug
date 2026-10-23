@@ -89,17 +89,29 @@ export function planSwarm(taskDescription, options = {}) {
   const profile = resolveReasoningProfile(taskDescription, requestedProfile);
 
   // Domain detection
-  if (desc.includes('ui') || desc.includes('frontend') || desc.includes('react') || desc.includes('tailwind')) {
-    domains.push({ name: 'Frontend / UI', skill: 'senior-frontend', focus: 'Tailwind v4, React 19, 5-state UI contract' });
+  if (desc.includes('ui') || desc.includes('frontend') || desc.includes('react') || desc.includes('tailwind') || desc.includes('css') || desc.includes('design')) {
+    domains.push({ name: 'Frontend / UI', skill: 'senior-frontend', subagent: 'fullstack-craftsman', focus: 'Tailwind v4, React 19, 5-state UI contract' });
   }
-  if (desc.includes('api') || desc.includes('backend') || desc.includes('route') || desc.includes('hono') || desc.includes('auth')) {
-    domains.push({ name: 'Backend / API', skill: 'js-backend-expert', focus: 'Type-safe endpoints, error resilience, RFC 9457' });
+  if (desc.includes('api') || desc.includes('backend') || desc.includes('route') || desc.includes('hono') || desc.includes('auth') || desc.includes('server')) {
+    domains.push({ name: 'Backend / API', skill: 'js-backend-expert', subagent: 'fullstack-craftsman', focus: 'Type-safe endpoints, error resilience, RFC 9457' });
   }
-  if (desc.includes('db') || desc.includes('database') || desc.includes('sql') || desc.includes('orm') || desc.includes('prisma') || desc.includes('drizzle')) {
-    domains.push({ name: 'Database / RLS', skill: 'database-orm-expert', focus: 'PostgreSQL DDL, RLS policies, FK indexes' });
+  if (desc.includes('db') || desc.includes('database') || desc.includes('sql') || desc.includes('orm') || desc.includes('prisma') || desc.includes('drizzle') || desc.includes('supabase')) {
+    domains.push({ name: 'Database / RLS', skill: 'database-orm-expert', subagent: 'data-rag-architect', focus: 'PostgreSQL DDL, RLS policies, FK indexes' });
   }
-  if (desc.includes('payment') || desc.includes('billing') || desc.includes('stripe') || desc.includes('doku')) {
-    domains.push({ name: 'Payments & Billing', skill: 'doku-payment-gateway', focus: 'Atomic locks, idempotency, webhook HMAC verification' });
+  if (desc.includes('payment') || desc.includes('billing') || desc.includes('stripe') || desc.includes('doku') || desc.includes('qris') || desc.includes('fintech') || desc.includes('ledger')) {
+    domains.push({ name: 'Payments & Billing', skill: 'doku-payment-gateway', subagent: 'fintech-payment-sentinel', focus: 'Atomic locks, idempotency, webhook HMAC verification' });
+  }
+  if (desc.includes('ai') || desc.includes('llm') || desc.includes('mcp') || desc.includes('agent') || desc.includes('rag') || desc.includes('vector') || desc.includes('prompt')) {
+    domains.push({ name: 'AI & MCP Engineering', skill: 'mcp-server-architect', subagent: 'ai-mcp-engineer', focus: 'MCP v1.x tools, KV-cache prefixing, structured outputs' });
+  }
+  if (desc.includes('mobile') || desc.includes('expo') || desc.includes('flutter') || desc.includes('ios') || desc.includes('android') || desc.includes('tauri') || desc.includes('3d') || desc.includes('webgpu')) {
+    domains.push({ name: 'Mobile & Spatial UI', skill: 'mobile-expo-expert', subagent: 'mobile-spatial-craftsman', focus: 'Cross-platform mobile, Tauri v2, WebGPU 3D & HIG' });
+  }
+  if (desc.includes('devops') || desc.includes('docker') || desc.includes('ci') || desc.includes('cd') || desc.includes('deploy') || desc.includes('cloud') || desc.includes('k8s') || desc.includes('kubernetes')) {
+    domains.push({ name: 'Cloud & DevOps SRE', skill: 'ci-cd-devops-architect', subagent: 'cloud-devops-sre', focus: 'Multi-stage Docker, GitHub Actions, OTel, zero-downtime deploy' });
+  }
+  if (desc.includes('security') || desc.includes('test') || desc.includes('audit') || desc.includes('fuzz') || desc.includes('e2e') || desc.includes('playwright')) {
+    domains.push({ name: 'Quality & Security Gate', skill: 'autonomous-tdd-debugger', subagent: 'quality-guardian', focus: 'Playwright E2E, Z3 invariants, red-teaming & anti-slop' });
   }
 
   // Fallback if generic

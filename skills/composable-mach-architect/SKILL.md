@@ -319,17 +319,15 @@ async function routePrompt(prompt, context) {
 }
 ```
 
-## 9. Orchestration & Integration / Orkestrasi & Integrasi
+## 9. Orchestration & Integration
 
-### English
-#### Orchestration & Integration
 - **Upstream & System Architecture**: `zero-to-prod-orchestrator` (Phase 1 discovery & Phase 3 architecture), `brainstorming`, `saas-architect`.
 - **Frontend & Composition**: `micro-frontend-architect` (runtime module federation & SDUI), `headless-cms-expert` (content APIs), `ecommerce-expert` (composable checkout).
 - **APIs, Gateways & BFF**: `api-design-expert` (OpenAPI contracts), `api-gateway-proxy-expert` (federated mesh & proxies), `event-driven-architect` (Kafka/RabbitMQ event choreography).
 - **Cloud Runtime & AI Routing**: `cloud-hosting-expert` (multi-region edge deployment), `adaptive-model-cascade` (composable AI model routing).
 
-### Indonesian (Bahasa Indonesia)
-#### Integrasi Orkestrasi
+## Integrasi Orkestrasi
+
 - **Hulu & Arsitektur Sistem**: `zero-to-prod-orchestrator` (Penemuan Fase 1 & arsitektur Fase 3), `brainstorming`, `saas-architect`.
 - **Frontend & Komposisi**: `micro-frontend-architect` (federasi modul runtime & SDUI), `headless-cms-expert` (API konten), `ecommerce-expert` (checkout komposabel).
 - **API, Gateway & BFF**: `api-design-expert` (kontrak OpenAPI), `api-gateway-proxy-expert` (mesh terfederasi & proxy), `event-driven-architect` (koreografi event Kafka/RabbitMQ).

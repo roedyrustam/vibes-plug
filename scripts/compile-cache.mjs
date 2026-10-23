@@ -62,7 +62,8 @@ export async function compileCache(options = {}) {
         'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
         'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
         'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert'
+        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert',
+        'a2a-agent-protocol-expert', 'durable-agent-execution-expert', 'computer-use-os-agent-expert'
       ],
       design_ui_ux: [
         'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',
@@ -76,7 +77,7 @@ export async function compileCache(options = {}) {
         'htmx-hypermedia-expert', 'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
         'pwa-offline-first-expert', 'senior-frontend', 'solidjs-expert',
         'spa-orchestrator', 'state-management-expert', 'svelte-sveltekit-expert',
-        'tanstack-query-expert', 'vue-frontend-expert', 'web-game-engine-expert'
+        'tanstack-query-expert', 'vue-frontend-expert', 'web-game-engine-expert', 'reactive-sync-engine-expert'
       ],
       backend_languages: [
         'api-design-expert', 'api-gateway-proxy-expert', 'autonomous-api-drift-healer',
@@ -91,11 +92,11 @@ export async function compileCache(options = {}) {
         'docker-container-expert', 'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
         'feature-flag-analytics-expert', 'github-actions-expert', 'legacy-code-translator', 'micro-frontend-architect',
         'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
-        'saas-billing', 'saas-multi-tenant'
+        'saas-billing', 'saas-multi-tenant', 'double-entry-ledger-fintech-expert', 'kubernetes-gitops-platform-expert'
       ],
       database_data: [
         'data-pipeline-etl-expert', 'database-orm-expert', 'geospatial-maps-expert',
-        'search-engine-expert', 'supabase-security-expert'
+        'search-engine-expert', 'supabase-security-expert', 'olap-columnar-analytics-expert'
       ],
       security_testing: [
         'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
@@ -104,7 +105,8 @@ export async function compileCache(options = {}) {
         'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'firebase-security-expert',
         'formal-spec-z3-verifier', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
         'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
-        'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault'
+        'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault',
+        'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert'
       ],
       orchestration_utilities: [
         'app-analyzer-optimizer', 'app-promo-media-expert', 'async-queue-temporal-expert',

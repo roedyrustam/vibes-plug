@@ -18,7 +18,7 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Frontier Models & Providers**: `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`, `pydantic-ai-expert`
 - **MCP Ecosystem**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
-- **Multi-Agent & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Multi-Agent & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`, `synthetic-data-finetuning-expert` (QLoRA/DPO domain fine-tuning & distillation)
 - **Memory & Retrieval**: `agentic-memory-architect`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`
 - **Optimization & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
 - **Safety, Governance & Quality**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`

@@ -20,7 +20,7 @@ version: "4.4.2"
 - **Infrastructure & Containerization**: `docker-container-expert` (multi-stage distroless images), `cloud-hosting-expert` (Vercel, Cloudflare, Railway targets).
 - **Security & Secrets**: `zero-trust-secret-vault` (OIDC federated auth, short-lived tokens), `production-ready-hardener` (container & SBOM security audits).
 - **Test Automation & Quality Gates**: `autonomous-tdd-debugger` (CI test runner execution), `e2e-testing-expert` (Playwright regression runs).
-- **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring).
+- **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring), `feature-flag-analytics-expert` (progressive canary rollouts), `dependency-upgrade-migrator` (automated Renovate/package audits), `agentic-coding-workflow-expert` (autonomous PR & CI workflows).
 
 ### Description
 Enterprise guide for modern Continuous Integration & Continuous Delivery (CI/CD) pipelines, immutable container workflows (Docker & Kubernetes 1.30+), and Infrastructure as Code (Terraform / OpenTofu). Covers parallelized GitHub Actions workflows with dependency caching (pnpm/bun), multi-stage non-root distroless Docker builds, Trivy container vulnerability scanning, zero-downtime rolling/canary deployments, and zero-trust secret injection via OIDC.

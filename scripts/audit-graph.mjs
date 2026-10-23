@@ -20,7 +20,7 @@ async function auditGraph() {
     const filePath = path.join(SKILLS_DIR, skill, 'SKILL.md');
     try {
       const content = await fs.readFile(filePath, 'utf8');
-      const orchMatch = content.match(/(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?:\r?\n###|\r?\n##|$)/i);
+      const orchMatch = content.match(/(?:##|###|####)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###|####)\s|$)/i);
       if (orchMatch) {
         const refs = Array.from(orchMatch[0].matchAll(/`([a-z0-9_-]+)`/g)).map(m => m[1]);
         const uniqueRefs = [...new Set(refs)].filter(r => r !== skill);

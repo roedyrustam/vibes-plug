@@ -31,6 +31,7 @@ Production-grade frontend development patterns, performance optimization, and mo
 - `tanstack-query-expert`: For advanced data fetching and server state caching.
 - `spa-orchestrator`: For Single-Page Application architectures.
 - `mpa-orchestrator`: For Multi-Page Application architectures.
+- `angular-expert` & `solidjs-expert`: For cross-framework enterprise Signals and fine-grained reactivity architectures.
 - `autonomous-tdd-debugger`: For automated unit/component test execution and stack-trace self-healing.
 - `anti-slop`: For enforcing complete, stub-free component implementations and zero syntax narration comments.
 

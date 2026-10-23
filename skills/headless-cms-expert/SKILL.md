@@ -20,7 +20,7 @@ Connects and orchestrates with domain skills:
 - **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for rendering structured CMS blocks (Portable Text, Lexical, Blocks), typography hierarchies, and component layouts.
 - **Visual Auditing & Previews**: `visual-ui-auditor` for validating real-time visual draft mode, iframe preview boundaries, and responsive layout fidelity.
 - **Frameworks**: `nextjs-app-router-expert` (SSR/ISR on-demand tag revalidation) and `astro-framework-expert` (Content Collections and static site generation).
-- **Editor & SEO**: `rich-text-editor-expert` (custom authoring tools) and `seo` (schema markup, dynamic sitemaps, Open Graph images).
+- **Editor & SEO**: `rich-text-editor-expert` (custom authoring tools), `wordpress-headless-expert` (WPGraphQL & ACF Pro migrations), `documentation-site-expert` (MDX/Mintlify knowledge bases), and `seo` (schema markup, dynamic sitemaps, Open Graph images).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for structured content architecture.
 
 ### Description

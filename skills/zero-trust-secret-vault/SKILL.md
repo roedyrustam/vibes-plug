@@ -17,78 +17,175 @@ version: "4.4.2"
 
 ### Orchestration & Integration
 - **Threat Defense & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `post-quantum-crypto-migrator`
-- **Identity & Access Management**: `authentication-identity-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
-- **Cloud Infrastructure & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `docker-container-expert`
+- **Identity & Access Management**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
+- **Cloud Infrastructure & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `sbom-supply-chain-security-expert`, `cloud-hosting-expert`, `docker-container-expert`
 - **Database & FinTech Security**: `database-orm-expert`, `supabase-security-expert`, `doku-payment-gateway`, `saas-billing`
 - **Lifecycle & Hardening**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Description
-Production security engineering guide for Zero-Trust Secret Management across microservices, edge deployments, and CI/CD pipelines. Eliminates plain-text `.env` files in git repositories and container images using Infisical, HashiCorp Vault, and Doppler. Covers automated API key rotation, dynamic short-lived database credentials, Gitleaks pre-commit scanning, and memory-safe secret injection in Node.js, Bun, and Next.js 15.
+Production security engineering guide for **Zero-Trust Secret Management**, envelope encryption, and runtime environment validation across microservices, edge workers, and CI/CD pipelines. Eliminates plain-text `.env` files in git repositories and container images using **Infisical**, **HashiCorp Vault**, and **Doppler**. Covers strict startup schema validation (`Zod`), dual-key zero-downtime webhook secret rotation, envelope encryption (`AES-256-GCM` with KMS Data Encryption Keys), and Gitleaks pre-commit gates.
 
 ### Trigger Conditions
-- Storing high-privilege credentials (database passwords, Stripe/DOKU API keys, AWS secret keys).
-- Replacing static, committed `.env` files with encrypted, centrally-managed secret stores.
-- Setting up automated credential rotation (e.g., 30-day rotation for payment gateway webhooks).
-- Preventing accidental secret leaks during git commits and pull request reviews.
+- Storing high-privilege credentials (database URLs, DOKU/Stripe signing keys, private JWT keys, LLM API keys).
+- Validating environment variables at application boot time to fail fast on misconfiguration.
+- Implementing zero-downtime secret rotation (dual active key verification window).
+- Encrypting tenant-specific API keys or PII columns in PostgreSQL using Envelope Encryption.
 
-### Level 1: Dynamic Ephemeral Credentials (Infisical SDK 2026)
+---
+
+### Secret Management Architecture Matrix
+
+| Layer | Mechanism | Tool / Standard | Rotation Policy |
+| :--- | :--- | :--- | :--- |
+| **Build / CI Pipeline** | Federated OIDC Short-Lived Token | GitHub Actions OIDC $\rightarrow$ AWS/GCP/Vault | Per-job ephemeral (15 min TTL) |
+| **Runtime Config Injection** | Machine Identity Universal Auth | Infisical SDK / Doppler / Vault Agent | Dynamic lease (1–24 hr TTL) |
+| **Boot-Time Contract** | Strict Runtime Schema Validation | Zod + `@t3-oss/env-core` | Verified on process startup |
+| **Tenant BYOK Secrets** | Envelope Encryption (KEK + DEK) | Node `crypto` `aes-256-gcm` + Cloud KMS | Annual KEK / Per-record DEK |
+
+---
+
+### Core Implementation Patterns
+
+#### 1. Fail-Fast Boot-Time Environment Contract (TypeScript + Zod)
+Never access raw `process.env.SOME_KEY` scattered across business files, and never leak server secrets into client bundles:
 
 ```typescript
-// src/lib/vault/secret-loader.ts
-import { InfisicalClient } from '@infisical/sdk';
+// src/config/env.ts
+import { z } from 'zod';
 
-let vaultClient: InfisicalClient | null = null;
+const serverEnvSchema = z.object({
+  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  DATABASE_URL: z.string().url().startsWith('postgres'),
+  DOKU_CLIENT_ID: z.string().min(8),
+  DOKU_SECRET_KEY_CURRENT: z.string().min(32),
+  DOKU_SECRET_KEY_PREVIOUS: z.string().min(32).optional(),
+  ENVELOPE_MASTER_KEY_HEX: z.string().regex(/^[0-9a-fA-F]{64}$/, 'Must be 32-byte hex key (64 chars)'),
+  UPSTASH_REDIS_REST_URL: z.string().url(),
+});
 
-export async function getSecureSecret(secretName: string): Promise<string> {
-  // Fallback to local process.env during offline development only
-  if (process.env.NODE_ENV === 'development' && process.env[secretName]) {
-    return process.env[secretName]!;
+function validateServerEnv() {
+  if (typeof window !== 'undefined') {
+    throw new Error('[Zero-Trust] Server environment module imported inside browser client bundle!');
+  }
+  const parsed = serverEnvSchema.safeParse(process.env);
+  if (!parsed.success) {
+    const missing = parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; ');
+    throw new Error(`[Zero-Trust] Invalid or missing environment variables: ${missing}`);
+  }
+  return Object.freeze(parsed.data);
+}
+
+export const env = validateServerEnv();
+```
+
+---
+
+#### 2. Envelope Encryption (`AES-256-GCM`) for Tenant API Keys in Database
+When storing third-party API keys or OAuth tokens on behalf of tenants (BYOK), never store plain text or use unauthenticated `AES-CBC`. Generate a unique 12-byte IV and verify the 16-byte authentication tag:
+
+```typescript
+// src/lib/vault/envelope-crypto.ts
+import crypto from 'node:crypto';
+
+const ALGORITHM = 'aes-256-gcm';
+const IV_LENGTH = 12;
+
+export interface EncryptedSecretRecord {
+  ciphertextB64: string;
+  ivB64: string;
+  authTagB64: string;
+  keyVersion: number;
+}
+
+export function encryptTenantSecret(
+  plaintext: string,
+  masterKeyHex: string,
+  tenantId: string,
+  keyVersion = 1
+): EncryptedSecretRecord {
+  const key = Buffer.from(masterKeyHex, 'hex');
+  if (key.byteLength !== 32) {
+    throw new Error('Master key must be exactly 32 bytes (256 bits)');
   }
 
-  if (!vaultClient) {
-    vaultClient = new InfisicalClient({
-      clientId: process.env.INFISICAL_CLIENT_ID!,
-      clientSecret: process.env.INFISICAL_CLIENT_SECRET!,
-    });
-  }
+  const iv = crypto.randomBytes(IV_LENGTH);
+  const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
+  // Bind ciphertext to tenantId via Additional Authenticated Data (AAD) to prevent cross-tenant replay
+  cipher.setAAD(Buffer.from(tenantId, 'utf8'));
 
-  const secret = await vaultClient.getSecret({
-    environment: process.env.VAULT_ENV || 'prod',
-    projectId: process.env.INFISICAL_PROJECT_ID!,
-    secretKey: secretName,
-  });
+  const encrypted = Buffer.concat([cipher.update(plaintext, 'utf8'), cipher.final()]);
+  const authTag = cipher.getAuthTag();
 
-  if (!secret?.secretValue) {
-    throw new Error(`[Zero-Trust-Vault] Failed to retrieve mandatory secret: ${secretName}`);
-  }
+  return {
+    ciphertextB64: encrypted.toString('base64'),
+    ivB64: iv.toString('base64'),
+    authTagB64: authTag.toString('base64'),
+    keyVersion,
+  };
+}
 
-  return secret.secretValue;
+export function decryptTenantSecret(
+  record: EncryptedSecretRecord,
+  masterKeyHex: string,
+  tenantId: string
+): string {
+  const key = Buffer.from(masterKeyHex, 'hex');
+  const iv = Buffer.from(record.ivB64, 'base64');
+  const authTag = Buffer.from(record.authTagB64, 'base64');
+  const ciphertext = Buffer.from(record.ciphertextB64, 'base64');
+
+  const decipher = crypto.createDecipheriv(ALGORITHM, key, iv);
+  decipher.setAAD(Buffer.from(tenantId, 'utf8'));
+  decipher.setAuthTag(authTag);
+
+  const decrypted = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
+  return decrypted.toString('utf8');
 }
 ```
 
-### Level 2: Gitleaks Pre-Commit Secret Scanner
+---
 
-```yaml
-# .gitleaks.toml
-title = "Vibes-Plug Zero-Trust Leak Prevention"
+#### 3. Zero-Downtime Dual-Key Webhook Rotation Verifier
+During secret rotation, accept signatures signed by either `CURRENT` or `PREVIOUS` secret key within the rotation grace window using constant-time comparison (`crypto.timingSafeEqual`):
 
-[extend]
-useDefault = true
+```typescript
+// src/lib/vault/dual-key-verifier.ts
+import crypto from 'node:crypto';
 
-[[rules]]
-id = "generic-api-key"
-description = "Detects plain-text high-entropy API keys"
-regex = '''(?i)(?:key|api|token|secret|password)[ \t]*[=:][ \t]*['"]([a-z0-9_\-\.]{20,})['"]'''
-entropy = 3.5
-secretGroup = 1
-keywords = ["key", "api", "token", "secret", "password"]
+export function verifyWebhookHmacDualKey(
+  rawBody: string,
+  providedSignatureHex: string,
+  activeSecrets: readonly string[]
+): { verified: boolean; matchedKeyIndex: number } {
+  const providedBuf = Buffer.from(providedSignatureHex, 'hex');
+
+  for (let i = 0; i < activeSecrets.length; i++) {
+    const secret = activeSecrets[i];
+    if (!secret) continue;
+
+    const expectedHex = crypto.createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
+    const expectedBuf = Buffer.from(expectedHex, 'hex');
+
+    if (
+      providedBuf.byteLength === expectedBuf.byteLength &&
+      crypto.timingSafeEqual(providedBuf, expectedBuf)
+    ) {
+      return { verified: true, matchedKeyIndex: i };
+    }
+  }
+
+  return { verified: false, matchedKeyIndex: -1 };
+}
 ```
 
-### The 4 Non-Negotiable Zero-Trust Rules
-1. **Never Commit `.env` Files**: `.env*` files (except `.env.example`) MUST be included in `.gitignore` and `.npmignore`. Commit history must be scoured with `gitleaks`.
-2. **Ephemeral Credentials**: For databases, prefer short-lived dynamic credentials with 1-hour TTL generated by Vault rather than permanent static passwords.
-3. **No Secret Echo in Logs**: Never log `process.env` or print connection strings containing passwords to terminal stdout or APM error reports.
-4. **Principle of Least Privilege**: Subagents and microservices must have read access strictly to their own scoped directory path (`/services/billing/*`), never to the root vault.
+---
+
+### Verification Checklist
+- [ ] `.env*` files (except `.env.example`) are blocked in `.gitignore`, `.dockerignore`, and `.gitleaks.toml`.
+- [ ] Application startup validates all required environment variables via a strict Zod schema and throws immediately if invalid.
+- [ ] Tenant-stored credentials use `aes-256-gcm` with unique 12-byte IVs and tenant-bound AAD (`cipher.setAAD`).
+- [ ] Webhook and API key rotations support a dual-key (`CURRENT` + `PREVIOUS`) verification grace window with `crypto.timingSafeEqual`.
+- [ ] Structured loggers redact `authorization`, `cookie`, `secret`, `password`, and `apiKey` fields.
 
 ---
 
@@ -97,29 +194,22 @@ keywords = ["key", "api", "token", "secret", "password"]
 
 ### Integrasi Orkestrasi
 - **Pertahanan Ancaman & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`, `post-quantum-crypto-migrator`
-- **Manajemen Akses & Identitas**: `authentication-identity-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
-- **Infrastruktur Cloud & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `docker-container-expert`
+- **Manajemen Akses & Identitas**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `rate-limit-abuse-prevention`, `compliance-gdpr-privacy-expert`
+- **Infrastruktur Cloud & CI/CD**: `ci-cd-devops-architect`, `github-actions-expert`, `sbom-supply-chain-security-expert`, `cloud-hosting-expert`, `docker-container-expert`
 - **Keamanan Database & FinTech**: `database-orm-expert`, `supabase-security-expert`, `doku-payment-gateway`, `saas-billing`
 - **Siklus Hidup & Pengerasan**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
 
 ### Deskripsi
-Panduan rekayasa keamanan produksi untuk Manajemen Rahasia Zero-Trust (*Zero-Trust Secret Management*) di seluruh microservices, edge computing, dan pipeline CI/CD. Menghilangkan file teks biasa `.env` dari repositori git dan image kontainer Docker menggunakan Infisical, HashiCorp Vault, dan Doppler. Mencakup rotasi kunci API otomatis, kredensial database sementara (*ephemeral*), pemindaian kebocoran Gitleaks pada pre-commit, dan injeksi memori aman pada Node.js, Bun, dan Next.js 15.
-
-### Kondisi Pemicu
-- Menyimpan kredensial berhak istimewa tinggi (password database, API key Stripe/DOKU, secret key cloud).
-- Menggantikan file `.env` statis yang rentan bocor dengan vault terenkripsi terpusat.
-- Menerapkan rotasi kredensial otomatis (misal: rotasi kunci webhook setiap 30 hari).
-- Mencegah insiden kebocoran kunci rahasia saat melakukan `git commit` atau *pull request*.
-
-### Contoh Injeksi Runtime via CLI (Tanpa File `.env` di Server)
-
-```bash
-# Menjalankan aplikasi secara aman dengan injeksi variabel memori langsung dari Vault
-infisical run --env=prod -- node dist/index.js
-```
+Panduan rekayasa keamanan produksi untuk **Manajemen Rahasia Zero-Trust**, enkripsi amplop (*Envelope Encryption* `AES-256-GCM`), rotasi kunci tanpa downtime (*Dual-Key Rotation*), dan validasi variabel lingkungan saat aplikasi menyala (*Fail-Fast Zod Validation*) menggunakan **Infisical**, **HashiCorp Vault**, dan **Doppler**.
 
 ### 4 Aturan Mutlak Zero-Trust
-1. **Dilarang Komit File `.env`**: File `.env` wajib masuk dalam `.gitignore`. Gunakan alat pemindai seperti Gitleaks untuk memeriksa riwayat komit sebelum kode dipublikasikan.
-2. **Kredensial Dinamis Berumur Pendek**: Prioritaskan pembuatan user dan password database sementara dengan masa berlaku (TTL) 1 jam dari HashiCorp Vault alih-alih password permanen.
-3. **Sensor Kunci Rahasia**: Jangan pernah mencetak `console.log(process.env)` atau menampilkan connection string database di log terminal maupun Sentry.
-4. **Hak Akses Terkecil (Least Privilege)**: Batasi izin akses secret per modul. Layanan frontend hanya boleh mengakses kunci publik, sedangkan rahasia backend diisolasi di folder terpisah.
+1. **Validasi Skema Saat Startup**: Validasi seluruh variabel `process.env` menggunakan skema Zod terpusat saat boot dan blokir akses dari bundle sisi klien (`typeof window !== 'undefined'`).
+2. **Enkripsi Terikat Tenant (`AES-256-GCM` + AAD)**: Saat menyimpan API key milik tenant di database, gunakan `aes-256-gcm` dengan IV unik 12-byte dan ikat `tenantId` melalui `cipher.setAAD` agar ciphertext tidak dapat dipindah antar-tenant.
+3. **Rotasi Kunci Ganda Tanpa Downtime**: Dukung verifikasi kunci `CURRENT` dan `PREVIOUS` secara bersamaan dengan `crypto.timingSafeEqual` selama masa transisi rotasi kunci.
+4. **Dilarang Komit File `.env` & Sensor Log**: Wajib pasang aturan Gitleaks pada pre-commit dan pastikan logger menyensor field sensitif.
+
+### Daftar Periksa Verifikasi (Checklist)
+- [ ] File `.env*` diblokir di `.gitignore`, `.dockerignore`, dan dipindai oleh Gitleaks.
+- [ ] Seluruh variabel lingkungan divalidasi dengan skema Zod saat proses startup.
+- [ ] Penyimpanan rahasia di database menggunakan `aes-256-gcm` dengan AAD terikat `tenantId`.
+- [ ] Verifikasi signature menggunakan `crypto.timingSafeEqual` dengan dukungan rotasi kunci ganda.

@@ -3,7 +3,6 @@ name: proactive-background-watcher
 description: "Grants the AI the ability to act proactively using native cron/timer scheduling. The agent can monitor systems, poll APIs, or watch logs in the background and self-trigger without waiting for user prompts."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
 # Proactive Background Watcher (Sentinel Daemon Protocol)
@@ -24,66 +23,104 @@ version: "4.4.2"
 ### Description
 Standard LLM chat sessions are strictly reactive—they remain dormant until the user submits a prompt. This skill unlocks proactive agency. Utilizing the runtime's native `schedule` tool (one-shot timers and recurring cron schedules), the agent can autonomously monitor background build pipelines, poll health endpoints, inspect server logs, or track deployment state machines. When an anomaly occurs or a long-running job finishes, the agent wakes up autonomously to diagnose, notify, or remediate without waiting for human prompting.
 
-### Trigger Conditions
-- User requests asynchronous monitoring: *"Let me know when the Vercel build succeeds"*, *"Watch the test runner"*, or *"Alert me if memory spikes"*.
-- Running long-running database migrations or load tests in the background.
-- Scheduled recurring health audits (e.g., periodic SSL expiry or API latency checks).
-- Watchdog supervision over multi-agent swarm subtasks.
+### 1. Proactive Watcher Mode Selection Matrix
 
-### Sentinel Execution Architecture
+| Watcher Mode | `schedule` Parameter | Cancellation Trigger | Best Use Case |
+| :--- | :--- | :--- | :--- |
+| **Task Completion Watchdog** | `DurationSeconds: 180` + `TimerCondition: "<taskId>"` | Cancels early the instant the background task finishes | Long DB migrations, Docker builds, E2E test suites |
+| **Bounded Canary Poll** | `CronExpression: "*/5 * * * *"` + `MaxIterations: 6` | Stops automatically after 30 minutes (6 checks) | Post-deploy canary error-rate observation |
+| **Standing Sentinel Daemon** | `CronExpression: "*/15 * * * *"` + `IsDaemon: true` | Runs across turns until explicitly killed via `manage_task` | Continuous SSL, queue depth, or API SLO monitoring |
 
-```
-User Prompt: "Run migrations and alert me when complete"
-       │
-       ▼
-1. Launch Background Task (run_command with WaitMsBeforeAsync=500)
-       │
-       ▼
-2. Register Sentinel Timer via `schedule`
-   (DurationSeconds=120, Prompt="Check migration task status", TimerCondition="task-id")
-       │
-       ▼
-3. Agent Ends Turn (System enters reactive sleep state)
-       │
-       ▼
-4. Autonomous Wakeup on Timer Expiration or Task Completion
-       │
-       ├─► Success ──► Synthesize artifact & notify user
-       └─► Error   ──► Trigger `autonomous-tdd-debugger` or `self-healing-cloud-orchestrator`
-```
-
-### Production Tool Invocation Patterns
+### 2. Production Tool Invocation Payloads
 
 #### Pattern A: One-Shot Asynchronous Task Watcher
 ```json
-// Schedule tool call arguments
 {
-  "DurationSeconds": "180",
+  "DurationSeconds": 180,
   "Prompt": "Audit background migration task-42. Verify exit code and schema integrity.",
-  "TimerCondition": "task-42",
-  "toolSummary": "Migration watcher timer",
-  "toolAction": "Scheduling watchdog timer"
+  "TimerCondition": "task-42"
 }
 ```
 
-#### Pattern B: Recurring Health Daemon (Cron Mode)
+#### Pattern B: Recurring Canary Health Daemon (Cron Mode)
 ```json
-// Schedule tool call arguments
 {
   "CronExpression": "*/10 * * * *",
-  "MaxIterations": "6",
+  "MaxIterations": 6,
   "IsDaemon": true,
-  "Prompt": "Poll /api/health and report error budget violations > 0.5% in HEALTH_LOG.md",
-  "toolSummary": "Health monitor cron",
-  "toolAction": "Setting up 10-minute health check"
+  "Prompt": "Poll /api/health and report error budget violations > 0.5% in HEALTH_LOG.md"
 }
 ```
 
-### The 4 Non-Negotiable Sentinel Rules
-1. **Zero-Spam Silent Success**: If a periodic poll detects normal operation, the agent MUST NOT post conversational filler to the user. Maintain silence and sleep until an issue arises or a milestone completes.
-2. **Deterministic Wakeup Prompt**: Always supply clear, high-information prompts in `schedule` so the awakened model has instant context without re-reading past history.
-3. **KV-Cache Prefix Preservation**: Keep the recurring prompt byte-identical across iterations to trigger prompt caching and reduce inference billing by up to 90%.
-4. **Lifecycle Cleanup**: Once a watched task terminates, cancel lingering timers using `manage_task` (`Action: 'kill'`).
+### 3. Deterministic Health Probe & SLO Evaluator (TypeScript)
+When awakened by a scheduled cron trigger, run a deterministic probe script that exits with a non-zero code only when an SLO threshold is breached:
+
+```typescript
+// src/sentinel/slo-health-probe.ts
+export interface HealthProbeResult {
+  healthy: boolean;
+  statusCode: number;
+  latencyMs: number;
+  errorRatePct: number;
+  breachReason?: string;
+}
+
+export async function evaluateEndpointSlo(params: {
+  url: string;
+  maxLatencyMs: number;
+  maxErrorRatePct: number;
+  timeoutMs?: number;
+}): Promise<HealthProbeResult> {
+  const start = performance.now();
+  const response = await fetch(params.url, {
+    method: 'GET',
+    headers: { Accept: 'application/json' },
+    signal: AbortSignal.timeout(params.timeoutMs ?? 5000),
+  });
+  const latencyMs = Math.round(performance.now() - start);
+
+  if (!response.ok) {
+    return {
+      healthy: false,
+      statusCode: response.status,
+      latencyMs,
+      errorRatePct: 100,
+      breachReason: `HTTP ${response.status} returned from ${params.url}`,
+    };
+  }
+
+  const body = (await response.json()) as { errorRatePct?: number };
+  const errorRatePct = Number(body.errorRatePct ?? 0);
+
+  if (latencyMs > params.maxLatencyMs) {
+    return {
+      healthy: false,
+      statusCode: response.status,
+      latencyMs,
+      errorRatePct,
+      breachReason: `Latency ${latencyMs}ms exceeded budget ${params.maxLatencyMs}ms`,
+    };
+  }
+
+  if (errorRatePct > params.maxErrorRatePct) {
+    return {
+      healthy: false,
+      statusCode: response.status,
+      latencyMs,
+      errorRatePct,
+      breachReason: `Error rate ${errorRatePct}% exceeded budget ${params.maxErrorRatePct}%`,
+    };
+  }
+
+  return { healthy: true, statusCode: response.status, latencyMs, errorRatePct };
+}
+```
+
+### 4. Production Verification Checklist
+- [ ] **Zero-Spam Silent Success**: If a periodic poll detects normal operation, do not spam the user with empty status messages; log quietly or wait until an anomaly or milestone occurs.
+- [ ] **Never Use Shell `sleep`**: Always use the native `schedule` tool instead of blocking a shell process with `sleep` or `Start-Sleep`.
+- [ ] **KV-Cache Prefix Preservation**: Keep the recurring `Prompt` string byte-identical across iterations to maximize prompt cache hits.
+- [ ] **Lifecycle Cleanup**: Once a watched task or canary window completes, cancel lingering schedules via `manage_task` (`Action: "kill"`).
 
 ---
 
@@ -97,51 +134,9 @@ User Prompt: "Run migrations and alert me when complete"
 - **Pemantau Build & CI/CD**: `ci-cd-devops-architect` (pemeriksaan penyelesaian pipeline), `cloud-hosting-expert` (status build Vercel/Railway).
 
 ### Deskripsi
-Sesi obrolan LLM standar bersifat sepenuhnya reaktif—hanya merespons saat pengguna mengetik instruksi. Skill ini memberikan kemampuan proaktif (Sentinel). Memanfaatkan tool `schedule` native (timer satu-kali atau cron berkala), agen dapat secara mandiri memantau proses build, melakukan polling pada *health check* API, memeriksa log server, atau memantau proses migrasi database di latar belakang. Jika terjadi error atau proses panjang selesai, agen akan "bangun" sendiri untuk menganalisis, melapor, atau melakukan perbaikan otomatis tanpa menunggu instruksi manual.
+Skill ini memberikan kemampuan proaktif (Sentinel) kepada agen AI menggunakan tool `schedule` native (timer satu-kali atau cron berkala) untuk memantau build, memeriksa kesehatan endpoint API, atau mengawasi migrasi database di latar belakang dan bangun secara otonom saat terjadi anomali atau penyelesaian tugas.
 
-### Kondisi Pemicu
-- Pengguna meminta pemantauan asinkron: *"Beri tahu saya jika deployment selesai"*, *"Pantau status server"*, atau *"Kabari jika ada error di background"*.
-- Menjalankan migrasi database besar atau stress test di latar belakang.
-- Pemantauan berkala (misal: cek masa berlaku sertifikat SSL atau latensi endpoint setiap 10 menit).
-- Pengawasan terhadap subagent dalam eksekusi Swarm multi-domain.
-
-### Alur Eksekusi Sentinel Proaktif
-
-```
-Instruksi: "Jalankan migrasi di background dan kabari jika selesai"
-       │
-       ▼
-1. Jalankan Perintah Background (run_command dengan timeout pendek)
-       │
-       ▼
-2. Pasang Alarm Timer Sentinel via tool `schedule`
-   (DurationSeconds=120, Prompt="Cek status migrasi task-id", TimerCondition="task-id")
-       │
-       ▼
-3. Agen Istirahat (Akhiri giliran tool, sistem masuk mode hemat sumber daya)
-       │
-       ▼
-4. Agen Bangun Otomatis saat Alarm Berbunyi atau Task Selesai
-       │
-       ├─► Sukses ──► Tulis status di CHECKPOINT.md & beri tahu user
-       └─► Gagal  ──► Picu `autonomous-tdd-debugger` untuk memperbaiki error
-```
-
-### Pola Pemanggilan Tool Produksi
-
-```json
-// Contoh konfigurasi tool schedule untuk memantau deployment
-{
-  "DurationSeconds": "300",
-  "Prompt": "Periksa status deployment di Vercel. Jika gagal, baca log error dan siapkan hotfix.",
-  "TimerCondition": "never",
-  "toolSummary": "Pemantau deployment",
-  "toolAction": "Menjadwalkan alarm sentinel"
-}
-```
-
-### 4 Aturan Emas Sentinel
-1. **Dilarang Spam (Zero-Spam)**: Jika pengecekan berkala mendapati sistem normal, agen **DILARANG** mengirim pesan obrolan kosong ke pengguna. Tetaplah diam dan kembali tidur.
-2. **Prompt Bangun yang Jelas**: Selalu sertakan instruksi yang detail pada parameter `Prompt` di tool `schedule` agar agen yang terbangun langsung memahami tugas tanpa perlu membaca ulang seluruh riwayat.
-3. **Efisiensi Token & KV-Cache**: Gunakan struktur teks yang seragam pada prompt cron agar prompt caching tetap aktif dan hemat token hingga 90%.
-4. **Pembersihan Bersih (Clean Teardown)**: Segera matikan timer yang sudah tidak terpakai menggunakan `manage_task` (`Action: 'kill'`).
+### Checklist Verifikasi Produksi
+- [ ] **Dilarang Spam (Zero-Spam)**: Jika pengecekan berkala mendapati sistem normal, tetaplah tenang dan hanya kirim laporan saat milestone selesai atau anomali terdeteksi.
+- [ ] **Dilarang Menggunakan `sleep` di Shell**: Selalu gunakan tool `schedule` native dan akhiri giliran untuk menunggu notifikasi.
+- [ ] **Pembersihan Jadwal (`manage_task`)**: Hentikan jadwal cron/timer yang sudah tidak diperlukan menggunakan `manage_task` (`Action: "kill"`).

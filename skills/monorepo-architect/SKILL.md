@@ -19,7 +19,7 @@ version: "4.4.2"
 - **Upstream & Project Topology**: `zero-to-prod-orchestrator` (Phase 2 project foundation), `brainstorming`, `session-memory-manager`.
 - **AST & Codebase Intelligence**: `living-codebase-ast-graph` (cross-package dependency topology & DAG sorting), `typescript-expert` (composite projects & isolated declarations).
 - **CI/CD & Deployment**: `ci-cd-devops-architect` (monorepo cache pipelines), `github-actions-expert` (matrix testing & sparse checkout), `cloud-hosting-expert` (multi-app deployments).
-- **Shared Design & Components**: `design-system-architect` (shared `packages/ui` tokens), `senior-frontend` / `js-backend-expert` (shared packages consumption).
+- **Shared Design & Components**: `design-system-architect` (shared `packages/ui` tokens), `senior-frontend` / `js-backend-expert` (shared packages consumption), `micro-frontend-architect` (federated micro-apps), `composable-mach-architect` (composable multi-app packages), `dependency-upgrade-migrator` (monorepo-wide dependency upgrades).
 
 ### Description
 Expert guide for designing and managing scalable monorepos. Covers **Turborepo 2.x** (the 2026 standard for JS/TS monorepos), **moon** (polyglot task runner for teams mixing JS + Rust + Go), **pnpm workspaces**, shared package design, incremental builds, remote caching, and CI/CD pipeline optimization.

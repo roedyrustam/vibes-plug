@@ -21,6 +21,7 @@ version: "4.4.2"
   - `logging-error-tracking-expert` — Correlate OpenTelemetry traces with structured Pino logs and Sentry alerts.
   - `llm-observability-expert` — Extend trace contexts with GenAI token costs, prompt latencies, and evaluations.
   - `error-resilience-expert` — Feed real-time telemetry metrics into circuit breaker thresholds and automated failovers.
+  - `feature-flag-analytics-expert` & `geospatial-maps-expert` — Correlate PostHog feature flag experiments, funnel analytics, and geospatial PostGIS/Mapbox user distribution telemetry.
   - `session-memory-manager` — Persist telemetry pipeline configurations and observability checkpoints.
 
 ### Description

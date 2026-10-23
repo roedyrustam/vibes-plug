@@ -24,6 +24,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor` — Multimodal vision auditing of rendered desktop window frames and dialogs.
 - `anti-slop` — Anti-slop desktop UI craft, zero fake browser window frames and zero placeholder commands.
 - `production-ready-hardener` — Auditing binary sizes, code signing, and release pipeline hardening.
+- `desktop-electron-expert` & `browser-extension-mv3-pro` — Migrating legacy Electron apps to Tauri v2 and bridging native desktop binaries with Manifest V3 browser companion extensions.
 
 ### Description
 Production-grade guidance for building cross-platform desktop (Windows 10/11, macOS, Linux) and mobile (iOS 16+, Android 10+) applications using **Tauri 2.x (specifically v2.12+)**. Covers Rust 1.90+ MSRV requirements, **`tauri::ipc::Channel<T>`** for ordered bidirectional streaming, **`on_permission_request`** programmatic security gates, **App-Bound Domain navigation limiting**, portable application directory overrides (`appDirectoriesOverride`), Rust-side `convert_file_src`, and the fine-grained **Capabilities & Permissions** system.

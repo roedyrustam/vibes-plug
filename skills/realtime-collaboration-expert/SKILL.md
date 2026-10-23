@@ -3,7 +3,6 @@ name: realtime-collaboration-expert
 description: "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
 # Real-Time Collaboration Expert / Ahli Kolaborasi Real-Time
@@ -16,38 +15,127 @@ version: "4.4.2"
 ## English
 
 ### Description
-Expert guide for implementing multiplayer, real-time collaboration features in web applications. Covers Conflict-free Replicated Data Types (CRDTs) like Yjs/Automerge, WebSockets, WebRTC, and Managed services like Liveblocks or Pusher.
+Production engineering guide for building multiplayer, conflict-free real-time collaboration systems. Covers state-based and operation-based CRDTs (`Yjs`, `Automerge`, `Loro`), ephemeral presence/awareness protocols, IndexedDB offline persistence (`y-indexeddb`), and horizontally scaled WebSocket sync servers with binary delta compaction.
 
-### Instructions
-- **CRDTs for State**: Use CRDTs (e.g., `yjs` or `automerge`) instead of Operational Transformation (OT) for handling distributed state and concurrent document editing smoothly.
-- **Connection Resiliency**: Always implement automatic reconnection logic with exponential backoff for WebSockets. Handle offline states gracefully by syncing local changes once reconnected.
-- **Presence & Awareness**: Implement presence indicators (who is online, cursor positions) separated from the core document state to reduce bandwidth and storage overhead.
-- **Security in Real-time**: Authenticate and authorize every WebSocket connection upon establishment and validate all incoming socket messages to prevent malicious payloads.
-- **Scale**: Be mindful of message broadcasting limits. Use Redis Pub/Sub or similar message brokers when scaling WebSocket servers across multiple instances.
+### 1. CRDT & Multiplayer Engine Selection Matrix (2026)
 
-### Implementation Checklist
-- [ ] Choose a CRDT library (Yjs/Automerge) and a corresponding provider (WebSockets, WebRTC, Liveblocks).
-- [ ] Initialize the shared document state and bind it to the frontend UI components (e.g., ProseMirror, Monaco).
-- [ ] Implement presence (awareness) to broadcast cursor positions and active user lists.
-- [ ] Handle offline states by buffering local changes and syncing upon reconnection.
+| Engine / Protocol | Data Model | Memory & Wire Footprint | Offline Merge | Best Use Case |
+| :--- | :--- | :--- | :--- | :--- |
+| **Yjs (`y-protocols`)** | Rich Text (`Y.XmlFragment`), `Y.Map`, `Y.Array` | Ultra-compact binary (`Uint8Array` updates) | Native (`y-indexeddb` + `Y.mergeUpdates`) | Collaborative rich-text editors (Tiptap/Lexical), whiteboards |
+| **Loro (Rust / WASM CRDT)** | Rich Text (Fugue + Peritext), Movable Tree, Map | Fast WASM zero-copy + time-travel history | Built-in shallow/full snapshot export | Hierarchical node trees (Figma/Notion-like block trees), version graphs |
+| **Automerge 2.x** | JSON-like immutable document tree | Columnar binary compression | Full causal history DAG | Git-like branching/merging of structured JSON documents |
+| **Liveblocks / PartyKit** | Managed edge rooms + Yjs/Storage primitives | Edge WebSocket hibernation | Automatic client buffer | Rapid deployment of multiplayer cursors, comments, and rooms |
 
-### Example: Yjs with WebSocket Provider
-```javascript
-import * as Y from 'yjs'
-import { WebsocketProvider } from 'y-websocket'
+### 2. Production Yjs Binary Sync + Ephemeral Awareness Client (TypeScript)
+Separate **durable document state** (`Y.Doc` persisted to PostgreSQL/S3) from **ephemeral awareness state** (cursor coordinates, selection ranges, user status, broadcast at `30Hz` with linear interpolation and never persisted to DB).
 
-// 1. Initialize a shared Yjs document
-const ydoc = new Y.Doc()
+```typescript
+// src/collaboration/yjs-room-manager.ts
+import * as Y from 'yjs';
+import { IndexeddbPersistence } from 'y-indexeddb';
+import { WebsocketProvider } from 'y-websocket';
 
-// 2. Connect to the WebSocket room
-const provider = new WebsocketProvider('ws://localhost:1234', 'my-room-name', ydoc)
+export interface CollaboratorPresence {
+  userId: string;
+  displayName: string;
+  colorHex: string;
+  cursor: { x: number; y: number } | null;
+  updatedAt: number;
+}
 
-// 3. Share state (e.g., an array of chat messages)
-const yarray = ydoc.getArray('messages')
-yarray.observe(event => {
-  console.log('Messages updated:', yarray.toArray())
-})
+export class CollaborativeRoomSession {
+  public readonly ydoc: Y.Doc;
+  public readonly provider: WebsocketProvider;
+  public readonly localPersistence: IndexeddbPersistence;
+  private rafThrottleId: number | null = null;
+
+  constructor(params: {
+    wsEndpoint: string;
+    roomId: string;
+    authToken: string;
+    user: Omit<CollaboratorPresence, 'cursor' | 'updatedAt'>;
+  }) {
+    this.ydoc = new Y.Doc({ gc: true });
+
+    // 1. Hydrate immediately from browser IndexedDB for 0ms offline-first load
+    this.localPersistence = new IndexeddbPersistence(`vibes-collab-${params.roomId}`, this.ydoc);
+
+    // 2. Connect to authenticated WebSocket sync cluster
+    this.provider = new WebsocketProvider(params.wsEndpoint, params.roomId, this.ydoc, {
+      params: { token: params.authToken },
+      maxBackoffTime: 5000,
+    });
+
+    // 3. Initialize local user awareness metadata
+    this.provider.awareness.setLocalStateField('user', {
+      ...params.user,
+      cursor: null,
+      updatedAt: Date.now(),
+    } satisfies CollaboratorPresence);
+  }
+
+  public updateCursorPosition(x: number, y: number): void {
+    if (this.rafThrottleId !== null) return;
+    this.rafThrottleId = requestAnimationFrame(() => {
+      const current = this.provider.awareness.getLocalState()?.user as CollaboratorPresence | undefined;
+      if (current) {
+        this.provider.awareness.setLocalStateField('user', {
+          ...current,
+          cursor: { x: Math.round(x), y: Math.round(y) },
+          updatedAt: Date.now(),
+        } satisfies CollaboratorPresence);
+      }
+      this.rafThrottleId = null;
+    });
+  }
+
+  public compactDocumentState(): Uint8Array {
+    return Y.encodeStateAsUpdateV2(this.ydoc);
+  }
+
+  public destroy(): void {
+    if (this.rafThrottleId !== null) {
+      cancelAnimationFrame(this.rafThrottleId);
+    }
+    this.provider.awareness.setLocalState(null);
+    this.provider.destroy();
+    this.localPersistence.destroy();
+    this.ydoc.destroy();
+  }
+}
 ```
+
+### 3. Server-Side Binary Update Compaction (Preventing WAL & Memory Bloat)
+Never store millions of individual Yjs keystroke updates as separate rows forever. Periodically compact incremental `Uint8Array` updates into a single `V2` snapshot inside an atomic transaction:
+
+```typescript
+// src/collaboration/compact-yjs-updates.ts
+import * as Y from 'yjs';
+
+export function mergeAndCompactYjsUpdates(
+  baseSnapshotV2: Uint8Array | null,
+  incrementalUpdatesV2: readonly Uint8Array[]
+): Uint8Array {
+  const allFragments = baseSnapshotV2
+    ? [baseSnapshotV2, ...incrementalUpdatesV2]
+    : [...incrementalUpdatesV2];
+
+  if (allFragments.length === 0) {
+    const emptyDoc = new Y.Doc();
+    return Y.encodeStateAsUpdateV2(emptyDoc);
+  }
+
+  // Merge updates directly in binary form without full AST instantiation overhead
+  return Y.mergeUpdatesV2(allFragments);
+}
+```
+
+### 4. Production Verification Checklist
+- [ ] Choose a CRDT library (`Yjs`, `Loro`, or `Automerge`) matched to the document topology and enable garbage collection (`gc: true`) unless full causal time-travel is required.
+- [ ] Separate high-frequency awareness broadcasts (cursors/selections throttled via `requestAnimationFrame`) from durable CRDT document mutations.
+- [ ] Persist local edits to `IndexedDB` (`y-indexeddb`) so offline edits merge automatically without data loss upon WebSocket reconnection.
+- [ ] Compact incremental binary updates (`Y.mergeUpdatesV2`) on the server to prevent unbounded database growth.
+- [ ] Authenticate every WebSocket upgrade and enforce room-level RBAC/ReBAC permissions before broadcasting state vectors.
 
 ## Orchestration & Integration
 - `senior-frontend` — React 19 UI component bindings, live cursor canvas, and optimistic multiplayer rendering.
@@ -59,9 +147,7 @@ yarray.observe(event => {
 - `state-management-expert` — Integrating CRDT state with client-side reactive stores.
 - `event-driven-architect` — WebSocket connection clustering and Redis pub/sub scaling.
 - `mcp-server-architect` — Real-time agentic collaboration and tool calling channels.
-
-### Trigger Conditions
-Active whenever the user is building multiplayer features, live cursors, document co-editing, real-time chats, or working with WebSockets, Yjs, or WebRTC.
+- `reactive-sync-engine-expert` — Combining unstructured CRDT documents with relational Postgres sync shapes.
 
 ---
 
@@ -69,38 +155,13 @@ Active whenever the user is building multiplayer features, live cursors, documen
 ## Bahasa Indonesia
 
 ### Deskripsi
-Panduan ahli untuk mengimplementasikan fitur kolaborasi real-time dan *multiplayer* pada aplikasi web. Mencakup Conflict-free Replicated Data Types (CRDTs) seperti Yjs/Automerge, WebSockets, WebRTC, dan layanan terkelola seperti Liveblocks atau Pusher.
+Panduan rekayasa produksi untuk membangun fitur kolaborasi real-time dan *multiplayer* bebas konflik. Mencakup CRDT berbasis state dan operasi (`Yjs`, `Automerge`, `Loro`), protokol kehadiran (*awareness*) efemeral, persistensi offline `IndexedDB`, serta server sinkronisasi WebSocket dengan kompaksi biner.
 
-### Instruksi
-- **CRDT untuk State**: Gunakan CRDT (misalnya `yjs` atau `automerge`) daripada Operational Transformation (OT) untuk menangani *state* terdistribusi dan pengeditan dokumen secara bersamaan dengan lancar.
-- **Ketahanan Koneksi**: Selalu terapkan logika penyambungan ulang otomatis dengan *exponential backoff* untuk WebSockets. Tangani *offline state* dengan baik dengan menyinkronkan perubahan lokal setelah tersambung kembali.
-- **Presence & Awareness**: Terapkan indikator kehadiran (siapa yang sedang online, posisi kursor) yang dipisahkan dari status dokumen inti untuk mengurangi *overhead* bandwidth dan penyimpanan.
-- **Keamanan Real-time**: Lakukan autentikasi dan otorisasi setiap koneksi WebSocket pada saat tersambung dan validasi semua pesan *socket* yang masuk untuk mencegah *payload* berbahaya.
-- **Skalabilitas**: Perhatikan batas penyiaran (broadcasting) pesan. Gunakan Redis Pub/Sub atau *message broker* serupa saat meningkatkan (scaling) server WebSocket di beberapa instans.
-
-### Checklist Implementasi
-- [ ] Pilih pustaka CRDT (Yjs/Automerge) dan provider yang sesuai (WebSockets, WebRTC, Liveblocks).
-- [ ] Inisialisasi state dokumen bersama dan ikat ke komponen UI frontend (misal: ProseMirror, Monaco).
-- [ ] Implementasikan presence (kesadaran) untuk menyiarkan posisi kursor dan daftar pengguna aktif.
-- [ ] Tangani state offline dengan melakukan buffer perubahan lokal dan sinkronisasi ulang saat terhubung kembali.
-
-### Contoh: Yjs dengan Provider WebSocket
-```javascript
-import * as Y from 'yjs'
-import { WebsocketProvider } from 'y-websocket'
-
-// 1. Inisialisasi dokumen Yjs bersama
-const ydoc = new Y.Doc()
-
-// 2. Hubungkan ke ruangan WebSocket
-const provider = new WebsocketProvider('ws://localhost:1234', 'nama-ruangan-saya', ydoc)
-
-// 3. Berbagi state (misal: array pesan chat)
-const yarray = ydoc.getArray('messages')
-yarray.observe(event => {
-  console.log('Pesan diperbarui:', yarray.toArray())
-})
-```
+### Checklist Verifikasi Produksi
+- [ ] Gunakan CRDT (`Yjs` / `Loro`) dengan koleksi sampah aktif (`gc: true`) dan simpan perubahan lokal di `IndexedDB` agar tetap berjalan saat offline.
+- [ ] Pisahkan siaran posisi kursor (*awareness* yang di-throttle dengan `requestAnimationFrame`) dari state dokumen inti.
+- [ ] Lakukan kompaksi berkala pada update biner (`Y.mergeUpdatesV2`) di sisi server agar tabel database tidak membengkak.
+- [ ] Validasi token autentikasi dan otorisasi ruangan pada saat jabat tangan WebSocket.
 
 ## Integrasi Orkestrasi
 - `senior-frontend` — Binding komponen UI React 19, kanvas kursor langsung, dan rendering multiplayer optimistik.
@@ -112,6 +173,4 @@ yarray.observe(event => {
 - `state-management-expert` — Integrasi state CRDT dengan store reaktif sisi klien.
 - `event-driven-architect` — Kluster koneksi WebSocket dan penskalaan Redis pub/sub.
 - `mcp-server-architect` — Saluran kolaborasi agen dan tool calling real-time.
-
-### Kondisi Pemicu
-Aktif setiap kali pengguna sedang membangun fitur *multiplayer*, kursor langsung (live cursors), pengeditan dokumen bersama, obrolan real-time, atau bekerja dengan WebSockets, Yjs, atau WebRTC.
+- `reactive-sync-engine-expert` — Menggabungkan dokumen CRDT dengan replikasi relasional Postgres.

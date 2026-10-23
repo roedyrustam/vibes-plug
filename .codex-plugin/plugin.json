@@ -1,7 +1,7 @@
 {
   "name": "vibes-plug",
   "version": "4.4.2",
-  "description": "Universal AI plugin with 161 specialized skills for Antigravity, Claude, Cursor, and OpenAI Codex.",
+  "description": "Universal AI Agent Swarm & MCP plugin with 171 specialized skills and 8 autonomous subagents for Antigravity, Claude Code, Cursor, and OpenAI Codex.",
   "homepage": "https://github.com/roedyrustam/vibes-plug",
   "keywords": [
     "ai",

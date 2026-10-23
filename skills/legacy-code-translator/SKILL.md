@@ -3,7 +3,6 @@ name: legacy-code-translator
 description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
 # Legacy Code Translator (Strangler Fig & Refactoring Engine)
@@ -18,54 +17,30 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Upstream & Reverse Engineering**: `prd-architect` (document reverse-engineered business rules into `PRD.md`), `brainstorming`, `session-memory-manager`.
 - **AST & Codebase Intelligence**: `living-codebase-ast-graph` (module dependencies & blast radius), `scalability-clean-code` (Clean Architecture boundaries), `typescript-expert` (strict type contracts).
-- **Backend & Database Migration**: `database-orm-expert` (legacy SQL to Prisma/Drizzle schemas), `js-backend-expert` (Bun/Hono targets), `go-programming-expert` / `rust-programming-expert`.
+- **Backend & Database Migration**: `database-orm-expert` (legacy SQL to Prisma/Drizzle schemas), `mvc-expert` (modernizing legacy PHP MVC codebases), `js-backend-expert` (Bun/Hono targets), `go-programming-expert` / `rust-programming-expert`.
 - **Testing & Anti-Slop Gates**: `autonomous-tdd-debugger` (shadow execution comparison suites), `anti-slop` (zero truncation, no stubbed mocks), `zero-tech-debt-auditor`.
 
 ### Description
-A systematic, risk-mitigated engineering methodology for migrating large, business-critical legacy codebases (PHP 5/7, Python 2, jQuery, old React Class Components, AngularJS) to modern 2026 enterprise stacks (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) without business downtime or regression. Employs the Strangler Fig pattern, Shadow Execution Harnesses, and AST-driven module decomposition to prevent context exhaustion and hallucinated logic.
+A systematic, risk-mitigated engineering methodology for migrating large, business-critical legacy codebases (PHP 5/7, Python 2, jQuery, old React Class Components, AngularJS) to modern 2026 enterprise stacks (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) without business downtime or regression. Employs the **Strangler Fig pattern**, **Shadow Execution Harnesses**, and **Golden Master Characterization Tests**.
 
-### Trigger Conditions
-- Large-scale framework migrations (e.g., PHP monolith -> Next.js + Bun/Hono microservices).
-- Translating legacy scripts across languages (e.g., Python 2/3 CPU-bound routines -> Rust/Go).
-- Refactoring sprawling React Class components (>1,000 lines) into modern hooks and Server Components.
-- Decoupling legacy database queries from direct presentation templates.
+### 1. Legacy Modernization Strategy Matrix
 
-### The 4-Phase Strangler Migration Protocol
+| Legacy Source | Target 2026 Stack | Strangler Seam / Proxy | Critical Edge Case to Preserve |
+| :--- | :--- | :--- | :--- |
+| **PHP 5/7 Spaghetti / Old MVC** | **TypeScript (Hono / Next.js) or Go** | Reverse Proxy route-by-route split (`/api/v2/*` $\rightarrow$ new) | PHP implicit float/string coercion & `round()` half-up behavior in billing |
+| **Python 2 / Untyped Monolith** | **Python 3.13+ (FastAPI + Pydantic v2) or Rust** | Message Queue consumer shadow fork | Integer division `/` vs `//` semantics and timezone-naive timestamps |
+| **jQuery / React 15 Class Components** | **React 19 RSC + Tailwind v4** | Micro-Frontend Island mount or route-level cutover | URL query parameter state and keyboard tab-order workflows |
 
-```
-┌────────────────────────────────────────────────────────┐
-│ 1. MAP & ISOLATE (AST Boundary Definition)             │
-│    Document I/O contracts in `migration_plan.md`       │
-└───────────────────────────┬────────────────────────────┘
-                            │
-                            ▼
-┌────────────────────────────────────────────────────────┐
-│ 2. SHADOW HARNESS IMPLEMENTATION                       │
-│    Run legacy and new code in parallel; log diffs      │
-└───────────────────────────┬────────────────────────────┘
-                            │
-                            ▼
-┌────────────────────────────────────────────────────────┐
-│ 3. SIDE-BY-SIDE REFACTORING (Function-by-Function)     │
-│    Maintain old file while building typed modern clone │
-└───────────────────────────┬────────────────────────────┘
-                            │
-                            ▼
-┌────────────────────────────────────────────────────────┐
-│ 4. TRAFFIC CUTOVER & CLEANUP                           │
-│    100% parity verified ──► Deprecate legacy file      │
-└────────────────────────────────────────────────────────┘
-```
-
-### Shadow Testing Harness Example (TypeScript)
+### 2. Shadow Testing & Parity Verification Harness (TypeScript)
+Run the legacy implementation (ground truth) and modern implementation concurrently on live traffic, logging structural discrepancies without impacting customer responses until `100%` parity is proven:
 
 ```typescript
 // src/migration/shadow-harness.ts
-export interface ShadowComparison<T> {
-  legacyOutput: T;
-  modernOutput: T;
+export interface ShadowComparison<TOutput> {
+  legacyOutput: TOutput;
+  modernOutput: TOutput | null;
   isMatch: boolean;
-  discrepancies?: string[];
+  latencyDeltaMs: number;
 }
 
 export async function executeWithShadowTesting<TInput, TOutput>(
@@ -74,41 +49,42 @@ export async function executeWithShadowTesting<TInput, TOutput>(
   modernFn: (data: TInput) => Promise<TOutput>,
   onDiscrepancy?: (diff: ShadowComparison<TOutput>) => void
 ): Promise<TOutput> {
-  // 1. Run legacy function as ground truth for customer
-  const legacyPromise = legacyFn(input);
+  const t0 = performance.now();
+  const legacyPromise = legacyFn(input).then((res) => ({
+    res,
+    ms: performance.now() - t0,
+  }));
 
-  // 2. Execute modern implementation in shadow mode (non-blocking)
-  const modernPromise = modernFn(input).catch((err) => {
-    console.error('[Shadow-Harness] Modern function threw error:', err);
-    return null as unknown as TOutput;
-  });
+  const modernStart = performance.now();
+  const modernPromise = modernFn(input)
+    .then((res) => ({ ok: true as const, res, ms: performance.now() - modernStart }))
+    .catch((err: unknown) => {
+      console.error('[Shadow-Harness] Modern candidate threw error:', err);
+      return { ok: false as const, res: null, ms: performance.now() - modernStart };
+    });
 
-  const [legacyResult, modernResult] = await Promise.all([legacyPromise, modernPromise]);
+  const [legacy, modern] = await Promise.all([legacyPromise, modernPromise]);
+  const isMatch =
+    modern.ok && JSON.stringify(legacy.res) === JSON.stringify(modern.res);
 
-  // 3. Compare JSON representation for structural equality
-  const legacyJson = JSON.stringify(legacyResult);
-  const modernJson = JSON.stringify(modernResult);
-
-  if (legacyJson !== modernJson) {
-    const diffReport: ShadowComparison<TOutput> = {
-      legacyOutput: legacyResult,
-      modernOutput: modernResult,
+  if (!isMatch && onDiscrepancy) {
+    onDiscrepancy({
+      legacyOutput: legacy.res,
+      modernOutput: modern.res,
       isMatch: false,
-    };
-    if (onDiscrepancy) onDiscrepancy(diffReport);
-    console.warn('[Shadow-Harness] Discrepancy detected between legacy and modern outputs.');
+      latencyDeltaMs: Math.round(modern.ms - legacy.ms),
+    });
   }
 
-  // Always return the legacy result during the shadow probation phase
-  return legacyResult;
+  return legacy.res;
 }
 ```
 
-### The 4 Non-Negotiable Agent Constraints
-1. **Never Overwrite In-Place**: Never directly modify or delete the legacy source file during initial drafting. Always create the modernized file side-by-side (`order-calc.legacy.php` -> `order-calc.service.ts`).
-2. **Context Window Token Slicing**: Never attempt to translate a file exceeding 400 lines in a single turn. Decompose the module by distinct subroutines or AST nodes to prevent hallucinated truncations (`// ...rest of code`).
-3. **Preserve "Quirks as Features"**: Legacy edge cases (e.g., custom rounding rules or implicit type coercion) are often relied upon by downstream billing systems. Document and preserve them with explicit regression tests.
-4. **Enforce Type Contracts**: The modern code MUST be 100% strictly typed (no `any`, no phantom SDK imports).
+### 3. Production Verification Checklist
+- [ ] **Golden Master Characterization Tests**: Capture `50+` real input/output fixtures from the legacy code before writing a single line of replacement code.
+- [ ] **Never Overwrite In-Place**: Build the modernized module side-by-side (`order-calc.legacy.php` $\rightarrow$ `order-calc.service.ts`) so the original remains intact for diffing and rollback.
+- [ ] **Token Slicing (`<= 400 lines/turn`)**: Decompose giant legacy files by AST function boundaries to guarantee 100% complete translations with zero `// TODO` or `// ...` truncations.
+- [ ] **Shadow Parity Gate**: Require `0` discrepancies across at least `1,000` shadow executions before flipping primary traffic to the modern service.
 
 ---
 
@@ -118,32 +94,14 @@ export async function executeWithShadowTesting<TInput, TOutput>(
 ### Integrasi Orkestrasi
 - **Hulu & Rekayasa Balik**: `prd-architect` (dokumentasi aturan bisnis ke `PRD.md`), `brainstorming`, `session-memory-manager`.
 - **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (dependensi modul & radius dampak), `scalability-clean-code` (batas Clean Architecture), `typescript-expert` (kontrak tipe ketat).
-- **Migrasi Backend & Database**: `database-orm-expert` (SQL lama ke skema Prisma/Drizzle), `js-backend-expert` (target Bun/Hono), `go-programming-expert` / `rust-programming-expert`.
+- **Migrasi Backend & Database**: `database-orm-expert` (SQL lama ke skema Prisma/Drizzle), `mvc-expert` (modernisasi codebase PHP MVC), `js-backend-expert` (target Bun/Hono), `go-programming-expert` / `rust-programming-expert`.
 - **Pengujian & Gerbang Anti-Slop**: `autonomous-tdd-debugger` (suite komparasi shadow execution), `anti-slop` (nol pemotongan kode, tanpa stub pura-pura), `zero-tech-debt-auditor`.
 
 ### Deskripsi
-Metodologi rekayasa sistematis dan aman bagi agen AI untuk memigrasikan basis kode warisan (*legacy codebase*) skala besar (PHP 5/7, Python 2, jQuery, React Class Component lawas) ke stack modern 2026 (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) tanpa gangguan operasional (*zero downtime*) dan tanpa regresi logika bisnis. Menerapkan pola *Strangler Fig*, *Shadow Execution*, dan dekomposisi berbasis pohon sintaks (AST).
+Metodologi rekayasa sistematis bagi agen AI untuk memigrasikan basis kode warisan (*legacy codebase*) skala besar (PHP 5/7, Python 2, jQuery, React Class Component lawas) ke stack modern 2026 (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) tanpa gangguan operasional (*zero downtime*) menggunakan pola *Strangler Fig*, *Shadow Execution*, dan *Golden Master Testing*.
 
-### Kondisi Pemicu
-- Migrasi skala besar (misal: monolit PHP lawas ke microservices Next.js + Bun/Hono).
-- Penerjemahan kode antar bahasa (misal: skrip kalkulasi Python lambat ke modul Go/Rust berkecepatan tinggi).
-- Pemecahan komponen React Class raksasa (>1.000 baris) menjadi Server Components dan hooks modular.
-- Pemisahan kueri database yang menempel langsung pada file template HTML/PHP.
-
-### 4 Aturan Ketat Agen Selama Migrasi
-1. **Dilarang Menimpa File Asli Secara Langsung**: Jangan pernah langsung mengedit atau menghapus file lama pada langkah pertama. Buat file baru bersisian (`UserService.legacy.php` -> `user-service.ts`) agar kode lama tetap menjadi acuan kebenaran.
-2. **Pecah File Raksasa (Token Slicing)**: Jangan pernah meminta LLM menerjemahkan file di atas 400 baris dalam satu giliran. Pecah per fungsi atau blok logika untuk menghindari pemotongan kode (`// TODO: sisa kode`).
-3. **Hargai Perilaku Khusus (Quirks)**: Seringkali kejanggalan pada kode lama (misal: pembulatan desimal khusus) merupakan aturan bisnis yang disengaja. Jangan ubah aturan tersebut tanpa bukti pengujian (*regression test*).
-4. **Wajib Type-Safe**: Seluruh kode baru wajib menggunakan TypeScript mode ketat tanpa `any`.
-
-### Pola Pengujian Bayangan (Shadow Testing)
-
-```typescript
-// Membandingkan output kode lama vs baru secara real-time
-const total = await executeWithShadowTesting(
-  cartData,
-  (cart) => hitungTotalLegacyPHP(cart),
-  (cart) => hitungTotalModernTS(cart),
-  (diff) => catatKeLogMonitoring(diff)
-);
-```
+### Checklist Verifikasi Produksi
+- [ ] **Golden Master Fixtures**: Rekam minimal 50 pasang input/output asli dari sistem lama sebagai pengujian regresi sebelum menulis kode baru.
+- [ ] **Dilarang Menimpa File Asli Secara Langsung**: Bangun modul baru secara berdampingan agar kode lama tetap menjadi acuan kebenaran selama masa transisi.
+- [ ] **Pecah File Raksasa (Token Slicing)**: Terjemahkan per fungsi/subrutin (`<= 400` baris per giliran) untuk menghindari pemotongan kode.
+- [ ] **Verifikasi Shadow Testing**: Pastikan hasil keluaran fungsi baru 100% identik dengan fungsi lama sebelum memindahkan trafik utama.

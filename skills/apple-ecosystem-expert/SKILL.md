@@ -3,7 +3,6 @@ name: apple-ecosystem-expert
 description: "Expert guide for Apple Ecosystem development. Covers iOS support, Safari WebKit compatibility, PWAs (Progressive Web Apps) for iOS, and Human Interface Guidelines (HIG) for web and native apps / Panduan ahli pengembangan ekosistem Apple (iOS & Web)."
 author: "Roedy Rustam"
 version: "4.4.2"
-
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill
@@ -25,78 +24,105 @@ version: "4.4.2"
 - `visual-ui-auditor`: Multimodal vision auditing of iOS Safari interfaces and touch targets.
 - `anti-slop`: Anti-slop iOS UI craft, zero generic Android-style controls in iOS contexts.
 - `mobile-expo-expert`: Cross-platform React Native / Expo iOS implementations.
+- `passkeys-webauthn-identity-expert`: iCloud Keychain Passkeys, Associated Domains, and FaceID/TouchID WebAuthn.
 
 ### Description
-Expert guide for Apple Ecosystem development. Covers Safari WebKit compatibility, Progressive Web Apps (PWAs) tailored for iOS, touch interactions, `manifest.json` configurations, and applying Human Interface Guidelines (HIG) principles to web and iOS applications.
+Expert engineering guide for Apple Ecosystem development across iOS 18+, iPadOS, macOS Safari WebKit, and Home Screen Web Apps (PWAs). Covers Safari WebKit layout invariants, Dynamic Island & Home Indicator safe areas, Web Push via APNs (`PushManager`), Universal Links (`apple-app-site-association`), and Apple Human Interface Guidelines (HIG).
 
-### Trigger Conditions
-Activate this skill when the user is:
-- Asking for Safari browser compatibility or fixing WebKit bugs.
-- Developing PWAs or web apps targeting iOS/iPadOS devices.
-- Asking about `apple-touch-icon`, `apple-mobile-web-app-capable`, or related meta tags.
-- Building UI elements that need to look and feel native on Apple devices.
+### 1. Safari WebKit & iOS Platform Compatibility Matrix
 
----
+| Feature / Behavior | iOS Safari / WebKit Quirk | 2026 Production Standard |
+| :--- | :--- | :--- |
+| **Viewport Height** | `100vh` includes area behind collapsible URL bar, clipping bottom CTAs | Use `100dvh` for interactive shells and `100svh` for fixed modals |
+| **Input Auto-Zoom** | Safari forcefully zooms the page if `<input>` font-size is `< 16px` | Enforce `font-size: max(16px, 1rem)` on all form inputs on mobile breakpoints |
+| **Notch & Home Indicator** | Edge-to-edge layouts overlap the Dynamic Island or bottom gesture bar | Set `viewport-fit=cover` + `padding-bottom: max(1rem, env(safe-area-inset-bottom))` |
+| **iOS Web Push (APNs)** | Requires Home Screen installation (`display: standalone`) and user gesture | Gate `Notification.requestPermission()` behind an explicit settings button tap |
+| **Passkeys & Universal Links** | Requires verified domain association without redirects | Serve `/.well-known/apple-app-site-association` with `application/json` MIME |
 
-### Core Concepts
-
-#### 1. iOS PWA & Meta Tags
-To ensure a web application looks and acts like a native app on iOS when added to the home screen, include these specific meta tags and configurations:
+### 2. Production iOS Standalone PWA & Safe-Area Shell
+Include `viewport-fit=cover` and detect standalone mode reliably to adapt navigation bars and Web Push prompts:
 
 ```html
-<!-- iOS Safari PWA Meta Tags -->
+<!-- Head configuration for iOS 18+ Standalone Web App -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="App Title" />
-<link rel="apple-touch-icon" href="/icon-192x192.png" />
-<!-- Support for splash screens requires specific sizes, consider using PWA asset generators -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="VibesApp" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
 ```
 
-#### 2. Safari WebKit CSS Quirks
-Safari (WebKit) has distinct behavior for viewport sizing and scrolling.
-
-| CSS Feature | WebKit Problem | Solution / Workaround |
-|---|---|---|
-| `100vh` | Ignores the bottom navigation bar on mobile Safari, causing overflow. | Use `100dvh` (Dynamic Viewport Height) or safe area insets. |
-| Over-scrolling | "Rubber-banding" effect reveals background on scroll limits. | `overscroll-behavior: none;` on `body`. |
-| Safe Area | Notches and Dynamic Islands block content. | Use `env(safe-area-inset-bottom)`, `env(safe-area-inset-top)`. |
-
 ```css
-/* Example: Handling safe area and dynamic viewport height */
-.container {
-  height: 100dvh;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
+/* src/styles/apple-webkit-safe.css */
+:root {
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+.ios-app-shell {
+  min-height: 100dvh;
+  padding-top: var(--safe-top);
+  padding-bottom: max(0.75rem, var(--safe-bottom));
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  overscroll-behavior-y: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent iOS Safari involuntary zoom on input focus */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
 }
 ```
 
-#### 3. Touch and Interactions
-To achieve native feel on iOS, touch interactions must be smooth. Use CSS properties like `-webkit-tap-highlight-color: transparent;` to remove the default grey tap highlight.
+### 3. iOS Standalone Detection & Web Push Subscription Helper (TypeScript)
+
+```typescript
+// src/lib/ios-pwa-capabilities.ts
+export interface IosEnvironmentStatus {
+  isIosDevice: boolean;
+  isStandalonePwa: boolean;
+  supportsWebPush: boolean;
+}
+
+export function detectIosCapabilities(): IosEnvironmentStatus {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return { isIosDevice: false, isStandalonePwa: false, supportsWebPush: false };
+  }
+
+  const ua = navigator.userAgent;
+  const isIosDevice =
+    /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const isStandalonePwa =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    Boolean((navigator as Navigator & { standalone?: boolean }).standalone);
+
+  const supportsWebPush =
+    'serviceWorker' in navigator &&
+    'PushManager' in window &&
+    'Notification' in window &&
+    (!isIosDevice || isStandalonePwa);
+
+  return { isIosDevice, isStandalonePwa, supportsWebPush };
+}
+```
+
+### 4. Production Verification Checklist
+- [ ] All full-height containers use `100dvh` / `100svh` instead of legacy `100vh`.
+- [ ] All `<input>`, `<select>`, and `<textarea>` elements render at `>= 16px` font size on mobile to prevent Safari auto-zoom.
+- [ ] Interactive controls enforce a minimum hit target of `44x44pt` in accordance with Apple HIG.
+- [ ] `env(safe-area-inset-*)` variables protect top headers and bottom navigation bars from Dynamic Island and Home Indicator overlap.
+- [ ] `/.well-known/apple-app-site-association` is served over HTTPS with `Content-Type: application/json` and zero HTTP redirects.
 
 ---
-
-### Best Practices
-
-1. **Always use Dynamic Viewports (`dvh`, `svh`, `lvh`):** Standard `vh` in mobile Safari causes layout shifts or hidden content due to the dynamic browser UI.
-2. **Handle Safe Areas:** Utilize CSS `env()` variables to avoid content overlapping with the iOS notch or home indicator.
-3. **Optimized Touch Targets:** Apple HIG dictates a minimum touch target size of 44x44 pt. Ensure buttons are easily clickable.
-4. **PWA Icons and Manifest:** iOS does not fully respect standard `manifest.json` icons; you must provide `<link rel="apple-touch-icon">` explicitly.
-
----
-
-### Common Pitfalls to Avoid
-
-| Anti-Pattern | Problem | Correct Approach |
-|---|---|---|
-| Using `100vh` for full screen apps | Bottom content gets hidden under Safari's tab bar. | Use `100dvh`. |
-| Ignoring `-webkit-appearance` | Buttons/inputs look like default iOS forms instead of custom UI. | Set `-webkit-appearance: none;` on form elements. |
-| Relying only on `manifest.json` for PWA icons | iOS won't use them for the "Add to Home Screen" icon. | Include `<link rel="apple-touch-icon" href="...">`. |
-
----
-
-
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -111,22 +137,13 @@ To achieve native feel on iOS, touch interactions must be smooth. Use CSS proper
 - `visual-ui-auditor`: Audit visual multimodal untuk antarmuka Safari iOS dan target sentuh.
 - `anti-slop`: Desain UI iOS anti-slop, nol kontrol generik gaya Android di konteks iOS.
 - `mobile-expo-expert`: Implementasi React Native / Expo untuk platform iOS.
+- `passkeys-webauthn-identity-expert`: Integrasi Passkeys iCloud Keychain, Associated Domains, dan FaceID/TouchID.
 
 ### Deskripsi
-Panduan ahli untuk pengembangan ekosistem Apple. Mencakup kompatibilitas Safari WebKit, Progressive Web Apps (PWA) khusus iOS, interaksi sentuhan, konfigurasi `manifest.json`, dan penerapan prinsip Human Interface Guidelines (HIG) untuk web dan aplikasi iOS.
+Panduan rekayasa ahli untuk pengembangan ekosistem Apple di iOS 18+, iPadOS, macOS Safari WebKit, dan PWA Home Screen. Mencakup aturan tata letak Safari WebKit, safe area Dynamic Island, Web Push melalui APNs, Universal Links (`apple-app-site-association`), dan standar Apple HIG.
 
-### Kondisi Pemicu
-Aktifkan skill ini ketika pengguna sedang:
-- Menanyakan kompatibilitas browser Safari atau memperbaiki bug WebKit.
-- Mengembangkan PWA atau aplikasi web yang menargetkan perangkat iOS/iPadOS.
-- Menanyakan tentang `apple-touch-icon`, meta tag PWA iOS, atau safe area.
-- Membangun elemen UI agar terlihat dan terasa *native* di ekosistem Apple.
-
-### Panduan Singkat
-
-Panduan praktis untuk dukungan Ekosistem Apple (iOS & Web):
-
-- **[Gunakan `100dvh`]:** Jangan pernah gunakan `100vh` di web app iOS, gunakan `100dvh` (Dynamic Viewport Height) agar tidak tertutup navigation bar Safari.
-- **[Meta Tag PWA Khusus]:** Wajib menggunakan `<link rel="apple-touch-icon">` dan `<meta name="apple-mobile-web-app-capable" content="yes">` agar PWA berjalan optimal saat ditambahkan ke Home Screen.
-- **[Safe Area]:** Terapkan padding `env(safe-area-inset-top)` dsb, untuk menghindari notch (poni) dan Dynamic Island iPhone.
-- **[Touch Targets HIG]:** Area sentuh minimum untuk elemen interaktif di iOS adalah 44x44 points.
+### Checklist Verifikasi Produksi
+- [ ] Gunakan `100dvh` (Dynamic Viewport Height) agar elemen bawah tidak tertutup bilah navigasi Safari.
+- [ ] Pastikan ukuran font `<input>`, `<select>`, dan `<textarea>` minimal `16px` di layar mobile untuk mencegah auto-zoom Safari.
+- [ ] Terapkan `env(safe-area-inset-top)` dan `env(safe-area-inset-bottom)` dengan `viewport-fit=cover`.
+- [ ] Pastikan seluruh tombol memiliki area sentuh minimal `44x44pt` sesuai standar Apple HIG.

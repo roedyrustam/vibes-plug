@@ -1,6 +1,12 @@
 {
-  "total": 161,
+  "total": 171,
   "skills": [
+    {
+      "name": "a2a-agent-protocol-expert",
+      "description": "Expert guide for Agent-to-Agent (A2A) Protocol interoperability, /.well-known/agent.json Agent Cards, cross-vendor swarm task negotiation, and bridging A2A with Model Context Protocol (MCP) / Panduan ahli protokol interoperabilitas antar-agen (A2A), Agent Cards, dan integrasi A2A + MCP.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
     {
       "name": "accessibility-testing-expert",
       "description": "Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance / Panduan ahli pengujian aksesibilitas web.",
@@ -230,6 +236,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "computer-use-os-agent-expert",
+      "description": "Expert guide for Computer-Using Agents (CUA), OS/Desktop GUI automation, normalized pixel-coordinate grounding, isolated VM/Container sandboxing, and human-in-the-loop safety gates / Panduan ahli agen pengguna komputer (CUA), otomasi GUI OS/Desktop, grounding koordinat piksel, dan sandbox VM terisolasi.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "context-window-engineer",
       "description": "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, and Grok 4.7 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, dan Grok 4.7 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya.",
       "version": "4.4.2",
@@ -320,6 +332,18 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "double-entry-ledger-fintech-expert",
+      "description": "Expert guide for immutable Double-Entry Accounting Ledgers, TigerBeetle integration, append-only financial journals, multi-currency integer math, escrow holds, and automated daily balance reconciliation / Panduan ahli buku besar akuntansi Double-Entry permanen, TigerBeetle, jurnal keuangan append-only, dan rekonsiliasi saldo otomatis.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "durable-agent-execution-expert",
+      "description": "Expert guide for crash-resilient Durable Agent Execution, Temporal AI workflows, Restate, Cloudflare Workflows, deterministic tool replay, and human-in-the-loop pause/resume sagas / Panduan ahli eksekusi agen AI tahan-gagal (Durable Execution) dengan Temporal, Restate, dan Cloudflare Workflows.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "e2e-testing-expert",
       "description": "Expert guide for End-to-End (E2E) testing with Playwright 1.50+, Clock API, ARIA snapshots, test fixtures, and Vitest 3+ / Panduan ahli pengujian E2E dengan Playwright 1.50+, Clock API, ARIA snapshots, dan Vitest 3+.",
       "version": "4.4.2",
@@ -364,6 +388,12 @@
     {
       "name": "feature-flag-analytics-expert",
       "description": "Expert guide for Feature Flags & Progressive Rollout (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases / Panduan ahli Feature Flags, A/B testing, dan rilis bertahap.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "fga-rebac-authorization-expert",
+      "description": "Expert guide for Fine-Grained Authorization (FGA), Google Zanzibar Relationship-Based Access Control (OpenFGA, SpiceDB, Permify), Cedar policy engines, and permission-aware RAG retrieval / Panduan ahli otorisasi granular ReBAC (OpenFGA, SpiceDB) dan retrieval RAG sadar-izin.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -482,6 +512,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "kubernetes-gitops-platform-expert",
+      "description": "Expert guide for Production Kubernetes & GitOps Platform Engineering (ArgoCD ApplicationSets, Cilium eBPF NetworkPolicies, KEDA Autoscaling, Gateway API, and Pod Security Standards) / Panduan ahli rekayasa platform Kubernetes & GitOps produksi dengan ArgoCD, Cilium eBPF, dan KEDA.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "kv-cache-prefix-optimizer",
       "description": "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Argon/Pro, Claude 5.5 (Sonnet/Opus) / 5.1 Fable, GPT-5.6 Sol, and Grok 4.7, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik.",
       "version": "4.4.2",
@@ -596,6 +632,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "olap-columnar-analytics-expert",
+      "description": "Expert guide for Real-Time OLAP & Columnar Analytics (ClickHouse, DuckDB WASM/Node, Apache Iceberg, Materialized Views, and Wide-Event Telemetry) / Panduan ahli analitik kolumnar OLAP real-time, ClickHouse, DuckDB, dan Apache Iceberg.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "openapi-swagger-codegen-expert",
       "description": "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak.",
       "version": "4.4.2",
@@ -604,6 +646,12 @@
     {
       "name": "parallel-tool-orchestrator",
       "description": "Expert guide for parallel tool execution, MCP batching (vibes_batch), asynchronous Promise.allSettled pipelines, subagent concurrent fan-out, and latency-optimized tool calling loops / Panduan ahli eksekusi tool paralel dan batching MCP.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "passkeys-webauthn-identity-expert",
+      "description": "Expert guide for FIDO2 / WebAuthn Level 3 Passkeys, SimpleWebAuthn, Conditional UI autofill, step-up cryptographic authentication for FinTech, and DPoP token binding / Panduan ahli autentikasi tanpa kata sandi Passkeys (WebAuthn L3 / FIDO2) dan DPoP.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
@@ -686,6 +734,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "reactive-sync-engine-expert",
+      "description": "Expert guide for Linear-style Reactive Sync Engines (Zero by Rocicorp, ElectricSQL, PowerSync), Postgres Logical Replication to IndexedDB/SQLite, sub-millisecond optimistic mutations, and server reconciliation / Panduan ahli mesin sinkronisasi reaktif gaya Linear, replikasi logis Postgres ke klien, dan mutasi optimis instan.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "realtime-collaboration-expert",
       "description": "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time.",
       "version": "4.4.2",
@@ -718,6 +772,12 @@
     {
       "name": "saas-multi-tenant",
       "description": "Design and implement multi-tenant SaaS architectures with RLS, tenant isolation, and PostgreSQL / Desain dan implementasikan arsitektur SaaS multi-tenant dengan RLS, isolasi tenant, dan PostgreSQL.",
+      "version": "4.4.2",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "sbom-supply-chain-security-expert",
+      "description": "Expert guide for Software Supply Chain Security, CycloneDX/SPDX SBOM generation, Sigstore Cosign keyless signing, SLSA Level 3 provenance attestation, and dependency lockfile hardening / Panduan ahli keamanan rantai pasok perangkat lunak, SBOM CycloneDX, Sigstore Cosign, dan SLSA Level 3.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
     },
