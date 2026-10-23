@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.3] - 2026-10-24
+
+### Security / Keamanan
+- **Critical Security Remediation (GHSA-f63r-xxp2-3m23 / CWE-306)**:
+  - **Loopback Host Binding**: Enforced strict `127.0.0.1` binding on Studio Cockpit (`scripts/studio-server.mjs`) and Remote MCP SSE transport (`bin/mcp-server.mjs`), closing unauthenticated network listener exposure on `0.0.0.0`.
+  - **Untrusted Cross-Origin Gate**: Blocked DNS rebinding and cross-site request attacks by rejecting incoming cross-origin requests from untrusted origins with `403 Forbidden`.
+  - **Test Runner Command Allowlist & Metacharacter Sanitization**: Implemented `validateTestCommand()` in `scripts/self-healer.mjs` with `ALLOWED_TEST_RUNNERS` whitelist. Completely prohibited shell metacharacters (`; & | \` $ > < \\ !`) and newlines in `/api/heal/diagnose` and MCP `vibes_self_heal`.
+  - **Automated Regression Tests**: Added end-to-end regression test suite verifying rejection of arbitrary command execution, unauthorized binaries, and untrusted cross-origin requests.
+  - **Security Policy Update**: Hardened execution boundary guarantees in `SECURITY.md`.
+  - *Credit*: Discovered and responsibly reported by Artur Chlebicki ([@Artur12555](https://github.com/Artur12555)).
+
+---
+
 ## [4.4.2] - 2026-10-23
 
 ### Added / Ditambahkan
