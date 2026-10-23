@@ -761,12 +761,131 @@ export function initShowcase() {
   filterSkills();
   renderTopology('fan-out');
   renderBridgeCode('antigravity');
+  initHero3dSwarmCore();
 
   // Welcome terminal line
   appendTerminalLine(`
 <span class="term-badge term-badge-cyan">VIBES-PLUG v4.4.2</span> Sovereign AI Agent Swarm & Skill Ecosystem
 Type '<span class="term-cmd">help</span>' or click any preset badge above to simulate real agent workflows.
 `);
+}
+
+/**
+ * Interactive 3D Philosophical Swarm Lattice & Perspective Tilt Engine
+ * Renders 8 autonomous orbital subagent nodes in 3D space around the Sovereign Neural Plug emblem
+ */
+function initHero3dSwarmCore() {
+  const card = document.getElementById('hero3dCard');
+  const canvas = document.getElementById('hero3dSwarmCanvas');
+  if (!card || !canvas || typeof canvas.getContext !== 'function') return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let rotY = 0;
+  let rotX = 0.28;
+  let targetTiltX = 0;
+  let targetTiltY = 0;
+
+  // 8 Specialist Subagent Orbital Nodes in 3D spherical coordinates
+  const subagentNodes = [
+    { label: 'ARCH', color: '#06b6d4', orbitRadius: 96, speed: 0.014, phase: 0.0, incl: 0.35 },
+    { label: 'FULL', color: '#38bdf8', orbitRadius: 98, speed: 0.012, phase: 0.78, incl: -0.42 },
+    { label: 'QA',   color: '#10b981', orbitRadius: 94, speed: 0.015, phase: 1.57, incl: 0.52 },
+    { label: 'FIN',  color: '#f59e0b', orbitRadius: 99, speed: 0.011, phase: 2.35, incl: -0.28 },
+    { label: 'MCP',  color: '#a855f7', orbitRadius: 95, speed: 0.013, phase: 3.14, incl: 0.46 },
+    { label: 'SRE',  color: '#06b6d4', orbitRadius: 97, speed: 0.016, phase: 3.92, incl: -0.50 },
+    { label: 'DATA', color: '#10b981', orbitRadius: 93, speed: 0.012, phase: 4.71, incl: 0.22 },
+    { label: '3D',   color: '#f59e0b', orbitRadius: 100, speed: 0.014, phase: 5.49, incl: -0.36 }
+  ];
+
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+    const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+    targetTiltY = nx * 16;
+    targetTiltX = -ny * 16;
+    card.style.transform = `rotateX(${targetTiltX.toFixed(2)}deg) rotateY(${targetTiltY.toFixed(2)}deg)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    targetTiltX = 0;
+    targetTiltY = 0;
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+  });
+
+  function renderFrame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    rotY += 0.008;
+
+    const projected = subagentNodes.map((n) => {
+      n.phase += n.speed;
+      const angle = n.phase + rotY;
+      const x3d = Math.cos(angle) * n.orbitRadius;
+      const z3d = Math.sin(angle) * n.orbitRadius;
+      const y3d = Math.sin(angle * 1.5 + n.incl) * (n.orbitRadius * Math.sin(n.incl));
+
+      // Perspective projection
+      const fov = 260;
+      const scale = fov / (fov + z3d + 110);
+      return {
+        x: cx + x3d * scale,
+        y: cy + (y3d + rotX * 12) * scale,
+        z: z3d,
+        scale,
+        color: n.color
+      };
+    });
+
+    // Sort back-to-front by Z depth
+    projected.sort((a, b) => b.z - a.z);
+
+    // Draw subtle 3D synaptic filaments between neighboring front nodes
+    ctx.lineWidth = 1;
+    for (let i = 0; i < projected.length; i++) {
+      const p1 = projected[i];
+      const p2 = projected[(i + 1) % projected.length];
+      if (p1.z < 30 && p2.z < 30) {
+        ctx.strokeStyle = 'rgba(6, 182, 212, 0.22)';
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.stroke();
+      }
+    }
+
+    // Draw 3D orbital spheres
+    for (const p of projected) {
+      // Only draw nodes outside the inner core or in front of the emblem
+      const distFromCenter = Math.hypot(p.x - cx, p.y - cy);
+      if (p.z > 25 && distFromCenter < 72) continue;
+
+      const radius = Math.max(2.2, 4.8 * p.scale);
+      const alpha = p.z < 0 ? 0.92 : 0.45;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = alpha;
+      ctx.fill();
+
+      // Specular 3D highlight dot
+      ctx.beginPath();
+      ctx.arc(p.x - radius * 0.3, p.y - radius * 0.3, radius * 0.35, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.globalAlpha = alpha * 0.85;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(renderFrame);
+    }
+  }
+
+  renderFrame();
 }
 
 // Auto-run on DOM ready

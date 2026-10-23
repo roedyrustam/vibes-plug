@@ -216,7 +216,9 @@ replaceInFile('scripts/studio-server.mjs', [
   ['access the 161 skills', 'access the 171 skills'],
   ['Discover 161 skills', 'Discover 171 skills'],
   ['Synchronize 161 skills', 'Synchronize 171 skills'],
-  ['Roedy Rustam &bull; 161 Skills', 'Roedy Rustam &bull; 171 Skills']
+  ['Roedy Rustam &bull; 161 Skills', 'Roedy Rustam &bull; 171 Skills'],
+  ['<div class="brand-badge">VP</div>', '<img src="/vibes-logo.png" alt="VibesPlug 3D Logo" style="width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(6, 182, 212, 0.35); box-shadow: 0 2px 10px rgba(0,0,0,0.5);" />'],
+  ["['/styles.css', '/app.js', '/skills-data.js']", "['/styles.css', '/app.js', '/skills-data.js', '/vibes-logo.png']"]
 ]);
 
 // 5. Showcase Web App
@@ -360,6 +362,7 @@ replaceInFile('CONTRIBUTING.md', [
 ]);
 
 replaceInFile('README.md', [
+  ['**Turn any IDE into an autonomous 171-agent software development studio.**  \r\n*Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*', '**Turn any IDE into an autonomous 171-agent software development studio.**  \r\n*Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*\r\n\r\n<sub>💠 **3D Emblem Philosophy**: **Titanium Neural Plug** (Universal 6-IDE & MCP Connector) • **Obsidian Crystalline Brain** (Deterministic P1–P6 Reasoning) • **8 Orbital Spheres** (8 Specialist Subagents & 171 Domain Skills)</sub>'],
   ['161-Skill AI Agent Swarm Architecture', '171-Skill AI Agent Swarm Architecture'],
   ['161-agent software development studio', '171-agent software development studio'],
   ['161-agent%20autonomous%20software%20studio', '171-agent%20autonomous%20software%20studio'],

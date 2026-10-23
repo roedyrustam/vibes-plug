@@ -6,6 +6,8 @@
 **Turn any IDE into an autonomous 171-agent software development studio.**  
 *Zero AI Slop • Sovereign Anti-Slop Directive • Zero Tech Debt • Pure Production Velocity*
 
+<sub>💠 **3D Emblem Philosophy**: **Titanium Neural Plug** (Universal 6-IDE & MCP Connector) • **Obsidian Crystalline Brain** (Deterministic P1–P6 Reasoning) • **8 Orbital Spheres** (8 Specialist Subagents & 171 Domain Skills)</sub>
+
 <p align="center">
   <a href="https://vibes-plug.vercel.app/"><img src="https://img.shields.io/badge/Web_Showcase-Live-06b6d4?style=for-the-badge&logo=vercel&labelColor=0d1117" alt="Web Showcase" /></a>
   <a href="https://github.com/roedyrustam/vibes-plug/stargazers"><img src="https://img.shields.io/github/stars/roedyrustam/vibes-plug?style=for-the-badge&logo=github&color=FFD700&labelColor=0d1117" alt="GitHub Stars" /></a>

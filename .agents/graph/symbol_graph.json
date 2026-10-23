@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-23T11:27:11.191Z",
+  "generatedAt": "2026-10-23T11:41:43.670Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 62,
-  "totalSymbolsIndexed": 340,
+  "totalSymbolsIndexed": 343,
   "symbols": {
     "to": [
       {
@@ -857,6 +857,14 @@
         "line": 200,
         "type": "function",
         "signature": "function exportFinOpsReport(format = 'markdown')"
+      }
+    ],
+    "build_3d_logos": [
+      {
+        "file": "scripts/generate_logo_svg.py",
+        "line": 8,
+        "type": "function",
+        "signature": "def build_3d_logos():"
       }
     ],
     "draw_lightning": [
@@ -2123,6 +2131,12 @@
         "line": 222,
         "type": "function",
         "signature": "function renderFrame()"
+      },
+      {
+        "file": "showcase/app.js",
+        "line": 817,
+        "type": "function",
+        "signature": "function renderFrame()"
       }
     ],
     "handleKeyPress": [
@@ -2401,6 +2415,14 @@
         "signature": "function initShowcase()"
       }
     ],
+    "initHero3dSwarmCore": [
+      {
+        "file": "showcase/app.js",
+        "line": 777,
+        "type": "function",
+        "signature": "function initHero3dSwarmCore()"
+      }
+    ],
     "parse_hex": [
       {
         "file": "skills/anti-slop/scripts/contrast-check.py",
@@ -2640,7 +2662,7 @@
       "symbolCount": 5
     },
     "scripts/audit-graph.mjs": {
-      "totalLines": 64,
+      "totalLines": 78,
       "symbolCount": 1
     },
     "scripts/benchmark-suite.mjs": {
@@ -2688,8 +2710,8 @@
       "symbolCount": 0
     },
     "scripts/generate_logo_svg.py": {
-      "totalLines": 19,
-      "symbolCount": 0
+      "totalLines": 73,
+      "symbolCount": 1
     },
     "scripts/generate_swarm_gif.py": {
       "totalLines": 296,
@@ -2768,7 +2790,7 @@
       "symbolCount": 4
     },
     "scripts/sync-all-skill-counts.mjs": {
-      "totalLines": 474,
+      "totalLines": 477,
       "symbolCount": 1
     },
     "scripts/terminal-monitor.mjs": {
@@ -2808,8 +2830,8 @@
       "symbolCount": 4
     },
     "showcase/app.js": {
-      "totalLines": 780,
-      "symbolCount": 12
+      "totalLines": 899,
+      "symbolCount": 14
     },
     "showcase/skills-data.js": {
       "totalLines": 3028,

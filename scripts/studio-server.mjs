@@ -1296,7 +1296,7 @@ export function generateStudioHtml(currentPort) {
   <header>
     <div class="header-inner">
       <div class="brand">
-        <div class="brand-badge">VP</div>
+        <img src="/vibes-logo.png" alt="VibesPlug 3D Logo" style="width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(6, 182, 212, 0.35); box-shadow: 0 2px 10px rgba(0,0,0,0.5);" />
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
@@ -3555,9 +3555,9 @@ export async function startStudioServer(options = {}) {
     }
 
     // Static Web Showcase UI & Assets
-    if (req.method === 'GET' && (pathname === '/showcase/' || pathname.startsWith('/showcase/') || ['/styles.css', '/app.js', '/skills-data.js'].includes(pathname))) {
+    if (req.method === 'GET' && (pathname === '/showcase/' || pathname.startsWith('/showcase/') || ['/styles.css', '/app.js', '/skills-data.js', '/vibes-logo.png'].includes(pathname))) {
       let relPath = pathname === '/showcase/' ? 'index.html' : pathname.replace(/^\/showcase\//, '');
-      if (['/styles.css', '/app.js', '/skills-data.js'].includes(pathname)) {
+      if (['/styles.css', '/app.js', '/skills-data.js', '/vibes-logo.png'].includes(pathname)) {
         relPath = pathname.slice(1);
       }
       const safePath = path.normalize(relPath).replace(/^(\.\.[\/\\])+/, '');
