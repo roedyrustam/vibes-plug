@@ -2,7 +2,7 @@
 /**
  * 🌊 Vibes-Plug Automated Skill Health & Framework Drift Monitor (2026 Edition)
  *
- * Scans all 161 skills across the Vibes-Plug catalog to detect:
+ * Scans all 171 skills across the Vibes-Plug catalog to detect:
  * 1. Framework drift & deprecated legacy patterns (React 19 / Next 15 / Tailwind v4 / Node 24 alignment)
  * 2. Cross-skill dependency graph integrity (dead links, phantom references, in/out-degree centrality)
  * 3. Master orchestrator registration (brainstorming & zero-to-prod-orchestrator)
@@ -141,7 +141,7 @@ export function auditSkill(skillName, content, ecosystemContext) {
   // 2. Orchestration & Cross-Skill Graph Integrity (Weight: 25 pts)
   const outgoingLinks = [];
   const deadLinks = [];
-  const orchSectionMatch = content.match(/##\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\n##|\n#[^#]|$)/i);
+  const orchSectionMatch = content.match(/(?:##|###|####)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###|####)\s|\r?\n#[^#]|$)/i);
 
   if (!orchSectionMatch) {
     score -= 15;

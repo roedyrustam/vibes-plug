@@ -1,6 +1,6 @@
 ---
 alwaysApply: true
-description: "Vibes-Plug 161-Skill AI Agent Swarm Architecture — Universal AI conductor for modern 2026 development in Cursor IDE"
+description: "Vibes-Plug 171-Skill AI Agent Swarm Architecture — Universal AI conductor for modern 2026 development in Cursor IDE"
 globs: "**/*"
 ---
 
@@ -16,10 +16,10 @@ globs: "**/*"
   3. **Critic-Validator Loop**: Implementer writes code → Auditor agent reviews & fuzzes.
 
 ## Skill Resolution Protocol
-This repository contains 161 specialized skills in the `skills/` directory (or `.cursor/skills/` / `.agents/skills/`). Each skill is defined by its `SKILL.md`.
+This repository contains 171 specialized skills in the `skills/` directory (or `.cursor/skills/` / `.agents/skills/`). Each skill is defined by its `SKILL.md`.
 
 **Cursor AI Execution Protocol:**
-1. **Discover & Identify**: Match task intent against the 161-skill registry.
+1. **Discover & Identify**: Match task intent against the 171-skill registry.
 2. **Read Skill**: Open and read the relevant `skills/<skill-name>/SKILL.md` before generating code.
 3. **Execute Invariants**: Strictly follow patterns, contracts, and guardrails specified in the skill.
 

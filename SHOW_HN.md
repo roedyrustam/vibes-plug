@@ -1,10 +1,10 @@
-# Show HN: VibesPlug – A 161-Skill AI Agent Swarm for Vibe Coding (Antigravity, Cursor, Claude Code)
+# Show HN: VibesPlug – A 171-Skill AI Agent Swarm for Vibe Coding (Antigravity, Cursor, Claude Code)
 
 Hey HN! I'm Roedy. Over the past 9 months of building with frontier LLMs (Claude 3.7/Sonnet, Gemini 2.0/Pro, GPT-4o), I hit the same wall every developer faces: **AI code slop, context drift, and fragmented reasoning**.
 
 When you ask an AI to "build a SaaS billing platform", a raw LLM tries to be an architect, database admin, frontend designer, and security auditor all in one prompt. It inevitably hallucinates packages, leaves `// TODO: implement later` stubs, mixes up React 18 and 19 APIs, and degrades into unmaintainable spaghetti.
 
-To solve this, I built **VibesPlug** (MIT licensed): an autonomous swarm architecture with **161 specialized skills**, 5 native subagents, and an in-memory substrate that turns any IDE into a complete software engineering studio.
+To solve this, I built **VibesPlug** (MIT licensed): an autonomous swarm architecture with **171 specialized skills**, 5 native subagents, and an in-memory substrate that turns any IDE into a complete software engineering studio.
 
 - **GitHub Repository**: https://github.com/roedyrustam/vibes-plug
 - **Live Interactive Showcase**: https://vibes-plug.vercel.app/
@@ -27,7 +27,7 @@ To solve this, I built **VibesPlug** (MIT licensed): an autonomous swarm archite
    By compiling canonically sorted static system instructions, schemas, and skill indexes at the head of the context window (`vibes compile-cache`), prompt caching on Gemini 2.0/Flash and Claude 3.5/3.7 accelerates Time-To-First-Token (TTFT) by up to 10x and cuts API billing by 75-90%.
 
 4. **100% Graph Dependency Centrality**:
-   All 161 skills form a closed, mathematically validated directed graph verified by `scripts/audit-graph.mjs`. There are zero dangling cross-references across frontend, backend, AI/MCP, FinTech, data engineering, and devops.
+   All 171 skills form a closed, mathematically validated directed graph verified by `scripts/audit-graph.mjs`. There are zero dangling cross-references across frontend, backend, AI/MCP, FinTech, data engineering, and devops.
 
 5. **Universal Multi-IDE Portability**:
    Works natively out of the box across Google Antigravity (`AGENTS.md`), Anthropic Claude Code (`CLAUDE.md`), Cursor IDE (`.cursorrules`), OpenAI Codex (`CODEX.md`), Windsurf, and Trae.

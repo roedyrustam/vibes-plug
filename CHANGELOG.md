@@ -5,20 +5,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.4.2] - 2026-10-22
+## [4.4.2] - 2026-10-23
+
+### Added / Ditambahkan
+- **171-Skill & 8-Subagent Frontier Expansion**:
+  - Added 10 new 2026–2027 frontier domain skills: `double-entry-ledger-fintech-expert`, `fga-rebac-authorization-expert`, `a2a-agent-protocol-expert`, `durable-agent-execution-expert`, `passkeys-webauthn-identity-expert`, `reactive-sync-engine-expert`, `olap-columnar-analytics-expert`, `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`, and `computer-use-os-agent-expert`.
+  - Added 3 new native specialist subagents in `agents/`: `cloud-devops-sre`, `data-rag-architect`, and `mobile-spatial-craftsman` (expanding native swarm subagents from 5 to 8).
+  - Deepened 14 core foundation skills with decision matrices, production TypeScript/SQL/Rust/YAML implementations, and verification checklists.
+  - Upgraded `scripts/audit-graph.mjs` and connected all 171 skills into a 100% strongly-connected graph (`1,986` directed edges, `0` isolated skills, `0` broken references).
+  - Expanded `scripts/swarm-runner.mjs` `planSwarm()` from 4 basic checks to 8 specialized swarm domains.
 
 ### Changed / Diubah
-- **161 / 161 Universal Skill Harmonization & Upgrade to `v4.4.2`**:
-  - Full ecosystem audit across all 161 skills in `skills/` and `.cursor/skills/` upgraded to frontmatter `version: "4.4.2"`.
+- **171 / 171 Universal Skill Harmonization & Upgrade to `v4.4.2`**:
+  - Full ecosystem audit across all 171 skills in `skills/` and `.cursor/skills/` upgraded to frontmatter `version: "4.4.2"`.
   - Harmonized orchestration architecture: categorized markdown cross-references standardized directly under `## English` (`### Orchestration & Integration`) and `## Bahasa Indonesia` (`### Integrasi Orkestrasi`).
   - Eradicated all residual trailing duplicate blocks (`### Integration with Other Skills`, `### Referenced By Orchestrators`, and Indonesian counterparts) across all skills.
   - Strict Anti-Slop verification: 100% compliant with 0 errors and 0 warnings across all 579 files under `node scripts/check-anti-slop.js --strict`.
 - **Catalogs & Registries Synchronization**:
-  - `CATALOG.md` and `CATALOG.json` completely re-indexed and synchronized with all 161 skills reflecting version `4.4.2`.
+  - `CATALOG.md` and `CATALOG.json` completely re-indexed and synchronized with all 171 skills reflecting version `4.4.2`.
   - Template `templates/SKILL_TEMPLATE.md` upgraded to `4.4.2` with standardized bilingual orchestration layout.
   - Rule files (`AGENTS.md`, `rules/AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.traerules`, `.windsurfrules`) and `CONTRIBUTING.md` aligned to version `4.4.2`.
 - **Ecosystem Consistency Pass**:
-  - Catalog-count consistency pass across live surfaces: Cursor/Claude/Codex core rules, Cursor plugin manifest, VS Code status tooltip, CONTRIBUTING, README share link, and Studio/showcase version labels now all read **161 skills**.
+  - Catalog-count consistency pass across live surfaces: Cursor/Claude/Codex core rules, Cursor plugin manifest, VS Code status tooltip, CONTRIBUTING, README share link, and Studio/showcase version labels now all read **171 skills**.
   - Plugin manifests bumped to **4.4.2** (`package.json`, `plugin.json`, `gemini-extension.json`, `.cursor-plugin`, `.codex-plugin`, VS Code companion).
   - `scripts/sync-all-skill-counts.mjs` now covers the missed phrases (`159-skill registry`, `against the 155 skills`, `.cursor-plugin` description, VS Code `160-Skill` tooltip).
 

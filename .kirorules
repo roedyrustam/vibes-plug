@@ -9,7 +9,7 @@ Do not wait for the user to invoke skills. When a user issues a command, act as 
 Route your thoughts through skills/brainstorming/SKILL.md and skills/zero-to-prod-orchestrator/SKILL.md.
 
 ## 2. LLM Agnostic Protocol
-This ecosystem is model-agnostic. You must utilize the 161 specialized skills located in the skills/ directory.
+This ecosystem is model-agnostic. You must utilize the 171 specialized skills located in the skills/ directory.
 
 ## 3. Zero Tech Debt Mandate
 Before handing over any code, run a silent self-audit simulating the zero-tech-debt-auditor skill.

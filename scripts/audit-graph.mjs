@@ -10,6 +10,7 @@ async function auditGraph() {
   const broken = [];
   const inDegree = {};
   const outDegree = {};
+  let totalEdges = 0;
   
   for (const skill of allSkills) {
     inDegree[skill] = 0;
@@ -28,6 +29,7 @@ async function auditGraph() {
         for (const ref of uniqueRefs) {
           if (allSkills.has(ref)) {
             inDegree[ref] = (inDegree[ref] || 0) + 1;
+            totalEdges++;
           } else if (ref.includes('-') && !['utf-8', 'iso-8859-1', 'x-api-key', 'modern-web-guidance', 'vibes-plug', 'tabular-nums', 'quality-guardian', '--color-surface-card', '--color-border', 'x-trace-id', 'max-w-prose'].includes(ref)) {
             broken.push({ skill, missingRef: ref });
           }
@@ -38,16 +40,28 @@ async function auditGraph() {
     }
   }
 
-  console.log(`\n🕸️  Skill Dependency Graph Audit (161 Skills):`);
+  const orphans = Object.entries(inDegree).filter(([, deg]) => deg === 0).map(([s]) => s);
+
+  console.log(`\n🕸️  Skill Dependency Graph Audit (171 Skills):`);
   console.log(`-----------------------------------------------`);
   console.log(`Total Skills in Registry : ${allSkills.size}`);
-  console.log(`Broken Skill References   : ${broken.length}`);
+  console.log(`Total Directed Edges     : ${totalEdges}`);
+  console.log(`Orphan Skills (In-Deg=0) : ${orphans.length}`);
+  console.log(`Broken Skill References  : ${broken.length}`);
+
+  if (orphans.length > 0) {
+    console.log(`\n⚠️  Orphan Skills (In-Degree = 0):`);
+    for (const o of orphans) {
+      console.log(`   • \`${o}\` has 0 incoming references`);
+    }
+  }
 
   if (broken.length > 0) {
     console.log(`\n🚨 Broken References Detected:`);
     for (const b of broken) {
       console.log(`   ❌ [${b.skill}] references unknown skill: \`${b.missingRef}\``);
     }
+    process.exitCode = 1;
   } else {
     console.log(`✅ All cross-skill references are 100% valid! Zero broken links.`);
   }

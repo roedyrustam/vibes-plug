@@ -7,7 +7,7 @@ A complete, high-converting launch asset package for launching VibesPlug Pro on 
 ## 🏷️ Product Info
 
 - **Product Name**: VibesPlug Pro
-- **Tagline**: The 161-Skill Autonomous AI Agent Swarm for Vibe Coding
+- **Tagline**: The 171-Skill Autonomous AI Agent Swarm for Vibe Coding
 - **Primary Category**: Developer Tools, Artificial Intelligence, Open Source
 - **Pricing**: Free & Open Source (MIT)
 - **Website URL**: https://vibes-plug.vercel.app/
@@ -39,7 +39,7 @@ Here is what makes it unique:
 2. 🛡️ **Sovereign Anti-Slop Directive**: Enforces an automated pre-disk scanner (`vibes verify-gate`) that rejects placeholder code, syntax narration, and fake mocks before files touch disk.
 3. ⚡ **Deterministic KV-Cache Locking**: Pinning the static prompt prefix slashes API token billing by 75-90% and gives sub-second Time-To-First-Token.
 4. 🌐 **Universal Portability**: Natively supports Google Antigravity, Anthropic Claude Code, Cursor IDE, Windsurf, OpenAI Codex, and Trae.
-5. 📊 **Interactive Web Showcase & Studio**: Test commands, inspect all 161 skills, and simulate swarms directly in your browser.
+5. 📊 **Interactive Web Showcase & Studio**: Test commands, inspect all 171 skills, and simulate swarms directly in your browser.
 
 Try it in 1 command:
 $ npx vibes-plug init
