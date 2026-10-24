@@ -138,6 +138,100 @@ export function getCanonicalLockOrder(postings: readonly PostingLine[]): string[
 
 ---
 
+#### 3. Two-Phase Authorization Hold & TigerBeetle Transfer Adapter (TypeScript)
+Financial workflows (escrow, pre-authorization, agent budget limits) require two-phase settlement (`PENDING` hold $\rightarrow$ `POSTED` capture or `VOID` release):
+
+```typescript
+// src/ledger/tigerbeetle-two-phase.ts
+export interface TigerBeetleTransfer {
+  id: bigint;
+  debitAccountId: bigint;
+  creditAccountId: bigint;
+  amountMinor: bigint;
+  pendingId?: bigint;
+  flags: {
+    pending: boolean;
+    postPendingTransfer: boolean;
+    voidPendingTransfer: boolean;
+  };
+  timeoutSeconds?: number;
+}
+
+export class TigerBeetleLedgerAdapter {
+  private readonly clusterId: bigint;
+  private readonly replicaAddresses: readonly string[];
+
+  constructor(clusterId: bigint, replicaAddresses: readonly string[]) {
+    this.clusterId = clusterId;
+    this.replicaAddresses = replicaAddresses;
+  }
+
+  public createAuthorizationHold(params: {
+    transferId: bigint;
+    debitAccountId: bigint;
+    creditEscrowAccountId: bigint;
+    amountMinor: bigint;
+    timeoutSeconds: number;
+  }): TigerBeetleTransfer {
+    if (params.amountMinor <= 0n) {
+      throw new Error('[TigerBeetle] Hold amount must be strictly positive');
+    }
+
+    return {
+      id: params.transferId,
+      debitAccountId: params.debitAccountId,
+      creditAccountId: params.creditEscrowAccountId,
+      amountMinor: params.amountMinor,
+      flags: {
+        pending: true,
+        postPendingTransfer: false,
+        voidPendingTransfer: false,
+      },
+      timeoutSeconds: params.timeoutSeconds,
+    };
+  }
+
+  public capturePendingHold(params: {
+    transferId: bigint;
+    pendingTransferId: bigint;
+    captureAmountMinor: bigint;
+  }): TigerBeetleTransfer {
+    return {
+      id: params.transferId,
+      debitAccountId: 0n,
+      creditAccountId: 0n,
+      amountMinor: params.captureAmountMinor,
+      pendingId: params.pendingTransferId,
+      flags: {
+        pending: false,
+        postPendingTransfer: true,
+        voidPendingTransfer: false,
+      },
+    };
+  }
+
+  public voidPendingHold(params: {
+    transferId: bigint;
+    pendingTransferId: bigint;
+  }): TigerBeetleTransfer {
+    return {
+      id: params.transferId,
+      debitAccountId: 0n,
+      creditAccountId: 0n,
+      amountMinor: 0n,
+      pendingId: params.pendingTransferId,
+      flags: {
+        pending: false,
+        postPendingTransfer: false,
+        voidPendingTransfer: true,
+      },
+    };
+  }
+}
+```
+
+---
+
 ### Verification Checklist
 - [ ] Every financial mutation validates $\sum \text{Debits} = \sum \text{Credits}$ before committing.
 - [ ] `ledger_journals` and `ledger_postings` disallow `UPDATE` and `DELETE` operations; refunds create compensating reversal journals.

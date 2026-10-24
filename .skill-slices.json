@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-10-24T19:07:29.176Z",
+  "compiledAt": "2026-10-24T19:12:34.712Z",
   "totalSkills": 176,
   "metrics": {
-    "fullRegistryTokensApprox": 728135,
+    "fullRegistryTokensApprox": 733892,
     "compiledSlicesTokensApprox": 48958,
     "avgTokensPerSlice": 278,
     "tokenReductionPercent": "93%"

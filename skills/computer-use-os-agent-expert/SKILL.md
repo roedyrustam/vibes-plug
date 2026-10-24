@@ -113,12 +113,108 @@ export function evaluateActionSafety(action: CuaAction): {
 }
 ```
 
-### 3. Ephemeral Sandbox Isolation & Visual Verification Loop
+### 3. Ephemeral Sandbox Action Dispatcher & Visual Frame Differ (TypeScript)
+Execute OS actions safely inside an isolated container with before/after perceptual hash verification:
+
+```typescript
+// src/cua/sandbox-dispatcher.ts
+import { createHash } from 'node:crypto';
+
+export interface VisualStateSnapshot {
+  frameId: string;
+  timestamp: number;
+  imageBufferB64: string;
+  sha256Hash: string;
+  viewport: { width: number; height: number };
+}
+
+export interface DispatchActionResult {
+  success: boolean;
+  actionId: string;
+  beforeFrameHash: string;
+  afterFrameHash: string;
+  stateChanged: boolean;
+  error?: string;
+}
+
+export class SandboxActionDispatcher {
+  private readonly vncEndpoint: string;
+  private readonly maxWaitMs: number;
+
+  constructor(vncEndpoint: string, maxWaitMs = 5000) {
+    this.vncEndpoint = vncEndpoint;
+    this.maxWaitMs = maxWaitMs;
+  }
+
+  public computeFrameHash(buffer: Buffer): string {
+    return createHash('sha256').update(buffer).digest('hex');
+  }
+
+  public async captureCurrentFrame(): Promise<VisualStateSnapshot> {
+    const res = await fetch(`${this.vncEndpoint}/screenshot`, {
+      method: 'GET',
+      headers: { Accept: 'image/png' },
+    });
+
+    if (!res.ok) {
+      throw new Error(`[CUA Sandbox] Failed to capture frame: HTTP ${res.status}`);
+    }
+
+    const arrayBuffer = await res.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const hash = this.computeFrameHash(buffer);
+
+    return {
+      frameId: `frame_${Date.now()}`,
+      timestamp: Date.now(),
+      imageBufferB64: buffer.toString('base64'),
+      sha256Hash: hash,
+      viewport: { width: 1280, height: 800 },
+    };
+  }
+
+  public async dispatchMouseClick(xPx: number, yPx: number): Promise<DispatchActionResult> {
+    const beforeFrame = await this.captureCurrentFrame();
+    const actionId = `act_${Date.now()}`;
+
+    const res = await fetch(`${this.vncEndpoint}/mouse/click`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ x: xPx, y: yPx, button: 'left' }),
+    });
+
+    if (!res.ok) {
+      return {
+        success: false,
+        actionId,
+        beforeFrameHash: beforeFrame.sha256Hash,
+        afterFrameHash: beforeFrame.sha256Hash,
+        stateChanged: false,
+        error: `Mouse click execution failed: HTTP ${res.status}`,
+      };
+    }
+
+    // Wait for DOM / UI render settling
+    await new Promise((r) => setTimeout(r, 250));
+    const afterFrame = await this.captureCurrentFrame();
+
+    return {
+      success: true,
+      actionId,
+      beforeFrameHash: beforeFrame.sha256Hash,
+      afterFrameHash: afterFrame.sha256Hash,
+      stateChanged: beforeFrame.sha256Hash !== afterFrame.sha256Hash,
+    };
+  }
+}
+```
+
+### 4. Ephemeral Sandbox Isolation & Visual Verification Loop
 1. **Never Run Unbounded CUAs on Host OS**: Always execute OS agents inside an ephemeral container/microVM (Firecracker, Docker Xvfb + noVNC, or Apple Virtualization.framework) with egress firewall rules.
 2. **Post-Action Visual Diff Check**: After every click or keystroke, capture a post-action screenshot and verify that the expected state transition occurred (e.g., modal opened, input focused) before advancing the plan.
 3. **Indirect Visual Prompt Injection Defense**: Treat all text rendered inside screenshots (emails, web pages, PDFs) as untrusted data; run `prompt-injection-firewall` over OCR/AXTree text before feeding it into planner system instructions.
 
-### 4. Production Verification Checklist
+### 5. Production Verification Checklist
 - [ ] Agent execution is confined to a disposable microVM or isolated Xvfb container with zero host filesystem mounts.
 - [ ] Coordinate transformation accounts for viewport dimensions and HiDPI scaling (`devicePixelRatio`).
 - [ ] Destructive clicks (`delete`, `pay`, `transfer`) and system shortcuts trigger `REQUIRE_HITL` pause gates.

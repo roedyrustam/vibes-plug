@@ -142,7 +142,57 @@ export class ClickHouseUsageService {
 }
 ```
 
-### 4. Production Verification Checklist
+### 4. In-Process DuckDB Parquet Ingestion & Vectorized Aggregation Pipeline (TypeScript)
+Query millions of rows directly from compressed Parquet files stored in S3/R2 with zero database server costs:
+
+```typescript
+// src/analytics/duckdb-parquet-pipeline.ts
+export interface ParquetMetricsSummary {
+  tenantId: string;
+  totalRequests: number;
+  avgLatencyMs: number;
+  totalCostUsd: number;
+}
+
+export class DuckDbParquetPipeline {
+  private readonly duckdbPath: string;
+
+  constructor(duckdbPath = ':memory:') {
+    this.duckdbPath = duckdbPath;
+  }
+
+  public buildParquetQuery(params: {
+    s3ParquetGlob: string;
+    tenantId: string;
+    startDateIso: string;
+    endDateIso: string;
+  }): string {
+    return `
+      SELECT
+        tenant_id AS tenantId,
+        count(*) AS totalRequests,
+        round(avg(latency_ms), 2) AS avgLatencyMs,
+        round(sum(cost_micros) / 1000000.0, 4) AS totalCostUsd
+      FROM read_parquet('${params.s3ParquetGlob}')
+      WHERE tenant_id = '${params.tenantId}'
+        AND recorded_at >= '${params.startDateIso}'::TIMESTAMP
+        AND recorded_at <= '${params.endDateIso}'::TIMESTAMP
+      GROUP BY tenant_id;
+    `.trim();
+  }
+
+  public parseSummaryRow(row: Record<string, unknown>): ParquetMetricsSummary {
+    return {
+      tenantId: String(row.tenantId ?? ''),
+      totalRequests: Number(row.totalRequests ?? 0),
+      avgLatencyMs: Number(row.avgLatencyMs ?? 0),
+      totalCostUsd: Number(row.totalCostUsd ?? 0),
+    };
+  }
+}
+```
+
+### 5. Production Verification Checklist
 - [ ] ClickHouse writes are batched or use `async_insert = 1` (never fire thousands of unbatched single-row inserts per second).
 - [ ] `ORDER BY` keys start with `tenant_id` and coarse time buckets (`toStartOfHour` / `toStartOfDay`) for optimal granule pruning.
 - [ ] Point updates/deletes (`ALTER TABLE ... UPDATE`) are avoided in favor of `ReplacingMergeTree` or `CollapsingMergeTree`.

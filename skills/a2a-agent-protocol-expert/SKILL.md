@@ -174,6 +174,64 @@ export default app;
 
 ---
 
+#### 3. A2A Streaming Task SSE Protocol (`tasks/sendSubscribe`) with Heartbeats (TypeScript)
+Real-time state streaming and token emission for long-running federated agent tasks:
+
+```typescript
+// src/a2a/streaming-sse-handler.ts
+export interface A2ATaskEvent {
+  taskId: string;
+  eventType: 'state_changed' | 'token_stream' | 'artifact_published' | 'heartbeat';
+  state?: 'working' | 'input-required' | 'completed' | 'failed';
+  chunk?: string;
+  artifactUri?: string;
+  timestamp: string;
+}
+
+export function formatA2aSseFrame(event: A2ATaskEvent): string {
+  return `event: a2a_event\ndata: ${JSON.stringify(event)}\n\n`;
+}
+
+export class A2aStreamingSession {
+  private readonly taskId: string;
+  private isClosed = false;
+
+  constructor(taskId: string) {
+    this.taskId = taskId;
+  }
+
+  public emitHeartbeat(): string {
+    return formatA2aSseFrame({
+      taskId: this.taskId,
+      eventType: 'heartbeat',
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  public emitTokenChunk(chunk: string): string {
+    return formatA2aSseFrame({
+      taskId: this.taskId,
+      eventType: 'token_stream',
+      chunk,
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  public emitCompletion(artifactUri: string): string {
+    this.isClosed = true;
+    return formatA2aSseFrame({
+      taskId: this.taskId,
+      eventType: 'artifact_published',
+      state: 'completed',
+      artifactUri,
+      timestamp: new Date().toISOString(),
+    });
+  }
+}
+```
+
+---
+
 ### Verification Checklist
 - [ ] Agent service publishes a valid `/.well-known/agent.json` endpoint declaring authentication schemes and typed skills.
 - [ ] All A2A task states adhere to standard transitions (`submitted` $\rightarrow$ `working` $\rightarrow$ `input-required` | `completed` | `failed` | `canceled`).

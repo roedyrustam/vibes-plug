@@ -120,7 +120,118 @@ export function createTenantIssueShape(params: {
 }
 ```
 
-### 4. Production Verification Checklist
+### 4. Linear-Style Optimistic Mutation Queue with Server Reconciliation & Rollback (TypeScript)
+Keep client state perfectly in sync even across multi-minute offline gaps with an in-memory optimistic rollback log:
+
+```typescript
+// src/sync/optimistic-mutation-queue.ts
+export interface OptimisticMutation<TRecord> {
+  mutationId: string;
+  entityId: string;
+  timestamp: number;
+  optimisticState: Partial<TRecord>;
+  previousState: Partial<TRecord>;
+  status: 'PENDING' | 'IN_FLIGHT' | 'COMMITTED' | 'ROLLED_BACK';
+}
+
+export class OptimisticSyncEngine<TRecord extends { id: string }> {
+  private readonly store: Map<string, TRecord> = new Map();
+  private readonly queue: OptimisticMutation<TRecord>[] = [];
+  private readonly subscribers: Set<() => void> = new Set();
+
+  public subscribe(listener: () => void): () => void {
+    this.subscribers.add(listener);
+    return () => this.subscribers.delete(listener);
+  }
+
+  private notify(): void {
+    for (const sub of this.subscribers) {
+      sub();
+    }
+  }
+
+  public get(id: string): TRecord | undefined {
+    return this.store.get(id);
+  }
+
+  public setInitialRecords(records: readonly TRecord[]): void {
+    for (const record of records) {
+      this.store.set(record.id, record);
+    }
+    this.notify();
+  }
+
+  public applyOptimisticMutation(
+    entityId: string,
+    updates: Partial<TRecord>
+  ): string {
+    const current = this.store.get(entityId);
+    if (!current) {
+      throw new Error(`[SyncEngine] Target entity ${entityId} not found in local store`);
+    }
+
+    const mutationId = `mut_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+    const previousState: Partial<TRecord> = {};
+    for (const key of Object.keys(updates) as (keyof TRecord)[]) {
+      previousState[key] = current[key];
+    }
+
+    const mutation: OptimisticMutation<TRecord> = {
+      mutationId,
+      entityId,
+      timestamp: Date.now(),
+      optimisticState: updates,
+      previousState,
+      status: 'PENDING',
+    };
+
+    this.queue.push(mutation);
+    this.store.set(entityId, { ...current, ...updates });
+    this.notify();
+    return mutationId;
+  }
+
+  public async commitServerMutation(
+    mutationId: string,
+    serverWorker: () => Promise<TRecord>
+  ): Promise<TRecord> {
+    const mutation = this.queue.find((m) => m.mutationId === mutationId);
+    if (!mutation) {
+      throw new Error(`[SyncEngine] Mutation ${mutationId} not found in active queue`);
+    }
+
+    mutation.status = 'IN_FLIGHT';
+
+    try {
+      const serverResult = await serverWorker();
+      mutation.status = 'COMMITTED';
+      this.store.set(serverResult.id, serverResult);
+      // Prune resolved mutations
+      const idx = this.queue.indexOf(mutation);
+      if (idx !== -1) {
+        this.queue.splice(idx, 1);
+      }
+      this.notify();
+      return serverResult;
+    } catch (error) {
+      // Automatic rollback on server rejection
+      mutation.status = 'ROLLED_BACK';
+      const existing = this.store.get(mutation.entityId);
+      if (existing) {
+        this.store.set(mutation.entityId, { ...existing, ...mutation.previousState });
+      }
+      const idx = this.queue.indexOf(mutation);
+      if (idx !== -1) {
+        this.queue.splice(idx, 1);
+      }
+      this.notify();
+      throw error;
+    }
+  }
+}
+```
+
+### 5. Production Verification Checklist
 - [ ] PostgreSQL is configured with `wal_level = logical` and dedicated replication slots monitored for lag.
 - [ ] Every client mutation is idempotent and re-validated on the server against tenant permissions.
 - [ ] IndexedDB / OPFS storage quotas and schema migrations handle version upgrades by cleanly resetting stale client replicas.

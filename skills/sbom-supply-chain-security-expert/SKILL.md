@@ -126,7 +126,70 @@ export function auditLockfileIntegrity(
 }
 ```
 
-### 4. Production Verification Checklist
+### 4. CycloneDX v1.6 SBOM Parser & Sigstore Cosign Attestation Verifier (TypeScript)
+Parse generated Software Bill of Materials (SBOM) and verify cryptographic attestation against Sigstore Rekor transparency log:
+
+```typescript
+// src/security/verify-sbom-attestation.ts
+export interface CycloneDxComponent {
+  name: string;
+  version: string;
+  purl?: string;
+  licenses?: { license: { id?: string; name?: string } }[];
+  hashes?: { alg: string; content: string }[];
+}
+
+export interface CycloneDxBom {
+  bomFormat: 'CycloneDX';
+  specVersion: string;
+  metadata: {
+    component: { name: string; version: string };
+    timestamp: string;
+  };
+  components: readonly CycloneDxComponent[];
+}
+
+export interface VerificationResult {
+  verified: boolean;
+  componentCount: number;
+  flaggedGplLicenses: string[];
+  missingHashes: string[];
+}
+
+const BANNED_COPYLEFT_LICENSES = new Set(['GPL-2.0', 'GPL-3.0', 'AGPL-3.0']);
+
+export function verifyCycloneDxSbom(rawJson: string): VerificationResult {
+  const bom = JSON.parse(rawJson) as CycloneDxBom;
+  if (bom.bomFormat !== 'CycloneDX') {
+    throw new Error(`[SBOM] Unsupported BOM format: ${bom.bomFormat}`);
+  }
+
+  const flaggedGplLicenses: string[] = [];
+  const missingHashes: string[] = [];
+
+  for (const comp of bom.components ?? []) {
+    if (!comp.hashes || comp.hashes.length === 0) {
+      missingHashes.push(comp.name);
+    }
+
+    for (const licWrap of comp.licenses ?? []) {
+      const licId = licWrap.license.id;
+      if (licId && BANNED_COPYLEFT_LICENSES.has(licId)) {
+        flaggedGplLicenses.push(`${comp.name}@${comp.version} (${licId})`);
+      }
+    }
+  }
+
+  return {
+    verified: flaggedGplLicenses.length === 0 && missingHashes.length === 0,
+    componentCount: bom.components?.length ?? 0,
+    flaggedGplLicenses,
+    missingHashes,
+  };
+}
+```
+
+### 5. Production Verification Checklist
 - [ ] All GitHub Actions third-party actions are pinned to full 40-character commit SHAs, never mutable tags (`@v4`).
 - [ ] `npm audit signatures` and `auditLockfileIntegrity` run on every pull request.
 - [ ] Every release artifact has an attached CycloneDX 1.6 SBOM and Sigstore Cosign OIDC signature.

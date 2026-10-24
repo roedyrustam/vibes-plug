@@ -143,6 +143,84 @@ export async function detectPasskeyCapabilities(): Promise<ClientPasskeySupport>
 
 ---
 
+#### 3. Cryptographic Step-Up Authentication & RFC 9449 DPoP Proof Validator (TypeScript)
+Protect financial transfers and admin actions with biometric step-up and sender-constrained DPoP proofs:
+
+```typescript
+// src/auth/dpop-validator.ts
+import { createHash } from 'node:crypto';
+
+export interface DPoPProofHeader {
+  typ: 'dpop+jwt';
+  alg: 'ES256' | 'RS256';
+  jwk: { kty: string; crv?: string; x?: string; y?: string; n?: string; e?: string };
+}
+
+export interface DPoPClaims {
+  jti: string;
+  htm: string;
+  htu: string;
+  iat: number;
+  ath?: string;
+}
+
+export function computeAccessTokenHash(accessToken: string): string {
+  return createHash('sha256').update(accessToken, 'ascii').digest('base64url');
+}
+
+export function validateDPoPProof(
+  proofJwt: string,
+  expectedMethod: string,
+  expectedUri: string,
+  accessToken?: string
+): { valid: boolean; jti: string; clientPublicKeyJwk: unknown } {
+  const parts = proofJwt.split('.');
+  if (parts.length !== 3) {
+    throw new Error('[DPoP] Invalid JWT format');
+  }
+
+  const header = JSON.parse(Buffer.from(parts[0], 'base64url').toString('utf8')) as DPoPProofHeader;
+  const claims = JSON.parse(Buffer.from(parts[1], 'base64url').toString('utf8')) as DPoPClaims;
+
+  if (header.typ !== 'dpop+jwt') {
+    throw new Error(`[DPoP] Header typ must be "dpop+jwt", got: ${header.typ}`);
+  }
+
+  // Validate HTTP method and URL parity
+  if (claims.htm.toUpperCase() !== expectedMethod.toUpperCase()) {
+    throw new Error(`[DPoP] Method mismatch: expected ${expectedMethod}, got ${claims.htm}`);
+  }
+
+  const cleanExpectedUri = expectedUri.split('?')[0];
+  const cleanProofUri = claims.htu.split('?')[0];
+  if (cleanExpectedUri !== cleanProofUri) {
+    throw new Error(`[DPoP] URI mismatch: expected ${cleanExpectedUri}, got ${cleanProofUri}`);
+  }
+
+  // Clock skew: proof must be within +/- 60 seconds
+  const now = Math.floor(Date.now() / 1000);
+  if (Math.abs(now - claims.iat) > 60) {
+    throw new Error('[DPoP] Proof timestamp expired or out of allowed window');
+  }
+
+  // Access token binding check
+  if (accessToken) {
+    const expectedAth = computeAccessTokenHash(accessToken);
+    if (claims.ath !== expectedAth) {
+      throw new Error('[DPoP] Access token hash mismatch');
+    }
+  }
+
+  return {
+    valid: true,
+    jti: claims.jti,
+    clientPublicKeyJwk: header.jwk,
+  };
+}
+```
+
+---
+
 ### Verification Checklist
 - [ ] WebAuthn challenges are ≥32 random bytes, bound to the user/session in Redis with a ≤300s TTL, and deleted immediately upon first verification attempt.
 - [ ] Login input fields include `autoComplete="username webauthn"` to enable seamless Conditional UI Passkey autofill.

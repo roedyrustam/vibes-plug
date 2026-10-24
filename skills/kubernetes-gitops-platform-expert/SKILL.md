@@ -160,7 +160,37 @@ spec:
               protocol: TCP
 ```
 
-### 4. Production Verification Checklist
+### 4. Kubernetes Gateway API HTTPRoute Canary & Traffic Split Manifest (YAML)
+Declarative, ingress-controller-agnostic traffic shifting without heavy sidecars:
+
+```yaml
+# k8s/production/api-httproute-canary.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: vibes-api-traffic-split
+  namespace: production
+spec:
+  parentRefs:
+    - name: vibes-production-gateway
+      namespace: gateway-system
+  hostnames:
+    - "api.vibes-platform.io"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /v1
+      backendRefs:
+        - name: vibes-api-primary
+          port: 8080
+          weight: 90
+        - name: vibes-api-canary
+          port: 8080
+          weight: 10
+```
+
+### 5. Production Verification Checklist
 - [ ] Container images are pinned by immutable `@sha256:...` digest, never mutable `:latest` tags.
 - [ ] `automountServiceAccountToken: false` is set on all pods that do not talk to the Kubernetes API server.
 - [ ] Memory `requests` equal `limits` (`Guaranteed` memory tier) on critical services to prevent unexpected node OOM eviction.

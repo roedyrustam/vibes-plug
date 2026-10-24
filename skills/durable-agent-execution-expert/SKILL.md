@@ -147,6 +147,89 @@ export async function runDurableStep<T>(
 }
 ```
 
+---
+
+#### 3. Temporal.io AI Agent Saga Workflow with Signal Handlers (TypeScript)
+Enterprise sagas with multi-day durability and real-time operator overrides:
+
+```typescript
+// src/workflows/temporal-agent-saga.ts
+export interface AgentSagaInput {
+  workflowId: string;
+  tenantId: string;
+  maxIterations: number;
+  initialPrompt: string;
+}
+
+export interface AgentSignalPayload {
+  action: 'PAUSE' | 'RESUME' | 'INJECT_CORRECTION' | 'ABORT';
+  message?: string;
+}
+
+export class TemporalAgentWorkflowSaga {
+  private isPaused = false;
+  private isAborted = false;
+  private pendingCorrection: string | null = null;
+  private currentIteration = 0;
+
+  public handleSignal(payload: AgentSignalPayload): void {
+    if (payload.action === 'PAUSE') {
+      this.isPaused = true;
+    } else if (payload.action === 'RESUME') {
+      this.isPaused = false;
+    } else if (payload.action === 'ABORT') {
+      this.isAborted = true;
+    } else if (payload.action === 'INJECT_CORRECTION' && payload.message) {
+      this.pendingCorrection = payload.message;
+    }
+  }
+
+  public async execute(
+    input: AgentSagaInput,
+    activities: {
+      invokeLlmStep: (prompt: string, iteration: number) => Promise<{ nextAction: string; isComplete: boolean }>;
+      executeToolCall: (action: string) => Promise<{ result: string }>;
+      publishResult: (workflowId: string, output: string) => Promise<void>;
+    }
+  ): Promise<{ status: 'COMPLETED' | 'ABORTED'; iterations: number }> {
+    let currentContext = input.initialPrompt;
+
+    while (this.currentIteration < input.maxIterations) {
+      if (this.isAborted) {
+        return { status: 'ABORTED', iterations: this.currentIteration };
+      }
+
+      if (this.isPaused) {
+        // Yield execution without burning CPU or memory
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        continue;
+      }
+
+      if (this.pendingCorrection) {
+        currentContext += `\n[Operator Correction]: ${this.pendingCorrection}`;
+        this.pendingCorrection = null;
+      }
+
+      this.currentIteration += 1;
+      const stepResult = await activities.invokeLlmStep(currentContext, this.currentIteration);
+
+      if (stepResult.isComplete) {
+        await activities.publishResult(input.workflowId, stepResult.nextAction);
+        return { status: 'COMPLETED', iterations: this.currentIteration };
+      }
+
+      const toolResult = await activities.executeToolCall(stepResult.nextAction);
+      currentContext += `\n[Tool Output]: ${toolResult.result}`;
+    }
+
+    await activities.publishResult(input.workflowId, currentContext);
+    return { status: 'COMPLETED', iterations: this.currentIteration };
+  }
+}
+```
+
+---
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

@@ -115,6 +115,123 @@ export async function listAccessibleDocumentIds(userId: string): Promise<string[
 
 ---
 
+#### 3. SpiceDB Zanzibar Client with ZedToken Consistency Routing (TypeScript)
+Prevent the classic "New Enemy" problem (stale read allowing revoked access) by propagating `ZedToken` across write-to-read causal boundaries:
+
+```typescript
+// src/authz/spicedb-rebac-router.ts
+export interface ZanzibarCheckRequest {
+  resourceType: 'workspace' | 'project' | 'document';
+  resourceId: string;
+  relation: 'viewer' | 'editor' | 'admin';
+  subjectType: 'user';
+  subjectId: string;
+  atZedToken?: string;
+}
+
+export interface ZanzibarWriteTuple {
+  resourceType: 'workspace' | 'project' | 'document';
+  resourceId: string;
+  relation: string;
+  subjectType: 'user' | 'team';
+  subjectId: string;
+}
+
+export class SpiceDbZanzibarRouter {
+  private readonly endpoint: string;
+  private readonly presharedKey: string;
+
+  constructor(endpoint: string, presharedKey: string) {
+    this.endpoint = endpoint;
+    this.presharedKey = presharedKey;
+  }
+
+  public async checkPermission(req: ZanzibarCheckRequest): Promise<{ allowed: boolean; zedToken: string }> {
+    const payload = {
+      resource: {
+        objectType: req.resourceType,
+        objectId: req.resourceId,
+      },
+      permission: req.relation,
+      subject: {
+        object: {
+          objectType: req.subjectType,
+          objectId: req.subjectId,
+        },
+      },
+      consistency: req.atZedToken
+        ? { atExactSnapshot: { token: req.atZedToken } }
+        : { minimizeLatency: true },
+    };
+
+    const res = await fetch(`${this.endpoint}/v1/permissions/check`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.presharedKey}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`[SpiceDB] CheckPermission failed HTTP ${res.status}: ${errText}`);
+    }
+
+    const data = (await res.json()) as {
+      permissionship: 'PERMISSIONSHIP_HAS_PERMISSION' | 'PERMISSIONSHIP_NO_PERMISSION';
+      checkedAt: { token: string };
+    };
+
+    return {
+      allowed: data.permissionship === 'PERMISSIONSHIP_HAS_PERMISSION',
+      zedToken: data.checkedAt?.token ?? '',
+    };
+  }
+
+  public async writeRelationshipTuples(
+    tenantId: string,
+    tuples: readonly ZanzibarWriteTuple[]
+  ): Promise<string> {
+    const updates = tuples.map((t) => ({
+      operation: 'OPERATION_TOUCH',
+      tuple: {
+        resource: {
+          objectType: `${tenantId}/${t.resourceType}`,
+          objectId: t.resourceId,
+        },
+        relation: t.relation,
+        subject: {
+          object: {
+            objectType: t.subjectType,
+            objectId: t.subjectId,
+          },
+        },
+      },
+    }));
+
+    const res = await fetch(`${this.endpoint}/v1/relationships/write`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.presharedKey}`,
+      },
+      body: JSON.stringify({ updates }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`[SpiceDB] WriteTuples failed HTTP ${res.status}: ${errText}`);
+    }
+
+    const data = (await res.json()) as { writtenAt: { token: string } };
+    return data.writtenAt.token;
+  }
+}
+```
+
+---
+
 ### Verification Checklist
 - [ ] Every resource mutation endpoint verifies object-level authorization (`Check(user, can_write, object)`) to prevent IDOR vulnerabilities.
 - [ ] Vector RAG pipelines filter embeddings by authorized document IDs (`WHERE document_id = ANY($1)`) prior to LLM context injection.
