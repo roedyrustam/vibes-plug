@@ -220,21 +220,38 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 
 ---
 
-## The Liveliness Toolkit: Dials & Design Archetypes
+## The Liveliness Toolkit: Dials, Levers & Design Read
 
-Filtering slop removes bad habits; the **Liveliness Toolkit** fills the space with intentional character so the interface does not degenerate into a sterile, lifeless default.
+A filter can remove slop, but it cannot add energy. Removing slop leaves a void, and language models fill that void with their most generic output (the sterile default). Liveliness must be **added** deliberately through positive requirements, not bans.
 
-### The 3 Liveliness Dials (Scale 1 to 5)
+### Three Dials (Discrete Enforceable 1 to 3 Scale)
 
-Every design must deliberately declare its 3 dial settings:
+Every design must declare three dials explicitly, derived from `DESIGN.md` or the Design Read, and hold them from the first section to the last:
 
-| Dial | Scale 1 (Subdued / Minimal) | Scale 3 (Balanced / Professional) | Scale 5 (Expressive / Dynamic) |
-| :--- | :--- | :--- | :--- |
-| **ENERGY** | Monochromatic, quiet surfaces, restrained single accent, high whitespace. | Controlled dual-tone, crisp contrast, focused focal moments. | High-chroma accents, rich tonal depth, dramatic typographic contrast. |
-| **RHYTHM** | Strict linear grid, identical column intervals, predictable reading flow. | Alternating card widths, split hero composition, dynamic content pacing. | Asymmetric editorial layouts, overlapping surfaces, syncopated modular grids. |
-| **MOTION** | Zero ambient motion, instant opacity shifts (100ms), pure utilitarian. | Subtle hover feedback (150ms ease-out), tactile press scales (`scale-[0.98]`). | Coordinated page transitions, spring-physics micro-interactions, canvas shaders. |
+| Dial | 1 (Calm) | 2 (Balanced) | 3 (Bold) | What it answers |
+| :--- | :--- | :--- | :--- | :--- |
+| **ENERGY** | Linear, GOV.UK (Monochrome, quiet surfaces, restrained single accent, high whitespace) | Stripe, Vercel (Controlled dual-tone, crisp contrast, focused focal moments) | Awwwards, agency portfolio (High-chroma accents, rich tonal depth, dramatic typographic scale) | How hard does this design say hello? |
+| **RHYTHM** | Uniform grid, predictable reading flow | Consistent grid with intentional composition breaks | Asymmetric, mixed editorial layouts, syncopated modular grids | How much do sections change from each other? |
+| **MOTION** | Hover states only, instant utilitarian transitions (100ms) | Scroll-reveal, tactile press scales (`scale-[0.98]`, 150-250ms) | Parallax, sticky pin choreography, fluid spring physics | How much motion is present, and why? |
 
-*Rule R-37 Invariant: If designing without brand direction, dials MUST be declared honestly as ENERGY 1 / RHYTHM 1 / MOTION 1.*
+*Why 3 levels and not 10? A human reviewer and an AI agent can reliably verify binary checkable conditions: "is this section uniform or varied?" They cannot reliably judge "is this a 6 or a 7?". Three discrete levels make liveliness strictly enforceable.*
+
+### The 5 Visual Levers (Transforming Dials into Decisions)
+1. **One Focal Point per Screen**: Exactly one element is clearly the most important on every screen; all other elements defer to it.
+2. **Hierarchical Contrast**: Size, weight, and color are differentiated on purpose to guide reading gravity, never randomized.
+3. **Whitespace as Structure**: Empty space is used actively to separate and establish section cadence, not left over as accidental voids.
+4. **One Deliberate Accent**: Exactly one accent color or gesture used sparingly at key moments. Zero accents is sterile; an accent everywhere is slop.
+5. **Identity Motif**: One specific, repeated pattern, gesture, or typographic voice that makes the interface unmistakably belong to the product.
+
+### Design Read Protocol (Mandatory Before Generation)
+Before generating any UI component or page layout, declare the one-line Design Read:
+
+> `Reading this as: <page kind> for <audience>, in a <visual language> style, dial <ENERGY/RHYTHM/MOTION>.`
+
+*Example*: `"Reading this as: B2B SaaS analytics dashboard for engineering leads, in a Linear-style high-density language, dial ENERGY 2 / RHYTHM 2 / MOTION 1."*
+- **Direction Exists (`DESIGN.md` or user brief)**: Infer the dials from it and proceed.
+- **Direction Is Ambiguous**: Ask exactly ONE decisive question with concrete options (e.g., *"Should this feel closer to Linear-clean (Calm) or Stripe-vibrant (Balanced)?"*).
+- **Direction Is Absent & Cannot Ask**: Label output as *"draft without direction"* and set the honest default dials: **ENERGY 1 / RHYTHM 1 / MOTION 1** (R-37).
 
 ---
 
@@ -364,7 +381,100 @@ The skill includes built-in automated verification tools in `scripts/`:
    python "scripts/contrast-check.py" "#FFFFFF" "#0F172A"
    ```
 
-### Sovereign Execution, Token Efficiency & Invariants
+---
+
+### Production Code Blueprints
+
+#### 1. Zero-Dependency Programmatic WCAG 2.2 AA Contrast Verifier (TypeScript)
+Never eyeball contrast ratios or hallucinate compliance. Compute unrounded luminance and ratio deterministically:
+
+```typescript
+// src/quality/wcag-contrast-verifier.ts
+export interface ContrastVerdict {
+  foreground: string;
+  background: string;
+  ratio: number;
+  normalText: { threshold: 4.5; pass: boolean };
+  largeText: { threshold: 3.0; pass: boolean };
+}
+
+function parseHexChannel(hex: string, start: number): number {
+  return parseInt(hex.slice(start, start + 2), 16) / 255;
+}
+
+function linearizeChannel(val: number): number {
+  return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+}
+
+export function computeRelativeLuminance(hexColor: string): number {
+  let clean = hexColor.trim().replace(/^#/, '');
+  if (clean.length === 3) {
+    clean = clean.split('').map((c) => c + c).join('');
+  }
+  if (!/^[0-9A-Fa-f]{6}$/.test(clean)) {
+    throw new Error(`[WCAG] Invalid hex color format: ${hexColor}`);
+  }
+
+  const r = linearizeChannel(parseHexChannel(clean, 0));
+  const g = linearizeChannel(parseHexChannel(clean, 2));
+  const b = linearizeChannel(parseHexChannel(clean, 4));
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+export function evaluateWcagContrast(foreground: string, background: string): ContrastVerdict {
+  const lumA = computeRelativeLuminance(foreground);
+  const lumB = computeRelativeLuminance(background);
+
+  const lighter = Math.max(lumA, lumB);
+  const darker = Math.min(lumA, lumB);
+  const rawRatio = (lighter + 0.05) / (darker + 0.05);
+
+  return {
+    foreground,
+    background,
+    ratio: Math.round(rawRatio * 100) / 100,
+    normalText: { threshold: 4.5, pass: rawRatio >= 4.5 },
+    largeText: { threshold: 3.0, pass: rawRatio >= 3.0 },
+  };
+}
+```
+
+#### 2. MCP Stdio Tool Adapter for Anti-Slop Contrast Checker (TypeScript)
+Expose programmatic contrast auditing to all MCP clients (Claude, Cursor, Codex, Antigravity):
+
+```typescript
+// src/mcp/contrast-mcp-tool.ts
+import { evaluateWcagContrast, ContrastVerdict } from '../quality/wcag-contrast-verifier';
+
+export interface McpToolResponse {
+  content: { type: 'text'; text: string }[];
+  isError?: boolean;
+}
+
+export function handleMcpCheckContrast(args: { foreground: string; background: string }): McpToolResponse {
+  try {
+    const verdict = evaluateWcagContrast(args.foreground, args.background);
+    const textOutput = [
+      `WCAG 2.2 Contrast Ratio: ${verdict.ratio}:1`,
+      `Normal Text (<18px, 4.5:1): ${verdict.normalText.pass ? 'PASS' : 'FAIL'}`,
+      `Large Text (>=18px bold / 24px, 3.0:1): ${verdict.largeText.pass ? 'PASS' : 'FAIL'}`,
+    ].join('\n');
+
+    return {
+      content: [{ type: 'text', text: textOutput }],
+      isError: !verdict.normalText.pass && !verdict.largeText.pass,
+    };
+  } catch (err) {
+    return {
+      content: [{ type: 'text', text: `Contrast check error: ${(err as Error).message}` }],
+      isError: true,
+    };
+  }
+}
+```
+
+---
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
 | **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
@@ -460,12 +570,36 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ---
 
-### Liveliness Toolkit: 3 Dial & 4 Arsitektur Desain
+### Liveliness Toolkit: 3 Dial, 5 Tuas Visual & Protokol Design Read
 
-Untuk mencegah antarmuka jatuh ke dalam kegagalan sebaliknya—yaitu desain yang steril, datar, dan membosankan—anti-slop menggunakan **3 Dial Karakter**:
-1. **ENERGY (1-5)**: Skala 1 (monokromatik, sunyi) hingga Skala 5 (aksen berani, kontras tinggi).
-2. **RHYTHM (1-5)**: Skala 1 (grid linear kaku) hingga Skala 5 (tata letak editorial dinamis).
-3. **MOTION (1-5)**: Skala 1 (statis murni) hingga Skala 5 (transisi halus berbasis fisika).
+Filter anti-slop bertugas membuang kebiasaan buruk AI, namun membuang slop saja akan meninggalkan kekosongan (*void*) yang biasanya diisi model AI dengan tampilan generik yang steril dan membosankan. Karakter visual wajib **ditambahkan secara sengaja**:
+
+#### 3 Dial Karakter (Skala Diskrit 1 sampai 3):
+1. **ENERGY (1-3)**:
+   - Skala 1 (Tenang): Linear, GOV.UK (Monokromatik, permukaan tenang, aksen tunggal hemat, banyak whitespace).
+   - Skala 2 (Seimbang): Stripe, Vercel (Kontras tajam, dual-tone terkontrol, titik fokus terarah).
+   - Skala 3 (Berani): Awwwards, portofolio kreatif (Aksen saturasi tinggi, tipografi dramatis).
+2. **RHYTHM (1-3)**:
+   - Skala 1 (Seragam): Grid linear kaku dan ritme membaca yang terprediksi.
+   - Skala 2 (Konsisten Berbobot): Grid konsisten dengan variasi seksi yang memiliki tujuan.
+   - Skala 3 (Asimetris): Tata letak editorial dinamis, kartu modular bergantian.
+3. **MOTION (1-3)**:
+   - Skala 1 (Utilitarian): Efek hover instan (100ms) tanpa animasi berlebihan.
+   - Skala 2 (Halus Taktil): Scroll-reveal, transisi tactile press (`scale-[0.98]`, 150-250ms).
+   - Skala 3 (Koreografi): Koreografi sticky pin, parallax bermakna, fisika pegas fluida.
+
+*Mengapa 3 skala dan bukan 10? Peninjau manusia dan agen AI dapat memverifikasi kondisi biner: "apakah bagian ini seragam atau bervariasi?" Skala diskrit 1-3 membuat kepatuhan dapat ditegakkan secara absolut tanpa perdebatan subjektif.*
+
+#### 5 Tuas Visual (Visual Levers):
+1. **Satu Titik Fokus per Layar**: Tepat satu elemen paling penting di setiap layar; elemen lain mengalah.
+2. **Kontras Hirarkis**: Ukuran, bobot, dan warna dibedakan secara sengaja untuk memandu mata pengguna.
+3. **Whitespace Struktural**: Ruang kosong digunakan aktif untuk pemisah dan ritme, bukan sisa layout.
+4. **Satu Aksen Terukur**: Tepat satu warna aksen pada momen kunci. Tanpa aksen = steril; aksen di mana-mana = slop.
+5. **Motif Identitas**: Satu pola berulang, gestur, atau tipografi spesifik yang membuat desain autentik milik produk.
+
+#### Protokol Deklarasi Design Read:
+Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
+> `Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>.`
 
 #### 4 Arsitektur Desain Teruji:
 1. **Archetype A: High-Precision Developer Tooling** (Linear, Raycast, Vercel)

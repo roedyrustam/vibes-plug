@@ -133,6 +133,7 @@ Explicitly clarify or propose assumptions for modern web & software pillars, inv
 - **SaaS Architecture:** `saas-multi-tenant`, `saas-billing`, `agentic-micro-economy-architect`.
 - **Mobile & Desktop Targets:** `mobile-expo-expert`, `tauri-expert`.
 - **Accessibility & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, aria tags, locale routing).
+- **Anti-Slop Direction & Liveliness Gate (R-37):** `anti-slop` (Declare one-line Design Read: `"Reading this as: <page kind> for <audience>, in a <visual language> style, dial <ENERGY/RHYTHM/MOTION>"`). Settle direction before building; if ambiguous, ask one decisive question; if direction is absent and user cannot be asked, default to honest dials ENERGY 1 / RHYTHM 1 / MOTION 1.
 - **SEO & Discovery:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
 If the user is uncertain, propose modern defaults (e.g. Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) and explicitly tag them as **[ASSUMPTIONS]**.
@@ -356,6 +357,7 @@ Secara eksplisit perjelas atau usulkan asumsi untuk pilar-pilar perangkat lunak 
 - **Arsitektur SaaS:** `saas-multi-tenant`, `saas-billing`, `agentic-micro-economy-architect`.
 - **Target Mobile & Desktop:** `mobile-expo-expert`, `tauri-expert`.
 - **Aksesibilitas & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, tag aria, navigasi bahasa).
+- **Arah Visual & Gate Liveliness Anti-Slop (R-37):** `anti-slop` (Deklarasikan satu baris Design Read: `"Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>"`). Tentukan arah visual sebelum implementasi; jika ambigu, ajukan satu pertanyaan penentu; jika tanpa arahan, gunakan dial default yang jujur: ENERGY 1 / RHYTHM 1 / MOTION 1.
 - **SEO & Penemuan:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
 
 Jika pengguna ragu, berikan rekomendasi default modern (misal: Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) dan tandai sebagai **[ASUMSI]**.

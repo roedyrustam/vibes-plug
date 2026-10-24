@@ -140,6 +140,18 @@ const DOC_ERROR_PATTERNS = [
     // Check if not explicitly part of an anti-slop prohibition rule or inside quotation
     regex: /^(?!.*(No generic|Forbidden|Dilarang|prohibit|Standard|Avoid|Eliminate|Rule)).*(As an AI language model|As an artificial intelligence|Note: In a real-world scenario|Note: For production, you should consult)/i,
     description: 'Unhelpful generic disclaimer slop.'
+  },
+  {
+    id: 'SIGNPOSTING_ANNOUNCEMENT',
+    name: 'Signposting Announcement Slop',
+    regex: /^(?!.*(Forbidden|Dilarang|prohibit|Standard|Avoid|Eliminate|Rule|Pattern|Tell:|Why:|Fix:|Before:|After:)).*(Let's dive in|Without further ado|In this article we'll explore|Here's what you need to know)/i,
+    description: 'Signposting announcements that tell instead of show (antislop-copywriting).'
+  },
+  {
+    id: 'CHATBOT_CLOSER_SLOP',
+    name: 'Chatbot Closing Pleasantry Slop',
+    regex: /^(?!.*(Forbidden|Dilarang|prohibit|Standard|Avoid|Eliminate|Rule|Pattern|Tell:|Why:|Fix:|Before:|After:)).*(I hope this helps!|Let me know if you have any questions|Would you like me to expand on this\?)/i,
+    description: 'Pasted chatbot closers and conversation artifacts in prose (antislop-copywriting).'
   }
 ];
 
