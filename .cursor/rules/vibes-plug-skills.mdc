@@ -1,10 +1,10 @@
 ---
 alwaysApply: false
-description: "Vibes-Plug 171-Skill Domain Registry — Use this rule whenever identifying specialized domain guidance, design patterns, or technical skills in Cursor"
+description: "Vibes-Plug 176-Skill Domain Registry — Use this rule whenever identifying specialized domain guidance, design patterns, or technical skills in Cursor"
 globs: "**/*"
 ---
 
-# Vibes-Plug 171-Skill Domain Registry
+# Vibes-Plug 176-Skill Domain Registry
 
 When addressing specific technical domains in Cursor, look up and read the corresponding skill instruction file in `skills/<skill-name>/SKILL.md` (or `.cursor/skills/<skill-name>/SKILL.md` or `.agents/skills/<skill-name>/SKILL.md`).
 

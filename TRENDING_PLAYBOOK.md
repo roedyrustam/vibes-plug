@@ -24,7 +24,7 @@ Sebelum meluncurkan promosi, pastikan pengaturan repository di [GitHub Settings]
 
 ### A. Repository Description (About Section)
 Gunakan kalimat deskripsi padat dengan CTR tinggi:
-> **⚡ Universal 171-Skill AI Agent Swarm Architecture for Antigravity, Claude Code, Cursor, and Codex. Vibe Coding 2.0 with Zero Tech Debt & Visual Studio Cockpit.**
+> **⚡ Universal 176-Skill AI Agent Swarm Architecture for Antigravity, Claude Code, Cursor, and Codex. Vibe Coding 2.0 with Zero Tech Debt & Visual Studio Cockpit.**
 
 ### B. Topics / Tags Wajib (Paling sering dicari di GitHub Explore)
 Tambahkan tag berikut pada kolom **Topics**:
@@ -53,7 +53,7 @@ vibe-coding, ai-agents, multi-agent-swarm, cursor, claude-code, antigravity, win
 "Vibe Coding" is transforming software development, but single-prompt AI quickly degenerates into spaghetti code, phantom imports, and massive technical debt.
 
 To solve this, we just open-sourced VibesPlug Pro v4.3.0:
-A universal 171-Skill AI Agent Swarm Architecture for your IDE.
+A universal 176-Skill AI Agent Swarm Architecture for your IDE.
 
 🧵 Here is how it turns your editor into a full-scale autonomous engineering studio:
 [Attach vibes-swarm-demo.gif]
@@ -68,7 +68,7 @@ Context floods. Abstractions collapse. Code rots.
 Instead, VibesPlug injects an autonomous Swarm Director that coordinates 161 specialized domain agents across 8 strict Zero-to-Prod phases.
 ```
 
-**Tweet 3 (The 171-Skill Arsenal):**
+**Tweet 3 (The 176-Skill Arsenal):**
 ```text
 Each specialist owns a single domain:
 🎨 Frontend: React 19, Tailwind v4, CSS Anchor Positioning, 3D WebGPU
@@ -116,7 +116,7 @@ If you believe the future of coding is collaborative agent swarms, give us a ⭐
 
 **Title:**
 ```text
-Show HN: VibesPlug – A 171-skill multi-agent swarm architecture for IDEs
+Show HN: VibesPlug – A 176-skill multi-agent swarm architecture for IDEs
 ```
 
 **Content:**
@@ -163,7 +163,7 @@ I spent months building and open-sourcing **VibesPlug Pro v4.3.0**:
 
 ### What makes it different from standard rule files?
 - **Autonomous Swarm Director**: You don't have to manually type `@skill-name`. The orchestrator inspects what you're doing and dynamically binds cooperating specialists (e.g. `senior-frontend` + `tailwind-expert` + `form-validation-expert`).
-- **171 Specialized Skills**: Modern 2026 tech stack: React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono, Go 1.25+, and DOKU SNAP BI.
+- **176 Specialized Skills**: Modern 2026 tech stack: React 19, Next.js 15, Tailwind v4, Bun 1.2+, Hono, Go 1.25+, and DOKU SNAP BI.
 - **Sovereign Anti-Slop Engine**: An automated validator that blocks fake mocks, lazy placeholders, and syntax narration.
 - **P1-P5 Substrate Engines**: Includes AST symbol isolation, an in-memory SQLite sandbox for checking migrations before applying, and deterministic prompt caching that cuts token usage by up to 75-90%.
 - **Vibes Studio**: Runs a zero-dependency local web cockpit (`vibes studio`) to explore all skills and inspect agent architecture.
@@ -214,7 +214,7 @@ Salah satu sumber star organik paling konsisten adalah terdaftar di repositori "
 
 1. **`awesome-cursorrules`** (`https://github.com/PatrickJS/awesome-cursorrules`):
    - Category: Multi-Agent / Universal Fullstack
-   - Link: `[VibesPlug](https://github.com/roedyrustam/vibes-plug) - Universal 171-skill multi-agent swarm architecture for Cursor, Claude Code, and Antigravity.`
+   - Link: `[VibesPlug](https://github.com/roedyrustam/vibes-plug) - Universal 176-skill multi-agent swarm architecture for Cursor, Claude Code, and Antigravity.`
 2. **`awesome-mcp-servers`** (`https://github.com/punkpeye/awesome-mcp-servers`):
    - Category: Developer Tools / Code Intelligence
    - Link: `[VibesPlug MCP](https://github.com/roedyrustam/vibes-plug) - MCP v1.x server with AST querying, in-memory DB sandboxing, and 161 specialized AI skills.`

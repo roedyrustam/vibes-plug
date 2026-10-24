@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-24T17:56:40.343Z",
+  "timestamp": "2026-10-24T18:09:38.022Z",
   "score": 100,
-  "totalElapsedMs": 276.15,
+  "totalElapsedMs": 245.01,
   "itemsTested": 7,
   "passedCount": 7,
   "allPassed": true,
@@ -9,60 +9,60 @@
     {
       "id": "sandbox_exec",
       "name": "Ephemeral Micro-Sandbox Execution",
-      "measured": "1.17 ms",
+      "measured": "1.11 ms",
       "budget": "< 25.00 ms",
       "passed": true,
-      "rawMs": 1.1708899999999987
+      "rawMs": 1.10997
     },
     {
       "id": "verify_gate",
       "name": "Pre-Disk Verification Gate",
-      "measured": "1.20 ms",
+      "measured": "1.17 ms",
       "budget": "< 50.00 ms",
       "passed": true,
-      "rawMs": 1.204440000000001
+      "rawMs": 1.171520000000001
     },
     {
       "id": "ast_indexing",
       "name": "AST Symbol Indexing Throughput",
-      "measured": "4.592 sym/s",
+      "measured": "5.473 sym/s",
       "budget": "> 300 sym/s",
       "passed": true,
-      "rawThroughput": 4592,
+      "rawThroughput": 5473,
       "totalSymbols": 383,
       "totalFiles": 74
     },
     {
       "id": "graph_search",
       "name": "Hybrid GraphRAG Search (Top-5)",
-      "measured": "8.21 ms",
+      "measured": "9.16 ms",
       "budget": "< 60.00 ms",
       "passed": true,
-      "rawMs": 8.213939999999997
+      "rawMs": 9.161599999999996
     },
     {
       "id": "kv_cache",
       "name": "Deterministic KV-Cache Prefix Compilation",
-      "measured": "49.93 ms",
+      "measured": "35.36 ms",
       "budget": "< 500.00 ms",
       "passed": true,
-      "rawMs": 49.93269999999998
+      "rawMs": 35.363800000000026
     },
     {
       "id": "cross_ide_bridge",
       "name": "Cross-IDE Bridge Synchronization",
-      "measured": "20.82 ms",
+      "measured": "12.64 ms",
       "budget": "< 120.00 ms",
       "passed": true,
-      "rawMs": 20.81819999999999
+      "rawMs": 12.639099999999985
     },
     {
       "id": "vsix_packager",
       "name": "Zero-Dependency VSIX Package Builder",
-      "measured": "5.88 ms",
+      "measured": "3.32 ms",
       "budget": "< 200.00 ms",
       "passed": true,
-      "rawMs": 5.880299999999977
+      "rawMs": 3.3210000000000264
     }
   ]
 }

@@ -42,7 +42,7 @@ async function auditGraph() {
 
   const orphans = Object.entries(inDegree).filter(([, deg]) => deg === 0).map(([s]) => s);
 
-  console.log(`\n🕸️  Skill Dependency Graph Audit (171 Skills):`);
+  console.log(`\n🕸️  Skill Dependency Graph Audit (176 Skills):`);
   console.log(`-----------------------------------------------`);
   console.log(`Total Skills in Registry : ${allSkills.size}`);
   console.log(`Total Directed Edges     : ${totalEdges}`);

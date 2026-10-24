@@ -13,7 +13,7 @@
  * - Composite Complexity Score (0 - 100) & Tier (LOW, MODERATE, HIGH, CRITICAL)
  * - Optimal Thinking Budget Tokens (1,024 to 65,536 tokens)
  * - Model Tier & Multi-Provider Payloads (Gemini 4, Claude 3.7/5.1, OpenAI o3)
- * - Auto-Bound Skills from the 171-Skill Registry
+ * - Auto-Bound Skills from the 176-Skill Registry
  * - Projected Token & Financial Savings vs Unconstrained Reasoning
  *
  * Usage:

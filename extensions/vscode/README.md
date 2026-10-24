@@ -8,7 +8,7 @@ Turn Visual Studio Code, Cursor IDE, or Windsurf into an autonomous 160-agent so
 
 ## ⚡ Features / Fitur Utama
 
-- **Status Bar Indicator**: Live status displaying `$(zap) VibesPlug: 171 Skills Active`.
+- **Status Bar Indicator**: Live status displaying `$(zap) VibesPlug: 176 Skills Active`.
 - **1-Click Studio Cockpit**: Open the visual web dashboard and Visual DAG Canvas directly from your status bar or Command Palette.
 - **Project Scaffolding Wizard**: Launch `vibes wizard` in the integrated terminal to scaffold projects and select custom AI skill bundles.
 - **Sovereign Anti-Slop Guard**: Run the complete 294-file Anti-Slop audit and test suite with one keystroke.

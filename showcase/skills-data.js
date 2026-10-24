@@ -1,5 +1,5 @@
 /**
- * Vibes-Plug 171 Verified Skills Registry
+ * Vibes-Plug 176 Verified Skills Registry
  * Auto-synchronized dataset for Public Web Showcase & Interactive Explorer
  */
 
@@ -2137,6 +2137,79 @@ export const SKILLS_DATA = [
     ]
   },
   {
+    "name": "rea-analysis-optimization",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.4.3",
+    "author": "morluto",
+    "trigger": "@rea-analysis-optimization",
+    "summaryEn": "Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit.",
+    "summaryId": "Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit.",
+    "tags": [
+      "rea",
+      "analysis",
+      "optimization",
+      "security"
+    ]
+  },
+  {
+    "name": "rea-changelog-update",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.4.3",
+    "author": "morluto",
+    "trigger": "@rea-changelog-update",
+    "summaryEn": "Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization.",
+    "summaryId": "Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization.",
+    "tags": [
+      "rea",
+      "changelog",
+      "update",
+      "security"
+    ]
+  },
+  {
+    "name": "rea-ci-tests-audit",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.4.3",
+    "author": "morluto",
+    "trigger": "@rea-ci-tests-audit",
+    "summaryEn": "Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure.",
+    "summaryId": "Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure.",
+    "tags": [
+      "rea",
+      "ci",
+      "tests",
+      "audit",
+      "security"
+    ]
+  },
+  {
+    "name": "rea-tool-design",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.4.3",
+    "author": "morluto",
+    "trigger": "@rea-tool-design",
+    "summaryEn": "Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.",
+    "summaryId": "Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.",
+    "tags": [
+      "rea",
+      "tool",
+      "design",
+      "security"
+    ]
+  },
+  {
     "name": "reactive-sync-engine-expert",
     "domain": "frontend",
     "domainLabel": "Frontend & Mobile UI/UX",
@@ -2169,6 +2242,24 @@ export const SKILLS_DATA = [
       "realtime",
       "collaboration",
       "data"
+    ]
+  },
+  {
+    "name": "reverse-engineer-anything",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.4.3",
+    "author": "morluto",
+    "trigger": "@reverse-engineer-anything",
+    "summaryEn": "Reverse engineer native, managed, Electron/JavaScript, packaged, firmware, and browser targets with REA, and build agent environments (AgentEnv bundles) of web applications from a live instance or a capture. Use shipped-artifact or requested runtime evidence to explain features, compare versions, decompile code, or guide a reconstruction. Skip REA for ordinary source-repository architecture analysis.",
+    "summaryId": "Reverse engineer native, managed, Electron/JavaScript, packaged, firmware, and browser targets with REA, and build agent environments (AgentEnv bundles) of web applications from a live instance or a capture. Use shipped-artifact or requested runtime evidence to explain features, compare versions, decompile code, or guide a reconstruction. Skip REA for ordinary source-repository architecture analysis.",
+    "tags": [
+      "reverse",
+      "engineer",
+      "anything",
+      "security"
     ]
   },
   {

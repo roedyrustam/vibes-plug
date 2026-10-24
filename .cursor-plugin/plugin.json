@@ -1,8 +1,8 @@
 {
   "name": "vibes-plug",
   "displayName": "Vibes Plug",
-  "version": "4.4.3",
-  "description": "Universal AI Swarm Architecture with 171 specialized domain skills, 5 native agents, and anti-slop engineering.",
+  "version": "4.5.0",
+  "description": "Universal AI Swarm Architecture with 176 specialized domain skills, 8 native agents, and anti-slop engineering.",
   "author": {
     "name": "Roedy Rustam"
   },
@@ -12,17 +12,26 @@
   "logo": "assets/logo.png",
   "keywords": [
     "vibes-plug",
-    "swarm",
-    "skills",
-    "agents",
+    "multi-agent-swarm",
+    "skill-as-a-tool",
+    "cursor-rules",
+    "claude-code",
+    "antigravity",
+    "openai-codex",
+    "reverse-engineering",
+    "ghidra",
+    "binary-analysis",
+    "rea",
     "fullstack",
     "anti-slop",
-    "mcp"
+    "mcp-server"
   ],
   "category": "developer-tools",
   "tags": [
     "orchestration",
     "multi-agent",
+    "skill-as-a-tool",
+    "reverse-engineering",
     "fullstack",
     "skills"
   ],

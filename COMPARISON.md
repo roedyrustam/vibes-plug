@@ -4,7 +4,7 @@
 
 **How does VibesPlug Pro compare to other AI coding agent tools?**
 
-*Last updated: October 2026 • v4.4.2 (171 Skills)*
+*Last updated: October 2026 • v4.4.2 (176 Skills)*
 </div>
 
 ---
@@ -32,7 +32,7 @@
 | Feature | VibesPlug Pro | @primeinc/swarm | aiwg | Karpathy Rules | Mastra | LangGraph.js |
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|
 | **Multi-Agent Swarm Director** | ✅ 3 topologies | ✅ Basic | ✅ | ❌ | ✅ | ✅ |
-| **Specialized Domain Skills** | ✅ **171 skills** | ❌ ~5 | ❌ | ❌ | ❌ | ❌ |
+| **Specialized Domain Skills** | ✅ **176 skills** | ❌ ~5 | ❌ | ❌ | ❌ | ❌ |
 | **Native Subagents** | ✅ 5 specialists | ❌ | ✅ | ❌ | ❌ | ✅ |
 | **Autonomous Zero-to-Prod Pipeline** | ✅ 8 phases | ❌ | ⚠️ Partial | ❌ | ❌ | ❌ |
 | **Built-in MCP Server** | ✅ Stdio v1.x | ❌ | ❌ | ❌ | ❌ | ❌ |

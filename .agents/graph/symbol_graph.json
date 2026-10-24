@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-24T17:56:40.112Z",
+  "generatedAt": "2026-10-24T18:09:37.818Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 74,
   "totalSymbolsIndexed": 383,
@@ -3154,7 +3154,7 @@
       "symbolCount": 4
     },
     "scripts/sync-all-skill-counts.mjs": {
-      "totalLines": 477,
+      "totalLines": 478,
       "symbolCount": 1
     },
     "scripts/terminal-monitor.mjs": {
@@ -3202,7 +3202,7 @@
       "symbolCount": 14
     },
     "showcase/skills-data.js": {
-      "totalLines": 3028,
+      "totalLines": 3119,
       "symbolCount": 0
     },
     "skills/anti-slop/scripts/check-anti-slop.js": {

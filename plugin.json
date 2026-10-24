@@ -2,8 +2,8 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "vibes-plug",
   "displayName": "Vibes-Plug",
-  "version": "4.4.3",
-  "description": "Universal AI Agent Swarm & MCP plugin with 171 specialized skills and 8 autonomous subagents for Cursor, Antigravity, Claude Code, Windsurf, and OpenAI Codex.",
+  "version": "4.5.0",
+  "description": "Universal AI Agent Swarm & MCP plugin with 176 specialized skills and 8 autonomous subagents for Cursor, Antigravity, Claude Code, Windsurf, and OpenAI Codex.",
   "logo": "assets/logo.svg",
   "icon": "assets/logo.svg",
   "author": {
@@ -13,15 +13,26 @@
   "repository": "https://github.com/roedyrustam/vibes-plug.git",
   "license": "MIT",
   "keywords": [
-    "ai",
-    "agent",
-    "cursor",
-    "mcp",
-    "skills",
+    "ai-agents",
+    "multi-agent-swarm",
+    "mcp-server",
+    "model-context-protocol",
+    "claude-code",
+    "cursor-rules",
+    "antigravity",
+    "openai-codex",
+    "vibe-coding",
+    "agentic-ai",
+    "skill-as-a-tool",
+    "reverse-engineering",
+    "ghidra",
+    "binary-analysis",
+    "rea",
     "fullstack",
     "fintech",
     "zero-to-prod",
-    "anti-slop"
+    "anti-slop",
+    "windsurf"
   ],
   "extensions": {
     "com.cursor": {

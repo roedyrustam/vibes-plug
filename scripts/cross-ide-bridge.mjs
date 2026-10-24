@@ -166,7 +166,7 @@ async function getMasterRuleContent() {
   try {
     return await fs.readFile(agentsPath, 'utf8');
   } catch {
-    return '# Core Rule for Vibes-Plug Agents\nUniversal 171-Skill Swarm Architecture.\n';
+    return '# Core Rule for Vibes-Plug Agents\nUniversal 176-Skill Swarm Architecture.\n';
   }
 }
 
@@ -246,7 +246,7 @@ export async function generateContextBundle(targetDir = process.cwd()) {
 
   return `<!-- VIBES-PLUG UNIVERSAL CONTEXT BUNDLE -->
 # 🌊 Vibes-Plug Sovereign Context Bundle (2026 Edition)
-> **Active Architecture:** 171-Skill Multi-Agent Swarm with Zero Tech Debt
+> **Active Architecture:** 176-Skill Multi-Agent Swarm with Zero Tech Debt
 > **Generated:** ${new Date().toISOString()}
 
 ---

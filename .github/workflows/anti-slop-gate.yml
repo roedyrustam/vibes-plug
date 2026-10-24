@@ -33,7 +33,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Validate 171 Skills Ecosystem & Orchestrator Sync
+      - name: Validate 176 Skills Ecosystem & Orchestrator Sync
         run: node scripts/validate-skills.mjs
 
       - name: Run Sovereign Anti-Slop Strict Audit (Zero Slop Standard)

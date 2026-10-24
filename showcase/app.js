@@ -263,7 +263,7 @@ const TERMINAL_OUTPUTS = {
 ----------------------------------------------------------------------
 ⚡ Server Port         : http://localhost:3888
 📡 Remote MCP SSE      : http://localhost:3888/sse
-📦 Verified Skills     : 171 loaded from registry
+📦 Verified Skills     : 176 loaded from registry
 🛡️  Anti-Slop Engine   : ACTIVE (STRICT mode)
 👥 Swarm Topologies    : 3 Native topologies primed
 🧠 Memory Daemon       : Connected to /_memory/active
@@ -314,7 +314,7 @@ Actual Vibes-Plug Billing   : $5.75 USD
 <span class="term-badge term-badge-cyan">DOCTOR</span> Diagnostic Health Verification & Environment Audit:
 ----------------------------------------------------------------------
 [OK] Node.js Runtime        : v24.2.0 (LTS verified)
-[OK] Skill Registry         : 171/171 skills valid with frontmatter & matrix
+[OK] Skill Registry         : 176/176 skills valid with frontmatter & matrix
 [OK] Sovereign Anti-Slop    : 0 errors, 0 warnings across 331 files
 [OK] IDE Bridge Targets     : 6 IDEs configured (AGY, Claude, Cursor, Windsurf, Codex, Trae)
 [OK] MCP Server Protocol    : v1.x JSON-RPC compliant
@@ -400,7 +400,7 @@ Available interactive commands:
 
   if (cleanCmd === 'skills') {
     appendTerminalLine(`
-Total 171 Verified Skills in Vibes-Plug:
+Total 176 Verified Skills in Vibes-Plug:
   • Frontend & Mobile UI/UX   : 35 skills
   • Backend & System Design   : 28 skills
   • Frontier AI, LLM & MCP    : 28 skills
@@ -425,7 +425,7 @@ Total 171 Verified Skills in Vibes-Plug:
     appendTerminalLine(`
 <span class="term-badge term-badge-yellow">AI SYNTHESIS</span> Interpreting task: "<em>${escapeHtml(cleanCmd)}</em>"
 ⚡ Routing through Brainstorming & Zero-to-Prod Orchestrator...
-🤝 Synchronizing relevant cooperating skills across 171 registry...
+🤝 Synchronizing relevant cooperating skills across 176 registry...
 ✅ Spec-driven execution plan compiled in 12ms. Anti-slop gate: PASSED.
 `);
   }
@@ -636,7 +636,7 @@ Enforce deep reasoning prior to code generation:
     file: '.traerules',
     code: `# Trae IDE Universal Bridge
 ecosystem: vibes-plug-v4.4.2
-skills_total: 171
+skills_total: 176
 orchestrator: zero-to-prod-orchestrator
 quality_gate: sovereign-anti-slop-strict
 `
