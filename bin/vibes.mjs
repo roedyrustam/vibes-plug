@@ -1785,9 +1785,27 @@ Platform Eligibility & Economics:
   case 'doctor':
     runDoctor(args.includes('--fix'));
     break;
-  case 'skill':
-    runSkillInfo(args[2]);
+  case 'skill': {
+    if (args[1] === 'exec') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else if (args[1] === 'chain') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), 'chain', ...args.slice(2)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else if (args[1] === 'slice') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), args[2], 'slice', ...args.slice(3)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else {
+      runSkillInfo(args[2] || args[1]);
+    }
     break;
+  }
   case 'hooks':
     runHooks(args[1]);
     break;

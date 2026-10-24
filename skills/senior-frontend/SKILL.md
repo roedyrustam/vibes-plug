@@ -170,6 +170,78 @@ export function MetricBanner({
 
 ---
 
+#### React 19 Optimistic Mutation & Server Action Form Hook (TypeScript)
+```tsx
+'use client';
+
+import { useActionState, useOptimistic } from 'react';
+
+export interface TaskItem {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+export function OptimisticTaskList({
+  initialTasks,
+  toggleTaskAction
+}: {
+  initialTasks: TaskItem[];
+  toggleTaskAction: (prevState: { error?: string }, formData: FormData) => Promise<{ error?: string }>;
+}) {
+  const [state, formAction, isPending] = useActionState(toggleTaskAction, {});
+  const [optimisticTasks, addOptimisticToggle] = useOptimistic(
+    initialTasks,
+    (currentTasks, toggledId: string) =>
+      currentTasks.map((t) => (t.id === toggledId ? { ...t, completed: !t.completed } : t))
+  );
+
+  return (
+    <form
+      action={(formData) => {
+        const id = String(formData.get('taskId') ?? '');
+        addOptimisticToggle(id);
+        formAction(formData);
+      }}
+      className="space-y-2"
+    >
+      {state.error && <p className="text-xs font-medium text-red-600">{state.error}</p>}
+      {optimisticTasks.map((task) => (
+        <div
+          key={task.id}
+          className="flex items-center justify-between rounded-lg border border-neutral-200/80 dark:border-neutral-800 px-3 py-2"
+        >
+          <span className="text-sm font-medium text-neutral-900 dark:text-neutral-100">{task.title}</span>
+          <button
+            type="submit"
+            name="taskId"
+            value={task.id}
+            disabled={isPending}
+            className="cursor-pointer rounded-md border border-neutral-300 dark:border-neutral-700 px-2.5 py-1 text-xs font-medium tabular-nums transition hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-neutral-900 disabled:opacity-50"
+          >
+            {task.completed ? 'Done' : 'Mark Done'}
+          </button>
+        </div>
+      ))}
+    </form>
+  );
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec senior-frontend <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -252,3 +324,12 @@ Setiap tampilan React 19 / Next.js 15 wajib memancarkan hierarki visual kaliber 
 - **Dominasi Single Primary CTA**: Maksimal satu tombol utama kontras tinggi per layar; aksi sekunder menggunakan gaya subtle/outline.
 - **Kedekatan Gestalt (Proximity)**: Kontrol dan label terhubung duduk berjarak rapat `gap-1.5` (6px); batas antar-seksi menggunakan ruang kosong yang lega (`py-16 md:py-24`).
 - **Pelapisan Permukaan 1px Tajam**: Padukan border tajam `border border-neutral-200/80 dark:border-neutral-800` dengan micro-shadow terarah `shadow-xs` alih-alih bayangan hitam buram 30px.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec senior-frontend <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

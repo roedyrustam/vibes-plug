@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-23T22:07:28.425Z",
-  "rootDir": "C:\\Users\\roedy\\vibes-plug",
-  "totalFilesIndexed": 62,
-  "totalSymbolsIndexed": 344,
+  "generatedAt": "2026-10-24T16:52:22.735Z",
+  "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
+  "totalFilesIndexed": 74,
+  "totalSymbolsIndexed": 381,
   "symbols": {
     "to": [
       {
@@ -14,7 +14,7 @@
       },
       {
         "file": "bin/mcp-server.mjs",
-        "line": 345,
+        "line": 350,
         "type": "interface",
         "signature": "description: 'Name of the function, class, type, or interface to query.'"
       },
@@ -36,7 +36,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 715,
+        "line": 743,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +44,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1226,
+        "line": 1273,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +52,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1254,
+        "line": 1301,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -60,7 +60,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1362,
+        "line": 1409,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -643,6 +643,14 @@
         "line": 190,
         "type": "function",
         "signature": "function getCacheStatus()"
+      }
+    ],
+    "compileSkillSlices": [
+      {
+        "file": "scripts/compile-skill-slices.mjs",
+        "line": 21,
+        "type": "function",
+        "signature": "function compileSkillSlices()"
       }
     ],
     "getAvailableSkills": [
@@ -1241,6 +1249,46 @@
         "line": 238,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
+      }
+    ],
+    "resolveSkillAdapter": [
+      {
+        "file": "scripts/skill-dispatcher.mjs",
+        "line": 103,
+        "type": "function",
+        "signature": "function resolveSkillAdapter(skillName)"
+      }
+    ],
+    "getSkillCompactSlice": [
+      {
+        "file": "scripts/skill-dispatcher.mjs",
+        "line": 138,
+        "type": "function",
+        "signature": "function getSkillCompactSlice(skillName)"
+      }
+    ],
+    "inspectSkillCapabilities": [
+      {
+        "file": "scripts/skill-dispatcher.mjs",
+        "line": 156,
+        "type": "function",
+        "signature": "function inspectSkillCapabilities(skillName)"
+      }
+    ],
+    "dispatchSkillAction": [
+      {
+        "file": "scripts/skill-dispatcher.mjs",
+        "line": 205,
+        "type": "function",
+        "signature": "function dispatchSkillAction(request = {})"
+      }
+    ],
+    "dispatchSkillChain": [
+      {
+        "file": "scripts/skill-dispatcher.mjs",
+        "line": 324,
+        "type": "function",
+        "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})"
       }
     ],
     "component": [
@@ -1997,6 +2045,238 @@
         "signature": "const sendJson = (data, statusCode = 200) =>"
       }
     ],
+    "TenantRoutingConfig": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 64,
+        "type": "interface",
+        "signature": "export interface TenantRoutingConfig {"
+      }
+    ],
+    "routeMultiEntrySaaS": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 69,
+        "type": "function",
+        "signature": "function routeMultiEntrySaaS(req: NextRequest, config: TenantRoutingConfig)"
+      }
+    ],
+    "EntitlementContext": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 93,
+        "type": "interface",
+        "signature": "export interface EntitlementContext {"
+      }
+    ],
+    "evaluateFeatureAccess": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 100,
+        "type": "function",
+        "signature": "function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContext)"
+      }
+    ],
+    "LifecyclePhase": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 115,
+        "type": "type",
+        "signature": "export type LifecyclePhase ="
+      }
+    ],
+    "PhaseGateArtifact": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 125,
+        "type": "interface",
+        "signature": "export interface PhaseGateArtifact {"
+      }
+    ],
+    "canAdvanceLifecyclePhase": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 132,
+        "type": "function",
+        "signature": "function canAdvanceLifecyclePhase(artifact: PhaseGateArtifact, existingFiles: ReadonlySet<string>)"
+      }
+    ],
+    "DomainEventPayload": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 156,
+        "type": "interface",
+        "signature": "export interface DomainEventPayload {"
+      }
+    ],
+    "OutboxRepository": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 164,
+        "type": "interface",
+        "signature": "export interface OutboxRepository {"
+      }
+    ],
+    "AggregateRoot": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 168,
+        "type": "class",
+        "signature": "export abstract class AggregateRoot<TId extends string> {"
+      }
+    ],
+    "StepJournalStore": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 194,
+        "type": "interface",
+        "signature": "export interface StepJournalStore {"
+      }
+    ],
+    "NormalizedPoint": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 218,
+        "type": "interface",
+        "signature": "export interface NormalizedPoint {"
+      }
+    ],
+    "ScreenViewport": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 223,
+        "type": "interface",
+        "signature": "export interface ScreenViewport {"
+      }
+    ],
+    "toAbsoluteScreenPoint": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 228,
+        "type": "function",
+        "signature": "function toAbsoluteScreenPoint(point: NormalizedPoint, viewport: ScreenViewport)"
+      }
+    ],
+    "StackFrameLocation": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 241,
+        "type": "interface",
+        "signature": "export interface StackFrameLocation {"
+      }
+    ],
+    "parseTopFailingFrame": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 248,
+        "type": "function",
+        "signature": "function parseTopFailingFrame(stackTrace: string)"
+      }
+    ],
+    "FieldMigrationRule": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 266,
+        "type": "interface",
+        "signature": "export interface FieldMigrationRule {"
+      }
+    ],
+    "DiffHunkAudit": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 293,
+        "type": "interface",
+        "signature": "export interface DiffHunkAudit {"
+      }
+    ],
+    "auditGitDiffHunk": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 300,
+        "type": "function",
+        "signature": "function auditGitDiffHunk(filePath: string, addedLines: readonly string[])"
+      }
+    ],
+    "quantizePixelToTailwindSpacing": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 322,
+        "type": "function",
+        "signature": "function quantizePixelToTailwindSpacing(px: number)"
+      }
+    ],
+    "buildMpaDocumentHeaders": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 347,
+        "type": "function",
+        "signature": "function buildMpaDocumentHeaders(cacheMaxAgeSeconds = 60)"
+      }
+    ],
+    "CandidateGeneration": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 360,
+        "type": "interface",
+        "signature": "export interface CandidateGeneration {"
+      }
+    ],
+    "selectOptimalCandidate": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 368,
+        "type": "function",
+        "signature": "function selectOptimalCandidate(candidates: readonly CandidateGeneration[])"
+      }
+    ],
+    "TaskItem": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 388,
+        "type": "interface",
+        "signature": "export interface TaskItem {"
+      }
+    ],
+    "PrefixCacheDescriptor": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 443,
+        "type": "interface",
+        "signature": "export interface PrefixCacheDescriptor {"
+      }
+    ],
+    "GoldenFixture": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 469,
+        "type": "interface",
+        "signature": "export interface GoldenFixture<TIn, TOut> {"
+      }
+    ],
+    "buildEnglishSovereignMatrix": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 495,
+        "type": "function",
+        "signature": "function buildEnglishSovereignMatrix(skillName, profile)"
+      }
+    ],
+    "buildIndonesianSovereignMatrix": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 508,
+        "type": "function",
+        "signature": "function buildIndonesianSovereignMatrix(skillName, profile)"
+      }
+    ],
+    "superchargeAllSkills": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 521,
+        "type": "function",
+        "signature": "function superchargeAllSkills()"
+      }
+    ],
     "SwarmEventBus": [
       {
         "file": "scripts/swarm-bus.mjs",
@@ -2190,7 +2470,7 @@
     "calculateTotal": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 968,
+        "line": 936,
         "type": "function",
         "signature": "function calculateTotal(price, qty)"
       }
@@ -2198,25 +2478,25 @@
     "norm": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1148,
+        "line": 1116,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1152,
+        "line": 1120,
         "type": "function",
         "signature": "function norm(s: any)"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1172,
+        "line": 1140,
         "type": "function",
         "signature": "function norm(s: string[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1176,
+        "line": 1144,
         "type": "function",
         "signature": "function norm(s: any)"
       }
@@ -2224,13 +2504,13 @@
     "processItems": [
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1322,
+        "line": 1290,
         "type": "function",
         "signature": "function processItems(items: Item[])"
       },
       {
         "file": "scripts/test-cli.mjs",
-        "line": 1323,
+        "line": 1291,
         "type": "function",
         "signature": "function processItems(items: any)"
       }
@@ -2309,6 +2589,22 @@
         "line": 127,
         "type": "function",
         "signature": "function parseTypeScriptStates(tsContent)"
+      }
+    ],
+    "checkBalancedBraces": [
+      {
+        "file": "scripts/verify-skill-snippets.mjs",
+        "line": 22,
+        "type": "function",
+        "signature": "function checkBalancedBraces(code)"
+      }
+    ],
+    "verifyAllSkillSnippets": [
+      {
+        "file": "scripts/verify-skill-snippets.mjs",
+        "line": 40,
+        "type": "function",
+        "signature": "function verifyAllSkillSnippets()"
       }
     ],
     "visualAudit": [
@@ -2650,11 +2946,11 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1379,
+      "totalLines": 1426,
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 1985,
+      "totalLines": 2003,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2663,6 +2959,38 @@
     },
     "index.js": {
       "totalLines": 20,
+      "symbolCount": 0
+    },
+    "scripts/adapters/ai-mcp.mjs": {
+      "totalLines": 110,
+      "symbolCount": 0
+    },
+    "scripts/adapters/api.mjs": {
+      "totalLines": 95,
+      "symbolCount": 0
+    },
+    "scripts/adapters/cloud-devops.mjs": {
+      "totalLines": 94,
+      "symbolCount": 0
+    },
+    "scripts/adapters/database.mjs": {
+      "totalLines": 92,
+      "symbolCount": 0
+    },
+    "scripts/adapters/frontend.mjs": {
+      "totalLines": 106,
+      "symbolCount": 0
+    },
+    "scripts/adapters/mobile-spatial.mjs": {
+      "totalLines": 84,
+      "symbolCount": 0
+    },
+    "scripts/adapters/security.mjs": {
+      "totalLines": 95,
+      "symbolCount": 0
+    },
+    "scripts/adapters/tdd.mjs": {
+      "totalLines": 85,
       "symbolCount": 0
     },
     "scripts/ast-query.mjs": {
@@ -2688,6 +3016,10 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 247,
       "symbolCount": 3
+    },
+    "scripts/compile-skill-slices.mjs": {
+      "totalLines": 106,
+      "symbolCount": 1
     },
     "scripts/create-agent.mjs": {
       "totalLines": 169,
@@ -2765,6 +3097,10 @@
       "totalLines": 348,
       "symbolCount": 4
     },
+    "scripts/skill-dispatcher.mjs": {
+      "totalLines": 461,
+      "symbolCount": 5
+    },
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
       "symbolCount": 6
@@ -2784,6 +3120,10 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4527,
       "symbolCount": 67
+    },
+    "scripts/supercharge-all-skills.mjs": {
+      "totalLines": 590,
+      "symbolCount": 29
     },
     "scripts/swarm-bus.mjs": {
       "totalLines": 225,
@@ -2806,11 +3146,11 @@
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1393,
+      "totalLines": 1416,
       "symbolCount": 11
     },
     "scripts/token-budget-optimizer.mjs": {
-      "totalLines": 464,
+      "totalLines": 469,
       "symbolCount": 3
     },
     "scripts/update_skills.js": {
@@ -2828,6 +3168,10 @@
     "scripts/verify-invariants.mjs": {
       "totalLines": 235,
       "symbolCount": 4
+    },
+    "scripts/verify-skill-snippets.mjs": {
+      "totalLines": 119,
+      "symbolCount": 2
     },
     "scripts/visual-critic.mjs": {
       "totalLines": 277,

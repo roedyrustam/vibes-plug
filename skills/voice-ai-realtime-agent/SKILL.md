@@ -29,7 +29,7 @@ Expert guide for building ultra-low-latency (<300ms), bi-directional conversatio
 - Applications requiring sub-second, spoken conversation with an AI agent.
 - Voice customer service bots, verbal copilots, language tutors, and interactive voice assistants.
 - Implementation of WebRTC audio streaming, full-duplex WebSocket audio (PCM 24kHz), and Silero VAD.
-- Setting up OpenAI Realtime API (`gpt-5-realtime-preview` / `gpt-4o-realtime-preview`) or Gemini Multimodal Live API.
+- Setting up OpenAI Realtime API (`gpt-5-realtime-preview` / `gpt-5.6-realtime`) or Gemini Multimodal Live API.
 
 ---
 
@@ -83,7 +83,7 @@ async def entrypoint(ctx: JobContext):
     )
 
     # Realtime Voice Pipeline: Deepgram (STT) + OpenAI (LLM) + Cartesia/OpenAI (TTS)
-    # Or use native OpenAI Realtime Model: gpt-4o-realtime-preview
+    # Or use native OpenAI Realtime Model: gpt-5.6-realtime
     agent = VoicePipelineAgent(
         vad=silero.VAD.load(
             min_speech_duration=0.1,
@@ -214,6 +214,18 @@ export class GeminiVoiceAgent {
    - Bot Output: 24kHz PCM for crystal-clear natural prosody.
 3. **Turn-Taking Jitter Prevention**: Use minimum silence thresholds between `300ms` and `450ms`. Lower thresholds cause the bot to interrupt users when they pause to think; higher thresholds make the conversation feel robotic.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec voice-ai-realtime-agent <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -334,3 +346,12 @@ export class AgenSuaraGemini {
   }
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec voice-ai-realtime-agent <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

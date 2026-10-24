@@ -88,6 +88,46 @@ export async function executeWithShadowTesting<TInput, TOutput>(
 
 ---
 
+#### Golden Master Fixture Regression Verifier (TypeScript)
+```typescript
+export interface GoldenFixture<TIn, TOut> {
+  fixtureId: string;
+  input: TIn;
+  expectedOutput: TOut;
+}
+
+export async function verifyGoldenMasterParity<TIn, TOut>(
+  fixtures: readonly GoldenFixture<TIn, TOut>[],
+  modernCandidate: (input: TIn) => Promise<TOut>
+): Promise<{ passed: boolean; failedFixtureIds: string[] }> {
+  const failedFixtureIds: string[] = [];
+  for (const item of fixtures) {
+    const actual = await modernCandidate(item.input);
+    if (JSON.stringify(actual) !== JSON.stringify(item.expectedOutput)) {
+      failedFixtureIds.push(item.fixtureId);
+    }
+  }
+  return {
+    passed: failedFixtureIds.length === 0,
+    failedFixtureIds
+  };
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec legacy-code-translator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -105,3 +145,12 @@ Metodologi rekayasa sistematis bagi agen AI untuk memigrasikan basis kode warisa
 - [ ] **Dilarang Menimpa File Asli Secara Langsung**: Bangun modul baru secara berdampingan agar kode lama tetap menjadi acuan kebenaran selama masa transisi.
 - [ ] **Pecah File Raksasa (Token Slicing)**: Terjemahkan per fungsi/subrutin (`<= 400` baris per giliran) untuk menghindari pemotongan kode.
 - [ ] **Verifikasi Shadow Testing**: Pastikan hasil keluaran fungsi baru 100% identik dengan fungsi lama sebelum memindahkan trafik utama.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec legacy-code-translator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -30,6 +30,7 @@
     ".kimirules",
     ".kirorules",
     ".cache-prefix.json",
+    ".skill-slices.json",
     "scripts",
     "skills",
     "!**/__pycache__/**",
@@ -43,7 +44,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node scripts/audit-graph.mjs && node scripts/validate-skills.mjs && node scripts/check-anti-slop.js --strict && node --test scripts/test-cli.mjs",
+    "test": "node scripts/audit-graph.mjs && node scripts/validate-skills.mjs && node scripts/verify-skill-snippets.mjs && node scripts/check-anti-slop.js --strict && node --test scripts/test-cli.mjs",
     "test:cli": "node --test scripts/test-cli.mjs",
     "audit:graph": "node scripts/audit-graph.mjs",
     "anti-slop": "node scripts/check-anti-slop.js",
@@ -58,6 +59,8 @@
     "install-cursor": "node scripts/install.js --cursor",
     "install-codex": "node scripts/install.js --codex",
     "compile-cache": "node scripts/compile-cache.mjs",
+    "compile:slices": "node scripts/compile-skill-slices.mjs",
+    "verify:snippets": "node scripts/verify-skill-snippets.mjs",
     "db:eval": "node scripts/eval-migration.mjs",
     "ast": "node scripts/ast-query.mjs",
     "arbitrate": "node scripts/speculative-arbiter.mjs",
@@ -65,14 +68,16 @@
     "swarm": "node scripts/swarm-runner.mjs",
     "memory": "node scripts/memory-daemon.mjs",
     "mcp": "node bin/mcp-server.mjs",
-    "guard": "npm test && node scripts/compile-cache.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs && node scripts/swarm-runner.mjs && node scripts/memory-daemon.mjs checkpoint",
+    "guard": "npm test && node scripts/compile-cache.mjs && node scripts/compile-skill-slices.mjs && node scripts/eval-migration.mjs && node scripts/verify-invariants.mjs && node scripts/swarm-runner.mjs && node scripts/memory-daemon.mjs checkpoint",
     "package:vscode": "node scripts/package-extension.mjs",
     "bench": "node scripts/benchmark-suite.mjs",
     "hooks": "node scripts/git-hook-installer.mjs",
     "budget": "node scripts/token-budget-optimizer.mjs",
     "drift": "node scripts/skill-drift-monitor.mjs",
     "monitor": "node scripts/terminal-monitor.mjs",
-    "consensus": "node scripts/speculative-consensus.mjs"
+    "consensus": "node scripts/speculative-consensus.mjs",
+    "supercharge": "node scripts/supercharge-all-skills.mjs",
+    "skill:exec": "node scripts/skill-dispatcher.mjs"
   },
   "dependencies": {
     "@inquirer/prompts": "^8.7.3"

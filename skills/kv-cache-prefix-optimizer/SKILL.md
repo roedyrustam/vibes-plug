@@ -41,7 +41,7 @@ Modern frontier models utilize prefix-matching algorithms. Even a single changed
 ```
 [STATIC PREFIX: CACHE PINNED (90%+ HIT RATE)]
   ├── System Directives & Behavioral Guardrails (Immutable)
-  ├── 161-Skill Ecosystem Registry (Canonical Alphabetical Order)
+  ├── 171-Skill Ecosystem Registry (Canonical Alphabetical Order)
   ├── Tool Definitions (Strictly Sorted Keys & Parameters)
   └── Workspace Schema & Architecture Map (Immutable per Session)
 ------------------------ [CACHE BOUNDARY PIN] ------------------------
@@ -147,6 +147,45 @@ export function constructCacheOptimizedPayload(
 
 ---
 
+#### Gemini 4 Argon / Flash Fallback Prefix Cache Manager (TypeScript)
+```typescript
+export interface PrefixCacheDescriptor {
+  prefixHash: string;
+  modelId: 'gemini-4-argon-medium' | 'gemini-3.8-flash';
+  estimatedTokens: number;
+}
+
+export function computePrefixDescriptor(
+  staticPrefixText: string,
+  isGemini4Available: boolean
+): PrefixCacheDescriptor {
+  let hash = 2166136261;
+  for (let i = 0; i < staticPrefixText.length; i++) {
+    hash ^= staticPrefixText.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return {
+    prefixHash: (hash >>> 0).toString(16).padStart(8, '0'),
+    modelId: isGemini4Available ? 'gemini-4-argon-medium' : 'gemini-3.8-flash',
+    estimatedTokens: Math.ceil(staticPrefixText.length / 4)
+  };
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec kv-cache-prefix-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -172,7 +211,7 @@ Aktifkan skill ini ketika:
 
 #### 1. Anatomi Prompt Ber-Cache Tinggi
 Model frontier mencocokkan token awalan secara persis (*prefix matching*). Perubahan satu karakter saja di awal prompt akan merusak seluruh cache setelahnya:
-- **Blok Statis (Terkunci)**: Instruksi sistem, daftar 161 skill, skema tool terurut, dan peta arsitektur proyek.
+- **Blok Statis (Terkunci)**: Instruksi sistem, daftar 171 skill, skema tool terurut, dan peta arsitektur proyek.
 - **Titik Kunci Cache (*Cache Pin*)**: Menandai akhir blok statis dengan header kontrol cache.
 - **Blok Volatil (Dinamis)**: Riwayat percakapan terkini dan hasil eksekusi tool giliran terakhir.
 
@@ -198,3 +237,12 @@ Kunci objek JSON wajib diurutkan secara alfabetis sebelum dikirimkan ke model ag
 | Menyisipkan ID sesi acak ke dalam system prompt | Cache batal 100% pada setiap sesi baru | Pindahkan ID sesi ke header aplikasi di luar prompt |
 | Urutan tool berubah-ubah dari `Object.values(tools)` | Representasi string berubah dan membatalkan KV cache | Urutkan tool secara alfabetis berdasarkan namanya |
 | Mengubah redaksi instruksi di tengah percakapan | Membaca ulang 100k+ token dengan harga penuh | Kunci template instruksi dalam keadaan statis dan terversi |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec kv-cache-prefix-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

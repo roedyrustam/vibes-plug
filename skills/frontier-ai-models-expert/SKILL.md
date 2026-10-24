@@ -342,6 +342,18 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 5. **Use `GPT-5.6 Sol` for External API Schemas**: Leverage GPT-5.6 Sol when converting unstructured specifications into strict OpenAPI schemas or Zod contracts.
 6. **Use `Muse Wonder High` for Design Explorations**: Leverage Muse Wonder when brainstorming novel UX interactions, generative UI components, and dynamic micro-animations.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -410,3 +422,12 @@ Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalam
 4. **Gunakan `Claude Sonnet 5.5 High` untuk Kode Produksi Utama**: Percayakan logika bisnis inti, arsitektur domain, dan sistem tipe TypeScript yang ketat pada Sonnet 5.5 dengan budget penalaran terkalibrasi.
 5. **Gunakan `GPT-5.6 Sol` untuk Skema API Eksternal**: Manfaatkan ketepatan ekstraksi skema GPT-5.6 Sol untuk kontrak OpenAPI dan skema Zod yang deterministik.
 6. **Gunakan `Muse Wonder High` untuk Eksplorasi Desain UI**: Manfaatkan penalaran divergen Muse Wonder saat merancang antarmuka generatif dan kurva animasi mikro yang memikat pengguna.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

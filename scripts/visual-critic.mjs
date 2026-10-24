@@ -248,7 +248,7 @@ Perform a strict, pixel-level visual audit of this UI screenshot against Anti-Sl
     rubric,
     visionPrompt,
     multimodalSampling: {
-      modelRecommendation: 'gemini-2.5-flash / gemini-2.5-pro / claude-3-7-sonnet / gpt-4o',
+      modelRecommendation: 'gemini-4-argon-medium / gemini-4-pro (fallback: gemini-3.8-flash) / claude-sonnet-5-5-high / gpt-5.6-sol / muse-wonder-high',
       instructions: visionPrompt
     },
     timestamp: new Date().toISOString()

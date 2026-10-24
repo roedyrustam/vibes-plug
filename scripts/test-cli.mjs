@@ -1387,6 +1387,61 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       await fs.rm(testDir, { recursive: true, force: true });
     }
   });
+
+  await t.test('vibes skill exec should dispatch deterministic actions across all 171 skills', async () => {
+    const { stdout: dbOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'skill',
+      'exec',
+      'database-orm-expert',
+      'generate',
+      '--payload={"table":"ledger_entries"}',
+      '--format=json'
+    ]);
+    const dbRes = JSON.parse(dbOut);
+    assert.strictEqual(dbRes.status, 'success');
+    assert.strictEqual(dbRes.skill, 'database-orm-expert');
+    assert.match(dbRes.result.ddl, /ENABLE ROW LEVEL SECURITY/);
+
+    const { stdout: bpOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'skill',
+      'exec',
+      'saas-architect',
+      'blueprint',
+      '--format=json'
+    ]);
+    const bpRes = JSON.parse(bpOut);
+    assert.strictEqual(bpRes.status, 'success');
+    assert.ok(bpRes.result.codeBlueprintsCount >= 2);
+    assert.ok(bpRes.telemetry.tokensSaved > 0);
+  });
+
+  await t.test('vibes skill chain and slice should execute multi-skill pipelines and compact slices', async () => {
+    const { stdout: chainOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'skill',
+      'chain',
+      'ai-agent-hardening',
+      '--format=json'
+    ]);
+    const chainRes = JSON.parse(chainOut);
+    assert.strictEqual(chainRes.status, 'success');
+    assert.strictEqual(chainRes.stepsCount, 4);
+    assert.ok(chainRes.totalTokensSaved > 500);
+
+    const { stdout: sliceOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'skill',
+      'slice',
+      'frontier-ai-models-expert',
+      '--format=json'
+    ]);
+    const sliceRes = JSON.parse(sliceOut);
+    assert.strictEqual(sliceRes.status, 'success');
+    assert.strictEqual(sliceRes.result.skill, 'frontier-ai-models-expert');
+    assert.strictEqual(sliceRes.result.domain, 'ai-llm');
+  });
 });
 
 

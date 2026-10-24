@@ -70,6 +70,17 @@ When a task can be solved by multiple model tiers (e.g., Code Review can be atte
 - Maximum expected execution latency.
 - Model family and confidence score.
 
+#### 4. Dual-Engine B2C Capital Gain & Cold-Start Liquidity Pattern (2026 Standard)
+When architecting B2C applications designed for rapid capital gains and global consumer adoption, avoid single-threaded B2B-dependent monetization or high-cost server LLM wrappers:
+1. **Zero-Server-Cost Edge Inference (`local-slm-edge-ai-expert` + `browser-extension-mv3-pro`)**:
+   - Execute high-frequency intent detection, DOM sanitization, and local vector indexing inside the client device (MV3 Offscreen WebGPU + OPFS SQLite or Tauri v2 local runtime).
+   - Never stream raw consumer browsing history to cloud LLMs; transmit only zero-knowledge intent proofs or category hashes.
+2. **Dual-Engine Revenue Architecture (Day-1 Cashflow + Network Moat)**:
+   - **Engine 1 (Instant Arbitrage / Affiliate Yield)**: Immediately monetize high-intent commercial signals on Day 1 via automated price-drop/cashback arbitrage, splitting commissions dynamically (e.g., 70% User / 30% Platform) to eliminate cold-start churn.
+   - **Engine 2 (A2A HTTP 402 M2M Intent Exchange)**: Expose aggregated, zero-knowledge intent segments via `/.well-known/agent.json` gated by HTTP 402 micro-settlements for external enterprise AI agents (e.g., 80% User / 20% Platform clearing fee).
+3. **Dual-Rail Micro-Dividend Clearing (`double-entry-ledger-fintech-expert` + `agentic-m2m-settlement`)**:
+   - Store all balances in immutable `BIGINT` micro-units ($10^{-6}$ USD precision) and clear payouts via Global L2 Stablecoins / Stripe Connect alongside regional instant rails (DOKU SNAP BI QRIS/E-Wallet).
+
 ---
 
 ### Production Implementation Blueprints
@@ -395,6 +406,18 @@ export function AgentBudgetDashboard({ telemetry, agentSpendBreakdown }: BudgetT
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec agentic-micro-economy-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -428,3 +451,12 @@ Ketika agen AI otonom memanggil API berbayar, menjalankan web scraping skala bes
 1. **Nol Pembengkakan Biaya (Zero Cost Hallucination)**: Jika saldo treasury utama habis, seluruh aktivitas subagen wajib berhenti seketika dan memicu notifikasi ke manusia.
 2. **Keluaran Kode 100% Utuh**: Middleware HTTP 402, brankas escrow atomik, dan antarmuka dashboard wajib dibuat lengkap tanpa placeholder `// TODO`.
 3. **Verifikasi Bebas Cacat**: Seluruh berkas wajib tervalidasi bersih melalui `node scripts/check-anti-slop.js`.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec agentic-micro-economy-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

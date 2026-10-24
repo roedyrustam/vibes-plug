@@ -103,8 +103,8 @@ export const BUDGET_TIERS = {
     minScore: 0,
     maxScore: 25,
     thinkingBudgetTokens: 1024,
-    primaryModel: 'Google Gemini 2.5 Flash / Claude 3.5 Haiku',
-    fallbackModel: 'OpenAI GPT-4o-mini',
+    primaryModel: 'xAI Grok 4.7 High Fast / Cursor Composer 2.5 Fast',
+    fallbackModel: 'xAI Grok 4.6 High Fast / Google Gemini 3.8 Flash',
     reasoningEffort: 'low',
     description: 'Fast, high-throughput execution for AST lookups, linting, formatting, typos, and simple fixes.'
   },
@@ -115,8 +115,8 @@ export const BUDGET_TIERS = {
     minScore: 26,
     maxScore: 55,
     thinkingBudgetTokens: 8192,
-    primaryModel: 'Anthropic Claude 3.7 Sonnet / Google Gemini 2.5 Flash',
-    fallbackModel: 'OpenAI GPT-4o',
+    primaryModel: 'Google Gemini 4 Argon Medium / OpenAI GPT-5.6 Sol Medium / Anthropic Claude Opus 5.5 Medium',
+    fallbackModel: 'Google Gemini 3.8 Flash / Anthropic Claude Opus 4.6',
     reasoningEffort: 'medium',
     description: 'Standard cognitive depth for fullstack features, component construction, and CRUD APIs.'
   },
@@ -127,8 +127,8 @@ export const BUDGET_TIERS = {
     minScore: 56,
     maxScore: 80,
     thinkingBudgetTokens: 32768,
-    primaryModel: 'Google Gemini 2.5 Pro / Claude 3.7 Sonnet (Extended Thinking)',
-    fallbackModel: 'OpenAI o3-mini',
+    primaryModel: 'Anthropic Claude Sonnet 5.5 High / Anthropic Claude Fable 5.1 High',
+    fallbackModel: 'Anthropic Claude Opus 4.6 / Google Gemini 3.8 Flash',
     reasoningEffort: 'high',
     description: 'High-depth reasoning for security audits, billing FSM, payment gateways, and architectural refactoring.'
   },
@@ -139,8 +139,8 @@ export const BUDGET_TIERS = {
     minScore: 81,
     maxScore: 100,
     thinkingBudgetTokens: 65536,
-    primaryModel: 'OpenAI o3 / Google Gemini 2.5 Pro Deep Think',
-    fallbackModel: 'Anthropic Claude 3.7 Sonnet (64K Thinking)',
+    primaryModel: 'Google Gemini 4 Pro / Anthropic Claude Sonnet 5.5 High / Muse Wonder High',
+    fallbackModel: 'Google Gemini 3.8 Flash / Anthropic Claude Opus 4.6',
     reasoningEffort: 'high',
     description: 'Maximum test-time compute for mathematical formal verification, PQC, and zero-loss distributed sagas.'
   }
@@ -345,21 +345,26 @@ export async function optimizeThinkingBudget(task, options = {}) {
 
   const providerConfigs = {
     anthropic: {
-      model: analysis.tier === 'LOW' ? 'claude-3-5-haiku-20241022' : 'claude-3-7-sonnet-20250219',
+      model: analysis.tier === 'LOW' ? 'claude-opus-4-6' : analysis.tier === 'MODERATE' ? 'claude-opus-5-5-medium' : 'claude-sonnet-5-5-high',
+      fallbackModel: 'claude-opus-4-6',
       thinking: {
         type: 'enabled',
         budget_tokens: allocatedBudget
       }
     },
     google_gemini: {
-      model: analysis.tier === 'LOW' ? 'gemini-2.5-flash' : 'gemini-2.5-pro',
+      model: analysis.tier === 'CRITICAL' || analysis.tier === 'HIGH' ? 'gemini-4-pro' : 'gemini-4-argon-medium',
+      fallbackModel: 'gemini-3.8-flash',
       reasoningConfig: {
         thinkingBudget: allocatedBudget
       }
     },
     openai: {
-      model: analysis.tier === 'CRITICAL' ? 'o3' : analysis.tier === 'HIGH' ? 'o3-mini' : 'gpt-4o',
+      model: 'gpt-5.6-sol-medium',
       reasoning_effort: analysis.reasoningEffort
+    },
+    xai_grok: {
+      model: analysis.tier === 'LOW' ? 'grok-4-6-high-fast' : 'grok-4-7-high-fast'
     }
   };
 

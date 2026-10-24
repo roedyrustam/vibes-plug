@@ -118,6 +118,72 @@ Every SaaS application must scaffold complete, functional implementations for:
 
 ---
 
+#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 15 / Edge)
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+export interface TenantRoutingConfig {
+  rootDomain: string;
+  adminSubdomain: string;
+}
+
+export function routeMultiEntrySaaS(req: NextRequest, config: TenantRoutingConfig): NextResponse {
+  const host = req.headers.get('host') ?? config.rootDomain;
+  const hostname = host.split(':')[0];
+  const url = req.nextUrl.clone();
+
+  if (hostname === `${config.adminSubdomain}.${config.rootDomain}`) {
+    url.pathname = `/super-admin${url.pathname === '/' ? '' : url.pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  if (hostname !== config.rootDomain && hostname.endsWith(`.${config.rootDomain}`)) {
+    const tenantSlug = hostname.replace(`.${config.rootDomain}`, '');
+    url.pathname = `/tenant/${tenantSlug}${url.pathname}`;
+    const res = NextResponse.rewrite(url);
+    res.headers.set('x-tenant-slug', tenantSlug);
+    return res;
+  }
+
+  return NextResponse.next();
+}
+```
+
+#### Hierarchical Feature Gating Evaluator
+```typescript
+export interface EntitlementContext {
+  systemFlags: Record<string, boolean>;
+  planFeatures: ReadonlySet<string>;
+  tenantAddons: ReadonlySet<string>;
+  userRolePermissions: ReadonlySet<string>;
+}
+
+export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContext): boolean {
+  if (ctx.systemFlags[featureKey] === false) {
+    return false;
+  }
+  const hasTenantEntitlement = ctx.planFeatures.has(featureKey) || ctx.tenantAddons.has(featureKey);
+  if (!hasTenantEntitlement) {
+    return false;
+  }
+  return ctx.userRolePermissions.has(featureKey);
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec saas-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -170,3 +236,12 @@ Gunakan pipeline 9 fase terstruktur:
 
 ### 🎨 Mandat Pembuatan Aset Visual Otomatis (KRITIS)
 Gunakan tool `generate_image` secara otomatis untuk membuat logo aplikasi kustom saat inisialisasi aplikasi. Pasang logo tersebut sebagai logo navbar, favicon (`favicon.ico`), dan gambar Open Graph (`og:image`). Dilarang memakai placeholder.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec saas-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -121,13 +121,18 @@ export const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve full domain instructions, production patterns, and templates for any of the 171 specialized skills in the vibes-plug registry.',
+    description: 'Retrieve domain instructions, production patterns, and templates for any of the 171 specialized skills in the vibes-plug registry. Supports compact micro-slice mode (<350 tokens) for 80%+ token savings during subagent fan-out.',
     inputSchema: {
       type: 'object',
       properties: {
         skillName: {
           type: 'string',
           description: 'Name of the skill (e.g. senior-frontend, database-orm-expert, doku-payment-gateway, anti-slop).'
+        },
+        mode: {
+          type: 'string',
+          enum: ['full', 'compact'],
+          description: 'Optional retrieval mode: full (complete SKILL.md) or compact (<350-token pre-compiled micro-slice).'
         }
       },
       required: ['skillName']
@@ -675,6 +680,29 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_skill_dispatch',
+    description: 'Universal Skill-as-a-Tool (SaaT) Dispatcher: executes deterministic domain actions (blueprint, audit, eval, verify, generate, fuzz, optimize, health, budget) for any of the 171 skills in the Vibes-Plug registry.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        skill: {
+          type: 'string',
+          description: 'Exact name of the skill from the 171-skill registry (e.g. database-orm-expert, tailwind-expert, autonomous-tdd-debugger).'
+        },
+        action: {
+          type: 'string',
+          enum: ['blueprint', 'audit', 'eval', 'verify', 'generate', 'fuzz', 'optimize', 'health', 'budget'],
+          description: 'Deterministic action to execute on the target skill.'
+        },
+        payload: {
+          type: 'object',
+          description: 'Action-specific parameters (e.g. sql, code, target, endpoint, hue, task).'
+        }
+      },
+      required: ['skill', 'action']
+    }
   }
 ];
 
@@ -936,12 +964,18 @@ export async function handleRpcRequest(request) {
         if (!skillName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(skillName)) {
           throw new Error("Invalid 'skillName': must be a valid kebab-case skill identifier.");
         }
-        const skillPath = path.resolve(SKILLS_DIR, skillName, 'SKILL.md');
-        if (!skillPath.startsWith(SKILLS_DIR + path.sep)) {
-          throw new Error('Path traversal is prohibited.');
+        if (args?.mode === 'compact') {
+          const { getSkillCompactSlice } = await import('../scripts/skill-dispatcher.mjs');
+          const slice = await getSkillCompactSlice(skillName);
+          contentText = JSON.stringify(slice, null, 2);
+        } else {
+          const skillPath = path.resolve(SKILLS_DIR, skillName, 'SKILL.md');
+          if (!skillPath.startsWith(SKILLS_DIR + path.sep)) {
+            throw new Error('Path traversal is prohibited.');
+          }
+          const content = await fs.readFile(skillPath, 'utf8');
+          contentText = content;
         }
-        const content = await fs.readFile(skillPath, 'utf8');
-        contentText = content;
       } else if (name === 'vibes_list_skills') {
         const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
         const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
@@ -1195,6 +1229,19 @@ export async function handleRpcRequest(request) {
           outcome.installation = await applyDetectedSkills(targetDir, outcome.recommendedSkills);
         }
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_skill_dispatch') {
+        const { dispatchSkillAction, dispatchSkillChain } = await import('../scripts/skill-dispatcher.mjs');
+        if (args?.action === 'chain') {
+          const chainRes = await dispatchSkillChain(args?.skill || 'saas-launch-gate', args?.payload || {});
+          contentText = JSON.stringify(chainRes, null, 2);
+        } else {
+          const outcome = await dispatchSkillAction({
+            skill: args?.skill,
+            action: args?.action || 'blueprint',
+            payload: args?.payload || {}
+          });
+          contentText = JSON.stringify(outcome, null, 2);
+        }
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
