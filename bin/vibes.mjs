@@ -1953,9 +1953,22 @@ Platform Eligibility & Economics:
     process.exit(child.status ?? 0);
     break;
   }
+  case 'drift:heal':
+  case 'drift-heal': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'drift-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'drift': {
     rl.close();
     const { spawnSync } = await import('child_process');
+    if (args[1] === 'heal') {
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'drift-healer.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+      break;
+    }
     const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-drift-monitor.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     process.exit(child.status ?? 0);
     break;

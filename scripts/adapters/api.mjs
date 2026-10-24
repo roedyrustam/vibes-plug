@@ -3,6 +3,8 @@
  * Validates OpenAPI 3.1 / TypeSpec schemas, Hono RPC endpoints, and breaking drift.
  */
 
+import { healSchemaDrift } from '../drift-healer.mjs';
+
 export const apiAdapter = {
   domain: 'api-contracts',
   supportedSkills: [
@@ -19,9 +21,15 @@ export const apiAdapter = {
     'python-programming-expert',
     'sse-websocket-streaming-expert'
   ],
-  supportedActions: ['audit', 'verify', 'eval', 'generate', 'optimize'],
+  supportedActions: ['audit', 'verify', 'eval', 'generate', 'optimize', 'heal'],
 
   async execute(action, payload = {}) {
+    if (action === 'heal' || payload.skill === 'autonomous-api-drift-healer') {
+      return healSchemaDrift({
+        sql: payload.sql,
+        ts: payload.ts || payload.code
+      });
+    }
     const specText = String(payload.spec || payload.code || '');
     const endpoint = payload.endpoint || '/api/v1/resources';
 

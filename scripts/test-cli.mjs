@@ -1442,6 +1442,30 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(sliceRes.result.skill, 'frontier-ai-models-expert');
     assert.strictEqual(sliceRes.result.domain, 'ai-llm');
   });
+
+  await t.test('vibes skill chain rea-binary-audit-gate and P8 vibes drift:heal should verify REA chain and heal schema drift', async () => {
+    const { stdout: reaChainOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'skill',
+      'chain',
+      'rea-binary-audit-gate',
+      '--format=json'
+    ]);
+    const reaChainRes = JSON.parse(reaChainOut);
+    assert.strictEqual(reaChainRes.status, 'success');
+    assert.strictEqual(reaChainRes.stepsCount, 5);
+
+    const { stdout: healOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'drift:heal',
+      '--json'
+    ]);
+    const healRes = JSON.parse(healOut);
+    assert.strictEqual(healRes.engine, 'P8:AutonomousSchemaDriftHealer');
+    assert.strictEqual(healRes.status, 'DRIFT_HEALED');
+    assert.ok(healRes.driftCount >= 1);
+    assert.match(healRes.synthesizedPatch, /PaymentSettlementSchema = z\.object/);
+  });
 });
 
 

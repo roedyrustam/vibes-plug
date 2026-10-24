@@ -84,7 +84,7 @@ VibesPlug Pro is powered by **176 specialized AI domain skills**, coordinated au
 
 ## 🤖 Native Specialist Subagents (Antigravity & Swarm Topologies)
 
-VibesPlug bundles 8 dedicated specialist subagents residing in `agents/`, ready to execute complex cross-domain tasks autonomously via Fan-Out / Fan-In and Critic-Validator loops:
+VibesPlug bundles 9 dedicated specialist subagents residing in `agents/`, ready to execute complex cross-domain tasks autonomously via Fan-Out / Fan-In and Critic-Validator loops:
 
 | Specialist Subagent | File | Core Mission & Bound Skills |
 | :--- | :--- | :--- |
@@ -96,6 +96,7 @@ VibesPlug bundles 8 dedicated specialist subagents residing in `agents/`, ready 
 | **`cloud-devops-sre`** | [`agents/cloud-devops-sre.md`](agents/cloud-devops-sre.md) | **Cloud, DevOps & SRE**: Kubernetes GitOps (ArgoCD/Cilium), Docker hardening, CycloneDX SBOM supply chain security, and Zero-Trust secrets. |
 | **`data-rag-architect`** | [`agents/data-rag-architect.md`](agents/data-rag-architect.md) | **Data, OLAP & RAG**: ClickHouse/DuckDB OLAP analytics, Linear-style reactive sync engines, hybrid Vector/Graph RAG, and OpenFGA/SpiceDB ReBAC. |
 | **`mobile-spatial-craftsman`** | [`agents/mobile-spatial-craftsman.md`](agents/mobile-spatial-craftsman.md) | **Mobile, Desktop & Spatial**: React Native/Expo, Flutter, Tauri v2, 3D WebGPU/Three.js, TSL/WGSL shaders, and WebXR spatial computing. |
+| **`reverse-security-auditor`** | [`agents/reverse-security-auditor.md`](agents/reverse-security-auditor.md) | **Reverse Engineering & Binary Audit**: REA/Ghidra/LLDB binary decompilation, Electron/firmware triage, `Evidence` spans, and Z3/SBOM verification. |
 
 > 💡 **Custom Agent Generation**: Create tailored subagents for any project across Antigravity (`.agents/agents/`), Cursor (`.cursor/rules/`), and Claude Code (`.claude/rules/`) using `vibes create-agent --name <name> --skills <skills>`.
 
@@ -113,7 +114,8 @@ VibesPlug Pro embeds 7 foundational engineering engines that give AI models sub-
 | **P4: Speculative PRM Arbiter**| `vibes arbitrate [draftA] [draftB]`| Heuristic Process Reward Model (PRM) evaluator scoring competing code drafts across Type Safety, Anti-Slop, Error Resilience, and Algorithmic Complexity. |
 | **P5: Invariant Verifier (SMT)**| `vibes verify-invariants [file]` | Proves state machine transitions (SaaS billing, auth, orders), detects unreachable states and deadlocks, and generates SMT-LIB 2.0 specifications for Z3/CVC5. |
 | **P6: Ephemeral WASM/VM Sandbox**| `vibes sandbox "<code\|file>"` | Ultra-low latency (<2ms) isolated micro-sandbox evaluating AI code with wall-clock timeout kill and zero host access. |
-| **P7: Universal SaaT Dispatcher** | `vibes skill exec <skill> <act>` | Turns all 176 declarative skills & 1,000+ code blueprints into deterministic executable tools across 8 domain adapters, multi-skill chains (`vibes skill chain`), and 93%-compressed subagent micro-slices (`.skill-slices.json`). |
+| **P7: Universal SaaT Dispatcher** | `vibes skill exec <skill> <act>` | Turns all 176 declarative skills & 1,000+ code blueprints into deterministic executable tools across 8 domain adapters, 8 multi-skill chains (`vibes skill chain`), and 93%-compressed subagent micro-slices (`.skill-slices.json`). |
+| **P8: Schema Drift Healer** | `vibes drift:heal [sql] [ts]` | Detects structural drift between PostgreSQL DDL schemas and TypeScript/Zod/OpenAPI contracts (missing columns, nullability, RLS) and synthesizes a zero-drift healing patch. |
 
 ### 🔬 Reverse Engineering & Binary Analysis (REA Suite)
 VibesPlug integrates the 5-skill **REA (Reverse Engineer Anything)** ecosystem for evidence-backed binary, firmware, managed/Electron, and runtime inspection:

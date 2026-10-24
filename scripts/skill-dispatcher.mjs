@@ -92,6 +92,37 @@ export const SKILL_CHAIN_RECIPES = Object.freeze({
       { skill: 'visual-ui-auditor', action: 'audit' },
       { skill: 'accessibility-testing-expert', action: 'verify' }
     ]
+  },
+  'rea-binary-audit-gate': {
+    name: 'REA Binary, Firmware & Supply Chain Security Gate',
+    description: 'Executes evidence-backed binary triage, CLI/MCP Evidence contract verification, cache key bounds, CI fixture drift audit, and CycloneDX SBOM generation.',
+    steps: [
+      { skill: 'reverse-engineer-anything', action: 'audit' },
+      { skill: 'rea-tool-design', action: 'verify' },
+      { skill: 'rea-analysis-optimization', action: 'optimize' },
+      { skill: 'rea-ci-tests-audit', action: 'verify' },
+      { skill: 'sbom-supply-chain-security-expert', action: 'generate' }
+    ]
+  },
+  'spatial-3d-webgpu-gate': {
+    name: '3D WebGPU, TSL/WGSL Shaders & Spatial Performance Gate',
+    description: 'Verifies Three.js/WebGPU scene graph hygiene, WGSL compute shader bounds, Core Web Vitals frame budgets, and Pillar 7 UI craft.',
+    steps: [
+      { skill: 'web-3d-graphics-expert', action: 'verify' },
+      { skill: 'glsl-shader-expert', action: 'optimize' },
+      { skill: 'performance-web-vitals', action: 'optimize' },
+      { skill: 'visual-ui-auditor', action: 'audit' }
+    ]
+  },
+  'local-first-sync-gate': {
+    name: 'Local-First Reactive Sync, Offline PWA & ReBAC Gate',
+    description: 'Audits PostgreSQL logical replication DDL, sub-millisecond reactive sync mutations, OPFS offline storage, and Zanzibar ReBAC permissions.',
+    steps: [
+      { skill: 'database-orm-expert', action: 'eval' },
+      { skill: 'reactive-sync-engine-expert', action: 'verify' },
+      { skill: 'pwa-offline-first-expert', action: 'verify' },
+      { skill: 'fga-rebac-authorization-expert', action: 'audit' }
+    ]
   }
 });
 

@@ -113,6 +113,9 @@ export function planSwarm(taskDescription, options = {}) {
   if (desc.includes('security') || desc.includes('test') || desc.includes('audit') || desc.includes('fuzz') || desc.includes('e2e') || desc.includes('playwright')) {
     domains.push({ name: 'Quality & Security Gate', skill: 'autonomous-tdd-debugger', subagent: 'quality-guardian', focus: 'Playwright E2E, Z3 invariants, red-teaming & anti-slop' });
   }
+  if (desc.includes('reverse') || desc.includes('ghidra') || desc.includes('binary') || desc.includes('firmware') || desc.includes('decompile') || desc.includes('rea') || desc.includes('elf') || desc.includes('sbom')) {
+    domains.push({ name: 'Reverse Engineering & Binary Audit', skill: 'reverse-engineer-anything', subagent: 'reverse-security-auditor', focus: 'Ghidra/LLDB triage, Evidence spans, SBOM & Z3 verification' });
+  }
 
   // Fallback if generic
   if (domains.length === 0) {
