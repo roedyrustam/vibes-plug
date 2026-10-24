@@ -3,8 +3,9 @@
  * scripts/compile-skill-slices.mjs
  * Sovereign Skill Micro-Slice Compiler (v4.5.0)
  *
- * Compiles all 171 SKILL.md specifications into ultra-compact (<350 tokens/skill)
- * contract slices in `.skill-slices.json` for 80%+ token reduction during Swarm Fan-Out.
+ * Compiles all 176 SKILL.md specifications into ultra-compact (<350 tokens/skill)
+ * contract slices in `.skill-slices.json` for 90%+ token reduction during Swarm Fan-Out.
+ * Uses concurrent Promise.all file I/O for sub-100ms compilation.
  */
 
 import fs from 'node:fs/promises';
@@ -26,46 +27,54 @@ export async function compileSkillSlices() {
   let totalFullBytes = 0;
   let totalSliceBytes = 0;
 
-  for (const skillName of skillNames) {
-    const filePath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
-    const content = await fs.readFile(filePath, 'utf8');
-    totalFullBytes += Buffer.byteLength(content, 'utf8');
+  const compiledEntries = await Promise.all(
+    skillNames.map(async (skillName) => {
+      const filePath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+      const content = await fs.readFile(filePath, 'utf8');
+      const fullBytes = Buffer.byteLength(content, 'utf8');
 
-    const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-    const fm = fmMatch ? fmMatch[1] : '';
-    const version = fm.match(/version:\s*"([^"]+)"/)?.[1] || '4.4.2';
-    const description = fm.match(/description:\s*"?([^"\r\n]+)"?/)?.[1]?.trim() || '';
+      const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+      const fm = fmMatch ? fmMatch[1] : '';
+      const version = fm.match(/version:\s*"([^"]+)"/)?.[1] || '4.4.3';
+      const description = fm.match(/description:\s*"?([^"\r\n]+)"?/)?.[1]?.trim() || '';
 
-    const orchMatch = content.match(/(?:##|###)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###)\s|$)/i);
-    const connectedSkills = orchMatch
-      ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))].slice(0, 8)
-      : [];
+      const orchMatch = content.match(/(?:##|###)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###)\s|$)/i);
+      const connectedSkills = orchMatch
+        ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))].slice(0, 8)
+        : [];
 
-    const firstCodeMatch = content.match(/```([a-zA-Z0-9_-]+)\r?\n([\s\S]*?)```/);
-    const primarySnippet = firstCodeMatch
-      ? {
-          lang: firstCodeMatch[1].trim(),
-          code: firstCodeMatch[2].trim().split(/\r?\n/).slice(0, 14).join('\n')
-        }
-      : null;
+      const firstCodeMatch = content.match(/```([a-zA-Z0-9_-]+)\r?\n([\s\S]*?)```/);
+      const primarySnippet = firstCodeMatch
+        ? {
+            lang: firstCodeMatch[1].trim(),
+            code: firstCodeMatch[2].trim().split(/\r?\n/).slice(0, 14).join('\n')
+          }
+        : null;
 
-    const adapter = resolveSkillAdapter(skillName);
+      const adapter = resolveSkillAdapter(skillName);
 
-    const sliceObj = {
-      skill: skillName,
-      version,
-      domain: adapter.domain,
-      description: description.split(' / ')[0],
-      actions: adapter.supportedActions,
-      connectedSkills,
-      fallback: 'Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6',
-      cli: `vibes skill exec ${skillName} verify`,
-      snippet: primarySnippet
-    };
+      const sliceObj = {
+        skill: skillName,
+        version,
+        domain: adapter.domain,
+        description: description.split(' / ')[0],
+        actions: adapter.supportedActions,
+        connectedSkills,
+        fallback: 'Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6',
+        cli: `vibes skill exec ${skillName} verify`,
+        snippet: primarySnippet
+      };
 
-    const serializedSlice = JSON.stringify(sliceObj);
-    totalSliceBytes += Buffer.byteLength(serializedSlice, 'utf8');
-    slices[skillName] = sliceObj;
+      const serializedSlice = JSON.stringify(sliceObj);
+      const sliceBytes = Buffer.byteLength(serializedSlice, 'utf8');
+      return { skillName, sliceObj, fullBytes, sliceBytes };
+    })
+  );
+
+  for (const item of compiledEntries) {
+    totalFullBytes += item.fullBytes;
+    totalSliceBytes += item.sliceBytes;
+    slices[item.skillName] = item.sliceObj;
   }
 
   const fullTokensApprox = Math.ceil(totalFullBytes / 4);

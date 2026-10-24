@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-24T18:09:37.818Z",
+  "generatedAt": "2026-10-24T18:28:54.348Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 74,
-  "totalSymbolsIndexed": 383,
+  "totalSymbolsIndexed": 384,
   "symbols": {
     "to": [
       {
@@ -621,10 +621,18 @@
         "signature": "function scanFile(filePath)"
       }
     ],
+    "loadSkillsMetadataFast": [
+      {
+        "file": "scripts/compile-cache.mjs",
+        "line": 27,
+        "type": "function",
+        "signature": "function loadSkillsMetadataFast(skillDirs, force = false)"
+      }
+    ],
     "compileCache": [
       {
         "file": "scripts/compile-cache.mjs",
-        "line": 22,
+        "line": 90,
         "type": "function",
         "signature": "function compileCache(options = {})"
       }
@@ -632,7 +640,7 @@
     "log": [
       {
         "file": "scripts/compile-cache.mjs",
-        "line": 24,
+        "line": 93,
         "type": "arrow-function",
         "signature": "const log = (...args) =>"
       }
@@ -640,7 +648,7 @@
     "getCacheStatus": [
       {
         "file": "scripts/compile-cache.mjs",
-        "line": 191,
+        "line": 264,
         "type": "function",
         "signature": "function getCacheStatus()"
       }
@@ -648,7 +656,7 @@
     "compileSkillSlices": [
       {
         "file": "scripts/compile-skill-slices.mjs",
-        "line": 21,
+        "line": 22,
         "type": "function",
         "signature": "function compileSkillSlices()"
       }
@@ -3030,11 +3038,11 @@
       "symbolCount": 5
     },
     "scripts/compile-cache.mjs": {
-      "totalLines": 248,
-      "symbolCount": 3
+      "totalLines": 321,
+      "symbolCount": 4
     },
     "scripts/compile-skill-slices.mjs": {
-      "totalLines": 106,
+      "totalLines": 115,
       "symbolCount": 1
     },
     "scripts/create-agent.mjs": {
