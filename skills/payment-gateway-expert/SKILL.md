@@ -104,6 +104,71 @@ async function grantUserSubscription(invoiceNumber: string) {
 }
 ```
 
+### Example 2: Multi-Provider Timing-Safe Webhook Signature Verifier (Stripe + DOKU Checkout + Midtrans)
+```typescript
+import crypto from 'node:crypto';
+
+export type PaymentProvider = 'stripe' | 'doku-checkout' | 'midtrans';
+
+export function verifyGatewayWebhookSignature(params: {
+  readonly provider: PaymentProvider;
+  readonly rawBody: string;
+  readonly signatureHeader: string;
+  readonly secret: string;
+  readonly clientId?: string;
+  readonly requestId?: string;
+  readonly requestTimestamp?: string;
+  readonly requestTarget?: string;
+}): boolean {
+  let expected = '';
+
+  if (params.provider === 'stripe') {
+    expected = crypto.createHmac('sha256', params.secret).update(params.rawBody, 'utf8').digest('hex');
+  } else if (params.provider === 'doku-checkout') {
+    const digest = crypto.createHash('sha256').update(params.rawBody, 'utf8').digest('base64');
+    const component = [
+      `Client-Id:${params.clientId ?? ''}`,
+      `Request-Id:${params.requestId ?? ''}`,
+      `Request-Timestamp:${params.requestTimestamp ?? ''}`,
+      `Request-Target:${params.requestTarget ?? ''}`,
+      `Digest:${digest}`
+    ].join('\n');
+    const hmac = crypto.createHmac('sha256', params.secret).update(component, 'utf8').digest('base64');
+    expected = `HMACSHA256=${hmac}`;
+  } else {
+    expected = crypto.createHash('sha512').update(params.rawBody + params.secret, 'utf8').digest('hex');
+  }
+
+  const a = Buffer.from(params.signatureHeader, 'utf8');
+  const b = Buffer.from(expected, 'utf8');
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  return crypto.timingSafeEqual(a, b);
+}
+```
+
+### Example 3: PostgreSQL Atomic Webhook Inbox & Outbox Locking DDL (`SKIP LOCKED`)
+```sql
+CREATE TABLE IF NOT EXISTS payment_webhook_inbox (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id UUID NOT NULL,
+  provider VARCHAR(32) NOT NULL,
+  idempotency_key VARCHAR(128) NOT NULL UNIQUE,
+  raw_payload JSONB NOT NULL,
+  status VARCHAR(24) NOT NULL DEFAULT 'PENDING',
+  attempt_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  processed_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_webhook_inbox_pending
+  ON payment_webhook_inbox (status, created_at)
+  WHERE status = 'PENDING';
+
+ALTER TABLE payment_webhook_inbox ENABLE ROW LEVEL SECURITY;
+```
+
 ### Trigger Conditions
 Active whenever the user is working on billing integration, payment checkout, webhook handling, or integrating platforms like PayPal, Stripe, Xendit, Midtrans, or DOKU SNAP BI.
 

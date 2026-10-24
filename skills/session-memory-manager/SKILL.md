@@ -90,6 +90,74 @@ Start by reading the critical files, then confirm understanding before proceedin
 2. `.agents/CHECKPOINT.md` (Alternative).
 3. Clipboard or Supabase notes table (Cross-device).
 
+### 4. Production Session Memory Blueprints (TypeScript)
+
+#### 1. Ultra-Compact Checkpoint Serializer & Token Budget Enforcer (<200 Tokens)
+```typescript
+export interface SessionCheckpointState {
+  readonly project: string;
+  readonly goal: string;
+  readonly status: string;
+  readonly stack: readonly string[];
+  readonly lastCompleted: readonly string[];
+  readonly nextTasks: readonly string[];
+  readonly keyFiles: readonly string[];
+}
+
+export function serializeCompactCheckpoint(
+  state: SessionCheckpointState,
+  maxTokenBudget: number = 200
+): { yaml: string; estimatedTokens: number; withinBudget: boolean } {
+  const lines = [
+    `project: "${state.project}"`,
+    `goal: "${state.goal.slice(0, 120)}"`,
+    `status: "${state.status}"`,
+    `stack: [${state.stack.slice(0, 6).map((s) => `"${s}"`).join(', ')}]`,
+    `last_completed:`,
+    ...state.lastCompleted.slice(0, 3).map((item) => `  - "${item.slice(0, 90)}"`),
+    `next_tasks:`,
+    ...state.nextTasks.slice(0, 3).map((item) => `  - "${item.slice(0, 90)}"`),
+    `key_files:`,
+    ...state.keyFiles.slice(0, 5).map((file) => `  - "${file}"`)
+  ];
+
+  const yaml = lines.join('\n');
+  const estimatedTokens = Math.ceil(Buffer.byteLength(yaml, 'utf8') / 3.8);
+  return {
+    yaml,
+    estimatedTokens,
+    withinBudget: estimatedTokens <= maxTokenBudget
+  };
+}
+```
+
+#### 2. Surgical Subagent Fan-Out Context Slice Pruner
+```typescript
+export interface ContextMapEntry {
+  readonly filePath: string;
+  readonly domain: 'frontend' | 'backend' | 'database' | 'security' | 'ai';
+  readonly responsibility: string;
+  readonly exportedSymbols: readonly string[];
+}
+
+export function buildSubagentContextSlice(
+  entries: readonly ContextMapEntry[],
+  targetDomain: ContextMapEntry['domain'],
+  subtaskGoal: string
+): string {
+  const filtered = entries.filter((e) => e.domain === targetDomain).slice(0, 8);
+  const rows = filtered.map(
+    (e) => `- \`${e.filePath}\` [${e.exportedSymbols.join(', ')}]: ${e.responsibility}`
+  );
+  return [
+    `### Subagent Slice (${targetDomain.toUpperCase()})`,
+    `**Goal**: ${subtaskGoal}`,
+    `**Relevant Files**:`,
+    ...rows
+  ].join('\n');
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

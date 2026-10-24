@@ -1,9 +1,9 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-10-24T18:28:54.348Z",
+  "generatedAt": "2026-10-24T19:07:52.150Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 74,
-  "totalSymbolsIndexed": 384,
+  "totalFilesIndexed": 75,
+  "totalSymbolsIndexed": 391,
   "symbols": {
     "to": [
       {
@@ -444,7 +444,7 @@
       },
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 205,
+        "line": 208,
         "type": "function",
         "signature": "function main()"
       },
@@ -809,6 +809,62 @@
         "line": 195,
         "type": "function",
         "signature": "function runVisualUiAuditDemo()"
+      }
+    ],
+    "snakeToCamel": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 19,
+        "type": "function",
+        "signature": "function snakeToCamel(str)"
+      }
+    ],
+    "pascalCase": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 23,
+        "type": "function",
+        "signature": "function pascalCase(str)"
+      }
+    ],
+    "mapSqlTypeToTs": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 28,
+        "type": "function",
+        "signature": "function mapSqlTypeToTs(sqlType)"
+      }
+    ],
+    "parseSqlTables": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 44,
+        "type": "function",
+        "signature": "function parseSqlTables(ddlText = '')"
+      }
+    ],
+    "parseTsFields": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 99,
+        "type": "function",
+        "signature": "function parseTsFields(tsText = '')"
+      }
+    ],
+    "healSchemaDrift": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 123,
+        "type": "function",
+        "signature": "function healSchemaDrift(options = {})"
+      }
+    ],
+    "PaymentSettlement": [
+      {
+        "file": "scripts/drift-healer.mjs",
+        "line": 139,
+        "type": "interface",
+        "signature": "export interface PaymentSettlement {"
       }
     ],
     "evaluateSql": [
@@ -1262,7 +1318,7 @@
     "resolveSkillAdapter": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 103,
+        "line": 134,
         "type": "function",
         "signature": "function resolveSkillAdapter(skillName)"
       }
@@ -1270,7 +1326,7 @@
     "getSkillCompactSlice": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 138,
+        "line": 169,
         "type": "function",
         "signature": "function getSkillCompactSlice(skillName)"
       }
@@ -1278,7 +1334,7 @@
     "extractSkillCode": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 159,
+        "line": 190,
         "type": "function",
         "signature": "function extractSkillCode(skillName, options = {})"
       }
@@ -1286,7 +1342,7 @@
     "inspectSkillCapabilities": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 201,
+        "line": 232,
         "type": "function",
         "signature": "function inspectSkillCapabilities(skillName)"
       }
@@ -1294,7 +1350,7 @@
     "compileAllSkillSlices": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 246,
+        "line": 277,
         "type": "function",
         "signature": "function compileAllSkillSlices()"
       }
@@ -1302,7 +1358,7 @@
     "dispatchSkillAction": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 306,
+        "line": 337,
         "type": "function",
         "signature": "function dispatchSkillAction(request = {})"
       }
@@ -1310,7 +1366,7 @@
     "dispatchSkillChain": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 449,
+        "line": 480,
         "type": "function",
         "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})"
       }
@@ -2400,7 +2456,7 @@
     "executeSwarm": [
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 151,
+        "line": 154,
         "type": "function",
         "signature": "function executeSwarm(taskDescription, options = {})"
       }
@@ -2974,7 +3030,7 @@
       "symbolCount": 7
     },
     "bin/vibes.mjs": {
-      "totalLines": 2019,
+      "totalLines": 2032,
       "symbolCount": 27
     },
     "extensions/vscode/extension.js": {
@@ -2990,7 +3046,7 @@
       "symbolCount": 0
     },
     "scripts/adapters/api.mjs": {
-      "totalLines": 95,
+      "totalLines": 103,
       "symbolCount": 0
     },
     "scripts/adapters/cloud-devops.mjs": {
@@ -3061,6 +3117,10 @@
       "totalLines": 321,
       "symbolCount": 11
     },
+    "scripts/drift-healer.mjs": {
+      "totalLines": 286,
+      "symbolCount": 7
+    },
     "scripts/eval-migration.mjs": {
       "totalLines": 213,
       "symbolCount": 2
@@ -3122,7 +3182,7 @@
       "symbolCount": 4
     },
     "scripts/skill-dispatcher.mjs": {
-      "totalLines": 605,
+      "totalLines": 636,
       "symbolCount": 7
     },
     "scripts/skill-drift-monitor.mjs": {
@@ -3158,7 +3218,7 @@
       "symbolCount": 6
     },
     "scripts/swarm-runner.mjs": {
-      "totalLines": 242,
+      "totalLines": 245,
       "symbolCount": 4
     },
     "scripts/sync-all-skill-counts.mjs": {
@@ -3170,7 +3230,7 @@
       "symbolCount": 5
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1448,
+      "totalLines": 1472,
       "symbolCount": 11
     },
     "scripts/token-budget-optimizer.mjs": {

@@ -114,7 +114,7 @@ record current with its tested revision and distinguish merged production work
 from experiment-only code. Stop when the demonstrated bottleneck is resolved
 or further benefit remains speculative.
 
-## Bounded Cache Key & Benchmark Record (TypeScript)
+## 1. Bounded Cache Key & Benchmark Record (TypeScript)
 
 ```typescript
 export interface ReaAnalysisCacheKey {
@@ -127,6 +127,122 @@ export interface ReaAnalysisCacheKey {
 
 export function formatReaCacheKey(k: ReaAnalysisCacheKey): string {
   return `${k.engineId}@${k.engineVersion}:${k.schemaVersion}:${k.archAndLoadMap}:${k.targetSha256}`;
+}
+```
+
+## 2. In-Flight Producer Coalescing with Isolated Waiter Cancellation (TypeScript)
+
+```typescript
+export class BoundedReaProducerCache<V> {
+  private readonly store = new Map<string, { value: V; byteEstimate: number }>();
+  private readonly inFlight = new Map<string, Promise<V>>();
+  private retainedBytes = 0;
+
+  constructor(private readonly maxRetainedBytes: number = 64 * 1024 * 1024) {}
+
+  async getOrCompute(
+    key: string,
+    signal: AbortSignal,
+    producer: () => Promise<{ value: V; byteEstimate: number }>
+  ): Promise<V> {
+    if (signal.aborted) {
+      throw new Error('Caller aborted before analysis admission');
+    }
+    const cached = this.store.get(key);
+    if (cached) return cached.value;
+
+    let sharedPromise = this.inFlight.get(key);
+    if (!sharedPromise) {
+      sharedPromise = producer()
+        .then(({ value, byteEstimate }) => {
+          if (byteEstimate <= this.maxRetainedBytes) {
+            while (this.retainedBytes + byteEstimate > this.maxRetainedBytes && this.store.size > 0) {
+              const oldestKey = this.store.keys().next().value;
+              if (!oldestKey) break;
+              const removed = this.store.get(oldestKey);
+              this.store.delete(oldestKey);
+              this.retainedBytes -= removed?.byteEstimate ?? 0;
+            }
+            this.store.set(key, { value, byteEstimate });
+            this.retainedBytes += byteEstimate;
+          }
+          return value;
+        })
+        .finally(() => {
+          this.inFlight.delete(key);
+        });
+      this.inFlight.set(key, sharedPromise);
+    }
+
+    return new Promise<V>((resolve, reject) => {
+      const onAbort = () => reject(new Error('Caller waiter cancelled without invalidating shared producer'));
+      signal.addEventListener('abort', onAbort, { once: true });
+      sharedPromise!
+        .then((val) => {
+          signal.removeEventListener('abort', onAbort);
+          resolve(val);
+        })
+        .catch((err) => {
+          signal.removeEventListener('abort', onAbort);
+          reject(err);
+        });
+    });
+  }
+}
+```
+
+## 3. Token-Budgeted Call-Graph & Evidence Pager (TypeScript)
+
+```typescript
+export interface CallGraphNode {
+  readonly address: string;
+  readonly symbol: string;
+  readonly callers: readonly string[];
+  readonly callees: readonly string[];
+}
+
+export interface PaginatedCallGraphSlice {
+  readonly nodes: readonly CallGraphNode[];
+  readonly examinedCount: number;
+  readonly totalAvailable: number;
+  readonly nextCursor: string | null;
+}
+
+export function paginateCallGraphByTokenBudget(
+  sortedNodes: readonly CallGraphNode[],
+  cursorAddress: string | null,
+  maxTokenBudget: number = 1200
+): PaginatedCallGraphSlice {
+  const startIndex = cursorAddress
+    ? Math.max(0, sortedNodes.findIndex((n) => n.address === cursorAddress))
+    : 0;
+
+  const selected: CallGraphNode[] = [];
+  let usedTokens = 0;
+  let idx = startIndex;
+
+  while (idx < sortedNodes.length) {
+    const candidate = sortedNodes[idx];
+    const estimatedNodeTokens = Math.ceil(JSON.stringify(candidate).length / 4);
+    if (selected.length > 0 && usedTokens + estimatedNodeTokens > maxTokenBudget) {
+      return {
+        nodes: selected,
+        examinedCount: selected.length,
+        totalAvailable: sortedNodes.length,
+        nextCursor: candidate.address
+      };
+    }
+    selected.push(candidate);
+    usedTokens += estimatedNodeTokens;
+    idx += 1;
+  }
+
+  return {
+    nodes: selected,
+    examinedCount: selected.length,
+    totalAvailable: sortedNodes.length,
+    nextCursor: null
+  };
 }
 ```
 

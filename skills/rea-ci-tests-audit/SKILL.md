@@ -113,7 +113,7 @@ Stop when the authorized work is verified, remaining benefits are unproven,
 or further changes would trade correctness for speculative speed. List genuine
 uncertainties without turning them into additional optimization rounds.
 
-## Audit Finding Record (TypeScript)
+## 1. Audit Finding Record (TypeScript)
 
 ```typescript
 export type ReaCiFindingKind =
@@ -130,6 +130,82 @@ export interface ReaCiAuditFinding {
   readonly exitStatus: number;
   readonly expectedOracle: string;
   readonly observedBehavior: string;
+}
+```
+
+## 2. Fixture SHA-256 Admission & Protocol Drift Auditor (TypeScript)
+
+```typescript
+import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
+
+export interface FixtureExpectation {
+  readonly fixturePath: string;
+  readonly expectedSha256: string;
+  readonly schemaVersion: string;
+}
+
+export interface FixtureDriftResult {
+  readonly fixturePath: string;
+  readonly status: 'VALID' | 'MISSING' | 'DIGEST_DRIFT' | 'SCHEMA_DRIFT';
+  readonly actualSha256: string | null;
+}
+
+export async function auditFixtureManifest(
+  expectations: readonly FixtureExpectation[],
+  currentSchemaVersion: string
+): Promise<FixtureDriftResult[]> {
+  return Promise.all(
+    expectations.map(async (exp) => {
+      try {
+        const bytes = await fs.readFile(exp.fixturePath);
+        const actualSha256 = crypto.createHash('sha256').update(bytes).digest('hex');
+        if (actualSha256 !== exp.expectedSha256) {
+          return { fixturePath: exp.fixturePath, status: 'DIGEST_DRIFT', actualSha256 };
+        }
+        if (exp.schemaVersion !== currentSchemaVersion) {
+          return { fixturePath: exp.fixturePath, status: 'SCHEMA_DRIFT', actualSha256 };
+        }
+        return { fixturePath: exp.fixturePath, status: 'VALID', actualSha256 };
+      } catch {
+        return { fixturePath: exp.fixturePath, status: 'MISSING', actualSha256: null };
+      }
+    })
+  );
+}
+```
+
+## 3. Suspicious Green-Test & Vacuous Assertion Scanner (TypeScript)
+
+```typescript
+export interface VacuousTestFinding {
+  readonly testName: string;
+  readonly reason: 'NO_ASSERTION_CALL' | 'TRIVIAL_TAUTOLOGY' | 'SWALLOWED_SUBPROCESS_EXIT';
+}
+
+export function detectVacuousTestBlocks(testFileSource: string): VacuousTestFinding[] {
+  const findings: VacuousTestFinding[] = [];
+  const testBlockRegex = /(?:it|test)\(\s*['"`]([^'"`]+)['"`]\s*,\s*(?:async\s*)?\([^)]*\)\s*=>\s*\{([\s\S]*?)\}\s*\)/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = testBlockRegex.exec(testFileSource)) !== null) {
+    const testName = match[1];
+    const body = match[2];
+
+    const hasAssertion = /\b(?:assert|expect)\b/.test(body);
+    if (!hasAssertion) {
+      findings.push({ testName, reason: 'NO_ASSERTION_CALL' });
+      continue;
+    }
+    if (/expect\(\s*true\s*\)\.toBe\(\s*true\s*\)|assert\.ok\(\s*true\s*\)/.test(body)) {
+      findings.push({ testName, reason: 'TRIVIAL_TAUTOLOGY' });
+    }
+    if (/spawnSync|execFile/.test(body) && !/status|exitCode|rejects|throws/.test(body)) {
+      findings.push({ testName, reason: 'SWALLOWED_SUBPROCESS_EXIT' });
+    }
+  }
+
+  return findings;
 }
 ```
 

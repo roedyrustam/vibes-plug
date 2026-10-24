@@ -135,6 +135,88 @@ regenerate; expect editorial changes to be replaced.
 Existing releases without a contribution inventory retain their current
 publication path. Never retag or republish a package to correct release prose.
 
+---
+
+## 1. Contributor Attribution & Bot-Exclusion Policy Engine (TypeScript)
+
+```typescript
+export interface RawContributionRecord {
+  readonly prOrCommitUrl: string;
+  readonly authorHandles: readonly string[];
+  readonly issueReporterHandles: readonly string[];
+  readonly revertedInRange: boolean;
+}
+
+const EXCLUDED_HANDLES = new Set([
+  'claude',
+  'cursoragent',
+  'codex',
+  'dependabot[bot]',
+  'github-actions[bot]',
+  'release-please[bot]',
+  'morluto'
+]);
+
+export function formatVerifiedThanksClause(record: RawContributionRecord): string | null {
+  if (record.revertedInRange) {
+    return null;
+  }
+  const eligible = new Set<string>();
+  for (const raw of [...record.authorHandles, ...record.issueReporterHandles]) {
+    const clean = raw.replace(/^@/, '').trim();
+    if (clean && !EXCLUDED_HANDLES.has(clean.toLowerCase())) {
+      eligible.add(`@${clean}`);
+    }
+  }
+  if (eligible.size === 0) {
+    return null;
+  }
+  return `Thanks ${Array.from(eligible).join(', ')}`;
+}
+```
+
+## 2. Release Please PR Body & Ancestry Guard Validator (TypeScript)
+
+```typescript
+export interface ReleasePrValidationInput {
+  readonly prBodyText: string;
+  readonly labels: readonly string[];
+  readonly inventoryTargetSha: string;
+  readonly baseBranchHeadSha: string;
+}
+
+export interface ReleasePrValidationResult {
+  readonly valid: boolean;
+  readonly errors: readonly string[];
+}
+
+export function validateReleasePleaseFinalization(
+  input: ReleasePrValidationInput
+): ReleasePrValidationResult {
+  const errors: string[] = [];
+  const GITHUB_MAX_BODY_CHARS = 65536;
+
+  if (!input.labels.includes('rea:release-notes-finalized')) {
+    errors.push('Missing mandatory "rea:release-notes-finalized" workflow guard label on release PR.');
+  }
+  if (input.inventoryTargetSha !== input.baseBranchHeadSha) {
+    errors.push(
+      `Inventory target SHA (${input.inventoryTargetSha}) does not match base branch HEAD (${input.baseBranchHeadSha}). Refresh inventory before publishing.`
+    );
+  }
+  if (input.prBodyText.length > GITHUB_MAX_BODY_CHARS) {
+    errors.push(
+      `Release PR body length (${input.prBodyText.length}) exceeds GitHub 65,536-character limit.`
+    );
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+```
+
 ## Orchestration & Integration
 
 **English & Bahasa Indonesia:** Release changelogs and GitHub release notes for REA. / Changelog rilis dan catatan rilis GitHub untuk REA.

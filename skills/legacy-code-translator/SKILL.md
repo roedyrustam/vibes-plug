@@ -114,6 +114,66 @@ export async function verifyGoldenMasterParity<TIn, TOut>(
 }
 ```
 
+#### Strangler Fig Route-by-Route Canary Proxy (TypeScript)
+```typescript
+export interface StranglerRoutePolicy {
+  readonly pathPrefix: string;
+  readonly modernRolloutPercent: number;
+  readonly legacyOrigin: string;
+  readonly modernOrigin: string;
+}
+
+export function resolveStranglerTargetOrigin(
+  requestUrl: string,
+  tenantHashBucket: number,
+  policies: readonly StranglerRoutePolicy[],
+  defaultLegacyOrigin: string
+): { targetUrl: string; routedTo: 'modern' | 'legacy' } {
+  const parsed = new URL(requestUrl);
+  const matched = policies.find((p) => parsed.pathname.startsWith(p.pathPrefix));
+
+  if (!matched) {
+    return {
+      targetUrl: new URL(parsed.pathname + parsed.search, defaultLegacyOrigin).toString(),
+      routedTo: 'legacy'
+    };
+  }
+
+  const normalizedBucket = Math.abs(tenantHashBucket) % 100;
+  const useModern = normalizedBucket < matched.modernRolloutPercent;
+  const baseOrigin = useModern ? matched.modernOrigin : matched.legacyOrigin;
+
+  return {
+    targetUrl: new URL(parsed.pathname + parsed.search, baseOrigin).toString(),
+    routedTo: useModern ? 'modern' : 'legacy'
+  };
+}
+```
+
+#### Idempotent Dual-Write Database Migration Adapter (TypeScript)
+```typescript
+export interface DualWriteResult<TRecord> {
+  readonly primaryRecord: TRecord;
+  readonly secondarySynced: boolean;
+  readonly discrepancyError: string | null;
+}
+
+export async function executeDualWriteMutation<TPayload, TRecord>(
+  payload: TPayload,
+  writePrimaryLegacyDb: (data: TPayload) => Promise<TRecord>,
+  writeSecondaryModernDb: (data: TPayload, primary: TRecord) => Promise<void>
+): Promise<DualWriteResult<TRecord>> {
+  const primaryRecord = await writePrimaryLegacyDb(payload);
+  try {
+    await writeSecondaryModernDb(payload, primaryRecord);
+    return { primaryRecord, secondarySynced: true, discrepancyError: null };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    return { primaryRecord, secondarySynced: false, discrepancyError: message };
+  }
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

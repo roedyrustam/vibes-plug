@@ -1,10 +1,10 @@
 {
   "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-10-24T18:28:54.231Z",
+  "compiledAt": "2026-10-24T19:07:29.176Z",
   "totalSkills": 176,
   "metrics": {
-    "fullRegistryTokensApprox": 720476,
-    "compiledSlicesTokensApprox": 48864,
+    "fullRegistryTokensApprox": 728135,
+    "compiledSlicesTokensApprox": 48958,
     "avgTokensPerSlice": 278,
     "tokenReductionPercent": "93%"
   },
@@ -452,7 +452,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -481,7 +482,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -510,7 +512,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -539,7 +542,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "ai-media-generation-expert",
@@ -684,7 +688,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -852,7 +857,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "e2e-testing-expert",
@@ -910,7 +916,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "js-backend-expert",
@@ -939,7 +946,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -1113,7 +1121,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -1370,7 +1379,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -1486,7 +1496,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -1689,7 +1700,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -1834,7 +1846,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -1863,7 +1876,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -1920,7 +1934,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -2094,7 +2109,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -2266,7 +2282,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -2324,7 +2341,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -2353,7 +2371,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -2411,7 +2430,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -2440,7 +2460,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -2524,7 +2545,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "prd-architect",
@@ -2553,7 +2575,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -2840,7 +2863,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -2869,7 +2893,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -2956,7 +2981,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "legacy-code-translator",
@@ -2985,7 +3011,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "cron-scheduler-expert",
@@ -3069,7 +3096,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "api-design-expert",
@@ -3098,7 +3126,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "multi-agent-orchestration",
@@ -3185,7 +3214,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "design-system-architect",
@@ -3271,7 +3301,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -3474,7 +3505,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "pydantic-ai-expert",
@@ -3608,7 +3640,7 @@
     },
     "rea-tool-design": {
       "skill": "rea-tool-design",
-      "version": "4.4.3",
+      "version": "4.5.0",
       "domain": "frontend",
       "description": "Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.",
       "actions": [
@@ -3631,7 +3663,7 @@
       "cli": "vibes skill exec rea-tool-design verify",
       "snippet": {
         "lang": "typescript",
-        "code": "export interface ReaEvidenceSpan {\n  readonly artifactDigest: string;\n  readonly provider: 'ghidra' | 'lldb' | 'browser' | 'static';\n  readonly addressOrPath: string;\n  readonly confidence: 'verified' | 'inferred';\n}\n\nexport interface ReaToolResult<T> {\n  readonly tool: string;\n  readonly schemaVersion: string;\n  readonly examinedScope: string;\n  readonly data: T;\n  readonly evidence: readonly ReaEvidenceSpan[];\n}"
+        "code": "export interface ReaEvidenceSpan {\n  readonly artifactDigest: string;\n  readonly provider: 'ghidra' | 'lldb' | 'browser' | 'static';\n  readonly addressOrPath: string;\n  readonly byteLength?: number;\n  readonly confidence: 'verified' | 'inferred';\n}\n\nexport interface ReaExaminedScope {\n  readonly sectionOrModule: string;\n  readonly startAddress: string;\n  readonly endAddress: string;\n  readonly completeCoverage: boolean;\n  readonly nextCursor: string | null;"
       }
     },
     "reactive-sync-engine-expert": {
@@ -3670,7 +3702,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -3728,7 +3761,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "design-system-architect",
@@ -3757,7 +3791,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "tauri-expert",
@@ -3786,7 +3821,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -3899,7 +3935,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -3928,7 +3965,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -4044,7 +4082,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -4072,7 +4111,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -4129,7 +4169,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "modern-web-guidance",
@@ -4158,7 +4199,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "prd-architect",
@@ -4216,7 +4258,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "js-backend-expert",
@@ -4557,7 +4600,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
@@ -4847,7 +4891,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",
@@ -4932,7 +4977,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "senior-frontend",
@@ -5019,7 +5065,8 @@
         "verify",
         "eval",
         "generate",
-        "optimize"
+        "optimize",
+        "heal"
       ],
       "connectedSkills": [
         "brainstorming",

@@ -73,6 +73,94 @@ node scripts/check-anti-slop.js --strict
 echo "✅ Zero Technical Debt Audit Passed: Codebase is 100% production-ready."
 ```
 
+#### 3. Cyclomatic Complexity & Type-Erosion Static Analyzer (TypeScript)
+```typescript
+export interface TechDebtViolation {
+  readonly filePath: string;
+  readonly line: number;
+  readonly category: 'EXPLICIT_ANY' | 'HIGH_COMPLEXITY' | 'MAGIC_TIMEOUT';
+  readonly detail: string;
+}
+
+export function analyzeSourceTechDebt(
+  filePath: string,
+  sourceText: string,
+  maxBranchesPerFile: number = 24
+): TechDebtViolation[] {
+  const violations: TechDebtViolation[] = [];
+  const lines = sourceText.split(/\r?\n/);
+  let branchCount = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (/:\s*any\b|<any>|as\s+any\b/.test(line)) {
+      violations.push({
+        filePath,
+        line: i + 1,
+        category: 'EXPLICIT_ANY',
+        detail: 'Explicit "any" type erodes static type safety; use unknown + Zod or generic constraint.'
+      });
+    }
+    const branches = line.match(/\b(if|else\s+if|case|for|while|catch)\b|\?\s*[^:?]+\s*:|&&|\|\|/g);
+    if (branches) {
+      branchCount += branches.length;
+    }
+  }
+
+  if (branchCount > maxBranchesPerFile) {
+    violations.push({
+      filePath,
+      line: 1,
+      category: 'HIGH_COMPLEXITY',
+      detail: `Branch count (${branchCount}) exceeds threshold (${maxBranchesPerFile}); decompose into pure functions.`
+    });
+  }
+
+  return violations;
+}
+```
+
+#### 4. Tarjan/DFS Circular Module Dependency Detector (TypeScript)
+```typescript
+export function detectImportCycles(
+  adjacencyGraph: Readonly<Record<string, readonly string[]>>
+): string[][] {
+  const visited = new Set<string>();
+  const activeStack = new Set<string>();
+  const pathStack: string[] = [];
+  const cycles: string[][] = [];
+
+  function dfs(node: string): void {
+    visited.add(node);
+    activeStack.add(node);
+    pathStack.push(node);
+
+    const neighbors = adjacencyGraph[node] ?? [];
+    for (const next of neighbors) {
+      if (!visited.has(next)) {
+        dfs(next);
+      } else if (activeStack.has(next)) {
+        const cycleStartIdx = pathStack.indexOf(next);
+        if (cycleStartIdx !== -1) {
+          cycles.push([...pathStack.slice(cycleStartIdx), next]);
+        }
+      }
+    }
+
+    pathStack.pop();
+    activeStack.delete(node);
+  }
+
+  for (const moduleName of Object.keys(adjacencyGraph)) {
+    if (!visited.has(moduleName)) {
+      dfs(moduleName);
+    }
+  }
+
+  return cycles;
+}
+```
+
 ### 3. Production Verification Checklist
 - [ ] `npx knip --production` reports `0` unused files, unused exports, or phantom/unlisted dependencies.
 - [ ] `npx tsc --noEmit --strict` passes with `0` errors and zero `any` or `@ts-ignore` escapes.

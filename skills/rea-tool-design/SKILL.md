@@ -2,7 +2,7 @@
 name: rea-tool-design
 description: Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.
 author: "morluto"
-version: "4.4.3"
+version: "4.5.0"
 ---
 
 # REA tool design
@@ -21,24 +21,122 @@ for the affected consumer and provider lanes, and
 [contributing](../../../CONTRIBUTING.md) for generated-file ownership. Read
 provider/workflow guides only as the task requires.
 
-## Reference Contract Shape (TypeScript)
+---
+
+## Tool Boundary & Ownership Decision Matrix
+
+| Layer / Surface | Primary Responsibility | Prohibited Anti-Pattern |
+| :--- | :--- | :--- |
+| **Provider Engine (`ghidra`, `lldb`, `static`, `browser`)** | Extract raw facts, virtual addresses, byte ranges, and native symbol tables once. | Formatting CLI prose or dropping alternative symbol matches at the same address. |
+| **Shared Application Core** | Normalize facts, attach verifiable `ReaEvidenceSpan` records, and enforce scope/page limits. | Divergent business logic between CLI commands and MCP tool handlers. |
+| **CLI Surface (`rea <cmd>`)** | Parse flags, invoke shared core, and render human-readable or `--json` output. | Re-parsing raw binary bytes or mutating `Evidence` confidence levels. |
+| **MCP Tool Surface (`rea_*`)** | Enforce strict JSON Schema input/output contracts and deterministic error codes. | Returning unbounded multi-megabyte decompilation dumps without pagination cursors. |
+
+---
+
+## 1. Reference Contract Shape & Evidence Semantics (TypeScript)
 
 ```typescript
 export interface ReaEvidenceSpan {
   readonly artifactDigest: string;
   readonly provider: 'ghidra' | 'lldb' | 'browser' | 'static';
   readonly addressOrPath: string;
+  readonly byteLength?: number;
   readonly confidence: 'verified' | 'inferred';
+}
+
+export interface ReaExaminedScope {
+  readonly sectionOrModule: string;
+  readonly startAddress: string;
+  readonly endAddress: string;
+  readonly completeCoverage: boolean;
+  readonly nextCursor: string | null;
 }
 
 export interface ReaToolResult<T> {
   readonly tool: string;
   readonly schemaVersion: string;
-  readonly examinedScope: string;
+  readonly examinedScope: ReaExaminedScope;
   readonly data: T;
   readonly evidence: readonly ReaEvidenceSpan[];
 }
 ```
+
+---
+
+## 2. Strict Zod Contract & MCP Tool Boundary Validator (TypeScript)
+
+```typescript
+import { z } from 'zod';
+
+export const ReaEvidenceSpanSchema = z.object({
+  artifactDigest: z.string().regex(/^[a-f0-9]{64}$/, 'Must be a lowercase SHA-256 hex digest'),
+  provider: z.enum(['ghidra', 'lldb', 'browser', 'static']),
+  addressOrPath: z.string().min(1),
+  byteLength: z.number().int().positive().optional(),
+  confidence: z.enum(['verified', 'inferred'])
+}).strict();
+
+export const ReaDecompileRequestSchema = z.object({
+  binarySha256: z.string().regex(/^[a-f0-9]{64}$/),
+  functionAddressOrSymbol: z.string().min(1),
+  maxInstructions: z.number().int().min(16).max(4096).default(512),
+  includeCrossReferences: z.boolean().default(true)
+}).strict();
+
+export type ReaDecompileRequest = z.infer<typeof ReaDecompileRequestSchema>;
+```
+
+---
+
+## 3. Shared Producer-to-MCP Execution Adapter (TypeScript)
+
+```typescript
+import crypto from 'node:crypto';
+import type { ReaToolResult } from './rea-contracts';
+
+export interface DecompiledFunctionPayload {
+  readonly symbol: string;
+  readonly entryAddress: string;
+  readonly pseudocodeC: string;
+  readonly callers: readonly string[];
+}
+
+export function buildDecompileToolResult(
+  binaryBuffer: Buffer,
+  payload: DecompiledFunctionPayload
+): ReaToolResult<DecompiledFunctionPayload> {
+  const digest = crypto.createHash('sha256').update(binaryBuffer).digest('hex');
+  return {
+    tool: 'rea_decompile_function',
+    schemaVersion: '1.2.0',
+    examinedScope: {
+      sectionOrModule: '.text',
+      startAddress: payload.entryAddress,
+      endAddress: payload.entryAddress,
+      completeCoverage: true,
+      nextCursor: null
+    },
+    data: payload,
+    evidence: [
+      {
+        artifactDigest: digest,
+        provider: 'ghidra',
+        addressOrPath: payload.entryAddress,
+        confidence: 'verified'
+      }
+    ]
+  };
+}
+```
+
+---
+
+## Pre-Release Verification Checklist
+
+- [ ] **Single Producer Interpretation**: Both CLI and MCP entrypoints invoke the exact same shared core function without re-interpreting raw engine output.
+- [ ] **Explicit Examined Scope**: Empty results explicitly report `examinedScope` so callers know whether the entire binary or only a single section was searched.
+- [ ] **Bounded Output & Pagination**: Tools returning symbols, strings, or cross-references enforce deterministic `maxItems` and emit `nextCursor` when truncated.
 
 ## Orchestration & Integration
 

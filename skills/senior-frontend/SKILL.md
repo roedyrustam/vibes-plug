@@ -228,6 +228,125 @@ export function OptimisticTaskList({
 }
 ```
 
+#### React 19 `use()` Promise Streaming & View Transition Switcher (TSX)
+```tsx
+'use client';
+
+import { use, startTransition, useState } from 'react';
+
+export interface TelemetryPoint {
+  readonly id: string;
+  readonly region: string;
+  readonly latencyP99Ms: number;
+  readonly status: 'healthy' | 'degraded';
+}
+
+export function StreamingTelemetryPanel({
+  telemetryPromise
+}: {
+  telemetryPromise: Promise<readonly TelemetryPoint[]>;
+}) {
+  const rows = use(telemetryPromise);
+  const [selectedRegion, setSelectedRegion] = useState<string>('ALL');
+
+  const filtered = selectedRegion === 'ALL'
+    ? rows
+    : rows.filter((r) => r.region === selectedRegion);
+
+  function handleSelectRegion(region: string) {
+    startTransition(() => {
+      setSelectedRegion(region);
+    });
+  }
+
+  return (
+    <div className="rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-950 p-4">
+      <div className="mb-3 flex items-center gap-2">
+        {['ALL', 'ap-southeast-1', 'us-east-1', 'eu-central-1'].map((region) => (
+          <button
+            key={region}
+            type="button"
+            onClick={() => handleSelectRegion(region)}
+            className="cursor-pointer rounded-lg border border-neutral-200 dark:border-neutral-800 px-3 py-1.5 text-xs font-medium transition hover:bg-neutral-100 dark:hover:bg-neutral-900 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-neutral-900"
+          >
+            {region}
+          </button>
+        ))}
+      </div>
+      <div className="divide-y divide-neutral-200/70 dark:divide-neutral-800">
+        {filtered.map((item) => (
+          <div key={item.id} className="flex items-center justify-between py-2.5 text-sm">
+            <span className="font-mono text-xs text-neutral-700 dark:text-neutral-300">{item.region}</span>
+            <span className="font-mono text-xs font-semibold tabular-nums text-neutral-900 dark:text-neutral-100">
+              {item.latencyP99Ms} ms
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
+#### Sovereign Enterprise Data Table with Tabular Numerals & Keyboard Navigation (TSX)
+```tsx
+'use client';
+
+import { useState, type KeyboardEvent } from 'react';
+
+export interface LedgerRow {
+  readonly id: string;
+  readonly invoiceNo: string;
+  readonly amountMinor: number;
+  readonly currency: string;
+  readonly settled: boolean;
+}
+
+export function SovereignLedgerTable({ rows }: { readonly rows: readonly LedgerRow[] }) {
+  const [focusedIndex, setFocusedIndex] = useState<number>(0);
+
+  function handleKeyDown(e: KeyboardEvent<HTMLTableSectionElement>) {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedIndex((prev) => Math.min(rows.length - 1, prev + 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedIndex((prev) => Math.max(0, prev - 1));
+    }
+  }
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-white dark:bg-neutral-950">
+      <table className="w-full border-collapse text-left text-sm">
+        <thead>
+          <tr className="border-b border-neutral-200/80 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50 text-xs font-medium uppercase tracking-wider text-neutral-500">
+            <th className="px-4 py-3">Invoice</th>
+            <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3 text-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody onKeyDown={handleKeyDown} tabIndex={0} className="divide-y divide-neutral-200/60 dark:divide-neutral-800/70 focus:outline-none">
+          {rows.map((row, idx) => (
+            <tr
+              key={row.id}
+              aria-selected={idx === focusedIndex}
+              onClick={() => setFocusedIndex(idx)}
+              className="cursor-pointer transition hover:bg-neutral-50 dark:hover:bg-neutral-900/60 aria-selected:bg-neutral-100/80 dark:aria-selected:bg-neutral-900"
+            >
+              <td className="px-4 py-3 font-mono text-xs font-medium text-neutral-900 dark:text-neutral-100">{row.invoiceNo}</td>
+              <td className="px-4 py-3 text-xs text-neutral-600 dark:text-neutral-400">{row.settled ? 'Settled' : 'Pending'}</td>
+              <td className="px-4 py-3 text-right font-mono text-xs font-semibold tabular-nums text-neutral-900 dark:text-neutral-100">
+                {row.currency} {(row.amountMinor / 100).toFixed(2)}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
