@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-24T16:52:22.953Z",
+  "timestamp": "2026-10-24T17:56:40.343Z",
   "score": 100,
-  "totalElapsedMs": 258.1,
+  "totalElapsedMs": 276.15,
   "itemsTested": 7,
   "passedCount": 7,
   "allPassed": true,
@@ -9,60 +9,60 @@
     {
       "id": "sandbox_exec",
       "name": "Ephemeral Micro-Sandbox Execution",
-      "measured": "1.15 ms",
+      "measured": "1.17 ms",
       "budget": "< 25.00 ms",
       "passed": true,
-      "rawMs": 1.1468699999999992
+      "rawMs": 1.1708899999999987
     },
     {
       "id": "verify_gate",
       "name": "Pre-Disk Verification Gate",
-      "measured": "1.38 ms",
+      "measured": "1.20 ms",
       "budget": "< 50.00 ms",
       "passed": true,
-      "rawMs": 1.3758200000000016
+      "rawMs": 1.204440000000001
     },
     {
       "id": "ast_indexing",
       "name": "AST Symbol Indexing Throughput",
-      "measured": "5.104 sym/s",
+      "measured": "4.592 sym/s",
       "budget": "> 300 sym/s",
       "passed": true,
-      "rawThroughput": 5104,
-      "totalSymbols": 381,
+      "rawThroughput": 4592,
+      "totalSymbols": 383,
       "totalFiles": 74
     },
     {
       "id": "graph_search",
       "name": "Hybrid GraphRAG Search (Top-5)",
-      "measured": "7.38 ms",
+      "measured": "8.21 ms",
       "budget": "< 60.00 ms",
       "passed": true,
-      "rawMs": 7.379720000000001
+      "rawMs": 8.213939999999997
     },
     {
       "id": "kv_cache",
       "name": "Deterministic KV-Cache Prefix Compilation",
-      "measured": "38.19 ms",
+      "measured": "49.93 ms",
       "budget": "< 500.00 ms",
       "passed": true,
-      "rawMs": 38.1943
+      "rawMs": 49.93269999999998
     },
     {
       "id": "cross_ide_bridge",
       "name": "Cross-IDE Bridge Synchronization",
-      "measured": "32.97 ms",
+      "measured": "20.82 ms",
       "budget": "< 120.00 ms",
       "passed": true,
-      "rawMs": 32.9667
+      "rawMs": 20.81819999999999
     },
     {
       "id": "vsix_packager",
       "name": "Zero-Dependency VSIX Package Builder",
-      "measured": "6.00 ms",
+      "measured": "5.88 ms",
       "budget": "< 200.00 ms",
       "passed": true,
-      "rawMs": 5.996399999999994
+      "rawMs": 5.880299999999977
     }
   ]
 }

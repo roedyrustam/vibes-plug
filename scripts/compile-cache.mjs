@@ -106,7 +106,8 @@ export async function compileCache(options = {}) {
         'formal-spec-z3-verifier', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
         'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
         'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault',
-        'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert'
+        'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert',
+        'reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'rea-changelog-update'
       ],
       orchestration_utilities: [
         'app-analyzer-optimizer', 'app-promo-media-expert', 'async-queue-temporal-expert',

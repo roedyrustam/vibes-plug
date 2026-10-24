@@ -1,4 +1,4 @@
-# Vibes-Plug Skills Catalog (171 Skills)
+# Vibes-Plug Skills Catalog (176 Skills)
 
 *Universal AI Agent Swarm Architecture (v4.4.2)*
 
@@ -126,8 +126,13 @@
 | `pydantic-ai-expert` | `4.4.2` | Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows / Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI. |
 | `python-programming-expert` | `4.4.2` | Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian. |
 | `rate-limit-abuse-prevention` | `4.4.2` | Expert guide for API rate limiting, bot protection, DDoS mitigation, brute-force prevention, and abuse detection / Panduan ahli untuk rate limiting API, perlindungan bot, mitigasi DDoS, pencegahan brute-force, dan deteksi penyalahgunaan. |
+| `rea-analysis-optimization` | `4.4.3` | Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit. |
+| `rea-changelog-update` | `4.4.3` | Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization. |
+| `rea-ci-tests-audit` | `4.4.3` | Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure. |
+| `rea-tool-design` | `4.4.3` | Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics. |
 | `reactive-sync-engine-expert` | `4.4.2` | Expert guide for Linear-style Reactive Sync Engines (Zero by Rocicorp, ElectricSQL, PowerSync), Postgres Logical Replication to IndexedDB/SQLite, sub-millisecond optimistic mutations, and server reconciliation / Panduan ahli mesin sinkronisasi reaktif gaya Linear, replikasi logis Postgres ke klien, dan mutasi optimis instan. |
 | `realtime-collaboration-expert` | `4.4.2` | Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time. |
+| `reverse-engineer-anything` | `4.4.3` | Reverse engineer native, managed, Electron/JavaScript, packaged, firmware, and browser targets with REA, and build agent environments (AgentEnv bundles) of web applications from a live instance or a capture. Use shipped-artifact or requested runtime evidence to explain features, compare versions, decompile code, or guide a reconstruction. Skip REA for ordinary source-repository architecture analysis. |
 | `rich-text-editor-expert` | `4.4.2` | Expert guide for rich text editor integration (Tiptap, Lexical, ProseMirror), collaborative editing, and custom extensions / Panduan ahli integrasi editor rich text (Tiptap, Lexical, ProseMirror), editing kolaboratif, dan ekstensi kustom. |
 | `rust-programming-expert` | `4.4.2` | Expert-level skill for Rust programming (Rust 2024 / v1.88+). Covers memory safety, Grounded Permissions Model (R/W/O/F), async Axum 0.8/SQLx, CLI, and zero-cost optimization in English and Indonesian. |
 | `saas-architect` | `4.4.2` | Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N) / Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N). |

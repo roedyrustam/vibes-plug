@@ -121,7 +121,7 @@ export function resolveSkillAdapter(skillName) {
   if (/frontend|ui|css|tailwind|react|next|vue|angular|svelte|solid|astro|design|visual|svg|hig|a11y/i.test(skillName)) {
     return frontendAdapter;
   }
-  if (/security|auth|passkey|rebac|vault|rate-limit|sbom|crypto|firewall|safety|gdpr|payment|doku|billing|red-team/i.test(skillName)) {
+  if (/security|auth|passkey|rebac|vault|rate-limit|sbom|crypto|firewall|safety|gdpr|payment|doku|billing|red-team|reverse-engineer|rea-/i.test(skillName)) {
     return securityAdapter;
   }
   if (/test|tdd|e2e|slop|debt|hardener|review|coderabbit|sandbox|z3|biome/i.test(skillName)) {
@@ -146,6 +146,51 @@ export async function getSkillCompactSlice(skillName) {
     // Fallback to dynamic extraction if .skill-slices.json not yet compiled
   }
   return inspectSkillCapabilities(skillName);
+}
+
+/**
+ * Extracts full runnable code blocks from a skill's SKILL.md
+ * @param {string} skillName
+ * @param {Object} [options]
+ * @param {string} [options.language]
+ * @param {number} [options.index]
+ * @returns {Promise<Object>}
+ */
+export async function extractSkillCode(skillName, options = {}) {
+  const skillPath = path.join(SKILLS_DIR, skillName, 'SKILL.md');
+  const content = await fs.readFile(skillPath, 'utf8');
+
+  const codeBlocks = [];
+  const blockRegex = /```([a-zA-Z0-9_-]*)\r?\n([\s\S]*?)```/g;
+  let match;
+  let idx = 0;
+  while ((match = blockRegex.exec(content)) !== null) {
+    const lang = (match[1] || 'text').trim().toLowerCase();
+    const code = match[2].trim();
+    codeBlocks.push({
+      index: idx++,
+      language: lang,
+      lines: code.split(/\r?\n/).length,
+      code
+    });
+  }
+
+  let filtered = codeBlocks;
+  if (options.language) {
+    const targetLang = String(options.language).toLowerCase();
+    filtered = codeBlocks.filter(b => b.language === targetLang || b.language.includes(targetLang));
+  }
+  if (typeof options.index === 'number' && !Number.isNaN(options.index)) {
+    filtered = filtered.filter((_, i) => i === options.index);
+  }
+
+  return {
+    skill: skillName,
+    totalBlocks: codeBlocks.length,
+    matchedBlocks: filtered.length,
+    languagesAvailable: [...new Set(codeBlocks.map(b => b.language))],
+    blocks: filtered
+  };
 }
 
 /**
@@ -185,11 +230,67 @@ export async function inspectSkillCapabilities(skillName) {
     version: versionMatch ? versionMatch[1] : '4.4.2',
     description: descMatch ? descMatch[1].trim() : '',
     domain: adapter.domain,
-    supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'health', 'budget'])],
+    supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'health', 'budget'])],
     codeBlueprintsCount: codeBlocks.length,
+    languagesAvailable: [...new Set(codeBlocks.map(b => b.language))],
     codeBlueprints: codeBlocks.slice(0, 5),
     connectedSkillsCount: connectedSkills.length,
     connectedSkills: connectedSkills.slice(0, 12)
+  };
+}
+
+/**
+ * Compiles all 171 skills into `.skill-slices.json` for O(1) sub-millisecond tool lookup
+ * @returns {Promise<Object>}
+ */
+export async function compileAllSkillSlices() {
+  const startTime = performance.now();
+  const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
+  const skillNames = entries
+    .filter(e => e.isDirectory() && !e.name.startsWith('.'))
+    .map(e => e.name)
+    .sort();
+
+  const slices = {};
+  const domainSummary = {};
+  let totalBlueprints = 0;
+
+  for (const skillName of skillNames) {
+    try {
+      const cap = await inspectSkillCapabilities(skillName);
+      slices[skillName] = cap;
+      totalBlueprints += cap.codeBlueprintsCount;
+      if (!domainSummary[cap.domain]) {
+        domainSummary[cap.domain] = { count: 0, blueprints: 0, skills: [] };
+      }
+      domainSummary[cap.domain].count += 1;
+      domainSummary[cap.domain].blueprints += cap.codeBlueprintsCount;
+      domainSummary[cap.domain].skills.push(skillName);
+    } catch {
+      // Skip malformed directory if any
+    }
+  }
+
+  const payload = {
+    version: '4.5.0',
+    compiledAt: '2026-10-25T00:00:00.000Z',
+    totalSkills: Object.keys(slices).length,
+    totalCodeBlueprints: totalBlueprints,
+    domains: domainSummary,
+    slices
+  };
+
+  await fs.writeFile(SLICES_FILE, JSON.stringify(payload, null, 2), 'utf8');
+  return {
+    status: 'success',
+    file: '.skill-slices.json',
+    totalSkills: payload.totalSkills,
+    totalCodeBlueprints: totalBlueprints,
+    domainsCount: Object.keys(domainSummary).length,
+    durationMs: Math.max(1, Math.round(performance.now() - startTime)),
+    domains: Object.fromEntries(
+      Object.entries(domainSummary).map(([k, v]) => [k, { skillsCount: v.count, codeBlueprints: v.blueprints }])
+    )
   };
 }
 
@@ -206,7 +307,11 @@ export async function dispatchSkillAction(request = {}) {
   const startTime = performance.now();
   const skill = String(request.skill || '').trim();
   const action = String(request.action || 'audit').trim().toLowerCase();
-  const payload = request.payload || {};
+  const payload = { ...(request.payload || {}) };
+
+  if (skill === 'all' && (action === 'compile-slices' || action === 'matrix')) {
+    return compileAllSkillSlices();
+  }
 
   if (!skill) {
     return {
@@ -238,6 +343,21 @@ export async function dispatchSkillAction(request = {}) {
     };
   }
 
+  // Auto-hydrate file content if payload.filePath is provided
+  if (payload.filePath && !payload.code && !payload.sql && !payload.spec && !payload.manifest) {
+    try {
+      const resolvedFile = path.resolve(process.cwd(), String(payload.filePath));
+      const fileContent = await fs.readFile(resolvedFile, 'utf8');
+      payload.code = fileContent;
+      if (resolvedFile.endsWith('.sql')) payload.sql = fileContent;
+      if (resolvedFile.endsWith('.yaml') || resolvedFile.endsWith('.yml') || resolvedFile.endsWith('.json')) {
+        payload.spec = fileContent;
+      }
+    } catch {
+      // Leave payload as-is if file cannot be read
+    }
+  }
+
   try {
     let result;
 
@@ -245,6 +365,11 @@ export async function dispatchSkillAction(request = {}) {
       result = await getSkillCompactSlice(skill);
     } else if (action === 'blueprint' || action === 'capabilities' || action === 'info') {
       result = await inspectSkillCapabilities(skill);
+    } else if (action === 'extract-code' || action === 'code') {
+      result = await extractSkillCode(skill, {
+        language: payload.language || payload.lang,
+        index: payload.index !== undefined ? Number(payload.index) : undefined
+      });
     } else if (action === 'health' || action === 'drift') {
       const audit = auditSkill(skill, skillContent, {});
       result = {
@@ -261,7 +386,7 @@ export async function dispatchSkillAction(request = {}) {
     } else {
       const adapter = resolveSkillAdapter(skill);
       const adapterResult = await adapter.execute(action, { ...payload, skill });
-      const capabilities = await inspectSkillCapabilities(skill);
+      const capabilities = await getSkillCompactSlice(skill);
       result = {
         domain: adapter.domain,
         skillVersion: capabilities.version,
@@ -383,6 +508,9 @@ if (isMain) {
   const secondPositional = rawArgs.filter(a => !a.startsWith('--'))[1] || 'blueprint';
   const formatFlag = rawArgs.find(a => a.startsWith('--format='))?.split('=')[1] || (rawArgs.includes('--json') ? 'json' : 'pretty');
   const payloadFlag = rawArgs.find(a => a.startsWith('--payload='))?.slice('--payload='.length);
+  const fileFlag = rawArgs.find(a => a.startsWith('--file='))?.slice('--file='.length);
+  const langFlag = rawArgs.find(a => a.startsWith('--lang='))?.slice('--lang='.length) || rawArgs.find(a => a.startsWith('--language='))?.slice('--language='.length);
+  const indexFlag = rawArgs.find(a => a.startsWith('--index='))?.slice('--index='.length);
 
   if (!firstPositional || rawArgs.includes('--help') || rawArgs.includes('-h')) {
     console.log(`
@@ -391,20 +519,23 @@ if (isMain) {
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 Usage:
-  vibes skill exec <skill-name> <action> [--payload='<json>'] [--format=json|table|pretty]
+  vibes skill exec <skill-name> <action> [--file=<path>] [--lang=<lang>] [--payload='<json>'] [--format=json|table|pretty]
   vibes skill chain <recipe-name> [--payload='<json>'] [--format=json|pretty]
+  vibes skill compile-slices [--json]
+  vibes skill matrix [--json]
 
 Supported Actions:
-  • blueprint  — Extract executable code blueprints, connected skills, & capabilities
-  • slice      — Retrieve ultra-compact <350-token micro-slice for subagent fan-out
-  • audit      — Run domain-specific quality, security, or visual Pillar 7 audit
-  • eval       — Evaluate SQL DDL, code snippets, or API specs in-memory
-  • verify     — Verify invariants, RLS policies, and Anti-Slop compliance
-  • generate   — Generate domain-specific production boilerplate (DDL, @theme, OpenAPI, A2A)
-  • fuzz       — Run OWASP Top 10, secret entropy, & injection fuzzing
-  • optimize   — Retrieve latency, token, & NFR optimization invariants
-  • health     — Audit skill health score and 2026 framework drift
-  • budget     — Compute dynamic thinking token budget & frontier model cascade
+  • blueprint    — Extract executable code blueprints, connected skills, & capabilities
+  • slice        — Retrieve ultra-compact <350-token micro-slice for subagent fan-out
+  • extract-code — Extract runnable production code blocks from SKILL.md (--lang=<lang>, --index=<n>)
+  • audit        — Run domain-specific quality, security, or visual Pillar 7 audit
+  • eval         — Evaluate SQL DDL, code snippets, or API specs in-memory
+  • verify       — Verify invariants, RLS policies, and Anti-Slop compliance
+  • generate     — Generate domain-specific production boilerplate (DDL, @theme, OpenAPI, A2A)
+  • fuzz         — Run OWASP Top 10, secret entropy, & injection fuzzing
+  • optimize     — Retrieve latency, token, & NFR optimization invariants
+  • health       — Audit skill health score and 2026 framework drift
+  • budget       — Compute dynamic thinking token budget & frontier model cascade
 
 Available Skill Chains:
   • saas-launch-gate        (${SKILL_CHAIN_RECIPES['saas-launch-gate'].steps.length} skills)
@@ -424,8 +555,21 @@ Available Skill Chains:
       parsedPayload = { target: payloadFlag };
     }
   }
+  if (fileFlag) parsedPayload.filePath = fileFlag;
+  if (langFlag) parsedPayload.language = langFlag;
+  if (indexFlag !== undefined) parsedPayload.index = Number(indexFlag);
 
-  if (firstPositional === 'chain') {
+  if (firstPositional === 'compile-slices' || firstPositional === 'matrix') {
+    compileAllSkillSlices().then(res => {
+      if (formatFlag === 'json') {
+        console.log(JSON.stringify(res, null, 2));
+      } else {
+        console.log(`\n⚡ [SaaT Compiler] Compiled ${res.totalSkills} skills & ${res.totalCodeBlueprints} executable code blueprints into ${res.file} (${res.durationMs}ms)`);
+        console.table(res.domains);
+      }
+      process.exit(0);
+    });
+  } else if (firstPositional === 'chain') {
     const recipeName = secondPositional === 'blueprint' ? 'saas-launch-gate' : secondPositional;
     dispatchSkillChain(recipeName, parsedPayload).then(res => {
       if (formatFlag === 'json') {

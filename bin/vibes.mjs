@@ -855,7 +855,8 @@ async function runUi() {
           'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
           'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
           'rate-limit-abuse-prevention', 'supabase-security-expert', 'zero-tech-debt-auditor',
-          'zero-trust-secret-vault', 'coderabbit', 'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert'
+          'zero-trust-secret-vault', 'coderabbit', 'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert',
+          'reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'rea-changelog-update'
         ],
         data: [
           'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
@@ -1551,6 +1552,11 @@ Commands:
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
+  skill exec <skill> <act>  Execute a deterministic Skill-as-a-Tool (SaaT) action across any skill
+  skill chain <recipe>      Execute a multi-skill pipeline chain (saas-launch-gate, ai-agent-hardening, ...)
+  skill slice <skill-name>  Retrieve <350-token compact contract slice for subagent fan-out
+  skill extract-code <sk>   Extract runnable production code blueprints from a skill (--lang=<l>)
+  skill matrix [--json]     Compile & inspect the 171-skill SaaT domain matrix (.skill-slices.json)
   recipe list               List all built-in skill bundles/recipes
   recipe apply <name>       Apply a recipe bundle to your project (ai-stack, fullstack-pro, ...)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
@@ -1800,6 +1806,16 @@ Platform Eligibility & Economics:
       rl.close();
       const { spawnSync } = await import('child_process');
       const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), args[2], 'slice', ...args.slice(3)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else if (args[1] === 'extract-code' || args[1] === 'code') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), args[2], 'extract-code', ...args.slice(3)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else if (args[1] === 'compile-slices' || args[1] === 'matrix') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), args[1], ...args.slice(2)], { stdio: 'inherit', cwd: process.cwd() });
       process.exit(child.status ?? 0);
     } else {
       runSkillInfo(args[2] || args[1]);

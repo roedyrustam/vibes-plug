@@ -78,7 +78,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 ```
 
 #### PHASE 1: Discovery & AI PRD Architectural Planning
-**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`
+**Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`, `reverse-engineer-anything`, `rea-tool-design`, `rea-analysis-optimization`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
 - [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOCUMENTATION.md) alongside the Roadmap (ROADMAP.md).
 - [ ] Determine dynamic thinking budget profile (`thinking-budget-orchestrator`) across speed (1,024t), balanced (4,096t), deep (32,768t), or exhaustive (65,536t).
@@ -138,7 +138,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Integrate frontend state management with TanStack Query v5.
 
 #### PHASE 6: Automated Testing, Error Resilience & Security Audit
-**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `fga-rebac-authorization-expert`, `passkeys-webauthn-identity-expert`, `sbom-supply-chain-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`, `spec-driven-development-expert`, `mcp-sampling-critic`, `visual-ui-auditor`
+**Orchestrates:** `e2e-testing-expert`, `accessibility-testing-expert`, `autonomous-red-teamer`, `firebase-security-expert`, `fga-rebac-authorization-expert`, `passkeys-webauthn-identity-expert`, `sbom-supply-chain-security-expert`, `error-resilience-expert`, `logging-error-tracking-expert`, `anti-slop`, `coderabbit`, `autonomous-tdd-debugger`, `browser-automation-expert`, `zero-trust-secret-vault`, `post-quantum-crypto-migrator`, `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `agentic-coding-workflow-expert`, `zero-tech-debt-auditor`, `living-codebase-ast-graph`, `ephemeral-wasm-sandbox-executor`, `formal-spec-z3-verifier`, `ai-code-review-autonomous`, `prompt-injection-firewall`, `property-mutation-testing-expert`, `spec-driven-development-expert`, `mcp-sampling-critic`, `visual-ui-auditor`, `rea-ci-tests-audit`
 - [ ] Write unit and integration tests with Vitest and pytest.
 - [ ] Run autonomous multi-pass AI code self-review (`ai-code-review-autonomous`) across syntax, logic correctness, and security.
 - [ ] Execute `sampling/createMessage` Critic-in-the-Loop review gates (`mcp-sampling-critic`) before merging or deployment.
@@ -160,7 +160,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Generate structured Schema.org JSON-LD markup and AEO conversion landing pages.
 
 #### PHASE 8: Launch, Deployment & Handover
-**Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `double-entry-ledger-fintech-expert`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`, `autonomous-api-drift-healer`
+**Orchestrates:** `cloud-hosting-expert`, `saas-billing`, `double-entry-ledger-fintech-expert`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `saas-architect`, `prd-architect`, `ci-cd-devops-architect`, `doku-payment-gateway`, `payment-gateway-expert`, `app-promo-media-expert`, `zero-tech-debt-auditor`, `autonomous-api-drift-healer`, `rea-changelog-update`
 - [ ] Deploy backend and edge services to Vercel, Cloudflare, AWS, or Railway.
 - [ ] For SaaS applications: deploy Super Admin dashboard on a **separate subdomain** (e.g., `admin.yourdomain.com`) with strict role-based access (`isSuperAdmin` flag).
 - [ ] Configure Stripe / Polar.sh / LemonSqueezy / DOKU SNAP BI billing and webhooks.

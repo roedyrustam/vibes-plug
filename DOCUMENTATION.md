@@ -46,9 +46,9 @@ vibes-plug/
 │   └── vibes.mjs                   # CLI interface (init, doctor, skill exec/chain/slice, test, guard)
 ├── scripts/
 │   ├── skill-dispatcher.mjs        # Universal SaaT runtime & Autonomous Skill Composition Chains
-│   ├── supercharge-all-skills.mjs  # Sovereign Skill Supercharger across all 171 skills
+│   ├── supercharge-all-skills.mjs  # Sovereign Skill Supercharger across all 176 skills
 │   ├── compile-skill-slices.mjs    # Pre-compiles <350-token micro-slices to .skill-slices.json
-│   ├── verify-skill-snippets.mjs   # Executable code-block smoke tester across 994+ blueprints
+│   ├── verify-skill-snippets.mjs   # Executable code-block smoke tester across 1,000+ blueprints
 │   ├── ast-query.mjs               # Surgical symbol extraction & blast-radius calculation
 │   ├── eval-migration.mjs          # In-memory SQL DDL, RLS, and index verification
 │   ├── speculative-arbiter.mjs     # PRM multi-draft candidate scoring engine
@@ -59,13 +59,13 @@ vibes-plug/
 │       ├── database.mjs            # Schema generators, migration evaluators, RLS audits
 │       ├── frontend.mjs            # OKLCH tokens, @theme generators, WCAG a11y & Pillar 7 linter
 │       ├── api.mjs                 # OpenAPI 3.1, TypeSpec, Hono RPC, & RFC 9457 verification
-│       ├── security.mjs            # OWASP Top 10 fuzzing, secret entropy, & SNAP BI checks
+│       ├── security.mjs            # OWASP Top 10 fuzzing, secret entropy, REA binary audit & SNAP BI checks
 │       ├── tdd.mjs                 # Ephemeral micro-sandbox & Critic-in-the-Loop quality gate
 │       ├── ai-mcp.mjs              # FastMCP schemas, A2A Agent Cards, & KV-cache prefix checks
 │       ├── cloud-devops.mjs        # Rootless/distroless Dockerfiles, K8s GitOps, & CycloneDX SBOM
 │       └── mobile-spatial.mjs      # Expo SDK 53, Tauri v2 capabilities, & Zero-GC 60fps loops
-├── .skill-slices.json              # Pre-compiled <350-token skill slices (80%+ fan-out token savings)
-├── skills/                         # 171 Specialized Skill behavioral specifications (SKILL.md)
+├── .skill-slices.json              # Pre-compiled <350-token skill slices (93% fan-out token savings)
+├── skills/                         # 176 Specialized Skill behavioral specifications (SKILL.md)
 ├── PRD.md                          # Product Requirements Document
 ├── ERD.md                          # Database Entity Schemas & RLS DDL
 ├── DOCUMENTATION.md                # Topology, component boundaries & module guide

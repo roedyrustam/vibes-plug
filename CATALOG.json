@@ -1,5 +1,5 @@
 {
-  "total": 171,
+  "total": 176,
   "skills": [
     {
       "name": "a2a-agent-protocol-expert",
@@ -734,6 +734,30 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "rea-analysis-optimization",
+      "description": "Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit.",
+      "version": "4.4.3",
+      "author": "morluto"
+    },
+    {
+      "name": "rea-changelog-update",
+      "description": "Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization.",
+      "version": "4.4.3",
+      "author": "morluto"
+    },
+    {
+      "name": "rea-ci-tests-audit",
+      "description": "Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure.",
+      "version": "4.4.3",
+      "author": "morluto"
+    },
+    {
+      "name": "rea-tool-design",
+      "description": "Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.",
+      "version": "4.4.3",
+      "author": "morluto"
+    },
+    {
       "name": "reactive-sync-engine-expert",
       "description": "Expert guide for Linear-style Reactive Sync Engines (Zero by Rocicorp, ElectricSQL, PowerSync), Postgres Logical Replication to IndexedDB/SQLite, sub-millisecond optimistic mutations, and server reconciliation / Panduan ahli mesin sinkronisasi reaktif gaya Linear, replikasi logis Postgres ke klien, dan mutasi optimis instan.",
       "version": "4.4.2",
@@ -744,6 +768,12 @@
       "description": "Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time.",
       "version": "4.4.2",
       "author": "Roedy Rustam"
+    },
+    {
+      "name": "reverse-engineer-anything",
+      "description": "Reverse engineer native, managed, Electron/JavaScript, packaged, firmware, and browser targets with REA, and build agent environments (AgentEnv bundles) of web applications from a live instance or a capture. Use shipped-artifact or requested runtime evidence to explain features, compare versions, decompile code, or guide a reconstruction. Skip REA for ordinary source-repository architecture analysis.",
+      "version": "4.4.3",
+      "author": "morluto"
     },
     {
       "name": "rich-text-editor-expert",

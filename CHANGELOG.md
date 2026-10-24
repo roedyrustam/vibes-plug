@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.0] - 2026-10-25
+
+### Added / Ditambahkan
+- **Universal Skill-as-a-Tool (SaaT) Execution Engine (`scripts/skill-dispatcher.mjs`)**:
+  - Transformed all 176 declarative skills into deterministic executable tools via `vibes skill exec <skill> <action>` (`blueprint`, `slice`, `extract-code`, `audit`, `eval`, `verify`, `generate`, `fuzz`, `optimize`, `health`, `budget`) and MCP tool `vibes_skill_dispatch`.
+  - Built 8 specialized domain adapters (`scripts/adapters/*.mjs` for Database, Frontend, API, Security, TDD, AI/MCP, Cloud/DevOps, and Mobile/Spatial) aligned 1:1 with the 8 native specialist subagents.
+  - Added Autonomous Skill Composition Chains (`vibes skill chain <recipe>`): `saas-launch-gate`, `ai-agent-hardening`, `fintech-settlement-gate`, `cloud-release-gate`, and `frontend-ui-polish`.
+  - Added Pre-Compiled Micro-Slice Compiler (`vibes skill compile-slices` & `vibes skill matrix`) generating `.skill-slices.json` across all 176 skills and 1,000 executable code blueprints with 93% subagent Fan-Out token compression.
+- **Reverse Engineering & Binary Analysis (REA) 5-Skill Suite (`morluto/rea`)**:
+  - Integrated `reverse-engineer-anything`, `rea-tool-design`, `rea-analysis-optimization`, `rea-ci-tests-audit`, and `rea-changelog-update` with full bilingual orchestration matrices, TypeScript Evidence/Cache/Audit contracts, and registration in `brainstorming` and `zero-to-prod-orchestrator` (Phases 1, 6, and 8).
+  - Synchronized `CATALOG.md`, `CATALOG.json`, `.cache-prefix.json`, and `.skill-slices.json` across all 176 verified skills with 100/100 Ecosystem Health (`PRISTINE`) and `2,024` directed graph edges.
+
+---
+
 ## [4.4.3] - 2026-10-24
 
 ### Security / Keamanan

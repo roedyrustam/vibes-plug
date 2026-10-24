@@ -127,6 +127,7 @@ const SKILL_DOMAIN_MAP = {
   'property-mutation-testing-expert': 'security', 'rate-limit-abuse-prevention': 'security', 'supabase-security-expert': 'security',
   'zero-tech-debt-auditor': 'security', 'zero-trust-secret-vault': 'security', 'coderabbit': 'security', 'app-analyzer-optimizer': 'security',
   'mcp-sampling-critic': 'security', 'fga-rebac-authorization-expert': 'security', 'passkeys-webauthn-identity-expert': 'security', 'sbom-supply-chain-security-expert': 'security',
+  'reverse-engineer-anything': 'security', 'rea-tool-design': 'security', 'rea-analysis-optimization': 'security', 'rea-ci-tests-audit': 'security', 'rea-changelog-update': 'security',
 
   // Data & Orchestration
   'agy-customizations': 'data', 'brainstorming': 'data', 'browser-automation-expert': 'data',
