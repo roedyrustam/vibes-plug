@@ -35,11 +35,17 @@
 
 <br />
 
-```bash
-# ⚡ Instant 1-Command Scaffold (NPM or Direct from GitHub)
-npx vibes-plug init
+### ⚡ Universal 1-Line Installers (Zero-Config Global Setup)
 
-# Or run directly from GitHub without installing:
+```bash
+# 🐧 Linux / 🍏 macOS / 🪟 WSL (Bash / Zsh):
+curl -fsSL https://raw.githubusercontent.com/roedyrustam/vibes-plug/main/install.sh | bash
+
+# 🪟 Windows (PowerShell):
+irm https://raw.githubusercontent.com/roedyrustam/vibes-plug/main/install.ps1 | iex
+
+# 📦 Or via NPX / GitHub:
+npx vibes-plug init
 npx github:roedyrustam/vibes-plug --all
 ```
 
@@ -51,12 +57,15 @@ npx github:roedyrustam/vibes-plug --all
 | :--- | :--- | :--- | :--- |
 | **Agent Coordination** | ❌ 1 confused LLM doing everything | ⚠️ Static rules without orchestration | 🤖 **Swarm Director & 176 Specialists** |
 | **Full-Stack Lifecycle** | ❌ Fragmented & prone to regressions | ⚠️ Ad-hoc guidance | 🚀 **Autonomous 8-Phase Zero-To-Prod** |
+| **Self-Evolving Skills** | ❌ Stale knowledge | ❌ Manual rule authoring | 🧬 **`vibes evolve` & Multi-Platform Codex Generator** |
+| **CI Resilience** | ❌ Breaks on node version mismatches | ❌ No auto-remediation | 🩺 **Autonomous CI Auto-Healer (`vibes ci:heal`)** |
 | **Tech Stack** | ⚠️ Often outputs legacy 2022 patterns | ⚠️ Stale prompts | ⚡ **React 19, Next 15, Tailwind v4, Bun 1.2+** |
 | **Code Gardening & QA** | ❌ Hallucinated dead code & slop | ❌ No automated debt check | 🧹 **Zero-Tech-Debt Auditor & Red Teaming** |
 | **Sovereign Anti-Slop** | ❌ Lazy stubs, placeholder stubs, & fluff | ⚠️ Untested static prompts | 🛡️ **Zero-Tolerance Anti-Slop Engine & Scanner** |
 | **Payment & Micro-Economy** | ❌ Incomplete integrations | ⚠️ Basic docs | 💳 **DOKU Checkout, SNAP BI, Stripe, M2M Agent Wallets** |
-| **Superintelligence Substrate**| ❌ None | ❌ None | 🧠 **P1–P7 Engines (KV-Cache, DB Sandbox, AST, PRM, SMT, VM, SaaT)** |
-| **Native MCP Server** | ❌ None | ❌ None | 🔌 **Stdio & SSE MCP v1.x Server with 37 Frontier Tools & Dynamic Profile Masking** |
+| **Visual Studio Cockpit** | ❌ None | ❌ None | 🎨 **Interactive 2D Graph (2,435 edges) & Swarm Blackboard** |
+| **Native MCP Server** | ❌ None | ❌ None | 🔌 **Stdio & SSE MCP v1.x Server with 42 Frontier Tools & Profile Masking** |
+| **Distribution** | ⚠️ Complex global installs | ⚠️ Manual copying | 📦 **Single-Binary (`vibes package:binary`) & 1-Line Shell Installers** |
 | **IDE Portability** | ❌ Locked to one interface | ⚠️ Cursor only | 🌐 **Antigravity, Cursor, Claude Code, Codex, Windsurf, Trae** |
 
 ---
@@ -222,7 +231,16 @@ vibes visual-audit <file|code>
 # Or run standalone Remote MCP Server for Claude Desktop, Cursor, or remote agents
 vibes mcp --transport sse --port 3333
 
-# Run the complete Sovereign Quality & Anti-Slop Guard (643 files + 47 tests)
+# Autonomous Skill & Codex Evolver: evolve skills & multi-platform codex rules
+vibes evolve <skill-name> [--category <cat>] [--from-repo <dir>]
+
+# Autonomous CI Auto-Healer: diagnose stack traces and apply safe remediation
+vibes ci:heal [command|logPath] [--dry-run|--apply]
+
+# Standalone Single-Binary Compiler: package zero-dependency executable
+vibes package:binary [--platform <os>] [--arch <arch>]
+
+# Run the complete Sovereign Quality & Anti-Slop Guard (648 files + 51 tests)
 vibes guard
 ```
 

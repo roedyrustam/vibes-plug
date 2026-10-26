@@ -86,8 +86,17 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Full CLI, Studio & MCP Integration Test Suite (41 Tests)
+      - name: Verify Installer Scripts Syntax
+        run: |
+          bash -n install.sh
+        if: runner.os != 'Windows'
+
+      - name: Run Full CLI, Studio & MCP Integration Test Suite (51 Tests)
         run: node --test scripts/test-cli.mjs
+
+      - name: Run Autonomous CI Healer Diagnostics on Failure
+        if: failure()
+        run: node scripts/self-healer.mjs --dry-run
 
   security-audit:
     name: Security & Dependency Audit
