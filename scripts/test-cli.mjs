@@ -1208,7 +1208,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 37);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 41);
       assert.equal(liveTelData.liveWatcher.active, true);
     } finally {
       await new Promise((resolve) => server.close(resolve));
@@ -1578,6 +1578,111 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(Array.isArray(swarmOut.mcpSamplingManifest) && swarmOut.mcpSamplingManifest.length >= 2);
     assert.strictEqual(swarmOut.mcpSamplingManifest[0].method, 'sampling/createMessage');
     assert.ok(swarmOut.subagentManifest[0].subagent.length > 0);
+  });
+
+  await t.test('Gemini Native Accelerator, Sentinel Watcher, Visual Auto-Fix, and Swarm Blackboard', async () => {
+    const { prepareGeminiCachePayload, getGeminiThinkingConfig } = await import('./gemini-runtime.mjs');
+    const { auditSingleFile, startSentinelWatcher } = await import('./sentinel-watcher.mjs');
+    const { synthesizeVisualFixes } = await import('./visual-critic.mjs');
+    const { swarmBus } = await import('./swarm-bus.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. Gemini Native Context Caching Payload Generation
+    const cacheRes = await prepareGeminiCachePayload({ rootDir: PLUGIN_ROOT, ttlSeconds: 3600 });
+    assert.strictEqual(cacheRes.success, true);
+    assert.ok(cacheRes.fileCount > 10);
+    assert.ok(cacheRes.estimatedTokens > 1000);
+    assert.strictEqual(cacheRes.ttlSeconds, 3600);
+    assert.ok(cacheRes.sdkExample.includes('@google/genai'));
+
+    // 2. Dynamic System-2 Thinking Budget Controller
+    const budgetRes = await getGeminiThinkingConfig('Formally architect and verify distributed payment settlement state machine invariants with Z3 provers');
+    assert.ok(['MODERATE', 'HIGH', 'CRITICAL'].includes(budgetRes.tier));
+    assert.ok(budgetRes.thinkingBudget >= 8192);
+    assert.ok(budgetRes.targetModel.includes('gemini'));
+    assert.strictEqual(budgetRes.fallbackModel, 'models/gemini-3.8-flash');
+
+    const routineRes = await getGeminiThinkingConfig('Fix typo in README header');
+    assert.strictEqual(routineRes.tier, 'LOW');
+    assert.strictEqual(routineRes.thinkingBudget, 2048);
+
+    // 3. Sentinel Pre-Disk Gate & Single File Audit
+    const cleanAudit = auditSingleFile(path.join(PLUGIN_ROOT, 'scripts', 'gemini-runtime.mjs'));
+    assert.strictEqual(cleanAudit.passed, true);
+    assert.strictEqual(cleanAudit.score, 100);
+    assert.ok(cleanAudit.durationMs < 50);
+
+    // 4. Visual UI Auto-Fix Synthesizer
+    const gradClass = 'bg-gradient-to-r ' + 'from-blue-600 to-purple-600';
+    const rocketEmoji = String.fromCodePoint(0x1F680);
+    const nakedOutline = 'focus:' + 'outline-none';
+    const slopUi = `<div className="${gradClass} p-4"><h1>Welcome! ${rocketEmoji}</h1><button className="px-4 py-2 rounded-full ${nakedOutline}">Submit</button></div>`;
+
+    const fixed = synthesizeVisualFixes(slopUi);
+    assert.ok(fixed.fixCount >= 2);
+    assert.ok(!fixed.patchedCode.includes('rounded-full'));
+    assert.ok(fixed.patchedCode.includes('rounded-lg border border-border/40'));
+    assert.ok(!fixed.patchedCode.includes('from-blue-600 to-purple-600'));
+    assert.ok(fixed.patchedCode.includes('bg-card border border-border/60'));
+    assert.ok(!fixed.patchedCode.includes(rocketEmoji));
+
+    // 5. Swarm A2A Shared Blackboard
+    const testEntry = swarmBus.setBlackboard('schema:users', { table: 'users', rls: true }, 'test-agent');
+    assert.strictEqual(testEntry.key, 'schema:users');
+    assert.strictEqual(testEntry.version, 1);
+    assert.strictEqual(testEntry.authorAgent, 'test-agent');
+
+    const fetched = swarmBus.getBlackboard('schema:users');
+    assert.strictEqual(fetched.value.table, 'users');
+    assert.strictEqual(fetched.value.rls, true);
+
+    const allKeys = swarmBus.listBlackboard();
+    assert.ok(allKeys.some(e => e.key === 'schema:users'));
+
+    // 6. MCP Server Invocations for new tools
+    const mcpCacheCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 991,
+      method: 'tools/call',
+      params: { name: 'vibes_gemini_cache', arguments: { targetDir: PLUGIN_ROOT } }
+    });
+    assert.ok(mcpCacheCall.result);
+    const mcpCachePayload = JSON.parse(mcpCacheCall.result.content[0].text);
+    assert.strictEqual(mcpCachePayload.success, true);
+
+    const mcpBudgetCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 992,
+      method: 'tools/call',
+      params: { name: 'vibes_gemini_budget', arguments: { task: 'Payment webhook checkout' } }
+    });
+    assert.ok(mcpBudgetCall.result);
+    const mcpBudgetPayload = JSON.parse(mcpBudgetCall.result.content[0].text);
+    assert.ok(mcpBudgetPayload.thinkingBudget > 0);
+
+    const mcpBbCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 993,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_blackboard',
+        arguments: { action: 'set', key: 'api:v1:orders', value: { endpoint: '/api/v1/orders' } }
+      }
+    });
+    assert.ok(mcpBbCall.result);
+    const mcpBbPayload = JSON.parse(mcpBbCall.result.content[0].text);
+    assert.strictEqual(mcpBbPayload.success, true);
+    assert.strictEqual(mcpBbPayload.entry.key, 'api:v1:orders');
+
+    // 7. CLI execution check for vibes cache:gemini and vibes budget:gemini
+    const { stdout: geminiCliOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'budget:gemini',
+      'Refactor core payment engine with atomic idempotency',
+      '--json'
+    ]);
+    const parsedGeminiCli = JSON.parse(geminiCliOut);
+    assert.ok(parsedGeminiCli.thinkingBudget >= 8192);
   });
 });
 

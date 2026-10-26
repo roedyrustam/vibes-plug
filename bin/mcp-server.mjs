@@ -32,6 +32,9 @@ import { recordDecision, queryMemory, generateCompactCheckpoint, loadMemory } fr
 import { executeSwarm } from '../scripts/swarm-runner.mjs';
 import { criticValidate, formatSamplingRequest } from '../scripts/critic-validator.mjs';
 import { visualAudit } from '../scripts/visual-critic.mjs';
+import { prepareGeminiCachePayload, getGeminiThinkingConfig } from '../scripts/gemini-runtime.mjs';
+import { auditSingleFile } from '../scripts/sentinel-watcher.mjs';
+import { swarmBus } from '../scripts/swarm-bus.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -736,6 +739,81 @@ export const TOOLS = [
           type: 'string',
           enum: ['core', 'frontend', 'backend', 'security', 'ai-mcp', 'full'],
           description: 'Target profile to activate (when action: set).'
+        }
+      },
+      required: ['action']
+    }
+  },
+  {
+    name: 'vibes_gemini_cache',
+    description: 'Prepares monolithic repository context caching payload and estimates tokens for Google Gemini 4 Pro / 3.8 Flash Context Caching API (>32k tokens, 75-90% cost discount).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        targetDir: {
+          type: 'string',
+          description: 'Root directory of the repository to scan and cache (defaults to current working directory).'
+        },
+        ttlSeconds: {
+          type: 'number',
+          description: 'Time-to-live in seconds for the cached content (default: 7200).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_gemini_budget',
+    description: 'Dynamic System-2 Thinking Budget Controller: analyzes task complexity and generates calibrated Google GenAI thinkingConfig (thinkingBudget: 2K-64K tokens) for Gemini 4 Pro / Gemini 3.8 Flash.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        task: {
+          type: 'string',
+          description: 'Task description or code snippet to evaluate.'
+        }
+      },
+      required: ['task']
+    }
+  },
+  {
+    name: 'vibes_sentinel_audit',
+    description: 'Fast In-Memory Sentinel Gate: audits a candidate file or workspace file against Anti-Slop Directive (Pillars 1-7), 5-state UI contract, and in-memory SQL security before persistence.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        filePath: {
+          type: 'string',
+          description: 'Path to target source file to audit.'
+        },
+        fix: {
+          type: 'boolean',
+          description: 'Whether to auto-synthesize visual and anti-slop fixes (default: false).'
+        }
+      },
+      required: ['filePath']
+    }
+  },
+  {
+    name: 'vibes_blackboard',
+    description: 'Swarm A2A Shared Blackboard: read, write, or list shared contracts (schemas, API DTOs, architectural decisions) across concurrent subagents in real-time.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['get', 'set', 'list'],
+          description: 'Action to perform: get (read key), set (write contract), list (view all keys).'
+        },
+        key: {
+          type: 'string',
+          description: 'Key identifier (e.g. schema:users, api:contracts, ui:tokens).'
+        },
+        value: {
+          description: 'Contract payload or shared data to store (when action is set).'
+        },
+        author: {
+          type: 'string',
+          description: 'Author agent identifier (e.g. swarm-architect, fullstack-craftsman).'
         }
       },
       required: ['action']
@@ -1478,6 +1556,34 @@ export async function handleRpcRequest(request) {
           }, null, 2);
         } else {
           throw new Error(`Unknown action '${action}'. Valid: status, list, set`);
+        }
+      } else if (name === 'vibes_gemini_cache') {
+        const targetDir = args?.targetDir || process.cwd();
+        const ttlSeconds = Number(args?.ttlSeconds) || 7200;
+        const res = await prepareGeminiCachePayload({ rootDir: targetDir, ttlSeconds });
+        contentText = JSON.stringify(res, null, 2);
+      } else if (name === 'vibes_gemini_budget') {
+        const task = args?.task || 'System architecture audit';
+        const res = await getGeminiThinkingConfig(task);
+        contentText = JSON.stringify(res, null, 2);
+      } else if (name === 'vibes_sentinel_audit') {
+        const filePath = path.resolve(process.cwd(), args?.filePath || 'index.js');
+        const fix = Boolean(args?.fix);
+        const res = auditSingleFile(filePath, { fix });
+        contentText = JSON.stringify(res, null, 2);
+      } else if (name === 'vibes_blackboard') {
+        const { action = 'list', key, value, author } = args || {};
+        if (action === 'set') {
+          if (!key) throw new Error("Argument 'key' is required for action 'set'.");
+          const entry = swarmBus.setBlackboard(key, value, author || 'mcp-agent');
+          contentText = JSON.stringify({ success: true, entry }, null, 2);
+        } else if (action === 'get') {
+          if (!key) throw new Error("Argument 'key' is required for action 'get'.");
+          const entry = swarmBus.getBlackboard(key);
+          contentText = JSON.stringify({ success: true, found: Boolean(entry), entry }, null, 2);
+        } else {
+          const allEntries = swarmBus.listBlackboard();
+          contentText = JSON.stringify({ success: true, count: allEntries.length, entries: allEntries }, null, 2);
         }
       } else {
         throw new Error(`Tool '${name}' not found.`);

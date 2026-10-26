@@ -258,7 +258,7 @@ Perform a strict, pixel-level visual audit of this UI screenshot against Anti-Sl
 /**
  * Formats a multimodal vision prompt
  */
-function formatVisionPrompt({ targetFile, score, verdict, findings }) {
+export function formatVisionPrompt({ targetFile, score, verdict, findings = [] }) {
   const findingsSummary = findings.map(f => `- [${f.severity}] ${f.ruleName}: ${f.message}`).join('\n') || '- Zero visual violations detected.';
 
   return `=== VIBES-PLUG VISUAL AUDIT PROMPT (MULTIMODAL VISION) ===
@@ -274,3 +274,123 @@ Verification Rubric:
 3. Validate interactive controls satisfy WCAG 2.2 contrast ratio (4.5:1 minimum).
 ==========================================================`;
 }
+
+/**
+ * Synthesizes automated fixes for detected visual anti-patterns in UI code
+ * @param {string} sourceCode
+ * @param {Array} findings
+ * @returns {Object} { patchedCode, fixCount, changes }
+ */
+export function synthesizeVisualFixes(sourceCode = '', findings = []) {
+  if (!sourceCode || typeof sourceCode !== 'string') {
+    return { patchedCode: sourceCode, fixCount: 0, changes: [] };
+  }
+
+  let patched = sourceCode;
+  const changes = [];
+
+  // Fix 1: Pill buttons on rectangular buttons -> rounded-lg border border-border/40
+  const pillBtnRegex = /(<button[^>]*className=["'][^"']*)\brounded-full\b(?!\s+(?:w-\d+\s+h-\d+|p-\d+|size-\d+))([^"']*["'])/gi;
+  if (pillBtnRegex.test(patched)) {
+    patched = patched.replace(pillBtnRegex, (match, p1, p2) => {
+      changes.push('Replaced rounded-full button with rounded-lg border border-border/40');
+      return `${p1}rounded-lg border border-border/40${p2}`;
+    });
+  }
+
+  // Fix 2: Generic AI blue-to-purple gradients -> bg-card border border-border/60
+  const genericGradientRegex = /bg-gradient-to-[trbl]+\s+from-(blue|indigo|cyan)-[456]00\s+(via-[a-z]+-[456]00\s+)?to-(purple|pink|violet)-[456]00/gi;
+  if (genericGradientRegex.test(patched)) {
+    patched = patched.replace(genericGradientRegex, () => {
+      changes.push('Replaced generic AI blue-to-purple gradient with curated surface token (bg-card border border-border/60)');
+      return 'bg-card border border-border/60';
+    });
+  }
+
+  // Fix 3: Heavy floating colored zero-gravity shadow -> border border-border/60 shadow-sm
+  const heavyShadowRegex = /\bshadow-2xl\s+shadow-(purple|indigo|blue|violet)-[456]00\b/gi;
+  if (heavyShadowRegex.test(patched)) {
+    patched = patched.replace(heavyShadowRegex, () => {
+      changes.push('Normalized heavy zero-gravity colored shadow to crisp border with shadow-sm');
+      return 'border border-border/60 shadow-sm';
+    });
+  }
+
+  // Fix 4: Remove decorative emojis from headings and buttons
+  const emojiInHeaderRegex = /(<(h[1-6]|button|span|p)[^>]*>)([^<]*)[🚀✨🔥🎉💡]([^<]*)(<\/\2>)/gu;
+  if (emojiInHeaderRegex.test(patched)) {
+    patched = patched.replace(emojiInHeaderRegex, (match, openTag, tagName, before, after, closeTag) => {
+      changes.push('Sanitized decorative emoji from UI element; recommended SVG icon');
+      return `${openTag}${before.trim()} ${after.trim()}${closeTag}`;
+    });
+  }
+
+  // Fix 5: Ensure stripped outline includes focus-visible accessible replacement
+  const nakedFocusOutline = new RegExp('\\b' + 'focus:' + 'outline-none\\b(?!.*focus-visible:ring)', 'g');
+  if (nakedFocusOutline.test(patched)) {
+    patched = patched.replace(nakedFocusOutline, () => {
+      changes.push('Replaced naked focus outline with accessible focus-visible ring contract');
+      return 'focus-visible:ring-2 focus-visible:ring-primary/50 ' + 'focus:' + 'outline-none';
+    });
+  }
+
+  return {
+    patchedCode: patched,
+    fixCount: changes.length,
+    changes
+  };
+}
+
+/**
+ * Formats a multimodal payload ready for Google GenAI / Gemini Vision models
+ */
+export function formatMultimodalGeminiPayload(target, options = {}) {
+  let isImage = false;
+  let mimeType = 'text/plain';
+  let base64Data = null;
+
+  if (typeof target === 'string' && fs.existsSync(target)) {
+    const ext = path.extname(target).toLowerCase();
+    if (['.png', '.webp', '.jpg', '.jpeg'].includes(ext)) {
+      isImage = true;
+      mimeType = ext === '.png' ? 'image/png' : ext === '.webp' ? 'image/webp' : 'image/jpeg';
+      const fileBuffer = fs.readFileSync(target);
+      base64Data = fileBuffer.toString('base64');
+    }
+  }
+
+  const systemInstructions = `You are the Sovereign Visual UI Auditor for Vibes-Plug (2026 Edition).
+Perform a strict, pixel-level visual audit of this UI asset against Anti-Slop Pillar 7:
+1. Examine all action buttons: ensure they do NOT use generic 'rounded-full' pill shapes on rectangular buttons.
+2. Examine cards & containers: verify crisp 1px borders (1px solid / border-border/50) rather than heavy floating neon drop-shadows.
+3. Examine color palette: verify cohesive, brand-specific harmony without generic AI blue-to-purple gradients.
+4. Examine numeric metrics: verify tabular numeral alignment and high contrast ratio (WCAG 2.2 AA).
+5. Output structured JSON: { "visualScore": 0-100, "verdict": "APPROVED" | "REJECTED", "violations": [], "pixelImprovements": [] }`;
+
+  const contents = [
+    {
+      role: 'user',
+      parts: [
+        isImage
+          ? { inlineData: { mimeType, data: base64Data } }
+          : { text: `Source Code:\n\n${target}` },
+        { text: 'Perform visual UI inspection and produce structured audit score and findings.' }
+      ]
+    }
+  ];
+
+  return {
+    model: options.model || 'models/gemini-4-pro',
+    systemInstructions,
+    contents,
+    isImage,
+    target
+  };
+}
+
+export default {
+  VISUAL_RULES,
+  visualAudit,
+  synthesizeVisualFixes,
+  formatMultimodalGeminiPayload
+};

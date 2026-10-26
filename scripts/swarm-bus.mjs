@@ -21,6 +21,53 @@ class SwarmEventBus extends EventEmitter {
     this.maxBufferSize = maxBufferSize;
     this.eventBuffer = [];
     this.activeSwarms = new Map();
+    this.blackboard = new Map();
+  }
+
+  /**
+   * Sets or updates a shared contract/key on the Swarm Blackboard
+   * @param {string} key - e.g. 'schema:db', 'contract:api', 'ui:state'
+   * @param {*} value - The shared data/contract
+   * @param {string} [authorAgent] - Identifier of the author agent
+   * @returns {Object} The updated blackboard entry
+   */
+  setBlackboard(key, value, authorAgent = 'swarm-director') {
+    const existing = this.blackboard.get(key);
+    const version = existing ? existing.version + 1 : 1;
+    const entry = {
+      key,
+      value,
+      version,
+      authorAgent,
+      updatedAt: new Date().toISOString()
+    };
+    this.blackboard.set(key, entry);
+
+    this.publish('blackboard:update', {
+      key,
+      version,
+      authorAgent,
+      timestamp: entry.updatedAt
+    });
+
+    return entry;
+  }
+
+  /**
+   * Retrieves a shared contract from the Blackboard
+   * @param {string} key 
+   * @returns {Object|null}
+   */
+  getBlackboard(key) {
+    return this.blackboard.get(key) || null;
+  }
+
+  /**
+   * Lists all entries currently on the Swarm Blackboard
+   * @returns {Array<Object>}
+   */
+  listBlackboard() {
+    return Array.from(this.blackboard.values());
   }
 
   /**

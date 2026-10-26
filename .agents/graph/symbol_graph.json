@@ -1,15 +1,15 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T19:02:23.235Z",
+  "generatedAt": "2026-10-26T20:32:41.080Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 75,
-  "totalSymbolsIndexed": 416,
-  "totalImportEdges": 223,
+  "totalFilesIndexed": 77,
+  "totalSymbolsIndexed": 427,
+  "totalImportEdges": 235,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 865,
+        "line": 943,
         "type": "function",
         "signature": "function getActiveProfile()"
       }
@@ -17,7 +17,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 869,
+        "line": 947,
         "type": "function",
         "signature": "function setActiveProfile(profileName)"
       }
@@ -25,7 +25,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 878,
+        "line": 956,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)"
       }
@@ -33,7 +33,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 922,
+        "line": 1000,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -41,7 +41,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1510,
+        "line": 1616,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -49,7 +49,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1538,
+        "line": 1644,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -57,7 +57,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1646,
+        "line": 1752,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -399,7 +399,7 @@
       },
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 179,
+        "line": 226,
         "type": "function",
         "signature": "function main()"
       },
@@ -882,6 +882,38 @@
         "signature": "function exportFinOpsReport(format = 'markdown')"
       }
     ],
+    "collectRepositoryContext": [
+      {
+        "file": "scripts/gemini-runtime.mjs",
+        "line": 35,
+        "type": "function",
+        "signature": "function collectRepositoryContext(rootDir = process.cwd()"
+      }
+    ],
+    "formatMonolithicDump": [
+      {
+        "file": "scripts/gemini-runtime.mjs",
+        "line": 86,
+        "type": "function",
+        "signature": "function formatMonolithicDump(files = [], metadata = {})"
+      }
+    ],
+    "prepareGeminiCachePayload": [
+      {
+        "file": "scripts/gemini-runtime.mjs",
+        "line": 106,
+        "type": "function",
+        "signature": "function prepareGeminiCachePayload(options = {})"
+      }
+    ],
+    "getGeminiThinkingConfig": [
+      {
+        "file": "scripts/gemini-runtime.mjs",
+        "line": 162,
+        "type": "function",
+        "signature": "function getGeminiThinkingConfig(taskInput = '')"
+      }
+    ],
     "build_3d_logos": [
       {
         "file": "scripts/generate_logo_svg.py",
@@ -1264,6 +1296,22 @@
         "line": 238,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
+      }
+    ],
+    "auditSingleFile": [
+      {
+        "file": "scripts/sentinel-watcher.mjs",
+        "line": 41,
+        "type": "function",
+        "signature": "function auditSingleFile(filePath, options = {})"
+      }
+    ],
+    "startSentinelWatcher": [
+      {
+        "file": "scripts/sentinel-watcher.mjs",
+        "line": 142,
+        "type": "function",
+        "signature": "function startSentinelWatcher(rootDir = process.cwd()"
       }
     ],
     "resolveSkillAdapter": [
@@ -1850,10 +1898,34 @@
         "signature": "SwarmEventBus.constructor(maxBufferSize = 150)"
       }
     ],
+    "SwarmEventBus.setBlackboard": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 34,
+        "type": "method",
+        "signature": "SwarmEventBus.setBlackboard(key, value, authorAgent = 'swarm-director')"
+      }
+    ],
+    "SwarmEventBus.getBlackboard": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 61,
+        "type": "method",
+        "signature": "SwarmEventBus.getBlackboard(key)"
+      }
+    ],
+    "SwarmEventBus.listBlackboard": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 69,
+        "type": "method",
+        "signature": "SwarmEventBus.listBlackboard()"
+      }
+    ],
     "SwarmEventBus.publish": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 32,
+        "line": 79,
         "type": "method",
         "signature": "SwarmEventBus.publish(eventType, payload = {})"
       }
@@ -1861,7 +1933,7 @@
     "SwarmEventBus.getEvents": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 84,
+        "line": 131,
         "type": "method",
         "signature": "SwarmEventBus.getEvents(options = {})"
       }
@@ -1869,7 +1941,7 @@
     "SwarmEventBus.getActiveSwarms": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 100,
+        "line": 147,
         "type": "method",
         "signature": "SwarmEventBus.getActiveSwarms()"
       }
@@ -1877,7 +1949,7 @@
     "SwarmEventBus.attachSseStream": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 110,
+        "line": 157,
         "type": "method",
         "signature": "SwarmEventBus.attachSseStream(res, options = {})"
       }
@@ -1885,7 +1957,7 @@
     "SwarmEventBus.reset": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 151,
+        "line": 198,
         "type": "method",
         "signature": "SwarmEventBus.reset()"
       }
@@ -1893,7 +1965,7 @@
     "emitSwarmEvent": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 166,
+        "line": 213,
         "type": "function",
         "signature": "function emitSwarmEvent(type, payload = {})"
       }
@@ -1901,7 +1973,7 @@
     "getRecentSwarmEvents": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 175,
+        "line": 222,
         "type": "function",
         "signature": "function getRecentSwarmEvents(options = {})"
       }
@@ -2139,7 +2211,23 @@
         "file": "scripts/visual-critic.mjs",
         "line": 261,
         "type": "function",
-        "signature": "function formatVisionPrompt({ targetFile, score, verdict, findings })"
+        "signature": "function formatVisionPrompt({ targetFile, score, verdict, findings = [] })"
+      }
+    ],
+    "synthesizeVisualFixes": [
+      {
+        "file": "scripts/visual-critic.mjs",
+        "line": 284,
+        "type": "function",
+        "signature": "function synthesizeVisualFixes(sourceCode = '', findings = [])"
+      }
+    ],
+    "formatMultimodalGeminiPayload": [
+      {
+        "file": "scripts/visual-critic.mjs",
+        "line": 347,
+        "type": "function",
+        "signature": "function formatMultimodalGeminiPayload(target, options = {})"
       }
     ],
     "createIsolatedSandbox": [
@@ -3229,7 +3317,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1669,
+      "totalLines": 1775,
       "symbolCount": 7,
       "exports": [
         "getActiveProfile",
@@ -3368,11 +3456,36 @@
             "visualAudit"
           ],
           "line": 34
+        },
+        {
+          "source": "../scripts/gemini-runtime.mjs",
+          "target": "scripts/gemini-runtime.mjs",
+          "specifiers": [
+            "prepareGeminiCachePayload",
+            "getGeminiThinkingConfig"
+          ],
+          "line": 35
+        },
+        {
+          "source": "../scripts/sentinel-watcher.mjs",
+          "target": "scripts/sentinel-watcher.mjs",
+          "specifiers": [
+            "auditSingleFile"
+          ],
+          "line": 36
+        },
+        {
+          "source": "../scripts/swarm-bus.mjs",
+          "target": "scripts/swarm-bus.mjs",
+          "specifiers": [
+            "swarmBus"
+          ],
+          "line": 37
         }
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2032,
+      "totalLines": 2065,
       "symbolCount": 23,
       "exports": [],
       "imports": [
@@ -4066,6 +4179,50 @@
         }
       ]
     },
+    "scripts/gemini-runtime.mjs": {
+      "totalLines": 256,
+      "symbolCount": 4,
+      "exports": [
+        "collectRepositoryContext",
+        "formatMonolithicDump",
+        "prepareGeminiCachePayload",
+        "getGeminiThinkingConfig"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 15
+        },
+        {
+          "source": "./token-budget-optimizer.mjs",
+          "target": "scripts/token-budget-optimizer.mjs",
+          "specifiers": [
+            "analyzeTaskComplexity"
+          ],
+          "line": 16
+        }
+      ]
+    },
     "scripts/generate-catalog.mjs": {
       "totalLines": 54,
       "symbolCount": 0,
@@ -4562,6 +4719,57 @@
         }
       ]
     },
+    "scripts/sentinel-watcher.mjs": {
+      "totalLines": 257,
+      "symbolCount": 2,
+      "exports": [
+        "auditSingleFile",
+        "startSentinelWatcher"
+      ],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 18
+        },
+        {
+          "source": "./visual-critic.mjs",
+          "target": "scripts/visual-critic.mjs",
+          "specifiers": [
+            "visualAudit",
+            "synthesizeVisualFixes"
+          ],
+          "line": 19
+        },
+        {
+          "source": "./eval-migration.mjs",
+          "target": "scripts/eval-migration.mjs",
+          "specifiers": [
+            "evaluateSql"
+          ],
+          "line": 20
+        }
+      ]
+    },
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 636,
       "symbolCount": 7,
@@ -5040,8 +5248,8 @@
       ]
     },
     "scripts/swarm-bus.mjs": {
-      "totalLines": 225,
-      "symbolCount": 10,
+      "totalLines": 272,
+      "symbolCount": 13,
       "exports": [
         "emitSwarmEvent",
         "getRecentSwarmEvents"
@@ -5269,7 +5477,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1585,
+      "totalLines": 1690,
       "symbolCount": 1,
       "exports": [],
       "imports": [
@@ -5520,10 +5728,13 @@
       ]
     },
     "scripts/visual-critic.mjs": {
-      "totalLines": 277,
-      "symbolCount": 3,
+      "totalLines": 397,
+      "symbolCount": 5,
       "exports": [
-        "visualAudit"
+        "visualAudit",
+        "formatVisionPrompt",
+        "synthesizeVisualFixes",
+        "formatMultimodalGeminiPayload"
       ],
       "imports": [
         {

@@ -1924,7 +1924,40 @@ Platform Eligibility & Economics:
     if (report.visionPrompt) {
       console.log('\n' + report.visionPrompt);
     }
+    if (args.includes('--fix') && report.targetFile) {
+      const { synthesizeVisualFixes } = await import('../scripts/visual-critic.mjs');
+      const originalCode = await fs.readFile(report.targetFile, 'utf8');
+      const fixResult = synthesizeVisualFixes(originalCode, report.findings);
+      if (fixResult.fixCount > 0) {
+        await fs.writeFile(report.targetFile, fixResult.patchedCode, 'utf8');
+        console.log(`\n\x1b[32m✨ Applied ${fixResult.fixCount} visual UI fix(es) to ${report.targetFile}\x1b[0m`);
+      }
+    }
     rl.close();
+    break;
+  }
+  case 'cache:gemini':
+  case 'gemini:cache': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'gemini-runtime.mjs'), 'cache', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
+  case 'budget:gemini':
+  case 'gemini:budget': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'gemini-runtime.mjs'), 'budget', ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
+  case 'watch':
+  case 'sentinel': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'sentinel-watcher.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'audit':
