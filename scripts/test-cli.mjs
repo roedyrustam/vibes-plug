@@ -1887,6 +1887,49 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(mcpEvolvePayload.skillName, 'tailwind-v4-theme-expert');
     assert.strictEqual(mcpEvolvePayload.category, 'frontend');
   });
+
+  await t.test('Single-Binary Distribution Compiler and Universal One-Line Installers', async () => {
+    const { compileStandaloneBinary, calculateChecksum } = await import('./bundle-binary.mjs');
+
+    // 1. Verify existence and syntax of install.sh & install.ps1
+    const shPath = path.join(PLUGIN_ROOT, 'install.sh');
+    const ps1Path = path.join(PLUGIN_ROOT, 'install.ps1');
+    const shExists = await fs.stat(shPath).then(() => true).catch(() => false);
+    const ps1Exists = await fs.stat(ps1Path).then(() => true).catch(() => false);
+    assert.strictEqual(shExists, true);
+    assert.strictEqual(ps1Exists, true);
+
+    const shContent = await fs.readFile(shPath, 'utf8');
+    assert.ok(shContent.includes('Vibes-Plug Universal Installer'));
+    assert.ok(shContent.includes('scripts/install.js --all'));
+
+    const ps1Content = await fs.readFile(ps1Path, 'utf8');
+    assert.ok(ps1Content.includes('Vibes-Plug Universal Installer'));
+    assert.ok(ps1Content.includes('scripts/install.js --all'));
+
+    // 2. Programmatic Binary Compilation (Dry Run)
+    const bundleRes = await compileStandaloneBinary({ dryRun: true });
+    assert.strictEqual(bundleRes.success, true);
+    assert.strictEqual(bundleRes.name, 'vibes');
+    assert.ok(bundleRes.checksum);
+    assert.ok(bundleRes.output);
+
+    // 3. Checksum verification
+    const testHash = calculateChecksum(Buffer.from('vibes-sovereign-plug-2026'));
+    assert.strictEqual(testHash.length, 64);
+
+    // 4. CLI Execution (vibes package:binary --dry-run --json)
+    const { stdout: binCliOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'package:binary',
+      '--dry-run',
+      '--json'
+    ]);
+    const binData = JSON.parse(binCliOut);
+    assert.strictEqual(binData.success, true);
+    assert.strictEqual(binData.dryRun, true);
+    assert.strictEqual(binData.name, 'vibes');
+  });
 });
 
 

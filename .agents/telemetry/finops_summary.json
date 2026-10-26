@@ -1,73 +1,36 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-26T21:25:12.145Z",
-  "totalRequests": 6,
+  "lastUpdated": "2026-10-26T21:27:51.426Z",
+  "totalRequests": 2,
   "tokens": {
-    "inputTotal": 21581,
-    "outputTotal": 1841,
-    "cachedTotal": 35499,
-    "grandTotal": 23422
+    "inputTotal": 9071,
+    "outputTotal": 371,
+    "cachedTotal": 8329,
+    "grandTotal": 9442
   },
   "economics": {
-    "cacheHitRatio": "62.2%",
-    "claudeSavedUsd": "0.096",
-    "geminiSavedUsd": "0.053",
-    "openAiSavedUsd": "0.044",
-    "primaryEstSavedUsd": "0.096"
+    "cacheHitRatio": "47.9%",
+    "claudeSavedUsd": "0.022",
+    "geminiSavedUsd": "0.013",
+    "openAiSavedUsd": "0.010",
+    "primaryEstSavedUsd": "0.022"
   },
   "records": [
     {
-      "timestamp": "2026-10-26T21:25:12.145Z",
+      "timestamp": "2026-10-26T21:27:51.426Z",
       "model": "gemini-4-argon-medium",
-      "task": "SaaT:rea-tool-design:verify",
-      "input": 1624,
-      "output": 116,
-      "cached": 1392
+      "task": "SaaT:sbom-supply-chain-security-expert:generate",
+      "input": 3052,
+      "output": 130,
+      "cached": 2792
     },
     {
-      "timestamp": "2026-10-26T21:25:11.979Z",
+      "timestamp": "2026-10-26T21:27:51.200Z",
       "model": "gemini-4-argon-medium",
       "task": "SaaT:frontier-ai-models-expert:slice",
       "input": 6019,
       "output": 241,
       "cached": 5537
-    },
-    {
-      "timestamp": "2026-10-26T21:25:11.820Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:kv-cache-prefix-optimizer:optimize",
-      "input": 3654,
-      "output": 109,
-      "cached": 3436
-    },
-    {
-      "timestamp": "2026-10-26T21:25:11.584Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:saas-architect:blueprint",
-      "input": 3843,
-      "output": 350,
-      "cached": 3143
-    },
-    {
-      "timestamp": "2026-10-26T21:25:11.425Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:database-orm-expert:generate",
-      "input": 4441,
-      "output": 225,
-      "cached": 3991
-    },
-    {
-      "timestamp": "2026-10-26T21:25:01.733Z",
-      "model": "claude-3-7-sonnet",
-      "task": "Autonomous coding routine",
-      "input": 2000,
-      "output": 800,
-      "cached": 18000
     }
-  ]
-}]
-} }
-  ]
-}  }
   ]
 }

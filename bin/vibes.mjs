@@ -1884,6 +1884,14 @@ Platform Eligibility & Economics:
     process.exit(child.status ?? 0);
     break;
   }
+  case 'package:binary':
+  case 'package-binary': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'bundle-binary.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'pr:review':
   case 'pr-review': {
     rl.close();

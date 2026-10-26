@@ -1,10 +1,10 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T21:25:08.558Z",
+  "generatedAt": "2026-10-26T21:27:48.035Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 78,
-  "totalSymbolsIndexed": 438,
-  "totalImportEdges": 239,
+  "totalFilesIndexed": 79,
+  "totalSymbolsIndexed": 441,
+  "totalImportEdges": 246,
   "symbols": {
     "getActiveProfile": [
       {
@@ -326,6 +326,12 @@
         "signature": "function main()"
       },
       {
+        "file": "scripts/bundle-binary.mjs",
+        "line": 122,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
         "file": "scripts/critic-validator.mjs",
         "line": 184,
         "type": "function",
@@ -496,6 +502,22 @@
         "line": 46,
         "type": "function",
         "signature": "function runBenchmarkSuite(options = {})"
+      }
+    ],
+    "calculateChecksum": [
+      {
+        "file": "scripts/bundle-binary.mjs",
+        "line": 34,
+        "type": "function",
+        "signature": "function calculateChecksum(content)"
+      }
+    ],
+    "compileStandaloneBinary": [
+      {
+        "file": "scripts/bundle-binary.mjs",
+        "line": 45,
+        "type": "function",
+        "signature": "function compileStandaloneBinary(options = {})"
       }
     ],
     "isTestFile": [
@@ -3571,7 +3593,7 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2082,
+      "totalLines": 2090,
       "symbolCount": 23,
       "exports": [],
       "imports": [
@@ -3902,6 +3924,72 @@
             "packageVsix"
           ],
           "line": 28
+        }
+      ]
+    },
+    "scripts/bundle-binary.mjs": {
+      "totalLines": 186,
+      "symbolCount": 3,
+      "exports": [
+        "calculateChecksum",
+        "compileStandaloneBinary"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fsSync"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "execFile"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:util",
+          "target": null,
+          "specifiers": [
+            "promisify"
+          ],
+          "line": 20
         }
       ]
     },
@@ -5611,7 +5699,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1893,
+      "totalLines": 1936,
       "symbolCount": 1,
       "exports": [],
       "imports": [
