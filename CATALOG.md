@@ -1,6 +1,6 @@
 # Vibes-Plug Skills Catalog (176 Skills)
 
-*Universal AI Agent Swarm Architecture (v4.4.2)*
+*Universal AI Agent Swarm Architecture (v4.5.0)*
 
 | Skill Name | Version | Description |
 | :--- | :---: | :--- |
@@ -129,7 +129,7 @@
 | `rea-analysis-optimization` | `4.4.3` | Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit. |
 | `rea-changelog-update` | `4.4.3` | Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization. |
 | `rea-ci-tests-audit` | `4.4.3` | Audit REA CI and test suites for correctness, fixture drift, false passes, and measured performance; use for suite or workflow investigations and efficiency changes, rather than ordinary feature testing or a single test failure. |
-| `rea-tool-design` | `4.4.3` | Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics. |
+| `rea-tool-design` | `4.5.0` | Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics. |
 | `reactive-sync-engine-expert` | `4.4.2` | Expert guide for Linear-style Reactive Sync Engines (Zero by Rocicorp, ElectricSQL, PowerSync), Postgres Logical Replication to IndexedDB/SQLite, sub-millisecond optimistic mutations, and server reconciliation / Panduan ahli mesin sinkronisasi reaktif gaya Linear, replikasi logis Postgres ke klien, dan mutasi optimis instan. |
 | `realtime-collaboration-expert` | `4.4.2` | Expert guide for building real-time collaboration features using WebSockets, WebRTC, CRDTs (Yjs, Automerge), and Liveblocks / Panduan ahli untuk fitur kolaborasi real-time. |
 | `reverse-engineer-anything` | `4.4.3` | Reverse engineer native, managed, Electron/JavaScript, packaged, firmware, and browser targets with REA, and build agent environments (AgentEnv bundles) of web applications from a live instance or a capture. Use shipped-artifact or requested runtime evidence to explain features, compare versions, decompile code, or guide a reconstruction. Skip REA for ordinary source-repository architecture analysis. |

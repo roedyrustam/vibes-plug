@@ -1202,6 +1202,14 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const showcaseDataRes = await fetch(`${url}/showcase/skills-data.js`);
       assert.equal(showcaseDataRes.status, 200);
       assert.match(showcaseDataRes.headers.get('content-type'), /application\/javascript/);
+
+      // Test Multiplier 7: Live Telemetry Snapshot & File Watcher status
+      const liveTelRes = await fetch(`${url}/api/telemetry/live`);
+      assert.equal(liveTelRes.status, 200);
+      const liveTelData = await liveTelRes.json();
+      assert.equal(liveTelData.success, true);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 37);
+      assert.equal(liveTelData.liveWatcher.active, true);
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
@@ -1388,7 +1396,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     }
   });
 
-  await t.test('vibes skill exec should dispatch deterministic actions across all 171 skills', async () => {
+  await t.test('vibes skill exec should dispatch deterministic actions across all 176 skills', async () => {
     const { stdout: dbOut } = await execFileAsync(process.execPath, [
       CLI_PATH,
       'skill',
@@ -1465,6 +1473,111 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(healRes.status, 'DRIFT_HEALED');
     assert.ok(healRes.driftCount >= 1);
     assert.match(healRes.synthesizedPatch, /PaymentSettlementSchema = z\.object/);
+  });
+
+  await t.test('Option A & B: dynamic MCP tool masking, hardened TS/WASM sandbox, and transitive AST digraph', async () => {
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+    const { executeInSandbox, executeWasmModule } = await import('./wasm-sandbox.mjs');
+    const { calculateBlastRadius } = await import('./ast-query.mjs');
+
+    // 1. Dynamic MCP Tool Profile Masking
+    const setCore = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 1,
+      method: 'tools/call',
+      params: { name: 'vibes_tool_profile', arguments: { action: 'set', profile: 'core' } }
+    });
+    assert.strictEqual(JSON.parse(setCore.result.content[0].text).activeProfile, 'core');
+
+    const coreList = await handleRpcRequest({ jsonrpc: '2.0', id: 2, method: 'tools/list' });
+    assert.strictEqual(coreList.result.tools.length, 9);
+
+    // Out-of-profile tool remains executable without breaking callers
+    const sqlRes = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 3,
+      method: 'tools/call',
+      params: { name: 'vibes_eval_sql', arguments: { sql: 'CREATE TABLE items (id UUID PRIMARY KEY);' } }
+    });
+    assert.strictEqual(JSON.parse(sqlRes.result.content[0].text).valid, true);
+
+    await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 4,
+      method: 'tools/call',
+      params: { name: 'vibes_tool_profile', arguments: { action: 'set', profile: 'full' } }
+    });
+
+    // 2. Hardened Sandbox: blocks constructor escape, runs TS + WASM
+    const escapeAttempt = executeInSandbox("const F = Object['constr'+'uctor']; F('return 1')()");
+    assert.strictEqual(escapeAttempt.success, false);
+
+    const tsExec = executeInSandbox('interface Item { price: number } enum Tax { Std = 10 } const x: Item = { price: 90 + Tax.Std }; x.price');
+    assert.strictEqual(tsExec.success, true);
+    assert.strictEqual(tsExec.result, 100);
+    assert.strictEqual(tsExec.transpiled, true);
+
+    const addWasm = Uint8Array.from([
+      0x00, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00,
+      0x01, 0x07, 0x01, 0x60, 0x02, 0x7f, 0x7f, 0x01, 0x7f,
+      0x03, 0x02, 0x01, 0x00,
+      0x07, 0x07, 0x01, 0x03, 0x61, 0x64, 0x64, 0x00, 0x00,
+      0x0a, 0x09, 0x01, 0x07, 0x00, 0x20, 0x00, 0x20, 0x01, 0x6a, 0x0b
+    ]);
+    const wasmRes = executeWasmModule(addWasm, { exportName: 'add', args: [19, 23] });
+    assert.strictEqual(wasmRes.success, true);
+    assert.strictEqual(wasmRes.result, 42);
+
+    // 3. Transitive AST Blast Radius Digraph
+    const blast = await calculateBlastRadius(process.cwd(), path.resolve('scripts/ast-query.mjs'));
+    assert.ok(blast.directImportersCount >= 2);
+    assert.ok(blast.transitiveDependents.some((d) => d.depth >= 2));
+  });
+
+  await t.test('Multipliers 5 & 6: in-memory DPLL SAT/temporal invariant prover and two-tier swarm dispatch manifests', async () => {
+    const { solveCnfDpll, verifyStateMachine } = await import('./verify-invariants.mjs');
+    const { dispatchSwarm } = await import('./swarm-dispatcher.mjs');
+
+    // 1. DPLL Boolean SAT Solver (SAT & UNSAT)
+    const satRes = solveCnfDpll([[1, 2], [-1, 2], [1, -2]], 2);
+    assert.strictEqual(satRes.satisfiable, true);
+    assert.strictEqual(satRes.assignment[1], true);
+    assert.strictEqual(satRes.assignment[2], true);
+
+    const unsatRes = solveCnfDpll([[1], [-1]], 1);
+    assert.strictEqual(unsatRes.satisfiable, false);
+
+    // 2. Temporal Counterexample Prover (must_pass_through & no_path)
+    const flawedSpec = {
+      states: ['CART', 'KYC_VERIFIED', 'SETTLED', 'REFUNDED'],
+      initial: 'CART',
+      terminal: ['SETTLED', 'REFUNDED'],
+      transitions: [
+        { from: 'CART', to: 'KYC_VERIFIED', event: 'SUBMIT_KYC' },
+        { from: 'KYC_VERIFIED', to: 'SETTLED', event: 'PAY_SNAP_BI' },
+        { from: 'CART', to: 'SETTLED', event: 'BYPASS_CHECKOUT' }
+      ],
+      invariants: [
+        { type: 'must_pass_through', from: 'CART', to: 'SETTLED', via: 'KYC_VERIFIED' }
+      ]
+    };
+    const flawedCheck = verifyStateMachine(flawedSpec);
+    assert.strictEqual(flawedCheck.valid, false);
+    assert.strictEqual(flawedCheck.solverProof.status, 'SAT_VIOLATION');
+    assert.strictEqual(flawedCheck.counterexamples.length, 1);
+    assert.deepStrictEqual(flawedCheck.counterexamples[0].trace, ['CART', 'SETTLED']);
+
+    // 3. Two-Tier Swarm Dispatch with Subagent & MCP Sampling Manifests
+    const swarmOut = await dispatchSwarm('Build DOKU payment webhook with Postgres RLS and React UI', {
+      concurrency: 3,
+      reasoning: 'balanced'
+    });
+    assert.strictEqual(swarmOut.success, true);
+    assert.strictEqual(swarmOut.executionTier, 'hybrid-ready');
+    assert.ok(Array.isArray(swarmOut.subagentManifest) && swarmOut.subagentManifest.length >= 2);
+    assert.ok(Array.isArray(swarmOut.mcpSamplingManifest) && swarmOut.mcpSamplingManifest.length >= 2);
+    assert.strictEqual(swarmOut.mcpSamplingManifest[0].method, 'sampling/createMessage');
+    assert.ok(swarmOut.subagentManifest[0].subagent.length > 0);
   });
 });
 

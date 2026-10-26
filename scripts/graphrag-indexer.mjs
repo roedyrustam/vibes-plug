@@ -27,7 +27,7 @@ const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const DEFAULT_GRAPH_DIR = path.resolve(process.cwd(), '.agents', 'graph');
 const DEFAULT_GRAPH_FILE = path.join(DEFAULT_GRAPH_DIR, 'symbol_graph.json');
 
-const SOURCE_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '.py', '.go']);
+const SOURCE_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '.py', '.go', '.rs']);
 const IGNORED_DIRS = new Set([
   'node_modules',
   '.git',
@@ -82,11 +82,12 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
   const files = await collectSourceFiles(targetDir);
 
   const graph = {
-    version: '1.0.0',
+    version: '2.0.0',
     generatedAt: new Date().toISOString(),
     rootDir: targetDir,
     totalFilesIndexed: files.length,
     totalSymbolsIndexed: 0,
+    totalImportEdges: 0,
     symbols: {},
     files: {}
   };
@@ -96,9 +97,19 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
       const parsed = await parseSymbols(filePath);
       const relativePath = path.relative(targetDir, filePath).replace(/\\/g, '/');
 
+      const importEdges = (parsed.imports || []).map((imp) => ({
+        source: imp.source,
+        target: imp.resolvedPath ? path.relative(targetDir, imp.resolvedPath).replace(/\\/g, '/') : null,
+        specifiers: imp.specifiers,
+        line: imp.line
+      }));
+      graph.totalImportEdges += importEdges.length;
+
       graph.files[relativePath] = {
         totalLines: parsed.totalLines,
-        symbolCount: parsed.symbols.length
+        symbolCount: parsed.symbols.length,
+        exports: parsed.exports || [],
+        imports: importEdges
       };
 
       for (const sym of parsed.symbols) {

@@ -1556,7 +1556,7 @@ Commands:
   skill chain <recipe>      Execute a multi-skill pipeline chain (saas-launch-gate, ai-agent-hardening, ...)
   skill slice <skill-name>  Retrieve <350-token compact contract slice for subagent fan-out
   skill extract-code <sk>   Extract runnable production code blueprints from a skill (--lang=<l>)
-  skill matrix [--json]     Compile & inspect the 171-skill SaaT domain matrix (.skill-slices.json)
+  skill matrix [--json]     Compile & inspect the 176-skill SaaT domain matrix (.skill-slices.json)
   recipe list               List all built-in skill bundles/recipes
   recipe apply <name>       Apply a recipe bundle to your project (ai-stack, fullstack-pro, ...)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)

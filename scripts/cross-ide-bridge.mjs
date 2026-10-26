@@ -113,6 +113,8 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       configured: false,
       filesPresent: [],
       filesMissing: [],
+      has176Skills: false,
+      has160Skills: false,
       has155Skills: false,
       hasAntiSlop: false
     };
@@ -122,9 +124,10 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       try {
         const content = await fs.readFile(fPath, 'utf8');
         pInfo.filesPresent.push(f);
-        if (content.includes('155') || content.includes('156') || content.includes('160') || /15\d-Skill/i.test(content) || /skills/i.test(content)) {
-          pInfo.has155Skills = true;
+        if (content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+          pInfo.has176Skills = true;
           pInfo.has160Skills = true;
+          pInfo.has155Skills = true;
         }
         if (content.includes('Anti-Slop') || content.includes('anti-slop')) {
           pInfo.hasAntiSlop = true;
@@ -139,7 +142,9 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       try {
         const content = await fs.readFile(rfPath, 'utf8');
         pInfo.filesPresent.push(platform.ruleFile);
-        if (content.includes('155') || content.includes('156') || /15\d-Skill/i.test(content) || /skills/i.test(content)) {
+        if (content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+          pInfo.has176Skills = true;
+          pInfo.has160Skills = true;
           pInfo.has155Skills = true;
         }
         if (content.includes('Anti-Slop') || content.includes('anti-slop')) {
@@ -197,12 +202,27 @@ export async function syncBridge(targetDir = process.cwd(), options = {}) {
         await fs.writeFile(dest, masterContent, 'utf8');
       }
 
-      // Sync rulesDir file if present (e.g. .cursor/rules/vibes-plug-core.mdc)
-      if (platform.ruleFile) {
+      // Sync all modular rules in rulesDir if present (e.g. .cursor/rules/, .claude/rules/, .codex/rules/)
+      if (platform.rulesDir) {
+        const srcDir = path.join(PLUGIN_ROOT, platform.rulesDir);
+        const destDir = path.join(targetDir, platform.rulesDir);
+        try {
+          const rEntries = await fs.readdir(srcDir, { withFileTypes: true });
+          await fs.mkdir(destDir, { recursive: true });
+          for (const re of rEntries) {
+            if (re.isFile()) {
+              const ruleSrc = path.join(srcDir, re.name);
+              const ruleDest = path.join(destDir, re.name);
+              const rContent = await fs.readFile(ruleSrc, 'utf8');
+              await fs.writeFile(ruleDest, rContent, 'utf8');
+            }
+          }
+        } catch {
+          // If rulesDir doesn't exist, fallback
+        }
+      } else if (platform.ruleFile) {
         const dest = path.join(targetDir, platform.ruleFile);
         await fs.mkdir(path.dirname(dest), { recursive: true });
-
-        // Source file from plugin root if present
         const src = path.join(PLUGIN_ROOT, platform.ruleFile);
         let ruleContent = '';
         try {
@@ -295,7 +315,7 @@ async function main() {
     for (const [key, p] of Object.entries(report.platforms)) {
       const icon = p.configured ? '✅' : '⚪';
       const slopIcon = p.hasAntiSlop ? '🛡️' : '⚠️';
-      const skillIcon = (p.has160Skills || p.has155Skills) ? '160' : '???';
+      const skillIcon = (p.has176Skills || p.has160Skills || p.has155Skills) ? '176' : '???';
       console.log(`  ${icon} [${p.name.padEnd(28)}] Present: ${p.filesPresent.join(', ') || 'None'}`);
       console.log(`     Metrics: Anti-Slop: ${slopIcon} | Skills: ${skillIcon} Skills\n`);
     }

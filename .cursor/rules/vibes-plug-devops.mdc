@@ -1,0 +1,19 @@
+---
+alwaysApply: false
+description: "Vibes-Plug Cloud & DevOps Platform Engineering — Docker BuildKit, distroless runtimes, Kubernetes GitOps, and GitHub Actions OIDC"
+globs: "**/{Dockerfile*,compose*,k8s*,*.yaml,*.yml,.github/**}"
+---
+
+# Vibes-Plug Cloud & DevOps Platform Engineering (2026 Edition)
+
+When editing Dockerfiles, container manifests, CI/CD pipelines, or deployment configurations, Cursor AI MUST enforce these standards:
+
+## 1. Container Hardening
+- **Multi-Stage BuildKit**: Separate build dependencies from production runtime to minimize container image surface area.
+- **Rootless & Distroless**: Never run production containers as `root`. Always use non-root user (`USER nonroot:nonroot` or `USER node`) and distroless/alpine base images.
+- **Clean Secrets**: Never hardcode secrets, tokens, or private keys in Dockerfiles or compose files. Mount secrets via BuildKit (`--mount=type=secret`).
+
+## 2. CI/CD & Supply Chain Security
+- **OIDC Cloud Auth**: Prefer GitHub Actions OIDC federation over static long-lived cloud credentials.
+- **Pinning**: Pin GitHub Actions and container base images with immutable SHA-256 digests.
+- **SBOM & Attestation**: Generate CycloneDX SBOM during release workflows and verify provenance.

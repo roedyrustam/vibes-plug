@@ -14,12 +14,13 @@
 
 import http from 'node:http';
 import fs from 'node:fs/promises';
+import fsSync from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
 
-import { TOOLS as MCP_TOOLS, handleRpcRequest } from '../bin/mcp-server.mjs';
+import { TOOLS as MCP_TOOLS, handleRpcRequest, getActiveProfile, TOOL_PROFILES } from '../bin/mcp-server.mjs';
 import { createCustomAgent } from './create-agent.mjs';
 import { planSwarm, executeSwarm } from './swarm-runner.mjs';
 import { loadMemory, recordDecision, queryMemory, generateCompactCheckpoint } from './memory-daemon.mjs';
@@ -4467,8 +4468,94 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Live Telemetry Snapshot endpoint (MCP Profile + AST Graph + Swarm Bus + Watcher)
+    if (req.method === 'GET' && pathname === '/api/telemetry/live') {
+      try {
+        const { swarmBus } = await import('./swarm-bus.mjs');
+        const { loadFinOpsData } = await import('./finops-tracker.mjs');
+        const activeProfile = getActiveProfile();
+        const profileSpec = TOOL_PROFILES[activeProfile] || TOOL_PROFILES.full;
+        const finops = await loadFinOpsData();
+        let graphMeta = { version: '2.0.0', totalFiles: 0, totalSymbols: 0 };
+        try {
+          const rawGraph = await fs.readFile(path.join(PLUGIN_ROOT, '.agents', 'graph', 'symbol_graph.json'), 'utf8');
+          const parsedGraph = JSON.parse(rawGraph);
+          graphMeta = {
+            version: parsedGraph.version || '2.0.0',
+            generatedAt: parsedGraph.generatedAt,
+            totalFiles: parsedGraph.totalFiles || 0,
+            totalSymbols: parsedGraph.totalSymbols || 0
+          };
+        } catch {
+          // Graph not yet built
+        }
+        sendJson({
+          success: true,
+          timestamp: new Date().toISOString(),
+          mcpProfile: {
+            activeProfile,
+            description: profileSpec.description,
+            activeToolCount: profileSpec.tools ? profileSpec.tools.length : MCP_TOOLS.length,
+            totalToolCount: MCP_TOOLS.length
+          },
+          symbolGraph: graphMeta,
+          swarmBus: {
+            activeSwarmsCount: swarmBus.getActiveSwarms().length,
+            bufferedEventsCount: swarmBus.getEvents({ limit: 150 }).length
+          },
+          finops: {
+            totalRequests: finops.totalRequests || 0,
+            estimatedSavingsUsd: finops.estimatedSavingsUsd || 0
+          },
+          liveWatcher: {
+            active: true,
+            watchedDir: 'skills/'
+          }
+        });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
+  });
+
+  // Attach non-blocking live file watcher on skills/ for real-time SSE invalidation
+  let skillsWatcher = null;
+  let watcherDebounce = null;
+  try {
+    skillsWatcher = fsSync.watch(SKILLS_DIR, { persistent: false }, (eventType, filename) => {
+      if (!filename) return;
+      if (watcherDebounce) clearTimeout(watcherDebounce);
+      watcherDebounce = setTimeout(async () => {
+        try {
+          const { emitSwarmEvent } = await import('./swarm-bus.mjs');
+          emitSwarmEvent('workspace:change', {
+            eventType,
+            file: String(filename),
+            source: 'skills-watcher'
+          });
+        } catch {
+          // Ignore watcher broadcast errors during shutdown
+        }
+      }, 120);
+    });
+  } catch {
+    // fs.watch optional fallback on unsupported filesystems
+  }
+
+  server.on('close', () => {
+    if (watcherDebounce) clearTimeout(watcherDebounce);
+    if (skillsWatcher) {
+      try {
+        skillsWatcher.close();
+      } catch {
+        // Ignore close error
+      }
+      skillsWatcher = null;
+    }
   });
 
   return new Promise((resolve, reject) => {

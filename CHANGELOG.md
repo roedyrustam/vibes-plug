@@ -5,9 +5,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.5.0] - 2026-10-25
+## [4.5.0] - 2026-10-27
 
 ### Added / Ditambahkan
+- **The 7 Power Multipliers Architectural Upgrade**:
+  1. **Dynamic MCP Tool Masking (`bin/mcp-server.mjs`)**: Added `vibes_tool_profile` and 6 context-aware profiles (`full`, `core`, `frontend`, `backend`, `security`, `ai-mcp`) reducing MCP schema token footprint by up to 75% while preserving out-of-profile execution.
+  2. **Transitive AST Call-Graph Digraph (`scripts/ast-query.mjs`, `scripts/graphrag-indexer.mjs`)**: Multi-language multiline AST symbol parser (TS/JS, Python, Go, Rust) and workspace-wide reverse import digraph (`SymbolGraph v2.0.0`, 416 symbols) computing multi-hop `transitiveDependents`.
+  3. **Hardened TypeScript & Real WebAssembly Sandbox (`scripts/wasm-sandbox.mjs`)**: Null-prototype VM realm with `codeGeneration: { strings: false }` blocking `Function` constructor escapes, native TypeScript transpilation (`stripTypeScriptTypes`), and `executeWasmModule` for binary `.wasm` execution.
+  4. **Glob-Scoped Modular IDE Rules (`scripts/cross-ide-bridge.mjs`)**: Added path-scoped `.cursor/rules/*.mdc`, `.claude/rules/*.md`, and `.codex/rules/*.md` across Frontend, Backend, Testing, DevOps, MCP, and Anti-Slop domains.
+  5. **In-Memory DPLL SAT/SMT Prover & Temporal Counterexamples (`scripts/verify-invariants.mjs`)**: Zero-dependency `solveCnfDpll` Boolean SAT solver and BFS counterexample trace generator for `no_path`, `must_pass_through`, and `terminal_absorbing` invariants.
+  6. **Two-Tier Swarm Dispatch Manifests (`scripts/swarm-dispatcher.mjs`)**: Bound workers to `.skill-slices.json` micro-slices and native subagents, emitting `subagentManifest` and `mcpSamplingManifest` (`sampling/createMessage`).
+  7. **Studio Cockpit Live Watcher & Telemetry (`scripts/studio-server.mjs`)**: Added `GET /api/telemetry/live` and debounced `skills/` watcher streaming `workspace:change` events over SSE.
 - **Universal Skill-as-a-Tool (SaaT) Execution Engine (`scripts/skill-dispatcher.mjs`)**:
   - Transformed all 176 declarative skills into deterministic executable tools via `vibes skill exec <skill> <action>` (`blueprint`, `slice`, `extract-code`, `audit`, `eval`, `verify`, `generate`, `fuzz`, `optimize`, `health`, `budget`) and MCP tool `vibes_skill_dispatch`.
   - Built 8 specialized domain adapters (`scripts/adapters/*.mjs` for Database, Frontend, API, Security, TDD, AI/MCP, Cloud/DevOps, and Mobile/Spatial) aligned 1:1 with the 8 native specialist subagents.

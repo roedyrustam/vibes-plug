@@ -26,7 +26,7 @@ for (const dir of dirs.sort()) {
     description = description.slice(1, -1);
   }
 
-  const version = versionMatch ? versionMatch[1].trim() : '4.4.2';
+  const version = versionMatch ? versionMatch[1].trim() : '4.5.0';
   const author = authorMatch ? authorMatch[1].trim() : 'Roedy Rustam';
 
   skills.push({ name, description, version, author });
@@ -43,7 +43,7 @@ fs.writeFileSync('CATALOG.json', JSON.stringify(catalogJson, null, 2) + '\n', 'u
 console.log('✅ Updated CATALOG.json');
 
 // Update CATALOG.md
-let catalogMd = `# Vibes-Plug Skills Catalog (${skills.length} Skills)\n\n*Universal AI Agent Swarm Architecture (v4.4.2)*\n\n| Skill Name | Version | Description |\n| :--- | :---: | :--- |\n`;
+let catalogMd = `# Vibes-Plug Skills Catalog (${skills.length} Skills)\n\n*Universal AI Agent Swarm Architecture (v4.5.0)*\n\n| Skill Name | Version | Description |\n| :--- | :---: | :--- |\n`;
 
 for (const s of skills) {
   catalogMd += `| \`${s.name}\` | \`${s.version}\` | ${s.description} |\n`;

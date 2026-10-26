@@ -18,14 +18,27 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 import { planSwarm, resolveReasoningProfile, TOPOLOGIES } from './swarm-runner.mjs';
-import { criticValidate } from './critic-validator.mjs';
+import { criticValidate, formatSamplingRequest } from './critic-validator.mjs';
 import { executeInSandbox } from './wasm-sandbox.mjs';
 import { emitSwarmEvent } from './swarm-bus.mjs';
+import { getSkillCompactSlice } from './skill-dispatcher.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
+
+function resolveNativeSubagent(skillName = '', domainName = '') {
+  const key = `${skillName} ${domainName}`.toLowerCase();
+  if (/doku|payment|billing|fintech|ledger|m2m/.test(key)) return 'fintech-payment-sentinel';
+  if (/mcp|a2a|llm|ai|prompt|cascade|kv-cache|thinking|gemini/.test(key)) return 'ai-mcp-engineer';
+  if (/k8s|kubernetes|docker|ci-cd|devops|sbom|vault|cloud/.test(key)) return 'cloud-devops-sre';
+  if (/database|postgres|orm|rag|vector|olap|sync|rebac/.test(key)) return 'data-rag-architect';
+  if (/mobile|expo|flutter|tauri|electron|3d|shader|webxr|spatial/.test(key)) return 'mobile-spatial-craftsman';
+  if (/security|red-team|tdd|e2e|slop|z3|invariant|debt|rea|reverse/.test(key)) return 'quality-guardian';
+  if (/prd|brainstorm|ddd|architect/.test(key)) return 'swarm-architect';
+  return 'fullstack-craftsman';
+}
 
 /**
  * Throttled concurrent execution helper
@@ -104,20 +117,27 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     focus: workerSpec.focus
   });
 
-  const skillContext = await loadWorkerSkillContext(workerSpec.skill);
+  const [skillContext, compactSlice] = await Promise.all([
+    loadWorkerSkillContext(workerSpec.skill),
+    getSkillCompactSlice(workerSpec.skill)
+  ]);
 
-  // Generate synthetic contract draft based on domain
+  // Generate domain-specific contract draft adhering to 5-state UI & RLS invariants
   let codeDraft = '';
+  let language = 'javascript';
   if (workerSpec.name.includes('Frontend')) {
-    codeDraft = `<button className="rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums transition-colors">Action: ${workerSpec.name}</button>`;
+    language = 'tsx';
+    codeDraft = `<button className="rounded-lg border border-border/50 px-4 py-2 hover:bg-muted focus-visible:ring-2 active:scale-[0.99] disabled:opacity-50 font-medium tabular-nums transition-colors">Action: ${workerSpec.name}</button>`;
   } else if (workerSpec.name.includes('Database')) {
-    codeDraft = `CREATE TABLE IF NOT EXISTS tbl_${workerSpec.skill.replace(/-/g, '_')} (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), created_at TIMESTAMPTZ NOT NULL DEFAULT now());`;
+    language = 'sql';
+    codeDraft = `CREATE TABLE IF NOT EXISTS tbl_${workerSpec.skill.replace(/-/g, '_')} (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), tenant_id UUID NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now()); ALTER TABLE tbl_${workerSpec.skill.replace(/-/g, '_')} ENABLE ROW LEVEL SECURITY;`;
   } else {
+    language = 'javascript';
     codeDraft = `export async function handle${workerSpec.name.replace(/[^a-zA-Z0-9]/g, '')}(req, res) { return { status: 200, success: true, domain: "${workerSpec.name}" }; }`;
   }
 
   // Audit code draft with Critic Validator
-  const criticReport = criticValidate(codeDraft, { strictness: 'high' });
+  const criticReport = criticValidate(codeDraft, { strictness: 'high', language });
 
   // If JavaScript snippet, verify in Ephemeral Micro-Sandbox
   let sandboxVerification = null;
@@ -125,11 +145,33 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     sandboxVerification = executeInSandbox(`(${codeDraft.replace(/^export\s+/, '')})({}, {});`, { timeoutMs: 150 });
   }
 
+  const subagentId = resolveNativeSubagent(workerSpec.skill, workerSpec.name);
+  const subagentInvocation = {
+    subagent: subagentId,
+    role: workerSpec.name,
+    skill: workerSpec.skill,
+    thinkingBudget: workerSpec.thinkingBudget,
+    targetModelTier: profile.tier,
+    slice: {
+      domain: compactSlice?.domain || 'general',
+      adapter: compactSlice?.adapter || 'api',
+      tokenEstimate: compactSlice?.tokenEstimate || 120,
+      rules: Array.isArray(compactSlice?.rules) ? compactSlice.rules.slice(0, 4) : []
+    },
+    prompt: `[${workerSpec.name} | @${workerSpec.skill}] Task: ${taskDescription}\nFocus: ${workerSpec.focus}\nEnforce Anti-Slop 7 Pillars & ${profile.id} thinking budget (${profile.budgetTokens} tokens).`
+  };
+
+  const mcpSamplingRequest = formatSamplingRequest(codeDraft, {
+    language,
+    prompt: `Audit worker [${workerId}] output for task "${taskDescription}" (@${workerSpec.skill}):`
+  });
+
   const durationMs = Date.now() - startTime;
   const outcome = {
     workerId,
     domain: workerSpec.name,
     skill: workerSpec.skill,
+    subagent: subagentId,
     focus: workerSpec.focus,
     thinkingBudget: workerSpec.thinkingBudget,
     targetModelTier: profile.tier,
@@ -138,7 +180,9 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     criticVerdict: criticReport.verdict,
     sandboxVerified: sandboxVerification ? sandboxVerification.success : true,
     durationMs,
-    contractSummary: `Bound skill instructions from @${workerSpec.skill} v${skillContext.version}. Enforced ${profile.id} thinking depth (${profile.budgetTokens.toLocaleString()} tokens).`
+    contractSummary: `Bound skill instructions from @${workerSpec.skill} v${skillContext.version}. Enforced ${profile.id} thinking depth (${profile.budgetTokens.toLocaleString()} tokens).`,
+    subagentInvocation,
+    mcpSamplingRequest
   };
 
   emitSwarmEvent('worker:done', {
@@ -215,6 +259,7 @@ export async function dispatchSwarm(taskDescription, options = {}) {
   return {
     swarmId,
     success: allApproved,
+    executionTier: options.executionTier || 'hybrid-ready',
     taskDescription,
     topology: plan.topology,
     reasoningProfile: profile.id,
@@ -224,6 +269,8 @@ export async function dispatchSwarm(taskDescription, options = {}) {
     totalDurationMs,
     traceLogs,
     workers: workerResults,
+    subagentManifest: workerResults.map(w => w.subagentInvocation),
+    mcpSamplingManifest: workerResults.map(w => w.mcpSamplingRequest),
     synthesis: {
       harmonized: allApproved,
       contractsEnforced: workerResults.length,

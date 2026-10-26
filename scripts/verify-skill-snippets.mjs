@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/verify-skill-snippets.mjs
- * Executable Code-Block Smoke Tester across all 171 Skills (v4.5.0)
+ * Executable Code-Block Smoke Tester across all 176 Skills (v4.5.0)
  *
  * Audits all 990+ code blocks in `skills/<name>/SKILL.md` for:
  * 1. JSON structural validity
@@ -135,7 +135,7 @@ const isMain = process.argv[1] && (
 
 if (isMain) {
   verifyAllSkillSnippets().then((report) => {
-    console.log(`\n🧪 [Vibes-Plug] Executable Code-Block Smoke Tester (171 Skills)`);
+    console.log(`\n🧪 [Vibes-Plug] Executable Code-Block Smoke Tester (176 Skills)`);
     console.log(`----------------------------------------------------------------`);
     console.log(`Skills Scanned     : ${report.totalSkills}`);
     console.log(`Code Blocks Tested : ${report.totalBlocks}`);

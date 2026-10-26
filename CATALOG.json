@@ -754,7 +754,7 @@
     {
       "name": "rea-tool-design",
       "description": "Design or change REA investigation tools, CLI/MCP contracts, provider capabilities, and Evidence semantics.",
-      "version": "4.4.3",
+      "version": "4.5.0",
       "author": "morluto"
     },
     {

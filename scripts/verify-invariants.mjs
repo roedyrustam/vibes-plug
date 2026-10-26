@@ -14,10 +14,159 @@
 import fs from 'fs/promises';
 import path from 'path';
 
+/**
+ * Zero-dependency in-memory DPLL (Davis-Putnam-Logemann-Loveland) Boolean SAT Solver.
+ * Operates on DIMACS-style CNF clauses (arrays of non-zero signed integers).
+ *
+ * @param {Array<Array<number>>} clauses
+ * @param {number} numVars
+ * @returns {{ satisfiable: boolean, assignment: Record<number, boolean>, steps: number }}
+ */
+export function solveCnfDpll(clauses, numVars = 0) {
+  let steps = 0;
+
+  function simplify(currentClauses, lit) {
+    const next = [];
+    for (const clause of currentClauses) {
+      if (clause.includes(lit)) continue;
+      if (clause.includes(-lit)) {
+        const reduced = clause.filter(x => x !== -lit);
+        next.push(reduced);
+      } else {
+        next.push(clause);
+      }
+    }
+    return next;
+  }
+
+  function dpll(currentClauses, assignment) {
+    steps++;
+    let clausesWork = currentClauses;
+    const localAssign = { ...assignment };
+
+    // 1. Unit Propagation
+    let unitFound = true;
+    while (unitFound) {
+      unitFound = false;
+      for (const clause of clausesWork) {
+        if (clause.length === 0) {
+          return null;
+        }
+        if (clause.length === 1) {
+          const unitLit = clause[0];
+          const varId = Math.abs(unitLit);
+          const val = unitLit > 0;
+          if (localAssign[varId] !== undefined && localAssign[varId] !== val) {
+            return null;
+          }
+          localAssign[varId] = val;
+          clausesWork = simplify(clausesWork, unitLit);
+          unitFound = true;
+          break;
+        }
+      }
+    }
+
+    if (clausesWork.length === 0) {
+      for (let v = 1; v <= numVars; v++) {
+        if (localAssign[v] === undefined) localAssign[v] = false;
+      }
+      return localAssign;
+    }
+
+    for (const clause of clausesWork) {
+      if (clause.length === 0) return null;
+    }
+
+    // 2. Pure Literal Elimination
+    const polarity = new Map();
+    for (const clause of clausesWork) {
+      for (const lit of clause) {
+        const v = Math.abs(lit);
+        const sign = lit > 0 ? 1 : -1;
+        const prev = polarity.get(v) || 0;
+        if (prev === 0) polarity.set(v, sign);
+        else if (prev !== sign) polarity.set(v, 2);
+      }
+    }
+
+    for (const [v, pol] of polarity.entries()) {
+      if (pol === 1 || pol === -1) {
+        const pureLit = pol === 1 ? v : -v;
+        localAssign[v] = pol === 1;
+        clausesWork = simplify(clausesWork, pureLit);
+      }
+    }
+
+    if (clausesWork.length === 0) {
+      for (let v = 1; v <= numVars; v++) {
+        if (localAssign[v] === undefined) localAssign[v] = false;
+      }
+      return localAssign;
+    }
+
+    // 3. Branch on first unassigned literal in shortest clause
+    let shortest = clausesWork[0];
+    for (const c of clausesWork) {
+      if (c.length < shortest.length) shortest = c;
+    }
+    const chosenLit = shortest[0];
+    const chosenVar = Math.abs(chosenLit);
+
+    const posTry = dpll(
+      simplify(clausesWork, chosenVar),
+      { ...localAssign, [chosenVar]: true }
+    );
+    if (posTry) return posTry;
+
+    return dpll(
+      simplify(clausesWork, -chosenVar),
+      { ...localAssign, [chosenVar]: false }
+    );
+  }
+
+  const result = dpll(clauses.map(c => [...c]), {});
+  return {
+    satisfiable: result !== null,
+    assignment: result || {},
+    steps
+  };
+}
+
+/**
+ * Finds the shortest directed path from `startState` to `targetState` via BFS,
+ * optionally forbidding a set of intermediate states.
+ */
+function findShortestPath(outgoingMap, startState, targetState, forbiddenSet = new Set()) {
+  if (!outgoingMap.has(startState) || !outgoingMap.has(targetState)) return null;
+  const queue = [{ state: startState, trace: [startState], events: [] }];
+  const seen = new Set([startState]);
+
+  while (queue.length > 0) {
+    const curr = queue.shift();
+    const edges = outgoingMap.get(curr.state) || [];
+    for (const edge of edges) {
+      const nextState = edge.to;
+      if (forbiddenSet.has(nextState) && nextState !== targetState) continue;
+      const nextTrace = [...curr.trace, nextState];
+      const nextEvents = [...curr.events, edge.event || `${curr.state}_TO_${nextState}`];
+      if (nextState === targetState) {
+        return { trace: nextTrace, events: nextEvents };
+      }
+      if (!seen.has(nextState)) {
+        seen.add(nextState);
+        queue.push({ state: nextState, trace: nextTrace, events: nextEvents });
+      }
+    }
+  }
+  return null;
+}
+
 export function verifyStateMachine(definition) {
   const { states, initial, terminal = [], transitions, invariants = [] } = definition;
   const issues = [];
   const warnings = [];
+  const counterexamples = [];
 
   // 1. Initial State Validity
   if (!states.includes(initial)) {
@@ -70,17 +219,132 @@ export function verifyStateMachine(definition) {
     }
   });
 
-  // 4. Invariant Checking (Illegal shortcuts)
+  // 4. Invariant Checking (Direct, Multi-Hop Path, Checkpoint Bypass & Terminal Absorbing)
   invariants.forEach(inv => {
     if (inv.type === 'no_direct_transition') {
       const direct = transitions.find(t => t.from === inv.from && t.to === inv.to);
       if (direct) {
         issues.push(`Invariant Violation: Direct transition from '${inv.from}' to '${inv.to}' is strictly prohibited. Event: '${direct.event || 'unknown'}'.`);
+        counterexamples.push({
+          invariant: inv.type,
+          from: inv.from,
+          to: inv.to,
+          trace: [inv.from, inv.to],
+          events: [direct.event || `${inv.from}_TO_${inv.to}`],
+          reason: inv.reason || 'Prohibited direct state transition'
+        });
+      }
+    } else if (inv.type === 'no_path') {
+      const pathWitness = findShortestPath(outgoingMap, inv.from, inv.to);
+      if (pathWitness) {
+        issues.push(`Invariant Violation (no_path): Prohibited reachability path from '${inv.from}' to '${inv.to}' via [${pathWitness.trace.join(' -> ')}].`);
+        counterexamples.push({
+          invariant: inv.type,
+          from: inv.from,
+          to: inv.to,
+          trace: pathWitness.trace,
+          events: pathWitness.events,
+          reason: inv.reason || `No path allowed from ${inv.from} to ${inv.to}`
+        });
+      }
+    } else if (inv.type === 'must_pass_through' && inv.via) {
+      const bypassWitness = findShortestPath(outgoingMap, inv.from, inv.to, new Set([inv.via]));
+      if (bypassWitness) {
+        issues.push(`Invariant Violation (must_pass_through): Transition path from '${inv.from}' to '${inv.to}' bypassed required checkpoint '${inv.via}' via [${bypassWitness.trace.join(' -> ')}].`);
+        counterexamples.push({
+          invariant: inv.type,
+          from: inv.from,
+          to: inv.to,
+          via: inv.via,
+          trace: bypassWitness.trace,
+          events: bypassWitness.events,
+          reason: inv.reason || `Paths from ${inv.from} to ${inv.to} must pass through ${inv.via}`
+        });
+      }
+    } else if (inv.type === 'terminal_absorbing') {
+      const targets = inv.state ? [inv.state] : terminal;
+      for (const termState of targets) {
+        const leaks = outgoingMap.get(termState) || [];
+        for (const leak of leaks) {
+          issues.push(`Invariant Violation (terminal_absorbing): Terminal state '${termState}' leaks to '${leak.to}' via '${leak.event || 'unknown'}'.`);
+          counterexamples.push({
+            invariant: inv.type,
+            from: termState,
+            to: leak.to,
+            trace: [termState, leak.to],
+            events: [leak.event || `${termState}_TO_${leak.to}`],
+            reason: inv.reason || `Terminal state ${termState} must be absorbing`
+          });
+        }
       }
     }
   });
 
-  // 5. Generate Full SMT-LIB 2.0 Formal Specification
+  // 5. In-Memory DPLL Boolean SAT Verification of Kripke Frame & Invariant Safety
+  const n = states.length;
+  const stateIndex = new Map(states.map((s, idx) => [s, idx + 1]));
+  const frameClauses = [];
+
+  if (n > 0) {
+    // At least one state active at step t (1..n) and step t+1 (n+1..2n)
+    frameClauses.push(states.map((_, i) => i + 1));
+    frameClauses.push(states.map((_, i) => n + i + 1));
+
+    // Mutex at step t and step t+1
+    for (let i = 0; i < n; i++) {
+      for (let j = i + 1; j < n; j++) {
+        frameClauses.push([-(i + 1), -(j + 1)]);
+        frameClauses.push([-(n + i + 1), -(n + j + 1)]);
+      }
+    }
+
+    // Forbidden single-step transitions: if (u -> v) not in transitions, (~S_u \/ ~S_next_v)
+    const allowedPairs = new Set(
+      transitions
+        .filter(t => stateIndex.has(t.from) && stateIndex.has(t.to))
+        .map(t => `${t.from}:::${t.to}`)
+    );
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        const key = `${states[i]}:::${states[j]}`;
+        if (!allowedPairs.has(key)) {
+          frameClauses.push([-(i + 1), -(n + j + 1)]);
+        }
+      }
+    }
+  }
+
+  const frameCheck = n > 0 && transitions.length > 0
+    ? solveCnfDpll(frameClauses, n * 2)
+    : { satisfiable: false, steps: 0 };
+
+  let totalSolverSteps = frameCheck.steps;
+  let satViolationFound = false;
+
+  for (const inv of invariants) {
+    if (inv.type === 'no_direct_transition' && stateIndex.has(inv.from) && stateIndex.has(inv.to)) {
+      const uVar = stateIndex.get(inv.from);
+      const vNextVar = n + stateIndex.get(inv.to);
+      // Test if Kripke frame /\ S_u /\ S_next_v is satisfiable (violation witness)
+      const violationQuery = [...frameClauses, [uVar], [vNextVar]];
+      const satRes = solveCnfDpll(violationQuery, n * 2);
+      totalSolverSteps += satRes.steps;
+      if (satRes.satisfiable) {
+        satViolationFound = true;
+      }
+    }
+  }
+
+  const solverProof = {
+    engine: 'DPLL-CNF-InMemory',
+    variablesCount: n * 2,
+    clausesCount: frameClauses.length,
+    kripkeFrameConsistent: frameCheck.satisfiable,
+    status: (issues.length === 0 && !satViolationFound) ? 'UNSAT_PROVEN' : 'SAT_VIOLATION',
+    steps: totalSolverSteps
+  };
+
+  // 6. Generate Full SMT-LIB 2.0 Formal Specification
   let smtLib = `; SMT-LIB 2.0 Formal Specification (Vibes-Plug P5 Neuro-Symbolic Engine)\n`;
   smtLib += `(set-logic QF_UF)\n\n`;
   smtLib += `; State Propositions at step t and step t+1\n`;
@@ -120,6 +384,8 @@ export function verifyStateMachine(definition) {
     reachableCount: visited.size,
     issues,
     warnings,
+    counterexamples,
+    solverProof,
     smtLib
   };
 }

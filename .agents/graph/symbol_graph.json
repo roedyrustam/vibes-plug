@@ -1,42 +1,39 @@
 {
-  "version": "1.0.0",
-  "generatedAt": "2026-10-24T19:13:01.295Z",
+  "version": "2.0.0",
+  "generatedAt": "2026-10-26T18:52:57.120Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 75,
-  "totalSymbolsIndexed": 391,
+  "totalSymbolsIndexed": 416,
+  "totalImportEdges": 223,
   "symbols": {
-    "to": [
+    "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 59,
-        "type": "class",
-        "signature": "description: 'Name of the function or class to inspect (required for action: inspect).'"
-      },
-      {
-        "file": "bin/mcp-server.mjs",
-        "line": 350,
-        "type": "interface",
-        "signature": "description: 'Name of the function, class, type, or interface to query.'"
-      },
-      {
-        "file": "scripts/visual-critic.mjs",
-        "line": 152,
-        "type": "class",
-        "signature": "fix: \"Add 'tabular-nums' class to numerical values.\""
+        "line": 865,
+        "type": "function",
+        "signature": "function getActiveProfile()"
       }
     ],
-    "State": [
+    "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 117,
-        "type": "type",
-        "signature": "description: 'Optional raw TypeScript code containing state union type definitions (e.g. type State = \"A\" | \"B\").'"
+        "line": 869,
+        "type": "function",
+        "signature": "function setActiveProfile(profileName)"
+      }
+    ],
+    "getFilteredTools": [
+      {
+        "file": "bin/mcp-server.mjs",
+        "line": 878,
+        "type": "function",
+        "signature": "function getFilteredTools(profileName = currentActiveProfile)"
       }
     ],
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 743,
+        "line": 922,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -44,7 +41,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1273,
+        "line": 1510,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -52,7 +49,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1301,
+        "line": 1538,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -60,7 +57,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1409,
+        "line": 1646,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -95,26 +92,6 @@
         "line": 30,
         "type": "function",
         "signature": "function runInit(projectName)"
-      }
-    ],
-    "state": [
-      {
-        "file": "bin/vibes.mjs",
-        "line": 48,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${projectName} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Product Name**: ${projectName}\\n- **Lifecycle**: 8-Phase Zero-To-Prod Swarm Lifecycle\\n- **Target Audience**: Developers, enterprise teams, and end-users requiring high-velocity reliability.\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
-      },
-      {
-        "file": "bin/vibes.mjs",
-        "line": 284,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Archetype**: ${archetype.toUpperCase()}\\n- **Bound Skills**: ${chosenSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
-      },
-      {
-        "file": "bin/vibes.mjs",
-        "line": 445,
-        "type": "interface",
-        "signature": "'PRD.md': `# 📋 ${prdTitle} - Product Requirements Document (PRD)\\n\\n## 1. Executive Summary & Vision\\n- **Project Name**: ${projectName}\\n- **Template Archetype**: ${templateName.toUpperCase()}\\n- **Bound Skills**: ${allSkills.join(', ')}\\n\\n## 2. Core Functional Requirements\\n- **F-01**: Secure identity management and session validation with RBAC.\\n- **F-02**: Typed domain models with automated schema validation.\\n- **F-03**: Resilient data mutations with transactional idempotency.\\n- **F-04**: Real-time event propagation and responsive user interface state.\\n\\n## 3. Data Architecture Spec (PostgreSQL DDL)\\n\\`\\`\\`sql\\nCREATE TABLE IF NOT EXISTS users (\\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\\n  email VARCHAR(255) UNIQUE NOT NULL,\\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\\n);\\n\\nCREATE INDEX idx_users_email ON users(email);\\n\\`\\`\\`\\n\\n## 4. API Interface Contract\\n\\`\\`\\`json\\n{\\n  \"endpoint\": \"/api/v1/health\",\\n  \"method\": \"GET\",\\n  \"response\": {\\n    \"status\": \"healthy\",\\n    \"version\": \"1.0.0\",\\n    \"timestamp\": \"ISO-8601\"\\n  }\\n}\\n\\`\\`\\`\\n\\n## 5. Non-Functional Requirements (NFR Budgets)\\n- **Latency**: P99 response time < 150ms.\\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\\n- **Accessibility**: WCAG 2.2 Level AA compliance.\\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\\n`"
       }
     ],
     "runWizard": [
@@ -221,14 +198,6 @@
         "signature": "function runSkillInfo(skillName)"
       }
     ],
-    "get": [
-      {
-        "file": "bin/vibes.mjs",
-        "line": 1188,
-        "type": "arrow-function",
-        "signature": "const get = (key) =>"
-      }
-    ],
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
@@ -301,10 +270,34 @@
         "signature": "function deactivate()"
       }
     ],
+    "resolveImportTarget": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 25,
+        "type": "function",
+        "signature": "function resolveImportTarget(fromFile, specifier)"
+      }
+    ],
+    "parseImportEdges": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 46,
+        "type": "function",
+        "signature": "function parseImportEdges(content, filePath)"
+      }
+    ],
+    "readMultilineParams": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 119,
+        "type": "function",
+        "signature": "function readMultilineParams(lines, lineIdx, startAfterParen)"
+      }
+    ],
     "parseSymbols": [
       {
         "file": "scripts/ast-query.mjs",
-        "line": 14,
+        "line": 148,
         "type": "function",
         "signature": "function parseSymbols(filePath)"
       }
@@ -312,7 +305,7 @@
     "extractSymbolCode": [
       {
         "file": "scripts/ast-query.mjs",
-        "line": 79,
+        "line": 324,
         "type": "function",
         "signature": "function extractSymbolCode(filePath, symbolName)"
       }
@@ -320,41 +313,15 @@
     "calculateBlastRadius": [
       {
         "file": "scripts/ast-query.mjs",
-        "line": 127,
+        "line": 374,
         "type": "function",
-        "signature": "function calculateBlastRadius(rootDir, targetFile)"
-      }
-    ],
-    "scanDir": [
-      {
-        "file": "scripts/ast-query.mjs",
-        "line": 131,
-        "type": "function",
-        "signature": "function scanDir(currentDir)"
-      },
-      {
-        "file": "scripts/check-anti-slop.js",
-        "line": 264,
-        "type": "function",
-        "signature": "function scanDir(dir)"
-      },
-      {
-        "file": "scripts/check-anti-slop.mjs",
-        "line": 255,
-        "type": "function",
-        "signature": "function scanDir(dir)"
-      },
-      {
-        "file": "skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 269,
-        "type": "function",
-        "signature": "function scanDir(dir)"
+        "signature": "function calculateBlastRadius(rootDir, targetFile, options = {})"
       }
     ],
     "main": [
       {
         "file": "scripts/ast-query.mjs",
-        "line": 166,
+        "line": 509,
         "type": "function",
         "signature": "function main()"
       },
@@ -366,7 +333,7 @@
       },
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 271,
+        "line": 291,
         "type": "function",
         "signature": "function main()"
       },
@@ -438,7 +405,7 @@
       },
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 235,
+        "line": 282,
         "type": "function",
         "signature": "function main()"
       },
@@ -450,13 +417,13 @@
       },
       {
         "file": "scripts/verify-invariants.mjs",
-        "line": 139,
+        "line": 405,
         "type": "function",
         "signature": "function main()"
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 258,
+        "line": 391,
         "type": "function",
         "signature": "function main()"
       },
@@ -525,46 +492,10 @@
         "signature": "function runBenchmarkSuite(options = {})"
       }
     ],
-    "fib": [
-      {
-        "file": "scripts/benchmark-suite.mjs",
-        "line": 55,
-        "type": "function",
-        "signature": "function fib(n)"
-      }
-    ],
-    "validateSessionToken": [
-      {
-        "file": "scripts/benchmark-suite.mjs",
-        "line": 92,
-        "type": "function",
-        "signature": "function validateSessionToken(token)"
-      }
-    ],
-    "stubbed": [
-      {
-        "file": "scripts/check-anti-slop.js",
-        "line": 57,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      },
-      {
-        "file": "scripts/check-anti-slop.mjs",
-        "line": 55,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      },
-      {
-        "file": "skills/anti-slop/scripts/check-anti-slop.js",
-        "line": 57,
-        "type": "class",
-        "signature": "description: 'Unfinished Python function or class stubbed with pass/...'"
-      }
-    ],
     "isTestFile": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 168,
+        "line": 180,
         "type": "function",
         "signature": "function isTestFile(filePath)"
       },
@@ -584,7 +515,7 @@
     "isCliScript": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 172,
+        "line": 184,
         "type": "function",
         "signature": "function isCliScript(filePath)"
       },
@@ -604,7 +535,7 @@
     "scanFile": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 177,
+        "line": 189,
         "type": "function",
         "signature": "function scanFile(filePath)"
       },
@@ -621,6 +552,26 @@
         "signature": "function scanFile(filePath)"
       }
     ],
+    "scanDir": [
+      {
+        "file": "scripts/check-anti-slop.js",
+        "line": 276,
+        "type": "function",
+        "signature": "function scanDir(dir)"
+      },
+      {
+        "file": "scripts/check-anti-slop.mjs",
+        "line": 255,
+        "type": "function",
+        "signature": "function scanDir(dir)"
+      },
+      {
+        "file": "skills/anti-slop/scripts/check-anti-slop.js",
+        "line": 269,
+        "type": "function",
+        "signature": "function scanDir(dir)"
+      }
+    ],
     "loadSkillsMetadataFast": [
       {
         "file": "scripts/compile-cache.mjs",
@@ -635,14 +586,6 @@
         "line": 90,
         "type": "function",
         "signature": "function compileCache(options = {})"
-      }
-    ],
-    "log": [
-      {
-        "file": "scripts/compile-cache.mjs",
-        "line": 93,
-        "type": "arrow-function",
-        "signature": "const log = (...args) =>"
       }
     ],
     "getCacheStatus": [
@@ -710,7 +653,7 @@
     "getMasterRuleContent": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 164,
+        "line": 169,
         "type": "function",
         "signature": "function getMasterRuleContent()"
       }
@@ -718,7 +661,7 @@
     "syncBridge": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 179,
+        "line": 184,
         "type": "function",
         "signature": "function syncBridge(targetDir = process.cwd()"
       }
@@ -726,7 +669,7 @@
     "generateContextBundle": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 230,
+        "line": 250,
         "type": "function",
         "signature": "function generateContextBundle(targetDir = process.cwd()"
       }
@@ -776,7 +719,15 @@
         "file": "scripts/demo-sovereign-swarm.mjs",
         "line": 112,
         "type": "class",
-        "signature": "export class LedgerOverdraftError extends Error {"
+        "signature": "export class LedgerOverdraftError extends Error"
+      }
+    ],
+    "LedgerOverdraftError.constructor": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 113,
+        "type": "method",
+        "signature": "LedgerOverdraftError.constructor(public readonly accountId: AccountId, public readonly deficit: bigint)"
       }
     ],
     "TransferRequest": [
@@ -784,7 +735,7 @@
         "file": "scripts/demo-sovereign-swarm.mjs",
         "line": 119,
         "type": "interface",
-        "signature": "export interface TransferRequest {"
+        "signature": "export interface TransferRequest"
       }
     ],
     "AtomicLedgerEngine": [
@@ -792,7 +743,15 @@
         "file": "scripts/demo-sovereign-swarm.mjs",
         "line": 126,
         "type": "class",
-        "signature": "export class AtomicLedgerEngine {"
+        "signature": "export class AtomicLedgerEngine"
+      }
+    ],
+    "AtomicLedgerEngine.executeTransfer": [
+      {
+        "file": "scripts/demo-sovereign-swarm.mjs",
+        "line": 129,
+        "type": "method",
+        "signature": "AtomicLedgerEngine.executeTransfer(req: TransferRequest)"
       }
     ],
     "runFormalVerificationDemo": [
@@ -857,14 +816,6 @@
         "line": 123,
         "type": "function",
         "signature": "function healSchemaDrift(options = {})"
-      }
-    ],
-    "PaymentSettlement": [
-      {
-        "file": "scripts/drift-healer.mjs",
-        "line": 139,
-        "type": "interface",
-        "signature": "export interface PaymentSettlement {"
       }
     ],
     "evaluateSql": [
@@ -1038,7 +989,7 @@
     "loadSymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 133,
+        "line": 144,
         "type": "function",
         "signature": "function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE)"
       }
@@ -1046,7 +997,7 @@
     "querySymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 148,
+        "line": 159,
         "type": "function",
         "signature": "function querySymbolGraph(symbolName, options = {})"
       }
@@ -1054,7 +1005,7 @@
     "tokenizeCode": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 197,
+        "line": 208,
         "type": "function",
         "signature": "function tokenizeCode(text = '')"
       }
@@ -1062,7 +1013,7 @@
     "hybridSearch": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 216,
+        "line": 227,
         "type": "function",
         "signature": "function hybridSearch(query, options = {})"
       }
@@ -1371,22 +1322,6 @@
         "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})"
       }
     ],
-    "component": [
-      {
-        "file": "scripts/skill-drift-monitor.mjs",
-        "line": 51,
-        "type": "class",
-        "signature": "description: 'Deprecated React class component lifecycle method detected',"
-      }
-    ],
-    "Component": [
-      {
-        "file": "scripts/skill-drift-monitor.mjs",
-        "line": 64,
-        "type": "function",
-        "signature": "function Component(props: Props)"
-      }
-    ],
     "auditSkill": [
       {
         "file": "scripts/skill-drift-monitor.mjs",
@@ -1475,28 +1410,6 @@
         "signature": "function arbitrateCandidates(candidates)"
       }
     ],
-    "getUser": [
-      {
-        "file": "scripts/speculative-arbiter.mjs",
-        "line": 158,
-        "type": "function",
-        "signature": "function getUser(id: any)"
-      },
-      {
-        "file": "scripts/speculative-arbiter.mjs",
-        "line": 172,
-        "type": "function",
-        "signature": "function getUser(id: string)"
-      }
-    ],
-    "UserProfile": [
-      {
-        "file": "scripts/speculative-arbiter.mjs",
-        "line": 167,
-        "type": "interface",
-        "signature": "export interface UserProfile {"
-      }
-    ],
     "calculateCyclomaticComplexity": [
       {
         "file": "scripts/speculative-consensus.mjs",
@@ -1564,7 +1477,7 @@
     "loadSkillsCatalog": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 277,
+        "line": 278,
         "type": "function",
         "signature": "function loadSkillsCatalog()"
       }
@@ -1572,7 +1485,7 @@
     "getSkillDetails": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 338,
+        "line": 339,
         "type": "function",
         "signature": "function getSkillDetails(name)"
       }
@@ -1580,7 +1493,7 @@
     "getSystemStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 361,
+        "line": 362,
         "type": "function",
         "signature": "function getSystemStatus()"
       }
@@ -1588,507 +1501,15 @@
     "generateStudioHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 409,
+        "line": 410,
         "type": "function",
         "signature": "function generateStudioHtml(currentPort)"
-      }
-    ],
-    "showToast": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2133,
-        "type": "function",
-        "signature": "function showToast(message)"
-      },
-      {
-        "file": "showcase/app.js",
-        "line": 44,
-        "type": "function",
-        "signature": "function showToast(message, type = 'info')"
-      }
-    ],
-    "closeModal": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2191,
-        "type": "function",
-        "signature": "function closeModal()"
-      }
-    ],
-    "openSkillModal": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2196,
-        "type": "function",
-        "signature": "function openSkillModal(skillName)"
-      },
-      {
-        "file": "showcase/app.js",
-        "line": 164,
-        "type": "function",
-        "signature": "function openSkillModal(skill)"
-      }
-    ],
-    "escapeHtml": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2253,
-        "type": "function",
-        "signature": "function escapeHtml(text)"
-      },
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3127,
-        "type": "function",
-        "signature": "function escapeHtml(str)"
-      },
-      {
-        "file": "showcase/app.js",
-        "line": 59,
-        "type": "function",
-        "signature": "function escapeHtml(str)"
-      }
-    ],
-    "toggleSkillSelection": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2263,
-        "type": "function",
-        "signature": "function toggleSkillSelection(skillName, e)"
-      }
-    ],
-    "updateDrawer": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2274,
-        "type": "function",
-        "signature": "function updateDrawer()"
-      }
-    ],
-    "clearSelectedSkills": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2281,
-        "type": "function",
-        "signature": "function clearSelectedSkills()"
-      }
-    ],
-    "injectSelectedSkills": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2287,
-        "type": "function",
-        "signature": "function injectSelectedSkills()"
-      }
-    ],
-    "exportSelectedJson": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2308,
-        "type": "function",
-        "signature": "function exportSelectedJson()"
-      }
-    ],
-    "copySelectedCli": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2319,
-        "type": "function",
-        "signature": "function copySelectedCli()"
-      }
-    ],
-    "renderSkills": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2327,
-        "type": "function",
-        "signature": "function renderSkills()"
-      },
-      {
-        "file": "showcase/app.js",
-        "line": 94,
-        "type": "function",
-        "signature": "function renderSkills()"
-      }
-    ],
-    "renderSubagents": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2371,
-        "type": "function",
-        "signature": "function renderSubagents(subagents)"
-      }
-    ],
-    "setSwarmPreset": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2391,
-        "type": "function",
-        "signature": "function setSwarmPreset(type)"
-      }
-    ],
-    "runSwarmPlan": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2407,
-        "type": "function",
-        "signature": "function runSwarmPlan()"
-      }
-    ],
-    "runSwarmExecute": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2430,
-        "type": "function",
-        "signature": "function runSwarmExecute()"
-      }
-    ],
-    "createCustomAgentFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2454,
-        "type": "function",
-        "signature": "function createCustomAgentFromUi()"
-      }
-    ],
-    "loadMemoryView": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2488,
-        "type": "function",
-        "signature": "function loadMemoryView()"
-      }
-    ],
-    "recordDecisionFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2508,
-        "type": "function",
-        "signature": "function recordDecisionFromUi()"
-      }
-    ],
-    "generateCheckpointFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2532,
-        "type": "function",
-        "signature": "function generateCheckpointFromUi()"
-      }
-    ],
-    "renderRecipes": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2545,
-        "type": "function",
-        "signature": "function renderRecipes(recipes)"
-      }
-    ],
-    "applyRecipe": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2566,
-        "type": "function",
-        "signature": "function applyRecipe(key)"
-      }
-    ],
-    "copyMcpUrl": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2573,
-        "type": "function",
-        "signature": "function copyMcpUrl()"
-      }
-    ],
-    "copyIdeConfig": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2579,
-        "type": "function",
-        "signature": "function copyIdeConfig()"
-      }
-    ],
-    "copyMcpOutput": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2591,
-        "type": "function",
-        "signature": "function copyMcpOutput()"
-      }
-    ],
-    "Status": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2603,
-        "type": "type",
-        "signature": "vibes_verify_invariants: '{\\\\n  \"typeScriptCode\": \"type Status = \\\\\"idle\\\\\" | \\\\\"running\\\\\" | \\\\\"done\\\\\";\"\\\\n}',"
-      },
-      {
-        "file": "scripts/verify-invariants.mjs",
-        "line": 128,
-        "type": "type",
-        "signature": "// Extract union types e.g. type Status = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';"
-      }
-    ],
-    "saveUser": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2608,
-        "type": "function",
-        "signature": "function saveUser(user: any)"
-      }
-    ],
-    "onMcpToolChange": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2620,
-        "type": "function",
-        "signature": "function onMcpToolChange()"
-      }
-    ],
-    "executeMcpTool": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2627,
-        "type": "function",
-        "signature": "function executeMcpTool()"
-      }
-    ],
-    "loadData": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2668,
-        "type": "function",
-        "signature": "function loadData()"
-      }
-    ],
-    "recompileCacheFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2696,
-        "type": "function",
-        "signature": "function recompileCacheFromUi()"
-      }
-    ],
-    "loadCacheStatus": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2719,
-        "type": "function",
-        "signature": "function loadCacheStatus()"
-      }
-    ],
-    "loadFinOpsStatus": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2738,
-        "type": "function",
-        "signature": "function loadFinOpsStatus()"
-      }
-    ],
-    "resetFinOpsFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2760,
-        "type": "function",
-        "signature": "function resetFinOpsFromUi()"
-      }
-    ],
-    "autoConfigureMcpFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2773,
-        "type": "function",
-        "signature": "function autoConfigureMcpFromUi(client)"
-      }
-    ],
-    "evalSandboxFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2793,
-        "type": "function",
-        "signature": "function evalSandboxFromUi()"
-      }
-    ],
-    "loadDagPreset": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2838,
-        "type": "function",
-        "signature": "function loadDagPreset(presetId)"
-      }
-    ],
-    "renderDagGraph": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2858,
-        "type": "function",
-        "signature": "function renderDagGraph(preset)"
-      }
-    ],
-    "drawDagEdges": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2878,
-        "type": "function",
-        "signature": "function drawDagEdges(preset)"
-      }
-    ],
-    "simulateDagExecution": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2907,
-        "type": "function",
-        "signature": "function simulateDagExecution()"
-      }
-    ],
-    "loadBridgeView": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2943,
-        "type": "function",
-        "signature": "function loadBridgeView()"
-      }
-    ],
-    "syncBridgeFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 2991,
-        "type": "function",
-        "signature": "function syncBridgeFromUi()"
-      }
-    ],
-    "downloadBridgeBundle": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3015,
-        "type": "function",
-        "signature": "function downloadBridgeBundle()"
-      }
-    ],
-    "setGraphSearchPreset": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3022,
-        "type": "function",
-        "signature": "function setGraphSearchPreset(q)"
-      }
-    ],
-    "runGraphSearchFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3030,
-        "type": "function",
-        "signature": "function runGraphSearchFromUi()"
-      }
-    ],
-    "synthesizeSkillFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3134,
-        "type": "function",
-        "signature": "function synthesizeSkillFromUi()"
-      }
-    ],
-    "calculateTax": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3182,
-        "type": "function",
-        "signature": "function calculateTax(amount, rate = 0.11)"
-      }
-    ],
-    "badWorker": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3183,
-        "type": "function",
-        "signature": "function badWorker()"
-      }
-    ],
-    "lockup": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3184,
-        "type": "function",
-        "signature": "function lockup()"
-      }
-    ],
-    "setGatePreset": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3188,
-        "type": "function",
-        "signature": "function setGatePreset(key)"
-      }
-    ],
-    "verifyGateCandidateFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3196,
-        "type": "function",
-        "signature": "function verifyGateCandidateFromUi()"
-      }
-    ],
-    "initSwarmBusStream": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3253,
-        "type": "function",
-        "signature": "function initSwarmBusStream()"
-      }
-    ],
-    "toggleSwarmStream": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3303,
-        "type": "function",
-        "signature": "function toggleSwarmStream()"
-      }
-    ],
-    "clearSwarmStream": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3313,
-        "type": "function",
-        "signature": "function clearSwarmStream()"
-      }
-    ],
-    "filterSwarmEvents": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3319,
-        "type": "function",
-        "signature": "function filterSwarmEvents(type, btn)"
-      }
-    ],
-    "renderSwarmEvents": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3326,
-        "type": "function",
-        "signature": "function renderSwarmEvents()"
-      }
-    ],
-    "broadcastSwarmFromUi": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3369,
-        "type": "function",
-        "signature": "function broadcastSwarmFromUi()"
-      }
-    ],
-    "runStackDetect": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3393,
-        "type": "function",
-        "signature": "function runStackDetect(apply = false)"
       }
     ],
     "isValidSkillSlug": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3473,
+        "line": 3474,
         "type": "function",
         "signature": "function isValidSkillSlug(name)"
       }
@@ -2096,7 +1517,7 @@
     "resolveAllowedOrigin": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3477,
+        "line": 3478,
         "type": "function",
         "signature": "function resolveAllowedOrigin(req, port)"
       }
@@ -2104,7 +1525,7 @@
     "readJsonBody": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3486,
+        "line": 3487,
         "type": "function",
         "signature": "function readJsonBody(req)"
       }
@@ -2112,17 +1533,9 @@
     "startStudioServer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3510,
+        "line": 3511,
         "type": "function",
         "signature": "function startStudioServer(options = {})"
-      }
-    ],
-    "sendJson": [
-      {
-        "file": "scripts/studio-server.mjs",
-        "line": 3530,
-        "type": "arrow-function",
-        "signature": "const sendJson = (data, statusCode = 200) =>"
       }
     ],
     "TenantRoutingConfig": [
@@ -2130,7 +1543,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 85,
         "type": "interface",
-        "signature": "export interface TenantRoutingConfig {"
+        "signature": "export interface TenantRoutingConfig"
       }
     ],
     "routeMultiEntrySaaS": [
@@ -2146,7 +1559,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 114,
         "type": "interface",
-        "signature": "export interface EntitlementContext {"
+        "signature": "export interface EntitlementContext"
       }
     ],
     "evaluateFeatureAccess": [
@@ -2170,7 +1583,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 146,
         "type": "interface",
-        "signature": "export interface PhaseGateArtifact {"
+        "signature": "export interface PhaseGateArtifact"
       }
     ],
     "canAdvanceLifecyclePhase": [
@@ -2186,7 +1599,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 177,
         "type": "interface",
-        "signature": "export interface DomainEventPayload {"
+        "signature": "export interface DomainEventPayload"
       }
     ],
     "OutboxRepository": [
@@ -2194,7 +1607,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 185,
         "type": "interface",
-        "signature": "export interface OutboxRepository {"
+        "signature": "export interface OutboxRepository"
       }
     ],
     "AggregateRoot": [
@@ -2202,7 +1615,31 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 189,
         "type": "class",
-        "signature": "export abstract class AggregateRoot<TId extends string> {"
+        "signature": "export abstract class AggregateRoot<TId extends string>"
+      }
+    ],
+    "AggregateRoot.constructor": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 192,
+        "type": "method",
+        "signature": "AggregateRoot.constructor(public readonly id: TId)"
+      }
+    ],
+    "AggregateRoot.recordDomainEvent": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 194,
+        "type": "method",
+        "signature": "AggregateRoot.recordDomainEvent(eventType: string, payload: Record<string, unknown>)"
+      }
+    ],
+    "AggregateRoot.pullDomainEvents": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 204,
+        "type": "method",
+        "signature": "AggregateRoot.pullDomainEvents()"
       }
     ],
     "StepJournalStore": [
@@ -2210,7 +1647,15 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 215,
         "type": "interface",
-        "signature": "export interface StepJournalStore {"
+        "signature": "export interface StepJournalStore"
+      }
+    ],
+    "runDurableStep": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 220,
+        "type": "function",
+        "signature": "function runDurableStep(store: StepJournalStore, workflowId: string, stepKey: string, operation: () => Promise<T>)"
       }
     ],
     "NormalizedPoint": [
@@ -2218,7 +1663,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 239,
         "type": "interface",
-        "signature": "export interface NormalizedPoint {"
+        "signature": "export interface NormalizedPoint"
       }
     ],
     "ScreenViewport": [
@@ -2226,7 +1671,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 244,
         "type": "interface",
-        "signature": "export interface ScreenViewport {"
+        "signature": "export interface ScreenViewport"
       }
     ],
     "toAbsoluteScreenPoint": [
@@ -2242,7 +1687,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 262,
         "type": "interface",
-        "signature": "export interface StackFrameLocation {"
+        "signature": "export interface StackFrameLocation"
       }
     ],
     "parseTopFailingFrame": [
@@ -2258,7 +1703,15 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 287,
         "type": "interface",
-        "signature": "export interface FieldMigrationRule {"
+        "signature": "export interface FieldMigrationRule"
+      }
+    ],
+    "healPayloadDrift": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 292,
+        "type": "function",
+        "signature": "function healPayloadDrift(rawPayload: Record<string, unknown>, rules: readonly FieldMigrationRule[])"
       }
     ],
     "DiffHunkAudit": [
@@ -2266,7 +1719,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 314,
         "type": "interface",
-        "signature": "export interface DiffHunkAudit {"
+        "signature": "export interface DiffHunkAudit"
       }
     ],
     "auditGitDiffHunk": [
@@ -2298,7 +1751,7 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 381,
         "type": "interface",
-        "signature": "export interface CandidateGeneration {"
+        "signature": "export interface CandidateGeneration"
       }
     ],
     "selectOptimalCandidate": [
@@ -2314,7 +1767,15 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 409,
         "type": "interface",
-        "signature": "export interface TaskItem {"
+        "signature": "export interface TaskItem"
+      }
+    ],
+    "OptimisticTaskList": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 415,
+        "type": "function",
+        "signature": "function OptimisticTaskList({ initialTasks, toggleTaskAction }: { initialTasks: TaskItem[]; toggleTaskAction: (prevState: { error?: string }, formData: FormData) => Promise<{ error?: string }>; })"
       }
     ],
     "PrefixCacheDescriptor": [
@@ -2322,7 +1783,15 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 464,
         "type": "interface",
-        "signature": "export interface PrefixCacheDescriptor {"
+        "signature": "export interface PrefixCacheDescriptor"
+      }
+    ],
+    "computePrefixDescriptor": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 470,
+        "type": "function",
+        "signature": "function computePrefixDescriptor(staticPrefixText: string, isGemini4Available: boolean)"
       }
     ],
     "GoldenFixture": [
@@ -2330,7 +1799,15 @@
         "file": "scripts/supercharge-all-skills.mjs",
         "line": 490,
         "type": "interface",
-        "signature": "export interface GoldenFixture<TIn, TOut> {"
+        "signature": "export interface GoldenFixture<TIn, TOut>"
+      }
+    ],
+    "verifyGoldenMasterParity": [
+      {
+        "file": "scripts/supercharge-all-skills.mjs",
+        "line": 496,
+        "type": "function",
+        "signature": "function verifyGoldenMasterParity(fixtures: readonly GoldenFixture<TIn, TOut>[], modernCandidate: (input: TIn) => Promise<TOut>)"
       }
     ],
     "buildEnglishSovereignMatrix": [
@@ -2362,23 +1839,55 @@
         "file": "scripts/swarm-bus.mjs",
         "line": 17,
         "type": "class",
-        "signature": "class SwarmEventBus extends EventEmitter {"
+        "signature": "class SwarmEventBus extends EventEmitter"
       }
     ],
-    "onEvent": [
+    "SwarmEventBus.constructor": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 130,
-        "type": "arrow-function",
-        "signature": "const onEvent = (event) =>"
+        "line": 18,
+        "type": "method",
+        "signature": "SwarmEventBus.constructor(maxBufferSize = 150)"
       }
     ],
-    "cleanup": [
+    "SwarmEventBus.publish": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 140,
-        "type": "arrow-function",
-        "signature": "const cleanup = () =>"
+        "line": 32,
+        "type": "method",
+        "signature": "SwarmEventBus.publish(eventType, payload = {})"
+      }
+    ],
+    "SwarmEventBus.getEvents": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 84,
+        "type": "method",
+        "signature": "SwarmEventBus.getEvents(options = {})"
+      }
+    ],
+    "SwarmEventBus.getActiveSwarms": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 100,
+        "type": "method",
+        "signature": "SwarmEventBus.getActiveSwarms()"
+      }
+    ],
+    "SwarmEventBus.attachSseStream": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 110,
+        "type": "method",
+        "signature": "SwarmEventBus.attachSseStream(res, options = {})"
+      }
+    ],
+    "SwarmEventBus.reset": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 151,
+        "type": "method",
+        "signature": "SwarmEventBus.reset()"
       }
     ],
     "emitSwarmEvent": [
@@ -2397,26 +1906,26 @@
         "signature": "function getRecentSwarmEvents(options = {})"
       }
     ],
+    "resolveNativeSubagent": [
+      {
+        "file": "scripts/swarm-dispatcher.mjs",
+        "line": 31,
+        "type": "function",
+        "signature": "function resolveNativeSubagent(skillName = '', domainName = '')"
+      }
+    ],
     "runWithConcurrency": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 36,
+        "line": 49,
         "type": "function",
         "signature": "function runWithConcurrency(tasks, concurrency = 3)"
-      }
-    ],
-    "worker": [
-      {
-        "file": "scripts/swarm-dispatcher.mjs",
-        "line": 40,
-        "type": "function",
-        "signature": "function worker()"
       }
     ],
     "loadWorkerSkillContext": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 61,
+        "line": 74,
         "type": "function",
         "signature": "function loadWorkerSkillContext(skillName)"
       }
@@ -2424,7 +1933,7 @@
     "executeWorkerTask": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 95,
+        "line": 108,
         "type": "function",
         "signature": "function executeWorkerTask(workerSpec, taskDescription, profile, swarmId)"
       }
@@ -2432,7 +1941,7 @@
     "dispatchSwarm": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 164,
+        "line": 208,
         "type": "function",
         "signature": "function dispatchSwarm(taskDescription, options = {})"
       }
@@ -2493,106 +2002,12 @@
         "signature": "function runTerminalMonitor(options = {})"
       }
     ],
-    "renderFrame": [
-      {
-        "file": "scripts/terminal-monitor.mjs",
-        "line": 222,
-        "type": "function",
-        "signature": "function renderFrame()"
-      },
-      {
-        "file": "showcase/app.js",
-        "line": 817,
-        "type": "function",
-        "signature": "function renderFrame()"
-      }
-    ],
-    "handleKeyPress": [
-      {
-        "file": "scripts/terminal-monitor.mjs",
-        "line": 252,
-        "type": "arrow-function",
-        "signature": "const handleKeyPress = (str, key) =>"
-      }
-    ],
     "execFileAsync": [
       {
         "file": "scripts/test-cli.mjs",
         "line": 11,
         "type": "arrow-function",
         "signature": "const execFileAsync = (file, args, options = {}) =>"
-      }
-    ],
-    "multiply": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 307,
-        "type": "arrow-function",
-        "signature": "const multiply = (a, b) =>"
-      }
-    ],
-    "divide": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 312,
-        "type": "arrow-function",
-        "signature": "const divide = (a, b) =>"
-      }
-    ],
-    "sum": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 640,
-        "type": "arrow-function",
-        "signature": "const sum = (a, b) =>"
-      }
-    ],
-    "calculateTotal": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 968,
-        "type": "function",
-        "signature": "function calculateTotal(price, qty)"
-      }
-    ],
-    "norm": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1148,
-        "type": "function",
-        "signature": "function norm(s: string[])"
-      },
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1152,
-        "type": "function",
-        "signature": "function norm(s: any)"
-      },
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1172,
-        "type": "function",
-        "signature": "function norm(s: string[])"
-      },
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1176,
-        "type": "function",
-        "signature": "function norm(s: any)"
-      }
-    ],
-    "processItems": [
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1322,
-        "type": "function",
-        "signature": "function processItems(items: Item[])"
-      },
-      {
-        "file": "scripts/test-cli.mjs",
-        "line": 1323,
-        "type": "function",
-        "signature": "function processItems(items: any)"
       }
     ],
     "analyzeCodeStructure": [
@@ -2655,10 +2070,26 @@
         "signature": "function validateSkills()"
       }
     ],
+    "solveCnfDpll": [
+      {
+        "file": "scripts/verify-invariants.mjs",
+        "line": 25,
+        "type": "function",
+        "signature": "function solveCnfDpll(clauses, numVars = 0)"
+      }
+    ],
+    "findShortestPath": [
+      {
+        "file": "scripts/verify-invariants.mjs",
+        "line": 140,
+        "type": "function",
+        "signature": "function findShortestPath(outgoingMap, startState, targetState, forbiddenSet = new Set()"
+      }
+    ],
     "verifyStateMachine": [
       {
         "file": "scripts/verify-invariants.mjs",
-        "line": 17,
+        "line": 165,
         "type": "function",
         "signature": "function verifyStateMachine(definition)"
       }
@@ -2666,7 +2097,7 @@
     "parseTypeScriptStates": [
       {
         "file": "scripts/verify-invariants.mjs",
-        "line": 127,
+        "line": 393,
         "type": "function",
         "signature": "function parseTypeScriptStates(tsContent)"
       }
@@ -2714,23 +2145,55 @@
     "createIsolatedSandbox": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 41,
+        "line": 68,
         "type": "function",
         "signature": "function createIsolatedSandbox(options = {})"
+      }
+    ],
+    "safeErrorMessage": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 93,
+        "type": "function",
+        "signature": "function safeErrorMessage(err)"
+      }
+    ],
+    "stripTypeScript": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 107,
+        "type": "function",
+        "signature": "function stripTypeScript(code)"
+      }
+    ],
+    "looksLikeTypeScript": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 124,
+        "type": "function",
+        "signature": "function looksLikeTypeScript(code)"
       }
     ],
     "executeInSandbox": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 89,
+        "line": 131,
         "type": "function",
         "signature": "function executeInSandbox(code, options = {})"
+      }
+    ],
+    "executeWasmModule": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 242,
+        "type": "function",
+        "signature": "function executeWasmModule(wasmBytes, options = {})"
       }
     ],
     "verifyCandidateCode": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 165,
+        "line": 298,
         "type": "function",
         "signature": "function verifyCandidateCode(target, options = {})"
       }
@@ -2743,12 +2206,44 @@
         "signature": "function initDom()"
       }
     ],
+    "showToast": [
+      {
+        "file": "showcase/app.js",
+        "line": 44,
+        "type": "function",
+        "signature": "function showToast(message, type = 'info')"
+      }
+    ],
+    "escapeHtml": [
+      {
+        "file": "showcase/app.js",
+        "line": 59,
+        "type": "function",
+        "signature": "function escapeHtml(str)"
+      }
+    ],
     "filterSkills": [
       {
         "file": "showcase/app.js",
         "line": 73,
         "type": "function",
         "signature": "function filterSkills()"
+      }
+    ],
+    "renderSkills": [
+      {
+        "file": "showcase/app.js",
+        "line": 94,
+        "type": "function",
+        "signature": "function renderSkills()"
+      }
+    ],
+    "openSkillModal": [
+      {
+        "file": "showcase/app.js",
+        "line": 164,
+        "type": "function",
+        "signature": "function openSkillModal(skill)"
       }
     ],
     "closeSkillModal": [
@@ -2879,12 +2374,216 @@
         "signature": "class ApiContractValidator:"
       }
     ],
+    "__init__": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 18,
+        "type": "function",
+        "signature": "def __init__(self, target_path: str, verbose: bool = False):"
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 38,
+        "type": "function",
+        "signature": "def __init__(self, target_path: str, verbose: bool = False):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 35,
+        "type": "function",
+        "signature": "def __init__(self, target_path: str, verbose: bool = False):"
+      },
+      {
+        "file": "skills/ui-ux-pro-max/scripts/core.py",
+        "line": 107,
+        "type": "function",
+        "signature": "def __init__(self, k1=1.5, b=0.75):"
+      },
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 39,
+        "type": "function",
+        "signature": "def __init__(self):"
+      }
+    ],
+    "run": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 29,
+        "type": "function",
+        "signature": "def run(self):"
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 49,
+        "type": "function",
+        "signature": "def run(self):"
+      },
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 302,
+        "type": "function",
+        "signature": "def run(self):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 41,
+        "type": "function",
+        "signature": "def run(self):"
+      }
+    ],
+    "validate_target": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 52,
+        "type": "function",
+        "signature": "def validate_target(self):"
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 73,
+        "type": "function",
+        "signature": "def validate_target(self):"
+      }
+    ],
+    "scan_api_routes": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 57,
+        "type": "function",
+        "signature": "def scan_api_routes(self):"
+      }
+    ],
+    "check_openapi_spec": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 79,
+        "type": "function",
+        "signature": "def check_openapi_spec(self):"
+      }
+    ],
+    "check_validation_schemas": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 95,
+        "type": "function",
+        "signature": "def check_validation_schemas(self):"
+      }
+    ],
+    "check_error_handling": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 123,
+        "type": "function",
+        "signature": "def check_error_handling(self):"
+      }
+    ],
+    "check_authentication": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 132,
+        "type": "function",
+        "signature": "def check_authentication(self):"
+      }
+    ],
+    "check_rate_limiting": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 153,
+        "type": "function",
+        "signature": "def check_rate_limiting(self):"
+      }
+    ],
+    "_add_finding": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 175,
+        "type": "function",
+        "signature": "def _add_finding(self, severity: str, message: str):"
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 245,
+        "type": "function",
+        "signature": "def _add_finding(self, severity: str, message: str):"
+      }
+    ],
+    "generate_report": [
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 185,
+        "type": "function",
+        "signature": "def generate_report(self):"
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 255,
+        "type": "function",
+        "signature": "def generate_report(self):"
+      }
+    ],
     "ArchitectureAnalyzer": [
       {
         "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
         "line": 15,
         "type": "class",
         "signature": "class ArchitectureAnalyzer:"
+      }
+    ],
+    "detect_stack": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 80,
+        "type": "function",
+        "signature": "def detect_stack(self):"
+      }
+    ],
+    "check_project_structure": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 140,
+        "type": "function",
+        "signature": "def check_project_structure(self):"
+      }
+    ],
+    "check_security_basics": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 159,
+        "type": "function",
+        "signature": "def check_security_basics(self):"
+      }
+    ],
+    "check_database_patterns": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 182,
+        "type": "function",
+        "signature": "def check_database_patterns(self):"
+      }
+    ],
+    "check_testing_setup": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 192,
+        "type": "function",
+        "signature": "def check_testing_setup(self):"
+      }
+    ],
+    "check_ci_cd": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 208,
+        "type": "function",
+        "signature": "def check_ci_cd(self):"
+      }
+    ],
+    "check_docker_setup": [
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 225,
+        "type": "function",
+        "signature": "def check_docker_setup(self):"
       }
     ],
     "getArgValue": [
@@ -2951,6 +2650,248 @@
         "signature": "class ProductionReadinessScanner:"
       }
     ],
+    "strip_ansi": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 59,
+        "type": "function",
+        "signature": "def strip_ansi(self, text: str):"
+      }
+    ],
+    "_exec_command": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 64,
+        "type": "function",
+        "signature": "def _exec_command(self, cmd: str):"
+      }
+    ],
+    "_detect_stack": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 82,
+        "type": "function",
+        "signature": "def _detect_stack(self):"
+      }
+    ],
+    "_parse_logs": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 139,
+        "type": "function",
+        "signature": "def _parse_logs(self):"
+      }
+    ],
+    "_parse_tsc_content": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 182,
+        "type": "function",
+        "signature": "def _parse_tsc_content(self, content: str):"
+      }
+    ],
+    "_parse_eslint_content": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 210,
+        "type": "function",
+        "signature": "def _parse_eslint_content(self, content: str):"
+      }
+    ],
+    "_run_diagnostics": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 253,
+        "type": "function",
+        "signature": "def _run_diagnostics(self):"
+      }
+    ],
+    "_init_phase": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 340,
+        "type": "function",
+        "signature": "def _init_phase(self, name: str, display_name: str):"
+      }
+    ],
+    "_check": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 357,
+        "type": "function",
+        "signature": "def _check(self, phase: Dict, name: str, passed: bool, severity: str = 'warning', penalty: int = 5):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 86,
+        "type": "function",
+        "signature": "def _check(self, pillar: Dict, name: str, passed: bool, severity: str = 'warning', penalty: int = 15):"
+      }
+    ],
+    "_file_exists": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 380,
+        "type": "function",
+        "signature": "def _file_exists(self, *paths: str):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 109,
+        "type": "function",
+        "signature": "def _file_exists(self, *paths: str):"
+      }
+    ],
+    "_dir_exists": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 384,
+        "type": "function",
+        "signature": "def _dir_exists(self, *paths: str):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 112,
+        "type": "function",
+        "signature": "def _dir_exists(self, *paths: str):"
+      }
+    ],
+    "_file_contains": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 388,
+        "type": "function",
+        "signature": "def _file_contains(self, filepath: str, pattern: str):"
+      }
+    ],
+    "_grep_project": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 398,
+        "type": "function",
+        "signature": "def _grep_project(self, pattern: str, extensions: List[str] = None):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 115,
+        "type": "function",
+        "signature": "def _grep_project(self, pattern: str, extensions: List[str] = None):"
+      }
+    ],
+    "_phase_1_architecture": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 416,
+        "type": "function",
+        "signature": "def _phase_1_architecture(self):"
+      }
+    ],
+    "_phase_2_frontend": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 461,
+        "type": "function",
+        "signature": "def _phase_2_frontend(self):"
+      }
+    ],
+    "_phase_3_backend": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 491,
+        "type": "function",
+        "signature": "def _phase_3_backend(self):"
+      }
+    ],
+    "_phase_4_security": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 513,
+        "type": "function",
+        "signature": "def _phase_4_security(self):"
+      }
+    ],
+    "_phase_5_testing": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 547,
+        "type": "function",
+        "signature": "def _phase_5_testing(self):"
+      }
+    ],
+    "_phase_6_performance": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 568,
+        "type": "function",
+        "signature": "def _phase_6_performance(self):"
+      }
+    ],
+    "_phase_7_devops": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 586,
+        "type": "function",
+        "signature": "def _phase_7_devops(self):"
+      }
+    ],
+    "_calculate_overall_score": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 608,
+        "type": "function",
+        "signature": "def _calculate_overall_score(self):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 225,
+        "type": "function",
+        "signature": "def _calculate_overall_score(self):"
+      }
+    ],
+    "_get_grade": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 616,
+        "type": "function",
+        "signature": "def _get_grade(self, score: int):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 232,
+        "type": "function",
+        "signature": "def _get_grade(self, score: int):"
+      }
+    ],
+    "_generate_report": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 626,
+        "type": "function",
+        "signature": "def _generate_report(self):"
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 243,
+        "type": "function",
+        "signature": "def _generate_report(self):"
+      }
+    ],
+    "_write_markdown_report": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 676,
+        "type": "function",
+        "signature": "def _write_markdown_report(self):"
+      }
+    ],
+    "make_link": [
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 706,
+        "type": "function",
+        "signature": "def make_link(filepath: str, line: int = None):"
+      }
+    ],
     "SaasTransformationScanner": [
       {
         "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
@@ -2959,12 +2900,186 @@
         "signature": "class SaasTransformationScanner:"
       }
     ],
+    "_init_pillar": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 70,
+        "type": "function",
+        "signature": "def _init_pillar(self, name: str, display_name: str):"
+      }
+    ],
+    "_audit_tenancy": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 130,
+        "type": "function",
+        "signature": "def _audit_tenancy(self):"
+      }
+    ],
+    "_audit_auth": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 149,
+        "type": "function",
+        "signature": "def _audit_auth(self):"
+      }
+    ],
+    "_audit_billing": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 167,
+        "type": "function",
+        "signature": "def _audit_billing(self):"
+      }
+    ],
+    "_audit_teams": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 182,
+        "type": "function",
+        "signature": "def _audit_teams(self):"
+      }
+    ],
+    "_audit_frontend": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 193,
+        "type": "function",
+        "signature": "def _audit_frontend(self):"
+      }
+    ],
+    "_audit_api": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 203,
+        "type": "function",
+        "signature": "def _audit_api(self):"
+      }
+    ],
+    "_audit_hardening": [
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 214,
+        "type": "function",
+        "signature": "def _audit_hardening(self):"
+      }
+    ],
+    "load_package_json": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 101,
+        "type": "function",
+        "signature": "def load_package_json(project_dir: Path):"
+      }
+    ],
+    "analyze_dependencies": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 114,
+        "type": "function",
+        "signature": "def analyze_dependencies(package_json: Dict):"
+      }
+    ],
+    "check_nextjs_config": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 180,
+        "type": "function",
+        "signature": "def check_nextjs_config(project_dir: Path):"
+      }
+    ],
+    "analyze_imports": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 220,
+        "type": "function",
+        "signature": "def analyze_imports(project_dir: Path):"
+      }
+    ],
+    "calculate_score": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 259,
+        "type": "function",
+        "signature": "def calculate_score(analysis: Dict):"
+      }
+    ],
+    "print_report": [
+      {
+        "file": "skills/senior-frontend/scripts/bundle_analyzer.py",
+        "line": 293,
+        "type": "function",
+        "signature": "def print_report(analysis: Dict):"
+      }
+    ],
+    "to_pascal_case": [
+      {
+        "file": "skills/senior-frontend/scripts/component_generator.py",
+        "line": 142,
+        "type": "function",
+        "signature": "def to_pascal_case(name: str):"
+      }
+    ],
+    "to_kebab_case": [
+      {
+        "file": "skills/senior-frontend/scripts/component_generator.py",
+        "line": 149,
+        "type": "function",
+        "signature": "def to_kebab_case(name: str):"
+      }
+    ],
+    "print_result": [
+      {
+        "file": "skills/senior-frontend/scripts/component_generator.py",
+        "line": 224,
+        "type": "function",
+        "signature": "def print_result(result: dict, verbose: bool = False):"
+      },
+      {
+        "file": "skills/senior-frontend/scripts/frontend_scaffolder.py",
+        "line": 896,
+        "type": "function",
+        "signature": "def print_result(result: Dict):"
+      }
+    ],
+    "get_config_templates": [
+      {
+        "file": "skills/senior-frontend/scripts/frontend_scaffolder.py",
+        "line": 596,
+        "type": "function",
+        "signature": "def get_config_templates(name: str, template: str, features: List[str]):"
+      }
+    ],
     "BM25": [
       {
         "file": "skills/ui-ux-pro-max/scripts/core.py",
         "line": 104,
         "type": "class",
         "signature": "class BM25:"
+      }
+    ],
+    "tokenize": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/core.py",
+        "line": 117,
+        "type": "function",
+        "signature": "def tokenize(self, text):"
+      }
+    ],
+    "fit": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/core.py",
+        "line": 122,
+        "type": "function",
+        "signature": "def fit(self, documents):"
+      }
+    ],
+    "score": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/core.py",
+        "line": 141,
+        "type": "function",
+        "signature": "def score(self, query):"
       }
     ],
     "_load_csv": [
@@ -3015,6 +3130,94 @@
         "signature": "class DesignSystemGenerator:"
       }
     ],
+    "_load_reasoning": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 42,
+        "type": "function",
+        "signature": "def _load_reasoning(self):"
+      }
+    ],
+    "_multi_domain_search": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 50,
+        "type": "function",
+        "signature": "def _multi_domain_search(self, query: str, style_priority: list = None):"
+      }
+    ],
+    "_find_reasoning_rule": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 63,
+        "type": "function",
+        "signature": "def _find_reasoning_rule(self, category: str):"
+      }
+    ],
+    "_apply_reasoning": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 87,
+        "type": "function",
+        "signature": "def _apply_reasoning(self, category: str, search_results: dict):"
+      }
+    ],
+    "_select_best_match": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 121,
+        "type": "function",
+        "signature": "def _select_best_match(self, results: list, priority_keywords: list):"
+      }
+    ],
+    "_extract_results": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 158,
+        "type": "function",
+        "signature": "def _extract_results(self, search_result: dict):"
+      }
+    ],
+    "generate": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 162,
+        "type": "function",
+        "signature": "def generate(self, query: str, project_name: str = None):"
+      }
+    ],
+    "format_ascii_box": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 241,
+        "type": "function",
+        "signature": "def format_ascii_box(design_system: dict):"
+      }
+    ],
+    "wrap_text": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 251,
+        "type": "function",
+        "signature": "def wrap_text(text: str, prefix: str, width: int):"
+      }
+    ],
+    "format_markdown": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 366,
+        "type": "function",
+        "signature": "def format_markdown(design_system: dict):"
+      }
+    ],
+    "generate_design_system": [
+      {
+        "file": "skills/ui-ux-pro-max/scripts/design_system.py",
+        "line": 461,
+        "type": "function",
+        "signature": "def generate_design_system(query: str, project_name: str = None, output_format: str = \"ascii\"):"
+      }
+    ],
     "format_output": [
       {
         "file": "skills/ui-ux-pro-max/scripts/search.py",
@@ -3026,304 +3229,2527 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1426,
-      "symbolCount": 7
+      "totalLines": 1669,
+      "symbolCount": 7,
+      "exports": [
+        "getActiveProfile",
+        "setActiveProfile",
+        "getFilteredTools",
+        "handleRpcRequest",
+        "startStdioServer",
+        "startSseServer",
+        "startServer"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 19
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 20
+        },
+        {
+          "source": "readline",
+          "target": null,
+          "specifiers": [
+            "readline"
+          ],
+          "line": 21
+        },
+        {
+          "source": "http",
+          "target": null,
+          "specifiers": [
+            "http"
+          ],
+          "line": 22
+        },
+        {
+          "source": "crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 23
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 24
+        },
+        {
+          "source": "../scripts/ast-query.mjs",
+          "target": "scripts/ast-query.mjs",
+          "specifiers": [
+            "parseSymbols",
+            "extractSymbolCode",
+            "calculateBlastRadius"
+          ],
+          "line": 26
+        },
+        {
+          "source": "../scripts/eval-migration.mjs",
+          "target": "scripts/eval-migration.mjs",
+          "specifiers": [
+            "evaluateSql"
+          ],
+          "line": 27
+        },
+        {
+          "source": "../scripts/speculative-arbiter.mjs",
+          "target": "scripts/speculative-arbiter.mjs",
+          "specifiers": [
+            "scoreDraft",
+            "arbitrateCandidates"
+          ],
+          "line": 28
+        },
+        {
+          "source": "../scripts/verify-invariants.mjs",
+          "target": "scripts/verify-invariants.mjs",
+          "specifiers": [
+            "verifyStateMachine",
+            "parseTypeScriptStates"
+          ],
+          "line": 29
+        },
+        {
+          "source": "../scripts/compile-cache.mjs",
+          "target": "scripts/compile-cache.mjs",
+          "specifiers": [
+            "compileCache"
+          ],
+          "line": 30
+        },
+        {
+          "source": "../scripts/memory-daemon.mjs",
+          "target": "scripts/memory-daemon.mjs",
+          "specifiers": [
+            "recordDecision",
+            "queryMemory",
+            "generateCompactCheckpoint",
+            "loadMemory"
+          ],
+          "line": 31
+        },
+        {
+          "source": "../scripts/swarm-runner.mjs",
+          "target": "scripts/swarm-runner.mjs",
+          "specifiers": [
+            "executeSwarm"
+          ],
+          "line": 32
+        },
+        {
+          "source": "../scripts/critic-validator.mjs",
+          "target": "scripts/critic-validator.mjs",
+          "specifiers": [
+            "criticValidate",
+            "formatSamplingRequest"
+          ],
+          "line": 33
+        },
+        {
+          "source": "../scripts/visual-critic.mjs",
+          "target": "scripts/visual-critic.mjs",
+          "specifiers": [
+            "visualAudit"
+          ],
+          "line": 34
+        }
+      ]
     },
     "bin/vibes.mjs": {
       "totalLines": 2032,
-      "symbolCount": 27
+      "symbolCount": 23,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 3
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 4
+        },
+        {
+          "source": "readline",
+          "target": null,
+          "specifiers": [
+            "readline"
+          ],
+          "line": 5
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath",
+            "pathToFileURL"
+          ],
+          "line": 6
+        },
+        {
+          "source": "@modelcontextprotocol/sdk/server/index.js",
+          "target": null,
+          "specifiers": [
+            "Server"
+          ],
+          "line": 590
+        },
+        {
+          "source": "@modelcontextprotocol/sdk/server/stdio.js",
+          "target": null,
+          "specifiers": [
+            "StdioServerTransport"
+          ],
+          "line": 591
+        },
+        {
+          "source": "@modelcontextprotocol/sdk/types.js",
+          "target": null,
+          "specifiers": [
+            "CallToolRequestSchema",
+            "ErrorCode",
+            "ListToolsRequestSchema",
+            "McpError"
+          ],
+          "line": 592
+        }
+      ]
     },
     "extensions/vscode/extension.js": {
       "totalLines": 158,
-      "symbolCount": 3
+      "symbolCount": 3,
+      "exports": [
+        "activate",
+        "deactivate"
+      ],
+      "imports": []
     },
     "index.js": {
       "totalLines": 20,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 6
+        },
+        {
+          "source": "./plugin.json",
+          "target": "plugin.json",
+          "specifiers": [
+            "pluginJson"
+          ],
+          "line": 7
+        }
+      ]
     },
     "scripts/adapters/ai-mcp.mjs": {
       "totalLines": 110,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": []
     },
     "scripts/adapters/api.mjs": {
       "totalLines": 103,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "../drift-healer.mjs",
+          "target": "scripts/drift-healer.mjs",
+          "specifiers": [
+            "healSchemaDrift"
+          ],
+          "line": 6
+        }
+      ]
     },
     "scripts/adapters/cloud-devops.mjs": {
       "totalLines": 94,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": []
     },
     "scripts/adapters/database.mjs": {
       "totalLines": 92,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "../eval-migration.mjs",
+          "target": "scripts/eval-migration.mjs",
+          "specifiers": [
+            "evaluateSql"
+          ],
+          "line": 6
+        }
+      ]
     },
     "scripts/adapters/frontend.mjs": {
       "totalLines": 106,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "../visual-critic.mjs",
+          "target": "scripts/visual-critic.mjs",
+          "specifiers": [
+            "visualAudit"
+          ],
+          "line": 6
+        }
+      ]
     },
     "scripts/adapters/mobile-spatial.mjs": {
       "totalLines": 84,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": []
     },
     "scripts/adapters/security.mjs": {
       "totalLines": 95,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": []
     },
     "scripts/adapters/tdd.mjs": {
       "totalLines": 85,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "../critic-validator.mjs",
+          "target": "scripts/critic-validator.mjs",
+          "specifiers": [
+            "criticValidate"
+          ],
+          "line": 6
+        },
+        {
+          "source": "../wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "executeInSandbox",
+            "verifyCandidateCode"
+          ],
+          "line": 7
+        }
+      ]
     },
     "scripts/ast-query.mjs": {
-      "totalLines": 226,
-      "symbolCount": 5
+      "totalLines": 576,
+      "symbolCount": 7,
+      "exports": [
+        "parseImportEdges",
+        "parseSymbols",
+        "extractSymbolCode",
+        "calculateBlastRadius"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 12
+        },
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fssync"
+          ],
+          "line": 13
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/audit-graph.mjs": {
       "totalLines": 78,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 2
+        }
+      ]
     },
     "scripts/benchmark-suite.mjs": {
       "totalLines": 294,
-      "symbolCount": 3
+      "symbolCount": 1,
+      "exports": [
+        "runBenchmarkSuite"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 20
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 21
+        },
+        {
+          "source": "node:perf_hooks",
+          "target": null,
+          "specifiers": [
+            "performance"
+          ],
+          "line": 22
+        },
+        {
+          "source": "./wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "executeInSandbox",
+            "verifyCandidateCode"
+          ],
+          "line": 24
+        },
+        {
+          "source": "./graphrag-indexer.mjs",
+          "target": "scripts/graphrag-indexer.mjs",
+          "specifiers": [
+            "hybridSearch",
+            "buildSymbolGraph"
+          ],
+          "line": 25
+        },
+        {
+          "source": "./compile-cache.mjs",
+          "target": "scripts/compile-cache.mjs",
+          "specifiers": [
+            "compileCache"
+          ],
+          "line": 26
+        },
+        {
+          "source": "./cross-ide-bridge.mjs",
+          "target": "scripts/cross-ide-bridge.mjs",
+          "specifiers": [
+            "syncBridge",
+            "checkBridgeStatus"
+          ],
+          "line": 27
+        },
+        {
+          "source": "./package-extension.mjs",
+          "target": "scripts/package-extension.mjs",
+          "specifiers": [
+            "packageVsix"
+          ],
+          "line": 28
+        }
+      ]
     },
     "scripts/check-anti-slop.js": {
-      "totalLines": 336,
-      "symbolCount": 5
+      "totalLines": 348,
+      "symbolCount": 4,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        }
+      ]
     },
     "scripts/check-anti-slop.mjs": {
       "totalLines": 320,
-      "symbolCount": 5
+      "symbolCount": 4,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 7
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 8
+        }
+      ]
     },
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
-      "symbolCount": 4
+      "symbolCount": 3,
+      "exports": [
+        "compileCache",
+        "getCacheStatus"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 15
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 17
+        }
+      ]
     },
     "scripts/compile-skill-slices.mjs": {
       "totalLines": 115,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [
+        "compileSkillSlices"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 13
+        },
+        {
+          "source": "./skill-dispatcher.mjs",
+          "target": "scripts/skill-dispatcher.mjs",
+          "specifiers": [
+            "resolveSkillAdapter"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/create-agent.mjs": {
       "totalLines": 169,
-      "symbolCount": 2
+      "symbolCount": 2,
+      "exports": [
+        "createCustomAgent"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 12
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 13
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/critic-validator.mjs": {
       "totalLines": 237,
-      "symbolCount": 3
+      "symbolCount": 3,
+      "exports": [
+        "criticValidate",
+        "formatSamplingRequest"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 12
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 13
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/cross-ide-bridge.mjs": {
-      "totalLines": 345,
-      "symbolCount": 5
+      "totalLines": 365,
+      "symbolCount": 5,
+      "exports": [
+        "checkBridgeStatus",
+        "syncBridge",
+        "generateContextBundle"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 25
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 26
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 27
+        }
+      ]
     },
     "scripts/demo-sovereign-swarm.mjs": {
       "totalLines": 321,
-      "symbolCount": 11
+      "symbolCount": 13,
+      "exports": [
+        "AccountId",
+        "MinorCents",
+        "LedgerOverdraftError",
+        "TransferRequest",
+        "AtomicLedgerEngine"
+      ],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:perf_hooks",
+          "target": null,
+          "specifiers": [
+            "performance"
+          ],
+          "line": 17
+        }
+      ]
     },
     "scripts/drift-healer.mjs": {
       "totalLines": 286,
-      "symbolCount": 7
+      "symbolCount": 6,
+      "exports": [
+        "snakeToCamel",
+        "pascalCase",
+        "parseSqlTables",
+        "parseTsFields",
+        "healSchemaDrift"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:perf_hooks",
+          "target": null,
+          "specifiers": [
+            "performance"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/eval-migration.mjs": {
       "totalLines": 213,
-      "symbolCount": 2
+      "symbolCount": 2,
+      "exports": [
+        "evaluateSql"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 16
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 17
+        }
+      ]
     },
     "scripts/finops-tracker.mjs": {
       "totalLines": 311,
-      "symbolCount": 8
+      "symbolCount": 8,
+      "exports": [
+        "loadFinOpsData",
+        "calculateSavings",
+        "recordFinOpsUsage",
+        "resetFinOpsData",
+        "getFinOpsReport",
+        "exportFinOpsReport"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 20
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 21
+        }
+      ]
     },
     "scripts/generate-catalog.mjs": {
       "totalLines": 54,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 2
+        }
+      ]
     },
     "scripts/generate_logo_svg.py": {
       "totalLines": 73,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [],
+      "imports": []
     },
     "scripts/generate_swarm_gif.py": {
       "totalLines": 296,
-      "symbolCount": 3
+      "symbolCount": 3,
+      "exports": [],
+      "imports": []
     },
     "scripts/git-hook-installer.mjs": {
       "totalLines": 306,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "checkHookStatus",
+        "installGitHook",
+        "removeGitHook",
+        "runPreCommitGate"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "execSync",
+            "spawnSync"
+          ],
+          "line": 21
+        },
+        {
+          "source": "./wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "verifyCandidateCode"
+          ],
+          "line": 22
+        }
+      ]
     },
     "scripts/github-pr-bot.mjs": {
       "totalLines": 261,
-      "symbolCount": 3
+      "symbolCount": 3,
+      "exports": [
+        "getChangedFilesFromGit",
+        "reviewPullRequest"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "spawnSync"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 19
+        },
+        {
+          "source": "./critic-validator.mjs",
+          "target": "scripts/critic-validator.mjs",
+          "specifiers": [
+            "criticValidate"
+          ],
+          "line": 20
+        },
+        {
+          "source": "./visual-critic.mjs",
+          "target": "scripts/visual-critic.mjs",
+          "specifiers": [
+            "visualAudit"
+          ],
+          "line": 21
+        }
+      ]
     },
     "scripts/graphrag-indexer.mjs": {
-      "totalLines": 478,
-      "symbolCount": 6
+      "totalLines": 489,
+      "symbolCount": 6,
+      "exports": [
+        "collectSourceFiles",
+        "buildSymbolGraph",
+        "loadSymbolGraph",
+        "querySymbolGraph",
+        "tokenizeCode",
+        "hybridSearch"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        },
+        {
+          "source": "./ast-query.mjs",
+          "target": "scripts/ast-query.mjs",
+          "specifiers": [
+            "parseSymbols"
+          ],
+          "line": 21
+        }
+      ]
     },
     "scripts/install.js": {
       "totalLines": 310,
-      "symbolCount": 6
+      "symbolCount": 6,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 3
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 4
+        },
+        {
+          "source": "os",
+          "target": null,
+          "specifiers": [
+            "os"
+          ],
+          "line": 5
+        },
+        {
+          "source": "../package.json",
+          "target": "package.json",
+          "specifiers": [
+            "pkg"
+          ],
+          "line": 239
+        }
+      ]
     },
     "scripts/mcp-setup.mjs": {
       "totalLines": 235,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "getMcpServerDefinition",
+        "detectClientConfigPaths",
+        "configureClient",
+        "setupAllClients"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:os",
+          "target": null,
+          "specifiers": [
+            "os"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 19
+        }
+      ]
     },
     "scripts/memory-daemon.mjs": {
       "totalLines": 159,
-      "symbolCount": 8
+      "symbolCount": 8,
+      "exports": [
+        "loadMemory",
+        "saveMemory",
+        "recordDecision",
+        "queryMemory",
+        "generateCompactCheckpoint"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        }
+      ]
     },
     "scripts/package-extension.mjs": {
       "totalLines": 266,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "createZipArchive",
+        "validateExtensionPackage",
+        "packageVsix"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:zlib",
+          "target": null,
+          "specifiers": [
+            "deflateRawSync",
+            "crc32"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 18
+        }
+      ]
     },
     "scripts/project-detector.mjs": {
       "totalLines": 341,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "detectProjectStack",
+        "applyDetectedSkills"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        }
+      ]
     },
     "scripts/registry-manager.mjs": {
       "totalLines": 367,
-      "symbolCount": 6
+      "symbolCount": 6,
+      "exports": [
+        "parseSkillMarkdown",
+        "categorizeSkill",
+        "listRegistrySkills",
+        "searchRegistry",
+        "installSkill",
+        "packageSkill"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 14
+        }
+      ]
     },
     "scripts/self-healer.mjs": {
       "totalLines": 348,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "parseFailureOutput",
+        "diagnoseFailure",
+        "validateTestCommand",
+        "diagnoseAndHeal"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 12
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "exec"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:util",
+          "target": null,
+          "specifiers": [
+            "promisify"
+          ],
+          "line": 16
+        },
+        {
+          "source": "./wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "executeInSandbox"
+          ],
+          "line": 17
+        },
+        {
+          "source": "./graphrag-indexer.mjs",
+          "target": "scripts/graphrag-indexer.mjs",
+          "specifiers": [
+            "querySymbolGraph"
+          ],
+          "line": 18
+        }
+      ]
     },
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 636,
-      "symbolCount": 7
+      "symbolCount": 7,
+      "exports": [
+        "resolveSkillAdapter",
+        "getSkillCompactSlice",
+        "extractSkillCode",
+        "inspectSkillCapabilities",
+        "compileAllSkillSlices",
+        "dispatchSkillAction",
+        "dispatchSkillChain"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 13
+        },
+        {
+          "source": "./adapters/database.mjs",
+          "target": "scripts/adapters/database.mjs",
+          "specifiers": [
+            "databaseAdapter"
+          ],
+          "line": 15
+        },
+        {
+          "source": "./adapters/frontend.mjs",
+          "target": "scripts/adapters/frontend.mjs",
+          "specifiers": [
+            "frontendAdapter"
+          ],
+          "line": 16
+        },
+        {
+          "source": "./adapters/api.mjs",
+          "target": "scripts/adapters/api.mjs",
+          "specifiers": [
+            "apiAdapter"
+          ],
+          "line": 17
+        },
+        {
+          "source": "./adapters/security.mjs",
+          "target": "scripts/adapters/security.mjs",
+          "specifiers": [
+            "securityAdapter"
+          ],
+          "line": 18
+        },
+        {
+          "source": "./adapters/tdd.mjs",
+          "target": "scripts/adapters/tdd.mjs",
+          "specifiers": [
+            "tddAdapter"
+          ],
+          "line": 19
+        },
+        {
+          "source": "./adapters/ai-mcp.mjs",
+          "target": "scripts/adapters/ai-mcp.mjs",
+          "specifiers": [
+            "aiMcpAdapter"
+          ],
+          "line": 20
+        },
+        {
+          "source": "./adapters/cloud-devops.mjs",
+          "target": "scripts/adapters/cloud-devops.mjs",
+          "specifiers": [
+            "cloudDevopsAdapter"
+          ],
+          "line": 21
+        },
+        {
+          "source": "./adapters/mobile-spatial.mjs",
+          "target": "scripts/adapters/mobile-spatial.mjs",
+          "specifiers": [
+            "mobileSpatialAdapter"
+          ],
+          "line": 22
+        },
+        {
+          "source": "./skill-drift-monitor.mjs",
+          "target": "scripts/skill-drift-monitor.mjs",
+          "specifiers": [
+            "auditSkill"
+          ],
+          "line": 23
+        },
+        {
+          "source": "./token-budget-optimizer.mjs",
+          "target": "scripts/token-budget-optimizer.mjs",
+          "specifiers": [
+            "optimizeThinkingBudget"
+          ],
+          "line": 24
+        },
+        {
+          "source": "./finops-tracker.mjs",
+          "target": "scripts/finops-tracker.mjs",
+          "specifiers": [
+            "recordFinOpsUsage",
+            "calculateSavings"
+          ],
+          "line": 25
+        }
+      ]
     },
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
-      "symbolCount": 6
+      "symbolCount": 4,
+      "exports": [
+        "auditSkill",
+        "auditEcosystem",
+        "formatDriftReport"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 16
+        }
+      ]
     },
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
-      "symbolCount": 7
+      "symbolCount": 7,
+      "exports": [
+        "sanitizeSkillSlug",
+        "inferDomainCategory",
+        "inspectTargetRepository",
+        "generateSkillMarkdown",
+        "registerInMasterOrchestrators",
+        "synthesizeSkill"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        }
+      ]
     },
     "scripts/speculative-arbiter.mjs": {
       "totalLines": 213,
-      "symbolCount": 6
+      "symbolCount": 3,
+      "exports": [
+        "scoreDraft",
+        "arbitrateCandidates"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        }
+      ]
     },
     "scripts/speculative-consensus.mjs": {
       "totalLines": 597,
-      "symbolCount": 8
+      "symbolCount": 8,
+      "exports": [
+        "calculateCyclomaticComplexity",
+        "analyzeResilience",
+        "analyzeTypeSafety",
+        "analyzeCandidateDraft",
+        "reconcileSpeculativeDrafts",
+        "formatConsensusReport",
+        "loadDraftsFromFiles",
+        "runConsensusCli"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 21
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 22
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 23
+        },
+        {
+          "source": "./critic-validator.mjs",
+          "target": "scripts/critic-validator.mjs",
+          "specifiers": [
+            "criticValidate"
+          ],
+          "line": 24
+        },
+        {
+          "source": "./wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "executeInSandbox"
+          ],
+          "line": 25
+        }
+      ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4528,
-      "symbolCount": 67
+      "totalLines": 4615,
+      "symbolCount": 8,
+      "exports": [
+        "generateStudioHtml",
+        "startStudioServer"
+      ],
+      "imports": [
+        {
+          "source": "node:http",
+          "target": null,
+          "specifiers": [
+            "http"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fsSync"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "exec"
+          ],
+          "line": 21
+        },
+        {
+          "source": "../bin/mcp-server.mjs",
+          "target": "bin/mcp-server.mjs",
+          "specifiers": [
+            "TOOLS",
+            "handleRpcRequest",
+            "getActiveProfile",
+            "TOOL_PROFILES"
+          ],
+          "line": 23
+        },
+        {
+          "source": "./create-agent.mjs",
+          "target": "scripts/create-agent.mjs",
+          "specifiers": [
+            "createCustomAgent"
+          ],
+          "line": 24
+        },
+        {
+          "source": "./swarm-runner.mjs",
+          "target": "scripts/swarm-runner.mjs",
+          "specifiers": [
+            "planSwarm",
+            "executeSwarm"
+          ],
+          "line": 25
+        },
+        {
+          "source": "./memory-daemon.mjs",
+          "target": "scripts/memory-daemon.mjs",
+          "specifiers": [
+            "loadMemory",
+            "recordDecision",
+            "queryMemory",
+            "generateCompactCheckpoint"
+          ],
+          "line": 26
+        },
+        {
+          "source": "./compile-cache.mjs",
+          "target": "scripts/compile-cache.mjs",
+          "specifiers": [
+            "compileCache",
+            "getCacheStatus"
+          ],
+          "line": 27
+        }
+      ]
     },
     "scripts/supercharge-all-skills.mjs": {
       "totalLines": 611,
-      "symbolCount": 29
+      "symbolCount": 37,
+      "exports": [
+        "TenantRoutingConfig",
+        "routeMultiEntrySaaS",
+        "EntitlementContext",
+        "evaluateFeatureAccess",
+        "LifecyclePhase",
+        "PhaseGateArtifact",
+        "canAdvanceLifecyclePhase",
+        "DomainEventPayload",
+        "OutboxRepository",
+        "AggregateRoot",
+        "StepJournalStore",
+        "runDurableStep",
+        "NormalizedPoint",
+        "ScreenViewport",
+        "toAbsoluteScreenPoint",
+        "StackFrameLocation",
+        "parseTopFailingFrame",
+        "FieldMigrationRule",
+        "healPayloadDrift",
+        "DiffHunkAudit",
+        "auditGitDiffHunk",
+        "quantizePixelToTailwindSpacing",
+        "buildMpaDocumentHeaders",
+        "CandidateGeneration",
+        "selectOptimalCandidate",
+        "TaskItem",
+        "OptimisticTaskList",
+        "PrefixCacheDescriptor",
+        "computePrefixDescriptor",
+        "GoldenFixture",
+        "verifyGoldenMasterParity"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 19
+        },
+        {
+          "source": "./skill-dispatcher.mjs",
+          "target": "scripts/skill-dispatcher.mjs",
+          "specifiers": [
+            "resolveSkillAdapter"
+          ],
+          "line": 20
+        },
+        {
+          "source": "next/server",
+          "target": null,
+          "specifiers": [
+            "NextRequest",
+            "NextResponse"
+          ],
+          "line": 83
+        }
+      ]
     },
     "scripts/swarm-bus.mjs": {
       "totalLines": 225,
-      "symbolCount": 6
+      "symbolCount": 10,
+      "exports": [
+        "emitSwarmEvent",
+        "getRecentSwarmEvents"
+      ],
+      "imports": [
+        {
+          "source": "node:events",
+          "target": null,
+          "specifiers": [
+            "EventEmitter"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 15
+        }
+      ]
     },
     "scripts/swarm-dispatcher.mjs": {
-      "totalLines": 286,
-      "symbolCount": 6
+      "totalLines": 333,
+      "symbolCount": 6,
+      "exports": [
+        "dispatchSwarm"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 18
+        },
+        {
+          "source": "./swarm-runner.mjs",
+          "target": "scripts/swarm-runner.mjs",
+          "specifiers": [
+            "planSwarm",
+            "resolveReasoningProfile",
+            "TOPOLOGIES"
+          ],
+          "line": 20
+        },
+        {
+          "source": "./critic-validator.mjs",
+          "target": "scripts/critic-validator.mjs",
+          "specifiers": [
+            "criticValidate",
+            "formatSamplingRequest"
+          ],
+          "line": 21
+        },
+        {
+          "source": "./wasm-sandbox.mjs",
+          "target": "scripts/wasm-sandbox.mjs",
+          "specifiers": [
+            "executeInSandbox"
+          ],
+          "line": 22
+        },
+        {
+          "source": "./swarm-bus.mjs",
+          "target": "scripts/swarm-bus.mjs",
+          "specifiers": [
+            "emitSwarmEvent"
+          ],
+          "line": 23
+        },
+        {
+          "source": "./skill-dispatcher.mjs",
+          "target": "scripts/skill-dispatcher.mjs",
+          "specifiers": [
+            "getSkillCompactSlice"
+          ],
+          "line": 24
+        }
+      ]
     },
     "scripts/swarm-runner.mjs": {
       "totalLines": 245,
-      "symbolCount": 4
+      "symbolCount": 4,
+      "exports": [
+        "resolveReasoningProfile",
+        "planSwarm",
+        "executeSwarm"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 13
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 15
+        },
+        {
+          "source": "./speculative-arbiter.mjs",
+          "target": "scripts/speculative-arbiter.mjs",
+          "specifiers": [
+            "arbitrateCandidates"
+          ],
+          "line": 17
+        }
+      ]
     },
     "scripts/sync-all-skill-counts.mjs": {
       "totalLines": 478,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 2
+        }
+      ]
     },
     "scripts/terminal-monitor.mjs": {
       "totalLines": 303,
-      "symbolCount": 5
+      "symbolCount": 3,
+      "exports": [
+        "loadMonitorSnapshot",
+        "formatMonitorDashboard",
+        "runTerminalMonitor"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:readline",
+          "target": null,
+          "specifiers": [
+            "readline"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 20
+        },
+        {
+          "source": "./swarm-bus.mjs",
+          "target": "scripts/swarm-bus.mjs",
+          "specifiers": [
+            "emitSwarmEvent",
+            "getRecentSwarmEvents",
+            "swarmBus"
+          ],
+          "line": 21
+        }
+      ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1472,
-      "symbolCount": 11
+      "totalLines": 1585,
+      "symbolCount": 1,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:test",
+          "target": null,
+          "specifiers": [
+            "test"
+          ],
+          "line": 1
+        },
+        {
+          "source": "node:assert/strict",
+          "target": null,
+          "specifiers": [
+            "assert"
+          ],
+          "line": 2
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "execFile"
+          ],
+          "line": 3
+        },
+        {
+          "source": "node:util",
+          "target": null,
+          "specifiers": [
+            "promisify"
+          ],
+          "line": 4
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 5
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 6
+        },
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 7
+        },
+        {
+          "source": "node:os",
+          "target": null,
+          "specifiers": [
+            "os"
+          ],
+          "line": 8
+        },
+        {
+          "source": "node:vm",
+          "target": null,
+          "specifiers": [
+            "vm"
+          ],
+          "line": 9
+        }
+      ]
     },
     "scripts/token-budget-optimizer.mjs": {
       "totalLines": 469,
-      "symbolCount": 3
+      "symbolCount": 3,
+      "exports": [
+        "analyzeCodeStructure",
+        "analyzeTaskComplexity",
+        "optimizeThinkingBudget"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 24
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 25
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 26
+        }
+      ]
     },
     "scripts/update_skills.js": {
       "totalLines": 76,
-      "symbolCount": 2
+      "symbolCount": 2,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 2
+        }
+      ]
     },
     "scripts/update_skills.mjs": {
       "totalLines": 87,
-      "symbolCount": 2
+      "symbolCount": 2,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 7
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 8
+        },
+        {
+          "source": "url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 9
+        }
+      ]
     },
     "scripts/validate-skills.mjs": {
       "totalLines": 177,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 2
+        }
+      ]
     },
     "scripts/verify-invariants.mjs": {
-      "totalLines": 235,
-      "symbolCount": 4
+      "totalLines": 501,
+      "symbolCount": 5,
+      "exports": [
+        "solveCnfDpll",
+        "verifyStateMachine",
+        "parseTypeScriptStates"
+      ],
+      "imports": [
+        {
+          "source": "fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        }
+      ]
     },
     "scripts/verify-skill-snippets.mjs": {
       "totalLines": 153,
-      "symbolCount": 2
+      "symbolCount": 2,
+      "exports": [
+        "verifyAllSkillSnippets"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 15
+        }
+      ]
     },
     "scripts/visual-critic.mjs": {
       "totalLines": 277,
-      "symbolCount": 4
+      "symbolCount": 3,
+      "exports": [
+        "visualAudit"
+      ],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 11
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 12
+        }
+      ]
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 340,
-      "symbolCount": 4
+      "totalLines": 473,
+      "symbolCount": 8,
+      "exports": [
+        "createIsolatedSandbox",
+        "stripTypeScript",
+        "executeInSandbox",
+        "executeWasmModule",
+        "verifyCandidateCode"
+      ],
+      "imports": [
+        {
+          "source": "node:vm",
+          "target": null,
+          "specifiers": [
+            "vm"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 20
+        },
+        {
+          "source": "node:perf_hooks",
+          "target": null,
+          "specifiers": [
+            "performance"
+          ],
+          "line": 21
+        },
+        {
+          "source": "node:util",
+          "target": null,
+          "specifiers": [
+            "types"
+          ],
+          "line": 22
+        },
+        {
+          "source": "node:module",
+          "target": null,
+          "specifiers": [
+            "nodeModule"
+          ],
+          "line": 23
+        }
+      ]
     },
     "showcase/app.js": {
       "totalLines": 899,
-      "symbolCount": 14
+      "symbolCount": 13,
+      "exports": [
+        "showToast",
+        "executeTerminalCommand",
+        "initShowcase"
+      ],
+      "imports": [
+        {
+          "source": "./skills-data.js",
+          "target": "showcase/skills-data.js",
+          "specifiers": [
+            "SKILLS_DATA",
+            "DOMAIN_CATEGORIES"
+          ],
+          "line": 7
+        }
+      ]
     },
     "showcase/skills-data.js": {
       "totalLines": 3119,
-      "symbolCount": 0
+      "symbolCount": 0,
+      "exports": [],
+      "imports": []
     },
     "skills/anti-slop/scripts/check-anti-slop.js": {
       "totalLines": 334,
-      "symbolCount": 5
+      "symbolCount": 4,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        }
+      ]
     },
     "skills/anti-slop/scripts/contrast-check.py": {
       "totalLines": 166,
-      "symbolCount": 9
+      "symbolCount": 9,
+      "exports": [],
+      "imports": []
     },
     "skills/fullstack-expert/scripts/api_contract_validator.py": {
       "totalLines": 254,
-      "symbolCount": 2
+      "symbolCount": 13,
+      "exports": [],
+      "imports": []
     },
     "skills/fullstack-expert/scripts/architecture_analyzer.py": {
       "totalLines": 327,
-      "symbolCount": 2
+      "symbolCount": 14,
+      "exports": [],
+      "imports": []
     },
     "skills/gemini-agent-booster/scripts/gemini-budget-advisor.js": {
       "totalLines": 408,
-      "symbolCount": 7
+      "symbolCount": 7,
+      "exports": [],
+      "imports": [
+        {
+          "source": "fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 12
+        },
+        {
+          "source": "path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 13
+        },
+        {
+          "source": "child_process",
+          "target": null,
+          "specifiers": [
+            "execSync"
+          ],
+          "line": 14
+        }
+      ]
     },
     "skills/production-ready-hardener/scripts/production_readiness_scanner.py": {
       "totalLines": 882,
-      "symbolCount": 2
+      "symbolCount": 28,
+      "exports": [],
+      "imports": []
     },
     "skills/saas-architect/scripts/saas_transformation_scanner.py": {
       "totalLines": 265,
-      "symbolCount": 2
+      "symbolCount": 19,
+      "exports": [],
+      "imports": []
     },
     "skills/senior-frontend/scripts/bundle_analyzer.py": {
       "totalLines": 408,
-      "symbolCount": 1
+      "symbolCount": 7,
+      "exports": [],
+      "imports": []
     },
     "skills/senior-frontend/scripts/component_generator.py": {
       "totalLines": 330,
-      "symbolCount": 1
+      "symbolCount": 4,
+      "exports": [],
+      "imports": []
     },
     "skills/senior-frontend/scripts/frontend_scaffolder.py": {
       "totalLines": 1006,
-      "symbolCount": 1
+      "symbolCount": 3,
+      "exports": [],
+      "imports": []
     },
     "skills/ui-ux-pro-max/scripts/core.py": {
       "totalLines": 263,
-      "symbolCount": 6
+      "symbolCount": 10,
+      "exports": [],
+      "imports": []
     },
     "skills/ui-ux-pro-max/scripts/design_system.py": {
       "totalLines": 494,
-      "symbolCount": 1
+      "symbolCount": 13,
+      "exports": [],
+      "imports": []
     },
     "skills/ui-ux-pro-max/scripts/search.py": {
       "totalLines": 82,
-      "symbolCount": 1
+      "symbolCount": 1,
+      "exports": [],
+      "imports": []
     }
   }
 }

@@ -56,7 +56,7 @@ npx github:roedyrustam/vibes-plug --all
 | **Sovereign Anti-Slop** | ❌ Lazy stubs, placeholder stubs, & fluff | ⚠️ Untested static prompts | 🛡️ **Zero-Tolerance Anti-Slop Engine & Scanner** |
 | **Payment & Micro-Economy** | ❌ Incomplete integrations | ⚠️ Basic docs | 💳 **DOKU Checkout, SNAP BI, Stripe, M2M Agent Wallets** |
 | **Superintelligence Substrate**| ❌ None | ❌ None | 🧠 **P1–P7 Engines (KV-Cache, DB Sandbox, AST, PRM, SMT, VM, SaaT)** |
-| **Native MCP Server** | ❌ None | ❌ None | 🔌 **Stdio & SSE MCP v1.x Server with 35 Frontier Tools** |
+| **Native MCP Server** | ❌ None | ❌ None | 🔌 **Stdio & SSE MCP v1.x Server with 37 Frontier Tools & Dynamic Profile Masking** |
 | **IDE Portability** | ❌ Locked to one interface | ⚠️ Cursor only | 🌐 **Antigravity, Cursor, Claude Code, Codex, Windsurf, Trae** |
 
 ---
@@ -175,6 +175,7 @@ vibes mcp
 35. `vibes_terminal_monitor` — Real-time system health, memory, and swarm telemetry monitor.
 36. `vibes_speculative_consensus` — Parallel multi-draft speculative execution with AST-aware consensus arbitration.
 37. `vibes_detect_stack` — Auto-detect project tech stack (`package.json`, `Cargo.toml`, `go.mod`, `pyproject.toml`) and recommend matching skills.
+38. `vibes_tool_profile` — Dynamically switch active MCP tool exposure profiles (`full`, `core`, `frontend`, `backend`, `security`, `ai-mcp`) to cut schema token overhead by up to 75%.
 
 ### ⚡ Vibes Studio Cockpit & Remote MCP (Visual Dashboard)
 Vibes-Plug features a zero-dependency local web cockpit with interactive panels, topological DAG workflow designer, and Server-Sent Events (SSE) remote transport:
@@ -221,7 +222,7 @@ vibes visual-audit <file|code>
 # Or run standalone Remote MCP Server for Claude Desktop, Cursor, or remote agents
 vibes mcp --transport sse --port 3333
 
-# Run the complete Sovereign Quality & Anti-Slop Guard (313 files + 34 tests)
+# Run the complete Sovereign Quality & Anti-Slop Guard (643 files + 47 tests)
 vibes guard
 ```
 

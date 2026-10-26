@@ -282,20 +282,37 @@ export const TOOLS = [
   },
   {
     name: 'vibes_eval_sandbox',
-    description: 'Ephemeral Micro-Sandbox: dry-run untrusted AI-generated JavaScript/TypeScript logic, regexes, and algorithms in an isolated in-memory sandbox with strict timeout and zero host access.',
+    description: 'Ephemeral Micro-Sandbox: dry-run untrusted JavaScript, TypeScript (native type stripping, enums supported), or WebAssembly binaries in a null-prototype realm with string/wasm code generation disabled, strict timeout, and zero host access.',
     inputSchema: {
       type: 'object',
       properties: {
         code: {
           type: 'string',
-          description: 'JavaScript/TypeScript code string to safely execute.'
+          description: 'JavaScript or TypeScript source to execute. Required unless wasmBase64 is provided.'
+        },
+        language: {
+          type: 'string',
+          enum: ['javascript', 'typescript'],
+          description: 'Force language. Omit to auto-detect TypeScript syntax.'
+        },
+        wasmBase64: {
+          type: 'string',
+          description: 'Base64-encoded .wasm module to execute (no imports provided to the module).'
+        },
+        exportName: {
+          type: 'string',
+          description: 'WASM export to call (default: main).'
+        },
+        args: {
+          type: 'array',
+          items: { type: 'number' },
+          description: 'Numeric arguments passed to the WASM export.'
         },
         timeoutMs: {
           type: 'number',
           description: 'Wall-clock execution timeout in milliseconds (default: 1000ms).'
         }
-      },
-      required: ['code']
+      }
     }
   },
   {
@@ -689,7 +706,7 @@ export const TOOLS = [
       properties: {
         skill: {
           type: 'string',
-          description: 'Exact name of the skill from the 171-skill registry (e.g. database-orm-expert, tailwind-expert, autonomous-tdd-debugger).'
+          description: 'Exact name of the skill from the 176-skill registry (e.g. database-orm-expert, tailwind-expert, autonomous-tdd-debugger).'
         },
         action: {
           type: 'string',
@@ -703,8 +720,170 @@ export const TOOLS = [
       },
       required: ['skill', 'action']
     }
+  },
+  {
+    name: 'vibes_tool_profile',
+    description: 'Dynamic MCP Tool Profile & Context Masking Manager: inspect tool profiles (core, frontend, backend, security, ai-mcp, full) or switch the active MCP tool mask on-the-fly to slash context tokens by 60-75% without losing execution capability.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['status', 'list', 'set'],
+          description: 'Action: status (current profile), list (available profiles & token savings), set (switch active profile).'
+        },
+        profile: {
+          type: 'string',
+          enum: ['core', 'frontend', 'backend', 'security', 'ai-mcp', 'full'],
+          description: 'Target profile to activate (when action: set).'
+        }
+      },
+      required: ['action']
+    }
   }
 ];
+
+export const TOOL_PROFILES = Object.freeze({
+  full: {
+    id: 'full',
+    name: 'Full Sovereign Engine',
+    description: 'All 37 sovereign superintelligence, orchestration, and domain tools (Default mode)',
+    tools: null
+  },
+  core: {
+    id: 'core',
+    name: 'Core Agent Substrate',
+    description: 'Ultra-lean essential tools for general coding, memory, and validation (~75% token reduction)',
+    tools: [
+      'vibes_ast_query',
+      'vibes_critic_validate',
+      'vibes_memory',
+      'vibes_get_skill',
+      'vibes_list_skills',
+      'vibes_swarm',
+      'vibes_batch',
+      'vibes_detect_stack',
+      'vibes_tool_profile'
+    ]
+  },
+  frontend: {
+    id: 'frontend',
+    name: 'Frontend & UI Craft',
+    description: 'Core substrate + visual UI auditor, SaaT dispatcher, and extension packager (~65% token reduction)',
+    tools: [
+      'vibes_ast_query',
+      'vibes_critic_validate',
+      'vibes_memory',
+      'vibes_get_skill',
+      'vibes_list_skills',
+      'vibes_swarm',
+      'vibes_batch',
+      'vibes_detect_stack',
+      'vibes_visual_audit',
+      'vibes_skill_dispatch',
+      'vibes_verify_gate',
+      'vibes_package_extension',
+      'vibes_tool_profile'
+    ]
+  },
+  backend: {
+    id: 'backend',
+    name: 'Backend, Database & Systems',
+    description: 'Core substrate + SQL evaluation, invariant verifier, AST symbol graph query & search, self-healing (~60% token reduction)',
+    tools: [
+      'vibes_ast_query',
+      'vibes_critic_validate',
+      'vibes_memory',
+      'vibes_get_skill',
+      'vibes_list_skills',
+      'vibes_swarm',
+      'vibes_batch',
+      'vibes_detect_stack',
+      'vibes_eval_sql',
+      'vibes_verify_invariants',
+      'vibes_graph_query',
+      'vibes_graph_search',
+      'vibes_self_heal',
+      'vibes_skill_drift',
+      'vibes_tool_profile'
+    ]
+  },
+  security: {
+    id: 'security',
+    name: 'Security, TDD & Verification',
+    description: 'Core substrate + micro-sandbox, pre-disk gate, PR review bot, git hooks, benchmark, bridge (~55% token reduction)',
+    tools: [
+      'vibes_ast_query',
+      'vibes_critic_validate',
+      'vibes_memory',
+      'vibes_get_skill',
+      'vibes_list_skills',
+      'vibes_swarm',
+      'vibes_batch',
+      'vibes_detect_stack',
+      'vibes_eval_sandbox',
+      'vibes_verify_gate',
+      'vibes_pr_review',
+      'vibes_git_hooks',
+      'vibes_bridge_status',
+      'vibes_bridge_sync',
+      'vibes_run_benchmark',
+      'vibes_tool_profile'
+    ]
+  },
+  'ai-mcp': {
+    id: 'ai-mcp',
+    name: 'AI Swarm & MCP Protocol',
+    description: 'Core substrate + KV-cache compiler, swarm dispatcher & bus, FinOps tracker, consensus synthesizer (~50% token reduction)',
+    tools: [
+      'vibes_ast_query',
+      'vibes_critic_validate',
+      'vibes_memory',
+      'vibes_get_skill',
+      'vibes_list_skills',
+      'vibes_swarm',
+      'vibes_batch',
+      'vibes_detect_stack',
+      'vibes_compile_cache',
+      'vibes_swarm_dispatch',
+      'vibes_swarm_bus',
+      'vibes_finops_report',
+      'vibes_learn_skill',
+      'vibes_optimize_budget',
+      'vibes_speculative_consensus',
+      'vibes_arbitrate_code',
+      'vibes_tool_profile'
+    ]
+  }
+});
+
+let currentActiveProfile = (process.env.VIBES_TOOL_PROFILE || 'full').toLowerCase();
+if (!TOOL_PROFILES[currentActiveProfile]) {
+  currentActiveProfile = 'full';
+}
+
+export function getActiveProfile() {
+  return currentActiveProfile;
+}
+
+export function setActiveProfile(profileName) {
+  const norm = String(profileName || '').toLowerCase().trim();
+  if (TOOL_PROFILES[norm]) {
+    currentActiveProfile = norm;
+    return { success: true, profile: norm, profileInfo: TOOL_PROFILES[norm] };
+  }
+  return { success: false, error: `Unknown profile '${profileName}'. Valid: ${Object.keys(TOOL_PROFILES).join(', ')}` };
+}
+
+export function getFilteredTools(profileName = currentActiveProfile) {
+  const norm = String(profileName || '').toLowerCase().trim();
+  const profile = TOOL_PROFILES[norm] || TOOL_PROFILES.full;
+  if (!profile.tools) {
+    return TOOLS;
+  }
+  const allowed = new Set(profile.tools);
+  return TOOLS.filter(t => allowed.has(t.name));
+}
 
 export const MCP_RESOURCES = [
   {
@@ -874,10 +1053,20 @@ export async function handleRpcRequest(request) {
   }
 
   if (method === 'tools/list') {
+    const reqProfile = params?.profile || currentActiveProfile;
+    const tools = getFilteredTools(reqProfile);
     return {
       jsonrpc: '2.0',
       id,
-      result: { tools: TOOLS }
+      result: {
+        tools,
+        _meta: {
+          activeProfile: currentActiveProfile,
+          returnedTools: tools.length,
+          totalTools: TOOLS.length,
+          availableProfiles: Object.keys(TOOL_PROFILES)
+        }
+      }
     };
   }
 
@@ -898,7 +1087,7 @@ export async function handleRpcRequest(request) {
           const res = await extractSymbolCode(resolvedPath, symbolName);
           contentText = JSON.stringify(res, null, 2);
         } else if (action === 'blast-radius') {
-          const res = await calculateBlastRadius(process.cwd(), resolvedPath);
+          const res = await calculateBlastRadius(process.cwd(), resolvedPath, { symbolName });
           contentText = JSON.stringify(res, null, 2);
         } else {
           throw new Error(`Unknown action: ${action}`);
@@ -1065,13 +1254,16 @@ export async function handleRpcRequest(request) {
         contentText = JSON.stringify(report, null, 2);
       } else if (name === 'vibes_eval_sandbox') {
         const code = args?.code;
-        if (!code) throw new Error("Argument 'code' is required.");
+        const wasmBase64 = args?.wasmBase64;
+        if (!code && !wasmBase64) throw new Error("Argument 'code' or 'wasmBase64' is required.");
         if (process.env.VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL !== 'true') {
           throw new Error("Sandbox eval is disabled. Set VIBES_ENABLE_UNTRUSTED_SANDBOX_EVAL=true to enable.");
         }
         const timeoutMs = args?.timeoutMs;
-        const { executeInSandbox } = await import('../scripts/wasm-sandbox.mjs');
-        const outcome = executeInSandbox(code, { timeoutMs });
+        const { executeInSandbox, executeWasmModule } = await import('../scripts/wasm-sandbox.mjs');
+        const outcome = wasmBase64
+          ? executeWasmModule(Buffer.from(wasmBase64, 'base64'), { exportName: args?.exportName, args: args?.args, timeoutMs })
+          : executeInSandbox(code, { timeoutMs, language: args?.language });
         contentText = JSON.stringify(outcome, null, 2);
       } else if (name === 'vibes_swarm_dispatch') {
         const task = args?.task || args?.taskDescription;
@@ -1242,6 +1434,51 @@ export async function handleRpcRequest(request) {
           });
           contentText = JSON.stringify(outcome, null, 2);
         }
+      } else if (name === 'vibes_tool_profile') {
+        const { action, profile } = args || {};
+        if (action === 'status') {
+          const active = TOOL_PROFILES[currentActiveProfile];
+          const activeTools = getFilteredTools();
+          contentText = JSON.stringify({
+            success: true,
+            activeProfile: currentActiveProfile,
+            name: active.name,
+            description: active.description,
+            activeToolCount: activeTools.length,
+            totalAvailableTools: TOOLS.length,
+            activeTools: activeTools.map(t => t.name)
+          }, null, 2);
+        } else if (action === 'list') {
+          const list = Object.entries(TOOL_PROFILES).map(([k, v]) => ({
+            id: k,
+            name: v.name,
+            description: v.description,
+            toolCount: v.tools ? v.tools.length : TOOLS.length,
+            tools: v.tools || 'All 37 tools'
+          }));
+          contentText = JSON.stringify({
+            success: true,
+            activeProfile: currentActiveProfile,
+            profiles: list
+          }, null, 2);
+        } else if (action === 'set') {
+          if (!profile) {
+            throw new Error("Parameter 'profile' is required for action 'set'. Valid: " + Object.keys(TOOL_PROFILES).join(', '));
+          }
+          const res = setActiveProfile(profile);
+          if (!res.success) {
+            throw new Error(res.error);
+          }
+          contentText = JSON.stringify({
+            success: true,
+            message: `Activated MCP tool profile '${res.profile}' (${res.profileInfo.name}). Context masking is now active.`,
+            activeProfile: res.profile,
+            toolCount: getFilteredTools(res.profile).length,
+            tools: getFilteredTools(res.profile).map(t => t.name)
+          }, null, 2);
+        } else {
+          throw new Error(`Unknown action '${action}'. Valid: status, list, set`);
+        }
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
@@ -1407,6 +1644,12 @@ export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '12
 }
 
 export function startServer(options = {}) {
+  const profileArgIdx = process.argv.indexOf('--profile');
+  if (profileArgIdx !== -1 && process.argv[profileArgIdx + 1]) {
+    setActiveProfile(process.argv[profileArgIdx + 1]);
+  } else if (options.profile) {
+    setActiveProfile(options.profile);
+  }
   const transport = options.transport || (process.argv.includes('--transport') ? process.argv[process.argv.indexOf('--transport') + 1] : 'stdio');
   const portArgIdx = process.argv.indexOf('--port');
   const port = options.port || (portArgIdx !== -1 ? parseInt(process.argv[portArgIdx + 1], 10) : 3333);
