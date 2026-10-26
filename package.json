@@ -80,7 +80,7 @@
     "skill:exec": "node scripts/skill-dispatcher.mjs"
   },
   "dependencies": {
-    "@inquirer/prompts": "^8.7.3"
+    "@inquirer/prompts": "^8.7.4"
   },
   "repository": {
     "type": "git",
