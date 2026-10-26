@@ -1210,6 +1210,43 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelData.success, true);
       assert.equal(liveTelData.mcpProfile.totalToolCount, 41);
       assert.equal(liveTelData.liveWatcher.active, true);
+
+      // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
+      const skillsGraphRes = await fetch(`${url}/api/graph/skills`);
+      assert.equal(skillsGraphRes.status, 200);
+      const skillsGraphData = await skillsGraphRes.json();
+      assert.equal(skillsGraphData.success, true);
+      assert.equal(skillsGraphData.totalNodes, 176);
+      assert.ok(skillsGraphData.totalEdges >= 1000);
+
+      // Test Studio Blackboard endpoints
+      const bbPostRes = await fetch(`${url}/api/blackboard`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key: 'studio:state', value: { activeTab: 'graph' }, author: 'studio-test' })
+      });
+      assert.equal(bbPostRes.status, 200);
+      const bbPostData = await bbPostRes.json();
+      assert.equal(bbPostData.success, true);
+
+      const bbGetRes = await fetch(`${url}/api/blackboard`);
+      assert.equal(bbGetRes.status, 200);
+      const bbGetData = await bbGetRes.json();
+      assert.ok(bbGetData.count >= 1);
+      assert.ok(bbGetData.entries.some(e => e.key === 'studio:state'));
+
+      // Test Studio Visual Critic & One-Click Auto-Fix endpoint
+      const pillBtnCode = '<button class="' + 'rounded-full' + '">Action</button>';
+      const visFixRes = await fetch(`${url}/api/visual/audit-and-fix`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: pillBtnCode, apply: false })
+      });
+      assert.equal(visFixRes.status, 200);
+      const visFixData = await visFixRes.json();
+      assert.equal(visFixData.success, true);
+      assert.ok(visFixData.fixResult.fixCount >= 1);
+      assert.ok(visFixData.fixResult.patchedCode.includes('rounded-md'));
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });

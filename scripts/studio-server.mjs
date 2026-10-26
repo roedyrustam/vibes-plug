@@ -313,6 +313,8 @@ async function loadSkillsCatalog() {
 
         const domainKey = SKILL_DOMAIN_MAP[name] || 'data';
         const domain = DOMAIN_CATEGORIES[domainKey] || DOMAIN_CATEGORIES.data;
+        const allNames = new Set(skillDirs);
+        const relatedSkills = Array.from(new Set([...content.matchAll(/`([a-z0-9]+-[a-z0-9-]+)`/g)].map(m => m[1]))).filter(s => allNames.has(s) && s !== name);
 
         skills.push({
           name,
@@ -323,7 +325,8 @@ async function loadSkillsCatalog() {
           domainLabel: domain.label,
           domainIcon: domain.icon,
           domainColor: domain.color,
-          isInstalled: installedSet.has(name)
+          isInstalled: installedSet.has(name),
+          relatedSkills
         });
       } catch {
         // Fallback for missing file
@@ -4511,6 +4514,96 @@ export async function startStudioServer(options = {}) {
             active: true,
             watchedDir: 'skills/'
           }
+        });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Swarm A2A Shared Blackboard endpoints
+    if (req.method === 'GET' && pathname === '/api/blackboard') {
+      try {
+        const { swarmBus } = await import('./swarm-bus.mjs');
+        const entries = swarmBus.listBlackboard();
+        sendJson({ success: true, count: entries.length, entries });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/blackboard') {
+      try {
+        const body = await readJsonBody(req);
+        const { key, value, author } = body || {};
+        if (!key) throw new Error("Field 'key' is required.");
+        const { swarmBus } = await import('./swarm-bus.mjs');
+        const entry = swarmBus.setBlackboard(key, value, { author });
+        sendJson({ success: true, entry });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Dynamic 176-Skill Interactive Graph Node-Link endpoint
+    if (req.method === 'GET' && pathname === '/api/graph/skills') {
+      try {
+        const allSkills = await loadSkillsCatalog();
+        const nodes = allSkills.map(s => ({
+          id: s.name,
+          label: s.name,
+          domain: s.domain,
+          category: DOMAIN_CATEGORIES[s.domain]?.label || 'General',
+          color: DOMAIN_CATEGORIES[s.domain]?.color || '#3b82f6',
+          installed: s.isInstalled
+        }));
+        const edges = [];
+        for (const s of allSkills) {
+          if (Array.isArray(s.relatedSkills)) {
+            for (const rel of s.relatedSkills) {
+              if (allSkills.some(other => other.name === rel)) {
+                edges.push({ source: s.name, target: rel });
+              }
+            }
+          }
+        }
+        sendJson({
+          success: true,
+          totalNodes: nodes.length,
+          totalEdges: edges.length,
+          nodes,
+          edges
+        });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Interactive Visual Critic & One-Click Auto-Fix Studio endpoint
+    if (req.method === 'POST' && pathname === '/api/visual/audit-and-fix') {
+      try {
+        const body = await readJsonBody(req);
+        const { target, filePath, code, apply } = body || {};
+        const inputTarget = code || filePath || target;
+        if (!inputTarget) throw new Error("Field 'code' or 'filePath' is required.");
+        const { visualAudit, synthesizeVisualFixes } = await import('./visual-critic.mjs');
+        const audit = visualAudit(inputTarget);
+        let fixResult = { fixCount: 0, patchedCode: code || '' };
+        if (code || audit.targetFile) {
+          const rawCode = code || (await fs.readFile(audit.targetFile, 'utf8'));
+          fixResult = synthesizeVisualFixes(rawCode, audit.findings);
+          if (apply && audit.targetFile && fixResult.fixCount > 0) {
+            await fs.writeFile(audit.targetFile, fixResult.patchedCode, 'utf8');
+          }
+        }
+        sendJson({
+          success: true,
+          audit,
+          fixResult,
+          applied: Boolean(apply && fixResult.fixCount > 0)
         });
       } catch (err) {
         sendJson({ error: err.message }, 500);

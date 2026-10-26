@@ -81,7 +81,7 @@ export function visualAudit(content, options = {}) {
   const checks = [];
 
   // Check 1: Pill Button Addiction
-  const pillRegex = /<button[^>]*className=["'][^"']*\brounded-full\b(?!\s+(?:w-\d+\s+h-\d+|p-\d+|size-\d+))[^"']*["']/i;
+  const pillRegex = /<button[^>]*(?:className|class)=["'][^"']*\brounded-full\b(?!\s+(?:w-\d+\s+h-\d+|p-\d+|size-\d+))[^"']*["']/i;
   const hasPill = pillRegex.test(targetCode);
   if (hasPill) {
     score -= 15;
@@ -290,7 +290,7 @@ export function synthesizeVisualFixes(sourceCode = '', findings = []) {
   const changes = [];
 
   // Fix 1: Pill buttons on rectangular buttons -> rounded-lg border border-border/40
-  const pillBtnRegex = /(<button[^>]*className=["'][^"']*)\brounded-full\b(?!\s+(?:w-\d+\s+h-\d+|p-\d+|size-\d+))([^"']*["'])/gi;
+  const pillBtnRegex = /(<button[^>]*(?:className|class)=["'][^"']*)\brounded-full\b(?!\s+(?:w-\d+\s+h-\d+|p-\d+|size-\d+))([^"']*["'])/gi;
   if (pillBtnRegex.test(patched)) {
     patched = patched.replace(pillBtnRegex, (match, p1, p2) => {
       changes.push('Replaced rounded-full button with rounded-lg border border-border/40');

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T21:08:05.585Z",
+  "generatedAt": "2026-10-26T21:16:56.072Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 77,
   "totalSymbolsIndexed": 431,
@@ -1557,7 +1557,7 @@
     "getSkillDetails": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 339,
+        "line": 342,
         "type": "function",
         "signature": "function getSkillDetails(name)"
       }
@@ -1565,7 +1565,7 @@
     "getSystemStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 362,
+        "line": 365,
         "type": "function",
         "signature": "function getSystemStatus()"
       }
@@ -1573,7 +1573,7 @@
     "generateStudioHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 410,
+        "line": 413,
         "type": "function",
         "signature": "function generateStudioHtml(currentPort)"
       }
@@ -1581,7 +1581,7 @@
     "isValidSkillSlug": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3474,
+        "line": 3477,
         "type": "function",
         "signature": "function isValidSkillSlug(name)"
       }
@@ -1589,7 +1589,7 @@
     "resolveAllowedOrigin": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3478,
+        "line": 3481,
         "type": "function",
         "signature": "function resolveAllowedOrigin(req, port)"
       }
@@ -1597,7 +1597,7 @@
     "readJsonBody": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3487,
+        "line": 3490,
         "type": "function",
         "signature": "function readJsonBody(req)"
       }
@@ -1605,7 +1605,7 @@
     "startStudioServer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3511,
+        "line": 3514,
         "type": "function",
         "signature": "function startStudioServer(options = {})"
       }
@@ -5096,7 +5096,7 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4615,
+      "totalLines": 4708,
       "symbolCount": 8,
       "exports": [
         "generateStudioHtml",
@@ -5519,7 +5519,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1785,
+      "totalLines": 1822,
       "symbolCount": 1,
       "exports": [],
       "imports": [
