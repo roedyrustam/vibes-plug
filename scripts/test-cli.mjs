@@ -1246,7 +1246,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const visFixData = await visFixRes.json();
       assert.equal(visFixData.success, true);
       assert.ok(visFixData.fixResult.fixCount >= 1);
-      assert.ok(visFixData.fixResult.patchedCode.includes('rounded-md'));
+      assert.ok(visFixData.fixResult.patchedCode.includes('rounded-lg'));
     } finally {
       await new Promise((resolve) => server.close(resolve));
       await fs.rm(path.join(process.cwd(), '.agents', 'skills', 'spec-driven-development-expert'), { recursive: true, force: true });
