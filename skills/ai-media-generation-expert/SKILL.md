@@ -2,7 +2,7 @@
 name: ai-media-generation-expert
 description: "AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper / Generasi media AI: Flux, Sora, Runway, ElevenLabs TTS, dan Whisper."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

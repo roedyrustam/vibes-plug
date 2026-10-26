@@ -2,7 +2,7 @@
 name: realtime-collaboration-expert
 description: "Real-time collaboration: WebSockets, WebRTC, and CRDTs (Yjs) / Kolaborasi real-time: WebSockets, WebRTC, dan CRDT (Yjs)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Real-Time Collaboration Expert / Ahli Kolaborasi Real-Time

@@ -2,7 +2,7 @@
 name: multimodal-spatial-video-cloner
 description: "Extract UI interactions and spring curves from video into code / Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Multimodal Spatial Video Cloner (2026 Sovereign Edition)

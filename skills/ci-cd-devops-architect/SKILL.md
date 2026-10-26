@@ -2,7 +2,7 @@
 name: ci-cd-devops-architect
 description: "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures / Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

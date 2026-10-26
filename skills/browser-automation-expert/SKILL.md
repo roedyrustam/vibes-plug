@@ -2,7 +2,7 @@
 name: browser-automation-expert
 description: "Autonomous web agents (Stagehand, Browser-Use) & anti-bot evasion / Agen web otonom (Stagehand, Browser-Use) dan bypass deteksi bot."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

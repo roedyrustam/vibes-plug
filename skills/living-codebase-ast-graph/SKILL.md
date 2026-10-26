@@ -2,7 +2,7 @@
 name: living-codebase-ast-graph
 description: "In-memory AST code knowledge graphs and refactoring blast radius / Graf pengetahuan AST in-memory dan radius dampak refaktor kode."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Living Codebase AST Graph (2026 Sovereign Edition)

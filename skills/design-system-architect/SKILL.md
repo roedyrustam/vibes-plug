@@ -2,7 +2,7 @@
 name: design-system-architect
 description: "UI design systems, design tokens, headless primitives, and WCAG 2.2 / Sistem desain UI, token desain, headless primitives, dan WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)

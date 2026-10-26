@@ -2,7 +2,7 @@
 name: voice-ai-realtime-agent
 description: "Ultra-low latency conversational voice AI (<300ms) with WebRTC / AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

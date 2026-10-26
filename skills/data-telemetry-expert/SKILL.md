@@ -2,7 +2,7 @@
 name: data-telemetry-expert
 description: "Observability, OpenTelemetry, metrics, and analytics (PostHog, Mixpanel) / Observabilitas, OpenTelemetry, metrik, dan analitik data."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

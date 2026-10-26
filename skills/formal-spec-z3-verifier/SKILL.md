@@ -2,7 +2,7 @@
 name: formal-spec-z3-verifier
 description: "Formal verification and SMT solver constraints (Z3, TLA+, Dafny) / Verifikasi formal dan batasan solver SMT (Z3, TLA+, Dafny)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Formal Spec & Z3 Verifier (2026 Sovereign Edition)

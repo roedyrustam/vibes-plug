@@ -2,7 +2,7 @@
 name: autonomous-red-teamer
 description: "Dynamic security fuzzing, exploit generation (XSS, SQLi), and patches / Fuzzing keamanan dinamis, eksploitasi (XSS, SQLi), dan patch otomatis."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

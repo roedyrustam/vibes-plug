@@ -2,7 +2,7 @@
 name: senior-frontend
 description: "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

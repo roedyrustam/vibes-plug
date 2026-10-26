@@ -2,7 +2,7 @@
 name: synthetic-data-finetuning-expert
 description: "Synthetic dataset generation, QLoRA fine-tuning, and local SLM export / Generasi data sintetis, fine-tuning QLoRA, dan ekspor model SLM."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

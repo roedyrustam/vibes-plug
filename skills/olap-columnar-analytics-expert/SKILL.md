@@ -2,7 +2,7 @@
 name: olap-columnar-analytics-expert
 description: "Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # OLAP & Columnar Analytics Expert / Ahli Analitik Kolumnar & OLAP

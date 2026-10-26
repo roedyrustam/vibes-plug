@@ -2,7 +2,7 @@
 name: wasm-edge-computing-expert
 description: "WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

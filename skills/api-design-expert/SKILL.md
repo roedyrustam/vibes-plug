@@ -2,7 +2,7 @@
 name: api-design-expert
 description: "API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

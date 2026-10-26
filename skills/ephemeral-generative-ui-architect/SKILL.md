@@ -2,7 +2,7 @@
 name: ephemeral-generative-ui-architect
 description: "Ephemeral generative UI streaming with React 19 RSC & Vercel AI SDK / Streaming UI generatif efemeral dengan React 19 RSC & Vercel AI SDK."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Ephemeral Generative UI Architect (2026 Sovereign Edition)

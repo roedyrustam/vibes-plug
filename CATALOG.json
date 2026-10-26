@@ -4,1057 +4,1057 @@
     {
       "name": "a2a-agent-protocol-expert",
       "description": "A2A agent protocol interoperability, Agent Cards, and MCP bridging / Protokol agen A2A, Agent Cards, dan integrasi MCP.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "accessibility-testing-expert",
       "description": "Web accessibility testing with axe-core, Playwright, and WCAG 2.2 / Pengujian aksesibilitas web axe-core, Playwright, dan WCAG 2.2.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "adaptive-model-cascade",
       "description": "Model cascading & complexity-scored routing (Grok, Gemini, Claude) / Routing kaskade model & scoring kompleksitas (Grok, Gemini, Claude).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "affective-computing-emotion-ai",
       "description": "Affective computing, emotion AI, and multimodal sentiment analysis / Komputasi afektif, AI emosional, dan analisis sentimen multimodal.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "agentic-coding-workflow-expert",
       "description": "AI coding workflows, multi-agent code swarms, and CI/CD self-healing / Workflow koding AI, swarm multi-agen, dan self-healing CI/CD.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "agentic-m2m-settlement",
       "description": "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "agentic-memory-architect",
       "description": "Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage / Memori episodik jangka panjang (Mem0, Letta) dan storage pgvector.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "agentic-micro-economy-architect",
       "description": "M2M micro-economies, agent wallets, swarm budgets, and HTTP 402 / Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ai-code-review-autonomous",
       "description": "Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ai-llm-integration-expert",
       "description": "LLM integration, MCP v1.x protocols, hybrid reasoning, and RAG / Integrasi LLM, protokol MCP v1.x, hybrid reasoning, dan RAG.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ai-media-generation-expert",
       "description": "AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper / Generasi media AI: Flux, Sora, Runway, ElevenLabs TTS, dan Whisper.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ai-prompt-engineering-expert",
       "description": "Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ai-safety-governance-expert",
       "description": "AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act / Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "angular-expert",
       "description": "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "anti-slop",
       "description": "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "api-design-expert",
       "description": "API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "api-gateway-proxy-expert",
       "description": "API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX) / API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "app-analyzer-optimizer",
       "description": "Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "app-promo-media-expert",
       "description": "App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "apple-ecosystem-expert",
       "description": "Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "astro-framework-expert",
       "description": "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "async-queue-temporal-expert",
       "description": "Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io / Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "authentication-identity-expert",
       "description": "Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js / Autentikasi, otorisasi (RBAC/ABAC), OAuth2, Clerk, dan Auth.js.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "autonomous-api-drift-healer",
       "description": "Autonomous API schema drift detection and breaking change healing / Deteksi drift skema API otonom dan perbaikan breaking change.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "autonomous-red-teamer",
       "description": "Dynamic security fuzzing, exploit generation (XSS, SQLi), and patches / Fuzzing keamanan dinamis, eksploitasi (XSS, SQLi), dan patch otomatis.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "autonomous-tdd-debugger",
       "description": "Autonomous TDD test runner, stack trace analysis, and code self-heal / Runner tes TDD otonom, analisis stack trace, dan self-healing kode.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "biome-linter-formatter-expert",
       "description": "Biome Rust linter & formatter, ESLint/Prettier migration, and tooling / Linter & formatter Biome Rust, migrasi ESLint/Prettier, dan tooling.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "blockchain-web3-expert",
       "description": "Web3 and dApp integration: viem, wagmi v2, ethers.js, and contracts / Integrasi Web3 dan dApp: viem, wagmi v2, ethers.js, dan smart contracts.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "brainstorming",
       "description": "Master ideation protocol & architectural matrix before coding begins / Protokol ideasi utama & matriks arsitektur sebelum coding dimulai.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "browser-automation-expert",
       "description": "Autonomous web agents (Stagehand, Browser-Use) & anti-bot evasion / Agen web otonom (Stagehand, Browser-Use) dan bypass deteksi bot.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "browser-extension-mv3-pro",
       "description": "Manifest V3 browser extensions, SidePanel API, and service workers / Pengembangan ekstensi browser Manifest V3, SidePanel, dan workers.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "bun-runtime-expert",
       "description": "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test / Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "chatbot-messaging-expert",
       "description": "Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack / Integrasi chatbot & messaging: WhatsApp, Telegram, Discord, Slack.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ci-cd-devops-architect",
       "description": "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures / Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "cloud-hosting-expert",
       "description": "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare) / Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "cloudflare-workers-expert",
       "description": "Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects / Ekosistem Cloudflare Workers: D1, KV, R2, Queues, Durable Objects.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "coderabbit",
       "description": "AI automated code review, PR summarization, and developer feedback / Review kode otomatis AI, ringkasan PR, dan umpan balik developer.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "compliance-gdpr-privacy-expert",
       "description": "Data privacy compliance: GDPR, CCPA, PDPA, and privacy-by-design / Kepatuhan privasi data: GDPR, CCPA, PDPA, dan audit trail privasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "composable-mach-architect",
       "description": "Composable MACH architecture: microservices, API mesh, and headless / Arsitektur MACH komposabel: microservices, API mesh, dan headless.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "computer-use-os-agent-expert",
       "description": "Computer-using agents (CUA), desktop GUI automation, and VM sandbox / Agen CUA pengguna komputer, otomasi GUI desktop, dan sandbox VM.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "context-window-engineer",
       "description": "Optimize 2M+ context windows, prompt cache pinning & budget slicing / Rekayasa context window 2M+, cache pinning, dan budget token.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "cron-scheduler-expert",
       "description": "Scheduled cron tasks and background workflows (Vercel, Cloudflare) / Tugas terjadwal cron dan background job (Vercel, Cloudflare).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "data-pipeline-etl-expert",
       "description": "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB / Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "data-telemetry-expert",
       "description": "Observability, OpenTelemetry, metrics, and analytics (PostHog, Mixpanel) / Observabilitas, OpenTelemetry, metrik, dan analitik data.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "data-visualization-expert",
       "description": "Data visualization dashboards using D3.js, Recharts, and Tremor / Visualisasi data, grafik, dan dashboard dengan D3.js dan Recharts.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "database-orm-expert",
       "description": "Unified database ORM, schema migrations, edge DBs, and Supabase CLI / Database ORM terpadu, migrasi skema, edge DB, dan Supabase CLI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "deep-research-analyst",
       "description": "Autonomous deep research, evidence graph synthesis, citation checks / Riset mendalam otonom, sintesis bukti, dan verifikasi sitasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "dependency-upgrade-migrator",
       "description": "Dependency upgrades, breaking change migrations, and codemod tooling / Upgrade dependensi, migrasi breaking change, dan otomasi codemod.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "design-system-architect",
       "description": "UI design systems, design tokens, headless primitives, and WCAG 2.2 / Sistem desain UI, token desain, headless primitives, dan WCAG 2.2.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "desktop-electron-expert",
       "description": "Electron 33+ desktop apps, IPC security, multi-window, and packaging / Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "docker-container-expert",
       "description": "Production Docker containerization, BuildKit, distroless, and Compose / Kontainerisasi Docker produksi, BuildKit, distroless, dan Compose.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "documentation-site-expert",
       "description": "Technical documentation sites: Mintlify, Docusaurus, and Storybook / Situs dokumentasi teknis: Mintlify, Docusaurus, dan Storybook.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "doku-mcp-server",
       "description": "DOKU MCP server: AI agentic commerce, checkout, and payment tools / DOKU MCP server: commerce berbasis agen AI, checkout, dan pembayaran.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "doku-payment-gateway",
       "description": "DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks / Gateway pembayaran DOKU: Checkout, SNAP BI (VA, QRIS), dan webhook.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "domain-driven-design-expert",
       "description": "Domain-Driven Design (DDD), aggregates, bounded contexts, and CQRS / Desain Berbasis Domain (DDD), aggregate, bounded context, dan CQRS.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "double-entry-ledger-fintech-expert",
       "description": "Immutable double-entry ledgers, TigerBeetle, and balance reconciliation / Buku besar double-entry permanen, TigerBeetle, dan rekonsiliasi saldo.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "durable-agent-execution-expert",
       "description": "Durable agent execution, Temporal AI workflows, and state replay / Eksekusi agen AI tahan-gagal, workflow Temporal, dan replay state.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "e2e-testing-expert",
       "description": "End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+ / Pengujian E2E dengan Playwright 1.50+, fixtures, dan Vitest 3+.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ecommerce-expert",
       "description": "E-commerce architecture, product catalogs, cart, and checkout UX / Arsitektur e-commerce, katalog produk, keranjang, dan checkout UX.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "email-notification-expert",
       "description": "Transactional email (Resend), React Email, and notification pipelines / Email transaksional (Resend), React Email, dan pipeline notifikasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ephemeral-generative-ui-architect",
       "description": "Ephemeral generative UI streaming with React 19 RSC & Vercel AI SDK / Streaming UI generatif efemeral dengan React 19 RSC & Vercel AI SDK.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ephemeral-wasm-sandbox-executor",
       "description": "Ephemeral WebAssembly sandboxes for secure code execution and tests / Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "error-resilience-expert",
       "description": "Error resilience, circuit breakers, retries, and graceful degradation / Ketahanan error, circuit breaker, retry, dan degradasi anggun.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "event-driven-architect",
       "description": "Event-driven microservices, message queues, and event sourcing / Arsitektur event-driven, antrean pesan, dan event sourcing.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "feature-flag-analytics-expert",
       "description": "Feature flags, progressive rollouts (PostHog), and A/B testing / Feature flag, rollout bertahap (PostHog), dan pengujian A/B.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "fga-rebac-authorization-expert",
       "description": "Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions / Otorisasi granular ReBAC (OpenFGA, SpiceDB) dan kontrol izin.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "file-upload-media-expert",
       "description": "File uploads (S3, R2, Supabase), presigned URLs, and media pipelines / Upload file (S3, R2, Supabase), presigned URL, dan pipeline media.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "firebase-security-expert",
       "description": "Firebase security rules, authentication audit, and App Check / Audit keamanan Firebase rules, autentikasi, dan konfigurasi App Check.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "flutter-dart-expert",
       "description": "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "form-validation-expert",
       "description": "Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "formal-spec-z3-verifier",
       "description": "Formal verification and SMT solver constraints (Z3, TLA+, Dafny) / Verifikasi formal dan batasan solver SMT (Z3, TLA+, Dafny).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "frontier-ai-models-expert",
       "description": "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "fullstack-expert",
       "description": "Polyglot fullstack development: TypeScript, Python, Go, and Rust / Pengembangan fullstack polyglot: TypeScript, Python, Go, dan Rust.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "gemini-agent-booster",
       "description": "Master optimization protocol for Gemini Agent, 2M+ context & tools / Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "geospatial-maps-expert",
       "description": "Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS / Peta dan data geospasial: Mapbox GL JS, Leaflet, dan PostGIS.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "github-actions-expert",
       "description": "GitHub Actions CI/CD workflows, reusable actions, and OIDC auth / Workflow CI/CD GitHub Actions, reusable actions, dan auth OIDC.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "global-a11y-i18n-expert",
       "description": "Web accessibility (WCAG) and internationalization (i18n) / Aksesibilitas web (WCAG) dan internasionalisasi (i18n).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "glsl-shader-expert",
       "description": "Web shaders: TSL, WebGPU WGSL, and WebGL GLSL in Three.js / Shader web modern: TSL, WebGPU WGSL, dan GLSL di Three.js.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "go-programming-expert",
       "description": "Go 1.24+ microservices, sqlc, net/http, and concurrency patterns / Pemrograman Go 1.24+, microservices, sqlc, dan pola konkuren.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "graph-rag-knowledge-expert",
       "description": "Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search / Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "graphql-apollo-expert",
       "description": "GraphQL APIs with Apollo Server/Client, NestJS, and query caching / API GraphQL dengan Apollo Server/Client, NestJS, dan optimasi query.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "headless-cms-expert",
       "description": "Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful / Integrasi Headless CMS: Sanity, Payload CMS, Strapi, Contentful.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "hig",
       "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency / Prinsip HIG: Hierarki, Harmoni, dan Konsistensi antarmuka UI/UX.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "htmx-hypermedia-expert",
       "description": "HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire / Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "js-backend-expert",
       "description": "Node.js 24+, Bun, and Deno backend development (Hono, Fastify, Express) / Pengembangan backend Node.js, Bun, dan Deno (Hono, Fastify, Express).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "kubernetes-gitops-platform-expert",
       "description": "Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA / Platform engineering Kubernetes & GitOps: ArgoCD, Cilium, dan KEDA.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "kv-cache-prefix-optimizer",
       "description": "Deterministic prompt prefix engineering & KV-cache hit optimization / Rekayasa prefix prompt deterministik & optimasi cache KV.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "legacy-code-translator",
       "description": "Safely modernize legacy codebases (PHP, old React) into modern stacks / Modernisasi codebase legacy (PHP, React lama) ke stack modern.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "living-codebase-ast-graph",
       "description": "In-memory AST code knowledge graphs and refactoring blast radius / Graf pengetahuan AST in-memory dan radius dampak refaktor kode.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "llm-finops-router",
       "description": "AI FinOps, dynamic model routing (LiteLLM), and token cost control / FinOps AI, routing model dinamis (LiteLLM), dan kontrol biaya token.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "llm-observability-expert",
       "description": "Production LLM observability, token cost tracking, and GenAI tracing / Observabilitas LLM produksi, pelacakan biaya, dan tracing GenAI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "local-slm-edge-ai-expert",
       "description": "Local SLMs & edge AI: WebLLM, Transformers.js v3, and WebGPU / SLM lokal & edge AI: WebLLM, Transformers.js v3, dan WebGPU.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "logging-error-tracking-expert",
       "description": "Structured logging (Pino) and error tracking (Sentry, Axiom) / Logging terstruktur (Pino) dan pelacakan error (Sentry, Axiom).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "mcp-sampling-critic",
       "description": "MCP client sampling and critic-in-the-loop multi-model consensus / Sampling MCP client dan validasi konsensus multi-model AI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "mcp-server-architect",
       "description": "Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "micro-frontend-architect",
       "description": "Micro-frontends with Webpack & Vite Module Federation / Arsitektur micro-frontend dengan Webpack & Vite Module Federation.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "mobile-expo-expert",
       "description": "React Native & Expo SDK 53+ cross-platform mobile app development / Pengembangan aplikasi mobile React Native & Expo SDK 53+.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "modern-css-native-expert",
       "description": "Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "monorepo-architect",
       "description": "Scalable monorepo architecture with Turborepo and pnpm workspaces / Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "mpa-orchestrator",
       "description": "Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "multi-agent-orchestration",
       "description": "Multi-agent systems, swarm patterns, and agentic memory coordination / Sistem multi-agen, pola swarm, dan koordinasi memori agen.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "multimodal-spatial-video-cloner",
       "description": "Extract UI interactions and spring curves from video into code / Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "mvc-expert",
       "description": "Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "n8n-automation-expert",
       "description": "Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "nextjs-app-router-expert",
       "description": "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "olap-columnar-analytics-expert",
       "description": "Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "openapi-swagger-codegen-expert",
       "description": "OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "parallel-tool-orchestrator",
       "description": "Parallel tool calling, MCP batching, and async subagent fan-out / Eksekusi tool paralel, batching MCP, dan subagent async fan-out.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "passkeys-webauthn-identity-expert",
       "description": "FIDO2 / WebAuthn Passkeys, SimpleWebAuthn, and passwordless auth / Autentikasi tanpa kata sandi Passkeys FIDO2 dan SimpleWebAuthn.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "payment-gateway-expert",
       "description": "Payment gateways integration (Stripe, Midtrans) and secure webhooks / Integrasi payment gateway (Stripe, Midtrans) dan webhook aman.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "pdf-document-generation-expert",
       "description": "PDF generation and document processing (React PDF, Puppeteer) / Generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "performance-web-vitals",
       "description": "Web performance optimization: Core Web Vitals (LCP, INP, CLS) / Optimasi performa web dan metrik Core Web Vitals (LCP, INP, CLS).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "post-quantum-crypto-migrator",
       "description": "NIST post-quantum cryptography migration (ML-KEM, ML-DSA) / Migrasi kriptografi pasca-kuantum NIST (ML-KEM, ML-DSA).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "prd-architect",
       "description": "Continuous PRD, ERD, and architectural documentation generation / Pembuatan dokumen PRD, ERD, dan arsitektur sistem secara kontinu.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "proactive-background-watcher",
       "description": "Proactive background task scheduling, API polling, and log monitoring / Penjadwalan background task proaktif dan pemantauan sistem.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "production-ready-hardener",
       "description": "Pre-deployment application hardening across security, perf, and tests / Pengerasan aplikasi pra-deploy: keamanan, performa, dan tes.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "prompt-injection-firewall",
       "description": "Runtime defenses against prompt injection, jailbreaks, and SSRF / Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "property-mutation-testing-expert",
       "description": "Property-based testing (fast-check) and mutation testing (Stryker) / Pengujian berbasis properti (fast-check) dan mutasi (Stryker).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "pwa-offline-first-expert",
       "description": "Offline-first PWA architecture, OPFS SQLite, and local sync / Arsitektur PWA offline-first, OPFS SQLite, dan sinkronisasi lokal.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "pydantic-ai-expert",
       "description": "Type-safe Python AI agents with Pydantic AI and structured outputs / Agen AI Python type-safe dengan Pydantic AI dan output terstruktur.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "python-programming-expert",
       "description": "Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest / Pemrograman Python modern: FastAPI, Pydantic v2, uv, dan pytest.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "rate-limit-abuse-prevention",
       "description": "API rate limiting, bot protection, DDoS mitigation, and abuse defense / Rate limiting API, perlindungan bot, dan mitigasi serangan DDoS.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "rea-analysis-optimization",
       "description": "Optimize REA providers, analysis latency, memory, and Evidence / Optimasi provider REA, latensi analisis, memori, dan Evidence.",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "author": "morluto"
     },
     {
       "name": "rea-changelog-update",
       "description": "Prepare REA release changelogs and GitHub release notes / Siapkan changelog rilis REA dan catatan rilis GitHub.",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "author": "morluto"
     },
     {
       "name": "rea-ci-tests-audit",
       "description": "Audit REA CI and test suites for correctness and measured performance / Audit suite tes dan CI REA untuk ketepatan dan performa terukur.",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "author": "morluto"
     },
     {
       "name": "rea-tool-design",
       "description": "Design REA investigation tools, CLI/MCP contracts, and Evidence / Desain tool investigasi REA, kontrak CLI/MCP, dan semantik Evidence.",
-      "version": "4.5.0",
+      "version": "4.4.4",
       "author": "morluto"
     },
     {
       "name": "reactive-sync-engine-expert",
       "description": "Reactive sync engines (Zero, ElectricSQL) and instant mutations / Mesin sinkronisasi reaktif (Zero, ElectricSQL) dan mutasi instan.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "realtime-collaboration-expert",
       "description": "Real-time collaboration: WebSockets, WebRTC, and CRDTs (Yjs) / Kolaborasi real-time: WebSockets, WebRTC, dan CRDT (Yjs).",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "reverse-engineer-anything",
       "description": "Reverse-engineer binaries, firmware, and web apps with REA AgentEnv / Rekayasa balik biner, firmware, dan web apps dengan REA AgentEnv.",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "author": "morluto"
     },
     {
       "name": "rich-text-editor-expert",
       "description": "Rich text editors integration (Tiptap, Lexical) & collaboration / Integrasi editor rich text (Tiptap, Lexical) dan kolaborasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "rust-programming-expert",
       "description": "Rust 2024 / v1.88+ memory safety, async Axum, and zero-cost patterns / Pemrograman Rust modern: async Axum, SQLx, dan performa tinggi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "saas-architect",
       "description": "Master SaaS orchestrator: MVP launches (0 to 1) and transformation / Master orkestrator SaaS: peluncuran MVP (0 ke 1) dan transformasi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "saas-billing",
       "description": "SaaS billing state machines, subscription lifecycle, and webhooks / State machine billing SaaS, siklus langganan, dan webhook sinkron.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "saas-multi-tenant",
       "description": "Multi-tenant SaaS architecture with PostgreSQL RLS isolation / Arsitektur SaaS multi-tenant dengan isolasi PostgreSQL RLS.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "sbom-supply-chain-security-expert",
       "description": "Supply chain security, CycloneDX SBOM, Cosign signing, SLSA Level 3 / Keamanan rantai pasok software, SBOM CycloneDX, dan tanda tangan Cosign.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "scalability-clean-code",
       "description": "Clean code architecture, SOLID principles, and system scalability / Arsitektur clean code, prinsip SOLID, dan skalabilitas sistem.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "screenshot-to-code-expert",
       "description": "Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "search-engine-expert",
       "description": "Full-text search engines: Typesense, Meilisearch, and Elasticsearch / Mesin pencarian full-text: Typesense, Meilisearch, Elasticsearch.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "self-healing-cloud-orchestrator",
       "description": "Real-time log monitoring, crash detection, and auto-hotfixing / Pemantauan log real-time, deteksi crash, dan auto-hotfix kode.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "senior-frontend",
       "description": "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "seo",
       "description": "Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "session-memory-manager",
       "description": "Session memory lifecycle, context handoffs, and compact checkpoints / Manajemen memori sesi, handoff konteks, dan checkpoint ringkas.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "solidjs-expert",
       "description": "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "spa-orchestrator",
       "description": "Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "spec-driven-development-expert",
       "description": "Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "speculative-multi-draft-synthesizer",
       "description": "Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "sse-websocket-streaming-expert",
       "description": "Real-time Server-Sent Events (SSE), WebSockets, and data streaming / Server-Sent Events (SSE), WebSockets, dan streaming data real-time.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "state-management-expert",
       "description": "Modern client state management: Zustand, Jotai, and TanStack Store / Manajemen state modern client-side: Zustand, Jotai, TanStack Store.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "structured-output-contracts",
       "description": "Strict JSON Schema structured outputs and MCP contract enforcement / Penegakan kontrak output terstruktur JSON Schema ketat dan MCP.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "supabase-security-expert",
       "description": "Supabase security audit: RLS policies, RBAC, and data leak prevention / Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "svelte-sveltekit-expert",
       "description": "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "svg-animation-motion-expert",
       "description": "Web animations: Framer Motion 12+, GSAP 3, and CSS scroll animations / Animasi web: Framer Motion 12+, GSAP 3, dan animasi scroll CSS.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "synthetic-data-finetuning-expert",
       "description": "Synthetic dataset generation, QLoRA fine-tuning, and local SLM export / Generasi data sintetis, fine-tuning QLoRA, dan ekspor model SLM.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "tailwind-expert",
       "description": "Tailwind CSS v4, CSS-first @theme configuration, and modern styling / Panduan Tailwind CSS v4, konfigurasi @theme, dan styling modern.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "tanstack-query-expert",
       "description": "TanStack Query v5, useSuspenseQuery, SSR hydration, and cache invalidation / Manajemen state server TanStack Query v5 dan hidrasi SSR.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "tauri-expert",
       "description": "Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+ / Aplikasi desktop & mobile Tauri 2.x dengan Rust 1.90+ dan IPC.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "test-time-compute-optimizer",
       "description": "Dynamic test-time compute allocation and reasoning token optimization / Alokasi komputasi test-time dinamis dan optimasi token penalaran.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "thinking-budget-orchestrator",
       "description": "Dynamic thinking budget orchestrator across late-2026 frontier models / Alokasi budget penalaran dinamis pada model frontier 2026.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "typescript-expert",
       "description": "TypeScript 5.8+ type system, strict types, generics, and branded types / Sistem tipe TypeScript 5.8+, tipe strict, generics, dan branded types.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "ui-ux-pro-max",
       "description": "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "vector-db-rag-expert",
       "description": "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "vercel-ai-sdk-expert",
       "description": "Vercel AI SDK Core/UI, streaming structured data, and tool calling / Vercel AI SDK Core/UI, streaming data terstruktur, dan tool calling.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "visual-ui-auditor",
       "description": "Multimodal vision UI audit against crisp borders and accessibility / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "voice-ai-realtime-agent",
       "description": "Ultra-low latency conversational voice AI (<300ms) with WebRTC / AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "vue-frontend-expert",
       "description": "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "wasm-edge-computing-expert",
       "description": "WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "web-3d-graphics-expert",
       "description": "WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F / Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "web-game-engine-expert",
       "description": "Modern web game development: Three.js, Babylon.js, ECS, and physics / Pengembangan game web modern: Three.js, Babylon.js, ECS, dan fisika.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "web-scraper",
       "description": "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass / Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "website-design-cloner",
       "description": "Reverse-engineer website designs, layout structures, and design tokens / Rekayasa balik desain website, struktur layout, dan token desain.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "webxr-ar-vr-expert",
       "description": "WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js / Komputasi spasial WebXR, WebVR, AR, dan MR menggunakan Babylon.js.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "wordpress-headless-expert",
       "description": "Headless WordPress architecture with WPGraphQL, ACF, and Next.js / Arsitektur headless WordPress dengan WPGraphQL, ACF, dan Next.js.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "xerj-search-expert",
       "description": "XERJ search engine: vector DB, memory store, and 13 embedded MCP tools / Mesin pencari XERJ: vector DB, memory store, dan 13 tool MCP.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "zero-tech-debt-auditor",
       "description": "Autonomous scanner and refactorer to eliminate technical debt / Scanner otonom dan refaktor kode untuk menghapus utang teknis.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "zero-to-prod-orchestrator",
       "description": "Master orchestrator to build apps from zero to production readiness / Master orkestrator membangun aplikasi dari nol hingga siap produksi.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     },
     {
       "name": "zero-trust-secret-vault",
       "description": "Zero-trust secret management (Infisical, Vault) and key rotation / Manajemen rahasia zero-trust (Infisical, Vault) dan rotasi API key.",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "author": "Roedy Rustam"
     }
   ]

@@ -2,7 +2,7 @@
 name: agentic-memory-architect
 description: "Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage / Memori episodik jangka panjang (Mem0, Letta) dan storage pgvector."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

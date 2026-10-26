@@ -2,7 +2,7 @@
 name: doku-payment-gateway
 description: "DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks / Gateway pembayaran DOKU: Checkout, SNAP BI (VA, QRIS), dan webhook."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

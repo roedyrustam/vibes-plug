@@ -2,7 +2,7 @@
 name: go-programming-expert
 description: "Go 1.24+ microservices, sqlc, net/http, and concurrency patterns / Pemrograman Go 1.24+, microservices, sqlc, dan pola konkuren."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

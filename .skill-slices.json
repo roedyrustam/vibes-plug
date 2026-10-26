@@ -1,6 +1,6 @@
 {
   "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-10-26T19:45:36.736Z",
+  "compiledAt": "2026-10-26T20:10:41.120Z",
   "totalSkills": 176,
   "metrics": {
     "fullRegistryTokensApprox": 729569,
@@ -11,7 +11,7 @@
   "slices": {
     "a2a-agent-protocol-expert": {
       "skill": "a2a-agent-protocol-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "A2A agent protocol interoperability, Agent Cards, and MCP bridging",
       "actions": [
@@ -40,7 +40,7 @@
     },
     "accessibility-testing-expert": {
       "skill": "accessibility-testing-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Web accessibility testing with axe-core, Playwright, and WCAG 2.2",
       "actions": [
@@ -67,7 +67,7 @@
     },
     "adaptive-model-cascade": {
       "skill": "adaptive-model-cascade",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Model cascading & complexity-scored routing (Grok, Gemini, Claude)",
       "actions": [
@@ -96,7 +96,7 @@
     },
     "affective-computing-emotion-ai": {
       "skill": "affective-computing-emotion-ai",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Affective computing, emotion AI, and multimodal sentiment analysis",
       "actions": [
@@ -125,7 +125,7 @@
     },
     "agentic-coding-workflow-expert": {
       "skill": "agentic-coding-workflow-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "AI coding workflows, multi-agent code swarms, and CI/CD self-healing",
       "actions": [
@@ -154,7 +154,7 @@
     },
     "agentic-m2m-settlement": {
       "skill": "agentic-m2m-settlement",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing",
       "actions": [
@@ -183,7 +183,7 @@
     },
     "agentic-memory-architect": {
       "skill": "agentic-memory-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage",
       "actions": [
@@ -212,7 +212,7 @@
     },
     "agentic-micro-economy-architect": {
       "skill": "agentic-micro-economy-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "M2M micro-economies, agent wallets, swarm budgets, and HTTP 402",
       "actions": [
@@ -241,7 +241,7 @@
     },
     "ai-code-review-autonomous": {
       "skill": "ai-code-review-autonomous",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Autonomous AI code self-review: syntax, logic, security, and perf",
       "actions": [
@@ -270,7 +270,7 @@
     },
     "ai-llm-integration-expert": {
       "skill": "ai-llm-integration-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "LLM integration, MCP v1.x protocols, hybrid reasoning, and RAG",
       "actions": [
@@ -299,7 +299,7 @@
     },
     "ai-media-generation-expert": {
       "skill": "ai-media-generation-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper",
       "actions": [
@@ -328,7 +328,7 @@
     },
     "ai-prompt-engineering-expert": {
       "skill": "ai-prompt-engineering-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Prompt engineering, structured outputs, evals (Promptfoo, DeepEval)",
       "actions": [
@@ -357,7 +357,7 @@
     },
     "ai-safety-governance-expert": {
       "skill": "ai-safety-governance-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act",
       "actions": [
@@ -386,7 +386,7 @@
     },
     "angular-expert": {
       "skill": "angular-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store",
       "actions": [
@@ -415,7 +415,7 @@
     },
     "anti-slop": {
       "skill": "anti-slop",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop",
       "actions": [
@@ -444,7 +444,7 @@
     },
     "api-design-expert": {
       "skill": "api-design-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1",
       "actions": [
@@ -474,7 +474,7 @@
     },
     "api-gateway-proxy-expert": {
       "skill": "api-gateway-proxy-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX)",
       "actions": [
@@ -504,7 +504,7 @@
     },
     "app-analyzer-optimizer": {
       "skill": "app-analyzer-optimizer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Deep application architecture audit, bottleneck detection, and perf",
       "actions": [
@@ -534,7 +534,7 @@
     },
     "app-promo-media-expert": {
       "skill": "app-promo-media-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "App store screenshots, promo graphics, and programmatic video teasers",
       "actions": [
@@ -564,7 +564,7 @@
     },
     "apple-ecosystem-expert": {
       "skill": "apple-ecosystem-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Apple ecosystem development: iOS support, Safari WebKit, and HIG",
       "actions": [
@@ -593,7 +593,7 @@
     },
     "astro-framework-expert": {
       "skill": "astro-framework-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Astro 5+ framework: Content Collections, Islands, and View Transitions",
       "actions": [
@@ -622,7 +622,7 @@
     },
     "async-queue-temporal-expert": {
       "skill": "async-queue-temporal-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io",
       "actions": [
@@ -651,7 +651,7 @@
     },
     "authentication-identity-expert": {
       "skill": "authentication-identity-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js",
       "actions": [
@@ -680,7 +680,7 @@
     },
     "autonomous-api-drift-healer": {
       "skill": "autonomous-api-drift-healer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Autonomous API schema drift detection and breaking change healing",
       "actions": [
@@ -710,7 +710,7 @@
     },
     "autonomous-red-teamer": {
       "skill": "autonomous-red-teamer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Dynamic security fuzzing, exploit generation (XSS, SQLi), and patches",
       "actions": [
@@ -739,7 +739,7 @@
     },
     "autonomous-tdd-debugger": {
       "skill": "autonomous-tdd-debugger",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Autonomous TDD test runner, stack trace analysis, and code self-heal",
       "actions": [
@@ -768,7 +768,7 @@
     },
     "biome-linter-formatter-expert": {
       "skill": "biome-linter-formatter-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Biome Rust linter & formatter, ESLint/Prettier migration, and tooling",
       "actions": [
@@ -797,7 +797,7 @@
     },
     "blockchain-web3-expert": {
       "skill": "blockchain-web3-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Web3 and dApp integration: viem, wagmi v2, ethers.js, and contracts",
       "actions": [
@@ -826,7 +826,7 @@
     },
     "brainstorming": {
       "skill": "brainstorming",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Master ideation protocol & architectural matrix before coding begins",
       "actions": [
@@ -849,7 +849,7 @@
     },
     "browser-automation-expert": {
       "skill": "browser-automation-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Autonomous web agents (Stagehand, Browser-Use) & anti-bot evasion",
       "actions": [
@@ -879,7 +879,7 @@
     },
     "browser-extension-mv3-pro": {
       "skill": "browser-extension-mv3-pro",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Manifest V3 browser extensions, SidePanel API, and service workers",
       "actions": [
@@ -908,7 +908,7 @@
     },
     "bun-runtime-expert": {
       "skill": "bun-runtime-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test",
       "actions": [
@@ -938,7 +938,7 @@
     },
     "chatbot-messaging-expert": {
       "skill": "chatbot-messaging-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack",
       "actions": [
@@ -968,7 +968,7 @@
     },
     "ci-cd-devops-architect": {
       "skill": "ci-cd-devops-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures",
       "actions": [
@@ -997,7 +997,7 @@
     },
     "cloud-hosting-expert": {
       "skill": "cloud-hosting-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare)",
       "actions": [
@@ -1026,7 +1026,7 @@
     },
     "cloudflare-workers-expert": {
       "skill": "cloudflare-workers-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects",
       "actions": [
@@ -1055,7 +1055,7 @@
     },
     "coderabbit": {
       "skill": "coderabbit",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "AI automated code review, PR summarization, and developer feedback",
       "actions": [
@@ -1084,7 +1084,7 @@
     },
     "compliance-gdpr-privacy-expert": {
       "skill": "compliance-gdpr-privacy-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Data privacy compliance: GDPR, CCPA, PDPA, and privacy-by-design",
       "actions": [
@@ -1113,7 +1113,7 @@
     },
     "composable-mach-architect": {
       "skill": "composable-mach-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Composable MACH architecture: microservices, API mesh, and headless",
       "actions": [
@@ -1143,7 +1143,7 @@
     },
     "computer-use-os-agent-expert": {
       "skill": "computer-use-os-agent-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Computer-using agents (CUA), desktop GUI automation, and VM sandbox",
       "actions": [
@@ -1169,7 +1169,7 @@
     },
     "context-window-engineer": {
       "skill": "context-window-engineer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Optimize 2M+ context windows, prompt cache pinning & budget slicing",
       "actions": [
@@ -1198,7 +1198,7 @@
     },
     "cron-scheduler-expert": {
       "skill": "cron-scheduler-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Scheduled cron tasks and background workflows (Vercel, Cloudflare)",
       "actions": [
@@ -1227,7 +1227,7 @@
     },
     "data-pipeline-etl-expert": {
       "skill": "data-pipeline-etl-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB",
       "actions": [
@@ -1256,7 +1256,7 @@
     },
     "data-telemetry-expert": {
       "skill": "data-telemetry-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Observability, OpenTelemetry, metrics, and analytics (PostHog, Mixpanel)",
       "actions": [
@@ -1285,7 +1285,7 @@
     },
     "data-visualization-expert": {
       "skill": "data-visualization-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Data visualization dashboards using D3.js, Recharts, and Tremor",
       "actions": [
@@ -1314,7 +1314,7 @@
     },
     "database-orm-expert": {
       "skill": "database-orm-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Unified database ORM, schema migrations, edge DBs, and Supabase CLI",
       "actions": [
@@ -1343,7 +1343,7 @@
     },
     "deep-research-analyst": {
       "skill": "deep-research-analyst",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Autonomous deep research, evidence graph synthesis, citation checks",
       "actions": [
@@ -1371,7 +1371,7 @@
     },
     "dependency-upgrade-migrator": {
       "skill": "dependency-upgrade-migrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Dependency upgrades, breaking change migrations, and codemod tooling",
       "actions": [
@@ -1401,7 +1401,7 @@
     },
     "design-system-architect": {
       "skill": "design-system-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "UI design systems, design tokens, headless primitives, and WCAG 2.2",
       "actions": [
@@ -1430,7 +1430,7 @@
     },
     "desktop-electron-expert": {
       "skill": "desktop-electron-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Electron 33+ desktop apps, IPC security, multi-window, and packaging",
       "actions": [
@@ -1459,7 +1459,7 @@
     },
     "docker-container-expert": {
       "skill": "docker-container-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Production Docker containerization, BuildKit, distroless, and Compose",
       "actions": [
@@ -1488,7 +1488,7 @@
     },
     "documentation-site-expert": {
       "skill": "documentation-site-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Technical documentation sites: Mintlify, Docusaurus, and Storybook",
       "actions": [
@@ -1518,7 +1518,7 @@
     },
     "doku-mcp-server": {
       "skill": "doku-mcp-server",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "DOKU MCP server: AI agentic commerce, checkout, and payment tools",
       "actions": [
@@ -1547,7 +1547,7 @@
     },
     "doku-payment-gateway": {
       "skill": "doku-payment-gateway",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks",
       "actions": [
@@ -1576,7 +1576,7 @@
     },
     "domain-driven-design-expert": {
       "skill": "domain-driven-design-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Domain-Driven Design (DDD), aggregates, bounded contexts, and CQRS",
       "actions": [
@@ -1605,7 +1605,7 @@
     },
     "double-entry-ledger-fintech-expert": {
       "skill": "double-entry-ledger-fintech-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Immutable double-entry ledgers, TigerBeetle, and balance reconciliation",
       "actions": [
@@ -1634,7 +1634,7 @@
     },
     "durable-agent-execution-expert": {
       "skill": "durable-agent-execution-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Durable agent execution, Temporal AI workflows, and state replay",
       "actions": [
@@ -1663,7 +1663,7 @@
     },
     "e2e-testing-expert": {
       "skill": "e2e-testing-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+",
       "actions": [
@@ -1692,7 +1692,7 @@
     },
     "ecommerce-expert": {
       "skill": "ecommerce-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "E-commerce architecture, product catalogs, cart, and checkout UX",
       "actions": [
@@ -1722,7 +1722,7 @@
     },
     "email-notification-expert": {
       "skill": "email-notification-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Transactional email (Resend), React Email, and notification pipelines",
       "actions": [
@@ -1751,7 +1751,7 @@
     },
     "ephemeral-generative-ui-architect": {
       "skill": "ephemeral-generative-ui-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Ephemeral generative UI streaming with React 19 RSC & Vercel AI SDK",
       "actions": [
@@ -1780,7 +1780,7 @@
     },
     "ephemeral-wasm-sandbox-executor": {
       "skill": "ephemeral-wasm-sandbox-executor",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Ephemeral WebAssembly sandboxes for secure code execution and tests",
       "actions": [
@@ -1809,7 +1809,7 @@
     },
     "error-resilience-expert": {
       "skill": "error-resilience-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Error resilience, circuit breakers, retries, and graceful degradation",
       "actions": [
@@ -1838,7 +1838,7 @@
     },
     "event-driven-architect": {
       "skill": "event-driven-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Event-driven microservices, message queues, and event sourcing",
       "actions": [
@@ -1868,7 +1868,7 @@
     },
     "feature-flag-analytics-expert": {
       "skill": "feature-flag-analytics-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Feature flags, progressive rollouts (PostHog), and A/B testing",
       "actions": [
@@ -1897,7 +1897,7 @@
     },
     "fga-rebac-authorization-expert": {
       "skill": "fga-rebac-authorization-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions",
       "actions": [
@@ -1926,7 +1926,7 @@
     },
     "file-upload-media-expert": {
       "skill": "file-upload-media-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "File uploads (S3, R2, Supabase), presigned URLs, and media pipelines",
       "actions": [
@@ -1956,7 +1956,7 @@
     },
     "firebase-security-expert": {
       "skill": "firebase-security-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Firebase security rules, authentication audit, and App Check",
       "actions": [
@@ -1985,7 +1985,7 @@
     },
     "flutter-dart-expert": {
       "skill": "flutter-dart-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3",
       "actions": [
@@ -2014,7 +2014,7 @@
     },
     "form-validation-expert": {
       "skill": "form-validation-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Form validation with React Hook Form, Zod, and server actions",
       "actions": [
@@ -2043,7 +2043,7 @@
     },
     "formal-spec-z3-verifier": {
       "skill": "formal-spec-z3-verifier",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Formal verification and SMT solver constraints (Z3, TLA+, Dafny)",
       "actions": [
@@ -2072,7 +2072,7 @@
     },
     "frontier-ai-models-expert": {
       "skill": "frontier-ai-models-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5)",
       "actions": [
@@ -2101,7 +2101,7 @@
     },
     "fullstack-expert": {
       "skill": "fullstack-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Polyglot fullstack development: TypeScript, Python, Go, and Rust",
       "actions": [
@@ -2131,7 +2131,7 @@
     },
     "gemini-agent-booster": {
       "skill": "gemini-agent-booster",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Master optimization protocol for Gemini Agent, 2M+ context & tools",
       "actions": [
@@ -2160,7 +2160,7 @@
     },
     "geospatial-maps-expert": {
       "skill": "geospatial-maps-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS",
       "actions": [
@@ -2189,7 +2189,7 @@
     },
     "github-actions-expert": {
       "skill": "github-actions-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "GitHub Actions CI/CD workflows, reusable actions, and OIDC auth",
       "actions": [
@@ -2218,7 +2218,7 @@
     },
     "global-a11y-i18n-expert": {
       "skill": "global-a11y-i18n-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Web accessibility (WCAG) and internationalization (i18n)",
       "actions": [
@@ -2247,7 +2247,7 @@
     },
     "glsl-shader-expert": {
       "skill": "glsl-shader-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Web shaders: TSL, WebGPU WGSL, and WebGL GLSL in Three.js",
       "actions": [
@@ -2274,7 +2274,7 @@
     },
     "go-programming-expert": {
       "skill": "go-programming-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Go 1.24+ microservices, sqlc, net/http, and concurrency patterns",
       "actions": [
@@ -2304,7 +2304,7 @@
     },
     "graph-rag-knowledge-expert": {
       "skill": "graph-rag-knowledge-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search",
       "actions": [
@@ -2333,7 +2333,7 @@
     },
     "graphql-apollo-expert": {
       "skill": "graphql-apollo-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "GraphQL APIs with Apollo Server/Client, NestJS, and query caching",
       "actions": [
@@ -2363,7 +2363,7 @@
     },
     "headless-cms-expert": {
       "skill": "headless-cms-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful",
       "actions": [
@@ -2393,7 +2393,7 @@
     },
     "hig": {
       "skill": "hig",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency",
       "actions": [
@@ -2422,7 +2422,7 @@
     },
     "htmx-hypermedia-expert": {
       "skill": "htmx-hypermedia-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire",
       "actions": [
@@ -2452,7 +2452,7 @@
     },
     "js-backend-expert": {
       "skill": "js-backend-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Node.js 24+, Bun, and Deno backend development (Hono, Fastify, Express)",
       "actions": [
@@ -2482,7 +2482,7 @@
     },
     "kubernetes-gitops-platform-expert": {
       "skill": "kubernetes-gitops-platform-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA",
       "actions": [
@@ -2508,7 +2508,7 @@
     },
     "kv-cache-prefix-optimizer": {
       "skill": "kv-cache-prefix-optimizer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Deterministic prompt prefix engineering & KV-cache hit optimization",
       "actions": [
@@ -2537,7 +2537,7 @@
     },
     "legacy-code-translator": {
       "skill": "legacy-code-translator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Safely modernize legacy codebases (PHP, old React) into modern stacks",
       "actions": [
@@ -2567,7 +2567,7 @@
     },
     "living-codebase-ast-graph": {
       "skill": "living-codebase-ast-graph",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "In-memory AST code knowledge graphs and refactoring blast radius",
       "actions": [
@@ -2597,7 +2597,7 @@
     },
     "llm-finops-router": {
       "skill": "llm-finops-router",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "AI FinOps, dynamic model routing (LiteLLM), and token cost control",
       "actions": [
@@ -2626,7 +2626,7 @@
     },
     "llm-observability-expert": {
       "skill": "llm-observability-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Production LLM observability, token cost tracking, and GenAI tracing",
       "actions": [
@@ -2655,7 +2655,7 @@
     },
     "local-slm-edge-ai-expert": {
       "skill": "local-slm-edge-ai-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Local SLMs & edge AI: WebLLM, Transformers.js v3, and WebGPU",
       "actions": [
@@ -2684,7 +2684,7 @@
     },
     "logging-error-tracking-expert": {
       "skill": "logging-error-tracking-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Structured logging (Pino) and error tracking (Sentry, Axiom)",
       "actions": [
@@ -2713,7 +2713,7 @@
     },
     "mcp-sampling-critic": {
       "skill": "mcp-sampling-critic",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "MCP client sampling and critic-in-the-loop multi-model consensus",
       "actions": [
@@ -2742,7 +2742,7 @@
     },
     "mcp-server-architect": {
       "skill": "mcp-server-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Model Context Protocol (MCP v1.x) server design in TS and Python",
       "actions": [
@@ -2771,7 +2771,7 @@
     },
     "micro-frontend-architect": {
       "skill": "micro-frontend-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Micro-frontends with Webpack & Vite Module Federation",
       "actions": [
@@ -2800,7 +2800,7 @@
     },
     "mobile-expo-expert": {
       "skill": "mobile-expo-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "React Native & Expo SDK 53+ cross-platform mobile app development",
       "actions": [
@@ -2828,7 +2828,7 @@
     },
     "modern-css-native-expert": {
       "skill": "modern-css-native-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style",
       "actions": [
@@ -2855,7 +2855,7 @@
     },
     "monorepo-architect": {
       "skill": "monorepo-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Scalable monorepo architecture with Turborepo and pnpm workspaces",
       "actions": [
@@ -2885,7 +2885,7 @@
     },
     "mpa-orchestrator": {
       "skill": "mpa-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Multi-Page Application (MPA) architecture and asset orchestration",
       "actions": [
@@ -2915,7 +2915,7 @@
     },
     "multi-agent-orchestration": {
       "skill": "multi-agent-orchestration",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Multi-agent systems, swarm patterns, and agentic memory coordination",
       "actions": [
@@ -2944,7 +2944,7 @@
     },
     "multimodal-spatial-video-cloner": {
       "skill": "multimodal-spatial-video-cloner",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Extract UI interactions and spring curves from video into code",
       "actions": [
@@ -2973,7 +2973,7 @@
     },
     "mvc-expert": {
       "skill": "mvc-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Refactor legacy codebases into clean and scalable MVC architecture",
       "actions": [
@@ -3003,7 +3003,7 @@
     },
     "n8n-automation-expert": {
       "skill": "n8n-automation-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Workflow automation with n8n, custom nodes, and webhook triggers",
       "actions": [
@@ -3033,7 +3033,7 @@
     },
     "nextjs-app-router-expert": {
       "skill": "nextjs-app-router-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Next.js 15 App Router: RSC, Server Actions, PPR, and caching",
       "actions": [
@@ -3062,7 +3062,7 @@
     },
     "olap-columnar-analytics-expert": {
       "skill": "olap-columnar-analytics-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg",
       "actions": [
@@ -3088,7 +3088,7 @@
     },
     "openapi-swagger-codegen-expert": {
       "skill": "openapi-swagger-codegen-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "OpenAPI 3.1 specifications, Swagger UI, and typed code generation",
       "actions": [
@@ -3118,7 +3118,7 @@
     },
     "parallel-tool-orchestrator": {
       "skill": "parallel-tool-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Parallel tool calling, MCP batching, and async subagent fan-out",
       "actions": [
@@ -3148,7 +3148,7 @@
     },
     "passkeys-webauthn-identity-expert": {
       "skill": "passkeys-webauthn-identity-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "FIDO2",
       "actions": [
@@ -3177,7 +3177,7 @@
     },
     "payment-gateway-expert": {
       "skill": "payment-gateway-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Payment gateways integration (Stripe, Midtrans) and secure webhooks",
       "actions": [
@@ -3206,7 +3206,7 @@
     },
     "pdf-document-generation-expert": {
       "skill": "pdf-document-generation-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "PDF generation and document processing (React PDF, Puppeteer)",
       "actions": [
@@ -3236,7 +3236,7 @@
     },
     "performance-web-vitals": {
       "skill": "performance-web-vitals",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Web performance optimization: Core Web Vitals (LCP, INP, CLS)",
       "actions": [
@@ -3264,7 +3264,7 @@
     },
     "post-quantum-crypto-migrator": {
       "skill": "post-quantum-crypto-migrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "NIST post-quantum cryptography migration (ML-KEM, ML-DSA)",
       "actions": [
@@ -3293,7 +3293,7 @@
     },
     "prd-architect": {
       "skill": "prd-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Continuous PRD, ERD, and architectural documentation generation",
       "actions": [
@@ -3323,7 +3323,7 @@
     },
     "proactive-background-watcher": {
       "skill": "proactive-background-watcher",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Proactive background task scheduling, API polling, and log monitoring",
       "actions": [
@@ -3352,7 +3352,7 @@
     },
     "production-ready-hardener": {
       "skill": "production-ready-hardener",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Pre-deployment application hardening across security, perf, and tests",
       "actions": [
@@ -3381,7 +3381,7 @@
     },
     "prompt-injection-firewall": {
       "skill": "prompt-injection-firewall",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Runtime defenses against prompt injection, jailbreaks, and SSRF",
       "actions": [
@@ -3410,7 +3410,7 @@
     },
     "property-mutation-testing-expert": {
       "skill": "property-mutation-testing-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Property-based testing (fast-check) and mutation testing (Stryker)",
       "actions": [
@@ -3439,7 +3439,7 @@
     },
     "pwa-offline-first-expert": {
       "skill": "pwa-offline-first-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Offline-first PWA architecture, OPFS SQLite, and local sync",
       "actions": [
@@ -3468,7 +3468,7 @@
     },
     "pydantic-ai-expert": {
       "skill": "pydantic-ai-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Type-safe Python AI agents with Pydantic AI and structured outputs",
       "actions": [
@@ -3497,7 +3497,7 @@
     },
     "python-programming-expert": {
       "skill": "python-programming-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest",
       "actions": [
@@ -3527,7 +3527,7 @@
     },
     "rate-limit-abuse-prevention": {
       "skill": "rate-limit-abuse-prevention",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "API rate limiting, bot protection, DDoS mitigation, and abuse defense",
       "actions": [
@@ -3556,7 +3556,7 @@
     },
     "rea-analysis-optimization": {
       "skill": "rea-analysis-optimization",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Optimize REA providers, analysis latency, memory, and Evidence",
       "actions": [
@@ -3585,7 +3585,7 @@
     },
     "rea-changelog-update": {
       "skill": "rea-changelog-update",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Prepare REA release changelogs and GitHub release notes",
       "actions": [
@@ -3611,7 +3611,7 @@
     },
     "rea-ci-tests-audit": {
       "skill": "rea-ci-tests-audit",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Audit REA CI and test suites for correctness and measured performance",
       "actions": [
@@ -3640,7 +3640,7 @@
     },
     "rea-tool-design": {
       "skill": "rea-tool-design",
-      "version": "4.5.0",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Design REA investigation tools, CLI/MCP contracts, and Evidence",
       "actions": [
@@ -3668,7 +3668,7 @@
     },
     "reactive-sync-engine-expert": {
       "skill": "reactive-sync-engine-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Reactive sync engines (Zero, ElectricSQL) and instant mutations",
       "actions": [
@@ -3694,7 +3694,7 @@
     },
     "realtime-collaboration-expert": {
       "skill": "realtime-collaboration-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Real-time collaboration: WebSockets, WebRTC, and CRDTs (Yjs)",
       "actions": [
@@ -3724,7 +3724,7 @@
     },
     "reverse-engineer-anything": {
       "skill": "reverse-engineer-anything",
-      "version": "4.4.3",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Reverse-engineer binaries, firmware, and web apps with REA AgentEnv",
       "actions": [
@@ -3753,7 +3753,7 @@
     },
     "rich-text-editor-expert": {
       "skill": "rich-text-editor-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Rich text editors integration (Tiptap, Lexical) & collaboration",
       "actions": [
@@ -3783,7 +3783,7 @@
     },
     "rust-programming-expert": {
       "skill": "rust-programming-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Rust 2024",
       "actions": [
@@ -3813,7 +3813,7 @@
     },
     "saas-architect": {
       "skill": "saas-architect",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Master SaaS orchestrator: MVP launches (0 to 1) and transformation",
       "actions": [
@@ -3843,7 +3843,7 @@
     },
     "saas-billing": {
       "skill": "saas-billing",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "SaaS billing state machines, subscription lifecycle, and webhooks",
       "actions": [
@@ -3872,7 +3872,7 @@
     },
     "saas-multi-tenant": {
       "skill": "saas-multi-tenant",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Multi-tenant SaaS architecture with PostgreSQL RLS isolation",
       "actions": [
@@ -3901,7 +3901,7 @@
     },
     "sbom-supply-chain-security-expert": {
       "skill": "sbom-supply-chain-security-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Supply chain security, CycloneDX SBOM, Cosign signing, SLSA Level 3",
       "actions": [
@@ -3927,7 +3927,7 @@
     },
     "scalability-clean-code": {
       "skill": "scalability-clean-code",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Clean code architecture, SOLID principles, and system scalability",
       "actions": [
@@ -3957,7 +3957,7 @@
     },
     "screenshot-to-code-expert": {
       "skill": "screenshot-to-code-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Convert UI screenshots, Figma frames, and mockups into clean code",
       "actions": [
@@ -3987,7 +3987,7 @@
     },
     "search-engine-expert": {
       "skill": "search-engine-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Full-text search engines: Typesense, Meilisearch, and Elasticsearch",
       "actions": [
@@ -4016,7 +4016,7 @@
     },
     "self-healing-cloud-orchestrator": {
       "skill": "self-healing-cloud-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "devops-cicd",
       "description": "Real-time log monitoring, crash detection, and auto-hotfixing",
       "actions": [
@@ -4045,7 +4045,7 @@
     },
     "senior-frontend": {
       "skill": "senior-frontend",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4",
       "actions": [
@@ -4074,7 +4074,7 @@
     },
     "seo": {
       "skill": "seo",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Comprehensive SEO audits: technical, schema, and AI search readiness",
       "actions": [
@@ -4103,7 +4103,7 @@
     },
     "session-memory-manager": {
       "skill": "session-memory-manager",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Session memory lifecycle, context handoffs, and compact checkpoints",
       "actions": [
@@ -4132,7 +4132,7 @@
     },
     "solidjs-expert": {
       "skill": "solidjs-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "SolidJS 2 and SolidStart fine-grained reactivity and server rendering",
       "actions": [
@@ -4161,7 +4161,7 @@
     },
     "spa-orchestrator": {
       "skill": "spa-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Single-Page Application (SPA) architecture and client state flows",
       "actions": [
@@ -4191,7 +4191,7 @@
     },
     "spec-driven-development-expert": {
       "skill": "spec-driven-development-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing",
       "actions": [
@@ -4221,7 +4221,7 @@
     },
     "speculative-multi-draft-synthesizer": {
       "skill": "speculative-multi-draft-synthesizer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Speculative multi-agent drafting and AST-aware code consensus",
       "actions": [
@@ -4250,7 +4250,7 @@
     },
     "sse-websocket-streaming-expert": {
       "skill": "sse-websocket-streaming-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Real-time Server-Sent Events (SSE), WebSockets, and data streaming",
       "actions": [
@@ -4280,7 +4280,7 @@
     },
     "state-management-expert": {
       "skill": "state-management-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Modern client state management: Zustand, Jotai, and TanStack Store",
       "actions": [
@@ -4307,7 +4307,7 @@
     },
     "structured-output-contracts": {
       "skill": "structured-output-contracts",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Strict JSON Schema structured outputs and MCP contract enforcement",
       "actions": [
@@ -4336,7 +4336,7 @@
     },
     "supabase-security-expert": {
       "skill": "supabase-security-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "Supabase security audit: RLS policies, RBAC, and data leak prevention",
       "actions": [
@@ -4365,7 +4365,7 @@
     },
     "svelte-sveltekit-expert": {
       "skill": "svelte-sveltekit-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Svelte 5 Runes and SvelteKit 2 server-first application architecture",
       "actions": [
@@ -4394,7 +4394,7 @@
     },
     "svg-animation-motion-expert": {
       "skill": "svg-animation-motion-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Web animations: Framer Motion 12+, GSAP 3, and CSS scroll animations",
       "actions": [
@@ -4422,7 +4422,7 @@
     },
     "synthetic-data-finetuning-expert": {
       "skill": "synthetic-data-finetuning-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Synthetic dataset generation, QLoRA fine-tuning, and local SLM export",
       "actions": [
@@ -4451,7 +4451,7 @@
     },
     "tailwind-expert": {
       "skill": "tailwind-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Tailwind CSS v4, CSS-first @theme configuration, and modern styling",
       "actions": [
@@ -4478,7 +4478,7 @@
     },
     "tanstack-query-expert": {
       "skill": "tanstack-query-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "TanStack Query v5, useSuspenseQuery, SSR hydration, and cache invalidation",
       "actions": [
@@ -4505,7 +4505,7 @@
     },
     "tauri-expert": {
       "skill": "tauri-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+",
       "actions": [
@@ -4534,7 +4534,7 @@
     },
     "test-time-compute-optimizer": {
       "skill": "test-time-compute-optimizer",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Dynamic test-time compute allocation and reasoning token optimization",
       "actions": [
@@ -4563,7 +4563,7 @@
     },
     "thinking-budget-orchestrator": {
       "skill": "thinking-budget-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Dynamic thinking budget orchestrator across late-2026 frontier models",
       "actions": [
@@ -4592,7 +4592,7 @@
     },
     "typescript-expert": {
       "skill": "typescript-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "TypeScript 5.8+ type system, strict types, generics, and branded types",
       "actions": [
@@ -4622,7 +4622,7 @@
     },
     "ui-ux-pro-max": {
       "skill": "ui-ux-pro-max",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks",
       "actions": [
@@ -4651,7 +4651,7 @@
     },
     "vector-db-rag-expert": {
       "skill": "vector-db-rag-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking",
       "actions": [
@@ -4680,7 +4680,7 @@
     },
     "vercel-ai-sdk-expert": {
       "skill": "vercel-ai-sdk-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Vercel AI SDK Core/UI, streaming structured data, and tool calling",
       "actions": [
@@ -4709,7 +4709,7 @@
     },
     "visual-ui-auditor": {
       "skill": "visual-ui-auditor",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Multimodal vision UI audit against crisp borders and accessibility",
       "actions": [
@@ -4738,7 +4738,7 @@
     },
     "voice-ai-realtime-agent": {
       "skill": "voice-ai-realtime-agent",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "ai-llm",
       "description": "Ultra-low latency conversational voice AI (<300ms) with WebRTC",
       "actions": [
@@ -4767,7 +4767,7 @@
     },
     "vue-frontend-expert": {
       "skill": "vue-frontend-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture",
       "actions": [
@@ -4796,7 +4796,7 @@
     },
     "wasm-edge-computing-expert": {
       "skill": "wasm-edge-computing-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare",
       "actions": [
@@ -4825,7 +4825,7 @@
     },
     "web-3d-graphics-expert": {
       "skill": "web-3d-graphics-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F",
       "actions": [
@@ -4854,7 +4854,7 @@
     },
     "web-game-engine-expert": {
       "skill": "web-game-engine-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "Modern web game development: Three.js, Babylon.js, ECS, and physics",
       "actions": [
@@ -4883,7 +4883,7 @@
     },
     "web-scraper": {
       "skill": "web-scraper",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass",
       "actions": [
@@ -4912,7 +4912,7 @@
     },
     "website-design-cloner": {
       "skill": "website-design-cloner",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "frontend",
       "description": "Reverse-engineer website designs, layout structures, and design tokens",
       "actions": [
@@ -4941,7 +4941,7 @@
     },
     "webxr-ar-vr-expert": {
       "skill": "webxr-ar-vr-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "mobile-desktop",
       "description": "WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js",
       "actions": [
@@ -4969,7 +4969,7 @@
     },
     "wordpress-headless-expert": {
       "skill": "wordpress-headless-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Headless WordPress architecture with WPGraphQL, ACF, and Next.js",
       "actions": [
@@ -4999,7 +4999,7 @@
     },
     "xerj-search-expert": {
       "skill": "xerj-search-expert",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "database-storage",
       "description": "XERJ search engine: vector DB, memory store, and 13 embedded MCP tools",
       "actions": [
@@ -5028,7 +5028,7 @@
     },
     "zero-tech-debt-auditor": {
       "skill": "zero-tech-debt-auditor",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Autonomous scanner and refactorer to eliminate technical debt",
       "actions": [
@@ -5057,7 +5057,7 @@
     },
     "zero-to-prod-orchestrator": {
       "skill": "zero-to-prod-orchestrator",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "api-contracts",
       "description": "Master orchestrator to build apps from zero to production readiness",
       "actions": [
@@ -5081,7 +5081,7 @@
     },
     "zero-trust-secret-vault": {
       "skill": "zero-trust-secret-vault",
-      "version": "4.4.2",
+      "version": "4.4.4",
       "domain": "testing-security",
       "description": "Zero-trust secret management (Infisical, Vault) and key rotation",
       "actions": [

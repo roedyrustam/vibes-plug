@@ -2,7 +2,7 @@
 name: file-upload-media-expert
 description: "File uploads (S3, R2, Supabase), presigned URLs, and media pipelines / Upload file (S3, R2, Supabase), presigned URL, dan pipeline media."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

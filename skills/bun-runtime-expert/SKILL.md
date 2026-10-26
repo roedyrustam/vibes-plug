@@ -2,7 +2,7 @@
 name: bun-runtime-expert
 description: "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test / Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

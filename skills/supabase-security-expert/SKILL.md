@@ -2,7 +2,7 @@
 name: supabase-security-expert
 description: "Supabase security audit: RLS policies, RBAC, and data leak prevention / Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: rea-changelog-update
 description: "Prepare REA release changelogs and GitHub release notes / Siapkan changelog rilis REA dan catatan rilis GitHub."
 author: "morluto"
-version: "4.4.3"
+version: "4.4.4"
 ---
 
 # REA changelog update

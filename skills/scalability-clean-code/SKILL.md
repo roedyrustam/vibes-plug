@@ -2,7 +2,7 @@
 name: scalability-clean-code
 description: "Clean code architecture, SOLID principles, and system scalability / Arsitektur clean code, prinsip SOLID, dan skalabilitas sistem."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

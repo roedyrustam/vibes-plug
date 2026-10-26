@@ -2,7 +2,7 @@
 name: vercel-ai-sdk-expert
 description: "Vercel AI SDK Core/UI, streaming structured data, and tool calling / Vercel AI SDK Core/UI, streaming data terstruktur, dan tool calling."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

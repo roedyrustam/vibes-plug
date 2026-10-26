@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)

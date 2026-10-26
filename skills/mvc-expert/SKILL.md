@@ -2,7 +2,7 @@
 name: mvc-expert
 description: "Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

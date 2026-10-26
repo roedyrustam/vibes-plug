@@ -2,7 +2,7 @@
 name: e2e-testing-expert
 description: "End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+ / Pengujian E2E dengan Playwright 1.50+, fixtures, dan Vitest 3+."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

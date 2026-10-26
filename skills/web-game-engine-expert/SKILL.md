@@ -2,7 +2,7 @@
 name: web-game-engine-expert
 description: "Modern web game development: Three.js, Babylon.js, ECS, and physics / Pengembangan game web modern: Three.js, Babylon.js, ECS, dan fisika."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

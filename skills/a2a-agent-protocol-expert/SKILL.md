@@ -2,7 +2,7 @@
 name: a2a-agent-protocol-expert
 description: "A2A agent protocol interoperability, Agent Cards, and MCP bridging / Protokol agen A2A, Agent Cards, dan integrasi MCP."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

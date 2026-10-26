@@ -2,7 +2,7 @@
 name: desktop-electron-expert
 description: "Electron 33+ desktop apps, IPC security, multi-window, and packaging / Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

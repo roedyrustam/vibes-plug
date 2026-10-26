@@ -2,7 +2,7 @@
 name: seo
 description: "Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

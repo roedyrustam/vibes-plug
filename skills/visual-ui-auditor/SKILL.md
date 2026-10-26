@@ -2,7 +2,7 @@
 name: visual-ui-auditor
 description: "Multimodal vision UI audit against crisp borders and accessibility / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Visual UI Auditor & Vision Quality Gate (2026 Sovereign Edition)

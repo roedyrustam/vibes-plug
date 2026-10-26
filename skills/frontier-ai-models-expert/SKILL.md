@@ -2,7 +2,7 @@
 name: frontier-ai-models-expert
 description: "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

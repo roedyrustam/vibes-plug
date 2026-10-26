@@ -2,7 +2,7 @@
 name: astro-framework-expert
 description: "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

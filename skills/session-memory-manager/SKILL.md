@@ -2,7 +2,7 @@
 name: session-memory-manager
 description: "Session memory lifecycle, context handoffs, and compact checkpoints / Manajemen memori sesi, handoff konteks, dan checkpoint ringkas."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

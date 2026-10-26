@@ -2,7 +2,7 @@
 name: saas-multi-tenant
 description: "Multi-tenant SaaS architecture with PostgreSQL RLS isolation / Arsitektur SaaS multi-tenant dengan isolasi PostgreSQL RLS."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

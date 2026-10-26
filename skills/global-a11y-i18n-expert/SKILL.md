@@ -2,7 +2,7 @@
 name: global-a11y-i18n-expert
 description: "Web accessibility (WCAG) and internationalization (i18n) / Aksesibilitas web (WCAG) dan internasionalisasi (i18n)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

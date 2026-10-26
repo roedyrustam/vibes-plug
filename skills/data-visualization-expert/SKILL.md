@@ -2,7 +2,7 @@
 name: data-visualization-expert
 description: "Data visualization dashboards using D3.js, Recharts, and Tremor / Visualisasi data, grafik, dan dashboard dengan D3.js dan Recharts."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

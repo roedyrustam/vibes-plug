@@ -2,7 +2,7 @@
 name: vector-db-rag-expert
 description: "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

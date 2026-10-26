@@ -2,7 +2,7 @@
 name: svelte-sveltekit-expert
 description: "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

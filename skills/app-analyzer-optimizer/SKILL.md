@@ -2,7 +2,7 @@
 name: app-analyzer-optimizer
 description: "Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

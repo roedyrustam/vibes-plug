@@ -2,7 +2,7 @@
 name: production-ready-hardener
 description: "Pre-deployment application hardening across security, perf, and tests / Pengerasan aplikasi pra-deploy: keamanan, performa, dan tes."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

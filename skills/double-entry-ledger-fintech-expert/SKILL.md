@@ -2,7 +2,7 @@
 name: double-entry-ledger-fintech-expert
 description: "Immutable double-entry ledgers, TigerBeetle, and balance reconciliation / Buku besar double-entry permanen, TigerBeetle, dan rekonsiliasi saldo."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

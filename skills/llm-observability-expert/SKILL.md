@@ -2,7 +2,7 @@
 name: llm-observability-expert
 description: "Production LLM observability, token cost tracking, and GenAI tracing / Observabilitas LLM produksi, pelacakan biaya, dan tracing GenAI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

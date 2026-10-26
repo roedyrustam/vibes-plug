@@ -2,7 +2,7 @@
 name: apple-ecosystem-expert
 description: "Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Apple Ecosystem Expert — vibes-plug Skill

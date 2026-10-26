@@ -2,7 +2,7 @@
 name: post-quantum-crypto-migrator
 description: "NIST post-quantum cryptography migration (ML-KEM, ML-DSA) / Migrasi kriptografi pasca-kuantum NIST (ML-KEM, ML-DSA)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Post-Quantum Cryptography Migrator (2026 Sovereign Edition)

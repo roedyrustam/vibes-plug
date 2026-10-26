@@ -2,7 +2,7 @@
 name: ecommerce-expert
 description: "E-commerce architecture, product catalogs, cart, and checkout UX / Arsitektur e-commerce, katalog produk, keranjang, dan checkout UX."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

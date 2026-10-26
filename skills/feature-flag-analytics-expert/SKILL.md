@@ -2,7 +2,7 @@
 name: feature-flag-analytics-expert
 description: "Feature flags, progressive rollouts (PostHog), and A/B testing / Feature flag, rollout bertahap (PostHog), dan pengujian A/B."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: tauri-expert
 description: "Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+ / Aplikasi desktop & mobile Tauri 2.x dengan Rust 1.90+ dan IPC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: accessibility-testing-expert
 description: "Web accessibility testing with axe-core, Playwright, and WCAG 2.2 / Pengujian aksesibilitas web axe-core, Playwright, dan WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

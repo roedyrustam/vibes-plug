@@ -2,7 +2,7 @@
 name: ai-code-review-autonomous
 description: "Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

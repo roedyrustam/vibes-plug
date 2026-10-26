@@ -2,7 +2,7 @@
 name: autonomous-tdd-debugger
 description: "Autonomous TDD test runner, stack trace analysis, and code self-heal / Runner tes TDD otonom, analisis stack trace, dan self-healing kode."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: headless-cms-expert
 description: "Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful / Integrasi Headless CMS: Sanity, Payload CMS, Strapi, Contentful."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

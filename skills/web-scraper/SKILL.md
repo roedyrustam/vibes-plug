@@ -2,7 +2,7 @@
 name: web-scraper
 description: "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass / Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

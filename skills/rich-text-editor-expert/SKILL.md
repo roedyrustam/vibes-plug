@@ -2,7 +2,7 @@
 name: rich-text-editor-expert
 description: "Rich text editors integration (Tiptap, Lexical) & collaboration / Integrasi editor rich text (Tiptap, Lexical) dan kolaborasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: web-3d-graphics-expert
 description: "WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F / Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

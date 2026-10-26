@@ -2,7 +2,7 @@
 name: llm-finops-router
 description: "AI FinOps, dynamic model routing (LiteLLM), and token cost control / FinOps AI, routing model dinamis (LiteLLM), dan kontrol biaya token."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: computer-use-os-agent-expert
 description: "Computer-using agents (CUA), desktop GUI automation, and VM sandbox / Agen CUA pengguna komputer, otomasi GUI desktop, dan sandbox VM."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Computer-Use & OS Agent Expert / Ahli Agen Pengguna Komputer & OS

@@ -2,7 +2,7 @@
 name: geospatial-maps-expert
 description: "Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS / Peta dan data geospasial: Mapbox GL JS, Leaflet, dan PostGIS."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

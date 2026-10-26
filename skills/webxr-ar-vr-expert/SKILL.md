@@ -2,7 +2,7 @@
 name: webxr-ar-vr-expert
 description: "WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js / Komputasi spasial WebXR, WebVR, AR, dan MR menggunakan Babylon.js."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

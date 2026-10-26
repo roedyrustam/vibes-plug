@@ -2,7 +2,7 @@
 name: python-programming-expert
 description: "Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest / Pemrograman Python modern: FastAPI, Pydantic v2, uv, dan pytest."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

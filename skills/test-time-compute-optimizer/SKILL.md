@@ -2,7 +2,7 @@
 name: test-time-compute-optimizer
 description: "Dynamic test-time compute allocation and reasoning token optimization / Alokasi komputasi test-time dinamis dan optimasi token penalaran."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

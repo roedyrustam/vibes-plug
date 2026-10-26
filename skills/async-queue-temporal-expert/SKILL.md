@@ -2,7 +2,7 @@
 name: async-queue-temporal-expert
 description: "Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io / Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

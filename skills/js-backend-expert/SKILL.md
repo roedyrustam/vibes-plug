@@ -2,7 +2,7 @@
 name: js-backend-expert
 description: "Node.js 24+, Bun, and Deno backend development (Hono, Fastify, Express) / Pengembangan backend Node.js, Bun, dan Deno (Hono, Fastify, Express)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: website-design-cloner
 description: "Reverse-engineer website designs, layout structures, and design tokens / Rekayasa balik desain website, struktur layout, dan token desain."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Website Design Cloner & Reverse Engineering Expert (2026 Edition)

@@ -2,7 +2,7 @@
 name: browser-extension-mv3-pro
 description: "Manifest V3 browser extensions, SidePanel API, and service workers / Pengembangan ekstensi browser Manifest V3, SidePanel, dan workers."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

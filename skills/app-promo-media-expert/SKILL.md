@@ -2,7 +2,7 @@
 name: app-promo-media-expert
 description: "App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

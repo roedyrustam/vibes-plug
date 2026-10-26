@@ -2,7 +2,7 @@
 name: mcp-server-architect
 description: "Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

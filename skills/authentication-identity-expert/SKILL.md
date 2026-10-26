@@ -2,7 +2,7 @@
 name: authentication-identity-expert
 description: "Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js / Autentikasi, otorisasi (RBAC/ABAC), OAuth2, Clerk, dan Auth.js."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

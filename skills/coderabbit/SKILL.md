@@ -2,7 +2,7 @@
 name: coderabbit
 description: "AI automated code review, PR summarization, and developer feedback / Review kode otomatis AI, ringkasan PR, dan umpan balik developer."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

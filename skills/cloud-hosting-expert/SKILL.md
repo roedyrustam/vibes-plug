@@ -2,7 +2,7 @@
 name: cloud-hosting-expert
 description: "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare) / Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

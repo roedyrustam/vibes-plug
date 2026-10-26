@@ -2,7 +2,7 @@
 name: autonomous-api-drift-healer
 description: "Autonomous API schema drift detection and breaking change healing / Deteksi drift skema API otonom dan perbaikan breaking change."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

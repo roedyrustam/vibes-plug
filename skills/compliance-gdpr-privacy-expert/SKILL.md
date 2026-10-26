@@ -2,7 +2,7 @@
 name: compliance-gdpr-privacy-expert
 description: "Data privacy compliance: GDPR, CCPA, PDPA, and privacy-by-design / Kepatuhan privasi data: GDPR, CCPA, PDPA, dan audit trail privasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Data Privacy & Compliance Expert (GDPR, CCPA & UU PDP 2026)

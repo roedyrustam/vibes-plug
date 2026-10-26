@@ -2,7 +2,7 @@
 name: context-window-engineer
 description: "Optimize 2M+ context windows, prompt cache pinning & budget slicing / Rekayasa context window 2M+, cache pinning, dan budget token."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

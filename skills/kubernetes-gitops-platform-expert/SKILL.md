@@ -2,7 +2,7 @@
 name: kubernetes-gitops-platform-expert
 description: "Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA / Platform engineering Kubernetes & GitOps: ArgoCD, Cilium, dan KEDA."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Kubernetes & GitOps Platform Expert / Ahli Platform Kubernetes & GitOps

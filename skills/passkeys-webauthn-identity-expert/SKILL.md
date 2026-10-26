@@ -2,7 +2,7 @@
 name: passkeys-webauthn-identity-expert
 description: "FIDO2 / WebAuthn Passkeys, SimpleWebAuthn, and passwordless auth / Autentikasi tanpa kata sandi Passkeys FIDO2 dan SimpleWebAuthn."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: chatbot-messaging-expert
 description: "Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack / Integrasi chatbot & messaging: WhatsApp, Telegram, Discord, Slack."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

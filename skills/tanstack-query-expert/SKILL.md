@@ -2,7 +2,7 @@
 name: tanstack-query-expert
 description: "TanStack Query v5, useSuspenseQuery, SSR hydration, and cache invalidation / Manajemen state server TanStack Query v5 dan hidrasi SSR."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

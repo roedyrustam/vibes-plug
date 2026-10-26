@@ -2,7 +2,7 @@
 name: thinking-budget-orchestrator
 description: "Dynamic thinking budget orchestrator across late-2026 frontier models / Alokasi budget penalaran dinamis pada model frontier 2026."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

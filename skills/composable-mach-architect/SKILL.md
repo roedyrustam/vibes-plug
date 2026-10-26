@@ -2,7 +2,7 @@
 name: composable-mach-architect
 description: "Composable MACH architecture: microservices, API mesh, and headless / Arsitektur MACH komposabel: microservices, API mesh, dan headless."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

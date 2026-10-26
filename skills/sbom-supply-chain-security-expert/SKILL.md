@@ -2,7 +2,7 @@
 name: sbom-supply-chain-security-expert
 description: "Supply chain security, CycloneDX SBOM, Cosign signing, SLSA Level 3 / Keamanan rantai pasok software, SBOM CycloneDX, dan tanda tangan Cosign."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # SBOM & Supply Chain Security Expert / Ahli Keamanan Rantai Pasok & SBOM

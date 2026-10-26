@@ -2,7 +2,7 @@
 name: graph-rag-knowledge-expert
 description: "Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search / Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

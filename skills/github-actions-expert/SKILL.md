@@ -2,7 +2,7 @@
 name: github-actions-expert
 description: "GitHub Actions CI/CD workflows, reusable actions, and OIDC auth / Workflow CI/CD GitHub Actions, reusable actions, dan auth OIDC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # GitHub Actions Expert (Enterprise CI/CD Standard 2026)

@@ -2,7 +2,7 @@
 name: spa-orchestrator
 description: "Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

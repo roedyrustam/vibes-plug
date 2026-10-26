@@ -2,7 +2,7 @@
 name: ai-safety-governance-expert
 description: "AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act / Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

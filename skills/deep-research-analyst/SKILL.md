@@ -2,7 +2,7 @@
 name: deep-research-analyst
 description: "Autonomous deep research, evidence graph synthesis, citation checks / Riset mendalam otonom, sintesis bukti, dan verifikasi sitasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

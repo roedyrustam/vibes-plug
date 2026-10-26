@@ -2,7 +2,7 @@
 name: blockchain-web3-expert
 description: "Web3 and dApp integration: viem, wagmi v2, ethers.js, and contracts / Integrasi Web3 dan dApp: viem, wagmi v2, ethers.js, dan smart contracts."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

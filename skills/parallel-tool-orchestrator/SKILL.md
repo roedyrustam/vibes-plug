@@ -2,7 +2,7 @@
 name: parallel-tool-orchestrator
 description: "Parallel tool calling, MCP batching, and async subagent fan-out / Eksekusi tool paralel, batching MCP, dan subagent async fan-out."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

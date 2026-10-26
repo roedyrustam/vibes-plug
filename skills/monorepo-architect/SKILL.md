@@ -2,7 +2,7 @@
 name: monorepo-architect
 description: "Scalable monorepo architecture with Turborepo and pnpm workspaces / Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

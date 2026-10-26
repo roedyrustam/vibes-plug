@@ -2,7 +2,7 @@
 name: xerj-search-expert
 description: "XERJ search engine: vector DB, memory store, and 13 embedded MCP tools / Mesin pencari XERJ: vector DB, memory store, dan 13 tool MCP."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

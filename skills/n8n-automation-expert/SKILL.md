@@ -2,7 +2,7 @@
 name: n8n-automation-expert
 description: "Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Workflow Automation & n8n AI Orchestration Expert (2026 Edition)

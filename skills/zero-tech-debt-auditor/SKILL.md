@@ -2,7 +2,7 @@
 name: zero-tech-debt-auditor
 description: "Autonomous scanner and refactorer to eliminate technical debt / Scanner otonom dan refaktor kode untuk menghapus utang teknis."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Zero Tech Debt Auditor / Auditor Nol Utang Teknis

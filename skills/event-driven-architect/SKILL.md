@@ -2,7 +2,7 @@
 name: event-driven-architect
 description: "Event-driven microservices, message queues, and event sourcing / Arsitektur event-driven, antrean pesan, dan event sourcing."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

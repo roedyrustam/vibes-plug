@@ -2,7 +2,7 @@
 name: cron-scheduler-expert
 description: "Scheduled cron tasks and background workflows (Vercel, Cloudflare) / Tugas terjadwal cron dan background job (Vercel, Cloudflare)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

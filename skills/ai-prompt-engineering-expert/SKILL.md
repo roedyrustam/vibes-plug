@@ -2,7 +2,7 @@
 name: ai-prompt-engineering-expert
 description: "Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

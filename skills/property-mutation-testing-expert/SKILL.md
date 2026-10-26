@@ -2,7 +2,7 @@
 name: property-mutation-testing-expert
 description: "Property-based testing (fast-check) and mutation testing (Stryker) / Pengujian berbasis properti (fast-check) dan mutasi (Stryker)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

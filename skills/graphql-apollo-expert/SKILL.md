@@ -2,7 +2,7 @@
 name: graphql-apollo-expert
 description: "GraphQL APIs with Apollo Server/Client, NestJS, and query caching / API GraphQL dengan Apollo Server/Client, NestJS, dan optimasi query."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

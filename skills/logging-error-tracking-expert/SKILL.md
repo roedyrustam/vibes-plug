@@ -2,7 +2,7 @@
 name: logging-error-tracking-expert
 description: "Structured logging (Pino) and error tracking (Sentry, Axiom) / Logging terstruktur (Pino) dan pelacakan error (Sentry, Axiom)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

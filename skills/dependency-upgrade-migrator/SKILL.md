@@ -2,7 +2,7 @@
 name: dependency-upgrade-migrator
 description: "Dependency upgrades, breaking change migrations, and codemod tooling / Upgrade dependensi, migrasi breaking change, dan otomasi codemod."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: pdf-document-generation-expert
 description: "PDF generation and document processing (React PDF, Puppeteer) / Generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

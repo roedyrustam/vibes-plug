@@ -2,7 +2,7 @@
 name: rate-limit-abuse-prevention
 description: "API rate limiting, bot protection, DDoS mitigation, and abuse defense / Rate limiting API, perlindungan bot, dan mitigasi serangan DDoS."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: rea-ci-tests-audit
 description: "Audit REA CI and test suites for correctness and measured performance / Audit suite tes dan CI REA untuk ketepatan dan performa terukur."
 author: "morluto"
-version: "4.4.3"
+version: "4.4.4"
 ---
 
 # REA CI and tests audit

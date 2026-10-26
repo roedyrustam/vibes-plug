@@ -2,7 +2,7 @@
 name: database-orm-expert
 description: "Unified database ORM, schema migrations, edge DBs, and Supabase CLI / Database ORM terpadu, migrasi skema, edge DB, dan Supabase CLI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

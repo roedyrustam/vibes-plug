@@ -2,7 +2,7 @@
 name: durable-agent-execution-expert
 description: "Durable agent execution, Temporal AI workflows, and state replay / Eksekusi agen AI tahan-gagal, workflow Temporal, dan replay state."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: state-management-expert
 description: "Modern client state management: Zustand, Jotai, and TanStack Store / Manajemen state modern client-side: Zustand, Jotai, TanStack Store."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

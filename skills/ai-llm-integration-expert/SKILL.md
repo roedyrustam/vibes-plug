@@ -2,7 +2,7 @@
 name: ai-llm-integration-expert
 description: "LLM integration, MCP v1.x protocols, hybrid reasoning, and RAG / Integrasi LLM, protokol MCP v1.x, hybrid reasoning, dan RAG."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

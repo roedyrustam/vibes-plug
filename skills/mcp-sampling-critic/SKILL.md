@@ -2,7 +2,7 @@
 name: mcp-sampling-critic
 description: "MCP client sampling and critic-in-the-loop multi-model consensus / Sampling MCP client dan validasi konsensus multi-model AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

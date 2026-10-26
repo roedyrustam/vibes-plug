@@ -2,7 +2,7 @@
 name: sse-websocket-streaming-expert
 description: "Real-time Server-Sent Events (SSE), WebSockets, and data streaming / Server-Sent Events (SSE), WebSockets, dan streaming data real-time."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

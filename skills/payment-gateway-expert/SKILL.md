@@ -2,7 +2,7 @@
 name: payment-gateway-expert
 description: "Payment gateways integration (Stripe, Midtrans) and secure webhooks / Integrasi payment gateway (Stripe, Midtrans) dan webhook aman."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

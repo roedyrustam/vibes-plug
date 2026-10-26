@@ -3,7 +3,7 @@ name: angular-expert
 description: "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore."
 author: "Roedy Rustam"
 
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

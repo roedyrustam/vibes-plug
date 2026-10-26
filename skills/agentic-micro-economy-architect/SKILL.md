@@ -2,7 +2,7 @@
 name: agentic-micro-economy-architect
 description: "M2M micro-economies, agent wallets, swarm budgets, and HTTP 402 / Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Agentic Micro-Economy Architect (2026 Sovereign Edition)

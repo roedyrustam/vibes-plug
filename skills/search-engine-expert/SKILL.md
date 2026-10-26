@@ -2,7 +2,7 @@
 name: search-engine-expert
 description: "Full-text search engines: Typesense, Meilisearch, and Elasticsearch / Mesin pencarian full-text: Typesense, Meilisearch, Elasticsearch."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

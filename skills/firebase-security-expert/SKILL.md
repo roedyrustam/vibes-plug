@@ -2,7 +2,7 @@
 name: firebase-security-expert
 description: "Firebase security rules, authentication audit, and App Check / Audit keamanan Firebase rules, autentikasi, dan konfigurasi App Check."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

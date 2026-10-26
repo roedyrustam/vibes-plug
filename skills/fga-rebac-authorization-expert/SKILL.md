@@ -2,7 +2,7 @@
 name: fga-rebac-authorization-expert
 description: "Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions / Otorisasi granular ReBAC (OpenFGA, SpiceDB) dan kontrol izin."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: structured-output-contracts
 description: "Strict JSON Schema structured outputs and MCP contract enforcement / Penegakan kontrak output terstruktur JSON Schema ketat dan MCP."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

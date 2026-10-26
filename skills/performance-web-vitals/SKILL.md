@@ -2,7 +2,7 @@
 name: performance-web-vitals
 description: "Web performance optimization: Core Web Vitals (LCP, INP, CLS) / Optimasi performa web dan metrik Core Web Vitals (LCP, INP, CLS)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

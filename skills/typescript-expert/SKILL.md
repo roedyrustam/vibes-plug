@@ -2,7 +2,7 @@
 name: typescript-expert
 description: "TypeScript 5.8+ type system, strict types, generics, and branded types / Sistem tipe TypeScript 5.8+, tipe strict, generics, dan branded types."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

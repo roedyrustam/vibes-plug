@@ -2,7 +2,7 @@
 name: hig
 description: "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency / Prinsip HIG: Hierarki, Harmoni, dan Konsistensi antarmuka UI/UX."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)

@@ -2,7 +2,7 @@
 name: pydantic-ai-expert
 description: "Type-safe Python AI agents with Pydantic AI and structured outputs / Agen AI Python type-safe dengan Pydantic AI dan output terstruktur."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

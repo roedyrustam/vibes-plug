@@ -2,7 +2,7 @@
 name: rust-programming-expert
 description: "Rust 2024 / v1.88+ memory safety, async Axum, and zero-cost patterns / Pemrograman Rust modern: async Axum, SQLx, dan performa tinggi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

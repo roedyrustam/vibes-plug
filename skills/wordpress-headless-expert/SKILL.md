@@ -2,7 +2,7 @@
 name: wordpress-headless-expert
 description: "Headless WordPress architecture with WPGraphQL, ACF, and Next.js / Arsitektur headless WordPress dengan WPGraphQL, ACF, dan Next.js."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

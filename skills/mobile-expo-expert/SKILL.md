@@ -3,7 +3,7 @@ name: mobile-expo-expert
 description: "React Native & Expo SDK 53+ cross-platform mobile app development / Pengembangan aplikasi mobile React Native & Expo SDK 53+."
 author: "Roedy Rustam"
 
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

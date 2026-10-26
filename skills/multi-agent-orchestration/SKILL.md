@@ -2,7 +2,7 @@
 name: multi-agent-orchestration
 description: "Multi-agent systems, swarm patterns, and agentic memory coordination / Sistem multi-agen, pola swarm, dan koordinasi memori agen."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

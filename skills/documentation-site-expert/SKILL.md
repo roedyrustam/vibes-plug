@@ -2,7 +2,7 @@
 name: documentation-site-expert
 description: "Technical documentation sites: Mintlify, Docusaurus, and Storybook / Situs dokumentasi teknis: Mintlify, Docusaurus, dan Storybook."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

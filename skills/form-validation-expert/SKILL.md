@@ -2,7 +2,7 @@
 name: form-validation-expert
 description: "Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Form & Validation Expert (2026 Edition)

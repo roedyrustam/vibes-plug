@@ -2,7 +2,7 @@
 name: spec-driven-development-expert
 description: "Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

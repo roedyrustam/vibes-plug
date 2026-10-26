@@ -2,7 +2,7 @@
 name: mpa-orchestrator
 description: "Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

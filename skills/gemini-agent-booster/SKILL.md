@@ -2,7 +2,7 @@
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent, 2M+ context & tools / Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

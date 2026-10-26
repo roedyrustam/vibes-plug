@@ -2,7 +2,7 @@
 name: cloudflare-workers-expert
 description: "Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects / Ekosistem Cloudflare Workers: D1, KV, R2, Queues, Durable Objects."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 ---
 
 # Cloudflare Workers Ecosystem Expert (2026 Edition)

@@ -2,7 +2,7 @@
 name: nextjs-app-router-expert
 description: "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

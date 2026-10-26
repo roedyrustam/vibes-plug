@@ -2,7 +2,7 @@
 name: fullstack-expert
 description: "Polyglot fullstack development: TypeScript, Python, Go, and Rust / Pengembangan fullstack polyglot: TypeScript, Python, Go, dan Rust."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: kv-cache-prefix-optimizer
 description: "Deterministic prompt prefix engineering & KV-cache hit optimization / Rekayasa prefix prompt deterministik & optimasi cache KV."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 

@@ -2,7 +2,7 @@
 name: agentic-coding-workflow-expert
 description: "AI coding workflows, multi-agent code swarms, and CI/CD self-healing / Workflow koding AI, swarm multi-agen, dan self-healing CI/CD."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.4.4"
 
 ---
 
