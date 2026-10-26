@@ -41,7 +41,10 @@
     ".codex",
     "README.md",
     "CHANGELOG.md",
-    "LICENSE"
+    "LICENSE",
+    "install.sh",
+    "install.ps1",
+    ".well-known"
   ],
   "scripts": {
     "test": "node scripts/audit-graph.mjs && node scripts/validate-skills.mjs && node scripts/verify-skill-snippets.mjs && node scripts/check-anti-slop.js --strict && node --test scripts/test-cli.mjs",

@@ -1,0 +1,290 @@
+{
+  "$schema": "https://a2a-protocol.org/schemas/v1/agent-card.json",
+  "name": "vibes-plug-swarm-master",
+  "description": "Universal 176-Skill Autonomous Multi-Agent Swarm & SaaT Superintelligence Substrate",
+  "url": "http://localhost:3888",
+  "version": "4.5.0",
+  "protocolVersion": "1.0.0",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true,
+    "sharedBlackboard": true,
+    "processRewardArbitration": true,
+    "ephemeralSandbox": true,
+    "symbolGraphRag": true
+  },
+  "authentication": {
+    "schemes": [
+      "Bearer",
+      "MutualTLS",
+      "None"
+    ]
+  },
+  "metadata": {
+    "totalSkillsCount": 176,
+    "subagentsCount": 8,
+    "author": "Roedy Rustam",
+    "license": "MIT",
+    "repository": "https://github.com/roedyrustam/vibes-plug"
+  },
+  "subagents": [
+    {
+      "id": "swarm-architect",
+      "name": "Swarm Architect",
+      "role": "System discovery, PRD, and database ERD architecture"
+    },
+    {
+      "id": "fullstack-craftsman",
+      "name": "Fullstack Craftsman",
+      "role": "Fullstack React 19, Next 15, Hono, Bun, and Drizzle/Prisma development"
+    },
+    {
+      "id": "quality-guardian",
+      "name": "Quality Guardian",
+      "role": "Anti-Slop auditing, automated TDD debugging, and penetration testing"
+    },
+    {
+      "id": "fintech-payment-sentinel",
+      "name": "FinTech Payment Sentinel",
+      "role": "DOKU SNAP BI checkout, Stripe subscriptions, and atomic ledgers"
+    },
+    {
+      "id": "ai-mcp-engineer",
+      "name": "AI & MCP Engineer",
+      "role": "Model Context Protocol v1.x tools, agent swarms, and LLM pipelines"
+    },
+    {
+      "id": "cloud-devops-sre",
+      "name": "Cloud DevOps SRE",
+      "role": "Kubernetes GitOps, Docker distroless, and zero-trust security"
+    },
+    {
+      "id": "data-rag-architect",
+      "name": "Data & RAG Architect",
+      "role": "Hybrid Vector/Graph RAG, ClickHouse OLAP, and reactive sync engines"
+    },
+    {
+      "id": "mobile-spatial-craftsman",
+      "name": "Mobile & Spatial Craftsman",
+      "role": "React Native/Expo SDK 53, Flutter, Tauri v2, and WebGPU 3D graphics"
+    }
+  ],
+  "skills": [
+    {
+      "id": "swarm-architect",
+      "name": "Swarm Architect",
+      "description": "System discovery, PRD, and database ERD architecture",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "swarm"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "fullstack-craftsman",
+      "name": "Fullstack Craftsman",
+      "description": "Fullstack React 19, Next 15, Hono, Bun, and Drizzle/Prisma development",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "fullstack"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "quality-guardian",
+      "name": "Quality Guardian",
+      "description": "Anti-Slop auditing, automated TDD debugging, and penetration testing",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "quality"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "fintech-payment-sentinel",
+      "name": "FinTech Payment Sentinel",
+      "description": "DOKU SNAP BI checkout, Stripe subscriptions, and atomic ledgers",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "fintech"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "ai-mcp-engineer",
+      "name": "AI & MCP Engineer",
+      "description": "Model Context Protocol v1.x tools, agent swarms, and LLM pipelines",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "ai"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "cloud-devops-sre",
+      "name": "Cloud DevOps SRE",
+      "description": "Kubernetes GitOps, Docker distroless, and zero-trust security",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "cloud"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "data-rag-architect",
+      "name": "Data & RAG Architect",
+      "description": "Hybrid Vector/Graph RAG, ClickHouse OLAP, and reactive sync engines",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "data"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    },
+    {
+      "id": "mobile-spatial-craftsman",
+      "name": "Mobile & Spatial Craftsman",
+      "description": "React Native/Expo SDK 53, Flutter, Tauri v2, and WebGPU 3D graphics",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "mobile"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
+    }
+  ],
+  "mcpBridge": {
+    "stdio": "node bin/mcp-server.mjs",
+    "sseEndpoint": "http://localhost:3888/sse",
+    "rpcEndpoint": "http://localhost:3888/api/mcp/execute",
+    "totalTools": 42
+  },
+  "timestamp": "2026-10-26T21:53:21.125Z"
+}
