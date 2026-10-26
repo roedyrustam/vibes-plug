@@ -853,6 +853,23 @@ export const TOOLS = [
       },
       required: ['target']
     }
+  },
+  {
+    name: 'vibes_a2a_card',
+    description: 'RFC-A2A Protocol Agent Card: generates or exports official JSON agent discovery card for federated multi-agent handshakes and capabilities negotiation.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        save: {
+          type: 'boolean',
+          description: 'Whether to write card to /.well-known/agent.json and .agents/agent-card.json (default: false).'
+        },
+        url: {
+          type: 'string',
+          description: 'Custom host base URL for A2A endpoints.'
+        }
+      }
+    }
   }
 ];
 
@@ -1626,6 +1643,11 @@ export async function handleRpcRequest(request) {
         const { evolveSkill } = await import('../scripts/skill-evolver.mjs');
         const outcome = await evolveSkill({ name: target, fromRepo, category, dryRun, generateRules });
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_a2a_card') {
+        const { save = false, url } = args || {};
+        const { generateA2ACard } = await import('../scripts/agent-card-generator.mjs');
+        const outcome = await generateA2ACard({ save, url });
+        contentText = JSON.stringify(outcome.card, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

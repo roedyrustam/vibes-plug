@@ -1,15 +1,15 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T21:37:34.561Z",
+  "generatedAt": "2026-10-26T21:40:13.309Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 79,
-  "totalSymbolsIndexed": 441,
-  "totalImportEdges": 246,
+  "totalFilesIndexed": 80,
+  "totalSymbolsIndexed": 444,
+  "totalImportEdges": 249,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 978,
+        "line": 995,
         "type": "function",
         "signature": "function getActiveProfile()"
       }
@@ -17,7 +17,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 982,
+        "line": 999,
         "type": "function",
         "signature": "function setActiveProfile(profileName)"
       }
@@ -25,7 +25,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 991,
+        "line": 1008,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)"
       }
@@ -33,7 +33,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1035,
+        "line": 1052,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -41,7 +41,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1657,
+        "line": 1679,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -49,7 +49,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1685,
+        "line": 1707,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -57,7 +57,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1793,
+        "line": 1815,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -270,55 +270,29 @@
         "signature": "function deactivate()"
       }
     ],
-    "resolveImportTarget": [
+    "loadSubagentsMetadata": [
       {
-        "file": "scripts/ast-query.mjs",
-        "line": 25,
+        "file": "scripts/agent-card-generator.mjs",
+        "line": 28,
         "type": "function",
-        "signature": "function resolveImportTarget(fromFile, specifier)"
+        "signature": "function loadSubagentsMetadata()"
       }
     ],
-    "parseImportEdges": [
+    "generateA2ACard": [
       {
-        "file": "scripts/ast-query.mjs",
-        "line": 46,
+        "file": "scripts/agent-card-generator.mjs",
+        "line": 48,
         "type": "function",
-        "signature": "function parseImportEdges(content, filePath)"
-      }
-    ],
-    "readMultilineParams": [
-      {
-        "file": "scripts/ast-query.mjs",
-        "line": 119,
-        "type": "function",
-        "signature": "function readMultilineParams(lines, lineIdx, startAfterParen)"
-      }
-    ],
-    "parseSymbols": [
-      {
-        "file": "scripts/ast-query.mjs",
-        "line": 148,
-        "type": "function",
-        "signature": "function parseSymbols(filePath)"
-      }
-    ],
-    "extractSymbolCode": [
-      {
-        "file": "scripts/ast-query.mjs",
-        "line": 324,
-        "type": "function",
-        "signature": "function extractSymbolCode(filePath, symbolName)"
-      }
-    ],
-    "calculateBlastRadius": [
-      {
-        "file": "scripts/ast-query.mjs",
-        "line": 374,
-        "type": "function",
-        "signature": "function calculateBlastRadius(rootDir, targetFile, options = {})"
+        "signature": "function generateA2ACard(options = {})"
       }
     ],
     "main": [
+      {
+        "file": "scripts/agent-card-generator.mjs",
+        "line": 125,
+        "type": "function",
+        "signature": "function main()"
+      },
       {
         "file": "scripts/ast-query.mjs",
         "line": 509,
@@ -486,6 +460,54 @@
         "line": 919,
         "type": "function",
         "signature": "def main():"
+      }
+    ],
+    "resolveImportTarget": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 25,
+        "type": "function",
+        "signature": "function resolveImportTarget(fromFile, specifier)"
+      }
+    ],
+    "parseImportEdges": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 46,
+        "type": "function",
+        "signature": "function parseImportEdges(content, filePath)"
+      }
+    ],
+    "readMultilineParams": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 119,
+        "type": "function",
+        "signature": "function readMultilineParams(lines, lineIdx, startAfterParen)"
+      }
+    ],
+    "parseSymbols": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 148,
+        "type": "function",
+        "signature": "function parseSymbols(filePath)"
+      }
+    ],
+    "extractSymbolCode": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 324,
+        "type": "function",
+        "signature": "function extractSymbolCode(filePath, symbolName)"
+      }
+    ],
+    "calculateBlastRadius": [
+      {
+        "file": "scripts/ast-query.mjs",
+        "line": 374,
+        "type": "function",
+        "signature": "function calculateBlastRadius(rootDir, targetFile, options = {})"
       }
     ],
     "auditGraph": [
@@ -3425,7 +3447,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1816,
+      "totalLines": 1838,
       "symbolCount": 7,
       "exports": [
         "getActiveProfile",
@@ -3593,7 +3615,7 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2090,
+      "totalLines": 2098,
       "symbolCount": 23,
       "exports": [],
       "imports": [
@@ -3781,6 +3803,40 @@
             "verifyCandidateCode"
           ],
           "line": 7
+        }
+      ]
+    },
+    "scripts/agent-card-generator.mjs": {
+      "totalLines": 160,
+      "symbolCount": 3,
+      "exports": [
+        "loadSubagentsMetadata",
+        "generateA2ACard"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 16
         }
       ]
     },
@@ -5276,7 +5332,7 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4724,
+      "totalLines": 4737,
       "symbolCount": 8,
       "exports": [
         "generateStudioHtml",
@@ -5699,7 +5755,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1936,
+      "totalLines": 1975,
       "symbolCount": 1,
       "exports": [],
       "imports": [

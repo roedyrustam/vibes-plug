@@ -1892,6 +1892,14 @@ Platform Eligibility & Economics:
     process.exit(child.status ?? 0);
     break;
   }
+  case 'a2a':
+  case 'a2a:card': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'agent-card-generator.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'pr:review':
   case 'pr-review': {
     rl.close();

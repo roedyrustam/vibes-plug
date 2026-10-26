@@ -1208,7 +1208,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 42);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 43);
       assert.equal(liveTelData.liveWatcher.active, true);
 
       // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
@@ -1929,6 +1929,45 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(binData.success, true);
     assert.strictEqual(binData.dryRun, true);
     assert.strictEqual(binData.name, 'vibes');
+  });
+
+  await t.test('A2A Agent Card Generator and RFC-A2A Discovery Protocol', async () => {
+    const { generateA2ACard } = await import('./agent-card-generator.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. Programmatic Card Synthesis
+    const outcome = await generateA2ACard({ save: false });
+    assert.strictEqual(outcome.success, true);
+    assert.strictEqual(outcome.card.name, 'vibes-plug-swarm-master');
+    assert.ok(outcome.card.capabilities.sharedBlackboard);
+    assert.ok(outcome.card.subagents.length >= 8);
+    assert.ok(outcome.card.metadata.totalSkillsCount >= 176);
+
+    // 2. CLI Execution (vibes a2a --json)
+    const { stdout: a2aCliOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'a2a:card',
+      '--json',
+      '--no-save'
+    ]);
+    const a2aData = JSON.parse(a2aCliOut);
+    assert.strictEqual(a2aData.name, 'vibes-plug-swarm-master');
+    assert.strictEqual(a2aData.protocolVersion, '1.0.0');
+
+    // 3. MCP Tool Invocation (vibes_a2a_card)
+    const mcpA2ACall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 996,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_a2a_card',
+        arguments: { save: false }
+      }
+    });
+    assert.ok(mcpA2ACall.result);
+    const mcpA2APayload = JSON.parse(mcpA2ACall.result.content[0].text);
+    assert.strictEqual(mcpA2APayload.name, 'vibes-plug-swarm-master');
+    assert.ok(mcpA2APayload.subagents.some(a => a.id === 'fintech-payment-sentinel'));
   });
 });
 

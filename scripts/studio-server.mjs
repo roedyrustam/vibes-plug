@@ -4627,6 +4627,19 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // RFC-A2A Protocol Agent Card Discovery endpoint
+    if (req.method === 'GET' && (pathname === '/.well-known/agent.json' || pathname === '/api/a2a/card')) {
+      try {
+        const { generateA2ACard } = await import('./agent-card-generator.mjs');
+        const hostUrl = `http://${req.headers.host || `${host}:${port}`}`;
+        const outcome = await generateA2ACard({ url: hostUrl, save: false });
+        sendJson(outcome.card);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });
