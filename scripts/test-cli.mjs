@@ -1208,7 +1208,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 41);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 42);
       assert.equal(liveTelData.liveWatcher.active, true);
 
       // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
@@ -1815,6 +1815,77 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
 
     // Cleanup tempDir
     await fs.rm(tempDir, { recursive: true, force: true });
+  });
+
+  await t.test('Autonomous Skill & Codex Evolver, Multi-Platform Rules, and MCP Evolve Integration', async () => {
+    const { analyzeCodebaseEvolution, generateMultiPlatformCodexRules, evolveSkill } = await import('./skill-evolver.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. Codebase Evolution Analysis
+    const analysis = await analyzeCodebaseEvolution(PLUGIN_ROOT);
+    assert.strictEqual(analysis.name, 'vibes-plug');
+    assert.ok(analysis.inferredCategory);
+    assert.ok(Array.isArray(analysis.frameworks));
+
+    // 2. Multi-Platform Codex Rules Generation
+    const rules = generateMultiPlatformCodexRules({
+      skillName: 'hono-ultra-edge-expert',
+      category: 'backend',
+      frameworks: ['Hono v4', 'Bun 1.2'],
+      description: 'Ultra-fast edge microservices'
+    });
+    assert.strictEqual(rules.skillName, 'hono-ultra-edge-expert');
+    assert.ok(rules.codexRule.includes('🌐 Multi-Platform Agent Directive'));
+    assert.ok(rules.cursorRule.includes('Pillar 2 (Zero Placeholders)'));
+    assert.ok(rules.agentsRule.includes('Pillar 7 (Visual UI Sanitation)'));
+
+    // 3. Programmatic Skill Evolution (Dry Run)
+    const evolveRes = await evolveSkill({
+      name: 'react-19-actions-expert',
+      category: 'frontend',
+      dryRun: true,
+      generateRules: true
+    });
+    assert.strictEqual(evolveRes.success, true);
+    assert.strictEqual(evolveRes.skillName, 'react-19-actions-expert');
+    assert.strictEqual(evolveRes.category, 'frontend');
+    assert.strictEqual(evolveRes.dryRun, true);
+    assert.ok(evolveRes.markdownBytes > 500);
+    assert.ok(evolveRes.ruleSpecs);
+
+    // 4. CLI Execution (vibes evolve --dry-run --json)
+    const { stdout: cliOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'evolve',
+      'duckdb-analytical-expert',
+      '--category', 'data',
+      '--dry-run',
+      '--json'
+    ]);
+    const cliData = JSON.parse(cliOut);
+    assert.strictEqual(cliData.success, true);
+    assert.strictEqual(cliData.skillName, 'duckdb-analytical-expert');
+    assert.strictEqual(cliData.category, 'data');
+
+    // 5. MCP Tool Call (vibes_evolve_skill)
+    const mcpEvolveCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 995,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_evolve_skill',
+        arguments: {
+          target: 'tailwind-v4-theme-expert',
+          category: 'frontend',
+          dryRun: true
+        }
+      }
+    });
+    assert.ok(mcpEvolveCall.result);
+    const mcpEvolvePayload = JSON.parse(mcpEvolveCall.result.content[0].text);
+    assert.strictEqual(mcpEvolvePayload.success, true);
+    assert.strictEqual(mcpEvolvePayload.skillName, 'tailwind-v4-theme-expert');
+    assert.strictEqual(mcpEvolvePayload.category, 'frontend');
   });
 });
 

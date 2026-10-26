@@ -4611,6 +4611,22 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // Autonomous Skill & Codex Evolver endpoint
+    if (req.method === 'POST' && pathname === '/api/evolve') {
+      try {
+        const body = await readJsonBody(req);
+        const { target, name, fromRepo, category, dryRun = true, generateRules = true } = body || {};
+        const skillTarget = name || target;
+        if (!skillTarget) throw new Error("Field 'name' or 'target' is required.");
+        const { evolveSkill } = await import('./skill-evolver.mjs');
+        const outcome = await evolveSkill({ name: skillTarget, fromRepo, category, dryRun, generateRules });
+        sendJson(outcome);
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
   });

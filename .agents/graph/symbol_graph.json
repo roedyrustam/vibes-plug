@@ -1,15 +1,15 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T21:17:48.967Z",
+  "generatedAt": "2026-10-26T21:25:08.558Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 77,
-  "totalSymbolsIndexed": 431,
-  "totalImportEdges": 236,
+  "totalFilesIndexed": 78,
+  "totalSymbolsIndexed": 438,
+  "totalImportEdges": 239,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 947,
+        "line": 978,
         "type": "function",
         "signature": "function getActiveProfile()"
       }
@@ -17,7 +17,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 951,
+        "line": 982,
         "type": "function",
         "signature": "function setActiveProfile(profileName)"
       }
@@ -25,7 +25,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 960,
+        "line": 991,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)"
       }
@@ -33,7 +33,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1004,
+        "line": 1035,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -41,7 +41,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1620,
+        "line": 1657,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -49,7 +49,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1648,
+        "line": 1685,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -57,7 +57,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1756,
+        "line": 1793,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -382,6 +382,12 @@
       {
         "file": "scripts/skill-drift-monitor.mjs",
         "line": 494,
+        "type": "function",
+        "signature": "function main()"
+      },
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 309,
         "type": "function",
         "signature": "function main()"
       },
@@ -1416,6 +1422,54 @@
         "line": 426,
         "type": "function",
         "signature": "function formatDriftReport(result, options = {})"
+      }
+    ],
+    "sanitizeEvolveSlug": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 28,
+        "type": "function",
+        "signature": "function sanitizeEvolveSlug(raw)"
+      }
+    ],
+    "analyzeCodebaseEvolution": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 48,
+        "type": "function",
+        "signature": "function analyzeCodebaseEvolution(targetDir = process.cwd()"
+      }
+    ],
+    "generateMultiPlatformCodexRules": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 115,
+        "type": "function",
+        "signature": "function generateMultiPlatformCodexRules({ skillName, category, frameworks = [], description = '' })"
+      }
+    ],
+    "synthesizeEvolvedSkillMarkdown": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 154,
+        "type": "function",
+        "signature": "function synthesizeEvolvedSkillMarkdown({ name, category, techName, description, patterns = [] })"
+      }
+    ],
+    "ExecutionResult": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 189,
+        "type": "interface",
+        "signature": "export interface ExecutionResult<T>"
+      }
+    ],
+    "evolveSkill": [
+      {
+        "file": "scripts/skill-evolver.mjs",
+        "line": 250,
+        "type": "function",
+        "signature": "function evolveSkill(options = {})"
       }
     ],
     "sanitizeSkillSlug": [
@@ -3349,7 +3403,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1779,
+      "totalLines": 1816,
       "symbolCount": 7,
       "exports": [
         "getActiveProfile",
@@ -3517,7 +3571,7 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2074,
+      "totalLines": 2082,
       "symbolCount": 23,
       "exports": [],
       "imports": [
@@ -4975,6 +5029,44 @@
         }
       ]
     },
+    "scripts/skill-evolver.mjs": {
+      "totalLines": 375,
+      "symbolCount": 7,
+      "exports": [
+        "sanitizeEvolveSlug",
+        "analyzeCodebaseEvolution",
+        "generateMultiPlatformCodexRules",
+        "synthesizeEvolvedSkillMarkdown",
+        "ExecutionResult",
+        "evolveSkill"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 16
+        }
+      ]
+    },
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
       "symbolCount": 7,
@@ -5096,7 +5188,7 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4708,
+      "totalLines": 4724,
       "symbolCount": 8,
       "exports": [
         "generateStudioHtml",
@@ -5519,7 +5611,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1822,
+      "totalLines": 1893,
       "symbolCount": 1,
       "exports": [],
       "imports": [

@@ -1602,6 +1602,7 @@ Commands:
   studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 176-skill explorer)
   showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
+  evolve <name> [options]   Autonomous Skill & Codex Evolver: synthesize skills & multi-platform codex rules
   help                      Show this help menu
 `);
   rl.close();
@@ -1619,6 +1620,13 @@ switch (command) {
     rl.close();
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-synthesizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    break;
+  }
+  case 'evolve': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-evolver.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'bridge': {

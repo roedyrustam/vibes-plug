@@ -822,6 +822,37 @@ export const TOOLS = [
       },
       required: ['action']
     }
+  },
+  {
+    name: 'vibes_evolve_skill',
+    description: 'Autonomous Skill & Codex Evolver: inspects codebase architectures, detects framework drift, and synthesizes 100% complete Gold-Standard AI skills and multi-platform codex rules (Antigravity, Claude Code, Cursor, Codex, Windsurf) with zero placeholders.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        target: {
+          type: 'string',
+          description: 'Skill name or repository path to analyze and evolve.'
+        },
+        fromRepo: {
+          type: 'string',
+          description: 'Optional path to local repository or package directory.'
+        },
+        category: {
+          type: 'string',
+          enum: ['frontend', 'backend', 'ai', 'saas', 'security', 'data'],
+          description: 'Optional domain category.'
+        },
+        dryRun: {
+          type: 'boolean',
+          description: 'Preview evolved skill and rules without writing to disk (default: true).'
+        },
+        generateRules: {
+          type: 'boolean',
+          description: 'Whether to synthesize multi-platform codex rule specifications (default: true).'
+        }
+      },
+      required: ['target']
+    }
   }
 ];
 
@@ -1589,6 +1620,12 @@ export async function handleRpcRequest(request) {
           const allEntries = swarmBus.listBlackboard();
           contentText = JSON.stringify({ success: true, count: allEntries.length, entries: allEntries }, null, 2);
         }
+      } else if (name === 'vibes_evolve_skill') {
+        const { target, fromRepo, category, dryRun = true, generateRules = true } = args || {};
+        if (!target) throw new Error("Argument 'target' is required.");
+        const { evolveSkill } = await import('../scripts/skill-evolver.mjs');
+        const outcome = await evolveSkill({ name: target, fromRepo, category, dryRun, generateRules });
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
