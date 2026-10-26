@@ -1,9 +1,9 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T21:04:40.051Z",
+  "generatedAt": "2026-10-26T21:08:05.585Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 77,
-  "totalSymbolsIndexed": 430,
+  "totalSymbolsIndexed": 431,
   "totalImportEdges": 236,
   "symbols": {
     "getActiveProfile": [
@@ -1242,10 +1242,18 @@
         "signature": "function listRegistrySkills(options = {})"
       }
     ],
+    "tokenizeQuery": [
+      {
+        "file": "scripts/registry-manager.mjs",
+        "line": 185,
+        "type": "function",
+        "signature": "function tokenizeQuery(text)"
+      }
+    ],
     "searchRegistry": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 174,
+        "line": 200,
         "type": "function",
         "signature": "function searchRegistry(query, options = {})"
       }
@@ -1253,7 +1261,7 @@
     "installSkill": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 208,
+        "line": 271,
         "type": "function",
         "signature": "function installSkill(skillName, options = {})"
       }
@@ -1261,7 +1269,7 @@
     "packageSkill": [
       {
         "file": "scripts/registry-manager.mjs",
-        "line": 244,
+        "line": 307,
         "type": "function",
         "signature": "function packageSkill(skillDir, options = {})"
       }
@@ -4630,8 +4638,8 @@
       ]
     },
     "scripts/registry-manager.mjs": {
-      "totalLines": 367,
-      "symbolCount": 6,
+      "totalLines": 430,
+      "symbolCount": 7,
       "exports": [
         "parseSkillMarkdown",
         "categorizeSkill",

@@ -165,15 +165,51 @@ export async function listRegistrySkills(options = {}) {
   return skills;
 }
 
+export const INTENT_SYNONYMS = Object.freeze({
+  pembayaran: ['payment', 'gateway', 'doku', 'billing', 'snap', 'qris', 'checkout', 'fintech'],
+  transaksi: ['transaction', 'ledger', 'double-entry', 'fintech', 'settlement', 'payment'],
+  antarmuka: ['frontend', 'ui', 'tailwind', 'component', 'design', 'react', 'css'],
+  tampilan: ['frontend', 'ui', 'css', 'design', 'motion', 'animation', 'tailwind'],
+  pengujian: ['testing', 'test', 'tdd', 'e2e', 'playwright', 'audit', 'debugger'],
+  keamanan: ['security', 'red-team', 'fuzzing', 'auth', 'passkeys', 'firewall', 'vault'],
+  basisdata: ['database', 'orm', 'drizzle', 'prisma', 'postgres', 'sql', 'supabase'],
+  database: ['database', 'orm', 'drizzle', 'prisma', 'postgres', 'sql', 'supabase'],
+  performa: ['performance', 'vitals', 'optimization', 'latency', 'cache', 'kv'],
+  kontainer: ['docker', 'kubernetes', 'container', 'devops', 'ci-cd', 'cloud'],
+  mobile: ['expo', 'flutter', 'react-native', 'apple', 'spatial', 'mobile'],
+  desktop: ['tauri', 'electron', 'desktop', 'rust'],
+  otomasi: ['automation', 'n8n', 'browser', 'workflow', 'cron', 'agent'],
+  arsitektur: ['architect', 'system', 'clean-code', 'ddd', 'domain', 'microservices']
+});
+
+function tokenizeQuery(text) {
+  return String(text || '')
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, ' ')
+    .split(/[\s-]+/)
+    .map(t => t.trim())
+    .filter(t => t.length > 1);
+}
+
 /**
- * Searches skills by keyword across name, description, and author
+ * Searches skills by keyword and semantic intent across name, description, category, and synonyms
  * @param {string} query 
  * @param {Object} [options]
  * @returns {Promise<Array<Object>>}
  */
 export async function searchRegistry(query, options = {}) {
-  const q = String(query || '').trim().toLowerCase();
-  if (!q) return [];
+  const rawQ = String(query || '').trim();
+  if (!rawQ) return [];
+  const q = rawQ.toLowerCase();
+  const qTokens = tokenizeQuery(q);
+
+  // Expand with semantic synonyms
+  const expandedTokens = new Set(qTokens);
+  for (const t of qTokens) {
+    if (INTENT_SYNONYMS[t]) {
+      for (const syn of INTENT_SYNONYMS[t]) expandedTokens.add(syn);
+    }
+  }
 
   const allSkills = await listRegistrySkills(options);
   const scored = [];
@@ -182,16 +218,43 @@ export async function searchRegistry(query, options = {}) {
     let score = 0;
     const nameLower = skill.name.toLowerCase();
     const descLower = skill.description.toLowerCase();
+    const catLower = skill.category.toLowerCase();
 
-    if (nameLower === q) score += 100;
-    else if (nameLower.startsWith(q)) score += 50;
-    else if (nameLower.includes(q)) score += 30;
+    // Exact and substring matches on full query string
+    if (nameLower === q) score += 120;
+    else if (nameLower.startsWith(q)) score += 60;
+    else if (nameLower.includes(q)) score += 35;
 
-    if (descLower.includes(q)) score += 15;
-    if (skill.category.toLowerCase().includes(q)) score += 20;
+    if (descLower.includes(q)) score += 20;
+    if (catLower.includes(q)) score += 25;
+
+    // Token & Semantic Intent scoring
+    const nameTokens = tokenizeQuery(nameLower);
+    const descTokens = tokenizeQuery(descLower);
+    const catTokens = tokenizeQuery(catLower);
+
+    for (const term of expandedTokens) {
+      const isOriginal = qTokens.includes(term);
+      const weight = isOriginal ? 1.0 : 0.65;
+
+      if (nameLower === term) {
+        score += 80 * weight;
+      } else if (nameTokens.includes(term)) {
+        score += 40 * weight;
+      }
+
+      if (catTokens.includes(term)) {
+        score += 25 * weight;
+      }
+
+      const descOccurrences = descTokens.filter(dt => dt === term).length;
+      if (descOccurrences > 0) {
+        score += Math.min(30, descOccurrences * 12) * weight;
+      }
+    }
 
     if (score > 0) {
-      scored.push({ ...skill, relevanceScore: score });
+      scored.push({ ...skill, relevanceScore: Math.round(score) });
     }
   }
 
