@@ -1,9 +1,9 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T20:32:41.080Z",
+  "generatedAt": "2026-10-26T20:48:01.769Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 77,
-  "totalSymbolsIndexed": 427,
+  "totalSymbolsIndexed": 428,
   "totalImportEdges": 235,
   "symbols": {
     "getActiveProfile": [
@@ -423,7 +423,7 @@
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 391,
+        "line": 421,
         "type": "function",
         "signature": "function main()"
       },
@@ -2246,10 +2246,18 @@
         "signature": "function safeErrorMessage(err)"
       }
     ],
+    "fallbackStripTypeScript": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 103,
+        "type": "function",
+        "signature": "function fallbackStripTypeScript(code)"
+      }
+    ],
     "stripTypeScript": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 107,
+        "line": 135,
         "type": "function",
         "signature": "function stripTypeScript(code)"
       }
@@ -2257,7 +2265,7 @@
     "looksLikeTypeScript": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 124,
+        "line": 154,
         "type": "function",
         "signature": "function looksLikeTypeScript(code)"
       }
@@ -2265,7 +2273,7 @@
     "executeInSandbox": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 131,
+        "line": 161,
         "type": "function",
         "signature": "function executeInSandbox(code, options = {})"
       }
@@ -2273,7 +2281,7 @@
     "executeWasmModule": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 242,
+        "line": 272,
         "type": "function",
         "signature": "function executeWasmModule(wasmBytes, options = {})"
       }
@@ -2281,7 +2289,7 @@
     "verifyCandidateCode": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 298,
+        "line": 328,
         "type": "function",
         "signature": "function verifyCandidateCode(target, options = {})"
       }
@@ -5756,8 +5764,8 @@
       ]
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 473,
-      "symbolCount": 8,
+      "totalLines": 503,
+      "symbolCount": 9,
       "exports": [
         "createIsolatedSandbox",
         "stripTypeScript",

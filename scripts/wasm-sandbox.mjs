@@ -100,25 +100,55 @@ function safeErrorMessage(err) {
   return 'Sandbox threw an object without a string message';
 }
 
+function fallbackStripTypeScript(code) {
+  let cleaned = code;
+  // Strip interfaces: interface Foo { ... }
+  cleaned = cleaned.replace(/\binterface\s+[A-Za-z_$][\w$]*\s*(?:<[^>]*>)?(?:\s+extends\s+[^{]+)?\s*\{[^}]*\}/g, '');
+  // Strip type aliases: type Foo = ...;
+  cleaned = cleaned.replace(/\btype\s+[A-Za-z_$][\w$]*\s*(?:<[^>]*>)?\s*=[^;]+;/g, '');
+  // Transform enums: enum Tax { Std = 10 } -> const Tax = Object.freeze({ Std: 10 });
+  cleaned = cleaned.replace(/\benum\s+([A-Za-z_$][\w$]*)\s*\{([^}]+)\}/g, (m, name, body) => {
+    const pairs = body.split(',').map(item => {
+      const parts = item.trim().split('=').map(s => s.trim());
+      if (parts.length === 2) {
+        return `${parts[0]}: ${parts[1]}`;
+      } else if (parts[0]) {
+        return `${parts[0]}: 0`;
+      }
+      return '';
+    }).filter(Boolean).join(', ');
+    return `const ${name} = Object.freeze({ ${pairs} });`;
+  });
+  // Strip variable type annotations: const x: Item = ... -> const x = ...
+  cleaned = cleaned.replace(/(\b(?:const|let|var)\s+[A-Za-z_$][\w$]*)\s*:\s*[A-Za-z_$][\w$<>\[\]|, ]*(?=\s*=)/g, '$1');
+  // Strip return type annotations on functions
+  cleaned = cleaned.replace(/(\)\s*):\s*[A-Za-z_$][\w$<>\[\]|, ]*(?=\s*=>|\s*\{)/g, '$1');
+  // Strip "as" assertions
+  cleaned = cleaned.replace(/\s+as\s+[A-Za-z_$][\w$<>\[\]|,]*/g, '');
+  return cleaned;
+}
+
 /**
- * Strips TypeScript syntax using Node's native type stripper (Node >= 22.13).
- * Enums and namespaces are transformed rather than rejected.
+ * Strips TypeScript syntax using Node's native type stripper (Node >= 22.13)
+ * with backward-compatible fallback for Node.js 20.x LTS.
  */
 export function stripTypeScript(code) {
-  if (typeof nodeModule.stripTypeScriptTypes !== 'function') {
-    throw new Error(`TypeScript execution requires Node.js >= 22.13 (current: ${process.version})`);
+  if (typeof nodeModule.stripTypeScriptTypes === 'function') {
+    const previous = process.emitWarning;
+    process.emitWarning = (warning, ...rest) => {
+      const text = typeof warning === 'string' ? warning : warning?.message;
+      if (text && text.includes('stripTypeScriptTypes')) return;
+      return previous.call(process, warning, ...rest);
+    };
+    try {
+      return nodeModule.stripTypeScriptTypes(code, { mode: 'transform' });
+    } finally {
+      process.emitWarning = previous;
+    }
   }
-  const previous = process.emitWarning;
-  process.emitWarning = (warning, ...rest) => {
-    const text = typeof warning === 'string' ? warning : warning?.message;
-    if (text && text.includes('stripTypeScriptTypes')) return;
-    return previous.call(process, warning, ...rest);
-  };
-  try {
-    return nodeModule.stripTypeScriptTypes(code, { mode: 'transform' });
-  } finally {
-    process.emitWarning = previous;
-  }
+
+  // Graceful fallback for Node.js < 22.13 (e.g. Node 20.x LTS runner matrix)
+  return fallbackStripTypeScript(code);
 }
 
 function looksLikeTypeScript(code) {
