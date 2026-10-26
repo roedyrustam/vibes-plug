@@ -1,6 +1,6 @@
 ---
 name: frontier-ai-models-expert
-description: "Expert guide for late-2026 frontier AI models — Grok 4.7 / 4.6 (High Fast), Cursor Composer 2.5 (Fast), Claude Opus 5.5 / GPT-5.6 Sol / Gemini 4 Argon (Medium), and Claude Sonnet 5.5 / Fable 5.1 / Muse Wonder (High) / Panduan ahli model AI frontier akhir-2026."
+description: "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

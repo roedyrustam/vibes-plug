@@ -1,6 +1,6 @@
 ---
 name: spa-orchestrator
-description: "Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management with API-driven backends / Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API."
+description: "Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien."
 author: "Roedy Rustam"
 version: "4.4.2"
 

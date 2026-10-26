@@ -1,6 +1,6 @@
 ---
 name: adaptive-model-cascade
-description: "Expert guide for intelligent model cascading and routing — complexity-scored task routing from Fast (Composer 2.5, Grok 4.7/4.6) to Medium (Gemini 4 Argon, GPT-5.6 Sol, Claude Opus 5.5) and High (Claude Sonnet 5.5, Claude Fable 5.1, Muse Wonder) / Panduan ahli untuk kaskade dan routing model cerdas."
+description: "Model cascading & complexity-scored routing (Grok, Gemini, Claude) / Routing kaskade model & scoring kompleksitas (Grok, Gemini, Claude)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

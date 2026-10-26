@@ -1,6 +1,6 @@
 ---
 name: documentation-site-expert
-description: "Expert guide for technical documentation sites (Mintlify, Docusaurus, Storybook, VitePress) and component documentation / Panduan ahli situs dokumentasi teknis (Mintlify, Docusaurus, Storybook, VitePress) dan dokumentasi komponen."
+description: "Technical documentation sites: Mintlify, Docusaurus, and Storybook / Situs dokumentasi teknis: Mintlify, Docusaurus, dan Storybook."
 author: "Roedy Rustam"
 version: "4.4.2"
 

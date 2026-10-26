@@ -1,6 +1,6 @@
 ---
 name: accessibility-testing-expert
-description: "Expert guide for automated and manual Web Accessibility (a11y) testing — axe-core, Pa11y, Playwright a11y, screen reader testing, and WCAG 2.2 Level AA/AAA compliance / Panduan ahli pengujian aksesibilitas web."
+description: "Web accessibility testing with axe-core, Playwright, and WCAG 2.2 / Pengujian aksesibilitas web axe-core, Playwright, dan WCAG 2.2."
 author: "Roedy Rustam"
 version: "4.4.2"
 

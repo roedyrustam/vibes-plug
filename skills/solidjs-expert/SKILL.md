@@ -1,6 +1,6 @@
 ---
 name: solidjs-expert
-description: "Expert guide for SolidJS 2 and SolidStart — fine-grained reactivity, signals, createResource, and server-first rendering / Panduan ahli SolidJS 2 dan SolidStart — reaktivitas fine-grained, signals, createResource, dan rendering server-first."
+description: "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained."
 author: "Roedy Rustam"
 version: "4.4.2"
 

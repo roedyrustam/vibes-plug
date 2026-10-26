@@ -1,6 +1,6 @@
 ---
 name: saas-architect
-description: "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N) / Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N)."
+description: "Master SaaS orchestrator: MVP launches (0 to 1) and transformation / Master orkestrator SaaS: peluncuran MVP (0 ke 1) dan transformasi."
 author: "Roedy Rustam"
 version: "4.4.2"
 

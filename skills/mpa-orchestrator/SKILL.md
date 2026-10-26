@@ -1,6 +1,6 @@
 ---
 name: mpa-orchestrator
-description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
+description: "Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset."
 author: "Roedy Rustam"
 version: "4.4.2"
 

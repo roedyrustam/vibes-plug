@@ -1,6 +1,6 @@
 ---
 name: parallel-tool-orchestrator
-description: "Expert guide for parallel tool execution, MCP batching (vibes_batch), asynchronous Promise.allSettled pipelines, subagent concurrent fan-out, and latency-optimized tool calling loops / Panduan ahli eksekusi tool paralel dan batching MCP."
+description: "Parallel tool calling, MCP batching, and async subagent fan-out / Eksekusi tool paralel, batching MCP, dan subagent async fan-out."
 author: "Roedy Rustam"
 version: "4.4.2"
 

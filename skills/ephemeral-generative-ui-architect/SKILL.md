@@ -1,6 +1,6 @@
 ---
 name: ephemeral-generative-ui-architect
-description: "Master guide for Ephemeral Generative UI, real-time dynamic component streaming (React 19 RSC & Vercel AI SDK v4+), multi-widget layout orchestration, bidirectional action loops, sandboxed error boundaries, and affective adaptive interfaces / Panduan ahli arsitektur Generative UI efemeral, streaming komponen real-time (React 19 RSC & Vercel AI SDK v4+), orkestrasi layout multi-widget, loop aksi dua arah, dan antarmuka adaptif afektif."
+description: "Ephemeral generative UI streaming with React 19 RSC & Vercel AI SDK / Streaming UI generatif efemeral dengan React 19 RSC & Vercel AI SDK."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

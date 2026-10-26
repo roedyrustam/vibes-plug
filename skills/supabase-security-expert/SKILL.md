@@ -1,6 +1,6 @@
 ---
 name: supabase-security-expert
-description: "Supabase security expert to audit RLS (Row Level Security), RBAC, relational databases, prevent data leakage, and utilize Supabase Linter / Ahli keamanan Supabase untuk audit RLS (Row Level Security), RBAC, database relasional, pencegahan kebocoran data, dan pemanfaatan Supabase Linter."
+description: "Supabase security audit: RLS policies, RBAC, and data leak prevention / Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor."
 author: "Roedy Rustam"
 version: "4.4.2"
 

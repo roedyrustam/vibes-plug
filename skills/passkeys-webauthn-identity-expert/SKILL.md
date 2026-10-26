@@ -1,6 +1,6 @@
 ---
 name: passkeys-webauthn-identity-expert
-description: "Expert guide for FIDO2 / WebAuthn Level 3 Passkeys, SimpleWebAuthn, Conditional UI autofill, step-up cryptographic authentication for FinTech, and DPoP token binding / Panduan ahli autentikasi tanpa kata sandi Passkeys (WebAuthn L3 / FIDO2) dan DPoP."
+description: "FIDO2 / WebAuthn Passkeys, SimpleWebAuthn, and passwordless auth / Autentikasi tanpa kata sandi Passkeys FIDO2 dan SimpleWebAuthn."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: fga-rebac-authorization-expert
-description: "Expert guide for Fine-Grained Authorization (FGA), Google Zanzibar Relationship-Based Access Control (OpenFGA, SpiceDB, Permify), Cedar policy engines, and permission-aware RAG retrieval / Panduan ahli otorisasi granular ReBAC (OpenFGA, SpiceDB) dan retrieval RAG sadar-izin."
+description: "Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions / Otorisasi granular ReBAC (OpenFGA, SpiceDB) dan kontrol izin."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: event-driven-architect
-description: "Expert guide for microservices, message queues, Event Sourcing, and high-scale backend architectures / Panduan ahli untuk arsitektur microservices, antrean pesan, dan backend skala tinggi."
+description: "Event-driven microservices, message queues, and event sourcing / Arsitektur event-driven, antrean pesan, dan event sourcing."
 author: "Roedy Rustam"
 version: "4.4.2"
 

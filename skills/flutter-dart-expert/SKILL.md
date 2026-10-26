@@ -1,6 +1,6 @@
 ---
 name: flutter-dart-expert
-description: "Expert guide for Flutter 3.27+ and Dart 3.7+ cross-platform development. Covers Material 3 adaptive theming, Riverpod 3, go_router, Impeller rendering, platform channels, and Firebase/Supabase integration / Panduan ahli pengembangan lintas platform Flutter 3.27+ dan Dart 3.7+."
+description: "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

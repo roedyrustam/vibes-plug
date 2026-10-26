@@ -1,6 +1,6 @@
 ---
 name: zero-to-prod-orchestrator
-description: "Master orchestrator to build an application from scratch to a production-ready release, enforcing strict step-by-step progression and continuous documentation / Orkestrator utama untuk membangun aplikasi dari nol hingga rilis siap produksi dengan dokumentasi bertahap."
+description: "Master orchestrator to build apps from zero to production readiness / Master orkestrator membangun aplikasi dari nol hingga siap produksi."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

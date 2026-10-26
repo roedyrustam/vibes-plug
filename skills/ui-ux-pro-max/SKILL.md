@@ -1,6 +1,6 @@
 ---
 name: ui-ux-pro-max
-description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
+description: "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

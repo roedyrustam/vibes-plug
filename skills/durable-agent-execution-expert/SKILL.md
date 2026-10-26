@@ -1,6 +1,6 @@
 ---
 name: durable-agent-execution-expert
-description: "Expert guide for crash-resilient Durable Agent Execution, Temporal AI workflows, Restate, Cloudflare Workflows, deterministic tool replay, and human-in-the-loop pause/resume sagas / Panduan ahli eksekusi agen AI tahan-gagal (Durable Execution) dengan Temporal, Restate, dan Cloudflare Workflows."
+description: "Durable agent execution, Temporal AI workflows, and state replay / Eksekusi agen AI tahan-gagal, workflow Temporal, dan replay state."
 author: "Roedy Rustam"
 version: "4.4.2"
 

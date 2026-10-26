@@ -1,6 +1,6 @@
 ---
 name: mcp-server-architect
-description: "Ultimate guide for designing, building, and security-hardening modern AI Tools/Bots via Model Context Protocol (MCP v1.x) in TypeScript and Python / Panduan utama merancang, membangun, dan mengamankan AI Tools/Bots modern melalui Model Context Protocol (MCP) dalam TypeScript dan Python."
+description: "Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python."
 author: "Roedy Rustam"
 version: "4.4.2"
 

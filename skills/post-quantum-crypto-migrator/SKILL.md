@@ -1,6 +1,6 @@
 ---
 name: post-quantum-crypto-migrator
-description: "FinTech future-proofing. Scans and migrates classical encryption to NIST-approved Post-Quantum Cryptography (FIPS 203 ML-KEM, FIPS 204 ML-DSA, FIPS 205 SLH-DSA) / Migrasi ke Kriptografi Pasca-Kuantum (PQC) yang disetujui NIST untuk sistem FinTech."
+description: "NIST post-quantum cryptography migration (ML-KEM, ML-DSA) / Migrasi kriptografi pasca-kuantum NIST (ML-KEM, ML-DSA)."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

@@ -1,6 +1,6 @@
 ---
 name: cloud-hosting-expert
-description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
+description: "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare) / Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

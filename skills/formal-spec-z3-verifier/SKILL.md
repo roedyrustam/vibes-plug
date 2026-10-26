@@ -1,6 +1,6 @@
 ---
 name: formal-spec-z3-verifier
-description: "Master guide for mathematical formal verification, SMT solver constraints (Z3 WebAssembly, Python Z3, TLA+, Dafny), invariant theorem proving for FinTech billing, RBAC authorization, and zero-violation architectures / Panduan utama verifikasi formal matematis, batasan SMT solver (Z3 WASM, Python Z3, TLA+, Dafny), pembuktian teorema invarian billing FinTech, otorisasi RBAC, dan arsitektur zero-violation."
+description: "Formal verification and SMT solver constraints (Z3, TLA+, Dafny) / Verifikasi formal dan batasan solver SMT (Z3, TLA+, Dafny)."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

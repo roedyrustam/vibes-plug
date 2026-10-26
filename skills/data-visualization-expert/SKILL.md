@@ -1,6 +1,6 @@
 ---
 name: data-visualization-expert
-description: "Expert guide for data visualization, charts, and dashboards using D3.js, Recharts, Chart.js, Nivo, and Tremor / Panduan ahli visualisasi data, chart, dan dashboard menggunakan D3.js, Recharts, Chart.js, Nivo, dan Tremor."
+description: "Data visualization dashboards using D3.js, Recharts, and Tremor / Visualisasi data, grafik, dan dashboard dengan D3.js dan Recharts."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: reactive-sync-engine-expert
-description: Expert guide for Linear-style Reactive Sync Engines (Zero by Rocicorp, ElectricSQL, PowerSync), Postgres Logical Replication to IndexedDB/SQLite, sub-millisecond optimistic mutations, and server reconciliation / Panduan ahli mesin sinkronisasi reaktif gaya Linear, replikasi logis Postgres ke klien, dan mutasi optimis instan.
+description: "Reactive sync engines (Zero, ElectricSQL) and instant mutations / Mesin sinkronisasi reaktif (Zero, ElectricSQL) dan mutasi instan."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

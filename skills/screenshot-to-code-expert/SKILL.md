@@ -1,6 +1,6 @@
 ---
 name: screenshot-to-code-expert
-description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Muse Wonder) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision."
+description: "Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

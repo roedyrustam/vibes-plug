@@ -1,6 +1,6 @@
 ---
 name: database-orm-expert
-description: "Updated to be the unified database skill covering ORM, migrations, edge DBs, and Supabase CLI / Keahlian database terpadu untuk ORM, migrasi, edge DB, dan Supabase CLI."
+description: "Unified database ORM, schema migrations, edge DBs, and Supabase CLI / Database ORM terpadu, migrasi skema, edge DB, dan Supabase CLI."
 author: "Roedy Rustam"
 version: "4.4.2"
 

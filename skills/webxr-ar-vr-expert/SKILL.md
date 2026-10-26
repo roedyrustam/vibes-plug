@@ -1,6 +1,6 @@
 ---
 name: webxr-ar-vr-expert
-description: "Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR)."
+description: "WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js / Komputasi spasial WebXR, WebVR, AR, dan MR menggunakan Babylon.js."
 author: "Roedy Rustam"
 version: "4.4.2"
 

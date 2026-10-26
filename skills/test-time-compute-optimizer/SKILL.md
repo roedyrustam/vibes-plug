@@ -1,6 +1,6 @@
 ---
 name: test-time-compute-optimizer
-description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute)."
+description: "Dynamic test-time compute allocation and reasoning token optimization / Alokasi komputasi test-time dinamis dan optimasi token penalaran."
 author: "Roedy Rustam"
 version: "4.4.2"
 

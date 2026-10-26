@@ -1,6 +1,6 @@
 ---
 name: payment-gateway-expert
-description: "Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) and secure webhooks into SaaS platforms / Panduan ahli integrasi payment gateway dan webhook aman."
+description: "Payment gateways integration (Stripe, Midtrans) and secure webhooks / Integrasi payment gateway (Stripe, Midtrans) dan webhook aman."
 author: "Roedy Rustam"
 version: "4.4.2"
 

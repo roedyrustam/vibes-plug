@@ -1,6 +1,6 @@
 ---
 name: email-notification-expert
-description: "Expert guide for transactional email (Resend, Postmark, SES), React Email templates, in-app notifications, and unified communication pipelines / Panduan ahli untuk email transaksional (Resend, Postmark, SES), template React Email, notifikasi in-app, dan pipeline komunikasi terpadu."
+description: "Transactional email (Resend), React Email, and notification pipelines / Email transaksional (Resend), React Email, dan pipeline notifikasi."
 author: "Roedy Rustam"
 version: "4.4.2"
 

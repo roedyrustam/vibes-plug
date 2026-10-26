@@ -1,6 +1,6 @@
 ---
 name: rea-changelog-update
-description: Prepare or rewrite REA release changelogs and GitHub release notes from pinned Git history, with verified contributor thanks and Release Please synchronization.
+description: "Prepare REA release changelogs and GitHub release notes / Siapkan changelog rilis REA dan catatan rilis GitHub."
 author: "morluto"
 version: "4.4.3"
 ---

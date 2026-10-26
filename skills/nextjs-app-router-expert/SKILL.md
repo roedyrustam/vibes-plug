@@ -1,6 +1,6 @@
 ---
 name: nextjs-app-router-expert
-description: "Expert guide for Next.js 15 App Router: RSC, React 19 Server Actions, Async Request APIs, 'use cache', PPR, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
+description: "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache."
 author: "Roedy Rustam"
 version: "4.4.2"
 

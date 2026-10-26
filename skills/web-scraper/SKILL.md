@@ -1,6 +1,6 @@
 ---
 name: web-scraper
-description: "Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export / Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur."
+description: "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass / Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot."
 author: "Roedy Rustam"
 version: "4.4.2"
 

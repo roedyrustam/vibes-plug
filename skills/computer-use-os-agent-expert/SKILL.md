@@ -1,6 +1,6 @@
 ---
 name: computer-use-os-agent-expert
-description: Expert guide for Computer-Using Agents (CUA), OS/Desktop GUI automation, normalized pixel-coordinate grounding, isolated VM/Container sandboxing, and human-in-the-loop safety gates / Panduan ahli agen pengguna komputer (CUA), otomasi GUI OS/Desktop, grounding koordinat piksel, dan sandbox VM terisolasi.
+description: "Computer-using agents (CUA), desktop GUI automation, and VM sandbox / Agen CUA pengguna komputer, otomasi GUI desktop, dan sandbox VM."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

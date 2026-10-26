@@ -1,6 +1,6 @@
 ---
 name: property-mutation-testing-expert
-description: "Expert guide for property-based testing (fast-check, Hypothesis) and mutation testing (Stryker, mutmut) — AI-generated test properties, invariant discovery, mutation score optimization, and test suite quality verification / Panduan ahli property-based testing (fast-check, Hypothesis) dan mutation testing (Stryker, mutmut) — properti tes yang dihasilkan AI, penemuan invarian, optimasi skor mutasi, dan verifikasi kualitas suite tes."
+description: "Property-based testing (fast-check) and mutation testing (Stryker) / Pengujian berbasis properti (fast-check) dan mutasi (Stryker)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

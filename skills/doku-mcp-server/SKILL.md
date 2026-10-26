@@ -1,6 +1,6 @@
 ---
 name: doku-mcp-server
-description: "Expert guide for DOKU Model Context Protocol (MCP) Server integration. Enables AI Agentic Commerce with tools for DOKU Checkout, payment links, Virtual Accounts, QRIS, and order status checks / Panduan ahli DOKU MCP Server untuk AI Agentic Commerce."
+description: "DOKU MCP server: AI agentic commerce, checkout, and payment tools / DOKU MCP server: commerce berbasis agen AI, checkout, dan pembayaran."
 author: "Roedy Rustam"
 version: "4.4.2"
 

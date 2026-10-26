@@ -1,6 +1,6 @@
 ---
 name: go-programming-expert
-description: "Expert-level skill for Go programming (Go 1.24+ / 1.25+). Covers Swiss Table maps, weak pointers, synctest concurrency testing, tool directives, sqlc, net/http, and microservices in English and Indonesian."
+description: "Go 1.24+ microservices, sqlc, net/http, and concurrency patterns / Pemrograman Go 1.24+, microservices, sqlc, dan pola konkuren."
 author: "Roedy Rustam"
 version: "4.4.2"
 

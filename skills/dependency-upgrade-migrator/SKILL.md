@@ -1,6 +1,6 @@
 ---
 name: dependency-upgrade-migrator
-description: "Expert guide for dependency upgrades, breaking change migrations, codemod automation, and package audit remediation / Panduan ahli untuk upgrade dependensi, migrasi breaking change, otomasi codemod, dan remediasi audit paket."
+description: "Dependency upgrades, breaking change migrations, and codemod tooling / Upgrade dependensi, migrasi breaking change, dan otomasi codemod."
 author: "Roedy Rustam"
 version: "4.4.2"
 

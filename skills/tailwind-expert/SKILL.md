@@ -1,6 +1,6 @@
 ---
 name: tailwind-expert
-description: "Expert guide for Tailwind CSS v4, CSS-first configuration, @theme customization, modern responsive design, and Modern Web Guidance / Panduan ahli untuk Tailwind CSS v4, konfigurasi CSS-first, kustomisasi @theme, dan desain responsif modern."
+description: "Tailwind CSS v4, CSS-first @theme configuration, and modern styling / Panduan Tailwind CSS v4, konfigurasi @theme, dan styling modern."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

@@ -1,6 +1,6 @@
 ---
 name: sbom-supply-chain-security-expert
-description: Expert guide for Software Supply Chain Security, CycloneDX/SPDX SBOM generation, Sigstore Cosign keyless signing, SLSA Level 3 provenance attestation, and dependency lockfile hardening / Panduan ahli keamanan rantai pasok perangkat lunak, SBOM CycloneDX, Sigstore Cosign, dan SLSA Level 3.
+description: "Supply chain security, CycloneDX SBOM, Cosign signing, SLSA Level 3 / Keamanan rantai pasok software, SBOM CycloneDX, dan tanda tangan Cosign."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

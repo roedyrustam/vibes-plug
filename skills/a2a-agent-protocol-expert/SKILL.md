@@ -1,6 +1,6 @@
 ---
 name: a2a-agent-protocol-expert
-description: "Expert guide for Agent-to-Agent (A2A) Protocol interoperability, /.well-known/agent.json Agent Cards, cross-vendor swarm task negotiation, and bridging A2A with Model Context Protocol (MCP) / Panduan ahli protokol interoperabilitas antar-agen (A2A), Agent Cards, dan integrasi A2A + MCP."
+description: "A2A agent protocol interoperability, Agent Cards, and MCP bridging / Protokol agen A2A, Agent Cards, dan integrasi MCP."
 author: "Roedy Rustam"
 version: "4.4.2"
 

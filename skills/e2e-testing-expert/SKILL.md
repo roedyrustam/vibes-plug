@@ -1,6 +1,6 @@
 ---
 name: e2e-testing-expert
-description: "Expert guide for End-to-End (E2E) testing with Playwright 1.50+, Clock API, ARIA snapshots, test fixtures, and Vitest 3+ / Panduan ahli pengujian E2E dengan Playwright 1.50+, Clock API, ARIA snapshots, dan Vitest 3+."
+description: "End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+ / Pengujian E2E dengan Playwright 1.50+, fixtures, dan Vitest 3+."
 author: "Roedy Rustam"
 version: "4.4.2"
 

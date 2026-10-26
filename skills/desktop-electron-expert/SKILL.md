@@ -1,6 +1,6 @@
 ---
 name: desktop-electron-expert
-description: "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+."
+description: "Electron 33+ desktop apps, IPC security, multi-window, and packaging / Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window."
 author: "Roedy Rustam"
 version: "4.4.2"
 

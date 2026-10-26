@@ -1,6 +1,6 @@
 ---
 name: app-analyzer-optimizer
-description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."
+description: "Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi."
 author: "Roedy Rustam"
 version: "4.4.2"
 

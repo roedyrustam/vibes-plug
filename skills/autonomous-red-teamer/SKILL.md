@@ -1,6 +1,6 @@
 ---
 name: autonomous-red-teamer
-description: "AI-driven dynamic security fuzzing, exploit generation (XSS, SQLi, SSRF, Prompt Injection), and automated patch remediation / Fuzzing keamanan dinamis berbasis AI, eksploitasi, dan remediasi otomatis."
+description: "Dynamic security fuzzing, exploit generation (XSS, SQLi), and patches / Fuzzing keamanan dinamis, eksploitasi (XSS, SQLi), dan patch otomatis."
 author: "Roedy Rustam"
 version: "4.4.2"
 

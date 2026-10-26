@@ -1,6 +1,6 @@
 ---
 name: pdf-document-generation-expert
-description: "Expert guide for PDF generation and document processing (React PDF, Puppeteer, jsPDF, pdf-lib) / Panduan ahli generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer, jsPDF, pdf-lib)."
+description: "PDF generation and document processing (React PDF, Puppeteer) / Generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: pydantic-ai-expert
-description: "Expert guide for type-safe Python AI agent development with Pydantic AI — dependency injection, structured outputs, model-agnostic routing, and graph workflows / Panduan ahli pengembangan agen AI Python type-safe dengan Pydantic AI."
+description: "Type-safe Python AI agents with Pydantic AI and structured outputs / Agen AI Python type-safe dengan Pydantic AI dan output terstruktur."
 author: "Roedy Rustam"
 version: "4.4.2"
 

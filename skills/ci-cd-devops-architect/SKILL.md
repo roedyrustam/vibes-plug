@@ -1,6 +1,6 @@
 ---
 name: ci-cd-devops-architect
-description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
+description: "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures / Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: cron-scheduler-expert
-description: "Expert guide for scheduled tasks, cron jobs, recurring background work (Vercel Cron, Cloudflare Workers Cron, Inngest, node-cron), and distributed scheduling / Panduan ahli untuk tugas terjadwal, cron job, pekerjaan latar belakang berulang, dan penjadwalan terdistribusi."
+description: "Scheduled cron tasks and background workflows (Vercel, Cloudflare) / Tugas terjadwal cron dan background job (Vercel, Cloudflare)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

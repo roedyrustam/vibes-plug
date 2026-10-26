@@ -1,6 +1,6 @@
 ---
 name: living-codebase-ast-graph
-description: "Master guide for in-memory Abstract Syntax Tree (AST) code knowledge graphs, multi-language symbol dependency mapping (TS, Python, Go, Rust), refactoring blast radius calculation, circular cycle detection (Tarjan SCC), and topological swarm generation / Panduan utama graf pengetahuan AST kode in-memory, pemetaan dependensi multi-bahasa, kalkulasi radius dampak refaktor, deteksi siklus dependensi, dan pengurutan topologis swarm."
+description: "In-memory AST code knowledge graphs and refactoring blast radius / Graf pengetahuan AST in-memory dan radius dampak refaktor kode."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

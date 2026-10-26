@@ -1,6 +1,6 @@
 ---
 name: coderabbit
-description: "AI-powered automated code review, PR summarization, and interactive developer feedback / Review kode otomatis berbasis AI, ringkasan PR, dan umpan balik developer interaktif."
+description: "AI automated code review, PR summarization, and developer feedback / Review kode otomatis AI, ringkasan PR, dan umpan balik developer."
 author: "Roedy Rustam"
 version: "4.4.2"
 

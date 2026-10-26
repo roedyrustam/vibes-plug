@@ -1,6 +1,6 @@
 ---
 name: bun-runtime-expert
-description: "Expert guide for Bun 1.2+ JavaScript/TypeScript runtime — native Bun.sql Postgres client, Bun.s3 object storage, text lockfile, multi-core HTTP clusters, and bun:test / Panduan ahli runtime Bun 1.2+."
+description: "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test / Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test."
 author: "Roedy Rustam"
 version: "4.4.2"
 

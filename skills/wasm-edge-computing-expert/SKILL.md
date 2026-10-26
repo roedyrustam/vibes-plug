@@ -1,6 +1,6 @@
 ---
 name: wasm-edge-computing-expert
-description: "Expert guide for WebAssembly (WASM) and Edge Computing. Covers WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, and high-performance browser computing / Panduan ahli untuk WebAssembly (WASM) dan Edge Computing. Mencakup WASI preview 2, Spin/Fermyon, Cloudflare Workers WASM, dan komputasi performa tinggi di browser."
+description: "WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare."
 author: "Roedy Rustam"
 version: "4.4.2"
 

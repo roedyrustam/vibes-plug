@@ -1,6 +1,6 @@
 ---
 name: modern-css-native-expert
-description: "Expert guide for cutting-edge Native CSS (2026 Standard) — CSS Anchor Positioning, @starting-style, View Transitions Level 2, Container Queries, :has(), and Modern Web Guidance / Panduan ahli fitur CSS native modern 2026."
+description: "Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

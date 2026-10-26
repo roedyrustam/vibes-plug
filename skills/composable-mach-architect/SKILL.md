@@ -1,6 +1,6 @@
 ---
 name: composable-mach-architect
-description: "Expert guide for Composable MACH Architecture (Microservices, API-first, Cloud-native, Headless) — dynamic UI composition, federated API mesh, Backend-for-Frontend patterns, plugin/extension architectures, event-driven composition, and composable AI routing / Panduan ahli Arsitektur MACH Komposabel — komposisi UI dinamis, API mesh federasi, pola Backend-for-Frontend, arsitektur plugin/ekstensi, komposisi event-driven, dan routing AI komposabel."
+description: "Composable MACH architecture: microservices, API mesh, and headless / Arsitektur MACH komposabel: microservices, API mesh, dan headless."
 author: "Roedy Rustam"
 version: "4.4.2"
 

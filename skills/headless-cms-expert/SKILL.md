@@ -1,6 +1,6 @@
 ---
 name: headless-cms-expert
-description: "Expert guide for Headless CMS integration (Sanity, Payload CMS, Strapi, Contentful, Storyblok) with modern frameworks / Panduan ahli integrasi Headless CMS (Sanity, Payload, Strapi, Contentful) dengan framework modern."
+description: "Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful / Integrasi Headless CMS: Sanity, Payload CMS, Strapi, Contentful."
 author: "Roedy Rustam"
 version: "4.4.2"
 

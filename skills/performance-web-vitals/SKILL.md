@@ -1,6 +1,6 @@
 ---
 name: performance-web-vitals
-description: "Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement / Panduan ahli untuk optimasi performa web: Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, strategi rendering, dan peningkatan skor Lighthouse."
+description: "Web performance optimization: Core Web Vitals (LCP, INP, CLS) / Optimasi performa web dan metrik Core Web Vitals (LCP, INP, CLS)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

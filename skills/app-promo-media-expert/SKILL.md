@@ -1,6 +1,6 @@
 ---
 name: app-promo-media-expert
-description: "Expert guide for creating high-converting application promotional media — App Store & Google Play screenshots, social promo graphics, dynamic Open Graph banners, Remotion programmatic video teasers, and AI promo showcases / Panduan ahli pembuatan media promosi aplikasi — mockup screenshot App Store & Google Play, kartu promo media sosial, banner Open Graph dinamis, video teaser terprogram Remotion, dan showcase promo berbasis AI."
+description: "App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: zero-tech-debt-auditor
-description: "Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a Zero Debt codebase / Orkestrator otonom untuk menghapus utang teknis sebelum rilis."
+description: "Autonomous scanner and refactorer to eliminate technical debt / Scanner otonom dan refaktor kode untuk menghapus utang teknis."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

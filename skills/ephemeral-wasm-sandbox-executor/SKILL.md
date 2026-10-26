@@ -1,6 +1,6 @@
 ---
 name: ephemeral-wasm-sandbox-executor
-description: "Master guide for ephemeral WebAssembly (WASM) and isolated micro-runtime sandboxes to securely execute AI-generated code, validate database migrations in-memory, and perform sub-millisecond fuzzing / Panduan utama sandbox WebAssembly (WASM) efemeral dan micro-runtime terisolasi untuk eksekusi kode AI yang aman, validasi migrasi database in-memory, dan fuzzing sub-milidetik."
+description: "Ephemeral WebAssembly sandboxes for secure code execution and tests / Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

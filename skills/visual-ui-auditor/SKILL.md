@@ -1,6 +1,6 @@
 ---
 name: visual-ui-auditor
-description: "Master guide for multimodal vision UI auditing (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, GPT-5.6 Sol Vision, Muse Wonder) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan utama audit visual UI berbasis vision multimodal."
+description: "Multimodal vision UI audit against crisp borders and accessibility / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

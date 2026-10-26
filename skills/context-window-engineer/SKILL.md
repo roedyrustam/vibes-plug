@@ -1,6 +1,6 @@
 ---
 name: context-window-engineer
-description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, and Grok 4.7 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Argon/Pro, Claude Sonnet/Opus 5.5, GPT-5.6 Sol, dan Grok 4.7 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
+description: "Optimize 2M+ context windows, prompt cache pinning & budget slicing / Rekayasa context window 2M+, cache pinning, dan budget token."
 author: "Roedy Rustam"
 version: "4.4.2"
 

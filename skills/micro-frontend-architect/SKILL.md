@@ -1,6 +1,6 @@
 ---
 name: micro-frontend-architect
-description: "Expert guide for designing Micro-Frontend architectures using Webpack Module Federation, Vite Federation, and Single-SPA for large scale Vue and React applications."
+description: "Micro-frontends with Webpack & Vite Module Federation / Arsitektur micro-frontend dengan Webpack & Vite Module Federation."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: logging-error-tracking-expert
-description: "Expert guide for structured logging (Pino, Winston), error tracking (Sentry), log aggregation (Axiom, Datadog), request correlation, and GDPR-compliant log management / Panduan ahli untuk logging terstruktur (Pino, Winston), pelacakan error (Sentry), agregasi log, korelasi request, dan manajemen log sesuai GDPR."
+description: "Structured logging (Pino) and error tracking (Sentry, Axiom) / Logging terstruktur (Pino) dan pelacakan error (Sentry, Axiom)."
 author: "Roedy Rustam"
 version: "4.4.2"
 

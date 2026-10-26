@@ -1,6 +1,6 @@
 ---
 name: design-system-architect
-description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, Modern Web Guidance, and WCAG 2.2 accessibility."
+description: "UI design systems, design tokens, headless primitives, and WCAG 2.2 / Sistem desain UI, token desain, headless primitives, dan WCAG 2.2."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

@@ -1,6 +1,6 @@
 ---
 name: senior-frontend
-description: "Frontend development for React 19, Next.js 15, TypeScript, and Tailwind CSS v4 / Pengembangan frontend dengan React 19, Next.js 15, TypeScript, dan Tailwind CSS v4."
+description: "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: agentic-micro-economy-architect
-description: "Master guide for designing Machine-to-Machine (M2M) micro-economies, autonomous agent wallets, swarm budget envelopes, and HTTP 402 payment flows / Panduan utama merancang ekonomi mikro antar-agen (M2M), dompet agen otonom, pagu anggaran swarm, dan alur pembayaran HTTP 402."
+description: "M2M micro-economies, agent wallets, swarm budgets, and HTTP 402 / Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

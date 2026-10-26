@@ -1,6 +1,6 @@
 ---
 name: ai-safety-governance-expert
-description: "Expert guide for AI Safety, Governance, and Responsible AI in production — Constitutional AI enforcement, runtime guardrails (NeMo Guardrails 2.0, Llama Guard 3), bias auditing, hallucination detection, EU AI Act compliance, model cards, and content provenance / Panduan ahli untuk Keamanan AI, Tata Kelola, dan AI Bertanggung Jawab di produksi."
+description: "AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act / Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI."
 author: "Roedy Rustam"
 version: "4.4.2"
 

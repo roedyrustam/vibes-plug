@@ -1,6 +1,6 @@
 ---
 name: zero-trust-secret-vault
-description: "Expert guide for Zero-Trust Secret Management (Infisical, HashiCorp Vault, Doppler), automated API key rotation, and environment security / Panduan ahli manajemen rahasia Zero-Trust, rotasi kunci API, dan keamanan variabel lingkungan."
+description: "Zero-trust secret management (Infisical, Vault) and key rotation / Manajemen rahasia zero-trust (Infisical, Vault) dan rotasi API key."
 author: "Roedy Rustam"
 version: "4.4.2"
 

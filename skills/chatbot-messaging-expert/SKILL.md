@@ -1,6 +1,6 @@
 ---
 name: chatbot-messaging-expert
-description: "Expert guide for chatbot and messaging platform integration (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) and conversational AI / Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan."
+description: "Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack / Integrasi chatbot & messaging: WhatsApp, Telegram, Discord, Slack."
 author: "Roedy Rustam"
 version: "4.4.2"
 

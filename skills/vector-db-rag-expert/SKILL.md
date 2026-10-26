@@ -1,6 +1,6 @@
 ---
 name: vector-db-rag-expert
-description: "Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking / Panduan ahli Vector DB, arsitektur Deep RAG, pgvector HNSW, RRF, dan Re-ranking."
+description: "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking."
 author: "Roedy Rustam"
 version: "4.4.2"
 

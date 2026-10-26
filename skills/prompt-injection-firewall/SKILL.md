@@ -1,6 +1,6 @@
 ---
 name: prompt-injection-firewall
-description: "Expert guide for defending AI applications against prompt injection, jailbreak attacks, indirect injection via tool outputs, and data exfiltration through tool calls — input sanitization, output filtering, canary token detection, and layered defense architecture / Panduan ahli pertahanan aplikasi AI terhadap prompt injection, serangan jailbreak, injeksi tidak langsung via output tool, dan eksfiltrasi data melalui tool calls — sanitasi input, filtering output, deteksi canary token, dan arsitektur pertahanan berlapis."
+description: "Runtime defenses against prompt injection, jailbreaks, and SSRF / Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF."
 author: "Roedy Rustam"
 version: "4.4.2"
 

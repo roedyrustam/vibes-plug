@@ -1,6 +1,6 @@
 ---
 name: search-engine-expert
-description: "Expert guide for full-text search engines (Typesense, Meilisearch, Elasticsearch), faceted search, and autocomplete / Panduan ahli mesin pencarian full-text (Typesense, Meilisearch, Elasticsearch), pencarian berfaset, dan autocomplete."
+description: "Full-text search engines: Typesense, Meilisearch, and Elasticsearch / Mesin pencarian full-text: Typesense, Meilisearch, Elasticsearch."
 author: "Roedy Rustam"
 version: "4.4.2"
 

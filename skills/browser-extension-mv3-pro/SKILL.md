@@ -1,6 +1,6 @@
 ---
 name: browser-extension-mv3-pro
-description: "Expert guide for modern browser extension development (Manifest V3) — Chrome SidePanel API, Background Service Workers, Offscreen Documents, declarativeNetRequest, WebAssembly in MV3, and cross-browser WebExtensions / Panduan ahli pengembangan ekstensi browser modern (Manifest V3)."
+description: "Manifest V3 browser extensions, SidePanel API, and service workers / Pengembangan ekstensi browser Manifest V3, SidePanel, dan workers."
 author: "Roedy Rustam"
 version: "4.4.2"
 

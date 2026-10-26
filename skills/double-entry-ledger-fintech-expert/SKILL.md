@@ -1,6 +1,6 @@
 ---
 name: double-entry-ledger-fintech-expert
-description: "Expert guide for immutable Double-Entry Accounting Ledgers, TigerBeetle integration, append-only financial journals, multi-currency integer math, escrow holds, and automated daily balance reconciliation / Panduan ahli buku besar akuntansi Double-Entry permanen, TigerBeetle, jurnal keuangan append-only, dan rekonsiliasi saldo otomatis."
+description: "Immutable double-entry ledgers, TigerBeetle, and balance reconciliation / Buku besar double-entry permanen, TigerBeetle, dan rekonsiliasi saldo."
 author: "Roedy Rustam"
 version: "4.4.2"
 

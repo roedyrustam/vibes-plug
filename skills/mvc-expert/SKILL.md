@@ -1,6 +1,6 @@
 ---
 name: mvc-expert
-description: "Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects / Pedoman ahli untuk merefaktor codebase PHP lama menjadi proyek terstruktur MVC yang bersih, modern, dan skalabel."
+description: "Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih."
 author: "Roedy Rustam"
 version: "4.4.2"
 

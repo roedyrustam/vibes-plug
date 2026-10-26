@@ -1,6 +1,6 @@
 ---
 name: rea-analysis-optimization
-description: Optimize REA providers and shared analysis workflows for agent context, latency, CPU, and memory while preserving correctness and Evidence. Use for analysis bottlenecks and cache or query design; CI/test-suite optimization belongs to rea-ci-tests-audit.
+description: "Optimize REA providers, analysis latency, memory, and Evidence / Optimasi provider REA, latensi analisis, memori, dan Evidence."
 author: "morluto"
 version: "4.4.3"
 ---

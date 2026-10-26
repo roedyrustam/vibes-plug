@@ -1,6 +1,6 @@
 ---
 name: saas-multi-tenant
-description: "Design and implement multi-tenant SaaS architectures with RLS, tenant isolation, and PostgreSQL / Desain dan implementasikan arsitektur SaaS multi-tenant dengan RLS, isolasi tenant, dan PostgreSQL."
+description: "Multi-tenant SaaS architecture with PostgreSQL RLS isolation / Arsitektur SaaS multi-tenant dengan isolasi PostgreSQL RLS."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: kv-cache-prefix-optimizer
-description: "Expert guide for deterministic prompt prefix engineering, KV-cache locking for Gemini 4 Argon/Pro, Claude 5.5 (Sonnet/Opus) / 5.1 Fable, GPT-5.6 Sol, and Grok 4.7, canonical tool sorting, and achieving 90%+ prompt cache hit rates / Panduan ahli rekayasa prefix prompt deterministik."
+description: "Deterministic prompt prefix engineering & KV-cache hit optimization / Rekayasa prefix prompt deterministik & optimasi cache KV."
 author: "Roedy Rustam"
 version: "4.4.2"
 

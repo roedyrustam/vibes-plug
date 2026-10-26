@@ -1,6 +1,6 @@
 ---
 name: agentic-m2m-settlement
-description: "Master guide for autonomous Machine-to-Machine (M2M) agent settlement, dual-rail fiat (DOKU SNAP BI) & stablecoin micro-clearing, dynamic budget envelopes, and cryptographic agent invoicing / Panduan utama settlement otonom antar-agen (M2M), kliring mikro dual-rail fiat & stablecoin, pagu anggaran dinamis, dan penagihan agen kriptografis."
+description: "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

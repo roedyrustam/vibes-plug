@@ -1,6 +1,6 @@
 ---
 name: tauri-expert
-description: "Expert guide for Tauri 2.x / 2.12+ cross-platform desktop and mobile development: Rust 1.90+ MSRV, IPC Channel streaming, on_permission_request handlers, App-Bound domains, and Capabilities security / Panduan ahli pengembangan desktop dan mobile Tauri 2.x / 2.12+."
+description: "Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+ / Aplikasi desktop & mobile Tauri 2.x dengan Rust 1.90+ dan IPC."
 author: "Roedy Rustam"
 version: "4.4.2"
 

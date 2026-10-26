@@ -1,6 +1,6 @@
 ---
 name: form-validation-expert
-description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
+description: "Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

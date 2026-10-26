@@ -1,6 +1,6 @@
 ---
 name: affective-computing-emotion-ai
-description: "Master guide for Affective Computing, emotional AI, and real-time sentiment analysis through native multimodal tokens (voice intonation and facial micro-expressions) / Panduan utama komputasi afektif, AI emosional, dan analisis sentimen real-time melalui token multimodal native."
+description: "Affective computing, emotion AI, and multimodal sentiment analysis / Komputasi afektif, AI emosional, dan analisis sentimen multimodal."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

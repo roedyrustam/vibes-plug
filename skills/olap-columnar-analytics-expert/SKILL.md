@@ -1,6 +1,6 @@
 ---
 name: olap-columnar-analytics-expert
-description: Expert guide for Real-Time OLAP & Columnar Analytics (ClickHouse, DuckDB WASM/Node, Apache Iceberg, Materialized Views, and Wide-Event Telemetry) / Panduan ahli analitik kolumnar OLAP real-time, ClickHouse, DuckDB, dan Apache Iceberg.
+description: "Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

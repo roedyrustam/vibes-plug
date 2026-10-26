@@ -1,6 +1,6 @@
 ---
 name: multimodal-spatial-video-cloner
-description: "Master guide for reverse-engineering UI/UX interactions from screen-recordings and spatial video, extracting animation spring curves, and generating pixel-perfect Tailwind CSS v4 and Framer Motion code / Panduan utama rekayasa balik interaksi UI/UX dari rekaman layar dan video spasial, ekstraksi kurva pegas animasi, dan pembuatan kode presisi Tailwind CSS v4 serta Framer Motion."
+description: "Extract UI interactions and spring curves from video into code / Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

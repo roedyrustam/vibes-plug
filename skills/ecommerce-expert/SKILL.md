@@ -1,6 +1,6 @@
 ---
 name: ecommerce-expert
-description: "Expert guide for e-commerce architecture (Shopify Storefront, Medusa.js, Saleor), product catalogs, cart/checkout UX, and order management / Panduan ahli arsitektur e-commerce (Shopify, Medusa.js, Saleor), katalog produk, UX keranjang/checkout, dan manajemen pesanan."
+description: "E-commerce architecture, product catalogs, cart, and checkout UX / Arsitektur e-commerce, katalog produk, keranjang, dan checkout UX."
 author: "Roedy Rustam"
 version: "4.4.2"
 

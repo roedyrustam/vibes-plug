@@ -1,6 +1,6 @@
 ---
 name: browser-automation-expert
-description: "Expert guide for autonomous web agents (Browser-Use, Stagehand v0.4+), hardcore anti-bot evasion (Playwright Stealth, WebGL masking), and Vision LLM visual QA / Panduan ahli agen web otonom, penghindaran deteksi bot, dan QA visual berbasis Vision LLM."
+description: "Autonomous web agents (Stagehand, Browser-Use) & anti-bot evasion / Agen web otonom (Stagehand, Browser-Use) dan bypass deteksi bot."
 author: "Roedy Rustam"
 version: "4.4.2"
 

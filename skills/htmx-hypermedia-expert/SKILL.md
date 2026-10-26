@@ -1,6 +1,6 @@
 ---
 name: htmx-hypermedia-expert
-description: "Expert guide for HTMX 2.0+, Hypermedia-Driven Applications (HDA), server-side rendering with htmx attributes, Alpine.js integration, and modern HTML-over-the-wire patterns / Panduan ahli HTMX 2.0+, Hypermedia-Driven Applications, dan pola HTML-over-the-wire modern."
+description: "HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire / Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

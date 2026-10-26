@@ -1,6 +1,6 @@
 ---
 name: fullstack-expert
-description: "Expert-level fullstack development guide covering multi-language (TypeScript, Python, Go, Rust), API design (OpenAPI 3.1, gRPC), microservices, system design patterns, and polyglot architecture / Panduan fullstack tingkat ahli mencakup multi-bahasa, desain API, microservices, dan arsitektur polyglot."
+description: "Polyglot fullstack development: TypeScript, Python, Go, and Rust / Pengembangan fullstack polyglot: TypeScript, Python, Go, dan Rust."
 author: "Roedy Rustam"
 version: "4.4.2"
 

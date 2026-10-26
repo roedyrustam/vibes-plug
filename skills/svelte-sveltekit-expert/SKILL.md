@@ -1,6 +1,6 @@
 ---
 name: svelte-sveltekit-expert
-description: "Expert guide for Svelte 5 (Runes) and SvelteKit 2+ — fine-grained reactivity, snippets, server-first architecture, form actions, and SSR/SSG / Panduan ahli Svelte 5 (Runes) dan SvelteKit 2+ — reaktivitas fine-grained, snippets, arsitektur server-first, form actions, dan SSR/SSG."
+description: "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first."
 author: "Roedy Rustam"
 version: "4.4.2"
 

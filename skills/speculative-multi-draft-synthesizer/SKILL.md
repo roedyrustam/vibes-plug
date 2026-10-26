@@ -1,6 +1,6 @@
 ---
 name: speculative-multi-draft-synthesizer
-description: "Master guide for speculative multi-agent drafting, parallel multi-model hypothesis generation, AST-aware consensus arbitration, and node-level code reconciliation / Panduan utama penyusunan draf multi-agen spekulatif, generasi hipotesis paralel multi-model, arbitrase konsensus sadar-AST, dan rekonsiliasi kode tingkat simpul."
+description: "Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

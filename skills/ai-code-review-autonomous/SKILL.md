@@ -1,6 +1,6 @@
 ---
 name: ai-code-review-autonomous
-description: "Expert guide for multi-pass autonomous AI code self-review — syntax validation, logic correctness, architectural conformance, security audit, and performance analysis without external tooling — enabling the agent to catch its own errors before presenting code / Panduan ahli review kode otonom multi-pass oleh AI — validasi sintaks, kebenaran logika, konformitas arsitektur, audit keamanan, dan analisis performa tanpa tooling eksternal — memungkinkan agen menangkap errornya sendiri sebelum menampilkan kode."
+description: "Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa."
 author: "Roedy Rustam"
 version: "4.4.2"
 

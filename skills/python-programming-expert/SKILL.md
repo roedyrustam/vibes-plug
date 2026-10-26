@@ -1,6 +1,6 @@
 ---
 name: python-programming-expert
-description: "Expert-level skill for Python programming (Python 3.13/3.14+). Covers type safety, generic syntax (PEP 695), async/await TaskGroups, FastAPI 0.115+, Pydantic v2, uv package manager, Ruff, and pytest in English and Indonesian."
+description: "Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest / Pemrograman Python modern: FastAPI, Pydantic v2, uv, dan pytest."
 author: "Roedy Rustam"
 version: "4.4.2"
 

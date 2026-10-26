@@ -1,6 +1,6 @@
 ---
 name: autonomous-api-drift-healer
-description: "Expert guide for autonomous API schema drift detection, OpenAPI / gRPC breaking change monitoring, self-healing SDK adapter generation, and zero-downtime client-server synchronization / Panduan ahli deteksi drift skema API otonom, pemantauan breaking change OpenAPI / gRPC, pembuatan adapter SDK self-healing, dan sinkronisasi client-server tanpa downtime."
+description: "Autonomous API schema drift detection and breaking change healing / Deteksi drift skema API otonom dan perbaikan breaking change."
 author: "Roedy Rustam"
 version: "4.4.2"
 

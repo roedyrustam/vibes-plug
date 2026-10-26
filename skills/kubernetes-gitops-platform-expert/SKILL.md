@@ -1,6 +1,6 @@
 ---
 name: kubernetes-gitops-platform-expert
-description: Expert guide for Production Kubernetes & GitOps Platform Engineering (ArgoCD ApplicationSets, Cilium eBPF NetworkPolicies, KEDA Autoscaling, Gateway API, and Pod Security Standards) / Panduan ahli rekayasa platform Kubernetes & GitOps produksi dengan ArgoCD, Cilium eBPF, dan KEDA.
+description: "Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA / Platform engineering Kubernetes & GitOps: ArgoCD, Cilium, dan KEDA."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

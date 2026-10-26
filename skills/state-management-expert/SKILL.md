@@ -1,6 +1,6 @@
 ---
 name: state-management-expert
-description: "Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, and server state patterns with TanStack Query / Panduan ahli untuk manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, dan pola server state dengan TanStack Query."
+description: "Modern client state management: Zustand, Jotai, and TanStack Store / Manajemen state modern client-side: Zustand, Jotai, TanStack Store."
 author: "Roedy Rustam"
 version: "4.4.2"
 

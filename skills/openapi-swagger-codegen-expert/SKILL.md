@@ -1,6 +1,6 @@
 ---
 name: openapi-swagger-codegen-expert
-description: "OpenAPI 3.1 spec authoring, Swagger UI, automatic client/server code generation (openapi-typescript, Orval, Kiota), contract testing / Penulisan spesifikasi OpenAPI 3.1, Swagger UI, pembuatan kode klien/server otomatis, dan pengujian kontrak."
+description: "OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis."
 author: "Roedy Rustam"
 version: "4.4.2"
 

@@ -1,6 +1,6 @@
 ---
 name: cloudflare-workers-expert
-description: "Expert guide for Cloudflare Workers ecosystem — Workers, D1 (SQLite at edge), KV, R2 (S3-compatible storage), Queues, Durable Objects, Hyperdrive, and Workers AI / Panduan ahli ekosistem Cloudflare Workers — Workers, D1, KV, R2, Queues, Durable Objects, Hyperdrive, dan Workers AI."
+description: "Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects / Ekosistem Cloudflare Workers: D1, KV, R2, Queues, Durable Objects."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

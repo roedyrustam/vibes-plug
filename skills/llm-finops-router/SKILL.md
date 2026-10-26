@@ -1,6 +1,6 @@
 ---
 name: llm-finops-router
-description: Expert guide for AI FinOps, dynamic model routing (LiteLLM, Portkey, RouteLLM), cost optimization, budget enforcement, semantic caching, and latency-based fallback architectures / Panduan ahli untuk AI FinOps, routing model dinamis, optimasi biaya, penegakan anggaran, semantic caching, dan arsitektur fallback berbasis latensi.
+description: "AI FinOps, dynamic model routing (LiteLLM), and token cost control / FinOps AI, routing model dinamis (LiteLLM), dan kontrol biaya token."
 author: "Roedy Rustam"
 version: "4.4.2"
 

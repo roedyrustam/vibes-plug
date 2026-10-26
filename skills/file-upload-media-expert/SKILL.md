@@ -1,6 +1,6 @@
 ---
 name: file-upload-media-expert
-description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigned URLs, image/video processing, CDN optimization, and media pipeline architecture / Panduan ahli untuk upload file (S3, R2, Supabase Storage), presigned URL, pemrosesan gambar/video, optimasi CDN, dan arsitektur pipeline media."
+description: "File uploads (S3, R2, Supabase), presigned URLs, and media pipelines / Upload file (S3, R2, Supabase), presigned URL, dan pipeline media."
 author: "Roedy Rustam"
 version: "4.4.2"
 

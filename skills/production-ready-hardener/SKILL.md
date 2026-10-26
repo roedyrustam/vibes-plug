@@ -1,6 +1,6 @@
 ---
 name: production-ready-hardener
-description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."
+description: "Pre-deployment application hardening across security, perf, and tests / Pengerasan aplikasi pra-deploy: keamanan, performa, dan tes."
 author: "Roedy Rustam"
 version: "4.4.2"
 

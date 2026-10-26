@@ -1,6 +1,6 @@
 ---
 name: legacy-code-translator
-description: "Methodological guide for the AI Agent to safely and systematically translate, refactor, and modernize giant legacy codebases (PHP, Python 2, old React) into modern stacks."
+description: "Safely modernize legacy codebases (PHP, old React) into modern stacks / Modernisasi codebase legacy (PHP, React lama) ke stack modern."
 author: "Roedy Rustam"
 version: "4.4.2"
 ---

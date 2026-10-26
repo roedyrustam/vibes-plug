@@ -1,6 +1,6 @@
 ---
 name: thinking-budget-orchestrator
-description: "Expert guide for dynamic thinking budget allocation across late-2026 frontier models — Grok 4.7, Composer 2.5, Gemini 4 Argon, GPT-5.6 Sol, Claude Sonnet 5.5, and Muse Wonder / Panduan ahli alokasi budget penalaran dinamis."
+description: "Dynamic thinking budget orchestrator across late-2026 frontier models / Alokasi budget penalaran dinamis pada model frontier 2026."
 author: "Roedy Rustam"
 version: "4.4.2"
 

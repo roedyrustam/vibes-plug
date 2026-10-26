@@ -1,6 +1,6 @@
 ---
 name: structured-output-contracts
-description: "Expert guide for agent-native structured outputs, JSON Schema strict mode enforcement (OpenAI response_format, Gemini schema mode, Claude tool_use), MCP resource schemas, and zero-hallucination type contracts / Panduan ahli kontrak output terstruktur native agen dan penegakan JSON schema ketat."
+description: "Strict JSON Schema structured outputs and MCP contract enforcement / Penegakan kontrak output terstruktur JSON Schema ketat dan MCP."
 author: "Roedy Rustam"
 version: "4.4.2"
 

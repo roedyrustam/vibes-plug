@@ -1,6 +1,6 @@
 ---
 name: seo
-description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO / Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)"
+description: "Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI."
 author: "Roedy Rustam"
 version: "4.4.2"
 

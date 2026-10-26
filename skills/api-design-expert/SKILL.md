@@ -1,6 +1,6 @@
 ---
 name: api-design-expert
-description: "Expert guide for designing robust APIs: REST best practices, GraphQL, gRPC, tRPC, OpenAPI/Swagger, API versioning, rate limiting, and contract-first design / Panduan ahli untuk merancang API yang kuat: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI/Swagger, versioning API, rate limiting, dan desain contract-first."
+description: "API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1."
 author: "Roedy Rustam"
 version: "4.4.2"
 
