@@ -1684,6 +1684,101 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const parsedGeminiCli = JSON.parse(geminiCliOut);
     assert.ok(parsedGeminiCli.thinkingBudget >= 8192);
   });
+
+  await t.test('Autonomous CI Healer, Failure Trace Diagnoser, and Safe Patch Remediation', async () => {
+    const { parseFailureOutput, diagnoseFailure, applySafeRemediation, scaffoldCiHealWorkflow, diagnoseAndHeal } = await import('./self-healer.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. Stack Trace & Error Parsing (Multi-Platform: Windows File URL & Linux paths)
+    const mockLog = [
+      '# Subtest: Option A & B: dynamic MCP tool masking, hardened TS/WASM sandbox',
+      'not ok 45 - Option A & B: dynamic MCP tool masking, hardened TS/WASM sandbox',
+      '  ---',
+      '  duration_ms: 120.4',
+      '  location: \'file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/scripts/wasm-sandbox.mjs:108:11\'',
+      '  failureType: \'testCodeFailure\'',
+      '  error: |-',
+      '    Error: TypeScript execution requires Node.js >= 22.13',
+      '        at stripTypeScript (file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/scripts/wasm-sandbox.mjs:108:11)',
+      '  ...'
+    ].join('\n');
+
+    const parsedFailures = parseFailureOutput(mockLog);
+    assert.strictEqual(parsedFailures.length, 1);
+    assert.strictEqual(parsedFailures[0].caller, 'stripTypeScript');
+    assert.strictEqual(parsedFailures[0].line, 108);
+    assert.strictEqual(parsedFailures[0].error.type, 'Error');
+    assert.ok(parsedFailures[0].error.message.includes('requires Node.js >= 22.13'));
+
+    // 2. Root Cause Diagnosis & Incompatibility Detection
+    const diagnosis = await diagnoseFailure(parsedFailures[0], PLUGIN_ROOT);
+    assert.ok(diagnosis.rootCause.includes('Node.js runtime API incompatibility detected'));
+    assert.ok(diagnosis.suggestedPatch.includes('typeof'));
+
+    // 3. Safe Remediation Engine with Syntax Verification & Rollback
+    const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vibes-heal-test-'));
+    const targetJs = path.join(tempDir, 'sample.mjs');
+    await fs.writeFile(targetJs, 'export function compute() {\n  return obj.missingProp;\n}\n', 'utf8');
+
+    const validDiagnosis = {
+      file: targetJs,
+      line: 2,
+      errorType: 'TypeError',
+      errorMessage: "Cannot read properties of undefined (reading 'missingProp')",
+      suggestedPatch: '- return obj.missingProp;\n+ return obj?.missingProp ?? 0;'
+    };
+
+    const healRes = await applySafeRemediation(validDiagnosis, { cwd: tempDir });
+    assert.strictEqual(healRes.success, true);
+    assert.strictEqual(healRes.patched, true);
+    const patchedContent = await fs.readFile(targetJs, 'utf8');
+    assert.ok(patchedContent.includes('return obj?.missingProp ?? 0;'));
+
+    // 4. Broken Patch Syntax Verification & Automated Rollback Guard
+    const brokenDiagnosis = {
+      file: targetJs,
+      line: 2,
+      errorType: 'SyntaxError',
+      errorMessage: 'Unexpected token',
+      suggestedPatch: '- return obj?.missingProp ?? 0;\n+ return obj???INVALID SYNTAX {{{;'
+    };
+    const rollbackRes = await applySafeRemediation(brokenDiagnosis, { cwd: tempDir });
+    assert.strictEqual(rollbackRes.success, false);
+    assert.strictEqual(rollbackRes.rolledBack, true);
+    const preservedContent = await fs.readFile(targetJs, 'utf8');
+    assert.ok(preservedContent.includes('return obj?.missingProp ?? 0;'));
+
+    // 5. Scaffold CI Auto-Healer Workflow
+    const workflowRes = await scaffoldCiHealWorkflow(tempDir);
+    assert.strictEqual(workflowRes.created, true);
+    const workflowContent = await fs.readFile(workflowRes.workflowPath, 'utf8');
+    assert.ok(workflowContent.includes('VibesPlug CI Auto-Healer'));
+    assert.ok(workflowContent.includes('node scripts/self-healer.mjs --apply'));
+
+    // 6. Diagnose and Heal Log File Mode
+    const logFilePath = path.join(tempDir, 'ci-error.log');
+    await fs.writeFile(logFilePath, mockLog, 'utf8');
+    const healReport = await diagnoseAndHeal(logFilePath, { cwd: tempDir, dryRun: true });
+    assert.strictEqual(healReport.failuresDetected, 1);
+    assert.strictEqual(healReport.diagnoses.length, 1);
+
+    // 7. MCP RPC Invocation (vibes_ci_heal alias)
+    const mcpHealCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 994,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_ci_heal',
+        arguments: { commandOrLog: logFilePath, apply: false }
+      }
+    });
+    assert.ok(mcpHealCall.result);
+    const mcpHealPayload = JSON.parse(mcpHealCall.result.content[0].text);
+    assert.strictEqual(mcpHealPayload.failuresDetected, 1);
+
+    // Cleanup tempDir
+    await fs.rm(tempDir, { recursive: true, force: true });
+  });
 });
 
 

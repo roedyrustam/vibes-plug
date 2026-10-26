@@ -11,6 +11,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
@@ -30,8 +31,8 @@ export function parseFailureOutput(output) {
   if (!output || typeof output !== 'string') return [];
   const failures = [];
 
-  const stackRegex = /(?:at\s+(?:async\s+)?([^\s(]+)?\s*\(?|\blocation:\s*['"]?)(file:\/\/\/[^\s:)]+|[a-zA-Z]:\\[^\s:)]+|\/[^\s:)]+):(\d+):(\d+)/g;
-  const errorRegex = /(?:error:\s*|- )([A-Za-z]+Error|TypeError|AssertionError|ReferenceError|SyntaxError):\s*([^\r\n]+)/g;
+  const stackRegex = /(?:at\s+(?:async\s+)?([^\s(]+)?\s*\(?|\blocation:\s*['"]?)(file:\/\/\/.+?|[a-zA-Z]:[\\/].+?|\/[^\s:)]+?):(\d+):(\d+)/g;
+  const errorRegex = /(?:^|\n|\r)\s*(?:error:\s*|- |not ok \d+ - [^\r\n]*\r?\n\s+)?([A-Za-z]+Error|Error):\s*([^\r\n]+)/g;
 
   let errMatch;
   const errors = [];
@@ -56,7 +57,8 @@ export function parseFailureOutput(output) {
     }
 
     const locKey = `${filePath}:${line}:${col}`;
-    if (!seenLocations.has(locKey)) {
+    const existing = failures.find(f => `${f.file}:${f.line}:${f.col}` === locKey);
+    if (!existing) {
       seenLocations.add(locKey);
       failures.push({
         caller,
@@ -65,6 +67,8 @@ export function parseFailureOutput(output) {
         col,
         error: errors[failures.length] || errors[0] || { type: 'RuntimeError', message: 'Test assertion or execution failure' }
       });
+    } else if (existing.caller === 'anonymous' && caller !== 'anonymous') {
+      existing.caller = caller;
     }
   }
 
@@ -141,6 +145,15 @@ export async function diagnoseFailure(failure, cwd = process.cwd()) {
       const prop = propMatch ? propMatch[1] : 'property';
       diagnosis.rootCause = `Attempted to access property '${prop}' on an undefined object reference.`;
       diagnosis.suggestedPatch = `// Add optional chaining (?.) or defensive null check before accessing .${prop}\n- ${failingLineContent.trim()}\n+ ${failingLineContent.trim().replace(new RegExp(`\\.(${prop})`), '?.$1')}`;
+    } else if (
+      (failure.error.type === 'TypeError' && failure.error.message.includes('is not a function')) ||
+      failure.error.message.includes('requires Node.js >=') ||
+      failure.error.message.includes('stripTypeScriptTypes')
+    ) {
+      const funcMatch = failure.error.message.match(/([a-zA-Z0-9_$]+(?:\.[a-zA-Z0-9_$]+)*)\s+is not a function/);
+      const targetApi = funcMatch ? funcMatch[1] : 'Runtime API';
+      diagnosis.rootCause = `Node.js runtime API incompatibility detected: '${targetApi}' is not supported in the active Node version. Feature detection fallback required.`;
+      diagnosis.suggestedPatch = `// Add feature detection and graceful fallback for older Node LTS versions:\n- ${failingLineContent.trim()}\n+ typeof ${targetApi} === 'function' ? ${failingLineContent.trim()} : fallbackImplementation()`;
     } else if (failure.error.type === 'ReferenceError') {
       const identMatch = failure.error.message.match(/([a-zA-Z0-9_$]+) is not defined/);
       const ident = identMatch ? identMatch[1] : 'identifier';
@@ -230,7 +243,106 @@ export function validateTestCommand(rawCommand) {
 }
 
 /**
- * Runs a test suite or command, detects failures, and produces an autonomous healing plan
+ * Safely applies a formulated remediation patch with syntax verification and automated rollback
+ * @param {Object} diagnosis
+ * @param {Object} [options]
+ * @returns {Promise<Object>}
+ */
+export async function applySafeRemediation(diagnosis, options = {}) {
+  const filePath = diagnosis.file;
+  if (!filePath || filePath === 'unknown') {
+    return { success: false, error: 'Unknown target file path' };
+  }
+  const backupPath = `${filePath}.bak`;
+  try {
+    const originalContent = await fs.readFile(filePath, 'utf8');
+    await fs.writeFile(backupPath, originalContent, 'utf8');
+
+    const diffLines = diagnosis.suggestedPatch.split('\n');
+    const removeLines = diffLines.filter(l => l.startsWith('- ')).map(l => l.slice(2).trim());
+    const addLines = diffLines.filter(l => l.startsWith('+ ')).map(l => l.slice(2).trim());
+
+    if (removeLines.length > 0 && addLines.length > 0) {
+      let patched = originalContent;
+      for (let i = 0; i < removeLines.length; i++) {
+        const target = removeLines[i];
+        const replacement = addLines[i] || '';
+        if (patched.includes(target)) {
+          patched = patched.replace(target, replacement);
+        }
+      }
+
+      // Syntax check with vm.Script (sanitizing ESM export/import keywords for script parser)
+      try {
+        const testScript = patched
+          .replace(/^\s*export\s+(?:default\s+)?/gm, '')
+          .replace(/^\s*import\s+.*?;\s*$/gm, '');
+        new vm.Script(testScript, { filename: path.basename(filePath) });
+      } catch (syntaxErr) {
+        await fs.writeFile(filePath, originalContent, 'utf8');
+        await fs.unlink(backupPath).catch(() => {});
+        return { success: false, error: `Syntax verification failed after patch: ${syntaxErr.message}`, rolledBack: true };
+      }
+
+      await fs.writeFile(filePath, patched, 'utf8');
+      await fs.unlink(backupPath).catch(() => {});
+      return { success: true, file: filePath, patched: true };
+    }
+
+    await fs.unlink(backupPath).catch(() => {});
+    return { success: false, error: 'Patch does not contain explicit +/- replacement lines' };
+  } catch (err) {
+    if (await fs.access(backupPath).then(() => true).catch(() => false)) {
+      const backupContent = await fs.readFile(backupPath, 'utf8');
+      await fs.writeFile(filePath, backupContent, 'utf8');
+      await fs.unlink(backupPath).catch(() => {});
+    }
+    return { success: false, error: err.message, rolledBack: true };
+  }
+}
+
+/**
+ * Scaffolds an autonomous CI Auto-Healer GitHub Actions workflow
+ * @param {string} targetDir
+ * @returns {Promise<{ workflowPath: string, created: boolean }>}
+ */
+export async function scaffoldCiHealWorkflow(targetDir = process.cwd()) {
+  const workflowsDir = path.join(targetDir, '.github', 'workflows');
+  await fs.mkdir(workflowsDir, { recursive: true });
+  const workflowPath = path.join(workflowsDir, 'vibes-self-heal.yml');
+
+  const content = `name: VibesPlug CI Auto-Healer
+
+on:
+  workflow_run:
+    workflows: ["VibesPlug CI & Anti-Slop Gate"]
+    types: [completed]
+
+jobs:
+  auto-heal:
+    if: \${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Autonomous Self-Healer
+        run: |
+          node scripts/self-healer.mjs --apply || true
+`;
+
+  await fs.writeFile(workflowPath, content, 'utf8');
+  return { workflowPath, created: true };
+}
+
+/**
+ * Runs a test suite, command, or log file, detects failures, and produces an autonomous healing plan
  * @param {string} [commandOrFile] 
  * @param {Object} [options]
  * @returns {Promise<Object>}
@@ -239,20 +351,41 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
   const cwd = options.cwd || process.cwd();
   const dryRun = options.dryRun !== false; // Default dry-run is true for safety
 
-  const validation = validateTestCommand(commandOrFile);
-  if (!validation.valid) {
-    return {
-      command: commandOrFile,
-      status: 'REJECTED',
-      passed: false,
-      failuresDetected: 0,
-      diagnoses: [],
-      summary: validation.error,
-      dryRun
-    };
+  let stdout = '';
+  let stderr = '';
+  let exitCode = 0;
+  let isLogFile = false;
+  let cmd = typeof commandOrFile === 'string' ? commandOrFile.trim() : 'npm test';
+
+  // Check if input is a path to an existing log file
+  if (cmd) {
+    try {
+      const resolved = path.isAbsolute(cmd) ? cmd : path.resolve(cwd, cmd);
+      const stat = await fs.stat(resolved).catch(() => null);
+      if (stat && stat.isFile()) {
+        isLogFile = true;
+        stdout = await fs.readFile(resolved, 'utf8');
+      }
+    } catch (_err) {
+      isLogFile = false;
+    }
   }
 
-  const cmd = validation.command;
+  if (!isLogFile) {
+    const validation = validateTestCommand(cmd);
+    if (!validation.valid) {
+      return {
+        command: cmd,
+        status: 'REJECTED',
+        passed: false,
+        failuresDetected: 0,
+        diagnoses: [],
+        summary: validation.error,
+        dryRun
+      };
+    }
+    cmd = validation.command;
+  }
 
   const report = {
     command: cmd,
@@ -260,26 +393,25 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
     passed: false,
     failuresDetected: 0,
     diagnoses: [],
+    remediationsApplied: 0,
     summary: '',
     dryRun
   };
 
-  let stdout = '';
-  let stderr = '';
-  let exitCode = 0;
-
-  try {
-    const res = await execAsync(cmd, { cwd, maxBuffer: 1024 * 1024 * 4 });
-    stdout = res.stdout || '';
-    stderr = res.stderr || '';
-    report.status = 'PASSED';
-    report.passed = true;
-    report.summary = 'All test suites and checks passed with 0 failures. No self-healing required.';
-    return report;
-  } catch (err) {
-    exitCode = err.code || 1;
-    stdout = err.stdout || '';
-    stderr = err.stderr || err.message || '';
+  if (!isLogFile) {
+    try {
+      const res = await execAsync(cmd, { cwd, maxBuffer: 1024 * 1024 * 4 });
+      stdout = res.stdout || '';
+      stderr = res.stderr || '';
+      report.status = 'PASSED';
+      report.passed = true;
+      report.summary = 'All test suites and checks passed with 0 failures. No self-healing required.';
+      return report;
+    } catch (err) {
+      exitCode = err.code || 1;
+      stdout = err.stdout || '';
+      stderr = err.stderr || err.message || '';
+    }
   }
 
   report.status = 'FAILED';
@@ -291,13 +423,25 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
 
   for (const failure of failures) {
     const diag = await diagnoseFailure(failure, cwd);
+    if (!dryRun && diag.suggestedPatch.includes('+ ')) {
+      const remediation = await applySafeRemediation(diag, { cwd });
+      diag.remediation = remediation;
+      if (remediation.success) {
+        report.remediationsApplied += 1;
+      }
+    }
     report.diagnoses.push(diag);
   }
 
   if (report.diagnoses.length > 0) {
     report.summary = `Detected ${report.diagnoses.length} failure point(s). Formulated root-cause diagnoses and patch suggestions.`;
+    if (!dryRun && report.remediationsApplied > 0) {
+      report.summary += ` Applied ${report.remediationsApplied} verified remediation patch(es).`;
+    }
   } else {
-    report.summary = `Command failed with exit code ${exitCode}, but no specific stack frames were parsed. Inspect output manually.`;
+    report.summary = isLogFile
+      ? 'Log file inspected, but no recognizable stack frames were parsed.'
+      : `Command failed with exit code ${exitCode}, but no specific stack frames were parsed. Inspect output manually.`;
   }
 
   return report;
@@ -311,15 +455,31 @@ const isDirectExecution = process.argv[1] && (
 
 if (isDirectExecution) {
   const args = process.argv.slice(2);
-  const target = args[0] || 'npm test';
-  const dryRun = !args.includes('--apply');
+  const jsonMode = args.includes('--json');
+  const scaffoldWorkflow = args.includes('--init-workflow');
 
-  console.log(`\n🩺 Vibes-Plug Autonomous Self-Healer`);
-  console.log(`Target Command : ${target}`);
-  console.log(`Mode           : ${dryRun ? 'DRY-RUN (Safe Analysis)' : 'AUTO-APPLY'}\n`);
+  if (scaffoldWorkflow) {
+    const outcome = await scaffoldCiHealWorkflow(process.cwd());
+    console.log(`\n✅ Scaffolded CI Auto-Healer workflow at: ${outcome.workflowPath}\n`);
+    process.exit(0);
+  }
+
+  const dryRun = !args.includes('--apply');
+  const target = args.find(a => !a.startsWith('--')) || 'npm test';
+
+  if (!jsonMode) {
+    console.log(`\n🩺 Vibes-Plug Autonomous Self-Healer`);
+    console.log(`Target Command : ${target}`);
+    console.log(`Mode           : ${dryRun ? 'DRY-RUN (Safe Analysis)' : 'AUTO-APPLY'}\n`);
+  }
 
   try {
     const rep = await diagnoseAndHeal(target, { dryRun });
+    if (jsonMode) {
+      console.log(JSON.stringify(rep, null, 2));
+      process.exit(rep.passed ? 0 : 1);
+    }
+
     if (rep.status === 'REJECTED') {
       console.error(`🛡️ ${rep.summary}\n`);
       process.exit(1);

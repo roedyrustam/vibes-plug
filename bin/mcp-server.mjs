@@ -392,17 +392,21 @@ export const TOOLS = [
   },
   {
     name: 'vibes_self_heal',
-    description: 'Autonomous Self-Healing Test Runner & Diagnoser: executes a test suite or command, isolates failing AST symbols via codebase graph, and generates atomic patch proposals.',
+    description: 'Autonomous Self-Healing CI & Test Diagnoser: executes a test suite, parses CI failure logs, isolates broken AST symbols, detects Node version incompatibilities, and formulates or applies verified remediation patches with automated rollback safety.',
     inputSchema: {
       type: 'object',
       properties: {
         command: {
           type: 'string',
-          description: 'Test command or file to execute and diagnose (default: npm test).'
+          description: 'Test command, failure log path, or target file to execute and diagnose (default: npm test).'
         },
         dryRun: {
           type: 'boolean',
           description: 'Safe analysis mode without modifying files (default: true).'
+        },
+        apply: {
+          type: 'boolean',
+          description: 'Whether to safely apply synthesized patches with syntax verification and rollback (default: false).'
         }
       }
     }
@@ -1376,9 +1380,9 @@ export async function handleRpcRequest(request) {
         const { reviewPullRequest } = await import('../scripts/github-pr-bot.mjs');
         const outcome = await reviewPullRequest(target, { outputFile });
         contentText = JSON.stringify(outcome, null, 2);
-      } else if (name === 'vibes_self_heal') {
-        const command = args?.command || 'npm test';
-        const dryRun = args?.dryRun !== false;
+      } else if (name === 'vibes_self_heal' || name === 'vibes_ci_heal') {
+        const command = args?.command || args?.commandOrLog || 'npm test';
+        const dryRun = args?.apply === true ? false : (args?.dryRun !== false);
         const { diagnoseAndHeal } = await import('../scripts/self-healer.mjs');
         const outcome = await diagnoseAndHeal(command, { dryRun });
         contentText = JSON.stringify(outcome, null, 2);

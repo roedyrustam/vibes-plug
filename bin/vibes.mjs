@@ -2028,6 +2028,15 @@ Platform Eligibility & Economics:
     runHooks(subAction);
     break;
   }
+  case 'ci:heal':
+  case 'heal':
+  case 'self-heal': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'studio': {
     rl.close();
     const studioModuleUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs')).href;

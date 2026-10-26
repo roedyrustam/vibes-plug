@@ -1,15 +1,15 @@
 {
   "version": "2.0.0",
-  "generatedAt": "2026-10-26T20:48:01.769Z",
+  "generatedAt": "2026-10-26T21:04:40.051Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 77,
-  "totalSymbolsIndexed": 428,
-  "totalImportEdges": 235,
+  "totalSymbolsIndexed": 430,
+  "totalImportEdges": 236,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 943,
+        "line": 947,
         "type": "function",
         "signature": "function getActiveProfile()"
       }
@@ -17,7 +17,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 947,
+        "line": 951,
         "type": "function",
         "signature": "function setActiveProfile(profileName)"
       }
@@ -25,7 +25,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 956,
+        "line": 960,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)"
       }
@@ -33,7 +33,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1000,
+        "line": 1004,
         "type": "function",
         "signature": "function handleRpcRequest(request)"
       }
@@ -41,7 +41,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1616,
+        "line": 1620,
         "type": "function",
         "signature": "function startStdioServer()"
       }
@@ -49,7 +49,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1644,
+        "line": 1648,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')"
       }
@@ -57,7 +57,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1752,
+        "line": 1756,
         "type": "function",
         "signature": "function startServer(options = {})"
       }
@@ -1269,7 +1269,7 @@
     "parseFailureOutput": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 29,
+        "line": 30,
         "type": "function",
         "signature": "function parseFailureOutput(output)"
       }
@@ -1277,7 +1277,7 @@
     "diagnoseFailure": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 91,
+        "line": 95,
         "type": "function",
         "signature": "function diagnoseFailure(failure, cwd = process.cwd()"
       }
@@ -1285,15 +1285,31 @@
     "validateTestCommand": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 200,
+        "line": 213,
         "type": "function",
         "signature": "function validateTestCommand(rawCommand)"
+      }
+    ],
+    "applySafeRemediation": [
+      {
+        "file": "scripts/self-healer.mjs",
+        "line": 251,
+        "type": "function",
+        "signature": "function applySafeRemediation(diagnosis, options = {})"
+      }
+    ],
+    "scaffoldCiHealWorkflow": [
+      {
+        "file": "scripts/self-healer.mjs",
+        "line": 309,
+        "type": "function",
+        "signature": "function scaffoldCiHealWorkflow(targetDir = process.cwd()"
       }
     ],
     "diagnoseAndHeal": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 238,
+        "line": 350,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})"
       }
@@ -3325,7 +3341,7 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1775,
+      "totalLines": 1779,
       "symbolCount": 7,
       "exports": [
         "getActiveProfile",
@@ -3493,7 +3509,7 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2065,
+      "totalLines": 2074,
       "symbolCount": 23,
       "exports": [],
       "imports": [
@@ -4660,12 +4676,14 @@
       ]
     },
     "scripts/self-healer.mjs": {
-      "totalLines": 348,
-      "symbolCount": 4,
+      "totalLines": 508,
+      "symbolCount": 6,
       "exports": [
         "parseFailureOutput",
         "diagnoseFailure",
         "validateTestCommand",
+        "applySafeRemediation",
+        "scaffoldCiHealWorkflow",
         "diagnoseAndHeal"
       ],
       "imports": [
@@ -4686,12 +4704,20 @@
           "line": 13
         },
         {
+          "source": "node:vm",
+          "target": null,
+          "specifiers": [
+            "vm"
+          ],
+          "line": 14
+        },
+        {
           "source": "node:url",
           "target": null,
           "specifiers": [
             "fileURLToPath"
           ],
-          "line": 14
+          "line": 15
         },
         {
           "source": "node:child_process",
@@ -4699,7 +4725,7 @@
           "specifiers": [
             "exec"
           ],
-          "line": 15
+          "line": 16
         },
         {
           "source": "node:util",
@@ -4707,7 +4733,7 @@
           "specifiers": [
             "promisify"
           ],
-          "line": 16
+          "line": 17
         },
         {
           "source": "./wasm-sandbox.mjs",
@@ -4715,7 +4741,7 @@
           "specifiers": [
             "executeInSandbox"
           ],
-          "line": 17
+          "line": 18
         },
         {
           "source": "./graphrag-indexer.mjs",
@@ -4723,7 +4749,7 @@
           "specifiers": [
             "querySymbolGraph"
           ],
-          "line": 18
+          "line": 19
         }
       ]
     },
@@ -5485,7 +5511,7 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 1690,
+      "totalLines": 1785,
       "symbolCount": 1,
       "exports": [],
       "imports": [
