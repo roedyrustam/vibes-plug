@@ -1,36 +1,19 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-30T16:34:54.929Z",
-  "totalRequests": 2,
+  "lastUpdated": "2026-10-30T16:36:56.826Z",
+  "totalRequests": 0,
   "tokens": {
-    "inputTotal": 16349,
-    "outputTotal": 360,
-    "cachedTotal": 15629,
-    "grandTotal": 16709
+    "inputTotal": 0,
+    "outputTotal": 0,
+    "cachedTotal": 0,
+    "grandTotal": 0
   },
   "economics": {
-    "cacheHitRatio": "48.9%",
-    "claudeSavedUsd": "0.042",
-    "geminiSavedUsd": "0.023",
-    "openAiSavedUsd": "0.019",
-    "primaryEstSavedUsd": "0.042"
+    "cacheHitRatio": "0.0%",
+    "claudeSavedUsd": "0.000",
+    "geminiSavedUsd": "0.000",
+    "openAiSavedUsd": "0.000",
+    "primaryEstSavedUsd": "0.000"
   },
-  "records": [
-    {
-      "timestamp": "2026-10-30T16:34:54.929Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:reverse-engineer-anything:audit",
-      "input": 10330,
-      "output": 119,
-      "cached": 10092
-    },
-    {
-      "timestamp": "2026-10-30T16:34:54.575Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:frontier-ai-models-expert:slice",
-      "input": 6019,
-      "output": 241,
-      "cached": 5537
-    }
-  ]
+  "records": []
 }

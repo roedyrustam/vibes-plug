@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-10-30T16:34:48.544Z",
+  "generatedAt": "2026-10-30T16:36:58.242Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 80,
-  "incrementalReusedFiles": 80,
+  "incrementalReusedFiles": 78,
   "totalSymbolsIndexed": 459,
   "totalImportEdges": 252,
   "symbols": {
@@ -9209,8 +9209,8 @@
     "scripts/drift-healer.mjs": {
       "totalLines": 451,
       "symbolCount": 9,
-      "mtimeMs": 1793377820312,
-      "size": 16420,
+      "mtimeMs": 1793378184592,
+      "size": 16418,
       "exports": [
         "snakeToCamel",
         "camelToSnake",
@@ -13765,8 +13765,8 @@
     "scripts/test-cli.mjs": {
       "totalLines": 2049,
       "symbolCount": 1,
-      "mtimeMs": 1793378052651,
-      "size": 97342,
+      "mtimeMs": 1793378200533,
+      "size": 97374,
       "exports": [],
       "imports": [
         {

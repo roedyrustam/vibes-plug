@@ -231,7 +231,7 @@ export function parseTsFields(tsText = '') {
   const fields = new Map();
 
   // 1. Parse Zod z.object({ prop: z.string()... }) definitions
-  const zodFieldRegex = /^\s*([a-zA-Z0-9_]+)\s*:\s*z\.(string|number|boolean|record|array|date|enum|union|literal)\b([^\r\n,]*)/gm;
+  const zodFieldRegex = /\b([a-zA-Z0-9_]+)\s*:\s*z\.(string|number|boolean|record|array|date|enum|union|literal)\b([^\r\n,}]*)/g;
   let zMatch;
   while ((zMatch = zodFieldRegex.exec(tsText)) !== null) {
     const name = zMatch[1];

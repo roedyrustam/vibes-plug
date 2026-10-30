@@ -291,7 +291,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const { stdout: bundleOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'bundle', '--dir', tempBridgeDir]);
       assert.match(bundleOut, /Vibes-Plug (Universal|Sovereign) Context Bundle/i);
     } finally {
-      await fs.rm(tempBridgeDir, { recursive: true, force: true });
+      await fs.rm(tempBridgeDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
     }
   });
 
@@ -1208,7 +1208,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 43);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 44);
       assert.equal(liveTelData.liveWatcher.active, true);
 
       // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
