@@ -309,6 +309,19 @@ class SwarmEventBus extends EventEmitter {
   }
 
   /**
+   * Clears blackboard state and removes persisted blackboard file
+   */
+  clearBlackboard() {
+    this.blackboard.clear();
+    try {
+      const bbFile = getBlackboardFilePath();
+      if (fs.existsSync(bbFile)) fs.unlinkSync(bbFile);
+    } catch {
+      // Ignore cleanup errors
+    }
+  }
+
+  /**
    * Clears event history buffer, blackboard, and resets active swarm map
    */
   reset() {

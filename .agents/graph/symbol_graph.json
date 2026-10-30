@@ -1,10 +1,10 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-10-30T16:36:58.242Z",
+  "generatedAt": "2026-10-30T16:39:19.978Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 80,
-  "incrementalReusedFiles": 78,
-  "totalSymbolsIndexed": 459,
+  "incrementalReusedFiles": 80,
+  "totalSymbolsIndexed": 460,
   "totalImportEdges": 252,
   "symbols": {
     "getActiveProfile": [
@@ -975,7 +975,7 @@
       },
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 351,
+        "line": 364,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -4759,10 +4759,24 @@
         ]
       }
     ],
-    "SwarmEventBus.reset": [
+    "SwarmEventBus.clearBlackboard": [
       {
         "file": "scripts/swarm-bus.mjs",
         "line": 314,
+        "type": "method",
+        "signature": "SwarmEventBus.clearBlackboard()",
+        "calls": [
+          "clear",
+          "getBlackboardFilePath",
+          "existsSync",
+          "unlinkSync"
+        ]
+      }
+    ],
+    "SwarmEventBus.reset": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 327,
         "type": "method",
         "signature": "SwarmEventBus.reset()",
         "calls": [
@@ -4778,7 +4792,7 @@
     "emitSwarmEvent": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 338,
+        "line": 351,
         "type": "function",
         "signature": "function emitSwarmEvent(type, payload = {})",
         "calls": [
@@ -4789,7 +4803,7 @@
     "getRecentSwarmEvents": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 347,
+        "line": 360,
         "type": "function",
         "signature": "function getRecentSwarmEvents(options = {})",
         "calls": [
@@ -12987,10 +13001,10 @@
       ]
     },
     "scripts/swarm-bus.mjs": {
-      "totalLines": 399,
-      "symbolCount": 20,
-      "mtimeMs": 1793377621018,
-      "size": 12213,
+      "totalLines": 412,
+      "symbolCount": 21,
+      "mtimeMs": 1793378325049,
+      "size": 12511,
       "exports": [
         "emitSwarmEvent",
         "getRecentSwarmEvents"
@@ -13238,8 +13252,20 @@
           ]
         },
         {
-          "name": "SwarmEventBus.reset",
+          "name": "SwarmEventBus.clearBlackboard",
           "line": 314,
+          "type": "method",
+          "signature": "SwarmEventBus.clearBlackboard()",
+          "calls": [
+            "clear",
+            "getBlackboardFilePath",
+            "existsSync",
+            "unlinkSync"
+          ]
+        },
+        {
+          "name": "SwarmEventBus.reset",
+          "line": 327,
           "type": "method",
           "signature": "SwarmEventBus.reset()",
           "calls": [
@@ -13253,7 +13279,7 @@
         },
         {
           "name": "emitSwarmEvent",
-          "line": 338,
+          "line": 351,
           "type": "function",
           "signature": "function emitSwarmEvent(type, payload = {})",
           "calls": [
@@ -13262,7 +13288,7 @@
         },
         {
           "name": "getRecentSwarmEvents",
-          "line": 347,
+          "line": 360,
           "type": "function",
           "signature": "function getRecentSwarmEvents(options = {})",
           "calls": [
@@ -13271,7 +13297,7 @@
         },
         {
           "name": "main",
-          "line": 351,
+          "line": 364,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -13763,10 +13789,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2049,
+      "totalLines": 2050,
       "symbolCount": 1,
-      "mtimeMs": 1793378200533,
-      "size": 97374,
+      "mtimeMs": 1793378264559,
+      "size": 97406,
       "exports": [],
       "imports": [
         {

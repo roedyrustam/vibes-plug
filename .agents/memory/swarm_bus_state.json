@@ -1,22 +1,532 @@
 {
-  "updatedAt": "2026-10-30T16:37:02.003Z",
-  "activeSwarms": {},
+  "updatedAt": "2026-10-30T16:39:20.124Z",
+  "activeSwarms": {
+    "500232fb-e430-43cf-8b48-424448ae5f42": {
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "task": "Build payment and api backend",
+      "startedAt": "2026-10-30T16:39:08.584Z",
+      "status": "COMPLETED",
+      "totalWorkers": 3,
+      "completedWorkers": 3,
+      "workers": {
+        "worker-senior-frontend": {
+          "status": "COMPLETED",
+          "id": "e691b23e-f73a-40bc-b60a-53f8ae720960",
+          "timestamp": "2026-10-30T16:39:08.615Z",
+          "type": "worker:done",
+          "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+          "workerId": "worker-senior-frontend",
+          "domain": "Frontend / UI",
+          "skill": "senior-frontend",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 29
+        },
+        "worker-js-backend-expert": {
+          "status": "COMPLETED",
+          "id": "558828b2-f5cc-4e60-9fe2-1816a6bbde56",
+          "timestamp": "2026-10-30T16:39:08.643Z",
+          "type": "worker:done",
+          "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+          "workerId": "worker-js-backend-expert",
+          "domain": "Backend / API",
+          "skill": "js-backend-expert",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 53
+        },
+        "worker-doku-payment-gateway": {
+          "status": "COMPLETED",
+          "id": "382b0e81-336f-48ac-88dd-d5bbfa53ad07",
+          "timestamp": "2026-10-30T16:39:08.675Z",
+          "type": "worker:done",
+          "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+          "workerId": "worker-doku-payment-gateway",
+          "domain": "Payments & Billing",
+          "skill": "doku-payment-gateway",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 59
+        }
+      },
+      "completedAt": "2026-10-30T16:39:08.677Z"
+    },
+    "c0757119-b63c-4150-bb7d-fa07e118ec72": {
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "task": "Verify formal billing state machine invariants",
+      "startedAt": "2026-10-30T16:39:08.685Z",
+      "status": "COMPLETED",
+      "totalWorkers": 2,
+      "completedWorkers": 2,
+      "workers": {
+        "worker-database-orm-expert": {
+          "status": "COMPLETED",
+          "id": "66808a7a-9c01-469c-9e67-6ae93879195f",
+          "timestamp": "2026-10-30T16:39:08.705Z",
+          "type": "worker:done",
+          "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+          "workerId": "worker-database-orm-expert",
+          "domain": "Database / RLS",
+          "skill": "database-orm-expert",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 18
+        },
+        "worker-doku-payment-gateway": {
+          "status": "COMPLETED",
+          "id": "5d993422-7439-4644-853b-87d43002d967",
+          "timestamp": "2026-10-30T16:39:08.721Z",
+          "type": "worker:done",
+          "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+          "workerId": "worker-doku-payment-gateway",
+          "domain": "Payments & Billing",
+          "skill": "doku-payment-gateway",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 33
+        }
+      },
+      "completedAt": "2026-10-30T16:39:08.723Z"
+    },
+    "a09a26ba-f63c-41d7-ad0c-77d258e32f42": {
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "startedAt": "2026-10-30T16:39:17.583Z",
+      "status": "COMPLETED",
+      "totalWorkers": 3,
+      "completedWorkers": 3,
+      "workers": {
+        "worker-senior-frontend": {
+          "status": "COMPLETED",
+          "id": "043efb53-2048-4ad7-bca9-f443743808d8",
+          "timestamp": "2026-10-30T16:39:17.606Z",
+          "type": "worker:done",
+          "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+          "workerId": "worker-senior-frontend",
+          "domain": "Frontend / UI",
+          "skill": "senior-frontend",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 21
+        },
+        "worker-doku-payment-gateway": {
+          "status": "COMPLETED",
+          "id": "780b05b0-5486-4caa-98a8-896c34077cf8",
+          "timestamp": "2026-10-30T16:39:17.627Z",
+          "type": "worker:done",
+          "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+          "workerId": "worker-doku-payment-gateway",
+          "domain": "Payments & Billing",
+          "skill": "doku-payment-gateway",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 41
+        },
+        "worker-reverse-engineer-anything": {
+          "status": "COMPLETED",
+          "id": "5e4100f9-ea83-4322-8abb-bfed2c5bbca8",
+          "timestamp": "2026-10-30T16:39:17.649Z",
+          "type": "worker:done",
+          "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+          "workerId": "worker-reverse-engineer-anything",
+          "domain": "Reverse Engineering & Binary Audit",
+          "skill": "reverse-engineer-anything",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 61
+        }
+      },
+      "completedAt": "2026-10-30T16:39:17.651Z"
+    },
+    "bfa83699-cba0-443f-b8ed-00d59b610f91": {
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "startedAt": "2026-10-30T16:39:19.993Z",
+      "status": "COMPLETED",
+      "totalWorkers": 2,
+      "completedWorkers": 2,
+      "workers": {
+        "worker-autonomous-tdd-debugger": {
+          "status": "COMPLETED",
+          "id": "b675dcd7-e98c-41f3-8795-cd67f4329dab",
+          "timestamp": "2026-10-30T16:39:20.101Z",
+          "type": "worker:done",
+          "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+          "workerId": "worker-autonomous-tdd-debugger",
+          "domain": "Quality & Security Gate",
+          "skill": "autonomous-tdd-debugger",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 103
+        },
+        "worker-database-orm-expert": {
+          "status": "COMPLETED",
+          "id": "b39f6d8c-ce2a-4326-aa4d-695423a77d5c",
+          "timestamp": "2026-10-30T16:39:20.123Z",
+          "type": "worker:done",
+          "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+          "workerId": "worker-database-orm-expert",
+          "domain": "Database / RLS",
+          "skill": "database-orm-expert",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 128
+        }
+      },
+      "completedAt": "2026-10-30T16:39:20.124Z"
+    }
+  },
   "eventBuffer": [
     {
-      "id": "5e8833fc-89d7-4d94-9b6f-011480974600",
-      "timestamp": "2026-10-30T16:34:28.561Z",
-      "type": "workspace:change",
-      "eventType": "change",
-      "file": "spec-driven-development-expert",
-      "source": "skills-watcher"
+      "id": "5aa0a143-5570-4616-a794-1cb86f81cd67",
+      "timestamp": "2026-10-30T16:39:08.584Z",
+      "type": "swarm:start",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "task": "Build payment and api backend",
+      "topology": "fan_out_fan_in",
+      "reasoningProfile": "deep",
+      "thinkingBudgetTokens": 32768,
+      "totalWorkers": 3,
+      "concurrency": 2
     },
     {
-      "id": "14089877-0c26-4d6c-8136-94ca93b70df1",
-      "timestamp": "2026-10-30T16:37:02.002Z",
-      "type": "workspace:change",
-      "eventType": "change",
-      "file": "spec-driven-development-expert",
-      "source": "skills-watcher"
+      "id": "eb91ac90-95d1-48bf-ba48-478012321890",
+      "timestamp": "2026-10-30T16:39:08.587Z",
+      "type": "worker:dispatch",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "focus": "Tailwind v4, React 19, 5-state UI contract"
+    },
+    {
+      "id": "e7123729-91ad-4605-9f01-cdb091f85093",
+      "timestamp": "2026-10-30T16:39:08.591Z",
+      "type": "worker:dispatch",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-js-backend-expert",
+      "domain": "Backend / API",
+      "skill": "js-backend-expert",
+      "focus": "Type-safe endpoints, error resilience, RFC 9457"
+    },
+    {
+      "id": "e691b23e-f73a-40bc-b60a-53f8ae720960",
+      "timestamp": "2026-10-30T16:39:08.615Z",
+      "type": "worker:done",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 29
+    },
+    {
+      "id": "413e0bda-2df8-40af-9d76-71b348a3ea70",
+      "timestamp": "2026-10-30T16:39:08.616Z",
+      "type": "worker:dispatch",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "focus": "Atomic locks, idempotency, webhook HMAC verification"
+    },
+    {
+      "id": "558828b2-f5cc-4e60-9fe2-1816a6bbde56",
+      "timestamp": "2026-10-30T16:39:08.643Z",
+      "type": "worker:done",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-js-backend-expert",
+      "domain": "Backend / API",
+      "skill": "js-backend-expert",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 53
+    },
+    {
+      "id": "382b0e81-336f-48ac-88dd-d5bbfa53ad07",
+      "timestamp": "2026-10-30T16:39:08.675Z",
+      "type": "worker:done",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 59
+    },
+    {
+      "id": "fdf67fad-75b6-499b-9254-044cb50d7600",
+      "timestamp": "2026-10-30T16:39:08.677Z",
+      "type": "swarm:complete",
+      "swarmId": "500232fb-e430-43cf-8b48-424448ae5f42",
+      "task": "Build payment and api backend",
+      "success": true,
+      "totalDurationMs": 94,
+      "totalWorkers": 3
+    },
+    {
+      "id": "8d890e33-644e-41b3-bdaf-2f92ad2872af",
+      "timestamp": "2026-10-30T16:39:08.685Z",
+      "type": "swarm:start",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "task": "Verify formal billing state machine invariants",
+      "topology": "critic_validator",
+      "reasoningProfile": "exhaustive",
+      "thinkingBudgetTokens": 65536,
+      "totalWorkers": 2,
+      "concurrency": 2
+    },
+    {
+      "id": "51ea3141-3ce0-4a9e-a3d0-7d41621f2f18",
+      "timestamp": "2026-10-30T16:39:08.687Z",
+      "type": "worker:dispatch",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "focus": "PostgreSQL DDL, RLS policies, FK indexes"
+    },
+    {
+      "id": "5d81428e-1a02-4df7-bb7f-1b5c474a53b3",
+      "timestamp": "2026-10-30T16:39:08.688Z",
+      "type": "worker:dispatch",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "focus": "Atomic locks, idempotency, webhook HMAC verification"
+    },
+    {
+      "id": "66808a7a-9c01-469c-9e67-6ae93879195f",
+      "timestamp": "2026-10-30T16:39:08.705Z",
+      "type": "worker:done",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 18
+    },
+    {
+      "id": "5d993422-7439-4644-853b-87d43002d967",
+      "timestamp": "2026-10-30T16:39:08.721Z",
+      "type": "worker:done",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 33
+    },
+    {
+      "id": "ff0e9b60-8a1b-4b1d-825d-958a901a0015",
+      "timestamp": "2026-10-30T16:39:08.723Z",
+      "type": "swarm:complete",
+      "swarmId": "c0757119-b63c-4150-bb7d-fa07e118ec72",
+      "task": "Verify formal billing state machine invariants",
+      "success": true,
+      "totalDurationMs": 38,
+      "totalWorkers": 2
+    },
+    {
+      "id": "ee4d009c-6c87-4837-9c8a-c267bff697d6",
+      "timestamp": "2026-10-30T16:39:09.843Z",
+      "type": "agent:broadcast",
+      "message": "Studio live beacon",
+      "source": "STUDIO"
+    },
+    {
+      "id": "098ce065-1699-406a-9a4c-f6bf171b023e",
+      "timestamp": "2026-10-30T16:39:11.184Z",
+      "type": "blackboard:update",
+      "key": "studio:state",
+      "version": 3,
+      "authorAgent": {
+        "author": "studio-test"
+      }
+    },
+    {
+      "id": "0dea6af2-a87c-4bbb-b0eb-5c553d9a93e1",
+      "timestamp": "2026-10-30T16:39:17.583Z",
+      "type": "swarm:start",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "topology": "fan_out_fan_in",
+      "reasoningProfile": "balanced",
+      "thinkingBudgetTokens": 8192,
+      "totalWorkers": 3,
+      "concurrency": 3
+    },
+    {
+      "id": "b8061d5b-4918-457d-b6dd-4e59801603ef",
+      "timestamp": "2026-10-30T16:39:17.585Z",
+      "type": "worker:dispatch",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "focus": "Tailwind v4, React 19, 5-state UI contract"
+    },
+    {
+      "id": "3b316b06-7d4e-409e-b9ee-799675b56c4f",
+      "timestamp": "2026-10-30T16:39:17.586Z",
+      "type": "worker:dispatch",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "focus": "Atomic locks, idempotency, webhook HMAC verification"
+    },
+    {
+      "id": "6435147a-467c-450c-b490-95b1f350f5a7",
+      "timestamp": "2026-10-30T16:39:17.588Z",
+      "type": "worker:dispatch",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-reverse-engineer-anything",
+      "domain": "Reverse Engineering & Binary Audit",
+      "skill": "reverse-engineer-anything",
+      "focus": "Ghidra/LLDB triage, Evidence spans, SBOM & Z3 verification"
+    },
+    {
+      "id": "043efb53-2048-4ad7-bca9-f443743808d8",
+      "timestamp": "2026-10-30T16:39:17.606Z",
+      "type": "worker:done",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 21
+    },
+    {
+      "id": "780b05b0-5486-4caa-98a8-896c34077cf8",
+      "timestamp": "2026-10-30T16:39:17.627Z",
+      "type": "worker:done",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 41
+    },
+    {
+      "id": "5e4100f9-ea83-4322-8abb-bfed2c5bbca8",
+      "timestamp": "2026-10-30T16:39:17.649Z",
+      "type": "worker:done",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "workerId": "worker-reverse-engineer-anything",
+      "domain": "Reverse Engineering & Binary Audit",
+      "skill": "reverse-engineer-anything",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 61
+    },
+    {
+      "id": "a0ed74fc-1789-4c20-badb-ee836115a2e0",
+      "timestamp": "2026-10-30T16:39:17.651Z",
+      "type": "swarm:complete",
+      "swarmId": "a09a26ba-f63c-41d7-ad0c-77d258e32f42",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "success": true,
+      "totalDurationMs": 69,
+      "totalWorkers": 3
+    },
+    {
+      "id": "87dae9c2-13e4-4c86-88e7-d9826cc281b0",
+      "timestamp": "2026-10-30T16:39:17.960Z",
+      "type": "blackboard:update",
+      "key": "schema:users",
+      "version": 1,
+      "authorAgent": "test-agent"
+    },
+    {
+      "id": "6917053a-a052-4c7d-9e2c-c9027150433e",
+      "timestamp": "2026-10-30T16:39:18.541Z",
+      "type": "blackboard:update",
+      "key": "api:v1:orders",
+      "version": 1,
+      "authorAgent": "mcp-agent"
+    },
+    {
+      "id": "410735d8-e82f-4292-9827-6402194889e2",
+      "timestamp": "2026-10-30T16:39:19.993Z",
+      "type": "swarm:start",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "topology": "critic_validator",
+      "reasoningProfile": "speed",
+      "thinkingBudgetTokens": 1024,
+      "totalWorkers": 2,
+      "concurrency": 2
+    },
+    {
+      "id": "ed57d9ad-7cdd-4ab7-8407-0d965535b89e",
+      "timestamp": "2026-10-30T16:39:19.995Z",
+      "type": "worker:dispatch",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "focus": "PostgreSQL DDL, RLS policies, FK indexes"
+    },
+    {
+      "id": "6c65e97d-7446-4b55-ab87-4d7062d8cded",
+      "timestamp": "2026-10-30T16:39:19.997Z",
+      "type": "worker:dispatch",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "workerId": "worker-autonomous-tdd-debugger",
+      "domain": "Quality & Security Gate",
+      "skill": "autonomous-tdd-debugger",
+      "focus": "Playwright E2E, Z3 invariants, red-teaming & anti-slop"
+    },
+    {
+      "id": "b675dcd7-e98c-41f3-8795-cd67f4329dab",
+      "timestamp": "2026-10-30T16:39:20.101Z",
+      "type": "worker:done",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "workerId": "worker-autonomous-tdd-debugger",
+      "domain": "Quality & Security Gate",
+      "skill": "autonomous-tdd-debugger",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 103
+    },
+    {
+      "id": "b39f6d8c-ce2a-4326-aa4d-695423a77d5c",
+      "timestamp": "2026-10-30T16:39:20.123Z",
+      "type": "worker:done",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 128
+    },
+    {
+      "id": "c94f06ed-8703-4a98-a85d-5041f7d37f57",
+      "timestamp": "2026-10-30T16:39:20.124Z",
+      "type": "swarm:complete",
+      "swarmId": "bfa83699-cba0-443f-b8ed-00d59b610f91",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "success": true,
+      "totalDurationMs": 131,
+      "totalWorkers": 2
     }
   ]
 }

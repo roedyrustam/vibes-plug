@@ -1664,6 +1664,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(!fixed.patchedCode.includes(rocketEmoji));
 
     // 5. Swarm A2A Shared Blackboard
+    swarmBus.clearBlackboard();
     const testEntry = swarmBus.setBlackboard('schema:users', { table: 'users', rls: true }, 'test-agent');
     assert.strictEqual(testEntry.key, 'schema:users');
     assert.strictEqual(testEntry.version, 1);
