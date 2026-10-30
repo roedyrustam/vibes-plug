@@ -3,16 +3,30 @@
 /**
  * Vibes-Plug Real-Time Swarm Concurrency Bus (2026 Edition)
  * 
- * Provides an event-driven pub/sub substrate and real-time SSE streaming bus
- * for concurrent multi-agent worker coordination, live state telemetry,
- * and inter-agent synchronization across the 176-skill swarm ecosystem.
+ * Provides an event-driven pub/sub substrate, persistent cross-process A2A Blackboard,
+ * and real-time SSE streaming bus for concurrent multi-agent worker coordination,
+ * live state telemetry, and inter-agent synchronization across the 176-skill swarm ecosystem.
  * 
  * @author Roedy Rustam
- * @version 4.4.0
+ * @version 4.5.0
  */
 
 import { EventEmitter } from 'node:events';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+
+function getStateDir(cwd = process.cwd()) {
+  return path.join(cwd, '.agents', 'memory');
+}
+
+function getBlackboardFilePath(cwd = process.cwd()) {
+  return path.join(getStateDir(cwd), 'blackboard_state.json');
+}
+
+function getBusStateFilePath(cwd = process.cwd()) {
+  return path.join(getStateDir(cwd), 'swarm_bus_state.json');
+}
 
 class SwarmEventBus extends EventEmitter {
   constructor(maxBufferSize = 150) {
@@ -22,6 +36,99 @@ class SwarmEventBus extends EventEmitter {
     this.eventBuffer = [];
     this.activeSwarms = new Map();
     this.blackboard = new Map();
+  }
+
+  /**
+   * Persists current blackboard state to disk for cross-process A2A sharing
+   */
+  _persistBlackboardToDisk() {
+    try {
+      const dir = getStateDir();
+      fs.mkdirSync(dir, { recursive: true });
+      const filePath = getBlackboardFilePath();
+      let diskEntries = {};
+      if (fs.existsSync(filePath)) {
+        try {
+          const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+          if (parsed && typeof parsed.entries === 'object') {
+            diskEntries = parsed.entries;
+          }
+        } catch {
+          diskEntries = {};
+        }
+      }
+      for (const [k, v] of this.blackboard.entries()) {
+        diskEntries[k] = v;
+      }
+      fs.writeFileSync(
+        filePath,
+        JSON.stringify({ updatedAt: new Date().toISOString(), entries: diskEntries }, null, 2),
+        'utf8'
+      );
+    } catch {
+      // Non-fatal in read-only sandboxes
+    }
+  }
+
+  /**
+   * Hydrates missing blackboard keys from disk written by sibling processes
+   */
+  _hydrateBlackboardFromDisk() {
+    try {
+      const filePath = getBlackboardFilePath();
+      if (!fs.existsSync(filePath)) return;
+      const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      if (parsed && parsed.entries && typeof parsed.entries === 'object') {
+        for (const [k, v] of Object.entries(parsed.entries)) {
+          if (!this.blackboard.has(k)) {
+            this.blackboard.set(k, v);
+          }
+        }
+      }
+    } catch {
+      // Ignore malformed disk state
+    }
+  }
+
+  /**
+   * Persists active swarms and recent event buffer to disk for cross-process CLI/Studio telemetry
+   */
+  _persistBusStateToDisk() {
+    try {
+      const dir = getStateDir();
+      fs.mkdirSync(dir, { recursive: true });
+      const filePath = getBusStateFilePath();
+      const payload = {
+        updatedAt: new Date().toISOString(),
+        activeSwarms: Object.fromEntries(this.activeSwarms.entries()),
+        eventBuffer: this.eventBuffer.slice(-this.maxBufferSize)
+      };
+      fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), 'utf8');
+    } catch {
+      // Non-fatal in read-only environments
+    }
+  }
+
+  /**
+   * Hydrates events and active swarms from disk when starting a fresh CLI/MCP process
+   */
+  _hydrateBusStateFromDisk() {
+    if (this.eventBuffer.length > 0 || this.activeSwarms.size > 0) return;
+    try {
+      const filePath = getBusStateFilePath();
+      if (!fs.existsSync(filePath)) return;
+      const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+      if (parsed && Array.isArray(parsed.eventBuffer)) {
+        this.eventBuffer = parsed.eventBuffer.slice(-this.maxBufferSize);
+      }
+      if (parsed && parsed.activeSwarms && typeof parsed.activeSwarms === 'object') {
+        for (const [id, sw] of Object.entries(parsed.activeSwarms)) {
+          this.activeSwarms.set(id, sw);
+        }
+      }
+    } catch {
+      // Ignore malformed state
+    }
   }
 
   /**
@@ -42,6 +149,7 @@ class SwarmEventBus extends EventEmitter {
       updatedAt: new Date().toISOString()
     };
     this.blackboard.set(key, entry);
+    this._persistBlackboardToDisk();
 
     this.publish('blackboard:update', {
       key,
@@ -54,11 +162,14 @@ class SwarmEventBus extends EventEmitter {
   }
 
   /**
-   * Retrieves a shared contract from the Blackboard
+   * Retrieves a shared contract from the Blackboard (with cross-process disk fallback)
    * @param {string} key 
    * @returns {Object|null}
    */
   getBlackboard(key) {
+    if (!this.blackboard.has(key)) {
+      this._hydrateBlackboardFromDisk();
+    }
     return this.blackboard.get(key) || null;
   }
 
@@ -67,11 +178,12 @@ class SwarmEventBus extends EventEmitter {
    * @returns {Array<Object>}
    */
   listBlackboard() {
+    this._hydrateBlackboardFromDisk();
     return Array.from(this.blackboard.values());
   }
 
   /**
-   * Publishes an event to all subscribers and appends to in-memory ring buffer
+   * Publishes an event to all subscribers and appends to in-memory + disk ring buffer
    * @param {string} eventType 
    * @param {Object} payload 
    * @returns {Object} The published event object
@@ -117,6 +229,8 @@ class SwarmEventBus extends EventEmitter {
       this.eventBuffer.shift();
     }
 
+    this._persistBusStateToDisk();
+
     this.emit('swarm-event', event);
     this.emit(eventType, event);
 
@@ -129,6 +243,7 @@ class SwarmEventBus extends EventEmitter {
    * @returns {Array<Object>}
    */
   getEvents(options = {}) {
+    this._hydrateBusStateFromDisk();
     let result = [...this.eventBuffer];
     if (options.type) {
       result = result.filter(e => e.type === options.type);
@@ -145,6 +260,7 @@ class SwarmEventBus extends EventEmitter {
    * @returns {Array<Object>}
    */
   getActiveSwarms() {
+    this._hydrateBusStateFromDisk();
     return Array.from(this.activeSwarms.values());
   }
 
@@ -177,7 +293,7 @@ class SwarmEventBus extends EventEmitter {
     const onEvent = (event) => {
       try {
         res.write(`event: message\ndata: ${JSON.stringify(event)}\n\n`);
-      } catch (err) {
+      } catch {
         this.removeListener('swarm-event', onEvent);
       }
     };
@@ -193,11 +309,20 @@ class SwarmEventBus extends EventEmitter {
   }
 
   /**
-   * Clears event history buffer and resets active swarm map
+   * Clears event history buffer, blackboard, and resets active swarm map
    */
   reset() {
     this.eventBuffer = [];
     this.activeSwarms.clear();
+    this.blackboard.clear();
+    try {
+      const bbFile = getBlackboardFilePath();
+      if (fs.existsSync(bbFile)) fs.unlinkSync(bbFile);
+      const busFile = getBusStateFilePath();
+      if (fs.existsSync(busFile)) fs.unlinkSync(busFile);
+    } catch {
+      // Ignore cleanup errors
+    }
   }
 }
 
@@ -232,15 +357,17 @@ async function main() {
     const limit = limitIdx !== -1 ? parseInt(args[limitIdx + 1], 10) : 20;
     const events = swarmBus.getEvents({ limit });
     const active = swarmBus.getActiveSwarms();
+    const bbEntries = swarmBus.listBlackboard();
 
     console.log(`
 ╔══════════════════════════════════════════════════════════╗
 ║    ⚡ Vibes-Plug Real-Time Swarm Concurrency Bus         ║
-║    Multi-Agent Event Stream & Telemetry                  ║
+║    Multi-Agent Event Stream & Persistent A2A Blackboard  ║
 ╚══════════════════════════════════════════════════════════╝
 `);
-    console.log(`📊 Active Swarms   : ${active.length}`);
-    console.log(`📡 Buffered Events : ${events.length}`);
+    console.log(`📊 Active Swarms      : ${active.length}`);
+    console.log(`📋 Blackboard Keys    : ${bbEntries.length}`);
+    console.log(`📡 Buffered Events    : ${events.length}`);
     console.log('\nRecent Swarm Events:');
 
     if (events.length === 0) {

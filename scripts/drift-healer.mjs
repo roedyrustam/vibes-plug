@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
  * scripts/drift-healer.mjs
- * P8 Engine: Autonomous API & Schema Drift Healer (v4.5.0)
+ * P8 Engine: Autonomous Tri-Layer API & Schema Drift Healer (v4.5.0)
  *
- * Detects structural drift between PostgreSQL DDL schemas and TypeScript/Zod/OpenAPI
- * contracts (missing columns, snake_case <-> camelCase mismatches, nullability drift,
- * and missing RLS tenant isolation) and synthesizes a 100% complete healing patch.
+ * Detects structural drift across PostgreSQL DDL, Drizzle ORM (`pgTable`), Prisma (`model`),
+ * and TypeScript/Zod/OpenAPI contracts (missing columns, snake_case <-> camelCase mismatches,
+ * nullability drift, and missing RLS tenant isolation) and synthesizes a 100% complete
+ * TypeScript/Zod contract + SQL migration healing patch.
  */
 
 import fs from 'node:fs/promises';
@@ -18,6 +19,12 @@ const __dirname = path.dirname(__filename);
 
 export function snakeToCamel(str) {
   return String(str).replace(/_([a-z0-9])/g, (_, c) => c.toUpperCase());
+}
+
+export function camelToSnake(str) {
+  return String(str)
+    .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+    .toLowerCase();
 }
 
 export function pascalCase(str) {
@@ -38,7 +45,124 @@ function mapSqlTypeToTs(sqlType) {
 }
 
 /**
- * Parses PostgreSQL CREATE TABLE statements into normalized table & column descriptors
+ * Parses Drizzle ORM `pgTable('table_name', { ... })` declarations into normalized table descriptors
+ * @param {string} sourceText
+ */
+export function parseDrizzleTables(sourceText = '') {
+  const tables = [];
+  const drizzleRegex = /pgTable\s*\(\s*['"]([a-zA-Z0-9_]+)['"]\s*,\s*\{([\s\S]*?)\}\s*(?:,|\))/g;
+  let match;
+
+  while ((match = drizzleRegex.exec(sourceText)) !== null) {
+    const tableName = match[1];
+    const body = match[2];
+    const columns = [];
+    const propRegex = /([a-zA-Z0-9_]+)\s*:\s*([a-zA-Z0-9_]+)\s*\(\s*(?:['"]([a-zA-Z0-9_]+)['"])?[^)]*\)([^\r\n,]*)/g;
+    let pMatch;
+    while ((pMatch = propRegex.exec(body)) !== null) {
+      const propName = pMatch[1];
+      const builderFn = pMatch[2].toLowerCase();
+      const dbColName = pMatch[3] || camelToSnake(propName);
+      const chain = pMatch[4] || '';
+      const isNullable = !/\.notNull\s*\(/.test(chain) && !/\.primaryKey\s*\(/.test(chain);
+      const hasDefault = /\.default|\.\$defaultFn/.test(chain);
+
+      let sqlType = 'TEXT';
+      if (builderFn.includes('uuid')) sqlType = 'UUID';
+      else if (builderFn.includes('int') || builderFn.includes('serial') || builderFn.includes('numeric') || builderFn.includes('real')) sqlType = 'BIGINT';
+      else if (builderFn.includes('bool')) sqlType = 'BOOLEAN';
+      else if (builderFn.includes('timestamp') || builderFn.includes('date')) sqlType = 'TIMESTAMPTZ';
+      else if (builderFn.includes('json')) sqlType = 'JSONB';
+      else if (builderFn.includes('varchar') || builderFn.includes('text')) sqlType = 'VARCHAR';
+
+      const mapped = mapSqlTypeToTs(sqlType);
+      columns.push({
+        columnName: dbColName,
+        camelName: snakeToCamel(dbColName),
+        sqlType,
+        tsType: mapped.ts,
+        zodType: mapped.zod,
+        nullable: isNullable,
+        hasDefault
+      });
+    }
+
+    if (columns.length > 0) {
+      tables.push({
+        tableName,
+        entityName: pascalCase(tableName.replace(/s$/, '')),
+        hasRls: /enableRLS|pgPolicy|ENABLE\s+ROW\s+LEVEL\s+SECURITY/i.test(sourceText),
+        hasTenantId: columns.some((c) => c.columnName === 'tenant_id' || c.columnName === 'org_id'),
+        columns
+      });
+    }
+  }
+  return tables;
+}
+
+/**
+ * Parses Prisma `model Entity { ... }` blocks into normalized table descriptors
+ * @param {string} sourceText
+ */
+export function parsePrismaModels(sourceText = '') {
+  const tables = [];
+  const modelRegex = /\bmodel\s+([A-Za-z0-9_]+)\s*\{([\s\S]*?)\}/g;
+  let match;
+
+  while ((match = modelRegex.exec(sourceText)) !== null) {
+    const modelName = match[1];
+    const body = match[2];
+    const tableName = camelToSnake(modelName) + (modelName.endsWith('s') ? '' : 's');
+    const columns = [];
+    const lines = body.split(/\r?\n/).map(l => l.replace(/\/\/.*$/, '').trim()).filter(Boolean);
+
+    for (const line of lines) {
+      if (line.startsWith('@@')) continue;
+      const fieldMatch = line.match(/^([a-zA-Z0-9_]+)\s+([A-Za-z0-9_]+)(\??)(.*)$/);
+      if (!fieldMatch) continue;
+      const fieldName = fieldMatch[1];
+      const prismaType = fieldMatch[2];
+      const isOptional = fieldMatch[3] === '?';
+      const attrs = fieldMatch[4] || '';
+      if (/@relation\b/.test(attrs)) continue;
+
+      const mapMatch = attrs.match(/@map\(\s*["']([^"']+)["']\s*\)/);
+      const colName = mapMatch ? mapMatch[1] : camelToSnake(fieldName);
+
+      let sqlType = 'TEXT';
+      if (/Uuid/i.test(attrs) || (fieldName === 'id' && prismaType === 'String')) sqlType = 'UUID';
+      else if (prismaType === 'Int' || prismaType === 'BigInt' || prismaType === 'Float' || prismaType === 'Decimal') sqlType = 'BIGINT';
+      else if (prismaType === 'Boolean') sqlType = 'BOOLEAN';
+      else if (prismaType === 'DateTime') sqlType = 'TIMESTAMPTZ';
+      else if (prismaType === 'Json') sqlType = 'JSONB';
+
+      const mapped = mapSqlTypeToTs(sqlType);
+      columns.push({
+        columnName: colName,
+        camelName: snakeToCamel(colName),
+        sqlType,
+        tsType: mapped.ts,
+        zodType: mapped.zod,
+        nullable: isOptional,
+        hasDefault: /@default\b/.test(attrs)
+      });
+    }
+
+    if (columns.length > 0) {
+      tables.push({
+        tableName,
+        entityName: pascalCase(modelName),
+        hasRls: false,
+        hasTenantId: columns.some((c) => c.columnName === 'tenant_id' || c.columnName === 'org_id'),
+        columns
+      });
+    }
+  }
+  return tables;
+}
+
+/**
+ * Parses PostgreSQL CREATE TABLE statements, Drizzle pgTable, or Prisma models into normalized table descriptors
  * @param {string} ddlText
  */
 export function parseSqlTables(ddlText = '') {
@@ -89,22 +213,47 @@ export function parseSqlTables(ddlText = '') {
     });
   }
 
+  if (tables.length === 0 && /pgTable\s*\(/.test(ddlText)) {
+    return parseDrizzleTables(ddlText);
+  }
+  if (tables.length === 0 && /\bmodel\s+[A-Z]/.test(ddlText)) {
+    return parsePrismaModels(ddlText);
+  }
+
   return tables;
 }
 
 /**
- * Parses TypeScript interfaces and Zod schemas into field maps
+ * Parses TypeScript interfaces and Zod `z.object({...})` schemas into field maps
  * @param {string} tsText
  */
 export function parseTsFields(tsText = '') {
   const fields = new Map();
-  const propRegex = /^\s*(?:readonly\s+)?([a-zA-Z0-9_]+)(\??)\s*:\s*([^;\r\n]+)/gm;
+
+  // 1. Parse Zod z.object({ prop: z.string()... }) definitions
+  const zodFieldRegex = /^\s*([a-zA-Z0-9_]+)\s*:\s*z\.(string|number|boolean|record|array|date|enum|union|literal)\b([^\r\n,]*)/gm;
+  let zMatch;
+  while ((zMatch = zodFieldRegex.exec(tsText)) !== null) {
+    const name = zMatch[1];
+    const kind = zMatch[2];
+    const chain = zMatch[3] || '';
+    const optional = /\.optional\s*\(|\.nullable\s*\(/.test(chain);
+    let rawType = 'string';
+    if (kind === 'number') rawType = 'number';
+    else if (kind === 'boolean') rawType = 'boolean';
+    else if (kind === 'record') rawType = 'Record<string, unknown>';
+    fields.set(name, { name, optional, rawType });
+  }
+
+  // 2. Parse TypeScript interface / type properties
+  const propRegex = /^\s*(?:readonly\s+)?([a-zA-Z0-9_]+)(\??)\s*:\s*([^;\r\n,]+)/gm;
   let match;
   while ((match = propRegex.exec(tsText)) !== null) {
     const name = match[1];
     if (name === 'export' || name === 'interface' || name === 'type' || name === 'const') continue;
-    const optional = match[2] === '?';
     const rawType = match[3].trim();
+    if (rawType.startsWith('z.')) continue;
+    const optional = match[2] === '?';
     fields.set(name, {
       name,
       optional: optional || rawType.includes('null') || rawType.includes('undefined'),
@@ -115,7 +264,8 @@ export function parseTsFields(tsText = '') {
 }
 
 /**
- * Diagnoses schema drift between SQL DDL and TypeScript/API contracts and synthesizes a healing patch
+ * Diagnoses schema drift between SQL/Drizzle/Prisma schemas and TypeScript/Zod contracts
+ * and synthesizes a healing patch
  * @param {Object} options
  * @param {string} [options.sql]
  * @param {string} [options.ts]
@@ -152,6 +302,7 @@ export function healSchemaDrift(options = {}) {
 
   const findings = [];
   const patches = [];
+  const sqlRemediationStmts = [];
 
   for (const table of tables) {
     if (!table.hasRls) {
@@ -161,6 +312,7 @@ export function healSchemaDrift(options = {}) {
         table: table.tableName,
         detail: `Table '${table.tableName}' does not enable Row Level Security (RLS).`
       });
+      sqlRemediationStmts.push(`ALTER TABLE "${table.tableName}" ENABLE ROW LEVEL SECURITY;`);
     }
     if (!table.hasTenantId) {
       findings.push({
@@ -169,6 +321,8 @@ export function healSchemaDrift(options = {}) {
         table: table.tableName,
         detail: `Table '${table.tableName}' is missing 'tenant_id' or 'org_id' for multi-tenant isolation.`
       });
+      sqlRemediationStmts.push(`ALTER TABLE "${table.tableName}" ADD COLUMN IF NOT EXISTS tenant_id UUID NOT NULL;`);
+      sqlRemediationStmts.push(`CREATE INDEX IF NOT EXISTS idx_${table.tableName}_tenant_id ON "${table.tableName}" (tenant_id);`);
     }
 
     for (const col of table.columns) {
@@ -196,6 +350,16 @@ export function healSchemaDrift(options = {}) {
             expectedTsType: col.tsType,
             actualTsType: normalizedTs,
             detail: `Property '${tsField.name}' has type '${normalizedTs}' in TS contract, but DB column '${col.columnName}' is ${col.sqlType} (expected '${col.tsType}').`
+          });
+        }
+        if (col.nullable && !tsField.optional) {
+          findings.push({
+            kind: 'NULLABILITY_DRIFT',
+            severity: 'low',
+            table: table.tableName,
+            column: col.columnName,
+            property: tsField.name,
+            detail: `Column '${col.columnName}' is nullable in DB, but property '${tsField.name}' is marked non-optional in TS contract.`
           });
         }
       }
@@ -236,7 +400,8 @@ export function healSchemaDrift(options = {}) {
     tablesAnalyzed: tables.length,
     driftCount: findings.length,
     findings,
-    synthesizedPatch: patches.map((p) => p.code).join('\n\n')
+    synthesizedPatch: patches.map((p) => p.code).join('\n\n'),
+    sqlPatch: sqlRemediationStmts.join('\n')
   };
 }
 

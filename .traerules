@@ -83,6 +83,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
    - **Cloud, DevOps & SRE**: Delegate to `cloud-devops-sre` (guided by `kubernetes-gitops-platform-expert`, `docker-container-expert`, `ci-cd-devops-architect`, `sbom-supply-chain-security-expert`, `zero-trust-secret-vault`).
    - **Data, Storage & RAG**: Delegate to `data-rag-architect` (guided by `database-orm-expert`, `olap-columnar-analytics-expert`, `reactive-sync-engine-expert`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `fga-rebac-authorization-expert`).
    - **Mobile, Desktop & Spatial**: Delegate to `mobile-spatial-craftsman` (guided by `mobile-expo-expert`, `flutter-dart-expert`, `tauri-expert`, `web-3d-graphics-expert`, `glsl-shader-expert`, `webxr-ar-vr-expert`).
+   - **Reverse Engineering & Binary Security**: Delegate to `reverse-security-auditor` (guided by `reverse-engineer-anything`, `rea-tool-design`, `rea-analysis-optimization`, `rea-ci-tests-audit`, `sbom-supply-chain-security-expert`, `formal-spec-z3-verifier`).
    - **Custom Agent Generation**: Scaffold new project-specific agents anytime using `vibes create-agent --name <name> --skills <skills>`.
 5. **Proactive Monitoring**: Track subagent progress. Do not let subagents hang indefinitely. If waiting on multiple subagents, use the `schedule` tool to set up check-ins or timers.
 6. **Unified Assembly**: Once subagents report back, the main orchestrator agent MUST review, synthesize, and seamlessly assemble their work into a cohesive final output before presenting it to the user.

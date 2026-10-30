@@ -16,18 +16,57 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-export async function evaluateSql(sqlContent, options = {}) {
+/**
+ * Normalizes PostgreSQL DDL into SQLite-compatible DDL for fast in-memory structural validation
+ * via Node's built-in `node:sqlite` (`DatabaseSync(':memory:')`).
+ */
+function normalizePostgresToSqlite(sqlContent) {
+  const safeStatements = [];
+  const rawStmts = sqlContent
+    .split(/;\s*(?=(?:[^']*'[^']*')*[^']*$)/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0 && !s.startsWith('--'));
+
+  for (const stmt of rawStmts) {
+    if (/^(?:ALTER\s+TABLE\s+[\s\S]+?\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY|CREATE\s+POLICY\b|DROP\s+POLICY\b|COMMENT\s+ON\b|CREATE\s+EXTENSION\b|GRANT\b|REVOKE\b)/i.test(stmt)) {
+      continue;
+    }
+    if (/^(?:CREATE\s+TABLE|CREATE\s+(?:UNIQUE\s+)?INDEX)\b/i.test(stmt)) {
+      let normalized = stmt
+        .replace(/\bUUID\b/gi, 'TEXT')
+        .replace(/\bTIMESTAMPTZ\b/gi, 'TEXT')
+        .replace(/\bTIMESTAMP(?:\s+WITH(?:OUT)?\s+TIME\s+ZONE)?\b/gi, 'TEXT')
+        .replace(/\bJSONB?\b/gi, 'TEXT')
+        .replace(/\bBIGSERIAL\b/gi, 'INTEGER')
+        .replace(/\bSERIAL\b/gi, 'INTEGER')
+        .replace(/\bBYTEA\b/gi, 'BLOB')
+        .replace(/\bINET\b/gi, 'TEXT')
+        .replace(/\bDEFAULT\s+gen_random_uuid\(\)/gi, "DEFAULT ''")
+        .replace(/\bDEFAULT\s+uuid_generate_v4\(\)/gi, "DEFAULT ''")
+        .replace(/\bDEFAULT\s+now\(\)/gi, 'DEFAULT CURRENT_TIMESTAMP')
+        .replace(/\bUSING\s+(?:btree|gin|gist|hnsw|ivfflat)\b/gi, '');
+      safeStatements.push(normalized);
+    }
+  }
+  return safeStatements;
+}
+
+/**
+ * Synchronous SQL DDL & RLS security evaluator backed by static AST rules and built-in node:sqlite.
+ */
+export function evaluateSqlSync(sqlContent, options = {}) {
   const issues = [];
   const warnings = [];
   const tablesCreated = [];
   const rlsEnabled = new Set();
   const policiesCreated = new Set();
+  const permissivePolicies = [];
   const foreignKeys = [];
   const indexesCreated = new Set();
+  const destructiveOps = [];
 
-  // Normalize comments and split into statements
-  const statements = sqlContent
-    .split(/;\s*(?=(?:[^']*'[^']*')*[^']*$)/) // split by semicolon outside string literals
+  const statements = String(sqlContent || '')
+    .split(/;\s*(?=(?:[^']*'[^']*')*[^']*$)/)
     .map(s => s.trim())
     .filter(s => s.length > 0 && !s.startsWith('--'));
 
@@ -40,18 +79,15 @@ export async function evaluateSql(sqlContent, options = {}) {
       const tableName = createTableMatch[2] || createTableMatch[1];
       tablesCreated.push(tableName);
 
-      // Check for Primary Key
       if (!/PRIMARY\s+KEY/i.test(cleanStmt)) {
         warnings.push(`Table '${tableName}' has no explicit PRIMARY KEY constraint defined.`);
       }
 
-      // Detect Foreign Keys within CREATE TABLE
       const fkMatches = cleanStmt.matchAll(/FOREIGN\s+KEY\s*\((["']?\w+["']?)\)\s*REFERENCES\s+["']?(\w+)["']?\s*\((["']?\w+["']?)\)/gi);
       for (const fk of fkMatches) {
         foreignKeys.push({ table: tableName, column: fk[1].replace(/["']/g, ''), targetTable: fk[2], targetCol: fk[3] });
       }
 
-      // Inline REFERENCES
       const inlineFkMatches = cleanStmt.matchAll(/(["']?\w+["']?)\s+[\w()]+(?:\s+NOT\s+NULL)?\s+REFERENCES\s+["']?(\w+)["']?/gi);
       for (const ifk of inlineFkMatches) {
         if (!/FOREIGN\s+KEY/i.test(ifk[0])) {
@@ -66,70 +102,128 @@ export async function evaluateSql(sqlContent, options = {}) {
       const tableName = rlsMatch[2] || rlsMatch[1];
       rlsEnabled.add(tableName);
     }
-    const policyMatch = cleanStmt.match(/CREATE\s+POLICY\s+["']?[\w\s-]+["']?\s+ON\s+(?:["']?(\w+)["']?\.)?["']?(\w+)["']?/i);
+    const policyMatch = cleanStmt.match(/CREATE\s+POLICY\s+["']?([\w\s-]+)["']?\s+ON\s+(?:["']?(\w+)["']?\.)?["']?(\w+)["']?/i);
     if (policyMatch) {
-      const tableName = policyMatch[2] || policyMatch[1];
+      const policyName = policyMatch[1].trim();
+      const tableName = policyMatch[3] || policyMatch[2];
       policiesCreated.add(tableName);
+      if (/\bUSING\s*\(\s*true\s*\)/i.test(cleanStmt) && !/--\s*allow-public-policy/i.test(sqlContent)) {
+        permissivePolicies.push(`${tableName}:${policyName}`);
+        warnings.push(`Security Warning: RLS policy '${policyName}' on '${tableName}' uses permissive 'USING (true)'. Scope to tenant_id or auth.uid().`);
+      }
     }
 
     // 3. Detect CREATE INDEX
     const indexMatch = cleanStmt.match(/CREATE\s+(?:UNIQUE\s+)?INDEX\s+(?:IF\s+NOT\s+EXISTS\s+)?["']?\w+["']?\s+ON\s+["']?(\w+)["']?\s*\(([^)]+)\)/i);
     if (indexMatch) {
       const tableName = indexMatch[1];
-      const cols = indexMatch[2].split(',').map(c => c.trim().replace(/["']/g, ''));
+      const cols = indexMatch[2].split(',').map(c => c.trim().replace(/["']/g, '').split(/\s+/)[0]);
       cols.forEach(c => indexesCreated.add(`${tableName}.${c}`));
     }
 
     // 4. Check for Destructive Drops without safe guard
     if (/DROP\s+TABLE/i.test(cleanStmt) && !/--\s*force-destructive/i.test(sqlContent)) {
-      issues.push(`Destructive operation detected: '${cleanStmt.slice(0, 50)}...'. Add '-- force-destructive' comment to bypass safety block.`);
+      const msg = `Destructive operation detected: '${cleanStmt.slice(0, 50)}...'. Add '-- force-destructive' comment to bypass safety block.`;
+      issues.push(msg);
+      destructiveOps.push(cleanStmt.slice(0, 80));
     }
     if (/DROP\s+COLUMN/i.test(cleanStmt) && !/--\s*force-destructive/i.test(sqlContent)) {
-      issues.push(`Destructive column drop detected: '${cleanStmt.slice(0, 50)}...'. Add '-- force-destructive' comment to bypass.`);
+      const msg = `Destructive column drop detected: '${cleanStmt.slice(0, 50)}...'. Add '-- force-destructive' comment to bypass.`;
+      issues.push(msg);
+      destructiveOps.push(cleanStmt.slice(0, 80));
     }
   }
 
-  // Security Audit: Verify RLS on all newly created tables (Supabase / Postgres Best Practice)
+  const rlsMissing = [];
   for (const table of tablesCreated) {
     if (!rlsEnabled.has(table)) {
+      rlsMissing.push(table);
       warnings.push(`Security Warning: Table '${table}' does not have Row Level Security (RLS) enabled. Missing: 'ALTER TABLE "${table}" ENABLE ROW LEVEL SECURITY;'.`);
     }
   }
 
-  // Performance Audit: Verify Index on Foreign Keys to prevent table locking
+  const unindexedForeignKeys = [];
   for (const fk of foreignKeys) {
     const key = `${fk.table}.${fk.column}`;
     if (!indexesCreated.has(key)) {
+      unindexedForeignKeys.push(key);
       warnings.push(`Performance Warning: Foreign key '${key}' has no corresponding INDEX. Missing: 'CREATE INDEX idx_${fk.table}_${fk.column} ON "${fk.table}" ("${fk.column}");'.`);
     }
   }
 
+  // Execute normalized DDL inside built-in node:sqlite in-memory sandbox when available
+  let sqliteExecuted = false;
+  if (options.enableSqlite !== false && statements.length > 0) {
+    try {
+      const sqliteStmts = normalizePostgresToSqlite(sqlContent);
+      if (sqliteStmts.length > 0) {
+        const prevEmitWarning = process.emitWarning;
+        process.emitWarning = (warning, ...rest) => {
+          const text = typeof warning === 'string' ? warning : warning?.message;
+          if (text && text.includes('SQLite is an experimental feature')) return;
+          return prevEmitWarning.call(process, warning, ...rest);
+        };
+        try {
+          const sqliteMod = process.getBuiltinModule ? process.getBuiltinModule('node:sqlite') : null;
+          if (sqliteMod && typeof sqliteMod.DatabaseSync === 'function') {
+            const memDb = new sqliteMod.DatabaseSync(':memory:');
+            for (const s of sqliteStmts) {
+              memDb.exec(s);
+            }
+            memDb.close();
+            sqliteExecuted = true;
+          }
+        } finally {
+          process.emitWarning = prevEmitWarning;
+        }
+      }
+    } catch (sqliteErr) {
+      issues.push(`In-Memory SQLite DDL Validation Error: ${sqliteErr.message}`);
+    }
+  }
+
+  const valid = issues.length === 0;
+  const score = Math.max(0, 100 - (issues.length * 25) - (warnings.length * 10));
+
+  return {
+    valid,
+    passed: valid,
+    score,
+    statementsCount: statements.length,
+    tablesCreated,
+    rlsVerifiedCount: rlsEnabled.size,
+    rlsMissing,
+    policiesCreatedCount: policiesCreated.size,
+    permissivePolicies,
+    foreignKeysCount: foreignKeys.length,
+    unindexedForeignKeys,
+    destructiveOps,
+    issues,
+    errors: issues,
+    warnings,
+    sqliteExecuted,
+    pgliteExecuted: false
+  };
+}
+
+export async function evaluateSql(sqlContent, options = {}) {
+  const report = evaluateSqlSync(sqlContent, options);
+
   // Try in-memory WASM execution via PGlite if installed
-  let pgliteExecuted = false;
   try {
     const { PGlite } = await import('@electric-sql/pglite');
     const db = new PGlite();
     await db.exec(sqlContent);
-    pgliteExecuted = true;
+    report.pgliteExecuted = true;
   } catch (e) {
-    if (e.code === 'ERR_MODULE_NOT_FOUND') {
-      // Optional enhancement; static analysis used
-    } else {
-      issues.push(`WASM SQL Compilation Error: ${e.message}`);
+    if (e.code !== 'ERR_MODULE_NOT_FOUND') {
+      report.issues.push(`WASM SQL Compilation Error: ${e.message}`);
+      report.valid = report.issues.length === 0;
+      report.passed = report.valid;
     }
   }
 
-  return {
-    valid: issues.length === 0,
-    statementsCount: statements.length,
-    tablesCreated,
-    rlsVerifiedCount: rlsEnabled.size,
-    policiesCreatedCount: policiesCreated.size,
-    foreignKeysCount: foreignKeys.length,
-    issues,
-    warnings,
-    pgliteExecuted
-  };
+  return report;
 }
 
 async function main() {

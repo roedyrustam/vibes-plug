@@ -19,15 +19,66 @@ const CONTROL_KEYWORDS = new Set([
   'if', 'for', 'while', 'switch', 'catch', 'return', 'throw', 'new', 'typeof', 'delete', 'await', 'yield', 'super', 'import'
 ]);
 
-/**
- * Resolves a relative import specifier to an actual file on disk if possible.
- */
-function resolveImportTarget(fromFile, specifier) {
-  if (!specifier || !specifier.startsWith('.')) return null;
-  const baseDir = path.dirname(fromFile);
-  const candidateBase = path.resolve(baseDir, specifier);
-  const probeExts = ['', '.mjs', '.js', '.ts', '.tsx', '.jsx', '.cjs', '/index.ts', '/index.mjs', '/index.js'];
+const tsconfigCache = new Map();
 
+/**
+ * Discovers and parses compilerOptions.paths and baseUrl from tsconfig.json / jsconfig.json
+ */
+export function loadTsConfigPathAliases(fromFile) {
+  let currDir = path.dirname(path.resolve(fromFile));
+  const visitedDirs = [];
+
+  while (currDir) {
+    if (tsconfigCache.has(currDir)) {
+      const cached = tsconfigCache.get(currDir);
+      visitedDirs.forEach((d) => tsconfigCache.set(d, cached));
+      return cached;
+    }
+    visitedDirs.push(currDir);
+
+    for (const cfgName of ['tsconfig.json', 'jsconfig.json']) {
+      const cfgPath = path.join(currDir, cfgName);
+      if (fssync.existsSync(cfgPath)) {
+        try {
+          const raw = fssync.readFileSync(cfgPath, 'utf8')
+            .replace(/\/\*[\s\S]*?\*\/|(?<=^|[^:])\/\/.*$/gm, '')
+            .replace(/,\s*([}\]])/g, '$1');
+          const parsed = JSON.parse(raw);
+          const co = parsed.compilerOptions || {};
+          const baseUrl = path.resolve(currDir, co.baseUrl || '.');
+          const pathsMap = co.paths || {};
+          const aliases = [];
+          for (const [pattern, targets] of Object.entries(pathsMap)) {
+            if (!Array.isArray(targets) || targets.length === 0) continue;
+            const prefix = pattern.replace(/\*$/, '');
+            const targetPrefix = String(targets[0]).replace(/\*$/, '');
+            aliases.push({
+              prefix,
+              wildcard: pattern.endsWith('*'),
+              targetBase: path.resolve(baseUrl, targetPrefix)
+            });
+          }
+          const result = { rootDir: currDir, baseUrl, aliases };
+          visitedDirs.forEach((d) => tsconfigCache.set(d, result));
+          return result;
+        } catch {
+          // Ignore malformed tsconfig and continue walking up
+        }
+      }
+    }
+
+    const parent = path.dirname(currDir);
+    if (parent === currDir) break;
+    currDir = parent;
+  }
+
+  const fallback = { rootDir: path.dirname(path.resolve(fromFile)), baseUrl: null, aliases: [] };
+  visitedDirs.forEach((d) => tsconfigCache.set(d, fallback));
+  return fallback;
+}
+
+function probeCandidateFile(candidateBase) {
+  const probeExts = ['', '.mjs', '.js', '.ts', '.tsx', '.jsx', '.cjs', '/index.ts', '/index.tsx', '/index.mjs', '/index.js'];
   for (const suffix of probeExts) {
     const full = candidateBase + suffix;
     try {
@@ -37,7 +88,45 @@ function resolveImportTarget(fromFile, specifier) {
       // continue probing
     }
   }
-  return candidateBase;
+  return null;
+}
+
+/**
+ * Resolves a relative or tsconfig-aliased import specifier to an actual file on disk if possible.
+ */
+export function resolveImportTarget(fromFile, specifier) {
+  if (!specifier) return null;
+
+  if (specifier.startsWith('.')) {
+    const baseDir = path.dirname(fromFile);
+    const candidateBase = path.resolve(baseDir, specifier);
+    return probeCandidateFile(candidateBase) || candidateBase;
+  }
+
+  // Check tsconfig.json / jsconfig.json path aliases (e.g. @/components/*, ~/*)
+  const tsConfig = loadTsConfigPathAliases(fromFile);
+  for (const alias of tsConfig.aliases) {
+    if (alias.wildcard && specifier.startsWith(alias.prefix)) {
+      const rest = specifier.slice(alias.prefix.length);
+      const candidateBase = path.resolve(alias.targetBase, rest);
+      const hit = probeCandidateFile(candidateBase);
+      if (hit) return hit;
+    } else if (!alias.wildcard && specifier === alias.prefix) {
+      const hit = probeCandidateFile(alias.targetBase);
+      if (hit) return hit;
+    }
+  }
+
+  // Fallback for conventional @/ or ~/ alias pointing to src/ or project root
+  if (specifier.startsWith('@/') || specifier.startsWith('~/')) {
+    const subPath = specifier.slice(2);
+    const srcCandidate = probeCandidateFile(path.resolve(tsConfig.rootDir, 'src', subPath));
+    if (srcCandidate) return srcCandidate;
+    const rootCandidate = probeCandidateFile(path.resolve(tsConfig.rootDir, subPath));
+    if (rootCandidate) return rootCandidate;
+  }
+
+  return null;
 }
 
 /**
@@ -311,6 +400,34 @@ export async function parseSymbols(filePath) {
   }
 
   const imports = JS_TS_EXTS.has(ext) ? parseImportEdges(content, filePath) : [];
+
+  // Extract outgoing function/method call graph edges per symbol
+  if (JS_TS_EXTS.has(ext) && symbols.length > 0) {
+    const sortedSyms = [...symbols].sort((a, b) => a.line - b.line);
+    for (let idx = 0; idx < sortedSyms.length; idx++) {
+      const sym = sortedSyms[idx];
+      if (!['function', 'arrow-function', 'method'].includes(sym.type)) continue;
+      const startLineIdx = sym.line - 1;
+      const nextSymLineIdx = idx + 1 < sortedSyms.length ? sortedSyms[idx + 1].line - 1 : Math.min(lines.length, startLineIdx + 120);
+      const bodySlice = lines
+        .slice(startLineIdx, nextSymLineIdx)
+        .join('\n')
+        .replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '')
+        .replace(/'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, '""');
+
+      const calledSet = new Set();
+      const callRegex = /\b([A-Za-z_$][\w$]*)\s*\(/g;
+      let cMatch;
+      const selfName = sym.methodName || sym.name;
+      while ((cMatch = callRegex.exec(bodySlice)) !== null) {
+        const callee = cMatch[1];
+        if (!CONTROL_KEYWORDS.has(callee) && callee !== selfName && callee !== 'function') {
+          calledSet.add(callee);
+        }
+      }
+      sym.calls = Array.from(calledSet).slice(0, 25);
+    }
+  }
 
   return {
     filePath,

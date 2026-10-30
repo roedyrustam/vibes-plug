@@ -1,0 +1,24 @@
+{
+  "updatedAt": "2026-10-30T16:34:57.446Z",
+  "entries": {
+    "schema:users": {
+      "key": "schema:users",
+      "value": {
+        "table": "users",
+        "rls": true
+      },
+      "version": 1,
+      "authorAgent": "test-agent",
+      "updatedAt": "2026-10-30T16:34:57.006Z"
+    },
+    "api:v1:orders": {
+      "key": "api:v1:orders",
+      "value": {
+        "endpoint": "/api/v1/orders"
+      },
+      "version": 1,
+      "authorAgent": "mcp-agent",
+      "updatedAt": "2026-10-30T16:34:57.445Z"
+    }
+  }
+}

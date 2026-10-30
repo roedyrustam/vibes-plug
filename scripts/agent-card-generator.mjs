@@ -34,7 +34,8 @@ export async function loadSubagentsMetadata() {
     { id: 'ai-mcp-engineer', name: 'AI & MCP Engineer', role: 'Model Context Protocol v1.x tools, agent swarms, and LLM pipelines' },
     { id: 'cloud-devops-sre', name: 'Cloud DevOps SRE', role: 'Kubernetes GitOps, Docker distroless, and zero-trust security' },
     { id: 'data-rag-architect', name: 'Data & RAG Architect', role: 'Hybrid Vector/Graph RAG, ClickHouse OLAP, and reactive sync engines' },
-    { id: 'mobile-spatial-craftsman', name: 'Mobile & Spatial Craftsman', role: 'React Native/Expo SDK 53, Flutter, Tauri v2, and WebGPU 3D graphics' }
+    { id: 'mobile-spatial-craftsman', name: 'Mobile & Spatial Craftsman', role: 'React Native/Expo SDK 53, Flutter, Tauri v2, and WebGPU 3D graphics' },
+    { id: 'reverse-security-auditor', name: 'Reverse Security Auditor', role: 'REA/Ghidra/LLDB binary decompilation, Electron/firmware triage, Evidence spans, and Z3/SBOM verification' }
   ];
 
   return agentFiles;

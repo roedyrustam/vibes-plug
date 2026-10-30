@@ -1,7 +1,7 @@
 {
   "name": "vibes-plug",
   "version": "4.5.0",
-  "description": "Universal AI Agent Swarm & MCP plugin with 176 specialized skills and 8 autonomous subagents for Antigravity, Claude Code, Cursor, Windsurf, and OpenAI Codex. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, A2A, MCP, Universal Skill-as-a-Tool SaaT, Ghidra/REA Reverse Engineering, ClickHouse, Kubernetes GitOps, CUA).",
+  "description": "Universal AI Agent Swarm & MCP plugin with 176 specialized skills and 9 autonomous subagents for Antigravity, Claude Code, Cursor, Windsurf, and OpenAI Codex. Updated for the modern 2026 tech stack (React 19, Tailwind v4, Bun, Hono, A2A, MCP, Universal Skill-as-a-Tool SaaT, Ghidra/REA Reverse Engineering, ClickHouse, Kubernetes GitOps, CUA).",
   "icon": "assets/logo.png",
   "main": "index.js",
   "bin": {

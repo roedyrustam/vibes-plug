@@ -1968,6 +1968,80 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const mcpA2APayload = JSON.parse(mcpA2ACall.result.content[0].text);
     assert.strictEqual(mcpA2APayload.name, 'vibes-plug-swarm-master');
     assert.ok(mcpA2APayload.subagents.some(a => a.id === 'fintech-payment-sentinel'));
+    assert.ok(mcpA2APayload.subagents.some(a => a.id === 'reverse-security-auditor'));
+    assert.strictEqual(mcpA2APayload.subagents.length, 9);
+  });
+
+  await t.test('Tahap 1 & 2 Upgrades: SQLite In-Memory DDL, Tri-Layer Drift Healer, Alias/Call-Graph AST, Persistent Blackboard, and 9-Subagent Routing', async () => {
+    const { evaluateSqlSync, evaluateSql } = await import('./eval-migration.mjs');
+    const { databaseAdapter } = await import('./adapters/database.mjs');
+    const { healSchemaDrift, parseDrizzleTables, parsePrismaModels } = await import('./drift-healer.mjs');
+    const { parseSymbols, resolveImportTarget } = await import('./ast-query.mjs');
+    const { buildSymbolGraph } = await import('./graphrag-indexer.mjs');
+    const { resolveNativeSubagent, dispatchSwarm } = await import('./swarm-dispatcher.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. In-memory node:sqlite DDL validation & databaseAdapter await fix
+    const sqlSyncRes = evaluateSqlSync('CREATE TABLE ledger_entries (id UUID PRIMARY KEY, org_id UUID REFERENCES orgs(id)); CREATE POLICY open_all ON ledger_entries USING (true);');
+    assert.strictEqual(sqlSyncRes.valid, true);
+    assert.deepStrictEqual(sqlSyncRes.rlsMissing, ['ledger_entries']);
+    assert.deepStrictEqual(sqlSyncRes.unindexedForeignKeys, ['ledger_entries.org_id']);
+    assert.strictEqual(sqlSyncRes.permissivePolicies.length, 1);
+
+    const adapterAudit = await databaseAdapter.execute('audit', {
+      sql: 'CREATE TABLE invoices (id UUID PRIMARY KEY, tenant_id UUID NOT NULL); ALTER TABLE invoices ENABLE ROW LEVEL SECURITY;'
+    });
+    assert.strictEqual(adapterAudit.passed, true);
+    assert.strictEqual(adapterAudit.rlsEnabled, true);
+    assert.strictEqual(adapterAudit.rlsMissing.length, 0);
+
+    // 2. Tri-Layer Schema Drift Healer (Drizzle pgTable + Prisma model + Zod + MCP vibes_drift_heal)
+    const drizzleSource = `export const subscriptions = pgTable('subscriptions', { id: uuid('id').primaryKey(), tenantId: uuid('tenant_id').notNull(), planTier: varchar('plan_tier').notNull(), trialEndsAt: timestamp('trial_ends_at') });`;
+    const drizzleTables = parseDrizzleTables(drizzleSource);
+    assert.strictEqual(drizzleTables.length, 1);
+    assert.strictEqual(drizzleTables[0].tableName, 'subscriptions');
+    assert.strictEqual(drizzleTables[0].hasTenantId, true);
+
+    const prismaSource = `model AuditLog { id String @id @default(uuid()) tenantId String @map("tenant_id") action String createdAt DateTime @default(now()) }`;
+    const prismaTables = parsePrismaModels(prismaSource);
+    assert.strictEqual(prismaTables.length, 1);
+    assert.strictEqual(prismaTables[0].hasTenantId, true);
+
+    const mcpDriftCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 997,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_drift_heal',
+        arguments: {
+          sql: drizzleSource,
+          ts: 'import { z } from "zod"; export const SubscriptionSchema = z.object({ id: z.string(), planTier: z.number() });'
+        }
+      }
+    });
+    assert.ok(mcpDriftCall.result);
+    const driftPayload = JSON.parse(mcpDriftCall.result.content[0].text);
+    assert.strictEqual(driftPayload.status, 'DRIFT_HEALED');
+    assert.ok(driftPayload.findings.some(f => f.kind === 'TYPE_DRIFT'));
+    assert.ok(driftPayload.sqlPatch.includes('ENABLE ROW LEVEL SECURITY'));
+
+    // 3. Call-graph AST extraction & Incremental Symbol Graph caching
+    const astRes = await parseSymbols(path.join(PLUGIN_ROOT, 'scripts', 'eval-migration.mjs'));
+    const evalFnSym = astRes.symbols.find(s => s.name === 'evaluateSql');
+    assert.ok(evalFnSym && Array.isArray(evalFnSym.calls));
+    assert.ok(evalFnSym.calls.includes('evaluateSqlSync'));
+
+    const graph1 = await buildSymbolGraph(PLUGIN_ROOT);
+    const graph2 = await buildSymbolGraph(PLUGIN_ROOT);
+    assert.ok(graph2.incrementalReusedFiles > 0);
+
+    // 4. 9th Native Subagent Routing & Workspace-Grounded Swarm Dispatch
+    assert.strictEqual(resolveNativeSubagent('reverse-engineer-anything', 'Binary Audit'), 'reverse-security-auditor');
+    assert.strictEqual(resolveNativeSubagent('formal-spec-z3-verifier', 'SMT Proof'), 'reverse-security-auditor');
+
+    const groundedSwarm = await dispatchSwarm('Audit SQL migration RLS and AST blast radius', { concurrency: 2, reasoning: 'speed' });
+    assert.strictEqual(groundedSwarm.success, true);
+    assert.ok(Array.isArray(groundedSwarm.workers[0].workspaceTargets));
   });
 });
 

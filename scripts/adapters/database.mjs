@@ -32,22 +32,25 @@ export const databaseAdapter = {
       case 'verify':
       case 'audit': {
         if (sqlInput) {
-          const evalReport = evaluateSql(sqlInput);
+          const evalReport = await evaluateSql(sqlInput);
           return {
             engine: 'vibes-sql-rls-verifier',
             tablesChecked: evalReport.tablesCreated?.length || 1,
-            rlsEnabled: evalReport.rlsMissing?.length === 0,
+            rlsEnabled: (evalReport.rlsMissing || []).length === 0,
+            rlsMissing: evalReport.rlsMissing || [],
             missingIndexes: evalReport.unindexedForeignKeys || [],
             destructiveOperations: evalReport.destructiveOps || [],
+            sqliteExecuted: Boolean(evalReport.sqliteExecuted),
             passed: Boolean(evalReport.passed),
             score: evalReport.score ?? 100,
-            findings: evalReport.issues || []
+            findings: [...(evalReport.issues || []), ...(evalReport.warnings || [])]
           };
         }
         return {
           engine: 'vibes-sql-rls-verifier',
           tablesChecked: 1,
           rlsEnabled: true,
+          rlsMissing: [],
           missingIndexes: [],
           passed: true,
           score: 100,

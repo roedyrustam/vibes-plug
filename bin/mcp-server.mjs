@@ -870,6 +870,31 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_drift_heal',
+    description: 'P8 Tri-Layer Schema Drift Healer: detects structural drift across PostgreSQL DDL, Drizzle ORM (pgTable), Prisma (model), and TypeScript/Zod/OpenAPI contracts, synthesizing zero-drift TS/Zod + SQL patches.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        sql: {
+          type: 'string',
+          description: 'PostgreSQL DDL, Drizzle pgTable, or Prisma model schema text.'
+        },
+        ts: {
+          type: 'string',
+          description: 'TypeScript interface or Zod z.object contract text.'
+        },
+        sqlFile: {
+          type: 'string',
+          description: 'Optional file path to SQL/Drizzle/Prisma schema.'
+        },
+        tsFile: {
+          type: 'string',
+          description: 'Optional file path to TypeScript/Zod contract.'
+        }
+      }
+    }
   }
 ];
 
@@ -934,6 +959,9 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_graph_query',
       'vibes_graph_search',
       'vibes_self_heal',
+      'vibes_drift_heal',
+      'vibes_skill_dispatch',
+      'vibes_blackboard',
       'vibes_skill_drift',
       'vibes_tool_profile'
     ]
@@ -953,6 +981,8 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_detect_stack',
       'vibes_eval_sandbox',
       'vibes_verify_gate',
+      'vibes_sentinel_audit',
+      'vibes_skill_dispatch',
       'vibes_pr_review',
       'vibes_git_hooks',
       'vibes_bridge_status',
@@ -982,6 +1012,11 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_optimize_budget',
       'vibes_speculative_consensus',
       'vibes_arbitrate_code',
+      'vibes_blackboard',
+      'vibes_a2a_card',
+      'vibes_evolve_skill',
+      'vibes_gemini_cache',
+      'vibes_gemini_budget',
       'vibes_tool_profile'
     ]
   }
@@ -1064,7 +1099,7 @@ export async function handleRpcRequest(request) {
         },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.3.0'
+          version: '4.5.0'
         }
       }
     };
@@ -1648,6 +1683,14 @@ export async function handleRpcRequest(request) {
         const { generateA2ACard } = await import('../scripts/agent-card-generator.mjs');
         const outcome = await generateA2ACard({ save, url });
         contentText = JSON.stringify(outcome.card, null, 2);
+      } else if (name === 'vibes_drift_heal') {
+        let sql = args?.sql || '';
+        let ts = args?.ts || '';
+        if (args?.sqlFile) sql = await fs.readFile(path.resolve(process.cwd(), args.sqlFile), 'utf8');
+        if (args?.tsFile) ts = await fs.readFile(path.resolve(process.cwd(), args.tsFile), 'utf8');
+        const { healSchemaDrift } = await import('../scripts/drift-healer.mjs');
+        const outcome = healSchemaDrift({ sql, ts });
+        contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }
@@ -1683,7 +1726,7 @@ export function startStdioServer() {
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.4.2] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.5.0] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -1787,7 +1830,7 @@ export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '12
       res.end(JSON.stringify({
         status: 'online',
         service: 'vibes-plug-mcp',
-        version: '4.3.0',
+        version: '4.5.0',
         transport: 'sse',
         endpoints: {
           sse: '/sse',
@@ -1805,7 +1848,7 @@ export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '12
   return new Promise((resolve, reject) => {
     server.on('error', reject);
     server.listen(port, host, () => {
-      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.4.2] Listening on SSE at: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/sse`);
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.5.0] Listening on SSE at: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/sse`);
       console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
       resolve({ server, port, host });
     });

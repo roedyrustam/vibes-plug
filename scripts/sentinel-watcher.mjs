@@ -17,7 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { visualAudit, synthesizeVisualFixes } from './visual-critic.mjs';
-import { evaluateSql } from './eval-migration.mjs';
+import { evaluateSqlSync } from './eval-migration.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -85,14 +85,21 @@ export function auditSingleFile(filePath, options = {}) {
 
   // 3. SQL Specific Checks
   if (ext === '.sql') {
-    const sqlReport = evaluateSql(content, filePath);
-    if (!sqlReport.passed) {
-      score -= (sqlReport.errors?.length || 0) * 20;
+    const sqlReport = evaluateSqlSync(content, { filePath });
+    if (!sqlReport.passed || (sqlReport.rlsMissing && sqlReport.rlsMissing.length > 0)) {
+      score -= (sqlReport.errors?.length || 0) * 20 + (sqlReport.rlsMissing?.length || 0) * 15;
       for (const err of sqlReport.errors || []) {
         issues.push({
           rule: 'SQL_DDL_VULNERABILITY',
           message: err,
           severity: 'HIGH'
+        });
+      }
+      for (const warn of sqlReport.warnings || []) {
+        issues.push({
+          rule: 'SQL_RLS_INDEX_ADVISORY',
+          message: warn,
+          severity: 'MEDIUM'
         });
       }
     }

@@ -5,8 +5,8 @@
  * 
  * Part of Pillar 1: Living Codebase AST Graph & High-Performance Surgical Context Slicing.
  * Recursively scans project source code, indexes exported functions, classes, interfaces,
- * and types into .agents/graph/symbol_graph.json, and enables sub-millisecond symbol queries
- * without flooding LLM context windows.
+ * and types into .agents/graph/symbol_graph.json with incremental stat caching,
+ * and enables sub-millisecond symbol queries without flooding LLM context windows.
  * 
  * Usage:
  *   node scripts/graphrag-indexer.mjs build [rootDir]
@@ -71,7 +71,7 @@ export async function collectSourceFiles(dir, fileList = []) {
 }
 
 /**
- * Builds the AST symbol knowledge graph across a project codebase
+ * Builds the AST symbol knowledge graph across a project codebase with incremental stat caching
  * @param {string} rootDir 
  * @param {Object} [options]
  * @returns {Promise<Object>}
@@ -81,11 +81,25 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
   const graphFile = options.outputFile || DEFAULT_GRAPH_FILE;
   const files = await collectSourceFiles(targetDir);
 
+  let previousGraph = null;
+  if (!options.force) {
+    try {
+      const rawPrev = await fs.readFile(graphFile, 'utf8');
+      const parsedPrev = JSON.parse(rawPrev);
+      if (parsedPrev && parsedPrev.rootDir === targetDir && parsedPrev.files) {
+        previousGraph = parsedPrev;
+      }
+    } catch {
+      previousGraph = null;
+    }
+  }
+
   const graph = {
-    version: '2.0.0',
+    version: '2.1.0',
     generatedAt: new Date().toISOString(),
     rootDir: targetDir,
     totalFilesIndexed: files.length,
+    incrementalReusedFiles: 0,
     totalSymbolsIndexed: 0,
     totalImportEdges: 0,
     symbols: {},
@@ -94,8 +108,39 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
 
   for (const filePath of files) {
     try {
-      const parsed = await parseSymbols(filePath);
       const relativePath = path.relative(targetDir, filePath).replace(/\\/g, '/');
+      const stat = await fs.stat(filePath);
+      const mtimeMs = Math.trunc(stat.mtimeMs);
+      const size = stat.size;
+
+      const cachedEntry = previousGraph?.files?.[relativePath];
+      if (
+        cachedEntry &&
+        cachedEntry.mtimeMs === mtimeMs &&
+        cachedEntry.size === size &&
+        Array.isArray(cachedEntry.cachedSymbols)
+      ) {
+        graph.incrementalReusedFiles++;
+        graph.totalImportEdges += (cachedEntry.imports || []).length;
+        graph.files[relativePath] = cachedEntry;
+
+        for (const sym of cachedEntry.cachedSymbols) {
+          if (!graph.symbols[sym.name]) {
+            graph.symbols[sym.name] = [];
+          }
+          graph.symbols[sym.name].push({
+            file: relativePath,
+            line: sym.line,
+            type: sym.type,
+            signature: sym.signature,
+            calls: sym.calls || []
+          });
+          graph.totalSymbolsIndexed++;
+        }
+        continue;
+      }
+
+      const parsed = await parseSymbols(filePath);
 
       const importEdges = (parsed.imports || []).map((imp) => ({
         source: imp.source,
@@ -105,14 +150,25 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
       }));
       graph.totalImportEdges += importEdges.length;
 
+      const compactSymbols = parsed.symbols.map((sym) => ({
+        name: sym.name,
+        line: sym.line,
+        type: sym.type,
+        signature: sym.signature,
+        calls: sym.calls || []
+      }));
+
       graph.files[relativePath] = {
         totalLines: parsed.totalLines,
         symbolCount: parsed.symbols.length,
+        mtimeMs,
+        size,
         exports: parsed.exports || [],
-        imports: importEdges
+        imports: importEdges,
+        cachedSymbols: compactSymbols
       };
 
-      for (const sym of parsed.symbols) {
+      for (const sym of compactSymbols) {
         if (!graph.symbols[sym.name]) {
           graph.symbols[sym.name] = [];
         }
@@ -120,7 +176,8 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
           file: relativePath,
           line: sym.line,
           type: sym.type,
-          signature: sym.signature
+          signature: sym.signature,
+          calls: sym.calls
         });
         graph.totalSymbolsIndexed++;
       }
@@ -207,9 +264,7 @@ export async function querySymbolGraph(symbolName, options = {}) {
  */
 export function tokenizeCode(text = '') {
   if (!text) return [];
-  // Split camelCase: fooBar -> foo Bar
   const decamel = text.replace(/([a-z])([A-Z])/g, '$1 $2');
-  // Replace non-alphanumeric with space
   const words = decamel.toLowerCase().split(/[^a-z0-9]+/);
   return words.filter(w => w.length > 1);
 }
@@ -425,7 +480,7 @@ if (isDirectExecution) {
     buildSymbolGraph(targetDir).then(graph => {
       const elapsed = Math.round(performance.now() - start);
       console.log(`✅ Symbol Knowledge Graph built in ${elapsed}ms`);
-      console.log(`📁 Files Indexed   : ${graph.totalFilesIndexed}`);
+      console.log(`📁 Files Indexed   : ${graph.totalFilesIndexed} (${graph.incrementalReusedFiles} cached)`);
       console.log(`🏷️  Symbols Indexed : ${graph.totalSymbolsIndexed}`);
       console.log(`💾 Saved to        : .agents/graph/symbol_graph.json\n`);
     }).catch(err => {

@@ -3,9 +3,10 @@
 /**
  * Vibes-Plug Headless Concurrent Swarm Dispatcher (2026 Edition)
  * 
- * Coordinates asynchronous, non-blocking multi-agent execution across the 176-skill registry.
- * Dispatches parallel workers with concurrency throttling, automated skill binding,
- * in-memory sandbox verification, Critic-in-the-Loop auditing, and unified result synthesis.
+ * Coordinates asynchronous, non-blocking multi-agent execution across the 176-skill registry
+ * and 9 native specialist subagents. Dispatches parallel workers with concurrency throttling,
+ * workspace-grounded AST symbol discovery, Blackboard contract binding, in-memory sandbox
+ * verification, Critic-in-the-Loop auditing, and unified result synthesis.
  * 
  * Usage:
  *   node scripts/swarm-dispatcher.mjs "<task>" [--concurrency 3] [--reasoning deep] [--json]
@@ -17,25 +18,27 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
-import { planSwarm, resolveReasoningProfile, TOPOLOGIES } from './swarm-runner.mjs';
+import { planSwarm, resolveReasoningProfile } from './swarm-runner.mjs';
 import { criticValidate, formatSamplingRequest } from './critic-validator.mjs';
 import { executeInSandbox } from './wasm-sandbox.mjs';
-import { emitSwarmEvent } from './swarm-bus.mjs';
+import { emitSwarmEvent, swarmBus } from './swarm-bus.mjs';
 import { getSkillCompactSlice } from './skill-dispatcher.mjs';
+import { hybridSearch } from './graphrag-indexer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
-function resolveNativeSubagent(skillName = '', domainName = '') {
+export function resolveNativeSubagent(skillName = '', domainName = '') {
   const key = `${skillName} ${domainName}`.toLowerCase();
+  if (/rea\b|reverse|binary|ghidra|firmware|decompile|sbom|z3/.test(key)) return 'reverse-security-auditor';
   if (/doku|payment|billing|fintech|ledger|m2m/.test(key)) return 'fintech-payment-sentinel';
   if (/mcp|a2a|llm|ai|prompt|cascade|kv-cache|thinking|gemini/.test(key)) return 'ai-mcp-engineer';
-  if (/k8s|kubernetes|docker|ci-cd|devops|sbom|vault|cloud/.test(key)) return 'cloud-devops-sre';
+  if (/k8s|kubernetes|docker|ci-cd|devops|vault|cloud/.test(key)) return 'cloud-devops-sre';
   if (/database|postgres|orm|rag|vector|olap|sync|rebac/.test(key)) return 'data-rag-architect';
   if (/mobile|expo|flutter|tauri|electron|3d|shader|webxr|spatial/.test(key)) return 'mobile-spatial-craftsman';
-  if (/security|red-team|tdd|e2e|slop|z3|invariant|debt|rea|reverse/.test(key)) return 'quality-guardian';
+  if (/security|red-team|tdd|e2e|slop|invariant|debt/.test(key)) return 'quality-guardian';
   if (/prd|brainstorm|ddd|architect/.test(key)) return 'swarm-architect';
   return 'fullstack-craftsman';
 }
@@ -78,24 +81,45 @@ async function loadWorkerSkillContext(skillName) {
     const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
     const verMatch = raw.match(/version:\s*["']?([^"'\r\n]+)["']?/);
     
-    // Extract first 400 chars of body after YAML frontmatter
     const bodyMatch = raw.replace(/---[\s\S]*?---/, '').trim();
     const instructionsSnippet = bodyMatch.slice(0, 400).replace(/[\r\n]+/g, ' ');
 
     return {
       name: skillName,
       description: descMatch ? descMatch[1].trim() : 'Specialized domain skill',
-      version: verMatch ? verMatch[1].trim() : '4.3.0',
+      version: verMatch ? verMatch[1].trim() : '4.5.0',
       instructionsSnippet
     };
   } catch {
     return {
       name: skillName,
       description: 'Dynamic fallback skill context',
-      version: '4.3.0',
+      version: '4.5.0',
       instructionsSnippet: 'Execute domain task conforming to Anti-Slop Directive.'
     };
   }
+}
+
+/**
+ * Discovers relevant workspace files and symbols for a worker task via Hybrid GraphRAG
+ */
+async function discoverWorkspaceTargets(taskDescription, workerSpec) {
+  try {
+    const query = `${taskDescription} ${workerSpec.skill} ${workerSpec.focus}`;
+    const searchRes = await hybridSearch(query, { topK: 3 });
+    if (searchRes && Array.isArray(searchRes.results)) {
+      return searchRes.results.map(r => ({
+        file: r.file,
+        symbol: r.name,
+        line: r.line,
+        type: r.type,
+        score: r.score
+      }));
+    }
+  } catch {
+    // Fallback if graph is unavailable
+  }
+  return [];
 }
 
 /**
@@ -103,6 +127,7 @@ async function loadWorkerSkillContext(skillName) {
  * @param {Object} workerSpec
  * @param {string} taskDescription
  * @param {Object} profile
+ * @param {string} swarmId
  * @returns {Promise<Object>}
  */
 async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) {
@@ -117,10 +142,17 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     focus: workerSpec.focus
   });
 
-  const [skillContext, compactSlice] = await Promise.all([
+  const [skillContext, compactSlice, workspaceTargets] = await Promise.all([
     loadWorkerSkillContext(workerSpec.skill),
-    getSkillCompactSlice(workerSpec.skill)
+    getSkillCompactSlice(workerSpec.skill),
+    discoverWorkspaceTargets(taskDescription, workerSpec)
   ]);
+
+  const blackboardContracts = swarmBus.listBlackboard().slice(-5).map(e => ({
+    key: e.key,
+    version: e.version,
+    authorAgent: e.authorAgent
+  }));
 
   // Generate domain-specific contract draft adhering to 5-state UI & RLS invariants
   let codeDraft = '';
@@ -146,19 +178,25 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
   }
 
   const subagentId = resolveNativeSubagent(workerSpec.skill, workerSpec.name);
+  const targetFilesSummary = workspaceTargets.length > 0
+    ? `\nWorkspace Targets: ${workspaceTargets.map(t => `${t.file}:${t.line} (${t.symbol})`).join(', ')}`
+    : '';
+
   const subagentInvocation = {
     subagent: subagentId,
     role: workerSpec.name,
     skill: workerSpec.skill,
     thinkingBudget: workerSpec.thinkingBudget,
     targetModelTier: profile.tier,
+    workspaceTargets,
+    sharedContracts: blackboardContracts,
     slice: {
       domain: compactSlice?.domain || 'general',
       adapter: compactSlice?.adapter || 'api',
       tokenEstimate: compactSlice?.tokenEstimate || 120,
       rules: Array.isArray(compactSlice?.rules) ? compactSlice.rules.slice(0, 4) : []
     },
-    prompt: `[${workerSpec.name} | @${workerSpec.skill}] Task: ${taskDescription}\nFocus: ${workerSpec.focus}\nEnforce Anti-Slop 7 Pillars & ${profile.id} thinking budget (${profile.budgetTokens} tokens).`
+    prompt: `[${workerSpec.name} | @${workerSpec.skill}] Task: ${taskDescription}\nFocus: ${workerSpec.focus}${targetFilesSummary}\nEnforce Anti-Slop 7 Pillars & ${profile.id} thinking budget (${profile.budgetTokens} tokens).`
   };
 
   const mcpSamplingRequest = formatSamplingRequest(codeDraft, {
@@ -180,6 +218,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     criticVerdict: criticReport.verdict,
     sandboxVerified: sandboxVerification ? sandboxVerification.success : true,
     durationMs,
+    workspaceTargets,
+    sharedContracts: blackboardContracts,
     contractSummary: `Bound skill instructions from @${workerSpec.skill} v${skillContext.version}. Enforced ${profile.id} thinking depth (${profile.budgetTokens.toLocaleString()} tokens).`,
     subagentInvocation,
     mcpSamplingRequest
@@ -243,7 +283,7 @@ export async function dispatchSwarm(taskDescription, options = {}) {
 
   traceLogs.push(`🔄 Synthesizing worker outputs and assembling cross-domain contracts...`);
   for (const res of workerResults) {
-    traceLogs.push(`  • [${res.domain}] -> @${res.skill} (Score: ${res.criticScore}/100, Sandbox: ${res.sandboxVerified ? 'OK' : 'FAIL'}, Latency: ${res.durationMs}ms)`);
+    traceLogs.push(`  • [${res.domain}] -> @${res.skill} (${res.subagent}, Score: ${res.criticScore}/100, Targets: ${res.workspaceTargets.length}, Latency: ${res.durationMs}ms)`);
   }
 
   traceLogs.push(`✅ Swarm Dispatch Completed in ${totalDurationMs}ms. Overall Status: ${allApproved ? 'SUCCESS' : 'WARNING'}`);
