@@ -251,6 +251,7 @@ integration_test/app_test.dart:
 4. **Ignoring `const` constructors** — Causes unnecessary widget rebuilds.
 5. **Using deprecated `Navigator.push`** — Migrate to go_router declarative navigation.
 6. **Manual JSON serialization** — Use freezed + json_serializable with build_runner or Dart macros.
+7. **Missing Mandatory Store Legal Deliverables** — Apple App Store Guideline 5.1.1(v) & Google Play Data Safety strictly require providing in-app account deletion, a public web deletion URL (`/delete-account` or `/data-deletion`), live Privacy Policy (`/privacy`), and Terms & Conditions (`/terms`).
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -329,6 +330,9 @@ Gunakan `GoRouter` dengan `ShellRoute` untuk navigasi tab, `redirect` untuk auth
 - **Unit test**: Test provider dan repository dengan `ProviderContainer` overrides.
 - **Widget test**: Test UI komponen secara isolasi dengan `testWidgets`.
 - **Integration test**: Test alur pengguna lengkap dengan `integration_test` package.
+
+#### 6. Kepatuhan Toko Aplikasi Wajib: Trio Hukum & Privasi
+Setiap aplikasi Flutter yang mendukung autentikasi akun WAJIB menyertakan: (1) Tombol Hapus Akun & Data di pengaturan profil pengguna, (2) URL publik permohonan hapus data (`/delete-account` atau `/data-deletion`), (3) URL Kebijakan Privasi (`/privacy`), dan (4) URL Syarat & Ketentuan (`/terms`) sesuai Apple 5.1.1(v) & Google Play Data Safety.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

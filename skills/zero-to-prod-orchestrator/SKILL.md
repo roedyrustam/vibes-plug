@@ -80,7 +80,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 #### PHASE 1: Discovery & AI PRD Architectural Planning
 **Orchestrates:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`, `reverse-engineer-anything`, `rea-tool-design`, `rea-analysis-optimization`
 - [ ] Conduct structured dialogue to clarify product intent, target audience, and non-functional goals.
-- [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOCUMENTATION.md) alongside the Roadmap (ROADMAP.md).
+- [ ] Automatically draft a comprehensive Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), and Documentation (DOCUMENTATION.md) alongside the Roadmap (ROADMAP.md), mandating the Legal & Privacy Trio: Privacy Policy, Terms & Conditions, and User Data Deletion flow.
 - [ ] Determine dynamic thinking budget profile (`thinking-budget-orchestrator`) across speed (1,024t), balanced (4,096t), deep (32,768t), or exhaustive (65,536t).
 - [ ] Plan AI/LLM integration strategy (Vercel AI SDK, MCP Server tools, or Multi-Agent Graph).
 - [ ] For existing projects: audit dependency health and plan upgrades with `dependency-upgrade-migrator`.
@@ -105,6 +105,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 **Orchestrates:** `js-backend-expert`, `cloudflare-workers-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `a2a-agent-protocol-expert`, `durable-agent-execution-expert`, `computer-use-os-agent-expert`, `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `double-entry-ledger-fintech-expert`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `xerj-search-expert`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`, `thinking-budget-orchestrator`, `structured-output-contracts`, `parallel-tool-orchestrator`
 - [ ] Build high-throughput REST / GraphQL / gRPC APIs using Fastify 5, NestJS, Hono, Gin, or Axum.
 - [ ] Implement authentication (Clerk, Auth.js, Supabase Auth) and RBAC middleware.
+- [ ] Implement mandatory User Data Deletion API endpoint (`POST /api/user/delete-account` or `DELETE /api/user/account` / `POST /api/privacy/data-deletion`) executing cascading anonymization and crypto-shredding compliant with UU PDP No. 27/2022 and GDPR Art. 17 while preserving statutory financial ledger records.
 - [ ] Build MCP Server tools or stateful LangGraph multi-agent workflows with human-in-the-loop gates.
 - [ ] Orchestrate concurrent parallel tool execution (`parallel-tool-orchestrator`) with `vibes_batch` and `Promise.allSettled`.
 - [ ] Enforce strict schema guarantees and zero-drift output types (`structured-output-contracts`).
@@ -131,7 +132,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Convert UI screenshots, Figma frames, or whiteboard sketches into pixel-perfect frontend components with `screenshot-to-code-expert`.
 - [ ] Integrate data visualizations (Recharts/Tremor/D3) and rich text editors (Tiptap/Lexical).
 - [ ] Build React 19 / Next.js 15, Vue 3, Astro 5, Svelte 5, SolidJS 2, or Angular 19+ apps with state management and Web3 wallets.
-- [ ] **MANDATORY**: Automatically scaffold standard pages: About, Profile, Contact, Terms of Reference/Service, and Privacy Policy.
+- [ ] **MANDATORY**: Automatically scaffold standard pages and the Legal & Privacy Trio: About (`/about`), Profile (`/profile`), Contact (`/contact`), Terms & Conditions (`/terms` or `/terms-and-conditions`), Privacy Policy (`/privacy` or `/privacy-policy`), and User Data Deletion (`/delete-account` or `/data-deletion`) with self-service request UI.
 - [ ] Implement complex forms with React Hook Form + Zod validation.
 - [ ] If 3D Web or Web Games: architect with WebGPU (`WebGPURenderer`, PlayCanvas, or Babylon.js), KTX2 Basis Universal texture compression, Meshopt geometry, fixed-timestep physics loops, zero-GC object pooling, and 3D spatial audio.
 - [ ] If SPA architecture — coordinate with `spa-orchestrator` for routing (TanStack Router), state (TanStack Query v5), and decoupled API layer.
@@ -148,6 +149,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Implement Error Boundaries, retry patterns, circuit breakers, and graceful degradation.
 - [ ] Set up structured logging (Pino) and error tracking (Sentry) with source map uploads.
 - [ ] Audit CORS, CSP headers, rate-limiting, and input sanitization.
+- [ ] Verify Legal & Privacy compliance endpoints: Privacy Policy (`/privacy`), Terms & Conditions (`/terms`), and User Data Deletion (`/delete-account` or `/data-deletion`) are accessible, fully populated, and verified against UU PDP / GDPR / App Store requirements.
 - [ ] Run automated Anti-Slop Audit (`node scripts/check-anti-slop.js --strict`) to eliminate placeholders, syntax comments, and mock data before user handoff.
 - [ ] Run Zero Technical Debt audit (`zero-tech-debt-auditor`) for dead code elimination (Knip protocol), DRY enforcement, and TypeScript strictness.
 
@@ -285,7 +287,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 #### FASE 1: Discovery & Perencanaan Arsitektur PRD AI
 **Mengorkestrasi:** `prd-architect`, `brainstorming`, `deep-research-analyst`, `mcp-server-architect`, `session-memory-manager`, `dependency-upgrade-migrator`, `app-analyzer-optimizer`, `seo`, `saas-architect`, `web-scraper`, `website-design-cloner`, `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `headless-cms-expert`, `wordpress-headless-expert`, `documentation-site-expert`, `anti-slop`, `speculative-multi-draft-synthesizer`, `thinking-budget-orchestrator`
 - [ ] Dialog terstruktur untuk memperjelas tujuan produk, audiens target, dan persyaratan non-fungsional.
-- [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOCUMENTATION.md) yang komprehensif beserta Roadmap (ROADMAP.md).
+- [ ] Secara otomatis menyusun Product Requirements Document (PRD.md), Entity Relationship Diagram (ERD.md), dan Dokumentasi (DOCUMENTATION.md) yang komprehensif beserta Roadmap (ROADMAP.md), mewajibkan Trio Kepatuhan Hukum & Privasi: Kebijakan Privasi, Syarat & Ketentuan, dan alur Hapus Data.
 - [ ] Tentukan profil thinking budget dinamis (`thinking-budget-orchestrator`) antara speed (1.024t), balanced (4.096t), deep (32.768t), atau exhaustive (65.536t).
 - [ ] Merencanakan integrasi AI/LLM (Vercel AI SDK, alat MCP Server, atau Graf Multi-Agen).
 - [ ] Untuk proyek yang sudah ada: audit kesehatan dependensi dan rencanakan upgrade dengan `dependency-upgrade-migrator`.
@@ -310,6 +312,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 **Mengorkestrasi:** `js-backend-expert`, `cloudflare-workers-expert`, `go-programming-expert`, `pydantic-ai-expert`, `vercel-ai-sdk-expert`, `frontier-ai-models-expert`, `synthetic-data-finetuning-expert`, `graphql-apollo-expert`, `openapi-swagger-codegen-expert`, `spec-driven-development-expert`, `ai-llm-integration-expert`, `ai-prompt-engineering-expert`, `ai-media-generation-expert`, `multi-agent-orchestration`, `mcp-server-architect`, `a2a-agent-protocol-expert`, `durable-agent-execution-expert`, `computer-use-os-agent-expert`, `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `email-notification-expert`, `cron-scheduler-expert`, `rate-limit-abuse-prevention`, `file-upload-media-expert`, `saas-billing`, `double-entry-ledger-fintech-expert`, `agentic-micro-economy-architect`, `agentic-m2m-settlement`, `payment-gateway-expert`, `vector-db-rag-expert`, `async-queue-temporal-expert`, `doku-mcp-server`, `xerj-search-expert`, `event-driven-architect`, `gemini-agent-booster`, `realtime-collaboration-expert`, `api-gateway-proxy-expert`, `wasm-edge-computing-expert`, `sse-websocket-streaming-expert`, `n8n-automation-expert`, `chatbot-messaging-expert`, `pdf-document-generation-expert`, `ecommerce-expert`, `blockchain-web3-expert`, `local-slm-edge-ai-expert`, `voice-ai-realtime-agent`, `affective-computing-emotion-ai`, `graph-rag-knowledge-expert`, `browser-automation-expert`, `agentic-memory-architect`, `llm-finops-router`, `test-time-compute-optimizer`, `kv-cache-prefix-optimizer`, `speculative-multi-draft-synthesizer`, `autonomous-api-drift-healer`, `ephemeral-wasm-sandbox-executor`, `context-window-engineer`, `adaptive-model-cascade`, `llm-observability-expert`, `prompt-injection-firewall`, `thinking-budget-orchestrator`, `structured-output-contracts`, `parallel-tool-orchestrator`
 - [ ] Bangun API REST / GraphQL / gRPC *high-throughput* menggunakan Fastify 5, NestJS, Hono, Gin, atau Axum.
 - [ ] Mengimplementasikan autentikasi (Clerk, Auth.js, Supabase Auth) dan middleware RBAC.
+- [ ] Mengimplementasikan endpoint API Hapus Data Pengguna wajib (`POST /api/user/delete-account` atau `DELETE /api/user/account` / `POST /api/privacy/data-deletion`) dengan *cascading anonymization* dan *crypto-shredding* sesuai mandat UU No. 27/2022 (UU PDP) dan GDPR Art. 17 dengan preservasi buku besar keuangan.
 - [ ] Membangun alat MCP Server atau alur kerja multi-agen LangGraph berbasis state dengan gerbang *human-in-the-loop*.
 - [ ] Orkestrasikan eksekusi paralel multi-tool concurrent (`parallel-tool-orchestrator`) dengan `vibes_batch` dan `Promise.allSettled`.
 - [ ] Tegakkan penjaminan skema terstruktur zero-drift (`structured-output-contracts`).
@@ -336,7 +339,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Konversi screenshot antarmuka, frame Figma, atau sketsa whiteboard menjadi komponen frontend siap produksi dengan `screenshot-to-code-expert`.
 - [ ] Integrasikan visualisasi data (Recharts/Tremor/D3) dan editor rich text (Tiptap/Lexical).
 - [ ] Buat halaman React 19 / Next.js 15, Vue 3, Astro 5, Svelte 5, SolidJS 2, atau Angular 19+ dengan wallet Web3.
-- [ ] **MANDATORY**: Otomatis buat halaman standar: About, Profile, Contact, Terms of Reference/Service, dan Privacy Policy.
+- [ ] **MANDATORY**: Otomatis buat halaman standar dan Trio Kepatuhan Hukum & Privasi: About (`/about`), Profile (`/profile`), Contact (`/contact`), Syarat & Ketentuan (`/terms`), Kebijakan Privasi (`/privacy` atau `/privacy-policy`), dan Hapus Data Pengguna (`/delete-account` atau `/data-deletion`) dengan formulir permohonan hapus data mandiri.
 - [ ] Mengimplementasikan formulir kompleks dengan React Hook Form + validasi Zod.
 - [ ] Jika Web 3D atau Web Game: arsitekturkan dengan WebGPU (`WebGPURenderer`, PlayCanvas, atau Babylon.js), kompresi tekstur KTX2 Basis Universal, geometri Meshopt, loop fisika fixed-timestep, zero-GC object pooling, dan audio spasial 3D.
 - [ ] Jika arsitektur SPA — koordinasikan dengan `spa-orchestrator` untuk routing (TanStack Router), state (TanStack Query v5), dan API layer terpisah.
@@ -355,6 +358,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Mengimplementasikan Error Boundary, pola retry, circuit breaker, dan degradasi anggun.
 - [ ] Menyiapkan logging terstruktur (Pino) dan pelacakan error (Sentry) dengan upload source map.
 - [ ] Mengaudit CORS, CSP headers, rate-limiting, dan sanitasi input.
+- [ ] Memverifikasi rute Hukum & Privasi wajib: Kebijakan Privasi (`/privacy`), Syarat & Ketentuan (`/terms`), dan Hapus Data Pengguna (`/delete-account` atau `/data-deletion`) aktif, dapat diakses publik, dan teruji sesuai standar UU PDP & Store Policy.
 - [ ] Menjalankan audit Anti-Slop otomatis (`node scripts/check-anti-slop.js --strict`) untuk membersihkan placeholder, komentar sintaksis, dan data tiruan sebelum serah terima ke pengguna.
 - [ ] Menjalankan audit Zero Technical Debt (`zero-tech-debt-auditor`) untuk eliminasi kode mati (protokol Knip), penegakan DRY, dan ketelitian TypeScript.
 
@@ -387,15 +391,16 @@ This generated image MUST be explicitly used as:
 Do not use placeholders for these assets. Generate and integrate them automatically. If `generate_image` is unavailable, delegate to `ai-media-generation-expert` skill.
 
 ---
-### 📄 Standard Pages Mandate (CRITICAL)
+### 📄 Standard Pages & Legal Compliance Mandate (CRITICAL)
 **MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
 1. **About Page** (`/about`)
 2. **Profile Page** (`/profile`)
 3. **Contact Page** (`/contact`)
-4. **Terms of Reference / Terms of Service** (`/terms`)
-5. **Privacy Policy** (`/privacy-policy`)
+4. **Terms & Conditions / Syarat & Ketentuan** (`/terms` or `/terms-and-conditions`)
+5. **Privacy Policy / Kebijakan Privasi** (`/privacy` or `/privacy-policy`)
+6. **User Data Deletion / Hapus Data** (`/delete-account` or `/data-deletion`)
 
-These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+These pages and deletion mechanisms must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web and mobile projects. / **WAJIB**: Otomatis buatkan halaman standar dan Trio Kepatuhan Hukum & Privasi Wajib (About, Profile, Contact, Syarat & Ketentuan, Kebijakan Privasi, Hapus Data) pada setiap pembuatan aplikasi baru.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

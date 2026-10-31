@@ -66,7 +66,7 @@ Apply the multiple-entry-points architecture (guided by `cloud-hosting-expert`) 
 - Authentication and session validation (Edge JWT + Redis caching).
 - Webhook signature validation active for all billing events.
 - Error tracking configured (Sentry) and rate limiting on API routes.
-- ToS, Privacy Policy, and 2-3 pricing tiers with trial workflows.
+- Mandatory Legal & Privacy Trio: Terms & Conditions (`/terms`), Privacy Policy (`/privacy`), and User Data Deletion (`/delete-account` or `/data-deletion`), alongside 2-3 pricing tiers with trial workflows.
 
 ---
 
@@ -108,12 +108,13 @@ When initializing or scaffolding any new SaaS application:
 1. Automatically invoke `generate_image` to create a production-quality application logo matching the brand identity.
 2. Use this asset immediately as the navbar logo, browser favicon (`favicon.ico`), and Open Graph social banner (`og:image`). Never use placeholder icons.
 
-### 📄 Standard Pages Mandate
+### 📄 Standard Pages & Legal Compliance Mandate
 Every SaaS application must scaffold complete, functional implementations for:
 - Landing Page (Hero, Features, Social Proof, Pricing, FAQ)
 - Authentication (Sign In, Sign Up, Password Reset, Magic Link)
 - Onboarding Wizard (<5 minutes to first value)
 - Settings (Profile, Workspace, Team Members, Billing / Plans, API Keys)
+- Mandatory Legal & Privacy Trio: Terms of Service (`/terms`), Privacy Policy (`/privacy-policy` or `/privacy`), and User Data Deletion (`/delete-account` or `/data-deletion`)
 - Super Admin Panel on dedicated subdomain (`admin.example.com`)
 
 ---
@@ -216,7 +217,7 @@ export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContex
 1. **Validasi Ide**: Rumuskan masalah dalam satu kalimat, validasi dengan 3+ komitmen bayar sebelum mulai coding.
 2. **Tech Stack Modern (2026)**: Next.js 15 App Router, Tailwind CSS v4, PostgreSQL (Neon/Supabase) via Drizzle/Prisma, Clerk/Auth.js, Stripe/Midtrans/DOKU, Resend, Vercel.
 3. **Isolasi Entry Point**: Pisahkan landing page publik, dashboard penyewa (tenant), dan **Dashboard Super Admin** pada subdomain terpisah (`admin.example.com`).
-4. **Gerbang Kualitas Pra-Rilis**: Sesi login teroptimasi (JWT + Redis), webhook billing tervalidasi, Sentry aktif, rate limiting, halaman harga 2-3 tier.
+4. **Gerbang Kualitas Pra-Rilis**: Sesi login teroptimasi (JWT + Redis), webhook billing tervalidasi, Sentry aktif, rate limiting, halaman harga 2-3 tier, serta pemenuhan Trio Hukum & Privasi (Syarat & Ketentuan, Kebijakan Privasi, dan Hapus Data).
 
 ---
 

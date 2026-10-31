@@ -126,6 +126,44 @@ export const logger = pino({
 - [ ] **Searchable PII Uses Blind Indexing**: Sensitive identifiers (NIK/KTP, SSN, Passport) are encrypted with AES-256-GCM and queried via a keyed `HMAC-SHA256` blind index column.
 - [ ] **Explicit Opt-In Consent Audit Trail**: Marketing and analytics scripts remain blocked until a signed row in `user_privacy_consents` records `policy_version` and `granted_at`.
 - [ ] **Zero Plaintext PII in Logs or LLMs**: Logger redaction (`[REDACTED_PII]`) is active across all microservices and AI prompt pipelines.
+- [ ] **Mandatory Legal & Privacy Trio Deployed**: Public routes for Privacy Policy (`/privacy`), Terms & Conditions (`/terms`), and User Data Deletion (`/delete-account` or `/data-deletion`) are live and operational.
+
+### 5. Mandatory Web & Mobile Legal Trio (Privacy Policy, Terms, Data Deletion)
+Every new application MUST automatically instantiate the **Legal & Privacy Trio**:
+
+1. **Privacy Policy (`/privacy` or `/privacy-policy`)**:
+   - Comprehensive statement of PII collected, legal bases, cookies, subprocessors, and data subject rights under UU No. 27/2022 (UU PDP) & GDPR.
+2. **Terms & Conditions (`/terms` or `/terms-and-conditions`)**:
+   - Binding agreement detailing acceptable use, account liabilities, billing terms, and governing law (e.g. Laws of the Republic of Indonesia).
+3. **Public Data Deletion Request Page & In-App Flow (`/delete-account` or `/data-deletion`)**:
+   - Meets **Google Play Data Safety** & **Apple App Store Guideline 5.1.1(v)**:
+     - Public URL where users can request account and data deletion without re-installing the mobile app.
+     - In-app Account Settings deletion button with secondary confirmation.
+     - Wired to `POST /api/privacy/data-deletion` (initiating crypto-shredding and cascading anonymization).
+
+```typescript
+// app/api/privacy/data-deletion/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const deletionRequestSchema = z.object({
+  email: z.string().email(),
+  confirmationCode: z.string().min(6),
+});
+
+export async function POST(req: NextRequest) {
+  const body = await req.json();
+  const parsed = deletionRequestSchema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'INVALID_REQUEST', details: parsed.error.issues }, { status: 400 });
+  }
+
+  return NextResponse.json({
+    status: 'DELETION_INITIATED',
+    message: 'User data anonymization and crypto-shredding scheduled successfully.',
+  });
+}
+```
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -175,6 +213,13 @@ CREATE INDEX idx_user_consents ON user_privacy_consents (user_id, consent_type);
 - [ ] **Enkripsi & Blind Index**: Enkripsi kolom sensitif (NIK/KTP/No. HP) menggunakan AES-256-GCM dan gunakan *HMAC-SHA256 blind index* untuk pencarian cepat.
 - [ ] **Opt-In Sebelum Pelacakan**: Blokir seluruh skrip pelacak analitik pihak ketiga sebelum pengguna memberikan persetujuan eksplisit.
 - [ ] **Sensor Log Otomatis**: Aktifkan redaksi otomatis (`[REDACTED_PII]`) pada logger Pino/Winston.
+- [ ] **Trio Hukum & Privasi Aktif**: Rute publik untuk Kebijakan Privasi (`/privacy`), Syarat & Ketentuan (`/terms`), dan Hapus Data (`/delete-account` atau `/data-deletion`) aktif dan terhubung ke backend.
+
+### Mandat Wajib Trio Hukum & Privasi (Kebijakan Privasi, Syarat & Ketentuan, Hapus Data)
+Setiap aplikasi baru WAJIB menyertakan implementasi tuntas dari:
+1. **Kebijakan Privasi (`/privacy` atau `/privacy-policy`)**: Rincian pemrosesan data pribadi sesuai amanat UU No. 27 Tahun 2022 (UU PDP).
+2. **Syarat & Ketentuan (`/terms`)**: Aturan main, hak kekayaan intelektual, dan batasan tanggung jawab hukum.
+3. **Hapus Data Pengguna (`/delete-account` atau `/data-deletion`)**: URL publik & tombol aksi di profil pengguna untuk permohonan hapus data mandiri (kewajiban Apple HIG 5.1.1(v) & Google Play Data Safety) yang memicu alur *crypto-shredding* tanpa merusak integritas pembukuan pajak.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -29,6 +29,7 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 - `domain-driven-design-expert` (Bounded Contexts & Aggregate Roots)
 - `spec-driven-development-expert` (TypeSpec Contract-First Design & OpenAPI 3.1)
 - `saas-architect` (Multi-tenant & Scalable SaaS Design)
+- `compliance-gdpr-privacy-expert` (Data Privacy Compliance & Legal Trio)
 - `zero-to-prod-orchestrator` (Phase 1: Discovery & Planning)
 
 ---
@@ -44,6 +45,7 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
    - `PRD.md`: Concrete features, user stories, acceptance criteria, and API contracts. Zero marketing fluff.
    - `ERD.md`: Full entity schemas, PostgreSQL DDL with proper Foreign Keys, and Row Level Security (RLS) policies.
    - `DOCUMENTATION.md`: System topology, component boundaries, and directory layout.
+   - Enforce Mandatory Legal & Privacy Trio in specifications: Privacy Policy (`/privacy`), Terms & Conditions (`/terms`), and User Data Deletion flow (`/delete-account` or `/data-deletion`) compliant with UU No. 27/2022 (UU PDP) & GDPR.
 
 3. **Subagent Fan-Out Preparation**:
    - Create a clean `CONTEXT_MAP.md` slice summarizing types and contracts so downstream subagents (`fullstack-craftsman`, `quality-guardian`) can execute without token waste.

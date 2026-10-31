@@ -111,7 +111,7 @@ Before asking any questions, inspect the environment:
   - *Subagent B (Market & Competitive Tech Discovery)*: Delegate to `deep-research-analyst` and `web-scraper` if analyzing external API specifications or competitor solutions.
   - *Subagent C (Security & Compliance Bounds)*: Delegate to `compliance-gdpr-privacy-expert` and `zero-trust-secret-vault` to identify regulatory requirements.
 - **Episodic Memory Recall**: Consult `session-memory-manager` or `xerj-search-expert` (`xerj_memory_recall`) to identify prior architectural decisions, schema conventions, and workspace rules.
-- **PRD Mandatory Scaffolding**: Invoke `prd-architect` to **mandatorily generate a `PRD.md` file** if this is a new application, or update it if it already exists.
+- **PRD Mandatory Scaffolding**: Invoke `prd-architect` to **mandatorily generate a `PRD.md` file** if this is a new application, or update it if it already exists, ensuring the Legal & Privacy Trio (Privacy Policy, Terms & Conditions, User Data Deletion) is specified.
 - Identify implicit constraints and note missing requirements.
 
 #### Step 2️⃣: Product Ideation (Tri-Track Adaptive Dialogue)
@@ -135,6 +135,7 @@ Explicitly clarify or propose assumptions for modern web & software pillars, inv
 - **Accessibility & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, aria tags, locale routing).
 - **Anti-Slop Direction & Liveliness Gate (R-37):** `anti-slop` (Declare one-line Design Read: `"Reading this as: <page kind> for <audience>, in a <visual language> style, dial <ENERGY/RHYTHM/MOTION>"`). Settle direction before building; if ambiguous, ask one decisive question; if direction is absent and user cannot be asked, default to honest dials ENERGY 1 / RHYTHM 1 / MOTION 1.
 - **SEO & Discovery:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
+- **Legal, Privacy & Compliance:** `compliance-gdpr-privacy-expert` (Mandatory Legal & Privacy Trio: Privacy Policy `/privacy`, Terms & Conditions `/terms`, and User Data Deletion `/delete-account` or `/data-deletion` under UU PDP No. 27/2022, GDPR Art. 17, Apple App Store 5.1.1(v), and Google Play Data Safety).
 
 If the user is uncertain, propose modern defaults (e.g. Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) and explicitly tag them as **[ASSUMPTIONS]**.
 
@@ -335,7 +336,7 @@ Sebelum mengajukan pertanyaan, periksa lingkungan proyek:
   - *Subagent B (Riset Pasar & Teknologi Kompetitor)*: Delegasikan ke `deep-research-analyst` dan `web-scraper` jika menganalisis spesifikasi API eksternal atau solusi kompetitor.
   - *Subagent C (Batasan Keamanan & Kepatuhan)*: Delegasikan ke `compliance-gdpr-privacy-expert` dan `zero-trust-secret-vault` untuk mengidentifikasi regulasi dan batasan rahasia.
 - **Pemanggilan Memori Episodik**: Konsultasikan `session-memory-manager` atau `xerj-search-expert` (`xerj_memory_recall`) untuk mengenali keputusan arsitektur lampau, konvensi skema, dan aturan workspace.
-- **Pemicu Wajib PRD**: Panggil `prd-architect` untuk **wajib menghasilkan file `PRD.md`** jika ini adalah aplikasi baru, atau memperbaruinya jika sudah ada.
+- **Pemicu Wajib PRD**: Panggil `prd-architect` untuk **wajib menghasilkan file `PRD.md`** jika ini adalah aplikasi baru, atau memperbaruinya jika sudah ada, memastikan Trio Hukum & Privasi (Kebijakan Privasi, Syarat & Ketentuan, Hapus Data) terdefinisi secara terikat.
 - Catat batasan-batasan implisit dan persyaratan yang belum jelas.
 
 #### Langkah 2️⃣: Ideasi Produk (Dialog Adaptif Tri-Track)
@@ -359,6 +360,7 @@ Secara eksplisit perjelas atau usulkan asumsi untuk pilar-pilar perangkat lunak 
 - **Aksesibilitas & i18n:** `global-a11y-i18n-expert` (WCAG 2.2 AAA, tag aria, navigasi bahasa).
 - **Arah Visual & Gate Liveliness Anti-Slop (R-37):** `anti-slop` (Deklarasikan satu baris Design Read: `"Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>"`). Tentukan arah visual sebelum implementasi; jika ambigu, ajukan satu pertanyaan penentu; jika tanpa arahan, gunakan dial default yang jujur: ENERGY 1 / RHYTHM 1 / MOTION 1.
 - **SEO & Penemuan:** `seo` (AI Overviews, Schema.org JSON-LD, `/llms.txt`).
+- **Kepatuhan Hukum & Privasi:** `compliance-gdpr-privacy-expert` (Trio Hukum & Privasi Wajib: Kebijakan Privasi `/privacy`, Syarat & Ketentuan `/terms`, dan Hapus Data `/delete-account` atau `/data-deletion` berdasarkan UU PDP No. 27/2022, GDPR Art. 17, Apple HIG 5.1.1(v), dan Google Play Data Safety).
 
 Jika pengguna ragu, berikan rekomendasi default modern (misal: Next.js 15 + Supabase + Tailwind v4 + Vercel AI SDK) dan tandai sebagai **[ASUMSI]**.
 

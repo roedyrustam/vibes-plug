@@ -18,6 +18,7 @@ version: "4.4.4"
 ### Orchestration & Integration
 - **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 2 - Foundation, Auth & Identity Architecture) to implement secure user authentication.
 - **Downstream Cooperating Skills**:
+  - `compliance-gdpr-privacy-expert` — Mandatory account deletion flow, crypto-shredding, and UU PDP / GDPR right to erasure.
   - `saas-architect` — B2B multi-tenant auth workflows, organization switching, and onboarding.
   - `saas-multi-tenant` — RBAC permission matrices, custom session claims, and workspace member access.
   - `supabase-security-expert` — Supabase SSR auth, PKCE token cookies, and RLS policies.
@@ -35,6 +36,7 @@ Production-grade guide for implementing secure authentication, authorization, an
 - Implementing RBAC (Role-Based Access Control) or ABAC.
 - Setting up WebAuthn/Passkeys, MFA/2FA, or SSO.
 - Securing Next.js App Router routes with middleware-based auth guards.
+- Implementing mandatory self-service account deletion and user data deletion lifecycle.
 
 ---
 
@@ -157,6 +159,7 @@ export async function getPasskeyRegistrationOptions(userId: string, userEmail: s
 - [ ] PKCE enforced for all public OAuth clients.
 - [ ] Authorization enforced on server actions and API routes (never UI only).
 - [ ] Rate limiting on login and signup endpoints.
+- [ ] Mandatory self-service account and personal data deletion available in user settings and public URL (`/delete-account` or `/data-deletion`) compliant with Apple App Store 5.1.1(v) & Google Play Data Safety policies.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -175,6 +178,7 @@ export async function getPasskeyRegistrationOptions(userId: string, userEmail: s
 ### Integrasi Orkestrasi
 - **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 2 - Fondasi, Autentikasi & Arsitektur Identitas) untuk mengimplementasikan autentikasi pengguna yang aman.
 - **Skill Hilir & Kerja Sama**:
+  - `compliance-gdpr-privacy-expert` — Alur wajib penghapusan akun mandiri, crypto-shredding, dan kepatuhan hak penghapusan data UU PDP / GDPR.
   - `saas-architect` — Alur kerja autentikasi B2B SaaS, perpindahan organisasi, dan onboarding.
   - `saas-multi-tenant` — Matriks izin RBAC, custom claims sesi, dan akses anggota workspace.
   - `supabase-security-expert` — Konfigurasi otentikasi Supabase SSR, cookie PKCE, dan kebijakan RLS.
@@ -301,6 +305,7 @@ export function validasiIzin(peran: PeranPengguna, izinYangDibutuhkan: string): 
 - [ ] Alur OAuth 2.1 publik wajib menerapkan `PKCE` (Proof Key for Code Exchange) dengan challenge SHA-256.
 - [ ] Otorisasi hak akses divalidasi ketat pada Server Action dan API Route (bukan sekadar menyembunyikan tombol UI).
 - [ ] Proteksi brute-force dengan pembatasan laju (*Rate Limiting*) pada endpoint login dan pendaftaran.
+- [ ] Fitur hapus akun dan data pribadi mandiri tersedia di pengaturan profil dan URL publik (`/delete-account` atau `/data-deletion`) memenuhi syarat Apple 5.1.1(v) dan Google Play.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

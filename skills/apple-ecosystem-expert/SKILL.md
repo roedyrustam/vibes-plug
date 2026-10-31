@@ -321,6 +321,7 @@ export async function subscribeToAppleWebPush(applicationServerKey: string): Pro
 - [ ] Translucent toolbars and navigation bars utilize `backdrop-filter: blur(20px) saturate(180%)`.
 - [ ] `/.well-known/apple-app-site-association` is served over HTTPS with `Content-Type: application/json` and zero redirects.
 - [ ] Destructive actions are styled in system red (`#FF3B30` / `#FF453A`) with a secondary confirmation dialog.
+- [ ] Mandatory Apple App Store Guideline 5.1.1(v) Compliance: In-app account and data deletion action is functional, accompanied by a public web deletion URL (`/delete-account` or `/data-deletion`), Privacy Policy URL (`/privacy`), and Terms of Service URL (`/terms`).
 
 ---
 
@@ -394,6 +395,7 @@ Terapkan token resmi Apple HIG langsung pada CSS atau Tailwind v4:
 - [ ] Bilah navigasi melayang menerapkan efek Liquid Glass (`backdrop-filter: blur(20px) saturate(180%)`).
 - [ ] File `/.well-known/apple-app-site-association` disajikan via HTTPS dengan `Content-Type: application/json` tanpa redirect.
 - [ ] Aksi destruktif diwarnai merah sistem (`#FF3B30` / `#FF453A`) dengan konfirmasi sekunder.
+- [ ] Kepatuhan Wajib Apple Guideline 5.1.1(v): Tombol Hapus Akun & Data tersedia di dalam aplikasi dan didukung URL web publik (`/delete-account` atau `/data-deletion`), berdampingan dengan tautan resmi Kebijakan Privasi (`/privacy`) dan Syarat & Ketentuan (`/terms`).
 
 ---
 

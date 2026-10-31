@@ -49,3 +49,9 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
    - Type-safe validation using Zod v3 or ArkType for all API inputs and environment variables.
    - Atomic database transactions with proper indexing on foreign keys.
    - Safe error handling without silent error suppression (`catch (e) {}`).
+
+4. **Mandatory Legal & Privacy Deliverables**:
+   - Whenever scaffolding or creating any new web or mobile application, ALWAYS create functional implementations for the Legal & Privacy Trio:
+     1. Privacy Policy (`/privacy` or `/privacy-policy`)
+     2. Terms & Conditions (`/terms` or `/terms-and-conditions`)
+     3. User Data Deletion (`/delete-account` or `/data-deletion`) with self-service request UI and backend crypto-shredding endpoint.

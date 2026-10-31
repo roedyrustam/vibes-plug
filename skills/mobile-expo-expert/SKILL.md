@@ -171,6 +171,12 @@ export function AppThemeProvider({ children }: { children: React.ReactNode }) {
 }
 ```
 
+#### 10. Mandatory Store Compliance: Legal & Privacy Trio
+Apple App Store Guideline 5.1.1(v) and Google Play Data Safety mandate that any app supporting user registration MUST provide:
+1. **In-App Account & Data Deletion Action**: An explicit, accessible "Delete Account / Hapus Data" button in Settings/Profile triggering backend crypto-shredding and session revocation.
+2. **Public Data Deletion Web URL**: A functional public web page (e.g. `https://yourdomain.com/delete-account` or `/data-deletion`) where users can submit deletion requests without installing the app.
+3. **Public Privacy Policy & Terms URLs**: Standard live URLs (`/privacy` and `/terms`) detailing data processing, retention, and governing laws under UU PDP & GDPR.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -255,6 +261,12 @@ Dorong pembaruan instan ke pengguna tanpa melalui review App Store. Gunakan chan
 Terapkan spesifikasi M3 (https://m3.material.io/) untuk theming dinamis pada Android dan iOS:
 - Gunakan `@material/material-color-utilities` untuk mengekstrak 5 palet tonal M3 dari warna seed brand.
 - Integrasikan dengan `react-native-paper` (MD3Theme) atau custom design tokens untuk memastikan peran warna (`primary`, `primaryContainer`, `surface`, `surfaceContainer`) dan elevasi tonal beradaptasi sempurna dengan tema terang dan gelap sistem.
+
+#### 8. Kepatuhan Wajib Toko Aplikasi: Trio Hukum & Privasi
+Pedoman Apple App Store 5.1.1(v) dan Kebijakan Google Play Data Safety mewajibkan setiap aplikasi yang mendukung pendaftaran pengguna menyediakan:
+1. **Aksi Hapus Akun & Data Mandiri di Dalam Aplikasi**: Tombol "Hapus Akun / Hapus Data" yang mudah diakses di layar Profil/Pengaturan dengan konfirmasi sekunder, mengeksekusi *crypto-shredding* di backend.
+2. **URL Halaman Web Hapus Data Publik**: Halaman web publik (misal: `https://domain.com/delete-account` atau `/data-deletion`) yang memungkinkan pengguna mengajukan permohonan hapus data tanpa harus menginstal aplikasi kembali.
+3. **URL Publik Kebijakan Privasi & Syarat Ketentuan**: Tautan rute standar (`/privacy` dan `/terms`) yang transparan sesuai amanat UU No. 27 Tahun 2022 (UU PDP).
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

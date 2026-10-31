@@ -191,15 +191,16 @@ Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry po
 - Menambahkan interaktivitas ke halaman server-rendered dengan HTMX 2 tanpa menulis ulang ke SPA.
 
 ---
-### 📄 Standard Pages Mandate (CRITICAL)
+### 📄 Standard Pages & Legal Compliance Mandate (CRITICAL)
 **MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
 1. **About Page** (`/about`)
 2. **Profile Page** (`/profile`)
 3. **Contact Page** (`/contact`)
-4. **Terms of Reference / Terms of Service** (`/terms`)
-5. **Privacy Policy** (`/privacy-policy`)
+4. **Terms & Conditions / Syarat & Ketentuan** (`/terms` or `/terms-and-conditions`)
+5. **Privacy Policy / Kebijakan Privasi** (`/privacy` or `/privacy-policy`)
+6. **User Data Deletion / Hapus Data** (`/delete-account` or `/data-deletion`)
 
-These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+These pages and data deletion mechanisms must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar dan Trio Kepatuhan Hukum & Privasi Wajib (About, Profile, Contact, Syarat & Ketentuan, Kebijakan Privasi, Hapus Data) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
