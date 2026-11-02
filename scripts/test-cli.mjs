@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import vm from 'node:vm';
@@ -1733,11 +1733,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       'not ok 45 - Option A & B: dynamic MCP tool masking, hardened TS/WASM sandbox',
       '  ---',
       '  duration_ms: 120.4',
-      '  location: \'file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/scripts/wasm-sandbox.mjs:108:11\'',
+      `  location: '${pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs')).href}:108:11'`,
       '  failureType: \'testCodeFailure\'',
       '  error: |-',
       '    Error: TypeScript execution requires Node.js >= 22.13',
-      '        at stripTypeScript (file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/scripts/wasm-sandbox.mjs:108:11)',
+      `        at stripTypeScript (${pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'wasm-sandbox.mjs')).href}:108:11)`,
       '  ...'
     ].join('\n');
 
