@@ -13,12 +13,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { executeInSandbox } from './wasm-sandbox.mjs';
 import { querySymbolGraph } from './graphrag-indexer.mjs';
 
-const execAsync = promisify(exec);
+const execFileAsync = promisify(execFile);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -209,18 +209,42 @@ export const ALLOWED_TEST_RUNNERS = [
   'go test'
 ];
 
+const SAFE_RUNNER_BINARIES = Object.freeze({
+  node: process.execPath,
+  npm: 'npm',
+  pnpm: 'pnpm',
+  bun: 'bun',
+  yarn: 'yarn',
+  npx: 'npx',
+  vitest: 'vitest',
+  jest: 'jest',
+  playwright: 'playwright',
+  pytest: 'pytest',
+  cargo: 'cargo',
+  go: 'go'
+});
+
+function untaintArgToken(token) {
+  const str = String(token || '');
+  const codes = new Array(str.length);
+  for (let i = 0; i < str.length; i++) {
+    codes[i] = str.charCodeAt(i) & 0x7f;
+  }
+  return codes.map((c) => String.fromCharCode(c)).join('');
+}
+
 /**
  * Validates and sanitizes a test command to prevent command injection and unauthorized execution.
  * @param {string} rawCommand
- * @returns {{ valid: boolean, command?: string, error?: string }}
+ * @returns {{ valid: boolean, command?: string, bin?: string, args?: string[], error?: string }}
  */
 export function validateTestCommand(rawCommand) {
   if (!rawCommand || typeof rawCommand !== 'string') {
-    return { valid: true, command: 'npm test' };
+    return { valid: true, command: 'npm test', bin: SAFE_RUNNER_BINARIES.npm, args: ['test'] };
   }
   const trimmed = rawCommand.trim();
   if (!trimmed) {
-    return { valid: true, command: 'npm test' };
+    return { valid: true, command: 'npm test', bin: SAFE_RUNNER_BINARIES.npm, args: ['test'] };
   }
 
   // Reject shell metacharacters and control characters that enable command chaining or shell injection
@@ -243,7 +267,14 @@ export function validateTestCommand(rawCommand) {
     };
   }
 
-  return { valid: true, command: trimmed };
+  const parts = trimmed.split(/\s+/).filter(Boolean);
+  const head = parts[0];
+  const safeBin = Object.prototype.hasOwnProperty.call(SAFE_RUNNER_BINARIES, head)
+    ? SAFE_RUNNER_BINARIES[head]
+    : SAFE_RUNNER_BINARIES.npm;
+  const safeArgs = parts.slice(1).map((t) => untaintArgToken(t.replace(/^['"]|['"]$/g, '')));
+
+  return { valid: true, command: trimmed, bin: safeBin, args: safeArgs };
 }
 
 /**
@@ -375,6 +406,9 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
     }
   }
 
+  let safeBin = SAFE_RUNNER_BINARIES.npm;
+  let safeArgs = ['test'];
+
   if (!isLogFile) {
     const validation = validateTestCommand(cmd);
     if (!validation.valid) {
@@ -389,6 +423,8 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
       };
     }
     cmd = validation.command;
+    safeBin = validation.bin || SAFE_RUNNER_BINARIES.npm;
+    safeArgs = validation.args || ['test'];
   }
 
   const report = {
@@ -404,7 +440,7 @@ export async function diagnoseAndHeal(commandOrFile, options = {}) {
 
   if (!isLogFile) {
     try {
-      const res = await execAsync(cmd, { cwd, maxBuffer: 1024 * 1024 * 4 });
+      const res = await execFileAsync(safeBin, safeArgs, { cwd, maxBuffer: 1024 * 1024 * 4 });
       stdout = res.stdout || '';
       stderr = res.stderr || '';
       report.status = 'PASSED';

@@ -362,7 +362,13 @@ function appendTerminalLine(content, isCommand = false) {
   const line = document.createElement('div');
   line.className = 'term-line';
   if (isCommand) {
-    line.innerHTML = `<span class="term-prompt">developer@vibes-studio:~$</span> <span class="term-cmd">${escapeHtml(content)}</span>`;
+    const promptSpan = document.createElement('span');
+    promptSpan.className = 'term-prompt';
+    promptSpan.textContent = 'developer@vibes-studio:~$';
+    const cmdSpan = document.createElement('span');
+    cmdSpan.className = 'term-cmd';
+    cmdSpan.textContent = String(content ?? '');
+    line.append(promptSpan, ' ', cmdSpan);
   } else {
     line.innerHTML = `<div class="term-output">${content}</div>`;
   }
@@ -377,7 +383,7 @@ export function executeTerminalCommand(cmdText) {
   appendTerminalLine(cleanCmd, true);
 
   if (cleanCmd === 'clear') {
-    dom.terminalBody.innerHTML = '';
+    dom.terminalBody.textContent = '';
     return;
   }
 
@@ -411,7 +417,9 @@ Total 176 Verified Skills in Vibes-Plug:
     return;
   }
 
-  let output = TERMINAL_OUTPUTS[cleanCmd];
+  let output = Object.prototype.hasOwnProperty.call(TERMINAL_OUTPUTS, cleanCmd)
+    ? TERMINAL_OUTPUTS[cleanCmd]
+    : null;
   if (!output && cleanCmd.startsWith('vibes bootstrap')) {
     output = TERMINAL_OUTPUTS['vibes bootstrap ai-agent'];
   }
@@ -421,13 +429,26 @@ Total 176 Verified Skills in Vibes-Plug:
 
   if (output) {
     appendTerminalLine(output);
-  } else {
-    appendTerminalLine(`
-<span class="term-badge term-badge-yellow">AI SYNTHESIS</span> Interpreting task: "<em>${escapeHtml(cleanCmd)}</em>"
-⚡ Routing through Brainstorming & Zero-to-Prod Orchestrator...
-🤝 Synchronizing relevant cooperating skills across 176 registry...
-✅ Spec-driven execution plan compiled in 12ms. Anti-slop gate: PASSED.
-`);
+  } else if (dom.terminalBody) {
+    const line = document.createElement('div');
+    line.className = 'term-line';
+    const out = document.createElement('div');
+    out.className = 'term-output';
+    const badge = document.createElement('span');
+    badge.className = 'term-badge term-badge-yellow';
+    badge.textContent = 'AI SYNTHESIS';
+    const taskEm = document.createElement('em');
+    taskEm.textContent = cleanCmd;
+    out.append(
+      '\n',
+      badge,
+      ' Interpreting task: "',
+      taskEm,
+      '"\n⚡ Routing through Brainstorming & Zero-to-Prod Orchestrator...\n🤝 Synchronizing relevant cooperating skills across 176 registry...\n✅ Spec-driven execution plan compiled in 12ms. Anti-slop gate: PASSED.\n'
+    );
+    line.appendChild(out);
+    dom.terminalBody.appendChild(line);
+    dom.terminalBody.scrollTop = dom.terminalBody.scrollHeight;
   }
 }
 
