@@ -45,7 +45,11 @@ export function parseFailureOutput(output) {
   while ((stackMatch = stackRegex.exec(output)) !== null) {
     let filePath = stackMatch[2];
     if (filePath.startsWith('file:///')) {
-      filePath = fileURLToPath(filePath);
+      try {
+        filePath = fileURLToPath(filePath);
+      } catch {
+        filePath = decodeURIComponent(filePath.replace(/^file:\/\/\/?/, ''));
+      }
     }
     const line = parseInt(stackMatch[3], 10);
     const col = parseInt(stackMatch[4], 10);
