@@ -181,7 +181,7 @@ export async function detectProjectStack(targetDir = process.cwd()) {
     for (const hf of htmlFiles) {
       try {
         const content = await fs.readFile(path.join(resolvedDir, hf), 'utf8');
-        if (content.includes('hx-get') || content.includes('hx-post') || content.includes('htmx.org')) {
+        if (content.includes('hx-get') || content.includes('hx-post') || content.includes('hx-target') || content.includes('hx-swap') || /\bhtmx(?:\.min)?\.js\b/i.test(content)) {
           detectedStacks.add('HTMX / Hypermedia');
           recommendedSkills.add('htmx-hypermedia-expert');
           matchedRules.push({
