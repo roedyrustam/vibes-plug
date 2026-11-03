@@ -1,12 +1,29 @@
-name: Publish Release & Marketplace VSIX
+name: Publish Release, NPM Package & Marketplace VSIX
 
 on:
   push:
+    branches:
+      - main
+      - master
     tags:
       - 'v*'
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type if current version is already on npm (patch | minor | major)'
+        required: false
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+concurrency:
+  group: publish-release-npm
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -14,13 +31,17 @@ permissions:
 
 jobs:
   publish:
-    name: Build VSIX & Publish Release
+    name: Quality Gate, Auto-Version, VSIX & NPM Publish
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message || '', '[skip ci]') && !startsWith(github.event.head_commit.message || '', 'chore(release):')"
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js Runtime
         uses: actions/setup-node@v7
@@ -41,6 +62,53 @@ jobs:
       - name: Run Performance Benchmark Suite
         run: node scripts/benchmark-suite.mjs
 
+      - name: Resolve & Synchronize NPM Version
+        id: version_sync
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          PUBLISHED_VERSION=$(npm view vibes-plug version 2>/dev/null || echo "0.0.0")
+          echo "Local package.json version : v${LOCAL_VERSION}"
+          echo "Published npm version      : v${PUBLISHED_VERSION}"
+
+          BUMP_TYPE="${{ github.event.inputs.bump || 'patch' }}"
+          IS_BRANCH_PUSH="false"
+          if [[ "${GITHUB_REF}" == "refs/heads/main" || "${GITHUB_REF}" == "refs/heads/master" ]]; then
+            IS_BRANCH_PUSH="true"
+          fi
+
+          if [[ "${LOCAL_VERSION}" == "${PUBLISHED_VERSION}" ]]; then
+            if [[ "${IS_BRANCH_PUSH}" == "true" || "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+              echo "Version v${LOCAL_VERSION} is already published on npm. Auto-bumping (${BUMP_TYPE})..."
+              node bin/vibes.mjs version bump "${BUMP_TYPE}"
+              NEW_VERSION=$(node -p "require('./package.json').version")
+              git add -A
+              git commit -m "chore(release): v${NEW_VERSION} [skip ci]"
+              git tag -f "v${NEW_VERSION}"
+              git push origin HEAD:${GITHUB_REF_NAME}
+              git push origin "v${NEW_VERSION}" --force
+              echo "version=${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+              echo "release_tag=v${NEW_VERSION}" >> "$GITHUB_OUTPUT"
+              echo "should_publish=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "Tag/Release version v${LOCAL_VERSION} is already published on npm. Skipping duplicate npm publish."
+              echo "version=${LOCAL_VERSION}" >> "$GITHUB_OUTPUT"
+              echo "release_tag=v${LOCAL_VERSION}" >> "$GITHUB_OUTPUT"
+              echo "should_publish=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "Local version v${LOCAL_VERSION} differs from npm v${PUBLISHED_VERSION}. Preparing to publish v${LOCAL_VERSION}..."
+            if ! git rev-parse "v${LOCAL_VERSION}" >/dev/null 2>&1; then
+              git tag "v${LOCAL_VERSION}"
+              git push origin "v${LOCAL_VERSION}" || true
+            fi
+            echo "version=${LOCAL_VERSION}" >> "$GITHUB_OUTPUT"
+            echo "release_tag=v${LOCAL_VERSION}" >> "$GITHUB_OUTPUT"
+            echo "should_publish=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Package VS Code & Cursor VSIX Extension
         run: |
           node bin/vibes.mjs package:vscode
@@ -48,10 +116,12 @@ jobs:
           sha256sum *.vsix > checksums.sha256
           cat checksums.sha256
 
-      - name: Attach VSIX & Checksums to GitHub Release
+      - name: Create or Update GitHub Release with VSIX & Checksums
         uses: softprops/action-gh-release@v3
-        if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
+        if: steps.version_sync.outputs.should_publish == 'true' || startsWith(github.ref, 'refs/tags/v') || github.event_name == 'release'
         with:
+          tag_name: ${{ steps.version_sync.outputs.release_tag }}
+          name: Vibes-Plug ${{ steps.version_sync.outputs.release_tag }}
           files: |
             extensions/vscode/*.vsix
             extensions/vscode/checksums.sha256
@@ -59,9 +129,37 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish to npm
-        if: env.NPM_TOKEN != ''
-        run: npm publish --provenance --access public
+      - name: Publish Package to npm Registry
+        if: steps.version_sync.outputs.should_publish == 'true'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          TARGET_VERSION="${{ steps.version_sync.outputs.version }}"
+          echo "Publishing vibes-plug@${TARGET_VERSION} to npm..."
+
+          if [[ -n "${NPM_TOKEN}" ]]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+            npm publish --provenance --access public || npm publish --access public
+            echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via \`NPM_TOKEN\`" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "NPM_TOKEN secret not set; attempting OIDC Trusted Publishing with provenance..."
+            npm install -g npm@latest
+            if npm publish --provenance --access public; then
+              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via OIDC Trusted Publisher" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::error::Gagal publish ke npm karena baik NPM_TOKEN secret maupun OIDC Trusted Publisher belum dikonfigurasi."
+              {
+                echo "### ⚠️ Konfigurasi Autentikasi NPM Diperlukan (Sekali Saja)"
+                echo "Agar GitHub Actions dapat mempublikasikan \`vibes-plug@${TARGET_VERSION}\` ke npmjs.com, aktifkan **salah satu** dari 2 metode berikut:"
+                echo "1. **Metode Tanpa Token / OIDC Trusted Publisher (Direkomendasikan)**:"
+                echo "   - Buka https://www.npmjs.com/package/vibes-plug/access"
+                echo "   - Pada bagian **Trusted Publisher**, pilih **GitHub Actions**"
+                echo "   - Isi Owner: \`roedyrustam\`, Repository: \`vibes-plug\`, Workflow filename: \`publish.yml\`"
+                echo "2. **Metode NPM_TOKEN Secret**:"
+                echo "   - Buat Automation Access Token di https://www.npmjs.com/settings/~/tokens"
+                echo "   - Tambahkan ke https://github.com/roedyrustam/vibes-plug/settings/secrets/actions dengan nama **\`NPM_TOKEN\`**"
+              } >> "$GITHUB_STEP_SUMMARY"
+              exit 1
+            fi
+          fi

@@ -1305,7 +1305,7 @@ export function generateStudioHtml(currentPort) {
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
-            <div class="brand-tag">v4.4.2</div>
+            <div class="brand-tag">v4.5.0</div>
           </div>
           <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 176-Agent Swarm Operating System</div>
         </div>
@@ -2123,7 +2123,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.4.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 176 Skills</p>
+    <p>Vibes-Plug Pro v4.5.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 176 Skills</p>
   </footer>
 
   <script>
