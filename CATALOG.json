@@ -118,7 +118,7 @@
     {
       "name": "apple-ecosystem-expert",
       "description": "Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG.",
-      "version": "4.4.4",
+      "version": "4.4.5",
       "author": "Roedy Rustam"
     },
     {
@@ -495,8 +495,8 @@
     },
     {
       "name": "hig",
-      "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency / Prinsip HIG: Hierarki, Harmoni, dan Konsistensi antarmuka UI/UX.",
-      "version": "4.4.4",
+      "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency, Apple HIG 2026 & Material 3 / Panduan Desain Human Interface: Hierarki, Harmoni, Konsistensi, Apple HIG 2026 & Material 3.",
+      "version": "4.4.5",
       "author": "Roedy Rustam"
     },
     {

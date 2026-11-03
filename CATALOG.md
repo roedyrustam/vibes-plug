@@ -23,7 +23,7 @@
 | `api-gateway-proxy-expert` | `4.4.4` | API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX) / API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX). |
 | `app-analyzer-optimizer` | `4.4.4` | Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi. |
 | `app-promo-media-expert` | `4.4.4` | App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram. |
-| `apple-ecosystem-expert` | `4.4.4` | Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG. |
+| `apple-ecosystem-expert` | `4.4.5` | Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG. |
 | `astro-framework-expert` | `4.4.4` | Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions. |
 | `async-queue-temporal-expert` | `4.4.4` | Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io / Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal. |
 | `authentication-identity-expert` | `4.4.4` | Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js / Autentikasi, otorisasi (RBAC/ABAC), OAuth2, Clerk, dan Auth.js. |
@@ -86,7 +86,7 @@
 | `graph-rag-knowledge-expert` | `4.4.4` | Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search / Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop. |
 | `graphql-apollo-expert` | `4.4.4` | GraphQL APIs with Apollo Server/Client, NestJS, and query caching / API GraphQL dengan Apollo Server/Client, NestJS, dan optimasi query. |
 | `headless-cms-expert` | `4.4.4` | Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful / Integrasi Headless CMS: Sanity, Payload CMS, Strapi, Contentful. |
-| `hig` | `4.4.4` | Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency / Prinsip HIG: Hierarki, Harmoni, dan Konsistensi antarmuka UI/UX. |
+| `hig` | `4.4.5` | Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency, Apple HIG 2026 & Material 3 / Panduan Desain Human Interface: Hierarki, Harmoni, Konsistensi, Apple HIG 2026 & Material 3. |
 | `htmx-hypermedia-expert` | `4.4.4` | HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire / Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire. |
 | `js-backend-expert` | `4.4.4` | Node.js 24+, Bun, and Deno backend development (Hono, Fastify, Express) / Pengembangan backend Node.js, Bun, dan Deno (Hono, Fastify, Express). |
 | `kubernetes-gitops-platform-expert` | `4.4.4` | Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA / Platform engineering Kubernetes & GitOps: ArgoCD, Cilium, dan KEDA. |

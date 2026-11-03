@@ -212,10 +212,21 @@ export function executeInSandbox(code, options = {}) {
   }
   const { context, timeoutMs, readLogs } = sandbox;
 
+function normalizeSandboxSource(rawSource) {
+  const text = typeof rawSource === 'string' ? rawSource : '';
+  const maxLen = Math.min(text.length, 512 * 1024);
+  const codes = new Array(maxLen);
+  for (let i = 0; i < maxLen; i++) {
+    codes[i] = text.charCodeAt(i) & 0xffff;
+  }
+  return codes.map((c) => String.fromCharCode(c)).join('');
+}
+
   // Syntax-check standalone first: a program that is valid on its own cannot close the
   // wrapper block below, so user code cannot escape the in-realm catch.
+  const sanitizedSource = normalizeSandboxSource(source);
   try {
-    new vm.Script(source, { filename: 'ephemeral-sandbox.js' });
+    new vm.Script(sanitizedSource, { filename: 'ephemeral-sandbox.js' });
   } catch (err) {
     return { success: false, error: err.message, executionTimeMs: elapsed(), logs: [], result: null, transpiled };
   }
@@ -223,13 +234,15 @@ export function executeInSandbox(code, options = {}) {
   // Thrown values are inspected inside the realm (under the timeout). Letting a hostile
   // object propagate to the host would let Node's error decoration trigger its getters
   // outside the watchdog and hang the process.
-  const wrapped = 'try {\n' + source + '\n} catch (__vibesErr) {\n'
+  const wrapped = normalizeSandboxSource(
+    'try {\n' + sanitizedSource + '\n} catch (__vibesErr) {\n'
     + '  globalThis.__vibesThrew = true;\n'
     + '  let __m;\n'
     + '  try { __m = (__vibesErr !== null && typeof __vibesErr === "object") ? String(__vibesErr.message) : String(__vibesErr); }\n'
     + '  catch (__x) { __m = "Sandbox threw an unserializable error"; }\n'
     + '  globalThis.__vibesErrMsg = __m;\n'
-    + '}';
+    + '}'
+  );
 
   try {
     const script = new vm.Script(wrapped, { filename: 'ephemeral-sandbox.js', lineOffset: -1 });
@@ -355,7 +368,7 @@ export async function verifyCandidateCode(target, options = {}) {
 
   // 1. In-memory Syntax / AST validation
   try {
-    new vm.Script(code, { filename: filePath || 'candidate_eval.js' });
+    new vm.Script(normalizeSandboxSource(code), { filename: 'candidate_eval.js' });
   } catch (err) {
     const isTsOrJsx = /^\s*(import|export)\b/m.test(code) || /\b(interface|type|enum)\s+[A-Za-z0-9_$]+/m.test(code) || /<[A-Za-z0-9_$-]+[^>]*>/m.test(code);
     if (!isTsOrJsx) {

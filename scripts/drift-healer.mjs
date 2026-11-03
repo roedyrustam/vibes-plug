@@ -167,6 +167,16 @@ export function parsePrismaModels(sourceText = '') {
  */
 export function parseSqlTables(ddlText = '') {
   const tables = [];
+  const rlsEnabledTables = new Set();
+  const staticRlsRegex = /ALTER\s+TABLE\s+(?:ONLY\s+)?([a-zA-Z0-9_."]+)\s+ENABLE\s+ROW\s+LEVEL\s+SECURITY/gi;
+  let rlsMatch;
+  while ((rlsMatch = staticRlsRegex.exec(ddlText)) !== null) {
+    const rlsTable = rlsMatch[1].replace(/["']/g, '').split('.').pop();
+    if (rlsTable) {
+      rlsEnabledTables.add(rlsTable.toLowerCase());
+    }
+  }
+
   const tableRegex = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?([a-zA-Z0-9_."]+)\s*\(([\s\S]*?)\);/gi;
   let match;
 
@@ -201,8 +211,7 @@ export function parseSqlTables(ddlText = '') {
       });
     }
 
-    const rlsRegex = new RegExp(`ALTER\\s+TABLE\\s+[a-zA-Z0-9_."]*${rawName}[a-zA-Z0-9_."]*\\s+ENABLE\\s+ROW\\s+LEVEL\\s+SECURITY`, 'i');
-    const hasRls = rlsRegex.test(ddlText);
+    const hasRls = rlsEnabledTables.has(rawName.toLowerCase());
 
     tables.push({
       tableName: rawName,

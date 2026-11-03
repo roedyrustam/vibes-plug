@@ -1,10 +1,10 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-10-30T16:39:19.978Z",
+  "generatedAt": "2026-11-03T07:42:37.286Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 80,
   "incrementalReusedFiles": 80,
-  "totalSymbolsIndexed": 460,
+  "totalSymbolsIndexed": 462,
   "totalImportEdges": 252,
   "symbols": {
     "getActiveProfile": [
@@ -1060,7 +1060,7 @@
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 421,
+        "line": 434,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -2070,7 +2070,23 @@
         "type": "function",
         "signature": "function parseSqlTables(ddlText = '')",
         "calls": [
+          "Set",
+          "split",
+          "pop",
+          "map",
+          "replace",
+          "trim",
+          "filter",
           "test",
+          "match",
+          "mapSqlTypeToTs",
+          "push",
+          "snakeToCamel",
+          "toUpperCase",
+          "has",
+          "toLowerCase",
+          "pascalCase",
+          "some",
           "parseDrizzleTables",
           "parsePrismaModels"
         ]
@@ -2079,7 +2095,7 @@
     "parseTsFields": [
       {
         "file": "scripts/drift-healer.mjs",
-        "line": 230,
+        "line": 239,
         "type": "function",
         "signature": "function parseTsFields(tsText = '')",
         "calls": [
@@ -2097,7 +2113,7 @@
     "healSchemaDrift": [
       {
         "file": "scripts/drift-healer.mjs",
-        "line": 273,
+        "line": 282,
         "type": "function",
         "signature": "function healSchemaDrift(options = {})",
         "calls": [
@@ -2976,6 +2992,8 @@
           "find",
           "startsWith",
           "includes",
+          "bhtmx",
+          "test",
           "getAvailableSkills",
           "from",
           "filter",
@@ -3160,6 +3178,8 @@
         "calls": [
           "s",
           "fileURLToPath",
+          "decodeURIComponent",
+          "replace",
           "parseInt",
           "includes",
           "find",
@@ -3171,7 +3191,7 @@
     "diagnoseFailure": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 95,
+        "line": 99,
         "type": "function",
         "signature": "function diagnoseFailure(failure, cwd = process.cwd()",
         "calls": [
@@ -3185,14 +3205,31 @@
           "slice",
           "trim",
           "join",
-          "executeInSandbox"
+          "executeInSandbox",
+          "freeze"
+        ]
+      }
+    ],
+    "untaintArgToken": [
+      {
+        "file": "scripts/self-healer.mjs",
+        "line": 227,
+        "type": "function",
+        "signature": "function untaintArgToken(token)",
+        "calls": [
+          "String",
+          "Array",
+          "charCodeAt",
+          "map",
+          "fromCharCode",
+          "join"
         ]
       }
     ],
     "validateTestCommand": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 213,
+        "line": 241,
         "type": "function",
         "signature": "function validateTestCommand(rawCommand)",
         "calls": [
@@ -3203,7 +3240,7 @@
     "applySafeRemediation": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 251,
+        "line": 286,
         "type": "function",
         "signature": "function applySafeRemediation(diagnosis, options = {})",
         "calls": [
@@ -3228,7 +3265,7 @@
     "scaffoldCiHealWorkflow": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 309,
+        "line": 344,
         "type": "function",
         "signature": "function scaffoldCiHealWorkflow(targetDir = process.cwd()",
         "calls": [
@@ -3242,7 +3279,7 @@
     "diagnoseAndHeal": [
       {
         "file": "scripts/self-healer.mjs",
-        "line": 350,
+        "line": 385,
         "type": "function",
         "signature": "function diagnoseAndHeal(commandOrFile, options = {})",
         "calls": [
@@ -3254,7 +3291,7 @@
           "isFile",
           "readFile",
           "validateTestCommand",
-          "execAsync",
+          "execFileAsync",
           "parseFailureOutput",
           "diagnoseFailure",
           "includes",
@@ -3265,9 +3302,7 @@
           "slice",
           "scaffoldCiHealWorkflow",
           "log",
-          "exit",
-          "find",
-          "startsWith"
+          "exit"
         ]
       }
     ],
@@ -5057,8 +5092,8 @@
           "parse",
           "readFile",
           "join",
-          "RegExp",
-          "replace",
+          "ok",
+          "includes",
           "fail",
           "mkdtemp",
           "tmpdir",
@@ -5526,8 +5561,25 @@
           "looksLikeTypeScript",
           "stripTypeScript",
           "elapsed",
-          "createIsolatedSandbox",
+          "createIsolatedSandbox"
+        ]
+      }
+    ],
+    "normalizeSandboxSource": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 215,
+        "type": "function",
+        "signature": "function normalizeSandboxSource(rawSource)",
+        "calls": [
+          "min",
+          "Array",
+          "charCodeAt",
+          "map",
+          "fromCharCode",
+          "join",
           "Script",
+          "elapsed",
           "runInContext",
           "String",
           "readLogs",
@@ -5542,7 +5594,7 @@
     "executeWasmModule": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 272,
+        "line": 285,
         "type": "function",
         "signature": "function executeWasmModule(wasmBytes, options = {})",
         "calls": [
@@ -5567,7 +5619,7 @@
     "verifyCandidateCode": [
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 328,
+        "line": 341,
         "type": "function",
         "signature": "function verifyCandidateCode(target, options = {})",
         "calls": [
@@ -5578,6 +5630,7 @@
           "Date",
           "toISOString",
           "Script",
+          "normalizeSandboxSource",
           "test",
           "b",
           "extname",
@@ -5699,6 +5752,8 @@
         "signature": "function appendTerminalLine(content, isCommand = false)",
         "calls": [
           "createElement",
+          "String",
+          "append",
           "appendChild"
         ]
       }
@@ -5706,20 +5761,24 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 373,
+        "line": 379,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)",
         "calls": [
           "trim",
           "appendTerminalLine",
-          "startsWith"
+          "call",
+          "startsWith",
+          "createElement",
+          "append",
+          "appendChild"
         ]
       }
     ],
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 552,
+        "line": 573,
         "type": "function",
         "signature": "function renderTopology(id)",
         "calls": []
@@ -5728,7 +5787,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 646,
+        "line": 667,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -5737,7 +5796,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 659,
+        "line": 680,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -5766,7 +5825,7 @@
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 777,
+        "line": 798,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -7866,8 +7925,8 @@
     "scripts/agent-card-generator.mjs": {
       "totalLines": 161,
       "symbolCount": 3,
-      "mtimeMs": 1793377562998,
-      "size": 6465,
+      "mtimeMs": 1793593331102,
+      "size": 6625,
       "exports": [
         "loadSubagentsMetadata",
         "generateA2ACard"
@@ -7935,8 +7994,8 @@
     "scripts/ast-query.mjs": {
       "totalLines": 693,
       "symbolCount": 9,
-      "mtimeMs": 1793377675904,
-      "size": 25738,
+      "mtimeMs": 1793593331107,
+      "size": 26430,
       "exports": [
         "loadTsConfigPathAliases",
         "resolveImportTarget",
@@ -8150,8 +8209,8 @@
     "scripts/audit-graph.mjs": {
       "totalLines": 78,
       "symbolCount": 1,
-      "mtimeMs": 1792865301167,
-      "size": 3006,
+      "mtimeMs": 1793593331111,
+      "size": 3083,
       "exports": [],
       "imports": [
         {
@@ -8204,7 +8263,7 @@
     "scripts/benchmark-suite.mjs": {
       "totalLines": 294,
       "symbolCount": 1,
-      "mtimeMs": 1792522465165,
+      "mtimeMs": 1792792506037,
       "size": 12343,
       "exports": [
         "runBenchmarkSuite"
@@ -8309,8 +8368,8 @@
     "scripts/bundle-binary.mjs": {
       "totalLines": 186,
       "symbolCount": 3,
-      "mtimeMs": 1793049993865,
-      "size": 6034,
+      "mtimeMs": 1793593331114,
+      "size": 6219,
       "exports": [
         "calculateChecksum",
         "compileStandaloneBinary"
@@ -8519,8 +8578,8 @@
     "scripts/check-anti-slop.mjs": {
       "totalLines": 332,
       "symbolCount": 4,
-      "mtimeMs": 1793377901787,
-      "size": 12491,
+      "mtimeMs": 1793593331119,
+      "size": 12822,
       "exports": [],
       "imports": [
         {
@@ -8609,8 +8668,8 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
       "symbolCount": 3,
-      "mtimeMs": 1792866493728,
-      "size": 14993,
+      "mtimeMs": 1793593331121,
+      "size": 15313,
       "exports": [
         "compileCache",
         "getCacheStatus"
@@ -8704,8 +8763,8 @@
     "scripts/compile-skill-slices.mjs": {
       "totalLines": 115,
       "symbolCount": 1,
-      "mtimeMs": 1792866514812,
-      "size": 4556,
+      "mtimeMs": 1793593331124,
+      "size": 4670,
       "exports": [
         "compileSkillSlices"
       ],
@@ -8782,8 +8841,8 @@
     "scripts/create-agent.mjs": {
       "totalLines": 169,
       "symbolCount": 2,
-      "mtimeMs": 1792865301168,
-      "size": 5321,
+      "mtimeMs": 1793593331126,
+      "size": 5489,
       "exports": [
         "createCustomAgent"
       ],
@@ -8851,7 +8910,7 @@
     "scripts/critic-validator.mjs": {
       "totalLines": 237,
       "symbolCount": 3,
-      "mtimeMs": 1792482697236,
+      "mtimeMs": 1792483576384,
       "size": 8300,
       "exports": [
         "criticValidate",
@@ -8934,8 +8993,8 @@
     "scripts/cross-ide-bridge.mjs": {
       "totalLines": 365,
       "symbolCount": 5,
-      "mtimeMs": 1793039318229,
-      "size": 12620,
+      "mtimeMs": 1793593331129,
+      "size": 12630,
       "exports": [
         "checkBridgeStatus",
         "syncBridge",
@@ -9053,8 +9112,8 @@
     "scripts/demo-sovereign-swarm.mjs": {
       "totalLines": 321,
       "symbolCount": 13,
-      "mtimeMs": 1792630625631,
-      "size": 15085,
+      "mtimeMs": 1792792506040,
+      "size": 15405,
       "exports": [
         "AccountId",
         "MinorCents",
@@ -9221,10 +9280,10 @@
       ]
     },
     "scripts/drift-healer.mjs": {
-      "totalLines": 451,
+      "totalLines": 460,
       "symbolCount": 9,
-      "mtimeMs": 1793378184592,
-      "size": 16418,
+      "mtimeMs": 1793593789538,
+      "size": 17142,
       "exports": [
         "snakeToCamel",
         "camelToSnake",
@@ -9353,14 +9412,30 @@
           "type": "function",
           "signature": "function parseSqlTables(ddlText = '')",
           "calls": [
+            "Set",
+            "split",
+            "pop",
+            "map",
+            "replace",
+            "trim",
+            "filter",
             "test",
+            "match",
+            "mapSqlTypeToTs",
+            "push",
+            "snakeToCamel",
+            "toUpperCase",
+            "has",
+            "toLowerCase",
+            "pascalCase",
+            "some",
             "parseDrizzleTables",
             "parsePrismaModels"
           ]
         },
         {
           "name": "parseTsFields",
-          "line": 230,
+          "line": 239,
           "type": "function",
           "signature": "function parseTsFields(tsText = '')",
           "calls": [
@@ -9376,7 +9451,7 @@
         },
         {
           "name": "healSchemaDrift",
-          "line": 273,
+          "line": 282,
           "type": "function",
           "signature": "function healSchemaDrift(options = {})",
           "calls": [
@@ -9397,8 +9472,8 @@
     "scripts/eval-migration.mjs": {
       "totalLines": 307,
       "symbolCount": 4,
-      "mtimeMs": 1793377476537,
-      "size": 12187,
+      "mtimeMs": 1793593331133,
+      "size": 12493,
       "exports": [
         "evaluateSqlSync",
         "evaluateSql"
@@ -9497,7 +9572,7 @@
     "scripts/finops-tracker.mjs": {
       "totalLines": 311,
       "symbolCount": 8,
-      "mtimeMs": 1792482697237,
+      "mtimeMs": 1792483576385,
       "size": 11040,
       "exports": [
         "loadFinOpsData",
@@ -9649,8 +9724,8 @@
     "scripts/gemini-runtime.mjs": {
       "totalLines": 256,
       "symbolCount": 4,
-      "mtimeMs": 1793046709897,
-      "size": 8553,
+      "mtimeMs": 1793593331133,
+      "size": 8808,
       "exports": [
         "collectRepositoryContext",
         "formatMonolithicDump",
@@ -9765,8 +9840,8 @@
     "scripts/generate-catalog.mjs": {
       "totalLines": 54,
       "symbolCount": 0,
-      "mtimeMs": 1793040153563,
-      "size": 1989,
+      "mtimeMs": 1793593331135,
+      "size": 2042,
       "exports": [],
       "imports": [
         {
@@ -9839,7 +9914,7 @@
     "scripts/git-hook-installer.mjs": {
       "totalLines": 306,
       "symbolCount": 4,
-      "mtimeMs": 1792522435038,
+      "mtimeMs": 1792792506041,
       "size": 10879,
       "exports": [
         "checkHookStatus",
@@ -9969,7 +10044,7 @@
     "scripts/github-pr-bot.mjs": {
       "totalLines": 261,
       "symbolCount": 3,
-      "mtimeMs": 1792522422583,
+      "mtimeMs": 1792792506042,
       "size": 9152,
       "exports": [
         "getChangedFilesFromGit",
@@ -10083,8 +10158,8 @@
     "scripts/graphrag-indexer.mjs": {
       "totalLines": 544,
       "symbolCount": 6,
-      "mtimeMs": 1793377770436,
-      "size": 16415,
+      "mtimeMs": 1793593331138,
+      "size": 16958,
       "exports": [
         "collectSourceFiles",
         "buildSymbolGraph",
@@ -10377,7 +10452,7 @@
     "scripts/mcp-setup.mjs": {
       "totalLines": 235,
       "symbolCount": 4,
-      "mtimeMs": 1792522397056,
+      "mtimeMs": 1792792506046,
       "size": 7455,
       "exports": [
         "getMcpServerDefinition",
@@ -10486,8 +10561,8 @@
     "scripts/memory-daemon.mjs": {
       "totalLines": 159,
       "symbolCount": 8,
-      "mtimeMs": 1792153848000,
-      "size": 5828,
+      "mtimeMs": 1792149657906,
+      "size": 5986,
       "exports": [
         "loadMemory",
         "saveMemory",
@@ -10632,7 +10707,7 @@
     "scripts/package-extension.mjs": {
       "totalLines": 266,
       "symbolCount": 4,
-      "mtimeMs": 1792865301172,
+      "mtimeMs": 1793593331140,
       "size": 11846,
       "exports": [
         "createZipArchive",
@@ -10747,8 +10822,8 @@
     "scripts/project-detector.mjs": {
       "totalLines": 341,
       "symbolCount": 4,
-      "mtimeMs": 1792625282434,
-      "size": 11555,
+      "mtimeMs": 1793593789538,
+      "size": 11970,
       "exports": [
         "detectProjectStack",
         "applyDetectedSkills"
@@ -10800,6 +10875,8 @@
             "find",
             "startsWith",
             "includes",
+            "bhtmx",
+            "test",
             "getAvailableSkills",
             "from",
             "filter",
@@ -10857,8 +10934,8 @@
     "scripts/registry-manager.mjs": {
       "totalLines": 430,
       "symbolCount": 7,
-      "mtimeMs": 1793048847634,
-      "size": 15320,
+      "mtimeMs": 1793593331142,
+      "size": 15749,
       "exports": [
         "parseSkillMarkdown",
         "categorizeSkill",
@@ -11044,10 +11121,10 @@
       ]
     },
     "scripts/self-healer.mjs": {
-      "totalLines": 508,
-      "symbolCount": 6,
-      "mtimeMs": 1793048658132,
-      "size": 18575,
+      "totalLines": 548,
+      "symbolCount": 7,
+      "mtimeMs": 1793593789538,
+      "size": 19930,
       "exports": [
         "parseFailureOutput",
         "diagnoseFailure",
@@ -11093,7 +11170,7 @@
           "source": "node:child_process",
           "target": null,
           "specifiers": [
-            "exec"
+            "execFile"
           ],
           "line": 16
         },
@@ -11131,6 +11208,8 @@
           "calls": [
             "s",
             "fileURLToPath",
+            "decodeURIComponent",
+            "replace",
             "parseInt",
             "includes",
             "find",
@@ -11140,7 +11219,7 @@
         },
         {
           "name": "diagnoseFailure",
-          "line": 95,
+          "line": 99,
           "type": "function",
           "signature": "function diagnoseFailure(failure, cwd = process.cwd()",
           "calls": [
@@ -11154,12 +11233,27 @@
             "slice",
             "trim",
             "join",
-            "executeInSandbox"
+            "executeInSandbox",
+            "freeze"
+          ]
+        },
+        {
+          "name": "untaintArgToken",
+          "line": 227,
+          "type": "function",
+          "signature": "function untaintArgToken(token)",
+          "calls": [
+            "String",
+            "Array",
+            "charCodeAt",
+            "map",
+            "fromCharCode",
+            "join"
           ]
         },
         {
           "name": "validateTestCommand",
-          "line": 213,
+          "line": 241,
           "type": "function",
           "signature": "function validateTestCommand(rawCommand)",
           "calls": [
@@ -11168,7 +11262,7 @@
         },
         {
           "name": "applySafeRemediation",
-          "line": 251,
+          "line": 286,
           "type": "function",
           "signature": "function applySafeRemediation(diagnosis, options = {})",
           "calls": [
@@ -11191,7 +11285,7 @@
         },
         {
           "name": "scaffoldCiHealWorkflow",
-          "line": 309,
+          "line": 344,
           "type": "function",
           "signature": "function scaffoldCiHealWorkflow(targetDir = process.cwd()",
           "calls": [
@@ -11203,7 +11297,7 @@
         },
         {
           "name": "diagnoseAndHeal",
-          "line": 350,
+          "line": 385,
           "type": "function",
           "signature": "function diagnoseAndHeal(commandOrFile, options = {})",
           "calls": [
@@ -11215,7 +11309,7 @@
             "isFile",
             "readFile",
             "validateTestCommand",
-            "execAsync",
+            "execFileAsync",
             "parseFailureOutput",
             "diagnoseFailure",
             "includes",
@@ -11226,9 +11320,7 @@
             "slice",
             "scaffoldCiHealWorkflow",
             "log",
-            "exit",
-            "find",
-            "startsWith"
+            "exit"
           ]
         }
       ]
@@ -11236,8 +11328,8 @@
     "scripts/sentinel-watcher.mjs": {
       "totalLines": 264,
       "symbolCount": 2,
-      "mtimeMs": 1793377502767,
-      "size": 8918,
+      "mtimeMs": 1793593331145,
+      "size": 9181,
       "exports": [
         "auditSingleFile",
         "startSentinelWatcher"
@@ -11349,7 +11441,7 @@
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 636,
       "symbolCount": 7,
-      "mtimeMs": 1793040153556,
+      "mtimeMs": 1793593331145,
       "size": 25774,
       "exports": [
         "resolveSkillAdapter",
@@ -11636,7 +11728,7 @@
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
       "symbolCount": 4,
-      "mtimeMs": 1792865301174,
+      "mtimeMs": 1793593331145,
       "size": 23160,
       "exports": [
         "auditSkill",
@@ -11767,8 +11859,8 @@
     "scripts/skill-evolver.mjs": {
       "totalLines": 375,
       "symbolCount": 7,
-      "mtimeMs": 1793049831350,
-      "size": 14900,
+      "mtimeMs": 1793593331145,
+      "size": 15274,
       "exports": [
         "sanitizeEvolveSlug",
         "analyzeCodebaseEvolution",
@@ -11909,7 +12001,7 @@
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
       "symbolCount": 7,
-      "mtimeMs": 1792482697240,
+      "mtimeMs": 1792483576397,
       "size": 21623,
       "exports": [
         "sanitizeSkillSlug",
@@ -12058,8 +12150,8 @@
     "scripts/speculative-arbiter.mjs": {
       "totalLines": 213,
       "symbolCount": 3,
-      "mtimeMs": 1792153848000,
-      "size": 7982,
+      "mtimeMs": 1792176236497,
+      "size": 8194,
       "exports": [
         "scoreDraft",
         "arbitrateCandidates"
@@ -12137,7 +12229,7 @@
     "scripts/speculative-consensus.mjs": {
       "totalLines": 597,
       "symbolCount": 8,
-      "mtimeMs": 1792522487111,
+      "mtimeMs": 1792792506063,
       "size": 23668,
       "exports": [
         "calculateCyclomaticComplexity",
@@ -12324,7 +12416,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4737,
       "symbolCount": 8,
-      "mtimeMs": 1793050724753,
+      "mtimeMs": 1793593331145,
       "size": 199905,
       "exports": [
         "generateStudioHtml",
@@ -12568,7 +12660,7 @@
     "scripts/supercharge-all-skills.mjs": {
       "totalLines": 611,
       "symbolCount": 37,
-      "mtimeMs": 1792861032844,
+      "mtimeMs": 1793593331145,
       "size": 24861,
       "exports": [
         "TenantRoutingConfig",
@@ -13003,8 +13095,8 @@
     "scripts/swarm-bus.mjs": {
       "totalLines": 412,
       "symbolCount": 21,
-      "mtimeMs": 1793378325049,
-      "size": 12511,
+      "mtimeMs": 1793593331145,
+      "size": 12922,
       "exports": [
         "emitSwarmEvent",
         "getRecentSwarmEvents"
@@ -13320,8 +13412,8 @@
     "scripts/swarm-dispatcher.mjs": {
       "totalLines": 373,
       "symbolCount": 7,
-      "mtimeMs": 1793377861632,
-      "size": 14420,
+      "mtimeMs": 1793593331145,
+      "size": 14792,
       "exports": [
         "resolveNativeSubagent",
         "dispatchSwarm"
@@ -13528,8 +13620,8 @@
     "scripts/swarm-runner.mjs": {
       "totalLines": 245,
       "symbolCount": 4,
-      "mtimeMs": 1792866718214,
-      "size": 12199,
+      "mtimeMs": 1793593331145,
+      "size": 12443,
       "exports": [
         "resolveReasoningProfile",
         "planSwarm",
@@ -13629,8 +13721,8 @@
     "scripts/sync-all-skill-counts.mjs": {
       "totalLines": 478,
       "symbolCount": 1,
-      "mtimeMs": 1792865295321,
-      "size": 24113,
+      "mtimeMs": 1793593331145,
+      "size": 24590,
       "exports": [],
       "imports": [
         {
@@ -13672,7 +13764,7 @@
     "scripts/terminal-monitor.mjs": {
       "totalLines": 303,
       "symbolCount": 3,
-      "mtimeMs": 1792865301177,
+      "mtimeMs": 1793593331158,
       "size": 10724,
       "exports": [
         "loadMonitorSnapshot",
@@ -13791,8 +13883,8 @@
     "scripts/test-cli.mjs": {
       "totalLines": 2050,
       "symbolCount": 1,
-      "mtimeMs": 1793378264559,
-      "size": 97406,
+      "mtimeMs": 1793593789538,
+      "size": 97382,
       "exports": [],
       "imports": [
         {
@@ -13839,7 +13931,8 @@
           "source": "node:url",
           "target": null,
           "specifiers": [
-            "fileURLToPath"
+            "fileURLToPath",
+            "pathToFileURL"
           ],
           "line": 6
         },
@@ -13885,8 +13978,8 @@
             "parse",
             "readFile",
             "join",
-            "RegExp",
-            "replace",
+            "ok",
+            "includes",
             "fail",
             "mkdtemp",
             "tmpdir",
@@ -13898,7 +13991,7 @@
     "scripts/token-budget-optimizer.mjs": {
       "totalLines": 469,
       "symbolCount": 3,
-      "mtimeMs": 1792865301179,
+      "mtimeMs": 1793593331159,
       "size": 19572,
       "exports": [
         "analyzeCodeStructure",
@@ -14073,8 +14166,8 @@
     "scripts/update_skills.mjs": {
       "totalLines": 87,
       "symbolCount": 2,
-      "mtimeMs": 1792153848000,
-      "size": 3398,
+      "mtimeMs": 1792149657910,
+      "size": 3484,
       "exports": [],
       "imports": [
         {
@@ -14149,7 +14242,7 @@
     "scripts/validate-skills.mjs": {
       "totalLines": 177,
       "symbolCount": 1,
-      "mtimeMs": 1792482697248,
+      "mtimeMs": 1792483576408,
       "size": 7307,
       "exports": [],
       "imports": [
@@ -14199,8 +14292,8 @@
     "scripts/verify-invariants.mjs": {
       "totalLines": 501,
       "symbolCount": 5,
-      "mtimeMs": 1793040410774,
-      "size": 17871,
+      "mtimeMs": 1793593331160,
+      "size": 18371,
       "exports": [
         "solveCnfDpll",
         "verifyStateMachine",
@@ -14320,7 +14413,7 @@
     "scripts/verify-skill-snippets.mjs": {
       "totalLines": 153,
       "symbolCount": 2,
-      "mtimeMs": 1793040153563,
+      "mtimeMs": 1793593331161,
       "size": 4641,
       "exports": [
         "verifyAllSkillSnippets"
@@ -14388,7 +14481,7 @@
     "scripts/visual-critic.mjs": {
       "totalLines": 397,
       "symbolCount": 5,
-      "mtimeMs": 1793049339967,
+      "mtimeMs": 1793593331161,
       "size": 16656,
       "exports": [
         "visualAudit",
@@ -14490,10 +14583,10 @@
       ]
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 503,
-      "symbolCount": 9,
-      "mtimeMs": 1793047575133,
-      "size": 20640,
+      "totalLines": 516,
+      "symbolCount": 10,
+      "mtimeMs": 1793593789538,
+      "size": 21116,
       "exports": [
         "createIsolatedSandbox",
         "stripTypeScript",
@@ -14626,8 +14719,23 @@
             "looksLikeTypeScript",
             "stripTypeScript",
             "elapsed",
-            "createIsolatedSandbox",
+            "createIsolatedSandbox"
+          ]
+        },
+        {
+          "name": "normalizeSandboxSource",
+          "line": 215,
+          "type": "function",
+          "signature": "function normalizeSandboxSource(rawSource)",
+          "calls": [
+            "min",
+            "Array",
+            "charCodeAt",
+            "map",
+            "fromCharCode",
+            "join",
             "Script",
+            "elapsed",
             "runInContext",
             "String",
             "readLogs",
@@ -14640,7 +14748,7 @@
         },
         {
           "name": "executeWasmModule",
-          "line": 272,
+          "line": 285,
           "type": "function",
           "signature": "function executeWasmModule(wasmBytes, options = {})",
           "calls": [
@@ -14663,7 +14771,7 @@
         },
         {
           "name": "verifyCandidateCode",
-          "line": 328,
+          "line": 341,
           "type": "function",
           "signature": "function verifyCandidateCode(target, options = {})",
           "calls": [
@@ -14674,6 +14782,7 @@
             "Date",
             "toISOString",
             "Script",
+            "normalizeSandboxSource",
             "test",
             "b",
             "extname",
@@ -14685,7 +14794,7 @@
         },
         {
           "name": "main",
-          "line": 421,
+          "line": 434,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -14707,10 +14816,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 899,
+      "totalLines": 920,
       "symbolCount": 13,
-      "mtimeMs": 1792865301188,
-      "size": 37538,
+      "mtimeMs": 1793593789538,
+      "size": 39247,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -14824,37 +14933,43 @@
           "signature": "function appendTerminalLine(content, isCommand = false)",
           "calls": [
             "createElement",
+            "String",
+            "append",
             "appendChild"
           ]
         },
         {
           "name": "executeTerminalCommand",
-          "line": 373,
+          "line": 379,
           "type": "function",
           "signature": "function executeTerminalCommand(cmdText)",
           "calls": [
             "trim",
             "appendTerminalLine",
-            "startsWith"
+            "call",
+            "startsWith",
+            "createElement",
+            "append",
+            "appendChild"
           ]
         },
         {
           "name": "renderTopology",
-          "line": 552,
+          "line": 573,
           "type": "function",
           "signature": "function renderTopology(id)",
           "calls": []
         },
         {
           "name": "renderBridgeCode",
-          "line": 646,
+          "line": 667,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 659,
+          "line": 680,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -14881,7 +14996,7 @@
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 777,
+          "line": 798,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [

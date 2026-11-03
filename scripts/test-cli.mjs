@@ -29,7 +29,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
   await t.test('vibes version current should return active package version', async () => {
     const pkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'version', 'current']);
-    assert.match(stdout, new RegExp(pkg.version.replace(/\./g, '\\.')));
+    assert.ok(stdout.includes(pkg.version));
   });
 
   await t.test('vibes doctor should verify 176 skills and pass health checks', async () => {

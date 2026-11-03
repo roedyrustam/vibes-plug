@@ -1,11 +1,11 @@
 {
   "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-10-26T20:10:41.120Z",
+  "compiledAt": "2026-11-03T07:42:56.225Z",
   "totalSkills": 176,
   "metrics": {
-    "fullRegistryTokensApprox": 729569,
-    "compiledSlicesTokensApprox": 44446,
-    "avgTokensPerSlice": 253,
+    "fullRegistryTokensApprox": 739078,
+    "compiledSlicesTokensApprox": 44360,
+    "avgTokensPerSlice": 252,
     "tokenReductionPercent": "94%"
   },
   "slices": {
@@ -564,7 +564,7 @@
     },
     "apple-ecosystem-expert": {
       "skill": "apple-ecosystem-expert",
-      "version": "4.4.4",
+      "version": "4.4.5",
       "domain": "mobile-desktop",
       "description": "Apple ecosystem development: iOS support, Safari WebKit, and HIG",
       "actions": [
@@ -575,20 +575,20 @@
         "optimize"
       ],
       "connectedSkills": [
-        "modern-web-guidance",
         "hig",
+        "modern-web-guidance",
+        "100dvh",
         "design-system-architect",
         "modern-css-native-expert",
         "tailwind-expert",
         "ui-ux-pro-max",
-        "visual-ui-auditor",
-        "anti-slop"
+        "visual-ui-auditor"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec apple-ecosystem-expert verify",
       "snippet": {
-        "lang": "html",
-        "code": "<!-- Head configuration for iOS 18+ Standalone Web App -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n<meta name=\"apple-mobile-web-app-capable\" content=\"yes\" />\n<meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\" />\n<meta name=\"apple-mobile-web-app-title\" content=\"VibesApp\" />\n<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\" />\n<link rel=\"manifest\" href=\"/manifest.webmanifest\" />"
+        "lang": "css",
+        "code": "/* src/styles/apple-hig-tokens.css */\n:root {\n  /* Safe Area Insets */\n  --safe-top: env(safe-area-inset-top, 0px);\n  --safe-bottom: env(safe-area-inset-bottom, 0px);\n  --safe-left: env(safe-area-inset-left, 0px);\n  --safe-right: env(safe-area-inset-right, 0px);\n\n  /* Apple System Typography (SF Pro) */\n  --font-apple-system: -apple-system, BlinkMacSystemFont, \"SF Pro Text\", \"SF Pro Display\",\n    \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n\n  /* Apple Semantic System Colors (Light Mode) */\n  --apple-label-primary: #000000;"
       }
     },
     "astro-framework-expert": {
@@ -664,12 +664,12 @@
       "connectedSkills": [
         "brainstorming",
         "zero-to-prod-orchestrator",
+        "compliance-gdpr-privacy-expert",
         "saas-architect",
         "saas-multi-tenant",
         "supabase-security-expert",
         "firebase-security-expert",
-        "js-backend-expert",
-        "production-ready-hardener"
+        "js-backend-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec authentication-identity-expert verify",
@@ -2393,9 +2393,9 @@
     },
     "hig": {
       "skill": "hig",
-      "version": "4.4.4",
+      "version": "4.4.5",
       "domain": "frontend",
-      "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency",
+      "description": "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency, Apple HIG 2026 & Material 3",
       "actions": [
         "audit",
         "verify",
@@ -2405,19 +2405,19 @@
       ],
       "connectedSkills": [
         "modern-web-guidance",
+        "apple-ecosystem-expert",
         "visual-ui-auditor",
         "design-system-architect",
         "tailwind-expert",
         "ui-ux-pro-max",
         "anti-slop",
-        "brainstorming",
-        "zero-to-prod-orchestrator"
+        "brainstorming"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec hig verify",
       "snippet": {
         "lang": "css",
-        "code": "/* Strict 5-tier typographic scale with optical letter-spacing */\n.eyebrow { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-muted); }\n.h1      { font-size: 2.5rem;    font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; color: var(--color-text-primary); }\n.h2      { font-size: 1.75rem;   font-weight: 600; letter-spacing: -0.02em;  line-height: 1.25; color: var(--color-text-primary); }\n.h3      { font-size: 1.25rem;   font-weight: 600; letter-spacing: -0.01em;  line-height: 1.35; color: var(--color-text-primary); }\n.body    { font-size: 0.9375rem; font-weight: 400; letter-spacing: 0em;      line-height: 1.6;  color: var(--color-text-secondary); }\n.caption { font-size: 0.75rem;   font-weight: 400; letter-spacing: 0.01em;   color: var(--color-text-tertiary); }\n.metric  { font-size: 2rem;      font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }"
+        "code": "/* Apple HIG Semantic System Color Tokens */\n:root {\n  /* System Text Labels */\n  --apple-label-primary: rgba(0, 0, 0, 1.0);           /* #000000 */\n  --apple-label-secondary: rgba(60, 60, 67, 0.6);       /* 60% opacity */\n  --apple-label-tertiary: rgba(60, 60, 67, 0.3);        /* 30% opacity */\n  --apple-label-quaternary: rgba(60, 60, 67, 0.18);     /* 18% opacity */\n\n  /* System Backgrounds (Standard) */\n  --apple-bg-primary: #FFFFFF;\n  --apple-bg-secondary: #F2F2F7;\n  --apple-bg-tertiary: #FFFFFF;\n\n  /* System Backgrounds (Grouped) */"
       }
     },
     "htmx-hypermedia-expert": {
