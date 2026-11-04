@@ -19,7 +19,8 @@ export const mobileSpatialAdapter = {
     'web-game-engine-expert',
     'cinematic-motion-engine',
     'multimodal-spatial-video-cloner',
-    'wasm-edge-computing-expert'
+    'wasm-edge-computing-expert',
+    'app-promo-media-expert'
   ],
   supportedActions: ['audit', 'verify', 'eval', 'generate', 'optimize'],
 

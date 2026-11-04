@@ -2,7 +2,7 @@
 name: proactive-background-watcher
 description: "Proactive background task scheduling, API polling, and log monitoring / Penjadwalan background task proaktif dan pemantauan sistem."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Proactive Background Watcher (Sentinel Daemon Protocol)

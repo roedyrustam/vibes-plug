@@ -2,7 +2,7 @@
 name: tailwind-expert
 description: "Tailwind CSS v4, CSS-first @theme configuration, and modern styling / Panduan Tailwind CSS v4, konfigurasi @theme, dan styling modern."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Tailwind CSS Expert (v4 Edition)

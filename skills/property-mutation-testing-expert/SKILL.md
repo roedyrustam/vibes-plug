@@ -2,7 +2,7 @@
 name: property-mutation-testing-expert
 description: "Property-based testing (fast-check) and mutation testing (Stryker) / Pengujian berbasis properti (fast-check) dan mutasi (Stryker)."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -215,6 +215,8 @@ For each property, use appropriate fast-check arbitraries.
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

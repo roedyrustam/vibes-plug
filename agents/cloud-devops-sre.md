@@ -45,3 +45,17 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Zero-Placeholder Invariant (Anti-Slop Pillar 2)**:
    - Produce 100% complete, valid Dockerfiles, Kubernetes manifests, GitHub Actions workflows, and Terraform/IaC definitions with zero `// TODO` or truncated blocks.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `api-gateway-proxy-expert`
+- `cron-scheduler-expert`
+- `data-telemetry-expert`
+- `error-resilience-expert`
+- `feature-flag-analytics-expert`
+- `logging-error-tracking-expert`
+- `monorepo-architect`
+- `proactive-background-watcher`
+- `rate-limit-abuse-prevention`

@@ -55,3 +55,66 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
      1. Privacy Policy (`/privacy` or `/privacy-policy`)
      2. Terms & Conditions (`/terms` or `/terms-and-conditions`)
      3. User Data Deletion (`/delete-account` or `/data-deletion`) with self-service request UI and backend crypto-shredding endpoint.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `affective-computing-emotion-ai`
+- `ai-media-generation-expert`
+- `ai-safety-governance-expert`
+- `angular-expert`
+- `astro-framework-expert`
+- `async-queue-temporal-expert`
+- `authentication-identity-expert`
+- `browser-automation-expert`
+- `bun-runtime-expert`
+- `chatbot-messaging-expert`
+- `context-window-engineer`
+- `deep-research-analyst`
+- `documentation-site-expert`
+- `email-notification-expert`
+- `ephemeral-generative-ui-architect`
+- `file-upload-media-expert`
+- `form-validation-expert`
+- `frontier-ai-models-expert`
+- `fullstack-expert`
+- `global-a11y-i18n-expert`
+- `go-programming-expert`
+- `graphql-apollo-expert`
+- `headless-cms-expert`
+- `hig`
+- `htmx-hypermedia-expert`
+- `modern-css-native-expert`
+- `n8n-automation-expert`
+- `nextjs-app-router-expert`
+- `parallel-tool-orchestrator`
+- `passkeys-webauthn-identity-expert`
+- `pdf-document-generation-expert`
+- `performance-web-vitals`
+- `pydantic-ai-expert`
+- `python-programming-expert`
+- `rea-analysis-optimization`
+- `rea-changelog-update`
+- `rea-ci-tests-audit`
+- `rea-tool-design`
+- `realtime-collaboration-expert`
+- `rich-text-editor-expert`
+- `rust-programming-expert`
+- `screenshot-to-code-expert`
+- `seo`
+- `session-memory-manager`
+- `solidjs-expert`
+- `speculative-multi-draft-synthesizer`
+- `sse-websocket-streaming-expert`
+- `state-management-expert`
+- `structured-output-contracts`
+- `svelte-sveltekit-expert`
+- `svg-animation-motion-expert`
+- `tanstack-query-expert`
+- `typescript-expert`
+- `ui-ux-pro-max`
+- `vercel-ai-sdk-expert`
+- `vue-frontend-expert`
+- `website-design-cloner`
+- `wordpress-headless-expert`

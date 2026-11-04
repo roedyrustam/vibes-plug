@@ -19,7 +19,8 @@ export const databaseAdapter = {
     'supabase-security-expert',
     'firebase-security-expert',
     'saas-multi-tenant',
-    'double-entry-ledger-fintech-expert'
+    'double-entry-ledger-fintech-expert',
+    'geospatial-maps-expert'
   ],
   supportedActions: ['eval', 'audit', 'generate', 'verify', 'optimize'],
 

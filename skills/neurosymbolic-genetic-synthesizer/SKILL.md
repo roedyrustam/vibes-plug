@@ -2,7 +2,7 @@
 name: neurosymbolic-genetic-synthesizer
 description: "Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch."
 author: "Roedy Rustam"
-version: "4.6.0"
+version: "4.7.0"
 ---
 
 # Neurosymbolic Genetic Synthesizer (Quality-Diversity & FunSearch Engine)
@@ -24,7 +24,37 @@ The **Neurosymbolic Genetic Synthesizer** bridges generative LLM creativity with
 
 ---
 
-### Orchestration & Integration
+#### 3. Quality-Diversity MAP-Elites Archive Controller / Kontroler Arsip MAP-Elites Quality-Diversity
+
+```typescript
+export interface CandidateGenome {
+  id: string;
+  code: string;
+  fitnessScore: number;
+  cyclomaticComplexity: number;
+  memoryFootprintKb: number;
+}
+
+export class MapElitesGridArchive {
+  private readonly cells = new Map<string, CandidateGenome>();
+
+  public insertCandidate(candidate: CandidateGenome): boolean {
+    const nicheKey = `c${Math.min(10, Math.floor(candidate.cyclomaticComplexity / 2))}_m${Math.min(10, Math.floor(candidate.memoryFootprintKb / 64))}`;
+    const incumbent = this.cells.get(nicheKey);
+    if (!incumbent || candidate.fitnessScore > incumbent.fitnessScore) {
+      this.cells.set(nicheKey, candidate);
+      return true;
+    }
+    return false;
+  }
+
+  public getEliteCount(): number {
+    return this.cells.size;
+  }
+}
+```
+
+## Orchestration & Integration
 - **Upstream Multi-Agent & Drafting**: `multi-agent-orchestration`, `speculative-multi-draft-synthesizer`, `frontier-ai-models-expert`.
 - **Sandbox Execution & Verification**: `ephemeral-wasm-sandbox-executor`, `autonomous-tdd-debugger`, `formal-spec-z3-verifier`, `formal-theorem-verifier-lean4`.
 - **AST Graphs & Refactoring**: `living-codebase-ast-graph`, `anti-slop`, `scalability-clean-code`.

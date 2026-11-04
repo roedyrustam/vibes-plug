@@ -2,7 +2,7 @@
 name: test-time-compute-optimizer
 description: "Dynamic test-time compute allocation and reasoning token optimization / Alokasi komputasi test-time dinamis dan optimasi token penalaran."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -229,6 +229,8 @@ export function selectOptimalCandidate(candidates: readonly CandidateGeneration[
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

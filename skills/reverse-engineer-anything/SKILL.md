@@ -2,7 +2,7 @@
 name: reverse-engineer-anything
 description: "Reverse-engineer binaries, firmware, and web apps with REA AgentEnv / Rekayasa balik biner, firmware, dan web apps dengan REA AgentEnv."
 author: "morluto"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # REA
@@ -684,3 +684,5 @@ export function extractApiSurfaceFromHar(entries: readonly HarEntryLite[]): Disc
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec reverse-engineer-anything <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+

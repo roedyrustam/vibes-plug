@@ -43,3 +43,10 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Zero-Placeholder Invariant (Anti-Slop Pillar 2)**:
    - Deliver 100% complete analysis scripts, YARA/Semgrep rules, SMT-LIB 2.0 specs, and remediation patches with zero `// TODO` stubs or silent error suppression.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `blockchain-web3-expert`
+- `formal-theorem-verifier-lean4`

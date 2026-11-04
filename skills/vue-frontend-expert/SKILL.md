@@ -2,7 +2,7 @@
 name: vue-frontend-expert
 description: "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 

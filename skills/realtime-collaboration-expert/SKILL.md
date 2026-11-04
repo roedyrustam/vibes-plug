@@ -2,7 +2,7 @@
 name: realtime-collaboration-expert
 description: "Real-time collaboration: WebSockets, WebRTC, and CRDTs (Yjs) / Kolaborasi real-time: WebSockets, WebRTC, dan CRDT (Yjs)."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Real-Time Collaboration Expert / Ahli Kolaborasi Real-Time
@@ -136,6 +136,21 @@ export function mergeAndCompactYjsUpdates(
 - [ ] Persist local edits to `IndexedDB` (`y-indexeddb`) so offline edits merge automatically without data loss upon WebSocket reconnection.
 - [ ] Compact incremental binary updates (`Y.mergeUpdatesV2`) on the server to prevent unbounded database growth.
 - [ ] Authenticate every WebSocket upgrade and enforce room-level RBAC/ReBAC permissions before broadcasting state vectors.
+
+### 3. Deterministic Awareness Cursor Throttling & State Vector Sync / Sinkronisasi Vektor State & Throttling Kursor
+
+```typescript
+export interface CollaboratorPresence {
+  clientId: string;
+  cursorLine: number;
+  cursorCol: number;
+  updatedAtMs: number;
+}
+
+export function filterActiveCollaborators(states: CollaboratorPresence[], nowMs: number, ttlMs = 15000): CollaboratorPresence[] {
+  return states.filter(state => nowMs - state.updatedAtMs <= ttlMs);
+}
+```
 
 ## Orchestration & Integration
 - `senior-frontend` — React 19 UI component bindings, live cursor canvas, and optimistic multiplayer rendering.

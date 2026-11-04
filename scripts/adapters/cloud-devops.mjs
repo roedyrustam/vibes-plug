@@ -17,7 +17,9 @@ export const cloudDevopsAdapter = {
     'logging-error-tracking-expert',
     'error-resilience-expert',
     'cron-scheduler-expert',
-    'proactive-background-watcher'
+    'proactive-background-watcher',
+    'feature-flag-analytics-expert',
+    'monorepo-architect'
   ],
   supportedActions: ['audit', 'verify', 'eval', 'generate', 'optimize'],
 

@@ -2,7 +2,7 @@
 name: speculative-multi-draft-synthesizer
 description: "Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Speculative Multi-Draft Synthesizer (2026 Sovereign Edition)
@@ -398,6 +398,8 @@ export class SpeculativeSynthesisPipeline {
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Direktif Eksekutif & Paradigma Multi-Draf (Pergeseran 2026)

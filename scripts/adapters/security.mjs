@@ -20,7 +20,13 @@ export const securityAdapter = {
     'doku-payment-gateway',
     'payment-gateway-expert',
     'saas-billing',
-    'agentic-m2m-settlement'
+    'agentic-m2m-settlement',
+    'blockchain-web3-expert',
+    'rea-analysis-optimization',
+    'rea-changelog-update',
+    'rea-ci-tests-audit',
+    'rea-tool-design',
+    'reverse-engineer-anything'
   ],
   supportedActions: ['fuzz', 'audit', 'verify', 'eval', 'generate'],
 

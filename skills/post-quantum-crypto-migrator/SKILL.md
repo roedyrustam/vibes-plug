@@ -2,7 +2,7 @@
 name: post-quantum-crypto-migrator
 description: "NIST post-quantum cryptography migration (ML-KEM, ML-DSA) / Migrasi kriptografi pasca-kuantum NIST (ML-KEM, ML-DSA)."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Post-Quantum Cryptography Migrator (2026 Sovereign Edition)
@@ -21,7 +21,23 @@ Adversaries are actively executing **"Harvest Now, Decrypt Later" (HNDL)** attac
 
 ---
 
-### Orchestration & Integration
+#### 3. Hybrid X25519 + ML-KEM-768 Key Encapsulation Combiner / Kombinator Enkapsulasi Kunci Hibrida Pasca-Kuantum
+
+```typescript
+import { createHash, hkdfSync } from 'node:crypto';
+
+export function deriveHybridQuantumSharedSecret(
+  classicalEcdhSecret: Buffer,
+  pqcMlKemSecret: Buffer,
+  contextInfo: string
+): Buffer {
+  const combinedInput = Buffer.concat([classicalEcdhSecret, pqcMlKemSecret]);
+  const salt = createHash('sha3-256').update(contextInfo).digest();
+  return Buffer.from(hkdfSync('sha3-256', combinedInput, salt, Buffer.from('HYBRID-KEM-2026'), 32));
+}
+```
+
+## Orchestration & Integration
 - **FinTech & SaaS Gateways**: `doku-payment-gateway`, `payment-gateway-expert`, `saas-billing`, `agentic-m2m-settlement`.
 - **Security & Red Teaming**: `autonomous-red-teamer`, `zero-trust-secret-vault`, `prompt-injection-firewall`.
 - **Identity & Formal Verification**: `authentication-identity-expert`, `formal-spec-z3-verifier`, `compliance-gdpr-privacy-expert`.
@@ -195,6 +211,8 @@ export class PqcAuditScanner {
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+
 ## Bahasa Indonesia
 
 ### Direktif Eksekutif & Ancaman Kuantum (Pergeseran 2026)

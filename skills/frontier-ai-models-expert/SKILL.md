@@ -2,7 +2,7 @@
 name: frontier-ai-models-expert
 description: "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5)."
 author: "Roedy Rustam"
-version: "4.6.0"
+version: "4.7.0"
 
 ---
 
@@ -398,6 +398,8 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

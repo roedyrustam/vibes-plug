@@ -2,7 +2,7 @@
 name: mpa-orchestrator
 description: "Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -15,7 +15,24 @@ version: "4.4.4"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Speculation Rules API Prerender Manifest Generator / Generator Manifest Prerender Speculation Rules
+
+```typescript
+export interface SpeculationRuleConfig {
+  prerenderPaths: string[];
+  prefetchPaths: string[];
+  eagerness: 'immediate' | 'eager' | 'moderate' | 'conservative';
+}
+
+export function buildSpeculationRulesJson(config: SpeculationRuleConfig): string {
+  return JSON.stringify({
+    prerender: [{ source: 'list', urls: config.prerenderPaths, eagerness: config.eagerness }],
+    prefetch: [{ source: 'list', urls: config.prefetchPaths, eagerness: config.eagerness }]
+  }, null, 2);
+}
+```
+
+## Orchestration & Integration
 Connects and orchestrates with relevant domain skills:
 - `modern-web-guidance`: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
 - `htmx-hypermedia-expert`: Hypermedia-Driven Applications (HDA) and HTML-over-the-wire swaps.

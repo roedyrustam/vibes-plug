@@ -2,7 +2,7 @@
 name: data-pipeline-etl-expert
 description: "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB / Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Data Pipeline & ETL Expert / Ahli Data Pipeline & ETL
@@ -14,7 +14,27 @@ version: "4.4.4"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Incremental Parquet Compaction & Lineage Gate / Gerbang Kompaksi Parquet & Silsilah Data
+
+```typescript
+export interface CompactionBatch {
+  table: string;
+  partitionKey: string;
+  sourceFiles: string[];
+  rowCount: number;
+  checksumSha256: string;
+}
+
+export function verifyEtlLineageGate(batch: CompactionBatch, minRows = 1): { valid: boolean; targetUri: string } {
+  if (!batch.table || batch.sourceFiles.length === 0 || batch.rowCount < minRows) {
+    throw new Error(`Invalid ETL compaction batch for table: ${batch.table}`);
+  }
+  const targetUri = `s3://lakehouse/warehouse/${batch.table}/partition=${batch.partitionKey}/compacted-${batch.checksumSha256.slice(0, 12)}.parquet`;
+  return { valid: true, targetUri };
+}
+```
+
+## Orchestration & Integration
 - **Upstream Languages & Scripts**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
 - **Transactional & Analytics DBs**: `database-orm-expert`, `olap-columnar-analytics-expert`, `search-engine-expert`, `vector-db-rag-expert`
 - **Telemetry & Observability**: `data-telemetry-expert`, `logging-error-tracking-expert`

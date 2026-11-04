@@ -2,7 +2,7 @@
 name: pdf-document-generation-expert
 description: "PDF generation and document processing (React PDF, Puppeteer) / Generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer)."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -15,7 +15,30 @@ version: "4.4.4"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Cryptographic PDF Tamper-Seal & Hash Manifest / Segel Kriptografi Dokumen PDF
+
+```typescript
+import { createHash } from 'node:crypto';
+
+export interface SignedPdfArtifact {
+  documentId: string;
+  sha256Digest: string;
+  byteLength: number;
+  issuedAtIso: string;
+}
+
+export function computePdfIntegritySeal(documentId: string, pdfBuffer: Buffer): SignedPdfArtifact {
+  const sha256Digest = createHash('sha256').update(pdfBuffer).digest('hex');
+  return {
+    documentId,
+    sha256Digest,
+    byteLength: pdfBuffer.byteLength,
+    issuedAtIso: new Date().toISOString()
+  };
+}
+```
+
+## Orchestration & Integration
 Connects and orchestrates with domain skills:
 - **UI & Design Systems**: `design-system-architect`, `senior-frontend`, `ui-ux-pro-max`, and `anti-slop` for aligning PDF document typography, color tokens (slate/monochrome palettes), tabular numerals (`font-variant-numeric: tabular-nums`), and 1px borders with the primary application design system.
 - **Visual Auditing**: `visual-ui-auditor` for verifying print stylesheets, contrast ratios, and layout precision across A4/Letter viewports.

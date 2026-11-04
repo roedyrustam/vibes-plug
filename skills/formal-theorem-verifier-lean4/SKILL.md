@@ -2,7 +2,7 @@
 name: formal-theorem-verifier-lean4
 description: "Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating / Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika."
 author: "Roedy Rustam"
-version: "4.6.0"
+version: "4.7.0"
 ---
 
 # Formal Theorem Verifier Lean 4 (Mathematical Zero-Hallucination Gate)
@@ -24,7 +24,27 @@ Unit tests and integration test suites can only prove the presence of bugs in te
 
 ---
 
-### Orchestration & Integration
+#### 3. Automated Proof Obligation & Invariant Gate Harness / Harness Verifikasi Bukti Formal Otomatis
+
+```typescript
+export interface ProofObligationResult {
+  theoremName: string;
+  hasSorryAxiom: boolean;
+  verifiedByKernel: boolean;
+  executionTimeMs: number;
+}
+
+export function enforceLean4ProofGate(results: ProofObligationResult[]): { passed: boolean; verifiedCount: number } {
+  for (const res of results) {
+    if (res.hasSorryAxiom || !res.verifiedByKernel) {
+      throw new Error(`Unverified theorem or 'sorry' axiom detected in ${res.theoremName}`);
+    }
+  }
+  return { passed: true, verifiedCount: results.length };
+}
+```
+
+## Orchestration & Integration
 - **Upstream Multi-Agent & Code Synthesis**: `formal-spec-z3-verifier`, `neurosymbolic-genetic-synthesizer`, `speculative-multi-draft-synthesizer`.
 - **Ledgers & High-Stakes FinTech**: `double-entry-ledger-fintech-expert`, `agentic-m2m-settlement`, `saas-billing`.
 - **Testing & Hardening**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `production-ready-hardener`, `anti-slop`.

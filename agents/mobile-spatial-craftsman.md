@@ -44,3 +44,12 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Zero-Placeholder Invariant (Anti-Slop Pillar 2)**:
    - Deliver 100% complete, compilable TypeScript/Dart/Rust/WGSL code with zero `// TODO` or truncated logic.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `app-promo-media-expert`
+- `browser-extension-mv3-pro`
+- `multimodal-spatial-video-cloner`
+- `wasm-edge-computing-expert`

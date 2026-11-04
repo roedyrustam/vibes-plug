@@ -44,3 +44,13 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Zero-Placeholder Invariant (Anti-Slop Pillar 2)**:
    - Deliver complete, executable SQL DDL, Drizzle/Prisma schemas, ClickHouse materialized views, and TypeScript query services with zero `// TODO` stubs.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `data-visualization-expert`
+- `firebase-security-expert`
+- `geospatial-maps-expert`
+- `saas-multi-tenant`
+- `search-engine-expert`

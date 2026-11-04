@@ -2,7 +2,7 @@
 name: docker-container-expert
 description: "Production Docker containerization, BuildKit, distroless, and Compose / Kontainerisasi Docker produksi, BuildKit, distroless, dan Compose."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Docker Container Expert (Production Standard 2026)

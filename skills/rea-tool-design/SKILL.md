@@ -2,7 +2,7 @@
 name: rea-tool-design
 description: "Design REA investigation tools, CLI/MCP contracts, and Evidence / Desain tool investigasi REA, kontrak CLI/MCP, dan semantik Evidence."
 author: "morluto"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # REA tool design

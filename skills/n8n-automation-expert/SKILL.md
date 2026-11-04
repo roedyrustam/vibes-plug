@@ -2,7 +2,7 @@
 name: n8n-automation-expert
 description: "Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Workflow Automation & n8n AI Orchestration Expert (2026 Edition)
@@ -14,7 +14,21 @@ version: "4.4.4"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Cryptographic Webhook Signature & Idempotency Gate / Gerbang Tanda Tangan Webhook & Idempotensi
+
+```typescript
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+export function verifyN8nWebhookSignature(rawBody: string, signatureHeader: string, secret: string): boolean {
+  if (!signatureHeader || !secret) return false;
+  const expected = createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
+  const a = Buffer.from(signatureHeader, 'utf8');
+  const b = Buffer.from(expected, 'utf8');
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+```
+
+## Orchestration & Integration
 - **Upstream Triggers & Schedules**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
 - **AI Agent & LLM Nodes**: `ai-llm-integration-expert`, `mcp-server-architect`, `chatbot-messaging-expert`, `durable-agent-execution-expert`
 - **Communications & Billing**: `email-notification-expert`, `payment-gateway-expert`, `doku-payment-gateway`

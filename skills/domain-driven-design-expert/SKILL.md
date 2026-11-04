@@ -2,7 +2,7 @@
 name: domain-driven-design-expert
 description: "Domain-Driven Design (DDD), aggregates, bounded contexts, and CQRS / Desain Berbasis Domain (DDD), aggregate, bounded context, dan CQRS."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Domain-Driven Design (DDD) Expert (Strategic & Tactical 2026)
@@ -14,7 +14,33 @@ version: "4.4.4"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Transactional Outbox Relay & Aggregate Event Dispatcher / Relay Outbox Transaksional & Dispatcher Event
+
+```typescript
+export interface DomainEventPayload {
+  eventId: string;
+  aggregateId: string;
+  eventType: string;
+  occurredAt: string;
+  payload: Record<string, unknown>;
+}
+
+export class AggregateRootBase {
+  private readonly uncommittedEvents: DomainEventPayload[] = [];
+
+  protected recordEvent(event: DomainEventPayload): void {
+    this.uncommittedEvents.push(Object.freeze({ ...event }));
+  }
+
+  public pullDomainEvents(): ReadonlyArray<DomainEventPayload> {
+    const events = [...this.uncommittedEvents];
+    this.uncommittedEvents.length = 0;
+    return events;
+  }
+}
+```
+
+## Orchestration & Integration
 Connects and orchestrates with domain skills:
 - **Architecture & Modularity**: `scalability-clean-code` (SOLID, Hexagonal/Ports & Adapters), `event-driven-architect` (Domain Events, Kafka/RabbitMQ), and `saas-architect` (Bounded Context isolation).
 - **Persistence & Mapping**: `database-orm-expert` (Repository pattern, Data Mappers, pure domain models without ORM leakage), `double-entry-ledger-fintech-expert`.

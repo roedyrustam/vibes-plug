@@ -49,3 +49,16 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Subagent Fan-Out Preparation**:
    - Create a clean `CONTEXT_MAP.md` slice summarizing types and contracts so downstream subagents (`fullstack-craftsman`, `quality-guardian`) can execute without token waste.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `autonomous-api-drift-healer`
+- `composable-mach-architect`
+- `event-driven-architect`
+- `micro-frontend-architect`
+- `mpa-orchestrator`
+- `mvc-expert`
+- `openapi-swagger-codegen-expert`
+- `spa-orchestrator`

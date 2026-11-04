@@ -48,3 +48,21 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
    - Verify all database queries use parameterized statements.
    - Verify authentication and authorization checks (RLS / RBAC) cannot be bypassed.
    - Validate CSP headers, CORS policies, and rate-limiting middleware.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `accessibility-testing-expert`
+- `ai-code-review-autonomous`
+- `app-analyzer-optimizer`
+- `biome-linter-formatter-expert`
+- `coderabbit`
+- `dependency-upgrade-migrator`
+- `ephemeral-wasm-sandbox-executor`
+- `legacy-code-translator`
+- `living-codebase-ast-graph`
+- `production-ready-hardener`
+- `property-mutation-testing-expert`
+- `scalability-clean-code`
+- `visual-ui-auditor`

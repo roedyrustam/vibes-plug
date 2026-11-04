@@ -2,7 +2,7 @@
 name: zero-tech-debt-auditor
 description: "Autonomous scanner and refactorer to eliminate technical debt / Scanner otonom dan refaktor kode untuk menghapus utang teknis."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Zero Tech Debt Auditor / Auditor Nol Utang Teknis
@@ -183,6 +183,8 @@ export function detectImportCycles(
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

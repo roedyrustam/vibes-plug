@@ -26,7 +26,19 @@ export const frontendAdapter = {
     'svg-animation-motion-expert',
     'hig',
     'global-a11y-i18n-expert',
-    'accessibility-testing-expert'
+    'accessibility-testing-expert',
+    'data-visualization-expert',
+    'documentation-site-expert',
+    'ephemeral-generative-ui-architect',
+    'htmx-hypermedia-expert',
+    'micro-frontend-architect',
+    'mpa-orchestrator',
+    'performance-web-vitals',
+    'rich-text-editor-expert',
+    'screenshot-to-code-expert',
+    'seo',
+    'spa-orchestrator',
+    'website-design-cloner'
   ],
   supportedActions: ['audit', 'verify', 'generate', 'optimize', 'eval'],
 

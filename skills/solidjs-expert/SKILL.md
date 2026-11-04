@@ -2,7 +2,7 @@
 name: solidjs-expert
 description: "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -100,6 +100,24 @@ export function CartManager() {
       </div>
     </div>
   );
+}
+```
+
+### 3. Fine-Grained Reactive Signal Store with Optimistic Rollback / Store Sinyal Reaktif dengan Rollback Optimistis
+
+```typescript
+export interface OptimisticMutation<T> {
+  previousState: T;
+  nextState: T;
+  timestamp: number;
+}
+
+export function createOptimisticSnapshot<T>(current: T, updater: (prev: T) => T): OptimisticMutation<T> {
+  return {
+    previousState: structuredClone(current),
+    nextState: updater(structuredClone(current)),
+    timestamp: Date.now()
+  };
 }
 ```
 

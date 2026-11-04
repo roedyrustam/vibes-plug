@@ -2,7 +2,7 @@
 name: ephemeral-wasm-sandbox-executor
 description: "Ephemeral WebAssembly sandboxes for secure code execution and tests / Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Ephemeral WASM Sandbox Executor (2026 Sovereign Edition)
@@ -207,6 +207,8 @@ export class WasmCodeRunner {
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Direktif Eksekutif & Risiko Eksekusi Kode AI (Pergeseran 2026)

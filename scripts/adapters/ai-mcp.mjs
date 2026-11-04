@@ -33,7 +33,15 @@ export const aiMcpAdapter = {
     'synthetic-data-finetuning-expert',
     'gemini-agent-booster',
     'context-window-engineer',
-    'speculative-multi-draft-synthesizer'
+    'speculative-multi-draft-synthesizer',
+    'agentic-coding-workflow-expert',
+    'browser-automation-expert',
+    'computer-use-os-agent-expert',
+    'deep-research-analyst',
+    'neurosymbolic-genetic-synthesizer',
+    'parallel-tool-orchestrator',
+    'session-memory-manager',
+    'web-scraper'
   ],
   supportedActions: ['audit', 'verify', 'eval', 'generate', 'optimize'],
 

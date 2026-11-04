@@ -3,7 +3,7 @@
  * scripts/skill-dispatcher.mjs
  * Universal Skill-as-a-Tool (SaaT) Execution Dispatcher & Pipeline Chain Engine (v4.5.0)
  *
- * Bridges all 176 declarative skills in `skills/` with deterministic runtime execution
+ * Bridges all 178 declarative skills in `skills/` with deterministic runtime execution
  * across 8 specialized domain adapters (database, frontend, api, security, tdd, ai-mcp,
  * cloud-devops, mobile-spatial), Autonomous Skill Composition Chains, and live FinOps telemetry.
  */
@@ -123,11 +123,21 @@ export const SKILL_CHAIN_RECIPES = Object.freeze({
       { skill: 'pwa-offline-first-expert', action: 'verify' },
       { skill: 'fga-rebac-authorization-expert', action: 'audit' }
     ]
+  },
+  'formal-neurosymbolic-gate': {
+    name: 'Lean 4 Formal Theorem & Neurosymbolic Genetic Synthesis Gate',
+    description: 'Executes Lean 4 mathematical invariant verification, Z3 SMT solver checks, MAP-Elites genetic optimization, and WASM sandbox execution.',
+    steps: [
+      { skill: 'formal-theorem-verifier-lean4', action: 'verify' },
+      { skill: 'formal-spec-z3-verifier', action: 'verify' },
+      { skill: 'neurosymbolic-genetic-synthesizer', action: 'optimize' },
+      { skill: 'ephemeral-wasm-sandbox-executor', action: 'verify' }
+    ]
   }
 });
 
 /**
- * Resolves the best domain adapter for any of the 176 skills
+ * Resolves the best domain adapter for any of the 178 skills
  * @param {string} skillName
  * @returns {Object}
  */
@@ -271,7 +281,7 @@ export async function inspectSkillCapabilities(skillName) {
 }
 
 /**
- * Compiles all 176 skills into `.skill-slices.json` for O(1) sub-millisecond tool lookup
+ * Compiles all 178 skills into `.skill-slices.json` for O(1) sub-millisecond tool lookup
  * @returns {Promise<Object>}
  */
 export async function compileAllSkillSlices() {
@@ -326,7 +336,7 @@ export async function compileAllSkillSlices() {
 }
 
 /**
- * Executes a deterministic skill action across any of the 176 skills with FinOps auto-telemetry
+ * Executes a deterministic skill action across any of the 178 skills with FinOps auto-telemetry
  * @param {Object} request
  * @param {string} request.skill
  * @param {string} request.action
@@ -352,7 +362,7 @@ export async function dispatchSkillAction(request = {}) {
       durationMs: 0,
       error: {
         code: 'MISSING_SKILL_NAME',
-        message: 'A valid skill name from the 176-skill registry is required.'
+        message: 'A valid skill name from the 178-skill registry is required.'
       }
     };
   }

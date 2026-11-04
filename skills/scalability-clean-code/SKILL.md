@@ -2,7 +2,7 @@
 name: scalability-clean-code
 description: "Clean code architecture, SOLID principles, and system scalability / Arsitektur clean code, prinsip SOLID, dan skalabilitas sistem."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -193,6 +193,8 @@ When choosing an architecture, ask:
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

@@ -2,7 +2,7 @@
 name: reactive-sync-engine-expert
 description: "Reactive sync engines (Zero, ElectricSQL) and instant mutations / Mesin sinkronisasi reaktif (Zero, ElectricSQL) dan mutasi instan."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Reactive Sync Engine Expert / Ahli Mesin Sinkronisasi Reaktif

@@ -45,3 +45,10 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Resilient State Machine**:
    - Guard against out-of-order webhook delivery. A `PAID` state must never regress to `PENDING`.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `double-entry-ledger-fintech-expert`
+- `ecommerce-expert`

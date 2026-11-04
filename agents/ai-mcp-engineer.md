@@ -48,3 +48,25 @@ Whenever you are activated, adhere to the guidelines and workflows defined in:
 
 3. **Availability Fallback Invariant**:
    - Guarantee zero workflow disruption by incorporating automatic fallback paths: route Gemini 4 tasks to Gemini 3.8 Flash and Claude Opus 5.5 tasks to Claude Opus 4.6 when frontier models are unprovisioned or rate-limited.
+
+---
+
+## Extended Domain Skill Registry
+Also orchestrates and enforces domain contracts for:
+- `a2a-agent-protocol-expert`
+- `agentic-coding-workflow-expert`
+- `agentic-memory-architect`
+- `ai-prompt-engineering-expert`
+- `computer-use-os-agent-expert`
+- `durable-agent-execution-expert`
+- `llm-finops-router`
+- `llm-observability-expert`
+- `local-slm-edge-ai-expert`
+- `mcp-sampling-critic`
+- `neurosymbolic-genetic-synthesizer`
+- `prompt-injection-firewall`
+- `synthetic-data-finetuning-expert`
+- `test-time-compute-optimizer`
+- `thinking-budget-orchestrator`
+- `voice-ai-realtime-agent`
+- `web-scraper`

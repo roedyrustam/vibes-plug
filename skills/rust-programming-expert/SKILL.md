@@ -2,7 +2,7 @@
 name: rust-programming-expert
 description: "Rust 2024 / v1.88+ memory safety, async Axum, and zero-cost patterns / Pemrograman Rust modern: async Axum, SQLx, dan performa tinggi."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 
 ---
 
@@ -288,6 +288,8 @@ async fn main() -> anyhow::Result<()> {
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

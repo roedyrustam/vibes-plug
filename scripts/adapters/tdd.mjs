@@ -19,7 +19,14 @@ export const tddAdapter = {
     'coderabbit',
     'ephemeral-wasm-sandbox-executor',
     'formal-spec-z3-verifier',
-    'biome-linter-formatter-expert'
+    'biome-linter-formatter-expert',
+    'app-analyzer-optimizer',
+    'dependency-upgrade-migrator',
+    'formal-theorem-verifier-lean4',
+    'legacy-code-translator',
+    'living-codebase-ast-graph',
+    'scalability-clean-code',
+    'typescript-expert'
   ],
   supportedActions: ['verify', 'audit', 'eval', 'fuzz', 'optimize'],
 
