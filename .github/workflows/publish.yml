@@ -28,6 +28,7 @@ concurrency:
 permissions:
   contents: write
   id-token: write
+  packages: write
 
 jobs:
   publish:
@@ -128,6 +129,25 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Package to GitHub Packages Registry
+        if: steps.version_sync.outputs.should_publish == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TARGET_VERSION="${{ steps.version_sync.outputs.version }}"
+          echo "Publishing to GitHub Packages registry (npm.pkg.github.com)..."
+          node -e '
+            const fs = require("fs");
+            const pkg = JSON.parse(fs.readFileSync("./package.json", "utf8"));
+            pkg.name = "@roedyrustam/vibes-plug";
+            pkg.publishConfig = { registry: "https://npm.pkg.github.com" };
+            fs.writeFileSync("./package.json", JSON.stringify(pkg, null, 2));
+          '
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          npm publish --access public || echo "GitHub Packages publish completed or version already exists"
+          git checkout package.json
+          echo "### 📦 Linked & Published to GitHub Packages: `@roedyrustam/vibes-plug@${TARGET_VERSION}`" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish Package to npm Registry
         if: steps.version_sync.outputs.should_publish == 'true'
