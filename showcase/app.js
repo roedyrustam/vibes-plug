@@ -15,7 +15,9 @@ const state = {
   activeTopology: 'fan-out',
   activeIde: 'antigravity',
   selectedSkill: null,
-  isTerminalBusy: false
+  isTerminalBusy: false,
+  lang: 'en',
+  pkgManager: 'npx'
 };
 
 // DOM References Cache
@@ -25,6 +27,13 @@ function initDom() {
   dom.skillsGrid = document.getElementById('skillsGrid');
   dom.skillCountBadge = document.getElementById('skillCountBadge');
   dom.searchInput = document.getElementById('skillSearchInput');
+  dom.searchClearBtn = document.getElementById('searchClearBtn');
+  dom.langToggleGroup = document.getElementById('langToggleGroup');
+  dom.pkgManagerTabs = document.getElementById('pkgManagerTabs');
+  dom.installCmdText = document.getElementById('installCmdText');
+  dom.btnCopyInit = document.getElementById('btnCopyInit');
+  dom.btnCopyTerminal = document.getElementById('btnCopyTerminal');
+  dom.btnClearTerminal = document.getElementById('btnClearTerminal');
   dom.categoryTabs = document.getElementById('categoryTabs');
   dom.terminalBody = document.getElementById('terminalBody');
   dom.terminalInput = document.getElementById('terminalInput');
@@ -107,9 +116,10 @@ function renderSkills() {
   dom.skillsGrid.innerHTML = state.filteredSkills.map(skill => {
     const domainBg = `${skill.domainColor}1a`;
     const domainBorder = `${skill.domainColor}4d`;
+    const descText = state.lang === 'id' ? (skill.summaryId || skill.summaryEn) : (skill.summaryEn || skill.summaryId);
 
     return `
-      <div class="skill-card" data-skill-name="${escapeHtml(skill.name)}">
+      <div class="skill-card" data-skill-name="${escapeHtml(skill.name)}" style="--card-domain-color: ${skill.domainColor};">
         <div>
           <div class="skill-card-top">
             <span class="skill-domain-pill" style="background: ${domainBg}; border-color: ${domainBorder}; color: ${skill.domainColor}">
@@ -118,14 +128,14 @@ function renderSkills() {
             <span class="skill-version">v${escapeHtml(skill.version)}</span>
           </div>
           <h3 class="skill-name">${escapeHtml(skill.name)}</h3>
-          <p class="skill-desc">${escapeHtml(skill.summaryEn)}</p>
+          <p class="skill-desc">${escapeHtml(descText)}</p>
         </div>
         <div>
           <div class="skill-tags">
             ${skill.tags.map(t => `<span class="skill-tag">#${escapeHtml(t)}</span>`).join('')}
           </div>
           <div class="skill-card-bottom">
-            <span class="skill-trigger-code">${escapeHtml(skill.trigger)}</span>
+            <span class="skill-trigger-pill">${escapeHtml(skill.trigger)}</span>
             <button type="button" class="btn btn-secondary btn-sm copy-skill-trigger" data-trigger="${escapeHtml(skill.trigger)}">
               Copy Trigger
             </button>
@@ -145,13 +155,20 @@ function renderSkills() {
     });
   });
 
-  // Attach trigger copy buttons
+  // Attach trigger copy buttons with visual feedback
   dom.skillsGrid.querySelectorAll('.copy-skill-trigger').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const trigger = btn.getAttribute('data-trigger');
       navigator.clipboard.writeText(trigger).then(() => {
+        const origText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
         showToast(`Copied ${trigger} to clipboard`, 'success');
+        setTimeout(() => {
+          btn.textContent = origText;
+          btn.classList.remove('copied');
+        }, 1800);
       });
     });
   });
@@ -712,15 +729,92 @@ export function initShowcase() {
     });
   }
 
-  // Search input with debounce
+  // Search input with debounce & clear button toggle
   if (dom.searchInput) {
     let debounceTimer;
     dom.searchInput.addEventListener('input', (e) => {
+      if (dom.searchClearBtn) {
+        dom.searchClearBtn.style.display = e.target.value.trim() ? 'block' : 'none';
+      }
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
         state.searchQuery = e.target.value;
         filterSkills();
       }, 150);
+    });
+  }
+
+  // Clear search button
+  if (dom.searchClearBtn && dom.searchInput) {
+    dom.searchClearBtn.addEventListener('click', () => {
+      dom.searchInput.value = '';
+      state.searchQuery = '';
+      dom.searchClearBtn.style.display = 'none';
+      filterSkills();
+      dom.searchInput.focus();
+    });
+  }
+
+  // Keyboard shortcut '/' to search
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== dom.searchInput && document.activeElement !== dom.terminalInput) {
+      e.preventDefault();
+      if (dom.searchInput) {
+        dom.searchInput.focus();
+        dom.searchInput.select();
+      }
+    }
+  });
+
+  // Language toggle switcher
+  if (dom.langToggleGroup) {
+    dom.langToggleGroup.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        dom.langToggleGroup.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.lang = btn.getAttribute('data-lang') || 'en';
+        renderSkills();
+        showToast(`Language switched to ${state.lang === 'id' ? 'Bahasa Indonesia' : 'English'}`, 'info');
+      });
+    });
+  }
+
+  // Package Manager Switcher Tabs
+  if (dom.pkgManagerTabs) {
+    const pkgCommands = {
+      npx: 'npx vibes-plug init',
+      bunx: 'bunx vibes-plug init',
+      pnpm: 'pnpm dlx vibes-plug init'
+    };
+    dom.pkgManagerTabs.querySelectorAll('.pkg-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        dom.pkgManagerTabs.querySelectorAll('.pkg-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const pkg = tab.getAttribute('data-pkg') || 'npx';
+        state.pkgManager = pkg;
+        const cmd = pkgCommands[pkg] || 'npx vibes-plug init';
+        if (dom.installCmdText) dom.installCmdText.textContent = cmd;
+        if (dom.btnCopyInit) dom.btnCopyInit.setAttribute('data-copy', cmd);
+      });
+    });
+  }
+
+  // Terminal copy and clear action buttons
+  if (dom.btnCopyTerminal && dom.terminalBody) {
+    dom.btnCopyTerminal.addEventListener('click', () => {
+      const text = dom.terminalBody.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Terminal session copied to clipboard', 'success');
+      });
+    });
+  }
+  if (dom.btnClearTerminal && dom.terminalBody) {
+    dom.btnClearTerminal.addEventListener('click', () => {
+      dom.terminalBody.innerHTML = '';
+      appendTerminalLine(`
+<span class="term-badge term-badge-cyan">TERMINAL CLEARED</span> Type '<span class="term-cmd">help</span>' or select a preset above.
+`);
+      showToast('Terminal screen cleared', 'info');
     });
   }
 

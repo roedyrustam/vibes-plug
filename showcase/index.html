@@ -42,6 +42,10 @@
       </nav>
 
       <div class="nav-actions">
+        <div class="nav-status-badge" title="Ecosystem active &amp; verified">
+          <span class="live-dot-pulse"></span>
+          <span class="nav-status-text">178 Skills • 9 Agents</span>
+        </div>
         <a href="http://localhost:3888" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="btnLaunchStudio">
           ⚡ Studio Cockpit
         </a>
@@ -83,9 +87,17 @@
         </p>
 
         <div class="hero-actions">
-          <div class="install-box" id="heroInstallBox">
-            <span>$ npx vibes-plug init</span>
-            <button type="button" class="copy-btn" id="btnCopyInit" data-copy="npx vibes-plug init">Copy</button>
+          <div class="install-box-interactive" id="heroInstallBox">
+            <div class="pkg-manager-tabs" id="pkgManagerTabs" role="tablist">
+              <button type="button" class="pkg-tab active" data-pkg="npx">npx</button>
+              <button type="button" class="pkg-tab" data-pkg="bunx">bunx</button>
+              <button type="button" class="pkg-tab" data-pkg="pnpm">pnpm dlx</button>
+            </div>
+            <div class="install-cmd-row">
+              <span class="cmd-prefix">$</span>
+              <span class="cmd-text" id="installCmdText">npx vibes-plug init</span>
+              <button type="button" class="copy-btn" id="btnCopyInit" data-copy="npx vibes-plug init" title="Copy installation command">Copy</button>
+            </div>
           </div>
           <a href="#explorer" class="btn btn-primary" id="btnExploreSkills">Explore 178 Skills</a>
           <a href="#terminal" class="btn btn-secondary" id="btnTryTerminal">Try Live Terminal</a>
@@ -94,20 +106,40 @@
         <!-- 4 Stat Counters -->
         <div class="hero-stats" id="heroStatsGrid">
           <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-icon-wrap" style="color: var(--accent-cyan);">⚡</span>
+              <span class="stat-badge-tag" style="background: rgba(6, 182, 212, 0.12); color: var(--accent-cyan); border-color: rgba(6, 182, 212, 0.25);">+2 Frontier</span>
+            </div>
             <div class="stat-value tabular-nums" id="statSkillsCount">178</div>
             <div class="stat-label">Verified Domain Skills</div>
+            <div class="stat-subtext">Lean 4 &amp; Genetic Synthesizer added</div>
           </div>
           <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-icon-wrap" style="color: var(--accent-blue);">🌐</span>
+              <span class="stat-badge-tag" style="background: rgba(59, 130, 246, 0.12); color: var(--accent-blue); border-color: rgba(59, 130, 246, 0.25);">Universal</span>
+            </div>
             <div class="stat-value tabular-nums" id="statIdeBridges">6</div>
             <div class="stat-label">Unified IDE Platforms</div>
+            <div class="stat-subtext">AGY, Claude, Cursor, Windsurf, Codex, Trae</div>
           </div>
           <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-icon-wrap" style="color: var(--accent-emerald);">💰</span>
+              <span class="stat-badge-tag" style="background: rgba(16, 185, 129, 0.12); color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.25);">Prefix Cache</span>
+            </div>
             <div class="stat-value tabular-nums" id="statTokenSavings">76.8%</div>
             <div class="stat-label">KV-Cache Token Savings</div>
+            <div class="stat-subtext">Deterministic prefix optimization</div>
           </div>
           <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-icon-wrap" style="color: var(--accent-amber);">🛡️</span>
+              <span class="stat-badge-tag" style="background: rgba(245, 158, 11, 0.12); color: var(--accent-amber); border-color: rgba(245, 158, 11, 0.25);">40 Rules</span>
+            </div>
             <div class="stat-value tabular-nums" id="statAntiSlopRate">100%</div>
             <div class="stat-label">Anti-Slop Strict Pass</div>
+            <div class="stat-subtext">Canonical R-01 to R-40 hard-gated</div>
           </div>
         </div>
       </div>
@@ -125,14 +157,16 @@
         <div class="terminal-window" id="terminalWindow">
           <div class="terminal-header">
             <div class="terminal-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
+              <span class="dot dot-red" title="Close"></span>
+              <span class="dot dot-yellow" title="Minimize"></span>
+              <span class="dot dot-green" title="Expand"></span>
             </div>
             <div class="terminal-title">vibes-plug-agent-session — bash</div>
-            <div class="terminal-badges">
-              <span class="terminal-chip">AST Engine: READY</span>
-              <span class="terminal-chip">MCP v1.x: SSE</span>
+            <div class="terminal-actions">
+              <button type="button" class="term-action-btn" id="btnCopyTerminal" title="Copy terminal output">📋 Copy</button>
+              <button type="button" class="term-action-btn" id="btnClearTerminal" title="Clear terminal screen">✕ Clear</button>
+              <span class="terminal-chip">AST: 0.05ms</span>
+              <span class="terminal-chip">Anti-Slop: Strict</span>
             </div>
           </div>
 
@@ -171,37 +205,54 @@
         </div>
 
         <div class="filter-bar">
-          <div class="search-box-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" id="skillSearchInput" placeholder="Search by skill name, technology, or keywords (e.g. 'nextjs', 'doku', 'postgres', 'security')..." aria-label="Search skills">
+          <div class="filter-controls-row">
+            <div class="search-box-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" class="search-input" id="skillSearchInput" placeholder="Search 178 skills by name, technology, or keywords (e.g. 'nextjs', 'doku', 'postgres', 'security')... [Press '/' to focus]" aria-label="Search skills">
+              <button type="button" class="search-clear-btn" id="searchClearBtn" aria-label="Clear search" style="display: none;">&times;</button>
+            </div>
+            <div class="lang-switch-wrap">
+              <span class="lang-label">Language:</span>
+              <div class="lang-toggle-group" id="langToggleGroup" role="radiogroup" aria-label="Language Selector">
+                <button type="button" class="lang-btn active" data-lang="en" id="btnLangEn">🇺🇸 English</button>
+                <button type="button" class="lang-btn" data-lang="id" id="btnLangId">🇮🇩 Indonesia</button>
+              </div>
+            </div>
           </div>
 
           <div class="category-tabs" id="categoryTabs" role="tablist">
             <button type="button" class="category-tab active" data-category="all" id="tabAll">
+              <span class="tab-indicator" style="background: #38bdf8;"></span>
               <span>All Skills</span>
               <span class="category-badge-count tabular-nums">178</span>
             </button>
             <button type="button" class="category-tab" data-category="frontend" id="tabFrontend">
+              <span class="tab-indicator" style="background: #06b6d4;"></span>
               <span>Frontend &amp; UI</span>
               <span class="category-badge-count tabular-nums">39</span>
             </button>
             <button type="button" class="category-tab" data-category="backend" id="tabBackend">
+              <span class="tab-indicator" style="background: #3b82f6;"></span>
               <span>Backend &amp; Systems</span>
               <span class="category-badge-count tabular-nums">28</span>
             </button>
             <button type="button" class="category-tab" data-category="ai" id="tabAi">
+              <span class="tab-indicator" style="background: #a855f7;"></span>
               <span>Frontier AI &amp; MCP</span>
               <span class="category-badge-count tabular-nums">35</span>
             </button>
             <button type="button" class="category-tab" data-category="saas" id="tabSaas">
+              <span class="tab-indicator" style="background: #10b981;"></span>
               <span>SaaS &amp; FinTech</span>
               <span class="category-badge-count tabular-nums">17</span>
             </button>
             <button type="button" class="category-tab" data-category="security" id="tabSecurity">
+              <span class="tab-indicator" style="background: #ef4444;"></span>
               <span>Testing &amp; Anti-Slop</span>
               <span class="category-badge-count tabular-nums">32</span>
             </button>
             <button type="button" class="category-tab" data-category="data" id="tabData">
+              <span class="tab-indicator" style="background: #f59e0b;"></span>
               <span>Data &amp; Infra</span>
               <span class="category-badge-count tabular-nums">27</span>
             </button>
@@ -210,7 +261,10 @@
 
         <div class="skills-meta-bar">
           <span id="skillCountDisplay">Showing <strong id="skillCountBadge" class="tabular-nums">178 of 178</strong> verified skills</span>
-          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);">Click any card to inspect full specification</span>
+          <div class="skills-view-hints">
+            <span class="hint-pill">Click card for full spec</span>
+            <span class="hint-pill">Press <kbd>/</kbd> to search</span>
+          </div>
         </div>
 
         <!-- Skills Card Grid -->
