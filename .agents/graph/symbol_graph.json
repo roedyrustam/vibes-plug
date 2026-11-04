@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T20:44:02.875Z",
+  "generatedAt": "2026-11-04T20:55:23.424Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 84,
   "incrementalReusedFiles": 84,
@@ -6023,7 +6023,7 @@
     "initDom": [
       {
         "file": "showcase/app.js",
-        "line": 24,
+        "line": 26,
         "type": "function",
         "signature": "function initDom()",
         "calls": [
@@ -6034,7 +6034,7 @@
     "showToast": [
       {
         "file": "showcase/app.js",
-        "line": 44,
+        "line": 53,
         "type": "function",
         "signature": "function showToast(message, type = 'info')",
         "calls": [
@@ -6048,7 +6048,7 @@
     "escapeHtml": [
       {
         "file": "showcase/app.js",
-        "line": 59,
+        "line": 68,
         "type": "function",
         "signature": "function escapeHtml(str)",
         "calls": [
@@ -6059,7 +6059,7 @@
     "filterSkills": [
       {
         "file": "showcase/app.js",
-        "line": 73,
+        "line": 82,
         "type": "function",
         "signature": "function filterSkills()",
         "calls": [
@@ -6075,7 +6075,7 @@
     "renderSkills": [
       {
         "file": "showcase/app.js",
-        "line": 94,
+        "line": 103,
         "type": "function",
         "signature": "function renderSkills()",
         "calls": [
@@ -6092,14 +6092,17 @@
           "stopPropagation",
           "writeText",
           "then",
-          "showToast"
+          "add",
+          "showToast",
+          "setTimeout",
+          "remove"
         ]
       }
     ],
     "openSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 164,
+        "line": 181,
         "type": "function",
         "signature": "function openSkillModal(skill)",
         "calls": [
@@ -6115,7 +6118,7 @@
     "closeSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 229,
+        "line": 246,
         "type": "function",
         "signature": "function closeSkillModal()",
         "calls": [
@@ -6126,7 +6129,7 @@
     "appendTerminalLine": [
       {
         "file": "showcase/app.js",
-        "line": 379,
+        "line": 396,
         "type": "function",
         "signature": "function appendTerminalLine(content, isCommand = false)",
         "calls": [
@@ -6140,7 +6143,7 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 398,
+        "line": 415,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)",
         "calls": [
@@ -6157,7 +6160,7 @@
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 593,
+        "line": 610,
         "type": "function",
         "signature": "function renderTopology(id)",
         "calls": []
@@ -6166,7 +6169,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 687,
+        "line": 704,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -6175,7 +6178,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 700,
+        "line": 717,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -6187,24 +6190,30 @@
           "add",
           "getAttribute",
           "filterSkills",
+          "trim",
           "clearTimeout",
           "setTimeout",
+          "focus",
+          "preventDefault",
+          "select",
+          "renderSkills",
+          "showToast",
+          "setAttribute",
+          "writeText",
+          "then",
+          "appendTerminalLine",
           "executeTerminalCommand",
           "renderTopology",
           "renderBridgeCode",
           "closeSkillModal",
-          "writeText",
-          "then",
-          "showToast",
-          "initHero3dSwarmCore",
-          "appendTerminalLine"
+          "initHero3dSwarmCore"
         ]
       }
     ],
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 818,
+        "line": 912,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -14379,7 +14388,7 @@
     "scripts/sync-all-skill-counts.mjs": {
       "totalLines": 480,
       "symbolCount": 1,
-      "mtimeMs": 1793824726504,
+      "mtimeMs": 1793825073371,
       "size": 24686,
       "exports": [],
       "imports": [
@@ -15722,10 +15731,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 941,
+      "totalLines": 1035,
       "symbolCount": 13,
-      "mtimeMs": 1793825002547,
-      "size": 40494,
+      "mtimeMs": 1793825690181,
+      "size": 44334,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -15745,7 +15754,7 @@
       "cachedSymbols": [
         {
           "name": "initDom",
-          "line": 24,
+          "line": 26,
           "type": "function",
           "signature": "function initDom()",
           "calls": [
@@ -15754,7 +15763,7 @@
         },
         {
           "name": "showToast",
-          "line": 44,
+          "line": 53,
           "type": "function",
           "signature": "function showToast(message, type = 'info')",
           "calls": [
@@ -15766,7 +15775,7 @@
         },
         {
           "name": "escapeHtml",
-          "line": 59,
+          "line": 68,
           "type": "function",
           "signature": "function escapeHtml(str)",
           "calls": [
@@ -15775,7 +15784,7 @@
         },
         {
           "name": "filterSkills",
-          "line": 73,
+          "line": 82,
           "type": "function",
           "signature": "function filterSkills()",
           "calls": [
@@ -15789,7 +15798,7 @@
         },
         {
           "name": "renderSkills",
-          "line": 94,
+          "line": 103,
           "type": "function",
           "signature": "function renderSkills()",
           "calls": [
@@ -15806,12 +15815,15 @@
             "stopPropagation",
             "writeText",
             "then",
-            "showToast"
+            "add",
+            "showToast",
+            "setTimeout",
+            "remove"
           ]
         },
         {
           "name": "openSkillModal",
-          "line": 164,
+          "line": 181,
           "type": "function",
           "signature": "function openSkillModal(skill)",
           "calls": [
@@ -15825,7 +15837,7 @@
         },
         {
           "name": "closeSkillModal",
-          "line": 229,
+          "line": 246,
           "type": "function",
           "signature": "function closeSkillModal()",
           "calls": [
@@ -15834,7 +15846,7 @@
         },
         {
           "name": "appendTerminalLine",
-          "line": 379,
+          "line": 396,
           "type": "function",
           "signature": "function appendTerminalLine(content, isCommand = false)",
           "calls": [
@@ -15846,7 +15858,7 @@
         },
         {
           "name": "executeTerminalCommand",
-          "line": 398,
+          "line": 415,
           "type": "function",
           "signature": "function executeTerminalCommand(cmdText)",
           "calls": [
@@ -15861,21 +15873,21 @@
         },
         {
           "name": "renderTopology",
-          "line": 593,
+          "line": 610,
           "type": "function",
           "signature": "function renderTopology(id)",
           "calls": []
         },
         {
           "name": "renderBridgeCode",
-          "line": 687,
+          "line": 704,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 700,
+          "line": 717,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -15887,22 +15899,28 @@
             "add",
             "getAttribute",
             "filterSkills",
+            "trim",
             "clearTimeout",
             "setTimeout",
+            "focus",
+            "preventDefault",
+            "select",
+            "renderSkills",
+            "showToast",
+            "setAttribute",
+            "writeText",
+            "then",
+            "appendTerminalLine",
             "executeTerminalCommand",
             "renderTopology",
             "renderBridgeCode",
             "closeSkillModal",
-            "writeText",
-            "then",
-            "showToast",
-            "initHero3dSwarmCore",
-            "appendTerminalLine"
+            "initHero3dSwarmCore"
           ]
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 818,
+          "line": 912,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [
