@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T11:58:16.598Z",
+  "generatedAt": "2026-11-04T12:15:18.101Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 84,
   "incrementalReusedFiles": 84,
@@ -7611,8 +7611,8 @@
     "bin/vibes.mjs": {
       "totalLines": 2128,
       "symbolCount": 23,
-      "mtimeMs": 1793792908160,
-      "size": 100999,
+      "mtimeMs": 1793794184377,
+      "size": 101069,
       "exports": [],
       "imports": [
         {
@@ -9051,8 +9051,8 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
       "symbolCount": 3,
-      "mtimeMs": 1793593331121,
-      "size": 15313,
+      "mtimeMs": 1793794087768,
+      "size": 15383,
       "exports": [
         "compileCache",
         "getCacheStatus"
@@ -13078,8 +13078,8 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4848,
       "symbolCount": 8,
-      "mtimeMs": 1793792829699,
-      "size": 200075,
+      "mtimeMs": 1793794184398,
+      "size": 200163,
       "exports": [
         "generateStudioHtml",
         "startStudioServer"
@@ -14545,7 +14545,7 @@
     "scripts/test-cli.mjs": {
       "totalLines": 2155,
       "symbolCount": 1,
-      "mtimeMs": 1793793217630,
+      "mtimeMs": 1793794184405,
       "size": 99695,
       "exports": [],
       "imports": [
@@ -15938,10 +15938,10 @@
       ]
     },
     "showcase/skills-data.js": {
-      "totalLines": 3119,
+      "totalLines": 3145,
       "symbolCount": 0,
-      "mtimeMs": 1792865301194,
-      "size": 119457,
+      "mtimeMs": 1793794445474,
+      "size": 120608,
       "exports": [],
       "imports": [],
       "cachedSymbols": []

@@ -1,5 +1,5 @@
 {
-  "total": 176,
+  "total": 178,
   "skills": [
     {
       "name": "a2a-agent-protocol-expert",
@@ -428,6 +428,12 @@
       "author": "Roedy Rustam"
     },
     {
+      "name": "formal-theorem-verifier-lean4",
+      "description": "Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating / Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika.",
+      "version": "4.6.0",
+      "author": "Roedy Rustam"
+    },
+    {
       "name": "frontier-ai-models-expert",
       "description": "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5).",
       "version": "4.4.4",
@@ -623,6 +629,12 @@
       "name": "n8n-automation-expert",
       "description": "Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook.",
       "version": "4.4.4",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "neurosymbolic-genetic-synthesizer",
+      "description": "Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch.",
+      "version": "4.6.0",
       "author": "Roedy Rustam"
     },
     {

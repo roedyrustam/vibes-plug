@@ -2,7 +2,7 @@
 name: agentic-m2m-settlement
 description: "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.6.0"
 ---
 
 # Agentic M2M Settlement & Clearing Protocol (2026 Sovereign Edition)
@@ -252,6 +252,88 @@ export class M2mSettlementVault {
 ```
 
 ---
+
+---
+
+#### Blueprint 4: Autonomous HTTP 402 & x402 Protocol Client (`engine/http-402-x402-client.ts`)
+```typescript
+import crypto from 'node:crypto';
+
+export interface X402PaymentChallenge {
+  scheme: 'x402-v1';
+  network: 'base' | 'arbitrum' | 'polygon';
+  tokenAddress: string;
+  recipientAddress: string;
+  amountMinor: string;
+  challengeNonce: string;
+  expiresAt: number;
+}
+
+export interface X402SessionKeyConfig {
+  agentAddress: string;
+  sessionPrivateKeyPem: string;
+  maxVelocityMinorPerTx: bigint;
+  dailyCapMinor: bigint;
+}
+
+export class Http402AgentClient {
+  public static async executeWithPayment(
+    targetUrl: string,
+    payload: Record<string, unknown>,
+    sessionKey: X402SessionKeyConfig
+  ): Promise<{ status: number; data: unknown }> {
+    // 1. Initial Request probe
+    const initialRes = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Agent-Protocol': 'x402/2026',
+        'X-Agent-Id': sessionKey.agentAddress
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (initialRes.status !== 402) {
+      return { status: initialRes.status, data: await initialRes.json() };
+    }
+
+    // 2. Parse RFC-compliant 402 Payment Challenge
+    const paymentHeader = initialRes.headers.get('X-Payment-Required');
+    if (!paymentHeader) {
+      throw new Error('[Http402Client] Missing X-Payment-Required challenge header on 402 response');
+    }
+
+    const challenge = JSON.parse(Buffer.from(paymentHeader, 'base64').toString('utf8')) as X402PaymentChallenge;
+    const paymentAmount = BigInt(challenge.amountMinor);
+
+    // 3. Enforce Strict Velocity Cap
+    if (paymentAmount > sessionKey.maxVelocityMinorPerTx) {
+      throw new Error(`[Http402Client] Payment amount ${paymentAmount} exceeds velocity limit ${sessionKey.maxVelocityMinorPerTx}`);
+    }
+
+    // 4. Sign Autonomous Payment Proof with Session Key
+    const proofPayload = `${sessionKey.agentAddress}:${challenge.recipientAddress}:${challenge.amountMinor}:${challenge.challengeNonce}:${challenge.expiresAt}`;
+    const signer = crypto.createSign('SHA256');
+    signer.update(proofPayload);
+    signer.end();
+    const proofSignature = signer.sign(sessionKey.sessionPrivateKeyPem, 'base64');
+
+    // 5. Retrigger Request with Validated Payment Authorization
+    const settledRes = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Agent-Protocol': 'x402/2026',
+        'X-Agent-Id': sessionKey.agentAddress,
+        'Authorization': `x402 ${Buffer.from(JSON.stringify({ challengeNonce: challenge.challengeNonce, signature: proofSignature, amountMinor: challenge.amountMinor })).toString('base64')}`
+      },
+      body: JSON.stringify(payload)
+    });
+
+    return { status: settledRes.status, data: await settledRes.json() };
+  }
+}
+```
 
 #### Blueprint 3: PostgreSQL M2M Ledger & Idempotency DDL (`database/m2m-ledger-schema.sql`)
 ```sql

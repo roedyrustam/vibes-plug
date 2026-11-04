@@ -108,6 +108,7 @@
 | `multimodal-spatial-video-cloner` | `4.4.4` | Extract UI interactions and spring curves from video into code / Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode. |
 | `mvc-expert` | `4.4.4` | Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih. |
 | `n8n-automation-expert` | `4.4.4` | Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook. |
+| `neurosymbolic-genetic-synthesizer` | Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch. | 4.6.0 | Roedy Rustam |
 | `nextjs-app-router-expert` | `4.4.4` | Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache. |
 | `olap-columnar-analytics-expert` | `4.4.4` | Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg. |
 | `openapi-swagger-codegen-expert` | `4.4.4` | OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis. |

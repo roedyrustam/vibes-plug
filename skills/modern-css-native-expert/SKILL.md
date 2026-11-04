@@ -2,7 +2,7 @@
 name: modern-css-native-expert
 description: "Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.6.0"
 ---
 
 # Modern Native CSS Expert (2026 Standard & Primitives)

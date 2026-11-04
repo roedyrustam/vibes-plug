@@ -1,9 +1,35 @@
 /**
- * Vibes-Plug 176 Verified Skills Registry
+ * Vibes-Plug 178 Verified Skills Registry
  * Auto-synchronized dataset for Public Web Showcase & Interactive Explorer
  */
 
 export const SKILLS_DATA = [
+  {
+    "name": "neurosymbolic-genetic-synthesizer",
+    "domain": "ai",
+    "domainLabel": "Frontier AI, LLM & MCP",
+    "domainColor": "#a855f7",
+    "domainIcon": "AI",
+    "version": "4.6.0",
+    "author": "Roedy Rustam",
+    "trigger": "@neurosymbolic-genetic-synthesizer",
+    "summaryEn": "Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization",
+    "summaryId": "Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch.",
+    "tags": ["neurosymbolic", "genetic", "funsearch", "map-elites", "ai"]
+  },
+  {
+    "name": "formal-theorem-verifier-lean4",
+    "domain": "security",
+    "domainLabel": "Testing, Security & Anti-Slop",
+    "domainColor": "#ef4444",
+    "domainIcon": "SEC",
+    "version": "4.6.0",
+    "author": "Roedy Rustam",
+    "trigger": "@formal-theorem-verifier-lean4",
+    "summaryEn": "Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating",
+    "summaryId": "Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika.",
+    "tags": ["formal-verification", "lean4", "dafny", "math", "security"]
+  },
   {
     "name": "a2a-agent-protocol-expert",
     "domain": "ai",

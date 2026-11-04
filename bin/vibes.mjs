@@ -254,7 +254,7 @@ async function runWizard() {
         'mobile': ['mobile-expo-expert', 'authentication-identity-expert', 'api-design-expert', 'state-management-expert'],
         'api': ['js-backend-expert', 'api-design-expert', 'database-orm-expert', 'authentication-identity-expert', 'logging-error-tracking-expert'],
         'ai-agent': ['multi-agent-orchestration', 'mcp-server-architect', 'ai-llm-integration-expert', 'frontier-ai-models-expert', 'agentic-memory-architect', 'pydantic-ai-expert', 'vector-db-rag-expert', 'anti-slop'],
-        'fintech': ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop'],
+        'fintech': ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'formal-theorem-verifier-lean4', 'anti-slop'],
         'cloud-native': ['ci-cd-devops-architect', 'github-actions-expert', 'docker-container-expert', 'cloud-hosting-expert', 'logging-error-tracking-expert', 'self-healing-cloud-orchestrator', 'anti-slop']
       };
       chosenSkills = ['zero-to-prod-orchestrator', 'anti-slop', 'session-memory-manager', ...(templateSkillMap[archetype] || [])];
@@ -831,7 +831,7 @@ async function runUi() {
           'adaptive-model-cascade', 'affective-computing-emotion-ai', 'agentic-coding-workflow-expert',
           'agentic-memory-architect', 'agentic-micro-economy-architect', 'ai-llm-integration-expert',
           'ai-media-generation-expert', 'ai-prompt-engineering-expert', 'ai-safety-governance-expert',
-          'context-window-engineer', 'deep-research-analyst', 'doku-mcp-server',
+          'context-window-engineer', 'deep-research-analyst', 'neurosymbolic-genetic-synthesizer', 'doku-mcp-server',
           'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
           'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
           'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
@@ -1401,7 +1401,7 @@ async function runSearch(query) {
 
   if (results.length === 0) {
     console.log(`\n\ud83d\udd0d No skills found matching "${query}".`);
-    console.log('Try: vibes list  to browse all 176 skills.');
+    console.log('Try: vibes list  to browse all 178 skills.');
   } else {
     console.log(`\n\ud83d\udd0d Found ${results.length} skill(s) matching "${query}":\n`);
     results.slice(0, 10).forEach(({ skill, score, desc }) => {
@@ -1467,7 +1467,7 @@ async function runSync() {
   }
 
   console.log('\n⚡ Vibes-Plug is operational as the PRIMARY TRIGGER (Pemicu Utama).');
-  console.log('   All 176 skills automatically synchronize when the user submits any coding prompt.\n');
+  console.log('   All 178 skills automatically synchronize when the user submits any coding prompt.\n');
   rl.close();
 }
 
@@ -1549,7 +1549,7 @@ Commands:
   wizard                    Interactive CLI wizard to scaffold a project & custom AI skill bundle
   ui                        Launch the interactive TUI to visually select and install skills
   list [filter]             List all available skills (optional: filter by keyword)
-  search <query>            Search all 176 skills by keyword (ranked by relevance)
+  search <query>            Search all 178 skills by keyword (ranked by relevance)
   add <skill-name>          Inject a skill from the global registry into your local project
   remove <skill-name>       Remove an installed skill from your local project (.agents/skills)
   skill info <skill-name>   Show metadata, description, and orchestration info for a skill
@@ -1557,7 +1557,7 @@ Commands:
   skill chain <recipe>      Execute a multi-skill pipeline chain (saas-launch-gate, ai-agent-hardening, ...)
   skill slice <skill-name>  Retrieve <350-token compact contract slice for subagent fan-out
   skill extract-code <sk>   Extract runnable production code blueprints from a skill (--lang=<l>)
-  skill matrix [--json]     Compile & inspect the 176-skill SaaT domain matrix (.skill-slices.json)
+  skill matrix [--json]     Compile & inspect the 178-skill SaaT domain matrix (.skill-slices.json)
   recipe list               List all built-in skill bundles/recipes
   recipe apply <name>       Apply a recipe bundle to your project (ai-stack, fullstack-pro, ...)
   create-skill <skill-name> Scaffold a new skill using the standard template (kebab-case)
@@ -1603,8 +1603,8 @@ Commands:
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 176-skill ecosystem catalog
-  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 176-skill explorer)
+  docs [markdown|json]      Export or preview the complete 178-skill ecosystem catalog
+  studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 178-skill explorer)
   showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   evolve <name> [options]   Autonomous Skill & Codex Evolver: synthesize skills & multi-platform codex rules

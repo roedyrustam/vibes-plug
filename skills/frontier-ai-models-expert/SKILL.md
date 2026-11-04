@@ -2,7 +2,7 @@
 name: frontier-ai-models-expert
 description: "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5)."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.6.0"
 
 ---
 
@@ -69,6 +69,47 @@ When a late-2026 frontier model is pending regional provisioning, temporarily qu
 | **`Claude Opus 5.5 Medium`** | **`Claude Opus 4.6`** | Preserves deep architectural comprehension, cross-domain logic validation, and formal refactoring rigor. |
 | **`Grok 4.7 High Fast`** | **`Grok 4.6 High Fast`** | Preserves sub-second TTFT and low-latency AST scanning loops. |
 | **`Composer 2.5 Fast`** | **`Grok 4.6 High Fast`** | Fallback for non-Cursor environments to generate unified diff patches. |
+
+---
+
+#### 4. Test-Time Compute Monte Carlo Tree Search (MCTS) & Value Pruner
+```typescript
+export interface ThoughtNode {
+  id: string;
+  thought: string;
+  codeCandidate?: string;
+  valueScore: number; // 0.0 - 1.0 from Value Network
+  visits: number;
+  children: ThoughtNode[];
+  parent?: ThoughtNode;
+}
+
+export class TestTimeMCTSVerifier {
+  public static selectBestNode(root: ThoughtNode): ThoughtNode {
+    // Upper Confidence Bound applied to Trees (UCT)
+    let current = root;
+    while (current.children.length > 0) {
+      current = current.children.reduce((best, node) => {
+        const exploitation = node.valueScore;
+        const exploration = 1.414 * Math.sqrt(Math.log(root.visits + 1) / (node.visits + 1e-4));
+        const uct = exploitation + exploration;
+        return uct > best.score ? { node, score: uct } : best;
+      }, { node: current.children[0], score: -Infinity }).node;
+    }
+    return current;
+  }
+
+  public static pruneBranch(node: ThoughtNode, threshold = 0.40): boolean {
+    if (node.valueScore < threshold) {
+      if (node.parent) {
+        node.parent.children = node.parent.children.filter((c) => c.id !== node.id);
+      }
+      return true; // Pruned false branch
+    }
+    return false;
+  }
+}
+```
 
 ---
 
