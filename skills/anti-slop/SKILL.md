@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder."
 author: "Roedy Rustam"
-version: "4.4.4"
+version: "4.7.0"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)
@@ -36,7 +36,7 @@ On every anti-slop activation, resolve the operational mode in this strict prior
 3. **Default Fallback**: Mode 1 (DURING) for new features/code generation; Mode 2 (AFTER) when auditing existing projects.
 
 ### Mode 1: DURING (Active Real-Time Prevention)
-- Follow all 38 rules actively while generating code, copy, and UI.
+- Follow all 40 rules actively while generating code, copy, and UI.
 - Prevents slop from being written in the first place.
 - Conclude the task with the **Mandatory Delivery Gate** report.
 
@@ -52,9 +52,9 @@ On every anti-slop activation, resolve the operational mode in this strict prior
 
 ---
 
-## The 3-Tier Rule Framework (38 Mandatory Rules)
+## The 3-Tier Rule Framework (40 Mandatory Rules)
 
-All 38 rules are organized into three distinct tiers with clear enforcement semantics:
+All 40 rules are organized into three distinct tiers with clear enforcement semantics:
 1. **Hard Gate** (Tier 1): Absolute bans and mandatory requirements. Zero exceptions.
 2. **Purpose-Gate** (Tier 2): Technique allowed ONLY when serving a stated hierarchy/identity purpose with written rationale. Includes strict dose caps.
 3. **Quality Locks** (Tier 3): Craftsmanship and resilience standards.
@@ -183,6 +183,22 @@ Breaking any rule in this tier causes an automatic **FAIL** at the Delivery Gate
 
 ---
 
+#### R-39 — Accessible Semantics & Interaction Affordances
+- **REQUIRED**: Every enabled interactive element (`button`, `a[href]`, `select`, `summary`, `label[for]`, custom `role="button"` / `tab` / `switch`) must show `cursor: pointer`, declared once in the base CSS layer. Disabled controls must show `cursor: not-allowed`.
+- **REQUIRED**: Actions must be semantic `<button type="button">`; navigation must be `<a href="...">` pointing to a genuine route or destination. Never use clickable `<div onClick>` or `<span onClick>` without semantic role, keyboard focusability (`tabIndex={0}`), and keydown handlers.
+- **REQUIRED**: Every interactive element must provide an accessible name (icon-only buttons require explicit `aria-label` or visually hidden text; icons require `aria-hidden="true"`). Every form input requires a visible `<label>`. Every image requires an `alt` attribute (empty `alt=""` only if purely decorative).
+- **REQUIRED**: Distinct hover, active, and focus-visible states; never rely on color alone to communicate state.
+- **REQUIRED**: Non-essential animations must stop under `@media (prefers-reduced-motion: reduce)`. Any animation moving longer than 5 seconds must provide a user pause/stop control.
+- **REQUIRED for Full Documents**: Document-level HTML requires `<html lang="...">`, a unique informative `<title>`, semantic landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), a single `<h1>`, and sequential heading hierarchies without skipping levels.
+
+#### R-40 — Performance Mechanisms & Core Web Vitals
+- **REQUIRED (Cumulative Layout Shift - CLS)**: Every `<img>`, `<video>`, and `<iframe>` must have explicit `width` and `height` attributes or a defined CSS `aspect-ratio` (`aspect-video`, `aspect-square`). Space for dynamically injected banners, ads, or embeds must be reserved in advance to eliminate layout shift.
+- **REQUIRED (Largest Contentful Paint - LCP)**: The above-the-fold hero image must be an explicit `<img>` in the HTML markup (never hidden behind CSS background images or delayed by client JavaScript), must declare `fetchpriority="high"`, and must NEVER declare `loading="lazy"`.
+- **REQUIRED (Interaction to Next Paint - INP)**: No render-blocking third-party analytics or tracker scripts in `<head>`. Non-critical scripts must be loaded with `defer`, `async`, or dynamically on user interaction.
+- **FORBIDDEN**: Fabricating or guessing Lighthouse scores or Core Web Vitals figures that were not empirically measured via browser DevTools or CrUX field telemetry (enforcing R-36). If unmeasured, state explicitly "not measured".
+
+---
+
 ### Tier 2: Purpose-Gate Rules (Technique Allowed, Purpose Required)
 
 Techniques in this tier are permitted **only when they serve a documented hierarchy or identity goal**, backed by written rationale in the code or design document.
@@ -217,6 +233,93 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 - **C-3 — Content-Driven Composition**: Every section exists because the product content requires it, not to satisfy a page template.
 - **C-4 — Resilience**: The UI holds up in all 3 states (empty, loading, error), all themes, all responsive breakpoints (320px to 4K), and under keyboard-only navigation.
 - **C-5 — Evidence Over Claims**: Anything presented as fact (numbers, testimonials, security) is verified or removed.
+
+---
+
+---
+
+## UI & Visual Slop Deep-Dive (Antislop UI Canonical Reference)
+
+The following diagnostic guide provides the exact **Tell**, **Why**, and **Fix** across all 7 UI/UX disciplines, directly incorporating the field-tested standards from `antislop-ui`:
+
+### 1. Visual & Color Architecture
+- **Generic Blue-Purple Gradient**:
+  - *Tell*: Blue-to-purple, blue-to-cyan, or purple-to-pink gradients used as the primary hero background, button color, or full-page radial glow.
+  - *Why*: The most over-represented color clich\u00e9 in AI training data. Signals "no brand identity" and marks an interface as synthetic at a glance.
+  - *Fix*: Pull the color palette strictly from `DESIGN.md` or the product's identity. Gradients are permitted ONLY as a functional hierarchy separator with written rationale (R-01). Exactly ONE accent hue per view.
+- **Excessive Glassmorphism**:
+  - *Tell*: `backdrop-blur` stacked on navbars, hero cards, sidebars, modals, and badges simultaneously.
+  - *Why*: Visual mud. Stacking translucent blurred layers ruins contrast and creates illegible muddy text on mobile GPUs.
+  - *Fix*: Enforce the dose cap: maximum 1-2 glass surfaces per page (e.g. sticky header only). Use crisp solid surfaces (`bg-card` / `bg-background`) with 1px borders elsewhere (R-10).
+- **Excessive Border Radius (Pill Addiction)**:
+  - *Tell*: `rounded-full` or `rounded-3xl` applied to cards, search inputs, modal sheets, and rectangular action buttons.
+  - *Why*: Pill-shaped rectangular containers waste corner padding and scream generic template.
+  - *Fix*: Follow the structured 3-tier radius scale: **6-8px** for inputs, dropdowns, and buttons (`rounded-md` / `rounded-lg`); **12-16px** for cards and dialogs (`rounded-xl`); reserve `rounded-full` strictly for avatars and compact status chips (R-11).
+- **Overly Soft Zero-Gravity Shadows**:
+  - *Tell*: `shadow-2xl shadow-indigo-500/40` with 30px+ blur and colored glow, floating in zero gravity.
+  - *Why*: Makes cards look detached from physical reality.
+  - *Fix*: Replace diffuse colored shadows with a crisp 1px border (`border border-border/80`) paired with subtle directional elevation (`shadow-xs` or `shadow-sm`) (R-12).
+- **Sterile Default**:
+  - *Tell*: Plain gray text on stark white canvas with zero personality, no typographic contrast, and no intentional focal moment.
+  - *Why*: The opposite extreme of slop: when an agent removes gradients, it collapses into boring wireframe defaults.
+  - *Fix*: Declare positive **ENERGY**, **RHYTHM**, and **MOTION** dials. Add purposeful contrast, an authentic brand accent, and high typographic contrast.
+
+### 2. Layout, Cadence & Components
+- **Monotonous AI Landing Page Template**:
+  - *Tell*: Hero -> 3 feature cards -> 3-step "How It Works" -> Bento Grid -> 3-tier Pricing -> FAQ -> 4-Column Footer. Every single time.
+  - *Why*: Reflects training data defaults, not the product's real user journey.
+  - *Fix*: Structure the page around actual user task flows (C-3). If there are no verified testimonials, omit the testimonials section entirely (R-18).
+- **Copy-Paste Feature Cards**:
+  - *Tell*: A 3-column row of cards, each containing: icon in rounded square + 1-sentence title + 2-sentence description.
+  - *Why*: Visual wallpaper that users scroll right past.
+  - *Fix*: Give different features varied visual weights based on importance: hero feature gets an interactive preview or deep screenshot; secondary features get compact list rows or data metrics.
+- **Bento Grid Overuse**:
+  - *Tell*: Cramming all content into an asymmetrical bento box layout for no functional reason.
+  - *Why*: Bento layouts require asymmetric content (e.g., one huge chart, two small stats). Forcing uniform content into mismatched boxes looks ridiculous.
+  - *Fix*: Use bento grids ONLY when content naturally possesses diverse spatial requirements.
+
+### 3. Decorative Clichés & Iconography
+- **Generic AI Icons**:
+  - *Tell*: Sparkles (\u2728), stars, magic wands, robots, lightning bolts, and generic Lucide icon clones on every feature.
+  - *Why*: Generic glyphs that communicate zero domain meaning.
+  - *Fix*: Use domain-authentic icons directly tied to the action. If no specific icon fits, use no icon at all\u2014clean typography works best.
+- **Trailing Button Arrows**:
+  - *Tell*: Putting `\u2192` on every single button (`Get Started \u2192`, `Submit \u2192`, `Save \u2192`).
+  - *Why*: Visual clutter.
+  - *Fix*: Reserve directional arrows strictly for pagination, multi-step wizards, or external links.
+- **Eyebrow Pill Badges**:
+  - *Tell*: A rounded capsule badge directly above the `<h1>` stating "PRODUCTIVITY REVOLUTION" with a glowing neon dot.
+  - *Why*: Pointless AI label shouting categories that the headline already explains.
+  - *Fix*: Eliminate redundant eyebrows. Let the hero headline make the claim cleanly (R-30).
+- **Decorative Status Dots**:
+  - *Tell*: Pulsing green dot (`animate-ping`) next to "System Operational" when there is no real-time telemetry or WebSocket connection.
+  - *Why*: Fake status dots violate honesty standards.
+  - *Fix*: Only display status dots when backed by live health-check telemetry. Use solid, non-pulsing dots for static indicators.
+
+### 4. App & Dashboard Architecture
+- **Default Dashboard Shell**:
+  - *Tell*: Left sidebar + top search bar + 4 stat cards with "+12% from last month" + area chart + generic table.
+  - *Why*: Chosen before asking what the user actually needs to accomplish on the screen.
+  - *Fix*: Design the dashboard around the primary user job-to-be-done. A billing dashboard needs invoice reconciliations; a server monitor needs latency p99 graphs.
+- **Charts Without a Question**:
+  - *Tell*: Wavy purple area chart with no units, no axis labels, and no business query it answers.
+  - *Why*: Decorative filler masquerading as analytics.
+  - *Fix*: Every chart must answer a concrete question (e.g., "Hourly API Error Rate (p99)"). Include explicit axes, timestamps, and units.
+
+### 5. Motion & Animation Standards
+- **Endless Pulses & Floating Loops**:
+  - *Tell*: Cards or badges that pulse, bounce, or float continuously with no user trigger (`animate-pulse`, `animate-bounce`).
+  - *Why*: Perpetual motion is visual noise that fatigues the user's eyes.
+  - *Fix*: Motion must be triggered by user action (hover, press, scroll into view) and settle promptly (150-250ms). Never loop indefinitely unless showing a temporary loading spinner.
+- **Prefe-Reduced-Motion**:
+  - *REQUIRED*: Always wrap transitions in `@media (prefers-reduced-motion: reduce)` or use Tailwind `motion-reduce:transition-none`.
+
+### 6. Web Baseline & Production Checklist
+- [x] Valid semantic HTML5: `<header>`, `<nav>`, `<main>`, `<footer>`, `<button>` for actions, `<a>` for links.
+- [x] Explicit `width` and `height` on all media elements (CLS = 0).
+- [x] Hero image loaded with `fetchpriority="high"`, never `loading="lazy"` (LCP < 2.5s).
+- [x] Accessible form labels: Every `<input>` has a matching `<label for="...">`.
+- [x] Touch targets measure at least 44x44px.
 
 ---
 
@@ -350,7 +453,7 @@ Before completing any task that involves UI, copy, or code generation, you **MUS
 - **Direction Source**: [`DESIGN.md` / User Brief / Draft without direction (1/1/1)]
 
 #### Block 2: 38-Rule Compliance Verification
-- **Hard Gate (Tier 1)**: [PASS / FAIL] (R-02 Em Dash, R-03 Mobile, R-17 Data, R-25 Contrast, R-26 Functional Controls, R-27 States, R-32 Keyboard, R-35 Verification, R-36 Claims, R-38 Honesty)
+- **Hard Gate (Tier 1)**: [PASS / FAIL] (R-02 Em Dash, R-03 Mobile, R-17 Data, R-25 Contrast, R-26 Functional Controls, R-27 States, R-32 Keyboard, R-35 Verification, R-36 Claims, R-38 Honesty, R-39 Semantics, R-40 Web Vitals)
 - **Purpose-Gate (Tier 2)**: [PASS / FAIL] (R-01 Gradients, R-04 Icons, R-06 Fonts, R-10 Glass Cap, R-11 Radii, R-13 Glow Cap, R-16 Buzzwords, R-31 Separators)
 - **Quality Locks (Tier 3)**: [PASS / FAIL] (C-1 Intentionality, C-2 Completeness, C-3 Content, C-4 Resilience, C-5 Evidence)
 
@@ -518,7 +621,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ### Protokol Dua Mode Operasi (Two Usage Modes)
 1. **Mode 1: DURING (Pencegahan Real-Time Saat Bekerja)**:
-   - Agen menerapkan 38 aturan secara aktif saat menulis kode, copy, dan UI.
+   - Agen menerapkan 40 aturan secara aktif saat menulis kode, copy, dan UI.
    - Mencegah slop masuk ke codebase sejak awal.
    - Ditutup dengan laporan wajib **Delivery Gate**.
 2. **Mode 2: AFTER (Audit & Remediasi Pasca Proyek Selesai)**:
@@ -529,7 +632,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ---
 
-### Kerangka 38 Aturan Wajib (3-Tier Rule Framework)
+### Kerangka 40 Aturan Wajib (3-Tier Rule Framework)
 
 #### Tier 1: Hard Gate (Mutlak, Tanpa Pengecualian)
 - **R-02 Copywriting**: Larangan mutlak tanda em dash (`—`) pada teks buatan AI. Gunakan koma, titik, atau titik dua.
@@ -549,6 +652,8 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-36 Larangan Klaim Kepatuhan Fiktif**: Dilarang mengarang lencana sertifikasi (SOC 2, ISO 27001) atau klaim akselerasi fiktif.
 - **R-37 Arah Desain Wajib**: Wajib bersumber dari `DESIGN.md`. Jika tanpa arah, wajib dideklarasikan sebagai *"Draft without direction"* dengan dial **ENERGY 1 / RHYTHM 1 / MOTION 1**.
 - **R-38 Konten Nyata atau Placeholder Jujur**: Seluruh konten harus berupa data nyata atau penanda eksplisit (`[REAL DATA]`).
+- **R-39 Semantik Aksesibel & Keterjangkauan Interaksi**: Kursor wajib `cursor: pointer` pada semua elemen interaktif dan `cursor: not-allowed` saat dinonaktifkan; aksi wajib `<button>`, navigasi wajib `<a href>` (larangan mutlak div/span clickable); nama aksesibel (`aria-label`, input `<label>`, `alt` gambar); animasi non-esensial wajib berhenti di bawah `prefers-reduced-motion: reduce`.
+- **R-40 Mekanisme Performa & Core Web Vitals**: Atribut `width` dan `height` (atau `aspect-ratio`) wajib ada pada semua `<img>`, `<video>`, dan `<iframe>` untuk mencegah pergeseran tata letak (CLS = 0); gambar hero di atas fold wajib menggunakan `fetchpriority="high"` dan dilarang keras menggunakan `loading="lazy"` (LCP); larangan skrip pihak ketiga pemblokir render di `<head>` (INP); larangan mengarang skor Lighthouse fiktif.
 
 #### Tier 2: Purpose-Gate (Boleh Digunakan Hanya Jika Ada Tujuan Tertulis & Batasan Dosis)
 - **R-01 Warna & Gradien**: Gradien biru-ungu/neon dilarang sebagai default; hanya boleh untuk pemisah hierarki dengan alasan tertulis.

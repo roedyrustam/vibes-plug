@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T12:15:18.101Z",
+  "generatedAt": "2026-11-04T20:03:03.219Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 84,
   "incrementalReusedFiles": 84,
@@ -1093,7 +1093,7 @@
       },
       {
         "file": "scripts/visual-ui-healer.mjs",
-        "line": 133,
+        "line": 192,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -5716,17 +5716,14 @@
     "auditAndHealVisualUi": [
       {
         "file": "scripts/visual-ui-healer.mjs",
-        "line": 37,
+        "line": 41,
         "type": "function",
         "signature": "function auditAndHealVisualUi(code = '', fileName = 'component.tsx')",
         "calls": [
           "replace",
           "b",
           "test",
-          "push",
-          "reduce",
-          "max",
-          "filter"
+          "push"
         ]
       }
     ],
@@ -14543,10 +14540,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2155,
+      "totalLines": 2163,
       "symbolCount": 1,
-      "mtimeMs": 1793794184405,
-      "size": 99695,
+      "mtimeMs": 1793822385185,
+      "size": 100253,
       "exports": [],
       "imports": [
         {
@@ -15245,10 +15242,10 @@
       ]
     },
     "scripts/visual-ui-healer.mjs": {
-      "totalLines": 171,
+      "totalLines": 230,
       "symbolCount": 2,
-      "mtimeMs": 1793792993245,
-      "size": 6523,
+      "mtimeMs": 1793822531221,
+      "size": 9203,
       "exports": [
         "auditAndHealVisualUi"
       ],
@@ -15259,7 +15256,7 @@
           "specifiers": [
             "fs"
           ],
-          "line": 15
+          "line": 19
         },
         {
           "source": "node:path",
@@ -15267,7 +15264,7 @@
           "specifiers": [
             "path"
           ],
-          "line": 16
+          "line": 20
         },
         {
           "source": "node:url",
@@ -15275,28 +15272,25 @@
           "specifiers": [
             "fileURLToPath"
           ],
-          "line": 17
+          "line": 21
         }
       ],
       "cachedSymbols": [
         {
           "name": "auditAndHealVisualUi",
-          "line": 37,
+          "line": 41,
           "type": "function",
           "signature": "function auditAndHealVisualUi(code = '', fileName = 'component.tsx')",
           "calls": [
             "replace",
             "b",
             "test",
-            "push",
-            "reduce",
-            "max",
-            "filter"
+            "push"
           ]
         },
         {
           "name": "main",
-          "line": 133,
+          "line": 192,
           "type": "function",
           "signature": "function main()",
           "calls": [

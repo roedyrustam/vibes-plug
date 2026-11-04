@@ -2082,20 +2082,28 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(tddOutcome.syntaxValid, true);
     assert.ok(tddOutcome.durationMs < 500);
 
-    // 4. Multimodal Vision UI Self-Healing (Touch targets, focus rings, overflow, slop gradients)
+    // 4. Multimodal Vision UI Self-Healing (Touch targets, focus rings, overflow, slop gradients, unsized media, decorative radar ping, endless loops, dead anchors)
     const slopMarkup = `
       <div className="w-screen p-4 bg-gradient-to-r from-blue-600 to-purple-600">
-        <button className="py-1 px-3 rounded-full focus:outline-none">Action</button>
+        <button className="py-1 px-3 rounded-full focus:outline-none animate-pulse">Action</button>
         <span className="text-xl font-bold">\$250.00</span>
+        <span className="animate-ping">Live</span>
+        <img src="dashboard-preview.png" alt="Dashboard" />
+        <a href="#">Learn more</a>
       </div>
     `;
     const healedUi = auditAndHealVisualUi(slopMarkup);
-    assert.ok(healedUi.fixCount >= 3);
+    assert.ok(healedUi.fixCount >= 6);
     assert.ok(!healedUi.patchedCode.includes('w-screen'));
     assert.ok(healedUi.patchedCode.includes('w-full max-w-full'));
     assert.ok(!healedUi.patchedCode.includes('rounded-full'));
     assert.ok(healedUi.patchedCode.includes('min-h-[44px] min-w-[44px]'));
     assert.ok(healedUi.patchedCode.includes('tabular-nums'));
+    assert.ok(!healedUi.patchedCode.includes('animate-ping'));
+    assert.ok(!healedUi.patchedCode.includes('animate-pulse'));
+    assert.ok(healedUi.patchedCode.includes('aspect-video object-cover'));
+    assert.ok(!healedUi.patchedCode.includes('href="#"'));
+    assert.ok(healedUi.patchedCode.includes('href="#main-content"'));
 
     // 5. MCP Tool Invocations for all 4 new tools
     // Tool 1: vibes_worktree_swarm

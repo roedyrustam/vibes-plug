@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 /**
  * scripts/visual-ui-healer.mjs
- * Multimodal Vision UI & Responsive Layout Self-Healing Engine (v4.6.0)
+ * Multimodal Vision UI & Responsive Layout Self-Healing Engine (v4.7.0)
  *
- * Audits UI components for Pillar 7 Visual Sanitation and accessibility invariants:
+ * Audits UI components for Pillar 7 Visual Sanitation and 40 Mandatory Anti-Slop Rules:
  * 1. Touch target accessibility (minimum 44x44px / 48x48px on interactive buttons/links)
  * 2. Unstyled naked focus rings (`focus:outline-none` without `focus-visible:ring`)
  * 3. Horizontal container overflow (`w-screen` in nested grids/flex)
  * 4. Tabular numerals for financial metrics and statistics
  * 5. Generic AI gradients and neon orbs eradication
- * 6. Synthesizes drop-in production CSS/Tailwind patches
+ * 6. Unsized media CLS prevention (Anti-Slop R-40)
+ * 7. Decorative fake radar dots & animate-ping eradication
+ * 8. Distracting endless loop animations (pulse/bounce) on static CTAs
+ * 9. Dead navigation anchor links (href="#") remediation
+ * 10. Synthesizes drop-in production CSS/Tailwind patches
  */
 
 import fs from 'node:fs/promises';
@@ -22,7 +26,7 @@ const PLUGIN_ROOT = path.resolve(__dirname, '..');
 
 /**
  * @typedef {Object} VisualIssue
- * @property {'TOUCH_TARGET' | 'FOCUS_RING' | 'CONTAINER_OVERFLOW' | 'TABULAR_NUMS' | 'SLOP_GRADIENT' | 'PILL_BUTTON'} kind
+ * @property {'TOUCH_TARGET' | 'FOCUS_RING' | 'CONTAINER_OVERFLOW' | 'TABULAR_NUMS' | 'SLOP_GRADIENT' | 'PILL_BUTTON' | 'UNSIZED_MEDIA' | 'FAKE_STATUS_DOT' | 'ENDLESS_LOOP' | 'DEAD_ANCHOR'} kind
  * @property {string} description
  * @property {'error' | 'warning'} severity
  * @property {number} [line]
@@ -116,6 +120,61 @@ export function auditAndHealVisualUi(code = '', fileName = 'component.tsx') {
       return `<${tag} ${pre}className="${classes} tabular-nums"${post}>${num}`;
     }
     return match;
+  });
+
+  // 5. Unsized Media (Anti-Slop R-40 & Core Web Vitals CLS prevention)
+  const imgRegex = /<img\s+([^>]*?)>/g;
+  patched = patched.replace(imgRegex, (match, attrs) => {
+    const hasDimensions = /\b(width=[\'\"\d]|height=[\'\"\d]|aspect-)/.test(attrs);
+    if (!hasDimensions) {
+      issues.push({
+        kind: 'UNSIZED_MEDIA',
+        description: '<img> tag missing explicit width/height or aspect-ratio causes Cumulative Layout Shift (CLS)',
+        severity: 'warning'
+      });
+      fixCount++;
+      if (/className=["']/.test(attrs)) {
+        return `<img ${attrs.replace(/className=["']([^"']*)["']/, 'className="$1 aspect-video object-cover"')}>`;
+      }
+      return `<img className="aspect-video object-cover" ${attrs}>`;
+    }
+    return match;
+  });
+
+  // 6. Fake Status Dot / Radar Ping Slop (Anti-Slop Decorative Rules)
+  if (/\banimate-ping\b/.test(patched)) {
+    issues.push({
+      kind: 'FAKE_STATUS_DOT',
+      description: 'Decorative animate-ping radar dot without live telemetry creates visual slop',
+      severity: 'warning'
+    });
+    patched = patched.replace(/\banimate-ping\b/g, 'relative inline-flex h-2 w-2 bg-emerald-500');
+    fixCount++;
+  }
+
+  // 7. Endless Loop Animations on Static Elements (Anti-Slop Motion Slop)
+  const endlessLoopRegex = /<(button|div|span|a)\s+([^>]*?)className=["']([^"']*\b(?:animate-pulse|animate-bounce)\b[^"']*)["']([^>]*)>/g;
+  patched = patched.replace(endlessLoopRegex, (match, tag, pre, classes, post) => {
+    issues.push({
+      kind: 'ENDLESS_LOOP',
+      description: `Endless looping animation on <${tag}> creates distracting visual slop`,
+      severity: 'warning'
+    });
+    const cleanedClasses = classes.replace(/\b(animate-pulse|animate-bounce)\b/g, 'transition-transform duration-200 hover:scale-[1.01]');
+    fixCount++;
+    return `<${tag} ${pre}className="${cleanedClasses.trim()}"${post}>`;
+  });
+
+  // 8. Dead Navigation Anchor Links (Anti-Slop R-39 Accessible Affordances)
+  const deadAnchorRegex = /<a\s+([^>]*?)href=["']#["']([^>]*)>/g;
+  patched = patched.replace(deadAnchorRegex, (match, pre, post) => {
+    issues.push({
+      kind: 'DEAD_ANCHOR',
+      description: 'Dead anchor link href="#" breaks keyboard accessibility and navigation',
+      severity: 'warning'
+    });
+    fixCount++;
+    return `<a ${pre}href="#main-content" role="button"${post}>`;
   });
 
   const penalty = issues.reduce((acc, issue) => acc + (issue.severity === 'error' ? 20 : 10), 0);
