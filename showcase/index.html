@@ -24,9 +24,10 @@
   <header class="site-header" id="siteHeader">
     <div class="header-glow-line" aria-hidden="true"></div>
     <div class="container navbar">
+      <!-- Left: Brand Group -->
       <a href="#hero" class="brand-group" id="brandLogo" aria-label="Vibes-Plug Homepage">
         <div class="brand-logo-frame">
-          <img src="vibes-logo.png" alt="Vibes-Plug 3D Logo" class="brand-logo-3d" width="38" height="38">
+          <img src="vibes-logo.png" alt="Vibes-Plug 3D Logo" class="brand-logo-3d" width="36" height="36">
           <div class="brand-logo-glow" aria-hidden="true"></div>
         </div>
         <div class="brand-text">
@@ -34,71 +35,78 @@
             <span class="brand-name">Vibes<span class="brand-name-accent">Plug</span></span>
             <span class="brand-version-chip">v4.7.0</span>
           </div>
-          <span class="brand-tag">Sovereign Agent Swarm</span>
+          <span class="brand-tag">Sovereign Swarm</span>
         </div>
       </a>
 
-      <!-- Quick Search Action Pill -->
-      <button type="button" class="nav-quick-search-btn" id="navQuickSearchBtn" title="Press / to search 178 skills" aria-label="Search skills">
-        <svg class="nav-search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <span class="nav-search-placeholder">Search 178 skills...</span>
-        <kbd class="nav-search-kbd">/</kbd>
-      </button>
-
-      <!-- Desktop Nav Links -->
+      <!-- Center: Desktop Navigation Links -->
       <nav class="nav-desktop" aria-label="Main Navigation">
         <ul class="nav-links">
           <li>
             <a href="#terminal" class="nav-link" id="navLinkTerminal">
               <span class="nav-link-dot terminal-dot" aria-hidden="true"></span>
-              Live Terminal
+              <span>Terminal</span>
             </a>
           </li>
           <li>
             <a href="#explorer" class="nav-link" id="navLinkExplorer">
-              178 Skills
+              <span>Skills</span>
               <span class="nav-count-badge">178</span>
             </a>
           </li>
           <li>
             <a href="#topologies" class="nav-link" id="navLinkTopologies">
-              Swarm Architectures
+              <span>Architectures</span>
             </a>
           </li>
           <li>
             <a href="#benchmarks" class="nav-link" id="navLinkBenchmarks">
-              Benchmarks
+              <span>Benchmarks</span>
             </a>
           </li>
           <li>
             <a href="#bridge" class="nav-link" id="navLinkBridge">
-              6 IDE Bridges
+              <span>IDE Bridges</span>
               <span class="nav-subtle-badge">6</span>
             </a>
           </li>
         </ul>
       </nav>
 
-      <!-- Nav Actions -->
+      <!-- Right: Action Controls -->
       <div class="nav-actions">
-        <div class="nav-status-badge" title="Ecosystem active &amp; verified">
+        <!-- Quick Search Action Button -->
+        <button type="button" class="nav-quick-search-btn" id="navQuickSearchBtn" title="Press / to search 178 skills" aria-label="Search skills">
+          <svg class="nav-search-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span class="nav-search-placeholder">Search...</span>
+          <kbd class="nav-search-kbd">/</kbd>
+        </button>
+
+        <!-- Status Badge -->
+        <div class="nav-status-badge" title="178 verified skills active in sovereign bus">
           <span class="live-dot-pulse"></span>
-          <span class="nav-status-text">178 Skills • 9 Agents</span>
+          <span class="nav-status-text">178 Active</span>
         </div>
-        <a href="http://localhost:3888" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm nav-studio-btn" id="btnLaunchStudio" title="Launch Local Studio Cockpit">
+
+        <!-- Studio Launch Button -->
+        <a href="http://localhost:3888" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm nav-studio-btn" id="btnLaunchStudio" title="Launch Studio Cockpit">
           <span class="studio-spark">⚡</span>
-          <span>Studio Cockpit</span>
+          <span>Studio</span>
         </a>
+
+        <!-- GitHub Star Button -->
         <a href="https://github.com/roedyrustam/vibes-plug" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm nav-gh-btn" id="btnGitHubStar" title="Star vibes-plug on GitHub">
-          <svg class="gh-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <svg class="gh-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
           </svg>
           <span>Star</span>
-          <span class="gh-star-pill">★ 1.4k</span>
+          <span class="gh-star-pill">1.4k</span>
         </a>
+
+        <!-- Mobile Hamburger Toggle -->
         <button type="button" class="nav-mobile-toggle" id="navMobileToggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span class="hamburger-bar"></span>
           <span class="hamburger-bar"></span>

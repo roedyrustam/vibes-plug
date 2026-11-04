@@ -124,16 +124,16 @@ a:hover {
 }
 
 /* ==========================================================================
-   Header & Navbar (2026 Sovereign Glassmorphism Standard)
+   Header & Navbar (2026 Sovereign Glassmorphism Standard - Clean & Balanced)
    ========================================================================== */
 
 .site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(9, 11, 15, 0.82);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(9, 11, 15, 0.85);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -162,17 +162,20 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 72px;
+  height: 68px;
   gap: 1.25rem;
+  max-width: 1360px;
 }
 
-/* Brand Group */
+/* Brand Group (Left) */
 .brand-group {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.75rem;
   text-decoration: none;
   cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .brand-logo-frame {
@@ -180,6 +183,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .brand-logo-3d {
@@ -212,21 +216,23 @@ a:hover {
 .brand-text {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
 }
 
 .brand-title-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
+  flex-wrap: nowrap;
 }
 
 .brand-name {
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #ffffff;
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .brand-name-accent {
@@ -239,75 +245,32 @@ a:hover {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 700;
-  padding: 0.15rem 0.45rem;
+  padding: 0.12rem 0.42rem;
   border-radius: 9999px;
   background: rgba(6, 182, 212, 0.12);
   color: var(--accent-cyan);
   border: 1px solid rgba(6, 182, 212, 0.3);
   line-height: 1;
   letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .brand-tag {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
-/* Quick Search Pill Button */
-.nav-quick-search-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: 9999px;
-  padding: 0.38rem 0.85rem;
-  color: var(--text-muted);
-  font-size: 0.82rem;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-quick-search-btn:hover {
-  background: rgba(6, 182, 212, 0.08);
-  border-color: rgba(6, 182, 212, 0.4);
-  color: var(--text-primary);
-  box-shadow: 0 0 16px rgba(6, 182, 212, 0.16);
-}
-
-.nav-search-svg {
-  color: var(--text-muted);
-  transition: color 0.2s ease;
-}
-
-.nav-quick-search-btn:hover .nav-search-svg {
-  color: var(--accent-cyan);
-}
-
-.nav-search-placeholder {
-  font-weight: 500;
-}
-
-.nav-search-kbd {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 0.12rem 0.4rem;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 4px;
-  color: var(--text-secondary);
-  line-height: 1;
-}
-
-/* Desktop Navigation Links */
+/* Center: Desktop Navigation Links */
 .nav-desktop {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
 .nav-links {
@@ -317,13 +280,14 @@ a:hover {
   list-style: none;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.85rem;
+  gap: 0.4rem;
+  padding: 0.42rem 0.75rem;
   border-radius: 8px;
   font-size: 0.88rem;
   font-weight: 500;
@@ -331,6 +295,7 @@ a:hover {
   text-decoration: none;
   transition: all 0.18s ease;
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -353,6 +318,7 @@ a:hover {
   background: #10b981;
   box-shadow: 0 0 8px #10b981;
   animation: livePulse 2s infinite ease-in-out;
+  flex-shrink: 0;
 }
 
 .nav-count-badge {
@@ -365,6 +331,7 @@ a:hover {
   color: var(--accent-cyan);
   border: 1px solid rgba(6, 182, 212, 0.28);
   line-height: 1;
+  white-space: nowrap;
 }
 
 .nav-subtle-badge {
@@ -376,18 +343,113 @@ a:hover {
   color: var(--text-muted);
   border: 1px solid rgba(255, 255, 255, 0.1);
   line-height: 1;
+  white-space: nowrap;
 }
 
-/* Nav Actions */
+/* Right: Action Controls */
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Quick Search Button in Actions Group */
+.nav-quick-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 9999px;
+  padding: 0.38rem 0.75rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: 34px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-quick-search-btn:hover {
+  background: rgba(6, 182, 212, 0.08);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: var(--text-primary);
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.16);
+}
+
+.nav-search-svg {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.nav-quick-search-btn:hover .nav-search-svg {
+  color: var(--accent-cyan);
+}
+
+.nav-search-placeholder {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.nav-search-kbd {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.38rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Status Badge */
+.nav-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.65rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.28);
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--accent-emerald);
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1;
+  height: 34px;
+}
+
+.live-dot-pulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
+  animation: pulseEmerald 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulseEmerald {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(1.35); }
 }
 
 .nav-studio-btn {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: 34px;
+  padding: 0 0.85rem;
+  font-size: 0.84rem;
   transition: all 0.2s ease;
 }
 
@@ -401,19 +463,18 @@ a:hover {
 .studio-spark {
   display: inline-block;
   animation: sparkPulse 2.5s infinite;
-}
-
-@keyframes sparkPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.15); }
+  flex-shrink: 0;
 }
 
 .nav-gh-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.95rem;
-  font-size: 0.85rem;
+  gap: 0.4rem;
+  padding: 0 0.85rem;
+  font-size: 0.84rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  height: 34px;
 }
 
 .gh-icon {
@@ -423,13 +484,14 @@ a:hover {
 .gh-star-pill {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  padding: 0.1rem 0.4rem;
+  padding: 0.1rem 0.38rem;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.25);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.2);
   font-weight: 700;
   line-height: 1;
+  white-space: nowrap;
 }
 
 /* Mobile Toggle Hamburger Button */
@@ -438,14 +500,15 @@ a:hover {
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   cursor: pointer;
-  padding: 9px;
+  padding: 8px;
   transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .nav-mobile-toggle:hover {
@@ -1719,7 +1782,16 @@ a:hover {
    Responsive Breakpoints
    ========================================================================== */
 
-@media (max-width: 1180px) {
+@media (max-width: 1280px) {
+  .nav-status-badge .nav-status-text {
+    display: none;
+  }
+  .nav-status-badge {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 1140px) {
   .nav-quick-search-btn {
     display: none;
   }
@@ -1870,35 +1942,6 @@ a:hover {
 /* ==========================================================================
    Sovereign Professional UI Enhancements (v4.7.0 Showcase Upgrade)
    ========================================================================== */
-
-/* Nav Status Badge */
-.nav-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.35rem 0.75rem;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.28);
-  border-radius: var(--radius-pill);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--accent-emerald);
-}
-
-.live-dot-pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent-emerald);
-  box-shadow: 0 0 8px var(--accent-emerald);
-  animation: pulseEmerald 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulseEmerald {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.45; transform: scale(1.35); }
-}
 
 /* Interactive Install Box with Package Manager Tabs */
 .install-box-interactive {
