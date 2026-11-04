@@ -1,2 +1,4 @@
 /vibes-plug/
 node_modules/
+.agents/worktrees/
+.test-bridge-cli-tmp/

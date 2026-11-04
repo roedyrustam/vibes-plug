@@ -1208,7 +1208,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 44);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 48);
       assert.equal(liveTelData.liveWatcher.active, true);
 
       // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
@@ -2043,6 +2043,111 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const groundedSwarm = await dispatchSwarm('Audit SQL migration RLS and AST blast radius', { concurrency: 2, reasoning: 'speed' });
     assert.strictEqual(groundedSwarm.success, true);
     assert.ok(Array.isArray(groundedSwarm.workers[0].workspaceTargets));
+  });
+
+  await t.test('Substantial Upgrades: Ephemeral Worktrees, Local Zero-Cost Semantic Engine, Micro-TDD Hot-Loop, and Multimodal Vision Self-Healing', async () => {
+    const { worktreeSwarm } = await import('./worktree-swarm.mjs');
+    const { localSemanticEngine } = await import('./semantic-search.mjs');
+    const { compileAndVerifyMicroTdd, stripTsTypes } = await import('./micro-tdd-compiler.mjs');
+    const { auditAndHealVisualUi } = await import('./visual-ui-healer.mjs');
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+
+    // 1. Ephemeral Git Worktree Swarm Isolation
+    const wtCreated = await worktreeSwarm.createWorktree('test-isolated-agent');
+    assert.strictEqual(wtCreated.success, true);
+    assert.strictEqual(wtCreated.workerId, 'test-isolated-agent');
+
+    const wtList = await worktreeSwarm.listWorktrees();
+    assert.ok(wtList.some(w => w.workerId === 'test-isolated-agent'));
+
+    const wtRemoved = await worktreeSwarm.removeWorktree('test-isolated-agent');
+    assert.strictEqual(wtRemoved.success, true);
+
+    // 2. Local Zero-Cost Semantic Vector Search
+    const searchRes = await localSemanticEngine.search('payment webhook signature and idempotency lock', { topK: 3 });
+    assert.ok(Array.isArray(searchRes) && searchRes.length > 0);
+    assert.ok(searchRes.some(r => r.id.includes('payment') || r.id.includes('doku') || r.id.includes('billing')));
+
+    // 3. In-Memory Micro-TDD & Contract Compiler (<15ms)
+    const sourceCode = `
+      function calculateNetAmount(gross: number, taxRate: number): number {
+        return gross * (1 - taxRate);
+      }
+    `;
+    const specCode = `
+      assert.equal(calculateNetAmount(100, 0.15), 85);
+    `;
+    const tddOutcome = compileAndVerifyMicroTdd(sourceCode, specCode);
+    assert.strictEqual(tddOutcome.passed, true);
+    assert.strictEqual(tddOutcome.syntaxValid, true);
+    assert.ok(tddOutcome.durationMs < 500);
+
+    // 4. Multimodal Vision UI Self-Healing (Touch targets, focus rings, overflow, slop gradients)
+    const slopMarkup = `
+      <div className="w-screen p-4 bg-gradient-to-r from-blue-600 to-purple-600">
+        <button className="py-1 px-3 rounded-full focus:outline-none">Action</button>
+        <span className="text-xl font-bold">\$250.00</span>
+      </div>
+    `;
+    const healedUi = auditAndHealVisualUi(slopMarkup);
+    assert.ok(healedUi.fixCount >= 3);
+    assert.ok(!healedUi.patchedCode.includes('w-screen'));
+    assert.ok(healedUi.patchedCode.includes('w-full max-w-full'));
+    assert.ok(!healedUi.patchedCode.includes('rounded-full'));
+    assert.ok(healedUi.patchedCode.includes('min-h-[44px] min-w-[44px]'));
+    assert.ok(healedUi.patchedCode.includes('tabular-nums'));
+
+    // 5. MCP Tool Invocations for all 4 new tools
+    // Tool 1: vibes_worktree_swarm
+    const wtCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 994,
+      method: 'tools/call',
+      params: { name: 'vibes_worktree_swarm', arguments: { action: 'list' } }
+    });
+    assert.ok(wtCall.result);
+
+    // Tool 2: vibes_semantic_search
+    const semCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 995,
+      method: 'tools/call',
+      params: { name: 'vibes_semantic_search', arguments: { query: 'audit database migration and RLS', topK: 2 } }
+    });
+    assert.ok(semCall.result);
+    const semData = JSON.parse(semCall.result.content[0].text);
+    assert.ok(Array.isArray(semData));
+
+    // Tool 3: vibes_micro_tdd
+    const tddCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 996,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_micro_tdd',
+        arguments: {
+          code: 'function add(a, b) { return a + b; }',
+          spec: 'assert.equal(add(10, 20), 30);'
+        }
+      }
+    });
+    assert.ok(tddCall.result);
+    const tddData = JSON.parse(tddCall.result.content[0].text);
+    assert.strictEqual(tddData.passed, true);
+
+    // Tool 4: vibes_visual_heal
+    const visCall = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 997,
+      method: 'tools/call',
+      params: {
+        name: 'vibes_visual_heal',
+        arguments: { code: '<button className="py-1 h-6 focus:outline-none">Save</button>' }
+      }
+    });
+    assert.ok(visCall.result);
+    const visData = JSON.parse(visCall.result.content[0].text);
+    assert.ok(visData.fixCount >= 1);
   });
 });
 

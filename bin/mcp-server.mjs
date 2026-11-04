@@ -895,6 +895,98 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_worktree_swarm',
+    description: 'Ephemeral Git Worktree Swarm Isolation: creates, merges, removes, or cleans up isolated worker worktrees under .agents/worktrees to prevent subagent file collision.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        action: {
+          type: 'string',
+          enum: ['create', 'merge', 'remove', 'list', 'cleanup'],
+          description: 'Worktree action to perform.'
+        },
+        workerId: {
+          type: 'string',
+          description: 'Unique worker or subagent identifier.'
+        },
+        baseRef: {
+          type: 'string',
+          description: 'Base Git commit or branch ref (defaults to HEAD).'
+        },
+        commitMessage: {
+          type: 'string',
+          description: 'Custom commit message when merging worker tree.'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_semantic_search',
+    description: 'Local Zero-Cost Semantic Code & Skills Search: embeds and hybrid-retrieves codebase symbols and 176 skills via in-process TF-IDF n-gram vectors with zero API tokens.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: {
+          type: 'string',
+          description: 'Natural language search query.'
+        },
+        topK: {
+          type: 'number',
+          description: 'Maximum number of results to return (default: 5).'
+        },
+        type: {
+          type: 'string',
+          enum: ['skill', 'code', 'all'],
+          description: 'Target document type filter.'
+        }
+      },
+      required: ['query']
+    }
+  },
+  {
+    name: 'vibes_micro_tdd',
+    description: 'In-Memory Micro-TDD & Contract Compiler: transpiles and executes code against test assertions in <15ms isolated VM without disk I/O, preventing broken code regressions.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+          description: 'Source code or function implementation to verify.'
+        },
+        spec: {
+          type: 'string',
+          description: 'Inline assertion test specs (e.g. assert.equal(fn(x), y)).'
+        },
+        timeoutMs: {
+          type: 'number',
+          description: 'Execution timeout in milliseconds (default: 250).'
+        }
+      },
+      required: ['code']
+    }
+  },
+  {
+    name: 'vibes_visual_heal',
+    description: 'Multimodal Vision UI & Responsive Layout Self-Healing: audits UI components against WCAG 2.2 44px touch targets, naked focus rings, container overflow, and slop gradients, synthesizing drop-in patches.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+          description: 'Component TSX/JSX/HTML markup.'
+        },
+        targetFile: {
+          type: 'string',
+          description: 'Optional file path to UI component.'
+        },
+        apply: {
+          type: 'boolean',
+          description: 'Whether to write auto-patch directly to target file.'
+        }
+      }
+    }
   }
 ];
 
@@ -1690,6 +1782,37 @@ export async function handleRpcRequest(request) {
         if (args?.tsFile) ts = await fs.readFile(path.resolve(process.cwd(), args.tsFile), 'utf8');
         const { healSchemaDrift } = await import('../scripts/drift-healer.mjs');
         const outcome = healSchemaDrift({ sql, ts });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_worktree_swarm') {
+        const { action = 'list', workerId, baseRef, commitMessage } = args || {};
+        const { worktreeSwarm } = await import('../scripts/worktree-swarm.mjs');
+        let outcome;
+        if (action === 'create') outcome = await worktreeSwarm.createWorktree(workerId, baseRef);
+        else if (action === 'merge') outcome = await worktreeSwarm.mergeWorktree(workerId, { commitMessage });
+        else if (action === 'remove') outcome = await worktreeSwarm.removeWorktree(workerId);
+        else if (action === 'cleanup') outcome = await worktreeSwarm.cleanupAll();
+        else outcome = await worktreeSwarm.listWorktrees();
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_semantic_search') {
+        const { query = '', topK = 5, type } = args || {};
+        const { localSemanticEngine } = await import('../scripts/semantic-search.mjs');
+        const outcome = await localSemanticEngine.search(query, { topK, type });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_micro_tdd') {
+        const { code = '', spec = '', timeoutMs } = args || {};
+        const { compileAndVerifyMicroTdd } = await import('../scripts/micro-tdd-compiler.mjs');
+        const outcome = compileAndVerifyMicroTdd(code, spec, { timeoutMs });
+        contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_visual_heal') {
+        let code = args?.code || '';
+        if (!code && args?.targetFile) {
+          code = await fs.readFile(path.resolve(process.cwd(), args.targetFile), 'utf8');
+        }
+        const { auditAndHealVisualUi } = await import('../scripts/visual-ui-healer.mjs');
+        const outcome = auditAndHealVisualUi(code, args?.targetFile || 'component.tsx');
+        if (args?.apply && args?.targetFile && outcome.fixCount > 0) {
+          await fs.writeFile(path.resolve(process.cwd(), args.targetFile), outcome.patchedCode, 'utf8');
+        }
         contentText = JSON.stringify(outcome, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);

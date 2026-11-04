@@ -178,7 +178,8 @@ let violations = [];
 let fixesApplied = 0;
 
 function isTestFile(filePath) {
-  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(filePath);
+  const norm = filePath.replace(/\\/g, '/');
+  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(norm) || /\/test-[^\/]+\.m?js$/i.test(norm);
 }
 
 function isCliScript(filePath) {
@@ -194,7 +195,7 @@ function scanFile(filePath) {
 
   if (!isCode && !isDoc) return;
   // Skip scanning the anti-slop rules / validator definitions themselves to prevent self-matching
-  if (filePath.includes('check-anti-slop') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
+  if (filePath.includes('check-anti-slop') || filePath.includes('visual-ui-healer') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
     return;
   }
 
@@ -226,6 +227,11 @@ function scanFile(filePath) {
       CODE_WARN_PATTERNS.forEach(pattern => {
         // Console log in test files or CLI scripts is permitted
         if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (isTestFile(filePath) || isCliScript(filePath))) {
+          return;
+        }
+
+        // Test fixtures contain intentional slop samples to verify detector & healing functionality
+        if (isTestFile(filePath) && (pattern.id.startsWith('UI_') || pattern.id === 'FOCUS_OUTLINE_STRIPPED')) {
           return;
         }
 

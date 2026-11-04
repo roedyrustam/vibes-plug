@@ -1,16 +1,16 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T11:33:09.652Z",
+  "generatedAt": "2026-11-04T11:58:16.598Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 80,
-  "incrementalReusedFiles": 80,
-  "totalSymbolsIndexed": 462,
-  "totalImportEdges": 252,
+  "totalFilesIndexed": 84,
+  "incrementalReusedFiles": 84,
+  "totalSymbolsIndexed": 486,
+  "totalImportEdges": 269,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1030,
+        "line": 1122,
         "type": "function",
         "signature": "function getActiveProfile()",
         "calls": []
@@ -19,7 +19,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1034,
+        "line": 1126,
         "type": "function",
         "signature": "function setActiveProfile(profileName)",
         "calls": [
@@ -32,7 +32,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1043,
+        "line": 1135,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)",
         "calls": [
@@ -48,7 +48,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1087,
+        "line": 1179,
         "type": "function",
         "signature": "function handleRpcRequest(request)",
         "calls": [
@@ -61,7 +61,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1722,
+        "line": 1845,
         "type": "function",
         "signature": "function startStdioServer()",
         "calls": [
@@ -80,7 +80,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1750,
+        "line": 1873,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
         "calls": [
@@ -111,7 +111,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1858,
+        "line": 1981,
         "type": "function",
         "signature": "function startServer(options = {})",
         "calls": [
@@ -862,6 +862,22 @@
         ]
       },
       {
+        "file": "scripts/micro-tdd-compiler.mjs",
+        "line": 145,
+        "type": "function",
+        "signature": "function main()",
+        "calls": [
+          "slice",
+          "log",
+          "indexOf",
+          "readFile",
+          "compileAndVerifyMicroTdd",
+          "exit",
+          "error",
+          "endsWith"
+        ]
+      },
+      {
         "file": "scripts/package-extension.mjs",
         "line": 232,
         "type": "function",
@@ -897,6 +913,23 @@
           "endsWith",
           "error",
           "exit"
+        ]
+      },
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 273,
+        "type": "function",
+        "signature": "function main()",
+        "calls": [
+          "slice",
+          "log",
+          "buildIndex",
+          "join",
+          "trim",
+          "search",
+          "error",
+          "exit",
+          "endsWith"
         ]
       },
       {
@@ -1059,6 +1092,24 @@
         ]
       },
       {
+        "file": "scripts/visual-ui-healer.mjs",
+        "line": 133,
+        "type": "function",
+        "signature": "function main()",
+        "calls": [
+          "slice",
+          "log",
+          "readFile",
+          "auditAndHealVisualUi",
+          "basename",
+          "includes",
+          "writeFile",
+          "error",
+          "exit",
+          "endsWith"
+        ]
+      },
+      {
         "file": "scripts/wasm-sandbox.mjs",
         "line": 434,
         "type": "function",
@@ -1077,6 +1128,24 @@
           "forEach",
           "endsWith",
           "error"
+        ]
+      },
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 218,
+        "type": "function",
+        "signature": "function main()",
+        "calls": [
+          "slice",
+          "listWorktrees",
+          "log",
+          "error",
+          "exit",
+          "createWorktree",
+          "mergeWorktree",
+          "removeWorktree",
+          "cleanupAll",
+          "endsWith"
         ]
       },
       {
@@ -1397,6 +1466,7 @@
         "type": "function",
         "signature": "function isTestFile(filePath)",
         "calls": [
+          "replace",
           "test"
         ]
       },
@@ -1422,7 +1492,7 @@
     "isCliScript": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 184,
+        "line": 185,
         "type": "function",
         "signature": "function isCliScript(filePath)",
         "calls": [
@@ -1460,7 +1530,7 @@
     "scanFile": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 189,
+        "line": 190,
         "type": "function",
         "signature": "function scanFile(filePath)",
         "calls": [
@@ -1522,7 +1592,7 @@
     "scanDir": [
       {
         "file": "scripts/check-anti-slop.js",
-        "line": 276,
+        "line": 282,
         "type": "function",
         "signature": "function scanDir(dir)",
         "calls": [
@@ -2916,6 +2986,36 @@
         ]
       }
     ],
+    "stripTsTypes": [
+      {
+        "file": "scripts/micro-tdd-compiler.mjs",
+        "line": 28,
+        "type": "function",
+        "signature": "function stripTsTypes(tsCode = '')",
+        "calls": [
+          "replace"
+        ]
+      }
+    ],
+    "compileAndVerifyMicroTdd": [
+      {
+        "file": "scripts/micro-tdd-compiler.mjs",
+        "line": 61,
+        "type": "function",
+        "signature": "function compileAndVerifyMicroTdd(sourceCode = '', specCode = '', options = {})",
+        "calls": [
+          "now",
+          "push",
+          "round",
+          "stripTsTypes",
+          "fn",
+          "createContext",
+          "Script",
+          "runInContext",
+          "trim"
+        ]
+      }
+    ],
     "createZipArchive": [
       {
         "file": "scripts/package-extension.mjs",
@@ -3303,6 +3403,143 @@
           "scaffoldCiHealWorkflow",
           "log",
           "exit"
+        ]
+      }
+    ],
+    "LocalSemanticEngine": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 24,
+        "type": "class",
+        "signature": "export class LocalSemanticEngine",
+        "calls": []
+      }
+    ],
+    "LocalSemanticEngine.constructor": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 25,
+        "type": "method",
+        "signature": "LocalSemanticEngine.constructor(baseDir = PLUGIN_ROOT)",
+        "calls": [
+          "join",
+          "Map"
+        ]
+      }
+    ],
+    "LocalSemanticEngine.tokenize": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 38,
+        "type": "method",
+        "signature": "LocalSemanticEngine.tokenize(text = '')",
+        "calls": [
+          "toLowerCase",
+          "replace",
+          "split",
+          "filter",
+          "push",
+          "slice"
+        ]
+      }
+    ],
+    "LocalSemanticEngine.computeVector": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 59,
+        "type": "method",
+        "signature": "LocalSemanticEngine.computeVector(tokens)",
+        "calls": [
+          "Float32Array",
+          "Map",
+          "set",
+          "get",
+          "entries",
+          "charCodeAt",
+          "abs",
+          "log",
+          "sqrt"
+        ]
+      }
+    ],
+    "LocalSemanticEngine.cosineSimilarity": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 97,
+        "type": "method",
+        "signature": "LocalSemanticEngine.cosineSimilarity(a, b)",
+        "calls": []
+      }
+    ],
+    "LocalSemanticEngine.buildIndex": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 110,
+        "type": "method",
+        "signature": "LocalSemanticEngine.buildIndex(options = {})",
+        "calls": [
+          "now",
+          "join",
+          "readdir",
+          "isDirectory",
+          "readFile",
+          "match",
+          "trim",
+          "push",
+          "relative",
+          "replace",
+          "endsWith",
+          "Map",
+          "tokenize",
+          "Set",
+          "set",
+          "get",
+          "clear",
+          "entries",
+          "log",
+          "from",
+          "computeVector",
+          "mkdir",
+          "dirname",
+          "writeFile",
+          "stringify"
+        ]
+      }
+    ],
+    "LocalSemanticEngine.ensureIndex": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 211,
+        "type": "method",
+        "signature": "LocalSemanticEngine.ensureIndex()",
+        "calls": [
+          "readFile",
+          "parse",
+          "buildIndex"
+        ]
+      }
+    ],
+    "LocalSemanticEngine.search": [
+      {
+        "file": "scripts/semantic-search.mjs",
+        "line": 229,
+        "type": "method",
+        "signature": "LocalSemanticEngine.search(query = '', options = {})",
+        "calls": [
+          "ensureIndex",
+          "trim",
+          "tokenize",
+          "computeVector",
+          "cosineSimilarity",
+          "toLowerCase",
+          "includes",
+          "max",
+          "min",
+          "push",
+          "round",
+          "sort",
+          "slice",
+          "LocalSemanticEngine"
         ]
       }
     ],
@@ -5476,6 +5713,23 @@
         ]
       }
     ],
+    "auditAndHealVisualUi": [
+      {
+        "file": "scripts/visual-ui-healer.mjs",
+        "line": 37,
+        "type": "function",
+        "signature": "function auditAndHealVisualUi(code = '', fileName = 'component.tsx')",
+        "calls": [
+          "replace",
+          "b",
+          "test",
+          "push",
+          "reduce",
+          "max",
+          "filter"
+        ]
+      }
+    ],
     "createIsolatedSandbox": [
       {
         "file": "scripts/wasm-sandbox.mjs",
@@ -5638,6 +5892,134 @@
           "includes",
           "criticValidate",
           "visualAudit"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 25,
+        "type": "class",
+        "signature": "export class WorktreeSwarmManager",
+        "calls": []
+      }
+    ],
+    "WorktreeSwarmManager.constructor": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 26,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.constructor(baseDir = PLUGIN_ROOT)",
+        "calls": [
+          "join"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.git": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 37,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.git(args, cwd = this.baseDir)",
+        "calls": [
+          "execFileAsync",
+          "trim",
+          "Error"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.isGitRepo": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 50,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.isGitRepo()",
+        "calls": [
+          "git",
+          "trim"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.createWorktree": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 65,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.createWorktree(workerId, baseRef = 'HEAD')",
+        "calls": [
+          "replace",
+          "toLowerCase",
+          "join",
+          "mkdir",
+          "removeWorktree",
+          "git"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.listWorktrees": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 89,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.listWorktrees()",
+        "calls": [
+          "isGitRepo",
+          "git",
+          "trim",
+          "split",
+          "startsWith",
+          "slice",
+          "includes",
+          "join",
+          "basename",
+          "push"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.mergeWorktree": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 124,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.mergeWorktree(workerId, options = {})",
+        "calls": [
+          "replace",
+          "toLowerCase",
+          "join",
+          "git",
+          "trim",
+          "Error",
+          "removeWorktree"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.removeWorktree": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 173,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.removeWorktree(workerId)",
+        "calls": [
+          "replace",
+          "toLowerCase",
+          "join",
+          "git",
+          "rm"
+        ]
+      }
+    ],
+    "WorktreeSwarmManager.cleanupAll": [
+      {
+        "file": "scripts/worktree-swarm.mjs",
+        "line": 200,
+        "type": "method",
+        "signature": "WorktreeSwarmManager.cleanupAll()",
+        "calls": [
+          "listWorktrees",
+          "removeWorktree",
+          "git",
+          "rm",
+          "WorktreeSwarmManager"
         ]
       }
     ],
@@ -6951,10 +7333,10 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 1881,
+      "totalLines": 2004,
       "symbolCount": 7,
-      "mtimeMs": 1793377961856,
-      "size": 76850,
+      "mtimeMs": 1793792908178,
+      "size": 80036,
       "exports": [
         "getActiveProfile",
         "setActiveProfile",
@@ -7122,14 +7504,14 @@
       "cachedSymbols": [
         {
           "name": "getActiveProfile",
-          "line": 1030,
+          "line": 1122,
           "type": "function",
           "signature": "function getActiveProfile()",
           "calls": []
         },
         {
           "name": "setActiveProfile",
-          "line": 1034,
+          "line": 1126,
           "type": "function",
           "signature": "function setActiveProfile(profileName)",
           "calls": [
@@ -7140,7 +7522,7 @@
         },
         {
           "name": "getFilteredTools",
-          "line": 1043,
+          "line": 1135,
           "type": "function",
           "signature": "function getFilteredTools(profileName = currentActiveProfile)",
           "calls": [
@@ -7154,7 +7536,7 @@
         },
         {
           "name": "handleRpcRequest",
-          "line": 1087,
+          "line": 1179,
           "type": "function",
           "signature": "function handleRpcRequest(request)",
           "calls": [
@@ -7165,7 +7547,7 @@
         },
         {
           "name": "startStdioServer",
-          "line": 1722,
+          "line": 1845,
           "type": "function",
           "signature": "function startStdioServer()",
           "calls": [
@@ -7182,7 +7564,7 @@
         },
         {
           "name": "startSseServer",
-          "line": 1750,
+          "line": 1873,
           "type": "function",
           "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
           "calls": [
@@ -7211,7 +7593,7 @@
         },
         {
           "name": "startServer",
-          "line": 1858,
+          "line": 1981,
           "type": "function",
           "signature": "function startServer(options = {})",
           "calls": [
@@ -7227,10 +7609,10 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2099,
+      "totalLines": 2128,
       "symbolCount": 23,
-      "mtimeMs": 1793700103936,
-      "size": 101639,
+      "mtimeMs": 1793792908160,
+      "size": 100999,
       "exports": [],
       "imports": [
         {
@@ -8263,8 +8645,8 @@
     "scripts/benchmark-suite.mjs": {
       "totalLines": 294,
       "symbolCount": 1,
-      "mtimeMs": 1792792506037,
-      "size": 12343,
+      "mtimeMs": 1793793449418,
+      "size": 12344,
       "exports": [
         "runBenchmarkSuite"
       ],
@@ -8485,10 +8867,10 @@
       ]
     },
     "scripts/check-anti-slop.js": {
-      "totalLines": 348,
+      "totalLines": 354,
       "symbolCount": 4,
-      "mtimeMs": 1792869568670,
-      "size": 13556,
+      "mtimeMs": 1793793125639,
+      "size": 13924,
       "exports": [],
       "imports": [
         {
@@ -8515,12 +8897,13 @@
           "type": "function",
           "signature": "function isTestFile(filePath)",
           "calls": [
+            "replace",
             "test"
           ]
         },
         {
           "name": "isCliScript",
-          "line": 184,
+          "line": 185,
           "type": "function",
           "signature": "function isCliScript(filePath)",
           "calls": [
@@ -8532,7 +8915,7 @@
         },
         {
           "name": "scanFile",
-          "line": 189,
+          "line": 190,
           "type": "function",
           "signature": "function scanFile(filePath)",
           "calls": [
@@ -8552,7 +8935,7 @@
         },
         {
           "name": "scanDir",
-          "line": 276,
+          "line": 282,
           "type": "function",
           "signature": "function scanDir(dir)",
           "calls": [
@@ -10704,6 +11087,102 @@
         }
       ]
     },
+    "scripts/micro-tdd-compiler.mjs": {
+      "totalLines": 182,
+      "symbolCount": 3,
+      "mtimeMs": 1793792964064,
+      "size": 5897,
+      "exports": [
+        "stripTsTypes",
+        "compileAndVerifyMicroTdd"
+      ],
+      "imports": [
+        {
+          "source": "node:vm",
+          "target": null,
+          "specifiers": [
+            "vm"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:assert/strict",
+          "target": null,
+          "specifiers": [
+            "assert"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 17
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "stripTsTypes",
+          "line": 28,
+          "type": "function",
+          "signature": "function stripTsTypes(tsCode = '')",
+          "calls": [
+            "replace"
+          ]
+        },
+        {
+          "name": "compileAndVerifyMicroTdd",
+          "line": 61,
+          "type": "function",
+          "signature": "function compileAndVerifyMicroTdd(sourceCode = '', specCode = '', options = {})",
+          "calls": [
+            "now",
+            "push",
+            "round",
+            "stripTsTypes",
+            "fn",
+            "createContext",
+            "Script",
+            "runInContext",
+            "trim"
+          ]
+        },
+        {
+          "name": "main",
+          "line": 145,
+          "type": "function",
+          "signature": "function main()",
+          "calls": [
+            "slice",
+            "log",
+            "indexOf",
+            "readFile",
+            "compileAndVerifyMicroTdd",
+            "exit",
+            "error",
+            "endsWith"
+          ]
+        }
+      ]
+    },
     "scripts/package-extension.mjs": {
       "totalLines": 266,
       "symbolCount": 4,
@@ -11325,6 +11804,189 @@
         }
       ]
     },
+    "scripts/semantic-search.mjs": {
+      "totalLines": 309,
+      "symbolCount": 9,
+      "mtimeMs": 1793793071656,
+      "size": 9883,
+      "exports": [
+        "LocalSemanticEngine"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 16
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "LocalSemanticEngine",
+          "line": 24,
+          "type": "class",
+          "signature": "export class LocalSemanticEngine",
+          "calls": []
+        },
+        {
+          "name": "LocalSemanticEngine.constructor",
+          "line": 25,
+          "type": "method",
+          "signature": "LocalSemanticEngine.constructor(baseDir = PLUGIN_ROOT)",
+          "calls": [
+            "join",
+            "Map"
+          ]
+        },
+        {
+          "name": "LocalSemanticEngine.tokenize",
+          "line": 38,
+          "type": "method",
+          "signature": "LocalSemanticEngine.tokenize(text = '')",
+          "calls": [
+            "toLowerCase",
+            "replace",
+            "split",
+            "filter",
+            "push",
+            "slice"
+          ]
+        },
+        {
+          "name": "LocalSemanticEngine.computeVector",
+          "line": 59,
+          "type": "method",
+          "signature": "LocalSemanticEngine.computeVector(tokens)",
+          "calls": [
+            "Float32Array",
+            "Map",
+            "set",
+            "get",
+            "entries",
+            "charCodeAt",
+            "abs",
+            "log",
+            "sqrt"
+          ]
+        },
+        {
+          "name": "LocalSemanticEngine.cosineSimilarity",
+          "line": 97,
+          "type": "method",
+          "signature": "LocalSemanticEngine.cosineSimilarity(a, b)",
+          "calls": []
+        },
+        {
+          "name": "LocalSemanticEngine.buildIndex",
+          "line": 110,
+          "type": "method",
+          "signature": "LocalSemanticEngine.buildIndex(options = {})",
+          "calls": [
+            "now",
+            "join",
+            "readdir",
+            "isDirectory",
+            "readFile",
+            "match",
+            "trim",
+            "push",
+            "relative",
+            "replace",
+            "endsWith",
+            "Map",
+            "tokenize",
+            "Set",
+            "set",
+            "get",
+            "clear",
+            "entries",
+            "log",
+            "from",
+            "computeVector",
+            "mkdir",
+            "dirname",
+            "writeFile",
+            "stringify"
+          ]
+        },
+        {
+          "name": "LocalSemanticEngine.ensureIndex",
+          "line": 211,
+          "type": "method",
+          "signature": "LocalSemanticEngine.ensureIndex()",
+          "calls": [
+            "readFile",
+            "parse",
+            "buildIndex"
+          ]
+        },
+        {
+          "name": "LocalSemanticEngine.search",
+          "line": 229,
+          "type": "method",
+          "signature": "LocalSemanticEngine.search(query = '', options = {})",
+          "calls": [
+            "ensureIndex",
+            "trim",
+            "tokenize",
+            "computeVector",
+            "cosineSimilarity",
+            "toLowerCase",
+            "includes",
+            "max",
+            "min",
+            "push",
+            "round",
+            "sort",
+            "slice",
+            "LocalSemanticEngine"
+          ]
+        },
+        {
+          "name": "main",
+          "line": 273,
+          "type": "function",
+          "signature": "function main()",
+          "calls": [
+            "slice",
+            "log",
+            "buildIndex",
+            "join",
+            "trim",
+            "search",
+            "error",
+            "exit",
+            "endsWith"
+          ]
+        }
+      ]
+    },
     "scripts/sentinel-watcher.mjs": {
       "totalLines": 264,
       "symbolCount": 2,
@@ -11441,8 +12103,8 @@
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 636,
       "symbolCount": 7,
-      "mtimeMs": 1793791529941,
-      "size": 25139,
+      "mtimeMs": 1793792020358,
+      "size": 25774,
       "exports": [
         "resolveSkillAdapter",
         "getSkillCompactSlice",
@@ -12414,10 +13076,10 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4737,
+      "totalLines": 4848,
       "symbolCount": 8,
-      "mtimeMs": 1793700104127,
-      "size": 199905,
+      "mtimeMs": 1793792829699,
+      "size": 200075,
       "exports": [
         "generateStudioHtml",
         "startStudioServer"
@@ -13881,10 +14543,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2050,
+      "totalLines": 2155,
       "symbolCount": 1,
-      "mtimeMs": 1793593789538,
-      "size": 97382,
+      "mtimeMs": 1793793217630,
+      "size": 99695,
       "exports": [],
       "imports": [
         {
@@ -14582,6 +15244,76 @@
         }
       ]
     },
+    "scripts/visual-ui-healer.mjs": {
+      "totalLines": 171,
+      "symbolCount": 2,
+      "mtimeMs": 1793792993245,
+      "size": 6523,
+      "exports": [
+        "auditAndHealVisualUi"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 17
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "auditAndHealVisualUi",
+          "line": 37,
+          "type": "function",
+          "signature": "function auditAndHealVisualUi(code = '', fileName = 'component.tsx')",
+          "calls": [
+            "replace",
+            "b",
+            "test",
+            "push",
+            "reduce",
+            "max",
+            "filter"
+          ]
+        },
+        {
+          "name": "main",
+          "line": 133,
+          "type": "function",
+          "signature": "function main()",
+          "calls": [
+            "slice",
+            "log",
+            "readFile",
+            "auditAndHealVisualUi",
+            "basename",
+            "includes",
+            "writeFile",
+            "error",
+            "exit",
+            "endsWith"
+          ]
+        }
+      ]
+    },
     "scripts/wasm-sandbox.mjs": {
       "totalLines": 516,
       "symbolCount": 10,
@@ -14811,6 +15543,187 @@
             "forEach",
             "endsWith",
             "error"
+          ]
+        }
+      ]
+    },
+    "scripts/worktree-swarm.mjs": {
+      "totalLines": 286,
+      "symbolCount": 10,
+      "mtimeMs": 1793792964265,
+      "size": 9617,
+      "exports": [
+        "WorktreeSwarmManager"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 13
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "execFile"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:util",
+          "target": null,
+          "specifiers": [
+            "promisify"
+          ],
+          "line": 17
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "WorktreeSwarmManager",
+          "line": 25,
+          "type": "class",
+          "signature": "export class WorktreeSwarmManager",
+          "calls": []
+        },
+        {
+          "name": "WorktreeSwarmManager.constructor",
+          "line": 26,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.constructor(baseDir = PLUGIN_ROOT)",
+          "calls": [
+            "join"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.git",
+          "line": 37,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.git(args, cwd = this.baseDir)",
+          "calls": [
+            "execFileAsync",
+            "trim",
+            "Error"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.isGitRepo",
+          "line": 50,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.isGitRepo()",
+          "calls": [
+            "git",
+            "trim"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.createWorktree",
+          "line": 65,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.createWorktree(workerId, baseRef = 'HEAD')",
+          "calls": [
+            "replace",
+            "toLowerCase",
+            "join",
+            "mkdir",
+            "removeWorktree",
+            "git"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.listWorktrees",
+          "line": 89,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.listWorktrees()",
+          "calls": [
+            "isGitRepo",
+            "git",
+            "trim",
+            "split",
+            "startsWith",
+            "slice",
+            "includes",
+            "join",
+            "basename",
+            "push"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.mergeWorktree",
+          "line": 124,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.mergeWorktree(workerId, options = {})",
+          "calls": [
+            "replace",
+            "toLowerCase",
+            "join",
+            "git",
+            "trim",
+            "Error",
+            "removeWorktree"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.removeWorktree",
+          "line": 173,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.removeWorktree(workerId)",
+          "calls": [
+            "replace",
+            "toLowerCase",
+            "join",
+            "git",
+            "rm"
+          ]
+        },
+        {
+          "name": "WorktreeSwarmManager.cleanupAll",
+          "line": 200,
+          "type": "method",
+          "signature": "WorktreeSwarmManager.cleanupAll()",
+          "calls": [
+            "listWorktrees",
+            "removeWorktree",
+            "git",
+            "rm",
+            "WorktreeSwarmManager"
+          ]
+        },
+        {
+          "name": "main",
+          "line": 218,
+          "type": "function",
+          "signature": "function main()",
+          "calls": [
+            "slice",
+            "listWorktrees",
+            "log",
+            "error",
+            "exit",
+            "createWorktree",
+            "mergeWorktree",
+            "removeWorktree",
+            "cleanupAll",
+            "endsWith"
           ]
         }
       ]

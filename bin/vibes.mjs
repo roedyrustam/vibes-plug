@@ -1591,6 +1591,10 @@ Commands:
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
   swarm:bus [status|events] Real-time swarm concurrency event bus & multi-agent telemetry
+  swarm:worktree <cmd>      Ephemeral Git worktree swarm isolation (list|create|merge|remove|cleanup)
+  search:semantic <query>   Zero-cost local semantic vector code & skills search
+  tdd:micro <file>          In-memory hot-loop micro-TDD compiler & contract verifier (<15ms)
+  visual:heal <file>        Multimodal Vision UI & layout self-healing with auto-patch synthesis
   finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
   bridge [status|sync|bundle] Universal cross-IDE multi-platform rule & episodic memory state bridge
   learn <skill-name> [opts] Synthesize a Gold-Standard skill from codebase, OpenAPI, or docs
@@ -1752,6 +1756,31 @@ Platform Eligibility & Economics:
   case 'bus': {
     const { spawnSync } = await import('child_process');
     spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'swarm:worktree':
+  case 'worktree': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'worktree-swarm.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'search:semantic': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'semantic-search.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    rl.close();
+    break;
+  }
+  case 'tdd:micro': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'micro-tdd-compiler.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    rl.close();
+    break;
+  }
+  case 'visual:heal': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'visual-ui-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
     rl.close();
     break;
   }

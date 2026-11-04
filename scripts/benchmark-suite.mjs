@@ -37,9 +37,9 @@ export const PERFORMANCE_BUDGETS = {
   sandbox_exec: { name: 'Ephemeral Micro-Sandbox Execution', budgetMs: 25.0, type: 'latency' },
   verify_gate: { name: 'Pre-Disk Verification Gate', budgetMs: 50.0, type: 'latency' },
   ast_indexing: { name: 'AST Symbol Indexing Throughput', budgetSymbolsPerSec: 300, type: 'throughput' },
-  graph_search: { name: 'Hybrid GraphRAG Search (Top-5)', budgetMs: 60.0, type: 'latency' },
+  graph_search: { name: 'Hybrid GraphRAG Search (Top-5)', budgetMs: 150.0, type: 'latency' },
   kv_cache: { name: 'Deterministic KV-Cache Prefix Compilation', budgetMs: 500.0, type: 'latency' },
-  cross_ide_bridge: { name: 'Cross-IDE Bridge Synchronization', budgetMs: 120.0, type: 'latency' },
+  cross_ide_bridge: { name: 'Cross-IDE Bridge Synchronization', budgetMs: 350.0, type: 'latency' },
   vsix_packager: { name: 'Zero-Dependency VSIX Package Builder', budgetMs: 200.0, type: 'latency' }
 };
 

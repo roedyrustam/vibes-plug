@@ -4639,6 +4639,117 @@ export async function startStudioServer(options = {}) {
       }
       return;
     }
+    // Ephemeral Git Worktree Swarm endpoints
+    if (req.method === 'GET' && pathname === '/api/worktrees') {
+      try {
+        const { worktreeSwarm } = await import('./worktree-swarm.mjs');
+        const worktrees = await worktreeSwarm.listWorktrees();
+        sendJson({ success: true, count: worktrees.length, worktrees });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    if (req.method === 'POST' && pathname === '/api/worktrees') {
+      try {
+        const body = await readJsonBody(req);
+        const { action = 'list', workerId, baseRef, options: wtOpts } = body || {};
+        const { worktreeSwarm } = await import('./worktree-swarm.mjs');
+
+        if (action === 'create') {
+          if (!workerId) throw new Error("Field 'workerId' is required.");
+          const created = await worktreeSwarm.createWorktree(workerId, baseRef);
+          sendJson(created);
+        } else if (action === 'merge') {
+          if (!workerId) throw new Error("Field 'workerId' is required.");
+          const merged = await worktreeSwarm.mergeWorktree(workerId, wtOpts);
+          sendJson(merged);
+        } else if (action === 'remove') {
+          if (!workerId) throw new Error("Field 'workerId' is required.");
+          const removed = await worktreeSwarm.removeWorktree(workerId);
+          sendJson(removed);
+        } else if (action === 'cleanup') {
+          const cleaned = await worktreeSwarm.cleanupAll();
+          sendJson({ success: true, ...cleaned });
+        } else {
+          const worktrees = await worktreeSwarm.listWorktrees();
+          sendJson({ success: true, count: worktrees.length, worktrees });
+        }
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Zero-Cost Semantic Code & Skills Search endpoint
+    if (req.method === 'POST' && pathname === '/api/search/semantic') {
+      try {
+        const body = await readJsonBody(req);
+        const { query, topK, type } = body || {};
+        if (!query) throw new Error("Field 'query' is required.");
+        const { localSemanticEngine } = await import('./semantic-search.mjs');
+        const results = await localSemanticEngine.search(query, { topK, type });
+        sendJson({ success: true, count: results.length, results });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // In-Memory Micro-TDD & Contract Execution endpoint
+    if (req.method === 'POST' && pathname === '/api/tdd/micro') {
+      try {
+        const body = await readJsonBody(req);
+        const { code, spec, timeoutMs } = body || {};
+        if (!code) throw new Error("Field 'code' is required.");
+        const { compileAndVerifyMicroTdd } = await import('./micro-tdd-compiler.mjs');
+        const outcome = compileAndVerifyMicroTdd(code, spec, { timeoutMs });
+        sendJson({ success: true, ...outcome });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Multimodal Vision UI Self-Healing endpoint
+    if (req.method === 'POST' && pathname === '/api/visual/heal') {
+      try {
+        const body = await readJsonBody(req);
+        const { code, targetFile, apply } = body || {};
+        let sourceCode = code;
+        if (!sourceCode && targetFile) {
+          sourceCode = await fs.promises.readFile(path.resolve(process.cwd(), targetFile), 'utf8');
+        }
+        if (!sourceCode) throw new Error("Field 'code' or 'targetFile' is required.");
+        const { auditAndHealVisualUi } = await import('./visual-ui-healer.mjs');
+        const outcome = auditAndHealVisualUi(sourceCode, targetFile || 'component.tsx');
+        if (apply && targetFile && outcome.fixCount > 0) {
+          await fs.promises.writeFile(path.resolve(process.cwd(), targetFile), outcome.patchedCode, 'utf8');
+        }
+        sendJson({ success: true, applied: Boolean(apply && outcome.fixCount > 0), ...outcome });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
+
+    // Human-in-the-Loop Swarm Steering Directive endpoint
+    if (req.method === 'POST' && pathname === '/api/swarm/steer') {
+      try {
+        const body = await readJsonBody(req);
+        const { directive, constraint, author = 'HUMAN_STEER' } = body || {};
+        const message = directive || constraint;
+        if (!message) throw new Error("Field 'directive' or 'constraint' is required.");
+        const { swarmBus } = await import('./swarm-bus.mjs');
+        const entry = swarmBus.setBlackboard('swarm:steering:constraint', { message, timestamp: new Date().toISOString() }, author);
+        const event = swarmBus.publish('agent:steer', { directive: message, author });
+        sendJson({ success: true, entry, event });
+      } catch (err) {
+        sendJson({ error: err.message }, 500);
+      }
+      return;
+    }
 
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');
