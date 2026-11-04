@@ -140,43 +140,43 @@ jobs:
 
           PUBLISH_SUCCESS=false
 
-          if [[ -n "${NPM_TOKEN}" ]]; then
-            echo "Attempting publish using NPM_TOKEN / NPMS secret..."
+          # 1. Primary Strategy: OIDC Trusted Publishing (tokenless, modern standard compliant with npm 2026 security guidelines)
+          echo "Attempting primary publish method: npm Trusted Publishing via OIDC..."
+          # Ensure no stale auth token interferes with OIDC exchange
+          sed -i '/_authToken/d' ~/.npmrc 2>/dev/null || true
+
+          if npm publish --provenance --access public; then
+            echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via OIDC Trusted Publisher (with provenance)" >> "$GITHUB_STEP_SUMMARY"
+            PUBLISH_SUCCESS=true
+          else
+            echo "OIDC Trusted Publishing did not succeed, checking fallback to legacy NPM_TOKEN..."
+          fi
+
+          # 2. Fallback Strategy: Legacy Static Token (NPM_TOKEN / NPMS)
+          if [[ "${PUBLISH_SUCCESS}" != "true" && -n "${NPM_TOKEN}" ]]; then
+            echo "Attempting fallback publish using NPM_TOKEN / NPMS secret..."
+            echo "::warning::Static tokens (especially GAT bypass2fa) are deprecated by npm. Please migrate to Trusted Publishing."
             echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
             if npm publish --provenance --access public; then
-              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via NPM_TOKEN (with provenance)" >> "$GITHUB_STEP_SUMMARY"
+              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via legacy NPM_TOKEN (with provenance)" >> "$GITHUB_STEP_SUMMARY"
               PUBLISH_SUCCESS=true
             elif npm publish --access public; then
-              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via NPM_TOKEN" >> "$GITHUB_STEP_SUMMARY"
-              PUBLISH_SUCCESS=true
-            else
-              echo "Token publish was not successful, checking OIDC Trusted Publishing..."
-            fi
-          fi
-
-          if [[ "${PUBLISH_SUCCESS}" != "true" ]]; then
-            echo "Attempting OIDC Trusted Publishing with provenance..."
-            npm install -g npm@latest
-            # Clean any stale auth token from ~/.npmrc to allow clean OIDC auth
-            sed -i '/_authToken/d' ~/.npmrc 2>/dev/null || true
-            if npm publish --provenance --access public; then
-              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via OIDC Trusted Publisher" >> "$GITHUB_STEP_SUMMARY"
+              echo "### ✅ Published \`vibes-plug@${TARGET_VERSION}\` to npm via legacy NPM_TOKEN" >> "$GITHUB_STEP_SUMMARY"
               PUBLISH_SUCCESS=true
             fi
           fi
 
           if [[ "${PUBLISH_SUCCESS}" != "true" ]]; then
-            echo "::error::Gagal publish ke npm karena baik NPM_TOKEN secret maupun OIDC Trusted Publisher belum dikonfigurasi."
+            echo "::error::Gagal publish ke npm karena OIDC Trusted Publisher dan NPM_TOKEN fallback belum siap."
             {
-              echo "### ⚠️ Konfigurasi Autentikasi NPM Diperlukan (Sekali Saja)"
-              echo "Agar GitHub Actions dapat mempublikasikan \`vibes-plug@${TARGET_VERSION}\` ke npmjs.com, aktifkan **salah satu** dari 2 metode berikut:"
-              echo "1. **Metode Tanpa Token / OIDC Trusted Publisher (Direkomendasikan)**:"
+              echo "### ⚠️ Konfigurasi Autentikasi NPM Diperlukan"
+              echo "Sesuai kebijakan keamanan npm terbaru (Deprecasi GAT bypass2fa & Install-Time Security), gunakan **OIDC Trusted Publisher**:"
+              echo "1. **Konfigurasi OIDC Trusted Publisher (Direkomendasikan & Standar Baru)**:"
               echo "   - Buka https://www.npmjs.com/package/vibes-plug/access"
-              echo "   - Pada bagian **Trusted Publisher**, pilih **GitHub Actions**"
+              echo "   - Pada bagian **Trusted Publisher**, klik **Add publisher** → **GitHub Actions**"
               echo "   - Isi Owner: \`roedyrustam\`, Repository: \`vibes-plug\`, Workflow filename: \`publish.yml\`"
-              echo "2. **Metode NPM_TOKEN Secret**:"
-              echo "   - Buat Automation Access Token di https://www.npmjs.com/settings/~/tokens"
-              echo "   - Tambahkan ke https://github.com/roedyrustam/vibes-plug/settings/secrets/actions dengan nama **\`NPM_TOKEN\`**"
+              echo "2. **Fallback Token Statis (Hingga batas deprecasi Jan 2027)**:"
+              echo "   - Tambahkan Automation Token ke GitHub Secrets dengan nama \`NPM_TOKEN\`."
             } >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
