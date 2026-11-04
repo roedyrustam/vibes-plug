@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T20:55:23.424Z",
+  "generatedAt": "2026-11-04T21:23:03.849Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 84,
-  "incrementalReusedFiles": 84,
+  "totalFilesIndexed": 85,
+  "incrementalReusedFiles": 85,
   "totalSymbolsIndexed": 486,
-  "totalImportEdges": 269,
+  "totalImportEdges": 270,
   "symbols": {
     "getActiveProfile": [
       {
@@ -3608,7 +3608,7 @@
     "resolveSkillAdapter": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 134,
+        "line": 144,
         "type": "function",
         "signature": "function resolveSkillAdapter(skillName)",
         "calls": [
@@ -3620,7 +3620,7 @@
     "getSkillCompactSlice": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 169,
+        "line": 179,
         "type": "function",
         "signature": "function getSkillCompactSlice(skillName)",
         "calls": [
@@ -3633,7 +3633,7 @@
     "extractSkillCode": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 190,
+        "line": 200,
         "type": "function",
         "signature": "function extractSkillCode(skillName, options = {})",
         "calls": [
@@ -3656,7 +3656,7 @@
     "inspectSkillCapabilities": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 232,
+        "line": 242,
         "type": "function",
         "signature": "function inspectSkillCapabilities(skillName)",
         "calls": [
@@ -3681,7 +3681,7 @@
     "compileAllSkillSlices": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 277,
+        "line": 287,
         "type": "function",
         "signature": "function compileAllSkillSlices()",
         "calls": [
@@ -3707,7 +3707,7 @@
     "dispatchSkillAction": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 337,
+        "line": 347,
         "type": "function",
         "signature": "function dispatchSkillAction(request = {})",
         "calls": [
@@ -3742,7 +3742,7 @@
     "dispatchSkillChain": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 480,
+        "line": 490,
         "type": "function",
         "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
         "calls": [
@@ -6034,7 +6034,7 @@
     "showToast": [
       {
         "file": "showcase/app.js",
-        "line": 53,
+        "line": 60,
         "type": "function",
         "signature": "function showToast(message, type = 'info')",
         "calls": [
@@ -6048,7 +6048,7 @@
     "escapeHtml": [
       {
         "file": "showcase/app.js",
-        "line": 68,
+        "line": 75,
         "type": "function",
         "signature": "function escapeHtml(str)",
         "calls": [
@@ -6059,7 +6059,7 @@
     "filterSkills": [
       {
         "file": "showcase/app.js",
-        "line": 82,
+        "line": 89,
         "type": "function",
         "signature": "function filterSkills()",
         "calls": [
@@ -6075,7 +6075,7 @@
     "renderSkills": [
       {
         "file": "showcase/app.js",
-        "line": 103,
+        "line": 110,
         "type": "function",
         "signature": "function renderSkills()",
         "calls": [
@@ -6102,7 +6102,7 @@
     "openSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 181,
+        "line": 188,
         "type": "function",
         "signature": "function openSkillModal(skill)",
         "calls": [
@@ -6118,7 +6118,7 @@
     "closeSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 246,
+        "line": 253,
         "type": "function",
         "signature": "function closeSkillModal()",
         "calls": [
@@ -6129,7 +6129,7 @@
     "appendTerminalLine": [
       {
         "file": "showcase/app.js",
-        "line": 396,
+        "line": 403,
         "type": "function",
         "signature": "function appendTerminalLine(content, isCommand = false)",
         "calls": [
@@ -6143,7 +6143,7 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 415,
+        "line": 422,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)",
         "calls": [
@@ -6160,7 +6160,7 @@
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 610,
+        "line": 617,
         "type": "function",
         "signature": "function renderTopology(id)",
         "calls": []
@@ -6169,7 +6169,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 704,
+        "line": 711,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -6178,7 +6178,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 717,
+        "line": 724,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -6206,14 +6206,14 @@
           "renderTopology",
           "renderBridgeCode",
           "closeSkillModal",
-          "initHero3dSwarmCore"
+          "handleScrollElevation"
         ]
       }
     ],
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 912,
+        "line": 1037,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -8193,19 +8193,19 @@
       "cachedSymbols": []
     },
     "scripts/adapters/ai-mcp.mjs": {
-      "totalLines": 110,
+      "totalLines": 118,
       "symbolCount": 0,
-      "mtimeMs": 1792861032837,
-      "size": 3984,
+      "mtimeMs": 1793827265907,
+      "size": 4252,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
     },
     "scripts/adapters/api.mjs": {
-      "totalLines": 103,
+      "totalLines": 122,
       "symbolCount": 0,
-      "mtimeMs": 1792866775767,
-      "size": 3500,
+      "mtimeMs": 1793827265911,
+      "size": 4076,
       "exports": [],
       "imports": [
         {
@@ -8220,19 +8220,19 @@
       "cachedSymbols": []
     },
     "scripts/adapters/cloud-devops.mjs": {
-      "totalLines": 94,
+      "totalLines": 96,
       "symbolCount": 0,
-      "mtimeMs": 1792861032839,
-      "size": 3229,
+      "mtimeMs": 1793827265913,
+      "size": 3294,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
     },
     "scripts/adapters/database.mjs": {
-      "totalLines": 95,
+      "totalLines": 96,
       "symbolCount": 0,
-      "mtimeMs": 1793377549504,
-      "size": 3487,
+      "mtimeMs": 1793827265912,
+      "size": 3517,
       "exports": [],
       "imports": [
         {
@@ -8247,10 +8247,10 @@
       "cachedSymbols": []
     },
     "scripts/adapters/frontend.mjs": {
-      "totalLines": 106,
+      "totalLines": 118,
       "symbolCount": 0,
-      "mtimeMs": 1792861032840,
-      "size": 3474,
+      "mtimeMs": 1793827265910,
+      "size": 3837,
       "exports": [],
       "imports": [
         {
@@ -8265,28 +8265,28 @@
       "cachedSymbols": []
     },
     "scripts/adapters/mobile-spatial.mjs": {
-      "totalLines": 84,
+      "totalLines": 85,
       "symbolCount": 0,
-      "mtimeMs": 1792861032841,
-      "size": 3201,
+      "mtimeMs": 1793827265913,
+      "size": 3232,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
     },
     "scripts/adapters/security.mjs": {
-      "totalLines": 95,
+      "totalLines": 101,
       "symbolCount": 0,
-      "mtimeMs": 1792861032842,
-      "size": 3328,
+      "mtimeMs": 1793827265914,
+      "size": 3507,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
     },
     "scripts/adapters/tdd.mjs": {
-      "totalLines": 85,
+      "totalLines": 92,
       "symbolCount": 0,
-      "mtimeMs": 1792861032842,
-      "size": 2792,
+      "mtimeMs": 1793827265914,
+      "size": 3019,
       "exports": [],
       "imports": [
         {
@@ -8596,7 +8596,7 @@
     "scripts/audit-graph.mjs": {
       "totalLines": 78,
       "symbolCount": 1,
-      "mtimeMs": 1793593331111,
+      "mtimeMs": 1793827265925,
       "size": 3083,
       "exports": [],
       "imports": [
@@ -12106,10 +12106,10 @@
       ]
     },
     "scripts/skill-dispatcher.mjs": {
-      "totalLines": 636,
+      "totalLines": 646,
       "symbolCount": 7,
-      "mtimeMs": 1793792020358,
-      "size": 25774,
+      "mtimeMs": 1793827265924,
+      "size": 26344,
       "exports": [
         "resolveSkillAdapter",
         "getSkillCompactSlice",
@@ -12237,7 +12237,7 @@
       "cachedSymbols": [
         {
           "name": "resolveSkillAdapter",
-          "line": 134,
+          "line": 144,
           "type": "function",
           "signature": "function resolveSkillAdapter(skillName)",
           "calls": [
@@ -12247,7 +12247,7 @@
         },
         {
           "name": "getSkillCompactSlice",
-          "line": 169,
+          "line": 179,
           "type": "function",
           "signature": "function getSkillCompactSlice(skillName)",
           "calls": [
@@ -12258,7 +12258,7 @@
         },
         {
           "name": "extractSkillCode",
-          "line": 190,
+          "line": 200,
           "type": "function",
           "signature": "function extractSkillCode(skillName, options = {})",
           "calls": [
@@ -12279,7 +12279,7 @@
         },
         {
           "name": "inspectSkillCapabilities",
-          "line": 232,
+          "line": 242,
           "type": "function",
           "signature": "function inspectSkillCapabilities(skillName)",
           "calls": [
@@ -12302,7 +12302,7 @@
         },
         {
           "name": "compileAllSkillSlices",
-          "line": 277,
+          "line": 287,
           "type": "function",
           "signature": "function compileAllSkillSlices()",
           "calls": [
@@ -12326,7 +12326,7 @@
         },
         {
           "name": "dispatchSkillAction",
-          "line": 337,
+          "line": 347,
           "type": "function",
           "signature": "function dispatchSkillAction(request = {})",
           "calls": [
@@ -12359,7 +12359,7 @@
         },
         {
           "name": "dispatchSkillChain",
-          "line": 480,
+          "line": 490,
           "type": "function",
           "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
           "calls": [
@@ -14762,6 +14762,24 @@
         }
       ]
     },
+    "scripts/update-app-nav.mjs": {
+      "totalLines": 175,
+      "symbolCount": 0,
+      "mtimeMs": 1793826171846,
+      "size": 5532,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 1
+        }
+      ],
+      "cachedSymbols": []
+    },
     "scripts/update_skills.js": {
       "totalLines": 76,
       "symbolCount": 2,
@@ -15080,7 +15098,7 @@
     "scripts/verify-skill-snippets.mjs": {
       "totalLines": 153,
       "symbolCount": 2,
-      "mtimeMs": 1793593331161,
+      "mtimeMs": 1793827265925,
       "size": 4641,
       "exports": [
         "verifyAllSkillSnippets"
@@ -15731,10 +15749,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 1035,
+      "totalLines": 1160,
       "symbolCount": 13,
-      "mtimeMs": 1793825690181,
-      "size": 44334,
+      "mtimeMs": 1793826098277,
+      "size": 48579,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -15763,7 +15781,7 @@
         },
         {
           "name": "showToast",
-          "line": 53,
+          "line": 60,
           "type": "function",
           "signature": "function showToast(message, type = 'info')",
           "calls": [
@@ -15775,7 +15793,7 @@
         },
         {
           "name": "escapeHtml",
-          "line": 68,
+          "line": 75,
           "type": "function",
           "signature": "function escapeHtml(str)",
           "calls": [
@@ -15784,7 +15802,7 @@
         },
         {
           "name": "filterSkills",
-          "line": 82,
+          "line": 89,
           "type": "function",
           "signature": "function filterSkills()",
           "calls": [
@@ -15798,7 +15816,7 @@
         },
         {
           "name": "renderSkills",
-          "line": 103,
+          "line": 110,
           "type": "function",
           "signature": "function renderSkills()",
           "calls": [
@@ -15823,7 +15841,7 @@
         },
         {
           "name": "openSkillModal",
-          "line": 181,
+          "line": 188,
           "type": "function",
           "signature": "function openSkillModal(skill)",
           "calls": [
@@ -15837,7 +15855,7 @@
         },
         {
           "name": "closeSkillModal",
-          "line": 246,
+          "line": 253,
           "type": "function",
           "signature": "function closeSkillModal()",
           "calls": [
@@ -15846,7 +15864,7 @@
         },
         {
           "name": "appendTerminalLine",
-          "line": 396,
+          "line": 403,
           "type": "function",
           "signature": "function appendTerminalLine(content, isCommand = false)",
           "calls": [
@@ -15858,7 +15876,7 @@
         },
         {
           "name": "executeTerminalCommand",
-          "line": 415,
+          "line": 422,
           "type": "function",
           "signature": "function executeTerminalCommand(cmdText)",
           "calls": [
@@ -15873,21 +15891,21 @@
         },
         {
           "name": "renderTopology",
-          "line": 610,
+          "line": 617,
           "type": "function",
           "signature": "function renderTopology(id)",
           "calls": []
         },
         {
           "name": "renderBridgeCode",
-          "line": 704,
+          "line": 711,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 717,
+          "line": 724,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -15915,12 +15933,12 @@
             "renderTopology",
             "renderBridgeCode",
             "closeSkillModal",
-            "initHero3dSwarmCore"
+            "handleScrollElevation"
           ]
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 912,
+          "line": 1037,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [
@@ -15950,7 +15968,7 @@
     "showcase/skills-data.js": {
       "totalLines": 3156,
       "symbolCount": 0,
-      "mtimeMs": 1793824731977,
+      "mtimeMs": 1793827183544,
       "size": 92959,
       "exports": [],
       "imports": [],
