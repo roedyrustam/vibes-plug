@@ -4815,6 +4815,11 @@ export async function startStudioServer(options = {}) {
         exec(cmd, () => {});
       }
 
+      // Fire-and-forget anonymous studio launch telemetry
+      import('./telemetry.mjs').then(m => {
+        m.sendTelemetry('studio_cockpit_launched', { port, host });
+      }).catch(() => {});
+
       resolve({ server, port, host, url: localUrl });
     });
   });

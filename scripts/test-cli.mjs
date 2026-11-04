@@ -2157,6 +2157,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const visData = JSON.parse(visCall.result.content[0].text);
     assert.ok(visData.fixCount >= 1);
   });
+
+  await t.test('vibes telemetry should report status and toggle opt-in preferences', async () => {
+    const { stdout: statusOut } = await execFileAsync(process.execPath, [CLI_PATH, 'telemetry', 'status']);
+    assert.match(statusOut, /Privacy-First Telemetry Status/);
+    assert.match(statusOut, /Anonymous ID/);
+
+    const { stdout: disableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'telemetry', 'disable']);
+    assert.match(disableOut, /DISABLED/);
+
+    const { stdout: enableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'telemetry', 'enable']);
+    assert.match(enableOut, /ENABLED/);
+  });
 });
 
 

@@ -1608,9 +1608,17 @@ Commands:
   showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
   evolve <name> [options]   Autonomous Skill & Codex Evolver: synthesize skills & multi-platform codex rules
+  telemetry [status|enable|disable] View or toggle anonymous usage telemetry
   help                      Show this help menu
 `);
   rl.close();
+}
+
+// Fire-and-forget anonymous telemetry
+if (command && command !== 'telemetry' && command !== 'help' && !args.includes('--help') && !args.includes('-h')) {
+  import(pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'telemetry.mjs')).href).then(m => {
+    m.sendTelemetry('cli_command_executed', { command, args_count: Math.max(0, args.length - 1) });
+  }).catch(() => {});
 }
 
 // Main Router
@@ -2117,6 +2125,36 @@ Platform Eligibility & Economics:
                   process.platform === 'darwin' ? `open ${showcaseUrl}` :
                   `xdg-open ${showcaseUrl}`;
       exec(cmd, () => {});
+    }
+    break;
+  }
+  case 'telemetry': {
+    rl.close();
+    const sub = (args[1] || 'status').toLowerCase();
+    const telemetryUrl = pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'telemetry.mjs')).href;
+    const { getTelemetryConfig, setTelemetryEnabled } = await import(telemetryUrl);
+
+    if (sub === 'enable') {
+      const res = setTelemetryEnabled(true);
+      console.log('\n✅ Vibes-Plug anonymous telemetry has been \x1b[32mENABLED\x1b[0m.');
+      console.log(`   Anonymous ID: ${res.anonymousId}\n`);
+    } else if (sub === 'disable') {
+      setTelemetryEnabled(false);
+      console.log('\n🛑 Vibes-Plug anonymous telemetry has been \x1b[31mDISABLED\x1b[0m.');
+      console.log('   No usage metrics or events will be transmitted.\n');
+    } else {
+      const config = getTelemetryConfig();
+      console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    📊 Vibes-Plug Privacy-First Telemetry Status          ║
+╚══════════════════════════════════════════════════════════╝
+
+  Status       : ${config.enabled ? '\x1b[32mENABLED (Active)\x1b[0m' : '\x1b[31mDISABLED (Opted Out)\x1b[0m'}
+  Anonymous ID : ${config.anonymousId}
+  Created At   : ${config.createdAt || 'N/A'}
+  Guarantees   : 100% Zero-PII, no file paths, no code, no credentials.
+  Opt-out      : Run \`vibes telemetry disable\` or set \`DO_NOT_TRACK=1\`
+`);
     }
     break;
   }

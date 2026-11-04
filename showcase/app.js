@@ -167,6 +167,9 @@ function renderSkills() {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const trigger = btn.getAttribute('data-trigger');
+      if (typeof window !== 'undefined' && window.posthog?.capture) {
+        window.posthog.capture('showcase_trigger_copied', { trigger: trigger, source: 'grid_card' });
+      }
       navigator.clipboard.writeText(trigger).then(() => {
         const origText = btn.textContent;
         btn.textContent = 'Copied!';
@@ -187,6 +190,9 @@ function renderSkills() {
 
 function openSkillModal(skill) {
   state.selectedSkill = skill;
+  if (typeof window !== 'undefined' && window.posthog?.capture) {
+    window.posthog.capture('showcase_skill_modal_opened', { skill: skill.name, domain: skill.domain });
+  }
   if (!dom.modalBackdrop || !dom.modalContent) return;
 
   const domainBg = `${skill.domainColor}1a`;
@@ -241,6 +247,9 @@ function openSkillModal(skill) {
   const copyBtn = document.getElementById('modalCopyTriggerBtn');
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
+      if (typeof window !== 'undefined' && window.posthog?.capture) {
+        window.posthog.capture('showcase_trigger_copied', { trigger: skill.trigger, source: 'modal' });
+      }
       navigator.clipboard.writeText(skill.trigger).then(() => {
         showToast(`Copied ${skill.trigger} to clipboard`, 'success');
       });
@@ -886,6 +895,9 @@ export function initShowcase() {
     btn.addEventListener('click', () => {
       const copyTarget = btn.getAttribute('data-copy');
       if (copyTarget) {
+        if (typeof window !== 'undefined' && window.posthog?.capture) {
+          window.posthog.capture('showcase_install_cmd_copied', { command: copyTarget });
+        }
         navigator.clipboard.writeText(copyTarget).then(() => {
           btn.textContent = 'Copied!';
           btn.classList.add('copied');

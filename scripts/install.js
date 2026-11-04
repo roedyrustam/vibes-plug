@@ -303,7 +303,23 @@ Examples:
 
     console.log('✨ Installation complete!');
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
-    console.log('🔗 All 176 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
+    console.log('🔗 All 178 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
+
+    // Fire-and-forget anonymous installation telemetry
+    try {
+        const detectedPlatforms = Object.entries(platforms)
+            .filter(([, p]) => p.detect())
+            .map(([k]) => k);
+        import('./telemetry.mjs').then(m => {
+            m.sendTelemetry('installer_run', {
+                version,
+                installed_platforms: detectedPlatforms,
+                flags: { allFlag, agyFlag, claudeFlag, cursorFlag, codexFlag }
+            });
+        }).catch(() => {});
+    } catch {
+        // Silently ignore
+    }
 }
 
 main();
