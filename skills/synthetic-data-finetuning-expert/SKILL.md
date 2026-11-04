@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Prompting & Evals**: `ai-prompt-engineering-expert`, `structured-output-contracts`, `ai-safety-governance-expert`
 - **Python Pipelines & Tools**: `python-programming-expert`, `data-pipeline-etl-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `deep-research-analyst`, `vector-db-rag-expert`
 
 ### Description
 Production-grade guide for generating synthetic training datasets, curating high-signal instruction pairs, executing Parameter-Efficient Fine-Tuning (QLoRA / LoRA) with **Unsloth** and Hugging Face TRL, performing Direct Preference Optimization (DPO), and quantizing custom Small Language Models (SLMs) to GGUF for edge or on-premise execution.
@@ -176,6 +177,7 @@ model.save_pretrained_gguf("custom-domain-coder", tokenizer, quantization_method
 - **Prompting & Evaluasi**: `ai-prompt-engineering-expert`, `structured-output-contracts`, `ai-safety-governance-expert`
 - **Pipeline Python & Tools**: `python-programming-expert`, `data-pipeline-etl-expert`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `deep-research-analyst`, `vector-db-rag-expert`
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dataset pelatihan sintetis, mengurasi pasangan instruksi bernilai tinggi, mengeksekusi Parameter-Efficient Fine-Tuning (QLoRA / LoRA) dengan **Unsloth** dan Hugging Face TRL, menerapkan Direct Preference Optimization (DPO), dan mengkuantisasi Small Language Models (SLM) kustom ke format GGUF untuk inferensi lokal atau on-premise berlatensi ultra-rendah.

@@ -243,6 +243,7 @@ export class OptimisticSyncEngine<TRecord extends { id: string }> {
 - Connects to `database-orm-expert` for PostgreSQL logical replication and transactional write paths.
 - Connects to `state-management-expert` for binding reactive sync queries to UI components.
 - Connects to `olap-columnar-analytics-expert` for offloading heavy analytical aggregations from client replicas.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `realtime-collaboration-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -274,6 +275,7 @@ Anda adalah Arsitek Data Klien Terdistribusi Utama yang berspesialisasi dalam me
 - Terhubung ke `database-orm-expert` untuk replikasi logis PostgreSQL dan jalur tulis transaksional.
 - Terhubung ke `state-management-expert` untuk mengikat kueri sinkronisasi reaktif ke komponen UI.
 - Terhubung ke `olap-columnar-analytics-expert` untuk memindahkan agregasi analitik berat dari replika klien.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `realtime-collaboration-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

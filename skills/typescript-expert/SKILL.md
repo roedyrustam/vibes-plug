@@ -20,6 +20,7 @@ version: "4.4.4"
 - **AST & Codebase Intelligence**: `living-codebase-ast-graph` (compiler API & type-checker symbols), `scalability-clean-code` (type-safe clean patterns).
 - **Backend & Fullstack Runtime**: `js-backend-expert` (Node.js/Bun strict types), `database-orm-expert` (Prisma/Drizzle schema type generation).
 - **Frontend & Monorepos**: `senior-frontend` (React 19 type safety), `monorepo-architect` (composite projects & isolated declarations), `form-validation-expert` (Zod schema inference).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `blockchain-web3-expert`
 
 ### Description
 Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.8+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
@@ -324,6 +325,7 @@ config.port.toFixed(2); // Works! Literal type preserved.
 - **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (compiler API & simbol type-checker), `scalability-clean-code` (pola clean type-safe).
 - **Runtime Backend & Fullstack**: `js-backend-expert` (tipe ketat Node.js/Bun), `database-orm-expert` (generasi tipe skema Prisma/Drizzle).
 - **Frontend & Monorepo**: `senior-frontend` (type safety React 19), `monorepo-architect` (composite project & isolated declarations), `form-validation-expert` (inferensi skema Zod).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `blockchain-web3-expert`
 
 ### Deskripsi
 Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.8+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.

@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Background Queues & Notifications**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`, `pdf-document-generation-expert` (automated tax invoice & receipt PDF generation)
 - **Lifecycle & Governance**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`, `feature-flag-analytics-expert`
 
 ### Description
 Expert guide for implementing and auditing SaaS billing systems. Covers subscription state machines, secure webhook handling, atomic database synchronization, and the 2026 billing landscape including Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), and Midtrans (for Southeast Asia).
@@ -351,6 +352,7 @@ export const subscriptions = pgTable('subscriptions', {
 - **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Antrean Latar Belakang & Notifikasi**: `async-queue-temporal-expert`, `email-notification-expert`, `sse-websocket-streaming-expert`
 - **Siklus Hidup & Tata Kelola**: `production-ready-hardener`, `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`, `feature-flag-analytics-expert`
 
 ### Deskripsi
 Panduan ahli untuk mengimplementasikan dan mengaudit sistem billing SaaS. Mencakup state machine langganan, penanganan webhook aman, sinkronisasi database, dan lanskap billing 2026 termasuk Stripe, **Polar.sh** (open-source, developer-first), **LemonSqueezy**, Paddle, DOKU (Checkout & SNAP BI), dan Midtrans (untuk Asia Tenggara).

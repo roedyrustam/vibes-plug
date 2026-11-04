@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
 - **State & Data Fetching**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
 - **Quality & Performance**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Description
 Production-grade architectural guide for **Next.js 15+ App Router** and **React 19**. Enforces modern standards: asynchronous request APIs (`await params`, `await cookies()`), function-level `'use cache'` with `cacheLife` and `cacheTag`, Partial Prerendering (PPR), React Server Actions with `useActionState` and `useOptimistic`, Parallel & Intercepting Routes, and streaming layouts via `<Suspense>`.
@@ -276,6 +277,7 @@ async function fetchLiveMetrics() {
 - **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
 - **State & Pengambilan Data**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
 - **Kualitas & Performa**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Deskripsi
 Panduan arsitektur tingkat produksi untuk **Next.js 15+ App Router** dan **React 19**. Menegakkan standar modern: API request asinkron (`await params`, `await cookies()`), caching tingkat fungsi `'use cache'` dengan `cacheLife` dan `cacheTag`, Partial Prerendering (PPR), React Server Actions dengan `useActionState` dan `useOptimistic`, Parallel & Intercepting Routes, serta streaming layout via `<Suspense>`.

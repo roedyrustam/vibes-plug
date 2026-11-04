@@ -163,6 +163,7 @@ Zero-tolerance principles for intentional, high-performance web motion:
 - **`senior-frontend`**: Integrates declarative motion layers into React 19 / Next.js 15 architectures.
 - **`seo`**: Balances rich visual landing page transitions with Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Enforces zero-bouncy slop, strict prefers-reduced-motion fallbacks, and compositor-only transforms.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `glsl-shader-expert`, `webxr-ar-vr-expert`, `multimodal-spatial-video-cloner`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -231,6 +232,7 @@ Prinsip nol toleransi untuk gerakan web yang fungsional dan berkinerja tinggi:
 - **`senior-frontend`**: Mengintegrasikan lapisan animasi deklaratif ke dalam arsitektur React 19 / Next.js 15.
 - **`seo`**: Menyeimbangkan transisi landing page yang memukau dengan performa Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback prefers-reduced-motion, dan animasi khusus compositor.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `glsl-shader-expert`, `webxr-ar-vr-expert`, `multimodal-spatial-video-cloner`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

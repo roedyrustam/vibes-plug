@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Agentic Economy & Settlement**: `agentic-m2m-settlement`, `agentic-micro-economy-architect`, `doku-mcp-server`
 - **Security & Contracts**: `structured-output-contracts`, `prompt-injection-firewall`, `zero-trust-secret-vault`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-llm-integration-expert`
 
 ### Description
 Production guide for implementing the open **Agent-to-Agent (A2A) Protocol** alongside **Model Context Protocol (MCP)**. While **MCP** connects an agent to deterministic tools and resources (*Agent-to-Tool*), **A2A** enables opaque autonomous agents built on different frameworks (LangGraph, Pydantic AI, Google ADK, OpenAI Agents SDK, Mastra) to discover capabilities via `/.well-known/agent.json` **Agent Cards**, negotiate multi-turn tasks (`tasks/send`, `tasks/sendSubscribe`), exchange typed **Artifacts**, and settle M2M budgets.
@@ -260,6 +261,7 @@ export class A2aStreamingSession {
 - **Ekonomi & Settlement Agen**: `agentic-m2m-settlement`, `agentic-micro-economy-architect`, `doku-mcp-server`
 - **Keamanan & Kontrak**: `structured-output-contracts`, `prompt-injection-firewall`, `zero-trust-secret-vault`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-llm-integration-expert`
 
 ### Deskripsi
 Panduan produksi untuk mengimplementasikan **Agent-to-Agent (A2A) Protocol** berdampingan dengan **Model Context Protocol (MCP)**. Jika MCP menghubungkan agen ke tool deterministik (*Agent-to-Tool*), A2A memungkinkan agen otonom lintas framework untuk saling menemukan kapabilitas melalui `/.well-known/agent.json` (**Agent Card**), menegosiasikan tugas multi-giliran (`tasks/send`), dan bertukar **Artifact** terstruktur.

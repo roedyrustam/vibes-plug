@@ -27,6 +27,7 @@ version: "4.4.4"
 - **`e2e-testing-expert`**: Playwright and Cypress end-to-end testing for Angular apps.
 - **`global-a11y-i18n-expert`**: Angular localized translations (`@angular/localize`) and accessibility compliance.
 - **`ci-cd-devops-architect`**: Dockerizing and deploying Angular SSR applications.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `tailwind-expert`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`, `form-validation-expert`
 
 ### Description
 Production-ready guide for building scalable, enterprise-grade web applications using Angular 19+. Covers modern Standalone Components (NgModule-free), fine-grained Signals (`signal()`, `computed()`, `effect()`), Signal-based inputs/outputs, NgRx SignalStore, deferrable views (`@defer`), SSR with Event Replay hydration, and Angular Material 3.
@@ -271,6 +272,7 @@ export class ProductM3CardComponent {
 - **`e2e-testing-expert`**: Pengujian end-to-end menggunakan Playwright atau Cypress.
 - **`global-a11y-i18n-expert`**: Terjemahan terlokalisasi Angular (`@angular/localize`) dan kepatuhan aksesibilitas.
 - **`ci-cd-devops-architect`**: Kontainerisasi Docker dan deployment aplikasi Angular SSR.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `tailwind-expert`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`, `form-validation-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi web skala enterprise menggunakan Angular 19+. Mencakup Standalone Components tanpa NgModule, reaktivitas modern berbasis Signals, NgRx SignalStore, deferrable views (`@defer`), SSR dengan hidrasi Event Replay, dan integrasi Angular Material 3.

@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Database Layer**: `database-orm-expert` for async SQLAlchemy 2.x, SQLModel, Alembic migrations, connection pooling, and pgvector operations
 - **Testing & Quality**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `anti-slop` for running `pytest -v`, self-healing test failures, and zero-slop production code
 - **Orchestration**: `brainstorming`, `zero-to-prod-orchestrator` (Phase 4: Backend & APIs)
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `synthetic-data-finetuning-expert`, `htmx-hypermedia-expert`, `mvc-expert`
 
 ### Description
 Production-grade engineering standard for **Python 3.13 / 3.14+** enterprise applications, AI backends, and microservices. Covers free-threaded (no-GIL) execution (`python3.13t`), Tier-2 JIT compilation, PEP 695/696 generic type systems, structured concurrency with `asyncio.TaskGroup` and `asyncio.timeout`, high-throughput **FastAPI 0.115+**, **Pydantic v2**, async **SQLAlchemy 2.0**, and the Rust-powered **uv** toolchain.
@@ -391,6 +392,7 @@ async def aggregate_cluster_health() -> dict[str, dict]:
 - **Lapisan Database**: `database-orm-expert` untuk SQLAlchemy 2.x async, SQLModel, migrasi Alembic, connection pooling, dan operasi pgvector
 - **Pengujian & Kualitas**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `anti-slop` untuk eksekusi `pytest -v`, perbaikan mandiri kode tes, dan kepatuhan anti-slop
 - **Orkestrator Utama**: `brainstorming`, `zero-to-prod-orchestrator` (Fase 4: Backend & APIs)
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `synthetic-data-finetuning-expert`, `htmx-hypermedia-expert`, `mvc-expert`
 
 ### Deskripsi
 Standar rekayasa perangkat lunak tingkat industri untuk aplikasi enterprise, backend AI, dan microservices berbasis **Python 3.13 / 3.14+**. Mencakup eksekusi free-threaded (tanpa GIL: `python3.13t`), kompilasi Tier-2 JIT, sistem tipe generic PEP 695/696, konkurensi terstruktur menggunakan `asyncio.TaskGroup` dan `asyncio.timeout`, arsitektur **FastAPI 0.115+**, **Pydantic v2**, async **SQLAlchemy 2.0**, serta toolchain modern berbasis Rust **uv**.

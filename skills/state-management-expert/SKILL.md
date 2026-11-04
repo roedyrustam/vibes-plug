@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - `ui-ux-pro-max` — Ephemeral UI state management and user interaction feedback.
 - `visual-ui-auditor` — Multimodal vision auditing of UI state transitions and modal triggers.
 - `anti-slop` — Anti-slop state architecture, preventing over-engineered stores and redundant duplicated state.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `solidjs-expert`, `angular-expert`, `svelte-sveltekit-expert`, `vue-frontend-expert`
 
 ### Description
 Expert guide for selecting and implementing the right state management solution for React and Next.js applications. Covers **Zustand 5**, **Jotai 2**, **Valtio**, **TanStack Store**, and **Redux Toolkit 2**, with clear guidance on when to use each, proper separation of server state (TanStack Query) from client state, and advanced patterns like slices, persistence, and devtools integration.
@@ -282,6 +283,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `ui-ux-pro-max` — Manajemen state interaksi UI dan respons antarmuka pengguna.
 - `visual-ui-auditor` — Audit visual multimodal transisi state UI dan trigger modal.
 - `anti-slop` — Arsitektur state anti-slop, mencegah store berlebihan (over-engineered) dan duplikasi state.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `solidjs-expert`, `angular-expert`, `svelte-sveltekit-expert`, `vue-frontend-expert`
 
 ### Deskripsi
 Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 15. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.

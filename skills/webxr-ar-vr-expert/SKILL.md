@@ -24,6 +24,7 @@ Connects and orchestrates with relevant domain skills:
 - `ui-ux-pro-max` — Spatial UI design patterns, world-space HUDs, and gesture-driven navigation.
 - `anti-slop` — Anti-slop spatial ergonomics, zero nauseating jitter, and crisp readable 3D typography.
 - `performance-web-vitals` — Maintaining rock-solid 72/90/120 FPS to prevent simulator sickness.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `svg-animation-motion-expert`
 
 ### Description
 Production-grade guidance for architecting immersive **Virtual Reality (VR)**, **Mixed Reality (MR)**, and **Augmented Reality (AR)** in the browser via the **WebXR Device API**. Covers modern head-mounted displays (**Meta Quest 3/3S**, **Apple Vision Pro**) and mobile AR, focusing on Babylon.js and Three.js with `@react-three/xr`.
@@ -193,6 +194,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `ui-ux-pro-max` — Pola desain UI spasial, HUD world-space, dan navigasi berbasis gestur.
 - `anti-slop` — Ergonomi spasial anti-slop, nol getaran pemicu mual, dan tipografi 3D yang tajam.
 - `performance-web-vitals` — Menjaga kestabilan 72/90/120 FPS demi mencegah *motion sickness*.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `svg-animation-motion-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi spasial imersif **Virtual Reality (VR)**, **Mixed Reality (MR)**, dan **Augmented Reality (AR)** di browser melalui **WebXR Device API**. Mencakup headset modern (**Meta Quest 3/3S**, **Apple Vision Pro**) serta perangkat mobile AR.

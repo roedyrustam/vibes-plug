@@ -23,6 +23,7 @@ version: "4.4.4"
   - `prd-architect` — Integrate research findings into grounded PRD specifications and NFRs.
   - `multi-agent-orchestration` — Lead Intelligence Subagent in fan-out / fan-in research swarms.
   - `session-memory-manager` — Store evidence dossiers, citation maps, and research state checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `synthetic-data-finetuning-expert`, `graph-rag-knowledge-expert`
 
 ### Description
 Production guide for architecting and executing autonomous **Deep Research** pipelines. Unlike simple one-shot retrieval (RAG), Deep Research operates as a goal-directed autonomous loop: decomposing queries into multi-perspective sub-questions, crawling and scraping academic/technical sources, scoring source credibility, cross-verifying facts across multiple independent citations, constructing an evidence graph, and synthesizing comprehensive, citation-grounded intelligence briefs.
@@ -205,6 +206,7 @@ Every research brief produced by this skill must adhere to the following markdow
   - `prd-architect` — Mengintegrasikan temuan riset ke dalam spesifikasi PRD dan NFR.
   - `multi-agent-orchestration` — Subagen Analis Utama dalam swarm riset fan-out / fan-in.
   - `session-memory-manager` — Menyimpan dokumen bukti, peta sitasi, dan checkpoint status riset.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `synthetic-data-finetuning-expert`, `graph-rag-knowledge-expert`
 
 ### Deskripsi
 Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Otonom (Deep Research)**. Berbeda dari retrieval sederhana (RAG satu langkah), Deep Research beroperasi sebagai siklus otonom terarah: memecah pertanyaan menjadi sub-vektor dari berbagai sudut pandang, merayapi dan mengekstrak sumber teknis/akademis, menilai kredibilitas sumber, memvalidasi silang fakta (*fact triangulation*) di minimal 2 sumber independen, membangun graf bukti, dan menyusun laporan intelijen komprehensif berlandaskan sitasi yang valid.

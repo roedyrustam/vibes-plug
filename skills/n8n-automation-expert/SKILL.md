@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Communications & Billing**: `email-notification-expert`, `payment-gateway-expert`, `doku-payment-gateway`
 - **Security & Secrets**: `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `api-gateway-proxy-expert`, `js-backend-expert`
 
 ### Description
 Production engineering guide for self-hosted workflow automation using n8n (v1.70+), Zapier, and Make. Covers fault-tolerant automation pipelines, declarative/programmatic custom TypeScript nodes, webhook triggers with timing-safe HMAC SHA-256 signature verification, AI Agent nodes integrating Model Context Protocol (MCP) tools, dead-letter error workflows, and horizontal scaling via n8n Queue Mode (Redis + BullMQ + Postgres).
@@ -144,6 +145,7 @@ services:
 - **Komunikasi & Penagihan**: `email-notification-expert`, `payment-gateway-expert`, `doku-payment-gateway`
 - **Keamanan & Rahasia**: `zero-trust-secret-vault`, `rate-limit-abuse-prevention`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `api-gateway-proxy-expert`, `js-backend-expert`
 
 ### Deskripsi
 Panduan rekayasa produksi untuk otomatisasi alur kerja (*workflow automation*) menggunakan n8n (v1.70+ *self-hosted*), Zapier, dan Make. Mencakup pembuatan *custom node* berbasis TypeScript, validasi tanda tangan kriptografis HMAC pada pemicu webhook, node AI Agent yang terhubung ke tool MCP, serta penskalaan pemrosesan beban tinggi melalui mode antrean n8n (Redis + BullMQ + PostgreSQL).

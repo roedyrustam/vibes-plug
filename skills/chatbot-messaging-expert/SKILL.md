@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, and `voice-ai-realtime-agent` for generative responses, RAG retrieval, and real-time socket connections.
 - **Queue & Resilience**: `async-queue-temporal-expert` and `rate-limit-abuse-prevention` for webhook ingestion, BullMQ job queues, and anti-spam protection.
 - **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for structured conversational system delivery.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `n8n-automation-expert`, `email-notification-expert`
 
 ### Description
 Production guide for architecting, deploying, and scaling conversational bots across enterprise messaging platforms: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), and LINE Messaging API. Covers cryptographic webhook verification (Meta `hub.challenge` and Slack `v0` HMAC signatures), interactive UI components (buttons, carousels, quick replies), session state persistence, media streaming, and integration with AI tool calling engines.
@@ -147,6 +148,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, dan `voice-ai-realtime-agent` untuk jawaban generatif cerdas, RAG retrieval, dan koneksi socket dua arah.
 - **Antrean & Ketahanan**: `async-queue-temporal-expert` dan `rate-limit-abuse-prevention` untuk penyerapan webhook, antrean job BullMQ, dan pencegahan spam DDoS.
 - **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi sistem percakapan end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `n8n-automation-expert`, `email-notification-expert`
 
 ### Deskripsi
 Panduan produksi untuk merancang, meluncurkan, dan menskalakan bot percakapan di berbagai platform perpesanan terkemuka: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), dan LINE Messaging API. Mencakup verifikasi webhook kriptografis (jabat tangan Meta `hub.challenge` dan tanda tangan HMAC Slack `v0`), komponen interaktif (tombol, list menu, keyboard inline), persistensi sesi pengguna, penanganan media, serta integrasi pemanggilan fungsi AI (*tool calling*).

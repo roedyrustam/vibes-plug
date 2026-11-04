@@ -28,6 +28,7 @@ version: "4.4.4"
 - **`senior-frontend`**: Custom MDX components, interactive playgrounds, and React-based doc UIs.
 - **`search-engine-expert`**: Algolia DocSearch, Pagefind, and Typesense integration for doc search.
 - **`global-a11y-i18n-expert`**: i18n multi-language documentation and WCAG-compliant doc sites.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `nextjs-app-router-expert`, `prd-architect`, `headless-cms-expert`, `wordpress-headless-expert`
 
 ### Description
 Expert guide for building production-grade technical documentation sites and component libraries. Covers **Mintlify** (AI-native SaaS docs), **Docusaurus 3** (React/OSS), **Storybook 8** (component playground), **VitePress 2** (Vue-powered), and **Astro Starlight** (content-heavy i18n). Includes API reference generation, versioning strategies, search integration, Chromatic visual testing, and CI/CD deployment workflows.
@@ -860,6 +861,7 @@ jobs:
 - **`ci-cd-devops-architect`**: Pipeline deployment otomatis ke Vercel, Cloudflare Pages, GitHub Pages.
 - **`senior-frontend`**: Komponen MDX kustom, playground interaktif, dan UI dokumentasi berbasis React.
 - **`global-a11y-i18n-expert`**: Dokumentasi multi-bahasa i18n dan situs dokumentasi sesuai WCAG.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `nextjs-app-router-expert`, `prd-architect`, `headless-cms-expert`, `wordpress-headless-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun situs dokumentasi teknis tingkat produksi dan library komponen. Mencakup **Mintlify** (docs SaaS AI-native), **Docusaurus 3** (React/OSS), **Storybook 8** (playground komponen), **VitePress 2** (berbasis Vue), dan **Astro Starlight** (konten berat dengan i18n). Termasuk panduan generasi referensi API, strategi versioning, integrasi pencarian, pengujian visual Chromatic, dan workflow CI/CD deployment.

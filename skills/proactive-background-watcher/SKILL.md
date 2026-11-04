@@ -19,6 +19,7 @@ version: "4.4.4"
 - **Background Cron & Execution**: `cron-scheduler-expert` (app-level cron vs agent-native schedule tool), `parallel-tool-orchestrator` (concurrent polling jobs).
 - **Incident Escalation & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch upon anomaly detection), `logging-error-tracking-expert` (Sentry/Pino trace alerts).
 - **Build & CI/CD Watchers**: `ci-cd-devops-architect` (pipeline completion checks), `cloud-hosting-expert` (Vercel/Railway build state).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `async-queue-temporal-expert`, `data-telemetry-expert`
 
 ### Description
 Standard LLM chat sessions are strictly reactive—they remain dormant until the user submits a prompt. This skill unlocks proactive agency. Utilizing the runtime's native `schedule` tool (one-shot timers and recurring cron schedules), the agent can autonomously monitor background build pipelines, poll health endpoints, inspect server logs, or track deployment state machines. When an anomaly occurs or a long-running job finishes, the agent wakes up autonomously to diagnose, notify, or remediate without waiting for human prompting.
@@ -144,6 +145,7 @@ export async function evaluateEndpointSlo(params: {
 - **Cron Latar Belakang & Eksekusi**: `cron-scheduler-expert` (cron aplikasi vs tool schedule native agen), `parallel-tool-orchestrator` (job polling konkuren).
 - **Eskalasi Insiden & Self-Healing**: `self-healing-cloud-orchestrator` (patch otomatis saat anomali), `logging-error-tracking-expert` (alert trace Sentry/Pino).
 - **Pemantau Build & CI/CD**: `ci-cd-devops-architect` (pemeriksaan penyelesaian pipeline), `cloud-hosting-expert` (status build Vercel/Railway).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `async-queue-temporal-expert`, `data-telemetry-expert`
 
 ### Deskripsi
 Skill ini memberikan kemampuan proaktif (Sentinel) kepada agen AI menggunakan tool `schedule` native (timer satu-kali atau cron berkala) untuk memantau build, memeriksa kesehatan endpoint API, atau mengawasi migrasi database di latar belakang dan bangun secara otonom saat terjadi anomali atau penyelesaian tugas.

@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-03T07:42:37.286Z",
+  "generatedAt": "2026-11-04T11:33:09.652Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 80,
   "incrementalReusedFiles": 80,
@@ -431,7 +431,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1081,
+        "line": 1082,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)",
         "calls": [
@@ -452,7 +452,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1169,
+        "line": 1170,
         "type": "function",
         "signature": "function runSkillInfo(skillName)",
         "calls": [
@@ -477,7 +477,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1219,
+        "line": 1220,
         "type": "function",
         "signature": "function runHooks(action)",
         "calls": [
@@ -495,7 +495,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1303,
+        "line": 1304,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)",
         "calls": [
@@ -517,7 +517,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1368,
+        "line": 1369,
         "type": "function",
         "signature": "function runSearch(query)",
         "calls": [
@@ -543,7 +543,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1416,
+        "line": 1417,
         "type": "function",
         "signature": "function runSync()",
         "calls": [
@@ -564,7 +564,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1473,
+        "line": 1474,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)",
         "calls": [
@@ -591,7 +591,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1536,
+        "line": 1537,
         "type": "function",
         "signature": "function showHelp()",
         "calls": [
@@ -7227,10 +7227,10 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2098,
+      "totalLines": 2099,
       "symbolCount": 23,
-      "mtimeMs": 1793050736802,
-      "size": 101517,
+      "mtimeMs": 1793700103936,
+      "size": 101639,
       "exports": [],
       "imports": [
         {
@@ -7570,7 +7570,7 @@
         },
         {
           "name": "runDoctor",
-          "line": 1081,
+          "line": 1082,
           "type": "function",
           "signature": "function runDoctor(autoFix = false)",
           "calls": [
@@ -7589,7 +7589,7 @@
         },
         {
           "name": "runSkillInfo",
-          "line": 1169,
+          "line": 1170,
           "type": "function",
           "signature": "function runSkillInfo(skillName)",
           "calls": [
@@ -7612,7 +7612,7 @@
         },
         {
           "name": "runHooks",
-          "line": 1219,
+          "line": 1220,
           "type": "function",
           "signature": "function runHooks(action)",
           "calls": [
@@ -7628,7 +7628,7 @@
         },
         {
           "name": "runRecipe",
-          "line": 1303,
+          "line": 1304,
           "type": "function",
           "signature": "function runRecipe(action, recipeName)",
           "calls": [
@@ -7648,7 +7648,7 @@
         },
         {
           "name": "runSearch",
-          "line": 1368,
+          "line": 1369,
           "type": "function",
           "signature": "function runSearch(query)",
           "calls": [
@@ -7672,7 +7672,7 @@
         },
         {
           "name": "runSync",
-          "line": 1416,
+          "line": 1417,
           "type": "function",
           "signature": "function runSync()",
           "calls": [
@@ -7691,7 +7691,7 @@
         },
         {
           "name": "runDocs",
-          "line": 1473,
+          "line": 1474,
           "type": "function",
           "signature": "function runDocs(format = 'markdown', outputFile)",
           "calls": [
@@ -7716,7 +7716,7 @@
         },
         {
           "name": "showHelp",
-          "line": 1536,
+          "line": 1537,
           "type": "function",
           "signature": "function showHelp()",
           "calls": [
@@ -11441,8 +11441,8 @@
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 636,
       "symbolCount": 7,
-      "mtimeMs": 1793593331145,
-      "size": 25774,
+      "mtimeMs": 1793791529941,
+      "size": 25139,
       "exports": [
         "resolveSkillAdapter",
         "getSkillCompactSlice",
@@ -12416,7 +12416,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4737,
       "symbolCount": 8,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793700104127,
       "size": 199905,
       "exports": [
         "generateStudioHtml",

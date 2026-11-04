@@ -17,6 +17,7 @@ version: "4.4.4"
 
 ### Orchestration & Integration
 Connects and orchestrates with `modern-web-guidance`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, and `anti-slop`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `browser-automation-expert`, `computer-use-os-agent-expert`, `web-scraper`, `desktop-electron-expert`, `typescript-expert`
 
 ### Description
 Expert guide for engineering high-performance, secure, and cross-browser extensions using **Chrome Manifest V3 (MV3)**, Firefox WebExtensions MV3, and Safari Web Extensions. Manifest V3 fundamentally modernizes browser extension development by replacing persistent background pages with ephemeral service workers, enforcing strict declarative network rules, mandating modern native side panels, and providing offscreen sandboxes for complex computational workloads.
@@ -280,6 +281,7 @@ async function executeSandboxedBytecode(wasmBase64: string): Promise<number> {
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasikan skill `modern-web-guidance`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `senior-frontend`, `tailwind-expert`, `pwa-offline-first-expert`, `ai-llm-integration-expert`, `vercel-ai-sdk-expert`, `mcp-server-architect`, `authentication-identity-expert`, `zero-trust-secret-vault`, dan `anti-slop`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `browser-automation-expert`, `computer-use-os-agent-expert`, `web-scraper`, `desktop-electron-expert`, `typescript-expert`
 
 ### Deskripsi
 Panduan komprehensif untuk merekayasa ekstensi peramban modern berkinerja tinggi, aman, dan lintas platform (Chrome, Edge, Firefox, Safari) berbasis **Manifest V3 (MV3)**. Standar Manifest V3 menggantikan background page persisten dengan service worker efemeral, menegakkan aturan declarative network yang aman, menyediakan SidePanel API native, serta sandbox dokumen offscreen untuk eksekusi WebAssembly dan pemrosesan audio/clipboard.

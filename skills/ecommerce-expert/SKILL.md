@@ -143,6 +143,7 @@ export function ProductSchema({ product }: { product: any }) {
 - **`search-engine-expert`**: Implements full-text and faceted search for catalogs.
 - **`nextjs-app-router-expert`**: Fast Server Components for product detail pages with instant SSR.
 - **`seo`**: Validates JSON-LD schema markup and Core Web Vitals compliance.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `saas-billing`, `double-entry-ledger-fintech-expert`, `composable-mach-architect`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -218,6 +219,7 @@ export async function createDokuPaymentLink(order: { id: string; amount: number;
 - **`search-engine-expert`**: Menyediakan fitur pencarian faset (filter merk, kategori, harga).
 - **`nextjs-app-router-expert`**: Menyajikan halaman produk dengan waktu muat ultra-cepat melalui streaming SSR.
 - **`seo`**: Mengoptimalkan indeks pencarian dan struktur metadata produk.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `saas-billing`, `double-entry-ledger-fintech-expert`, `composable-mach-architect`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

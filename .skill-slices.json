@@ -1,11 +1,11 @@
 {
   "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-11-03T07:42:56.225Z",
+  "compiledAt": "2026-11-04T11:32:47.686Z",
   "totalSkills": 176,
   "metrics": {
-    "fullRegistryTokensApprox": 739078,
-    "compiledSlicesTokensApprox": 44360,
-    "avgTokensPerSlice": 252,
+    "fullRegistryTokensApprox": 749204,
+    "compiledSlicesTokensApprox": 44558,
+    "avgTokensPerSlice": 253,
     "tokenReductionPercent": "94%"
   },
   "slices": {
@@ -838,7 +838,13 @@
       ],
       "connectedSkills": [
         "zero-to-prod-orchestrator",
-        "session-memory-manager"
+        "session-memory-manager",
+        "prd-architect",
+        "domain-driven-design-expert",
+        "saas-architect",
+        "senior-frontend",
+        "design-system-architect",
+        "tailwind-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec brainstorming verify",
@@ -1158,7 +1164,10 @@
         "durable-agent-execution-expert",
         "a2a-agent-protocol-expert",
         "ephemeral-wasm-sandbox-executor",
-        "prompt-injection-firewall"
+        "prompt-injection-firewall",
+        "web-scraper",
+        "desktop-electron-expert",
+        "browser-extension-mv3-pro"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec computer-use-os-agent-expert verify",
@@ -1360,7 +1369,8 @@
         "browser-automation-expert",
         "prd-architect",
         "multi-agent-orchestration",
-        "session-memory-manager"
+        "session-memory-manager",
+        "synthetic-data-finetuning-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec deep-research-analyst verify",
@@ -1886,7 +1896,8 @@
         "nextjs-app-router-expert",
         "e2e-testing-expert",
         "zero-tech-debt-auditor",
-        "session-memory-manager"
+        "session-memory-manager",
+        "saas-architect"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec feature-flag-analytics-expert verify",
@@ -2263,7 +2274,9 @@
         "ui-ux-pro-max",
         "visual-ui-auditor",
         "anti-slop",
-        "performance-web-vitals"
+        "performance-web-vitals",
+        "webxr-ar-vr-expert",
+        "svg-animation-motion-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec glsl-shader-expert verify",
@@ -2497,7 +2510,8 @@
         "ci-cd-devops-architect",
         "sbom-supply-chain-security-expert",
         "zero-trust-secret-vault",
-        "self-healing-cloud-orchestrator"
+        "self-healing-cloud-orchestrator",
+        "cloud-hosting-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec kubernetes-gitops-platform-expert verify",
@@ -2817,7 +2831,8 @@
         "apple-ecosystem-expert",
         "svg-animation-motion-expert",
         "anti-slop",
-        "app-promo-media-expert"
+        "app-promo-media-expert",
+        "flutter-dart-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec mobile-expo-expert verify",
@@ -3253,7 +3268,8 @@
         "modern-web-guidance",
         "seo",
         "cloud-hosting-expert",
-        "session-memory-manager"
+        "session-memory-manager",
+        "app-analyzer-optimizer"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec performance-web-vitals verify",
@@ -3600,7 +3616,10 @@
         "prd-architect",
         "github-actions-expert",
         "brainstorming",
-        "deep-research-analyst"
+        "deep-research-analyst",
+        "rea-tool-design",
+        "rea-analysis-optimization",
+        "rea-ci-tests-audit"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec rea-changelog-update verify",
@@ -3641,14 +3660,14 @@
     "rea-tool-design": {
       "skill": "rea-tool-design",
       "version": "4.4.4",
-      "domain": "frontend",
+      "domain": "testing-security",
       "description": "Design REA investigation tools, CLI/MCP contracts, and Evidence",
       "actions": [
+        "fuzz",
         "audit",
         "verify",
-        "generate",
-        "optimize",
-        "eval"
+        "eval",
+        "generate"
       ],
       "connectedSkills": [
         "reverse-engineer-anything",
@@ -3657,7 +3676,8 @@
         "spec-driven-development-expert",
         "rea-ci-tests-audit",
         "brainstorming",
-        "deep-research-analyst"
+        "deep-research-analyst",
+        "rea-analysis-optimization"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec rea-tool-design verify",
@@ -3683,7 +3703,8 @@
         "sse-websocket-streaming-expert",
         "database-orm-expert",
         "state-management-expert",
-        "olap-columnar-analytics-expert"
+        "olap-columnar-analytics-expert",
+        "realtime-collaboration-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec reactive-sync-engine-expert verify",
@@ -4092,7 +4113,8 @@
         "senior-frontend",
         "nextjs-app-router-expert",
         "app-promo-media-expert",
-        "session-memory-manager"
+        "session-memory-manager",
+        "wordpress-headless-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec seo verify",
@@ -4296,7 +4318,9 @@
         "design-system-architect",
         "ui-ux-pro-max",
         "visual-ui-auditor",
-        "anti-slop"
+        "anti-slop",
+        "solidjs-expert",
+        "angular-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec state-management-expert verify",
@@ -4411,7 +4435,8 @@
         "design-system-architect",
         "senior-frontend",
         "seo",
-        "anti-slop"
+        "anti-slop",
+        "glsl-shader-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec svg-animation-motion-expert verify",
@@ -4467,7 +4492,9 @@
         "design-system-architect",
         "modern-css-native-expert",
         "visual-ui-auditor",
-        "senior-frontend"
+        "senior-frontend",
+        "angular-expert",
+        "solidjs-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec tailwind-expert verify",
@@ -4901,7 +4928,8 @@
         "ai-llm-integration-expert",
         "deep-research-analyst",
         "data-pipeline-etl-expert",
-        "session-memory-manager"
+        "session-memory-manager",
+        "website-design-cloner"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec web-scraper verify",
@@ -4958,7 +4986,8 @@
         "glsl-shader-expert",
         "ui-ux-pro-max",
         "anti-slop",
-        "performance-web-vitals"
+        "performance-web-vitals",
+        "svg-animation-motion-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec webxr-ar-vr-expert verify",
@@ -5070,7 +5099,13 @@
       ],
       "connectedSkills": [
         "brainstorming",
-        "session-memory-manager"
+        "session-memory-manager",
+        "prd-architect",
+        "domain-driven-design-expert",
+        "saas-architect",
+        "senior-frontend",
+        "design-system-architect",
+        "tailwind-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec zero-to-prod-orchestrator verify",

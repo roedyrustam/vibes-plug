@@ -250,6 +250,7 @@ export function toAbsoluteScreenPoint(point: NormalizedPoint, viewport: ScreenVi
   };
 }
 ```
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `web-scraper`, `desktop-electron-expert`, `browser-extension-mv3-pro`, `ai-llm-integration-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -281,6 +282,7 @@ Anda adalah Principal Autonomous Systems & Computer-Using Agent (CUA) Architect.
 - Terhubung ke `a2a-agent-protocol-expert` untuk mendelegasikan tugas otomasi desktop lintas armada agen.
 - Terhubung ke `ephemeral-wasm-sandbox-executor` untuk sandboxing micro-runtime terisolasi.
 - Terhubung ke `prompt-injection-firewall` untuk pertahanan terhadap injeksi prompt visual di layar.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `web-scraper`, `desktop-electron-expert`, `browser-extension-mv3-pro`, `ai-llm-integration-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

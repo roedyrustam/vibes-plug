@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Security & Secrets**: `zero-trust-secret-vault` (OIDC federated auth, short-lived tokens), `production-ready-hardener` (container & SBOM security audits).
 - **Test Automation & Quality Gates**: `autonomous-tdd-debugger` (CI test runner execution), `e2e-testing-expert` (Playwright regression runs).
 - **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring), `feature-flag-analytics-expert` (progressive canary rollouts), `dependency-upgrade-migrator` (automated Renovate/package audits), `agentic-coding-workflow-expert` (autonomous PR & CI workflows).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`, `github-actions-expert`, `biome-linter-formatter-expert`
 
 ### Description
 Enterprise guide for modern Continuous Integration & Continuous Delivery (CI/CD) pipelines, immutable container workflows (Docker & Kubernetes 1.30+), and Infrastructure as Code (Terraform / OpenTofu). Covers parallelized GitHub Actions workflows with dependency caching (pnpm/bun), multi-stage non-root distroless Docker builds, Trivy container vulnerability scanning, zero-downtime rolling/canary deployments, and zero-trust secret injection via OIDC.
@@ -155,6 +156,7 @@ jobs:
 - **Keamanan & Rahasia**: `zero-trust-secret-vault` (otentikasi federasi OIDC, token berumur pendek), `production-ready-hardener` (audit keamanan kontainer & SBOM).
 - **Otomasi Pengujian & Quality Gate**: `autonomous-tdd-debugger` (eksekusi pengujian CI), `e2e-testing-expert` (regresi Playwright).
 - **Kesehatan Proaktif & Self-Healing**: `self-healing-cloud-orchestrator` (perbaikan otomatis deployment gagal), `proactive-background-watcher` (pemantau build pipeline).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`, `github-actions-expert`, `biome-linter-formatter-expert`, `dependency-upgrade-migrator`
 
 ### Deskripsi
 Panduan enterprise untuk pipeline *Continuous Integration & Continuous Delivery* (CI/CD) modern, alur kerja kontainer imutabel (Docker & Kubernetes 1.30+), dan *Infrastructure as Code* (Terraform/OpenTofu). Mencakup pipeline GitHub Actions paralel dengan caching dependensi (pnpm/bun), Dockerfile multi-stage berbasis distroless non-root yang aman, pemindaian kerentanan kontainer dengan Trivy, serta injeksi rahasia tanpa password via OIDC.

@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Client Platforms & Audio Processing**: `senior-frontend`, `mobile-expo-expert`, `apple-ecosystem-expert`
 - **Agent Swarms & Tools**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `chatbot-messaging-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `affective-computing-emotion-ai`, `ai-media-generation-expert`
 
 ### Description
 Expert guide for building ultra-low-latency (<300ms), bi-directional conversational voice AI applications. Covers WebRTC, full-duplex WebSocket audio streaming (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, and smart interruption (barge-in) handling.
@@ -237,6 +238,7 @@ export class GeminiVoiceAgent {
 - **Platform Klien & Pemrosesan Audio**: `senior-frontend`, `mobile-expo-expert`, `apple-ecosystem-expert`
 - **Swarm Agen & Tools**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `chatbot-messaging-expert`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `affective-computing-emotion-ai`, `ai-media-generation-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi AI suara percakapan berlatensi ultra-rendah (<300ms) dan dua arah (*bi-directional*). Mencakup WebRTC, streaming audio WebSocket full-duplex (PCM 16-bit 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi percakapan cerdas (*smart barge-in*).

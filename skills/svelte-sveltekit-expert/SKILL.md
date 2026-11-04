@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Styling & Web Standards**: `modern-web-guidance`, `tailwind-expert`, `modern-css-native-expert`, `design-system-architect`.
 - **Quality & Performance**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
 - **Backend & APIs**: `js-backend-expert`, `database-orm-expert`, `typescript-expert`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
 Production-grade guide for building high-performance web applications using **Svelte 5** and **SvelteKit 2+**. Covers the complete Runes reactivity paradigm (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), snippet composition replacing legacy slots, progressive enhancement form actions (`use:enhance`), streaming server promises in `+page.server.ts`, and shallow routing (`pushState`) for modal overlays.
@@ -286,6 +287,7 @@ async function fetchLiveMetrics() {
 - **Styling & Standar Web**: `modern-web-guidance`, `tailwind-expert`, `modern-css-native-expert`, `design-system-architect`.
 - **Kualitas & Performa**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
 - **Backend & APIs**: `js-backend-expert`, `database-orm-expert`, `typescript-expert`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi web performa tinggi menggunakan **Svelte 5** dan **SvelteKit 2+**. Berfokus pada paradigma reaktivitas Runes secara menyeluruh (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), komposisi Snippets pengganti slot lawas, progressive enhancement form actions (`use:enhance`), streaming promise server pada `+page.server.ts`, dan routing shallow (`pushState`) untuk modal URL-preserving.

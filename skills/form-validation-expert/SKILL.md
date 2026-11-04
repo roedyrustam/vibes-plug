@@ -22,6 +22,7 @@ Connects and orchestrates with relevant domain skills:
 - **`anti-slop`**: Eliminates vague error messages, double-submission bugs, and unhandled pending states.
 - **`senior-frontend`**: React 19 `useActionState`, `useOptimistic`, and server action form submission.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle execution.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -494,6 +495,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`anti-slop`**: Melenyapkan pesan error samar, bug pengiriman ganda, dan status pending yang tidak ditangani.
 - **`senior-frontend`**: Mengimplementasikan `useActionState`, `useOptimistic`, dan pengiriman form Server Actions di React 19.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Eksekusi siklus hidup proyek secara terpadu.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).

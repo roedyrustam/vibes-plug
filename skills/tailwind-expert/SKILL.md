@@ -31,6 +31,7 @@ Integrates tightly with the following skills:
 - **`modern-css-native-expert`**: Pairs Tailwind utilities with pure native CSS anchor positioning, `@starting-style`, and View Transitions.
 - **`visual-ui-auditor`**: Audits rendered Tailwind UI against the 20-point visual quality rubric.
 - **`senior-frontend`**: Feeds modern CSS capabilities into Next.js/React component architecture.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `astro-framework-expert`
 
 ### Execution Standards
 
@@ -234,6 +235,7 @@ Terintegrasi erat dengan skill berikut:
 - **`modern-css-native-expert`**: Memadukan utilitas Tailwind dengan CSS anchor positioning murni, `@starting-style`, dan View Transitions.
 - **`visual-ui-auditor`**: Mengaudit antarmuka Tailwind yang dirender menggunakan rubrik kualitas visual 20-poin.
 - **`senior-frontend`**: Menyuplai kapabilitas CSS modern ke dalam arsitektur komponen Next.js/React.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `astro-framework-expert`
 
 ### Standar Eksekusi
 

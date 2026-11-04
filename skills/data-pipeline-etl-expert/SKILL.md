@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Telemetry & Observability**: `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Scheduling & Queues**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `data-visualization-expert`, `web-scraper`
 
 ### Description
 Production engineering guide for building idempotent ELT/ETL data pipelines, Change Data Capture (CDC) streams, and Medallion Lakehouse architectures (`Bronze` $\rightarrow$ `Silver` $\rightarrow$ `Gold`). Covers Software-Defined Assets (`Dagster`), SQL transformation engineering (`dbt Core`), and columnar Parquet/Iceberg processing (`DuckDB`, `ClickHouse`, `BigQuery`).
@@ -147,6 +148,7 @@ GROUP BY 1, 2
 - **Telemetri & Observabilitas**: `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Penjadwalan & Antrean**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `data-visualization-expert`, `web-scraper`
 
 ### Deskripsi
 Panduan rekayasa produksi untuk membangun pipeline data ELT/ETL yang idempoten, aliran Change Data Capture (CDC), dan arsitektur Medallion Lakehouse (`Bronze` $\rightarrow$ `Silver` $\rightarrow$ `Gold`). Mencakup orkestrasi berbasis aset (`Dagster`), transformasi SQL teruji (`dbt Core`), serta pemrosesan kolumnar Parquet/Iceberg (`DuckDB`, `ClickHouse`, `BigQuery`).

@@ -25,6 +25,7 @@ Connects and orchestrates with relevant domain skills:
 - `svg-animation-motion-expert` — React Native Reanimated v3 spring curves, micro-interactions, and shared element transitions.
 - `anti-slop` — Anti-slop mobile engineering, zero mockup stubs, complete New Architecture component implementations.
 - `app-promo-media-expert` — App Store & Google Play screenshots, device frame mockups, and launch promo media.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `flutter-dart-expert`, `desktop-electron-expert`, `tauri-expert`, `pwa-offline-first-expert`, `geospatial-maps-expert`
 
 ### Description
 Expert guide for building production-grade cross-platform mobile applications using **React Native 0.79+** and **Expo SDK 53+**. Covers the New Architecture (stable), Expo Router v4, OTA updates, native modules, and modern state management patterns for iOS and Android.
@@ -203,6 +204,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `svg-animation-motion-expert` — Kurva pegas React Native Reanimated v3, mikro-interaksi, dan transisi elemen bersama.
 - `anti-slop` — Rekayasa mobile anti-slop, nol stub mockup, implementasi komponen New Architecture lengkap.
 - `app-promo-media-expert` — Screenshot App Store & Google Play, mockup frame gawai, dan media promosi peluncuran.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `flutter-dart-expert`, `desktop-electron-expert`, `tauri-expert`, `pwa-offline-first-expert`, `geospatial-maps-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi mobile cross-platform tingkat produksi menggunakan **React Native 0.79+** dan **Expo SDK 53+**. Mencakup New Architecture (stabil), Expo Router v4, OTA updates, native modules, dan pola state management modern untuk iOS dan Android.

@@ -23,6 +23,7 @@ Connects and orchestrates with domain skills:
 - **Asynchronous & Queues**: `async-queue-temporal-expert` (BullMQ / Temporal workflows) and `sse-websocket-streaming-expert` (real-time events).
 - **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for strict code quality, self-healing test pipelines, and zero-slop error handlers.
 - **Master Orchestrators**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `bun-runtime-expert`, `graphql-apollo-expert`, `n8n-automation-expert`, `htmx-hypermedia-expert`, `mvc-expert`
 
 ### Description
 Production-grade guidance for building fast, scalable, and resilient JavaScript/TypeScript backend APIs, microservices, and serverless functions across **Node.js 24 (LTS)**, **Bun 1.2+**, and **Deno 2.x**. Covers high-throughput frameworks (Fastify 5, Hono, Express 5, NestJS), type-safe ORMs (Drizzle, Prisma 6), **Hono RPC** for type-safe full-stack communication, Edge Runtime patterns, WebSockets, BullMQ background jobs, graceful shutdown handling, and self-healing test pipelines.
@@ -188,6 +189,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Asinkron & Antrean**: `async-queue-temporal-expert` (BullMQ / workflow Temporal) dan `sse-websocket-streaming-expert` (event real-time).
 - **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk penegakan kode bebas slop, perbaikan otomatis stack trace, dan penanganan error tuntas.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `bun-runtime-expert`, `graphql-apollo-expert`, `n8n-automation-expert`, `htmx-hypermedia-expert`, `mvc-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun API backend JavaScript/TypeScript yang cepat, skalabel, dan tangguh di lingkungan **Node.js 24 LTS**, **Bun 1.2+**, dan **Deno 2.x**. Mencakup framework berkinerja tinggi (Fastify 5, Hono v4, Express 5, NestJS), ORM type-safe (Drizzle, Prisma 6), **Hono RPC** untuk komunikasi full-stack type-safe, pola Edge Runtime, WebSocket, background jobs (BullMQ), OpenTelemetry, penanganan *graceful shutdown*, dan pipeline pengujian self-healing.

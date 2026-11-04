@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Domain Applications**: `ecommerce-expert`, `headless-cms-expert`
 - **Frontend & Performance**: `senior-frontend`, `performance-web-vitals`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `geospatial-maps-expert`, `olap-columnar-analytics-expert`
 
 ### Description
 Production guide for high-performance search engines, typo-tolerant autocomplete, faceted navigation, and hybrid retrieval. Covers native PostgreSQL Full-Text Search (`tsvector`, GIN index, `pg_trgm`), dedicated search engines (Typesense, Meilisearch), enterprise distributed clusters (OpenSearch/Elasticsearch), and hybrid search using Reciprocal Rank Fusion (RRF) to merge keyword matching with semantic vector embeddings.
@@ -132,6 +133,7 @@ Where $r_m(d)$ is the 1-based rank of document $d$ in system $m$ (BM25 or Dense 
 - **Aplikasi Domain**: `ecommerce-expert`, `headless-cms-expert`
 - **Frontend & Performa**: `senior-frontend`, `performance-web-vitals`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `geospatial-maps-expert`, `olap-columnar-analytics-expert`
 
 ### Deskripsi
 Panduan produksi untuk mesin pencarian berkecepatan tinggi, autocomplete toleran salah ketik (*typo-tolerant*), navigasi berfaset (*faceted search*), dan pencarian hibrida (*hybrid search*). Mencakup Full-Text Search bawaan PostgreSQL (`tsvector`, GIN index, `pg_trgm`), mesin pencari khusus (Typesense, Meilisearch), kluster enterprise (OpenSearch/Elasticsearch), serta penggabungan skor kata kunci dan vektor semantik menggunakan formula *Reciprocal Rank Fusion* (RRF).

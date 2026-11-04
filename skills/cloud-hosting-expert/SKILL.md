@@ -20,6 +20,7 @@ version: "4.4.4"
 - **CI/CD & Container Pipelines**: `ci-cd-devops-architect` (deployment automation), `github-actions-expert` (cloud actions & OIDC), `docker-container-expert` (container images for Railway/Fly).
 - **Edge Compute & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (edge routing & proxies).
 - **Monitoring & Auto-Remediation**: `proactive-background-watcher` (deployment health checks), `self-healing-cloud-orchestrator` (production crash hotfixing).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`
 
 ### Description
 Expert guide for deploying SaaS applications and their multiple entry points (landing page, app, super admin subdomain) on modern edge and serverless platforms. Covers Vercel, Cloudflare Workers & Pages, Railway, Fly.io, and **Cloudflare Workers AI** for AI-powered edge workloads.
@@ -233,6 +234,7 @@ if (cached) return cached;
 - **Pipeline CI/CD & Kontainer**: `ci-cd-devops-architect` (otomasi deployment), `github-actions-expert` (aksi cloud & OIDC), `docker-container-expert` (image kontainer Railway/Fly).
 - **Komputasi Edge & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (routing edge & proxy).
 - **Pemantauan & Auto-Remediasi**: `proactive-background-watcher` (pemeriksaan kesehatan deployment), `self-healing-cloud-orchestrator` (perbaikan otomatis crash produksi).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`
 
 ### Deskripsi
 Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landing page, aplikasi, subdomain super admin) di platform edge dan serverless modern. Mencakup Vercel, Cloudflare Workers & Pages, Railway, Fly.io, dan **Cloudflare Workers AI** untuk workload AI di edge.

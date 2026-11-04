@@ -16,6 +16,7 @@ version: "4.4.4"
 
 ### Orchestration & Integration
 Connects with: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`
 
 ### Description
 Expert guide for building Hypermedia-Driven Applications (HDA) using **HTMX 2.0+**. Covers htmx core attributes (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), server-side rendering patterns, partial page updates, WebSocket/SSE integration, Alpine.js companion patterns, and transitioning from SPA frameworks to lightweight hypermedia architecture.
@@ -281,6 +282,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 ### Integrasi Orkestrasi
 Terhubung dengan: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`
 
 ### Deskripsi
 Panduan ahli untuk membangun Hypermedia-Driven Applications (HDA) menggunakan **HTMX 2.0+**. Mencakup atribut inti htmx (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), pola rendering server-side, pembaruan halaman parsial, integrasi WebSocket/SSE, pola pendamping Alpine.js, dan transisi dari framework SPA ke arsitektur hypermedia ringan.

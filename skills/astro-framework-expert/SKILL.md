@@ -26,6 +26,7 @@ version: "4.4.4"
 - **`performance-web-vitals`**: Astro's zero-JS-by-default performance optimization.
 - **`headless-cms-expert`**: Content fetching from Sanity/Payload/Strapi in Astro.
 - **`ci-cd-devops-architect`**: Deploying Astro to Vercel, Cloudflare Pages, or Netlify.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Description
 Expert guide for building high-performance, content-first websites with Astro 5+. Covers Content Collections (type-safe content), Islands Architecture (partial hydration), View Transitions, server-side rendering, hybrid rendering, MDX integration, Astro DB, and multi-framework component support (React, Vue, Svelte in one project).
@@ -214,6 +215,7 @@ import { ViewTransitions } from 'astro:transitions';
 - **`performance-web-vitals`**: Optimasi performa zero-JS-by-default Astro untuk Core Web Vitals (skor 100).
 - **`headless-cms-expert`**: Pengambilan konten dari Sanity, Payload, atau Strapi secara type-safe di Astro.
 - **`ci-cd-devops-architect`**: Deployment ke Vercel, Cloudflare Pages, atau Node.js distroless container.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun website berperforma tinggi dan berfokus konten dengan Astro 5+. Mencakup Content Collections (manajemen konten type-safe berbasis Zod), Islands Architecture (hidrasi parsial), View Transitions native, rendering hybrid/SSR, integrasi MDX, Server Islands (rendering tunda), dan orkestrasi multi-framework (React, Vue, Svelte dalam satu proyek).

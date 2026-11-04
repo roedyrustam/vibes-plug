@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Database & Concurrency Locks**: `database-orm-expert`, `supabase-security-expert`
 - **Formal Verification & Security**: `formal-spec-z3-verifier`, `zero-trust-secret-vault`, `anti-slop`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `blockchain-web3-expert`
 
 ### Description
 Mission-critical financial engineering guide for designing **immutable Double-Entry Accounting Ledgers**. Never track money using a mutable `users.balance = users.balance - 100` column alone. Covers **append-only journal entries**, zero-sum balanced postings ($\sum \text{Debits} = \sum \text{Credits}$), **two-phase pending/posted escrow holds**, **TigerBeetle** high-throughput financial accounting, integer minor-unit arithmetic (`BIGINT`), and daily webhook-to-ledger reconciliation.
@@ -260,6 +261,7 @@ export class TigerBeetleLedgerAdapter {
 - **Database & Penguncian Konkurensi**: `database-orm-expert`, `supabase-security-expert`
 - **Verifikasi Formal & Keamanan**: `formal-spec-z3-verifier`, `zero-trust-secret-vault`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `blockchain-web3-expert`
 
 ### Deskripsi
 Panduan rekayasa finansial kritis untuk merancang **buku besar akuntansi Double-Entry yang tidak dapat diubah (*immutable*)**. Mencakup pencatatan jurnal *append-only*, keseimbangan nol ($\sum \text{Debit} = \sum \text{Kredit}$), penahanan saldo dua fase (*pending/escrow holds*), aritmetika integer satuan terkecil (`BIGINT`), dan urutan penguncian akun kanonis bebas *deadlock*.

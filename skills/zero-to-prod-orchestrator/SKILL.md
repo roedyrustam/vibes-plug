@@ -16,6 +16,7 @@ version: "4.4.4"
 
 ### Orchestration & Integration
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `prd-architect`, `domain-driven-design-expert`, `saas-architect`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `doku-payment-gateway`, `saas-billing`, `double-entry-ledger-fintech-expert`, `ci-cd-devops-architect`, `docker-container-expert`, `kubernetes-gitops-platform-expert`, `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Overview
 The **Zero to Production Orchestrator** is the ultimate master skill designed to orchestrate the entire `vibes-plug` ecosystem as a highly interconnected **engineering swarm**. By acting as the central conductor, it ensures that no sub-skill is executed in isolation. It guides fullstack developers through the complete software engineering lifecycle — from concept discovery to AI integration, multi-platform backend architecture, design systems, automated testing, GEO/AEO optimization, and production deployment.
@@ -232,6 +233,7 @@ node scripts/check-anti-slop.js --strict
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `prd-architect`, `domain-driven-design-expert`, `saas-architect`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `doku-payment-gateway`, `saas-billing`, `double-entry-ledger-fintech-expert`, `ci-cd-devops-architect`, `docker-container-expert`, `kubernetes-gitops-platform-expert`, `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Ringkasan
 **Zero to Production Orchestrator** adalah skill master utama yang dirancang untuk mengorkestrasi seluruh ekosistem `vibes-plug` sebagai sebuah **engineering swarm** yang saling terhubung erat. Dengan bertindak sebagai konduktor pusat, skill ini memastikan tidak ada sub-skill yang dieksekusi secara terisolasi. Skill ini memandu pengembang *fullstack* melalui seluruh siklus hidup rekayasa perangkat lunak — mulai dari tahap ide awal hingga integrasi AI, arsitektur backend multi-platform, design system, pengujian otomatis, optimasi GEO/AEO, dan deployment produksi.

@@ -25,6 +25,7 @@ version: "4.4.4"
 - **`state-management-expert`**: Managing chart state, filters, and drill-down navigation.
 - **`performance-web-vitals`**: Optimizing chart rendering performance with large datasets.
 - **`sse-websocket-streaming-expert`**: Real-time data feeds for live dashboards.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `olap-columnar-analytics-expert`, `data-pipeline-etl-expert`
 
 ### Description
 Expert guide for building production-quality data visualizations and analytics dashboards. Covers D3.js v7 (low-level SVG/Canvas), Recharts (React-native charts), Chart.js 4 (lightweight canvas), Nivo (D3-powered React components), Tremor (dashboard components), and Apache ECharts. Includes responsive charts, real-time updates, accessibility, large dataset optimization, and dashboard layout patterns.
@@ -173,6 +174,7 @@ For volumetric, anatomical, geospatial, or scientific datasets, escalate to `web
 - **`state-management-expert`**: Mengelola state filter global, parameter rentang tanggal, dan navigasi drill-down.
 - **`performance-web-vitals`**: Optimasi komputasi grafis untuk dataset besar (>10.000 titik data).
 - **`sse-websocket-streaming-expert`**: Feed data real-time untuk dashboard telemetri langsung.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `olap-columnar-analytics-expert`, `data-pipeline-etl-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun visualisasi data dan dashboard analitik berkualitas produksi. Mencakup D3.js v7 (manipulasi SVG/Canvas tingkat rendah), Recharts (grafik native React), Chart.js 4 (canvas ringan), Nivo (komponen animasi berbasis D3), Tremor (kartu KPI dan visualisasi analitik SaaS), dan Apache ECharts. Menyediakan panduan chart responsif, pembaruan real-time, aksesibilitas WCAG, optimasi dataset besar, dan pola tata letak dashboard.

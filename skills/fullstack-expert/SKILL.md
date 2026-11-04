@@ -23,6 +23,7 @@ Connects and orchestrates with domain skills:
 - **Database & State**: `database-orm-expert` (Prisma/Drizzle/SQLx) and `vector-db-rag-expert` (pgvector).
 - **Quality & Anti-Slop**: `anti-slop`, `autonomous-tdd-debugger`, and `e2e-testing-expert`.
 - **Master Orchestrator**: `brainstorming` and `zero-to-prod-orchestrator`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mvc-expert`, `domain-driven-design-expert`
 
 ### Description
 Expert-level fullstack development across multiple languages and frameworks. Focuses on polyglot backend architectures, system design patterns (Event-Driven Saga, CQRS), API contracts (OpenAPI 3.1, gRPC), and monorepo shared types.
@@ -203,6 +204,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Database & State**: `database-orm-expert` (Prisma/Drizzle/SQLx) dan `vector-db-rag-expert` (pgvector).
 - **Kualitas & Anti-Slop**: `anti-slop`, `autonomous-tdd-debugger`, dan `e2e-testing-expert`.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mvc-expert`, `domain-driven-design-expert`
 
 ### Deskripsi
 Panduan pengembangan fullstack tingkat ahli lintas bahasa pemrograman dan framework. Berfokus pada arsitektur backend polyglot, pola desain sistem terdistribusi (Event-Driven Saga, CQRS), kontrak antarmuka API (OpenAPI 3.1, gRPC), dan monorepo dengan type sharing terpadu.

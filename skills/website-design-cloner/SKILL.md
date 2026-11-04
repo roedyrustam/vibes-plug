@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - **`ui-ux-pro-max`**: Standardizes typography scales, optical tracking, and 60-30-10 color balance.
 - **`anti-slop`**: Cleanses cloned components of div-soup wrappers and missing interactive states.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Description
 `website-design-cloner` is an advanced URL-to-Code visual reverse engineering skill. It enables AI agents to inspect any target website URL, analyze its visual aesthetic, layout grid, CSS design tokens (OKLCH/HEX colors, typography system, container bounds, shadow tiers, border-radii), DOM structure, and interactive components, and synthesize production-ready code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) to achieve a full 1:1 duplication.
@@ -178,6 +179,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`ui-ux-pro-max`**: Menstandarkan skala tipografi, tracking optik, dan keseimbangan warna 60-30-10.
 - **`anti-slop`**: Membersihkan komponen hasil kloning dari pembungkus div-soup dan status interaktif yang hilang.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara terpadu.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Deskripsi
 `website-design-cloner` adalah skill rekayasa balik (*reverse engineering*) visual dari URL ke kode. Skill ini memungkinkan agen AI mempelajari situs web target dari URL, mengaudit estetika visual, grid layout, design token CSS (warna OKLCH/HEX, sistem tipografi, batas kontainer, bayangan, radius border), struktur DOM, dan komponen interaktif, lalu merekonstruksi kode siap produksi (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) untuk mencapai duplikasi 1:1 penuh.

@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Local Vectors & RAG**: `vector-db-rag-expert`, `agentic-memory-architect`, `session-memory-manager`
 - **Privacy & Safety Guardrails**: `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `zero-trust-secret-vault`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-llm-integration-expert`, `synthetic-data-finetuning-expert`
 
 ### Purpose & Overview
 Production-grade architectural guide for running **Small Language Models (SLMs)** and embedding models directly inside client browsers and edge runtimes. Eliminates cloud API costs, guarantees 100% data privacy (zero cloud data leakage), and enables instant, offline-capable AI features using **WebGPU**, **Transformers.js v3**, **WebLLM**, and **ONNX Runtime Web**.
@@ -117,6 +118,7 @@ export async function createLocalChatEngine(onProgress?: (report: webllm.InitPro
 - **Vektor Lokal & RAG**: `vector-db-rag-expert`, `agentic-memory-architect`, `session-memory-manager`
 - **Privasi & Guardrail Keamanan**: `compliance-gdpr-privacy-expert`, `ai-safety-governance-expert`, `zero-trust-secret-vault`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-llm-integration-expert`, `synthetic-data-finetuning-expert`
 
 ### Tujuan & Gambaran Umum
 Panduan arsitektur tingkat produksi untuk menjalankan **Small Language Models (SLM)** dan model *embedding* langsung di dalam browser pengguna dan runtime edge. Menghilangkan biaya API cloud, menjamin privasi data 100% (tidak ada data yang keluar ke server pihak ketiga), dan mengaktifkan fitur AI instan yang dapat bekerja secara *offline* menggunakan **WebGPU**, **Transformers.js v3**, **WebLLM**, dan **ONNX Runtime Web**.

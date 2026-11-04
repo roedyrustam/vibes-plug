@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Frontend Apollo Consumers**: `senior-frontend`, `vue-frontend-expert`, `tanstack-query-expert`
 - **Security & Quality**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `autonomous-api-drift-healer`
 
 ### Description
 Production-grade guidance for building and consuming **GraphQL APIs**. Focuses on the **Apollo** ecosystem (Apollo Server, Apollo Client, Federation), **NestJS GraphQL** integration, and solving common performance pitfalls like the N+1 query problem using DataLoaders.
@@ -110,6 +111,7 @@ function UserList() {
 - **Konsumen Frontend Apollo**: `senior-frontend`, `vue-frontend-expert`, `tanstack-query-expert`
 - **Keamanan & Kualitas**: `rate-limit-abuse-prevention`, `autonomous-red-teamer`, `e2e-testing-expert`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `autonomous-api-drift-healer`
 
 ### Deskripsi
 Panduan produksi untuk membangun dan mengonsumsi API **GraphQL**. Mencakup ekosistem **Apollo** (Apollo Server, Apollo Client, Federation), integrasi **NestJS GraphQL**, dan pemecahan masalah bottleneck query N+1 menggunakan DataLoader.

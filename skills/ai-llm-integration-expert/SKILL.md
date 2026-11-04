@@ -23,6 +23,7 @@ version: "4.4.4"
 - **Optimization & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
 - **Safety, Governance & Quality**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `ai-media-generation-expert`, `llm-observability-expert`
 
 ### Description
 Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hybrid reasoning models, and Large Language Models (LLMs) into modern software architectures. Covers hybrid reasoning token streaming, Streamable HTTP MCP transports, agentic memory architectures, native context caching, RAG pipelines, and multi-model orchestration.
@@ -228,6 +229,7 @@ Build high-precision RAG pipelines:
 - **Optimasi & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
 - **Keamanan, Tata Kelola & Kualitas**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `synthetic-data-finetuning-expert`, `durable-agent-execution-expert`, `ai-media-generation-expert`, `llm-observability-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP), model hybrid reasoning, dan Large Language Models (LLM) ke dalam arsitektur perangkat lunak modern. Mencakup penanganan streaming token penalaran, transport MCP Streamable HTTP, arsitektur memori agentik, context caching native, pipeline RAG, dan orkestrasi multi-model.

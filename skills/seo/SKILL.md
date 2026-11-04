@@ -23,6 +23,7 @@ version: "4.4.4"
   - `nextjs-app-router-expert` — Generate dynamic `sitemap.ts`, `robots.ts`, and Open Graph tags.
   - `app-promo-media-expert` — Generate high-converting `og:image` social preview banners.
   - `session-memory-manager` — Store target keyword maps, SEO audit findings, and `/llms.txt` configurations.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `wordpress-headless-expert`, `astro-framework-expert`
 
 ### Description
 Comprehensive SEO audit covering technical SEO, on-page optimization, structured data, sitemaps, Core Web Vitals, E-E-A-T signals, and **Generative Engine Optimization (GEO)** for AI-powered search (Google AI Mode, ChatGPT Search, Perplexity).
@@ -234,6 +235,7 @@ Internal links: 3-5 per long-form page to related content
   - `nextjs-app-router-expert` — Pembuatan dinamis `sitemap.ts`, `robots.ts`, dan tag Open Graph.
   - `app-promo-media-expert` — Menghasilkan banner preview media sosial `og:image` berkonversi tinggi.
   - `session-memory-manager` — Menyimpan peta kata kunci target, temuan audit SEO, dan konfigurasi `/llms.txt`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `wordpress-headless-expert`, `astro-framework-expert`
 
 ### Deskripsi
 Audit SEO komprehensif mencakup SEO teknikal, optimasi on-page, data terstruktur, sitemap, Core Web Vitals, sinyal E-E-A-T, dan **Generative Engine Optimization (GEO)** untuk pencarian bertenaga AI (Google AI Mode, ChatGPT Search, Perplexity).

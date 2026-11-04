@@ -152,6 +152,7 @@ export function StoreLocatorMap({ stores }: { stores: StorePoint[] }) {
 - **`database-orm-expert`**: Bridges PostGIS spatial types with Prisma / Drizzle ORM schemas.
 - **`senior-frontend`**: Integrates responsive map canvases without blocking main-thread UI interactivity.
 - **`performance-web-vitals`**: Lazy-loads vector tile stylesheets and WebGL libraries to maintain optimal LCP and INP.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `data-visualization-expert`, `mobile-expo-expert`, `search-engine-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -214,6 +215,7 @@ export async function getNearbyStores(userLat: number, userLng: number, radiusMe
 - **`database-orm-expert`**: Mengelola migrasi tabel dengan tipe data geospasial PostGIS.
 - **`senior-frontend`**: Menangani state interaksi klik marker dan jendela pop-up.
 - **`performance-web-vitals`**: Menerapkan dynamic import (`next/dynamic` dengan `ssr: false`) agar bundle peta tidak memperlambat pemuatan awal.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `data-visualization-expert`, `mobile-expo-expert`, `search-engine-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

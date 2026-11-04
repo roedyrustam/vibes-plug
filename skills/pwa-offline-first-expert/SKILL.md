@@ -202,6 +202,7 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 - **`state-management-expert`**: For connecting RxDB / local stores with Zustand or TanStack Store.
 - **`database-orm-expert`**: For designing compatible backend schemas with ElectricSQL / Postgres.
 - **`email-notification-expert`**: For Web Push Notification subscription handling.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `reactive-sync-engine-expert`, `local-slm-edge-ai-expert`, `mobile-expo-expert`, `flutter-dart-expert`, `tauri-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -230,6 +231,7 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 - **`state-management-expert`**: Menghubungkan RxDB / local storage ke Zustand atau TanStack Store.
 - **`database-orm-expert`**: Perancangan skema backend PostgreSQL yang kompatibel dengan replikasi CRDT / ElectricSQL.
 - **`email-notification-expert`**: Penanganan registrasi dan subscription Web Push Notification.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `reactive-sync-engine-expert`, `local-slm-edge-ai-expert`, `mobile-expo-expert`, `flutter-dart-expert`, `tauri-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi web **Local-First** dan **Progressive Web Applications (PWA)** kelas enterprise. Menghilangkan ketergantungan loading spinner dengan membaca dan menulis langsung ke database lokal (OPFS SQLite, RxDB, IndexedDB) terlebih dahulu, sinkronisasi otomatis di latar belakang tanpa bentrok data (CRDTs, ElectricSQL, PowerSync), dan packaging ke toko aplikasi native melalui PWABuilder.

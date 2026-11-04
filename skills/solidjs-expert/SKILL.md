@@ -113,6 +113,7 @@ export function CartManager() {
 - **`performance-web-vitals`**: Leverages Solid's direct DOM manipulation for near-zero INP and top-tier Lighthouse scores.
 - **`state-management-expert`**: Explains fine-grained signal patterns compared to React hooks and Zustand.
 - **`typescript-expert`**: Provides type-safe store and props interfaces.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `design-system-architect`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -183,6 +184,7 @@ export function UserCard(rawProps: CardProps) {
 - **`performance-web-vitals`**: Memaksimalkan manipulasi DOM langsung untuk mencapai responsivitas instan (<10ms).
 - **`state-management-expert`**: Menjelaskan perbandingan arsitektur signal vs selector Zustand.
 - **`typescript-expert`**: Menjaga keamanan tipe pada Store dan Server Actions.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `design-system-architect`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

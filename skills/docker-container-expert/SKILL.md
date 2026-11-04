@@ -19,6 +19,7 @@ version: "4.4.4"
 - **CI/CD & Cloud Runtime**: `ci-cd-devops-architect` (K8s & deployment pipelines), `github-actions-expert` (BuildKit actions & registry push), `cloud-hosting-expert` (container runtime hosts).
 - **Backend & Database Runtimes**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (Postgres/Redis services).
 - **Security & Hardening**: `production-ready-hardener` (distroless & nonroot audit), `zero-trust-secret-vault` (build secret mounts).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`
 
 ### Description
 Enterprise guide for building ultra-lean, hardened, and reproducible container images and orchestrating local and production workloads with **Docker Engine 27+** and **Docker Compose v2**. Covers BuildKit cache mounts (`--mount=type=cache`), secret mounts (`--mount=type=secret`), multi-stage builds targeting Google Distroless or Alpine Linux, non-root execution (UID 65532), dropping Linux kernel capabilities (`cap_drop: ALL`), health checks (`HEALTHCHECK`), internal isolated bridge networks, compose dependency sequencing (`condition: service_healthy`), and multi-architecture builds via `docker buildx`.
@@ -256,6 +257,7 @@ secrets:
 - **CI/CD & Runtime Cloud**: `ci-cd-devops-architect` (pipeline K8s & deployment), `github-actions-expert` (aksi BuildKit & push registry), `cloud-hosting-expert` (host runtime kontainer).
 - **Runtime Backend & Database**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (layanan Postgres/Redis).
 - **Keamanan & Pengerasan**: `production-ready-hardener` (audit distroless & nonroot), `zero-trust-secret-vault` (secret mount saat build).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`
 
 ### Deskripsi
 Panduan standar industri enterprise untuk membangun image kontainer yang ramping, aman, dan dapat direproduksi serta mengorkestrasi lingkungan lokal dan produksi menggunakan **Docker Engine 27+** dan **Docker Compose v2**. Meliputi cache mount BuildKit (`--mount=type=cache`), secret mount (`--mount=type=secret`), multi-stage build berbasis Google Distroless atau Alpine Linux, eksekusi non-root (UID 65532), pelepasan kapabilitas Linux kernel (`cap_drop: ALL`), health check (`HEALTHCHECK`), isolasi jaringan internal (isolated bridge network), sequencing dependensi compose (`condition: service_healthy`), dan build multi-arsitektur menggunakan `docker buildx`.

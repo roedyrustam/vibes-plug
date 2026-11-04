@@ -146,14 +146,14 @@ export function resolveSkillAdapter(skillName) {
   if (/docker|k8s|kubernetes|ci-cd|github-actions|cloud|workers|telemetry|logging|resilience|cron|watcher/i.test(skillName)) {
     return cloudDevopsAdapter;
   }
+  if (/security|auth|passkey|rebac|vault|rate-limit|sbom|crypto|firewall|safety|gdpr|payment|doku|billing|red-team|reverse-engineer|rea-/i.test(skillName)) {
+    return securityAdapter;
+  }
   if (/mobile|expo|flutter|tauri|electron|apple|pwa|extension|3d|glsl|shader|webxr|game|motion|spatial|wasm/i.test(skillName)) {
     return mobileSpatialAdapter;
   }
   if (/frontend|ui|css|tailwind|react|next|vue|angular|svelte|solid|astro|design|visual|svg|hig|a11y/i.test(skillName)) {
     return frontendAdapter;
-  }
-  if (/security|auth|passkey|rebac|vault|rate-limit|sbom|crypto|firewall|safety|gdpr|payment|doku|billing|red-team|reverse-engineer|rea-/i.test(skillName)) {
-    return securityAdapter;
   }
   if (/test|tdd|e2e|slop|debt|hardener|review|coderabbit|sandbox|z3|biome/i.test(skillName)) {
     return tddAdapter;

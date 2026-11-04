@@ -23,6 +23,7 @@ version: "4.4.4"
   - `seo` — Align Core Web Vitals (LCP, INP, CLS) with search indexing criteria.
   - `cloud-hosting-expert` — Optimize edge caching, Brotli/Gzip compression, and CDN asset delivery.
   - `session-memory-manager` — Store performance benchmark results and bundle budgets.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `app-analyzer-optimizer`, `mpa-orchestrator`, `spa-orchestrator`
 
 ### Description
 Expert guide for measuring, diagnosing, and optimizing web application performance with a focus on **Core Web Vitals** (LCP, INP, CLS), JavaScript bundle optimization, image and font loading strategies, rendering performance, and achieving high Lighthouse scores. Covers Next.js 15, React 19, and modern browser APIs.
@@ -335,6 +336,7 @@ onTTFB(sendToAnalytics);
   - `seo` — Menyelaraskan metrik Core Web Vitals (LCP, INP, CLS) dengan kriteria pengindeksan search engine.
   - `cloud-hosting-expert` — Optimasi edge caching, kompresi Brotli/Gzip, dan pengiriman aset CDN.
   - `session-memory-manager` — Menyimpan hasil benchmark performa dan anggaran bundle.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `app-analyzer-optimizer`, `mpa-orchestrator`, `spa-orchestrator`
 
 ### Deskripsi
 Panduan ahli untuk mengukur, mendiagnosis, dan mengoptimalkan performa aplikasi web dengan fokus pada **Core Web Vitals** (LCP, INP, CLS), optimasi JavaScript bundle, strategi loading gambar dan font, performa rendering, dan mencapai skor Lighthouse yang tinggi.

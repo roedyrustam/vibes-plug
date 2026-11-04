@@ -26,6 +26,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor`: Multimodal vision auditing of server-rendered pages and standard boilerplate pages.
 - `anti-slop`: Anti-slop MPA layouts, zero incomplete placeholder views, and strict adherence to mandatory standard pages.
 - `seo`: Comprehensive technical and on-page SEO optimization.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -144,6 +145,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor`: Audit visual multimodal untuk halaman server-rendered dan halaman standar wajib.
 - `anti-slop`: Layout MPA anti-slop, nol tampilan placeholder tidak lengkap, kepatuhan halaman standar wajib.
 - `seo`: Optimasi SEO teknis dan on-page menyeluruh.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.

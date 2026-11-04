@@ -16,6 +16,7 @@ version: "4.4.4"
 
 ### Orchestration & Integration
 Connects and orchestrates with relevant domain skills like `brainstorming`, `zero-to-prod-orchestrator`, and `session-memory-manager` to ensure cohesive execution.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `prd-architect`, `domain-driven-design-expert`, `saas-architect`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `doku-payment-gateway`, `saas-billing`, `double-entry-ledger-fintech-expert`, `ci-cd-devops-architect`, `docker-container-expert`, `kubernetes-gitops-platform-expert`, `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Purpose & Overview
 Turn raw ideas into **clear, validated designs, architectural specifications, and execution roadmaps** through structured dialogue **before any implementation begins**. 
@@ -242,6 +243,7 @@ Exit brainstorming mode **only when all of the following are satisfied**:
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, `zero-to-prod-orchestrator`, dan `session-memory-manager` untuk memastikan eksekusi yang kohesif.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `prd-architect`, `domain-driven-design-expert`, `saas-architect`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `js-backend-expert`, `database-orm-expert`, `api-design-expert`, `ai-llm-integration-expert`, `mcp-server-architect`, `multi-agent-orchestration`, `doku-payment-gateway`, `saas-billing`, `double-entry-ledger-fintech-expert`, `ci-cd-devops-architect`, `docker-container-expert`, `kubernetes-gitops-platform-expert`, `anti-slop`, `autonomous-tdd-debugger`, `e2e-testing-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Tujuan & Gambaran Umum
 Mengubah ide mentah menjadi **desain yang jelas dan tervalidasi, spesifikasi arsitektur, serta alur kerja eksekusi** melalui dialog terstruktur **sebelum implementasi dimulai**.

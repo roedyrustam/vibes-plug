@@ -25,6 +25,7 @@ Connects and orchestrates with relevant domain skills:
 - `anti-slop` — Anti-slop desktop UI craft, zero fake browser window frames and zero placeholder commands.
 - `production-ready-hardener` — Auditing binary sizes, code signing, and release pipeline hardening.
 - `desktop-electron-expert` & `browser-extension-mv3-pro` — Migrating legacy Electron apps to Tauri v2 and bridging native desktop binaries with Manifest V3 browser companion extensions.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Description
 Production-grade guidance for building cross-platform desktop (Windows 10/11, macOS, Linux) and mobile (iOS 16+, Android 10+) applications using **Tauri 2.x (specifically v2.12+)**. Covers Rust 1.90+ MSRV requirements, **`tauri::ipc::Channel<T>`** for ordered bidirectional streaming, **`on_permission_request`** programmatic security gates, **App-Bound Domain navigation limiting**, portable application directory overrides (`appDirectoriesOverride`), Rust-side `convert_file_src`, and the fine-grained **Capabilities & Permissions** system.
@@ -227,6 +228,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor` — Audit visual multimodal untuk bingkai jendela desktop dan dialog yang dirender.
 - `anti-slop` — Penegakan UI desktop anti-slop, nol bingkai browser palsu, dan nol perintah placeholder.
 - `production-ready-hardener` — Audit ukuran biner, code signing, dan pipeline rilis siap produksi.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `desktop-electron-expert`, `mobile-expo-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi desktop (Windows 10/11, macOS, Linux) dan mobile (iOS 16+, Android 10+) berperforma tinggi menggunakan **Tauri 2.x (terutama v2.12+)**. Mencakup standar MSRV Rust 1.90+, **`tauri::ipc::Channel<T>`** untuk streaming bidirectional terurut, **`on_permission_request`** untuk gerbang keamanan native, pembatasan navigasi **App-Bound Domains**, override direktori aplikasi portabel (`appDirectoriesOverride`), konversi file lokal di sisi Rust via `convert_file_src`, serta sistem **Capabilities & Permissions**.

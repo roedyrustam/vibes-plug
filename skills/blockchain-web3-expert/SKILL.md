@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Identity & Auth**: `authentication-identity-expert` for Sign-In with Ethereum (SIWE / ERC-4361) and session cookie persistence.
 - **Resilience & Security**: `error-resilience-expert` for RPC failover transports and `post-quantum-crypto-migrator` for future-proof cryptography.
 - **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for dApp product roadmaps.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `agentic-m2m-settlement`, `double-entry-ledger-fintech-expert`, `typescript-expert`, `zero-trust-secret-vault`, `ecommerce-expert`
 
 ### Description
 Production guide for architecting decentralized applications (dApps) across EVM-compatible blockchains (Ethereum, Base, Arbitrum, Optimism, Polygon). Focuses on lightweight, type-safe contract interactions using **viem** and **wagmi v2**, seamless multi-wallet modal integration (**RainbowKit / Reown AppKit**), Sign-In with Ethereum (**SIWE / ERC-4361**), optimistic transaction UI lifecycles, gas fee estimation, and resilient multi-RPC fallback configurations.
@@ -148,6 +149,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Identitas & Autentikasi**: `authentication-identity-expert` untuk Sign-In with Ethereum (SIWE / ERC-4361) dan persistensi cookie sesi.
 - **Ketahanan & Keamanan**: `error-resilience-expert` untuk fallback transport multi-RPC dan `post-quantum-crypto-migrator` untuk algoritma kriptografi tahan-kuantum masa depan.
 - **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk peta jalan produk dApp end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `agentic-m2m-settlement`, `double-entry-ledger-fintech-expert`, `typescript-expert`, `zero-trust-secret-vault`, `ecommerce-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi terdesentralisasi (*dApps*) di seluruh jaringan blockchain kompatibel EVM (Ethereum, Base, Arbitrum, Optimism, Polygon). Berfokus pada interaksi kontrak pintar type-safe yang ringan menggunakan **viem** dan **wagmi v2**, integrasi modal multi-dompet (**RainbowKit / Reown AppKit**), login kriptografis Sign-In with Ethereum (**SIWE / ERC-4361**), siklus transaksi optimistik, estimasi biaya gas, serta konfigurasi multi-RPC fallback yang tangguh.

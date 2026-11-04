@@ -148,6 +148,7 @@ export function mergeAndCompactYjsUpdates(
 - `event-driven-architect` — WebSocket connection clustering and Redis pub/sub scaling.
 - `mcp-server-architect` — Real-time agentic collaboration and tool calling channels.
 - `reactive-sync-engine-expert` — Combining unstructured CRDT documents with relational Postgres sync shapes.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `sse-websocket-streaming-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -186,6 +187,7 @@ Panduan rekayasa produksi untuk membangun fitur kolaborasi real-time dan *multip
 - `event-driven-architect` — Kluster koneksi WebSocket dan penskalaan Redis pub/sub.
 - `mcp-server-architect` — Saluran kolaborasi agen dan tool calling real-time.
 - `reactive-sync-engine-expert` — Menggabungkan dokumen CRDT dengan replikasi relasional Postgres.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `sse-websocket-streaming-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

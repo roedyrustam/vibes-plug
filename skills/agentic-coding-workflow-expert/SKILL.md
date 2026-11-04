@@ -24,6 +24,7 @@ version: "4.4.4"
   - `living-codebase-ast-graph` — AST semantic analysis and cross-module impact radius calculation.
   - `scalability-clean-code` — Architectural compliance, DRY/SOLID enforcement, and code hygiene.
   - `session-memory-manager` — Persist agent learning history, architectural choices, and session memory.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-llm-integration-expert`, `speculative-multi-draft-synthesizer`
 
 ### Description
 Production-grade framework for AI-assisted coding workflows and agent swarms. Covers autonomous code generation, multi-agent code swarms, self-healing CI/CD pipelines, automated PR reviews, codebase knowledge graphs, and human-in-the-loop approval gates.
@@ -399,6 +400,7 @@ Pastikan keamanan dengan pengawasan manusia.
   - `living-codebase-ast-graph` — Analisis semantik AST dan kalkulasi radius dampak lintas modul.
   - `scalability-clean-code` — Kepatuhan arsitektur, penegakan prinsip DRY/SOLID, dan kebersihan kode.
   - `session-memory-manager` — Menyimpan histori pembelajaran agen, pilihan arsitektur, dan memori sesi.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-llm-integration-expert`, `speculative-multi-draft-synthesizer`
 
 ### Deskripsi
 Panduan produksi untuk alur kerja pembuatan kode berbasis AI dan swarm agen. Mencakup pembuatan kode otonom, koordinasi swarm multi-agen, pipeline CI/CD self-healing, review PR otomatis, graph pengetahuan codebase AST, dan gerbang persetujuan human-in-the-loop.

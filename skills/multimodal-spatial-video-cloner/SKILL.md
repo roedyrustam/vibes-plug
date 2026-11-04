@@ -27,6 +27,7 @@ Figma mockups and static screenshots only capture the resting state ($t = 0$) of
 - **Quality & Visual Sanitation**: `visual-ui-auditor`, `anti-slop` (Pillar 7 Sovereign UI Craft), `ui-ux-pro-max`.
 
 ---
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `website-design-cloner`
 
 ### Core Architectural Topologies
 
@@ -242,6 +243,7 @@ Mockup desain statis atau tangkapan layar hanya menampilkan antarmuka saat diam 
 - **Kualitas & Kebersihan Visual**: `visual-ui-auditor`, `anti-slop` (Pilar 7), `ui-ux-pro-max`.
 
 ---
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `website-design-cloner`
 
 ### 3 Hukum Utama Rekayasa Balik Video
 1. **Analisis Frame 60fps**: Video wajib dibedah pada frekuensi tinggi untuk menangkap titik belok akselerasi yang akurat.

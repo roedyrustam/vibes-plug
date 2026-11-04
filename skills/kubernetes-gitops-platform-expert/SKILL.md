@@ -202,6 +202,7 @@ spec:
 - Connects to `sbom-supply-chain-security-expert` for Cosign image signature verification via Kyverno/Gatekeeper admission policies.
 - Connects to `zero-trust-secret-vault` for External Secrets Operator (ESO) CSI injection.
 - Connects to `self-healing-cloud-orchestrator` for automated slo-breach rollback and incident telemetry.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `cloud-hosting-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -233,6 +234,7 @@ Anda adalah Principal Cloud-Native Platform Engineer & SRE. Anda merancang platf
 - Terhubung ke `sbom-supply-chain-security-expert` untuk verifikasi tanda tangan image Cosign di admission controller.
 - Terhubung ke `zero-trust-secret-vault` untuk injeksi secret melalui External Secrets Operator (ESO).
 - Terhubung ke `self-healing-cloud-orchestrator` untuk rollback otomatis saat pelanggaran SLO.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `cloud-hosting-expert`
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

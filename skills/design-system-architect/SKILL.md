@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - **`visual-ui-auditor`**: Automated multimodal vision auditing and 20-point rubric verification.
 - **`anti-slop`**: Eliminates AI visual clichés (Pillar 7), pill-button addiction, and fake states.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `website-design-cloner`, `documentation-site-expert`, `rich-text-editor-expert`
 
 ### Description
 Expert guide for building and maintaining scalable UI design systems. Covers design tokens with OKLCH and Tailwind v4 `@theme`, **Material Design 3 (M3)** integration, headless component primitives (Radix UI, **Base UI 1.x**), **shadcn/ui registry** for distributable component libraries, CVA for type-safe variants, and WCAG 2.2 accessibility compliance.
@@ -421,6 +422,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`visual-ui-auditor`**: Audit vision multimodal otomatis dan verifikasi rubrik 20-poin.
 - **`anti-slop`**: Menghilangkan klise visual AI (Pilar 7), adiksi tombol lonjong (pill button), dan status palsu.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara berkelanjutan.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `website-design-cloner`, `documentation-site-expert`, `rich-text-editor-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Mencakup design token dengan OKLCH dan `@theme` Tailwind v4, primitif komponen headless (Radix UI, **Base UI 1.x**), **registry shadcn/ui** untuk distribusi library komponen, CVA untuk varian type-safe, dan kepatuhan aksesibilitas WCAG 2.2.

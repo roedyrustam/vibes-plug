@@ -27,6 +27,7 @@ Connects and orchestrates with relevant domain skills:
 - **`mobile-expo-expert`**: Cross-platform React Native / Expo iOS implementations and native Swift modules.
 - **`passkeys-webauthn-identity-expert`**: iCloud Keychain Passkeys, Associated Domains, and Face ID / Touch ID WebAuthn.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `flutter-dart-expert`, `desktop-electron-expert`, `webxr-ar-vr-expert`
 
 ### Description
 Expert engineering and design guide for the Apple Ecosystem across **iOS 18+**, **iPadOS 18+**, **macOS 15 Sequoia**, **visionOS 2+**, and **Safari WebKit**. Enforces Apple Human Interface Guidelines (HIG) compliance in code: Dynamic Type scales, semantic system colors, Liquid Glass materials, Dynamic Island presentation states, iPadOS pointer hover adaptations, safe-area layout invariants, and standalone PWA configuration.
@@ -354,6 +355,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`mobile-expo-expert`**: Implementasi React Native / Expo untuk platform iOS dan modul native Swift.
 - **`passkeys-webauthn-identity-expert`**: Integrasi Passkeys iCloud Keychain, Associated Domains, dan Face ID / Touch ID WebAuthn.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara terpadu.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `flutter-dart-expert`, `desktop-electron-expert`, `webxr-ar-vr-expert`
 
 ### Deskripsi
 Panduan rekayasa dan desain ahli untuk ekosistem Apple di **iOS 18+**, **iPadOS 18+**, **macOS 15 Sequoia**, **visionOS 2+**, dan **Safari WebKit**. Menegakkan kepatuhan terhadap Apple Human Interface Guidelines (HIG) di level kode: skala Dynamic Type, warna sistem semantik, material Liquid Glass, presentasi Dynamic Island, adaptasi pointer iPadOS, invarian safe area, dan PWA standalone.

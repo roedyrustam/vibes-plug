@@ -16,6 +16,7 @@ version: "4.4.4"
 
 ### Orchestration & Integration
 Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
 Expert guide for building production-grade cross-platform applications using **Flutter 3.27+** and **Dart 3.7+**. Covers Material 3 adaptive theming, Riverpod 3 state management, go_router declarative navigation, Impeller rendering engine, platform channels, custom render objects, and Firebase/Supabase backend integration for iOS, Android, Web, macOS, Windows, and Linux targets.
@@ -272,6 +273,7 @@ integration_test/app_test.dart:
 
 ### Integrasi Orkestrasi
 Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi lintas platform tingkat produksi menggunakan **Flutter 3.27+** dan **Dart 3.7+**. Mencakup theming adaptif Material 3, state management Riverpod 3, navigasi deklaratif go_router, mesin rendering Impeller, platform channels, custom render objects, dan integrasi backend Firebase/Supabase untuk target iOS, Android, Web, macOS, Windows, dan Linux.

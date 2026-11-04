@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Security & Database**: `database-orm-expert` (migrating raw `mysql_*` to PDO prepared statements) and `zero-trust-secret-vault` (replacing hardcoded credentials with `.env`).
 - **Quality & Anti-Slop**: `anti-slop` (eliminating code smells, strict type declarations `declare(strict_types=1);`).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `fullstack-expert`, `js-backend-expert`, `python-programming-expert`
 
 ### Description
 This skill provides the agent with structured protocols, coding patterns, and architectural guidelines to audit, refactor, and modernize legacy/obsolete PHP codebases (plain spaghetti PHP) into a clean, modern, secure, and scalable Model-View-Controller (MVC) structure adhering to PSR standards and modern PHP (v8.2+) capabilities.
@@ -153,6 +154,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Keamanan & Database**: `database-orm-expert` (migrasi dari `mysql_*` mentah ke PDO prepared statements) dan `zero-trust-secret-vault` (mengganti kredensial hardcoded dengan `.env`).
 - **Kualitas & Anti-Slop**: `anti-slop` (eliminasi code smells, deklarasi tipe ketat `declare(strict_types=1);`).
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `fullstack-expert`, `js-backend-expert`, `python-programming-expert`
 
 ### Deskripsi
 Skill ini memberikan protokol terstruktur, pola penulisan kode, dan panduan arsitektur bagi agen untuk melakukan audit, refaktorisasi, dan modernisasi terhadap codebase PHP lama yang usang (Plain Spaghetti PHP) menjadi struktur Model-View-Controller (MVC) yang bersih, modern, aman, dan skalabel yang mematuhi standar PSR serta kemampuan PHP modern (v8.2+).

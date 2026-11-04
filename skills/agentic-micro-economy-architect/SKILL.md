@@ -29,6 +29,7 @@ When autonomous AI agents interact with external paid APIs, execute web scraping
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`.
 
 ---
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `ai-llm-integration-expert`, `a2a-agent-protocol-expert`
 
 ### Core Architectural Topologies (The 4 Pillars)
 
@@ -438,6 +439,7 @@ Ketika agen AI otonom memanggil API berbayar, menjalankan web scraping skala bes
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`.
 
 ---
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `ai-llm-integration-expert`, `a2a-agent-protocol-expert`
 
 ### 4 Pilar Utama Arsitektur Ekonomi Mikro Agen
 1. **Hierarki Pagu Anggaran 3-Tingkat**: Pagu Utama Swarm (*Root Envelope*), Batas Kecepatan Subagen (*Velocity Limit*), dan Brankas Escrow per Tugas.

@@ -34,6 +34,7 @@ Production-grade frontend development patterns, performance optimization, and mo
 - `angular-expert` & `solidjs-expert`: For cross-framework enterprise Signals and fine-grained reactivity architectures.
 - `autonomous-tdd-debugger`: For automated unit/component test execution and stack-trace self-healing.
 - `anti-slop`: For enforcing complete, stub-free component implementations and zero syntax narration comments.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `vue-frontend-expert`, `svelte-sveltekit-expert`, `astro-framework-expert`, `htmx-hypermedia-expert`, `micro-frontend-architect`, `fullstack-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Trigger Conditions
 - Scaffold a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
@@ -382,6 +383,7 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 - `mpa-orchestrator`: Untuk arsitektur Multi-Page Application.
 - `autonomous-tdd-debugger`: Untuk eksekusi pengujian otomatis dan perbaikan mandiri berdasarkan stack trace terminal.
 - `anti-slop`: Untuk penegakan implementasi komponen lengkap tanpa stub dan tanpa komentar narasi sintaksis.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `vue-frontend-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `astro-framework-expert`, `htmx-hypermedia-expert`, `micro-frontend-architect`, `fullstack-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Kondisi Pemicu
 - Buat proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.

@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor` — Visual validation of shader effects, color spaces, and post-processing aesthetics.
 - `anti-slop` — Anti-slop graphics enforcement, eliminating cheap neon glow and unoptimized fullscreen blurs.
 - `performance-web-vitals` — GPU profiling, draw call reduction, and compute shader optimization.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `webxr-ar-vr-expert`, `svg-animation-motion-expert`
 
 ### Description
 Production-grade guidance for authoring, compiling, and optimizing GPU shaders for modern web applications. Focuses on the cutting-edge **TSL (Three Shading Language)** node system which cross-compiles to both **WGSL (WebGPU)** and **GLSL (WebGL2)**, standalone **WGSL Compute Shaders** for parallel processing (particles, boids, simulation), and legacy **GLSL** optimization.
@@ -230,6 +231,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor` — Validasi visual efek shader, ruang warna, dan estetika post-processing.
 - `anti-slop` — Penegakan anti-slop grafis, membasmi neon glow murahan dan blur fullscreen tanpa optimasi.
 - `performance-web-vitals` — Profiling GPU, optimasi draw call, dan compute shader.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `webxr-ar-vr-expert`, `svg-animation-motion-expert`
 
 ### Deskripsi
 Panduan produksi untuk menulis, mengompilasi, dan mengoptimalkan shader GPU untuk aplikasi web modern. Fokus pada sistem node **TSL (Three Shading Language)** yang dapat dikompilasi silang menjadi **WGSL (WebGPU)** dan **GLSL (WebGL2)**, **Compute Shader WGSL** mandiri untuk pemrosesan paralel GPU skala masif (partikel, boids, simulasi cairan), dan optimasi **GLSL**.

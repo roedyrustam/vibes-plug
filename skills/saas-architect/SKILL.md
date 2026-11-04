@@ -26,6 +26,7 @@ version: "4.4.4"
   - `prd-architect` — Generate PRD, ERD, and continuous architecture documentation.
   - `session-memory-manager` — Persist SaaS lifecycle blueprints and tenant state checkpoints.
   - `senior-frontend` — Enforce modern UI/UX standards across app shells and marketing pages.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `feature-flag-analytics-expert`, `app-analyzer-optimizer`
 
 ### Description
 The **SaaS Architect** is the master lifecycle orchestrator for building commercial SaaS platforms. It operates in two specialized modes:
@@ -199,6 +200,7 @@ export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContex
   - `prd-architect` — Pembuatan PRD, ERD, dan dokumentasi arsitektur kontinu.
   - `session-memory-manager` — Menyimpan cetak biru siklus SaaS dan checkpoint status tenant.
   - `senior-frontend` — Menerapkan standar modern UI/UX pada app shell dan landing page.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `feature-flag-analytics-expert`, `app-analyzer-optimizer`
 
 ### Deskripsi
 **SaaS Architect** adalah orkestrator siklus hidup utama untuk membangun platform SaaS komersial. Beroperasi dalam dua mode:

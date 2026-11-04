@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Domain Consumer Jobs**: `saas-billing`, `email-notification-expert`, `data-pipeline-etl-expert`
 - **Locking & Observability**: `database-orm-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `n8n-automation-expert`, `proactive-background-watcher`
 
 ### Description
 Production-grade guide for implementing scheduled tasks, cron jobs, and recurring background work in modern web applications. Covers **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **node-cron**, **BullMQ repeatable jobs**, **distributed cron locking** (Redis-based), **timezone-aware scheduling**, and common use cases (cleanup jobs, report generation, health checks, subscription renewals).
@@ -294,6 +295,7 @@ export async function GET(request: Request) {
 - **Tugas Konsumen Domain**: `saas-billing`, `email-notification-expert`, `data-pipeline-etl-expert`
 - **Penguncian & Observabilitas**: `database-orm-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `n8n-automation-expert`, `proactive-background-watcher`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengimplementasikan tugas terjadwal, cron job, dan pekerjaan latar belakang berulang di aplikasi web modern. Mencakup **Vercel Cron Jobs**, **Cloudflare Workers Cron Triggers**, **Inngest scheduled functions**, **BullMQ repeatable jobs**, **distributed cron locking** (berbasis Redis), **penjadwalan sadar zona waktu**, dan kasus penggunaan umum (pembersihan data, pembuatan laporan, health check, perpanjangan langganan).

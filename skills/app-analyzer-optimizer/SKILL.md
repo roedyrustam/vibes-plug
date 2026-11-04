@@ -20,6 +20,7 @@ version: "4.4.4"
 - **AST & Codebase Graph**: `living-codebase-ast-graph` (circular dependency & module size analysis), `scalability-clean-code` (code smell & God class refactoring).
 - **Performance & Vitals**: `performance-web-vitals` (Core Web Vitals LCP/INP profiling), `production-ready-hardener` (bundle audits & pre-flight hardening).
 - **Database & Backend Profiling**: `database-orm-expert` (N+1 query & index profiling), `coderabbit` (automated AI code review).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `zero-tech-debt-auditor`, `data-telemetry-expert`
 
 ### Description
 Deep application analysis and optimization skill. Performs architectural audits, bottleneck detection, bundle analysis, database query profiling, and AI-assisted code review across Next.js, React, Node.js, Go, Python, and Rust applications.
@@ -171,6 +172,7 @@ go tool pprof -http=:8080 profile.out
 - **AST & Graf Basis Kode**: `living-codebase-ast-graph` (dependensi sirkular & analisis ukuran modul), `scalability-clean-code` (refaktor code smell & God class).
 - **Performa & Web Vitals**: `performance-web-vitals` (profiling Core Web Vitals LCP/INP), `production-ready-hardener` (audit bundle & pengerasan pra-rilis).
 - **Profiling Database & Backend**: `database-orm-expert` (query N+1 & profiling indeks), `coderabbit` (code review AI otomatis).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `zero-tech-debt-auditor`, `data-telemetry-expert`
 
 ### Deskripsi
 Skill analisis dan optimasi aplikasi mendalam. Melakukan audit arsitektur, deteksi bottleneck, analisis bundle, profiling query database, dan code review berbantuan AI di aplikasi Next.js, React, Node.js, Go, Python, dan Rust.

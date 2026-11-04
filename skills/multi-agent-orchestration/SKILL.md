@@ -22,6 +22,7 @@ version: "4.4.4"
 - **Agent Languages & Frameworks**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
 - **Memory, State & Telemetry**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
 - **Security & Quality Gates**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `agentic-micro-economy-architect`
 
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers core agentic design patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), stateful graph engines (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared episodic/semantic memory, tool execution sandboxes, and human-in-the-loop (HITL) guardrails.
@@ -427,6 +428,7 @@ For next-gen models like **Gemini 4 Pro**:
 - **Bahasa & Framework Agen**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
 - **Memori, State & Telemetri**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
 - **Keamanan & Gerbang Kualitas**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `agentic-micro-economy-architect`
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup pola desain agentik inti (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), engine graph stateful (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), memori bersama episodik/semantik, sandbox eksekusi tool, dan guardrail human-in-the-loop (HITL).

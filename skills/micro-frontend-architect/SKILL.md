@@ -24,6 +24,7 @@ Connects and orchestrates with relevant domain skills:
 - `anti-slop` — Anti-slop MFE architecture, strict singleton dependency contracts, and zero styling bleed.
 - `senior-frontend` & `vue-frontend-expert` — React 19 and Vue 3 host/remote implementations.
 - `monorepo-architect` — Managing multiple MFEs within a unified Turborepo/pnpm workspace.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `nextjs-app-router-expert`, `spa-orchestrator`
 
 ### Description
 Production-grade guidance for decomposing large enterprise frontend monoliths into independently deployable **Micro-Frontends (MFE)**. Covers **Module Federation 2.0 (`@module-federation/enhanced` & Vite plugin)** with dynamic TypeScript remote types, isolated **Error & Suspense Boundaries** per remote, typed cross-MFE communication via the browser `CustomEvent` bus, and CSS Cascade Layers (`@layer`) isolation.
@@ -216,6 +217,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `anti-slop` — Arsitektur MFE anti-slop, kontrak dependensi singleton yang ketat, dan nol kebocoran styling.
 - `senior-frontend` & `vue-frontend-expert` — Implementasi host/remote React 19 dan Vue 3.
 - `monorepo-architect` — Pengelolaan multi-MFE dalam workspace Turborepo/pnpm terpadu.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `nextjs-app-router-expert`, `spa-orchestrator`
 
 ### Deskripsi
 Panduan kelas produksi untuk memecah aplikasi frontend monolitik berskala besar menjadi **Micro-Frontends (MFE)** yang dapat di-deploy secara independen menggunakan **Module Federation 2.0**, lengkap dengan isolasi *Error Boundary* per modul, *Event Bus* bertipe kuat, dan enkapsulasi CSS.

@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Sandbox & Execution**: `ephemeral-wasm-sandbox-executor`, `local-slm-edge-ai-expert`
 - **Client Performance**: `performance-web-vitals`, `web-3d-graphics-expert`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `web-game-engine-expert`
 
 ### Description
 Specialized engineering guide for writing, compiling, and deploying **WebAssembly (WASM)** components across Edge runtimes and browser worker threads. Covers the **WASI 0.2 (Preview 2) Component Model** (`WIT` interface types, `cargo-component`), sub-millisecond serverless execution (**Cloudflare Workers WASM**, **Fermyon Spin**, **Fastly Compute**), zero-copy linear memory transfers between JavaScript and Rust (`wasm-bindgen`), and multi-threaded `SharedArrayBuffer` compute pools.
@@ -207,6 +208,7 @@ self.onmessage = async (event: MessageEvent<{ id: string; payload: Uint8Array; r
 - **Sandbox & Eksekusi**: `ephemeral-wasm-sandbox-executor`, `local-slm-edge-ai-expert`
 - **Performa Klien**: `performance-web-vitals`, `web-3d-graphics-expert`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `web-game-engine-expert`
 
 ### Deskripsi
 Panduan rekayasa khusus untuk menulis, mengompilasi, dan men-deploy komponen **WebAssembly (WASM)** di runtime Edge maupun Web Worker browser. Mencakup **WASI 0.2 (Preview 2) Component Model** (`WIT`), eksekusi serverless sub-milidetik (**Cloudflare Workers**, **Fermyon Spin**), pertukaran memori linear tanpa salinan (*zero-copy*) dengan `wasm-bindgen`, serta pemrosesan paralel `SharedArrayBuffer`.

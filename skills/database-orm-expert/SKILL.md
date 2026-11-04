@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **AI & Vectors**: `vector-db-rag-expert` for pgvector 0.8+ HNSW indexing and high-dimensional cosine similarity embeddings.
 - **Security & Cloud**: `supabase-security-expert`, `fga-rebac-authorization-expert`, `ci-cd-devops-architect`, and `cloud-hosting-expert` for automated migration pipelines, blue-green deployments, and pooler infrastructure.
 - **Master Orchestrators**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 3: Schema & Database Architecture).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `olap-columnar-analytics-expert`, `reactive-sync-engine-expert`, `data-pipeline-etl-expert`, `graph-rag-knowledge-expert`, `search-engine-expert`, `geospatial-maps-expert`
 
 ### Description
 Production-grade guide for relational schema design, ORM selection, zero-downtime Expand-and-Contract migrations, pessimistic concurrency locking, query optimization, and edge serverless database drivers. Covers **Drizzle ORM v0.39+**, **Prisma 6 (TypedSQL & Relation Joins)**, **Supabase CLI**, and Edge Databases (**Neon Serverless Postgres**, **Cloudflare D1**, **Turso libSQL**, **Upstash Redis**).
@@ -301,6 +302,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **AI & Vektor**: `vector-db-rag-expert` untuk pengindeksan pgvector 0.8+ HNSW dan pencarian embedding kesamaan kosinus dimensi tinggi.
 - **Keamanan & Cloud**: `supabase-security-expert`, `fga-rebac-authorization-expert`, `ci-cd-devops-architect`, dan `cloud-hosting-expert` untuk pipeline deployment migrasi otomatis, blue-green, dan infrastruktur connection pooler.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 3: Arsitektur Skema & Database).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `olap-columnar-analytics-expert`, `reactive-sync-engine-expert`, `data-pipeline-etl-expert`, `graph-rag-knowledge-expert`, `search-engine-expert`, `geospatial-maps-expert`
 
 ### Deskripsi
 Panduan kelas produksi untuk perancangan skema relasional, pemilihan ORM, migrasi tanpa downtime (*Expand-and-Contract*), penguncian konkurensi pesimistis, optimasi query, dan driver database serverless edge (**Drizzle ORM v0.39+**, **Prisma 6**, **Supabase CLI**, **Neon**, **Cloudflare D1**, **Turso**, **Upstash**).

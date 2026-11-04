@@ -23,6 +23,7 @@ version: "4.4.4"
   - `deep-research-analyst` — Feed extracted web sources to multi-source evidence synthesis.
   - `data-pipeline-etl-expert` — Ingest extracted datasets into transformation and analytics storage.
   - `session-memory-manager` — Cache scraped web structures and extraction progress checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `website-design-cloner`, `search-engine-expert`
 
 ### Description
 Advanced Agentic Web Scraping utilizing modern multi-strategy data extraction. Leverages **Crawl4AI v4** and **Firecrawl** to convert raw DOMs into LLM-friendly Markdown. Implements Agentic Extraction loops where the LLM guides the scraper dynamically based on page state. Incorporates strategies for bypassing anti-bot measures (Cloudflare Turnstile, Datadome) and navigating dynamic Shadow DOMs.
@@ -145,6 +146,7 @@ async def agentic_scrape_loop(url: str, goal: str):
   - `deep-research-analyst` — Menyalurkan sumber web terekstraksi ke sintesis bukti multi-sumber.
   - `data-pipeline-etl-expert` — Memasukkan dataset ekstraksi ke pipeline transformasi dan analitik.
   - `session-memory-manager` — Menyimpan cache struktur web dan checkpoint progres ekstraksi.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `website-design-cloner`, `search-engine-expert`
 
 ### Deskripsi
 Scraping Web Agentic tingkat lanjut menggunakan ekstraksi data multi-strategi modern. Memanfaatkan **Crawl4AI v4** dan **Firecrawl** untuk mengubah DOM mentah menjadi Markdown yang ramah LLM. Mengimplementasikan loop Ekstraksi Agentic di mana LLM memandu scraper secara dinamis berdasarkan status halaman. Menggabungkan strategi untuk melewati tindakan anti-bot (Cloudflare Turnstile, Datadome) dan menavigasi Shadow DOM yang dinamis.

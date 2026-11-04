@@ -23,6 +23,7 @@ version: "4.4.4"
   - `error-resilience-expert` — Feed real-time telemetry metrics into circuit breaker thresholds and automated failovers.
   - `feature-flag-analytics-expert` & `geospatial-maps-expert` — Correlate PostHog feature flag experiments, funnel analytics, and geospatial PostGIS/Mapbox user distribution telemetry.
   - `session-memory-manager` — Persist telemetry pipeline configurations and observability checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `olap-columnar-analytics-expert`, `proactive-background-watcher`
 
 ### Description
 Expert guide for production observability, product analytics, and data pipelines. Covers **OpenTelemetry 1.x** (stable, vendor-neutral traces/metrics/logs), **PostHog** (open-source product analytics), **ClickHouse** (OLAP analytics database), Grafana stack, and AI agent observability patterns.
@@ -214,6 +215,7 @@ Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tra
   - `llm-observability-expert` — Memperluas konteks trace dengan metrik GenAI, latensi prompt, dan evaluasi.
   - `error-resilience-expert` — Menyalurkan metrik telemetri ke threshold circuit breaker dan failover otomatis.
   - `session-memory-manager` — Menyimpan konfigurasi pipeline telemetri dan checkpoint observabilitas.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `olap-columnar-analytics-expert`, `feature-flag-analytics-expert`, `proactive-background-watcher`
 
 ### Deskripsi
 Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. Mencakup **OpenTelemetry 1.x** (standar traces, metrics, logs netral vendor), **PostHog** (analitik produk open-source), **ClickHouse** (database analitik OLAP berkecepatan tinggi), Grafana stack, dan pola pemantauan agen AI.

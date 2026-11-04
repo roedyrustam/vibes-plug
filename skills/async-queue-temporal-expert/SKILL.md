@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`, `n8n-automation-expert`, `pdf-document-generation-expert`
 - **Resilience & Observability**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `chatbot-messaging-expert`, `durable-agent-execution-expert`
 
 ### Purpose & Overview
 Unified production-grade guide for background execution pipelines, async job queues, and distributed state machines. Covers the full spectrum from simple Redis-backed task queues to complex multi-service sagas with compensating rollbacks.
@@ -214,6 +215,7 @@ export async function subscriptionSagaWorkflow(input: {
 - **Terjadwal & Berulang**: `cron-scheduler-expert`, `event-driven-architect`
 - **Ketahanan & Observabilitas**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `n8n-automation-expert`, `chatbot-messaging-expert`, `durable-agent-execution-expert`
 
 ### Tujuan & Gambaran Umum
 Panduan terpadu tingkat produksi untuk pipeline eksekusi latar belakang, antrean job asinkron, dan state machine terdistribusi. Mencakup spektrum penuh dari antrean Redis sederhana hingga saga multi-layanan dengan rollback kompensasi.

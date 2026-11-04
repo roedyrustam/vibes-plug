@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Domain Server Implementations**: `doku-mcp-server`, `xerj-search-expert`, `database-orm-expert`
 - **Security & Authorization**: `zero-trust-secret-vault`, `authentication-identity-expert`, `prompt-injection-firewall`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `a2a-agent-protocol-expert`
 
 ### Description
 Ultimate architectural guide for engineering high-performance, production-ready AI Tools/Bots via the **Model Context Protocol (MCP v1.x)**. Enforces the use of `FastMCP` (Python) and `@modelcontextprotocol/sdk` (TypeScript). Mandates strict security guardrails, schema validation, stateful resource streaming, and support for both Standard Stdio and Streamable HTTP / Server-Sent Events (SSE) transports.
@@ -196,6 +197,7 @@ When acting as an AI Agent consuming external MCP servers:
 - **Implementasi Server Domain**: `doku-mcp-server`, `xerj-search-expert`, `database-orm-expert`
 - **Keamanan & Otorisasi**: `zero-trust-secret-vault`, `authentication-identity-expert`, `prompt-injection-firewall`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `a2a-agent-protocol-expert`
 
 ### Deskripsi
 Panduan arsitektur utama untuk membangun AI Tools/Bots modern dan siap produksi via **Model Context Protocol (MCP v1.x)**. Mewajibkan penggunaan `FastMCP` (Python) dan `@modelcontextprotocol/sdk` (TypeScript). Menerapkan pengamanan ketat, validasi skema, streaming resource stateful, serta dukungan transport Standar Stdio maupun Streamable HTTP / SSE.

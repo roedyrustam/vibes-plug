@@ -25,6 +25,7 @@ version: "4.4.4"
 - **`anti-slop`**: Anti-slop marketing graphics, eliminating generic stock mockups and fake UI artifacts.
 - **`senior-frontend` / `tailwind-expert`**: High-fidelity CSS device frames, canvas compositing, and responsive layout styling.
 - **`zero-to-prod-orchestrator`**: Coordinates Phase 5 (visual assets & UI branding) and Phase 8 (launch, deployment, marketing assets handover).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `design-system-architect`
 
 ### Description
 Production-grade engineering guide for creating high-converting application promotional media across visual still graphics (App Store screenshots, social media cards, dynamic OG banners) and dynamic motion media (Remotion programmatic video teasers, kinetic app walkthroughs, and AI-narrated launch demos).
@@ -417,6 +418,7 @@ captureScreens().catch(console.error);
 - **`anti-slop`**: Grafis promosi anti-slop, mengeliminasi mockup stok murahan dan artefak UI palsu.
 - **`senior-frontend` / `tailwind-expert`**: Mockup frame gadget CSS dengan presisi tinggi, komposisi canvas, dan styling Tailwind CSS v4.
 - **`zero-to-prod-orchestrator`**: Mengorkestrasi Fase 5 (aset visual UI) dan Fase 8 (peluncuran, deployment, serah terima materi promosi).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `design-system-architect`
 
 ### Deskripsi & Kegunaan
 Panduan rekayasa tingkat produksi untuk membuat media promosi aplikasi berkualitas tinggi, baik materi grafis statis (screenshot App Store & Google Play, banner media sosial, kartu Open Graph dinamis) maupun materi video animasi gerak (video teaser terprogram dengan Remotion React, tur aplikasi kinetik, dan demo peluncuran berbasis AI).

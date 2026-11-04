@@ -22,6 +22,7 @@ version: "4.4.4"
 - **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Async Processing & Observability**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Description
 Expert guide for implementing DOKU Payment Gateway based on the official [DOKU Developers Documentation](https://developers.doku.com/).
@@ -564,6 +565,7 @@ export class DokuService {
 - **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Pemrosesan Asinkron & Observabilitas**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/).

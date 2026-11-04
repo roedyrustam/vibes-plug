@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - **`visual-ui-auditor`**: Conducts 20-point visual audits, multimodal screenshot inspections, and Playwright tests.
 - **`anti-slop`**: Enforces strict Pillar 7 visual sanitation, eliminating AI clichés, pill buttons, and fake states.
 - **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle alignment.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `website-design-cloner`, `multimodal-spatial-video-cloner`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Description
 UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, **Material Design 3 (M3)**, and stack-specific best practices across **11 technology stacks**.
@@ -216,6 +217,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`visual-ui-auditor`**: Melakukan audit visual 20-poin, inspeksi screenshot vision multimodal, dan pengujian Playwright.
 - **`anti-slop`**: Menegakkan sanitasi visual Pilar 7 yang ketat, melenyapkan klise AI, pill-button, dan status palsu.
 - **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Sinkronisasi berkelanjutan di seluruh siklus hidup proyek.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `website-design-cloner`, `multimodal-spatial-video-cloner`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Deskripsi
 UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, **Material Design 3 (M3)**, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.

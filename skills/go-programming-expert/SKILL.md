@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Realtime & Streaming**: `sse-websocket-streaming-expert` for goroutine-backed streaming pipelines and low-latency WebSocket hubs.
 - **Testing & Quality**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing `go test -v ./...`, synthetic clock testing via `testing/synctest`, and strict error checking (`if err != nil`).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `htmx-hypermedia-expert`
 
 ### Description
 Expert-level Go development for building high-performance microservices, concurrent pipelines, and production CLI tools. Covers **Go 1.24+ and 1.25** features (Swiss Table maps, weak pointers, `testing/synctest` deterministic concurrency testing, `tool` directives in `go.mod`), structured logging with `slog`, enhanced ServeMux pattern routing, sqlc type-safe SQL, and robust worker pools.
@@ -285,6 +286,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Realtime & Streaming**: `sse-websocket-streaming-expert` untuk pipeline streaming berbasis channel goroutine dan hub WebSocket berlatensi rendah.
 - **Pengujian & Kualitas**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `go test -v ./...`, pengujian jam sintetis dengan `testing/synctest`, dan penegakan penanganan error ketat (`if err != nil`).
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `htmx-hypermedia-expert`
 
 ### Deskripsi
 Panduan Go tingkat ahli untuk membangun microservices, pipeline konkurensi, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.24+ dan 1.25** (optimasi hash map Swiss Table, weak pointer, pengujian deterministik `testing/synctest`, direktif `tool` di `go.mod`), structured logging dengan `slog`, ServeMux `net/http` dengan pola pencocokan rute modern, sqlc untuk SQL type-safe, dan worker pool tangguh.

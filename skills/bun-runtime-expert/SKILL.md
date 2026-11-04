@@ -21,6 +21,7 @@ Connects and orchestrates with domain skills:
 - **Database & Storage**: `database-orm-expert` (Drizzle ORM with native `bun:sql`, PostgreSQL/SQLite) and `file-upload-media-expert` (zero-dependency `Bun.s3` client).
 - **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing high-speed `bun test` suites with snapshot matching.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `cloudflare-workers-expert`
 
 ### Description
 Expert-level guidance for engineering ultra-low-latency backend microservices with **Bun 1.2+**. Covers the native PostgreSQL driver (`import { SQL } from 'bun'`), native S3 object storage (`Bun.s3`), git-friendly text lockfiles (`bun.lock`), multi-core HTTP clustering via `reusePort`, built-in SQLite, and high-speed Jest-compatible unit testing via `bun:test`.
@@ -211,6 +212,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Database & Penyimpanan**: `database-orm-expert` (Drizzle ORM dengan native `bun:sql`, PostgreSQL/SQLite) dan `file-upload-media-expert` (klien object storage `Bun.s3` zero-dependency).
 - **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi test runner `bun test` berkecepatan tinggi dengan pencocokan snapshot.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `cloudflare-workers-expert`
 
 ### Deskripsi
 Panduan tingkat ahli untuk rekayasa microservices backend berlatensi ultra-rendah menggunakan **Bun 1.2+**. Mencakup driver PostgreSQL native (`import { SQL } from 'bun'`), penyimpanan objek native S3 (`Bun.s3`), format lockfile teks yang ramah git (`bun.lock`), clustering HTTP multi-core melalui `reusePort`, SQLite bawaan, dan pengujian unit kompatibel Jest via `bun:test`.

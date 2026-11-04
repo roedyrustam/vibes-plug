@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **FinTech & Billing**: `saas-billing` and `doku-payment-gateway` for automated invoice generation, tax receipts, and payment proofs.
 - **Delivery & Media**: `email-notification-expert` for PDF email attachments and `file-upload-media-expert` for Cloudflare R2 / S3 archival.
 - **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for structured document generation workflows.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `data-visualization-expert`
 
 ### Description
 Production guide for generating high-fidelity PDF documents, transactional invoices, financial reports, and certificates in modern web backends and serverless runtimes. Covers `@react-pdf/renderer` component architecture, server-side streaming buffers, font embedding with custom TrueType/WOFF metrics, Typst/WASM ultra-fast document compilation, and memory-safe PDF manipulation using `pdf-lib`. Enforces sovereign anti-slop visual standards (crisp monochrome/slate palettes, tabular numerals, 1px borders, zero generic purple gradients).
@@ -148,6 +149,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **FinTech & Billing**: `saas-billing` dan `doku-payment-gateway` untuk pembuatan faktur otomatis, tanda terima pajak, dan bukti pembayaran.
 - **Pengiriman & Media**: `email-notification-expert` untuk lampiran PDF email dan `file-upload-media-expert` untuk pengarsipan ke Cloudflare R2 / AWS S3.
 - **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk alur kerja pembuatan dokumen terstruktur.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `data-visualization-expert`
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dokumen PDF berkualitas tinggi, faktur tagihan (*invoice*), laporan keuangan, dan sertifikat pada backend web modern maupun lingkungan serverless. Mencakup arsitektur komponen `@react-pdf/renderer`, streaming buffer di sisi server tanpa penyimpanan disk sementara, penyematan font kustom, serta manipulasi dokumen PDF menggunakan `pdf-lib`. Menegakkan standar estetika visual anti-slop (palet warna slate/monokrom profesional, angka tabular, border 1px yang tajam, bebas gradien ungu generik).

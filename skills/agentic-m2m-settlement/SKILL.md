@@ -33,6 +33,7 @@ All settlements enforce strict **FinOps Killswitches**, **Cryptographic Invoicin
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`.
 
 ---
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `a2a-agent-protocol-expert`
 
 ### Core Architectural Topologies
 
@@ -366,6 +367,7 @@ Pada swarm multi-agen skala perusahaan, sub-agen terspesialisasi kerap menugaska
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`.
 
 ---
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `a2a-agent-protocol-expert`
 
 ### 4 Pagar FinOps Mutlak
 1. **Pagu Anggaran Mutlak (Hard Spend Envelope)**: Tagihan yang melebihi batas anggaran yang dialokasikan otomatis ditolak sebelum masuk ke brankas escrow.

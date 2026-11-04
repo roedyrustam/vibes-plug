@@ -23,6 +23,7 @@ version: "4.4.4"
 - **DevOps, CI/CD & Observability**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
 - **Performance & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `dependency-upgrade-migrator`, `feature-flag-analytics-expert`
 
 ### Description
 The **Production-Ready Hardener** is a master orchestrator skill that combines and delegates to all relevant vibes-plug skills to ensure your application is rock-solid, secure, performant, and production-grade before deployment. It acts as a comprehensive pre-production checklist that leaves no stone unturned — from frontend polish to backend resilience, from data security to observability.
@@ -336,6 +337,7 @@ Active whenever the user asks to:
 - **DevOps, CI/CD & Observabilitas**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
 - **Performa & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `dependency-upgrade-migrator`, `feature-flag-analytics-expert`
 
 ### Deskripsi
 **Production-Ready Hardener** adalah skill orkestrator utama yang menggabungkan dan mendelegasikan ke semua skill vibes-plug yang relevan untuk memastikan aplikasi Anda kokoh, aman, berperforma tinggi, dan siap produksi sebelum deployment. Skill ini berfungsi sebagai checklist pra-produksi komprehensif yang tidak meninggalkan celah — dari polish frontend hingga ketahanan backend, dari keamanan data hingga observability.

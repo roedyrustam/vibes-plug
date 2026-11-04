@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **CMS & Backend**: `headless-cms-expert` (CMS comparison and migration) and `nextjs-app-router-expert` (Next.js App Router with WPGraphQL).
 - **SEO & Performance**: `seo` (Yoast/RankMath metadata syncing) and `performance-web-vitals` (ISR caching and edge SSR).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for decoupled web architecture.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `astro-framework-expert`, `documentation-site-expert`
 
 ### Description
 Production guide for architecting, deploying, and maintaining headless WordPress systems. Covers decoupled WordPress backends with WPGraphQL and Advanced Custom Fields (ACF Pro), frontend rendering with Next.js 15 or Astro 5, Faust.js framework integration, webhook-triggered on-demand revalidation, authentication (JWT / Application Passwords), and WooCommerce headless setups.
@@ -152,6 +153,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **CMS & Backend**: `headless-cms-expert` (perbandingan dan migrasi CMS) dan `nextjs-app-router-expert` (Next.js App Router dengan WPGraphQL).
 - **SEO & Performa**: `seo` (sinkronisasi metadata Yoast/RankMath) dan `performance-web-vitals` (caching ISR dan edge SSR).
 - **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk arsitektur web decoupled.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `astro-framework-expert`, `documentation-site-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 15, atau Astro 5, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.

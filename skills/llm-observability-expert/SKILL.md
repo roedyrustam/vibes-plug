@@ -25,6 +25,7 @@ version: "4.4.4"
   - `ai-safety-governance-expert` — Log and audit AI outputs for compliance with safety policies.
   - `adaptive-model-cascade` — Feed model latency and error statistics to dynamic model cascading routers.
   - `session-memory-manager` — Store AI session traces and token usage checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-llm-integration-expert`
 
 ### Description
 Production observability framework for LLM-powered applications. Addresses the biggest blind spot in 2026 AI applications: teams deploy AI features to production with zero visibility into token costs, hallucination rates, latency distributions, cache hit ratios, or user satisfaction scores. This skill provides the instrumentation patterns, tool integrations, and dashboard architectures to make LLM behavior fully observable.
@@ -267,6 +268,7 @@ export function detectCostAnomalies(
   - `ai-safety-governance-expert` — Mencatat dan mengaudit output AI untuk kepatuhan kebijakan keamanan.
   - `adaptive-model-cascade` — Menyalurkan statistik latensi dan error model ke router cascade model.
   - `session-memory-manager` — Menyimpan trace sesi AI dan checkpoint penggunaan token.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-llm-integration-expert`
 
 ### Deskripsi
 Kerangka observabilitas produksi untuk aplikasi berbasis LLM. Mengatasi blind spot terbesar di aplikasi AI 2026: tim men-deploy fitur AI ke produksi tanpa visibilitas terhadap biaya token, tingkat halusinasi, distribusi latensi, rasio cache hit, atau skor kepuasan pengguna.

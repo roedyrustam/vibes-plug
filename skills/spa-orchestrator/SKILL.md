@@ -28,6 +28,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor`: Multimodal vision auditing of rendered SPA routes and dialogs.
 - `anti-slop`: Anti-slop frontend architecture, eliminating broken stubs and excessive loading spinners.
 - **MANDATORY**: Execute `senior-frontend` FIRST for all HTML/CSS and client-side JS tasks to ensure modern web standards.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `nextjs-app-router-expert`, `micro-frontend-architect`, `pwa-offline-first-expert`, `performance-web-vitals`
 
 ### Description
 Structured orchestration guide for building modern Single-Page Applications (SPAs). Coordinates frontend architecture (TanStack Router, React 19, TanStack Query v5) with decoupled API backends (Hono RPC, tRPC). Covers state management strategy, routing patterns, API layer design, build tooling (Vite + TanStack Start), and deployment strategies.
@@ -294,6 +295,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor`: Audit visual multimodal untuk rute dan dialog SPA yang dirender.
 - `anti-slop`: Arsitektur frontend anti-slop, mengeliminasi stub rusak dan spinner loading berlebih.
 - **MANDATORY**: Eksekusi `senior-frontend` PERTAMA KALI untuk semua tugas HTML/CSS dan JS sisi klien guna memastikan standar web modern.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `nextjs-app-router-expert`, `micro-frontend-architect`, `pwa-offline-first-expert`, `performance-web-vitals`
 
 ### Deskripsi
 Panduan orkestrasi terstruktur untuk membangun Single-Page Application (SPA) modern. Mengkoordinasikan arsitektur frontend (TanStack Router, React 19, TanStack Query v5) dengan backend API terpisah (Hono RPC, tRPC). Mencakup strategi state management, pola routing, desain API layer, build tooling (Vite + TanStack Start), dan strategi deployment.

@@ -125,6 +125,7 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 - **`senior-frontend`**: Structures the React 19 UI running inside the sandboxed renderer window.
 - **`ci-cd-devops-architect`**: Configures GitHub Actions for macOS notarization and Windows code signing.
 - **`error-resilience-expert`**: Catches unhandled exceptions in the Main process and handles renderer crashes gracefully.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `browser-extension-mv3-pro`, `reverse-engineer-anything`, `zero-trust-secret-vault`, `computer-use-os-agent-expert`
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -145,6 +146,7 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi bersama `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `tauri-expert`, `senior-frontend`, `ci-cd-devops-architect`, dan `error-resilience-expert`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `browser-extension-mv3-pro`, `reverse-engineer-anything`, `zero-trust-secret-vault`, `computer-use-os-agent-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi desktop cross-platform yang aman dan efisien menggunakan Electron 33+. Mengutamakan keamanan IPC dengan Context Isolation, isolasi proses renderer berbasis sandbox, integrasi sistem operasi natif (system tray, menu bar, notifikasi desktop), pembaruan otomatis (*auto-updates*), dan packaging multi-OS (Windows .exe, macOS .dmg/.app, Linux .AppImage).

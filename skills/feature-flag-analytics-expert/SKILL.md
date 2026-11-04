@@ -23,6 +23,7 @@ version: "4.4.4"
   - `e2e-testing-expert` — Mock feature flag overrides during automated Playwright test suites.
   - `zero-tech-debt-auditor` — Scan and remove obsolete/deprecated flags to prevent code rot.
   - `session-memory-manager` — Store active flag definitions and progressive rollout percentages.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Description
 Production-grade engineering guide for feature flag management, progressive rollouts (canary releases), A/B testing statistical orchestration, and dynamic server-side/client-side flag evaluation using PostHog, LaunchDarkly, and GrowthBook. Covers zero-flicker server-side bootstrapping in Next.js 15 App Router, deterministic user bucketing, conversion metric tracking, and automated flag lifecycle deprecation.
@@ -134,6 +135,7 @@ export function CheckoutCTA({ orderTotal }: { orderTotal: number }) {
   - `e2e-testing-expert` — Melakukan mock nilai flag pada pengujian otomatis Playwright.
   - `zero-tech-debt-auditor` — Menemukan dan membersihkan flag yang sudah kedaluwarsa untuk mencegah code rot.
   - `session-memory-manager` — Menyimpan definisi flag aktif dan persentase rollout progresif.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Deskripsi
 Panduan tingkat produksi untuk manajemen *feature flags*, rilis bertahap (*canary rollout*), orkestrasi pengujian A/B berbasis statistik, dan evaluasi fitur dinamis pada sisi server maupun klien menggunakan PostHog, LaunchDarkly, dan GrowthBook. Mencakup evaluasi server-side tanpa kedip (*zero-flicker*) pada Next.js 15 App Router, segmentasi pengguna deterministik, pelacakan metrik konversi, dan pembersihan siklus hidup flag secara berkala.

@@ -21,6 +21,7 @@ Connects and orchestrates with domain skills:
 - **Visual Auditing**: `visual-ui-auditor` for verifying 5-state interactive contracts (idle, dragover, uploading, success, error) and 1px crisp borders.
 - **Cloud & Performance**: `cloud-hosting-expert`, `performance-web-vitals`, and `database-orm-expert` for CDN delivery, responsive image variants, and atomic metadata storage.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for end-to-end media pipeline delivery.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-media-generation-expert`, `app-promo-media-expert`, `pdf-document-generation-expert`, `rich-text-editor-expert`
 
 ### Description
 Production-grade guide for building secure, performant file upload systems and media processing pipelines. Covers **presigned URL upload patterns** (S3, R2, Supabase Storage), **multipart uploads** with progress tracking, **image optimization** (Sharp, Cloudflare Images, Vercel OG), **video transcoding** (Mux, Cloudflare Stream), **PDF generation**, **file validation & virus scanning**, **CDN configuration**, and **drag-and-drop UI components**.
@@ -403,6 +404,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Audit Visual**: `visual-ui-auditor` untuk memverifikasi kontrak interaktif 5-state (idle, dragover, uploading, success, error) dan border tajam 1px.
 - **Cloud & Performa**: `cloud-hosting-expert`, `performance-web-vitals`, dan `database-orm-expert` untuk pengiriman CDN, varian gambar responsif, dan penyimpanan metadata atomik.
 - **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi pipeline media end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-media-generation-expert`, `app-promo-media-expert`, `pdf-document-generation-expert`, `rich-text-editor-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem upload file yang aman dan performa tinggi serta pipeline pemrosesan media. Mencakup **pola upload presigned URL** (S3, R2, Supabase Storage), **upload multipart** dengan pelacakan progres, **optimasi gambar** (Sharp, Cloudflare Images, Vercel OG), **transcoding video** (Mux, Cloudflare Stream), **pembuatan PDF**, **validasi file & pemindaian virus**, **konfigurasi CDN**, dan **komponen UI drag-and-drop**.

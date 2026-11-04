@@ -21,6 +21,7 @@ version: "4.4.4"
 - **Web Scraping & Data Extraction**: `web-scraper`, `deep-research-analyst`
 - **Frontend & UI Craft**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `browser-extension-mv3-pro`, `computer-use-os-agent-expert`
 
 ### Purpose & Overview
 Deploy ultra-powerful autonomous web agents that perceive, navigate, and execute complex workflows without human intervention. Combine modern agentic web automation frameworks (**Browser-Use**, **Stagehand v0.4+**) with hardcore anti-detection evasion techniques (Playwright Stealth, fingerprint spoofing, residential proxy rotation) and frontier Vision LLMs (**Gemini 4 Argon / Gemini 4 Pro**, **Project Astra**, **Claude Sonnet 5.5 / Fable 5.1 Computer Use**, **OpenAI GPT-5.6 Sol / o3**, **Grok 4.7 High Fast**) for pixel-accurate visual QA.
@@ -169,6 +170,7 @@ Activate this skill when the user says:
 - **Scraping Web & Ekstraksi Data**: `web-scraper`, `deep-research-analyst`
 - **Frontend & Craft UI**: `senior-frontend`, `tailwind-expert`, `design-system-architect`, `modern-css-native-expert`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `browser-extension-mv3-pro`, `computer-use-os-agent-expert`
 
 ### Tujuan & Gambaran Umum
 Terapkan agen web otonom super kuat yang dapat melihat, menavigasi, dan mengeksekusi alur kerja kompleks tanpa campur tangan manusia. Menggabungkan framework otomatisasi web agentic modern (**Browser-Use**, **Stagehand v0.4+**) dengan teknik penghindaran deteksi bot tingkat tinggi (Playwright Stealth, manipulasi sidik jari perangkat, rotasi proxy residential) dan model Vision frontier (**Gemini 4 Argon / Gemini 4 Pro**, **Project Astra**, **Claude Sonnet 5.5 / Fable 5.1 Computer Use**, **OpenAI GPT-5.6 Sol / o3**, **Grok 4.7 High Fast**) untuk QA visual tingkat piksel.

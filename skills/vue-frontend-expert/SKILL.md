@@ -25,6 +25,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor` — Multimodal vision auditing of rendered Vue/Nuxt views.
 - `anti-slop` — Anti-slop component craft, zero placeholder stubs, complete reactivity implementations.
 - `performance-web-vitals` — Optimizing Nuxt 3 SSR metrics (LCP, INP, CLS).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
 Production-grade guidance for building highly reactive and scalable frontend applications using **Vue 3 (Composition API)** and **Nuxt 3**. Covers the latest ecosystem tools including **Pinia** for state management, **VueUse** for composables, and **Tailwind CSS v4** integration.
@@ -126,6 +127,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor` — Audit visual multimodal untuk tampilan antarmuka Vue/Nuxt yang dirender.
 - `anti-slop` — Penegakan anti-slop, nol stub atau placeholder, implementasi reaktivitas penuh.
 - `performance-web-vitals` — Optimasi metrik SSR Nuxt 3 (LCP, INP, CLS).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun aplikasi frontend reaktif dan terukur menggunakan **Vue 3 (Composition API)** dan **Nuxt 3**. Mencakup pengelolaan state dengan **Pinia**, utilitas **VueUse**, dan integrasi **Tailwind CSS v4**.

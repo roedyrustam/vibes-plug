@@ -20,6 +20,7 @@ version: "4.4.4"
 - **Telemetry & Error Ingestion**: `logging-error-tracking-expert` (structured JSON logs from Pino/Winston/Sentry), `data-telemetry-expert` (OpenTelemetry metrics & trace correlation).
 - **Local TDD Patching & Verification**: `autonomous-tdd-debugger` (iterative local unit/regression validation), `property-mutation-testing-expert` (preventing patch regressions).
 - **CI/CD & Cloud Deployment**: `ci-cd-devops-architect` (git branch creation, PRs, deployment pipelines), `cloud-hosting-expert` (Vercel/Railway rollback & redeploy).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`, `docker-container-expert`
 
 ### Description
 Bridges the gap between code generation and Cloud Operations (CloudOps). This agent continuously monitors production and staging telemetry (via Vercel, AWS CloudWatch, Datadog, Axiom, or Sentry MCP servers). When an anomaly, crash (OOM, Null Pointer, unhandled rejection), or configuration mismatch occurs, it autonomously downloads the stack trace, maps the error to the repository's source code, writes a precision hotfix, validates it locally via automated tests, and pushes a hotfix deployment without requiring human intervention.
@@ -146,6 +147,7 @@ export class SelfHealingCloudOrchestrator {
 - **Telemetri & Penyerapan Error**: `logging-error-tracking-expert` (log terstruktur Pino/Winston/Sentry), `data-telemetry-expert` (metrik OpenTelemetry & korelasi trace).
 - **Patching TDD & Verifikasi Lokal**: `autonomous-tdd-debugger` (validasi unit/regresi lokal iteratif), `property-mutation-testing-expert` (mencegah regresi patch).
 - **CI/CD & Deployment Cloud**: `ci-cd-devops-architect` (pembuatan branch git, PR, pipeline deployment), `cloud-hosting-expert` (rollback & redeploy Vercel/Railway).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`, `docker-container-expert`
 
 ### Deskripsi
 Menjembatani kesenjangan antara penulisan kode dan Operasi Cloud (CloudOps). Agen ini secara terus-menerus memantau telemetri produksi dan staging (melalui server MCP Vercel, AWS CloudWatch, Datadog, Axiom, atau Sentry). Ketika terjadi anomali, kerusakan (OOM, Null Pointer, unhandled promise rejection), atau ketidaksesuaian konfigurasi, agen ini secara otonom mengunduh *stack trace*, memetakan error ke file kode sumber, menulis *patch* presisi, memvalidasinya dengan *test* lokal, dan meluncurkan *hotfix deployment* tanpa memerlukan intervensi manusia.

@@ -25,6 +25,7 @@ version: "4.4.4"
   - `async-queue-temporal-expert` — Durable background queue execution via BullMQ and Inngest.
   - `production-ready-hardener` — Pre-launch deliverability verification (SPF, DKIM, DMARC, and DNS records).
   - `session-memory-manager` — Store email template catalogs, notification providers, and delivery settings.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `pdf-document-generation-expert`, `chatbot-messaging-expert`
 
 ### Description
 Production-grade guide for building reliable email delivery systems and unified notification pipelines. Covers **Resend**, **Postmark**, **AWS SES**, **React Email** / **MJML** template engines, **email deliverability** (SPF, DKIM, DMARC), **in-app notification systems** (bell icon, toast, notification center), **webhook-triggered email flows**, **email queuing** with BullMQ/Inngest, and **CAN-SPAM/GDPR** compliance.
@@ -366,6 +367,7 @@ export async function registerForPushNotificationsAsync() {
   - `async-queue-temporal-expert` — Eksekusi antrean background job tahan banting via BullMQ dan Inngest.
   - `production-ready-hardener` — Verifikasi deliverabilitas pra-peluncuran (rekod DNS SPF, DKIM, DMARC).
   - `session-memory-manager` — Menyimpan katalog template email, provider notifikasi, dan pengaturan pengiriman.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `pdf-document-generation-expert`, `chatbot-messaging-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem pengiriman email yang andal dan pipeline notifikasi terpadu. Mencakup **Resend**, **Postmark**, **AWS SES**, mesin template **React Email** / **MJML**, **deliverabilitas email** (SPF, DKIM, DMARC), **sistem notifikasi in-app** (bell icon, toast, pusat notifikasi), **alur email berbasis webhook**, **antrean email** dengan BullMQ/Inngest, dan kepatuhan **CAN-SPAM/GDPR**.

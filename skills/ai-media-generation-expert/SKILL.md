@@ -24,6 +24,7 @@ version: "4.4.4"
   - `async-queue-temporal-expert` — Durable background queue execution for long-running video/audio generation.
   - `zero-trust-secret-vault` — Secure API key rotation and credential vault for Replicate, OpenAI, and ElevenLabs.
   - `session-memory-manager` — Store generation task metadata, prompt history, and asset references.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `app-promo-media-expert`, `voice-ai-realtime-agent`, `svg-animation-motion-expert`
 
 ### Description
 Production-grade guide for integrating AI-powered media generation into web and mobile applications. Covers image generation (Flux 1.1 Pro, SDXL, DALL-E 3), video generation (Sora, Runway Gen-3), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), and voice cloning. Includes async processing patterns, cost optimization, and content safety filtering.
@@ -181,6 +182,7 @@ async function generateVideo(prompt: string) {
   - `async-queue-temporal-expert` — Eksekusi antrean background job untuk generasi video dan audio panjang.
   - `zero-trust-secret-vault` — Rotasi kunci API aman dan brankas kredensial Replicate, OpenAI, dan ElevenLabs.
   - `session-memory-manager` — Menyimpan metadata tugas generasi, riwayat prompt, dan referensi aset.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `app-promo-media-expert`, `voice-ai-realtime-agent`, `svg-animation-motion-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan generasi media berbasis AI ke dalam aplikasi web dan mobile modern. Mencakup generasi gambar (Flux 1.1 Pro, SDXL, DALL-E 3), generasi video (Sora, Runway Gen-3, MiniMax), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), dan kloning audio. Dilengkapi pola pemrosesan asinkron via webhook, mitigasi biaya, serta penyaringan keamanan konten (NSFW/moderasi).
