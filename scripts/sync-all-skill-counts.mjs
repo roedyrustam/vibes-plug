@@ -316,6 +316,7 @@ if (fs.existsSync(catalogPath)) {
     'test-time-compute-optimizer': 'ai', 'vector-db-rag-expert': 'ai', 'vercel-ai-sdk-expert': 'ai', 'voice-ai-realtime-agent': 'ai',
     'thinking-budget-orchestrator': 'ai', 'parallel-tool-orchestrator': 'ai', 'xerj-search-expert': 'ai',
     'a2a-agent-protocol-expert': 'ai', 'durable-agent-execution-expert': 'ai', 'computer-use-os-agent-expert': 'ai',
+    'neurosymbolic-genetic-synthesizer': 'ai',
     'agentic-m2m-settlement': 'saas', 'app-promo-media-expert': 'saas', 'chatbot-messaging-expert': 'saas',
     'doku-payment-gateway': 'saas', 'ecommerce-expert': 'saas', 'email-notification-expert': 'saas',
     'feature-flag-analytics-expert': 'saas', 'headless-cms-expert': 'saas', 'n8n-automation-expert': 'saas',
@@ -330,6 +331,7 @@ if (fs.existsSync(catalogPath)) {
     'zero-tech-debt-auditor': 'security', 'zero-trust-secret-vault': 'security', 'coderabbit': 'security', 'app-analyzer-optimizer': 'security',
     'mcp-sampling-critic': 'security', 'fga-rebac-authorization-expert': 'security', 'passkeys-webauthn-identity-expert': 'security', 'sbom-supply-chain-security-expert': 'security',
     'reverse-engineer-anything': 'security', 'rea-tool-design': 'security', 'rea-analysis-optimization': 'security', 'rea-ci-tests-audit': 'security', 'rea-changelog-update': 'security',
+    'formal-theorem-verifier-lean4': 'security',
     'brainstorming': 'data', 'browser-automation-expert': 'data',
     'ci-cd-devops-architect': 'data', 'github-actions-expert': 'data', 'docker-container-expert': 'data', 'cloud-hosting-expert': 'data', 'data-pipeline-etl-expert': 'data',
     'data-visualization-expert': 'data', 'database-orm-expert': 'data', 'dependency-upgrade-migrator': 'data',
@@ -363,7 +365,7 @@ if (fs.existsSync(catalogPath)) {
   });
 
   const skillsDataContent = `/**
- * Vibes-Plug 176 Verified Skills Registry
+ * Vibes-Plug 178 Verified Skills Registry
  * Auto-synchronized dataset for Public Web Showcase & Interactive Explorer
  */
 
@@ -372,7 +374,7 @@ export const SKILLS_DATA = ${JSON.stringify(skillsData, null, 2)};
 export const DOMAIN_CATEGORIES = ${JSON.stringify(domainCategories, null, 2)};
 `;
   fs.writeFileSync(path.join(PLUGIN_ROOT, 'showcase/skills-data.js'), skillsDataContent, 'utf8');
-  console.log('✅ Synchronized: showcase/skills-data.js (176 verified skills)');
+  console.log('✅ Synchronized: showcase/skills-data.js (178 verified skills)');
 }
 
 // 6. Documentation Files

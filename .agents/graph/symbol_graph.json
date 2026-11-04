@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T20:03:03.219Z",
+  "generatedAt": "2026-11-04T20:44:02.875Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 84,
   "incrementalReusedFiles": 84,
@@ -6126,7 +6126,7 @@
     "appendTerminalLine": [
       {
         "file": "showcase/app.js",
-        "line": 360,
+        "line": 379,
         "type": "function",
         "signature": "function appendTerminalLine(content, isCommand = false)",
         "calls": [
@@ -6140,7 +6140,7 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 379,
+        "line": 398,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)",
         "calls": [
@@ -6157,7 +6157,7 @@
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 573,
+        "line": 593,
         "type": "function",
         "signature": "function renderTopology(id)",
         "calls": []
@@ -6166,7 +6166,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 667,
+        "line": 687,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -6175,7 +6175,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 680,
+        "line": 700,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -6204,7 +6204,7 @@
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 798,
+        "line": 818,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -6226,8 +6226,7 @@
           "max",
           "arc",
           "fill",
-          "requestAnimationFrame",
-          "initShowcase"
+          "requestAnimationFrame"
         ]
       }
     ],
@@ -14378,10 +14377,10 @@
       ]
     },
     "scripts/sync-all-skill-counts.mjs": {
-      "totalLines": 478,
+      "totalLines": 480,
       "symbolCount": 1,
-      "mtimeMs": 1793593331145,
-      "size": 24590,
+      "mtimeMs": 1793824726504,
+      "size": 24686,
       "exports": [],
       "imports": [
         {
@@ -14542,7 +14541,7 @@
     "scripts/test-cli.mjs": {
       "totalLines": 2163,
       "symbolCount": 1,
-      "mtimeMs": 1793822385185,
+      "mtimeMs": 1793823132415,
       "size": 100253,
       "exports": [],
       "imports": [
@@ -15244,7 +15243,7 @@
     "scripts/visual-ui-healer.mjs": {
       "totalLines": 230,
       "symbolCount": 2,
-      "mtimeMs": 1793822531221,
+      "mtimeMs": 1793823132509,
       "size": 9203,
       "exports": [
         "auditAndHealVisualUi"
@@ -15723,10 +15722,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 920,
+      "totalLines": 941,
       "symbolCount": 13,
-      "mtimeMs": 1793593789538,
-      "size": 39247,
+      "mtimeMs": 1793825002547,
+      "size": 40494,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -15835,7 +15834,7 @@
         },
         {
           "name": "appendTerminalLine",
-          "line": 360,
+          "line": 379,
           "type": "function",
           "signature": "function appendTerminalLine(content, isCommand = false)",
           "calls": [
@@ -15847,7 +15846,7 @@
         },
         {
           "name": "executeTerminalCommand",
-          "line": 379,
+          "line": 398,
           "type": "function",
           "signature": "function executeTerminalCommand(cmdText)",
           "calls": [
@@ -15862,21 +15861,21 @@
         },
         {
           "name": "renderTopology",
-          "line": 573,
+          "line": 593,
           "type": "function",
           "signature": "function renderTopology(id)",
           "calls": []
         },
         {
           "name": "renderBridgeCode",
-          "line": 667,
+          "line": 687,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 680,
+          "line": 700,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -15903,7 +15902,7 @@
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 798,
+          "line": 818,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [
@@ -15925,17 +15924,16 @@
             "max",
             "arc",
             "fill",
-            "requestAnimationFrame",
-            "initShowcase"
+            "requestAnimationFrame"
           ]
         }
       ]
     },
     "showcase/skills-data.js": {
-      "totalLines": 3145,
+      "totalLines": 3156,
       "symbolCount": 0,
-      "mtimeMs": 1793794445474,
-      "size": 120608,
+      "mtimeMs": 1793824731977,
+      "size": 92959,
       "exports": [],
       "imports": [],
       "cachedSymbols": []

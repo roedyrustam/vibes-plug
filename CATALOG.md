@@ -1,4 +1,4 @@
-# Vibes-Plug Skills Catalog (176 Skills)
+# Vibes-Plug Skills Catalog (178 Skills)
 
 *Universal AI Agent Swarm Architecture (v4.5.0)*
 
@@ -9,7 +9,7 @@
 | `adaptive-model-cascade` | `4.4.4` | Model cascading & complexity-scored routing (Grok, Gemini, Claude) / Routing kaskade model & scoring kompleksitas (Grok, Gemini, Claude). |
 | `affective-computing-emotion-ai` | `4.4.4` | Affective computing, emotion AI, and multimodal sentiment analysis / Komputasi afektif, AI emosional, dan analisis sentimen multimodal. |
 | `agentic-coding-workflow-expert` | `4.4.4` | AI coding workflows, multi-agent code swarms, and CI/CD self-healing / Workflow koding AI, swarm multi-agen, dan self-healing CI/CD. |
-| `agentic-m2m-settlement` | `4.4.4` | Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin. |
+| `agentic-m2m-settlement` | `4.6.0` | Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin. |
 | `agentic-memory-architect` | `4.4.4` | Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage / Memori episodik jangka panjang (Mem0, Letta) dan storage pgvector. |
 | `agentic-micro-economy-architect` | `4.4.4` | M2M micro-economies, agent wallets, swarm budgets, and HTTP 402 / Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402. |
 | `ai-code-review-autonomous` | `4.4.4` | Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa. |
@@ -18,7 +18,7 @@
 | `ai-prompt-engineering-expert` | `4.4.4` | Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI. |
 | `ai-safety-governance-expert` | `4.4.4` | AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act / Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI. |
 | `angular-expert` | `4.4.4` | Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore. |
-| `anti-slop` | `4.4.4` | Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder. |
+| `anti-slop` | `4.7.0` | Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder. |
 | `api-design-expert` | `4.4.4` | API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1. |
 | `api-gateway-proxy-expert` | `4.4.4` | API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX) / API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX). |
 | `app-analyzer-optimizer` | `4.4.4` | Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi. |
@@ -75,7 +75,8 @@
 | `flutter-dart-expert` | `4.4.4` | Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3. |
 | `form-validation-expert` | `4.4.4` | Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions. |
 | `formal-spec-z3-verifier` | `4.4.4` | Formal verification and SMT solver constraints (Z3, TLA+, Dafny) / Verifikasi formal dan batasan solver SMT (Z3, TLA+, Dafny). |
-| `frontier-ai-models-expert` | `4.4.4` | Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5). |
+| `formal-theorem-verifier-lean4` | `4.6.0` | Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating / Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika. |
+| `frontier-ai-models-expert` | `4.6.0` | Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5). |
 | `fullstack-expert` | `4.4.4` | Polyglot fullstack development: TypeScript, Python, Go, and Rust / Pengembangan fullstack polyglot: TypeScript, Python, Go, dan Rust. |
 | `gemini-agent-booster` | `4.4.4` | Master optimization protocol for Gemini Agent, 2M+ context & tools / Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool. |
 | `geospatial-maps-expert` | `4.4.4` | Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS / Peta dan data geospasial: Mapbox GL JS, Leaflet, dan PostGIS. |
@@ -98,17 +99,17 @@
 | `local-slm-edge-ai-expert` | `4.4.4` | Local SLMs & edge AI: WebLLM, Transformers.js v3, and WebGPU / SLM lokal & edge AI: WebLLM, Transformers.js v3, dan WebGPU. |
 | `logging-error-tracking-expert` | `4.4.4` | Structured logging (Pino) and error tracking (Sentry, Axiom) / Logging terstruktur (Pino) dan pelacakan error (Sentry, Axiom). |
 | `mcp-sampling-critic` | `4.4.4` | MCP client sampling and critic-in-the-loop multi-model consensus / Sampling MCP client dan validasi konsensus multi-model AI. |
-| `mcp-server-architect` | `4.4.4` | Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python. |
+| `mcp-server-architect` | `4.6.0` | Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python. |
 | `micro-frontend-architect` | `4.4.4` | Micro-frontends with Webpack & Vite Module Federation / Arsitektur micro-frontend dengan Webpack & Vite Module Federation. |
 | `mobile-expo-expert` | `4.4.4` | React Native & Expo SDK 53+ cross-platform mobile app development / Pengembangan aplikasi mobile React Native & Expo SDK 53+. |
-| `modern-css-native-expert` | `4.4.4` | Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2. |
+| `modern-css-native-expert` | `4.6.0` | Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2. |
 | `monorepo-architect` | `4.4.4` | Scalable monorepo architecture with Turborepo and pnpm workspaces / Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces. |
 | `mpa-orchestrator` | `4.4.4` | Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset. |
 | `multi-agent-orchestration` | `4.4.4` | Multi-agent systems, swarm patterns, and agentic memory coordination / Sistem multi-agen, pola swarm, dan koordinasi memori agen. |
 | `multimodal-spatial-video-cloner` | `4.4.4` | Extract UI interactions and spring curves from video into code / Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode. |
 | `mvc-expert` | `4.4.4` | Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih. |
 | `n8n-automation-expert` | `4.4.4` | Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook. |
-| `neurosymbolic-genetic-synthesizer` | Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch. | 4.6.0 | Roedy Rustam |
+| `neurosymbolic-genetic-synthesizer` | `4.6.0` | Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch. |
 | `nextjs-app-router-expert` | `4.4.4` | Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache. |
 | `olap-columnar-analytics-expert` | `4.4.4` | Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg. |
 | `openapi-swagger-codegen-expert` | `4.4.4` | OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis. |
@@ -167,7 +168,7 @@
 | `ui-ux-pro-max` | `4.4.4` | Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack. |
 | `vector-db-rag-expert` | `4.4.4` | High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking. |
 | `vercel-ai-sdk-expert` | `4.4.4` | Vercel AI SDK Core/UI, streaming structured data, and tool calling / Vercel AI SDK Core/UI, streaming data terstruktur, dan tool calling. |
-| `visual-ui-auditor` | `4.4.4` | Multimodal vision UI audit against crisp borders and accessibility / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2. |
+| `visual-ui-auditor` | `4.7.0` | Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop. |
 | `voice-ai-realtime-agent` | `4.4.4` | Ultra-low latency conversational voice AI (<300ms) with WebRTC / AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC. |
 | `vue-frontend-expert` | `4.4.4` | Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR. |
 | `wasm-edge-computing-expert` | `4.4.4` | WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare. |

@@ -34,7 +34,7 @@
     {
       "name": "agentic-m2m-settlement",
       "description": "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin.",
-      "version": "4.4.4",
+      "version": "4.6.0",
       "author": "Roedy Rustam"
     },
     {
@@ -88,7 +88,7 @@
     {
       "name": "anti-slop",
       "description": "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder.",
-      "version": "4.4.4",
+      "version": "4.7.0",
       "author": "Roedy Rustam"
     },
     {
@@ -436,7 +436,7 @@
     {
       "name": "frontier-ai-models-expert",
       "description": "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5).",
-      "version": "4.4.4",
+      "version": "4.6.0",
       "author": "Roedy Rustam"
     },
     {
@@ -574,7 +574,7 @@
     {
       "name": "mcp-server-architect",
       "description": "Model Context Protocol (MCP v1.x) server design in TS and Python / Merancang server Model Context Protocol (MCP v1.x) TS dan Python.",
-      "version": "4.4.4",
+      "version": "4.6.0",
       "author": "Roedy Rustam"
     },
     {
@@ -592,7 +592,7 @@
     {
       "name": "modern-css-native-expert",
       "description": "Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style / Fitur CSS native: Anchor Positioning, View Transitions 2.",
-      "version": "4.4.4",
+      "version": "4.6.0",
       "author": "Roedy Rustam"
     },
     {
@@ -987,8 +987,8 @@
     },
     {
       "name": "visual-ui-auditor",
-      "description": "Multimodal vision UI audit against crisp borders and accessibility / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2.",
-      "version": "4.4.4",
+      "description": "Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop.",
+      "version": "4.7.0",
       "author": "Roedy Rustam"
     },
     {

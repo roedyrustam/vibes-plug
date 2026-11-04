@@ -263,7 +263,7 @@ const TERMINAL_OUTPUTS = {
 ----------------------------------------------------------------------
 ⚡ Server Port         : http://localhost:3888
 📡 Remote MCP SSE      : http://localhost:3888/sse
-📦 Verified Skills     : 176 loaded from registry
+📦 Verified Skills     : 178 loaded from registry
 🛡️  Anti-Slop Engine   : ACTIVE (STRICT mode)
 👥 Swarm Topologies    : 3 Native topologies primed
 🧠 Memory Daemon       : Connected to /_memory/active
@@ -314,7 +314,7 @@ Actual Vibes-Plug Billing   : $5.75 USD
 <span class="term-badge term-badge-cyan">DOCTOR</span> Diagnostic Health Verification & Environment Audit:
 ----------------------------------------------------------------------
 [OK] Node.js Runtime        : v24.2.0 (LTS verified)
-[OK] Skill Registry         : 176/176 skills valid with frontmatter & matrix
+[OK] Skill Registry         : 178/178 skills valid with frontmatter & matrix
 [OK] Sovereign Anti-Slop    : 0 errors, 0 warnings across 331 files
 [OK] IDE Bridge Targets     : 6 IDEs configured (AGY, Claude, Cursor, Windsurf, Codex, Trae)
 [OK] MCP Server Protocol    : v1.x JSON-RPC compliant
@@ -354,6 +354,25 @@ Persistable : ✅ Safe to write to disk
 Syntax      : ✅ Valid AST Symbol Structure
 Anti-Slop   : 100/100 (APPROVED - Zero stubs, zero TODOs)
 Summary     : Pre-Disk Verification Passed (100/100 Anti-Slop, Syntax OK)
+\`,
+
+  'vibes visual-audit': \`
+<span class="term-badge term-badge-cyan">VISUAL AUDIT</span> Multimodal Vision UI Quality Gate (Anti-Slop Pillar 7):
+----------------------------------------------------------------------
+🎯 Target Component   : &lt;button className="rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums"&gt;Pay Rp 150.000&lt;/button&gt;
+🔍 Vision Engine      : Gemini 4 Pro Vision (Fallback: Gemini 3.8 Flash Vision)
+⚙️  Audited Invariants : 40 Mandatory Rules (R-01 to R-40)
+
+=== Visual UI Scorecard ===
+Score       : 100/100
+Verdict     : <span class="check-pass">APPROVED</span>
+Borders     : ✅ Grounded 1px crisp border (border-border/50)
+Radius      : ✅ Standard 3-tier scale (rounded-lg 8px)
+Numerals    : ✅ Tabular-nums formatted (Rp 150.000)
+Gradients   : ✅ Zero generic purple-blue slop
+Media/CLS   : ✅ Explicit aspect ratio / zero layout shift
+A11y/States : ✅ 5-state interactive contract & WCAG 2.2 AA compliant
+Summary     : Production Ready (Anti-Slop Pillar 7 Certified)
 `
 };
 
@@ -395,6 +414,7 @@ Available interactive commands:
   • <span class="term-cmd">vibes swarm:dispatch</span> : Execute multi-agent concurrent swarm
   • <span class="term-cmd">vibes bootstrap</span>      : Super-scaffold project + AI skill bundle
   • <span class="term-cmd">vibes verify-gate</span>    : Run pre-disk in-memory verification gate
+  • <span class="term-cmd">vibes visual-audit</span>   : Multimodal Vision UI Anti-Slop Audit
   • <span class="term-cmd">vibes bench</span>          : Run 7-item performance benchmark
   • <span class="term-cmd">vibes finops</span>         : View KV-cache token savings report
   • <span class="term-cmd">vibes doctor</span>         : Health check environment & 6 IDE bridges
@@ -406,12 +426,12 @@ Available interactive commands:
 
   if (cleanCmd === 'skills') {
     appendTerminalLine(`
-Total 176 Verified Skills in Vibes-Plug:
-  • Frontend & Mobile UI/UX   : 35 skills
+Total 178 Verified Skills in Vibes-Plug:
+  • Frontend & Mobile UI/UX   : 39 skills
   • Backend & System Design   : 28 skills
-  • Frontier AI, LLM & MCP    : 28 skills
+  • Frontier AI, LLM & MCP    : 35 skills
   • SaaS, FinTech & Growth    : 17 skills
-  • Testing & Anti-Slop       : 23 skills
+  • Testing & Anti-Slop       : 32 skills
   • Data & Orchestration      : 27 skills
 `);
     return;
@@ -444,7 +464,7 @@ Total 176 Verified Skills in Vibes-Plug:
       badge,
       ' Interpreting task: "',
       taskEm,
-      '"\n⚡ Routing through Brainstorming & Zero-to-Prod Orchestrator...\n🤝 Synchronizing relevant cooperating skills across 176 registry...\n✅ Spec-driven execution plan compiled in 12ms. Anti-slop gate: PASSED.\n'
+      '"\n⚡ Routing through Brainstorming & Zero-to-Prod Orchestrator...\n🤝 Synchronizing relevant cooperating skills across 178 registry...\n✅ Spec-driven execution plan compiled in 12ms. Anti-slop gate: PASSED.\n'
     );
     line.appendChild(out);
     dom.terminalBody.appendChild(line);
@@ -656,8 +676,8 @@ Enforce deep reasoning prior to code generation:
   trae: {
     file: '.traerules',
     code: `# Trae IDE Universal Bridge
-ecosystem: vibes-plug-v4.4.2
-skills_total: 176
+ecosystem: vibes-plug-v4.7.0
+skills_total: 178
 orchestrator: zero-to-prod-orchestrator
 quality_gate: sovereign-anti-slop-strict
 `
@@ -786,14 +806,14 @@ export function initShowcase() {
 
   // Welcome terminal line
   appendTerminalLine(`
-<span class="term-badge term-badge-cyan">VIBES-PLUG v4.4.2</span> Sovereign AI Agent Swarm & Skill Ecosystem
+<span class="term-badge term-badge-cyan">VIBES-PLUG v4.7.0</span> Sovereign AI Agent Swarm & Skill Ecosystem
 Type '<span class="term-cmd">help</span>' or click any preset badge above to simulate real agent workflows.
 `);
 }
 
 /**
  * Interactive 3D Philosophical Swarm Lattice & Perspective Tilt Engine
- * Renders 8 autonomous orbital subagent nodes in 3D space around the Sovereign Neural Plug emblem
+ * Renders 9 autonomous orbital subagent nodes in 3D space around the Sovereign Neural Plug emblem
  */
 function initHero3dSwarmCore() {
   const card = document.getElementById('hero3dCard');
@@ -808,7 +828,7 @@ function initHero3dSwarmCore() {
   let targetTiltX = 0;
   let targetTiltY = 0;
 
-  // 8 Specialist Subagent Orbital Nodes in 3D spherical coordinates
+  // 9 Specialist Subagent Orbital Nodes in 3D spherical coordinates
   const subagentNodes = [
     { label: 'ARCH', color: '#06b6d4', orbitRadius: 96, speed: 0.014, phase: 0.0, incl: 0.35 },
     { label: 'FULL', color: '#38bdf8', orbitRadius: 98, speed: 0.012, phase: 0.78, incl: -0.42 },
@@ -817,7 +837,8 @@ function initHero3dSwarmCore() {
     { label: 'MCP',  color: '#a855f7', orbitRadius: 95, speed: 0.013, phase: 3.14, incl: 0.46 },
     { label: 'SRE',  color: '#06b6d4', orbitRadius: 97, speed: 0.016, phase: 3.92, incl: -0.50 },
     { label: 'DATA', color: '#10b981', orbitRadius: 93, speed: 0.012, phase: 4.71, incl: 0.22 },
-    { label: '3D',   color: '#f59e0b', orbitRadius: 100, speed: 0.014, phase: 5.49, incl: -0.36 }
+    { label: '3D',   color: '#f59e0b', orbitRadius: 100, speed: 0.014, phase: 5.49, incl: -0.36 },
+    { label: 'SEC',  color: '#ef4444', orbitRadius: 95, speed: 0.015, phase: 6.28, incl: -0.44 }
   ];
 
   card.addEventListener('mousemove', (e) => {
