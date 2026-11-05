@@ -32,3 +32,4 @@ When using MCP tools that connect to external APIs (e.g., Supabase, GitHub), dat
 
 For privacy concerns: roedyrustam.id@gmail.com  
 GitHub Issues: https://github.com/roedyrustam/vibes-plug/issues
+
