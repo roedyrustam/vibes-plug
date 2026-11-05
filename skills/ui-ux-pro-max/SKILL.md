@@ -162,6 +162,13 @@ Standard template websites default to generic, full-width, edge-to-edge glued re
     3. A concise 1-sentence value description (`text-xs text-neutral-400 line-clamp-1`).
   - **Accessibility Contract**: Full keyboard navigation support (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), focus rings, and instant closure on `Escape` key.
 
+#### 7. Linear-Style Isometric Anatomy Instruments & Physical Explainer Cards
+When explaining core system mechanics, architecture, or algorithmic state on landing pages and documentation sites, avoid banal flowchart diagrams (generic boxes with arrows). Deploy the **Anatomy Explainer Card Standard**:
+- **Tactile Physical Rig**: Frame the concept as a high-density mechanical machine: machined bedplate, knurled thumb knobs, linear rails, spring-loaded carriages, bronze bushings, and calibrated dial gauges.
+- **Framed Instrument Card**: Encapsulate within an elevated card: `Fig n` (top-left, uppercase monospace), Feature Title (top-right, bold), User Interaction Hint (bottom-left, muted), and real-time Live Readout (`tabular-nums`, tracking dynamic values at bottom-right).
+- **Four-Tone Surface Shading**: Strict lighting hierarchy: `lo` (shadowed underside), `mid` (vertical structural frame), `hi` (top faces), and exactly one `lit` accent (white/cyan moving needle or active probe).
+- **Lines Resolve Invariant**: Every tick, ruler mark, and wire terminates flush onto another solid edge or screw terminal; zero floating arrows.
+
 ---
 
 ### Sovereign UI/UX Anti-Slop Directive (6 Design Pillars)
@@ -375,6 +382,13 @@ Website berbasis template generik umumnya menggunakan bilah navigasi persegi pan
     2. Judul tebal dan tegas (`text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors`).
     3. Deskripsi singkat 1 kalimat yang menjelaskan nilai manfaat fitur (`text-xs text-neutral-400 line-clamp-1`).
   - **Kontrak Aksesibilitas**: Navigasi keyboard penuh (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), cincin fokus yang jelas, serta penutupan otomatis saat menekan tombol `Escape`.
+
+#### 7. Instrumen Anatomi Isometrik Gaya Linear & Kartu Penjelasan Fisik
+Saat menjelaskan mekanisme komputasi inti, arsitektur data, atau alur algoritma pada landing page dan dokumentasi, hindari diagram flowchart generik (kotak membosankan berpanah). Terapkan **Standar Kartu Penjelasan Anatomi**:
+- **Rig Mekanis Fisik Taktil**: Wujudkan konsep sebagai instrumen mesin berdensitas tinggi: pelat dasar bermesin, kenop berulir knurled, rel linier, kereta dorong berpegas, bushing perunggu, dan dial gauge terkalibrasi.
+- **Kartu Instrumen Berbingkai (Framed Card)**: Bungkus dalam kartu berelevasi: `Fig n` (kiri atas, font monospace kapital), Judul Fitur (kanan atas, tebal), Petunjuk Interaksi Pengguna (kiri bawah, redup), dan Tampilan Bacaan Langsung (*Live Readout*) real-time (`tabular-nums` di kanan bawah).
+- **Shading Permukaan Empat Nada**: Hierarki pencahayaan tegas: `lo` (bayangan bawah), `mid` (kerangka struktur vertikal), `hi` (permukaan atas), dan tepat satu aksen `lit` (jarum bergerak putih/sian atau probe aktif).
+- **Invarian Lines Resolve**: Setiap garis pembagi penggaris, goresan alur, dan kawat berakhir rapat pada tepi solid atau sekrup terminal; bebas panah melayang tanpa tujuan.
 
 ---
 

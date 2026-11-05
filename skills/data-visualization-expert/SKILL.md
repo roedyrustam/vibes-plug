@@ -141,6 +141,201 @@ For volumetric, anatomical, geospatial, or scientific datasets, escalate to `web
 - **Explicit Units & Scale**: Never leave scale ambiguous; render interactive 3D scale bars or known spatial benchmarks.
 - **Truthful Controls**: Sliders and toggle states must alter physical parameters in the model, not just trigger decorative visual noise.
 
+#### 6. Interactive Isometric Technical Explainers & Machine Anatomy (The Anatomy Protocol)
+When explaining technical concepts, systems, protocols, or algorithms (e.g. rate limiters, cache eviction, concurrency locks, GPU pipelines, or distributed sync), reject generic flowchart boxes and arrows. Enforce the **Physical Isometric Anatomy Protocol** ("The Object Is The Explanation"): invent a physical, tangible, highly crafted mechanical instrument whose physical operation *is* the computational concept.
+
+##### The Concept-to-Object Mapping Matrix
+| Technical Concept | Physical Mechanical Metaphor | Working Parts & Motion |
+|---|---|---|
+| **Token-Bucket Rate Limiter** | Brass-and-Glass Fluid Test Rig | Float valve reservoir, calibrated needle valve orifice, spring plunger |
+| **Cache Key / Memoization** | Pin-Tumbler Mechanical Lock | Cylinder plug rotates only when every tumbler pin aligns with hash teeth |
+| **Shared GPU Context Multiplexer** | Gantry Plotter with Traveling Toolhead | Single motorized print head visiting multiple ink wells along dual rails |
+| **Separable Convolution Filter** | Dual-Axis Orthogonal Comb Stamping Rig | Bed-of-nails stamp array pairing with two directional sliding comb blades |
+| **Reactive Sync / Event Ledger** | Multi-Cam Mechanical Engine Shaft | Profiled eccentric cams actuating spring rocker arms and contact points |
+
+##### 5 Craft Commandments for Isometric Anatomy Figures
+1. **Solids, Not Wireframes (Four-Tone Shading)**:
+   - Use standard 30° elevation isometric projection (azimuth 45° default, 35–60° for elongated bodies).
+   - Solid opaque parts painted back-to-front, bottom-to-top (strict painter's order).
+   - Four-tone lighting: `lo` (undersides, feet, dark recesses), `mid` (vertical structural posts, side panels), `hi` (top horizontal faces, front bezels), and exactly ONE `lit` focal accent (white in dark theme, pure black in light theme) highlighting the moving needle, contact pin, or active valve.
+2. **The 40+ Parts Rule**:
+   - Every figure must feature at least 40 physical, purposeful parts divided into 5 groups: **Base** (bedplate, leveling feet, corner cap screws, engraved label plate, etched tick ruler), **Structure** (linear rails, upright columns, collar stops, tie rods), **Mechanism** (carriage, bushings, coil springs, rack-and-pinion, dial gauge), **Controls** (knurled knob, thumb screws, toggle lever), and **Subject** (the lit, moving core).
+3. **The "Lines Resolve" Invariant**:
+   - Every stroke, seam, ruler tick, and wire must terminate on another line, an outline, or a terminal solder/screw dot. Floating leader lines and unanchored text labels are strictly banned.
+4. **The Framed Card Contract**:
+   - Enclose the instrument within an elevated card: `Fig n` (top left, monospace), short Title (top right, bold), Interaction Hint (bottom left, muted), and Live Readout with tabular numerals (`tabular-nums`) tracking the numerical state (bottom right).
+5. **Calm Eased Motion & Hybrid WebGL Layers**:
+   - Parts move via damped harmonic oscillator springs or exponential follow; idle tour loops when untouched; respect `prefers-reduced-motion`.
+   - Complex phenomena that vector strokes cannot cleanly express (flowing fluid, fire, exhaust, caustics, lamp glow) use an integrated WebGL canvas sandwiched between a Back SVG and Front SVG in the exact same isometric world-space camera.
+
+```tsx
+import React, { useState, useEffect, useRef } from 'react';
+
+// Precision isometric projection helper in world space coordinates
+function projectIso(x: number, y: number, z: number, originX = 260, originY = 220) {
+  const rad = Math.PI / 6; // 30-degree isometric tilt
+  const screenX = originX + (x - y) * Math.cos(rad);
+  const screenY = originY + (x + y) * Math.sin(rad) - z;
+  return { x: screenX, y: screenY };
+}
+
+export function IsometricTokenBucketRig() {
+  const [tokens, setTokens] = useState(65);
+  const [dripRate, setDripRate] = useState(12);
+  const [needleAngle, setNeedleAngle] = useState(65);
+  const requestRef = useRef<number>(0);
+
+  // Smoothly damp the analog needle towards the target fill level
+  useEffect(() => {
+    let current = needleAngle;
+    const animate = () => {
+      current += (tokens - current) * 0.12;
+      setNeedleAngle(current);
+      if (Math.abs(tokens - current) > 0.1) {
+        requestRef.current = requestAnimationFrame(animate);
+      }
+    };
+    requestRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(requestRef.current);
+  }, [tokens]);
+
+  // Projected coordinates for the 4-tier isometric chassis
+  const b1 = projectIso(-90, -50, 0);
+  const b2 = projectIso(90, -50, 0);
+  const b3 = projectIso(90, 50, 0);
+  const b4 = projectIso(-90, 50, 0);
+
+  // Plunger height directly driven by bucket token capacity
+  const plungerZ = 30 + (needleAngle / 100) * 55;
+  const pTop = projectIso(0, 0, plungerZ + 20);
+  const pBase = projectIso(0, 0, plungerZ);
+
+  return (
+    <div className="w-full max-w-xl mx-auto rounded-2xl bg-[#090c15] border border-white/10 p-5 shadow-2xl text-slate-200 select-none">
+      {/* Framed Card Header */}
+      <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+        <span className="font-mono text-xs tracking-wider text-cyan-400 font-bold uppercase">FIG 01 // INSTRUMENT</span>
+        <h4 className="text-sm font-semibold text-white">Token Bucket Physical Rate Limiter</h4>
+      </div>
+
+      {/* Isometric SVG Instrument Bench */}
+      <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-slate-950 to-[#07090e] rounded-xl border border-white/5 overflow-hidden flex items-center justify-center">
+        <svg viewBox="0 0 520 380" className="w-full h-full">
+          {/* Base Plate Shadow */}
+          <polygon
+            points={`${b1.x},${b1.y + 12} ${b2.x},${b2.y + 12} ${b3.x},${b3.y + 12} ${b4.x},${b4.y + 12}`}
+            fill="rgba(0,0,0,0.6)"
+            filter="blur(6px)"
+          />
+
+          {/* Heavy Machined Base Plate (Four-Tone Solid Shading) */}
+          <polygon points={`${b1.x},${b1.y + 8} ${b2.x},${b2.y + 8} ${b2.x},${b2.y} ${b1.x},${b1.y}`} fill="#0f172a" />
+          <polygon points={`${b2.x},${b2.y + 8} ${b3.x},${b3.y + 8} ${b3.x},${b3.y} ${b2.x},${b2.y}`} fill="#1e293b" />
+          <polygon points={`${b1.x},${b1.y} ${b2.x},${b2.y} ${b3.x},${b3.y} ${b4.x},${b4.y}`} fill="#334155" />
+
+          {/* Precision Ruler Ticks along the front edge */}
+          {[-70, -50, -30, -10, 10, 30, 50, 70].map((tx, idx) => {
+            const p1 = projectIso(tx, 50, 0);
+            const p2 = projectIso(tx, 46, 0);
+            return <line key={idx} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} stroke="#64748b" strokeWidth="1" />;
+          })}
+
+          {/* Upright Guide Rail Columns */}
+          {[-60, 60].map((cx, idx) => {
+            const basePos = projectIso(cx, 0, 0);
+            const topPos = projectIso(cx, 0, 120);
+            return (
+              <g key={idx}>
+                <line x1={basePos.x} y1={basePos.y} x2={topPos.x} y2={topPos.y} stroke="#94a3b8" strokeWidth="4" strokeLinecap="round" />
+                <circle cx={basePos.x} cy={basePos.y} r="3" fill="#475569" />
+                <circle cx={topPos.x} cy={topPos.y} r="3.5" fill="#cbd5e1" />
+              </g>
+            );
+          })}
+
+          {/* Glass Cylinder Reservoir Body */}
+          <g>
+            {/* Cylinder Back Wall and Liquid Volume */}
+            <rect x="225" y={300 - (needleAngle * 1.1)} width="70" height={needleAngle * 1.1} rx="4" fill="rgba(6,182,212,0.22)" />
+            <line x1="225" y1="180" x2="225" y2="300" stroke="#0ea5e9" strokeWidth="2" strokeDasharray="4 2" />
+            <line x1="295" y1="180" x2="295" y2="300" stroke="#0ea5e9" strokeWidth="2" strokeDasharray="4 2" />
+          </g>
+
+          {/* Moving Spring Plunger (Lit Focal Assembly) */}
+          <line x1={pTop.x} y1={pTop.y} x2={pBase.x} y2={pBase.y} stroke="#ffffff" strokeWidth="5" strokeLinecap="round" />
+          <polygon
+            points={`${pBase.x - 18},${pBase.y - 4} ${pBase.x + 18},${pBase.y - 4} ${pBase.x + 18},${pBase.y + 4} ${pBase.x - 18},${pBase.y + 4}`}
+            fill="#38bdf8"
+          />
+
+          {/* Analog Dial Gauge with Moving Indicator Needle */}
+          <g transform="translate(140, 170)">
+            <circle cx="0" cy="0" r="28" fill="#0f172a" stroke="#cbd5e1" strokeWidth="2.5" />
+            <circle cx="0" cy="0" r="24" fill="#020617" stroke="#334155" strokeWidth="1" />
+            {/* Dial Calibration Marks */}
+            {[-120, -60, 0, 60, 120].map((deg) => {
+              const rad = (deg * Math.PI) / 180;
+              return (
+                <line
+                  key={deg}
+                  x1={Math.cos(rad) * 16}
+                  y1={Math.sin(rad) * 16}
+                  x2={Math.cos(rad) * 22}
+                  y2={Math.sin(rad) * 22}
+                  stroke="#94a3b8"
+                  strokeWidth="1.5"
+                />
+              );
+            })}
+            {/* Indicator Needle pivoting from center */}
+            <line
+              x1="0"
+              y1="0"
+              x2={Math.cos(((needleAngle * 2.4 - 120) * Math.PI) / 180) * 20}
+              y2={Math.sin(((needleAngle * 2.4 - 120) * Math.PI) / 180) * 20}
+              stroke="#06b6d4"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+            <circle cx="0" cy="0" r="3" fill="#ffffff" />
+          </g>
+        </svg>
+
+        {/* Tactical Corner Legend */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1 font-mono text-[10px] text-slate-400 bg-slate-900/80 p-2 rounded border border-white/5">
+          <div>SCALE: 1:1 ISO [30°]</div>
+          <div>STATUS: COMPLIANT</div>
+          <div>FLOW: UNIFORM</div>
+        </div>
+      </div>
+
+      {/* Card Controls & Live Numerical Readouts */}
+      <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+        <div className="flex items-center gap-3">
+          <label htmlFor="token-slider" className="text-slate-400">BURST CAPACITY:</label>
+          <input
+            id="token-slider"
+            type="range"
+            min="5"
+            max="100"
+            value={tokens}
+            onChange={(e) => setTokens(Number(e.target.value))}
+            className="w-28 accent-cyan-400 cursor-pointer"
+          />
+        </div>
+
+        {/* Live Readout Contract tracking the physical model */}
+        <div className="flex items-center gap-4 tabular-nums">
+          <span className="text-slate-400">TOKENS: <strong className="text-white">{tokens}</strong></span>
+          <span className="text-slate-400">PRESSURE: <strong className="text-cyan-400">{(needleAngle * 0.42).toFixed(1)} PSI</strong></span>
+          <span className="text-slate-400">LEAK: <strong className="text-emerald-400">{dripRate} req/s</strong></span>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
 ### Dashboard Layout Patterns
 - **KPI Row → Charts → Tables**: Top metrics cards, then charts, then detail tables.
 - **Filter Sidebar**: Global date range, category, and dimension filters.
@@ -309,6 +504,33 @@ export function GrafikMetrikRealtime() {
 Untuk dataset ilmiah, geospasial, atau volumetrik, delegasikan ke `web-3d-graphics-expert`:
 - **Rantai Validasi Ilmiah**: Wajib mematuhi rantai: **Klaim Ilmiah → Model Matematika → Hasil Render**. Jangan tampilkan visualisasi acak tanpa data acuan numerik.
 - **Skala dan Unit Eksplisit**: Sertakan skala interaktif dan satuan metrik yang jelas pada canvas.
+
+#### 5. Penjelasan Teknis Isometrik Interaktif & Anatomi Mesin Fisik (Protokol Anatomi)
+Saat menjelaskan konsep komputasi abstrak, logika sistem, protokol jaringan, atau algoritma (seperti *rate limiter*, *cache eviction*, *concurrency lock*, *GPU pipeline*, atau sinkronisasi terdistribusi), tinggalkan diagram kotak-kotak dan panah klise. Terapkan **Protokol Anatomi Isometrik Fisik** (*"The Object Is The Explanation"*): rancang instrumen mekanis nyata berpresisi tinggi yang cara kerja fisiknya mencerminkan langsung konsep komputasi yang dijelaskan.
+
+##### Matriks Pemetaan Konsep ke Objek Mekanis Fisik
+| Konsep Teknis | Metafora Mesin Mekanis Fisik | Komponen Nyata & Pergerakan |
+|---|---|---|
+| **Token-Bucket Rate Limiter** | Rig Uji Fluida Kaca & Kuningan | Tangki pelampung, katup jarum kalibrasi presisi, plunger pegas linier |
+| **Kunci Cache / Memoization** | Gembok Mekanis Pin-Tumbler | Silinder hanya berputar saat seluruh pin sejajar dengan gerigi hash |
+| **Multiplexer GPU Shared Context** | Plotter Gantry dengan Toolhead Bergerak | Satu print-head bermotor mengunjungi 16 sumur tinta di sepanjang rel ganda |
+| **Filter Konvolusi Terpisahkan (Separable Blur)** | Rig Stamping Sisir Ortoganal Sumbu Ganda | Matriks jarum bed-of-nails dipadukan dengan dua bilah sisir bergeser silang |
+| **Event Ledger / Reactive Sync** | Poros Cam Mesin Multiselinder | Cam eksentrik menggerakkan rocker arm pegas dan sakelar kontak mikro |
+
+##### 5 Kaidah Utama Figur Anatomi Isometrik
+1. **Bagian Solid, Bukan Wireframe (Shading Empat Nada)**:
+   - Gunakan proyeksi isometrik elevasi 30° (azimuth 45° default, 35–60° untuk objek memanjang).
+   - Seluruh komponen solid tanpa garis putus-putus transparan, digambar berurutan dari belakang ke depan (*painter's order*).
+   - Shading empat nada: `lo` (bagian bawah, kaki, rongga gelap), `mid` (tiang struktur vertikal, panel samping), `hi` (permukaan horizontal atas, bingkai depan), dan tepat SATU aksen fokus `lit` (putih pada tema gelap, hitam pekat pada tema terang) yang menyorot jarum bergerak atau pin aktif.
+2. **Kaidah Minimal 40+ Komponen Nyata**:
+   - Setiap figur wajib memiliki minimal 40 komponen fisik terstruktur dalam 5 kelompok: **Alas / Base** (pelat dasar berat, kaki sekrup berulir, sekrup sudut, pelat label grafir, strip penggaris ukur), **Struktur** (tiang pemandu linier, batang rangka, cincin penahan), **Mekanisme** (kereta geser, bushing perunggu, pegas koil, dial gauge), **Kontrol** (kenop berulir knurled, sekrup jari, tuas sakelar), dan **Subjek Utama** (komponen bergerak yang disorot).
+3. **Invarian "Lines Resolve"**:
+   - Setiap goresan garis, alur, pembagi penggaris, dan kawat kabel wajib berakhir pada garis lain, tepi benda, atau titik terminal sekrup. Dilarang menggambar garis panah mengambang di udara tanpa tumpuan.
+4. **Kontrak Kartu Berbingkai (Framed Card)**:
+   - Letakkan instrumen dalam kartu terangkat: `Fig n` (kiri atas, font mono), Judul singkat (kanan atas, tebal), Petunjuk interaksi (kiri bawah, redup), dan Tampilan Bacaan Langsung (*Live Readout*) dengan angka tabular (`tabular-nums`) yang mencerminkan model numerik asli secara real-time (kanan bawah).
+5. **Gerakan Pegas Halus & Layer WebGL Hibrida**:
+   - Pergerakan menggunakan fisika pegas teredam (*damped harmonic oscillator*) atau *exponential follow*; sertakan tur diam (*idle tour*) otomatis saat tidak disentuh kursor, serta nonaktifkan animasi saat pengguna mengaktifkan `prefers-reduced-motion`.
+   - Fenomena dinamis yang tidak dapat digambar rapi dengan vektor (aliran cairan, api, uap, pendaran lampu) menggunakan canvas WebGL yang disisipkan di antara Back SVG dan Front SVG dalam kamera isometrik *world-space* yang persis sama.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

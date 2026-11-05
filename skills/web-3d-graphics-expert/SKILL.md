@@ -267,7 +267,31 @@ export async function createBabylonWebGPUScene(canvas: HTMLCanvasElement) {
 
 ---
 
-## 5. Physical Interaction, Colliders & Spatial Constraints
+## 6. Isometric Mechanical Anatomy & World-Space Shader Fusion
+When authoring technical explainer figures (Anatomy Standard), 3D shaders must not live as isolated generic canvas backgrounds. Instead, bind WebGL/WebGPU shaders directly into the physical geometry of an isometric machine:
+
+### The 3-Layer Sandwich Architecture
+```
+┌────────────────────────────────────────────────────────┐
+│ 1. Back SVG Layer    : Rear frame, chassis, bedplate   │
+│ 2. WebGL Canvas      : Fire, fluid, plasma, caustics   │ (World-space camera ray-match)
+│ 3. Front SVG Layer   : Front rails, glass bezels, dial │
+└────────────────────────────────────────────────────────┘
+```
+1. **World-Space Camera Registration**:
+   - The WebGL shader camera must match the exact isometric projection of the enclosing SVG (`Azimuth: 45°`, `Elevation: 30°`).
+   - Reconstruct each pixel's world-space ray via `rayOf(uv) + t * towardViewer()`.
+   - Ensure fluid surfaces, sparks, and laser beams align 1:1 with SVG nozzles, pipes, and glass windows.
+2. **Zero-Pop Envelopes**:
+   - Every shader parameter (intensity, turbulent speed, expansion) must ride on continuous mathematical attack/decay envelopes (`burst` for discrete event pulses, `settle` for continuous setpoint transitions).
+   - Abrupt `if-else` color snaps or hard step boundaries are strictly forbidden.
+3. **Dual-Theme Shader Craft**:
+   - **Dark Theme**: Output premultiplied alpha with `mix-blend-mode: screen` for additive light pools, plasma arcs, and incandescent embers.
+   - **Light Theme (Paper-Ink Invariant)**: Never invert dark glow into a dark-rimmed neon blob. Calculate the physical ink density on paper: glow has a saturated body with a pale core and a clean alpha floor, where ink monotonically accumulates with light intensity and cleanly terminates at SVG stroke boundaries.
+
+---
+
+## 7. The 16-Point Visual Review & Self-Correction Checklist
 
 When an object occupies space, its physical presence must match its visual boundaries:
 
@@ -529,7 +553,30 @@ export async function inisialisasiSceneBabylon(canvas: HTMLCanvasElement) {
 
 ---
 
-## 5. Checklist Mandiri Kualitas Grafis 3D (16 Poin)
+## 5. Fusi Anatomi Mekanis Isometrik & Shader WebGL World-Space
+Saat merancang figur penjelasan teknis (*Standar Anatomi*), shader 3D tidak boleh berdiri sendiri sebagai latar belakang kanvas generik. Integrasikan shader WebGL/WebGPU langsung ke dalam geometri mesin isometrik nyata:
+
+### Arsitektur Berlapis (3-Layer Sandwich)
+```
+┌────────────────────────────────────────────────────────┐
+│ 1. Lapisan Back SVG  : Rangka belakang, chassis, alas  │
+│ 2. Kanvas WebGL      : Api, fluida, plasma, caustics   │ (Kamera world-space presisi)
+│ 3. Lapisan Front SVG : Rel depan, kaca dial, jarum     │
+└────────────────────────────────────────────────────────┘
+```
+1. **Registrasi Kamera World-Space**:
+   - Kamera shader WebGL wajib merefleksikan proyeksi isometrik SVG pembungkusnya secara presisi (`Azimuth: 45°`, `Elevasi: 30°`).
+   - Rekonstruksi ray tiap piksel melalui `rayOf(uv) + t * towardViewer()`.
+   - Pastikan permukaan fluida, percikan bunga api, atau sinar laser tersinkronisasi 1:1 terhadap nozzle, pipa, dan bezel kaca SVG.
+2. **Amplop Matematika Tanpa Pop-in (Zero-Pop Envelopes)**:
+   - Setiap parameter shader (intensitas, turbulensi, ekspansi) wajib mengikuti kurva amplop kontinu (*attack/decay*): `burst` untuk pulsa sesaat, `settle` untuk transisi kontinu. Dilarang menggunakan peralihan warna mendadak atau fungsi step kaku.
+3. **Standar Desain Dua Tema**:
+   - **Mode Gelap**: Output premultiplied alpha dengan `mix-blend-mode: screen` untuk pendaran cahaya, busur plasma, dan bara pijar.
+   - **Mode Terang (Invarian Tinta Kertas)**: Dilarang membalikkan cahaya gelap menjadi gumpalan neon bertepi hitam. Hitung densitas tinta fisik pada kertas: pendaran memiliki inti terang dengan tepi tersaturasi dan dasar alpha bersih yang berhenti tegas pada batas goresan stroke SVG.
+
+---
+
+## 6. Checklist Mandiri Kualitas Grafis 3D (16 Poin)
 
 - [ ] **1. Kejelasan Siluet**: Apakah objek utama terbaca jelas hanya dari siluet hitam-putih?
 - [ ] **2. Konstruksi Masuk Akal**: Apakah setiap bagian terhubung dengan ketebalan dan sambungan yang meyakinkan?

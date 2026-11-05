@@ -216,7 +216,7 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 - **R-14 — Purposeful Motion**: Perpetual floating loops and multi-stacked entrance animations on scroll (fade + slide + scale + bounce) are forbidden. Transitions must be snappy (150-250ms), purposeful, and honor `prefers-reduced-motion`.
 - **R-15 — Action-Driven CTAs**: Generic CTAs (*Get Started*, *Learn More*, *Try Now*) are replaced with specific, outcome-oriented copy (*Create free account*, *Read API reference*, *Import repository*).
 - **R-16 — Buzzword Elimination**: AI buzzwords (*unlock the power*, *seamless*, *robust*, *elevate*, *revolutionary*, *game-changer*, *next-level*, *delve*) are strictly eliminated in favor of concrete facts.
-- **R-19 — Contextual Visuals**: Generic Undraw/Storyset/3D clay blob characters are forbidden. Use real interface screenshots, concrete diagrams, or code previews.
+- **R-19 — Contextual Visuals & Isometric Machine Anatomy**: Generic Undraw/Storyset illustrations, 3D clay blob characters, and abstract "AI flowchart slop" (floating slabs or hollow boxes connected by arbitrary dotted arrows) are strictly forbidden when explaining technical architectures, algorithms, or protocols. Mandate the **Physical Isometric Anatomy Standard** ("The Object is the Explanation"): invent a concrete, high-density physical machine (test rig, dial gauge, gantry plotter, or pin-tumbler lock) with 4-tone shading, 40+ parts, lines that resolve, and live numeric readouts.
 - **R-20 — Non-Functional Decorations**: Colored vertical accent stripes on card edges, trailing decorative button arrows (`→`), and floating ambient shapes are forbidden.
 - **R-21 — Authentic Demos**: Marketing a tool without displaying the actual interface or executable product is forbidden.
 - **R-22 — Dark Mode Rationale**: Dark mode is a conscious brand decision, not an automatic default chosen because it looks "developer-focused".
@@ -669,7 +669,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-14 Animasi Berbobot**: Animasi berulang tanpa henti (kartu melayang) dilarang; animasi transisi wajib cepat (150-250ms).
 - **R-15 CTA Berorientasi Aksi**: Ganti CTA generik (*Get Started*, *Learn More*) dengan instruksi spesifik (*Buat akun gratis*, *Baca dokumentasi API*).
 - **R-16 Eliminasi Buzzword**: Hapus kata-kata klise AI (*unlock, elevate, seamless, revolutionize, game-changer*).
-- **R-19 Visual Kontekstual**: Ilustrasi 3D blob generik dilarang; gunakan screenshot produk asli atau diagram teknis.
+- **R-19 Visual Kontekstual & Anatomi Mesin Fisik**: Ilustrasi 3D blob generik dan "slop flowchart AI" (balok mengambang abstrak dengan panah putus-putus acak) dilarang keras saat menjelaskan arsitektur sistem, algoritma, atau protokol. Wajib terapkan **Standar Anatomi Isometrik Fisik** (*"The Object is the Explanation"*): visualisasikan logika teknis sebagai instrumen mesin mekanis yang nyata dan presisi (rig uji, dial gauge, gantry plotter, kunci pin-tumbler) dengan shading empat nada (*four-tone*), daftar 40+ komponen terstruktur, dan pembacaan numerik (*readout*) langsung.
 - **R-20 Dekorasi Fungsional**: Garis strip vertikal di tepi kartu dan panah dekoratif (`→`) dilarang jika tanpa fungsi.
 - **R-21 Demo Produk Nyata**: Menjual alat tanpa memperlihatkan interface nyata dilarang.
 - **R-22 Alasan Mode Gelap**: Mode gelap harus didasarkan pada karakter brand, bukan sekadar latah default.
