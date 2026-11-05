@@ -152,7 +152,8 @@ Standard template websites default to generic, full-width, edge-to-edge glued re
   - **Crisp Perimeter & Inner Bevel**: 1px subtle boundary border (`border border-white/10 dark:border-white/12`) paired with an inner top highlight stroke (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`). As the page scrolls, underlying content blurs softly behind the capsule without breaking readability.
 
 - **Flyout / Mega Menu Dropdown (Rich Floating Card Architecture)**:
-  - **Detached Floating Card**: When navigation items (e.g. *Skills*, *Solutions*, *Features*) are hovered or clicked, the dropdown appears as an elevated floating card beneath the pill with an intentional air gap (`mt-3 rounded-2xl p-5 md:p-6 bg-[#0a0d14]/92 backdrop-blur-2xl border border-white/10 shadow-2xl`).
+  - **Centered Island Geometry**: When navigation items (e.g. *Skills*, *Solutions*, *Features*) are hovered or clicked, the dropdown appears as an elevated floating card centered directly beneath the capsule bar (`left-1/2 -translate-x-1/2 mt-3.5 w-[680px] max-w-[calc(100vw-2rem)] rounded-2xl p-5 md:p-6`). Never skew or arbitrarily pin the mega menu to one edge where it awkwardly collides with brand emblems.
+  - **High-Density Solid Backing & Zero Bleed-Through**: The card must use deep, near-opaque backing (`bg-[#090c15] / bg-neutral-950/98 backdrop-blur-2xl border border-white/12 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.1)]`) to ensure bright badges, text, and graphics from the page behind it never bleed through or reduce legibility.
   - **Zero Plain-Text Lists**: Never render bare vertical lists of unadorned text links.
   - **Structured Submenu Grids**: Group items into logical category columns with uppercase overline eyebrows.
   - **Rich Card Affordances**: Each item must feature:
@@ -365,7 +366,8 @@ Website berbasis template generik umumnya menggunakan bilah navigasi persegi pan
   - **Border Presisi 1px & Pantulan Atas**: Batas 1px tegas (`border border-white/10 dark:border-white/12`) dipadukan dengan bayangan elevasi directional serta highlight stroke halus di sisi atas (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`).
 
 - **Dropdown Menu Flyout / Mega Menu (Kartu Mengambang Berisi Sub-Menu Terstruktur)**:
-  - **Kartu Melayang (Floating Card)**: Saat item navigasi (seperti *Skills*, *Fitur*, *Solusi*) diklik atau di-hover, panel menu yang muncul berbentuk kartu melayang berlatar gelap translusen dengan celah udara yang tegas di bawah kapsul (`mt-3 rounded-2xl p-5 md:p-6 bg-[#0a0d14]/92 backdrop-blur-2xl border border-white/10 shadow-2xl`).
+  - **Geometri Kapsul Terpusat (Centered Island Geometry)**: Saat item navigasi (seperti *Skills*, *Fitur*, *Solusi*) diklik atau di-hover, panel menu yang muncul berbentuk kartu melayang berposisi tepat di tengah di bawah bilah kapsul (`left-1/2 -translate-x-1/2 mt-3.5 w-[680px] max-w-[calc(100vw-2rem)] rounded-2xl p-5 md:p-6`). Dilarang memiringkan mega menu secara canggung ke salah satu sisi sehingga bertabrakan dengan logo merek.
+  - **Latar Belakang Gelap Padat Anti Bocor (Zero Bleed-Through)**: Gunakan lapisan gelap dengan densitas tinggi (`bg-[#090c15] / bg-neutral-950/98 backdrop-blur-2xl border border-white/12 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.1)]`) guna menjamin teks, lencana, atau grafis halaman di belakang kartu tidak tembus pandang atau merusak kontras baca.
   - **Bebas Daftar Teks Polos**: Dilarang hanya menampilkan daftar link teks vertikal biasa tanpa konteks visual.
   - **Kisi Sub-Menu Terstruktur**: Kelompokkan item ke dalam kolom-kolom kategori yang dilengkapi judul overline (eyebrow).
   - **Tiga Unsur Wajib Setiap Sub-Menu**:

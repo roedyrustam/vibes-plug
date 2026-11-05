@@ -1075,7 +1075,7 @@ export function initShowcase() {
     });
 
     // Handle 'Explore all 178 skills' footer link
-    const megaFooterLink = dom.navSkillsDropdown.querySelector('.mega-footer-link');
+    const megaFooterLink = dom.navSkillsDropdown.querySelector('.mega-menu-explore-all, .mega-footer-link');
     if (megaFooterLink) {
       megaFooterLink.addEventListener('click', () => {
         toggleSkillsMegaMenu(false);

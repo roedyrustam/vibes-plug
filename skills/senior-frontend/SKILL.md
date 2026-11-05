@@ -256,7 +256,7 @@ export function FloatingIslandCapsuleHeader() {
             {openDropdown === 'skills' && (
               <div 
                 role="menu"
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-3.5 w-[580px] rounded-2xl p-5 bg-[#0a0d14]/95 backdrop-blur-2xl border border-white/10 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150"
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3.5 w-[640px] max-w-[calc(100vw-2rem)] rounded-2xl p-5 bg-[#090c15] border border-white/12 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.1)] animate-in fade-in slide-in-from-top-2 duration-150"
               >
                 <div className="grid grid-cols-2 gap-4">
                   {SKILL_CATEGORIES.map((cat) => (
