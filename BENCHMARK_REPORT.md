@@ -4,12 +4,12 @@
 
 **Comprehensive latency, throughput, token economics, and anti-slop verification metrics**
 
-*Published: October 2026 • Platform Version: v4.4.2 • Ecosystem Scale: 176 Specialized Skills*
+*Published: October 2026 • Platform Version: v4.7.0 • Ecosystem Scale: 178 Specialized Skills*
 
 [![SLA Compliance](https://img.shields.io/badge/SLA%20Compliance-100%25%20(7%2F7)-brightgreen.svg)](#the-7-sovereign-engine-benchmark-results)
-[![Anti-Slop](https://img.shields.io/badge/Anti--Slop%20Strict-0%20Violations%20(330%20Files)-blue.svg)](#anti-slop-directive-compliance--code-quality)
+[![Anti-Slop](https://img.shields.io/badge/Anti--Slop%20Strict-0%20Violations%20(708%20Files)-blue.svg)](#anti-slop-directive-compliance--code-quality)
 [![Prompt Caching](https://img.shields.io/badge/KV--Cache%20Hit%20Rate-90%25%2B%20Cost%20Reduction-blueviolet.svg)](#token-economics--finops-empirical-analysis)
-[![Test Suite](https://img.shields.io/badge/CI%20Test%20Suite-42%2F42%20Passed-success.svg)](#test-suite-and-reliability)
+[![Test Suite](https://img.shields.io/badge/CI%20Test%20Suite-55%2F55%20Passed-success.svg)](#test-suite-and-reliability)
 
 </div>
 
@@ -50,7 +50,7 @@ All benchmarks were recorded using `vibes bench` (embedded performance fuzzer an
 
 Frontier models (Google Gemini 4 Pro / Flash, Anthropic Claude 3.7 / 5.1, and OpenAI o3 / GPT-4.5) support native context prompt caching for byte-deterministic instruction prefixes exceeding 1,024 tokens.
 
-VibesPlug dynamically compiles a canonical 176-skill ecosystem prefix (`.cache-prefix.json`) that locks the system instructions into a deterministic memory block.
+VibesPlug dynamically compiles a canonical 178-skill ecosystem prefix (`.cache-prefix.json`) that locks the system instructions into a deterministic memory block.
 
 ### Canonical Prefix Metrics
 - **Canonical Payload Size**: `5,878 bytes`
@@ -99,7 +99,7 @@ How does VibesPlug Pro compare against other market alternatives?
 
 | Capability | VibesPlug Pro | @primeinc/swarm | aiwg | Mastra | Karpathy Rules |
 | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Domain Skills Catalog** | **176 skills** | ~5 skills | ~10 skills | Framework only | 1 file |
+| **Domain Skills Catalog** | **178 skills** | ~5 skills | ~10 skills | Framework only | 1 file |
 | **In-Memory Verification Gate** | **1.2 ms** | ❌ None | ❌ None | ❌ None | ❌ None |
 | **Deterministic KV-Cache Prefix** | ✅ **Locked (>1024t)** | ❌ | ❌ | ❌ | ❌ |
 | **Multi-IDE Rule Synchronization** | ✅ **8 IDEs** | 1 IDE | 3 IDEs | ❌ | 1 IDE |
@@ -121,10 +121,10 @@ npx vibes bench --json
 # 2. Verify Prompt Cache prefix and token economics
 npx vibes cache status
 
-# 3. Execute strict Anti-Slop audit across 330 files
+# 3. Execute strict Anti-Slop audit across 708 files
 node scripts/check-anti-slop.js --strict
 
-# 4. Run the full 42-case CLI and engine integration test suite
+# 4. Run the full 55-case CLI and engine integration test suite
 node --test scripts/test-cli.mjs
 ```
 

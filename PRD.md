@@ -1,13 +1,13 @@
 # 📋 Product Requirements Document (PRD): Skill-as-a-Tool (SaaT) Engine
 **Product**: `vibes-plug` Skill Supercharger & Tool Execution Engine  
-**Version**: 4.5.0  
+**Version**: 4.7.0  
 **Status**: APPROVED ARCHITECTURE  
 **Target Release**: Q4 2026  
 
 ---
 
 ## 1. Executive Summary & Problem Definition
-`vibes-plug` maintains 176 high-caliber skills (including the 5-skill REA Reverse Engineering suite). To ensure skills do not remain only passive markdown documentation relying solely on LLM context ingestion, the Universal Skill-as-a-Tool (SaaT) engine turns all 176 skills and 1,000 code blueprints into deterministic runtime tools, eliminating:
+`vibes-plug` maintains 178 high-caliber skills (including the 5-skill REA Reverse Engineering suite). To ensure skills do not remain only passive markdown documentation relying solely on LLM context ingestion, the Universal Skill-as-a-Tool (SaaT) engine turns all 178 skills and 1,000 code blueprints into deterministic runtime tools, eliminating:
 1. Context window bloat (~5k–15k tokens per loaded skill).
 2. Non-deterministic execution and hallucinated command flags.
 3. Inability to run automated verification loops, TDD self-healing, or AST inspections without manual intervention.

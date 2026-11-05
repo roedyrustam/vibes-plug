@@ -46,7 +46,7 @@ vibes-plug/
 │   └── vibes.mjs                   # CLI interface (init, doctor, skill exec/chain/slice, test, guard)
 ├── scripts/
 │   ├── skill-dispatcher.mjs        # Universal SaaT runtime & Autonomous Skill Composition Chains
-│   ├── supercharge-all-skills.mjs  # Sovereign Skill Supercharger across all 176 skills
+│   ├── supercharge-all-skills.mjs  # Sovereign Skill Supercharger across all 178 skills
 │   ├── compile-skill-slices.mjs    # Pre-compiles <350-token micro-slices to .skill-slices.json
 │   ├── verify-skill-snippets.mjs   # Executable code-block smoke tester across 1,000+ blueprints
 │   ├── ast-query.mjs               # Surgical symbol extraction & blast-radius calculation
@@ -65,7 +65,7 @@ vibes-plug/
 │       ├── cloud-devops.mjs        # Rootless/distroless Dockerfiles, K8s GitOps, & CycloneDX SBOM
 │       └── mobile-spatial.mjs      # Expo SDK 53, Tauri v2 capabilities, & Zero-GC 60fps loops
 ├── .skill-slices.json              # Pre-compiled <350-token skill slices (93% fan-out token savings)
-├── skills/                         # 176 Specialized Skill behavioral specifications (SKILL.md)
+├── skills/                         # 178 Specialized Skill behavioral specifications (SKILL.md)
 ├── PRD.md                          # Product Requirements Document
 ├── ERD.md                          # Database Entity Schemas & RLS DDL
 ├── DOCUMENTATION.md                # Topology, component boundaries & module guide

@@ -6,9 +6,9 @@ Only the latest minor release series of **Vibes-Plug** receives active security 
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 4.4.x   | :white_check_mark: |
-| 4.3.x   | :white_check_mark: |
-| < 4.3.0 | :x:                |
+| 4.7.x   | :white_check_mark: |
+| 4.6.x   | :white_check_mark: |
+| < 4.6.0 | :x:                |
 
 ## Security Scope
 

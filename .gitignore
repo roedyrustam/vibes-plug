@@ -1,4 +1,35 @@
-/vibes-plug/
+# Dependencies
 node_modules/
+package-lock.json.bak
+
+# Worktrees & Ephemeral Test Stores
+/vibes-plug/
 .agents/worktrees/
 .test-bridge-cli-tmp/
+.tmp-*/
+*.tmp
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Build & Extension Artifacts
+dist/
+coverage/
+extensions/vscode/*.vsix
+*.tsbuildinfo
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

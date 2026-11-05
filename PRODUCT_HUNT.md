@@ -1,4 +1,4 @@
-# Product Hunt Launch Kit – VibesPlug Pro (v4.4.2)
+# Product Hunt Launch Kit – VibesPlug Pro (v4.7.0)
 
 A complete, high-converting launch asset package for launching VibesPlug Pro on Product Hunt.
 
@@ -7,7 +7,7 @@ A complete, high-converting launch asset package for launching VibesPlug Pro on 
 ## 🏷️ Product Info
 
 - **Product Name**: VibesPlug Pro
-- **Tagline**: The 176-Skill Autonomous AI Agent Swarm for Vibe Coding
+- **Tagline**: The 178-Skill Autonomous AI Agent Swarm for Vibe Coding
 - **Primary Category**: Developer Tools, Artificial Intelligence, Open Source
 - **Pricing**: Free & Open Source (MIT)
 - **Website URL**: https://vibes-plug.vercel.app/
@@ -16,7 +16,7 @@ A complete, high-converting launch asset package for launching VibesPlug Pro on 
 ---
 
 ## 📝 Short Description (Max 260 characters)
-Turn Antigravity, Cursor & Claude Code into an autonomous 161-agent software engineering studio. Zero AI Code Slop, 100% verified cross-skill graph, deterministic KV-cache token savings (75%+), and real-time swarm orchestration.
+Turn Antigravity, Cursor & Claude Code into an autonomous 178-skill software engineering studio. Zero AI Code Slop, 100% verified cross-skill graph, deterministic KV-cache token savings (75%+), and real-time swarm orchestration.
 
 ---
 
@@ -32,14 +32,14 @@ Like many of you, I've spent hundreds of hours "vibe coding" with frontier LLMs 
 ❌ Token Expense: Re-ingesting entire workspaces burns through tokens and slows down response times.
 
 To fix this, I engineered **VibesPlug Pro**:
-It's an autonomous AI Swarm Architecture that connects **160 specialized domain skills** with an in-memory execution substrate.
+It's an autonomous AI Swarm Architecture that connects **178 specialized domain skills** with an in-memory execution substrate.
 
 Here is what makes it unique:
 1. 🤖 **Swarm Director Pattern**: Dynamically decomposes your prompt and coordinates cooperating skills (e.g. Next.js 15 + Prisma + DOKU/Stripe + Z3 formal verification).
 2. 🛡️ **Sovereign Anti-Slop Directive**: Enforces an automated pre-disk scanner (`vibes verify-gate`) that rejects placeholder code, syntax narration, and fake mocks before files touch disk.
 3. ⚡ **Deterministic KV-Cache Locking**: Pinning the static prompt prefix slashes API token billing by 75-90% and gives sub-second Time-To-First-Token.
 4. 🌐 **Universal Portability**: Natively supports Google Antigravity, Anthropic Claude Code, Cursor IDE, Windsurf, OpenAI Codex, and Trae.
-5. 📊 **Interactive Web Showcase & Studio**: Test commands, inspect all 176 skills, and simulate swarms directly in your browser.
+5. 📊 **Interactive Web Showcase & Studio**: Test commands, inspect all 178 skills, and simulate swarms directly in your browser.
 
 Try it in 1 command:
 $ npx vibes-plug init

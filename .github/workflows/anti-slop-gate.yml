@@ -33,8 +33,11 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Validate 176 Skills Ecosystem & Orchestrator Sync
-        run: node scripts/validate-skills.mjs
+      - name: Validate 178 Skills Ecosystem & Orchestrator Sync
+        run: |
+          node scripts/audit-graph.mjs
+          node scripts/validate-skills.mjs
+          node scripts/verify-skill-snippets.mjs
 
       - name: Run Sovereign Anti-Slop Strict Audit (Zero Slop Standard)
         run: node scripts/check-anti-slop.js --strict
@@ -91,7 +94,7 @@ jobs:
           bash -n install.sh
         if: runner.os != 'Windows'
 
-      - name: Run Full CLI, Studio & MCP Integration Test Suite (51 Tests)
+      - name: Run Full CLI, Studio & MCP Integration Test Suite (55 Tests)
         run: node --test scripts/test-cli.mjs
 
       - name: Run Autonomous CI Healer Diagnostics on Failure

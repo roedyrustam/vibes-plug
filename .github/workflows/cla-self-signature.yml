@@ -68,16 +68,16 @@ jobs:
             }
 
             if (added.length === 1 && added[0].toLowerCase() === author.toLowerCase()) {
-              core.info(Valid self-CLA signature detected for @. Setting status to success.);
+              core.info(`Valid self-CLA signature detected for @${author}. Setting status to success.`);
               await github.rest.repos.createCommitStatus({
                 owner,
                 repo,
                 sha: pr.head.sha,
                 state: 'success',
                 context: 'verification/cla-signed',
-                description: CLA self-signature PR: @ added to .contributors,
-                target_url: https://github.com//roedyrustam/vibes-plug/blob/main/CLA.md
+                description: `CLA self-signature PR: @${author} added to .contributors`,
+                target_url: `https://github.com/${owner}/${repo}/blob/main/CLA.md`
               });
             } else {
-              core.setFailed(PR must only add the author (@) to .contributors. Detected: );
+              core.setFailed(`PR must only add the author (@${author}) to .contributors. Detected: ${JSON.stringify(added)}`);
             }
