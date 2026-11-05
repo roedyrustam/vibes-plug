@@ -142,6 +142,25 @@ Visual hierarchy guides the user's perception through deliberate scale, contrast
   - **Progressive Chunking**: Break large datasets into clear card modules with distinct header, metric, and footer zones.
   - **Material Design 3 (M3) Integration**: Support Adaptive Window Size Classes (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) and tonal elevation tiers (`surface-container-lowest` to `surface-container-highest`).
 
+#### 6. Anti-Generic Website Architecture: Floating Island Capsule Navigation & Rich Flyout Mega Menus
+Standard template websites default to generic, full-width, edge-to-edge glued rectangular navigation bars that look dated and monotonous. For premium, non-generic (Linear/Apple/Stripe-caliber) websites, mandate the **Floating Island Glass Capsule** and **Rich Card Flyout** architectural pattern:
+
+- **Floating Pill / Capsule Style Navigation**:
+  - **Detached Island Elevation**: The navigation bar floats gracefully above the background rather than being glued to the ceiling of the viewport (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50`).
+  - **Capsule Geometry**: Fully rounded ends resembling a tactile hardware capsule (`rounded-full px-4 md:px-6 py-2.5 md:py-3`).
+  - **Translucent Dark Glassmorphism**: High-grade dark translucent surface with fine backdrop blur (`bg-neutral-950/75 dark:bg-neutral-950/80 backdrop-blur-xl saturate-180`).
+  - **Crisp Perimeter & Inner Bevel**: 1px subtle boundary border (`border border-white/10 dark:border-white/12`) paired with an inner top highlight stroke (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`). As the page scrolls, underlying content blurs softly behind the capsule without breaking readability.
+
+- **Flyout / Mega Menu Dropdown (Rich Floating Card Architecture)**:
+  - **Detached Floating Card**: When navigation items (e.g. *Skills*, *Solutions*, *Features*) are hovered or clicked, the dropdown appears as an elevated floating card beneath the pill with an intentional air gap (`mt-3 rounded-2xl p-5 md:p-6 bg-[#0a0d14]/92 backdrop-blur-2xl border border-white/10 shadow-2xl`).
+  - **Zero Plain-Text Lists**: Never render bare vertical lists of unadorned text links.
+  - **Structured Submenu Grids**: Group items into logical category columns with uppercase overline eyebrows.
+  - **Rich Card Affordances**: Each item must feature:
+    1. A subtle icon container (`w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform`).
+    2. A crisp, bold title (`text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors`).
+    3. A concise 1-sentence value description (`text-xs text-neutral-400 line-clamp-1`).
+  - **Accessibility Contract**: Full keyboard navigation support (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), focus rings, and instant closure on `Escape` key.
+
 ---
 
 ### Sovereign UI/UX Anti-Slop Directive (6 Design Pillars)
@@ -335,6 +354,25 @@ Hierarki visual memandu persepsi pengguna secara intuitif dan elegan melalui ska
   - **Pola Z (Z-Pattern)**: Terapkan pada landing page promosi dan alur onboarding (Logo kiri atas -> Navigasi kanan -> Pesan Nilai Utama -> Tombol CTA).
   - **Chunking Progresif**: Pecah kumpulan informasi kompleks menjadi modul-modul kartu terstruktur dengan header, metrik, dan footer yang jelas.
   - **Integrasi Material Design 3 (M3)**: Mendukung Kelas Ukuran Jendela Adaptif (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) serta tingkatan elevasi tonal (`surface-container-lowest` hingga `surface-container-highest`).
+
+#### 6. Arsitektur Website Anti-Pasaran: Navigasi Kapsul Mengambang (Floating Island) & Mega Menu Flyout Mewah
+Website berbasis template generik umumnya menggunakan bilah navigasi persegi panjang yang menempel penuh pada batas atas layar (*full-width edge-to-edge*), menghasilkan kesan pasaran dan kaku. Untuk website berkelas tinggi (standar Apple/Linear/Stripe), wajib terapkan standar **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu**:
+
+- **Gaya Navigasi Kapsul Mengambang (Floating Pill / Capsule Style)**:
+  - **Bilah Melayang Terpisah (Detached Island)**: Bilah navigasi melayang anggun di atas latar belakang, tidak menempel penuh ke batas atas layar (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50`).
+  - **Sudut Sangat Membulat (Capsule Geometry)**: Ujung membulat penuh menyerupai kapsul perangkat keras modern (`rounded-full px-4 md:px-6 py-2.5 md:py-3`).
+  - **Tema Gelap Translusen / Glassmorphism**: Latar belakang gelap dengan tingkat transparansi halus dan blur mendalam (`bg-neutral-950/75 dark:bg-neutral-950/80 backdrop-blur-xl saturate-180`) sehingga elemen halaman di belakangnya tetap samar terlihat saat digulir.
+  - **Border Presisi 1px & Pantulan Atas**: Batas 1px tegas (`border border-white/10 dark:border-white/12`) dipadukan dengan bayangan elevasi directional serta highlight stroke halus di sisi atas (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`).
+
+- **Dropdown Menu Flyout / Mega Menu (Kartu Mengambang Berisi Sub-Menu Terstruktur)**:
+  - **Kartu Melayang (Floating Card)**: Saat item navigasi (seperti *Skills*, *Fitur*, *Solusi*) diklik atau di-hover, panel menu yang muncul berbentuk kartu melayang berlatar gelap translusen dengan celah udara yang tegas di bawah kapsul (`mt-3 rounded-2xl p-5 md:p-6 bg-[#0a0d14]/92 backdrop-blur-2xl border border-white/10 shadow-2xl`).
+  - **Bebas Daftar Teks Polos**: Dilarang hanya menampilkan daftar link teks vertikal biasa tanpa konteks visual.
+  - **Kisi Sub-Menu Terstruktur**: Kelompokkan item ke dalam kolom-kolom kategori yang dilengkapi judul overline (eyebrow).
+  - **Tiga Unsur Wajib Setiap Sub-Menu**:
+    1. Wadah ikon visual halus (`w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform`).
+    2. Judul tebal dan tegas (`text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors`).
+    3. Deskripsi singkat 1 kalimat yang menjelaskan nilai manfaat fitur (`text-xs text-neutral-400 line-clamp-1`).
+  - **Kontrak Aksesibilitas**: Navigasi keyboard penuh (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), cincin fokus yang jelas, serta penutupan otomatis saat menekan tombol `Escape`.
 
 ---
 

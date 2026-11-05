@@ -169,6 +169,159 @@ export function MetricBanner({
 }
 ```
 
+#### 10. Non-Generic Website Navigation: Floating Island Capsule Header & Mega Menu Flyouts
+Modern production websites must avoid generic edge-to-edge glued navbar templates. Implement the **Floating Island Capsule Header** with rich **Flyout Card Mega Menus**:
+
+```tsx
+'use client';
+
+import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
+import { Layers, Cpu, ShieldCheck, Zap, ChevronDown, Menu, X } from 'lucide-react';
+
+interface SubMenuItem {
+  title: string;
+  description: string;
+  href: string;
+  icon: typeof Layers;
+}
+
+const SKILL_CATEGORIES: { category: string; items: SubMenuItem[] }[] = [
+  {
+    category: 'Architecture & Swarm',
+    items: [
+      { title: 'Zero-to-Prod Orchestrator', description: '8-phase autonomous software lifecycle pipeline', href: '/skills/orchestrator', icon: Layers },
+      { title: 'Frontier AI & MCP Engine', description: 'Model Context Protocol v1.x with dynamic routing', href: '/skills/mcp', icon: Cpu }
+    ]
+  },
+  {
+    category: 'Security & Quality Gate',
+    items: [
+      { title: 'Sovereign Anti-Slop', description: 'Zero-placeholder code & Linear-caliber UI craft', href: '/skills/anti-slop', icon: ShieldCheck },
+      { title: 'Micro-TDD Compiler', description: 'Sub-15ms in-memory contract verification hot-loop', href: '/skills/tdd', icon: Zap }
+    ]
+  }
+];
+
+export function FloatingIslandCapsuleHeader() {
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDropdown(null);
+      }
+    }
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpenDropdown(null);
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  return (
+    <header className="fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50" ref={navRef}>
+      {/* Floating Pill Capsule Bar */}
+      <nav 
+        aria-label="Main Navigation"
+        className="flex items-center justify-between rounded-full px-4 md:px-6 py-2.5 md:py-3 bg-neutral-950/80 backdrop-blur-xl saturate-180 border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]"
+      >
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2.5 text-white font-bold tracking-tight text-sm md:text-base">
+          <span className="w-7 h-7 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xs">VP</span>
+          <span>Vibes<span className="text-cyan-400">Plug</span></span>
+        </Link>
+
+        {/* Desktop Nav Links & Flyout Triggers */}
+        <div className="hidden md:flex items-center gap-1">
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setOpenDropdown(openDropdown === 'skills' ? null : 'skills')}
+              aria-expanded={openDropdown === 'skills'}
+              aria-haspopup="true"
+              className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/5 transition-colors focus-visible:ring-2 focus-visible:ring-cyan-400"
+            >
+              Skills
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'skills' ? 'rotate-180' : ''}`} />
+            </button>
+
+            {/* Flyout Mega Menu Dropdown (Rich Floating Card) */}
+            {openDropdown === 'skills' && (
+              <div 
+                role="menu"
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3.5 w-[580px] rounded-2xl p-5 bg-[#0a0d14]/95 backdrop-blur-2xl border border-white/10 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150"
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  {SKILL_CATEGORIES.map((cat) => (
+                    <div key={cat.category} className="space-y-2">
+                      <span className="text-[10px] font-semibold tracking-wider uppercase text-neutral-500">{cat.category}</span>
+                      <div className="space-y-1">
+                        {cat.items.map((item) => {
+                          const Icon = item.icon;
+                          return (
+                            <Link
+                              key={item.title}
+                              href={item.href}
+                              role="menuitem"
+                              onClick={() => setOpenDropdown(null)}
+                              className="group flex items-start gap-3 p-2.5 rounded-xl hover:bg-white/5 transition-colors"
+                            >
+                              <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform">
+                                <Icon className="w-4 h-4" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-semibold text-white group-hover:text-cyan-400 transition-colors">{item.title}</p>
+                                <p className="text-[11px] text-neutral-400 line-clamp-1">{item.description}</p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <Link href="#benchmarks" className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+            Benchmarks
+          </Link>
+          <Link href="#architecture" className="px-3.5 py-1.5 rounded-full text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/5 transition-colors">
+            Architecture
+          </Link>
+        </div>
+
+        {/* CTA & Mobile Trigger */}
+        <div className="flex items-center gap-2">
+          <Link
+            href="/docs"
+            className="cursor-pointer inline-flex items-center justify-center px-4 py-1.5 rounded-full text-xs font-semibold text-neutral-950 bg-cyan-400 hover:bg-cyan-300 transition-colors shadow-sm"
+          >
+            Get Started
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation Menu"
+            className="md:hidden p-1.5 rounded-full text-neutral-300 hover:text-white hover:bg-white/5"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
+}
+```
+
 ---
 
 #### React 19 Optimistic Mutation & Server Action Form Hook (TypeScript)
@@ -445,6 +598,12 @@ Setiap tampilan React 19 / Next.js 15 wajib memancarkan hierarki visual kaliber 
 - **Dominasi Single Primary CTA**: Maksimal satu tombol utama kontras tinggi per layar; aksi sekunder menggunakan gaya subtle/outline.
 - **Kedekatan Gestalt (Proximity)**: Kontrol dan label terhubung duduk berjarak rapat `gap-1.5` (6px); batas antar-seksi menggunakan ruang kosong yang lega (`py-16 md:py-24`).
 - **Pelapisan Permukaan 1px Tajam**: Padukan border tajam `border border-neutral-200/80 dark:border-neutral-800` dengan micro-shadow terarah `shadow-xs` alih-alih bayangan hitam buram 30px.
+
+#### 10. Navigasi Website Anti-Pasaran: Kapsul Mengambang (Floating Island) & Flyout Mega Menu
+Website produksi modern dilarang menggunakan template navbar kotak generik yang menempel penuh ke batas atas. Wajib implementasikan arsitektur **Floating Island Capsule Header** dengan **Flyout Card Mega Menu**:
+- **Bilah Kapsul Melayang**: Melayang di atas kanvas latar belakang (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50 rounded-full px-4 md:px-6 py-2.5 md:py-3`).
+- **Tema Glassmorphism Translusen Gelap**: Padukan latar belakang gelap dengan blur optik halus (`bg-neutral-950/80 backdrop-blur-xl saturate-180 border border-white/10`) sehingga konten di bawahnya tetap terlihat samar elegan saat digulir.
+- **Flyout Card Bertingkat**: Saat menu *Skills* atau *Produk* diaktifkan, tampilkan kartu melayang terpisah (`rounded-2xl p-5 bg-[#0a0d14]/95 backdrop-blur-2xl border border-white/10 shadow-2xl`) yang menyajikan sub-menu dalam kisi terstruktur: wadah ikon visual, judul tegas, dan deskripsi nilai manfaat 1 kalimat (bebas link teks polos yang membosankan).
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

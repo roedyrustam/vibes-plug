@@ -45,6 +45,9 @@ function initDom() {
   dom.bridgeFileName = document.getElementById('bridgeFileName');
   dom.toastContainer = document.getElementById('toastContainer');
   dom.siteHeader = document.getElementById('siteHeader');
+  dom.navSkillsDropdown = document.getElementById('navSkillsDropdown');
+  dom.navLinkExplorer = document.getElementById('navLinkExplorer');
+  dom.skillsMegaMenu = document.getElementById('skillsMegaMenu');
   dom.navQuickSearchBtn = document.getElementById('navQuickSearchBtn');
   dom.navMobileToggle = document.getElementById('navMobileToggle');
   dom.mobileNavDrawer = document.getElementById('mobileNavDrawer');
@@ -1022,6 +1025,67 @@ export function initShowcase() {
   document.querySelectorAll('[data-close-drawer]').forEach(item => {
     item.addEventListener('click', closeMobileDrawer);
   });
+
+  // Skills Mega Menu Dropdown Interaction
+  if (dom.navSkillsDropdown && dom.navLinkExplorer) {
+    const toggleSkillsMegaMenu = (forceState) => {
+      const isCurrentlyOpen = dom.navSkillsDropdown.classList.contains('open');
+      const nextState = typeof forceState === 'boolean' ? forceState : !isCurrentlyOpen;
+      if (nextState) {
+        dom.navSkillsDropdown.classList.add('open');
+        dom.navLinkExplorer.setAttribute('aria-expanded', 'true');
+      } else {
+        dom.navSkillsDropdown.classList.remove('open');
+        dom.navLinkExplorer.setAttribute('aria-expanded', 'false');
+      }
+    };
+
+    dom.navLinkExplorer.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleSkillsMegaMenu();
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!dom.navSkillsDropdown.contains(e.target)) {
+        toggleSkillsMegaMenu(false);
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dom.navSkillsDropdown.classList.contains('open')) {
+        toggleSkillsMegaMenu(false);
+        dom.navLinkExplorer.focus();
+      }
+    });
+
+    // Filter skills when category item in mega menu is clicked
+    dom.navSkillsDropdown.querySelectorAll('.mega-menu-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const filterDomain = item.getAttribute('data-domain-filter');
+        toggleSkillsMegaMenu(false);
+        if (filterDomain) {
+          const tabBtn = document.querySelector(`.category-tab[data-category="${filterDomain}"]`);
+          if (tabBtn) {
+            tabBtn.click();
+          }
+        }
+      });
+    });
+
+    // Handle 'Explore all 178 skills' footer link
+    const megaFooterLink = dom.navSkillsDropdown.querySelector('.mega-footer-link');
+    if (megaFooterLink) {
+      megaFooterLink.addEventListener('click', () => {
+        toggleSkillsMegaMenu(false);
+        const tabAll = document.querySelector('.category-tab[data-category="all"]');
+        if (tabAll) {
+          tabAll.click();
+        }
+      });
+    }
+  }
 
   window.addEventListener('resize', () => {
     if (window.innerWidth > 960) {

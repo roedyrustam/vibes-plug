@@ -124,34 +124,41 @@ a:hover {
 }
 
 /* ==========================================================================
-   Header & Navbar (2026 Sovereign Glassmorphism Standard - Clean & Balanced)
+   Header & Navbar (2026 Sovereign Floating Island Capsule Header Standard)
    ========================================================================== */
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: 1rem;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  background: rgba(9, 11, 15, 0.85);
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: calc(100% - 2rem);
+  max-width: 1240px;
+  margin: 0 auto;
+  background: rgba(9, 11, 16, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 9999px;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.65),
+              inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .site-header.scrolled {
-  background: rgba(7, 9, 13, 0.94);
-  border-bottom-color: rgba(6, 182, 212, 0.22);
-  box-shadow: 0 16px 36px -12px rgba(0, 0, 0, 0.8),
-              0 0 20px rgba(6, 182, 212, 0.06);
+  background: rgba(7, 9, 14, 0.94);
+  border-color: rgba(6, 182, 212, 0.28);
+  box-shadow: 0 24px 50px -12px rgba(0, 0, 0, 0.8),
+              0 0 25px rgba(6, 182, 212, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .header-glow-line {
   position: absolute;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 12%;
+  right: 12%;
   height: 1.5px;
   background: linear-gradient(90deg, transparent 0%, rgba(6, 182, 212, 0.65) 20%, rgba(168, 85, 247, 0.7) 50%, rgba(16, 185, 129, 0.65) 80%, transparent 100%);
   opacity: 0.85;
@@ -162,9 +169,10 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 58px;
   gap: 1.25rem;
-  max-width: 1360px;
+  max-width: 100%;
+  padding: 0 1.25rem;
 }
 
 /* Brand Group (Left) */
@@ -344,6 +352,219 @@ a:hover {
   border: 1px solid rgba(255, 255, 255, 0.1);
   line-height: 1;
   white-space: nowrap;
+}
+
+/* Nav Item Dropdown & Mega Menu Flyout Standard */
+.nav-item-dropdown {
+  position: relative;
+}
+
+.nav-dropdown-trigger {
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.dropdown-chevron {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-muted);
+}
+
+.nav-item-dropdown:hover .dropdown-chevron,
+.nav-item-dropdown.open .dropdown-chevron {
+  transform: rotate(180deg);
+  color: var(--accent-cyan);
+}
+
+.mega-menu-flyout {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 620px;
+  max-width: 90vw;
+  background: rgba(9, 11, 16, 0.95);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.85),
+              0 0 35px rgba(6, 182, 212, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  padding: 1.25rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1050;
+}
+
+.nav-item-dropdown:hover .mega-menu-flyout,
+.nav-item-dropdown.open .mega-menu-flyout,
+.nav-item-dropdown:focus-within .mega-menu-flyout {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mega-menu-title {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.mega-menu-counter {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  background: rgba(6, 182, 212, 0.12);
+  border: 1px solid rgba(6, 182, 212, 0.28);
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+}
+
+.mega-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+.mega-menu-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mega-menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+.mega-item-icon-box {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid transparent;
+}
+
+.mega-item-icon-box.cyan-box {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.28);
+  color: #38bdf8;
+}
+
+.mega-item-icon-box.blue-box {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.28);
+  color: #60a5fa;
+}
+
+.mega-item-icon-box.emerald-box {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.28);
+  color: #34d399;
+}
+
+.mega-item-icon-box.purple-box {
+  background: rgba(168, 85, 247, 0.12);
+  border-color: rgba(168, 85, 247, 0.28);
+  color: #c084fc;
+}
+
+.mega-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.mega-item-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.mega-item-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.mega-item-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.05rem 0.35rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+}
+
+.mega-item-desc {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.mega-menu-footer {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mega-footer-link {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.15s ease;
+}
+
+.mega-footer-link:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.mega-footer-hint {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 
 /* Right: Action Controls */
@@ -794,7 +1015,7 @@ a:hover {
    ========================================================================== */
 
 .hero-section {
-  padding: 4.5rem 0 3.5rem;
+  padding: 7rem 0 3.5rem;
   position: relative;
   text-align: center;
 }
@@ -1819,6 +2040,13 @@ a:hover {
 }
 
 @media (max-width: 640px) {
+  .site-header {
+    top: 0.5rem;
+    width: calc(100% - 1rem);
+  }
+  .hero-section {
+    padding: 5.5rem 0 2.5rem;
+  }
   .hero-stats {
     grid-template-columns: 1fr;
   }
@@ -1832,7 +2060,8 @@ a:hover {
     display: none;
   }
   .navbar {
-    height: 64px;
+    height: 52px;
+    padding: 0 0.85rem;
   }
   .footer-grid {
     grid-template-columns: 1fr;

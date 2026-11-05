@@ -122,11 +122,69 @@
               <span>Terminal</span>
             </a>
           </li>
-          <li>
-            <a href="#explorer" class="nav-link" id="navLinkExplorer">
+          <li class="nav-item-dropdown" id="navSkillsDropdown">
+            <a href="#explorer" class="nav-link nav-link-has-dropdown" id="navLinkExplorer" aria-haspopup="true" aria-expanded="false">
               <span>Skills</span>
               <span class="nav-count-badge">178</span>
+              <svg class="dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
             </a>
+
+            <!-- Floating Mega Menu Card -->
+            <div class="mega-menu-flyout" id="skillsMegaMenu" role="menu" aria-label="Skills Category Directory">
+              <div class="mega-menu-header">
+                <span class="mega-menu-eyebrow">Universal 178 Skill Swarm Ecosystem</span>
+                <span class="mega-menu-status"><span class="live-dot-pulse"></span> 100% Verified</span>
+              </div>
+              <div class="mega-menu-grid">
+                <!-- Group 1: Frontend & UI/UX -->
+                <a href="#explorer" class="mega-menu-item" data-domain-filter="frontend" role="menuitem">
+                  <div class="mega-item-icon-box cyan-box">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18M9 21V9"></path></svg>
+                  </div>
+                  <div class="mega-item-text">
+                    <div class="mega-item-title">Frontend &amp; UI/UX Craft</div>
+                    <div class="mega-item-desc">React 19, Tailwind v4, Floating Island Nav, WCAG 2.2</div>
+                  </div>
+                </a>
+
+                <!-- Group 2: Systems, Rust & Backend -->
+                <a href="#explorer" class="mega-menu-item" data-domain-filter="backend" role="menuitem">
+                  <div class="mega-item-icon-box blue-box">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                  </div>
+                  <div class="mega-item-text">
+                    <div class="mega-item-title">Systems &amp; Rust 2024</div>
+                    <div class="mega-item-desc">Brown Grounded Permissions, Axum 0.8, Tokio, SQLx</div>
+                  </div>
+                </a>
+
+                <!-- Group 3: FinTech & Payments -->
+                <a href="#explorer" class="mega-menu-item" data-domain-filter="fintech" role="menuitem">
+                  <div class="mega-item-icon-box emerald-box">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                  </div>
+                  <div class="mega-item-text">
+                    <div class="mega-item-title">FinTech &amp; SNAP BI</div>
+                    <div class="mega-item-desc">DOKU Gateway, QRIS, Virtual Accounts, Double-Entry</div>
+                  </div>
+                </a>
+
+                <!-- Group 4: Testing & Anti-Slop -->
+                <a href="#explorer" class="mega-menu-item" data-domain-filter="security" role="menuitem">
+                  <div class="mega-item-icon-box purple-box">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                  </div>
+                  <div class="mega-item-text">
+                    <div class="mega-item-title">Anti-Slop &amp; Micro-TDD</div>
+                    <div class="mega-item-desc">7 Pillars of zero AI slop, in-memory sub-15ms TDD verifier</div>
+                  </div>
+                </a>
+              </div>
+              <div class="mega-menu-footer">
+                <a href="#explorer" class="mega-menu-explore-all">Explore All 178 Skills in Registry &rarr;</a>
+                <a href="llms-full.txt" target="_blank" rel="noopener noreferrer" class="mega-menu-llm-link">llms-full.txt (AI Spec)</a>
+              </div>
+            </div>
           </li>
           <li>
             <a href="#topologies" class="nav-link" id="navLinkTopologies">

@@ -209,8 +209,8 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 - **R-07 — Background**: Dot grids, blueprint grids, and graph paper textures are forbidden as cheap tech shortcuts. Use authentic brand textures or clean solid surfaces.
 - **R-08 — Spacing Rhythm**: Uniform spacing across all sections is forbidden. Spacing must express intentional rhythm and visual breathing room.
 - **R-09 — Layout**: Formulaic AI landing pages (Hero -> 3 feature cards -> 3 steps -> Bento grid -> Pricing -> FAQ) are forbidden. Layouts must reflect user task flows.
-- **R-10 — Glassmorphism Dose Cap**: Frosted glass (`backdrop-blur`) is strictly capped at **maximum 1-2 elements per page** (e.g., sticky top navigation only).
-- **R-11 — Deliberate Border Radius**: Indiscriminate pill-shape addiction (`rounded-full` on cards, inputs, and standard rectangular buttons) is forbidden. Follow the structured 3-tier radius scale (6-8px inputs/buttons, 12-16px cards, `rounded-full` only for avatars and status chips).
+- **R-10 — Glassmorphism Dose Cap**: Frosted glass (`backdrop-blur`) is strictly capped at **maximum 1-2 elements per page**. The premier, authorized implementation is the **Floating Island Glass Capsule Header** and associated **Flyout Mega Menu Card**, utilizing high-grade dark translucency (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, 1px `border-white/10`) to eliminate generic, monotonous edge-to-edge template navbars.
+- **R-11 — Deliberate Border Radius**: Indiscriminate pill-shape addiction (`rounded-full` on standard cards, text inputs, and rectangular action buttons) is forbidden. Follow the structured 3-tier radius scale (6-8px inputs/buttons, 12-16px cards). *Architectural Exception*: The **Floating Island Navigation Capsule Bar** is the authorized, prestigious exception designed as an elevated hardware-style cockpit.
 - **R-12 — Grounded Shadows**: Floating zero-gravity colored drop shadows (`shadow-2xl shadow-indigo-500/50`) are forbidden. Use crisp 1px borders paired with subtle directional elevation (`shadow-xs` / `shadow-sm`).
 - **R-13 — Focus Glow Dose Cap**: Neon glow borders and radiating cards are capped at **maximum 1-2 focus elements** on the entire page.
 - **R-14 — Purposeful Motion**: Perpetual floating loops and multi-stacked entrance animations on scroll (fade + slide + scale + bounce) are forbidden. Transitions must be snappy (150-250ms), purposeful, and honor `prefers-reduced-motion`.
@@ -662,8 +662,8 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-07 Latar Belakang**: Grid titik, garis blueprint, dan grafis kotak-kotak dilarang sebagai shortcut visual.
 - **R-08 Ritme Spasi**: Spasi seragam di setiap bagian dilarang; gunakan variasi ritme vertikal.
 - **R-09 Variasi Layout**: Layout formulaik klise (Hero -> 3 kartu -> 3 langkah -> Bento grid -> Pricing -> FAQ) dilarang.
-- **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman (misalnya hanya header sticky).
-- **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang atau kartu. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu.
+- **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman. Penerapan resmi yang sangat dianjurkan adalah **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu** dengan translusensi gelap halus (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, border 1px `border-white/10`) guna menggantikan bilah navbar kotak penuh yang pasaran.
+- **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang standar, field input, atau kartu konten. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu. *Pengecualian Arsitektural*: Bilah navigasi melayang berbentuk kapsul (**Floating Island Navigation Capsule**) adalah pengecualian resmi yang diotorisasi untuk menghadirkan kokpit navigasi modern berkelas tinggi ala Apple/Linear.
 - **R-12 Shadow Membumi**: Shadow melayang berwarna neon dilarang; gunakan border 1px solid dan elevasi halus.
 - **R-13 Batas Glow**: Efek pendaran neon dibatasi maksimal 1-2 elemen fokus.
 - **R-14 Animasi Berbobot**: Animasi berulang tanpa henti (kartu melayang) dilarang; animasi transisi wajib cepat (150-250ms).
