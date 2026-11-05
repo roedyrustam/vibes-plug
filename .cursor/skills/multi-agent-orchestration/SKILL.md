@@ -1,8 +1,8 @@
 ---
 name: multi-agent-orchestration
-description: "Expert guide for designing and orchestrating multi-agent systems, agent swarms, 2026 Anthropic agentic design patterns, graph and flow engines (LangGraph, CrewAI, OpenAI Agents SDK, Google ADK, Mastra.ai), shared state memory, and human-in-the-loop guardrails in English and Indonesian."
+description: "Multi-agent systems, swarm patterns, and agentic memory coordination / Sistem multi-agen, pola swarm, dan koordinasi memori agen."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ version: "4.4.2"
 - **Agent Languages & Frameworks**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
 - **Memory, State & Telemetry**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
 - **Security & Quality Gates**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `agentic-micro-economy-architect`
 
 ### Description
 Expert guide for designing, building, and deploying production-grade multi-agent AI systems. Covers core agentic design patterns (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), stateful graph engines (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), shared episodic/semantic memory, tool execution sandboxes, and human-in-the-loop (HITL) guardrails.
@@ -80,7 +81,7 @@ vibes-plug's internal Swarm Director patterns (from `AGENTS.md`) map directly to
 | Framework | Language | Best For | Key Differentiator |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Complex stateful workflows & graphs | Graph-based, persistent checkpointers, time-travel debugging |
-| **OpenAI Agents SDK** | Python | GPT-4.5 / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
+| **OpenAI Agents SDK** | Python | GPT-5.6 Sol / o4-series native agents | Built-in agent handoffs, tracing, and tripwire guardrails |
 | **Google ADK** | Python | Gemini-powered swarms | Native Vertex AI, multi-agent streaming, search grounding |
 | **Mastra.ai** | TypeScript | TS-first web apps & microservices | Built-in memory, evals, RAG, and native MCP support |
 | **CrewAI** | Python | Role-playing business teams & flows | Event-driven Flows, hierarchical manager execution, multi-tier memory |
@@ -204,7 +205,7 @@ import { z } from 'zod';
 const researcher = new Agent({
   name: 'researcher',
   instructions: 'Find and summarize accurate technical documentation.',
-  model: { provider: 'ANTHROPIC', name: 'claude-3-7-sonnet-20250219' },
+  model: { provider: 'ANTHROPIC', name: 'claude-sonnet-5.5-20261022' },
   memory: new MastraMemory({ storage: supabaseStorage }),
 });
 ```
@@ -282,7 +283,7 @@ class DeploymentFlow(Flow[PipelineState]):
             agents=[scanner, hardener],
             tasks=[audit_task, remediation_task],
             process=Process.hierarchical,
-            manager_llm="gpt-4o",
+            manager_llm="gpt-5.6-sol",
             memory=True,
             verbose=True
         )
@@ -316,6 +317,9 @@ Mandatory safeguards before executing irreversible operations:
 #### 7. Swarm Circuit Breakers & Fallback Protocols
 - **Retry Caps**: Maximum 2 automated retries per subagent.
 - **Fallback Escalation**: If a specialist agent stalls or loops, the Swarm Director gracefully fallbacks to `fullstack-expert` or requests human guidance.
+- **Model Availability Fallback Invariant**: When orchestrating multi-agent swarms, if primary frontier models are unprovisioned or rate-limited:
+  - If **Gemini 4** (Argon/Pro) is unavailable, worker and synthesis tasks gracefully fall back to **Gemini 3.8 Flash** (preserving 1M+ context window and rapid TTFT).
+  - If **Claude Opus 5.5** is unavailable, deep architectural coordination gracefully falls back to **Claude Opus 4.6** (preserving complex cross-domain synthesis).
 - **Checkpoint Persistence**: Always persist intermediate progress to `PROGRESS.md` or `BLUEPRINT.md` so sessions can resume without losing context.
 
 #### 8. Narrative Simulation Swarms (Fable Paradigm)
@@ -400,6 +404,18 @@ For next-gen models like **Gemini 4 Pro**:
 - **Batched Tool Invocation**: Transition from sequential step-by-step orchestrators to massive batched function calling.
 - **Monolithic Context Flow**: Pass the entire massive context (codebase snapshot) directly via KV-Cache rather than using chunked RAG retrieval per agent, allowing subagents to natively attend to the exact same shared memory state instantly.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec multi-agent-orchestration <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -412,6 +428,7 @@ For next-gen models like **Gemini 4 Pro**:
 - **Bahasa & Framework Agen**: `pydantic-ai-expert`, `structured-output-contracts`, `python-programming-expert`
 - **Memori, State & Telemetri**: `session-memory-manager`, `agentic-memory-architect`, `data-telemetry-expert`
 - **Keamanan & Gerbang Kualitas**: `anti-slop`, `mcp-sampling-critic`, `autonomous-red-teamer`, `zero-trust-secret-vault`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `agentic-micro-economy-architect`
 
 ### Deskripsi
 Panduan ahli untuk merancang, membangun, dan men-deploy sistem multi-agen AI tingkat produksi. Mencakup pola desain agentik inti (Prompt Chaining, Routing, Parallelization, Orchestrator-Workers, Evaluator-Optimizer), engine graph stateful (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai), memori bersama episodik/semantik, sandbox eksekusi tool, dan guardrail human-in-the-loop (HITL).
@@ -441,7 +458,7 @@ Untuk sistem produksi yang handal, utamakan arsitektur **Workflows** terstruktur
 | Framework | Bahasa | Terbaik Untuk | Keunggulan Utama |
 |---|---|---|---|
 | **LangGraph (v0.3+)** | Python / TypeScript | Alur kerja graf stateful kompleks | Berbasis graf, checkpointer persisten, time-travel debugging |
-| **OpenAI Agents SDK** | Python | Agen native GPT-4.5 / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
+| **OpenAI Agents SDK** | Python | Agen native GPT-5.6 Sol / o4-series | Handoff antar agen bawaan, tracing, dan guardrail otomatis |
 | **Google ADK** | Python | Swarm agen bertenaga Gemini | Integrasi Vertex AI native, streaming multi-agen, search grounding |
 | **Mastra.ai** | TypeScript | Web apps & microservice TS-first | Memori bawaan, evaluasi otomatis, RAG, dan dukungan MCP native |
 | **CrewAI** | Python | Tim kolaborasi peran & flow terstruktur | Event-driven Flows, eksekusi manajer hierarkis, memori multi-tier |
@@ -535,7 +552,7 @@ class PipelineDeploymentFlow(Flow[StatePipeline]):
             agents=[auditor, engineer],
             tasks=[tugas_audit, tugas_mitigasi],
             process=Process.hierarchical,
-            manager_llm="gpt-4o",
+            manager_llm="gpt-5.6-sol",
             memory=True,
             verbose=True
         )
@@ -569,6 +586,9 @@ Pengamanan wajib sebelum melakukan tindakan yang tidak dapat dibatalkan:
 #### 7. Circuit Breakers & Protokol Pemulihan Swarm
 - **Batas Percobaan Ulang**: Maksimal 2 kali perbaikan otomatis per sub-agen.
 - **Eskalasi Fallback**: Jika agen spesialis mengalami kendala konteks atau gagal berulang kali, Swarm Director segera mengalihkan tugas ke `fullstack-expert` atau meminta masukan pengguna.
+- **Invarian Fallback Ketersediaan Model**: Saat mengorkestrasi swarm multi-agen, jika model primer belum tersedia atau terkena batasan kuota:
+  - Jika **Gemini 4** (Argon/Pro) belum tersedia, tugas pekerja dan sintesis secara otomatis dialihkan ke **Gemini 3.8 Flash** (mempertahankan context window 1M+ dan latensi instan).
+  - Jika **Claude Opus 5.5** tidak tersedia, tugas koordinasi arsitektur dialihkan ke **Claude Opus 4.6** (mempertahankan penalaran mendalam dan sintesis lintas domain).
 - **Persistensi Kemajuan**: Simpan selalu checkpoint di `PROGRESS.md` atau `BLUEPRINT.md` agar alur kerja dapat dilanjutkan secara efisien tanpa token berlebih.
 
 #### 8. Swarm Simulasi Naratif (Paradigma Fable)
@@ -591,6 +611,15 @@ Arsitektur simulasi dunia cerita otonom multi-agen di mana agen bertindak sebaga
 - **Integrasi API Live Multimodal Gemini:** Hook bawaan untuk pemrosesan persepsi berkelanjutan.
 
 #### 11. Swarm Paralel Masif (Agentic MoE) untuk LLM Next-Gen
-Untuk model generasi berikutnya seperti **Gemini 4 Pro**:
+Untuk model generasi berikutnya seperti **Gemini 4 Pro** (Fallback: **Gemini 3.8 Flash**):
 - **Pemanggilan Tool Massal (Batching)**: Beralih dari orkestrator sekuensial (bertahap) ke pemanggilan fungsi massal secara serentak.
 - **Aliran Konteks Monolitik**: Kirimkan seluruh konteks masif (snapshot codebase) secara langsung melalui KV-Cache, hindari RAG terfragmentasi per agen. Ini memungkinkan sub-agen menganalisis *state* memori yang sama secara instan.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec multi-agent-orchestration <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

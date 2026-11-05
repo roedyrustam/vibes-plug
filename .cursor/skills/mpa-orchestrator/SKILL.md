@@ -1,8 +1,8 @@
 ---
 name: mpa-orchestrator
-description: "Orchestrates Multi-Page Application (MPA) architecture within a single repository, integrating with relevant skills / Mengorkestrasi arsitektur Multi-Page Application (MPA) dalam satu repositori, terintegrasi dengan skill relevan lainnya."
+description: "Multi-Page Application (MPA) architecture and asset orchestration / Arsitektur Multi-Page Application (MPA) dan orkestrasi aset."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -15,7 +15,24 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
+#### 3. Speculation Rules API Prerender Manifest Generator / Generator Manifest Prerender Speculation Rules
+
+```typescript
+export interface SpeculationRuleConfig {
+  prerenderPaths: string[];
+  prefetchPaths: string[];
+  eagerness: 'immediate' | 'eager' | 'moderate' | 'conservative';
+}
+
+export function buildSpeculationRulesJson(config: SpeculationRuleConfig): string {
+  return JSON.stringify({
+    prerender: [{ source: 'list', urls: config.prerenderPaths, eagerness: config.eagerness }],
+    prefetch: [{ source: 'list', urls: config.prefetchPaths, eagerness: config.eagerness }]
+  }, null, 2);
+}
+```
+
+## Orchestration & Integration
 Connects and orchestrates with relevant domain skills:
 - `modern-web-guidance`: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
 - `htmx-hypermedia-expert`: Hypermedia-Driven Applications (HDA) and HTML-over-the-wire swaps.
@@ -26,6 +43,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor`: Multimodal vision auditing of server-rendered pages and standard boilerplate pages.
 - `anti-slop`: Anti-slop MPA layouts, zero incomplete placeholder views, and strict adherence to mandatory standard pages.
 - `seo`: Comprehensive technical and on-page SEO optimization.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Description
 A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
@@ -104,6 +122,32 @@ export default defineConfig({
 
 ---
 
+#### Progressive Enhancement View-Transition Header Helper (TypeScript)
+```typescript
+export function buildMpaDocumentHeaders(cacheMaxAgeSeconds = 60): Record<string, string> {
+  return {
+    'Content-Type': 'text/html; charset=utf-8',
+    'Cache-Control': `public, max-age=${cacheMaxAgeSeconds}, stale-while-revalidate=300`,
+    'Vary': 'HX-Request, Accept-Encoding',
+    'X-Content-Type-Options': 'nosniff'
+  };
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec mpa-orchestrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -118,6 +162,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor`: Audit visual multimodal untuk halaman server-rendered dan halaman standar wajib.
 - `anti-slop`: Layout MPA anti-slop, nol tampilan placeholder tidak lengkap, kepatuhan halaman standar wajib.
 - `seo`: Optimasi SEO teknis dan on-page menyeluruh.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Deskripsi
 Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
@@ -165,12 +210,22 @@ Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry po
 - Menambahkan interaktivitas ke halaman server-rendered dengan HTMX 2 tanpa menulis ulang ke SPA.
 
 ---
-### 📄 Standard Pages Mandate (CRITICAL)
+### 📄 Standard Pages & Legal Compliance Mandate (CRITICAL)
 **MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
 1. **About Page** (`/about`)
 2. **Profile Page** (`/profile`)
 3. **Contact Page** (`/contact`)
-4. **Terms of Reference / Terms of Service** (`/terms`)
-5. **Privacy Policy** (`/privacy-policy`)
+4. **Terms & Conditions / Syarat & Ketentuan** (`/terms` or `/terms-and-conditions`)
+5. **Privacy Policy / Kebijakan Privasi** (`/privacy` or `/privacy-policy`)
+6. **User Data Deletion / Hapus Data** (`/delete-account` or `/data-deletion`)
 
-These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+These pages and data deletion mechanisms must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar dan Trio Kepatuhan Hukum & Privasi Wajib (About, Profile, Contact, Syarat & Ketentuan, Kebijakan Privasi, Hapus Data) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec mpa-orchestrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

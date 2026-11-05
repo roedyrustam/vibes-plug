@@ -1,8 +1,8 @@
 ---
 name: monorepo-architect
-description: "Expert guide for designing and managing scalable monorepos using Turborepo, pnpm workspaces, and shared packages / Panduan ahli untuk merancang dan mengelola monorepo skalabel menggunakan Turborepo dan pnpm workspaces."
+description: "Scalable monorepo architecture with Turborepo and pnpm workspaces / Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -19,7 +19,7 @@ version: "4.4.2"
 - **Upstream & Project Topology**: `zero-to-prod-orchestrator` (Phase 2 project foundation), `brainstorming`, `session-memory-manager`.
 - **AST & Codebase Intelligence**: `living-codebase-ast-graph` (cross-package dependency topology & DAG sorting), `typescript-expert` (composite projects & isolated declarations).
 - **CI/CD & Deployment**: `ci-cd-devops-architect` (monorepo cache pipelines), `github-actions-expert` (matrix testing & sparse checkout), `cloud-hosting-expert` (multi-app deployments).
-- **Shared Design & Components**: `design-system-architect` (shared `packages/ui` tokens), `senior-frontend` / `js-backend-expert` (shared packages consumption).
+- **Shared Design & Components**: `design-system-architect` (shared `packages/ui` tokens), `senior-frontend` / `js-backend-expert` (shared packages consumption), `micro-frontend-architect` (federated micro-apps), `composable-mach-architect` (composable multi-app packages), `dependency-upgrade-migrator` (monorepo-wide dependency upgrades).
 
 ### Description
 Expert guide for designing and managing scalable monorepos. Covers **Turborepo 2.x** (the 2026 standard for JS/TS monorepos), **moon** (polyglot task runner for teams mixing JS + Rust + Go), **pnpm workspaces**, shared package design, incremental builds, remote caching, and CI/CD pipeline optimization.
@@ -193,6 +193,18 @@ tasks:
     TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec monorepo-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -239,3 +251,12 @@ Moon mendukung proyek dalam bahasa yang berbeda (Go, Rust, JS) dalam satu worksp
 
 ### Optimasi CI/CD
 Gunakan flag `--filter="...[origin/main]"` Turborepo untuk hanya membangun dan menguji package yang berubah sejak commit terakhir. Gunakan remote cache Vercel atau self-hosted untuk berbagi cache antar runner CI.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec monorepo-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

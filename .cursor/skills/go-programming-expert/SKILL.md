@@ -1,8 +1,8 @@
 ---
 name: go-programming-expert
-description: "Expert-level skill for Go programming (Go 1.24+ / 1.25+). Covers Swiss Table maps, weak pointers, synctest concurrency testing, tool directives, sqlc, net/http, and microservices in English and Indonesian."
+description: "Go 1.24+ microservices, sqlc, net/http, and concurrency patterns / Pemrograman Go 1.24+, microservices, sqlc, dan pola konkuren."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Realtime & Streaming**: `sse-websocket-streaming-expert` for goroutine-backed streaming pipelines and low-latency WebSocket hubs.
 - **Testing & Quality**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing `go test -v ./...`, synthetic clock testing via `testing/synctest`, and strict error checking (`if err != nil`).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `htmx-hypermedia-expert`
 
 ### Description
 Expert-level Go development for building high-performance microservices, concurrent pipelines, and production CLI tools. Covers **Go 1.24+ and 1.25** features (Swiss Table maps, weak pointers, `testing/synctest` deterministic concurrency testing, `tool` directives in `go.mod`), structured logging with `slog`, enhanced ServeMux pattern routing, sqlc type-safe SQL, and robust worker pools.
@@ -261,6 +262,18 @@ func (h *UserHandler) Create(ctx context.Context, name, email string) (*db.User,
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec go-programming-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -273,6 +286,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Realtime & Streaming**: `sse-websocket-streaming-expert` untuk pipeline streaming berbasis channel goroutine dan hub WebSocket berlatensi rendah.
 - **Pengujian & Kualitas**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `go test -v ./...`, pengujian jam sintetis dengan `testing/synctest`, dan penegakan penanganan error ketat (`if err != nil`).
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `htmx-hypermedia-expert`
 
 ### Deskripsi
 Panduan Go tingkat ahli untuk membangun microservices, pipeline konkurensi, dan CLI tool berkinerja tinggi. Mencakup fitur **Go 1.24+ dan 1.25** (optimasi hash map Swiss Table, weak pointer, pengujian deterministik `testing/synctest`, direktif `tool` di `go.mod`), structured logging dengan `slog`, ServeMux `net/http` dengan pola pencocokan rute modern, sqlc untuk SQL type-safe, dan worker pool tangguh.
@@ -411,3 +425,12 @@ func TransaksiSukses(daftar []Transaksi) iter.Seq[Transaksi] {
     }
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec go-programming-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

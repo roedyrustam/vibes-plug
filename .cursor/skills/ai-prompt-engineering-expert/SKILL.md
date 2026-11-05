@@ -1,8 +1,8 @@
 ---
 name: ai-prompt-engineering-expert
-description: "Expert guide for Prompt Engineering, Chain-of-Thought, few-shot prompting, structured output, prompt injection defense, and automated AI evaluations & regression benchmarking (Promptfoo, DeepEval) / Panduan ahli rekayasa prompt dan evaluasi otomatis AI."
+description: "Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -63,7 +63,7 @@ Use Anthropic's prompt caching for cost optimization when dealing with large con
 - **Cost savings**: Cached input tokens are 90% cheaper.
 ```typescript
 const response = await anthropic.messages.create({
-  model: 'claude-3-7-sonnet-20250219',
+  model: 'claude-sonnet-5.5-20261022',
   max_tokens: 1024,
   system: [
     {
@@ -89,8 +89,14 @@ prompts:
   - 'file://prompts/support-v1.txt'
   - 'file://prompts/support-v2.txt'
 providers:
-  - id: 'google:gemini-3.8-flash'
-  - id: 'anthropic:claude-3-7-sonnet-20250219'
+  - id: 'google:gemini-4-argon'
+    config:
+      fallback: 'google:gemini-3.8-flash'
+  - id: 'anthropic:claude-sonnet-5.5-20261022'
+  - id: 'anthropic:claude-opus-5.5-20261022'
+    config:
+      fallback: 'anthropic:claude-opus-4.6'
+  - id: 'xai:grok-4.7-high-fast'
 tests:
   - description: 'Refund policy inquiry with strict JSON output'
     vars:
@@ -175,6 +181,19 @@ prompts:
 - [ ] Maintain a golden dataset of at least 50 test scenarios.
 - [ ] Automate eval suite execution on PRs modifying prompts or models.
 - [ ] Gate releases on >95% assertion pass rates.
+- [ ] Configure availability fallback paths (Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6).
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ai-prompt-engineering-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -210,4 +229,14 @@ Panduan komprehensif tingkat produksi untuk rekayasa prompt dan evaluasi otomati
 2. **DeepEval**: Uji metrik RAG Triad (Faithfulness dan Answer Relevancy) dengan threshold minimal 0.8.
 3. **Ragas Evaluation Coverage**: Integrasikan Ragas untuk mengukur metrik seperti `faithfulness`, `answer_relevancy`, `context_precision`, dan `context_recall`.
 4. **Pairwise LLM-as-a-Judge**: Gunakan LLM untuk membandingkan output dua model (A vs B) menggunakan skala penilaian 1-5, dengan mengacak urutan untuk mengurangi bias.
-5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.
+5. **CI/CD Gate**: Otomatiskan eksekusi eval di pull request sebelum rilis ke produksi.
+6. **Invarian Fallback Ketersediaan**: Konfigurasikan fallback otomatis pada suite pengujian jika Gemini 4 belum aktif (dialihkan ke Gemini 3.8 Flash) dan jika Claude Opus 5.5 belum tersedia (dialihkan ke Claude Opus 4.6).
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ai-prompt-engineering-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

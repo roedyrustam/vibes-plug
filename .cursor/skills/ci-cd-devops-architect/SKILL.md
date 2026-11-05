@@ -1,8 +1,8 @@
 ---
 name: ci-cd-devops-architect
-description: "Expert guide for continuous integration, deployment pipelines, Docker, Kubernetes, and Infrastructure as Code (IaC) / Panduan ahli untuk CI/CD dan infrastruktur."
+description: "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures / Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -20,7 +20,8 @@ version: "4.4.2"
 - **Infrastructure & Containerization**: `docker-container-expert` (multi-stage distroless images), `cloud-hosting-expert` (Vercel, Cloudflare, Railway targets).
 - **Security & Secrets**: `zero-trust-secret-vault` (OIDC federated auth, short-lived tokens), `production-ready-hardener` (container & SBOM security audits).
 - **Test Automation & Quality Gates**: `autonomous-tdd-debugger` (CI test runner execution), `e2e-testing-expert` (Playwright regression runs).
-- **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring).
+- **Proactive Health & Self-Healing**: `self-healing-cloud-orchestrator` (auto-patch failed deployments), `proactive-background-watcher` (pipeline build monitoring), `feature-flag-analytics-expert` (progressive canary rollouts), `dependency-upgrade-migrator` (automated Renovate/package audits), `agentic-coding-workflow-expert` (autonomous PR & CI workflows).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`, `github-actions-expert`, `biome-linter-formatter-expert`
 
 ### Description
 Enterprise guide for modern Continuous Integration & Continuous Delivery (CI/CD) pipelines, immutable container workflows (Docker & Kubernetes 1.30+), and Infrastructure as Code (Terraform / OpenTofu). Covers parallelized GitHub Actions workflows with dependency caching (pnpm/bun), multi-stage non-root distroless Docker builds, Trivy container vulnerability scanning, zero-downtime rolling/canary deployments, and zero-trust secret injection via OIDC.
@@ -132,6 +133,18 @@ jobs:
 2. **Non-Root Runtime**: Never run Docker containers as `root`. Always use unprivileged users (`nonroot` or `node`) to minimize container breakout vulnerabilities.
 3. **No Hardcoded Secrets**: Secrets must never be stored in GitHub Secrets as plaintext strings. Use GitHub OIDC tokens to fetch short-lived credentials from AWS IAM or Vault (`zero-trust-secret-vault`).
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ci-cd-devops-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -143,6 +156,7 @@ jobs:
 - **Keamanan & Rahasia**: `zero-trust-secret-vault` (otentikasi federasi OIDC, token berumur pendek), `production-ready-hardener` (audit keamanan kontainer & SBOM).
 - **Otomasi Pengujian & Quality Gate**: `autonomous-tdd-debugger` (eksekusi pengujian CI), `e2e-testing-expert` (regresi Playwright).
 - **Kesehatan Proaktif & Self-Healing**: `self-healing-cloud-orchestrator` (perbaikan otomatis deployment gagal), `proactive-background-watcher` (pemantau build pipeline).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`, `github-actions-expert`, `biome-linter-formatter-expert`, `dependency-upgrade-migrator`
 
 ### Deskripsi
 Panduan enterprise untuk pipeline *Continuous Integration & Continuous Delivery* (CI/CD) modern, alur kerja kontainer imutabel (Docker & Kubernetes 1.30+), dan *Infrastructure as Code* (Terraform/OpenTofu). Mencakup pipeline GitHub Actions paralel dengan caching dependensi (pnpm/bun), Dockerfile multi-stage berbasis distroless non-root yang aman, pemindaian kerentanan kontainer dengan Trivy, serta injeksi rahasia tanpa password via OIDC.
@@ -197,3 +211,12 @@ spec:
 1. **Artifak Imutabel**: Image kontainer yang diuji pada tahap Staging adalah file image yang sama persis yang dijalankan pada server Produksi.
 2. **Larangan Akses Root**: Kontainer dilarang keras dijalankan dengan hak akses root demi mencegah eksploitasi pelarian kontainer (*container escape*).
 3. **Rahasia Berumur Pendek**: Gunakan otentikasi OIDC tanpa kata kunci statis untuk mengakses registry dan server cloud.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ci-cd-devops-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

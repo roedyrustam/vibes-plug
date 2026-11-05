@@ -1,8 +1,8 @@
 ---
 name: astro-framework-expert
-description: "Expert guide for Astro 5+ framework — Content Collections, Islands Architecture, View Transitions, partial hydration, and MDX integration / Panduan ahli framework Astro 5+ — Content Collections, Islands Architecture, View Transitions, partial hydration, dan integrasi MDX."
+description: "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -26,6 +26,7 @@ version: "4.4.2"
 - **`performance-web-vitals`**: Astro's zero-JS-by-default performance optimization.
 - **`headless-cms-expert`**: Content fetching from Sanity/Payload/Strapi in Astro.
 - **`ci-cd-devops-architect`**: Deploying Astro to Vercel, Cloudflare Pages, or Netlify.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Description
 Expert guide for building high-performance, content-first websites with Astro 5+. Covers Content Collections (type-safe content), Islands Architecture (partial hydration), View Transitions, server-side rendering, hybrid rendering, MDX integration, Astro DB, and multi-framework component support (React, Vue, Svelte in one project).
@@ -186,6 +187,18 @@ import { ViewTransitions } from 'astro:transitions';
 - [ ] Hybrid rendering (static + SSR where needed).
 - [ ] Deploy adapter configured (Vercel, Cloudflare, Node).
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec astro-framework-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -202,6 +215,7 @@ import { ViewTransitions } from 'astro:transitions';
 - **`performance-web-vitals`**: Optimasi performa zero-JS-by-default Astro untuk Core Web Vitals (skor 100).
 - **`headless-cms-expert`**: Pengambilan konten dari Sanity, Payload, atau Strapi secara type-safe di Astro.
 - **`ci-cd-devops-architect`**: Deployment ke Vercel, Cloudflare Pages, atau Node.js distroless container.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun website berperforma tinggi dan berfokus konten dengan Astro 5+. Mencakup Content Collections (manajemen konten type-safe berbasis Zod), Islands Architecture (hidrasi parsial), View Transitions native, rendering hybrid/SSR, integrasi MDX, Server Islands (rendering tunda), dan orkestrasi multi-framework (React, Vue, Svelte dalam satu proyek).
@@ -369,3 +383,12 @@ import WidgetProfilPengguna from '../components/WidgetProfilPengguna.astro';
 - [ ] Integrasi sitemap XML otomatis (`@astrojs/sitemap`) dan robots.txt.
 - [ ] Pengecekan View Transitions dengan `transition:persist` pada pemutar audio atau status navigasi.
 - [ ] Konfigurasi adapter deployment sesuai platform target (`@astrojs/vercel`, `@astrojs/cloudflare`, atau `@astrojs/node`).
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec astro-framework-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

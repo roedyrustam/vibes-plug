@@ -1,8 +1,8 @@
 ---
 name: spec-driven-development-expert
-description: "Expert guide for Spec-Driven Development (SDD) & Contract-First Architecture — TypeSpec, OpenAPI 3.1, Gherkin BDD, Pact consumer-driven contracts, Spectral linting, and automated spec-to-code pipelines / Panduan ahli pengembangan berbasis spesifikasi (SDD) dan arsitektur contract-first."
+description: "Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ version: "4.4.2"
 - **Testing & Verification**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
 - **Backend Implementation**: `js-backend-expert`, `database-orm-expert`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `graphql-apollo-expert`
 
 ### Description
 Spec-Driven Development (SDD) is the foundational engineering antidote to unstructured AI code generation. Instead of prompting AI agents to write code directly from vague conversational prompts, SDD enforces a strict **Contract-First Lifecycle**: formal, machine-readable specifications (TypeSpec, OpenAPI 3.1, JSON Schema Draft 2020-12, Gherkin BDD, and Pact Consumer-Driven Contracts) are authored, linted, and mathematically verified *before* any production code or test suite is generated.
@@ -316,6 +317,18 @@ describe('Billing Service Contract Verification', () => {
 });
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec spec-driven-development-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -328,6 +341,7 @@ describe('Billing Service Contract Verification', () => {
 - **Pengujian & Verifikasi**: `autonomous-tdd-debugger`, `e2e-testing-expert`, `property-mutation-testing-expert`
 - **Implementasi Backend**: `js-backend-expert`, `database-orm-expert`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `graphql-apollo-expert`
 
 ### Deskripsi
 Pengembangan Berbasis Spesifikasi (*Spec-Driven Development* / SDD) adalah fondasi rekayasa perangkat lunak modern untuk membasmi halusinasi kode AI. Alih-alih membiarkan model AI menulis kode langsung dari prompt instruksi yang tidak terstruktur, paradigma SDD mewajibkan penulisan **kontrak formal yang terbaca oleh mesin** (TypeSpec, OpenAPI 3.1, JSON Schema, Gherkin BDD, dan Pact Contracts) sebelum baris kode implementasi atau tes dibuat.
@@ -384,3 +398,12 @@ interface TagihanResource {
   };
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec spec-driven-development-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

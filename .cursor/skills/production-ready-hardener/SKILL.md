@@ -1,8 +1,8 @@
 ---
 name: production-ready-hardener
-description: "Ultimate production readiness skill that orchestrates all relevant skills (frontend, backend, security, performance, SEO, testing, DevOps) to harden applications before deployment / Skill kesiapan produksi utama yang mengorkestrasi semua skill relevan (frontend, backend, keamanan, performa, SEO, testing, DevOps) untuk mengeraskan aplikasi sebelum deployment."
+description: "Pre-deployment application hardening across security, perf, and tests / Pengerasan aplikasi pra-deploy: keamanan, performa, dan tes."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
 - **DevOps, CI/CD & Observability**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
 - **Performance & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `dependency-upgrade-migrator`, `feature-flag-analytics-expert`
 
 ### Description
 The **Production-Ready Hardener** is a master orchestrator skill that combines and delegates to all relevant vibes-plug skills to ensure your application is rock-solid, secure, performant, and production-grade before deployment. It acts as a comprehensive pre-production checklist that leaves no stone unturned — from frontend polish to backend resilience, from data security to observability.
@@ -311,6 +312,18 @@ Active whenever the user asks to:
 3. Ensure an application is secure, performant, and robust before going live.
 4. Perform a comprehensive quality audit across frontend, backend, and infrastructure.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec production-ready-hardener <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -324,6 +337,7 @@ Active whenever the user asks to:
 - **DevOps, CI/CD & Observabilitas**: `ci-cd-devops-architect`, `github-actions-expert`, `cloud-hosting-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`, `self-healing-cloud-orchestrator`
 - **Performa & SEO**: `performance-web-vitals`, `seo`, `app-analyzer-optimizer`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `prd-architect`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `dependency-upgrade-migrator`, `feature-flag-analytics-expert`
 
 ### Deskripsi
 **Production-Ready Hardener** adalah skill orkestrator utama yang menggabungkan dan mendelegasikan ke semua skill vibes-plug yang relevan untuk memastikan aplikasi Anda kokoh, aman, berperforma tinggi, dan siap produksi sebelum deployment. Skill ini berfungsi sebagai checklist pra-produksi komprehensif yang tidak meninggalkan celah — dari polish frontend hingga ketahanan backend, dari keamanan data hingga observability.
@@ -471,3 +485,12 @@ Aktif setiap kali pengguna meminta untuk:
 - [Production Readiness Checklist](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/production_checklist.md)
 - [Security Hardening Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/security_hardening_guide.md)
 - [Performance Optimization Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/performance_optimization.md)
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec production-ready-hardener <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

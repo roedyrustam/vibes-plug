@@ -1,8 +1,8 @@
 ---
 name: web-scraper
-description: "Smart agentic web data extraction with multi-strategy scraping (Crawl4AI v4, Firecrawl), LLM extraction loops, anti-bot bypass, and structured export / Ekstraksi data web cerdas dan agentic dengan scraping multi-strategi (Crawl4AI v4, Firecrawl), ekstraksi LLM, bypass anti-bot, dan ekspor terstruktur."
+description: "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass / Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
   - `deep-research-analyst` — Feed extracted web sources to multi-source evidence synthesis.
   - `data-pipeline-etl-expert` — Ingest extracted datasets into transformation and analytics storage.
   - `session-memory-manager` — Cache scraped web structures and extraction progress checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `website-design-cloner`, `search-engine-expert`
 
 ### Description
 Advanced Agentic Web Scraping utilizing modern multi-strategy data extraction. Leverages **Crawl4AI v4** and **Firecrawl** to convert raw DOMs into LLM-friendly Markdown. Implements Agentic Extraction loops where the LLM guides the scraper dynamically based on page state. Incorporates strategies for bypassing anti-bot measures (Cloudflare Turnstile, Datadome) and navigating dynamic Shadow DOMs.
@@ -120,6 +121,18 @@ async def agentic_scrape_loop(url: str, goal: str):
 - [ ] Use descriptive `User-Agent` headers.
 - [ ] Do not scrape personal/private data without consent.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec web-scraper <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -133,6 +146,7 @@ async def agentic_scrape_loop(url: str, goal: str):
   - `deep-research-analyst` — Menyalurkan sumber web terekstraksi ke sintesis bukti multi-sumber.
   - `data-pipeline-etl-expert` — Memasukkan dataset ekstraksi ke pipeline transformasi dan analitik.
   - `session-memory-manager` — Menyimpan cache struktur web dan checkpoint progres ekstraksi.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `website-design-cloner`, `search-engine-expert`
 
 ### Deskripsi
 Scraping Web Agentic tingkat lanjut menggunakan ekstraksi data multi-strategi modern. Memanfaatkan **Crawl4AI v4** dan **Firecrawl** untuk mengubah DOM mentah menjadi Markdown yang ramah LLM. Mengimplementasikan loop Ekstraksi Agentic di mana LLM memandu scraper secara dinamis berdasarkan status halaman. Menggabungkan strategi untuk melewati tindakan anti-bot (Cloudflare Turnstile, Datadome) dan menavigasi Shadow DOM yang dinamis.
@@ -169,3 +183,12 @@ Implementasikan loop otonom di mana LLM memandu scraper berdasarkan status halam
 - [ ] Implementasikan rate limiting.
 - [ ] Gunakan header `User-Agent` yang deskriptif.
 - [ ] Jangan scraping data pribadi/privat tanpa izin.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec web-scraper <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

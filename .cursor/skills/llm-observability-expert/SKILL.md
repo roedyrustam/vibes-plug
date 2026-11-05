@@ -1,8 +1,8 @@
 ---
 name: llm-observability-expert
-description: "Expert guide for LLM observability in production — token cost tracking, hallucination rate monitoring, latency analysis, prompt/completion logging, model comparison dashboards, and AI-specific tracing (Langfuse, Helicone, Lunary, OpenTelemetry GenAI) / Panduan ahli observabilitas LLM di produksi — pelacakan biaya token, pemantauan tingkat halusinasi, analisis latensi, logging prompt/completion, dashboard perbandingan model, dan tracing khusus AI."
+description: "Production LLM observability, token cost tracking, and GenAI tracing / Observabilitas LLM produksi, pelacakan biaya, dan tracing GenAI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -25,6 +25,7 @@ version: "4.4.2"
   - `ai-safety-governance-expert` — Log and audit AI outputs for compliance with safety policies.
   - `adaptive-model-cascade` — Feed model latency and error statistics to dynamic model cascading routers.
   - `session-memory-manager` — Store AI session traces and token usage checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-llm-integration-expert`
 
 ### Description
 Production observability framework for LLM-powered applications. Addresses the biggest blind spot in 2026 AI applications: teams deploy AI features to production with zero visibility into token costs, hallucination rates, latency distributions, cache hit ratios, or user satisfaction scores. This skill provides the instrumentation patterns, tool integrations, and dashboard architectures to make LLM behavior fully observable.
@@ -114,18 +115,29 @@ export function traceLLMCall<T>(
   return fn(trace).finally(() => langfuse.flush());
 }
 
-// Usage in API route:
+// Usage in API route with graceful availability fallback:
 export async function handleChatRequest(req: Request) {
   const { message, userId } = await req.json();
 
   return traceLLMCall('chat-assistant', userId, async (trace) => {
+    let activeModel = 'gemini-4-pro';
+    let response: { text: string; usage: { promptTokens: number; completionTokens: number; totalTokens: number } };
+
+    try {
+      response = await callLLM(message, activeModel);
+    } catch (err) {
+      // Invariant: Gracefully fall back to Gemini 3.8 Flash if Gemini 4 Pro is unprovisioned/unavailable
+      console.warn('[LLMObservability] Gemini 4 Pro unavailable. Falling back to Gemini 3.8 Flash:', err);
+      activeModel = 'gemini-3.8-flash';
+      trace.update({ metadata: { fallbackTriggered: true, originalModel: 'gemini-4-pro', fallbackModel: activeModel } });
+      response = await callLLM(message, activeModel);
+    }
+
     const generation = trace.generation({
       name: 'chat-completion',
-      model: 'gemini-4-pro',
+      model: activeModel,
       input: message,
     });
-
-    const response = await callLLM(message);
 
     generation.end({
       output: response.text,
@@ -216,6 +228,7 @@ export function detectCostAnomalies(
 3. **Set Budget Alerts Early**: Configure daily/weekly cost alerts before going to production, not after the first billing shock.
 4. **Collect User Feedback Signals**: Implement thumbs up/down buttons on AI outputs and log them as quality scores in Langfuse.
 5. **Monitor Cache Hit Rates**: A drop in cache hit rate directly increases costs — alert on deviations from baseline.
+6. **Track Model Availability Fallbacks**: When Gemini 4 falls back to Gemini 3.8 Flash or Claude Opus 5.5 falls back to Claude Opus 4.6, tag trace metadata with `fallbackTriggered: true` to observe provider availability and SLA compliance.
 
 ---
 
@@ -227,6 +240,18 @@ export function detectCostAnomalies(
 | Logging full prompts without PII filtering | GDPR/PDPA violation from stored user data | Apply PII scrubbing before logging |
 | No cost alerting | Surprise $10k+ monthly bills | Set daily budget alerts with automatic circuit breakers |
 | Tracking only latency, ignoring quality | Low-latency but high-hallucination responses | Track factuality scores alongside latency |
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec llm-observability-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -243,6 +268,7 @@ export function detectCostAnomalies(
   - `ai-safety-governance-expert` — Mencatat dan mengaudit output AI untuk kepatuhan kebijakan keamanan.
   - `adaptive-model-cascade` — Menyalurkan statistik latensi dan error model ke router cascade model.
   - `session-memory-manager` — Menyimpan trace sesi AI dan checkpoint penggunaan token.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-llm-integration-expert`
 
 ### Deskripsi
 Kerangka observabilitas produksi untuk aplikasi berbasis LLM. Mengatasi blind spot terbesar di aplikasi AI 2026: tim men-deploy fitur AI ke produksi tanpa visibilitas terhadap biaya token, tingkat halusinasi, distribusi latensi, rasio cache hit, atau skor kepuasan pengguna.
@@ -275,5 +301,13 @@ Implementasikan alert otomatis untuk: anggaran harian terlampaui, lonjakan biaya
 2. **Lacak Biaya Per Fitur**: Agregasikan biaya berdasarkan nama fitur untuk mengidentifikasi fungsi AI termahal.
 3. **Atur Alert Anggaran Sejak Awal**: Konfigurasikan alert biaya harian/mingguan sebelum ke produksi.
 4. **Kumpulkan Sinyal Feedback Pengguna**: Implementasikan tombol thumbs up/down pada output AI.
+5. **Pantau Pengalihan Ketersediaan (Fallback)**: Saat model Gemini 4 dialihkan ke Gemini 3.8 Flash atau Claude Opus 5.5 ke Claude Opus 4.6, sematkan metadata `fallbackTriggered: true` pada trace untuk memantau SLA ketersediaan dan variasi biaya.
 
-
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec llm-observability-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: htmx-hypermedia-expert
-description: "Expert guide for HTMX 2.0+, Hypermedia-Driven Applications (HDA), server-side rendering with htmx attributes, Alpine.js integration, and modern HTML-over-the-wire patterns / Panduan ahli HTMX 2.0+, Hypermedia-Driven Applications, dan pola HTML-over-the-wire modern."
+description: "HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire / Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # HTMX & Hypermedia Expert (HTMX 2.0 / HDA Edition)
@@ -16,6 +16,7 @@ version: "4.4.2"
 
 ### Orchestration & Integration
 Connects with: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`
 
 ### Description
 Expert guide for building Hypermedia-Driven Applications (HDA) using **HTMX 2.0+**. Covers htmx core attributes (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), server-side rendering patterns, partial page updates, WebSocket/SSE integration, Alpine.js companion patterns, and transitioning from SPA frameworks to lightweight hypermedia architecture.
@@ -262,6 +263,18 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 4. **Duplicating client-side state** — If you need complex client state, use Alpine.js, not a full SPA framework alongside HTMX.
 5. **Ignoring `hx-push-url`** — Enable URL updates for browser history and shareable links.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec htmx-hypermedia-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -269,6 +282,7 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 
 ### Integrasi Orkestrasi
 Terhubung dengan: `modern-web-guidance`, `modern-css-native-expert`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `brainstorming`, `zero-to-prod-orchestrator`, `js-backend-expert`, `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `authentication-identity-expert`, `database-orm-expert`, `session-memory-manager`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`
 
 ### Deskripsi
 Panduan ahli untuk membangun Hypermedia-Driven Applications (HDA) menggunakan **HTMX 2.0+**. Mencakup atribut inti htmx (`hx-get`, `hx-post`, `hx-swap`, `hx-trigger`), pola rendering server-side, pembaruan halaman parsial, integrasi WebSocket/SSE, pola pendamping Alpine.js, dan transisi dari framework SPA ke arsitektur hypermedia ringan.
@@ -304,3 +318,12 @@ Atribut inti:
 - Editor kolaboratif real-time (gunakan SPA + CRDT).
 - Aplikasi dengan state klien kompleks (drag-drop, canvas, grafik interaktif).
 - Aplikasi offline-first yang butuh service worker berat.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec htmx-hypermedia-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

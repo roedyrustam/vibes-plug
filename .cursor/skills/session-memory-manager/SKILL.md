@@ -1,8 +1,8 @@
 ---
 name: session-memory-manager
-description: "Manages the entire session lifecycle: from context loading (PRD, Tech Stack) at startup, to maintaining project memory during active sessions, and creating ultra-compact checkpoints for handoff. / Mengelola siklus hidup sesi: dari pemuatan konteks awal, pemeliharaan memori proyek, hingga pembuatan checkpoint ringkas untuk handoff."
+description: "Session memory lifecycle, context handoffs, and compact checkpoints / Manajemen memori sesi, handoff konteks, dan checkpoint ringkas."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -90,6 +90,86 @@ Start by reading the critical files, then confirm understanding before proceedin
 2. `.agents/CHECKPOINT.md` (Alternative).
 3. Clipboard or Supabase notes table (Cross-device).
 
+### 4. Production Session Memory Blueprints (TypeScript)
+
+#### 1. Ultra-Compact Checkpoint Serializer & Token Budget Enforcer (<200 Tokens)
+```typescript
+export interface SessionCheckpointState {
+  readonly project: string;
+  readonly goal: string;
+  readonly status: string;
+  readonly stack: readonly string[];
+  readonly lastCompleted: readonly string[];
+  readonly nextTasks: readonly string[];
+  readonly keyFiles: readonly string[];
+}
+
+export function serializeCompactCheckpoint(
+  state: SessionCheckpointState,
+  maxTokenBudget: number = 200
+): { yaml: string; estimatedTokens: number; withinBudget: boolean } {
+  const lines = [
+    `project: "${state.project}"`,
+    `goal: "${state.goal.slice(0, 120)}"`,
+    `status: "${state.status}"`,
+    `stack: [${state.stack.slice(0, 6).map((s) => `"${s}"`).join(', ')}]`,
+    `last_completed:`,
+    ...state.lastCompleted.slice(0, 3).map((item) => `  - "${item.slice(0, 90)}"`),
+    `next_tasks:`,
+    ...state.nextTasks.slice(0, 3).map((item) => `  - "${item.slice(0, 90)}"`),
+    `key_files:`,
+    ...state.keyFiles.slice(0, 5).map((file) => `  - "${file}"`)
+  ];
+
+  const yaml = lines.join('\n');
+  const estimatedTokens = Math.ceil(Buffer.byteLength(yaml, 'utf8') / 3.8);
+  return {
+    yaml,
+    estimatedTokens,
+    withinBudget: estimatedTokens <= maxTokenBudget
+  };
+}
+```
+
+#### 2. Surgical Subagent Fan-Out Context Slice Pruner
+```typescript
+export interface ContextMapEntry {
+  readonly filePath: string;
+  readonly domain: 'frontend' | 'backend' | 'database' | 'security' | 'ai';
+  readonly responsibility: string;
+  readonly exportedSymbols: readonly string[];
+}
+
+export function buildSubagentContextSlice(
+  entries: readonly ContextMapEntry[],
+  targetDomain: ContextMapEntry['domain'],
+  subtaskGoal: string
+): string {
+  const filtered = entries.filter((e) => e.domain === targetDomain).slice(0, 8);
+  const rows = filtered.map(
+    (e) => `- \`${e.filePath}\` [${e.exportedSymbols.join(', ')}]: ${e.responsibility}`
+  );
+  return [
+    `### Subagent Slice (${targetDomain.toUpperCase()})`,
+    `**Goal**: ${subtaskGoal}`,
+    `**Relevant Files**:`,
+    ...rows
+  ].join('\n');
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec session-memory-manager <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -140,3 +220,12 @@ Berikan konteks proyek (Tujuan, Status, Stack, Tugas Selesai, Tugas Berikutnya),
 1. `CHECKPOINT.md` di root proyek (Utama).
 2. `.agents/CHECKPOINT.md` (Alternatif).
 3. Clipboard / Catatan Supabase (Lintas perangkat).
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec session-memory-manager <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

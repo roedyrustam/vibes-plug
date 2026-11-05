@@ -1,8 +1,8 @@
 ---
 name: desktop-electron-expert
-description: "Expert guide for Electron 33+ desktop application development — Electron Forge, context isolation, IPC security, native menus, auto-updates, and multi-window management / Panduan ahli pengembangan desktop Electron 33+."
+description: "Electron 33+ desktop apps, IPC security, multi-window, and packaging / Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -125,6 +125,19 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 - **`senior-frontend`**: Structures the React 19 UI running inside the sandboxed renderer window.
 - **`ci-cd-devops-architect`**: Configures GitHub Actions for macOS notarization and Windows code signing.
 - **`error-resilience-expert`**: Catches unhandled exceptions in the Main process and handles renderer crashes gracefully.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `browser-extension-mv3-pro`, `reverse-engineer-anything`, `zero-trust-secret-vault`, `computer-use-os-agent-expert`
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec desktop-electron-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -133,6 +146,7 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi bersama `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `tauri-expert`, `senior-frontend`, `ci-cd-devops-architect`, dan `error-resilience-expert`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `browser-extension-mv3-pro`, `reverse-engineer-anything`, `zero-trust-secret-vault`, `computer-use-os-agent-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi desktop cross-platform yang aman dan efisien menggunakan Electron 33+. Mengutamakan keamanan IPC dengan Context Isolation, isolasi proses renderer berbasis sandbox, integrasi sistem operasi natif (system tray, menu bar, notifikasi desktop), pembaruan otomatis (*auto-updates*), dan packaging multi-OS (Windows .exe, macOS .dmg/.app, Linux .AppImage).
@@ -198,3 +212,12 @@ export function SystemInfoCard() {
 - **`senior-frontend`**: Menyediakan arsitektur komponen UI yang responsif di dalam window aplikasi.
 - **`ci-cd-devops-architect`**: Menangani penandatanganan sertifikat digital (*code signing*) pada pipeline rilis.
 - **`error-resilience-expert`**: Mencegah aplikasi tertutup tiba-tiba (*crash*) saat terjadi unhandled error di Main process.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec desktop-electron-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: bun-runtime-expert
-description: "Expert guide for Bun 1.2+ JavaScript/TypeScript runtime — native Bun.sql Postgres client, Bun.s3 object storage, text lockfile, multi-core HTTP clusters, and bun:test / Panduan ahli runtime Bun 1.2+."
+description: "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test / Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -21,6 +21,7 @@ Connects and orchestrates with domain skills:
 - **Database & Storage**: `database-orm-expert` (Drizzle ORM with native `bun:sql`, PostgreSQL/SQLite) and `file-upload-media-expert` (zero-dependency `Bun.s3` client).
 - **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing high-speed `bun test` suites with snapshot matching.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `cloudflare-workers-expert`
 
 ### Description
 Expert-level guidance for engineering ultra-low-latency backend microservices with **Bun 1.2+**. Covers the native PostgreSQL driver (`import { SQL } from 'bun'`), native S3 object storage (`Bun.s3`), git-friendly text lockfiles (`bun.lock`), multi-core HTTP clustering via `reusePort`, built-in SQLite, and high-speed Jest-compatible unit testing via `bun:test`.
@@ -188,6 +189,18 @@ describe('User Database Service', () => {
 });
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec bun-runtime-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -199,6 +212,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Database & Penyimpanan**: `database-orm-expert` (Drizzle ORM dengan native `bun:sql`, PostgreSQL/SQLite) dan `file-upload-media-expert` (klien object storage `Bun.s3` zero-dependency).
 - **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi test runner `bun test` berkecepatan tinggi dengan pencocokan snapshot.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `cloudflare-workers-expert`
 
 ### Deskripsi
 Panduan tingkat ahli untuk rekayasa microservices backend berlatensi ultra-rendah menggunakan **Bun 1.2+**. Mencakup driver PostgreSQL native (`import { SQL } from 'bun'`), penyimpanan objek native S3 (`Bun.s3`), format lockfile teks yang ramah git (`bun.lock`), clustering HTTP multi-core melalui `reusePort`, SQLite bawaan, dan pengujian unit kompatibel Jest via `bun:test`.
@@ -273,3 +287,12 @@ const server = serve({
   },
 });
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec bun-runtime-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

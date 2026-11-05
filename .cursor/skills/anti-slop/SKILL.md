@@ -1,8 +1,8 @@
 ---
 name: anti-slop
-description: "Sovereign Anti-AI Slop Directive & Enforcement Engine (2026 Unified Edition). Absolute zero-tolerance standard for lazy placeholders, conversational fluff, syntax narration, speculative over-engineering, hallucinated code, generic UI clichés, and 38 mandatory rules (R-01 to R-38) with Liveliness Dials (ENERGY/RHYTHM/MOTION), Two Usage Modes (During vs Audit After), and Delivery Gate verification / Doktrin dan mesin penegakan anti-AI slop mutlak v5.0."
+description: "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)
@@ -36,7 +36,7 @@ On every anti-slop activation, resolve the operational mode in this strict prior
 3. **Default Fallback**: Mode 1 (DURING) for new features/code generation; Mode 2 (AFTER) when auditing existing projects.
 
 ### Mode 1: DURING (Active Real-Time Prevention)
-- Follow all 38 rules actively while generating code, copy, and UI.
+- Follow all 40 rules actively while generating code, copy, and UI.
 - Prevents slop from being written in the first place.
 - Conclude the task with the **Mandatory Delivery Gate** report.
 
@@ -52,9 +52,9 @@ On every anti-slop activation, resolve the operational mode in this strict prior
 
 ---
 
-## The 3-Tier Rule Framework (38 Mandatory Rules)
+## The 3-Tier Rule Framework (40 Mandatory Rules)
 
-All 38 rules are organized into three distinct tiers with clear enforcement semantics:
+All 40 rules are organized into three distinct tiers with clear enforcement semantics:
 1. **Hard Gate** (Tier 1): Absolute bans and mandatory requirements. Zero exceptions.
 2. **Purpose-Gate** (Tier 2): Technique allowed ONLY when serving a stated hierarchy/identity purpose with written rationale. Includes strict dose caps.
 3. **Quality Locks** (Tier 3): Craftsmanship and resilience standards.
@@ -183,6 +183,22 @@ Breaking any rule in this tier causes an automatic **FAIL** at the Delivery Gate
 
 ---
 
+#### R-39 — Accessible Semantics & Interaction Affordances
+- **REQUIRED**: Every enabled interactive element (`button`, `a[href]`, `select`, `summary`, `label[for]`, custom `role="button"` / `tab` / `switch`) must show `cursor: pointer`, declared once in the base CSS layer. Disabled controls must show `cursor: not-allowed`.
+- **REQUIRED**: Actions must be semantic `<button type="button">`; navigation must be `<a href="...">` pointing to a genuine route or destination. Never use clickable `<div onClick>` or `<span onClick>` without semantic role, keyboard focusability (`tabIndex={0}`), and keydown handlers.
+- **REQUIRED**: Every interactive element must provide an accessible name (icon-only buttons require explicit `aria-label` or visually hidden text; icons require `aria-hidden="true"`). Every form input requires a visible `<label>`. Every image requires an `alt` attribute (empty `alt=""` only if purely decorative).
+- **REQUIRED**: Distinct hover, active, and focus-visible states; never rely on color alone to communicate state.
+- **REQUIRED**: Non-essential animations must stop under `@media (prefers-reduced-motion: reduce)`. Any animation moving longer than 5 seconds must provide a user pause/stop control.
+- **REQUIRED for Full Documents**: Document-level HTML requires `<html lang="...">`, a unique informative `<title>`, semantic landmarks (`<header>`, `<nav>`, `<main>`, `<footer>`), a single `<h1>`, and sequential heading hierarchies without skipping levels.
+
+#### R-40 — Performance Mechanisms & Core Web Vitals
+- **REQUIRED (Cumulative Layout Shift - CLS)**: Every `<img>`, `<video>`, and `<iframe>` must have explicit `width` and `height` attributes or a defined CSS `aspect-ratio` (`aspect-video`, `aspect-square`). Space for dynamically injected banners, ads, or embeds must be reserved in advance to eliminate layout shift.
+- **REQUIRED (Largest Contentful Paint - LCP)**: The above-the-fold hero image must be an explicit `<img>` in the HTML markup (never hidden behind CSS background images or delayed by client JavaScript), must declare `fetchpriority="high"`, and must NEVER declare `loading="lazy"`.
+- **REQUIRED (Interaction to Next Paint - INP)**: No render-blocking third-party analytics or tracker scripts in `<head>`. Non-critical scripts must be loaded with `defer`, `async`, or dynamically on user interaction.
+- **FORBIDDEN**: Fabricating or guessing Lighthouse scores or Core Web Vitals figures that were not empirically measured via browser DevTools or CrUX field telemetry (enforcing R-36). If unmeasured, state explicitly "not measured".
+
+---
+
 ### Tier 2: Purpose-Gate Rules (Technique Allowed, Purpose Required)
 
 Techniques in this tier are permitted **only when they serve a documented hierarchy or identity goal**, backed by written rationale in the code or design document.
@@ -193,14 +209,14 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 - **R-07 — Background**: Dot grids, blueprint grids, and graph paper textures are forbidden as cheap tech shortcuts. Use authentic brand textures or clean solid surfaces.
 - **R-08 — Spacing Rhythm**: Uniform spacing across all sections is forbidden. Spacing must express intentional rhythm and visual breathing room.
 - **R-09 — Layout**: Formulaic AI landing pages (Hero -> 3 feature cards -> 3 steps -> Bento grid -> Pricing -> FAQ) are forbidden. Layouts must reflect user task flows.
-- **R-10 — Glassmorphism Dose Cap**: Frosted glass (`backdrop-blur`) is strictly capped at **maximum 1-2 elements per page** (e.g., sticky top navigation only).
-- **R-11 — Deliberate Border Radius**: Indiscriminate pill-shape addiction (`rounded-full` on cards, inputs, and standard rectangular buttons) is forbidden. Follow the structured 3-tier radius scale (6-8px inputs/buttons, 12-16px cards, `rounded-full` only for avatars and status chips).
+- **R-10 — Glassmorphism Dose Cap**: Frosted glass (`backdrop-blur`) is strictly capped at **maximum 1-2 elements per page**. The premier, authorized implementation is the **Floating Island Glass Capsule Header** and associated **Flyout Mega Menu Card**, utilizing high-grade dark translucency (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, 1px `border-white/10`) to eliminate generic, monotonous edge-to-edge template navbars.
+- **R-11 — Deliberate Border Radius**: Indiscriminate pill-shape addiction (`rounded-full` on standard cards, text inputs, and rectangular action buttons) is forbidden. Follow the structured 3-tier radius scale (6-8px inputs/buttons, 12-16px cards). *Architectural Exception*: The **Floating Island Navigation Capsule Bar** is the authorized, prestigious exception designed as an elevated hardware-style cockpit.
 - **R-12 — Grounded Shadows**: Floating zero-gravity colored drop shadows (`shadow-2xl shadow-indigo-500/50`) are forbidden. Use crisp 1px borders paired with subtle directional elevation (`shadow-xs` / `shadow-sm`).
 - **R-13 — Focus Glow Dose Cap**: Neon glow borders and radiating cards are capped at **maximum 1-2 focus elements** on the entire page.
 - **R-14 — Purposeful Motion**: Perpetual floating loops and multi-stacked entrance animations on scroll (fade + slide + scale + bounce) are forbidden. Transitions must be snappy (150-250ms), purposeful, and honor `prefers-reduced-motion`.
 - **R-15 — Action-Driven CTAs**: Generic CTAs (*Get Started*, *Learn More*, *Try Now*) are replaced with specific, outcome-oriented copy (*Create free account*, *Read API reference*, *Import repository*).
 - **R-16 — Buzzword Elimination**: AI buzzwords (*unlock the power*, *seamless*, *robust*, *elevate*, *revolutionary*, *game-changer*, *next-level*, *delve*) are strictly eliminated in favor of concrete facts.
-- **R-19 — Contextual Visuals**: Generic Undraw/Storyset/3D clay blob characters are forbidden. Use real interface screenshots, concrete diagrams, or code previews.
+- **R-19 — Contextual Visuals & Isometric Machine Anatomy**: Generic Undraw/Storyset illustrations, 3D clay blob characters, and abstract "AI flowchart slop" (floating slabs or hollow boxes connected by arbitrary dotted arrows) are strictly forbidden when explaining technical architectures, algorithms, or protocols. Mandate the **Physical Isometric Anatomy Standard** ("The Object is the Explanation"): invent a concrete, high-density physical machine (test rig, dial gauge, gantry plotter, or pin-tumbler lock) with 4-tone shading, 40+ parts, lines that resolve, and live numeric readouts.
 - **R-20 — Non-Functional Decorations**: Colored vertical accent stripes on card edges, trailing decorative button arrows (`→`), and floating ambient shapes are forbidden.
 - **R-21 — Authentic Demos**: Marketing a tool without displaying the actual interface or executable product is forbidden.
 - **R-22 — Dark Mode Rationale**: Dark mode is a conscious brand decision, not an automatic default chosen because it looks "developer-focused".
@@ -220,21 +236,125 @@ Techniques in this tier are permitted **only when they serve a documented hierar
 
 ---
 
-## The Liveliness Toolkit: Dials & Design Archetypes
+---
 
-Filtering slop removes bad habits; the **Liveliness Toolkit** fills the space with intentional character so the interface does not degenerate into a sterile, lifeless default.
+## UI & Visual Slop Deep-Dive (Antislop UI Canonical Reference)
 
-### The 3 Liveliness Dials (Scale 1 to 5)
+The following diagnostic guide provides the exact **Tell**, **Why**, and **Fix** across all 7 UI/UX disciplines, directly incorporating the field-tested standards from `antislop-ui`:
 
-Every design must deliberately declare its 3 dial settings:
+### 1. Visual & Color Architecture
+- **Generic Blue-Purple Gradient**:
+  - *Tell*: Blue-to-purple, blue-to-cyan, or purple-to-pink gradients used as the primary hero background, button color, or full-page radial glow.
+  - *Why*: The most over-represented color clich\u00e9 in AI training data. Signals "no brand identity" and marks an interface as synthetic at a glance.
+  - *Fix*: Pull the color palette strictly from `DESIGN.md` or the product's identity. Gradients are permitted ONLY as a functional hierarchy separator with written rationale (R-01). Exactly ONE accent hue per view.
+- **Excessive Glassmorphism**:
+  - *Tell*: `backdrop-blur` stacked on navbars, hero cards, sidebars, modals, and badges simultaneously.
+  - *Why*: Visual mud. Stacking translucent blurred layers ruins contrast and creates illegible muddy text on mobile GPUs.
+  - *Fix*: Enforce the dose cap: maximum 1-2 glass surfaces per page (e.g. sticky header only). Use crisp solid surfaces (`bg-card` / `bg-background`) with 1px borders elsewhere (R-10).
+- **Excessive Border Radius (Pill Addiction)**:
+  - *Tell*: `rounded-full` or `rounded-3xl` applied to cards, search inputs, modal sheets, and rectangular action buttons.
+  - *Why*: Pill-shaped rectangular containers waste corner padding and scream generic template.
+  - *Fix*: Follow the structured 3-tier radius scale: **6-8px** for inputs, dropdowns, and buttons (`rounded-md` / `rounded-lg`); **12-16px** for cards and dialogs (`rounded-xl`); reserve `rounded-full` strictly for avatars and compact status chips (R-11).
+- **Overly Soft Zero-Gravity Shadows**:
+  - *Tell*: `shadow-2xl shadow-indigo-500/40` with 30px+ blur and colored glow, floating in zero gravity.
+  - *Why*: Makes cards look detached from physical reality.
+  - *Fix*: Replace diffuse colored shadows with a crisp 1px border (`border border-border/80`) paired with subtle directional elevation (`shadow-xs` or `shadow-sm`) (R-12).
+- **Sterile Default**:
+  - *Tell*: Plain gray text on stark white canvas with zero personality, no typographic contrast, and no intentional focal moment.
+  - *Why*: The opposite extreme of slop: when an agent removes gradients, it collapses into boring wireframe defaults.
+  - *Fix*: Declare positive **ENERGY**, **RHYTHM**, and **MOTION** dials. Add purposeful contrast, an authentic brand accent, and high typographic contrast.
 
-| Dial | Scale 1 (Subdued / Minimal) | Scale 3 (Balanced / Professional) | Scale 5 (Expressive / Dynamic) |
-| :--- | :--- | :--- | :--- |
-| **ENERGY** | Monochromatic, quiet surfaces, restrained single accent, high whitespace. | Controlled dual-tone, crisp contrast, focused focal moments. | High-chroma accents, rich tonal depth, dramatic typographic contrast. |
-| **RHYTHM** | Strict linear grid, identical column intervals, predictable reading flow. | Alternating card widths, split hero composition, dynamic content pacing. | Asymmetric editorial layouts, overlapping surfaces, syncopated modular grids. |
-| **MOTION** | Zero ambient motion, instant opacity shifts (100ms), pure utilitarian. | Subtle hover feedback (150ms ease-out), tactile press scales (`scale-[0.98]`). | Coordinated page transitions, spring-physics micro-interactions, canvas shaders. |
+### 2. Layout, Cadence & Components
+- **Monotonous AI Landing Page Template**:
+  - *Tell*: Hero -> 3 feature cards -> 3-step "How It Works" -> Bento Grid -> 3-tier Pricing -> FAQ -> 4-Column Footer. Every single time.
+  - *Why*: Reflects training data defaults, not the product's real user journey.
+  - *Fix*: Structure the page around actual user task flows (C-3). If there are no verified testimonials, omit the testimonials section entirely (R-18).
+- **Copy-Paste Feature Cards**:
+  - *Tell*: A 3-column row of cards, each containing: icon in rounded square + 1-sentence title + 2-sentence description.
+  - *Why*: Visual wallpaper that users scroll right past.
+  - *Fix*: Give different features varied visual weights based on importance: hero feature gets an interactive preview or deep screenshot; secondary features get compact list rows or data metrics.
+- **Bento Grid Overuse**:
+  - *Tell*: Cramming all content into an asymmetrical bento box layout for no functional reason.
+  - *Why*: Bento layouts require asymmetric content (e.g., one huge chart, two small stats). Forcing uniform content into mismatched boxes looks ridiculous.
+  - *Fix*: Use bento grids ONLY when content naturally possesses diverse spatial requirements.
 
-*Rule R-37 Invariant: If designing without brand direction, dials MUST be declared honestly as ENERGY 1 / RHYTHM 1 / MOTION 1.*
+### 3. Decorative Clichés & Iconography
+- **Generic AI Icons**:
+  - *Tell*: Sparkles (\u2728), stars, magic wands, robots, lightning bolts, and generic Lucide icon clones on every feature.
+  - *Why*: Generic glyphs that communicate zero domain meaning.
+  - *Fix*: Use domain-authentic icons directly tied to the action. If no specific icon fits, use no icon at all\u2014clean typography works best.
+- **Trailing Button Arrows**:
+  - *Tell*: Putting `\u2192` on every single button (`Get Started \u2192`, `Submit \u2192`, `Save \u2192`).
+  - *Why*: Visual clutter.
+  - *Fix*: Reserve directional arrows strictly for pagination, multi-step wizards, or external links.
+- **Eyebrow Pill Badges**:
+  - *Tell*: A rounded capsule badge directly above the `<h1>` stating "PRODUCTIVITY REVOLUTION" with a glowing neon dot.
+  - *Why*: Pointless AI label shouting categories that the headline already explains.
+  - *Fix*: Eliminate redundant eyebrows. Let the hero headline make the claim cleanly (R-30).
+- **Decorative Status Dots**:
+  - *Tell*: Pulsing green dot (`animate-ping`) next to "System Operational" when there is no real-time telemetry or WebSocket connection.
+  - *Why*: Fake status dots violate honesty standards.
+  - *Fix*: Only display status dots when backed by live health-check telemetry. Use solid, non-pulsing dots for static indicators.
+
+### 4. App & Dashboard Architecture
+- **Default Dashboard Shell**:
+  - *Tell*: Left sidebar + top search bar + 4 stat cards with "+12% from last month" + area chart + generic table.
+  - *Why*: Chosen before asking what the user actually needs to accomplish on the screen.
+  - *Fix*: Design the dashboard around the primary user job-to-be-done. A billing dashboard needs invoice reconciliations; a server monitor needs latency p99 graphs.
+- **Charts Without a Question**:
+  - *Tell*: Wavy purple area chart with no units, no axis labels, and no business query it answers.
+  - *Why*: Decorative filler masquerading as analytics.
+  - *Fix*: Every chart must answer a concrete question (e.g., "Hourly API Error Rate (p99)"). Include explicit axes, timestamps, and units.
+
+### 5. Motion & Animation Standards
+- **Endless Pulses & Floating Loops**:
+  - *Tell*: Cards or badges that pulse, bounce, or float continuously with no user trigger (`animate-pulse`, `animate-bounce`).
+  - *Why*: Perpetual motion is visual noise that fatigues the user's eyes.
+  - *Fix*: Motion must be triggered by user action (hover, press, scroll into view) and settle promptly (150-250ms). Never loop indefinitely unless showing a temporary loading spinner.
+- **Prefe-Reduced-Motion**:
+  - *REQUIRED*: Always wrap transitions in `@media (prefers-reduced-motion: reduce)` or use Tailwind `motion-reduce:transition-none`.
+
+### 6. Web Baseline & Production Checklist
+- [x] Valid semantic HTML5: `<header>`, `<nav>`, `<main>`, `<footer>`, `<button>` for actions, `<a>` for links.
+- [x] Explicit `width` and `height` on all media elements (CLS = 0).
+- [x] Hero image loaded with `fetchpriority="high"`, never `loading="lazy"` (LCP < 2.5s).
+- [x] Accessible form labels: Every `<input>` has a matching `<label for="...">`.
+- [x] Touch targets measure at least 44x44px.
+
+---
+
+## The Liveliness Toolkit: Dials, Levers & Design Read
+
+A filter can remove slop, but it cannot add energy. Removing slop leaves a void, and language models fill that void with their most generic output (the sterile default). Liveliness must be **added** deliberately through positive requirements, not bans.
+
+### Three Dials (Discrete Enforceable 1 to 3 Scale)
+
+Every design must declare three dials explicitly, derived from `DESIGN.md` or the Design Read, and hold them from the first section to the last:
+
+| Dial | 1 (Calm) | 2 (Balanced) | 3 (Bold) | What it answers |
+| :--- | :--- | :--- | :--- | :--- |
+| **ENERGY** | Linear, GOV.UK (Monochrome, quiet surfaces, restrained single accent, high whitespace) | Stripe, Vercel (Controlled dual-tone, crisp contrast, focused focal moments) | Awwwards, agency portfolio (High-chroma accents, rich tonal depth, dramatic typographic scale) | How hard does this design say hello? |
+| **RHYTHM** | Uniform grid, predictable reading flow | Consistent grid with intentional composition breaks | Asymmetric, mixed editorial layouts, syncopated modular grids | How much do sections change from each other? |
+| **MOTION** | Hover states only, instant utilitarian transitions (100ms) | Scroll-reveal, tactile press scales (`scale-[0.98]`, 150-250ms) | Parallax, sticky pin choreography, fluid spring physics | How much motion is present, and why? |
+
+*Why 3 levels and not 10? A human reviewer and an AI agent can reliably verify binary checkable conditions: "is this section uniform or varied?" They cannot reliably judge "is this a 6 or a 7?". Three discrete levels make liveliness strictly enforceable.*
+
+### The 5 Visual Levers (Transforming Dials into Decisions)
+1. **One Focal Point per Screen**: Exactly one element is clearly the most important on every screen; all other elements defer to it.
+2. **Hierarchical Contrast**: Size, weight, and color are differentiated on purpose to guide reading gravity, never randomized.
+3. **Whitespace as Structure**: Empty space is used actively to separate and establish section cadence, not left over as accidental voids.
+4. **One Deliberate Accent**: Exactly one accent color or gesture used sparingly at key moments. Zero accents is sterile; an accent everywhere is slop.
+5. **Identity Motif**: One specific, repeated pattern, gesture, or typographic voice that makes the interface unmistakably belong to the product.
+
+### Design Read Protocol (Mandatory Before Generation)
+Before generating any UI component or page layout, declare the one-line Design Read:
+
+> `Reading this as: <page kind> for <audience>, in a <visual language> style, dial <ENERGY/RHYTHM/MOTION>.`
+
+*Example*: `"Reading this as: B2B SaaS analytics dashboard for engineering leads, in a Linear-style high-density language, dial ENERGY 2 / RHYTHM 2 / MOTION 1."*
+- **Direction Exists (`DESIGN.md` or user brief)**: Infer the dials from it and proceed.
+- **Direction Is Ambiguous**: Ask exactly ONE decisive question with concrete options (e.g., *"Should this feel closer to Linear-clean (Calm) or Stripe-vibrant (Balanced)?"*).
+- **Direction Is Absent & Cannot Ask**: Label output as *"draft without direction"* and set the honest default dials: **ENERGY 1 / RHYTHM 1 / MOTION 1** (R-37).
 
 ---
 
@@ -333,7 +453,7 @@ Before completing any task that involves UI, copy, or code generation, you **MUS
 - **Direction Source**: [`DESIGN.md` / User Brief / Draft without direction (1/1/1)]
 
 #### Block 2: 38-Rule Compliance Verification
-- **Hard Gate (Tier 1)**: [PASS / FAIL] (R-02 Em Dash, R-03 Mobile, R-17 Data, R-25 Contrast, R-26 Functional Controls, R-27 States, R-32 Keyboard, R-35 Verification, R-36 Claims, R-38 Honesty)
+- **Hard Gate (Tier 1)**: [PASS / FAIL] (R-02 Em Dash, R-03 Mobile, R-17 Data, R-25 Contrast, R-26 Functional Controls, R-27 States, R-32 Keyboard, R-35 Verification, R-36 Claims, R-38 Honesty, R-39 Semantics, R-40 Web Vitals)
 - **Purpose-Gate (Tier 2)**: [PASS / FAIL] (R-01 Gradients, R-04 Icons, R-06 Fonts, R-10 Glass Cap, R-11 Radii, R-13 Glow Cap, R-16 Buzzwords, R-31 Separators)
 - **Quality Locks (Tier 3)**: [PASS / FAIL] (C-1 Intentionality, C-2 Completeness, C-3 Content, C-4 Resilience, C-5 Evidence)
 
@@ -366,6 +486,122 @@ The skill includes built-in automated verification tools in `scripts/`:
 
 ---
 
+### Production Code Blueprints
+
+#### 1. Zero-Dependency Programmatic WCAG 2.2 AA Contrast Verifier (TypeScript)
+Never eyeball contrast ratios or hallucinate compliance. Compute unrounded luminance and ratio deterministically:
+
+```typescript
+// src/quality/wcag-contrast-verifier.ts
+export interface ContrastVerdict {
+  foreground: string;
+  background: string;
+  ratio: number;
+  normalText: { threshold: 4.5; pass: boolean };
+  largeText: { threshold: 3.0; pass: boolean };
+}
+
+function parseHexChannel(hex: string, start: number): number {
+  return parseInt(hex.slice(start, start + 2), 16) / 255;
+}
+
+function linearizeChannel(val: number): number {
+  return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
+}
+
+export function computeRelativeLuminance(hexColor: string): number {
+  let clean = hexColor.trim().replace(/^#/, '');
+  if (clean.length === 3) {
+    clean = clean.split('').map((c) => c + c).join('');
+  }
+  if (!/^[0-9A-Fa-f]{6}$/.test(clean)) {
+    throw new Error(`[WCAG] Invalid hex color format: ${hexColor}`);
+  }
+
+  const r = linearizeChannel(parseHexChannel(clean, 0));
+  const g = linearizeChannel(parseHexChannel(clean, 2));
+  const b = linearizeChannel(parseHexChannel(clean, 4));
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+export function evaluateWcagContrast(foreground: string, background: string): ContrastVerdict {
+  const lumA = computeRelativeLuminance(foreground);
+  const lumB = computeRelativeLuminance(background);
+
+  const lighter = Math.max(lumA, lumB);
+  const darker = Math.min(lumA, lumB);
+  const rawRatio = (lighter + 0.05) / (darker + 0.05);
+
+  return {
+    foreground,
+    background,
+    ratio: Math.round(rawRatio * 100) / 100,
+    normalText: { threshold: 4.5, pass: rawRatio >= 4.5 },
+    largeText: { threshold: 3.0, pass: rawRatio >= 3.0 },
+  };
+}
+```
+
+#### 2. MCP Stdio Tool Adapter for Anti-Slop Contrast Checker (TypeScript)
+Expose programmatic contrast auditing to all MCP clients (Claude, Cursor, Codex, Antigravity):
+
+```typescript
+// src/mcp/contrast-mcp-tool.ts
+import { evaluateWcagContrast, ContrastVerdict } from '../quality/wcag-contrast-verifier';
+
+export interface McpToolResponse {
+  content: { type: 'text'; text: string }[];
+  isError?: boolean;
+}
+
+export function handleMcpCheckContrast(args: { foreground: string; background: string }): McpToolResponse {
+  try {
+    const verdict = evaluateWcagContrast(args.foreground, args.background);
+    const textOutput = [
+      `WCAG 2.2 Contrast Ratio: ${verdict.ratio}:1`,
+      `Normal Text (<18px, 4.5:1): ${verdict.normalText.pass ? 'PASS' : 'FAIL'}`,
+      `Large Text (>=18px bold / 24px, 3.0:1): ${verdict.largeText.pass ? 'PASS' : 'FAIL'}`,
+    ].join('\n');
+
+    return {
+      content: [{ type: 'text', text: textOutput }],
+      isError: !verdict.normalText.pass && !verdict.largeText.pass,
+    };
+  } catch (err) {
+    return {
+      content: [{ type: 'text', text: `Contrast check error: ${(err as Error).message}` }],
+      isError: true,
+    };
+  }
+}
+```
+
+---
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -385,7 +621,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ### Protokol Dua Mode Operasi (Two Usage Modes)
 1. **Mode 1: DURING (Pencegahan Real-Time Saat Bekerja)**:
-   - Agen menerapkan 38 aturan secara aktif saat menulis kode, copy, dan UI.
+   - Agen menerapkan 40 aturan secara aktif saat menulis kode, copy, dan UI.
    - Mencegah slop masuk ke codebase sejak awal.
    - Ditutup dengan laporan wajib **Delivery Gate**.
 2. **Mode 2: AFTER (Audit & Remediasi Pasca Proyek Selesai)**:
@@ -396,7 +632,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ---
 
-### Kerangka 38 Aturan Wajib (3-Tier Rule Framework)
+### Kerangka 40 Aturan Wajib (3-Tier Rule Framework)
 
 #### Tier 1: Hard Gate (Mutlak, Tanpa Pengecualian)
 - **R-02 Copywriting**: Larangan mutlak tanda em dash (`—`) pada teks buatan AI. Gunakan koma, titik, atau titik dua.
@@ -416,6 +652,8 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-36 Larangan Klaim Kepatuhan Fiktif**: Dilarang mengarang lencana sertifikasi (SOC 2, ISO 27001) atau klaim akselerasi fiktif.
 - **R-37 Arah Desain Wajib**: Wajib bersumber dari `DESIGN.md`. Jika tanpa arah, wajib dideklarasikan sebagai *"Draft without direction"* dengan dial **ENERGY 1 / RHYTHM 1 / MOTION 1**.
 - **R-38 Konten Nyata atau Placeholder Jujur**: Seluruh konten harus berupa data nyata atau penanda eksplisit (`[REAL DATA]`).
+- **R-39 Semantik Aksesibel & Keterjangkauan Interaksi**: Kursor wajib `cursor: pointer` pada semua elemen interaktif dan `cursor: not-allowed` saat dinonaktifkan; aksi wajib `<button>`, navigasi wajib `<a href>` (larangan mutlak div/span clickable); nama aksesibel (`aria-label`, input `<label>`, `alt` gambar); animasi non-esensial wajib berhenti di bawah `prefers-reduced-motion: reduce`.
+- **R-40 Mekanisme Performa & Core Web Vitals**: Atribut `width` dan `height` (atau `aspect-ratio`) wajib ada pada semua `<img>`, `<video>`, dan `<iframe>` untuk mencegah pergeseran tata letak (CLS = 0); gambar hero di atas fold wajib menggunakan `fetchpriority="high"` dan dilarang keras menggunakan `loading="lazy"` (LCP); larangan skrip pihak ketiga pemblokir render di `<head>` (INP); larangan mengarang skor Lighthouse fiktif.
 
 #### Tier 2: Purpose-Gate (Boleh Digunakan Hanya Jika Ada Tujuan Tertulis & Batasan Dosis)
 - **R-01 Warna & Gradien**: Gradien biru-ungu/neon dilarang sebagai default; hanya boleh untuk pemisah hierarki dengan alasan tertulis.
@@ -424,14 +662,14 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-07 Latar Belakang**: Grid titik, garis blueprint, dan grafis kotak-kotak dilarang sebagai shortcut visual.
 - **R-08 Ritme Spasi**: Spasi seragam di setiap bagian dilarang; gunakan variasi ritme vertikal.
 - **R-09 Variasi Layout**: Layout formulaik klise (Hero -> 3 kartu -> 3 langkah -> Bento grid -> Pricing -> FAQ) dilarang.
-- **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman (misalnya hanya header sticky).
-- **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang atau kartu. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu.
+- **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman. Penerapan resmi yang sangat dianjurkan adalah **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu** dengan translusensi gelap halus (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, border 1px `border-white/10`) guna menggantikan bilah navbar kotak penuh yang pasaran.
+- **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang standar, field input, atau kartu konten. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu. *Pengecualian Arsitektural*: Bilah navigasi melayang berbentuk kapsul (**Floating Island Navigation Capsule**) adalah pengecualian resmi yang diotorisasi untuk menghadirkan kokpit navigasi modern berkelas tinggi ala Apple/Linear.
 - **R-12 Shadow Membumi**: Shadow melayang berwarna neon dilarang; gunakan border 1px solid dan elevasi halus.
 - **R-13 Batas Glow**: Efek pendaran neon dibatasi maksimal 1-2 elemen fokus.
 - **R-14 Animasi Berbobot**: Animasi berulang tanpa henti (kartu melayang) dilarang; animasi transisi wajib cepat (150-250ms).
 - **R-15 CTA Berorientasi Aksi**: Ganti CTA generik (*Get Started*, *Learn More*) dengan instruksi spesifik (*Buat akun gratis*, *Baca dokumentasi API*).
 - **R-16 Eliminasi Buzzword**: Hapus kata-kata klise AI (*unlock, elevate, seamless, revolutionize, game-changer*).
-- **R-19 Visual Kontekstual**: Ilustrasi 3D blob generik dilarang; gunakan screenshot produk asli atau diagram teknis.
+- **R-19 Visual Kontekstual & Anatomi Mesin Fisik**: Ilustrasi 3D blob generik dan "slop flowchart AI" (balok mengambang abstrak dengan panah putus-putus acak) dilarang keras saat menjelaskan arsitektur sistem, algoritma, atau protokol. Wajib terapkan **Standar Anatomi Isometrik Fisik** (*"The Object is the Explanation"*): visualisasikan logika teknis sebagai instrumen mesin mekanis yang nyata dan presisi (rig uji, dial gauge, gantry plotter, kunci pin-tumbler) dengan shading empat nada (*four-tone*), daftar 40+ komponen terstruktur, dan pembacaan numerik (*readout*) langsung.
 - **R-20 Dekorasi Fungsional**: Garis strip vertikal di tepi kartu dan panah dekoratif (`→`) dilarang jika tanpa fungsi.
 - **R-21 Demo Produk Nyata**: Menjual alat tanpa memperlihatkan interface nyata dilarang.
 - **R-22 Alasan Mode Gelap**: Mode gelap harus didasarkan pada karakter brand, bukan sekadar latah default.
@@ -448,12 +686,36 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 
 ---
 
-### Liveliness Toolkit: 3 Dial & 4 Arsitektur Desain
+### Liveliness Toolkit: 3 Dial, 5 Tuas Visual & Protokol Design Read
 
-Untuk mencegah antarmuka jatuh ke dalam kegagalan sebaliknya—yaitu desain yang steril, datar, dan membosankan—anti-slop menggunakan **3 Dial Karakter**:
-1. **ENERGY (1-5)**: Skala 1 (monokromatik, sunyi) hingga Skala 5 (aksen berani, kontras tinggi).
-2. **RHYTHM (1-5)**: Skala 1 (grid linear kaku) hingga Skala 5 (tata letak editorial dinamis).
-3. **MOTION (1-5)**: Skala 1 (statis murni) hingga Skala 5 (transisi halus berbasis fisika).
+Filter anti-slop bertugas membuang kebiasaan buruk AI, namun membuang slop saja akan meninggalkan kekosongan (*void*) yang biasanya diisi model AI dengan tampilan generik yang steril dan membosankan. Karakter visual wajib **ditambahkan secara sengaja**:
+
+#### 3 Dial Karakter (Skala Diskrit 1 sampai 3):
+1. **ENERGY (1-3)**:
+   - Skala 1 (Tenang): Linear, GOV.UK (Monokromatik, permukaan tenang, aksen tunggal hemat, banyak whitespace).
+   - Skala 2 (Seimbang): Stripe, Vercel (Kontras tajam, dual-tone terkontrol, titik fokus terarah).
+   - Skala 3 (Berani): Awwwards, portofolio kreatif (Aksen saturasi tinggi, tipografi dramatis).
+2. **RHYTHM (1-3)**:
+   - Skala 1 (Seragam): Grid linear kaku dan ritme membaca yang terprediksi.
+   - Skala 2 (Konsisten Berbobot): Grid konsisten dengan variasi seksi yang memiliki tujuan.
+   - Skala 3 (Asimetris): Tata letak editorial dinamis, kartu modular bergantian.
+3. **MOTION (1-3)**:
+   - Skala 1 (Utilitarian): Efek hover instan (100ms) tanpa animasi berlebihan.
+   - Skala 2 (Halus Taktil): Scroll-reveal, transisi tactile press (`scale-[0.98]`, 150-250ms).
+   - Skala 3 (Koreografi): Koreografi sticky pin, parallax bermakna, fisika pegas fluida.
+
+*Mengapa 3 skala dan bukan 10? Peninjau manusia dan agen AI dapat memverifikasi kondisi biner: "apakah bagian ini seragam atau bervariasi?" Skala diskrit 1-3 membuat kepatuhan dapat ditegakkan secara absolut tanpa perdebatan subjektif.*
+
+#### 5 Tuas Visual (Visual Levers):
+1. **Satu Titik Fokus per Layar**: Tepat satu elemen paling penting di setiap layar; elemen lain mengalah.
+2. **Kontras Hirarkis**: Ukuran, bobot, dan warna dibedakan secara sengaja untuk memandu mata pengguna.
+3. **Whitespace Struktural**: Ruang kosong digunakan aktif untuk pemisah dan ritme, bukan sisa layout.
+4. **Satu Aksen Terukur**: Tepat satu warna aksen pada momen kunci. Tanpa aksen = steril; aksen di mana-mana = slop.
+5. **Motif Identitas**: Satu pola berulang, gestur, atau tipografi spesifik yang membuat desain autentik milik produk.
+
+#### Protokol Deklarasi Design Read:
+Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
+> `Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>.`
 
 #### 4 Arsitektur Desain Teruji:
 1. **Archetype A: High-Precision Developer Tooling** (Linear, Raycast, Vercel)
@@ -494,3 +756,21 @@ This skill serves as the foundational quality, craftsmanship, and anti-slop gate
 | `production-ready-hardener` | Acts as the final delivery quality gate before any release or production deployment. |
 | `zero-tech-debt-auditor` | Scans and eradicates syntax narration comments, dead code, and speculative abstractions. |
 | `coderabbit` | Powers the autonomous PR review and code inspection engine. |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: gemini-agent-booster
-description: "Master optimization protocol for Gemini Agent (Antigravity) to unlock native 2M+ to 10M+ long-context reasoning, Gemini 4 Pro & Gemini 4 Flash dynamic thinking budget control, native context caching, Multimodal Live API, and high-speed problem solving / Protokol optimasi utama untuk Gemini Agent (Antigravity) untuk mengaktifkan pemikiran long-context 2M+ hingga 10M+, kontrol thinking budget dinamis Gemini 4 Pro & Gemini 4 Flash, context caching native, Multimodal Live API, dan pemecahan masalah kecepatan tinggi."
+description: "Master optimization protocol for Gemini Agent, 2M+ context & tools / Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -24,10 +24,10 @@ version: "4.4.2"
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Description
-Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 4 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
+Master optimization protocol for the Gemini Agent (Antigravity) to leverage native Gemini 4.x frontier capabilities — centered on **Gemini 4 Pro** (flagship deep reasoning), **Gemini 4 Argon** (balanced frontier context engine), **Gemini 3.8 Flash** (ultra-high speed agentic loops), and **Project Astra** (real-time spatial multimodal streaming). Unlocks 2M+ to 10M+ monolithic context ingestion, dynamic System-2 test-time thinking budget control (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, 75–90% cost reduction), Multimodal Live API integration, visual UI auditing, and massively parallel tool execution.
 
 ### Trigger Conditions
-- Deploying or querying Google's flagship reasoning model: **Gemini 4 Pro**.
+- Deploying or querying Google's flagship reasoning models: **Gemini 4 Pro** and **Gemini 4 Argon**.
 - Analyzing massive codebases, full log histories, or monolithic documents requiring 1M–2M+ token context without chunk loss.
 - Managing test-time reasoning compute budgets with Gemini 4 Thinking Mode (`thinkingConfig`).
 - Implementing cost-saving architectures with native Gemini Context Caching (`cachedContent`).
@@ -37,16 +37,16 @@ Master optimization protocol for the Gemini Agent (Antigravity) to leverage nati
 
 ### Gemini 4.x & Frontier Model Capability Matrix (2026)
 
-| Capability | Gemini 4 Pro (Flagship) | Gemini 4 Flash / Project Astra | Gemini 3.8 Flash (Agile Reasoning) | Gemini 3.1 Pro (Fallback) |
+| Capability | Gemini 4 Pro (Flagship) | Gemini 4 Argon (Balanced Frontier) | Gemini 3.8 Flash / Project Astra | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
-| Context Window | 2,097,152+ tokens (up to 10M+ Ring Attention) | 1,048,576+ tokens (1M+) | 1,000,000 tokens | 2,000,000 tokens |
-| Thinking / Reasoning | System-2 Deep Thinking (Configurable up to 64K Budget) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |
-| Native Context Caching | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`) |
-| Multimodal | Native Any-to-Any Audio/Video/Text + Screen Grounding | Multimodal Live API (<100ms latency) | Multimodal Live Audio/Video | Native Multimodal |
-| Code Generation & Tool Calling | SOTA Architectural Synthesis, Zero-Loss AST, Parallel MoE Tools | Ultra-fast iteration & subagent swarms | High-speed pair programming & CLI coding | Complex reasoning |
+| Context Window | 2,097,152+ tokens (up to 10M+ Ring Attention) | 2,097,152 tokens (2M+) | 1,048,576+ tokens (1M+) | 2,000,000 tokens |
+| Thinking / Reasoning | System-2 Deep Thinking (Configurable up to 64K Budget) | Balanced Thinking (Configurable up to 16K) | Flash Thinking (Configurable Budget) | Extended Reasoning |
+| Native Context Caching | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75–90% discount) | Native (`cachedContent`, 75% discount) | Native (`cachedContent`) |
+| Multimodal | Native Any-to-Any Audio/Video/Text + Screen Grounding | Native Multimodal Context Ingestion | Multimodal Live API (<100ms latency) | Native Multimodal |
+| Code Generation & Tool Calling | SOTA Architectural Synthesis, Zero-Loss AST, Parallel MoE Tools | Balanced Repository Engineering & Schema Extraction | Ultra-fast iteration & subagent swarms | Complex reasoning |
 | Search Grounding | Google Search Grounding with verified attribution | Google Search Grounding | Google Search Grounding | Google Search Grounding |
-| TTFT (Time to First Token) | Ultra-fast via Prefix KV-Cache Pinning | Sub-80ms ultra-low latency | Ultra-low latency (<100ms) | Balanced |
-| Primary Role | Master System Architect & High-Risk Auditor | High-Throughput Subagent Workers | Daily Driver Interactive Pair Programming | Legacy Baseline |
+| TTFT (Time to First Token) | Ultra-fast via Prefix KV-Cache Pinning | Fast Balanced TTFT (<150ms) | Sub-80ms ultra-low latency | Balanced |
+| Primary Role | Master System Architect & High-Risk Auditor | Whole-Repo Ingestion & Balanced Feature Dev | High-Throughput Subagent Workers | Legacy Baseline |
 
 ### 1. Thinking Budget Optimization for Gemini 4 Pro Tasks
 For complex architectural decisions, formal security audits, or debugging distributed race conditions, control the reasoning depth via `thinkingConfig`:
@@ -154,6 +154,46 @@ Ensure all code and orchestration flows adhere to the following standards:
 - **Native System-2 Budgeting**: Replace forced `<thought>` tags with API-level `thinkingBudget` and `reasoning_effort` parameters to maximize test-time compute.
 - **Massive Parallel Tool Execution (Agentic MoE)**: Structure subagent pipelines so that `mcp-server-architect` tools can be executed concurrently without serial blocking.
 
+### 8. Graceful Availability Fallback Protocol (Gemini 4 -> Gemini 3.8 Flash)
+When `Gemini 4 Pro` or `Gemini 4 Argon` is not yet available, regionally unprovisioned, or encounters quota/concurrency limits:
+- **Instant Fallback**: Route all agentic tasks automatically to **`Gemini 3.8 Flash`** (or `gemini-3.8-flash-thinking`).
+- **Preserved Invariants**: Retain 1M+ token context window, native context caching via `cachedContent`, and sub-80ms TTFT.
+- **Implementation Blueprint**:
+  ```typescript
+  import { GoogleGenAI } from '@google/genai';
+
+  export async function executeGeminiWithFallback(prompt: string, codebaseDump?: string) {
+    const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+    const primaryModel = 'gemini-4-argon';
+    const fallbackModel = 'gemini-3.8-flash';
+
+    try {
+      return await ai.models.generateContent({
+        model: primaryModel,
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      });
+    } catch (error) {
+      console.warn(`[GeminiBooster] Primary model ${primaryModel} unavailable. Fallback to ${fallbackModel}...`);
+      return await ai.models.generateContent({
+        model: fallbackModel,
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      });
+    }
+  }
+  ```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec gemini-agent-booster <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -168,10 +208,10 @@ Ensure all code and orchestration flows adhere to the following standards:
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `brainstorming`, `anti-slop`
 
 ### Deskripsi
-Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 4 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
+Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilitas frontier ekosistem Gemini 4.x — berpusat pada **Gemini 4 Pro** (penalaran mendalam unggulan), **Gemini 4 Argon** (engine konteks frontier seimbang), **Gemini 3.8 Flash** (siklus agen ultra-cepat), dan **Project Astra** (streaming multimodal spasial real-time). Mengaktifkan ingesti konteks monolitik 2M+ hingga 10M+, kontrol dynamic thinking budget System-2 (`thinkingConfig.thinkingBudget`), native context caching (`cachedContent`, diskon biaya 75–90%), integrasi Multimodal Live API, audit visual UI, dan eksekusi tool paralel skala masif.
 
 ### Kondisi Pemicu
-- Menerapkan atau mengirim prompt ke model penalaran unggulan Google: **Gemini 4 Pro**.
+- Menerapkan atau mengirim prompt ke model penalaran unggulan Google: **Gemini 4 Pro** dan **Gemini 4 Argon**.
 - Menganalisis codebase skala besar, histori log lengkap, atau dokumen monolitik yang membutuhkan konteks 1M–2M+ token tanpa kehilangan data chunking.
 - Mengatur alokasi reasoning budget dengan Gemini 4 Thinking Mode (`thinkingConfig`).
 - Menerapkan strategi pemangkasan biaya melalui native Gemini Context Caching (`cachedContent`).
@@ -181,16 +221,16 @@ Protokol optimasi utama untuk Gemini Agent (Antigravity) memanfaatkan kapabilita
 
 ### Matriks Kapabilitas Gemini 4.x & Model Frontier (2026)
 
-| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 4 Flash / Project Astra | Gemini 3.8 Flash (Penalaran Gesit) | Gemini 3.1 Pro (Fallback) |
+| Kapabilitas | Gemini 4 Pro (Flagship) | Gemini 4 Argon (Frontier Seimbang) | Gemini 3.8 Flash / Project Astra | Gemini 3.1 Pro (Fallback) |
 |---|---|---|---|---|
-| Context Window | 2.097.152+ token (hingga 10M+ Ring Attention) | 1.048.576+ token (1M+) | 1.000.000 token | 2.000.000 token |
-| Pemikiran / Penalaran | System-2 Deep Thinking (Budget hingga 64K) | Flash Thinking (Configurable Budget) | Agile Medium Thinking | Extended Reasoning |
-| Native Context Caching | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`) |
-| Multimodal | Native Any-to-Any Audio/Video/Teks + Screen Grounding | Multimodal Live API (latensi <100ms) | Multimodal Live Audio/Video | Native Multimodal |
-| Generasi Kode & Tool Calling | Sintesis Arsitektur SOTA, Zero-Loss AST, Parallel MoE Tools | Iterasi & subagent ultra-cepat | Pair programming interaktif & coding CLI cepat | Penalaran kompleks |
+| Context Window | 2.097.152+ token (hingga 10M+ Ring Attention) | 2.097.152 token (2M+) | 1.048.576+ token (1M+) | 2.000.000 token |
+| Pemikiran / Penalaran | System-2 Deep Thinking (Budget hingga 64K) | Penalaran Seimbang (Budget hingga 16K) | Flash Thinking (Configurable Budget) | Extended Reasoning |
+| Native Context Caching | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75–90%) | Didukung (`cachedContent`, diskon 75%) | Didukung (`cachedContent`) |
+| Multimodal | Native Any-to-Any Audio/Video/Teks + Screen Grounding | Ingesti Konteks Multimodal Native | Multimodal Live API (latensi <100ms) | Native Multimodal |
+| Generasi Kode & Tool Calling | Sintesis Arsitektur SOTA, Zero-Loss AST, Parallel MoE Tools | Rekayasa Repositori Seimbang & Ekstraksi Skema | Iterasi & subagent ultra-cepat | Penalaran kompleks |
 | Search Grounding | Google Search Grounding dengan atribusi sitasi terverifikasi | Google Search Grounding | Google Search Grounding | Google Search Grounding |
-| TTFT (Latensi Token Pertama) | Ultra-cepat via Prefix KV-Cache Pinning | Sub-80ms latensi ultra-rendah | Latensi ultra-rendah (<100ms) | Seimbang |
-| Peran Utama | Master Arsitek Sistem & Auditor Risiko Tinggi | Pekerja Subagent Throughput Tinggi | Daily Driver Pair Programming Interaktif | Baseline Warisan |
+| TTFT (Latensi Token Pertama) | Ultra-cepat via Prefix KV-Cache Pinning | TTFT Seimbang Cepat (<150ms) | Sub-80ms latensi ultra-rendah | Seimbang |
+| Peran Utama | Master Arsitek Sistem & Auditor Risiko Tinggi | Ingesti Whole-Repo & Pengembangan Fitur Seimbang | Pekerja Subagent Throughput Tinggi | Baseline Warisan |
 
 ### 1. Optimasi Thinking Budget untuk Tugas Gemini 4 Pro
 Untuk keputusan arsitektur kompleks, audit keamanan formal, atau perbaikan race condition terdistribusi, atur kedalaman penalaran via `thinkingConfig`:
@@ -296,3 +336,18 @@ Pastikan seluruh kode dan alur orkestrasi mematuhi standar berikut:
 - **Native Any-to-Any Multimodal Tokens**: Kembangkan `voice-ai-realtime-agent` dan `ai-media-generation-expert` agar menghindari wrapper STT/TTS eksternal, dan langsung mengirim/menerima raw token audio/visual melalui arsitektur transformer asli.
 - **Native System-2 Budgeting**: Ganti kebiasaan menggunakan tag `<thought>` paksaan di prompt dengan mengelola parameter API level komputasi seperti `thinkingBudget` dan `reasoning_effort` untuk memanfaatkan komputasi pada saat tes (*test-time compute*).
 - **Eksekusi Tool Paralel Skala Masif (Agentic MoE)**: Rancang alur kerja subagent agar tool `mcp-server-architect` dieksekusi secara konkuren tanpa pemblokiran serial.
+
+### 8. Protokol Pengalihan Ketersediaan (Gemini 4 -> Gemini 3.8 Flash)
+Ketika `Gemini 4 Pro` atau `Gemini 4 Argon` belum tersedia di lingkungan pengguna atau terbentur limit kuota:
+- **Pengalihan Otomatis**: Alihkan seluruh tugas agen secara langsung ke **`Gemini 3.8 Flash`** (atau `gemini-3.8-flash-thinking`).
+- **Jaminan Terjaga**: Tetap mempertahankan kapasitas konteks 1M+ token, caching konteks native (`cachedContent`), dan latensi TTFT sub-80ms.
+- **Tanpa Interupsi**: Alur kerja subagen tetap berlanjut tanpa melempar unhandled exception atau placeholder stub.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec gemini-agent-booster <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

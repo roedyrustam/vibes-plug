@@ -1,8 +1,8 @@
 ---
 name: webxr-ar-vr-expert
-description: "Expert guide for WebXR spatial computing, Web-based Virtual Reality (VR), Mixed Reality (MR), and Augmented Reality (AR) using Babylon.js and Three.js. Covers Apple Vision Pro, Meta Quest 3, hand tracking, and hit-testing / Panduan ahli WebXR spatial computing (VR/AR/MR)."
+description: "WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js / Komputasi spasial WebXR, WebVR, AR, dan MR menggunakan Babylon.js."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -24,6 +24,7 @@ Connects and orchestrates with relevant domain skills:
 - `ui-ux-pro-max` — Spatial UI design patterns, world-space HUDs, and gesture-driven navigation.
 - `anti-slop` — Anti-slop spatial ergonomics, zero nauseating jitter, and crisp readable 3D typography.
 - `performance-web-vitals` — Maintaining rock-solid 72/90/120 FPS to prevent simulator sickness.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `svg-animation-motion-expert`
 
 ### Description
 Production-grade guidance for architecting immersive **Virtual Reality (VR)**, **Mixed Reality (MR)**, and **Augmented Reality (AR)** in the browser via the **WebXR Device API**. Covers modern head-mounted displays (**Meta Quest 3/3S**, **Apple Vision Pro**) and mobile AR, focusing on Babylon.js and Three.js with `@react-three/xr`.
@@ -167,6 +168,18 @@ export function SpatialApp() {
 2. **Fixed Foveated Rendering (FFR):** Reduces fragment shader resolution in the user's peripheral vision, freeing substantial GPU overhead.
 3. **No 2D DOM Overlays in VR:** Standard HTML elements cannot render inside an immersive session. Render spatial 3D UI panels using world-space 3D meshes or canvas textures.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec webxr-ar-vr-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -181,6 +194,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `ui-ux-pro-max` — Pola desain UI spasial, HUD world-space, dan navigasi berbasis gestur.
 - `anti-slop` — Ergonomi spasial anti-slop, nol getaran pemicu mual, dan tipografi 3D yang tajam.
 - `performance-web-vitals` — Menjaga kestabilan 72/90/120 FPS demi mencegah *motion sickness*.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `svg-animation-motion-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi spasial imersif **Virtual Reality (VR)**, **Mixed Reality (MR)**, dan **Augmented Reality (AR)** di browser melalui **WebXR Device API**. Mencakup headset modern (**Meta Quest 3/3S**, **Apple Vision Pro**) serta perangkat mobile AR.
@@ -237,3 +251,12 @@ Aktifkan skill ini ketika pengguna:
      return { xr, hitTest };
    }
    ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec webxr-ar-vr-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

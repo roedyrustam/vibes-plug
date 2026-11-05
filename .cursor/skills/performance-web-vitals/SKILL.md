@@ -1,8 +1,8 @@
 ---
 name: performance-web-vitals
-description: "Expert guide for Web Performance optimization: Core Web Vitals (LCP, INP, CLS), bundle analysis, image optimization, rendering strategies, and Lighthouse score improvement / Panduan ahli untuk optimasi performa web: Core Web Vitals (LCP, INP, CLS), analisis bundle, optimasi gambar, strategi rendering, dan peningkatan skor Lighthouse."
+description: "Web performance optimization: Core Web Vitals (LCP, INP, CLS) / Optimasi performa web dan metrik Core Web Vitals (LCP, INP, CLS)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
   - `seo` — Align Core Web Vitals (LCP, INP, CLS) with search indexing criteria.
   - `cloud-hosting-expert` — Optimize edge caching, Brotli/Gzip compression, and CDN asset delivery.
   - `session-memory-manager` — Store performance benchmark results and bundle budgets.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `app-analyzer-optimizer`, `mpa-orchestrator`, `spa-orchestrator`
 
 ### Description
 Expert guide for measuring, diagnosing, and optimizing web application performance with a focus on **Core Web Vitals** (LCP, INP, CLS), JavaScript bundle optimization, image and font loading strategies, rendering performance, and achieving high Lighthouse scores. Covers Next.js 15, React 19, and modern browser APIs.
@@ -310,6 +311,18 @@ onTTFB(sendToAnalytics);
 - [ ] HTTP/2 or HTTP/3 enabled on server.
 - [ ] Resource hints: `dns-prefetch`, `preconnect` for third-party origins.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec performance-web-vitals <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -323,6 +336,7 @@ onTTFB(sendToAnalytics);
   - `seo` — Menyelaraskan metrik Core Web Vitals (LCP, INP, CLS) dengan kriteria pengindeksan search engine.
   - `cloud-hosting-expert` — Optimasi edge caching, kompresi Brotli/Gzip, dan pengiriman aset CDN.
   - `session-memory-manager` — Menyimpan hasil benchmark performa dan anggaran bundle.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `app-analyzer-optimizer`, `mpa-orchestrator`, `spa-orchestrator`
 
 ### Deskripsi
 Panduan ahli untuk mengukur, mendiagnosis, dan mengoptimalkan performa aplikasi web dengan fokus pada **Core Web Vitals** (LCP, INP, CLS), optimasi JavaScript bundle, strategi loading gambar dan font, performa rendering, dan mencapai skor Lighthouse yang tinggi.
@@ -350,3 +364,12 @@ Panduan ahli untuk mengukur, mendiagnosis, dan mengoptimalkan performa aplikasi 
 - **CLS**: Reservasi ruang untuk gambar dengan `aspect-ratio`, hindari penyisipan konten di atas konten yang sudah ada.
 - **Bundle**: Analisis bundle, gunakan dynamic import, tree-shaking, dan named imports.
 - **Monitoring**: Implementasikan `web-vitals` library untuk melaporkan metrik ke analytics secara real-time.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec performance-web-vitals <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

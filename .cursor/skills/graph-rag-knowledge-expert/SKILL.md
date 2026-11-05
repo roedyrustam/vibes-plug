@@ -1,8 +1,8 @@
 ---
 name: graph-rag-knowledge-expert
-description: "Expert guide for Knowledge Graphs, GraphRAG, Microsoft GraphRAG, Neo4j Text2Cypher, multi-hop relational retrieval, and hybrid vector-graph search / Panduan ahli Knowledge Graph, GraphRAG, dan pencarian relasional multi-hop."
+description: "Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search / Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -52,7 +52,7 @@ Using Neo4j with deterministic schema introspection, preventing arbitrary syntax
 // text2cypher.ts - Safe Neo4j Query Generation & Execution
 import neo4j, { Driver } from 'neo4j-driver';
 import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 
 export class GraphRAGService {
   private driver: Driver;
@@ -79,8 +79,17 @@ export class GraphRAGService {
   public async queryGraph(userQuestion: string): Promise<any[]> {
     const schema = await this.getGraphSchema();
 
+    // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    const getModel = () => {
+      try {
+        return google('gemini-4-argon');
+      } catch {
+        return google('gemini-3.8-flash');
+      }
+    };
+
     const { text: cypherQuery } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: getModel(),
       system: `
         You are an expert Neo4j Cypher generator.
         Generate ONLY valid, read-only CYPHER queries based on this schema:
@@ -143,21 +152,39 @@ class KnowledgeGraph(BaseModel):
 
 def extract_knowledge_graph(document_text: str) -> KnowledgeGraph:
     """Extracts entities and relationships from raw text into structured schema."""
-    return client.chat.completions.create(
-        model="gpt-4o-mini",
-        response_model=KnowledgeGraph,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Extract all named entities and factual relationships between them. "
-                    "Ensure entity names are canonicalized and relationships are directed."
-                ),
-            },
-            {"role": "user", "content": document_text},
-        ],
-        temperature=0.0,
-    )
+    # Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    try:
+        return client.chat.completions.create(
+            model="gemini-4-argon",
+            response_model=KnowledgeGraph,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract all named entities and factual relationships between them. "
+                        "Ensure entity names are canonicalized and relationships are directed."
+                    ),
+                },
+                {"role": "user", "content": document_text},
+            ],
+            temperature=0.0,
+        )
+    except Exception:
+        return client.chat.completions.create(
+            model="gemini-3.8-flash",
+            response_model=KnowledgeGraph,
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "Extract all named entities and factual relationships between them. "
+                        "Ensure entity names are canonicalized and relationships are directed."
+                    ),
+                },
+                {"role": "user", "content": document_text},
+            ],
+            temperature=0.0,
+        )
 ```
 
 ---
@@ -169,6 +196,18 @@ For high-level summaries ("Summarize all technical debts reported across the sys
 2. **Clustering**: Apply **Leiden Algorithm** to detect hierarchical communities (Level 0: Micro, Level 1: Sub-domain, Level 2: Macro domain).
 3. **Summarization**: LLM generates pre-computed summaries for each community cluster.
 4. **Global Search**: Query runs across pre-computed community summaries in parallel, eliminating the need to read millions of tokens at inference time.
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec graph-rag-knowledge-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -199,7 +238,7 @@ Panduan ahli untuk mengimplementasikan Knowledge Graph-augmented Retrieval (Grap
 ```typescript
 import neo4j, { Driver } from 'neo4j-driver';
 import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 
 export class LayananGraphRAG {
   private driver: Driver;
@@ -223,8 +262,17 @@ export class LayananGraphRAG {
   public async tanyaGraf(pertanyaanPengguna: string): Promise<any[]> {
     const skema = await this.ambilSkemaGraf();
 
+    // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+    const ambilModel = () => {
+      try {
+        return google('gemini-4-argon');
+      } catch {
+        return google('gemini-3.8-flash');
+      }
+    };
+
     const { text: queryCypher } = await generateText({
-      model: openai('gpt-4o-mini'),
+      model: ambilModel(),
       system: `Anda adalah ahli pembuat query Neo4j Cypher. Buat HANYA query Cypher read-only berdasarkan skema:\n${skema}\nAturan: Dilarang membuat perintah mutasi CREATE/DELETE.`,
       prompt: `Terjemahkan pertanyaan berikut ke Cypher: ${pertanyaanPengguna}`,
     });
@@ -240,3 +288,12 @@ export class LayananGraphRAG {
   }
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec graph-rag-knowledge-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

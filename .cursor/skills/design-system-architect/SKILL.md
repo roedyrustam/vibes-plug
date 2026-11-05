@@ -1,8 +1,8 @@
 ---
 name: design-system-architect
-description: "Expert guide for designing, building, and maintaining scalable UI design systems with design tokens, headless primitives, Material Design 3 (M3), Tailwind v4 @theme, Modern Web Guidance, and WCAG 2.2 accessibility."
+description: "UI design systems, design tokens, headless primitives, and WCAG 2.2 / Sistem desain UI, token desain, headless primitives, dan WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - **`visual-ui-auditor`**: Automated multimodal vision auditing and 20-point rubric verification.
 - **`anti-slop`**: Eliminates AI visual clichés (Pillar 7), pill-button addiction, and fake states.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle orchestration.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `website-design-cloner`, `documentation-site-expert`, `rich-text-editor-expert`
 
 ### Description
 Expert guide for building and maintaining scalable UI design systems. Covers design tokens with OKLCH and Tailwind v4 `@theme`, **Material Design 3 (M3)** integration, headless component primitives (Radix UI, **Base UI 1.x**), **shadcn/ui registry** for distributable component libraries, CVA for type-safe variants, and WCAG 2.2 accessibility compliance.
@@ -40,6 +41,7 @@ Expert guide for building and maintaining scalable UI design systems. Covers des
 - **Zero Div-Soup Primitives**: Build exclusively on accessible headless primitives (Radix UI, Base UI 1.x) using semantic HTML (`<button>`, `<dialog>`, `<nav>`, `<input>`).
 - **Visual Hierarchy & Surface Layering Contract**: Enforce explicit surface container tiers (Canvas L0, Card L1, Raised L2, Overlay L3) with crisp 1px solid borders (`border-border`) and directional micro-shadows (`shadow-xs`). Ban muddy 30px black shadows and ungrounded neon glow orbs.
 - **Single Focal Primary Action**: Component presets must enforce a single primary CTA variant per view; secondary and tertiary actions must map to outline, tonal, or ghost variants.
+- **Floating Island Capsule Header & Flyout Card Standard**: When designing website navigation, eliminate generic full-width edge-to-edge navbar templates. Mandate a detached Floating Island Capsule (`rounded-full`, elevated with `top-4 md:top-6`, translucent dark glassmorphism `backdrop-blur-xl`, crisp 1px perimeter border) and rich multi-column Flyout Cards (icon + bold title + 1-sentence value description) for submenus.
 - **Mandatory 5 States**: Every component primitive must explicitly define: default, hover/active, visible keyboard `focus-visible:ring-2`, loading/skeleton state, and disabled/error styling.
 - **Optical Typography & Tabular Figures**: Headings must default to tight letter-spacing (`tracking-tight`), uppercase eyebrows to wide letter-spacing (`tracking-wider`), and all numeric/counter/price components must enforce `tabular-nums`.
 - **Contracted Contrast Tokens**: All semantic tokens must pass WCAG 2.2 AA contrast ratios (>= 4.5:1 text, >= 3:1 graphical elements) in both light and dark themes.
@@ -395,6 +397,18 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 - [ ] No content relies on color alone to convey information.
 - [ ] Touch targets ≥ 24×24px (WCAG 2.2 new requirement).
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec design-system-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -409,6 +423,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`visual-ui-auditor`**: Audit vision multimodal otomatis dan verifikasi rubrik 20-poin.
 - **`anti-slop`**: Menghilangkan klise visual AI (Pilar 7), adiksi tombol lonjong (pill button), dan status palsu.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Orkestrasi siklus hidup proyek secara berkelanjutan.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `website-design-cloner`, `documentation-site-expert`, `rich-text-editor-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Mencakup design token dengan OKLCH dan `@theme` Tailwind v4, primitif komponen headless (Radix UI, **Base UI 1.x**), **registry shadcn/ui** untuk distribusi library komponen, CVA untuk varian type-safe, dan kepatuhan aksesibilitas WCAG 2.2.
@@ -426,6 +441,7 @@ Panduan ahli untuk membangun dan memelihara design system UI yang skalabel. Menc
 - **Nol Primitif Div-Soup**: Bangun komponen secara eksklusif menggunakan primitif headless aksesibel (Radix UI, Base UI 1.x) dengan HTML5 semantik (`<button>`, `<dialog>`, `<nav>`, `<input>`).
 - **Kontrak Hierarki Visual & Pelapisan Permukaan**: Tegakkan tingkatan surface container yang tegas (Kanvas L0, Kartu L1, Terangkat L2, Overlay L3) dengan border solid 1px tajam (`border-border`) dan micro-shadow terarah (`shadow-xs`). Dilarang keras bayangan hitam buram 30px dan lingkaran neon mengambang tanpa dasar fisik.
 - **Hukum Aksi Utama Tunggal**: Preset komponen wajib membatasi hanya satu varian CTA utama per tampilan; aksi sekunder dan tersier wajib menggunakan varian outline, tonal, atau ghost.
+- **Standar Header Kapsul Mengambang & Kartu Flyout**: Saat merancang navigasi website, ganti bilah navbar kotak penuh yang generik dengan Kapsul Mengambang (Floating Island Capsule) berperekat melayang (`rounded-full`, mengambang `top-4 md:top-6`, tema dark glassmorphism translusen `backdrop-blur-xl`, border 1px tajam) serta kartu Flyout bertingkat (wadah ikon, judul tebal, deskripsi nilai 1 kalimat) untuk sub-menu.
 - **Tipografi Optik & Angka Tabular**: Judul harus default menggunakan tracking rapat (`tracking-tight`), eyebrow menggunakan tracking renggang (`tracking-wider`), dan semua komponen angka/metrik/harga wajib menerapkan `tabular-nums`.
 - **Wajib 5 Status Komponen**: Setiap primitif komponen wajib mengekspor status: default, hover/active, cincin fokus keyboard `focus-visible:ring-2`, status loading/skeleton, dan status disabled/error.
 - **Token Kontras Terjamin**: Semua token warna semantik wajib lolos rasio kontras WCAG 2.2 AA (≥ 4.5:1 teks, ≥ 3:1 komponen antarmuka) di mode terang maupun gelap.
@@ -542,3 +558,12 @@ Base UI (dari tim MUI) adalah alternatif Radix UI untuk 2026 dengan dukungan nat
 
 ## Orchestration & Integration
 - Integrates with `anti-slop` (ensures zero stubbed components, complete token sets, and 5-state resilience), frontend orchestrators, Tailwind v4, Base UI, and shadcn/ui.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec design-system-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

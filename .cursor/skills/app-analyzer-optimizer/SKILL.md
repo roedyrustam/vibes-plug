@@ -1,8 +1,8 @@
 ---
 name: app-analyzer-optimizer
-description: "Deeply analyzes application architecture and structure to perform audit, bottleneck detection, and code/performance optimization / Mempelajari arsitektur dan struktur aplikasi secara mendalam untuk melakukan audit, deteksi bottleneck, serta optimasi performa dan kode."
+description: "Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -20,6 +20,7 @@ version: "4.4.2"
 - **AST & Codebase Graph**: `living-codebase-ast-graph` (circular dependency & module size analysis), `scalability-clean-code` (code smell & God class refactoring).
 - **Performance & Vitals**: `performance-web-vitals` (Core Web Vitals LCP/INP profiling), `production-ready-hardener` (bundle audits & pre-flight hardening).
 - **Database & Backend Profiling**: `database-orm-expert` (N+1 query & index profiling), `coderabbit` (automated AI code review).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `zero-tech-debt-auditor`, `data-telemetry-expert`
 
 ### Description
 Deep application analysis and optimization skill. Performs architectural audits, bottleneck detection, bundle analysis, database query profiling, and AI-assisted code review across Next.js, React, Node.js, Go, Python, and Rust applications.
@@ -149,9 +150,23 @@ go tool pprof -http=:8080 profile.out
 | No caching | Same data fetched repeatedly | Redis, React Query staleTime, HTTP cache |
 | Bundle bloat | Large JS payload | Tree-shaking, code splitting, lazy imports |
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec app-analyzer-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
@@ -159,6 +174,7 @@ go tool pprof -http=:8080 profile.out
 - **AST & Graf Basis Kode**: `living-codebase-ast-graph` (dependensi sirkular & analisis ukuran modul), `scalability-clean-code` (refaktor code smell & God class).
 - **Performa & Web Vitals**: `performance-web-vitals` (profiling Core Web Vitals LCP/INP), `production-ready-hardener` (audit bundle & pengerasan pra-rilis).
 - **Profiling Database & Backend**: `database-orm-expert` (query N+1 & profiling indeks), `coderabbit` (code review AI otomatis).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `zero-tech-debt-auditor`, `data-telemetry-expert`
 
 ### Deskripsi
 Skill analisis dan optimasi aplikasi mendalam. Melakukan audit arsitektur, deteksi bottleneck, analisis bundle, profiling query database, dan code review berbantuan AI di aplikasi Next.js, React, Node.js, Go, Python, dan Rust.
@@ -201,3 +217,12 @@ Gunakan CodeRabbit untuk review PR otomatis, Sourcegraph Cody untuk pencarian se
 | Memblokir thread utama | INP tinggi, UI tidak responsif | `useTransition`, web workers |
 | Tanpa caching | Data yang sama diambil berulang kali | Redis, React Query staleTime, HTTP cache |
 | Bundle membengkak | Payload JS besar | Tree-shaking, code splitting, lazy imports |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec app-analyzer-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: email-notification-expert
-description: "Expert guide for transactional email (Resend, Postmark, SES), React Email templates, in-app notifications, and unified communication pipelines / Panduan ahli untuk email transaksional (Resend, Postmark, SES), template React Email, notifikasi in-app, dan pipeline komunikasi terpadu."
+description: "Transactional email (Resend), React Email, and notification pipelines / Email transaksional (Resend), React Email, dan pipeline notifikasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -25,6 +25,7 @@ version: "4.4.2"
   - `async-queue-temporal-expert` — Durable background queue execution via BullMQ and Inngest.
   - `production-ready-hardener` — Pre-launch deliverability verification (SPF, DKIM, DMARC, and DNS records).
   - `session-memory-manager` — Store email template catalogs, notification providers, and delivery settings.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `pdf-document-generation-expert`, `chatbot-messaging-expert`
 
 ### Description
 Production-grade guide for building reliable email delivery systems and unified notification pipelines. Covers **Resend**, **Postmark**, **AWS SES**, **React Email** / **MJML** template engines, **email deliverability** (SPF, DKIM, DMARC), **in-app notification systems** (bell icon, toast, notification center), **webhook-triggered email flows**, **email queuing** with BullMQ/Inngest, and **CAN-SPAM/GDPR** compliance.
@@ -339,6 +340,18 @@ export async function registerForPushNotificationsAsync() {
 | No unsubscribe link | CAN-SPAM violation, ISP blocking | Always include List-Unsubscribe header |
 | Sending passwords in email | Security vulnerability | Send one-time reset links with expiry |
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec email-notification-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -354,6 +367,7 @@ export async function registerForPushNotificationsAsync() {
   - `async-queue-temporal-expert` — Eksekusi antrean background job tahan banting via BullMQ dan Inngest.
   - `production-ready-hardener` — Verifikasi deliverabilitas pra-peluncuran (rekod DNS SPF, DKIM, DMARC).
   - `session-memory-manager` — Menyimpan katalog template email, provider notifikasi, dan pengaturan pengiriman.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `pdf-document-generation-expert`, `chatbot-messaging-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem pengiriman email yang andal dan pipeline notifikasi terpadu. Mencakup **Resend**, **Postmark**, **AWS SES**, mesin template **React Email** / **MJML**, **deliverabilitas email** (SPF, DKIM, DMARC), **sistem notifikasi in-app** (bell icon, toast, pusat notifikasi), **alur email berbasis webhook**, **antrean email** dengan BullMQ/Inngest, dan kepatuhan **CAN-SPAM/GDPR**.
@@ -392,3 +406,12 @@ Aktifkan skill ini ketika:
 | Menggunakan `@gmail.com` sebagai pengirim | Deliverabilitas buruk, filter spam | Gunakan domain kustom dengan SPF/DKIM |
 | Tidak ada fallback teks biasa | Email mungkin tampil tidak benar | Selalu sertakan `text` di samping HTML |
 | Tidak ada link unsubscribe | Pelanggaran CAN-SPAM, pemblokiran ISP | Selalu sertakan header List-Unsubscribe |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec email-notification-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

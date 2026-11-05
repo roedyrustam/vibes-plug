@@ -1,8 +1,8 @@
 ---
 name: seo
-description: "Run a broad SEO audit across technical SEO, on-page SEO, schema, sitemaps, content quality, AI search readiness, and GEO / Audit SEO menyeluruh (Technical, On-Page, Schema, Sitemap, E-E-A-T, GEO)"
+description: "Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
   - `nextjs-app-router-expert` — Generate dynamic `sitemap.ts`, `robots.ts`, and Open Graph tags.
   - `app-promo-media-expert` — Generate high-converting `og:image` social preview banners.
   - `session-memory-manager` — Store target keyword maps, SEO audit findings, and `/llms.txt` configurations.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `wordpress-headless-expert`, `astro-framework-expert`
 
 ### Description
 Comprehensive SEO audit covering technical SEO, on-page optimization, structured data, sitemaps, Core Web Vitals, E-E-A-T signals, and **Generative Engine Optimization (GEO)** for AI-powered search (Google AI Mode, ChatGPT Search, Perplexity).
@@ -175,7 +176,7 @@ Google AI Mode (formerly AI Overviews) now powers the top of search results:
 | AI Engine | Source | Citable Content | Key Signal |
 |---|---|---|---|
 | **Google AI Mode** | Google index + Gemini | Yes — with source links | E-E-A-T, structured data |
-| **ChatGPT Search** | Bing index + GPT-4o | Yes — with citations | Bing ranking, freshness |
+| **ChatGPT Search** | Bing index + GPT-5.6 Sol | Yes — with citations | Bing ranking, freshness |
 | **Perplexity** | Real-time web crawl | Yes — prominent citations | Authority, specificity |
 
 #### `/llms.txt` — AI Indexing Protocol
@@ -209,6 +210,18 @@ Images: Descriptive alt text, WebP format, lazy loading
 Internal links: 3-5 per long-form page to related content
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -222,6 +235,7 @@ Internal links: 3-5 per long-form page to related content
   - `nextjs-app-router-expert` — Pembuatan dinamis `sitemap.ts`, `robots.ts`, dan tag Open Graph.
   - `app-promo-media-expert` — Menghasilkan banner preview media sosial `og:image` berkonversi tinggi.
   - `session-memory-manager` — Menyimpan peta kata kunci target, temuan audit SEO, dan konfigurasi `/llms.txt`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `wordpress-headless-expert`, `astro-framework-expert`
 
 ### Deskripsi
 Audit SEO komprehensif mencakup SEO teknikal, optimasi on-page, data terstruktur, sitemap, Core Web Vitals, sinyal E-E-A-T, dan **Generative Engine Optimization (GEO)** untuk pencarian bertenaga AI (Google AI Mode, ChatGPT Search, Perplexity).
@@ -270,3 +284,11 @@ Google AI Mode (sebelumnya AI Overviews) dan Perplexity sangat menyukai format b
 ### Standar SEO On-Page
 H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskripsi < 155 karakter, URL lowercase dengan tanda hubung dan keyword di slug, alt text deskriptif untuk semua gambar, 3-5 internal link per halaman long-form.
 
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

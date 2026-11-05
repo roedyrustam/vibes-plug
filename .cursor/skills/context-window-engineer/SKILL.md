@@ -1,8 +1,8 @@
 ---
 name: context-window-engineer
-description: "Expert guide for engineering and optimizing ultra-large context windows (2M+ tokens) across Gemini 4 Pro, Claude 5.5, and GPT Astra 6 — context partitioning, retrieval-augmented context injection, sliding window strategies, and cost-aware token budgeting / Panduan ahli rekayasa dan optimasi context window ultra-besar (2M+ token) di Gemini 4 Pro, Claude 5.5, dan GPT Astra 6 — partisi konteks, injeksi konteks berbasis retrieval, strategi sliding window, dan penganggaran token sadar-biaya."
+description: "Optimize 2M+ context windows, prompt cache pinning & budget slicing / Rekayasa context window 2M+, cache pinning, dan budget token."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -36,15 +36,20 @@ Activate this skill when:
 
 ### Core Concepts & Patterns
 
-#### 1. Context Window Capacity Map (October 2026)
+#### 1. Context Window Capacity Map (Late-2026 Frontier Models)
 
-| Model | Max Context | Effective Recall Zone | Cost per 1M Input Tokens | Cache Discount |
-| :--- | :--- | :--- | :--- | :--- |
-| **Gemini 4 Pro** | 2,097,152 | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
-| **Gemini 4 Flash** | 1,048,576 | ~900k | $0.075 | 75% |
-| **Claude 5.5 Opus** | 500,000 | ~450k | $15.00 | 90% (prompt cache) |
-| **Claude 5.5 Sonnet** | 200,000 | ~180k | $3.00 | 90% |
-| **GPT Astra 6** | 256,000 | ~220k | $5.00 | 50% (prefix cache) |
+| Model | Tier | Max Context | Effective Recall Zone | Cost per 1M Input Tokens | Cache Discount |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini 4 Argon** | Medium | 2,097,152 | ~1.9M (monolithic) | $0.80 | 75% (native context caching) |
+| **Gemini 4 Pro** | High | 2,097,152–10M | ~1.8M (reliable) | $1.25 | 75% (explicit cache) |
+| **Gemini 3.8 Flash (Fallback)** | Fast/Medium | 1,048,576 | ~900k | $0.10 | 75% (native context caching) |
+| **Claude Opus 5.5** | Medium | 500,000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Opus 4.6 (Fallback)** | Medium | 200,000 | ~180k | $8.00 | 90% (prompt cache) |
+| **Claude Sonnet 5.5** | High | 500,000 | ~480k | $3.00 | 90% (prompt cache) |
+| **Claude Fable 5.1** | High | 500,000 | ~480k | $2.50 | 90% (prompt cache) |
+| **GPT-5.6 Sol** | Medium | 500,000 | ~450k | $1.50 | 50% (prefix cache) |
+| **Grok 4.7 High Fast** | High Fast | 256,000 | ~240k | $0.50 | 80% (prompt cache) |
+| **Composer 2.5 Fast** | Fast | 200,000 | ~180k | $0.30 | 80% (AST diff cache) |
 
 #### 2. The Context Partitioning Architecture
 
@@ -219,6 +224,18 @@ export function buildSlidingWindow(
 | Ignoring token counting | Silent context truncation by model API | Pre-count and enforce budgets client-side |
 | Keeping full conversation history forever | Context fills up after 10-15 turns | Implement sliding window with summarization |
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec context-window-engineer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -244,7 +261,22 @@ Aktifkan skill ini ketika:
 
 ### Konsep Inti & Pola Praktik
 
-#### 1. Arsitektur Partisi Konteks
+#### 1. Peta Kapasitas Context Window (Model Frontier Akhir-2026)
+
+| Model | Tier | Konteks Maks | Zona Recall Efektif | Biaya per 1M Token Input | Diskon Cache |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Gemini 4 Argon** | Medium | 2.097.152 | ~1,9M (monolitik) | $0.80 | 75% (native context caching) |
+| **Gemini 4 Pro** | High | 2.097.152–10M | ~1,8M (andal) | $1.25 | 75% (explicit cache) |
+| **Gemini 3.8 Flash (Fallback)** | Fast/Medium | 1.048.576 | ~900k | $0.10 | 75% (native context caching) |
+| **Claude Opus 5.5** | Medium | 500.000 | ~480k | $10.00 | 90% (prompt cache) |
+| **Claude Opus 4.6 (Fallback)** | Medium | 200.000 | ~180k | $8.00 | 90% (prompt cache) |
+| **Claude Sonnet 5.5** | High | 500.000 | ~480k | $3.00 | 90% (prompt cache) |
+| **Claude Fable 5.1** | High | 500.000 | ~480k | $2.50 | 90% (prompt cache) |
+| **GPT-5.6 Sol** | Medium | 500.000 | ~450k | $1.50 | 50% (prefix cache) |
+| **Grok 4.7 High Fast** | High Fast | 256.000 | ~240k | $0.50 | 80% (prompt cache) |
+| **Composer 2.5 Fast** | Fast | 200.000 | ~180k | $0.30 | 80% (AST diff cache) |
+
+#### 2. Arsitektur Partisi Konteks
 Jangan perlakukan context window sebagai buffer datar. Partisi menjadi zona bermakna secara semantik:
 - **Zona 1 (1-3%)**: Direktif sistem yang tidak berubah — prompt perilaku, format output.
 - **Zona 2 (10-40%)**: Referensi statis — skema codebase, spesifikasi API, definisi tool.
@@ -252,10 +284,10 @@ Jangan perlakukan context window sebagai buffer datar. Partisi menjadi zona berm
 - **Zona 4 (10-30%)**: Riwayat percakapan — giliran sebelumnya, ringkasan konteks lama.
 - **Zona 5 (1-5%)**: Query aktif — pesan pengguna saat ini, ruang kerja chain-of-thought.
 
-#### 2. Mitigasi "Lost in the Middle"
+#### 3. Mitigasi "Lost in the Middle"
 Model frontier menunjukkan recall yang menurun untuk informasi di tengah-tengah konteks. Mitigasi dengan penempatan informasi kritis di awal dan akhir, jangkar struktural, ringkasan redundan, dan retrieval berbasis chunk.
 
-#### 3. Keputusan RAG vs. Long-Context
+#### 4. Keputusan RAG vs. Long-Context
 Gunakan RAG untuk korpus >10M token dengan query spesifik dan sensitivitas biaya tinggi. Gunakan long-context stuffing untuk korpus <2M token dengan kebutuhan sintesis luas dan corpus statis per sesi.
 
 ---
@@ -277,3 +309,12 @@ Gunakan RAG untuk korpus >10M token dengan query spesifik dan sensitivitas biaya
 | Tanpa partisi zona | Instruksi kritis "hilang di tengah" | Implementasikan header zona eksplisit |
 | Mengabaikan penghitungan token | Pemotongan konteks diam-diam oleh API model | Hitung dan terapkan anggaran dari sisi klien |
 | Menyimpan seluruh riwayat percakapan | Konteks penuh setelah 10-15 giliran | Terapkan sliding window dengan ringkasan |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec context-window-engineer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

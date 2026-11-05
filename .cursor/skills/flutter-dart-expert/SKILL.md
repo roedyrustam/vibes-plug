@@ -1,8 +1,8 @@
 ---
 name: flutter-dart-expert
-description: "Expert guide for Flutter 3.27+ and Dart 3.7+ cross-platform development. Covers Material 3 adaptive theming, Riverpod 3, go_router, Impeller rendering, platform channels, and Firebase/Supabase integration / Panduan ahli pengembangan lintas platform Flutter 3.27+ dan Dart 3.7+."
+description: "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # Flutter & Dart Expert (Flutter 3.27 / Dart 3.7 Edition)
@@ -16,6 +16,7 @@ version: "4.4.2"
 
 ### Orchestration & Integration
 Connects with: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
 Expert guide for building production-grade cross-platform applications using **Flutter 3.27+** and **Dart 3.7+**. Covers Material 3 adaptive theming, Riverpod 3 state management, go_router declarative navigation, Impeller rendering engine, platform channels, custom render objects, and Firebase/Supabase backend integration for iOS, Android, Web, macOS, Windows, and Linux targets.
@@ -251,6 +252,19 @@ integration_test/app_test.dart:
 4. **Ignoring `const` constructors** — Causes unnecessary widget rebuilds.
 5. **Using deprecated `Navigator.push`** — Migrate to go_router declarative navigation.
 6. **Manual JSON serialization** — Use freezed + json_serializable with build_runner or Dart macros.
+7. **Missing Mandatory Store Legal Deliverables** — Apple App Store Guideline 5.1.1(v) & Google Play Data Safety strictly require providing in-app account deletion, a public web deletion URL (`/delete-account` or `/data-deletion`), live Privacy Policy (`/privacy`), and Terms & Conditions (`/terms`).
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec flutter-dart-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -259,6 +273,7 @@ integration_test/app_test.dart:
 
 ### Integrasi Orkestrasi
 Terhubung dengan: `brainstorming`, `zero-to-prod-orchestrator`, `design-system-architect`, `ui-ux-pro-max`, `visual-ui-auditor`, `anti-slop`, `database-orm-expert`, `authentication-identity-expert`, `firebase-security-expert`, `ci-cd-devops-architect`, `e2e-testing-expert`, `apple-ecosystem-expert`, `session-memory-manager`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi lintas platform tingkat produksi menggunakan **Flutter 3.27+** dan **Dart 3.7+**. Mencakup theming adaptif Material 3, state management Riverpod 3, navigasi deklaratif go_router, mesin rendering Impeller, platform channels, custom render objects, dan integrasi backend Firebase/Supabase untuk target iOS, Android, Web, macOS, Windows, dan Linux.
@@ -317,3 +332,15 @@ Gunakan `GoRouter` dengan `ShellRoute` untuk navigasi tab, `redirect` untuk auth
 - **Unit test**: Test provider dan repository dengan `ProviderContainer` overrides.
 - **Widget test**: Test UI komponen secara isolasi dengan `testWidgets`.
 - **Integration test**: Test alur pengguna lengkap dengan `integration_test` package.
+
+#### 6. Kepatuhan Toko Aplikasi Wajib: Trio Hukum & Privasi
+Setiap aplikasi Flutter yang mendukung autentikasi akun WAJIB menyertakan: (1) Tombol Hapus Akun & Data di pengaturan profil pengguna, (2) URL publik permohonan hapus data (`/delete-account` atau `/data-deletion`), (3) URL Kebijakan Privasi (`/privacy`), dan (4) URL Syarat & Ketentuan (`/terms`) sesuai Apple 5.1.1(v) & Google Play Data Safety.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec flutter-dart-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

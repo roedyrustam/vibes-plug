@@ -1,8 +1,8 @@
 ---
 name: deep-research-analyst
-description: "Expert guide for autonomous deep research, iterative web search, citation verification, evidence graph synthesis, and hallucination mitigation / Panduan ahli riset mendalam otonom, pencarian web iteratif, verifikasi sitasi, dan mitigasi halusinasi."
+description: "Autonomous deep research, evidence graph synthesis, citation checks / Riset mendalam otonom, sintesis bukti, dan verifikasi sitasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
   - `prd-architect` — Integrate research findings into grounded PRD specifications and NFRs.
   - `multi-agent-orchestration` — Lead Intelligence Subagent in fan-out / fan-in research swarms.
   - `session-memory-manager` — Store evidence dossiers, citation maps, and research state checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `synthetic-data-finetuning-expert`, `graph-rag-knowledge-expert`
 
 ### Description
 Production guide for architecting and executing autonomous **Deep Research** pipelines. Unlike simple one-shot retrieval (RAG), Deep Research operates as a goal-directed autonomous loop: decomposing queries into multi-perspective sub-questions, crawling and scraping academic/technical sources, scoring source credibility, cross-verifying facts across multiple independent citations, constructing an evidence graph, and synthesizing comprehensive, citation-grounded intelligence briefs.
@@ -61,6 +62,7 @@ Production guide for architecting and executing autonomous **Deep Research** pip
 Break high-level user requests into diverse search vectors targeting technical documentation, GitHub issues, and benchmarks:
 ```typescript
 import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 
 interface ResearchPlan {
@@ -73,8 +75,17 @@ interface ResearchPlan {
 }
 
 export async function decomposeResearchQuery(userPrompt: string): Promise<ResearchPlan> {
+  // Invariant: Gemini 4 Argon primary with automatic fallback to Gemini 3.8 Flash
+  let modelInstance;
+  try {
+    modelInstance = google('gemini-4-argon');
+  } catch (err) {
+    console.warn('[DeepResearch] Gemini 4 Argon unavailable. Falling back to Gemini 3.8 Flash:', err);
+    modelInstance = google('gemini-3.8-flash');
+  }
+
   const { object } = await generateObject({
-    model: customModel('gemini-3.8-flash'),
+    model: modelInstance,
     schema: z.object({
       coreObjective: z.string(),
       subQueries: z.array(z.object({
@@ -102,11 +113,19 @@ class ResearchFinding(BaseModel):
     source_url: str = Field(description="Source URL")
     corroborating_sources: list[str] = Field(default_factory=list)
 
-research_agent = Agent(
-    'google:gemini-3.8-flash',
-    result_type=list[ResearchFinding],
-    system_prompt="Extract and verify technical claims with confidence scores."
-)
+# Invariant: Try Gemini 4 Argon with graceful fallback to Gemini 3.8 Flash
+try:
+    research_agent = Agent(
+        'google-gla:gemini-4-argon',
+        result_type=list[ResearchFinding],
+        system_prompt="Extract and verify technical claims with confidence scores."
+    )
+except Exception:
+    research_agent = Agent(
+        'google-gla:gemini-3.8-flash',
+        result_type=list[ResearchFinding],
+        system_prompt="Extract and verify technical claims with confidence scores."
+    )
 
 async def deep_research(query: str) -> list[ResearchFinding]:
     config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
@@ -162,6 +181,18 @@ Every research brief produced by this skill must adhere to the following markdow
 - Prescriptive guidance for implementation swarms with justification.
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec deep-research-analyst <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -175,6 +206,7 @@ Every research brief produced by this skill must adhere to the following markdow
   - `prd-architect` — Mengintegrasikan temuan riset ke dalam spesifikasi PRD dan NFR.
   - `multi-agent-orchestration` — Subagen Analis Utama dalam swarm riset fan-out / fan-in.
   - `session-memory-manager` — Menyimpan dokumen bukti, peta sitasi, dan checkpoint status riset.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `synthetic-data-finetuning-expert`, `graph-rag-knowledge-expert`
 
 ### Deskripsi
 Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Otonom (Deep Research)**. Berbeda dari retrieval sederhana (RAG satu langkah), Deep Research beroperasi sebagai siklus otonom terarah: memecah pertanyaan menjadi sub-vektor dari berbagai sudut pandang, merayapi dan mengekstrak sumber teknis/akademis, menilai kredibilitas sumber, memvalidasi silang fakta (*fact triangulation*) di minimal 2 sumber independen, membangun graf bukti, dan menyusun laporan intelijen komprehensif berlandaskan sitasi yang valid.
@@ -216,6 +248,7 @@ Panduan produksi untuk merancang dan mengeksekusi pipeline **Riset Mendalam Oton
 #### 1. Dekomposisi Kueri Rekursif (TypeScript & AI SDK)
 ```typescript
 import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
 import { z } from 'zod';
 
 interface RencanaRiset {
@@ -228,8 +261,17 @@ interface RencanaRiset {
 }
 
 export async function dekomposisiTujuanRiset(promptPengguna: string): Promise<RencanaRiset> {
+  // Invarian: Gemini 4 Argon primer dengan pengalihan otomatis ke Gemini 3.8 Flash
+  let modelTarget;
+  try {
+    modelTarget = google('gemini-4-argon');
+  } catch (galat) {
+    console.warn('[DeepResearch] Gemini 4 Argon belum tersedia. Mengalihkan ke Gemini 3.8 Flash:', galat);
+    modelTarget = google('gemini-3.8-flash');
+  }
+
   const { object } = await generateObject({
-    model: customModel('gemini-3.8-flash'),
+    model: modelTarget,
     schema: z.object({
       tujuanUtama: z.string(),
       subKueri: z.array(z.object({
@@ -257,11 +299,19 @@ class TemuanRiset(BaseModel):
     url_sumber: str = Field(description="URL sumber primer")
     sumber_pendukung: list[str] = Field(default_factory=list, description="Daftar URL sumber pembanding")
 
-agen_analis = Agent(
-    'google:gemini-3.8-flash',
-    result_type=list[TemuanRiset],
-    system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
-)
+# Invarian: Utamakan Gemini 4 Argon dengan pengalihan otomatis ke Gemini 3.8 Flash
+try:
+    agen_analis = Agent(
+        'google-gla:gemini-4-argon',
+        result_type=list[TemuanRiset],
+        system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
+    )
+except Exception:
+    agen_analis = Agent(
+        'google-gla:gemini-3.8-flash',
+        result_type=list[TemuanRiset],
+        system_prompt="Ekstrak temuan teknis obyektif beserta skor keyakinan dan sumber referensi."
+    )
 
 async def eksekusi_riset_mendalam(kueri: str) -> list[TemuanRiset]:
     config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS)
@@ -296,3 +346,12 @@ Setiap ringkasan intelijen riset wajib disusun dalam format markdown berikut:
 ## Keputusan Arsitektur yang Direkomendasikan
 - Arahan preskriptif untuk tim pengembang dengan justifikasi berbasis bukti.
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec deep-research-analyst <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

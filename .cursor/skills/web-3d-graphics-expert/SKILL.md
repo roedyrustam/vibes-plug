@@ -1,8 +1,8 @@
 ---
 name: web-3d-graphics-expert
-description: "Expert guide for modern WebGPU and WebGL 3D graphics in the browser using Three.js (WebGPURenderer + TSL), Babylon.js, PlayCanvas, React Three Fiber (R3F), and 3Dviz spatial reasoning — covers object craft across 3 scales, surface continuity at joins, physical interaction envelopes, grounded scientific visualization, KTX2/Meshopt optimization, and 3D visual anti-slop / Panduan ahli grafis 3D web, WebGPU modern, dan penalaran spasial 3Dviz."
+description: "WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F / Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -267,7 +267,31 @@ export async function createBabylonWebGPUScene(canvas: HTMLCanvasElement) {
 
 ---
 
-## 5. Physical Interaction, Colliders & Spatial Constraints
+## 6. Isometric Mechanical Anatomy & World-Space Shader Fusion
+When authoring technical explainer figures (Anatomy Standard), 3D shaders must not live as isolated generic canvas backgrounds. Instead, bind WebGL/WebGPU shaders directly into the physical geometry of an isometric machine:
+
+### The 3-Layer Sandwich Architecture
+```
+┌────────────────────────────────────────────────────────┐
+│ 1. Back SVG Layer    : Rear frame, chassis, bedplate   │
+│ 2. WebGL Canvas      : Fire, fluid, plasma, caustics   │ (World-space camera ray-match)
+│ 3. Front SVG Layer   : Front rails, glass bezels, dial │
+└────────────────────────────────────────────────────────┘
+```
+1. **World-Space Camera Registration**:
+   - The WebGL shader camera must match the exact isometric projection of the enclosing SVG (`Azimuth: 45°`, `Elevation: 30°`).
+   - Reconstruct each pixel's world-space ray via `rayOf(uv) + t * towardViewer()`.
+   - Ensure fluid surfaces, sparks, and laser beams align 1:1 with SVG nozzles, pipes, and glass windows.
+2. **Zero-Pop Envelopes**:
+   - Every shader parameter (intensity, turbulent speed, expansion) must ride on continuous mathematical attack/decay envelopes (`burst` for discrete event pulses, `settle` for continuous setpoint transitions).
+   - Abrupt `if-else` color snaps or hard step boundaries are strictly forbidden.
+3. **Dual-Theme Shader Craft**:
+   - **Dark Theme**: Output premultiplied alpha with `mix-blend-mode: screen` for additive light pools, plasma arcs, and incandescent embers.
+   - **Light Theme (Paper-Ink Invariant)**: Never invert dark glow into a dark-rimmed neon blob. Calculate the physical ink density on paper: glow has a saturated body with a pale core and a clean alpha floor, where ink monotonically accumulates with light intensity and cleanly terminates at SVG stroke boundaries.
+
+---
+
+## 7. The 16-Point Visual Review & Self-Correction Checklist
 
 When an object occupies space, its physical presence must match its visual boundaries:
 
@@ -366,6 +390,18 @@ Evaluate every 3D scene against this checklist before completion:
 - [ ] **14. Collider Fidelity**: Do collision envelopes enclose actual geometry (including overhangs and wings)?
 - [ ] **15. Truthful Controls**: Do sliders, toggles, and resets accurately change the modeled state and restore initial values?
 - [ ] **16. Grounded Scientific Claims**: Are anatomical, chemical, or physical models grounded in verified references?
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec web-3d-graphics-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -517,7 +553,30 @@ export async function inisialisasiSceneBabylon(canvas: HTMLCanvasElement) {
 
 ---
 
-## 5. Checklist Mandiri Kualitas Grafis 3D (16 Poin)
+## 5. Fusi Anatomi Mekanis Isometrik & Shader WebGL World-Space
+Saat merancang figur penjelasan teknis (*Standar Anatomi*), shader 3D tidak boleh berdiri sendiri sebagai latar belakang kanvas generik. Integrasikan shader WebGL/WebGPU langsung ke dalam geometri mesin isometrik nyata:
+
+### Arsitektur Berlapis (3-Layer Sandwich)
+```
+┌────────────────────────────────────────────────────────┐
+│ 1. Lapisan Back SVG  : Rangka belakang, chassis, alas  │
+│ 2. Kanvas WebGL      : Api, fluida, plasma, caustics   │ (Kamera world-space presisi)
+│ 3. Lapisan Front SVG : Rel depan, kaca dial, jarum     │
+└────────────────────────────────────────────────────────┘
+```
+1. **Registrasi Kamera World-Space**:
+   - Kamera shader WebGL wajib merefleksikan proyeksi isometrik SVG pembungkusnya secara presisi (`Azimuth: 45°`, `Elevasi: 30°`).
+   - Rekonstruksi ray tiap piksel melalui `rayOf(uv) + t * towardViewer()`.
+   - Pastikan permukaan fluida, percikan bunga api, atau sinar laser tersinkronisasi 1:1 terhadap nozzle, pipa, dan bezel kaca SVG.
+2. **Amplop Matematika Tanpa Pop-in (Zero-Pop Envelopes)**:
+   - Setiap parameter shader (intensitas, turbulensi, ekspansi) wajib mengikuti kurva amplop kontinu (*attack/decay*): `burst` untuk pulsa sesaat, `settle` untuk transisi kontinu. Dilarang menggunakan peralihan warna mendadak atau fungsi step kaku.
+3. **Standar Desain Dua Tema**:
+   - **Mode Gelap**: Output premultiplied alpha dengan `mix-blend-mode: screen` untuk pendaran cahaya, busur plasma, dan bara pijar.
+   - **Mode Terang (Invarian Tinta Kertas)**: Dilarang membalikkan cahaya gelap menjadi gumpalan neon bertepi hitam. Hitung densitas tinta fisik pada kertas: pendaran memiliki inti terang dengan tepi tersaturasi dan dasar alpha bersih yang berhenti tegas pada batas goresan stroke SVG.
+
+---
+
+## 6. Checklist Mandiri Kualitas Grafis 3D (16 Poin)
 
 - [ ] **1. Kejelasan Siluet**: Apakah objek utama terbaca jelas hanya dari siluet hitam-putih?
 - [ ] **2. Konstruksi Masuk Akal**: Apakah setiap bagian terhubung dengan ketebalan dan sambungan yang meyakinkan?
@@ -535,3 +594,12 @@ export async function inisialisasiSceneBabylon(canvas: HTMLCanvasElement) {
 - [ ] **14. Akurasi Batas Collider**: Apakah collider fisik mencakup seluruh bentuk visual (termasuk atap dan sayap)?
 - [ ] **15. Kontrol & Reset Jujur**: Apakah slider dan tombol reset benar-benar mengubah state model dan mengembalikan nilai awal?
 - [ ] **16. Kebenaran Klaim Ilmiah**: Apakah model ilmiah/teknis berakar pada referensi yang terverifikasi?
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec web-3d-graphics-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

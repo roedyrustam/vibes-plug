@@ -1,8 +1,8 @@
 ---
 name: ai-media-generation-expert
-description: "Expert guide for AI image generation (Flux, DALL-E, Stable Diffusion), video generation (Sora, Runway), voice synthesis (ElevenLabs TTS), and speech recognition (Whisper STT) integration / Panduan ahli integrasi AI generasi gambar, video, suara (TTS), dan pengenalan suara (STT)."
+description: "AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper / Generasi media AI: Flux, Sora, Runway, ElevenLabs TTS, dan Whisper."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -24,6 +24,7 @@ version: "4.4.2"
   - `async-queue-temporal-expert` — Durable background queue execution for long-running video/audio generation.
   - `zero-trust-secret-vault` — Secure API key rotation and credential vault for Replicate, OpenAI, and ElevenLabs.
   - `session-memory-manager` — Store generation task metadata, prompt history, and asset references.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `app-promo-media-expert`, `voice-ai-realtime-agent`, `svg-animation-motion-expert`
 
 ### Description
 Production-grade guide for integrating AI-powered media generation into web and mobile applications. Covers image generation (Flux 1.1 Pro, SDXL, DALL-E 3), video generation (Sora, Runway Gen-3), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), and voice cloning. Includes async processing patterns, cost optimization, and content safety filtering.
@@ -155,6 +156,18 @@ async function generateVideo(prompt: string) {
 - **Cost Control:** Set per-user daily limits. Cache identical prompts. Use cheaper models for drafts.
 - **Storage Pipeline:** Generate → upload to S3/R2 → serve via CDN → store URL in DB.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ai-media-generation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -169,6 +182,7 @@ async function generateVideo(prompt: string) {
   - `async-queue-temporal-expert` — Eksekusi antrean background job untuk generasi video dan audio panjang.
   - `zero-trust-secret-vault` — Rotasi kunci API aman dan brankas kredensial Replicate, OpenAI, dan ElevenLabs.
   - `session-memory-manager` — Menyimpan metadata tugas generasi, riwayat prompt, dan referensi aset.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `app-promo-media-expert`, `voice-ai-realtime-agent`, `svg-animation-motion-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan generasi media berbasis AI ke dalam aplikasi web dan mobile modern. Mencakup generasi gambar (Flux 1.1 Pro, SDXL, DALL-E 3), generasi video (Sora, Runway Gen-3, MiniMax), text-to-speech (ElevenLabs v3, OpenAI TTS), speech-to-text (Whisper large-v3, Deepgram Nova-3), dan kloning audio. Dilengkapi pola pemrosesan asinkron via webhook, mitigasi biaya, serta penyaringan keamanan konten (NSFW/moderasi).
@@ -285,3 +299,12 @@ export async function transkripsiAudio(fileBuffer: Buffer, namaFile: string) {
 - **Penerimaan Callback Webhook**: Jangan gunakan polling HTTP terus-menerus; gunakan endpoint webhook yang divalidasi dengan tanda tangan kriptografis untuk menerima hasil generasi dari Replicate.
 - **Pencegahan Konten Terlarang (NSFW)**: Lakukan penyaringan ganda menggunakan OpenAI Moderation API sebelum memproses prompt dan verifikasi gambar hasil sebelum ditampilkan kepada pengguna umum.
 - **Penyimpanan Permanen**: Jangan bergantung pada URL hosting sementara dari vendor AI. Segera unduh dan simpan aset ke Cloudflare R2 atau AWS S3, lalu sajikan melalui domain CDN kustom.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ai-media-generation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

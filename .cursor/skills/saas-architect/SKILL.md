@@ -1,8 +1,8 @@
 ---
 name: saas-architect
-description: "Master SaaS orchestrator for greenfield MVP launch (0 to 1) and legacy application SaaS transformation (1 to N) / Master orkestrator SaaS untuk peluncuran MVP dari nol (0 ke 1) dan transformasi aplikasi menjadi SaaS (1 ke N)."
+description: "Master SaaS orchestrator: MVP launches (0 to 1) and transformation / Master orkestrator SaaS: peluncuran MVP (0 ke 1) dan transformasi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -26,6 +26,7 @@ version: "4.4.2"
   - `prd-architect` — Generate PRD, ERD, and continuous architecture documentation.
   - `session-memory-manager` — Persist SaaS lifecycle blueprints and tenant state checkpoints.
   - `senior-frontend` — Enforce modern UI/UX standards across app shells and marketing pages.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `feature-flag-analytics-expert`, `app-analyzer-optimizer`
 
 ### Description
 The **SaaS Architect** is the master lifecycle orchestrator for building commercial SaaS platforms. It operates in two specialized modes:
@@ -66,7 +67,7 @@ Apply the multiple-entry-points architecture (guided by `cloud-hosting-expert`) 
 - Authentication and session validation (Edge JWT + Redis caching).
 - Webhook signature validation active for all billing events.
 - Error tracking configured (Sentry) and rate limiting on API routes.
-- ToS, Privacy Policy, and 2-3 pricing tiers with trial workflows.
+- Mandatory Legal & Privacy Trio: Terms & Conditions (`/terms`), Privacy Policy (`/privacy`), and User Data Deletion (`/delete-account` or `/data-deletion`), alongside 2-3 pricing tiers with trial workflows.
 
 ---
 
@@ -108,13 +109,80 @@ When initializing or scaffolding any new SaaS application:
 1. Automatically invoke `generate_image` to create a production-quality application logo matching the brand identity.
 2. Use this asset immediately as the navbar logo, browser favicon (`favicon.ico`), and Open Graph social banner (`og:image`). Never use placeholder icons.
 
-### 📄 Standard Pages Mandate
+### 📄 Standard Pages & Legal Compliance Mandate
 Every SaaS application must scaffold complete, functional implementations for:
 - Landing Page (Hero, Features, Social Proof, Pricing, FAQ)
 - Authentication (Sign In, Sign Up, Password Reset, Magic Link)
 - Onboarding Wizard (<5 minutes to first value)
 - Settings (Profile, Workspace, Team Members, Billing / Plans, API Keys)
+- Mandatory Legal & Privacy Trio: Terms of Service (`/terms`), Privacy Policy (`/privacy-policy` or `/privacy`), and User Data Deletion (`/delete-account` or `/data-deletion`)
 - Super Admin Panel on dedicated subdomain (`admin.example.com`)
+
+---
+
+#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 15 / Edge)
+```typescript
+import { NextRequest, NextResponse } from 'next/server';
+
+export interface TenantRoutingConfig {
+  rootDomain: string;
+  adminSubdomain: string;
+}
+
+export function routeMultiEntrySaaS(req: NextRequest, config: TenantRoutingConfig): NextResponse {
+  const host = req.headers.get('host') ?? config.rootDomain;
+  const hostname = host.split(':')[0];
+  const url = req.nextUrl.clone();
+
+  if (hostname === `${config.adminSubdomain}.${config.rootDomain}`) {
+    url.pathname = `/super-admin${url.pathname === '/' ? '' : url.pathname}`;
+    return NextResponse.rewrite(url);
+  }
+
+  if (hostname !== config.rootDomain && hostname.endsWith(`.${config.rootDomain}`)) {
+    const tenantSlug = hostname.replace(`.${config.rootDomain}`, '');
+    url.pathname = `/tenant/${tenantSlug}${url.pathname}`;
+    const res = NextResponse.rewrite(url);
+    res.headers.set('x-tenant-slug', tenantSlug);
+    return res;
+  }
+
+  return NextResponse.next();
+}
+```
+
+#### Hierarchical Feature Gating Evaluator
+```typescript
+export interface EntitlementContext {
+  systemFlags: Record<string, boolean>;
+  planFeatures: ReadonlySet<string>;
+  tenantAddons: ReadonlySet<string>;
+  userRolePermissions: ReadonlySet<string>;
+}
+
+export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContext): boolean {
+  if (ctx.systemFlags[featureKey] === false) {
+    return false;
+  }
+  const hasTenantEntitlement = ctx.planFeatures.has(featureKey) || ctx.tenantAddons.has(featureKey);
+  if (!hasTenantEntitlement) {
+    return false;
+  }
+  return ctx.userRolePermissions.has(featureKey);
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec saas-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -132,6 +200,7 @@ Every SaaS application must scaffold complete, functional implementations for:
   - `prd-architect` — Pembuatan PRD, ERD, dan dokumentasi arsitektur kontinu.
   - `session-memory-manager` — Menyimpan cetak biru siklus SaaS dan checkpoint status tenant.
   - `senior-frontend` — Menerapkan standar modern UI/UX pada app shell dan landing page.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `feature-flag-analytics-expert`, `app-analyzer-optimizer`
 
 ### Deskripsi
 **SaaS Architect** adalah orkestrator siklus hidup utama untuk membangun platform SaaS komersial. Beroperasi dalam dua mode:
@@ -150,7 +219,7 @@ Every SaaS application must scaffold complete, functional implementations for:
 1. **Validasi Ide**: Rumuskan masalah dalam satu kalimat, validasi dengan 3+ komitmen bayar sebelum mulai coding.
 2. **Tech Stack Modern (2026)**: Next.js 15 App Router, Tailwind CSS v4, PostgreSQL (Neon/Supabase) via Drizzle/Prisma, Clerk/Auth.js, Stripe/Midtrans/DOKU, Resend, Vercel.
 3. **Isolasi Entry Point**: Pisahkan landing page publik, dashboard penyewa (tenant), dan **Dashboard Super Admin** pada subdomain terpisah (`admin.example.com`).
-4. **Gerbang Kualitas Pra-Rilis**: Sesi login teroptimasi (JWT + Redis), webhook billing tervalidasi, Sentry aktif, rate limiting, halaman harga 2-3 tier.
+4. **Gerbang Kualitas Pra-Rilis**: Sesi login teroptimasi (JWT + Redis), webhook billing tervalidasi, Sentry aktif, rate limiting, halaman harga 2-3 tier, serta pemenuhan Trio Hukum & Privasi (Syarat & Ketentuan, Kebijakan Privasi, dan Hapus Data).
 
 ---
 
@@ -170,3 +239,12 @@ Gunakan pipeline 9 fase terstruktur:
 
 ### 🎨 Mandat Pembuatan Aset Visual Otomatis (KRITIS)
 Gunakan tool `generate_image` secara otomatis untuk membuat logo aplikasi kustom saat inisialisasi aplikasi. Pasang logo tersebut sebagai logo navbar, favicon (`favicon.ico`), dan gambar Open Graph (`og:image`). Dilarang memakai placeholder.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec saas-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

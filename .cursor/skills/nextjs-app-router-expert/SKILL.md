@@ -1,8 +1,8 @@
 ---
 name: nextjs-app-router-expert
-description: "Expert guide for Next.js 15 App Router: RSC, React 19 Server Actions, Async Request APIs, 'use cache', PPR, Streaming, and Caching strategies / Panduan ahli untuk Next.js 15 App Router."
+description: "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -20,6 +20,7 @@ version: "4.4.2"
 - **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
 - **State & Data Fetching**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
 - **Quality & Performance**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Description
 Production-grade architectural guide for **Next.js 15+ App Router** and **React 19**. Enforces modern standards: asynchronous request APIs (`await params`, `await cookies()`), function-level `'use cache'` with `cacheLife` and `cacheTag`, Partial Prerendering (PPR), React Server Actions with `useActionState` and `useOptimistic`, Parallel & Intercepting Routes, and streaming layouts via `<Suspense>`.
@@ -254,6 +255,18 @@ async function fetchLiveMetrics() {
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec nextjs-app-router-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -264,6 +277,7 @@ async function fetchLiveMetrics() {
 - **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
 - **State & Pengambilan Data**: `tanstack-query-expert`, `form-validation-expert`, `database-orm-expert`.
 - **Kualitas & Performa**: `performance-web-vitals`, `e2e-testing-expert`, `anti-slop`, `visual-ui-auditor`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Deskripsi
 Panduan arsitektur tingkat produksi untuk **Next.js 15+ App Router** dan **React 19**. Menegakkan standar modern: API request asinkron (`await params`, `await cookies()`), caching tingkat fungsi `'use cache'` dengan `cacheLife` dan `cacheTag`, Partial Prerendering (PPR), React Server Actions dengan `useActionState` dan `useOptimistic`, Parallel & Intercepting Routes, serta streaming layout via `<Suspense>`.
@@ -482,3 +496,12 @@ async function ambilMetrikSistem() {
   ];
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec nextjs-app-router-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

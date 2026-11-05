@@ -1,8 +1,8 @@
 ---
 name: async-queue-temporal-expert
-description: "Unified expert guide for async job queues & durable workflows: BullMQ v5 (Redis queues), Trigger.dev v3 (serverless tasks), Inngest, and Temporal.io (distributed sagas) / Panduan ahli terpadu untuk antrean job asinkron & workflow tahan-gagal: BullMQ v5, Trigger.dev v3, Inngest, dan Temporal.io."
+description: "Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io / Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -18,9 +18,10 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Upstream Triggers & APIs**: `api-design-expert`, `js-backend-expert`, `database-orm-expert`
 - **Billing & Payment Sagas**: `saas-billing`, `payment-gateway-expert`, `doku-payment-gateway`
-- **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`
+- **Scheduled & Recurring**: `cron-scheduler-expert`, `event-driven-architect`, `n8n-automation-expert`, `pdf-document-generation-expert`
 - **Resilience & Observability**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `chatbot-messaging-expert`, `durable-agent-execution-expert`
 
 ### Purpose & Overview
 Unified production-grade guide for background execution pipelines, async job queues, and distributed state machines. Covers the full spectrum from simple Redis-backed task queues to complex multi-service sagas with compensating rollbacks.
@@ -191,6 +192,18 @@ export async function subscriptionSagaWorkflow(input: {
 ## Orchestration & Integration
 - Integrates with: `js-backend-expert`, `cron-scheduler-expert`, `error-resilience-expert`, `saas-billing`, `doku-payment-gateway`, `data-telemetry-expert`.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec async-queue-temporal-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -202,6 +215,7 @@ export async function subscriptionSagaWorkflow(input: {
 - **Terjadwal & Berulang**: `cron-scheduler-expert`, `event-driven-architect`
 - **Ketahanan & Observabilitas**: `error-resilience-expert`, `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `n8n-automation-expert`, `chatbot-messaging-expert`, `durable-agent-execution-expert`
 
 ### Tujuan & Gambaran Umum
 Panduan terpadu tingkat produksi untuk pipeline eksekusi latar belakang, antrean job asinkron, dan state machine terdistribusi. Mencakup spektrum penuh dari antrean Redis sederhana hingga saga multi-layanan dengan rollback kompensasi.
@@ -345,3 +359,12 @@ export async function sagaLanggananWorkflow(input: {
   }
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec async-queue-temporal-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,12 +1,11 @@
 ---
 name: data-pipeline-etl-expert
-description: "Expert guide for Data Pipelines, ETL/ELT, and Analytics Engineering. Covers dbt, Apache Airflow, Dagster, BigQuery, ClickHouse, and DuckDB / Panduan ahli untuk Data Pipelines, ETL/ELT. Mencakup dbt, Airflow, Dagster, BigQuery, ClickHouse, dan DuckDB."
+description: "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB / Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.4.2"
-
+version: "4.7.0"
 ---
 
-# Data Pipeline & ETL Expert
+# Data Pipeline & ETL Expert / Ahli Data Pipeline & ETL
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -15,97 +14,148 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
-### Orchestration & Integration
-- **Upstream Languages & Scripts**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
-- **Transactional & Analytics DBs**: `database-orm-expert`, `search-engine-expert`, `vector-db-rag-expert`
-- **Telemetry & Observability**: `data-telemetry-expert`, `logging-error-tracking-expert`
-- **Scheduling & Queues**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
-- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+#### 3. Incremental Parquet Compaction & Lineage Gate / Gerbang Kompaksi Parquet & Silsilah Data
 
-### Description
-A specialized skill for building robust data architectures, Analytics Engineering, and ETL (Extract, Transform, Load) or ELT pipelines. It covers modern data stack orchestration (Airflow, Dagster), transformation tools (dbt), and high-performance OLAP databases (BigQuery, Snowflake, ClickHouse, DuckDB).
-
-### Trigger Conditions
-- When designing reporting dashboards or analytics infrastructure for a SaaS.
-- When moving large volumes of data from transactional databases (PostgreSQL/MySQL) to a data warehouse.
-- When the user asks about "dbt", "Airflow", "ELT", or "Analytics Engineering".
-- When building local or edge analytics using DuckDB.
-
-### Core Architectural Guidelines
-
-#### 1. ELT over ETL
-Prefer Extract-Load-Transform (ELT) over traditional ETL.
-- **Extract & Load**: Use tools like Airbyte or Fivetran to dump raw data directly into the Data Warehouse.
-- **Transform**: Perform transformations *inside* the Data Warehouse using SQL (via dbt) to leverage the warehouse's massive compute power.
-
-#### 2. Analytics Engineering with dbt
-Treat SQL like software engineering.
-- Use `dbt` (Data Build Tool) to version control your SQL transformations.
-- Implement tests (`not_null`, `unique`) on critical tables.
-- Use Jinja templating in dbt to DRY up complex SQL queries.
-
-#### 3. Data Orchestration (Airflow vs Dagster)
-- **Apache Airflow**: The industry standard for scheduling and monitoring complex DAGs (Directed Acyclic Graphs). Best for Python-heavy teams.
-- **Dagster**: A modern alternative focused on data assets rather than just tasks. Use Dagster when you want better local testing and asset-driven lineage.
-
-#### 4. OLAP Database Selection
-- **BigQuery / Snowflake**: Best for massive scale, fully managed cloud data warehousing.
-- **ClickHouse**: Best for real-time, sub-second analytical queries on massive event streams.
-- **DuckDB**: Best for local analytics, embedded analytical pipelines, or processing parquets in edge environments (Node.js/Python).
-
-### Implementation Examples
-
-#### 1. DuckDB In-Memory OLAP Pipeline (Node.js)
 ```typescript
-import duckdb from 'duckdb';
+export interface CompactionBatch {
+  table: string;
+  partitionKey: string;
+  sourceFiles: string[];
+  rowCount: number;
+  checksumSha256: string;
+}
 
-export async function processParquetAnalytics(parquetPath: string): Promise<Record<string, unknown>[]> {
-  const db = new duckdb.Database(':memory:');
-  const con = db.connect();
-
-  return new Promise((resolve, reject) => {
-    con.all(
-      `SELECT
-         date_trunc('day', timestamp) AS active_day,
-         event_type,
-         count(*) AS total_events,
-         count(DISTINCT user_id) AS unique_users
-       FROM read_parquet('${parquetPath}')
-       GROUP BY 1, 2
-       ORDER BY 1 DESC
-       LIMIT 100`,
-      (err, rows) => {
-        if (err) return reject(err);
-        resolve(rows);
-      }
-    );
-  });
+export function verifyEtlLineageGate(batch: CompactionBatch, minRows = 1): { valid: boolean; targetUri: string } {
+  if (!batch.table || batch.sourceFiles.length === 0 || batch.rowCount < minRows) {
+    throw new Error(`Invalid ETL compaction batch for table: ${batch.table}`);
+  }
+  const targetUri = `s3://lakehouse/warehouse/${batch.table}/partition=${batch.partitionKey}/compacted-${batch.checksumSha256.slice(0, 12)}.parquet`;
+  return { valid: true, targetUri };
 }
 ```
 
-#### 2. dbt Incremental Transformation Model (`models/marts/fct_daily_usage.sql`)
+## Orchestration & Integration
+- **Upstream Languages & Scripts**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
+- **Transactional & Analytics DBs**: `database-orm-expert`, `olap-columnar-analytics-expert`, `search-engine-expert`, `vector-db-rag-expert`
+- **Telemetry & Observability**: `data-telemetry-expert`, `logging-error-tracking-expert`
+- **Scheduling & Queues**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
+- **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `data-visualization-expert`, `web-scraper`
+
+### Description
+Production engineering guide for building idempotent ELT/ETL data pipelines, Change Data Capture (CDC) streams, and Medallion Lakehouse architectures (`Bronze` $\rightarrow$ `Silver` $\rightarrow$ `Gold`). Covers Software-Defined Assets (`Dagster`), SQL transformation engineering (`dbt Core`), and columnar Parquet/Iceberg processing (`DuckDB`, `ClickHouse`, `BigQuery`).
+
+### 1. Data Pipeline & Orchestration Architecture Matrix (2026)
+
+| Layer | Legacy Approach | 2026 Production Standard | Architectural Advantage |
+| :--- | :--- | :--- | :--- |
+| **Ingestion (OLTP $\rightarrow$ OLAP)** | Nightly `SELECT *` batch cron | **Log-Based CDC** (Postgres Logical Replication / PeerDB / Debezium) | Zero impact on OLTP CPU; sub-5s data freshness |
+| **Orchestration** | Imperative task-based cron scripts | **Dagster** (Software-Defined Assets + Partitioned Backfills) | Data lineage graph, declarative freshness SLAs, unit-testable assets |
+| **Transformation** | Stored procedures in OLTP DB | **dbt Core** (Incremental models + schema contract tests) | Version-controlled SQL, automated `not_null` / `unique` / referential tests |
+| **Storage Format** | Raw uncompressed CSV dumps | **ZSTD Parquet / Apache Iceberg** on S3/R2 | 10x smaller storage, predicate pushdown, schema evolution |
+
+### 2. DuckDB Parameterized Parquet Lakehouse Processor (TypeScript)
+Use DuckDB with ZSTD-compressed Parquet partitions for high-speed analytical transformations without spinning up expensive JVM Spark clusters:
+
+```typescript
+// src/etl/duckdb-parquet-pipeline.ts
+import duckdb from 'duckdb';
+
+export interface DailyTenantMetrics {
+  tenant_id: string;
+  metric_day: string;
+  total_events: number;
+  unique_actors: number;
+}
+
+export class DuckDbEtlRunner {
+  private readonly db: duckdb.Database;
+
+  constructor() {
+    this.db = new duckdb.Database(':memory:');
+  }
+
+  public async aggregateParquetPartition(
+    parquetGlobPath: string,
+    minDateIso: string
+  ): Promise<DailyTenantMetrics[]> {
+    const connection = this.db.connect();
+    const escapedPath = parquetGlobPath.replace(/'/g, "''");
+    const escapedDate = minDateIso.replace(/'/g, "''");
+
+    return new Promise((resolve, reject) => {
+      connection.all(
+        `
+        SELECT
+          tenant_id,
+           strftime(date_trunc('day', recorded_at), '%Y-%m-%d') AS metric_day,
+          CAST(count(*) AS INTEGER) AS total_events,
+          CAST(count(DISTINCT actor_id) AS INTEGER) AS unique_actors
+        FROM read_parquet('${escapedPath}', hive_partitioning = true)
+        WHERE recorded_at >= CAST('${escapedDate}' AS TIMESTAMP)
+        GROUP BY tenant_id, metric_day
+        ORDER BY metric_day DESC, total_events DESC
+        `,
+        (err, rows) => {
+          if (err) {
+            return reject(new Error(`DUCKDB_ETL_FAILED: ${err.message}`));
+          }
+          resolve(rows as DailyTenantMetrics[]);
+        }
+      );
+    });
+  }
+}
+```
+
+### 3. Idempotent dbt Incremental Model with Late-Arriving Event Lookback (`models/marts/fct_daily_usage.sql`)
+Always include a lookback window (e.g., `3 days`) in incremental ELT models to capture late-arriving webhook or mobile offline events without duplicating rows:
+
 ```sql
 {{
   config(
     materialized = 'incremental',
-    unique_key = ['tenant_id', 'metric_date']
+    unique_key = ['tenant_id', 'metric_date'],
+    incremental_strategy = 'merge',
+    on_schema_change = 'sync_all_columns'
   )
 }}
 
 SELECT
   tenant_id,
-  CAST(event_time AS DATE) AS metric_date,
-  count(event_id) AS total_api_calls,
+  CAST(date_trunc('day', event_timestamp) AS DATE) AS metric_date,
+  count(DISTINCT event_id) AS total_api_calls,
   sum(tokens_consumed) AS total_tokens,
-  current_timestamp() AS updated_at
+  current_timestamp AS updated_at
 FROM {{ ref('stg_telemetry_events') }}
 
 {% if is_incremental() %}
-  WHERE event_time >= (SELECT max(metric_date) FROM {{ this }})
+  -- 3-day lookback window heals late-arriving events idempotently via unique_key merge
+  WHERE event_timestamp >= (
+    SELECT dateadd(day, -3, max(metric_date)) FROM {{ this }}
+  )
 {% endif %}
 
 GROUP BY 1, 2
 ```
+
+### 4. Production Verification Checklist
+- [ ] Every pipeline run is **idempotent**: re-running a date partition (`2026-10-23`) overwrites or merges cleanly via `unique_key` without duplicating rows.
+- [ ] OLTP extraction uses log-based CDC or read replicas with cursor pagination, never unindexed full-table scans on primary OLTP nodes.
+- [ ] dbt models enforce schema contracts (`not_null`, `unique`, `accepted_values`) before promoting `Silver` tables to customer-facing `Gold` marts.
+- [ ] Incremental models include a configurable lookback window (`24h–72h`) to reconcile late-arriving telemetry.
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec data-pipeline-etl-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -114,32 +164,26 @@ GROUP BY 1, 2
 
 ### Integrasi Orkestrasi
 - **Bahasa & Skrip Hulu**: `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`
-- **Database Transaksional & Analitik**: `database-orm-expert`, `search-engine-expert`, `vector-db-rag-expert`
+- **Database Transaksional & Analitik**: `database-orm-expert`, `olap-columnar-analytics-expert`, `search-engine-expert`, `vector-db-rag-expert`
 - **Telemetri & Observabilitas**: `data-telemetry-expert`, `logging-error-tracking-expert`
 - **Penjadwalan & Antrean**: `cron-scheduler-expert`, `async-queue-temporal-expert`, `event-driven-architect`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `data-visualization-expert`, `web-scraper`
 
 ### Deskripsi
-Panduan khusus untuk membangun arsitektur data yang kuat, Analytics Engineering, dan pipeline ETL/ELT. Mencakup orkestrasi (Airflow, Dagster), alat transformasi (dbt), dan database OLAP berkinerja tinggi (BigQuery, Snowflake, ClickHouse, DuckDB).
+Panduan rekayasa produksi untuk membangun pipeline data ELT/ETL yang idempoten, aliran Change Data Capture (CDC), dan arsitektur Medallion Lakehouse (`Bronze` $\rightarrow$ `Silver` $\rightarrow$ `Gold`). Mencakup orkestrasi berbasis aset (`Dagster`), transformasi SQL teruji (`dbt Core`), serta pemrosesan kolumnar Parquet/Iceberg (`DuckDB`, `ClickHouse`, `BigQuery`).
 
-### Kondisi Pemicu
-- Saat merancang infrastruktur analitik atau dashboard pelaporan untuk SaaS.
-- Saat memindahkan data bervolume besar dari database transaksional ke Data Warehouse.
-- Saat membangun analitik lokal yang cepat menggunakan DuckDB.
+### Checklist Verifikasi Produksi
+- [ ] Pastikan setiap pipeline bersifat **idempoten** (eksekusi ulang pada partisi tanggal yang sama tidak menggandakan data).
+- [ ] Gunakan replikasi logis CDC atau read-replica saat mengekstrak data dari database OLTP utama.
+- [ ] Sertakan jendela *lookback* (`3 hari`) pada model inkremental `dbt` untuk menangkap data event yang terlambat masuk.
+- [ ] Terapkan pengujian skema otomatis (`not_null`, `unique`) pada setiap tabel mart analitik.
 
-### Panduan Arsitektur Inti
-
-#### 1. ELT lebih disukai daripada ETL
-- **Extract & Load**: Pindahkan data mentah (raw data) langsung ke Data Warehouse (menggunakan Airbyte/Fivetran).
-- **Transform**: Lakukan transformasi data *di dalam* Data Warehouse menggunakan SQL (dbt) untuk memanfaatkan kekuatan komputasi gudang data yang masif.
-
-#### 2. Analytics Engineering dengan dbt (Data Build Tool)
-Perlakukan transformasi data (SQL) layaknya rekayasa perangkat lunak. Gunakan dbt untuk version control, pengujian otomatis (`not_null`, `unique`), dan dokumentasi skema data Anda.
-
-#### 3. Orkestrasi Data (DAG)
-Gunakan Apache Airflow atau Dagster untuk menjadwalkan dan memonitor alur kerja data yang kompleks (DAG). Dagster sangat direkomendasikan untuk pendekatan modern yang berpusat pada aset data (asset-driven orchestration).
-
-#### 4. Pemilihan Database OLAP
-- **BigQuery / Snowflake**: Gudang data cloud fully-managed untuk analitik skala masif.
-- **ClickHouse**: Sangat cepat untuk kueri analitik real-time. Cocok untuk data event stream/log.
-- **DuckDB**: SQLite untuk analitik. Sangat cepat untuk memproses file Parquet atau CSV secara lokal maupun di lingkungan edge/serverless (via Python/Node.js).
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec data-pipeline-etl-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

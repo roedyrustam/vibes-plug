@@ -1,8 +1,8 @@
 ---
 name: ui-ux-pro-max
-description: "Comprehensive design guide & BM25 search engine for web and mobile applications across 11 tech stacks / Panduan desain komprehensif & mesin pencari BM25 untuk aplikasi web dan mobile di 11 tech stack."
+description: "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - **`visual-ui-auditor`**: Conducts 20-point visual audits, multimodal screenshot inspections, and Playwright tests.
 - **`anti-slop`**: Enforces strict Pillar 7 visual sanitation, eliminating AI clichés, pill buttons, and fake states.
 - **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle alignment.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `website-design-cloner`, `multimodal-spatial-video-cloner`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Description
 UI/UX Pro Max is a comprehensive design intelligence engine equipped with an offline BM25 search index covering color palettes, typography, responsive patterns, icon sets, chart recommendations, UX guidelines, **Material Design 3 (M3)**, and stack-specific best practices across **11 technology stacks**.
@@ -141,6 +142,33 @@ Visual hierarchy guides the user's perception through deliberate scale, contrast
   - **Progressive Chunking**: Break large datasets into clear card modules with distinct header, metric, and footer zones.
   - **Material Design 3 (M3) Integration**: Support Adaptive Window Size Classes (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) and tonal elevation tiers (`surface-container-lowest` to `surface-container-highest`).
 
+#### 6. Anti-Generic Website Architecture: Floating Island Capsule Navigation & Rich Flyout Mega Menus
+Standard template websites default to generic, full-width, edge-to-edge glued rectangular navigation bars that look dated and monotonous. For premium, non-generic (Linear/Apple/Stripe-caliber) websites, mandate the **Floating Island Glass Capsule** and **Rich Card Flyout** architectural pattern:
+
+- **Floating Pill / Capsule Style Navigation**:
+  - **Detached Island Elevation**: The navigation bar floats gracefully above the background rather than being glued to the ceiling of the viewport (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50`).
+  - **Capsule Geometry**: Fully rounded ends resembling a tactile hardware capsule (`rounded-full px-4 md:px-6 py-2.5 md:py-3`).
+  - **Translucent Dark Glassmorphism**: High-grade dark translucent surface with fine backdrop blur (`bg-neutral-950/75 dark:bg-neutral-950/80 backdrop-blur-xl saturate-180`).
+  - **Crisp Perimeter & Inner Bevel**: 1px subtle boundary border (`border border-white/10 dark:border-white/12`) paired with an inner top highlight stroke (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`). As the page scrolls, underlying content blurs softly behind the capsule without breaking readability.
+
+- **Flyout / Mega Menu Dropdown (Rich Floating Card Architecture)**:
+  - **Centered Island Geometry**: When navigation items (e.g. *Skills*, *Solutions*, *Features*) are hovered or clicked, the dropdown appears as an elevated floating card centered directly beneath the capsule bar (`left-1/2 -translate-x-1/2 mt-3.5 w-[680px] max-w-[calc(100vw-2rem)] rounded-2xl p-5 md:p-6`). Never skew or arbitrarily pin the mega menu to one edge where it awkwardly collides with brand emblems.
+  - **High-Density Solid Backing & Zero Bleed-Through**: The card must use deep, near-opaque backing (`bg-[#090c15] / bg-neutral-950/98 backdrop-blur-2xl border border-white/12 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.1)]`) to ensure bright badges, text, and graphics from the page behind it never bleed through or reduce legibility.
+  - **Zero Plain-Text Lists**: Never render bare vertical lists of unadorned text links.
+  - **Structured Submenu Grids**: Group items into logical category columns with uppercase overline eyebrows.
+  - **Rich Card Affordances**: Each item must feature:
+    1. A subtle icon container (`w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform`).
+    2. A crisp, bold title (`text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors`).
+    3. A concise 1-sentence value description (`text-xs text-neutral-400 line-clamp-1`).
+  - **Accessibility Contract**: Full keyboard navigation support (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), focus rings, and instant closure on `Escape` key.
+
+#### 7. Linear-Style Isometric Anatomy Instruments & Physical Explainer Cards
+When explaining core system mechanics, architecture, or algorithmic state on landing pages and documentation sites, avoid banal flowchart diagrams (generic boxes with arrows). Deploy the **Anatomy Explainer Card Standard**:
+- **Tactile Physical Rig**: Frame the concept as a high-density mechanical machine: machined bedplate, knurled thumb knobs, linear rails, spring-loaded carriages, bronze bushings, and calibrated dial gauges.
+- **Framed Instrument Card**: Encapsulate within an elevated card: `Fig n` (top-left, uppercase monospace), Feature Title (top-right, bold), User Interaction Hint (bottom-left, muted), and real-time Live Readout (`tabular-nums`, tracking dynamic values at bottom-right).
+- **Four-Tone Surface Shading**: Strict lighting hierarchy: `lo` (shadowed underside), `mid` (vertical structural frame), `hi` (top faces), and exactly one `lit` accent (white/cyan moving needle or active probe).
+- **Lines Resolve Invariant**: Every tick, ruler mark, and wire terminates flush onto another solid edge or screw terminal; zero floating arrows.
+
 ---
 
 ### Sovereign UI/UX Anti-Slop Directive (6 Design Pillars)
@@ -190,6 +218,18 @@ The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and inco
 - [ ] **Layout & Responsive**: Tested across 375px, 768px, 1024px, 1440px breakpoints. No unintentional horizontal scrolling on mobile.
 - [ ] **Accessibility**: All images have meaningful `alt` text. Form inputs have explicitly connected `<label>` elements or `aria-label`.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ui-ux-pro-max <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -204,6 +244,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`visual-ui-auditor`**: Melakukan audit visual 20-poin, inspeksi screenshot vision multimodal, dan pengujian Playwright.
 - **`anti-slop`**: Menegakkan sanitasi visual Pilar 7 yang ketat, melenyapkan klise AI, pill-button, dan status palsu.
 - **`hig`**, **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Sinkronisasi berkelanjutan di seluruh siklus hidup proyek.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `website-design-cloner`, `multimodal-spatial-video-cloner`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Deskripsi
 UI/UX Pro Max adalah mesin kecerdasan desain komprehensif yang dilengkapi indeks pencarian BM25 offline. Mencakup palet warna, tipografi, pola tata letak responsif, rekomendasi ikon, grafik visualisasi data, pedoman UX, **Material Design 3 (M3)**, serta praktik terbaik untuk **11 tumpukan teknologi (technology stacks)**.
@@ -322,6 +363,33 @@ Hierarki visual memandu persepsi pengguna secara intuitif dan elegan melalui ska
   - **Chunking Progresif**: Pecah kumpulan informasi kompleks menjadi modul-modul kartu terstruktur dengan header, metrik, dan footer yang jelas.
   - **Integrasi Material Design 3 (M3)**: Mendukung Kelas Ukuran Jendela Adaptif (Compact <600dp, Medium 600–839dp, Expanded ≥840dp) serta tingkatan elevasi tonal (`surface-container-lowest` hingga `surface-container-highest`).
 
+#### 6. Arsitektur Website Anti-Pasaran: Navigasi Kapsul Mengambang (Floating Island) & Mega Menu Flyout Mewah
+Website berbasis template generik umumnya menggunakan bilah navigasi persegi panjang yang menempel penuh pada batas atas layar (*full-width edge-to-edge*), menghasilkan kesan pasaran dan kaku. Untuk website berkelas tinggi (standar Apple/Linear/Stripe), wajib terapkan standar **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu**:
+
+- **Gaya Navigasi Kapsul Mengambang (Floating Pill / Capsule Style)**:
+  - **Bilah Melayang Terpisah (Detached Island)**: Bilah navigasi melayang anggun di atas latar belakang, tidak menempel penuh ke batas atas layar (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50`).
+  - **Sudut Sangat Membulat (Capsule Geometry)**: Ujung membulat penuh menyerupai kapsul perangkat keras modern (`rounded-full px-4 md:px-6 py-2.5 md:py-3`).
+  - **Tema Gelap Translusen / Glassmorphism**: Latar belakang gelap dengan tingkat transparansi halus dan blur mendalam (`bg-neutral-950/75 dark:bg-neutral-950/80 backdrop-blur-xl saturate-180`) sehingga elemen halaman di belakangnya tetap samar terlihat saat digulir.
+  - **Border Presisi 1px & Pantulan Atas**: Batas 1px tegas (`border border-white/10 dark:border-white/12`) dipadukan dengan bayangan elevasi directional serta highlight stroke halus di sisi atas (`shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.12)]`).
+
+- **Dropdown Menu Flyout / Mega Menu (Kartu Mengambang Berisi Sub-Menu Terstruktur)**:
+  - **Geometri Kapsul Terpusat (Centered Island Geometry)**: Saat item navigasi (seperti *Skills*, *Fitur*, *Solusi*) diklik atau di-hover, panel menu yang muncul berbentuk kartu melayang berposisi tepat di tengah di bawah bilah kapsul (`left-1/2 -translate-x-1/2 mt-3.5 w-[680px] max-w-[calc(100vw-2rem)] rounded-2xl p-5 md:p-6`). Dilarang memiringkan mega menu secara canggung ke salah satu sisi sehingga bertabrakan dengan logo merek.
+  - **Latar Belakang Gelap Padat Anti Bocor (Zero Bleed-Through)**: Gunakan lapisan gelap dengan densitas tinggi (`bg-[#090c15] / bg-neutral-950/98 backdrop-blur-2xl border border-white/12 shadow-[0_25px_65px_-12px_rgba(0,0,0,0.95),0_0_35px_rgba(6,182,212,0.1)]`) guna menjamin teks, lencana, atau grafis halaman di belakang kartu tidak tembus pandang atau merusak kontras baca.
+  - **Bebas Daftar Teks Polos**: Dilarang hanya menampilkan daftar link teks vertikal biasa tanpa konteks visual.
+  - **Kisi Sub-Menu Terstruktur**: Kelompokkan item ke dalam kolom-kolom kategori yang dilengkapi judul overline (eyebrow).
+  - **Tiga Unsur Wajib Setiap Sub-Menu**:
+    1. Wadah ikon visual halus (`w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform`).
+    2. Judul tebal dan tegas (`text-sm font-semibold text-white group-hover:text-cyan-400 transition-colors`).
+    3. Deskripsi singkat 1 kalimat yang menjelaskan nilai manfaat fitur (`text-xs text-neutral-400 line-clamp-1`).
+  - **Kontrak Aksesibilitas**: Navigasi keyboard penuh (`aria-expanded`, `aria-haspopup="true"`, `role="menu"`), cincin fokus yang jelas, serta penutupan otomatis saat menekan tombol `Escape`.
+
+#### 7. Instrumen Anatomi Isometrik Gaya Linear & Kartu Penjelasan Fisik
+Saat menjelaskan mekanisme komputasi inti, arsitektur data, atau alur algoritma pada landing page dan dokumentasi, hindari diagram flowchart generik (kotak membosankan berpanah). Terapkan **Standar Kartu Penjelasan Anatomi**:
+- **Rig Mekanis Fisik Taktil**: Wujudkan konsep sebagai instrumen mesin berdensitas tinggi: pelat dasar bermesin, kenop berulir knurled, rel linier, kereta dorong berpegas, bushing perunggu, dan dial gauge terkalibrasi.
+- **Kartu Instrumen Berbingkai (Framed Card)**: Bungkus dalam kartu berelevasi: `Fig n` (kiri atas, font monospace kapital), Judul Fitur (kanan atas, tebal), Petunjuk Interaksi Pengguna (kiri bawah, redup), dan Tampilan Bacaan Langsung (*Live Readout*) real-time (`tabular-nums` di kanan bawah).
+- **Shading Permukaan Empat Nada**: Hierarki pencahayaan tegas: `lo` (bayangan bawah), `mid` (kerangka struktur vertikal), `hi` (permukaan atas), dan tepat satu aksen `lit` (jarum bergerak putih/sian atau probe aktif).
+- **Invarian Lines Resolve**: Setiap garis pembagi penggaris, goresan alur, dan kawat berakhir rapat pada tepi solid atau sekrup terminal; bebas panah melayang tanpa tujuan.
+
 ---
 
 ### Direktif Anti-Slop UI/UX Berdaulat (6 Pilar Desain)
@@ -380,3 +448,12 @@ This generated image MUST be explicitly used as:
 3. The Open Graph (OG) image for SEO metadata (`og:image`).
 
 Do not use placeholders for these assets. Generate and integrate them automatically.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ui-ux-pro-max <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

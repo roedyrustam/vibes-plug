@@ -1,8 +1,8 @@
 ---
 name: state-management-expert
-description: "Expert guide for modern client-side state management: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, and server state patterns with TanStack Query / Panduan ahli untuk manajemen state client-side modern: Zustand, Jotai, Valtio, TanStack Store, Redux Toolkit, dan pola server state dengan TanStack Query."
+description: "Modern client state management: Zustand, Jotai, and TanStack Store / Manajemen state modern client-side: Zustand, Jotai, TanStack Store."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ Connects and orchestrates with relevant domain skills:
 - `ui-ux-pro-max` — Ephemeral UI state management and user interaction feedback.
 - `visual-ui-auditor` — Multimodal vision auditing of UI state transitions and modal triggers.
 - `anti-slop` — Anti-slop state architecture, preventing over-engineered stores and redundant duplicated state.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `solidjs-expert`, `angular-expert`, `svelte-sveltekit-expert`, `vue-frontend-expert`
 
 ### Description
 Expert guide for selecting and implementing the right state management solution for React and Next.js applications. Covers **Zustand 5**, **Jotai 2**, **Valtio**, **TanStack Store**, and **Redux Toolkit 2**, with clear guidance on when to use each, proper separation of server state (TanStack Query) from client state, and advanced patterns like slices, persistence, and devtools integration.
@@ -257,6 +258,18 @@ export function StoreProvider({ children, initialUser }: Props) {
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec state-management-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -270,6 +283,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `ui-ux-pro-max` — Manajemen state interaksi UI dan respons antarmuka pengguna.
 - `visual-ui-auditor` — Audit visual multimodal transisi state UI dan trigger modal.
 - `anti-slop` — Arsitektur state anti-slop, mencegah store berlebihan (over-engineered) dan duplikasi state.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `solidjs-expert`, `angular-expert`, `svelte-sveltekit-expert`, `vue-frontend-expert`
 
 ### Deskripsi
 Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 15. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.
@@ -365,3 +379,12 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   return <Provider store={storeRef.current}>{children}</Provider>;
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec state-management-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

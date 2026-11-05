@@ -8,7 +8,7 @@
  * (Antigravity, Claude Code, Cursor, Codex, Windsurf) with 0 placeholders.
  * 
  * @author Roedy Rustam
- * @version 4.5.0
+ * @version 4.7.0
  */
 
 import fs from 'node:fs/promises';
@@ -160,7 +160,7 @@ export function synthesizeEvolvedSkillMarkdown({ name, category, techName, descr
 name: ${name}
 description: "${enDesc} / ${idDesc}"
 author: "Roedy Rustam"
-version: "4.5.0"
+version: "4.7.0"
 ---
 
 # ${title} (Gold-Standard 2026)

@@ -1,8 +1,8 @@
 ---
 name: blockchain-web3-expert
-description: "Expert guide for Web3 and blockchain dApp integration — viem, wagmi v2, ethers.js v6, RainbowKit, smart contract interactions, and EVM wallet state / Panduan ahli integrasi Web3 dan blockchain."
+description: "Web3 and dApp integration: viem, wagmi v2, ethers.js, and contracts / Integrasi Web3 dan dApp: viem, wagmi v2, ethers.js, dan smart contracts."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Identity & Auth**: `authentication-identity-expert` for Sign-In with Ethereum (SIWE / ERC-4361) and session cookie persistence.
 - **Resilience & Security**: `error-resilience-expert` for RPC failover transports and `post-quantum-crypto-migrator` for future-proof cryptography.
 - **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for dApp product roadmaps.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `agentic-m2m-settlement`, `double-entry-ledger-fintech-expert`, `typescript-expert`, `zero-trust-secret-vault`, `ecommerce-expert`
 
 ### Description
 Production guide for architecting decentralized applications (dApps) across EVM-compatible blockchains (Ethereum, Base, Arbitrum, Optimism, Polygon). Focuses on lightweight, type-safe contract interactions using **viem** and **wagmi v2**, seamless multi-wallet modal integration (**RainbowKit / Reown AppKit**), Sign-In with Ethereum (**SIWE / ERC-4361**), optimistic transaction UI lifecycles, gas fee estimation, and resilient multi-RPC fallback configurations.
@@ -124,9 +125,23 @@ export function TokenBalanceBadge({ tokenAddress }: { tokenAddress: `0x${string}
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec blockchain-web3-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
+- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
@@ -136,6 +151,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Identitas & Autentikasi**: `authentication-identity-expert` untuk Sign-In with Ethereum (SIWE / ERC-4361) dan persistensi cookie sesi.
 - **Ketahanan & Keamanan**: `error-resilience-expert` untuk fallback transport multi-RPC dan `post-quantum-crypto-migrator` untuk algoritma kriptografi tahan-kuantum masa depan.
 - **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk peta jalan produk dApp end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `agentic-m2m-settlement`, `double-entry-ledger-fintech-expert`, `typescript-expert`, `zero-trust-secret-vault`, `ecommerce-expert`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi terdesentralisasi (*dApps*) di seluruh jaringan blockchain kompatibel EVM (Ethereum, Base, Arbitrum, Optimism, Polygon). Berfokus pada interaksi kontrak pintar type-safe yang ringan menggunakan **viem** dan **wagmi v2**, integrasi modal multi-dompet (**RainbowKit / Reown AppKit**), login kriptografis Sign-In with Ethereum (**SIWE / ERC-4361**), siklus transaksi optimistik, estimasi biaya gas, serta konfigurasi multi-RPC fallback yang tangguh.
@@ -188,3 +204,12 @@ export function TransferButton({ tokenAddress, recipient, amount }: Props) {
 1. **Gunakan Viem daripada Ethers v5 Lawas**: Viem dirancang khusus dengan performa tinggi, ukuran bundle 70% lebih kecil, dan inferensi tipe ABI otomatis.
 2. **Wajib Transpor Multi-RPC Fallback**: Jangan bergantung pada satu URL RPC publik yang sering mengalami *rate-limit*. Konfigurasikan penyedia cadangan (Alchemy, Infura, QuickNode).
 3. **Pemberitahuan Status Transaksi Lengkap**: Tampilkan umpan balik visual yang jelas bagi setiap fase: menunggu konfirmasi dompet, proses penambangan blok (*mining*), hingga konfirmasi akhir di blockchain.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec blockchain-web3-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: app-promo-media-expert
-description: "Expert guide for creating high-converting application promotional media — App Store & Google Play screenshots, social promo graphics, dynamic Open Graph banners, Remotion programmatic video teasers, and AI promo showcases / Panduan ahli pembuatan media promosi aplikasi — mockup screenshot App Store & Google Play, kartu promo media sosial, banner Open Graph dinamis, video teaser terprogram Remotion, dan showcase promo berbasis AI."
+description: "App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -25,6 +25,7 @@ version: "4.4.2"
 - **`anti-slop`**: Anti-slop marketing graphics, eliminating generic stock mockups and fake UI artifacts.
 - **`senior-frontend` / `tailwind-expert`**: High-fidelity CSS device frames, canvas compositing, and responsive layout styling.
 - **`zero-to-prod-orchestrator`**: Coordinates Phase 5 (visual assets & UI branding) and Phase 8 (launch, deployment, marketing assets handover).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `design-system-architect`
 
 ### Description
 Production-grade engineering guide for creating high-converting application promotional media across visual still graphics (App Store screenshots, social media cards, dynamic OG banners) and dynamic motion media (Remotion programmatic video teasers, kinetic app walkthroughs, and AI-narrated launch demos).
@@ -390,6 +391,18 @@ async function captureScreens() {
 captureScreens().catch(console.error);
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec app-promo-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -405,6 +418,7 @@ captureScreens().catch(console.error);
 - **`anti-slop`**: Grafis promosi anti-slop, mengeliminasi mockup stok murahan dan artefak UI palsu.
 - **`senior-frontend` / `tailwind-expert`**: Mockup frame gadget CSS dengan presisi tinggi, komposisi canvas, dan styling Tailwind CSS v4.
 - **`zero-to-prod-orchestrator`**: Mengorkestrasi Fase 5 (aset visual UI) dan Fase 8 (peluncuran, deployment, serah terima materi promosi).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `mobile-expo-expert`, `design-system-architect`
 
 ### Deskripsi & Kegunaan
 Panduan rekayasa tingkat produksi untuk membuat media promosi aplikasi berkualitas tinggi, baik materi grafis statis (screenshot App Store & Google Play, banner media sosial, kartu Open Graph dinamis) maupun materi video animasi gerak (video teaser terprogram dengan Remotion React, tur aplikasi kinetik, dan demo peluncuran berbasis AI).
@@ -450,3 +464,12 @@ Panduan rekayasa tingkat produksi untuk membuat media promosi aplikasi berkualit
 # Render video promosi vertikal 9:16 untuk TikTok / Instagram Reels
 npx remotion render src/remotion/index.ts AppPromoTeaser out/promo-teaser.mp4 --props='{"headline":"Bangun Aplikasi Cepat","subheadline":"Didukung Agen AI Otonom","screenshotUrl":"/assets/screen.png"}'
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec app-promo-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

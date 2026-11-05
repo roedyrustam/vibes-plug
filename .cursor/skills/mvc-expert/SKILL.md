@@ -1,8 +1,8 @@
 ---
 name: mvc-expert
-description: "Expert guidelines to refactor legacy PHP codebases into clean, modern, and scalable MVC-structured projects / Pedoman ahli untuk merefaktor codebase PHP lama menjadi proyek terstruktur MVC yang bersih, modern, dan skalabel."
+description: "Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **Security & Database**: `database-orm-expert` (migrating raw `mysql_*` to PDO prepared statements) and `zero-trust-secret-vault` (replacing hardcoded credentials with `.env`).
 - **Quality & Anti-Slop**: `anti-slop` (eliminating code smells, strict type declarations `declare(strict_types=1);`).
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator`.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `fullstack-expert`, `js-backend-expert`, `python-programming-expert`
 
 ### Description
 This skill provides the agent with structured protocols, coding patterns, and architectural guidelines to audit, refactor, and modernize legacy/obsolete PHP codebases (plain spaghetti PHP) into a clean, modern, secure, and scalable Model-View-Controller (MVC) structure adhering to PSR standards and modern PHP (v8.2+) capabilities.
@@ -129,6 +130,18 @@ Active whenever the user requests to:
 - Design an MVC architecture or introduce a clean routing pattern in plain PHP.
 - Implement object-oriented programming (OOP), Composer namespaces (PSR-4), or clean up database access via PDO in a PHP application.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec mvc-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -141,6 +154,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Keamanan & Database**: `database-orm-expert` (migrasi dari `mysql_*` mentah ke PDO prepared statements) dan `zero-trust-secret-vault` (mengganti kredensial hardcoded dengan `.env`).
 - **Kualitas & Anti-Slop**: `anti-slop` (eliminasi code smells, deklarasi tipe ketat `declare(strict_types=1);`).
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator`.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `fullstack-expert`, `js-backend-expert`, `python-programming-expert`
 
 ### Deskripsi
 Skill ini memberikan protokol terstruktur, pola penulisan kode, dan panduan arsitektur bagi agen untuk melakukan audit, refaktorisasi, dan modernisasi terhadap codebase PHP lama yang usang (Plain Spaghetti PHP) menjadi struktur Model-View-Controller (MVC) yang bersih, modern, aman, dan skalabel yang mematuhi standar PSR serta kemampuan PHP modern (v8.2+).
@@ -247,3 +261,12 @@ Aktif setiap kali pengguna meminta untuk:
 - Memodernisasi proyek PHP lama atau script PHP spageti.
 - Merancang arsitektur MVC atau memperkenalkan pola routing yang bersih di plain PHP.
 - Menerapkan pemrograman berorientasi objek (OOP), namespace Composer (PSR-4), atau membersihkan akses database via PDO pada aplikasi PHP.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec mvc-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

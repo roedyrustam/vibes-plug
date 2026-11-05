@@ -1,8 +1,8 @@
 ---
 name: feature-flag-analytics-expert
-description: "Expert guide for Feature Flags & Progressive Rollout (PostHog, LaunchDarkly, GrowthBook), A/B testing orchestration, and canary releases / Panduan ahli Feature Flags, A/B testing, dan rilis bertahap."
+description: "Feature flags, progressive rollouts (PostHog), and A/B testing / Feature flag, rollout bertahap (PostHog), dan pengujian A/B."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -23,6 +23,7 @@ version: "4.4.2"
   - `e2e-testing-expert` — Mock feature flag overrides during automated Playwright test suites.
   - `zero-tech-debt-auditor` — Scan and remove obsolete/deprecated flags to prevent code rot.
   - `session-memory-manager` — Store active flag definitions and progressive rollout percentages.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Description
 Production-grade engineering guide for feature flag management, progressive rollouts (canary releases), A/B testing statistical orchestration, and dynamic server-side/client-side flag evaluation using PostHog, LaunchDarkly, and GrowthBook. Covers zero-flicker server-side bootstrapping in Next.js 15 App Router, deterministic user bucketing, conversion metric tracking, and automated flag lifecycle deprecation.
@@ -112,6 +113,17 @@ export function CheckoutCTA({ orderTotal }: { orderTotal: number }) {
 - [ ] **Server-Side Fallbacks**: Always provide hardcoded safe fallbacks (`false` or `'control'`) if the flag provider times out (>100ms).
 - [ ] **Flag Cleanup Cadence**: Add calendar reminders or GitHub issues to remove flags that reach 100% rollout within 14 days.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec feature-flag-analytics-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
@@ -123,6 +135,7 @@ export function CheckoutCTA({ orderTotal }: { orderTotal: number }) {
   - `e2e-testing-expert` — Melakukan mock nilai flag pada pengujian otomatis Playwright.
   - `zero-tech-debt-auditor` — Menemukan dan membersihkan flag yang sudah kedaluwarsa untuk mencegah code rot.
   - `session-memory-manager` — Menyimpan definisi flag aktif dan persentase rollout progresif.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Deskripsi
 Panduan tingkat produksi untuk manajemen *feature flags*, rilis bertahap (*canary rollout*), orkestrasi pengujian A/B berbasis statistik, dan evaluasi fitur dinamis pada sisi server maupun klien menggunakan PostHog, LaunchDarkly, dan GrowthBook. Mencakup evaluasi server-side tanpa kedip (*zero-flicker*) pada Next.js 15 App Router, segmentasi pengguna deterministik, pelacakan metrik konversi, dan pembersihan siklus hidup flag secara berkala.
@@ -164,3 +177,12 @@ export default async function CheckoutPage() {
 - [ ] **Identitas Pengguna Deterministik**: Gunakan ID pengguna yang konsisten agar pengguna yang sama tidak melihat tampilan yang berubah-ubah saat me-refresh halaman.
 - [ ] **Nilai Fallback Aman**: Tentukan nilai default aman jika layanan pihak ketiga mengalami latensi atau gangguan jaringan.
 - [ ] **Jadwal Pembersihan Flag**: Hapus pengecekan flag dari kode dalam waktu 14 hari setelah fitur diluncurkan 100%.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec feature-flag-analytics-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

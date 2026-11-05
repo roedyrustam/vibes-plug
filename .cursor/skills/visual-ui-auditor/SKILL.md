@@ -1,11 +1,11 @@
 ---
 name: visual-ui-auditor
-description: "Expert guide for multimodal vision UI auditing (Gemini 4 Pro / Flash Vision, Claude 3.7 / 5.1 Sonnet, GPT-5 Vision) against Anti-Slop Pillar 7, 1px crisp borders, 3-tier radius scales, tabular numerals, and WCAG 2.2 AA / Panduan ahli audit visual UI berbasis vision multimodal."
+description: "Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
-# Visual UI Auditor & Vision Quality Gate (Anti-Slop Pillar 7)
+# Visual UI Auditor & Vision Quality Gate (2026 Sovereign Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -14,148 +14,400 @@ version: "4.4.2"
 <a name="english"></a>
 ## English
 
+### Executive Directive & The Vision Imperative (2026 Shift)
+Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. They are completely blind to **spatial breathing room, optical balance, perceived elevation, color clashing, and visual degradation**. A React component can be 100% syntactically valid yet visually repulsive, violating brand aesthetics and suffering from lazy AI design tropes.
+
+**The Visual UI Auditor** establishes an autonomous **Multimodal Vision Quality Gate**. By rendering components via Playwright or Headless Chrome, capturing high-DPI screenshots, and passing them to frontier vision models (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), the auditor inspects rendered pixels against **Anti-Slop Pillar 7 and the 40 Mandatory Anti-Slop Rules (R-01 to R-40)**, automatically synthesizing self-healing CSS diffs.
+
+---
+
 ### Orchestration & Integration
-Connects and orchestrates with relevant domain skills:
-- **`modern-web-guidance`**: Validates modern web standard implementations and platform compliance.
-- **`anti-slop`**: Primary enforcement engine for Pillar 7 visual sanitation, zero-tolerance on generic AI clichés.
-- **`design-system-architect`**: Establishes headless accessible primitives and token scales.
-- **`tailwind-expert`**: Verifies utility cluster correctness, 60-30-10 layering, and focus indicators.
-- **`modern-css-native-expert`**: Validates CSS Anchor Positioning and top-layer transitions.
-- **`ui-ux-pro-max`**: Provides design token palettes, spacing scales, and typography rules.
-- **`screenshot-to-code-expert`**: Validates generated code against the original Figma mockup screenshot.
+- **Upstream Orchestrators**: Works under `brainstorming` and `zero-to-prod-orchestrator` (Phase 5/6 - Frontend Assembly & QA Gate).
+- **Core Design & Anti-Slop Standards**: `anti-slop` (40 Mandatory Anti-Slop Rules R-01 to R-40, Pillar 7 Sovereign UI Craft), `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
+- **E2E Testing & Screen Capture**: `e2e-testing-expert`, `browser-automation-expert`, `screenshot-to-code-expert`.
+- **A11y & Visual Compliance**: `accessibility-testing-expert`, `ui-ux-pro-max`, `hig`.
 
-### Description
-Production guide for automated visual quality auditing using multimodal vision frontier models (Gemini 4 Pro/Flash Vision, Claude 3.7/5.1 Sonnet Vision, GPT-5 Vision). Standard text-based AST linters cannot evaluate spatial breathing room, perceived elevation, optical alignment, or contrast degradation under dynamic lighting. This skill combines automated regex/AST scanners with multimodal vision evaluation to audit UI code and rendered screenshots against the strict Anti-Slop Pillar 7 visual standard: 1px crisp borders, structured 3-tier radius scales, tabular numerals, eradication of generic neon radial glow orbs, and mandatory 5-state interactive contracts.
+---
 
-### Trigger Conditions
-- Reviewing UI components, web pages, or application screenshots prior to release (Phase 5/6).
-- Converting Figma designs or mockup screenshots into code (`screenshot-to-code-expert`).
-- Auditing codebases for AI slop visual clichés (e.g., `bg-gradient-to-r from-blue-500 to-purple-600` or `rounded-full` on standard rectangular buttons).
-- Enforcing WCAG 2.2 Level AA accessibility color contrast and keyboard focus indicators.
-
-### The 20-Point Visual Quality Rubric
+### Core Architectural Topologies
 
 ```
-SCREENSHOT OR UI CODE
-          │
-          ▼
-┌───────────────────────────────┐
-│ 1. STATIC AST / REGEX SCAN    │  Bans `rounded-full` on buttons, generic blue-purple gradients
-└──────────────┬────────────────┘
-               │
-               ▼
-┌───────────────────────────────┐
-│ 2. MULTIMODAL VISION SAMPLING │  Evaluates optical balance, elevation, visual hierarchy
-└──────────────┬────────────────┘
-               │
-               ▼
-┌───────────────────────────────┐
-│ 3. STRUCTURED SCORECARD       │  Score (0-100), Verdict, Pixel-Level Fixes
-└───────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                   MULTIMODAL VISUAL UI AUDIT PIPELINE                  │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. Render Target UI Component (Playwright / Headless Browser)          │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 2. High-DPI Screenshot Capture (1080p Desktop & 390p Mobile)           │
+│                                  │                                     │
+│                                  ▼                                     │
+│ 3. Frontier Vision LLM Audit (Gemini 4 Pro / Claude Sonnet 5.5 Vision) │
+│    • 40 Mandatory Anti-Slop Rules  • 1px Crisp Borders • Tabular-Nums  │
+│    • 7-Domain Visual Inspection    • Ban AI Gradients  • Unsized Media │
+│                                  │                                     │
+│        ┌─────────────────────────┴─────────────────────────┐           │
+│        ▼                                                   ▼           │
+│  [Score >= 90: Passed]                               [Violations Found]│
+│  Generate Audit Certificate                          Emit Exact Diff   │
+│  Proceed to Production                               Patch Tailwind CSS│
+│                                                            │           │
+│                                                            ▼           │
+│                                                  Re-render & Re-verify │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### The 6 Core Visual Laws (Pillar 7)
-1. **Rejection of Pill-Button Addiction**: Standard rectangular action buttons must use structured radius (`rounded-md` 6px or `rounded-lg` 8px). `rounded-full` is strictly prohibited on non-circular/non-badge elements.
-2. **1px Crisp Borders**: Elevated surfaces (dialogs, cards, dropdowns) must use crisp 1px borders (`border border-slate-200 dark:border-slate-800` or `rgba(255,255,255,0.08)`) to ground geometry rather than heavy floating drop-shadows.
-3. **Anti-Generic Gradients**: Generic AI blue-to-purple gradients (`from-blue-500 to-purple-600`) and blurred neon radial backdrops are banned in favor of curated brand palettes.
-4. **Tabular Numerals (`tabular-nums`)**: Monetary sums and data table counts must specify font tabular figures to prevent horizontal character shifting during live updates.
-5. **5-State Interactive Affordance**: Buttons and controls must provide clear visual states for `default`, `hover`, `focus-visible`, `active` (pressed), and `disabled`.
-6. **Anti-Decorative Emojis**: Prohibits rocket (`🚀`), sparkles (`✨`), and fire (`🔥`) clutter in enterprise titles and badges.
+#### The 7-Domain Multimodal Inspection Checklist (Antislop UI Canonical Standard)
+1. **Visual & Color Craft**:
+   - Crisp 1px grounded borders (`border border-neutral-200/80 dark:border-neutral-800`). No blurry borderless box-shadows.
+   - Three-Tier Radius: `rounded-lg` (8px) controls, `rounded-xl` (12px) cards, `rounded-2xl` (16px) modals. `rounded-full` banned on rectangular buttons.
+   - Ban generic blue-purple gradients (`from-blue-600 to-purple-600`) and blurred neon glow orbs.
+   - No excessive stacked glassmorphism (`backdrop-blur-md` abuse).
+2. **Layout & Spatial Rhythm**:
+   - Reject repetitive 3-column copy-paste feature grids and bento box abuse without content hierarchy.
+   - Enforce breathing room: distinct section spacing (`py-16 md:py-24`) instead of cramped uniform margins.
+   - Ground layouts: no fake logo ticker rows with made-up placeholder company names.
+3. **Decorative Element Sanitation**:
+   - Zero AI sparkles (✨), generic stars, or disconnected 3D floating clay blobs.
+   - Remove trailing decorative arrows on standard buttons (`Get Started →`).
+   - Strip fake radar status dots (`animate-ping` on static badges without live WebSocket connection).
+4. **Structural & Navigation Flow**:
+   - Zero dead anchor links (`href="#"`). Use meaningful anchor IDs or interactive button triggers.
+   - Mandatory 5-state affordance for all interactive elements (`default`, `hover`, `active`, `focus-visible`, `disabled`).
+5. **App & Dashboard Fidelity**:
+   - No invented stat cards without business queries (e.g. "+24.5% vs last month" on static data).
+   - Require real chart axes, legible domain tooltips, and meaningful tabular data.
+6. **Motion & Interaction Elegance**:
+   - Ban endless looping pulse or bounce animations on static CTAs (`animate-pulse`, `animate-bounce`).
+   - Respect user accessibility preferences with mandatory `motion-reduce:transition-none` / `prefers-reduced-motion`.
+7. **Performance & Core Web Vitals (Anti-Slop R-40)**:
+   - Mandatory explicit dimensions or aspect ratios on media elements (`aspect-video`, `w-full h-auto`) to guarantee CLS = 0.
+   - Mandatory `tabular-nums` on all numbers, currencies, dates, and live statistics to eliminate layout shift during re-renders.
+   - WCAG 2.2 AA Contrast Compliance: 4.5:1 text contrast for body, 3:1 for large headings across light/dark themes.
 
-### Playwright Visual Regression Testing Snippet
+---
 
+### Production Implementation Blueprints
+
+#### Blueprint 1: Multimodal Vision UI Audit Engine (`engine/visual-ui-auditor.ts`)
 ```typescript
-// tests/visual/dashboard.spec.ts
-import { test, expect } from '@playwright/test';
+import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
+import { z } from 'zod';
+import fs from 'node:fs/promises';
 
-test.describe('Visual UI Quality Gate', () => {
-  test('dashboard should adhere to Anti-Slop Pillar 7 visual standards', async ({ page }) => {
+export const VisualViolationSchema = z.object({
+  category: z.enum([
+    'PILL_BUTTON_OBSESSION',
+    'MISSING_1PX_BORDER',
+    'MISSING_TABULAR_NUMS',
+    'GENERIC_AI_GRADIENT',
+    'CONTRAST_DEFECT',
+    'SPATIAL_IMBALANCE',
+    'UNSIZED_MEDIA_CLS',
+    'FAKE_STATUS_DOT',
+    'ENDLESS_LOOP_ANIMATION',
+    'DEAD_ANCHOR_ACCESSIBILITY',
+  ]),
+  description: z.string(),
+  elementSelector: z.string(),
+  suggestedTailwindFix: z.string(),
+  severity: z.enum(['CRITICAL', 'WARNING', 'SUGGESTION']),
+});
+
+export const VisualAuditScorecardSchema = z.object({
+  overallScore: z.number().min(0).max(100),
+  pillar7Compliance: z.boolean(),
+  wcagAaPassed: z.boolean(),
+  summary: z.string(),
+  violations: z.array(VisualViolationSchema),
+  correctedCodePatch: z.string().optional(),
+});
+
+export type VisualAuditScorecard = z.infer<typeof VisualAuditScorecardSchema>;
+
+export class VisualUiAuditor {
+  public static async auditScreenshot(
+    screenshotPath: string,
+    componentSourceCode?: string
+  ): Promise<VisualAuditScorecard> {
+    const imageBuffer = await fs.readFile(screenshotPath);
+    const base64Image = imageBuffer.toString('base64');
+
+    const auditPrompt = [
+      'You are the Master Visual UI Auditor enforcing Anti-Slop Pillar 7 and Rules R-01 to R-40.',
+      'Analyze the provided screenshot of the rendered web interface with pixel-level scrutiny across 7 core domains.',
+      '',
+      'INSPECTION CRITERIA:',
+      '1. Crisp 1px Borders: Ensure all cards, containers, and inputs have grounded 1px borders.',
+      '2. Pill Button Ban: Flag any rectangular buttons utilizing rounded-full (pill addiction).',
+      '3. Tabular Numerals: Ensure all prices, currency values, metrics, and dates use tabular-nums.',
+      '4. Ban Generic AI Clichés: Flag purple-blue gradients, blurry neon orbs, or floating 3D clay blobs.',
+      '5. Performance & Media: Verify images have aspect-ratio / width-height to prevent CLS (R-40).',
+      '6. Motion Cleanliness: Flag endless loop pulse/bounce animations on static elements.',
+      '7. Spatial Hierarchy & A11y: Verify clean padding, 5-state affordance, and WCAG 2.2 AA contrast.',
+      '',
+      componentSourceCode ? `COMPONENT SOURCE CODE:\n${componentSourceCode}` : '',
+    ].join('\n');
+
+    // Invariant: If Gemini 4 Pro is unavailable/unprovisioned, gracefully fall back to Gemini 3.8 Flash
+    try {
+      const result = await generateObject({
+        model: google('gemini-4-pro'),
+        schema: VisualAuditScorecardSchema,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: auditPrompt },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${base64Image}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return result.object;
+    } catch (error) {
+      console.warn('[VisualUiAuditor] Gemini 4 Pro unavailable. Falling back to Gemini 3.8 Flash:', error);
+      const fallbackResult = await generateObject({
+        model: google('gemini-3.8-flash'),
+        schema: VisualAuditScorecardSchema,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: auditPrompt },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${base64Image}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return fallbackResult.object;
+    }
+  }
+}
+```
+
+---
+
+#### Blueprint 2: Playwright Automated Visual Audit Test (`tests/visual-audit.spec.ts`)
+```typescript
+import { test, expect } from '@playwright/test';
+import path from 'node:path';
+import { VisualUiAuditor } from '../engine/visual-ui-auditor';
+
+test.describe('Automated Visual UI Quality Gate', () => {
+  test('audit dashboard against Anti-Slop Pillar 7 standards', async ({ page }) => {
     await page.goto('/dashboard');
     await page.waitForLoadState('networkidle');
 
-    // Check 1: Verify buttons do NOT use rounded-full (pill button addiction)
-    const pillButtons = await page.$$eval(
-      'button:not([data-badge]):not([data-icon-only])',
-      (buttons) => buttons.filter((b) => getComputedStyle(b).borderRadius === '9999px').length
-    );
-    expect(pillButtons).toBe(0);
+    // 1. Capture High-DPI Screenshot
+    const screenshotPath = path.resolve('test-results/dashboard-audit.png');
+    await page.screenshot({ path: screenshotPath, fullPage: true });
 
-    // Check 2: Verify monetary values use tabular-nums
-    const priceElements = await page.$$eval('.price-tag', (elements) =>
-      elements.every((el) => getComputedStyle(el).fontVariantNumeric.includes('tabular-nums'))
-    );
-    expect(priceElements).toBe(true);
+    // 2. Execute Multimodal Vision Audit
+    const scorecard = await VisualUiAuditor.auditScreenshot(screenshotPath);
 
-    // Check 3: Pixel-level screenshot regression comparison
-    await expect(page).toHaveScreenshot('dashboard-baseline.png', {
-      maxDiffPixelRatio: 0.02,
-    });
+    console.log(`[Visual Audit Score]: ${scorecard.overallScore}/100`);
+    if (scorecard.violations.length > 0) {
+      console.table(scorecard.violations);
+    }
+
+    // 3. Strict Quality Threshold
+    expect(scorecard.overallScore).toBeGreaterThanOrEqual(90);
+    expect(scorecard.pillar7Compliance).toBe(true);
   });
 });
 ```
 
-### CLI Execution via Vibes Tooling
-```bash
-# Audit a code snippet directly:
-vibes visual-audit '<button className="rounded-lg border border-slate-200 px-4 py-2 hover:bg-slate-50 font-medium tabular-nums">Pay $150.00</button>'
-
-# Audit a screenshot image file:
-vibes visual-audit assets/dashboard-screenshot.png
-```
-
-## Orchestration & Integration
-- **`screenshot-to-code-expert`**: Validates generated code against the original Figma mockup screenshot.
-- **`ui-ux-pro-max`**: Provides design token palettes, spacing scales, and typography rules.
-- **`design-system-architect`**: Establishes headless accessible primitives and token scales.
-- **`anti-slop`**: Audits and rejects low-quality visual fluff and AI clichés.
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec visual-ui-auditor <audit|eval|verify|generate|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate`, `vibes_visual_heal` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
 
+### Direktif Eksekutif & Kebutuhan Audit Visual Multimodal (Pergeseran 2026)
+Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis secara abstrak. Mereka sama sekali buta terhadap **keseimbangan optik, pernapasan tata letak (*spatial breathing room*), elevasi permukaan, dan tabrakan warna**. Sebuah komponen React bisa saja lolos 100% dari galat kompilasi namun secara visual terlihat buruk dan dipenuhi klise AI murahan.
+
+**Visual UI Auditor** menyediakan **Gerbang Kualitas Visual Multimodal** otonom. Dengan merender komponen melalui Playwright, menangkap tangkapan layar beresolusi tinggi, dan memeriksanya menggunakan model vision frontier (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), auditor memeriksa setiap piksel terhadap **Pilar 7 Anti-Slop dan 40 Aturan Wajib Anti-Slop (R-01 hingga R-40)** serta menghasilkan rekomendasi perbaikan CSS secara otomatis.
+
+---
+
 ### Integrasi Orkestrasi
-Terhubung dan mengorkestrasi bersama `modern-web-guidance`, `anti-slop`, `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`, `ui-ux-pro-max`, `screenshot-to-code-expert`, dan `senior-frontend` untuk mengaudit antarmuka visual terhadap penegakan Anti-Slop Directive Pilar 7 dan standar WCAG 2.2 AA.
+- **Orkestrator Hulu**: Beroperasi di bawah arahan `brainstorming` dan `zero-to-prod-orchestrator` (Fase 5/6 - Perakitan Frontend & QA).
+- **Standar Desain & Anti-Slop**: `anti-slop` (40 Aturan Wajib Anti-Slop R-01 s.d. R-40, Pilar 7 Kerajinan UI Berdaulat), `design-system-architect`, `tailwind-expert`, `modern-css-native-expert`.
+- **Pengujian E2E & Tangkapan Layar**: `e2e-testing-expert`, `browser-automation-expert`, `screenshot-to-code-expert`.
+- **Aksesibilitas & Kepatuhan Visual**: `accessibility-testing-expert`, `ui-ux-pro-max`, `hig`.
 
-### Deskripsi
-Panduan produksi untuk audit kualitas visual otomatis menggunakan model frontier vision multimodal (Gemini 4 Pro/Flash Vision, Claude 3.7/5.1 Vision, GPT-5 Vision). Linter berbasis teks tidak dapat menilai bobot spasial, elevasi permukaan, maupun kontras warna dinamis. Skill ini menggabungkan heuristik kode statis dengan rubrik vision multimodal untuk memeriksa screenshot dan kode sumber UI terhadap 6 hukum visual utama: border 1px presisi, skala 3-tier radius, angka tabular, pembersihan gradien klise AI, dan kontrak interaktif 5-state.
+---
 
-### Kondisi Pemicu
-- Meninjau tampilan komponen UI atau screenshot aplikasi sebelum rilis produksi (Fase 5/6).
-- Mengonversi desain atau mockup visual ke dalam kode modern (`screenshot-to-code-expert`).
-- Menghapus elemen klise visual AI generik (gradien biru-ungu, tombol *pill* bulat berlebih, drop-shadow mengambang).
-- Menegakkan kepatuhan aksesibilitas WCAG 2.2 Level AA.
+### Matriks Audit UI Multimodal 7-Domain (Standar Kanonikal Antislop UI)
+1. **Kerajinan Visual & Warna**:
+   - Border 1px tegas pada kontainer/kartu (`border border-neutral-200/80 dark:border-neutral-800`). Bayangan tebal mengambang tanpa batas dilarang.
+   - Skala radius 3-tingkat: 8px kontrol, 12px kartu, 16px modal. Tombol pil (`rounded-full`) pada tombol aksi standar dilarang keras.
+   - Dilarang memakai gradien ungu-biru AI murah (`from-blue-600 to-purple-600`) dan bola neon blur.
+   - Hindari tumpukan glassmorphism berlebihan (`backdrop-blur-md`).
+2. **Tata Letak & Irama Spasial**:
+   - Tolak grid bento yang dipaksakan dan kartu fitur duplikat 3-kolom tanpa hierarki nyata.
+   - Jaga ruang bernapas (`py-16 md:py-24`) alih-alih margin sempit yang seragam.
+   - Larangan baris logo mitra palsu dengan nama fiktif buatan AI.
+3. **Pembersihan Elemen Dekoratif**:
+   - Nol emotikon sparkle (✨), bintang generik, atau ilustrasi blob tanah liat 3D yang mengambang tanpa makna.
+   - Hapus panah buntut pada tombol standar (`Mulai Sekarang →`).
+   - Bersihkan titik radar palsu (`animate-ping` pada lencana statis tanpa koneksi WebSocket aktif).
+4. **Alur Navigasi & Struktur**:
+   - Nol tautan mati (`href="#"`). Gunakan tautan jangkar nyata atau elemen tombol interaktif.
+   - Kontrak 5-state wajib untuk seluruh kontrol interaktif (`default`, `hover`, `active`, `focus-visible`, `disabled`).
+5. **Fidelitas Aplikasi & Dashboard**:
+   - Hindari kartu statistik dengan metrik fiktif ("+24.5% vs bulan lalu" pada data statis).
+   - Pastikan grafik memiliki sumbu yang jelas, tooltip domain yang bermakna, dan data tabular yang nyata.
+6. **Keanggunan Gerak & Interaksi**:
+   - Larangan animasi loop abadi tanpa henti pada tombol statis (`animate-pulse`, `animate-bounce`).
+   - Wajib menghormati preferensi aksesibilitas pengguna via `prefers-reduced-motion`.
+7. **Performa & Web Baseline (Anti-Slop R-40)**:
+   - Wajib menyertakan dimensi eksplisit atau rasio aspek pada media (`aspect-video`, `w-full h-auto`) untuk mencegah CLS.
+   - Wajib menyertakan `tabular-nums` pada angka moneter, harga, persentase, dan tanggal.
+   - Kepatuhan kontras WCAG 2.2 AA: minimal 4.5:1 untuk teks dan 3:1 untuk judul besar.
 
-### 6 Hukum Mutlak Kualitas Visual (Anti-Slop Pilar 7)
-1. **Larangan Tombol Kapsul Bulat (*Pill Button*)**: Tombol aksi persegi panjang wajib menggunakan radius terstruktur (`rounded-md` 6px atau `rounded-lg` 8px). Penggunaan `rounded-full` dilarang keras kecuali untuk avatar atau badge status kecil.
-2. **Border 1px Presisi**: Kartu, dialog, dan popover wajib memiliki garis tepi 1px (`border border-slate-200 dark:border-slate-800`) agar geometri antarmuka terlihat tegas dan kokoh, bukan mengambang dengan bayangan berlebihan.
-3. **Pemberantasan Gradien Generik AI**: Gradien klise biru-ke-ungu (`from-blue-500 to-purple-600`) dan efek orb neon blur dilarang. Gunakan palet warna slate monokrom elegan yang mencerminkan kualitas Linear/Stripe/Apple.
-4. **Angka Tabular (`tabular-nums`)**: Kolom data angka dan mata uang wajib menerapkan `tabular-nums` agar lebar karakter seragam dan tidak bergeser saat nilai diperbarui secara langsung.
-5. **Kontrak Interaktif 5 Status**: Setiap tombol dan kontrol wajib memiliki status visual lengkap: *default*, *hover*, *focus-visible* (ring aksesibilitas keyboard), *active* (saat ditekan), dan *disabled*.
-6. **Bebas Polusi Emoji Dekoratif**: Judul dasbor enterprise dilarang dipenuhi emoji dekoratif seperti 🚀, ✨, atau 🔥.
+---
 
-### Contoh Tombol Profesional Kualitas Stripe / Linear
+### Blueprint Implementasi Produksi
 
-```tsx
-// src/components/ui/Button.tsx
-export function PrimaryButton({ children, onClick, disabled }: Props) {
-  return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className="
-        inline-flex items-center justify-center
-        rounded-lg border border-slate-900 bg-slate-900 px-4 py-2 text-sm font-medium text-white
-        transition-colors duration-150
-        hover:bg-slate-800 hover:border-slate-800
-        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2
-        active:bg-slate-950 active:scale-[0.98]
-        disabled:pointer-events-none disabled:opacity-50
-        tabular-nums shadow-xs
-      "
-    >
-      {children}
-    </button>
-  );
+#### Blueprint 1: Mesin Audit UI Multimodal (`engine/visual-ui-auditor.ts`)
+```typescript
+import { generateObject } from 'ai';
+import { google } from '@ai-sdk/google';
+import { z } from 'zod';
+import fs from 'node:fs/promises';
+
+export const SkemaPelanggaranVisual = z.object({
+  kategori: z.enum([
+    'TOMBOL_PIL_BERLEBIHAN',
+    'BORDER_1PX_HILANG',
+    'ANGKA_TABULAR_HILANG',
+    'GRADIEN_AI_KLISE',
+    'CACAT_KONTRAS',
+    'KETIDAKSEIMBANGAN_SPASIAL',
+    'MEDIA_TANPA_UKURAN_CLS',
+    'TITIK_STATUS_PALSU',
+    'ANIMASI_LOOP_ABADI',
+    'TAUTAN_MATI_AKSESIBILITAS',
+  ]),
+  deskripsi: z.string(),
+  selektorElemen: z.string(),
+  saranPerbaikanTailwind: z.string(),
+  tingkatKeparahan: z.enum(['KRITIS', 'PERINGATAN', 'SARAN']),
+});
+
+export const SkemaKartuSkorVisual = z.object({
+  skorKeseluruhan: z.number().min(0).max(100),
+  kepatuhanPilar7: z.boolean(),
+  lolosWcagAa: z.boolean(),
+  ringkasan: z.string(),
+  pelanggaran: z.array(SkemaPelanggaranVisual),
+  patchKodePerbaikan: z.string().optional(),
+});
+
+export type KartuSkorVisual = z.infer<typeof SkemaKartuSkorVisual>;
+
+export class VisualUiAuditorId {
+  public static async auditScreenshot(
+    jalurScreenshot: string,
+    kodeSumberKomponen?: string
+  ): Promise<KartuSkorVisual> {
+    const bufferGambar = await fs.readFile(jalurScreenshot);
+    const gambarBase64 = bufferGambar.toString('base64');
+
+    const promptAudit = [
+      'Anda adalah Master Visual UI Auditor yang menegakkan Anti-Slop Pilar 7 dan Aturan R-01 hingga R-40.',
+      'Analisis screenshot antarmuka web yang diberikan dengan ketelitian piksel tinggi pada 7 domain visual utama.',
+      '',
+      'KRITERIA PEMERIKSAAN:',
+      '1. Border 1px Tegas: Pastikan seluruh kartu dan kontainer memiliki border 1px yang nyata.',
+      '2. Larangan Tombol Pil: Tandai tombol persegi panjang yang memakai rounded-full.',
+      '3. Angka Tabular: Pastikan harga, kuantitas, dan tanggal menggunakan tabular-nums.',
+      '4. Larangan Klise AI: Tandai gradien ungu-biru murah, efek neon blur orb, dan blob 3D tak bermakna.',
+      '5. Performa & Media: Pastikan gambar memiliki aspect-ratio/dimensi untuk mencegah CLS (R-40).',
+      '6. Animasi Bersih: Larang animasi loop abadi pulse/bounce pada tombol statis.',
+      '7. Hierarki Spasial: Periksa keselarasan padding, kontrak 5-state, dan kontras WCAG 2.2 AA.',
+      '',
+      kodeSumberKomponen ? `KODE SUMBER KOMPONEN:\n${kodeSumberKomponen}` : '',
+    ].join('\n');
+
+    // Invarian: Jika Gemini 4 Pro belum tersedia/unprovisioned, alihkan ke Gemini 3.8 Flash secara otomatis
+    try {
+      const hasil = await generateObject({
+        model: google('gemini-4-pro'),
+        schema: SkemaKartuSkorVisual,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: promptAudit },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${gambarBase64}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return hasil.object;
+    } catch (kesalahan) {
+      console.warn('[VisualUiAuditorId] Gemini 4 Pro tidak tersedia. Mengalihkan ke Gemini 3.8 Flash:', kesalahan);
+      const hasilCadangan = await generateObject({
+        model: google('gemini-3.8-flash'),
+        schema: SkemaKartuSkorVisual,
+        messages: [
+          {
+            role: 'user',
+            content: [
+              { type: 'text', text: promptAudit },
+              {
+                type: 'image',
+                image: `data:image/png;base64,${gambarBase64}`,
+              },
+            ],
+          },
+        ],
+      });
+
+      return hasilCadangan.object;
+    }
+  }
 }
 ```
+
+---
+
+### Panduan Praktik Terbaik
+
+1. **Jadikan Gerbang Kualitas Otomatis**: Integrasikan pengujian tangkapan layar Playwright ke alur CI/CD agar setiap PR yang memuat perubahan visual diverifikasi sebelum rilis.
+2. **Prioritaskan Angka Tabular**: Selalu sertakan utilitas `tabular-nums` pada komponen tabel finansial, dashboard transaksi, dan penghitung mundur.
+3. **Patuhi Batas Skor Minimum 90**: Tolak kode yang memiliki skor visual < 90 atau melanggar aturan border 1px dan larangan tombol pil.
+4. **Pencegahan CLS & Media**: Selalu sediakan rasio aspek (`aspect-video` atau dimensi eksplisit) pada seluruh tag gambar untuk memenuhi aturan R-40.
+5. **Protokol Fallback Ketersediaan**: Jika Gemini 4 Pro Vision belum terpasang atau mengalami pembatasan kuota, audit visual dialihkan secara otomatis ke Gemini 3.8 Flash Vision tanpa menghentikan pipeline CI.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec visual-ui-auditor <audit|eval|verify|generate|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate`, `vibes_visual_heal` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

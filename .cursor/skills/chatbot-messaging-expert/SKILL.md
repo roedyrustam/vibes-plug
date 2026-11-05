@@ -1,8 +1,8 @@
 ---
 name: chatbot-messaging-expert
-description: "Expert guide for chatbot and messaging platform integration (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) and conversational AI / Panduan ahli integrasi chatbot dan platform messaging (WhatsApp Business, Telegram Bot, Discord.js, Slack Bolt) dan AI percakapan."
+description: "Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack / Integrasi chatbot & messaging: WhatsApp, Telegram, Discord, Slack."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ Connects and orchestrates with domain skills:
 - **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, and `voice-ai-realtime-agent` for generative responses, RAG retrieval, and real-time socket connections.
 - **Queue & Resilience**: `async-queue-temporal-expert` and `rate-limit-abuse-prevention` for webhook ingestion, BullMQ job queues, and anti-spam protection.
 - **Lifecycle**: `brainstorming` and `zero-to-prod-orchestrator` for structured conversational system delivery.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `n8n-automation-expert`, `email-notification-expert`
 
 ### Description
 Production guide for architecting, deploying, and scaling conversational bots across enterprise messaging platforms: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), and LINE Messaging API. Covers cryptographic webhook verification (Meta `hub.challenge` and Slack `v0` HMAC signatures), interactive UI components (buttons, carousels, quick replies), session state persistence, media streaming, and integration with AI tool calling engines.
@@ -123,6 +124,18 @@ bot.callbackQuery('action_order', async (ctx) => {
 });
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec chatbot-messaging-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -135,6 +148,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **AI & Realtime**: `ai-llm-integration-expert`, `sse-websocket-streaming-expert`, dan `voice-ai-realtime-agent` untuk jawaban generatif cerdas, RAG retrieval, dan koneksi socket dua arah.
 - **Antrean & Ketahanan**: `async-queue-temporal-expert` dan `rate-limit-abuse-prevention` untuk penyerapan webhook, antrean job BullMQ, dan pencegahan spam DDoS.
 - **Siklus Hidup**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi sistem percakapan end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `n8n-automation-expert`, `email-notification-expert`
 
 ### Deskripsi
 Panduan produksi untuk merancang, meluncurkan, dan menskalakan bot percakapan di berbagai platform perpesanan terkemuka: WhatsApp Business Cloud API, Telegram Bot API (via grammY), Discord.js v14, Slack Bolt (Block Kit), dan LINE Messaging API. Mencakup verifikasi webhook kriptografis (jabat tangan Meta `hub.challenge` dan tanda tangan HMAC Slack `v0`), komponen interaktif (tombol, list menu, keyboard inline), persistensi sesi pengguna, penanganan media, serta integrasi pemanggilan fungsi AI (*tool calling*).
@@ -191,3 +205,12 @@ slackApp.command('/faktur', async ({ command, ack, respond }) => {
 1. **Respons Webhook < 3 Detik**: WhatsApp, Slack, dan Telegram akan memutus koneksi jika endpoint tidak mengembalikan HTTP 200 dalam 3 detik. Kembalikan respons 200 terlebih dahulu, lalu proses pembuatan jawaban AI secara asinkron di latar belakang (*background job*).
 2. **Validasi Tanda Tangan Kriptografis**: Selalu periksa tanda tangan incoming payload (`x-hub-signature-256` di WhatsApp atau `x-slack-signature` di Slack) untuk mencegah pihak ketiga mengirim pesan palsu ke server Anda.
 3. **Penyimpanan Sesi Percakapan**: Simpan konteks percakapan di Redis dengan TTL terukur agar pengguna dapat melanjutkan percakapan tanpa kehilangan konteks.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec chatbot-messaging-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

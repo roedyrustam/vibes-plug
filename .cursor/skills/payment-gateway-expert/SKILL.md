@@ -1,8 +1,8 @@
 ---
 name: payment-gateway-expert
-description: "Expert guide for integrating payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) and secure webhooks into SaaS platforms / Panduan ahli integrasi payment gateway dan webhook aman."
+description: "Payment gateways integration (Stripe, Midtrans) and secure webhooks / Integrasi payment gateway (Stripe, Midtrans) dan webhook aman."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ version: "4.4.2"
 - **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Background Jobs & Observability**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Description
 Expert guide for integrating major payment gateways (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) into modern SaaS platforms. Covers checkout flows, secure raw-body webhook handling, atomic idempotency to prevent race conditions, subscription state machines, and local database synchronization.
@@ -104,8 +105,85 @@ async function grantUserSubscription(invoiceNumber: string) {
 }
 ```
 
+### Example 2: Multi-Provider Timing-Safe Webhook Signature Verifier (Stripe + DOKU Checkout + Midtrans)
+```typescript
+import crypto from 'node:crypto';
+
+export type PaymentProvider = 'stripe' | 'doku-checkout' | 'midtrans';
+
+export function verifyGatewayWebhookSignature(params: {
+  readonly provider: PaymentProvider;
+  readonly rawBody: string;
+  readonly signatureHeader: string;
+  readonly secret: string;
+  readonly clientId?: string;
+  readonly requestId?: string;
+  readonly requestTimestamp?: string;
+  readonly requestTarget?: string;
+}): boolean {
+  let expected = '';
+
+  if (params.provider === 'stripe') {
+    expected = crypto.createHmac('sha256', params.secret).update(params.rawBody, 'utf8').digest('hex');
+  } else if (params.provider === 'doku-checkout') {
+    const digest = crypto.createHash('sha256').update(params.rawBody, 'utf8').digest('base64');
+    const component = [
+      `Client-Id:${params.clientId ?? ''}`,
+      `Request-Id:${params.requestId ?? ''}`,
+      `Request-Timestamp:${params.requestTimestamp ?? ''}`,
+      `Request-Target:${params.requestTarget ?? ''}`,
+      `Digest:${digest}`
+    ].join('\n');
+    const hmac = crypto.createHmac('sha256', params.secret).update(component, 'utf8').digest('base64');
+    expected = `HMACSHA256=${hmac}`;
+  } else {
+    expected = crypto.createHash('sha512').update(params.rawBody + params.secret, 'utf8').digest('hex');
+  }
+
+  const a = Buffer.from(params.signatureHeader, 'utf8');
+  const b = Buffer.from(expected, 'utf8');
+  if (a.byteLength !== b.byteLength) {
+    return false;
+  }
+  return crypto.timingSafeEqual(a, b);
+}
+```
+
+### Example 3: PostgreSQL Atomic Webhook Inbox & Outbox Locking DDL (`SKIP LOCKED`)
+```sql
+CREATE TABLE IF NOT EXISTS payment_webhook_inbox (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id UUID NOT NULL,
+  provider VARCHAR(32) NOT NULL,
+  idempotency_key VARCHAR(128) NOT NULL UNIQUE,
+  raw_payload JSONB NOT NULL,
+  status VARCHAR(24) NOT NULL DEFAULT 'PENDING',
+  attempt_count INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  processed_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_webhook_inbox_pending
+  ON payment_webhook_inbox (status, created_at)
+  WHERE status = 'PENDING';
+
+ALTER TABLE payment_webhook_inbox ENABLE ROW LEVEL SECURITY;
+```
+
 ### Trigger Conditions
 Active whenever the user is working on billing integration, payment checkout, webhook handling, or integrating platforms like PayPal, Stripe, Xendit, Midtrans, or DOKU SNAP BI.
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -119,6 +197,7 @@ Active whenever the user is working on billing integration, payment checkout, we
 - **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Antrean Latar Belakang & Observabilitas**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan payment gateway utama (Stripe, PayPal, Xendit, Midtrans, DOKU SNAP BI) ke platform SaaS modern. Mencakup alur checkout, penanganan webhook raw-body aman, pencegahan race condition melalui atomic update, state machine langganan, dan sinkronisasi database lokal.
@@ -176,3 +255,12 @@ export async function POST(req: Request) {
   return new Response(JSON.stringify({ status: 'BERHASIL' }), { status: 200 });
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

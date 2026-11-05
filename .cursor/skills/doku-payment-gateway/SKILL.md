@@ -1,8 +1,8 @@
 ---
 name: doku-payment-gateway
-description: "Expert guide for integrating DOKU Payment Gateway: DOKU Checkout (Hosted & Modal Popup with HMAC-SHA256), Direct API SNAP BI Standard (VA, QRIS, Direct Debit with HMAC-SHA512), and Direct API Non-SNAP (Card Payment Page, OVO Push). Covers single-integration checkout, direct host-to-host APIs, webhook verification, and atomic idempotency / Panduan ahli integrasi DOKU Payment Gateway (DOKU Checkout & Direct API)."
+description: "DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks / Gateway pembayaran DOKU: Checkout, SNAP BI (VA, QRIS), dan webhook."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -22,6 +22,7 @@ version: "4.4.2"
 - **Security & Post-Quantum Crypto**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Async Processing & Observability**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Description
 Expert guide for implementing DOKU Payment Gateway based on the official [DOKU Developers Documentation](https://developers.doku.com/).
@@ -540,6 +541,18 @@ export class DokuService {
 | OVO Push timeout too short | premature failure | OVO push payments require up to **70 seconds** client timeout while the user confirms on mobile. |
 | Non-atomic database updates | Race condition double top-up | Always guard webhook fulfillments with atomic SQL updates (`WHERE status = 'PENDING'`). |
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec doku-payment-gateway <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -552,6 +565,7 @@ export class DokuService {
 - **Keamanan & Kriptografi Pasca-Kuantum**: `post-quantum-crypto-migrator`, `zero-trust-secret-vault`, `autonomous-red-teamer`
 - **Pemrosesan Asinkron & Observabilitas**: `async-queue-temporal-expert`, `data-telemetry-expert`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`, `anti-slop`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `double-entry-ledger-fintech-expert`, `ecommerce-expert`
 
 ### Deskripsi
 Panduan ahli untuk mengintegrasikan DOKU Payment Gateway berdasarkan dokumentasi resmi [DOKU Developers Portal](https://developers.doku.com/).
@@ -578,3 +592,12 @@ DOKU menyediakan 2 model integrasi utama:
 - **URL Simulator**: `https://sandbox.doku.com/gtw-config-v2/simulator`
 - **QRIS Simulator**: `https://sandbox.doku.com/qris-simulator/`
 Gunakan simulator resmi di atas untuk menguji transaksi Virtual Account dan QRIS dalam mode Sandbox sebelum deployment ke produksi.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec doku-payment-gateway <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

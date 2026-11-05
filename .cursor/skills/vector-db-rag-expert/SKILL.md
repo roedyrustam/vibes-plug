@@ -1,8 +1,8 @@
 ---
 name: vector-db-rag-expert
-description: "Expert guide for high-performance Vector Databases, Deep RAG architectures, pgvector 0.8+ HNSW, Reciprocal Rank Fusion (RRF), Cross-Encoder Re-ranking, and Late Chunking / Panduan ahli Vector DB, arsitektur Deep RAG, pgvector HNSW, RRF, dan Re-ranking."
+description: "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -49,7 +49,7 @@ export interface ChunkWithContext {
 }
 
 /**
- * Generates chunk-specific context using a fast model (Gemini 2.5 Flash)
+ * Generates chunk-specific context using a fast model (Gemini 4 Argon / Gemini 3.8 Flash)
  * following the Anthropic Contextual Retrieval methodology
  */
 export async function generateContextualChunk(
@@ -69,10 +69,21 @@ ${chunkText}
 
 Please give a short, succinct context (1-2 sentences) to situate this chunk within the overall document for search retrieval. Answer only with the context.`;
 
-  const { text: contextSummary } = await generateText({
-    model: google('gemini-2.5-flash'),
-    prompt,
-  });
+  // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+  let contextSummary = '';
+  try {
+    const res = await generateText({
+      model: google('gemini-4-argon'),
+      prompt,
+    });
+    contextSummary = res.text;
+  } catch {
+    const res = await generateText({
+      model: google('gemini-3.8-flash'),
+      prompt,
+    });
+    contextSummary = res.text;
+  }
 
   const contextualizedText = `${contextSummary.trim()}\n\n${chunkText}`;
 
@@ -167,6 +178,18 @@ export async function rerankCandidates(
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec vector-db-rag-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -215,10 +238,21 @@ ${teksChunk}
 
 Berikan konteks singkat (1-2 kalimat) untuk menempatkan chunk ini dalam dokumen secara utuh demi akurasi pencarian. Jawab hanya dengan kalimat konteks.`;
 
-  const { text: ringkasanKonteks } = await generateText({
-    model: google('gemini-2.5-flash'),
-    prompt,
-  });
+  // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+  let ringkasanKonteks = '';
+  try {
+    const res = await generateText({
+      model: google('gemini-4-argon'),
+      prompt,
+    });
+    ringkasanKonteks = res.text;
+  } catch {
+    const res = await generateText({
+      model: google('gemini-3.8-flash'),
+      prompt,
+    });
+    ringkasanKonteks = res.text;
+  }
 
   const teksKontekstual = `${ringkasanKonteks.trim()}\n\n${teksChunk}`;
 
@@ -274,3 +308,12 @@ export async function cariDokumenRRF(
   return hasil.rows;
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec vector-db-rag-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

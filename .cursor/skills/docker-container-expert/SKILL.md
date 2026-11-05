@@ -1,8 +1,8 @@
 ---
 name: docker-container-expert
-description: "Expert guide for production Docker containerization, multi-stage BuildKit builds, rootless execution, distroless runtimes, container security hardening, and Docker Compose v2 topology / Panduan ahli kontainerisasi Docker produksi, multi-stage BuildKit, rootless, distroless, dan Docker Compose v2."
+description: "Production Docker containerization, BuildKit, distroless, and Compose / Kontainerisasi Docker produksi, BuildKit, distroless, dan Compose."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # Docker Container Expert (Production Standard 2026)
@@ -19,6 +19,7 @@ version: "4.4.2"
 - **CI/CD & Cloud Runtime**: `ci-cd-devops-architect` (K8s & deployment pipelines), `github-actions-expert` (BuildKit actions & registry push), `cloud-hosting-expert` (container runtime hosts).
 - **Backend & Database Runtimes**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (Postgres/Redis services).
 - **Security & Hardening**: `production-ready-hardener` (distroless & nonroot audit), `zero-trust-secret-vault` (build secret mounts).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`
 
 ### Description
 Enterprise guide for building ultra-lean, hardened, and reproducible container images and orchestrating local and production workloads with **Docker Engine 27+** and **Docker Compose v2**. Covers BuildKit cache mounts (`--mount=type=cache`), secret mounts (`--mount=type=secret`), multi-stage builds targeting Google Distroless or Alpine Linux, non-root execution (UID 65532), dropping Linux kernel capabilities (`cap_drop: ALL`), health checks (`HEALTHCHECK`), internal isolated bridge networks, compose dependency sequencing (`condition: service_healthy`), and multi-architecture builds via `docker buildx`.
@@ -234,6 +235,18 @@ secrets:
     file: ./secrets/db_password.txt
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec docker-container-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -244,6 +257,7 @@ secrets:
 - **CI/CD & Runtime Cloud**: `ci-cd-devops-architect` (pipeline K8s & deployment), `github-actions-expert` (aksi BuildKit & push registry), `cloud-hosting-expert` (host runtime kontainer).
 - **Runtime Backend & Database**: `js-backend-expert` (Node/Bun/Deno), `python-programming-expert`, `go-programming-expert`, `rust-programming-expert`, `database-orm-expert` (layanan Postgres/Redis).
 - **Keamanan & Pengerasan**: `production-ready-hardener` (audit distroless & nonroot), `zero-trust-secret-vault` (secret mount saat build).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`, `sbom-supply-chain-security-expert`
 
 ### Deskripsi
 Panduan standar industri enterprise untuk membangun image kontainer yang ramping, aman, dan dapat direproduksi serta mengorkestrasi lingkungan lokal dan produksi menggunakan **Docker Engine 27+** dan **Docker Compose v2**. Meliputi cache mount BuildKit (`--mount=type=cache`), secret mount (`--mount=type=secret`), multi-stage build berbasis Google Distroless atau Alpine Linux, eksekusi non-root (UID 65532), pelepasan kapabilitas Linux kernel (`cap_drop: ALL`), health check (`HEALTHCHECK`), isolasi jaringan internal (isolated bridge network), sequencing dependensi compose (`condition: service_healthy`), dan build multi-arsitektur menggunakan `docker buildx`.
@@ -263,3 +277,12 @@ Panduan standar industri enterprise untuk membangun image kontainer yang ramping
 3. **Pemanfaatan Cache Mount BuildKit**: Gunakan sintaks `# syntax=docker/dockerfile:1.7` dan opsi `--mount=type=cache` agar unduhan dependensi paket tidak diulang setiap kali ada perubahan kode sumber.
 4. **Healthcheck & Urutan Dependensi**: Selalu definisikan mekanisme pemeriksaan kesehatan kontainer dan gunakan `depends_on: [service]: condition: service_healthy` pada `compose.yaml` untuk mencegah race condition saat database belum siap menerima koneksi.
 5. **Isolasi Jaringan Internal**: Letakkan database dan cache pada jaringan internal dengan flag `internal: true` sehingga tidak dapat diakses secara langsung dari luar jaringan kontainer.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec docker-container-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

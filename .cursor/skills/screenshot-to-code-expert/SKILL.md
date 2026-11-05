@@ -1,8 +1,8 @@
 ---
 name: screenshot-to-code-expert
-description: "Expert guide for converting UI screenshots, mockups, Figma frames, and whiteboard sketches into production-ready frontend code using vision-capable frontier models (Gemini 4 Pro, Claude 5.5, GPT Astra 6) — multi-pass visual extraction, component decomposition, responsive generation, and design token mapping / Panduan ahli konversi screenshot UI, mockup, frame Figma, dan sketsa whiteboard menjadi kode frontend siap produksi menggunakan model frontier berkemampuan vision — ekstraksi visual multi-pass, dekomposisi komponen, generasi responsif, dan pemetaan design token."
+description: "Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # screenshot-to-code-expert — vibes-plug Skill
@@ -18,7 +18,7 @@ version: "4.4.2"
 Connects and orchestrates with `modern-web-guidance`, `visual-ui-auditor`, `senior-frontend`, `design-system-architect`, `tailwind-expert`, `ui-ux-pro-max`, `modern-css-native-expert`, `multimodal-spatial-video-cloner`, `website-design-cloner`, `hig`, `svg-animation-motion-expert`, `frontier-ai-models-expert`, and `anti-slop` to produce pixel-perfect, accessible, production-grade code from visual inputs.
 
 ### Description
-Production workflow for transforming visual design artifacts (screenshots, Figma exports, whiteboard photos, PDF mockups) into clean, semantic, responsive frontend code. Leverages the native vision capabilities of frontier models (Gemini 4 Pro's 2M multimodal context, Claude 5.5's pixel-level visual understanding, GPT Astra 6's design comprehension) to extract layout structure, color palettes, typography, spacing, and interaction patterns — then maps them to the project's existing design system and component library.
+Production workflow for transforming visual design artifacts (screenshots, Figma exports, whiteboard photos, PDF mockups) into clean, semantic, responsive frontend code. Leverages the native vision capabilities of late-2026 frontier models (Gemini 4 Argon/Pro 2M+ multimodal context, Claude Sonnet 5.5's pixel-level visual understanding, GPT-5.6 Sol, and Muse Wonder's generative layout comprehension) to extract layout structure, color palettes, typography, spacing, and interaction patterns — then maps them to the project's existing design system and component library.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -164,6 +164,10 @@ After generating code, render it and compare against the original screenshot:
 3. **Validate with Visual QA Loop**: Render the generated code and compare screenshots to catch pixel-level discrepancies.
 4. **Specify the Target Stack**: Always tell the model which framework (React/Vue/Svelte), styling system (Tailwind/CSS Modules), and component library (Radix/Shadcn) to target.
 5. **Handle Text Content Realistically**: Extract actual text visible in the screenshot. Never substitute with lorem ipsum.
+6. **Availability Fallback Invariant**:
+   - Primary vision analysis: Route to **`Gemini 4 Argon/Pro Vision`** with automated fallback to **`Gemini 3.8 Flash Vision`** if Gemini 4 is unprovisioned or experiencing quota limits.
+   - Architectural/layout reasoning: If using **`Claude Opus 5.5`**, automatically fallback to **`Claude Opus 4.6`**.
+   - Zero disruption: Extraction pipeline must execute immediately through fallback paths without throwing unhandled missing-model errors.
 
 ---
 
@@ -178,7 +182,43 @@ After generating code, render it and compare against the original screenshot:
 
 ---
 
+#### Layout Grid & Spacing Token Quantizer (TypeScript)
+```typescript
+export function quantizePixelToTailwindSpacing(px: number): string {
+  const scale: ReadonlyArray<{ px: number; token: string }> = [
+    { px: 4, token: '1' },
+    { px: 6, token: '1.5' },
+    { px: 8, token: '2' },
+    { px: 12, token: '3' },
+    { px: 16, token: '4' },
+    { px: 24, token: '6' },
+    { px: 32, token: '8' },
+    { px: 48, token: '12' },
+    { px: 64, token: '16' }
+  ];
+  let closest = scale[0];
+  for (const entry of scale) {
+    if (Math.abs(entry.px - px) < Math.abs(closest.px - px)) {
+      closest = entry;
+    }
+  }
+  return closest.token;
+}
+```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec screenshot-to-code-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -216,3 +256,16 @@ Setelah menghasilkan kode, render dan bandingkan screenshot hasil dengan screens
 2. **Petakan ke Design System yang Ada**: Jangan pernah gunakan hex atau piksel hardcode.
 3. **Validasi dengan Loop QA Visual**: Render kode dan bandingkan screenshot.
 4. **Spesifikasikan Stack Target**: Selalu beritahu model framework, sistem styling, dan library komponen target.
+5. **Invarian Pengalihan Ketersediaan (Availability Fallback Invariant)**:
+   - Analisis vision primer: Tetapkan **`Gemini 4 Argon/Pro Vision`** dengan pengalihan otomatis (*fallback*) ke **`Gemini 3.8 Flash Vision`** jika Gemini 4 belum aktif atau terkena pembatasan kuota.
+   - Penalaran arsitektur/tata letak: Jika menggunakan **`Claude Opus 5.5`**, alihkan secara otomatis ke **`Claude Opus 4.6`**.
+   - Tanpa interupsi: Pipeline ekstraksi visual harus segera dieksekusi melalui jalur fallback tanpa galat model tidak ditemukan.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec screenshot-to-code-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

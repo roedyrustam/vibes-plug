@@ -1,8 +1,8 @@
 ---
 name: file-upload-media-expert
-description: "Expert guide for file uploads (S3, R2, Supabase Storage), presigned URLs, image/video processing, CDN optimization, and media pipeline architecture / Panduan ahli untuk upload file (S3, R2, Supabase Storage), presigned URL, pemrosesan gambar/video, optimasi CDN, dan arsitektur pipeline media."
+description: "File uploads (S3, R2, Supabase), presigned URLs, and media pipelines / Upload file (S3, R2, Supabase), presigned URL, dan pipeline media."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -21,6 +21,7 @@ Connects and orchestrates with domain skills:
 - **Visual Auditing**: `visual-ui-auditor` for verifying 5-state interactive contracts (idle, dragover, uploading, success, error) and 1px crisp borders.
 - **Cloud & Performance**: `cloud-hosting-expert`, `performance-web-vitals`, and `database-orm-expert` for CDN delivery, responsive image variants, and atomic metadata storage.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` for end-to-end media pipeline delivery.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `ai-media-generation-expert`, `app-promo-media-expert`, `pdf-document-generation-expert`, `rich-text-editor-expert`
 
 ### Description
 Production-grade guide for building secure, performant file upload systems and media processing pipelines. Covers **presigned URL upload patterns** (S3, R2, Supabase Storage), **multipart uploads** with progress tracking, **image optimization** (Sharp, Cloudflare Images, Vercel OG), **video transcoding** (Mux, Cloudflare Stream), **PDF generation**, **file validation & virus scanning**, **CDN configuration**, and **drag-and-drop UI components**.
@@ -383,7 +384,16 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 
 ---
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec file-upload-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
+---
 
 <a name="bahasa-indonesia"></a>
 ## Bahasa Indonesia
@@ -394,6 +404,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Audit Visual**: `visual-ui-auditor` untuk memverifikasi kontrak interaktif 5-state (idle, dragover, uploading, success, error) dan border tajam 1px.
 - **Cloud & Performa**: `cloud-hosting-expert`, `performance-web-vitals`, dan `database-orm-expert` untuk pengiriman CDN, varian gambar responsif, dan penyimpanan metadata atomik.
 - **Orkestrasi**: `brainstorming` dan `zero-to-prod-orchestrator` untuk eksekusi pipeline media end-to-end.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `ai-media-generation-expert`, `app-promo-media-expert`, `pdf-document-generation-expert`, `rich-text-editor-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun sistem upload file yang aman dan performa tinggi serta pipeline pemrosesan media. Mencakup **pola upload presigned URL** (S3, R2, Supabase Storage), **upload multipart** dengan pelacakan progres, **optimasi gambar** (Sharp, Cloudflare Images, Vercel OG), **transcoding video** (Mux, Cloudflare Stream), **pembuatan PDF**, **validasi file & pemindaian virus**, **konfigurasi CDN**, dan **komponen UI drag-and-drop**.
@@ -427,3 +438,12 @@ Aktifkan skill ini ketika:
 | Tidak ada batas ukuran file | Penyalahgunaan storage, error OOM | Terapkan batas di sisi klien dan server |
 | Menyimpan file asli saja | Waktu muat lambat, bandwidth berlebih | Buat varian responsif yang teroptimasi |
 | Bucket S3 publik | Risiko kebocoran data | Gunakan presigned URL atau CDN dengan signed URL |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec file-upload-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1,8 +1,8 @@
 ---
 name: typescript-expert
-description: "Expert guide for TypeScript 5.8+ advanced type system, strict mode, generics, utility types, branded types, inferred type predicates, isolated declarations, and type-safe architectural patterns / Panduan ahli untuk sistem tipe TypeScript 5.8+, mode strict, generics, utility types, branded types, inferred type predicates, isolated declarations, dan pola arsitektur type-safe."
+description: "TypeScript 5.8+ type system, strict types, generics, and branded types / Sistem tipe TypeScript 5.8+, tipe strict, generics, dan branded types."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -20,6 +20,7 @@ version: "4.4.2"
 - **AST & Codebase Intelligence**: `living-codebase-ast-graph` (compiler API & type-checker symbols), `scalability-clean-code` (type-safe clean patterns).
 - **Backend & Fullstack Runtime**: `js-backend-expert` (Node.js/Bun strict types), `database-orm-expert` (Prisma/Drizzle schema type generation).
 - **Frontend & Monorepos**: `senior-frontend` (React 19 type safety), `monorepo-architect` (composite projects & isolated declarations), `form-validation-expert` (Zod schema inference).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `blockchain-web3-expert`
 
 ### Description
 Expert-level TypeScript development covering the advanced type system, strict mode enforcement, generic programming, utility types, branded types, and type-safe patterns for production applications. Targets **TypeScript 5.8+** features including inferred type predicates, isolated declarations, `NoInfer`, `using` declarations, variadic tuple improvements, and `const` type parameters.
@@ -302,6 +303,18 @@ const config = {
 config.port.toFixed(2); // Works! Literal type preserved.
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec typescript-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -312,6 +325,7 @@ config.port.toFixed(2); // Works! Literal type preserved.
 - **AST & Inteligensi Basis Kode**: `living-codebase-ast-graph` (compiler API & simbol type-checker), `scalability-clean-code` (pola clean type-safe).
 - **Runtime Backend & Fullstack**: `js-backend-expert` (tipe ketat Node.js/Bun), `database-orm-expert` (generasi tipe skema Prisma/Drizzle).
 - **Frontend & Monorepo**: `senior-frontend` (type safety React 19), `monorepo-architect` (composite project & isolated declarations), `form-validation-expert` (inferensi skema Zod).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`, `blockchain-web3-expert`
 
 ### Deskripsi
 Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan strict mode, pemrograman generik, utility types, branded types, dan pola type-safe untuk aplikasi produksi. Menargetkan fitur **TypeScript 5.8+** termasuk inferred type predicates, isolated declarations, `NoInfer`, deklarasi `using`, peningkatan variadic tuple, dan parameter tipe `const`.
@@ -336,3 +350,12 @@ Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan str
 - **Hindari `as any`**: Gunakan `unknown` dengan narrowing atau Zod untuk data yang tidak diketahui tipenya.
 - **`satisfies` operator**: Validasi objek terhadap tipe tanpa melebarkan tipe yang diinferensi.
 - **`moduleResolution: Bundler`**: Gunakan untuk proyek Next.js/Vite; `NodeNext` untuk Node.js/Bun backend.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec typescript-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

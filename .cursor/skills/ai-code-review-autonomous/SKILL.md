@@ -1,8 +1,8 @@
 ---
 name: ai-code-review-autonomous
-description: "Expert guide for multi-pass autonomous AI code self-review — syntax validation, logic correctness, architectural conformance, security audit, and performance analysis without external tooling — enabling the agent to catch its own errors before presenting code / Panduan ahli review kode otonom multi-pass oleh AI — validasi sintaks, kebenaran logika, konformitas arsitektur, audit keamanan, dan analisis performa tanpa tooling eksternal — memungkinkan agen menangkap errornya sendiri sebelum menampilkan kode."
+description: "Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -183,7 +183,51 @@ interface CrossFileCheck {
 
 ---
 
+#### Diff Hunk Risk Scorer & Review Gate (TypeScript)
+```typescript
+export interface DiffHunkAudit {
+  filePath: string;
+  addedLines: string[];
+  riskScore: number;
+  blockingReasons: string[];
+}
+
+export function auditGitDiffHunk(filePath: string, addedLines: readonly string[]): DiffHunkAudit {
+  const blockingReasons: string[] = [];
+  let riskScore = 0;
+
+  for (const line of addedLines) {
+    if (/dangerouslySetInnerHTML|evals*(/.test(line)) {
+      riskScore += 50;
+      blockingReasons.push('Unsafe execution sink detected in diff');
+    }
+    if (/catchs*([^)]*)s*{s*}/.test(line)) {
+      riskScore += 40;
+      blockingReasons.push('Silent empty catch block introduced');
+    }
+  }
+
+  return { filePath, addedLines: [...addedLines], riskScore, blockingReasons };
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ai-code-review-autonomous <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
@@ -221,3 +265,12 @@ P0 Blocker: perbaiki segera. P1 Critical: perbaiki sebelum ditampilkan. P2 Major
 3. **Periksa Validitas Import**: Halusinasi paling umum AI adalah mengimpor modul yang tidak ada.
 4. **Verifikasi Kontrak Antar-File**: Saat memodifikasi interface atau skema, periksa semua file konsumer.
 5. **Akui Ketidakpastian**: Jika ragu, nyatakan secara eksplisit daripada menghasilkan kode spekulatif.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ai-code-review-autonomous <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

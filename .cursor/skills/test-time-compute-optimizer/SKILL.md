@@ -1,8 +1,8 @@
 ---
 name: test-time-compute-optimizer
-description: "Expert guide for scaling test-time compute, dynamic reasoning token allocation (Gemini 4 Pro, Claude 5.5, GPT Astra 6), Monte Carlo Tree Search (MCTS), and Process Reward Models / Panduan ahli penskalaan komputasi waktu uji (test-time compute), alokasi dinamis budget penalaran, MCTS, dan Process Reward Models."
+description: "Dynamic test-time compute allocation and reasoning token optimization / Alokasi komputasi test-time dinamis dan optimasi token penalaran."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -18,11 +18,11 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Upstream & Orchestration**: `zero-to-prod-orchestrator` (Phase 4 AI agent integration), `brainstorming`, `session-memory-manager`.
 - **Reasoning Budget & Cascading**: `thinking-budget-orchestrator` (dynamic token budget allocation), `adaptive-model-cascade` (complexity threshold escalation), `llm-finops-router` (token expenditure tracking).
-- **Frontier LLMs & Sandboxes**: `frontier-ai-models-expert` (Gemini 4 Pro, Claude 5.5, GPT Astra 6 reasoning parameters), `ephemeral-wasm-sandbox-executor` (deterministic code candidate execution).
+- **Frontier LLMs & Sandboxes**: `frontier-ai-models-expert` (Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7 reasoning parameters), `ephemeral-wasm-sandbox-executor` (deterministic code candidate execution).
 - **Consensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (multi-candidate arbiter), `formal-spec-z3-verifier` (mathematical invariant proving).
 
 ### Description
-Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), and OpenAI GPT Astra 6 (`o6`). Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
+Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, and xAI Grok 4.7. Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -39,11 +39,11 @@ Activate this skill when:
 
 Inference-time compute scaling operates across three distinct operational tiers based on prompt entropy and execution risk:
 
-| Complexity Tier | Target Problem Types | Gemini 4 Pro / 3.x (`thinkingBudget`) | Claude 5.5 (`budget_tokens`) | GPT Astra 6 (`reasoning_effort`) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Tier 1: Deterministic / CRUD** | Simple UI components, DTO mappings, regex conversions | `0` (Thinking disabled) or `1024` | `1024` | `low` |
-| **Tier 2: Business Logic & APIs** | Multi-table DB transactions, authentication flows, REST schemas | `4096` - `8192` | `4096` - `8192` | `medium` |
-| **Tier 3: Mission-Critical Hard** | Financial state machines, distributed consensus, cryptographic proofs, complex refactoring | `16384` - `32768` | `16384` - `32768` | `high` |
+| Complexity Tier | Target Problem Types | Gemini 4 Argon / Pro (`thinkingBudget`) | Claude Sonnet / Opus 5.5 (`budget_tokens`) | GPT-5.6 Sol (`reasoning_effort`) | Grok 4.7 (`thinking_mode`) |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Tier 1: Deterministic / CRUD** | Simple UI components, DTO mappings, regex conversions | `0` (Disabled) or `1024` | `1024` | `low` | `fast` |
+| **Tier 2: Business Logic & APIs** | Multi-table DB transactions, authentication flows, REST schemas | `4096` - `8192` | `4096` - `8192` | `medium` | `fast` |
+| **Tier 3: Mission-Critical Hard** | Financial state machines, distributed consensus, cryptographic proofs, complex refactoring | `16384` - `32768` | `16384` - `32768` | `high` | `system2` |
 
 #### 2. Entropy-Based Compute Dispatcher (TypeScript Implementation)
 
@@ -58,18 +58,19 @@ export interface ComputeAllocation {
   geminiThinkingBudget: number;
   claudeBudgetTokens: number;
   reasoningEffort: 'low' | 'medium' | 'high';
+  grokThinkingMode: 'fast' | 'system2';
 }
 
 export function resolveComputeBudget(complexity: TaskComplexity): ComputeAllocation {
   switch (complexity) {
     case 'trivial':
-      return { geminiThinkingBudget: 0, claudeBudgetTokens: 1024, reasoningEffort: 'low' };
+      return { geminiThinkingBudget: 0, claudeBudgetTokens: 1024, reasoningEffort: 'low', grokThinkingMode: 'fast' };
     case 'standard':
-      return { geminiThinkingBudget: 4096, claudeBudgetTokens: 4096, reasoningEffort: 'medium' };
+      return { geminiThinkingBudget: 4096, claudeBudgetTokens: 4096, reasoningEffort: 'medium', grokThinkingMode: 'fast' };
     case 'complex':
-      return { geminiThinkingBudget: 16384, claudeBudgetTokens: 16384, reasoningEffort: 'high' };
+      return { geminiThinkingBudget: 16384, claudeBudgetTokens: 16384, reasoningEffort: 'high', grokThinkingMode: 'system2' };
     case 'extreme':
-      return { geminiThinkingBudget: 32768, claudeBudgetTokens: 32768, reasoningEffort: 'high' };
+      return { geminiThinkingBudget: 32768, claudeBudgetTokens: 32768, reasoningEffort: 'high', grokThinkingMode: 'system2' };
   }
 }
 
@@ -85,37 +86,70 @@ export async function executeOptimizedReasoning(
       apiKey: process.env.GEMINI_API_KEY || ''
     });
     
-    const result = await generateText({
-      model: google('gemini-4-pro', {
-        useSearchGrounding: false
-      }),
-      prompt,
-      providerOptions: {
-        google: {
-          thinkingBudget: budget.geminiThinkingBudget
+    try {
+      const result = await generateText({
+        model: google('gemini-4-pro', {
+          useSearchGrounding: false
+        }),
+        prompt,
+        providerOptions: {
+          google: {
+            thinkingBudget: budget.geminiThinkingBudget
+          }
         }
-      }
-    });
-    return result.text;
+      });
+      return result.text;
+    } catch (err) {
+      // Automatic availability fallback: Gemini 4 Pro -> Gemini 3.8 Flash
+      console.warn('[ComputeOptimizer] Gemini 4 Pro unavailable, falling back to Gemini 3.8 Flash...');
+      const fallbackResult = await generateText({
+        model: google('gemini-3.8-flash'),
+        prompt,
+        providerOptions: {
+          google: {
+            thinkingBudget: Math.min(budget.geminiThinkingBudget, 8192)
+          }
+        }
+      });
+      return fallbackResult.text;
+    }
   }
 
   const anthropic = createAnthropic({
     apiKey: process.env.ANTHROPIC_API_KEY || ''
   });
 
-  const result = await generateText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
-    prompt,
-    providerOptions: {
-      anthropic: {
-        thinking: {
-          type: 'enabled',
-          budgetTokens: budget.claudeBudgetTokens
+  try {
+    const result = await generateText({
+      model: anthropic('claude-opus-5.5-20261022'),
+      prompt,
+      providerOptions: {
+        anthropic: {
+          thinking: {
+            type: 'enabled',
+            budgetTokens: budget.claudeBudgetTokens
+          }
         }
       }
-    }
-  });
-  return result.text;
+    });
+    return result.text;
+  } catch (err) {
+    // Automatic availability fallback: Claude Opus 5.5 -> Claude Opus 4.6
+    console.warn('[ComputeOptimizer] Claude Opus 5.5 unavailable, falling back to Claude Opus 4.6...');
+    const fallbackResult = await generateText({
+      model: anthropic('claude-opus-4.6'),
+      prompt,
+      providerOptions: {
+        anthropic: {
+          thinking: {
+            type: 'enabled',
+            budgetTokens: Math.min(budget.claudeBudgetTokens, 16384)
+          }
+        }
+      }
+    });
+    return fallbackResult.text;
+  }
 }
 ```
 
@@ -140,6 +174,10 @@ User Prompt ──┬──► Candidate 1 (Thinking = 8k) ──► Ephemeral S
 2. **Decouple Thinking from Output Stream**: Ensure thinking tokens are captured in structured audit logs rather than directly streamed to end-user UI channels.
 3. **Combine Extended Thinking with Verifiable Tests**: Allocate maximum compute to generate both code and exhaustive property-based tests within the same execution loop.
 4. **Enforce Hard Timeout Bounds**: Set execution deadlines on reasoning calls to prevent tail latency explosions when models enter recursive chain-of-thought exploration.
+5. **Availability Fallback Invariant**:
+   - If `Gemini 4` (`Argon` or `Pro`) is unprovisioned, rate-limited, or unavailable, degrade reasoning tasks instantly to **`Gemini 3.8 Flash`** with calibrated thinking budget (capped at 8,192 tokens).
+   - If `Claude Opus 5.5` is unprovisioned, rate-limited, or unavailable, degrade reasoning tasks instantly to **`Claude Opus 4.6`** (capping thinking budget at 16,384 tokens) while preserving deep reasoning and invariant safety.
+   - Pacing and reasoning loops must execute continuously without failing on missing model tiers.
 
 ---
 
@@ -153,17 +191,56 @@ User Prompt ──┬──► Candidate 1 (Thinking = 8k) ──► Ephemeral S
 
 ---
 
+#### Process Reward Model (PRM) Best-of-N Candidate Selector (TypeScript)
+```typescript
+export interface CandidateGeneration {
+  id: string;
+  code: string;
+  typecheckPassed: boolean;
+  testsPassedCount: number;
+  cyclomaticComplexity: number;
+}
+
+export function selectOptimalCandidate(candidates: readonly CandidateGeneration[]): CandidateGeneration | null {
+  if (candidates.length === 0) {
+    return null;
+  }
+  const scored = [...candidates].sort((a, b) => {
+    const scoreA = (a.typecheckPassed ? 50 : 0) + a.testsPassedCount * 10 - a.cyclomaticComplexity;
+    const scoreB = (b.typecheckPassed ? 50 : 0) + b.testsPassedCount * 10 - b.cyclomaticComplexity;
+    return scoreB - scoreA;
+  });
+  return scored[0];
+}
+```
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec test-time-compute-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
+---
+
 <a name="bahasa-indonesia"></a>
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
+
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
 - **Hulu & Orkestrasi**: `zero-to-prod-orchestrator` (Integrasi agen AI Fase 4), `brainstorming`, `session-memory-manager`.
 - **Budget Penalaran & Kaskade**: `thinking-budget-orchestrator` (alokasi budget token dinamis), `adaptive-model-cascade` (eskalasi ambang kompleksitas), `llm-finops-router` (pelacakan pengeluaran token).
-- **LLM Frontier & Sandbox**: `frontier-ai-models-expert` (parameter penalaran Gemini 4 Pro, Claude 5.5, GPT Astra 6), `ephemeral-wasm-sandbox-executor` (eksekusi deterministik kandidat kode).
+- **LLM Frontier & Sandbox**: `frontier-ai-models-expert` (parameter penalaran Gemini 4 Argon/Pro, Claude Sonnet 5.5, GPT-5.6 Sol, Grok 4.7), `ephemeral-wasm-sandbox-executor` (eksekusi deterministik kandidat kode).
 - **Konsensus & Multi-Drafting**: `speculative-multi-draft-synthesizer` (arbiter multi-kandidat), `formal-spec-z3-verifier` (pembuktian invarian matematis).
 
 ### Deskripsi
-Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Pro, Anthropic Claude 5.5 (Opus/Sonnet), dan OpenAI GPT Astra 6 (`o6`). Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
+Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, dan xAI Grok 4.7. Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:
@@ -198,6 +275,10 @@ Alih-alih hanya mengevaluasi hasil akhir kode (*Outcome-based*), terapkan evalua
 2. **Pisahkan Log Penalaran dari UI**: Simpan token penalaran di dalam sistem telemetri atau log audit internal, bukan ditampilkan mentah ke pengguna akhir.
 3. **Kombinasikan dengan Pengujian Otomatis**: Alokasikan daya komputasi tinggi untuk menghasilkan kode beserta unit test berbasis properti secara simultan.
 4. **Terapkan Batas Waktu Eksekusi**: Tetapkan timeout yang ketat pada panggilan penalaran guna mencegah lonjakan latensi (*tail latency*).
+5. **Protokol Pengalihan Ketersediaan (Availability Fallback Invariant)**:
+   - Jika model penalaran utama **`Gemini 4`** (`Argon` atau `Pro`) belum aktif di lingkungan atau terkena batas kuota, alihkan ke **`Gemini 3.8 Flash`** dengan batas budget thinking yang disesuaikan (maksimal 8.192 token).
+   - Jika **`Claude Opus 5.5`** belum aktif atau terkena batas kuota, alihkan tugas penalaran ke **`Claude Opus 4.6`** (maksimal 16.384 token) dengan tetap menjaga ketelitian pemahaman arsitektur dan keselamatan invarian.
+   - Loop penalaran agen tidak boleh berhenti karena galat model yang tidak tersedia.
 
 ---
 
@@ -208,3 +289,12 @@ Alih-alih hanya mengevaluasi hasil akhir kode (*Outcome-based*), terapkan evalua
 | Menyetel token thinking maksimal untuk manipulasi string dasar | Latensi 10x lebih lambat dan biaya token melonjak 15x | Lewatkan ke pengklasifikasi ringan untuk menyetel `budget_tokens: 0` |
 | Menonaktifkan thinking untuk perancangan konkurensi database | Munculnya race condition dan deadlock tersembunyi | Wajibkan alokasi Tingkat 3 (`16384` token) |
 | Mengabaikan log internal penalaran (*thinking traces*) | Kehilangan visibilitas saat terjadi kesalahan logika | Simpan blok pemikiran ke penyimpanan telemetri |
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec test-time-compute-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

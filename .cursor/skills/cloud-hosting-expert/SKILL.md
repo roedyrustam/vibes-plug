@@ -1,8 +1,8 @@
 ---
 name: cloud-hosting-expert
-description: "Expert guide for deploying SaaS applications with multiple entry points on modern edge and serverless platforms like Vercel and Cloudflare / Panduan ahli untuk mendeploy aplikasi SaaS dengan multiple entry points di platform edge dan serverless modern seperti Vercel dan Cloudflare."
+description: "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare) / Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare)."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -20,6 +20,7 @@ version: "4.4.2"
 - **CI/CD & Container Pipelines**: `ci-cd-devops-architect` (deployment automation), `github-actions-expert` (cloud actions & OIDC), `docker-container-expert` (container images for Railway/Fly).
 - **Edge Compute & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (edge routing & proxies).
 - **Monitoring & Auto-Remediation**: `proactive-background-watcher` (deployment health checks), `self-healing-cloud-orchestrator` (production crash hotfixing).
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `kubernetes-gitops-platform-expert`
 
 ### Description
 Expert guide for deploying SaaS applications and their multiple entry points (landing page, app, super admin subdomain) on modern edge and serverless platforms. Covers Vercel, Cloudflare Workers & Pages, Railway, Fly.io, and **Cloudflare Workers AI** for AI-powered edge workloads.
@@ -211,6 +212,18 @@ const cached = await cache.match(request);
 if (cached) return cached;
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec cloud-hosting-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -221,6 +234,7 @@ if (cached) return cached;
 - **Pipeline CI/CD & Kontainer**: `ci-cd-devops-architect` (otomasi deployment), `github-actions-expert` (aksi cloud & OIDC), `docker-container-expert` (image kontainer Railway/Fly).
 - **Komputasi Edge & Serverless**: `cloudflare-workers-expert` (Cloudflare Workers, D1, KV, R2), `api-gateway-proxy-expert` (routing edge & proxy).
 - **Pemantauan & Auto-Remediasi**: `proactive-background-watcher` (pemeriksaan kesehatan deployment), `self-healing-cloud-orchestrator` (perbaikan otomatis crash produksi).
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `kubernetes-gitops-platform-expert`
 
 ### Deskripsi
 Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landing page, aplikasi, subdomain super admin) di platform edge dan serverless modern. Mencakup Vercel, Cloudflare Workers & Pages, Railway, Fly.io, dan **Cloudflare Workers AI** untuk workload AI di edge.
@@ -313,3 +327,12 @@ COPY . .
 EXPOSE 3000
 CMD ["bun", "run", "src/server.ts"]
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec cloud-hosting-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

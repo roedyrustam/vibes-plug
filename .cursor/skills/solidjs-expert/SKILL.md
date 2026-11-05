@@ -1,8 +1,8 @@
 ---
 name: solidjs-expert
-description: "Expert guide for SolidJS 2 and SolidStart — fine-grained reactivity, signals, createResource, and server-first rendering / Panduan ahli SolidJS 2 dan SolidStart — reaktivitas fine-grained, signals, createResource, dan rendering server-first."
+description: "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -103,6 +103,24 @@ export function CartManager() {
 }
 ```
 
+### 3. Fine-Grained Reactive Signal Store with Optimistic Rollback / Store Sinyal Reaktif dengan Rollback Optimistis
+
+```typescript
+export interface OptimisticMutation<T> {
+  previousState: T;
+  nextState: T;
+  timestamp: number;
+}
+
+export function createOptimisticSnapshot<T>(current: T, updater: (prev: T) => T): OptimisticMutation<T> {
+  return {
+    previousState: structuredClone(current),
+    nextState: updater(structuredClone(current)),
+    timestamp: Date.now()
+  };
+}
+```
+
 ## Orchestration & Integration
 - **`modern-web-guidance`**: HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
 - **`modern-css-native-expert`**: Native CSS anchor positioning, View Transitions, container queries, and `@starting-style`.
@@ -113,6 +131,19 @@ export function CartManager() {
 - **`performance-web-vitals`**: Leverages Solid's direct DOM manipulation for near-zero INP and top-tier Lighthouse scores.
 - **`state-management-expert`**: Explains fine-grained signal patterns compared to React hooks and Zustand.
 - **`typescript-expert`**: Provides type-safe store and props interfaces.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `design-system-architect`, `tanstack-query-expert`, `pwa-offline-first-expert`
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec solidjs-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -171,3 +202,13 @@ export function UserCard(rawProps: CardProps) {
 - **`performance-web-vitals`**: Memaksimalkan manipulasi DOM langsung untuk mencapai responsivitas instan (<10ms).
 - **`state-management-expert`**: Menjelaskan perbandingan arsitektur signal vs selector Zustand.
 - **`typescript-expert`**: Menjaga keamanan tipe pada Store dan Server Actions.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `design-system-architect`, `tanstack-query-expert`, `pwa-offline-first-expert`
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec solidjs-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

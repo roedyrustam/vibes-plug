@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-04T21:23:03.849Z",
+  "generatedAt": "2026-11-05T17:31:55.519Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 85,
-  "incrementalReusedFiles": 85,
-  "totalSymbolsIndexed": 486,
-  "totalImportEdges": 270,
+  "totalFilesIndexed": 87,
+  "incrementalReusedFiles": 87,
+  "totalSymbolsIndexed": 492,
+  "totalImportEdges": 277,
   "symbols": {
     "getActiveProfile": [
       {
@@ -569,6 +569,7 @@
         "signature": "function runDocs(format = 'markdown', outputFile)",
         "calls": [
           "join",
+          "spawnSync",
           "readdir",
           "filter",
           "isDirectory",
@@ -591,14 +592,19 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1537,
+        "line": 1544,
         "type": "function",
         "signature": "function showHelp()",
         "calls": [
           "log",
           "close",
-          "spawnSync",
+          "includes",
+          "pathToFileURL",
           "join",
+          "then",
+          "sendTelemetry",
+          "max",
+          "spawnSync",
           "slice",
           "cwd",
           "exit",
@@ -820,6 +826,23 @@
         ]
       },
       {
+        "file": "scripts/generate-llms-txt.mjs",
+        "line": 19,
+        "type": "function",
+        "signature": "function main()",
+        "calls": [
+          "log",
+          "readFile",
+          "match",
+          "Error",
+          "parse",
+          "push",
+          "entries",
+          "writeFile",
+          "join"
+        ]
+      },
+      {
         "file": "scripts/install.js",
         "line": 228,
         "type": "function",
@@ -836,7 +859,11 @@
           "installForAntigravity",
           "installForClaude",
           "installForCursor",
-          "installForCodex"
+          "installForCodex",
+          "filter",
+          "map",
+          "then",
+          "sendTelemetry"
         ]
       },
       {
@@ -863,12 +890,16 @@
       },
       {
         "file": "scripts/micro-tdd-compiler.mjs",
-        "line": 145,
+        "line": 207,
         "type": "function",
         "signature": "function main()",
         "calls": [
           "slice",
           "log",
+          "String",
+          "trim",
+          "resolve",
+          "cwd",
           "indexOf",
           "readFile",
           "compileAndVerifyMicroTdd",
@@ -2986,10 +3017,26 @@
         ]
       }
     ],
+    "sanitizeExecutableScript": [
+      {
+        "file": "scripts/micro-tdd-compiler.mjs",
+        "line": 41,
+        "type": "function",
+        "signature": "function sanitizeExecutableScript(rawSource)",
+        "calls": [
+          "min",
+          "Array",
+          "charCodeAt",
+          "map",
+          "fromCharCode",
+          "join"
+        ]
+      }
+    ],
     "stripTsTypes": [
       {
         "file": "scripts/micro-tdd-compiler.mjs",
-        "line": 28,
+        "line": 57,
         "type": "function",
         "signature": "function stripTsTypes(tsCode = '')",
         "calls": [
@@ -3000,14 +3047,17 @@
     "compileAndVerifyMicroTdd": [
       {
         "file": "scripts/micro-tdd-compiler.mjs",
-        "line": 61,
+        "line": 98,
         "type": "function",
         "signature": "function compileAndVerifyMicroTdd(sourceCode = '', specCode = '', options = {})",
         "calls": [
           "now",
+          "test",
           "push",
           "round",
+          "sanitizeExecutableScript",
           "stripTsTypes",
+          "freeze",
           "fn",
           "createContext",
           "Script",
@@ -4350,20 +4400,16 @@
           "end",
           "stringify",
           "generateStudioHtml",
+          "join",
+          "readFile",
           "startsWith",
           "includes",
           "replace",
           "slice",
           "normalize",
-          "join",
           "extname",
           "toLowerCase",
-          "readFile",
-          "randomUUID",
-          "write",
-          "set",
-          "on",
-          "get"
+          "randomUUID"
         ]
       }
     ],
@@ -5244,6 +5290,79 @@
         ]
       }
     ],
+    "getTelemetryConfig": [
+      {
+        "file": "scripts/telemetry.mjs",
+        "line": 33,
+        "type": "function",
+        "signature": "function getTelemetryConfig()",
+        "calls": [
+          "Date",
+          "toISOString",
+          "existsSync",
+          "mkdirSync",
+          "readFileSync",
+          "parse",
+          "randomUUID",
+          "replace",
+          "writeFileSync",
+          "stringify",
+          "randomBytes",
+          "toString"
+        ]
+      }
+    ],
+    "setTelemetryEnabled": [
+      {
+        "file": "scripts/telemetry.mjs",
+        "line": 86,
+        "type": "function",
+        "signature": "function setTelemetryEnabled(enabled)",
+        "calls": [
+          "existsSync",
+          "mkdirSync",
+          "getTelemetryConfig",
+          "Boolean",
+          "Date",
+          "toISOString",
+          "writeFileSync",
+          "stringify"
+        ]
+      }
+    ],
+    "trackEvent": [
+      {
+        "file": "scripts/telemetry.mjs",
+        "line": 106,
+        "type": "function",
+        "signature": "function trackEvent(eventName, customProperties = {})",
+        "calls": [
+          "getTelemetryConfig",
+          "String",
+          "release",
+          "Boolean",
+          "Date",
+          "toISOString",
+          "AbortController",
+          "setTimeout",
+          "abort",
+          "fetch",
+          "stringify",
+          "clearTimeout"
+        ]
+      }
+    ],
+    "sendTelemetry": [
+      {
+        "file": "scripts/telemetry.mjs",
+        "line": 163,
+        "type": "function",
+        "signature": "function sendTelemetry(eventName, properties = {})",
+        "calls": [
+          "trackEvent"
+        ]
+      }
+    ],
     "loadMonitorSnapshot": [
       {
         "file": "scripts/terminal-monitor.mjs",
@@ -6090,6 +6209,7 @@
           "find",
           "openSkillModal",
           "stopPropagation",
+          "capture",
           "writeText",
           "then",
           "add",
@@ -6102,10 +6222,11 @@
     "openSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 188,
+        "line": 191,
         "type": "function",
         "signature": "function openSkillModal(skill)",
         "calls": [
+          "capture",
           "getElementById",
           "addEventListener",
           "writeText",
@@ -6118,7 +6239,7 @@
     "closeSkillModal": [
       {
         "file": "showcase/app.js",
-        "line": 253,
+        "line": 262,
         "type": "function",
         "signature": "function closeSkillModal()",
         "calls": [
@@ -6129,7 +6250,7 @@
     "appendTerminalLine": [
       {
         "file": "showcase/app.js",
-        "line": 403,
+        "line": 412,
         "type": "function",
         "signature": "function appendTerminalLine(content, isCommand = false)",
         "calls": [
@@ -6143,7 +6264,7 @@
     "executeTerminalCommand": [
       {
         "file": "showcase/app.js",
-        "line": 422,
+        "line": 431,
         "type": "function",
         "signature": "function executeTerminalCommand(cmdText)",
         "calls": [
@@ -6160,7 +6281,7 @@
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 617,
+        "line": 626,
         "type": "function",
         "signature": "function renderTopology(id)",
         "calls": []
@@ -6169,7 +6290,7 @@
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 711,
+        "line": 720,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -6178,7 +6299,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 724,
+        "line": 733,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -6206,14 +6327,14 @@
           "renderTopology",
           "renderBridgeCode",
           "closeSkillModal",
-          "handleScrollElevation"
+          "capture"
         ]
       }
     ],
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 1037,
+        "line": 1049,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -7614,10 +7735,10 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2128,
+      "totalLines": 2173,
       "symbolCount": 23,
-      "mtimeMs": 1793794184377,
-      "size": 101069,
+      "mtimeMs": 1793877896023,
+      "size": 103391,
       "exports": [],
       "imports": [
         {
@@ -8083,6 +8204,7 @@
           "signature": "function runDocs(format = 'markdown', outputFile)",
           "calls": [
             "join",
+            "spawnSync",
             "readdir",
             "filter",
             "isDirectory",
@@ -8103,14 +8225,19 @@
         },
         {
           "name": "showHelp",
-          "line": 1537,
+          "line": 1544,
           "type": "function",
           "signature": "function showHelp()",
           "calls": [
             "log",
             "close",
-            "spawnSync",
+            "includes",
+            "pathToFileURL",
             "join",
+            "then",
+            "sendTelemetry",
+            "max",
+            "spawnSync",
             "slice",
             "cwd",
             "exit",
@@ -10251,6 +10378,58 @@
       ],
       "cachedSymbols": []
     },
+    "scripts/generate-llms-txt.mjs": {
+      "totalLines": 148,
+      "symbolCount": 1,
+      "mtimeMs": 1793877893043,
+      "size": 7317,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 11
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "main",
+          "line": 19,
+          "type": "function",
+          "signature": "function main()",
+          "calls": [
+            "log",
+            "readFile",
+            "match",
+            "Error",
+            "parse",
+            "push",
+            "entries",
+            "writeFile",
+            "join"
+          ]
+        }
+      ]
+    },
     "scripts/generate_logo_svg.py": {
       "totalLines": 73,
       "symbolCount": 1,
@@ -10701,10 +10880,10 @@
       ]
     },
     "scripts/install.js": {
-      "totalLines": 310,
+      "totalLines": 326,
       "symbolCount": 6,
-      "mtimeMs": 1792865301170,
-      "size": 11977,
+      "mtimeMs": 1793833280770,
+      "size": 12521,
       "exports": [],
       "imports": [
         {
@@ -10832,7 +11011,11 @@
             "installForAntigravity",
             "installForClaude",
             "installForCursor",
-            "installForCodex"
+            "installForCodex",
+            "filter",
+            "map",
+            "then",
+            "sendTelemetry"
           ]
         }
       ]
@@ -11093,11 +11276,12 @@
       ]
     },
     "scripts/micro-tdd-compiler.mjs": {
-      "totalLines": 182,
-      "symbolCount": 3,
-      "mtimeMs": 1793792964064,
-      "size": 5897,
+      "totalLines": 244,
+      "symbolCount": 4,
+      "mtimeMs": 1793880451639,
+      "size": 8227,
       "exports": [
+        "sanitizeExecutableScript",
         "stripTsTypes",
         "compileAndVerifyMicroTdd"
       ],
@@ -11108,7 +11292,7 @@
           "specifiers": [
             "vm"
           ],
-          "line": 13
+          "line": 14
         },
         {
           "source": "node:fs/promises",
@@ -11116,7 +11300,7 @@
           "specifiers": [
             "fs"
           ],
-          "line": 14
+          "line": 15
         },
         {
           "source": "node:path",
@@ -11124,7 +11308,7 @@
           "specifiers": [
             "path"
           ],
-          "line": 15
+          "line": 16
         },
         {
           "source": "node:assert/strict",
@@ -11132,7 +11316,7 @@
           "specifiers": [
             "assert"
           ],
-          "line": 16
+          "line": 17
         },
         {
           "source": "node:url",
@@ -11140,13 +11324,27 @@
           "specifiers": [
             "fileURLToPath"
           ],
-          "line": 17
+          "line": 18
         }
       ],
       "cachedSymbols": [
         {
+          "name": "sanitizeExecutableScript",
+          "line": 41,
+          "type": "function",
+          "signature": "function sanitizeExecutableScript(rawSource)",
+          "calls": [
+            "min",
+            "Array",
+            "charCodeAt",
+            "map",
+            "fromCharCode",
+            "join"
+          ]
+        },
+        {
           "name": "stripTsTypes",
-          "line": 28,
+          "line": 57,
           "type": "function",
           "signature": "function stripTsTypes(tsCode = '')",
           "calls": [
@@ -11155,14 +11353,17 @@
         },
         {
           "name": "compileAndVerifyMicroTdd",
-          "line": 61,
+          "line": 98,
           "type": "function",
           "signature": "function compileAndVerifyMicroTdd(sourceCode = '', specCode = '', options = {})",
           "calls": [
             "now",
+            "test",
             "push",
             "round",
+            "sanitizeExecutableScript",
             "stripTsTypes",
+            "freeze",
             "fn",
             "createContext",
             "Script",
@@ -11172,12 +11373,16 @@
         },
         {
           "name": "main",
-          "line": 145,
+          "line": 207,
           "type": "function",
           "signature": "function main()",
           "calls": [
             "slice",
             "log",
+            "String",
+            "trim",
+            "resolve",
+            "cwd",
             "indexOf",
             "readFile",
             "compileAndVerifyMicroTdd",
@@ -12526,7 +12731,7 @@
     "scripts/skill-evolver.mjs": {
       "totalLines": 375,
       "symbolCount": 7,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793899797242,
       "size": 15274,
       "exports": [
         "sanitizeEvolveSlug",
@@ -12668,7 +12873,7 @@
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
       "symbolCount": 7,
-      "mtimeMs": 1792483576397,
+      "mtimeMs": 1793899797243,
       "size": 21623,
       "exports": [
         "sanitizeSkillSlug",
@@ -13081,10 +13286,10 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4848,
+      "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1793794184398,
-      "size": 200163,
+      "mtimeMs": 1793877745826,
+      "size": 201167,
       "exports": [
         "generateStudioHtml",
         "startStudioServer"
@@ -13306,20 +13511,16 @@
             "end",
             "stringify",
             "generateStudioHtml",
+            "join",
+            "readFile",
             "startsWith",
             "includes",
             "replace",
             "slice",
             "normalize",
-            "join",
             "extname",
             "toLowerCase",
-            "readFile",
-            "randomUUID",
-            "write",
-            "set",
-            "on",
-            "get"
+            "randomUUID"
           ]
         }
       ]
@@ -14428,6 +14629,119 @@
         }
       ]
     },
+    "scripts/telemetry.mjs": {
+      "totalLines": 166,
+      "symbolCount": 4,
+      "mtimeMs": 1793833280888,
+      "size": 4993,
+      "exports": [
+        "getTelemetryConfig",
+        "setTelemetryEnabled",
+        "trackEvent",
+        "sendTelemetry"
+      ],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 17
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 18
+        },
+        {
+          "source": "node:os",
+          "target": null,
+          "specifiers": [
+            "os"
+          ],
+          "line": 19
+        },
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 20
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "getTelemetryConfig",
+          "line": 33,
+          "type": "function",
+          "signature": "function getTelemetryConfig()",
+          "calls": [
+            "Date",
+            "toISOString",
+            "existsSync",
+            "mkdirSync",
+            "readFileSync",
+            "parse",
+            "randomUUID",
+            "replace",
+            "writeFileSync",
+            "stringify",
+            "randomBytes",
+            "toString"
+          ]
+        },
+        {
+          "name": "setTelemetryEnabled",
+          "line": 86,
+          "type": "function",
+          "signature": "function setTelemetryEnabled(enabled)",
+          "calls": [
+            "existsSync",
+            "mkdirSync",
+            "getTelemetryConfig",
+            "Boolean",
+            "Date",
+            "toISOString",
+            "writeFileSync",
+            "stringify"
+          ]
+        },
+        {
+          "name": "trackEvent",
+          "line": 106,
+          "type": "function",
+          "signature": "function trackEvent(eventName, customProperties = {})",
+          "calls": [
+            "getTelemetryConfig",
+            "String",
+            "release",
+            "Boolean",
+            "Date",
+            "toISOString",
+            "AbortController",
+            "setTimeout",
+            "abort",
+            "fetch",
+            "stringify",
+            "clearTimeout"
+          ]
+        },
+        {
+          "name": "sendTelemetry",
+          "line": 163,
+          "type": "function",
+          "signature": "function sendTelemetry(eventName, properties = {})",
+          "calls": [
+            "trackEvent"
+          ]
+        }
+      ]
+    },
     "scripts/terminal-monitor.mjs": {
       "totalLines": 303,
       "symbolCount": 3,
@@ -14548,10 +14862,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2163,
+      "totalLines": 2175,
       "symbolCount": 1,
-      "mtimeMs": 1793823132415,
-      "size": 100253,
+      "mtimeMs": 1793833337226,
+      "size": 100877,
       "exports": [],
       "imports": [
         {
@@ -15749,10 +16063,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 1160,
+      "totalLines": 1172,
       "symbolCount": 13,
-      "mtimeMs": 1793826098277,
-      "size": 48579,
+      "mtimeMs": 1793889883558,
+      "size": 48128,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -15831,6 +16145,7 @@
             "find",
             "openSkillModal",
             "stopPropagation",
+            "capture",
             "writeText",
             "then",
             "add",
@@ -15841,10 +16156,11 @@
         },
         {
           "name": "openSkillModal",
-          "line": 188,
+          "line": 191,
           "type": "function",
           "signature": "function openSkillModal(skill)",
           "calls": [
+            "capture",
             "getElementById",
             "addEventListener",
             "writeText",
@@ -15855,7 +16171,7 @@
         },
         {
           "name": "closeSkillModal",
-          "line": 253,
+          "line": 262,
           "type": "function",
           "signature": "function closeSkillModal()",
           "calls": [
@@ -15864,7 +16180,7 @@
         },
         {
           "name": "appendTerminalLine",
-          "line": 403,
+          "line": 412,
           "type": "function",
           "signature": "function appendTerminalLine(content, isCommand = false)",
           "calls": [
@@ -15876,7 +16192,7 @@
         },
         {
           "name": "executeTerminalCommand",
-          "line": 422,
+          "line": 431,
           "type": "function",
           "signature": "function executeTerminalCommand(cmdText)",
           "calls": [
@@ -15891,21 +16207,21 @@
         },
         {
           "name": "renderTopology",
-          "line": 617,
+          "line": 626,
           "type": "function",
           "signature": "function renderTopology(id)",
           "calls": []
         },
         {
           "name": "renderBridgeCode",
-          "line": 711,
+          "line": 720,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 724,
+          "line": 733,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -15933,12 +16249,12 @@
             "renderTopology",
             "renderBridgeCode",
             "closeSkillModal",
-            "handleScrollElevation"
+            "capture"
           ]
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 1037,
+          "line": 1049,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [

@@ -1,8 +1,8 @@
 ---
 name: prompt-injection-firewall
-description: "Expert guide for defending AI applications against prompt injection, jailbreak attacks, indirect injection via tool outputs, and data exfiltration through tool calls — input sanitization, output filtering, canary token detection, and layered defense architecture / Panduan ahli pertahanan aplikasi AI terhadap prompt injection, serangan jailbreak, injeksi tidak langsung via output tool, dan eksfiltrasi data melalui tool calls — sanitasi input, filtering output, deteksi canary token, dan arsitektur pertahanan berlapis."
+description: "Runtime defenses against prompt injection, jailbreaks, and SSRF / Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -214,15 +214,27 @@ async def quarantined_intent_extractor(untrusted_user_input: str, quarantined_ll
         "is_adversarial_attempt=True and action='reject_unsupported'."
     )
 
-    response = await quarantined_llm_client.chat.completions.create(
-        model="gemini-2.5-flash",
-        messages=[
-            {"role": "system", "content": system_instruction},
-            {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
-        ],
-        response_format={"type": "json_object"},
-        temperature=0.0
-    )
+    # Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    try:
+        response = await quarantined_llm_client.chat.completions.create(
+            model="gemini-4-argon",
+            messages=[
+                {"role": "system", "content": system_instruction},
+                {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.0
+        )
+    except Exception:
+        response = await quarantined_llm_client.chat.completions.create(
+            model="gemini-3.8-flash",
+            messages=[
+                {"role": "system", "content": system_instruction},
+                {"role": "user", "content": f"USER_INPUT_TO_PARSE:\n{untrusted_user_input}"}
+            ],
+            response_format={"type": "json_object"},
+            temperature=0.0
+        )
 
     parsed_json = json.loads(response.choices[0].message.content)
     return ExtractedUserIntent.model_validate(parsed_json)
@@ -326,6 +338,18 @@ export class CanarySentinel {
 - [ ] Output parser strips unauthorized external markdown images and anchor links to prevent blind GET-request exfiltration.
 - [ ] Automated regression tests run continuously with `autonomous-red-teamer` to probe prompt injection defenses.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec prompt-injection-firewall <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -376,3 +400,12 @@ Kerangka pertahanan tingkat produksi untuk mengamankan aplikasi berbasis LLM, ag
 3. **Wajibkan Nonce pada Dokumen RAG**: Lindungi konteks retrieval dari manipulasi dokumen web dengan pembungkus nonce yang diverifikasi secara idempoten.
 4. **Verifikasi Output dengan Canary**: Pasang tripwire canary token untuk mendeteksi pembocoran system prompt secara otomatis.
 5. **Terapkan HITL pada Tool Kritis**: Panggilan tool yang berdampak destruktif atau bernilai finansial wajib memerlukan konfirmasi manusia (*Human-in-the-Loop*).
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec prompt-injection-firewall <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
+| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

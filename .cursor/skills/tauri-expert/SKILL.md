@@ -1,8 +1,8 @@
 ---
 name: tauri-expert
-description: "Expert guide for Tauri 2.x / 2.12+ cross-platform desktop and mobile development: Rust 1.90+ MSRV, IPC Channel streaming, on_permission_request handlers, App-Bound domains, and Capabilities security / Panduan ahli pengembangan desktop dan mobile Tauri 2.x / 2.12+."
+description: "Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+ / Aplikasi desktop & mobile Tauri 2.x dengan Rust 1.90+ dan IPC."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -24,6 +24,8 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor` — Multimodal vision auditing of rendered desktop window frames and dialogs.
 - `anti-slop` — Anti-slop desktop UI craft, zero fake browser window frames and zero placeholder commands.
 - `production-ready-hardener` — Auditing binary sizes, code signing, and release pipeline hardening.
+- `desktop-electron-expert` & `browser-extension-mv3-pro` — Migrating legacy Electron apps to Tauri v2 and bridging native desktop binaries with Manifest V3 browser companion extensions.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Description
 Production-grade guidance for building cross-platform desktop (Windows 10/11, macOS, Linux) and mobile (iOS 16+, Android 10+) applications using **Tauri 2.x (specifically v2.12+)**. Covers Rust 1.90+ MSRV requirements, **`tauri::ipc::Channel<T>`** for ordered bidirectional streaming, **`on_permission_request`** programmatic security gates, **App-Bound Domain navigation limiting**, portable application directory overrides (`appDirectoriesOverride`), Rust-side `convert_file_src`, and the fine-grained **Capabilities & Permissions** system.
@@ -42,9 +44,9 @@ Production-grade guidance for building cross-platform desktop (Windows 10/11, ma
 - **App-Bound Domains**: Lock webview navigation strictly to trusted external domains using `limit_navigations_to_app_bound_domains` in Rust or `limitNavigationsToAppBoundDomains` in `tauri.conf.json`.
 - **Context Isolation & Capabilities**: Never expose unrestricted system APIs. Define least-privilege capability files in `src-tauri/capabilities/*.json`.
 
-#### 3. State Management & Concurrency
+#### 3. State Management & Concurrency (Brown Permissions & Tokio Invariants)
 - Store global application state in the Rust backend using `tauri::State<T>`.
-- Use `tokio::sync::Mutex` or `std::sync::RwLock` for mutable state.
+- Use `tokio::sync::Mutex` or `std::sync::RwLock` for mutable state. Never hold a synchronous lock (`std::sync::MutexGuard`) across an `.await` boundary in async Tauri commands to prevent thread starvation and UI deadlocks (as governed by `rust-programming-expert`).
 - Initialize managed state during application setup: `tauri::Builder::default().manage(AppState::new())`.
 
 #### 4. Portable Application Support (`appDirectoriesOverride`)
@@ -200,6 +202,18 @@ export async function runStreamingTask(
 }
 ```
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec tauri-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -214,6 +228,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor` — Audit visual multimodal untuk bingkai jendela desktop dan dialog yang dirender.
 - `anti-slop` — Penegakan UI desktop anti-slop, nol bingkai browser palsu, dan nol perintah placeholder.
 - `production-ready-hardener` — Audit ukuran biner, code signing, dan pipeline rilis siap produksi.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `desktop-electron-expert`, `mobile-expo-expert`, `reverse-engineer-anything`, `zero-trust-secret-vault`
 
 ### Deskripsi
 Panduan produksi untuk membangun aplikasi desktop (Windows 10/11, macOS, Linux) dan mobile (iOS 16+, Android 10+) berperforma tinggi menggunakan **Tauri 2.x (terutama v2.12+)**. Mencakup standar MSRV Rust 1.90+, **`tauri::ipc::Channel<T>`** untuk streaming bidirectional terurut, **`on_permission_request`** untuk gerbang keamanan native, pembatasan navigasi **App-Bound Domains**, override direktori aplikasi portabel (`appDirectoriesOverride`), konversi file lokal di sisi Rust via `convert_file_src`, serta sistem **Capabilities & Permissions**.
@@ -232,9 +247,9 @@ Panduan produksi untuk membangun aplikasi desktop (Windows 10/11, macOS, Linux) 
 - **App-Bound Domains**: Kunci navigasi webview agar hanya mengakses domain tepercaya melalui `limit_navigations_to_app_bound_domains` di Rust atau `limitNavigationsToAppBoundDomains` di `tauri.conf.json`.
 - **Isolasi Konteks & Capabilities**: Jangan pernah mengekspos API sistem tanpa batas. Tentukan kapabilitas berbasis hak istimewa terkecil (*least-privilege*) di `src-tauri/capabilities/*.json`.
 
-#### 3. Manajemen State & Konkurensi
+#### 3. Manajemen State & Konkurensi (Izin Brown & Invarian Tokio)
 - Simpan state global aplikasi di backend Rust menggunakan `tauri::State<T>`.
-- Gunakan `tokio::sync::Mutex` atau `std::sync::RwLock` untuk state yang dapat berubah (*mutable state*).
+- Gunakan `tokio::sync::Mutex` atau `std::sync::RwLock` untuk state yang dapat dimutasi (*mutable state*). Dilarang menahan lock sinkron (`std::sync::MutexGuard`) melintasi titik `.await` pada perintah Tauri asinkron guna mencegah kelaparan thread (*thread starvation*) dan deadlock UI (mengikuti standar `rust-programming-expert`).
 - Daftarkan state saat inisialisasi aplikasi: `tauri::Builder::default().manage(AppState::new())`.
 
 #### 4. Aplikasi Portabel & Override Direktori (`appDirectoriesOverride`)
@@ -389,3 +404,12 @@ export async function runStreamingTask(
   ]
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec tauri-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

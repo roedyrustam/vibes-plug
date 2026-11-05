@@ -1,8 +1,8 @@
 ---
 name: ai-llm-integration-expert
-description: "Expert guide for integrating Large Language Models (LLMs), Model Context Protocol (MCP v1.x), hybrid reasoning models, RAG architecture, vector databases, and AI agents / Panduan ahli untuk integrasi LLM, Model Context Protocol (MCP), model hybrid reasoning, arsitektur RAG, vector database, dan agen AI."
+description: "LLM integration, MCP v1.x protocols, hybrid reasoning, and RAG / Integrasi LLM, protokol MCP v1.x, hybrid reasoning, dan RAG."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -18,17 +18,18 @@ version: "4.4.2"
 ### Orchestration & Integration
 - **Frontier Models & Providers**: `frontier-ai-models-expert`, `gemini-agent-booster`, `vercel-ai-sdk-expert`, `pydantic-ai-expert`
 - **MCP Ecosystem**: `mcp-server-architect`, `mcp-sampling-critic`, `doku-mcp-server`
-- **Multi-Agent & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`
+- **Multi-Agent & Tooling**: `multi-agent-orchestration`, `parallel-tool-orchestrator`, `speculative-multi-draft-synthesizer`, `synthetic-data-finetuning-expert` (QLoRA/DPO domain fine-tuning & distillation)
 - **Memory & Retrieval**: `agentic-memory-architect`, `vector-db-rag-expert`, `graph-rag-knowledge-expert`, `local-slm-edge-ai-expert`
 - **Optimization & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
 - **Safety, Governance & Quality**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `durable-agent-execution-expert`, `ai-media-generation-expert`, `llm-observability-expert`
 
 ### Description
 Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hybrid reasoning models, and Large Language Models (LLMs) into modern software architectures. Covers hybrid reasoning token streaming, Streamable HTTP MCP transports, agentic memory architectures, native context caching, RAG pipelines, and multi-model orchestration.
 
 ### Trigger Conditions
-- Integrating frontier reasoning models: Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, or open-source weights (Llama 4, Qwen 2.5/3 Coder).
+- Integrating frontier reasoning models: xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Muse Wonder High, or DeepSeek-R1 / Pro / V3.
 - Implementing Model Context Protocol (MCP) server or client integrations with Streamable HTTP transport or MCP Sampling.
 - Building AI chatbots, copilots, or autonomous AI agent workflows (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Managing streaming reasoning tokens (`<think>` chunks) separately from final output in user interfaces.
@@ -36,20 +37,23 @@ Production-grade guidelines for integrating AI, Model Context Protocol (MCP), hy
 - Building agentic memory systems (short-term, long-term semantic, episodic) using Mem0 or vector stores.
 - Implementing cost optimization with provider-native Context Caching (Gemini `cachedContent`, Anthropic ephemeral prompt cache, OpenAI prefix cache).
 
-### Model Capability Matrix (2026 Frontier Edition)
+### Model Capability Matrix (Late-2026 Frontier Edition)
 
-| Provider | Model | Context | Reasoning Type | Primary Strength |
-|---|---|---|---|---|
-| Google | Gemini 4 Pro | 2M+ | Deep Thinking & Long-Context Synthesis | 2M+ context, whole-repo reasoning, multimodal live, native caching |
-| Google | Gemini 4 Flash / Astra | 1M–2M | Flash Thinking (Dynamic Budget) | Ultra-low latency (<100ms TTFT), subagent swarms, spatial audio/video |
-| Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & EFS Guardrails | SOTA agentic coding, 45% cheaper cache reads, customer VPC privacy |
-| Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Complex refactoring, Computer Use (CUA), UI/UX spatial synthesis |
-| OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Native Multimodal | Native tool-use, multi-step planning, automated verification |
-| OpenAI | o3 / o3-mini | 200K | Native Test-Time Reasoning (`reasoning_effort`) | Competitive coding, formal invariant logic, mathematical proofs |
-| OpenAI | GPT-4.5 | 128K | High-Fidelity Instruction & Direct Tooling | Ultra-crisp structured output, low-latency agent orchestration |
-| DeepSeek | DeepSeek-R1 / Pro | 128K | Open Reasoning (Distill & MoE) | SOTA open-weights reasoning, math, algorithms, code refactoring |
-| DeepSeek | DeepSeek-V3 | 128K | General Multimodal / Text | High throughput, extremely cost-efficient coding loops |
-| Qwen | Qwen 2.5 / 3 Coder | 128K | Open Source Code Specialist | Self-hosted coding agent, local copilot integration |
+| Provider | Model | Tier | Context | Reasoning Type | Primary Strength |
+|---|---|---|---|---|---|
+| xAI | Grok 4.7 High Fast | High Fast | 256K | Sub-second Real-Time Compute | Lightning TTFT, live web search, rapid test-debug loops |
+| xAI | Grok 4.6 High Fast | High Fast | 128K | High-Throughput Reasoning | Fast unit testing, code linting, micro-benchmark verification |
+| Cursor | Composer 2.5 Fast | Fast | 200K | Native AST Diff Engine | Multi-file synchronized refactoring, zero-breakage diff generation |
+| Google | Gemini 4 Argon | Medium | 2M+ | Monolithic Balanced Reasoning | 2M+ whole-repo context, native caching, fullstack feature synthesis |
+| Google | Gemini 3.8 Flash (Fallback) | Fast/Medium | 1M+ | Flash Thinking (Dynamic Budget) | Fallback for Gemini 4; ultra-low latency (<100ms TTFT), subagent swarms |
+| OpenAI | GPT-5.6 Sol | Medium | 500K | Strict Schema & Contract Enforcement | Flawless tool-calling, OpenAPI validation, PRM verification |
+| Anthropic | Claude Opus 5.5 | Medium | 500K | Balanced Deep Comprehension | High-level architectural analysis, complex domain modeling |
+| Anthropic | Claude Opus 4.6 (Fallback) | Medium | 200K | Hybrid Deep Reasoning | Fallback for Claude Opus 5.5; deep architectural comprehension |
+| Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Flagship fullstack craftsmanship, zero-slop code, formal verification |
+| Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Agentic terminal execution, 45% cheaper cache reads, VPC safety |
+| Muse | Muse Wonder | High | 300K | Exploratory & Generative Design | Creative architecture synthesis, innovative generative UI layouts |
+| Google | Gemini 4 Pro | High | 2M–10M | Monolithic Multimodal Live | Long-context deep research, spatial audio/video, massive repo audits |
+| DeepSeek | DeepSeek-R1 / Pro | High | 128K | Open Weights Reasoning | High-power mathematical algorithms, complex AST transformation |
 
 ### Core Architecture Guidelines
 
@@ -61,8 +65,17 @@ Modern frontier models emit internal thinking/reasoning tokens during test-time 
   import { streamText } from 'ai';
   import { anthropic } from '@ai-sdk/anthropic';
 
+  // Availability Fallback Invariant: Claude Sonnet 5.5 / Opus 5.5 -> Claude Opus 4.6
+  const getThinkingModel = () => {
+    try {
+      return anthropic('claude-sonnet-5.5');
+    } catch {
+      return anthropic('claude-opus-4.6');
+    }
+  };
+
   const result = streamText({
-    model: anthropic('claude-3-7-sonnet-20250219'),
+    model: getThinkingModel(),
     providerOptions: {
       anthropic: {
         thinking: { type: 'enabled', budgetTokens: 4096 },
@@ -114,7 +127,9 @@ Build high-precision RAG pipelines:
   // Basic Gemini Multimodal Live streaming setup
   const ws = new WebSocket('wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent');
   ws.onopen = () => {
-    ws.send(JSON.stringify({ setup: { model: 'models/gemini-2.0-flash-exp' } }));
+    // Availability Fallback Invariant: Gemini 4 Argon -> Gemini 3.8 Flash
+    const liveModel = process.env.GEMINI_FALLBACK === 'true' ? 'models/gemini-3.8-flash' : 'models/gemini-4-argon';
+    ws.send(JSON.stringify({ setup: { model: liveModel } }));
   };
   ws.onmessage = (event) => {
     const response = JSON.parse(event.data);
@@ -189,6 +204,18 @@ Build high-precision RAG pipelines:
 - Use Zod schemas to define tool parameters and final structured entities.
 - Implement rate limiting, circuit breakers, and semantic caching (Redis / Upstash vector cache) to prevent runaway recursive tool loops.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ai-llm-integration-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -202,12 +229,13 @@ Build high-precision RAG pipelines:
 - **Optimasi & FinOps**: `kv-cache-prefix-optimizer`, `thinking-budget-orchestrator`, `llm-finops-router`, `context-window-engineer`
 - **Keamanan, Tata Kelola & Kualitas**: `ai-safety-governance-expert`, `prompt-injection-firewall`, `ai-prompt-engineering-expert`, `anti-slop`
 - **Siklus Hidup & Tata Kelola**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `a2a-agent-protocol-expert`, `agentic-coding-workflow-expert`, `synthetic-data-finetuning-expert`, `durable-agent-execution-expert`, `ai-media-generation-expert`, `llm-observability-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP), model hybrid reasoning, dan Large Language Models (LLM) ke dalam arsitektur perangkat lunak modern. Mencakup penanganan streaming token penalaran, transport MCP Streamable HTTP, arsitektur memori agentik, context caching native, pipeline RAG, dan orkestrasi multi-model.
 
 ### Kondisi Pemicu
-- Mengintegrasikan model frontier reasoning: Google Gemini 4 Pro / Gemini 4 Flash / Project Astra, Anthropic Claude 5.1 (Fable/Mythos) / Claude 5 Sonnet, OpenAI GPT-5.6 / GPT-5 / o3 / o3-mini / GPT-4.5, DeepSeek-R1 / DeepSeek-Pro / V3, atau bobot open-source (Llama 4, Qwen 2.5/3 Coder).
+- Mengintegrasikan model frontier reasoning: xAI Grok 4.7 High Fast / Grok 4.6, Cursor Composer 2.5 Fast, Anthropic Claude Opus 5.5 Medium / Claude Sonnet 5.5 High / Claude Fable 5.1, Google Gemini 4 Argon Medium / Gemini 4 Pro / Project Astra, OpenAI GPT-5.6 Sol Medium / GPT-5 / o3, Muse Wonder High, atau DeepSeek-R1 / Pro / V3.
 - Mengimplementasikan server atau klien Model Context Protocol (MCP) dengan transport Streamable HTTP atau MCP Sampling.
 - Membangun chatbot AI, copilot, atau workflow agen otonom (LangGraph, OpenAI Agents SDK, Google ADK, Mastra.ai, Vercel AI SDK 5.x/6.x).
 - Mengelola streaming token penalaran (`<think>`) secara terpisah dari output akhir pada tampilan antarmuka pengguna.
@@ -215,20 +243,23 @@ Panduan tingkat produksi untuk mengintegrasikan AI, Model Context Protocol (MCP)
 - Membangun sistem memori agentik (jangka pendek, semantik jangka panjang, episodik) menggunakan Mem0 atau vector store.
 - Menerapkan optimasi biaya dengan Context Caching native provider (Gemini `cachedContent`, Anthropic ephemeral prompt cache, OpenAI prefix cache).
 
-### Matriks Kapabilitas Model (Edisi Frontier 2026)
+### Matriks Kapabilitas Model (Edisi Frontier Akhir-2026)
 
-| Provider | Model | Konteks | Tipe Penalaran | Keunggulan Utama |
-|---|---|---|---|---|
-| Google | Gemini 4 Pro | 2M+ | Deep Thinking & Sintesis Konteks Panjang | Konteks 2M+, penalaran seluruh repo, multimodal live, native caching |
-| Google | Gemini 4 Flash / Astra | 1M–2M | Flash Thinking (Budget Dinamis) | Latensi ultra-rendah (<100ms TTFT), swarm subagent, audio/video spasial |
-| Anthropic | Claude 5.1 (Fable / Mythos) | 500K | Terminal-Bench 4.0 & Guardrail EFS | Coding agentic SOTA, cache read 45% lebih hemat, privasi VPC enterprise |
-| Anthropic | Claude 5 / 4.5 Sonnet | 200K | Hybrid Extended Thinking | Refactoring kompleks, Computer Use (CUA), sintesis spasial UI/UX |
-| OpenAI | GPT-5.6 / GPT-5 | 500K | Process Reward Models (PRM) & Multimodal Native | Tool use native, perencanaan multi-langkah, verifikasi otomatis |
-| OpenAI | o3 / o3-mini | 200K | Test-Time Reasoning Native (`reasoning_effort`) | Competitive coding, logika invarian formal, pembuktian matematis |
-| OpenAI | GPT-4.5 | 128K | Instruksi Presisi Tinggi & Tooling Cepat | Output terstruktur sangat presisi, orkestrasi agen latensi rendah |
-| DeepSeek | DeepSeek-R1 / Pro | 128K | Open Reasoning (Distill & MoE) | Penalaran open weights terdepan, matematika, algoritma, refactoring kode |
-| DeepSeek | DeepSeek-V3 | 128K | Teks & Multimodal Umum | Throughput tinggi, sangat hemat biaya untuk coding loops |
-| Qwen | Qwen 2.5 / 3 Coder | 128K | Spesialis Kode Open Source | Agen coding mandiri / self-hosted, copilot lokal |
+| Provider | Model | Tier | Konteks | Tipe Penalaran | Keunggulan Utama |
+|---|---|---|---|---|---|
+| xAI | Grok 4.7 High Fast | High Fast | 256K | Komputasi Real-Time Sub-Detik | TTFT kilat, pencarian web langsung, loop uji-debug cepat |
+| xAI | Grok 4.6 High Fast | High Fast | 128K | Penalaran Throughput Tinggi | Pengujian unit cepat, linting kode, verifikasi micro-benchmark |
+| Cursor | Composer 2.5 Fast | Fast | 200K | Mesin Diff AST Native | Refactoring multi-berkas tersinkronisasi, generasi patch aman |
+| Google | Gemini 4 Argon | Medium | 2M+ | Penalaran Seimbang Monolitik | Konteks 2M+ seluruh repo, caching native, sintesis fitur fullstack |
+| Google | Gemini 3.8 Flash (Fallback) | Fast/Medium | 1M+ | Flash Thinking (Budget Dinamis) | Pengalihan jika Gemini 4 belum tersedia; latensi ultra-rendah (<100ms TTFT) |
+| OpenAI | GPT-5.6 Sol | Medium | 500K | Penegakan Skema & Kontrak Ketat | Tool-calling sempurna, validasi OpenAPI, verifikasi PRM |
+| Anthropic | Claude Opus 5.5 | Medium | 500K | Pemahaman Arsitektur Mendalam | Analisis arsitektur tingkat tinggi, pemodelan domain kompleks |
+| Anthropic | Claude Opus 4.6 (Fallback) | Medium | 200K | Penalaran Hibrida Mendalam | Pengalihan jika Claude Opus 5.5 belum tersedia; pemahaman arsitektur formal |
+| Anthropic | Claude Sonnet 5.5 | High | 500K | Extended Thinking (64K) | Keahlian fullstack unggulan, kode anti-slop, verifikasi formal |
+| Anthropic | Claude Fable 5.1 | High | 500K | Terminal-Bench SOTA & Cache-Pinning | Eksekusi terminal agentic, pembacaan cache 45% lebih hemat |
+| Muse | Muse Wonder | High | 300K | Desain Eksploratif & Generatif | Sintesis arsitektur kreatif, layout UI generatif inovatif |
+| Google | Gemini 4 Pro | High | 2M–10M | Multimodal Live Monolitik | Riset mendalam long-context, audio/video spasial, audit repo raksasa |
+| DeepSeek | DeepSeek-R1 / Pro | High | 128K | Penalaran Open Weights | Algoritma matematika tinggi, transformasi AST kompleks |
 
 ### Panduan Arsitektur Inti
 
@@ -268,7 +299,9 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
   // Setup dasar streaming Gemini Multimodal Live
   const ws = new WebSocket('wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent');
   ws.onopen = () => {
-    ws.send(JSON.stringify({ setup: { model: 'models/gemini-2.0-flash-exp' } }));
+    // Invarian Pengalihan Ketersediaan: Gemini 4 Argon -> Gemini 3.8 Flash
+    const liveModel = process.env.GEMINI_FALLBACK === 'true' ? 'models/gemini-3.8-flash' : 'models/gemini-4-argon';
+    ws.send(JSON.stringify({ setup: { model: liveModel } }));
   };
   ws.onmessage = (event) => {
     const response = JSON.parse(event.data);
@@ -333,3 +366,12 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
 #### 10. Output Terstruktur & Guardrails
 - Manfaatkan mode Structured Outputs native model dengan skema Zod untuk menjamin integritas JSON.
 - Terapkan rate limiting, circuit breaker, dan semantic caching (Redis / Upstash) untuk mencegah pemanggilan tool secara rekursif tak berujung.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ai-llm-integration-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

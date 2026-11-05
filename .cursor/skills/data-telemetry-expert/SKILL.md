@@ -1,8 +1,8 @@
 ---
 name: data-telemetry-expert
-description: "Expert guide for observability, analytics, telemetry, and data pipelines (OpenTelemetry, PostHog, Mixpanel) / Panduan ahli untuk observabilitas, telemetri, dan analitik."
+description: "Observability, OpenTelemetry, metrics, and analytics (PostHog, Mixpanel) / Observabilitas, OpenTelemetry, metrik, dan analitik data."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -21,7 +21,9 @@ version: "4.4.2"
   - `logging-error-tracking-expert` — Correlate OpenTelemetry traces with structured Pino logs and Sentry alerts.
   - `llm-observability-expert` — Extend trace contexts with GenAI token costs, prompt latencies, and evaluations.
   - `error-resilience-expert` — Feed real-time telemetry metrics into circuit breaker thresholds and automated failovers.
+  - `feature-flag-analytics-expert` & `geospatial-maps-expert` — Correlate PostHog feature flag experiments, funnel analytics, and geospatial PostGIS/Mapbox user distribution telemetry.
   - `session-memory-manager` — Persist telemetry pipeline configurations and observability checkpoints.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `olap-columnar-analytics-expert`, `proactive-background-watcher`
 
 ### Description
 Expert guide for production observability, product analytics, and data pipelines. Covers **OpenTelemetry 1.x** (stable, vendor-neutral traces/metrics/logs), **PostHog** (open-source product analytics), **ClickHouse** (OLAP analytics database), Grafana stack, and AI agent observability patterns.
@@ -189,6 +191,18 @@ span.setAttribute('llm.cached', response.usage.cache_read_input_tokens > 0);
 
 Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tracing** (Agents SDK), **Langfuse** (open-source, any LLM).
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec data-telemetry-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -201,6 +215,7 @@ Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tra
   - `llm-observability-expert` — Memperluas konteks trace dengan metrik GenAI, latensi prompt, dan evaluasi.
   - `error-resilience-expert` — Menyalurkan metrik telemetri ke threshold circuit breaker dan failover otomatis.
   - `session-memory-manager` — Menyimpan konfigurasi pipeline telemetri dan checkpoint observabilitas.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `olap-columnar-analytics-expert`, `feature-flag-analytics-expert`, `proactive-background-watcher`
 
 ### Deskripsi
 Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. Mencakup **OpenTelemetry 1.x** (standar traces, metrics, logs netral vendor), **PostHog** (analitik produk open-source), **ClickHouse** (database analitik OLAP berkecepatan tinggi), Grafana stack, dan pola pemantauan agen AI.
@@ -287,3 +302,12 @@ export function lacakAktivitasPengguna(namaFitur: string) {
   posthog.capture('fitur_digunakan', { fitur: namaFitur, timestamp: new Date().toISOString() });
 }
 ```
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec data-telemetry-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

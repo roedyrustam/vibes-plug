@@ -1,8 +1,8 @@
 ---
 name: spa-orchestrator
-description: "Orchestrates Single-Page Application (SPA) architecture, integrating frontend state management with API-driven backends / Mengorkestrasi arsitektur Single-Page Application (SPA), mengintegrasikan state management frontend dengan backend berbasis API."
+description: "Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 
 ---
 
@@ -28,6 +28,7 @@ Connects and orchestrates with relevant domain skills:
 - `visual-ui-auditor`: Multimodal vision auditing of rendered SPA routes and dialogs.
 - `anti-slop`: Anti-slop frontend architecture, eliminating broken stubs and excessive loading spinners.
 - **MANDATORY**: Execute `senior-frontend` FIRST for all HTML/CSS and client-side JS tasks to ensure modern web standards.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `nextjs-app-router-expert`, `micro-frontend-architect`, `pwa-offline-first-expert`, `performance-web-vitals`
 
 ### Description
 Structured orchestration guide for building modern Single-Page Applications (SPAs). Coordinates frontend architecture (TanStack Router, React 19, TanStack Query v5) with decoupled API backends (Hono RPC, tRPC). Covers state management strategy, routing patterns, API layer design, build tooling (Vite + TanStack Start), and deployment strategies.
@@ -264,6 +265,18 @@ export default defineConfig({
 
 **Deployment target**: Cloudflare Pages or Vercel for CDN-served static SPA. Backend API deployed separately to Railway/Fly.io.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec spa-orchestrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -282,6 +295,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `visual-ui-auditor`: Audit visual multimodal untuk rute dan dialog SPA yang dirender.
 - `anti-slop`: Arsitektur frontend anti-slop, mengeliminasi stub rusak dan spinner loading berlebih.
 - **MANDATORY**: Eksekusi `senior-frontend` PERTAMA KALI untuk semua tugas HTML/CSS dan JS sisi klien guna memastikan standar web modern.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `nextjs-app-router-expert`, `micro-frontend-architect`, `pwa-offline-first-expert`, `performance-web-vitals`
 
 ### Deskripsi
 Panduan orkestrasi terstruktur untuk membangun Single-Page Application (SPA) modern. Mengkoordinasikan arsitektur frontend (TanStack Router, React 19, TanStack Query v5) dengan backend API terpisah (Hono RPC, tRPC). Mencakup strategi state management, pola routing, desain API layer, build tooling (Vite + TanStack Start), dan strategi deployment.
@@ -318,12 +332,22 @@ Ekspor `AppType` dari backend Hono dan gunakan `hc<AppType>()` di frontend untuk
 Gunakan plugin `TanStackRouterVite` untuk auto-generate route tree. Konfigurasi `manualChunks` untuk code splitting yang optimal. Deploy SPA ke Cloudflare Pages atau Vercel; backend API ke Railway/Fly.io secara terpisah.
 
 ---
-### 📄 Standard Pages Mandate (CRITICAL)
+### 📄 Standard Pages & Legal Compliance Mandate (CRITICAL)
 **MANDATORY**: Whenever you are building a new application, landing page, or website, you MUST automatically create the following standard pages:
 1. **About Page** (`/about`)
 2. **Profile Page** (`/profile`)
 3. **Contact Page** (`/contact`)
-4. **Terms of Reference / Terms of Service** (`/terms`)
-5. **Privacy Policy** (`/privacy-policy`)
+4. **Terms & Conditions / Syarat & Ketentuan** (`/terms` or `/terms-and-conditions`)
+5. **Privacy Policy / Kebijakan Privasi** (`/privacy` or `/privacy-policy`)
+6. **User Data Deletion / Hapus Data** (`/delete-account` or `/data-deletion`)
 
-These pages must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar (About, Profile, Contact, Terms, Privacy Policy) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+These pages and deletion mechanisms must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar dan Trio Kepatuhan Hukum & Privasi Wajib (About, Profile, Contact, Syarat & Ketentuan, Kebijakan Privasi, Hapus Data) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec spa-orchestrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

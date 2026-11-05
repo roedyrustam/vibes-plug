@@ -1,8 +1,8 @@
 ---
 name: form-validation-expert
-description: "Expert guide for complex form handling with React Hook Form, server-side validation (useActionState + Zod), multi-step wizards, and accessible form patterns / Panduan ahli penanganan formulir kompleks dengan React Hook Form, validasi server-side, wizard multi-langkah, dan pola formulir aksesibel."
+description: "Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions."
 author: "Roedy Rustam"
-version: "4.4.2"
+version: "4.7.0"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -22,6 +22,7 @@ Connects and orchestrates with relevant domain skills:
 - **`anti-slop`**: Eliminates vague error messages, double-submission bugs, and unhandled pending states.
 - **`senior-frontend`**: React 19 `useActionState`, `useOptimistic`, and server action form submission.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Continuous lifecycle execution.
+- **Cross-Domain Synergy & Subagent Swarm Integration**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`
 
 ### Description
 Production-grade guide for building robust, accessible, and user-friendly forms. Covers **React Hook Form v7+** with Zod/Valibot resolvers, **server-side validation** with `useActionState` + Zod, **multi-step form wizards**, **dynamic forms** from JSON Schema, **autofill-friendly patterns**, **optimistic form submission** with `useOptimistic`, **Conform** (progressive enhancement), and **form accessibility** (ARIA, error announcements).
@@ -469,6 +470,18 @@ Zero-tolerance standards for form engineering:
 4. **Input Preservation Law**: Never reset, wipe, or clear user inputs when validation errors or server exceptions occur. Keep user data intact so they can correct errors without retyping.
 5. **End-to-End Schema Contract Parity**: Never rely solely on client-side validation. Server actions and API routes must validate request payloads against the identical Zod/Valibot schema.
 
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec form-validation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
+
 ---
 
 <a name="bahasa-indonesia"></a>
@@ -482,6 +495,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **`anti-slop`**: Melenyapkan pesan error samar, bug pengiriman ganda, dan status pending yang tidak ditangani.
 - **`senior-frontend`**: Mengimplementasikan `useActionState`, `useOptimistic`, dan pengiriman form Server Actions di React 19.
 - **`brainstorming`**, **`zero-to-prod-orchestrator`**, **`session-memory-manager`**: Eksekusi siklus hidup proyek secara terpadu.
+- **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `angular-expert`, `solidjs-expert`, `svelte-sveltekit-expert`
 
 ### Deskripsi
 Panduan tingkat produksi untuk membangun formulir yang kuat, aksesibel, dan ramah pengguna. Mencakup **React Hook Form v7+** dengan Zod/Valibot resolver, **validasi server-side** dengan `useActionState` + Zod, **wizard formulir multi-langkah**, **formulir dinamis** dari JSON Schema, **pola autofill-friendly**, **optimistic form submission**, **Conform** (progressive enhancement), dan **aksesibilitas formulir** (ARIA, pengumuman error).
@@ -506,3 +520,12 @@ Standar nol toleransi untuk rekayasa formulir:
 3. **Pengikatan Error ARIA pada Field**: Setiap input yang berada dalam status error wajib menyematkan `aria-invalid="true"` dan `aria-describedby="{field}-error"`, serta membungkus pesan error dengan `role="alert"`.
 4. **Hukum Perlindungan Input Pengguna**: Dilarang mengosongkan atau menghapus input pengguna saat validasi gagal atau server error. Biarkan data pengguna tetap ada agar mereka dapat memperbaikinya tanpa mengetik ulang dari awal.
 5. **Paritas Kontrak Skema End-to-End**: Dilarang hanya mengandalkan validasi di sisi klien. Server action atau rute API wajib memvalidasi payload request terhadap skema Zod/Valibot yang identik.
+
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec form-validation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
+| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
