@@ -142,7 +142,7 @@ async def route_by_complexity(prompt: str, complexity_score: float) -> str:
         model=model,
         messages=[{"role": "user", "content": prompt}],
         api_base="http://localhost:4000",
-        api_key="sk-agent-code",
+        api_key=os.environ.get("LITELLM_PROXY_KEY", "proxy-auth-key"),
         metadata={
             "generation_name": "dynamic-route",
             "tags": ["finops", f"complexity:{complexity_score:.2f}"],

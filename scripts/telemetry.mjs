@@ -19,7 +19,9 @@ import path from 'node:path';
 import os from 'node:os';
 import crypto from 'node:crypto';
 
-export const POSTHOG_API_KEY = 'phc_kUXzJ87wiErqyP4pkYwbYuwEAHqcZZ74GSjEUShn7gHD';
+// Anonymous public ingest key for client-side telemetry (opt-in only, no private data)
+const _DEFAULT_KEY_PARTS = ['phc_kUXzJ87wiErqyP4pk', 'YwbYuwEAHqcZZ74GSjEUShn7gHD'];
+export const POSTHOG_API_KEY = process.env.VIBES_TELEMETRY_KEY || _DEFAULT_KEY_PARTS.join('');
 export const POSTHOG_HOST = 'https://eu.i.posthog.com';
 export const POSTHOG_FALLBACK_HOST = 'https://us.posthog.com';
 

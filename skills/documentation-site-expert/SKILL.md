@@ -241,8 +241,8 @@ const config: Config = {
   ],
   themeConfig: {
     algolia: {
-      appId: 'YOUR_APP_ID',
-      apiKey: 'YOUR_SEARCH_API_KEY',
+      appId: process.env.ALGOLIA_APP_ID || 'APP_ID',
+      apiKey: process.env.ALGOLIA_SEARCH_KEY || 'SEARCH_KEY',
       indexName: 'acme_docs',
       contextualSearch: true,
       searchPagePath: 'search',
@@ -298,8 +298,8 @@ npm install @algolia/client-search
 ```javascript
 // algolia-crawler-config.js (submitted to Algolia dashboard)
 new Crawler({
-  appId: 'YOUR_APP_ID',
-  apiKey: 'YOUR_WRITE_API_KEY',
+  appId: process.env.ALGOLIA_APP_ID || 'APP_ID',
+  apiKey: process.env.ALGOLIA_WRITE_KEY || 'WRITE_KEY',
   rateLimit: 8,
   startUrls: ['https://docs.acme.com/'],
   renderJavaScript: false,

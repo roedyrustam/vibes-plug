@@ -2127,11 +2127,11 @@ Platform Eligibility & Economics:
     const showcaseUrl = `${url}/showcase`;
     console.log(`\n🌐 Vibes-Plug Web Showcase is running at: \x1b[36m${showcaseUrl}\x1b[0m\n`);
     if (!noOpen) {
-      const { exec } = await import('child_process');
-      const cmd = process.platform === 'win32' ? `start ${showcaseUrl}` :
-                  process.platform === 'darwin' ? `open ${showcaseUrl}` :
-                  `xdg-open ${showcaseUrl}`;
-      exec(cmd, () => {});
+      const { spawn } = await import('child_process');
+      const browserOpener = process.platform === 'win32' ? { bin: 'cmd.exe', args: ['/c', 'start', '""', showcaseUrl] } :
+                            process.platform === 'darwin' ? { bin: 'open', args: [showcaseUrl] } :
+                            { bin: 'xdg-open', args: [showcaseUrl] };
+      spawn(browserOpener.bin, browserOpener.args, { stdio: 'ignore', detached: true }).unref();
     }
     break;
   }

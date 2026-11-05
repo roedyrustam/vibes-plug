@@ -4829,11 +4829,11 @@ export async function startStudioServer(options = {}) {
       console.log('Press Ctrl+C to stop the Studio server.\n');
 
       if (!noOpen) {
-        // Open browser based on OS
-        const cmd = process.platform === 'win32' ? `start ${localUrl}` :
-                    process.platform === 'darwin' ? `open ${localUrl}` :
-                    `xdg-open ${localUrl}`;
-        exec(cmd, () => {});
+        // Open browser safely based on OS using spawn with structured argument arrays
+        const browserOpener = process.platform === 'win32' ? { bin: 'cmd.exe', args: ['/c', 'start', '""', localUrl] } :
+                              process.platform === 'darwin' ? { bin: 'open', args: [localUrl] } :
+                              { bin: 'xdg-open', args: [localUrl] };
+        spawn(browserOpener.bin, browserOpener.args, { stdio: 'ignore', detached: true }).unref();
       }
 
       // Fire-and-forget anonymous studio launch telemetry

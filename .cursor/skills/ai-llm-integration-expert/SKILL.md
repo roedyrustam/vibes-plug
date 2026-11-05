@@ -163,7 +163,7 @@ Build high-precision RAG pipelines:
   ```typescript
   // Episodic memory storage using Mem0
   import { Mem0 } from 'mem0';
-  const mem0 = new Mem0({ apiKey: 'YOUR_API_KEY' });
+  const mem0 = new Mem0({ apiKey: process.env.MEM0_API_KEY });
   await mem0.add("User prefers dark mode and uses VSCode.", { user_id: "u123" });
   const context = await mem0.search("IDE preferences", { user_id: "u123" });
   ```
@@ -335,7 +335,7 @@ Standarisasi seluruh komunikasi agen-ke-tool dan agen-ke-host menggunakan spesif
   ```typescript
   // Penyimpanan memori episodik menggunakan Mem0
   import { Mem0 } from 'mem0';
-  const mem0 = new Mem0({ apiKey: 'YOUR_API_KEY' });
+  const mem0 = new Mem0({ apiKey: process.env.MEM0_API_KEY });
   await mem0.add("Pengguna lebih suka dark mode dan menggunakan VSCode.", { user_id: "u123" });
   const context = await mem0.search("Preferensi IDE", { user_id: "u123" });
   ```

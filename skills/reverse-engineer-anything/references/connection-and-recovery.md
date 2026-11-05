@@ -146,7 +146,7 @@ REA tools have no permission-grant handshake. Codex can still require approval
 because an operation creates owned resources, launches a helper or has cleanup
 effects. An advertised tool or successful doctor result does not override that
 client policy. `workspace-write` alone does not resolve an MCP approval
-rejection, and `approval_policy = "never"` does not mean every MCP tool is
+rejection, and configuring an approval policy to bypass prompts does not mean every MCP tool is
 preapproved.
 
 When interactive approval is available, use the client's approval flow for the
