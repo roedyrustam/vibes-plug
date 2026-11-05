@@ -15,6 +15,8 @@
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/v/vibes-plug?style=for-the-badge&logo=npm&color=ef4444&labelColor=0d1117" alt="NPM Version" /></a>
   <a href="https://www.npmjs.com/package/vibes-plug"><img src="https://img.shields.io/npm/dt/vibes-plug?style=for-the-badge&logo=npm&color=10b981&labelColor=0d1117" alt="NPM Downloads" /></a>
   <a href="https://github.com/roedyrustam/vibes-plug/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge&labelColor=0d1117" alt="License" /></a>
+  <a href="https://github.com/roedyrustam/vibes-plug/actions/workflows/plugin-security-scan.yml"><img src="https://img.shields.io/badge/Plugin_Trust-Verified-22c55e?style=for-the-badge&logo=shieldsdotio&labelColor=0d1117" alt="Plugin Trust Score" /></a>
+  <a href="https://github.com/roedyrustam/vibes-plug/blob/main/SECURITY.md"><img src="https://img.shields.io/badge/Security_Policy-Active-f59e0b?style=for-the-badge&logo=shield&labelColor=0d1117" alt="Security Policy" /></a>
   <a href="https://twitter.com/intent/tweet?text=Turn%20any%20IDE%20into%20a%20178-agent%20autonomous%20software%20studio%20with%20VibesPlug!%20%F0%9F%9A%80%20https%3A%2F%2Fgithub.com%2Froedyrustam%2Fvibes-plug%20%23VibeCoding%20%23AIAgents"><img src="https://img.shields.io/badge/Share%20on-X-000000?style=for-the-badge&logo=x&labelColor=0d1117" alt="Share on X" /></a>
 </p>
 

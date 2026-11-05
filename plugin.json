@@ -7,11 +7,31 @@
   "logo": "assets/logo.svg",
   "icon": "assets/logo.svg",
   "author": {
-    "name": "Roedy Rustam"
+    "name": "Roedy Rustam",
+    "email": "roedyrustam.id@gmail.com",
+    "url": "https://github.com/roedyrustam"
+  },
+  "publisher": {
+    "name": "Roedy Rustam",
+    "url": "https://github.com/roedyrustam"
   },
   "homepage": "https://github.com/roedyrustam/vibes-plug",
-  "repository": "https://github.com/roedyrustam/vibes-plug.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roedyrustam/vibes-plug.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roedyrustam/vibes-plug/issues"
+  },
+  "documentation": "https://github.com/roedyrustam/vibes-plug#readme",
+  "changelog": "https://github.com/roedyrustam/vibes-plug/blob/main/CHANGELOG.md",
+  "privacyUrl": "https://github.com/roedyrustam/vibes-plug/blob/main/PRIVACY.md",
+  "termsUrl": "https://github.com/roedyrustam/vibes-plug/blob/main/TERMS.md",
+  "securityContact": "roedyrustam.id@gmail.com",
+  "securityPolicy": "https://github.com/roedyrustam/vibes-plug/blob/main/SECURITY.md",
   "license": "MIT",
+  "licenseUrl": "https://github.com/roedyrustam/vibes-plug/blob/main/LICENSE",
+  "pricing": "free",
   "keywords": [
     "ai-agents",
     "multi-agent-swarm",

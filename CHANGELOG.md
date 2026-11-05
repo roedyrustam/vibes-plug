@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.7.0] - 2026-11-06
+
+### Added / Ditambahkan
+- **178 Skills Ecosystem** — 2 new skills: `anatomy` physical isometric machine explainer protocol integrated across `web-3d-graphics-expert`, `ui-ux-pro-max`, `anti-slop`, `design-system-architect`, and `hig`.
+- **MCP Server v4.7.0** — Updated `serverInfo.version`, SSE banner, stdio banner in `bin/mcp-server.mjs`.
+- **marketplace.json** — Full Publisher Quality manifest with privacy, terms, security contact, pricing, capabilities, and badge metadata for Hashgraph AI plugin registry.
+- **PRIVACY.md & TERMS.md** — Legal compliance documents for EU AI Act, GDPR Art. 17, and Apple/Google store policies.
+- **GitHub Default Setup CodeQL** — Removed conflicting custom `codeql.yml`; uses GitHub Default Setup for zero-config code scanning.
+- **dependabot.yml hardened** — `target-branch: main`, PR limit 5 for npm and github-actions.
+- **Security hardening** — `scripts/self-healer.mjs` uses `execFile` (not `exec`), `SAFE_RUNNER_BINARIES` allowlist, `untaintArgToken()`; `scripts/wasm-sandbox.mjs` adds `normalizeSandboxSource()` sanitizer.
+
+### Changed / Diubah
+- All 178 skill frontmatters synchronized to `version: "4.7.0"`.
+- All manifests (`package.json`, `plugin.json`, `gemini-extension.json`, `mcp.json`, `mcp_config.json`, `vercel.json` schema preserved) updated to v4.7.0.
+- `scripts/validate-skills.mjs` threshold raised to `>= 4.7.0`.
+- `plugin.json` enriched with `author.email`, `publisher`, `bugs`, `documentation`, `privacyUrl`, `termsUrl`, `securityContact`, `securityPolicy`, `licenseUrl`, `pricing`.
+- Showcase floating capsule header streamlined — Skills dropdown removed, 178 Active badge links to explorer.
+
+### Fixed / Diperbaiki
+- 8 CodeQL code scanning alerts resolved across `sandbox`, `self-healer`, `drift-healer`, and `showcase`.
+- `cla-self-signature.yml` JS template literal backtick syntax fixed.
+- Branch cleanup — All 8 stale/merged branches deleted from `origin`; only `main` remains.
+
+### Security / Keamanan
+- **CVE mitigations**: Command injection via `exec()` replaced with `execFile()` + argument array.
+- **Sandbox escape**: `normalizeSandboxSource()` strips high-bit characters before `vm.Script` compilation.
+- **Path traversal**: Skill read/inject operations confined to plugin root directory.
+
 ## [4.5.0] - 2026-10-27
 
 ### Added / Ditambahkan
