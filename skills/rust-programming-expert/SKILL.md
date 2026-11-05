@@ -1,6 +1,6 @@
 ---
 name: rust-programming-expert
-description: "Rust 2024 / v1.88+ memory safety, async Axum, and zero-cost patterns / Pemrograman Rust modern: async Axum, SQLx, dan performa tinggi."
+description: "Rust 2024 / v1.88+ memory safety, Brown Grounded Ownership & Permissions, async Axum, and zero-cost patterns / Pemrograman Rust modern: sistem izin kepemilikan Brown, async Axum, dan performa tinggi."
 author: "Roedy Rustam"
 version: "4.7.0"
 
@@ -17,261 +17,395 @@ version: "4.7.0"
 
 ### Orchestration & Integration
 Connects and orchestrates with domain skills:
-- **Systems, Desktop & WASM**: `tauri-expert` (desktop native IPC), `wasm-edge-computing-expert`, and `ephemeral-wasm-sandbox-executor` for safe in-memory sandboxing and edge execution.
-- **Backend & APIs**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), and `fullstack-expert` for polyglot services.
-- **Quality & Testing**: `autonomous-tdd-debugger`, `e2e-testing-expert`, and `anti-slop` for executing `cargo test`, compile-time SQL verification, and zero-panic error handling (`Result<T, E>` without lazy `.unwrap()`).
+- **Systems, Desktop & WASM**: `tauri-expert` (desktop native IPC & asynchronous command handlers), `wasm-edge-computing-expert`, and `ephemeral-wasm-sandbox-executor` for safe in-memory sandboxing and zero-copy linear memory boundaries.
+- **Backend & APIs**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), and `fullstack-expert` for polyglot systems.
+- **Quality & Testing**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `e2e-testing-expert`, and `anti-slop` for executing `cargo test`, compile-time SQL verification, and zero-panic error handling (`Result<T, E>` without lazy `.unwrap()`).
+- **Formal Verification**: `formal-spec-z3-verifier` and `formal-theorem-verifier-lean4` for proving state invariants, type-state machine completeness, and boundary safety.
 - **Orchestration**: `brainstorming` and `zero-to-prod-orchestrator` (Phase 4: Backend & APIs).
 
 ### Description
-Expert-level Rust development for building memory-safe, high-performance systems, APIs, CLI tools, and WebAssembly. Covers the **Rust 2024 edition**, the **Grounded Permissions Model of Ownership (Brown University Framework)**, async/await with Tokio, Axum 0.8 web framework, SQLx for async database access, and modern Rust idioms.
+Expert-level Rust development for building memory-safe, ultra-high-performance systems, CLI tools, async microservices, and WebAssembly modules. Synthesizes the complete canonical foundation of **The Rust Programming Language (The Book)** with the empirical cognitive research of the **Brown University Interactive Rust Book (Grounded Conceptual Model of Ownership & Flow-Sensitive Permissions)**, the **Rust 2024 Edition (v1.88+)**, the **Tokio async runtime**, the **Axum 0.8 web framework**, and compile-time verified **SQLx**.
 
 ### Trigger Conditions
-- Writing systems-level code requiring memory safety and zero-cost abstractions.
-- Solving borrow-checker, lifetime, or aliasing conflicts using flow-sensitive permissions.
-- Building high-performance HTTP APIs with **Axum 0.8**.
-- Implementing async services with **Tokio** runtime.
-- Interacting with databases using **SQLx** or **SeaORM**.
-- Building CLI tools with **Clap v4**.
-- Compiling to **WebAssembly (WASM)** for browser or edge deployment.
-- Writing Rust for **Tauri v2** desktop application backends.
+- Writing systems-level or network services requiring memory safety and zero-cost abstractions.
+- Diagnosing and resolving borrow-checker, lifetime, or aliasing conflicts using Brown University's flow-sensitive permission model.
+- Implementing compile-time verified state transitions using the **Type-State Pattern**.
+- Building high-performance, asynchronous REST or WebSocket HTTP services with **Axum 0.8**.
+- Architecting async multithreaded pipelines with the **Tokio** runtime without deadlocks.
+- Designing type-safe database access layers with compile-time verified SQL using **SQLx**.
+- Developing production CLI utilities using declarative derive macros in **Clap v4**.
+- Writing native desktop backend commands for **Tauri v2** or compiling portable modules to **WebAssembly (WASM)**.
 
 ---
 
 ### 1. The Grounded Ownership & Permissions Model (Brown University Framework)
 
-Based on empirical cognitive research by Brown University's Cognitive Engineering Lab (*OOPSLA 2023/2024: "A Grounded Conceptual Model for Ownership Types in Rust"*), Rust's borrow checker evaluates programs through **flow-sensitive permissions on paths ($\pi$)**:
+Based on empirical cognitive research by Brown University's Cognitive Engineering Lab (*OOPSLA: "A Grounded Conceptual Model for Ownership Types in Rust"*), Rust's borrow checker evaluates programs through **flow-sensitive permissions on paths ($\pi$)**:
 
 ```
-Path (π) Permissions:
+Path (π) Memory Expression Hierarchy:
+├── Variable Path:       x
+├── Dereference Path:   *ptr
+├── Struct Field Path:  record.field
+└── Slice/Array Path:   slice[i]
+
+Flow-Sensitive Permissions:
 ├── Read  (R): Permission to read or copy data from a path
 ├── Write (W): Permission to mutate data in-place
 ├── Own   (O): Permission to move data or drop the allocation
-└── Flow  (F): Permission to return a reference or pass it out of scope
+└── Flow  (F): Permission to return a reference or pass it out of function scope
+```
+
+#### Memory Pointer Topology & Stack/Heap Layout:
+```
+STACK FRAME (Local Variables)                    HEAP ALLOCATION
+┌─────────────────────────────────┐             ┌─────────────────────────┐
+│ Path 's': String                │             │ Index: 0  1  2  3  4    │
+│ ├── ptr: 0x55aa ───────────────┼────────────►│ Bytes: [h, e, l, l, o]  │
+│ ├── len: 5                      │             │ Capacity: 8             │
+│ └── cap: 8                      │             └─────────────────────────┘
+├─────────────────────────────────┤
+│ Path 'r1': &String (Shared)     │
+│ └── ptr: points to stack 's'    │ ───► Lender 's' loses {W, O}, retains {R}
+└─────────────────────────────────┘
 ```
 
 #### Permission Transitions Across Lifecycles:
 | Operation | Path `x` (Lender) | Reference `y` (Borrower) | Dereference `*y` |
 | :--- | :--- | :--- | :--- |
 | `let mut x = ...;` | Initialized: `{R, W, O}` | — | — |
-| `let y = &x;` | Loses `W, O` ➔ `{R}` | `{R, O}` | `{R}` |
-| `let y = &mut x;` | Loses `R, W, O` ➔ `{}` (Quarantined) | `{R, O}` | `{R, W}` |
-| Last use of `y` (NLL) | Restores `{R, W, O}` | Dropped | Inactive |
+| `let y = &x;` (Shared Borrow) | Loses `W, O` ➔ `{R}` | `{R, O}` | `{R}` |
+| `let y = &mut x;` (Mutable Borrow) | Loses `R, W, O` ➔ `{}` (Quarantined) | `{R, O}` | `{R, W}` |
+| `let z = &mut *y;` (Reborrow) | Remains `{}` | Loses `R, W, O` ➔ `{}` | Loses `{R, W}` ➔ `{}` |
+| Last use of `z` / `y` (NLL) | Restores `{R, W, O}` | Dropped | Inactive |
 
-#### The 4 Grounded Strategies for Resolving Borrow-Check Errors:
-1. **Copy vs Clone vs Borrow**: Distinguish stack-only `Copy` types from heap types. Pass borrowed slices (`&str`, `&[T]`) rather than calling `.clone()` unless independent ownership is semantically required.
-2. **Mutate In-Place vs Reassignment**: Avoid passing and returning owned values (`fn process(s: String) -> String`) when passing `&mut String` preserves caller permissions without reallocation.
-3. **Disjoint Splitting (`split_at_mut`)**: The compiler treats `slice[0]` and `slice[1]` as sharing the root path `slice`. Use safe abstractions like `slice.split_at_mut(mid)` to borrow distinct halves mutably in parallel.
-4. **Controlled Interior Mutability**:
-   - Single-threaded: `Cell<T>` (for `Copy` types) or `RefCell<T>` (dynamic runtime borrow checks).
-   - Multi-threaded: `Arc<RwLock<T>>` for read-heavy shared data, or `Arc<Mutex<T>>` for mutual exclusion.
+---
+
+### 2. Brown's 4-Way Decision Matrix for Borrow-Checker Diagnostics
+
+When the Rust compiler flags an ownership or borrow conflict, empirical research shows that guessing fixes leads to spaghetti lifetimes or unnecessary heap cloning. Apply this systematic 4-tier decision matrix:
+
+```
+                      Borrow Checker Error Detected
+                                    │
+          ┌─────────────────────────┼─────────────────────────┐
+          ▼                         ▼                         ▼
+   Case 1: Quarantined       Case 2: Mutation           Case 3: Disjoint
+   Path Access               During Traversal           Path Splitting
+   (Accessing x while        (vec.push while            (v[0] & v[1]
+    borrowed)                 iterating &vec)            borrow conflict)
+          │                         │                         │
+          ▼                         ▼                         ▼
+   Shorten borrow live       Two-phase execution:       Use slice.split_at_mut
+   range or clone if         collect indices/keys       or field-level struct
+   independent lifecycle     first, then mutate         destructuring
+```
+
+#### Detailed Remediation Strategies:
+1. **Case 1: Reading/Writing a Quarantined Path**:
+   - *Problem*: Calling a method on `x` while an active borrow `y = &x` or `y = &mut x` is still live.
+   - *Fix*: Move the operation on `x` after the last usage of `y` (leveraging Non-Lexical Lifetimes), or clone the needed field before borrowing if concurrent mutation is necessary.
+2. **Case 2: Mutating During Collection Traversal (Iterator Invalidation)**:
+   - *Problem*: Adding or removing elements from a vector while looping over its references (`for item in &vec { vec.push(...) }`).
+   - *Fix*: Decouple into two phases. Phase A: collect indices or filtered values into a local buffer. Phase B: iterate over the buffer to perform modifications, or use `retain()` / `retain_mut()`.
+3. **Case 3: Disjoint Path Splitting**:
+   - *Problem*: The borrow checker tracks struct fields as disjoint paths (`&mut s.field_a` and `&mut s.field_b` are valid simultaneously), but treats collection indexing (`v[0]` and `v[1]`) as the shared root path `v[*]`.
+   - *Fix*: Use safe std abstractions: `slice.split_at_mut(mid)`, `chunks_exact_mut(n)`, or temporary value extraction using `std::mem::take(&mut val)` or `Option::take()`.
+4. **Case 4: Flow Permissions & Dangling References**:
+   - *Problem*: Attempting to return a reference to a local stack-allocated variable (`fn get_data() -> &str`).
+   - *Fix*: Return an owned type (`String`, `Vec<T>`) to transfer ownership, or accept an input reference with an explicit lifetime `'a` that outlives the function call.
+
+---
+
+### 3. The 5 Common Rust Misconceptions (Brown Empirical Studies)
+
+1. **Misconception: Lifetimes alter how long values live.**
+   - *Reality*: Lifetimes are purely compile-time static type annotations. They inform the compiler of relationship constraints; they never extend or alter when a variable's destructor (`Drop`) runs.
+2. **Misconception: Ownership belongs to variable identifiers.**
+   - *Reality*: Ownership belongs to *paths* pointing to specific memory allocations. Multiple variables can point to parts of an allocation, but ownership governs the root lifecycle.
+3. **Misconception: Mutation requires complete exclusivity across the whole application.**
+   - *Reality*: The *Interior Mutability Pattern* allows controlled mutation behind shared `&T` references using runtime checks (`RefCell<T>`) or thread-safe atomic primitives (`Mutex<T>`, `RwLock<T>`).
+4. **Misconception: The `unsafe` keyword disables the borrow checker.**
+   - *Reality*: `unsafe` only unlocks five specific superpowers (e.g., dereferencing raw pointers, calling foreign C functions). The borrow checker remains fully active for all safe Rust code surrounding the unsafe block.
+5. **Misconception: Calling `.clone()` is always bad and must be avoided at all costs.**
+   - *Reality*: Fighting the borrow checker with tangled lifetime parameters across dozens of structs creates rigid, unmaintainable architecture. If profiling shows an allocation is negligible, cloning an identifier or handle is often the superior architectural trade-off.
+
+---
+
+### 4. Canonical Rust Book Principles (Chapters 1–20 Mastery)
+
+#### Memory Layout & Zero-Cost Abstractions
+Rust achieves C/C++ speed with memory safety by compiling abstractions into identical machine code:
+- **`Copy` vs `Clone`**: Types implementing `Copy` undergo a bitwise stack copy with zero heap overhead (integers, floats, booleans, fixed-size arrays of `Copy`). Types implementing `Clone` require explicit, potentially heap-allocating duplication.
+- **Fat Pointers**: Slices (`&str`, `&[T]`) consist of two `usize` words: pointer to data + element count. Trait objects (`&dyn Trait`, `Box<dyn Trait>`) consist of pointer to instance + pointer to virtual method table (vtable).
+- **Zero-Sized Types (ZSTs)**: Marker types like unit structs `struct Empty;` consume zero bytes of memory at runtime, enabling compile-time validation without memory overhead.
+
+#### The Type-State Pattern (Compile-Time Finite State Machine)
+Encode program states into Rust's type system to make illegal state transitions physically impossible to compile:
 
 ```rust
-// Practical Demonstration of Flow-Sensitive Permissions & Disjoint Borrowing
-pub fn demonstrate_grounded_ownership() {
-    // 1. Initial Path has {R, W, O}
-    let mut numbers = vec![10, 20, 30, 40, 50];
+// Type-State Pattern for an E-Commerce Order Lifecycle
+pub struct Draft;
+pub struct Placed {
+    pub payment_reference: String,
+}
+pub struct Shipped {
+    pub tracking_number: String,
+}
 
-    // 2. Disjoint Mutable Slicing (avoiding whole-collection borrow quarantine)
-    let (left, right) = numbers.split_at_mut(2);
-    // left: &mut [10, 20], right: &mut [30, 40, 50]
-    left[0] += 5;
-    right[0] *= 2;
+pub struct Order<State> {
+    pub order_id: String,
+    pub items: Vec<String>,
+    pub total_cents: u64,
+    pub state: State,
+}
 
-    // 3. After last use of left/right, numbers restores {R, W, O}
-    println!("Updated numbers: {:?}", numbers);
+impl Order<Draft> {
+    pub fn new(order_id: String) -> Self {
+        Order {
+            order_id,
+            items: Vec::new(),
+            total_cents: 0,
+            state: Draft,
+        }
+    }
 
-    // 4. Safe Thread-Safe Interior Mutability
-    use std::sync::Arc;
-    use tokio::sync::RwLock;
+    pub fn add_item(mut self, item: String, price_cents: u64) -> Self {
+        self.items.push(item);
+        self.total_cents += price_cents;
+        self
+    }
 
-    let shared_state = Arc::new(RwLock::new(vec!["rust".to_string()]));
-    let state_clone = Arc::clone(&shared_state);
+    // State Transition: Consumes Draft and returns Placed
+    pub fn place_order(self, payment_reference: String) -> Order<Placed> {
+        Order {
+            order_id: self.order_id,
+            items: self.items,
+            total_cents: self.total_cents,
+            state: Placed { payment_reference },
+        }
+    }
+}
 
-    tokio::spawn(async move {
-        let mut lock = state_clone.write().await;
-        lock.push("permissions".to_string());
-    });
+impl Order<Placed> {
+    // Only a Placed order can transition to Shipped
+    pub fn ship(self, tracking_number: String) -> Order<Shipped> {
+        Order {
+            order_id: self.order_id,
+            items: self.items,
+            total_cents: self.total_cents,
+            state: Shipped { tracking_number },
+        }
+    }
+}
+```
+
+#### Smart Pointers & Interior Mutability Strategy
+| Pointer Type | Allocation | Ownership | Thread-Safety | Use Case |
+| :--- | :--- | :--- | :--- | :--- |
+| `Box<T>` | Heap | Single Owner | Safe (`Send`/`Sync` if `T` is) | Recursive types, large stack data transfer |
+| `Rc<T>` | Heap | Shared (Ref-Count) | Non-Thread-Safe | Graph structures, single-threaded shared nodes |
+| `Arc<T>` | Heap | Shared (Atomic Ref-Count) | Thread-Safe | Shared state across Tokio tasks / OS threads |
+| `RefCell<T>` | Stack/Heap | Borrow at runtime | Non-Thread-Safe | Single-threaded interior mutability |
+| `Mutex<T>` | Stack/Heap | Mutual exclusion | Thread-Safe | Shared mutable state across threads |
+| `RwLock<T>` | Stack/Heap | Multiple read / single write | Thread-Safe | Read-heavy concurrent caches |
+
+#### Concurrency & The Tokio Await Rule:
+> [!CRITICAL]
+> **Never hold a standard `std::sync::MutexGuard` across a Tokio `.await` point!**
+> Holding a non-async mutex guard across an `.await` suspends the task while keeping the OS thread locked, leading to worker starvation and deadlock. Use `tokio::sync::Mutex` or scope the lock into an isolated block that drops the guard before `.await`.
+
+```rust
+// Safe Concurrent Cache with tokio::sync::RwLock
+use std::collections::HashMap;
+use std::sync::Arc;
+use tokio::sync::RwLock;
+
+#[derive(Clone)]
+pub struct ConcurrentCache {
+    storage: Arc<RwLock<HashMap<String, String>>>,
+}
+
+impl ConcurrentCache {
+    pub fn new() -> Self {
+        Self {
+            storage: Arc::new(RwLock::new(HashMap::new())),
+        }
+    }
+
+    pub async fn get(&self, key: &str) -> Option<String> {
+        let read_guard = self.storage.read().await;
+        read_guard.get(key).cloned()
+    }
+
+    pub async fn insert(&self, key: String, value: String) {
+        let mut write_guard = self.storage.write().await;
+        write_guard.insert(key, value);
+    }
 }
 ```
 
 ---
 
-### 2. Rust 2024 Edition Highlights
-The Rust 2024 edition (stabilized in 1.85) introduces:
-- **`gen` blocks**: Generators for lazy sequence production.
-- **Lifetime capture rules**: More precise lifetime inference in `impl Trait`.
-- **Unsafe extern blocks**: Clearer unsafe boundary declarations.
-- **`if let` chains**: `if let Some(x) = opt && x > 0` now works cleanly.
-- **`async fn` in traits**: Now stable — no more `async-trait` macro needed.
+### 5. Rust 2024 Edition (v1.88+) Modern Idioms
 
-#### Async `fn` in Traits (Stable in Rust 2024)
-```rust
-// No longer need #[async_trait] macro!
-trait DataStore {
-    async fn get(&self, id: &str) -> Result<Data, Error>;
-    async fn set(&self, id: &str, data: Data) -> Result<(), Error>;
-}
-
-impl DataStore for PostgresStore {
-    async fn get(&self, id: &str) -> Result<Data, Error> {
-        sqlx::query_as("SELECT * FROM data WHERE id = $1")
-            .bind(id)
-            .fetch_one(&self.pool)
-            .await
-            .map_err(Into::into)
-    }
-    async fn set(&self, id: &str, data: Data) -> Result<(), Error> {
-        sqlx::query("INSERT INTO data (id, value) VALUES ($1, $2) ON CONFLICT (id) DO UPDATE SET value = $2")
-            .bind(id)
-            .bind(&data.value)
-            .execute(&self.pool)
-            .await?;
-        Ok(())
-    }
-}
-```
+1. **`async fn` in Traits (RPITIT)**: Stable native support without the `#[async_trait]` macro box overhead.
+2. **`let-else` Guard Clauses**: Eliminates deep nesting when extracting values or early returning:
+   ```rust
+   let Some(token) = request.headers().get("authorization") else {
+       return Err(AppError::Unauthorized);
+   };
+   ```
+3. **`if let` Chains**: Clean logical AND combinations in pattern matching:
+   ```rust
+   if let Some(user) = maybe_user && user.is_active && user.role == Role::Admin {
+       grant_access();
+   }
+   ```
+4. **`gen` Blocks**: Native lazy generator iterators for streaming sequences.
 
 ---
 
-### 3. Axum 0.8 — HTTP API Framework
+### 6. Production Blueprint: Axum 0.8 REST Service with SQLx & thiserror
+
 ```rust
 use axum::{
     extract::{Path, State},
     http::StatusCode,
-    response::Json,
+    response::{IntoResponse, Response},
     routing::{get, post},
-    Router,
+    Json, Router,
 };
-use sqlx::PgPool;
 use serde::{Deserialize, Serialize};
+use sqlx::{postgres::PgPoolOptions, PgPool};
+use std::net::SocketAddr;
+use thiserror::Error;
+
+// 1. Structured Domain Error with thiserror
+#[derive(Debug, Error)]
+pub enum AppError {
+    #[error("Resource not found: {0}")]
+    NotFound(String),
+    #[error("Database constraint violation: {0}")]
+    Conflict(String),
+    #[error("Internal database failure: {0}")]
+    Database(#[from] sqlx::Error),
+    #[error("Invalid client request: {0}")]
+    BadRequest(String),
+}
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        let (status, message) = match &self {
+            AppError::NotFound(msg) => (StatusCode::NOT_FOUND, msg.clone()),
+            AppError::Conflict(msg) => (StatusCode::CONFLICT, msg.clone()),
+            AppError::Database(_) => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Internal server error occurred".to_string(),
+            ),
+            AppError::BadRequest(msg) => (StatusCode::BAD_REQUEST, msg.clone()),
+        };
+
+        let body = Json(serde_json::json!({
+            "error": {
+                "message": message,
+                "code": status.as_u16()
+            }
+        }));
+
+        (status, body).into_response()
+    }
+}
+
+// 2. Data Models with Strict Serde Validation
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct Account {
+    pub id: String,
+    pub username: String,
+    pub email: String,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct CreateAccountPayload {
+    pub username: String,
+    pub email: String,
+}
 
 #[derive(Clone)]
-struct AppState {
-    db: PgPool,
+pub struct AppState {
+    pub db: PgPool,
 }
 
-#[derive(Serialize, Deserialize)]
-struct User {
-    id: String,
-    name: String,
-    email: String,
-}
-
-async fn get_user(
-    Path(user_id): Path<String>,
+// 3. Extractor Handlers with Type Safety
+pub async fn get_account_handler(
+    Path(account_id): Path<String>,
     State(state): State<AppState>,
-) -> Result<Json<User>, StatusCode> {
-    let user = sqlx::query_as!(User, "SELECT * FROM users WHERE id = $1", user_id)
-        .fetch_optional(&state.db)
-        .await
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
-        .ok_or(StatusCode::NOT_FOUND)?;
+) -> Result<Json<Account>, AppError> {
+    let account = sqlx::query_as!(
+        Account,
+        "SELECT id, username, email FROM accounts WHERE id = $1",
+        account_id
+    )
+    .fetch_optional(&state.db)
+    .await?
+    .ok_or_else(|| AppError::NotFound(format!("Account {} does not exist", account_id)))?;
 
-    Ok(Json(user))
+    Ok(Json(account))
+}
+
+pub async fn create_account_handler(
+    State(state): State<AppState>,
+    Json(payload): Json<CreateAccountPayload>,
+) -> Result<(StatusCode, Json<Account>), AppError> {
+    if payload.username.trim().is_empty() {
+        return Err(AppError::BadRequest("Username cannot be empty".to_string()));
+    }
+
+    let new_id = uuid::Uuid::new_v4().to_string();
+    let created = sqlx::query_as!(
+        Account,
+        "INSERT INTO accounts (id, username, email) VALUES ($1, $2, $3) RETURNING id, username, email",
+        new_id,
+        payload.username,
+        payload.email
+    )
+    .fetch_one(&state.db)
+    .await?;
+
+    Ok((StatusCode::CREATED, Json(created)))
+}
+
+pub fn create_router(state: AppState) -> Router {
+    Router::new()
+        .route("/api/v1/accounts/:id", get(get_account_handler))
+        .route("/api/v1/accounts", post(create_account_handler))
+        .with_state(state)
 }
 
 #[tokio::main]
-async fn main() {
-    let db = PgPool::connect(&std::env::var("DATABASE_URL").unwrap())
-        .await
-        .expect("Failed to connect to database");
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let database_url = std::env::var("DATABASE_URL").unwrap_or_else(|_| {
+        "postgres://postgres:postgres@localhost:5432/vibe_production".to_string()
+    });
 
-    let state = AppState { db };
+    let pool = PgPoolOptions::new()
+        .max_connections(25)
+        .connect(&database_url)
+        .await?;
 
-    let app = Router::new()
-        .route("/users/:id", get(get_user))
-        .with_state(state);
+    let app_state = AppState { db: pool };
+    let app = create_router(app_state);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
-    println!("Listening on :8080");
-    axum::serve(listener, app).await.unwrap();
-}
-```
+    let address = SocketAddr::from(([0, 0, 0, 0], 8080));
+    let listener = tokio::net::TcpListener::bind(address).await?;
+    println!("Axum 0.8 service running on http://{}", address);
+    axum::serve(listener, app).await?;
 
----
-
-### 4. SQLx — Compile-Time Verified SQL
-```rust
-// Compile-time SQL checking (requires DATABASE_URL at build time)
-let users = sqlx::query_as!(
-    User,
-    r#"SELECT id, name, email FROM users WHERE created_at > $1 ORDER BY created_at DESC LIMIT $2"#,
-    since,
-    limit as i64
-)
-.fetch_all(&pool)
-.await?;
-```
-
----
-
-### 5. Error Handling — thiserror + anyhow
-```rust
-use thiserror::Error;
-
-// Library errors: use thiserror for typed errors
-#[derive(Debug, Error)]
-pub enum AppError {
-    #[error("User not found: {id}")]
-    UserNotFound { id: String },
-    #[error("Database error: {0}")]
-    Database(#[from] sqlx::Error),
-    #[error("Validation failed: {message}")]
-    Validation { message: String },
-}
-
-// Application code: use anyhow for ergonomic error propagation
-use anyhow::{Context, Result};
-
-fn process() -> Result<()> {
-    let config = load_config().context("Failed to load configuration")?;
-    let db = connect_db(&config).context("Failed to connect to database")?;
     Ok(())
 }
 ```
 
 ---
-
-### 6. CLI Tools with Clap v4
-```rust
-use clap::{Parser, Subcommand};
-
-#[derive(Parser)]
-#[command(name = "myapp", version, about = "My CLI tool")]
-struct Cli {
-    #[command(subcommand)]
-    command: Commands,
-}
-
-#[derive(Subcommand)]
-enum Commands {
-    /// Start the server
-    Serve {
-        #[arg(short, long, default_value = "8080")]
-        port: u16,
-    },
-    /// Run migrations
-    Migrate,
-}
-
-#[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let cli = Cli::parse();
-    match cli.command {
-        Commands::Serve { port } => serve(port).await,
-        Commands::Migrate => run_migrations().await,
-    }
-}
-```
-
----
-
-### 7. Performance Best Practices
-- **Zero-cost abstractions**: Use iterators (`map`, `filter`, `collect`) — compiled to the same code as hand-written loops.
-- **Avoid unnecessary cloning**: Use references (`&T`) and lifetimes where possible.
-- **`Arc<T>` for shared state**: Use `Arc<Mutex<T>>` or `Arc<RwLock<T>>` for shared mutable state across threads.
-- **SIMD**: Use `std::simd` (stable in 1.88) for data-parallel operations.
-- **Profile before optimizing**: Use `cargo flamegraph` or `perf` to find actual bottlenecks.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -280,121 +414,257 @@ async fn main() -> anyhow::Result<()> {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec rust-programming-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
-
----
-
+| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 65ms, zero unwrap/expect in production paths, compile-time verified SQL queries, explicit Type-State verification, zero AI slop verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
 <a name="bahasa-indonesia"></a>
-- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
-
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi bersama skill domain:
-- **Sistem, Desktop & WASM**: `tauri-expert` (IPC aplikasi desktop native), `wasm-edge-computing-expert`, dan `ephemeral-wasm-sandbox-executor` untuk eksekusi WASM efemeral dan komputasi edge.
-- **Backend & API**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), dan `fullstack-expert` untuk arsitektur polyglot.
-- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `cargo test`, verifikasi SQL saat kompilasi, dan penanganan error tanpa panic (`Result<T, E>` tanpa unwrap ceroboh).
+- **Sistem, Desktop & WASM**: `tauri-expert` (IPC aplikasi desktop native & handler perintah asinkron), `wasm-edge-computing-expert`, dan `ephemeral-wasm-sandbox-executor` untuk isolasi sandbox in-memory berlatensi rendah serta batas memori linear zero-copy.
+- **Backend & API**: `api-design-expert` (Axum 0.8 REST & tonic gRPC), `database-orm-expert` (async SQLx & SeaORM), dan `fullstack-expert` untuk arsitektur sistem polyglot.
+- **Kualitas & Pengujian**: `autonomous-tdd-debugger`, `property-mutation-testing-expert`, `e2e-testing-expert`, dan `anti-slop` untuk eksekusi `cargo test`, verifikasi SQL saat kompilasi, dan penanganan error tanpa panic (`Result<T, E>` tanpa `.unwrap()` sembrono).
+- **Verifikasi Formal**: `formal-spec-z3-verifier` dan `formal-theorem-verifier-lean4` untuk pembuktian invarian state, kelengkapan mesin type-state, dan keamanan batas memori.
 - **Orkestrator Utama**: `brainstorming` dan `zero-to-prod-orchestrator` (Fase 4: Backend & APIs).
 
 ### Deskripsi
-Pengembangan Rust tingkat ahli untuk membangun sistem, API, CLI tool, dan WebAssembly yang aman di memori dan berkinerja tinggi. Mencakup **edisi Rust 2024**, **Model Konseptual Ownership & Permissions (Framework Brown University)**, async/await dengan Tokio, framework web Axum 0.8, SQLx untuk akses database async, dan idiom Rust modern.
+Panduan teknis mendalam pengembangan Rust tingkat ahli untuk membangun sistem, perkakas CLI, layanan mikro asinkron, dan modul WebAssembly yang aman memori serta berkinerja tinggi. Mengintegrasikan secara komprehensif buku panduan resmi **The Rust Programming Language (The Book)** dengan riset kognitif empiris dari **Brown University Interactive Rust Book (Model Konseptual Kepemilikan & Izin Sensitif-Alur)**, edisi modern **Rust 2024 (v1.88+)**, runtime asinkron **Tokio**, framework web **Axum 0.8**, serta akses database terverifikasi waktu kompilasi **SQLx**.
 
 ### Kondisi Pemicu
-- Menulis kode sistem yang membutuhkan keamanan memori dan zero-cost abstraction.
-- Memecahkan konflik borrow-checker, lifetime, atau aliasing menggunakan izin sensitif-alur (*flow-sensitive permissions*).
-- Membangun HTTP API berkinerja tinggi dengan **Axum 0.8**.
-- Mengimplementasikan layanan async dengan runtime **Tokio**.
-- Berinteraksi dengan database menggunakan **SQLx** atau SeaORM.
-- Membangun CLI tool dengan **Clap v4**.
-- Mengkompilasi ke **WebAssembly (WASM)** untuk browser atau edge.
-- Menulis backend Rust untuk aplikasi desktop **Tauri v2**.
+- Menulis kode tingkat sistem atau layanan jaringan yang menuntut keamanan memori mutlak dan abstraksi tanpa biaya (*zero-cost abstractions*).
+- Menganalisis dan menuntaskan konflik peminjaman (*borrow-checker*), masa hidup (*lifetimes*), atau aliasing menggunakan model izin Brown University.
+- Menerapkan transisi state terverifikasi waktu kompilasi menggunakan **Pola Type-State**.
+- Membangun layanan HTTP REST atau WebSocket berkecepatan tinggi dengan **Axum 0.8**.
+- Merancang alur konkuren multithread asinkron dengan runtime **Tokio** tanpa resiko deadlock.
+- Merancang lapisan akses basis data type-safe dengan SQL terverifikasi waktu kompilasi memakai **SQLx**.
+- Membangun utilitas CLI produksi menggunakan derive macro deklaratif pada **Clap v4**.
+- Mengembangkan backend desktop **Tauri v2** atau mengkompilasi pustaka ke **WebAssembly (WASM)**.
 
 ---
 
-### 1. Model Konseptual Ownership & Permissions (Framework Brown University)
+### 1. Model Konseptual Ownership & Izin (Framework Brown University)
 
-Mengadopsi riset kognitif empiris dari *Cognitive Engineering Lab* Brown University (*OOPSLA 2023/2024: "A Grounded Conceptual Model for Ownership Types in Rust"*), sistem *borrow checker* Rust dievaluasi melalui **izin sensitif-alur (flow-sensitive permissions) pada setiap path memori ($\pi$)**:
+Mengadopsi riset kognitif empiris dari Laboratorium Rekayasa Kognitif Brown University (*OOPSLA: "A Grounded Conceptual Model for Ownership Types in Rust"*), sistem pemeriksa peminjaman (*borrow checker*) Rust bekerja dengan mengevaluasi **izin sensitif-alur (flow-sensitive permissions) pada setiap path memori ($\pi$)**:
 
 ```
-Izin Path (π):
+Hierarki Ekspresi Path Memori (π):
+├── Path Variabel:       x
+├── Path Dereferensi:   *ptr
+├── Path Field Struct:  record.field
+└── Path Irisan/Array:  slice[i]
+
+Empat Izin Sensitif-Alur (Permissions):
 ├── Read  (R): Izin membaca atau menyalin data dari path
-├── Write (W): Izin memutasi data langsung di tempat
+├── Write (W): Izin memutasi nilai data langsung di tempat
 ├── Own   (O): Izin memindahkan (move) data atau menghapus alokasi (drop)
-└── Flow  (F): Izin mengembalikan referensi atau meloloskannya ke luar scope
+└── Flow  (F): Izin mengembalikan referensi atau meloloskannya ke luar scope fungsi
 ```
 
-#### Transisi Izin Sepanjang Siklus Peminjaman:
+#### Transisi Izin Sepanjang Siklus Hidup Peminjaman:
 | Operasi | Path `x` (Pemberi Pinjaman) | Referensi `y` (Peminjam) | Dereferensi `*y` |
 | :--- | :--- | :--- | :--- |
 | `let mut x = ...;` | Terinisialisasi: `{R, W, O}` | — | — |
-| `let y = &x;` | Kehilangan `W, O` ➔ `{R}` | `{R, O}` | `{R}` |
-| `let y = &mut x;` | Kehilangan `R, W, O` ➔ `{}` (Karantina total) | `{R, O}` | `{R, W}` |
-| Penggunaan akhir `y` (NLL) | Mengembalikan `{R, W, O}` | Dihapus | Nonaktif |
+| `let y = &x;` (Pinjam Bersama) | Kehilangan `W, O` ➔ `{R}` | `{R, O}` | `{R}` |
+| `let y = &mut x;` (Pinjam Eksklusif) | Kehilangan `R, W, O` ➔ `{}` (Karantina Total) | `{R, O}` | `{R, W}` |
+| `let z = &mut *y;` (Reborrow) | Tetap terisolasi `{}` | Kehilangan `R, W, O` ➔ `{}` | Kehilangan `{R, W}` ➔ `{}` |
+| Penggunaan Terakhir `y`/`z` (NLL) | Pulih `{R, W, O}` | Dihapus | Nonaktif |
 
-#### 4 Strategi Menyelesaikan Error Borrow-Checker:
-1. **Copy vs Clone vs Borrow**: Bedakan tipe `Copy` (hanya di stack) dari tipe heap. Lewatkan referensi (`&str`, `&[T]`) alih-alih memanggil `.clone()` sembarangan kecuali transfer kepemilikan memang dibutuhkan.
-2. **Mutasi di Tempat vs Reasigment**: Hindari pola oper-kembali kepemilikan (`fn proses(s: String) -> String`) jika meminjam `&mut String` mempertahankan izin pemanggil tanpa alokasi ulang memori.
-3. **Pemisahan Terputus (*Disjoint Splitting*)**: Kompiler memandang elemen array berbagi path induk yang sama. Gunakan abstraksi aman seperti `slice.split_at_mut(mid)` untuk memutasi dua bagian irisan secara terpisah.
-4. **Interior Mutability Terkendali**:
-   - Single-thread: Gunakan `Cell<T>` atau `RefCell<T>` (pemeriksaan peminjaman dinamis saat runtime).
-   - Multi-thread: Gunakan `Arc<RwLock<T>>` untuk beban dominan baca, atau `Arc<Mutex<T>>` untuk proteksi mutasi bersama.
+---
+
+### 2. Matriks Keputusan 4 Langkah Diagnostik Borrow-Checker Brown
+
+Ketika kompiler memunculkan galat peminjaman memori, riset membuktikan bahwa mencoba-coba perubahan secara acak hanya melahirkan arsitektur kode yang rapuh. Terapkan matriks keputusan 4 cabang sistematis ini:
+
+1. **Kasus 1: Mengakses Path yang Sedang Dikarantina**:
+   - *Masalah*: Membaca atau menulis ke variabel `x` saat referensi aktif `y = &x` atau `y = &mut x` masih digunakan.
+   - *Solusi*: Geser operasi pada `x` ke baris setelah pemakaian terakhir `y` (memanfaatkan Non-Lexical Lifetimes), atau salin nilai independen melalui kloning jika kedua data harus hidup bersamaan.
+2. **Kasus 2: Mutasi Koleksi Saat Melakukan Penelusuran (Iterator Invalidation)**:
+   - *Masalah*: Menambahkan atau menghapus elemen vektor saat sedang melakukan iterasi referensi elemennya (`for item in &vec { vec.push(...) }`).
+   - *Solusi*: Pisahkan menjadi dua tahap. Tahap A: kumpulkan indeks atau nilai filter ke dalam buffer lokal. Tahap B: lakukan pembaruan pada koleksi berdasarkan isi buffer, atau gunakan metode bawaan `retain()` / `retain_mut()`.
+3. **Kasus 3: Pemisahan Path Terputus (*Disjoint Path Splitting*)**:
+   - *Masalah*: Borrow checker memahami bahwa field struct berbeda merupakan path independen (`&mut s.field_a` dan `&mut s.field_b` sah bersamaan), namun menganggap pengindeksan array/vektor (`v[0]` dan `v[1]`) berasal dari satu path induk bersama `v[*]`.
+   - *Solusi*: Gunakan fungsi pemisah standar seperti `slice.split_at_mut(mid)`, iterator potongan `chunks_exact_mut(n)`, atau cabut nilai sementara menggunakan `std::mem::take(&mut val)` atau `Option::take()`.
+4. **Kasus 4: Pelanggaran Izin Flow & Referensi Menggantung (*Dangling References*)**:
+   - *Masalah*: Mencoba mengembalikan referensi dari variabel lokal yang dialokasikan di call stack fungsi.
+   - *Solusi*: Kembalikan tipe owned (`String`, `Vec<T>`) agar kepemilikan dialihkan ke pemanggil, atau terima referensi input dengan parameter lifetime eksplisit `'a`.
+
+---
+
+### 3. Lima Miskonsepsi Utama Rust (Temuan Empiris Brown)
+
+1. **Miskonsepsi: Lifetime memperpanjang waktu hidup variabel.**
+   - *Fakta*: Lifetime hanyalah anotasi tipe saat kompilasi. Lifetime tidak pernah mengubah urutan pemanggilan destructor runtime (`Drop`).
+2. **Miskonsepsi: Kepemilikan melekat pada nama variabel.**
+   - *Fakta*: Kepemilikan melekat pada *path alokasi memori*. Beberapa variabel dapat merujuk ke bagian dari suatu alokasi, namun siklus hidup diatur oleh path induk.
+3. **Miskonsepsi: Mutasi mengharuskan ketiadaan referensi bersama di seluruh aplikasi.**
+   - *Fakta*: *Pola Interior Mutability* memungkinkan mutasi terkontrol di balik referensi bersama `&T` menggunakan pemeriksaan runtime (`RefCell<T>`) atau proteksi thread (`Mutex<T>`, `RwLock<T>`).
+4. **Miskonsepsi: Blok `unsafe` menonaktifkan borrow checker.**
+   - *Fakta*: Blok `unsafe` hanya membuka lima kemampuan khusus (seperti mendereferensi raw pointer). Pemeriksa peminjaman tetap aktif sepenuhnya pada seluruh kode di sekitarnya.
+5. **Miskonsepsi: Memanggil `.clone()` adalah kesalahan desain yang tabu.**
+   - *Fakta*: Menghindari alokasi kecil dengan memaksakan lifetime rumit pada puluhan struct menghasilkan kode yang sulit dirawat. Jika profiling membuktikan alokasi memori berada di luar jalur kritis performa, penggunaan `.clone()` sering kali merupakan keputusan arsitektur yang bijak dan terbaca.
+
+---
+
+### 4. Penguasaan Prinsip Utama Buku Resmi Rust (Bab 1–20)
+
+#### Pola Type-State (Mesin State Finite Waktu Kompilasi)
+Cegah kemungkinan eksekusi alur data yang tidak valid dengan menyematkan state ke dalam sistem tipe Rust:
 
 ```rust
-// Contoh Nyata Penerapan Permissions & Disjoint Borrowing
-pub fn demonstrasi_ownership_brown() {
-    let mut angka = vec![10, 20, 30, 40, 50];
+// Pola Type-State untuk Siklus Transaksi Pembayaran
+pub struct Baru;
+pub struct Terotorisasi {
+    pub token_verifikasi: String,
+}
+pub struct Selesai {
+    pub nomor_resi: String,
+}
 
-    // Pemisahan irisan mutabel terputus (mencegah karantina koleksi total)
-    let (kiri, kanan) = angka.split_at_mut(2);
-    kiri[0] += 5;
-    kanan[0] *= 2;
+pub struct Transaksi<State> {
+    pub id_transaksi: String,
+    pub nominal_idr: u64,
+    pub state: State,
+}
 
-    // Setelah scope peminjaman selesai (NLL), path angka memulihkan izin {R, W, O}
-    println!("Angka terupdate: {:?}", angka);
+impl Transaksi<Baru> {
+    pub fn buat(id_transaksi: String, nominal_idr: u64) -> Self {
+        Transaksi {
+            id_transaksi,
+            nominal_idr,
+            state: Baru,
+        }
+    }
 
-    // Interior mutability aman multi-thread
-    use std::sync::Arc;
-    use tokio::sync::RwLock;
+    // Transisi State: Mengonsumsi Baru dan menghasilkan Terotorisasi
+    pub fn otorisasi(self, token_verifikasi: String) -> Transaksi<Terotorisasi> {
+        Transaksi {
+            id_transaksi: self.id_transaksi,
+            nominal_idr: self.nominal_idr,
+            state: Terotorisasi { token_verifikasi },
+        }
+    }
+}
 
-    let state_bersama = Arc::new(RwLock::new(vec!["rust".to_string()]));
-    let clone_state = Arc::clone(&state_bersama);
+impl Transaksi<Terotorisasi> {
+    // Hanya transaksi yang telah Terotorisasi yang dapat diselesaikan
+    pub fn selesaikan(self, nomor_resi: String) -> Transaksi<Selesai> {
+        Transaksi {
+            id_transaksi: self.id_transaksi,
+            nominal_idr: self.nominal_idr,
+            state: Selesai { nomor_resi },
+        }
+    }
+}
+```
 
-    tokio::spawn(async move {
-        let mut kunci = clone_state.write().await;
-        kunci.push("permissions".to_string());
-    });
+#### Aturan Emas Mutex & Concurrency Tokio:
+> [!CRITICAL]
+> **Dilarang menahan `std::sync::MutexGuard` melintasi titik `.await` pada runtime Tokio!**
+> Menahan lock non-asinkron saat task disuspensi akan mengunci thread pekerja sistem operasi dan memicu deadlock instan. Gunakan `tokio::sync::Mutex` atau batasi cakupan lock dalam scope kurung kurawal terpisah agar guard terlepas sebelum `.await`.
+
+---
+
+### 5. Idiom Modern Edisi Rust 2024 (v1.88+)
+
+- **`async fn` dalam Trait (RPITIT)**: Deklarasi trait asinkron langsung tanpa pembungkus macro eksternal.
+- **Klausul Pengawal `let-else`**: Menghilangkan struktur if-else bertingkat saat mengekstrak nilai:
+  ```rust
+  let Some(sesi) = token_opsional else {
+      return Err(AppError::Unauthorized);
+  };
+  ```
+- **Rantai Pola `if let`**: Menggabungkan pemeriksaan pola dengan operator logika `&&`:
+  ```rust
+  if let Some(profil) = data_pengguna && profil.terverifikasi && profil.saldo > 0 {
+      proses_pembayaran();
+  }
+  ```
+
+---
+
+### 6. Blueprint Produksi: Layanan API Axum 0.8 & SQLx
+
+```rust
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    response::{IntoResponse, Response},
+    routing::{get, post},
+    Json, Router,
+};
+use serde::{Deserialize, Serialize};
+use sqlx::{postgres::PgPoolOptions, PgPool};
+use thiserror::Error;
+
+#[derive(Debug, Error)]
+pub enum AppError {
+    #[error("Data tidak ditemukan: {0}")]
+    NotFound(String),
+    #[error("Kesalahan internal basis data: {0}")]
+    Database(#[from] sqlx::Error),
+    #[error("Permintaan klien tidak valid: {0}")]
+    BadRequest(String),
+}
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        let (status, pesan) = match &self {
+            AppError::NotFound(m) => (StatusCode::NOT_FOUND, m.clone()),
+            AppError::Database(_) => (
+                StatusCode::INTERNAL_SERVER_ERROR,
+                "Terjadi kendala pada server basis data".to_string(),
+            ),
+            AppError::BadRequest(m) => (StatusCode::BAD_REQUEST, m.clone()),
+        };
+
+        let response_body = Json(serde_json::json!({
+            "status": "error",
+            "pesan": pesan,
+            "kode_http": status.as_u16()
+        }));
+
+        (status, response_body).into_response()
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, sqlx::FromRow)]
+pub struct ProfilPengguna {
+    pub id: String,
+    pub nama: String,
+    pub surel: String,
+}
+
+#[derive(Clone)]
+pub struct AppState {
+    pub db: PgPool,
+}
+
+pub async fn ambil_pengguna_handler(
+    Path(id_pengguna): Path<String>,
+    State(state): State<AppState>,
+) -> Result<Json<ProfilPengguna>, AppError> {
+    let pengguna = sqlx::query_as!(
+        ProfilPengguna,
+        "SELECT id, nama, surel FROM pengguna WHERE id = $1",
+        id_pengguna
+    )
+    .fetch_optional(&state.db)
+    .await?
+    .ok_or_else(|| AppError::NotFound(format!("Pengguna {} tidak ditemukan", id_pengguna)))?;
+
+    Ok(Json(pengguna))
+}
+
+pub fn bangun_router(state: AppState) -> Router {
+    Router::new()
+        .route("/api/v1/pengguna/:id", get(ambil_pengguna_handler))
+        .with_state(state)
 }
 ```
 
 ---
-
-### 2. Sorotan Edisi Rust 2024
-- **`async fn` dalam trait**: Kini stabil — tidak perlu lagi macro `#[async_trait]`.
-- **`if let` chains**: `if let Some(x) = opt && x > 0` kini berfungsi secara bersih.
-- **`gen` blocks**: Generator untuk produksi urutan yang malas.
-- **Aturan lifetime capture**: Inferensi lifetime yang lebih presisi di `impl Trait`.
-
-### 3. Axum 0.8 — Framework HTTP API
-Gunakan Axum untuk HTTP API yang idiomatis dan berkinerja tinggi dibangun di atas Tokio. Manfaatkan extractor (`Path`, `State`, `Json`, `Query`) untuk parameter handler yang type-safe.
-
-### 4. SQLx — SQL Terverifikasi Waktu Kompilasi
-SQLx memverifikasi query SQL Anda terhadap database nyata saat kompilasi — menghilangkan seluruh kelas bug runtime.
-
-### 5. Penanganan Error — thiserror + anyhow
-- Gunakan `thiserror` untuk error bertipe di library code.
-- Gunakan `anyhow` untuk propagasi error yang ergonomis di application code.
-
-### 6. CLI Tool dengan Clap v4
-Clap v4 menggunakan derive macro untuk mendefinisikan antarmuka CLI secara deklaratif — perintah, subperintah, argumen, dan flag dengan parsing bawaan.
-
-### 7. Praktik Terbaik Performa
-- Gunakan iterator (`map`, `filter`, `collect`) — dikompilasi setara dengan loop manual.
-- Hindari cloning yang tidak perlu — gunakan referensi dan lifetime.
-- Gunakan `Arc<Mutex<T>>` untuk state bersama yang dapat dimutasi di antara thread.
-- Profiling terlebih dahulu dengan `cargo flamegraph` sebelum mengoptimalkan.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
@@ -403,4 +673,4 @@ Clap v4 menggunakan derive macro untuk mendefinisikan antarmuka CLI secara dekla
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec rust-programming-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 API < 65ms, zero unwrap/expect pada jalur produksi, query SQL terverifikasi waktu kompilasi, verifikasi eksplisit Pola Type-State; bebas AI slop diverifikasi via `node scripts/check-anti-slop.js --strict` |

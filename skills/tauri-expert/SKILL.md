@@ -44,9 +44,9 @@ Production-grade guidance for building cross-platform desktop (Windows 10/11, ma
 - **App-Bound Domains**: Lock webview navigation strictly to trusted external domains using `limit_navigations_to_app_bound_domains` in Rust or `limitNavigationsToAppBoundDomains` in `tauri.conf.json`.
 - **Context Isolation & Capabilities**: Never expose unrestricted system APIs. Define least-privilege capability files in `src-tauri/capabilities/*.json`.
 
-#### 3. State Management & Concurrency
+#### 3. State Management & Concurrency (Brown Permissions & Tokio Invariants)
 - Store global application state in the Rust backend using `tauri::State<T>`.
-- Use `tokio::sync::Mutex` or `std::sync::RwLock` for mutable state.
+- Use `tokio::sync::Mutex` or `std::sync::RwLock` for mutable state. Never hold a synchronous lock (`std::sync::MutexGuard`) across an `.await` boundary in async Tauri commands to prevent thread starvation and UI deadlocks (as governed by `rust-programming-expert`).
 - Initialize managed state during application setup: `tauri::Builder::default().manage(AppState::new())`.
 
 #### 4. Portable Application Support (`appDirectoriesOverride`)
@@ -247,9 +247,9 @@ Panduan produksi untuk membangun aplikasi desktop (Windows 10/11, macOS, Linux) 
 - **App-Bound Domains**: Kunci navigasi webview agar hanya mengakses domain tepercaya melalui `limit_navigations_to_app_bound_domains` di Rust atau `limitNavigationsToAppBoundDomains` di `tauri.conf.json`.
 - **Isolasi Konteks & Capabilities**: Jangan pernah mengekspos API sistem tanpa batas. Tentukan kapabilitas berbasis hak istimewa terkecil (*least-privilege*) di `src-tauri/capabilities/*.json`.
 
-#### 3. Manajemen State & Konkurensi
+#### 3. Manajemen State & Konkurensi (Izin Brown & Invarian Tokio)
 - Simpan state global aplikasi di backend Rust menggunakan `tauri::State<T>`.
-- Gunakan `tokio::sync::Mutex` atau `std::sync::RwLock` untuk state yang dapat berubah (*mutable state*).
+- Gunakan `tokio::sync::Mutex` atau `std::sync::RwLock` untuk state yang dapat dimutasi (*mutable state*). Dilarang menahan lock sinkron (`std::sync::MutexGuard`) melintasi titik `.await` pada perintah Tauri asinkron guna mencegah kelaparan thread (*thread starvation*) dan deadlock UI (mengikuti standar `rust-programming-expert`).
 - Daftarkan state saat inisialisasi aplikasi: `tauri::Builder::default().manage(AppState::new())`.
 
 #### 4. Aplikasi Portabel & Override Direktori (`appDirectoriesOverride`)
