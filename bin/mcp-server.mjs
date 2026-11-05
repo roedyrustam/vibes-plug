@@ -1191,7 +1191,7 @@ export async function handleRpcRequest(request) {
         },
         serverInfo: {
           name: 'vibes-plug-mcp',
-          version: '4.5.0'
+          version: '4.7.0'
         }
       }
     };
@@ -1849,7 +1849,7 @@ export function startStdioServer() {
     terminal: false
   });
 
-  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.5.0] Listening on stdio...\n');
+  process.stderr.write('⚡ [Vibes-Plug MCP Server v4.7.0] Listening on stdio...\n');
 
   rl.on('line', async (line) => {
     const trimmed = line.trim();
@@ -1953,7 +1953,7 @@ export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '12
       res.end(JSON.stringify({
         status: 'online',
         service: 'vibes-plug-mcp',
-        version: '4.5.0',
+        version: '4.7.0',
         transport: 'sse',
         endpoints: {
           sse: '/sse',
@@ -1971,7 +1971,7 @@ export function startSseServer(port = 3333, host = process.env.VIBES_HOST || '12
   return new Promise((resolve, reject) => {
     server.on('error', reject);
     server.listen(port, host, () => {
-      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.5.0] Listening on SSE at: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/sse`);
+      console.log(`\n⚡ [Vibes-Plug Remote MCP Server v4.7.0] Listening on SSE at: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}/sse`);
       console.log(`📡 Ready for Claude Desktop, Cursor, and remote AI agents.\n`);
       resolve({ server, port, host });
     });

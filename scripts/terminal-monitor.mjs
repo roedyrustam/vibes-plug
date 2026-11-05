@@ -11,7 +11,7 @@
  * Zero external runtime dependencies. Pure Node.js built-ins.
  *
  * @author Roedy Rustam
- * @version 4.4.0
+ * @version 4.7.0
  */
 
 import fs from 'node:fs/promises';

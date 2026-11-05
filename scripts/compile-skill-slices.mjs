@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/compile-skill-slices.mjs
- * Sovereign Skill Micro-Slice Compiler (v4.5.0)
+ * Sovereign Skill Micro-Slice Compiler (v4.7.0)
  *
  * Compiles all 176 SKILL.md specifications into ultra-compact (<350 tokens/skill)
  * contract slices in `.skill-slices.json` for 90%+ token reduction during Swarm Fan-Out.
@@ -35,7 +35,7 @@ export async function compileSkillSlices() {
 
       const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
       const fm = fmMatch ? fmMatch[1] : '';
-      const version = fm.match(/version:\s*"([^"]+)"/)?.[1] || '4.4.3';
+      const version = fm.match(/version:\s*"([^"]+)"/)?.[1] || '4.7.0';
       const description = fm.match(/description:\s*"?([^"\r\n]+)"?/)?.[1]?.trim() || '';
 
       const orchMatch = content.match(/(?:##|###)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###)\s|$)/i);
@@ -82,7 +82,7 @@ export async function compileSkillSlices() {
   const reductionPct = Math.round(((fullTokensApprox - sliceTokensApprox) / fullTokensApprox) * 100);
 
   const payload = {
-    schema: 'vibes-skill-slices/v4.5.0',
+    schema: 'vibes-skill-slices/v4.7.0',
     compiledAt: new Date().toISOString(),
     totalSkills: skillNames.length,
     metrics: {

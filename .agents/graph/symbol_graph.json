@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-05T17:31:55.519Z",
+  "generatedAt": "2026-11-05T17:45:51.947Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 87,
   "incrementalReusedFiles": 87,
@@ -7461,7 +7461,7 @@
     "bin/mcp-server.mjs": {
       "totalLines": 2004,
       "symbolCount": 7,
-      "mtimeMs": 1793792908178,
+      "mtimeMs": 1793900568774,
       "size": 80036,
       "exports": [
         "getActiveProfile",
@@ -7737,7 +7737,7 @@
     "bin/vibes.mjs": {
       "totalLines": 2173,
       "symbolCount": 23,
-      "mtimeMs": 1793877896023,
+      "mtimeMs": 1793900568777,
       "size": 103391,
       "exports": [],
       "imports": [
@@ -8439,7 +8439,7 @@
     "scripts/agent-card-generator.mjs": {
       "totalLines": 161,
       "symbolCount": 3,
-      "mtimeMs": 1793593331102,
+      "mtimeMs": 1793900568779,
       "size": 6625,
       "exports": [
         "loadSubagentsMetadata",
@@ -8882,7 +8882,7 @@
     "scripts/bundle-binary.mjs": {
       "totalLines": 186,
       "symbolCount": 3,
-      "mtimeMs": 1793593331114,
+      "mtimeMs": 1793900568779,
       "size": 6219,
       "exports": [
         "calculateChecksum",
@@ -9183,7 +9183,7 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
       "symbolCount": 3,
-      "mtimeMs": 1793794087768,
+      "mtimeMs": 1793900568780,
       "size": 15383,
       "exports": [
         "compileCache",
@@ -9278,7 +9278,7 @@
     "scripts/compile-skill-slices.mjs": {
       "totalLines": 115,
       "symbolCount": 1,
-      "mtimeMs": 1793593331124,
+      "mtimeMs": 1793900568781,
       "size": 4670,
       "exports": [
         "compileSkillSlices"
@@ -9508,7 +9508,7 @@
     "scripts/cross-ide-bridge.mjs": {
       "totalLines": 365,
       "symbolCount": 5,
-      "mtimeMs": 1793593331129,
+      "mtimeMs": 1793900568783,
       "size": 12630,
       "exports": [
         "checkBridgeStatus",
@@ -9797,7 +9797,7 @@
     "scripts/drift-healer.mjs": {
       "totalLines": 460,
       "symbolCount": 9,
-      "mtimeMs": 1793593789538,
+      "mtimeMs": 1793900568784,
       "size": 17142,
       "exports": [
         "snakeToCamel",
@@ -10355,7 +10355,7 @@
     "scripts/generate-catalog.mjs": {
       "totalLines": 54,
       "symbolCount": 0,
-      "mtimeMs": 1793593331135,
+      "mtimeMs": 1793900568785,
       "size": 2042,
       "exports": [],
       "imports": [
@@ -10611,7 +10611,7 @@
     "scripts/github-pr-bot.mjs": {
       "totalLines": 261,
       "symbolCount": 3,
-      "mtimeMs": 1792792506042,
+      "mtimeMs": 1793900568785,
       "size": 9152,
       "exports": [
         "getChangedFilesFromGit",
@@ -10882,7 +10882,7 @@
     "scripts/install.js": {
       "totalLines": 326,
       "symbolCount": 6,
-      "mtimeMs": 1793833280770,
+      "mtimeMs": 1793900568799,
       "size": 12521,
       "exports": [],
       "imports": [
@@ -11023,7 +11023,7 @@
     "scripts/mcp-setup.mjs": {
       "totalLines": 235,
       "symbolCount": 4,
-      "mtimeMs": 1792792506046,
+      "mtimeMs": 1793900568786,
       "size": 7455,
       "exports": [
         "getMcpServerDefinition",
@@ -11511,7 +11511,7 @@
     "scripts/project-detector.mjs": {
       "totalLines": 341,
       "symbolCount": 4,
-      "mtimeMs": 1793593789538,
+      "mtimeMs": 1793900568786,
       "size": 11970,
       "exports": [
         "detectProjectStack",
@@ -11623,7 +11623,7 @@
     "scripts/registry-manager.mjs": {
       "totalLines": 430,
       "symbolCount": 7,
-      "mtimeMs": 1793593331142,
+      "mtimeMs": 1793900568787,
       "size": 15749,
       "exports": [
         "parseSkillMarkdown",
@@ -11812,7 +11812,7 @@
     "scripts/self-healer.mjs": {
       "totalLines": 548,
       "symbolCount": 7,
-      "mtimeMs": 1793593789538,
+      "mtimeMs": 1793900568789,
       "size": 19930,
       "exports": [
         "parseFailureOutput",
@@ -12017,7 +12017,7 @@
     "scripts/semantic-search.mjs": {
       "totalLines": 309,
       "symbolCount": 9,
-      "mtimeMs": 1793793071656,
+      "mtimeMs": 1793900568789,
       "size": 9883,
       "exports": [
         "LocalSemanticEngine"
@@ -12313,7 +12313,7 @@
     "scripts/skill-dispatcher.mjs": {
       "totalLines": 646,
       "symbolCount": 7,
-      "mtimeMs": 1793827265924,
+      "mtimeMs": 1793900568790,
       "size": 26344,
       "exports": [
         "resolveSkillAdapter",
@@ -12600,7 +12600,7 @@
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
       "symbolCount": 4,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793900568791,
       "size": 23160,
       "exports": [
         "auditSkill",
@@ -13288,7 +13288,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1793877745826,
+      "mtimeMs": 1793900568794,
       "size": 201167,
       "exports": [
         "generateStudioHtml",
@@ -13528,7 +13528,7 @@
     "scripts/supercharge-all-skills.mjs": {
       "totalLines": 611,
       "symbolCount": 37,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793900735655,
       "size": 24861,
       "exports": [
         "TenantRoutingConfig",
@@ -13963,7 +13963,7 @@
     "scripts/swarm-bus.mjs": {
       "totalLines": 412,
       "symbolCount": 21,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793900568796,
       "size": 12922,
       "exports": [
         "emitSwarmEvent",
@@ -14280,7 +14280,7 @@
     "scripts/swarm-dispatcher.mjs": {
       "totalLines": 373,
       "symbolCount": 7,
-      "mtimeMs": 1793593331145,
+      "mtimeMs": 1793900735761,
       "size": 14792,
       "exports": [
         "resolveNativeSubagent",
@@ -14589,7 +14589,7 @@
     "scripts/sync-all-skill-counts.mjs": {
       "totalLines": 480,
       "symbolCount": 1,
-      "mtimeMs": 1793825073371,
+      "mtimeMs": 1793900735828,
       "size": 24686,
       "exports": [],
       "imports": [
@@ -14745,7 +14745,7 @@
     "scripts/terminal-monitor.mjs": {
       "totalLines": 303,
       "symbolCount": 3,
-      "mtimeMs": 1793593331158,
+      "mtimeMs": 1793900568797,
       "size": 10724,
       "exports": [
         "loadMonitorSnapshot",
@@ -15241,7 +15241,7 @@
     "scripts/validate-skills.mjs": {
       "totalLines": 177,
       "symbolCount": 1,
-      "mtimeMs": 1792483576408,
+      "mtimeMs": 1793900735972,
       "size": 7307,
       "exports": [],
       "imports": [
@@ -15412,7 +15412,7 @@
     "scripts/verify-skill-snippets.mjs": {
       "totalLines": 153,
       "symbolCount": 2,
-      "mtimeMs": 1793827265925,
+      "mtimeMs": 1793900568798,
       "size": 4641,
       "exports": [
         "verifyAllSkillSnippets"
@@ -15884,7 +15884,7 @@
     "scripts/worktree-swarm.mjs": {
       "totalLines": 286,
       "symbolCount": 10,
-      "mtimeMs": 1793792964265,
+      "mtimeMs": 1793900568799,
       "size": 9617,
       "exports": [
         "WorktreeSwarmManager"

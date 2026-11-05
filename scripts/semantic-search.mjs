@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/semantic-search.mjs
- * Local Zero-Cost Semantic Embedding & Hybrid Vector Engine (v4.6.0)
+ * Local Zero-Cost Semantic Embedding & Hybrid Vector Engine (v4.7.0)
  *
  * Provides in-process, zero-API-cost semantic code and skill search:
  * - Deterministic Subword & N-Gram TF-IDF Vector Space Embeddings (dim: 256)

@@ -237,7 +237,7 @@ function main() {
     const projectDir = projectIdx !== -1 ? args[projectIdx + 1] : null;
 
     const pkg = require('../package.json');
-    const version = pkg.version || '4.2.0';
+    const version = pkg.version || '4.7.0';
 
     if (helpFlag || args.length === 0) {
         console.log(`

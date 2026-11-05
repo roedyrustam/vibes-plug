@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/supercharge-all-skills.mjs
- * Sovereign Skill Supercharger Engine (v4.5.0)
+ * Sovereign Skill Supercharger Engine (v4.7.0)
  *
  * Strengthens all 171 skills across the Vibes-Plug ecosystem:
  * 1. Modernizes any remaining legacy model references to the Late-2026 Frontier Matrix
@@ -560,8 +560,8 @@ async function superchargeAllSkills() {
     content = content.replace(/`gpt-4o-realtime-preview`/g, '`gpt-5.6-realtime`');
     content = content.replace(/gpt-4o-realtime-preview/g, 'gpt-5.6-realtime');
 
-    // 2. Ensure version is bumped to 4.4.2 if any lower
-    content = content.replace(/version:\s*"4\.[0-3]\.\d+"/g, 'version: "4.4.2"');
+    // 2. Ensure version is bumped to 4.7.0 if any lower
+    content = content.replace(/version:\s*"4\.[0-6]\.\d+"/g, 'version: "4.7.0"');
 
     // 3. Resolve domain profile
     const adapter = resolveSkillAdapter(skillName);

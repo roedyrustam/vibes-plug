@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/verify-skill-snippets.mjs
- * Executable Code-Block Smoke Tester across all 178 Skills (v4.5.0)
+ * Executable Code-Block Smoke Tester across all 178 Skills (v4.7.0)
  *
  * Audits all 990+ code blocks in `skills/<name>/SKILL.md` for:
  * 1. JSON structural validity

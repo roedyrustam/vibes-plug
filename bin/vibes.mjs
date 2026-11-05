@@ -1495,7 +1495,7 @@ async function runDocs(format = 'markdown', outputFile) {
         catalog.push({
           name: skillName,
           description: descMatch ? descMatch[1].trim() : '',
-          version: versionMatch ? versionMatch[1].trim() : '4.3.0',
+          version: versionMatch ? versionMatch[1].trim() : '4.7.0',
           author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
         });
       } catch (e) {
@@ -1513,7 +1513,7 @@ async function runDocs(format = 'markdown', outputFile) {
       }
     } else {
       let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
-      md += `*Universal AI Agent Swarm Architecture (v4.5.0)*\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.7.0)*\n\n`;
       md += `| Skill Name | Version | Description |\n`;
       md += `| :--- | :---: | :--- |\n`;
       for (const item of catalog) {
@@ -1543,7 +1543,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.5.0)
+🌊 Vibes-Plug CLI (v4.7.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:

@@ -2,10 +2,10 @@
  * Vibes-Plug Community Skill Registry & Modular Hub
  * 
  * Manages modular skill discovery, searching, packaging, and project-local installation.
- * Enforces the 176 Skill Gold Standard and Anti-Slop Directive on any custom skill package.
+ * Enforces the 178 Skill Gold Standard and Anti-Slop Directive on any custom skill package.
  * 
  * @author Roedy Rustam
- * @version 4.4.0
+ * @version 4.7.0
  */
 
 import fs from 'node:fs/promises';

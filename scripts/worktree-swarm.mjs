@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/worktree-swarm.mjs
- * Ephemeral Git Worktree Swarm Isolation Engine (v4.6.0)
+ * Ephemeral Git Worktree Swarm Isolation Engine (v4.7.0)
  *
  * Provides isolated file sandboxes for parallel AI subagents:
  * - Allocates isolated Git worktrees under `.agents/worktrees/<worker-id>`

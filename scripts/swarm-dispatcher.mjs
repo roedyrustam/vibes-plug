@@ -87,14 +87,14 @@ async function loadWorkerSkillContext(skillName) {
     return {
       name: skillName,
       description: descMatch ? descMatch[1].trim() : 'Specialized domain skill',
-      version: verMatch ? verMatch[1].trim() : '4.5.0',
+      version: verMatch ? verMatch[1].trim() : '4.7.0',
       instructionsSnippet
     };
   } catch {
     return {
       name: skillName,
       description: 'Dynamic fallback skill context',
-      version: '4.5.0',
+      version: '4.7.0',
       instructionsSnippet: 'Execute domain task conforming to Anti-Slop Directive.'
     };
   }

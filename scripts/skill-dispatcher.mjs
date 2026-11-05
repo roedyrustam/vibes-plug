@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/skill-dispatcher.mjs
- * Universal Skill-as-a-Tool (SaaT) Execution Dispatcher & Pipeline Chain Engine (v4.5.0)
+ * Universal Skill-as-a-Tool (SaaT) Execution Dispatcher & Pipeline Chain Engine (v4.7.0)
  *
  * Bridges all 178 declarative skills in `skills/` with deterministic runtime execution
  * across 8 specialized domain adapters (database, frontend, api, security, tdd, ai-mcp,
@@ -268,7 +268,7 @@ export async function inspectSkillCapabilities(skillName) {
 
   return {
     skill: skillName,
-    version: versionMatch ? versionMatch[1] : '4.4.2',
+    version: versionMatch ? versionMatch[1] : '4.7.0',
     description: descMatch ? descMatch[1].trim() : '',
     domain: adapter.domain,
     supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'health', 'budget'])],
@@ -313,7 +313,7 @@ export async function compileAllSkillSlices() {
   }
 
   const payload = {
-    version: '4.5.0',
+    version: '4.7.0',
     compiledAt: '2026-10-25T00:00:00.000Z',
     totalSkills: Object.keys(slices).length,
     totalCodeBlueprints: totalBlueprints,
@@ -556,7 +556,7 @@ if (isMain) {
   if (!firstPositional || rawArgs.includes('--help') || rawArgs.includes('-h')) {
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║     ⚡ Vibes-Plug Universal Skill-as-a-Tool (SaaT) Dispatcher (v4.5.0)       ║
+║     ⚡ Vibes-Plug Universal Skill-as-a-Tool (SaaT) Dispatcher (v4.7.0)       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 Usage:

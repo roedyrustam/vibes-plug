@@ -223,7 +223,7 @@ function generatePrMarkdownReport(data) {
     }
   }
 
-  md += `---\n*Automated by [Vibes-Plug Pro v4.3.0](https://github.com/roedyrustam/vibes-plug) • Sovereign Anti-Slop Quality Gate*\n`;
+  md += `---\n*Automated by [Vibes-Plug Pro v4.7.0](https://github.com/roedyrustam/vibes-plug) • Sovereign Anti-Slop Quality Gate*\n`;
   return md;
 }
 

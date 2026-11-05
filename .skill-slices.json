@@ -1,10 +1,10 @@
 {
-  "schema": "vibes-skill-slices/v4.5.0",
-  "compiledAt": "2026-11-04T21:21:37.471Z",
+  "schema": "vibes-skill-slices/v4.7.0",
+  "compiledAt": "2026-11-05T17:43:06.205Z",
   "totalSkills": 178,
   "metrics": {
-    "fullRegistryTokensApprox": 760302,
-    "compiledSlicesTokensApprox": 45073,
+    "fullRegistryTokensApprox": 773738,
+    "compiledSlicesTokensApprox": 45019,
     "avgTokensPerSlice": 253,
     "tokenReductionPercent": "94%"
   },
@@ -3872,13 +3872,13 @@
         "database-orm-expert",
         "fullstack-expert",
         "autonomous-tdd-debugger",
-        "e2e-testing-expert"
+        "property-mutation-testing-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec rust-programming-expert verify",
       "snippet": {
         "lang": "rust",
-        "code": "// Practical Demonstration of Flow-Sensitive Permissions & Disjoint Borrowing\npub fn demonstrate_grounded_ownership() {\n    // 1. Initial Path has {R, W, O}\n    let mut numbers = vec![10, 20, 30, 40, 50];\n\n    // 2. Disjoint Mutable Slicing (avoiding whole-collection borrow quarantine)\n    let (left, right) = numbers.split_at_mut(2);\n    // left: &mut [10, 20], right: &mut [30, 40, 50]\n    left[0] += 5;\n    right[0] *= 2;\n\n    // 3. After last use of left/right, numbers restores {R, W, O}\n    println!(\"Updated numbers: {:?}\", numbers);\n"
+        "code": "// Type-State Pattern for an E-Commerce Order Lifecycle\npub struct Draft;\npub struct Placed {\n    pub payment_reference: String,\n}\npub struct Shipped {\n    pub tracking_number: String,\n}\n\npub struct Order<State> {\n    pub order_id: String,\n    pub items: Vec<String>,\n    pub total_cents: u64,\n    pub state: State,"
       }
     },
     "saas-architect": {

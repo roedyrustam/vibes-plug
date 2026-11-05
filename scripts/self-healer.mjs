@@ -6,7 +6,7 @@
  * evaluates candidate fixes in the Ephemeral Micro-Sandbox, and generates verifiable patch diffs.
  * 
  * @author Roedy Rustam
- * @version 4.4.0
+ * @version 4.7.0
  */
 
 import fs from 'node:fs/promises';

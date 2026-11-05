@@ -128,13 +128,13 @@ export function auditSkill(skillName, content, ecosystemContext) {
       const parts = version.split('.').map(Number);
       if (isNaN(parts[0]) || parts[0] < 4 || (parts[0] === 4 && parts[1] < 3)) {
         score -= 5;
-        issues.push({ code: 'FM_VERSION_STALE', message: `Version ${version} is below 4.3.0 standard` });
-        recommendations.push('Bump version to >= "4.3.0" to conform with 2026 Gold Standard.');
+        issues.push({ code: 'FM_VERSION_STALE', message: `Version ${version} is below 4.7.0 standard` });
+        recommendations.push('Bump version to >= "4.7.0" to conform with 2026 Gold Standard.');
       }
     } else {
       score -= 5;
       issues.push({ code: 'FM_VERSION_MISSING', message: 'Missing version tag in frontmatter' });
-      recommendations.push('Add version: "4.4.2" to frontmatter.');
+      recommendations.push('Add version: "4.7.0" to frontmatter.');
     }
   }
 

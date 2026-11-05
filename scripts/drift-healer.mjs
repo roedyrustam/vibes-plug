@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/drift-healer.mjs
- * P8 Engine: Autonomous Tri-Layer API & Schema Drift Healer (v4.5.0)
+ * P8 Engine: Autonomous Tri-Layer API & Schema Drift Healer (v4.7.0)
  *
  * Detects structural drift across PostgreSQL DDL, Drizzle ORM (`pgTable`), Prisma (`model`),
  * and TypeScript/Zod/OpenAPI contracts (missing columns, snake_case <-> camelCase mismatches,
