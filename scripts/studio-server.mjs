@@ -3568,6 +3568,25 @@ export async function startStudioServer(options = {}) {
       return;
     }
 
+    // LLMO Standard Endpoints (/llms.txt and /llms-full.txt)
+    if (req.method === 'GET' && (pathname === '/llms.txt' || pathname === '/llms-full.txt')) {
+      const fileName = pathname === '/llms.txt' ? 'llms.txt' : 'llms-full.txt';
+      const filePath = path.join(PLUGIN_ROOT, fileName);
+      try {
+        const fileContent = await fs.readFile(filePath, 'utf8');
+        res.writeHead(200, {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+        res.end(fileContent);
+        return;
+      } catch (_err) {
+        res.writeHead(404, { 'Content-Type': 'text/plain' });
+        res.end('LLMO file not found');
+        return;
+      }
+    }
+
     // Static Web Showcase UI & Assets
     if (req.method === 'GET' && (pathname === '/showcase/' || pathname.startsWith('/showcase/') || ['/styles.css', '/app.js', '/skills-data.js', '/vibes-logo.png'].includes(pathname))) {
       let relPath = pathname === '/showcase/' ? 'index.html' : pathname.replace(/^\/showcase\//, '');
@@ -3584,6 +3603,8 @@ export async function startStudioServer(options = {}) {
         '.js': 'application/javascript; charset=utf-8',
         '.mjs': 'application/javascript; charset=utf-8',
         '.json': 'application/json; charset=utf-8',
+        '.txt': 'text/plain; charset=utf-8',
+        '.md': 'text/markdown; charset=utf-8',
         '.png': 'image/png',
         '.jpg': 'image/jpeg',
         '.jpeg': 'image/jpeg',

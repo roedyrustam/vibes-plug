@@ -44,9 +44,12 @@
     "LICENSE",
     "install.sh",
     "install.ps1",
+    "llms.txt",
+    "llms-full.txt",
     ".well-known"
   ],
   "scripts": {
+    "build:llms": "node scripts/generate-llms-txt.mjs",
     "test": "node scripts/audit-graph.mjs && node scripts/validate-skills.mjs && node scripts/verify-skill-snippets.mjs && node scripts/check-anti-slop.js --strict && node --test scripts/test-cli.mjs",
     "test:cli": "node --test scripts/test-cli.mjs",
     "audit:graph": "node scripts/audit-graph.mjs",

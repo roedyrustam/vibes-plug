@@ -1473,6 +1473,13 @@ async function runSync() {
 
 async function runDocs(format = 'markdown', outputFile) {
   try {
+    if (format === 'llms') {
+      const { spawnSync } = await import('child_process');
+      const genScript = path.join(PLUGIN_ROOT, 'scripts', 'generate-llms-txt.mjs');
+      spawnSync(process.execPath, [genScript], { stdio: 'inherit' });
+      return;
+    }
+
     const skillsDir = path.join(PLUGIN_ROOT, 'skills');
     const entries = await fs.readdir(skillsDir, { withFileTypes: true });
     const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
@@ -1603,7 +1610,7 @@ Commands:
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
   guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
   validate                  Run the strict skill ecosystem validation check
-  docs [markdown|json]      Export or preview the complete 178-skill ecosystem catalog
+  docs [markdown|json|llms] Export catalog or compile LLMO (llms.txt) specifications
   studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 178-skill explorer)
   showcase [--port <n>]     Launch public Web Showcase with interactive skill explorer & terminal simulator
   detect [dir] [--apply]    Smart Project Stack Detector: auto-detect frameworks & recommend skill bundle
