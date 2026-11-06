@@ -265,6 +265,10 @@ The following diagnostic guide provides the exact **Tell**, **Why**, and **Fix**
   - *Fix*: Declare positive **ENERGY**, **RHYTHM**, and **MOTION** dials. Add purposeful contrast, an authentic brand accent, and high typographic contrast.
 
 ### 2. Layout, Cadence & Components
+- **Monotonous Centered Hero Section (The Hero Cliché)**:
+  - *Tell*: Centered title + centered subtitle + 2 generic buttons side-by-side + static centered gray rectangle mockup below. Repeated mechanically across every generated website.
+  - *Why*: The ultimate AI slop reflex. It causes instant visual fatigue and feels like a low-effort template.
+  - *Fix*: Mandate selecting one of the **7 Dribbble-Grade Hero Archetypes** (Split-Screen 50/50 with 3D perspective tilt & floating live chips, Centered kinetic typography with 40% fold peek, Above-the-fold modular bento, Conversion inversion interactive utility hero, Editorial magazine split, Cinematic spatial 3D canvas, or Command-bar terminal).
 - **Monotonous AI Landing Page Template**:
   - *Tell*: Hero -> 3 feature cards -> 3-step "How It Works" -> Bento Grid -> 3-tier Pricing -> FAQ -> 4-Column Footer. Every single time.
   - *Why*: Reflects training data defaults, not the product's real user journey.
@@ -675,6 +679,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-07 Latar Belakang**: Grid titik, garis blueprint, dan grafis kotak-kotak dilarang sebagai shortcut visual.
 - **R-08 Ritme Spasi**: Spasi seragam di setiap bagian dilarang; gunakan variasi ritme vertikal.
 - **R-09 Variasi Layout**: Layout formulaik klise (Hero -> 3 kartu -> 3 langkah -> Bento grid -> Pricing -> FAQ) dilarang.
+- **R-09.1 Larangan Hero Section Monoton**: Dilarang menggunakan pola hero klise (teks tengah + 2 tombol generik + persegi mockup statis). Wajib memilih salah satu dari 7 Arketipe Hero Kaliber Dribbble (Split-screen 50/50 3D perspective tilt & chip melayang, Teks kinetik dengan intipan lipatan 40%, Bento hero modular lipatan pertama, Utilitas interaktif inversi konversi, Editorial majalah asimetris, 3D spasial sinematik, atau Terminal palet perintah).
 - **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman. Penerapan resmi yang sangat dianjurkan adalah **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu** dengan translusensi gelap halus (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, border 1px `border-white/10`) guna menggantikan bilah navbar kotak penuh yang pasaran.
 - **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang standar, field input, atau kartu konten. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu. *Pengecualian Arsitektural*: Bilah navigasi melayang berbentuk kapsul (**Floating Island Navigation Capsule**) adalah pengecualian resmi yang diotorisasi untuk menghadirkan kokpit navigasi modern berkelas tinggi ala Apple/Linear.
 - **R-12 Shadow Membumi**: Shadow melayang berwarna neon dilarang; gunakan border 1px solid dan elevasi halus.

@@ -245,6 +245,79 @@ To permanently eradicate monotonous outputs, agents MUST classify every new web 
 
 ---
 
+#### 9. Dribbble-Grade Hero Section Architecture: 7 Expressive Archetypes (Anti-Monotony Hero Standard)
+The most common point of visual fatigue in AI-generated websites is the hero section. AI assistants perpetually default to one monotonous composition: *Centered text + 2 generic buttons + static centered rectangle placeholder below*.
+
+To ensure every web project features a captivating, memorable, and high-converting first impression, agents MUST choose and implement one of **7 Dribbble-Grade Hero Section Archetypes**:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          7 DRIBBLE-GRADE HERO SECTION ARCHETYPES          │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+     ┌──────────────────────┬──────────────────────┼──────────────────────┬──────────────────────┐
+     ▼                      ▼                      ▼                      ▼                      ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐      ┌───────────────┐      ┌───────────────┐
+│  ARCHETYPE 1  │   │  ARCHETYPE 2  │      │  ARCHETYPE 3  │      │  ARCHETYPE 4  │      │  ARCHETYPE 5  │
+│ Split-Screen  │   │Kinetic Center │      │ Modular Above │      │  Interactive  │      │   Editorial   │
+│3D Perspective │   │   Fold Peek   │      │   Fold Bento  │      │Utility Hero UI│      │ Neo-Brutalist │
+└───────────────┘   └───────────────┘      └───────────────┘      └───────────────┘      └───────────────┘
+```
+
+##### 1. Archetype 1: Asymmetric 50/50 Split-Screen with 3D Perspective Tilt & Floating Live Chips
+- **Best For**: B2B SaaS, FinTech, Productivity Platforms, Mobile App Showcases.
+- **Visual Composition**:
+  - **Left Column**: Announcement pill badge (`⭐ Loved by 10,000+ Teams`), punchy bold display title (`text-4xl lg:text-6xl font-bold tracking-tight`), concise value description, dual-action group (Primary high-contrast button + secondary video trigger with Play icon), and an overlapping customer avatar cluster (`flex -space-x-2`).
+  - **Right Column**: A high-fidelity software card or mobile viewport tilted in 3D perspective space (`style={{ transform: 'perspective(1200px) rotateY(-8deg) rotateX(6deg)' }}`). Layered over this card are **2-3 floating micro-interaction chips** that subtly float up/down via CSS keyframes (`animate-bounce` or custom `floating-slow`):
+    - *Chip A (Top Right)*: Live Status / Activity Pulse (`● Live Sync 99.8%` with glowing green dot).
+    - *Chip B (Bottom Left)*: Financial or Execution Toast (`✓ Instant Payout $2,450.00 Settled`).
+    - *Chip C (Center Float)*: Metric Sparkline or Growth Badge (`↑ +34.2% MRR`).
+
+##### 2. Archetype 2: Centered Kinetic Display Typography with Overlapping Fold Peek
+- **Best For**: Developer Tools, AI Platforms, Creative Tech, High-End SaaS.
+- **Visual Composition**:
+  - Centered hero layout featuring massive kinetic display typography (`text-5xl sm:text-7xl font-extrabold tracking-tight`) with a high-contrast text clip gradient on key punch words.
+  - Centered compact description and single primary CTA flanked by subtle text badge ("No credit card required · Free 14-day trial").
+  - **The Fold Peek Invariant**: Beneath the actions sits an oversized browser window frame or full dashboard preview elevated with deep directional drop shadow (`shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)]`). Crucially, this frame is placed so that **40% of its height cuts through the bottom viewport fold**, creating an irresistible visual curiosity gap that compels users to scroll down.
+
+##### 3. Archetype 3: Modular Above-the-Fold Bento Hero
+- **Best For**: Multi-faceted AI Studios, Modern Indie Products, Data Platforms.
+- **Visual Composition**:
+  - Instead of standard text followed by images, the entire hero viewport is partitioned into an **asymmetric 4-card or 5-card Bento Grid**:
+    - **Card 1 (Col-span 2, Row-span 2)**: Primary value proposition, punchy headline, and conversion CTA button.
+    - **Card 2 (Col-span 1, Row-span 2)**: Interactive live feature sandbox or dynamic code preview with syntax highlighting.
+    - **Card 3 (Col-span 1, Row-span 1)**: High-authority proof metric with animated `tabular-nums` counter (`150,000+ Active Nodes`).
+    - **Card 4 (Col-span 1, Row-span 1)**: Interactive toggle, sound wave visualizer, or customer rating cluster.
+
+##### 4. Archetype 4: Interactive Utility / Conversion Inversion Hero (NiubiGEO Standard)
+- **Best For**: SEO/GEO tools, Security Auditing, Performance Checkers, Prompt Generators.
+- **Visual Composition**:
+  - An embedded functional tool sits directly in the hero fold (`#product-setup`). Instead of asking users to register, they immediately type their URL, paste code, or enter a prompt into a rich input bar, triggering an instant interactive evaluation with live engine status tags.
+
+##### 5. Archetype 5: Editorial Magazine & Neo-Brutalist Asymmetric Split
+- **Best For**: Architecture studios, luxury brands, creative agencies, cultural tech.
+- **Visual Composition**:
+  - Stark stark monochrome (`#000000` / `#ffffff`) or warm stone canvas (`#fdfbf7`).
+  - Structured geometric dividing lines (`border-b border-neutral-300 dark:border-neutral-800`).
+  - Oversized serif display or condensed grotesque font (80px+).
+  - Split metadata column flanking the thesis statement: `Client`, `Year`, `Discipline`, and `Status: Open for Q2`.
+
+##### 6. Archetype 6: Cinematic Full-Bleed Spatial 3D & Ambient Glow Canvas
+- **Best For**: Web3, Spatial Computing, Next-Gen Hardware, Gaming, Immersive Media.
+- **Visual Composition**:
+  - Full-viewport interactive WebGL, Three.js, or Spline 3D canvas reacting fluidly to cursor coordinates.
+  - Floating Island Glass Capsule Navbar at the ceiling.
+  - Floating bottom glass dock or minimal frosted translucent cards (`backdrop-blur-2xl bg-black/40 border border-white/10`) that present value props without obscuring the 3D scene.
+
+##### 7. Archetype 7: Command-Bar / Terminal Keyboard-First Hero (Linear & Raycast Standard)
+- **Best For**: Developer CLI utilities, infrastructure software, power-user desktop apps.
+- **Visual Composition**:
+  - Dark obsidian background with razor-sharp 1px grid borders.
+  - Centered interactive mock command bar (`<kbd>⌘K</kbd> to search actions...`) with simulated auto-typing or interactive keyboard event listeners.
+  - Real-time tab switchers between languages (TypeScript, Python, Rust, Go) showing copyable one-line install commands (`npx vibes init`).
+
+---
+
 ### Sovereign UI/UX Anti-Slop Directive (6 Design Pillars)
 
 The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and incomplete user experiences:
@@ -537,6 +610,77 @@ Untuk memberantas hasil web yang membosankan dan monoton, agen WAJIB mengklasifi
 - **Esensi**: Budaya tanding developer, daya ingat tinggi, kontras tanpa kompromi.
 - **Token**: Hitam Pekat (`#000000`), Putih Salju (`#ffffff`), Aksen saturasi penuh (Kuning Siber `#facc15`, Oranye Menyala `#fb923c`).
 - **Tata Letak**: Garis tepi hitam pekat tebal 2px–3px, bayangan jatuh kaku berjarak (`4px 4px 0px #000`), font sans-serif tebal (weight 800), tata letak grid asimetris.
+
+---
+
+#### 9. Arsitektur Hero Section Kaliber Dribbble: 7 Arketipe Ekspresif (Standar Hero Anti-Monoton)
+Titik paling rawan terjadinya kebosanan visual pada website buatan AI adalah bagian hero section. Asisten AI selalu mengulang-ulang komposisi monoton: *Teks judul di tengah + 2 tombol biasa + placeholder gambar statis di bawahnya*.
+
+Agar setiap proyek web baru memiliki kesan pertama yang memukau, variatif, dan berkonversi tinggi, agen WAJIB memilih dan mengimplementasikan salah satu dari **7 Arketipe Hero Section Kaliber Dribbble**:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          7 ARKETIPE HERO SECTION KALIBER DRIBBLE          │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+     ┌──────────────────────┬──────────────────────┼──────────────────────┬──────────────────────┐
+     ▼                      ▼                      ▼                      ▼                      ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐      ┌───────────────┐      ┌───────────────┐
+│  ARKETIPE 1   │   │  ARKETIPE 2   │      │  ARKETIPE 3   │      │  ARKETIPE 4   │      │  ARKETIPE 5   │
+│ Split-Screen  │   │Teks Kinetik & │      │ Bento Modular │      │  Utilitas UI  │      │   Editorial   │
+│3D Perspektif  │   │Intipan Lipatan│      │   Full Fold   │      │Interaktif Hero│      │ Neo-Brutalis  │
+└───────────────┘   └───────────────┘      └───────────────┘      └───────────────┘      └───────────────┘
+```
+
+##### 1. Arketipe 1: Split-Screen Asimetris 50/50 dengan Kemiringan 3D Perspektif & Chip Melayang
+- **Sangat Cocok Untuk**: SaaS B2B, FinTech, Alat Produktivitas, dan Aplikasi Mobile.
+- **Komposisi Visual**:
+  - **Kolom Kiri**: Badge pengumuman pill (`⭐ Dipercaya 10,000+ Tim`), judul display tebal tegas (`text-4xl lg:text-6xl font-bold tracking-tight`), deskripsi ringkas, grup 2 tombol aksi (CTA Utama kontras tinggi + tombol Demo dengan ikon Play), serta tumpukan avatar pengguna (`flex -space-x-2`).
+  - **Kolom Kanan**: Kartu antarmuka dashboard atau frame mobile yang dimiringkan dalam ruang 3D perspektif (`transform: perspective(1200px) rotateY(-8deg) rotateX(6deg)`). Di atas kartu ini disematkan **2-3 chip status mikro melayang** dengan animasi CSS halus:
+    - *Chip A (Kanan Atas)*: Status Sinyal Denyut (`● Sinkronisasi Aktif 99.8%` dengan titik hijau berkedip).
+    - *Chip B (Kiri Bawah)*: Notifikasi Transaksi Nyata (`✓ Pembayaran Rp 35.000.000 Berhasil`).
+    - *Chip C (Tengah)*: Lencana Pertumbuhan (`↑ +34.2% Efisiensi Tim`).
+
+##### 2. Arketipe 2: Tipografi Kinetik Tengah dengan Intipan Lipatan Layar (Fold Peek)
+- **Sangat Cocok Untuk**: Alat Developer, Platform AI, Agensi Kreatif, SaaS Premium.
+- **Komposisi Visual**:
+  - Judul kinetik raksasa di tengah (`text-5xl sm:text-7xl font-extrabold tracking-tight`) dengan aksen gradien teks pada kata kunci penting.
+  - Di bawah tombol CTA utama, bingkai antarmuka dashboard diletakkan tepat memotong garis lipatan layar pertama: **40% tinggi kartu menembus lipatan layar (*fold peek*)** dengan bayangan jatuh dalam (`shadow-2xl`), memicu rasa penasaran alami pengguna (*curiosity gap*) untuk menggulir ke bawah.
+
+##### 3. Arketipe 3: Bento Grid Modular Lipatan Pertama (Above-the-Fold Bento Hero)
+- **Sangat Cocok Untuk**: Startup AI Modern, Produk Indie Berdensitas Tinggi, Studio Desain.
+- **Komposisi Visual**:
+  - Alih-alih tata letak teks biasa, seluruh area hero dipartisi menjadi **Bento Grid Asimetris 4-5 kartu**:
+    - **Kartu 1 (Span 2x2)**: Proposisi nilai utama, judul tajam, dan tombol konversi primer.
+    - **Kartu 2 (Span 1x2)**: Sandbox fitur interaktif atau preview kode langsung dengan syntax highlighting.
+    - **Card 3 (Span 1x1)**: Metrik pembuktian otoritas dengan angka tabular berdenyut (`tabular-nums`).
+    - **Card 4 (Span 1x1)**: Pengalih interaktif (*toggle*), visualizer audio, atau rating pengguna.
+
+##### 4. Arketipe 4: Utilitas Interaktif & Hero Inversi Konversi (Standar NiubiGEO)
+- **Sangat Cocok Untuk**: Alat SEO/GEO, Pemeriksa Keamanan, Analisis Domain, Generator Prompt AI.
+- **Komposisi Visual**:
+  - Alat fungsional langsung ditanamkan pada hero fold (`#product-setup`). Pengguna mengetik URL, menempelkan kode, atau mengetik prompt seketika tanpa hambatan formulir pendaftaran.
+
+##### 5. Arketipe 5: Editorial Majalah & Pembagi Neo-Brutalis Asimetris
+- **Sangat Cocok Untuk**: Studio arsitektur, e-commerce mewah, agensi desain, brand budaya.
+- **Komposisi Visual**:
+  - Kanvas monokrom kontras tinggi (`#000000` / `#ffffff`) atau warna batu hangat (`#fdfbf7`).
+  - Garis batas geometris pembagi yang tegas (`border-b`, `border-r`).
+  - Font serif display atau sans-serif grotesque ekstra padat (80px+).
+  - Kolom metadata terpisah: `Klien`, `Tahun`, `Disiplin`, dan `Status Ketersediaan Proyek`.
+
+##### 6. Arketipe 6: 3D Spasial Sinematik & Kanvas Kemilau Ambien Penuh
+- **Sangat Cocok Untuk**: Web3, Komputasi Spasial, Hardware Generasi Baru, Media Imersif.
+- **Komposisi Visual**:
+  - Kanvas 3D WebGL / Three.js / Spline interaktif layar penuh yang merespons kursor mouse.
+  - Navbar kapsul kaca pulau melayang di atas, serta kartu teks mengambang minimalis dengan efek kaca buram (`backdrop-blur-2xl`) yang tidak menghalangi objek 3D.
+
+##### 7. Arketipe 7: Terminal & Palet Perintah Ramah Keyboard (Standar Linear & Raycast)
+- **Sangat Cocok Untuk**: Alat CLI developer, SaaS infrastruktur cloud, aplikasi produktivitas cepat.
+- **Komposisi Visual**:
+  - Latar obsidian gelap pekat dengan garis grid tipis 1px.
+  - Mockup palet perintah interaktif di tengah (`<kbd>⌘K</kbd> untuk mencari perintah...`) dengan simulasi ketikan otomatis atau navigasi keyboard nyata.
+  - Tab pengalih bahasa pemrograman (TypeScript, Python, Rust, Go) dengan perintah instalasi satu baris siap salin (`npx vibes init`).
 
 ---
 

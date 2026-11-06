@@ -173,6 +173,16 @@ When cloning or extracting design systems from high-converting AI SaaS, develope
   4. *Prioritized Action Checklist*: Actionable triage items with interactive pills.
 - **Interactive Step Flow & Proof Velocity**: Horizontal step switcher illustrating the human+AI flywheel, accompanied by authentic GitHub Trending & Tech Daily ranking proof cards.
 
+
+##### Dribbble-Grade Hero Pattern Recognition & Extraction Rules
+When reverse-engineering modern landing pages inspired by Dribbble hero section trends:
+1. **Detect Hero Structural Type**:
+   - *Split 50/50 with 3D Perspective*: Look for CSS `transform: perspective(...) rotateX(...) rotateY(...)`. Replicate the exact angles and recreate floating chips with directional micro-shadows (`shadow-xl`) and CSS bounce/pulse animations.
+   - *Modular Above-the-Fold Bento*: Inspect if the hero viewport is broken into a CSS Grid (`grid-cols-3` or `grid-cols-4`). Extract each card's distinct visual function (Headline cell, interactive sandbox cell, live metric cell).
+   - *Centered Kinetic with Fold Peek*: Detect if the primary product mockup cuts through the bottom viewport boundary using negative bottom margins (`-mb-24` to `-mb-40`) with deep directional shadows (`shadow-[0_25px_65px_-15px_rgba(0,0,0,0.8)]`).
+   - *Interactive Utility*: Detect if an input form with real validation and tag filters is placed inside the hero fold.
+2. **Extract Floating Micro-Affordances**: Never synthesize static dead images when cloning modern heroes. Extract or generate floating chips: live sync status dots (`animate-ping`), transaction settlements, avatar clusters (`flex -space-x-2`), and announcement pills.
+
 #### Phase 5: Visual Verification & Polish
 - Ensure color contrast passes WCAG 2.2 AAA standard (4.5:1 ratio).
 - Validate full responsiveness on mobile viewports.
@@ -247,6 +257,16 @@ Ketika merekayasa balik atau menyintesis website AI SaaS, alat developer, atau l
 - **Hero Konversi Inversi**: Mengganti hero pasif biasa dengan widget diagnostik interaktif (`#product-setup`) langsung di bawah judul. Pengguna langsung memasukkan URL produk tanpa hambatan login awal.
 - **Bento Grid Bukti Tindakan**: 4 kartu pembuktian empiris (Sinyal Visibilitas, Akurasi Deskripsi, Sitasi Lintas Platform, serta Rekomendasi Tindakan Prioritas).
 - **Navigator Alur 4 Langkah & Kecepatan Sosial Organik**: Tab navigator horizontal serta kartu bukti peringkat GitHub Trending dan Tech Daily yang menggantikan testimoni klise.
+
+
+#### Aturan Ekstraksi & Rekayasa Balik Hero Kaliber Dribbble
+Ketika merekayasa balik landing page modern berbasis tren hero section Dribbble:
+1. **Deteksi Tipe Struktural Hero**:
+   - *Split 50/50 dengan Perspektif 3D*: Deteksi properti CSS `transform: perspective(...) rotateX(...) rotateY(...)`. Replikasi sudut kemiringan persis dan sertakan chip mikro melayang dengan animasi floating.
+   - *Bento Modular di Lipatan Pertama*: Deteksi apakah lipatan hero dibagi menggunakan CSS Grid. Ekstrak fungsi masing-masing kartu bento (kartu judul, kartu live code sandbox, kartu metrik otoritas).
+   - *Teks Kinetik Tengah dengan Intipan Lipatan (Fold Peek)*: Deteksi jika bingkai aplikasi memotong batas bawah viewport menggunakan margin negatif (`-mb-28` hingga `-mb-36`) dengan bayangan jatuh terarah.
+   - *Utilitas Interaktif*: Deteksi jika widget input fungsional langsung disematkan pada lipatan hero.
+2. **Ekstraksi Elemen Taktil Melayang**: Jangan pernah merekayasa balik hero menjadi gambar mati statis. Wajib ekstrak chip interaksi mikro: titik denyut status (`animate-ping`), bukti transaksi (`tabular-nums`), tumpukan avatar pengguna, dan badge pengumuman pill.
 
 ### Matriks Orkestrasi & Handoff Skill
 
