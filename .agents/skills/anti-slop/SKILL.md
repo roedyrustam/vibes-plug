@@ -358,7 +358,7 @@ Before generating any UI component or page layout, declare the one-line Design R
 
 ---
 
-### The 4 Proven Design Archetypes
+### The 6 Proven Design Archetypes (Zero Monotony Standard)
 
 Every interface must anchor itself in one coherent archetype to maintain stylistic unity:
 
@@ -385,6 +385,19 @@ Every interface must anchor itself in one coherent archetype to maintain stylist
 - **Geometry**: Ultra-compact padding (`px-3 py-1.5`), split panes, explicit filter toolbars, zero decorative fluff.
 - **Tactile Feel**: High-contrast sparklines, multi-level breadcrumbs, tabular data grid alignment.
 - **Dials Baseline**: ENERGY 2 | RHYTHM 2 | MOTION 1.
+
+#### 5. Archetype E: Cosmic Evidence & Interactive Utility (NiubiGEO, Perplexity, Cursor)
+- **Palette**: Deep Cosmic Obsidian (`#080a0f`), layered dark slate navy panels (`#11141e` & `#181b29`), razor 1px borders (`#272b3c`), dual cyber accents: Electric Lavender (`#b7a0ff` for brand & active actions) + Emerald Jade (`#7ce4b0` for verified evidence & live signals), crisp off-white text (`#f5f4fa`).
+- **Geometry**: Layered elevation with 1px hairline borders, `rounded-xl` (12px) container shells, compact status badges.
+- **Tactile Feel**: **Conversion Inversion Hero** (functional interactive setup/diagnostic input widget embedded directly on the hero fold `#product-setup`), **Actionable Evidence Bento Grid** (brand visibility signal dot, description accuracy tag cloud, multi-LLM citations [ChatGPT, Claude, Gemini, Perplexity], priority action checklist), arrow hover nudges (`lucide-arrow-right` shifts +4px), radar pulse rings.
+- **Anti-Monotony Invariant**: Never render an empty static hero with boilerplate "Sign Up". Provide immediate interactive value on the fold.
+- **Dials Baseline**: ENERGY 3 | RHYTHM 3 | MOTION 2.
+
+#### 6. Archetype F: Spacious Collaborative Enterprise (Monday.com, Asana)
+- **Palette**: Vibrant Primary Blue (`#0073ea`), clean snow white canvas (`#ffffff`), soft fog card surfaces (`#f9f9f9`/`#f5f6f8`), deep obsidian footer (`#111111`).
+- **Geometry**: Expansive 12px-16px card radiuses, generous 80-120px vertical section spacing, Figtree/Inter typography.
+- **Tactile Feel**: Tactile color-coded workflow chips, playful progress pills, friendly rounded avatars.
+- **Dials Baseline**: ENERGY 3 | RHYTHM 2 | MOTION 2.
 
 ---
 
@@ -717,7 +730,7 @@ Filter anti-slop bertugas membuang kebiasaan buruk AI, namun membuang slop saja 
 Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
 > `Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>.`
 
-#### 4 Arsitektur Desain Teruji:
+#### 6 Arsitektur Desain Teruji (Standar Nol Monotoni):
 1. **Archetype A: High-Precision Developer Tooling** (Linear, Raycast, Vercel)
    - Permukaan matte gelap (`bg-neutral-950`), border 1px solid, tombol shortcut keyboard (`<kbd>⌘K</kbd>`), font mono untuk metadata, padding ringkas.
 2. **Archetype B: Refined SaaS & FinTech** (Stripe, Ramp, Mercury)

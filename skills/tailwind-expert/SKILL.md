@@ -201,6 +201,47 @@ Tailwind CSS v4 seamlessly implements Google Material Design 3 (M3) tokens insid
 </div>
 ```
 
+
+#### NiubiGEO Cosmic Evidence Architecture Token Preset (Tailwind CSS v4)
+Deploy this preset to eliminate visual monotony on dark mode developer tools and AI landing pages:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  /* NiubiGEO Cosmic Obsidian Palette */
+  --color-canvas-obsidian: #080a0f;
+  --color-panel-navy: #11141e;
+  --color-panel-navy-elevated: #181b29;
+  --color-border-hairline: #272b3c;
+  --color-text-crisp: #f5f4fa;
+  --color-text-dim: #979aaf;
+  
+  /* Dual Dynamic Cyber Accents */
+  --color-accent-lavender: #b7a0ff;    /* Primary brand actions & active states */
+  --color-accent-jade: #7ce4b0;        /* Evidence verification & live pulses */
+  --color-glow-violet: #76508d;        /* Focused micro-interactions */
+}
+```
+
+**Component Patterns with Tailwind v4 Utilities:**
+```html
+<!-- NiubiGEO Embedded Diagnostic Input Card -->
+<div class="rounded-2xl border border-[#272b3c] bg-[#11141e] p-6 shadow-2xl">
+  <div class="flex items-center justify-between border-b border-[#272b3c] pb-4">
+    <span class="text-sm font-semibold text-[#f5f4fa]">AI Visibility Diagnostic</span>
+    <span class="inline-flex items-center gap-1.5 rounded-full border border-[#7ce4b0]/20 bg-[#7ce4b0]/10 px-2.5 py-0.5 text-[11px] font-medium text-[#7ce4b0]">
+      <span class="h-1.5 w-1.5 rounded-full bg-[#7ce4b0] animate-pulse"></span>
+      Ready
+    </span>
+  </div>
+  <div class="mt-4 flex gap-2">
+    <input type="text" placeholder="https://yourproduct.com" class="flex-1 rounded-lg border border-[#272b3c] bg-[#181b29] px-3.5 py-2.5 text-xs text-[#f5f4fa] placeholder-[#979aaf] focus:border-[#b7a0ff] focus:outline-none" />
+    <button class="cursor-pointer rounded-lg bg-[#b7a0ff] px-4 py-2.5 text-xs font-semibold text-[#080a0f] hover:bg-[#c9b7ff] active:scale-[0.98] transition">Analyze</button>
+  </div>
+</div>
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -389,6 +430,27 @@ Menerapkan hierarki visual tingkat produksi menggunakan kelompok utilitas Tailwi
   - *Label ke Input*: `flex flex-col gap-1.5`
   - *Jarak Form*: `space-y-4`
   - *Jarak Seksi Halaman*: `py-16 sm:py-24`
+
+
+#### Preset Token Arsitektur Bukti Kosmik NiubiGEO (Tailwind CSS v4)
+Terapkan preset ini untuk menghilangkan monotoni visual pada alat developer mode gelap dan landing page AI:
+
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-canvas-obsidian: #080a0f;
+  --color-panel-navy: #11141e;
+  --color-panel-navy-elevated: #181b29;
+  --color-border-hairline: #272b3c;
+  --color-text-crisp: #f5f4fa;
+  --color-text-dim: #979aaf;
+  
+  --color-accent-lavender: #b7a0ff;
+  --color-accent-jade: #7ce4b0;
+  --color-glow-violet: #76508d;
+}
+```
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
