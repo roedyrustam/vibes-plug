@@ -1053,7 +1053,7 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 #### `rust-programming-expert` (v4.7.0)
 - **Native Prompt Trigger**: `@rust-programming-expert`
 - **English Summary**: Rust 2024
-- **Indonesian Summary**: v1.88+ memory safety, async Axum, and zero-cost patterns
+- **Indonesian Summary**: v1.88+ memory safety, Brown Grounded Ownership & Permissions, async Axum, and zero-cost patterns
 - **Tags**: #rust, #programming, #backend
 - **Repository Path**: [`skills/rust-programming-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rust-programming-expert/SKILL.md)
 

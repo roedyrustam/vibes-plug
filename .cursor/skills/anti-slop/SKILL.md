@@ -265,6 +265,10 @@ The following diagnostic guide provides the exact **Tell**, **Why**, and **Fix**
   - *Fix*: Declare positive **ENERGY**, **RHYTHM**, and **MOTION** dials. Add purposeful contrast, an authentic brand accent, and high typographic contrast.
 
 ### 2. Layout, Cadence & Components
+- **Monotonous Centered Hero Section (The Hero Cliché)**:
+  - *Tell*: Centered title + centered subtitle + 2 generic buttons side-by-side + static centered gray rectangle mockup below. Repeated mechanically across every generated website.
+  - *Why*: The ultimate AI slop reflex. It causes instant visual fatigue and feels like a low-effort template.
+  - *Fix*: Mandate selecting one of the **7 Dribbble-Grade Hero Archetypes** (Split-Screen 50/50 with 3D perspective tilt & floating live chips, Centered kinetic typography with 40% fold peek, Above-the-fold modular bento, Conversion inversion interactive utility hero, Editorial magazine split, Cinematic spatial 3D canvas, or Command-bar terminal).
 - **Monotonous AI Landing Page Template**:
   - *Tell*: Hero -> 3 feature cards -> 3-step "How It Works" -> Bento Grid -> 3-tier Pricing -> FAQ -> 4-Column Footer. Every single time.
   - *Why*: Reflects training data defaults, not the product's real user journey.
@@ -358,7 +362,7 @@ Before generating any UI component or page layout, declare the one-line Design R
 
 ---
 
-### The 4 Proven Design Archetypes
+### The 6 Proven Design Archetypes (Zero Monotony Standard)
 
 Every interface must anchor itself in one coherent archetype to maintain stylistic unity:
 
@@ -385,6 +389,19 @@ Every interface must anchor itself in one coherent archetype to maintain stylist
 - **Geometry**: Ultra-compact padding (`px-3 py-1.5`), split panes, explicit filter toolbars, zero decorative fluff.
 - **Tactile Feel**: High-contrast sparklines, multi-level breadcrumbs, tabular data grid alignment.
 - **Dials Baseline**: ENERGY 2 | RHYTHM 2 | MOTION 1.
+
+#### 5. Archetype E: Cosmic Evidence & Interactive Utility (NiubiGEO, Perplexity, Cursor)
+- **Palette**: Deep Cosmic Obsidian (`#080a0f`), layered dark slate navy panels (`#11141e` & `#181b29`), razor 1px borders (`#272b3c`), dual cyber accents: Electric Lavender (`#b7a0ff` for brand & active actions) + Emerald Jade (`#7ce4b0` for verified evidence & live signals), crisp off-white text (`#f5f4fa`).
+- **Geometry**: Layered elevation with 1px hairline borders, `rounded-xl` (12px) container shells, compact status badges.
+- **Tactile Feel**: **Conversion Inversion Hero** (functional interactive setup/diagnostic input widget embedded directly on the hero fold `#product-setup`), **Actionable Evidence Bento Grid** (brand visibility signal dot, description accuracy tag cloud, multi-LLM citations [ChatGPT, Claude, Gemini, Perplexity], priority action checklist), arrow hover nudges (`lucide-arrow-right` shifts +4px), radar pulse rings.
+- **Anti-Monotony Invariant**: Never render an empty static hero with boilerplate "Sign Up". Provide immediate interactive value on the fold.
+- **Dials Baseline**: ENERGY 3 | RHYTHM 3 | MOTION 2.
+
+#### 6. Archetype F: Spacious Collaborative Enterprise (Monday.com, Asana)
+- **Palette**: Vibrant Primary Blue (`#0073ea`), clean snow white canvas (`#ffffff`), soft fog card surfaces (`#f9f9f9`/`#f5f6f8`), deep obsidian footer (`#111111`).
+- **Geometry**: Expansive 12px-16px card radiuses, generous 80-120px vertical section spacing, Figtree/Inter typography.
+- **Tactile Feel**: Tactile color-coded workflow chips, playful progress pills, friendly rounded avatars.
+- **Dials Baseline**: ENERGY 3 | RHYTHM 2 | MOTION 2.
 
 ---
 
@@ -662,6 +679,7 @@ Anti-slop adalah **filter, bukan style guide**: filter ini tidak mendikte warna,
 - **R-07 Latar Belakang**: Grid titik, garis blueprint, dan grafis kotak-kotak dilarang sebagai shortcut visual.
 - **R-08 Ritme Spasi**: Spasi seragam di setiap bagian dilarang; gunakan variasi ritme vertikal.
 - **R-09 Variasi Layout**: Layout formulaik klise (Hero -> 3 kartu -> 3 langkah -> Bento grid -> Pricing -> FAQ) dilarang.
+- **R-09.1 Larangan Hero Section Monoton**: Dilarang menggunakan pola hero klise (teks tengah + 2 tombol generik + persegi mockup statis). Wajib memilih salah satu dari 7 Arketipe Hero Kaliber Dribbble (Split-screen 50/50 3D perspective tilt & chip melayang, Teks kinetik dengan intipan lipatan 40%, Bento hero modular lipatan pertama, Utilitas interaktif inversi konversi, Editorial majalah asimetris, 3D spasial sinematik, atau Terminal palet perintah).
 - **R-10 Batas Glassmorphism**: Efek frosted glass dibatasi **maksimal 1-2 elemen** per halaman. Penerapan resmi yang sangat dianjurkan adalah **Floating Island Glass Capsule Header** dan **Flyout Card Mega Menu** dengan translusensi gelap halus (`bg-neutral-950/80`, `backdrop-blur-xl saturate-180`, border 1px `border-white/10`) guna menggantikan bilah navbar kotak penuh yang pasaran.
 - **R-11 Batas Border Radius**: Radius pil (`rounded-full`) dilarang pada tombol persegi panjang standar, field input, atau kartu konten. Gunakan skala 6-8px untuk kontrol dan 12-16px untuk kartu. *Pengecualian Arsitektural*: Bilah navigasi melayang berbentuk kapsul (**Floating Island Navigation Capsule**) adalah pengecualian resmi yang diotorisasi untuk menghadirkan kokpit navigasi modern berkelas tinggi ala Apple/Linear.
 - **R-12 Shadow Membumi**: Shadow melayang berwarna neon dilarang; gunakan border 1px solid dan elevasi halus.
@@ -717,7 +735,7 @@ Filter anti-slop bertugas membuang kebiasaan buruk AI, namun membuang slop saja 
 Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
 > `Reading this as: <jenis halaman> untuk <audiens>, dalam gaya <bahasa visual>, dial <ENERGY/RHYTHM/MOTION>.`
 
-#### 4 Arsitektur Desain Teruji:
+#### 6 Arsitektur Desain Teruji (Standar Nol Monotoni):
 1. **Archetype A: High-Precision Developer Tooling** (Linear, Raycast, Vercel)
    - Permukaan matte gelap (`bg-neutral-950`), border 1px solid, tombol shortcut keyboard (`<kbd>⌘K</kbd>`), font mono untuk metadata, padding ringkas.
 2. **Archetype B: Refined SaaS & FinTech** (Stripe, Ramp, Mercury)

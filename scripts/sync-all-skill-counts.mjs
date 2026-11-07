@@ -1,7 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
-const PLUGIN_ROOT = process.cwd();
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PLUGIN_ROOT = path.resolve(__dirname, '..');
 
 // Helper to replace text safely in a file
 function replaceInFile(relPath, replacements) {
@@ -24,12 +28,15 @@ function replaceInFile(relPath, replacements) {
   }
 }
 
-console.log('⚡ Starting 178-Skill & 8-Subagent Universal Ecosystem Synchronization (v4.7.0)...\n');
+console.log('⚡ Starting 178-Skill & 9-Subagent Universal Ecosystem Synchronization (v4.7.0)...\n');
 
 // 1. Core Configs & Manifests
 replaceInFile('package.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['161 specialized skills', '178 specialized skills'],
   ['160 specialized skills', '178 specialized skills'],
   [
@@ -41,6 +48,9 @@ replaceInFile('package.json', [
 replaceInFile('plugin.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['161 specialized skills', '178 specialized skills'],
   ['159 specialized skills', '178 specialized skills']
 ]);
@@ -48,6 +58,9 @@ replaceInFile('plugin.json', [
 replaceInFile('gemini-extension.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['161 specialized skills', '178 specialized skills'],
   ['160 specialized skills', '178 specialized skills']
 ]);
@@ -55,13 +68,17 @@ replaceInFile('gemini-extension.json', [
 replaceInFile('.codex-plugin/plugin.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['161 specialized skills', '178 specialized skills'],
   ['160 specialized skills', '178 specialized skills']
 ]);
 
 replaceInFile('.cursor-plugin/plugin.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
-  ['171 specialized domain skills, 5 native agents', '178 specialized domain skills, 8 native agents'],
+  ['171 specialized domain skills, 5 native agents', '178 specialized domain skills, 9 native agents'],
+  ['8 native agents', '9 native agents'],
   ['171 specialized domain skills', '178 specialized domain skills'],
   ['161 specialized domain skills', '178 specialized domain skills']
 ]);
@@ -76,6 +93,7 @@ replaceInFile('extensions/vscode/package.json', [
   ['"version": "4.5.0"', '"version": "4.7.0"'],
   ['171 Skills', '178 Skills'],
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['161-agent', '178-agent'],
   ['171-agent', '178-agent'],
   ['161 Skills', '178 Skills'],
@@ -87,6 +105,7 @@ replaceInFile('extensions/vscode/package.json', [
 replaceInFile('extensions/vscode/extension.js', [
   ['171 Skills', '178 Skills'],
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['161 Skills', '178 Skills'],
   ['161-Skill', '178-Skill'],
   ['160 Skills', '178 Skills'],
@@ -126,35 +145,52 @@ replaceInFile('rules/AGENTS.md', [
 
 replaceInFile('.claude/rules/vibes-plug-core.md', [
   ['core rules and 171 skills are shared.', 'core rules and 178 skills are shared.'],
-  ['against the 171 skills', 'against the 178 skills']
+  ['against the 171 skills', 'against the 178 skills'],
+  ['against the 176 skills', 'against the 178 skills']
 ]);
 
 replaceInFile('.codex/rules/vibes-plug-core.md', [
   ['core rules and 171 skills are shared.', 'core rules and 178 skills are shared.'],
-  ['against the 171 skills', 'against the 178 skills']
+  ['against the 171 skills', 'against the 178 skills'],
+  ['against the 176 skills', 'against the 178 skills']
 ]);
 
 replaceInFile('.cursor/rules/vibes-plug-core.mdc', [
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['171-skill registry', '178-skill registry'],
-  ['171 specialized skills', '178 specialized skills']
+  ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills']
 ]);
 
 replaceInFile('.cursor/rules/vibes-plug-skills.mdc', [
-  ['171-Skill', '178-Skill']
+  ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill']
 ]);
 
 replaceInFile('rules/vibes-plug-core.mdc', [
   ['171-Skill', '178-Skill'],
-  ['171 specialized skills', '178 specialized skills']
+  ['176-Skill', '178-Skill'],
+  ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills']
 ]);
 
 replaceInFile('.kimirules', [
-  ['171 specialized skills', '178 specialized skills']
+  ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills']
 ]);
 
 replaceInFile('.kirorules', [
-  ['171 specialized skills', '178 specialized skills']
+  ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills']
 ]);
 
 replaceInFile('.github/workflows/anti-slop-gate.yml', [
@@ -177,7 +213,16 @@ replaceInFile('bin/mcp-server.mjs', [
   ['List all 171 AI domain skills', 'List all 178 AI domain skills'],
   ['Synchronize 171-skill', 'Synchronize 178-skill'],
   ['audits all 171 skills', 'audits all 178 skills'],
-  ['Compiled 171-skill canonical prefix', 'Compiled 178-skill canonical prefix']
+  ['Compiled 171-skill canonical prefix', 'Compiled 178-skill canonical prefix'],
+  ['any of the 176 skills', 'any of the 178 skills'],
+  ['Discover all 176 skills', 'Discover all 178 skills'],
+  ['any of the 176 specialized skills', 'any of the 178 specialized skills'],
+  ['List all 176 AI domain skills', 'List all 178 AI domain skills'],
+  ['Synchronize 176-skill', 'Synchronize 178-skill'],
+  ['audits all 176 skills', 'audits all 178 skills'],
+  ['Compiled 176-skill canonical prefix', 'Compiled 178-skill canonical prefix'],
+  ['all 176 skills', 'all 178 skills'],
+  ['176 skills', '178 skills']
 ]);
 
 // 4. Scripts
@@ -191,6 +236,7 @@ replaceInFile('scripts/create-agent.mjs', [
 
 replaceInFile('scripts/cross-ide-bridge.mjs', [
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['171 skills', '178 skills']
 ]);
 
@@ -224,7 +270,8 @@ replaceInFile('scripts/terminal-monitor.mjs', [
 ]);
 
 replaceInFile('scripts/token-budget-optimizer.mjs', [
-  ['171-Skill', '178-Skill']
+  ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill']
 ]);
 
 replaceInFile('scripts/studio-server.mjs', [
@@ -438,23 +485,32 @@ replaceInFile('COMPARISON.md', [
 
 replaceInFile('PRODUCT_HUNT.md', [
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['171 skills', '178 skills']
 ]);
 
 replaceInFile('REDDIT_LAUNCH.md', [
   ['171-skill', '178-skill'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['171 skills', '178 skills']
 ]);
 
 replaceInFile('SHOW_HN.md', [
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['171 specialized skills', '178 specialized skills'],
+  ['176-Skill', '178-Skill'],
+  ['176-skill registry', '178-skill registry'],
+  ['176 specialized skills', '178 specialized skills'],
   ['171 skills', '178 skills']
 ]);
 
 replaceInFile('TRENDING_PLAYBOOK.md', [
   ['171-Skill', '178-Skill'],
+  ['176-Skill', '178-Skill'],
   ['171-skill', '178-skill'],
   ['171 Specialized Skills', '178 Specialized Skills'],
   ['171 skills', '178 skills']

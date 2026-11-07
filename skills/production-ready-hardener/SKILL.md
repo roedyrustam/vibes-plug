@@ -245,7 +245,7 @@ When this skill is triggered, execute the following 7-phase hardening process **
 ---
 
 ### Automated Readiness Scanner
-An automated Python scanner script is included at [production_readiness_scanner.py](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py) to perform all check phases automatically. It automatically detects technology stacks (Vite, React 19, Supabase, Vitest, Playwright, ESLint) and parses local developer logs (`tsc_errors.txt`, `eslint_output.txt`, etc.) to calculate a live readiness score and compile an interactive, clickable markdown report (`PRODUCTION_READINESS_REPORT.md`).
+An automated Python scanner script is included at [production_readiness_scanner.py](scripts/production_readiness_scanner.py) to perform all check phases automatically. It automatically detects technology stacks (Vite, React 19, Supabase, Vitest, Playwright, ESLint) and parses local developer logs (`tsc_errors.txt`, `eslint_output.txt`, etc.) to calculate a live readiness score and compile an interactive, clickable markdown report (`PRODUCTION_READINESS_REPORT.md`).
 
 **Usage:**
 ```bash
@@ -448,7 +448,7 @@ Ketika skill ini dipicu, jalankan **7 fase pengerasan berurutan**. Setiap fase m
 ---
 
 ### Scanner Kesiapan Otomatis
-Script scanner Python otomatis tersedia di [production_readiness_scanner.py](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/scripts/production_readiness_scanner.py) untuk menjalankan seluruh fase pemeriksaan secara otomatis. Scanner ini mendeteksi stack teknologi (Vite, React 19, Supabase, Vitest, Playwright, ESLint) serta mem-parsing file log error lokal (`tsc_errors.txt`, `eslint_output.txt`, dll) untuk mengkalkulasi skor kesiapan rilis dan menyusun laporan markdown interaktif (`PRODUCTION_READINESS_REPORT.md`).
+Script scanner Python otomatis tersedia di [production_readiness_scanner.py](scripts/production_readiness_scanner.py) untuk menjalankan seluruh fase pemeriksaan secara otomatis. Scanner ini mendeteksi stack teknologi (Vite, React 19, Supabase, Vitest, Playwright, ESLint) serta mem-parsing file log error lokal (`tsc_errors.txt`, `eslint_output.txt`, dll) untuk mengkalkulasi skor kesiapan rilis dan menyusun laporan markdown interaktif (`PRODUCTION_READINESS_REPORT.md`).
 
 **Cara Penggunaan:**
 ```bash
@@ -482,9 +482,9 @@ Aktif setiap kali pengguna meminta untuk:
 4. Melakukan audit kualitas komprehensif di seluruh frontend, backend, dan infrastruktur.
 
 ### Referensi Dokumentasi
-- [Production Readiness Checklist](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/production_checklist.md)
-- [Security Hardening Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/security_hardening_guide.md)
-- [Performance Optimization Guide](file:///c:/Users/roedy/.gemini/config/plugins/vibes-plug/skills/production-ready-hardener/references/performance_optimization.md)
+- [Production Readiness Checklist](references/production_checklist.md)
+- [Security Hardening Guide](references/security_hardening_guide.md)
+- [Performance Optimization Guide](references/performance_optimization.md)
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -23,7 +23,7 @@
   },
   "metadata": {
     "totalSkillsCount": 178,
-    "subagentsCount": 10,
+    "subagentsCount": 9,
     "author": "Roedy Rustam",
     "license": "MIT",
     "repository": "https://github.com/roedyrustam/vibes-plug"
@@ -68,6 +68,11 @@
       "id": "mobile-spatial-craftsman",
       "name": "Mobile & Spatial Craftsman",
       "role": "React Native/Expo SDK 53, Flutter, Tauri v2, and WebGPU 3D graphics"
+    },
+    {
+      "id": "reverse-security-auditor",
+      "name": "Reverse Security Auditor",
+      "role": "REA/Ghidra/LLDB binary decompilation, Electron/firmware triage, Evidence spans, and Z3/SBOM verification"
     }
   ],
   "skills": [
@@ -278,13 +283,39 @@
         "deep",
         "exhaustive"
       ]
+    },
+    {
+      "id": "reverse-security-auditor",
+      "name": "Reverse Security Auditor",
+      "description": "REA/Ghidra/LLDB binary decompilation, Electron/firmware triage, Evidence spans, and Z3/SBOM verification",
+      "tags": [
+        "swarm",
+        "subagent",
+        "2026",
+        "reverse"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "taskEndpoint": "http://localhost:3888/api/swarm/dispatch",
+      "supportedReasoningTiers": [
+        "speed",
+        "balanced",
+        "deep",
+        "exhaustive"
+      ]
     }
   ],
   "mcpBridge": {
     "stdio": "node bin/mcp-server.mjs",
     "sseEndpoint": "http://localhost:3888/sse",
     "rpcEndpoint": "http://localhost:3888/api/mcp/execute",
-    "totalTools": 42
+    "totalTools": 48
   },
-  "timestamp": "2026-10-26T21:53:21.125Z"
+  "timestamp": "2026-11-07T14:46:35.414Z"
 }

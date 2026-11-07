@@ -295,7 +295,7 @@ export async function getCacheStatus() {
     byteSize,
     mtime,
     estimatedTokens,
-    totalSkills: data?.totalSkills || 176,
+    totalSkills: data?.totalSkills || 178,
     version: data?.version || '4.7.0',
     platforms: {
       claude: { eligible: eligibleClaude, threshold: 1024, discountPct: 90, savingsPer1k: Number(claudeSavingsPer1k.toFixed(3)) },

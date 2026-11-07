@@ -9,8 +9,8 @@
  * - vibes_arbitrate_code (P4: Process Reward Model Multi-Draft Arbiter)
  * - vibes_verify_invariants (P5: Neuro-Symbolic Invariant Verifier & SMT Generator)
  * - vibes_compile_cache (P1: Canonical Deterministic KV-Cache Prefix Compiler)
- * - vibes_get_skill (Registry: Instant access to any of the 176 skills)
- * - vibes_list_skills (Registry: Discover all 176 skills with domains and summaries)
+ * - vibes_get_skill (Registry: Instant access to any of the 178 skills)
+ * - vibes_list_skills (Registry: Discover all 178 skills with domains and summaries)
  * - vibes_inject_skill (Registry: Direct 1-click project skill injection)
  * - vibes_memory (Episodic Project Memory & ultra-compact checkpoints)
  * - vibes_swarm (Autonomous Multi-Agent Swarm Orchestrator)
@@ -35,6 +35,7 @@ import { visualAudit } from '../scripts/visual-critic.mjs';
 import { prepareGeminiCachePayload, getGeminiThinkingConfig } from '../scripts/gemini-runtime.mjs';
 import { auditSingleFile } from '../scripts/sentinel-watcher.mjs';
 import { swarmBus } from '../scripts/swarm-bus.mjs';
+import { resolveSkillAdapter } from '../scripts/skill-dispatcher.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -124,7 +125,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve domain instructions, production patterns, and templates for any of the 176 specialized skills in the vibes-plug registry. Supports compact micro-slice mode (<350 tokens) for 80%+ token savings during subagent fan-out.',
+    description: 'Retrieve domain instructions, production patterns, and templates for any of the 178 specialized skills in the vibes-plug registry. Supports compact micro-slice mode (<350 tokens) for 80%+ token savings during subagent fan-out.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -143,7 +144,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_list_skills',
-    description: 'List all 176 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
+    description: 'List all 178 AI domain skills in the Vibes-Plug ecosystem with domain categories, descriptions, and metadata.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -458,7 +459,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_bridge_sync',
-    description: 'Synchronize 176-skill universal rules, Anti-Slop directives, and prompt caching prefixes to all or specific IDE platforms (claude, cursor, codex, windsurf, cline, trae, antigravity).',
+    description: 'Synchronize 178-skill universal rules, Anti-Slop directives, and prompt caching prefixes to all or specific IDE platforms (claude, cursor, codex, windsurf, cline, trae, antigravity).',
     inputSchema: {
       type: 'object',
       properties: {
@@ -636,7 +637,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_skill_drift',
-    description: 'Automated Skill Health & Framework Drift Monitor: audits all 176 skills across the Vibes-Plug catalog or deep dives into a specific skill. Verifies 2026 framework alignment (React 19, Next 15, Tailwind v4, Node 24), cross-skill dependency graph integrity (in/out-degree centrality, 0 dead links), master orchestrator registration, and Anti-Slop Directive compliance.',
+    description: 'Automated Skill Health & Framework Drift Monitor: audits all 178 skills across the Vibes-Plug catalog or deep dives into a specific skill. Verifies 2026 framework alignment (React 19, Next 15, Tailwind v4, Node 24), cross-skill dependency graph integrity (in/out-degree centrality, 0 dead links), master orchestrator registration, and Anti-Slop Directive compliance.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -707,7 +708,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_skill_dispatch',
-    description: 'Universal Skill-as-a-Tool (SaaT) Dispatcher: executes deterministic domain actions (blueprint, audit, eval, verify, generate, fuzz, optimize, health, budget) for any of the 176 skills in the Vibes-Plug registry.',
+    description: 'Universal Skill-as-a-Tool (SaaT) Dispatcher: executes deterministic domain actions (blueprint, audit, eval, verify, generate, fuzz, optimize, health, budget) for any of the 178 skills in the Vibes-Plug registry.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -924,7 +925,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_semantic_search',
-    description: 'Local Zero-Cost Semantic Code & Skills Search: embeds and hybrid-retrieves codebase symbols and 176 skills via in-process TF-IDF n-gram vectors with zero API tokens.',
+    description: 'Local Zero-Cost Semantic Code & Skills Search: embeds and hybrid-retrieves codebase symbols and 178 skills via in-process TF-IDF n-gram vectors with zero API tokens.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -994,7 +995,7 @@ export const TOOL_PROFILES = Object.freeze({
   full: {
     id: 'full',
     name: 'Full Sovereign Engine',
-    description: 'All 37 sovereign superintelligence, orchestration, and domain tools (Default mode)',
+    description: 'All 48 sovereign superintelligence, orchestration, and domain tools (Default mode)',
     tools: null
   },
   core: {
@@ -1027,6 +1028,7 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_batch',
       'vibes_detect_stack',
       'vibes_visual_audit',
+      'vibes_visual_heal',
       'vibes_skill_dispatch',
       'vibes_verify_gate',
       'vibes_package_extension',
@@ -1072,6 +1074,7 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_batch',
       'vibes_detect_stack',
       'vibes_eval_sandbox',
+      'vibes_micro_tdd',
       'vibes_verify_gate',
       'vibes_sentinel_audit',
       'vibes_skill_dispatch',
@@ -1109,6 +1112,8 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_evolve_skill',
       'vibes_gemini_cache',
       'vibes_gemini_budget',
+      'vibes_worktree_swarm',
+      'vibes_semantic_search',
       'vibes_tool_profile'
     ]
   }
@@ -1164,7 +1169,7 @@ export const MCP_RESOURCES = [
   {
     uri: 'vibes://cache/prefix',
     name: 'Deterministic KV-Cache Prefix',
-    description: 'Compiled 176-skill canonical prefix (>1024 tokens) for prompt caching',
+    description: 'Compiled 178-skill canonical prefix (>1024 tokens) for prompt caching',
     mimeType: 'application/json'
   },
   {
@@ -1334,6 +1339,9 @@ export async function handleRpcRequest(request) {
 
       if (name === 'vibes_ast_query') {
         const { action, filePath, symbolName } = args || {};
+        if (!filePath || typeof filePath !== 'string') {
+          throw new Error("Argument 'filePath' is required.");
+        }
         const resolvedPath = path.resolve(process.cwd(), filePath);
 
         if (action === 'symbols') {
@@ -1423,23 +1431,30 @@ export async function handleRpcRequest(request) {
           contentText = content;
         }
       } else if (name === 'vibes_list_skills') {
+        const domainFilter = typeof args?.domain === 'string' ? args.domain.trim().toLowerCase() : '';
         const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
         const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
-        const list = [];
-        for (const sName of skillDirs) {
-          const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
-          try {
-            const raw = await fs.readFile(sPath, 'utf8');
-            const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
-            list.push({
-              name: sName,
-              description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
-            });
-          } catch {
-            list.push({ name: sName, description: 'Specialized AI domain skill' });
-          }
-        }
-        contentText = JSON.stringify({ total: list.length, skills: list }, null, 2);
+        const allItems = await Promise.all(
+          skillDirs.map(async (sName) => {
+            const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
+            const domain = resolveSkillAdapter(sName).domain;
+            try {
+              const raw = await fs.readFile(sPath, 'utf8');
+              const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
+              return {
+                name: sName,
+                domain,
+                description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
+              };
+            } catch {
+              return { name: sName, domain, description: 'Specialized AI domain skill' };
+            }
+          })
+        );
+        const list = domainFilter
+          ? allItems.filter(item => item.domain.toLowerCase().includes(domainFilter))
+          : allItems;
+        contentText = JSON.stringify({ total: list.length, ...(domainFilter ? { domain: domainFilter } : {}), skills: list }, null, 2);
       } else if (name === 'vibes_inject_skill') {
         const sName = args?.skillName?.trim();
         if (!sName || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(sName)) {
@@ -1711,7 +1726,7 @@ export async function handleRpcRequest(request) {
             name: v.name,
             description: v.description,
             toolCount: v.tools ? v.tools.length : TOOLS.length,
-            tools: v.tools || 'All 37 tools'
+            tools: v.tools || `All ${TOOLS.length} tools`
           }));
           contentText = JSON.stringify({
             success: true,

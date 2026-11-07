@@ -2,7 +2,6 @@
 
 import fs from 'fs/promises';
 import path from 'path';
-import readline from 'readline';
 import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -12,12 +11,7 @@ const PLUGIN_ROOT = path.join(__dirname, '..');
 const args = process.argv.slice(2);
 const command = args[0];
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-const question = (query) => new Promise((resolve) => rl.question(query, resolve));
+const rl = { close() {} };
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -793,12 +787,12 @@ async function runUi() {
       const chosenDomain = await select({
         message: 'Select domain category:',
         choices: [
-          { name: '🎨 Frontend & Mobile UI/UX (35 Skills)', value: 'frontend' },
-          { name: '⚙️ Backend, Systems & API Design (27 Skills)', value: 'backend' },
-          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (30 Skills)', value: 'ai' },
-          { name: '💸 SaaS, FinTech, E-Commerce & Growth (16 Skills)', value: 'saas' },
-          { name: '🛡️ Testing, Security, Anti-Slop & Quality (23 Skills)', value: 'security' },
-          { name: '🚀 Data, Media, Lifecycle & Orchestration (24 Skills)', value: 'data' }
+          { name: '🎨 Frontend & Mobile UI/UX (38 Skills)', value: 'frontend' },
+          { name: '⚙️ Backend, Systems & API Design (28 Skills)', value: 'backend' },
+          { name: '🤖 Frontier AI, LLM, MCP & Multi-Agent (35 Skills)', value: 'ai' },
+          { name: '💸 SaaS, FinTech, E-Commerce & Growth (17 Skills)', value: 'saas' },
+          { name: '🛡️ Testing, Security, Anti-Slop & Quality (32 Skills)', value: 'security' },
+          { name: '🚀 Data, Media, Lifecycle & Orchestration (28 Skills)', value: 'data' }
         ]
       });
 
@@ -856,10 +850,10 @@ async function runUi() {
           'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
           'rate-limit-abuse-prevention', 'supabase-security-expert', 'zero-tech-debt-auditor',
           'zero-trust-secret-vault', 'coderabbit', 'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert',
-          'reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'rea-changelog-update'
+          'reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'rea-changelog-update', 'formal-theorem-verifier-lean4'
         ],
         data: [
-          'agy-customizations', 'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
+          'app-analyzer-optimizer', 'brainstorming', 'browser-automation-expert',
           'ci-cd-devops-architect', 'docker-container-expert', 'github-actions-expert', 'cloud-hosting-expert', 'data-pipeline-etl-expert',
           'data-visualization-expert', 'database-orm-expert', 'dependency-upgrade-migrator',
           'documentation-site-expert', 'file-upload-media-expert', 'geospatial-maps-expert',
@@ -1042,6 +1036,7 @@ async function runVersion(action, type) {
       { path: pluginJsonPath, from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: path.join(PLUGIN_ROOT, 'gemini-extension.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: path.join(PLUGIN_ROOT, '.codex-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, '.cursor-plugin', 'plugin.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
       { path: vivesMjsPath, from: `CLI (v${current})`, to: `CLI (v${next})` },
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `version: '${current}'`, to: `version: '${next}'` },
@@ -1950,14 +1945,6 @@ Platform Eligibility & Economics:
     rl.close();
     const { spawnSync } = await import('child_process');
     const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'github-pr-bot.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
-    process.exit(child.status ?? 0);
-    break;
-  }
-  case 'heal':
-  case 'self-heal': {
-    rl.close();
-    const { spawnSync } = await import('child_process');
-    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'self-healer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     process.exit(child.status ?? 0);
     break;
   }

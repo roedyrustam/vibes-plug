@@ -1,9 +1,9 @@
 {
   "mcpServers": {
     "vibes-plug-tools": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "command": "node",
       "args": [
-        "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug\\bin\\mcp-server.mjs"
+        "bin/mcp-server.mjs"
       ]
     },
     "xerj": {

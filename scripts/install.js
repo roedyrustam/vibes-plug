@@ -18,7 +18,6 @@ const platforms = {
         name: 'Claude Code',
         globalDir: path.join(HOME, '.claude'),
         detect: () => {
-            // Claude Code is installed if ~/.claude exists or `claude` command is available
             return fs.existsSync(path.join(HOME, '.claude'));
         },
     },
@@ -26,7 +25,6 @@ const platforms = {
         name: 'Cursor IDE',
         projectOnly: true,
         detect: () => {
-            // Cursor uses per-project .cursor/rules/ — always available
             return true;
         },
     },
@@ -40,16 +38,37 @@ const platforms = {
 const DEFAULT_EXCLUDES = new Set(['.git', 'node_modules', 'vibes-plug']);
 
 function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES) {
-    const stat = fs.statSync(src);
+    const stat = fs.lstatSync(src);
+    if (stat.isSymbolicLink()) {
+        return;
+    }
     if (stat.isDirectory()) {
         if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
         fs.readdirSync(src).forEach(child => {
             if (excludes && excludes.has(child)) return;
             copyRecursiveSync(path.join(src, child), path.join(dest, child), excludes);
         });
-    } else {
+    } else if (stat.isFile()) {
         fs.copyFileSync(src, dest);
     }
+}
+
+function mergeMcpConfigFile(destPath, incomingServers) {
+    let existingMcp = { mcpServers: {} };
+    if (fs.existsSync(destPath)) {
+        try {
+            existingMcp = JSON.parse(fs.readFileSync(destPath, 'utf8'));
+        } catch (err) {
+            console.warn(`  ⚠️ Could not parse existing MCP config (${destPath}): ${err.message}`);
+            existingMcp = { mcpServers: {} };
+        }
+        if (!existingMcp || typeof existingMcp !== 'object') existingMcp = { mcpServers: {} };
+        if (!existingMcp.mcpServers || typeof existingMcp.mcpServers !== 'object') {
+            existingMcp.mcpServers = {};
+        }
+    }
+    Object.assign(existingMcp.mcpServers, incomingServers);
+    fs.writeFileSync(destPath, JSON.stringify(existingMcp, null, 2), 'utf8');
 }
 
 function installForAntigravity() {
@@ -64,13 +83,11 @@ function installForAntigravity() {
 }
 
 function installForClaude(projectDir) {
-    // Global: Copy CLAUDE.md to ~/.claude/CLAUDE.md (append or create)
     const globalClaudeDir = platforms.claude.globalDir;
     if (!fs.existsSync(globalClaudeDir)) {
         fs.mkdirSync(globalClaudeDir, { recursive: true });
     }
 
-    // Copy CLAUDE.md
     const claudeMdSrc = path.join(PLUGIN_ROOT, 'CLAUDE.md');
     const claudeMdDest = path.join(globalClaudeDir, 'CLAUDE.md');
     if (fs.existsSync(claudeMdSrc)) {
@@ -78,7 +95,6 @@ function installForClaude(projectDir) {
         console.log(`  ✅ Copied CLAUDE.md → ${claudeMdDest}`);
     }
 
-    // Copy .claude/rules/
     const rulesDir = path.join(PLUGIN_ROOT, '.claude', 'rules');
     const targetRulesDir = path.join(globalClaudeDir, 'rules');
     if (fs.existsSync(rulesDir)) {
@@ -86,7 +102,6 @@ function installForClaude(projectDir) {
         console.log(`  ✅ Copied rules → ${targetRulesDir}`);
     }
 
-    // Copy skills directory
     const skillsSrc = path.join(PLUGIN_ROOT, 'skills');
     const skillsDest = path.join(globalClaudeDir, 'skills');
     if (fs.existsSync(skillsSrc)) {
@@ -94,7 +109,6 @@ function installForClaude(projectDir) {
         console.log(`  ✅ Copied skills → ${skillsDest}`);
     }
 
-    // Per-project install
     if (projectDir) {
         const projClaude = path.join(projectDir, '.claude');
         if (!fs.existsSync(projClaude)) fs.mkdirSync(projClaude, { recursive: true });
@@ -124,29 +138,27 @@ function installForCursor(projectDir) {
         console.log(`  ✅ Copied .cursor/rules/ (*.mdc) → ${mdcDest}`);
     }
 
-    // 3. Configure .cursor/mcp.json for native Cursor MCP server support
+    // 3. Configure .cursor/mcp.json (non-destructive merge)
     const cursorMcpDir = path.join(targetDir, '.cursor');
     if (!fs.existsSync(cursorMcpDir)) fs.mkdirSync(cursorMcpDir, { recursive: true });
     const cursorMcpDest = path.join(cursorMcpDir, 'mcp.json');
-    const mcpConfig = {
-        mcpServers: {
-            "vibes-plug-tools": {
-                command: process.execPath,
-                args: [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')]
-            },
-            "xerj": {
-                command: "xerj",
-                args: ["mcp"],
-                env: {
-                    "XERJ_URL": "http://localhost:9200"
-                }
+    const mcpServers = {
+        "vibes-plug-tools": {
+            command: process.execPath,
+            args: [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')]
+        },
+        "xerj": {
+            command: "xerj",
+            args: ["mcp"],
+            env: {
+                "XERJ_URL": "http://localhost:9200"
             }
         }
     };
-    fs.writeFileSync(cursorMcpDest, JSON.stringify(mcpConfig, null, 2), 'utf8');
+    mergeMcpConfigFile(cursorMcpDest, mcpServers);
     console.log(`  ✅ Configured .cursor/mcp.json → ${cursorMcpDest}`);
 
-    // 4. Copy skills/ for reference (both in .cursor/skills and .agents/skills)
+    // 4. Copy skills/ for reference in .cursor/skills
     const skillsSrc = path.join(PLUGIN_ROOT, 'skills');
     const skillsDest = path.join(targetDir, '.cursor', 'skills');
     if (fs.existsSync(skillsSrc)) {
@@ -163,25 +175,12 @@ function installForCursor(projectDir) {
             console.log(`  🌐 Copied global Cursor rules → ${globalRulesDir}`);
         }
         const globalMcpDest = path.join(globalCursorDir, 'mcp.json');
-        let existingGlobalMcp = { mcpServers: {} };
-        if (fs.existsSync(globalMcpDest)) {
-            try {
-                existingGlobalMcp = JSON.parse(fs.readFileSync(globalMcpDest, 'utf8'));
-            } catch (err) {
-                console.warn(`  ⚠️ Could not parse existing global MCP config: ${err.message}`);
-                existingGlobalMcp = { mcpServers: {} };
-            }
-            if (!existingGlobalMcp.mcpServers) existingGlobalMcp.mcpServers = {};
-        }
-        existingGlobalMcp.mcpServers["vibes-plug-tools"] = mcpConfig.mcpServers["vibes-plug-tools"];
-        existingGlobalMcp.mcpServers["xerj"] = mcpConfig.mcpServers["xerj"];
-        fs.writeFileSync(globalMcpDest, JSON.stringify(existingGlobalMcp, null, 2), 'utf8');
+        mergeMcpConfigFile(globalMcpDest, mcpServers);
         console.log(`  🌐 Updated global Cursor MCP config → ${globalMcpDest}`);
     }
 }
 
 function installForCodex(projectDir) {
-    // Global: Copy CODEX.md to ~/.codex/CODEX.md (or global config)
     const globalCodexDir = platforms.codex.globalDir;
     if (!fs.existsSync(globalCodexDir)) {
         fs.mkdirSync(globalCodexDir, { recursive: true });
@@ -194,7 +193,6 @@ function installForCodex(projectDir) {
         console.log(`  ✅ Copied CODEX.md → ${codexMdDest}`);
     }
 
-    // Copy .codex/rules/
     const rulesDir = path.join(PLUGIN_ROOT, '.codex', 'rules');
     const targetRulesDir = path.join(globalCodexDir, 'rules');
     if (fs.existsSync(rulesDir)) {
@@ -202,7 +200,6 @@ function installForCodex(projectDir) {
         console.log(`  ✅ Copied rules → ${targetRulesDir}`);
     }
 
-    // Copy skills directory
     const skillsSrc = path.join(PLUGIN_ROOT, 'skills');
     const skillsDest = path.join(globalCodexDir, 'skills');
     if (fs.existsSync(skillsSrc)) {
@@ -210,7 +207,6 @@ function installForCodex(projectDir) {
         console.log(`  ✅ Copied skills → ${skillsDest}`);
     }
 
-    // Per-project install
     if (projectDir) {
         const projCodex = path.join(projectDir, '.codex');
         if (!fs.existsSync(projCodex)) fs.mkdirSync(projCodex, { recursive: true });
@@ -234,7 +230,15 @@ function main() {
     const cursorFlag = args.includes('--cursor');
     const codexFlag = args.includes('--codex');
     const projectIdx = args.indexOf('--project');
-    const projectDir = projectIdx !== -1 ? args[projectIdx + 1] : null;
+    let projectDir = null;
+    if (projectIdx !== -1) {
+        const nextArg = args[projectIdx + 1];
+        if (!nextArg || nextArg.startsWith('--')) {
+            console.error('❌ Error: --project flag requires a target directory path.');
+            process.exit(1);
+        }
+        projectDir = nextArg;
+    }
 
     const pkg = require('../package.json');
     const version = pkg.version || '4.7.0';
@@ -269,7 +273,6 @@ Examples:
 
     console.log(`\n🚀 vibes-plug installer v${version}\n`);
 
-    // Detect platforms
     console.log('📡 Detecting platforms...');
     Object.entries(platforms).forEach(([key, p]) => {
         const detected = p.detect();
@@ -305,7 +308,6 @@ Examples:
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
     console.log('🔗 All 178 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
 
-    // Fire-and-forget anonymous installation telemetry
     try {
         const detectedPlatforms = Object.entries(platforms)
             .filter(([, p]) => p.detect())

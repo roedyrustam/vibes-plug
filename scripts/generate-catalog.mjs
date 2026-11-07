@@ -1,7 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const skillsDir = path.resolve('skills');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PLUGIN_ROOT = path.resolve(__dirname, '..');
+const skillsDir = path.join(PLUGIN_ROOT, 'skills');
 const dirs = fs.readdirSync(skillsDir).filter(f => fs.statSync(path.join(skillsDir, f)).isDirectory());
 
 const skills = [];
@@ -34,20 +38,19 @@ for (const dir of dirs.sort()) {
 
 console.log(`Parsed ${skills.length} skills.`);
 
-// Update CATALOG.json
 const catalogJson = {
   total: skills.length,
   skills
 };
-fs.writeFileSync('CATALOG.json', JSON.stringify(catalogJson, null, 2) + '\n', 'utf8');
+fs.writeFileSync(path.join(PLUGIN_ROOT, 'CATALOG.json'), JSON.stringify(catalogJson, null, 2) + '\n', 'utf8');
 console.log('✅ Updated CATALOG.json');
 
-// Update CATALOG.md
 let catalogMd = `# Vibes-Plug Skills Catalog (${skills.length} Skills)\n\n*Universal AI Agent Swarm Architecture (v4.7.0)*\n\n| Skill Name | Version | Description |\n| :--- | :---: | :--- |\n`;
 
 for (const s of skills) {
-  catalogMd += `| \`${s.name}\` | \`${s.version}\` | ${s.description} |\n`;
+  const safeDesc = s.description.replace(/\\/g, '\\\\').replace(/\|/g, '\\|');
+  catalogMd += `| \`${s.name}\` | \`${s.version}\` | ${safeDesc} |\n`;
 }
 
-fs.writeFileSync('CATALOG.md', catalogMd, 'utf8');
+fs.writeFileSync(path.join(PLUGIN_ROOT, 'CATALOG.md'), catalogMd, 'utf8');
 console.log('✅ Updated CATALOG.md');

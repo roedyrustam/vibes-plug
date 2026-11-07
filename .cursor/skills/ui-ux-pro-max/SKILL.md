@@ -69,6 +69,7 @@ python scripts/search.py "<query>" --domain <domain> --max-results 3
   - `web`: Web interface guidelines (ARIA, focus traps, virtual list, form inputs)
   - `m3`: Material Design 3 specific design tokens, color roles, elevation, and component specs
   - `preset-monday`: Monday.com spacious SaaS aesthetic (Vibrant Blue `#0073ea`, Clean White `#FFFFFF` + Light Grays `#F9F9F9`/`#F5F6F8`, Dark Footer `#111111`, Figtree/Inter fonts, 12-16px card radius, 80-120px vertical spacing)
+  - `preset-niubigeo`: NiubiGEO Cosmic Evidence & Interactive Utility archetype (Deep Obsidian `#080a0f`, layered navy slate `#11141e`/`#181b29`, hairline borders `#272b3c`, Electric Lavender `#b7a0ff` + Emerald Jade `#7ce4b0` dual accents, crisp `#f5f4fa` text, hero conversion inversion with embedded `#product-setup` diagnostic widget, actionable evidence bento grid, 4-step flow navigator, organic velocity social proof)
 
 *Example:* `python scripts/search.py "fintech dark theme" --domain color`
 
@@ -168,6 +169,152 @@ When explaining core system mechanics, architecture, or algorithmic state on lan
 - **Framed Instrument Card**: Encapsulate within an elevated card: `Fig n` (top-left, uppercase monospace), Feature Title (top-right, bold), User Interaction Hint (bottom-left, muted), and real-time Live Readout (`tabular-nums`, tracking dynamic values at bottom-right).
 - **Four-Tone Surface Shading**: Strict lighting hierarchy: `lo` (shadowed underside), `mid` (vertical structural frame), `hi` (top faces), and exactly one `lit` accent (white/cyan moving needle or active probe).
 - **Lines Resolve Invariant**: Every tick, ruler mark, and wire terminates flush onto another solid edge or screw terminal; zero floating arrows.
+
+---
+
+#### 8. Anti-Monotony Website Architecture: 6 Distinct Archetypal Modes (Zero Boring Web Standard)
+A widespread failure mode of AI-generated websites is aesthetic monotony: defaulting to an identical centered hero on dark slate (`bg-slate-900`), blurry purple/cyan glowing neon gradients, 3 generic feature cards, and placeholder testimonials.
+
+To permanently eradicate monotonous outputs, agents MUST classify every new web project into one of **6 intentional design archetypes** or present them to the user:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          ANTI-MONOTONY ARCHITECTURAL TAXONOMY             │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+        ┌───────────────────┬──────────────────────┼─────────────────────┬───────────────────┐
+        ▼                   ▼                      ▼                     ▼                   ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐     ┌───────────────┐   ┌───────────────┐
+│    MODE A     │   │    MODE B     │      │    MODE C     │     │    MODE D     │   │    MODE E     │
+│   NiubiGEO    │   │  Monday.com   │      │    Linear     │     │ Apple Spatial │   │  High-Density │
+│Cosmic Evidence│   │ Spacious SaaS │      │Precision Mono │     │  Glass Luster │   │Fintech/Termina│
+└───────────────┘   └───────────────┘      └───────────────┘     └───────────────┘   └───────────────┘
+```
+
+##### Mode A: NiubiGEO Cosmic Evidence & Interactive Utility (The NiubiGEO Archetype)
+- **Essence & Personality**: High-intellect developer/AI SaaS, actionable empirical proof over vanity scores, instant interactive conversion utility embedded right on the fold.
+- **Design Tokens**:
+  ```css
+  @theme {
+    --color-bg: #080a0f;           /* Deep Cosmic Obsidian */
+    --color-panel: #11141e;        /* Layer 1 Surface */
+    --color-panel-2: #181b29;      /* Layer 2 Surface */
+    --color-line: #272b3c;         /* Hairline 1px Divider */
+    --color-text-main: #f5f4fa;    /* Crisp Off-White */
+    --color-text-muted: #979aaf;   /* Muted Violet-Slate */
+    --color-accent-purple: #b7a0ff;/* Electric Lavender (Brand/Active) */
+    --color-accent-green: #7ce4b0; /* Emerald Jade (Evidence/Verification) */
+    --font-sans: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  }
+  ```
+- **Core Structural Pillars**:
+  1. **Conversion Inversion Hero**: Never render an empty hero with just text and a passive "Sign Up" button. Embed a functioning diagnostic or interactive utility input widget (`#product-setup`) immediately below the hero copy. Users test their URL, repo, or domain with zero signup friction.
+  2. **Actionable Evidence Bento Grid**: 4 modular cards:
+     - *Brand Visibility Signal*: Status pulse dot, detection rate percentage across frontier LLMs.
+     - *Description Accuracy*: Tag cloud validating accurate entity descriptions vs AI hallucinations.
+     - *Competitors & Multi-Platform Citations*: Real platform emblems (ChatGPT, Claude, Gemini, Perplexity, Substack, Telegram).
+     - *Prioritized Action Checklist*: Actionable triage items with interactive status badges.
+  3. **Interactive Step Navigator**: Horizontal tabbed flow showing the mechanical journey from audience discovery to continuous distribution.
+  4. **Organic Social Velocity Bento Grid**: Authoritative validation cards: real GitHub trending badges, Tech Daily leaderboard rankings, long-form technical article deep dives, and live human network counts.
+  5. **Micro-Interactions**: Hover arrow nudges (`lucide-arrow-right` shifts +4px on hover), pulsing radar signal rings (`recognition-pulse`), hairline 1px border glows (`#76508d`).
+
+##### Mode B: Monday.com Spacious SaaS & Warm Editorial
+- **Essence**: Welcoming, highly organized, human enterprise productivity.
+- **Tokens**: Vibrant Blue (`#0073ea`), Crisp White (`#ffffff`), Soft Fog Containers (`#f9f9f9`/`#f5f6f8`), Deep Obsidian Footer (`#111111`).
+- **Layout**: Expansive 80px–120px vertical section spacing, soft 12px–16px card radiuses, Figtree typography, color-coded status chips.
+
+##### Mode C: Linear Precision Monochromatic Dark
+- **Essence**: Mechanical speed, craft-first keyboard workflows, zero fluff.
+- **Tokens**: Pure Zinc/Graphite (`#09090b`), Crisp Monochromatic Grays (`#ffffff`/`#a1a1aa`), Razor 1px borders (`#27272a`).
+- **Layout**: Floating island capsule navbar, tactile isometric machine anatomy explainer cards, monospace `tabular-nums`, subtle radial spotlight hovers.
+
+##### Mode D: Apple Spatial Glass & Ambient Luster
+- **Essence**: Premium hardware-software harmony, spatial immersion, tactile depth.
+- **Tokens**: Multi-layered frosted glass (`backdrop-blur-2xl bg-white/70 dark:bg-black/60`), specular inner edge highlight (`shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]`), large fluid rounded-3xl cards.
+- **Layout**: Cinematic typography scale, spring physics motion, soft ambient background luster.
+
+##### Mode E: High-Density Fintech / Bloomberg Intelligence Terminal
+- **Essence**: Institutional trustworthiness, real-time data transparency, quantitative precision.
+- **Tokens**: Deep Matte Charcoal (`#121212`), Terminal Amber (`#f59e0b`), Signal Mint Green (`#10b981`), Slate Border (`#1f2937`).
+- **Layout**: Real-time ticker streams, double-entry ledger cards, dense data tables with zero layout shifts (`tabular-nums`), interactive sparkline charts.
+
+##### Mode F: Neo-Brutalist High-Impact Editorial
+- **Essence**: High-voltage developer counter-culture, high memorability, unapologetic contrast.
+- **Tokens**: Pure Black (`#000000`), Stark White (`#ffffff`), High-saturation accents (Cyber Yellow `#facc15`, Electric Orange `#fb923c`).
+- **Layout**: 2px–3px solid black outlines, hard offset drop shadows (`4px 4px 0px #000`), bold display sans-serif (800 weight), asymmetric grid blocks.
+
+---
+
+#### 9. Dribbble-Grade Hero Section Architecture: 7 Expressive Archetypes (Anti-Monotony Hero Standard)
+The most common point of visual fatigue in AI-generated websites is the hero section. AI assistants perpetually default to one monotonous composition: *Centered text + 2 generic buttons + static centered rectangle placeholder below*.
+
+To ensure every web project features a captivating, memorable, and high-converting first impression, agents MUST choose and implement one of **7 Dribbble-Grade Hero Section Archetypes**:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          7 DRIBBLE-GRADE HERO SECTION ARCHETYPES          │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+     ┌──────────────────────┬──────────────────────┼──────────────────────┬──────────────────────┐
+     ▼                      ▼                      ▼                      ▼                      ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐      ┌───────────────┐      ┌───────────────┐
+│  ARCHETYPE 1  │   │  ARCHETYPE 2  │      │  ARCHETYPE 3  │      │  ARCHETYPE 4  │      │  ARCHETYPE 5  │
+│ Split-Screen  │   │Kinetic Center │      │ Modular Above │      │  Interactive  │      │   Editorial   │
+│3D Perspective │   │   Fold Peek   │      │   Fold Bento  │      │Utility Hero UI│      │ Neo-Brutalist │
+└───────────────┘   └───────────────┘      └───────────────┘      └───────────────┘      └───────────────┘
+```
+
+##### 1. Archetype 1: Asymmetric 50/50 Split-Screen with 3D Perspective Tilt & Floating Live Chips
+- **Best For**: B2B SaaS, FinTech, Productivity Platforms, Mobile App Showcases.
+- **Visual Composition**:
+  - **Left Column**: Announcement pill badge (`⭐ Loved by 10,000+ Teams`), punchy bold display title (`text-4xl lg:text-6xl font-bold tracking-tight`), concise value description, dual-action group (Primary high-contrast button + secondary video trigger with Play icon), and an overlapping customer avatar cluster (`flex -space-x-2`).
+  - **Right Column**: A high-fidelity software card or mobile viewport tilted in 3D perspective space (`style={{ transform: 'perspective(1200px) rotateY(-8deg) rotateX(6deg)' }}`). Layered over this card are **2-3 floating micro-interaction chips** that subtly float up/down via CSS keyframes (`animate-bounce` or custom `floating-slow`):
+    - *Chip A (Top Right)*: Live Status / Activity Pulse (`● Live Sync 99.8%` with glowing green dot).
+    - *Chip B (Bottom Left)*: Financial or Execution Toast (`✓ Instant Payout $2,450.00 Settled`).
+    - *Chip C (Center Float)*: Metric Sparkline or Growth Badge (`↑ +34.2% MRR`).
+
+##### 2. Archetype 2: Centered Kinetic Display Typography with Overlapping Fold Peek
+- **Best For**: Developer Tools, AI Platforms, Creative Tech, High-End SaaS.
+- **Visual Composition**:
+  - Centered hero layout featuring massive kinetic display typography (`text-5xl sm:text-7xl font-extrabold tracking-tight`) with a high-contrast text clip gradient on key punch words.
+  - Centered compact description and single primary CTA flanked by subtle text badge ("No credit card required · Free 14-day trial").
+  - **The Fold Peek Invariant**: Beneath the actions sits an oversized browser window frame or full dashboard preview elevated with deep directional drop shadow (`shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)]`). Crucially, this frame is placed so that **40% of its height cuts through the bottom viewport fold**, creating an irresistible visual curiosity gap that compels users to scroll down.
+
+##### 3. Archetype 3: Modular Above-the-Fold Bento Hero
+- **Best For**: Multi-faceted AI Studios, Modern Indie Products, Data Platforms.
+- **Visual Composition**:
+  - Instead of standard text followed by images, the entire hero viewport is partitioned into an **asymmetric 4-card or 5-card Bento Grid**:
+    - **Card 1 (Col-span 2, Row-span 2)**: Primary value proposition, punchy headline, and conversion CTA button.
+    - **Card 2 (Col-span 1, Row-span 2)**: Interactive live feature sandbox or dynamic code preview with syntax highlighting.
+    - **Card 3 (Col-span 1, Row-span 1)**: High-authority proof metric with animated `tabular-nums` counter (`150,000+ Active Nodes`).
+    - **Card 4 (Col-span 1, Row-span 1)**: Interactive toggle, sound wave visualizer, or customer rating cluster.
+
+##### 4. Archetype 4: Interactive Utility / Conversion Inversion Hero (NiubiGEO Standard)
+- **Best For**: SEO/GEO tools, Security Auditing, Performance Checkers, Prompt Generators.
+- **Visual Composition**:
+  - An embedded functional tool sits directly in the hero fold (`#product-setup`). Instead of asking users to register, they immediately type their URL, paste code, or enter a prompt into a rich input bar, triggering an instant interactive evaluation with live engine status tags.
+
+##### 5. Archetype 5: Editorial Magazine & Neo-Brutalist Asymmetric Split
+- **Best For**: Architecture studios, luxury brands, creative agencies, cultural tech.
+- **Visual Composition**:
+  - Stark stark monochrome (`#000000` / `#ffffff`) or warm stone canvas (`#fdfbf7`).
+  - Structured geometric dividing lines (`border-b border-neutral-300 dark:border-neutral-800`).
+  - Oversized serif display or condensed grotesque font (80px+).
+  - Split metadata column flanking the thesis statement: `Client`, `Year`, `Discipline`, and `Status: Open for Q2`.
+
+##### 6. Archetype 6: Cinematic Full-Bleed Spatial 3D & Ambient Glow Canvas
+- **Best For**: Web3, Spatial Computing, Next-Gen Hardware, Gaming, Immersive Media.
+- **Visual Composition**:
+  - Full-viewport interactive WebGL, Three.js, or Spline 3D canvas reacting fluidly to cursor coordinates.
+  - Floating Island Glass Capsule Navbar at the ceiling.
+  - Floating bottom glass dock or minimal frosted translucent cards (`backdrop-blur-2xl bg-black/40 border border-white/10`) that present value props without obscuring the 3D scene.
+
+##### 7. Archetype 7: Command-Bar / Terminal Keyboard-First Hero (Linear & Raycast Standard)
+- **Best For**: Developer CLI utilities, infrastructure software, power-user desktop apps.
+- **Visual Composition**:
+  - Dark obsidian background with razor-sharp 1px grid borders.
+  - Centered interactive mock command bar (`<kbd>⌘K</kbd> to search actions...`) with simulated auto-typing or interactive keyboard event listeners.
+  - Real-time tab switchers between languages (TypeScript, Python, Rust, Go) showing copyable one-line install commands (`npx vibes init`).
 
 ---
 
@@ -290,6 +437,7 @@ python scripts/search.py "<kueri>" --domain <domain> --max-results 3
   - `web`: Pedoman antarmuka web (ARIA, focus trap, virtual list, input form)
   - `m3`: Token desain spesifik Material Design 3, peran warna, elevasi, dan spesifikasi komponen
   - `preset-monday`: Estetika SaaS lapang ala Monday.com (Biru Cerah `#0073ea`, Putih Bersih `#FFFFFF` + Abu-abu Terang `#F9F9F9`/`#F5F6F8`, Footer Gelap `#111111`, font Figtree/Inter, radius kartu 12-16px, jarak seksi vertikal 80-120px)
+  - `preset-niubigeo`: Arketipe Utilitas Interaktif & Bukti Kosmik ala NiubiGEO (Obsidian Kosmik Gelap `#080a0f`, panel navy berlapis `#11141e`/`#181b29`, garis batas 1px `#272b3c`, aksen ganda Lavender Elektrik `#b7a0ff` + Jade Zamrud `#7ce4b0`, teks putih tajam `#f5f4fa`, konversi hero inversi dengan widget diagnostik `#product-setup`, bento bukti aksi, navigator alur 4 langkah, bukti sosial organik)
 
 *Contoh:* `python scripts/search.py "fintech dark theme" --domain color`
 
@@ -389,6 +537,150 @@ Saat menjelaskan mekanisme komputasi inti, arsitektur data, atau alur algoritma 
 - **Kartu Instrumen Berbingkai (Framed Card)**: Bungkus dalam kartu berelevasi: `Fig n` (kiri atas, font monospace kapital), Judul Fitur (kanan atas, tebal), Petunjuk Interaksi Pengguna (kiri bawah, redup), dan Tampilan Bacaan Langsung (*Live Readout*) real-time (`tabular-nums` di kanan bawah).
 - **Shading Permukaan Empat Nada**: Hierarki pencahayaan tegas: `lo` (bayangan bawah), `mid` (kerangka struktur vertikal), `hi` (permukaan atas), dan tepat satu aksen `lit` (jarum bergerak putih/sian atau probe aktif).
 - **Invarian Lines Resolve**: Setiap garis pembagi penggaris, goresan alur, dan kawat berakhir rapat pada tepi solid atau sekrup terminal; bebas panah melayang tanpa tujuan.
+
+---
+
+#### 8. Engine Anti-Monoton Web: 6 Mode Arsitektur Desain Berbeda (Standar Nol Web Monoton)
+Penyakit umum situs web buatan AI adalah monotoni visual: setiap kali membuat website baru, AI selalu menghasilkan pola klise yang sama persis (hero teks di tengah dengan latar belakang dark-slate `bg-slate-900`, gradien neon ungu-biru yang buram, 3 kartu fitur generik, dan testimoni dummy palsu).
+
+Untuk memberantas hasil web yang membosankan dan monoton, agen WAJIB mengklasifikasikan setiap proyek web baru ke dalam salah satu dari **6 arketipe desain yang disengaja** atau menawarkan opsinya kepada pengguna:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          TAKSONOMI ARSITEKTUR ANTI-MONOTON                │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+        ┌───────────────────┬──────────────────────┼─────────────────────┬───────────────────┐
+        ▼                   ▼                      ▼                     ▼                   ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐     ┌───────────────┐   ┌───────────────┐
+│    MODE A     │   │    MODE B     │      │    MODE C     │     │    MODE D     │   │    MODE E     │
+│   NiubiGEO    │   │  Monday.com   │      │    Linear     │     │ Apple Spatial │   │  Densitas Fin │
+│Bukti Kosmik AI│   │ SaaS Lapang   │      │Presisi Monokrom│    │ Kaca Spekular │   │Terminal Data  │
+└───────────────┘   └───────────────┘      └───────────────┘     └───────────────┘   └───────────────┘
+```
+
+##### Mode A: NiubiGEO Cosmic Evidence & Interactive Utility (Arketipe NiubiGEO)
+- **Esensi & Kepribadian**: SaaS AI/Developer berbobot intelektual tinggi, bukti empiris nyata daripada skor hiasan, serta utilitas diagnostik interaktif instan langsung di lipatan layar pertama (*above the fold*).
+- **Token Desain Tailwind v4**:
+  ```css
+  @theme {
+    --color-bg: #080a0f;           /* Obsidian Kosmik Gelap */
+    --color-panel: #11141e;        /* Permukaan Lapis 1 */
+    --color-panel-2: #181b29;      /* Permukaan Lapis 2 */
+    --color-line: #272b3c;         /* Garis Batas 1px Tajam */
+    --color-text-main: #f5f4fa;    /* Putih Tajam dengan Sentuhan Lavender */
+    --color-text-muted: #979aaf;   /* Abu-abu Violet Muted */
+    --color-accent-purple: #b7a0ff;/* Lavender Elektrik (Aksen Brand & Fokus) */
+    --color-accent-green: #7ce4b0; /* Jade Zamrud (Sinyal Bukti & Status Terverifikasi) */
+    --font-sans: "Inter", "Noto Sans SC", system-ui, sans-serif;
+  }
+  ```
+- **Pilar Struktur Utama**:
+  1. **Hero Konversi Inversi (Conversion Inversion Hero)**: Jangan pernah membuat hero kosong yang pasif hanya dengan tombol "Sign Up". Tanamkan widget utilitas diagnostik interaktif fungsional (`#product-setup`) langsung di bawah judul hero. Pengguna memasukkan URL, repositori, atau domain mereka seketika tanpa hambatan registrasi.
+  2. **Bento Grid Bukti Tindakan (Actionable Evidence Bento)**: 4 kartu modular:
+     - *Sinyal Visibilitas Merek*: Titik denyut status, persentase kemunculan pada model LLM frontier.
+     - *Akurasi Deskripsi*: Matriks penandaan entitas untuk memverifikasi deskripsi akurat vs halusinasi AI.
+     - *Kompetitor & Sitasi Lintas Platform*: Emblem platform nyata (ChatGPT, Claude, Gemini, Perplexity, Substack, Telegram).
+     - *Daftar Prioritas Perbaikan*: Item tindakan prioritas dengan lencana status interaktif.
+  3. **Navigator Langkah Interaktif**: Alur tab horizontal yang mengilustrasikan mekanisme gabungan manusia nyata dan pengujian AI.
+  4. **Bento Grid Kecepatan Sosial Organik**: Kartu pembuktian otoritatif: badge trending GitHub, ranking harian developer, kutipan artikel analisis mendalam, dan statistik jaringan manusia aktif.
+  5. **Mikro-Interaksi Taktil**: Sentakan panah saat hover (`lucide-arrow-right` bergeser +4px), cincin radar berdenyut (`recognition-pulse`), kilauan garis batas 1px (`#76508d`).
+
+##### Mode B: Monday.com SaaS Lapang & Editorial Hangat
+- **Esensi**: Ramah, sangat terorganisir, alur kerja kolaboratif yang lega dan memanusiakan pengguna.
+- **Token**: Biru Cerah (`#0073ea`), Putih Bersih (`#ffffff`), Kontainer Abu Lembut (`#f9f9f9`/`#f5f6f8`), Footer Hitam Pekat (`#111111`).
+- **Tata Letak**: Jarak vertikal seksi 80px–120px yang lapang, radius kartu 12px–16px, tipografi Figtree, tag status berwarna-warni.
+
+##### Mode C: Linear Presisi Monokromatik Gelap
+- **Esensi**: Kecepatan mekanis, alat developer berorientasi keyboard, nol distraksi visual.
+- **Token**: Seng/Grafit Murni (`#09090b`), Abu-abu Monokrom Bersih (`#ffffff`/`#a1a1aa`), Garis batas silet 1px (`#27272a`).
+- **Tata Letak**: Navbar kapsul pulau melayang, kartu instrumen rig mesin isometrik taktil, angka tabular (`tabular-nums`), spotlight radial saat hover kursor.
+
+##### Mode D: Apple Spatial Glass & Kemilau Ambien
+- **Esensi**: Harmoni perangkat keras & lunak premium, kedalaman spasial, keanggunan sensori.
+- **Token**: Kaca buram berlapis (`backdrop-blur-2xl bg-white/70 dark:bg-black/60`), pantulan tepi spekular (`shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]`), geometri kartu bulat besar `rounded-3xl`.
+- **Tata Letak**: Skala tipografi sinematik, gerakan pegas fisika (*spring physics*), kilauan halus ambien di latar belakang.
+
+##### Mode E: Densitas Tinggi Fintech / Terminal Intelijen Bloomberg
+- **Esensi**: Kepercayaan institusional, transparansi data real-time, ketelitian kuantitatif.
+- **Tokens**: Arang Gelap Doff (`#121212`), Amber Peringatan (`#f59e0b`), Hijau Mint Status Aktif (`#10b981`), Border Slate (`#1f2937`).
+- **Tata Letak**: Aliran ticker harga real-time, kartu rekonsiliasi buku besar ganda, tabel data padat tanpa layout shift (`tabular-nums`), grafik sparkline interaktif.
+
+##### Mode F: Neo-Brutalis Editorial Berdampak Tinggi
+- **Esensi**: Budaya tanding developer, daya ingat tinggi, kontras tanpa kompromi.
+- **Token**: Hitam Pekat (`#000000`), Putih Salju (`#ffffff`), Aksen saturasi penuh (Kuning Siber `#facc15`, Oranye Menyala `#fb923c`).
+- **Tata Letak**: Garis tepi hitam pekat tebal 2px–3px, bayangan jatuh kaku berjarak (`4px 4px 0px #000`), font sans-serif tebal (weight 800), tata letak grid asimetris.
+
+---
+
+#### 9. Arsitektur Hero Section Kaliber Dribbble: 7 Arketipe Ekspresif (Standar Hero Anti-Monoton)
+Titik paling rawan terjadinya kebosanan visual pada website buatan AI adalah bagian hero section. Asisten AI selalu mengulang-ulang komposisi monoton: *Teks judul di tengah + 2 tombol biasa + placeholder gambar statis di bawahnya*.
+
+Agar setiap proyek web baru memiliki kesan pertama yang memukau, variatif, dan berkonversi tinggi, agen WAJIB memilih dan mengimplementasikan salah satu dari **7 Arketipe Hero Section Kaliber Dribbble**:
+
+```
+                     ┌───────────────────────────────────────────────────────────┐
+                     │          7 ARKETIPE HERO SECTION KALIBER DRIBBLE          │
+                     └─────────────────────────────┬─────────────────────────────┘
+                                                   │
+     ┌──────────────────────┬──────────────────────┼──────────────────────┬──────────────────────┐
+     ▼                      ▼                      ▼                      ▼                      ▼
+┌───────────────┐   ┌───────────────┐      ┌───────────────┐      ┌───────────────┐      ┌───────────────┐
+│  ARKETIPE 1   │   │  ARKETIPE 2   │      │  ARKETIPE 3   │      │  ARKETIPE 4   │      │  ARKETIPE 5   │
+│ Split-Screen  │   │Teks Kinetik & │      │ Bento Modular │      │  Utilitas UI  │      │   Editorial   │
+│3D Perspektif  │   │Intipan Lipatan│      │   Full Fold   │      │Interaktif Hero│      │ Neo-Brutalis  │
+└───────────────┘   └───────────────┘      └───────────────┘      └───────────────┘      └───────────────┘
+```
+
+##### 1. Arketipe 1: Split-Screen Asimetris 50/50 dengan Kemiringan 3D Perspektif & Chip Melayang
+- **Sangat Cocok Untuk**: SaaS B2B, FinTech, Alat Produktivitas, dan Aplikasi Mobile.
+- **Komposisi Visual**:
+  - **Kolom Kiri**: Badge pengumuman pill (`⭐ Dipercaya 10,000+ Tim`), judul display tebal tegas (`text-4xl lg:text-6xl font-bold tracking-tight`), deskripsi ringkas, grup 2 tombol aksi (CTA Utama kontras tinggi + tombol Demo dengan ikon Play), serta tumpukan avatar pengguna (`flex -space-x-2`).
+  - **Kolom Kanan**: Kartu antarmuka dashboard atau frame mobile yang dimiringkan dalam ruang 3D perspektif (`transform: perspective(1200px) rotateY(-8deg) rotateX(6deg)`). Di atas kartu ini disematkan **2-3 chip status mikro melayang** dengan animasi CSS halus:
+    - *Chip A (Kanan Atas)*: Status Sinyal Denyut (`● Sinkronisasi Aktif 99.8%` dengan titik hijau berkedip).
+    - *Chip B (Kiri Bawah)*: Notifikasi Transaksi Nyata (`✓ Pembayaran Rp 35.000.000 Berhasil`).
+    - *Chip C (Tengah)*: Lencana Pertumbuhan (`↑ +34.2% Efisiensi Tim`).
+
+##### 2. Arketipe 2: Tipografi Kinetik Tengah dengan Intipan Lipatan Layar (Fold Peek)
+- **Sangat Cocok Untuk**: Alat Developer, Platform AI, Agensi Kreatif, SaaS Premium.
+- **Komposisi Visual**:
+  - Judul kinetik raksasa di tengah (`text-5xl sm:text-7xl font-extrabold tracking-tight`) dengan aksen gradien teks pada kata kunci penting.
+  - Di bawah tombol CTA utama, bingkai antarmuka dashboard diletakkan tepat memotong garis lipatan layar pertama: **40% tinggi kartu menembus lipatan layar (*fold peek*)** dengan bayangan jatuh dalam (`shadow-2xl`), memicu rasa penasaran alami pengguna (*curiosity gap*) untuk menggulir ke bawah.
+
+##### 3. Arketipe 3: Bento Grid Modular Lipatan Pertama (Above-the-Fold Bento Hero)
+- **Sangat Cocok Untuk**: Startup AI Modern, Produk Indie Berdensitas Tinggi, Studio Desain.
+- **Komposisi Visual**:
+  - Alih-alih tata letak teks biasa, seluruh area hero dipartisi menjadi **Bento Grid Asimetris 4-5 kartu**:
+    - **Kartu 1 (Span 2x2)**: Proposisi nilai utama, judul tajam, dan tombol konversi primer.
+    - **Kartu 2 (Span 1x2)**: Sandbox fitur interaktif atau preview kode langsung dengan syntax highlighting.
+    - **Card 3 (Span 1x1)**: Metrik pembuktian otoritas dengan angka tabular berdenyut (`tabular-nums`).
+    - **Card 4 (Span 1x1)**: Pengalih interaktif (*toggle*), visualizer audio, atau rating pengguna.
+
+##### 4. Arketipe 4: Utilitas Interaktif & Hero Inversi Konversi (Standar NiubiGEO)
+- **Sangat Cocok Untuk**: Alat SEO/GEO, Pemeriksa Keamanan, Analisis Domain, Generator Prompt AI.
+- **Komposisi Visual**:
+  - Alat fungsional langsung ditanamkan pada hero fold (`#product-setup`). Pengguna mengetik URL, menempelkan kode, atau mengetik prompt seketika tanpa hambatan formulir pendaftaran.
+
+##### 5. Arketipe 5: Editorial Majalah & Pembagi Neo-Brutalis Asimetris
+- **Sangat Cocok Untuk**: Studio arsitektur, e-commerce mewah, agensi desain, brand budaya.
+- **Komposisi Visual**:
+  - Kanvas monokrom kontras tinggi (`#000000` / `#ffffff`) atau warna batu hangat (`#fdfbf7`).
+  - Garis batas geometris pembagi yang tegas (`border-b`, `border-r`).
+  - Font serif display atau sans-serif grotesque ekstra padat (80px+).
+  - Kolom metadata terpisah: `Klien`, `Tahun`, `Disiplin`, dan `Status Ketersediaan Proyek`.
+
+##### 6. Arketipe 6: 3D Spasial Sinematik & Kanvas Kemilau Ambien Penuh
+- **Sangat Cocok Untuk**: Web3, Komputasi Spasial, Hardware Generasi Baru, Media Imersif.
+- **Komposisi Visual**:
+  - Kanvas 3D WebGL / Three.js / Spline interaktif layar penuh yang merespons kursor mouse.
+  - Navbar kapsul kaca pulau melayang di atas, serta kartu teks mengambang minimalis dengan efek kaca buram (`backdrop-blur-2xl`) yang tidak menghalangi objek 3D.
+
+##### 7. Arketipe 7: Terminal & Palet Perintah Ramah Keyboard (Standar Linear & Raycast)
+- **Sangat Cocok Untuk**: Alat CLI developer, SaaS infrastruktur cloud, aplikasi produktivitas cepat.
+- **Komposisi Visual**:
+  - Latar obsidian gelap pekat dengan garis grid tipis 1px.
+  - Mockup palet perintah interaktif di tengah (`<kbd>⌘K</kbd> untuk mencari perintah...`) dengan simulasi ketikan otomatis atau navigasi keyboard nyata.
+  - Tab pengalih bahasa pemrograman (TypeScript, Python, Rust, Go) dengan perintah instalasi satu baris siap salin (`npx vibes init`).
 
 ---
 

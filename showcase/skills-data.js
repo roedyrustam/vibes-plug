@@ -2327,7 +2327,7 @@ export const SKILLS_DATA = [
     "author": "Roedy Rustam",
     "trigger": "@rust-programming-expert",
     "summaryEn": "Rust 2024",
-    "summaryId": "v1.88+ memory safety, async Axum, and zero-cost patterns",
+    "summaryId": "v1.88+ memory safety, Brown Grounded Ownership & Permissions, async Axum, and zero-cost patterns",
     "tags": [
       "rust",
       "programming",

@@ -584,6 +584,10 @@ Available Skill Chains:
   • fintech-settlement-gate (${SKILL_CHAIN_RECIPES['fintech-settlement-gate'].steps.length} skills)
   • cloud-release-gate      (${SKILL_CHAIN_RECIPES['cloud-release-gate'].steps.length} skills)
   • frontend-ui-polish      (${SKILL_CHAIN_RECIPES['frontend-ui-polish'].steps.length} skills)
+  • rea-binary-audit-gate   (${SKILL_CHAIN_RECIPES['rea-binary-audit-gate'].steps.length} skills)
+  • spatial-3d-webgpu-gate  (${SKILL_CHAIN_RECIPES['spatial-3d-webgpu-gate'].steps.length} skills)
+  • local-first-sync-gate   (${SKILL_CHAIN_RECIPES['local-first-sync-gate'].steps.length} skills)
+  • formal-neurosymbolic-gate (${SKILL_CHAIN_RECIPES['formal-neurosymbolic-gate'].steps.length} skills)
 `);
     process.exit(0);
   }

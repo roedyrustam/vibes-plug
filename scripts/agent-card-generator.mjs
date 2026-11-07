@@ -72,7 +72,7 @@ export async function generateA2ACard(options = {}) {
   const card = {
     $schema: 'https://a2a-protocol.org/schemas/v1/agent-card.json',
     name: 'vibes-plug-swarm-master',
-    description: 'Universal 176-Skill Autonomous Multi-Agent Swarm & SaaT Superintelligence Substrate',
+    description: 'Universal 178-Skill Autonomous Multi-Agent Swarm & SaaT Superintelligence Substrate',
     url: hostUrl,
     version: '4.7.0',
     protocolVersion: '1.0.0',
@@ -89,7 +89,7 @@ export async function generateA2ACard(options = {}) {
       schemes: ['Bearer', 'MutualTLS', 'None']
     },
     metadata: {
-      totalSkillsCount: skillsList.length || 176,
+      totalSkillsCount: skillsList.length || 178,
       subagentsCount: subagents.length,
       author: 'Roedy Rustam',
       license: 'MIT',
@@ -101,7 +101,7 @@ export async function generateA2ACard(options = {}) {
       stdio: 'node bin/mcp-server.mjs',
       sseEndpoint: `${hostUrl}/sse`,
       rpcEndpoint: `${hostUrl}/api/mcp/execute`,
-      totalTools: 42
+      totalTools: 48
     },
     timestamp: new Date().toISOString()
   };

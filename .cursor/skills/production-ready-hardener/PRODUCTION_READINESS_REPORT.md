@@ -1,5 +1,5 @@
 # Production Readiness Report
-**Target:** `C:\Users\roedy\.gemini\config\plugins\vibes-plug\skills\production-ready-hardener`  
+**Target:** `skills/production-ready-hardener`  
 **Date Check:** Current Date  
 **Overall Score:** `85/100` (`B+`)  
 **Status:** ⚠️ NEEDS MINOR FIXES

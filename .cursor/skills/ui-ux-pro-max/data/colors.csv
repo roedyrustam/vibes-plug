@@ -95,3 +95,4 @@ No,Product Type,Keywords,Primary (Hex),Secondary (Hex),CTA (Hex),Background (Hex
 94,Generative AI Art,"art, gen-ai, creative",#111111,#333333,#FFFFFF,#FAFAFA,#000000,#E5E5E5,Canvas Neutral + High Contrast
 95,Spatial / Vision OS,"spatial, glass, vision",#FFFFFF,#E5E5E5,#007AFF,#888888,#000000,#FFFFFF,Glass opacity 20% + System Blue
 96,Climate Tech,"climate, green, energy",#2E8B57,#87CEEB,#FFD700,#F0FFF4,#1A3320,#C6E6C6,Nature Green + Solar Yellow + Air Blue
+97,AI Visibility & Evidence SaaS (NiubiGEO),"ai, geo, search, visibility, evidence, obsidian, dark, developer, analytics, tools",#b7a0ff,#7ce4b0,#b7a0ff,#080a0f,#f5f4fa,#272b3c,"Deep Obsidian #080a0f base + Dual Cyber Accent (Lavender #b7a0ff & Jade #7ce4b0) + Crisp 1px Line #272b3c"

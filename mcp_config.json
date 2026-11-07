@@ -5,7 +5,7 @@
       "args": ["bin/mcp-server.mjs"]
     },
     "xerj": {
-      "command": "C:\\Users\\roedy\\AppData\\Local\\Programs\\xerj\\xerj.exe",
+      "command": "xerj",
       "args": ["mcp"],
       "env": {
         "XERJ_URL": "http://localhost:9200"

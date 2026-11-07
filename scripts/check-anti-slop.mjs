@@ -175,7 +175,8 @@ let violations = [];
 let fixesApplied = 0;
 
 function isTestFile(filePath) {
-  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(filePath);
+  const norm = filePath.replace(/\\/g, '/');
+  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(norm) || /\/test-[^\/]+\.m?js$/i.test(norm);
 }
 
 function isCliScript(filePath) {
@@ -190,7 +191,7 @@ function scanFile(filePath) {
   const isDoc = DOC_EXTENSIONS.includes(ext);
 
   if (!isCode && !isDoc) return;
-  if (filePath.includes('check-anti-slop') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
+  if (filePath.includes('check-anti-slop') || filePath.includes('visual-ui-healer') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
     return;
   }
 
@@ -219,6 +220,9 @@ function scanFile(filePath) {
 
       CODE_WARN_PATTERNS.forEach(pattern => {
         if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (isTestFile(filePath) || isCliScript(filePath))) {
+          return;
+        }
+        if (isTestFile(filePath) && (pattern.id.startsWith('UI_') || pattern.id === 'FOCUS_OUTLINE_STRIPPED')) {
           return;
         }
 
@@ -287,7 +291,14 @@ if (!isJson) {
   console.log(`⚙️  Mode: ${isStrict ? 'STRICT (All warnings treated as errors)' : 'STANDARD'}${isFix ? ' | AUTO-FIX ENABLED' : ''}\n`);
 }
 
-scanDir(rootDir);
+if (fs.existsSync(rootDir)) {
+  const stat = fs.statSync(rootDir);
+  if (stat.isFile()) {
+    scanFile(rootDir);
+  } else if (stat.isDirectory()) {
+    scanDir(rootDir);
+  }
+}
 
 const errors = violations.filter(v => v.severity === 'ERROR');
 const warnings = violations.filter(v => v.severity === 'WARN');
@@ -301,10 +312,10 @@ if (isJson) {
     violations
   }, null, 2));
 } else {
-  if (violations.length > 0) {
+  if (violations.length > 0 && !isSummary) {
     violations.forEach(v => {
       const colorTag = v.severity === 'ERROR' ? '\x1b[31m[ERROR]\x1b[0m' : '\x1b[33m[WARN]\x1b[0m';
-      const relPath = path.relative(rootDir, v.file);
+      const relPath = path.relative(rootDir, v.file) || path.basename(v.file);
       console.log(`${colorTag} \x1b[1m${relPath}:${v.line}\x1b[0m — \x1b[36m${v.name}\x1b[0m`);
       console.log(`       \x1b[90mSnippet:\x1b[0m ${v.snippet}`);
       console.log(`       \x1b[90mRule:\x1b[0m    ${v.description}\n`);

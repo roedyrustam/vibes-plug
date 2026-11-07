@@ -501,6 +501,576 @@ export function SovereignLedgerTable({ rows }: { readonly rows: readonly LedgerR
 }
 ```
 
+
+#### 11. NiubiGEO Mode: Cosmic Evidence & Interactive Utility Web Architecture (Anti-Monotony Blueprint)
+Whenever building AI SaaS, developer tools, diagnostic platforms, or conversion landing pages where standard templates feel repetitive and monotonous, deploy the **NiubiGEO Cosmic Evidence Architecture**:
+
+##### 1. Tailwind v4 Theme Tokens (`theme.css`)
+```css
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #080a0f;              /* Deep Cosmic Obsidian */
+  --color-surface-l1: #11141e;          /* Layer 1 Surface */
+  --color-surface-l2: #181b29;          /* Layer 2 Elevated Surface */
+  --color-border-hairline: #272b3c;     /* Crisp 1px Boundary */
+  --color-text-primary: #f5f4fa;        /* Crisp Off-White */
+  --color-text-secondary: #979aaf;      /* Muted Slate-Violet */
+  --color-accent-brand: #b7a0ff;        /* Electric Lavender */
+  --color-accent-evidence: #7ce4b0;     /* Emerald Jade (Signals & Verified) */
+  --color-focus-glow: #76508d;          /* Deep Violet Glow */
+  --font-sans: "Inter", "Noto Sans SC", system-ui, sans-serif;
+}
+```
+
+##### 2. Reusable Component: Conversion Hero with Embedded Interactive Setup
+```tsx
+import React, { useState } from 'react';
+import { ArrowRight, CheckCircle2, Sparkles, Search } from 'lucide-react';
+
+export function ConversionHeroWithSetup({ onAnalyze }: { onAnalyze?: (url: string) => void }) {
+  const [url, setUrl] = useState('');
+  const [isPending, setIsPending] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!url.trim()) return;
+    setIsPending(true);
+    onAnalyze?.(url);
+  };
+
+  return (
+    <section className="relative overflow-hidden bg-[#080a0f] pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6">
+      {/* Background subtle radial glow */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#b7a0ff]/8 blur-[120px] rounded-full" 
+      />
+
+      <div className="relative mx-auto max-w-4xl text-center">
+        {/* Eyebrow: Uppercase monospace tracking */}
+        <p className="text-[11px] font-semibold tracking-widest uppercase text-[#b7a0ff] font-mono">
+          AI VISIBILITY · REAL-WORLD EXECUTION
+        </p>
+
+        {/* Title: Punchy optical tracking */}
+        <h1 className="mt-4 text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#f5f4fa] leading-[1.15]">
+          See How AI Evaluates You, <br className="hidden sm:inline" />
+          <span className="text-[#b7a0ff]">Then Decide How to Improve.</span>
+        </h1>
+
+        {/* Lead Subtitle */}
+        <p className="mx-auto mt-6 max-w-2xl text-sm sm:text-base text-[#979aaf] leading-relaxed">
+          Input your website, App, or GitHub address. Instantly verify how ChatGPT, Claude, Gemini, and Perplexity understand, describe, and cite your product.
+        </p>
+
+        {/* Action Button Row */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#product-setup"
+            className="group inline-flex items-center gap-2 rounded-lg bg-[#b7a0ff] px-5 py-2.5 text-xs sm:text-sm font-semibold text-[#080a0f] transition hover:bg-[#c9b7ff] active:scale-[0.98] shadow-sm"
+          >
+            Start Immediate Test
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="/report-sample"
+            className="inline-flex items-center gap-2 rounded-lg border border-[#272b3c] bg-[#11141e]/80 px-5 py-2.5 text-xs sm:text-sm font-medium text-[#f5f4fa] transition hover:border-[#b7a0ff]/40 hover:bg-[#181b29] active:scale-[0.98]"
+          >
+            View Sample Report
+          </a>
+          <a
+            href="/docs"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 text-xs sm:text-sm font-medium text-[#979aaf] hover:text-[#f5f4fa] transition"
+          >
+            Learn Mechanics
+            <ArrowRight className="h-3.5 w-3.5 opacity-60" />
+          </a>
+        </div>
+
+        {/* Conversion Inversion: Interactive Setup Card Embedded on Fold */}
+        <div id="product-setup" className="mt-12 text-left">
+          <div className="rounded-2xl border border-[#272b3c] bg-[#11141e] p-5 sm:p-7 shadow-2xl relative">
+            <div className="flex items-center justify-between pb-4 border-b border-[#272b3c]">
+              <div>
+                <h3 className="text-sm sm:text-base font-semibold text-[#f5f4fa]">Let AI Test Your Product</h3>
+                <p className="text-xs text-[#979aaf] mt-0.5">Enter product website, domain, or repository address</p>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#7ce4b0]/10 border border-[#7ce4b0]/20 px-2.5 py-1 text-[11px] font-medium text-[#7ce4b0]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#7ce4b0] animate-pulse" />
+                Live Engines Ready
+              </span>
+            </div>
+
+            <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#979aaf]" />
+                  <input
+                    type="url"
+                    required
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    placeholder="https://yourproduct.com"
+                    className="w-full rounded-lg border border-[#272b3c] bg-[#181b29] pl-10 pr-4 py-3 text-xs sm:text-sm text-[#f5f4fa] placeholder-[#979aaf]/60 focus:border-[#b7a0ff] focus:outline-none focus:ring-1 focus:ring-[#b7a0ff]"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="cursor-pointer inline-flex items-center justify-center gap-2 rounded-lg bg-[#b7a0ff] px-6 py-3 text-xs sm:text-sm font-semibold text-[#080a0f] hover:bg-[#c9b7ff] active:scale-[0.98] transition disabled:opacity-50"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  {isPending ? 'Diagnosing...' : 'Analyze Now'}
+                </button>
+              </div>
+
+              {/* Engine Checklist Tags */}
+              <div className="flex flex-wrap items-center gap-2 pt-2 text-[11px] text-[#979aaf]">
+                <span>Evaluating against:</span>
+                {['ChatGPT Search', 'Claude 3.7', 'Gemini 2.5', 'Perplexity Pro'].map((engine) => (
+                  <span key={engine} className="rounded-md border border-[#272b3c] bg-[#181b29] px-2 py-0.5 font-mono text-[10px] text-[#f5f4fa]/80">
+                    {engine}
+                  </span>
+                ))}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+##### 3. Reusable Component: Actionable Evidence Bento Grid
+```tsx
+import React from 'react';
+import { ShieldCheck, Tag, Globe2, ListTodo, ArrowUpRight } from 'lucide-react';
+
+export function ActionableEvidenceBento() {
+  return (
+    <section className="bg-[#080a0f] py-16 md:py-24 px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center mb-12">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[#7ce4b0] font-mono">
+            ACTIONABLE EVIDENCE · ZERO VANITY
+          </p>
+          <h2 className="mt-3 text-2xl sm:text-4xl font-bold tracking-tight text-[#f5f4fa]">
+            Reports Are Not a Score, But a Set of Actionable Proof.
+          </h2>
+        </div>
+
+        {/* 4-Card Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          {/* Card 1: Brand Visibility */}
+          <div className="rounded-2xl border border-[#272b3c] bg-[#11141e] p-6 hover:border-[#b7a0ff]/40 transition">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase text-[#979aaf] tracking-wider">Metric 01</span>
+              <span className="inline-flex items-center gap-1.5 text-xs text-[#7ce4b0] font-mono">
+                <span className="h-2 w-2 rounded-full bg-[#7ce4b0] animate-ping" />
+                Active Mention
+              </span>
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-[#f5f4fa]">Brand Presence & Visibility</h3>
+            <p className="mt-1 text-xs text-[#979aaf]">
+              Measures whether LLMs spontaneously cite your solution when users query domain questions.
+            </p>
+            <div className="mt-6 flex items-baseline gap-2">
+              <span className="text-4xl font-extrabold text-[#f5f4fa] tabular-nums">78.4%</span>
+              <span className="text-xs text-[#7ce4b0] font-medium">+14.2% vs competitors</span>
+            </div>
+          </div>
+
+          {/* Card 2: Description Accuracy */}
+          <div className="rounded-2xl border border-[#272b3c] bg-[#11141e] p-6 hover:border-[#b7a0ff]/40 transition">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase text-[#979aaf] tracking-wider">Metric 02</span>
+              <Tag className="h-4 w-4 text-[#b7a0ff]" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-[#f5f4fa]">Entity Description Accuracy</h3>
+            <p className="mt-1 text-xs text-[#979aaf]">
+              Verifies if AI hallucinations misrepresent your core features, pricing, or tech stack.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="rounded-md bg-[#7ce4b0]/15 border border-[#7ce4b0]/30 px-2.5 py-1 text-xs font-medium text-[#7ce4b0]">
+                ✓ Open-Source Verified
+              </span>
+              <span className="rounded-md bg-[#7ce4b0]/15 border border-[#7ce4b0]/30 px-2.5 py-1 text-xs font-medium text-[#7ce4b0]">
+                ✓ Self-Hosted Support
+              </span>
+              <span className="rounded-md bg-[#b7a0ff]/15 border border-[#b7a0ff]/30 px-2.5 py-1 text-xs font-medium text-[#b7a0ff]">
+                i18n Multi-Lingual
+              </span>
+            </div>
+          </div>
+
+          {/* Card 3: Multi-Platform Citations */}
+          <div className="rounded-2xl border border-[#272b3c] bg-[#11141e] p-6 hover:border-[#b7a0ff]/40 transition">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase text-[#979aaf] tracking-wider">Metric 03</span>
+              <Globe2 className="h-4 w-4 text-[#b7a0ff]" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-[#f5f4fa]">Citations & Competitor Benchmarks</h3>
+            <p className="mt-1 text-xs text-[#979aaf]">
+              Track exact URLs and community discussions where AI discovers your product credentials.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-2 text-xs">
+              <div className="rounded-lg border border-[#272b3c] bg-[#181b29] p-2.5">
+                <span className="text-[#979aaf]">Top Source</span>
+                <p className="font-semibold text-[#f5f4fa] truncate mt-0.5">GitHub Trending / Repo</p>
+              </div>
+              <div className="rounded-lg border border-[#272b3c] bg-[#181b29] p-2.5">
+                <span className="text-[#979aaf]">Secondary</span>
+                <p className="font-semibold text-[#f5f4fa] truncate mt-0.5">Substack & X Threads</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4: Prioritized Action Checklist */}
+          <div className="rounded-2xl border border-[#272b3c] bg-[#11141e] p-6 hover:border-[#b7a0ff]/40 transition">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold uppercase text-[#979aaf] tracking-wider">Action Plan</span>
+              <ListTodo className="h-4 w-4 text-[#7ce4b0]" />
+            </div>
+            <h3 className="mt-4 text-lg font-bold text-[#f5f4fa]">Prioritized Improvement Triage</h3>
+            <p className="mt-1 text-xs text-[#979aaf]">
+              Concrete technical modifications that yield direct increases in search agent citations.
+            </p>
+            <ul className="mt-4 space-y-2 text-xs">
+              <li className="flex items-center justify-between rounded-lg border border-[#272b3c] bg-[#181b29] px-3 py-2">
+                <span className="text-[#f5f4fa]">Deploy `llms.txt` and schema.org markup</span>
+                <span className="rounded bg-[#7ce4b0]/20 px-2 py-0.5 text-[10px] font-semibold text-[#7ce4b0]">High Impact</span>
+              </li>
+              <li className="flex items-center justify-between rounded-lg border border-[#272b3c] bg-[#181b29] px-3 py-2">
+                <span className="text-[#f5f4fa]">Publish benchmark comparison table</span>
+                <span className="rounded bg-[#b7a0ff]/20 px-2 py-0.5 text-[10px] font-semibold text-[#b7a0ff]">Priority</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+
+#### 12. Dribbble-Grade Hero Section Blueprints: React 19 + Tailwind CSS v4 (Anti-Monotony Recipes)
+Deploy these 3 canonical Dribbble Hero Section recipes when building web apps to eliminate hero section monotony:
+
+##### Blueprint A: Split-Screen 50/50 with 3D Perspective Tilt & Floating Live Chips (`SplitScreenPerspectiveHero.tsx`)
+```tsx
+import React from 'react';
+import { ArrowRight, Play, Sparkles, CheckCircle2, TrendingUp, ShieldCheck } from 'lucide-react';
+
+export function SplitScreenPerspectiveHero() {
+  return (
+    <section className="relative overflow-hidden bg-neutral-950 py-20 lg:py-32 px-4 sm:px-6 lg:px-8">
+      {/* Background ambient lighting scrim */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[450px] bg-indigo-500/10 blur-[140px] rounded-full" 
+      />
+
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Column: High-Impact Typography & Conversion Engine */}
+          <div className="lg:col-span-6 space-y-6 text-left">
+            {/* Pill Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/80 px-3.5 py-1 text-xs font-medium text-neutral-300 backdrop-blur-md">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Version 3.0 Released</span>
+              <span className="text-neutral-500">·</span>
+              <span className="text-indigo-400 flex items-center gap-1 font-semibold">Explore <ArrowRight className="h-3 w-3" /></span>
+            </div>
+
+            {/* Display Title with Optical Tracking */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+              Scale Infrastructure <br className="hidden sm:inline" />
+              <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+                Without the Complexity.
+              </span>
+            </h1>
+
+            {/* Value Description */}
+            <p className="max-w-xl text-base sm:text-lg text-neutral-400 leading-relaxed">
+              Automate multi-agent workflows, orchestrate real-time event streaming, and deploy verified distributed states in milliseconds.
+            </p>
+
+            {/* Action Group */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                type="button"
+                className="group cursor-pointer inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-neutral-950 transition hover:bg-neutral-200 active:scale-[0.98] shadow-sm"
+              >
+                Start Free Trial
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+              <button
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-2 rounded-xl border border-neutral-800 bg-neutral-900/60 px-5 py-3.5 text-sm font-medium text-neutral-200 transition hover:bg-neutral-800/80 active:scale-[0.98]"
+              >
+                <Play className="h-4 w-4 fill-current text-indigo-400" />
+                Watch 2-Min Demo
+              </button>
+            </div>
+
+            {/* Social Proof Avatar Cluster */}
+            <div className="flex items-center gap-4 pt-4 border-t border-neutral-800/80">
+              <div className="flex -space-x-2 overflow-hidden">
+                {['alex', 'sarah', 'michael', 'elena'].map((name, i) => (
+                  <div key={name} className="inline-block h-8 w-8 rounded-full ring-2 ring-neutral-950 bg-gradient-to-tr from-indigo-600 to-purple-400 text-[10px] font-bold text-white flex items-center justify-center uppercase">
+                    {name[0]}
+                  </div>
+                ))}
+              </div>
+              <div className="text-xs text-neutral-400">
+                <span className="font-semibold text-neutral-200 tabular-nums">4,800+</span> teams deploy daily with zero downtime.
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: 3D Perspective Tilted Mockup + Floating Live Chips */}
+          <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-end">
+            <div className="relative w-full max-w-lg lg:max-w-none">
+              
+              {/* Primary 3D Perspective Container */}
+              <div 
+                className="rounded-2xl border border-neutral-800/90 bg-neutral-900/95 p-5 sm:p-6 shadow-[0_25px_65px_-15px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-transform duration-500 hover:rotate-0"
+                style={{ transform: 'perspective(1200px) rotateY(-8deg) rotateX(6deg)' }}
+              >
+                {/* Mock Browser Header */}
+                <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                    <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                    <span className="h-3 w-3 rounded-full bg-green-500/80" />
+                  </div>
+                  <span className="font-mono text-xs text-neutral-500">app.metrics.internal</span>
+                  <Sparkles className="h-4 w-4 text-indigo-400" />
+                </div>
+
+                {/* Mock Metric Grid */}
+                <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-neutral-800 bg-neutral-950/70 p-4">
+                    <span className="text-xs text-neutral-400">Monthly Run Rate</span>
+                    <p className="mt-1 text-2xl font-bold text-white tabular-nums">$148,290</p>
+                    <span className="text-[11px] font-medium text-emerald-400 flex items-center gap-1 mt-1">
+                      <TrendingUp className="h-3 w-3" /> +24.8% this month
+                    </span>
+                  </div>
+                  <div className="rounded-xl border border-neutral-800 bg-neutral-950/70 p-4">
+                    <span className="text-xs text-neutral-400">Agent Throughput</span>
+                    <p className="mt-1 text-2xl font-bold text-white tabular-nums">4.2M req/s</p>
+                    <span className="text-[11px] font-medium text-indigo-400 mt-1 block">99.99% reliability</span>
+                  </div>
+                </div>
+
+                {/* Mock Event Stream Feed */}
+                <div className="mt-4 space-y-2">
+                  <div className="flex items-center justify-between rounded-lg border border-neutral-800/60 bg-neutral-950/40 px-3 py-2 text-xs">
+                    <span className="text-neutral-300">Auth Cluster US-East</span>
+                    <span className="font-mono text-emerald-400">Healthy · 12ms</span>
+                  </div>
+                  <div className="flex items-center justify-between rounded-lg border border-neutral-800/60 bg-neutral-950/40 px-3 py-2 text-xs">
+                    <span className="text-neutral-300">Postgres HNSW Vector Sync</span>
+                    <span className="font-mono text-indigo-400">100% Synced</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Live Micro-Interaction Chip 1 (Top Right) */}
+              <div 
+                className="absolute -top-6 -right-4 sm:-right-8 rounded-xl border border-neutral-700 bg-neutral-900/90 px-4 py-2.5 shadow-2xl backdrop-blur-xl animate-bounce"
+                style={{ animationDuration: '4s' }}
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <div>
+                    <p className="text-xs font-semibold text-white">Live Node Sync</p>
+                    <p className="text-[10px] text-neutral-400 tabular-nums">Latency: 8.4ms (p99)</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating Live Micro-Interaction Chip 2 (Bottom Left) */}
+              <div 
+                className="absolute -bottom-6 -left-4 sm:-left-8 rounded-xl border border-emerald-500/30 bg-neutral-900/95 px-4 py-3 shadow-2xl backdrop-blur-xl"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="h-8 w-8 rounded-lg bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                    <ShieldCheck className="h-4 w-4" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase font-semibold text-neutral-400 tracking-wider">Settlement</span>
+                    <p className="text-xs font-bold text-white tabular-nums">$2,450.00 Settled</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+##### Blueprint B: Above-the-Fold Modular Bento Grid Hero (`ModularBentoHero.tsx`)
+```tsx
+import React from 'react';
+import { ArrowRight, Terminal, Cpu, Zap, Star } from 'lucide-react';
+
+export function ModularBentoHero() {
+  return (
+    <section className="bg-neutral-950 py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        {/* Asymmetrical Bento Grid Above the Fold */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          
+          {/* Card 1 (Span 2 Cols, 2 Rows): Primary Value Proposition */}
+          <div className="md:col-span-2 lg:col-span-2 md:row-span-2 rounded-3xl border border-neutral-800 bg-neutral-900/80 p-8 sm:p-10 flex flex-col justify-between shadow-2xl">
+            <div>
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3 py-1 text-xs font-semibold text-indigo-400">
+                <Zap className="h-3.5 w-3.5" /> Next-Gen AI IDE Engine
+              </span>
+              <h1 className="mt-6 text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                Architect, Code, & Verify at Quantum Velocity.
+              </h1>
+              <p className="mt-4 text-sm sm:text-base text-neutral-400 leading-relaxed">
+                Empower your development team with autonomous swarm orchestration and zero-tolerance anti-slop verification.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-indigo-500 px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-indigo-400 active:scale-[0.98] shadow-lg shadow-indigo-500/20"
+              >
+                Launch Workbench
+                <ArrowRight className="h-4 w-4" />
+              </button>
+              <span className="text-xs text-neutral-500 font-mono">Zero config required · MIT Licensed</span>
+            </div>
+          </div>
+
+          {/* Card 2 (Span 2 Cols, 1 Row): Live Code Sandbox Card */}
+          <div className="md:col-span-1 lg:col-span-2 rounded-3xl border border-neutral-800 bg-neutral-950 p-6 flex flex-col justify-between shadow-lg">
+            <div className="flex items-center justify-between pb-3 border-b border-neutral-800/80">
+              <span className="font-mono text-xs text-neutral-400 flex items-center gap-2">
+                <Terminal className="h-3.5 w-3.5 text-emerald-400" /> main.rs
+              </span>
+              <span className="text-[10px] rounded bg-emerald-500/10 text-emerald-400 px-2 py-0.5 font-mono">Compiled in 42ms</span>
+            </div>
+            <pre className="mt-3 font-mono text-xs text-indigo-300/90 leading-relaxed overflow-x-auto">
+              <code>{`#[derive(Debug, SwarmAgent)]
+pub struct KernelRuntime {
+    pub consensus: RaftConsensus,
+    pub state_sync: ZeroKnowledgeState,
+}`}</code>
+            </pre>
+          </div>
+
+          {/* Card 3 (Span 1 Col, 1 Row): High-Authority Stat */}
+          <div className="rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6 flex flex-col justify-between">
+            <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">Autonomous Tasks</span>
+            <div className="my-2">
+              <span className="text-4xl font-extrabold text-white tabular-nums">1.2M+</span>
+              <p className="text-xs text-emerald-400 mt-1">99.98% passing tests</p>
+            </div>
+            <span className="text-[11px] text-neutral-500">Self-healed without developer intervention</span>
+          </div>
+
+          {/* Card 4 (Span 1 Col, 1 Row): Rating & Social Badge */}
+          <div className="rounded-3xl border border-neutral-800 bg-neutral-900/60 p-6 flex flex-col justify-between">
+            <div className="flex items-center gap-1 text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 fill-current" />
+              ))}
+            </div>
+            <div>
+              <p className="text-lg font-bold text-white tabular-nums">4.9 / 5.0</p>
+              <p className="text-xs text-neutral-400 mt-0.5">Top-rated on ProductHunt & GitHub</p>
+            </div>
+            <span className="text-[11px] text-indigo-400 font-medium">Loved by 15,000+ engineers →</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+##### Blueprint C: Centered Kinetic Typography with Overlapping Fold Peek (`OverlappingFoldPeekHero.tsx`)
+```tsx
+import React from 'react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+
+export function OverlappingFoldPeekHero() {
+  return (
+    <section className="relative bg-neutral-950 pt-24 pb-0 px-4 sm:px-6 text-center overflow-hidden">
+      {/* Background Radial Glow */}
+      <div 
+        aria-hidden="true" 
+        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-purple-500/10 blur-[150px] rounded-full" 
+      />
+
+      <div className="relative mx-auto max-w-4xl space-y-6">
+        {/* Pill Announcement */}
+        <div className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900 px-4 py-1.5 text-xs font-medium text-neutral-300">
+          <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+          <span>Introducing Deep Research Swarms</span>
+        </div>
+
+        {/* Massive Kinetic Headline */}
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+          The Intelligent Canvas for <br className="hidden sm:inline" />
+          <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-indigo-400 bg-clip-text text-transparent">
+            Modern Product Engineering.
+          </span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="mx-auto max-w-2xl text-base sm:text-lg text-neutral-400 leading-relaxed">
+          From rapid ideation to zero-defect production code, collaborate with specialized frontier AI agents in one unified reactive workspace.
+        </p>
+
+        {/* Action Group */}
+        <div className="flex items-center justify-center gap-4 pt-2">
+          <button
+            type="button"
+            className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-neutral-950 hover:bg-neutral-200 active:scale-[0.98] transition shadow-lg"
+          >
+            Get Started Free
+            <ArrowRight className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            className="cursor-pointer rounded-xl border border-neutral-800 bg-neutral-900/60 px-6 py-3.5 text-sm font-medium text-neutral-300 hover:bg-neutral-800 transition"
+          >
+            Documentation
+          </button>
+        </div>
+      </div>
+
+      {/* The Fold Peek: Overlapping App Window Cutting 40% into the Viewport Fold */}
+      <div className="relative mx-auto max-w-6xl mt-14 sm:mt-18 -mb-28 sm:-mb-36">
+        <div className="rounded-2xl sm:rounded-3xl border border-neutral-800 bg-neutral-900 p-2 sm:p-4 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9)]">
+          <div className="rounded-xl sm:rounded-2xl border border-neutral-800/80 bg-neutral-950 p-6 sm:p-10 min-h-[380px] sm:min-h-[500px] flex flex-col justify-center items-center text-center">
+            <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest">Interactive Workbench Preview</span>
+            <p className="text-xl sm:text-2xl font-bold text-white mt-2">Scroll Down to Explore Architecture</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -604,6 +1174,25 @@ Website produksi modern dilarang menggunakan template navbar kotak generik yang 
 - **Bilah Kapsul Melayang**: Melayang di atas kanvas latar belakang (`fixed top-4 md:top-6 inset-x-0 mx-auto w-[calc(100%-2rem)] max-w-5xl z-50 rounded-full px-4 md:px-6 py-2.5 md:py-3`).
 - **Tema Glassmorphism Translusen Gelap**: Padukan latar belakang gelap dengan blur optik halus (`bg-neutral-950/80 backdrop-blur-xl saturate-180 border border-white/10`) sehingga konten di bawahnya tetap terlihat samar elegan saat digulir.
 - **Flyout Card Bertingkat**: Saat menu *Skills* atau *Produk* diaktifkan, tampilkan kartu melayang terpisah (`rounded-2xl p-5 bg-[#0a0d14]/95 backdrop-blur-2xl border border-white/10 shadow-2xl`) yang menyajikan sub-menu dalam kisi terstruktur: wadah ikon visual, judul tegas, dan deskripsi nilai manfaat 1 kalimat (bebas link teks polos yang membosankan).
+
+
+#### 11. Mode NiubiGEO: Arsitektur Web Bukti Kosmik & Utilitas Interaktif (Blueprint Anti-Monoton)
+Saat membangun AI SaaS, alat developer, atau landing page berkonversi tinggi di mana template standar terasa membosankan dan monoton, terapkan **Arsitektur Bukti Kosmik NiubiGEO**:
+
+- **Token Obsidian Kosmik**: Latar belakang `#080a0f`, permukaan berlapis `#11141e` & `#181b29`, garis batas 1px `#272b3c`, serta aksen ganda dinamis: Lavender Elektrik `#b7a0ff` (tombol aksi & fokus) dan Jade Zamrud `#7ce4b0` (status sinyal & bukti valid).
+- **Hero Konversi Inversi**: Menanamkan widget input diagnostik fungsional (`#product-setup`) tepat di lipatan hero pertama (*above the fold*). Pengguna langsung memasukkan URL tanpa formulir pendaftaran yang kaku.
+- **Bento Grid Bukti Tindakan**: 4 kartu modular pembuktian empiris yang menggantikan angka metrik kosong: Sinyal Visibilitas Merek (`tabular-nums`), Akurasi Deskripsi Entitas, Sitasi Lintas Platform (ChatGPT, Claude, Gemini, Perplexity), serta Daftar Tindakan Prioritas.
+
+
+#### 12. Cetak Biru Hero Section Kaliber Dribbble: React 19 + Tailwind CSS v4 (Resep Anti-Monoton)
+Gunakan 3 blueprint komponen hero Dribbble ini saat membangun aplikasi web untuk melenyapkan kejenuhan hero section:
+
+- **Blueprint A: Split-Screen 50/50 dengan Kemiringan 3D Perspektif & Chip Melayang (`SplitScreenPerspectiveHero.tsx`)**:
+  Kolom kiri berisi judul display besar dengan aksen teks gradien, tombol ganda, dan tumpukan avatar pengguna. Kolom kanan berisi mockup aplikasi yang dimiringkan 3D (`perspective: 1200px; rotateY(-8deg) rotateX(6deg)`) disertai 2 chip status mikro melayang yang berdenyut aktif.
+- **Blueprint B: Bento Grid Modular Lipatan Pertama (`ModularBentoHero.tsx`)**:
+  Seluruh lipatan hero dibagi menjadi grid bento asimetris 4 kartu: kartu proposisi nilai utama (span 2x2), kartu live code sandbox, kartu metrik statistik, dan kartu rating pengguna.
+- **Blueprint C: Tipografi Kinetik Tengah dengan Intipan Lipatan Layar (`OverlappingFoldPeekHero.tsx`)**:
+  Judul kinetik raksasa di tengah diikuti oleh bingkai antarmuka aplikasi yang memotong 40% garis lipatan layar (*fold peek*), menciptakan rasa penasaran visual yang memancing pengguna untuk menggulir ke bawah.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

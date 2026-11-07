@@ -3,7 +3,7 @@ import os
 from PIL import Image, ImageDraw
 
 ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-SRC_3D_JPG = r"C:\Users\roedy\.gemini\antigravity\brain\76504c5e-1d12-42d2-8075-4e7b268ee8de\vibes_plug_3d_logo_1792755272715.jpg"
+SRC_3D_JPG = os.environ.get("VIBES_SRC_LOGO_JPG", os.path.join(ROOT_DIR, "logo.jpg"))
 
 def build_3d_logos():
     source_path = SRC_3D_JPG if os.path.exists(SRC_3D_JPG) else os.path.join(ROOT_DIR, "logo.jpg")

@@ -3,7 +3,7 @@
  * scripts/compile-skill-slices.mjs
  * Sovereign Skill Micro-Slice Compiler (v4.7.0)
  *
- * Compiles all 176 SKILL.md specifications into ultra-compact (<350 tokens/skill)
+ * Compiles all 178 SKILL.md specifications into ultra-compact (<350 tokens/skill)
  * contract slices in `.skill-slices.json` for 90%+ token reduction during Swarm Fan-Out.
  * Uses concurrent Promise.all file I/O for sub-100ms compilation.
  */
@@ -21,11 +21,13 @@ const OUTPUT_FILE = path.join(PLUGIN_ROOT, '.skill-slices.json');
 
 export async function compileSkillSlices() {
   const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
-  const skillNames = entries.filter((e) => e.isDirectory()).map((e) => e.name).sort();
+  const skillNames = entries.filter((e) => e.isDirectory() && !e.name.startsWith('.')).map((e) => e.name).sort();
 
   const slices = {};
+  const domainSummary = {};
   let totalFullBytes = 0;
   let totalSliceBytes = 0;
+  let totalBlueprints = 0;
 
   const compiledEntries = await Promise.all(
     skillNames.map(async (skillName) => {
@@ -38,10 +40,22 @@ export async function compileSkillSlices() {
       const version = fm.match(/version:\s*"([^"]+)"/)?.[1] || '4.7.0';
       const description = fm.match(/description:\s*"?([^"\r\n]+)"?/)?.[1]?.trim() || '';
 
+      const codeBlocks = [];
+      const codeRegex = /```([a-zA-Z0-9_-]*)\r?\n([\s\S]*?)```/g;
+      let match;
+      while ((match = codeRegex.exec(content)) !== null) {
+        codeBlocks.push({
+          language: (match[1] || 'text').trim(),
+          lines: match[2].trim().split(/\r?\n/).length,
+          preview: match[2].trim().split(/\r?\n/).slice(0, 4).join('\n')
+        });
+      }
+
       const orchMatch = content.match(/(?:##|###)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###)\s|$)/i);
-      const connectedSkills = orchMatch
-        ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))].slice(0, 8)
+      const allConnectedSkills = orchMatch
+        ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))]
         : [];
+      const connectedSkills = allConnectedSkills.slice(0, 12);
 
       const firstCodeMatch = content.match(/```([a-zA-Z0-9_-]+)\r?\n([\s\S]*?)```/);
       const primarySnippet = firstCodeMatch
@@ -52,6 +66,7 @@ export async function compileSkillSlices() {
         : null;
 
       const adapter = resolveSkillAdapter(skillName);
+      const supportedActions = [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'health', 'budget'])];
 
       const sliceObj = {
         skill: skillName,
@@ -59,6 +74,11 @@ export async function compileSkillSlices() {
         domain: adapter.domain,
         description: description.split(' / ')[0],
         actions: adapter.supportedActions,
+        supportedActions,
+        codeBlueprintsCount: codeBlocks.length,
+        languagesAvailable: [...new Set(codeBlocks.map((b) => b.language))],
+        codeBlueprints: codeBlocks.slice(0, 5),
+        connectedSkillsCount: allConnectedSkills.length,
         connectedSkills,
         fallback: 'Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6',
         cli: `vibes skill exec ${skillName} verify`,
@@ -74,7 +94,15 @@ export async function compileSkillSlices() {
   for (const item of compiledEntries) {
     totalFullBytes += item.fullBytes;
     totalSliceBytes += item.sliceBytes;
+    totalBlueprints += item.sliceObj.codeBlueprintsCount;
     slices[item.skillName] = item.sliceObj;
+    const dom = item.sliceObj.domain;
+    if (!domainSummary[dom]) {
+      domainSummary[dom] = { count: 0, blueprints: 0, skills: [] };
+    }
+    domainSummary[dom].count += 1;
+    domainSummary[dom].blueprints += item.sliceObj.codeBlueprintsCount;
+    domainSummary[dom].skills.push(item.skillName);
   }
 
   const fullTokensApprox = Math.ceil(totalFullBytes / 4);
@@ -83,8 +111,11 @@ export async function compileSkillSlices() {
 
   const payload = {
     schema: 'vibes-skill-slices/v4.7.0',
+    version: '4.7.0',
     compiledAt: new Date().toISOString(),
     totalSkills: skillNames.length,
+    totalCodeBlueprints: totalBlueprints,
+    domains: domainSummary,
     metrics: {
       fullRegistryTokensApprox: fullTokensApprox,
       compiledSlicesTokensApprox: sliceTokensApprox,

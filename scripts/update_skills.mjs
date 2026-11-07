@@ -58,7 +58,7 @@ function updateSkills() {
         content = content.replace(/ðŸŽ¯/g, '🎯');
         content = content.replace(/ðŸ§ /g, '🧠');
         content = content.replace(/ðŸŽ¨/g, '🎨');
-        content = content.replace(/ðŸ"±/g, '📱');
+        content = content.replace(/ðŸ“±/g, '📱');
         content = content.replace(/ðŸ§©/g, '🧩');
         content = content.replace(/âš™ï¸ /g, '⚙️');
         content = content.replace(/ðŸš€/g, '🚀');

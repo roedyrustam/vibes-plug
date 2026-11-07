@@ -16,6 +16,30 @@ const CLI_PATH = path.resolve(__dirname, '../bin/vibes.mjs');
 const PLUGIN_ROOT = path.resolve(__dirname, '..');
 
 test('Vibes-Plug CLI Test Suite', async (t) => {
+  const trackedSnapshots = new Map();
+  const trackedPaths = [
+    path.join(PLUGIN_ROOT, '.agents', 'graph', 'symbol_graph.json'),
+    path.join(PLUGIN_ROOT, '.agents', 'memory', 'blackboard_state.json'),
+    path.join(PLUGIN_ROOT, '.agents', 'memory', 'swarm_bus_state.json'),
+    path.join(PLUGIN_ROOT, '.agents', 'telemetry', 'benchmark_results.json'),
+    path.join(PLUGIN_ROOT, '.agents', 'telemetry', 'finops_summary.json'),
+    path.join(PLUGIN_ROOT, '.agents', 'skills', 'spec-driven-development-expert', 'SKILL.md')
+  ];
+  for (const p of trackedPaths) {
+    try {
+      trackedSnapshots.set(p, await fs.readFile(p, 'utf8'));
+    } catch {
+      trackedSnapshots.set(p, null);
+    }
+  }
+  t.after(async () => {
+    for (const [p, content] of trackedSnapshots.entries()) {
+      if (content !== null) {
+        await fs.mkdir(path.dirname(p), { recursive: true });
+        await fs.writeFile(p, content, 'utf8');
+      }
+    }
+  });
   await t.test('vibes --help should output banner and commands', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, '--help']);
     assert.match(stdout, /Vibes-Plug CLI/);
