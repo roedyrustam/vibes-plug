@@ -22,8 +22,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     path.join(PLUGIN_ROOT, '.agents', 'memory', 'blackboard_state.json'),
     path.join(PLUGIN_ROOT, '.agents', 'memory', 'swarm_bus_state.json'),
     path.join(PLUGIN_ROOT, '.agents', 'telemetry', 'benchmark_results.json'),
-    path.join(PLUGIN_ROOT, '.agents', 'telemetry', 'finops_summary.json'),
-    path.join(PLUGIN_ROOT, '.agents', 'skills', 'spec-driven-development-expert', 'SKILL.md')
+    path.join(PLUGIN_ROOT, '.agents', 'telemetry', 'finops_summary.json')
   ];
   for (const p of trackedPaths) {
     try {
