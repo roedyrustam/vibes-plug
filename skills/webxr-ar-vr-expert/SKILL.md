@@ -163,6 +163,87 @@ export function SpatialApp() {
 
 ---
 
+### 3. Production Blueprint: Spatial Hit-Testing Reticle & Pinch Placement (`src/xr/spatial-reticle.ts`)
+
+```typescript
+import {
+  Scene,
+  Vector3,
+  Mesh,
+  MeshBuilder,
+  StandardMaterial,
+  Color3,
+  WebXRDefaultExperience,
+  WebXRFeatureName,
+  IWebXRHitResult
+} from '@babylonjs/core';
+
+export interface SpatialAnchorReticle {
+  reticleMesh: Mesh;
+  lastValidPosition: Vector3 | null;
+  spawnAtReticle: (meshName: string) => Mesh | null;
+  dispose: () => void;
+}
+
+export function createSpatialReticleManager(scene: Scene, xr: WebXRDefaultExperience): SpatialAnchorReticle {
+  const reticle = MeshBuilder.CreateTorus('spatialReticle', { diameter: 0.18, thickness: 0.02 }, scene);
+  const mat = new StandardMaterial('reticleMat', scene);
+  mat.emissiveColor = new Color3(0.1, 0.9, 0.6);
+  mat.disableLighting = true;
+  reticle.material = mat;
+  reticle.isVisible = false;
+  reticle.rotation.x = Math.PI / 2;
+
+  let lastHitPos: Vector3 | null = null;
+  const fm = xr.baseExperience.featuresManager;
+  const hitTest = fm.enableFeature(WebXRFeatureName.HIT_TESTING, 'latest', {
+    testOnPointerDownOnly: false,
+  });
+
+  const hitObserver = hitTest.onHitTestResultObservable.add((results: IWebXRHitResult[]) => {
+    if (results.length > 0) {
+      reticle.isVisible = true;
+      results[0].transformationMatrix.decompose(
+        reticle.scaling,
+        reticle.rotationQuaternion!,
+        reticle.position
+      );
+      lastHitPos = reticle.position.clone();
+    } else {
+      reticle.isVisible = false;
+      lastHitPos = null;
+    }
+  });
+
+  const spawnAtReticle = (meshName: string): Mesh | null => {
+    if (!lastHitPos || !reticle.isVisible) return null;
+    const box = MeshBuilder.CreateBox(meshName, { size: 0.25 }, scene);
+    box.position.copyFrom(lastHitPos);
+    box.position.y += 0.125; // Sit directly on top of surface
+    return box;
+  };
+
+  return {
+    reticleMesh: reticle,
+    get lastValidPosition() { return lastHitPos; },
+    spawnAtReticle,
+    dispose: () => {
+      hitTest.onHitTestResultObservable.remove(hitObserver);
+      reticle.dispose();
+      mat.dispose();
+    },
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Framerate Stability & FFR Enforcement**:
+   - WebXR applications MUST maintain uninterrupted 72/90/120 FPS. On mobile headsets (Meta Quest 3/3S), Fixed Foveated Rendering (FFR) level >= 1 MUST be enabled to prevent thermal throttling and simulator sickness.
+2. **Zero 2D HTML Overlays in Immersive Sessions**:
+   - Standard 2D HTML DOM trees do not render within WebXR canvas render loops. All interactive HUDs and dialogues MUST be authored as 3D world-space planar meshes or dynamic canvas textures.
+3. **Mandatory Hit-Test Null Checks**:
+   - Never spawn AR objects at `(0, 0, 0)` when hit-test yields 0 results. Placement MUST be gated behind explicit hit confirmation.
+
 ### Best Practices for Spatial Performance
 1. **Rock-Solid Framerates:** VR requires stable 72, 90, or 120 FPS. Any frame drop causes instant vestibular nausea.
 2. **Fixed Foveated Rendering (FFR):** Reduces fragment shader resolution in the user's peripheral vision, freeing substantial GPU overhead.
@@ -175,7 +256,7 @@ export function SpatialApp() {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec webxr-ar-vr-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 Frame Latency < 11.1ms (90 FPS on Meta Quest 3 & Apple Vision Pro), zero simulator-sickness frame drops, Fixed Foveated Rendering level >= 1 enabled; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -259,4 +340,4 @@ Aktifkan skill ini ketika pengguna:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec webxr-ar-vr-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi Frame P99 < 11.1ms (90 FPS stabil pada Meta Quest 3 & Apple Vision Pro), nol frame-drop pemicu mual spasial, Fixed Foveated Rendering level >= 1 aktif; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -64,6 +64,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Legacy Tailwind v3 @tailwind Directives',
       regex: /@tailwind\s+(?:base|components|utilities)\s*;/,
       remediation: 'Upgrade to Tailwind CSS v4 CSS-first syntax: replace @tailwind directives with @import "tailwindcss"; and configure tokens inside @theme { ... }.'
+    },
+    {
+      id: 'TAILWIND_OUTLINE_NONE_WITHOUT_FOCUS_VISIBLE',
+      severity: 'WARN',
+      name: 'Tailwind outline-none / focus:outline-none Without focus-visible:ring Replacement',
+      regex: /(?:class|className)\s*=\s*["'][^"']*\b(?:focus:)?outline-none\b(?![\s\S]{0,120}?\bfocus-visible:ring-)/,
+      remediation: 'Never suppress keyboard focus outline with outline-none alone; pair it with explicit focus-visible:ring-2 focus-visible:ring-offset-2.'
     }
   ],
   'vue-frontend-expert': [
@@ -73,6 +80,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Legacy Vue Options API or Vuex Store',
       regex: /\b(?:createStore\s*\(\s*\{[\s\S]{0,120}?mutations\s*:|export\s+default\s+\{\s*data\s*\(\s*\)\s*\{)/m,
       remediation: 'Use Vue 3 <script setup lang="ts">, Composition API (ref/computed/defineModel), and Pinia setup stores (defineStore).'
+    },
+    {
+      id: 'VUE3_MUTATING_PROPS_DIRECTLY',
+      severity: 'ERROR',
+      name: 'Direct Mutation of Component Props in Vue 3',
+      regex: /\bprops\.\w+\s*=\s*[^;=]/,
+      remediation: 'Never mutate props directly in Vue 3. Use defineModel() for two-way binding or emit updates with defineEmits().'
     }
   ],
   'svelte-sveltekit-expert': [
@@ -82,6 +96,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Legacy Svelte 4 Reactive Syntax (export let / $:)',
       regex: /^\s*(?:export\s+let\s+\w+|\$:\s+\w+\s*=)/m,
       remediation: 'Migrate to Svelte 5 Runes: use $state(), $derived(), $effect(), and let { ... } = $props().'
+    },
+    {
+      id: 'SVELTE5_EFFECT_SYNCING_PROPS_ANTI_PATTERN',
+      severity: 'WARN',
+      name: 'Svelte 5 $effect Syncing Props to Local State Anti-Pattern',
+      regex: /\$effect\s*\(\s*\(\s*\)\s*=>\s*\{[\s\S]{0,120}?\b\w+\s*=\s*(?:\[\s*\.\.\.\s*data\.|data\.)/m,
+      remediation: 'Do not synchronize incoming props to local state inside $effect; derive combined state using $derived() or track pending mutations in an isolated state.'
     }
   ],
   'rust-programming-expert': [
@@ -169,6 +190,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Supabase Service Role Key Exposed in Client Bundle',
       regex: /NEXT_PUBLIC_SUPABASE_SERVICE_ROLE|VITE_SUPABASE_SERVICE_ROLE/,
       remediation: 'Never expose SUPABASE_SERVICE_ROLE_KEY in NEXT_PUBLIC_* or VITE_* client environment variables.'
+    },
+    {
+      id: 'SUPABASE_SECURITY_DEFINER_WITHOUT_SEARCH_PATH',
+      severity: 'ERROR',
+      name: 'PostgreSQL SECURITY DEFINER Function Missing Fixed search_path',
+      regex: /SECURITY\s+DEFINER(?![\s\S]{0,120}?\bSET\s+search_path\s*=\s*['"]?['"]?)/i,
+      remediation: 'All SECURITY DEFINER functions in Supabase/PostgreSQL must explicitly declare SET search_path = \'\' to prevent privilege escalation via schema search path injection.'
     }
   ],
   'doku-payment-gateway': [
@@ -468,7 +496,7 @@ export const SKILL_GUARD_RULES = Object.freeze({
       id: 'GRAPHQL_RESOLVER_N_PLUS_ONE_QUERY',
       severity: 'WARN',
       name: 'Direct Database Lookup Inside Field Resolver Without DataLoader',
-      regex: /@ResolveField\s*\([^)]*\)[\s\S]{0,240}?\.(?:findUnique|findFirst|findOne|query)\s*\(/,
+      regex: /@ResolveField\s*\([^)]*\)[\s\S]{0,240}?\.(?:findUnique|findFirst|findMany|findOne|query)\s*\(/,
       remediation: 'Batch nested @ResolveField lookups through a request-scoped DataLoader instance to eliminate N+1 database queries.'
     }
   ],
@@ -1139,6 +1167,70 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Unclamped window.devicePixelRatio Passed Directly to setPixelRatio()',
       regex: /\.setPixelRatio\s*\(\s*window\.devicePixelRatio\s*\)/,
       remediation: 'Clamp devicePixelRatio with renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) to prevent GPU fill-rate collapse on 3x/4x mobile screens.'
+    }
+  ],
+  'astro-framework-expert': [
+    {
+      id: 'ASTRO_CLIENT_LOAD_OVERUSE',
+      severity: 'WARN',
+      name: 'Overuse of client:load on Static Content Islands',
+      regex: /<[A-Z]\w+[^>]*\bclient:load\b(?![\s\S]{0,150}?\b(?:Menu|Nav|Auth|Modal|Cart|Drawer)\b)/,
+      remediation: 'Default to zero JavaScript. Prefer client:visible or client:idle for below-the-fold or non-critical interactive islands instead of eager client:load.'
+    },
+    {
+      id: 'ASTRO_CONTENT_COLLECTION_MISSING_ZOD_SCHEMA',
+      severity: 'ERROR',
+      name: 'Astro Content Collection Defined Without Strict Zod Schema',
+      regex: /defineCollection\s*\(\s*\{[\s\S]{0,200}?(?![\s\S]{0,150}?\bschema\s*:\s*z\.)[\s\S]{0,200}?\}\s*\)/,
+      remediation: 'Every Astro content collection must declare a strict Zod schema (schema: z.object({ ... })) for type-safe frontmatter validation.'
+    }
+  ],
+  'glsl-shader-expert': [
+    {
+      id: 'SHADER_DIVERGENT_BRANCH_IN_FRAGMENT',
+      severity: 'WARN',
+      name: 'Divergent if/else Branch Inside Fragment Shader Calculation',
+      regex: /(?:gl_FragColor|fragColor|outputColor)[\s\S]{0,100}?if\s*\([^)]+\)\s*\{[\s\S]{0,80}?\}\s*else/m,
+      remediation: 'Avoid divergent if/else branches on GPU warps. Use branchless step(), smoothstep(), mix(), or WGSL select() for constant execution time.'
+    },
+    {
+      id: 'WGSL_UNALIGNED_STORAGE_STRUCT',
+      severity: 'ERROR',
+      name: 'WGSL Struct Missing Required 16-Byte Padding / Vector Alignment',
+      regex: /struct\s+\w+\s*\{[\s\S]{0,200}?\bvec3<f32>[\s\S]{0,100}?(?!\b(?:pad\d*|align\(16\)|vec4<f32>))\}/,
+      remediation: 'In WebGPU WGSL, struct members matching vec3<f32> have 16-byte alignment requirements. Add an explicit scalar f32 pad field or use vec4<f32>.'
+    }
+  ],
+  'webxr-ar-vr-expert': [
+    {
+      id: 'WEBXR_HIT_TEST_SPAWN_WITHOUT_RESULT_CHECK',
+      severity: 'ERROR',
+      name: 'WebXR Object Spawned Without Hit-Test Verification',
+      regex: /onHitTestResultObservable\.add\s*\(\s*\([^)]*\)\s*=>\s*\{[\s\S]{0,200}?(?![\s\S]{0,100}?\b(?:results\.length\s*>\s*0|results\[0\]))\bCreate(?:Box|Sphere|Mesh)\b/m,
+      remediation: 'Always verify results.length > 0 and decompose the transform matrix before spawning AR objects at hit-test coordinates.'
+    },
+    {
+      id: 'WEBXR_MISSING_FOVEATION_ON_MOBILE_XR',
+      severity: 'WARN',
+      name: 'WebXR Mobile Experience Missing Fixed Foveated Rendering (FFR)',
+      regex: /createDefaultXRExperienceAsync\s*\([\s\S]{0,350}?\)(?![\s\S]{0,300}?\bFOVEATION\b)/m,
+      remediation: 'Enable WebXRFeatureName.FOVEATION (level 1-3) on mobile headsets like Meta Quest to prevent GPU thermal throttling and frame drops.'
+    }
+  ],
+  'post-quantum-crypto-migrator': [
+    {
+      id: 'PQC_INSECURE_STATIC_PRIME_ECDH',
+      severity: 'ERROR',
+      name: 'Vulnerable Classical Prime256v1 ECDH Without Post-Quantum Hybrid Combiner',
+      regex: /createECDH\s*\(\s*['"]prime256v1['"]\s*\)(?![\s\S]{0,250}?\b(?:ML-KEM|mlkem|hybrid|HKDF|hkdf)\b)/i,
+      remediation: 'Classical prime256v1 is vulnerable to Harvest Now, Decrypt Later. Combine with FIPS 203 ML-KEM-768 using dual-combiner HKDF-SHA256.'
+    },
+    {
+      id: 'PQC_SIGNATURE_TIMING_NON_CONSTANT',
+      severity: 'ERROR',
+      name: 'Non-Constant-Time PQC / Classical Digital Signature Comparison',
+      regex: /pqcSignature\s*===?\s*\w+|\w+\s*===?\s*pqcSignature/,
+      remediation: 'Verify digital signatures and KEM shared secrets using crypto.timingSafeEqual with preliminary byte-length checks.'
     }
   ]
 });

@@ -325,6 +325,89 @@ export function EngineProvider({ children }: { children: ReactNode }) {
 }
 ```
 
+#### 7. Type-Safe `server-only` Data Access Layer (DAL) with React `cache()` Deduplication & `after()` Background Hook (`src/lib/dal/projects.ts`)
+```typescript
+import 'server-only';
+import { cache } from 'react';
+import { notFound } from 'next/navigation';
+import { unstable_after as after } from 'next/server';
+
+export interface ProjectDto {
+  id: string;
+  name: string;
+  tenantId: string;
+  updatedAt: string;
+}
+
+export interface DalDatabaseClient {
+  project: {
+    findFirst: (args: { where: { id: string; tenantId: string }; select: Record<string, boolean> }) => Promise<{
+      id: string;
+      name: string;
+      tenantId: string;
+      updatedAt: Date;
+    } | null>;
+  };
+  auditLog: {
+    create: (args: { data: Record<string, unknown> }) => Promise<void>;
+  };
+}
+
+export interface ViewerSession {
+  userId: string;
+  tenantId: string;
+}
+
+/**
+ * Per-request memoized DAL function (React cache deduplication)
+ */
+export function createProjectDal(db: DalDatabaseClient, verifySession: () => Promise<ViewerSession | null>) {
+  return cache(async (projectId: string): Promise<ProjectDto> => {
+    const session = await verifySession();
+    if (!session?.tenantId) {
+      notFound();
+    }
+
+    const project = await db.project.findFirst({
+      where: { id: projectId, tenantId: session.tenantId },
+      select: { id: true, name: true, tenantId: true, updatedAt: true },
+    });
+
+    if (!project) {
+      notFound();
+    }
+
+    // Next.js 15 after() executes non-blocking post-response telemetry
+    after(async () => {
+      await db.auditLog.create({
+        data: {
+          eventType: 'PROJECT_READ',
+          tenantId: session.tenantId,
+          actorId: session.userId,
+          resourceId: projectId,
+          timestamp: new Date(),
+        },
+      });
+    });
+
+    return {
+      id: project.id,
+      name: project.name,
+      tenantId: project.tenantId,
+      updatedAt: project.updatedAt.toISOString(),
+    };
+  });
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Async Dynamic APIs in Next.js 15+**:
+   - `params`, `searchParams`, `cookies()`, and `headers()` MUST be awaited as Promises. Never treat `params.id` as synchronous properties.
+2. **Zero Leaked Server Secrets (`server-only`)**:
+   - All database connections, direct ORM clients, encryption engines, and DAL modules MUST declare `import 'server-only';` at line 1 to block bundling into client bundles.
+3. **Explicit Suspense and Error Boundaries**:
+   - Dynamic route segments using asynchronous components or streaming MUST have corresponding `loading.tsx` and `error.tsx` boundary handlers.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

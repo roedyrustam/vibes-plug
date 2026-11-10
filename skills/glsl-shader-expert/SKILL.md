@@ -280,6 +280,76 @@ void main() {
 }
 ```
 
+---
+
+### 6. Production Blueprint: WebGPU WGSL Particle Advection Compute Kernel (`shaders/particle-advect.wgsl`)
+
+```wgsl
+struct Particle {
+  pos : vec2<f32>,
+  vel : vec2<f32>,
+  life : f32,
+  maxLife : f32,
+};
+
+struct SimParams {
+  deltaTime : f32,
+  curlScale : f32,
+  decayRate : f32,
+  pad : f32,
+};
+
+@group(0) @binding(0) var<uniform> params : SimParams;
+@group(0) @binding(1) var<storage, read> currentParticles : array<Particle>;
+@group(0) @binding(2) var<storage, read_write> nextParticles : array<Particle>;
+
+// Branchless analytical curl noise approximation
+fn curlNoise(p : vec2<f32>) -> vec2<f32> {
+  let e = 0.01;
+  let n1 = sin(p.y * 3.14159) * cos(p.x * 2.718);
+  let n2 = sin((p.y + e) * 3.14159) * cos(p.x * 2.718);
+  let n3 = cos(p.x * 3.14159) * sin(p.y * 2.718);
+  let n4 = cos((p.x + e) * 3.14159) * sin(p.y * 2.718);
+  
+  let dx = (n2 - n1) / e;
+  let dy = (n4 - n3) / e;
+  return vec2<f32>(dy, -dx);
+}
+
+@compute @workgroup_size(64, 1, 1)
+fn main(@builtin(global_invocation_id) global_id : vec3<u32>) {
+  let idx = global_id.x;
+  if (idx >= arrayLength(&currentParticles)) {
+    return;
+  }
+
+  var p : Particle = currentParticles[idx];
+  
+  // Advance lifespan
+  p.life -= params.deltaTime * params.decayRate;
+
+  // Branchless respawn calculation using select
+  let isDead = p.life <= 0.0;
+  let respawnPos = vec2<f32>(sin(f32(idx) * 0.1), cos(f32(idx) * 0.1)) * 0.5;
+  p.pos = select(p.pos + p.vel * params.deltaTime, respawnPos, isDead);
+  p.life = select(p.life, p.maxLife, isDead);
+
+  // Compute curl advection
+  let force = curlNoise(p.pos * params.curlScale);
+  p.vel = mix(p.vel, force, 0.05);
+
+  nextParticles[idx] = p;
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Divergent Branching in Tight Loops**:
+   - Never write per-pixel or per-particle `if/else` conditions that cause thread warp serialization. Use branchless math primitives (`step`, `smoothstep`, `mix`, `clamp`, or WGSL `select()`).
+2. **Strict WebGPU Buffer Alignment (`std140` / `std430`)**:
+   - All uniform structs in WGSL MUST comply with 16-byte alignment rules (`vec3` padded to 16 bytes). Always declare explicit padding fields.
+3. **Explicit Precision Declarations**:
+   - Mobile and fallback GLSL shaders MUST declare precision (`precision highp float;` or `precision mediump float;`) at the top of fragment stages.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -287,7 +357,7 @@ void main() {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec glsl-shader-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 Frame Render Latency < 16.6ms (>= 60 FPS / 120 FPS XR), zero branch divergence in fragment loops, WebGPU TSL/WGSL strict memory alignment; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -377,4 +447,4 @@ Aktifkan skill ini ketika pengguna:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec glsl-shader-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi Render Frame P99 < 16.6ms (>= 60 FPS / 120 FPS XR), bebas divergensi percabangan thread fragment, penataan memori WebGPU TSL/WGSL presisi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

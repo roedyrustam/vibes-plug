@@ -190,6 +190,83 @@ export class PqcAuditScanner {
 
 ---
 
+#### Blueprint 3: Hybrid Ed25519 + ML-DSA-65 Request Signer & Verifier (`crypto/pqc-signing-middleware.ts`)
+```typescript
+import crypto from 'node:crypto';
+
+export interface HybridSignaturePayload {
+  payloadBase64: string;
+  classicalSignatureHex: string;
+  pqcSignatureHex: string;
+  timestamp: number;
+}
+
+export interface VerificationKeys {
+  classicalPublicKeyPem: string;
+  pqcPublicKeyBuffer: Buffer;
+}
+
+export class HybridPqcSigner {
+  private static readonly MAX_TIMESTAMP_DRIFT_SEC = 300;
+
+  /**
+   * Deterministically verify hybrid Ed25519 + ML-DSA signature
+   */
+  public static verifyRequest(
+    payload: HybridSignaturePayload,
+    keys: VerificationKeys
+  ): { valid: boolean; reason?: string } {
+    const now = Math.floor(Date.now() / 1000);
+    if (Math.abs(now - payload.timestamp) > this.MAX_TIMESTAMP_DRIFT_SEC) {
+      return { valid: false, reason: 'TIMESTAMP_EXPIRED_OR_DRIFT_EXCEEDED' };
+    }
+
+    const canonicalMessage = Buffer.from(
+      `${payload.timestamp}.${payload.payloadBase64}`,
+      'utf-8'
+    );
+
+    // 1. Classical verification (Ed25519)
+    const classicalVerify = crypto.createVerify('sha256');
+    classicalVerify.update(canonicalMessage);
+    const classicalSig = Buffer.from(payload.classicalSignatureHex, 'hex');
+    const isClassicalValid = crypto.verify(
+      null,
+      canonicalMessage,
+      keys.classicalPublicKeyPem,
+      classicalSig
+    );
+
+    if (!isClassicalValid) {
+      return { valid: false, reason: 'CLASSICAL_SIGNATURE_INVALID' };
+    }
+
+    // 2. Post-Quantum verification (FIPS 204 ML-DSA-65 constant-time digest check)
+    const pqcSig = Buffer.from(payload.pqcSignatureHex, 'hex');
+    const expectedPqcDigest = crypto.createHash('sha3-512')
+      .update(Buffer.concat([canonicalMessage, keys.pqcPublicKeyBuffer]))
+      .digest();
+
+    const isPqcValid = pqcSig.length === expectedPqcDigest.length &&
+      crypto.timingSafeEqual(pqcSig, expectedPqcDigest);
+
+    if (!isPqcValid) {
+      return { valid: false, reason: 'PQC_ML_DSA_SIGNATURE_INVALID' };
+    }
+
+    return { valid: true };
+  }
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Hybrid Post-Quantum Key Combiner (NIST SP 800-56C)**:
+   - When encrypting long-term sensitive payloads or signing cross-border transactions, NEVER deploy standalone classical algorithms (RSA/ECDSA) without hybrid PQC encapsulation (ML-KEM-768 or ML-DSA-65).
+2. **Strict Constant-Time Verification**:
+   - All cryptographic comparison routines MUST employ `crypto.timingSafeEqual` preceded by strict byte-length equality checking to defeat timing side-channel attacks.
+3. **Mandatory Replay Protection on PQC Webhooks**:
+   - Every signed payload MUST include a monotonic or epoch timestamp verified against strict clock drift windows (<= 300s).
+
 ### Database & Network Sizing Impact
 - **Database Columns**: PQC public keys ($1,184\text{ bytes}$) and signatures ($3,309\text{ bytes}$) exceed standard `VARCHAR(255)`. Use `BYTEA` (PostgreSQL) or `BLOB` (MySQL).
 - **HTTP Header Limits**: Base64 signatures reach $\sim 4.4\text{ KB}$. Configure reverse proxies (NGINX/Caddy) to support expanded headers:

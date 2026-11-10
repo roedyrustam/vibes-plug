@@ -789,7 +789,7 @@ export function SplitScreenPerspectiveHero() {
             {/* Display Title with Optical Tracking */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
               Scale Infrastructure <br className="hidden sm:inline" />
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 bg-clip-text text-transparent">
+              <span className="text-neutral-100 underline decoration-emerald-500/60 decoration-wavy decoration-2 underline-offset-8">
                 Without the Complexity.
               </span>
             </h1>
@@ -1029,11 +1029,10 @@ export function OverlappingFoldPeekHero() {
         {/* Massive Kinetic Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
           The Intelligent Canvas for <br className="hidden sm:inline" />
-          <span className="bg-gradient-to-r from-purple-400 via-pink-300 to-indigo-400 bg-clip-text text-transparent">
+          <span className="text-neutral-100 underline decoration-indigo-500/60 decoration-wavy decoration-2 underline-offset-8">
             Modern Product Engineering.
           </span>
         </h1>
-
         {/* Subtitle */}
         <p className="mx-auto max-w-2xl text-base sm:text-lg text-neutral-400 leading-relaxed">
           From rapid ideation to zero-defect production code, collaborate with specialized frontier AI agents in one unified reactive workspace.
@@ -1070,6 +1069,15 @@ export function OverlappingFoldPeekHero() {
   );
 }
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory 5-State Interactive Styling & Focus Accessibility**:
+   - Every interactive element (`<button>`, `<a>`, `<input>`) MUST declare 5 explicit visual states: `default`, `hover`, `focus-visible` (with high-contrast `ring-2 ring-offset-2`), `active`, and `disabled`.
+   - Never suppress keyboard outline with bare `outline-none` unless accompanied by an explicit `focus-visible:ring-2` replacement.
+2. **Tabular Numerals on Numerical Displays (`tabular-nums`)**:
+   - All financial amounts, metric counters, timestamps, latency gauges, and live statistics MUST declare `tabular-nums` (or CSS `font-variant-numeric: tabular-nums`) to prevent layout shifts during reactive state updates.
+3. **Zero Synchronous Layout Thrashing & Unbounded Hydration**:
+   - Avoid reading layout geometry (`offsetHeight`, `getBoundingClientRect`) immediately followed by direct DOM style mutations inside synchronous React render paths; use `useLayoutEffect` only when measuring for initial paint or defer to CSS transforms.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

@@ -2372,6 +2372,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'mobile-expo-expert', code: 'await AsyncStorage.setItem("auth_refresh_token", token);' }, 'EXPO_PLAINTEXT_ASYNC_STORAGE_TOKEN');
     await expectViolation({ skill: 'flutter-dart-expert', code: 'const factory Product({ required String id, required double price }) = _Product;' }, 'FLUTTER_DOUBLE_USED_FOR_CURRENCY');
     await expectViolation({ skill: 'web-3d-graphics-expert', code: 'renderer.setAnimationLoop(() => { const v = new THREE.Vector3(1, 2, 3); });' }, 'WEB3D_ALLOCATION_INSIDE_RENDER_LOOP');
+
+    // Wave 7 (Gelombang 7) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'senior-frontend', code: 'useEffect(() => {\n  const res = fetch("/api/items");\n}, []);' }, 'REACT19_NO_FETCH_IN_USEEFFECT');
+    await expectViolation({ skill: 'nextjs-app-router-expert', code: 'export default function Page({ params }) { return <div>{params.id}</div>; }' }, 'NEXT15_SYNC_PARAMS_ACCESS');
+    await expectViolation({ skill: 'tailwind-expert', code: '<button className="px-4 py-2 bg-blue-500 outline-none">Click</button>' }, 'TAILWIND_OUTLINE_NONE_WITHOUT_FOCUS_VISIBLE');
+    await expectViolation({ skill: 'vue-frontend-expert', code: 'function update() { props.modelValue = "mutated"; }' }, 'VUE3_MUTATING_PROPS_DIRECTLY');
+    await expectViolation({ skill: 'svelte-sveltekit-expert', code: '$effect(() => {\n  items = [...data.items];\n});' }, 'SVELTE5_EFFECT_SYNCING_PROPS_ANTI_PATTERN');
+    await expectViolation({ skill: 'astro-framework-expert', code: '<BlogContent client:load />' }, 'ASTRO_CLIENT_LOAD_OVERUSE');
+    await expectViolation({ skill: 'glsl-shader-expert', code: 'gl_FragColor = vec4(1.0);\nif (vUv.x > 0.5) { col = vec3(1.0); } else { col = vec3(0.0); }' }, 'SHADER_DIVERGENT_BRANCH_IN_FRAGMENT');
+    await expectViolation({ skill: 'webxr-ar-vr-expert', code: 'hitTest.onHitTestResultObservable.add((results) => {\n  MeshBuilder.CreateBox("spawned", { size: 0.2 }, scene);\n});' }, 'WEBXR_HIT_TEST_SPAWN_WITHOUT_RESULT_CHECK');
+    await expectViolation({ skill: 'post-quantum-crypto-migrator', code: 'const ecdh = crypto.createECDH("prime256v1");' }, 'PQC_INSECURE_STATIC_PRIME_ECDH');
+    await expectViolation({ skill: 'supabase-security-expert', code: 'CREATE FUNCTION test_fn() RETURNS void LANGUAGE sql SECURITY DEFINER AS $$ BEGIN NULL; END; $$;' }, 'SUPABASE_SECURITY_DEFINER_WITHOUT_SEARCH_PATH');
   });
 });
 

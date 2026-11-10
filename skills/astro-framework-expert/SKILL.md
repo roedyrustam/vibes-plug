@@ -211,6 +211,51 @@ export function mountAstroEngine(): void {
 }
 ```
 
+#### 7. Astro 5 Content Layer API with Custom Data Loader (`src/content.config.ts`)
+```typescript
+// src/content.config.ts — Astro 5 Content Layer API with loader & Zod validation
+import { defineCollection, z } from 'astro:content';
+
+export const collections = {
+  docs: defineCollection({
+    loader: async () => {
+      // Astro 5 supports custom remote/in-memory data loaders returning structured objects
+      return [
+        {
+          id: 'architecture-overview',
+          title: 'System Architecture Overview',
+          description: 'High-level architectural blueprint and swarm topology.',
+          version: '2026.4',
+          publishedAt: new Date('2026-03-15'),
+        },
+        {
+          id: 'zero-trust-security',
+          title: 'Zero-Trust Security & Post-Quantum Invariants',
+          description: 'Cryptographic attestation and boundary defense.',
+          version: '2026.4',
+          publishedAt: new Date('2026-04-01'),
+        },
+      ];
+    },
+    schema: z.object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      version: z.string(),
+      publishedAt: z.coerce.date(),
+    }),
+  }),
+};
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Unnecessary Client Hydration (`client:*`) Directives**:
+   - Deliver 0 KB JavaScript by default. Interactive client directives (`client:load`, `client:visible`, `client:idle`) MUST only be placed on genuinely dynamic components (e.g. interactive filters, mobile menus). Never hydrate static text or layout wrappers.
+2. **Strict Zod Schema Enforcement on All Collections**:
+   - Every collection defined in `src/content.config.ts` MUST declare a strict `schema` object validated with Zod. Never allow untyped or loose frontmatter.
+3. **Mandatory Tabular Numerals**:
+   - Timestamps, reading times, version numbers, and metric counts rendered in Astro templates MUST declare `tabular-nums`.
+
 ### Production Checklist
 - [ ] Content Collections with strict Zod schemas.
 - [ ] Sitemap integration enabled (`@astrojs/sitemap`).

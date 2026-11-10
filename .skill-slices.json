@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.7.0",
   "version": "4.7.0",
-  "compiledAt": "2026-11-10T17:19:58.413Z",
+  "compiledAt": "2026-11-10T17:35:09.018Z",
   "totalSkills": 178,
-  "totalCodeBlueprints": 1187,
+  "totalCodeBlueprints": 1199,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -49,7 +49,7 @@
     },
     "frontend": {
       "count": 31,
-      "blueprints": 256,
+      "blueprints": 264,
       "skills": [
         "accessibility-testing-expert",
         "angular-expert",
@@ -86,7 +86,7 @@
     },
     "testing-security": {
       "count": 39,
-      "blueprints": 253,
+      "blueprints": 254,
       "skills": [
         "agentic-m2m-settlement",
         "ai-code-review-autonomous",
@@ -168,7 +168,7 @@
     },
     "mobile-desktop": {
       "count": 14,
-      "blueprints": 89,
+      "blueprints": 91,
       "skills": [
         "app-promo-media-expert",
         "apple-ecosystem-expert",
@@ -208,7 +208,7 @@
     },
     "database-storage": {
       "count": 13,
-      "blueprints": 78,
+      "blueprints": 79,
       "skills": [
         "data-pipeline-etl-expert",
         "database-orm-expert",
@@ -227,10 +227,10 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 859625,
-    "compiledSlicesTokensApprox": 142302,
-    "avgTokensPerSlice": 799,
-    "tokenReductionPercent": "83%"
+    "fullRegistryTokensApprox": 866559,
+    "compiledSlicesTokensApprox": 142553,
+    "avgTokensPerSlice": 801,
+    "tokenReductionPercent": "84%"
   },
   "slices": {
     "a2a-agent-protocol-expert": {
@@ -1976,9 +1976,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 5,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 13,
+      "codeBlueprintsCount": 14,
       "languagesAvailable": [
         "bash",
         "typescript",
@@ -6907,12 +6907,13 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 6,
+      "guardRulesCount": 9,
+      "nfrContract": "P99 Frame Render Latency < 16.6ms (>= 60 FPS / 120 FPS XR), zero branch divergence in fragment loops, WebGPU TSL/WGSL strict memory alignment; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "typescript",
-        "glsl"
+        "glsl",
+        "wgsl"
       ],
       "codeBlueprints": [
         {
@@ -9226,9 +9227,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 14,
+      "codeBlueprintsCount": 15,
       "languagesAvailable": [
         "typescript",
         "tsx",
@@ -9894,7 +9895,7 @@
       ],
       "guardRulesCount": 8,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 4,
       "languagesAvailable": [
         "typescript"
       ],
@@ -9916,6 +9917,12 @@
           "language": "typescript",
           "lines": 64,
           "preview": "import fs from 'node:fs/promises';\nimport path from 'node:path';\nexport interface CryptoVulnerability {\n  filePath: string;\n  line: number;\n  patternMatched: string;"
+        },
+        {
+          "title": "Blueprint 3: Hybrid Ed25519 + ML-DSA-65 Request Signer & Verifier (`crypto/pqc-signing-middleware.ts`)",
+          "language": "typescript",
+          "lines": 65,
+          "preview": "import crypto from 'node:crypto';\n\nexport interface HybridSignaturePayload {\n  payloadBase64: string;\n  classicalSignatureHex: string;\n  pqcSignatureHex: string;"
         }
       ],
       "connectedSkillsCount": 13,
@@ -12976,9 +12983,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 5,
+      "guardRulesCount": 9,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "typescript",
         "sql",
@@ -13064,9 +13071,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "svelte",
         "typescript"
@@ -13099,7 +13106,7 @@
         {
           "title": "Blueprint",
           "language": "svelte",
-          "lines": 80,
+          "lines": 79,
           "preview": "<!-- src/routes/tasks/+page.svelte -->\n<script lang=\"ts\">\n      const title = formData.get('title')?.toString().trim();\n      if (!title) {\n        cancel();\n        return;"
         }
       ],
@@ -13325,9 +13332,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 11,
+      "codeBlueprintsCount": 12,
       "languagesAvailable": [
         "css",
         "html"
@@ -14251,7 +14258,7 @@
       ],
       "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 4,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "vue",
         "typescript"
@@ -14270,16 +14277,22 @@
           "preview": "// stores/counter.ts\nimport { defineStore } from 'pinia'\nexport const useCounterStore = defineStore('counter', () => {\n  const count = ref(0)\n  const doubleCount = computed(() => count.value * 2)\n  function increment() {"
         },
         {
-          "title": "1. Komponen Reaktif Modern dengan `<script setup lang=\"ts\">`",
+          "title": "Blueprint 1: Vue 3.5+ Typed Component with Reactive Props Destructure & `defineModel<T>()` (`AdaptiveMetricCard.vue`)",
           "language": "vue",
-          "lines": 23,
-          "preview": "<script setup lang=\"ts\">\nimport { ref, computed, onMounted } from 'vue'\n\nconst jumlah = ref(0)\nconst kelipatanDua = computed(() => jumlah.value * 2)\n"
+          "lines": 52,
+          "preview": "<script setup lang=\"ts\">\nimport { computed, useTemplateRef, onMounted } from 'vue';\n\ninterface MetricCardProps {\n  label: string;\n  value: number;"
         },
         {
-          "title": "2. Store Global Pinia dengan Pola Setup Store",
+          "title": "Blueprint 2: Nuxt 3 SSR Hydration-Safe `useAsyncData` & Nitro Server Route",
           "language": "typescript",
-          "lines": 13,
-          "preview": "// stores/counter.ts\nimport { defineStore } from 'pinia'\nexport const useCounterStore = defineStore('counter', () => {\n  const count = ref(0)\n  const doubleCount = computed(() => count.value * 2)\n  function increment() {"
+          "lines": 29,
+          "preview": "// server/api/metrics.get.ts — Typed Nitro Server Route\nimport { defineEventHandler, getQuery, createError } from 'h3';\nconst querySchema = z.object({\n  clusterId: z.string().min(1),\n});\n"
+        },
+        {
+          "title": "Blueprint",
+          "language": "vue",
+          "lines": 70,
+          "preview": "<!-- pages/dashboard.vue — Hydration-Safe Nuxt 3 Page Component -->\n<script setup lang=\"ts\">\nimport { computed } from 'vue';\nimport { useAsyncData, useRoute } from '#imports';\n\ninterface ClusterMetricsResponse {"
         }
       ],
       "connectedSkillsCount": 12,
@@ -14747,8 +14760,8 @@
         "budget"
       ],
       "guardRulesCount": 8,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "nfrContract": "P99 Frame Latency < 11.1ms (90 FPS on Meta Quest 3 & Apple Vision Pro), zero simulator-sickness frame drops, Fixed Foveated Rendering level >= 1 enabled; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "codeBlueprintsCount": 4,
       "languagesAvailable": [
         "typescript",
         "tsx"
@@ -14765,6 +14778,12 @@
           "language": "tsx",
           "lines": 30,
           "preview": "import { Canvas } from '@react-three/fiber';\nimport { XR, createXRStore, Hands, Controllers } from '@react-three/xr';\nconst store = createXRStore({\n  foveation: 1,\n  handTracking: true\n});"
+        },
+        {
+          "title": "3. Production Blueprint: Spatial Hit-Testing Reticle & Pinch Placement (`src/xr/spatial-reticle.ts`)",
+          "language": "typescript",
+          "lines": 68,
+          "preview": "import {\n  Scene,\nexport interface SpatialAnchorReticle {\n  reticleMesh: Mesh;\n  lastValidPosition: Vector3 | null;\n  spawnAtReticle: (meshName: string) => Mesh | null;"
         },
         {
           "title": "Blueprint",

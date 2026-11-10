@@ -111,14 +111,14 @@ When upgrading older codebases:
 #### 6. Sovereign Anti-Slop Directives for Tailwind v4
 Enforces zero-tolerance code standards for utility-first styling:
 - **No Arbitrary Value Hacks**: Ban arbitrary values (e.g., `p-[13px]`, `w-[372px]`, `text-[15px]`) when canonical spacing or typography scales exist. If a custom dimension is truly needed, declare it once in `@theme` as a semantic CSS variable token.
-- **Accessible Focus Indicator Law**: Never use `focus:outline-none` alone. You MUST pair it with `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-<color>` or an explicit high-contrast focus indicator.
+- **Accessible Focus Indicator Law**: Never use `focus:outline-none` alone. You MUST pair it with `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-500` (or `ring-indigo-500`) or an explicit high-contrast focus indicator.
 - **Zero Div-Soup Wrapper Bloat**: Do not nest redundant layout wrappers (`<div className="w-full"><div className="flex">...</div></div>`). Leverage modern CSS grid and subgrid directly on semantic containers (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`).
 - **Ban AI Gradient Slop**: Never apply generic cliché AI gradients (`bg-gradient-to-r from-purple-600 to-indigo-600` or `from-violet-500 to-fuchsia-500`) as default backgrounds. Use deliberate, brand-specific color palettes using OKLCH color spaces.
 - **Mandatory 5 Interactive States**: Interactive elements (buttons, inputs, links) must declare utility variants for all 5 lifecycle states: default, hover (`hover:`), active/press (`active:`), keyboard focus (`focus-visible:`), and disabled (`disabled:pointer-events-none disabled:opacity-50`).
 - **No Responsive Layout Clipping**: Avoid fixed hardcoded widths (`w-[600px]`); use fluid responsive primitives (`max-w-2xl w-full mx-auto`) and container queries (`@container`) to ensure zero horizontal scroll on mobile viewports.
 
 
-#### 8. Sovereign Visual Hierarchy Utilities & Recipes
+#### 7. Sovereign Visual Hierarchy Utilities & Recipes
 Implement production-grade visual hierarchy using concise, reusable Tailwind v4 utility clusters:
 
 - **Modular Typographic Scale with Optical Tracking**:
@@ -242,6 +242,32 @@ Deploy this preset to eliminate visual monotony on dark mode developer tools and
 </div>
 ```
 
+#### Adaptive Container Query (`@container`) & `@starting-style` Entry Animation Recipe
+```html
+<!-- Container Query Root with Zero-JS CSS @starting-style Entry -->
+<div class="@container w-full max-w-xl mx-auto p-4">
+  <div class="rounded-2xl border border-neutral-800 bg-neutral-900/90 p-5 shadow-xl transition-all duration-300 starting:opacity-0 starting:scale-95 flex flex-col @sm:flex-row @sm:items-center @sm:justify-between gap-4">
+    <div class="space-y-1">
+      <span class="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">Cluster Status</span>
+      <h4 class="text-base font-bold text-white">Compute Node US-Central</h4>
+      <p class="text-xs text-neutral-400">Adaptive layout responding to container width, not viewport.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="text-2xl font-extrabold tabular-nums text-white">99.98%</span>
+      <button type="button" class="cursor-pointer rounded-lg bg-emerald-500/20 border border-emerald-500/40 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 active:scale-[0.97] transition">Inspect</button>
+    </div>
+  </div>
+</div>
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Legacy `tailwind.config.js` in Tailwind CSS v4**:
+   - In Tailwind CSS v4, all theme tokens MUST be configured CSS-first via `@theme` directives in CSS files (`@import "tailwindcss";`). Never generate or accept `tailwind.config.js` or `tailwind.config.ts` files.
+2. **Explicit Interactive Focus Rings**:
+   - Every interactive utility chain suppressing default outline (`focus:outline-none` or `outline-none`) MUST include an explicit `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-<token>` pair.
+3. **Mandatory Tabular Numerals**:
+   - All numerical cards, metrics, timestamps, and currency amounts rendered with Tailwind utilities MUST include `tabular-nums`.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -353,7 +379,7 @@ Saat memperbarui codebase lama:
 #### 6. Arahan Anti-Slop Tailwind v4
 Menegakkan standar tanpa toleransi untuk styling utility-first:
 - **Larangan Hack Nilai Arbitrer**: Dilarang menggunakan nilai arbitrer (misal `p-[13px]`, `w-[372px]`, `text-[15px]`) jika skala bawaan atau `@theme` sudah ada. Jika dimensi kustom benar-benar dibutuhkan, daftarkan sebagai token semantik di `@theme`.
-- **Hukum Aksesibilitas Indikator Fokus**: Dilarang mematikan outline fokus (`focus:outline-none`) sendirian. WAJIB sertakan `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-<color>` atau indikator visual kontras tinggi yang jelas.
+- **Hukum Aksesibilitas Indikator Fokus**: Dilarang mematikan outline fokus (`focus:outline-none`) sendirian. WAJIB sertakan `focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-emerald-500` (atau `ring-indigo-500`) atau indikator visual kontras tinggi yang jelas.
 - **Nol Div-Soup Pembungkus Berlebih**: Hindari nesting pembungkus redundant (`<div className="w-full"><div className="flex">...</div></div>`). Manfaatkan CSS grid atau flexbox langsung pada elemen semantik HTML5 (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`).
 - **Larangan Gradien AI Slop Generik**: Dilarang keras memakai gradien ungu-sian klise AI (`bg-gradient-to-r from-purple-600 to-indigo-600`) sebagai latar belakang default. Gunakan palet warna terencana yang relevan dengan identitas brand menggunakan ruang warna OKLCH.
 - **Wajib 5 Status Interaktif**: Komponen interaktif (tombol, input, link) harus mendefinisikan utilitas untuk kelima status: normal, hover (`hover:`), active (`active:`), keyboard focus (`focus-visible:`), dan disabled (`disabled:pointer-events-none disabled:opacity-50`).
