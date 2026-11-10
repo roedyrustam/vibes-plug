@@ -2814,6 +2814,134 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /<button\s+[^>]*class(?:Name)?\s*=\s*['"][^'"]*?\b(?:h-5\s+w-5|h-6\s+w-6|p-0\.5)\b(?![\s\S]{0,100}?\bmin-[wh]-\[44px\]\b)/,
       remediation: 'Ensure all interactive touch targets meet WCAG 2.2 minimum physical dimensions of >= 44x44px (min-h-[44px] min-w-[44px]).'
     }
+  ],
+  'voice-ai-realtime-agent': [
+    {
+      id: 'VOICE_AI_SEQUENTIAL_LATENCY_VIOLATION',
+      severity: 'ERROR',
+      name: 'Blocking Sequential Speech Chain (STT -> LLM -> TTS) Violating Realtime Voice Pipeline',
+      regex: /(?:await\s+stt\.[a-zA-Z0-9_]+\s*\([\s\S]{0,100}?await\s+llm\.[a-zA-Z0-9_]+\s*\([\s\S]{0,100}?await\s+tts\.[a-zA-Z0-9_]+|speechToText[\s\S]{0,80}?generateResponse[\s\S]{0,80}?textToSpeech)/,
+      remediation: 'Replace sequential STT ➔ LLM ➔ TTS chains with direct WebRTC streaming audio sessions or full-duplex WebSocket models (e.g., Gemini Multimodal Live, OpenAI Realtime API) to stay under <300ms latency.'
+    },
+    {
+      id: 'VOICE_AI_UNBOUNDED_AUDIO_CONCAT_VIOLATION',
+      severity: 'WARN',
+      name: 'Blocking Synchronous Buffer Concat on Streaming Audio Frames',
+      regex: /(?:audioChunks|rawFrames)\.push\s*\([^)]+\)[\s\S]{0,80}?Buffer\.concat\s*\(\s*(?:audioChunks|rawFrames)\s*\)/,
+      remediation: 'Stream audio frames chunk-by-chunk through WebRTC MediaStreamTrack or audio pipe rather than accumulating in raw arrays and executing synchronous Buffer.concat on the event loop.'
+    }
+  ],
+  'web-game-engine-expert': [
+    {
+      id: 'GAME_ENGINE_VARIABLE_DELTA_PHYSICS',
+      severity: 'ERROR',
+      name: 'Variable requestAnimationFrame Delta Passed Directly to Physics Step',
+      regex: /(?:physics|world|physicsWorld)\.step\s*\(\s*(?:deltaTime|delta|dt|frameTime)\s*\)(?![\s\S]{0,60}?accumulator)/,
+      remediation: 'Never pass variable frame delta time directly to physics.step(); use a fixed-timestep accumulator loop with interpolation alpha to eliminate physics tunneling and jitter on 120/144Hz displays.'
+    },
+    {
+      id: 'GAME_ENGINE_HEAP_ALLOCATION_IN_RENDER_LOOP',
+      severity: 'WARN',
+      name: 'Heap Allocation (Vector3/Quaternion) Instantiated in Render Loop',
+      regex: /(?:requestAnimationFrame|function\s+animate|function\s+render|useFrame\s*\(\s*\([^)]*\)\s*=>)\s*\{[\s\S]{0,150}?\bnew\s+(?:THREE\.)?(?:Vector3|Quaternion|Matrix4|Color)\s*\(/,
+      remediation: 'Avoid allocating new Vector3, Quaternion, or Matrix4 objects inside the animation tick; pre-allocate scratch instances in module scope or an object pool to prevent GC stalls.'
+    }
+  ],
+  'web-scraper': [
+    {
+      id: 'SCRAPER_UNBOUNDED_PROMISE_ALL',
+      severity: 'ERROR',
+      name: 'Unbounded Promise.all Scraping Queue Lacking Concurrency Throttling',
+      regex: /Promise\.all\s*\(\s*(?:urls|links|targets|pages)\.map\s*\(\s*(?:async\s*)?\([^)]*\)\s*=>\s*(?:scrape|fetch|crawl|crawler\.arun)\s*\(/,
+      remediation: 'Replace unbounded Promise.all with a throttled queue (e.g. p-limit, async.queue, or concurrency pool <= 5) to prevent socket exhaustion and anti-bot bans.'
+    },
+    {
+      id: 'SCRAPER_DEFAULT_AUTOMATION_USER_AGENT',
+      severity: 'WARN',
+      name: 'Unmasked Default Automation User-Agent or Raw Requests',
+      regex: /(?:headers\s*:\s*\{[\s\S]{0,80}?['"]User-Agent['"]\s*:\s*['"](?:axios|python-requests|node-fetch)[\s\S]{0,30}?['"]|\buserAgent\s*:\s*['"](?:HeadlessChrome|Playwright|Puppeteer)[\s\S]{0,30}?['"])/,
+      remediation: 'Mask scraper user-agent headers with modern browser fingerprints or use stealth plugins (Crawl4AI / playwright-stealth) to prevent anti-bot detection.'
+    }
+  ],
+  'website-design-cloner': [
+    {
+      id: 'DESIGN_CLONER_HARDCODED_PIXEL_CONTAINER',
+      severity: 'ERROR',
+      name: 'Hardcoded Desktop Pixel Width on Container Element Without Responsive Breakpoints',
+      regex: /(?:style\s*=\s*\{\{\s*width\s*:\s*['"](?:1280px|1440px|1920px|1024px)['"]\s*\}\}|className\s*=\s*['"][^'"]*?\bw-\[(?:1280px|1440px|1920px)\](?![\s\S]{0,80}?(?:max-w|sm:|md:|lg:|xl:)))/,
+      remediation: 'Replace hardcoded desktop pixel widths (e.g., 1440px) with responsive Tailwind containers (max-w-7xl, w-full, or container query units) to support all viewport sizes.'
+    },
+    {
+      id: 'DESIGN_CLONER_MONOLITHIC_DIV_SOUP',
+      severity: 'WARN',
+      name: 'Monolithic Div-Soup Root Lacking Semantic HTML5 Landmarks',
+      regex: /export\s+default\s+function\s+[a-zA-Z0-9_]+\s*\([^)]*\)\s*\{[\s\S]{0,100}?return\s*\(\s*<div\b[^>]*>(?:[\s\S]{0,150}?<div\b[^>]*>){4,}(?![\s\S]{0,300}?<main\b|<header\b|<section\b)/,
+      remediation: 'Deconstruct cloned pages using semantic HTML5 landmarks (<header>, <nav>, <main>, <section>, <footer>) instead of unsemantic monolithic nested <div> structures.'
+    }
+  ],
+  'wordpress-headless-expert': [
+    {
+      id: 'WP_HEADLESS_EXPOSED_APP_PASSWORD',
+      severity: 'ERROR',
+      name: 'WordPress Application Password Exposed to Public Frontend Bundle',
+      regex: /\b(?:NEXT_PUBLIC_|VITE_|PUBLIC_)(?:WORDPRESS_)?(?:APP_PASSWORD|AUTH_SECRET|ADMIN_TOKEN|APPLICATION_PASSWORD)\b/,
+      remediation: 'Never prefix WordPress application passwords or admin secrets with NEXT_PUBLIC_ or VITE_; store credentials strictly in server-only environment variables.'
+    },
+    {
+      id: 'WP_HEADLESS_UNAUTHENTICATED_WEBHOOK_REVALIDATION',
+      severity: 'WARN',
+      name: 'Unauthenticated WordPress On-Demand Revalidation Webhook Handler',
+      regex: /(?:export\s+(?:async\s+)?function\s+POST|app\.post)\s*\([^)]*\)[\s\S]{0,120}?(?:revalidateTag|revalidatePath)\s*\([\s\S]{0,60}?(?!\b(?:secret|token|signature|crypto\.timingSafeEqual)\b)/,
+      remediation: 'Verify WordPress webhook signatures or shared secret tokens before triggering on-demand cache revalidation (revalidateTag / revalidatePath) to prevent cache invalidation DoS.'
+    }
+  ],
+  'xerj-search-expert': [
+    {
+      id: 'XERJ_MISSING_DRY_RUN_ON_AUTOINDEX',
+      severity: 'ERROR',
+      name: 'Automated xerj autoindex Invocations Missing Mandatory --dry-run Inspection',
+      regex: /\bxerj\s+autoindex\s+(?!--dry-run|--help|-h|map\b)[^\s&|;]+(?!\s+--dry-run)/,
+      remediation: 'Always execute "xerj autoindex <dir> --dry-run" before committing an index run to preview scanned types, estimate disk size, and verify ignore rules.'
+    },
+    {
+      id: 'XERJ_UNSANITIZED_MEMORY_NAMESPACE',
+      severity: 'WARN',
+      name: 'Unsanitized or Path-Traversed Namespace Identifier in Agent Memory Route',
+      regex: /(?:post|get)\s*\(\s*['"]\/_memory\/\$\{?(?:req\.(?:params|query|body)\.[a-zA-Z0-9_]+|namespace)\b|\/_memory\/[^'"]*?\.\.\//,
+      remediation: 'Sanitize namespace strings in "/_memory/{ns}" to alphanumeric characters and dashes ([a-zA-Z0-9_-]+); reject directory traversal tokens ("..") and raw request inputs.'
+    }
+  ],
+  'zero-tech-debt-auditor': [
+    {
+      id: 'TECH_DEBT_TS_IGNORE_WITHOUT_REASON',
+      severity: 'ERROR',
+      name: 'Type Safety Suppression (@ts-ignore / @ts-nocheck) Without Explanatory Justification',
+      regex: /\/\/\s*@ts-ignore(?!\s*:\s*[A-Z]+-\d+|\s+reason:|\s+TODO:)/,
+      remediation: 'Do not suppress compiler errors with raw @ts-ignore without an explanatory issue tracking ticket or reason (e.g. "// @ts-ignore: DEBT-104 - third-party untyped CJS export").'
+    },
+    {
+      id: 'TECH_DEBT_CIRCULAR_DEPENDENCY_CYCLE',
+      severity: 'WARN',
+      name: 'Circular Dependency Prone Barrel Self-Import in Submodule',
+      regex: /import\s+[^;]+from\s+['"]\.\/index(?:\.js|\.ts)?['"]\s*;[\s\S]{0,100}?export\s+/,
+      remediation: 'Avoid importing from local "./index" within sibling submodules; import directly from leaf modules to prevent circular initialization deadlocks.'
+    }
+  ],
+  'zero-to-prod-orchestrator': [
+    {
+      id: 'ORCHESTRATOR_SKIPPED_PHASE_GATE',
+      severity: 'ERROR',
+      name: 'Production Deployment Invoked While Skipping Verification or Test Phase Gates',
+      regex: /(?:phase\s*:\s*['"](?:8|deploy|production)['"]|deployToProduction\s*\()[\s\S]{0,120}?(?:skipTests\s*:\s*true|runVerification\s*:\s*false|bypassAudit\s*:\s*true)/,
+      remediation: 'Never skip testing (Phase 6) or hardening (Phase 7) before production deployment (Phase 8); all verification gates must run to completion.'
+    },
+    {
+      id: 'ORCHESTRATOR_UNPRUNED_FANOUT_PAYLOAD',
+      severity: 'WARN',
+      name: 'Subagent Invocation Payload Dumps Full Session Transcript Instead of Targeted Slice',
+      regex: /invoke_subagent\s*\(\s*\{[\s\S]{0,100}?prompt\s*:\s*(?:conversationHistory|transcript|JSON\.stringify\s*\(\s*session\s*\))/,
+      remediation: 'Prune subagent context payloads during Fan-Out to targeted task slices (CONTEXT_MAP.md slice) rather than dumping full conversation history or transcripts.'
+    }
   ]
 
 });

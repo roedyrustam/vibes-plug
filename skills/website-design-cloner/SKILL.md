@@ -28,6 +28,16 @@ Connects and orchestrates with relevant domain skills:
 ### Description
 `website-design-cloner` is an advanced URL-to-Code visual reverse engineering skill. It enables AI agents to inspect any target website URL, analyze its visual aesthetic, layout grid, CSS design tokens (OKLCH/HEX colors, typography system, container bounds, shadow tiers, border-radii), DOM structure, and interactive components, and synthesize production-ready code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) to achieve a full 1:1 duplication.
 
+### Hard Guardrails (Declarative Invariants)
+- **Fluid Responsive Container Invariant**: Hardcoding static desktop pixel widths (e.g. `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}`, or fixed desktop dimensions without responsive breakpoints) is strictly prohibited; layouts must use modern Tailwind `max-w-*`, fluid clamp, or container query units.
+- **Semantic HTML5 Landmark Invariant**: Cloned page layouts must employ semantic landmarks (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`); outputting monolithic nested `<div>` soup without landmark semantics is prohibited.
+- **60-30-10 OKLCH Design Token Contract**: Cloned color palettes must map into semantic Tailwind CSS v4 `@theme` tokens using perceptual OKLCH color values; uncoordinated raw inline hex codes scattered across cloned components are banned.
+- **Interactive 5-State Element Contract**: All cloned interactive elements (buttons, nav links, inputs) must implement all 5 states (`default`, `hover`, `focus-visible`, `active`, `disabled`) with compliant WCAG 2.2 contrast ($\ge 4.5:1$).
+
+### Non-Functional Requirements (NFR Contract)
+- **Visual Layout Fidelity**: Structural similarity index (SSIM) $\ge 0.95$ against reference layout across 375px, 768px, and 1440px viewports.
+- **Anti-Slop Cleanliness**: Zero placeholder lorem-ipsum or broken dummy links in synthesized production components.
+
 ### Trigger Conditions
 - Replicating or cloning a website layout, landing page, or web application directly from a target URL.
 - Extracting design systems (color palettes, typography scales, container grids, component patterns) from a reference link.
@@ -218,6 +228,16 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 
 ### Deskripsi
 `website-design-cloner` adalah skill rekayasa balik (*reverse engineering*) visual dari URL ke kode. Skill ini memungkinkan agen AI mempelajari situs web target dari URL, mengaudit estetika visual, grid layout, design token CSS (warna OKLCH/HEX, sistem tipografi, batas kontainer, bayangan, radius border), struktur DOM, dan komponen interaktif, lalu merekonstruksi kode siap produksi (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) untuk mencapai duplikasi 1:1 penuh.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Invarian Kontainer Responsif Dinamis**: Menuliskan lebar desktop tetap dalam piksel secara hardcoded (seperti `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}` tanpa breakpoint responsif) dilarang keras; layout wajib menggunakan `max-w-*` Tailwind, fluid clamp, atau container queries.
+- **Invarian Landmark Semantik HTML5**: Tata letak hasil kloning wajib menggunakan elemen semantik (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`); menghasilkan komponen dengan struktur pure `<div>` soup tanpa penanda semantik dilarang.
+- **Kontrak Design Token OKLCH 60-30-10**: Palet warna hasil kloning wajib dipetakan ke dalam token `@theme` Tailwind CSS v4 dengan ruang warna perseptual OKLCH; kode hex inline acak yang bertebaran di JSX dilarang.
+- **Kontrak Elemen Interaktif 5-Status**: Seluruh elemen kontrol interaktif yang dikloning (tombol, tautan navigasi, input) wajib mengimplementasikan 5 status (`default`, `hover`, `focus-visible`, `active`, `disabled`) dengan kontras WCAG 2.2 yang valid ($\ge 4.5:1$).
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Fidelitas Tata Letak Visual**: Indeks kesamaan struktural (SSIM) $\ge 0.95$ terhadap referensi desain pada viewport 375px, 768px, dan 1440px.
+- **Kebersihan Anti-Slop**: Nol teks placeholder lorem-ipsum atau tautan dummy yang rusak pada kode komponen produksi yang disintesis.
 
 ### Kondisi Pemicu
 - Merekapitulasi atau menduplikasi tata letak situs web, landing page, atau aplikasi web dari URL target.

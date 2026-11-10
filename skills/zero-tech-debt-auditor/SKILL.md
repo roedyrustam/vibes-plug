@@ -24,6 +24,16 @@ version: "4.7.2"
 ### Description
 Autonomous orchestrator that scans, refactors, and eradicates technical debt at the end of the development lifecycle to achieve a **Zero Debt** codebase before production release. Applications are NOT considered production-ready until they pass all 5 dimensions of the Zero Technical Debt audit.
 
+### Hard Guardrails (Declarative Invariants)
+- **Zero Explicit Any & Type Erosion Gate**: Production code must compile with `tsc --noEmit --strict`; explicit `any` and unsuppressed `@ts-ignore` are banned from production packages.
+- **Cyclomatic Complexity & Function Length Ceiling**: Individual business functions must not exceed 80 lines and cyclomatic complexity score of 12; monolithic god-functions must be decomposed into pure helper functions.
+- **Zero Orphaned Exports & Dead Code**: Codebases must pass Knip dead code analysis with 0 unused production exports, files, or dangling dependencies.
+- **Zero Circular Import Cycles**: Module dependency graphs must remain strictly acyclic; circular dependencies (`A -> B -> A`) are hard errors in pre-release audits.
+
+### Non-Functional Requirements (NFR Contract)
+- **Audit Execution Speed**: Full AST and dead-code audit run completed $< 10\text{ s}$ on repositories up to 1,000 files.
+- **Technical Debt Ratio**: Zero open critical technical debt items before production deployment.
+
 ### 1. The 5-Dimension Technical Debt Eradication Matrix
 
 | Debt Dimension | Detection Tool / AST Query | Threshold Gate | Autonomous Remediation Action |
@@ -196,6 +206,16 @@ export function detectImportCycles(
 
 ### Deskripsi
 Orkestrator otonom yang memindai, melakukan refactoring, dan menghapus utang teknis (*technical debt*) di akhir siklus hidup pengembangan untuk mencapai basis kode **Zero Debt** sebelum rilis ke produksi.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Gerbang Nol Explicit Any & Erosi Tipe**: Kode produksi wajib dapat dikompilasi dengan `tsc --noEmit --strict`; penggunaan `any` eksplisit dan `@ts-ignore` tanpa tiket penjelasan dilarang dari paket produksi.
+- **Batas Maksimal Kompleksitas Siklomatik & Panjang Fungsi**: Fungsi bisnis individual tidak boleh melebihi 80 baris dan skor kompleksitas siklomatik 12; fungsi monolitik god-function wajib dipecah menjadi fungsi bantuan murni.
+- **Nol Ekspor Yatim & Kode Mati**: Basis kode wajib lulus analisis kode mati Knip dengan 0 ekspor produksi, berkas, atau dependensi yang tidak terpakai.
+- **Nol Siklus Impor Melingkar**: Graf dependensi modul wajib bersifat asiklis secara ketat; dependensi melingkar (*circular dependencies* `A -> B -> A`) merupakan kesalahan fatal pada audit pra-rilis.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Kecepatan Eksekusi Audit**: Pemindaian AST dan audit kode mati penuh tuntas dalam waktu $< 10\text{ s}$ untuk repositori hingga 1.000 file.
+- **Rasio Utang Teknis**: Nol item utang teknis kritis yang terbuka sebelum deployment produksi.
 
 ### Checklist Verifikasi Produksi
 - [ ] Eliminasi seluruh file mati, ekspor tak terpakai, dan dependensi yatim dengan `npx knip --production`.

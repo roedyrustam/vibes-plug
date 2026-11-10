@@ -2375,6 +2375,17 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG18 = [
+      'voice-ai-realtime-agent', 'web-game-engine-expert', 'web-scraper',
+      'website-design-cloner', 'wordpress-headless-expert', 'xerj-search-expert',
+      'zero-tech-debt-auditor', 'zero-to-prod-orchestrator'
+    ];
+    for (const skill of deepenedG18) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
+    assert.equal(Object.keys(SKILL_GUARD_RULES).length, 178, 'All 178 skills in the entire ecosystem must be guarded');
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2603,6 +2614,16 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'test-time-compute-optimizer', code: 'runTreeSearch({ mcts: true });' }, 'TEST_TIME_COMPUTE_UNBOUNDED_TREE_EXPANSION');
     await expectViolation({ skill: 'thinking-budget-orchestrator', code: 'resolveThinkingBudget("trivial") { return 65536; }' }, 'THINKING_BUDGET_STATIC_OVERSPEND_TRIVIAL');
     await expectViolation({ skill: 'visual-ui-auditor', code: '<div className="bg-gradient-to-r from-blue-600 to-purple-600">Card</div>' }, 'VISUAL_AUDITOR_GENERIC_NEON_GRADIENT_SLOP');
+
+    // Wave 18 (Gelombang 18) Deepened Skill Guardrail Assertions (Grand Finale: 178/178 Skills)
+    await expectViolation({ skill: 'voice-ai-realtime-agent', code: 'async function converse() {\n  const text = await stt.transcribe(chunk);\n  const ans = await llm.generate(text);\n  await tts.speak(ans);\n}' }, 'VOICE_AI_SEQUENTIAL_LATENCY_VIOLATION');
+    await expectViolation({ skill: 'web-game-engine-expert', code: 'function update(deltaTime) {\n  physics.step(deltaTime);\n}' }, 'GAME_ENGINE_VARIABLE_DELTA_PHYSICS');
+    await expectViolation({ skill: 'web-scraper', code: 'const results = await Promise.all(urls.map(async (u) => scrape(u)));' }, 'SCRAPER_UNBOUNDED_PROMISE_ALL');
+    await expectViolation({ skill: 'website-design-cloner', code: '<div style={{ width: "1440px" }}>Hero</div>' }, 'DESIGN_CLONER_HARDCODED_PIXEL_CONTAINER');
+    await expectViolation({ skill: 'wordpress-headless-expert', code: 'const pass = process.env.NEXT_PUBLIC_WORDPRESS_APP_PASSWORD;' }, 'WP_HEADLESS_EXPOSED_APP_PASSWORD');
+    await expectViolation({ skill: 'xerj-search-expert', code: 'xerj autoindex ./data' }, 'XERJ_MISSING_DRY_RUN_ON_AUTOINDEX');
+    await expectViolation({ skill: 'zero-tech-debt-auditor', code: 'const a = 1;\n// @ts-ignore\nconst b = a.foo();' }, 'TECH_DEBT_TS_IGNORE_WITHOUT_REASON');
+    await expectViolation({ skill: 'zero-to-prod-orchestrator', code: 'deployToProduction({ skipTests: true });' }, 'ORCHESTRATOR_SKIPPED_PHASE_GATE');
   });
 });
 

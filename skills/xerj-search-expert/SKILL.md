@@ -28,6 +28,16 @@ version: "4.7.2"
 ### Description
 Expert guide for installing, running, autoindexing, and querying **XERJ** — the unified, AI-native search engine, vector database, agent memory store, and log analytics engine written from scratch in Rust (Apache-2.0). XERJ replaces the complex retrieval stack an AI system normally assembles (Elasticsearch + vector database + embedding service + memory store) with a single native binary, speaking both native REST and Elasticsearch 8.x wire protocol (0-failure conformance gate) and exposing 13 native MCP tools.
 
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory Autoindex Dry-Run Inspection**: Automated indexing pipelines (`xerj autoindex`) must execute with `--dry-run` inspection first to evaluate file limits and junk accounting before committing disk writes.
+- **Namespace-Sanitized Memory Boundaries**: Agent long-term memory operations (`/_memory/{ns}`) must sanitize and isolate namespace identifiers, preventing cross-tenant memory leakage or directory traversal.
+- **ES 8.x Wire Protocol 0-Failure Conformance**: Integrations relying on the `:9200` endpoint must adhere strictly to Elasticsearch 8.x wire response specifications without assuming deprecated ES 6/7 mapping types.
+- **13 Native MCP Tool Profile Mapping**: Tool calls dispatched to XERJ MCP must strictly validate input arguments against the 13 registered tool schemas (`xerj_search`, `xerj_vector_search`, `xerj_hybrid_search`, etc.).
+
+### Non-Functional Requirements (NFR Contract)
+- **Query Latency**: P99 search latency $< 15\text{ ms}$ on indexed corpora up to 10M records.
+- **Hybrid Fusion (RRF) Precision**: Reciprocal Rank Fusion must achieve mean reciprocal rank (MRR) $\ge 0.88$ across benchmark queries.
+
 ### Key Capabilities
 
 ```
@@ -165,6 +175,16 @@ Expert guide for installing, running, autoindexing, and querying **XERJ** — th
 
 ### Deskripsi
 Panduan ahli untuk instalasi, pengoperasian, pengindeksan otomatis (*autoindex*), dan pencarian menggunakan **XERJ** — mesin pencari AI-native, vector database, memori agen, dan analitik log terpadu yang dibangun dari nol dalam bahasa Rust (Apache-2.0). XERJ menggantikan seluruh tumpukan retrieval terpisah (Elasticsearch + vector database + embedding service + memory store) menjadi satu binary mandiri, mendukung protokol Elasticsearch 8.x (gerbang conformance CI 0-failure) dan menyediakan 13 tool MCP bawaan.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Inspeksi Dry-Run Autoindex Wajib**: Pipeline pengindeksan otomatis (`xerj autoindex`) wajib dijalankan dengan inspeksi `--dry-run` terlebih dahulu untuk mengevaluasi batasan file dan junk accounting sebelum menulis ke disk.
+- **Batas Memori Bersanitasi Namespace**: Operasi memori jangka panjang agen (`/_memory/{ns}`) wajib melakukan sanitasi dan mengisolasi identifier namespace guna mencegah kebocoran memori lintas tenant atau traversal direktori.
+- **Konformansi 0-Failure Protokol Wire ES 8.x**: Integrasi yang mengandalkan endpoint `:9200` wajib mematuhi spesifikasi respons wire Elasticsearch 8.x secara ketat tanpa mengasumsikan tipe mapping usang ES 6/7.
+- **Pemetaan Profil 13 Tool MCP Native**: Pemanggilan tool ke XERJ MCP wajib memvalidasi argumen input terhadap 13 skema tool terdaftar (`xerj_search`, `xerj_vector_search`, `xerj_hybrid_search`, dll.).
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Latensi Query**: Latensi pencarian P99 $< 15\text{ ms}$ pada korpus terindeks hingga 10 juta catatan.
+- **Presisi Fusi Hybrid (RRF)**: Reciprocal Rank Fusion wajib mencapai skor Mean Reciprocal Rank (MRR) $\ge 0.88$ pada rangkaian query tolok ukur.
 
 ### Kemampuan Utama
 1. **Autoindex Tanpa Konfigurasi (`xerj autoindex <folder>`)**:
