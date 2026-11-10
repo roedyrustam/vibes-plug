@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T20:41:55.386Z",
+  "generatedAt": "2026-11-10T20:23:34.914Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 92,
-  "incrementalReusedFiles": 92,
+  "incrementalReusedFiles": 84,
   "totalSymbolsIndexed": 525,
   "totalImportEdges": 313,
   "symbols": {
@@ -6348,37 +6348,35 @@
     "readSwarmState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 47,
+        "line": 45,
         "type": "function",
         "signature": "function readSwarmState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync",
-          "write"
+          "readFileSync"
         ]
       }
     ],
     "readBlackboardState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 59,
+        "line": 55,
         "type": "function",
         "signature": "function readBlackboardState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync",
-          "write"
+          "readFileSync"
         ]
       }
     ],
     "renderHtml": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 71,
+        "line": 65,
         "type": "function",
         "signature": "function renderHtml()",
         "calls": [
@@ -9730,8 +9728,8 @@
     "scripts/check-anti-slop.mjs": {
       "totalLines": 343,
       "symbolCount": 4,
-      "mtimeMs": 1794342923466,
-      "size": 13004,
+      "mtimeMs": 1794324047005,
+      "size": 12992,
       "exports": [],
       "imports": [
         {
@@ -11350,10 +11348,10 @@
       ]
     },
     "scripts/hook-handler.mjs": {
-      "totalLines": 92,
+      "totalLines": 88,
       "symbolCount": 3,
-      "mtimeMs": 1794342923587,
-      "size": 2858,
+      "mtimeMs": 1794340838507,
+      "size": 2633,
       "exports": [],
       "imports": [
         {
@@ -13528,7 +13526,7 @@
     "scripts/skill-rules-engine.mjs": {
       "totalLines": 2942,
       "symbolCount": 5,
-      "mtimeMs": 1794342801594,
+      "mtimeMs": 1794342113043,
       "size": 157154,
       "exports": [
         "matchSkillsForTarget",
@@ -15602,8 +15600,8 @@
     "scripts/test-cli.mjs": {
       "totalLines": 2589,
       "symbolCount": 1,
-      "mtimeMs": 1794343257462,
-      "size": 142377,
+      "mtimeMs": 1794342201080,
+      "size": 142362,
       "exports": [],
       "imports": [
         {
@@ -17014,10 +17012,10 @@
       "cachedSymbols": []
     },
     "sidecars/swarm-cockpit/server.mjs": {
-      "totalLines": 523,
+      "totalLines": 517,
       "symbolCount": 3,
-      "mtimeMs": 1794343278252,
-      "size": 16560,
+      "mtimeMs": 1794341189084,
+      "size": 16267,
       "exports": [],
       "imports": [
         {
@@ -17064,33 +17062,31 @@
       "cachedSymbols": [
         {
           "name": "readSwarmState",
-          "line": 47,
+          "line": 45,
           "type": "function",
           "signature": "function readSwarmState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync",
-            "write"
+            "readFileSync"
           ]
         },
         {
           "name": "readBlackboardState",
-          "line": 59,
+          "line": 55,
           "type": "function",
           "signature": "function readBlackboardState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync",
-            "write"
+            "readFileSync"
           ]
         },
         {
           "name": "renderHtml",
-          "line": 71,
+          "line": 65,
           "type": "function",
           "signature": "function renderHtml()",
           "calls": [
