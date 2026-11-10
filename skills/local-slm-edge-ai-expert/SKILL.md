@@ -95,6 +95,17 @@ export async function createLocalChatEngine(onProgress?: (report: webllm.InitPro
 - [ ] Cache model shards in IndexedDB or Cache API to ensure instant subsequent launches.
 - [ ] Provide automatic fallback to lightweight serverless APIs when client device VRAM is constrained.
 
+### Hard Guardrails (Declarative Invariants)
+- **WebGPU Capability Detection Floor**: In-browser model initializations MUST verify `'gpu' in navigator` and query adapter capabilities before allocating buffers; absence of WebGPU MUST trigger immediate automatic fallback to cloud/serverless endpoints.
+- **Client-Side Persistent Model Shard Caching**: Quantized model weights and ONNX graphs MUST be stored in persistent Cache API or IndexedDB storage with download progress telemetry—never re-download weights on return visits.
+- **Local Client PII Scrubbing Invariant**: Sensitive user information (credentials, credit card numbers, personal identifiers) MUST be scrubbed locally on client devices before any hybrid query dispatch to external cloud models.
+- **Main Thread Non-Blocking Worker Invariant**: Heavy model inference, token streaming, and embedding calculations MUST run inside dedicated Web Workers or WebGPU compute pipelines to prevent UI thread freezing (INP $\le 50\text{ms}$).
+
+### Non-Functional Requirements (NFR)
+- **Local Embedding Latency**: Fast client-side vector embedding generation $\le 30\text{ms}$.
+- **WebGPU TTFT**: In-browser Time-to-First-Token generation $\le 150\text{ms}$.
+- **Zero PII Cloud Leakage**: 100% of sensitive client data sanitized before outbound transmission.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -189,6 +200,17 @@ export async function inisialisasiMesinLokal(laporanProgres?: (laporan: webllm.I
 - [ ] Tampilkan indikator progres unduhan bobot model saat pertama kali diakses.
 - [ ] Simpan bobot model di Cache API atau IndexedDB agar kunjungan berikutnya instan tanpa unduh ulang.
 - [ ] Siapkan jalur fallback ke API cloud jika memori klien tidak mencukupi.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Batas Deteksi Kapabilitas WebGPU**: Inisialisasi model di browser WAJIB memvalidasi ketersediaan `'gpu' in navigator` dan memeriksa memori adapter; ketiadaan WebGPU wajib memicu pengalihan (*fallback*) otomatis ke API cloud.
+- **Invarian Cache Bobot Model Persisten di Klien**: Bobot model terkuantisasi dan graf ONNX wajib disimpan dalam Cache API atau IndexedDB persisten disertai indikator kemajuan unduhan—dilarang mengunduh ulang bobot model pada kunjungan berikutnya.
+- **Sanitasi Data Pribadi (PII) Lokal di Klien**: Data sensitif pengguna (nomor kartu kredit, kata sandi, identitas pribadi) wajib disensor secara lokal di perangkat klien sebelum diteruskan ke model eksternal cloud.
+- **Isolasi Worker Non-Blocking Main-Thread**: Inferensi model berat, streaming token, dan pembuatan embedding vektor wajib dijalankan dalam Web Worker terdedikasi atau WebGPU compute pipeline agar tidak membekukan UI thread (INP $\le 50\text{ms}$).
+
+### Non-Functional Requirements (NFR)
+- **Latensi Embedding Lokal**: Pembuatan vektor semantik di sisi klien $\le 30\text{ms}$.
+- **Kecepatan TTFT WebGPU**: Time-to-First-Token generasi teks di browser $\le 150\text{ms}$.
+- **Zero PII Leakage**: 100% data sensitif disanitasi sebelum transmisi keluar.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -174,6 +174,17 @@ export async function executeDualWriteMutation<TPayload, TRecord>(
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Non-Destructive Side-by-Side Invariant**: Legacy files MUST NEVER be overwritten in-place or deleted prematurely; new modernized modules must be constructed side-by-side (`order.legacy.php` $\rightarrow$ `order.service.ts`) preserving the original ground truth for characterization diffing.
+- **Golden Master Characterization Test Gate**: Prior to migrating any legacy function, at least 50 real-world input/output fixtures MUST be recorded and verified against the candidate implementation with 100% parity.
+- **Shadow Execution Canary Parity**: Live traffic migrations MUST pass $\ge 1,000$ shadow runs with zero structural discrepancies before shifting primary read/write traffic.
+- **Token Slicing Boundary ($\le 400\text{ lines/turn}$)**: Giant monolithic legacy files MUST be partitioned along AST function boundaries; translation prompts must never exceed 400 lines per turn to eliminate truncation slop.
+
+### Non-Functional Requirements (NFR)
+- **Zero Regression Rate**: 100% fixture parity match on all recorded legacy behaviors.
+- **Shadow Parity Overhead**: Shadow execution comparison latency overhead $\le 15\text{ms}$.
+- **Zero Cutover Downtime**: Seamless canary rollout with instant proxy fallback.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -205,6 +216,17 @@ Metodologi rekayasa sistematis bagi agen AI untuk memigrasikan basis kode warisa
 - [ ] **Dilarang Menimpa File Asli Secara Langsung**: Bangun modul baru secara berdampingan agar kode lama tetap menjadi acuan kebenaran selama masa transisi.
 - [ ] **Pecah File Raksasa (Token Slicing)**: Terjemahkan per fungsi/subrutin (`<= 400` baris per giliran) untuk menghindari pemotongan kode.
 - [ ] **Verifikasi Shadow Testing**: Pastikan hasil keluaran fungsi baru 100% identik dengan fungsi lama sebelum memindahkan trafik utama.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Konstruksi Berdampingan Non-Destruktif**: Berkas legacy DILARANG KERAS ditimpa langsung atau dihapus prematur; modul modern wajib dibangun berdampingan (`order.legacy.php` $\rightarrow$ `order.service.ts`) guna mempertahankan acuan kebenaran untuk uji komparasi.
+- **Gerbang Uji Regresi Golden Master**: Sebelum memigrasikan fungsi lama, minimal 50 rekaman input/output nyata wajib dibuat dan diuji terhadap kode baru dengan tingkat paritas 100%.
+- **Paritas Canary Shadow Execution**: Migrasi trafik nyata wajib lolos $\ge 1.000$ eksekusi bayangan (*shadow run*) dengan 0 diskrepansi sebelum memindahkan trafik baca/tulis utama.
+- **Batasan Token Slicing ($\le 400\text{ baris/giliran}$)**: Berkas monolitik raksasa wajib dipecah berdasarkan batas fungsi AST compiler; prompt migrasi tidak boleh melebihi 400 baris per giliran untuk meniadakan slop pemotongan kode.
+
+### Non-Functional Requirements (NFR)
+- **Tingkat Regresi Nol**: 100% kecocokan dengan fixture golden master perilaku sistem warisan.
+- **Overhead Shadow Parity**: Latensi pengecekan perbandingan shadow $\le 15\text{ms}$.
+- **Zero Cutover Downtime**: Transisi mulus tanpa downtime melalui proxy canary fleksibel.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -134,6 +134,17 @@ export function buildMpaDocumentHeaders(cacheMaxAgeSeconds = 60): Record<string,
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Islands Architecture Selective Hydration**: Content-heavy server pages MUST render 100% static HTML by default; client JS hydration MUST be strictly isolated to interactive islands using selective directives (`client:visible`, `client:idle`).
+- **Single Repository Multi-Entry Bundler Split**: Multi-page applications MUST configure distinct frontend entry points (`index.html`, `admin.html`) to prevent admin/authenticated script payloads from bloating public client bundles.
+- **Mandatory Public Legal & Standard Pages**: Every MPA deployment MUST automatically include complete implementations of `/about`, `/contact`, `/privacy`, `/terms`, and `/delete-account`.
+- **Declarative HTML-Over-the-Wire Interactivity**: Dynamic in-page updates MUST use declarative hypermedia attributes (HTMX `hx-get`, `hx-post`, `hx-swap`) or Speculation Rules prerendering rather than monolithic client SPA routers.
+
+### Non-Functional Requirements (NFR)
+- **First Contentful Paint (FCP)**: Server-rendered HTML first paint $\le 300\text{ms}$.
+- **Public JS Bundle Footprint**: Initial non-interactive public bundle payload $\le 20\text{KB}$.
+- **SEO Indexability**: 100% of core metadata and structured JSON-LD rendered in initial server payload.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -220,6 +231,17 @@ Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry po
 6. **User Data Deletion / Hapus Data** (`/delete-account` or `/data-deletion`)
 
 These pages and data deletion mechanisms must be generated with standard boilerplate content that can later be customized to fit the specific application. Do not wait for the user to ask for them; they are a strict requirement for all web projects. / **WAJIB**: Otomatis buatkan halaman standar dan Trio Kepatuhan Hukum & Privasi Wajib (About, Profile, Contact, Syarat & Ketentuan, Kebijakan Privasi, Hapus Data) pada setiap pembuatan aplikasi/website baru dengan konten boilerplate yang bisa disesuaikan nanti.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Hidrasi Selektif Islands Architecture**: Halaman server-rendered berkonten statis WAJIB me-render 100% HTML statis secara default; hidrasi JS sisi klien wajib dibatasi pada pulau interaktif menggunakan direktif selektif (`client:visible`, `client:idle`).
+- **Pemisahan Bundler Multi-Entry Satu Repositori**: Aplikasi multi-halaman wajib mengonfigurasi beberapa titik masuk bundle frontend terpisah (`index.html`, `admin.html`) guna mencegah payload modul admin membebani bundel situs publik.
+- **Kepatuhan Legalitas & Halaman Standar Wajib**: Setiap deployment MPA wajib menyertakan implementasi utuh untuk `/about`, `/contact`, `/privacy`, `/terms`, dan alur hapus data `/delete-account`.
+- **Interaktivitas Deklaratif HTML-Over-the-Wire**: Pembaruan dinamis parsial wajib memanfaatkan atribut hipermedia deklaratif (HTMX `hx-get`, `hx-post`, `hx-swap`) atau Speculation Rules prerender alih-alih router SPA monolitik yang berat.
+
+### Non-Functional Requirements (NFR)
+- **First Contentful Paint (FCP)**: Sajian HTML server-rendered awal $\le 300\text{ms}$.
+- **Bobot Bundel JS Publik**: Ukuran payload JavaScript publik awal $\le 20\text{KB}$.
+- **Indeksabilitas SEO**: 100% metadata dan skema JSON-LD terisi saat pemuatan server awal.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -130,6 +130,17 @@ Active whenever the user requests to:
 - Design an MVC architecture or introduce a clean routing pattern in plain PHP.
 - Implement object-oriented programming (OOP), Composer namespaces (PSR-4), or clean up database access via PDO in a PHP application.
 
+### Hard Guardrails (Declarative Invariants)
+- **Unified Front Controller Routing Invariant**: All incoming HTTP requests MUST route through a single entry point (`public/index.php`), prohibiting direct access to raw spaghetti script endpoints in the webroot.
+- **Mandatory Prepared Statements & PDO Invariant**: All database operations in Models MUST strictly use PDO prepared statements with parameterized binding; raw SQL concatenation and legacy `mysql_*`/`mysqli` functions are banned.
+- **Strict MVC Layer Separation**: Controllers MUST NEVER echo HTML markup directly, and Views MUST NEVER execute raw database queries or direct `$_SESSION` mutations.
+- **Modern Strict Types & Immutable Classes**: All modern PHP classes MUST declare `declare(strict_types=1);` at file top, utilizing typed properties and constructor promotion.
+
+### Non-Functional Requirements (NFR)
+- **Routing Dispatch Overhead**: Front Controller routing resolution $\le 15\text{ms}$.
+- **Zero OWASP Vulnerabilities**: 0 SQL injection or reflected XSS vulnerabilities across all controllers/views.
+- **Autoloading Standard**: 100% PSR-4 namespace adherence via Composer.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -261,6 +272,17 @@ Aktif setiap kali pengguna meminta untuk:
 - Memodernisasi proyek PHP lama atau script PHP spageti.
 - Merancang arsitektur MVC atau memperkenalkan pola routing yang bersih di plain PHP.
 - Menerapkan pemrograman berorientasi objek (OOP), namespace Composer (PSR-4), atau membersihkan akses database via PDO pada aplikasi PHP.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Routing Front Controller Terpusat**: Seluruh permintaan HTTP masuk WAJIB diproses melalui satu pintu masuk tunggal (`public/index.php`), melarang akses langsung ke file skrip spageti di webroot publik.
+- **Invarian Prepared Statements & PDO Wajib**: Operasi database pada model wajib menggunakan prepared statements PDO dengan binding parameter; perangkaian string SQL mentah dan fungsi usang `mysql_*`/`mysqli` dilarang.
+- **Pemisahan Lapisan MVC Ketat**: Controller DILARANG KERAS me-render atau menggunakan `echo` markup HTML langsung, dan View dilarang mengeksekusi query database mentah atau mutasi langsung `$_SESSION`.
+- **Deklarasi Strict Types & Kelas Imutabel**: Seluruh kelas PHP modern wajib menyertakan `declare(strict_types=1);` di baris teratas, menerapkan typed properties dan constructor promotion.
+
+### Non-Functional Requirements (NFR)
+- **Overhead Routing Front Controller**: Resolusi rute controller $\le 15\text{ms}$.
+- **Zero OWASP Vulnerabilities**: 0 celah injeksi SQL atau XSS pada seluruh controller dan view.
+- **Standar Autoloading**: 100% kepatuhan namespace PSR-4 melalui Composer.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

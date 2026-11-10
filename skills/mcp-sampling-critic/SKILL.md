@@ -111,6 +111,17 @@ Output JSON: { "verdict": "APPROVED" | "REJECTED", "score": 0-100, "rationale": 
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Recursive Critic Approval Gate**: High-risk mutating tool calls (filesystem writes, database DDL/DML, shell commands) MUST pass an independent `sampling/createMessage` adversarial audit with an explicit `APPROVED` verdict before execution.
+- **Static Anti-Slop AST Pre-Filter**: Proposed code diffs MUST pass deterministic AST static filters (checking for empty catch blocks, placeholder stubs, unparameterized SQL) before initiating model sampling to conserve thinking tokens.
+- **Model Diversity / Independent Evaluator Invariant**: The Critic sampling request MUST prioritize a distinct model family or separate evaluation prompt instance from the generator agent to prevent confirmation bias.
+- **Unambiguous Structured JSON Contract**: Critic sampling responses MUST strictly conform to typed JSON contracts (`{ "verdict": "APPROVED" | "REJECTED", "score": number, "rationale": string }`), rejecting markdown conversational fluff.
+
+### Non-Functional Requirements (NFR)
+- **Critic Sampling Latency**: Round-trip sampling evaluation $\le 1,200\text{ms}$.
+- **Zero False Approvals**: 0 passes granted to code with Anti-Slop violations or raw SQL injections.
+- **Strict Schema Conformance**: 100% adherence to MCP `sampling/createMessage` specification.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -183,6 +194,17 @@ Keluarkan JSON: { "verdict": "APPROVED" | "REJECTED", "score": 0-100, "rationale
   };
 }
 ```
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Gerbang Persetujuan Kritik Rekursif**: Pemanggilan tool berisiko tinggi (tulis sistem file, migrasi DDL/DML, perintah shell) WAJIB lolos audit adversarial via `sampling/createMessage` dengan status keputusan `APPROVED` eksplisit sebelum dieksekusi.
+- **Pra-Penyaringan AST Statis Anti-Slop**: Usulan diff kode wajib lolos filter aturan statis AST deterministik (cek blok catch kosong, stub placeholder, SQL tidak berparameter) sebelum memicu panggilan sampling model untuk menghemat token penalaran.
+- **Invarian Keberagaman Model / Evaluator Independen**: Permintaan sampling Critic wajib memprioritaskan famili model berbeda atau instans prompt evaluasi terpisah dari agen generator guna mencegah bias konfirmasi (*confirmation bias*).
+- **Kontrak JSON Terstruktur Tanpa Ambiguitas**: Respons sampling Critic wajib mematuhi skema JSON bertipe (`{ "verdict": "APPROVED" | "REJECTED", "score": number, "rationale": string }`), menolak basa-basi percakapan markdown.
+
+### Non-Functional Requirements (NFR)
+- **Latensi Sampling Critic**: Waktu evaluasi round-trip sampling $\le 1.200\text{ms}$.
+- **Zero False Approval**: 0 kelolosan yang diberikan pada kode dengan pelanggaran Anti-Slop atau celah injeksi SQL.
+- **Kepatuhan Protokol Ketat**: 100% kepatuhan terhadap spesifikasi MCP `sampling/createMessage`.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

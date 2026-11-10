@@ -2334,6 +2334,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /tools\s*:\s*Object\.values\s*\(\s*\w+\s*\)(?!\.sort\()/,
       remediation: 'Sort tool definitions alphabetically by name and schema keys (.sort((a, b) => a.name.localeCompare(b.name))) to preserve byte-identical KV-cache prefixes.'
     }
+  ],
+  'legacy-code-translator': [
+    {
+      id: 'LEGACY_IN_PLACE_OVERWRITE_DESTRUCTION',
+      severity: 'ERROR',
+      name: 'Legacy File Overwritten In-Place or Deleted Before Parity Verified',
+      regex: /(?:fs\.unlinkSync|fs\.rmSync|rimraf)\s*\([^)]*(?:\.legacy|\.old|\.bak)\b/,
+      remediation: 'Do not delete or overwrite legacy source files prematurely; preserve original implementations side-by-side until 100% parity is verified.'
+    },
+    {
+      id: 'LEGACY_SHADOW_EXECUTION_UNLOGGED_DISCREPANCY',
+      severity: 'WARN',
+      name: 'Shadow Testing Harness Lacks Discrepancy Logging Callback',
+      regex: /executeWithShadowTesting\s*\([^)]*,\s*(?:\(\)\s*=>\s*\{\}|null|undefined)\s*\)/,
+      remediation: 'Always provide an onDiscrepancy callback to shadow execution harnesses to log and alert on parity differences between legacy and modern code.'
+    }
+  ],
+  'living-codebase-ast-graph': [
+    {
+      id: 'AST_GRAPH_REGEX_FOR_SEMANTIC_ANALYSIS',
+      severity: 'WARN',
+      name: 'Regex Text Scanning Used for Code Semantics Instead of Native Compiler AST',
+      regex: /(?:const|let|var)\s+\w+\s*=\s*code\.match\s*\(\s*\/(?:function|class|interface)\s+\[a-zA-Z0-9_\]\+\//,
+      remediation: 'Never use regex text scanning to resolve symbol definitions or caller references; utilize native compiler AST parsers (ts.createProgram, ast.parse, syn).'
+    },
+    {
+      id: 'AST_GRAPH_UNCHECKED_CIRCULAR_DEPENDENCY',
+      severity: 'ERROR',
+      name: 'Topological Sort Executed Without Tarjan Cycle Detection Gate',
+      regex: /topologicalSort\s*\([^)]*\)(?![\s\S]{0,150}?\b(?:hasCycle|isAcyclic|tarjan|detectCycles)\b)/,
+      remediation: 'Always execute cycle detection (Tarjan SCC) before running topological sort on dependency graphs to avoid infinite recursion on circular dependencies.'
+    }
+  ],
+  'local-slm-edge-ai-expert': [
+    {
+      id: 'LOCAL_SLM_MISSING_WEBGPU_DETECTION',
+      severity: 'WARN',
+      name: 'In-Browser WebGPU Model Initialized Without Browser Feature Check',
+      regex: /(?:CreateMLCEngine|pipeline\s*\(\s*['"]feature-extraction['"])[^)]*device\s*:\s*['"]webgpu['"](?![\s\S]{0,250}?\b(?:navigator\.gpu|'gpu'\s+in\s+navigator)\b)/,
+      remediation: 'Check for WebGPU availability in navigator ("gpu" in navigator) and provide a fallback path before initializing WebGPU models in the browser.'
+    },
+    {
+      id: 'LOCAL_SLM_UNCACHED_REMOTE_WEIGHTS_FETCH',
+      severity: 'WARN',
+      name: 'In-Browser Model Pipeline Explicitly Disables Browser Weight Cache',
+      regex: /pipeline\s*\([^)]*useBrowserCache\s*:\s*false/,
+      remediation: 'Always enable browser model caching (useBrowserCache: true or IndexedDB persistence) to avoid re-downloading model weights on every page load.'
+    }
+  ],
+  'mcp-sampling-critic': [
+    {
+      id: 'MCP_SAMPLING_UNPARSED_CRITIC_RESPONSE',
+      severity: 'WARN',
+      name: 'MCP Sampling Message Content Consumed Without Typed JSON Validation',
+      regex: /sampling\/createMessage[\s\S]{0,150}?\.then\s*\(\s*(?:res|response)\s*=>\s*(?:res|response)\.content\b(?![\s\S]{0,150}?\b(?:JSON\.parse|parse|schema)\b)/,
+      remediation: 'Parse and validate MCP sampling critic responses through structured JSON schemas ({ verdict, score, rationale }) before executing write actions.'
+    },
+    {
+      id: 'MCP_SAMPLING_EMPTY_AUDIT_RULES',
+      severity: 'WARN',
+      name: 'Critic Sampling Payload Dispatched With Empty Audit Rules',
+      regex: /buildCriticSamplingPayload\s*\([^)]*,\s*\[\s*\]\s*\)(?![\s\S]{0,100}?\b(?:findingsSummary|rules)\b)/,
+      remediation: 'Supply explicit anti-slop rules, security gates, and AST warnings in Critic sampling prompts; never dispatch empty audit rules.'
+    }
+  ],
+  'modern-css-native-expert': [
+    {
+      id: 'MODERN_CSS_POPPER_JS_DEPENDENCY',
+      severity: 'WARN',
+      name: 'Legacy JS Positioning Library Imported Instead of CSS Anchor Positioning',
+      regex: /(?:import\s+.*from\s+['"]@popperjs\/core['"]|import\s+.*from\s+['"]@floating-ui\/dom['"])/,
+      remediation: 'Replace third-party JavaScript positioning libraries with native CSS Anchor Positioning (anchor-name, position-anchor, position-try-fallbacks).'
+    },
+    {
+      id: 'MODERN_CSS_MISSING_STARTING_STYLE_ON_DISCRETE',
+      severity: 'WARN',
+      name: 'Allow-Discrete Transition Missing @starting-style Entry Definition',
+      regex: /transition\s*:[^;]*allow-discrete(?![\s\S]{0,350}?@starting-style)/,
+      remediation: 'When animating discrete top-layer elements (dialog, popover) with allow-discrete, always define a corresponding @starting-style block for entry transitions.'
+    }
+  ],
+  'monorepo-architect': [
+    {
+      id: 'MONOREPO_NON_WORKSPACE_INTERNAL_DEPENDENCY',
+      severity: 'WARN',
+      name: 'Internal Monorepo Package Reference Using Hardcoded Semver Instead of workspace:*',
+      regex: /"@(?:myapp|repo|acme)\/[a-zA-Z0-9_-]+"\s*:\s*['"](?:\^|~)?\d+\.\d+\.\d+['"]/,
+      remediation: 'Use the "workspace:*" or "workspace:^" protocol for internal package dependencies in pnpm/turborepo monorepos instead of hardcoded npm versions.'
+    },
+    {
+      id: 'MONOREPO_TURBO_MISSING_TASK_DEPENDS_ON',
+      severity: 'WARN',
+      name: 'Turborepo Build Task Missing Topological ^build Dependency',
+      regex: /"build"\s*:\s*\{(?![\s\S]{0,120}?"dependsOn"\s*:\s*\[[^\]]*"\^build"[^\]]*\])/,
+      remediation: 'Monorepo build tasks in turbo.json must declare "dependsOn": ["^build"] to guarantee that dependent packages are compiled in topological order.'
+    }
+  ],
+  'mpa-orchestrator': [
+    {
+      id: 'MPA_OVERUSED_CLIENT_LOAD_ISLANDS',
+      severity: 'WARN',
+      name: 'Non-Critical Component Hydrated With client:load Instead of client:idle/visible',
+      regex: /<[A-Z]\w+[^>]*\bclient:load\b(?![\s\S]{0,80}?priority|hero|critical)/,
+      remediation: 'Avoid overusing client:load on non-critical islands; prefer client:idle or client:visible to keep initial page hydration lean.'
+    },
+    {
+      id: 'MPA_MONOLITHIC_CLIENT_SPA_ROUTER_IN_MPA',
+      severity: 'WARN',
+      name: 'Monolithic Client SPA Router Imported Inside Server-Rendered MPA Template',
+      regex: /(?:import\s+.*from\s+['"]react-router-dom['"]|import\s+.*from\s+['"]vue-router['"])(?![\s\S]{0,100}?\bspa\b)/i,
+      remediation: 'Multi-Page Applications should use server routing and declarative hypermedia (HTMX/Speculation Rules); avoid embedding monolithic SPA routers.'
+    }
+  ],
+  'multimodal-spatial-video-cloner': [
+    {
+      id: 'VIDEO_CLONER_HARDCODED_EASE_IN_OUT_OVERRIDE',
+      severity: 'WARN',
+      name: 'Generic easeInOut Timing Used on Cloned Spatial Motion Component',
+      regex: /transition\s*:\s*\{\s*ease\s*:\s*['"]easeInOut['"]\s*,\s*duration\s*:\s*\d+(?:\.\d+)?\s*\}/,
+      remediation: 'Use physical harmonic spring parameters ({ type: "spring", stiffness, damping, mass }) fitted from video keyframes instead of generic easeInOut transitions.'
+    },
+    {
+      id: 'VIDEO_CLONER_MISSING_REDUCED_MOTION_GUARD',
+      severity: 'WARN',
+      name: 'Framer Motion Spring Component Missing Accessibility Reduced-Motion Guard',
+      regex: /<motion\.[a-z0-9]+\b(?![\s\S]{0,250}?\b(?:useReducedMotion|prefers-reduced-motion|shouldReduceMotion)\b)[\s\S]{0,150}?animate\s*=\s*\{/,
+      remediation: 'Wrap motion animations in a reduced-motion check (useReducedMotion()) to respect user accessibility preferences (WCAG 2.2 AA).'
+    }
+  ],
+  'mvc-expert': [
+    {
+      id: 'MVC_CONTROLLER_DIRECT_ECHO_HTML',
+      severity: 'ERROR',
+      name: 'HTML Rendered Directly With echo in Controller Layer',
+      regex: /class\s+\w+Controller\b[\s\S]{0,350}?\b(?:echo\s+['"]<|print\s+['"]<)/,
+      remediation: 'Controllers must never echo HTML directly; delegate presentation rendering to View templates (e.g. render_view("users/index", $data)).'
+    },
+    {
+      id: 'MVC_RAW_MYSQLI_OR_UNPREPARED_QUERY',
+      severity: 'ERROR',
+      name: 'Raw mysqli_query or SQL Concatenation Detected in Model',
+      regex: /(?:mysqli_query\s*\(|mysql_query\s*\(|\$db->query\s*\(\s*['"]\s*SELECT[^\n'"]*\.\s*\$)/i,
+      remediation: 'Never use raw mysqli_query or string concatenation in queries; use PDO prepared statements with bound parameters to prevent SQL injection.'
+    }
+  ],
+  'n8n-automation-expert': [
+    {
+      id: 'N8N_UNAUTHENTICATED_WEBHOOK_TRIGGER',
+      severity: 'ERROR',
+      name: 'n8n Webhook Node Configured Without Authentication or Signature Verification',
+      regex: /"type"\s*:\s*"n8n-nodes-base\.webhook"[\s\S]{0,120}?"authentication"\s*:\s*"none"/,
+      remediation: 'Never deploy public n8n webhooks with authentication: "none"; enforce headerAuth or HMAC signature verification via crypto.timingSafeEqual.'
+    },
+    {
+      id: 'N8N_SQLITE_IN_PRODUCTION_ENV',
+      severity: 'ERROR',
+      name: 'SQLite Database Configured in Production n8n Environment',
+      regex: /DB_TYPE\s*=\s*(?:sqlite|sqlite3)(?![\s\S]{0,80}?test|dev|local)/i,
+      remediation: 'Do not use SQLite in production n8n environments; configure PostgreSQL (DB_TYPE=postgresdb) with Redis BullMQ Queue Mode for high concurrency.'
+    }
   ]
 
 });

@@ -2339,6 +2339,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG15 = [
+      'legacy-code-translator', 'living-codebase-ast-graph', 'local-slm-edge-ai-expert',
+      'mcp-sampling-critic', 'modern-css-native-expert', 'monorepo-architect',
+      'mpa-orchestrator', 'multimodal-spatial-video-cloner', 'mvc-expert', 'n8n-automation-expert'
+    ];
+    for (const skill of deepenedG15) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2531,6 +2540,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'ephemeral-wasm-sandbox-executor', code: 'const res = extism.call("execute_code", payload);' }, 'WASM_SANDBOX_MISSING_FUEL_LIMIT');
     await expectViolation({ skill: 'hig', code: '<div><Button variant="default">Save</Button><Button variant="default">Submit</Button></div>' }, 'HIG_MULTIPLE_FILLED_PRIMARY_BUTTONS');
     await expectViolation({ skill: 'kv-cache-prefix-optimizer', code: 'const opts = { systemPrompt: ' + '`Hello at ${new Date().toISOString()}`' + ' };' }, 'KV_CACHE_VOLATILE_TIMESTAMP_IN_SYSTEM_PROMPT');
+
+    // Wave 15 (Gelombang 15) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'legacy-code-translator', code: 'fs.unlinkSync("/src/billing.legacy.php");' }, 'LEGACY_IN_PLACE_OVERWRITE_DESTRUCTION');
+    await expectViolation({ skill: 'living-codebase-ast-graph', code: 'const callers = code.match(/function [a-zA-Z0-9_]+/);' }, 'AST_GRAPH_REGEX_FOR_SEMANTIC_ANALYSIS');
+    await expectViolation({ skill: 'local-slm-edge-ai-expert', code: 'pipeline("feature-extraction", "model", { useBrowserCache: false });' }, 'LOCAL_SLM_UNCACHED_REMOTE_WEIGHTS_FETCH');
+    await expectViolation({ skill: 'mcp-sampling-critic', code: 'buildCriticSamplingPayload("target.ts", proposedCode, []);' }, 'MCP_SAMPLING_EMPTY_AUDIT_RULES');
+    await expectViolation({ skill: 'modern-css-native-expert', code: 'import { createPopper } from "@popperjs/core";' }, 'MODERN_CSS_POPPER_JS_DEPENDENCY');
+    await expectViolation({ skill: 'monorepo-architect', code: '"@myapp/ui": "^1.2.0"' }, 'MONOREPO_NON_WORKSPACE_INTERNAL_DEPENDENCY');
+    await expectViolation({ skill: 'mpa-orchestrator', code: '<UserProfile client:load />' }, 'MPA_OVERUSED_CLIENT_LOAD_ISLANDS');
+    await expectViolation({ skill: 'multimodal-spatial-video-cloner', code: 'const t = { transition: { ease: "easeInOut", duration: 0.5 } };' }, 'VIDEO_CLONER_HARDCODED_EASE_IN_OUT_OVERRIDE');
+    await expectViolation({ skill: 'mvc-expert', code: 'class UserController { public function index() { echo "<h1>Users</h1>"; } }' }, 'MVC_CONTROLLER_DIRECT_ECHO_HTML');
+    await expectViolation({ skill: 'n8n-automation-expert', code: 'DB_TYPE=sqlite' }, 'N8N_SQLITE_IN_PRODUCTION_ENV');
   });
 });
 

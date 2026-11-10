@@ -213,6 +213,17 @@ export function FluidExpandableCard({ card }: { card: SpatialCardData }) {
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **60fps Keyframe Slicing & Sampling Invariant**: Video reverse-engineering MUST analyze input screen recordings at a minimum of 60fps to capture optical inflection points and acceleration curves accurately.
+- **Harmonic Oscillator Spring Parameter Fitting**: Cloned spring animations MUST compute physical harmonic parameters (stiffness $k \in [180, 500]$, damping ratio $\zeta \in [0.7, 1.0]$, mass $m$) instead of generic `ease-in-out` timing curves.
+- **Tabular Numeral Motion Preservation**: Any rolling numbers, financial tickers, or animated statistics in video walkthroughs MUST be mapped with explicit `tabular-nums` styling to avoid horizontal jitter during animation.
+- **Mandatory Reduced-Motion Accessibility Accommodation**: All cloned motion components MUST wrap transitions with `useReducedMotion()` from Framer Motion, falling back to instant opacity crossfades.
+
+### Non-Functional Requirements (NFR)
+- **Spring Parameter Extraction Accuracy**: Estimated stiffness and damping fit accuracy $\ge 95\%$.
+- **Runtime Frame Rate Fluidity**: Constant 60fps/120fps hardware-accelerated animations.
+- **Reduced Motion Compliance**: 100% adherence to WCAG 2.2 AA motion sensitivity guidelines.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -249,6 +260,17 @@ Mockup desain statis atau tangkapan layar hanya menampilkan antarmuka saat diam 
 1. **Analisis Frame 60fps**: Video wajib dibedah pada frekuensi tinggi untuk menangkap titik belok akselerasi yang akurat.
 2. **Kepatuhan Angka Tabular (`tabular-nums`)**: Setiap angka yang berputar atau bergerak dalam rekaman wajib dikonversi dengan kelas `tabular-nums`.
 3. **Sanitasi Pilar 7**: Jika rekaman sumber menggunakan desain klise (seperti tombol pil berlebih), sistem kloning otomatis menormalkannya ke wadah `rounded-xl` dengan border 1px yang tegas.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Pemotongan & Sampling Keyframe 60fps**: Rekayasa balik video WAJIB membedah rekaman masukan minimal pada 60fps guna menangkap titik infleksi kurva akselerasi dan deselerasi secara presisi.
+- **Pencocokan Parameter Fisika Pegas Harmonik**: Animasi pegas hasil kloning wajib menghitung parameter fisik (kekakuan/stiffness $k \in [180, 500]$, rasio redaman $\zeta \in [0.7, 1.0]$, massa $m$) daripada kurva waktu generik `ease-in-out`.
+- **Preservasi Angka Tabular pada Animasi**: Angka rolling counter, saldo finansial, atau statistik animasi dalam video wajib dipetakan dengan gaya eksplisit `tabular-nums` guna mencegah jitter horizontal.
+- **Akomodasi Aksesibilitas Reduced-Motion Wajib**: Seluruh komponen animasi hasil kloning wajib dibungkus dengan hook `useReducedMotion()` dari Framer Motion dengan transisi fallback crossfade instan.
+
+### Non-Functional Requirements (NFR)
+- **Akurasi Ekstraksi Parameter Pegas**: Presisi fitting estimasi stiffness dan damping $\ge 95\%$.
+- **Fluiditas Frame Rate Runtime**: Animasi 60fps/120fps terakselerasi GPU tanpa frame drop.
+- **Kepatuhan Aksesibilitas Gerak**: 100% kepatuhan terhadap pedoman sensitivitas gerak WCAG 2.2 AA.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

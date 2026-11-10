@@ -155,6 +155,17 @@ dialog.m3-dialog[open]::backdrop {
 ## Orchestration & Integration
 - Integrates with: `design-system-architect`, `design-system-architect, senior-frontend`, `tailwind-expert`, `senior-frontend`.
 
+### Hard Guardrails (Declarative Invariants)
+- **Native Anchor Positioning Invariant**: Floating tooltips, menus, and popovers MUST utilize CSS Anchor Positioning (`anchor-name`, `position-anchor`, `position-try-fallbacks`) instead of third-party JS positioning libraries (Popper, Floating UI).
+- **Top-Layer Discrete Transition Invariant**: Dialog and popover show/hide transitions MUST utilize `@starting-style` and `transition-behavior: allow-discrete` to animate from `display: none` without JS `setTimeout` hacks.
+- **Container Query Component Isolation**: Reusable design system components MUST rely on container queries (`@container`) for responsive typography and layout, avoiding rigid viewport media queries (`@media (min-width: ...)`).
+- **Strict Cascade Layer Hierarchy (`@layer`)**: Monolithic CSS stylesheets MUST declare explicit cascade layers (`@layer base, components, utilities;`) to eliminate `!important` wars and ensure predictable specificity.
+
+### Non-Functional Requirements (NFR)
+- **Animation Fluidity**: 60fps/120fps hardware-accelerated transitions.
+- **Zero Runtime Overhead**: 0 kilobytes of JavaScript runtime used for tooltip/popover positioning.
+- **Standard Baseline**: 100% compliance with modern browser baseline web standards.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -265,6 +276,17 @@ Terintegrasi erat dengan skill berikut:
 - **`visual-ui-auditor`**: Memvalidasi transisi top-layer yang halus, indikator fokus, dan stabilitas tata letak.
 - **`anti-slop`**: Menghilangkan polyfill JavaScript yang tidak diperlukan dan pembungkus div-soup.
 - **`senior-frontend`**: Mengintegrasikan fitur CSS native ke dalam arsitektur React 19 / Next.js 15.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Anchor Positioning Native**: Tooltip, menu mengambang, dan popover WAJIB memanfaatkan CSS Anchor Positioning (`anchor-name`, `position-anchor`, `position-try-fallbacks`) tanpa mengimpor pustaka JavaScript pihak ketiga (Popper, Floating UI).
+- **Invarian Transisi Top-Layer Diskrit**: Transisi buka/tutup modal dialog dan popover wajib menggunakan `@starting-style` dan `transition-behavior: allow-discrete` untuk menganimasikan elemen dari status `display: none` tanpa hack JavaScript `setTimeout`.
+- **Isolasi Komponen Container Query**: Komponen sistem desain yang dapat digunakan kembali wajib mengandalkan container query (`@container`) untuk penyesuaian tipografi dan layout, menghindari media query viewport kaku (`@media (min-width: ...)`).
+- **Hierarki Lapisan Kaskade Ketat (`@layer`)**: Lembar gaya CSS terpadu wajib mendeklarasikan lapisan kaskade eksplisit (`@layer base, components, utilities;`) guna mengeliminasi perang `!important` dan memastikan spesifisitas terprediksi.
+
+### Non-Functional Requirements (NFR)
+- **Fluiditas Animasi**: Transisi terakselerasi perangkat keras 60fps/120fps.
+- **Zero Runtime Overhead**: 0 kilobyte JavaScript runtime yang dipakai untuk kalkulasi posisi tooltip/popover.
+- **Kepatuhan Standar Browser**: 100% kepatuhan terhadap baseline platform web modern.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
