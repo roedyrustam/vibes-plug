@@ -165,6 +165,69 @@ export async function POST(req: NextRequest) {
 }
 ```
 
+### 6. Searchable Encrypted PII with `AES-256-GCM` & Keyed `HMAC-SHA256` Blind Index (TypeScript)
+To query sensitive PII columns (`WHERE national_id_bidx = $1`) without storing plaintext NIK/SSN/Email in the database, compute a deterministic HMAC-SHA256 blind index alongside a randomized-IV `AES-256-GCM` ciphertext:
+
+```typescript
+// src/lib/privacy/blind-index-pii.ts
+import crypto from 'node:crypto';
+
+export interface ProtectedPiiEnvelope {
+  readonly ciphertextB64: string;
+  readonly ivB64: string;
+  readonly authTagB64: string;
+  readonly blindIndexHex: string;
+}
+
+export function normalizePiiForBlindIndex(rawValue: string): string {
+  return rawValue.trim().toLowerCase().replace(/[\s-]/g, '');
+}
+
+export function computePiiBlindIndex(rawValue: string, blindIndexKeyHex: string): string {
+  const key = Buffer.from(blindIndexKeyHex, 'hex');
+  if (key.byteLength < 32) {
+    throw new Error('BLIND_INDEX_KEY_ERROR: Key must be at least 32 bytes (64 hex chars).');
+  }
+  const canonical = normalizePiiForBlindIndex(rawValue);
+  return crypto.createHmac('sha256', key).update(canonical, 'utf8').digest('hex');
+}
+
+export function encryptSearchablePii(
+  rawValue: string,
+  encryptionKeyHex: string,
+  blindIndexKeyHex: string,
+  subjectId: string
+): ProtectedPiiEnvelope {
+  const encKey = Buffer.from(encryptionKeyHex, 'hex');
+  if (encKey.byteLength !== 32) {
+    throw new Error('PII_ENC_KEY_ERROR: Encryption key must be 32 bytes.');
+  }
+  if (encryptionKeyHex === blindIndexKeyHex) {
+    throw new Error('PII_KEY_SEPARATION_ERROR: Encryption key and blind-index key must be distinct.');
+  }
+
+  const iv = crypto.randomBytes(12);
+  const cipher = crypto.createCipheriv('aes-256-gcm', encKey, iv);
+  cipher.setAAD(Buffer.from(subjectId, 'utf8'));
+
+  const encrypted = Buffer.concat([cipher.update(rawValue, 'utf8'), cipher.final()]);
+  const authTag = cipher.getAuthTag();
+
+  return {
+    ciphertextB64: encrypted.toString('base64'),
+    ivB64: iv.toString('base64'),
+    authTagB64: authTag.toString('base64'),
+    blindIndexHex: computePiiBlindIndex(rawValue, blindIndexKeyHex),
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Never Hard-Delete Financial Ledger Rows on Erasure Requests**: Execute Crypto-Shredding and PII column tombstoning (`UPDATE users SET email = 'erased-...@anonymized.invalid', national_id_ciphertext = NULL`) instead of `DELETE FROM users CASCADE` so tax and double-entry ledger audits remain intact.
+- **Distinct Keys for Encryption vs Blind Indexing**: Never reuse the `AES-256-GCM` encryption key as the `HMAC-SHA256` blind-index key, and never use unsalted `SHA-256` (`createHash('sha256')`) for PII blind indexes (which is vulnerable to rainbow-table reversal on 16-digit NIK / 9-digit SSN spaces).
+- **Default-Deny Analytics & Marketing Consent**: Third-party tracking pixels and session replay SDKs must not initialize until an explicit opt-in consent record with `policy_version` is verified.
+- **Mandatory Legal & Privacy Trio Routes**: Every production web/mobile app must serve live `/privacy`, `/terms`, and `/delete-account` (`/data-deletion`) endpoints compliant with UU PDP No. 27/2022, GDPR Art. 17, and Apple/Google store mandates.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

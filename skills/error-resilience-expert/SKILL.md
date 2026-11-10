@@ -435,6 +435,56 @@ worker.on('failed', async (job, err) => {
 
 ---
 
+### 8. Bounded Concurrency Bulkhead Isolator & Hedged Request Timeout (TypeScript)
+Prevent a slow downstream dependency from exhausting the entire Node.js/Bun event-loop connection pool by isolating calls inside a bounded semaphore Bulkhead with an explicit `AbortSignal.timeout`:
+
+```typescript
+// lib/bulkhead-isolator.ts
+export class BulkheadOverflowError extends Error {
+  constructor(poolName: string, maxConcurrent: number, maxQueue: number) {
+    super(`BULKHEAD_REJECTED: Pool "${poolName}" exhausted (active=${maxConcurrent}, queue=${maxQueue}).`);
+    this.name = 'BulkheadOverflowError';
+  }
+}
+
+export class BulkheadIsolator {
+  private activeCount = 0;
+  private readonly waitQueue: Array<() => void> = [];
+
+  constructor(
+    private readonly poolName: string,
+    private readonly maxConcurrent = 20,
+    private readonly maxQueueSize = 50
+  ) {}
+
+  public async execute<T>(task: (signal: AbortSignal) => Promise<T>, timeoutMs = 5_000): Promise<T> {
+    if (this.activeCount >= this.maxConcurrent) {
+      if (this.waitQueue.length >= this.maxQueueSize) {
+        throw new BulkheadOverflowError(this.poolName, this.maxConcurrent, this.maxQueueSize);
+      }
+      await new Promise<void>((resolve) => this.waitQueue.push(resolve));
+    }
+
+    this.activeCount++;
+    const timeoutSignal = AbortSignal.timeout(timeoutMs);
+
+    try {
+      return await task(timeoutSignal);
+    } finally {
+      this.activeCount--;
+      const next = this.waitQueue.shift();
+      if (next) next();
+    }
+  }
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Silent Catch Blocks**: Never swallow exceptions with empty `catch {}` blocks; every caught error must be enriched with domain context, logged via structured logger, or converted into an RFC 9457 Problem Details response.
+- **Mandatory `AbortSignal.timeout()` on Outbound I/O**: Every outbound `fetch()` or RPC call must bind an explicit `AbortSignal.timeout(ms)` (`<= 10_000ms`) so hung upstream sockets never exhaust worker pools.
+- **Idempotency Prerequisite for Retries**: Never retry non-idempotent `POST` mutations unless an `Idempotency-Key` header is attached and enforced by the receiver.
+- **Full-Jitter Exponential Backoff**: All retry loops must apply randomized jitter (`Math.random() * baseDelayMs`) to prevent synchronized thundering-herd retry storms after an outage.
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Problem | Correct Approach |

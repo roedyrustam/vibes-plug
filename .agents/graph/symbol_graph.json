@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T16:53:43.729Z",
+  "generatedAt": "2026-11-10T17:00:45.104Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 90,
   "incrementalReusedFiles": 88,
   "totalSymbolsIndexed": 514,
-  "totalImportEdges": 304,
+  "totalImportEdges": 305,
   "symbols": {
     "getActiveProfile": [
       {
@@ -3782,7 +3782,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 748,
+        "line": 899,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3802,7 +3802,7 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 799,
+        "line": 950,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
@@ -3827,7 +3827,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 880,
+        "line": 1031,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -3845,7 +3845,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 927,
+        "line": 1078,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -3859,7 +3859,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 972,
+        "line": 1123,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -13196,10 +13196,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 992,
+      "totalLines": 1143,
       "symbolCount": 5,
-      "mtimeMs": 1794329593057,
-      "size": 47595,
+      "mtimeMs": 1794330005570,
+      "size": 55870,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13236,7 +13236,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 748,
+          "line": 899,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13254,7 +13254,7 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 799,
+          "line": 950,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
@@ -13277,7 +13277,7 @@
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 880,
+          "line": 1031,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13293,7 +13293,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 927,
+          "line": 1078,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13305,7 +13305,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 972,
+          "line": 1123,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -15270,10 +15270,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2343,
+      "totalLines": 2355,
       "symbolCount": 1,
-      "mtimeMs": 1794329595636,
-      "size": 113999,
+      "mtimeMs": 1794330007980,
+      "size": 115836,
       "exports": [],
       "imports": [
         {
@@ -15404,6 +15404,14 @@
             "generateAuthenticationOptions"
           ],
           "line": 2313
+        },
+        {
+          "source": "@temporalio/workflow",
+          "target": null,
+          "specifiers": [
+            "proxyActivities"
+          ],
+          "line": 2343
         }
       ],
       "cachedSymbols": [

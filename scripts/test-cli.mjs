@@ -2336,6 +2336,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'docker-container-expert', code: 'FROM node:22-alpine\nARG NPM_TOKEN\n' }, 'DOCKER_EXPOSED_SECRET_IN_ARG_OR_ENV');
     await expectViolation({ skill: 'feature-flag-analytics-expert', code: 'const enabled = Math.random() < rolloutPercentage;' }, 'FLAG_NON_DETERMINISTIC_MATH_RANDOM');
     await expectViolation({ skill: 'zero-trust-secret-vault', code: "const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);" }, 'VAULT_WEAK_UNAUTHENTICATED_CIPHER');
+
+    // Wave 4 (Gelombang 4) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'error-resilience-expert', code: 'return Response.json({ error: "fail", stack: error.stack }, { status: 500 });' }, 'RESILIENCE_RAW_ERROR_STACK_IN_RESPONSE');
+    await expectViolation({ skill: 'rate-limit-abuse-prevention', code: 'const rateLimitMap = new Map<string, number>();' }, 'RATELIMIT_IN_MEMORY_MAP_COUNTER');
+    await expectViolation({ skill: 'async-queue-temporal-expert', code: "import { proxyActivities } from '@temporalio/workflow';\nconst rng = Math.random();" }, 'TEMPORAL_NON_DETERMINISTIC_WORKFLOW_API');
+    await expectViolation({ skill: 'data-telemetry-expert', code: 'return tracer.startActiveSpan("op", async (span) => { return await doWork(); });' }, 'TELEMETRY_UNENDED_ACTIVE_SPAN');
+    await expectViolation({ skill: 'logging-error-tracking-expert', code: 'logger.error(error.message);' }, 'LOGGING_ERROR_MESSAGE_ONLY_DROPPING_STACK');
+    await expectViolation({ skill: 'state-management-expert', code: 'const { theme, sidebarOpen } = useUiStore();' }, 'STATE_UNSELECTED_ZUSTAND_HOOK_CALL');
+    await expectViolation({ skill: 'tanstack-query-expert', code: 'useEffect(() => { fetch("/api/users").then(r => r.json()); }, []);' }, 'TANSTACK_QUERY_USEEFFECT_FETCH');
+    await expectViolation({ skill: 'form-validation-expert', code: '<button type="submit">Submit</button>' }, 'FORM_SUBMIT_BUTTON_MISSING_DISABLED_GUARD');
+    await expectViolation({ skill: 'pwa-offline-first-expert', code: 'const q = { query: `mutation { pushTask(task: ${JSON.stringify(doc)}) { id } }` };' }, 'PWA_UNPARAMETERIZED_SYNC_GRAPHQL_STRING');
+    await expectViolation({ skill: 'compliance-gdpr-privacy-expert', code: "const bidx = crypto.createHash('sha256').update(nik).digest('hex');" }, 'PRIVACY_UNSALTED_SHA256_PII_HASH');
   });
 });
 

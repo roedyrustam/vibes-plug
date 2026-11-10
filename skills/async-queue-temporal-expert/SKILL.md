@@ -180,6 +180,99 @@ export async function subscriptionSagaWorkflow(input: {
 
 ---
 
+### Tier 4: BullMQ `FlowProducer` Parent-Child Fan-Out/Fan-In DAG (TypeScript)
+Coordinate parallel child chunk workers (e.g., document OCR pages or multi-tenant invoice batches) and trigger the parent aggregation job only after all children succeed:
+
+```typescript
+// src/queues/invoice-batch-flow.ts
+import { FlowProducer } from 'bullmq';
+import Redis from 'ioredis';
+
+const flowRedis = new Redis(process.env.REDIS_URL!, { maxRetriesPerRequest: null });
+export const invoiceFlowProducer = new FlowProducer({ connection: flowRedis });
+
+export async function dispatchMonthlyInvoiceFlow(
+  batchId: string,
+  tenantIds: readonly string[]
+): Promise<{ parentJobId: string | undefined; childCount: number }> {
+  const flowTree = await invoiceFlowProducer.add({
+    name: 'finalize-invoice-batch',
+    queueName: 'invoice-batch-aggregator',
+    data: { batchId, totalTenants: tenantIds.length },
+    opts: {
+      jobId: `batch_parent_${batchId}`,
+      failParentOnFailure: true,
+    },
+    children: tenantIds.map((tenantId) => ({
+      name: 'generate-tenant-invoice',
+      queueName: 'invoice-tenant-worker',
+      data: { batchId, tenantId },
+      opts: {
+        jobId: `invoice_${batchId}_${tenantId}`,
+        attempts: 4,
+        backoff: { type: 'exponential', delay: 2_000 },
+      },
+    })),
+  });
+
+  return {
+    parentJobId: flowTree.job.id,
+    childCount: tenantIds.length,
+  };
+}
+```
+
+### Tier 5: Long-Running Temporal Activity Heartbeat & Cooperative Cancellation (TypeScript)
+Long-running activities (video transcoding, large dataset exports) must emit periodic heartbeats with checkpoint progress so Temporal detects stalled workers quickly and resumes from the last saved cursor:
+
+```typescript
+// src/temporal/activities/export-dataset.ts
+import { Context } from '@temporalio/activity';
+
+export interface ExportCheckpoint {
+  readonly lastProcessedCursor: string | null;
+  readonly rowsExported: number;
+}
+
+export async function exportTenantDatasetActivity(
+  tenantId: string,
+  fetchPage: (cursor: string | null) => Promise<{ rows: unknown[]; nextCursor: string | null }>
+): Promise<{ totalRows: number }> {
+  const ctx = Context.current();
+  const priorCheckpoint = ctx.info.heartbeatDetails as ExportCheckpoint | undefined;
+
+  let cursor: string | null = priorCheckpoint?.lastProcessedCursor ?? null;
+  let rowsExported = priorCheckpoint?.rowsExported ?? 0;
+
+  while (true) {
+    if (ctx.cancellationSignal.aborted) {
+      throw new Error(`ACTIVITY_CANCELLED: Export for tenant ${tenantId} aborted cleanly at row ${rowsExported}.`);
+    }
+
+    const page = await fetchPage(cursor);
+    rowsExported += page.rows.length;
+    cursor = page.nextCursor;
+
+    ctx.heartbeat({
+      lastProcessedCursor: cursor,
+      rowsExported,
+    } satisfies ExportCheckpoint);
+
+    if (!cursor) break;
+  }
+
+  return { totalRows: rowsExported };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory `maxRetriesPerRequest: null` on BullMQ Redis Connections**: BullMQ blocking commands (`BRPOPLPUSH` / `BZPOPMIN`) crash if `ioredis` uses the default `maxRetriesPerRequest: 20`.
+- **Strict Temporal Workflow Determinism**: Files imported by `@temporalio/workflow` must never call `Date.now()`, `Math.random()`, `process.env`, `fetch()`, or filesystem/DB I/O directly; isolate all non-deterministic side effects inside Activities.
+- **Deterministic Business `jobId` Deduplication**: Always pass a deterministic `jobId` derived from the domain idempotency key (`jobId: \`notif_${idempotencyKey}\``) when enqueueing jobs.
+- **Pointer-Only Queue Payloads**: Never push multi-megabyte buffers or raw PDFs into Redis/Temporal job payloads; upload blobs to S3/R2 and pass only the object key URI.
+
+---
+
 ### Implementation Checklist
 - [ ] Configure `maxRetriesPerRequest: null` on ioredis for BullMQ v5.
 - [ ] Use deterministic `jobId` from business logic (`order_${orderId}`) for deduplication.

@@ -556,6 +556,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Pino Logger Created Without Sensitive Field Redaction',
       regex: /\bpino\s*\(\s*\{(?![\s\S]{0,400}?\bredact\s*:)/,
       remediation: 'Configure redact: { paths: ["req.headers.authorization", "*.password", "*.token", "*.secret"], censor: "[REDACTED]" } in Pino.'
+    },
+    {
+      id: 'LOGGING_ERROR_MESSAGE_ONLY_DROPPING_STACK',
+      severity: 'WARN',
+      name: 'Logger Called With err.message String Instead of Structured err Object',
+      regex: /\b(?:logger|log)\.error\s*\(\s*(?:err|error)\.message\s*\)/,
+      remediation: 'Pass the structured error object first: logger.error({ err }, "Operation failed") so the stack trace and error.cause chain are preserved.'
     }
   ],
   'saas-multi-tenant': [
@@ -704,6 +711,150 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Non-Deterministic Math.random() Used for Feature Flag Rollout Bucketing',
       regex: /Math\.random\s*\(\s*\)\s*<\s*(?:rollout|percentage|flag)/i,
       remediation: 'Bucket users deterministically by hashing (flagKey + ":" + distinctId) with SHA-256 or Murmur3 so users never flip variants on refresh.'
+    }
+  ],
+  'error-resilience-expert': [
+    {
+      id: 'RESILIENCE_RETRY_WITHOUT_JITTER',
+      severity: 'WARN',
+      name: 'Exponential Backoff Retry Delay Without Random Jitter',
+      regex: /\b(?:baseDelay\w*|delay\w*)\s*\*\s*(?:2\s*\*\*\s*attempt|Math\.pow\s*\(\s*2\s*,\s*attempt\s*\))(?![^\n;]*Math\.random)/,
+      remediation: 'Add randomized full jitter (+ Math.random() * baseDelayMs) to exponential backoff calculations to prevent thundering-herd retry storms.'
+    },
+    {
+      id: 'RESILIENCE_RAW_ERROR_STACK_IN_RESPONSE',
+      severity: 'ERROR',
+      name: 'Raw Error Stack Trace Leaked in HTTP JSON Response',
+      regex: /Response\.json\s*\(\s*\{[^}]*\bstack\s*:\s*(?:err|error)\.stack\b/,
+      remediation: 'Never expose internal error.stack in production API responses; return an RFC 9457 Problem Details payload with an opaque correlation digest.'
+    }
+  ],
+  'rate-limit-abuse-prevention': [
+    {
+      id: 'RATELIMIT_IN_MEMORY_MAP_COUNTER',
+      severity: 'WARN',
+      name: 'Process-Local In-Memory Map Used for API Rate Limiting',
+      regex: /const\s+(?:rateLimit\w*|requestCounts|ipHits)\s*=\s*new\s+Map\s*[<(]/,
+      remediation: 'Do not use process-local Map() for production rate limiting across horizontal replicas; use atomic Redis/Upstash Sliding Window or Lua Token Bucket.'
+    },
+    {
+      id: 'RATELIMIT_429_MISSING_RETRY_AFTER',
+      severity: 'WARN',
+      name: 'HTTP 429 Too Many Requests Response Missing Retry-After Header',
+      regex: /status\s*:\s*429\b(?![\s\S]{0,220}?['"]Retry-After['"])/,
+      remediation: 'Include Retry-After and X-RateLimit-Reset headers on every HTTP 429 response so clients back off deterministically.'
+    }
+  ],
+  'async-queue-temporal-expert': [
+    {
+      id: 'BULLMQ_MISSING_MAX_RETRIES_NULL',
+      severity: 'ERROR',
+      name: 'BullMQ ioredis Connection Created Without maxRetriesPerRequest: null',
+      regex: /new\s+Redis\s*\([^)]*\)\s*;[\s\S]{0,180}?new\s+(?:Queue|Worker)\b(?![\s\S]{0,180}?maxRetriesPerRequest\s*:\s*null)/,
+      remediation: 'Configure new Redis(url, { maxRetriesPerRequest: null }) on all ioredis instances shared with BullMQ Workers and Queues.'
+    },
+    {
+      id: 'TEMPORAL_NON_DETERMINISTIC_WORKFLOW_API',
+      severity: 'ERROR',
+      name: 'Non-Deterministic Date.now() or Math.random() Inside Temporal Workflow',
+      regex: /from\s+['"]@temporalio\/workflow['"][\s\S]{0,600}?\b(?:Math\.random|process\.env)\b/,
+      remediation: 'Never call Math.random() or read process.env directly inside a @temporalio/workflow file; move non-deterministic calls into Activities.'
+    }
+  ],
+  'data-telemetry-expert': [
+    {
+      id: 'TELEMETRY_UNENDED_ACTIVE_SPAN',
+      severity: 'ERROR',
+      name: 'OpenTelemetry startActiveSpan Block Missing span.end()',
+      regex: /\.startActiveSpan\s*\([^,]+,\s*async\s*\(\s*span\s*\)\s*=>\s*\{(?![\s\S]{0,500}?\bspan\.end\s*\(\s*\))/,
+      remediation: 'Always call span.end() inside a finally {} block when using tracer.startActiveSpan() to prevent memory and trace context leaks.'
+    },
+    {
+      id: 'TELEMETRY_HIGH_CARDINALITY_METRIC_LABEL',
+      severity: 'WARN',
+      name: 'High-Cardinality User/Request Identifier Passed to Metric Counter/Histogram',
+      regex: /\b(?:counter|histogram)\.(?:add|record)\s*\([^,]+,\s*\{[^}]*\b(?:user_id|userId|email|request_id|requestId|session_id)\s*:/,
+      remediation: 'Do not attach unbounded high-cardinality IDs (userId, email, requestId) to OTel Metrics; place them on Trace Spans or Logs instead.'
+    }
+  ],
+  'state-management-expert': [
+    {
+      id: 'STATE_UNSELECTED_ZUSTAND_HOOK_CALL',
+      severity: 'WARN',
+      name: 'Zustand Store Hook Invoked Without Atomic Selector Function',
+      regex: /\bconst\s+\{[^}]+\}\s*=\s*use(?:App|Ui|Auth|Cart|Workspace)\w*Store\s*\(\s*\)/,
+      remediation: 'Select atomic slices with useStore((s) => s.field) or useShallow() instead of destructuring useStore() with no selector.'
+    },
+    {
+      id: 'STATE_SERVER_QUERY_COPIED_TO_STORE',
+      severity: 'WARN',
+      name: 'Server Query Data Mirrored Into Client Store Inside useEffect',
+      regex: /useEffect\s*\(\s*\(\s*\)\s*=>\s*\{[\s\S]{0,140}?\bset\w*Store\b[\s\S]{0,80}?\}\s*,\s*\[\s*data\s*\]\s*\)/,
+      remediation: 'Do not mirror TanStack Query server data into Zustand/Redux inside useEffect; let TanStack Query own server cache.'
+    }
+  ],
+  'tanstack-query-expert': [
+    {
+      id: 'TANSTACK_QUERY_USEEFFECT_FETCH',
+      severity: 'WARN',
+      name: 'Raw fetch() Inside useEffect Instead of TanStack useQuery',
+      regex: /useEffect\s*\(\s*\(\s*\)\s*=>\s*\{[\s\S]{0,200}?\bfetch\s*\(/,
+      remediation: 'Replace useEffect + fetch() with TanStack Query useQuery() or useSuspenseQuery() using queryOptions().'
+    },
+    {
+      id: 'TANSTACK_MUTATION_MISSING_CANCEL_QUERIES',
+      severity: 'WARN',
+      name: 'Optimistic setQueryData in onMutate Without Prior cancelQueries',
+      regex: /onMutate\s*:\s*async\s*\([^)]*\)\s*=>\s*\{(?![\s\S]{0,180}?cancelQueries)[\s\S]{0,180}?setQueryData\s*\(/,
+      remediation: 'Always await queryClient.cancelQueries({ queryKey }) in onMutate before calling setQueryData() so in-flight refetches do not overwrite optimistic state.'
+    }
+  ],
+  'form-validation-expert': [
+    {
+      id: 'FORM_SUBMIT_BUTTON_MISSING_DISABLED_GUARD',
+      severity: 'WARN',
+      name: 'Form Submit Button Without disabled={isSubmitting || isPending} Lock',
+      regex: /<button\s+type=["']submit["'](?![^>]*\bdisabled\s*=)[^>]*>/,
+      remediation: 'Bind disabled={isSubmitting || isPending} on <button type="submit"> to prevent double-submission race conditions.'
+    },
+    {
+      id: 'FORM_VAGUE_ERROR_MESSAGE_LITERAL',
+      severity: 'WARN',
+      name: 'Generic Non-Actionable Validation Error Message',
+      regex: /\b(?:message|error)\s*:\s*['"](?:Invalid input|Invalid field|Error|Input salah)['"]/i,
+      remediation: 'Provide specific, actionable field validation messages explaining what failed and how to fix it.'
+    }
+  ],
+  'pwa-offline-first-expert': [
+    {
+      id: 'PWA_SW_CACHING_NON_GET_MUTATION',
+      severity: 'ERROR',
+      name: 'Service Worker cache.put() Executed Without GET Method Guard',
+      regex: /self\.addEventListener\s*\(\s*['"]fetch['"][\s\S]{0,260}?cache\.put\s*\((?![\s\S]{0,260}?request\.method)/,
+      remediation: 'Guard Service Worker fetch caching with if (request.method !== "GET") return; and route offline mutations through an idempotent Background Sync outbox.'
+    },
+    {
+      id: 'PWA_UNPARAMETERIZED_SYNC_GRAPHQL_STRING',
+      severity: 'ERROR',
+      name: 'Unsanitized Document Interpolated Directly Into Offline Sync GraphQL Mutation',
+      regex: /query\s*:\s*`mutation\s*\{[^`]*\$\{JSON\.stringify\(/,
+      remediation: 'Pass offline sync documents via parameterized GraphQL variables ({ query, variables: { input: doc } }) instead of string interpolation.'
+    }
+  ],
+  'compliance-gdpr-privacy-expert': [
+    {
+      id: 'PRIVACY_UNSALTED_SHA256_PII_HASH',
+      severity: 'ERROR',
+      name: 'Unsalted SHA-256/MD5 Hash Used for Searchable PII (NIK/SSN/Email)',
+      regex: /createHash\s*\(\s*['"](?:sha256|md5|sha1)['"]\s*\)\.update\s*\(\s*(?:email|nik|ssn|phone|nationalId)/i,
+      remediation: 'Never hash low-entropy PII (NIK, SSN, email, phone) with unsalted createHash("sha256"); use keyed HMAC-SHA256 (createHmac("sha256", blindIndexKey)) with a 32-byte secret key.'
+    },
+    {
+      id: 'PRIVACY_HARD_DELETE_USER_CASCADE_LEDGER',
+      severity: 'WARN',
+      name: 'Hard DELETE FROM users CASCADE Destroying Financial/Audit Records',
+      regex: /\bDELETE\s+FROM\s+users\b[\s\S]{0,40}?\bCASCADE\b/i,
+      remediation: 'Execute Crypto-Shredding and PII column tombstoning (UPDATE users SET email = anonymized, national_id = NULL) while retaining immutable financial ledger entries.'
     }
   ]
 });

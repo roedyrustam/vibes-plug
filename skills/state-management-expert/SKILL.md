@@ -258,6 +258,74 @@ export function StoreProvider({ children, initialUser }: Props) {
 }
 ```
 
+#### SSR-Safe Per-Request Zustand Store Context Factory (Next.js App Router)
+Never mutate a module-scoped Zustand singleton during SSR in Next.js App Router (which leaks state across concurrent user requests on the Node.js server). Instantiate the store per request inside a React Context provider and select slices with `useShallow`:
+
+```tsx
+// providers/zustand-ssr-provider.tsx
+'use client';
+
+import { createContext, useContext, useRef, type ReactNode } from 'react';
+import { createStore, useStore } from 'zustand';
+import { useShallow } from 'zustand/react/shallow';
+
+export interface WorkspaceFilterState {
+  selectedTagIds: string[];
+  compactDensity: boolean;
+  toggleTag: (tagId: string) => void;
+  setCompactDensity: (compact: boolean) => void;
+}
+
+export const createWorkspaceFilterStore = (init?: Partial<Pick<WorkspaceFilterState, 'selectedTagIds' | 'compactDensity'>>) =>
+  createStore<WorkspaceFilterState>()((set) => ({
+    selectedTagIds: init?.selectedTagIds ?? [],
+    compactDensity: init?.compactDensity ?? false,
+    toggleTag: (tagId) =>
+      set((s) => ({
+        selectedTagIds: s.selectedTagIds.includes(tagId)
+          ? s.selectedTagIds.filter((id) => id !== tagId)
+          : [...s.selectedTagIds, tagId],
+      })),
+    setCompactDensity: (compact) => set({ compactDensity: compact }),
+  }));
+
+export type WorkspaceFilterStoreApi = ReturnType<typeof createWorkspaceFilterStore>;
+
+const WorkspaceStoreContext = createContext<WorkspaceFilterStoreApi | null>(null);
+
+export function WorkspaceStoreProvider({
+  children,
+  initialTagIds,
+}: {
+  children: ReactNode;
+  initialTagIds?: string[];
+}) {
+  const storeRef = useRef<WorkspaceFilterStoreApi | null>(null);
+  if (!storeRef.current) {
+    storeRef.current = createWorkspaceFilterStore({ selectedTagIds: initialTagIds });
+  }
+  return (
+    <WorkspaceStoreContext.Provider value={storeRef.current}>
+      {children}
+    </WorkspaceStoreContext.Provider>
+  );
+}
+
+export function useWorkspaceFilterShallow<T>(selector: (state: WorkspaceFilterState) => T): T {
+  const store = useContext(WorkspaceStoreContext);
+  if (!store) {
+    throw new Error('useWorkspaceFilterShallow must be used within WorkspaceStoreProvider');
+  }
+  return useStore(store, useShallow(selector));
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Never Mirror Server Cache in Client Stores**: Do not copy TanStack Query or RSC payloads into Zustand/Redux (`useEffect(() => setStore(data), [data])`); keep server cache in TanStack Query and store only client UI selection/filter IDs in Zustand/Jotai.
+- **Always Bind Atomic Selectors (`useStore(s => s.field)` or `useShallow`)**: Never call `useUiStore()` without a selector function, which subscribes the component to every unrelated state mutation and triggers full-tree rerenders.
+- **No Module-Scope Mutable Store Singletons in SSR**: In Next.js App Router SSR paths, instantiate Zustand/Jotai stores inside a `useRef` React Context provider so concurrent requests never share state across users.
+- **Explicit `partialize` on Persisted Stores**: Whenever `persist()` middleware is enabled, always specify a `partialize` allowlist so ephemeral modal flags or sensitive tokens are never written to `localStorage`.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

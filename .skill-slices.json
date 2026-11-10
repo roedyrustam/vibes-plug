@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.7.0",
   "version": "4.7.0",
-  "compiledAt": "2026-11-10T16:53:32.050Z",
+  "compiledAt": "2026-11-10T17:02:39.502Z",
   "totalSkills": 178,
-  "totalCodeBlueprints": 1156,
+  "totalCodeBlueprints": 1167,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -49,7 +49,7 @@
     },
     "frontend": {
       "count": 31,
-      "blueprints": 252,
+      "blueprints": 255,
       "skills": [
         "accessibility-testing-expert",
         "angular-expert",
@@ -86,7 +86,7 @@
     },
     "testing-security": {
       "count": 39,
-      "blueprints": 247,
+      "blueprints": 249,
       "skills": [
         "agentic-m2m-settlement",
         "ai-code-review-autonomous",
@@ -131,7 +131,7 @@
     },
     "api-contracts": {
       "count": 31,
-      "blueprints": 186,
+      "blueprints": 188,
       "skills": [
         "api-design-expert",
         "api-gateway-proxy-expert",
@@ -168,7 +168,7 @@
     },
     "mobile-desktop": {
       "count": 14,
-      "blueprints": 83,
+      "blueprints": 84,
       "skills": [
         "app-promo-media-expert",
         "apple-ecosystem-expert",
@@ -188,7 +188,7 @@
     },
     "devops-cicd": {
       "count": 14,
-      "blueprints": 96,
+      "blueprints": 99,
       "skills": [
         "ci-cd-devops-architect",
         "cloud-hosting-expert",
@@ -227,9 +227,9 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 838585,
-    "compiledSlicesTokensApprox": 142303,
-    "avgTokensPerSlice": 799,
+    "fullRegistryTokensApprox": 845384,
+    "compiledSlicesTokensApprox": 142338,
+    "avgTokensPerSlice": 800,
     "tokenReductionPercent": "83%"
   },
   "slices": {
@@ -2066,9 +2066,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 6,
+      "guardRulesCount": 10,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 6,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "typescript"
       ],
@@ -2092,16 +2092,16 @@
           "preview": "import { proxyActivities, ApplicationFailure } from '@temporalio/workflow';\nimport type * as activities from './activities';\nexport async function subscriptionSagaWorkflow(input: {\n  customerId: string; planId: string; amountCents: number;\n}) {\n  const compensations: Array<() => Promise<void>> = [];"
         },
         {
-          "title": "1. Tier 1: Antrean BullMQ v5 Berbasis Redis & DLQ",
+          "title": "Blueprint",
           "language": "typescript",
-          "lines": 59,
-          "preview": "import { Queue, Worker, Job } from 'bullmq';\nimport Redis from 'ioredis';\nconst koneksiRedis = new Redis(process.env.REDIS_URL!, {\n  maxRetriesPerRequest: null, // Wajib untuk BullMQ v5\n});\n"
+          "lines": 36,
+          "preview": "// src/queues/invoice-batch-flow.ts\nimport { FlowProducer } from 'bullmq';\nconst flowRedis = new Redis(process.env.REDIS_URL!, { maxRetriesPerRequest: null });\nexport const invoiceFlowProducer = new FlowProducer({ connection: flowRedis });\n\nexport async function dispatchMonthlyInvoiceFlow("
         },
         {
-          "title": "2. Tier 2: Trigger.dev v3 Serverless Durable Tasks",
+          "title": "Blueprint",
           "language": "typescript",
-          "lines": 18,
-          "preview": "import { task } from '@trigger.dev/sdk/v3';\n\nexport const tugasLaporanBulanan = task({\n  id: 'generate-laporan-bulanan',\n  retry: { maxAttempts: 4, minTimeoutInMs: 2000, factor: 2, randomize: true },\n  run: async (payload: { tenantId: string; bulan: string }, { ctx }) => {"
+          "lines": 37,
+          "preview": "// src/temporal/activities/export-dataset.ts\nimport { Context } from '@temporalio/activity';\nexport interface ExportCheckpoint {\n  readonly lastProcessedCursor: string | null;\n  readonly rowsExported: number;\n}"
         }
       ],
       "connectedSkillsCount": 17,
@@ -3395,9 +3395,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 4,
+      "codeBlueprintsCount": 5,
       "languagesAvailable": [
         "typescript",
         "sql"
@@ -3420,6 +3420,12 @@
           "language": "typescript",
           "lines": 21,
           "preview": "// app/api/privacy/data-deletion/route.ts\nimport { NextRequest, NextResponse } from 'next/server';\nconst deletionRequestSchema = z.object({\n  email: z.string().email(),\n  confirmationCode: z.string().min(6),\n});"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 51,
+          "preview": "// src/lib/privacy/blind-index-pii.ts\nimport crypto from 'node:crypto';\nexport interface ProtectedPiiEnvelope {\n  readonly ciphertextB64: string;\n  readonly ivB64: string;\n  readonly authTagB64: string;"
         },
         {
           "title": "Skema Database Persetujuan Pengguna (UU PDP Compliant)",
@@ -3896,9 +3902,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 9,
+      "codeBlueprintsCount": 10,
       "languagesAvailable": [
         "typescript",
         "sql"
@@ -5538,9 +5544,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 7,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "tsx",
         "typescript"
@@ -6146,9 +6152,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 5,
+      "guardRulesCount": 7,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "tsx",
         "typescript"
@@ -8151,9 +8157,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 12,
+      "codeBlueprintsCount": 13,
       "languagesAvailable": [
         "typescript",
         "yaml"
@@ -10370,9 +10376,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "typescript",
         "bash"
@@ -10381,8 +10387,14 @@
         {
           "title": "2. Production Recipe: Service Worker Caching (Workbox v7 / Native SW)",
           "language": "typescript",
-          "lines": 68,
+          "lines": 95,
           "preview": "// sw.ts - Production Service Worker with Stale-While-Revalidate\n/// <reference lib=\"webworker\" />\nconst CACHE_NAME = 'app-v2.11.0-cache';\nconst STATIC_ASSETS = [\n  '/',\n  '/index.html',"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 40,
+          "preview": "// src/lib/pwa/storage-persistence-guard.ts\nexport interface StorageHealthReport {\n  readonly persisted: boolean;\n  readonly usageBytes: number;\n  readonly quotaBytes: number;\n  readonly usageRatio: number;"
         },
         {
           "title": "3. Production Recipe: Local-First Database Sync with RxDB (TypeScript)",
@@ -10401,12 +10413,6 @@
           "language": "typescript",
           "lines": 47,
           "preview": "/// <reference lib=\"webworker\" />\ndeclare const self: ServiceWorkerGlobalScope;\nconst NAMA_CACHE = 'aplikasi-shell-v4.3.0';\nconst ASET_STATIS = [\n  '/',\n  '/index.html',"
-        },
-        {
-          "title": "2. Database Reaktif Lokal RxDB dengan Replikasi Latar Belakang",
-          "language": "typescript",
-          "lines": 28,
-          "preview": "import { createRxDatabase } from 'rxdb';\nimport { getRxStorageDexie } from 'rxdb/plugins/storage-dexie';\nexport async function inisialisasiDatabaseLokal() {\n  const db = await createRxDatabase({\n    name: 'db_lokal_pengguna',\n    storage: getRxStorageDexie(),"
         }
       ],
       "connectedSkillsCount": 14,
@@ -10634,9 +10640,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 10,
+      "codeBlueprintsCount": 11,
       "languagesAvailable": [
         "typescript",
         "tsx"
@@ -12803,11 +12809,12 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 9,
+      "codeBlueprintsCount": 10,
       "languagesAvailable": [
-        "typescript"
+        "typescript",
+        "tsx"
       ],
       "codeBlueprints": [
         {
@@ -13402,9 +13409,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 6,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 7,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "typescript"
       ],

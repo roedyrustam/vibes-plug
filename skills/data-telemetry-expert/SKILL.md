@@ -191,6 +191,57 @@ span.setAttribute('llm.cached', response.usage.cache_read_input_tokens > 0);
 
 Backend tracing tools for LLM: **LangSmith** (LangChain/LangGraph), **OpenAI Tracing** (Agents SDK), **Langfuse** (open-source, any LLM).
 
+### W3C `traceparent` Context Propagation & Metric Cardinality Guard (TypeScript)
+Never attach unbounded high-cardinality identifiers (`user_id`, `email`, `request_id`, `session_id`) as Prometheus/OTel **Metric** attributes (which causes time-series memory explosion). Keep high-cardinality IDs on **Trace Spans** and **Logs**, and enforce an explicit allowlist on metric labels:
+
+```typescript
+// src/lib/telemetry/cardinality-guard.ts
+import { context, propagation, trace, type Span } from '@opentelemetry/api';
+
+const ALLOWED_METRIC_DIMENSION_KEYS = new Set([
+  'http.method',
+  'http.route',
+  'http.status_code',
+  'service.tier',
+  'region',
+  'llm.model',
+  'payment.provider',
+]);
+
+export function sanitizeMetricAttributes(
+  rawAttrs: Record<string, string | number | boolean>
+): Record<string, string | number | boolean> {
+  const safeAttrs: Record<string, string | number | boolean> = {};
+  for (const [key, value] of Object.entries(rawAttrs)) {
+    if (!ALLOWED_METRIC_DIMENSION_KEYS.has(key)) {
+      continue;
+    }
+    const strVal = String(value);
+    safeAttrs[key] = strVal.length > 64 ? strVal.slice(0, 64) : value;
+  }
+  return safeAttrs;
+}
+
+export function injectW3CTraceHeaders(baseHeaders: Record<string, string> = {}): Record<string, string> {
+  const carrier: Record<string, string> = { ...baseHeaders };
+  propagation.inject(context.active(), carrier);
+  return carrier;
+}
+
+export function getActiveTraceCorrelation(): { traceId: string; spanId: string } | null {
+  const activeSpan: Span | undefined = trace.getActiveSpan();
+  if (!activeSpan) return null;
+  const spanCtx = activeSpan.spanContext();
+  return { traceId: spanCtx.traceId, spanId: spanCtx.spanId };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero High-Cardinality Metric Labels**: Never pass `userId`, `tenantId`, `email`, `orderId`, or raw URL paths with dynamic IDs (`/users/123`) as OpenTelemetry Metric attributes; use parameterized route templates (`/users/:id`) and place entity IDs on Trace Spans instead.
+- **Always Close Active Spans in `finally`**: Every manually started span (`tracer.startActiveSpan`) must call `span.end()` inside a `finally` block and record exceptions via `span.recordException(err)` + `SpanStatusCode.ERROR`.
+- **Batch OTLP Exports in Production**: Use `BatchSpanProcessor` and batched `JSONEachRow` ClickHouse inserts instead of synchronous per-request telemetry HTTP calls on the hot path.
+- **W3C `traceparent` Propagation**: Propagate W3C TraceContext headers (`propagation.inject`) across outbound `fetch()` and async queue payloads so distributed traces remain unbroken.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

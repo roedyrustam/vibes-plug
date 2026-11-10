@@ -322,6 +322,79 @@ export async function validateApiKey(rawKey: string) {
 
 ---
 
+### 6. Atomic Redis Lua Token-Bucket & Cost-Weighted LLM Quota Limiter (TypeScript)
+For AI/LLM endpoints or multi-query GraphQL/batch operations where a single request consumes variable compute units (`costTokens`), enforce an atomic Redis Lua token bucket so check-and-decrement never suffers from race conditions:
+
+```typescript
+// lib/atomic-cost-bucket.ts
+const TOKEN_BUCKET_LUA = `
+local key = KEYS[1]
+local capacity = tonumber(ARGV[1])
+local refillRatePerSec = tonumber(ARGV[2])
+local requestedCost = tonumber(ARGV[3])
+local nowMs = tonumber(ARGV[4])
+
+local state = redis.call('HMGET', key, 'tokens', 'lastRefillMs')
+local tokens = tonumber(state[1])
+local lastRefillMs = tonumber(state[2])
+
+if tokens == nil then
+  tokens = capacity
+  lastRefillMs = nowMs
+else
+  local elapsedSec = math.max(0, (nowMs - lastRefillMs) / 1000.0)
+  tokens = math.min(capacity, tokens + (elapsedSec * refillRatePerSec))
+  lastRefillMs = nowMs
+end
+
+if tokens < requestedCost then
+  local deficit = requestedCost - tokens
+  local retryAfterSec = math.ceil(deficit / refillRatePerSec)
+  return { 0, math.floor(tokens), retryAfterSec }
+end
+
+tokens = tokens - requestedCost
+local ttlSec = math.max(60, math.ceil(capacity / refillRatePerSec) * 2)
+redis.call('HMSET', key, 'tokens', tokens, 'lastRefillMs', lastRefillMs)
+redis.call('EXPIRE', key, ttlSec)
+return { 1, math.floor(tokens), 0 }
+`;
+
+export interface RedisEvalClient {
+  eval(script: string, numKeys: number, ...args: (string | number)[]): Promise<unknown>;
+}
+
+export async function consumeWeightedRateLimit(
+  redisClient: RedisEvalClient,
+  bucketKey: string,
+  capacity: number,
+  refillRatePerSec: number,
+  costUnits = 1
+): Promise<{ allowed: boolean; remainingTokens: number; retryAfterSeconds: number }> {
+  const raw = (await redisClient.eval(
+    TOKEN_BUCKET_LUA,
+    1,
+    bucketKey,
+    capacity,
+    refillRatePerSec,
+    costUnits,
+    Date.now()
+  )) as [number, number, number];
+
+  return {
+    allowed: raw[0] === 1,
+    remainingTokens: raw[1],
+    retryAfterSeconds: raw[2],
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Never Use In-Memory `Map` for Multi-Instance Rate Limiting**: Process-local `new Map()` counters reset on deploy and fail across horizontal replicas; always back rate limiters with atomic Redis/Upstash Lua scripts or Cloudflare Durable Objects.
+- **Composite Identity Keys Over Raw IP Alone**: Rate limit authenticated endpoints by `tenantId:userId` or `apiKeyPrefix` rather than IP alone so corporate NATs and mobile carrier CGNATs are not falsely throttled.
+- **Mandatory `Retry-After` & `X-RateLimit-*` Headers on HTTP 429**: Every `429 Too Many Requests` response must include `Retry-After` (seconds) and `X-RateLimit-Reset` so compliant SDKs back off automatically.
+- **Hash API Keys with Argon2id / SHA-256 at Rest**: Never store plaintext API keys in the database; store only a short display prefix (`sk_live_ab12...`) and a cryptographic hash verified in constant time.
+
 ### Response Headers Specification
 
 | Header | Purpose | Example |

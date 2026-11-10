@@ -302,6 +302,47 @@ const LOG_RETENTION = {
 
 ---
 
+### 7. OpenTelemetry Trace-Correlated Pino Mixin & Error Cause Serializer (TypeScript)
+Automatically inject `trace_id` and `span_id` from the active OpenTelemetry context into every structured Pino JSON log line so logs in Axiom/Datadog link directly to distributed traces:
+
+```typescript
+// lib/otel-pino-logger.ts
+import pino from 'pino';
+import { trace } from '@opentelemetry/api';
+
+export const correlatedLogger = pino({
+  level: process.env.LOG_LEVEL ?? 'info',
+  redact: {
+    paths: [
+      'req.headers.authorization',
+      'req.headers.cookie',
+      '*.password',
+      '*.token',
+      '*.secret',
+      '*.apiKey',
+      '*.creditCard',
+    ],
+    censor: '[REDACTED]',
+  },
+  mixin() {
+    const span = trace.getActiveSpan();
+    if (!span) return {};
+    const { traceId, spanId } = span.spanContext();
+    return { trace_id: traceId, span_id: spanId };
+  },
+  serializers: {
+    err: pino.stdSerializers.errWithCause,
+  },
+  timestamp: pino.stdTimeFunctions.isoTime,
+});
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory Sensitive Field Redaction**: Every production Pino logger must configure `redact.paths` covering `authorization`, `cookie`, `*.password`, `*.token`, `*.secret`, and `*.apiKey`.
+- **Preserve Error Stack & `cause` Chain**: Always pass the error object under the `err` key (`logger.error({ err, orderId }, 'Payment failed')`) using `pino.stdSerializers.errWithCause`—never `logger.error(err.message)` which discards the stack trace.
+- **Trace & Request Correlation on Every Log**: Inject `requestId`, `trace_id`, and `span_id` via `AsyncLocalStorage` or Pino `mixin()` so multi-service logs can be correlated deterministically.
+- **Scrub PII in Sentry `beforeSend`**: Configure a `beforeSend` hook in Sentry client/server configs that strips `user.ip_address`, `user.email`, and raw request cookies before transmission.
+
 ### Common Pitfalls to Avoid
 
 | Anti-Pattern | Problem | Correct Approach |
