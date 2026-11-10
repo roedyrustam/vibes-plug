@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T19:45:05.848Z",
+  "generatedAt": "2026-11-10T19:59:42.889Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 90,
-  "incrementalReusedFiles": 88,
-  "totalSymbolsIndexed": 514,
-  "totalImportEdges": 305,
+  "totalFilesIndexed": 91,
+  "incrementalReusedFiles": 80,
+  "totalSymbolsIndexed": 522,
+  "totalImportEdges": 310,
   "symbols": {
     "getActiveProfile": [
       {
@@ -735,7 +735,7 @@
       },
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 291,
+        "line": 306,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -814,7 +814,7 @@
       },
       {
         "file": "scripts/install.js",
-        "line": 224,
+        "line": 312,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -833,10 +833,10 @@
           "installForClaude",
           "installForCursor",
           "installForCodex",
-          "filter",
-          "map",
-          "then",
-          "sendTelemetry"
+          "installForWindsurf",
+          "installForCline",
+          "installForTrae",
+          "installForKimi"
         ]
       },
       {
@@ -1779,7 +1779,7 @@
     "checkBridgeStatus": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 86,
+        "line": 98,
         "type": "function",
         "signature": "function checkBridgeStatus(targetDir = process.cwd()",
         "calls": [
@@ -1800,7 +1800,7 @@
     "getMasterRuleContent": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 169,
+        "line": 184,
         "type": "function",
         "signature": "function getMasterRuleContent()",
         "calls": [
@@ -1812,7 +1812,7 @@
     "syncBridge": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 184,
+        "line": 199,
         "type": "function",
         "signature": "function syncBridge(targetDir = process.cwd()",
         "calls": [
@@ -1833,7 +1833,7 @@
     "generateContextBundle": [
       {
         "file": "scripts/cross-ide-bridge.mjs",
-        "line": 250,
+        "line": 265,
         "type": "function",
         "signature": "function generateContextBundle(targetDir = process.cwd()",
         "calls": [
@@ -2522,7 +2522,7 @@
     "copyRecursiveSync": [
       {
         "file": "scripts/install.js",
-        "line": 40,
+        "line": 61,
         "type": "function",
         "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)",
         "calls": [
@@ -2543,7 +2543,7 @@
     "mergeMcpConfigFile": [
       {
         "file": "scripts/install.js",
-        "line": 56,
+        "line": 77,
         "type": "function",
         "signature": "function mergeMcpConfigFile(destPath, incomingServers)",
         "calls": [
@@ -2560,7 +2560,7 @@
     "installForAntigravity": [
       {
         "file": "scripts/install.js",
-        "line": 74,
+        "line": 95,
         "type": "function",
         "signature": "function installForAntigravity()",
         "calls": [
@@ -2573,7 +2573,7 @@
     "installForClaude": [
       {
         "file": "scripts/install.js",
-        "line": 85,
+        "line": 106,
         "type": "function",
         "signature": "function installForClaude(projectDir)",
         "calls": [
@@ -2589,7 +2589,7 @@
     "installForCursor": [
       {
         "file": "scripts/install.js",
-        "line": 121,
+        "line": 142,
         "type": "function",
         "signature": "function installForCursor(projectDir)",
         "calls": [
@@ -2608,7 +2608,7 @@
     "installForCodex": [
       {
         "file": "scripts/install.js",
-        "line": 183,
+        "line": 204,
         "type": "function",
         "signature": "function installForCodex(projectDir)",
         "calls": [
@@ -2618,6 +2618,87 @@
           "copyFileSync",
           "log",
           "copyRecursiveSync"
+        ]
+      }
+    ],
+    "installForWindsurf": [
+      {
+        "file": "scripts/install.js",
+        "line": 244,
+        "type": "function",
+        "signature": "function installForWindsurf(projectDir)",
+        "calls": [
+          "resolve",
+          "cwd",
+          "join",
+          "existsSync",
+          "copyFileSync",
+          "log",
+          "mergeMcpConfigFile"
+        ]
+      }
+    ],
+    "installForCline": [
+      {
+        "file": "scripts/install.js",
+        "line": 271,
+        "type": "function",
+        "signature": "function installForCline(projectDir)",
+        "calls": [
+          "resolve",
+          "cwd",
+          "join",
+          "existsSync",
+          "copyFileSync",
+          "log"
+        ]
+      }
+    ],
+    "installForTrae": [
+      {
+        "file": "scripts/install.js",
+        "line": 281,
+        "type": "function",
+        "signature": "function installForTrae(projectDir)",
+        "calls": [
+          "resolve",
+          "cwd",
+          "join",
+          "existsSync",
+          "copyFileSync",
+          "log"
+        ]
+      }
+    ],
+    "installForKimi": [
+      {
+        "file": "scripts/install.js",
+        "line": 291,
+        "type": "function",
+        "signature": "function installForKimi(projectDir)",
+        "calls": [
+          "resolve",
+          "cwd",
+          "join",
+          "existsSync",
+          "copyFileSync",
+          "log"
+        ]
+      }
+    ],
+    "installForKiro": [
+      {
+        "file": "scripts/install.js",
+        "line": 301,
+        "type": "function",
+        "signature": "function installForKiro(projectDir)",
+        "calls": [
+          "resolve",
+          "cwd",
+          "join",
+          "existsSync",
+          "copyFileSync",
+          "log"
         ]
       }
     ],
@@ -5312,6 +5393,8 @@
           "entries",
           "mkdir",
           "writeFile",
+          "Promise",
+          "setTimeout",
           "readdir",
           "rmdir",
           "match",
@@ -6181,6 +6264,53 @@
           "arc",
           "fill",
           "requestAnimationFrame"
+        ]
+      }
+    ],
+    "readSwarmState": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 36,
+        "type": "function",
+        "signature": "function readSwarmState()",
+        "calls": [
+          "join",
+          "existsSync",
+          "parse",
+          "readFileSync"
+        ]
+      }
+    ],
+    "readBlackboardState": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 46,
+        "type": "function",
+        "signature": "function readBlackboardState()",
+        "calls": [
+          "join",
+          "existsSync",
+          "parse",
+          "readFileSync"
+        ]
+      }
+    ],
+    "renderHtml": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 56,
+        "type": "function",
+        "signature": "function renderHtml()",
+        "calls": [
+          "readSwarmState",
+          "readBlackboardState",
+          "slice",
+          "reverse",
+          "keys",
+          "rgba",
+          "var",
+          "gradient",
+          "scale"
         ]
       }
     ],
@@ -8788,7 +8918,7 @@
     "extensions/vscode/extension.js": {
       "totalLines": 158,
       "symbolCount": 3,
-      "mtimeMs": 1794062795084,
+      "mtimeMs": 1794340775842,
       "size": 5777,
       "exports": [
         "activate",
@@ -9824,7 +9954,7 @@
     "scripts/create-agent.mjs": {
       "totalLines": 169,
       "symbolCount": 2,
-      "mtimeMs": 1793593331126,
+      "mtimeMs": 1794340777004,
       "size": 5489,
       "exports": [
         "createCustomAgent"
@@ -9974,10 +10104,10 @@
       ]
     },
     "scripts/cross-ide-bridge.mjs": {
-      "totalLines": 365,
+      "totalLines": 380,
       "symbolCount": 5,
-      "mtimeMs": 1794062795120,
-      "size": 12630,
+      "mtimeMs": 1794340777351,
+      "size": 13092,
       "exports": [
         "checkBridgeStatus",
         "syncBridge",
@@ -10012,7 +10142,7 @@
       "cachedSymbols": [
         {
           "name": "checkBridgeStatus",
-          "line": 86,
+          "line": 98,
           "type": "function",
           "signature": "function checkBridgeStatus(targetDir = process.cwd()",
           "calls": [
@@ -10031,7 +10161,7 @@
         },
         {
           "name": "getMasterRuleContent",
-          "line": 169,
+          "line": 184,
           "type": "function",
           "signature": "function getMasterRuleContent()",
           "calls": [
@@ -10041,7 +10171,7 @@
         },
         {
           "name": "syncBridge",
-          "line": 184,
+          "line": 199,
           "type": "function",
           "signature": "function syncBridge(targetDir = process.cwd()",
           "calls": [
@@ -10060,7 +10190,7 @@
         },
         {
           "name": "generateContextBundle",
-          "line": 250,
+          "line": 265,
           "type": "function",
           "signature": "function generateContextBundle(targetDir = process.cwd()",
           "calls": [
@@ -10072,7 +10202,7 @@
         },
         {
           "name": "main",
-          "line": 291,
+          "line": 306,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -11169,10 +11299,10 @@
       ]
     },
     "scripts/install.js": {
-      "totalLines": 328,
-      "symbolCount": 7,
-      "mtimeMs": 1794062653794,
-      "size": 12197,
+      "totalLines": 457,
+      "symbolCount": 12,
+      "mtimeMs": 1794340777780,
+      "size": 16962,
       "exports": [],
       "imports": [
         {
@@ -11205,13 +11335,13 @@
           "specifiers": [
             "pkg"
           ],
-          "line": 243
+          "line": 336
         }
       ],
       "cachedSymbols": [
         {
           "name": "copyRecursiveSync",
-          "line": 40,
+          "line": 61,
           "type": "function",
           "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)",
           "calls": [
@@ -11230,7 +11360,7 @@
         },
         {
           "name": "mergeMcpConfigFile",
-          "line": 56,
+          "line": 77,
           "type": "function",
           "signature": "function mergeMcpConfigFile(destPath, incomingServers)",
           "calls": [
@@ -11245,7 +11375,7 @@
         },
         {
           "name": "installForAntigravity",
-          "line": 74,
+          "line": 95,
           "type": "function",
           "signature": "function installForAntigravity()",
           "calls": [
@@ -11256,7 +11386,7 @@
         },
         {
           "name": "installForClaude",
-          "line": 85,
+          "line": 106,
           "type": "function",
           "signature": "function installForClaude(projectDir)",
           "calls": [
@@ -11270,7 +11400,7 @@
         },
         {
           "name": "installForCursor",
-          "line": 121,
+          "line": 142,
           "type": "function",
           "signature": "function installForCursor(projectDir)",
           "calls": [
@@ -11287,7 +11417,7 @@
         },
         {
           "name": "installForCodex",
-          "line": 183,
+          "line": 204,
           "type": "function",
           "signature": "function installForCodex(projectDir)",
           "calls": [
@@ -11300,8 +11430,79 @@
           ]
         },
         {
+          "name": "installForWindsurf",
+          "line": 244,
+          "type": "function",
+          "signature": "function installForWindsurf(projectDir)",
+          "calls": [
+            "resolve",
+            "cwd",
+            "join",
+            "existsSync",
+            "copyFileSync",
+            "log",
+            "mergeMcpConfigFile"
+          ]
+        },
+        {
+          "name": "installForCline",
+          "line": 271,
+          "type": "function",
+          "signature": "function installForCline(projectDir)",
+          "calls": [
+            "resolve",
+            "cwd",
+            "join",
+            "existsSync",
+            "copyFileSync",
+            "log"
+          ]
+        },
+        {
+          "name": "installForTrae",
+          "line": 281,
+          "type": "function",
+          "signature": "function installForTrae(projectDir)",
+          "calls": [
+            "resolve",
+            "cwd",
+            "join",
+            "existsSync",
+            "copyFileSync",
+            "log"
+          ]
+        },
+        {
+          "name": "installForKimi",
+          "line": 291,
+          "type": "function",
+          "signature": "function installForKimi(projectDir)",
+          "calls": [
+            "resolve",
+            "cwd",
+            "join",
+            "existsSync",
+            "copyFileSync",
+            "log"
+          ]
+        },
+        {
+          "name": "installForKiro",
+          "line": 301,
+          "type": "function",
+          "signature": "function installForKiro(projectDir)",
+          "calls": [
+            "resolve",
+            "cwd",
+            "join",
+            "existsSync",
+            "copyFileSync",
+            "log"
+          ]
+        },
+        {
           "name": "main",
-          "line": 224,
+          "line": 312,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -11320,10 +11521,10 @@
             "installForClaude",
             "installForCursor",
             "installForCodex",
-            "filter",
-            "map",
-            "then",
-            "sendTelemetry"
+            "installForWindsurf",
+            "installForCline",
+            "installForTrae",
+            "installForKimi"
           ]
         }
       ]
@@ -11704,7 +11905,7 @@
     "scripts/package-extension.mjs": {
       "totalLines": 266,
       "symbolCount": 4,
-      "mtimeMs": 1793593331140,
+      "mtimeMs": 1794340777932,
       "size": 11846,
       "exports": [
         "createZipArchive",
@@ -12925,7 +13126,7 @@
     "scripts/skill-drift-monitor.mjs": {
       "totalLines": 565,
       "symbolCount": 4,
-      "mtimeMs": 1793900568791,
+      "mtimeMs": 1794340778214,
       "size": 23160,
       "exports": [
         "auditSkill",
@@ -13739,7 +13940,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1793904429873,
+      "mtimeMs": 1794340778604,
       "size": 201386,
       "exports": [
         "generateStudioHtml",
@@ -14414,7 +14615,7 @@
     "scripts/swarm-bus.mjs": {
       "totalLines": 412,
       "symbolCount": 21,
-      "mtimeMs": 1793900568796,
+      "mtimeMs": 1794340778748,
       "size": 12922,
       "exports": [
         "emitSwarmEvent",
@@ -14731,7 +14932,7 @@
     "scripts/swarm-dispatcher.mjs": {
       "totalLines": 373,
       "symbolCount": 7,
-      "mtimeMs": 1793900735761,
+      "mtimeMs": 1794340779036,
       "size": 14792,
       "exports": [
         "resolveNativeSubagent",
@@ -15153,7 +15354,7 @@
     "scripts/terminal-monitor.mjs": {
       "totalLines": 303,
       "symbolCount": 3,
-      "mtimeMs": 1793900568797,
+      "mtimeMs": 1794340779113,
       "size": 10724,
       "exports": [
         "loadMonitorSnapshot",
@@ -15270,10 +15471,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2559,
+      "totalLines": 2568,
       "symbolCount": 1,
-      "mtimeMs": 1794339783619,
-      "size": 139912,
+      "mtimeMs": 1794340774689,
+      "size": 140152,
       "exports": [],
       "imports": [
         {
@@ -15355,7 +15556,7 @@
           "specifiers": [
             "createClient"
           ],
-          "line": 2361
+          "line": 2370
         },
         {
           "source": "@hocuspocus/server",
@@ -15363,21 +15564,13 @@
           "specifiers": [
             "Server"
           ],
-          "line": 2371
+          "line": 2380
         },
         {
           "source": "@hocuspocus/server",
           "target": null,
           "specifiers": [
             "Server"
-          ],
-          "line": 2372
-        },
-        {
-          "source": "@openfga/sdk",
-          "target": null,
-          "specifiers": [
-            "OpenFgaClient"
           ],
           "line": 2381
         },
@@ -15387,7 +15580,15 @@
           "specifiers": [
             "OpenFgaClient"
           ],
-          "line": 2382
+          "line": 2390
+        },
+        {
+          "source": "@openfga/sdk",
+          "target": null,
+          "specifiers": [
+            "OpenFgaClient"
+          ],
+          "line": 2391
         },
         {
           "source": "@simplewebauthn/server",
@@ -15395,7 +15596,7 @@
           "specifiers": [
             "verifyAuthenticationResponse"
           ],
-          "line": 2384
+          "line": 2393
         },
         {
           "source": "@simplewebauthn/server",
@@ -15403,7 +15604,7 @@
           "specifiers": [
             "generateAuthenticationOptions"
           ],
-          "line": 2385
+          "line": 2394
         },
         {
           "source": "@temporalio/workflow",
@@ -15411,7 +15612,7 @@
           "specifiers": [
             "proxyActivities"
           ],
-          "line": 2415
+          "line": 2424
         }
       ],
       "cachedSymbols": [
@@ -15435,6 +15636,8 @@
             "entries",
             "mkdir",
             "writeFile",
+            "Promise",
+            "setTimeout",
             "readdir",
             "rmdir",
             "match",
@@ -16680,6 +16883,98 @@
       "exports": [],
       "imports": [],
       "cachedSymbols": []
+    },
+    "sidecars/swarm-cockpit/server.mjs": {
+      "totalLines": 478,
+      "symbolCount": 3,
+      "mtimeMs": 1794340717985,
+      "size": 14936,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:http",
+          "target": null,
+          "specifiers": [
+            "http"
+          ],
+          "line": 8
+        },
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 11
+        },
+        {
+          "source": "node:child_process",
+          "target": null,
+          "specifiers": [
+            "spawn"
+          ],
+          "line": 12
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "readSwarmState",
+          "line": 36,
+          "type": "function",
+          "signature": "function readSwarmState()",
+          "calls": [
+            "join",
+            "existsSync",
+            "parse",
+            "readFileSync"
+          ]
+        },
+        {
+          "name": "readBlackboardState",
+          "line": 46,
+          "type": "function",
+          "signature": "function readBlackboardState()",
+          "calls": [
+            "join",
+            "existsSync",
+            "parse",
+            "readFileSync"
+          ]
+        },
+        {
+          "name": "renderHtml",
+          "line": 56,
+          "type": "function",
+          "signature": "function renderHtml()",
+          "calls": [
+            "readSwarmState",
+            "readBlackboardState",
+            "slice",
+            "reverse",
+            "keys",
+            "rgba",
+            "var",
+            "gradient",
+            "scale"
+          ]
+        }
+      ]
     },
     "skills/anti-slop/scripts/check-anti-slop.js": {
       "totalLines": 334,

@@ -36,7 +36,16 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     for (const [p, content] of trackedSnapshots.entries()) {
       if (content !== null) {
         await fs.mkdir(path.dirname(p), { recursive: true });
-        await fs.writeFile(p, content, 'utf8');
+        for (let attempt = 0; attempt < 5; attempt++) {
+          try {
+            await fs.writeFile(p, content, 'utf8');
+            break;
+          } catch {
+            if (attempt < 4) {
+              await new Promise(r => setTimeout(r, 100));
+            }
+          }
+        }
       }
     }
     for (const ephemeralDir of ['skills', 'scratch', 'worktrees']) {
@@ -393,11 +402,11 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const skillsRes = await fetch(`${url}/api/skills`);
       const skills = await skillsRes.json();
       assert.equal(Array.isArray(skills), true);
-      assert.ok(skills.length >= 176);
+      assert.ok(skills.length >= 178);
 
       const statusRes = await fetch(`${url}/api/status`);
       const status = await statusRes.json();
-      assert.ok(status.totalSkills >= 176);
+      assert.ok(status.totalSkills >= 178);
       const pkgJson = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
       assert.equal(status.version, pkgJson.version);
       assert.equal(status.mcpToolsCount >= 10, true);
@@ -871,7 +880,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const regListData = await regListRes.json();
       assert.equal(regListRes.status, 200);
       assert.equal(regListData.success, true);
-      assert.ok(regListData.count >= 176);
+      assert.ok(regListData.count >= 178);
 
       // Test Studio Registry Search endpoint
       const regSearchRes = await fetch(`${url}/api/registry/search`, {
@@ -1131,7 +1140,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       const driftRes = await fetch(`${url}/api/drift`);
       const driftData = await driftRes.json();
       assert.equal(driftRes.status, 200);
-      assert.ok(driftData.totalSkills >= 176);
+      assert.ok(driftData.totalSkills >= 178);
       assert.equal(driftData.ecosystemStatus, 'PRISTINE');
       assert.equal(driftData.averageScore, 100);
 
@@ -1356,7 +1365,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     // 1. Full ecosystem scan
     const { stdout: fullOut } = await execFileAsync(process.execPath, [CLI_PATH, 'drift', '--json']);
     const fullData = JSON.parse(fullOut);
-    assert.ok(fullData.totalSkills >= 176);
+    assert.ok(fullData.totalSkills >= 178);
     assert.equal(fullData.deadLinksCount, 0);
     assert.equal(fullData.ecosystemStatus, 'PRISTINE');
     assert.equal(fullData.averageScore, 100);
@@ -1382,7 +1391,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: jsonOut } = await execFileAsync(process.execPath, [CLI_PATH, 'monitor', '--json']);
     const monitorData = JSON.parse(jsonOut);
     assert.equal(typeof monitorData.drift, 'object');
-    assert.ok(monitorData.drift.totalSkills >= 176);
+    assert.ok(monitorData.drift.totalSkills >= 178);
     assert.equal(monitorData.drift.ecosystemStatus, 'PRISTINE');
     assert.ok(Array.isArray(monitorData.benchmarks.results));
     assert.equal(monitorData.benchmarks.passedCount, 7);
@@ -1975,7 +1984,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.strictEqual(outcome.card.name, 'vibes-plug-swarm-master');
     assert.ok(outcome.card.capabilities.sharedBlackboard);
     assert.ok(outcome.card.subagents.length >= 8);
-    assert.ok(outcome.card.metadata.totalSkillsCount >= 176);
+    assert.ok(outcome.card.metadata.totalSkillsCount >= 178);
 
     // 2. CLI Execution (vibes a2a --json)
     const { stdout: a2aCliOut } = await execFileAsync(process.execPath, [

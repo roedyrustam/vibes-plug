@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-05T17:45:51.192Z",
+  "updatedAt": "2026-11-10T19:59:03.676Z",
   "entries": {
     "schema:users": {
       "key": "schema:users",
@@ -9,7 +9,7 @@
       },
       "version": 1,
       "authorAgent": "test-agent",
-      "updatedAt": "2026-11-05T17:45:51.056Z"
+      "updatedAt": "2026-11-10T19:59:02.992Z"
     },
     "api:v1:orders": {
       "key": "api:v1:orders",
@@ -18,7 +18,7 @@
       },
       "version": 1,
       "authorAgent": "mcp-agent",
-      "updatedAt": "2026-11-05T17:45:51.191Z"
+      "updatedAt": "2026-11-10T19:59:03.675Z"
     }
   }
 }

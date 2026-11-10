@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 Write-Host ""
 Write-Host "╔══════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
 Write-Host "║    🚀 Vibes-Plug Universal Installer (2026 Edition)      ║" -ForegroundColor Cyan
-Write-Host "║    176 Specialized Skills & Sovereign Multi-Agent Swarm  ║" -ForegroundColor Cyan
+Write-Host "║    178 Specialized Skills & Sovereign Multi-Agent Swarm  ║" -ForegroundColor Cyan
 Write-Host "╚══════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
 Write-Host ""
 
@@ -76,5 +76,5 @@ try {
 Write-Host ""
 Write-Host "✨ Vibes-Plug successfully installed!" -ForegroundColor Green
 Write-Host "⚡ Run 'vibes help' or 'vibes studio' to launch the Studio Cockpit." -ForegroundColor White
-Write-Host "🌐 Primary Trigger active across Antigravity, Claude Code, Cursor, Codex, and Windsurf." -ForegroundColor Cyan
+Write-Host "🌐 Primary Trigger active across Antigravity, Claude Code, Cursor, Codex, Windsurf, Cline, Trae, Kimi, and Kiro." -ForegroundColor Cyan
 Write-Host ""

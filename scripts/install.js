@@ -33,6 +33,27 @@ const platforms = {
         globalDir: path.join(HOME, '.codex'),
         detect: () => fs.existsSync(path.join(HOME, '.codex')),
     },
+    windsurf: {
+        name: 'Windsurf (Codeium)',
+        globalDir: path.join(HOME, '.codeium', 'windsurf'),
+        detect: () => fs.existsSync(path.join(HOME, '.codeium', 'windsurf')) || fs.existsSync(path.join(HOME, '.windsurf')),
+    },
+    cline: {
+        name: 'Cline / Roo Code',
+        detect: () => fs.existsSync(path.join(HOME, '.cline')) || fs.existsSync(path.join(HOME, '.roo-cline')),
+    },
+    trae: {
+        name: 'Trae IDE',
+        detect: () => fs.existsSync(path.join(HOME, '.trae')),
+    },
+    kimi: {
+        name: 'Kimi CLI',
+        detect: () => fs.existsSync(path.join(HOME, '.kimi')),
+    },
+    kiro: {
+        name: 'Kiro CLI',
+        detect: () => fs.existsSync(path.join(HOME, '.kiro')),
+    },
 };
 
 const DEFAULT_EXCLUDES = new Set(['.git', 'node_modules', 'vibes-plug']);
@@ -220,6 +241,73 @@ function installForCodex(projectDir) {
     }
 }
 
+function installForWindsurf(projectDir) {
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    const rulesSrc = path.join(PLUGIN_ROOT, '.windsurfrules');
+    const rulesDest = path.join(targetDir, '.windsurfrules');
+    if (fs.existsSync(rulesSrc)) {
+        fs.copyFileSync(rulesSrc, rulesDest);
+        console.log(`  ✅ Copied .windsurfrules → ${rulesDest}`);
+    }
+    const globalWindsurfDir = path.join(HOME, '.codeium', 'windsurf');
+    if (fs.existsSync(globalWindsurfDir)) {
+        const mcpDest = path.join(globalWindsurfDir, 'mcp_config.json');
+        const mcpServers = {
+            "vibes-plug-tools": {
+                command: process.execPath,
+                args: [path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs')]
+            },
+            "xerj": {
+                command: "xerj",
+                args: ["mcp"],
+                env: { "XERJ_URL": "http://localhost:9200" }
+            }
+        };
+        mergeMcpConfigFile(mcpDest, mcpServers);
+        console.log(`  🌐 Configured Windsurf MCP config → ${mcpDest}`);
+    }
+}
+
+function installForCline(projectDir) {
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    const rulesSrc = path.join(PLUGIN_ROOT, '.clinerules');
+    const rulesDest = path.join(targetDir, '.clinerules');
+    if (fs.existsSync(rulesSrc)) {
+        fs.copyFileSync(rulesSrc, rulesDest);
+        console.log(`  ✅ Copied .clinerules → ${rulesDest}`);
+    }
+}
+
+function installForTrae(projectDir) {
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    const rulesSrc = path.join(PLUGIN_ROOT, '.traerules');
+    const rulesDest = path.join(targetDir, '.traerules');
+    if (fs.existsSync(rulesSrc)) {
+        fs.copyFileSync(rulesSrc, rulesDest);
+        console.log(`  ✅ Copied .traerules → ${rulesDest}`);
+    }
+}
+
+function installForKimi(projectDir) {
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    const rulesSrc = path.join(PLUGIN_ROOT, '.kimirules');
+    const rulesDest = path.join(targetDir, '.kimirules');
+    if (fs.existsSync(rulesSrc)) {
+        fs.copyFileSync(rulesSrc, rulesDest);
+        console.log(`  ✅ Copied .kimirules → ${rulesDest}`);
+    }
+}
+
+function installForKiro(projectDir) {
+    const targetDir = projectDir ? path.resolve(projectDir) : process.cwd();
+    const rulesSrc = path.join(PLUGIN_ROOT, '.kirorules');
+    const rulesDest = path.join(targetDir, '.kirorules');
+    if (fs.existsSync(rulesSrc)) {
+        fs.copyFileSync(rulesSrc, rulesDest);
+        console.log(`  ✅ Copied .kirorules → ${rulesDest}`);
+    }
+}
+
 // --- CLI ---
 function main() {
     const args = process.argv.slice(2);
@@ -229,6 +317,11 @@ function main() {
     const claudeFlag = args.includes('--claude');
     const cursorFlag = args.includes('--cursor');
     const codexFlag = args.includes('--codex');
+    const windsurfFlag = args.includes('--windsurf');
+    const clineFlag = args.includes('--cline');
+    const traeFlag = args.includes('--trae');
+    const kimiFlag = args.includes('--kimi');
+    const kiroFlag = args.includes('--kiro');
     const projectIdx = args.indexOf('--project');
     let projectDir = null;
     if (projectIdx !== -1) {
@@ -247,7 +340,7 @@ function main() {
         console.log(`
 ╔══════════════════════════════════════════════════════════╗
 ║       vibes-plug installer v${version.padEnd(6)} (2026 Edition)        ║
-║   Universal AI Plugin for AGY, Claude, Cursor & Codex   ║
+║   Universal AI Plugin for All Major AI IDE Platforms     ║
 ╚══════════════════════════════════════════════════════════╝
 
 Usage: npx vibes-plug [options] or node install.js [options]
@@ -256,9 +349,14 @@ Options:
   --all                   Install for all detected platforms
   --antigravity, --agy    Install for Antigravity
   --claude                Install for Claude Code (global + optional per-project)
-  --cursor                Install for Cursor IDE (requires --project)
+  --cursor                Install for Cursor IDE (requires --project or defaults to cwd)
   --codex                 Install for OpenAI Codex CLI (global + optional per-project)
-  --project <path>        Target project directory (for Claude/Cursor/Codex per-project install)
+  --windsurf              Install for Windsurf (rules + MCP)
+  --cline                 Install for Cline / Roo Code
+  --trae                  Install for Trae IDE
+  --kimi                  Install for Kimi CLI
+  --kiro                  Install for Kiro CLI
+  --project <path>        Target project directory (for per-project rules installation)
   --help, -h              Show this help message
 
 Examples:
@@ -266,6 +364,7 @@ Examples:
   npx vibes-plug --claude
   npx vibes-plug --codex
   npx vibes-plug --cursor --project ./my-app
+  npx vibes-plug --windsurf --project ./my-app
   node scripts/install.js --all
 `);
         return;
@@ -304,9 +403,39 @@ Examples:
         console.log('');
     }
 
+    if (allFlag || windsurfFlag) {
+        console.log('🔧 Installing for Windsurf...');
+        installForWindsurf(projectDir);
+        console.log('');
+    }
+
+    if (allFlag || clineFlag) {
+        console.log('🔧 Installing for Cline / Roo Code...');
+        installForCline(projectDir);
+        console.log('');
+    }
+
+    if (allFlag || traeFlag) {
+        console.log('🔧 Installing for Trae IDE...');
+        installForTrae(projectDir);
+        console.log('');
+    }
+
+    if (allFlag || kimiFlag) {
+        console.log('🔧 Installing for Kimi CLI...');
+        installForKimi(projectDir);
+        console.log('');
+    }
+
+    if (allFlag || kiroFlag) {
+        console.log('🔧 Installing for Kiro CLI...');
+        installForKiro(projectDir);
+        console.log('');
+    }
+
     console.log('✨ Installation complete!');
     console.log('⚡ Vibes-Plug is now configured as the PRIMARY TRIGGER (Pemicu Utama).');
-    console.log('🔗 All 178 skills are automatically synchronized across Antigravity, Claude, Cursor, and Codex!\n');
+    console.log('🔗 All 178 skills are automatically synchronized across all major AI IDE platforms!\n');
 
     try {
         const detectedPlatforms = Object.entries(platforms)
@@ -316,7 +445,7 @@ Examples:
             m.sendTelemetry('installer_run', {
                 version,
                 installed_platforms: detectedPlatforms,
-                flags: { allFlag, agyFlag, claudeFlag, cursorFlag, codexFlag }
+                flags: { allFlag, agyFlag, claudeFlag, cursorFlag, codexFlag, windsurfFlag, clineFlag, traeFlag, kimiFlag, kiroFlag }
             });
         }).catch(() => {});
     } catch {

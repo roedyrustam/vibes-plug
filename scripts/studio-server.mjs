@@ -3,7 +3,7 @@
 /**
  * Vibes-Plug Studio Cockpit Server
  * Lightweight, zero-dependency local web dashboard for Vibes-Plug Pro.
- * Visualizes the 176 AI domain skills, subagent swarm topologies, superintelligence engines,
+ * Visualizes the 178 AI domain skills, subagent swarm topologies, superintelligence engines,
  * Visual Recipe Builder, Remote Model Context Protocol (MCP v1.x) SSE transport,
  * Autonomous Swarm Planner & Simulator, Visual Agent Builder, and Episodic Memory Manager.
  * 

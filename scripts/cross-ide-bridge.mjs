@@ -75,6 +75,18 @@ export const SUPPORTED_PLATFORMS = {
     name: 'Trae IDE',
     files: ['.traerules'],
     rulesDir: null
+  },
+  kimi: {
+    id: 'kimi',
+    name: 'Kimi CLI',
+    files: ['.kimirules'],
+    rulesDir: null
+  },
+  kiro: {
+    id: 'kiro',
+    name: 'Kiro CLI',
+    files: ['.kirorules'],
+    rulesDir: null
   }
 };
 
@@ -113,6 +125,7 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       configured: false,
       filesPresent: [],
       filesMissing: [],
+      has178Skills: false,
       has176Skills: false,
       has160Skills: false,
       has155Skills: false,
@@ -124,7 +137,8 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       try {
         const content = await fs.readFile(fPath, 'utf8');
         pInfo.filesPresent.push(f);
-        if (content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+        if (content.includes('178') || /178[- ]Skill/i.test(content) || content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+          pInfo.has178Skills = true;
           pInfo.has176Skills = true;
           pInfo.has160Skills = true;
           pInfo.has155Skills = true;
@@ -142,7 +156,8 @@ export async function checkBridgeStatus(targetDir = process.cwd()) {
       try {
         const content = await fs.readFile(rfPath, 'utf8');
         pInfo.filesPresent.push(platform.ruleFile);
-        if (content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+        if (content.includes('178') || /178[- ]Skill/i.test(content) || content.includes('176') || content.includes('171') || content.includes('160') || content.includes('155') || /17\d-Skill/i.test(content) || /skills/i.test(content)) {
+          pInfo.has178Skills = true;
           pInfo.has176Skills = true;
           pInfo.has160Skills = true;
           pInfo.has155Skills = true;
@@ -315,7 +330,7 @@ async function main() {
     for (const [key, p] of Object.entries(report.platforms)) {
       const icon = p.configured ? '✅' : '⚪';
       const slopIcon = p.hasAntiSlop ? '🛡️' : '⚠️';
-      const skillIcon = (p.has176Skills || p.has160Skills || p.has155Skills) ? '176' : '???';
+      const skillIcon = (p.has178Skills || p.has176Skills || p.has160Skills || p.has155Skills) ? '178' : '???';
       console.log(`  ${icon} [${p.name.padEnd(28)}] Present: ${p.filesPresent.join(', ') || 'None'}`);
       console.log(`     Metrics: Anti-Slop: ${slopIcon} | Skills: ${skillIcon} Skills\n`);
     }
@@ -353,7 +368,7 @@ async function main() {
     return;
   }
 
-  console.log('Usage: vibes bridge [status|sync|bundle] [--dir <dir>] [--target all|claude|cursor|codex|windsurf|cline|trae]');
+  console.log('Usage: vibes bridge [status|sync|bundle] [--dir <dir>] [--target all|claude|cursor|codex|windsurf|cline|trae|kimi|kiro]');
 }
 
 if (process.argv[1] && process.argv[1].endsWith('cross-ide-bridge.mjs')) {

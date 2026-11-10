@@ -3,7 +3,7 @@
 /**
  * Vibes-Plug Headless Concurrent Swarm Dispatcher (2026 Edition)
  * 
- * Coordinates asynchronous, non-blocking multi-agent execution across the 176-skill registry
+ * Coordinates asynchronous, non-blocking multi-agent execution across the 178-skill registry
  * and 9 native specialist subagents. Dispatches parallel workers with concurrency throttling,
  * workspace-grounded AST symbol discovery, Blackboard contract binding, in-memory sandbox
  * verification, Critic-in-the-Loop auditing, and unified result synthesis.

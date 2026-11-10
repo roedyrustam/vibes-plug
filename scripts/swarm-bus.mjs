@@ -5,7 +5,7 @@
  * 
  * Provides an event-driven pub/sub substrate, persistent cross-process A2A Blackboard,
  * and real-time SSE streaming bus for concurrent multi-agent worker coordination,
- * live state telemetry, and inter-agent synchronization across the 176-skill swarm ecosystem.
+ * live state telemetry, and inter-agent synchronization across the 178-skill swarm ecosystem.
  * 
  * @author Roedy Rustam
  * @version 4.7.0

@@ -17,7 +17,7 @@ RESET="\033[0m"
 echo -e "${BOLD}${CYAN}"
 echo "╔══════════════════════════════════════════════════════════╗"
 echo "║    🚀 Vibes-Plug Universal Installer (2026 Edition)      ║"
-echo "║    176 Specialized Skills & Sovereign Multi-Agent Swarm  ║"
+echo "║    178 Specialized Skills & Sovereign Multi-Agent Swarm  ║"
 echo "╚══════════════════════════════════════════════════════════╝"
 echo -e "${RESET}"
 
@@ -80,4 +80,4 @@ fi
 
 echo -e "\n${BOLD}${GREEN}✨ Vibes-Plug successfully installed!${RESET}"
 echo -e "⚡ Run ${BOLD}vibes help${RESET} or ${BOLD}vibes studio${RESET} to launch the Studio Cockpit."
-echo -e "🌐 Primary Trigger active across Antigravity, Claude Code, Cursor, Codex, and Windsurf.\n"
+echo -e "🌐 Primary Trigger active across Antigravity, Claude Code, Cursor, Codex, Windsurf, Cline, Trae, Kimi, and Kiro.\n"

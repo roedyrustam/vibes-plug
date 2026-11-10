@@ -1,0 +1,18 @@
+{
+  "display_name": "Vibes Swarm Cockpit",
+  "description": "Autonomous AI Agent Swarm Orchestrator & Studio Cockpit",
+  "command": "node",
+  "args": ["server.mjs"],
+  "has_web_ui": true,
+  "restart_policy": "always",
+  "ui_config": {
+    "display_name": "Vibes Swarm Cockpit",
+    "views": [
+      {
+        "title": "Vibes Swarm",
+        "entrypoint": "SIDECAR_UI_ENTRYPOINT_AUX_PANE",
+        "path": "/"
+      }
+    ]
+  }
+}
