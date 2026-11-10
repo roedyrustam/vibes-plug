@@ -30,8 +30,8 @@ const strip = (html) => html
   .replace(/<style\b[\s\S]*?<\s*\/\s*style\b[^>]*>/gi, ' ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;|&#160;/g, ' ')
-  .replace(/&amp;/g, '&')
   .replace(/&#x27;|&#39;|&rsquo;/g, "'")
+  .replace(/&amp;/g, '&')
   .replace(/\s+/g, ' ');
 // Attributes as HTML parses them: double-quoted, single-quoted, unquoted (minifiers drop quotes:
 // <html lang=en>) or bare (<img alt>, an empty value).
