@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-10T20:41:40.029Z",
+  "updatedAt": "2026-11-10T20:41:54.443Z",
   "entries": {
     "schema:users": {
       "key": "schema:users",
@@ -9,7 +9,7 @@
       },
       "version": 1,
       "authorAgent": "test-agent",
-      "updatedAt": "2026-11-10T19:59:02.992Z"
+      "updatedAt": "2026-11-10T20:41:54.061Z"
     },
     "api:v1:orders": {
       "key": "api:v1:orders",
@@ -18,18 +18,7 @@
       },
       "version": 1,
       "authorAgent": "mcp-agent",
-      "updatedAt": "2026-11-10T19:59:03.675Z"
-    },
-    "studio:state": {
-      "key": "studio:state",
-      "value": {
-        "activeTab": "graph"
-      },
-      "version": 1,
-      "authorAgent": {
-        "author": "studio-test"
-      },
-      "updatedAt": "2026-11-10T20:41:40.025Z"
+      "updatedAt": "2026-11-10T20:41:54.443Z"
     }
   }
 }

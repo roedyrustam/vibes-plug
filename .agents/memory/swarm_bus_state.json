@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-10T20:41:40.032Z",
+  "updatedAt": "2026-11-10T20:41:55.512Z",
   "activeSwarms": {
     "76bbbf90-f800-4686-87d3-a7d7897bee14": {
       "swarmId": "76bbbf90-f800-4686-87d3-a7d7897bee14",
@@ -87,6 +87,93 @@
         }
       },
       "completedAt": "2026-11-10T20:41:37.121Z"
+    },
+    "06ca157d-1b84-44a5-ad90-4d72fd39ffb7": {
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "startedAt": "2026-11-10T20:41:53.792Z",
+      "status": "COMPLETED",
+      "totalWorkers": 3,
+      "completedWorkers": 3,
+      "workers": {
+        "worker-senior-frontend": {
+          "status": "COMPLETED",
+          "id": "b5e9b329-ed93-46e2-8dfe-d2683e7e7eea",
+          "timestamp": "2026-11-10T20:41:53.847Z",
+          "type": "worker:done",
+          "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+          "workerId": "worker-senior-frontend",
+          "domain": "Frontend / UI",
+          "skill": "senior-frontend",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 53
+        },
+        "worker-doku-payment-gateway": {
+          "status": "COMPLETED",
+          "id": "0110e6ac-3262-484b-ae06-2b9400934867",
+          "timestamp": "2026-11-10T20:41:53.855Z",
+          "type": "worker:done",
+          "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+          "workerId": "worker-doku-payment-gateway",
+          "domain": "Payments & Billing",
+          "skill": "doku-payment-gateway",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 61
+        },
+        "worker-reverse-engineer-anything": {
+          "status": "COMPLETED",
+          "id": "d42987af-ecc7-4db2-a53b-1f2b942903ec",
+          "timestamp": "2026-11-10T20:41:53.862Z",
+          "type": "worker:done",
+          "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+          "workerId": "worker-reverse-engineer-anything",
+          "domain": "Reverse Engineering & Binary Audit",
+          "skill": "reverse-engineer-anything",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 67
+        }
+      },
+      "completedAt": "2026-11-10T20:41:53.863Z"
+    },
+    "8b32b906-4ec8-4755-82f0-473eff65ac6b": {
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "startedAt": "2026-11-10T20:41:55.402Z",
+      "status": "COMPLETED",
+      "totalWorkers": 2,
+      "completedWorkers": 2,
+      "workers": {
+        "worker-database-orm-expert": {
+          "status": "COMPLETED",
+          "id": "edaca666-c8d5-490e-ad8c-e78a63be2fb5",
+          "timestamp": "2026-11-10T20:41:55.485Z",
+          "type": "worker:done",
+          "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+          "workerId": "worker-database-orm-expert",
+          "domain": "Database / RLS",
+          "skill": "database-orm-expert",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 81
+        },
+        "worker-autonomous-tdd-debugger": {
+          "status": "COMPLETED",
+          "id": "d9501040-de8a-4391-99a0-9c5363422270",
+          "timestamp": "2026-11-10T20:41:55.510Z",
+          "type": "worker:done",
+          "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+          "workerId": "worker-autonomous-tdd-debugger",
+          "domain": "Quality & Security Gate",
+          "skill": "autonomous-tdd-debugger",
+          "criticScore": 100,
+          "sandboxVerified": true,
+          "durationMs": 104
+        }
+      },
+      "completedAt": "2026-11-10T20:41:55.511Z"
     }
   },
   "eventBuffer": [
@@ -265,6 +352,181 @@
       "authorAgent": {
         "author": "studio-test"
       }
+    },
+    {
+      "id": "f5469eed-a6c3-4c58-873f-c05e8a27b73a",
+      "timestamp": "2026-11-10T20:41:53.792Z",
+      "type": "swarm:start",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "topology": "fan_out_fan_in",
+      "reasoningProfile": "balanced",
+      "thinkingBudgetTokens": 8192,
+      "totalWorkers": 3,
+      "concurrency": 3
+    },
+    {
+      "id": "05eb12e1-c7cf-4854-843c-7d67552ccb23",
+      "timestamp": "2026-11-10T20:41:53.793Z",
+      "type": "worker:dispatch",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "focus": "Tailwind v4, React 19, 5-state UI contract"
+    },
+    {
+      "id": "02836196-daf7-4385-a1af-3f56f7b71162",
+      "timestamp": "2026-11-10T20:41:53.794Z",
+      "type": "worker:dispatch",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "focus": "Atomic locks, idempotency, webhook HMAC verification"
+    },
+    {
+      "id": "5b7fc582-c525-4397-bc0c-046d600b5d32",
+      "timestamp": "2026-11-10T20:41:53.795Z",
+      "type": "worker:dispatch",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-reverse-engineer-anything",
+      "domain": "Reverse Engineering & Binary Audit",
+      "skill": "reverse-engineer-anything",
+      "focus": "Ghidra/LLDB triage, Evidence spans, SBOM & Z3 verification"
+    },
+    {
+      "id": "b5e9b329-ed93-46e2-8dfe-d2683e7e7eea",
+      "timestamp": "2026-11-10T20:41:53.847Z",
+      "type": "worker:done",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-senior-frontend",
+      "domain": "Frontend / UI",
+      "skill": "senior-frontend",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 53
+    },
+    {
+      "id": "0110e6ac-3262-484b-ae06-2b9400934867",
+      "timestamp": "2026-11-10T20:41:53.855Z",
+      "type": "worker:done",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-doku-payment-gateway",
+      "domain": "Payments & Billing",
+      "skill": "doku-payment-gateway",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 61
+    },
+    {
+      "id": "d42987af-ecc7-4db2-a53b-1f2b942903ec",
+      "timestamp": "2026-11-10T20:41:53.862Z",
+      "type": "worker:done",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "workerId": "worker-reverse-engineer-anything",
+      "domain": "Reverse Engineering & Binary Audit",
+      "skill": "reverse-engineer-anything",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 67
+    },
+    {
+      "id": "6484e9f4-06b3-4962-87b7-96fd685090a4",
+      "timestamp": "2026-11-10T20:41:53.863Z",
+      "type": "swarm:complete",
+      "swarmId": "06ca157d-1b84-44a5-ad90-4d72fd39ffb7",
+      "task": "Build DOKU payment webhook with Postgres RLS and React UI",
+      "success": true,
+      "totalDurationMs": 71,
+      "totalWorkers": 3
+    },
+    {
+      "id": "b956faa6-a2f1-47af-8950-aacc1187c9f8",
+      "timestamp": "2026-11-10T20:41:54.061Z",
+      "type": "blackboard:update",
+      "key": "schema:users",
+      "version": 1,
+      "authorAgent": "test-agent"
+    },
+    {
+      "id": "a9c1b61f-0cb2-434d-a14e-67b286d2cc8d",
+      "timestamp": "2026-11-10T20:41:54.443Z",
+      "type": "blackboard:update",
+      "key": "api:v1:orders",
+      "version": 1,
+      "authorAgent": "mcp-agent"
+    },
+    {
+      "id": "18a66851-f34e-4ad4-92f3-ec9bdc091f04",
+      "timestamp": "2026-11-10T20:41:55.402Z",
+      "type": "swarm:start",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "topology": "critic_validator",
+      "reasoningProfile": "speed",
+      "thinkingBudgetTokens": 1024,
+      "totalWorkers": 2,
+      "concurrency": 2
+    },
+    {
+      "id": "78e60e92-06c7-4e0e-be8b-f5847be25f43",
+      "timestamp": "2026-11-10T20:41:55.404Z",
+      "type": "worker:dispatch",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "focus": "PostgreSQL DDL, RLS policies, FK indexes"
+    },
+    {
+      "id": "7739159b-7040-4699-b59b-6a78b22ba4b4",
+      "timestamp": "2026-11-10T20:41:55.406Z",
+      "type": "worker:dispatch",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "workerId": "worker-autonomous-tdd-debugger",
+      "domain": "Quality & Security Gate",
+      "skill": "autonomous-tdd-debugger",
+      "focus": "Playwright E2E, Z3 invariants, red-teaming & anti-slop"
+    },
+    {
+      "id": "edaca666-c8d5-490e-ad8c-e78a63be2fb5",
+      "timestamp": "2026-11-10T20:41:55.485Z",
+      "type": "worker:done",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "workerId": "worker-database-orm-expert",
+      "domain": "Database / RLS",
+      "skill": "database-orm-expert",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 81
+    },
+    {
+      "id": "d9501040-de8a-4391-99a0-9c5363422270",
+      "timestamp": "2026-11-10T20:41:55.510Z",
+      "type": "worker:done",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "workerId": "worker-autonomous-tdd-debugger",
+      "domain": "Quality & Security Gate",
+      "skill": "autonomous-tdd-debugger",
+      "status": "COMPLETED",
+      "criticScore": 100,
+      "sandboxVerified": true,
+      "durationMs": 104
+    },
+    {
+      "id": "23da49fd-773a-498e-9e65-8f883fd8afb7",
+      "timestamp": "2026-11-10T20:41:55.511Z",
+      "type": "swarm:complete",
+      "swarmId": "8b32b906-4ec8-4755-82f0-473eff65ac6b",
+      "task": "Audit SQL migration RLS and AST blast radius",
+      "success": true,
+      "totalDurationMs": 109,
+      "totalWorkers": 2
     }
   ]
 }
