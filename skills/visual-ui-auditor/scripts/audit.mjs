@@ -26,8 +26,8 @@ const origin = new URL(base).origin;
 const results = [];
 const add = (level, where, msg) => results.push({ level, where, msg });
 const strip = (html) => html
-  .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-  .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+  .replace(/<script\b[\s\S]*?<\s*\/\s*script\b[^>]*>/gi, ' ')
+  .replace(/<style\b[\s\S]*?<\s*\/\s*style\b[^>]*>/gi, ' ')
   .replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;|&#160;/g, ' ')
   .replace(/&amp;/g, '&')
