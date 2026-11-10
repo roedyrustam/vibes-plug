@@ -130,8 +130,11 @@ pub fn run() {
             .title("Sovereign Tauri Desktop")
             .inner_size(1024.0, 768.0)
             .on_permission_request(|_webview, request| {
-                println!("Webview requested permission: {:?}", request.permission());
-                tauri::webview::PermissionState::Granted
+                // Least-privilege allowlist: deny sensitive OS permissions by default
+                match format!("{:?}", request.permission()).as_str() {
+                    "Notifications" | "ClipboardRead" => tauri::webview::PermissionState::Granted,
+                    _ => tauri::webview::PermissionState::Denied,
+                }
             })
             .build()?;
 
@@ -201,6 +204,52 @@ export async function runStreamingTask(
   ]
 }
 ```
+
+#### 4. Path-Traversal Safe AppData File Access & Async Tokio State (`src-tauri/src/storage.rs`)
+Never trust raw file paths sent from the frontend webview. Canonicalize paths and verify they remain strictly inside `app_handle.path().app_data_dir()` before reading or writing:
+
+```rust
+use std::path::{Component, Path, PathBuf};
+use tauri::{AppHandle, Manager, State};
+use tokio::sync::RwLock;
+
+pub struct VaultState {
+    pub active_workspace: RwLock<String>,
+}
+
+pub fn resolve_safe_appdata_path(app: &AppHandle, relative_name: &str) -> Result<PathBuf, String> {
+    let base_dir = app.path().app_data_dir().map_err(|e| e.to_string())?;
+    let candidate = Path::new(relative_name);
+
+    // Reject absolute paths, parent directory traversal (..), and root prefixes
+    if candidate.is_absolute()
+        || candidate
+            .components()
+            .any(|c| matches!(c, Component::ParentDir | Component::RootDir | Component::Prefix(_)))
+    {
+        return Err("SECURITY_VIOLATION: Path traversal outside app_data_dir is forbidden".into());
+    }
+
+    Ok(base_dir.join(candidate))
+}
+
+#[tauri::command]
+pub async fn set_active_workspace(
+    workspace_id: String,
+    state: State<'_, VaultState>,
+) -> Result<String, String> {
+    let mut guard = state.active_workspace.write().await;
+    *guard = workspace_id.clone();
+    Ok(workspace_id)
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Least-Privilege Capability Envelopes**: MUST scope `src-tauri/capabilities/*.json` permissions to explicit window labels and never grant wildcard `fs:allow-all` or unrestricted shell execution (`shell:allow-execute`).
+- **Path-Traversal Canonicalization on IPC Commands**: MUST resolve file paths against `app_handle.path().app_data_dir()` and reject any path containing `Component::ParentDir` (`..`) or absolute prefixes.
+- **Explicit Allowlist in `on_permission_request`**: MUST evaluate `request.permission()` against an explicit allowlist and return `PermissionState::Denied` by default for unapproved hardware permissions.
+- **Ordered Streaming via `tauri::ipc::Channel<T>`**: MUST use `tauri::ipc::Channel<T>` instead of global `app.emit()` broadcasts for high-frequency or caller-scoped streaming payloads.
+- **No Synchronous `std::sync::MutexGuard` Across `.await`**: MUST use `tokio::sync::Mutex` or `tokio::sync::RwLock` in async `#[tauri::command]` handlers that await I/O.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -333,8 +382,10 @@ pub fn run() {
             .title("Sovereign Tauri Desktop")
             .inner_size(1024.0, 768.0)
             .on_permission_request(|_webview, request| {
-                println!("Izin webview diminta: {:?}", request.permission());
-                tauri::webview::PermissionState::Granted
+                match format!("{:?}", request.permission()).as_str() {
+                    "Notifications" | "ClipboardRead" => tauri::webview::PermissionState::Granted,
+                    _ => tauri::webview::PermissionState::Denied,
+                }
             })
             .build()?;
 

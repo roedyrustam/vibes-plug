@@ -367,6 +367,33 @@ For models conveying scientific, anatomical, or engineering concepts:
      });
    }
    ```
+4. **Zero-Allocation `THREE.InstancedMesh` Batch Transforms**:
+   - Pre-allocate a single module-level scratch `THREE.Object3D` dummy outside the animation loop so updating 10,000+ instances produces zero garbage-collection pauses:
+   ```typescript
+   import * as THREE from 'three/webgpu';
+
+   const scratchDummy = new THREE.Object3D();
+
+   export function updateInstancedField(
+     instancedMesh: THREE.InstancedMesh,
+     positions: Float32Array,
+     elapsedSeconds: number
+   ): void {
+     const count = instancedMesh.count;
+     for (let i = 0; i < count; i++) {
+       const base = i * 3;
+       const x = positions[base];
+       const y = positions[base + 1] + Math.sin(elapsedSeconds + i * 0.15) * 0.08;
+       const z = positions[base + 2];
+
+       scratchDummy.position.set(x, y, z);
+       scratchDummy.rotation.set(0, elapsedSeconds * 0.25, 0);
+       scratchDummy.updateMatrix();
+       instancedMesh.setMatrixAt(i, scratchDummy.matrix);
+     }
+     instancedMesh.instanceMatrix.needsUpdate = true;
+   }
+   ```
 
 ---
 
@@ -554,6 +581,13 @@ export function mountSharedGL(canvas: HTMLCanvasElement): () => void {
 > ```css
 > html.gl-on [data-gl] { background: none !important; }
 > ```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Per-Frame Object Allocations in Render Loops**: MUST pre-allocate reusable scratch `THREE.Vector3`, `THREE.Matrix4`, `THREE.Quaternion`, and `THREE.Color` instances outside `setAnimationLoop` / `useFrame` to prevent GC frame stutters.
+- **Bounded Device Pixel Ratio (`dpr <= 2`)**: MUST cap pixel ratio via `renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))` or `<Canvas dpr={[1, 2]}>` so 3x/4x mobile screens do not exhaust fill-rate and VRAM.
+- **Explicit GPU Resource Disposal on Unmount**: MUST traverse unmounted scene subtrees and call `.dispose()` on every `BufferGeometry`, `Material`, `Texture`, and `RenderTarget`.
+- **Fixed-Timestep Physics Decoupling**: MUST advance physics simulations using a fixed-timestep accumulator (`1 / 60` s with clamped `Math.min(frameDelta, 0.1)`) rather than passing raw variable `frameDelta` directly to `physicsWorld.step()`.
+- **Single Shared WebGL/WebGPU Context per Page**: MUST reuse a single `<canvas>` context across DOM-synced viewports (`data-gl` / `View`scissor) and respect `prefers-reduced-motion: reduce`.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

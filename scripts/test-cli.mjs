@@ -2348,6 +2348,30 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'form-validation-expert', code: '<button type="submit">Submit</button>' }, 'FORM_SUBMIT_BUTTON_MISSING_DISABLED_GUARD');
     await expectViolation({ skill: 'pwa-offline-first-expert', code: 'const q = { query: `mutation { pushTask(task: ${JSON.stringify(doc)}) { id } }` };' }, 'PWA_UNPARAMETERIZED_SYNC_GRAPHQL_STRING');
     await expectViolation({ skill: 'compliance-gdpr-privacy-expert', code: "const bidx = crypto.createHash('sha256').update(nik).digest('hex');" }, 'PRIVACY_UNSALTED_SHA256_PII_HASH');
+
+    // Wave 5 (Gelombang 5) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'prompt-injection-firewall', code: 'const res = await fetch("http://169.254.169.254/latest/meta-data/");' }, 'PROMPT_FIREWALL_CLOUD_METADATA_SSRF_FETCH');
+    await expectViolation({ skill: 'ai-safety-governance-expert', code: 'const cfg = { systemPurpose: "social_scoring", enabled: true };' }, 'AI_GOVERNANCE_PROHIBITED_SOCIAL_SCORING');
+    await expectViolation({ skill: 'llm-observability-expert', code: 'langfuse.trace({ name: "call", input: { authorization: req.headers.authorization } });' }, 'LLM_OBS_UNSCRUBBED_API_KEY_IN_TRACE_INPUT');
+    await expectViolation({ skill: 'vercel-ai-sdk-expert', code: 'const res = streamText({ model, messages, tools: { search: toolDef } });' }, 'VERCEL_AI_TOOLS_WITHOUT_MAX_STEPS');
+    await expectViolation({ skill: 'pydantic-ai-expert', code: '@agent.result_validator\nasync def check(ctx, data):\n    raise ValueError("bad output")' }, 'PYDANTIC_AI_RAW_VALUE_ERROR_IN_VALIDATOR');
+    await expectViolation({ skill: 'doku-payment-gateway', code: "const url = '/checkout/v1/payment';\nconst sig = crypto.createHmac('sha512', secret).update(raw).digest('base64');" }, 'DOKU_CHECKOUT_WRONG_HMAC_SHA512');
+    await expectViolation({ skill: 'saas-billing', code: 'const uniqueCode = Math.floor(Math.random() * 999) + 1;' }, 'BILLING_INSECURE_MATH_RANDOM_PAYMENT_CODE');
+    await expectViolation({ skill: 'e2e-testing-expert', code: 'await page.waitForTimeout(5000);' }, 'PLAYWRIGHT_ARBITRARY_WAIT_FOR_TIMEOUT');
+    await expectViolation({ skill: 'property-mutation-testing-expert', code: 'const arb = fc.double({ min: 0, max: 1000 });' }, 'PROP_TEST_DOUBLE_WITHOUT_NO_NAN');
+    await expectViolation({ skill: 'accessibility-testing-expert', code: '<div className="btn" onClick={handleOpen}>Open</div>' }, 'A11Y_NON_SEMANTIC_DIV_ONCLICK_WITHOUT_ROLE');
+
+    // Wave 6 (Gelombang 6) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'rust-programming-expert', code: 'Router::new().route("/api/v1/accounts/:id", get(handler))' }, 'RUST_LEGACY_AXUM_COLON_ROUTE_PARAM');
+    await expectViolation({ skill: 'go-programming-expert', code: 'http.ListenAndServe(":8080", mux)' }, 'GO_HTTP_LISTEN_WITHOUT_TIMEOUTS');
+    await expectViolation({ skill: 'python-programming-expert', code: 'async def fetch_data():\n    res = requests.get("https://example.com")' }, 'PYTHON_BLOCKING_IO_IN_ASYNC_DEF');
+    await expectViolation({ skill: 'bun-runtime-expert', code: 'const rows = await sql.unsafe(`SELECT * FROM users WHERE email = ${email}`);' }, 'BUN_SQL_UNSAFE_INTERPOLATION');
+    await expectViolation({ skill: 'cloudflare-workers-expert', code: 'export default { ...app, async queue(batch) {} };' }, 'CF_HONO_OBJECT_SPREAD_LOSING_FETCH');
+    await expectViolation({ skill: 'wasm-edge-computing-expert', code: 'const mem = new WebAssembly.Memory({ initial: 16 });' }, 'WASM_UNBOUNDED_MEMORY_WITHOUT_MAXIMUM');
+    await expectViolation({ skill: 'tauri-expert', code: '{ "permissions": ["core:default", "shell:allow-execute"] }' }, 'TAURI_CAPABILITY_DANGEROUS_SHELL_EXECUTE');
+    await expectViolation({ skill: 'mobile-expo-expert', code: 'await AsyncStorage.setItem("auth_refresh_token", token);' }, 'EXPO_PLAINTEXT_ASYNC_STORAGE_TOKEN');
+    await expectViolation({ skill: 'flutter-dart-expert', code: 'const factory Product({ required String id, required double price }) = _Product;' }, 'FLUTTER_DOUBLE_USED_FOR_CURRENCY');
+    await expectViolation({ skill: 'web-3d-graphics-expert', code: 'renderer.setAnimationLoop(() => { const v = new THREE.Vector3(1, 2, 3); });' }, 'WEB3D_ALLOCATION_INSIDE_RENDER_LOOP');
   });
 });
 

@@ -217,6 +217,81 @@ Ensure transparency in AI-generated outputs by embedding provenance data.
 - **Invisible Text Watermarking**: Alter token probabilities during generation (e.g., SynthID text) to embed a detectable signature.
 - **Clear Disclosures**: Always present visible labels indicating content is AI-generated, especially for synthetic media and bots.
 
+## 8. Cryptographic C2PA Provenance Manifest Signer & High-Risk HITL Gate / Penandatangan Provenance C2PA & Gerbang HITL Risiko Tinggi
+
+Sign AI-generated artifacts with a verifiable Ed25519 C2PA-aligned provenance manifest and enforce Human-in-the-Loop (HITL) cryptographic sign-off before executing EU AI Act `HIGH_RISK` automated decisions:
+
+```typescript
+import crypto from 'node:crypto';
+
+export type RiskTier = 'MINIMAL_RISK' | 'LIMITED_RISK' | 'HIGH_RISK' | 'UNACCEPTABLE_RISK';
+
+export interface C2PAProvenanceAssertion {
+  claimGenerator: string;
+  modelId: string;
+  promptDigestSha256: string;
+  outputDigestSha256: string;
+  issuedAtIso: string;
+  riskTier: RiskTier;
+  humanReviewerSignOffId?: string;
+}
+
+export interface SignedC2PAManifest {
+  assertion: C2PAProvenanceAssertion;
+  signatureBase64Url: string;
+  publicKeyFingerprint: string;
+}
+
+export function signAIProvenanceManifest(params: {
+  modelId: string;
+  promptText: string;
+  outputBuffer: Buffer;
+  riskTier: RiskTier;
+  humanReviewerSignOffId?: string;
+  ed25519PrivateKeyPem: string;
+  ed25519PublicKeyPem: string;
+}): SignedC2PAManifest {
+  if (params.riskTier === 'UNACCEPTABLE_RISK') {
+    throw new Error('EU_AI_ACT_PROHIBITED: Unacceptable risk AI system execution is strictly forbidden');
+  }
+
+  if (params.riskTier === 'HIGH_RISK' && !params.humanReviewerSignOffId) {
+    throw new Error('GDPR_ART22_HITL_REQUIRED: High-risk AI decision requires verified humanReviewerSignOffId');
+  }
+
+  const assertion: C2PAProvenanceAssertion = {
+    claimGenerator: 'vibes-plug-c2pa-provenance/4.7.0',
+    modelId: params.modelId,
+    promptDigestSha256: crypto.createHash('sha256').update(params.promptText, 'utf8').digest('hex'),
+    outputDigestSha256: crypto.createHash('sha256').update(params.outputBuffer).digest('hex'),
+    issuedAtIso: new Date().toISOString(),
+    riskTier: params.riskTier,
+    humanReviewerSignOffId: params.humanReviewerSignOffId,
+  };
+
+  const canonicalPayload = Buffer.from(JSON.stringify(assertion), 'utf8');
+  const signature = crypto.sign(null, canonicalPayload, params.ed25519PrivateKeyPem);
+  const publicKeyFingerprint = crypto
+    .createHash('sha256')
+    .update(params.ed25519PublicKeyPem, 'utf8')
+    .digest('hex')
+    .slice(0, 32);
+
+  return {
+    assertion,
+    signatureBase64Url: signature.toString('base64url'),
+    publicKeyFingerprint,
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **EU AI Act Prohibited Risk Blocking**: MUST reject any system classified as `UNACCEPTABLE_RISK` (`social_scoring`, `subliminal_manipulation`) before model invocation.
+- **GDPR Art. 22 High-Risk HITL Enforcement**: MUST require a verified `humanReviewerSignOffId` before finalizing decisions in `HIGH_RISK` domains (`employment`, `credit_scoring`, `biometrics`, `education`).
+- **Pre/Post Runtime Safety Guardrails**: MUST run input prompt-injection/toxicity classification (`LlamaGuard` / NeMo Guardrails) and post-generation PII redaction before returning model output.
+- **NLI Factuality Grounding Check**: MUST verify RAG-grounded responses using Natural Language Inference entailment scoring and flag claims below the `0.7` grounding threshold.
+- **Cryptographic Provenance Attestation**: MUST attach a signed provenance manifest (`SHA-256` output digest + `Ed25519` signature) to synthetic media and high-impact AI artifacts.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

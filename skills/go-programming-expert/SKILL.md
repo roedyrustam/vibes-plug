@@ -218,7 +218,15 @@ func main() {
     })
 
     slog.Info("starting production server", "port", 8080)
-    if err := http.ListenAndServe(":8080", mux); err != nil {
+    srv := &http.Server{
+        Addr:              ":8080",
+        Handler:           mux,
+        ReadHeaderTimeout: 5 * time.Second,
+        ReadTimeout:       15 * time.Second,
+        WriteTimeout:      30 * time.Second,
+        IdleTimeout:       60 * time.Second,
+    }
+    if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
         slog.Error("server exited", "error", err)
         os.Exit(1)
     }
@@ -261,6 +269,61 @@ func (h *UserHandler) Create(ctx context.Context, name, email string) (*db.User,
     return &user, nil
 }
 ```
+
+#### 7. Bounded `errgroup.WithContext` Fan-Out & Graceful `signal.NotifyContext` Shutdown
+Prevent goroutine leaks and unbounded concurrency spikes by combining `errgroup.WithContext` (`g.SetLimit`) with OS signal-driven context cancellation:
+
+```go
+package worker
+
+import (
+    "context"
+    "fmt"
+    "golang.org/x/sync/errgroup"
+)
+
+type InvoiceJob struct {
+    ID          string
+    AmountCents int64
+}
+
+func ProcessInvoiceBatch(
+    parentCtx context.Context,
+    jobs []InvoiceJob,
+    maxConcurrency int,
+    processor func(ctx context.Context, job InvoiceJob) error,
+) error {
+    g, ctx := errgroup.WithContext(parentCtx)
+    if maxConcurrency <= 0 {
+        maxConcurrency = 8
+    }
+    g.SetLimit(maxConcurrency)
+
+    for _, job := range jobs {
+        job := job
+        g.Go(func() error {
+            select {
+            case <-ctx.Done():
+                return ctx.Err()
+            default:
+                if err := processor(ctx, job); err != nil {
+                    return fmt.Errorf("process invoice %s: %w", job.ID, err)
+                }
+                return nil
+            }
+        })
+    }
+
+    return g.Wait()
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Slowloris-Resistant `http.Server` Timeouts**: MUST configure `http.Server` with explicit `ReadHeaderTimeout`, `ReadTimeout`, `WriteTimeout`, and `IdleTimeout` instead of calling bare `http.ListenAndServe(addr, mux)`.
+- **Zero Swallowed Errors (`_ = err`)**: MUST check every returned `err != nil` and wrap with context via `fmt.Errorf("operation: %w", err)` so `errors.Is` and `errors.As` chains remain intact.
+- **Context-Bound Goroutines & `errgroup.SetLimit`**: MUST bind background goroutines to `context.Context` (`ctx.Done()`) and bound concurrent fan-out with `errgroup.WithContext` + `g.SetLimit(n)`.
+- **Deterministic Virtual-Clock Concurrency Tests**: MUST use `testing/synctest` (`synctest.Run`) instead of flaky `time.Sleep` waits when testing timeouts, retries, and worker pools.
+- **Parameterized `sqlc` / `pgx/v5` Queries**: MUST execute SQL through compile-time verified `sqlc` methods or parameterized `pgx/v5` positional arguments (`$1`, `$2`), never `fmt.Sprintf` SQL strings.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

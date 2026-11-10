@@ -1,13 +1,13 @@
 {
   "schema": "vibes-skill-slices/v4.7.0",
   "version": "4.7.0",
-  "compiledAt": "2026-11-10T17:02:39.502Z",
+  "compiledAt": "2026-11-10T17:19:58.413Z",
   "totalSkills": 178,
-  "totalCodeBlueprints": 1167,
+  "totalCodeBlueprints": 1187,
   "domains": {
     "ai-llm": {
       "count": 36,
-      "blueprints": 214,
+      "blueprints": 219,
       "skills": [
         "a2a-agent-protocol-expert",
         "adaptive-model-cascade",
@@ -49,7 +49,7 @@
     },
     "frontend": {
       "count": 31,
-      "blueprints": 255,
+      "blueprints": 256,
       "skills": [
         "accessibility-testing-expert",
         "angular-expert",
@@ -86,7 +86,7 @@
     },
     "testing-security": {
       "count": 39,
-      "blueprints": 249,
+      "blueprints": 253,
       "skills": [
         "agentic-m2m-settlement",
         "ai-code-review-autonomous",
@@ -131,7 +131,7 @@
     },
     "api-contracts": {
       "count": 31,
-      "blueprints": 188,
+      "blueprints": 192,
       "skills": [
         "api-design-expert",
         "api-gateway-proxy-expert",
@@ -168,7 +168,7 @@
     },
     "mobile-desktop": {
       "count": 14,
-      "blueprints": 84,
+      "blueprints": 89,
       "skills": [
         "app-promo-media-expert",
         "apple-ecosystem-expert",
@@ -188,7 +188,7 @@
     },
     "devops-cicd": {
       "count": 14,
-      "blueprints": 99,
+      "blueprints": 100,
       "skills": [
         "ci-cd-devops-architect",
         "cloud-hosting-expert",
@@ -227,9 +227,9 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 845384,
-    "compiledSlicesTokensApprox": 142338,
-    "avgTokensPerSlice": 800,
+    "fullRegistryTokensApprox": 859625,
+    "compiledSlicesTokensApprox": 142302,
+    "avgTokensPerSlice": 799,
     "tokenReductionPercent": "83%"
   },
   "slices": {
@@ -345,9 +345,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "typescript",
         "json"
@@ -356,8 +356,8 @@
         {
           "title": "1. Automated A11y Testing with Playwright & Axe-Core",
           "language": "typescript",
-          "lines": 34,
-          "preview": "import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n    const accessibilityScanResults = await new AxeBuilder({ page })\n      .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])\n      .disableRules(['color-contrast']) // If tested separately\n      .analyze();"
+          "lines": 33,
+          "preview": "import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n    const accessibilityScanResults = await new AxeBuilder({ page })\n      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])\n      .analyze();\n"
         },
         {
           "title": "2. Automated Pa11y CI Configuration (`.pa11yci.json`)",
@@ -372,16 +372,16 @@
           "preview": "import { test, expect } from '@playwright/test';\n\n  const buttons = page.locator('button, a[role=\"button\"], input[type=\"checkbox\"]');\n  const count = await buttons.count();\n\n  for (let i = 0; i < count; i++) {"
         },
         {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 34,
+          "preview": "import { test, expect } from '@playwright/test';\n\n  const dialog = page.getByRole('dialog');\n  await expect(dialog).toBeVisible();\n\n  const focusableCount = await dialog"
+        },
+        {
           "title": "1. Pengujian Aksesibilitas Otomatis dengan Playwright & Axe-Core",
           "language": "typescript",
           "lines": 32,
           "preview": "import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n    const hasilAudit = await new AxeBuilder({ page })\n      .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])\n      .analyze();\n"
-        },
-        {
-          "title": "2. Konfigurasi CI Otomatis Pa11y (`.pa11yci.json`)",
-          "language": "json",
-          "lines": 13,
-          "preview": "{\n  \"defaults\": {\n    \"standard\": \"WCAG2AA\",\n    \"timeout\": 15000,\n    \"runners\": [\"axe\", \"htmlcs\"]\n  },"
         }
       ],
       "connectedSkillsCount": 6,
@@ -397,7 +397,7 @@
       "cli": "vibes skill exec accessibility-testing-expert verify",
       "snippet": {
         "lang": "typescript",
-        "code": "import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n    const accessibilityScanResults = await new AxeBuilder({ page })\n      .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])\n      .disableRules(['color-contrast']) // If tested separately\n      .analyze();\n\n    expect(accessibilityScanResults.violations).toEqual([]);\n  });\n\n  test('modal dialog should trap focus and pass a11y audit', async ({ page }) => {\n    await page.goto('/dashboard');\n    await page.click('button#open-modal');\n\n    // Verify modal is open and focused\n    const modal = page.locator('[role=\"dialog\"]');\n    await expect(modal).toBeVisible();\n"
+        "code": "import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n    const accessibilityScanResults = await new AxeBuilder({ page })\n      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])\n      .analyze();\n\n    expect(accessibilityScanResults.violations).toEqual([]);\n  });\n\n  test('modal dialog should trap focus and pass a11y audit', async ({ page }) => {\n    await page.goto('/dashboard');\n    await page.click('button#open-modal');\n\n    // Verify modal is open and focused\n    const modal = page.locator('[role=\"dialog\"]');\n    await expect(modal).toBeVisible();\n\n    const modalAudit = await new AxeBuilder({ page })"
       }
     },
     "adaptive-model-cascade": {
@@ -1273,9 +1273,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "yaml",
         "typescript",
@@ -2893,9 +2893,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 7,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "typescript"
       ],
@@ -2915,7 +2915,7 @@
         {
           "title": "3. Multi-Core HTTP Clustering with `Bun.serve()`",
           "language": "typescript",
-          "lines": 25,
+          "lines": 33,
           "preview": "// src/server.ts\nimport { serve } from 'bun';\nconst server = serve({\n  port: Number(process.env.PORT) || 3000,\n  reusePort: true, // Enables SO_REUSEPORT: spawn multiple instances to scale across cores\n  async fetch(req) {"
         },
         {
@@ -2925,10 +2925,10 @@
           "preview": "// test/user.test.ts\nimport { describe, expect, it, beforeEach } from 'bun:test';\n    const user = await getActiveUser('test@example.com');\n    expect(user).not.toBeNull();\n    expect(user?.email).toBe('test@example.com');\n    expect(user?.balance).toBe(100.0);"
         },
         {
-          "title": "1. Klien PostgreSQL Native (`import { SQL } from 'bun'`)",
+          "title": "Blueprint",
           "language": "typescript",
-          "lines": 17,
-          "preview": "import { SQL } from 'bun';\n\nexport const sql = new SQL({\n  url: process.env.DATABASE_URL || 'postgres://user:password@localhost:5432/db_produksi',\n  max: 20,\n});"
+          "lines": 11,
+          "preview": "export async function hashUserPassword(plainPassword: string): Promise<string> {\n  return await Bun.password.hash(plainPassword, {\n    algorithm: 'argon2id',\n    memoryCost: 65536, // 64 MiB\n    timeCost: 3,\n  });"
         }
       ],
       "connectedSkillsCount": 11,
@@ -3231,9 +3231,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "bash",
         "toml",
@@ -3256,7 +3256,7 @@
         {
           "title": "2. Hono Application on Workers",
           "language": "typescript",
-          "lines": 88,
+          "lines": 101,
           "preview": "import { Hono } from 'hono';\nimport { cors } from 'hono/cors';\ntype Bindings = {\n  DB: D1Database;\n  CACHE: KVNamespace;\n  STORAGE: R2Bucket;"
         },
         {
@@ -4775,9 +4775,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 15,
+      "codeBlueprintsCount": 16,
       "languagesAvailable": [
         "http",
         "typescript",
@@ -4802,7 +4802,7 @@
           "title": "Blueprint",
           "language": "text",
           "lines": 1,
-          "preview": "Client-Id:<client-id>\\nRequest-Id:<request-id>\\nRequest-Timestamp:<timestamp>\\nRequest-Target:<request-target>\\nDigest:<digest>"
+          "preview": "Client-Id:{client_id}\\nRequest-Id:{request_id}\\nRequest-Timestamp:{timestamp}\\nRequest-Target:{request_target}\\nDigest:{digest}"
         },
         {
           "title": "Blueprint",
@@ -5123,9 +5123,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 7,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 9,
+      "codeBlueprintsCount": 10,
       "languagesAvailable": [
         "typescript",
         "yaml"
@@ -6064,9 +6064,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "bash",
         "dart",
@@ -6992,9 +6992,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 8,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 12,
+      "codeBlueprintsCount": 13,
       "languagesAvailable": [
         "bash",
         "go",
@@ -7998,9 +7998,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 6,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 4,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "typescript",
         "text"
@@ -8021,14 +8021,20 @@
         {
           "title": "4. Cost Anomaly Detection",
           "language": "typescript",
-          "lines": 39,
+          "lines": 43,
           "preview": "export interface CostAlert {\n  type: 'daily_budget_exceeded' | 'cost_per_call_spike' | 'cache_hit_drop';\n  severity: 'warning' | 'critical';\n  currentValue: number;\n  threshold: number;\n  message: string;"
         },
         {
-          "title": "5. Dashboard Architecture",
-          "language": "text",
-          "lines": 17,
-          "preview": "┌──────────────────────────────────────────────────────┐\n│                  AI OPERATIONS DASHBOARD              │\n├──────────────┬───────────────┬────────────────────────┤\n│ COST CENTER  │ QUALITY       │ PERFORMANCE            │\n├──────────────┼───────────────┼────────────────────────┤\n│ Daily spend  │ Hallucination │ P50/P95/P99 latency    │"
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 48,
+          "preview": "export interface GenAISpanAttributes {\n  'gen_ai.system': string;\n  'gen_ai.request.model': string;\n  'gen_ai.response.model': string;\n  'gen_ai.usage.input_tokens': number;\n  'gen_ai.usage.output_tokens': number;"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 41,
+          "preview": "export interface TenantSpendWindow {\n  tenantId: string;\n  dailySpendUsd: number;\n  dailySoftCapUsd: number;\n  dailyHardCapUsd: number;\n  rollingCacheHitRatio: number;"
         }
       ],
       "connectedSkillsCount": 10,
@@ -8483,13 +8489,14 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "bash",
         "text",
-        "typescript"
+        "typescript",
+        "json"
       ],
       "codeBlueprints": [
         {
@@ -8518,9 +8525,9 @@
         },
         {
           "title": "5. Navigation Patterns",
-          "language": "typescript",
-          "lines": 9,
-          "preview": "// Deep linking & Universal Links configuration\n// app.json\n{\n  \"expo\": {\n    \"scheme\": \"myapp\",\n    \"ios\": { \"associatedDomains\": [\"applinks:myapp.com\"] },"
+          "language": "json",
+          "lines": 7,
+          "preview": "{\n  \"expo\": {\n    \"scheme\": \"myapp\",\n    \"ios\": { \"associatedDomains\": [\"applinks:myapp.com\"] },\n    \"android\": { \"intentFilters\": [{ \"action\": \"VIEW\", \"data\": [{ \"scheme\": \"https\", \"host\": \"myapp.com\" }] }] }\n  }"
         }
       ],
       "connectedSkillsCount": 12,
@@ -10200,9 +10207,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 4,
+      "guardRulesCount": 7,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 6,
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "text",
         "typescript",
@@ -10288,9 +10295,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 5,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 4,
       "languagesAvailable": [
         "typescript",
         "json",
@@ -10316,16 +10323,10 @@
           "preview": "ORIGINAL CODE                    MUTANT (auto-generated)\n─────────────                    ───────────────────────\nif (age >= 18) {          →      if (age > 18) {           // boundary mutation\n  return 'adult';                  return 'adult';\n}                                }\n"
         },
         {
-          "title": "4. AI-Driven Property Generation",
-          "language": "text",
-          "lines": 3,
-          "preview": "PROMPT FOR AI PROPERTY GENERATION:\n\nGiven this function:"
-        },
-        {
           "title": "Blueprint",
-          "language": "text",
-          "lines": 8,
-          "preview": "Generate fast-check property tests covering:\n1. All return values must be non-negative (discount cannot exceed price).\n2. Higher membership tiers should always get equal or greater discounts.\n3. Increasing quantity should never decrease the total discount.\n4. Zero quantity should always return zero discount.\n5. The discount should never exceed the original price × quantity."
+          "language": "typescript",
+          "lines": 73,
+          "preview": "import { describe, it, expect } from 'vitest';\nimport * as fc from 'fast-check';\nclass ProductionWallet {\n  private balanceCents = 0;\n  deposit(amountCents: number): void {\n    if (amountCents <= 0) throw new Error('Deposit must be positive');"
         }
       ],
       "connectedSkillsCount": 14,
@@ -10463,9 +10464,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 7,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 13,
+      "codeBlueprintsCount": 14,
       "languagesAvailable": [
         "text",
         "python"
@@ -10552,9 +10553,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 8,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "bash",
         "toml",
@@ -11397,9 +11398,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 11,
       "nfrContract": "P99 API Gateway Latency < 65ms, zero unwrap/expect in production paths, compile-time verified SQL queries, explicit Type-State verification, zero AI slop verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 13,
+      "codeBlueprintsCount": 14,
       "languagesAvailable": [
         "text",
         "rust"
@@ -11561,9 +11562,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 7,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 10,
+      "codeBlueprintsCount": 11,
       "languagesAvailable": [
         "typescript",
         "text"
@@ -13489,9 +13490,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 6,
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "rust",
         "typescript",
@@ -13501,7 +13502,7 @@
         {
           "title": "1. Rust Backend Command & Streaming Handler (`src-tauri/src/lib.rs`)",
           "language": "rust",
-          "lines": 77,
+          "lines": 80,
           "preview": "use serde::{Deserialize, Serialize};\nuse tauri::{\npub async fn fetch_system_metrics() -> Result<MetricsPayload, String> {\n    Ok(MetricsPayload {\n        cpu_usage: 12.4,\n        memory_used_mb: 2048,"
         },
         {
@@ -13517,16 +13518,16 @@
           "preview": "{\n  \"$schema\": \"../gen/schemas/desktop-schema.json\",\n  \"identifier\": \"default\",\n  \"description\": \"Default capability envelope for main application window\",\n  \"windows\": [\"main\"],\n  \"permissions\": ["
         },
         {
-          "title": "1. Definisi Command & Streaming Handler Rust (`src-tauri/src/lib.rs`)",
+          "title": "Blueprint",
           "language": "rust",
-          "lines": 77,
-          "preview": "use serde::{Deserialize, Serialize};\nuse tauri::{\npub async fn fetch_system_metrics() -> Result<MetricsPayload, String> {\n    Ok(MetricsPayload {\n        cpu_usage: 12.4,\n        memory_used_mb: 2048,"
+          "lines": 33,
+          "preview": "use std::path::{Component, Path, PathBuf};\nuse tauri::{AppHandle, Manager, State};\npub fn resolve_safe_appdata_path(app: &AppHandle, relative_name: &str) -> Result<PathBuf, String> {\n    let base_dir = app.path().app_data_dir().map_err(|e| e.to_string())?;\n    let candidate = Path::new(relative_name);\n"
         },
         {
-          "title": "2. Pemanggilan Frontend TypeScript dengan Channel (`src/lib/streaming.ts`)",
-          "language": "typescript",
-          "lines": 33,
-          "preview": "import { Channel, invoke } from '@tauri-apps/api/core';\n\nexport interface ProgressPayload {\n  step: number;\n  total: number;\n  message: string;"
+          "title": "1. Definisi Command & Streaming Handler Rust (`src-tauri/src/lib.rs`)",
+          "language": "rust",
+          "lines": 79,
+          "preview": "use serde::{Deserialize, Serialize};\nuse tauri::{\npub async fn fetch_system_metrics() -> Result<MetricsPayload, String> {\n    Ok(MetricsPayload {\n        cpu_usage: 12.4,\n        memory_used_mb: 2048,"
         }
       ],
       "connectedSkillsCount": 12,
@@ -13984,9 +13985,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 7,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 12,
+      "codeBlueprintsCount": 14,
       "languagesAvailable": [
         "text",
         "typescript",
@@ -14329,9 +14330,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 7,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 4,
+      "codeBlueprintsCount": 5,
       "languagesAvailable": [
         "wit",
         "toml",
@@ -14362,6 +14363,12 @@
           "language": "typescript",
           "lines": 29,
           "preview": "// src/workers/wasm-compute.worker.ts\nimport initWasm, { compute_sha256_batch } from '../pkg/vibes_wasm_kernel.js';\n    const result = compute_sha256_batch(payload, rounds);\n    self.postMessage({\n      id,\n      ok: true,"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 30,
+          "preview": "export interface WasmMemoryBudget {\n  initialPages: number; // 1 page = 64 KiB\n  maximumPages: number; // e.g., 256 pages = 16 MiB hard cap\n  shared?: boolean;\n}\n"
         }
       ],
       "connectedSkillsCount": 14,
@@ -14412,9 +14419,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 14,
+      "codeBlueprintsCount": 15,
       "languagesAvailable": [
         "text",
         "typescript",

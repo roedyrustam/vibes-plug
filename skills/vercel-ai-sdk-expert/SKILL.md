@@ -320,6 +320,54 @@ export async function POST(req: Request) {
 }
 ```
 
+#### 7. Abort-Safe `streamText` with Token Caps & Malformed Tool Call Self-Repair
+Propagate `req.signal` (`abortSignal`) to immediately halt token billing when a client disconnects, enforce `maxTokens` + `maxSteps`, and repair malformed JSON tool arguments via `experimental_repairToolCall`:
+
+```typescript
+import { anthropic } from '@ai-sdk/anthropic';
+import { streamText, tool } from 'ai';
+import { z } from 'zod';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+
+  const result = streamText({
+    model: anthropic('claude-sonnet-5.5-20261022'),
+    messages,
+    maxSteps: 6,
+    maxTokens: 2048,
+    abortSignal: req.signal,
+    tools: {
+      lookupOrderStatus: tool({
+        description: 'Look up order fulfillment status by deterministic order ID',
+        parameters: z.object({
+          orderId: z.string().regex(/^ORD-[0-9]{6}$/),
+        }),
+        execute: async ({ orderId }) => ({
+          orderId,
+          status: 'SHIPPED',
+          updatedAt: new Date().toISOString(),
+        }),
+      }),
+    },
+    experimental_repairToolCall: async ({ toolCall, error }) => {
+      console.warn(`[VercelAISDK] Repairing tool call ${toolCall.toolName}: ${error.message}`);
+      const cleanedArgs = toolCall.args.replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
+      return { ...toolCall, args: cleanedArgs };
+    },
+  });
+
+  return result.toDataStreamResponse();
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Bounded Agentic Tool Loops**: MUST set an explicit `maxSteps` ceiling (`<= 15`) whenever `tools` are passed to `streamText` or `generateText` to prevent infinite tool-calling loops.
+- **Strict Zod Tool Parameter Schemas**: MUST validate every `tool()` definition with a strict `z.object(...)` schema and field constraints before execution.
+- **Client Disconnect Abort Propagation**: MUST forward `req.signal` via `abortSignal` on server-side streaming calls to cancel upstream token generation when the client disconnects.
+- **Availability Fallback Discipline**: MUST gracefully degrade `gemini-4-argon` / `gemini-4-pro` to `gemini-3.8-flash` and `claude-opus-5.5` to `claude-opus-4.6` without unhandled missing-model crashes.
+- **Prompt Cache Control Pinning**: MUST attach `cacheControl: { type: 'ephemeral' }` on large static system prompts or multi-step tool loops to maximize KV-cache reuse.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -530,6 +578,7 @@ export function AntarmukaChatAgen() {
     </div>
   );
 }
+```
 
 #### 4. Pemrosesan Lampiran Multimodal (Gambar, PDF & Dokumen)
 Kirim buffer file multimodal atau URL langsung ke dalam array pesan `streamText`:

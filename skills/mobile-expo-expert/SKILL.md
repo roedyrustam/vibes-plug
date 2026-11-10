@@ -105,9 +105,7 @@ export async function GET(request: Request) {
 - **Expo SQLite + Drizzle**: Local-first database with full SQL support.
 
 #### 5. Navigation Patterns
-```typescript
-// Deep linking & Universal Links configuration
-// app.json
+```json
 {
   "expo": {
     "scheme": "myapp",
@@ -177,6 +175,53 @@ Apple App Store Guideline 5.1.1(v) and Google Play Data Safety mandate that any 
 1. **In-App Account & Data Deletion Action**: An explicit, accessible "Delete Account / Hapus Data" button in Settings/Profile triggering backend crypto-shredding and session revocation.
 2. **Public Data Deletion Web URL**: A functional public web page (e.g. `https://yourdomain.com/delete-account` or `/data-deletion`) where users can submit deletion requests without installing the app.
 3. **Public Privacy Policy & Terms URLs**: Standard live URLs (`/privacy` and `/terms`) detailing data processing, retention, and governing laws under UU PDP & GDPR.
+
+#### 11. Hardware-Backed Biometric Token Vault (`expo-secure-store` + `expo-local-authentication`)
+Never store session JWTs or refresh tokens in unencrypted `AsyncStorage`. Store sensitive credentials inside Keychain / Keystore via `expo-secure-store` gated by hardware biometrics:
+
+```typescript
+import * as SecureStore from 'expo-secure-store';
+import * as LocalAuthentication from 'expo-local-authentication';
+
+const REFRESH_TOKEN_KEY = 'vibes.auth.refresh_token';
+
+export async function saveHardwareProtectedToken(token: string): Promise<void> {
+  await SecureStore.setItemAsync(REFRESH_TOKEN_KEY, token, {
+    keychainAccessible: SecureStore.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
+    requireAuthentication: true,
+    authenticationPrompt: 'Authenticate to secure your session',
+  });
+}
+
+export async function readBiometricProtectedToken(): Promise<string | null> {
+  const hasHardware = await LocalAuthentication.hasHardwareAsync();
+  const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+
+  if (hasHardware && isEnrolled) {
+    const authResult = await LocalAuthentication.authenticateAsync({
+      promptMessage: 'Verify your identity',
+      fallbackLabel: 'Use Passcode',
+      cancelLabel: 'Cancel',
+    });
+    if (!authResult.success) {
+      return null;
+    }
+  }
+
+  return await SecureStore.getItemAsync(REFRESH_TOKEN_KEY);
+}
+
+export async function wipeSessionVault(): Promise<void> {
+  await SecureStore.deleteItemAsync(REFRESH_TOKEN_KEY);
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Unencrypted `AsyncStorage` for Secrets/Tokens**: MUST store session tokens, OAuth refresh tokens, and cryptographic keys in `expo-secure-store` (`WHEN_UNLOCKED_THIS_DEVICE_ONLY`), never in plaintext `AsyncStorage`.
+- **Virtualized `FlashList` Over `ScrollView .map()`**: MUST render dynamic lists (`> 20` items) with `@shopify/flash-list` (`estimatedItemSize`) or `FlatList` with stable `keyExtractor` instead of `.map()` inside a `<ScrollView>`.
+- **UI-Thread Worklets for 60/120fps Animations**: MUST execute gesture-driven animations on the native UI thread via `react-native-reanimated` v3 (`useSharedValue`, `useAnimatedStyle`) instead of React state updates on every frame.
+- **Safe Area & Minimum 48x48dp Touch Targets**: MUST respect device notches/home indicators with `react-native-safe-area-context` and enforce `>= 48x48dp` hit areas (`hitSlop` or padding) on all interactive controls.
+- **App Store Guideline 5.1.1(v) Account Deletion**: MUST provide an in-app account deletion flow alongside public `/privacy`, `/terms`, and `/delete-account` URLs.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

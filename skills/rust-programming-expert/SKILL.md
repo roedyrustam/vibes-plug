@@ -377,7 +377,7 @@ pub async fn create_account_handler(
 
 pub fn create_router(state: AppState) -> Router {
     Router::new()
-        .route("/api/v1/accounts/:id", get(get_account_handler))
+        .route("/api/v1/accounts/{id}", get(get_account_handler))
         .route("/api/v1/accounts", post(create_account_handler))
         .with_state(state)
 }
@@ -404,6 +404,64 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 ```
+
+### 7. Bounded Backpressure `mpsc` Worker Pool & Cooperative Shutdown (`CancellationToken`)
+
+Never spawn unbounded channels (`mpsc::unbounded_channel`) in network-facing services. Enforce backpressure with bounded `tokio::sync::mpsc::channel(capacity)` and coordinate clean shutdown with `tokio_util::sync::CancellationToken`:
+
+```rust
+use std::time::Duration;
+use tokio::sync::mpsc;
+use tokio::task::JoinSet;
+use tokio_util::sync::CancellationToken;
+
+#[derive(Debug)]
+pub struct LedgerJob {
+    pub job_id: String,
+    pub amount_minor: i64,
+}
+
+pub async fn run_bounded_worker_pool(
+    mut rx: mpsc::Receiver<LedgerJob>,
+    cancel_token: CancellationToken,
+    concurrency_limit: usize,
+) {
+    let semaphore = std::sync::Arc::new(tokio::sync::Semaphore::new(concurrency_limit.max(1)));
+    let mut join_set = JoinSet::new();
+
+    loop {
+        tokio::select! {
+            biased;
+            _ = cancel_token.cancelled() => {
+                break;
+            }
+            maybe_job = rx.recv() => {
+                let Some(job) = maybe_job else { break };
+                let Ok(permit) = semaphore.clone().acquire_owned().await else { break };
+                let child_token = cancel_token.child_token();
+
+                join_set.spawn(async move {
+                    let _permit = permit;
+                    tokio::select! {
+                        _ = child_token.cancelled() => Err("cancelled"),
+                        _ = tokio::time::sleep(Duration::from_millis(10)) => Ok(job.job_id),
+                    }
+                });
+            }
+        }
+    }
+
+    // Drain in-flight tasks before exiting
+    while join_set.join_next().await.is_some() {}
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero `.unwrap()` / `.expect()` on Fallible Runtime Paths**: MUST propagate errors via `Result<T, E>` with `?`, `thiserror`, or `let-else` guards in production request handlers.
+- **No Synchronous `std::sync::MutexGuard` Across `.await`**: MUST drop any `std::sync::MutexGuard` before an `.await` suspension point or use `tokio::sync::Mutex` / `tokio::sync::RwLock`.
+- **Mandatory `// SAFETY:` Proof Comments on `unsafe`**: MUST precede every `unsafe {}` block with an explicit `// SAFETY:` comment proving pointer alignment, initialization, aliasing, and lifetime invariants.
+- **Bounded Async Channels & Backpressure**: MUST use bounded `tokio::sync::mpsc::channel(capacity)` instead of `mpsc::unbounded_channel()` to prevent OOM under traffic spikes.
+- **Axum 0.8 `{param}` Route Syntax & Compile-Time SQLx**: MUST use `{id}` path parameters in Axum 0.8 routers and parameterized `sqlx::query!` / `sqlx::query_as!` macros.
 
 ---
 
@@ -659,7 +717,7 @@ pub async fn ambil_pengguna_handler(
 
 pub fn bangun_router(state: AppState) -> Router {
     Router::new()
-        .route("/api/v1/pengguna/:id", get(ambil_pengguna_handler))
+        .route("/api/v1/pengguna/{id}", get(ambil_pengguna_handler))
         .with_state(state)
 }
 ```

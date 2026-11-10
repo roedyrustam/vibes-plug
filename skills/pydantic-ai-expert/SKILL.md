@@ -284,6 +284,60 @@ def calculate_index_efficiency(table_name: str, scan_count: int) -> float:
         return round(1.0 - (1.0 / (scan_count + 1)), 4)
 ```
 
+#### 7. Self-Healing Result Validators (`ModelRetry`) & Hard Token Caps (`UsageLimits`)
+Use `@agent.result_validator` with `ModelRetry` so the model automatically corrects domain invariant violations in-flight, while enforcing strict `UsageLimits` on request and token budgets:
+
+```python
+from pydantic import BaseModel, Field
+from pydantic_ai import Agent, ModelRetry, RunContext
+from pydantic_ai.usage import UsageLimits
+
+class SQLMigrationPlan(BaseModel):
+    migration_id: str
+    ddl_statement: str = Field(min_length=10)
+    rollback_statement: str = Field(min_length=10)
+
+migration_agent = Agent[None, SQLMigrationPlan](
+    model='google-gla:gemini-4-argon',
+    result_type=SQLMigrationPlan,
+    retries=3,
+    system_prompt="Generate safe, non-destructive PostgreSQL DDL migrations with explicit rollback SQL."
+)
+
+@migration_agent.result_validator
+async def validate_non_destructive_ddl(
+    ctx: RunContext[None],
+    plan: SQLMigrationPlan
+) -> SQLMigrationPlan:
+    upper_ddl = plan.ddl_statement.upper()
+    if "DROP TABLE" in upper_ddl or "TRUNCATE " in upper_ddl:
+        raise ModelRetry(
+            "Destructive DDL (DROP TABLE / TRUNCATE) is forbidden. Rewrite using safe additive or rename operations."
+        )
+    if "CONCURRENTLY" not in upper_ddl and "CREATE INDEX" in upper_ddl:
+        raise ModelRetry(
+            "All CREATE INDEX statements in production must use CREATE INDEX CONCURRENTLY."
+        )
+    return plan
+
+async def generate_safe_migration(spec: str) -> SQLMigrationPlan:
+    limits = UsageLimits(request_limit=4, total_tokens_limit=6000)
+    try:
+        result = await migration_agent.run(spec, usage_limits=limits)
+        return result.data
+    except Exception:
+        with migration_agent.override(model='google-gla:gemini-3.8-flash'):
+            result = await migration_agent.run(spec, usage_limits=limits)
+            return result.data
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Strict Generic Agent Typing**: MUST parameterize `Agent[DepsType, ReturnType]` and `RunContext[DepsType]` so dependency injection and structured outputs are verified by static type checkers (`pyright` / `mypy`).
+- **Zero Global State in Tools**: MUST pass database pools, HTTP clients, and tenant context exclusively through `ctx.deps` (`RunContext`) — never via module-level mutable globals.
+- **Bounded Token & Request Budgets**: MUST enforce `UsageLimits(request_limit=..., total_tokens_limit=...)` on production `agent.run()` / `agent.run_stream()` calls to prevent runaway retry loops.
+- **Self-Healing Domain Validation**: MUST raise `ModelRetry("...")` inside `@agent.result_validator` or `@agent.tool` when recoverable semantic invariants fail, capped by explicit `retries`.
+- **Deterministic Offline Unit Testing**: MUST verify agent tool routing and result schema parsing in CI using `TestModel` or `FunctionModel` with `agent.override(model=...)`.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

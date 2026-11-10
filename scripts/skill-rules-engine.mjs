@@ -98,6 +98,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Unhandled .unwrap() Call in Rust',
       regex: /\.unwrap\s*\(\s*\)/,
       remediation: 'Propagate errors idiomatically with the ? operator and thiserror/anyhow context instead of panicking via .unwrap().'
+    },
+    {
+      id: 'RUST_LEGACY_AXUM_COLON_ROUTE_PARAM',
+      severity: 'WARN',
+      name: 'Legacy Axum 0.7 :param Route Syntax Used Instead of Axum 0.8 {param}',
+      regex: /\.route\s*\(\s*["']\/[^"']*:[a-zA-Z_]\w*[^"']*["']/,
+      remediation: 'Update Axum 0.8 route path parameters from legacy ":id" syntax to brace syntax "{id}" (e.g., .route("/api/v1/accounts/{id}", get(handler))).'
     }
   ],
   'go-programming-expert': [
@@ -114,6 +121,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Goroutine Launched Without Context Cancellation',
       regex: /\bgo\s+func\s*\(\s*\)\s*\{(?![\s\S]{0,200}?\bctx\.Done\(\))/m,
       remediation: 'Bind concurrent goroutines to context.Context cancellation or errgroup.WithContext(ctx) to prevent goroutine leaks.'
+    },
+    {
+      id: 'GO_HTTP_LISTEN_WITHOUT_TIMEOUTS',
+      severity: 'ERROR',
+      name: 'Direct http.ListenAndServe Call Without ReadHeaderTimeout / ReadTimeout (Slowloris Risk)',
+      regex: /\bhttp\.ListenAndServe\s*\(/,
+      remediation: 'Configure &http.Server{ Addr, Handler, ReadHeaderTimeout: 5*time.Second, ReadTimeout: 15*time.Second, WriteTimeout: 30*time.Second } instead of bare http.ListenAndServe.'
     }
   ],
   'python-programming-expert': [
@@ -130,6 +144,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Mutable Default Argument in Python Function',
       regex: /\bdef\s+\w+\s*\([^)]*=\s*(?:\[\s*\]|\{\s*\})/,
       remediation: 'Use None as default and initialize mutable list/dict inside the function body, or use dataclasses.field(default_factory=...).'
+    },
+    {
+      id: 'PYTHON_BLOCKING_IO_IN_ASYNC_DEF',
+      severity: 'ERROR',
+      name: 'Blocking requests.get/post or time.sleep Called Inside async def Function',
+      regex: /\basync\s+def\s+\w+[\s\S]{0,300}?\b(?:requests\.(?:get|post|put|delete)|time\.sleep)\s*\(/,
+      remediation: 'Never block the asyncio event loop with requests.* or time.sleep() inside async def; use httpx.AsyncClient and await asyncio.sleep().'
     }
   ],
   'database-orm-expert': [
@@ -157,6 +178,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Non-Constant-Time Webhook Signature Comparison',
       regex: /signature\s*===?\s*expected|expectedSignature\s*===?\s*signature/i,
       remediation: 'Use crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected)) when verifying SNAP BI / DOKU HMAC-SHA256 or asymmetric signatures.'
+    },
+    {
+      id: 'DOKU_CHECKOUT_WRONG_HMAC_SHA512',
+      severity: 'ERROR',
+      name: 'HMAC-SHA512 Used on Non-SNAP DOKU Checkout Endpoint (/checkout/v1/payment)',
+      regex: /\/checkout\/v1\/payment[\s\S]{0,300}?createHmac\s*\(\s*['"]sha512['"]/i,
+      remediation: 'Non-SNAP DOKU Checkout (/checkout/v1/payment) requires HMAC-SHA256 (HMACSHA256=...), whereas SNAP BI Direct APIs require HMAC-SHA512.'
     }
   ],
   'double-entry-ledger-fintech-expert': [
@@ -855,6 +883,262 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Hard DELETE FROM users CASCADE Destroying Financial/Audit Records',
       regex: /\bDELETE\s+FROM\s+users\b[\s\S]{0,40}?\bCASCADE\b/i,
       remediation: 'Execute Crypto-Shredding and PII column tombstoning (UPDATE users SET email = anonymized, national_id = NULL) while retaining immutable financial ledger entries.'
+    }
+  ],
+  'prompt-injection-firewall': [
+    {
+      id: 'PROMPT_FIREWALL_RAW_UNTRUSTED_SYSTEM_INTERPOLATION',
+      severity: 'ERROR',
+      name: 'Raw Untrusted User/RAG Content Interpolated Directly Into System Prompt',
+      regex: /role\s*:\s*['"]system['"]\s*,\s*content\s*:\s*`[^`]*\$\{(?:req\.body|userInput|rawInput|untrusted\w*|retrievedChunk)\}/,
+      remediation: 'Never interpolate raw user or untrusted RAG strings into a system prompt; normalize with NFKC, strip Unicode tags, and isolate untrusted context in a <untrusted_external_content nonce="..."> user block.'
+    },
+    {
+      id: 'PROMPT_FIREWALL_CLOUD_METADATA_SSRF_FETCH',
+      severity: 'ERROR',
+      name: 'Direct HTTP Fetch to Cloud Instance Metadata Service (169.254.169.254)',
+      regex: /\bfetch\s*\(\s*['"`]https?:\/\/169\.254\.169\.254\b/,
+      remediation: 'Block agent tool egress to link-local/metadata (169.254.0.0/16), loopback (127.0.0.0/8), and RFC 1918 private CIDR ranges.'
+    }
+  ],
+  'ai-safety-governance-expert': [
+    {
+      id: 'AI_GOVERNANCE_PROHIBITED_SOCIAL_SCORING',
+      severity: 'ERROR',
+      name: 'EU AI Act Prohibited Risk Category (social_scoring / subliminal_manipulation) Enabled',
+      regex: /\bsystemPurpose\s*:\s*['"](?:social_scoring|subliminal_manipulation)['"]\s*,\s*enabled\s*:\s*true\b/,
+      remediation: 'Systems classified as UNACCEPTABLE_RISK under the EU AI Act (social_scoring, subliminal_manipulation) must be hard-blocked before execution.'
+    },
+    {
+      id: 'AI_GOVERNANCE_HIGH_RISK_WITHOUT_HITL',
+      severity: 'WARN',
+      name: 'EU AI Act High-Risk Decision Executed Without Human-in-the-Loop Reviewer',
+      regex: /\briskTier\s*:\s*['"]HIGH_RISK['"]\s*,\s*requireHumanReview\s*:\s*false\b/,
+      remediation: 'High-risk AI decisions (credit_scoring, employment, biometrics) require human-in-the-loop verification under GDPR Art. 22 and the EU AI Act.'
+    }
+  ],
+  'llm-observability-expert': [
+    {
+      id: 'LLM_OBS_UNSCRUBBED_API_KEY_IN_TRACE_INPUT',
+      severity: 'ERROR',
+      name: 'Raw Authorization Header or Secret Passed Into Langfuse/OTel Trace Input',
+      regex: /langfuse\.trace\s*\(\s*\{[\s\S]{0,200}?\binput\s*:\s*\{[^}]*\b(?:authorization|apiKey|secretKey)\b/i,
+      remediation: 'Scrub PII, Bearer tokens, and API keys before passing prompt/input payloads to Langfuse or OpenTelemetry spans.'
+    },
+    {
+      id: 'LLM_OBS_EMPTY_METRICS_DIVISION_BY_ZERO',
+      severity: 'WARN',
+      name: 'Unchecked Division by metrics.length Without Empty-Array Guard',
+      regex: /metrics\.reduce\s*\([^)]+\)\s*\/\s*metrics\.length\b/,
+      remediation: 'Guard against empty metric arrays (if (metrics.length === 0) return [];) before dividing by metrics.length to avoid NaN alerts.'
+    }
+  ],
+  'vercel-ai-sdk-expert': [
+    {
+      id: 'VERCEL_AI_TOOLS_WITHOUT_MAX_STEPS',
+      severity: 'WARN',
+      name: 'Vercel AI SDK streamText/generateText With tools Missing Bounded maxSteps',
+      regex: /\b(?:streamText|generateText)\s*\(\s*\{(?![\s\S]{0,450}?\bmaxSteps\s*:)[\s\S]{0,280}?\btools\s*:\s*\{/,
+      remediation: 'Specify an explicit maxSteps ceiling (e.g., maxSteps: 5..10) when passing tools to streamText/generateText to bound agentic tool-calling loops.'
+    },
+    {
+      id: 'VERCEL_AI_DEPRECATED_STREAMING_TEXT_RESPONSE',
+      severity: 'ERROR',
+      name: 'Deprecated AI SDK v2 StreamingTextResponse Class Used',
+      regex: /\bnew\s+StreamingTextResponse\s*\(/,
+      remediation: 'Replace legacy new StreamingTextResponse() with result.toDataStreamResponse() or result.toTextStreamResponse() from the modern Vercel AI SDK.'
+    }
+  ],
+  'pydantic-ai-expert': [
+    {
+      id: 'PYDANTIC_AI_RUN_WITHOUT_USAGE_LIMITS',
+      severity: 'WARN',
+      name: 'Pydantic AI AgentConfigured With Excessive Retries (> 5)',
+      regex: /\bAgent\b[\s\S]{0,240}?\bretries\s*=\s*(?:[6-9]|\d{2,})\b/,
+      remediation: 'Keep Pydantic AI Agent retries <= 5 and pass UsageLimits(request_limit=..., total_tokens_limit=...) to agent.run() to prevent runaway token loops.'
+    },
+    {
+      id: 'PYDANTIC_AI_RAW_VALUE_ERROR_IN_VALIDATOR',
+      severity: 'WARN',
+      name: 'Raw ValueError Raised Inside @agent.result_validator Instead of ModelRetry',
+      regex: /@\w+\.result_validator[\s\S]{0,300}?\braise\s+ValueError\s*\(/,
+      remediation: 'Raise ModelRetry("actionable correction message") inside @agent.result_validator so Pydantic AI feeds the validation error back to the LLM for self-healing.'
+    }
+  ],
+  'saas-billing': [
+    {
+      id: 'BILLING_WEBHOOK_PARSED_JSON_BEFORE_SIGNATURE',
+      severity: 'ERROR',
+      name: 'Stripe constructEvent Called With Parsed req.json() Object Instead of Raw Body',
+      regex: /stripe\.webhooks\.constructEvent\s*\(\s*(?:await\s+req\.json\(\)|JSON\.stringify\()/,
+      remediation: 'Pass the exact unparsed raw request body (await req.text()) to stripe.webhooks.constructEvent() so HMAC signature verification succeeds.'
+    },
+    {
+      id: 'BILLING_INSECURE_MATH_RANDOM_PAYMENT_CODE',
+      severity: 'ERROR',
+      name: 'Insecure Math.random() Used for Unique Payment Code Generation',
+      regex: /\b(?:uniqueCode|paymentCode)\s*=\s*Math\.floor\s*\(\s*Math\.random\s*\(\s*\)/,
+      remediation: 'Generate unique payment codes using cryptographically secure crypto.randomInt(1, 1000) instead of predictable Math.random().'
+    }
+  ],
+  'e2e-testing-expert': [
+    {
+      id: 'PLAYWRIGHT_ARBITRARY_WAIT_FOR_TIMEOUT',
+      severity: 'ERROR',
+      name: 'Flaky Hardcoded page.waitForTimeout() Sleep in Playwright Test',
+      regex: /\bpage\.waitForTimeout\s*\(\s*\d+\s*\)/,
+      remediation: 'Eliminate arbitrary page.waitForTimeout() sleeps; use web-first assertions (await expect(locator).toBeVisible()) or deterministic virtual time (page.clock.fastForward).'
+    },
+    {
+      id: 'PLAYWRIGHT_FRAGILE_XPATH_LOCATOR',
+      severity: 'WARN',
+      name: 'Fragile Absolute XPath Selector Used in Playwright Locator',
+      regex: /\bpage\.locator\s*\(\s*['"`](?:xpath=)?\/\/html\/body\//,
+      remediation: 'Replace fragile XPath selectors with resilient user-facing locators: page.getByRole(), page.getByLabel(), or toMatchAriaSnapshot().'
+    }
+  ],
+  'property-mutation-testing-expert': [
+    {
+      id: 'PROP_TEST_DOUBLE_WITHOUT_NO_NAN',
+      severity: 'WARN',
+      name: 'fast-check fc.double() / fc.float() Arbitrary Without noNaN: true Constraint',
+      regex: /\bfc\.(?:double|float)\s*\(\s*\{\s*(?:min|max)\b(?![^}]*\bnoNaN\s*:\s*true)[^}]*\}\s*\)/,
+      remediation: 'Include noNaN: true (and noDefaultInfinity: true) in fc.double() / fc.float() options so IEEE-754 NaN values do not falsify algebraic properties.'
+    },
+    {
+      id: 'MUTATION_STRYKER_BREAK_THRESHOLD_DISABLED',
+      severity: 'WARN',
+      name: 'Stryker Mutation Testing Configured With break: null or break < 50',
+      regex: /"thresholds"\s*:\s*\{[^}]*"break"\s*:\s*(?:null|[0-4]?\d)\b/,
+      remediation: 'Set Stryker thresholds.break >= 75 (and >= 95 on financial/auth modules) so surviving mutants fail the CI build.'
+    }
+  ],
+  'accessibility-testing-expert': [
+    {
+      id: 'A11Y_AXE_COLOR_CONTRAST_RULE_DISABLED',
+      severity: 'WARN',
+      name: 'AxeBuilder Disabling Critical color-contrast Rule in Accessibility Audit',
+      regex: /\.disableRules\s*\(\s*\[\s*['"]color-contrast['"]\s*\]\s*\)/,
+      remediation: 'Do not disable the WCAG 2.2 AA color-contrast rule in production AxeBuilder audits; fix low-contrast tokens (>= 4.5:1 body text, >= 3:1 large text).'
+    },
+    {
+      id: 'A11Y_NON_SEMANTIC_DIV_ONCLICK_WITHOUT_ROLE',
+      severity: 'ERROR',
+      name: 'Non-Semantic <div onClick> Without role="button" and tabIndex={0}',
+      regex: /<div\b(?![^>]*\brole=["']button["'])(?![^>]*\btabIndex=)[^>]*\bonClick=/,
+      remediation: 'Use a semantic <button type="button"> element instead of <div onClick>, or provide role="button", tabIndex={0}, and onKeyDown (Enter/Space) handlers.'
+    }
+  ],
+  'bun-runtime-expert': [
+    {
+      id: 'BUN_SQL_UNSAFE_INTERPOLATION',
+      severity: 'ERROR',
+      name: 'Unparameterized String Concatenation in Bun sql.unsafe() Call',
+      regex: /\bsql\.unsafe\s*\(\s*`[^`]*\$\{/,
+      remediation: 'Use Bun tagged template parameterization (await sql`SELECT * FROM users WHERE id = ${id}`) instead of interpolating values into sql.unsafe().'
+    },
+    {
+      id: 'BUN_SERVE_RAW_ERROR_MESSAGE_LEAK',
+      severity: 'WARN',
+      name: 'Raw error.message Interpolated in Bun.serve HTTP 500 Response',
+      regex: /new\s+Response\s*\(\s*`Internal Server Error:\s*\$\{error\.message\}`/,
+      remediation: 'Log internal errors on the server and return a structured RFC 9457 Problem Details JSON response without leaking error.message.'
+    }
+  ],
+  'cloudflare-workers-expert': [
+    {
+      id: 'CF_D1_UNBOUND_INTERPOLATED_SQL',
+      severity: 'ERROR',
+      name: 'Unparameterized Template String Passed to Cloudflare D1 .prepare() / .exec()',
+      regex: /\.DB\.(?:prepare|exec)\s*\(\s*`[^`]*\$\{/,
+      remediation: 'Always use positional "?" placeholders with .prepare("SELECT ... WHERE id = ?").bind(id) on Cloudflare D1 to prevent SQL injection.'
+    },
+    {
+      id: 'CF_HONO_OBJECT_SPREAD_LOSING_FETCH',
+      severity: 'ERROR',
+      name: 'Spreading Hono Instance ({ ...app, queue }) Loses Prototype app.fetch Handler',
+      regex: /export\s+default\s+\{\s*\.\.\.app\s*,/,
+      remediation: 'Export { fetch: app.fetch, queue(batch, env, ctx) { ... } } instead of spreading { ...app } so the Hono fetch prototype method is preserved.'
+    }
+  ],
+  'wasm-edge-computing-expert': [
+    {
+      id: 'WASM_UNBOUNDED_MEMORY_WITHOUT_MAXIMUM',
+      severity: 'WARN',
+      name: 'WebAssembly.Memory Instantiated Without Explicit maximum Page Limit',
+      regex: /new\s+WebAssembly\.Memory\s*\(\s*\{\s*initial\s*:\s*\d+\s*\}\s*\)/,
+      remediation: 'Specify an explicit maximum page cap in new WebAssembly.Memory({ initial, maximum }) to prevent unbounded linear memory growth.'
+    },
+    {
+      id: 'WASM_SYNC_INSTANTIATE_ON_MAIN_THREAD',
+      severity: 'WARN',
+      name: 'Synchronous new WebAssembly.Instance / Module Compilation on Main Thread',
+      regex: /\bnew\s+WebAssembly\.(?:Instance|Module)\s*\(/,
+      remediation: 'Compile and instantiate WASM asynchronously via WebAssembly.instantiateStreaming() inside a dedicated Web Worker.'
+    }
+  ],
+  'tauri-expert': [
+    {
+      id: 'TAURI_WILDCARD_PERMISSION_GRANT',
+      severity: 'ERROR',
+      name: 'Unconditional PermissionState::Granted Returned in Tauri on_permission_request',
+      regex: /\.on_permission_request\s*\(\s*\|[^|]*\|[\s\S]{0,140}?PermissionState::Granted\s*\}\s*\)(?![\s\S]{0,40}?Denied)/,
+      remediation: 'Match request.permission() against an explicit least-privilege allowlist and return PermissionState::Denied by default.'
+    },
+    {
+      id: 'TAURI_CAPABILITY_DANGEROUS_SHELL_EXECUTE',
+      severity: 'ERROR',
+      name: 'Unscoped shell:allow-execute or fs:allow-all Permission in Tauri Capability',
+      regex: /"(?:shell:allow-execute|fs:allow-all)"/,
+      remediation: 'Replace broad shell:allow-execute or fs:allow-all capabilities with scoped Rust #[tauri::command] handlers and canonicalized app_data_dir paths.'
+    }
+  ],
+  'mobile-expo-expert': [
+    {
+      id: 'EXPO_PLAINTEXT_ASYNC_STORAGE_TOKEN',
+      severity: 'ERROR',
+      name: 'Sensitive Auth/Refresh Token Stored in Unencrypted AsyncStorage',
+      regex: /AsyncStorage\.setItem\s*\(\s*['"][^'"]*(?:token|jwt|secret|password)['"]/i,
+      remediation: 'Store tokens and secrets in hardware-backed expo-secure-store (SecureStore.setItemAsync with WHEN_UNLOCKED_THIS_DEVICE_ONLY) instead of plaintext AsyncStorage.'
+    },
+    {
+      id: 'EXPO_SCROLLVIEW_ARRAY_MAP_ANTI_PATTERN',
+      severity: 'WARN',
+      name: 'Dynamic Array .map() Rendered Directly Inside React Native <ScrollView>',
+      regex: /<ScrollView[^>]*>[\s\S]{0,240}?\.map\s*\(/,
+      remediation: 'Replace <ScrollView>{items.map(...)}</ScrollView> with virtualized <FlashList estimatedItemSize={...} /> or <FlatList />.'
+    }
+  ],
+  'flutter-dart-expert': [
+    {
+      id: 'FLUTTER_DOUBLE_USED_FOR_CURRENCY',
+      severity: 'WARN',
+      name: 'IEEE-754 double Field Used for Monetary Price/Amount in Dart Model',
+      regex: /\brequired\s+double\s+(?:price|amount|balance|total)\b/,
+      remediation: 'Represent monetary amounts in Dart models as integer minor units (required int priceCents / amountIdr) to avoid floating-point rounding drift.'
+    },
+    {
+      id: 'FLUTTER_LISTVIEW_CHILDREN_MAP_EAGER',
+      severity: 'WARN',
+      name: 'Eager ListView(children: items.map().toList()) Instantiating All Offscreen Widgets',
+      regex: /\bListView\s*\(\s*children\s*:\s*\w+\.map\s*\(/,
+      remediation: 'Use lazy ListView.builder(itemCount: items.length, itemBuilder: ...) or SliverList.builder for dynamic collections.'
+    }
+  ],
+  'web-3d-graphics-expert': [
+    {
+      id: 'WEB3D_ALLOCATION_INSIDE_RENDER_LOOP',
+      severity: 'ERROR',
+      name: 'Heap Allocation (new THREE.Vector3 / Matrix4 / Color) Inside Animation Loop',
+      regex: /(?:setAnimationLoop|useFrame|runRenderLoop)\s*\(\s*\([^)]*\)\s*=>\s*\{[\s\S]{0,320}?\bnew\s+(?:THREE\.)?(?:Vector[234]|Matrix[34]|Quaternion|Color)\s*\(/,
+      remediation: 'Pre-allocate scratch Vector3/Matrix4/Quaternion/Color instances outside setAnimationLoop / useFrame and mutate them with .set() / .copy().'
+    },
+    {
+      id: 'WEB3D_UNCLAMPED_DEVICE_PIXEL_RATIO',
+      severity: 'WARN',
+      name: 'Unclamped window.devicePixelRatio Passed Directly to setPixelRatio()',
+      regex: /\.setPixelRatio\s*\(\s*window\.devicePixelRatio\s*\)/,
+      remediation: 'Clamp devicePixelRatio with renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) to prevent GPU fill-rate collapse on 3x/4x mobile screens.'
     }
   ]
 });
