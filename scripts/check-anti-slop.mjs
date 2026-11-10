@@ -191,7 +191,7 @@ function scanFile(filePath) {
   const isDoc = DOC_EXTENSIONS.includes(ext);
 
   if (!isCode && !isDoc) return;
-  if (filePath.includes('check-anti-slop') || filePath.includes('visual-ui-healer') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
+  if (filePath.includes('check-anti-slop') || filePath.includes('visual-ui-healer') || filePath.includes('skill-rules-engine') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
     return;
   }
 

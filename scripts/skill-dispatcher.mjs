@@ -23,6 +23,13 @@ import { mobileSpatialAdapter } from './adapters/mobile-spatial.mjs';
 import { auditSkill } from './skill-drift-monitor.mjs';
 import { optimizeThinkingBudget } from './token-budget-optimizer.mjs';
 import { recordFinOpsUsage, calculateSavings } from './finops-tracker.mjs';
+import {
+  extractDeclarativeRulesFromSkill,
+  evaluateContextualSkillGuards,
+  extractLanguageSection,
+  extractSmartCodeSnippet,
+  matchSkillsForTarget
+} from './skill-rules-engine.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -206,10 +213,14 @@ export async function extractSkillCode(skillName, options = {}) {
   let match;
   let idx = 0;
   while ((match = blockRegex.exec(content)) !== null) {
+    const beforeBlock = content.slice(Math.max(0, match.index - 220), match.index);
+    const headingMatches = [...beforeBlock.matchAll(/#{2,4}\s+([^\r\n]+)/g)];
+    const title = headingMatches.length > 0 ? headingMatches[headingMatches.length - 1][1].trim() : `Blueprint #${idx + 1}`;
     const lang = (match[1] || 'text').trim().toLowerCase();
     const code = match[2].trim();
     codeBlocks.push({
       index: idx++,
+      title,
       language: lang,
       lines: code.split(/\r?\n/).length,
       code
@@ -220,6 +231,10 @@ export async function extractSkillCode(skillName, options = {}) {
   if (options.language) {
     const targetLang = String(options.language).toLowerCase();
     filtered = codeBlocks.filter(b => b.language === targetLang || b.language.includes(targetLang));
+  }
+  if (options.query) {
+    const q = String(options.query).toLowerCase();
+    filtered = filtered.filter(b => b.title.toLowerCase().includes(q) || b.code.toLowerCase().includes(q));
   }
   if (typeof options.index === 'number' && !Number.isNaN(options.index)) {
     filtered = filtered.filter((_, i) => i === options.index);
@@ -252,10 +267,14 @@ export async function inspectSkillCapabilities(skillName) {
   const blockRegex = /```([a-zA-Z0-9_-]*)\r?\n([\s\S]*?)```/g;
   let match;
   while ((match = blockRegex.exec(content)) !== null) {
+    const beforeBlock = content.slice(Math.max(0, match.index - 220), match.index);
+    const headingMatches = [...beforeBlock.matchAll(/#{2,4}\s+([^\r\n]+)/g)];
+    const title = headingMatches.length > 0 ? headingMatches[headingMatches.length - 1][1].trim() : 'Blueprint';
     codeBlocks.push({
+      title,
       language: (match[1] || 'text').trim(),
       lines: match[2].trim().split(/\r?\n/).length,
-      preview: match[2].trim().split(/\r?\n/).slice(0, 4).join('\n')
+      preview: extractSmartCodeSnippet(match[2], 6)
     });
   }
 
@@ -265,13 +284,16 @@ export async function inspectSkillCapabilities(skillName) {
     : [];
 
   const adapter = resolveSkillAdapter(skillName);
+  const rulesProfile = await extractDeclarativeRulesFromSkill(skillName, content);
 
   return {
     skill: skillName,
     version: versionMatch ? versionMatch[1] : '4.7.0',
     description: descMatch ? descMatch[1].trim() : '',
     domain: adapter.domain,
-    supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'health', 'budget'])],
+    supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'rules', 'read', 'health', 'budget'])],
+    guardRulesCount: rulesProfile.astGuardRulesCount + rulesProfile.declarativeMandatesCount,
+    nfrContract: rulesProfile.nfrContract,
     codeBlueprintsCount: codeBlocks.length,
     languagesAvailable: [...new Set(codeBlocks.map(b => b.language))],
     codeBlueprints: codeBlocks.slice(0, 5),
@@ -346,12 +368,33 @@ export async function compileAllSkillSlices() {
  */
 export async function dispatchSkillAction(request = {}) {
   const startTime = performance.now();
-  const skill = String(request.skill || '').trim();
+  let skill = String(request.skill || '').trim();
   const action = String(request.action || 'audit').trim().toLowerCase();
   const payload = { ...(request.payload || {}) };
 
   if (skill === 'all' && (action === 'compile-slices' || action === 'matrix')) {
     return compileAllSkillSlices();
+  }
+
+  // Auto-hydrate file content early so contextual routing can inspect imports
+  if (payload.filePath && !payload.code && !payload.sql && !payload.spec && !payload.manifest) {
+    try {
+      const resolvedFile = path.resolve(process.cwd(), String(payload.filePath));
+      const fileContent = await fs.readFile(resolvedFile, 'utf8');
+      payload.code = fileContent;
+      if (resolvedFile.endsWith('.sql')) payload.sql = fileContent;
+      if (resolvedFile.endsWith('.yaml') || resolvedFile.endsWith('.yml') || resolvedFile.endsWith('.json')) {
+        payload.spec = fileContent;
+      }
+    } catch {
+      // Leave payload as-is if file cannot be read
+    }
+  }
+
+  // Contextual Auto-Routing when skill === 'auto'
+  if (skill === 'auto') {
+    const matched = matchSkillsForTarget(payload);
+    skill = matched[0] || 'anti-slop';
   }
 
   if (!skill) {
@@ -384,21 +427,6 @@ export async function dispatchSkillAction(request = {}) {
     };
   }
 
-  // Auto-hydrate file content if payload.filePath is provided
-  if (payload.filePath && !payload.code && !payload.sql && !payload.spec && !payload.manifest) {
-    try {
-      const resolvedFile = path.resolve(process.cwd(), String(payload.filePath));
-      const fileContent = await fs.readFile(resolvedFile, 'utf8');
-      payload.code = fileContent;
-      if (resolvedFile.endsWith('.sql')) payload.sql = fileContent;
-      if (resolvedFile.endsWith('.yaml') || resolvedFile.endsWith('.yml') || resolvedFile.endsWith('.json')) {
-        payload.spec = fileContent;
-      }
-    } catch {
-      // Leave payload as-is if file cannot be read
-    }
-  }
-
   try {
     let result;
 
@@ -409,8 +437,26 @@ export async function dispatchSkillAction(request = {}) {
     } else if (action === 'extract-code' || action === 'code') {
       result = await extractSkillCode(skill, {
         language: payload.language || payload.lang,
+        query: payload.query,
         index: payload.index !== undefined ? Number(payload.index) : undefined
       });
+    } else if (action === 'rules') {
+      result = await extractDeclarativeRulesFromSkill(skill, skillContent);
+    } else if (action === 'read') {
+      const targetLang = payload.lang || payload.language || 'en';
+      const segmented = extractLanguageSection(skillContent, targetLang, {
+        stripBoilerplate: Boolean(payload.stripBoilerplate)
+      });
+      const fullTokens = Math.ceil(skillContent.length / 4);
+      const segmentedTokens = Math.ceil(segmented.length / 4);
+      result = {
+        skill,
+        lang: targetLang,
+        fullTokens,
+        segmentedTokens,
+        tokenReductionPercent: `${Math.round(((fullTokens - segmentedTokens) / Math.max(1, fullTokens)) * 100)}%`,
+        content: segmented
+      };
     } else if (action === 'health' || action === 'drift') {
       const audit = auditSkill(skill, skillContent, {});
       result = {
@@ -428,11 +474,27 @@ export async function dispatchSkillAction(request = {}) {
       const adapter = resolveSkillAdapter(skill);
       const adapterResult = await adapter.execute(action, { ...payload, skill });
       const capabilities = await getSkillCompactSlice(skill);
+      const rulesProfile = await extractDeclarativeRulesFromSkill(skill, skillContent);
+      const skillGuards = await evaluateContextualSkillGuards({
+        skill,
+        code: payload.code || payload.sql || payload.spec || payload.target || '',
+        filePath: payload.filePath,
+        prompt: payload.prompt
+      });
       result = {
         domain: adapter.domain,
         skillVersion: capabilities.version,
         codeBlueprintsAvailable: capabilities.codeBlueprintsCount,
         connectedSkills: capabilities.connectedSkills.slice(0, 6),
+        nfrContract: rulesProfile.nfrContract,
+        declarativeMandates: rulesProfile.declarativeMandates.slice(0, 4),
+        skillGuards: {
+          rulesEvaluated: skillGuards.rulesEvaluated,
+          passed: skillGuards.passed,
+          findingsCount: skillGuards.findingsCount,
+          findings: skillGuards.findings
+        },
+        ...(action === 'generate' && capabilities.snippet ? { skillPrimaryBlueprint: capabilities.snippet } : {}),
         ...adapterResult
       };
     }

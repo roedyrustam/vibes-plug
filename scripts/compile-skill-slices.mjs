@@ -12,6 +12,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { resolveSkillAdapter } from './skill-dispatcher.mjs';
+import { extractSmartCodeSnippet, extractDeclarativeRulesFromSkill } from './skill-rules-engine.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,10 +45,14 @@ export async function compileSkillSlices() {
       const codeRegex = /```([a-zA-Z0-9_-]*)\r?\n([\s\S]*?)```/g;
       let match;
       while ((match = codeRegex.exec(content)) !== null) {
+        const beforeBlock = content.slice(Math.max(0, match.index - 220), match.index);
+        const headingMatches = [...beforeBlock.matchAll(/#{2,4}\s+([^\r\n]+)/g)];
+        const title = headingMatches.length > 0 ? headingMatches[headingMatches.length - 1][1].trim() : 'Blueprint';
         codeBlocks.push({
+          title,
           language: (match[1] || 'text').trim(),
           lines: match[2].trim().split(/\r?\n/).length,
-          preview: match[2].trim().split(/\r?\n/).slice(0, 4).join('\n')
+          preview: extractSmartCodeSnippet(match[2], 6)
         });
       }
 
@@ -61,12 +66,13 @@ export async function compileSkillSlices() {
       const primarySnippet = firstCodeMatch
         ? {
             lang: firstCodeMatch[1].trim(),
-            code: firstCodeMatch[2].trim().split(/\r?\n/).slice(0, 14).join('\n')
+            code: extractSmartCodeSnippet(firstCodeMatch[2], 18)
           }
         : null;
 
       const adapter = resolveSkillAdapter(skillName);
-      const supportedActions = [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'health', 'budget'])];
+      const rulesProfile = await extractDeclarativeRulesFromSkill(skillName, content);
+      const supportedActions = [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'rules', 'read', 'health', 'budget'])];
 
       const sliceObj = {
         skill: skillName,
@@ -75,6 +81,8 @@ export async function compileSkillSlices() {
         description: description.split(' / ')[0],
         actions: adapter.supportedActions,
         supportedActions,
+        guardRulesCount: rulesProfile.astGuardRulesCount + rulesProfile.declarativeMandatesCount,
+        nfrContract: rulesProfile.nfrContract,
         codeBlueprintsCount: codeBlocks.length,
         languagesAvailable: [...new Set(codeBlocks.map((b) => b.language))],
         codeBlueprints: codeBlocks.slice(0, 5),

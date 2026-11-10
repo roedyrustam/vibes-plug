@@ -423,6 +423,25 @@ export async function verifyCandidateCode(target, options = {}) {
     }
   }
 
+  // 4. Contextual Per-Skill Guardrails (Auto-matched by file extension & imports)
+  try {
+    const { evaluateContextualSkillGuards } = await import('./skill-rules-engine.mjs');
+    const skillGuards = await evaluateContextualSkillGuards({
+      filePath,
+      code,
+      skill: options.skill
+    });
+    report.skillGuards = {
+      matchedSkills: skillGuards.matchedSkills,
+      rulesEvaluated: skillGuards.rulesEvaluated,
+      passed: skillGuards.passed,
+      findingsCount: skillGuards.findingsCount,
+      findings: skillGuards.findings
+    };
+  } catch {
+    report.skillGuards = null;
+  }
+
   report.findingsCount = (report.antiSlop.violations?.length || 0) + (report.visual?.findings?.length || 0) + (report.syntaxError ? 1 : 0);
   report.summary = report.canPersistToDisk
     ? `Pre-Disk Verification Passed (${report.antiSlop.score}/100 Anti-Slop, Syntax OK)`

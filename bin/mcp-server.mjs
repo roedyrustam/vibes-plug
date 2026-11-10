@@ -125,7 +125,7 @@ export const TOOLS = [
   },
   {
     name: 'vibes_get_skill',
-    description: 'Retrieve domain instructions, production patterns, and templates for any of the 178 specialized skills in the vibes-plug registry. Supports compact micro-slice mode (<350 tokens) for 80%+ token savings during subagent fan-out.',
+    description: 'Retrieve domain instructions, production patterns, and templates for any of the 178 specialized skills in the vibes-plug registry. Supports compact micro-slice mode (<350 tokens) and language-segmented loading (lang: en|id) for 45-85% token savings.',
     inputSchema: {
       type: 'object',
       properties: {
@@ -136,7 +136,16 @@ export const TOOLS = [
         mode: {
           type: 'string',
           enum: ['full', 'compact'],
-          description: 'Optional retrieval mode: full (complete SKILL.md) or compact (<350-token pre-compiled micro-slice).'
+          description: 'Optional retrieval mode: full (SKILL.md) or compact (<350-token pre-compiled micro-slice).'
+        },
+        lang: {
+          type: 'string',
+          enum: ['full', 'en', 'id'],
+          description: 'Optional language filter (en or id) to load only one language section and save ~45% context tokens.'
+        },
+        stripBoilerplate: {
+          type: 'boolean',
+          description: 'Optional flag to strip static execution matrix boilerplate when reading markdown.'
         }
       },
       required: ['skillName']
@@ -708,22 +717,22 @@ export const TOOLS = [
   },
   {
     name: 'vibes_skill_dispatch',
-    description: 'Universal Skill-as-a-Tool (SaaT) Dispatcher: executes deterministic domain actions (blueprint, audit, eval, verify, generate, fuzz, optimize, health, budget) for any of the 178 skills in the Vibes-Plug registry.',
+    description: 'Universal Skill-as-a-Tool (SaaT) Dispatcher: executes deterministic domain actions (blueprint, slice, extract-code, rules, read, audit, eval, verify, generate, fuzz, optimize, health, budget, chain) for any of the 178 skills (or skill="auto" for contextual routing).',
     inputSchema: {
       type: 'object',
       properties: {
         skill: {
           type: 'string',
-          description: 'Exact name of the skill from the 176-skill registry (e.g. database-orm-expert, tailwind-expert, autonomous-tdd-debugger).'
+          description: 'Exact name of the skill from the 178-skill registry (or "auto" to auto-match by file/code/intent).'
         },
         action: {
           type: 'string',
-          enum: ['blueprint', 'audit', 'eval', 'verify', 'generate', 'fuzz', 'optimize', 'health', 'budget'],
+          enum: ['blueprint', 'slice', 'extract-code', 'rules', 'read', 'audit', 'eval', 'verify', 'generate', 'fuzz', 'optimize', 'health', 'budget', 'chain'],
           description: 'Deterministic action to execute on the target skill.'
         },
         payload: {
           type: 'object',
-          description: 'Action-specific parameters (e.g. sql, code, target, endpoint, hue, task).'
+          description: 'Action-specific parameters (e.g. sql, code, filePath, lang, query, target, endpoint, hue, task).'
         }
       },
       required: ['skill', 'action']
@@ -1428,7 +1437,14 @@ export async function handleRpcRequest(request) {
             throw new Error('Path traversal is prohibited.');
           }
           const content = await fs.readFile(skillPath, 'utf8');
-          contentText = content;
+          if (args?.lang && args.lang !== 'full') {
+            const { extractLanguageSection } = await import('../scripts/skill-rules-engine.mjs');
+            contentText = extractLanguageSection(content, args.lang, {
+              stripBoilerplate: Boolean(args?.stripBoilerplate)
+            });
+          } else {
+            contentText = content;
+          }
         }
       } else if (name === 'vibes_list_skills') {
         const domainFilter = typeof args?.domain === 'string' ? args.domain.trim().toLowerCase() : '';

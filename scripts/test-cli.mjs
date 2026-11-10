@@ -2193,6 +2193,67 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: enableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'telemetry', 'enable']);
     assert.match(enableOut, /ENABLED/);
   });
+
+  await t.test('Executable Skill Engine Upgrades: Per-Skill Guardrails, Language-Segmented Loading, Smart Slicing, and Auto-Routing', async () => {
+    const {
+      evaluateContextualSkillGuards,
+      extractDeclarativeRulesFromSkill,
+      extractLanguageSection,
+      matchSkillsForTarget
+    } = await import('./skill-rules-engine.mjs');
+    const { dispatchSkillAction, extractSkillCode } = await import('./skill-dispatcher.mjs');
+
+    // 1. Contextual File & Import Auto-Routing
+    const matchedRust = matchSkillsForTarget({ filePath: 'src/main.rs', code: 'use axum::Router;' });
+    assert.ok(matchedRust.includes('rust-programming-expert'), 'Should auto-route .rs + axum to rust-programming-expert');
+
+    // 2. Per-Skill AST/Regex Guardrails (Rust unsafe without SAFETY comment & Next.js 15 sync params)
+    const rustGuard = await evaluateContextualSkillGuards({
+      filePath: 'src/lib.rs',
+      code: 'pub fn write_ptr(p: *mut u8) { unsafe { *p = 42; } }'
+    });
+    assert.equal(rustGuard.passed, false);
+    assert.ok(rustGuard.findings.some((f) => f.ruleId === 'RUST_UNSAFE_WITHOUT_SAFETY_DOC'));
+
+    const nextGuard = await evaluateContextualSkillGuards({
+      skill: 'nextjs-app-router-expert',
+      code: 'export default function Page({ params }) { return <div>{params.id}</div>; }'
+    });
+    assert.equal(nextGuard.passed, false);
+    assert.ok(nextGuard.findings.some((f) => f.ruleId === 'NEXT15_SYNC_PARAMS_ACCESS'));
+
+    // 3. Dynamic Declarative Rules Extraction from SKILL.md
+    const declRules = await extractDeclarativeRulesFromSkill('vue-frontend-expert');
+    assert.equal(declRules.skill, 'vue-frontend-expert');
+    assert.ok(declRules.declarativeMandatesCount >= 1);
+    assert.ok(declRules.nfrContract.length > 10);
+
+    // 4. Language-Segmented Skill Loading (~45%+ token reduction)
+    const readEn = await dispatchSkillAction({
+      skill: 'vue-frontend-expert',
+      action: 'read',
+      payload: { lang: 'en', stripBoilerplate: true },
+      options: { recordTelemetry: false }
+    });
+    assert.equal(readEn.status, 'success');
+    assert.ok(readEn.result.segmentedTokens < readEn.result.fullTokens * 0.7, 'Language-segmented load should reduce tokens by >30%');
+    assert.ok(!readEn.result.content.includes('## Bahasa Indonesia'), 'English-segmented skill should not include Bahasa Indonesia section');
+
+    // 5. Auto-Routed Skill Dispatch & Section-Indexed Code Extraction
+    const autoDispatch = await dispatchSkillAction({
+      skill: 'auto',
+      action: 'verify',
+      payload: { filePath: 'Dockerfile', code: 'FROM node:latest\nRUN npm ci' },
+      options: { recordTelemetry: false }
+    });
+    assert.equal(autoDispatch.status, 'success');
+    assert.equal(autoDispatch.skill, 'docker-container-expert');
+    assert.ok(autoDispatch.result.skillGuards.findings.some((f) => f.ruleId === 'DOCKER_MUTABLE_LATEST_TAG'));
+
+    const codeExtracted = await extractSkillCode('vue-frontend-expert', { query: 'Pinia' });
+    assert.ok(codeExtracted.matchedBlocks >= 1);
+    assert.ok(codeExtracted.blocks[0].title.length > 0);
+  });
 });
 
 
