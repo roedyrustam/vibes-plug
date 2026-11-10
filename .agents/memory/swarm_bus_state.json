@@ -1,270 +1,38 @@
 {
-  "updatedAt": "2026-11-10T19:45:59.627Z",
-  "activeSwarms": {
-    "245ceac2-7a71-45b5-bf18-fe98ef6ae869": {
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "task": "Build payment and api backend",
-      "startedAt": "2026-11-10T19:45:58.042Z",
-      "status": "COMPLETED",
-      "totalWorkers": 3,
-      "completedWorkers": 3,
-      "workers": {
-        "worker-senior-frontend": {
-          "status": "COMPLETED",
-          "id": "ddba0895-29ac-409d-97cf-1a1c91d73fd0",
-          "timestamp": "2026-11-10T19:45:58.075Z",
-          "type": "worker:done",
-          "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-          "workerId": "worker-senior-frontend",
-          "domain": "Frontend / UI",
-          "skill": "senior-frontend",
-          "criticScore": 100,
-          "sandboxVerified": true,
-          "durationMs": 31
-        },
-        "worker-js-backend-expert": {
-          "status": "COMPLETED",
-          "id": "7d8038ba-d858-4dae-a33f-601c8e5e1514",
-          "timestamp": "2026-11-10T19:45:58.083Z",
-          "type": "worker:done",
-          "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-          "workerId": "worker-js-backend-expert",
-          "domain": "Backend / API",
-          "skill": "js-backend-expert",
-          "criticScore": 100,
-          "sandboxVerified": true,
-          "durationMs": 38
-        },
-        "worker-doku-payment-gateway": {
-          "status": "COMPLETED",
-          "id": "164acd3d-60b0-4415-ba2e-8b523369fd93",
-          "timestamp": "2026-11-10T19:45:58.100Z",
-          "type": "worker:done",
-          "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-          "workerId": "worker-doku-payment-gateway",
-          "domain": "Payments & Billing",
-          "skill": "doku-payment-gateway",
-          "criticScore": 100,
-          "sandboxVerified": true,
-          "durationMs": 24
-        }
-      },
-      "completedAt": "2026-11-10T19:45:58.101Z"
-    },
-    "8c9a96ae-16ff-4e71-867b-25c66db2cb07": {
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "task": "Verify formal billing state machine invariants",
-      "startedAt": "2026-11-10T19:45:58.104Z",
-      "status": "COMPLETED",
-      "totalWorkers": 2,
-      "completedWorkers": 2,
-      "workers": {
-        "worker-database-orm-expert": {
-          "status": "COMPLETED",
-          "id": "39c554d7-16fa-404c-93cd-ff72cfe5307f",
-          "timestamp": "2026-11-10T19:45:58.127Z",
-          "type": "worker:done",
-          "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-          "workerId": "worker-database-orm-expert",
-          "domain": "Database / RLS",
-          "skill": "database-orm-expert",
-          "criticScore": 100,
-          "sandboxVerified": true,
-          "durationMs": 22
-        },
-        "worker-doku-payment-gateway": {
-          "status": "COMPLETED",
-          "id": "239764d2-e6b9-4961-adbc-24f68c697752",
-          "timestamp": "2026-11-10T19:45:58.135Z",
-          "type": "worker:done",
-          "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-          "workerId": "worker-doku-payment-gateway",
-          "domain": "Payments & Billing",
-          "skill": "doku-payment-gateway",
-          "criticScore": 100,
-          "sandboxVerified": true,
-          "durationMs": 29
-        }
-      },
-      "completedAt": "2026-11-10T19:45:58.136Z"
-    }
-  },
+  "updatedAt": "2026-11-05T18:09:27.790Z",
+  "activeSwarms": {},
   "eventBuffer": [
     {
-      "id": "b7b1fcf8-37e4-4a84-a5db-4acb01719cd5",
-      "timestamp": "2026-11-10T19:45:58.042Z",
-      "type": "swarm:start",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "task": "Build payment and api backend",
-      "topology": "fan_out_fan_in",
-      "reasoningProfile": "deep",
-      "thinkingBudgetTokens": 32768,
-      "totalWorkers": 3,
-      "concurrency": 2
+      "id": "9d2c176b-43d9-4724-9ab9-5ce0d4a1f6ad",
+      "timestamp": "2026-11-05T17:31:28.961Z",
+      "type": "workspace:change",
+      "eventType": "change",
+      "file": "spec-driven-development-expert",
+      "source": "skills-watcher"
     },
     {
-      "id": "094573db-fb3d-4aa8-850d-c88b1bf2f6d9",
-      "timestamp": "2026-11-10T19:45:58.044Z",
-      "type": "worker:dispatch",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-senior-frontend",
-      "domain": "Frontend / UI",
-      "skill": "senior-frontend",
-      "focus": "Tailwind v4, React 19, 5-state UI contract"
+      "id": "abd8e0b6-ba2f-4519-a489-24fd7c5aaa70",
+      "timestamp": "2026-11-05T17:45:31.978Z",
+      "type": "workspace:change",
+      "eventType": "change",
+      "file": "spec-driven-development-expert",
+      "source": "skills-watcher"
     },
     {
-      "id": "26fc1491-2710-4a41-9c6b-921d7a90678f",
-      "timestamp": "2026-11-10T19:45:58.045Z",
-      "type": "worker:dispatch",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-js-backend-expert",
-      "domain": "Backend / API",
-      "skill": "js-backend-expert",
-      "focus": "Type-safe endpoints, error resilience, RFC 9457"
+      "id": "4247a256-ecb9-4dfc-a1d5-fcd9b44c58d5",
+      "timestamp": "2026-11-05T17:55:34.510Z",
+      "type": "workspace:change",
+      "eventType": "change",
+      "file": "spec-driven-development-expert",
+      "source": "skills-watcher"
     },
     {
-      "id": "ddba0895-29ac-409d-97cf-1a1c91d73fd0",
-      "timestamp": "2026-11-10T19:45:58.075Z",
-      "type": "worker:done",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-senior-frontend",
-      "domain": "Frontend / UI",
-      "skill": "senior-frontend",
-      "status": "COMPLETED",
-      "criticScore": 100,
-      "sandboxVerified": true,
-      "durationMs": 31
-    },
-    {
-      "id": "a2f51ec5-d6f7-4787-a889-ff1baf1a39a5",
-      "timestamp": "2026-11-10T19:45:58.076Z",
-      "type": "worker:dispatch",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-doku-payment-gateway",
-      "domain": "Payments & Billing",
-      "skill": "doku-payment-gateway",
-      "focus": "Atomic locks, idempotency, webhook HMAC verification"
-    },
-    {
-      "id": "7d8038ba-d858-4dae-a33f-601c8e5e1514",
-      "timestamp": "2026-11-10T19:45:58.083Z",
-      "type": "worker:done",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-js-backend-expert",
-      "domain": "Backend / API",
-      "skill": "js-backend-expert",
-      "status": "COMPLETED",
-      "criticScore": 100,
-      "sandboxVerified": true,
-      "durationMs": 38
-    },
-    {
-      "id": "164acd3d-60b0-4415-ba2e-8b523369fd93",
-      "timestamp": "2026-11-10T19:45:58.100Z",
-      "type": "worker:done",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "workerId": "worker-doku-payment-gateway",
-      "domain": "Payments & Billing",
-      "skill": "doku-payment-gateway",
-      "status": "COMPLETED",
-      "criticScore": 100,
-      "sandboxVerified": true,
-      "durationMs": 24
-    },
-    {
-      "id": "7396dc44-b724-4da1-8db9-e3626e69c8f3",
-      "timestamp": "2026-11-10T19:45:58.101Z",
-      "type": "swarm:complete",
-      "swarmId": "245ceac2-7a71-45b5-bf18-fe98ef6ae869",
-      "task": "Build payment and api backend",
-      "success": true,
-      "totalDurationMs": 60,
-      "totalWorkers": 3
-    },
-    {
-      "id": "47868531-15ce-49fb-8c7c-c9eb90a8ddbf",
-      "timestamp": "2026-11-10T19:45:58.104Z",
-      "type": "swarm:start",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "task": "Verify formal billing state machine invariants",
-      "topology": "critic_validator",
-      "reasoningProfile": "exhaustive",
-      "thinkingBudgetTokens": 65536,
-      "totalWorkers": 2,
-      "concurrency": 2
-    },
-    {
-      "id": "45cf0df5-a82a-4814-b39c-4759e6966b70",
-      "timestamp": "2026-11-10T19:45:58.105Z",
-      "type": "worker:dispatch",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "workerId": "worker-database-orm-expert",
-      "domain": "Database / RLS",
-      "skill": "database-orm-expert",
-      "focus": "PostgreSQL DDL, RLS policies, FK indexes"
-    },
-    {
-      "id": "c33ba734-a86d-40e1-ac20-c6c0fabbf549",
-      "timestamp": "2026-11-10T19:45:58.106Z",
-      "type": "worker:dispatch",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "workerId": "worker-doku-payment-gateway",
-      "domain": "Payments & Billing",
-      "skill": "doku-payment-gateway",
-      "focus": "Atomic locks, idempotency, webhook HMAC verification"
-    },
-    {
-      "id": "39c554d7-16fa-404c-93cd-ff72cfe5307f",
-      "timestamp": "2026-11-10T19:45:58.127Z",
-      "type": "worker:done",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "workerId": "worker-database-orm-expert",
-      "domain": "Database / RLS",
-      "skill": "database-orm-expert",
-      "status": "COMPLETED",
-      "criticScore": 100,
-      "sandboxVerified": true,
-      "durationMs": 22
-    },
-    {
-      "id": "239764d2-e6b9-4961-adbc-24f68c697752",
-      "timestamp": "2026-11-10T19:45:58.135Z",
-      "type": "worker:done",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "workerId": "worker-doku-payment-gateway",
-      "domain": "Payments & Billing",
-      "skill": "doku-payment-gateway",
-      "status": "COMPLETED",
-      "criticScore": 100,
-      "sandboxVerified": true,
-      "durationMs": 29
-    },
-    {
-      "id": "55aea3f5-b1c5-44d6-880e-fc99981c5d5c",
-      "timestamp": "2026-11-10T19:45:58.136Z",
-      "type": "swarm:complete",
-      "swarmId": "8c9a96ae-16ff-4e71-867b-25c66db2cb07",
-      "task": "Verify formal billing state machine invariants",
-      "success": true,
-      "totalDurationMs": 32,
-      "totalWorkers": 2
-    },
-    {
-      "id": "b8330ef3-3b2a-4bbf-98e3-81f094a09462",
-      "timestamp": "2026-11-10T19:45:58.877Z",
-      "type": "agent:broadcast",
-      "message": "Studio live beacon",
-      "source": "STUDIO"
-    },
-    {
-      "id": "f41b18be-a630-4ebe-afd8-aad4846ee5bd",
-      "timestamp": "2026-11-10T19:45:59.625Z",
-      "type": "blackboard:update",
-      "key": "studio:state",
-      "version": 1,
-      "authorAgent": {
-        "author": "studio-test"
-      }
+      "id": "ec3f42c9-1529-4db6-8f61-d81a432507c6",
+      "timestamp": "2026-11-05T18:09:27.788Z",
+      "type": "workspace:change",
+      "eventType": "change",
+      "file": "context-window-engineer",
+      "source": "skills-watcher"
     }
   ]
 }

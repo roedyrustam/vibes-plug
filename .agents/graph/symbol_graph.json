@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T19:45:59.848Z",
+  "generatedAt": "2026-11-10T19:45:05.848Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 90,
-  "incrementalReusedFiles": 90,
+  "incrementalReusedFiles": 88,
   "totalSymbolsIndexed": 514,
   "totalImportEdges": 305,
   "symbols": {

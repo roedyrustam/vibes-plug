@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-10T19:45:59.626Z",
+  "updatedAt": "2026-11-05T17:45:51.192Z",
   "entries": {
     "schema:users": {
       "key": "schema:users",
@@ -19,17 +19,6 @@
       "version": 1,
       "authorAgent": "mcp-agent",
       "updatedAt": "2026-11-05T17:45:51.191Z"
-    },
-    "studio:state": {
-      "key": "studio:state",
-      "value": {
-        "activeTab": "graph"
-      },
-      "version": 1,
-      "authorAgent": {
-        "author": "studio-test"
-      },
-      "updatedAt": "2026-11-10T19:45:59.625Z"
     }
   }
 }
