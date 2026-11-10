@@ -1694,6 +1694,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /const\s+handleTransfer\s*=\s*\(\s*\)\s*=>\s*\{[\s\S]{0,100}?writeContract\s*\(\s*\{(?![\s\S]{0,250}?\b(?:simulateContract|useSimulateContract)\b)/,
       remediation: 'Simulate state-changing smart contract transactions (via publicClient.simulateContract or useSimulateContract) before prompting wallet signatures.'
     }
+  ],
+  'autonomous-tdd-debugger': [
+    {
+      id: 'TDD_DEBUGGER_TEST_SKIP_OR_TODO',
+      severity: 'ERROR',
+      name: 'Test Skipped or Left as Incomplete Todo in Automated TDD Routine',
+      regex: /\b(?:test|it)\.(?:skip|todo)\s*\(/,
+      remediation: 'Automated TDD debugging must fix failing tests; skipping tests (.skip) or leaving unasserted stubs (.todo) is prohibited.'
+    },
+    {
+      id: 'TDD_DEBUGGER_TAUTOLOGICAL_ASSERTION',
+      severity: 'ERROR',
+      name: 'Tautological Assertion Created to Fabricate Passing Test Result',
+      regex: /\bexpect\s*\(\s*(?:true|1)\s*\)\s*\.\s*(?:toBe|toEqual)\s*\(\s*(?:true|1)\s*\)/,
+      remediation: 'Do not fabricate passing tests with tautological assertions (expect(true).toBe(true)); tests must assert actual domain outputs and side effects.'
+    }
+  ],
+  'autonomous-red-teamer': [
+    {
+      id: 'RED_TEAM_CANARY_LEAK_IN_RESPONSE',
+      severity: 'ERROR',
+      name: 'Canary Token Leaked in Public HTTP Response Body',
+      regex: /return\s+c\.text\s*\(\s*`[^`]*CANARY_[0-9A-Za-z_]+`|res\.json\s*\(\s*\{[^}]*canary/i,
+      remediation: 'Canary tokens verify system prompt confidentiality; leaking canary tokens in public HTTP responses indicates successful prompt injection.'
+    },
+    {
+      id: 'RED_TEAM_UNSAFE_INTERNAL_LOOPBACK_FETCH',
+      severity: 'ERROR',
+      name: 'Unsafe Loopback or Cloud Metadata Address in Fetch Request (SSRF Risk)',
+      regex: /fetch\s*\(\s*['"]https?:\/\/(?:127\.0\.0\.1|localhost|169\.254\.169\.254|0\.0\.0\.0|\[::1\])/,
+      remediation: 'Red-team validation must block outbound requests to internal loopbacks and cloud metadata endpoints (169.254.169.254) to eliminate SSRF vulnerabilities.'
+    }
+  ],
+  'autonomous-api-drift-healer': [
+    {
+      id: 'API_DRIFT_SILENT_FIELD_DELETION',
+      severity: 'ERROR',
+      name: 'Silent Deletion of Legacy Schema Field Without Deprecation Telemetry',
+      regex: /delete\s+normalized\[rule\.legacyField\];(?![\s\S]{0,100}?\b(?:driftedFields|deprecated|Sunset)\b)/,
+      remediation: 'Do not silently delete legacy API fields in adapters without recording drift telemetry and emitting Sunset/Deprecation headers.'
+    },
+    {
+      id: 'API_DRIFT_UNVALIDATED_PAYLOAD_NORMALIZATION',
+      severity: 'WARN',
+      name: 'API Payload Normalization Casting Return to "as any" Without Schema Verification',
+      regex: /export\s+function\s+adaptLegacyPayload[\s\S]{0,100}?as\s+any\b/,
+      remediation: 'Do not cast normalized payloads to "as any"; validate normalized responses against the target Zod/TypeSpec schema to preserve contract safety.'
+    }
+  ],
+  'anti-slop': [
+    {
+      id: 'ANTI_SLOP_PLACEHOLDER_TOKEN_DETECTED',
+      severity: 'ERROR',
+      name: 'Slop Placeholder or Truncation Token Detected in Production Routine',
+      regex: /\/\/\s*(?:TODO|FIXME|IMPLEMENT|REST OF CODE)|<PLACEHOLDER>/i,
+      remediation: 'Production routines must be 100% complete and working on the first try; placeholder comments (// TODO, // REST OF CODE) and mock stubs are banned under Anti-Slop Pillar 2.'
+    },
+    {
+      id: 'ANTI_SLOP_PROHIBITED_AI_TELL_BUZZWORD',
+      severity: 'WARN',
+      name: 'Generic AI Tell Buzzword / Marketing Fluff Detected in Code or Specification',
+      regex: /\b(?:seamlessly\s+empower|where\s+\w+\s+meets\s+\w+|crafting\s+digital\s+experiences)\b/i,
+      remediation: 'Eliminate synthetic AI buzzwords ("seamlessly empower", "where X meets Y"); specify concrete technical behavior, PostgreSQL DDL schemas, and typed contracts.'
+    }
+  ],
+  'coderabbit': [
+    {
+      id: 'CODERABBIT_CRITICAL_BLOCK_DISABLED',
+      severity: 'ERROR',
+      name: 'CodeRabbit Review Gate With block-on-critical Explicitly Disabled',
+      regex: /block-on-critical\s*:\s*false/,
+      remediation: 'Set block-on-critical: true in CodeRabbit review configurations to prevent merging pull requests containing P0/critical vulnerabilities.'
+    },
+    {
+      id: 'CODERABBIT_MISSING_LOCKFILE_PATH_FILTERS',
+      severity: 'WARN',
+      name: 'CodeRabbit Path Filters Missing Lockfile and Minified Asset Exclusions',
+      regex: /path_filters\s*:\s*\[(?![\s\S]{0,150}?\*\.lock)/,
+      remediation: 'Include lockfiles (*.lock, *-lock.yaml) in path_filters to suppress noisy automated review comments on binary and generated dependency manifests.'
+    }
+  ],
+  'angular-expert': [
+    {
+      id: 'ANGULAR_LEGACY_NGMODULE_DECLARATION',
+      severity: 'ERROR',
+      name: 'Legacy NgModule Declaration Used Instead of Standalone Component',
+      regex: /@NgModule\s*\(\s*\{/,
+      remediation: 'Angular 19+ mandates standalone components (standalone: true); legacy @NgModule declarations are prohibited.'
+    },
+    {
+      id: 'ANGULAR_MISSING_ONPUSH_CHANGE_DETECTION',
+      severity: 'WARN',
+      name: 'Angular Component Missing ChangeDetectionStrategy.OnPush Declaration',
+      regex: /@Component\s*\(\s*\{(?![\s\S]{0,300}?\bChangeDetectionStrategy\.OnPush\b)[\s\S]{0,300}?\bselector\s*:/,
+      remediation: 'Always specify changeDetection: ChangeDetectionStrategy.OnPush in Angular components for deterministic signal-driven change detection.'
+    }
+  ],
+  'chatbot-messaging-expert': [
+    {
+      id: 'CHATBOT_SYNCHRONOUS_LLM_IN_WEBHOOK',
+      severity: 'ERROR',
+      name: 'Synchronous LLM Generation Inside Inbound Webhook Handler',
+      regex: /app\.post\s*\(\s*['"][^'"]*webhook[^'"]*['"]\s*,\s*async\s*\([^)]*\)\s*=>\s*\{[\s\S]{0,300}?await\s+(?:generateText|ai\.chat|openai\.)(?![\s\S]{0,300}?\b(?:waitUntil|queue|enqueue)\b)/,
+      remediation: 'Acknowledge inbound messaging webhooks immediately (<3s HTTP 200) and dispatch heavy LLM generation asynchronously via queues or waitUntil.'
+    },
+    {
+      id: 'CHATBOT_UNVERIFIED_WEBHOOK_HANDLER',
+      severity: 'ERROR',
+      name: 'Inbound Webhook Endpoint Lacking Cryptographic Signature Verification',
+      regex: /app\.post\s*\(\s*['"][^'"]*webhook[^'"]*['"]\s*,\s*async\s*\([^)]*\)\s*=>\s*\{(?![\s\S]{0,250}?\b(?:verifySignature|x-hub-signature|x-slack-signature|crypto\.createHmac)\b)/,
+      remediation: 'Verify HMAC-SHA256 signatures (X-Hub-Signature-256 / X-Slack-Signature) before processing messaging payloads to prevent webhook spoofing.'
+    }
+  ],
+  'deep-research-analyst': [
+    {
+      id: 'DEEP_RESEARCH_UNVERIFIED_SINGLE_SOURCE',
+      severity: 'WARN',
+      name: 'Research Fact Marked Confirmed Without Corroborating Source Triangulation',
+      regex: /validationStatus\s*:\s*['"]confirmed['"](?![\s\S]{0,100}?\bcorroboratingSources?\b)/,
+      remediation: 'Mark research findings as confirmed only when backed by at least two distinct corroborating sources to eliminate single-source bias.'
+    },
+    {
+      id: 'DEEP_RESEARCH_SYNTHETIC_PLACEHOLDER_CITATION',
+      severity: 'ERROR',
+      name: 'Synthetic Placeholder or Generic Example Domain Used as Citation Source',
+      regex: /\[(?:Source|Reference)\]\s*\(\s*https?:\/\/(?:example\.com|test\.com|placeholder)/i,
+      remediation: 'Provide verified, reachable source citations with retrieval timestamps; placeholder example.com URLs are prohibited.'
+    }
+  ],
+  'dependency-upgrade-migrator': [
+    {
+      id: 'DEPENDENCY_BLIND_AUDIT_FIX_FORCE',
+      severity: 'ERROR',
+      name: 'Unconstrained Blind "npm audit fix --force" Execution',
+      regex: /npm\s+audit\s+fix\s+--force\b/,
+      remediation: 'Do not run npm audit fix --force; review breaking changes manually and upgrade vulnerable major packages individually.'
+    },
+    {
+      id: 'DEPENDENCY_UNFROZEN_LOCKFILE_INSTALL',
+      severity: 'WARN',
+      name: 'Package Manager Install in CI Script Missing Frozen Lockfile Flag',
+      regex: /(?:npm\s+install|pnpm\s+install)(?!\s+--frozen-lockfile)/,
+      remediation: 'Always specify --frozen-lockfile (pnpm install --frozen-lockfile or npm ci) in CI and migration pipelines to guarantee deterministic reproducibility.'
+    }
+  ],
+  'composable-mach-architect': [
+    {
+      id: 'MACH_CROSS_SERVICE_DB_JOIN',
+      severity: 'ERROR',
+      name: 'Direct Cross-Service Database Join Across Microservice Boundaries',
+      regex: /FROM\s+\w+\.\w+[\s\S]{0,100}?JOIN\s+(?:foreign_|remote_|external_)\w+\.\w+/i,
+      remediation: 'Enforce database-per-service isolation in MACH topologies; services must communicate via versioned APIs or event choreography rather than direct database joins.'
+    },
+    {
+      id: 'MACH_PRESENTATION_DIRECT_ORM_ACCESS',
+      severity: 'ERROR',
+      name: 'Direct Backend Database ORM Instantiation in Client/Presentation Component',
+      regex: /['"]use client['"][\s\S]{0,200}?\b(?:new\s+PrismaClient|drizzle\(|createClient\()/i,
+      remediation: 'Presentation layers must consume headless APIs or BFF endpoints; instantiating database ORM clients directly in client components is strictly prohibited.'
+    }
   ]
 
 });

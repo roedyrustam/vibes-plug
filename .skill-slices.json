@@ -1,7 +1,7 @@
 {
   "schema": "vibes-skill-slices/v4.7.0",
   "version": "4.7.0",
-  "compiledAt": "2026-11-10T18:16:13.643Z",
+  "compiledAt": "2026-11-10T18:34:13.647Z",
   "totalSkills": 178,
   "totalCodeBlueprints": 1199,
   "domains": {
@@ -227,8 +227,8 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 875237,
-    "compiledSlicesTokensApprox": 142449,
+    "fullRegistryTokensApprox": 877358,
+    "compiledSlicesTokensApprox": 142443,
     "avgTokensPerSlice": 800,
     "tokenReductionPercent": "84%"
   },
@@ -1361,7 +1361,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 5,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
@@ -1449,7 +1449,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 6,
       "languagesAvailable": [
@@ -2239,8 +2239,8 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "guardRulesCount": 10,
+      "nfrContract": "Schema drift detection latency < 15ms, 100% backward-compatible adapter generation on breaking changes, zero unhandled client contract desync; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
         "typescript",
@@ -2314,7 +2314,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 10,
       "languagesAvailable": [
@@ -2353,7 +2353,7 @@
           "preview": "- **Run Fuzzer**: Execute `cargo +nightly fuzz run <target_name>`.\n\n#### 3. Go Fuzzing (Native Go Fuzz)\nGo supports native fuzzing in its standard library (`testing` package):"
         }
       ],
-      "connectedSkillsCount": 20,
+      "connectedSkillsCount": 21,
       "connectedSkills": [
         "prompt-injection-firewall",
         "zero-trust-secret-vault",
@@ -2401,7 +2401,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 9,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 4,
       "languagesAvailable": [
@@ -2434,7 +2434,7 @@
           "preview": "1. JALANKAN TEST RUNNER (via run_command)\n   npx vitest run, cargo test, pytest, atau go test\n        │\n        ▼\n2. FILTER STACK TRACE & NOISE TERMINAL\n   Ekstrak file yang gagal, nomor baris, nilai aktual vs ekspektasi"
         }
       ],
-      "connectedSkillsCount": 13,
+      "connectedSkillsCount": 14,
       "connectedSkills": [
         "e2e-testing-expert",
         "property-mutation-testing-expert",
@@ -2981,8 +2981,8 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "guardRulesCount": 10,
+      "nfrContract": "Webhook ack latency P95 < 800ms (<3s platform timeout limit), 100% cryptographic signature verification, zero unauthenticated webhook processing; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
         "typescript"
@@ -3321,7 +3321,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
@@ -3485,8 +3485,8 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "guardRulesCount": 10,
+      "nfrContract": "Supergraph P99 composition latency < 35ms, 100% headless presentation separation, zero cross-service shared database mutations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "javascript",
@@ -4161,8 +4161,8 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
-      "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "guardRulesCount": 10,
+      "nfrContract": "Fact triangulation rate >= 90% across >= 2 independent sources, 100% clickable markdown source URL citations, zero hallucinated benchmark numbers; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 9,
       "languagesAvailable": [
         "text",
@@ -4247,8 +4247,8 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 4,
-      "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
+      "guardRulesCount": 10,
+      "nfrContract": "0 breaking runtime regressions post-upgrade, 100% frozen lockfile reproducibility, zero unpinned core dependencies in production; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 12,
       "languagesAvailable": [
         "markdown",

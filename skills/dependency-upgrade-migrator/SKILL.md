@@ -268,6 +268,16 @@ catalog:
 | Skipping changelogs | Missing breaking changes | Always read CHANGELOG/migration guide |
 | No lockfile in version control | Non-reproducible builds | Always commit `pnpm-lock.yaml` |
 
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Prohibition of Blind `audit fix --force`**:
+   - Automated migration routines MUST NOT execute `npm audit fix --force` or unconstrained major package overrides without prior breaking change analysis. Major bumps must be reviewed against migration guides.
+2. **Dedicated Branch & Pre/Post Regression Gates**:
+   - Major framework and library upgrades MUST execute on dedicated feature branches with full test suite verification executed both before and after dependency bumps.
+3. **Deterministic Frozen Lockfile Invariant**:
+   - Repositories MUST commit verified lockfiles (`pnpm-lock.yaml`, `bun.lockb`, `package-lock.json`). Running continuous integration builds with unfrozen or missing lockfiles is strictly forbidden.
+4. **Monorepo Version Catalog Synchronization**:
+   - In monorepo workspaces, core shared dependencies (React, TypeScript, query libraries) MUST be pinned via workspace catalogs (`pnpm-workspace.yaml` `catalog:`) to avoid divergent dependency versions across packages.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -275,7 +285,7 @@ catalog:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec dependency-upgrade-migrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 0 breaking runtime regressions post-upgrade, 100% frozen lockfile reproducibility, zero unpinned core dependencies in production; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -395,4 +405,4 @@ export default function transform(fileInfo: FileInfo, api: API) {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec dependency-upgrade-migrator <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 0 regresi runtime breaking pasca-upgrade, 100% reproduktibilitas lockfile beku (frozen), zero dependensi inti tanpa pinning di produksi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -2303,6 +2303,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG11 = [
+      'autonomous-tdd-debugger', 'autonomous-red-teamer', 'autonomous-api-drift-healer',
+      'anti-slop', 'coderabbit', 'angular-expert',
+      'chatbot-messaging-expert', 'deep-research-analyst', 'dependency-upgrade-migrator', 'composable-mach-architect'
+    ];
+    for (const skill of deepenedG11) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2447,6 +2456,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'adaptive-model-cascade', code: 'function routeModel(task) {\n  return "gemini-4-pro";\n}' }, 'MODEL_CASCADE_UNSCORED_ROUTING');
     await expectViolation({ skill: 'data-visualization-expert', code: '<ResponsiveContainer width={1200} height={400} />' }, 'DATAVIZ_FIXED_PIXEL_WIDTH_OVERFLOW');
     await expectViolation({ skill: 'blockchain-web3-expert', code: 'const amountInWei = parseFloat(tokenAmount) * 10 ** 18;' }, 'WEB3_FLOAT_TOKEN_ARITHMETIC');
+
+    // Wave 11 (Gelombang 11) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'autonomous-tdd-debugger', code: 'test.skip("flaky test in CI", () => { expect(1).toBe(1); });' }, 'TDD_DEBUGGER_TEST_SKIP_OR_TODO');
+    await expectViolation({ skill: 'autonomous-red-teamer', code: 'return c.text(`CANARY_482910_CONFIDENTIAL_SECRET`);' }, 'RED_TEAM_CANARY_LEAK_IN_RESPONSE');
+    await expectViolation({ skill: 'autonomous-api-drift-healer', code: 'delete normalized[rule.legacyField]; return normalized;' }, 'API_DRIFT_SILENT_FIELD_DELETION');
+    await expectViolation({ skill: 'anti-slop', code: 'function processPayment() {\n  // ' + 'TODO: implement later\n}' }, 'ANTI_SLOP_PLACEHOLDER_TOKEN_DETECTED');
+    await expectViolation({ skill: 'coderabbit', code: 'reviews:\n  block-on-critical: false\n' }, 'CODERABBIT_CRITICAL_BLOCK_DISABLED');
+    await expectViolation({ skill: 'angular-expert', code: '@NgModule({\n  declarations: [UserCardComponent]\n})\nexport class UserModule {}' }, 'ANGULAR_LEGACY_NGMODULE_DECLARATION');
+    await expectViolation({ skill: 'chatbot-messaging-expert', code: 'app.post("/webhook", async (req, res) => {\n  const reply = await openai.chat.completions.create({ model: "gpt-5" });\n  res.send(reply);\n});' }, 'CHATBOT_SYNCHRONOUS_LLM_IN_WEBHOOK');
+    await expectViolation({ skill: 'deep-research-analyst', code: 'const claim = { fact: "Market size is 10B", validationStatus: "confirmed" };' }, 'DEEP_RESEARCH_UNVERIFIED_SINGLE_SOURCE');
+    await expectViolation({ skill: 'dependency-upgrade-migrator', code: 'runCommand("npm audit fix --force");' }, 'DEPENDENCY_BLIND_AUDIT_FIX_FORCE');
+    await expectViolation({ skill: 'composable-mach-architect', code: 'const sql = "SELECT * FROM orders.order_items oi JOIN foreign_inventory.stocks s ON s.sku = oi.sku";' }, 'MACH_CROSS_SERVICE_DB_JOIN');
   });
 });
 

@@ -181,6 +181,16 @@ Every research brief produced by this skill must adhere to the following markdow
 - Prescriptive guidance for implementation swarms with justification.
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Multi-Source Fact Triangulation**:
+   - High-impact technical claims (latency benchmarks, breaking changes, API limits) MUST be corroborated across at least two independent primary or secondary sources. Single-source claims must be flagged explicitly as `status: 'unverified'`.
+2. **Strict Verification of Source URL Citations**:
+   - Every citation MUST provide a concrete, accessible URL. Fabricating synthetic markdown links or citations (`[Source](https://example.com/fake)`) is strictly prohibited under Anti-Slop directives.
+3. **Prohibition of Eyeballed / Hallucinated Benchmark Numbers**:
+   - Performance benchmarks and metrics MUST cite reproducible source runs or official technical publications. Eyeballing synthetic numbers (e.g. "300% faster") without empirical reference is forbidden.
+4. **Structured Evidence Dossier Output**:
+   - Research briefs MUST format findings in structured tables containing Technical Claim, Verified Status, Confidence Score, Primary Source URL, and Corroborating Source URL.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -188,7 +198,7 @@ Every research brief produced by this skill must adhere to the following markdow
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec deep-research-analyst <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Fact triangulation rate >= 90% across >= 2 independent sources, 100% clickable markdown source URL citations, zero hallucinated benchmark numbers; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -354,4 +364,4 @@ Setiap ringkasan intelijen riset wajib disusun dalam format markdown berikut:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec deep-research-analyst <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Tingkat triangulasi fakta >= 90% lintas >= 2 sumber independen, 100% sitasi URL sumber markdown valid, zero angka benchmark halusinasi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
