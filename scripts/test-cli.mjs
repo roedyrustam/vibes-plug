@@ -39,6 +39,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
         await fs.writeFile(p, content, 'utf8');
       }
     }
+    for (const ephemeralDir of ['skills', 'scratch', 'worktrees']) {
+      const dirPath = path.join(PLUGIN_ROOT, '.agents', ephemeralDir);
+      try {
+        const items = await fs.readdir(dirPath);
+        if (items.length === 0) await fs.rmdir(dirPath);
+      } catch {
+        // Ignore if directory does not exist
+      }
+    }
   });
   await t.test('vibes --help should output banner and commands', async () => {
     const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, '--help']);

@@ -1,16 +1,16 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-05T17:45:51.947Z",
+  "generatedAt": "2026-11-10T15:26:51.323Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 87,
-  "incrementalReusedFiles": 87,
-  "totalSymbolsIndexed": 492,
-  "totalImportEdges": 277,
+  "totalFilesIndexed": 90,
+  "incrementalReusedFiles": 58,
+  "totalSymbolsIndexed": 514,
+  "totalImportEdges": 297,
   "symbols": {
     "getActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1122,
+        "line": 1136,
         "type": "function",
         "signature": "function getActiveProfile()",
         "calls": []
@@ -19,7 +19,7 @@
     "setActiveProfile": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1126,
+        "line": 1140,
         "type": "function",
         "signature": "function setActiveProfile(profileName)",
         "calls": [
@@ -32,7 +32,7 @@
     "getFilteredTools": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1135,
+        "line": 1149,
         "type": "function",
         "signature": "function getFilteredTools(profileName = currentActiveProfile)",
         "calls": [
@@ -48,7 +48,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1179,
+        "line": 1193,
         "type": "function",
         "signature": "function handleRpcRequest(request)",
         "calls": [
@@ -61,7 +61,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1845,
+        "line": 1876,
         "type": "function",
         "signature": "function startStdioServer()",
         "calls": [
@@ -80,7 +80,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1873,
+        "line": 1904,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
         "calls": [
@@ -111,7 +111,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1981,
+        "line": 2012,
         "type": "function",
         "signature": "function startServer(options = {})",
         "calls": [
@@ -125,21 +125,10 @@
         ]
       }
     ],
-    "question": [
-      {
-        "file": "bin/vibes.mjs",
-        "line": 20,
-        "type": "arrow-function",
-        "signature": "const question = (query) =>",
-        "calls": [
-          "Promise"
-        ]
-      }
-    ],
     "escapeRegExp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 22,
+        "line": 16,
         "type": "function",
         "signature": "function escapeRegExp(value)",
         "calls": [
@@ -150,7 +139,7 @@
     "isValidIdentifier": [
       {
         "file": "bin/vibes.mjs",
-        "line": 26,
+        "line": 20,
         "type": "function",
         "signature": "function isValidIdentifier(value)",
         "calls": [
@@ -161,7 +150,7 @@
     "runInit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 30,
+        "line": 24,
         "type": "function",
         "signature": "function runInit(projectName)",
         "calls": [
@@ -181,7 +170,7 @@
     "runWizard": [
       {
         "file": "bin/vibes.mjs",
-        "line": 68,
+        "line": 62,
         "type": "function",
         "signature": "function runWizard()",
         "calls": [
@@ -209,7 +198,7 @@
     "runBootstrap": [
       {
         "file": "bin/vibes.mjs",
-        "line": 301,
+        "line": 295,
         "type": "function",
         "signature": "function runBootstrap(templateName, projectName)",
         "calls": [
@@ -235,7 +224,7 @@
     "runValidate": [
       {
         "file": "bin/vibes.mjs",
-        "line": 465,
+        "line": 459,
         "type": "function",
         "signature": "function runValidate()",
         "calls": [
@@ -249,7 +238,7 @@
     "runAudit": [
       {
         "file": "bin/vibes.mjs",
-        "line": 476,
+        "line": 470,
         "type": "function",
         "signature": "function runAudit()",
         "calls": [
@@ -263,7 +252,7 @@
     "runCreateSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 487,
+        "line": 481,
         "type": "function",
         "signature": "function runCreateSkill(skillName)",
         "calls": [
@@ -285,7 +274,7 @@
     "runCreateMcp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 534,
+        "line": 528,
         "type": "function",
         "signature": "function runCreateMcp(serverName)",
         "calls": [
@@ -307,7 +296,7 @@
     "runAddSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 705,
+        "line": 699,
         "type": "function",
         "signature": "function runAddSkill(skillName)",
         "calls": [
@@ -328,7 +317,7 @@
     "runUi": [
       {
         "file": "bin/vibes.mjs",
-        "line": 740,
+        "line": 734,
         "type": "function",
         "signature": "function runUi()",
         "calls": [
@@ -357,7 +346,7 @@
     "runRemoveSkill": [
       {
         "file": "bin/vibes.mjs",
-        "line": 926,
+        "line": 920,
         "type": "function",
         "signature": "function runRemoveSkill(skillName)",
         "calls": [
@@ -377,7 +366,7 @@
     "runListSkills": [
       {
         "file": "bin/vibes.mjs",
-        "line": 954,
+        "line": 948,
         "type": "function",
         "signature": "function runListSkills(filter)",
         "calls": [
@@ -405,7 +394,7 @@
     "runVersion": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1008,
+        "line": 1002,
         "type": "function",
         "signature": "function runVersion(action, type)",
         "calls": [
@@ -431,7 +420,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1082,
+        "line": 1077,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)",
         "calls": [
@@ -452,7 +441,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1170,
+        "line": 1165,
         "type": "function",
         "signature": "function runSkillInfo(skillName)",
         "calls": [
@@ -477,7 +466,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1220,
+        "line": 1215,
         "type": "function",
         "signature": "function runHooks(action)",
         "calls": [
@@ -495,7 +484,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1304,
+        "line": 1299,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)",
         "calls": [
@@ -517,7 +506,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1369,
+        "line": 1364,
         "type": "function",
         "signature": "function runSearch(query)",
         "calls": [
@@ -543,7 +532,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1417,
+        "line": 1412,
         "type": "function",
         "signature": "function runSync()",
         "calls": [
@@ -564,7 +553,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1474,
+        "line": 1469,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)",
         "calls": [
@@ -592,7 +581,7 @@
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1544,
+        "line": 1539,
         "type": "function",
         "signature": "function showHelp()",
         "calls": [
@@ -765,25 +754,6 @@
         ]
       },
       {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 284,
-        "type": "function",
-        "signature": "function main()",
-        "calls": [
-          "includes",
-          "now",
-          "log",
-          "runSpeculativeMultiDraftDemo",
-          "runFormalVerificationDemo",
-          "runVisualUiAuditDemo",
-          "toFixed",
-          "stringify",
-          "parseFloat",
-          "error",
-          "exit"
-        ]
-      },
-      {
         "file": "scripts/eval-migration.mjs",
         "line": 229,
         "type": "function",
@@ -844,13 +814,16 @@
       },
       {
         "file": "scripts/install.js",
-        "line": 228,
+        "line": 224,
         "type": "function",
         "signature": "function main()",
         "calls": [
           "slice",
           "includes",
           "indexOf",
+          "startsWith",
+          "error",
+          "exit",
           "require",
           "log",
           "entries",
@@ -1142,7 +1115,7 @@
       },
       {
         "file": "scripts/wasm-sandbox.mjs",
-        "line": 434,
+        "line": 453,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -1492,21 +1465,12 @@
     ],
     "isTestFile": [
       {
-        "file": "scripts/check-anti-slop.js",
-        "line": 180,
-        "type": "function",
-        "signature": "function isTestFile(filePath)",
-        "calls": [
-          "replace",
-          "test"
-        ]
-      },
-      {
         "file": "scripts/check-anti-slop.mjs",
         "line": 177,
         "type": "function",
         "signature": "function isTestFile(filePath)",
         "calls": [
+          "replace",
           "test"
         ]
       },
@@ -1522,20 +1486,8 @@
     ],
     "isCliScript": [
       {
-        "file": "scripts/check-anti-slop.js",
-        "line": 185,
-        "type": "function",
-        "signature": "function isCliScript(filePath)",
-        "calls": [
-          "replace",
-          "some",
-          "includes",
-          "startsWith"
-        ]
-      },
-      {
         "file": "scripts/check-anti-slop.mjs",
-        "line": 181,
+        "line": 182,
         "type": "function",
         "signature": "function isCliScript(filePath)",
         "calls": [
@@ -1560,28 +1512,8 @@
     ],
     "scanFile": [
       {
-        "file": "scripts/check-anti-slop.js",
-        "line": 190,
-        "type": "function",
-        "signature": "function scanFile(filePath)",
-        "calls": [
-          "extname",
-          "toLowerCase",
-          "includes",
-          "readFileSync",
-          "split",
-          "forEach",
-          "trim",
-          "test",
-          "push",
-          "isTestFile",
-          "isCliScript",
-          "startsWith"
-        ]
-      },
-      {
         "file": "scripts/check-anti-slop.mjs",
-        "line": 186,
+        "line": 187,
         "type": "function",
         "signature": "function scanFile(filePath)",
         "calls": [
@@ -1622,8 +1554,8 @@
     ],
     "scanDir": [
       {
-        "file": "scripts/check-anti-slop.js",
-        "line": 282,
+        "file": "scripts/check-anti-slop.mjs",
+        "line": 271,
         "type": "function",
         "signature": "function scanDir(dir)",
         "calls": [
@@ -1640,28 +1572,7 @@
           "stringify",
           "forEach",
           "relative",
-          "error",
-          "exit"
-        ]
-      },
-      {
-        "file": "scripts/check-anti-slop.mjs",
-        "line": 267,
-        "type": "function",
-        "signature": "function scanDir(dir)",
-        "calls": [
-          "existsSync",
-          "readdirSync",
-          "includes",
-          "join",
-          "isDirectory",
-          "isFile",
-          "scanFile",
-          "log",
-          "filter",
-          "stringify",
-          "forEach",
-          "relative",
+          "basename",
           "error",
           "exit"
         ]
@@ -1755,13 +1666,14 @@
     "compileSkillSlices": [
       {
         "file": "scripts/compile-skill-slices.mjs",
-        "line": 22,
+        "line": 23,
         "type": "function",
         "signature": "function compileSkillSlices()",
         "calls": [
           "readdir",
           "filter",
           "isDirectory",
+          "startsWith",
           "map",
           "sort",
           "all",
@@ -1772,18 +1684,17 @@
           "match",
           "n",
           "trim",
+          "exec",
+          "slice",
+          "max",
+          "matchAll",
+          "push",
+          "split",
+          "extractSmartCodeSnippet",
           "Set",
           "from",
-          "matchAll",
-          "slice",
-          "split",
           "resolveSkillAdapter",
-          "stringify",
-          "ceil",
-          "round",
-          "Date",
-          "toISOString",
-          "writeFile"
+          "extractDeclarativeRulesFromSkill"
         ]
       }
     ],
@@ -1930,148 +1841,6 @@
           "readFile",
           "join",
           "parse"
-        ]
-      }
-    ],
-    "formatHeader": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 36,
-        "type": "function",
-        "signature": "function formatHeader(title)",
-        "calls": [
-          "log"
-        ]
-      }
-    ],
-    "formatCard": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 40,
-        "type": "function",
-        "signature": "function formatCard(label, value, color = c.white)",
-        "calls": [
-          "log"
-        ]
-      }
-    ],
-    "runSpeculativeMultiDraftDemo": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 47,
-        "type": "function",
-        "signature": "function runSpeculativeMultiDraftDemo()",
-        "calls": [
-          "formatHeader",
-          "log",
-          "now",
-          "Promise",
-          "setTimeout",
-          "round",
-          "formatCard"
-        ]
-      }
-    ],
-    "AccountId": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 109,
-        "type": "type",
-        "signature": "export type AccountId = string & { readonly __brand: unique symbol };",
-        "calls": []
-      }
-    ],
-    "MinorCents": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 110,
-        "type": "type",
-        "signature": "export type MinorCents = bigint & { readonly __brand: unique symbol };",
-        "calls": []
-      }
-    ],
-    "LedgerOverdraftError": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 112,
-        "type": "class",
-        "signature": "export class LedgerOverdraftError extends Error",
-        "calls": []
-      }
-    ],
-    "LedgerOverdraftError.constructor": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 113,
-        "type": "method",
-        "signature": "LedgerOverdraftError.constructor(public readonly accountId: AccountId, public readonly deficit: bigint)",
-        "calls": []
-      }
-    ],
-    "TransferRequest": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 119,
-        "type": "interface",
-        "signature": "export interface TransferRequest",
-        "calls": []
-      }
-    ],
-    "AtomicLedgerEngine": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 126,
-        "type": "class",
-        "signature": "export class AtomicLedgerEngine",
-        "calls": []
-      }
-    ],
-    "AtomicLedgerEngine.executeTransfer": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 129,
-        "type": "method",
-        "signature": "AtomicLedgerEngine.executeTransfer(req: TransferRequest)",
-        "calls": [
-          "RangeError",
-          "get",
-          "LedgerOverdraftError",
-          "set",
-          "randomUUID"
-        ]
-      }
-    ],
-    "runFormalVerificationDemo": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 148,
-        "type": "function",
-        "signature": "function runFormalVerificationDemo()",
-        "calls": [
-          "formatHeader",
-          "log",
-          "formatCard",
-          "now",
-          "Promise",
-          "setTimeout",
-          "toFixed"
-        ]
-      }
-    ],
-    "runVisualUiAuditDemo": [
-      {
-        "file": "scripts/demo-sovereign-swarm.mjs",
-        "line": 195,
-        "type": "function",
-        "signature": "function runVisualUiAuditDemo()",
-        "calls": [
-          "formatHeader",
-          "log",
-          "now",
-          "Promise",
-          "setTimeout",
-          "toFixed",
-          "formatCard"
         ]
       }
     ],
@@ -2465,15 +2234,6 @@
         ]
       }
     ],
-    "build_3d_logos": [
-      {
-        "file": "scripts/generate_logo_svg.py",
-        "line": 8,
-        "type": "function",
-        "signature": "def build_3d_logos():",
-        "calls": []
-      }
-    ],
     "draw_lightning": [
       {
         "file": "scripts/generate_swarm_gif.py",
@@ -2762,11 +2522,12 @@
     "copyRecursiveSync": [
       {
         "file": "scripts/install.js",
-        "line": 42,
+        "line": 40,
         "type": "function",
         "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)",
         "calls": [
-          "statSync",
+          "lstatSync",
+          "isSymbolicLink",
           "isDirectory",
           "existsSync",
           "mkdirSync",
@@ -2774,14 +2535,32 @@
           "forEach",
           "has",
           "join",
+          "isFile",
           "copyFileSync"
+        ]
+      }
+    ],
+    "mergeMcpConfigFile": [
+      {
+        "file": "scripts/install.js",
+        "line": 56,
+        "type": "function",
+        "signature": "function mergeMcpConfigFile(destPath, incomingServers)",
+        "calls": [
+          "existsSync",
+          "parse",
+          "readFileSync",
+          "warn",
+          "assign",
+          "writeFileSync",
+          "stringify"
         ]
       }
     ],
     "installForAntigravity": [
       {
         "file": "scripts/install.js",
-        "line": 55,
+        "line": 74,
         "type": "function",
         "signature": "function installForAntigravity()",
         "calls": [
@@ -2794,7 +2573,7 @@
     "installForClaude": [
       {
         "file": "scripts/install.js",
-        "line": 66,
+        "line": 85,
         "type": "function",
         "signature": "function installForClaude(projectDir)",
         "calls": [
@@ -2810,7 +2589,7 @@
     "installForCursor": [
       {
         "file": "scripts/install.js",
-        "line": 107,
+        "line": 121,
         "type": "function",
         "signature": "function installForCursor(projectDir)",
         "calls": [
@@ -2822,8 +2601,7 @@
           "copyFileSync",
           "copyRecursiveSync",
           "mkdirSync",
-          "writeFileSync",
-          "stringify"
+          "mergeMcpConfigFile"
         ]
       }
     ],
@@ -3658,7 +3436,7 @@
     "resolveSkillAdapter": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 144,
+        "line": 151,
         "type": "function",
         "signature": "function resolveSkillAdapter(skillName)",
         "calls": [
@@ -3670,7 +3448,7 @@
     "getSkillCompactSlice": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 179,
+        "line": 186,
         "type": "function",
         "signature": "function getSkillCompactSlice(skillName)",
         "calls": [
@@ -3683,13 +3461,16 @@
     "extractSkillCode": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 200,
+        "line": 207,
         "type": "function",
         "signature": "function extractSkillCode(skillName, options = {})",
         "calls": [
           "join",
           "readFile",
           "exec",
+          "slice",
+          "max",
+          "matchAll",
           "trim",
           "toLowerCase",
           "push",
@@ -3706,7 +3487,7 @@
     "inspectSkillCapabilities": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 242,
+        "line": 257,
         "type": "function",
         "signature": "function inspectSkillCapabilities(skillName)",
         "calls": [
@@ -3715,23 +3496,26 @@
           "match",
           "n",
           "exec",
-          "push",
-          "trim",
-          "split",
           "slice",
+          "max",
+          "matchAll",
+          "trim",
+          "push",
+          "split",
+          "extractSmartCodeSnippet",
           "Set",
           "from",
-          "matchAll",
           "map",
           "filter",
-          "resolveSkillAdapter"
+          "resolveSkillAdapter",
+          "extractDeclarativeRulesFromSkill"
         ]
       }
     ],
     "compileAllSkillSlices": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 287,
+        "line": 309,
         "type": "function",
         "signature": "function compileAllSkillSlices()",
         "calls": [
@@ -3757,7 +3541,7 @@
     "dispatchSkillAction": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 347,
+        "line": 369,
         "type": "function",
         "signature": "function dispatchSkillAction(request = {})",
         "calls": [
@@ -3766,33 +3550,33 @@
           "trim",
           "toLowerCase",
           "compileAllSkillSlices",
-          "join",
-          "readFile",
-          "round",
           "resolve",
           "cwd",
+          "readFile",
           "endsWith",
+          "matchSkillsForTarget",
+          "join",
+          "round",
           "getSkillCompactSlice",
           "inspectSkillCapabilities",
           "extractSkillCode",
           "Number",
+          "extractDeclarativeRulesFromSkill",
+          "extractLanguageSection",
+          "Boolean",
+          "ceil",
           "auditSkill",
           "optimizeThinkingBudget",
           "resolveSkillAdapter",
           "execute",
-          "slice",
-          "ceil",
-          "stringify",
-          "max",
-          "calculateSavings",
-          "recordFinOpsUsage"
+          "evaluateContextualSkillGuards"
         ]
       }
     ],
     "dispatchSkillChain": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 490,
+        "line": 552,
         "type": "function",
         "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
         "calls": [
@@ -3819,8 +3603,7 @@
           "parse",
           "Number",
           "compileAllSkillSlices",
-          "then",
-          "stringify"
+          "then"
         ]
       }
     ],
@@ -3993,6 +3776,95 @@
           "mkdir",
           "writeFile",
           "push"
+        ]
+      }
+    ],
+    "matchSkillsForTarget": [
+      {
+        "file": "scripts/skill-rules-engine.mjs",
+        "line": 228,
+        "type": "function",
+        "signature": "function matchSkillsForTarget(context = {})",
+        "calls": [
+          "String",
+          "toLowerCase",
+          "Set",
+          "basename",
+          "startsWith",
+          "extname",
+          "includes",
+          "some",
+          "add",
+          "test"
+        ]
+      }
+    ],
+    "extractDeclarativeRulesFromSkill": [
+      {
+        "file": "scripts/skill-rules-engine.mjs",
+        "line": 279,
+        "type": "function",
+        "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
+        "calls": [
+          "readFile",
+          "join",
+          "extractLanguageSection",
+          "exec",
+          "trim",
+          "test",
+          "push",
+          "match",
+          "map"
+        ]
+      }
+    ],
+    "evaluateContextualSkillGuards": [
+      {
+        "file": "scripts/skill-rules-engine.mjs",
+        "line": 330,
+        "type": "function",
+        "signature": "function evaluateContextualSkillGuards(params = {})",
+        "calls": [
+          "String",
+          "matchSkillsForTarget",
+          "filter",
+          "Set",
+          "has",
+          "add",
+          "test",
+          "push"
+        ]
+      }
+    ],
+    "extractLanguageSection": [
+      {
+        "file": "scripts/skill-rules-engine.mjs",
+        "line": 377,
+        "type": "function",
+        "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
+        "calls": [
+          "String",
+          "toLowerCase",
+          "trim",
+          "match"
+        ]
+      }
+    ],
+    "extractSmartCodeSnippet": [
+      {
+        "file": "scripts/skill-rules-engine.mjs",
+        "line": 422,
+        "type": "function",
+        "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
+        "calls": [
+          "String",
+          "trim",
+          "split",
+          "join",
+          "findIndex",
+          "test",
+          "slice",
+          "min"
         ]
       }
     ],
@@ -5272,28 +5144,10 @@
         ]
       }
     ],
-    "replaceInFile": [
-      {
-        "file": "scripts/sync-all-skill-counts.mjs",
-        "line": 7,
-        "type": "function",
-        "signature": "function replaceInFile(relPath, replacements)",
-        "calls": [
-          "join",
-          "existsSync",
-          "warn",
-          "readFileSync",
-          "includes",
-          "replaceAll",
-          "writeFileSync",
-          "log"
-        ]
-      }
-    ],
     "getTelemetryConfig": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 33,
+        "line": 35,
         "type": "function",
         "signature": "function getTelemetryConfig()",
         "calls": [
@@ -5315,7 +5169,7 @@
     "setTelemetryEnabled": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 86,
+        "line": 88,
         "type": "function",
         "signature": "function setTelemetryEnabled(enabled)",
         "calls": [
@@ -5333,7 +5187,7 @@
     "trackEvent": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 106,
+        "line": 108,
         "type": "function",
         "signature": "function trackEvent(eventName, customProperties = {})",
         "calls": [
@@ -5355,7 +5209,7 @@
     "sendTelemetry": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 163,
+        "line": 165,
         "type": "function",
         "signature": "function sendTelemetry(eventName, properties = {})",
         "calls": [
@@ -5444,16 +5298,20 @@
           "resolve",
           "test",
           "async",
+          "Map",
+          "join",
+          "set",
+          "readFile",
+          "after",
+          "entries",
+          "mkdir",
+          "writeFile",
+          "readdir",
+          "rmdir",
           "match",
           "parse",
-          "readFile",
-          "join",
           "ok",
-          "includes",
-          "fail",
-          "mkdtemp",
-          "tmpdir",
-          "rm"
+          "includes"
         ]
       }
     ],
@@ -5533,21 +5391,6 @@
     ],
     "walk": [
       {
-        "file": "scripts/update_skills.js",
-        "line": 6,
-        "type": "function",
-        "signature": "function walk(dir)",
-        "calls": [
-          "readdirSync",
-          "forEach",
-          "join",
-          "statSync",
-          "isDirectory",
-          "concat",
-          "push"
-        ]
-      },
-      {
         "file": "scripts/update_skills.mjs",
         "line": 15,
         "type": "function",
@@ -5564,32 +5407,6 @@
       }
     ],
     "updateSkills": [
-      {
-        "file": "scripts/update_skills.js",
-        "line": 21,
-        "type": "function",
-        "signature": "function updateSkills()",
-        "calls": [
-          "walk",
-          "forEach",
-          "extname",
-          "readFileSync",
-          "startsWith",
-          "split",
-          "replace",
-          "join",
-          "React",
-          "js",
-          "CSS",
-          "v3",
-          "Tailwind",
-          "Query",
-          "v4",
-          "Bun",
-          "writeFileSync",
-          "log"
-        ]
-      },
       {
         "file": "scripts/update_skills.mjs",
         "line": 30,
@@ -6007,7 +5824,8 @@
           "toLowerCase",
           "includes",
           "criticValidate",
-          "visualAudit"
+          "visualAudit",
+          "evaluateContextualSkillGuards"
         ]
       }
     ],
@@ -7455,14 +7273,738 @@
         "signature": "def format_output(result):",
         "calls": []
       }
+    ],
+    "add": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 27,
+        "type": "arrow-function",
+        "signature": "const add = (level, where, msg) =>",
+        "calls": [
+          "push"
+        ]
+      }
+    ],
+    "strip": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 28,
+        "type": "arrow-function",
+        "signature": "const strip = (html) =>",
+        "calls": [
+          "replace",
+          "s"
+        ]
+      }
+    ],
+    "attrs": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 39,
+        "type": "arrow-function",
+        "signature": "const attrs = (tag) =>",
+        "calls": [
+          "replace",
+          "matchAll",
+          "toLowerCase"
+        ]
+      }
+    ],
+    "attr": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 44,
+        "type": "arrow-function",
+        "signature": "const attr = (tag, name) =>",
+        "calls": [
+          "attrs"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 46,
+        "type": "arrow-function",
+        "signature": "const tags = (html, name) =>",
+        "calls": [
+          "match",
+          "RegExp"
+        ]
+      }
+    ],
+    "rels": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 47,
+        "type": "arrow-function",
+        "signature": "const rels = (tag) =>",
+        "calls": [
+          "attr",
+          "toLowerCase",
+          "split"
+        ]
+      }
+    ],
+    "meta": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 48,
+        "type": "arrow-function",
+        "signature": "const meta = (html, key) =>",
+        "calls": [
+          "tags",
+          "find",
+          "attr",
+          "some",
+          "toLowerCase"
+        ]
+      }
+    ],
+    "onSite": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 52,
+        "type": "arrow-function",
+        "signature": "const onSite = (u) =>",
+        "calls": [
+          "URL"
+        ]
+      }
+    ],
+    "get": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 53,
+        "type": "arrow-function",
+        "signature": "const get = (u) =>",
+        "calls": [
+          "async",
+          "fetch",
+          "from",
+          "arrayBuffer",
+          "alloc",
+          "b",
+          "seamless",
+          "Map"
+        ]
+      }
+    ],
+    "kb": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 179,
+        "type": "arrow-function",
+        "signature": "const kb = (b) =>",
+        "calls": [
+          "round"
+        ]
+      }
+    ],
+    "size": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 180,
+        "type": "function",
+        "signature": "function size(u)",
+        "calls": [
+          "has",
+          "get",
+          "test",
+          "gzipSync",
+          "set"
+        ]
+      }
+    ],
+    "pick": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/audit.mjs",
+        "line": 188,
+        "type": "arrow-function",
+        "signature": "const pick = (tag) =>",
+        "calls": [
+          "attr",
+          "split",
+          "map",
+          "trim",
+          "parseFloat",
+          "filter",
+          "sort",
+          "find",
+          "URL",
+          "replace",
+          "tags",
+          "res",
+          "rels",
+          "includes",
+          "test",
+          "size",
+          "Set",
+          "toString",
+          "match",
+          "log",
+          "closeAllConnections",
+          "close"
+        ]
+      }
+    ],
+    "loadPlaywright": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/browser.mjs",
+        "line": 10,
+        "type": "function",
+        "signature": "function loadPlaywright()",
+        "calls": [
+          "resolve",
+          "replace",
+          "exit"
+        ]
+      }
+    ],
+    "cachedChromes": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/browser.mjs",
+        "line": 19,
+        "type": "function",
+        "signature": "function cachedChromes()",
+        "calls": [
+          "join",
+          "homedir",
+          "filter",
+          "existsSync",
+          "readdirSync",
+          "test",
+          "sort",
+          "reverse",
+          "push"
+        ]
+      }
+    ],
+    "launch": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/browser.mjs",
+        "line": 41,
+        "type": "function",
+        "signature": "function launch()",
+        "calls": [
+          "loadPlaywright",
+          "cachedChromes",
+          "error",
+          "exit"
+        ]
+      }
+    ],
+    "opt": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/font.mjs",
+        "line": 14,
+        "type": "arrow-function",
+        "signature": "const opt = (k, d) =>",
+        "calls": [
+          "indexOf",
+          "filter",
+          "startsWith",
+          "includes",
+          "error",
+          "exit",
+          "has",
+          "resolve",
+          "mkdirSync",
+          "split",
+          "flatMap",
+          "join",
+          "fetch",
+          "text",
+          "match",
+          "latin",
+          "replace",
+          "toUpperCase",
+          "Set",
+          "trim",
+          "test",
+          "String",
+          "add",
+          "from"
+        ]
+      },
+      {
+        "file": "skills/visual-ui-auditor/scripts/og.mjs",
+        "line": 9,
+        "type": "arrow-function",
+        "signature": "const opt = (k, d) =>",
+        "calls": [
+          "indexOf",
+          "error",
+          "exit",
+          "resolve",
+          "launch",
+          "newContext",
+          "newPage",
+          "goto",
+          "waitForFunction",
+          "getElementById",
+          "getComputedStyle",
+          "waitForTimeout",
+          "evaluate",
+          "remove",
+          "screenshot",
+          "close",
+          "log"
+        ]
+      },
+      {
+        "file": "skills/visual-ui-auditor/scripts/photos.mjs",
+        "line": 12,
+        "type": "arrow-function",
+        "signature": "const opt = (k, d) =>",
+        "calls": [
+          "indexOf",
+          "slice",
+          "filter",
+          "startsWith",
+          "includes"
+        ]
+      },
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 24,
+        "type": "arrow-function",
+        "signature": "const opt = (k, d) =>",
+        "calls": [
+          "indexOf",
+          "resolve",
+          "parseInt",
+          "includes"
+        ]
+      }
+    ],
+    "list": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/photos.mjs",
+        "line": 15,
+        "type": "function",
+        "signature": "function list()",
+        "calls": [
+          "fetch",
+          "map",
+          "join",
+          "screenshot",
+          "log",
+          "close",
+          "resolve",
+          "opt",
+          "split",
+          "mkdirSync",
+          "error",
+          "writeFileSync",
+          "from",
+          "arrayBuffer",
+          "push",
+          "stringify",
+          "exit"
+        ]
+      }
+    ],
+    "serve": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/serve.mjs",
+        "line": 20,
+        "type": "function",
+        "signature": "function serve(dir, port = 4400)",
+        "calls": [
+          "resolve",
+          "normalize",
+          "decodeURIComponent",
+          "split",
+          "replace",
+          "join",
+          "startsWith",
+          "statSync",
+          "isFile",
+          "createServer",
+          "existsSync",
+          "writeHead",
+          "end",
+          "extname",
+          "createReadStream",
+          "pipe",
+          "Promise",
+          "listen",
+          "ok",
+          "fileURLToPath",
+          "slice",
+          "find",
+          "indexOf",
+          "error",
+          "exit"
+        ]
+      }
+    ],
+    "loadAxe": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 37,
+        "type": "function",
+        "signature": "function loadAxe()",
+        "calls": [
+          "readFileSync",
+          "createRequire",
+          "join",
+          "cwd",
+          "resolve",
+          "fetch",
+          "from",
+          "arrayBuffer",
+          "createHash",
+          "update",
+          "digest",
+          "toString",
+          "error"
+        ]
+      }
+    ],
+    "pickPages": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 53,
+        "type": "function",
+        "signature": "function pickPages(start, max)",
+        "calls": [
+          "URL",
+          "Map",
+          "Set",
+          "shift",
+          "fetch",
+          "get",
+          "includes",
+          "text",
+          "matchAll"
+        ]
+      }
+    ],
+    "vitalsInit": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 81,
+        "type": "arrow-function",
+        "signature": "const vitalsInit = () =>",
+        "calls": [
+          "addEventListener",
+          "getElementById",
+          "toLowerCase",
+          "trim",
+          "split",
+          "PerformanceObserver",
+          "getEntries",
+          "round",
+          "describe",
+          "observe"
+        ]
+      }
+    ],
+    "vitals": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 92,
+        "type": "arrow-function",
+        "signature": "const vitals = (page) =>",
+        "calls": [
+          "evaluate",
+          "round"
+        ]
+      }
+    ],
+    "hadLoader": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 96,
+        "type": "arrow-function",
+        "signature": "const hadLoader = (page) =>",
+        "calls": [
+          "evaluate",
+          "getElementById"
+        ]
+      }
+    ],
+    "open": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 101,
+        "type": "function",
+        "signature": "function open(page, url, t0, cap = 30000)",
+        "calls": [
+          "goto",
+          "waitForLoadState",
+          "then",
+          "now"
+        ]
+      }
+    ],
+    "loaderGone": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 107,
+        "type": "arrow-function",
+        "signature": "const loaderGone = () =>",
+        "calls": [
+          "getElementById",
+          "getComputedStyle"
+        ]
+      }
+    ],
+    "pxDiff": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 111,
+        "type": "arrow-function",
+        "signature": "const pxDiff = (scratch, a, b, r = null) =>",
+        "calls": [
+          "evaluate",
+          "async",
+          "Image",
+          "decode",
+          "OffscreenCanvas",
+          "getContext",
+          "drawImage",
+          "getImageData",
+          "max",
+          "all",
+          "read",
+          "abs",
+          "toString"
+        ]
+      }
+    ],
+    "settle": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 136,
+        "type": "function",
+        "signature": "function settle(page, t0, min, max)",
+        "calls": [
+          "waitForTimeout",
+          "context",
+          "newPage",
+          "now",
+          "screenshot",
+          "pxDiff",
+          "close"
+        ]
+      }
+    ],
+    "wheelTo": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 163,
+        "type": "arrow-function",
+        "signature": "const wheelTo = (page, y) =>",
+        "calls": [
+          "async",
+          "evaluate",
+          "abs",
+          "wheel",
+          "max",
+          "min",
+          "waitForTimeout"
+        ]
+      }
+    ],
+    "metrics": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 173,
+        "type": "arrow-function",
+        "signature": "const metrics = (page) =>",
+        "calls": [
+          "evaluate",
+          "querySelectorAll",
+          "filter",
+          "getBoundingClientRect",
+          "slice",
+          "map",
+          "toLowerCase",
+          "split",
+          "join",
+          "trim",
+          "contains",
+          "getComputedStyle",
+          "match"
+        ]
+      }
+    ],
+    "fps": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 198,
+        "type": "arrow-function",
+        "signature": "const fps = (page, ms = 2000, scrollPx = 0) =>",
+        "calls": [
+          "evaluate",
+          "Promise",
+          "now",
+          "max",
+          "scrollBy",
+          "requestAnimationFrame",
+          "res",
+          "round"
+        ]
+      }
+    ],
+    "a11y": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 206,
+        "type": "function",
+        "signature": "function a11y(page, axeSource)",
+        "calls": [
+          "evaluate",
+          "async",
+          "run",
+          "map",
+          "slice",
+          "find",
+          "join",
+          "filter"
+        ]
+      }
+    ],
+    "keyboard": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 226,
+        "type": "function",
+        "signature": "function keyboard(page, shot)",
+        "calls": [
+          "press",
+          "waitForTimeout",
+          "evaluate",
+          "getComputedStyle",
+          "join",
+          "style",
+          "slice",
+          "map",
+          "parseFloat",
+          "getBoundingClientRect",
+          "toLowerCase",
+          "getAttribute",
+          "trim",
+          "replace",
+          "__snap",
+          "push",
+          "shot",
+          "async",
+          "blur",
+          "Promise",
+          "setTimeout",
+          "focus",
+          "test",
+          "Set"
+        ]
+      }
+    ],
+    "hover": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 286,
+        "type": "function",
+        "signature": "function hover(page, save)",
+        "calls": [
+          "context",
+          "newPage",
+          "pxDiff",
+          "locator",
+          "async",
+          "move",
+          "waitForTimeout",
+          "screenshot",
+          "diff",
+          "still",
+          "evaluate",
+          "wheelTo",
+          "round",
+          "matches",
+          "closest",
+          "getAttribute",
+          "test",
+          "rank",
+          "parseFloat",
+          "getComputedStyle",
+          "createTreeWalker",
+          "nextNode",
+          "push",
+          "join",
+          "replace"
+        ]
+      }
+    ],
+    "shootPage": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 425,
+        "type": "function",
+        "signature": "function shootPage(browser, axeSource, url, out)",
+        "calls": [
+          "mkdirSync",
+          "readdirSync",
+          "endsWith",
+          "rmSync",
+          "join",
+          "async",
+          "screenshot",
+          "push",
+          "writeFileSync",
+          "test",
+          "URL",
+          "on",
+          "type",
+          "text",
+          "status",
+          "request",
+          "resourceType",
+          "newContext",
+          "addInitScript",
+          "newPage",
+          "watch",
+          "now",
+          "open",
+          "hadLoader",
+          "waitForTimeout"
+        ]
+      }
+    ],
+    "brief": [
+      {
+        "file": "skills/visual-ui-auditor/scripts/shoot.mjs",
+        "line": 634,
+        "type": "arrow-function",
+        "signature": "const brief = (name, r) =>",
+        "calls": [
+          "map",
+          "launch",
+          "loadAxe",
+          "pickPages",
+          "parseInt",
+          "opt",
+          "error",
+          "push",
+          "shootPage",
+          "join",
+          "split",
+          "contexts",
+          "close",
+          "writeFileSync",
+          "stringify",
+          "log"
+        ]
+      }
     ]
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 2004,
+      "totalLines": 2035,
       "symbolCount": 7,
-      "mtimeMs": 1793900568774,
-      "size": 80036,
+      "mtimeMs": 1794324046794,
+      "size": 81645,
       "exports": [
         "getActiveProfile",
         "setActiveProfile",
@@ -7625,19 +8167,27 @@
             "swarmBus"
           ],
           "line": 37
+        },
+        {
+          "source": "../scripts/skill-dispatcher.mjs",
+          "target": "scripts/skill-dispatcher.mjs",
+          "specifiers": [
+            "resolveSkillAdapter"
+          ],
+          "line": 38
         }
       ],
       "cachedSymbols": [
         {
           "name": "getActiveProfile",
-          "line": 1122,
+          "line": 1136,
           "type": "function",
           "signature": "function getActiveProfile()",
           "calls": []
         },
         {
           "name": "setActiveProfile",
-          "line": 1126,
+          "line": 1140,
           "type": "function",
           "signature": "function setActiveProfile(profileName)",
           "calls": [
@@ -7648,7 +8198,7 @@
         },
         {
           "name": "getFilteredTools",
-          "line": 1135,
+          "line": 1149,
           "type": "function",
           "signature": "function getFilteredTools(profileName = currentActiveProfile)",
           "calls": [
@@ -7662,7 +8212,7 @@
         },
         {
           "name": "handleRpcRequest",
-          "line": 1179,
+          "line": 1193,
           "type": "function",
           "signature": "function handleRpcRequest(request)",
           "calls": [
@@ -7673,7 +8223,7 @@
         },
         {
           "name": "startStdioServer",
-          "line": 1845,
+          "line": 1876,
           "type": "function",
           "signature": "function startStdioServer()",
           "calls": [
@@ -7690,7 +8240,7 @@
         },
         {
           "name": "startSseServer",
-          "line": 1873,
+          "line": 1904,
           "type": "function",
           "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
           "calls": [
@@ -7719,7 +8269,7 @@
         },
         {
           "name": "startServer",
-          "line": 1981,
+          "line": 2012,
           "type": "function",
           "signature": "function startServer(options = {})",
           "calls": [
@@ -7735,10 +8285,10 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2173,
-      "symbolCount": 23,
-      "mtimeMs": 1793900568777,
-      "size": 103391,
+      "totalLines": 2160,
+      "symbolCount": 22,
+      "mtimeMs": 1794063372386,
+      "size": 103201,
       "exports": [],
       "imports": [
         {
@@ -7758,21 +8308,13 @@
           "line": 4
         },
         {
-          "source": "readline",
-          "target": null,
-          "specifiers": [
-            "readline"
-          ],
-          "line": 5
-        },
-        {
           "source": "url",
           "target": null,
           "specifiers": [
             "fileURLToPath",
             "pathToFileURL"
           ],
-          "line": 6
+          "line": 5
         },
         {
           "source": "@modelcontextprotocol/sdk/server/index.js",
@@ -7780,7 +8322,7 @@
           "specifiers": [
             "Server"
           ],
-          "line": 590
+          "line": 584
         },
         {
           "source": "@modelcontextprotocol/sdk/server/stdio.js",
@@ -7788,7 +8330,7 @@
           "specifiers": [
             "StdioServerTransport"
           ],
-          "line": 591
+          "line": 585
         },
         {
           "source": "@modelcontextprotocol/sdk/types.js",
@@ -7799,22 +8341,13 @@
             "ListToolsRequestSchema",
             "McpError"
           ],
-          "line": 592
+          "line": 586
         }
       ],
       "cachedSymbols": [
         {
-          "name": "question",
-          "line": 20,
-          "type": "arrow-function",
-          "signature": "const question = (query) =>",
-          "calls": [
-            "Promise"
-          ]
-        },
-        {
           "name": "escapeRegExp",
-          "line": 22,
+          "line": 16,
           "type": "function",
           "signature": "function escapeRegExp(value)",
           "calls": [
@@ -7823,7 +8356,7 @@
         },
         {
           "name": "isValidIdentifier",
-          "line": 26,
+          "line": 20,
           "type": "function",
           "signature": "function isValidIdentifier(value)",
           "calls": [
@@ -7832,7 +8365,7 @@
         },
         {
           "name": "runInit",
-          "line": 30,
+          "line": 24,
           "type": "function",
           "signature": "function runInit(projectName)",
           "calls": [
@@ -7850,7 +8383,7 @@
         },
         {
           "name": "runWizard",
-          "line": 68,
+          "line": 62,
           "type": "function",
           "signature": "function runWizard()",
           "calls": [
@@ -7876,7 +8409,7 @@
         },
         {
           "name": "runBootstrap",
-          "line": 301,
+          "line": 295,
           "type": "function",
           "signature": "function runBootstrap(templateName, projectName)",
           "calls": [
@@ -7900,7 +8433,7 @@
         },
         {
           "name": "runValidate",
-          "line": 465,
+          "line": 459,
           "type": "function",
           "signature": "function runValidate()",
           "calls": [
@@ -7912,7 +8445,7 @@
         },
         {
           "name": "runAudit",
-          "line": 476,
+          "line": 470,
           "type": "function",
           "signature": "function runAudit()",
           "calls": [
@@ -7924,7 +8457,7 @@
         },
         {
           "name": "runCreateSkill",
-          "line": 487,
+          "line": 481,
           "type": "function",
           "signature": "function runCreateSkill(skillName)",
           "calls": [
@@ -7944,7 +8477,7 @@
         },
         {
           "name": "runCreateMcp",
-          "line": 534,
+          "line": 528,
           "type": "function",
           "signature": "function runCreateMcp(serverName)",
           "calls": [
@@ -7964,7 +8497,7 @@
         },
         {
           "name": "runAddSkill",
-          "line": 705,
+          "line": 699,
           "type": "function",
           "signature": "function runAddSkill(skillName)",
           "calls": [
@@ -7983,7 +8516,7 @@
         },
         {
           "name": "runUi",
-          "line": 740,
+          "line": 734,
           "type": "function",
           "signature": "function runUi()",
           "calls": [
@@ -8010,7 +8543,7 @@
         },
         {
           "name": "runRemoveSkill",
-          "line": 926,
+          "line": 920,
           "type": "function",
           "signature": "function runRemoveSkill(skillName)",
           "calls": [
@@ -8028,7 +8561,7 @@
         },
         {
           "name": "runListSkills",
-          "line": 954,
+          "line": 948,
           "type": "function",
           "signature": "function runListSkills(filter)",
           "calls": [
@@ -8054,7 +8587,7 @@
         },
         {
           "name": "runVersion",
-          "line": 1008,
+          "line": 1002,
           "type": "function",
           "signature": "function runVersion(action, type)",
           "calls": [
@@ -8078,7 +8611,7 @@
         },
         {
           "name": "runDoctor",
-          "line": 1082,
+          "line": 1077,
           "type": "function",
           "signature": "function runDoctor(autoFix = false)",
           "calls": [
@@ -8097,7 +8630,7 @@
         },
         {
           "name": "runSkillInfo",
-          "line": 1170,
+          "line": 1165,
           "type": "function",
           "signature": "function runSkillInfo(skillName)",
           "calls": [
@@ -8120,7 +8653,7 @@
         },
         {
           "name": "runHooks",
-          "line": 1220,
+          "line": 1215,
           "type": "function",
           "signature": "function runHooks(action)",
           "calls": [
@@ -8136,7 +8669,7 @@
         },
         {
           "name": "runRecipe",
-          "line": 1304,
+          "line": 1299,
           "type": "function",
           "signature": "function runRecipe(action, recipeName)",
           "calls": [
@@ -8156,7 +8689,7 @@
         },
         {
           "name": "runSearch",
-          "line": 1369,
+          "line": 1364,
           "type": "function",
           "signature": "function runSearch(query)",
           "calls": [
@@ -8180,7 +8713,7 @@
         },
         {
           "name": "runSync",
-          "line": 1417,
+          "line": 1412,
           "type": "function",
           "signature": "function runSync()",
           "calls": [
@@ -8199,7 +8732,7 @@
         },
         {
           "name": "runDocs",
-          "line": 1474,
+          "line": 1469,
           "type": "function",
           "signature": "function runDocs(format = 'markdown', outputFile)",
           "calls": [
@@ -8225,7 +8758,7 @@
         },
         {
           "name": "showHelp",
-          "line": 1544,
+          "line": 1539,
           "type": "function",
           "signature": "function showHelp()",
           "calls": [
@@ -8249,7 +8782,7 @@
     "extensions/vscode/extension.js": {
       "totalLines": 158,
       "symbolCount": 3,
-      "mtimeMs": 1792865301124,
+      "mtimeMs": 1794062795084,
       "size": 5777,
       "exports": [
         "activate",
@@ -8294,10 +8827,10 @@
       ]
     },
     "index.js": {
-      "totalLines": 20,
+      "totalLines": 22,
       "symbolCount": 0,
-      "mtimeMs": 1792865301123,
-      "size": 587,
+      "mtimeMs": 1794061253856,
+      "size": 793,
       "exports": [],
       "imports": [
         {
@@ -8439,7 +8972,7 @@
     "scripts/agent-card-generator.mjs": {
       "totalLines": 161,
       "symbolCount": 3,
-      "mtimeMs": 1793900568779,
+      "mtimeMs": 1794062198814,
       "size": 6625,
       "exports": [
         "loadSubagentsMetadata",
@@ -8999,102 +9532,19 @@
       ]
     },
     "scripts/check-anti-slop.js": {
-      "totalLines": 354,
-      "symbolCount": 4,
-      "mtimeMs": 1793793125639,
-      "size": 13924,
+      "totalLines": 11,
+      "symbolCount": 0,
+      "mtimeMs": 1794324046902,
+      "size": 239,
       "exports": [],
-      "imports": [
-        {
-          "source": "fs",
-          "target": null,
-          "specifiers": [
-            "fs"
-          ],
-          "line": 9
-        },
-        {
-          "source": "path",
-          "target": null,
-          "specifiers": [
-            "path"
-          ],
-          "line": 10
-        }
-      ],
-      "cachedSymbols": [
-        {
-          "name": "isTestFile",
-          "line": 180,
-          "type": "function",
-          "signature": "function isTestFile(filePath)",
-          "calls": [
-            "replace",
-            "test"
-          ]
-        },
-        {
-          "name": "isCliScript",
-          "line": 185,
-          "type": "function",
-          "signature": "function isCliScript(filePath)",
-          "calls": [
-            "replace",
-            "some",
-            "includes",
-            "startsWith"
-          ]
-        },
-        {
-          "name": "scanFile",
-          "line": 190,
-          "type": "function",
-          "signature": "function scanFile(filePath)",
-          "calls": [
-            "extname",
-            "toLowerCase",
-            "includes",
-            "readFileSync",
-            "split",
-            "forEach",
-            "trim",
-            "test",
-            "push",
-            "isTestFile",
-            "isCliScript",
-            "startsWith"
-          ]
-        },
-        {
-          "name": "scanDir",
-          "line": 282,
-          "type": "function",
-          "signature": "function scanDir(dir)",
-          "calls": [
-            "existsSync",
-            "readdirSync",
-            "includes",
-            "join",
-            "isDirectory",
-            "isFile",
-            "scanFile",
-            "log",
-            "statSync",
-            "filter",
-            "stringify",
-            "forEach",
-            "relative",
-            "error",
-            "exit"
-          ]
-        }
-      ]
+      "imports": [],
+      "cachedSymbols": []
     },
     "scripts/check-anti-slop.mjs": {
-      "totalLines": 332,
+      "totalLines": 343,
       "symbolCount": 4,
-      "mtimeMs": 1793593331119,
-      "size": 12822,
+      "mtimeMs": 1794324047005,
+      "size": 12992,
       "exports": [],
       "imports": [
         {
@@ -9121,12 +9571,13 @@
           "type": "function",
           "signature": "function isTestFile(filePath)",
           "calls": [
+            "replace",
             "test"
           ]
         },
         {
           "name": "isCliScript",
-          "line": 181,
+          "line": 182,
           "type": "function",
           "signature": "function isCliScript(filePath)",
           "calls": [
@@ -9138,7 +9589,7 @@
         },
         {
           "name": "scanFile",
-          "line": 186,
+          "line": 187,
           "type": "function",
           "signature": "function scanFile(filePath)",
           "calls": [
@@ -9158,7 +9609,7 @@
         },
         {
           "name": "scanDir",
-          "line": 267,
+          "line": 271,
           "type": "function",
           "signature": "function scanDir(dir)",
           "calls": [
@@ -9170,10 +9621,12 @@
             "isFile",
             "scanFile",
             "log",
+            "statSync",
             "filter",
             "stringify",
             "forEach",
             "relative",
+            "basename",
             "error",
             "exit"
           ]
@@ -9183,7 +9636,7 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
       "symbolCount": 3,
-      "mtimeMs": 1793900568780,
+      "mtimeMs": 1794062413596,
       "size": 15383,
       "exports": [
         "compileCache",
@@ -9276,10 +9729,10 @@
       ]
     },
     "scripts/compile-skill-slices.mjs": {
-      "totalLines": 115,
+      "totalLines": 154,
       "symbolCount": 1,
-      "mtimeMs": 1793900568781,
-      "size": 4670,
+      "mtimeMs": 1794324047117,
+      "size": 6551,
       "exports": [
         "compileSkillSlices"
       ],
@@ -9315,18 +9768,28 @@
             "resolveSkillAdapter"
           ],
           "line": 14
+        },
+        {
+          "source": "./skill-rules-engine.mjs",
+          "target": "scripts/skill-rules-engine.mjs",
+          "specifiers": [
+            "extractSmartCodeSnippet",
+            "extractDeclarativeRulesFromSkill"
+          ],
+          "line": 15
         }
       ],
       "cachedSymbols": [
         {
           "name": "compileSkillSlices",
-          "line": 22,
+          "line": 23,
           "type": "function",
           "signature": "function compileSkillSlices()",
           "calls": [
             "readdir",
             "filter",
             "isDirectory",
+            "startsWith",
             "map",
             "sort",
             "all",
@@ -9337,18 +9800,17 @@
             "match",
             "n",
             "trim",
+            "exec",
+            "slice",
+            "max",
+            "matchAll",
+            "push",
+            "split",
+            "extractSmartCodeSnippet",
             "Set",
             "from",
-            "matchAll",
-            "slice",
-            "split",
             "resolveSkillAdapter",
-            "stringify",
-            "ceil",
-            "round",
-            "Date",
-            "toISOString",
-            "writeFile"
+            "extractDeclarativeRulesFromSkill"
           ]
         }
       ]
@@ -9508,7 +9970,7 @@
     "scripts/cross-ide-bridge.mjs": {
       "totalLines": 365,
       "symbolCount": 5,
-      "mtimeMs": 1793900568783,
+      "mtimeMs": 1794062795120,
       "size": 12630,
       "exports": [
         "checkBridgeStatus",
@@ -9618,176 +10080,6 @@
             "generateContextBundle",
             "writeFile",
             "endsWith",
-            "error",
-            "exit"
-          ]
-        }
-      ]
-    },
-    "scripts/demo-sovereign-swarm.mjs": {
-      "totalLines": 321,
-      "symbolCount": 13,
-      "mtimeMs": 1792792506040,
-      "size": 15405,
-      "exports": [
-        "AccountId",
-        "MinorCents",
-        "LedgerOverdraftError",
-        "TransferRequest",
-        "AtomicLedgerEngine"
-      ],
-      "imports": [
-        {
-          "source": "node:crypto",
-          "target": null,
-          "specifiers": [
-            "crypto"
-          ],
-          "line": 16
-        },
-        {
-          "source": "node:perf_hooks",
-          "target": null,
-          "specifiers": [
-            "performance"
-          ],
-          "line": 17
-        }
-      ],
-      "cachedSymbols": [
-        {
-          "name": "formatHeader",
-          "line": 36,
-          "type": "function",
-          "signature": "function formatHeader(title)",
-          "calls": [
-            "log"
-          ]
-        },
-        {
-          "name": "formatCard",
-          "line": 40,
-          "type": "function",
-          "signature": "function formatCard(label, value, color = c.white)",
-          "calls": [
-            "log"
-          ]
-        },
-        {
-          "name": "runSpeculativeMultiDraftDemo",
-          "line": 47,
-          "type": "function",
-          "signature": "function runSpeculativeMultiDraftDemo()",
-          "calls": [
-            "formatHeader",
-            "log",
-            "now",
-            "Promise",
-            "setTimeout",
-            "round",
-            "formatCard"
-          ]
-        },
-        {
-          "name": "AccountId",
-          "line": 109,
-          "type": "type",
-          "signature": "export type AccountId = string & { readonly __brand: unique symbol };",
-          "calls": []
-        },
-        {
-          "name": "MinorCents",
-          "line": 110,
-          "type": "type",
-          "signature": "export type MinorCents = bigint & { readonly __brand: unique symbol };",
-          "calls": []
-        },
-        {
-          "name": "LedgerOverdraftError",
-          "line": 112,
-          "type": "class",
-          "signature": "export class LedgerOverdraftError extends Error",
-          "calls": []
-        },
-        {
-          "name": "LedgerOverdraftError.constructor",
-          "line": 113,
-          "type": "method",
-          "signature": "LedgerOverdraftError.constructor(public readonly accountId: AccountId, public readonly deficit: bigint)",
-          "calls": []
-        },
-        {
-          "name": "TransferRequest",
-          "line": 119,
-          "type": "interface",
-          "signature": "export interface TransferRequest",
-          "calls": []
-        },
-        {
-          "name": "AtomicLedgerEngine",
-          "line": 126,
-          "type": "class",
-          "signature": "export class AtomicLedgerEngine",
-          "calls": []
-        },
-        {
-          "name": "AtomicLedgerEngine.executeTransfer",
-          "line": 129,
-          "type": "method",
-          "signature": "AtomicLedgerEngine.executeTransfer(req: TransferRequest)",
-          "calls": [
-            "RangeError",
-            "get",
-            "LedgerOverdraftError",
-            "set",
-            "randomUUID"
-          ]
-        },
-        {
-          "name": "runFormalVerificationDemo",
-          "line": 148,
-          "type": "function",
-          "signature": "function runFormalVerificationDemo()",
-          "calls": [
-            "formatHeader",
-            "log",
-            "formatCard",
-            "now",
-            "Promise",
-            "setTimeout",
-            "toFixed"
-          ]
-        },
-        {
-          "name": "runVisualUiAuditDemo",
-          "line": 195,
-          "type": "function",
-          "signature": "function runVisualUiAuditDemo()",
-          "calls": [
-            "formatHeader",
-            "log",
-            "now",
-            "Promise",
-            "setTimeout",
-            "toFixed",
-            "formatCard"
-          ]
-        },
-        {
-          "name": "main",
-          "line": 284,
-          "type": "function",
-          "signature": "function main()",
-          "calls": [
-            "includes",
-            "now",
-            "log",
-            "runSpeculativeMultiDraftDemo",
-            "runFormalVerificationDemo",
-            "runVisualUiAuditDemo",
-            "toFixed",
-            "stringify",
-            "parseFloat",
             "error",
             "exit"
           ]
@@ -10353,10 +10645,10 @@
       ]
     },
     "scripts/generate-catalog.mjs": {
-      "totalLines": 54,
+      "totalLines": 57,
       "symbolCount": 0,
-      "mtimeMs": 1793900568785,
-      "size": 2042,
+      "mtimeMs": 1794062009309,
+      "size": 2265,
       "exports": [],
       "imports": [
         {
@@ -10374,6 +10666,14 @@
             "path"
           ],
           "line": 2
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 3
         }
       ],
       "cachedSymbols": []
@@ -10381,7 +10681,7 @@
     "scripts/generate-llms-txt.mjs": {
       "totalLines": 148,
       "symbolCount": 1,
-      "mtimeMs": 1793877893043,
+      "mtimeMs": 1794062850806,
       "size": 7317,
       "exports": [],
       "imports": [
@@ -10430,23 +10730,6 @@
         }
       ]
     },
-    "scripts/generate_logo_svg.py": {
-      "totalLines": 73,
-      "symbolCount": 1,
-      "mtimeMs": 1792755407077,
-      "size": 3067,
-      "exports": [],
-      "imports": [],
-      "cachedSymbols": [
-        {
-          "name": "build_3d_logos",
-          "line": 8,
-          "type": "function",
-          "signature": "def build_3d_logos():",
-          "calls": []
-        }
-      ]
-    },
     "scripts/generate_swarm_gif.py": {
       "totalLines": 296,
       "symbolCount": 3,
@@ -10481,8 +10764,8 @@
     "scripts/git-hook-installer.mjs": {
       "totalLines": 306,
       "symbolCount": 4,
-      "mtimeMs": 1792792506041,
-      "size": 10879,
+      "mtimeMs": 1794324047197,
+      "size": 10918,
       "exports": [
         "checkHookStatus",
         "installGitHook",
@@ -10880,10 +11163,10 @@
       ]
     },
     "scripts/install.js": {
-      "totalLines": 326,
-      "symbolCount": 6,
-      "mtimeMs": 1793900568799,
-      "size": 12521,
+      "totalLines": 328,
+      "symbolCount": 7,
+      "mtimeMs": 1794062653794,
+      "size": 12197,
       "exports": [],
       "imports": [
         {
@@ -10916,17 +11199,18 @@
           "specifiers": [
             "pkg"
           ],
-          "line": 239
+          "line": 243
         }
       ],
       "cachedSymbols": [
         {
           "name": "copyRecursiveSync",
-          "line": 42,
+          "line": 40,
           "type": "function",
           "signature": "function copyRecursiveSync(src, dest, excludes = DEFAULT_EXCLUDES)",
           "calls": [
-            "statSync",
+            "lstatSync",
+            "isSymbolicLink",
             "isDirectory",
             "existsSync",
             "mkdirSync",
@@ -10934,12 +11218,28 @@
             "forEach",
             "has",
             "join",
+            "isFile",
             "copyFileSync"
           ]
         },
         {
+          "name": "mergeMcpConfigFile",
+          "line": 56,
+          "type": "function",
+          "signature": "function mergeMcpConfigFile(destPath, incomingServers)",
+          "calls": [
+            "existsSync",
+            "parse",
+            "readFileSync",
+            "warn",
+            "assign",
+            "writeFileSync",
+            "stringify"
+          ]
+        },
+        {
           "name": "installForAntigravity",
-          "line": 55,
+          "line": 74,
           "type": "function",
           "signature": "function installForAntigravity()",
           "calls": [
@@ -10950,7 +11250,7 @@
         },
         {
           "name": "installForClaude",
-          "line": 66,
+          "line": 85,
           "type": "function",
           "signature": "function installForClaude(projectDir)",
           "calls": [
@@ -10964,7 +11264,7 @@
         },
         {
           "name": "installForCursor",
-          "line": 107,
+          "line": 121,
           "type": "function",
           "signature": "function installForCursor(projectDir)",
           "calls": [
@@ -10976,8 +11276,7 @@
             "copyFileSync",
             "copyRecursiveSync",
             "mkdirSync",
-            "writeFileSync",
-            "stringify"
+            "mergeMcpConfigFile"
           ]
         },
         {
@@ -10996,13 +11295,16 @@
         },
         {
           "name": "main",
-          "line": 228,
+          "line": 224,
           "type": "function",
           "signature": "function main()",
           "calls": [
             "slice",
             "includes",
             "indexOf",
+            "startsWith",
+            "error",
+            "exit",
             "require",
             "log",
             "entries",
@@ -11623,7 +11925,7 @@
     "scripts/registry-manager.mjs": {
       "totalLines": 430,
       "symbolCount": 7,
-      "mtimeMs": 1793900568787,
+      "mtimeMs": 1793900768273,
       "size": 15749,
       "exports": [
         "parseSkillMarkdown",
@@ -12311,10 +12613,10 @@
       ]
     },
     "scripts/skill-dispatcher.mjs": {
-      "totalLines": 646,
+      "totalLines": 712,
       "symbolCount": 7,
-      "mtimeMs": 1793900568790,
-      "size": 26344,
+      "mtimeMs": 1794324047347,
+      "size": 29027,
       "exports": [
         "resolveSkillAdapter",
         "getSkillCompactSlice",
@@ -12437,12 +12739,24 @@
             "calculateSavings"
           ],
           "line": 25
+        },
+        {
+          "source": "./skill-rules-engine.mjs",
+          "target": "scripts/skill-rules-engine.mjs",
+          "specifiers": [
+            "extractDeclarativeRulesFromSkill",
+            "evaluateContextualSkillGuards",
+            "extractLanguageSection",
+            "extractSmartCodeSnippet",
+            "matchSkillsForTarget"
+          ],
+          "line": 26
         }
       ],
       "cachedSymbols": [
         {
           "name": "resolveSkillAdapter",
-          "line": 144,
+          "line": 151,
           "type": "function",
           "signature": "function resolveSkillAdapter(skillName)",
           "calls": [
@@ -12452,7 +12766,7 @@
         },
         {
           "name": "getSkillCompactSlice",
-          "line": 179,
+          "line": 186,
           "type": "function",
           "signature": "function getSkillCompactSlice(skillName)",
           "calls": [
@@ -12463,13 +12777,16 @@
         },
         {
           "name": "extractSkillCode",
-          "line": 200,
+          "line": 207,
           "type": "function",
           "signature": "function extractSkillCode(skillName, options = {})",
           "calls": [
             "join",
             "readFile",
             "exec",
+            "slice",
+            "max",
+            "matchAll",
             "trim",
             "toLowerCase",
             "push",
@@ -12484,7 +12801,7 @@
         },
         {
           "name": "inspectSkillCapabilities",
-          "line": 242,
+          "line": 257,
           "type": "function",
           "signature": "function inspectSkillCapabilities(skillName)",
           "calls": [
@@ -12493,21 +12810,24 @@
             "match",
             "n",
             "exec",
-            "push",
-            "trim",
-            "split",
             "slice",
+            "max",
+            "matchAll",
+            "trim",
+            "push",
+            "split",
+            "extractSmartCodeSnippet",
             "Set",
             "from",
-            "matchAll",
             "map",
             "filter",
-            "resolveSkillAdapter"
+            "resolveSkillAdapter",
+            "extractDeclarativeRulesFromSkill"
           ]
         },
         {
           "name": "compileAllSkillSlices",
-          "line": 287,
+          "line": 309,
           "type": "function",
           "signature": "function compileAllSkillSlices()",
           "calls": [
@@ -12531,7 +12851,7 @@
         },
         {
           "name": "dispatchSkillAction",
-          "line": 347,
+          "line": 369,
           "type": "function",
           "signature": "function dispatchSkillAction(request = {})",
           "calls": [
@@ -12540,31 +12860,31 @@
             "trim",
             "toLowerCase",
             "compileAllSkillSlices",
-            "join",
-            "readFile",
-            "round",
             "resolve",
             "cwd",
+            "readFile",
             "endsWith",
+            "matchSkillsForTarget",
+            "join",
+            "round",
             "getSkillCompactSlice",
             "inspectSkillCapabilities",
             "extractSkillCode",
             "Number",
+            "extractDeclarativeRulesFromSkill",
+            "extractLanguageSection",
+            "Boolean",
+            "ceil",
             "auditSkill",
             "optimizeThinkingBudget",
             "resolveSkillAdapter",
             "execute",
-            "slice",
-            "ceil",
-            "stringify",
-            "max",
-            "calculateSavings",
-            "recordFinOpsUsage"
+            "evaluateContextualSkillGuards"
           ]
         },
         {
           "name": "dispatchSkillChain",
-          "line": 490,
+          "line": 552,
           "type": "function",
           "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
           "calls": [
@@ -12591,8 +12911,7 @@
             "parse",
             "Number",
             "compileAllSkillSlices",
-            "then",
-            "stringify"
+            "then"
           ]
         }
       ]
@@ -12866,6 +13185,126 @@
             "endsWith",
             "error",
             "exit"
+          ]
+        }
+      ]
+    },
+    "scripts/skill-rules-engine.mjs": {
+      "totalLines": 442,
+      "symbolCount": 5,
+      "mtimeMs": 1794324047502,
+      "size": 18889,
+      "exports": [
+        "matchSkillsForTarget",
+        "extractDeclarativeRulesFromSkill",
+        "evaluateContextualSkillGuards",
+        "extractLanguageSection",
+        "extractSmartCodeSnippet"
+      ],
+      "imports": [
+        {
+          "source": "node:fs/promises",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 16
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "matchSkillsForTarget",
+          "line": 228,
+          "type": "function",
+          "signature": "function matchSkillsForTarget(context = {})",
+          "calls": [
+            "String",
+            "toLowerCase",
+            "Set",
+            "basename",
+            "startsWith",
+            "extname",
+            "includes",
+            "some",
+            "add",
+            "test"
+          ]
+        },
+        {
+          "name": "extractDeclarativeRulesFromSkill",
+          "line": 279,
+          "type": "function",
+          "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
+          "calls": [
+            "readFile",
+            "join",
+            "extractLanguageSection",
+            "exec",
+            "trim",
+            "test",
+            "push",
+            "match",
+            "map"
+          ]
+        },
+        {
+          "name": "evaluateContextualSkillGuards",
+          "line": 330,
+          "type": "function",
+          "signature": "function evaluateContextualSkillGuards(params = {})",
+          "calls": [
+            "String",
+            "matchSkillsForTarget",
+            "filter",
+            "Set",
+            "has",
+            "add",
+            "test",
+            "push"
+          ]
+        },
+        {
+          "name": "extractLanguageSection",
+          "line": 377,
+          "type": "function",
+          "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
+          "calls": [
+            "String",
+            "toLowerCase",
+            "trim",
+            "match"
+          ]
+        },
+        {
+          "name": "extractSmartCodeSnippet",
+          "line": 422,
+          "type": "function",
+          "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
+          "calls": [
+            "String",
+            "trim",
+            "split",
+            "join",
+            "findIndex",
+            "test",
+            "slice",
+            "min"
           ]
         }
       ]
@@ -13288,8 +13727,8 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1793900568794,
-      "size": 201167,
+      "mtimeMs": 1793904429873,
+      "size": 201386,
       "exports": [
         "generateStudioHtml",
         "startStudioServer"
@@ -14586,54 +15025,11 @@
         }
       ]
     },
-    "scripts/sync-all-skill-counts.mjs": {
-      "totalLines": 480,
-      "symbolCount": 1,
-      "mtimeMs": 1793900735828,
-      "size": 24686,
-      "exports": [],
-      "imports": [
-        {
-          "source": "fs",
-          "target": null,
-          "specifiers": [
-            "fs"
-          ],
-          "line": 1
-        },
-        {
-          "source": "path",
-          "target": null,
-          "specifiers": [
-            "path"
-          ],
-          "line": 2
-        }
-      ],
-      "cachedSymbols": [
-        {
-          "name": "replaceInFile",
-          "line": 7,
-          "type": "function",
-          "signature": "function replaceInFile(relPath, replacements)",
-          "calls": [
-            "join",
-            "existsSync",
-            "warn",
-            "readFileSync",
-            "includes",
-            "replaceAll",
-            "writeFileSync",
-            "log"
-          ]
-        }
-      ]
-    },
     "scripts/telemetry.mjs": {
-      "totalLines": 166,
+      "totalLines": 168,
       "symbolCount": 4,
-      "mtimeMs": 1793833280888,
-      "size": 4993,
+      "mtimeMs": 1793904429924,
+      "size": 5178,
       "exports": [
         "getTelemetryConfig",
         "setTelemetryEnabled",
@@ -14677,7 +15073,7 @@
       "cachedSymbols": [
         {
           "name": "getTelemetryConfig",
-          "line": 33,
+          "line": 35,
           "type": "function",
           "signature": "function getTelemetryConfig()",
           "calls": [
@@ -14697,7 +15093,7 @@
         },
         {
           "name": "setTelemetryEnabled",
-          "line": 86,
+          "line": 88,
           "type": "function",
           "signature": "function setTelemetryEnabled(enabled)",
           "calls": [
@@ -14713,7 +15109,7 @@
         },
         {
           "name": "trackEvent",
-          "line": 106,
+          "line": 108,
           "type": "function",
           "signature": "function trackEvent(eventName, customProperties = {})",
           "calls": [
@@ -14733,7 +15129,7 @@
         },
         {
           "name": "sendTelemetry",
-          "line": 163,
+          "line": 165,
           "type": "function",
           "signature": "function sendTelemetry(eventName, properties = {})",
           "calls": [
@@ -14862,10 +15258,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2175,
+      "totalLines": 2269,
       "symbolCount": 1,
-      "mtimeMs": 1793833337226,
-      "size": 100877,
+      "mtimeMs": 1794324398762,
+      "size": 105247,
       "exports": [],
       "imports": [
         {
@@ -14955,16 +15351,20 @@
             "resolve",
             "test",
             "async",
+            "Map",
+            "join",
+            "set",
+            "readFile",
+            "after",
+            "entries",
+            "mkdir",
+            "writeFile",
+            "readdir",
+            "rmdir",
             "match",
             "parse",
-            "readFile",
-            "join",
             "ok",
-            "includes",
-            "fail",
-            "mkdtemp",
-            "tmpdir",
-            "rm"
+            "includes"
           ]
         }
       ]
@@ -14972,7 +15372,7 @@
     "scripts/token-budget-optimizer.mjs": {
       "totalLines": 469,
       "symbolCount": 3,
-      "mtimeMs": 1793593331159,
+      "mtimeMs": 1794062795127,
       "size": 19572,
       "exports": [
         "analyzeCodeStructure",
@@ -15076,97 +15476,11 @@
         }
       ]
     },
-    "scripts/update-app-nav.mjs": {
-      "totalLines": 175,
-      "symbolCount": 0,
-      "mtimeMs": 1793826171846,
-      "size": 5532,
-      "exports": [],
-      "imports": [
-        {
-          "source": "node:fs",
-          "target": null,
-          "specifiers": [
-            "fs"
-          ],
-          "line": 1
-        }
-      ],
-      "cachedSymbols": []
-    },
-    "scripts/update_skills.js": {
-      "totalLines": 76,
-      "symbolCount": 2,
-      "mtimeMs": 1792153848000,
-      "size": 3596,
-      "exports": [],
-      "imports": [
-        {
-          "source": "fs",
-          "target": null,
-          "specifiers": [
-            "fs"
-          ],
-          "line": 1
-        },
-        {
-          "source": "path",
-          "target": null,
-          "specifiers": [
-            "path"
-          ],
-          "line": 2
-        }
-      ],
-      "cachedSymbols": [
-        {
-          "name": "walk",
-          "line": 6,
-          "type": "function",
-          "signature": "function walk(dir)",
-          "calls": [
-            "readdirSync",
-            "forEach",
-            "join",
-            "statSync",
-            "isDirectory",
-            "concat",
-            "push"
-          ]
-        },
-        {
-          "name": "updateSkills",
-          "line": 21,
-          "type": "function",
-          "signature": "function updateSkills()",
-          "calls": [
-            "walk",
-            "forEach",
-            "extname",
-            "readFileSync",
-            "startsWith",
-            "split",
-            "replace",
-            "join",
-            "React",
-            "js",
-            "CSS",
-            "v3",
-            "Tailwind",
-            "Query",
-            "v4",
-            "Bun",
-            "writeFileSync",
-            "log"
-          ]
-        }
-      ]
-    },
     "scripts/update_skills.mjs": {
       "totalLines": 87,
       "symbolCount": 2,
-      "mtimeMs": 1792149657910,
-      "size": 3484,
+      "mtimeMs": 1794062200449,
+      "size": 3486,
       "exports": [],
       "imports": [
         {
@@ -15649,10 +15963,10 @@
       ]
     },
     "scripts/wasm-sandbox.mjs": {
-      "totalLines": 516,
+      "totalLines": 535,
       "symbolCount": 10,
-      "mtimeMs": 1793593789538,
-      "size": 21116,
+      "mtimeMs": 1794324047691,
+      "size": 21738,
       "exports": [
         "createIsolatedSandbox",
         "stripTypeScript",
@@ -15855,12 +16169,13 @@
             "toLowerCase",
             "includes",
             "criticValidate",
-            "visualAudit"
+            "visualAudit",
+            "evaluateContextualSkillGuards"
           ]
         },
         {
           "name": "main",
-          "line": 434,
+          "line": 453,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -16065,7 +16380,7 @@
     "showcase/app.js": {
       "totalLines": 1172,
       "symbolCount": 13,
-      "mtimeMs": 1793889883558,
+      "mtimeMs": 1793901277197,
       "size": 48128,
       "exports": [
         "showToast",
@@ -16284,8 +16599,8 @@
     "showcase/skills-data.js": {
       "totalLines": 3156,
       "symbolCount": 0,
-      "mtimeMs": 1793827183544,
-      "size": 92959,
+      "mtimeMs": 1794062795153,
+      "size": 92999,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
@@ -17470,6 +17785,925 @@
           "type": "function",
           "signature": "def format_output(result):",
           "calls": []
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/audit.mjs": {
+      "totalLines": 244,
+      "symbolCount": 12,
+      "mtimeMs": 1794320598087,
+      "size": 14674,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        },
+        {
+          "source": "node:zlib",
+          "target": null,
+          "specifiers": [
+            "zlib"
+          ],
+          "line": 11
+        },
+        {
+          "source": "./serve.mjs",
+          "target": "skills/visual-ui-auditor/scripts/serve.mjs",
+          "specifiers": [
+            "serve"
+          ],
+          "line": 12
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "add",
+          "line": 27,
+          "type": "arrow-function",
+          "signature": "const add = (level, where, msg) =>",
+          "calls": [
+            "push"
+          ]
+        },
+        {
+          "name": "strip",
+          "line": 28,
+          "type": "arrow-function",
+          "signature": "const strip = (html) =>",
+          "calls": [
+            "replace",
+            "s"
+          ]
+        },
+        {
+          "name": "attrs",
+          "line": 39,
+          "type": "arrow-function",
+          "signature": "const attrs = (tag) =>",
+          "calls": [
+            "replace",
+            "matchAll",
+            "toLowerCase"
+          ]
+        },
+        {
+          "name": "attr",
+          "line": 44,
+          "type": "arrow-function",
+          "signature": "const attr = (tag, name) =>",
+          "calls": [
+            "attrs"
+          ]
+        },
+        {
+          "name": "tags",
+          "line": 46,
+          "type": "arrow-function",
+          "signature": "const tags = (html, name) =>",
+          "calls": [
+            "match",
+            "RegExp"
+          ]
+        },
+        {
+          "name": "rels",
+          "line": 47,
+          "type": "arrow-function",
+          "signature": "const rels = (tag) =>",
+          "calls": [
+            "attr",
+            "toLowerCase",
+            "split"
+          ]
+        },
+        {
+          "name": "meta",
+          "line": 48,
+          "type": "arrow-function",
+          "signature": "const meta = (html, key) =>",
+          "calls": [
+            "tags",
+            "find",
+            "attr",
+            "some",
+            "toLowerCase"
+          ]
+        },
+        {
+          "name": "onSite",
+          "line": 52,
+          "type": "arrow-function",
+          "signature": "const onSite = (u) =>",
+          "calls": [
+            "URL"
+          ]
+        },
+        {
+          "name": "get",
+          "line": 53,
+          "type": "arrow-function",
+          "signature": "const get = (u) =>",
+          "calls": [
+            "async",
+            "fetch",
+            "from",
+            "arrayBuffer",
+            "alloc",
+            "b",
+            "seamless",
+            "Map"
+          ]
+        },
+        {
+          "name": "kb",
+          "line": 179,
+          "type": "arrow-function",
+          "signature": "const kb = (b) =>",
+          "calls": [
+            "round"
+          ]
+        },
+        {
+          "name": "size",
+          "line": 180,
+          "type": "function",
+          "signature": "function size(u)",
+          "calls": [
+            "has",
+            "get",
+            "test",
+            "gzipSync",
+            "set"
+          ]
+        },
+        {
+          "name": "pick",
+          "line": 188,
+          "type": "arrow-function",
+          "signature": "const pick = (tag) =>",
+          "calls": [
+            "attr",
+            "split",
+            "map",
+            "trim",
+            "parseFloat",
+            "filter",
+            "sort",
+            "find",
+            "URL",
+            "replace",
+            "tags",
+            "res",
+            "rels",
+            "includes",
+            "test",
+            "size",
+            "Set",
+            "toString",
+            "match",
+            "log",
+            "closeAllConnections",
+            "close"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/browser.mjs": {
+      "totalLines": 55,
+      "symbolCount": 3,
+      "mtimeMs": 1794321429537,
+      "size": 2460,
+      "exports": [
+        "launch"
+      ],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 4
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 5
+        },
+        {
+          "source": "node:os",
+          "target": null,
+          "specifiers": [
+            "os"
+          ],
+          "line": 6
+        },
+        {
+          "source": "node:module",
+          "target": null,
+          "specifiers": [
+            "createRequire"
+          ],
+          "line": 7
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "loadPlaywright",
+          "line": 10,
+          "type": "function",
+          "signature": "function loadPlaywright()",
+          "calls": [
+            "resolve",
+            "replace",
+            "exit"
+          ]
+        },
+        {
+          "name": "cachedChromes",
+          "line": 19,
+          "type": "function",
+          "signature": "function cachedChromes()",
+          "calls": [
+            "join",
+            "homedir",
+            "filter",
+            "existsSync",
+            "readdirSync",
+            "test",
+            "sort",
+            "reverse",
+            "push"
+          ]
+        },
+        {
+          "name": "launch",
+          "line": 41,
+          "type": "function",
+          "signature": "function launch()",
+          "calls": [
+            "loadPlaywright",
+            "cachedChromes",
+            "error",
+            "exit"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/font.mjs": {
+      "totalLines": 88,
+      "symbolCount": 1,
+      "mtimeMs": 1794320598089,
+      "size": 5720,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 9
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 10
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "opt",
+          "line": 14,
+          "type": "arrow-function",
+          "signature": "const opt = (k, d) =>",
+          "calls": [
+            "indexOf",
+            "filter",
+            "startsWith",
+            "includes",
+            "error",
+            "exit",
+            "has",
+            "resolve",
+            "mkdirSync",
+            "split",
+            "flatMap",
+            "join",
+            "fetch",
+            "text",
+            "match",
+            "latin",
+            "replace",
+            "toUpperCase",
+            "Set",
+            "trim",
+            "test",
+            "String",
+            "add",
+            "from"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/og.mjs": {
+      "totalLines": 21,
+      "symbolCount": 1,
+      "mtimeMs": 1794320598090,
+      "size": 1180,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 4
+        },
+        {
+          "source": "./browser.mjs",
+          "target": "skills/visual-ui-auditor/scripts/browser.mjs",
+          "specifiers": [
+            "launch"
+          ],
+          "line": 5
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "opt",
+          "line": 9,
+          "type": "arrow-function",
+          "signature": "const opt = (k, d) =>",
+          "calls": [
+            "indexOf",
+            "error",
+            "exit",
+            "resolve",
+            "launch",
+            "newContext",
+            "newPage",
+            "goto",
+            "waitForFunction",
+            "getElementById",
+            "getComputedStyle",
+            "waitForTimeout",
+            "evaluate",
+            "remove",
+            "screenshot",
+            "close",
+            "log"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/photos.mjs": {
+      "totalLines": 66,
+      "symbolCount": 2,
+      "mtimeMs": 1794320598090,
+      "size": 3518,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 7
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 8
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "opt",
+          "line": 12,
+          "type": "arrow-function",
+          "signature": "const opt = (k, d) =>",
+          "calls": [
+            "indexOf",
+            "slice",
+            "filter",
+            "startsWith",
+            "includes"
+          ]
+        },
+        {
+          "name": "list",
+          "line": 15,
+          "type": "function",
+          "signature": "function list()",
+          "calls": [
+            "fetch",
+            "map",
+            "join",
+            "screenshot",
+            "log",
+            "close",
+            "resolve",
+            "opt",
+            "split",
+            "mkdirSync",
+            "error",
+            "writeFileSync",
+            "from",
+            "arrayBuffer",
+            "push",
+            "stringify",
+            "exit"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/serve.mjs": {
+      "totalLines": 49,
+      "symbolCount": 1,
+      "mtimeMs": 1794321432730,
+      "size": 2602,
+      "exports": [
+        "serve"
+      ],
+      "imports": [
+        {
+          "source": "node:http",
+          "target": null,
+          "specifiers": [
+            "http"
+          ],
+          "line": 6
+        },
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 7
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 8
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 9
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "serve",
+          "line": 20,
+          "type": "function",
+          "signature": "function serve(dir, port = 4400)",
+          "calls": [
+            "resolve",
+            "normalize",
+            "decodeURIComponent",
+            "split",
+            "replace",
+            "join",
+            "startsWith",
+            "statSync",
+            "isFile",
+            "createServer",
+            "existsSync",
+            "writeHead",
+            "end",
+            "extname",
+            "createReadStream",
+            "pipe",
+            "Promise",
+            "listen",
+            "ok",
+            "fileURLToPath",
+            "slice",
+            "find",
+            "indexOf",
+            "error",
+            "exit"
+          ]
+        }
+      ]
+    },
+    "skills/visual-ui-auditor/scripts/shoot.mjs": {
+      "totalLines": 682,
+      "symbolCount": 18,
+      "mtimeMs": 1794321440178,
+      "size": 37812,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 14
+        },
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 15
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 16
+        },
+        {
+          "source": "node:module",
+          "target": null,
+          "specifiers": [
+            "createRequire"
+          ],
+          "line": 17
+        },
+        {
+          "source": "./browser.mjs",
+          "target": "skills/visual-ui-auditor/scripts/browser.mjs",
+          "specifiers": [
+            "launch"
+          ],
+          "line": 18
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "opt",
+          "line": 24,
+          "type": "arrow-function",
+          "signature": "const opt = (k, d) =>",
+          "calls": [
+            "indexOf",
+            "resolve",
+            "parseInt",
+            "includes"
+          ]
+        },
+        {
+          "name": "loadAxe",
+          "line": 37,
+          "type": "function",
+          "signature": "function loadAxe()",
+          "calls": [
+            "readFileSync",
+            "createRequire",
+            "join",
+            "cwd",
+            "resolve",
+            "fetch",
+            "from",
+            "arrayBuffer",
+            "createHash",
+            "update",
+            "digest",
+            "toString",
+            "error"
+          ]
+        },
+        {
+          "name": "pickPages",
+          "line": 53,
+          "type": "function",
+          "signature": "function pickPages(start, max)",
+          "calls": [
+            "URL",
+            "Map",
+            "Set",
+            "shift",
+            "fetch",
+            "get",
+            "includes",
+            "text",
+            "matchAll"
+          ]
+        },
+        {
+          "name": "vitalsInit",
+          "line": 81,
+          "type": "arrow-function",
+          "signature": "const vitalsInit = () =>",
+          "calls": [
+            "addEventListener",
+            "getElementById",
+            "toLowerCase",
+            "trim",
+            "split",
+            "PerformanceObserver",
+            "getEntries",
+            "round",
+            "describe",
+            "observe"
+          ]
+        },
+        {
+          "name": "vitals",
+          "line": 92,
+          "type": "arrow-function",
+          "signature": "const vitals = (page) =>",
+          "calls": [
+            "evaluate",
+            "round"
+          ]
+        },
+        {
+          "name": "hadLoader",
+          "line": 96,
+          "type": "arrow-function",
+          "signature": "const hadLoader = (page) =>",
+          "calls": [
+            "evaluate",
+            "getElementById"
+          ]
+        },
+        {
+          "name": "open",
+          "line": 101,
+          "type": "function",
+          "signature": "function open(page, url, t0, cap = 30000)",
+          "calls": [
+            "goto",
+            "waitForLoadState",
+            "then",
+            "now"
+          ]
+        },
+        {
+          "name": "loaderGone",
+          "line": 107,
+          "type": "arrow-function",
+          "signature": "const loaderGone = () =>",
+          "calls": [
+            "getElementById",
+            "getComputedStyle"
+          ]
+        },
+        {
+          "name": "pxDiff",
+          "line": 111,
+          "type": "arrow-function",
+          "signature": "const pxDiff = (scratch, a, b, r = null) =>",
+          "calls": [
+            "evaluate",
+            "async",
+            "Image",
+            "decode",
+            "OffscreenCanvas",
+            "getContext",
+            "drawImage",
+            "getImageData",
+            "max",
+            "all",
+            "read",
+            "abs",
+            "toString"
+          ]
+        },
+        {
+          "name": "settle",
+          "line": 136,
+          "type": "function",
+          "signature": "function settle(page, t0, min, max)",
+          "calls": [
+            "waitForTimeout",
+            "context",
+            "newPage",
+            "now",
+            "screenshot",
+            "pxDiff",
+            "close"
+          ]
+        },
+        {
+          "name": "wheelTo",
+          "line": 163,
+          "type": "arrow-function",
+          "signature": "const wheelTo = (page, y) =>",
+          "calls": [
+            "async",
+            "evaluate",
+            "abs",
+            "wheel",
+            "max",
+            "min",
+            "waitForTimeout"
+          ]
+        },
+        {
+          "name": "metrics",
+          "line": 173,
+          "type": "arrow-function",
+          "signature": "const metrics = (page) =>",
+          "calls": [
+            "evaluate",
+            "querySelectorAll",
+            "filter",
+            "getBoundingClientRect",
+            "slice",
+            "map",
+            "toLowerCase",
+            "split",
+            "join",
+            "trim",
+            "contains",
+            "getComputedStyle",
+            "match"
+          ]
+        },
+        {
+          "name": "fps",
+          "line": 198,
+          "type": "arrow-function",
+          "signature": "const fps = (page, ms = 2000, scrollPx = 0) =>",
+          "calls": [
+            "evaluate",
+            "Promise",
+            "now",
+            "max",
+            "scrollBy",
+            "requestAnimationFrame",
+            "res",
+            "round"
+          ]
+        },
+        {
+          "name": "a11y",
+          "line": 206,
+          "type": "function",
+          "signature": "function a11y(page, axeSource)",
+          "calls": [
+            "evaluate",
+            "async",
+            "run",
+            "map",
+            "slice",
+            "find",
+            "join",
+            "filter"
+          ]
+        },
+        {
+          "name": "keyboard",
+          "line": 226,
+          "type": "function",
+          "signature": "function keyboard(page, shot)",
+          "calls": [
+            "press",
+            "waitForTimeout",
+            "evaluate",
+            "getComputedStyle",
+            "join",
+            "style",
+            "slice",
+            "map",
+            "parseFloat",
+            "getBoundingClientRect",
+            "toLowerCase",
+            "getAttribute",
+            "trim",
+            "replace",
+            "__snap",
+            "push",
+            "shot",
+            "async",
+            "blur",
+            "Promise",
+            "setTimeout",
+            "focus",
+            "test",
+            "Set"
+          ]
+        },
+        {
+          "name": "hover",
+          "line": 286,
+          "type": "function",
+          "signature": "function hover(page, save)",
+          "calls": [
+            "context",
+            "newPage",
+            "pxDiff",
+            "locator",
+            "async",
+            "move",
+            "waitForTimeout",
+            "screenshot",
+            "diff",
+            "still",
+            "evaluate",
+            "wheelTo",
+            "round",
+            "matches",
+            "closest",
+            "getAttribute",
+            "test",
+            "rank",
+            "parseFloat",
+            "getComputedStyle",
+            "createTreeWalker",
+            "nextNode",
+            "push",
+            "join",
+            "replace"
+          ]
+        },
+        {
+          "name": "shootPage",
+          "line": 425,
+          "type": "function",
+          "signature": "function shootPage(browser, axeSource, url, out)",
+          "calls": [
+            "mkdirSync",
+            "readdirSync",
+            "endsWith",
+            "rmSync",
+            "join",
+            "async",
+            "screenshot",
+            "push",
+            "writeFileSync",
+            "test",
+            "URL",
+            "on",
+            "type",
+            "text",
+            "status",
+            "request",
+            "resourceType",
+            "newContext",
+            "addInitScript",
+            "newPage",
+            "watch",
+            "now",
+            "open",
+            "hadLoader",
+            "waitForTimeout"
+          ]
+        },
+        {
+          "name": "brief",
+          "line": 634,
+          "type": "arrow-function",
+          "signature": "const brief = (name, r) =>",
+          "calls": [
+            "map",
+            "launch",
+            "loadAxe",
+            "pickPages",
+            "parseInt",
+            "opt",
+            "error",
+            "push",
+            "shootPage",
+            "join",
+            "split",
+            "contexts",
+            "close",
+            "writeFileSync",
+            "stringify",
+            "log"
+          ]
         }
       ]
     }
