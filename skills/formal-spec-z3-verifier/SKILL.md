@@ -371,6 +371,16 @@ FOR EACH ROW
 EXECUTE FUNCTION verify_transaction_balance();
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Counter-Example Verification Gate**:
+   - Automated formal verification routines MUST invert property checks (`solver.add(Not(invariant))`) and assert `unsat` to guarantee universal validity. If `sat` is encountered, counter-examples MUST be extracted and treated as blocking invariant failures.
+2. **Deterministic SMT Solver Timeout Enforcement**:
+   - Every Z3 / SMT solver invocation MUST specify a bounded execution timeout (`solver.set("timeout", 10000)` or `rlimit`) to prevent unbounded combinatorial explosion and solver process hangs.
+3. **Prohibition of Unconstrained Axioms & Vacuous Proofs**:
+   - Specifications MUST NOT declare unconstrained axioms (`assume true` or vacuous pre-conditions) that trivialise proofs. Solvers MUST be queried with non-trivial model consistency checks prior to asserting universal theorems.
+4. **Direct DDL Constraint Compilation Gate**:
+   - Formal invariants verified by SMT solvers (conservation of balance, non-negative limits, valid status transitions) MUST be directly compiled into database DDL schemas (`CHECK (balance >= 0)`, deferred trigger invariants) rather than remaining purely advisory comments.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -378,7 +388,7 @@ EXECUTE FUNCTION verify_transaction_balance();
 | **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec formal-spec-z3-verifier <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% mathematical invariant proof coverage on ledger & billing states, SMT solver timeout <= 10s, 0 unconstrained axioms; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -460,4 +470,4 @@ Setiap invarian yang terbukti wajib dikompilasi langsung ke skema database: doma
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec formal-spec-z3-verifier <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% cakupan pembuktian invarian matematis pada state buku besar & billing, batas timeout SMT solver <= 10 detik, 0 aksioma tanpa batasan; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
