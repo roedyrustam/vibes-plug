@@ -116,10 +116,99 @@ server {
 }
 ```
 
+### Level 3: Trusted Proxy Hop Extractor & `X-Forwarded-For` Anti-Spoofing Guard (TypeScript)
+Never blindly read `req.headers.get('x-forwarded-for')?.split(',')[0]`, which an attacker can trivially spoof to bypass IP rate limits. Traverse right-to-left skipping only trusted proxy CIDR hops:
+
+```typescript
+// src/lib/gateway/trusted-client-ip.ts
+export function extractTrustedClientIp(
+  xForwardedForHeader: string | null | undefined,
+  directSocketIp: string,
+  trustedProxyIps: ReadonlySet<string>
+): string {
+  if (!trustedProxyIps.has(directSocketIp) || !xForwardedForHeader) {
+    return directSocketIp;
+  }
+
+  const hops = xForwardedForHeader
+    .split(',')
+    .map((ip) => ip.trim())
+    .filter((ip) => ip.length > 0);
+
+  for (let i = hops.length - 1; i >= 0; i--) {
+    const candidateIp = hops[i];
+    if (!trustedProxyIps.has(candidateIp)) {
+      return candidateIp;
+    }
+  }
+
+  return hops[0] || directSocketIp;
+}
+```
+
+### Level 4: Declarative Kong Gateway 3.8 L7 Canary & Circuit-Breaker Config (`kong.yaml`)
+Use db-less declarative configuration (`_format_version: "3.0"`) for GitOps-verified L7 rate limiting, canary traffic splitting, and upstream health checks:
+
+```yaml
+# kong.yaml
+_format_version: "3.0"
+_transform: true
+
+upstreams:
+  - name: core-api-upstream
+    algorithm: consistent-hashing
+    hash_on: header
+    hash_on_header: x-tenant-id
+    healthchecks:
+      active:
+        http_path: /healthz
+        healthy:
+          interval: 5
+          successes: 2
+        unhealthy:
+          interval: 5
+          http_failures: 3
+          timeouts: 2
+    targets:
+      - target: api-stable.internal:3000
+        weight: 90
+      - target: api-canary.internal:3000
+        weight: 10
+
+services:
+  - name: core-api-service
+    host: core-api-upstream
+    port: 3000
+    protocol: http
+    connect_timeout: 3000
+    read_timeout: 60000
+    write_timeout: 60000
+    routes:
+      - name: v1-api-route
+        paths:
+          - /v1
+        strip_path: false
+        protocols:
+          - https
+    plugins:
+      - name: rate-limiting
+        config:
+          minute: 300
+          policy: redis
+          hide_client_headers: false
+      - name: correlation-id
+        config:
+          header_name: x-request-id
+          generator: uuid#counter
+          echo_downstream: true
+```
+
 ### Key Perimeter Architectural Rules
 1. **Always Set `proxy_buffering off` for Streaming**: If proxy buffering is enabled, LLM tokens and Server-Sent Events will be delayed and batched until the buffer fills (~4KB-16KB), destroying the perceived TTFT.
 2. **Forwarded Header Sanitation**: Strip spoofed incoming `X-Forwarded-For` headers from untrusted clients to prevent security bypasses in IP-based rate limiters.
 3. **Health Check Probes**: Always configure active health checks so the proxy immediately drops unhealthy microservice pods without returning 502 Bad Gateway to users.
+4. **Enforce Strict TLS 1.2/1.3 & HSTS**: Reject legacy TLS 1.0/1.1 handshakes at the edge and emit `Strict-Transport-Security: max-age=31536000; includeSubDomains; preload`.
+5. **Bounded Upstream Timeouts & Circuit Breaking**: Configure explicit `connect_timeout` (`<= 3s`) and `max_fails` circuit breakers on every upstream pool to prevent slowloris and thread-pool exhaustion.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -171,7 +260,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   api-service:
-    image: my-company/api:latest
+    image: my-company/api:v4.7.0
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`api.vibesplug.internal`)"

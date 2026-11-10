@@ -31,6 +31,14 @@ Mission-critical financial engineering guide for designing **immutable Double-En
 - Implementing two-phase authorization holds (pending balance vs available balance).
 - Preventing floating-point rounding bugs (`0.1 + 0.2 !== 0.3`) and race-condition double-spends.
 
+### Hard Guardrails (Declarative Invariants)
+- **Zero-Sum Double-Entry Conservation**: Every journal transaction must contain $\ge 2$ postings where $\sum \text{DEBIT} = \sum \text{CREDIT}$ per currency before committing.
+- **Strict Append-Only Immutability**: Never execute `UPDATE` or `DELETE` on `ledger_journals` or `ledger_postings`; enforce a PostgreSQL `BEFORE UPDATE OR DELETE` trigger and handle refunds via compensating reversal entries.
+- **Integer Minor Units Only (`BIGINT` / `BigInt`)**: Store and compute all monetary amounts in integer minor units (e.g., IDR sen/rupiah, USD cents); `FLOAT`, `DOUBLE PRECISION`, and JS `number` floats for money are forbidden.
+- **Canonical Ascending Account Lock Ordering**: Always lock affected `ledger_accounts` rows in deterministic ascending `id` order (`ORDER BY id ASC FOR UPDATE`) to make AB-BA deadlocks impossible.
+- **Mandatory Journal Idempotency Key**: Require a unique `idempotency_key` on every `ledger_journals` insert so webhook retries or network replays never double-credit an account.
+- **Two-Phase Escrow Holds (`posted_balance_minor - pending_hold_minor`)**: Reserve funds via pending holds before external payout calls and settle via capture or void upon webhook confirmation.
+
 ---
 
 ### Core Ledger Invariants
@@ -228,6 +236,108 @@ export class TigerBeetleLedgerAdapter {
       },
     };
   }
+}
+```
+
+#### 4. PostgreSQL Append-Only Immutability Trigger & Zero-Sum Constraint (`migrations/002_ledger_immutability_triggers.sql`)
+Enforce at the database kernel level that posted journal lines can never be altered or deleted:
+
+```sql
+-- migrations/002_ledger_immutability_triggers.sql
+CREATE OR REPLACE FUNCTION forbid_ledger_mutation()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  RAISE EXCEPTION 'Ledger tables (%) are strictly append-only; use a compensating reversal journal instead.', TG_TABLE_NAME;
+END;
+$$;
+
+CREATE TRIGGER trg_immutable_ledger_journals
+BEFORE UPDATE OR DELETE ON ledger_journals
+FOR EACH ROW EXECUTE FUNCTION forbid_ledger_mutation();
+
+CREATE TRIGGER trg_immutable_ledger_postings
+BEFORE UPDATE OR DELETE ON ledger_postings
+FOR EACH ROW EXECUTE FUNCTION forbid_ledger_mutation();
+
+ALTER TABLE ledger_accounts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ledger_journals ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_ledger_accounts ON ledger_accounts
+  FOR ALL USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
+
+CREATE POLICY tenant_isolation_ledger_journals ON ledger_journals
+  FOR ALL USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
+```
+
+#### 5. Daily Gateway Settlement vs. Internal Ledger Reconciliation Engine (TypeScript)
+Detect missing webhooks, amount mismatches, or unposted settlements between DOKU/Stripe settlement reports and internal `ledger_journals`:
+
+```typescript
+// src/ledger/reconciliation-engine.ts
+export interface ExternalSettlementRow {
+  readonly referenceId: string;
+  readonly settledAmountMinor: bigint;
+  readonly currency: string;
+}
+
+export interface InternalJournalSummary {
+  readonly referenceId: string;
+  readonly postedAmountMinor: bigint;
+  readonly currency: string;
+}
+
+export interface ReconciliationDiscrepancy {
+  readonly referenceId: string;
+  readonly type: 'MISSING_IN_LEDGER' | 'MISSING_IN_GATEWAY' | 'AMOUNT_MISMATCH';
+  readonly gatewayAmountMinor: bigint | null;
+  readonly ledgerAmountMinor: bigint | null;
+}
+
+export function reconcileSettlementBatch(
+  gatewayRows: readonly ExternalSettlementRow[],
+  ledgerRows: readonly InternalJournalSummary[]
+): ReconciliationDiscrepancy[] {
+  const discrepancies: ReconciliationDiscrepancy[] = [];
+  const ledgerByRef = new Map<string, InternalJournalSummary>();
+  for (const row of ledgerRows) {
+    ledgerByRef.set(row.referenceId, row);
+  }
+
+  const seenRefs = new Set<string>();
+  for (const gw of gatewayRows) {
+    seenRefs.add(gw.referenceId);
+    const internal = ledgerByRef.get(gw.referenceId);
+    if (!internal) {
+      discrepancies.push({
+        referenceId: gw.referenceId,
+        type: 'MISSING_IN_LEDGER',
+        gatewayAmountMinor: gw.settledAmountMinor,
+        ledgerAmountMinor: null,
+      });
+    } else if (internal.postedAmountMinor !== gw.settledAmountMinor || internal.currency !== gw.currency) {
+      discrepancies.push({
+        referenceId: gw.referenceId,
+        type: 'AMOUNT_MISMATCH',
+        gatewayAmountMinor: gw.settledAmountMinor,
+        ledgerAmountMinor: internal.postedAmountMinor,
+      });
+    }
+  }
+
+  for (const internal of ledgerRows) {
+    if (!seenRefs.has(internal.referenceId)) {
+      discrepancies.push({
+        referenceId: internal.referenceId,
+        type: 'MISSING_IN_GATEWAY',
+        gatewayAmountMinor: null,
+        ledgerAmountMinor: internal.postedAmountMinor,
+      });
+    }
+  }
+
+  return discrepancies;
 }
 ```
 

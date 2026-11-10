@@ -31,6 +31,14 @@ Production-grade engineering guide for real-time data push and bidirectional str
 - Implementing bidirectional chat, multiplayer rooms, or collaborative presence with WebSockets.
 - Scaling stateful WebSocket servers across multiple containers or serverless edge workers.
 
+### Hard Guardrails (Declarative Invariants)
+- **Disable Proxy Buffering on SSE Endpoints**: Always set `X-Accel-Buffering: no` and `Cache-Control: no-cache, no-transform` on every SSE response so NGINX, Cloudflare, and ALBs flush chunks immediately.
+- **Periodic Keep-Alive Heartbeats (`15-25s`)**: Emit a heartbeat frame (`event: ping`) every 15–25 seconds and clean up `setInterval` timers inside `stream.onAbort()` / `finally` to prevent connection drops and timer leaks.
+- **Support `Last-Event-ID` Cursor Replay**: Assign monotonic event IDs (`id:`) to durable SSE events and replay missed events from Redis Streams when a reconnecting client sends `Last-Event-ID`.
+- **Enforce WebSocket `maxPayload` & Per-Socket Rate Limits**: Cap incoming WebSocket frame sizes (`maxPayloadLength`) and token-bucket message rates per client to prevent memory exhaustion DoS.
+- **Cross-Node Pub/Sub Backplane for Multi-Replica WebSockets**: Synchronize room broadcasts via Redis Pub/Sub, Redis Streams, or Cloudflare Durable Objects so horizontal scaling never strands connected peers.
+- **Backpressure-Aware Web Streams (`TransformStream`)**: Use `ReadableStream` / `TransformStream` with bounded high-water marks (`highWaterMark`) when streaming large datasets so slow clients do not bloat server RAM.
+
 ---
 
 ### Transport Selection Matrix
@@ -235,6 +243,86 @@ export async function streamPostSSE(options: {
         options.onEvent({ event: eventName, data: dataLines.join('\n'), id: eventId });
       }
     }
+  }
+}
+```
+
+#### 4. Cloudflare Durable Object WebSocket Hibernation Server (TypeScript)
+Scale millions of idle WebSocket connections at near-zero memory cost using the Cloudflare Durable Objects WebSocket Hibernation API (`state.acceptWebSocket` and `webSocketMessage`):
+
+```typescript
+// src/ws/hibernating-room-do.ts
+export interface HibernatableWebSocket {
+  send(message: string | Uint8Array): void;
+  close(code?: number, reason?: string): void;
+  serializeAttachment(value: unknown): void;
+  deserializeAttachment(): unknown;
+}
+
+export interface DurableObjectStateLike {
+  acceptWebSocket(ws: HibernatableWebSocket, tags?: string[]): void;
+  getWebSockets(tag?: string): HibernatableWebSocket[];
+}
+
+export class RealtimeRoomDurableObject {
+  constructor(private readonly state: DurableObjectStateLike) {}
+
+  public acceptAuthenticatedClient(ws: HibernatableWebSocket, meta: { userId: string; tenantId: string }): void {
+    ws.serializeAttachment({ ...meta, connectedAt: Date.now() });
+    this.state.acceptWebSocket(ws, [`tenant:${meta.tenantId}`, `user:${meta.userId}`]);
+  }
+
+  public async webSocketMessage(ws: HibernatableWebSocket, rawMessage: string | ArrayBuffer): Promise<void> {
+    const text = typeof rawMessage === 'string' ? rawMessage : new TextDecoder().decode(rawMessage);
+    if (text === 'ping') {
+      ws.send(JSON.stringify({ type: 'pong', ts: Date.now() }));
+      return;
+    }
+
+    const sender = ws.deserializeAttachment() as { userId: string; tenantId: string } | null;
+    if (!sender) {
+      ws.close(1008, 'Unauthorized socket attachment');
+      return;
+    }
+
+    const peers = this.state.getWebSockets(`tenant:${sender.tenantId}`);
+    const outbound = JSON.stringify({ senderId: sender.userId, payload: text, ts: Date.now() });
+    for (const peer of peers) {
+      if (peer !== ws) {
+        peer.send(outbound);
+      }
+    }
+  }
+}
+```
+
+#### 5. Per-Socket Token-Bucket Rate Limiter & Backpressure Guard (TypeScript)
+Drop abusive clients that flood WebSocket frames faster than the allowed burst rate:
+
+```typescript
+// src/ws/socket-rate-limiter.ts
+export class SocketRateLimiter {
+  private tokens: number;
+  private lastRefillMs: number;
+
+  constructor(
+    private readonly capacity = 30,
+    private readonly refillPerSecond = 10
+  ) {
+    this.tokens = capacity;
+    this.lastRefillMs = Date.now();
+  }
+
+  public consume(cost = 1, nowMs = Date.now()): boolean {
+    const elapsedSeconds = Math.max(0, (nowMs - this.lastRefillMs) / 1000);
+    this.tokens = Math.min(this.capacity, this.tokens + elapsedSeconds * this.refillPerSecond);
+    this.lastRefillMs = nowMs;
+
+    if (this.tokens < cost) {
+      return false;
+    }
+    this.tokens -= cost;
+    return true;
   }
 }
 ```

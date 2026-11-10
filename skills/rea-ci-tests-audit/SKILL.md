@@ -19,6 +19,14 @@ this skill does not grant permission to publish issues, push, or merge. Existing
 user authorization still applies. Keep audit notes and raw results outside the
 tracked tree, normally in a task-specific `/tmp` directory.
 
+## Hard Guardrails (Declarative Invariants)
+- **Pin Baseline Revision & Isolated Worktree**: Always record the exact git commit SHA, toolchain version, and command arguments before running a CI audit; never mutate another task's working directory.
+- **Perturbation Proof for Suspicious Green Tests**: Prove that a test gate actually catches regressions by perturbing the target behavior in an isolated copy and verifying the assertion fails for the expected reason.
+- **Separate Fake-Producer Mocks from Real-Engine Coverage**: Never claim Ghidra, LLDB, or browser provider coverage based solely on static mock fixtures; track boundary mocks and real-engine lanes separately.
+- **Zero Blanket Retries or Timeout Inflation**: Never mask flaky tests or broken assertions by adding unconditional retry loops, raising timeouts without measurement, or deleting failing test cases.
+- **Verify Required Discovery & Negative Paths**: Ensure test discovery fails loudly if a required test file or report artifact is missing, and preserve malformed-input rejection fixtures.
+- **Compare Equivalent Completed Workloads**: Only claim a CI speedup when comparing identical completed test coverage with separated setup, build, and execution timings.
+
 ## Establish the executed baseline
 
 Fetch when the user asks for latest main. Pin the baseline SHA and inspected
@@ -206,6 +214,77 @@ export function detectVacuousTestBlocks(testFileSource: string): VacuousTestFind
   }
 
   return findings;
+}
+```
+
+## 4. Test Discovery & Required Lane Completeness Verifier (TypeScript)
+Ensure CI never turns green when a required test lane silently skips or discovers zero test files:
+
+```typescript
+// src/rea/ci-lane-completeness.ts
+export interface CiLaneExecutionReport {
+  readonly laneId: string;
+  readonly required: boolean;
+  readonly discoveredTestFiles: number;
+  readonly executedAssertions: number;
+  readonly exitCode: number;
+}
+
+export function verifyCiLaneCompleteness(
+  lanes: readonly CiLaneExecutionReport[]
+): { passed: boolean; failures: string[] } {
+  const failures: string[] = [];
+
+  for (const lane of lanes) {
+    if (lane.exitCode !== 0) {
+      failures.push(`Lane "${lane.laneId}" exited with status ${lane.exitCode}`);
+      continue;
+    }
+    if (lane.required && lane.discoveredTestFiles === 0) {
+      failures.push(`Required lane "${lane.laneId}" discovered 0 test files (vacuous green pass)`);
+    }
+    if (lane.required && lane.executedAssertions === 0) {
+      failures.push(`Required lane "${lane.laneId}" executed 0 assertions`);
+    }
+  }
+
+  return {
+    passed: failures.length === 0,
+    failures,
+  };
+}
+```
+
+## 5. Phase-Segmented CI Timing Delta Comparator (TypeScript)
+Compare baseline vs. candidate CI runs across separated `setupMs`, `buildMs`, and `testExecMs` phases while enforcing identical test counts:
+
+```typescript
+// src/rea/ci-timing-comparator.ts
+export interface CiPhaseMetrics {
+  readonly revisionSha: string;
+  readonly setupMs: number;
+  readonly buildMs: number;
+  readonly testExecMs: number;
+  readonly passedTestCount: number;
+}
+
+export function compareCiBenchmarkRuns(
+  baseline: CiPhaseMetrics,
+  candidate: CiPhaseMetrics
+): { equivalentCoverage: boolean; totalSavedMs: number; phaseDeltaMs: Record<string, number> } {
+  const equivalentCoverage = candidate.passedTestCount >= baseline.passedTestCount;
+  const baselineTotal = baseline.setupMs + baseline.buildMs + baseline.testExecMs;
+  const candidateTotal = candidate.setupMs + candidate.buildMs + candidate.testExecMs;
+
+  return {
+    equivalentCoverage,
+    totalSavedMs: baselineTotal - candidateTotal,
+    phaseDeltaMs: {
+      setup: candidate.setupMs - baseline.setupMs,
+      build: candidate.buildMs - baseline.buildMs,
+      testExec: candidate.testExecMs - baseline.testExecMs,
+    },
+  };
 }
 ```
 

@@ -12,6 +12,14 @@ Use this for release-note preparation and contributor attribution. Read
 publication authority and the existing checkpoint checks. This skill prepares
 notes; it does not authorize merging, tagging, or publishing.
 
+## Hard Guardrails (Declarative Invariants)
+- **Inventory Before Prose**: Always build the machine-verified contribution manifest (`docs/releases/VERSION.contributions.json`) from the pinned base-branch SHA before writing release notes.
+- **Zero Fabricated Handle Attribution**: Keep unresolved commit identities as `user: null` in the inventory; never guess a GitHub handle or credit the PR merger in place of the author.
+- **Exclude Bot & Agent Accounts from Public Thanks**: Filter out `@claude`, `@cursoragent`, `@codex`, `dependabot[bot]`, `github-actions[bot]`, and `release-please[bot]` from public `Thanks @...` clauses while preserving their provenance metadata.
+- **Single-Entry Credit Deduplication**: Credit each human contributor and confirmed closing-issue reporter once per work item; never duplicate thanks across Highlights and Changes or credit reverted commits.
+- **Mandatory Finalization Label Guard**: Apply `rea:release-notes-finalized` to the open Release Please PR before editing its branch or body so bot refreshes do not overwrite curated notes.
+- **Ancestry & 65,536-Char Body Gate**: Verify that the inventory target SHA matches the release PR base branch HEAD and that the rendered PR body stays within GitHub's 65,536-character limit.
+
 ## Inventory before prose
 
 Fetch complete history and tags. Select the published baseline tag from
@@ -214,6 +222,38 @@ export function validateReleasePleaseFinalization(
     valid: errors.length === 0,
     errors
   };
+}
+```
+
+## 3. Single-Section Changelog Splicer & Provenance Footer Attacher (TypeScript)
+Update only the target `## [VERSION]` block inside `CHANGELOG.md` and append the mandatory `record --summary` provenance link without altering historical release entries:
+
+```typescript
+// src/rea/changelog-splicer.ts
+export interface ChangelogUpdateSpec {
+  readonly version: string;
+  readonly releaseDateIso: string;
+  readonly highlights: readonly string[];
+  readonly changes: readonly string[];
+  readonly fixes: readonly string[];
+  readonly provenanceRecordPath: string;
+}
+
+export function renderVersionChangelogSection(spec: ChangelogUpdateSpec): string {
+  const lines: string[] = [`## [${spec.version}] (${spec.releaseDateIso})`, ''];
+
+  if (spec.highlights.length > 0) {
+    lines.push('### Highlights', ...spec.highlights.map((h) => `- ${h}`), '');
+  }
+  if (spec.changes.length > 0) {
+    lines.push('### Changes', ...spec.changes.map((c) => `- ${c}`), '');
+  }
+  if (spec.fixes.length > 0) {
+    lines.push('### Fixes', ...spec.fixes.map((f) => `- ${f}`), '');
+  }
+
+  lines.push(`Full contribution provenance: [\`${spec.provenanceRecordPath}\`](${spec.provenanceRecordPath})`);
+  return lines.join('\n');
 }
 ```
 

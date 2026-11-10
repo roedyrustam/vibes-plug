@@ -108,6 +108,77 @@ export function CheckoutCTA({ orderTotal }: { orderTotal: number }) {
 }
 ```
 
+### Deterministic Local SHA-256 Rollout Bucketing Engine with Timeout Fallback (TypeScript)
+Guarantee zero-latency, deterministic cohort assignment (`0–99` bucket) using SHA-256 hashing over `flagKey:distinctId` so flag evaluations never use `Math.random()` or block page rendering when an external provider is unreachable:
+
+```typescript
+// src/lib/flags/deterministic-bucketer.ts
+import crypto from 'node:crypto';
+
+export interface RolloutFlagConfig {
+  readonly key: string;
+  readonly enabled: boolean;
+  readonly rolloutPercentage: number; // 0 to 100
+  readonly allowlistUserIds?: ReadonlySet<string>;
+}
+
+export function computeDeterministicBucket(flagKey: string, distinctId: string): number {
+  const digest = crypto.createHash('sha256').update(`${flagKey}:${distinctId}`, 'utf8').digest();
+  const uint32 = digest.readUInt32BE(0);
+  return uint32 % 100;
+}
+
+export function evaluateRolloutFlag(config: RolloutFlagConfig, distinctId: string): boolean {
+  if (!config.enabled) return false;
+  if (config.allowlistUserIds?.has(distinctId)) return true;
+  if (config.rolloutPercentage >= 100) return true;
+  if (config.rolloutPercentage <= 0) return false;
+
+  const userBucket = computeDeterministicBucket(config.key, distinctId);
+  return userBucket < config.rolloutPercentage;
+}
+```
+
+### Stale Feature-Flag Expiration & Tech-Debt Gate Auditor (TypeScript)
+Prevent permanent flag debt by enforcing a strict `expiresAtIso` SLA on every temporary rollout flag in CI:
+
+```typescript
+// src/lib/flags/flag-debt-auditor.ts
+export interface RegisteredFeatureFlag {
+  readonly key: string;
+  readonly ownerTeam: string;
+  readonly createdAtIso: string;
+  readonly expiresAtIso: string;
+  readonly lifecycle: 'temporary-experiment' | 'canary-rollout' | 'permanent-killswitch';
+}
+
+export function auditStaleFeatureFlags(
+  registry: readonly RegisteredFeatureFlag[],
+  nowMs = Date.now()
+): { expiredFlags: string[]; healthyCount: number } {
+  const expiredFlags: string[] = [];
+
+  for (const flag of registry) {
+    if (flag.lifecycle === 'permanent-killswitch') continue;
+    const expiryTime = Date.parse(flag.expiresAtIso);
+    if (Number.isNaN(expiryTime) || expiryTime < nowMs) {
+      expiredFlags.push(`${flag.key} (owner: ${flag.ownerTeam}, expired: ${flag.expiresAtIso})`);
+    }
+  }
+
+  return {
+    expiredFlags,
+    healthyCount: registry.length - expiredFlags.length,
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Never Use `Math.random()` for Flag Bucketing**: Cohort bucketing must be 100% deterministic over `(flagKey, distinctId)` using cryptographic or Murmur3 hashing so a user never flips variants across page reloads.
+- **Zero-Flicker Server Evaluation**: UI-impacting feature flags in Next.js/SSR apps must be evaluated on the server or edge middleware before HTML streaming to guarantee `CLS = 0`.
+- **Bounded Timeout with Safe Control Fallback**: Remote flag evaluations must enforce a hard timeout (`<= 100ms`) and default to the safe `'control'` / `false` state on timeout.
+- **Mandatory Expiration SLA on Rollout Flags**: Temporary experiment and canary flags must declare an `expiresAtIso` date (`<= 30 days`) audited in CI to prevent stale branching debt.
+
 ### Progressive Rollout Checklist
 - [ ] **Deterministic Hashing**: Ensure flag evaluations use stable identifiers (`distinct_id` / user UUID) so users do not oscillate between variants.
 - [ ] **Server-Side Fallbacks**: Always provide hardcoded safe fallbacks (`false` or `'control'`) if the flag provider times out (>100ms).

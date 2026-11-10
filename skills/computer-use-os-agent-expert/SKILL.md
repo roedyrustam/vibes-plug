@@ -14,6 +14,14 @@ version: "4.7.0"
 ### Overview
 You are a Principal Autonomous Systems & Computer-Using Agent (CUA) Architect. You design agents capable of operating arbitrary desktop and web applications via visual screen perception (`1000x1000` normalized coordinate grounding), hybrid DOM/Accessibility-tree fusion, ephemeral VM sandboxes, and strict action-level safety gates.
 
+### Hard Guardrails (Declarative Invariants)
+- **Disposable Sandbox Isolation Only**: Never execute a Computer-Using Agent (CUA) directly on the developer host OS; confine GUI/OS automation inside an ephemeral microVM, Docker Xvfb container, or isolated browser context with egress firewall rules.
+- **HiDPI & Normalized `[0, 1000]` Coordinate Clamping**: Convert model-emitted `[0, 1000]` coordinates using physical viewport dimensions and `devicePixelRatio`, clamping strictly within `[0, width - 1]` and `[0, height - 1]`.
+- **Mandatory HITL Gate on Destructive Targets**: Intercept clicks targeting irreversible actions (`delete`, `pay`, `transfer`, `drop`, `uninstall`) and sensitive credential typing with a `REQUIRE_HITL` pause gate before sending OS input events.
+- **Block Destructive OS Key Combos**: Deny dangerous key combinations (`Meta+Q`, `Alt+F4`, `Control+Alt+Delete`, `rm -rf`) at the action policy boundary.
+- **Before/After Frame Hash Verification**: Capture a perceptual/SHA-256 screenshot digest before and after every click or keystroke to detect stuck UI states and prevent blind retry loops.
+- **Screen-Content Prompt Injection Firewall**: Sanitize all OCR and Accessibility-Tree text extracted from untrusted web pages, emails, or PDFs before injecting into the planner prompt.
+
 ### 1. CUA Perception & Action Architecture (2026)
 
 | Modality | Primary Signal | Fallback Signal | Precision & Latency | Target Environment |
@@ -247,6 +255,68 @@ export function toAbsoluteScreenPoint(point: NormalizedPoint, viewport: ScreenVi
   return {
     x: Math.round((clampedX / 1000) * viewport.widthPx),
     y: Math.round((clampedY / 1000) * viewport.heightPx)
+  };
+}
+```
+#### 6. Set-of-Marks (SoM) Accessibility Tree + Bounding-Box Fusion Grounder (TypeScript)
+Combine Playwright/CDP Accessibility Tree nodes with numbered Set-of-Marks visual labels so the agent can click exact interactive elements by mark ID with sub-pixel accuracy:
+
+```typescript
+// src/cua/som-axtree-grounder.ts
+export interface InteractiveMark {
+  readonly markId: number;
+  readonly role: string;
+  readonly accessibleName: string;
+  readonly bboxPx: { readonly x: number; readonly y: number; readonly width: number; readonly height: number };
+}
+
+export function resolveMarkCenterCoordinates(
+  marks: readonly InteractiveMark[],
+  targetMarkId: number
+): { xPx: number; yPx: number; label: string } {
+  const found = marks.find((m) => m.markId === targetMarkId);
+  if (!found) {
+    throw new Error(`[SoM Grounder] Interactive mark #${targetMarkId} not found in current frame`);
+  }
+
+  return {
+    xPx: Math.round(found.bboxPx.x + found.bboxPx.width / 2),
+    yPx: Math.round(found.bboxPx.y + found.bboxPx.height / 2),
+    label: `${found.role}:${found.accessibleName}`,
+  };
+}
+```
+
+#### 7. Indirect Visual Prompt-Injection Sanitizer for Screen OCR / AXTree Text (TypeScript)
+Strip adversarial instruction overrides embedded inside untrusted on-screen text before passing screen observations to the CUA planner:
+
+```typescript
+// src/cua/visual-injection-guard.ts
+const VISUAL_INJECTION_PATTERNS: readonly RegExp[] = [
+  /ignore\s+(?:all\s+)?(?:previous|prior)\s+instructions/i,
+  /system\s*override\s*:/i,
+  /open\s+terminal\s+and\s+(?:run|execute|curl)/i,
+  /exfiltrate\s+(?:cookies|tokens|keys)/i,
+];
+
+export function sanitizeScreenObservationText(rawScreenText: string): {
+  safeText: string;
+  flagged: boolean;
+  matchedRule: string | null;
+} {
+  for (const pattern of VISUAL_INJECTION_PATTERNS) {
+    if (pattern.test(rawScreenText)) {
+      return {
+        safeText: '[REDACTED_SUSPECTED_VISUAL_PROMPT_INJECTION]',
+        flagged: true,
+        matchedRule: pattern.source,
+      };
+    }
+  }
+  return {
+    safeText: rawScreenText,
+    flagged: false,
+    matchedRule: null,
   };
 }
 ```

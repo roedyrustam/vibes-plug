@@ -201,6 +201,90 @@ export abstract class AggregateRoot<TId extends string> {
 }
 ```
 
+#### Composable Specification Pattern & Optimistic Concurrency Repository (TypeScript)
+Encapsulate complex domain business rules into reusable, unit-testable `Specification<T>` objects and enforce optimistic locking (`version`) on repository persistence:
+
+```typescript
+// src/domain/shared/specification/Specification.ts
+export interface ISpecification<T> {
+  isSatisfiedBy(candidate: T): boolean;
+  and(other: ISpecification<T>): ISpecification<T>;
+}
+
+export abstract class CompositeSpecification<T> implements ISpecification<T> {
+  public abstract isSatisfiedBy(candidate: T): boolean;
+
+  public and(other: ISpecification<T>): ISpecification<T> {
+    return new AndSpecification(this, other);
+  }
+}
+
+class AndSpecification<T> extends CompositeSpecification<T> {
+  constructor(
+    private readonly left: ISpecification<T>,
+    private readonly right: ISpecification<T>
+  ) {
+    super();
+  }
+
+  public isSatisfiedBy(candidate: T): boolean {
+    return this.left.isSatisfiedBy(candidate) && this.right.isSatisfiedBy(candidate);
+  }
+}
+
+export class OptimisticConcurrencyError extends Error {
+  constructor(aggregateName: string, aggregateId: string, expectedVersion: number) {
+    super(
+      `OPTIMISTIC_LOCK_CONFLICT: ${aggregateName}[${aggregateId}] at version ${expectedVersion} was modified concurrently.`
+    );
+    this.name = 'OptimisticConcurrencyError';
+  }
+}
+```
+
+#### Anti-Corruption Layer (ACL) External Webhook Translator (TypeScript)
+Never leak external payment gateway or legacy ERP JSON payloads into core Domain Entities. Translate and validate at the infrastructure boundary:
+
+```typescript
+// src/infrastructure/acl/PaymentGatewayAclTranslator.ts
+import { z } from 'zod';
+import { Money, type CurrencyCode } from '../../domain/shared/value-objects/Money';
+
+const ExternalWebhookPayloadSchema = z.object({
+  trx_id: z.string().min(1),
+  order_reference: z.string().uuid(),
+  gross_amount_minor: z.number().int().nonnegative(),
+  iso_currency: z.enum(['USD', 'IDR', 'EUR']),
+  settlement_state: z.enum(['SETTLED', 'EXPIRED', 'FAILED']),
+});
+
+export interface DomainSettlementCommand {
+  readonly externalTransactionId: string;
+  readonly orderId: string;
+  readonly settledMoney: Money;
+  readonly isSettled: boolean;
+}
+
+export class PaymentGatewayAclTranslator {
+  public static toDomainCommand(rawPayload: unknown): DomainSettlementCommand {
+    const parsed = ExternalWebhookPayloadSchema.parse(rawPayload);
+    const currency: CurrencyCode = parsed.iso_currency;
+    return {
+      externalTransactionId: parsed.trx_id,
+      orderId: parsed.order_reference,
+      settledMoney: Money.fromMinorUnits(parsed.gross_amount_minor, currency),
+      isSettled: parsed.settlement_state === 'SETTLED',
+    };
+  }
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Strict Domain Layer Purity**: Files inside `src/domain/` must never import ORM packages (`drizzle-orm`, `@prisma/client`, `typeorm`), HTTP frameworks (`next`, `hono`, `express`), or cloud SDKs.
+- **Single Aggregate Root Per Transaction**: Each database transaction must mutate at most one Aggregate Root instance; cross-aggregate side effects must propagate asynchronously via Domain Events.
+- **Value Object Immutability**: Monetary amounts, percentages, and identifiers must be encapsulated in immutable Value Objects using `bigint` minor units—never raw IEEE-754 `number` floats.
+- **Mandatory Optimistic Concurrency Control**: Every Aggregate Root repository `save()` operation must assert `WHERE id = $1 AND version = $2` and increment `version` atomically.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

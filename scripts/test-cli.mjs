@@ -2314,6 +2314,28 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
 
     assert.ok(matchSkillsForTarget({ filePath: 'k8s/route.yaml', code: 'apiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute' }).includes('kubernetes-gitops-platform-expert'));
     assert.ok(matchSkillsForTarget({ filePath: 'model.fga', code: 'model\n  schema 1.1' }).includes('fga-rebac-authorization-expert'));
+
+    // Wave 2 Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'graphql-apollo-expert', code: '@ResolveField()\nasync posts(@Parent() u: User) { return this.prisma.post.findMany({ where: { authorId: u.id } }); }' }, 'GRAPHQL_RESOLVER_N_PLUS_ONE_QUERY');
+    await expectViolation({ skill: 'biome-linter-formatter-expert', code: '{ "formatter": { "formatWithErrors": true } }' }, 'BIOME_FORMAT_WITH_ERRORS_ENABLED');
+    await expectViolation({ skill: 'durable-agent-execution-expert', code: 'export async function runAgentWorkflow() { setInterval(() => {}, 1000); }' }, 'DURABLE_WORKFLOW_SETINTERVAL_POLLING');
+    await expectViolation({ skill: 'computer-use-os-agent-expert', code: 'execSync(`xdotool type ${userInput}`)' }, 'CUA_DESTRUCTIVE_HOST_EXEC');
+    await expectViolation({ skill: 'sse-websocket-streaming-expert', code: 'return streamSSE(c, async (stream) => { await stream.writeSSE({ data: "ok" }); });' }, 'SSE_MISSING_ACCEL_BUFFERING_HEADER');
+    await expectViolation({ skill: 'micro-frontend-architect', code: 'shared: { react: { requiredVersion: "^19.0.0" } }' }, 'MFE_SHARED_REACT_WITHOUT_SINGLETON');
+    await expectViolation({ skill: 'authentication-identity-expert', code: 'const digest = createHash("sha256").update(password).digest("hex");' }, 'AUTH_WEAK_PASSWORD_HASH');
+    await expectViolation({ skill: 'logging-error-tracking-expert', code: 'const logger = pino({ level: "info" });' }, 'LOGGING_UNREDACTED_PII_SECRET');
+
+    // Wave 3 (Gelombang 3) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'data-pipeline-etl-expert', code: "{{ config(materialized = 'incremental') }}\nSELECT * FROM raw_events" }, 'ETL_INCREMENTAL_MISSING_UNIQUE_KEY');
+    await expectViolation({ skill: 'search-engine-expert', code: "const sql = `SELECT * FROM products WHERE name ILIKE '%${query}%'`;" }, 'SEARCH_LEADING_WILDCARD_ILIKE');
+    await expectViolation({ skill: 'graph-rag-knowledge-expert', code: "await session.run('MATCH (a)-[r*]->(b) RETURN a, b');" }, 'GRAPHRAG_UNBOUNDED_VARIABLE_HOP');
+    await expectViolation({ skill: 'event-driven-architect', code: 'await db.transaction(async (tx) => { await tx.insert(orders); await kafkaProducer.send({ topic: "orders" }); });' }, 'EDA_DUAL_WRITE_BROKER_IN_DB_TX');
+    await expectViolation({ skill: 'domain-driven-design-expert', code: "// src/domain/order/Order.ts\nimport { PrismaClient } from '@prisma/client';" }, 'DDD_INFRASTRUCTURE_IMPORT_IN_DOMAIN');
+    await expectViolation({ skill: 'api-gateway-proxy-expert', code: "const clientIp = req.headers.get('x-forwarded-for').split(',')[0];" }, 'PROXY_SPOOFABLE_XFF_FIRST_HOP');
+    await expectViolation({ skill: 'ci-cd-devops-architect', code: 'steps:\n  - run: pnpm install\n' }, 'CICD_UNFROZEN_LOCKFILE_INSTALL');
+    await expectViolation({ skill: 'docker-container-expert', code: 'FROM node:22-alpine\nARG NPM_TOKEN\n' }, 'DOCKER_EXPOSED_SECRET_IN_ARG_OR_ENV');
+    await expectViolation({ skill: 'feature-flag-analytics-expert', code: 'const enabled = Math.random() < rolloutPercentage;' }, 'FLAG_NON_DETERMINISTIC_MATH_RANDOM');
+    await expectViolation({ skill: 'zero-trust-secret-vault', code: "const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);" }, 'VAULT_WEAK_UNAUTHENTICATED_CIPHER');
   });
 });
 

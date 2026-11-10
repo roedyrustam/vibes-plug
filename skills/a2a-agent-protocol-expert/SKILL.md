@@ -31,6 +31,14 @@ Production guide for implementing the open **Agent-to-Agent (A2A) Protocol** alo
 - Orchestrating cross-organization or polyglot multi-agent workflows where subagents do not share internal memory.
 - Combining A2A horizontal agent delegation with MCP vertical tool execution.
 
+### Hard Guardrails (Declarative Invariants)
+- **Publish Validated `/.well-known/agent.json` Agent Cards**: Every remote A2A agent must expose a canonical Agent Card declaring `capabilities`, `authentication.schemes`, and typed `skills` (`inputModes`/`outputModes`).
+- **Enforce Canonical Task State Machine Transitions**: Transition A2A tasks strictly through `submitted` $\rightarrow$ `working` $\rightarrow$ `input-required` | `completed` | `failed` | `canceled`; never mutate a terminal state.
+- **Authenticate & Sign Cross-Agent Requests**: Require `Bearer` OAuth2/JWT or `MutualTLS` on every `tasks/send` and `tasks/sendSubscribe` endpoint, and sign outbound push-notification webhooks with HMAC-SHA256.
+- **Sanitize Untrusted Peer Agent Payloads**: Treat all `message.parts` and `artifacts` received from external agents as untrusted input; validate against `.strict()` Zod schemas and filter through `prompt-injection-firewall`.
+- **Separate Horizontal A2A Delegation from Vertical MCP Tools**: Use A2A (`tasks/send`) for goal-oriented multi-turn agent delegation and MCP (`tools/call`) for deterministic stateless tool execution.
+- **Enforce M2M Budget & Hop Limits**: Attach a maximum hop count (`maxDelegationDepth <= 4`) and token/cost budget to federated A2A task headers to prevent infinite agent ping-pong loops.
+
 ---
 
 ### A2A vs MCP Architectural Separation
@@ -228,6 +236,63 @@ export class A2aStreamingSession {
       timestamp: new Date().toISOString(),
     });
   }
+}
+```
+
+#### 4. Signed A2A Push-Notification Webhook Dispatcher & Hop-Depth Guard (TypeScript)
+Deliver asynchronous task completion notifications to partner agents using HMAC-SHA256 signatures and prevent infinite cross-agent delegation cycles:
+
+```typescript
+// src/a2a/push-webhook-and-hop-guard.ts
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
+export interface A2APushNotificationPayload {
+  readonly taskId: string;
+  readonly state: 'completed' | 'failed' | 'input-required';
+  readonly timestamp: string;
+  readonly hopDepth: number;
+}
+
+export function assertDelegationHopDepth(currentHopDepth: number, maxHops = 4): number {
+  if (currentHopDepth >= maxHops) {
+    throw new Error(`[A2A HopGuard] Delegation hop depth (${currentHopDepth}) exceeded maxHops (${maxHops})`);
+  }
+  return currentHopDepth + 1;
+}
+
+export function signA2aWebhookPayload(rawBody: string, secret: string): string {
+  return createHmac('sha256', secret).update(rawBody, 'utf8').digest('hex');
+}
+
+export function verifyA2aWebhookSignature(rawBody: string, signatureHex: string, secret: string): boolean {
+  const expectedHex = signA2aWebhookPayload(rawBody, secret);
+  const a = Buffer.from(signatureHex, 'hex');
+  const b = Buffer.from(expectedHex, 'hex');
+  return a.length === b.length && timingSafeEqual(a, b);
+}
+```
+
+#### 5. A2A Client Discovery & Capability Matcher (TypeScript)
+Discover remote `/.well-known/agent.json` cards and match required skill tags and input/output MIME modes before delegating tasks:
+
+```typescript
+// src/a2a/client-discovery.ts
+import type { A2AAgentCard, A2AAgentSkill } from './agent-card';
+
+export function matchAgentSkillByTagAndMime(
+  card: A2AAgentCard,
+  requiredTag: string,
+  requiredMime: 'text/plain' | 'application/json'
+): A2AAgentSkill | null {
+  for (const skill of card.skills) {
+    const hasTag = skill.tags.includes(requiredTag);
+    const supportsMime =
+      skill.inputModes.includes(requiredMime) && skill.outputModes.includes(requiredMime);
+    if (hasTag && supportsMime) {
+      return skill;
+    }
+  }
+  return null;
 }
 ```
 

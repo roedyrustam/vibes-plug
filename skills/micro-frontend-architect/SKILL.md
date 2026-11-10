@@ -35,6 +35,14 @@ Production-grade guidance for decomposing large enterprise frontend monoliths in
 - Enforcing singleton framework sharing (`react`, `react-dom`, `vue`, `pinia`, `@tanstack/react-query`).
 - Preventing a crashed remote micro-app from taking down the entire host application shell.
 
+### Hard Guardrails (Declarative Invariants)
+- **Strict Singleton Sharing for Stateful Runtimes**: Always declare `singleton: true` on `react`, `react-dom`, `react-router`, `vue`, `pinia`, and `@tanstack/react-query` in Module Federation configs to prevent dual-instance hook crashes.
+- **Fault-Isolated Error & Suspense Boundary per Remote**: Wrap every remote micro-frontend mount point in its own `ErrorBoundary` and `<Suspense>` fallback so a broken remote never crashes the host shell.
+- **Zero Coupled Global Store Across Remotes**: Never import or mutate a host Redux/Zustand store directly from a remote MFE; communicate exclusively via URL parameters or a typed `CustomEvent` contract.
+- **CSS Cascade Layer (`@layer`) Encapsulation**: Scope every remote's styles inside a dedicated `@layer mfe-<name>` or CSS Module namespace so remote stylesheets never override host shell layout tokens.
+- **Dynamic Runtime Manifest Versioning**: Load remotes via `mf-manifest.json` with health-checked fallback URLs rather than hardcoding static bundle hashes.
+- **Sub-App Cleanup on Unmount**: Ensure every remote unregisters `window` event listeners, WebSocket subscriptions, and timers when unmounted by the host router.
+
 ---
 
 ### Micro-Frontend Composition Matrix
@@ -180,6 +188,124 @@ export function onMfeEvent<K extends keyof MfeEventMap>(
   };
   window.addEventListener(eventName, listener);
   return () => window.removeEventListener(eventName, listener);
+}
+```
+
+---
+
+#### 4. Dynamic Runtime Remote Registry & Health-Checked Loader (`@module-federation/enhanced/runtime`)
+Register and load remote micro-frontends dynamically at runtime based on tenant feature flags with automatic fallback if a remote CDN is unreachable:
+
+```typescript
+// apps/host-shell/src/federation/runtime-loader.ts
+export interface RemoteManifestEntry {
+  readonly name: string;
+  readonly entryUrl: string;
+  readonly fallbackUrl?: string;
+}
+
+export async function verifyAndResolveRemoteEntry(entry: RemoteManifestEntry, timeoutMs = 2500): Promise<string> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(entry.entryUrl, {
+      method: 'HEAD',
+      signal: controller.signal,
+    });
+    if (response.ok) {
+      return entry.entryUrl;
+    }
+    if (entry.fallbackUrl) {
+      return entry.fallbackUrl;
+    }
+    throw new Error(`Remote ${entry.name} returned HTTP ${response.status}`);
+  } catch (err) {
+    if (entry.fallbackUrl) {
+      return entry.fallbackUrl;
+    }
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+```
+
+---
+
+#### 5. CSS Cascade Layer (`@layer`) Isolation Contract Between Host & Remotes
+Prevent remote micro-frontend utility classes from clobbering host shell navigation or modal z-index stacking contexts by enforcing explicit `@layer` priority order:
+
+```css
+/* apps/host-shell/src/styles/layers.css */
+@layer reset, design-tokens, mfe-analytics, mfe-billing, host-shell, host-overlays;
+
+@layer design-tokens {
+  :root {
+    --surface-bg: #090a0f;
+    --surface-border: #1e2029;
+    --text-primary: #f3f4f6;
+  }
+}
+
+@layer host-shell {
+  .host-GlobalHeader {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid var(--surface-border);
+    background-color: var(--surface-bg);
+  }
+}
+```
+
+---
+
+#### 6. Web Component Shadow DOM Bridge for Framework-Agnostic Remotes
+Mount a Vue 3 or SolidJS remote micro-app inside a React 19 Host Shell with strict Shadow DOM style encapsulation and lifecycle cleanup:
+
+```typescript
+// packages/mfe-bridge/src/shadow-mount.ts
+export interface MicroAppLifecycle {
+  mount: (container: HTMLElement, props: Record<string, unknown>) => void;
+  unmount: (container: HTMLElement) => void;
+}
+
+export function registerMicroAppCustomElement(
+  tagName: string,
+  lifecycle: MicroAppLifecycle,
+  scopedCssText: string
+): void {
+  if (customElements.get(tagName)) return;
+
+  class MicroAppElement extends HTMLElement {
+    private mountRoot: HTMLDivElement | null = null;
+
+    connectedCallback(): void {
+      const shadow = this.shadowRoot ?? this.attachShadow({ mode: 'open' });
+      shadow.innerHTML = '';
+
+      const styleEl = document.createElement('style');
+      styleEl.textContent = scopedCssText;
+      shadow.appendChild(styleEl);
+
+      this.mountRoot = document.createElement('div');
+      shadow.appendChild(this.mountRoot);
+
+      lifecycle.mount(this.mountRoot, {
+        tenantId: this.getAttribute('data-tenant-id') ?? '',
+      });
+    }
+
+    disconnectedCallback(): void {
+      if (this.mountRoot) {
+        lifecycle.unmount(this.mountRoot);
+        this.mountRoot = null;
+      }
+    }
+  }
+
+  customElements.define(tagName, MicroAppElement);
 }
 ```
 

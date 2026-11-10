@@ -21,6 +21,14 @@ Read [the Kuna case study](references/kuna-case-study.md) when selecting a
 reuse strategy or interpreting a benchmark. Its pinned observations illustrate
 tradeoffs; they are not current-provider guarantees or universal speedups.
 
+## Hard Guardrails (Declarative Invariants)
+- **Independent Correctness Oracle**: Verify every optimization against an oracle independent of the modified code path (source-built fixtures, raw byte mappings, or verified native output) before claiming a speedup.
+- **Content-Addressed Cache Keys**: Include target artifact SHA-256, provider engine ID/version, architecture/load-map options, and schema version in every analysis cache key.
+- **Isolated Waiter Cancellation**: When multiple callers await a shared in-flight analysis producer, cancelling one caller's `AbortSignal` must never abort or corrupt the shared producer for remaining peers.
+- **Bounded Process-Family Memory**: Enforce hard byte budgets on retained caches and subprocess outputs before allocation; never trade a transport buffer cap for an unbounded in-memory inventory.
+- **Early Selection & Projection at Producer**: Push address-range and section filters down to the native provider boundary rather than materializing multi-megabyte full-binary reports and slicing them in CLI/MCP wrappers.
+- **Preserve Examined Scope & Same-Address Candidates**: Optimizations must never drop alternative symbols at the same address or omit `examinedScope` coverage metadata.
+
 ## Pin the question and the correctness oracle
 
 Describe the analyst's completed task, including the facts and relationships
@@ -243,6 +251,85 @@ export function paginateCallGraphByTokenBudget(
     totalAvailable: sortedNodes.length,
     nextCursor: null
   };
+}
+```
+
+## 4. Phase-Instrumented Analysis Profiler & Memory High-Water Tracker (TypeScript)
+Measure admission, native provider execution, decoding, and projection phases along with RSS memory delta so optimizations target proven bottlenecks:
+
+```typescript
+// src/rea/phase-profiler.ts
+export interface PhaseMeasurement {
+  readonly phase: string;
+  readonly durationMs: number;
+  readonly rssDeltaBytes: number;
+}
+
+export class ReaPhaseProfiler {
+  private readonly measurements: PhaseMeasurement[] = [];
+
+  public async measurePhase<T>(phase: string, fn: () => Promise<T>): Promise<T> {
+    const startRss = process.memoryUsage().rss;
+    const startNs = process.hrtime.bigint();
+    try {
+      return await fn();
+    } finally {
+      const durationMs = Number(process.hrtime.bigint() - startNs) / 1_000_000;
+      const rssDeltaBytes = process.memoryUsage().rss - startRss;
+      this.measurements.push({
+        phase,
+        durationMs: Math.round(durationMs * 100) / 100,
+        rssDeltaBytes,
+      });
+    }
+  }
+
+  public summary(): { totalMs: number; peakRssDeltaBytes: number; phases: readonly PhaseMeasurement[] } {
+    let totalMs = 0;
+    let peakRssDeltaBytes = 0;
+    for (const m of this.measurements) {
+      totalMs += m.durationMs;
+      if (m.rssDeltaBytes > peakRssDeltaBytes) {
+        peakRssDeltaBytes = m.rssDeltaBytes;
+      }
+    }
+    return {
+      totalMs: Math.round(totalMs * 100) / 100,
+      peakRssDeltaBytes,
+      phases: this.measurements,
+    };
+  }
+}
+```
+
+## 5. Streaming Bounded Binary Section Reader (TypeScript)
+Read and scan only the requested ELF/PE virtual section range from disk without loading multi-hundred-megabyte binaries into the V8 heap:
+
+```typescript
+// src/rea/bounded-section-reader.ts
+import fs from 'node:fs/promises';
+
+export interface SectionSliceRequest {
+  readonly filePath: string;
+  readonly fileOffset: number;
+  readonly byteLength: number;
+  readonly maxAllowedBytes?: number;
+}
+
+export async function readBoundedSectionSlice(req: SectionSliceRequest): Promise<Buffer> {
+  const maxBytes = req.maxAllowedBytes ?? 16 * 1024 * 1024;
+  if (req.byteLength <= 0 || req.byteLength > maxBytes) {
+    throw new Error(`Requested section slice (${req.byteLength}B) exceeds safety cap (${maxBytes}B)`);
+  }
+
+  const handle = await fs.open(req.filePath, 'r');
+  try {
+    const buffer = Buffer.allocUnsafe(req.byteLength);
+    const { bytesRead } = await handle.read(buffer, 0, req.byteLength, req.fileOffset);
+    return bytesRead === req.byteLength ? buffer : buffer.subarray(0, bytesRead);
+  } finally {
+    await handle.close();
+  }
 }
 ```
 

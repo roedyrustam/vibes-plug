@@ -28,11 +28,19 @@ Production-grade guidance for building and consuming **GraphQL APIs**. Focuses o
 
 ### Trigger Conditions
 Activate this skill when the user is:
-- Setting up a GraphQL server with NestJS, Express, or Apollo Server.
+- Setting up a GraphQL server with NestJS, Express, Apollo Server, or GraphQL Yoga/Pothos.
 - Using `@apollo/client` or `@vue/apollo-composable` on the frontend.
-- Deciding between Code-First vs. Schema-First GraphQL design.
-- Optimizing backend database queries triggered by GraphQL resolvers (N+1 problem).
-- Implementing GraphQL Subscriptions via WebSockets.
+- Designing Apollo Federation v2 subgraphs (`@key`, `@shareable`, `@external`).
+- Optimizing backend database queries triggered by GraphQL resolvers (N+1 problem via `DataLoader`).
+- Hardening GraphQL endpoints with query depth limits, cost complexity analysis, and Persisted Queries.
+
+### Hard Guardrails (Declarative Invariants)
+- **Request-Scoped DataLoader Batching**: Never execute unbatched database queries inside nested field resolvers; instantiate `DataLoader` per request context (`{ cache: true }`) so N+1 queries collapse into a single `WHERE id = ANY($1)` query.
+- **Query Depth & Complexity Cost Limits**: Enforce maximum AST nesting depth (`maxDepth <= 8`) and query complexity budgets on every GraphQL endpoint to block recursive DoS queries.
+- **Disable Introspection in Production**: Set `introspection: false` in production unless explicitly gated behind authenticated developer API keys.
+- **Apollo Federation v2 Reference Resolver Batching**: In Federated subgraphs, resolve `__resolveReference` calls via `DataLoader` rather than single-row lookups.
+- **Strict Input Validation & Masked Internal Errors**: Validate mutation `InputType` fields with Zod/`class-validator` and mask raw database stack traces inside `formatError` (returning structured `extensions.code`).
+- **Normalized Cache Key Policies on Client**: Configure explicit `typePolicies` (`keyFields`) in `InMemoryCache` so Apollo Client normalizes entities deterministically without cache collisions.
 
 ### Core Concepts
 
@@ -86,6 +94,109 @@ function UserList() {
   const { loading, error, data } = useQuery(GET_USERS);
   if (loading) return <p>Loading...</p>;
   return <div>{data.users[0].email}</div>;
+}
+```
+
+#### 4. Request-Scoped DataLoader Factory (Eliminating N+1 Queries)
+Instantiate `DataLoader` inside the GraphQL `context` factory on every HTTP request so batching is isolated per user/tenant and never leaks cached rows across requests:
+
+```typescript
+// src/graphql/dataloaders.ts
+import DataLoader from 'dataloader';
+
+export interface PostSummary {
+  id: string;
+  authorId: string;
+  title: string;
+}
+
+export interface PostRepository {
+  findPostsByAuthorIds(authorIds: readonly string[], tenantId: string): Promise<PostSummary[]>;
+}
+
+export function createAuthorPostsLoader(repo: PostRepository, tenantId: string) {
+  return new DataLoader<string, PostSummary[]>(async (authorIds) => {
+    const rows = await repo.findPostsByAuthorIds(authorIds, tenantId);
+    const grouped = new Map<string, PostSummary[]>();
+    for (const row of rows) {
+      const list = grouped.get(row.authorId) ?? [];
+      list.push(row);
+      grouped.set(row.authorId, list);
+    }
+    return authorIds.map((id) => grouped.get(id) ?? []);
+  });
+}
+```
+
+#### 5. GraphQL AST Query Depth & Complexity Guard (`graphql`)
+Reject deeply nested or high-cost cyclical queries before resolver execution begins:
+
+```typescript
+// src/graphql/depth-limit-rule.ts
+import { GraphQLError, Kind, type ASTNode, type ValidationContext } from 'graphql';
+
+export function createMaxDepthValidationRule(maxDepth = 8) {
+  return function maxDepthRule(context: ValidationContext) {
+    function measureDepth(node: ASTNode, currentDepth: number): number {
+      if (currentDepth > maxDepth) {
+        context.reportError(
+          new GraphQLError(`Query depth ${currentDepth} exceeds maximum allowed depth of ${maxDepth}.`, {
+            nodes: [node],
+            extensions: { code: 'GRAPHQL_DEPTH_LIMIT_EXCEEDED' },
+          })
+        );
+        return currentDepth;
+      }
+      if ('selectionSet' in node && node.selectionSet) {
+        let deepest = currentDepth;
+        for (const selection of node.selectionSet.selections) {
+          const next = selection.kind === Kind.FIELD ? currentDepth + 1 : currentDepth;
+          deepest = Math.max(deepest, measureDepth(selection, next));
+        }
+        return deepest;
+      }
+      return currentDepth;
+    }
+
+    return {
+      OperationDefinition(node: ASTNode) {
+        measureDepth(node, 0);
+      },
+    };
+  };
+}
+```
+
+#### 6. Apollo Federation v2 Subgraph Entity & Reference Resolver
+Expose a federated `@Key({ fields: 'id' })` entity in NestJS/Apollo Subgraph that resolves cross-service references in batches:
+
+```typescript
+// src/graphql/invoice-subgraph.resolver.ts
+import { Directive, Field, ID, Int, ObjectType, Resolver, ResolveReference } from '@nestjs/graphql';
+
+@ObjectType()
+@Directive('@key(fields: "id")')
+export class InvoiceEntity {
+  @Field(() => ID)
+  id!: string;
+
+  @Field(() => Int)
+  amountMinor!: number;
+
+  @Field()
+  currency!: string;
+}
+
+@Resolver(() => InvoiceEntity)
+export class InvoiceSubgraphResolver {
+  constructor(
+    private readonly invoiceLoader: { load: (id: string) => Promise<InvoiceEntity> }
+  ) {}
+
+  @ResolveReference()
+  async resolveReference(reference: { __typename: string; id: string }): Promise<InvoiceEntity> {
+    return this.invoiceLoader.load(reference.id);
+  }
 }
 ```
 

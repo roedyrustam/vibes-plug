@@ -175,6 +175,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Mutable :latest Image Tag in Dockerfile',
       regex: /^\s*FROM\s+[^\s:@]+:latest\b/im,
       remediation: 'Pin container base images to explicit semantic versions and SHA256 digests (e.g., node:22.14.0-alpine@sha256:...).'
+    },
+    {
+      id: 'DOCKER_EXPOSED_SECRET_IN_ARG_OR_ENV',
+      severity: 'ERROR',
+      name: 'Sensitive Token or Secret Baked Into Dockerfile ARG/ENV Layer',
+      regex: /^\s*(?:ARG|ENV)\s+[A-Z0-9_]*(?:SECRET|PASSWORD|PRIVATE_KEY|NPM_TOKEN|GITHUB_TOKEN|API_KEY)\b/im,
+      remediation: 'Never pass secrets via Dockerfile ARG or ENV (which persist in image layer history); use BuildKit secret mounts (--mount=type=secret,id=npmrc).'
     }
   ],
   'mcp-server-architect': [
@@ -193,6 +200,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Hardcoded Live API Key or Secret Literal',
       regex: /\b(?:sk_live_[0-9a-zA-Z]{16,}|ghp_[0-9a-zA-Z]{24,}|AIza[0-9A-Za-z-_]{30,})\b/,
       remediation: 'Inject secrets dynamically via Zero-Trust vault (Infisical/Vault) or validated process.env variables.'
+    },
+    {
+      id: 'VAULT_WEAK_UNAUTHENTICATED_CIPHER',
+      severity: 'ERROR',
+      name: 'Unauthenticated Cipher Mode (AES-CBC / AES-ECB) Used for Secret Encryption',
+      regex: /createCipheriv\s*\(\s*['"]aes-\d+-(?:cbc|ecb)['"]/i,
+      remediation: 'Encrypt stored secrets exclusively with authenticated encryption (aes-256-gcm or chacha20-poly1305) with unique 12-byte IVs and tenant-bound AAD (cipher.setAAD).'
     }
   ],
   'olap-columnar-analytics-expert': [
@@ -413,6 +427,284 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /\brequireUserVerification\s*:\s*false\b/,
       remediation: 'Require user verification for sign-in and credential management; downgrade only with an explicit, documented risk decision.'
     }
+  ],
+  'graphql-apollo-expert': [
+    {
+      id: 'GRAPHQL_PROD_INTROSPECTION_ENABLED',
+      severity: 'WARN',
+      name: 'GraphQL Introspection Explicitly Enabled',
+      regex: /\bintrospection\s*:\s*true\b/,
+      remediation: 'Set introspection: false in production (or gate behind authenticated developer roles) and enforce query depth/complexity limits.'
+    },
+    {
+      id: 'GRAPHQL_RESOLVER_N_PLUS_ONE_QUERY',
+      severity: 'WARN',
+      name: 'Direct Database Lookup Inside Field Resolver Without DataLoader',
+      regex: /@ResolveField\s*\([^)]*\)[\s\S]{0,240}?\.(?:findUnique|findFirst|findOne|query)\s*\(/,
+      remediation: 'Batch nested @ResolveField lookups through a request-scoped DataLoader instance to eliminate N+1 database queries.'
+    }
+  ],
+  'biome-linter-formatter-expert': [
+    {
+      id: 'BIOME_FORMAT_WITH_ERRORS_ENABLED',
+      severity: 'ERROR',
+      name: 'Biome formatWithErrors Enabled in Configuration',
+      regex: /"formatWithErrors"\s*:\s*true\b/,
+      remediation: 'Set "formatWithErrors": false in biome.json so syntax-broken files are never reformatted.'
+    },
+    {
+      id: 'BIOME_CI_MUTATING_WRITE_FLAG',
+      severity: 'WARN',
+      name: 'Mutating biome check --write Used in CI Workflow',
+      regex: /\brun:\s*(?:npx\s+@biomejs\/)?biome\s+check\s+--write\b/,
+      remediation: 'Use read-only "biome ci ." in CI pipelines so formatting or lint violations fail with exit code 1.'
+    }
+  ],
+  'durable-agent-execution-expert': [
+    {
+      id: 'DURABLE_WORKFLOW_SETINTERVAL_POLLING',
+      severity: 'WARN',
+      name: 'In-Memory setInterval Polling Inside Durable Workflow',
+      regex: /\bsetInterval\s*\(/,
+      remediation: 'Use durable step.sleep() or step.waitForEvent() / Temporal signals instead of in-memory setInterval loops.'
+    },
+    {
+      id: 'DURABLE_UNJOURNALED_FETCH',
+      severity: 'WARN',
+      name: 'Direct fetch() Outside Durable step.do() Boundary',
+      regex: /export\s+async\s+function\s+run\w*Workflow[\s\S]{0,300}?(?<!step\.do\([^{]+)\bfetch\s*\(/,
+      remediation: 'Wrap every external fetch() or LLM call inside a journaled step.do() / Activity block so replays are deterministic.'
+    }
+  ],
+  'computer-use-os-agent-expert': [
+    {
+      id: 'CUA_UNCLAMPED_RAW_COORDINATES',
+      severity: 'WARN',
+      name: 'Unclamped Normalized [0..1000] Screen Coordinate Division',
+      regex: /\/\s*1000\s*\*\s*viewport\.(?:width|height)(?![\s\S]{0,120}?Math\.(?:min|max))/,
+      remediation: 'Clamp normalized [0, 1000] coordinates with Math.max(0, Math.min(viewport.widthPx - 1, xPx)) before dispatching OS mouse events.'
+    },
+    {
+      id: 'CUA_DESTRUCTIVE_HOST_EXEC',
+      severity: 'ERROR',
+      name: 'Unfiltered Shell Execution in Computer-Use Agent',
+      regex: /\bexecSync\s*\(\s*`[^`]*\$\{/,
+      remediation: 'Never pass interpolated model strings to execSync on the host; execute inside an ephemeral microVM/container behind an action policy gate.'
+    }
+  ],
+  'a2a-agent-protocol-expert': [
+    {
+      id: 'A2A_UNBOUNDED_DELEGATION_HOP',
+      severity: 'WARN',
+      name: 'A2A Task Delegation Without Hop-Depth Check',
+      regex: /method\s*:\s*['"]tasks\/send['"](?![\s\S]{0,400}?\b(?:hopDepth|maxHops|delegationDepth)\b)/,
+      remediation: 'Propagate and enforce a maximum delegation hop count (maxHops <= 4) on federated tasks/send calls to prevent agent ping-pong loops.'
+    },
+    {
+      id: 'A2A_INSECURE_HTTP_AGENT_CARD_URL',
+      severity: 'WARN',
+      name: 'Non-HTTPS URL in Production A2A Agent Card',
+      regex: /\bFINTECH_AUDITOR_AGENT_CARD[\s\S]{0,200}?\burl\s*:\s*['"]http:\/\/(?!localhost|127\.0\.0\.1)/,
+      remediation: 'Publish A2A Agent Card endpoints over HTTPS with Bearer OAuth2 or MutualTLS authentication.'
+    }
+  ],
+  'sse-websocket-streaming-expert': [
+    {
+      id: 'SSE_MISSING_ACCEL_BUFFERING_HEADER',
+      severity: 'WARN',
+      name: 'SSE Stream Missing X-Accel-Buffering: no Header',
+      regex: /\bstreamSSE\s*\((?![\s\S]{0,300}?X-Accel-Buffering)/,
+      remediation: 'Set X-Accel-Buffering: no and Cache-Control: no-cache, no-transform before calling streamSSE() so reverse proxies do not buffer chunks.'
+    },
+    {
+      id: 'SSE_HEARTBEAT_INTERVAL_LEAK',
+      severity: 'ERROR',
+      name: 'SSE Heartbeat setInterval Without clearInterval Cleanup',
+      regex: /\bstreamSSE\s*\([\s\S]{0,600}?\bsetInterval\s*\((?![\s\S]{0,600}?\bclearInterval\s*\()/,
+      remediation: 'Always clear SSE heartbeat intervals inside stream.onAbort() and a finally {} block to prevent server timer leaks.'
+    }
+  ],
+  'micro-frontend-architect': [
+    {
+      id: 'MFE_SHARED_REACT_WITHOUT_SINGLETON',
+      severity: 'ERROR',
+      name: 'Module Federation Shared React Without singleton: true',
+      regex: /shared\s*:\s*\{[\s\S]{0,200}?['"]?react['"]?\s*:\s*\{(?![^}]*\bsingleton\s*:\s*true)/,
+      remediation: 'Configure shared: { react: { singleton: true }, "react-dom": { singleton: true } } in Module Federation to prevent multiple React instances.'
+    }
+  ],
+  'authentication-identity-expert': [
+    {
+      id: 'AUTH_WEAK_PASSWORD_HASH',
+      severity: 'ERROR',
+      name: 'Weak Hash Algorithm (MD5/SHA1/SHA256) Used for Password Hashing',
+      regex: /createHash\s*\(\s*['"](?:md5|sha1|sha256)['"]\s*\)[\s\S]{0,120}?password/i,
+      remediation: 'Hash passwords exclusively with Argon2id (@node-rs/argon2) or bcrypt (cost >= 12); never use fast general-purpose hashes.'
+    },
+    {
+      id: 'AUTH_JWT_NONE_ALGORITHM',
+      severity: 'ERROR',
+      name: 'JWT Verification Allowing "none" Algorithm',
+      regex: /algorithms\s*:\s*\[[^\]]*['"]none['"]/i,
+      remediation: 'Pin explicit asymmetric or HMAC algorithms (e.g. ["EdDSA", "ES256"]) in jwtVerify() and reject "none".'
+    }
+  ],
+  'logging-error-tracking-expert': [
+    {
+      id: 'LOGGING_UNREDACTED_PII_SECRET',
+      severity: 'ERROR',
+      name: 'Pino Logger Created Without Sensitive Field Redaction',
+      regex: /\bpino\s*\(\s*\{(?![\s\S]{0,400}?\bredact\s*:)/,
+      remediation: 'Configure redact: { paths: ["req.headers.authorization", "*.password", "*.token", "*.secret"], censor: "[REDACTED]" } in Pino.'
+    }
+  ],
+  'saas-multi-tenant': [
+    {
+      id: 'SAAS_TENANT_QUERY_WITHOUT_TENANT_FILTER',
+      severity: 'WARN',
+      name: 'Multi-Tenant Query Missing tenantId Scope',
+      regex: /prisma\.(?:invoice|subscription|project|member|document)\.findMany\s*\(\s*\{\s*\}\s*\)/,
+      remediation: 'Scope every multi-tenant query by tenantId and enforce PostgreSQL Row Level Security (current_setting("app.current_tenant_id")).'
+    }
+  ],
+  'spa-orchestrator': [
+    {
+      id: 'SPA_TOKEN_IN_LOCALSTORAGE',
+      severity: 'WARN',
+      name: 'Sensitive Access/Refresh Token Stored in localStorage',
+      regex: /localStorage\.setItem\s*\(\s*['"][^'"]*(?:token|jwt|session)['"]/i,
+      remediation: 'Store session and refresh tokens in HttpOnly, Secure, SameSite=Lax/Strict cookies or BFF session stores instead of XSS-accessible localStorage.'
+    }
+  ],
+  'rea-tool-design': [
+    {
+      id: 'REA_MISSING_EVIDENCE_SPAN',
+      severity: 'WARN',
+      name: 'REA Tool Result Constructed Without Evidence Array',
+      regex: /\bexaminedScope\s*:[\s\S]{0,200}?\bdata\s*:(?![\s\S]{0,200}?\bevidence\s*:)/,
+      remediation: 'Attach a verified ReaEvidenceSpan[] array (artifactDigest, provider, addressOrPath, confidence) to every ReaToolResult.'
+    }
+  ],
+  'data-pipeline-etl-expert': [
+    {
+      id: 'ETL_INCREMENTAL_MISSING_UNIQUE_KEY',
+      severity: 'WARN',
+      name: 'dbt Incremental Model Configured Without unique_key Idempotency Contract',
+      regex: /materialized\s*=\s*['"]incremental['"](?![\s\S]{0,240}?\bunique_key\b)/,
+      remediation: 'Declare an explicit unique_key and incremental_strategy = "merge" in dbt incremental models so partition reruns are idempotent.'
+    },
+    {
+      id: 'ETL_UNEXPORTED_RAW_CSV_DUMP',
+      severity: 'WARN',
+      name: 'Uncompressed CSV Output in Analytical Lakehouse Pipeline',
+      regex: /\bCOPY\b[\s\S]{0,240}?\bFORMAT\s+CSV\b/i,
+      remediation: 'Write analytical lakehouse outputs in columnar PARQUET format with ZSTD compression (FORMAT PARQUET, CODEC "ZSTD").'
+    }
+  ],
+  'search-engine-expert': [
+    {
+      id: 'SEARCH_LEADING_WILDCARD_ILIKE',
+      severity: 'WARN',
+      name: 'Unindexed Leading-Wildcard SQL LIKE/ILIKE Full-Table Scan',
+      regex: /\bI?LIKE\s+['"]%\$\{[^}]+\}%['"]/i,
+      remediation: 'Replace leading-wildcard LIKE "%query%" scans with PostgreSQL tsvector GIN indexes (websearch_to_tsquery), pg_trgm, or Typesense/Meilisearch.'
+    },
+    {
+      id: 'SEARCH_RAW_SCORE_SUM_WITHOUT_RRF',
+      severity: 'WARN',
+      name: 'Naive Raw Addition of Lexical BM25 and Cosine Vector Scores',
+      regex: /\bbm25Score\s*\+\s*(?:vectorScore|cosineSimilarity)\b/,
+      remediation: 'Merge lexical and vector rankings using Reciprocal Rank Fusion: 1 / (60 + lexicalRank) + 1 / (60 + vectorRank).'
+    }
+  ],
+  'graph-rag-knowledge-expert': [
+    {
+      id: 'GRAPHRAG_MUTATING_CYPHER_EXECUTION',
+      severity: 'ERROR',
+      name: 'Mutating Cypher Clause Executed in GraphRAG Query Path',
+      regex: /session\.run\s*\(\s*[`'"]\s*(?:CREATE|MERGE|DELETE|DETACH\s+DELETE|DROP)\b/i,
+      remediation: 'Enforce read-only access (defaultAccessMode: neo4j.session.READ) and validate Text2Cypher queries through a deterministic read-only firewall.'
+    },
+    {
+      id: 'GRAPHRAG_UNBOUNDED_VARIABLE_HOP',
+      severity: 'WARN',
+      name: 'Unbounded Variable-Length Cypher Path Traversal [*]',
+      regex: /-\[\s*[a-zA-Z0-9_]*\s*\*\s*\]->/,
+      remediation: 'Cap multi-hop Cypher traversals to explicit bounds (e.g., -[*1..3]->) and include a LIMIT clause to prevent combinatorial graph explosion.'
+    }
+  ],
+  'event-driven-architect': [
+    {
+      id: 'EDA_DUAL_WRITE_BROKER_IN_DB_TX',
+      severity: 'ERROR',
+      name: 'Direct Message Broker Publish Inside Database Transaction (Dual-Write Anomaly)',
+      regex: /db\.transaction\s*\([\s\S]{0,500}?\b(?:kafkaProducer\.send|producer\.send|channel\.publish|rabbit\.publish)\s*\(/,
+      remediation: 'Never publish directly to a message broker inside a DB transaction; insert into outbox_events in the same SQL transaction and relay asynchronously.'
+    },
+    {
+      id: 'EDA_OUTBOX_POLL_WITHOUT_SKIP_LOCKED',
+      severity: 'WARN',
+      name: 'Outbox Table Polling Query Missing FOR UPDATE SKIP LOCKED',
+      regex: /SELECT[\s\S]{0,200}?FROM\s+outbox_events[\s\S]{0,160}?WHERE\s+status\s*=\s*['"]PENDING['"](?![\s\S]{0,120}?FOR\s+UPDATE\s+SKIP\s+LOCKED)/i,
+      remediation: 'Append FOR UPDATE SKIP LOCKED when polling outbox_events so concurrent relay workers never publish duplicate events.'
+    }
+  ],
+  'domain-driven-design-expert': [
+    {
+      id: 'DDD_INFRASTRUCTURE_IMPORT_IN_DOMAIN',
+      severity: 'ERROR',
+      name: 'ORM or HTTP Framework Imported Inside Pure Domain Layer',
+      regex: /\/\/\s*src\/domain\/[\s\S]{0,240}?import\s+[\s\S]{0,80}?from\s+['"](?:@prisma\/client|drizzle-orm|typeorm|express|hono|next\/server)['"]/,
+      remediation: 'Keep src/domain/ 100% pure: move ORM mappers and HTTP adapters to src/infrastructure/ and depend only on domain interfaces.'
+    },
+    {
+      id: 'DDD_FLOAT_NUMBER_CURRENCY_VO',
+      severity: 'WARN',
+      name: 'Floating-Point number Used for Monetary Value Object Amount',
+      regex: /class\s+Money\b[\s\S]{0,200}?\bamount\s*:\s*number\b/,
+      remediation: 'Represent monetary amounts in Value Objects as bigint minor units (amountMinor: bigint) to eliminate IEEE-754 rounding drift.'
+    }
+  ],
+  'api-gateway-proxy-expert': [
+    {
+      id: 'PROXY_SPOOFABLE_XFF_FIRST_HOP',
+      severity: 'WARN',
+      name: 'Spoofable Leftmost X-Forwarded-For Hop Used for Client IP',
+      regex: /headers(?:\.get)?\s*\(\s*['"]x-forwarded-for['"]\s*\)[\s\S]{0,40}?\.split\s*\(\s*['"],['"]\s*\)\s*\[\s*0\s*\]/i,
+      remediation: 'Do not trust the leftmost X-Forwarded-For entry directly; parse right-to-left skipping only verified trusted proxy CIDR hops.'
+    },
+    {
+      id: 'PROXY_SSE_BUFFERING_ON',
+      severity: 'ERROR',
+      name: 'NGINX proxy_buffering on Configured on Streaming Location',
+      regex: /location\s+[^\n{]*(?:stream|sse|events)[^\n{]*\{[\s\S]{0,300}?proxy_buffering\s+on\s*;/i,
+      remediation: 'Set proxy_buffering off; and proxy_cache off; on SSE and AI streaming locations so chunks flush immediately.'
+    }
+  ],
+  'ci-cd-devops-architect': [
+    {
+      id: 'CICD_UNFROZEN_LOCKFILE_INSTALL',
+      severity: 'WARN',
+      name: 'CI Pipeline Running pnpm/yarn Install Without --frozen-lockfile',
+      regex: /\brun:\s*pnpm\s+install\b(?![^\n]*--frozen-lockfile)/,
+      remediation: 'Always pass --frozen-lockfile (or npm ci) in CI workflows so lockfile drift fails the build deterministically.'
+    },
+    {
+      id: 'CICD_STATIC_AWS_SECRET_KEYS_IN_WORKFLOW',
+      severity: 'ERROR',
+      name: 'Static Long-Lived Cloud Access Keys Used in GitHub Actions',
+      regex: /\baws-secret-access-key\s*:\s*\$\{\{\s*secrets\./,
+      remediation: 'Replace static cloud access keys with keyless OIDC federation (role-to-assume + permissions: id-token: write).'
+    }
+  ],
+  'feature-flag-analytics-expert': [
+    {
+      id: 'FLAG_NON_DETERMINISTIC_MATH_RANDOM',
+      severity: 'ERROR',
+      name: 'Non-Deterministic Math.random() Used for Feature Flag Rollout Bucketing',
+      regex: /Math\.random\s*\(\s*\)\s*<\s*(?:rollout|percentage|flag)/i,
+      remediation: 'Bucket users deterministically by hashing (flagKey + ":" + distinctId) with SHA-256 or Murmur3 so users never flip variants on refresh.'
+    }
   ]
 });
 
@@ -510,18 +802,48 @@ export async function extractDeclarativeRulesFromSkill(skillName, rawContent = n
   // Extract English section only to avoid bilingual duplication
   const enSection = extractLanguageSection(content, 'en');
 
-  // Extract bullet points under Best Practices / Technical Guidelines / Invariants
+  // Remove Orchestration & Integration blocks so cross-skill metadata links do not pollute domain mandates
+  const enWithoutOrchestration = enSection.replace(
+    /###?\s+Orchestration\s*&\s*Integration[\s\S]*?(?=\r?\n###?\s+(?!Orchestration)|$)/gi,
+    ''
+  );
+
+  // Extract bullet points under Hard Guardrails / Best Practices / Technical Guidelines / Checklists
   const guidelineBullets = [];
-  const bulletRegex = /^\s*(?:[-*]|\d+\.)\s+\*\*([^*]+)\*\*[:\s—-]*([^\r\n]+)/gm;
-  let match;
-  while ((match = bulletRegex.exec(enSection)) !== null) {
-    const title = match[1].trim();
-    const detail = match[2].trim();
-    if (
-      !/^(English|Bahasa Indonesia|Frontier Model|Availability Fallback|KV-Cache|SaaT CLI)$/i.test(title) &&
-      guidelineBullets.length < 8
-    ) {
+  const seenTitles = new Set();
+  const skipTitleRegex = /^(English|Bahasa Indonesia|Frontier Model|Availability Fallback|KV-Cache|SaaT CLI|NFR\s*&|Upstream Orchestrators|Downstream Cooperating|Cross-Domain Synergy|Formal Mathematical|MANDATORY)$/i;
+
+  const pushMandate = (rawTitle, rawDetail) => {
+    const title = rawTitle.replace(/^[`*\s]+|[`*\s:]+$/g, '').trim();
+    const detail = rawDetail.replace(/^\s*[:—-]\s*/, '').trim();
+    if (!title || !detail || detail.length < 8) return;
+    if (skipTitleRegex.test(title) || seenTitles.has(title.toLowerCase())) return;
+    if (guidelineBullets.length < 8) {
+      seenTitles.add(title.toLowerCase());
       guidelineBullets.push({ rule: title, mandate: detail });
+    }
+  };
+
+  // 1. Standard bold bullets & checkbox bullets: - **Rule**: detail or - [ ] **Rule**: detail
+  const bulletRegex = /^\s*(?:[-*]|\d+\.)\s+(?:\[[ xX]\]\s+)?\*\*([^*]+)\*\*[:\s—-]*([^\r\n]+)/gm;
+  let match;
+  while ((match = bulletRegex.exec(enWithoutOrchestration)) !== null) {
+    pushMandate(match[1], match[2]);
+  }
+
+  // 2. Fallback: Markdown table rows with bold first column (excluding Sovereign Execution Matrix headers)
+  if (guidelineBullets.length < 5) {
+    const tableRowRegex = /^\|\s*\*\*([^|*]+)\*\*\s*\|\s*([^|\r\n]+)\|/gm;
+    while ((match = tableRowRegex.exec(enWithoutOrchestration)) !== null) {
+      pushMandate(match[1], match[2]);
+    }
+  }
+
+  // 3. Fallback: Numbered technical guideline headings (### 1. Title / #### 1. Title) followed by prose
+  if (guidelineBullets.length < 5) {
+    const headingRuleRegex = /^#{2,4}\s+(?:\d+\.\s+|Strategy\s+\d+:\s*)([^\r\n]+)\r?\n+([^\r\n#`|>-][^\r\n]{15,})/gm;
+    while ((match = headingRuleRegex.exec(enWithoutOrchestration)) !== null) {
+      pushMandate(match[1], match[2]);
     }
   }
 

@@ -1,6 +1,6 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T16:34:48.156Z",
+  "generatedAt": "2026-11-10T16:53:43.729Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 90,
   "incrementalReusedFiles": 88,
@@ -3782,7 +3782,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 456,
+        "line": 748,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3802,17 +3802,23 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 507,
+        "line": 799,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
           "readFile",
           "join",
           "extractLanguageSection",
-          "exec",
+          "replace",
+          "Set",
           "trim",
           "test",
+          "has",
+          "toLowerCase",
+          "add",
           "push",
+          "exec",
+          "pushMandate",
           "match",
           "map"
         ]
@@ -3821,7 +3827,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 558,
+        "line": 880,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -3839,7 +3845,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 605,
+        "line": 927,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -3853,7 +3859,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 650,
+        "line": 972,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -13190,10 +13196,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 670,
+      "totalLines": 992,
       "symbolCount": 5,
-      "mtimeMs": 1794327966484,
-      "size": 31464,
+      "mtimeMs": 1794329593057,
+      "size": 47595,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13230,7 +13236,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 456,
+          "line": 748,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13248,24 +13254,30 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 507,
+          "line": 799,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
             "readFile",
             "join",
             "extractLanguageSection",
-            "exec",
+            "replace",
+            "Set",
             "trim",
             "test",
+            "has",
+            "toLowerCase",
+            "add",
             "push",
+            "exec",
+            "pushMandate",
             "match",
             "map"
           ]
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 558,
+          "line": 880,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13281,7 +13293,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 605,
+          "line": 927,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13293,7 +13305,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 650,
+          "line": 972,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -15258,10 +15270,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2321,
+      "totalLines": 2343,
       "symbolCount": 1,
-      "mtimeMs": 1794327960526,
-      "size": 110720,
+      "mtimeMs": 1794329595636,
+      "size": 113999,
       "exports": [],
       "imports": [
         {

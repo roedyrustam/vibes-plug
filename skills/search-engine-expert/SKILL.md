@@ -110,6 +110,133 @@ When blending keyword search with vector semantic search, apply RRF to avoid sco
 $$\text{RRF Score}(d) = \sum_{m \in M} \frac{1}{60 + r_m(d)}$$
 Where $r_m(d)$ is the 1-based rank of document $d$ in system $m$ (BM25 or Dense Vector).
 
+### Level 3: Deterministic Reciprocal Rank Fusion (RRF) Hybrid Merger (TypeScript)
+Combine lexical BM25 results (Typesense/Postgres FTS) with dense vector search results without brittle min-max score normalization:
+
+```typescript
+// src/lib/search/hybrid-rrf-merger.ts
+export interface RankedSearchHit<T> {
+  readonly id: string;
+  readonly document: T;
+  readonly sourceScore: number;
+}
+
+export interface FusedSearchHit<T> {
+  readonly id: string;
+  readonly document: T;
+  readonly rrfScore: number;
+  readonly lexicalRank: number | null;
+  readonly vectorRank: number | null;
+}
+
+export function fuseHybridSearchResults<T>(
+  lexicalHits: readonly RankedSearchHit<T>[],
+  vectorHits: readonly RankedSearchHit<T>[],
+  kConstant = 60,
+  topK = 24
+): FusedSearchHit<T>[] {
+  const fusedMap = new Map<
+    string,
+    { document: T; rrfScore: number; lexicalRank: number | null; vectorRank: number | null }
+  >();
+
+  lexicalHits.forEach((hit, index) => {
+    const rank = index + 1;
+    const contribution = 1 / (kConstant + rank);
+    fusedMap.set(hit.id, {
+      document: hit.document,
+      rrfScore: contribution,
+      lexicalRank: rank,
+      vectorRank: null,
+    });
+  });
+
+  vectorHits.forEach((hit, index) => {
+    const rank = index + 1;
+    const contribution = 1 / (kConstant + rank);
+    const existing = fusedMap.get(hit.id);
+    if (existing) {
+      existing.rrfScore += contribution;
+      existing.vectorRank = rank;
+    } else {
+      fusedMap.set(hit.id, {
+        document: hit.document,
+        rrfScore: contribution,
+        lexicalRank: null,
+        vectorRank: rank,
+      });
+    }
+  });
+
+  return Array.from(fusedMap.entries())
+    .map(([id, entry]) => ({ id, ...entry }))
+    .sort((a, b) => b.rrfScore - a.rrfScore)
+    .slice(0, topK);
+}
+```
+
+### Level 4: Zero-Downtime Blue/Green Collection Alias Reindexer (TypeScript)
+Never mutate a live search collection schema in place. Build a timestamped shadow collection, bulk-import documents, and atomically flip the collection alias:
+
+```typescript
+// src/lib/search/zero-downtime-reindex.ts
+import { typesenseClient } from './typesense-client';
+
+export async function reindexProductsZeroDowntime(
+  documents: Record<string, unknown>[],
+  aliasName = 'products'
+): Promise<{ activeCollection: string; indexedCount: number }> {
+  const timestamp = Date.now();
+  const nextCollectionName = `${aliasName}_v_${timestamp}`;
+
+  await typesenseClient.collections().create({
+    name: nextCollectionName,
+    fields: [
+      { name: 'id', type: 'string' },
+      { name: 'tenant_id', type: 'string', facet: true },
+      { name: 'name', type: 'string' },
+      { name: 'description', type: 'string' },
+      { name: 'brand', type: 'string', facet: true },
+      { name: 'category', type: 'string', facet: true },
+      { name: 'price', type: 'float', facet: true },
+      { name: 'rating', type: 'float' },
+    ],
+    default_sorting_field: 'rating',
+  });
+
+  if (documents.length > 0) {
+    await typesenseClient
+      .collections(nextCollectionName)
+      .documents()
+      .import(documents, { action: 'upsert' });
+  }
+
+  let previousCollectionName: string | null = null;
+  try {
+    const existingAlias = await typesenseClient.aliases(aliasName).retrieve();
+    previousCollectionName = existingAlias.collection_name;
+  } catch {
+    previousCollectionName = null;
+  }
+
+  await typesenseClient.aliases().upsert(aliasName, {
+    collection_name: nextCollectionName,
+  });
+
+  if (previousCollectionName && previousCollectionName !== nextCollectionName) {
+    await typesenseClient.collections(previousCollectionName).delete();
+  }
+
+  return { activeCollection: nextCollectionName, indexedCount: documents.length };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Ban Unindexed SQL `LIKE '%term%'` Wildcard Scans**: Never run leading-wildcard `LIKE '%query%'` or `ILIKE '%query%'` on production tables >10,000 rows without a `GIN` (`tsvector` or `gin_trgm_ops`) index.
+- **Multi-Tenant Scoped Search Keys**: Never expose master search admin API keys to browser clients; mint HMAC-signed scoped search tokens enforcing `filter_by: tenant_id:=${tenantId}`.
+- **Zero-Downtime Alias Swapping**: Schema migrations on Typesense, Meilisearch, or OpenSearch must build a new versioned index and swap the alias atomically rather than dropping a live index.
+- **Reciprocal Rank Fusion (RRF) for Hybrid Search**: Merge lexical BM25 and dense vector rankings using RRF ($k = 60$) instead of arbitrary raw score addition.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

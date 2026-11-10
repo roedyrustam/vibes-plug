@@ -29,7 +29,15 @@ Expert guide for Biome v2, the unified, ultra-fast Rust-based linter, formatter,
 - Scaffolding new JavaScript, TypeScript, JSX, or CSS projects requiring sub-second linting and formatting.
 - Migrating codebases from slow ESLint + Prettier setups (achieving 10-100x speedup).
 - Configuring Git pre-commit hooks to prevent bad commits from entering the repository.
-- Resolving lint rule conflicts between formatting and syntactic validation.
+- Authoring custom AST lint patterns with Biome GritQL plugins (`.grit`).
+
+### Hard Guardrails (Declarative Invariants)
+- **Single Unified Toolchain (`biome.json`)**: Never run ESLint and Prettier alongside Biome on the same file extensions; delete legacy `.eslintrc*` and `.prettierrc*` after running `biome migrate`.
+- **Read-Only `biome ci` in Pipelines**: Always run `biome ci .` (never `biome check --write`) in CI workflows so unformatted or lint-violating commits fail the build cleanly without dirtying the runner worktree.
+- **Disable `formatWithErrors` in Production**: Keep `"formatWithErrors": false` in `biome.json` so syntax-corrupted files are never silently reformatted.
+- **VCS Ignore Synchronization**: Enable `"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true }` so build artifacts (`dist/`, `.next/`, `node_modules/`) are never scanned.
+- **Promote Correctness & Security Rules to Error**: Set `noUnusedVariables`, `useHookAtTopLevel`, `noPrecisionLoss`, and `noDangerouslySetInnerHtml` to `"error"`.
+- **Enforce Custom Architectural Boundaries via GritQL**: Use Biome v2 GritQL plugins (`plugins: ["./rules/no-raw-sql.grit"]`) to enforce project-specific AST invariants at Rust speed.
 
 ### Production `biome.json` Configuration (v2.0 Standard)
 
@@ -116,6 +124,72 @@ npx @biomejs/biome check --write ./src
 
 # CI verification (exit code 1 on errors without modifying files)
 npx @biomejs/biome ci ./src
+```
+
+### Custom Architectural AST Rule with Biome v2 GritQL (`rules/no-console-in-src.grit`)
+Enforce custom domain invariants at Rust parser speed using Biome's native GritQL pattern matcher:
+
+```grit
+language js
+
+`console.log($args)` as $call where {
+  register_diagnostic(
+    span = $call,
+    message = "Use structured Pino logger (logger.info) instead of raw console.log in production modules.",
+    severity = "error"
+  )
+}
+```
+
+### Monorepo Override & Scoped Test Relaxation (`apps/web/biome.json`)
+Inherit root `biome.json` settings across a Turborepo/pnpm monorepo with `"extends": "//"` while relaxing mock rules only inside `*.test.ts` files:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": ["**/*.test.ts", "**/*.spec.tsx"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Programmatic Biome JSON Diagnostics Parser (TypeScript)
+Parse `biome ci --reporter=json` output for automated CI annotations and self-healing repair loops:
+
+```typescript
+// src/quality/biome-json-reporter.ts
+export interface BiomeDiagnosticEntry {
+  readonly category: string;
+  readonly severity: 'error' | 'warning' | 'information';
+  readonly description: string;
+  readonly location: {
+    readonly path: { readonly file: string };
+    readonly span?: readonly [number, number];
+  };
+}
+
+export interface BiomeJsonReport {
+  readonly summary: {
+    readonly errors: number;
+    readonly warnings: number;
+  };
+  readonly diagnostics: readonly BiomeDiagnosticEntry[];
+}
+
+export function extractActionableBiomeErrors(rawJson: string): BiomeDiagnosticEntry[] {
+  const parsed = JSON.parse(rawJson) as BiomeJsonReport;
+  return (parsed.diagnostics ?? []).filter((d) => d.severity === 'error');
+}
 ```
 
 ### Sovereign Execution, Token Efficiency & Invariants

@@ -180,6 +180,100 @@ export function verifyWebhookHmacDualKey(
 
 ---
 
+#### 4. Dynamic Lease Secret Refresher with In-Memory Buffer Zeroization (TypeScript)
+Fetch short-lived credentials from Vault/Infisical with automatic background lease renewal before expiry and explicit `Buffer.fill(0)` memory zeroization on process shutdown:
+
+```typescript
+// src/lib/vault/lease-secret-manager.ts
+export interface DynamicSecretLease {
+  readonly secretValue: string;
+  readonly leaseDurationSeconds: number;
+  readonly renewable: boolean;
+}
+
+export class ZeroTrustLeaseManager {
+  private secretBuffer: Buffer | null = null;
+  private refreshTimer: ReturnType<typeof setTimeout> | null = null;
+
+  constructor(private readonly fetchLease: () => Promise<DynamicSecretLease>) {}
+
+  public async initialize(): Promise<void> {
+    const lease = await this.fetchLease();
+    this.writeToBuffer(lease.secretValue);
+    this.scheduleRenewal(lease.leaseDurationSeconds);
+  }
+
+  public getSecret(): string {
+    if (!this.secretBuffer) {
+      throw new Error('VAULT_LEASE_UNINITIALIZED: Secret buffer has not been initialized or was zeroized.');
+    }
+    return this.secretBuffer.toString('utf8');
+  }
+
+  public zeroizeAndStop(): void {
+    if (this.refreshTimer) {
+      clearTimeout(this.refreshTimer);
+      this.refreshTimer = null;
+    }
+    if (this.secretBuffer) {
+      this.secretBuffer.fill(0);
+      this.secretBuffer = null;
+    }
+  }
+
+  private writeToBuffer(nextSecret: string): void {
+    if (this.secretBuffer) {
+      this.secretBuffer.fill(0);
+    }
+    this.secretBuffer = Buffer.from(nextSecret, 'utf8');
+  }
+
+  private scheduleRenewal(ttlSeconds: number): void {
+    const renewAfterMs = Math.max(5_000, Math.floor(ttlSeconds * 0.75 * 1000));
+    this.refreshTimer = setTimeout(async () => {
+      const nextLease = await this.fetchLease();
+      this.writeToBuffer(nextLease.secretValue);
+      this.scheduleRenewal(nextLease.leaseDurationSeconds);
+    }, renewAfterMs);
+    this.refreshTimer.unref();
+  }
+}
+```
+
+---
+
+#### 5. Strict `.gitleaks.toml` Pre-Commit Secret & Private-Key Firewall (`toml`)
+Block accidental commits of `.env` files, private PEM keys, DOKU/Stripe live keys, and high-entropy tokens before they enter Git history:
+
+```toml
+# .gitleaks.toml
+title = "Vibes-Plug Zero-Trust Gitleaks Configuration"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "vibes-private-key-pem"
+description = "Detect PEM-encoded Private Keys"
+regex = '''-----BEGIN (?:RSA |EC |OPENSSH |PRIVATE )?PRIVATE KEY-----'''
+tags = ["key", "pem", "zero-trust"]
+
+[[rules]]
+id = "vibes-doku-stripe-live-secret"
+description = "Detect Live Payment Gateway Secret Keys"
+regex = '''(?i)(?:sk_live_[0-9a-zA-Z]{24,}|SK-[0-9a-zA-Z]{20,})'''
+tags = ["fintech", "payment", "secret"]
+
+[allowlist]
+description = "Allow template example files only"
+paths = [
+  '''^\.env\.example$''',
+  '''^\.env\.template$'''
+]
+```
+
+---
+
 ### Verification Checklist
 - [ ] `.env*` files (except `.env.example`) are blocked in `.gitignore`, `.dockerignore`, and `.gitleaks.toml`.
 - [ ] Application startup validates all required environment variables via a strict Zod schema and throws immediately if invalid.
