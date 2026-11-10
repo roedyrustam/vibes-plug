@@ -110,6 +110,16 @@ Active automatically whenever the user asks to:
 4. Write Cloud Functions for Firebase that require authentication and validation.
 5. Discuss Firebase security architecture, API keys, or Service Accounts.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Prohibition of Wildcard Public Access Rules**:
+   - `firestore.rules` and `storage.rules` MUST NOT declare open read/write access (`allow read, write: if true;` or `allow write: if true;`). All production collections and storage paths must be guarded by explicit `request.auth != null` and tenant/owner validation checks.
+2. **Client-Side Service Account Key Embedding Ban**:
+   - Firebase Service Account JSON credentials (`service-account.json` or `private_key`) MUST NEVER be committed to version control or bundled into client-side web/mobile bundles. Admin SDK operations must run strictly in secure server runtimes or Cloud Functions.
+3. **Callable Cloud Function Authentication Context Gate**:
+   - All callable Cloud Functions (`onCall` or HTTPS handlers) processing sensitive business logic or mutations MUST verify `context.auth` (or `request.auth`) and throw `HttpsError('unauthenticated')` if unauthenticated.
+4. **Custom Claims Server-Only Mutation Invariant**:
+   - JWT custom user claims (`auth.setCustomUserClaims`) MUST ONLY be updated from server-side admin environments after validating authorization; client-side modification of custom claims is strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -117,7 +127,7 @@ Active automatically whenever the user asks to:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec firebase-security-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% authenticated rule coverage on private documents, zero wildcard public write rules, App Check enforcement on all mutation endpoints; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -229,4 +239,4 @@ Aktif secara otomatis setiap kali pengguna meminta untuk:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec firebase-security-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% cakupan aturan terautentikasi pada dokumen privat, zero aturan tulis publik wildcard, penegakan App Check pada seluruh endpoint mutasi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
