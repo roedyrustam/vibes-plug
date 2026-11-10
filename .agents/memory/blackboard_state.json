@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-10T19:59:03.676Z",
+  "updatedAt": "2026-11-10T21:14:31.287Z",
   "entries": {
     "schema:users": {
       "key": "schema:users",
@@ -20,5 +20,6 @@
       "authorAgent": "mcp-agent",
       "updatedAt": "2026-11-10T19:59:03.675Z"
     }
-  }
+  },
+  "auto_swarm": true
 }
