@@ -125,8 +125,15 @@ VibesPlug Pro embeds 7 foundational engineering engines that give AI models sub-
 | **P4: Speculative PRM Arbiter**| `vibes arbitrate [draftA] [draftB]`| Heuristic Process Reward Model (PRM) evaluator scoring competing code drafts across Type Safety, Anti-Slop, Error Resilience, and Algorithmic Complexity. |
 | **P5: Invariant Verifier (SMT)**| `vibes verify-invariants [file]` | Proves state machine transitions (SaaS billing, auth, orders), detects unreachable states and deadlocks, and generates SMT-LIB 2.0 specifications for Z3/CVC5. |
 | **P6: Ephemeral WASM/VM Sandbox**| `vibes sandbox "<code\|file>"` | Ultra-low latency (<2ms) isolated micro-sandbox evaluating AI code with wall-clock timeout kill and zero host access. |
-| **P7: Universal SaaT Dispatcher** | `vibes skill exec <skill> <act>` | Turns all 178 declarative skills & 1,000+ code blueprints into deterministic executable tools across 8 domain adapters, 8 multi-skill chains (`vibes skill chain`), and 93%-compressed subagent micro-slices (`.skill-slices.json`). |
+| **P7: Universal SaaT Dispatcher** | `vibes skill exec <skill> <act>` | Turns all 178 declarative skills & 1,081 code blueprints into deterministic executable tools across 8 domain adapters, per-skill AST/Regex guardrails (`rules`/`verify`), contextual file/intent auto-routing (`skill="auto"`), language-segmented loading (`read --lang=en\|id` for 45–55% token savings), 9 multi-skill chains (`vibes skill chain`), and subagent micro-slices (`.skill-slices.json`). |
 | **P8: Schema Drift Healer** | `vibes drift:heal [sql] [ts]` | Detects structural drift between PostgreSQL DDL schemas and TypeScript/Zod/OpenAPI contracts (missing columns, nullability, RLS) and synthesizes a zero-drift healing patch. |
+
+### ⚡ Executable Skill Engine & Contextual Auto-Router (`skill-rules-engine`)
+Every skill in VibesPlug is backed by deterministic execution and active guardrails rather than passive prose:
+- **Per-Skill AST & Regex Guardrails (`rules` / `verify`)**: Enforces framework-specific invariants (e.g., Next.js 15 async `params`, React 19 Compiler & `useEffect` fetch bans, Tailwind v4 `@theme` CSS-first tokens, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, Rust `// SAFETY:` comments & `.unwrap()` bans, Go error handling, Python Pydantic v2 `.model_dump()`, PostgreSQL RLS, DOKU/SNAP BI constant-time `timingSafeEqual` HMAC & integer minor-unit currency, Docker `:latest` tag bans, and MCP stdio `stdout` protection).
+- **Contextual File & Intent Auto-Router (`vibes skill exec auto verify --file=<path>`)**: Automatically matches file extensions (`.rs`, `.go`, `.py`, `.vue`, `.svelte`, `.tsx`, `Dockerfile`, `.sql`, `.wgsl`) and import signatures to the appropriate domain skills and executes their guardrails inside `vibes_verify_gate`.
+- **Language-Segmented Skill Loading (`--lang=en|id`)**: Loads only the English or Bahasa Indonesia section of any `SKILL.md` (with optional boilerplate stripping), cutting context window consumption by **45–55%** with zero loss of technical blueprints.
+- **Smart AST-Aware Blueprint Slicing**: Extracts complete function/component signatures and indexes all 1,081 code blocks by Markdown section headings (`--query=<keyword>`).
 
 ### 🔬 Reverse Engineering & Binary Analysis (REA Suite)
 VibesPlug integrates the 5-skill **REA (Reverse Engineer Anything)** ecosystem for evidence-backed binary, firmware, managed/Electron, and runtime inspection:
@@ -153,7 +160,7 @@ vibes mcp
 2. `vibes_eval_sql` — Evaluate DDL schemas and audit PostgreSQL RLS policies in an in-memory sandbox.
 3. `vibes_arbitrate_code` — Score and arbitrate competing code solutions via Process Reward Model (PRM).
 4. `vibes_verify_invariants` — Formally prove state machine invariants and generate SMT-LIB 2.0 formulas.
-5. `vibes_get_skill` — Fetch instructions and contracts from any of the 178 specialized skills.
+5. `vibes_get_skill` — Fetch instructions and contracts from any of the 178 specialized skills (supports `mode: "compact"` micro-slices and `lang: "en"|"id"` language-segmented loading for 45–85% token savings).
 6. `vibes_list_skills` — Discover all 178 skills with domain categories, summaries, and tags.
 7. `vibes_inject_skill` — Directly inject one or more skills into `.agents/skills/<name>`.
 8. `vibes_compile_cache` — Compile and lock deterministic prompt prefix for KV-Cache optimization.
@@ -176,7 +183,7 @@ vibes mcp
 25. `vibes_swarm_bus` — Query active swarms, telemetry events, or emit inter-agent broadcast coordination signals.
 26. `vibes_package_extension` — Build zero-dependency `.vsix` companion extension archive for VS Code and Cursor.
 27. `vibes_learn_skill` — Synthesize complete gold-standard bilingual skills from raw project codebases or repository patterns.
-28. `vibes_skill_exec` — Universal Skill-as-a-Tool (SaaT) Dispatcher executing any of the 178 skills (`blueprint`, `slice`, `extract-code`, `audit`, `eval`, `verify`, `generate`, `fuzz`).
+28. `vibes_skill_dispatch` — Universal Skill-as-a-Tool (SaaT) Dispatcher executing any of the 178 skills or `skill: "auto"` (`blueprint`, `slice`, `extract-code`, `rules`, `read`, `audit`, `eval`, `verify`, `generate`, `fuzz`, `chain`).
 29. `vibes_skill_chain` — Execute multi-skill DAG workflows and composite pipelines (`saas-launch-gate`, `ai-agent-hardening`, `fintech-settlement-gate`, `zero-debt-release`).
 30. `vibes_batch` — Execute multiple MCP tools concurrently in a single JSON-RPC round-trip (`Promise.allSettled`).
 31. `vibes_run_benchmark` — Run performance, KV-Cache, and latency benchmark suite across all engines.
@@ -364,7 +371,8 @@ vibes search <query>             # Searches 178 skills with relevance ranking
 vibes add <skill-name>           # Injects a skill from registry into local project (.agents/skills)
 vibes remove <skill-name>        # Removes an installed skill from local project
 vibes skill info <skill-name>    # Shows metadata, description, and orchestration connections
-vibes skill exec <s-name> <act>  # Universal SaaT Dispatcher (blueprint|slice|extract-code|audit|eval|verify|generate|fuzz)
+vibes skill exec <s-name> <act>  # Universal SaaT Dispatcher (blueprint|slice|extract-code|rules|read|audit|eval|verify|generate|fuzz)
+vibes skill exec auto verify     # Contextual Auto-Router: matches file/imports (--file=<path>) & runs skill guardrails
 vibes skill chain <recipe>       # Executes multi-skill pipelines (saas-launch-gate, ai-agent-hardening, fintech-settlement-gate)
 vibes skill compile-slices       # Compiles 93%-compressed (<350 token) micro-slices into .skill-slices.json
 vibes skill matrix               # Displays domain capability & executable code-blueprint matrix across all skills
@@ -524,7 +532,8 @@ vibes search <query>             # Mencari 178 skill berdasarkan relevansi kata 
 vibes add <skill-name>           # Menyuntikkan skill dari repositori ke proyek lokal (.agents/skills)
 vibes remove <skill-name>        # Menghapus skill yang terpasang dari proyek lokal
 vibes skill info <skill-name>    # Menampilkan metadata, deskripsi, dan relasi orkestrasi skill
-vibes skill exec <s-name> <act>  # Universal SaaT Dispatcher (blueprint|slice|extract-code|audit|eval|verify|generate|fuzz)
+vibes skill exec <s-name> <act>  # Universal SaaT Dispatcher (blueprint|slice|extract-code|rules|read|audit|eval|verify|generate|fuzz)
+vibes skill exec auto verify     # Auto-Router Kontekstual: deteksi otomatis skill dari file/import (--file=<path>) & jalankan guardrail
 vibes skill chain <recipe>       # Mengeksekusi pipeline multi-skill (saas-launch-gate, ai-agent-hardening, fintech-settlement-gate)
 vibes skill compile-slices       # Mengompilasi micro-slice terkompresi 93% (<350 token) ke .skill-slices.json
 vibes skill matrix               # Menampilkan matriks kapabilitas domain & 1.000+ blueprint kode eksekusi
@@ -554,6 +563,13 @@ vibes audit                      # Menjalankan zero-tech-debt-auditor untuk kode
 vibes doctor                     # Memeriksa kesehatan lingkungan dan integrasi seluruh IDE
 vibes hooks install              # Memasang Git pre-commit hook untuk menegakkan gerbang anti-slop
 ```
+
+### ⚡ Mesin Eksekusi Skill & Auto-Router Kontekstual (`skill-rules-engine`)
+Setiap skill dari 178 skill dilengkapi dengan eksekusi deterministik dan guardrail aktif:
+- **Guardrail AST & Regex Spesifik per Skill (`rules` / `verify`)**: Menegakkan invarian spesifik framework secara otomatis (Next.js 15 async `params`, React 19 Compiler & larangan `fetch` di dalam `useEffect`, Tailwind v4 `@theme`, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, komentar wajib `// SAFETY:` & larangan `.unwrap()` pada Rust, penanganan error Go, Pydantic v2 `.model_dump()`, PostgreSQL RLS, verifikasi tanda tangan HMAC `timingSafeEqual` & tipe mata uang integer pada DOKU/SNAP BI, larangan tag `:latest` Docker, serta proteksi `stdout` MCP stdio).
+- **Auto-Router File & Intent Kontekstual (`vibes skill exec auto verify --file=<path>`)**: Mencocokkan ekstensi file (`.rs`, `.go`, `.py`, `.vue`, `.svelte`, `.tsx`, `Dockerfile`, `.sql`, `.wgsl`) dan *import signature* secara otomatis ke skill terkait serta memvalidasinya di dalam `vibes_verify_gate`.
+- **Pemuatan Skill Terpilah Bahasa (`--lang=en|id`)**: Memuat hanya seksi Bahasa Inggris atau Bahasa Indonesia dari `SKILL.md` (dengan opsi pemangkasan tabel statis), menghemat **45–55% token *context window*** tanpa kehilangan satu pun blueprint kode.
+- **Pemotongan Blueprint Cerdas Sadar-AST**: Mengekstrak tanda tangan fungsi/komponen secara utuh dan mengindeks seluruh 1.081 blok kode berdasarkan judul sub-bab Markdown (`--query=<kata-kunci>`).
 
 ---
 
