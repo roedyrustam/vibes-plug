@@ -3,7 +3,7 @@
   "name": "vibes-plug-swarm-master",
   "description": "Universal 178-Skill Autonomous Multi-Agent Swarm & SaaT Superintelligence Substrate",
   "url": "http://localhost:3888",
-  "version": "4.7.0",
+  "version": "4.7.2",
   "protocolVersion": "1.0.0",
   "capabilities": {
     "streaming": true,

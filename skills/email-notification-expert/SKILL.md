@@ -2,7 +2,7 @@
 name: email-notification-expert
 description: "Transactional email (Resend), React Email, and notification pipelines / Email transaksional (Resend), React Email, dan pipeline notifikasi."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

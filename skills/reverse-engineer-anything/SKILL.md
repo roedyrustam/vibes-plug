@@ -2,7 +2,7 @@
 name: reverse-engineer-anything
 description: "Reverse-engineer binaries, firmware, and web apps with REA AgentEnv / Rekayasa balik biner, firmware, dan web apps dengan REA AgentEnv."
 author: "morluto"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # REA

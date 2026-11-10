@@ -2,7 +2,7 @@
 name: data-pipeline-etl-expert
 description: "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB / Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # Data Pipeline & ETL Expert / Ahli Data Pipeline & ETL

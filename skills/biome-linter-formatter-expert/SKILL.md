@@ -2,7 +2,7 @@
 name: biome-linter-formatter-expert
 description: "Biome Rust linter & formatter, ESLint/Prettier migration, and tooling / Linter & formatter Biome Rust, migrasi ESLint/Prettier, dan tooling."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

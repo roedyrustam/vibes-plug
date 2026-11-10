@@ -2,7 +2,7 @@
 name: local-slm-edge-ai-expert
 description: "Local SLMs & edge AI: WebLLM, Transformers.js v3, and WebGPU / SLM lokal & edge AI: WebLLM, Transformers.js v3, dan WebGPU."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

@@ -2,7 +2,7 @@
 name: screenshot-to-code-expert
 description: "Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # screenshot-to-code-expert — vibes-plug Skill

@@ -2,7 +2,7 @@
 name: rea-analysis-optimization
 description: "Optimize REA providers, analysis latency, memory, and Evidence / Optimasi provider REA, latensi analisis, memori, dan Evidence."
 author: "morluto"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # REA analysis optimization

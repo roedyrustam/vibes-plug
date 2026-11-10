@@ -5,8 +5,11 @@
   "args": ["server.mjs"],
   "has_web_ui": true,
   "restart_policy": "always",
+  "icon": "../../assets/icon.png",
+  "logo": "../../assets/logo.svg",
   "ui_config": {
     "display_name": "Vibes Swarm Cockpit",
+    "icon": "../../assets/icon.png",
     "views": [
       {
         "title": "Vibes Swarm",

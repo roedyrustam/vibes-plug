@@ -2,7 +2,7 @@
 name: speculative-multi-draft-synthesizer
 description: "Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # Speculative Multi-Draft Synthesizer (2026 Sovereign Edition)

@@ -2,7 +2,7 @@
 name: glsl-shader-expert
 description: "Web shaders: TSL, WebGPU WGSL, and WebGL GLSL in Three.js / Shader web modern: TSL, WebGPU WGSL, dan GLSL di Three.js."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

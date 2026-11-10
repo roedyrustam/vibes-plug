@@ -2,7 +2,7 @@
 name: agentic-m2m-settlement
 description: "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # Agentic M2M Settlement & Clearing Protocol (2026 Sovereign Edition)

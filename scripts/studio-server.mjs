@@ -299,7 +299,7 @@ async function loadSkillsCatalog() {
         const fmMatch = content.match(/---[\r\n]+([\s\S]*?)[\r\n]+---/);
         let description = 'Specialized AI domain skill';
         let author = 'Roedy Rustam';
-        let version = '4.7.0';
+        let version = '4.7.2';
 
         if (fmMatch) {
           const fm = fmMatch[1];
@@ -1305,7 +1305,7 @@ export function generateStudioHtml(currentPort) {
         <div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div class="brand-title">VibesPlug Pro Studio</div>
-            <div class="brand-tag">v4.7.0</div>
+            <div class="brand-tag">v4.7.2</div>
           </div>
           <div style="font-size: 0.72rem; color: var(--text-muted);">Autonomous 178-Agent Swarm Operating System</div>
         </div>
@@ -2123,7 +2123,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
   </div>
 
   <footer>
-    <p>Vibes-Plug Pro v4.7.0 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 178 Skills</p>
+    <p>Vibes-Plug Pro v4.7.2 &bull; Model-Agnostic AI Swarm Architecture &bull; Roedy Rustam &bull; 178 Skills</p>
   </footer>
 
   <script>

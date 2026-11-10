@@ -2,7 +2,7 @@
 name: saas-billing
 description: "SaaS billing state machines, subscription lifecycle, and webhooks / State machine billing SaaS, siklus langganan, dan webhook sinkron."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

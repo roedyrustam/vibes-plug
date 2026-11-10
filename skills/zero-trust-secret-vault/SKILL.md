@@ -2,7 +2,7 @@
 name: zero-trust-secret-vault
 description: "Zero-trust secret management (Infisical, Vault) and key rotation / Manajemen rahasia zero-trust (Infisical, Vault) dan rotasi API key."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

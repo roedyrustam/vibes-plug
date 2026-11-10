@@ -2,7 +2,7 @@
 name: prompt-injection-firewall
 description: "Runtime defenses against prompt injection, jailbreaks, and SSRF / Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

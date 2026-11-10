@@ -2,7 +2,7 @@
 name: error-resilience-expert
 description: "Error resilience, circuit breakers, retries, and graceful degradation / Ketahanan error, circuit breaker, retry, dan degradasi anggun."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

@@ -2,7 +2,7 @@
 name: adaptive-model-cascade
 description: "Model cascading & complexity-scored routing (Grok, Gemini, Claude) / Routing kaskade model & scoring kompleksitas (Grok, Gemini, Claude)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

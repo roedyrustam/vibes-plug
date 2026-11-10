@@ -2,7 +2,7 @@
 name: legacy-code-translator
 description: "Safely modernize legacy codebases (PHP, old React) into modern stacks / Modernisasi codebase legacy (PHP, React lama) ke stack modern."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # Legacy Code Translator (Strangler Fig & Refactoring Engine)

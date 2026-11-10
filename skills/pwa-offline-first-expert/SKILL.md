@@ -2,7 +2,7 @@
 name: pwa-offline-first-expert
 description: "Offline-first PWA architecture, OPFS SQLite, and local sync / Arsitektur PWA offline-first, OPFS SQLite, dan sinkronisasi lokal."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 

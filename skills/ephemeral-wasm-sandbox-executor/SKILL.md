@@ -2,7 +2,7 @@
 name: ephemeral-wasm-sandbox-executor
 description: "Ephemeral WebAssembly sandboxes for secure code execution and tests / Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # Ephemeral WASM Sandbox Executor (2026 Sovereign Edition)

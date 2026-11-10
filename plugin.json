@@ -1,11 +1,16 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "vibes-plug",
-  "displayName": "Vibes-Plug",
-  "version": "4.7.0",
-  "description": "Universal AI Agent Swarm & MCP plugin with 178 specialized skills and 9 autonomous subagents for Cursor, Antigravity, Claude Code, Windsurf, and OpenAI Codex.",
+  "displayName": "Vibes-Plug: Autonomous AI Swarm",
+  "version": "4.7.2",
+  "description": "Universal AI Agent Swarm & MCP plugin with 178 specialized skills, 9 autonomous subagents, and auto-activating Swarm Director for Antigravity, Cursor, Claude Code, Windsurf, and OpenAI Codex.",
   "logo": "assets/logo.svg",
   "icon": "assets/logo.svg",
+  "suggestedPrompts": [
+    "Activate autonomous multi-agent swarm to design and implement this task",
+    "Dispatch fullstack-craftsman and quality-guardian in parallel",
+    "Audit codebase invariants, AST symbols, and enforce anti-slop rules"
+  ],
   "author": {
     "name": "Roedy Rustam",
     "email": "roedyrustam.id@gmail.com",

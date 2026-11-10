@@ -2,7 +2,7 @@
 name: svg-animation-motion-expert
 description: "Web animations: Framer Motion 12+, GSAP 3, and CSS scroll animations / Animasi web: Framer Motion 12+, GSAP 3, dan animasi scroll CSS."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # SVG & Web Animation Motion Expert

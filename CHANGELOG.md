@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.7.2] - 2026-11-10
+
+### Added
+- **Automatic Swarm Mode Activation**: Vibes-Plug permanently acts as Swarm Director across all tasks and projects via Antigravity always-on rules (`rules/AGENTS.md`) and lifecycle hooks (`hooks.json`).
+- **Antigravity Swarm Cockpit Extension**: Embedded Web UI Sidecar (`sidecars/swarm-cockpit/`) for the Antigravity auxiliary pane featuring live Swarm Bus streaming and zero-permission swarm dispatch.
+- **Official Vibes-Plug Branding**: Full integration of official high-resolution icon and assets into the Cockpit header and webview.
+
+### Changed
+- Bumped core platform version to 4.7.2 across all 178 skills, multi-platform codex rules, and IDE companion extensions.
+
+---
+
 ## [4.7.0] - 2026-11-06
 
 ### Added / Ditambahkan

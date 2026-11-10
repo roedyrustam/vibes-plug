@@ -21,6 +21,15 @@ const PORT = parseInt(process.env.ANTIGRAVITY_SIDECAR_WEB_PORT || process.env.PO
 const HOST = '127.0.0.1';
 const TOKEN = process.env.ANTIGRAVITY_SIDECAR_UI_TOKEN || '';
 
+// Pre-load official Vibes-Plug icon
+let iconDataUrl = '';
+try {
+  const iconPath = path.join(PLUGIN_ROOT, 'assets/icon.png');
+  if (fs.existsSync(iconPath)) {
+    iconDataUrl = `data:image/png;base64,${fs.readFileSync(iconPath).toString('base64')}`;
+  }
+} catch (e) {}
+
 const NATIVE_AGENTS = [
   { id: 'swarm-architect', name: 'Swarm Architect', role: 'System Discovery, PRD, ERD & High-Level Architecture', badge: 'ARCH', color: '#8b5cf6' },
   { id: 'fullstack-craftsman', name: 'Fullstack Craftsman', role: 'React 19, Next.js 15, Tailwind v4, Node/Bun & ORM', badge: 'FULL', color: '#06b6d4' },
@@ -65,6 +74,7 @@ function renderHtml() {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vibes Swarm Cockpit</title>
+  ${iconDataUrl ? `<link rel="icon" type="image/png" href="${iconDataUrl}">` : ''}
   <style>
     :root {
       --bg: #0b0f17;
@@ -102,17 +112,28 @@ function renderHtml() {
       align-items: center;
       gap: 10px;
     }
+    .brand-logo-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
     .brand-logo {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       background: linear-gradient(135deg, #0284c7, #38bdf8);
-      border-radius: 6px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 14px;
+      font-size: 15px;
       color: #fff;
+      flex-shrink: 0;
     }
     .brand-title {
       font-size: 14px;
@@ -287,7 +308,7 @@ function renderHtml() {
 <body>
   <div class="header">
     <div class="brand">
-      <div class="brand-logo">V</div>
+      ${iconDataUrl ? `<img src="${iconDataUrl}" class="brand-logo-img" alt="VibesPlug" />` : `<div class="brand-logo">V</div>`}
       <div>
         <div class="brand-title">Vibes Swarm Cockpit</div>
         <div class="brand-sub">178 Skills • 9 Autonomous Subagents</div>
@@ -419,6 +440,24 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(renderHtml());
     return;
+  }
+
+  if (url.pathname === '/icon.png' || url.pathname === '/favicon.ico') {
+    const iconPath = path.join(PLUGIN_ROOT, 'assets/icon.png');
+    if (fs.existsSync(iconPath)) {
+      res.writeHead(200, { 'Content-Type': 'image/png' });
+      res.end(fs.readFileSync(iconPath));
+      return;
+    }
+  }
+
+  if (url.pathname === '/icon.svg' || url.pathname === '/assets/logo.svg') {
+    const svgPath = path.join(PLUGIN_ROOT, 'assets/logo.svg');
+    if (fs.existsSync(svgPath)) {
+      res.writeHead(200, { 'Content-Type': 'image/svg+xml' });
+      res.end(fs.readFileSync(svgPath));
+      return;
+    }
   }
 
   if (url.pathname === '/api/status') {

@@ -2,7 +2,7 @@
 name: htmx-hypermedia-expert
 description: "HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire / Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 ---
 
 # HTMX & Hypermedia Expert (HTMX 2.0 / HDA Edition)

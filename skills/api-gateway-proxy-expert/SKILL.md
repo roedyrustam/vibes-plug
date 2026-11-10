@@ -2,7 +2,7 @@
 name: api-gateway-proxy-expert
 description: "API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX) / API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.7.2"
 
 ---
 
