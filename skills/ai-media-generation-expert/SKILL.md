@@ -156,6 +156,17 @@ async function generateVideo(prompt: string) {
 - **Cost Control:** Set per-user daily limits. Cache identical prompts. Use cheaper models for drafts.
 - **Storage Pipeline:** Generate → upload to S3/R2 → serve via CDN → store URL in DB.
 
+### Hard Guardrails (Declarative Invariants)
+- **Asynchronous Queue Processing Invariant**: All media generation requests (image synthesis, video, long-form TTS) with runtime duration $> 2\text{s}$ MUST run via async durable queues (BullMQ/Inngest/Temporal) or webhooks—never block synchronous HTTP handlers.
+- **Dual-Layer Content Safety Gate**: Every generation prompt MUST undergo automated safety/NSFW screening before model dispatch, and resulting media URLs must be verified prior to client presentation.
+- **Permanent Object Storage Invariant**: Generated media MUST NOT rely on ephemeral or temporary vendor URLs (e.g., expiring Replicate or OpenAI download links); assets must be streamed to private object storage (S3/R2) and served via authenticated CDN.
+- **Rate-Limiting & Quota Throttling Guard**: User generation endpoints MUST enforce atomic quota checks (Redis token bucket or database balance decrement) prior to triggering external model APIs.
+
+### Non-Functional Requirements (NFR)
+- **Async Dispatch Response**: Initial job dispatch ack $\le 100\text{ms}$.
+- **Storage Compression**: WebP/AVIF output quality $\ge 85$ with modern compression.
+- **CDN Distribution TTL**: Cached media CDN delivery TTL $\ge 7\text{ days}$.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -299,6 +310,17 @@ export async function transkripsiAudio(fileBuffer: Buffer, namaFile: string) {
 - **Penerimaan Callback Webhook**: Jangan gunakan polling HTTP terus-menerus; gunakan endpoint webhook yang divalidasi dengan tanda tangan kriptografis untuk menerima hasil generasi dari Replicate.
 - **Pencegahan Konten Terlarang (NSFW)**: Lakukan penyaringan ganda menggunakan OpenAI Moderation API sebelum memproses prompt dan verifikasi gambar hasil sebelum ditampilkan kepada pengguna umum.
 - **Penyimpanan Permanen**: Jangan bergantung pada URL hosting sementara dari vendor AI. Segera unduh dan simpan aset ke Cloudflare R2 atau AWS S3, lalu sajikan melalui domain CDN kustom.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Pemrosesan Antrean Asinkron**: Seluruh permintaan generasi media (gambar, video, TTS berdurasi panjang) dengan waktu eksekusi $> 2\text{ detik}$ WAJIB diproses melalui antrean kerja tahan-gagal (BullMQ/Inngest/Temporal) atau webhook—dilarang memblokir handler HTTP sinkron.
+- **Gerbang Keamanan Konten Ganda**: Setiap prompt generasi wajib lolos penyaringan otomatis moderasi/NSFW sebelum dikirim ke API vendor, dan URL aset hasil generasi harus divalidasi sebelum ditampilkan ke pengguna.
+- **Invarian Penyimpanan Permanen Object Storage**: Media hasil generasi DILARANG bergantung pada tautan URL sementara dari vendor AI (seperti URL kedaluwarsa Replicate/OpenAI); aset harus diunduh dan dialirkan ke penyimpanan objek privat (S3/R2) lalu disajikan via CDN terautentikasi.
+- **Pengamanan Kuota & Rate-Limiting**: Endpoint pengguna wajib memberlakukan pengecekan kuota atomik (Redis token bucket atau pemotongan saldo DB) sebelum memicu panggilan API generasi eksternal.
+
+### Non-Functional Requirements (NFR)
+- **Respons Dispatch Asinkron**: Konfirmasi penerimaan antrean tugas awal $\le 100\text{ms}$.
+- **Kompresi Penyimpanan**: Kualitas kompresi WebP/AVIF $\ge 85$ untuk efisiensi transfer.
+- **Distribusi CDN**: TTL cache distribusi CDN media $\ge 7\text{ hari}$.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

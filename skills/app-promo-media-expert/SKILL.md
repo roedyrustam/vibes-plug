@@ -391,6 +391,17 @@ async function captureScreens() {
 captureScreens().catch(console.error);
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **App Store & Play Store Dimension Compliance**: Exported promo screenshot assets MUST match exact native target display resolutions (e.g., 1290x2796 for 6.7" iPhone, 1242x2688 for 6.5" iPhone, 1080x1920/1080x2400 for Google Play) without non-native aspect ratio stretching.
+- **Vector & High-DPI Device Frame Invariant**: Device mockup frames MUST utilize vector SVG or 3x retina renders with precise corner radiuses and zero generic Android/iOS hybrid artifacts.
+- **Deterministic Remotion Video Composition**: Programmatic video timelines in Remotion MUST be pure functions of input props and frame index (`useCurrentFrame()`), prohibiting nondeterministic runtime dependencies like `Math.random()` or `Date.now()`.
+- **Mandatory Dynamic OG Fallback**: Dynamic Open Graph generators (`@vercel/og`) MUST provide a static fallback asset on render timeout or font loading delay $\gt 1,500\text{ms}$.
+
+### Non-Functional Requirements (NFR)
+- **OG Card Render Time**: Dynamic image generation $\le 300\text{ms}$.
+- **Video Rendering Frame Rate**: Constant 60fps/30fps export with zero dropped frames.
+- **Asset Size Ceiling**: Compressed screenshot exports $\le 1.5\text{MB}$ per asset.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -464,6 +475,17 @@ Panduan rekayasa tingkat produksi untuk membuat media promosi aplikasi berkualit
 # Render video promosi vertikal 9:16 untuk TikTok / Instagram Reels
 npx remotion render src/remotion/index.ts AppPromoTeaser out/promo-teaser.mp4 --props='{"headline":"Bangun Aplikasi Cepat","subheadline":"Didukung Agen AI Otonom","screenshotUrl":"/assets/screen.png"}'
 ```
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Kepatuhan Dimensi Resolusi App Store & Google Play**: Screenshot promosi yang diekspor WAJIB mematuhi rasio dan dimensi piksel kanonikal (misal: 1290x2796 untuk iPhone 6.7", 1242x2688 untuk 6.5", 1080x1920/1080x2400 untuk Google Play) tanpa distorsi peregangan rasio aspek.
+- **Invarian Bingkai Gawai Vektor & Retina High-DPI**: Mockup frame gawai wajib menggunakan SVG vektor atau render retina 3x dengan sudut lengkung presisi, bebas artefak generik hibrida Android/iOS.
+- **Deterministik Komposisi Video Remotion**: Komposisi video terprogram di Remotion wajib merupakan fungsi murni dari props dan indeks frame (`useCurrentFrame()`), dilarang menggunakan variabel nondeterministik seperti `Math.random()` atau `Date.now()`.
+- **Fallback Gambar Dinamis Open Graph (OG)**: Endpoint pembuat Open Graph dinamis (`@vercel/og`) wajib menyediakan fallback gambar statis jika waktu render atau pemuatan font melebihi $1.500\text{ms}$.
+
+### Non-Functional Requirements (NFR)
+- **Waktu Render Kartu OG**: Generasi gambar OG dinamis $\le 300\text{ms}$.
+- **Frame Rate Render Video**: Ekspor 60fps/30fps konstan tanpa frame drop.
+- **Batas Ukuran Aset**: Ukuran file screenshot terkompresi $\le 1.5\text{MB}$ per gambar.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

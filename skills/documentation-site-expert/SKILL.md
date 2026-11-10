@@ -832,6 +832,17 @@ jobs:
 - `global-a11y-i18n-expert` — multi-language documentation
 - `search-engine-expert` — Algolia, Pagefind, Typesense
 
+### Hard Guardrails (Declarative Invariants)
+- **Broken Link Zero-Tolerance Gate**: Documentation builds MUST fail in CI if any internal cross-reference, anchor tag, or relative link resolves to a 404 or dead target.
+- **Code Snippet Typecheck & Lint Invariant**: All executable code blocks in MDX/Markdown documentation MUST pass automated typechecking/linting via CI tools or doc testing utilities, prohibiting placeholder stubs.
+- **Strict Semantic Heading Hierarchy**: Every documentation page MUST contain exactly one canonical `<h1>` tag with logically nested `<h2>` and `<h3>` tags without skipping levels (e.g., jumping from `<h1>` to `<h3>`).
+- **Client-Side Search Index Bundle Ceiling**: Static client search indexes (Pagefind, local search) MUST be pre-built at compile time and maintain a client runtime JS footprint $\le 30\text{KB}$ on initial page load.
+
+### Non-Functional Requirements (NFR)
+- **Documentation Page TTFB**: Static document delivery $\le 50\text{ms}$ on CDN edge nodes.
+- **Instant Search Response**: Client-side full-text query latency $\le 20\text{ms}$.
+- **Accessibility & Contrast**: 100% WCAG 2.2 AA compliance across light and dark syntax themes.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -985,6 +996,17 @@ Hasilkan tipe TypeScript penuh dari spesifikasi OpenAPI — gunakan bersama `ope
 | Netlify          | `npm run build`               | `build`                 | Tambahkan `netlify.toml`          |
 
 **Mintlify** di-deploy melalui platform Mintlify sendiri — hubungkan repo GitHub di dashboard `mintlify.com` dan setiap push ke `main` otomatis men-deploy.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Gerbang Bebas Broken Link**: Build dokumentasi WAJIB gagal di CI jika terdapat tautan internal, anchor, atau referensi silang yang mengarah ke 404 atau target rusak.
+- **Invarian Typecheck & Linter Cuplikan Kode**: Seluruh blok kode yang dapat dieksekusi dalam MDX/Markdown wajib lolos uji linting dan kompilasi tipe otomatis tanpa cuplikan semu.
+- **Hierarki Heading Semantik Ketat**: Setiap halaman dokumentasi wajib memiliki tepat satu tag `<h1>` kanonikal dengan penurunan heading yang teratur (`<h2>`, `<h3>`) tanpa melompati tingkatan hierarki.
+- **Batas Bobot Indeks Pencarian Client-Side**: Indeks pencarian statis di sisi klien (Pagefind, local search) wajib dikompilasi saat fase build dengan beban runtime JS awal $\le 30\text{KB}$.
+
+### Non-Functional Requirements (NFR)
+- **TTFB Halaman Dokumentasi**: Kecepatan sajian halaman statis pada CDN edge $\le 50\text{ms}$.
+- **Latensi Pencarian Instan**: Waktu respons query pencarian client-side $\le 20\text{ms}$.
+- **Aksesibilitas & Kontras**: 100% kepatuhan WCAG 2.2 AA pada tema terang dan gelap.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

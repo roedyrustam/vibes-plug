@@ -2330,6 +2330,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG14 = [
+      'affective-computing-emotion-ai', 'ai-media-generation-expert', 'app-promo-media-expert',
+      'apple-ecosystem-expert', 'documentation-site-expert', 'doku-mcp-server',
+      'ephemeral-generative-ui-architect', 'ephemeral-wasm-sandbox-executor', 'hig', 'kv-cache-prefix-optimizer'
+    ];
+    for (const skill of deepenedG14) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2510,6 +2519,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'rich-text-editor-expert', code: '<div dangerouslySetInnerHTML={{ __html: userPost.content }} />' }, 'RICH_TEXT_UNSANITIZED_DANGEROUSLY_SET_INNER_HTML');
     await expectViolation({ skill: 'scalability-clean-code', code: 'function processTransaction(id: string, amount: number, sender: string, receiver: string, memo: string) {}' }, 'CLEAN_CODE_EXCESSIVE_METHOD_PARAMS');
     await expectViolation({ skill: 'seo', code: '<h1>Title One</h1>\n<div>content</div>\n<h1>Title Two</h1>' }, 'SEO_MULTIPLE_OR_MISSING_H1');
+
+    // Wave 14 (Gelombang 14) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'affective-computing-emotion-ai', code: 'transcribeAudio(file).then(text => detectEmotion(text));' }, 'AFFECTIVE_TRANSCRIBED_TEXT_EMOTION_DEPENDENCY');
+    await expectViolation({ skill: 'ai-media-generation-expert', code: 'export async function POST(req) {\n  const res = await replicate.run("flux-pro");\n  return Response.json(res);\n}' }, 'AI_MEDIA_BLOCKING_SYNC_HTTP_HANDLER');
+    await expectViolation({ skill: 'app-promo-media-expert', code: 'const frame = Math.random(); const current = useCurrentFrame();' }, 'PROMO_MEDIA_REMOTION_NON_DETERMINISTIC_RANDOM');
+    await expectViolation({ skill: 'apple-ecosystem-expert', code: '<button style={{ height: "28px", width: "28px" }}>Tap</button>' }, 'APPLE_SUB_44PT_INTERACTIVE_TARGET');
+    await expectViolation({ skill: 'documentation-site-expert', code: '# Overview\n\n### Detailed Setup\n' }, 'DOCS_SKIPPED_HEADING_LEVEL_ORDER');
+    await expectViolation({ skill: 'doku-mcp-server', code: 'const DOKU_SECRET_KEY = "SK-982173981273918237198273";' }, 'DOKU_MCP_HARDCODED_SECRET_KEY');
+    await expectViolation({ skill: 'ephemeral-generative-ui-architect', code: '<div className="blur-2xl bg-purple-500/40 rounded-full" />' }, 'GEN_UI_PROHIBITED_NEON_GLOW_SLOP');
+    await expectViolation({ skill: 'ephemeral-wasm-sandbox-executor', code: 'const res = extism.call("execute_code", payload);' }, 'WASM_SANDBOX_MISSING_FUEL_LIMIT');
+    await expectViolation({ skill: 'hig', code: '<div><Button variant="default">Save</Button><Button variant="default">Submit</Button></div>' }, 'HIG_MULTIPLE_FILLED_PRIMARY_BUTTONS');
+    await expectViolation({ skill: 'kv-cache-prefix-optimizer', code: 'const opts = { systemPrompt: ' + '`Hello at ${new Date().toISOString()}`' + ' };' }, 'KV_CACHE_VOLATILE_TIMESTAMP_IN_SYSTEM_PROMPT');
   });
 });
 

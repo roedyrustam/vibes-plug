@@ -470,6 +470,17 @@ export function MultiWidgetGrid({
 - **Memory Hygiene**: Ephemeral components must clean up active polling subscriptions or event listeners when removed from the DOM.
 - **Model Availability Fallback**: If streaming structured UI manifests via Gemini 4 or Claude Opus 5.5, maintain seamless failover to Gemini 3.8 Flash and Claude Opus 4.6 to safeguard <100ms TTFS.
 
+### Hard Guardrails (Declarative Invariants)
+- **Sub-100ms Time-to-First-Skeleton (TTFS)**: Generative UI streams MUST emit an optimistic placeholder skeleton within $100\text{ms}$ of tool invocation initiation.
+- **Strict Zod Schema Sanitization Boundary**: All generative UI arguments and tool payloads from LLMs MUST be strictly parsed and validated through Zod schemas before hydrating client components to prevent indirect prompt injection.
+- **Sovereign Surface & 5-State Interactive Contract**: Every ephemeral card/widget MUST feature a crisp 1px container border (`border border-neutral-200/80 dark:border-neutral-800`), 3-tier corner radius (8px/12px/16px), tabular numbers (`tabular-nums`), and explicit 5-state interaction support (`idle`, `hover`, `active`, `focus-visible`, `disabled`).
+- **Anti-Slop Visual Purity Invariant**: Generative widgets MUST NEVER render generic AI-cliché purple-blue glowing gradient backgrounds, floating neon blur orbs, or unstyled pill buttons on rectangular card headers.
+
+### Non-Functional Requirements (NFR)
+- **TTFS Metric**: Time to first skeleton stream $\le 100\text{ms}$.
+- **Hydration Readiness**: Complete client interactive readiness $\le 450\text{ms}$.
+- **Layout Shift Ceiling**: Zero layout shift during stream completion (CLS $\le 0.02$).
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -575,6 +586,17 @@ Seluruh komponen efemeral wajib mematuhi **Pilar 7 Anti-Slop**:
 - **Sanitasi Input**: Seluruh argumen dari LLM WAJIB divalidasi dengan skema Zod sebelum diteruskan ke komponen klien guna menangkal injeksi prompt tidak langsung (`prompt-injection-firewall`).
 - **Kebersihan Memori**: Komponen efemeral wajib membersihkan *event listener* atau langganan aktif saat dicopot dari DOM.
 - **Fallback Ketersediaan Model**: Jika men-streaming manifes UI terstruktur melalui Gemini 4 atau Claude Opus 5.5, alihkan secara otomatis ke Gemini 3.8 Flash dan Claude Opus 4.6 untuk mempertahankan TTFS <100ms.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Batas Waktu ke Skeleton Pertama (TTFS < 100ms)**: Aliran streaming UI generatif WAJIB memancarkan placeholder skeleton optimistik dalam waktu kurang dari $100\text{ms}$ sejak token pertama tool invocation dipancarkan.
+- **Batas Sanitasi Skema Zod Ketat**: Seluruh argumen UI generatif dan payload pemanggilan tool dari LLM wajib divalidasi dan diparsing menggunakan skema Zod sebelum diteruskan ke komponen klien guna menangkal injeksi prompt tidak langsung.
+- **Permukaan Berdaulat & Kontrak Interaktif 5-State**: Setiap kartu/widget efemeral wajib memiliki border tegas 1px (`border border-neutral-200/80 dark:border-neutral-800`), skala radius 3-tingkat (8px/12px/16px), angka tabular (`tabular-nums`), dan penanganan lengkap 5 status interaksi (`idle`, `hover`, `active`, `focus-visible`, `disabled`).
+- **Invarian Kemurnian Visual Anti-Slop**: Komponen generatif DILARANG KERAS merender latar belakang gradien ungu-biru AI klise, orb neon blur mengambang, atau tombol pil (`rounded-full`) pada tata letak kartu persegi panjang standar.
+
+### Non-Functional Requirements (NFR)
+- **Metrik TTFS**: Waktu aliran skeleton pertama $\le 100\text{ms}$.
+- **Kesiapan Hidrasi Interaktif**: Kesiapan komponen interaktif penuh $\le 450\text{ms}$.
+- **Pencegahan Pergeseran Tata Letak**: 0 lonjakan layout selama penyelesaian streaming (CLS $\le 0.02$).
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -172,6 +172,17 @@ export function computePrefixDescriptor(
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Deterministic Canonical Prefix Invariant**: The prompt prefix (system instructions, tool definitions, architecture maps) MUST be byte-identical and canonically sorted across turns to maintain $\ge 90\%$ KV-cache hit rates.
+- **Prohibition of Timestamps & Session IDs in System Prompt**: Dynamic timestamps, session UUIDs, and volatile turn state MUST NEVER be placed within the static system prompt; they MUST reside exclusively at the tail in user turn messages.
+- **Alphabetical Tool & Schema Serialization**: Tool specifications and JSON Schema property keys MUST be sorted alphabetically before sending API payloads to guarantee identical byte representations.
+- **Fallback Model Prefix Portability**: System prompt prefix structures MUST remain byte-compatible between primary and availability fallback models (Gemini 4 $\leftrightarrow$ Gemini 3.8 Flash, Claude Opus 5.5 $\leftrightarrow$ Claude Opus 4.6).
+
+### Non-Functional Requirements (NFR)
+- **Cache Hit Target**: Achieve $\ge 90\%$ prompt KV-cache hit ratio on multi-turn conversations.
+- **TTFT Acceleration**: Sub-500ms Time-to-First-Token on cached prompt evaluations.
+- **Cost Reduction**: Minimum 70% prompt token expenditure savings through KV-cache reuse.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -237,6 +248,17 @@ Kunci objek JSON wajib diurutkan secara alfabetis sebelum dikirimkan ke model ag
 | Menyisipkan ID sesi acak ke dalam system prompt | Cache batal 100% pada setiap sesi baru | Pindahkan ID sesi ke header aplikasi di luar prompt |
 | Urutan tool berubah-ubah dari `Object.values(tools)` | Representasi string berubah dan membatalkan KV cache | Urutkan tool secara alfabetis berdasarkan namanya |
 | Mengubah redaksi instruksi di tengah percakapan | Membaca ulang 100k+ token dengan harga penuh | Kunci template instruksi dalam keadaan statis dan terversi |
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Awalan Kanonikal Deterministik**: Awalan prompt (instruksi sistem, definisi tool, peta arsitektur) WAJIB identik biner dan diurutkan secara kanonikal antar giliran untuk mempertahankan rasio cache hit $\ge 90\%$.
+- **Larangan Timestamp & ID Sesi di System Prompt**: Nilai dinamis (waktu tanggal, ID sesi UUID, state giliran volatil) DILARANG KERAS disisipkan ke dalam system prompt statis; wajib ditaruh di pesan user paling akhir.
+- **Serialisasi Skema & Tool Alfabetis**: Spesifikasi tool dan kunci objek JSON Schema wajib diurutkan secara alfabetis sebelum dikirimkan ke model agar representasi string biner tidak berubah.
+- **Portabilitas Prefix Antar Model Fallback**: Struktur prefix prompt sistem wajib kompatibel biner antara model utama dan model pengalihan ketersediaan (Gemini 4 $\leftrightarrow$ Gemini 3.8 Flash, Claude Opus 5.5 $\leftrightarrow$ Claude Opus 4.6).
+
+### Non-Functional Requirements (NFR)
+- **Target Cache Hit**: Rasio keberhasilan KV-cache prompt $\ge 90\%$ pada sesi percakapan multi-turn.
+- **Akselerasi TTFT**: Time-to-First-Token $\le 500\text{ms}$ pada eksekusi prompt yang ter-cache.
+- **Penghematan Biaya Token**: Penghematan biaya input token minimal 70% melalui penggunaan ulang cache.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

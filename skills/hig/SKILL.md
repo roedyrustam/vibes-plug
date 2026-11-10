@@ -338,6 +338,17 @@ Over 6,000 vector symbols with 9 weights and 3 scales:
 
 ---
 
+### Hard Guardrails (Declarative Invariants)
+- **Single Primary Action Rule**: Exactly ONE filled/prominent primary CTA button allowed per screen/view; all secondary actions MUST use tinted, gray, or plain borderless button styles.
+- **Ergonomic Touch & Hitbox Floor**: Interactive touch targets MUST meet minimum dimensions: $\ge 44\times 44\text{pt}$ on iOS/iPadOS, $\ge 60\times 60\text{pt}$ on visionOS, and $\ge 28\times 28\text{pt}$ on macOS.
+- **Tabular Numeral Invariant**: All numerical metrics, prices, timers, coordinate displays, and counters MUST explicitly enforce `font-variant-numeric: tabular-nums` (SwiftUI `.monospacedDigit()`).
+- **Dark Mode Surface Elevation & Fluid Spring Physics**: Surfaces in dark mode MUST brighten along the Z-axis (`#000000` $\to$ `#1C1C1E` $\to$ `#2C2C2E`), and all transitions MUST utilize interruptible natural spring curves with reduced-motion accommodations.
+
+### Non-Functional Requirements (NFR)
+- **Fluid Animation Frame Rate**: Target constant 60fps/120fps ProMotion motion fluidity.
+- **WCAG 2.2 AA Contrast**: Minimum 4.5:1 text contrast and 3:1 graphical control contrast.
+- **Zero Antipattern Invariant**: 0 generic non-Apple UI anomalies (no pill buttons on rectangular cards, no unstyled alerts).
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -541,6 +552,17 @@ Lebih dari 6.000 simbol vektor dengan 9 bobot dan 3 skala:
 - [ ] 20. **Standar Kerapian Anti-Slop**: Nol gradien ungu-sian AI klise, nol tombol pill tanpa style, dan kontrak interaktif 5-state lengkap.
 
 ---
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Aturan Tombol Utama Tunggal (Single Primary CTA)**: Tepat SATU tombol utama mencolok (filled/prominent) yang diizinkan per layar; seluruh aksi sekunder WAJIB menggunakan varian tinted, abu-abu (gray), atau plain borderless.
+- **Batas Ergonomi Luas Target Sentuh**: Luas hitbox elemen interaktif wajib memenuhi batas minimal: $\ge 44\times 44\text{pt}$ di iOS/iPadOS, $\ge 60\times 60\text{pt}$ di visionOS, dan $\ge 28\times 28\text{pt}$ di macOS.
+- **Invarian Angka Tabular**: Seluruh metrik numerik, harga, counter, saldo, dan timer WAJIB memberlakukan `font-variant-numeric: tabular-nums` (SwiftUI `.monospacedDigit()`) agar tidak berguncang secara horizontal.
+- **Elevasi Sumbu-Z Mode Gelap & Fisika Pegas Alami**: Permukaan pada Mode Gelap wajib semakin terang seiring kenaikan sumbu Z (`#000000` $\to$ `#1C1C1E` $\to$ `#2C2C2E`), dan seluruh transisi wajib menggunakan kurva pegas alami yang dapat diinterupsi serta adaptasi reduce-motion.
+
+### Non-Functional Requirements (NFR)
+- **Fluiditas Frame Rate Animasi**: Target pergerakan konstan 60fps/120fps ProMotion tanpa patah.
+- **Kontras WCAG 2.2 AA**: Rasio kontras teks minimal 4.5:1 dan kontrol antarmuka grafis 3:1.
+- **Zero Antipattern Invariant**: 0 anomali UI non-Apple (bebas tombol pil pada kartu persegi panjang, bebas alert tanpa style semantik).
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -250,6 +250,17 @@ main().catch(console.error);
 | Omitting Digest on POST | 401 Unauthorized / Signature Mismatch | For DOKU Checkout (`/checkout/v1/payment`), calculate Base64 SHA-256 Digest of minified body and include it in component string. |
 | Including Digest on GET Check Status | 401 Signature Mismatch | For GET requests (`/orders/v1/status/...`), do NOT include `Digest` in headers or signature component string. |
 
+### Hard Guardrails (Declarative Invariants)
+- **Deterministic HMAC-SHA256 Signature Invariant**: All outgoing DOKU API calls MUST compute deterministic `HMACSHA256` signatures using `Client-Id`, `Request-Id`, `Request-Timestamp`, and `Digest` (for POST payloads); GET calls MUST NEVER include a `Digest` header.
+- **Environment Variable Secret Protection**: Merchant Secret Keys (`DOKU_SECRET_KEY`) MUST strictly be loaded from environment variables or secure secret managers, with zero hardcoded credentials or client-side leakage.
+- **Idempotent Tool Execution Contract**: MCP payment generation tools (`create_checkout_payment`) MUST enforce unique, idempotent `invoice_number` parameters to prevent accidental double-charge mutations.
+- **Strict MCP JSON Schema Validation Gate**: All tool arguments MUST be validated against strict JSON Schema contracts before executing network requests to DOKU gateway endpoints.
+
+### Non-Functional Requirements (NFR)
+- **MCP Tool Latency**: Internal tool routing and serialization latency $\le 250\text{ms}$ (excluding upstream DOKU latency).
+- **Zero Secret Exposure**: 0 plaintext keys in tool payloads, error messages, or logs.
+- **Protocol Parity**: 100% compliance with Model Context Protocol (MCP) v1.x specification.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -455,6 +466,17 @@ main().catch(console.error);
 ### Jebakan Umum yang Wajib Dihindari
 - **Hardcoding Secret Key**: Jangan pernah menaruh Secret Key di file kodingan. Gunakan variabel lingkungan.
 - **Menyertakan Header Digest pada Request GET**: Header `Digest` hanya dihitung pada request POST yang memiliki body JSON. Menyertakan Digest pada GET menghasilkan error 401 Signature Mismatch.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Tanda Tangan Kriptografis HMAC-SHA256**: Seluruh panggilan keluar ke API DOKU WAJIB menghitung tanda tangan `HMACSHA256` menggunakan `Client-Id`, `Request-Id`, `Request-Timestamp`, dan `Digest` (khusus POST payload); request GET DILARANG KERAS menyertakan header `Digest`.
+- **Proteksi Kunci Rahasia Berbasis Environment**: Merchant Secret Key (`DOKU_SECRET_KEY`) wajib dimuat dari variabel lingkungan atau secret vault aman, 0 kredensial hardcoded pada kode server atau log.
+- **Kontrak Eksekusi Tool Idempoten**: Tool MCP pembuatan pembayaran (`create_checkout_payment`) wajib memberlakukan parameter `invoice_number` yang unik dan idempoten guna mencegah mutasi tagihan ganda yang tidak disengaja.
+- **Validasi Skema JSON Schema Ketat**: Semua argumen pemanggilan tool wajib divalidasi dengan JSON Schema ketat sebelum dieksekusi ke endpoint API gateway DOKU.
+
+### Non-Functional Requirements (NFR)
+- **Latensi Tool MCP**: Latensi internal routing tool dan serialisasi $\le 250\text{ms}$ (di luar latensi upstream DOKU).
+- **Zero Secret Exposure**: 0 kebocoran kredensial mentah pada output respons tool atau payload error.
+- **Kepatuhan Protokol**: 100% kepatuhan terhadap spesifikasi Model Context Protocol (MCP) v1.x.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

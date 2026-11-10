@@ -2174,6 +2174,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /export\s+const\s+metadata\s*:\s*Metadata\s*=\s*\{(?![\s\S]{0,250}?\b(?:alternates|canonical)\b)[\s\S]{0,250}?\btitle\s*:/,
       remediation: 'Every Next.js page metadata definition must declare an explicit alternates.canonical URL to prevent duplicate content indexing.'
     }
+  ],
+  'affective-computing-emotion-ai': [
+    {
+      id: 'AFFECTIVE_TRANSCRIBED_TEXT_EMOTION_DEPENDENCY',
+      severity: 'WARN',
+      name: 'Emotion Detection Dependent on Transcribed Text Instead of Raw Waveform',
+      regex: /transcribe(?:Audio|Speech|Whisper)\([^)]*\)[\s\S]{0,150}?\.then\s*\([^)]*detect(?:Emotion|Sentiment|Affect)/,
+      remediation: 'Extract acoustic features (pitch variance, jitter, shimmer) directly from raw audio waveforms or multimodal embeddings, never from transcribed text.'
+    },
+    {
+      id: 'AFFECTIVE_PERSISTENT_BIOMETRIC_AUDIO_STORAGE',
+      severity: 'ERROR',
+      name: 'Raw Biometric Audio Stream Written to Persistent Disk or Database',
+      regex: /(?:fs\.writeFileSync|db\.(?:insert|save)|s3\.upload)\s*\([^)]*(?:rawAudio|voiceWaveform|faceFrames|biometricStream)/,
+      remediation: 'Never persist raw biometric voice or video streams to disk or database; process in ephemeral RAM and log only anonymized numeric AffectVectors.'
+    }
+  ],
+  'ai-media-generation-expert': [
+    {
+      id: 'AI_MEDIA_BLOCKING_SYNC_HTTP_HANDLER',
+      severity: 'WARN',
+      name: 'Synchronous Long-Running Media Generation Inside Web Handler',
+      regex: /export\s+async\s+function\s+POST\s*\([^)]*\)[\s\S]{0,250}?(?:await\s+replicate\.run|await\s+openai\.images\.generate)(?![\s\S]{0,250}?\b(?:queue|bullmq|inngest|webhook)\b)/,
+      remediation: 'Offload media generation taking >2s to an async queue (BullMQ/Inngest) or webhook architecture instead of blocking synchronous HTTP handlers.'
+    },
+    {
+      id: 'AI_MEDIA_EPHEMERAL_VENDOR_URL_LEAK',
+      severity: 'WARN',
+      name: 'Ephemeral AI Vendor Media URL Exposed Directly to Client',
+      regex: /return\s+res(?:ponse)?\.json\s*\(\s*\{\s*(?:imageUrl|mediaUrl|videoUrl)\s*:\s*(?:output|prediction|response)\b[^\n;]*replicate\.delivery/,
+      remediation: 'Download generated media assets and stream to private S3/R2 object storage with a CDN domain rather than serving ephemeral vendor URLs.'
+    }
+  ],
+  'app-promo-media-expert': [
+    {
+      id: 'PROMO_MEDIA_NON_STANDARD_SCREENSHOT_DIMENSION',
+      severity: 'WARN',
+      name: 'App Store Screenshot Export With Non-Standard Screen Resolution',
+      regex: /(?:width|height)\s*:\s*(?:800|600|1024|768)\s*,\s*(?:width|height)\s*:\s*(?:800|600|1024|768)[\s\S]{0,100}?AppStoreScreenshot/i,
+      remediation: 'App Store screenshots must match canonical native device resolutions (e.g., 1290x2796 for 6.7" iPhone, 1242x2688 for 6.5" iPhone).'
+    },
+    {
+      id: 'PROMO_MEDIA_REMOTION_NON_DETERMINISTIC_RANDOM',
+      severity: 'ERROR',
+      name: 'Nondeterministic Math.random or Date.now In Remotion Composition',
+      regex: /const\s+\w+\s*=\s*(?:Math\.random\(\)|Date\.now\(\))[\s\S]{0,200}?useCurrentFrame\(\)/,
+      remediation: 'Remotion video timelines must be pure deterministic functions of frame index; use Remotion random(seed) instead of Math.random().'
+    }
+  ],
+  'apple-ecosystem-expert': [
+    {
+      id: 'APPLE_SUB_44PT_INTERACTIVE_TARGET',
+      severity: 'WARN',
+      name: 'Interactive Touch Target Hitbox Smaller Than Apple HIG 44x44pt',
+      regex: /<button[^>]*style\s*=\s*\{\{\s*(?:height|width)\s*:\s*(?:['"]?(?:[123]\d|4[0-3])px['"]?)\b[^}]*\}\}/,
+      remediation: 'Interactive controls on iOS/iPadOS must enforce a minimum hitbox floor of 44x44pt (min-height: 44px; min-width: 44px).'
+    },
+    {
+      id: 'APPLE_FIXED_100VH_FULLSCREEN_SHELL',
+      severity: 'WARN',
+      name: 'Static 100vh Used on iOS Shell Layout Instead of Dynamic 100dvh',
+      regex: /(?:className\s*=\s*['"][^'"]*?\bh-screen\b[^'"]*?ios|style\s*=\s*\{\{\s*height\s*:\s*['"]100vh['"])/,
+      remediation: 'Use dynamic viewport units (100dvh / h-dvh) for fullscreen iOS mobile shells to prevent clipping behind Safari URL bars.'
+    }
+  ],
+  'documentation-site-expert': [
+    {
+      id: 'DOCS_SKIPPED_HEADING_LEVEL_ORDER',
+      severity: 'WARN',
+      name: 'Documentation Skips Heading Hierarchy Level (H1 Directly to H3)',
+      regex: /^#\s+[^\r\n]+\r?\n+(?:(?!^##\s)[\s\S]){0,400}?^###\s+/m,
+      remediation: 'Documentation headings must follow semantic hierarchy order without skipping levels (e.g. # H1 -> ## H2 -> ### H3).'
+    },
+    {
+      id: 'DOCS_UNVALIDATED_UNTYPED_CODE_BLOCK',
+      severity: 'WARN',
+      name: 'Documentation Code Snippet Contains Lazy Untyped Placeholder',
+      regex: /```(?:ts|tsx|typescript)\r?\n[\s\S]{0,100}?\/\/\s*(?:your\s+code\s+here|todo\s+implement)/i,
+      remediation: 'Provide 100% concrete, type-safe, runnable code examples in documentation without lazy placeholder comments.'
+    }
+  ],
+  'doku-mcp-server': [
+    {
+      id: 'DOKU_MCP_HARDCODED_SECRET_KEY',
+      severity: 'ERROR',
+      name: 'DOKU Secret Key Literal Hardcoded in MCP Server Code',
+      regex: /(?:DOKU_SECRET_KEY|secretKey)\s*=\s*['"](?:SK-[a-zA-Z0-9_-]{10,}|[a-zA-Z0-9]{24,})['"]/,
+      remediation: 'Never hardcode DOKU Secret Keys in MCP tool source code; load exclusively from process.env.DOKU_SECRET_KEY.'
+    },
+    {
+      id: 'DOKU_MCP_DIGEST_ON_GET_REQUEST',
+      severity: 'ERROR',
+      name: 'Digest Header Included on DOKU GET Transaction Status Request',
+      regex: /headers\s*:\s*generateNonSnapHeaders\s*\([^)]*,\s*(?:true|body|payload)\s*\)[\s\S]{0,100}?method\s*:\s*['"]GET['"]/i,
+      remediation: 'Do not generate or attach a Digest header on GET requests (/orders/v1/status); doing so produces 401 Signature Mismatch.'
+    }
+  ],
+  'ephemeral-generative-ui-architect': [
+    {
+      id: 'GEN_UI_UNVALIDATED_LLM_PAYLOAD_HYDRATION',
+      severity: 'WARN',
+      name: 'Unvalidated LLM Tool Arguments Directly Hydrated Into Generative UI',
+      regex: /<[A-Z]\w+Card\s+\{\.\.\.(?:toolCall|args|toolInvocation)\.args\}\s*\/>(?![\s\S]{0,150}?\b(?:schema|parse|zod)\b)/,
+      remediation: 'Validate and sanitize all LLM tool arguments through strict Zod schemas before hydrating client generative UI components.'
+    },
+    {
+      id: 'GEN_UI_PROHIBITED_NEON_GLOW_SLOP',
+      severity: 'WARN',
+      name: 'Prohibited AI-Slop Neon Glow Orbs or Purple Gradients on Card',
+      regex: /(?:blur-2xl|blur-3xl)\s+bg-(?:purple|indigo|fuchsia)-500\/(?:30|40|50|60)\s+rounded-full/,
+      remediation: 'Eliminate AI-slop floating blurry neon glow orbs; adhere to sovereign UI craft with crisp 1px borders and neutral surfaces.'
+    }
+  ],
+  'ephemeral-wasm-sandbox-executor': [
+    {
+      id: 'WASM_SANDBOX_MISSING_FUEL_LIMIT',
+      severity: 'ERROR',
+      name: 'WASM Sandbox Invocation Missing Explicit Fuel Limit or Timeout',
+      regex: /(?:extism|wasmtime|wasmRunner)\.call\s*\([^)]*\)(?![\s\S]{0,200}?\b(?:fuel|maxFuel|fuelUnits|timeoutMs)\b)/,
+      remediation: 'Set an explicit fuel unit limit or strict timeout (<= 500ms) on WASM sandbox executions to prevent CPU exhaustion and infinite loops.'
+    },
+    {
+      id: 'WASM_SANDBOX_UNROLLBACKED_SQL_MUTATION',
+      severity: 'WARN',
+      name: 'PGlite WASM Dry-Run Query Executed Without Transaction Rollback',
+      regex: /await\s+db\.query\s*\(\s*['"](?:CREATE|ALTER|DROP|INSERT|UPDATE)\b[\s\S]{0,200}?(?!await\s+db\.query\s*\(\s*['"]ROLLBACK)/,
+      remediation: 'Wrap ephemeral database dry-runs in an explicit BEGIN ... ROLLBACK transaction block to guarantee zero persistent mutations.'
+    }
+  ],
+  'hig': [
+    {
+      id: 'HIG_MULTIPLE_FILLED_PRIMARY_BUTTONS',
+      severity: 'WARN',
+      name: 'Multiple Prominent Filled Primary Action Buttons on Same View',
+      regex: /<Button[^>]*variant\s*=\s*['"](?:default|primary)['"][^>]*>[\s\S]{0,150}?<Button[^>]*variant\s*=\s*['"](?:default|primary)['"]/i,
+      remediation: 'Enforce the Single Primary Action rule: exactly one prominent filled CTA button per view; use tinted or gray for secondary actions.'
+    },
+    {
+      id: 'HIG_MISSING_TABULAR_NUMS_ON_METRIC',
+      severity: 'WARN',
+      name: 'Financial Price or Counter Display Missing Tabular Numerals',
+      regex: /<(?:span|div|p)[^>]*class(?:Name)?\s*=\s*['"][^'"]*?(?:font-bold|font-semibold)[^'"]*?['"][^>]*>[\s\S]{0,50}?(?:\$|Rp|€|USD|IDR)\s*\{[\s\S]{0,80}?(?!tabular-nums)/,
+      remediation: 'Enforce font-variant-numeric: tabular-nums (or tabular-nums utility) on all numerical prices, metrics, and timers to avoid layout jitter.'
+    }
+  ],
+  'kv-cache-prefix-optimizer': [
+    {
+      id: 'KV_CACHE_VOLATILE_TIMESTAMP_IN_SYSTEM_PROMPT',
+      severity: 'WARN',
+      name: 'Dynamic Volatile Timestamp Injected Into Pinned System Prompt',
+      regex: /(?:systemPrompt|systemInstructions)\s*:\s*`[\s\S]{0,250}?\$\{\s*(?:new\s+Date\(\)|Date\.now\(\)|new\s+Date\(\)\.toISOString\(\))\s*\}/,
+      remediation: 'Never place dynamic dates or timestamps in the system prompt prefix; move timestamps exclusively to the final user turn message.'
+    },
+    {
+      id: 'KV_CACHE_UNSORTED_DYNAMIC_TOOL_MAP',
+      severity: 'WARN',
+      name: 'LLM Tools Serialized From Unsorted Object Values Busting KV-Cache',
+      regex: /tools\s*:\s*Object\.values\s*\(\s*\w+\s*\)(?!\.sort\()/,
+      remediation: 'Sort tool definitions alphabetically by name and schema keys (.sort((a, b) => a.name.localeCompare(b.name))) to preserve byte-identical KV-cache prefixes.'
+    }
   ]
 
 });

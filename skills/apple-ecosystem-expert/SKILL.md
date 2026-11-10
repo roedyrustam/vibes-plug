@@ -326,6 +326,17 @@ export async function subscribeToAppleWebPush(applicationServerKey: string): Pro
 
 ---
 
+### Hard Guardrails (Declarative Invariants)
+- **Minimum 44x44pt Touch Target Floor**: All interactive controls (buttons, navigation elements, inputs) MUST provide a minimum hitbox of $44\times 44\text{pt}$ (`min-height: 44px; min-width: 44px`) adhering strictly to Apple HIG.
+- **Safari Dynamic Viewport & Font Floor Invariant**: Root app containers MUST use dynamic viewport units (`100dvh`), and mobile text inputs MUST enforce `font-size: max(16px, 1rem)` to permanently prevent involuntary Safari auto-zoom.
+- **Safe Area Inset Protection**: All fixed headers, floating navigation bars, and bottom sheets MUST incorporate `env(safe-area-inset-top)` and `env(safe-area-inset-bottom)` to protect Dynamic Island, notch, and Home Indicator boundaries.
+- **Mandatory Apple Legal Compliance Trio**: All iOS/macOS applications MUST provide a functional in-app account & data deletion flow (`/delete-account` or `/data-deletion`) alongside `/privacy` and `/terms` compliant with App Store Guideline 5.1.1(v).
+
+### Non-Functional Requirements (NFR)
+- **ProMotion Animation Performance**: 60fps/120fps fluid transitions without stutter.
+- **Zero Safari Layout Shifts**: 0 visual shifts on Safari URL bar show/hide (CLS $\le 0.01$).
+- **WCAG 2.2 AA Contrast**: Strict adherence to Apple system text and background contrast thresholds.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -400,6 +411,17 @@ Terapkan token resmi Apple HIG langsung pada CSS atau Tailwind v4:
 - [ ] Kepatuhan Wajib Apple Guideline 5.1.1(v): Tombol Hapus Akun & Data tersedia di dalam aplikasi dan didukung URL web publik (`/delete-account` atau `/data-deletion`), berdampingan dengan tautan resmi Kebijakan Privasi (`/privacy`) dan Syarat & Ketentuan (`/terms`).
 
 ---
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Batas Minimal Target Sentuh 44x44pt**: Seluruh tombol dan elemen interaktif WAJIB memiliki luas hitbox minimal $44\times 44\text{pt}$ (`min-height: 44px; min-width: 44px`) sesuai pedoman baku Apple HIG.
+- **Invarian Dynamic Viewport & Font Input Safari**: Shell kontainer aplikasi utama wajib menggunakan unit `100dvh`, dan input formulir wajib menetapkan `font-size: max(16px, 1rem)` guna mencegah zoom paksa Safari WebKit di perangkat seluler.
+- **Proteksi Inset Safe Area**: Seluruh header melayang dan navigasi bawah wajib memperhitungkan inset `env(safe-area-inset-top)` dan `env(safe-area-inset-bottom)` untuk melindungi area Dynamic Island, poni, dan Home Indicator.
+- **Kepatuhan Legalitas Trio Wajib Apple**: Aplikasi iOS/macOS wajib menyertakan alur hapus akun dan data pengguna langsung di aplikasi (`/delete-account` atau `/data-deletion`) berdampingan dengan `/privacy` dan `/terms` sesuai Apple App Store Guideline 5.1.1(v).
+
+### Non-Functional Requirements (NFR)
+- **Kelancaran Animasi ProMotion**: Transisi layar halus 60fps/120fps tanpa jeda (*stutter*).
+- **Zero Safari Layout Shift**: 0 pergeseran layout saat address bar Safari muncul/sembunyi (CLS $\le 0.01$).
+- **Kontras WCAG 2.2 AA**: Mematuhi rasio kontras teks dan warna sistem semantik Apple HIG.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
