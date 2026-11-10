@@ -126,7 +126,7 @@ for (const [u, html] of pages) {
       prev = out;
       out = out
         .replace(/<head[\s\S]*?<\/head>/i, '')
-        .replace(/<script[\s\S]*?<\/script>/gi, '');
+        .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, '');
     } while (out !== prev);
     return out;
   }
