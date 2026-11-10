@@ -172,6 +172,16 @@ export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContex
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Legal & Privacy Trio Implementation**:
+   - Every scaffolded SaaS project MUST provide real, working implementations for: (1) `/terms`, (2) `/privacy` (or `/privacy-policy`), and (3) `/delete-account` (or `/data-deletion`). Stubbing these with 404 or missing routes is strictly prohibited under UU PDP & GDPR Art. 17 compliance.
+2. **Dedicated Admin Subdomain & Entry-Point Isolation**:
+   - Super-admin operations MUST be isolated on a dedicated entry-point / subdomain (`admin.*`) with multi-factor authentication (MFA/Passkeys) and role verification; never mix public user routes with platform-level administrative mutations.
+3. **Hierarchical 4-Tier Entitlement Gating**:
+   - Access to paid SaaS features MUST evaluate all 4 entitlement tiers: System Killswitch -> Plan Entitlement -> Tenant Addon -> User Role Permission. Never evaluate user role alone without validating tenant subscription status.
+4. **Mandatory Logo & Identity Generation**:
+   - Never use placeholder initials or dummy SVG squares for SaaS branding; generate a high-fidelity SVG icon and brand identity before production scaffolding.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

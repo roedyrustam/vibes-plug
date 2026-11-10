@@ -278,6 +278,16 @@ export async function getTenantCached(slug: string) {
 - [ ] Production migrations never run `prisma db push` or `drizzle-kit push`; versioned SQL files are audited via `vibes db:eval`.
 - [ ] High-concurrency state transitions use `SELECT ... FOR UPDATE` or optimistic version increments.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Explicit B-Tree Indexes on All Foreign Keys**:
+   - Every foreign key constraint (e.g. `workspace_id`, `user_id`, `account_id`) MUST have an accompanying B-tree index (`CREATE INDEX idx_...`). Unindexed foreign keys trigger table-level locking during CASCADE operations and slow queries.
+2. **Deterministic Timestamp Storage with Timezone (`TIMESTAMPTZ`)**:
+   - All temporal columns (`created_at`, `updated_at`, `deleted_at`) MUST use `TIMESTAMPTZ` (UTC-normalized); never use bare `TIMESTAMP` without timezone.
+3. **Keyset Cursor Pagination Over Offset**:
+   - Queries retrieving paginated datasets on tables with > 10,000 rows MUST use keyset cursor pagination (`WHERE (created_at, id) < ($1, $2) ORDER BY created_at DESC, id DESC LIMIT $3`). Never use deep `.skip(offset)` / `OFFSET` scans.
+4. **Pessimistic Row Locking on Financial & Inventory Mutations**:
+   - Any transaction updating balances, ledger lines, or stock reservations MUST acquire pessimistic row locks (`SELECT ... FOR UPDATE` or Prisma `$executeRaw` with atomic conditional update) to eliminate race condition vulnerabilities.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |

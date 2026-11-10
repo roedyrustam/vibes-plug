@@ -2276,6 +2276,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG8 = [
+      'ai-llm-integration-expert', 'agentic-memory-architect', 'agentic-m2m-settlement',
+      'agentic-micro-economy-architect', 'multi-agent-orchestration', 'api-design-expert',
+      'spec-driven-development-expert', 'saas-architect', 'saas-multi-tenant', 'database-orm-expert'
+    ];
+    for (const skill of deepenedG8) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2384,6 +2393,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'webxr-ar-vr-expert', code: 'hitTest.onHitTestResultObservable.add((results) => {\n  MeshBuilder.CreateBox("spawned", { size: 0.2 }, scene);\n});' }, 'WEBXR_HIT_TEST_SPAWN_WITHOUT_RESULT_CHECK');
     await expectViolation({ skill: 'post-quantum-crypto-migrator', code: 'const ecdh = crypto.createECDH("prime256v1");' }, 'PQC_INSECURE_STATIC_PRIME_ECDH');
     await expectViolation({ skill: 'supabase-security-expert', code: 'CREATE FUNCTION test_fn() RETURNS void LANGUAGE sql SECURITY DEFINER AS $$ BEGIN NULL; END; $$;' }, 'SUPABASE_SECURITY_DEFINER_WITHOUT_SEARCH_PATH');
+
+    // Wave 8 (Gelombang 8) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'ai-llm-integration-expert', code: 'const res = await ai.chat({ messages: [{ role: "user", content: `Hello ${req.body.name}` }] });' }, 'AI_LLM_PROMPT_INJECTION_UNSANITIZED_INTERPOLATION');
+    await expectViolation({ skill: 'agentic-memory-architect', code: 'const memories = await mem0.search("recent user query");' }, 'AGENTIC_MEMORY_UNSCOPED_LOOKUP');
+    await expectViolation({ skill: 'agentic-m2m-settlement', code: 'await db.query("UPDATE agent_wallets SET balance_minor = balance_minor - 500 WHERE id = $1");' }, 'M2M_SETTLEMENT_UNLOCKED_BALANCE_MUTATION');
+    await expectViolation({ skill: 'agentic-micro-economy-architect', code: 'class AgentTreasury {\n  allocateBudget(amount) {\n    return amount;\n  }\n}' }, 'MICRO_ECONOMY_MISSING_KILLSWITCH');
+    await expectViolation({ skill: 'multi-agent-orchestration', code: 'function dispatchSubagent(task) {\n  return execute(task);\n}' }, 'MULTI_AGENT_UNBOUNDED_SUBAGENT_RECURSION');
+    await expectViolation({ skill: 'api-design-expert', code: 'res.status(500).json({ error: err.message });' }, 'API_DESIGN_RAW_ERROR_MESSAGE_LEAK');
+    await expectViolation({ skill: 'spec-driven-development-expert', code: 'const body = await req.json();\nreturn save(body);' }, 'SPEC_DRIVEN_UNVALIDATED_REQUEST_BODY');
+    await expectViolation({ skill: 'saas-architect', code: 'export async function GET(req) {\n  const path = "/super-admin/dashboard";\n  return serve(path);\n}' }, 'SAAS_SUPERADMIN_UNPROTECTED_SUBDOMAIN');
+    await expectViolation({ skill: 'saas-multi-tenant', code: 'CREATE TABLE IF NOT EXISTS projects ( id UUID PRIMARY KEY, name TEXT NOT NULL );' }, 'SAAS_SHARED_TABLE_MISSING_TENANT_ID');
+    await expectViolation({ skill: 'database-orm-expert', code: 'const users = await prisma.user.findMany({ skip: page * 20, take: 20 });' }, 'DB_DEEP_OFFSET_PAGINATION');
   });
 });
 

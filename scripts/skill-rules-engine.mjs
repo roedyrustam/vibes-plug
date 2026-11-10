@@ -181,6 +181,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'PostgreSQL Table Created Without Row Level Security',
       regex: /CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+[\w."]+[\s\S]+?;(?![\s\S]*ENABLE\s+ROW\s+LEVEL\s+SECURITY)/i,
       remediation: 'Enable Row Level Security (ALTER TABLE <name> ENABLE ROW LEVEL SECURITY;) and define tenant isolation policies.'
+    },
+    {
+      id: 'DB_DEEP_OFFSET_PAGINATION',
+      severity: 'WARN',
+      name: 'Deep OFFSET Pagination on Large Relational Table',
+      regex: /prisma\.\w+\.findMany\s*\(\s*\{[\s\S]{0,150}?\bskip\s*:\s*(?:input\.page|page|\d{3,})[\s\S]{0,150}?\btake\s*:/,
+      remediation: 'Use cursor-based keyset pagination ({ cursor: { id }, skip: 1, take }) instead of offset-based skip on large relational tables.'
     }
   ],
   'supabase-security-expert': [
@@ -628,6 +635,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Multi-Tenant Query Missing tenantId Scope',
       regex: /prisma\.(?:invoice|subscription|project|member|document)\.findMany\s*\(\s*\{\s*\}\s*\)/,
       remediation: 'Scope every multi-tenant query by tenantId and enforce PostgreSQL Row Level Security (current_setting("app.current_tenant_id")).'
+    },
+    {
+      id: 'SAAS_SHARED_TABLE_MISSING_TENANT_ID',
+      severity: 'ERROR',
+      name: 'Multi-Tenant Entity Table Created Without tenant_id Column',
+      regex: /CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+(?:projects|documents|invoices|members|workspaces_data)\s*\((?![\s\S]{0,400}?\btenant_id\b)/i,
+      remediation: 'Every shared multi-tenant table MUST declare a tenant_id UUID NOT NULL column with an index and RLS policy.'
     }
   ],
   'spa-orchestrator': [
@@ -1231,6 +1245,134 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Non-Constant-Time PQC / Classical Digital Signature Comparison',
       regex: /pqcSignature\s*===?\s*\w+|\w+\s*===?\s*pqcSignature/,
       remediation: 'Verify digital signatures and KEM shared secrets using crypto.timingSafeEqual with preliminary byte-length checks.'
+    }
+  ],
+  'ai-llm-integration-expert': [
+    {
+      id: 'AI_LLM_PROMPT_INJECTION_UNSANITIZED_INTERPOLATION',
+      severity: 'WARN',
+      name: 'Unsanitized Variable Interpolation in LLM Prompt Template',
+      regex: /messages\s*:\s*\[\s*\{[\s\S]{0,60}?role\s*:\s*['"](?:user|system)['"]\s*,\s*content\s*:\s*`[^`]*\$\{[^}]+\}/,
+      remediation: 'Pass variables as discrete structured parameters or filter through prompt-injection-firewall before string interpolation.'
+    },
+    {
+      id: 'AI_LLM_MISSING_STRUCTURED_OUTPUT_SCHEMA',
+      severity: 'WARN',
+      name: 'LLM Structured Output Generation Without Schema / Grammar Mask',
+      regex: /\b(?:generateObject|generateText)\s*\(\s*\{(?![\s\S]{0,300}?\b(?:schema|response_format|json_schema)\b)[\s\S]{0,300}?model\s*:/,
+      remediation: 'Attach an explicit Zod schema or response_format: { type: "json_schema" } to guarantee structured LLM outputs via token-level grammar masks.'
+    }
+  ],
+  'agentic-memory-architect': [
+    {
+      id: 'AGENTIC_MEMORY_UNSCOPED_LOOKUP',
+      severity: 'ERROR',
+      name: 'Agentic Memory Search Executed Without Tenancy / User Scope',
+      regex: /\b(?:mem0|zep|letta)\.(?:search|get|getMemory)\s*\(\s*['"][^'"]+['"]\s*\)(?![\s\S]{0,100}?user_id)/,
+      remediation: 'Scope memory lookups explicitly with a user_id or tenant_id (e.g. mem0.search(query, { user_id })) to prevent cross-tenant data leakage.'
+    },
+    {
+      id: 'AGENTIC_MEMORY_UNRESTRICTED_COSINE_SIMILARITY',
+      severity: 'WARN',
+      name: 'Vector Memory Retrieval Without Minimum Similarity Threshold',
+      regex: /ORDER\s+BY\s+[\w.]+\s*<\s*=>\s*[\w$]+(?:\s+ASC)?\s+LIMIT(?![\s\S]{0,200}?similarity\s*(?:>|>=)\s*0\.\d+)/i,
+      remediation: 'Enforce a minimum cosine similarity threshold (e.g. similarity >= 0.70) to prevent low-relevance hallucinations from polluting the context window.'
+    }
+  ],
+  'agentic-m2m-settlement': [
+    {
+      id: 'M2M_SETTLEMENT_UNLOCKED_BALANCE_MUTATION',
+      severity: 'ERROR',
+      name: 'Agent Wallet Balance Mutation Without Pessimistic Row Lock',
+      regex: /UPDATE\s+agent_wallets\s+SET\s+balance_minor\s*=(?![\s\S]{0,400}?FOR\s+UPDATE)/i,
+      remediation: 'Execute balance mutations within a transaction locking the target wallet row (SELECT ... FOR UPDATE) to eliminate race conditions and double-spending.'
+    },
+    {
+      id: 'M2M_SETTLEMENT_FLOAT_ARITHMETIC',
+      severity: 'ERROR',
+      name: 'M2M Settlement Using Floating Point Currency Math',
+      regex: /(?:parseFloat|Number)\s*\(\s*(?:amount|balance|fee|tariff)\s*\)\s*(?:\*|\/|\+|-)/,
+      remediation: 'Perform all agentic financial calculations in integer minor units (BigInt or NUMERIC(20, 0)) to avoid IEEE 754 precision loss.'
+    }
+  ],
+  'agentic-micro-economy-architect': [
+    {
+      id: 'MICRO_ECONOMY_MISSING_KILLSWITCH',
+      severity: 'WARN',
+      name: 'Micro-Economy Treasury Dispatch Without Emergency Killswitch',
+      regex: /class\s+\w*Treasury\w*[\s\S]{0,400}?(?![\s\S]{0,400}?\b(?:killswitch|halt|freeze|circuitBreaker)\b)allocateBudget\s*\(/,
+      remediation: 'Include an automated killswitch check in the root treasury manager to halt agent spending immediately upon budget breach or anomaly detection.'
+    },
+    {
+      id: 'MICRO_ECONOMY_HTTP_402_NO_EXPIRATION',
+      severity: 'WARN',
+      name: 'HTTP 402 Payment Challenge Without Strict Expiration Window',
+      regex: /create402Challenge\s*\(\s*\{(?![\s\S]{0,250}?\b(?:expiresAt|expiry|maxAge)\b)/,
+      remediation: 'Include a cryptographically signed expiresAt timestamp (max 30 seconds) on HTTP 402 challenges to prevent payment replay attacks.'
+    }
+  ],
+  'multi-agent-orchestration': [
+    {
+      id: 'MULTI_AGENT_UNBOUNDED_SUBAGENT_RECURSION',
+      severity: 'ERROR',
+      name: 'Subagent Invocation Without Recursion / Hop Depth Limit',
+      regex: /function\s+dispatchSubagent\s*\([^)]*\)\s*\{(?![\s\S]{0,300}?\b(?:maxDepth|depth\s*>|hopCount)\b)/,
+      remediation: 'Enforce a strict maximum recursion depth (maxDepth <= 4) on subagent delegation to prevent infinite agent dispatch loops.'
+    },
+    {
+      id: 'MULTI_AGENT_DESTRUCTIVE_TOOL_WITHOUT_HITL',
+      severity: 'ERROR',
+      name: 'Subagent Granted Destructive Tool Execution Without Human-in-the-Loop',
+      regex: /tools\s*:\s*\[[^\]]*(?:dropDatabase|deleteProductionData|executeRawShell)[^\]]*\](?![\s\S]{0,200}?\b(?:human_input\s*:\s*true|requireApproval\s*:\s*true)\b)/,
+      remediation: 'Enforce human_input: true or explicit HITL approval gates before granting subagents destructive file, database, or shell tools.'
+    }
+  ],
+  'api-design-expert': [
+    {
+      id: 'API_DESIGN_RAW_ERROR_MESSAGE_LEAK',
+      severity: 'WARN',
+      name: 'API Error Response Leaking Raw Error Message Instead of RFC 9457',
+      regex: /res\.status\s*\(\s*(?:500|400|404|422)\s*\)\.json\s*\(\s*\{\s*(?:error|message)\s*:\s*err\.message\s*\}\s*\)/,
+      remediation: 'Wrap error responses in RFC 9457 Problem Details ({ type, title, status, detail }) and avoid leaking raw err.message or stack traces.'
+    },
+    {
+      id: 'API_DESIGN_MISSING_IDEMPOTENCY_KEY_ON_MUTATION',
+      severity: 'WARN',
+      name: 'Payment/Mutation Route Handler Missing Idempotency-Key Check',
+      regex: /app\.post\s*\(\s*['"]\/(?:api\/v\d+\/)?(?:payments|charges|transfers|payouts)['"][\s\S]{0,250}?\((?:req|request),\s*(?:res|response)\)[\s\S]{0,250}?\{(?![\s\S]{0,300}?idempotency-key)/i,
+      remediation: 'Verify and validate the Idempotency-Key header on critical mutation and financial transaction endpoints.'
+    }
+  ],
+  'spec-driven-development-expert': [
+    {
+      id: 'SPEC_DRIVEN_UNVALIDATED_REQUEST_BODY',
+      severity: 'WARN',
+      name: 'Route Handler Consuming Request Body Without Schema Parse',
+      regex: /(?:const|let)\s+\w+\s*=\s*await\s+req\.json\(\);(?![\s\S]{0,150}?\.(?:parse|safeParse)\()/,
+      remediation: 'Parse request payloads through generated TypeSpec / Zod contract schemas (.parse(body)) before accessing entity properties.'
+    },
+    {
+      id: 'SPEC_DRIVEN_TYPE_CAST_BYPASS',
+      severity: 'ERROR',
+      name: 'Contract Specification Bypassed With Force Type-Casting',
+      regex: /\bas\s+unknown\s+as\s+[A-Z]\w*|\bas\s+any\b/,
+      remediation: 'Do not bypass generated OpenAPI / TypeSpec type contracts with "as any" or "as unknown as T"; ensure data conform to schemas.'
+    }
+  ],
+  'saas-architect': [
+    {
+      id: 'SAAS_SUPERADMIN_UNPROTECTED_SUBDOMAIN',
+      severity: 'ERROR',
+      name: 'Super Admin Route Handler Missing Role / MFA Gate',
+      regex: /export\s+async\s+function\s+(?:GET|POST|PUT|DELETE)\s*\([^)]*\)[\s\S]{0,300}?\/super-admin(?![\s\S]{0,300}?\b(?:isSuperAdmin|requireSuperAdmin|role\s*===?\s*['"]super_admin['"])\b)/,
+      remediation: 'Gate all super-admin endpoints with strict role checks (isSuperAdmin) and multi-factor authentication on dedicated admin subdomains.'
+    },
+    {
+      id: 'SAAS_MISSING_PRIVACY_TERMS_LEGAL_TRIO',
+      severity: 'WARN',
+      name: 'SaaS App Scaffold Missing Mandatory Privacy / Data Deletion Routes',
+      regex: /createSaaSApp\s*\(\s*\{(?![\s\S]{0,300}?\b(?:privacyPolicy|termsOfService|dataDeletion)\b)/,
+      remediation: 'Implement the mandatory legal trio (/terms, /privacy, and /delete-account) required by UU PDP, GDPR Art. 17, and app store policies.'
     }
   ]
 });
