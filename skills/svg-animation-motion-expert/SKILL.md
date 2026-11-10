@@ -17,6 +17,16 @@ version: "4.7.2"
 ### Description
 A dedicated skill for crafting fluid, high-performance web animations and micro-interactions. Covers direct SVG manipulation (paths, masks, clip-paths), React-based animations using Framer Motion 12+, advanced timeline choreography with GSAP 3, native CSS Scroll-Driven Animations, and the View Transitions API for seamless page navigations.
 
+### Hard Guardrails (Declarative Invariants)
+- **GPU-Composited Transform Invariant**: Animating layout or box-model properties (`top`, `left`, `margin`, `padding`, `width`, `height`) on continuous frame loops is strictly prohibited. Animations must execute exclusively on GPU-composited layers via `transform` (`translate3d`, `scale`, `rotate`) and `opacity`.
+- **Mandatory SVG `viewBox` & Aspect Ratio**: Inline animated `<svg>` elements must declare a valid `viewBox="0 0 w h"` and `preserveAspectRatio` attribute to ensure deterministic coordinate scaling and prevent layout shifts (CLS).
+- **Mandatory `prefers-reduced-motion` Compliance**: Every animated sequence with significant motion or translation must provide an accessible fallback respecting `@media (prefers-reduced-motion: reduce)` or Framer Motion's `useReducedMotion()` in compliance with WCAG 2.2 AA.
+- **Compositor-Threaded Scroll Animations**: Scroll-linked interactions must use native CSS Scroll-Driven Animations (`animation-timeline: view() / scroll()`) or RAF-throttled transforms; raw `window.addEventListener('scroll', ...)` bound to reactive component state is prohibited.
+
+### Non-Functional Requirements (NFR Contract)
+- **Frame Rate SLA**: All micro-interactions and transitions must maintain continuous 60fps ($16.6\text{ ms}$ budget) with zero compositor thread stutter.
+- **Bundle Footprint**: Animation packages must be tree-shaken, keeping client animation code $< 35\text{ KB}$ gzipped.
+
 ### Trigger Conditions
 - When building complex landing page animations or scroll reveals.
 - When creating interactive SVG graphics, charts, or diagrams.
@@ -471,6 +481,16 @@ Every primary interactive element (CTAs, nav links, project rows, work cards) mu
 
 ### Deskripsi
 Skill khusus untuk membuat animasi web dan interaksi mikro yang lancar dan berkinerja tinggi. Mencakup manipulasi SVG langsung, animasi berbasis React menggunakan Framer Motion 12+, koreografi timeline lanjutan dengan GSAP 3, CSS Scroll-Driven Animations native, dan View Transitions API.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Invarian Transform Terkomposisi GPU**: Menganimasikan properti layout (`top`, `left`, `margin`, `padding`, `width`, `height`) secara berulang dilarang keras. Animasi harus dieksekusi secara eksklusif pada layer GPU via `transform` (`translate3d`, `scale`, `rotate`) dan `opacity`.
+- **Atribut Wajib SVG `viewBox` & Aspect Ratio**: Elemen `<svg>` animasi inline wajib menyertakan atribut `viewBox="0 0 w h"` dan `preserveAspectRatio` untuk memastikan kalkulasi koordinat deterministik serta mencegah pergeseran tata letak (CLS).
+- **Kepatuhan Wajib `prefers-reduced-motion`**: Setiap sekuens animasi dengan pergerakan translasi signifikan wajib menyediakan fallback ramah aksesibilitas berbasis `@media (prefers-reduced-motion: reduce)` atau Framer Motion `useReducedMotion()` demi standar WCAG 2.2 AA.
+- **Pemisahan Thread Kompositor Scroll**: Animasi scroll wajib memanfaatkan CSS Scroll-Driven Animations natif (`animation-timeline: view()`) atau transformasi berbasis RAF pasif; penggunaan event listener `scroll` unthrottled yang terikat state React dilarang.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **SLA Frame Rate**: Seluruh interaksi mikro dan transisi harus mempertahankan konsistensi 60fps (anggaran $16.6\text{ ms}$) tanpa tersendat di thread kompositor.
+- **Ukuran Bundle**: Library animasi harus di-tree-shake dengan ketat agar bobot skrip animasi klien tetap $< 35\text{ KB}$ terkompresi.
 
 ### Kondisi Pemicu
 - Saat membangun animasi landing page yang kompleks.

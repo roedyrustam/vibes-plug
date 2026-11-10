@@ -32,6 +32,16 @@ This skill exists to prevent:
 
 > ⚠️ **Hard Constraint:** You are **not allowed** to write code or modify source code while `brainstorming` mode is active. Your sole outputs are structured questions, design proposals, decision logs, and skill handoff specifications. **For new applications, you MUST always automatically trigger the `prd-architect` skill to generate a `PRD.md` file before coding begins.**
 
+### Hard Guardrails (Declarative Invariants)
+- **Zero-Code Execution Barrier**: Writing or modifying application production source code (`.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`) while in `brainstorming` mode is strictly prohibited. Outputs are restricted to architectural questions, design proposals, ADR records, and skill delegation matrices.
+- **Mandatory PRD-First Pipeline**: Initiating any new project or major module from scratch MUST automatically trigger `prd-architect` to generate `PRD.md`, `ERD.md`, and `DOCUMENTATION.md` before any code generator is invoked.
+- **Mandatory Legal & Privacy Trio Specification**: Every architectural design for customer-facing web/mobile applications MUST explicitly specify concrete routes for: (1) `/privacy` (UU PDP No. 27/2022 & GDPR Art. 13), (2) `/terms`, and (3) `/delete-account` (GDPR Art. 17 & App Store 5.1.1(v)).
+- **Anti-YAGNI & Speculative Feature Elimination**: Prohibits introducing speculative multi-tenant layers, microservice splits, or complex factory hierarchies unless explicitly demanded by documented scale requirements.
+
+### Non-Functional Requirements (NFR Contract)
+- **Ideation Latency**: Brainstorming interview turns must complete with TTFT $< 800\text{ ms}$ using fast reasoning.
+- **Decision Completeness**: Every proposed architecture must explicitly declare its Data Store (Postgres/SQLite), Auth Mechanism, and Deployment Target.
+
 ---
 
 ### Skill Integration & Orchestration Matrix
@@ -258,6 +268,16 @@ Skill ini ada untuk mencegah:
 - *Over-engineering* sebelum tercapainya *product-market fit*
 
 > ⚠️ **Batasan Ketat:** Anda **tidak diperbolehkan** untuk menulis kode atau mengubah kode sumber saat mode `brainstorming` aktif. Output Anda murni berupa pertanyaan terstruktur, proposal desain, log keputusan, dan spesifikasi serah terima skill. **Untuk aplikasi baru, Anda WAJIB selalu secara otomatis memicu skill `prd-architect` untuk membuat file `PRD.md` sebelum penulisan kode dimulai.**
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Batas Eksekusi Nol Kode (Zero-Code Barrier)**: Menulis atau mengubah kode sumber produksi aplikasi (`.ts`, `.tsx`, `.js`, `.py`, `.go`, `.rs`) selama mode `brainstorming` aktif dilarang keras. Output dibatasi hanya untuk pertanyaan arsitektur, proposal desain, catatan ADR, dan matriks delegasi skill.
+- **Pipeline Wajib PRD-First**: Menginisialisasi proyek baru atau modul besar dari awal WAJIB memicu `prd-architect` secara otomatis untuk membuat `PRD.md`, `ERD.md`, dan `DOCUMENTATION.md` sebelum tool pembuatan kode dijalankan.
+- **Spesifikasi Wajib Trio Legal & Privasi**: Setiap rancangan arsitektur aplikasi web/mobile yang berhadapan dengan pengguna WAJIB merinci rute konkret untuk: (1) `/privacy` (UU PDP No. 27/2022 & GDPR Art. 13), (2) `/terms`, dan (3) `/delete-account` (GDPR Art. 17 & App Store 5.1.1(v)).
+- **Eliminasi Fitur Spekulatif Anti-YAGNI**: Melarang penambahan lapisan multi-tenant spekulatif, pemecahan microservices dini, atau hierarki factory rumit tanpa kebutuhan beban kerja yang terverifikasi.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Latensi Ideasi**: Giliran wawancara brainstorming harus selesai dengan TTFT $< 800\text{ ms}$ menggunakan model bernalar cepat.
+- **Kelengkapan Keputusan**: Setiap arsitektur yang diusulkan wajib mendeklarasikan Data Store (Postgres/SQLite), Mekanisme Auth, dan Target Deployment secara eksplisit.
 
 ---
 

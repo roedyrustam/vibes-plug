@@ -24,6 +24,16 @@ version: "4.7.2"
 ### Description
 Production guide for scaling test-time compute (inference-time reasoning) across frontier AI models including Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, and xAI Grok 4.7. Provides concrete architectures for dynamic thinking budget allocation, tree-search exploration (MCTS, beam search), step-level Process Reward Model (PRM) verification, and self-consistency consensus loops.
 
+### Hard Guardrails (Declarative Invariants)
+- **Bounded Search Tree & Sampling Ceiling**: Inference-time search exploration routines (Monte Carlo Tree Search, Best-of-N, Beam Search) must enforce a hard upper bound of $N \le 16$ candidate rollouts and a maximum turn timeout of $T \le 30\text{ seconds}$ to eliminate runaway compute loops.
+- **Process Reward Model (PRM) Step Verification**: Multi-step reasoning rollouts must evaluate and prune intermediate step transitions using Process Reward Model scoring rather than relying solely on terminal outcome verification.
+- **Complexity-Calibrated Thinking Allocation**: Trivial tasks (regex adjustments, string parsing, basic DTO mapping) must never exceed $1,024$ reasoning tokens; mission-critical cryptographic or formal invariant solving must allocate $\ge 16,384$ tokens.
+- **Fallback Circuit Breaker on Search Timeout**: If tree search or best-of-N consensus fails to converge within the allotted time or token budget, the system must immediately fall back to the highest PRM-scoring draft with a verified audit trail.
+
+### Non-Functional Requirements (NFR Contract)
+- **Token Efficiency SLA**: Dynamic allocation must reduce overall token spend by $\ge 40\%$ compared to static uniform extended thinking limits.
+- **Verification Accuracy**: PRM step gating must catch faulty reasoning premises before branch expansion reaches depth $d > 3$.
+
 ### Trigger Conditions
 Activate this skill when:
 - Designing systems that tackle hard algorithmic, formal verification, or multi-step architectural problems.
@@ -241,6 +251,16 @@ export function selectOptimalCandidate(candidates: readonly CandidateGeneration[
 
 ### Deskripsi
 Panduan produksi untuk penskalaan komputasi waktu uji (*test-time compute* / penalaran saat inferensi) pada model AI frontier termasuk Google Gemini 4 Argon / Pro, Anthropic Claude 5.5 (Sonnet/Opus), OpenAI GPT-5.6 Sol, dan xAI Grok 4.7. Menyediakan arsitektur konkret untuk alokasi dinamis budget penalaran (*thinking budget*), eksplorasi *tree-search* (MCTS, beam search), verifikasi bertahap dengan Process Reward Model (PRM), dan konsensus *self-consistency*.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Batas Atas Tree Search & Sampling**: Rutinitas pencarian waktu inferensi (MCTS, Best-of-N, Beam Search) wajib menetapkan batas maksimum $N \le 16$ trajektori kandidat dan batas waktu $T \le 30\text{ detik}$ per giliran untuk meniadakan perulangan komputasi tak berhingga.
+- **Verifikasi Langkah Process Reward Model (PRM)**: Rantai penalaran multi-langkah wajib mengevaluasi dan memangkas state transisi bertahap menggunakan scoring PRM daripada hanya bergantung pada pengujian hasil terminal akhir.
+- **Alokasi Penalaran Terkalibrasi Kompleksitas**: Tugas sepele (modifikasi regex, parsing string, pemetaan DTO) tidak boleh mengalokasikan $> 1.024$ token penalaran; pembuktian kriptografi atau invarian formal wajib mengalokasikan $\ge 16.384$ token.
+- **Circuit Breaker Fallback saat Timeout**: Jika pencarian pohon atau konsensus best-of-N gagal mencapai konvergensi dalam batas waktu atau budget token, sistem harus segera beralih ke draf dengan skor PRM tertinggi yang terverifikasi.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **SLA Efisiensi Token**: Alokasi dinamis harus memangkas pengeluaran token keseluruhan sebesar $\ge 40\%$ dibandingkan batasan seragam model bernalar statis.
+- **Akurasi Verifikasi**: Gating langkah PRM harus mendeteksi premis penalaran yang keliru sebelum ekspansi cabang mencapai kedalaman $d > 3$.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika:

@@ -19,6 +19,16 @@ Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. T
 
 **The Visual UI Auditor** establishes an autonomous **Multimodal Vision Quality Gate**. By rendering components via Playwright or Headless Chrome, capturing high-DPI screenshots, and passing them to frontier vision models (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), the auditor inspects rendered pixels against **Anti-Slop Pillar 7 and the 40 Mandatory Anti-Slop Rules (R-01 to R-40)**, automatically synthesizing self-healing CSS diffs.
 
+### Hard Guardrails (Declarative Invariants)
+- **Zero-Tolerance Anti-Slop Visual Ban**: Banned design tropes are strictly rejected: generic purple/blue gradients (`from-blue-600 to-purple-600`), floating blurred neon glow orbs, pill button addiction (`rounded-full` on rectangular buttons), and ungrounded borderless cards.
+- **Crisp 1px Grounded Border Contract**: Every card, container, and input element must declare crisp 1px borders (`border border-neutral-200/80 dark:border-neutral-800`) with three-tier radius (`rounded-lg` for controls, `rounded-xl` for cards, `rounded-2xl` for modals).
+- **WCAG 2.2 AA Contrast & Touch Target Floors**: Text elements must satisfy minimum contrast ratios ($\ge 4.5:1$ for normal body text, $\ge 3:1$ for large headings). Interactive controls must enforce a minimum physical touch target of $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
+- **Tabular Numerals & Anti-Jitter Invariant**: All dynamic financial values, timestamps, and metric counters must declare `tabular-nums` (`font-variant-numeric: tabular-nums`) to prevent horizontal jitter during rapid re-renders.
+
+### Non-Functional Requirements (NFR Contract)
+- **Visual Audit Score Floor**: Components must achieve a composite score $\ge 90/100$ across the 7-domain visual inspection checklist before deployment.
+- **Vision Inference Latency**: Multimodal screenshot inspection and rubric generation must complete within $< 4.0\text{ s}$.
+
 ---
 
 ### Orchestration & Integration
@@ -292,6 +302,16 @@ node skills/visual-ui-auditor/scripts/photos.mjs "brutalist concrete architectur
 Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis secara abstrak. Mereka sama sekali buta terhadap **keseimbangan optik, pernapasan tata letak (*spatial breathing room*), elevasi permukaan, dan tabrakan warna**. Sebuah komponen React bisa saja lolos 100% dari galat kompilasi namun secara visual terlihat buruk dan dipenuhi klise AI murahan.
 
 **Visual UI Auditor** menyediakan **Gerbang Kualitas Visual Multimodal** otonom. Dengan merender komponen melalui Playwright, menangkap tangkapan layar beresolusi tinggi, dan memeriksanya menggunakan model vision frontier (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), auditor memeriksa setiap piksel terhadap **Pilar 7 Anti-Slop dan 40 Aturan Wajib Anti-Slop (R-01 hingga R-40)** serta menghasilkan rekomendasi perbaikan CSS secara otomatis.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Larangan Tanpa Toleransi Visual Slop**: Menolak keras klise desain murahan AI: gradien biru-ungu generik (`from-blue-600 to-purple-600`), bola cahaya neon buram melayang, kecanduan tombol pil (`rounded-full` pada tombol kotak), dan kartu mengambang tanpa border tegas.
+- **Kontrak Border 1px Tegas & Tiga Tingkat Radius**: Setiap kartu, kontainer, dan elemen input wajib memiliki border 1px tegas (`border border-neutral-200/80 dark:border-neutral-800`) dengan tiga tingkatan radius (`rounded-lg` untuk kontrol, `rounded-xl` untuk kartu, `rounded-2xl` untuk modal).
+- **Standar Kontras & Touch Target WCAG 2.2 AA**: Teks wajib memenuhi rasio kontras minimum ($\ge 4.5:1$ untuk teks biasa, $\ge 3:1$ untuk judul besar). Kontrol interaktif wajib memiliki area sentuh fisik minimal $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
+- **Angka Tabular & Anti-Gemetar**: Seluruh nilai finansial dinamis, stempel waktu, dan penghitung metrik wajib mendeklarasikan `tabular-nums` (`font-variant-numeric: tabular-nums`) untuk mencegah pergeseran layout horizontal saat rendering cepat.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Standar Skor Audit Visual**: Komponen wajib mencapai skor gabungan $\ge 90/100$ pada checklist audit visual 7-domain sebelum rilis produksi.
+- **Latensi Inferensi Visual**: Inspeksi tangkapan layar multimodal dan generasi rubrik harus selesai dalam $< 4.0\text{ detik}$.
 
 ---
 

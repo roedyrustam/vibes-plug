@@ -2654,6 +2654,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /\{\s*\w+\.items\.map\s*\(\s*\([^)]*\)\s*=>/,
       remediation: 'Use SolidJS <For each={...}> or <Index each={...}> control flow primitives instead of array.map() to preserve fine-grained DOM node reconciliation.'
     }
+  ],
+  'brainstorming': [
+    {
+      id: 'BRAINSTORMING_DIRECT_CODE_GENERATION',
+      severity: 'ERROR',
+      name: 'Direct Code Implementation Output While in Brainstorming Discovery Mode',
+      regex: /(?:export\s+default\s+function\s+\w+\s*\([^)]*\)\s*\{|app\.(?:get|post)\s*\(\s*['"]\/api\/)/,
+      remediation: 'Do not output production implementation code while brainstorming mode is active; focus on structured user dialogue, trade-offs, and PRD specifications.'
+    },
+    {
+      id: 'BRAINSTORMING_SPECULATIVE_YAGNI_FEATURE',
+      severity: 'WARN',
+      name: 'Speculative Enterprise Abstraction Layer Introduced Without Documented Scale',
+      regex: /class\s+\w+FactoryBuilderSingletonProvider\b/,
+      remediation: 'Avoid speculative abstraction layers or enterprise pattern factories during ideation; adhere to YAGNI and simple baseline architectures.'
+    }
+  ],
+  'prd-architect': [
+    {
+      id: 'PRD_MISSING_LEGAL_PRIVACY_TRIO',
+      severity: 'ERROR',
+      name: 'Product Requirements Document Missing Mandatory Legal & Privacy Trio Specification',
+      regex: /#\s+Product\s+Requirements\s+Document(?![\s\S]{0,1500}?\b(?:Privacy\s+Policy|Terms\s+(&|and)\s+Conditions|delete-account)\b)/i,
+      remediation: 'Every customer-facing PRD must include explicit functional requirements and routes for Privacy Policy (/privacy), Terms & Conditions (/terms), and User Data Deletion (/delete-account).'
+    },
+    {
+      id: 'PRD_MARKETING_BUZZWORD_SLOP',
+      severity: 'ERROR',
+      name: 'Marketing Buzzword AI Slop Found in Technical Requirements Document',
+      regex: /\b(?:revolutionary\s+new\s+paradigm|game-changing\s+platform|unleash\s+the\s+power\s+of|cutting-edge\s+synergy)\b/i,
+      remediation: 'Eliminate marketing hype and AI slop from technical specifications; state concrete functional requirements, verifiable SLA numbers, and database schemas.'
+    }
+  ],
+  'session-memory-manager': [
+    {
+      id: 'SESSION_MEMORY_RAW_CODE_DUMP',
+      severity: 'ERROR',
+      name: 'Multi-Line Raw Implementation Code Body Dumped into Memory Context Map',
+      regex: /CONTEXT_MAP[\s\S]{0,100}?```(?:typescript|javascript|tsx|jsx)[\s\S]{120,}?```/,
+      remediation: 'Do not dump full source code blocks into CONTEXT_MAP.md; keep memory maps ultra-compact using file paths and 1-sentence architectural responsibilities.'
+    },
+    {
+      id: 'SESSION_MEMORY_OVERSIZED_CHECKPOINT',
+      severity: 'WARN',
+      name: 'Handoff Checkpoint YAML Block Exceeds 300-Token Token Efficiency Budget',
+      regex: /#\s*CHECKPOINT[\s\S]{1500,}?notes\s*:/,
+      remediation: 'Keep session handoff checkpoints ultra-compact (<300 tokens / 1500 characters) to avoid bloating subsequent agent context windows.'
+    }
+  ],
+  'speculative-multi-draft-synthesizer': [
+    {
+      id: 'SPECULATIVE_SYNTHESIS_HOMOGENEOUS_MODELS',
+      severity: 'ERROR',
+      name: 'Speculative Drafting Dispatch Uses Identical Model Replicas Instead of Diverse Tiers',
+      regex: /dispatchDrafters\s*\(\s*\{[\s\S]{0,150}?modelA\s*:\s*['"]([^'"]+)['"]\s*,\s*modelB\s*:\s*['"]\1['"]/,
+      remediation: 'Speculative multi-draft batches must dispatch to heterogeneous model tiers (speed, rigor, spec-adherent); identical model replicas reproduce the same blind spots.'
+    },
+    {
+      id: 'SPECULATIVE_SYNTHESIS_UNVALIDATED_MERGE',
+      severity: 'ERROR',
+      name: 'Candidate Drafts Concatenated Textually Without AST Reconciliation',
+      regex: /mergeDrafts\s*\([^)]*\)\s*\{[\s\S]{0,120}?return\s+draftA\s*\+\s*['"]\\n['"]\s*\+\s*draftB/,
+      remediation: 'Never concatenate candidate code drafts textually; reconcile candidate implementations at the AST node level via the Frontier Arbiter.'
+    }
+  ],
+  'structured-output-contracts': [
+    {
+      id: 'STRUCTURED_OUTPUT_LOOSE_MARKDOWN_REGEX',
+      severity: 'ERROR',
+      name: 'Structured Data Extracted via Fragile Markdown Regex Instead of Schema Parser',
+      regex: /const\s+\w+\s*=\s*JSON\.parse\s*\(\s*rawText\.replace\s*\(\s*\/```(?:json)?\//,
+      remediation: 'Use native grammar-constrained decoding (response_format: { type: "json_schema", strict: true }) or Zod schema parsers instead of fragile markdown regex replacements.'
+    },
+    {
+      id: 'STRUCTURED_OUTPUT_SCHEMA_MISSING_ADDITIONAL_PROPERTIES_FALSE',
+      severity: 'WARN',
+      name: 'JSON Schema Contract Missing additionalProperties: false Guard',
+      regex: /\{\s*type\s*:\s*['"]object['"]\s*,\s*(?![\s\S]{0,120}?\badditionalProperties\s*:\s*false\b)properties\s*:/,
+      remediation: 'Always declare additionalProperties: false in structured output JSON Schema contracts to reject hallucinated or injected payload properties.'
+    }
+  ],
+  'svg-animation-motion-expert': [
+    {
+      id: 'SVG_ANIMATION_LAYOUT_THRASHING_TOP_LEFT',
+      severity: 'ERROR',
+      name: 'Layout Geometry Property Animated on Frame Loop Causing Compositor Thrashing',
+      regex: /(?:animate|transition|keyframes)\s*:\s*\{[\s\S]{0,80}?\b(?:top|left|marginTop|marginLeft|width|height)\s*:\s*\[?[0-9]/,
+      remediation: 'Animate GPU-composited CSS properties (transform: translate3d/scale, opacity) instead of top/left/width/height which trigger browser layout recalculations.'
+    },
+    {
+      id: 'SVG_ANIMATION_MISSING_VIEWBOX',
+      severity: 'WARN',
+      name: 'Inline Animated SVG Element Missing Responsive viewBox Attribute',
+      regex: /<svg\s+(?![^>]*\bviewBox\s*=)[^>]*animate/,
+      remediation: 'Always declare a viewBox="0 0 w h" on animated SVG elements to ensure deterministic vector coordinate scaling across viewports.'
+    }
+  ],
+  'synthetic-data-finetuning-expert': [
+    {
+      id: 'SYNTHETIC_DATA_UNFILTERED_RAW_GENERATION',
+      severity: 'ERROR',
+      name: 'Raw Synthetic Instruction Pairs Ingested Directly into Fine-Tuning Pipeline',
+      regex: /trainModel\s*\(\s*\{[\s\S]{0,120}?(?:dataset\s*:\s*rawInstructions|data\s*:\s*rawGenerated)(?![\s\S]{0,120}?\b(?:filter|curated|dedup)\b)/,
+      remediation: 'Curate raw synthetic instruction pairs using LLM-as-a-judge scoring and MinHash deduplication before passing them to the training dataset.'
+    },
+    {
+      id: 'SYNTHETIC_DATA_LEAKED_TEST_SET_CONTAMINATION',
+      severity: 'ERROR',
+      name: 'Training Split Combined Directly with Holdout Evaluation Benchmark',
+      regex: /trainDataset\s*=\s*concatDatasets\s*\(\s*\[[^\]]*\b(?:evalSet|testBenchmark|holdoutSplit)\b/,
+      remediation: 'Never combine evaluation or test benchmarks with the synthetic training dataset; verify zero n-gram leakage between splits.'
+    }
+  ],
+  'test-time-compute-optimizer': [
+    {
+      id: 'TEST_TIME_COMPUTE_UNBOUNDED_TREE_EXPANSION',
+      severity: 'ERROR',
+      name: 'Inference-Time Tree Search Configured Without Bounded Rollout Limit',
+      regex: /runTreeSearch\s*\(\s*\{[\s\S]{0,120}?(?:mcts|beamSearch)(?![\s\S]{0,120}?\b(?:maxRollouts|maxDepth|maxIterations)\s*:\s*(?:[1-9]|1[0-6])\b)/,
+      remediation: 'Enforce a hard bounded rollout ceiling (maxRollouts <= 16, maxDepth <= 4) on inference-time tree search algorithms to eliminate runaway compute loops.'
+    },
+    {
+      id: 'TEST_TIME_COMPUTE_PRM_STEP_UNVERIFIED',
+      severity: 'WARN',
+      name: 'Multi-Step Reasoning Trajectory Evaluated Without Intermediate PRM Scoring',
+      regex: /evaluateTrajectory\s*\([^)]*\)\s*\{[\s\S]{0,120}?return\s+terminalScore(?![\s\S]{0,80}?\bstepScores\b)/,
+      remediation: 'Score intermediate reasoning transitions using a Process Reward Model (stepScores) rather than evaluating only the final terminal outcome.'
+    }
+  ],
+  'thinking-budget-orchestrator': [
+    {
+      id: 'THINKING_BUDGET_STATIC_OVERSPEND_TRIVIAL',
+      severity: 'ERROR',
+      name: 'Excessive Extended Thinking Budget Allocated to Trivial Deterministic Task',
+      regex: /resolveThinkingBudget\s*\(\s*['"]trivial['"]\s*\)[\s\S]{0,100}?return\s+(?:32768|65536)/,
+      remediation: 'Cap thinking budget for trivial/deterministic tasks to speed envelope (<= 1024 tokens) to prevent massive token waste.'
+    },
+    {
+      id: 'THINKING_BUDGET_ZERO_ON_MISSION_CRITICAL',
+      severity: 'ERROR',
+      name: 'Thinking Budget Disabled on Mission-Critical Security or FinTech Task',
+      regex: /resolveThinkingBudget\s*\(\s*['"](?:critical|fintech|security|crypto)['"]\s*\)[\s\S]{0,100}?(?:thinkingBudget\s*:\s*0|budgetTokens\s*:\s*0)/,
+      remediation: 'Never disable thinking tokens on mission-critical security, cryptographic, or fintech billing tasks; enforce a minimum budget floor of >= 32,768 tokens.'
+    }
+  ],
+  'visual-ui-auditor': [
+    {
+      id: 'VISUAL_AUDITOR_GENERIC_NEON_GRADIENT_SLOP',
+      severity: 'ERROR',
+      name: 'Generic AI Slop Blue-Purple Gradient Used on Visual Component',
+      regex: /\bbg-gradient-to-[a-z]+\s+from-(?:blue-600|indigo-500)\s+to-(?:purple-600|purple-500)\b/,
+      remediation: 'Ban generic blue-purple AI gradients; use grounded neutral surfaces, crisp 1px borders, and intentional brand accent colors compliant with Anti-Slop Pillar 7.'
+    },
+    {
+      id: 'VISUAL_AUDITOR_SUB_MINIMUM_TOUCH_TARGET',
+      severity: 'WARN',
+      name: 'Interactive Button with Sub-Minimum Touch Target Violating WCAG 2.2 AA',
+      regex: /<button\s+[^>]*class(?:Name)?\s*=\s*['"][^'"]*?\b(?:h-5\s+w-5|h-6\s+w-6|p-0\.5)\b(?![\s\S]{0,100}?\bmin-[wh]-\[44px\]\b)/,
+      remediation: 'Ensure all interactive touch targets meet WCAG 2.2 minimum physical dimensions of >= 44x44px (min-h-[44px] min-w-[44px]).'
+    }
   ]
 
 });

@@ -422,7 +422,7 @@ function renderHtml() {
           }
         }
       } catch (e) {
-        /* polling fetch error ignored */
+        /* periodic status refresh error ignored */
         void e;
       }
     }, 4000);

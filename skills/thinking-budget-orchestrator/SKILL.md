@@ -28,6 +28,16 @@ Production architecture for dynamically allocating and controlling reasoning thi
 - `deep` (32K tokens): Multi-domain architecture refactoring, security audits, and generative UI synthesis (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`).
 - `exhaustive` (64K tokens): Cryptographic proofs, SMT invariant solving, and distributed race-condition auditing (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think` — fallback: `Gemini 3.8 Flash`).
 
+### Hard Guardrails (Declarative Invariants)
+- **Heuristic-Driven Thinking Envelope**: Extended thinking token budgets must be dynamically assigned based on AST blast radius and domain sensitivity (`speed` = 1,024, `balanced` = 8,192, `deep` = 32,768, `exhaustive` = 65,536). Static uniform token allocations across heterogeneous tasks are prohibited.
+- **Mission-Critical Thinking Floor**: High-consequence tasks (FinTech billing state machines, cryptographic verification, formal SMT invariant proofs, security red-teaming) must NEVER disable thinking (`thinkingBudget: 0`) and must enforce a floor of $\ge 32,768$ thinking tokens (`deep` or `exhaustive`).
+- **Leaf Worker Budget Pruning**: In multi-agent swarm topographies, leaf workers executing deterministic file reading, linting, or formatting must be constrained to `speed` ($1,024$) or `balanced` ($8,192$) profiles to avoid token waste.
+- **Prompt Cache Prefix Invariant**: Thinking budget configurations must be passed via provider runtime options (`thinkingBudget`, `budget_tokens`, `reasoning_effort`) without altering the canonical system prompt, preventing KV-cache prefix invalidation.
+
+### Non-Functional Requirements (NFR Contract)
+- **Allocation Latency**: Complexity heuristic evaluation and budget profile resolution must complete within $< 10\text{ ms}$.
+- **FinOps Optimization**: Dynamic budget envelopes must yield $\ge 50\%$ cost reductions on non-critical turn executions.
+
 ### Trigger Conditions
 Activate this skill when:
 - Designing prompt chains or agents utilizing models with thinking budget controls (e.g., `thinking: { type: "enabled", budget_tokens: N }` or `thinkingBudget: N`).
@@ -172,6 +182,16 @@ Arsitektur produksi untuk mengalokasikan dan mengendalikan token penalaran (*Ext
 - `balanced` (8K token): Fitur fullstack standar, perakitan komponen, dan kontrak API (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium` — fallback: `Gemini 3.8 Flash`, `Claude Opus 4.6`).
 - `deep` (32K token): Refaktor arsitektur lintas domain, audit keamanan, dan sintesis UI generatif (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`).
 - `exhaustive` (64K token): Pembuktian invarian matematis/SMT dan audit race-condition terdistribusi (`Claude Sonnet 5.5 High`, `Gemini 4 Pro Deep Think` — fallback: `Gemini 3.8 Flash`).
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Envelope Penalaran Berbasis Heuristik**: Alokasi token penalaran *Extended Thinking* wajib ditentukan secara dinamis berdasarkan radius dampak AST dan sensitivitas domain (`speed` = 1.024, `balanced` = 8.192, `deep` = 32.768, `exhaustive` = 65.536). Alokasi batas seragam statis dilarang keras.
+- **Ambang Bawah Penalaran Tugas Kritis**: Tugas berkonsekuensi tinggi (state machine billing FinTech, verifikasi kriptografi, pembuktian invarian SMT formal, audit keamanan) TIDAK BOLEH menonaktifkan thinking (`thinkingBudget: 0`) dan wajib menetapkan batas bawah minimal $\ge 32.768$ token thinking (`deep` atau `exhaustive`).
+- **Pemangkasan Budget Daun Swarm**: Pada topologi swarm multi-agen, agen pelaksana (daun) yang menjalankan pembacaan berkas deterministik atau formatting wajib dibatasi pada profil `speed` ($1.024$) atau `balanced` ($8.192$) guna mencegah pemborosan token.
+- **Invarian Prefix Prompt Cache**: Konfigurasi budget penalaran harus diteruskan melalui opsi runtime provider (`thinkingBudget`, `budget_tokens`, `reasoning_effort`) tanpa mengubah teks prompt sistem kanonikal, menjaga validitas prefix KV-cache.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Latensi Resolusi**: Evaluasi heuristik kompleksitas dan penetapan profil budget harus selesai dalam waktu $< 10\text{ ms}$.
+- **Optimalisasi FinOps**: Penerapan alokasi budget dinamis harus mampu menghemat biaya token $\ge 50\%$ pada giliran non-kritis.
 
 ### Kondisi Pemicu
 - Merancang alur agen yang memanfaatkan kontrol thinking budget native API.

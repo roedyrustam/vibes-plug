@@ -2366,6 +2366,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG17 = [
+      'brainstorming', 'prd-architect', 'session-memory-manager',
+      'speculative-multi-draft-synthesizer', 'structured-output-contracts', 'svg-animation-motion-expert',
+      'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator', 'visual-ui-auditor'
+    ];
+    for (const skill of deepenedG17) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2582,6 +2591,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'screenshot-to-code-expert', code: '<p>' + 'Lorem ' + 'ipsum dolor sit amet</p>' }, 'SCREENSHOT_TO_CODE_LOREM_IPSUM_SLOP');
     await expectViolation({ skill: 'self-healing-cloud-orchestrator', code: 'git checkout main && git push origin main' }, 'SELF_HEALING_DIRECT_MAIN_BRANCH_HOTFIX');
     await expectViolation({ skill: 'solidjs-expert', code: 'const UserCard = ({ name, role }: UserProps) => <div>{name}</div>;' }, 'SOLIDJS_PROPS_DESTRUCTURING_REACTIVITY_LOSS');
+
+    // Wave 17 (Gelombang 17) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'brainstorming', code: 'export default function App() { return <div>App</div>; }' }, 'BRAINSTORMING_DIRECT_CODE_GENERATION');
+    await expectViolation({ skill: 'prd-architect', code: '# Product Requirements Document\n## Feature\nSimple calculator with no policies.' }, 'PRD_MISSING_LEGAL_PRIVACY_TRIO');
+    await expectViolation({ skill: 'session-memory-manager', code: 'CONTEXT_MAP\n```typescript\n' + 'const a = 1;\n'.repeat(20) + '```' }, 'SESSION_MEMORY_RAW_CODE_DUMP');
+    await expectViolation({ skill: 'speculative-multi-draft-synthesizer', code: 'dispatchDrafters({ modelA: "grok-4.7", modelB: "grok-4.7" });' }, 'SPECULATIVE_SYNTHESIS_HOMOGENEOUS_MODELS');
+    await expectViolation({ skill: 'structured-output-contracts', code: 'const res = JSON.parse(rawText.replace(/```json/, ""));' }, 'STRUCTURED_OUTPUT_LOOSE_MARKDOWN_REGEX');
+    await expectViolation({ skill: 'svg-animation-motion-expert', code: 'const a = { animate: { top: 100 } };' }, 'SVG_ANIMATION_LAYOUT_THRASHING_TOP_LEFT');
+    await expectViolation({ skill: 'synthetic-data-finetuning-expert', code: 'trainModel({ dataset: rawInstructions });' }, 'SYNTHETIC_DATA_UNFILTERED_RAW_GENERATION');
+    await expectViolation({ skill: 'test-time-compute-optimizer', code: 'runTreeSearch({ mcts: true });' }, 'TEST_TIME_COMPUTE_UNBOUNDED_TREE_EXPANSION');
+    await expectViolation({ skill: 'thinking-budget-orchestrator', code: 'resolveThinkingBudget("trivial") { return 65536; }' }, 'THINKING_BUDGET_STATIC_OVERSPEND_TRIVIAL');
+    await expectViolation({ skill: 'visual-ui-auditor', code: '<div className="bg-gradient-to-r from-blue-600 to-purple-600">Card</div>' }, 'VISUAL_AUDITOR_GENERIC_NEON_GRADIENT_SLOP');
   });
 });
 

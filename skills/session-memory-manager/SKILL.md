@@ -27,6 +27,16 @@ version: "4.7.2"
 ### Description
 This skill acts as the agent's memory controller. It handles loading project context at session startup, dynamically updating the context map and learning graph during the session, and seamlessly generating ultra-compact handoff checkpoints at session end.
 
+### Hard Guardrails (Declarative Invariants)
+- **Ultra-Compact Checkpoint Token Ceiling**: Checkpoint blocks in `CHECKPOINT.md` must never exceed 300 tokens (or 1,500 characters). Full conversation histories, reasoning dumps, or raw code blocks are strictly prohibited.
+- **No Raw Code Dumps in Context Maps**: `CONTEXT_MAP.md` must store only relative file paths and concise 1-sentence architectural responsibilities. Dumping raw implementation code bodies ($> 30\text{ lines}$) into memory maps is banned.
+- **Deterministic Handoff Anchor**: Every checkpoint YAML block must explicitly declare `project`, `goal`, `status`, `last_completed`, `next_tasks`, and `key_files` containing verifiable repository paths.
+- **Zero-Fluff Ingestion Protocol**: Session start ingestion acknowledgments must strictly state the detected tech stack, loaded context files, and the immediate target task without sycophancy or conversational cheerleading.
+
+### Non-Functional Requirements (NFR Contract)
+- **Ingestion Budget**: Context ingestion must consume $< 1,500\text{ tokens}$ of context window upon session start.
+- **Checkpoint Generation Time**: Handoff checkpoint serialization must complete within $< 500\text{ ms}$.
+
 ### 1. Session Start (Ingestion)
 Activate this phase IMMEDIATELY on a new session, or when the user says "start session" or "load context". Do not answer primary requests until complete.
 
@@ -186,6 +196,16 @@ export function buildSubagentContextSlice(
 
 ### Deskripsi
 Skill ini mengatur memori agen: memuat konteks di awal sesi, memperbarui peta proyek dan grafik pembelajaran selama sesi berjalan, dan membuat checkpoint ringkas untuk perpindahan sesi (handoff).
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Batas Maksimum Token Checkpoint Ultra-Ringkas**: Blok checkpoint dalam `CHECKPOINT.md` tidak boleh melebihi 300 token (atau 1.500 karakter). Salinan riwayat percakapan panjang atau potongan kode mentah dilarang keras.
+- **Larangan Dump Kode Mentah dalam Peta Konteks**: `CONTEXT_MAP.md` hanya boleh mencatat path berkas relatif dan 1 kalimat tanggung jawab arsitektural. Menyalin tubuh fungsi kode mentah ($> 30\text{ baris}$) ke dalam peta memori dilarang.
+- **Jangkar Handoff Deterministik**: Setiap blok YAML checkpoint wajib mendeklarasikan `project`, `goal`, `status`, `last_completed`, `next_tasks`, dan `key_files` yang berisi path repositori yang valid.
+- **Protokol Pemuatan Konteks Tanpa Basa-Basi**: Konfirmasi pembacaan konteks awal wajib langsung menyebutkan tech stack, berkas konteks yang dibaca, dan tugas target langsung tanpa obrolan pemanis.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Budget Pemuatan**: Ingestion konteks awal harus menghabiskan $< 1.500\text{ token}$ dari jendela konteks saat startup.
+- **Waktu Serialisasi Checkpoint**: Pembuatan checkpoint handoff harus selesai dalam $< 500\text{ ms}$.
 
 ### 1. Awal Sesi (Ingestion)
 Aktifkan SEGERA pada sesi baru, atau saat diminta "mulai sesi" / "muat konteks". 

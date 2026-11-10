@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T20:23:34.914Z",
+  "generatedAt": "2026-11-10T20:55:17.366Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 92,
-  "incrementalReusedFiles": 84,
+  "incrementalReusedFiles": 86,
   "totalSymbolsIndexed": 525,
   "totalImportEdges": 313,
   "symbols": {
@@ -3941,7 +3941,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2698,
+        "line": 2858,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3961,7 +3961,7 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2749,
+        "line": 2909,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
@@ -3986,7 +3986,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2830,
+        "line": 2990,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -4004,7 +4004,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2877,
+        "line": 3037,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -4018,7 +4018,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2922,
+        "line": 3082,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -6348,35 +6348,37 @@
     "readSwarmState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 45,
+        "line": 47,
         "type": "function",
         "signature": "function readSwarmState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync"
+          "readFileSync",
+          "write"
         ]
       }
     ],
     "readBlackboardState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 55,
+        "line": 59,
         "type": "function",
         "signature": "function readBlackboardState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync"
+          "readFileSync",
+          "write"
         ]
       }
     ],
     "renderHtml": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 65,
+        "line": 71,
         "type": "function",
         "signature": "function renderHtml()",
         "calls": [
@@ -7577,7 +7579,7 @@
     "kb": [
       {
         "file": "skills/visual-ui-auditor/scripts/audit.mjs",
-        "line": 179,
+        "line": 191,
         "type": "arrow-function",
         "signature": "const kb = (b) =>",
         "calls": [
@@ -7588,7 +7590,7 @@
     "size": [
       {
         "file": "skills/visual-ui-auditor/scripts/audit.mjs",
-        "line": 180,
+        "line": 192,
         "type": "function",
         "signature": "function size(u)",
         "calls": [
@@ -7603,7 +7605,7 @@
     "pick": [
       {
         "file": "skills/visual-ui-auditor/scripts/audit.mjs",
-        "line": 188,
+        "line": 200,
         "type": "arrow-function",
         "signature": "const pick = (tag) =>",
         "calls": [
@@ -9728,8 +9730,8 @@
     "scripts/check-anti-slop.mjs": {
       "totalLines": 343,
       "symbolCount": 4,
-      "mtimeMs": 1794324047005,
-      "size": 12992,
+      "mtimeMs": 1794342923466,
+      "size": 13004,
       "exports": [],
       "imports": [
         {
@@ -11348,10 +11350,10 @@
       ]
     },
     "scripts/hook-handler.mjs": {
-      "totalLines": 88,
+      "totalLines": 92,
       "symbolCount": 3,
-      "mtimeMs": 1794340838507,
-      "size": 2633,
+      "mtimeMs": 1794342923587,
+      "size": 2858,
       "exports": [],
       "imports": [
         {
@@ -13524,10 +13526,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 2942,
+      "totalLines": 3102,
       "symbolCount": 5,
-      "mtimeMs": 1794342113043,
-      "size": 157154,
+      "mtimeMs": 1794344026549,
+      "size": 166640,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13564,7 +13566,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 2698,
+          "line": 2858,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13582,7 +13584,7 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 2749,
+          "line": 2909,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
@@ -13605,7 +13607,7 @@
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 2830,
+          "line": 2990,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13621,7 +13623,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 2877,
+          "line": 3037,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13633,7 +13635,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 2922,
+          "line": 3082,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -15598,10 +15600,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2589,
+      "totalLines": 2610,
       "symbolCount": 1,
-      "mtimeMs": 1794342201080,
-      "size": 142362,
+      "mtimeMs": 1794344084643,
+      "size": 144663,
       "exports": [],
       "imports": [
         {
@@ -15683,7 +15685,7 @@
           "specifiers": [
             "createClient"
           ],
-          "line": 2379
+          "line": 2388
         },
         {
           "source": "@hocuspocus/server",
@@ -15691,21 +15693,13 @@
           "specifiers": [
             "Server"
           ],
-          "line": 2389
+          "line": 2398
         },
         {
           "source": "@hocuspocus/server",
           "target": null,
           "specifiers": [
             "Server"
-          ],
-          "line": 2390
-        },
-        {
-          "source": "@openfga/sdk",
-          "target": null,
-          "specifiers": [
-            "OpenFgaClient"
           ],
           "line": 2399
         },
@@ -15715,7 +15709,15 @@
           "specifiers": [
             "OpenFgaClient"
           ],
-          "line": 2400
+          "line": 2408
+        },
+        {
+          "source": "@openfga/sdk",
+          "target": null,
+          "specifiers": [
+            "OpenFgaClient"
+          ],
+          "line": 2409
         },
         {
           "source": "@simplewebauthn/server",
@@ -15723,7 +15725,7 @@
           "specifiers": [
             "verifyAuthenticationResponse"
           ],
-          "line": 2402
+          "line": 2411
         },
         {
           "source": "@simplewebauthn/server",
@@ -15731,7 +15733,7 @@
           "specifiers": [
             "generateAuthenticationOptions"
           ],
-          "line": 2403
+          "line": 2412
         },
         {
           "source": "@temporalio/workflow",
@@ -15739,7 +15741,7 @@
           "specifiers": [
             "proxyActivities"
           ],
-          "line": 2433
+          "line": 2442
         }
       ],
       "cachedSymbols": [
@@ -17012,10 +17014,10 @@
       "cachedSymbols": []
     },
     "sidecars/swarm-cockpit/server.mjs": {
-      "totalLines": 517,
+      "totalLines": 523,
       "symbolCount": 3,
-      "mtimeMs": 1794341189084,
-      "size": 16267,
+      "mtimeMs": 1794343488117,
+      "size": 16560,
       "exports": [],
       "imports": [
         {
@@ -17062,31 +17064,33 @@
       "cachedSymbols": [
         {
           "name": "readSwarmState",
-          "line": 45,
+          "line": 47,
           "type": "function",
           "signature": "function readSwarmState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync"
+            "readFileSync",
+            "write"
           ]
         },
         {
           "name": "readBlackboardState",
-          "line": 55,
+          "line": 59,
           "type": "function",
           "signature": "function readBlackboardState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync"
+            "readFileSync",
+            "write"
           ]
         },
         {
           "name": "renderHtml",
-          "line": 65,
+          "line": 71,
           "type": "function",
           "signature": "function renderHtml()",
           "calls": [
@@ -18287,10 +18291,10 @@
       ]
     },
     "skills/visual-ui-auditor/scripts/audit.mjs": {
-      "totalLines": 244,
+      "totalLines": 256,
       "symbolCount": 12,
-      "mtimeMs": 1794320598087,
-      "size": 14674,
+      "mtimeMs": 1794343356938,
+      "size": 14920,
       "exports": [],
       "imports": [
         {
@@ -18427,7 +18431,7 @@
         },
         {
           "name": "kb",
-          "line": 179,
+          "line": 191,
           "type": "arrow-function",
           "signature": "const kb = (b) =>",
           "calls": [
@@ -18436,7 +18440,7 @@
         },
         {
           "name": "size",
-          "line": 180,
+          "line": 192,
           "type": "function",
           "signature": "function size(u)",
           "calls": [
@@ -18449,7 +18453,7 @@
         },
         {
           "name": "pick",
-          "line": 188,
+          "line": 200,
           "type": "arrow-function",
           "signature": "const pick = (tag) =>",
           "calls": [

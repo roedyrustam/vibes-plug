@@ -26,6 +26,16 @@ version: "4.7.2"
 ### Description
 Production-grade guide for generating synthetic training datasets, curating high-signal instruction pairs, executing Parameter-Efficient Fine-Tuning (QLoRA / LoRA) with **Unsloth** and Hugging Face TRL, performing Direct Preference Optimization (DPO), and quantizing custom Small Language Models (SLMs) to GGUF for edge or on-premise execution.
 
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory Quality Filtering & De-duplication**: Raw generated synthetic instruction pairs must NEVER be passed directly to fine-tuning loops without automated LLM-as-a-judge filtering (rubric score $\ge 4/5$), MinHash deduplication, and heuristic length sanitization.
+- **Test Set Contamination Barrier**: Synthetic dataset pipelines must execute n-gram and vector similarity contamination scans against holdout evaluation splits to guarantee zero data leakage or benchmark memorization.
+- **Memory-Bounded 4-Bit QLoRA Invariant**: Fine-tuning jobs must employ memory-efficient training configurations (`load_in_4bit=True`, `torch.bfloat16`, gradient checkpointing) preventing GPU out-of-memory crashes on consumer VRAM (<= 24GB).
+- **Deterministic Seed & Digest Artifact Verification**: Every synthetic training run must lock random seeds (`random_state=3407`) and verify exported GGUF weights with a content-addressed SHA-256 digest before model registry deployment.
+
+### Non-Functional Requirements (NFR Contract)
+- **Curated Dataset Yield**: Filtering pipelines must retain $\ge 35\%$ high-signal samples from raw generated sets while purging 100% of hallucinations.
+- **Edge Inference SLA**: Exported GGUF models (q4_k_m) must run at $\ge 40\text{ tokens/sec}$ on standard Apple Silicon or RTX 4090 hardware.
+
 **Swarm Synergy:** Within the **AI Engineering Swarm**, this skill serves as the Model Specialization Lead. When frontier API costs or latency become prohibitive, it trains, aligns, and deploys hyper-efficient domain SLMs (1B–8B parameters) in Phase 4.
 
 ### Trigger Conditions
@@ -181,6 +191,16 @@ model.save_pretrained_gguf("custom-domain-coder", tokenizer, quantization_method
 
 ### Deskripsi
 Panduan produksi untuk menghasilkan dataset pelatihan sintetis, mengurasi pasangan instruksi bernilai tinggi, mengeksekusi Parameter-Efficient Fine-Tuning (QLoRA / LoRA) dengan **Unsloth** dan Hugging Face TRL, menerapkan Direct Preference Optimization (DPO), dan mengkuantisasi Small Language Models (SLM) kustom ke format GGUF untuk inferensi lokal atau on-premise berlatensi ultra-rendah.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Penyaringan Kualitas & De-duplikasi Wajib**: Pasangan instruksi sintetis mentah TIDAK BOLEH dialirkan langsung ke loop pelatihan tanpa kurasi otomatis *LLM-as-a-judge* (skor rubrik $\ge 4/5$), de-duplikasi MinHash, dan sanitasi panjang semantik.
+- **Penghalang Kontaminasi Test Set**: Pipeline dataset sintetis wajib menjalankan pemindaian kontaminasi kemiripan n-gram dan embedding terhadap data uji evaluasi guna menjamin nol kebocoran data (*zero data leakage*).
+- **Invarian QLoRA 4-Bit Hemat Memori**: Job fine-tuning wajib menerapkan konfigurasi hemat memori (`load_in_4bit=True`, `torch.bfloat16`, gradient checkpointing) guna mencegah crash GPU out-of-memory pada VRAM konsumen (<= 24GB).
+- **Verifikasi Seed Deterministik & Digest Artefak**: Setiap pelatihan model wajib mengunci seed acak (`random_state=3407`) dan memverifikasi bobot model GGUF yang diekspor dengan digest SHA-256 yang valid sebelum pendaftaran model.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Hasil Kurasi Dataset**: Pipeline kurasi wajib mempertahankan $\ge 35\%$ sampel bernilai tinggi dari hasil generasi mentah dan membersihkan 100% teks halusinasi.
+- **SLA Inferensi Edge**: Model GGUF terkuantisasi (q4_k_m) harus mampu berjalan pada kecepatan $\ge 40\text{ token/detik}$ pada prosesor Apple Silicon atau GPU modern.
 
 **Sinergi Swarm:** Di dalam **AI Engineering Swarm**, skill ini memegang peranan sebagai Pemimpin Spesialisasi Model. Ketika biaya API atau latensi model cloud frontier terlalu tinggi, skill ini melatih, menyelaraskan (*align*), dan men-deploy SLM domain yang sangat efisien (1B–8B parameter) pada Fase 4.
 
