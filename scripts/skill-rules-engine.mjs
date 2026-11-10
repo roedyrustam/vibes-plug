@@ -6,7 +6,8 @@
  * Bridges declarative knowledge across all 178 skills with:
  * 1. Per-Skill Deterministic AST/Regex Guardrails (React 19, Next.js 15, Vue 3.5, Svelte 5,
  *    Tailwind v4, Rust 2024, Go 1.24, Python/Pydantic v2, PostgreSQL RLS, FinTech SNAP BI,
- *    Docker/K8s, MCP v1.x, Zero-Trust Security, WebGPU/Three.js).
+ *    Docker/K8s, MCP v1.x, Zero-Trust Security, WebGPU/Three.js, ClickHouse/DuckDB OLAP,
+ *    SLSA/Sigstore supply chain, Lean 4 proofs, Electric/Yjs sync, OpenFGA ReBAC, WebAuthn).
  * 2. Dynamic Markdown Rule & Invariant Extractor for any of the 178 SKILL.md files.
  * 3. Contextual File-Extension, Import-Signature & Prompt Intent Auto-Router.
  */
@@ -193,6 +194,225 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /\b(?:sk_live_[0-9a-zA-Z]{16,}|ghp_[0-9a-zA-Z]{24,}|AIza[0-9A-Za-z-_]{30,})\b/,
       remediation: 'Inject secrets dynamically via Zero-Trust vault (Infisical/Vault) or validated process.env variables.'
     }
+  ],
+  'olap-columnar-analytics-expert': [
+    {
+      id: 'OLAP_INTERPOLATED_SQL_LITERAL',
+      severity: 'ERROR',
+      name: 'User Value Interpolated Into Analytical SQL String',
+      regex: /`[^`]*\bWHERE\b[^`]*'\$\{[^}]+\}'[^`]*`/,
+      remediation: 'Bind values with typed parameters: ClickHouse {tenantId: UUID} + query_params, or DuckDB prepared statements ($1) via @duckdb/node-api. Never quote ${...} into SQL.'
+    },
+    {
+      id: 'OLAP_UNBOUNDED_SELECT_STAR',
+      severity: 'WARN',
+      name: 'Unbounded SELECT * on Columnar Table',
+      regex: /\bSELECT\s+\*\s+FROM\s+[\w.`"]+(?:(?!\bLIMIT\b)[^;])*(?:;|$)/i,
+      remediation: 'Columnar engines read only referenced columns. Project explicit columns and add LIMIT / time-range predicates to avoid full wide-table scans.'
+    },
+    {
+      id: 'OLAP_FINAL_WITHOUT_FILTER',
+      severity: 'WARN',
+      name: 'ClickHouse FINAL Without Partition/Tenant Filter',
+      regex: /\bFROM\s+[\w.`"]+\s+FINAL\b(?![\s\S]{0,200}?\bWHERE\b)/i,
+      remediation: 'FINAL forces merge-on-read across all parts. Restrict it with WHERE tenant_id / partition-key predicates, or deduplicate with argMax(col, version) GROUP BY key.'
+    },
+    {
+      id: 'OLAP_HOT_PATH_MUTATION',
+      severity: 'WARN',
+      name: 'ClickHouse ALTER TABLE UPDATE/DELETE Mutation',
+      regex: /\bALTER\s+TABLE\s+[\w.`"]+\s+(?:ON\s+CLUSTER\s+\S+\s+)?(?:UPDATE|DELETE)\b/i,
+      remediation: 'Mutations rewrite whole data parts. Model updates with ReplacingMergeTree(version, is_deleted) or CollapsingMergeTree; reserve mutations for rare GDPR erasure jobs.'
+    }
+  ],
+  'sbom-supply-chain-security-expert': [
+    {
+      id: 'SUPPLY_CHAIN_UNPINNED_ACTION',
+      severity: 'WARN',
+      name: 'Third-Party GitHub Action Not Pinned to Commit SHA',
+      regex: /\buses:\s*["']?(?!\.\/)[\w.-]+\/[\w./-]+@(?![0-9a-f]{40}\b)[\w.-]+/,
+      remediation: 'Pin every third-party action to a full 40-char commit SHA (uses: owner/action@<sha> # vX.Y.Z) and let Dependabot/Renovate bump it.'
+    },
+    {
+      id: 'SUPPLY_CHAIN_WRITE_ALL_PERMISSIONS',
+      severity: 'ERROR',
+      name: 'Workflow Grants write-all Token Permissions',
+      regex: /\bpermissions:\s*write-all\b/,
+      remediation: 'Default to permissions: contents: read and grant id-token/packages/attestations: write only on the release job that needs them.'
+    },
+    {
+      id: 'SUPPLY_CHAIN_CURL_PIPE_SHELL',
+      severity: 'ERROR',
+      name: 'Remote Script Piped Directly Into Shell',
+      regex: /\b(?:curl|wget)\b[^\n|]*\|\s*(?:sudo\s+)?(?:ba|z)?sh\b/,
+      remediation: 'Download installers to disk, verify a pinned SHA256 checksum or Sigstore signature, then execute.'
+    },
+    {
+      id: 'SUPPLY_CHAIN_CI_NPM_INSTALL',
+      severity: 'WARN',
+      name: 'Mutable npm install With Lifecycle Scripts in CI',
+      regex: /\brun:\s*npm\s+install\b(?![^\n]*--ignore-scripts)/,
+      remediation: 'Use npm ci --ignore-scripts (or pnpm install --frozen-lockfile with onlyBuiltDependencies) so CI installs exactly the lockfile without postinstall execution.'
+    }
+  ],
+  'formal-theorem-verifier-lean4': [
+    {
+      id: 'LEAN_SORRY_OR_ADMIT',
+      severity: 'ERROR',
+      name: 'Unfinished Proof (sorry / admit)',
+      regex: /(?:^|[^\w'])(?:sorry|admit)(?![\w'])/m,
+      remediation: 'Merged proofs must be closed. Decompose the goal into lemmas and discharge them with omega, simp, decide, or bv_decide; CI must fail on any sorry warning.'
+    },
+    {
+      id: 'LEAN_UNCHECKED_AXIOM',
+      severity: 'ERROR',
+      name: 'Custom axiom Declaration in Specification',
+      regex: /^\s*axiom\s+\w+/m,
+      remediation: 'Custom axioms can make the whole theory inconsistent. Replace with a def + proved theorem, or model the assumption as an explicit hypothesis.'
+    },
+    {
+      id: 'LEAN_FLOAT_IN_SPEC',
+      severity: 'WARN',
+      name: 'Float Used in Formal Specification',
+      regex: /:\s*Float\b/,
+      remediation: 'Float has no useful algebraic laws in Lean proofs. Model money and counters with Nat, Int, or BitVec n for exact fixed-width semantics.'
+    }
+  ],
+  'reactive-sync-engine-expert': [
+    {
+      id: 'SYNC_CLIENT_DEFINED_SHAPE_WHERE',
+      severity: 'WARN',
+      name: 'Client-Defined Electric Shape where Clause',
+      regex: /\bShapeStream\s*\(\s*\{[\s\S]{0,400}?\bwhere\s*:/,
+      remediation: 'Clients must not choose shape filters. Route ShapeStream through an authorizing proxy that injects table/where/columns server-side from the authenticated tenant.'
+    },
+    {
+      id: 'SYNC_MUTATION_WITHOUT_IDEMPOTENCY',
+      severity: 'WARN',
+      name: 'Offline-Replayable Mutation Without Idempotency Key',
+      regex: /\bfetch\s*\([^)]*,\s*\{\s*method:\s*['"](?:POST|PUT|PATCH)['"](?![\s\S]{0,400}?[Ii]dempotency-[Kk]ey)/,
+      remediation: 'Queued offline mutations are retried. Send an Idempotency-Key header and dedupe server-side; reconcile optimistic state via the returned txid.'
+    }
+  ],
+  'realtime-collaboration-expert': [
+    {
+      id: 'COLLAB_UNAUTHENTICATED_HOCUSPOCUS',
+      severity: 'ERROR',
+      name: 'Hocuspocus Server Without onAuthenticate Hook',
+      regex: /(?:\bServer\.configure|\bnew\s+(?:Server|Hocuspocus))\s*\(\s*\{(?![\s\S]{0,3000}?\bonAuthenticate\b)/,
+      remediation: 'Verify the JWT and per-document permission in onAuthenticate (set connection.readOnly for viewers) before a client joins a document room.'
+    },
+    {
+      id: 'COLLAB_JSON_SNAPSHOT_PER_UPDATE',
+      severity: 'WARN',
+      name: 'Full JSON Snapshot Persisted on Every CRDT Update',
+      regex: /\.on\(\s*['"]update['"][\s\S]{0,300}?JSON\.stringify\s*\(/,
+      remediation: 'Persist binary Yjs/Loro updates (Uint8Array) incrementally with debounce, and compact via Y.mergeUpdates / snapshots instead of serializing the whole document per keystroke.'
+    },
+    {
+      id: 'COLLAB_UNBOUNDED_WS_PAYLOAD',
+      severity: 'WARN',
+      name: 'WebSocketServer Without maxPayload Limit',
+      regex: /\bnew\s+WebSocketServer\s*\(\s*\{(?![^}]*\bmaxPayload\b)/,
+      remediation: 'Set maxPayload (e.g. 1-5 MiB) and rate-limit incoming updates so a single client cannot exhaust server memory with oversized CRDT frames.'
+    }
+  ],
+  'kubernetes-gitops-platform-expert': [
+    {
+      id: 'K8S_LATEST_IMAGE_TAG',
+      severity: 'ERROR',
+      name: 'Container Image Uses Mutable :latest Tag',
+      regex: /^\s*(?:-\s*)?image:\s*["']?[^\s"'@]+:latest\b/m,
+      remediation: 'Pin images to an immutable version plus digest (registry/app:1.4.2@sha256:...) so GitOps rollouts and rollbacks are reproducible.'
+    },
+    {
+      id: 'K8S_PRIVILEGED_CONTAINER',
+      severity: 'ERROR',
+      name: 'Privileged Container or Privilege Escalation Enabled',
+      regex: /\b(?:privileged|allowPrivilegeEscalation):\s*true\b/,
+      remediation: 'Comply with Pod Security "restricted": privileged: false, allowPrivilegeEscalation: false, capabilities.drop: [ALL], seccompProfile.type: RuntimeDefault.'
+    },
+    {
+      id: 'K8S_HOST_NAMESPACE_SHARING',
+      severity: 'ERROR',
+      name: 'Pod Shares Host Network/PID/IPC Namespace',
+      regex: /\bhost(?:Network|PID|IPC):\s*true\b/,
+      remediation: 'Remove hostNetwork/hostPID/hostIPC; expose traffic through Services and Gateway API routes instead.'
+    },
+    {
+      id: 'K8S_PLAINTEXT_SECRET_MANIFEST',
+      severity: 'ERROR',
+      name: 'Plain Kubernetes Secret Manifest Committed to Git',
+      regex: /\bkind:\s*Secret\b[\s\S]{0,400}?\b(?:data|stringData):/,
+      remediation: 'Never commit Secret data. Use External Secrets Operator (ExternalSecret -> Vault/AWS SM/Infisical) or Sealed Secrets.'
+    },
+    {
+      id: 'K8S_WORKLOAD_MISSING_LIMITS',
+      severity: 'WARN',
+      name: 'Workload Manifest Without Resource Limits',
+      regex: /\bkind:\s*(?:Deployment|StatefulSet|DaemonSet|Rollout)\b(?![\s\S]*\blimits:)/,
+      remediation: 'Declare resources.requests and resources.limits (at minimum memory) for every container so the scheduler, HPA, and Karpenter can bin-pack safely.'
+    },
+    {
+      id: 'K8S_WORKLOAD_MISSING_RUN_AS_NON_ROOT',
+      severity: 'WARN',
+      name: 'Workload Manifest Without runAsNonRoot',
+      regex: /\bkind:\s*(?:Deployment|StatefulSet|DaemonSet|Rollout)\b(?![\s\S]*\brunAsNonRoot:\s*true)/,
+      remediation: 'Set securityContext.runAsNonRoot: true with an explicit non-zero runAsUser and readOnlyRootFilesystem: true.'
+    }
+  ],
+  'fga-rebac-authorization-expert': [
+    {
+      id: 'FGA_CHECK_IN_LOOP',
+      severity: 'WARN',
+      name: 'N+1 OpenFGA Check Calls Inside a Loop',
+      regex: /(?:\bfor\s*(?:await\s*)?\([^)]*\)\s*\{|\.map\s*\(\s*async\b)[\s\S]{0,300}?\.check\s*\(\s*\{[\s\S]{0,200}?\brelation\s*:/,
+      remediation: 'Use batchCheck for a known set of objects or listObjects to filter collections in a single round-trip.'
+    },
+    {
+      id: 'FGA_UNPINNED_MODEL_ID',
+      severity: 'WARN',
+      name: 'OpenFgaClient Without Pinned authorizationModelId',
+      regex: /\bnew\s+OpenFgaClient\s*\(\s*\{(?![\s\S]{0,500}?\bauthorizationModelId\b)/,
+      remediation: 'Pin authorizationModelId from configuration in production so model writes cannot silently change live authorization semantics.'
+    },
+    {
+      id: 'FGA_PUBLIC_WILDCARD_PRIVILEGED_RELATION',
+      severity: 'ERROR',
+      name: 'Public Wildcard Granted a Privileged Relation',
+      regex: /user\s*:\s*['"`]user:\*['"`][\s\S]{0,120}?relation\s*:\s*['"`](?:owner|admin|editor|writer|member)['"`]/,
+      remediation: 'Restrict user:* wildcards to read-only relations (e.g. viewer on public resources); privileged relations require explicit subjects.'
+    }
+  ],
+  'passkeys-webauthn-identity-expert': [
+    {
+      id: 'WEBAUTHN_STATIC_CHALLENGE',
+      severity: 'ERROR',
+      name: 'Hardcoded or Non-Cryptographic WebAuthn Challenge',
+      regex: /\bchallenge\s*:\s*(?:['"`][^'"`]+['"`]|[^,\n]*Math\.random)/,
+      remediation: 'Let generate*Options create a CSPRNG challenge, store it server-side bound to the session with a 5-minute TTL, and consume it atomically (single use).'
+    },
+    {
+      id: 'WEBAUTHN_MISSING_EXPECTED_ORIGIN',
+      severity: 'ERROR',
+      name: 'WebAuthn Verification Without expectedOrigin',
+      regex: /\bverify(?:Registration|Authentication)Response\s*\(\s*\{(?![\s\S]{0,800}?\bexpectedOrigin\b)/,
+      remediation: 'Always pass explicit expectedOrigin, expectedRPID, and expectedChallenge to verifyRegistrationResponse / verifyAuthenticationResponse.'
+    },
+    {
+      id: 'WEBAUTHN_WILDCARD_ORIGIN',
+      severity: 'ERROR',
+      name: 'Wildcard expectedOrigin in WebAuthn Verification',
+      regex: /\bexpectedOrigin\s*:\s*['"`]\*['"`]/,
+      remediation: 'List exact HTTPS origins (and Related Origin Requests entries) instead of a wildcard.'
+    },
+    {
+      id: 'WEBAUTHN_USER_VERIFICATION_DISABLED',
+      severity: 'WARN',
+      name: 'User Verification Explicitly Disabled',
+      regex: /\brequireUserVerification\s*:\s*false\b/,
+      remediation: 'Require user verification for sign-in and credential management; downgrade only with an explicit, documented risk decision.'
+    }
   ]
 });
 
@@ -214,7 +434,15 @@ export const CONTEXTUAL_SKILL_TRIGGERS = Object.freeze([
   { ext: ['dockerfile', '.dockerfile'], imports: [], skills: ['docker-container-expert', 'ci-cd-devops-architect'] },
   { ext: ['.yaml', '.yml'], imports: ['openapi:', 'paths:', 'kubernetes', 'argoproj'], skills: ['openapi-swagger-codegen-expert', 'kubernetes-gitops-platform-expert'] },
   { ext: ['.ts', '.mjs', '.js'], imports: ['@modelcontextprotocol/sdk', 'StdioServerTransport'], skills: ['mcp-server-architect', 'ai-llm-integration-expert'] },
-  { ext: ['.ts', '.js'], imports: ['doku', 'snap-bi', 'stripe'], skills: ['doku-payment-gateway', 'payment-gateway-expert', 'double-entry-ledger-fintech-expert'] }
+  { ext: ['.ts', '.js'], imports: ['doku', 'snap-bi', 'stripe'], skills: ['doku-payment-gateway', 'payment-gateway-expert', 'double-entry-ledger-fintech-expert'] },
+  { ext: ['.lean'], imports: ['import Mathlib', 'import Std.Tactic'], skills: ['formal-theorem-verifier-lean4', 'formal-spec-z3-verifier'] },
+  { ext: [], imports: ['@clickhouse/client', '@duckdb/node-api', '@duckdb/duckdb-wasm', 'read_parquet(', 'MergeTree', 'iceberg_scan('], skills: ['olap-columnar-analytics-expert', 'data-pipeline-etl-expert'] },
+  { ext: [], imports: ['runs-on:', 'cosign ', 'attest-build-provenance', 'cyclonedx', 'openvex'], skills: ['sbom-supply-chain-security-expert', 'github-actions-expert'] },
+  { ext: [], imports: ['apiVersion: apps/v1', 'gateway.networking.k8s.io', 'karpenter.sh', 'argoproj.io', 'cilium.io'], skills: ['kubernetes-gitops-platform-expert'] },
+  { ext: [], imports: ['@electric-sql/client', '@electric-sql/pglite', '@rocicorp/zero', '@sqlite.org/sqlite-wasm'], skills: ['reactive-sync-engine-expert', 'pwa-offline-first-expert'] },
+  { ext: [], imports: ["from 'yjs'", '@hocuspocus/server', '@hocuspocus/provider', 'loro-crdt', 'y-protocols'], skills: ['realtime-collaboration-expert'] },
+  { ext: ['.fga'], imports: ['@openfga/sdk', 'OpenFgaClient'], skills: ['fga-rebac-authorization-expert'] },
+  { ext: [], imports: ['@simplewebauthn/server', '@simplewebauthn/browser', 'navigator.credentials.'], skills: ['passkeys-webauthn-identity-expert', 'authentication-identity-expert'] }
 ]);
 
 /**

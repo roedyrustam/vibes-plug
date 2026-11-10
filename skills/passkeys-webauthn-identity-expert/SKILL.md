@@ -30,6 +30,14 @@ Production security guide for phishing-resistant **FIDO2 / WebAuthn Level 3 Pass
 - Sharing Passkeys across web (`app.example.com`), regional domains, and native iOS (`apple-app-site-association`) / Android (`assetlinks.json`) apps.
 - Preventing replay attacks on stolen OAuth/session tokens using DPoP.
 
+### Hard Guardrails (Declarative Invariants)
+- **Single-Use Server-Generated Challenges**: Generate >=32-byte CSPRNG challenges on the server, bind them to the user session with a <=300s TTL, and atomically delete (`GETDEL` / `DELETE ... RETURNING`) on the first verification call.
+- **Strict `expectedOrigin` & `expectedRPID` Enforcement**: Always pass explicit allowlisted `expectedOrigin` and `expectedRPID` values to `verifyRegistrationResponse` and `verifyAuthenticationResponse`—never wildcards (`*`).
+- **Mandatory User Verification (`uv`) for Step-Up & Sign-In**: Enforce `requireUserVerification: true` (`userVerification: 'required'`) for authentication, financial transfers, and credential mutations.
+- **Clone Detection via Signature Counter**: Persist `counter` per credential and flag authenticator cloning anomalies whenever `newCounter > 0 && newCounter <= storedCounter`.
+- **Feature-Detect WebAuthn Extensions (`prf`, `Signal API`)**: Always inspect `getClientExtensionResults().prf` and `'signalUnknownCredential' in PublicKeyCredential` before invoking hardware encryption or credential cleanup APIs.
+- **Multi-Credential & Phishing-Resistant Recovery**: Require users to register >=2 passkeys (or store Argon2id-hashed recovery codes) and require step-up passkey verification before deleting an existing credential.
+
 ---
 
 ### Core Security Invariants
@@ -221,6 +229,120 @@ export function validateDPoPProof(
 
 ---
 
+#### 4. PostgreSQL Passkey Credentials Schema with RLS & Clone Counter Tracking (`migrations/001_passkey_credentials.sql`)
+Store raw credential public keys (`BYTEA`), signature counters, backup eligibility flags (`backed_up`), and authenticator AAGUIDs with strict Row Level Security:
+
+```sql
+-- migrations/001_passkey_credentials.sql
+CREATE TABLE IF NOT EXISTS public.passkey_credentials (
+    credential_id TEXT PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    tenant_id UUID NOT NULL,
+    public_key BYTEA NOT NULL,
+    counter BIGINT NOT NULL DEFAULT 0,
+    device_type TEXT NOT NULL CHECK (device_type IN ('singleDevice', 'multiDevice')),
+    backed_up BOOLEAN NOT NULL DEFAULT FALSE,
+    transports TEXT[] NOT NULL DEFAULT '{}',
+    aaguid UUID,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_used_at TIMESTAMPTZ
+);
+
+ALTER TABLE public.passkey_credentials ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY user_own_passkeys_policy ON public.passkey_credentials
+    FOR ALL
+    USING (user_id = current_setting('app.current_user_id', true)::uuid);
+
+CREATE INDEX idx_passkey_credentials_user_id
+    ON public.passkey_credentials (user_id);
+```
+
+---
+
+#### 5. WebAuthn PRF Extension for Client-Side E2EE Key Derivation (WebCrypto HKDF -> AES-GCM)
+Derive a deterministic 256-bit `AES-GCM` encryption key directly from the hardware authenticator's HMAC-Secret (`prf` extension) so the server never sees the user's vault encryption key:
+
+```typescript
+// src/client/passkey-prf-crypto.ts
+export async function deriveAesGcmKeyFromPasskeyPrf(
+  credential: PublicKeyCredential,
+  hkdfInfoContext: string
+): Promise<CryptoKey> {
+  const extResults = credential.getClientExtensionResults() as {
+    prf?: { results?: { first?: BufferSource } };
+  };
+
+  const prfSecret = extResults.prf?.results?.first;
+  if (!prfSecret) {
+    throw new Error('Authenticator does not support WebAuthn PRF key derivation');
+  }
+
+  const baseKey = await crypto.subtle.importKey(
+    'raw',
+    prfSecret,
+    'HKDF',
+    false,
+    ['deriveKey']
+  );
+
+  return crypto.subtle.deriveKey(
+    {
+      name: 'HKDF',
+      hash: 'SHA-256',
+      salt: new Uint8Array(32),
+      info: new TextEncoder().encode(hkdfInfoContext),
+    },
+    baseKey,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+```
+
+---
+
+#### 6. Multi-Domain Related Origin Requests (`/.well-known/webauthn`) & Signal API Sync
+Allow a single RP ID to share passkeys across regional country domains and notify the browser password manager when a stale credential was revoked on the server:
+
+```json
+{
+  "origins": [
+    "https://app.vibes-platform.io",
+    "https://id.vibes-platform.io",
+    "https://eu.vibes-platform.io"
+  ]
+}
+```
+
+```typescript
+// src/client/passkey-signal-sync.ts
+export async function signalAcceptedUserCredentials(params: {
+  rpId: string;
+  userId: string;
+  allAcceptedCredentialIdsB64Url: string[];
+}): Promise<void> {
+  const pkc = window.PublicKeyCredential as unknown as {
+    signalAllAcceptedCredentials?: (opts: {
+      rpId: string;
+      userId: string;
+      allAcceptedCredentialIds: string[];
+    }) => Promise<void>;
+  };
+
+  if (typeof pkc?.signalAllAcceptedCredentials === 'function') {
+    await pkc.signalAllAcceptedCredentials({
+      rpId: params.rpId,
+      userId: params.userId,
+      allAcceptedCredentialIds: params.allAcceptedCredentialIdsB64Url,
+    });
+  }
+}
+```
+
+---
+
 ### Verification Checklist
 - [ ] WebAuthn challenges are ≥32 random bytes, bound to the user/session in Redis with a ≤300s TTL, and deleted immediately upon first verification attempt.
 - [ ] Login input fields include `autoComplete="username webauthn"` to enable seamless Conditional UI Passkey autofill.
@@ -252,6 +374,14 @@ export function validateDPoPProof(
 
 ### Deskripsi
 Panduan keamanan produksi untuk autentikasi tanpa kata sandi tahan-phishing menggunakan **FIDO2 / WebAuthn Level 3 Passkeys** (`@simplewebauthn/server`), **Conditional UI autofill**, **Step-Up Authentication** biometrik untuk transaksi bernilai tinggi, dan pengikatan token **DPoP (RFC 9449)**.
+
+### Guardrail Wajib (Invarian Deklaratif)
+- **Challenge Server Sekali Pakai**: Buat challenge CSPRNG >=32 byte di server, ikat pada sesi di Redis dengan TTL <=300 detik, dan hapus secara atomik pada panggilan verifikasi pertama.
+- **Verifikasi Ketat `expectedOrigin` & `expectedRPID`**: Wajib teruskan daftar origin dan RP ID eksplisit ke `verifyRegistrationResponse` / `verifyAuthenticationResponse`, dilarang menggunakan wildcard (`*`).
+- **Kewajiban User Verification (`uv`)**: Aktifkan `requireUserVerification: true` untuk login, transaksi finansial, dan penghapusan kredensial.
+- **Deteksi Kloning melalui Signature Counter**: Simpan `counter` pada setiap kredensial dan tandai anomali kloning jika `newCounter > 0 && newCounter <= storedCounter`.
+- **Deteksi Fitur Ekstensi WebAuthn (`prf`, `Signal API`)**: Periksa dukungan `getClientExtensionResults().prf` dan `signalAllAcceptedCredentials` sebelum memanggil API perangkat keras.
+- **Pemulihan Multi-Kredensial Tahan-Phishing**: Dorong pengguna mendaftarkan >=2 passkey atau kode pemulihan ber-hash Argon2id, serta wajibkan step-up auth sebelum menghapus passkey.
 
 ### Panduan Arsitektur Inti
 1. **Challenge Sekali Pakai**: Simpan `challenge` di Redis dengan TTL maksimal 5 menit dan segera hapus (`DEL`) saat permintaan verifikasi diterima untuk mencegah *replay attack*.

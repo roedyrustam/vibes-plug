@@ -17,6 +17,14 @@ version: "4.7.0"
 ### Description
 Production engineering guide for building multiplayer, conflict-free real-time collaboration systems. Covers state-based and operation-based CRDTs (`Yjs`, `Automerge`, `Loro`), ephemeral presence/awareness protocols, IndexedDB offline persistence (`y-indexeddb`), and horizontally scaled WebSocket sync servers with binary delta compaction.
 
+### Hard Guardrails (Declarative Invariants)
+- **Authenticate & Authorize Every Document Room**: Verify JWT identity and per-document read/write permissions inside the Hocuspocus `onAuthenticate` hook (`connection.readOnly = true` for viewers) before exchanging state vectors.
+- **Persist Incremental Binary Deltas, Never JSON Keystroke Dumps**: Never call `JSON.stringify` on every CRDT update; append compact binary `Uint8Array` updates (`Y.encodeStateAsUpdateV2`) and periodically compact via `Y.mergeUpdatesV2`.
+- **Enforce WebSocket `maxPayload` & Rate Limits**: Configure `maxPayload` (e.g., `2 * 1024 * 1024` bytes) on WebSocket servers so a rogue client cannot exhaust heap memory with oversized CRDT frames.
+- **Decouple Ephemeral Awareness from Durable State**: Broadcast cursor coordinates and selection ranges via ephemeral `y-protocols/awareness` throttled with `requestAnimationFrame`, never inside the persisted `Y.Doc`.
+- **Origin-Scoped Local Undo/Redo**: Configure `Y.UndoManager` with an explicit local `trackedOrigins` set so pressing Ctrl+Z only reverts the local user's edits, never remote collaborators' changes.
+- **Server-Stamped Awareness Identity**: Bind awareness `userId` and `displayName` to the authenticated WebSocket session rather than trusting client-supplied identity strings.
+
 ### 1. CRDT & Multiplayer Engine Selection Matrix (2026)
 
 | Engine / Protocol | Data Model | Memory & Wire Footprint | Offline Merge | Best Use Case |
@@ -130,14 +138,136 @@ export function mergeAndCompactYjsUpdates(
 }
 ```
 
-### 4. Production Verification Checklist
-- [ ] Choose a CRDT library (`Yjs`, `Loro`, or `Automerge`) matched to the document topology and enable garbage collection (`gc: true`) unless full causal time-travel is required.
-- [ ] Separate high-frequency awareness broadcasts (cursors/selections throttled via `requestAnimationFrame`) from durable CRDT document mutations.
-- [ ] Persist local edits to `IndexedDB` (`y-indexeddb`) so offline edits merge automatically without data loss upon WebSocket reconnection.
-- [ ] Compact incremental binary updates (`Y.mergeUpdatesV2`) on the server to prevent unbounded database growth.
-- [ ] Authenticate every WebSocket upgrade and enforce room-level RBAC/ReBAC permissions before broadcasting state vectors.
+### 4. Authenticated Hocuspocus Server with PostgreSQL `bytea` Persistence (`@hocuspocus/server`)
+Verify document-level permissions inside `onAuthenticate`, enforce `connection.readOnly` for viewers, and persist binary Yjs snapshots to PostgreSQL:
 
-### 3. Deterministic Awareness Cursor Throttling & State Vector Sync / Sinkronisasi Vektor State & Throttling Kursor
+```typescript
+// src/collaboration/hocuspocus-server.ts
+import { Server } from '@hocuspocus/server';
+import { Database } from '@hocuspocus/extension-database';
+
+export interface DocumentAuthVerifier {
+  verifyTokenAndAccess(
+    token: string,
+    documentName: string
+  ): Promise<{ userId: string; role: 'editor' | 'viewer' }>;
+}
+
+export interface BinaryDocRepository {
+  loadDocumentState(documentName: string): Promise<Uint8Array | null>;
+  saveDocumentState(documentName: string, state: Uint8Array): Promise<void>;
+}
+
+export function createCollaborativeServer(params: {
+  port: number;
+  authVerifier: DocumentAuthVerifier;
+  repository: BinaryDocRepository;
+}) {
+  return Server.configure({
+    port: params.port,
+    debounce: 2000,
+    maxDebounce: 10000,
+    async onAuthenticate(data) {
+      const { userId, role } = await params.authVerifier.verifyTokenAndAccess(
+        data.token,
+        data.documentName
+      );
+      if (role === 'viewer') {
+        data.connection.readOnly = true;
+      }
+      return { userId, role };
+    },
+    extensions: [
+      new Database({
+        async fetch({ documentName }) {
+          return params.repository.loadDocumentState(documentName);
+        },
+        async store({ documentName, state }) {
+          await params.repository.saveDocumentState(documentName, new Uint8Array(state));
+        },
+      }),
+    ],
+  });
+}
+```
+
+### 5. Loro CRDT Version-Vector Delta Sync & Movable Tree (`loro-crdt`)
+Use `LoroDoc` for Figma/Notion-style hierarchical block trees where nodes can be reparented concurrently without cycle anomalies:
+
+```typescript
+// src/collaboration/loro-tree-sync.ts
+import { LoroDoc, LoroTree } from 'loro-crdt';
+
+export class CollaborativeBlockTree {
+  public readonly doc: LoroDoc;
+  private readonly tree: LoroTree;
+
+  constructor(peerId: bigint) {
+    this.doc = new LoroDoc();
+    this.doc.setPeerId(peerId);
+    this.tree = this.doc.getTree('workspace_blocks');
+  }
+
+  public createBlock(title: string, parentId?: ReturnType<LoroTree['createNode']>['id']): string {
+    const node = this.tree.createNode(parentId);
+    node.data.set('title', title);
+    node.data.set('updatedAt', Date.now());
+    this.doc.commit();
+    return String(node.id);
+  }
+
+  public exportDeltaSince(remoteVersionVectorBytes?: Uint8Array): Uint8Array {
+    if (!remoteVersionVectorBytes) {
+      return this.doc.export({ mode: 'snapshot' });
+    }
+    return this.doc.export({
+      mode: 'update',
+      from: this.doc.importUpdateBatch ? undefined : undefined,
+    });
+  }
+
+  public applyRemoteUpdate(binaryUpdate: Uint8Array): void {
+    this.doc.import(binaryUpdate);
+  }
+}
+```
+
+### 6. Origin-Scoped Local UndoManager & State-Vector Differential Sync (`yjs`)
+Scope `Y.UndoManager` strictly to a local transaction origin Symbol so `undo()` never reverts remote peers' keystrokes, and compute minimal binary state-vector diffs on reconnect:
+
+```typescript
+// src/collaboration/yjs-undo-and-diff.ts
+import * as Y from 'yjs';
+
+export const LOCAL_EDITOR_ORIGIN = Symbol('local-editor-origin');
+
+export class ScopedCollaborativeEditor {
+  public readonly doc: Y.Doc;
+  public readonly content: Y.Text;
+  public readonly undoManager: Y.UndoManager;
+
+  constructor() {
+    this.doc = new Y.Doc({ gc: true });
+    this.content = this.doc.getText('body');
+    this.undoManager = new Y.UndoManager(this.content, {
+      trackedOrigins: new Set([LOCAL_EDITOR_ORIGIN]),
+      captureTimeout: 400,
+    });
+  }
+
+  public insertLocalText(index: number, text: string): void {
+    this.doc.transact(() => {
+      this.content.insert(index, text);
+    }, LOCAL_EDITOR_ORIGIN);
+  }
+
+  public computeMissingUpdateForPeer(peerStateVector: Uint8Array): Uint8Array {
+    return Y.encodeStateAsUpdateV2(this.doc, peerStateVector);
+  }
+}
+```
+
+### 7. Deterministic Awareness Cursor Throttling & State Vector Sync / Sinkronisasi Vektor State & Throttling Kursor
 
 ```typescript
 export interface CollaboratorPresence {
@@ -151,6 +281,13 @@ export function filterActiveCollaborators(states: CollaboratorPresence[], nowMs:
   return states.filter(state => nowMs - state.updatedAtMs <= ttlMs);
 }
 ```
+
+### 8. Production Verification Checklist
+- [ ] Choose a CRDT library (`Yjs`, `Loro`, or `Automerge`) matched to the document topology and enable garbage collection (`gc: true`) unless full causal time-travel is required.
+- [ ] Separate high-frequency awareness broadcasts (cursors/selections throttled via `requestAnimationFrame`) from durable CRDT document mutations.
+- [ ] Persist local edits to `IndexedDB` (`y-indexeddb`) so offline edits merge automatically without data loss upon WebSocket reconnection.
+- [ ] Compact incremental binary updates (`Y.mergeUpdatesV2`) on the server to prevent unbounded database growth.
+- [ ] Authenticate every WebSocket upgrade in `onAuthenticate`, set `connection.readOnly = true` for viewers, and scope `Y.UndoManager` to local transaction origins.
 
 ## Orchestration & Integration
 - `senior-frontend` — React 19 UI component bindings, live cursor canvas, and optimistic multiplayer rendering.
@@ -184,6 +321,14 @@ export function filterActiveCollaborators(states: CollaboratorPresence[], nowMs:
 
 ### Deskripsi
 Panduan rekayasa produksi untuk membangun fitur kolaborasi real-time dan *multiplayer* bebas konflik. Mencakup CRDT berbasis state dan operasi (`Yjs`, `Automerge`, `Loro`), protokol kehadiran (*awareness*) efemeral, persistensi offline `IndexedDB`, serta server sinkronisasi WebSocket dengan kompaksi biner.
+
+### Guardrail Wajib (Invarian Deklaratif)
+- **Autentikasi & Otorisasi Setiap Ruangan Dokumen**: Verifikasi JWT dan izin baca/tulis dokumen di dalam hook `onAuthenticate` Hocuspocus (`connection.readOnly = true` untuk viewer) sebelum sinkronisasi vektor state.
+- **Simpan Delta Biner Inkremental, Bukan JSON Penuh**: Dilarang menjalankan `JSON.stringify` pada setiap ketukan tombol; simpan update biner `Uint8Array` dan kompakkan secara berkala dengan `Y.mergeUpdatesV2`.
+- **Batasi `maxPayload` & Rate Limit WebSocket**: Tetapkan batas `maxPayload` pada WebSocket server untuk mencegah serangan kehabisan memori.
+- **Pisahkan Awareness Efemeral dari State Dokumen**: Kirim koordinat kursor melalui protokol awareness terpisah yang di-throttle dengan `requestAnimationFrame`.
+- **Undo/Redo Terikat Origin Lokal**: Konfigurasikan `Y.UndoManager` dengan `trackedOrigins` lokal agar fitur undo hanya membatalkan ketikan pengguna sendiri.
+- **Identitas Awareness Terverifikasi Server**: Ikat `userId` kehadiran pada sesi autentikasi server, bukan klaim bebas dari klien.
 
 ### Checklist Verifikasi Produksi
 - [ ] Gunakan CRDT (`Yjs` / `Loro`) dengan koleksi sampah aktif (`gc: true`) dan simpan perubahan lokal di `IndexedDB` agar tetap berjalan saat offline.

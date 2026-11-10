@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.7.0",
   "version": "4.7.0",
-  "compiledAt": "2026-11-10T15:21:19.665Z",
+  "compiledAt": "2026-11-10T16:32:50.042Z",
   "totalSkills": 178,
-  "totalCodeBlueprints": 1081,
+  "totalCodeBlueprints": 1109,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -86,7 +86,7 @@
     },
     "testing-security": {
       "count": 39,
-      "blueprints": 218,
+      "blueprints": 234,
       "skills": [
         "agentic-m2m-settlement",
         "ai-code-review-autonomous",
@@ -131,7 +131,7 @@
     },
     "api-contracts": {
       "count": 31,
-      "blueprints": 172,
+      "blueprints": 175,
       "skills": [
         "api-design-expert",
         "api-gateway-proxy-expert",
@@ -188,7 +188,7 @@
     },
     "devops-cicd": {
       "count": 14,
-      "blueprints": 87,
+      "blueprints": 90,
       "skills": [
         "ci-cd-devops-architect",
         "cloud-hosting-expert",
@@ -208,7 +208,7 @@
     },
     "database-storage": {
       "count": 13,
-      "blueprints": 64,
+      "blueprints": 70,
       "skills": [
         "data-pipeline-etl-expert",
         "database-orm-expert",
@@ -227,9 +227,9 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 803355,
-    "compiledSlicesTokensApprox": 137968,
-    "avgTokensPerSlice": 775,
+    "fullRegistryTokensApprox": 817336,
+    "compiledSlicesTokensApprox": 139095,
+    "avgTokensPerSlice": 781,
     "tokenReductionPercent": "83%"
   },
   "slices": {
@@ -5648,12 +5648,14 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 4,
+      "guardRulesCount": 11,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "dsl",
-        "typescript"
+        "typescript",
+        "sql",
+        "yaml"
       ],
       "codeBlueprints": [
         {
@@ -5673,6 +5675,18 @@
           "language": "typescript",
           "lines": 109,
           "preview": "// src/authz/spicedb-rebac-router.ts\nexport interface ZanzibarCheckRequest {\n  resourceType: 'workspace' | 'project' | 'document';\n  resourceId: string;\n  relation: 'viewer' | 'editor' | 'admin';\n  subjectType: 'user';"
+        },
+        {
+          "title": "4. OpenFGA ABAC Conditions (CEL Time-Bound & IP-Restricted Grants)",
+          "language": "dsl",
+          "lines": 13,
+          "preview": "model\n  schema 1.1\ntype user\n\ntype document\n  relations"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 40,
+          "preview": "// src/authz/fga-batch-checker.ts\nimport { OpenFgaClient, ConsistencyPreference } from '@openfga/sdk';\nexport interface BatchPermissionQuery {\n  userId: string;\n  relation: 'can_read' | 'can_write';\n  documentIds: readonly string[];"
         }
       ],
       "connectedSkillsCount": 13,
@@ -6165,12 +6179,13 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 11,
       "nfrContract": "100% complete zero-placeholder implementation",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "typescript",
-        "lean"
+        "lean",
+        "toml"
       ],
       "codeBlueprints": [
         {
@@ -6190,6 +6205,18 @@
           "language": "typescript",
           "lines": 62,
           "preview": "import { spawn } from 'node:child_process';\nimport fs from 'node:fs/promises';\nexport interface LeanVerificationResult {\n  verified: boolean;\n  containsSorryAxiom: boolean;\n  stdout: string;"
+        },
+        {
+          "title": "Blueprint",
+          "language": "lean",
+          "lines": 26,
+          "preview": "-- proofs/AccountTransfer.lean\nnamespace FintechVerification\ndef executeTransfer (s : AccountPair) (amount : Int) : AccountPair :=\n  if amount > 0 ∧ s.sender ≥ amount then\n    { sender := s.sender - amount, receiver := s.receiver + amount }\n  else"
+        },
+        {
+          "title": "Blueprint",
+          "language": "lean",
+          "lines": 31,
+          "preview": "-- proofs/SubscriptionMachine.lean\nnamespace BillingStateMachine\ndef stepStatus (s : SubStatus) (ev : SubEvent) : SubStatus :=\n  match s, ev with\n  | .trialing, .invoicePaid => .active\n  | .trialing, .paymentFailed => .pastDue"
         }
       ],
       "connectedSkillsCount": 12,
@@ -7403,9 +7430,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 4,
+      "guardRulesCount": 14,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "yaml"
       ],
@@ -7427,6 +7454,18 @@
           "language": "yaml",
           "lines": 24,
           "preview": "# k8s/production/api-httproute-canary.yaml\napiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute\nmetadata:\n  name: vibes-api-traffic-split\n  namespace: production"
+        },
+        {
+          "title": "5. Karpenter v1 NodePool & Consolidation Provisioner (`karpenter.sh/v1`)",
+          "language": "yaml",
+          "lines": 37,
+          "preview": "# k8s/platform/karpenter-nodepool.yaml\napiVersion: karpenter.sh/v1\nkind: NodePool\nmetadata:\n  name: general-compute\nspec:"
+        },
+        {
+          "title": "6. Argo Rollouts Canary with Automated Prometheus SLO Analysis Gate",
+          "language": "yaml",
+          "lines": 72,
+          "preview": "# k8s/production/api-canary-rollout.yaml\napiVersion: argoproj.io/v1alpha1\nkind: Rollout\nmetadata:\n  name: vibes-api\n  namespace: production"
         }
       ],
       "connectedSkillsCount": 6,
@@ -9093,9 +9132,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 0,
+      "guardRulesCount": 10,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "sql",
         "typescript"
@@ -9114,10 +9153,22 @@
           "preview": "// src/analytics/clickhouse-usage-service.ts\nimport { createClient, ClickHouseClient } from '@clickhouse/client';\nexport interface HourlyUsagePoint {\n  hourBucket: string;\n  modelTier: string;\n  totalEvents: number;"
         },
         {
-          "title": "4. In-Process DuckDB Parquet Ingestion & Vectorized Aggregation Pipeline (TypeScript)",
+          "title": "Blueprint",
           "language": "typescript",
-          "lines": 44,
-          "preview": "// src/analytics/duckdb-parquet-pipeline.ts\nexport interface ParquetMetricsSummary {\n  tenantId: string;\n  totalRequests: number;\n  avgLatencyMs: number;\n  totalCostUsd: number;"
+          "lines": 63,
+          "preview": "// src/analytics/duckdb-parquet-pipeline.ts\nimport { DuckDBInstance } from '@duckdb/node-api';\nexport interface ParquetMetricsSummary {\n  tenantId: string;\n  totalRequests: number;\n  avgLatencyMs: number;"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 54,
+          "preview": "// src/analytics/browser-duckdb-wasm.ts\nimport * as duckdb from '@duckdb/duckdb-wasm';\nexport interface ClientSliceRow {\n  eventType: string;\n  eventCount: number;\n  p95Ms: number;"
+        },
+        {
+          "title": "Blueprint",
+          "language": "sql",
+          "lines": 35,
+          "preview": "-- 1. Target Versioned State Table (Handles Upserts & Soft Deletes Without Mutations)\nCREATE TABLE billing_subscriptions_olap (\n    tenant_id UUID,\n    subscription_id UUID,\n    plan_code LowCardinality(String),\n    mrr_cents UInt64,"
         }
       ],
       "connectedSkillsCount": 5,
@@ -9325,11 +9376,13 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 4,
+      "guardRulesCount": 12,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
-        "typescript"
+        "typescript",
+        "sql",
+        "json"
       ],
       "codeBlueprints": [
         {
@@ -9349,6 +9402,18 @@
           "language": "typescript",
           "lines": 70,
           "preview": "// src/auth/dpop-validator.ts\nimport { createHash } from 'node:crypto';\nexport interface DPoPProofHeader {\n  typ: 'dpop+jwt';\n  alg: 'ES256' | 'RS256';\n  jwk: { kty: string; crv?: string; x?: string; y?: string; n?: string; e?: string };"
+        },
+        {
+          "title": "Blueprint",
+          "language": "sql",
+          "lines": 23,
+          "preview": "-- migrations/001_passkey_credentials.sql\nCREATE TABLE IF NOT EXISTS public.passkey_credentials (\n    credential_id TEXT PRIMARY KEY,\n    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,\n    tenant_id UUID NOT NULL,\n    public_key BYTEA NOT NULL,"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 35,
+          "preview": "// src/client/passkey-prf-crypto.ts\nexport async function deriveAesGcmKeyFromPasskeyPrf(\n  credential: PublicKeyCredential,\n  hkdfInfoContext: string\n): Promise<CryptoKey> {\n  const extResults = credential.getClientExtensionResults() as {"
         }
       ],
       "connectedSkillsCount": 13,
@@ -10780,11 +10845,12 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 3,
+      "guardRulesCount": 10,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
-        "typescript"
+        "typescript",
+        "sql"
       ],
       "codeBlueprints": [
         {
@@ -10796,14 +10862,26 @@
         {
           "title": "Blueprint",
           "language": "typescript",
-          "lines": 33,
-          "preview": "// src/sync/electric-shape-stream.ts\nimport { ShapeStream, Shape } from '@electric-sql/client';\nexport interface IssueRow {\n  id: string;\n  tenant_id: string;\n  title: string;"
+          "lines": 53,
+          "preview": "// src/sync/electric-shape-proxy.ts\nimport { ShapeStream, Shape } from '@electric-sql/client';\nexport interface IssueRow {\n  id: string;\n  tenant_id: string;\n  title: string;"
         },
         {
           "title": "4. Linear-Style Optimistic Mutation Queue with Server Reconciliation & Rollback (TypeScript)",
           "language": "typescript",
           "lines": 105,
           "preview": "// src/sync/optimistic-mutation-queue.ts\nexport interface OptimisticMutation<TRecord> {\n  mutationId: string;\n  entityId: string;\n  timestamp: number;\n  optimisticState: Partial<TRecord>;"
+        },
+        {
+          "title": "Blueprint",
+          "language": "sql",
+          "lines": 20,
+          "preview": "-- migrations/001_enable_logical_sync.sql\nALTER TABLE public.issues REPLICA IDENTITY FULL;\n\nCREATE TABLE IF NOT EXISTS public.client_mutation_dedup (\n    idempotency_key UUID PRIMARY KEY,\n    tenant_id UUID NOT NULL,"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 45,
+          "preview": "// src/sync/server-txid-mutator.ts\nexport interface SqlExecutor {\n  query<T>(sql: string, values: unknown[]): Promise<{ rows: T[] }>;\n}\n\nexport interface MutationCommitResponse {"
         }
       ],
       "connectedSkillsCount": 6,
@@ -10850,9 +10928,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 1,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "typescript"
       ],
@@ -10870,10 +10948,22 @@
           "preview": "// src/collaboration/compact-yjs-updates.ts\nimport * as Y from 'yjs';\nexport function mergeAndCompactYjsUpdates(\n  baseSnapshotV2: Uint8Array | null,\n  incrementalUpdatesV2: readonly Uint8Array[]\n): Uint8Array {"
         },
         {
-          "title": "3. Deterministic Awareness Cursor Throttling & State Vector Sync / Sinkronisasi Vektor State & Throttling Kursor",
+          "title": "Blueprint",
           "language": "typescript",
-          "lines": 10,
-          "preview": "export interface CollaboratorPresence {\n  clientId: string;\n  cursorLine: number;\n  cursorCol: number;\n  updatedAtMs: number;\n}"
+          "lines": 47,
+          "preview": "// src/collaboration/hocuspocus-server.ts\nimport { Server } from '@hocuspocus/server';\nexport interface DocumentAuthVerifier {\n  verifyTokenAndAccess(\n    token: string,\n    documentName: string"
+        },
+        {
+          "title": "5. Loro CRDT Version-Vector Delta Sync & Movable Tree (`loro-crdt`)",
+          "language": "typescript",
+          "lines": 35,
+          "preview": "// src/collaboration/loro-tree-sync.ts\nimport { LoroDoc, LoroTree } from 'loro-crdt';\nexport class CollaborativeBlockTree {\n  public readonly doc: LoroDoc;\n  private readonly tree: LoroTree;\n"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 29,
+          "preview": "// src/collaboration/yjs-undo-and-diff.ts\nimport * as Y from 'yjs';\nexport const LOCAL_EDITOR_ORIGIN = Symbol('local-editor-origin');\n\nexport class ScopedCollaborativeEditor {\n  public readonly doc: Y.Doc;"
         }
       ],
       "connectedSkillsCount": 11,
@@ -11425,12 +11515,13 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 0,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "yaml",
-        "typescript"
+        "typescript",
+        "json"
       ],
       "codeBlueprints": [
         {
@@ -11450,6 +11541,18 @@
           "language": "typescript",
           "lines": 57,
           "preview": "// src/security/verify-sbom-attestation.ts\nexport interface CycloneDxComponent {\n  name: string;\n  version: string;\n  purl?: string;\n  licenses?: { license: { id?: string; name?: string } }[];"
+        },
+        {
+          "title": "5. GitHub Artifact Attestations & npm Provenance Publishing Workflow",
+          "language": "yaml",
+          "lines": 48,
+          "preview": "# .github/workflows/attest-and-publish.yml\nname: Attest Build Provenance & Publish Package\non:\n  release:\n    types: [published]\n"
+        },
+        {
+          "title": "Blueprint",
+          "language": "json",
+          "lines": 28,
+          "preview": "{\n  \"@context\": \"https://openvex.dev/ns/v0.2.0\",\n  \"@id\": \"https://vibes-platform.io/vex/2026-01-release\",\n  \"author\": \"Vibes Security Engineering <security@vibes-platform.io>\",\n  \"timestamp\": \"2026-11-11T00:00:00Z\",\n  \"version\": 1,"
         }
       ],
       "connectedSkillsCount": 5,

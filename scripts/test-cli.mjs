@@ -2263,6 +2263,58 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(codeExtracted.matchedBlocks >= 1);
     assert.ok(codeExtracted.blocks[0].title.length > 0);
   });
+
+  await t.test('Tahap 1 Deepening: guardrails & auto-routing for OLAP, SBOM, Lean 4, Sync, Collab, K8s, FGA, Passkeys', async () => {
+    const { evaluateContextualSkillGuards, matchSkillsForTarget, SKILL_GUARD_RULES } = await import('./skill-rules-engine.mjs');
+
+    const deepened = [
+      'olap-columnar-analytics-expert', 'sbom-supply-chain-security-expert', 'formal-theorem-verifier-lean4',
+      'reactive-sync-engine-expert', 'realtime-collaboration-expert', 'kubernetes-gitops-platform-expert',
+      'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert'
+    ];
+    for (const skill of deepened) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
+    const expectViolation = async (params, ruleId) => {
+      const res = await evaluateContextualSkillGuards(params);
+      assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
+    };
+    const expectClean = async (params, ruleId) => {
+      const res = await evaluateContextualSkillGuards(params);
+      assert.ok(!res.findings.some((f) => f.ruleId === ruleId), `Did not expect ${ruleId}`);
+    };
+
+    await expectViolation({ filePath: 'src/q.ts', code: "import { DuckDBInstance } from '@duckdb/node-api';\nconst sql = `SELECT count(*) FROM read_parquet('x') WHERE tenant_id = '${tenantId}'`;" }, 'OLAP_INTERPOLATED_SQL_LITERAL');
+    await expectClean({ filePath: 'src/q.ts', code: "import { createClient } from '@clickhouse/client';\nconst q = `SELECT hour_bucket FROM rollup WHERE tenant_id = {tenantId: UUID} LIMIT 100`;" }, 'OLAP_INTERPOLATED_SQL_LITERAL');
+    await expectViolation({ skill: 'olap-columnar-analytics-expert', code: 'SELECT * FROM events FINAL;' }, 'OLAP_FINAL_WITHOUT_FILTER');
+
+    await expectViolation({ filePath: '.github/workflows/release.yml', code: 'jobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n' }, 'SUPPLY_CHAIN_UNPINNED_ACTION');
+    await expectClean({ filePath: '.github/workflows/release.yml', code: 'jobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2\n' }, 'SUPPLY_CHAIN_UNPINNED_ACTION');
+
+    await expectViolation({ filePath: 'Spec/Ledger.lean', code: 'import Mathlib\ntheorem conserve : 1 + 1 = 2 := by\n  sorry' }, 'LEAN_SORRY_OR_ADMIT');
+    await expectClean({ filePath: 'Spec/Ledger.lean', code: 'import Mathlib\ntheorem conserve (a b : Int) : a + b - b = a := by\n  omega' }, 'LEAN_SORRY_OR_ADMIT');
+
+    await expectViolation({ filePath: 'src/sync.ts', code: "import { ShapeStream } from '@electric-sql/client';\nnew ShapeStream({ url, params: { table: 'todos', where: userFilter } });" }, 'SYNC_CLIENT_DEFINED_SHAPE_WHERE');
+    await expectViolation({ filePath: 'server.ts', code: "import { Server } from '@hocuspocus/server';\nconst server = new Server({ port: 1234 });" }, 'COLLAB_UNAUTHENTICATED_HOCUSPOCUS');
+    await expectClean({ filePath: 'server.ts', code: "import { Server } from '@hocuspocus/server';\nconst server = new Server({ port: 1234, async onAuthenticate({ token }) { await verify(token); } });" }, 'COLLAB_UNAUTHENTICATED_HOCUSPOCUS');
+
+    const badDeployment = 'apiVersion: apps/v1\nkind: Deployment\nspec:\n  template:\n    spec:\n      containers:\n        - name: api\n          image: ghcr.io/acme/api:latest\n          securityContext:\n            privileged: true\n';
+    await expectViolation({ filePath: 'k8s/api.yaml', code: badDeployment }, 'K8S_LATEST_IMAGE_TAG');
+    await expectViolation({ filePath: 'k8s/api.yaml', code: badDeployment }, 'K8S_PRIVILEGED_CONTAINER');
+    await expectViolation({ filePath: 'k8s/api.yaml', code: badDeployment }, 'K8S_WORKLOAD_MISSING_LIMITS');
+    await expectViolation({ filePath: 'k8s/secret.yaml', code: 'apiVersion: v1\nkind: Secret\nmetadata:\n  name: db\nstringData:\n  password: hunter2\n' }, 'K8S_PLAINTEXT_SECRET_MANIFEST');
+    await expectClean({ filePath: 'k8s/es.yaml', code: 'apiVersion: external-secrets.io/v1beta1\nkind: ExternalSecret\nspec:\n  data:\n    - secretKey: password\n' }, 'K8S_PLAINTEXT_SECRET_MANIFEST');
+
+    await expectViolation({ filePath: 'src/authz.ts', code: "import { OpenFgaClient } from '@openfga/sdk';\nfor (const doc of docs) { await fga.check({ user, relation: 'viewer', object: doc.id }); }" }, 'FGA_CHECK_IN_LOOP');
+    await expectViolation({ filePath: 'src/authz.ts', code: "import { OpenFgaClient } from '@openfga/sdk';\nconst fga = new OpenFgaClient({ apiUrl, storeId });" }, 'FGA_UNPINNED_MODEL_ID');
+
+    await expectViolation({ filePath: 'src/passkey.ts', code: "import { verifyAuthenticationResponse } from '@simplewebauthn/server';\nawait verifyAuthenticationResponse({ response, expectedChallenge, expectedRPID: 'acme.id', credential });" }, 'WEBAUTHN_MISSING_EXPECTED_ORIGIN');
+    await expectViolation({ filePath: 'src/passkey.ts', code: "import { generateAuthenticationOptions } from '@simplewebauthn/server';\nconst opts = { challenge: 'static-challenge' };" }, 'WEBAUTHN_STATIC_CHALLENGE');
+
+    assert.ok(matchSkillsForTarget({ filePath: 'k8s/route.yaml', code: 'apiVersion: gateway.networking.k8s.io/v1\nkind: HTTPRoute' }).includes('kubernetes-gitops-platform-expert'));
+    assert.ok(matchSkillsForTarget({ filePath: 'model.fga', code: 'model\n  schema 1.1' }).includes('fga-rebac-authorization-expert'));
+  });
 });
 
 
