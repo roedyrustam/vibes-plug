@@ -119,6 +119,18 @@ for (const [u, html] of pages) {
     if (attr(tag, 'alt') === null) add('FAIL', where, `img without alt: ${src.slice(0, 60)}`);
     if (!attr(tag, 'width') && !/\bfill\b|position:\s*absolute/.test(tag)) add('WARN', where, `img without width/height (layout shift): ${src.slice(0, 60)}`);
   }
+  function stripHeadAndScripts(input) {
+    let prev;
+    let out = input;
+    do {
+      prev = out;
+      out = out
+        .replace(/<head[\s\S]*?<\/head>/i, '')
+        .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, '');
+    } while (out !== prev);
+    return out;
+  }
+
   for (const m of html.matchAll(new RegExp(`<a\\b(${TAG_BODY})>([\\s\\S]*?)</a>`, 'gi'))) {
     const a = `<a ${m[1]}>`;
     if (!strip(m[2]).trim() && attr(a, 'aria-label') === null && !tags(m[2], 'img').some((t) => attr(t, 'alt')?.trim())) add('FAIL', where, `link with no accessible name: ${attr(a, 'href')}`);
@@ -134,7 +146,7 @@ for (const [u, html] of pages) {
   for (const re of PLACEHOLDERS) if (re.test(text) || re.test(head)) add('FAIL', where, `placeholder content: ${re}`);
   for (const [re, why] of TELLS) { const m = text.match(re); if (m) add('WARN', where, `${why}: "${m[0]}"`); }
   // The same sentence twice on one page reads as filler (e.g. hero line repeated in about).
-  const body = html.replace(/<head[\s\S]*?<\/head>/i, '').replace(/<script[\s\S]*?<\/script>/gi, '');
+  const body = stripHeadAndScripts(html);
   const sentences = [...body.matchAll(/<(p|h[1-6]|li|blockquote|figcaption|dd)\b[^>]*>([\s\S]*?)<\/\1>/gi)]
     .flatMap((m) => strip(m[2]).split(/(?<=[.!?])\s+/))
     .map((s) => s.trim())
