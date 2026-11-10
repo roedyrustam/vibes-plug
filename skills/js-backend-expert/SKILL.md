@@ -164,6 +164,16 @@ process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Unhandled Rejection & SIGTERM Handlers**:
+   - Production JavaScript backend servers MUST register `process.on('unhandledRejection')`, `process.on('uncaughtException')`, and graceful termination hooks (`SIGTERM`, `SIGINT`) closing HTTP listeners, DB pools, and Redis workers gracefully. Uncontrolled process termination is strictly prohibited.
+2. **Strict Request Body Validation Schema Invariant**:
+   - Every mutation route handler (POST/PUT/PATCH) MUST validate incoming payloads through type-safe schema validators (Zod, TypeBox, ArkType) before invoking domain logic. Accessing raw unvalidated `req.body` directly is strictly prohibited.
+3. **Database Connection Pool Exhaustion Protection**:
+   - Database connections (PgPool, Drizzle, Prisma) MUST configure deterministic connection limits (`max: 20`, `idleTimeoutMillis: 30000`) and leverage connection poolers in serverless environments to prevent database connection exhaustion.
+4. **Structured Error Handling with RFC 9457 Problem Details**:
+   - API error responses MUST NOT leak internal database stack traces or SQL errors to client consumers; errors must return structured RFC 9457 Problem Details or standardized JSON error envelopes.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -171,7 +181,7 @@ process.on('SIGINT', () => shutdown('SIGINT'));
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec js-backend-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 API response time < 50ms, 100% schema validation on input bodies, zero unhandled promise rejections; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -241,4 +251,4 @@ Jangan hentikan proses secara mendadak. Bersihkan connection pool, HTTP server, 
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec js-backend-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi respons API P99 < 50ms, 100% validasi skema pada body input, zero unhandled promise rejection; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

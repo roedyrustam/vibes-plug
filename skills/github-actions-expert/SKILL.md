@@ -230,6 +230,16 @@ runs:
       run: pnpm install --frozen-lockfile
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Explicit Permissions Invariant (Least Privilege)**:
+   - Workflows MUST declare an explicit `permissions:` block at workflow or job level (e.g. `permissions: { contents: read }`). Omitting permissions or specifying `permissions: write-all` is strictly prohibited.
+2. **Third-Party Action Immutable SHA Pinning**:
+   - Third-party GitHub Actions (`uses: actions/...`, `uses: docker/...`) in production pipelines MUST be pinned to full 40-character commit hashes (e.g., `uses: actions/checkout@11bd7190... # v4.2.2`). Using mutable branch or release tags (`@v4`, `@main`) is prohibited in release workflows.
+3. **Strict Prohibition of Plaintext Secrets in Scripts**:
+   - Secrets MUST NEVER be directly interpolated into `run:` shell command blocks (e.g. `run: echo ${{ secrets.TOKEN }}`). Pass secrets exclusively via environment variables (`env: TOKEN: ${{ secrets.TOKEN }}`) to prevent command injection and log leaks.
+4. **Concurrency Cancel-In-Progress Gate**:
+   - Continuous integration workflows triggered on `pull_request` MUST configure `concurrency:` with `cancel-in-progress: true` scoped to `${{ github.workflow }}-${{ github.ref }}` to prevent redundant builds.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -237,7 +247,7 @@ runs:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec github-actions-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | CI build duration < 4 mins via cache hydration, 100% SHA pinning on third-party actions, 0 plaintext secret leaks in run steps; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -281,4 +291,4 @@ Panduan standar industri enterprise untuk merancang dan memelihara pipeline Cont
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec github-actions-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Durasi build CI < 4 menit via hidrasi cache, 100% pinning SHA pada aksi pihak ketiga, 0 kebocoran secret plaintext pada langkah run; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

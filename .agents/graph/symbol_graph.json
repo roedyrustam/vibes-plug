@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T18:34:15.233Z",
+  "generatedAt": "2026-11-10T18:51:02.752Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 90,
-  "incrementalReusedFiles": 89,
+  "incrementalReusedFiles": 88,
   "totalSymbolsIndexed": 514,
   "totalImportEdges": 305,
   "symbols": {
@@ -3782,7 +3782,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 1898,
+        "line": 2058,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3802,7 +3802,7 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 1949,
+        "line": 2109,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
@@ -3827,7 +3827,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2030,
+        "line": 2190,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -3845,7 +3845,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2077,
+        "line": 2237,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -3859,7 +3859,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2122,
+        "line": 2282,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -13196,10 +13196,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 2142,
+      "totalLines": 2302,
       "symbolCount": 5,
-      "mtimeMs": 1794335500679,
-      "size": 111974,
+      "mtimeMs": 1794336504843,
+      "size": 120904,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13236,7 +13236,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 1898,
+          "line": 2058,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13254,7 +13254,7 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 1949,
+          "line": 2109,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
@@ -13277,7 +13277,7 @@
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 2030,
+          "line": 2190,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13293,7 +13293,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 2077,
+          "line": 2237,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13305,7 +13305,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 2122,
+          "line": 2282,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -15270,10 +15270,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2475,
+      "totalLines": 2496,
       "symbolCount": 1,
-      "mtimeMs": 1794335640646,
-      "size": 130747,
+      "mtimeMs": 1794336549122,
+      "size": 133135,
       "exports": [],
       "imports": [
         {
@@ -15355,7 +15355,7 @@
           "specifiers": [
             "createClient"
           ],
-          "line": 2325
+          "line": 2334
         },
         {
           "source": "@hocuspocus/server",
@@ -15363,21 +15363,13 @@
           "specifiers": [
             "Server"
           ],
-          "line": 2335
+          "line": 2344
         },
         {
           "source": "@hocuspocus/server",
           "target": null,
           "specifiers": [
             "Server"
-          ],
-          "line": 2336
-        },
-        {
-          "source": "@openfga/sdk",
-          "target": null,
-          "specifiers": [
-            "OpenFgaClient"
           ],
           "line": 2345
         },
@@ -15387,7 +15379,15 @@
           "specifiers": [
             "OpenFgaClient"
           ],
-          "line": 2346
+          "line": 2354
+        },
+        {
+          "source": "@openfga/sdk",
+          "target": null,
+          "specifiers": [
+            "OpenFgaClient"
+          ],
+          "line": 2355
         },
         {
           "source": "@simplewebauthn/server",
@@ -15395,7 +15395,7 @@
           "specifiers": [
             "verifyAuthenticationResponse"
           ],
-          "line": 2348
+          "line": 2357
         },
         {
           "source": "@simplewebauthn/server",
@@ -15403,7 +15403,7 @@
           "specifiers": [
             "generateAuthenticationOptions"
           ],
-          "line": 2349
+          "line": 2358
         },
         {
           "source": "@temporalio/workflow",
@@ -15411,7 +15411,7 @@
           "specifiers": [
             "proxyActivities"
           ],
-          "line": 2379
+          "line": 2388
         }
       ],
       "cachedSymbols": [

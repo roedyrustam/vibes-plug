@@ -164,6 +164,16 @@ export async function GET(req: NextRequest) {
 - [ ] CORS and API permissions locked down.
 - [ ] CDN caching for API responses configured.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Webhook Secret Verification Invariant**:
+   - Webhook revalidation endpoints (`/api/revalidate` or `/api/webhook`) MUST verify an incoming shared secret or cryptographic HMAC signature against an environment variable (`process.env.REVALIDATION_SECRET`). Unauthenticated revalidation handlers are strictly prohibited.
+2. **Draft & Preview Mode Secret Isolation**:
+   - Preview routes enabling `draftMode()` MUST validate incoming preview tokens against a dedicated secret (`SANITY_PREVIEW_SECRET`) and sanitize redirection targets to internal relative paths. Open redirection to arbitrary external domains is strictly prohibited.
+3. **Structured Content Image Optimization Invariant**:
+   - Rich text and CMS images MUST be rendered through optimized image loaders (`next/image` with predefined dimensions or CMS-specific image URL builder) with explicit `width`, `height`, and `alt` tags. Raw unoptimized image URLs directly embedded in `<img>` tags are prohibited.
+4. **Strict Schema-as-Code Type Safety**:
+   - All CMS document models (Sanity, Payload, Strapi) MUST be maintained as code schemas with generated TypeScript types. Un-typed `any` querying of CMS payload blocks is strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -171,7 +181,7 @@ export async function GET(req: NextRequest) {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec headless-cms-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Webhook cache revalidation latency < 200ms, 100% cryptographic webhook signature verification, zero unoptimized raw CMS images; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -266,4 +276,4 @@ export async function POST(req: NextRequest) {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec headless-cms-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi revalidasi cache webhook < 200ms, 100% verifikasi signature webhook kriptografis, zero gambar CMS mentah tanpa optimasi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

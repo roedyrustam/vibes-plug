@@ -1854,6 +1854,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /['"]use client['"][\s\S]{0,200}?\b(?:new\s+PrismaClient|drizzle\(|createClient\()/i,
       remediation: 'Presentation layers must consume headless APIs or BFF endpoints; instantiating database ORM clients directly in client components is strictly prohibited.'
     }
+  ],
+  'desktop-electron-expert': [
+    {
+      id: 'ELECTRON_DISABLED_CONTEXT_ISOLATION',
+      severity: 'ERROR',
+      name: 'Disabled Context Isolation in Electron WebPreferences',
+      regex: /contextIsolation\s*:\s*false/,
+      remediation: 'Never disable context isolation in Electron; contextIsolation: true is mandatory to protect against remote code execution.'
+    },
+    {
+      id: 'ELECTRON_ENABLED_NODE_INTEGRATION',
+      severity: 'ERROR',
+      name: 'Enabled Node Integration in Electron Renderer Process',
+      regex: /nodeIntegration\s*:\s*true/,
+      remediation: 'Never enable nodeIntegration in Electron renderer processes; communicate securely with main processes exclusively via contextBridge preload scripts.'
+    }
+  ],
+  'firebase-security-expert': [
+    {
+      id: 'FIREBASE_WILDCARD_PUBLIC_WRITE',
+      severity: 'ERROR',
+      name: 'Wildcard Public Write Access in Firebase Security Rules',
+      regex: /allow\s+(?:read\s*,\s*)?write\s*:\s*if\s+true\s*;/,
+      remediation: 'Never use wildcard open write rules ("allow write: if true;"); always restrict write operations to authenticated owners or admins.'
+    },
+    {
+      id: 'FIREBASE_CALLABLE_MISSING_AUTH_CHECK',
+      severity: 'ERROR',
+      name: 'Callable Cloud Function Handler Missing Authentication Context Check',
+      regex: /onCall\s*\(\s*(?:async\s*)?\([^)]*\)\s*=>\s*\{(?![\s\S]{0,150}?\b(?:context|request)\.auth\b)/,
+      remediation: 'Always verify authentication context (if (!context.auth) throw new HttpsError("unauthenticated")) inside onCall Cloud Functions.'
+    }
+  ],
+  'formal-spec-z3-verifier': [
+    {
+      id: 'Z3_UNBOUNDED_SOLVER_WITHOUT_TIMEOUT',
+      severity: 'WARN',
+      name: 'SMT / Z3 Solver Instance Created Without Bounded Timeout',
+      regex: /const\s+solver\s*=\s*new\s+(?:z3\.Solver|Solver)\s*\((?![\s\S]{0,150}?\b(?:set\s*\(\s*['"]timeout['"]|rlimit)\b)/,
+      remediation: 'Always configure a finite timeout or rlimit on Z3 solver instances (e.g. solver.set("timeout", 10000)) to prevent combinatorial explosion hangs.'
+    },
+    {
+      id: 'Z3_VACUOUS_OR_UNCHECKED_ASSERTION',
+      severity: 'ERROR',
+      name: 'Vacuous Boolean Assumption Bypassing Formal SMT Verification',
+      regex: /solver\.add\s*\(\s*z3\.Bool\.val\s*\(\s*true\s*\)\s*\)|assume\s+true\b/,
+      remediation: 'Do not introduce vacuous assumptions or trivial boolean constraints (assume true) that bypass formal verification rigor.'
+    }
+  ],
+  'gemini-agent-booster': [
+    {
+      id: 'GEMINI_UNBOUNDED_THINKING_BUDGET',
+      severity: 'WARN',
+      name: 'Gemini Reasoning Model Called With Empty or Unbounded Thinking Config',
+      regex: /thinkingConfig\s*:\s*\{(?![\s\S]{0,100}?\bthinkingBudget\s*:\s*\d+)/,
+      remediation: 'Declare an explicit numeric thinkingBudget (e.g. thinkingBudget: 8192) in thinkingConfig to control test-time compute allocation.'
+    },
+    {
+      id: 'GEMINI_LARGE_PAYLOAD_WITHOUT_CACHE',
+      severity: 'WARN',
+      name: 'Massive Context Ingested Directly Without Gemini Context Caching',
+      regex: /ai\.models\.generateContent\s*\(\s*\{[\s\S]{0,120}?contents\s*:\s*\[[\s\S]{0,60}?(?:fullCodebase|entireRepoDump|largeContext)\b(?![\s\S]{0,200}?\bcachedContent\b)/,
+      remediation: 'Large payloads exceeding 32K tokens must use Gemini native context caching (cachedContent) to achieve 75-90% token cost reduction.'
+    }
+  ],
+  'geospatial-maps-expert': [
+    {
+      id: 'GEOSPATIAL_UNINDEXED_SPATIAL_COLUMN',
+      severity: 'ERROR',
+      name: 'PostGIS Geometry / Geography Column Created Without GiST Spatial Index',
+      regex: /CREATE\s+TABLE\s+[^;]+\bgeom(?:etry)?\s+(?:geometry|geography)\b(?![\s\S]{0,300}?\bUSING\s+GIST\b)/i,
+      remediation: 'Declare an explicit GiST index (CREATE INDEX ... USING GIST (geom)) on geometry/geography columns to avoid full table scans in spatial queries.'
+    },
+    {
+      id: 'GEOSPATIAL_INVERTED_COORDINATES_ST_MAKEPOINT',
+      severity: 'ERROR',
+      name: 'Inverted Lat/Lng Coordinates in PostGIS ST_MakePoint Constructor',
+      regex: /ST_MakePoint\s*\(\s*(?:lat|latitude)\s*,\s*(?:lng|lon|longitude)\s*\)/i,
+      remediation: 'PostGIS ST_MakePoint requires (longitude, latitude) order (X, Y). Swap arguments to ST_MakePoint(lng, lat).'
+    }
+  ],
+  'github-actions-expert': [
+    {
+      id: 'GITHUB_ACTIONS_SECRET_INTERPOLATION_IN_RUN',
+      severity: 'ERROR',
+      name: 'Repository Secret Interpolated Directly Into Shell Script Run Block',
+      regex: /run\s*:\s*[\s\S]{0,100}?\$\{\{\s*secrets\.[A-Z0-9_]+\s*\}\}/,
+      remediation: 'Do not interpolate secrets directly into run shell scripts (${{ secrets.X }}); pass them as environment variables (env: X: ${{ secrets.X }}) to prevent command injection and leakage.'
+    },
+    {
+      id: 'GITHUB_ACTIONS_WRITE_ALL_PERMISSIONS',
+      severity: 'ERROR',
+      name: 'Overly Permissive "write-all" Permission Block in GitHub Actions Workflow',
+      regex: /permissions\s*:\s*['"]?write-all['"]?/,
+      remediation: 'Do not use "permissions: write-all"; enforce the principle of least privilege by explicitly declaring only required scopes (e.g. contents: read).'
+    }
+  ],
+  'global-a11y-i18n-expert': [
+    {
+      id: 'GLOBAL_A11Y_IMAGE_MISSING_ALT',
+      severity: 'ERROR',
+      name: 'Image Tag Missing Alt Accessibility Attribute',
+      regex: /<img\s+(?![\s\S]{0,100}?\balt\s*=)[^>]*>/i,
+      remediation: 'Every <img> element must declare an explicit alt attribute (alt="..." or alt="" for decorative images) per WCAG 2.2 SC 1.1.1.'
+    },
+    {
+      id: 'GLOBAL_I18N_HARDCODED_DIRECTIONAL_CSS',
+      severity: 'WARN',
+      name: 'Hardcoded Physical Directional Property in Inline Component Styles',
+      regex: /style\s*=\s*\{\s*\{[\s\S]{0,60}?\b(?:marginLeft|marginRight|paddingLeft|paddingRight)\s*:/,
+      remediation: 'Use CSS logical properties (marginInlineStart, marginInlineEnd, paddingInlineStart) instead of directional left/right properties to support RTL locales.'
+    }
+  ],
+  'headless-cms-expert': [
+    {
+      id: 'HEADLESS_CMS_UNPROTECTED_REVALIDATE_ROUTE',
+      severity: 'ERROR',
+      name: 'Cache Revalidation Webhook Route Invoking revalidateTag Without Secret Verification',
+      regex: /export\s+async\s+function\s+POST\s*\([^)]*req[^)]*\)[\s\S]{0,150}?\brevalidateTag\s*\((?![\s\S]{0,250}?\b(?:secret|REVALIDATION_SECRET|headers\.get)\b)/,
+      remediation: 'Revalidation webhook routes must verify an authorization secret or header before calling revalidateTag/revalidatePath.'
+    },
+    {
+      id: 'HEADLESS_CMS_OPEN_PREVIEW_REDIRECT',
+      severity: 'ERROR',
+      name: 'Open Redirect Vulnerability in CMS Draft Mode Enablement Route',
+      regex: /draftMode\(\)\.enable\(\);[\s\S]{0,100}?redirect\s*\(\s*(?:req\.url|searchParams\.get\(['"]redirect['"]\))\s*\)/,
+      remediation: 'Sanitize preview redirect destinations to relative internal paths (e.g. redirect(`/posts/${slug}`)) to prevent open-redirect vulnerabilities.'
+    }
+  ],
+  'htmx-hypermedia-expert': [
+    {
+      id: 'HTMX_STATE_MUTATION_MISSING_CSRF',
+      severity: 'ERROR',
+      name: 'State-Mutating HTMX Request Missing CSRF Token Header or Field',
+      regex: /<(?:form|button|div)[^>]*\bhx-(?:post|put|delete|patch)\s*=\s*['"][^'"]+['"](?![\s\S]{0,150}?\b(?:hx-headers|csrf|xsrf)\b)/i,
+      remediation: 'State-mutating HTMX requests (hx-post, hx-put, hx-delete) must include CSRF tokens via hx-headers or form inputs.'
+    },
+    {
+      id: 'HTMX_UNESCAPED_USER_STRING_INTERPOLATION',
+      severity: 'ERROR',
+      name: 'Raw Variable Directly Interpolated Into Server-Rendered HTMLResponse',
+      regex: /return\s+HTMLResponse\s*\(\s*content\s*=\s*f?["'][^"']*<\w+>[^<]*\{[a-zA-Z0-9_.]+\}[^<]*<\/\w+>/,
+      remediation: 'Do not interpolate raw variables into HTMLResponse strings; escape strings via html.escape or use template engines (Jinja/html/template) to prevent XSS.'
+    }
+  ],
+  'js-backend-expert': [
+    {
+      id: 'JS_BACKEND_UNHANDLED_RAW_BODY_ACCESS',
+      severity: 'WARN',
+      name: 'Direct Mutation Body Access Without Prior Schema Parsing or Validation',
+      regex: /app\.(?:post|put|patch)\s*\(\s*['"][^'"]+['"]\s*,\s*async\s*\([^)]*\)\s*=>\s*\{[\s\S]{0,100}?const\s+\w+\s*=\s*req\.body(?![\s\S]{0,150}?\b(?:parse|validate|safeParse|validateBody)\b)/,
+      remediation: 'Validate incoming request bodies with a schema parser (e.g. schema.parse(req.body) or zValidator) before accessing properties.'
+    },
+    {
+      id: 'JS_BACKEND_MISSING_GRACEFUL_SHUTDOWN',
+      severity: 'WARN',
+      name: 'Express / Node HTTP Server Listening Without SIGTERM Graceful Shutdown Handler',
+      regex: /app\.listen\s*\(\s*(?:port|\d+)[^)]*\)(?![\s\S]{0,400}?\bprocess\.on\s*\(\s*['"](?:SIGTERM|SIGINT)['"]\b)/,
+      remediation: 'Register graceful shutdown handlers (process.on("SIGTERM", ...)) to close database connections and finish in-flight HTTP requests gracefully.'
+    }
   ]
 
 });

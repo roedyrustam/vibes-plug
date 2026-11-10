@@ -2312,6 +2312,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG12 = [
+      'desktop-electron-expert', 'firebase-security-expert', 'formal-spec-z3-verifier',
+      'gemini-agent-booster', 'geospatial-maps-expert', 'github-actions-expert',
+      'global-a11y-i18n-expert', 'headless-cms-expert', 'htmx-hypermedia-expert', 'js-backend-expert'
+    ];
+    for (const skill of deepenedG12) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2468,6 +2477,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'deep-research-analyst', code: 'const claim = { fact: "Market size is 10B", validationStatus: "confirmed" };' }, 'DEEP_RESEARCH_UNVERIFIED_SINGLE_SOURCE');
     await expectViolation({ skill: 'dependency-upgrade-migrator', code: 'runCommand("npm audit fix --force");' }, 'DEPENDENCY_BLIND_AUDIT_FIX_FORCE');
     await expectViolation({ skill: 'composable-mach-architect', code: 'const sql = "SELECT * FROM orders.order_items oi JOIN foreign_inventory.stocks s ON s.sku = oi.sku";' }, 'MACH_CROSS_SERVICE_DB_JOIN');
+
+    // Wave 12 (Gelombang 12) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'desktop-electron-expert', code: 'const win = new BrowserWindow({ webPreferences: { contextIsolation: false } });' }, 'ELECTRON_DISABLED_CONTEXT_ISOLATION');
+    await expectViolation({ skill: 'firebase-security-expert', code: 'match /databases/{database}/documents { match /{document=**} { allow read, write: if true; } }' }, 'FIREBASE_WILDCARD_PUBLIC_WRITE');
+    await expectViolation({ skill: 'formal-spec-z3-verifier', code: 'const solver = new z3.Solver();' }, 'Z3_UNBOUNDED_SOLVER_WITHOUT_TIMEOUT');
+    await expectViolation({ skill: 'gemini-agent-booster', code: 'const res = await ai.models.generateContent({ model: "gemini-4-pro", config: { thinkingConfig: {} } });' }, 'GEMINI_UNBOUNDED_THINKING_BUDGET');
+    await expectViolation({ skill: 'geospatial-maps-expert', code: 'const point = ST_MakePoint(latitude, longitude);' }, 'GEOSPATIAL_INVERTED_COORDINATES_ST_MAKEPOINT');
+    await expectViolation({ skill: 'github-actions-expert', code: 'steps:\n  - run: echo "Deploying with ${{ secrets.DEPLOY_KEY }}"\n' }, 'GITHUB_ACTIONS_SECRET_INTERPOLATION_IN_RUN');
+    await expectViolation({ skill: 'global-a11y-i18n-expert', code: '<img src="/avatar.png" className="w-10 h-10" />' }, 'GLOBAL_A11Y_IMAGE_MISSING_ALT');
+    await expectViolation({ skill: 'headless-cms-expert', code: 'export async function POST(req) { await revalidateTag("articles"); return Response.json({ ok: true }); }' }, 'HEADLESS_CMS_UNPROTECTED_REVALIDATE_ROUTE');
+    await expectViolation({ skill: 'htmx-hypermedia-expert', code: '<button hx-post="/api/delete-account">Delete</button>' }, 'HTMX_STATE_MUTATION_MISSING_CSRF');
+    await expectViolation({ skill: 'js-backend-expert', code: 'app.post("/api/users", async (req, res) => {\n  const user = req.body;\n  await save(user);\n});' }, 'JS_BACKEND_UNHANDLED_RAW_BODY_ACCESS');
   });
 });
 
