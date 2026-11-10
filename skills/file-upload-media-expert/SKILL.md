@@ -384,6 +384,16 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 
 ---
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Magic Byte Verification Over File Extensions**:
+   - File upload validation MUST inspect content magic bytes using `file-type` or binary signature checks. Relying solely on client-declared file extensions (`.png`, `.pdf`) or request `Content-Type` headers without binary inspection is strictly prohibited.
+2. **Ephemeral Presigned Upload URL Lifetimes**:
+   - Presigned upload URLs (S3 `PutObjectCommand`, Cloudflare R2, Supabase Storage) MUST enforce strict expiration windows <= 15 minutes (`expiresIn: 900`). Infinite or long-lived upload signatures are forbidden.
+3. **Private Bucket Isolation & Zero Public Read Policies**:
+   - Storage buckets storing tenant or user files MUST NOT declare public-read policies (`"Principal": "*"`). File access MUST be mediated through signed download URLs, CDN authentication, or database row-level security (RLS).
+4. **Bilateral Size Limits & Media Sanitization**:
+   - Upload architectures MUST enforce maximum byte-size limits both in client form validation and in signed URL generation policies (`ContentLengthRange`), followed by asynchronous sanitization/transcoding before serving to end users.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -391,7 +401,7 @@ export async function validateFile(buffer: Buffer, declaredMimeType: string): Pr
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec file-upload-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Presigned URL generation latency < 25ms, 100% magic byte MIME verification, S3/R2 presigned expiration <= 15 minutes; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -446,4 +456,4 @@ Aktifkan skill ini ketika:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec file-upload-media-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi generasi presigned URL < 25ms, 100% verifikasi magic byte MIME biner, kedaluwarsa presigned S3/R2 <= 15 menit; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

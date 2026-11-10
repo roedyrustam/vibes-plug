@@ -340,6 +340,16 @@ export async function registerForPushNotificationsAsync() {
 | No unsubscribe link | CAN-SPAM violation, ISP blocking | Always include List-Unsubscribe header |
 | Sending passwords in email | Security vulnerability | Send one-time reset links with expiry |
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory HTML Sanitization & Templating Engines**:
+   - Dynamic user data interpolated into email templates MUST use strongly typed templating engines (React Email, MJML) or strict HTML entity escaping. Raw string interpolation (`<div>Hello ${name}</div>`) without escaping is strictly prohibited to prevent email injection attacks.
+2. **Deterministic Idempotency on Transactional Dispatches**:
+   - All transactional email send operations MUST include an explicit idempotency key (`Idempotency-Key` header or `idempotencyKey` parameter) derived from the source business event to prevent duplicate notifications during network retries or queue re-deliveries.
+3. **Mandatory One-Click Unsubscribe Headers (RFC 8058)**:
+   - All marketing, digest, and non-security transactional messages MUST include `List-Unsubscribe` and `List-Unsubscribe-Post: List-Unsubscribe=One-Click` headers alongside functional one-click unsubscribe endpoints to comply with CAN-SPAM and major mailbox provider rules.
+4. **Cryptographic Webhook Signature Verification**:
+   - Inbound webhook endpoints receiving bounce, delivery, or complaint notifications MUST verify provider cryptographic signatures (Svix, HMAC-SHA256) before processing suppression or updating recipient delivery statuses.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -347,7 +357,7 @@ export async function registerForPushNotificationsAsync() {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec email-notification-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P95 email delivery latency < 2s, 100% SPF/DKIM/DMARC alignment, zero unescaped HTML injection, responsive email client rendering 100%; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -414,4 +424,4 @@ Aktifkan skill ini ketika:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec email-notification-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi pengiriman email P95 < 2 detik, 100% kepatuhan SPF/DKIM/DMARC, zero injeksi HTML unescaped, render responsif di semua email client; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

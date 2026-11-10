@@ -1534,6 +1534,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /(?:totalPrice|cartTotal|subtotal)\s*=\s*(?:parseFloat|Number)\s*\(/,
       remediation: 'Compute shopping cart totals, shipping fees, and taxes using integer minor units (cents / sen) rather than floating-point numbers.'
     }
+  ],
+  'cloud-hosting-expert': [
+    {
+      id: 'CLOUD_HOSTING_LOCAL_STORAGE_IN_EDGE',
+      severity: 'ERROR',
+      name: 'Browser LocalStorage / SessionStorage Referenced in Edge Runtime Context',
+      regex: /(?:export\s+const\s+runtime\s*=\s*['"]edge['"]|export\s+default\s+caches\.default)[\s\S]{0,300}?\b(?:localStorage|sessionStorage)\b/,
+      remediation: 'Edge runtime environments cannot use browser-only localStorage/sessionStorage; use distributed stores like Cloudflare KV/D1 or Upstash Redis.'
+    },
+    {
+      id: 'CLOUD_HOSTING_DOCKER_BAKED_ENV_SECRET',
+      severity: 'ERROR',
+      name: 'Sensitive .env File Baked Directly Into Container Image',
+      regex: /COPY\s+\.env(?:\.local|\.production)?\s+/i,
+      remediation: 'Do not bake .env files into production Docker images; inject environment variables at runtime via platform secrets.'
+    }
+  ],
+  'cron-scheduler-expert': [
+    {
+      id: 'CRON_SCHEDULE_WITHOUT_IDEMPOTENCY_KEY',
+      severity: 'WARN',
+      name: 'Repeatable / Cron Job Added Without Deterministic jobId Deduplication',
+      regex: /scheduledQueue\.add\s*\(\s*['"][^'"]+['"]\s*,\s*\{[^}]*\}\s*,\s*\{(?![\s\S]{0,150}?\bjobId\s*:)/,
+      remediation: 'Declare a deterministic jobId on repeatable BullMQ/cron jobs to prevent duplicate execution across service restarts.'
+    },
+    {
+      id: 'CRON_SCHEDULE_UNLOCKED_EXECUTION',
+      severity: 'WARN',
+      name: 'Cron Job Handler Mutating State Without Distributed Mutex Lock',
+      regex: /export\s+async\s+function\s+GET\s*\([^)]*\)[\s\S]{0,150}?performDailyCleanup\s*\((?![\s\S]{0,250}?\b(?:acquireCronLock|cron-lock|NX|pg_try_advisory_lock)\b)/,
+      remediation: 'Acquire a distributed lock (e.g. acquireCronLock or SET NX) before executing state mutations inside cron API endpoints.'
+    }
+  ],
+  'email-notification-expert': [
+    {
+      id: 'EMAIL_UNESCAPED_HTML_INTERPOLATION',
+      severity: 'ERROR',
+      name: 'Untrusted Variable Interpolated Directly Into Raw HTML Email Body',
+      regex: /html\s*:\s*`[\s\S]{0,100}?<\w+>[^<]*\$\{(?:req|body|input|user)\.[^}]+?\}[^<]*<\/\w+>/,
+      remediation: 'Do not interpolate untrusted variables directly into raw HTML strings; use React Email components or escape HTML entities to prevent email injection.'
+    },
+    {
+      id: 'EMAIL_TRANSACTIONAL_NO_IDEMPOTENCY_KEY',
+      severity: 'WARN',
+      name: 'Transactional Email Dispatch Without Idempotency Key',
+      regex: /resend\.emails\.send\s*\(\s*\{(?![\s\S]{0,200}?\b(?:headers\s*:\s*\{[^}]*['"]Idempotency-Key['"]|idempotencyKey)\b)[\s\S]{0,200}?\bto\s*:/,
+      remediation: 'Attach an explicit Idempotency-Key header or parameter when dispatching transactional emails to avoid double delivery upon network retries.'
+    }
+  ],
+  'file-upload-media-expert': [
+    {
+      id: 'FILE_UPLOAD_CLIENT_EXTENSION_ONLY',
+      severity: 'ERROR',
+      name: 'File Upload Validation Relying Solely on Filename Extension',
+      regex: /function\s+validateFile\s*\([^)]*\)[\s\S]{0,200}?\bfile\.name\.endsWith\s*\([^)]*\)(?![\s\S]{0,200}?\b(?:fileTypeFromBuffer|magic|file-type)\b)/,
+      remediation: 'Do not rely solely on filename extensions for upload validation; verify file magic bytes using file-type or binary buffer inspection.'
+    },
+    {
+      id: 'FILE_UPLOAD_S3_PUBLIC_READ_POLICY',
+      severity: 'ERROR',
+      name: 'Wildcard Public Read Access Policy Declared on Storage Bucket',
+      regex: /"Effect"\s*:\s*"Allow"[\s\S]{0,100}?"Principal"\s*:\s*"\*"[\s\S]{0,100}?"Action"\s*:\s*"s3:GetObject"/,
+      remediation: 'Do not grant wildcard public-read access ("Principal": "*") on S3 buckets; serve private assets via presigned URLs or CDN authentication.'
+    }
+  ],
+  'agentic-coding-workflow-expert': [
+    {
+      id: 'AGENTIC_WORKFLOW_DIRECT_MAIN_BRANCH_MUTATION',
+      severity: 'ERROR',
+      name: 'Agentic Workflow Checking Out or Pushing Directly to Main/Master Branch',
+      regex: /git\s+(?:checkout\s+(?:main|master)|push\s+origin\s+(?:main|master))\b/,
+      remediation: 'Coding agents must operate in dedicated feature branches or isolated git worktrees; direct checkouts/pushes to main/master are prohibited.'
+    },
+    {
+      id: 'AGENTIC_WORKFLOW_UNBOUNDED_SELF_HEAL_LOOP',
+      severity: 'WARN',
+      name: 'Unbounded Self-Healing Loop Without Explicit Maximum Retry Limit',
+      regex: /while\s*\(\s*true\s*\)[\s\S]{0,150}?(?:run_tests|self_heal|refine_code)(?![\s\S]{0,200}?\b(?:retries\s*>=\s*[123]|break)\b)/,
+      remediation: 'Enforce a bounded maximum retry limit (<= 2 attempts) in autonomous self-healing loops to prevent infinite token consumption.'
+    }
+  ],
+  'ai-code-review-autonomous': [
+    {
+      id: 'AI_REVIEW_EMPTY_SEVERITY_FINDING',
+      severity: 'WARN',
+      name: 'Code Review Finding Pushed Without Explicit Severity Classification',
+      regex: /findings\.push\s*\(\s*\{[\s\S]{0,120}?(?![\s\S]{0,100}?\bseverity\s*:\s*['"](?:P0|P1|P2|P3|Blocker|Critical|Major|Minor)['"])\bmessage\s*:/,
+      remediation: 'Every code review finding must assign an explicit severity level (P0/P1/P2/P3 or Blocker/Critical/Major/Minor).'
+    },
+    {
+      id: 'AI_REVIEW_APPROVE_WITHOUT_SMOKE_TEST',
+      severity: 'ERROR',
+      name: 'Pull Request Approved Without Verifying AST or Syntax Compilation',
+      regex: /function\s+approvePullRequest\s*\([^)]*\)[\s\S]{0,200}?return\s+\{\s*approved\s*:\s*true\s*\}(?![\s\S]{0,200}?\b(?:verifyAst|smokeTest|linter)\b)/,
+      remediation: 'Autonomous review agents must run AST / compile smoke tests before marking a pull request as approved.'
+    }
+  ],
+  'app-analyzer-optimizer': [
+    {
+      id: 'APP_ANALYZER_SYNC_HEAVY_IMPORT',
+      severity: 'WARN',
+      name: 'Synchronous Top-Level Import of Heavy Library in Client Bundle',
+      regex: /import\s+(?:echarts|\*\s+as\s+THREE)\s+from\s+['"](?:echarts|three)['"]/,
+      remediation: 'Large libraries (>50KB) in client components must be lazy-loaded via dynamic import (e.g. next/dynamic or React.lazy).'
+    },
+    {
+      id: 'APP_ANALYZER_UNCOMPRESSED_STATIC_ASSET',
+      severity: 'WARN',
+      name: 'Static JavaScript Asset Served Without Content-Encoding or Cache Headers',
+      regex: /headers\.set\s*\(\s*['"]Content-Type['"]\s*,\s*['"]application\/javascript['"]\s*\)(?![\s\S]{0,200}?\b(?:Content-Encoding|Cache-Control)\b)/,
+      remediation: 'Static asset responses must declare Content-Encoding (gzip/br/zstd) and explicit Cache-Control headers.'
+    }
+  ],
+  'adaptive-model-cascade': [
+    {
+      id: 'MODEL_CASCADE_UNSCORED_ROUTING',
+      severity: 'WARN',
+      name: 'Model Routing Direct to Flagship Reasoning Tier Without Complexity Scoring',
+      regex: /function\s+routeModel\s*\([^)]*\)[\s\S]{0,150}?return\s+['"](?:claude-opus-5\.5|gemini-4-pro)['"](?![\s\S]{0,200}?\bscoreComplexity\b)/,
+      remediation: 'Evaluate task complexity with scoreComplexity() before routing directly to top-tier reasoning models.'
+    },
+    {
+      id: 'MODEL_CASCADE_MISSING_FALLBACK_CHAIN',
+      severity: 'ERROR',
+      name: 'Cascade Tier Definition Missing Fallback Model Configuration',
+      regex: /CASCADE_TIERS\s*=\s*\[[\s\S]{0,250}?\{\s*tier\s*:\s*['"]\w+['"]\s*,\s*modelId\s*:\s*['"][^'"]+['"]\s*(?![\s\S]{0,80}?\bfallbackModelId\b)[^}]*\}\s*\]/,
+      remediation: 'Define an explicit fallbackModelId in cascade tier definitions to prevent outages when frontier models are unprovisioned or rate-limited.'
+    }
+  ],
+  'data-visualization-expert': [
+    {
+      id: 'DATAVIZ_FIXED_PIXEL_WIDTH_OVERFLOW',
+      severity: 'WARN',
+      name: 'Fixed Pixel Width (>1000px) on Chart Component Causing Viewport Overflow',
+      regex: /<ResponsiveContainer\s+[^>]*width\s*=\s*\{\s*(?:1[0-9]{3}|[2-9][0-9]{3})\s*\}/,
+      remediation: 'Use fluid percentage widths (e.g. width="100%") in ResponsiveContainer instead of fixed pixel numbers (>1000px) that cause mobile layout overflow.'
+    },
+    {
+      id: 'DATAVIZ_METRIC_LABEL_MISSING_TABULAR_NUMS',
+      severity: 'WARN',
+      name: 'Large Live Metric Display Missing tabular-nums Class',
+      regex: /<span\s+className=['"][^'"]*text-[2345]xl[^'"]*['"]>\s*\{?\s*(?:needleAngle|chartValue|liveMetric)\b(?![\s\S]{0,60}?tabular-nums)/,
+      remediation: 'Declare tabular-nums on live data visualization metrics and readouts to prevent layout shifts during continuous updates.'
+    }
+  ],
+  'blockchain-web3-expert': [
+    {
+      id: 'WEB3_FLOAT_TOKEN_ARITHMETIC',
+      severity: 'ERROR',
+      name: 'Floating Point Number Used for ERC-20 Token Minor Unit Calculation',
+      regex: /(?:parseFloat|Number)\s*\(\s*(?:balance|tokenAmount|allowance)\s*\)\s*(?:\*|\/)\s*10\s*\*\*\s*18/,
+      remediation: 'Do not use floating-point Number/parseFloat for ERC-20 token arithmetic; use parseUnits(amount, 18) and native BigInt calculations.'
+    },
+    {
+      id: 'WEB3_BROADCAST_WITHOUT_SIMULATION',
+      severity: 'WARN',
+      name: 'Contract Mutation Dispatched Directly Without Pre-Flight Simulation',
+      regex: /const\s+handleTransfer\s*=\s*\(\s*\)\s*=>\s*\{[\s\S]{0,100}?writeContract\s*\(\s*\{(?![\s\S]{0,250}?\b(?:simulateContract|useSimulateContract)\b)/,
+      remediation: 'Simulate state-changing smart contract transactions (via publicClient.simulateContract or useSimulateContract) before prompting wallet signatures.'
+    }
   ]
 
 });

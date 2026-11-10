@@ -2294,6 +2294,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG10 = [
+      'cloud-hosting-expert', 'cron-scheduler-expert', 'email-notification-expert',
+      'file-upload-media-expert', 'agentic-coding-workflow-expert', 'ai-code-review-autonomous',
+      'app-analyzer-optimizer', 'adaptive-model-cascade', 'data-visualization-expert', 'blockchain-web3-expert'
+    ];
+    for (const skill of deepenedG10) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2426,6 +2435,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'browser-automation-expert', code: 'const browser = await chromium.launch(); await page.goto("https://example.com");' }, 'BROWSER_AUTOMATION_ORPHANED_BROWSER_INSTANCE');
     await expectViolation({ skill: 'browser-extension-mv3-pro', code: 'const result = eval(codeString);' }, 'MV3_REMOTE_SCRIPT_OR_EVAL_USAGE');
     await expectViolation({ skill: 'ecommerce-expert', code: 'await db.query("UPDATE products SET stock = stock - $1");' }, 'ECOMMERCE_UNPROTECTED_STOCK_DECREMENT');
+
+    // Wave 10 (Gelombang 10) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'cloud-hosting-expert', code: 'export const runtime = "edge";\nconst key = localStorage.getItem("auth");' }, 'CLOUD_HOSTING_LOCAL_STORAGE_IN_EDGE');
+    await expectViolation({ skill: 'cron-scheduler-expert', code: 'await scheduledQueue.add("daily-cleanup", {}, { repeat: { pattern: "0 0 * * *" } });' }, 'CRON_SCHEDULE_WITHOUT_IDEMPOTENCY_KEY');
+    await expectViolation({ skill: 'email-notification-expert', code: 'const res = { html: `<div>Hello ${user.name}</div>` };' }, 'EMAIL_UNESCAPED_HTML_INTERPOLATION');
+    await expectViolation({ skill: 'file-upload-media-expert', code: 'function validateFile(file) {\n  return file.name.endsWith(".png");\n}' }, 'FILE_UPLOAD_CLIENT_EXTENSION_ONLY');
+    await expectViolation({ skill: 'agentic-coding-workflow-expert', code: 'git checkout main && git commit -m "auto fix"' }, 'AGENTIC_WORKFLOW_DIRECT_MAIN_BRANCH_MUTATION');
+    await expectViolation({ skill: 'ai-code-review-autonomous', code: 'findings.push({ message: "Missing error check" });' }, 'AI_REVIEW_EMPTY_SEVERITY_FINDING');
+    await expectViolation({ skill: 'app-analyzer-optimizer', code: 'import echarts from "echarts";' }, 'APP_ANALYZER_SYNC_HEAVY_IMPORT');
+    await expectViolation({ skill: 'adaptive-model-cascade', code: 'function routeModel(task) {\n  return "gemini-4-pro";\n}' }, 'MODEL_CASCADE_UNSCORED_ROUTING');
+    await expectViolation({ skill: 'data-visualization-expert', code: '<ResponsiveContainer width={1200} height={400} />' }, 'DATAVIZ_FIXED_PIXEL_WIDTH_OVERFLOW');
+    await expectViolation({ skill: 'blockchain-web3-expert', code: 'const amountInWei = parseFloat(tokenAmount) * 10 ** 18;' }, 'WEB3_FLOAT_TOKEN_ARITHMETIC');
   });
 });
 

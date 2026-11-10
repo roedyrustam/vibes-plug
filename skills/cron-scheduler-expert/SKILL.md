@@ -272,6 +272,16 @@ export async function GET(request: Request) {
 | Hardcoded timezone | Jobs run at wrong time after DST | Always use explicit `tz` parameter |
 | Cron job does too much work | Timeout, partial completion | Break into smaller steps (Inngest/Temporal) |
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Distributed Lock for Clustered Deployments**:
+   - Any scheduled job executing state mutations across multi-instance or autoscaled environments MUST acquire a distributed lock (`SET lock:jobName NX EX ttl` in Redis or `pg_try_advisory_lock`) or rely on single-execution orchestrators. Unlocked cron triggers are strictly prohibited.
+2. **Explicit Execution Timeout & Timezone Declarations**:
+   - Every cron endpoint or handler MUST declare an explicit execution timeout (`maxDuration` or queue job timeout) and specify an explicit timezone (`tz: 'Asia/Jakarta'` or `tz: 'UTC'`). Defaulting to unspecified host local time is forbidden.
+3. **Deterministic Idempotency Keys on Job Mutations**:
+   - Downstream side effects triggered by cron jobs (payment charges, email batches, data synchronization) MUST use deterministic idempotency keys formatted as `${jobName}:${runBucket}` to prevent duplicate mutations across retry attempts.
+4. **Dead Letter Queue (DLQ) & Failure Alerting**:
+   - Repeatable or scheduled jobs MUST configure dead-letter queues with exponential backoff and dispatch high-priority alerts upon persistent failure. Silent error swallowing in cron workers is strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -279,7 +289,7 @@ export async function GET(request: Request) {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec cron-scheduler-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Cron dispatch jitter < 500ms, 100% atomic idempotency-key execution, zero duplicate mutations across restarts; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -417,4 +427,4 @@ export async function lepaskanKunciCron(namaTugas: string): Promise<void> {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec cron-scheduler-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Jitter dispatch cron < 500ms, 100% eksekusi mutasi ber-idempotency-key atomik, zero duplikasi eksekusi lintas restart; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -261,6 +261,16 @@ export async function cascadeRequest(
 3. **Persist Escalation Telemetry**: Track which prompt clusters frequently trigger escalations to automatically bias their future initial routing towards Medium or High.
 4. **Lock KV-Cache Prefixes Across Tiers**: Ensure all tiers share byte-identical system prompt prefixes to maximize upstream provider prompt caching.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Complexity Pre-Scoring**:
+   - All AI execution loops MUST compute a task complexity score (`scoreComplexity(signals)`) before dispatching requests. Routing generic or low-complexity tasks directly to flagship reasoning models is strictly prohibited.
+2. **Deterministic Availability Fallback Invariant**:
+   - Every tier definition MUST declare an active availability fallback (`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`, `Claude Opus 5.5` -> `Claude Opus 4.6`, `Grok 4.7` -> `Grok 4.6 High Fast`). System failure due to unhandled model unavailability or rate quota limits is forbidden.
+3. **Byte-Identical KV-Cache Prefix Preservation**:
+   - Shared system prompts and tool definitions across cascade tiers MUST maintain byte-identical ordering at the prompt head to preserve upstream KV prompt caches across tier escalations.
+4. **Zero-LLM Fast Quality Gates**:
+   - Escalation quality gates between tiers MUST execute via local deterministic assertions (<50ms AST/regex/schema validation). Invoking additional LLM calls to judge whether to escalate is strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -268,7 +278,7 @@ export async function cascadeRequest(
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec adaptive-model-cascade <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Routing decision latency < 10ms, cost reduction >= 50% vs single-frontier baseline, 0 unhandled model quota fallbacks; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -313,4 +323,4 @@ Aktifkan skill ini ketika:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec adaptive-model-cascade <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi keputusan routing < 10ms, penghematan biaya >= 50% dibanding baseline model frontier tunggal, 0 unhandled model quota fallbacks; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
