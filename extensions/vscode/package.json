@@ -41,6 +41,21 @@
   "contributes": {
     "commands": [
       {
+        "command": "vibes.openSwarmCockpit",
+        "title": "VibesPlug: Open Autonomous Swarm Cockpit",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.swarmStatus",
+        "title": "VibesPlug: Check Auto-Swarm Status & Roster",
+        "category": "VibesPlug"
+      },
+      {
+        "command": "vibes.enableAutoSwarm",
+        "title": "VibesPlug: Enable Automatic Swarm Mode",
+        "category": "VibesPlug"
+      },
+      {
         "command": "vibes.openStudio",
         "title": "VibesPlug: Open Studio Cockpit",
         "category": "VibesPlug"

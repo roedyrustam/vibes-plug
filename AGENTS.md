@@ -1,7 +1,7 @@
 # Core Rule for Vibes-Plug Agents
 
 > **🌐 Universal Compatibility:** These rules apply to ALL AI platforms using vibes-plug:
-> **Antigravity (AGY)** via `AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
+> **Antigravity (AGY)** via `rules/AGENTS.md` | **Claude Code** via `CLAUDE.md` + `.claude/rules/` | **Cursor IDE** via `.cursorrules` + `.cursor/rules/` | **OpenAI Codex** via `CODEX.md` + `.codex/rules/`
 > Each platform has its own entry point, but the core rules and 178 skills are shared.
 
 ## MANDATORY: LLM-Agnostic & IDE Universal Compatibility
@@ -17,12 +17,19 @@ When a frontier model is not yet provisioned, reaches rate/quota limits, or is t
 - **Claude Opus 5.5 Fallback**: Automatically and seamlessly degrade tasks to **`Claude Opus 4.6`** (preserving deep architectural reasoning and cross-domain logic validation).
 - Never fail with unhandled missing-model errors or stub implementations; execute immediately through the fallback path with zero disruption.
 
-## MANDATORY: Primary Trigger & Skill Auto-Synchronization (Pemicu Utama)
-**CRITICAL RULE**: Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)** and **MASTER CONDUCTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills or mention skill names (e.g. `@senior-frontend` or `/ask-skill`).
+## MANDATORY: Automatic Swarm Mode Activation (Aktivasi Mode Swarm Otomatis)
+**CRITICAL INVARIANT**: SWARM MODE IS PERMANENTLY AND AUTOMATICALLY ACTIVE FOR ALL SESSIONS.
+Upon plugin installation, `vibes-plug` becomes the **PRIMARY TRIGGER (Pemicu Utama)**, **MASTER CONDUCTOR**, and **SWARM DIRECTOR** for all AI activities. The AI agent MUST NOT wait for the user to manually invoke skills, mention skill names, or explicitly request `/swarm` or `/teamwork`.
 
 Whenever a user submits ANY request, the agent MUST automatically and autonomously:
 1. **Intercept & Classify**: Route every prompt through the master ideation & routing engine (`brainstorming` and `zero-to-prod-orchestrator`).
-2. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 178 skill registry:
+2. **Auto-Trigger Multi-Agent Swarm**: You MUST automatically initiate Swarm Director behavior whenever a task:
+   - Involves more than one domain (e.g., Frontend + Backend + Database).
+   - Requires research or modifications across multiple files/repositories (>2 files).
+   - Consists of more than two independent execution steps.
+   - Involves architectural changes, migrations, security audits, or fullstack feature builds.
+   *Do NOT ask for the user's permission to spawn subagents; initiate swarm orchestration autonomously.*
+3. **Auto-Synchronize Cooperating Skills**: Dynamically identify and bind all relevant domain skills from the 178 skill registry:
    - **Frontend & UI**: `senior-frontend` + `tailwind-expert` + `design-system-architect` + `form-validation-expert` + `ui-ux-pro-max` + `modern-css-native-expert`.
    - **Backend & APIs**: `js-backend-expert` + `database-orm-expert` + `api-design-expert` + `spec-driven-development-expert` + `authentication-identity-expert` + `python-programming-expert` + `go-programming-expert` + `rust-programming-expert`.
    - **Payments & Billing**: `doku-payment-gateway` + `payment-gateway-expert` + `saas-billing` + `double-entry-ledger-fintech-expert` + `database-orm-expert` (atomic locks & SNAP BI idempotency).
@@ -30,30 +37,10 @@ Whenever a user submits ANY request, the agent MUST automatically and autonomous
    - **AI & MCP**: `ai-llm-integration-expert` + `frontier-ai-models-expert` + `gemini-agent-booster` + `vercel-ai-sdk-expert` + `mcp-server-architect` + `doku-mcp-server` + `multi-agent-orchestration`.
    - **Testing & Quality**: `autonomous-tdd-debugger` + `e2e-testing-expert` + `autonomous-red-teamer` + `production-ready-hardener` + `anti-slop` + `zero-tech-debt-auditor`.
    - **Full Lifecycle**: `brainstorming` + `prd-architect` + `zero-to-prod-orchestrator` + `session-memory-manager`.
-3. **Cross-Skill Context Synchronization**: Ensure state, schema, APIs, and NFRs are synchronized across skills so changes in one domain (e.g., database schema) automatically propagate to others (e.g., backend models, API contracts, frontend types).
-4. **Autonomous Swarm Director**: If a task involves multiple steps or domains, automatically initiate Swarm Director behavior without waiting for permission.
-
-## MANDATORY: Skill Orchestration Update
-**CRITICAL RULE**: Every time a new skill is added or created within the `vibes-plug` ecosystem, the agent MUST immediately and automatically update the main orchestrator files. 
-
-Failure to do so breaks the entire architectural orchestration flow.
-
-Whenever a new skill `SKILL.md` is generated, you must:
-1. **Update `brainstorming/SKILL.md`**: Add the new skill to the appropriate domain row in the "Skill Integration & Orchestration Matrix".
-2. **Update `zero-to-prod-orchestrator/SKILL.md`**: Add the new skill to the "Orchestrates" list of the relevant Phase (Phase 1 to Phase 8).
-3. **Verify**: Ensure both English and Bahasa Indonesia sections in those orchestrators are updated accurately.
-
-This rule is absolute and applies to all AI agents interacting with this plugin.
+4. **Cross-Skill Context Synchronization**: Ensure state, schema, APIs, and NFRs are synchronized across skills so changes in one domain (e.g., database schema) automatically propagate to others (e.g., backend models, API contracts, frontend types).
 
 ## MANDATORY: Multi-Agent Orchestration & Swarm Cooperation
 **CRITICAL RULE**: When dealing with complex, multi-step tasks, the AI Agent MUST function as a **Swarm Director** and orchestrate multiple specialized subagents concurrently.
-
-**AUTOMATIC TRIGGER**: You MUST automatically initiate Swarm Director behavior whenever a task:
-- Involves more than one domain (e.g., Frontend + Backend + Database).
-- Requires extensive research across multiple files/repositories.
-- Consists of more than three independent steps.
-- Involves high-risk architectural changes or migrations.
-*Do NOT ask for the user's permission to spawn subagents; do it autonomously.*
 
 ### Swarm Execution Topologies (2026 Edition)
 
@@ -71,7 +58,7 @@ This rule is absolute and applies to all AI agents interacting with this plugin.
 ```
 
 ### Swarm Director Protocols
-1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent`. Assign clear, specific roles to each subagent based on the 178 specialized skills in `vibes-plug`.
+1. **Decompose and Delegate**: Break down complex tasks into independent sub-tasks and delegate them to specialized subagents using `invoke_subagent` or native `swarm`. Assign clear, specific roles to each subagent based on the 178 specialized skills in `vibes-plug`.
 2. **Parallel Execution**: Invoke multiple subagents simultaneously whenever tasks can be performed in parallel (e.g., one subagent researches frontend UI, another analyzes backend DB schema).
 3. **Context Sharing**: Ensure subagents are given precise instructions and the necessary context (e.g., passing `CONTEXT_MAP.md`, PRD, or specific file paths). Communicate with active subagents via `send_message`.
 4. **Agent Synergy & Native Subagents**: Rely on the `vibes-plug` native subagent registry located in `agents/`:

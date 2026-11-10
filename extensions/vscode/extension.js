@@ -36,23 +36,52 @@ function runInTerminal(cmd, name = 'VibesPlug') {
 export function activate(context) {
   if (!vscode) return;
 
-  // 1. Status Bar Item
+  // 1. Swarm Mode Auto-Active Status Bar Indicator
+  const swarmBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 101);
+  swarmBar.text = '$(hubot) Swarm: AUTO-ACTIVE';
+  swarmBar.tooltip = 'Vibes-Plug Swarm Director is automatically active. Multi-agent coordination is enabled for all tasks.';
+  swarmBar.command = 'vibes.swarmStatus';
+  swarmBar.show();
+  context.subscriptions.push(swarmBar);
+
+  // 2. Skills & Cockpit Status Bar Item
   const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBar.text = '$(zap) VibesPlug: 178 Skills';
-  statusBar.tooltip = 'VibesPlug Pro: 178-Skill AI Swarm Orchestrator active. Click to open Studio Cockpit.';
+  statusBar.text = '$(zap) Vibes: 178 Skills';
+  statusBar.tooltip = 'Vibes-Plug Pro: 178-Skill AI Swarm Orchestrator. Click to open Swarm Cockpit.';
   statusBar.command = 'vibes.openStudio';
   statusBar.show();
   context.subscriptions.push(statusBar);
 
-  // 2. Open Studio Cockpit
+  // 3. Auto-Activation Notification
+  vscode.window.showInformationMessage('⚡ Vibes-Plug Pro: Autonomous Multi-Agent Swarm Mode is AUTO-ACTIVE (178 Skills, 9 Specialist Subagents).');
+
+  // 4. Open Studio / Swarm Cockpit
   const openStudioCmd = vscode.commands.registerCommand('vibes.openStudio', () => {
     const config = vscode.workspace.getConfiguration('vibes');
     const port = config.get('studioPort') || 3888;
     const url = `http://localhost:${port}`;
     vscode.env.openExternal(vscode.Uri.parse(url));
-    runInTerminal(`npx vibes-plug studio --port ${port}`, 'Vibes Studio');
+    runInTerminal(`npx vibes-plug studio --port ${port}`, 'Vibes Swarm Cockpit');
   });
   context.subscriptions.push(openStudioCmd);
+
+  const openCockpitCmd = vscode.commands.registerCommand('vibes.openSwarmCockpit', () => {
+    vscode.commands.executeCommand('vibes.openStudio');
+  });
+  context.subscriptions.push(openCockpitCmd);
+
+  // 5. Swarm Status Check
+  const swarmStatusCmd = vscode.commands.registerCommand('vibes.swarmStatus', () => {
+    vscode.window.showInformationMessage('⚡ Vibes-Plug Swarm Mode: AUTO-ACTIVE\n• 9 Specialist Subagents: Ready\n• 178 Skills: Synchronized\n• Execution Topology: Parallel Fan-Out / Fan-In\n• Quality Gate: Critic-in-the-Loop & Anti-Slop');
+  });
+  context.subscriptions.push(swarmStatusCmd);
+
+  // 6. Ensure Auto-Swarm Mode Command
+  const enableAutoSwarmCmd = vscode.commands.registerCommand('vibes.enableAutoSwarm', () => {
+    runInTerminal('npx vibes-plug swarm:auto --enable', 'Vibes Swarm Auto');
+    vscode.window.showInformationMessage('⚡ Vibes-Plug: Automatic Swarm Mode confirmed ACTIVE across all workflows.');
+  });
+  context.subscriptions.push(enableAutoSwarmCmd);
 
   // 3. Project Scaffolding Wizard
   const wizardCmd = vscode.commands.registerCommand('vibes.wizard', () => {

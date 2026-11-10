@@ -1,0 +1,11 @@
+{
+  "vibes-swarm-auto": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "node ./scripts/hook-handler.mjs session-start"
+      }
+    ]
+  }
+}
