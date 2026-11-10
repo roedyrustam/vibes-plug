@@ -32,6 +32,17 @@ Activate this skill when:
 - Mitigating high agentic latency on complex multi-step workflows.
 - Handling partial tool execution failures without crashing the entire agent loop.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Isolated Fault-Domain (Promise.allSettled) Invariant**: Independent parallel tool calls MUST execute via `Promise.allSettled()` or isolated worker pools, NEVER via naive `Promise.all()` that fails fast on a single tool error and aborts sibling queries.
+2. **Read-Only / Side-Effect Concurrency Split**: Concurrency is strictly permitted only for idempotent, side-effect-free tools (searches, queries, AST lookups, reads). Mutating/state-altering tools (disk writes, DB updates, payment charges) MUST execute sequentially or through two-phase locking to prevent race conditions.
+3. **Throttled Concurrency Ceiling & Circuit Breaker**: Parallel tool invocations must adhere to a strict concurrency cap ($C_{\max} \le 5$ simultaneous calls per turn) with a global turn timeout ($\le 15.000\text{ ms}$) to prevent connection exhaustion or API rate limiting.
+4. **DAG Dependency Validation Before Dispatch**: If tool output $B$ requires a parameter from tool $A$ ($A \to B$), the orchestrator must topologically sequence them into execution stages rather than blindly dispatching in parallel.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Parallel Latency Reduction**: Agentic tool latency reduced by $\ge 60\%$ compared to sequential execution on multi-tool turns.
+- **Resilience & Task Hygiene**: $0$ unhandled rejections or zombie background processes across batch runs.
+- **Partial Failure Recovery**: $100\%$ recovery rate (successful sibling tool data preserved alongside structured RFC 9457 errors).
+
 ---
 
 ### Parallel Batching Architecture
@@ -209,6 +220,17 @@ export async function eksekusiBatchParalel(
   };
 }
 ```
+
+### Hard Guardrails (Invarian Deklaratif)
+1. **Invarian Domain Kegagalan Terisolasi (Promise.allSettled)**: Pemanggilan tool independen secara paralel WAJIB menggunakan `Promise.allSettled()` atau worker pool terisolasi, DILARANG KERAS menggunakan `Promise.all()` naif yang langsung gagal total hanya karena satu error pada tool lain.
+2. **Pemisahan Konkurensi Read-Only vs Mutasi Side-Effect**: Konkurensi paralel HANYA diizinkan untuk tool yang bersifat idempoten dan bebas efek samping (pencarian, kueri data, inspeksi AST, pembacaan file). Tool mutasi (penulisan berkas, update database, pemotongan saldo) WAJIB dieksekusi secara sekuensial atau two-phase locking untuk mencegah race condition.
+3. **Batas Atas Konkurensi & Circuit Breaker**: Pemanggilan tool paralel wajib mematuhi batas konkurensi ketat ($C_{\max} \le 5$ pemanggilan simultan per turn) dengan batas waktu putaran global ($\le 15.000\text{ ms}$) guna mencegah kehabisan koneksi soket atau terkena rate limit API eksternal.
+4. **Validasi Ketergantungan DAG Sebelum Dispatch**: Jika output tool $B$ memerlukan parameter dari tool $A$ ($A \to B$), orkestrator wajib mengurutkan eksekusi secara topologis ke dalam tahapan berjenjang, bukan mengeksekusinya secara membabi buta dalam paralel.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Reduksi Latensi Paralel**: Latensi putaran tool berkurang $\ge 60\%$ dibandingkan eksekusi sekuensial pada multi-tool turn.
+- **Higienitas Proses & Resiliensi**: 0 unhandled promise rejection atau zombie child task pada seluruh batch execution.
+- **Pemulihan Kegagalan Parsial**: Tingkat pemulihan $100\%$ (data tool yang berhasil tetap dipertahankan bersama laporan error RFC 9457).
 
 ### Praktik Terbaik
 1. **Eksekusi Paralel untuk Tool Independen**: Jangan jalankan tool inspeksi baca secara berurutan; gunakan `eksekusiBatchParalel`.

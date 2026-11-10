@@ -27,6 +27,11 @@ tracked tree, normally in a task-specific `/tmp` directory.
 - **Verify Required Discovery & Negative Paths**: Ensure test discovery fails loudly if a required test file or report artifact is missing, and preserve malformed-input rejection fixtures.
 - **Compare Equivalent Completed Workloads**: Only claim a CI speedup when comparing identical completed test coverage with separated setup, build, and execution timings.
 
+### Domain-Specific Non-Functional Requirements (NFRs)
+- **Test Suite Flakiness Floor**: False-positive/flaky test failure rate $\le 0.01\%$ across CI matrix runs.
+- **Regression Catch Rate**: $100\%$ detection of perturbed behavioral regressions before pull request merge.
+- **Audit Overhead Ceiling**: Local audit discovery overhead $< 60\text{ seconds}$ without executing full rebuilds needlessly.
+
 ## Establish the executed baseline
 
 Fetch when the user asks for latest main. Pin the baseline SHA and inspected
@@ -316,3 +321,16 @@ export function compareCiBenchmarkRuns(
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec rea-ci-tests-audit <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Kunci Revisi Baseline & Worktree Terisolasi**: Selalu catat commit SHA git yang tepat, versi toolchain, dan argumen perintah sebelum menjalankan audit CI; dilarang memutasi direktori kerja tugas lain.
+2. **Bukti Perturbasi untuk Tes Hijau yang Mencurigakan**: Buktikan bahwa sebuah gate tes benar-benar menangkap regresi dengan memodifikasi/merusak perilaku target pada salinan terisolasi dan memastikan assertion gagal sesuai alasan yang diharapkan.
+3. **Pemisahan Mock Produser Palsu dari Cakupan Mesin Nyata**: Dilarang mengklaim cakupan engine Ghidra, LLDB, atau browser hanya berdasarkan fixture mock statis; pisahkan pelacakan mock perbatasan dari jalur engine nyata.
+4. **Nol Retry Membabi Buta atau Penggelembungan Timeout**: Dilarang menyamarkan tes flaky atau assertion rusak dengan menambahkan loop retry tanpa syarat, menaikkan batas waktu timeout tanpa pengukuran, atau menghapus kasus uji yang gagal.
+5. **Verifikasi Penemuan Wajib & Jalur Negatif**: Pastikan proses penemuan tes gagal secara vokal jika file tes atau artefak laporan yang wajib hilang, serta pertahankan fixture penolakan input cacat (malformed).
+6. **Perbandingan Beban Kerja Selesai yang Setara**: Hanya klaim percepatan CI jika membandingkan cakupan pengujian yang identik dengan memisahkan waktu setup, build, dan eksekusi tes.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Batas Flakiness Suite Pengujian**: Tingkat kegagalan palsu/flaky $\le 0.01\%$ pada seluruh matriks runner CI.
+- **Tingkat Deteksi Regresi**: 100% deteksi regresi perilaku yang terganggu sebelum penggabungan pull request.
+- **Batas Overhead Waktu Nyata**: Overhead penemuan audit lokal $< 60\text{ detik}$ tanpa menjalankan kompilasi ulang penuh yang tidak perlu.

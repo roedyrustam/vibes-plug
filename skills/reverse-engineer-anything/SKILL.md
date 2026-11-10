@@ -13,6 +13,17 @@ behavior not established by available source. For ordinary analysis of a
 complete source repository, use normal repository tools and do not run REA
 readiness or provider commands.
 
+## Hard Guardrails (Declarative Invariants)
+1. **Isolated Sandbox & Safe Binary Execution Invariant**: Untrusted or candidate binaries, firmware blobs, and stripped executables MUST NEVER be executed directly on the host OS. Binary execution, dynamic tracing, or unpacker scripts must run in isolated containerized sandboxes or read-only disassembly mode.
+2. **Deterministic Evidence Attribution & Digest Invariant**: Every factual reverse-engineering claim (exported symbols, function offsets, strings, cryptographic constants) MUST be anchored by the target artifact SHA-256 digest, provider engine ID/version (e.g., Ghidra 11.x, LLDB, Hopper), and virtual address range.
+3. **Strict Non-Destructive Inspection**: Original binary files and filesystem firmware images must be treated as strictly immutable/read-only. Decompiled source, AST representations, or memory dumps must be output into isolated workspace artifacts.
+4. **Preserve Examined Scope & Negative Proof Bound**: An empty symbol or missing function string is proof of absence ONLY within the inspected byte range/section. The agent must never declare an entire binary clean or unstripped without explicit section coverage metadata.
+
+### Domain-Specific Non-Functional Requirements (NFRs)
+- **Static Triage Latency**: Initial header and symbol triage completed in $\le 15.000\text{ ms}$ for binaries $\le 50\text{ MB}$.
+- **Cryptographic Digest Integrity**: $100\%$ verifiable SHA-256 content addressing across all extracted Evidence blocks.
+- **Zero Host Boundary Breach**: $0$ unconfined binary subprocess executions outside quarantined sandbox boundaries.
+
 ## Connect only when needed
 
 Installing this skill supplies instructions; it does not register the REA MCP
@@ -684,5 +695,16 @@ export function extractApiSurfaceFromHar(entries: readonly HarEntryLite[]): Disc
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec reverse-engineer-anything <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Invarian Eksekusi Biner Aman & Sandbox Terisolasi**: Berkas biner yang belum dipercaya, blob firmware, dan executable tanpa simbol DILARANG KERAS dieksekusi langsung pada OS host. Eksekusi biner, tracing dinamis, atau script pembuka arsip wajib berjalan di sandbox kontainer terisolasi atau mode disassembler read-only.
+2. **Invarian Atribusi Bukti Deterministik & Digest**: Setiap klaim faktual rekayasa balik (simbol yang diekspor, offset fungsi, string, konstanta kriptografi) WAJIB dilandasi oleh digest SHA-256 berkas target, ID/versi engine provider (misal Ghidra 11.x, LLDB, Hopper), dan rentang alamat virtualnya.
+3. **Inspeksi Non-Destruktif Ketat**: Berkas biner asli dan citra sistem berkas firmware harus diperlakukan sebagai entitas read-only yang tidak boleh diubah. Kode hasil dekompilasi, representasi AST, atau dump memori harus diarahkan ke artefak workspace terpisah.
+4. **Preservasi Cakupan yang Diperiksa & Batasan Bukti Negatif**: Simbol kosong atau ketiadaan string fungsi HANYA membuktikan ketiadaan dalam rentang byte/seksi yang diperiksa. Agen dilarang menyatakan suatu biner sepenuhnya bersih atau bebas malware tanpa metadata cakupan seksi yang eksplisit.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Latensi Triage Statis**: Triage header awal dan simbol selesai dalam waktu $\le 15.000\text{ ms}$ untuk biner berukuran $\le 50\text{ MB}$.
+- **Integritas Digest Kriptografis**: 100% penomoran konten SHA-256 yang dapat diverifikasi di setiap blok Evidence yang diekstrak.
+- **Nol Pelanggaran Batas Host**: 0 eksekusi subprocess biner tanpa isolasi di luar batas karantina sandbox.
 - **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
 

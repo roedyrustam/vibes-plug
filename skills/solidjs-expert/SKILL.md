@@ -29,6 +29,17 @@ Expert guide for SolidJS 2 and SolidStart, the reactive framework with zero Virt
 2. **Never Destructure Props**: Destructuring `const { name } = props` strips reactive getters. Always use `props.name`, `mergeProps(defaultProps, props)`, or `splitProps(props, ['keys'])`.
 3. **Control Flow Primitives**: Always use `<Show>`, `<For>`, `<Index>`, and `<Switch>` instead of JavaScript ternary operators or `array.map()` to maximize DOM node reuse.
 
+### Hard Guardrails (Declarative Invariants)
+1. **No Props Destructuring Invariant**: NEVER destructure props in component signatures or function bodies (`const { count } = props` is forbidden). Always access `props.count` or use `mergeProps(defaultProps, props)` / `splitProps(props, [...])` to preserve fine-grained signal proxies and avoid reactivity loss.
+2. **Dedicated Control Flow Over Native Map/Ternary**: Always use Solid's optimized `<For>`, `<Index>`, `<Show>`, and `<Switch>` primitives for DOM rendering. Banned: `items.map(...)` or nested ternaries that destroy DOM reconciliation.
+3. **One-Time Component Execution Safety**: Components run once at instantiation. NEVER put reactive state mutation side-effects directly in the root function body. All mutations, subscriptions, or timer setups MUST live inside `createEffect`, `onMount`, or event handlers.
+4. **SolidStart Server Boundary Invariant**: Functions accessing server secrets, databases, or private environment variables must carry explicit `'use server'` directives or execute inside server-only route files (`*.server.ts`), preventing secret leakage to the client bundle.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Zero VDOM Reconciliation Overhead**: Direct DOM update latency $< 2\text{ ms}$ upon signal modification.
+- **Micro-Bundle Footprint**: Client bundle size overhead $< 15\text{ KB}$ gzipped for core reactivity runtime.
+- **Rendering Frame Rate**: $60\text{ fps}$ locked performance during high-frequency real-time signal streaming.
+
 ### Production SolidStart Server Action & Store Pattern
 
 ```tsx
@@ -191,6 +202,17 @@ export function UserCard(rawProps: CardProps) {
   );
 }
 ```
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Invarian Larangan Destruktur Props**: DILARANG KERAS melakukan destruktur props pada tanda tangan komponen atau badan fungsi (`const { count } = props` dilarang). Selalu akses `props.count` atau gunakan `mergeProps(defaultProps, props)` / `splitProps(props, [...])` untuk mempertahankan proxy signal fine-grained dan mencegah hilangnya reaktivitas.
+2. **Primitif Alur Kontrol Khusus vs Map/Ternary**: Selalu gunakan primitif bawaan Solid `<For>`, `<Index>`, `<Show>`, dan `<Switch>` untuk rendering DOM. Dilarang: `items.map(...)` atau ternary bertingkat yang menghancurkan efisiensi rekonsiliasi DOM.
+3. **Keamanan Eksekusi Komponen Satu-Kali**: Komponen Solid dieksekusi hanya sekali saat instansiasi. JANGAN PERNAH menempatkan efek samping mutasi state reaktif langsung di badan fungsi utama. Seluruh mutasi, langganan data, atau timer wajib berada di dalam `createEffect`, `onMount`, atau event handler.
+4. **Invarian Batas Server SolidStart**: Fungsi yang mengakses secret server, database, atau variabel privat wajib menyertakan direktif eksplisit `'use server'` atau diletakkan dalam berkas rute server-only (`*.server.ts`), mencegah kebocoran data rahasia ke bundle browser klien.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Overhead Nol VDOM**: Latensi pembaruan DOM langsung $< 2\text{ ms}$ begitu nilai signal berubah.
+- **Ukuran Bundle Mikro**: Ukuran bundle klien $< 15\text{ KB}$ gzipped untuk runtime reaktivitas inti.
+- **Frame Rate Rendering**: 60fps locked stabil selama streaming perubahan sinyal frekuensi tinggi secara real-time.
 
 ## Integrasi Orkestrasi
 - **`modern-web-guidance`**: Standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.

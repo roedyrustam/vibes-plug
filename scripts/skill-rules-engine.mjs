@@ -2494,6 +2494,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /DB_TYPE\s*=\s*(?:sqlite|sqlite3)(?![\s\S]{0,80}?test|dev|local)/i,
       remediation: 'Do not use SQLite in production n8n environments; configure PostgreSQL (DB_TYPE=postgresdb) with Redis BullMQ Queue Mode for high concurrency.'
     }
+  ],
+  'neurosymbolic-genetic-synthesizer': [
+    {
+      id: 'NEURO_GENETIC_DIRECT_HOST_EVAL',
+      severity: 'ERROR',
+      name: 'Genetic Mutation Evaluated via Direct Host eval Instead of Sandbox',
+      regex: /(?:eval|new\s+Function)\s*\(\s*(?:candidateCode|mutatedCode|genome\.code|candidate\.sourceCode)\b/,
+      remediation: 'Never evaluate evolved code mutations directly in the host agent runtime; execute inside an isolated WebAssembly or subprocess sandbox (executeInSandbox).'
+    },
+    {
+      id: 'NEURO_GENETIC_UNBOUNDED_FEATURE_DESCRIPTORS',
+      severity: 'WARN',
+      name: 'MAP-Elites Grid Key Built Without Descriptor Boundary Clamping',
+      regex: /getCellKey\s*\([^)]*\)\s*\{[\s\S]{0,120}?(?:descriptor\[0\]\s*\*\s*this\.gridSize|descriptor\[1\]\s*\*\s*this\.gridSize)(?![\s\S]{0,80}?\bMath\.(?:max|min)\b)/,
+      remediation: 'Always clamp feature descriptors into [0, 1] using Math.max(0, Math.min(gridSize - 1, ...)) to prevent out-of-bounds matrix indexing.'
+    }
+  ],
+  'parallel-tool-orchestrator': [
+    {
+      id: 'PARALLEL_TOOL_FRAGILE_PROMISE_ALL',
+      severity: 'ERROR',
+      name: 'Parallel Batch Tool Dispatcher Uses Fragile Promise.all Instead of Promise.allSettled',
+      regex: /executeParallelBatch[\s\S]{0,150}?Promise\.all\s*\(/,
+      remediation: 'Use Promise.allSettled() instead of Promise.all() when executing parallel tool batches so individual tool failures do not abort sibling invocations.'
+    },
+    {
+      id: 'PARALLEL_TOOL_MUTATING_CONCURRENCY',
+      severity: 'WARN',
+      name: 'Mutating or Write Tool Invocations Dispatched in Unchecked Parallel Batch',
+      regex: /executeParallelBatch\s*\([^)]*(?:delete|remove|write|update|charge|payout)\b/i,
+      remediation: 'Do not run state-mutating operations concurrently without two-phase locking or explicit transaction isolation; reserve parallel batching for idempotent read/query tools.'
+    }
+  ],
+  'proactive-background-watcher': [
+    {
+      id: 'PROACTIVE_WATCHER_BLOCKING_SHELL_SLEEP',
+      severity: 'ERROR',
+      name: 'Blocking Shell Sleep Command Used for Agent Waiting Instead of Schedule Tool',
+      regex: /\b(?:sleep\s+\d+|Start-Sleep\s+-(?:Seconds|s)\s+\d+)\b/,
+      remediation: 'Never use blocking shell sleep commands to wait for background tasks; schedule an asynchronous timer via the schedule tool and let the reactive wakeup resume turn.'
+    },
+    {
+      id: 'PROACTIVE_WATCHER_UNBOUNDED_CRON_WITHOUT_DAEMON',
+      severity: 'WARN',
+      name: 'Recurring Cron Schedule Configured Without MaxIterations or IsDaemon Flag',
+      regex: /schedule\s*\(\s*\{[\s\S]{0,120}?CronExpression(?![\s\S]{0,120}?\b(?:MaxIterations|IsDaemon)\b)[\s\S]{0,120}?\}\s*\)/,
+      remediation: 'Always specify either a finite MaxIterations bound or explicitly set IsDaemon: true when scheduling recurring cron jobs to prevent runaway background tasks.'
+    }
+  ],
+  'rea-analysis-optimization': [
+    {
+      id: 'REA_OPTIMIZE_UNBOUNDED_IN_MEMORY_COLLECTION',
+      severity: 'WARN',
+      name: 'Full Binary Section Materialized into Unbounded In-Memory Buffer Array',
+      regex: /(?:Buffer\.concat|push\s*\(\s*Buffer\.allocUnsafe)[^)]*(?![\s\S]{0,120}?\b(?:maxAllowedBytes|byteLength\s*<=)\b)/,
+      remediation: 'Enforce hard byte boundaries (maxAllowedBytes) on in-memory buffers before decoding multi-megabyte binary sections to prevent Node.js heap OOM.'
+    },
+    {
+      id: 'REA_OPTIMIZE_OMITTED_EXAMINED_SCOPE',
+      severity: 'ERROR',
+      name: 'Empty Binary Analysis Result Returned Without Examined Scope Metadata',
+      regex: /return\s*\{\s*(?:symbols\s*:\s*\[\]|findings\s*:\s*\[\])(?![\s\S]{0,80}?\bexaminedScope\b)/,
+      remediation: 'An empty analysis result proves absence only within the examined range; always attach examinedScope coverage metadata to empty findings.'
+    }
+  ],
+  'rea-changelog-update': [
+    {
+      id: 'REA_CHANGELOG_FABRICATED_HANDLE_ATTRIBUTION',
+      severity: 'ERROR',
+      name: 'Fabricated or Guessed Contributor Handle String Interpolated in Release Notes',
+      regex: /Thanks\s+@\$\{(?:merger|committer|authorName|gitUser)\b/,
+      remediation: 'Never guess or interpolate GitHub handles in public thanks; verify identities via the contribution manifest and retain unresolved commits as user: null.'
+    },
+    {
+      id: 'REA_CHANGELOG_EXCEEDING_GITHUB_BODY_LIMIT',
+      severity: 'WARN',
+      name: 'Release Notes PR Body Generated Without GitHub 65,536-Character Limit Check',
+      regex: /generateReleaseBody\s*\([^)]*\)(?![\s\S]{0,150}?\b(?:65536|65_536)\b)/,
+      remediation: 'Validate rendered release notes length against GitHub API limit (<= 65,536 characters) before writing or updating the Release Please PR body.'
+    }
+  ],
+  'rea-ci-tests-audit': [
+    {
+      id: 'REA_CI_BLANKET_RETRY_LOOP_MASKING_FLAKINESS',
+      severity: 'ERROR',
+      name: 'Blanket Retry Loop Added to Mask Test Flakiness in CI Test Suite',
+      regex: /for\s*\(\s*(?:let|var)\s+\w+\s*=\s*0;\s*\w+\s*<\s*(?:[3-9]|\d{2,});\s*\w+\+\+\s*\)\s*\{\s*try\s*\{\s*(?:await\s+)?runTest/,
+      remediation: 'Do not mask flaky assertions by wrapping tests in unconditional retry loops; diagnose and eliminate the root timing or state mutation defect.'
+    },
+    {
+      id: 'REA_CI_MOCK_CLAIMED_AS_REAL_ENGINE_COVERAGE',
+      severity: 'WARN',
+      name: 'Static Mock Fixtures Asserted as Real Ghidra or LLDB Provider Coverage',
+      regex: /assert\.(?:ok|strictEqual)\s*\([^)]*mockProvider[\s\S]{0,80}?(?:ghidra|lldb|hopper)[^)]*coverage/i,
+      remediation: 'Track boundary mock coverage separately from real-engine test lanes; static mock fixtures do not establish actual provider toolchain behavior.'
+    }
+  ],
+  'reverse-engineer-anything': [
+    {
+      id: 'REA_BINARY_UNSAFE_HOST_EXECUTION',
+      severity: 'ERROR',
+      name: 'Untrusted Target Binary Executed Directly on Host OS Instead of Sandbox',
+      regex: /(?:execSync|execFile|spawnSync)\s*\(\s*(?:targetBinary|binaryPath|firmwarePath|\.\/[a-zA-Z0-9_-]+)\b/,
+      remediation: 'Never execute candidate or untrusted binaries directly on the host operating system; run disassemblers or isolated Docker/WASM sandboxes.'
+    },
+    {
+      id: 'REA_BINARY_MISSING_DIGEST_ANCHOR',
+      severity: 'WARN',
+      name: 'Binary Analysis Evidence Claim Emitted Without Target SHA-256 Digest',
+      regex: /emitEvidence\s*\(\s*\{[\s\S]{0,100}?(?:symbols|functions|offsets)(?![\s\S]{0,100}?\b(?:targetDigest|sha256)\b)[\s\S]{0,100}?\}\s*\)/,
+      remediation: 'Always anchor reverse engineering evidence and decompilation claims with the verifiable SHA-256 target artifact digest.'
+    }
+  ],
+  'screenshot-to-code-expert': [
+    {
+      id: 'SCREENSHOT_TO_CODE_LOREM_IPSUM_SLOP',
+      severity: 'ERROR',
+      name: 'AI Slop Dummy Placeholder Text Generated in Visual Component',
+      regex: /\b(?:Lorem\s+ipsum|lorem\s+ipsum|Sample\s+Text|Insert\s+Text\s+Here|placeholder\s+title)\b/i,
+      remediation: 'Never output generic placeholder dummy copy in generated UI components; faithfully extract and render the real text and tabular data from the mockup.'
+    },
+    {
+      id: 'SCREENSHOT_TO_CODE_HARDCODED_VIEWPORT_WIDTH',
+      severity: 'WARN',
+      name: 'Rigid Hardcoded Viewport Width Used Instead of Responsive Container',
+      regex: /style\s*=\s*\{\{\s*width\s*:\s*['"](?:1440|1920|1280)px['"]\s*\}\}|class(?:Name)?\s*=\s*['"][^'"]*w-\[(?:1440|1920|1280)px\][^'"]*['"]/,
+      remediation: 'Avoid hardcoded pixel desktop container widths; use fluid responsive classes (w-full max-w-7xl mx-auto) and container queries (@container).'
+    }
+  ],
+  'self-healing-cloud-orchestrator': [
+    {
+      id: 'SELF_HEALING_DIRECT_MAIN_BRANCH_HOTFIX',
+      severity: 'ERROR',
+      name: 'Automated Hotfix Committed Directly to Main or Production Branch',
+      regex: /git\s+(?:checkout\s+(?:main|master|production)|commit)[^\n]*?(?:main|master|production)/,
+      remediation: 'Never commit auto-remediation patches directly to main or production branches; isolate changes on hotfix/auto-* branches or ephemeral worktrees.'
+    },
+    {
+      id: 'SELF_HEALING_UNTESTED_HOTFIX_PUSH',
+      severity: 'ERROR',
+      name: 'Automated Hotfix Pushed to Remote Without Prior Local Test Execution',
+      regex: /git\s+push\s+origin\s+hotfix(?![\s\S]{0,200}?\b(?:npm\s+test|vitest|pytest)\b)/,
+      remediation: 'Always execute and verify the local test suite (npm test / Vitest) before pushing automated hotfix branches to remote repositories.'
+    }
+  ],
+  'solidjs-expert': [
+    {
+      id: 'SOLIDJS_PROPS_DESTRUCTURING_REACTIVITY_LOSS',
+      severity: 'ERROR',
+      name: 'SolidJS Props Destructured Causing Fine-Grained Reactivity Loss',
+      regex: /(?:export\s+function|const)\s+\w+\s*=\s*\(\s*\{\s*[\w\s,:]+\}\s*:\s*\w+Props\s*\)/,
+      remediation: 'Never destructure props in SolidJS component parameters; use props.propName or splitProps/mergeProps to retain reactive getter proxies.'
+    },
+    {
+      id: 'SOLIDJS_ARRAY_MAP_DOM_RECONCILIATION',
+      severity: 'WARN',
+      name: 'Native Array.map Used for DOM Rendering Instead of Solid For Primitive',
+      regex: /\{\s*\w+\.items\.map\s*\(\s*\([^)]*\)\s*=>/,
+      remediation: 'Use SolidJS <For each={...}> or <Index each={...}> control flow primitives instead of array.map() to preserve fine-grained DOM node reconciliation.'
+    }
   ]
 
 });

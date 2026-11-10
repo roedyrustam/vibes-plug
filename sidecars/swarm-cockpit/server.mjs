@@ -28,7 +28,9 @@ try {
   if (fs.existsSync(iconPath)) {
     iconDataUrl = `data:image/png;base64,${fs.readFileSync(iconPath).toString('base64')}`;
   }
-} catch (e) {}
+} catch (iconErr) {
+  process.stderr.write(`[Vibes Swarm Cockpit] Failed to load icon: ${iconErr.message}\n`);
+}
 
 const NATIVE_AGENTS = [
   { id: 'swarm-architect', name: 'Swarm Architect', role: 'System Discovery, PRD, ERD & High-Level Architecture', badge: 'ARCH', color: '#8b5cf6' },
@@ -48,7 +50,9 @@ function readSwarmState() {
     if (fs.existsSync(busFile)) {
       return JSON.parse(fs.readFileSync(busFile, 'utf8'));
     }
-  } catch (err) {}
+  } catch (err) {
+    process.stderr.write(`[Vibes Swarm Cockpit] Swarm state read error: ${err.message}\n`);
+  }
   return { activeSwarms: {}, eventBuffer: [] };
 }
 
@@ -58,7 +62,9 @@ function readBlackboardState() {
     if (fs.existsSync(bbFile)) {
       return JSON.parse(fs.readFileSync(bbFile, 'utf8'));
     }
-  } catch (err) {}
+  } catch (err) {
+    process.stderr.write(`[Vibes Swarm Cockpit] Blackboard state read error: ${err.message}\n`);
+  }
   return { entries: {}, auto_swarm: true };
 }
 

@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T19:59:42.889Z",
+  "generatedAt": "2026-11-10T20:41:43.101Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
-  "totalFilesIndexed": 91,
-  "incrementalReusedFiles": 80,
-  "totalSymbolsIndexed": 522,
-  "totalImportEdges": 310,
+  "totalFilesIndexed": 92,
+  "incrementalReusedFiles": 92,
+  "totalSymbolsIndexed": 525,
+  "totalImportEdges": 313,
   "symbols": {
     "getActiveProfile": [
       {
@@ -625,6 +625,7 @@
           "createStatusBarItem",
           "show",
           "push",
+          "showInformationMessage",
           "registerCommand",
           "getConfiguration",
           "get",
@@ -635,7 +636,7 @@
     "deactivate": [
       {
         "file": "extensions/vscode/extension.js",
-        "line": 157,
+        "line": 186,
         "type": "function",
         "signature": "function deactivate()",
         "calls": []
@@ -2519,6 +2520,83 @@
         ]
       }
     ],
+    "ensureDir": [
+      {
+        "file": "scripts/hook-handler.mjs",
+        "line": 20,
+        "type": "function",
+        "signature": "function ensureDir(dir)",
+        "calls": [
+          "existsSync",
+          "mkdirSync"
+        ]
+      }
+    ],
+    "readStdin": [
+      {
+        "file": "scripts/hook-handler.mjs",
+        "line": 27,
+        "type": "function",
+        "signature": "function readStdin()",
+        "calls": [
+          "Promise",
+          "setEncoding",
+          "on",
+          "resolve",
+          "parse",
+          "setTimeout"
+        ]
+      }
+    ],
+    "run": [
+      {
+        "file": "scripts/hook-handler.mjs",
+        "line": 47,
+        "type": "function",
+        "signature": "function run()",
+        "calls": [
+          "readStdin",
+          "ensureDir",
+          "join",
+          "Date",
+          "toISOString",
+          "existsSync",
+          "parse",
+          "readFileSync",
+          "writeFileSync",
+          "stringify",
+          "write"
+        ]
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
+        "line": 29,
+        "type": "function",
+        "signature": "def run(self):",
+        "calls": []
+      },
+      {
+        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
+        "line": 49,
+        "type": "function",
+        "signature": "def run(self):",
+        "calls": []
+      },
+      {
+        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
+        "line": 302,
+        "type": "function",
+        "signature": "def run(self):",
+        "calls": []
+      },
+      {
+        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
+        "line": 41,
+        "type": "function",
+        "signature": "def run(self):",
+        "calls": []
+      }
+    ],
     "copyRecursiveSync": [
       {
         "file": "scripts/install.js",
@@ -3863,7 +3941,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2538,
+        "line": 2698,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3883,7 +3961,7 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2589,
+        "line": 2749,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
@@ -3908,7 +3986,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2670,
+        "line": 2830,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -3926,7 +4004,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2717,
+        "line": 2877,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -3940,7 +4018,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2762,
+        "line": 2922,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -6270,35 +6348,37 @@
     "readSwarmState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 36,
+        "line": 47,
         "type": "function",
         "signature": "function readSwarmState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync"
+          "readFileSync",
+          "write"
         ]
       }
     ],
     "readBlackboardState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 46,
+        "line": 59,
         "type": "function",
         "signature": "function readBlackboardState()",
         "calls": [
           "join",
           "existsSync",
           "parse",
-          "readFileSync"
+          "readFileSync",
+          "write"
         ]
       }
     ],
     "renderHtml": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 56,
+        "line": 71,
         "type": "function",
         "signature": "function renderHtml()",
         "calls": [
@@ -6429,36 +6509,6 @@
         "line": 39,
         "type": "function",
         "signature": "def __init__(self):",
-        "calls": []
-      }
-    ],
-    "run": [
-      {
-        "file": "skills/fullstack-expert/scripts/api_contract_validator.py",
-        "line": 29,
-        "type": "function",
-        "signature": "def run(self):",
-        "calls": []
-      },
-      {
-        "file": "skills/fullstack-expert/scripts/architecture_analyzer.py",
-        "line": 49,
-        "type": "function",
-        "signature": "def run(self):",
-        "calls": []
-      },
-      {
-        "file": "skills/production-ready-hardener/scripts/production_readiness_scanner.py",
-        "line": 302,
-        "type": "function",
-        "signature": "def run(self):",
-        "calls": []
-      },
-      {
-        "file": "skills/saas-architect/scripts/saas_transformation_scanner.py",
-        "line": 41,
-        "type": "function",
-        "signature": "def run(self):",
         "calls": []
       }
     ],
@@ -8139,7 +8189,7 @@
     "bin/mcp-server.mjs": {
       "totalLines": 2035,
       "symbolCount": 7,
-      "mtimeMs": 1794324046794,
+      "mtimeMs": 1794341297505,
       "size": 81645,
       "exports": [
         "getActiveProfile",
@@ -8423,7 +8473,7 @@
     "bin/vibes.mjs": {
       "totalLines": 2160,
       "symbolCount": 22,
-      "mtimeMs": 1794063372386,
+      "mtimeMs": 1794341297501,
       "size": 103201,
       "exports": [],
       "imports": [
@@ -8916,10 +8966,10 @@
       ]
     },
     "extensions/vscode/extension.js": {
-      "totalLines": 158,
+      "totalLines": 187,
       "symbolCount": 3,
-      "mtimeMs": 1794340775842,
-      "size": 5777,
+      "mtimeMs": 1794340892994,
+      "size": 7440,
       "exports": [
         "activate",
         "deactivate"
@@ -8947,6 +8997,7 @@
             "createStatusBarItem",
             "show",
             "push",
+            "showInformationMessage",
             "registerCommand",
             "getConfiguration",
             "get",
@@ -8955,7 +9006,7 @@
         },
         {
           "name": "deactivate",
-          "line": 157,
+          "line": 186,
           "type": "function",
           "signature": "function deactivate()",
           "calls": []
@@ -9679,8 +9730,8 @@
     "scripts/check-anti-slop.mjs": {
       "totalLines": 343,
       "symbolCount": 4,
-      "mtimeMs": 1794324047005,
-      "size": 12992,
+      "mtimeMs": 1794342923466,
+      "size": 13004,
       "exports": [],
       "imports": [
         {
@@ -11294,6 +11345,84 @@
             "sqrt",
             "toLowerCase",
             "includes"
+          ]
+        }
+      ]
+    },
+    "scripts/hook-handler.mjs": {
+      "totalLines": 92,
+      "symbolCount": 3,
+      "mtimeMs": 1794342923587,
+      "size": 2858,
+      "exports": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "target": null,
+          "specifiers": [
+            "fs"
+          ],
+          "line": 8
+        },
+        {
+          "source": "node:path",
+          "target": null,
+          "specifiers": [
+            "path"
+          ],
+          "line": 9
+        },
+        {
+          "source": "node:url",
+          "target": null,
+          "specifiers": [
+            "fileURLToPath"
+          ],
+          "line": 10
+        }
+      ],
+      "cachedSymbols": [
+        {
+          "name": "ensureDir",
+          "line": 20,
+          "type": "function",
+          "signature": "function ensureDir(dir)",
+          "calls": [
+            "existsSync",
+            "mkdirSync"
+          ]
+        },
+        {
+          "name": "readStdin",
+          "line": 27,
+          "type": "function",
+          "signature": "function readStdin()",
+          "calls": [
+            "Promise",
+            "setEncoding",
+            "on",
+            "resolve",
+            "parse",
+            "setTimeout"
+          ]
+        },
+        {
+          "name": "run",
+          "line": 47,
+          "type": "function",
+          "signature": "function run()",
+          "calls": [
+            "readStdin",
+            "ensureDir",
+            "join",
+            "Date",
+            "toISOString",
+            "existsSync",
+            "parse",
+            "readFileSync",
+            "writeFileSync",
+            "stringify",
+            "write"
           ]
         }
       ]
@@ -13397,10 +13526,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 2782,
+      "totalLines": 2942,
       "symbolCount": 5,
-      "mtimeMs": 1794339734211,
-      "size": 147783,
+      "mtimeMs": 1794342801594,
+      "size": 157154,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13437,7 +13566,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 2538,
+          "line": 2698,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13455,7 +13584,7 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 2589,
+          "line": 2749,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
@@ -13478,7 +13607,7 @@
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 2670,
+          "line": 2830,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13494,7 +13623,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 2717,
+          "line": 2877,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13506,7 +13635,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 2762,
+          "line": 2922,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -13940,7 +14069,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1794340778604,
+      "mtimeMs": 1794341297511,
       "size": 201386,
       "exports": [
         "generateStudioHtml",
@@ -15471,10 +15600,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2568,
+      "totalLines": 2589,
       "symbolCount": 1,
-      "mtimeMs": 1794340774689,
-      "size": 140152,
+      "mtimeMs": 1794343257462,
+      "size": 142377,
       "exports": [],
       "imports": [
         {
@@ -15556,7 +15685,7 @@
           "specifiers": [
             "createClient"
           ],
-          "line": 2370
+          "line": 2379
         },
         {
           "source": "@hocuspocus/server",
@@ -15564,21 +15693,13 @@
           "specifiers": [
             "Server"
           ],
-          "line": 2380
+          "line": 2389
         },
         {
           "source": "@hocuspocus/server",
           "target": null,
           "specifiers": [
             "Server"
-          ],
-          "line": 2381
-        },
-        {
-          "source": "@openfga/sdk",
-          "target": null,
-          "specifiers": [
-            "OpenFgaClient"
           ],
           "line": 2390
         },
@@ -15588,7 +15709,15 @@
           "specifiers": [
             "OpenFgaClient"
           ],
-          "line": 2391
+          "line": 2399
+        },
+        {
+          "source": "@openfga/sdk",
+          "target": null,
+          "specifiers": [
+            "OpenFgaClient"
+          ],
+          "line": 2400
         },
         {
           "source": "@simplewebauthn/server",
@@ -15596,7 +15725,7 @@
           "specifiers": [
             "verifyAuthenticationResponse"
           ],
-          "line": 2393
+          "line": 2402
         },
         {
           "source": "@simplewebauthn/server",
@@ -15604,7 +15733,7 @@
           "specifiers": [
             "generateAuthenticationOptions"
           ],
-          "line": 2394
+          "line": 2403
         },
         {
           "source": "@temporalio/workflow",
@@ -15612,7 +15741,7 @@
           "specifiers": [
             "proxyActivities"
           ],
-          "line": 2424
+          "line": 2433
         }
       ],
       "cachedSymbols": [
@@ -16885,10 +17014,10 @@
       "cachedSymbols": []
     },
     "sidecars/swarm-cockpit/server.mjs": {
-      "totalLines": 478,
+      "totalLines": 523,
       "symbolCount": 3,
-      "mtimeMs": 1794340717985,
-      "size": 14936,
+      "mtimeMs": 1794343278252,
+      "size": 16560,
       "exports": [],
       "imports": [
         {
@@ -16935,31 +17064,33 @@
       "cachedSymbols": [
         {
           "name": "readSwarmState",
-          "line": 36,
+          "line": 47,
           "type": "function",
           "signature": "function readSwarmState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync"
+            "readFileSync",
+            "write"
           ]
         },
         {
           "name": "readBlackboardState",
-          "line": 46,
+          "line": 59,
           "type": "function",
           "signature": "function readBlackboardState()",
           "calls": [
             "join",
             "existsSync",
             "parse",
-            "readFileSync"
+            "readFileSync",
+            "write"
           ]
         },
         {
           "name": "renderHtml",
-          "line": 56,
+          "line": 71,
           "type": "function",
           "signature": "function renderHtml()",
           "calls": [

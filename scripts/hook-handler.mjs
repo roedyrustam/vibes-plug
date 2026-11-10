@@ -57,12 +57,16 @@ async function run() {
       if (fs.existsSync(bbPath)) {
         blackboard = JSON.parse(fs.readFileSync(bbPath, 'utf8'));
       }
-    } catch {}
+    } catch (readErr) {
+      blackboard = { entries: {}, auto_swarm: true, updatedAt: new Date().toISOString() };
+    }
     blackboard.auto_swarm = true;
     blackboard.updatedAt = new Date().toISOString();
     try {
       fs.writeFileSync(bbPath, JSON.stringify(blackboard, null, 2), 'utf8');
-    } catch {}
+    } catch (writeErr) {
+      process.stderr.write(`[Vibes-Plug] Hook handler blackboard write error: ${writeErr.message}\n`);
+    }
 
     // Output valid Antigravity SessionStart contract
     const response = {

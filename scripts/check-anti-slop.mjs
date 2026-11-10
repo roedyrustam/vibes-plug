@@ -165,7 +165,7 @@ const IGNORE_DIRS = [
   '.cache'
 ];
 
-const CLI_SCRIPT_DIRS = ['scripts', 'bin', 'cli'];
+const CLI_SCRIPT_DIRS = ['scripts', 'bin', 'cli', 'sidecars'];
 
 const CODE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.py', '.go', '.rs'];
 const DOC_EXTENSIONS = ['.md', '.mdx', '.txt'];

@@ -1,63 +1,23 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-10T19:59:01.759Z",
-  "totalRequests": 6,
+  "lastUpdated": "2026-11-10T20:41:36.878Z",
+  "totalRequests": 1,
   "tokens": {
-    "inputTotal": 28792,
-    "outputTotal": 3687,
-    "cachedTotal": 39018,
-    "grandTotal": 32479
+    "inputTotal": 2000,
+    "outputTotal": 800,
+    "cachedTotal": 18000,
+    "grandTotal": 2800
   },
   "economics": {
-    "cacheHitRatio": "57.5%",
-    "claudeSavedUsd": "0.105",
-    "geminiSavedUsd": "0.059",
-    "openAiSavedUsd": "0.049",
-    "primaryEstSavedUsd": "0.105"
+    "cacheHitRatio": "90.0%",
+    "claudeSavedUsd": "0.049",
+    "geminiSavedUsd": "0.027",
+    "openAiSavedUsd": "0.022",
+    "primaryEstSavedUsd": "0.049"
   },
   "records": [
     {
-      "timestamp": "2026-11-10T19:59:01.759Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:rea-analysis-optimization:optimize",
-      "input": 5128,
-      "output": 436,
-      "cached": 4256
-    },
-    {
-      "timestamp": "2026-11-10T19:59:01.516Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:frontier-ai-models-expert:slice",
-      "input": 7250,
-      "output": 804,
-      "cached": 5642
-    },
-    {
-      "timestamp": "2026-11-10T19:59:01.270Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:kv-cache-prefix-optimizer:optimize",
-      "input": 4564,
-      "output": 375,
-      "cached": 3814
-    },
-    {
-      "timestamp": "2026-11-10T19:59:01.014Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:saas-architect:blueprint",
-      "input": 4495,
-      "output": 541,
-      "cached": 3413
-    },
-    {
-      "timestamp": "2026-11-10T19:59:00.772Z",
-      "model": "gemini-4-argon-medium",
-      "task": "SaaT:database-orm-expert:generate",
-      "input": 5355,
-      "output": 731,
-      "cached": 3893
-    },
-    {
-      "timestamp": "2026-11-10T19:58:49.298Z",
+      "timestamp": "2026-11-10T20:41:36.878Z",
       "model": "claude-3-7-sonnet",
       "task": "Autonomous coding routine",
       "input": 2000,

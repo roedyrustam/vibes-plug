@@ -31,6 +31,17 @@ Bridges the gap between code generation and Cloud Operations (CloudOps). This ag
 - Critical health-check failure detected by `proactive-background-watcher`.
 - Memory leak or container crash-loop backoff reported by container orchestrator.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Isolated Hotfix Branch Invariant**: Auto-remediation hotfixes MUST NEVER commit directly to `main` or the production branch. Patches must be authored on an isolated branch (`hotfix/auto-*`) or ephemeral worktree.
+2. **Local Regression Test Gate (Pre-Push)**: Before pushing or deploying any hotfix, the test suite (`npm test`, Vitest, or Playwright) must execute locally and pass $100\%$ with zero regression errors. A patch that fails tests must abort immediately.
+3. **Bounded Patch Retries & Automatic Rollback Fallback**: Auto-healing attempts for a given incident are capped at $N \le 3$ iterations. If the incident persists or patch validation fails, the orchestrator must trigger an immediate rollback to the previous known good deployment SHA rather than looping indefinitely.
+4. **Audit Trail & Attribution Transparency**: Every automated hotfix commit and deployment event must log a cryptographically verifiable incident ID, root-cause trace, diff summary, and SRE audit record in `INCIDENTS.md` and telemetry.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Mean Time to Remediate (MTTR)**: MTTR $< 120\text{ seconds}$ from crash alert to validated hotfix deployment.
+- **Zero False-Positive Deploys**: $100\%$ test suite verification prior to deployment trigger.
+- **Canary Rollback Latency**: Instant fallback rollback latency $< 30\text{ seconds}$ upon patch regression.
+
 ### Core Operating Protocol
 
 ```
@@ -201,6 +212,17 @@ export async function POST(req: Request) {
   return Response.json({ status: success ? 'healed' : 'escalated' });
 }
 ```
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Invarian Cabang Hotfix Terisolasi**: Penambalan perbaikan otomatis DILARANG KERAS langsung melakukan commit ke cabang `main` atau cabang produksi. Hotfix wajib dibuat pada cabang terisolasi (`hotfix/auto-*`) atau ephemeral worktree.
+2. **Gerbang Pengujian Regresi Lokal (Pre-Push Gate)**: Sebelum melakukan push atau deployment hotfix, test suite (`npm test`, Vitest, atau Playwright) wajib dijalankan secara lokal dan lolos 100% tanpa galat regresi baru. Penambalan yang gagal test wajib langsung digagalkan.
+3. **Batas Retry & Fallback Rollback Otomatis**: Upaya perbaikan otomatis untuk satu insiden dibatasi maksimal $N \le 3$ kali percobaan. Jika insiden tetap berlanjut atau validasi gagal, orkestrator wajib memicu rollback instan ke commit rilis stabil sebelumnya alih-alih mengulang tanpa akhir.
+4. **Jejak Audit & Transparansi Atribusi**: Setiap commit dan rilis hotfix otomatis wajib mencatat ID insiden yang dapat diverifikasi, trace akar masalah, ringkasan diff, dan catatan audit SRE di `INCIDENTS.md` dan telemetri.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Mean Time to Remediate (MTTR)**: MTTR $< 120\text{ detik}$ dari penerimaan peringatan crash hingga deployment hotfix tervalidasi.
+- **Nol Rilis False-Positive**: 100% verifikasi pengujian regresi lokal sebelum pemicuan deploy rilis.
+- **Latensi Rollback Canary**: Latensi eksekusi rollback otomatis $< 30\text{ detik}$ jika patch mengalami anomali.
 
 ### Batasan Keamanan & Circuit Breaker
 1. **Batas Retry Maksimal**: Dibatasi maksimal 3 kali perbaikan otomatis. Jika pengujian tetap gagal, sistem wajib melakukan *canary rollback* ke komit stabil sebelumnya.

@@ -32,6 +32,17 @@ Standard LLM chat sessions are strictly reactive—they remain dormant until the
 | **Bounded Canary Poll** | `CronExpression: "*/5 * * * *"` + `MaxIterations: 6` | Stops automatically after 30 minutes (6 checks) | Post-deploy canary error-rate observation |
 | **Standing Sentinel Daemon** | `CronExpression: "*/15 * * * *"` + `IsDaemon: true` | Runs across turns until explicitly killed via `manage_task` | Continuous SSL, queue depth, or API SLO monitoring |
 
+### Hard Guardrails (Declarative Invariants)
+1. **Never Sleep in Shell Invariant**: Agents MUST NEVER use blocking shell `sleep` commands (e.g., `sleep 30` or `Start-Sleep -Seconds 30`). Proactive waiting MUST be scheduled exclusively via runtime `schedule` tool or non-blocking event-driven webhooks.
+2. **Bounded Iteration / TTL Cap**: Recurring cron schedules MUST specify a finite `MaxIterations` or strict termination condition, unless explicitly flagged `IsDaemon: true` with persistent task tracking in `CHECKPOINT.md`.
+3. **Reactive Wakeup & Anti-Polling Invariant**: Do NOT poll `manage_task` or check logs in an active tight loop. Terminate the tool execution turn immediately after scheduling; allow the reactive wakeup mechanism to resume execution upon timer trigger or task completion.
+4. **Jittered Scheduling & Rate Limit Backoff**: When polling external third-party APIs or health endpoints, cron intervals must include exponential backoff and randomized jitter to prevent self-inflicted Denial-of-Service or thundering herd spikes.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Zero Blocking CPU Cycles**: Zero CPU waste during background wait periods (strictly event-driven / timer-driven).
+- **Wake-up Dispatch Latency**: Dispatch reaction latency $< 500\text{ ms}$ upon schedule trigger or task completion signal.
+- **Task Garbage Collection**: $100\%$ cleanup of finished one-shot schedules and killed daemon tasks via `manage_task`.
+
 ### 2. Production Tool Invocation Payloads
 
 #### Pattern A: One-Shot Asynchronous Task Watcher
@@ -149,6 +160,17 @@ export async function evaluateEndpointSlo(params: {
 
 ### Deskripsi
 Skill ini memberikan kemampuan proaktif (Sentinel) kepada agen AI menggunakan tool `schedule` native (timer satu-kali atau cron berkala) untuk memantau build, memeriksa kesehatan endpoint API, atau mengawasi migrasi database di latar belakang dan bangun secara otonom saat terjadi anomali atau penyelesaian tugas.
+
+### Hard Guardrails (Invarian Deklaratif)
+1. **Invarian Larangan Tidur Shell (Never Sleep in Shell)**: Agen DILARANG KERAS menggunakan perintah shell pemblokir seperti `sleep 30` atau `Start-Sleep -Seconds 30`. Penantian berkala WAJIB dijadwalkan secara eksklusif menggunakan tool runtime `schedule` atau webhook berbasis event non-blocking.
+2. **Batas Iterasi & TTL (Bounded Iteration Cap)**: Jadwal cron berulang WAJIB menetapkan `MaxIterations` yang terhingga atau kondisi terminasi eksplisit, kecuali jika secara eksplisit ditandai `IsDaemon: true` dengan pencatatan pelacakan tugas di `CHECKPOINT.md`.
+3. **Invarian Reactive Wakeup & Anti-Polling**: JANGAN melakukan polling status task di loop aktif yang rapat (`manage_task status` berulang kali). Akhiri giliran pemanggilan tool segera setelah menjadwalkan; biarkan mekanisme reactive wakeup membangunkan eksekusi agen saat timer/event tiba.
+4. **Penjadwalan Ber-Jitter & Rate Limit Backoff**: Saat memantau API eksternal atau endpoint kesehatan, interval cron wajib menyertakan exponential backoff dan jitter acak guna menghindari insiden thundering herd atau blokir rate limit.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Siklus CPU Nol Pemblokiran**: 0 pemborosan CPU host selama periode tunggu latar belakang (murni event-driven / timer-driven).
+- **Latensi Reaksi Wake-Up**: Latensi respon dispatch $< 500\text{ ms}$ begitu pemicu jadwal atau sinyal penyelesaian tugas tiba.
+- **Pembersihan Siklus Hidup**: 100% pembersihan jadwal yang telah usai dan penghapusan task daemon melalui `manage_task`.
 
 ### Checklist Verifikasi Produksi
 - [ ] **Dilarang Spam (Zero-Spam)**: Jika pengecekan berkala mendapati sistem normal, tetaplah tenang dan hanya kirim laporan saat milestone selesai atau anomali terdeteksi.
