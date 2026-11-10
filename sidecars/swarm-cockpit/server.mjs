@@ -421,7 +421,10 @@ function renderHtml() {
             \`).join('');
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        /* polling fetch error ignored */
+        void e;
+      }
     }, 4000);
   </script>
 </body>
