@@ -162,6 +162,16 @@ function LexicalEditor() {
 - [ ] Autosave with debounce (500ms) and conflict resolution.
 - [ ] Max content length validation.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory DOMPurify Sanitization Gate (Zero Raw HTML Injection)**:
+   - User-generated rich text markup rendered outside the editor canvas (e.g. `dangerouslySetInnerHTML`) MUST pass strict DOMPurify sanitization with explicit allowlists of tags and attributes. Injecting raw un-sanitized editor HTML into the DOM is strictly prohibited.
+2. **Prohibition of Base64 Inlined Image Blobs**:
+   - Rich text editors MUST configure image extensions (`allowBase64: false`) to upload assets to object storage (S3/R2) via presigned URLs and store only secure HTTPS URLs. Inlining base64 data strings directly into document JSON/HTML is strictly prohibited.
+3. **Structured JSON Serialization as Source of Truth**:
+   - Document state MUST be stored as structured JSON AST (ProseMirror JSON or Lexical state) in the database. Relying solely on HTML strings for primary storage without structured schema representations is prohibited.
+4. **Debounced Autosave & Conflict Resolution Invariant**:
+   - Autosave listeners on editor updates MUST be debounced ($\ge 300\text{ms}$) to prevent database flooding, and MUST handle optimistic concurrency or merge conflicts via CRDTs (Yjs) in collaborative modes.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -169,7 +179,7 @@ function LexicalEditor() {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec rich-text-editor-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% DOMPurify sanitization on rendered HTML (0 XSS vectors), 0 inlined base64 images in storage, autosave debounce >= 300ms; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -246,4 +256,4 @@ export function bersihkanHtmlKonten(htmlMentah: string): string {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec rich-text-editor-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% sanitasi DOMPurify pada HTML yang dirender (0 vektor XSS), 0 gambar base64 inline di penyimpanan, debounce autosave >= 300ms; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

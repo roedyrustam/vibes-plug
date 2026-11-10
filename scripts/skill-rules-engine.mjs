@@ -2014,6 +2014,166 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /app\.listen\s*\(\s*(?:port|\d+)[^)]*\)(?![\s\S]{0,400}?\bprocess\.on\s*\(\s*['"](?:SIGTERM|SIGINT)['"]\b)/,
       remediation: 'Register graceful shutdown handlers (process.on("SIGTERM", ...)) to close database connections and finish in-flight HTTP requests gracefully.'
     }
+  ],
+  'fullstack-expert': [
+    {
+      id: 'FULLSTACK_UNVALIDATED_CLIENT_INPUT_PERSISTENCE',
+      severity: 'ERROR',
+      name: 'Unvalidated Input Directly Passed to Database Mutation',
+      regex: /export\s+async\s+function\s+create(?:User|Order|Item)\s*\(\s*input\s*:\s*any\s*\)[\s\S]{0,100}?\bdb\.(?:insert|create)\(/,
+      remediation: 'Fullstack mutation routines must validate input payloads with Zod or TypeSpec before database insertion; avoid input: any.'
+    },
+    {
+      id: 'FULLSTACK_UNPROTECTED_SUPERADMIN_EXPORT',
+      severity: 'ERROR',
+      name: 'SuperAdmin Dashboard View Exported Without RBAC/MFA Guard',
+      regex: /export\s+default\s+function\s+SuperAdmin(?:Dashboard|Panel)\s*\([^)]*\)\s*\{(?![\s\S]{0,250}?\b(?:checkSuperAdmin|requireRole|useSession)\b)/,
+      remediation: 'Super-admin dashboard views must be guarded with explicit RBAC/MFA checks (e.g. checkSuperAdmin or requireRole).'
+    }
+  ],
+  'typescript-expert': [
+    {
+      id: 'TS_EXPERT_PROHIBITED_TS_IGNORE',
+      severity: 'ERROR',
+      name: 'Prohibited @ts-ignore Comment Suppressing TypeScript Diagnostic',
+      regex: /\/\/\s*@ts-ignore\b/,
+      remediation: 'Do not use // @ts-ignore to suppress errors; resolve the underlying type mismatch or use // @ts-expect-error with a descriptive justification.'
+    },
+    {
+      id: 'TS_EXPERT_UNSAFE_TYPE_ASSERTION_AS_ANY',
+      severity: 'ERROR',
+      name: 'Unsafe Type Assertion Casting Expression to "as any"',
+      regex: /\bas\s+any\b/,
+      remediation: 'Avoid unsafe type assertions (as any); use unknown with type guards or parse payloads with Zod schemas.'
+    }
+  ],
+  'openapi-swagger-codegen-expert': [
+    {
+      id: 'OPENAPI_OPERATION_MISSING_OPERATION_ID',
+      severity: 'WARN',
+      name: 'OpenAPI Endpoint Operation Missing Unique operationId',
+      regex: /(?:get|post|put|delete|patch)\s*:\s*\n(?![\s\S]{0,100}?\boperationId\s*:)/,
+      remediation: 'Every OpenAPI path operation must declare a unique operationId to ensure deterministic SDK codegen.'
+    },
+    {
+      id: 'OPENAPI_MANUAL_UNTYPED_FETCH_CALL',
+      severity: 'WARN',
+      name: 'Manual Untyped fetch() Call to OpenAPI Endpoint Without Generated SDK',
+      regex: /const\s+res\s*=\s*await\s+fetch\s*\(\s*['"]\/api\/[a-zA-Z0-9_-]+['"]\s*\);(?![\s\S]{0,100}?\b(?:as\s+ApiResponse|schema\.parse)\b)/,
+      remediation: 'Do not write raw untyped fetch() calls for OpenAPI endpoints; consume typed SDK clients generated via openapi-fetch or Orval.'
+    }
+  ],
+  'payment-gateway-expert': [
+    {
+      id: 'PAYMENT_PARSED_BODY_BEFORE_SIGNATURE',
+      severity: 'ERROR',
+      name: 'Payment Webhook Signature Checked Against Parsed JSON Instead of Raw Buffer',
+      regex: /const\s+body\s*=\s*(?:await\s+req\.json\(\)|JSON\.parse\([^)]+\));[\s\S]{0,100}?stripe\.webhooks\.constructEvent\s*\(\s*body\b/,
+      remediation: 'Stripe webhook verification requires the raw, unparsed string buffer (req.text() or req.rawBody), not a parsed JSON object.'
+    },
+    {
+      id: 'PAYMENT_UNGUARDED_DOUBLE_FULFILLMENT',
+      severity: 'ERROR',
+      name: 'Payment Webhook Mutation Without Atomic Status Guard',
+      regex: /await\s+db\.order\.update\s*\(\s*\{[\s\S]{0,80}?data\s*:\s*\{[\s\S]{0,40}?status\s*:\s*['"]PAID['"](?![\s\S]{0,120}?\bwhere\s*:\s*\{[^}]*status\s*:\s*['"]PENDING['"])/,
+      remediation: 'Guard payment updates with an atomic condition (where: { id, status: "PENDING" }) to prevent double fulfillment on duplicate webhook deliveries.'
+    }
+  ],
+  'pdf-document-generation-expert': [
+    {
+      id: 'PDF_TEMPORARY_DISK_WRITE_SPILL',
+      severity: 'ERROR',
+      name: 'Temporary PDF Document Written Directly to Disk Path in Serverless Routine',
+      regex: /fs\.writeFileSync\s*\(\s*['"]\/tmp\/[^'"]+\.pdf['"]/,
+      remediation: 'Do not write temporary PDF files to disk in serverless functions; render directly to an in-memory buffer using renderToBuffer() or pipe streams.'
+    },
+    {
+      id: 'PDF_UNAUTHENTICATED_INVOICE_ENDPOINT',
+      severity: 'ERROR',
+      name: 'Sensitive PDF Invoice Endpoint Lacking Authentication or Tenant Check',
+      regex: /export\s+async\s+function\s+GET\s*\([^)]*req[^)]*\)[\s\S]{0,100}?generateInvoicePdfBuffer\((?![\s\S]{0,250}?\b(?:session|auth|userId|tenantId)\b)/,
+      remediation: 'PDF invoice endpoints must authenticate the requesting user and verify tenant authorization before generating and serving documents.'
+    }
+  ],
+  'performance-web-vitals': [
+    {
+      id: 'PERF_VITALS_LAZY_LOADED_HERO_IMAGE',
+      severity: 'ERROR',
+      name: 'Primary Hero / Above-The-Fold LCP Image Configured with loading="lazy"',
+      regex: /<Image\s+[^>]*\b(?:hero|banner|lcp)[^>]*\bloading\s*=\s*['"]lazy['"]/i,
+      remediation: 'Do not lazy-load the primary hero/LCP image (loading="lazy"); set priority={true} to eliminate LCP delay.'
+    },
+    {
+      id: 'PERF_VITALS_UNSIZED_IMAGE_LAYOUT_SHIFT',
+      severity: 'WARN',
+      name: 'HTML <img> Element Missing Width/Height Attributes Causing CLS',
+      regex: /<img\s+(?![\s\S]{0,100}?\b(?:width|height|aspect-ratio)\b)[^>]*src\s*=/i,
+      remediation: 'Declare explicit width and height attributes (or CSS aspect-ratio) on <img> tags to prevent Cumulative Layout Shift (CLS).'
+    }
+  ],
+  'production-ready-hardener': [
+    {
+      id: 'HARDENER_PRODUCTION_CONSOLE_LOG_LEAK',
+      severity: 'WARN',
+      name: 'Debug console.log Statement Leaked in Production Routine',
+      regex: /console\.log\s*\(\s*['"](?:DEBUG|TEST|DEV|FIXME):/,
+      remediation: 'Remove debug console.log statements before production release; use structured loggers (Pino) at appropriate log levels.'
+    },
+    {
+      id: 'HARDENER_UNPROTECTED_CORS_WILDCARD_ORIGIN',
+      severity: 'ERROR',
+      name: 'Wildcard CORS Origin (*) Configured Alongside credentials: true',
+      regex: /origin\s*:\s*['"]\*['"]\s*,\s*credentials\s*:\s*true/i,
+      remediation: 'Do not configure CORS with wildcard origin ("*") combined with credentials: true; specify explicit trusted domain origins.'
+    }
+  ],
+  'rich-text-editor-expert': [
+    {
+      id: 'RICH_TEXT_UNSANITIZED_DANGEROUSLY_SET_INNER_HTML',
+      severity: 'ERROR',
+      name: 'Rich Text Rendered via dangerouslySetInnerHTML Without DOMPurify',
+      regex: /dangerouslySetInnerHTML\s*=\s*\{\s*\{\s*__html\s*:\s*(?![\s\S]{0,80}?\b(?:DOMPurify\.sanitize|sanitizeHtml)\b)[a-zA-Z0-9_.]+\s*\}\s*\}/,
+      remediation: 'Sanitize editor HTML output using DOMPurify.sanitize() before passing it to dangerouslySetInnerHTML to prevent XSS.'
+    },
+    {
+      id: 'RICH_TEXT_BASE64_IMAGE_STORAGE',
+      severity: 'ERROR',
+      name: 'Editor Configured to Allow Inlined Base64 Image Storage',
+      regex: /Image\.configure\s*\(\s*\{[\s\S]{0,60}?\ballowBase64\s*:\s*true/,
+      remediation: 'Do not allow base64 images in rich text content (allowBase64: false); upload images to S3/R2 and store HTTPS URLs.'
+    }
+  ],
+  'scalability-clean-code': [
+    {
+      id: 'CLEAN_CODE_EXCESSIVE_METHOD_PARAMS',
+      severity: 'WARN',
+      name: 'Method Parameter Count Exceeds Clean Code Arity Limit (>= 5 Parameters)',
+      regex: /function\s+[a-zA-Z0-9_]+\s*\(\s*(?:\w+\s*:\s*[^,)]+,\s*){4,}\w+\s*:\s*[^,)]+\s*\)/,
+      remediation: 'Functions with 4 or more parameters violate clean code principles; bundle arguments into a typed Parameter Object (e.g. { user, options, context }).'
+    },
+    {
+      id: 'CLEAN_CODE_ZOMBIE_COMMENTED_BLOCK',
+      severity: 'WARN',
+      name: 'Commented-Out Zombie Code Block Detected',
+      regex: /\/\/\s*(?:const|let|var|function|class|import)\s+[a-zA-Z0-9_]+/,
+      remediation: 'Purge commented-out zombie code permanently; rely on Git history for code retrieval instead of cluttering active files.'
+    }
+  ],
+  'seo': [
+    {
+      id: 'SEO_MULTIPLE_OR_MISSING_H1',
+      severity: 'WARN',
+      name: 'Multiple <h1> Elements Rendered on Single Page View',
+      regex: /<h1[^>]*>[\s\S]{0,100}?<\/h1>[\s\S]{0,250}?<h1\b/i,
+      remediation: 'Pages must have exactly one <h1> heading for optimal search engine and accessibility indexing.'
+    },
+    {
+      id: 'SEO_MISSING_CANONICAL_URL_META',
+      severity: 'WARN',
+      name: 'Next.js Metadata Export Missing Canonical Alternates URL',
+      regex: /export\s+const\s+metadata\s*:\s*Metadata\s*=\s*\{(?![\s\S]{0,250}?\b(?:alternates|canonical)\b)[\s\S]{0,250}?\btitle\s*:/,
+      remediation: 'Every Next.js page metadata definition must declare an explicit alternates.canonical URL to prevent duplicate content indexing.'
+    }
   ]
 
 });

@@ -179,6 +179,16 @@ export interface User {
 - [ ] Rate limiting on all public endpoints (`rate-limit-abuse-prevention`).
 - [ ] Super Admin routes strictly isolated to dedicated subdomain.
 
+### Hard Guardrails (Declarative Invariants)
+1. **End-to-End Type Safety & Single Source of Truth**:
+   - Shared domain models and DTOs MUST be declared in shared workspace packages (e.g., `packages/types` or TypeSpec schemas). Re-declaring untyped ad-hoc object structures on the client or server without contract verification is strictly prohibited.
+2. **Strict Server-Side Validation Boundary**:
+   - Client-side form validation is for user feedback only; every backend endpoint across TypeScript, Python, Go, or Rust MUST independently re-validate all incoming payloads through strict schema validators (Zod, Pydantic, validator tags).
+3. **Parameterized Persistence Invariant**:
+   - Database operations across all polyglot services MUST use parameterized queries, typed ORMs (Drizzle, Prisma, SQLx), or prepared statements. Raw string interpolation in SQL or NoSQL queries is strictly prohibited.
+4. **Isolated Super-Admin & Sensitive Route Guard**:
+   - Super-admin dashboards and privileged mutations MUST be isolated to dedicated subdomain routes with multi-factor authentication (MFA) and RBAC verification, never exposed on unauthenticated public client paths.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -186,7 +196,7 @@ export interface User {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec fullstack-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% end-to-end typed contract coverage across frontend/backend, 0 unparameterized SQL queries, fullstack CI build < 5 mins; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -293,4 +303,4 @@ export interface ProfilPengguna {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec fullstack-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% cakupan kontrak type-safe end-to-end lintas frontend/backend, 0 kueri SQL tanpa parameter, build CI fullstack < 5 menit; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

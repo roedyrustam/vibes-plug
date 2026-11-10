@@ -311,6 +311,16 @@ onTTFB(sendToAnalytics);
 - [ ] HTTP/2 or HTTP/3 enabled on server.
 - [ ] Resource hints: `dns-prefetch`, `preconnect` for third-party origins.
 
+### Hard Guardrails (Declarative Invariants)
+1. **LCP Hero Image Priority & Preload Invariant**:
+   - The primary Above-The-Fold hero image MUST declare `priority` or `fetchpriority="high"` with preloaded `rel="preload"` hints. Lazy loading the primary LCP hero image (`loading="lazy"`) is strictly prohibited.
+2. **Cumulative Layout Shift (CLS) Dimension Reservation Gate**:
+   - All image elements, video embeds, and dynamic advert slots MUST specify explicit `width` and `height` attributes or CSS `aspect-ratio` to reserve layout dimensions prior to loading. Unsized media causing layout shifts ($\text{CLS} > 0.1$) is strictly prohibited.
+3. **Initial JavaScript Client Bundle Ceiling**:
+   - Initial entry-point JavaScript bundle size MUST NOT exceed 200KB gzipped. Heavy client-only libraries (>50KB, e.g. Three.js, ECharts, Quill) MUST be code-split via dynamic imports (`next/dynamic` or `React.lazy` with `ssr: false`).
+4. **Interaction to Next Paint (INP) Long-Task Yielding**:
+   - Event handlers executing computations exceeding 50ms MUST yield control back to the main thread via `scheduler.yield()`, `requestAnimationFrame()`, or Web Workers to preserve INP $\le 200\text{ms}$.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -318,7 +328,7 @@ onTTFB(sendToAnalytics);
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec performance-web-vitals <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | LCP <= 2.5s, INP <= 200ms, CLS <= 0.1 (Lighthouse score >= 95), initial JS bundle < 200KB gzipped; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -372,4 +382,4 @@ Panduan ahli untuk mengukur, mendiagnosis, dan mengoptimalkan performa aplikasi 
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec performance-web-vitals <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | LCP <= 2.5 detik, INP <= 200ms, CLS <= 0.1 (skor Lighthouse >= 95), initial JS bundle < 200KB gzipped; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

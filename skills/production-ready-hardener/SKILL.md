@@ -312,6 +312,16 @@ Active whenever the user asks to:
 3. Ensure an application is secure, performant, and robust before going live.
 4. Perform a comprehensive quality audit across frontend, backend, and infrastructure.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Blocker / Critical Issue Deployment Gate**:
+   - Production deployments MUST be blocked if the overall readiness score is $<95$ or if any P0 / Critical issue exists in `PRODUCTION_READINESS_REPORT.md`. Deploying with unresolved critical security or reliability defects is strictly prohibited.
+2. **Mandatory Strict Anti-Slop Audit Verification**:
+   - Every candidate release build MUST pass `node scripts/check-anti-slop.js --strict` with 0 errors and 0 warnings. The presence of unfinished stubs, debug logs, or placeholder tokens in production code is prohibited.
+3. **Mandatory Health & Readiness Probe Endpoints**:
+   - Backend services MUST expose deterministic `/healthz` (liveness) and `/readyz` (readiness) HTTP endpoints returning explicit JSON health status with database connectivity verification.
+4. **Zero Unscrubbed Exception Leaks to Clients**:
+   - Production error handlers MUST redact internal stack traces, database schema details, and environment credentials from client responses, emitting standardized error envelopes with correlation request IDs.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -319,7 +329,7 @@ Active whenever the user asks to:
 | **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec production-ready-hardener <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Production readiness score >= 95/100, 0 P0/Critical issues, 100% passing strict anti-slop check (0 placeholders), /healthz and /readyz probes verified; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -493,4 +503,4 @@ Aktif setiap kali pengguna meminta untuk:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec production-ready-hardener <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Skor kesiapan produksi >= 95/100, 0 isu P0/Kritis, 100% lolos pemeriksaan anti-slop ketat (0 placeholder), probe /healthz dan /readyz terverifikasi; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

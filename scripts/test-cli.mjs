@@ -2321,6 +2321,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG13 = [
+      'fullstack-expert', 'typescript-expert', 'openapi-swagger-codegen-expert',
+      'payment-gateway-expert', 'pdf-document-generation-expert', 'performance-web-vitals',
+      'production-ready-hardener', 'rich-text-editor-expert', 'scalability-clean-code', 'seo'
+    ];
+    for (const skill of deepenedG13) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2489,6 +2498,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'headless-cms-expert', code: 'export async function POST(req) { await revalidateTag("articles"); return Response.json({ ok: true }); }' }, 'HEADLESS_CMS_UNPROTECTED_REVALIDATE_ROUTE');
     await expectViolation({ skill: 'htmx-hypermedia-expert', code: '<button hx-post="/api/delete-account">Delete</button>' }, 'HTMX_STATE_MUTATION_MISSING_CSRF');
     await expectViolation({ skill: 'js-backend-expert', code: 'app.post("/api/users", async (req, res) => {\n  const user = req.body;\n  await save(user);\n});' }, 'JS_BACKEND_UNHANDLED_RAW_BODY_ACCESS');
+
+    // Wave 13 (Gelombang 13) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'fullstack-expert', code: 'export async function createUser(input: any) { await db.insert(users).values(input); }' }, 'FULLSTACK_UNVALIDATED_CLIENT_INPUT_PERSISTENCE');
+    await expectViolation({ skill: 'typescript-expert', code: '// @ts-ignore\nconst x: number = "bad";' }, 'TS_EXPERT_PROHIBITED_TS_IGNORE');
+    await expectViolation({ skill: 'openapi-swagger-codegen-expert', code: '/users:\n  get:\n    summary: List users\n' }, 'OPENAPI_OPERATION_MISSING_OPERATION_ID');
+    await expectViolation({ skill: 'payment-gateway-expert', code: 'const body = await req.json();\nconst event = stripe.webhooks.constructEvent(body, sig, secret);' }, 'PAYMENT_PARSED_BODY_BEFORE_SIGNATURE');
+    await expectViolation({ skill: 'pdf-document-generation-expert', code: 'fs.writeFileSync("/tmp/report.pdf", buffer);' }, 'PDF_TEMPORARY_DISK_WRITE_SPILL');
+    await expectViolation({ skill: 'performance-web-vitals', code: '<Image src="/hero.png" alt="hero image" loading="lazy" />' }, 'PERF_VITALS_LAZY_LOADED_HERO_IMAGE');
+    await expectViolation({ skill: 'production-ready-hardener', code: 'console.log("DEBUG: token is", token);' }, 'HARDENER_PRODUCTION_CONSOLE_LOG_LEAK');
+    await expectViolation({ skill: 'rich-text-editor-expert', code: '<div dangerouslySetInnerHTML={{ __html: userPost.content }} />' }, 'RICH_TEXT_UNSANITIZED_DANGEROUSLY_SET_INNER_HTML');
+    await expectViolation({ skill: 'scalability-clean-code', code: 'function processTransaction(id: string, amount: number, sender: string, receiver: string, memo: string) {}' }, 'CLEAN_CODE_EXCESSIVE_METHOD_PARAMS');
+    await expectViolation({ skill: 'seo', code: '<h1>Title One</h1>\n<div>content</div>\n<h1>Title Two</h1>' }, 'SEO_MULTIPLE_OR_MISSING_H1');
   });
 });
 

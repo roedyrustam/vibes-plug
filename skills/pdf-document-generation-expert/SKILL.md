@@ -148,6 +148,16 @@ export async function generateInvoicePdfBuffer(invoice: InvoiceData): Promise<Bu
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **In-Memory Streaming Buffer Invariant (Zero Temporary Disk Spills)**:
+   - Serverless PDF generation routines MUST stream directly to in-memory buffers (`renderToBuffer()`) or HTTP response streams. Writing unmanaged temporary PDF files to local disk paths (`/tmp/invoice.pdf`) that leak storage and cause container bloat is strictly prohibited.
+2. **Deterministic Font Registration & Embedding**:
+   - Custom fonts used in `@react-pdf/renderer` MUST be explicitly registered via `Font.register()` with local static assets or bundled font files. Relying on remote unauthenticated HTTP font downloads during request execution is prohibited.
+3. **Tabular Numerals for Financial Data Alignment**:
+   - Monetary totals, invoice line items, and financial tables MUST declare tabular numeric styling to prevent jagged column misalignments and formatting drift.
+4. **Strict Document Access Authorization Gate**:
+   - PDF generation endpoints serving sensitive user documents (invoices, receipts, tax statements) MUST verify authentication and tenant isolation prior to rendering (`WHERE tenant_id = current_tenant`). Unauthenticated public access to invoice endpoints is strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -155,7 +165,7 @@ export async function generateInvoicePdfBuffer(invoice: InvoiceData): Promise<Bu
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec pdf-document-generation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | PDF generation latency < 600ms, 100% in-memory buffer streaming (0 disk writes), 100% tenant authorization on document endpoints; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -221,4 +231,4 @@ export async function GET(request: Request, { params }: { params: { id: string }
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec pdf-document-generation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi generasi PDF < 600ms, 100% streaming buffer in-memory (0 penulisan disk), 100% otorisasi tenant pada endpoint dokumen; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

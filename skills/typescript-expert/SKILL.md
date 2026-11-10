@@ -303,6 +303,16 @@ const config = {
 config.port.toFixed(2); // Works! Literal type preserved.
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Type Checking & Ban on `any` / `@ts-ignore`**:
+   - Production codebases MUST enable `"strict": true` in `tsconfig.json`. Usage of `as any`, untyped `any` signatures, and suppressing errors with `// @ts-ignore` is strictly prohibited; developers must use `unknown` with narrowing or `// @ts-expect-error` with an actionable issue justification.
+2. **Explicit Type Annotation on Exported Signatures**:
+   - Publicly exported functions, classes, and composite monorepo module boundaries MUST declare explicit return types and parameter types (`isolatedDeclarations: true`). Relying on unexported circular inference across package boundaries is strictly prohibited.
+3. **Branded Types for Incompatible Domain Identifiers**:
+   - Strongly typed entities MUST use branded types (e.g., `type UserId = string & { readonly __brand: unique symbol }`) for primary keys and monetary units to prevent catastrophic argument swapping at call sites.
+4. **Deterministic Runtime Boundary Validation via Zod/ArkType**:
+   - External inputs crossing process boundaries (HTTP payloads, environment variables, message queues) MUST NOT be cast directly with `as Type`. They MUST be parsed via schema validators (`schema.parse()`) inferring compile-time types.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -310,7 +320,7 @@ config.port.toFixed(2); // Works! Literal type preserved.
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec typescript-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% strict TypeScript compilation (tsc --noEmit with 0 errors), 0 occurrences of "as any" / "@ts-ignore", 100% runtime schema validation at boundaries; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -358,4 +368,4 @@ Panduan TypeScript level ahli mencakup sistem tipe tingkat lanjut, penerapan str
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec typescript-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% kompilasi TypeScript strict (tsc --noEmit dengan 0 error), 0 kemunculan "as any" / "@ts-ignore", 100% validasi skema runtime di batas sistem; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
