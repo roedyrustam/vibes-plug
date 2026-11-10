@@ -179,6 +179,38 @@ import { ViewTransitions } from 'astro:transitions';
 </UserGreeting>
 ```
 
+#### 6. Astro 5 `ClientRouter` Parallel Curtain Transition Adapter (`src/engine/astro.ts`)
+When pairing Astro's `<ClientRouter fallback="swap" />` with a GSAP + Lenis + OGL motion engine, override `event.loader` inside `astro:before-preparation` so the exit animation (`leave()`) and network fetch (`originalLoader()`) execute **in parallel** via `Promise.all`, while persistent chrome (`#gl`, `#curtain`, `#cursor`) uses `transition:persist`:
+
+```typescript
+// src/engine/astro.ts — Parallel Leave + Network Fetch for Astro ClientRouter
+import { boot, leave, cleanup, enter } from './index';
+
+let initialized = false;
+
+export function mountAstroEngine(): void {
+  if (typeof window === 'undefined' || initialized) return;
+  initialized = true;
+
+  void boot();
+
+  document.addEventListener('astro:before-preparation', (event: any) => {
+    const originalLoader = event.loader;
+    event.loader = async () => {
+      await Promise.all([leave(), originalLoader()]);
+    };
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    cleanup();
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    enter({ transition: true, scrollTop: true });
+  });
+}
+```
+
 ### Production Checklist
 - [ ] Content Collections with strict Zod schemas.
 - [ ] Sitemap integration enabled (`@astrojs/sitemap`).
@@ -376,6 +408,12 @@ import WidgetProfilPengguna from '../components/WidgetProfilPengguna.astro';
   </aside>
 </div>
 ```
+
+#### 6. Adapter Transisi Paralel `ClientRouter` Astro 5 (`src/engine/astro.ts`)
+Saat memadukan `<ClientRouter fallback="swap" />` di Astro 5 dengan mesin gerak GSAP + Lenis + WebGL:
+- Gunakan `transition:persist` dan `transition:animate="none"` pada elemen global `#gl`, `#curtain`, dan `#cursor`.
+- Di dalam event `astro:before-preparation`, bungkus `event.loader` dengan `await Promise.all([leave(), originalLoader()])` agar animasi tirai penutup berjalan **paralel** dengan pengunduhan HTML halaman berikutnya (tanpa jeda tunggu ganda).
+- Panggil `cleanup()` pada `astro:before-swap` dan `enter({ transition: true, scrollTop: true })` pada `astro:after-swap`.
 
 ### Checklist Kesiapan Produksi Astro
 - [ ] Validasi skema Zod ketat pada seluruh Content Collections.

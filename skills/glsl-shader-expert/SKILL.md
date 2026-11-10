@@ -206,6 +206,80 @@ export async function initBabylonNodeAndCompute(scene: Scene, targetMesh: Mesh) 
    - Never compute values in the fragment shader (millions of pixels) that are constant across the mesh or linear across vertices.
    - Move matrix inversions, static lighting directions, or uniform transformations to the CPU or Vertex stage.
 
+---
+
+### 5. Procedural Editorial Shaders (`data-gl="procedural"` FBM Cover Art & Organic `revealMask`)
+
+When building editorial cards, case-study covers, or full-bleed scroll stages without external stock photography, use a seeded **5-Octave Domain-Warped FBM + Film Grain** fragment shader and an organic noise **Reveal Mask**:
+
+```glsl
+precision highp float;
+varying vec2 vUv;
+uniform float uTime;
+uniform float uSeed;
+uniform float uProgress;
+uniform float uHover;
+uniform vec3 uGround;
+uniform vec3 uInk;
+uniform vec3 uAccent;
+
+float hash(vec2 p) {
+  return fract(sin(dot(p + uSeed, vec2(127.1, 311.7))) * 43758.5453123);
+}
+
+float noise(vec2 p) {
+  vec2 i = floor(p);
+  vec2 f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(
+    mix(hash(i + vec2(0.0, 0.0)), hash(i + vec2(1.0, 0.0)), u.x),
+    mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+    u.y
+  );
+}
+
+float fbm(vec2 p) {
+  float v = 0.0;
+  float a = 0.5;
+  mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+  for (int i = 0; i < 5; i++) {
+    v += a * noise(p);
+    p = rot * p * 2.02 + vec2(1.7, 9.2);
+    a *= 0.5;
+  }
+  return v;
+}
+
+/**
+ * Organic noise-edge reveal mask (uProgress: 0 -> 1)
+ */
+float revealMask(vec2 uv, float progress) {
+  float n = fbm(uv * 3.5) * 0.18;
+  float edge = (1.0 - uv.y) - (progress * 1.25 - 0.12) + n;
+  return 1.0 - smoothstep(-0.04, 0.04, edge);
+}
+
+void main() {
+  vec2 p = vUv * 2.4;
+  vec2 q = vec2(fbm(p + 0.08 * uTime), fbm(p + vec2(1.0)));
+  vec2 r = vec2(
+    fbm(p + 1.8 * q + vec2(1.7, 9.2) + 0.12 * uTime),
+    fbm(p + 1.8 * q + vec2(8.3, 2.8) + 0.09 * uTime)
+  );
+  float f = fbm(p + r * (1.0 + 0.35 * uHover));
+
+  vec3 col = mix(uGround, uInk, smoothstep(0.15, 0.85, f));
+  col = mix(col, uAccent, smoothstep(0.62, 0.92, length(r)) * 0.55);
+
+  // Tactile analog film grain
+  float grain = (hash(vUv * 800.0 + fract(uTime)) - 0.5) * 0.045;
+  col += grain;
+
+  float alpha = revealMask(vUv, uProgress);
+  gl_FragColor = vec4(col, alpha);
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -291,6 +365,10 @@ Aktifkan skill ini ketika pengguna:
      return { nodeMaterial, computeShader };
    }
    ```
+
+6. **Shader Editorial Prosedural (`data-gl="procedural"` FBM 5-Oktaf & `revealMask` Organik)**:
+   - Gunakan *Domain-Warped Fractional Brownian Motion* (5 oktaf dengan matriks rotasi) yang dipadukan dengan *film grain* analog (`0.045`) dan seragam `uSeed` unik per kartu untuk menghasilkan sampul karya generatif berkarakter tinggi tanpa bergantung pada foto stok eksternal.
+   - Gunakan fungsi `revealMask(uv, uProgress)` berbasis tepi *noise* organik saat plane masuk ke viewport, bukan sekadar *fade* opasitas linear.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

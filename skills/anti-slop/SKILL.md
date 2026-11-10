@@ -595,6 +595,19 @@ export function handleMcpCheckContrast(args: { foreground: string; background: s
 ```
 
 ---
+
+### Sub-Discipline 4: Awwwards Anti-Genericness & Real-Build Bug Prevention Rules (R-41 to R-48)
+Derived from empirical Awwwards Jury audits (`shoot.mjs` + `audit.mjs`), every production frontend must pass these 8 zero-tolerance craft gates:
+- **R-41 (Zero Repeated Copy Across Sections)**: Never repeat a thesis sentence, tagline, or paragraph across two sections on the same page, or reuse the same thumbnail asset twice (`duplicateImages === 0`).
+- **R-42 (Accessible Split/Ghost Headings)**: Never place decorative duplicate text (ghost echoes, outline clones, kinetic shadow layers) inside `<h1>–<h3>` tags where screen readers read the heading twice (`" KOBO — KOBO"`). Place decorative clones in a sibling `<span aria-hidden="true">` outside the heading tag.
+- **R-43 (Zero Device-Mismatched Copy)**: Never render `"Hover to explore"`, `"Move cursor"`, or `"Click to drag"` statically to touch users. Gate pointer copy behind `@media (hover: hover) and (pointer: fine)` or swap copy dynamically on `pointer: coarse`.
+- **R-44 (Ban `colorOnly` Hover on Primary Targets)**: Primary interactive targets (CTAs, nav links, work cards, index rows) must never rely on a bare CSS `color` change on hover (`colorOnly === false`). Use directional fill, letter-roll, underline draw, or cursor preview.
+- **R-45 (Ban Portfolio & Editorial AI-Tells)**: Ban the phrases *"where X meets Y"*, *"not just X, but Y"*, *"crafting digital experiences"*, *"at the intersection of"*, *"elevate/empower/unleash/seamless"*, and *"Scroll to explore"*. Ban reflex AI display fonts (*Fraunces*, *Instrument Serif*, *Playfair Display*) unless explicitly requested.
+- **R-46 (Zero `glHidden` WebGL Plane Occlusion)**: When syncing DOM `<figure data-gl>` elements to a fixed `#gl` background canvas (`z-index: 0`), enforce `.gl-on [data-gl] { background: none !important }` so an opaque placeholder background never hides the WebGL plane behind it (`glHidden.length === 0`).
+- **R-47 (Pre-Paint Motion Gate & Reduced-Motion Safety)**: Gate initial reveal hiding behind `html.js.motion [data-reveal]` added by a synchronous `<head>` script so disabled JS or `prefers-reduced-motion: reduce` never strands text at `opacity: 0` (`reduced.hiddenText === 0`).
+- **R-48 (Hard Production Asset & Loader Budgets)**: Total gzipped JS `< 300 KB`, self-hosted `.woff2` fonts `< 300 KB` (max 3 weights), initial page transfer `< 3 MB`, and loader duration capped at `<= 2.6s` (`loaderMs <= 2600`).
+
+---
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
 | **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
@@ -751,7 +764,7 @@ Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
 
 Sebelum menyelesaikan tugas coding atau UI, Anda **WAJIB** menyertakan 4 blok laporan ini:
 1. **Konfirmasi Dial & Archetype**: Nama archetype dan nilai dial (ENERGY/RHYTHM/MOTION).
-2. **Checklist Kepatuhan 38 Aturan**: Evaluasi PASS/FAIL pada Hard Gate, Purpose-Gate, dan Quality Locks.
+2. **Checklist Kepatuhan 48 Aturan (R-01 s/d R-48)**: Evaluasi PASS/FAIL pada Hard Gate, Purpose-Gate, Quality Locks, dan Aturan Anti-Generik Awwwards (R-41: nol duplikasi kalimat/gambar antarseksi; R-42: teks dekoratif di luar `<h1-h3>` dengan `aria-hidden="true"`; R-43: salinan teks sesuai perangkat sentuh/kursor; R-44: larangan hover `colorOnly` pada elemen utama; R-45: larangan frasa & font klise AI; R-46: bebas `glHidden` pada kanvas WebGL; R-47: keamanan `prefers-reduced-motion`; R-48: anggaran JS `< 300KB`, font `.woff2 < 300KB`, loader `<= 2.6s`).
 3. **Bukti Click-Through Elemen Interaktif (R-35)**: Daftar elemen yang telah dicoba langsung beserta perilakunya.
 4. **Keputusan Akhir (Verdict)**: PASS atau FAIL.
 

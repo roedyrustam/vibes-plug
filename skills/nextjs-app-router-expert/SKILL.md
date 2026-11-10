@@ -255,6 +255,76 @@ async function fetchLiveMetrics() {
 }
 ```
 
+#### 6. Zero-Latency Curtain / FLIP Page Transition Provider (`src/engine/next.tsx`)
+Next.js App Router lacks an async `before-navigate` hook by default. To run seamless Awwwards curtain/FLIP transitions where the exit animation (`leave()`) overlaps in parallel with `router.prefetch()`, mount a document-level **capture-phase click interceptor** paired with `usePathname()`:
+
+```tsx
+// src/engine/next.tsx — App Router Single-Clock Motion & Parallel Transition Provider
+'use client';
+
+import { useEffect, useRef, type ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { boot, leave, cleanup, enter } from './index';
+
+export function EngineProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const booted = useRef(false);
+  const transitioning = useRef(false);
+
+  // 1. Boot engine once on initial mount
+  useEffect(() => {
+    if (booted.current) return;
+    booted.current = true;
+    void boot();
+  }, []);
+
+  // 2. Re-enter whenever pathname changes after navigation
+  useEffect(() => {
+    if (!booted.current || !transitioning.current) return;
+    transitioning.current = false;
+    cleanup();
+    requestAnimationFrame(() => {
+      enter({ transition: true, scrollTop: true });
+    });
+  }, [pathname]);
+
+  // 3. Intercept internal link clicks in capture phase: prefetch + leave() in parallel
+  useEffect(() => {
+    const onClick = async (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const anchor = (e.target as HTMLElement | null)?.closest('a');
+      if (!anchor || anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+      const url = new URL(href, window.location.origin);
+      if (url.origin !== window.location.origin || url.pathname === window.location.pathname) return;
+
+      e.preventDefault();
+      if (transitioning.current) return;
+      transitioning.current = true;
+
+      router.prefetch(url.pathname + url.search);
+      await leave();
+      router.push(url.pathname + url.search);
+    };
+
+    document.addEventListener('click', onClick, { capture: true });
+    return () => document.removeEventListener('click', onClick, { capture: true });
+  }, [router]);
+
+  return (
+    <>
+      <div id="curtain" aria-hidden="true" className="fixed inset-0 z-50 pointer-events-none scale-y-0 bg-neutral-950" />
+      <canvas id="gl" aria-hidden="true" className="fixed inset-0 z-0 pointer-events-none" />
+      {children}
+    </>
+  );
+}
+```
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -496,6 +566,11 @@ async function ambilMetrikSistem() {
   ];
 }
 ```
+
+#### 6. Provider Transisi Halaman Curtain / FLIP Tanpa Latensi (`src/engine/next.tsx`)
+Karena Next.js App Router tidak menyediakan hook `before-navigate` asinkron bawaan, pasang pendengar klik pada fase *capture* (`document.addEventListener('click', onClick, { capture: true })`) di dalam `EngineProvider`:
+- Saat tautan internal diklik, jalankan `router.prefetch(url.pathname)` secara paralel bersama animasi tirai keluar `await leave()`, lalu panggil `router.push()`.
+- Saat `usePathname()` mendeteksi perubahan rute baru, jalankan `cleanup()` (`ctx.revert()`) diikuti `enter({ transition: true, scrollTop: true })` di dalam `requestAnimationFrame`.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

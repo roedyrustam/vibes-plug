@@ -226,6 +226,54 @@ test.describe('Automated Visual UI Quality Gate', () => {
 });
 ```
 
+---
+
+#### Blueprint 3: Blind Awwwards Jury Evaluation Protocol (`/jury`) & Automated Browser QA CLI
+Self-grading is systematically optimistic by **1.5–2.5 points** when an agent knows its own `DESIGN.md` intent. To evaluate a site like an independent Awwwards jury panel, pair the standalone zero-config browser scripts in `skills/visual-ui-auditor/scripts/` with a **Blind Critic Subagent** that receives **ONLY** captured screenshots and telemetry (`report.json`, `summary.json`, `audit.txt`)—never `DESIGN.md` or source code.
+
+##### 1. Standalone Browser QA & Asset Pipeline Commands
+```bash
+# 1. Multi-route viewport sweep, hover pixel-diff, mobile 4x CPU + slow 4G, keyboard & reduced-motion
+node skills/visual-ui-auditor/scripts/shoot.mjs http://localhost:4321 --out .shots --crawl --nav
+
+# 2. Structural DOM, Typography, SEO, Contrast, Perf & A11y Audit
+node skills/visual-ui-auditor/scripts/audit.mjs http://localhost:4321 > .shots/audit.txt
+
+# 3. Deterministic 1200x630 Open Graph Card from live hero (--og mode)
+node skills/visual-ui-auditor/scripts/og.mjs http://localhost:4321 public/og.png
+
+# 4. Self-host curated variable fonts (.woff2) & generate responsive AVIF/WebP photo sets
+node skills/visual-ui-auditor/scripts/font.mjs "Syne:700,800" "Plus Jakarta Sans:400,500" --out public/fonts
+node skills/visual-ui-auditor/scripts/photos.mjs "brutalist concrete architecture" --count 6 --out public/images
+```
+
+##### 2. Awwwards Weighted Jury Rubric & Empirical Calibration
+- **Weighted Overall Formula**:
+  $$\text{Overall} = 0.4 \times \text{Design} + 0.3 \times \text{Usability} + 0.2 \times \text{Creativity} + 0.1 \times \text{Content}$$
+- **6 Developer Award Criteria** (unweighted average `Dev Avg` for Developer Award eligibility):
+  1. **Semantics / SEO**: Valid landmarks (`<header>`, `<main>`, `<footer>`), one `<h1>` per page, decorative split-text marked `aria-hidden="true"` outside headings, complete JSON-LD + OG tags.
+  2. **Animations / Transitions**: Single-clock `gsap.ticker` + Lenis, real-progress loader (`loaderMs <= 2600`), idle motion (`idleMotion: true`), seamless page curtain/FLIP transitions.
+  3. **Accessibility**: Zero `axe-core` critical/serious violations, `reduced.hiddenText === 0` under `prefers-reduced-motion: reduce`, visible `:focus-visible` outlines (`k-01-focus.png`).
+  4. **WPO (Web Performance)**: `CLS < 0.05`, throttled mobile `FCP < 1.8s`, JS `< 300 KB` gz, self-hosted `.woff2 < 300 KB`, zero console/page errors.
+  5. **Responsive**: Zero horizontal overflow at `1440x900`, `768x1024`, and `390x844`; mobile re-composed for vertical rhythm (no `auto 1fr auto` mid-page holes).
+  6. **Markup / Meta-data**: Clean DOM without `glHidden` opaque WebGL covers (`glHidden.length === 0`), valid `robots.txt` and `sitemap.xml`.
+- **Empirical Calibration Offset**: Because the Blind Critic starts at **6.0 / 10** and requires cited screenshot/telemetry evidence for every point above 6, calibrate against live Awwwards jury scores via:
+  $$\text{Estimated Live Jury Score} = \text{Critic Overall} + 1.1$$
+  - **< 6.5**: Below nomination bar
+  - **6.5 – 7.1**: **Honorable Mention (HM)** territory
+  - **7.2 – 7.9**: **Site of the Day (SOTD)** contender (Target: Critic raw `>= 7.5`, every category `>= 7.0`, Dev Avg `>= 7.5`)
+  - **8.0+**: **Site of the Month (SOTM)** contender
+
+##### 3. Critical `shoot.mjs` Telemetry Signals (`report.json` / `summary.json`)
+| Telemetry Field | Pass Requirement | Failure Diagnosis |
+| :--- | :--- | :--- |
+| `settledMs` & `loaderMs` | `settledMs < 2200`, `loaderMs <= 2600` | Loader cap exceeded or reveal timeline hung above the fold |
+| `idleMotion` (`d-00-settled` vs `d-00-after1s`) | `true` (`changedRatio > 0.002`) | Hero is dead/static when user stops scrolling; missing `startIdle()` |
+| `hoverDiffs` (`h-NN-rest` vs `h-NN-hover`) | `pct > 0.5%`, `colorOnly: false` on primary targets | `noHoverChange` or lazy bare text-color swap on primary CTA/nav/work card |
+| `glHidden` | `[]` (0 elements) | `[data-gl]` figure has opaque CSS `background` covering `#gl` canvas behind it |
+| `reduced.hiddenText` | `0` | Elements stuck at `opacity: 0` when `prefers-reduced-motion: reduce` is active |
+| `mobile.throttled.blankAt1s` | `false` (`lumaStd > 3`) | Mobile throttled view (4x CPU + slow 4G) renders blank screen at `t = 1.0s` |
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -402,6 +450,20 @@ export class VisualUiAuditorId {
 3. **Patuhi Batas Skor Minimum 90**: Tolak kode yang memiliki skor visual < 90 atau melanggar aturan border 1px dan larangan tombol pil.
 4. **Pencegahan CLS & Media**: Selalu sediakan rasio aspek (`aspect-video` atau dimensi eksplisit) pada seluruh tag gambar untuk memenuhi aturan R-40.
 5. **Protokol Fallback Ketersediaan**: Jika Gemini 4 Pro Vision belum terpasang atau mengalami pembatasan kuota, audit visual dialihkan secara otomatis ke Gemini 3.8 Flash Vision tanpa menghentikan pipeline CI.
+
+---
+
+### Protokol Juri Buta Awwwards (`/jury`) & CLI QA Browser Mandiri
+Penilaian mandiri (*self-grading*) oleh agen yang membaca `DESIGN.md` miliknya sendiri terbukti bias optimis sebesar **1.5–2.5 poin**. Untuk mengaudit situs secara objektif setara panel juri Awwwards, jalankan skrip QA mandiri di `skills/visual-ui-auditor/scripts/` lalu serahkan hasilnya ke **Subagen Kritikus Buta (*Blind Critic*)** yang **HANYA** menerima tangkapan layar `.shots/` dan laporan telemetri (`report.json`, `summary.json`, `audit.txt`) tanpa akses ke `DESIGN.md` maupun kode sumber.
+
+1. **Perintah Eksekusi Pipeline QA & Aset Mandiri**:
+   - `node skills/visual-ui-auditor/scripts/shoot.mjs http://localhost:4321 --out .shots --crawl --nav`: Tangkapan layar seluruh rute pada viewport desktop (`1440x900`), tablet (`768x1024`), dan mobile (`390x844` dengan throttling CPU 4x + jaringan 4G lambat), uji *pixel-diff* status hover (`h-NN-rest` vs `h-NN-hover`), uji fokus keyboard (`k-01-focus.png`), dan uji `prefers-reduced-motion` (`r-00.png`).
+   - `node skills/visual-ui-auditor/scripts/audit.mjs http://localhost:4321 > .shots/audit.txt`: Audit struktural DOM, skala tipografi, kontras WCAG, SEO, serta pelanggaran `axe-core`.
+   - `node skills/visual-ui-auditor/scripts/og.mjs http://localhost:4321 public/og.png`: Render kartu Open Graph `1200x630` langsung dari hero halaman aktif (`?og`).
+   - `node skills/visual-ui-auditor/scripts/font.mjs` & `photos.mjs`: Unduh font variabel kurasi (`.woff2` self-hosted) dan hasilkan set foto responsif AVIF/WebP (`640w`, `1280w`, `1920w`).
+2. **Rumus Bobot Juri Awwwards & Kalibrasi**:
+   - **Skor Akhir Tertimbang**: `0.4 * Design + 0.3 * Usability + 0.2 * Creativity + 0.1 * Content` ditambah rata-rata 6 kriteria Developer (*Semantics/SEO, Animations/Transitions, Accessibility, WPO, Responsive, Markup/Meta-data*).
+   - **Kalibrasi Empiris**: `Estimasi Skor Juri = Skor Kritikus Buta + 1.1` (Honorable Mention: `6.5–7.1`, Site of the Day / SOTD: `7.2+`). Situs siap rilis wajib mencapai skor mentah Kritikus Buta `>= 7.5` dengan `glHidden: []`, `colorOnly: false` pada target utama, `reduced.hiddenText === 0`, dan `idleMotion: true`.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
