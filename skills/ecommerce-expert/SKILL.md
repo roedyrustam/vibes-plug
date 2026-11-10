@@ -145,6 +145,16 @@ export function ProductSchema({ product }: { product: any }) {
 - **`seo`**: Validates JSON-LD schema markup and Core Web Vitals compliance.
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `saas-billing`, `double-entry-ledger-fintech-expert`, `composable-mach-architect`
 
+### Hard Guardrails (Declarative Invariants)
+1. **Atomic Inventory Reservation (Zero Overselling)**:
+   - Inventory decrements during checkout MUST execute inside a database transaction with pessimistic row locking (`SELECT ... FOR UPDATE` or atomic conditional decrement `WHERE stock >= requested_quantity`).
+2. **Integer Minor Unit Currency Precision**:
+   - Product prices, taxes, shipping tariffs, and discounts MUST be represented as integer minor units (`priceCents` / integer rupiah). Never perform financial totals using IEEE 754 floating point arithmetic.
+3. **Automated SAGA Compensation on Expired Checkout Holds**:
+   - Stock holds placed during cart checkout MUST declare a TTL (e.g. 15 minutes). If payment is not completed before expiry, held units MUST be automatically released back to available inventory.
+4. **Mandatory Schema.org JSON-LD Structured Data**:
+   - Product detail pages MUST embed valid `schema.org/Product` and `Offer` JSON-LD metadata declaring `price`, `priceCurrency`, and canonical `availability` status (`InStock` / `OutOfStock`).
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -152,7 +162,7 @@ export function ProductSchema({ product }: { product: any }) {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ecommerce-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 Cart/Checkout Latency < 120ms, zero overselling on concurrent inventory reservations, 100% Schema.org Product compliance; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -228,4 +238,4 @@ export async function createDokuPaymentLink(order: { id: string; amount: number;
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ecommerce-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi P99 Keranjang/Checkout < 120ms, nol overselling pada reservasi stok konkuren, 100% kepatuhan Schema.org Product; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

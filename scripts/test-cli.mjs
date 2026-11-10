@@ -2285,6 +2285,15 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
     }
 
+    const deepenedG9 = [
+      'vector-db-rag-expert', 'frontier-ai-models-expert', 'ai-prompt-engineering-expert',
+      'context-window-engineer', 'llm-finops-router', 'design-system-architect',
+      'ui-ux-pro-max', 'browser-automation-expert', 'browser-extension-mv3-pro', 'ecommerce-expert'
+    ];
+    for (const skill of deepenedG9) {
+      assert.ok((SKILL_GUARD_RULES[skill] || []).length >= 2, `${skill} should expose >= 2 deterministic guard rules`);
+    }
+
     const expectViolation = async (params, ruleId) => {
       const res = await evaluateContextualSkillGuards(params);
       assert.ok(res.findings.some((f) => f.ruleId === ruleId), `Expected ${ruleId}, got ${res.findings.map((f) => f.ruleId).join(',') || 'none'}`);
@@ -2405,6 +2414,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'saas-architect', code: 'export async function GET(req) {\n  const path = "/super-admin/dashboard";\n  return serve(path);\n}' }, 'SAAS_SUPERADMIN_UNPROTECTED_SUBDOMAIN');
     await expectViolation({ skill: 'saas-multi-tenant', code: 'CREATE TABLE IF NOT EXISTS projects ( id UUID PRIMARY KEY, name TEXT NOT NULL );' }, 'SAAS_SHARED_TABLE_MISSING_TENANT_ID');
     await expectViolation({ skill: 'database-orm-expert', code: 'const users = await prisma.user.findMany({ skip: page * 20, take: 20 });' }, 'DB_DEEP_OFFSET_PAGINATION');
+
+    // Wave 9 (Gelombang 9) Deepened Skill Guardrail Assertions
+    await expectViolation({ skill: 'vector-db-rag-expert', code: 'const combinedScore = bm25Score + vectorScore;' }, 'VECTOR_RAG_NAIVE_SCORE_SUMMATION');
+    await expectViolation({ skill: 'frontier-ai-models-expert', code: 'const msg = await client.messages.create({ model: "claude-sonnet-5.5-20261022", thinking: { type: "enabled" } });' }, 'FRONTIER_AI_UNBOUNDED_REASONING_BUDGET');
+    await expectViolation({ skill: 'ai-prompt-engineering-expert', code: 'const params = { prompt: `System instructions.\nUser question: ${req.query.q}` };' }, 'PROMPT_ENG_UNENCLOSED_USER_VARIABLE');
+    await expectViolation({ skill: 'context-window-engineer', code: 'const req = { messages: [{ role: "system", content: entireCodebase }] };' }, 'CONTEXT_WINDOW_UNCHECKED_INJECTION');
+    await expectViolation({ skill: 'llm-finops-router', code: 'const res = await openai.chat.completions.create({ model: "gpt-5.6-sol", messages: [{ role: "user", content: "hi" }] });' }, 'FINOPS_UNTRACKED_MODEL_CALL');
+    await expectViolation({ skill: 'design-system-architect', code: '<div onClick={handleClick} className="btn-primary">Submit</div>' }, 'DESIGN_SYSTEM_DIV_AS_BUTTON');
+    await expectViolation({ skill: 'ui-ux-pro-max', code: '<div><Button variant="primary">Save</Button><Button variant="primary">Publish</Button></div>' }, 'UI_UX_MULTIPLE_PRIMARY_BUTTONS');
+    await expectViolation({ skill: 'browser-automation-expert', code: 'const browser = await chromium.launch(); await page.goto("https://example.com");' }, 'BROWSER_AUTOMATION_ORPHANED_BROWSER_INSTANCE');
+    await expectViolation({ skill: 'browser-extension-mv3-pro', code: 'const result = eval(codeString);' }, 'MV3_REMOTE_SCRIPT_OR_EVAL_USAGE');
+    await expectViolation({ skill: 'ecommerce-expert', code: 'await db.query("UPDATE products SET stock = stock - $1");' }, 'ECOMMERCE_UNPROTECTED_STOCK_DECREMENT');
   });
 });
 

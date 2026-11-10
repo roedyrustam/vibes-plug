@@ -566,6 +566,16 @@ export async function smartRoute(
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Graceful Degradation Over Hard Service Failure**:
+   - When daily budget caps are approached, the router MUST automatically degrade to ultra-efficient models (e.g. Gemini 3.8 Flash or Grok 4.6) rather than abruptly terminating user requests with unhandled 429/500 errors.
+2. **Immutable Per-Tenant & Agent Cost Allocation**:
+   - Every outbound LLM inference MUST record `tenantId`, `userId`, `model`, `inputTokens`, `outputTokens`, `cachedTokens`, and computed `costUSD` into a persistent telemetry store.
+3. **Semantic Cache Pre-Check on Deterministic Queries**:
+   - Repeatable or factual queries MUST check an in-memory/Redis vector semantic cache before routing to expensive frontier reasoning models, targeting >= 30% cache offload.
+4. **Automated Budget Alerting Thresholds (80% and 100%)**:
+   - Spend monitors MUST trigger immediate webhook alerts at 80% daily budget consumption, and enforce automatic model downgrade throttling at 100%.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -573,7 +583,7 @@ export async function smartRoute(
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec llm-finops-router <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | LLM spend reduction >= 40% vs unrouted baselines, semantic cache hit rate >= 25%, 100% telemetry accounting parity; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -695,4 +705,4 @@ Contoh implementasi TypeScript dan Python yang lengkap tersedia di [seksi Englis
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec llm-finops-router <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Penghematan biaya LLM >= 40% dibanding baseline tanpa routing, hit rate semantic cache >= 25%, 100% paritas pencatatan telemetri; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

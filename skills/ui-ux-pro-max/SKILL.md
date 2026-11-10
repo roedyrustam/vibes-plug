@@ -861,6 +861,16 @@ This generated image MUST be explicitly used as:
 
 Do not use placeholders for these assets. Generate and integrate them automatically.
 
+### Hard Guardrails (Declarative Invariants)
+1. **The Law of the Single Focal Primary Action**:
+   - Every viewport MUST feature at most ONE prominent Primary CTA button. All secondary and tertiary actions MUST render as outline, tonal, or subtle ghost styles to eliminate choice paralysis.
+2. **Tabular Numerals on Numerical Displays (`tabular-nums`)**:
+   - All financial amounts, metric counters, timestamps, latency gauges, and live statistics MUST declare `tabular-nums` (or CSS `font-variant-numeric: tabular-nums`) to prevent layout shifts during reactive updates.
+3. **Mandatory 5-State Interactive Styling & Keyboard Accessibility**:
+   - Every interactive element (`<button>`, `<a>`, `<input>`) MUST declare 5 explicit visual states: `default`, `hover`, `focus-visible` (with high-contrast `ring-2 ring-offset-2`), `active`, and `disabled`.
+4. **Physical Surface Elevation & 1px Crisp Borders**:
+   - Container cards and surfaces MUST combine 1px crisp borders (`border-neutral-200/80 dark:border-neutral-800`) with directional micro-shadows (`shadow-xs`/`shadow-sm`). Never use generic 30px blurry black glows or unanchored floating neon orbs.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |

@@ -147,6 +147,16 @@ Activate this skill when the user says:
 - **Pixel-Perfect Validation**: Compare the screenshot against the initial design spec or generic UI/UX best practices. Iterate on the CSS until the visual output is flawless.
 - Always check contrast ratios visually if design tokens are overridden.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Visual Verification Loop (Zero Blind CSS Guessing)**:
+   - UI styling modifications MUST capture viewport screenshots at standard breakpoints (375px mobile, 1280px desktop) and visually verify layout, alignment, and contrast before completing tasks.
+2. **Stealth Fingerprint Masking on External Automation**:
+   - Automation runners interacting with external domains MUST mask `navigator.webdriver`, configure realistic viewport dimensions, and inject organic Bezier cursor trajectories to prevent anti-bot IP blocks.
+3. **Structured Zod Schema Parsing on Extracted Data**:
+   - Web extraction routines using Stagehand or Playwright MUST validate scraped payloads against strict Zod schemas (`page.extract({ schema })`) rather than returning unvalidated raw strings.
+4. **Deterministic Browser Context Lifecycle & Cleanup**:
+   - Every automation execution MUST guarantee deterministic cleanup (`browser.close()` / `context.close()`) in a `finally` block to prevent orphaned Chromium processes and memory leaks.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -154,7 +164,7 @@ Activate this skill when the user says:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec browser-automation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Workflow completion rate >= 95%, visual diff tolerance <= 0.5%, zero orphaned browser processes; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -290,4 +300,4 @@ Skill ini memanfaatkan kemampuan *Vision* (penglihatan) bawaan AI untuk melakuka
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec browser-automation-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Tingkat keberhasilan workflow >= 95%, toleransi visual diff <= 0.5%, nol proses browser terlantar; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

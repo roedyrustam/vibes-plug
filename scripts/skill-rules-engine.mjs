@@ -1374,7 +1374,168 @@ export const SKILL_GUARD_RULES = Object.freeze({
       regex: /createSaaSApp\s*\(\s*\{(?![\s\S]{0,300}?\b(?:privacyPolicy|termsOfService|dataDeletion)\b)/,
       remediation: 'Implement the mandatory legal trio (/terms, /privacy, and /delete-account) required by UU PDP, GDPR Art. 17, and app store policies.'
     }
+  ],
+  'vector-db-rag-expert': [
+    {
+      id: 'VECTOR_RAG_NAIVE_SCORE_SUMMATION',
+      severity: 'WARN',
+      name: 'Naive Addition of BM25 Lexical and Vector Cosine Scores Without RRF',
+      regex: /\bbm25Score\s*\+\s*(?:vectorScore|cosineSimilarity)\b/,
+      remediation: 'Combine lexical and vector search scores using Reciprocal Rank Fusion (RRF: 1 / (60 + rank)) or normalized score distributions.'
+    },
+    {
+      id: 'VECTOR_RAG_MISSING_TENANT_ISOLATION',
+      severity: 'ERROR',
+      name: 'Vector Search Query Missing Tenant / Workspace Scope',
+      regex: /SELECT\s+[\s\S]+?FROM\s+(?:document_embeddings|vector_store|embeddings)[\s\S]{0,120}?(?![\s\S]{0,150}?\btenant_id\b)ORDER\s+BY/i,
+      remediation: 'Scope vector similarity queries with a tenant_id or workspace_id WHERE filter to prevent cross-tenant vector leakage.'
+    }
+  ],
+  'frontier-ai-models-expert': [
+    {
+      id: 'FRONTIER_AI_UNBOUNDED_REASONING_BUDGET',
+      severity: 'WARN',
+      name: 'Extended Thinking Enabled Without Explicit Budget Tokens Limit',
+      regex: /thinking\s*:\s*\{\s*type\s*:\s*['"]enabled['"]\s*\}(?![\s\S]{0,50}?\bbudget_tokens\b)/,
+      remediation: 'Specify budget_tokens when enabling extended thinking on frontier models (e.g. Claude Sonnet 5.5) to control latency and token costs.'
+    },
+    {
+      id: 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL',
+      severity: 'WARN',
+      name: 'Hardcoded Frontier Model Call Without Availability Fallback',
+      regex: /model\s*:\s*['"](?:gemini-4-argon|claude-opus-5\.5)['"](?![\s\S]{0,150}?\b(?:fallback|fallbackModel)\b)/,
+      remediation: 'Configure an explicit availability fallback (e.g. gemini-3.8-flash or claude-opus-4.6) for frontier models that may be unprovisioned.'
+    }
+  ],
+  'ai-prompt-engineering-expert': [
+    {
+      id: 'PROMPT_ENG_UNENCLOSED_USER_VARIABLE',
+      severity: 'WARN',
+      name: 'Untrusted User Variable Injected Without XML Structural Tag',
+      regex: /prompt\s*:\s*`[\s\S]{0,100}?User question:\s*\$\{[^}]+\}`/,
+      remediation: 'Enclose untrusted user inputs in explicit XML structural tags (<user_input>...</user_input>) and instruct the model to treat contents strictly as data.'
+    },
+    {
+      id: 'PROMPT_ENG_REGEX_JSON_EXTRACTION',
+      severity: 'WARN',
+      name: 'Brittle Regex Markdown Parsing Instead of Structured Output Schema',
+      regex: /JSON\.parse\s*\(\s*(?:text|res|response|output)\.match\s*\(\s*\/```json/,
+      remediation: 'Use native token-level grammar masks (response_format: { type: "json_schema" }) or structured tool calling rather than brittle regex markdown parsing.'
+    }
+  ],
+  'context-window-engineer': [
+    {
+      id: 'CONTEXT_WINDOW_UNCHECKED_INJECTION',
+      severity: 'ERROR',
+      name: 'Unchecked Bulk Codebase Dump in System Context Prompt',
+      regex: /messages\s*:\s*\[[\s\S]{0,60}?role\s*:\s*['"]system['"][\s\S]{0,60}?content\s*:\s*(?:entireCodebase|allFilesContent|rawRepoDump)\b/,
+      remediation: 'Do not dump unbounded raw file contents into system prompts; partition context into structured zones with relevance scoring and token budgets.'
+    },
+    {
+      id: 'CONTEXT_WINDOW_UNBOUNDED_HISTORY_APPEND',
+      severity: 'WARN',
+      name: 'Unbounded Conversation History Accumulation Without Sliding Window',
+      regex: /history\.push\s*\(\s*\{[\s\S]{0,50}?role[\s\S]{0,50}?content[\s\S]{0,50}?\}\s*\);(?![\s\S]{0,200}?(?:slice|prune|summarize|slidingWindow))/,
+      remediation: 'Apply a sliding window or summarization strategy before appending unbounded conversation turns to prevent context window exhaustion.'
+    }
+  ],
+  'llm-finops-router': [
+    {
+      id: 'FINOPS_UNTRACKED_MODEL_CALL',
+      severity: 'WARN',
+      name: 'Outbound LLM Call Executed Without Cost Telemetry Tracking',
+      regex: /\b(?:openai|anthropic|litellm)\.(?:chat\.completions|messages)\.create\s*\(\s*\{(?![\s\S]{0,250}?\b(?:trackAndCheckBudget|calculateCost|metadata|user_id)\b)/,
+      remediation: 'Record cost telemetry (user_id, model, tokens, costUSD) on all LLM calls and verify budget caps before dispatch.'
+    },
+    {
+      id: 'FINOPS_FLOAT_BUDGET_CALCULATION',
+      severity: 'WARN',
+      name: 'Financial Budget Accumulation Using Floating Point Arithmetic',
+      regex: /dailySpent\s*\+=\s*(?:parseFloat|Number)\s*\(/,
+      remediation: 'Track token budgets and financial expenses in minor units or using deterministic decimal arithmetic to prevent floating-point drift.'
+    }
+  ],
+  'design-system-architect': [
+    {
+      id: 'DESIGN_SYSTEM_DIV_AS_BUTTON',
+      severity: 'ERROR',
+      name: 'Generic <div> Used as Clickable Button Primitives',
+      regex: /<div\s+[^>]*onClick\s*=\s*\{[^}]+\}[^>]*className\s*=\s*['"][^'"]*btn/i,
+      remediation: 'Use semantic <button> or headless primitives (Base UI, Radix) instead of <div onClick> to guarantee keyboard focus, aria-disabled, and accessibility.'
+    },
+    {
+      id: 'DESIGN_SYSTEM_VIEWPORT_MEDIA_IN_COMPONENT',
+      severity: 'WARN',
+      name: 'Viewport @media Query Used for Component-Internal Styling',
+      regex: /@media\s*\(\s*min-width\s*:\s*\d+px\s*\)[\s\S]{0,100}?\.card/,
+      remediation: 'Use Container Queries (@container / @md:) instead of viewport @media queries for component-internal responsive layouts.'
+    }
+  ],
+  'ui-ux-pro-max': [
+    {
+      id: 'UI_UX_MULTIPLE_PRIMARY_BUTTONS',
+      severity: 'WARN',
+      name: 'Multiple Primary CTA Buttons in Single Viewport View',
+      regex: /<Button[^>]+variant=['"]primary['"][^>]*>[\s\S]{0,150}?<\/Button>[\s\S]{0,150}?<Button[^>]+variant=['"]primary['"][^>]*>/,
+      remediation: 'Limit to at most ONE Primary CTA button per view to prevent cognitive choice paralysis; secondary actions should use outline or tonal variants.'
+    },
+    {
+      id: 'UI_UX_METRIC_WITHOUT_TABULAR_NUMS',
+      severity: 'WARN',
+      name: 'Large Numeric KPI / Metric Display Missing tabular-nums',
+      regex: /<div\s+className=['"][^'"]*text-[2345]xl[^'"]*font-bold[^'"]*['"]>\s*\{?\s*(?:price|amount|balance|latency|count|metric)\b(?![\s\S]{0,60}?tabular-nums)/,
+      remediation: 'Declare tabular-nums on large metric displays and financial figures to prevent layout shift during state changes.'
+    }
+  ],
+  'browser-automation-expert': [
+    {
+      id: 'BROWSER_AUTOMATION_ORPHANED_BROWSER_INSTANCE',
+      severity: 'ERROR',
+      name: 'Browser Instance Launched Without Deterministic finally { close() }',
+      regex: /const\s+browser\s*=\s*await\s+(?:chromium|firefox|webkit|puppeteer)\.launch\s*\([^)]*\);(?![\s\S]{0,500}?\bfinally\s*\{[\s\S]{0,100}?browser\.close\(\))/,
+      remediation: 'Always close browser instances inside a finally block (finally { await browser.close(); }) to prevent memory leaks and zombie processes.'
+    },
+    {
+      id: 'BROWSER_AUTOMATION_RAW_STRING_EXTRACTION',
+      severity: 'WARN',
+      name: 'Web Data Extraction Without Strict Zod Schema Validation',
+      regex: /await\s+page\.extract\s*\(\s*\{(?![\s\S]{0,150}?\bschema\b)[\s\S]{0,150}?instruction\s*:/,
+      remediation: 'Provide a strict Zod schema in page.extract({ instruction, schema: z.object(...) }) to ensure structured type-safe extraction.'
+    }
+  ],
+  'browser-extension-mv3-pro': [
+    {
+      id: 'MV3_REMOTE_SCRIPT_OR_EVAL_USAGE',
+      severity: 'ERROR',
+      name: 'Dynamic Script Evaluation or Remote CDN Script in Manifest V3',
+      regex: /\beval\s*\(|new\s+Function\s*\(|https:\/\/(?:cdn|unpkg|cdnjs)\.com/i,
+      remediation: 'Manifest V3 strictly prohibits dynamic code execution (eval, new Function) and external CDN scripts. Bundle all dependencies locally.'
+    },
+    {
+      id: 'MV3_ASYNC_MESSAGE_MISSING_RETURN_TRUE',
+      severity: 'WARN',
+      name: 'Asynchronous Chrome Message Listener Missing "return true;"',
+      regex: /chrome\.runtime\.onMessage\.addListener\s*\(\s*(?:async\s*)?\([^)]*\)\s*=>\s*\{[\s\S]{0,300}?sendResponse\s*\([^)]*\);(?![\s\S]{0,100}?return\s+true\b)/,
+      remediation: 'Return true from chrome.runtime.onMessage listeners when handling responses asynchronously to keep the message channel open.'
+    }
+  ],
+  'ecommerce-expert': [
+    {
+      id: 'ECOMMERCE_UNPROTECTED_STOCK_DECREMENT',
+      severity: 'ERROR',
+      name: 'Unconditional Stock Decrement Without Available Quantity Check',
+      regex: /UPDATE\s+(?:products|inventory|variants)\s+SET\s+stock\s*=\s*stock\s*-\s*\$1(?![\s\S]{0,100}?WHERE[\s\S]{0,100}?stock\s*>=\s*\$1)/i,
+      remediation: 'Include an atomic condition (WHERE stock >= $1) or acquire a pessimistic row lock (SELECT ... FOR UPDATE) when decrementing inventory.'
+    },
+    {
+      id: 'ECOMMERCE_FLOAT_CURRENCY_OPERATION',
+      severity: 'WARN',
+      name: 'Cart Total Computed Using Floating Point Arithmetic',
+      regex: /(?:totalPrice|cartTotal|subtotal)\s*=\s*(?:parseFloat|Number)\s*\(/,
+      remediation: 'Compute shopping cart totals, shipping fees, and taxes using integer minor units (cents / sen) rather than floating-point numbers.'
+    }
   ]
+
 });
 
 /**

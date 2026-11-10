@@ -262,6 +262,16 @@ async function executeSandboxedBytecode(wasmBase64: string): Promise<number> {
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Global In-Memory State in Service Workers**:
+   - Manifest V3 background service workers terminate after ~30s of inactivity. Long-term state MUST be persisted in `chrome.storage.session` or `chrome.storage.local`. Never store mutable session state in global JS variables.
+2. **Strict Manifest V3 Content Security Policy (Zero Remote Scripting)**:
+   - Dynamic code execution via `eval()`, `new Function()`, or unvetted remote CDN scripts is strictly prohibited. All scripts and WASM assets MUST be packaged locally within the extension archive.
+3. **Dedicated Offscreen Documents for DOM / WASM Dependencies**:
+   - Any routine requiring DOM APIs, audio decoding, canvas manipulation, or WASM compilation MUST execute inside a dedicated `chrome.offscreen` document rather than attempting DOM access from background workers.
+4. **Asynchronous Listener Channel Retention (`return true;`)**:
+   - Message listeners (`chrome.runtime.onMessage`) that handle asynchronous promises MUST explicitly return `true;` to prevent premature port closure by the browser.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -269,7 +279,7 @@ async function executeSandboxedBytecode(wasmBase64: string): Promise<number> {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec browser-extension-mv3-pro <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Background worker cold start < 50ms, memory footprint < 30MB, zero CSP dynamic code violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -320,4 +330,4 @@ Panduan komprehensif untuk merekayasa ekstensi peramban modern berkinerja tinggi
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec browser-extension-mv3-pro <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Waktu inisialisasi cold start worker < 50ms, konsumsi memori < 30MB, nol pelanggaran CSP dynamic code; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
