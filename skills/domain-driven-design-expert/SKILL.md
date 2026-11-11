@@ -2,7 +2,7 @@
 name: domain-driven-design-expert
 description: "Domain-Driven Design (DDD), aggregates, bounded contexts, and CQRS / Desain Berbasis Domain (DDD), aggregate, bounded context, dan CQRS."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Domain-Driven Design (DDD) Expert (Strategic & Tactical 2026)

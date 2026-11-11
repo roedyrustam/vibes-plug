@@ -2,7 +2,7 @@
 name: prd-architect
 description: "Continuous PRD, ERD, and architectural documentation generation / Pembuatan dokumen PRD, ERD, dan arsitektur sistem secara kontinu."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 
 ---
 

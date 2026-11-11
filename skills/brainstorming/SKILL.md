@@ -2,7 +2,7 @@
 name: brainstorming
 description: "Master ideation protocol & architectural matrix before coding begins / Protokol ideasi utama & matriks arsitektur sebelum coding dimulai."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Brainstorming & Skill Orchestration Protocol

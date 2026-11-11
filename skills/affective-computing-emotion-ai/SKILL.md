@@ -2,7 +2,7 @@
 name: affective-computing-emotion-ai
 description: "Affective computing, emotion AI, and multimodal sentiment analysis / Komputasi afektif, AI emosional, dan analisis sentimen multimodal."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Affective Computing & Emotion AI (2026 Sovereign Edition)

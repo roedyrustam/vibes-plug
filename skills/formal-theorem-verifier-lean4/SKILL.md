@@ -2,7 +2,7 @@
 name: formal-theorem-verifier-lean4
 description: "Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating / Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Formal Theorem Verifier Lean 4 (Mathematical Zero-Hallucination Gate)

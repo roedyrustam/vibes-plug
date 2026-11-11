@@ -2,7 +2,7 @@
 name: ui-ux-pro-max
 description: "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # UI/UX Pro Max - Design Intelligence System

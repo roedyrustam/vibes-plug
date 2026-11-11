@@ -2,7 +2,7 @@
 name: neurosymbolic-genetic-synthesizer
 description: "Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Neurosymbolic Genetic Synthesizer (Quality-Diversity & FunSearch Engine)

@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.0] - 2026-11-11
+
+### Added / Ditambahkan
+- **100% Guarded Skills Ecosystem (178/178 Skills)**:
+  - Completed the 18-wave ecosystem hardening campaign, providing complete coverage across all 178 specialized skills with declarative invariants (*Hard Guardrails*) and domain Non-Functional Requirements (NFR) contracts in both English and Bahasa Indonesia.
+  - Built and codified `scripts/skill-rules-engine.mjs` with **356+ deterministic AST and regex guard rules** protecting codebases against architectural drift, concurrency bottlenecks, security antipatterns, and type safety erosion.
+  - Hardened final skills across Wave 18: `voice-ai-realtime-agent`, `web-game-engine-expert`, `web-scraper`, `website-design-cloner`, `wordpress-headless-expert`, `xerj-search-expert`, `zero-tech-debt-auditor`, and `zero-to-prod-orchestrator`.
+- **Universal Multi-IDE Cross-Platform Swarm Engine**:
+  - Full synchronization and automated activation for all major IDEs: Antigravity AGY (`rules/AGENTS.md`), Claude Code (`CLAUDE.md`, `.claude/rules/`), Cursor (`.cursorrules`, `.cursor/rules/`), OpenAI Codex (`CODEX.md`, `.codex/rules/`), Windsurf (`.windsurfrules`), Trae (`.traerules`), Kimi (`.kimirules`), and Kiro (`.kirorules`).
+  - Swarm Cockpit sidecar server (`sidecars/swarm-cockpit/`) for visual agent monitoring, real-time bus streaming, and zero-permission task dispatch.
+- **Sovereign Anti-Slop Directive v2.0**:
+  - 100% strict compliance across all 700 files with 0 errors and 0 warnings on `node scripts/check-anti-slop.js --strict`.
+  - Ban on placeholders (`// TODO`, `// ...`), synthetic marketing narration, unhandled error suppression, and unanchored AI slop gradients.
+
+### Changed / Diubah
+- Synchronized all 178 skill YAML frontmatters, agent manifests, and extension configs to version `4.8.0`.
+- Expanded CLI test suite (`scripts/test-cli.mjs`) to verify all 18 waves with 57/57 tests passing (100% pass rate).
+- Recompiled deterministic prompt cache prefix (`.cache-prefix.json`), AST symbol graph (`.agents/graph/symbol_graph.json`), and micro-slices (`.skill-slices.json`).
+- Updated package distribution and VS Code / Cursor companion extension builder to target v4.8.0.
+
+---
+
 ## [4.7.2] - 2026-11-10
 
 ### Added

@@ -2,7 +2,7 @@
 name: flutter-dart-expert
 description: "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Flutter & Dart Expert (Flutter 3.27 / Dart 3.7 Edition)

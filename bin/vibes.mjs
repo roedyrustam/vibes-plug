@@ -1538,7 +1538,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.7.2)
+🌊 Vibes-Plug CLI (v4.8.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:

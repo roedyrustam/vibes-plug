@@ -2,7 +2,7 @@
 name: visual-ui-auditor
 description: "Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Visual UI Auditor & Vision Quality Gate (2026 Sovereign Edition)

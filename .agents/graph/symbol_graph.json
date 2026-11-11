@@ -1,9 +1,9 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-10T21:11:55.957Z",
+  "generatedAt": "2026-11-11T06:31:19.569Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 92,
-  "incrementalReusedFiles": 91,
+  "incrementalReusedFiles": 88,
   "totalSymbolsIndexed": 525,
   "totalImportEdges": 313,
   "symbols": {
@@ -8189,7 +8189,7 @@
     "bin/mcp-server.mjs": {
       "totalLines": 2035,
       "symbolCount": 7,
-      "mtimeMs": 1794341297505,
+      "mtimeMs": 1794378610306,
       "size": 81645,
       "exports": [
         "getActiveProfile",
@@ -8473,7 +8473,7 @@
     "bin/vibes.mjs": {
       "totalLines": 2160,
       "symbolCount": 22,
-      "mtimeMs": 1794341297501,
+      "mtimeMs": 1794378610296,
       "size": 103201,
       "exports": [],
       "imports": [
@@ -14069,7 +14069,7 @@
     "scripts/studio-server.mjs": {
       "totalLines": 4874,
       "symbolCount": 8,
-      "mtimeMs": 1794341297511,
+      "mtimeMs": 1794378610314,
       "size": 201386,
       "exports": [
         "generateStudioHtml",
@@ -18293,7 +18293,7 @@
     "skills/visual-ui-auditor/scripts/audit.mjs": {
       "totalLines": 256,
       "symbolCount": 12,
-      "mtimeMs": 1794343356938,
+      "mtimeMs": 1794345187957,
       "size": 14920,
       "exports": [],
       "imports": [

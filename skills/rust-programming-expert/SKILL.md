@@ -2,7 +2,7 @@
 name: rust-programming-expert
 description: "Rust 2024 / v1.88+ memory safety, Brown Grounded Ownership & Permissions, async Axum, and zero-cost patterns / Pemrograman Rust modern: sistem izin kepemilikan Brown, async Axum, dan performa tinggi."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 
 ---
 

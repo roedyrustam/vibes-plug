@@ -2,7 +2,7 @@
 name: hig
 description: "Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency, Apple HIG 2026 & Material 3 / Panduan Desain Human Interface: Hierarki, Harmoni, Konsistensi, Apple HIG 2026 & Material 3."
 author: "Roedy Rustam"
-version: "4.7.2"
+version: "4.8.0"
 ---
 
 # Human Interface Guidelines (HIG) Expert (2026 Edition)
