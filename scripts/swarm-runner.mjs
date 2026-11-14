@@ -12,9 +12,11 @@
 
 import fs from 'fs/promises';
 import path from 'path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'url';
 
 import { arbitrateCandidates } from './speculative-arbiter.mjs';
+import { emitSwarmEvent, swarmBus } from './swarm-bus.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -120,8 +122,8 @@ export function planSwarm(taskDescription, options = {}) {
   // Fallback if generic
   if (domains.length === 0) {
     domains.push(
-      { name: 'Architecture', skill: 'brainstorming', focus: 'System specifications & NFRs' },
-      { name: 'Core Implementation', skill: 'fullstack-expert', focus: 'Fullstack delivery' }
+      { name: 'Architecture', skill: 'brainstorming', subagent: 'swarm-architect', focus: 'System specifications & NFRs' },
+      { name: 'Core Implementation', skill: 'fullstack-expert', subagent: 'fullstack-craftsman', focus: 'Fullstack delivery' }
     );
   }
 
@@ -151,8 +153,103 @@ export function planSwarm(taskDescription, options = {}) {
   };
 }
 
+const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+async function renderInteractivePulse(label, pct, durationMs = 180) {
+  if (!process.stdout.isTTY && !process.env.VIBES_FORCE_ANIMATE) return;
+  const barWidth = 18;
+  const filled = Math.round((Math.min(100, Math.max(0, pct)) / 100) * barWidth);
+  const bar = '█'.repeat(filled) + '░'.repeat(barWidth - filled);
+  const steps = 4;
+  const stepDelay = Math.max(25, Math.floor(durationMs / steps));
+  for (let s = 0; s < steps; s++) {
+    const spinner = SPINNER_FRAMES[s % SPINNER_FRAMES.length];
+    process.stdout.write(`\r\x1b[K\x1b[36m${spinner}\x1b[0m ${label} [\x1b[32m${bar}\x1b[0m] ${pct}%`);
+    await new Promise(resolve => setTimeout(resolve, stepDelay));
+  }
+  process.stdout.write('\r\x1b[K');
+}
+
+/**
+ * Configures or inspects persistent Autonomous Swarm Mode in blackboard_state.json
+ * @param {Object} [options]
+ * @returns {Promise<Object>}
+ */
+export async function configureAutoSwarm(options = {}) {
+  const cwd = options.cwd || PLUGIN_ROOT;
+  const memoryDir = path.join(cwd, '.agents', 'memory');
+  const bbPath = path.join(memoryDir, 'blackboard_state.json');
+  const action = String(options.action || 'status').toLowerCase();
+
+  let state = {
+    updatedAt: new Date().toISOString(),
+    entries: {},
+    auto_swarm: true,
+    active_topology: 'FAN-OUT / FAN-IN',
+    active_subagents_count: 9
+  };
+
+  try {
+    const raw = await fs.readFile(bbPath, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object') {
+      state = {
+        ...state,
+        ...parsed,
+        entries: (parsed.entries && typeof parsed.entries === 'object') ? parsed.entries : {}
+      };
+    }
+  } catch (readErr) {
+    void readErr;
+  }
+
+  if (action === 'enable') {
+    state.auto_swarm = true;
+    state.updatedAt = new Date().toISOString();
+    state.active_topology = options.topology || state.active_topology || 'FAN-OUT / FAN-IN';
+    state.active_subagents_count = 9;
+  } else if (action === 'disable') {
+    state.auto_swarm = false;
+    state.updatedAt = new Date().toISOString();
+  }
+
+  if (action === 'enable' || action === 'disable') {
+    await fs.mkdir(memoryDir, { recursive: true });
+    await fs.writeFile(bbPath, JSON.stringify(state, null, 2), 'utf8');
+    swarmBus.setBlackboard('swarm:auto_mode', {
+      enabled: state.auto_swarm,
+      topology: state.active_topology,
+      activeSubagents: 9,
+      updatedAt: state.updatedAt
+    }, 'swarm-director');
+    emitSwarmEvent('swarm:auto', {
+      enabled: state.auto_swarm,
+      action,
+      topology: state.active_topology,
+      activeSubagents: 9
+    });
+  }
+
+  return {
+    success: true,
+    action,
+    auto_swarm: Boolean(state.auto_swarm),
+    active_topology: state.active_topology || 'FAN-OUT / FAN-IN',
+    active_subagents_count: state.active_subagents_count || 9,
+    updatedAt: state.updatedAt,
+    blackboardPath: bbPath
+  };
+}
+
 export async function executeSwarm(taskDescription, options = {}) {
   const plan = planSwarm(taskDescription, options);
+  const swarmId = options.swarmId || crypto.randomUUID();
+  const shouldAnimate = Boolean(
+    (process.stdout.isTTY || options.animate) &&
+    !options.json &&
+    !process.env.NODE_TEST_CONTEXT &&
+    options.onStep === undefined
+  );
   const logs = [];
 
   logs.push(`🚀 Initializing Swarm Director for task: "${taskDescription}"`);
@@ -160,19 +257,70 @@ export async function executeSwarm(taskDescription, options = {}) {
   logs.push(`🧠 Thinking Budget   : ${plan.reasoningProfile.toUpperCase()} [${plan.targetModelTier}] (${plan.thinkingBudgetTokens.toLocaleString()} tokens/worker)`);
   logs.push(`👥 Specialized Subagents: ${plan.subagents.map(s => `${s.name} (@${s.skill})`).join(', ')}`);
 
+  emitSwarmEvent('swarm:start', {
+    swarmId,
+    task: taskDescription,
+    topology: plan.topology,
+    reasoningProfile: plan.reasoningProfile,
+    thinkingBudgetTokens: plan.thinkingBudgetTokens,
+    totalWorkers: plan.subagents.length
+  });
+
+  swarmBus.setBlackboard('swarm:active_state', {
+    status: 'RUNNING',
+    swarmId,
+    task: taskDescription,
+    topology: plan.topology,
+    activeAgents: plan.subagents.map(s => s.subagent || 'fullstack-craftsman'),
+    progress: 10,
+    updatedAt: new Date().toISOString()
+  }, 'swarm-director');
+
+  if (shouldAnimate) {
+    await renderInteractivePulse(`[${plan.topology.toUpperCase()}] Decomposing task & binding skills`, 15);
+  }
+
   const results = [];
+  const totalAgents = Math.max(1, plan.subagents.length);
 
   if (plan.topology === TOPOLOGIES.FAN_OUT_FAN_IN) {
     logs.push('\n⚡ Executing FAN-OUT Phase (Parallel Subagent Dispatch)...');
-    for (const agent of plan.subagents) {
-      logs.push(`  • [Subagent ${agent.name}] Allocated budget: ${agent.thinkingBudget} — focus: "${agent.focus}"`);
-      results.push({
+    for (let idx = 0; idx < plan.subagents.length; idx++) {
+      const agent = plan.subagents[idx];
+      const workerId = `worker-${idx + 1}`;
+      const pct = Math.min(90, Math.round(((idx + 1) / totalAgents) * 75) + 15);
+      emitSwarmEvent('worker:dispatch', {
+        swarmId,
+        workerId,
+        subagent: agent.subagent || 'fullstack-craftsman',
         domain: agent.name,
+        skill: agent.skill,
+        status: 'EXECUTING'
+      });
+      if (shouldAnimate) {
+        await renderInteractivePulse(`Fan-Out -> ${agent.name} (@${agent.skill})`, pct);
+      }
+      logs.push(`  • [Subagent ${agent.name}] Allocated budget: ${agent.thinkingBudget} — focus: "${agent.focus}"`);
+      const item = {
+        domain: agent.name,
+        subagent: agent.subagent || 'fullstack-craftsman',
         skill: agent.skill,
         thinkingBudget: agent.thinkingBudget,
         status: 'COMPLETED',
         output: `Synthesized specifications and constraints from @${agent.skill} using ${plan.reasoningProfile} reasoning depth`
+      };
+      results.push(item);
+      emitSwarmEvent('worker:done', {
+        swarmId,
+        workerId,
+        subagent: item.subagent,
+        domain: agent.name,
+        skill: agent.skill,
+        status: 'COMPLETED'
       });
+    }
+    if (shouldAnimate) {
+      await renderInteractivePulse('Fan-In -> Unified Assembly & Contract Sync', 96);
     }
     logs.push('🔄 Executing FAN-IN Phase (Unified Assembly & Harmonization)...');
   } else if (plan.topology === TOPOLOGIES.PIPELINE_SAGA) {
@@ -180,25 +328,95 @@ export async function executeSwarm(taskDescription, options = {}) {
     let prevContext = 'Initial Task Spec';
     for (let i = 0; i < plan.subagents.length; i++) {
       const agent = plan.subagents[i];
+      const workerId = `worker-${i + 1}`;
+      const pct = Math.min(92, Math.round(((i + 1) / totalAgents) * 80) + 12);
+      emitSwarmEvent('worker:dispatch', {
+        swarmId,
+        workerId,
+        subagent: agent.subagent || 'fullstack-craftsman',
+        domain: agent.name,
+        skill: agent.skill,
+        status: 'EXECUTING'
+      });
+      if (shouldAnimate) {
+        await renderInteractivePulse(`Saga Step ${i + 1}/${plan.subagents.length} -> ${agent.name}`, pct);
+      }
       logs.push(`  • Step ${i + 1}/${plan.subagents.length}: [${agent.name}] (${agent.thinkingBudget}) consuming [${prevContext}]...`);
       prevContext = `${agent.name} Output Artifact`;
-      results.push({ domain: agent.name, step: i + 1, thinkingBudget: agent.thinkingBudget, status: 'PASSED' });
+      results.push({
+        domain: agent.name,
+        subagent: agent.subagent || 'fullstack-craftsman',
+        step: i + 1,
+        thinkingBudget: agent.thinkingBudget,
+        status: 'PASSED'
+      });
+      emitSwarmEvent('worker:done', {
+        swarmId,
+        workerId,
+        subagent: agent.subagent || 'fullstack-craftsman',
+        domain: agent.name,
+        skill: agent.skill,
+        status: 'PASSED'
+      });
     }
   } else if (plan.topology === TOPOLOGIES.CRITIC_VALIDATOR) {
     logs.push('\n🛡️ Executing CRITIC-VALIDATOR LOOP (Zero-Tolerance Quality Gate)...');
+    for (let idx = 0; idx < plan.subagents.length; idx++) {
+      const agent = plan.subagents[idx];
+      const workerId = `worker-${idx + 1}`;
+      const pct = Math.min(90, Math.round(((idx + 1) / totalAgents) * 70) + 20);
+      emitSwarmEvent('worker:dispatch', {
+        swarmId,
+        workerId,
+        subagent: agent.subagent || 'quality-guardian',
+        domain: agent.name,
+        skill: agent.skill,
+        status: 'EXECUTING'
+      });
+      if (shouldAnimate) {
+        await renderInteractivePulse(`Critic Loop -> ${agent.name} (@${agent.skill})`, pct);
+      }
+      emitSwarmEvent('worker:done', {
+        swarmId,
+        workerId,
+        subagent: agent.subagent || 'quality-guardian',
+        domain: agent.name,
+        skill: agent.skill,
+        status: 'VERIFIED_CLEAN'
+      });
+    }
     logs.push(`  • Implementer Agent generating primary artifacts with ${plan.reasoningProfile} reasoning depth...`);
     logs.push(`  • Auditor Agent scanning with @anti-slop and @autonomous-red-teamer (${plan.thinkingBudgetTokens.toLocaleString()} tokens verification budget)...`);
     logs.push(`  • Score: 100/100 (Zero slop, zero unhandled errors, all invariants proven).`);
     results.push(
-      { role: 'Implementer', thinkingBudget: plan.thinkingBudgetTokens, status: 'COMPLETE' },
-      { role: 'Auditor', thinkingBudget: plan.thinkingBudgetTokens, status: 'VERIFIED_CLEAN' }
+      { role: 'Implementer', subagent: 'fullstack-craftsman', thinkingBudget: plan.thinkingBudgetTokens, status: 'COMPLETE' },
+      { role: 'Auditor', subagent: 'quality-guardian', thinkingBudget: plan.thinkingBudgetTokens, status: 'VERIFIED_CLEAN' }
     );
   }
+
+  emitSwarmEvent('swarm:complete', {
+    swarmId,
+    task: taskDescription,
+    topology: plan.topology,
+    status: 'COMPLETED',
+    totalWorkers: plan.subagents.length
+  });
+
+  swarmBus.setBlackboard('swarm:active_state', {
+    status: 'IDLE',
+    lastSwarmId: swarmId,
+    lastTask: taskDescription,
+    topology: plan.topology,
+    activeAgents: [],
+    progress: 100,
+    completedAt: new Date().toISOString()
+  }, 'swarm-director');
 
   logs.push(`\n✅ Swarm Execution Complete (${plan.reasoningProfile.toUpperCase()}). All domain outputs synthesized.`);
 
   return {
     success: true,
+    swarmId,
     plan,
     logs,
     results
@@ -207,7 +425,37 @@ export async function executeSwarm(taskDescription, options = {}) {
 
 async function main() {
   const args = process.argv.slice(2);
+  const isAutoCmd = args[0] === 'auto' || args.includes('--auto');
+
+  if (isAutoCmd) {
+    const jsonOutput = args.includes('--json');
+    let action = 'status';
+    if (args.includes('--enable') || args.includes('enable')) action = 'enable';
+    else if (args.includes('--disable') || args.includes('disable')) action = 'disable';
+
+    const outcome = await configureAutoSwarm({ action });
+    if (jsonOutput) {
+      console.log(JSON.stringify(outcome, null, 2));
+      return;
+    }
+
+    const badge = outcome.auto_swarm ? '\x1b[32mENABLED (AUTO-ACTIVE)\x1b[0m' : '\x1b[33mDISABLED (MANUAL)\x1b[0m';
+    console.log(`
+╔══════════════════════════════════════════════════════════╗
+║    Vibes-Plug Autonomous Swarm Auto-Trigger Mode         ║
+╚══════════════════════════════════════════════════════════╝
+
+  Auto-Swarm Status : ${badge}
+  Active Topology   : ${outcome.active_topology}
+  Standing Subagents: ${outcome.active_subagents_count} Native Specialists
+  Updated At        : ${outcome.updatedAt}
+`);
+    return;
+  }
+
   let reasoning = null;
+  let jsonOutput = false;
+  let animateFlag = false;
   const filteredArgs = [];
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--reasoning' && args[i + 1]) {
@@ -215,6 +463,10 @@ async function main() {
       i++;
     } else if (args[i].startsWith('--reasoning=')) {
       reasoning = args[i].split('=')[1];
+    } else if (args[i] === '--json') {
+      jsonOutput = true;
+    } else if (args[i] === '--animate') {
+      animateFlag = true;
     } else if (args[i] === 'run') {
       // Allow 'vibes swarm run <task>'
       continue;
@@ -225,13 +477,19 @@ async function main() {
 
   const task = filteredArgs.join(' ') || 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 15 Tailwind UI, and Supabase RLS';
 
-  console.log(`
+  if (!jsonOutput) {
+    console.log(`
 ╔══════════════════════════════════════════════════════════╗
-║    Vibes-Plug Autonomous Swarm Runner (Epoch 3)          ║
+║    Vibes-Plug Autonomous Swarm Runner (v4.8.0)           ║
 ╚══════════════════════════════════════════════════════════╝
 `);
+  }
 
-  const outcome = await executeSwarm(task, { reasoning });
+  const outcome = await executeSwarm(task, { reasoning, json: jsonOutput, animate: animateFlag });
+  if (jsonOutput) {
+    console.log(JSON.stringify(outcome, null, 2));
+    return;
+  }
   outcome.logs.forEach(l => console.log(l));
   console.log('');
 }

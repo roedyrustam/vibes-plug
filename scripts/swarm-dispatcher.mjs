@@ -87,14 +87,15 @@ async function loadWorkerSkillContext(skillName) {
     return {
       name: skillName,
       description: descMatch ? descMatch[1].trim() : 'Specialized domain skill',
-      version: verMatch ? verMatch[1].trim() : '4.7.0',
+      version: verMatch ? verMatch[1].trim() : '4.8.0',
       instructionsSnippet
     };
-  } catch {
+  } catch (loadErr) {
+    void loadErr;
     return {
       name: skillName,
       description: 'Dynamic fallback skill context',
-      version: '4.7.0',
+      version: '4.8.0',
       instructionsSnippet: 'Execute domain task conforming to Anti-Slop Directive.'
     };
   }
@@ -133,10 +134,12 @@ async function discoverWorkspaceTargets(taskDescription, workerSpec) {
 async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) {
   const startTime = Date.now();
   const workerId = `worker-${workerSpec.skill}`;
+  const subagentId = workerSpec.subagent || resolveNativeSubagent(workerSpec.skill, workerSpec.name);
 
   emitSwarmEvent('worker:dispatch', {
     swarmId,
     workerId,
+    subagent: subagentId,
     domain: workerSpec.name,
     skill: workerSpec.skill,
     focus: workerSpec.focus
@@ -177,13 +180,13 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     sandboxVerification = executeInSandbox(`(${codeDraft.replace(/^export\s+/, '')})({}, {});`, { timeoutMs: 150 });
   }
 
-  const subagentId = resolveNativeSubagent(workerSpec.skill, workerSpec.name);
+  const subagentResolved = subagentId || resolveNativeSubagent(workerSpec.skill, workerSpec.name);
   const targetFilesSummary = workspaceTargets.length > 0
     ? `\nWorkspace Targets: ${workspaceTargets.map(t => `${t.file}:${t.line} (${t.symbol})`).join(', ')}`
     : '';
 
   const subagentInvocation = {
-    subagent: subagentId,
+    subagent: subagentResolved,
     role: workerSpec.name,
     skill: workerSpec.skill,
     thinkingBudget: workerSpec.thinkingBudget,
@@ -209,7 +212,7 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     workerId,
     domain: workerSpec.name,
     skill: workerSpec.skill,
-    subagent: subagentId,
+    subagent: subagentResolved,
     focus: workerSpec.focus,
     thinkingBudget: workerSpec.thinkingBudget,
     targetModelTier: profile.tier,
@@ -228,6 +231,7 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
   emitSwarmEvent('worker:done', {
     swarmId,
     workerId,
+    subagent: subagentResolved,
     domain: workerSpec.name,
     skill: workerSpec.skill,
     status: outcome.status,
@@ -237,6 +241,25 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
   });
 
   return outcome;
+}
+
+const DISPATCH_SPINNER = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+
+async function animateDispatchProgress(workersList) {
+  if ((!process.stdout.isTTY && !process.env.VIBES_FORCE_ANIMATE) || process.env.NODE_TEST_CONTEXT) return;
+  const total = Math.max(1, workersList.length);
+  for (let i = 0; i < workersList.length; i++) {
+    const pct = Math.round(((i + 1) / total) * 100);
+    const barW = 20;
+    const filled = Math.round((pct / 100) * barW);
+    const bar = '█'.repeat(filled) + '░'.repeat(barW - filled);
+    for (let f = 0; f < 3; f++) {
+      const spin = DISPATCH_SPINNER[(i * 3 + f) % DISPATCH_SPINNER.length];
+      process.stdout.write(`\r\x1b[K\x1b[36m${spin}\x1b[0m Dispatching [${workersList[i].domain}] -> @${workersList[i].subagent} [\x1b[32m${bar}\x1b[0m] ${pct}%`);
+      await new Promise(resolve => setTimeout(resolve, 45));
+    }
+  }
+  process.stdout.write('\r\x1b[K');
 }
 
 /**
@@ -252,6 +275,7 @@ export async function dispatchSwarm(taskDescription, options = {}) {
   const requestedProfile = options.reasoning || options.reasoningProfile;
   const profile = resolveReasoningProfile(taskDescription, requestedProfile);
   const plan = planSwarm(taskDescription, { reasoning: profile.id });
+  const plannedSubagents = plan.subagents.map(s => s.subagent || resolveNativeSubagent(s.skill, s.name));
 
   emitSwarmEvent('swarm:start', {
     swarmId,
@@ -260,8 +284,19 @@ export async function dispatchSwarm(taskDescription, options = {}) {
     reasoningProfile: profile.id,
     thinkingBudgetTokens: profile.budgetTokens,
     totalWorkers: plan.subagents.length,
+    activeAgents: plannedSubagents,
     concurrency
   });
+
+  swarmBus.setBlackboard('swarm:active_state', {
+    status: 'RUNNING',
+    swarmId,
+    task: taskDescription,
+    topology: plan.topology,
+    activeAgents: plannedSubagents,
+    progress: 25,
+    updatedAt: new Date().toISOString()
+  }, 'swarm-dispatcher');
 
   const traceLogs = [];
   traceLogs.push(`🚀 [Swarm Dispatcher] Dispatching task: "${taskDescription}"`);
@@ -277,6 +312,10 @@ export async function dispatchSwarm(taskDescription, options = {}) {
   traceLogs.push(`⚡ Discarding sequential bottleneck; executing ${workerTasks.length} workers with concurrency ${concurrency}...`);
 
   const workerResults = await runWithConcurrency(workerTasks, concurrency);
+
+  if (options.animate || (process.stdout.isTTY && !options.json && !process.env.NODE_TEST_CONTEXT)) {
+    await animateDispatchProgress(workerResults);
+  }
 
   const totalDurationMs = Date.now() - startTime;
   const allApproved = workerResults.every(r => r.status === 'COMPLETED' && r.sandboxVerified !== false);
@@ -295,6 +334,16 @@ export async function dispatchSwarm(taskDescription, options = {}) {
     totalDurationMs,
     totalWorkers: plan.subagents.length
   });
+
+  swarmBus.setBlackboard('swarm:active_state', {
+    status: 'IDLE',
+    lastSwarmId: swarmId,
+    lastTask: taskDescription,
+    topology: plan.topology,
+    activeAgents: [],
+    progress: 100,
+    completedAt: new Date().toISOString()
+  }, 'swarm-dispatcher');
 
   return {
     swarmId,
@@ -324,6 +373,7 @@ async function main() {
   let concurrency = 3;
   let reasoning = null;
   let jsonOutput = false;
+  let animateFlag = false;
   const filteredWords = [];
 
   for (let i = 0; i < args.length; i++) {
@@ -340,6 +390,8 @@ async function main() {
       reasoning = arg.split('=')[1];
     } else if (arg === '--json') {
       jsonOutput = true;
+    } else if (arg === '--animate') {
+      animateFlag = true;
     } else {
       filteredWords.push(arg);
     }
@@ -347,7 +399,7 @@ async function main() {
 
   const task = filteredWords.join(' ') || 'Build a multi-tenant SaaS with DOKU payment integration and Postgres RLS';
 
-  const result = await dispatchSwarm(task, { concurrency, reasoning });
+  const result = await dispatchSwarm(task, { concurrency, reasoning, json: jsonOutput, animate: animateFlag });
 
   if (jsonOutput) {
     console.log(JSON.stringify(result, null, 2));

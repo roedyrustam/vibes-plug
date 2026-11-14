@@ -509,10 +509,18 @@ Total 178 Verified Skills in Vibes-Plug:
    Topology Visualizer
    ========================================================================== */
 
+let topoSimTimers = [];
+
+function clearTopoSimTimers() {
+  for (const t of topoSimTimers) clearTimeout(t);
+  topoSimTimers = [];
+}
+
 const TOPOLOGY_CONFIGS = {
   'fan-out': {
     title: 'Fan-Out / Fan-In Topology',
     subtitle: 'Director delegates subtasks to parallel workers and unifies results.',
+    steps: ['Director Dispatching', 'Parallel Workers Active', 'Unified Synthesis Verified'],
     diagram: `
       <svg viewBox="0 0 700 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -521,32 +529,31 @@ const TOPOLOGY_CONFIGS = {
             <stop offset="100%" stop-color="#3b82f6" />
           </linearGradient>
         </defs>
-        <!-- Director Node -->
-        <rect x="20" y="75" width="140" height="50" rx="8" fill="#1c222e" stroke="#06b6d4" stroke-width="2" />
-        <text x="90" y="105" fill="#ffffff" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle">Swarm Director</text>
-        
-        <!-- Lines to Workers -->
-        <path d="M 160 100 L 280 40" stroke="#273142" stroke-width="2" stroke-dasharray="4" />
-        <path d="M 160 100 L 280 100" stroke="#273142" stroke-width="2" stroke-dasharray="4" />
-        <path d="M 160 100 L 280 160" stroke="#273142" stroke-width="2" stroke-dasharray="4" />
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 160 100 L 280 40" stroke="#3b82f6" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 160 100 L 280 100" stroke="#a855f7" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 160 100 L 280 160" stroke="#10b981" stroke-width="2" fill="none" />
 
-        <!-- Worker Nodes -->
-        <rect x="280" y="20" width="140" height="40" rx="6" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
+        <path class="swarm-edge-animated" data-sim-edge="2" d="M 420 40 L 540 100" stroke="#06b6d4" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="2" d="M 420 100 L 540 100" stroke="#06b6d4" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="2" d="M 420 160 L 540 100" stroke="#06b6d4" stroke-width="2" fill="none" />
+
+        <circle r="3.5" fill="#38bdf8"><animateMotion dur="1.4s" repeatCount="indefinite" path="M 160 100 L 280 40 L 420 40 L 540 100" /></circle>
+        <circle r="3.5" fill="#a855f7"><animateMotion dur="1.6s" begin="0.3s" repeatCount="indefinite" path="M 160 100 L 280 100 L 420 100 L 540 100" /></circle>
+        <circle r="3.5" fill="#10b981"><animateMotion dur="1.5s" begin="0.6s" repeatCount="indefinite" path="M 160 100 L 280 160 L 420 160 L 540 100" /></circle>
+
+        <rect class="swarm-node-box" data-sim-step="0" x="20" y="75" width="140" height="50" rx="8" fill="#1c222e" stroke="#06b6d4" stroke-width="2" />
+        <text x="90" y="105" fill="#ffffff" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle">Swarm Director</text>
+
+        <rect class="swarm-node-box" data-sim-step="1" x="280" y="20" width="140" height="40" rx="6" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
         <text x="350" y="45" fill="#cbd5e1" font-family="Inter" font-size="11" text-anchor="middle">Worker A: Frontend</text>
 
-        <rect x="280" y="80" width="140" height="40" rx="6" fill="#151a22" stroke="#a855f7" stroke-width="1.5" />
+        <rect class="swarm-node-box" data-sim-step="1" x="280" y="80" width="140" height="40" rx="6" fill="#151a22" stroke="#a855f7" stroke-width="1.5" />
         <text x="350" y="105" fill="#cbd5e1" font-family="Inter" font-size="11" text-anchor="middle">Worker B: Backend</text>
 
-        <rect x="280" y="140" width="140" height="40" rx="6" fill="#151a22" stroke="#10b981" stroke-width="1.5" />
-        <text x="350" y="165" fill="#cbd5e1" font-family="Inter" font-size="11" text-anchor="middle">Worker C: DB & RLS</text>
+        <rect class="swarm-node-box" data-sim-step="1" x="280" y="140" width="140" height="40" rx="6" fill="#151a22" stroke="#10b981" stroke-width="1.5" />
+        <text x="350" y="165" fill="#cbd5e1" font-family="Inter" font-size="11" text-anchor="middle">Worker C: DB &amp; RLS</text>
 
-        <!-- Lines to Synthesis -->
-        <path d="M 420 40 L 540 100" stroke="#273142" stroke-width="2" />
-        <path d="M 420 100 L 540 100" stroke="#273142" stroke-width="2" />
-        <path d="M 420 160 L 540 100" stroke="#273142" stroke-width="2" />
-
-        <!-- Synthesis Node -->
-        <rect x="540" y="75" width="140" height="50" rx="8" fill="#1c222e" stroke="#10b981" stroke-width="2" />
+        <rect class="swarm-node-box" data-sim-step="2" x="540" y="75" width="140" height="50" rx="8" fill="#1c222e" stroke="#10b981" stroke-width="2" />
         <text x="610" y="105" fill="#ffffff" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle">Unified Synthesis</text>
       </svg>
     `,
@@ -558,34 +565,33 @@ const TOPOLOGY_CONFIGS = {
   'pipeline-saga': {
     title: 'Pipeline Saga (8-Phase Zero-to-Prod)',
     subtitle: 'Strict step-by-step progression with continuous living documentation.',
+    steps: ['Phase 1: PRD', 'Phase 2: Schema', 'Phase 3: APIs', 'Phase 4: UI/UX', 'Phase 5: TDD Gate', 'Release Certified'],
     diagram: `
       <svg viewBox="0 0 700 120" width="100%" height="120" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#06b6d4" stroke-width="1.5" />
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 100 60 L 130 60" stroke="#3b82f6" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="2" d="M 220 60 L 250 60" stroke="#3b82f6" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="3" d="M 340 60 L 370 60" stroke="#3b82f6" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="4" d="M 460 60 L 490 60" stroke="#3b82f6" stroke-width="2" fill="none" />
+        <path class="swarm-edge-animated" data-sim-edge="5" d="M 580 60 L 610 60" stroke="#10b981" stroke-width="2" fill="none" />
+
+        <circle r="3.5" fill="#06b6d4"><animateMotion dur="2.6s" repeatCount="indefinite" path="M 55 60 L 650 60" /></circle>
+
+        <rect class="swarm-node-box" data-sim-step="0" x="10" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#06b6d4" stroke-width="1.5" />
         <text x="55" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">1. PRD</text>
 
-        <line x1="100" y1="60" x2="130" y2="60" stroke="#3b82f6" stroke-width="2" />
-
-        <rect x="130" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
+        <rect class="swarm-node-box" data-sim-step="1" x="130" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
         <text x="175" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">2. Schema</text>
 
-        <line x1="220" y1="60" x2="250" y2="60" stroke="#3b82f6" stroke-width="2" />
-
-        <rect x="250" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#a855f7" stroke-width="1.5" />
+        <rect class="swarm-node-box" data-sim-step="2" x="250" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#a855f7" stroke-width="1.5" />
         <text x="295" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">3. APIs</text>
 
-        <line x1="340" y1="60" x2="370" y2="60" stroke="#3b82f6" stroke-width="2" />
-
-        <rect x="370" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#06b6d4" stroke-width="1.5" />
+        <rect class="swarm-node-box" data-sim-step="3" x="370" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#06b6d4" stroke-width="1.5" />
         <text x="415" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">4. UI/UX</text>
 
-        <line x1="460" y1="60" x2="490" y2="60" stroke="#3b82f6" stroke-width="2" />
-
-        <rect x="490" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#ef4444" stroke-width="1.5" />
+        <rect class="swarm-node-box" data-sim-step="4" x="490" y="40" width="90" height="40" rx="6" fill="#151a22" stroke="#ef4444" stroke-width="1.5" />
         <text x="535" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">5. TDD Gate</text>
 
-        <line x1="580" y1="60" x2="610" y2="60" stroke="#10b981" stroke-width="2" />
-
-        <rect x="610" y="40" width="80" height="40" rx="6" fill="#1c222e" stroke="#10b981" stroke-width="2" />
+        <rect class="swarm-node-box" data-sim-step="5" x="610" y="40" width="80" height="40" rx="6" fill="#1c222e" stroke="#10b981" stroke-width="2" />
         <text x="650" y="65" fill="#ffffff" font-family="Inter" font-size="10" text-anchor="middle">Release</text>
       </svg>
     `,
@@ -597,23 +603,30 @@ const TOPOLOGY_CONFIGS = {
   'critic-validator': {
     title: 'Critic-Validator Quality Gate',
     subtitle: 'Iterative formal verification and dynamic AST fuzzing before disk persistence.',
+    steps: ['Implementer Drafting', 'Anti-Slop & SMT Audit', 'Approved Release Gate'],
     diagram: `
       <svg viewBox="0 0 700 160" width="100%" height="160" xmlns="http://www.w3.org/2000/svg">
-        <rect x="30" y="55" width="140" height="50" rx="8" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+          </marker>
+        </defs>
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 170 80 L 270 80" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+        <path class="swarm-edge-animated" data-sim-edge="1" d="M 345 55 C 345 15, 100 15, 100 55" fill="none" stroke="#ef4444" stroke-width="1.5" />
+        <path class="swarm-edge-animated" data-sim-edge="2" d="M 420 80 L 520 80" stroke="#10b981" stroke-width="2" fill="none" />
+
+        <circle r="3.5" fill="#ef4444"><animateMotion dur="2s" repeatCount="indefinite" path="M 345 55 C 345 15, 100 15, 100 55" /></circle>
+        <circle r="3.5" fill="#10b981"><animateMotion dur="1.8s" begin="0.4s" repeatCount="indefinite" path="M 170 80 L 520 80" /></circle>
+
+        <rect class="swarm-node-box" data-sim-step="0" x="30" y="55" width="140" height="50" rx="8" fill="#151a22" stroke="#3b82f6" stroke-width="1.5" />
         <text x="100" y="85" fill="#ffffff" font-family="Inter" font-size="12" text-anchor="middle">Implementer Agent</text>
 
-        <line x1="170" y1="80" x2="270" y2="80" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
+        <rect class="swarm-node-box" data-sim-step="1" x="270" y="55" width="150" height="50" rx="8" fill="#1c222e" stroke="#ef4444" stroke-width="2" />
+        <text x="345" y="85" fill="#ffffff" font-family="Inter" font-size="12" text-anchor="middle">Anti-Slop &amp; SMT Proof</text>
 
-        <rect x="270" y="55" width="150" height="50" rx="8" fill="#1c222e" stroke="#ef4444" stroke-width="2" />
-        <text x="345" y="85" fill="#ffffff" font-family="Inter" font-size="12" text-anchor="middle">Anti-Slop & SMT Proof</text>
+        <text x="220" y="25" fill="#ef4444" font-family="Inter" font-size="10" text-anchor="middle">Reject &amp; Auto-Heal (&lt; 2 retries)</text>
 
-        <!-- Feedback Loop -->
-        <path d="M 345 55 C 345 15, 100 15, 100 55" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4" />
-        <text x="220" y="25" fill="#ef4444" font-family="Inter" font-size="10" text-anchor="middle">Reject & Auto-Heal (< 2 retries)</text>
-
-        <line x1="420" y1="80" x2="520" y2="80" stroke="#10b981" stroke-width="2" />
-
-        <rect x="520" y="55" width="140" height="50" rx="8" fill="#1c222e" stroke="#10b981" stroke-width="2" />
+        <rect class="swarm-node-box" data-sim-step="2" x="520" y="55" width="140" height="50" rx="8" fill="#1c222e" stroke="#10b981" stroke-width="2" />
         <text x="590" y="85" fill="#ffffff" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle">Approved Release</text>
       </svg>
     `,
@@ -623,16 +636,71 @@ const TOPOLOGY_CONFIGS = {
   }
 };
 
+function simulateActiveTopology() {
+  const config = TOPOLOGY_CONFIGS[state.activeTopology];
+  const container = dom.topoDiagram;
+  if (!config || !container) return;
+
+  clearTopoSimTimers();
+  const statusEl = document.getElementById('topoSimStatus');
+  const btn = document.getElementById('btnSimTopology');
+  const nodes = Array.from(container.querySelectorAll('.swarm-node-box'));
+  const edges = Array.from(container.querySelectorAll('.swarm-edge-animated'));
+  const totalSteps = config.steps.length;
+
+  nodes.forEach((n) => n.classList.remove('swarm-node-active', 'swarm-node-done'));
+  edges.forEach((e) => e.classList.remove('swarm-edge-done'));
+  if (btn) btn.disabled = true;
+
+  for (let s = 0; s < totalSteps; s++) {
+    const tStep = setTimeout(() => {
+      if (statusEl) statusEl.textContent = `[${s + 1}/${totalSteps}] ${config.steps[s]}`;
+      nodes.forEach((node) => {
+        const stepAttr = Number(node.getAttribute('data-sim-step'));
+        if (stepAttr < s) {
+          node.classList.remove('swarm-node-active');
+          node.classList.add('swarm-node-done');
+        } else if (stepAttr === s) {
+          node.classList.remove('swarm-node-done');
+          node.classList.add('swarm-node-active');
+        }
+      });
+      edges.forEach((edge) => {
+        const edgeStep = Number(edge.getAttribute('data-sim-edge'));
+        if (edgeStep <= s) edge.classList.add('swarm-edge-done');
+      });
+    }, s * 460);
+    topoSimTimers.push(tStep);
+  }
+
+  const tDone = setTimeout(() => {
+    nodes.forEach((n) => {
+      n.classList.remove('swarm-node-active');
+      n.classList.add('swarm-node-done');
+    });
+    if (statusEl) statusEl.textContent = `VERIFIED (${totalSteps}/${totalSteps} PHASES COMPLETE)`;
+    if (btn) btn.disabled = false;
+  }, totalSteps * 460 + 380);
+  topoSimTimers.push(tDone);
+}
+
 function renderTopology(id) {
+  clearTopoSimTimers();
   state.activeTopology = id;
   const config = TOPOLOGY_CONFIGS[id];
   if (!config || !dom.topoDiagram) return;
 
   dom.topoDiagram.innerHTML = `
     <div style="width: 100%;">
-      <div style="margin-bottom: 1rem; text-align: left;">
-        <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${config.title}</h3>
-        <p style="font-size: 0.9rem; color: var(--text-secondary);">${config.subtitle}</p>
+      <div class="topo-sim-bar">
+        <div style="text-align: left;">
+          <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${config.title}</h3>
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">${config.subtitle}</p>
+        </div>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <span class="topo-sim-status" id="topoSimStatus">LIVE STREAMING ACTIVE</span>
+          <button type="button" class="topo-sim-btn" id="btnSimTopology">Simulate Live Swarm</button>
+        </div>
       </div>
       ${config.diagram}
       <div class="topo-meta-grid" style="margin-top: 1.5rem;">
@@ -651,6 +719,9 @@ function renderTopology(id) {
       </div>
     </div>
   `;
+
+  const simBtn = document.getElementById('btnSimTopology');
+  if (simBtn) simBtn.addEventListener('click', simulateActiveTopology);
 }
 
 /* ==========================================================================
@@ -709,7 +780,7 @@ Enforce deep reasoning prior to code generation:
   trae: {
     file: '.traerules',
     code: `# Trae IDE Universal Bridge
-ecosystem: vibes-plug-v4.7.0
+ecosystem: vibes-plug-v4.8.0
 skills_total: 178
 orchestrator: zero-to-prod-orchestrator
 quality_gate: sovereign-anti-slop-strict
@@ -1037,7 +1108,7 @@ export function initShowcase() {
 
   // Welcome terminal line
   appendTerminalLine(`
-<span class="term-badge term-badge-cyan">VIBES-PLUG v4.7.0</span> Sovereign AI Agent Swarm & Skill Ecosystem
+<span class="term-badge term-badge-cyan">VIBES-PLUG v4.8.0</span> Sovereign AI Agent Swarm & Skill Ecosystem
 Type '<span class="term-cmd">help</span>' or click any preset badge above to simulate real agent workflows.
 `);
 }

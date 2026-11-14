@@ -46,14 +46,19 @@ class SwarmEventBus extends EventEmitter {
       const dir = getStateDir();
       fs.mkdirSync(dir, { recursive: true });
       const filePath = getBlackboardFilePath();
+      let diskRoot = {};
       let diskEntries = {};
       if (fs.existsSync(filePath)) {
         try {
           const parsed = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-          if (parsed && typeof parsed.entries === 'object') {
-            diskEntries = parsed.entries;
+          if (parsed && typeof parsed === 'object') {
+            diskRoot = parsed;
+            if (typeof parsed.entries === 'object' && parsed.entries !== null) {
+              diskEntries = parsed.entries;
+            }
           }
-        } catch {
+        } catch (parseErr) {
+          void parseErr;
           diskEntries = {};
         }
       }
@@ -62,11 +67,17 @@ class SwarmEventBus extends EventEmitter {
       }
       fs.writeFileSync(
         filePath,
-        JSON.stringify({ updatedAt: new Date().toISOString(), entries: diskEntries }, null, 2),
+        JSON.stringify({
+          auto_swarm: true,
+          ...diskRoot,
+          updatedAt: new Date().toISOString(),
+          entries: diskEntries
+        }, null, 2),
         'utf8'
       );
-    } catch {
+    } catch (persistErr) {
       // Non-fatal in read-only sandboxes
+      void persistErr;
     }
   }
 
@@ -253,6 +264,15 @@ class SwarmEventBus extends EventEmitter {
     }
     const limit = Number(options.limit) || 50;
     return result.slice(-limit);
+  }
+
+  /**
+   * Retrieves recent buffered events with an integer limit convenience wrapper
+   * @param {number} [limit=25]
+   * @returns {Array<Object>}
+   */
+  getRecentEvents(limit = 25) {
+    return this.getEvents({ limit });
   }
 
   /**

@@ -2625,6 +2625,121 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'zero-tech-debt-auditor', code: 'const a = 1;\n// @ts-ignore\nconst b = a.foo();' }, 'TECH_DEBT_TS_IGNORE_WITHOUT_REASON');
     await expectViolation({ skill: 'zero-to-prod-orchestrator', code: 'deployToProduction({ skipTests: true });' }, 'ORCHESTRATOR_SKIPPED_PHASE_GATE');
   });
+
+  await t.test('Swarm Auto-Mode, Live Events, Studio 9 Subagents & Sidecar Cockpit', async () => {
+    const { stdout: enableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:auto', '--enable', '--json']);
+    const enableData = JSON.parse(enableOut);
+    assert.equal(enableData.success, true);
+    assert.equal(enableData.auto_swarm, true);
+
+    const { stdout: statusOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:auto', '--status', '--json']);
+    const statusData = JSON.parse(statusOut);
+    assert.equal(statusData.success, true);
+    assert.equal(statusData.auto_swarm, true);
+
+    const { stdout: disableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:auto', '--disable', '--json']);
+    const disableData = JSON.parse(disableOut);
+    assert.equal(disableData.success, true);
+    assert.equal(disableData.auto_swarm, false);
+
+    const { stdout: reenableOut } = await execFileAsync(process.execPath, [CLI_PATH, 'swarm:auto', '--enable', '--json']);
+    const reenableData = JSON.parse(reenableOut);
+    assert.equal(reenableData.success, true);
+    assert.equal(reenableData.auto_swarm, true);
+
+    const { stdout: swarmCliOut } = await execFileAsync(process.execPath, [
+      CLI_PATH,
+      'swarm',
+      'Build payment webhook and React UI',
+      '--json'
+    ]);
+    const swarmCliData = JSON.parse(swarmCliOut);
+    assert.equal(swarmCliData.success, true);
+    assert.ok(swarmCliData.plan && Array.isArray(swarmCliData.plan.subagents) && swarmCliData.plan.subagents.length > 0);
+    assert.ok(Array.isArray(swarmCliData.logs) && swarmCliData.logs.length >= 4);
+
+    const { executeSwarm } = await import('./swarm-runner.mjs');
+    const { swarmBus } = await import('./swarm-bus.mjs');
+    const execOutcome = await executeSwarm('Build payment webhook and React UI', { reasoning: 'balanced' });
+    assert.equal(execOutcome.success, true);
+    const recentTypes = swarmBus.getRecentEvents(25).map(ev => ev.type);
+    for (const expectedType of ['swarm:start', 'worker:dispatch', 'worker:done', 'swarm:complete']) {
+      assert.ok(recentTypes.includes(expectedType), `swarmBus must record ${expectedType}`);
+    }
+
+    const { startStudioServer } = await import('./studio-server.mjs');
+    const { server: studioSrv, url: studioUrl } = await startStudioServer({ port: 4192, noOpen: true });
+    try {
+      const subRes = await fetch(`${studioUrl}/api/subagents`);
+      assert.equal(subRes.status, 200);
+      const subagents = await subRes.json();
+      assert.equal(subagents.length, 9, 'Studio must expose all 9 native subagents');
+      assert.ok(subagents.some(s => s.id === 'reverse-security-auditor'));
+
+      const htmlRes = await fetch(`${studioUrl}/`);
+      const studioHtml = await htmlRes.text();
+      assert.match(studioHtml, /swarm-live-stage/);
+      assert.match(studioHtml, /renderSwarmTopologyStage/);
+      assert.match(studioHtml, /applyLiveSwarmTelemetry/);
+      const studioScript = studioHtml.match(/<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/i);
+      assert.ok(studioScript, 'Studio HTML must include inline script');
+      assert.doesNotThrow(() => {
+        new vm.Script(studioScript[1], { filename: 'studio-live-swarm-check.js' });
+      }, 'Studio inline script must compile without syntax errors');
+    } finally {
+      if (typeof studioSrv.closeAllConnections === 'function') studioSrv.closeAllConnections();
+      await new Promise((resolve) => studioSrv.close(resolve));
+    }
+
+    const sidecarUrlMod = pathToFileURL(path.join(PLUGIN_ROOT, 'sidecars', 'swarm-cockpit', 'server.mjs')).href;
+    const { startSidecarServer } = await import(sidecarUrlMod);
+    const { server: sidecarSrv, url: sidecarUrl } = await startSidecarServer({ port: 0, silent: true });
+    try {
+      const htmlRes = await fetch(`${sidecarUrl}/`);
+      assert.equal(htmlRes.status, 200);
+      const sidecarHtml = await htmlRes.text();
+      assert.match(sidecarHtml, /swarmTopoSvg/);
+      assert.match(sidecarHtml, /reverse-security-auditor/);
+      const sidecarScript = sidecarHtml.match(/<script\b[^>]*>([\s\S]*?)<\/script\b[^>]*>/i);
+      assert.ok(sidecarScript, 'Sidecar HTML must include inline script');
+      assert.doesNotThrow(() => {
+        new vm.Script(sidecarScript[1], { filename: 'sidecar-client-check.js' });
+      }, 'Sidecar inline script must compile without syntax errors');
+
+      const stRes = await fetch(`${sidecarUrl}/api/status`);
+      assert.equal(stRes.status, 200);
+      const stData = await stRes.json();
+      assert.equal(stData.status, 'ACTIVE');
+      assert.equal(stData.version, '4.8.0');
+      assert.equal(stData.agentsCount, 9);
+
+      const simRes = await fetch(`${sidecarUrl}/api/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task: 'Verify live swarm animation', stepMs: 5 })
+      });
+      assert.equal(simRes.status, 200);
+      const simData = await simRes.json();
+      assert.equal(simData.success, true);
+      assert.equal(simData.dispatched, true);
+      assert.equal(simData.mode, 'simulate');
+
+      let finalStatus = null;
+      for (let attempt = 0; attempt < 40; attempt++) {
+        await new Promise((r) => setTimeout(r, 25));
+        const pollRes = await fetch(`${sidecarUrl}/api/status`);
+        finalStatus = await pollRes.json();
+        if (finalStatus.activeSwarm && finalStatus.activeSwarm.phase === 'COMPLETED') break;
+      }
+      assert.ok(finalStatus && finalStatus.activeSwarm, 'Sidecar activeSwarm must be populated');
+      assert.equal(finalStatus.activeSwarm.phase, 'COMPLETED');
+      assert.equal(finalStatus.activeSwarm.progress, 100);
+      assert.equal(Object.keys(finalStatus.activeSwarm.agentStates || {}).length, 9);
+    } finally {
+      if (typeof sidecarSrv.closeAllConnections === 'function') sidecarSrv.closeAllConnections();
+      await new Promise((resolve) => sidecarSrv.close(resolve));
+    }
+  });
 });
 
 

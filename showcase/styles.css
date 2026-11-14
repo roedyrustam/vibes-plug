@@ -1474,6 +1474,89 @@ a:hover {
   color: var(--text-muted);
 }
 
+@keyframes swarmEdgeFlow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+@keyframes swarmNodePulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 rgba(16, 185, 129, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.45));
+  }
+}
+
+.topo-sim-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.topo-sim-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #090d16;
+  background: #06b6d4;
+  border: 1px solid #22d3ee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.topo-sim-btn:hover {
+  background: #22d3ee;
+}
+
+.topo-sim-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.topo-sim-status {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.swarm-edge-animated {
+  stroke-dasharray: 8 6;
+  animation: swarmEdgeFlow 0.75s linear infinite;
+}
+
+.swarm-edge-done {
+  stroke: #10b981;
+  stroke-dasharray: none;
+}
+
+.swarm-node-box {
+  transition: stroke 0.25s ease, fill 0.25s ease;
+}
+
+.swarm-node-active {
+  stroke: #10b981 !important;
+  stroke-width: 2.2 !important;
+  fill: rgba(16, 185, 129, 0.14) !important;
+  animation: swarmNodePulse 1.1s ease-in-out infinite;
+}
+
+.swarm-node-done {
+  stroke: #06b6d4 !important;
+  stroke-width: 2 !important;
+  fill: rgba(6, 182, 212, 0.12) !important;
+}
+
 /* ==========================================================================
    Benchmark & Comparison Section
    ========================================================================== */

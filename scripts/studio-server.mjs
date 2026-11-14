@@ -208,6 +208,13 @@ const SUBAGENTS = [
     role: 'Model Context Protocol, Frontier LLMs & Prompt Prefixing',
     skills: ['mcp-server-architect', 'ai-llm-integration-expert', 'gemini-agent-booster', 'frontier-ai-models-expert', 'kv-cache-prefix-optimizer', 'adaptive-model-cascade'],
     topology: 'Agentic Tool Router'
+  },
+  {
+    id: 'reverse-security-auditor',
+    name: 'Reverse & Security Auditor',
+    role: 'Binary Triage, REA Decompilation, SBOM Attestation & Formal Z3 Auditing',
+    skills: ['reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'sbom-supply-chain-security-expert', 'formal-spec-z3-verifier'],
+    topology: 'Evidence-Backed Formal Auditor'
   }
 ];
 
@@ -825,6 +832,13 @@ export function generateStudioHtml(currentPort) {
       gap: 20px;
     }
 
+    @keyframes studioSwarmFlow {
+      to { stroke-dashoffset: -28; }
+    }
+    @keyframes studioPulseRing {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.35); }
+      50% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+    }
     .subagent-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -833,6 +847,87 @@ export function generateStudioHtml(currentPort) {
       display: flex;
       flex-direction: column;
       gap: 14px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .subagent-card.agent-active {
+      border-color: #10b981;
+      animation: studioPulseRing 1.4s ease-in-out infinite;
+    }
+    .subagent-card.agent-done {
+      border-color: #06b6d4;
+    }
+    .subagent-live-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.6);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+    }
+    .subagent-live-badge.is-active {
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.6);
+      background: rgba(16, 185, 129, 0.12);
+    }
+    .subagent-live-badge.is-done {
+      color: #22d3ee;
+      border-color: rgba(6, 182, 212, 0.55);
+      background: rgba(6, 182, 212, 0.12);
+    }
+    .swarm-topo-stage {
+      background: rgba(9, 13, 24, 0.86);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .swarm-topo-stage-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: #cbd5e1;
+      font-variant-numeric: tabular-nums;
+    }
+    .swarm-topo-edge {
+      stroke: rgba(148, 163, 184, 0.35);
+      stroke-width: 2;
+      fill: none;
+      transition: stroke 0.25s ease;
+    }
+    .swarm-topo-edge.active {
+      stroke: #10b981;
+      stroke-width: 2.6;
+      stroke-dasharray: 8 6;
+      animation: studioSwarmFlow 0.7s linear infinite;
+    }
+    .swarm-topo-edge.done {
+      stroke: #06b6d4;
+      stroke-width: 2.2;
+      stroke-dasharray: none;
+    }
+    .swarm-topo-node {
+      fill: #0f172a;
+      stroke: rgba(148, 163, 184, 0.35);
+      stroke-width: 1.5;
+      transition: stroke 0.25s ease, fill 0.25s ease;
+    }
+    .swarm-topo-node.active {
+      fill: rgba(16, 185, 129, 0.16);
+      stroke: #10b981;
+      stroke-width: 2;
+    }
+    .swarm-topo-node.done {
+      fill: rgba(6, 182, 212, 0.14);
+      stroke: #06b6d4;
+      stroke-width: 1.8;
     }
 
     .subagent-header {
@@ -1089,6 +1184,23 @@ export function generateStudioHtml(currentPort) {
     .dag-node.active-step {
       border-color: #10b981;
       box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+    .dag-node.done-step {
+      border-color: #06b6d4;
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.25);
+    }
+    .dag-edge-path {
+      transition: stroke 0.25s ease, stroke-width 0.25s ease;
+    }
+    .dag-edge-path.edge-active {
+      stroke: #10b981 !important;
+      stroke-width: 3;
+      stroke-dasharray: 8 6;
+      animation: studioSwarmFlow 0.65s linear infinite;
+    }
+    .dag-edge-path.edge-done {
+      stroke: #06b6d4 !important;
+      stroke-dasharray: none;
     }
     .dag-node-header {
       font-size: 0.82rem;
@@ -1416,11 +1528,13 @@ export function generateStudioHtml(currentPort) {
             </div>
           </div>
 
-          <div style="display: flex; gap: 12px;">
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <button type="button" id="btn-plan-swarm" class="btn btn-primary" onclick="runSwarmPlan()">Plan Swarm Topology</button>
             <button type="button" id="btn-exec-swarm" class="btn btn-secondary" onclick="runSwarmExecute()">Simulate Execution</button>
+            <button type="button" id="btn-dispatch-swarm" class="btn btn-secondary" onclick="runSwarmDispatch()">Dispatch Live Workers</button>
           </div>
 
+          <div id="swarm-live-stage" class="swarm-topo-stage" style="display: none;"></div>
           <div id="swarm-plan-output" class="result-terminal">// Enter a task and click 'Plan Swarm Topology' to inspect execution topology...</div>
         </div>
 
@@ -2375,10 +2489,13 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
     function renderSubagents(subagents) {
       const container = document.getElementById('subagents-container');
       container.innerHTML = subagents.map(a => \`
-        <div class="subagent-card">
+        <div class="subagent-card" data-subagent-id="\${a.id}">
           <div class="subagent-header">
             <span class="subagent-name">\${a.name}</span>
-            <span class="subagent-topology">\${a.topology}</span>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span class="subagent-live-badge" data-subagent-badge="\${a.id}">READY</span>
+              <span class="subagent-topology">\${a.topology}</span>
+            </div>
           </div>
           <p class="subagent-role">\${a.role}</p>
           <div>
@@ -2408,6 +2525,140 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       runSwarmPlan();
     }
 
+    function clearSwarmStageTimers() {
+      if (Array.isArray(window.__swarmStageTimers)) {
+        for (const t of window.__swarmStageTimers) clearTimeout(t);
+      }
+      window.__swarmStageTimers = [];
+    }
+
+    function setSubagentCardState(agentId, state) {
+      if (!agentId) return;
+      const cards = document.querySelectorAll('.subagent-card[data-subagent-id]');
+      cards.forEach(function(card) {
+        if (agentId !== '*' && card.getAttribute('data-subagent-id') !== agentId) return;
+        const badge = card.querySelector('[data-subagent-badge]');
+        card.classList.remove('agent-active', 'agent-done');
+        if (badge) badge.classList.remove('is-active', 'is-done');
+        if (state === 'ACTIVE') {
+          card.classList.add('agent-active');
+          if (badge) {
+            badge.classList.add('is-active');
+            badge.textContent = 'ACTIVE';
+          }
+        } else if (state === 'VERIFIED') {
+          card.classList.add('agent-done');
+          if (badge) {
+            badge.classList.add('is-done');
+            badge.textContent = 'VERIFIED';
+          }
+        } else if (badge) {
+          badge.textContent = state || 'READY';
+        }
+      });
+    }
+
+    function renderSwarmTopologyStage(plan, animateWorkers) {
+      const stage = document.getElementById('swarm-live-stage');
+      if (!stage || !plan) return;
+      clearSwarmStageTimers();
+
+      const workers = Array.isArray(plan.subagents) ? plan.subagents : [];
+      const rowCount = Math.max(workers.length, 1);
+      const svgH = Math.max(180, 44 + rowCount * 48);
+      const midY = svgH / 2;
+
+      let edgesIn = '';
+      let edgesOut = '';
+      let workerNodes = '';
+      for (let i = 0; i < workers.length; i++) {
+        const w = workers[i];
+        const y = 36 + i * 48;
+        const pIn = 'M 178 ' + midY + ' C 235 ' + midY + ', 235 ' + y + ', 290 ' + y;
+        const pOut = 'M 490 ' + y + ' C 545 ' + y + ', 545 ' + midY + ', 600 ' + midY;
+        const edgeCls = animateWorkers ? 'swarm-topo-edge' : 'swarm-topo-edge done';
+        const nodeCls = animateWorkers ? 'swarm-topo-node' : 'swarm-topo-node done';
+        edgesIn += '<path id="st-in-' + i + '" class="' + edgeCls + '" d="' + pIn + '" />';
+        edgesOut += '<path id="st-out-' + i + '" class="' + edgeCls + '" d="' + pOut + '" />';
+        if (animateWorkers) {
+          edgesIn += '<circle id="st-pkt-' + i + '" r="3.5" fill="#10b981" opacity="0.9"><animateMotion dur="' + (0.9 + (i % 3) * 0.25).toFixed(2) + 's" repeatCount="indefinite" path="' + pIn + '" /></circle>';
+        }
+        const label = escapeHtml(String(w.name || w.subagent || w.skill || 'Worker')).slice(0, 24);
+        const skillTag = escapeHtml(String(w.subagent || w.skill || 'agent')).slice(0, 24);
+        workerNodes += '<rect id="st-node-' + i + '" class="' + nodeCls + '" x="290" y="' + (y - 18) + '" width="200" height="36" rx="7" />' +
+          '<text x="390" y="' + (y - 2) + '" text-anchor="middle" fill="#e2e8f0" font-size="11" font-family="monospace">' + label + '</text>' +
+          '<text x="390" y="' + (y + 11) + '" text-anchor="middle" fill="#22d3ee" font-size="9.5" font-family="monospace">@' + skillTag + '</text>';
+      }
+
+      const topoLabel = escapeHtml(String(plan.topology || 'fan-out')).toUpperCase();
+      const budgetLabel = escapeHtml(String(plan.reasoningProfile || 'balanced')).toUpperCase();
+      const statusText = animateWorkers ? 'EXECUTING (' + workers.length + ' WORKERS)' : 'TOPOLOGY READY (' + workers.length + ' WORKERS)';
+      const statusColor = animateWorkers ? '#10b981' : '#22d3ee';
+
+      stage.style.display = 'flex';
+      stage.innerHTML =
+        '<div class="swarm-topo-stage-head">' +
+          '<span>SWARM TOPOLOGY: <strong style="color:#22d3ee;">' + topoLabel + '</strong> | THINKING: <strong>' + budgetLabel + '</strong></span>' +
+          '<span id="swarm-stage-status" style="color:' + statusColor + ';">' + statusText + '</span>' +
+        '</div>' +
+        '<svg viewBox="0 0 780 ' + svgH + '" style="width:100%;height:' + svgH + 'px;display:block;">' +
+          edgesIn +
+          edgesOut +
+          '<rect class="swarm-topo-node ' + (animateWorkers ? 'active' : 'done') + '" x="18" y="' + (midY - 24) + '" width="160" height="48" rx="8" />' +
+          '<text x="98" y="' + (midY - 3) + '" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="bold" font-family="monospace">DIRECTOR</text>' +
+          '<text x="98" y="' + (midY + 12) + '" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="monospace">' + topoLabel + '</text>' +
+          workerNodes +
+          '<rect id="st-synth" class="swarm-topo-node" x="600" y="' + (midY - 24) + '" width="162" height="48" rx="8" />' +
+          '<text x="681" y="' + (midY - 3) + '" text-anchor="middle" fill="#ffffff" font-size="11.5" font-weight="bold" font-family="monospace">SYNTHESIS</text>' +
+          '<text x="681" y="' + (midY + 12) + '" text-anchor="middle" fill="#94a3b8" font-size="9.5" font-family="monospace">ANTI-SLOP GATE</text>' +
+        '</svg>';
+
+      setSubagentCardState('*', 'READY');
+      for (let i = 0; i < workers.length; i++) {
+        const agentId = workers[i].subagent;
+        if (animateWorkers) {
+          setSubagentCardState(agentId, 'QUEUED');
+          const tStart = setTimeout(function() {
+            const eIn = document.getElementById('st-in-' + i);
+            const node = document.getElementById('st-node-' + i);
+            if (eIn) eIn.classList.add('active');
+            if (node) node.classList.add('active');
+            setSubagentCardState(agentId, 'ACTIVE');
+          }, i * 260);
+          const tDone = setTimeout(function() {
+            const eIn = document.getElementById('st-in-' + i);
+            const eOut = document.getElementById('st-out-' + i);
+            const node = document.getElementById('st-node-' + i);
+            if (eIn) { eIn.classList.remove('active'); eIn.classList.add('done'); }
+            if (eOut) eOut.classList.add('active');
+            if (node) { node.classList.remove('active'); node.classList.add('done'); }
+            setSubagentCardState(agentId, 'VERIFIED');
+          }, i * 260 + 620);
+          window.__swarmStageTimers.push(tStart, tDone);
+        } else {
+          setSubagentCardState(agentId, 'QUEUED');
+        }
+      }
+
+      if (animateWorkers && workers.length > 0) {
+        const totalMs = (workers.length - 1) * 260 + 950;
+        const tFinish = setTimeout(function() {
+          for (let i = 0; i < workers.length; i++) {
+            const eOut = document.getElementById('st-out-' + i);
+            if (eOut) { eOut.classList.remove('active'); eOut.classList.add('done'); }
+          }
+          const synth = document.getElementById('st-synth');
+          const stText = document.getElementById('swarm-stage-status');
+          if (synth) synth.classList.add('done');
+          if (stText) {
+            stText.style.color = '#22d3ee';
+            stText.textContent = 'VERIFIED (' + workers.length + '/' + workers.length + ' COMPLETE)';
+          }
+        }, totalMs);
+        window.__swarmStageTimers.push(tFinish);
+      }
+    }
+
     async function runSwarmPlan() {
       const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
       const reasoningSelect = document.getElementById('swarm-reasoning-select');
@@ -2424,6 +2675,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         const data = await res.json();
         if (data.success) {
           term.textContent = JSON.stringify(data.plan, null, 2);
+          renderSwarmTopologyStage(data.plan, false);
           showToast('Topology: ' + data.plan.topology.toUpperCase() + ' | Budget: ' + data.plan.reasoningProfile.toUpperCase());
         }
       } catch (err) {
@@ -2447,7 +2699,32 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         const data = await res.json();
         if (data.success) {
           term.textContent = data.logs.join('\\n');
+          if (data.plan) renderSwarmTopologyStage(data.plan, true);
           showToast('Swarm simulation complete (' + (data.plan?.reasoningProfile || 'balanced').toUpperCase() + ')');
+        }
+      } catch (err) {
+        term.textContent = '// Error: ' + err.message;
+      }
+    }
+
+    async function runSwarmDispatch() {
+      const task = document.getElementById('swarm-task-input').value.trim() || 'Build a scalable fullstack web application';
+      const reasoningSelect = document.getElementById('swarm-reasoning-select');
+      const reasoning = reasoningSelect ? reasoningSelect.value : 'auto';
+      const term = document.getElementById('swarm-plan-output');
+      term.textContent = '// Dispatching Native Swarm Workers onto Event Bus...';
+
+      try {
+        const res = await fetch('/api/swarm/dispatch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ task, reasoning })
+        });
+        const data = await res.json();
+        if (data.success) {
+          term.textContent = Array.isArray(data.traceLogs) ? data.traceLogs.join('\\n') : JSON.stringify(data, null, 2);
+          if (data.plan) renderSwarmTopologyStage(data.plan, true);
+          showToast('Dispatched ' + (data.workers ? data.workers.length : 0) + ' native workers');
         }
       } catch (err) {
         term.textContent = '// Error: ' + err.message;
@@ -2903,7 +3180,8 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
         const y2 = (toRect.top + toRect.height / 2 - containerRect.top);
 
         const dx = (x2 - x1) / 2;
-        paths += '<path d="M ' + x1 + ' ' + y1 + ' C ' + (x1 + dx) + ' ' + y1 + ', ' + (x2 - dx) + ' ' + y2 + ', ' + x2 + ' ' + y2 + '" fill="none" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2.5" stroke-dasharray="4 4" />';
+        const d = 'M ' + x1 + ' ' + y1 + ' C ' + (x1 + dx) + ' ' + y1 + ', ' + (x2 - dx) + ' ' + y2 + ', ' + x2 + ' ' + y2;
+        paths += '<path class="dag-edge-path" data-from="' + escapeHtml(edge.from) + '" data-to="' + escapeHtml(edge.to) + '" d="' + d + '" fill="none" stroke="rgba(6, 182, 212, 0.45)" stroke-width="2.5" stroke-dasharray="4 4" />';
       }
       svg.innerHTML = paths;
     }
@@ -2913,6 +3191,13 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       const traceOutput = document.getElementById('dag-trace-output');
       traceBox.style.display = 'block';
       traceOutput.textContent = '⚡ Running DAG Topological Simulation...';
+
+      document.querySelectorAll('.dag-edge-path').forEach(function(edgeEl) {
+        edgeEl.classList.remove('edge-active', 'edge-done');
+      });
+      document.querySelectorAll('.dag-node').forEach(function(nodeEl) {
+        nodeEl.classList.remove('active-step', 'done-step');
+      });
 
       try {
         const res = await fetch('/api/dag/simulate', {
@@ -2927,11 +3212,23 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
 
           const nodes = data.preset.nodes;
           for (let i = 0; i < nodes.length; i++) {
-            const el = document.getElementById('node-' + nodes[i].id);
+            const nodeId = nodes[i].id;
+            const el = document.getElementById('node-' + nodeId);
             if (el) {
               setTimeout(() => {
                 el.classList.add('active-step');
-                setTimeout(() => el.classList.remove('active-step'), 1200);
+                document.querySelectorAll('.dag-edge-path[data-to="' + nodeId + '"]').forEach(function(edgeEl) {
+                  edgeEl.classList.remove('edge-done');
+                  edgeEl.classList.add('edge-active');
+                });
+                setTimeout(() => {
+                  el.classList.remove('active-step');
+                  el.classList.add('done-step');
+                  document.querySelectorAll('.dag-edge-path[data-to="' + nodeId + '"]').forEach(function(edgeEl) {
+                    edgeEl.classList.remove('edge-active');
+                    edgeEl.classList.add('edge-done');
+                  });
+                }, 900);
               }, i * 350);
             }
           }
@@ -3286,9 +3583,10 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
             }
             swarmEventsList.unshift(data);
             if (swarmEventsList.length > 100) swarmEventsList.pop();
+            applyLiveSwarmTelemetry(data);
             renderSwarmEvents();
           } catch (_err) {
-            // Non-JSON SSE ping
+            void _err;
           }
         };
 
@@ -3327,6 +3625,32 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       renderSwarmEvents();
     }
 
+    function applyLiveSwarmTelemetry(ev) {
+      if (!ev || typeof ev !== 'object') return;
+      if (ev.type === 'worker:dispatch' && ev.subagent) {
+        setSubagentCardState(ev.subagent, 'ACTIVE');
+      } else if (ev.type === 'worker:done' && ev.subagent) {
+        setSubagentCardState(ev.subagent, 'VERIFIED');
+      } else if (ev.type === 'swarm:start' && Array.isArray(ev.activeAgents)) {
+        ev.activeAgents.forEach(function(id) { setSubagentCardState(id, 'QUEUED'); });
+      } else if (ev.type === 'swarm:complete' && Array.isArray(ev.activeAgents)) {
+        ev.activeAgents.forEach(function(id) { setSubagentCardState(id, 'VERIFIED'); });
+      }
+    }
+
+    function formatSwarmEventSummary(ev) {
+      if (!ev || typeof ev !== 'object') return '{}';
+      if (ev.payload && ev.payload.message) return String(ev.payload.message);
+      const summary = {};
+      const keys = ['task', 'topology', 'domain', 'subagent', 'skill', 'status', 'directive', 'message', 'reasoningProfile', 'enabled', 'totalWorkers'];
+      for (let i = 0; i < keys.length; i++) {
+        const k = keys[i];
+        if (ev[k] !== undefined) summary[k] = ev[k];
+      }
+      if (Object.keys(summary).length > 0) return JSON.stringify(summary);
+      return JSON.stringify(ev.payload || {});
+    }
+
     function renderSwarmEvents() {
       const logEl = document.getElementById('swarm-live-log');
       const countEl = document.getElementById('swarm-event-count');
@@ -3334,7 +3658,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
 
       const filtered = swarmEventsList.filter(function(ev) {
         if (swarmFilter === 'all') return true;
-        if (swarmFilter === 'agent') return ev.type && ev.type.startsWith('agent:');
+        if (swarmFilter === 'agent') return ev.type && (ev.type.startsWith('agent:') || ev.type.startsWith('swarm:') || ev.type.startsWith('worker:'));
         if (swarmFilter === 'tool') return ev.type && ev.type.startsWith('tool:');
         if (swarmFilter === 'memory') return ev.type && ev.type.startsWith('memory:');
         if (swarmFilter === 'broadcast') return ev.type === 'agent:broadcast';
@@ -3351,18 +3675,19 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       logEl.innerHTML = filtered.map(function(ev) {
         const time = ev.timestamp ? new Date(ev.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
         let badgeColor = 'var(--primary)';
-        if (ev.type && ev.type.startsWith('agent:')) badgeColor = '#a855f7';
+        if (ev.type && (ev.type.startsWith('agent:') || ev.type.startsWith('swarm:') || ev.type.startsWith('worker:'))) badgeColor = '#a855f7';
         if (ev.type && ev.type.startsWith('tool:')) badgeColor = '#38bdf8';
         if (ev.type && ev.type.startsWith('memory:')) badgeColor = '#f59e0b';
         if (ev.type === 'agent:broadcast') badgeColor = '#ec4899';
         if ((ev.type && ev.type.includes('fail')) || (ev.type && ev.type.includes('error'))) badgeColor = 'var(--danger)';
 
-        const payloadStr = (ev.payload && ev.payload.message) ? ev.payload.message : JSON.stringify(ev.payload || {});
+        const payloadStr = formatSwarmEventSummary(ev);
+        const sourceLabel = ev.subagent || ev.source || 'SWARM';
 
         return '<div style="padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px;">' +
           '<span style="color: var(--text-muted); font-size: 0.72rem; min-width: 65px;">[' + time + ']</span>' +
           '<span style="background: rgba(255,255,255,0.06); color: ' + badgeColor + '; border: 1px solid ' + badgeColor + '; padding: 1px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase;">' + (ev.type || 'EVENT') + '</span>' +
-          '<span style="color: var(--text-muted); font-size: 0.75rem;">' + (ev.source || 'SYSTEM') + '</span>' +
+          '<span style="color: var(--text-muted); font-size: 0.75rem;">' + escapeHtml(sourceLabel) + '</span>' +
           '<div style="flex: 1; word-break: break-word;">' +
             '<span style="color: #fff;">' + escapeHtml(payloadStr) + '</span>' +
           '</div>' +

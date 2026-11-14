@@ -1591,6 +1591,7 @@ Commands:
   arbitrate [fileA] [fileB] Score and arbitrate competing code drafts (P4 PRM)
   verify-invariants [file]  Verify state machine transitions & invariants (P5 SMT)
   swarm [task] [--reasoning <speed|balanced|deep|exhaustive>] Execute or plan autonomous swarm with dynamic thinking budget
+  swarm:auto [--enable|--disable|--status] Manage automatic Swarm Director activation state
   swarm:dispatch <task>     Dispatch parallel multi-agent workers concurrently with Critic-in-the-Loop
   swarm:bus [status|events] Real-time swarm concurrency event bus & multi-agent telemetry
   swarm:worktree <cmd>      Ephemeral Git worktree swarm isolation (list|create|merge|remove|cleanup)
@@ -1749,9 +1750,17 @@ Platform Eligibility & Economics:
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-dispatcher.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     } else if (args[1] === 'bus') {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-bus.mjs'), ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    } else if (args[1] === 'auto') {
+      spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), 'auto', ...args.slice(2)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     } else {
       spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     }
+    rl.close();
+    break;
+  }
+  case 'swarm:auto': {
+    const { spawnSync } = await import('child_process');
+    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), 'auto', ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
     rl.close();
     break;
   }

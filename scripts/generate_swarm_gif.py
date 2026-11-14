@@ -56,7 +56,7 @@ CARDS = [
         "skills": "zero-to-prod\nproduction-hardener",
         "color": (16, 185, 129),     # Emerald Green
         "hex": "#10b981",
-        "msg": "[Phase 5/5] QA Auditor: Running Zero-to-Prod gates — 140 Skills Certified (100%)",
+        "msg": "[Phase 5/5] QA Auditor: Running Zero-to-Prod gates — 178 Skills Certified (9 Subagents, 100%)",
     },
 ]
 
@@ -121,13 +121,13 @@ for frame_idx in range(NUM_FRAMES):
     draw.text((START_X + 20, 18), 'VIBES PLUG', fill='#38bdf8', font=font_title)
     draw.text((START_X + 135, 21), '— Universal Agentic Swarm Workflow (2026 Edition)', fill='#94a3b8', font=font_subtitle)
 
-    # 145+ Skills Badge (Pill)
-    badge_text = '145+ SKILLS ACTIVE'
-    badge_w, badge_h = 138, 24
+    # Active Skills & Subagents Badge
+    badge_text = '178 SKILLS • 9 AGENTS'
+    badge_w, badge_h = 166, 24
     badge_x = START_X + TOTAL_CARDS_W - badge_w
     badge_y = 17
-    draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=12, fill='#6d28d9', outline='#8b5cf6', width=1)
-    draw.text((badge_x + 14, badge_y + 4), badge_text, fill='#ffffff', font=font_badge)
+    draw.rounded_rectangle([badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], radius=6, fill='#6d28d9', outline='#8b5cf6', width=1)
+    draw.text((badge_x + 12, badge_y + 4), badge_text, fill='#ffffff', font=font_badge)
 
     # Determine active phase (0 to 4)
     phase_idx = min(frame_idx // 10, 4)
