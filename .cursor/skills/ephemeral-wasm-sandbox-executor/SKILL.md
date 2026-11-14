@@ -2,7 +2,7 @@
 name: ephemeral-wasm-sandbox-executor
 description: "Ephemeral WebAssembly sandboxes for secure code execution and tests / Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Ephemeral WASM Sandbox Executor (2026 Sovereign Edition)
@@ -192,6 +192,17 @@ export class WasmCodeRunner {
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Deterministic Fuel & CPU Instruction Limit**: Every WASM sandbox execution MUST specify an explicit fuel limit (e.g. 100,000 units) or strict timeout ($\le 500\text{ms}$) to permanently prevent infinite loops, CPU starvation, and ReDoS attacks.
+- **Linear Memory Isolation & Immediate Freeing**: Sandbox linear memory MUST be strictly isolated from the host process, capped ($\le 64\text{MB}$ default), and immediately freed/garbage-collected upon execution completion.
+- **Atomic Database Dry-Run Rollback**: SQL migrations tested in WebAssembly (e.g., PGlite) MUST execute within an atomic transaction block (`BEGIN ... ROLLBACK`) with guaranteed zero persistent disk mutations.
+- **Prohibited Host System Call Boundary**: WASM sandbox instances MUST run with zero host filesystem, network socket, or environment variable access unless explicitly whitelisted with capability tokens.
+
+### Non-Functional Requirements (NFR)
+- **Cold Sandbox Boot Overhead**: Initialization and instance instantiation $\le 5\text{ms}$.
+- **Execution Overhead**: WASM runtime invocation overhead $\le 2\text{ms}$.
+- **Zero Host Leakage**: 0 host process memory or file descriptor leakage across 10,000 continuous runs.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -231,6 +242,17 @@ Ketika agen AI otonom menghasilkan kode program, ekspresi reguler (regex), atau 
 1. **Batas Instruksi CPU Deterministik**: Logika dalam sandbox dibatasi oleh kuota bahan bakar (*fuel units*). Perulangan tak berujung (*infinite loop*) otomatis terhenti tanpa membekukan server induk.
 2. **Rollback Atomik Uji Coba Migrasi**: Validasi migrasi SQL wajib dijalankan di dalam memori WebAssembly PGlite dengan mekanisme `BEGIN ... ROLLBACK` otomatis.
 3. **Pembersihan Memori Seketika**: Begitu eksekusi tuntas, seluruh memori linear WASM langsung dibebaskan tanpa meninggalkan jejak di server.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Batas Bahan Bakar & Instruksi CPU Deterministik**: Setiap eksekusi sandbox WASM WAJIB menetapkan batas unit bahan bakar (*fuel limit*, misal: 100.000 unit) atau batas waktu ketat ($\le 500\text{ms}$) guna mencegah serangan ReDoS dan kebuntuan CPU tak berujung.
+- **Isolasi Memori Linear & Pembebasan Seketika**: Memori linear sandbox wajib terisolasi penuh dari proses host, dibatasi ($\le 64\text{MB}$ default), dan langsung dibebaskan dari RAM segera setelah eksekusi tuntas.
+- **Rollback Atomik Uji Kering Database**: Uji coba migrasi SQL dalam WebAssembly (seperti PGlite) wajib dieksekusi dalam blok transaksi atomik (`BEGIN ... ROLLBACK`) yang menjamin 0 mutasi permanen ke disk penyimpanan.
+- **Larangan Panggilan Sistem Host Tanpa Izin**: Mesin sandbox WASM dilarang memiliki akses langsung ke sistem file host, soket jaringan, atau variabel lingkungan kecuali diberikan izin kapabilitas eksplisit.
+
+### Non-Functional Requirements (NFR)
+- **Inisialisasi Boot Sandbox Dingin**: Waktu inisialisasi lingkungan WASM $\le 5\text{ms}$.
+- **Beban Tambahan Eksekusi**: Overhead pemanggilan runtime WASM $\le 2\text{ms}$.
+- **Zero Host Leakage**: 0 kebocoran deskriptor file atau memori host pada 10.000 eksekusi beruntun.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

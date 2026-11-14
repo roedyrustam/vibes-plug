@@ -2,7 +2,7 @@
 name: fga-rebac-authorization-expert
 description: "Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions / Otorisasi granular ReBAC (OpenFGA, SpiceDB) dan kontrol izin."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -29,6 +29,14 @@ Enterprise authorization engineering guide for **Relationship-Based Access Contr
 - Integrating OpenFGA, SpiceDB, or AWS Cedar into API middlewares.
 - Enforcing document-level access control on pgvector / RAG knowledge retrieval pipelines.
 - Replacing brittle, deeply nested SQL permission joins with relationship tuples.
+
+### Hard Guardrails (Declarative Invariants)
+- **Pin `authorizationModelId` in Production**: Always configure `OpenFgaClient` with an explicit immutable `authorizationModelId` in production so schema edits never alter live permission evaluations without a controlled rollout.
+- **Eliminate N+1 Check Loops**: Never call `.check()` inside a `for` loop or `.map()`; use `batchCheck` for known object sets or `listObjects` for collection filtering in a single round-trip.
+- **Never Grant Privileged Relations to `user:*`**: Restrict public wildcard subjects (`user:*`) strictly to read-only relations (`viewer`); never bind `user:*` to `owner`, `admin`, `editor`, or `can_write`.
+- **Pre-Filter Vector RAG Queries**: Resolve accessible document IDs via `listObjects` before querying `pgvector` (`WHERE document_id = ANY($1)`); never filter top-K embeddings post-search.
+- **Transactional Outbox for Tuple Sync**: Write relationship tuple changes to a PostgreSQL transactional outbox table inside the same ACID transaction as the domain mutation, then relay idempotently to OpenFGA/SpiceDB.
+- **Propagate Consistency Tokens on Write-to-Read Paths**: Pass `ZedToken` (SpiceDB) or `ConsistencyPreference.HigherConsistency` (OpenFGA) immediately after permission revocations to prevent the "New Enemy" stale-cache vulnerability.
 
 ---
 
@@ -232,6 +240,139 @@ export class SpiceDbZanzibarRouter {
 
 ---
 
+#### 4. OpenFGA ABAC Conditions (CEL Time-Bound & IP-Restricted Grants)
+Combine Zanzibar relationship graphs with Google CEL attribute conditions for expiring contractor access or corporate CIDR restrictions:
+
+```dsl
+model
+  schema 1.1
+
+type user
+
+type document
+  relations
+    define owner: [user]
+    define viewer: [user, user with non_expired_grant] or owner
+
+condition non_expired_grant(current_time: timestamp, expires_at: timestamp) {
+  current_time < expires_at
+}
+```
+
+---
+
+#### 5. BatchCheck & HigherConsistency Evaluation (`@openfga/sdk`)
+Evaluate dozens of object permissions in a single network call using `batchCheck` and bypass read caches with `ConsistencyPreference.HigherConsistency` right after ACL mutations:
+
+```typescript
+// src/authz/fga-batch-checker.ts
+import { OpenFgaClient, ConsistencyPreference } from '@openfga/sdk';
+
+export interface BatchPermissionQuery {
+  userId: string;
+  relation: 'can_read' | 'can_write';
+  documentIds: readonly string[];
+  requireFreshRead?: boolean;
+}
+
+export async function filterAuthorizedDocumentsBatch(
+  fga: OpenFgaClient,
+  query: BatchPermissionQuery
+): Promise<string[]> {
+  if (query.documentIds.length === 0) return [];
+
+  const checks = query.documentIds.map((docId, idx) => ({
+    user: `user:${query.userId}`,
+    relation: query.relation,
+    object: `document:${docId}`,
+    correlationId: `chk_${idx}_${docId}`,
+  }));
+
+  const response = await fga.batchCheck(
+    { checks },
+    {
+      consistency: query.requireFreshRead
+        ? ConsistencyPreference.HigherConsistency
+        : ConsistencyPreference.MinimizeLatency,
+    }
+  );
+
+  const allowedIds: string[] = [];
+  for (const item of response.result ?? []) {
+    if (item.allowed && item.request?.object) {
+      allowedIds.push(item.request.object.replace(/^document:/, ''));
+    }
+  }
+  return allowedIds;
+}
+```
+
+---
+
+#### 6. PostgreSQL Transactional Outbox for Atomic ReBAC Tuple Synchronization
+Never dual-write to PostgreSQL and OpenFGA in separate non-transactional network calls. Persist tuple mutations in a PostgreSQL outbox table within the same ACID transaction and relay with `FOR UPDATE SKIP LOCKED`:
+
+```sql
+-- migrations/002_fga_tuple_outbox.sql
+CREATE TABLE IF NOT EXISTS public.fga_tuple_outbox (
+    outbox_id BIGSERIAL PRIMARY KEY,
+    tenant_id UUID NOT NULL,
+    operation TEXT NOT NULL CHECK (operation IN ('WRITE', 'DELETE')),
+    user_key TEXT NOT NULL,
+    relation TEXT NOT NULL,
+    object_key TEXT NOT NULL,
+    attempts INT NOT NULL DEFAULT 0,
+    processed_at TIMESTAMPTZ,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE public.fga_tuple_outbox ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_fga_outbox ON public.fga_tuple_outbox
+    FOR ALL
+    USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
+
+CREATE INDEX idx_fga_outbox_unprocessed
+    ON public.fga_tuple_outbox (created_at)
+    WHERE processed_at IS NULL;
+```
+
+---
+
+#### 7. Automated OpenFGA Model Regression Test Suite (`fga/tests/document-model.fga.yaml`)
+Run `fga model test --tests fga/tests/document-model.fga.yaml` in CI on every PR to prove inheritance rules and prevent accidental privilege escalation:
+
+```yaml
+# fga/tests/document-model.fga.yaml
+name: Document Hierarchy ReBAC Regression Suite
+model_file: ../model.fga
+tuples:
+  - user: user:alice
+    relation: admin
+    object: organization:acme
+  - user: organization:acme
+    relation: org
+    object: folder:engineering
+  - user: folder:engineering
+    relation: parent_folder
+    object: document:spec-2026
+tests:
+  - name: Org admin inherits write and read on nested folder documents
+    check:
+      - user: user:alice
+        object: document:spec-2026
+        assertions:
+          can_write: true
+          can_read: true
+      - user: user:intruder
+        object: document:spec-2026
+        assertions:
+          can_write: false
+          can_read: false
+```
+
+---
+
 ### Verification Checklist
 - [ ] Every resource mutation endpoint verifies object-level authorization (`Check(user, can_write, object)`) to prevent IDOR vulnerabilities.
 - [ ] Vector RAG pipelines filter embeddings by authorized document IDs (`WHERE document_id = ANY($1)`) prior to LLM context injection.
@@ -263,6 +404,14 @@ export class SpiceDbZanzibarRouter {
 
 ### Deskripsi
 Panduan rekayasa otorisasi enterprise untuk **Relationship-Based Access Control (ReBAC)** berbasis **Google Zanzibar** (**OpenFGA**, **SpiceDB**, **Permify**) serta mesin kebijakan atribut (**AWS Cedar**, **Cerbos**). Mencakup pewarisan izin bertingkat (`Organisasi -> Folder -> Dokumen`) dan **Permission-Aware Vector RAG** agar agen AI tidak pernah membocorkan dokumen lintas pengguna.
+
+### Guardrail Wajib (Invarian Deklaratif)
+- **Pinning `authorizationModelId` di Produksi**: Selalu kunci `authorizationModelId` pada `OpenFgaClient` di produksi agar perubahan model tidak mengubah evaluasi izin secara diam-diam.
+- **Eliminasi Loop N+1 Check**: Dilarang memanggil `.check()` di dalam perulangan `for` atau `.map()`; gunakan `batchCheck` atau `listObjects` dalam satu panggilan jaringan.
+- **Larangan Wildcard `user:*` pada Relasi Istimewa**: Batasi `user:*` hanya untuk relasi baca publik (`viewer`); jangan pernah memberikan `owner`, `admin`, atau `editor` ke `user:*`.
+- **Pra-Filter Kueri Vector RAG**: Evaluasi ID dokumen yang diizinkan melalui `listObjects` sebelum menjalankan kueri `pgvector` (`WHERE document_id = ANY($1)`).
+- **Transactional Outbox untuk Sinkronisasi Tuple**: Simpan perubahan tuple relasi ke tabel outbox PostgreSQL dalam satu transaksi ACID bersama perubahan data utama.
+- **Propagasi Token Konsistensi**: Kirim `ZedToken` atau `ConsistencyPreference.HigherConsistency` setelah pencabutan izin guna mencegah celah *New Enemy*.
 
 ### Panduan Arsitektur Inti
 1. ** melampaui RBAC Statis**: Gunakan tuple relasi `(user, relation, object)` untuk memodelkan berbagi dokumen kolaboratif ala Google Drive atau Linear.

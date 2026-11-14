@@ -2,7 +2,7 @@
 name: scalability-clean-code
 description: "Clean code architecture, SOLID principles, and system scalability / Arsitektur clean code, prinsip SOLID, dan skalabilitas sistem."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -178,6 +178,16 @@ When choosing an architecture, ask:
 3. **What has different scaling needs?** Scale independently only what needs it.
 4. **What is the team size?** Microservices add overhead — start monolith, extract when needed.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Circular Dependency & Spaghetti Coupling Invariant**:
+   - Architectural packages and modules MUST maintain a strict Directed Acyclic Graph (DAG). Circular imports between domains or vertical slices (`A imports B imports A`) are strictly prohibited and must be blocked via module dependency linting (`madge`).
+2. **Hyper-YAGNI & Speculative Abstraction Ban**:
+   - Single-use implementations MUST NOT create speculative interface wrappers, abstract factory classes, or pass-through DTO layers with only one concrete implementation. Premature generalization before three distinct concrete use cases (Rule of Three) is prohibited.
+3. **Bounded Method Length & Parameter Arity**:
+   - Functions and methods MUST adhere to cognitive complexity limits (maximum 35 lines per function, maximum 3 positional parameters; parameters $\ge 4$ must be bundled into typed configuration objects).
+4. **Permanent Purge of Dead Zombie Code**:
+   - Commented-out code blocks, obsolete feature flag branches, and unreferenced functions MUST be permanently deleted rather than preserved as dead lines. Git history maintains archival records.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -185,7 +195,7 @@ When choosing an architecture, ask:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec scalability-clean-code <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 0 circular dependencies (clean DAG module graph), cyclomatic complexity <= 10 per function, 0 zombie commented code blocks; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -277,4 +287,4 @@ Identifikasi dan perbaiki: God Class, Long Method, Feature Envy, Data Clumps, Ma
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec scalability-clean-code <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 0 dependensi sirkular (graf modul DAG bersih), kompleksitas siklomatik <= 10 per fungsi, 0 blok kode mati (zombie code); kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

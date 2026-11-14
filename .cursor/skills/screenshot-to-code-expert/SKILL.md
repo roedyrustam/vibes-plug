@@ -2,7 +2,7 @@
 name: screenshot-to-code-expert
 description: "Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # screenshot-to-code-expert — vibes-plug Skill
@@ -27,6 +27,17 @@ Activate this skill when:
 - Reverse-engineering competitor UIs from screenshots for inspiration (not exact cloning).
 - Rapidly prototyping UI from hand-drawn sketches or whiteboard photos.
 - Performing visual QA by comparing rendered output against original design.
+
+### Hard Guardrails (Declarative Invariants)
+1. **Pixel-Perfect Anti-Slop Visual Contract**: The generated UI MUST NEVER use placeholder text ("Lorem ipsum", "Title here") or fake dummy placeholders. It must faithfully reproduce the exact copy, hierarchy, tabular numerals (`tabular-nums`), crisp 1px borders, and OKLCH color palettes shown in the mockup.
+2. **5-State Interactive Element Completeness**: Every interactive component (buttons, inputs, links, dropdowns) extracted from visual mockups MUST implement the complete 5-state contract: default, hover, focus-visible, active/pressed, and disabled states.
+3. **Semantic HTML & WCAG 2.2 AA Accessibility Floor**: Avoid `<div>` soup. Use semantic landmark tags (`<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`), appropriate `<button>` vs `<a>` tags, minimum touch targets $\ge 44 \times 44\text{ px}$, and WCAG contrast ratio $\ge 4.5:1$ for normal text.
+4. **Responsive Fluidity & Container Query Invariant**: Layouts must not rely on fragile hardcoded pixel widths (`width: 1440px`). Layouts must fluidly adapt across breakpoints (`sm`, `md`, `lg`, `xl`) and container contexts (`@container`) with zero horizontal overflow scrollbars.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Visual Similarity Fidelity**: Visual layout and typography matching score $\ge 95\%$ against target screenshot.
+- **First Contentful Paint (FCP)**: Component bundle size adds $< 100\text{ ms}$ overhead to FCP.
+- **Accessibility AA Floor**: $100\%$ compliance with WCAG 2.2 AA contrast and keyboard navigability standards.
 
 ---
 
@@ -247,6 +258,17 @@ Jangan pernah menghasilkan nilai warna hex atau piksel ad-hoc. Selalu periksa te
 
 #### 3. Loop QA Visual
 Setelah menghasilkan kode, render dan bandingkan screenshot hasil dengan screenshot asli. Iterasi sampai model melaporkan nol perbedaan material.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Kontrak Visual Anti-Slop Presisi-Piksel**: UI yang dihasilkan DILARANG KERAS menggunakan teks placeholder ("Lorem ipsum", "Title here") atau komponen dummy palsu. Wajib mereproduksi teks asli, hierarki, angka tabular (`tabular-nums`), border 1px yang tajam, dan palet warna OKLCH sesuai mockup.
+2. **Kelengkapan 5-Status Elemen Interaktif**: Setiap komponen interaktif (tombol, input formulir, link, dropdown) yang diekstrak dari mockup visual WAJIB menerapkan kontrak 5-status: default, hover, focus-visible, active/pressed, dan disabled.
+3. **HTML Semantik & Batas Bawah Aksesibilitas WCAG 2.2 AA**: Hindari susunan `<div>` bertingkat tanpa makna. Gunakan tag semantik (`<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`), pembedaan tegas `<button>` vs `<a>`, target sentuh minimal $\ge 44 \times 44\text{ px}$, dan rasio kontras warna $\ge 4.5:1$.
+4. **Fluiditas Responsif & Invarian Container Query**: Tata letak dilarang bergantung pada lebar piksel statis yang kaku (`width: 1440px`). Komponen wajib beradaptasi secara fleksibel di seluruh breakpoint (`sm`, `md`, `lg`, `xl`) dan konteks container (`@container`) dengan nol scrollbar overflow horizontal.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Fidelitas Kemiripan Visual**: Skor pencocokan tata letak dan tipografi $\ge 95\%$ terhadap screenshot target.
+- **First Contentful Paint (FCP)**: Dampak ukuran bundle komponen $< 100\text{ ms}$ pada FCP awal.
+- **Kepatuhan Aksesibilitas AA**: 100% kepatuhan standar rasio kontras dan navigasi keyboard WCAG 2.2 AA.
 
 ---
 

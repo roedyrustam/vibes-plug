@@ -2,7 +2,7 @@
 name: monorepo-architect
 description: "Scalable monorepo architecture with Turborepo and pnpm workspaces / Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -193,6 +193,17 @@ tasks:
     TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **Directed Acyclic Package Dependency (DAG) Invariant**: Monorepo workspace package graphs MUST form a strict DAG; circular dependencies between internal packages (`packages/ui` $\leftrightarrow$ `packages/utils`) are strictly prohibited.
+- **Internal Package Source Export Pattern**: Internal workspace packages MUST export TypeScript source files directly via the `"exports"` field in `package.json` without requiring intermediate compilation build steps.
+- **Explicit Task Dependency Graph (`turbo.json`)**: Build, test, and typecheck tasks in `turbo.json` MUST explicitly declare `dependsOn: ["^build"]` and deterministic `inputs`/`outputs` to enable hermetic remote caching.
+- **Strict Workspace Protocol Invariant**: Cross-package internal dependencies in `package.json` MUST enforce the `workspace:*` or `workspace:^` protocol to prevent accidental fetching of stale published npm registries.
+
+### Non-Functional Requirements (NFR)
+- **Remote Cache Hit Speed**: Full monorepo cached build completion $\le 5\text{s}$.
+- **Incremental Local Build**: Affected package build $\le 1\text{s}$.
+- **Hermetic CI Execution**: 100% reproducible builds with verified cache inputs/outputs.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -251,6 +262,17 @@ Moon mendukung proyek dalam bahasa yang berbeda (Go, Rust, JS) dalam satu worksp
 
 ### Optimasi CI/CD
 Gunakan flag `--filter="...[origin/main]"` Turborepo untuk hanya membangun dan menguji package yang berubah sejak commit terakhir. Gunakan remote cache Vercel atau self-hosted untuk berbagi cache antar runner CI.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Dependensi Paket Directed Acyclic Graph (DAG)**: Graf dependensi paket monorepo WAJIB membentuk DAG tanpa siklus; dependensi melingkar antar paket internal (`packages/ui` $\leftrightarrow$ `packages/utils`) dilarang keras.
+- **Pola Ekspor Sumber Internal Package**: Paket internal workspace wajib mengekspor file sumber TypeScript langsung melalui kolom `"exports"` di `package.json` tanpa memerlukan build kompilasi perantara.
+- **Graf Tugas Eksplisit (`turbo.json`)**: Tugas build, test, dan lint dalam `turbo.json` wajib mendeklarasikan `dependsOn: ["^build"]` serta `inputs`/`outputs` deterministik untuk memastikan remote caching berjalan kedap (*hermetic*).
+- **Protokol Workspace Ketat**: Dependensi antar paket internal dalam `package.json` wajib memberlakukan protokol `workspace:*` atau `workspace:^` guna mencegah pengambilan paket usang dari registry npm publik.
+
+### Non-Functional Requirements (NFR)
+- **Kecepatan Build Remote Cache**: Penyelesaian build ber-cache seluruh monorepo $\le 5\text{s}$.
+- **Build Inkremental Lokal**: Build paket yang terdampak $\le 1\text{s}$.
+- **Eksekusi CI Hermetis**: 100% build dapat direproduksi dengan input/output cache terverifikasi.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

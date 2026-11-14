@@ -2,7 +2,7 @@
 name: visual-ui-auditor
 description: "Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Visual UI Auditor & Vision Quality Gate (2026 Sovereign Edition)
@@ -18,6 +18,20 @@ version: "4.7.0"
 Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. They are completely blind to **spatial breathing room, optical balance, perceived elevation, color clashing, and visual degradation**. A React component can be 100% syntactically valid yet visually repulsive, violating brand aesthetics and suffering from lazy AI design tropes.
 
 **The Visual UI Auditor** establishes an autonomous **Multimodal Vision Quality Gate**. By rendering components via Playwright or Headless Chrome, capturing high-DPI screenshots, and passing them to frontier vision models (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), the auditor inspects rendered pixels against **Anti-Slop Pillar 7 and the 40 Mandatory Anti-Slop Rules (R-01 to R-40)**, automatically synthesizing self-healing CSS diffs.
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero-Tolerance Anti-Slop Visual Ban**: Banned design tropes are strictly rejected: generic purple/blue gradients (`from-blue-600 to-purple-600`), floating blurred neon glow orbs, pill button addiction (`rounded-full` on rectangular buttons), and ungrounded borderless cards.
+- **Dual-Probe Comprehensive Reconciliation**: Visual audits comparing an implementation against a design/prototype must execute BOTH pixel/layout probes AND structural role-classified content probes (`heading`, `eyebrow`, `cta`, `body`); visual-only diffs that ignore content roles are strictly prohibited.
+- **Evidence-Bound Citation Invariant**: Every audit finding must cite a concrete measurement, screenshot observation, or formal tension id (`T-*`); subjective claims without measurement evidence are banned.
+- **Verbatim Copy Preservation Check**: Every audit must verify zero invented, hallucinated, or silently dropped marketing copy against source specs with a strict per-page word count ledger.
+- **Crisp 1px Grounded Border Contract**: Every card, container, and input element must declare crisp 1px borders (`border border-neutral-200/80 dark:border-neutral-800`) with three-tier radius (`rounded-lg` for controls, `rounded-xl` for cards, `rounded-2xl` for modals).
+- **WCAG 2.2 AA Contrast & Touch Target Floors**: Text elements must satisfy minimum contrast ratios ($\ge 4.5:1$ for normal body text, $\ge 3:1$ for large headings). Interactive controls must enforce a minimum physical touch target of $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
+- **Tabular Numerals & Anti-Jitter Invariant**: All dynamic financial values, timestamps, and metric counters must declare `tabular-nums` (`font-variant-numeric: tabular-nums`) to prevent horizontal jitter during rapid re-renders.
+
+### Non-Functional Requirements (NFR Contract)
+- **Visual Audit Score Floor**: Components must achieve a composite score $\ge 90/100$ across the 7-domain visual inspection checklist before deployment.
+- **Dual-Probe Precision Gate**: Stitched pixel diff $\le 1.5\%$ across 1440px and 375px viewports with 0 missing structural role nodes (`heading`, `eyebrow`, `cta`, `body`).
+- **Vision Inference Latency**: Multimodal screenshot inspection and rubric generation must complete within $< 4.0\text{ s}$.
 
 ---
 
@@ -83,6 +97,44 @@ Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. T
    - Mandatory explicit dimensions or aspect ratios on media elements (`aspect-video`, `w-full h-auto`) to guarantee CLS = 0.
    - Mandatory `tabular-nums` on all numbers, currencies, dates, and live statistics to eliminate layout shift during re-renders.
    - WCAG 2.2 AA Contrast Compliance: 4.5:1 text contrast for body, 3:1 for large headings across light/dark themes.
+
+---
+
+### Adobe Stardust Multi-Perspective Audit & Dual-Probe Engine
+
+Integrating the battle-tested **Adobe Stardust** audit methodology, the auditor elevates single-component screenshot linting into an evidence-bound, site-wide modernization scorecard.
+
+#### 1. The Seven-Dimension Evidence-Bound Audit Framework
+Every website or component audit evaluates 7 complementary dimensions. Every single finding must cite a concrete measurement, an axe-core check, or an explicit Brand Tension ID (`T-*`):
+
+| Audit Dimension | Measurement / Instrument | Failure Threshold | Actionable Remediation |
+|---|---|---|---|
+| **1. Design & Brand Tensions** | Visual style audit + inconsistency register | Any uncited layout delta or `T-*` tension | Harmonize into 60-30-10 OKLCH tokens and standard 1px borders |
+| **2. Performance & CWV** | Core Web Vitals before & after | LCP > 2.5s, INP > 200ms, CLS > 0.1 | Eager load first hero image (`loading="eager"`), font swap without CLS |
+| **3. SEO & Technical** | Canonical, sitemap, robots, redirects | Missing canonicals, redirect hops | Generate canonical URLs, sitemaps, and localize internal paths |
+| **4. LLM & AI-Search Visibility** | Server-rendered HTML parser + `llms.txt` | Key facts trapped in client JS bundles | Server-render core product claims, publish `/llms.txt` and JSON-LD schema |
+| **5. Accessibility (a11y)** | axe-core + WCAG 2.2 AA rules | Contrast < 4.5:1, touch target < 44px, missing landmark | Declare semantic `<main>`, fix contrast, add accessible labels |
+| **6. Content Fidelity** | Per-page verbatim word count ledger | Dropped copy, hallucinated marketing filler | Preserve original copy verbatim; log any approved change in register |
+| **7. Platform Delivery** | Modular component inspection | Monolithic 10,000-line stylesheets | Re-author into clean semantic React 19 / Tailwind v4 components |
+
+#### 2. The Complementary Dual-Probe Reconcile Engine (`diff`)
+To verify that an implementation matches a target prototype, the auditor runs two complementary probes simultaneously. Running only one gives a false "looks fine":
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│               COMPLEMENTARY DUAL-PROBE RECONCILE ENGINE                │
+├──────────────────────────────────┬─────────────────────────────────────┤
+│   PROBE 1: PIXEL / LAYOUT DIFF   │  PROBE 2: STRUCTURAL CONTENT DIFF   │
+├──────────────────────────────────┼─────────────────────────────────────┤
+│ • Stretched/distorted images     │ • Missing / role-swapped headings   │
+│ • Dropped max-width wraps        │ • Dropped eyebrows or body copy     │
+│ • Blank/failed component renders │ • Missing or redirected CTA buttons │
+│ • Surface/ground color flips     │ • Rendered-face font forks          │
+│ • Element height/padding drifts  │ • Dropped aria-label / title values │
+└──────────────────────────────────┴─────────────────────────────────────┘
+```
+
+- **Structural Inventory Classification**: `Probe 2` parses DOM roots by **computed style + tag** into ordered roles: `eyebrow` (tracking-wider uppercase), `heading` (h1-h6 font-bold), `cta` (button/anchor + href), and `body`. If a prototype's eyebrow becomes a body paragraph in the build, the structural probe flags it immediately even if pixels look plausibly similar.
 
 ---
 
@@ -226,6 +278,54 @@ test.describe('Automated Visual UI Quality Gate', () => {
 });
 ```
 
+---
+
+#### Blueprint 3: Blind Awwwards Jury Evaluation Protocol (`/jury`) & Automated Browser QA CLI
+Self-grading is systematically optimistic by **1.5–2.5 points** when an agent knows its own `DESIGN.md` intent. To evaluate a site like an independent Awwwards jury panel, pair the standalone zero-config browser scripts in `skills/visual-ui-auditor/scripts/` with a **Blind Critic Subagent** that receives **ONLY** captured screenshots and telemetry (`report.json`, `summary.json`, `audit.txt`)—never `DESIGN.md` or source code.
+
+##### 1. Standalone Browser QA & Asset Pipeline Commands
+```bash
+# 1. Multi-route viewport sweep, hover pixel-diff, mobile 4x CPU + slow 4G, keyboard & reduced-motion
+node skills/visual-ui-auditor/scripts/shoot.mjs http://localhost:4321 --out .shots --crawl --nav
+
+# 2. Structural DOM, Typography, SEO, Contrast, Perf & A11y Audit
+node skills/visual-ui-auditor/scripts/audit.mjs http://localhost:4321 > .shots/audit.txt
+
+# 3. Deterministic 1200x630 Open Graph Card from live hero (--og mode)
+node skills/visual-ui-auditor/scripts/og.mjs http://localhost:4321 public/og.png
+
+# 4. Self-host curated variable fonts (.woff2) & generate responsive AVIF/WebP photo sets
+node skills/visual-ui-auditor/scripts/font.mjs "Syne:700,800" "Plus Jakarta Sans:400,500" --out public/fonts
+node skills/visual-ui-auditor/scripts/photos.mjs "brutalist concrete architecture" --count 6 --out public/images
+```
+
+##### 2. Awwwards Weighted Jury Rubric & Empirical Calibration
+- **Weighted Overall Formula**:
+  $$\text{Overall} = 0.4 \times \text{Design} + 0.3 \times \text{Usability} + 0.2 \times \text{Creativity} + 0.1 \times \text{Content}$$
+- **6 Developer Award Criteria** (unweighted average `Dev Avg` for Developer Award eligibility):
+  1. **Semantics / SEO**: Valid landmarks (`<header>`, `<main>`, `<footer>`), one `<h1>` per page, decorative split-text marked `aria-hidden="true"` outside headings, complete JSON-LD + OG tags.
+  2. **Animations / Transitions**: Single-clock `gsap.ticker` + Lenis, real-progress loader (`loaderMs <= 2600`), idle motion (`idleMotion: true`), seamless page curtain/FLIP transitions.
+  3. **Accessibility**: Zero `axe-core` critical/serious violations, `reduced.hiddenText === 0` under `prefers-reduced-motion: reduce`, visible `:focus-visible` outlines (`k-01-focus.png`).
+  4. **WPO (Web Performance)**: `CLS < 0.05`, throttled mobile `FCP < 1.8s`, JS `< 300 KB` gz, self-hosted `.woff2 < 300 KB`, zero console/page errors.
+  5. **Responsive**: Zero horizontal overflow at `1440x900`, `768x1024`, and `390x844`; mobile re-composed for vertical rhythm (no `auto 1fr auto` mid-page holes).
+  6. **Markup / Meta-data**: Clean DOM without `glHidden` opaque WebGL covers (`glHidden.length === 0`), valid `robots.txt` and `sitemap.xml`.
+- **Empirical Calibration Offset**: Because the Blind Critic starts at **6.0 / 10** and requires cited screenshot/telemetry evidence for every point above 6, calibrate against live Awwwards jury scores via:
+  $$\text{Estimated Live Jury Score} = \text{Critic Overall} + 1.1$$
+  - **< 6.5**: Below nomination bar
+  - **6.5 – 7.1**: **Honorable Mention (HM)** territory
+  - **7.2 – 7.9**: **Site of the Day (SOTD)** contender (Target: Critic raw `>= 7.5`, every category `>= 7.0`, Dev Avg `>= 7.5`)
+  - **8.0+**: **Site of the Month (SOTM)** contender
+
+##### 3. Critical `shoot.mjs` Telemetry Signals (`report.json` / `summary.json`)
+| Telemetry Field | Pass Requirement | Failure Diagnosis |
+| :--- | :--- | :--- |
+| `settledMs` & `loaderMs` | `settledMs < 2200`, `loaderMs <= 2600` | Loader cap exceeded or reveal timeline hung above the fold |
+| `idleMotion` (`d-00-settled` vs `d-00-after1s`) | `true` (`changedRatio > 0.002`) | Hero is dead/static when user stops scrolling; missing `startIdle()` |
+| `hoverDiffs` (`h-NN-rest` vs `h-NN-hover`) | `pct > 0.5%`, `colorOnly: false` on primary targets | `noHoverChange` or lazy bare text-color swap on primary CTA/nav/work card |
+| `glHidden` | `[]` (0 elements) | `[data-gl]` figure has opaque CSS `background` covering `#gl` canvas behind it |
+| `reduced.hiddenText` | `0` | Elements stuck at `opacity: 0` when `prefers-reduced-motion: reduce` is active |
+| `mobile.throttled.blankAt1s` | `false` (`lumaStd > 3`) | Mobile throttled view (4x CPU + slow 4G) renders blank screen at `t = 1.0s` |
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -244,6 +344,20 @@ test.describe('Automated Visual UI Quality Gate', () => {
 Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis secara abstrak. Mereka sama sekali buta terhadap **keseimbangan optik, pernapasan tata letak (*spatial breathing room*), elevasi permukaan, dan tabrakan warna**. Sebuah komponen React bisa saja lolos 100% dari galat kompilasi namun secara visual terlihat buruk dan dipenuhi klise AI murahan.
 
 **Visual UI Auditor** menyediakan **Gerbang Kualitas Visual Multimodal** otonom. Dengan merender komponen melalui Playwright, menangkap tangkapan layar beresolusi tinggi, dan memeriksanya menggunakan model vision frontier (Gemini 4 Argon/Pro Vision, Claude Sonnet 5.5 Vision, Muse Wonder), auditor memeriksa setiap piksel terhadap **Pilar 7 Anti-Slop dan 40 Aturan Wajib Anti-Slop (R-01 hingga R-40)** serta menghasilkan rekomendasi perbaikan CSS secara otomatis.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Larangan Tanpa Toleransi Visual Slop**: Menolak keras klise desain murahan AI: gradien biru-ungu generik (`from-blue-600 to-purple-600`), bola cahaya neon buram melayang, kecanduan tombol pil (`rounded-full` pada tombol kotak), dan kartu mengambang tanpa border tegas.
+- **Rekonsiliasi Komprehensif Dual-Probe**: Audit visual yang membandingkan implementasi terhadap prototipe/desain wajib mengeksekusi KEDUA probe: probe piksel/layout DAN probe struktural peran konten (`heading`, `eyebrow`, `cta`, `body`); diff visual sepihak yang mengabaikan peran konten dilarang keras.
+- **Invarian Sitasi Berbasis Bukti**: Setiap temuan audit wajib mencantumkan bukti pengukuran nyata, pengamatan tangkapan layar, atau ID Tegangan Brand formal (`T-*`); klaim subjektif tanpa data pengukuran dilarang.
+- **Verifikasi Preservasi Teks Verbatim**: Setiap audit wajib memastikan tidak ada copywriting yang dihilangkan, dikarang, atau dihalusinasikan secara diam-diam terhadap spek sumber.
+- **Kontrak Border 1px Tegas & Tiga Tingkat Radius**: Setiap kartu, kontainer, dan elemen input wajib memiliki border 1px tegas (`border border-neutral-200/80 dark:border-neutral-800`) dengan tiga tingkatan radius (`rounded-lg` untuk kontrol, `rounded-xl` untuk kartu, `rounded-2xl` untuk modal).
+- **Standar Kontras & Touch Target WCAG 2.2 AA**: Teks wajib memenuhi rasio kontras minimum ($\ge 4.5:1$ untuk teks biasa, $\ge 3:1$ untuk judul besar). Kontrol interaktif wajib memiliki area sentuh fisik minimal $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
+- **Angka Tabular & Anti-Gemetar**: Seluruh nilai finansial dinamis, stempel waktu, dan penghitung metrik wajib mendeklarasikan `tabular-nums` (`font-variant-numeric: tabular-nums`) untuk mencegah pergeseran layout horizontal saat rendering cepat.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Standar Skor Audit Visual**: Komponen wajib mencapai skor gabungan $\ge 90/100$ pada checklist audit visual 7-domain sebelum rilis produksi.
+- **Gerbang Presisi Dual-Probe**: Selisih piksel tersambung (*stitched pixel diff*) $\le 1.5\%$ pada viewport 1440px dan 375px dengan 0 node struktural yang hilang (`heading`, `eyebrow`, `cta`, `body`).
+- **Latensi Inferensi Visual**: Inspeksi tangkapan layar multimodal dan generasi rubrik harus selesai dalam $< 4.0\text{ detik}$.
 
 ---
 
@@ -282,6 +396,44 @@ Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis 
    - Wajib menyertakan dimensi eksplisit atau rasio aspek pada media (`aspect-video`, `w-full h-auto`) untuk mencegah CLS.
    - Wajib menyertakan `tabular-nums` pada angka moneter, harga, persentase, dan tanggal.
    - Kepatuhan kontras WCAG 2.2 AA: minimal 4.5:1 untuk teks dan 3:1 untuk judul besar.
+
+---
+
+### Kerangka Kerja Audit Berbasis Bukti 7-Dimensi & Mesin Dual-Probe Adobe Stardust
+
+Mengintegrasikan metodologi teruji dari **Adobe Stardust**, auditor meningkatkan pengujian screenshot komponen menjadi kartu skor (*scorecard*) modernisasi seluruh situs berbasis bukti empiris.
+
+#### 1. Kerangka Kerja Audit Berbasis Bukti 7-Dimensi
+Setiap audit website atau antarmuka mengevaluasi 7 dimensi komplementer. Setiap temuan wajib mencantumkan bukti pengukuran nyata atau ID Tegangan Brand (`T-*`):
+
+| Dimensi Audit | Instrumen & Metode Pengukuran | Ambang Kegagalan | Tindakan Remediasi |
+|---|---|---|---|
+| **1. Desain & Tegangan Brand** | Audit gaya visual + inconsistency register | Deviasi layout tanpa sitasi atau tegangan `T-*` | Harmonisasi ke token OKLCH 60-30-10 dan border 1px tegas |
+| **2. Performa & CWV** | Core Web Vitals sebelum & sesudah | LCP > 2.5s, INP > 200ms, CLS > 0.1 | Muat gambar hero pertama secara eager (`loading="eager"`), font swap |
+| **3. SEO & Teknis** | Canonical, sitemap, robots, redirects | Canonical hilang, redirect berulang | Hasilkan canonical URL, sitemap, dan lokalisasi path internal |
+| **4. Visibilitas LLM & AI-Search** | Parser HTML server-rendered + `llms.txt` | Fakta penting terperangkap di bundle JS | Render klaim inti di server, publikasikan `/llms.txt` dan skema JSON-LD |
+| **5. Aksesibilitas (a11y)** | axe-core + aturan WCAG 2.2 AA | Kontras < 4.5:1, target sentuh < 44px, landmark hilang | Deklarasikan `<main>` semantik, perbaiki kontras, beri label aksesibel |
+| **6. Fidelitas Konten** | Buku besar hitungan kata verbatim per halaman | Teks copywriting terbuang atau dihalusinasikan | Preservasi teks asli secara verbatim; catat setiap perubahan di register |
+| **7. Pengiriman Platform** | Inspeksi komponen modular | Stylesheet monolitik 10.000 baris | Tulis ulang menjadi komponen React 19 / Tailwind v4 modular |
+
+#### 2. Mesin Rekonsiliasi Dual-Probe Komplementer (`diff`)
+Untuk memastikan kode hasil bangun cocok dengan prototipe/desain target, auditor menjalankan dua probe komplementer secara simultan. Menjalankan salah satu saja memberikan hasil keliru "tampak bagus":
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│              MESIN REKONSILIASI DUAL-PROBE KOMPLEMENTER                │
+├──────────────────────────────────┬─────────────────────────────────────┤
+│    PROBE 1: DIFF PIKSEL / LAYOUT │   PROBE 2: DIFF STRUKTURAL KONTEN   │
+├──────────────────────────────────┼─────────────────────────────────────┤
+│ • Gambar terdistorsi / melar     │ • Heading hilang / tertukar peran   │
+│ • Wrapper max-width terlepas     │ • Eyebrow atau teks paragraf hilang │
+│ • Render komponen kosong / gagal │ • Tombol CTA hilang atau salah arah │
+│ • Pembalikan warna surface/latar │ • Perbedaan font-face ter-render    │
+│ • Pergeseran tinggi atau padding │ • Atribut aria-label / title hilang │
+└──────────────────────────────────┴─────────────────────────────────────┘
+```
+
+- **Klasifikasi Inventaris Struktural**: `Probe 2` membedah DOM berdasarkan **computed style + tag** menjadi peran terurut: `eyebrow` (tracking-wider kapital), `heading` (h1-h6 font-bold), `cta` (button/anchor + href), dan `body`. Jika eyebrow pada prototipe berubah menjadi paragraf biasa di hasil build, probe struktural akan langsung menandainya sebagai kegagalan meskipun piksel sekilas tampak serupa.
 
 ---
 
@@ -402,6 +554,20 @@ export class VisualUiAuditorId {
 3. **Patuhi Batas Skor Minimum 90**: Tolak kode yang memiliki skor visual < 90 atau melanggar aturan border 1px dan larangan tombol pil.
 4. **Pencegahan CLS & Media**: Selalu sediakan rasio aspek (`aspect-video` atau dimensi eksplisit) pada seluruh tag gambar untuk memenuhi aturan R-40.
 5. **Protokol Fallback Ketersediaan**: Jika Gemini 4 Pro Vision belum terpasang atau mengalami pembatasan kuota, audit visual dialihkan secara otomatis ke Gemini 3.8 Flash Vision tanpa menghentikan pipeline CI.
+
+---
+
+### Protokol Juri Buta Awwwards (`/jury`) & CLI QA Browser Mandiri
+Penilaian mandiri (*self-grading*) oleh agen yang membaca `DESIGN.md` miliknya sendiri terbukti bias optimis sebesar **1.5–2.5 poin**. Untuk mengaudit situs secara objektif setara panel juri Awwwards, jalankan skrip QA mandiri di `skills/visual-ui-auditor/scripts/` lalu serahkan hasilnya ke **Subagen Kritikus Buta (*Blind Critic*)** yang **HANYA** menerima tangkapan layar `.shots/` dan laporan telemetri (`report.json`, `summary.json`, `audit.txt`) tanpa akses ke `DESIGN.md` maupun kode sumber.
+
+1. **Perintah Eksekusi Pipeline QA & Aset Mandiri**:
+   - `node skills/visual-ui-auditor/scripts/shoot.mjs http://localhost:4321 --out .shots --crawl --nav`: Tangkapan layar seluruh rute pada viewport desktop (`1440x900`), tablet (`768x1024`), dan mobile (`390x844` dengan throttling CPU 4x + jaringan 4G lambat), uji *pixel-diff* status hover (`h-NN-rest` vs `h-NN-hover`), uji fokus keyboard (`k-01-focus.png`), dan uji `prefers-reduced-motion` (`r-00.png`).
+   - `node skills/visual-ui-auditor/scripts/audit.mjs http://localhost:4321 > .shots/audit.txt`: Audit struktural DOM, skala tipografi, kontras WCAG, SEO, serta pelanggaran `axe-core`.
+   - `node skills/visual-ui-auditor/scripts/og.mjs http://localhost:4321 public/og.png`: Render kartu Open Graph `1200x630` langsung dari hero halaman aktif (`?og`).
+   - `node skills/visual-ui-auditor/scripts/font.mjs` & `photos.mjs`: Unduh font variabel kurasi (`.woff2` self-hosted) dan hasilkan set foto responsif AVIF/WebP (`640w`, `1280w`, `1920w`).
+2. **Rumus Bobot Juri Awwwards & Kalibrasi**:
+   - **Skor Akhir Tertimbang**: `0.4 * Design + 0.3 * Usability + 0.2 * Creativity + 0.1 * Content` ditambah rata-rata 6 kriteria Developer (*Semantics/SEO, Animations/Transitions, Accessibility, WPO, Responsive, Markup/Meta-data*).
+   - **Kalibrasi Empiris**: `Estimasi Skor Juri = Skor Kritikus Buta + 1.1` (Honorable Mention: `6.5–7.1`, Site of the Day / SOTD: `7.2+`). Situs siap rilis wajib mencapai skor mentah Kritikus Buta `>= 7.5` dengan `glHidden: []`, `colorOnly: false` pada target utama, `reduced.hiddenText === 0`, dan `idleMotion: true`.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

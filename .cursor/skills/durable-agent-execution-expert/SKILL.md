@@ -2,7 +2,7 @@
 name: durable-agent-execution-expert
 description: "Durable agent execution, Temporal AI workflows, and state replay / Eksekusi agen AI tahan-gagal, workflow Temporal, dan replay state."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -29,6 +29,14 @@ Production engineering guide for building **crash-proof, long-running AI Agents*
 - Implementing Human-in-the-Loop (HITL) approval gates where an agent pauses execution without holding open a server thread.
 - Preventing duplicate LLM token charges or duplicate external API calls when a worker restarts mid-loop.
 - Deploying stateful multi-step workflows on Cloudflare Workflows or Restate.
+
+### Hard Guardrails (Declarative Invariants)
+- **Wrap All Non-Deterministic Operations in Journaled Steps**: Never invoke LLM APIs, `fetch()`, `Date.now()`, `Math.random()`, or `crypto.randomUUID()` directly inside a workflow orchestrator body; wrap every side effect inside `step.do()` or a Temporal Activity.
+- **Deterministic Step Idempotency Keys**: Pass `${workflowId}:${stepName}` as the `Idempotency-Key` header on every external mutation tool call so activity retries never double-charge or double-post.
+- **Zero-Compute HITL Signals (`waitForEvent`)**: Pause for human approval using durable events (`step.waitForEvent` or Temporal Signals + `condition()`) with an explicit timeout—never `setInterval` or busy-wait loops.
+- **Bound Journal Payload Sizes (< 512 KB)**: Store large PDFs, screenshots, or embeddings in S3/R2 and pass only content-addressed URIs + SHA-256 digests through the workflow journal.
+- **Explicit Retry & Non-Retryable Error Classification**: Configure exponential backoff for transient `429`/`503` LLM errors while marking schema validation (`400`) and auth (`401`/`403`) errors as non-retryable (`ApplicationFailure.nonRetryable`).
+- **Token Budget & Max-Iteration Circuit Breaker**: Enforce a hard `maxIterations` and cumulative token cost ceiling inside the durable workflow state to prevent runaway agent loops.
 
 ---
 
@@ -225,6 +233,90 @@ export class TemporalAgentWorkflowSaga {
     await activities.publishResult(input.workflowId, currentContext);
     return { status: 'COMPLETED', iterations: this.currentIteration };
   }
+}
+```
+
+#### 4. Restate.dev Durable Virtual Object Agent with Awakeable HITL Gate (TypeScript)
+Persist per-session agent state and pause on cryptographic human sign-off using Restate `ctx.run` and `ctx.awakeable`:
+
+```typescript
+// src/workflows/restate-agent-object.ts
+export interface RestateObjectContext {
+  key: string;
+  get<T>(stateKey: string): Promise<T | null>;
+  set<T>(stateKey: string, value: T): void;
+  run<T>(name: string, fn: () => Promise<T>): Promise<T>;
+  awakeable<T>(): { id: string; promise: Promise<T> };
+  resolveAwakeable<T>(id: string, payload: T): void;
+}
+
+export interface PayoutProposal {
+  proposalId: string;
+  amountMinor: number;
+  currency: 'IDR' | 'USD';
+  recipientAccount: string;
+}
+
+export async function executeDurablePayoutAgent(
+  ctx: RestateObjectContext,
+  proposal: PayoutProposal
+): Promise<{ status: 'EXECUTED' | 'DENIED'; awakeableId: string; txRef?: string }> {
+  const riskScore = await ctx.run('score-fraud-risk', async () => {
+    return proposal.amountMinor > 10_000_000 ? 85 : 10;
+  });
+
+  const gate = ctx.awakeable<{ approved: boolean; approverId: string }>();
+  ctx.set('pending_awakeable_id', gate.id);
+
+  if (riskScore >= 50) {
+    const decision = await gate.promise;
+    if (!decision.approved) {
+      return { status: 'DENIED', awakeableId: gate.id };
+    }
+  }
+
+  const txRef = await ctx.run('execute-ledger-transfer', async () => {
+    return `tx_${ctx.key}_${proposal.proposalId}`;
+  });
+
+  return { status: 'EXECUTED', awakeableId: gate.id, txRef };
+}
+```
+
+#### 5. Durable Token Budget & Cost Circuit Breaker (TypeScript)
+Halt multi-step durable agent workflows deterministically before exceeding tenant FinOps budgets:
+
+```typescript
+// src/workflows/durable-budget-breaker.ts
+export interface WorkflowCostLedger {
+  readonly workflowId: string;
+  readonly maxBudgetMicrosUsd: number;
+  readonly spentMicrosUsd: number;
+  readonly stepCount: number;
+  readonly maxSteps: number;
+}
+
+export function recordDurableStepCost(
+  ledger: WorkflowCostLedger,
+  stepCostMicrosUsd: number
+): WorkflowCostLedger {
+  const nextSpent = ledger.spentMicrosUsd + stepCostMicrosUsd;
+  const nextStep = ledger.stepCount + 1;
+
+  if (nextStep > ledger.maxSteps) {
+    throw new Error(`[BudgetBreaker] Workflow ${ledger.workflowId} exceeded maxSteps (${ledger.maxSteps})`);
+  }
+  if (nextSpent > ledger.maxBudgetMicrosUsd) {
+    throw new Error(
+      `[BudgetBreaker] Workflow ${ledger.workflowId} exceeded budget: ${nextSpent} > ${ledger.maxBudgetMicrosUsd} micros USD`
+    );
+  }
+
+  return {
+    ...ledger,
+    spentMicrosUsd: nextSpent,
+    stepCount: nextStep,
+  };
 }
 ```
 

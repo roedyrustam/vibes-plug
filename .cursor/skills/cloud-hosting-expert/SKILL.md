@@ -2,7 +2,7 @@
 name: cloud-hosting-expert
 description: "Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare) / Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -212,6 +212,16 @@ const cached = await cache.match(request);
 if (cached) return cached;
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Edge Deployment Ephemeral State Invariant**:
+   - Edge runtimes (Vercel Edge, Cloudflare Workers) MUST NOT rely on local disk storage or long-lived in-process memory. State MUST be persisted in distributed stores (Cloudflare D1/KV, Supabase, Upstash Redis).
+2. **Explicit Cache-Control Headers on Static & SWR Responses**:
+   - All serverless and edge GET endpoints MUST return explicit `Cache-Control` headers (e.g. `public, s-maxage=..., stale-while-revalidate=...`). Never rely on default unconfigured edge cache behaviors.
+3. **Dedicated Subdomain Routing Isolation**:
+   - SaaS platforms MUST separate marketing landing pages, tenant user apps (`*.app.domain.com`), and administrative control planes (`admin.domain.com`) through edge middleware or platform routing rules.
+4. **Zero Unencrypted Public Secrets in Container Deployments**:
+   - Production Docker deployments on Railway or Fly.io MUST NOT bake `.env` files or secrets into images (`COPY .env`). Secrets MUST be injected via platform secret stores at runtime.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -219,7 +229,7 @@ if (cached) return cached;
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec cloud-hosting-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Edge TTFB < 50ms (global P95), zero unencrypted image secret bakes, 100% ephemeral stateless runtime compliance; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -335,4 +345,4 @@ CMD ["bun", "run", "src/server.ts"]
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec cloud-hosting-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | TTFB Edge < 50ms (global P95), 0 rahasia terbakar dalam image kontainer, 100% kepatuhan stateless runtime efemeral; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

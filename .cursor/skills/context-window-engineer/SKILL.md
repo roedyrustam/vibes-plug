@@ -2,7 +2,7 @@
 name: context-window-engineer
 description: "Optimize 2M+ context windows, prompt cache pinning & budget slicing / Rekayasa context window 2M+, cache pinning, dan budget token."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -224,6 +224,16 @@ export function buildSlidingWindow(
 | Ignoring token counting | Silent context truncation by model API | Pre-count and enforce budgets client-side |
 | Keeping full conversation history forever | Context fills up after 10-15 turns | Implement sliding window with summarization |
 
+### Hard Guardrails (Declarative Invariants)
+1. **Deterministic 4-Zone Context Partitioning**:
+   - Every large-context prompt (>32K tokens) MUST be partitioned into structured zones: Zone 1 (System Core), Zone 2 (Deterministic Tools & Contracts), Zone 3 (Retrieved Knowledge & Codebase Slice), and Zone 4 (Dynamic Turn History).
+2. **Pre-Flight Client-Side Token Budgeting**:
+   - Prompts MUST be counted using model-specific tokenizers prior to submission. Never allow unbounded payload submission that risks silent server-side tail truncation.
+3. **Graceful Shedding Priority (Drop Zone 4 First, Never Zone 1-2)**:
+   - When context limits are approached, older dynamic turns in Zone 4 MUST be summarized or pruned first, followed by Zone 3 document candidate reduction. Static core instructions (Zone 1-2) must never be pruned.
+4. **Prompt-Cache Prefix Pinning Alignment**:
+   - Static zones 1 and 2 MUST maintain byte-identical ordering to ensure maximum cache-hit rates (>= 80%) across Anthropic ephemeral caching, OpenAI prompt caching, and Gemini cachedContent.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -231,7 +241,7 @@ export function buildSlidingWindow(
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec context-window-engineer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Prompt cache hit rate >= 80% on repeat turns, client-side token count error margin <= 1%, zero "lost in the middle" degradation; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -317,4 +327,4 @@ Gunakan RAG untuk korpus >10M token dengan query spesifik dan sensitivitas biaya
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec context-window-engineer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Hit rate prompt cache >= 80% pada giliran berulang, deviasi penghitungan token klien <= 1%, nol degradasi "lost in the middle"; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -2,7 +2,7 @@
 name: saas-billing
 description: "SaaS billing state machines, subscription lifecycle, and webhooks / State machine billing SaaS, siklus langganan, dan webhook sinkron."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -235,10 +235,11 @@ For Indonesian developers without an official Payment Gateway account, you can c
 
 #### 1. Generate Unique Amount (Server-Side)
 ```typescript
-// Add a unique 3-digit code to the base price
+import crypto from 'node:crypto';
+
+// Add a cryptographically random 3-digit code (1..999) to the base price
 export async function createQrisTransaction(userId: string, basePrice: number) {
-  // Generate a random code between 1 and 999
-  const uniqueCode = Math.floor(Math.random() * 999) + 1;
+  const uniqueCode = crypto.randomInt(1, 1000);
   const totalAmount = basePrice + uniqueCode;
   
   const transaction = await db.transaction.create({
@@ -260,12 +261,20 @@ export async function createQrisTransaction(userId: string, basePrice: number) {
 #### 2. Mutation Webhook Handler & Real-Time Notification
 ```typescript
 // app/api/webhooks/mutation/route.ts
+import crypto from 'node:crypto';
 import { db } from '@/lib/db';
 import { pusherServer } from '@/lib/pusher';
 
+function verifyMutationSignature(received: string | null, expectedSecret: string | undefined): boolean {
+  if (!received || !expectedSecret) return false;
+  const a = Buffer.from(received, 'utf8');
+  const b = Buffer.from(expectedSecret, 'utf8');
+  return a.byteLength === b.byteLength && crypto.timingSafeEqual(a, b);
+}
+
 export async function POST(req: Request) {
   const signature = req.headers.get("signature");
-  if (!signature || signature !== process.env.BANK_MUTATION_SECRET) {
+  if (!verifyMutationSignature(signature, process.env.BANK_MUTATION_SECRET)) {
     return Response.json({ error: "Unauthorized: Invalid signature" }, { status: 401 });
   }
   
@@ -318,6 +327,60 @@ export const subscriptions = pgTable('subscriptions', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 ```
+
+### Proration-Aware Subscription Upgrade/Downgrade & Grace-Period Entitlement Guard
+Calculate exact integer-minor-unit proration credits when switching plans mid-cycle and enforce a deterministic grace period (`past_due`) before revoking workspace access:
+
+```typescript
+export type SubscriptionStatus = 'trialing' | 'active' | 'past_due' | 'canceled' | 'paused';
+
+export interface WorkspaceEntitlementState {
+  status: SubscriptionStatus;
+  plan: 'free' | 'pro' | 'enterprise';
+  currentPeriodStartMs: number;
+  currentPeriodEndMs: number;
+  gracePeriodHours: number;
+}
+
+export function hasActivePaidEntitlement(state: WorkspaceEntitlementState, nowMs = Date.now()): boolean {
+  if (state.status === 'active' || state.status === 'trialing') {
+    return nowMs <= state.currentPeriodEndMs;
+  }
+  if (state.status === 'past_due') {
+    const graceDeadlineMs = state.currentPeriodEndMs + state.gracePeriodHours * 3600_000;
+    return nowMs <= graceDeadlineMs;
+  }
+  return false;
+}
+
+export function calculateMidCycleProrationCents(params: {
+  currentPlanPriceCents: number;
+  targetPlanPriceCents: number;
+  periodStartMs: number;
+  periodEndMs: number;
+  changeTimestampMs: number;
+}): { unusedCreditCents: number; newPlanChargeCents: number; netDeltaCents: number } {
+  const totalDurationMs = Math.max(1, params.periodEndMs - params.periodStartMs);
+  const remainingMs = Math.max(0, Math.min(totalDurationMs, params.periodEndMs - params.changeTimestampMs));
+  const remainingFraction = remainingMs / totalDurationMs;
+
+  const unusedCreditCents = Math.round(params.currentPlanPriceCents * remainingFraction);
+  const newPlanChargeCents = Math.round(params.targetPlanPriceCents * remainingFraction);
+
+  return {
+    unusedCreditCents,
+    newPlanChargeCents,
+    netDeltaCents: newPlanChargeCents - unusedCreditCents,
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Raw Body Cryptographic Webhook Verification**: MUST read the unparsed raw request body (`await req.text()`) and verify provider signatures (`stripe.webhooks.constructEvent`, Polar `validateEvent`, or `crypto.timingSafeEqual`) before parsing JSON.
+- **Database-Backed Event Idempotency**: MUST insert `event.id` into a unique `processed_webhooks` table (`ON CONFLICT DO NOTHING`) inside the transaction before mutating subscription state.
+- **CSPRNG Unique Payment Codes**: MUST use `crypto.randomInt(1, 1000)` instead of `Math.random()` when generating unique static-to-dynamic QRIS payment suffixes.
+- **Grace-Period Dunning State Machine**: MUST transition failed renewals to `past_due` with a bounded grace window rather than immediately deleting user workspaces.
+- **Integer Minor-Unit Proration**: MUST compute plan upgrades, downgrades, and usage billing in integer minor units (cents/sen) with `Math.round` to eliminate IEEE-754 floating-point drift.
 
 ### Billing Security Checklist
 - [ ] Webhook signature verified on every request — reject without valid signature.

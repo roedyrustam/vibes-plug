@@ -2,7 +2,7 @@
 name: living-codebase-ast-graph
 description: "In-memory AST code knowledge graphs and refactoring blast radius / Graf pengetahuan AST in-memory dan radius dampak refaktor kode."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Living Codebase AST Graph (2026 Sovereign Edition)
@@ -412,6 +412,17 @@ export class XerjGraphSync {
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+- **AST Parser Fidelity Invariant**: Symbol declarations, call sites, and import edges MUST be extracted from native compiler ASTs (TypeScript compiler API, Python `ast`, Go `go/parser`, Rust `syn`)—regex text matching for semantic analysis is strictly forbidden.
+- **Tarjan Cycle Prevention Gate**: Circular dependency cycles ($A \to B \to C \to A$) detected via Tarjan's Strongly Connected Components MUST block code generation commits until decoupled into clean DAG structures.
+- **Kahn's Topological Task Sequencing**: Swarm subagent tasks for code generation MUST strictly follow Kahn's topological order, generating upstream contracts/schemas (Tier 0) before downstream consumers (Tier $N$).
+- **Critical Blast Radius Approval Boundary**: Any refactoring touching symbols classified with Critical Blast Radius ($\ge 5$ inbound dependents or public API route) MUST generate an automated impact manifest and pass verification before application.
+
+### Non-Functional Requirements (NFR)
+- **Full Graph Build Overhead**: Entire repository AST graph indexing $\le 250\text{ms}$ on 500+ files.
+- **Blast Radius Query Speed**: Inbound dependency traversal and caller analysis $\le 10\text{ms}$.
+- **Strict Acyclic Guarantee**: 0 unresolved circular dependency loops across all tracked modules.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -459,6 +470,17 @@ Pencarian teks biasa (seperti Ripgrep atau regex) sangat berbahaya jika digunaka
 1. **Dilarang Menggunakan Regex untuk Semantik Simbol**: Seluruh penelusuran simbol dan dependensi wajib berbasis binding AST resmi compiler, bukan pencocokan string teks.
 2. **Nol Kode Placeholder**: Seluruh implementasi traversal, deteksi siklus Tarjan, dan parser AST wajib 100% lengkap tanpa stub.
 3. **Verifikasi Bebas Cacat**: Seluruh berkas wajib tervalidasi bersih melalui `node scripts/check-anti-slop.js`.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Kesetiaan Parser AST**: Deklarasi simbol, titik pemanggilan (*call sites*), dan relasi impor WAJIB diekstraksi dari AST compiler native (TypeScript compiler API, Python `ast`, Go `go/parser`, Rust `syn`)—pencocokan string regex untuk analisis semantik dilarang keras.
+- **Gerbang Pencegahan Siklus Tarjan**: Dependensi melingkar ($A \to B \to C \to A$) yang terdeteksi via algoritma Tarjan's SCC wajib memblokir commit kode baru hingga diurai menjadi struktur Directed Acyclic Graph (DAG) yang bersih.
+- **Penjadwalan Tugas Topologis Kahn**: Pembagian tugas pembuatan kode antar subagen wajib mengikuti urutan topologis algoritma Kahn, membangun modul fondasi (Tier 0) sebelum modul konsumen hilir (Tier $N$).
+- **Batasan Persetujuan Blast Radius Kritis**: Setiap refaktor yang menyentuh simbol berstatus Risiko Kritis ($\ge 5$ pemanggil atau rute API publik) wajib menghasilkan manifes dampak otomatis dan lolos validasi sebelum diaplikasikan.
+
+### Non-Functional Requirements (NFR)
+- **Kecepatan Bangun Indeks AST**: Pemindaian graf AST seluruh repositori $\le 250\text{ms}$ untuk 500+ berkas.
+- **Respons Query Blast Radius**: Analisis penelusuran pemanggil dependensi $\le 10\text{ms}$.
+- **Garansi Bebas Siklus**: 0 loop dependensi melingkar yang tidak terselesaikan pada seluruh modul terindeks.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -2,7 +2,7 @@
 name: seo
 description: "Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -210,6 +210,18 @@ Images: Descriptive alt text, WebP format, lazy loading
 Internal links: 3-5 per long-form page to related content
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Single Canonical H1 & Metadata Parity Invariant**:
+   - Every public web route MUST contain exactly ONE semantic `<h1>` tag with primary keyword focus. Rendering multiple `<h1>` tags or zero `<h1>` tags on an indexable page is strictly prohibited.
+2. **Mandatory Canonical URL & Meta Description**:
+   - Every public page MUST declare an explicit canonical URL (`rel="canonical"` or `metadata.alternates.canonical`) and meta description ($\le 155$ characters). Missing canonical tags causing duplicate content penalties are strictly prohibited.
+3. **Structured JSON-LD Schema Validation**:
+   - Rich results and structured entity definitions (`<script type="application/ld+json">`) MUST validate against Schema.org standards (e.g. `SoftwareApplication`, `Article`, `FAQPage`) without syntax or property errors.
+4. **Dynamic Sitemap & Robots.txt Invariant**:
+   - Applications MUST generate dynamic `sitemap.xml` (`app/sitemap.ts`) including all public indexable routes with updated `lastModified` timestamps, and an explicit `robots.txt` disallowing private administrative/API routes.
+5. **Server-Rendered LLM Discovery & Link Localization (Stardust Invariant)**:
+   - Key value propositions and core product claims MUST reside in server-rendered HTML for bot crawlers and LLM search agents; trapping core copy inside client-only JavaScript chunks is prohibited. All internal site links MUST localize to the target canonical origin, preventing redirects or bounces to legacy external domains.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -217,7 +229,7 @@ Internal links: 3-5 per long-form page to related content
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% single-H1 compliance on indexable pages, valid JSON-LD on all product/article pages, dynamic sitemap.xml & robots.txt active; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -284,6 +296,13 @@ Google AI Mode (sebelumnya AI Overviews) dan Perplexity sangat menyukai format b
 ### Standar SEO On-Page
 H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskripsi < 155 karakter, URL lowercase dengan tanda hubung dan keyword di slug, alt text deskriptif untuk semua gambar, 3-5 internal link per halaman long-form.
 
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Invarian Single Canonical H1 & Metadata**: Setiap rute web publik WAJIB memiliki tepat SATU tag `<h1>` semantik dengan fokus kata kunci utama.
+2. **URL Canonical & Meta Deskripsi Wajib**: Setiap halaman publik wajib mendeklarasikan URL kanonikal eksplisit dan meta deskripsi ($\le 155$ karakter).
+3. **Validasi Skema JSON-LD Terstruktur**: Definisi entitas JSON-LD wajib valid terhadap standar Schema.org (`SoftwareApplication`, `Article`, `FAQPage`).
+4. **Sitemap Dinamis & Robots.txt**: Aplikasi wajib menghasilkan `sitemap.xml` dinamis dan `robots.txt` yang memblokir rute administratif/API privat.
+5. **Penemuan LLM Server-Rendered & Lokalisasi Tautan (Invarian Stardust)**: Klaim nilai produk wajib dirender di sisi server agar dapat dibaca crawler bot dan agen AI pencari; mengurung konten teks di bundle JS klien dilarang keras. Tautan internal wajib melokalisasi ke origin target tanpa memantul ke domain legacy eksternal.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
@@ -291,4 +310,4 @@ H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskr
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% kepatuhan single-H1 pada halaman terindeks, JSON-LD valid pada semua halaman produk/artikel, sitemap.xml & robots.txt dinamis aktif; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

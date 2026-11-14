@@ -2,7 +2,7 @@
 name: payment-gateway-expert
 description: "Payment gateways integration (Stripe, Midtrans) and secure webhooks / Integrasi payment gateway (Stripe, Midtrans) dan webhook aman."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -173,6 +173,16 @@ ALTER TABLE payment_webhook_inbox ENABLE ROW LEVEL SECURITY;
 ### Trigger Conditions
 Active whenever the user is working on billing integration, payment checkout, webhook handling, or integrating platforms like PayPal, Stripe, Xendit, Midtrans, or DOKU SNAP BI.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Raw-Body Webhook Signature Verification**:
+   - Webhook endpoints processing payment callbacks (Stripe, Midtrans, Xendit, DOKU) MUST verify cryptographic signatures against unparsed raw body buffers using `crypto.timingSafeEqual`. Parsing JSON prior to signature calculation or skipping signature checks is strictly prohibited.
+2. **Atomic Idempotent Mutation Invariant**:
+   - Payment status transitions (e.g. `PENDING` $\to$ `PAID`) MUST execute via atomic database updates with status condition guards (`WHERE status = 'PENDING'`) or idempotent inbox tables (`payment_webhook_inbox`). Non-atomic read-then-write updates causing double fulfillment are strictly prohibited.
+3. **Deterministic Idempotency Key Dispatch**:
+   - Outbound payment intent creation and charges MUST supply a deterministic `Idempotency-Key` (UUID derived from order ID or tenant transaction key). Retrying payment requests without idempotency keys is strictly prohibited.
+4. **Zero Client-Side Secret Key Exposure**:
+   - Private payment gateway secret keys (`STRIPE_SECRET_KEY`, `DOKU_SECRET_KEY`) MUST NEVER be prefixed with public env tags (`NEXT_PUBLIC_`, `VITE_`) or referenced in client-side code.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -180,7 +190,7 @@ Active whenever the user is working on billing integration, payment checkout, we
 | **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% cryptographic webhook signature verification, 0 double-spending or race condition fulfillments via atomic inbox locks, 100% idempotency key coverage; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -263,4 +273,4 @@ export async function POST(req: Request) {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% verifikasi signature webhook kriptografis, 0 double-spending atau pemenuhan ganda via lock inbox atomik, 100% cakupan idempotency key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -1041,7 +1041,19 @@ async function runVersion(action, type) {
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `v${current}`, to: `v${next}` },
       { path: path.join(PLUGIN_ROOT, 'bin', 'mcp-server.mjs'), from: `version: '${current}'`, to: `version: '${next}'` },
       { path: path.join(PLUGIN_ROOT, 'scripts', 'studio-server.mjs'), from: `v${current}`, to: `v${next}` },
-      { path: path.join(PLUGIN_ROOT, 'extensions', 'vscode', 'package.json'), from: `"version": "${current}"`, to: `"version": "${next}"` }
+      { path: path.join(PLUGIN_ROOT, 'extensions', 'vscode', 'package.json'), from: `"version": "${current}"`, to: `"version": "${next}"` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'compile-cache.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'compile-cache.mjs'), from: `'${current}'`, to: `'${next}'` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'compile-skill-slices.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'compile-skill-slices.mjs'), from: `'${current}'`, to: `'${next}'` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), from: `'${current}'`, to: `'${next}'` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'generate-catalog.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'generate-catalog.mjs'), from: `'${current}'`, to: `'${next}'` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'generate-llms-txt.mjs'), from: `Version: ${current}`, to: `Version: ${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'telemetry.mjs'), from: `v${current}`, to: `v${next}` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'telemetry.mjs'), from: `'${current}'`, to: `'${next}'` },
+      { path: path.join(PLUGIN_ROOT, 'scripts', 'telemetry.mjs'), from: `Telemetry/${current}`, to: `Telemetry/${next}` }
     ];
 
     for (const { path: filePath, from, to } of files) {
@@ -1374,23 +1386,26 @@ async function runSearch(query) {
 
   const q = query.toLowerCase();
   const safeQ = escapeRegExp(q);
-  const results = [];
-
-  for (const skill of skills) {
-    const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
-    try {
-      const content = await fs.readFile(skillMdPath, 'utf8');
-      const lower = content.toLowerCase();
-      // Score by keyword frequency
-      const score = (lower.match(new RegExp(safeQ, 'g')) || []).length;
-      if (score > 0) {
-        // Extract description from frontmatter
-        const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
-        const desc = descMatch ? descMatch[1].trim() : '';
-        results.push({ skill, score, desc });
-      }
-    } catch { /* skip unreadable */ }
-  }
+  const results = (
+    await Promise.all(
+      skills.map(async (skill) => {
+        const skillMdPath = path.join(skillsDir, skill, 'SKILL.md');
+        try {
+          const content = await fs.readFile(skillMdPath, 'utf8');
+          const lower = content.toLowerCase();
+          const score = (lower.match(new RegExp(safeQ, 'g')) || []).length;
+          if (score > 0) {
+            const descMatch = content.match(/description:\s*["']?([^"'\n]{10,120})/);
+            const desc = descMatch ? descMatch[1].trim() : '';
+            return { skill, score, desc };
+          }
+        } catch {
+          /* skip unreadable skill files */
+        }
+        return null;
+      })
+    )
+  ).filter(Boolean);
 
   results.sort((a, b) => b.score - a.score);
 
@@ -1479,24 +1494,34 @@ async function runDocs(format = 'markdown', outputFile) {
     const entries = await fs.readdir(skillsDir, { withFileTypes: true });
     const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
 
-    const catalog = [];
-    for (const skillName of skillDirs) {
-      const skillPath = path.join(skillsDir, skillName, 'SKILL.md');
-      try {
-        const content = await fs.readFile(skillPath, 'utf8');
-        const descMatch = content.match(/description:\s*["']?([^"'\n\r]+)/);
-        const versionMatch = content.match(/version:\s*["']?([^"'\n\r]+)/);
-        const authorMatch = content.match(/author:\s*["']?([^"'\n\r]+)/);
-        catalog.push({
-          name: skillName,
-          description: descMatch ? descMatch[1].trim() : '',
-          version: versionMatch ? versionMatch[1].trim() : '4.7.2',
-          author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
-        });
-      } catch (e) {
-        // Skip unreadable files
-      }
-    }
+    const catalog = (
+      await Promise.all(
+        skillDirs.map(async (skillName) => {
+          const skillPath = path.join(skillsDir, skillName, 'SKILL.md');
+          try {
+            const handle = await fs.open(skillPath, 'r');
+            try {
+              const buf = Buffer.alloc(1536);
+              const { bytesRead } = await handle.read(buf, 0, 1536, 0);
+              const head = buf.toString('utf8', 0, bytesRead);
+              const descMatch = head.match(/description:\s*["']?([^"'\n\r]+)/);
+              const versionMatch = head.match(/version:\s*["']?([^"'\n\r]+)/);
+              const authorMatch = head.match(/author:\s*["']?([^"'\n\r]+)/);
+              return {
+                name: skillName,
+                description: descMatch ? descMatch[1].trim() : '',
+                version: versionMatch ? versionMatch[1].trim() : '4.8.0',
+                author: authorMatch ? authorMatch[1].trim() : 'Roedy Rustam'
+              };
+            } finally {
+              await handle.close();
+            }
+          } catch {
+            return null;
+          }
+        })
+      )
+    ).filter(Boolean);
 
     if (format === 'json') {
       const jsonOutput = JSON.stringify({ total: catalog.length, skills: catalog }, null, 2);
@@ -1508,7 +1533,7 @@ async function runDocs(format = 'markdown', outputFile) {
       }
     } else {
       let md = `# Vibes-Plug Skills Catalog (${catalog.length} Skills)\n\n`;
-      md += `*Universal AI Agent Swarm Architecture (v4.7.2)*\n\n`;
+      md += `*Universal AI Agent Swarm Architecture (v4.8.0)*\n\n`;
       md += `| Skill Name | Version | Description |\n`;
       md += `| :--- | :---: | :--- |\n`;
       for (const item of catalog) {

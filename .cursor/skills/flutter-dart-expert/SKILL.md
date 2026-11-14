@@ -2,7 +2,7 @@
 name: flutter-dart-expert
 description: "Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3 / Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Flutter & Dart Expert (Flutter 3.27 / Dart 3.7 Edition)
@@ -161,7 +161,7 @@ class Product with _$Product {
   const factory Product({
     required String id,
     required String name,
-    required double price,
+    required int priceCents,
     @Default('') String description,
     @Default([]) List<String> imageUrls,
     required DateTime createdAt,
@@ -234,8 +234,8 @@ testWidgets('ProductCard displays name and price', (tester) async {
   expect(find.text('\$29.99'), findsOneWidget);
 });
 
-// Integration test
-integration_test/app_test.dart:
+// Integration test (integration_test/app_test.dart)
+void runPurchaseIntegrationTest() {
   testWidgets('Full purchase flow', (tester) async {
     app.main();
     await tester.pumpAndSettle();
@@ -243,7 +243,52 @@ integration_test/app_test.dart:
     await tester.pumpAndSettle();
     expect(find.byType(HomeScreen), findsOneWidget);
   });
+}
 ```
+
+#### 9. Background Compute with `Isolate.run()` & Dart 3.7 Exhaustive Sealed `Result<T>`
+Offload large JSON parsing or cryptographic work from the UI isolate via `Isolate.run()` to preserve 120fps Impeller frame budgets, and model fallible operations with an exhaustive `sealed class Result<T>`:
+
+```dart
+import 'dart:convert';
+import 'dart:isolate';
+
+sealed class Result<T> {
+  const Result();
+}
+
+final class Ok<T> extends Result<T> {
+  final T value;
+  const Ok(this.value);
+}
+
+final class Err<T> extends Result<T> {
+  final String code;
+  final String message;
+  const Err(this.code, this.message);
+}
+
+Future<Result<List<Product>>> parseProductsInBackground(String rawJsonPayload) async {
+  try {
+    final products = await Isolate.run<List<Product>>(() {
+      final decoded = jsonDecode(rawJsonPayload) as List<dynamic>;
+      return decoded
+          .map((item) => Product.fromJson(item as Map<String, dynamic>))
+          .toList(growable: false);
+    });
+    return Ok(products);
+  } on FormatException catch (e) {
+    return Err('INVALID_JSON_PAYLOAD', e.message);
+  }
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Heavy Parsing on UI Isolate**: MUST offload large JSON decoding (`> 50 KB`), image manipulation, and cryptographic hashing to `Isolate.run(...)` so Impeller maintains a `< 8ms` frame budget.
+- **Controller & Subscription Disposal**: MUST dispose every `TextEditingController`, `AnimationController`, `FocusNode`, and `StreamSubscription` inside `State.dispose()` or `ref.onDispose(...)`.
+- **Check `context.mounted` After `await`**: MUST guard any `BuildContext` access after an `await` gap with `if (!context.mounted) return;` to prevent unmounted widget exceptions.
+- **Lazy `ListView.builder` / `SliverList` for Collections**: MUST use `ListView.builder` or `SliverList.builder` instead of `ListView(children: items.map(...).toList())` for dynamic lists.
+- **Integer Minor Units for Currency**: MUST represent monetary prices and balances in integer minor units (`int priceCents` / `int amountIdr`) instead of `double`.
 
 ### Anti-Patterns to Avoid
 1. **Using `setState` for complex state** — Use Riverpod 3 with code generation.

@@ -2,7 +2,7 @@
 name: supabase-security-expert
 description: "Supabase security audit: RLS policies, RBAC, and data leak prevention / Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -190,6 +190,76 @@ CREATE POLICY "users can manage own files"
 ON storage.objects FOR ALL
 USING (bucket_id = 'user-uploads' AND auth.uid()::text = (storage.foldername(name))[1]);
 ```
+
+### Defense-in-Depth RLS Migration Blueprint (`supabase/migrations/20261111_rls_hardening.sql`)
+```sql
+-- 1. Enable & Force Row Level Security on multi-tenant table
+ALTER TABLE public.workspaces ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.workspaces FORCE ROW LEVEL SECURITY;
+
+ALTER TABLE public.documents ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.documents FORCE ROW LEVEL SECURITY;
+
+-- 2. Secure helper function for tenant membership check (Hardened with search_path)
+CREATE OR REPLACE FUNCTION public.is_workspace_member(target_workspace_id UUID)
+RETURNS BOOLEAN
+LANGUAGE sql
+SECURITY DEFINER
+SET search_path = ''
+STABLE
+AS $$
+  SELECT EXISTS (
+    SELECT 1
+    FROM public.workspace_members
+    WHERE workspace_id = target_workspace_id
+      AND user_id = (SELECT auth.uid())
+  );
+$$;
+
+-- 3. Granular RLS Policies on Documents
+-- SELECT: Only workspace members can view documents
+CREATE POLICY "workspace_members_can_read_docs"
+ON public.documents
+FOR SELECT
+USING (public.is_workspace_member(workspace_id));
+
+-- INSERT: User must be a member and assign their own user_id
+CREATE POLICY "workspace_members_can_insert_docs"
+ON public.documents
+FOR INSERT
+WITH CHECK (
+  public.is_workspace_member(workspace_id)
+  AND (created_by = (SELECT auth.uid()))
+);
+
+-- UPDATE: Only creator or workspace admin can update
+CREATE POLICY "creators_or_admins_can_update_docs"
+ON public.documents
+FOR UPDATE
+USING (
+  created_by = (SELECT auth.uid())
+  OR EXISTS (
+    SELECT 1 FROM public.workspace_members
+    WHERE workspace_id = documents.workspace_id
+      AND user_id = (SELECT auth.uid())
+      AND role = 'admin'
+  )
+)
+WITH CHECK (public.is_workspace_member(workspace_id));
+
+-- 4. Mandatory Foreign Key Indexes for optimal RLS query performance
+CREATE INDEX IF NOT EXISTS idx_documents_workspace_id ON public.documents(workspace_id);
+CREATE INDEX IF NOT EXISTS idx_documents_created_by ON public.documents(created_by);
+CREATE INDEX IF NOT EXISTS idx_workspace_members_lookup ON public.workspace_members(workspace_id, user_id);
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Client-Side Exposure of `service_role` Key**:
+   - `SUPABASE_SERVICE_ROLE_KEY` MUST NEVER be prefixed with `NEXT_PUBLIC_`, `VITE_`, or `EXPO_PUBLIC_`. Any appearance of `service_role` in browser client code is a critical vulnerability.
+2. **Mandatory Explicit RLS Enablement (`ENABLE` + `FORCE`)**:
+   - Every table residing in the `public` schema MUST execute `ALTER TABLE ... ENABLE ROW LEVEL SECURITY;`. For multi-tenant tables, `FORCE ROW LEVEL SECURITY` MUST be applied to prevent table owners from accidentally bypassing policies.
+3. **Hardened `search_path` on `SECURITY DEFINER` Functions**:
+   - All PostgreSQL functions declared as `SECURITY DEFINER` MUST explicitly set `SET search_path = ''` to eliminate schema hijacking vulnerabilities.
 
 ### Production Security Checklist
 - [ ] All tables in `public` schema have RLS enabled.

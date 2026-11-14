@@ -2,7 +2,7 @@
 name: autonomous-tdd-debugger
 description: "Autonomous TDD test runner, stack trace analysis, and code self-heal / Runner tes TDD otonom, analisis stack trace, dan self-healing kode."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -21,6 +21,7 @@ version: "4.7.0"
 - **Formal Verification & Contracts**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
 - **Error Resilience & Healing**: `error-resilience-expert`, `self-healing-cloud-orchestrator`, `living-codebase-ast-graph`
 - **Lifecycle & Governance**: `zero-to-prod-orchestrator`, `session-memory-manager`
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
 
 ### Description
 Transforms the AI agent from a passive code generator into an active, autonomous Test-Driven Development (TDD) engineer. When invoked, the agent is mandated to execute tests, parse terminal stack traces, analyze failing assertions, and autonomously modify code in an iterative self-healing loop until all tests pass (exit code 0)—without prompting the user to manually run commands or debug errors.
@@ -144,6 +145,16 @@ export function parseTopFailingFrame(stackTrace: string): StackFrameLocation | n
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Prohibition of Test Skipping or Tautological Assertions**:
+   - The debugging agent MUST NOT comment out failing tests, apply `test.skip`, or alter test assertions into trivial truths (`expect(true).toBe(true)`) to fake exit code 0. Production implementation code must be fixed.
+2. **Bounded Iteration Ceiling with Circuit Breaker (<= 5 Attempts)**:
+   - The self-healing loop MUST enforce a hard maximum of 5 iterations before tripping a circuit breaker and pausing for architectural re-evaluation.
+3. **Zero Request for Manual User Execution**:
+   - The agent MUST execute test runners autonomously via terminal execution tools and parse stdout/stderr directly. Delegating test running back to the user is strictly prohibited.
+4. **Strict Production Patching Without Fake Mocks**:
+   - Fixes must patch genuine production code logic. Replacing production databases or services with hardcoded fake mocks in production code paths is forbidden.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -159,8 +170,6 @@ export function parseTopFailingFrame(stackTrace: string): StackFrameLocation | n
 ---
 
 <a name="bahasa-indonesia"></a>
-- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
-
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

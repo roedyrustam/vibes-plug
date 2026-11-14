@@ -2,7 +2,7 @@
 name: accessibility-testing-expert
 description: "Web accessibility testing with axe-core, Playwright, and WCAG 2.2 / Pengujian aksesibilitas web axe-core, Playwright, dan WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -47,8 +47,7 @@ test.describe('Accessibility Automated Audits', () => {
     await page.goto('/');
 
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag22aa'])
-      .disableRules(['color-contrast']) // If tested separately
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
       .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);
@@ -134,13 +133,60 @@ test('interactive controls satisfy M3 48x48dp touch target standard', async ({ p
 });
 ```
 
-#### 5. Sovereign Anti-Slop A11y Verification Gate
+#### 5. Automated Keyboard Focus-Trap & Visible Focus-Ring Audit in Playwright
+Verify that sequential `Tab` navigation never escapes an open `[role="dialog"]` modal and that every focused interactive control renders a visible focus indicator (WCAG 2.2 SC 2.4.7 & SC 2.4.11):
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+test('modal dialog enforces cyclic Tab focus trap and visible focus ring', async ({ page }) => {
+  await page.goto('/settings');
+  await page.getByRole('button', { name: 'Delete Workspace' }).click();
+
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+
+  const focusableCount = await dialog
+    .locator('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')
+    .count();
+  expect(focusableCount).toBeGreaterThan(0);
+
+  for (let step = 0; step <= focusableCount + 1; step++) {
+    await page.keyboard.press('Tab');
+
+    const focusState = await page.evaluate(() => {
+      const active = document.activeElement as HTMLElement | null;
+      if (!active) return { insideDialog: false, hasVisibleIndicator: false };
+      const dialogEl = active.closest('[role="dialog"]');
+      const style = window.getComputedStyle(active);
+      const hasOutline = style.outlineStyle !== 'none' && parseFloat(style.outlineWidth) > 0;
+      const hasBoxShadowRing = style.boxShadow !== 'none' && style.boxShadow !== '';
+      return {
+        insideDialog: Boolean(dialogEl),
+        hasVisibleIndicator: hasOutline || hasBoxShadowRing,
+      };
+    });
+
+    expect(focusState.insideDialog).toBe(true);
+    expect(focusState.hasVisibleIndicator).toBe(true);
+  }
+});
+```
+
+#### 6. Sovereign Anti-Slop A11y Verification Gate
 Zero-tolerance accessibility criteria for all generated interfaces:
 - **No Stripped Focus Outlines**: Zero tolerance for `outline: none` or `focus:outline-none` without an explicit, high-contrast replacement ring (`focus-visible:ring-2 focus-visible:ring-offset-2`).
 - **Semantic Elements Only**: Ban on non-semantic clickable divs/spans (`<div onClick=...>`). Every click target must be an authentic `<button>`, `<a>`, or provide `role="button"` + `tabIndex={0}` + keyboard event handlers (`onKeyDown` for Enter & Space).
 - **Touch Target Minimums**: All interactive controls must satisfy WCAG 2.2 SC 2.5.8 (minimum 24×24px, recommended 44×44px with adequate padding).
 - **Text Contrast Non-Negotiable**: Minimum 4.5:1 for normal body text, 3:1 for large text (18pt / 14pt bold).
 - **Meaningful Labels**: Zero icon buttons without `aria-label` or screen-reader-only text (`<span className="sr-only">`).
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero-Violation WCAG 2.2 AA Gate**: MUST run `AxeBuilder` with `['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']` tags and assert `violations.toEqual([])` without disabling `color-contrast` in production gates.
+- **Visible Focus Indicator Preservation**: MUST never strip focus outlines (`outline: none` / `focus:outline-none`) unless paired with a high-contrast `focus-visible:ring-2` indicator.
+- **Native Semantic Interactive Elements**: MUST use native `<button>`, `<a href>`, and `<input>` elements instead of clickable `<div>` or `<span>` tags lacking keyboard handlers.
+- **Cyclic Modal Focus Trapping**: MUST trap `Tab` and `Shift+Tab` focus inside open `[role="dialog"]` containers and restore focus to the trigger element upon `Escape`.
+- **Minimum Touch Target Geometry**: MUST enforce `>= 24x24px` (WCAG 2.2 SC 2.5.8) and `>= 48x48dp` on primary mobile/touch controls.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

@@ -2,7 +2,7 @@
 name: wasm-edge-computing-expert
 description: "WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -176,6 +176,49 @@ self.onmessage = async (event: MessageEvent<{ id: string; payload: Uint8Array; r
   }
 };
 ```
+
+#### 4. Memory-Bounded WASM Host Sandbox & `FinalizationRegistry` Leak Guard (TypeScript)
+Cap linear memory growth explicitly via `new WebAssembly.Memory({ initial, maximum })` (64 KiB pages) and register `wasm-bindgen` handles with `FinalizationRegistry` as a defense-in-depth safety net alongside deterministic `.free()` calls:
+
+```typescript
+export interface WasmMemoryBudget {
+  initialPages: number; // 1 page = 64 KiB
+  maximumPages: number; // e.g., 256 pages = 16 MiB hard cap
+  shared?: boolean;
+}
+
+export function createBoundedWasmMemory(budget: WasmMemoryBudget): WebAssembly.Memory {
+  if (budget.maximumPages < budget.initialPages || budget.maximumPages > 4096) {
+    throw new RangeError('WASM maximumPages must be >= initialPages and <= 4096 (256 MiB)');
+  }
+  return new WebAssembly.Memory({
+    initial: budget.initialPages,
+    maximum: budget.maximumPages,
+    shared: Boolean(budget.shared),
+  });
+}
+
+const wasmHandleDisposer = new FinalizationRegistry<() => void>((freeFn) => {
+  try {
+    freeFn();
+  } catch {
+    // Handle was already explicitly freed
+  }
+});
+
+export function trackWasmDisposable<T extends { free: () => void }>(instance: T): T {
+  const freeRef = instance.free.bind(instance);
+  wasmHandleDisposer.register(instance, freeRef, instance);
+  return instance;
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Main-Thread Blocking WASM Execution**: MUST execute CPU-heavy WASM kernels inside a dedicated Web Worker or Edge Isolate using `WebAssembly.instantiateStreaming`, never synchronously on the browser UI thread.
+- **Explicit `.free()` on `wasm-bindgen` Heap Handles**: MUST call `.free()` inside a `try / finally` block on every Rust struct returned across the `wasm-bindgen` boundary to prevent linear memory leaks.
+- **Hard Linear Memory Ceilings**: MUST bound `WebAssembly.Memory` with an explicit `maximum` page count (`1 page = 64 KiB`) when instantiating untrusted or multi-tenant WASM modules.
+- **Bulk Slice Transfers Over Per-Element FFI Calls**: MUST pass contiguous `Uint8Array` / `Float32Array` slices across the JS-WASM boundary in a single call rather than invoking FFI functions inside tight loops.
+- **COOP/COEP Isolation for `SharedArrayBuffer`**: MUST serve `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp` headers whenever multi-threaded WASM (`SharedArrayBuffer`) is enabled.
 
 ---
 

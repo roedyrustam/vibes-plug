@@ -2,7 +2,7 @@
 name: neurosymbolic-genetic-synthesizer
 description: "Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Neurosymbolic Genetic Synthesizer (Quality-Diversity & FunSearch Engine)
@@ -21,6 +21,17 @@ The **Neurosymbolic Genetic Synthesizer** bridges generative LLM creativity with
 1. **Quality-Diversity (MAP-Elites)**: Maintains an archive of elite program variants indexed across behavioral feature descriptors (e.g., algorithmic complexity vs memory footprint) rather than selecting for a single scalar fitness.
 2. **FunSearch Evolution Loop**: The LLM functions strictly as a genetic mutation operator generating AST variations, while an isolated micro-sandbox serves as an uncompromised evaluation oracle.
 3. **AST Recombination & Invariant Filtering**: Crossover merges optimal AST subtrees from parent candidates, while SAT/SMT solvers prune mathematically invalid mutations before runtime execution.
+
+### Hard Guardrails (Declarative Invariants)
+1. **Isolated Ephemeral Sandbox Execution Invariant**: All candidate program mutations MUST execute strictly within an isolated WebAssembly or subprocess sandbox with hard resource boundaries (timeout $\le 2000\text{ ms}$, memory $\le 256\text{ MB}$, banned system primitives `eval`, `process.exit`, `child_process`). Never evaluate candidate code directly on the host agent runtime.
+2. **Quality-Diversity Orthogonal Niches (MAP-Elites)**: Grid cells MUST be indexed by multi-dimensional orthogonal behavioral descriptors (e.g., cyclomatic complexity vs peak memory vs latency) clamped strictly to $[0, 1]$. A candidate only displaces an incumbent if its fitness strictly exceeds $f_{\text{incumbent}}$ in that identical niche key.
+3. **AST Invariant & Formal SMT Pre-Filter Gate**: Before executing mutated code, an AST parser and formal invariant gate (Z3 / constraint validator) must verify structural syntax and mathematical preconditions, pruning hallucinated syntax before wasting execution tokens.
+4. **Genetic Diversity Floor & Elite Pareto Preservation**: The archive MUST retain at least $k \ge 5$ distinct niche elites across generations. Elite sampling must employ tournament selection or epsilon-greedy sampling ($\epsilon = 0.15$) to prevent premature convergence into local minima.
+
+#### Domain-Specific Non-Functional Requirements (NFRs)
+- **Evolution Evaluation Latency**: Evaluation oracle latency $\le 500\text{ ms}$ per candidate in isolated sandbox.
+- **Containment & Escape Safety**: $0$ sandbox escapes (100% of infinite loops, memory leaks, and forbidden calls trapped).
+- **Optimization Convergence**: Minimum $15\%$ fitness score improvement over baseline seed programs across 20 generations.
 
 ---
 
@@ -219,6 +230,17 @@ Model frontier standar menghasilkan kode melalui inferensi stokastik satu arah a
 1. **Quality-Diversity (MAP-Elites)**: Mengelola arsip varian program elit yang dipetakan berdasarkan deskriptor perilaku (misalnya kompleksitas waktu vs jejak memori), bukan sekadar memilih satu skor kebugaran skalar.
 2. **Loop Evolusi FunSearch**: LLM bertindak sebagai operator mutasi genetik yang menghasilkan variasi AST, sementara sandbox mikro terisolasi bertindak sebagai penilai deterministik yang tidak bisa dikompromikan.
 3. **Rekombinasi AST & Filter Invarian**: Persilangan (*crossover*) menggabungkan sub-pohon AST terbaik dari kandidat program, sementara SMT solver memangkas mutasi yang secara matematis cacat sebelum dieksekusi di runtime.
+
+### Hard Guardrails (Invarian Deklaratif)
+1. **Invarian Eksekusi Sandbox Efemeral Terisolasi**: Seluruh mutasi kandidat program WAJIB dieksekusi ketat di dalam sandbox WebAssembly atau subprocess terisolasi dengan batas sumber daya ketat (timeout $\le 2000\text{ ms}$, memori $\le 256\text{ MB}$, larangan primitif sistem `eval`, `process.exit`, `child_process`). Dilarang keras mengevaluasi kode kandidat langsung pada runtime host agen.
+2. **Niche Ortogonal Quality-Diversity (MAP-Elites)**: Sel grid arsip WAJIB diindeks menggunakan deskriptor perilaku ortogonal multi-dimensi (misalnya kompleksitas siklomatis vs memori puncak vs latensi) yang dibatasi ketat ke rentang $[0, 1]$. Kandidat hanya menggantikan incumbent jika skor fitness-nya secara tegas melampaui $f_{\text{incumbent}}$ pada kunci niche yang identik.
+3. **Gerbang Pra-Filter Invarian AST & Formal SMT**: Sebelum mengeksekusi kode mutasi, parser AST dan gerbang invarian formal (Z3 / constraint validator) wajib memverifikasi keabsahan sintaks dan prasyarat matematis, memangkas halusinasi sintaks sebelum memboroskan token eksekusi.
+4. **Batas Bawah Keberagaman Genetik & Preservasi Pareto Elit**: Arsip WAJIB mempertahankan minimal $k \ge 5$ elit niche berbeda lintas generasi. Pengambilan sampel elit wajib menggunakan tournament selection atau epsilon-greedy sampling ($\epsilon = 0.15$) untuk mencegah konvergensi dini ke minima lokal.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Latensi Evaluasi Evolusi**: Latensi oracle evaluasi $\le 500\text{ ms}$ per kandidat di sandbox terisolasi.
+- **Keamanan Isolasi Sandbox**: 0 kebocoran sandbox (100% loop tak terbatas, kebocoran memori, dan pemanggilan terlarang tertangkap).
+- **Konvergensi Optimasi**: Peningkatan skor kebugaran minimal $15\%$ dibandingkan seed dasar dalam 20 generasi evolusi.
 
 ---
 

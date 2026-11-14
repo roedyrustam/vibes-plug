@@ -2,7 +2,7 @@
 name: reactive-sync-engine-expert
 description: "Reactive sync engines (Zero, ElectricSQL) and instant mutations / Mesin sinkronisasi reaktif (Zero, ElectricSQL) dan mutasi instan."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Reactive Sync Engine Expert / Ahli Mesin Sinkronisasi Reaktif
@@ -13,6 +13,14 @@ version: "4.7.0"
 
 ### Overview
 You are a Principal Distributed Client-Data Architect specializing in Linear-style reactive sync engines. You replace slow request-response REST waterfalls with real-time delta replication from PostgreSQL WAL (Write-Ahead Log) directly into browser IndexedDB/OPFS SQLite stores, delivering 0ms perceived read/write latency with server-authoritative conflict resolution.
+
+### Hard Guardrails (Declarative Invariants)
+- **Server-Authorized Sync Shapes Only**: Never allow browser clients to pass arbitrary SQL `where` clauses directly to ElectricSQL or Zero; route shape requests through an authenticating proxy that injects the tenant filter server-side.
+- **Idempotent Client Mutations**: Every optimistic mutation payload must include a client-generated UUID `Idempotency-Key` verified inside the server's PostgreSQL transaction.
+- **Transaction-ID (`txid`) Reconciliation**: Reconcile and retire local optimistic mutations only when the corresponding PostgreSQL `pg_current_xact_id()` arrives on the replication stream—never via arbitrary `setTimeout` delays.
+- **Logical WAL Slot Monitoring**: Configure PostgreSQL with `wal_level = logical` and alert on inactive or lagging replication slots to prevent unbounded WAL disk exhaustion.
+- **WebWorker-Isolated OPFS SQLite**: Run embedded WASM SQLite / PGlite instances inside a dedicated WebWorker using OPFS synchronous file handles so UI main-thread frames never drop below 60fps.
+- **Schema Version Reset Gate**: Tag local IndexedDB/OPFS stores with a monotonic schema version and cleanly wipe + resync local replicas when breaking schema migrations occur.
 
 ### 1. Sync Engine Architecture Matrix (2026)
 
@@ -79,13 +87,11 @@ export const mutators = defineMutators(schema, {
 });
 ```
 
-### 3. Partial Replication & Tenant-Scoped Sync Shapes
-Never sync the entire database to a client. Enforce strict row-level sync filters (`Shape` / `Permissions`) bound to the user's verified JWT claims:
-- Sync only active workspace records (`archived = false AND updated_at > NOW() - INTERVAL '90 days'`).
-- Stream cold historical records on-demand via hybrid server queries.
+### 3. Partial Replication & Server-Authorized Tenant Sync Proxy
+Never expose the raw ElectricSQL replication port to the public internet or let clients specify arbitrary `where` clauses. Terminate shape requests in a server proxy that verifies the session JWT and injects `tenant_id` server-side:
 
 ```typescript
-// src/sync/electric-shape-stream.ts
+// src/sync/electric-shape-proxy.ts
 import { ShapeStream, Shape } from '@electric-sql/client';
 
 export interface IssueRow {
@@ -97,19 +103,39 @@ export interface IssueRow {
   updated_at: string;
 }
 
-export function createTenantIssueShape(params: {
-  electricUrl: string;
-  tenantId: string;
+// 1. Server-Side Proxy Route (Hono / Next.js Route Handler) Injecting Tenant Boundary
+export async function proxyTenantShapeRequest(
+  incomingReq: Request,
+  electricInternalOrigin: string,
+  verifiedTenantId: string
+): Promise<Response> {
+  const clientUrl = new URL(incomingReq.url);
+  const upstreamUrl = new URL('/v1/shape', electricInternalOrigin);
+
+  // Forward safe Electric protocol cursor parameters only
+  for (const key of ['offset', 'handle', 'live', 'cursor']) {
+    const val = clientUrl.searchParams.get(key);
+    if (val !== null) upstreamUrl.searchParams.set(key, val);
+  }
+
+  // Enforce table and tenant row filter on the server
+  upstreamUrl.searchParams.set('table', 'issues');
+  upstreamUrl.searchParams.set('where', 'tenant_id = $1 AND archived = false');
+  upstreamUrl.searchParams.set('params[1]', verifiedTenantId);
+
+  return fetch(upstreamUrl.toString(), {
+    headers: { Accept: incomingReq.headers.get('Accept') ?? 'application/json' },
+  });
+}
+
+// 2. Browser Client Subscribing to the Authorized Proxy Endpoint
+export function subscribeToAuthorizedIssueShape(params: {
+  proxyEndpointUrl: string;
   authToken: string;
   signal?: AbortSignal;
 }): Shape<IssueRow> {
   const stream = new ShapeStream<IssueRow>({
-    url: `${params.electricUrl}/v1/shape`,
-    params: {
-      table: 'issues',
-      where: `tenant_id = $1 AND archived = false`,
-      params: { '1': params.tenantId },
-    },
+    url: params.proxyEndpointUrl,
     headers: {
       Authorization: `Bearer ${params.authToken}`,
     },
@@ -231,11 +257,154 @@ export class OptimisticSyncEngine<TRecord extends { id: string }> {
 }
 ```
 
-### 5. Production Verification Checklist
-- [ ] PostgreSQL is configured with `wal_level = logical` and dedicated replication slots monitored for lag.
-- [ ] Every client mutation is idempotent and re-validated on the server against tenant permissions.
+### 5. PostgreSQL Logical Replication Setup & `txid` Mutation Endpoint (SQL + TypeScript)
+Configure PostgreSQL `REPLICA IDENTITY FULL` for logical shape streaming and return `pg_current_xact_id()::text` from write transactions so the client knows the exact WAL transaction to await before clearing its optimistic state:
+
+```sql
+-- migrations/001_enable_logical_sync.sql
+ALTER TABLE public.issues REPLICA IDENTITY FULL;
+
+CREATE TABLE IF NOT EXISTS public.client_mutation_dedup (
+    idempotency_key UUID PRIMARY KEY,
+    tenant_id UUID NOT NULL,
+    txid BIGINT NOT NULL DEFAULT pg_current_xact_id()::text::bigint,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE public.client_mutation_dedup ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY tenant_isolation_mutation_dedup ON public.client_mutation_dedup
+    FOR ALL
+    USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid);
+
+CREATE INDEX idx_mutation_dedup_tenant_created
+    ON public.client_mutation_dedup (tenant_id, created_at);
+
+CREATE PUBLICATION vibes_reactive_sync_pub FOR TABLE public.issues;
+```
+
+```typescript
+// src/sync/server-txid-mutator.ts
+export interface SqlExecutor {
+  query<T>(sql: string, values: unknown[]): Promise<{ rows: T[] }>;
+}
+
+export interface MutationCommitResponse {
+  txid: string;
+  deduplicated: boolean;
+}
+
+export async function applyAuthoritativeIssueMutation(
+  db: SqlExecutor,
+  params: {
+    idempotencyKey: string;
+    tenantId: string;
+    issueId: string;
+    status: 'backlog' | 'in_progress' | 'in_review' | 'done';
+    priority: number;
+  }
+): Promise<MutationCommitResponse> {
+  const existing = await db.query<{ txid: string }>(
+    `SELECT txid::text AS txid FROM public.client_mutation_dedup WHERE idempotency_key = $1 AND tenant_id = $2`,
+    [params.idempotencyKey, params.tenantId]
+  );
+
+  if (existing.rows.length > 0) {
+    return { txid: existing.rows[0].txid, deduplicated: true };
+  }
+
+  const inserted = await db.query<{ txid: string }>(
+    `INSERT INTO public.client_mutation_dedup (idempotency_key, tenant_id)
+     VALUES ($1, $2)
+     RETURNING pg_current_xact_id()::text AS txid`,
+    [params.idempotencyKey, params.tenantId]
+  );
+
+  await db.query(
+    `UPDATE public.issues
+     SET status = $1, priority = $2, updated_at = NOW()
+     WHERE id = $3 AND tenant_id = $4`,
+    [params.status, params.priority, params.issueId, params.tenantId]
+  );
+
+  return { txid: inserted.rows[0].txid, deduplicated: false };
+}
+```
+
+### 6. Embedded PGlite (`@electric-sql/pglite`) Local OPFS Replica Store
+Persist reactive tables inside the browser's Origin Private File System (OPFS) using `@electric-sql/pglite` for instant offline SQL queries and sub-millisecond reactive live views:
+
+```typescript
+// src/sync/pglite-opfs-replica.ts
+import { PGlite } from '@electric-sql/pglite';
+
+export interface LocalIssueRecord {
+  id: string;
+  title: string;
+  status: string;
+  priority: number;
+}
+
+export class LocalOpfsReplica {
+  private db: PGlite | null = null;
+
+  public async initialize(schemaVersion = 1): Promise<void> {
+    this.db = await PGlite.create(`opfs-ahp://vibes-replica-v${schemaVersion}`);
+    await this.db.exec(`
+      CREATE TABLE IF NOT EXISTS local_issues (
+        id TEXT PRIMARY KEY,
+        tenant_id TEXT NOT NULL,
+        title TEXT NOT NULL,
+        status TEXT NOT NULL,
+        priority INTEGER NOT NULL,
+        updated_at TEXT NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS idx_local_issues_status ON local_issues (tenant_id, status);
+    `);
+  }
+
+  public async upsertBatch(rows: readonly {
+    id: string;
+    tenant_id: string;
+    title: string;
+    status: string;
+    priority: number;
+    updated_at: string;
+  }[]): Promise<void> {
+    if (!this.db || rows.length === 0) return;
+    for (const row of rows) {
+      await this.db.query(
+        `INSERT INTO local_issues (id, tenant_id, title, status, priority, updated_at)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (id) DO UPDATE SET
+           title = EXCLUDED.title,
+           status = EXCLUDED.status,
+           priority = EXCLUDED.priority,
+           updated_at = EXCLUDED.updated_at`,
+        [row.id, row.tenant_id, row.title, row.status, row.priority, row.updated_at]
+      );
+    }
+  }
+
+  public async queryByStatus(tenantId: string, status: string): Promise<LocalIssueRecord[]> {
+    if (!this.db) throw new Error('LocalOpfsReplica not initialized');
+    const res = await this.db.query<LocalIssueRecord>(
+      `SELECT id, title, status, priority
+       FROM local_issues
+       WHERE tenant_id = $1 AND status = $2
+       ORDER BY priority DESC`,
+      [tenantId, status]
+    );
+    return res.rows;
+  }
+}
+```
+
+### 7. Production Verification Checklist
+- [ ] PostgreSQL is configured with `wal_level = logical` and `REPLICA IDENTITY FULL` on synced tables.
+- [ ] Every client mutation sends an `Idempotency-Key` header/field and awaits `pg_current_xact_id()` reconciliation.
+- [ ] Client `ShapeStream` connections route through an authorizing backend proxy that injects `where` filters server-side.
 - [ ] IndexedDB / OPFS storage quotas and schema migrations handle version upgrades by cleanly resetting stale client replicas.
-- [ ] Sync shapes restrict columns and rows to the authenticated tenant boundary.
 
 ### Orchestration & Integration
 - Connects to `pwa-offline-first-expert` for OPFS SQLite and Service Worker asset caching.
@@ -263,6 +432,14 @@ export class OptimisticSyncEngine<TRecord extends { id: string }> {
 
 ### Gambaran Umum
 Anda adalah Arsitek Data Klien Terdistribusi Utama yang berspesialisasi dalam mesin sinkronisasi reaktif bergaya Linear. Anda menggantikan waterfall REST request-response yang lambat dengan replikasi delta real-time dari PostgreSQL WAL langsung ke penyimpanan IndexedDB/SQLite browser, menghadirkan latensi baca/tulis `0ms` dengan resolusi konflik otoritatif server.
+
+### Guardrail Wajib (Invarian Deklaratif)
+- **Sync Shape Diotorisasi Server**: Dilarang mengizinkan klien menentukan klausa `where` langsung ke ElectricSQL; lewatkan permintaan melalui proxy backend yang menyuntikkan `tenant_id` dari sesi JWT terverifikasi.
+- **Mutasi Klien Idempoten**: Setiap mutasi optimis wajib menyertakan `Idempotency-Key` UUID yang diverifikasi di dalam transaksi PostgreSQL server.
+- **Rekonsiliasi Berbasis `txid`**: Hapus state optimis lokal hanya ketika `pg_current_xact_id()` yang dikembalikan server telah tiba melalui stream replikasi WAL.
+- **Pemantauan Slot Replikasi WAL**: Konfigurasikan `wal_level = logical` serta `REPLICA IDENTITY FULL` pada tabel yang disinkronkan.
+- **Isolasi OPFS SQLite di WebWorker**: Jalankan penyimpanan lokal PGlite / SQLite-WASM di dalam WebWorker khusus agar thread utama UI tetap 60fps.
+- **Gerbang Reset Versi Skema**: Beri versi pada penyimpanan lokal dan bersihkan replika usang secara otomatis saat migrasi skema mengalami perubahan struktural.
 
 ### Prinsip Utama Mesin Sinkronisasi
 1. **Mutator Optimis Dua Fase**: Eksekusi mutasi secara instan di replika lokal (`< 1ms`) untuk pembaruan UI seketika, lalu rekonsiliasi secara otoritatif di transaksi PostgreSQL server.

@@ -2,7 +2,7 @@
 name: e2e-testing-expert
 description: "End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+ / Pengujian E2E dengan Playwright 1.50+, fixtures, dan Vitest 3+."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -167,6 +167,60 @@ jobs:
           name: playwright-blob-${{ matrix.shardIndex }}
           path: blob-report/
 ```
+
+#### 6. Zero-Console-Error / Uncaught-Page-Error Gate & Deterministic Route Mocking
+Fail E2E tests automatically if the browser emits any uncaught runtime exception (`pageerror`) or `console.error`, while mocking third-party HTTP dependencies deterministically via `page.route`:
+
+```typescript
+import { test as base, expect } from '@playwright/test';
+
+export const test = base.extend<{ assertZeroRuntimeErrors: void }>({
+  assertZeroRuntimeErrors: [
+    async ({ page }, use) => {
+      const runtimeErrors: string[] = [];
+
+      page.on('pageerror', (err) => {
+        runtimeErrors.push(`[UncaughtPageError] ${err.message}`);
+      });
+
+      page.on('console', (msg) => {
+        if (msg.type() === 'error') {
+          runtimeErrors.push(`[ConsoleError] ${msg.text()}`);
+        }
+      });
+
+      await use();
+      expect(runtimeErrors, 'Expected zero uncaught page errors or console.error logs').toEqual([]);
+    },
+    { auto: true },
+  ],
+});
+
+test('checkout flow handles deterministic payment gateway response cleanly', async ({ page }) => {
+  await page.route('**/api/checkout/session', async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        sessionId: 'cs_test_99182736',
+        status: 'READY',
+        amountCents: 4900,
+      }),
+    });
+  });
+
+  await page.goto('/checkout');
+  await page.getByRole('button', { name: 'Complete Order' }).click();
+  await expect(page.getByRole('status')).toContainText('cs_test_99182736');
+});
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Arbitrary Sleep Calls**: MUST ban `page.waitForTimeout(...)` in E2E suites; always synchronize using web-first assertions (`await expect(locator).toBeVisible()`) or virtual clock manipulation (`page.clock`).
+- **Role & Accessible-Name Locators First**: MUST prioritize `page.getByRole()`, `page.getByLabel()`, and `toMatchAriaSnapshot()` over brittle CSS class or XPath selectors.
+- **Zero Uncaught Page or Console Errors**: MUST attach `page.on('pageerror')` and `page.on('console')` guards in shared fixtures so unexpected runtime exceptions fail the test immediately.
+- **Isolated Storage State & Per-Worker Tenancy**: MUST isolate authentication (`storageState`) and database fixtures per worker index so parallel shards never mutate shared state.
+- **Deterministic External Boundary Mocking**: MUST intercept unstable third-party webhooks or external APIs via `page.route()` / HAR replay in CI runs.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

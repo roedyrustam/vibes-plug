@@ -2,7 +2,7 @@
 name: ai-prompt-engineering-expert
 description: "Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -183,6 +183,16 @@ prompts:
 - [ ] Gate releases on >95% assertion pass rates.
 - [ ] Configure availability fallback paths (Gemini 4 -> Gemini 3.8 Flash, Claude Opus 5.5 -> Claude Opus 4.6).
 
+### Hard Guardrails (Declarative Invariants)
+1. **XML Boundary Isolation on Untrusted User Inputs**:
+   - Untrusted user input variables MUST be wrapped in explicit structural tags (`<user_input>`, `<document>`, or `<context>`) accompanied by strict system instructions to reject prompt injection attempts.
+2. **Deterministic Schema Parsing Over Raw Markdown Extraction**:
+   - Extraction of structured outputs MUST use native tool calling or token-level JSON schema constraints (`response_format: { type: "json_schema" }`). Never parse loose code blocks with fragile regexes.
+3. **Automated Regression Quality Gating (Eval Pass Rate >= 95%)**:
+   - Prompt changes to critical business or agentic workflows MUST pass Promptfoo/DeepEval regression suites with an assertion pass rate >= 95% and faithfulness threshold >= 0.80 before deployment.
+4. **Position-Swapped Pairwise LLM-as-a-Judge Evaluation**:
+   - When using LLM-as-a-judge for comparative evals, evaluations MUST execute both ordering permutations (A vs B, and B vs A) to eliminate positional bias.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -190,7 +200,7 @@ prompts:
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec ai-prompt-engineering-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Eval assertion pass rate >= 95%, RAG faithfulness >= 0.85, 100% structured schema compliance, 0 unhandled prompt injection leaks; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -239,4 +249,4 @@ Panduan komprehensif tingkat produksi untuk rekayasa prompt dan evaluasi otomati
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec ai-prompt-engineering-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Tingkat kelulusan asersi eval >= 95%, keakuratan/faithfulness RAG >= 0.85, 100% kepatuhan skema terstruktur, 0 kebocoran injeksi prompt; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

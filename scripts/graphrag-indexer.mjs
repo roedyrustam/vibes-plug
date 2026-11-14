@@ -27,6 +27,8 @@ const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const DEFAULT_GRAPH_DIR = path.resolve(process.cwd(), '.agents', 'graph');
 const DEFAULT_GRAPH_FILE = path.join(DEFAULT_GRAPH_DIR, 'symbol_graph.json');
 
+let symbolGraphMemCache = { file: null, mtimeMs: 0, data: null };
+
 const SOURCE_EXTENSIONS = new Set(['.js', '.mjs', '.cjs', '.ts', '.tsx', '.jsx', '.py', '.go', '.rs']);
 const IGNORED_DIRS = new Set([
   'node_modules',
@@ -189,6 +191,12 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
   // Persist graph to disk
   await fs.mkdir(path.dirname(graphFile), { recursive: true });
   await fs.writeFile(graphFile, JSON.stringify(graph, null, 2), 'utf8');
+  try {
+    const stat = await fs.stat(graphFile);
+    symbolGraphMemCache = { file: path.resolve(graphFile), mtimeMs: stat.mtimeMs, data: graph };
+  } catch (err) {
+    void err;
+  }
 
   return graph;
 }
@@ -199,10 +207,18 @@ export async function buildSymbolGraph(rootDir = process.cwd(), options = {}) {
  * @returns {Promise<Object>}
  */
 export async function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE) {
+  const resolvedFile = path.resolve(graphFile);
   try {
-    const raw = await fs.readFile(graphFile, 'utf8');
-    return JSON.parse(raw);
-  } catch {
+    const stat = await fs.stat(resolvedFile);
+    if (symbolGraphMemCache.file === resolvedFile && symbolGraphMemCache.mtimeMs === stat.mtimeMs && symbolGraphMemCache.data) {
+      return symbolGraphMemCache.data;
+    }
+    const raw = await fs.readFile(resolvedFile, 'utf8');
+    const parsed = JSON.parse(raw);
+    symbolGraphMemCache = { file: resolvedFile, mtimeMs: stat.mtimeMs, data: parsed };
+    return parsed;
+  } catch (err) {
+    void err;
     return buildSymbolGraph(process.cwd(), { outputFile: graphFile });
   }
 }

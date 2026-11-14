@@ -2,7 +2,7 @@
 name: astro-framework-expert
 description: "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -178,6 +178,83 @@ import { ViewTransitions } from 'astro:transitions';
   <p slot="fallback">Loading...</p>
 </UserGreeting>
 ```
+
+#### 6. Astro 5 `ClientRouter` Parallel Curtain Transition Adapter (`src/engine/astro.ts`)
+When pairing Astro's `<ClientRouter fallback="swap" />` with a GSAP + Lenis + OGL motion engine, override `event.loader` inside `astro:before-preparation` so the exit animation (`leave()`) and network fetch (`originalLoader()`) execute **in parallel** via `Promise.all`, while persistent chrome (`#gl`, `#curtain`, `#cursor`) uses `transition:persist`:
+
+```typescript
+// src/engine/astro.ts — Parallel Leave + Network Fetch for Astro ClientRouter
+import { boot, leave, cleanup, enter } from './index';
+
+let initialized = false;
+
+export function mountAstroEngine(): void {
+  if (typeof window === 'undefined' || initialized) return;
+  initialized = true;
+
+  void boot();
+
+  document.addEventListener('astro:before-preparation', (event: any) => {
+    const originalLoader = event.loader;
+    event.loader = async () => {
+      await Promise.all([leave(), originalLoader()]);
+    };
+  });
+
+  document.addEventListener('astro:before-swap', () => {
+    cleanup();
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    enter({ transition: true, scrollTop: true });
+  });
+}
+```
+
+#### 7. Astro 5 Content Layer API with Custom Data Loader (`src/content.config.ts`)
+```typescript
+// src/content.config.ts — Astro 5 Content Layer API with loader & Zod validation
+import { defineCollection, z } from 'astro:content';
+
+export const collections = {
+  docs: defineCollection({
+    loader: async () => {
+      // Astro 5 supports custom remote/in-memory data loaders returning structured objects
+      return [
+        {
+          id: 'architecture-overview',
+          title: 'System Architecture Overview',
+          description: 'High-level architectural blueprint and swarm topology.',
+          version: '2026.4',
+          publishedAt: new Date('2026-03-15'),
+        },
+        {
+          id: 'zero-trust-security',
+          title: 'Zero-Trust Security & Post-Quantum Invariants',
+          description: 'Cryptographic attestation and boundary defense.',
+          version: '2026.4',
+          publishedAt: new Date('2026-04-01'),
+        },
+      ];
+    },
+    schema: z.object({
+      id: z.string(),
+      title: z.string(),
+      description: z.string(),
+      version: z.string(),
+      publishedAt: z.coerce.date(),
+    }),
+  }),
+};
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Unnecessary Client Hydration (`client:*`) Directives**:
+   - Deliver 0 KB JavaScript by default. Interactive client directives (`client:load`, `client:visible`, `client:idle`) MUST only be placed on genuinely dynamic components (e.g. interactive filters, mobile menus). Never hydrate static text or layout wrappers.
+2. **Strict Zod Schema Enforcement on All Collections**:
+   - Every collection defined in `src/content.config.ts` MUST declare a strict `schema` object validated with Zod. Never allow untyped or loose frontmatter.
+3. **Mandatory Tabular Numerals**:
+   - Timestamps, reading times, version numbers, and metric counts rendered in Astro templates MUST declare `tabular-nums`.
 
 ### Production Checklist
 - [ ] Content Collections with strict Zod schemas.
@@ -376,6 +453,12 @@ import WidgetProfilPengguna from '../components/WidgetProfilPengguna.astro';
   </aside>
 </div>
 ```
+
+#### 6. Adapter Transisi Paralel `ClientRouter` Astro 5 (`src/engine/astro.ts`)
+Saat memadukan `<ClientRouter fallback="swap" />` di Astro 5 dengan mesin gerak GSAP + Lenis + WebGL:
+- Gunakan `transition:persist` dan `transition:animate="none"` pada elemen global `#gl`, `#curtain`, dan `#cursor`.
+- Di dalam event `astro:before-preparation`, bungkus `event.loader` dengan `await Promise.all([leave(), originalLoader()])` agar animasi tirai penutup berjalan **paralel** dengan pengunduhan HTML halaman berikutnya (tanpa jeda tunggu ganda).
+- Panggil `cleanup()` pada `astro:before-swap` dan `enter({ transition: true, scrollTop: true })` pada `astro:after-swap`.
 
 ### Checklist Kesiapan Produksi Astro
 - [ ] Validasi skema Zod ketat pada seluruh Content Collections.

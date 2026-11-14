@@ -2,7 +2,7 @@
 name: llm-observability-expert
 description: "Production LLM observability, token cost tracking, and GenAI tracing / Observabilitas LLM produksi, pelacakan biaya, dan tracing GenAI."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -169,6 +169,10 @@ export function detectCostAnomalies(
   dailyBudget: number,
   expectedCacheHitRate: number
 ): CostAlert[] {
+  if (metrics.length === 0) {
+    return [];
+  }
+
   const alerts: CostAlert[] = [];
 
   const dailyCost = metrics.reduce((sum, m) => sum + m.totalCost, 0);
@@ -197,7 +201,108 @@ export function detectCostAnomalies(
 }
 ```
 
-#### 5. Dashboard Architecture
+#### 5. PII-Scrubbing GenAI OpenTelemetry Span Processor (`gen_ai.*` Semantic Conventions)
+Scrub sensitive PII (emails, bearer tokens, credit cards, NIK/SSN patterns) from `gen_ai.prompt` and `gen_ai.completion` span attributes before exporting telemetry to Langfuse, Datadog, or OTLP collectors:
+
+```typescript
+export interface GenAISpanAttributes {
+  'gen_ai.system': string;
+  'gen_ai.request.model': string;
+  'gen_ai.response.model': string;
+  'gen_ai.usage.input_tokens': number;
+  'gen_ai.usage.output_tokens': number;
+  'gen_ai.usage.cached_tokens': number;
+  'gen_ai.prompt'?: string;
+  'gen_ai.completion'?: string;
+  'gen_ai.fallback_triggered': boolean;
+}
+
+const PII_SCRUB_PATTERNS: ReadonlyArray<{ pattern: RegExp; replacement: string }> = [
+  { pattern: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, replacement: '[REDACTED_EMAIL]' },
+  { pattern: /\bBearer\s+[A-Za-z0-9\-._~+/]+=*\b/gi, replacement: 'Bearer [REDACTED_TOKEN]' },
+  { pattern: /\b(?:\d[ -]*?){13,16}\b/g, replacement: '[REDACTED_PAN]' },
+];
+
+export function scrubGenAITelemetryText(raw: string): string {
+  let sanitized = raw;
+  for (const { pattern, replacement } of PII_SCRUB_PATTERNS) {
+    sanitized = sanitized.replace(pattern, replacement);
+  }
+  return sanitized;
+}
+
+export function buildSanitizedGenAISpanAttributes(params: {
+  provider: string;
+  requestedModel: string;
+  actualModel: string;
+  inputTokens: number;
+  outputTokens: number;
+  cachedTokens: number;
+  promptText: string;
+  completionText: string;
+}): GenAISpanAttributes {
+  return {
+    'gen_ai.system': params.provider,
+    'gen_ai.request.model': params.requestedModel,
+    'gen_ai.response.model': params.actualModel,
+    'gen_ai.usage.input_tokens': params.inputTokens,
+    'gen_ai.usage.output_tokens': params.outputTokens,
+    'gen_ai.usage.cached_tokens': params.cachedTokens,
+    'gen_ai.prompt': scrubGenAITelemetryText(params.promptText),
+    'gen_ai.completion': scrubGenAITelemetryText(params.completionText),
+    'gen_ai.fallback_triggered': params.requestedModel !== params.actualModel,
+  };
+}
+```
+
+#### 6. Per-Tenant Token Budget Circuit-Breaker & KV-Cache Efficiency Gate
+Enforce hard daily USD spend ceilings per tenant and automatically downgrade expensive frontier models to high-efficiency fallback tiers when soft thresholds are reached:
+
+```typescript
+export interface TenantSpendWindow {
+  tenantId: string;
+  dailySpendUsd: number;
+  dailySoftCapUsd: number;
+  dailyHardCapUsd: number;
+  rollingCacheHitRatio: number;
+}
+
+export interface BudgetRoutingDecision {
+  allowed: boolean;
+  selectedModel: string;
+  reason: 'NORMAL_TIER' | 'SOFT_CAP_DOWNGRADE' | 'HARD_CAP_CIRCUIT_OPEN';
+}
+
+export function evaluateTenantModelBudget(
+  window: TenantSpendWindow,
+  preferredModel: string,
+  economicalFallbackModel = 'gemini-3.8-flash'
+): BudgetRoutingDecision {
+  if (window.dailySpendUsd >= window.dailyHardCapUsd) {
+    return {
+      allowed: false,
+      selectedModel: economicalFallbackModel,
+      reason: 'HARD_CAP_CIRCUIT_OPEN',
+    };
+  }
+
+  if (window.dailySpendUsd >= window.dailySoftCapUsd) {
+    return {
+      allowed: true,
+      selectedModel: economicalFallbackModel,
+      reason: 'SOFT_CAP_DOWNGRADE',
+    };
+  }
+
+  return {
+    allowed: true,
+    selectedModel: preferredModel,
+    reason: 'NORMAL_TIER',
+  };
+}
+```
+
+#### 7. Dashboard Architecture
 
 ```
 ┌──────────────────────────────────────────────────────┐
@@ -240,6 +345,13 @@ export function detectCostAnomalies(
 | Logging full prompts without PII filtering | GDPR/PDPA violation from stored user data | Apply PII scrubbing before logging |
 | No cost alerting | Surprise $10k+ monthly bills | Set daily budget alerts with automatic circuit breakers |
 | Tracking only latency, ignoring quality | Low-latency but high-hallucination responses | Track factuality scores alongside latency |
+
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory GenAI Span Instrumentation**: MUST record `gen_ai.request.model`, `gen_ai.response.model`, `gen_ai.usage.input_tokens`, `gen_ai.usage.output_tokens`, and `gen_ai.usage.cached_tokens` on every LLM call.
+- **Pre-Export PII Redaction**: MUST scrub emails, bearer tokens, and payment card numbers from prompt/completion strings before transmitting traces to external observability sinks.
+- **Zero-Division Safe Aggregations**: MUST guard metric array reductions (`metrics.length === 0`) before computing average cache hit rates or latency percentiles.
+- **Per-Tenant Spend Circuit-Breakers**: MUST enforce soft-cap model downgrades and hard-cap circuit-breakers per `tenantId` to prevent runaway token billing.
+- **Fallback Telemetry Tagging**: MUST tag spans with `fallbackTriggered: true` whenever a primary model degrades to a fallback model (`Gemini 4` -> `Gemini 3.8 Flash`, `Claude Opus 5.5` -> `Claude Opus 4.6`).
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

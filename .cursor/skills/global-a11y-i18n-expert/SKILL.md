@@ -2,7 +2,7 @@
 name: global-a11y-i18n-expert
 description: "Web accessibility (WCAG) and internationalization (i18n) / Aksesibilitas web (WCAG) dan internasionalisasi (i18n)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -127,6 +127,16 @@ Never use physical directional properties (`left`, `right`). Use logical propert
 - **`senior-frontend`**: Implements accessible headless primitives and semantic HTML.
 - **`nextjs-app-router-expert`**: Configures multi-locale middleware and streaming localized routes.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Semantic Interactive Elements (Zero Div-As-Button)**:
+   - Interactive actions MUST use native semantic tags (`<button>`, `<a>`, `<dialog>`) or headless primitives with full keyboard focusability (`Tab`, `Enter`, `Space`) and ARIA roles. Using `<div onClick>` or `<span onClick>` without keyboard accessibility is strictly prohibited.
+2. **Text Contrast & Focus Visibility Enforcement**:
+   - All body and UI text MUST meet WCAG 2.2 Level AA contrast ratios ($\ge 4.5:1$ for normal text, $\ge 3:1$ for large text). Suppressing focus outlines (`outline: none` or `outline-none`) without providing an explicit replacement `:focus-visible` indicator is strictly prohibited.
+3. **CSS Logical Properties Invariant for Bi-Directional Layouts**:
+   - Multi-locale applications supporting RTL (Arabic, Hebrew) MUST use CSS logical properties (`margin-inline-start`, `padding-inline-end`, `inset-inline-start`) instead of physical directional rules (`margin-left`, `padding-right`, `left`).
+4. **Strict Type-Safe Translation Key Validation**:
+   - UI components MUST NOT hardcode user-facing strings or interpolate dynamic text without type-safe translation keys (`useTranslations()` or `t('key')`). Missing translation fallback keys that render blank or raw identifiers to users are strictly prohibited.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -134,7 +144,7 @@ Never use physical directional properties (`left`, `right`). Use logical propert
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec global-a11y-i18n-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% WCAG 2.2 AA compliance (0 axe-core critical violations), 100% type-safe i18n key coverage, zero missing aria-labels on interactive elements, CSS logical properties for RTL; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -200,4 +210,4 @@ export function formatLocalizedDate(date: Date | string, locale = 'id-ID') {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec global-a11y-i18n-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% kepatuhan WCAG 2.2 AA (0 pelanggaran kritis axe-core), 100% cakupan key i18n type-safe, zero ketiadaan aria-label pada elemen interaktif, properti logika CSS untuk RTL; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

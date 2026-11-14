@@ -12,7 +12,7 @@
  *   vibes learn <skill-name> [--from-repo <dir>] [--category <domain>]
  * 
  * @author Roedy Rustam
- * @version 4.7.0
+ * @version 4.8.0
  */
 
 import fs from 'node:fs/promises';
@@ -309,7 +309,7 @@ export class ${humanTitle.replace(/\s+/g, '')}Service {
 name: ${skillName}
 description: "${enDescription} / ${idDescription}"
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # ${humanTitle} Expert — vibes-plug Sovereign Skill

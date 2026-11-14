@@ -2,7 +2,7 @@
 name: prompt-injection-firewall
 description: "Runtime defenses against prompt injection, jailbreaks, and SSRF / Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -325,6 +325,79 @@ export class CanarySentinel {
   }
 }
 ```
+
+#### Recipe 5: SSRF & Private CIDR Egress Firewall for Agent Tool Fetchers (TypeScript)
+Blocks Server-Side Request Forgery (SSRF) when agents execute web-fetching or webhook tools by resolving DNS and rejecting loopback (`127.0.0.0/8`, `::1`), RFC 1918 private networks (`10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`), link-local / cloud metadata (`169.254.0.0/16`), and non-HTTPS schemes:
+
+```typescript
+import dns from 'node:dns/promises';
+
+function ipToNumber(ip: string): number {
+  const octets = ip.split('.').map(Number);
+  return ((octets[0] << 24) >>> 0) + (octets[1] << 16) + (octets[2] << 8) + octets[3];
+}
+
+function isInCidrRange(ipNum: number, baseIp: string, prefixBits: number): boolean {
+  const mask = prefixBits === 0 ? 0 : (~0 << (32 - prefixBits)) >>> 0;
+  return (ipNum & mask) >>> 0 === (ipToNumber(baseIp) & mask) >>> 0;
+}
+
+export function isPrivateOrMetadataIp(ip: string): boolean {
+  const normalized = ip.toLowerCase();
+  if (
+    normalized === '::1' ||
+    normalized.startsWith('fe80:') ||
+    normalized.startsWith('fc00:') ||
+    normalized.startsWith('fd00:') ||
+    normalized.startsWith('::ffff:127.') ||
+    normalized.startsWith('::ffff:169.254.')
+  ) {
+    return true;
+  }
+
+  if (!/^\d{1,3}(\.\d{1,3}){3}$/.test(ip)) return true;
+  const num = ipToNumber(ip);
+
+  return (
+    isInCidrRange(num, '0.0.0.0', 8) ||
+    isInCidrRange(num, '10.0.0.0', 8) ||
+    isInCidrRange(num, '100.64.0.0', 10) ||
+    isInCidrRange(num, '127.0.0.0', 8) ||
+    isInCidrRange(num, '169.254.0.0', 16) ||
+    isInCidrRange(num, '172.16.0.0', 12) ||
+    isInCidrRange(num, '192.168.0.0', 16)
+  );
+}
+
+export async function assertSafeAgentToolEgressUrl(rawUrl: string): Promise<URL> {
+  const parsed = new URL(rawUrl);
+  if (parsed.protocol !== 'https:') {
+    throw new Error(`SSRF_BLOCKED_PROTOCOL: Only https:// egress is allowed (${parsed.protocol})`);
+  }
+
+  const records = await dns.lookup(parsed.hostname, { all: true });
+  if (records.length === 0) {
+    throw new Error(`SSRF_DNS_RESOLUTION_EMPTY: Could not resolve ${parsed.hostname}`);
+  }
+
+  for (const record of records) {
+    if (isPrivateOrMetadataIp(record.address)) {
+      throw new Error(
+        `SSRF_PRIVATE_CIDR_BLOCKED: Host ${parsed.hostname} resolved to restricted address ${record.address}`,
+      );
+    }
+  }
+
+  return parsed;
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Unicode NFKC & Tag-Character Stripping**: MUST normalize untrusted text with `.normalize('NFKC')` and strip Unicode tag characters (`U+E0000`–`U+E007F`), zero-width characters, and bidi overrides before tokenization.
+- **Cryptographic Nonce Envelopes for Untrusted RAG**: MUST wrap retrieved RAG documents and external MCP tool outputs inside `<untrusted_external_content nonce="...">` envelopes with explicit passive-data directives.
+- **Dual-LLM Privilege Separation**: MUST isolate untrusted content parsing into a zero-tool quarantined model that emits a strict schema before any privileged tool-calling model executes.
+- **SSRF Private CIDR & Metadata Egress Blocking**: MUST validate DNS resolution of agent-controlled URLs and block `127.0.0.0/8`, `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`, `169.254.169.254` (cloud metadata), and IPv6 loopback/link-local addresses.
+- **Canary Leak & Markdown Image Exfiltration Guard**: MUST verify model outputs against session canary tokens (`SIG-CANARY-...`) and block unauthorized external Markdown image URLs (`![...](https://...)`).
 
 ---
 

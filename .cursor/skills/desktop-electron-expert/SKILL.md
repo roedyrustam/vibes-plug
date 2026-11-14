@@ -2,7 +2,7 @@
 name: desktop-electron-expert
 description: "Electron 33+ desktop apps, IPC security, multi-window, and packaging / Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -127,6 +127,16 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 - **`error-resilience-expert`**: Catches unhandled exceptions in the Main process and handles renderer crashes gracefully.
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `mobile-expo-expert`, `browser-extension-mv3-pro`, `reverse-engineer-anything`, `zero-trust-secret-vault`, `computer-use-os-agent-expert`
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Context Isolation & Sandbox Enforcement**:
+   - `webPreferences` MUST explicitly set `contextIsolation: true`, `nodeIntegration: false`, and `sandbox: true`. Disabling context isolation or enabling `nodeIntegration` in renderer processes is strictly prohibited to prevent RCE vulnerabilities.
+2. **Strict IPC Input Validation & Sender Verification**:
+   - All `ipcMain.handle` routines MUST validate event senders (`event.senderFrame` URL validation) and schema-validate incoming arguments using Zod. Unconstrained execution of raw input from renderers is strictly prohibited.
+3. **Safe External Navigation & Window Open Control**:
+   - Handlers for `will-navigate` and `setWindowOpenHandler` MUST be registered to intercept unauthorized navigation. External URLs MUST open exclusively via `shell.openExternal` after protocol allowlist validation (`https:`, `mailto:`), never inside the Electron window.
+4. **Code Signing & Hardened Runtime Attestation**:
+   - Production desktop application packages MUST enable hardened runtime (`hardenedRuntime: true`) and be cryptographically signed/notarized for macOS and Windows platforms.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -134,7 +144,7 @@ contextBridge.exposeInMainWorld('desktopAPI', desktopAPI);
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec desktop-electron-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Cold launch time < 1.2s, renderer memory footprint < 120MB baseline, 100% IPC validation coverage, zero RCE vulnerabilities; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -220,4 +230,4 @@ export function SystemInfoCard() {
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec desktop-electron-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Waktu peluncuran awal (cold launch) < 1.2 detik, jejak memori renderer < 120MB baseline, 100% cakupan validasi IPC, zero celah RCE; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

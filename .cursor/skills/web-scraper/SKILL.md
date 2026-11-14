@@ -2,7 +2,7 @@
 name: web-scraper
 description: "Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass / Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -27,6 +27,16 @@ version: "4.7.0"
 
 ### Description
 Advanced Agentic Web Scraping utilizing modern multi-strategy data extraction. Leverages **Crawl4AI v4** and **Firecrawl** to convert raw DOMs into LLM-friendly Markdown. Implements Agentic Extraction loops where the LLM guides the scraper dynamically based on page state. Incorporates strategies for bypassing anti-bot measures (Cloudflare Turnstile, Datadome) and navigating dynamic Shadow DOMs.
+
+### Hard Guardrails (Declarative Invariants)
+- **Stealth Browser Identity & Anti-Bot Evasion**: Direct automated scraping requests using default unmasked client user-agents (e.g. raw `axios`, unconfigured `python-requests`, standard unpatched Playwright) against protected endpoints without proxy rotation and fingerprint masking are strictly prohibited.
+- **Concurrency Throttling & Rate Invariant**: Batch scraping loops must enforce explicit concurrency limits ($C \le 5$ default) with rate limiting and exponential backoff; unbounded `Promise.all(urls.map(scrape))` or thread hammering is banned.
+- **Clean Markdown DOM Transformation**: Scraping pipelines destined for LLM ingestion must sanitize and strip inline scripts, style tags, SVG path data, and tracking pixels, converting DOM trees into structured Markdown (`Crawl4AI` / `Firecrawl`).
+- **Robots & Terms Compliance Gate**: Scraping workflows must parse `robots.txt` disallow rules and honor HTTP `429 Too Many Requests` / `Retry-After` headers immediately without retry bombardment.
+
+### Non-Functional Requirements (NFR Contract)
+- **DOM-to-Markdown Signal Ratio**: Content extraction fidelity must maintain $\ge 95\%$ signal-to-noise ratio without phantom HTML artifacts.
+- **Memory Safety & Worker Recycling**: Scraping batch workers must release browser context pages immediately after extraction to keep process RSS $< 512\text{ MB}$.
 
 ### Trigger Conditions
 - Extracting structured data from websites for analysis, training data, or content pipelines.
@@ -150,6 +160,16 @@ async def agentic_scrape_loop(url: str, goal: str):
 
 ### Deskripsi
 Scraping Web Agentic tingkat lanjut menggunakan ekstraksi data multi-strategi modern. Memanfaatkan **Crawl4AI v4** dan **Firecrawl** untuk mengubah DOM mentah menjadi Markdown yang ramah LLM. Mengimplementasikan loop Ekstraksi Agentic di mana LLM memandu scraper secara dinamis berdasarkan status halaman. Menggabungkan strategi untuk melewati tindakan anti-bot (Cloudflare Turnstile, Datadome) dan menavigasi Shadow DOM yang dinamis.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Identitas Browser Siluman & Evasif Anti-Bot**: Permintaan scraping otomatis langsung menggunakan user-agent bawaan tanpa masking (misal `axios` polos, `python-requests` tanpa konfigurasi, Playwright standar tanpa patch) ke endpoint terproteksi tanpa rotasi proxy dilarang keras.
+- **Pembatasan Konkurensi & Invarian Laju**: Loop scraping batch wajib menerapkan batas konkurensi eksplisit ($C \le 5$ default) dengan pembatasan laju dan backoff eksponensial; pemanggilan `Promise.all(urls.map(scrape))` tanpa batas dilarang.
+- **Transformasi DOM Bersih ke Markdown**: Pipeline scraping untuk konsumsi LLM wajib membersihkan tag script inline, style, data SVG path, dan pixel pelacak, mengonversi pohon DOM menjadi Markdown terstruktur (`Crawl4AI` / `Firecrawl`).
+- **Kepatuhan Robots.txt & Batas Permintaan**: Alur scraping wajib mematuhi aturan disallow `robots.txt` dan merespons header HTTP `429 Too Many Requests` / `Retry-After` seketika tanpa melakukan penyerangan request berulang.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Rasio Signal-to-Noise DOM-ke-Markdown**: Fidelitas ekstraksi konten wajib mempertahankan rasio sinyal $\ge 95\%$ tanpa artefak HTML liar.
+- **Keamanan Memori & Daur Ulang Worker**: Worker batch scraping wajib melepaskan page context browser segera setelah ekstraksi agar penggunaan memori RSS proses tetap $< 512\text{ MB}$.
 
 ### Kondisi Pemicu
 - Mengekstrak data terstruktur dari situs web untuk analisis, data pelatihan, atau pipeline konten.

@@ -4,7 +4,7 @@ description: "Vibes-Plug 178-Skill AI Agent Swarm Architecture — Universal AI 
 globs: "**/*"
 ---
 
-# Vibes-Plug Core Conductor (Cursor IDE Edition v4.7.0)
+# Vibes-Plug Core Conductor (Cursor IDE Edition v4.8.0)
 
 ## Primary Trigger & Autonomous Swarm Activation (Pemicu Utama)
 **MANDATORY**: Upon installation, `vibes-plug` is the **PRIMARY TRIGGER** and master orchestrator for all Cursor AI interactions.

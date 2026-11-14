@@ -8,7 +8,7 @@
  * architecture for instant one-click distribution on Linux, macOS, and Windows.
  * 
  * @author Roedy Rustam
- * @version 4.7.0
+ * @version 4.8.0
  */
 
 import fs from 'node:fs/promises';
@@ -62,7 +62,7 @@ export async function compileStandaloneBinary(options = {}) {
 
   const manifest = {
     name: 'vibes',
-    version: '4.7.0',
+    version: '4.8.0',
     platform: targetPlatform,
     arch: targetArch,
     entry: ENTRY_FILE,

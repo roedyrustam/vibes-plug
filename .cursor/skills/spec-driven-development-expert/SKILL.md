@@ -2,7 +2,7 @@
 name: spec-driven-development-expert
 description: "Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -316,6 +316,16 @@ describe('Billing Service Contract Verification', () => {
   });
 });
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Spec-First Authority & Zero Spec Drift**:
+   - The TypeSpec / OpenAPI specification is the canonical Single Source of Truth (SSOT). Code, database models, and client SDKs MUST be generated or validated against the spec; never hand-code endpoints that diverge from the spec.
+2. **Strict Schema Parsing on Request Boundaries**:
+   - All server route handlers MUST parse incoming `request.body` and query parameters using strict generated schemas (Zod or TypeSpec codegen) before accessing business fields. Direct unvalidated access is prohibited.
+3. **No Unsafe Type-Casting Bypasses (`as any` / `as unknown as T`)**:
+   - Implementations MUST NOT bypass spec type contracts using force-casting (`as any` or `as unknown as T`). All boundary payloads must be proven compliant at runtime and compile time.
+4. **Mandatory BDD / Contract Verification Tests**:
+   - Every domain feature specification MUST be accompanied by executable Gherkin scenarios or consumer-driven contract tests (Pact / Vitest) that run in CI gates.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

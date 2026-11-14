@@ -2,7 +2,7 @@
 name: agentic-m2m-settlement
 description: "Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing / Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Agentic M2M Settlement & Clearing Protocol (2026 Sovereign Edition)
@@ -414,6 +414,17 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Session Key Velocity & Spend Limits**:
+   - Every autonomous M2M transaction MUST operate under an ephemeral session key bounded by `maxVelocityMinorPerTx`, `dailyCapMinor`, and an absolute expiration epoch (`expiresAt`).
+   - Any transaction exceeding single-tx velocity or daily cap MUST trigger an automatic hard rejection without calling payment gateways or signers.
+2. **Quality Critic Milestone Gating for Escrow Finalization**:
+   - No escrow funds may transition to `RELEASED` status without cryptographically attested proof of delivery and a verified Critic Quality Score (`criticQualityScore >= 0.85`).
+3. **Atomic Double-Spend Prevention via Row Locks**:
+   - All ledger updates and escrow finalizations MUST be executed inside an explicit database transaction with row-level locks (`SELECT ... FOR UPDATE` or atomic compare-and-swap) and recorded in an immutable idempotency log.
+4. **Zero Float Currency Arithmetic**:
+   - All balance calculations, fee deductions, and clearing amounts MUST use integer minor units (`bigint` or `NUMERIC(20, 0)`) to eliminate binary floating point rounding vulnerabilities.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

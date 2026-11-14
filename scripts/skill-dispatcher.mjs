@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/skill-dispatcher.mjs
- * Universal Skill-as-a-Tool (SaaT) Execution Dispatcher & Pipeline Chain Engine (v4.7.0)
+ * Universal Skill-as-a-Tool (SaaT) Execution Dispatcher & Pipeline Chain Engine (v4.8.0)
  *
  * Bridges all 178 declarative skills in `skills/` with deterministic runtime execution
  * across 8 specialized domain adapters (database, frontend, api, security, tdd, ai-mcp,
@@ -288,7 +288,7 @@ export async function inspectSkillCapabilities(skillName) {
 
   return {
     skill: skillName,
-    version: versionMatch ? versionMatch[1] : '4.7.0',
+    version: versionMatch ? versionMatch[1] : '4.8.0',
     description: descMatch ? descMatch[1].trim() : '',
     domain: adapter.domain,
     supportedActions: [...new Set([...adapter.supportedActions, 'blueprint', 'slice', 'extract-code', 'rules', 'read', 'health', 'budget'])],
@@ -308,52 +308,20 @@ export async function inspectSkillCapabilities(skillName) {
  */
 export async function compileAllSkillSlices() {
   const startTime = performance.now();
-  const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
-  const skillNames = entries
-    .filter(e => e.isDirectory() && !e.name.startsWith('.'))
-    .map(e => e.name)
-    .sort();
-
-  const slices = {};
-  const domainSummary = {};
-  let totalBlueprints = 0;
-
-  for (const skillName of skillNames) {
-    try {
-      const cap = await inspectSkillCapabilities(skillName);
-      slices[skillName] = cap;
-      totalBlueprints += cap.codeBlueprintsCount;
-      if (!domainSummary[cap.domain]) {
-        domainSummary[cap.domain] = { count: 0, blueprints: 0, skills: [] };
-      }
-      domainSummary[cap.domain].count += 1;
-      domainSummary[cap.domain].blueprints += cap.codeBlueprintsCount;
-      domainSummary[cap.domain].skills.push(skillName);
-    } catch {
-      // Skip malformed directory if any
-    }
-  }
-
-  const payload = {
-    version: '4.7.0',
-    compiledAt: '2026-10-25T00:00:00.000Z',
-    totalSkills: Object.keys(slices).length,
-    totalCodeBlueprints: totalBlueprints,
-    domains: domainSummary,
-    slices
-  };
-
-  await fs.writeFile(SLICES_FILE, JSON.stringify(payload, null, 2), 'utf8');
+  const { compileSkillSlices } = await import('./compile-skill-slices.mjs');
+  const payload = await compileSkillSlices();
+  const domainSummary = payload.domains || {};
   return {
     status: 'success',
     file: '.skill-slices.json',
     totalSkills: payload.totalSkills,
-    totalCodeBlueprints: totalBlueprints,
+    totalCodeBlueprints: payload.totalCodeBlueprints,
     domainsCount: Object.keys(domainSummary).length,
     durationMs: Math.max(1, Math.round(performance.now() - startTime)),
     domains: Object.fromEntries(
       Object.entries(domainSummary).map(([k, v]) => [k, { skillsCount: v.count, codeBlueprints: v.blueprints }])
-    )
+    ),
+    metrics: payload.metrics
   };
 }
 
@@ -618,7 +586,7 @@ if (isMain) {
   if (!firstPositional || rawArgs.includes('--help') || rawArgs.includes('-h')) {
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
-║     ⚡ Vibes-Plug Universal Skill-as-a-Tool (SaaT) Dispatcher (v4.7.0)       ║
+║     ⚡ Vibes-Plug Universal Skill-as-a-Tool (SaaT) Dispatcher (v4.8.0)       ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 Usage:

@@ -1,6 +1,6 @@
 # 📋 Product Requirements Document (PRD): Skill-as-a-Tool (SaaT) Engine
 **Product**: `vibes-plug` Skill Supercharger & Tool Execution Engine  
-**Version**: 4.7.0  
+**Version**: 4.8.0  
 **Status**: APPROVED ARCHITECTURE  
 **Target Release**: Q4 2026  
 

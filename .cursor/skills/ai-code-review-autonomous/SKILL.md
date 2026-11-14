@@ -2,7 +2,7 @@
 name: ai-code-review-autonomous
 description: "Autonomous AI code self-review: syntax, logic, security, and perf / Review mandiri kode AI: sintaks, logika, keamanan, dan performa."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -21,6 +21,7 @@ version: "4.7.0"
 - **Security & Red Teaming**: `autonomous-red-teamer`, `prompt-injection-firewall`
 - **Architecture & Clean Code**: `scalability-clean-code`, `living-codebase-ast-graph`, `typescript-expert`
 - **Lifecycle & Governance**: `brainstorming`, `zero-to-prod-orchestrator`, `production-ready-hardener`
+- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
 
 ### Description
 A structured multi-pass self-review protocol that the AI agent executes on its own generated code before presenting it to the user. Each pass focuses on a distinct quality dimension — syntax correctness, business logic validation, architectural conformance, security vulnerabilities, and performance characteristics. This eliminates the most common AI code generation failure: confidently presenting broken or insecure code because the model never re-read what it wrote.
@@ -211,6 +212,16 @@ export function auditGitDiffHunk(filePath: string, addedLines: readonly string[]
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Evidence-Backed Findings with File & Line Links**:
+   - Every identified review finding MUST link directly to specific file paths and line ranges with concrete syntactic or logical proof. Vague opinions without source references are strictly prohibited.
+2. **Zero-Tolerance Gate on P0/P1 Severity Findings**:
+   - Reviews MUST block pull request approval or generation sign-off if any P0 (runtime crash, data corruption, vulnerability) or P1 (core logic breakage, missing error handling) defect remains unresolved.
+3. **Automated AST & Syntax Smoke Verification Pre-Approval**:
+   - The review pipeline MUST execute AST parsing or compiler smoke checks prior to issuing approval status. Approving code changes that have not passed static parse verification is strictly forbidden.
+4. **Actionable Remediation Diffs & Zero Sycophancy**:
+   - Every flagged defect MUST include a concrete drop-in remediation diff or code snippet. Sycophantic conversational praise and filler commentary are prohibited under Anti-Slop directives.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -226,8 +237,6 @@ export function auditGitDiffHunk(filePath: string, addedLines: readonly string[]
 ---
 
 <a name="bahasa-indonesia"></a>
-- **Evolutionary Algorithm & Kernel Discovery**: Connects to `neurosymbolic-genetic-synthesizer` for Quality-Diversity MAP-Elites synthesis and formal sandbox fitness verification.
-
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi

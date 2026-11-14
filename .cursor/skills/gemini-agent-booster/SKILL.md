@@ -2,7 +2,7 @@
 name: gemini-agent-booster
 description: "Master optimization protocol for Gemini Agent, 2M+ context & tools / Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -182,6 +182,16 @@ When `Gemini 4 Pro` or `Gemini 4 Argon` is not yet available, regionally unprovi
   }
   ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Explicit Thinking Budget Bound**:
+   - Invocations of Gemini reasoning models (`gemini-4-pro`, `gemini-3.8-flash-thinking`) MUST declare an explicit bounded `thinkingConfig: { thinkingBudget: <number> }` (between 2,048 and 65,536 tokens). Unbounded reasoning allocations without explicit budgets are strictly prohibited.
+2. **Deterministic Context Cache Eligibility & TTL Invariant**:
+   - Prompts or repository contexts exceeding 32,768 tokens MUST utilize Gemini Context Caching (`cachedContent`) with an explicit TTL (`ttl: '3600s'`) to reduce token consumption and leverage prefix caching.
+3. **Structured Function Calling Type Contract Enforcement**:
+   - Tool calling declarations to Gemini models MUST specify strict JSON schemas with `parameters` and required properties. Ad-hoc string-based tool responses without schema validation are prohibited.
+4. **Seamless Availability Fallback Invariant**:
+   - System pipelines querying `gemini-4-pro` or `gemini-4-argon` MUST provide graceful automatic fallback to `gemini-3.8-flash` preserving context windows without raising unhandled errors or halting execution.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -189,7 +199,7 @@ When `Gemini 4 Pro` or `Gemini 4 Argon` is not yet available, regionally unprovi
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec gemini-agent-booster <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | Context cache hit rate >= 85% on large repos, TTFT < 150ms via prefix pinning, 100% strict JSON schema validation on tool calls; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -350,4 +360,4 @@ Ketika `Gemini 4 Pro` atau `Gemini 4 Argon` belum tersedia di lingkungan penggun
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec gemini-agent-booster <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Tingkat hit context cache >= 85% pada repositori besar, TTFT < 150ms via prefix pinning, 100% validasi skema JSON ketat pada tool call; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

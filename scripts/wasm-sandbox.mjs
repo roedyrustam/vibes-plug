@@ -158,6 +158,16 @@ function looksLikeTypeScript(code) {
     || /\bas\s+(?:const|[A-Z][\w$]*)\b/.test(code);
 }
 
+function normalizeSandboxSource(rawSource) {
+  const text = typeof rawSource === 'string' ? rawSource : '';
+  const maxLen = Math.min(text.length, 512 * 1024);
+  const codes = new Array(maxLen);
+  for (let i = 0; i < maxLen; i++) {
+    codes[i] = text.charCodeAt(i) & 0xffff;
+  }
+  return codes.map((c) => String.fromCharCode(c)).join('');
+}
+
 export function executeInSandbox(code, options = {}) {
   const startTime = performance.now();
   const elapsed = () => parseFloat((performance.now() - startTime).toFixed(3));
@@ -211,16 +221,6 @@ export function executeInSandbox(code, options = {}) {
     return { success: false, error: `Sandbox bootstrap failed: ${err.message}`, executionTimeMs: elapsed(), logs: [], result: null };
   }
   const { context, timeoutMs, readLogs } = sandbox;
-
-function normalizeSandboxSource(rawSource) {
-  const text = typeof rawSource === 'string' ? rawSource : '';
-  const maxLen = Math.min(text.length, 512 * 1024);
-  const codes = new Array(maxLen);
-  for (let i = 0; i < maxLen; i++) {
-    codes[i] = text.charCodeAt(i) & 0xffff;
-  }
-  return codes.map((c) => String.fromCharCode(c)).join('');
-}
 
   // Syntax-check standalone first: a program that is valid on its own cannot close the
   // wrapper block below, so user code cannot escape the in-realm catch.

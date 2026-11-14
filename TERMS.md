@@ -1,7 +1,7 @@
 # Terms of Use / Syarat Penggunaan
 
 **vibes-plug** — Universal AI Agent Swarm & MCP Plugin  
-Version 4.7.0 | Effective: 2026-11-01
+Version 4.8.0 | Effective: 2026-11-01
 
 ---
 

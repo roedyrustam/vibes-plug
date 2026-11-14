@@ -2,7 +2,7 @@
 name: python-programming-expert
 description: "Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest / Pemrograman Python modern: FastAPI, Pydantic v2, uv, dan pytest."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -368,6 +368,69 @@ async def aggregate_cluster_health() -> dict[str, dict]:
 
     return results
 ```
+
+### Atomic SQLAlchemy 2.0 Unit-of-Work & Pessimistic Row Locking (`with_for_update`)
+
+Prevent lost updates on concurrent balance or inventory mutations by executing inside `async with session.begin():` and acquiring a row-level lock via `.with_for_update(nowait=False)`:
+
+```python
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+class LedgerBase(DeclarativeBase):
+    pass
+
+class WalletAccount(LedgerBase):
+    __tablename__ = "wallet_accounts"
+    id: Mapped[str] = mapped_column(primary_key=True)
+    balance_minor: Mapped[int] = mapped_column(default=0)
+
+class InsufficientFundsError(Exception):
+    pass
+
+async def transfer_wallet_funds(
+    session: AsyncSession,
+    sender_id: str,
+    receiver_id: str,
+    amount_minor: int,
+) -> tuple[int, int]:
+    if amount_minor <= 0:
+        raise ValueError("Transfer amount_minor must be strictly positive")
+
+    # Lock in canonical ID order to prevent deadlocks between concurrent transfers
+    ordered_ids = sorted([sender_id, receiver_id])
+
+    async with session.begin():
+        stmt = (
+            select(WalletAccount)
+            .where(WalletAccount.id.in_(ordered_ids))
+            .order_by(WalletAccount.id)
+            .with_for_update()
+        )
+        rows = (await session.execute(stmt)).scalars().all()
+        accounts = {acct.id: acct for acct in rows}
+
+        sender = accounts.get(sender_id)
+        receiver = accounts.get(receiver_id)
+        if sender is None or receiver is None:
+            raise LookupError("Sender or receiver wallet account not found")
+
+        if sender.balance_minor < amount_minor:
+            raise InsufficientFundsError("Insufficient wallet balance")
+
+        sender.balance_minor -= amount_minor
+        receiver.balance_minor += amount_minor
+
+    return sender.balance_minor, receiver.balance_minor
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Pydantic v2 Native APIs Only**: MUST use Pydantic v2 methods (`model_validate`, `model_dump`, `TypeAdapter`, `@field_validator`, `ConfigDict`) and ban deprecated v1 `.dict()`, `.parse_obj()`, and `@validator`.
+- **Structured Concurrency Over Unbounded Gather**: MUST use `async with asyncio.TaskGroup()` and `async with asyncio.timeout(...)` instead of bare `asyncio.gather()` so failed child tasks cancel sibling tasks deterministically.
+- **Zero Blocking Sync I/O in `async def` Routes**: MUST never call blocking `requests.get()`, `time.sleep()`, or synchronous file/DB drivers inside `async def` FastAPI handlers; use `httpx.AsyncClient`, `asyncio.sleep()`, and `asyncpg`.
+- **Canonical Lock Ordering in Transactions**: MUST sort row IDs before `SELECT ... FOR UPDATE` (`with_for_update()`) inside `async with session.begin():` to prevent AB-BA database deadlocks.
+- **Reproducible `uv.lock` Toolchain**: MUST manage dependencies and virtual environments via `uv` (`uv sync --frozen`) and lint with `ruff` targeting Python 3.13+.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

@@ -2,7 +2,7 @@
 name: property-mutation-testing-expert
 description: "Property-based testing (fast-check) and mutation testing (Stryker) / Pengujian berbasis properti (fast-check) dan mutasi (Stryker)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -145,28 +145,84 @@ items.length > 0          →      false                      // boolean mutatio
 
 If your test suite **still passes** after a mutation, that mutant "survived" — meaning your tests have a gap.
 
-#### 4. AI-Driven Property Generation
+#### 4. Stateful Model-Based Property Testing (`fc.commands` Ledger Invariant)
 
-Leverage frontier models to discover non-obvious properties:
+Verify stateful systems (financial ledgers, shopping carts, rate limiters) against a simplified reference model across arbitrary sequences of operations:
 
-```
-PROMPT FOR AI PROPERTY GENERATION:
-
-Given this function:
 ```typescript
-function calculateDiscount(price: number, memberTier: 'bronze' | 'silver' | 'gold', quantity: number): number {
-  // ... implementation
+import { describe, it, expect } from 'vitest';
+import * as fc from 'fast-check';
+
+class ProductionWallet {
+  private balanceCents = 0;
+  deposit(amountCents: number): void {
+    if (amountCents <= 0) throw new Error('Deposit must be positive');
+    this.balanceCents += amountCents;
+  }
+  withdraw(amountCents: number): boolean {
+    if (amountCents <= 0 || amountCents > this.balanceCents) return false;
+    this.balanceCents -= amountCents;
+    return true;
+  }
+  getBalanceCents(): number {
+    return this.balanceCents;
+  }
 }
-```
 
-Generate fast-check property tests covering:
-1. All return values must be non-negative (discount cannot exceed price).
-2. Higher membership tiers should always get equal or greater discounts.
-3. Increasing quantity should never decrease the total discount.
-4. Zero quantity should always return zero discount.
-5. The discount should never exceed the original price × quantity.
+interface WalletModel {
+  expectedBalanceCents: number;
+}
 
-For each property, use appropriate fast-check arbitraries.
+class DepositCommand implements fc.Command<WalletModel, ProductionWallet> {
+  constructor(readonly amountCents: number) {}
+  check = () => this.amountCents > 0;
+  run(model: WalletModel, real: ProductionWallet): void {
+    real.deposit(this.amountCents);
+    model.expectedBalanceCents += this.amountCents;
+    expect(real.getBalanceCents()).toBe(model.expectedBalanceCents);
+  }
+  toString = () => `Deposit(${this.amountCents})`;
+}
+
+class WithdrawCommand implements fc.Command<WalletModel, ProductionWallet> {
+  constructor(readonly amountCents: number) {}
+  check = () => this.amountCents > 0;
+  run(model: WalletModel, real: ProductionWallet): void {
+    const succeeded = real.withdraw(this.amountCents);
+    if (this.amountCents <= model.expectedBalanceCents) {
+      expect(succeeded).toBe(true);
+      model.expectedBalanceCents -= this.amountCents;
+    } else {
+      expect(succeeded).toBe(false);
+    }
+    expect(real.getBalanceCents()).toBe(model.expectedBalanceCents);
+    expect(real.getBalanceCents()).toBeGreaterThanOrEqual(0);
+  }
+  toString = () => `Withdraw(${this.amountCents})`;
+}
+
+describe('Stateful Wallet Conservation Property', () => {
+  it('preserves non-negative integer balance across arbitrary command sequences', () => {
+    const commandArb = fc.commands(
+      [
+        fc.integer({ min: 1, max: 500_000 }).map((n) => new DepositCommand(n)),
+        fc.integer({ min: 1, max: 500_000 }).map((n) => new WithdrawCommand(n)),
+      ],
+      { maxCommands: 50 }
+    );
+
+    fc.assert(
+      fc.property(commandArb, (cmds) => {
+        const setup = () => ({
+          model: { expectedBalanceCents: 0 },
+          real: new ProductionWallet(),
+        });
+        fc.modelRun(setup, cmds);
+      }),
+      { numRuns: 250 }
+    );
+  });
+});
 ```
 
 #### 5. Mutation Score Targets
@@ -200,6 +256,13 @@ For each property, use appropriate fast-check arbitraries.
 | Running mutation testing on entire codebase | Hours of CI time, developer frustration | Scope to critical domain and business logic paths |
 | Ignoring surviving mutants | Known gaps in test quality left unaddressed | Treat surviving mutants as P1 bugs to fix |
 
+### Hard Guardrails (Declarative Invariants)
+- **Universal Algebraic Invariants Over Single Examples**: MUST verify pure domain and financial functions with `fc.assert(fc.property(...))` (roundtrip, idempotency, monotonicity, conservation) across at least `200` generated runs.
+- **Explicit IEEE-754 `noNaN` Constraints**: MUST set `{ noNaN: true, noDefaultInfinity: true }` on `fc.double()` / `fc.float()` arbitraries so numeric property tests are deterministic.
+- **Strict Mutation Break Thresholds**: MUST configure Stryker (`thresholds.break >= 75` overall and `>= 95` on billing/auth paths) so surviving critical-path mutants break CI.
+- **Stateful Command-Sequence Verification**: MUST test stateful domain aggregates using `fc.commands` and `fc.modelRun` against a reference model to catch multi-step race or state-corruption bugs.
+- **Minimal Counterexample Shrinking**: MUST preserve and log the minimal shrunk counterexample emitted by `fast-check` or Hypothesis as a permanent regression test.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -215,13 +278,11 @@ For each property, use appropriate fast-check arbitraries.
 ---
 
 <a name="bahasa-indonesia"></a>
-- **Formal Mathematical Proof Gating**: Connects to `formal-theorem-verifier-lean4` and `formal-spec-z3-verifier` to mathematically prove state invariants and eliminate edge-case exploits.
-
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
 - **TDD & Runner Pengujian**: `autonomous-tdd-debugger`, `e2e-testing-expert`
-- **Verifikasi Formal & Invarian**: `formal-spec-z3-verifier`, `spec-driven-development-expert`
+- **Verifikasi Formal & Invarian**: `formal-spec-z3-verifier`, `formal-theorem-verifier-lean4`, `spec-driven-development-expert`
 - **Gerbang Kualitas & Anti-Slop**: `anti-slop`, `ai-code-review-autonomous`, `production-ready-hardener`, `zero-tech-debt-auditor`
 - **Sistem Tipe Bahasa**: `typescript-expert`, `python-programming-expert`, `rust-programming-expert`
 - **Siklus Hidup & Tata Kelola**: `brainstorming`, `zero-to-prod-orchestrator`, `session-memory-manager`

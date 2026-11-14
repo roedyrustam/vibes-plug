@@ -2,7 +2,7 @@
 name: design-system-architect
 description: "UI design systems, design tokens, headless primitives, and WCAG 2.2 / Sistem desain UI, token desain, headless primitives, dan WCAG 2.2."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Design System Architect (2026 Edition — shadcn/ui Registry)
@@ -396,6 +396,16 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 - [ ] Modals trap focus and restore it on close.
 - [ ] No content relies on color alone to convey information.
 - [ ] Touch targets ≥ 24×24px (WCAG 2.2 new requirement).
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Semantic Headless Primitives (Zero Div-Soup)**:
+   - Interactive components MUST build on accessible headless primitives (Base UI, Radix UI) using semantic HTML5 elements (`<button>`, `<dialog>`, `<nav>`, `<input>`); never use generic `<div>` with `onClick` for buttons or modals.
+2. **5-State Visual Contract on All Interactive Elements**:
+   - Every input control and button MUST expose 5 explicit visual states: `default`, `hover`, `active`, `focus-visible` (with `ring-2 ring-offset-2`), and `disabled`.
+3. **Container Queries (`@container`) for Component-Internal Layouts**:
+   - Components MUST NOT use viewport `@media` queries (`md:`, `lg:`) for internal card or modal styling; use Container Queries (`@md:`, `@lg:`) so components adapt dynamically to their container width.
+4. **Deterministic Token Scale (No Arbitrary Magic Numbers)**:
+   - All spacing, border-radius, and font sizes MUST reference unified `@theme` tokens or strict 3-tier scales (4px/8px/12px radius, 44px minimum touch targets). Arbitrary pixel hacks (`p-[13px]`, `w-[347px]`) are strictly prohibited.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

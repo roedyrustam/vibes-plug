@@ -2,7 +2,7 @@
 name: cloudflare-workers-expert
 description: "Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects / Ekosistem Cloudflare Workers: D1, KV, R2, Queues, Durable Objects."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Cloudflare Workers Ecosystem Expert (2026 Edition)
@@ -187,16 +187,29 @@ app.post('/api/ai/generate', async (c) => {
   return c.json(response);
 });
 
-export default app;
+interface EmailJob {
+  to: string;
+  subject: string;
+  template: string;
+}
 
-// Queue consumer handler
+async function sendEmail(to: string, subject: string, template: string): Promise<void> {
+  console.info(`[EmailWorker] Dispatched template=${template} to=${to} subject=${subject}`);
+}
+
+// Unified Hono HTTP fetch + Cloudflare Queue consumer export
 export default {
-  ...app,
-  async queue(batch: MessageBatch, env: Bindings): Promise<void> {
+  fetch: app.fetch,
+  async queue(batch: MessageBatch<EmailJob>, env: Bindings, ctx: ExecutionContext): Promise<void> {
     for (const message of batch.messages) {
-      const { to, subject, template } = message.body as EmailJob;
-      await sendEmail(to, subject, template); // your email sending logic
-      message.ack();
+      try {
+        const { to, subject, template } = message.body;
+        await sendEmail(to, subject, template);
+        message.ack();
+      } catch (err) {
+        console.error('[QueueConsumerError]', err);
+        message.retry({ delaySeconds: 30 });
+      }
     }
   },
 };
@@ -273,6 +286,59 @@ app.get('/api/users', async (c) => {
   return c.json(rows);
 });
 ```
+
+#### 6. Durable Objects SQLite Storage (`ctx.storage.sql`) & WebSocket Hibernation API
+Use `this.ctx.storage.sql.exec(...)` for zero-latency ACID SQLite inside Durable Objects and `this.ctx.acceptWebSocket(server)` so idle WebSocket connections hibernate at zero compute cost:
+
+```typescript
+import { DurableObject } from 'cloudflare:workers';
+
+export class TenantQuotaCoordinator extends DurableObject {
+  constructor(ctx: DurableObjectState, env: Record<string, unknown>) {
+    super(ctx, env);
+    this.ctx.blockConcurrencyWhile(async () => {
+      this.ctx.storage.sql.exec(`
+        CREATE TABLE IF NOT EXISTS quota_ledger (
+          bucket_key TEXT PRIMARY KEY,
+          consumed INTEGER NOT NULL DEFAULT 0,
+          updated_at INTEGER NOT NULL
+        )
+      `);
+    });
+  }
+
+  async consumeTokens(bucketKey: string, delta: number, maxQuota: number): Promise<{ allowed: boolean; remaining: number }> {
+    const now = Date.now();
+    const rows = this.ctx.storage.sql
+      .exec<{ consumed: number }>('SELECT consumed FROM quota_ledger WHERE bucket_key = ?', bucketKey)
+      .toArray();
+
+    const current = rows[0]?.consumed ?? 0;
+    if (current + delta > maxQuota) {
+      return { allowed: false, remaining: Math.max(0, maxQuota - current) };
+    }
+
+    const nextConsumed = current + delta;
+    this.ctx.storage.sql.exec(
+      `INSERT INTO quota_ledger (bucket_key, consumed, updated_at)
+       VALUES (?, ?, ?)
+       ON CONFLICT(bucket_key) DO UPDATE SET consumed = excluded.consumed, updated_at = excluded.updated_at`,
+      bucketKey,
+      nextConsumed,
+      now
+    );
+
+    return { allowed: true, remaining: maxQuota - nextConsumed };
+  }
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Prepared & Bound D1 Statements Only**: MUST execute D1 queries exclusively with `env.DB.prepare('... WHERE id = ?').bind(id)` and never interpolate raw strings into `prepare()` or `exec()`.
+- **Non-Blocking Background Tasks via `ctx.waitUntil`**: MUST wrap post-response telemetry, cache population, and audit logging inside `c.executionCtx.waitUntil(promise)` so the isolate is not terminated before completion.
+- **Explicit Queue `ack()` / `retry({ delaySeconds })`**: MUST acknowledge each processed message with `message.ack()` and catch transient failures with `message.retry({ delaySeconds })` backed by a configured Dead Letter Queue.
+- **Zero Mutable Isolate Globals for Request State**: MUST never store user/tenant session state in module-level variables across requests, as a single V8 isolate serves multiple concurrent requests.
+- **Hyperdrive Pooling for External TCP Databases**: MUST connect to external PostgreSQL/MySQL databases through `env.HYPERDRIVE.connectionString` instead of opening raw cold TCP/TLS connections per request.
 
 ### Performance Best Practices
 1. **Use D1 for read-heavy workloads** — SQLite at edge with automatic read replicas.

@@ -2,7 +2,7 @@
 name: affective-computing-emotion-ai
 description: "Affective computing, emotion AI, and multimodal sentiment analysis / Komputasi afektif, AI emosional, dan analisis sentimen multimodal."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Affective Computing & Emotion AI (2026 Sovereign Edition)
@@ -77,6 +77,17 @@ $$\text{Emotion Quadrants}:$$
 3. **Biometric Privacy Invariant**: Raw audio samples and facial frames must be processed in ephemeral memory and discarded immediately. Only the anonymized `AffectVector` coordinate may be logged.
 
 ---
+
+### Hard Guardrails (Declarative Invariants)
+- **Raw Audio/Waveform STT Invariant**: Affective feature extraction (pitch, jitter, shimmer, pause ratio) MUST operate directly on raw audio waveforms or multimodal frames; emotion detection must NEVER rely on transcribed text.
+- **De-escalation UI Suppression Invariant**: When $V < -0.3$ and $A > 0.3$ (agitated/stressed), the UI engine MUST suppress popups, modals, and decorative animations, collapsing layout to a single primary resolution card.
+- **Ephemeral Biometric Privacy Invariant**: Raw audio waveforms and video frames MUST NEVER be persisted to disk or databases; they must be processed in ephemeral RAM and immediately zeroed, logging only anonymized numeric `AffectVector` coordinates.
+- **Accessible Contrast & Legibility Contract**: All emotion-adaptive themes and state indicators must maintain WCAG 2.2 AA compliant contrast ratios ($\ge 4.5:1$ text, $\ge 3.0:1$ UI components) across all emotional states.
+
+### Non-Functional Requirements (NFR)
+- **Acoustic Processing Latency**: Real-time audio feature extraction $\le 50\text{ms}$.
+- **UI Adaptation Refresh**: Dynamic layout and theme reconfiguration $\le 16\text{ms}$ (60fps).
+- **Zero PII Storage**: 0 bytes of raw biometric voice/video data written to disk or long-term storage.
 
 ### Production Implementation Blueprints
 
@@ -314,6 +325,17 @@ Antarmuka perangkat lunak dan sistem chat konvensional hanya memproses teks data
   - `anti-slop` — Meniadakan permintaan maaf robotik dan basa-basi saat melakukan de-eskalasi emosi.
 
 ---
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Invarian Deteksi Audio Mentah Tanpa STT**: Ekstraksi fitur afektif (variasi nada, jitter, jeda bicara) WAJIB dilakukan langsung pada gelombang audio mentah atau frame multimodal; deteksi emosi dilarang bergantung pada transkripsi teks.
+- **Invarian De-eskalasi Reduksi UI**: Ketika $V < -0.3$ dan $A > 0.3$ (kondisi frustrasi/stres tinggi), mesin UI wajib mematikan animasi dekoratif, menutup modal/popup, dan menyederhanakan antarmuka menjadi satu kartu resolusi utama.
+- **Invarian Privasi Biometrik Efemeral**: Gelombang audio dan frame video mentah DILARANG KERAS disimpan ke disk atau database; wajib diproses di RAM efemeral dan langsung dibebaskan, hanya koordinat numerik `AffectVector` yang diizinkan dicatat.
+- **Kontrak Kontras Aksesibel**: Seluruh adaptasi tema dan indikator status emosi wajib memenuhi standar kontras rasio WCAG 2.2 AA ($\ge 4.5:1$ teks, $\ge 3.0:1$ komponen UI) pada setiap kondisi afektif.
+
+### Non-Functional Requirements (NFR)
+- **Latensi Ekstraksi Akustik**: Ekstraksi fitur audio real-time $\le 50\text{ms}$.
+- **Refresh Adaptasi UI**: Rekonfigurasi tema dan kepadatan layout $\le 16\text{ms}$ (60fps).
+- **Zero PII Leakage**: 0 byte rekaman suara biometrik pribadi yang tersimpan ke media penyimpanan persisten.
 
 ### 3 Hukum Utama Antarmuka Afektif
 1. **Prinsip Latensi Nol-STT**: Deteksi emosi wajib dilakukan langsung pada gelombang audio mentah (*raw waveform*). Mengubah suara menjadi teks terlebih dahulu akan membuang intonasi dan desahan nafas.

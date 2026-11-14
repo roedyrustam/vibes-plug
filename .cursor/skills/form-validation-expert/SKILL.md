@@ -2,7 +2,7 @@
 name: form-validation-expert
 description: "Form validation with React Hook Form, Zod, and server actions / Validasi formulir dengan React Hook Form, Zod, dan server actions."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Form & Validation Expert (2026 Edition)
@@ -461,6 +461,37 @@ export function M3OutlinedTextField({
 
 ---
 
+
+### 5. Discriminated Union Schema & CSRF-Safe Idempotent Server Action Validator (TypeScript)
+Model polymorphic forms (e.g., Individual vs Corporate KYC/Tax registration) using `z.discriminatedUnion` so invalid field combinations are impossible at compile and runtime:
+
+```typescript
+// src/schemas/kyc-onboarding.ts
+import { z } from 'zod';
+
+export const KycOnboardingSchema = z.discriminatedUnion('accountType', [
+  z.object({
+    accountType: z.literal('individual'),
+    fullName: z.string().min(2, 'Full legal name must be at least 2 characters'),
+    nationalIdNik: z.string().regex(/^\d{16}$/, 'NIK must be an exact 16-digit number'),
+    idempotencyKey: z.string().uuid(),
+  }),
+  z.object({
+    accountType: z.literal('corporate'),
+    companyLegalName: z.string().min(3, 'Company legal name must be at least 3 characters'),
+    taxIdNpwp: z.string().regex(/^\d{15,16}$/, 'NPWP must be 15 or 16 digits'),
+    authorizedSignerEmail: z.string().email('Enter a valid corporate signer email'),
+    idempotencyKey: z.string().uuid(),
+  }),
+]);
+
+export type KycOnboardingInput = z.infer<typeof KycOnboardingSchema>;
+
+export function parseKycFormData(formData: FormData) {
+  const rawPayload = Object.fromEntries(formData.entries());
+  return KycOnboardingSchema.safeParse(rawPayload);
+}
+```
 
 ### Sovereign Anti-Slop Form Directives
 Zero-tolerance standards for form engineering:

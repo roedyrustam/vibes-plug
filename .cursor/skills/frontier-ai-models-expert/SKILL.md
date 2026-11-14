@@ -2,7 +2,7 @@
 name: frontier-ai-models-expert
 description: "Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5) / Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5)."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -383,6 +383,16 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 5. **Use `GPT-5.6 Sol` for External API Schemas**: Leverage GPT-5.6 Sol when converting unstructured specifications into strict OpenAPI schemas or Zod contracts.
 6. **Use `Muse Wonder High` for Design Explorations**: Leverage Muse Wonder when brainstorming novel UX interactions, generative UI components, and dynamic micro-animations.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Tier-Appropriate Model Routing**:
+   - High Fast models (Grok 4.7 / Grok 4.6 / Composer 2.5) MUST be routed for rapid AST parsing, test assertions, and multi-file diffs; High Thinking models (Sonnet 5.5 / Opus 5.5 / Gemini 4 Pro) MUST be reserved for cross-domain synthesis and core production algorithms.
+2. **Deterministic Context Caching on Workspaces > 32K Tokens**:
+   - Any multi-file context payload exceeding 32,768 tokens MUST utilize provider-native prompt caching (`cachedContents` on Gemini, `cache_control: { type: "ephemeral" }` on Anthropic) with deterministic, byte-identical prefix ordering.
+3. **Mandatory Thinking Budget Calibration**:
+   - Reasoning models MUST explicitly define thinking token budgets (minimum 8K for standard algorithms, 32K for formal proofs or fullstack refactors). Never run unbounded extended thinking without budget limits.
+4. **Availability Fallback Degradation Without Interruption**:
+   - Primary frontier calls (Gemini 4 Argon/Pro, Claude Opus 5.5) MUST catch quota (429) or provisioning (503) errors and immediately fall back to Gemini 3.8 Flash or Claude Opus 4.6 without throwing unhandled exceptions.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -390,7 +400,7 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 TTFT < 800ms (High Fast) / < 2.5s (High Thinking), prompt cache hit rate >= 80% on repeated turns, 100% structured contract parity; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -473,4 +483,4 @@ Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalam
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | TTFT P99 < 800ms (High Fast) / < 2.5s (High Thinking), hit rate prompt cache >= 80% pada sesi berulang, 100% paritas kontrak terstruktur; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

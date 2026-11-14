@@ -2,7 +2,7 @@
 name: agentic-micro-economy-architect
 description: "M2M micro-economies, agent wallets, swarm budgets, and HTTP 402 / Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Agentic Micro-Economy Architect (2026 Sovereign Edition)
@@ -406,6 +406,16 @@ export function AgentBudgetDashboard({ telemetry, agentSpendBreakdown }: BudgetT
   );
 }
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Root Treasury Hard Killswitch & Automated Circuit Breaker**:
+   - The root micro-economy orchestrator MUST maintain an armed emergency killswitch. If global consumption reaches 100% of allocated budget or anomalous velocity (>3x baseline) is detected, all in-flight agent tasks MUST be immediately frozen.
+2. **Deterministic Minor Unit Currency Precision**:
+   - Store and compute all balances, tariffs, and escrow holds in minor units (`USDC micro-cents` or `IDR integer rupiah`). Never perform division or multiplication using Javascript IEEE 754 floating point numbers on core wallet balances.
+3. **HTTP 402 Challenge Expiration & Replay Defense**:
+   - Every `402 Payment Required` invoice challenge MUST declare a cryptographically verifiable `challengeNonce` with a maximum lifetime of 30 seconds (`expiresAt <= now + 30s`) to prevent replay exploits.
+4. **Subagent Budget Partition Isolation**:
+   - Each spawned subagent wallet MUST operate within a strictly isolated balance partition; a child agent cannot overdraw or pledge parent treasury funds without an explicit escrow allowance grant.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

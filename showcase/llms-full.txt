@@ -4,7 +4,7 @@
 > Official Website: https://roedyrustam.github.io/vibes-plug/
 > GitHub: https://github.com/roedyrustam/vibes-plug
 > Author: Roedy Rustam
-> Version: 4.7.0
+> Version: 4.8.0
 
 ---
 
@@ -26,245 +26,245 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: Frontier AI, LLM & MCP (35 Skills)
 
-#### `a2a-agent-protocol-expert` (v4.7.0)
+#### `a2a-agent-protocol-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@a2a-agent-protocol-expert`
 - **English Summary**: A2A agent protocol interoperability, Agent Cards, and MCP bridging
 - **Indonesian Summary**: Protokol agen A2A, Agent Cards, dan integrasi MCP.
 - **Tags**: #a2a, #agent, #protocol, #ai
 - **Repository Path**: [`skills/a2a-agent-protocol-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/a2a-agent-protocol-expert/SKILL.md)
 
-#### `adaptive-model-cascade` (v4.7.0)
+#### `adaptive-model-cascade` (v4.8.0)
 - **Native Prompt Trigger**: `@adaptive-model-cascade`
 - **English Summary**: Model cascading & complexity-scored routing (Grok, Gemini, Claude)
 - **Indonesian Summary**: Routing kaskade model & scoring kompleksitas (Grok, Gemini, Claude).
 - **Tags**: #adaptive, #model, #cascade, #ai
 - **Repository Path**: [`skills/adaptive-model-cascade/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/adaptive-model-cascade/SKILL.md)
 
-#### `affective-computing-emotion-ai` (v4.7.0)
+#### `affective-computing-emotion-ai` (v4.8.0)
 - **Native Prompt Trigger**: `@affective-computing-emotion-ai`
 - **English Summary**: Affective computing, emotion AI, and multimodal sentiment analysis
 - **Indonesian Summary**: Komputasi afektif, AI emosional, dan analisis sentimen multimodal.
 - **Tags**: #affective, #computing, #emotion, #ai
 - **Repository Path**: [`skills/affective-computing-emotion-ai/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/affective-computing-emotion-ai/SKILL.md)
 
-#### `agentic-coding-workflow-expert` (v4.7.0)
+#### `agentic-coding-workflow-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@agentic-coding-workflow-expert`
 - **English Summary**: AI coding workflows, multi-agent code swarms, and CI/CD self-healing
 - **Indonesian Summary**: Workflow koding AI, swarm multi-agen, dan self-healing CI/CD.
 - **Tags**: #agentic, #coding, #workflow, #ai
 - **Repository Path**: [`skills/agentic-coding-workflow-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/agentic-coding-workflow-expert/SKILL.md)
 
-#### `agentic-memory-architect` (v4.7.0)
+#### `agentic-memory-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@agentic-memory-architect`
 - **English Summary**: Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage
 - **Indonesian Summary**: Memori episodik jangka panjang (Mem0, Letta) dan storage pgvector.
 - **Tags**: #agentic, #memory, #ai
 - **Repository Path**: [`skills/agentic-memory-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/agentic-memory-architect/SKILL.md)
 
-#### `agentic-micro-economy-architect` (v4.7.0)
+#### `agentic-micro-economy-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@agentic-micro-economy-architect`
 - **English Summary**: M2M micro-economies, agent wallets, swarm budgets, and HTTP 402
 - **Indonesian Summary**: Ekonomi mikro M2M, dompet agen, budget swarm, dan HTTP 402.
 - **Tags**: #agentic, #micro, #economy, #ai
 - **Repository Path**: [`skills/agentic-micro-economy-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/agentic-micro-economy-architect/SKILL.md)
 
-#### `ai-llm-integration-expert` (v4.7.0)
+#### `ai-llm-integration-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@ai-llm-integration-expert`
 - **English Summary**: LLM integration, MCP v1.x protocols, hybrid reasoning, and RAG
 - **Indonesian Summary**: Integrasi LLM, protokol MCP v1.x, hybrid reasoning, dan RAG.
 - **Tags**: #ai, #llm, #integration
 - **Repository Path**: [`skills/ai-llm-integration-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ai-llm-integration-expert/SKILL.md)
 
-#### `ai-media-generation-expert` (v4.7.0)
+#### `ai-media-generation-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@ai-media-generation-expert`
 - **English Summary**: AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper
 - **Indonesian Summary**: Generasi media AI: Flux, Sora, Runway, ElevenLabs TTS, dan Whisper.
 - **Tags**: #ai, #media, #generation
 - **Repository Path**: [`skills/ai-media-generation-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ai-media-generation-expert/SKILL.md)
 
-#### `ai-prompt-engineering-expert` (v4.7.0)
+#### `ai-prompt-engineering-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@ai-prompt-engineering-expert`
 - **English Summary**: Prompt engineering, structured outputs, evals (Promptfoo, DeepEval)
 - **Indonesian Summary**: Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI.
 - **Tags**: #ai, #prompt, #engineering
 - **Repository Path**: [`skills/ai-prompt-engineering-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ai-prompt-engineering-expert/SKILL.md)
 
-#### `ai-safety-governance-expert` (v4.7.0)
+#### `ai-safety-governance-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@ai-safety-governance-expert`
 - **English Summary**: AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act
 - **Indonesian Summary**: Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI.
 - **Tags**: #ai, #safety, #governance
 - **Repository Path**: [`skills/ai-safety-governance-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ai-safety-governance-expert/SKILL.md)
 
-#### `computer-use-os-agent-expert` (v4.7.0)
+#### `computer-use-os-agent-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@computer-use-os-agent-expert`
 - **English Summary**: Computer-using agents (CUA), desktop GUI automation, and VM sandbox
 - **Indonesian Summary**: Agen CUA pengguna komputer, otomasi GUI desktop, dan sandbox VM.
 - **Tags**: #computer, #use, #os, #agent, #ai
 - **Repository Path**: [`skills/computer-use-os-agent-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/computer-use-os-agent-expert/SKILL.md)
 
-#### `context-window-engineer` (v4.7.0)
+#### `context-window-engineer` (v4.8.0)
 - **Native Prompt Trigger**: `@context-window-engineer`
 - **English Summary**: Optimize 2M+ context windows, prompt cache pinning & budget slicing
 - **Indonesian Summary**: Rekayasa context window 2M+, cache pinning, dan budget token.
 - **Tags**: #context, #window, #engineer, #ai
 - **Repository Path**: [`skills/context-window-engineer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/context-window-engineer/SKILL.md)
 
-#### `deep-research-analyst` (v4.7.0)
+#### `deep-research-analyst` (v4.8.0)
 - **Native Prompt Trigger**: `@deep-research-analyst`
 - **English Summary**: Autonomous deep research, evidence graph synthesis, citation checks
 - **Indonesian Summary**: Riset mendalam otonom, sintesis bukti, dan verifikasi sitasi.
 - **Tags**: #deep, #research, #analyst, #ai
 - **Repository Path**: [`skills/deep-research-analyst/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/deep-research-analyst/SKILL.md)
 
-#### `doku-mcp-server` (v4.7.0)
+#### `doku-mcp-server` (v4.8.0)
 - **Native Prompt Trigger**: `@doku-mcp-server`
 - **English Summary**: DOKU MCP server: AI agentic commerce, checkout, and payment tools
 - **Indonesian Summary**: DOKU MCP server: commerce berbasis agen AI, checkout, dan pembayaran.
 - **Tags**: #doku, #mcp, #server, #ai
 - **Repository Path**: [`skills/doku-mcp-server/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/doku-mcp-server/SKILL.md)
 
-#### `durable-agent-execution-expert` (v4.7.0)
+#### `durable-agent-execution-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@durable-agent-execution-expert`
 - **English Summary**: Durable agent execution, Temporal AI workflows, and state replay
 - **Indonesian Summary**: Eksekusi agen AI tahan-gagal, workflow Temporal, dan replay state.
 - **Tags**: #durable, #agent, #execution, #ai
 - **Repository Path**: [`skills/durable-agent-execution-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/durable-agent-execution-expert/SKILL.md)
 
-#### `frontier-ai-models-expert` (v4.7.0)
+#### `frontier-ai-models-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@frontier-ai-models-expert`
 - **English Summary**: Frontier AI models orchestration (Grok 4.7, Gemini 4, Claude 5.5)
 - **Indonesian Summary**: Orkestrasi model AI frontier (Grok 4.7, Gemini 4, Claude 5.5).
 - **Tags**: #frontier, #ai, #models
 - **Repository Path**: [`skills/frontier-ai-models-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/frontier-ai-models-expert/SKILL.md)
 
-#### `gemini-agent-booster` (v4.7.0)
+#### `gemini-agent-booster` (v4.8.0)
 - **Native Prompt Trigger**: `@gemini-agent-booster`
 - **English Summary**: Master optimization protocol for Gemini Agent, 2M+ context & tools
 - **Indonesian Summary**: Protokol optimasi Gemini Agent, context 2M+, dan pemanggilan tool.
 - **Tags**: #gemini, #agent, #booster, #ai
 - **Repository Path**: [`skills/gemini-agent-booster/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/gemini-agent-booster/SKILL.md)
 
-#### `graph-rag-knowledge-expert` (v4.7.0)
+#### `graph-rag-knowledge-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@graph-rag-knowledge-expert`
 - **English Summary**: Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search
 - **Indonesian Summary**: Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop.
 - **Tags**: #graph, #rag, #knowledge, #ai
 - **Repository Path**: [`skills/graph-rag-knowledge-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/graph-rag-knowledge-expert/SKILL.md)
 
-#### `kv-cache-prefix-optimizer` (v4.7.0)
+#### `kv-cache-prefix-optimizer` (v4.8.0)
 - **Native Prompt Trigger**: `@kv-cache-prefix-optimizer`
 - **English Summary**: Deterministic prompt prefix engineering & KV-cache hit optimization
 - **Indonesian Summary**: Rekayasa prefix prompt deterministik & optimasi cache KV.
 - **Tags**: #kv, #cache, #prefix, #optimizer, #ai
 - **Repository Path**: [`skills/kv-cache-prefix-optimizer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/kv-cache-prefix-optimizer/SKILL.md)
 
-#### `llm-finops-router` (v4.7.0)
+#### `llm-finops-router` (v4.8.0)
 - **Native Prompt Trigger**: `@llm-finops-router`
 - **English Summary**: AI FinOps, dynamic model routing (LiteLLM), and token cost control
 - **Indonesian Summary**: FinOps AI, routing model dinamis (LiteLLM), dan kontrol biaya token.
 - **Tags**: #llm, #finops, #router, #ai
 - **Repository Path**: [`skills/llm-finops-router/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/llm-finops-router/SKILL.md)
 
-#### `llm-observability-expert` (v4.7.0)
+#### `llm-observability-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@llm-observability-expert`
 - **English Summary**: Production LLM observability, token cost tracking, and GenAI tracing
 - **Indonesian Summary**: Observabilitas LLM produksi, pelacakan biaya, dan tracing GenAI.
 - **Tags**: #llm, #observability, #ai
 - **Repository Path**: [`skills/llm-observability-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/llm-observability-expert/SKILL.md)
 
-#### `local-slm-edge-ai-expert` (v4.7.0)
+#### `local-slm-edge-ai-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@local-slm-edge-ai-expert`
 - **English Summary**: Local SLMs & edge AI: WebLLM, Transformers.js v3, and WebGPU
 - **Indonesian Summary**: SLM lokal & edge AI: WebLLM, Transformers.js v3, dan WebGPU.
 - **Tags**: #local, #slm, #edge, #ai
 - **Repository Path**: [`skills/local-slm-edge-ai-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/local-slm-edge-ai-expert/SKILL.md)
 
-#### `mcp-server-architect` (v4.7.0)
+#### `mcp-server-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@mcp-server-architect`
 - **English Summary**: Model Context Protocol (MCP v1.x) server design in TS and Python
 - **Indonesian Summary**: Merancang server Model Context Protocol (MCP v1.x) TS dan Python.
 - **Tags**: #mcp, #server, #ai
 - **Repository Path**: [`skills/mcp-server-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/mcp-server-architect/SKILL.md)
 
-#### `multi-agent-orchestration` (v4.7.0)
+#### `multi-agent-orchestration` (v4.8.0)
 - **Native Prompt Trigger**: `@multi-agent-orchestration`
 - **English Summary**: Multi-agent systems, swarm patterns, and agentic memory coordination
 - **Indonesian Summary**: Sistem multi-agen, pola swarm, dan koordinasi memori agen.
 - **Tags**: #multi, #agent, #orchestration, #ai
 - **Repository Path**: [`skills/multi-agent-orchestration/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/multi-agent-orchestration/SKILL.md)
 
-#### `neurosymbolic-genetic-synthesizer` (v4.7.0)
+#### `neurosymbolic-genetic-synthesizer` (v4.8.0)
 - **Native Prompt Trigger**: `@neurosymbolic-genetic-synthesizer`
 - **English Summary**: Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization
 - **Indonesian Summary**: Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch.
 - **Tags**: #neurosymbolic, #genetic, #synthesizer, #ai
 - **Repository Path**: [`skills/neurosymbolic-genetic-synthesizer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/neurosymbolic-genetic-synthesizer/SKILL.md)
 
-#### `parallel-tool-orchestrator` (v4.7.0)
+#### `parallel-tool-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@parallel-tool-orchestrator`
 - **English Summary**: Parallel tool calling, MCP batching, and async subagent fan-out
 - **Indonesian Summary**: Eksekusi tool paralel, batching MCP, dan subagent async fan-out.
 - **Tags**: #parallel, #tool, #orchestrator, #ai
 - **Repository Path**: [`skills/parallel-tool-orchestrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/parallel-tool-orchestrator/SKILL.md)
 
-#### `pydantic-ai-expert` (v4.7.0)
+#### `pydantic-ai-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@pydantic-ai-expert`
 - **English Summary**: Type-safe Python AI agents with Pydantic AI and structured outputs
 - **Indonesian Summary**: Agen AI Python type-safe dengan Pydantic AI dan output terstruktur.
 - **Tags**: #pydantic, #ai
 - **Repository Path**: [`skills/pydantic-ai-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/pydantic-ai-expert/SKILL.md)
 
-#### `speculative-multi-draft-synthesizer` (v4.7.0)
+#### `speculative-multi-draft-synthesizer` (v4.8.0)
 - **Native Prompt Trigger**: `@speculative-multi-draft-synthesizer`
 - **English Summary**: Speculative multi-agent drafting and AST-aware code consensus
 - **Indonesian Summary**: Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST.
 - **Tags**: #speculative, #multi, #draft, #synthesizer, #ai
 - **Repository Path**: [`skills/speculative-multi-draft-synthesizer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/speculative-multi-draft-synthesizer/SKILL.md)
 
-#### `synthetic-data-finetuning-expert` (v4.7.0)
+#### `synthetic-data-finetuning-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@synthetic-data-finetuning-expert`
 - **English Summary**: Synthetic dataset generation, QLoRA fine-tuning, and local SLM export
 - **Indonesian Summary**: Generasi data sintetis, fine-tuning QLoRA, dan ekspor model SLM.
 - **Tags**: #synthetic, #data, #finetuning, #ai
 - **Repository Path**: [`skills/synthetic-data-finetuning-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/synthetic-data-finetuning-expert/SKILL.md)
 
-#### `test-time-compute-optimizer` (v4.7.0)
+#### `test-time-compute-optimizer` (v4.8.0)
 - **Native Prompt Trigger**: `@test-time-compute-optimizer`
 - **English Summary**: Dynamic test-time compute allocation and reasoning token optimization
 - **Indonesian Summary**: Alokasi komputasi test-time dinamis dan optimasi token penalaran.
 - **Tags**: #test, #time, #compute, #optimizer, #ai
 - **Repository Path**: [`skills/test-time-compute-optimizer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/test-time-compute-optimizer/SKILL.md)
 
-#### `thinking-budget-orchestrator` (v4.7.0)
+#### `thinking-budget-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@thinking-budget-orchestrator`
 - **English Summary**: Dynamic thinking budget orchestrator across late-2026 frontier models
 - **Indonesian Summary**: Alokasi budget penalaran dinamis pada model frontier 2026.
 - **Tags**: #thinking, #budget, #orchestrator, #ai
 - **Repository Path**: [`skills/thinking-budget-orchestrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/thinking-budget-orchestrator/SKILL.md)
 
-#### `vector-db-rag-expert` (v4.7.0)
+#### `vector-db-rag-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@vector-db-rag-expert`
 - **English Summary**: High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking
 - **Indonesian Summary**: Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking.
 - **Tags**: #vector, #db, #rag, #ai
 - **Repository Path**: [`skills/vector-db-rag-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/vector-db-rag-expert/SKILL.md)
 
-#### `vercel-ai-sdk-expert` (v4.7.0)
+#### `vercel-ai-sdk-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@vercel-ai-sdk-expert`
 - **English Summary**: Vercel AI SDK Core/UI, streaming structured data, and tool calling
 - **Indonesian Summary**: Vercel AI SDK Core/UI, streaming data terstruktur, dan tool calling.
 - **Tags**: #vercel, #ai, #sdk
 - **Repository Path**: [`skills/vercel-ai-sdk-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/vercel-ai-sdk-expert/SKILL.md)
 
-#### `voice-ai-realtime-agent` (v4.7.0)
+#### `voice-ai-realtime-agent` (v4.8.0)
 - **Native Prompt Trigger**: `@voice-ai-realtime-agent`
 - **English Summary**: Ultra-low latency conversational voice AI (<300ms) with WebRTC
 - **Indonesian Summary**: AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC.
 - **Tags**: #voice, #ai, #realtime, #agent
 - **Repository Path**: [`skills/voice-ai-realtime-agent/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/voice-ai-realtime-agent/SKILL.md)
 
-#### `xerj-search-expert` (v4.7.0)
+#### `xerj-search-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@xerj-search-expert`
 - **English Summary**: XERJ search engine: vector DB, memory store, and 13 embedded MCP tools
 - **Indonesian Summary**: Mesin pencari XERJ: vector DB, memory store, dan 13 tool MCP.
@@ -275,224 +275,224 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: Testing, Security & Anti-Slop (32 Skills)
 
-#### `accessibility-testing-expert` (v4.7.0)
+#### `accessibility-testing-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@accessibility-testing-expert`
 - **English Summary**: Web accessibility testing with axe-core, Playwright, and WCAG 2.2
 - **Indonesian Summary**: Pengujian aksesibilitas web axe-core, Playwright, dan WCAG 2.2.
 - **Tags**: #accessibility, #testing, #security
 - **Repository Path**: [`skills/accessibility-testing-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/accessibility-testing-expert/SKILL.md)
 
-#### `ai-code-review-autonomous` (v4.7.0)
+#### `ai-code-review-autonomous` (v4.8.0)
 - **Native Prompt Trigger**: `@ai-code-review-autonomous`
 - **English Summary**: Autonomous AI code self-review: syntax, logic, security, and perf
 - **Indonesian Summary**: Review mandiri kode AI: sintaks, logika, keamanan, dan performa.
 - **Tags**: #ai, #code, #review, #autonomous, #security
 - **Repository Path**: [`skills/ai-code-review-autonomous/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ai-code-review-autonomous/SKILL.md)
 
-#### `anti-slop` (v4.7.0)
+#### `anti-slop` (v4.8.0)
 - **Native Prompt Trigger**: `@anti-slop`
 - **English Summary**: Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop
 - **Indonesian Summary**: Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder.
 - **Tags**: #anti, #slop, #security
 - **Repository Path**: [`skills/anti-slop/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/anti-slop/SKILL.md)
 
-#### `app-analyzer-optimizer` (v4.7.0)
+#### `app-analyzer-optimizer` (v4.8.0)
 - **Native Prompt Trigger**: `@app-analyzer-optimizer`
 - **English Summary**: Deep application architecture audit, bottleneck detection, and perf
 - **Indonesian Summary**: Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi.
 - **Tags**: #app, #analyzer, #optimizer, #security
 - **Repository Path**: [`skills/app-analyzer-optimizer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/app-analyzer-optimizer/SKILL.md)
 
-#### `authentication-identity-expert` (v4.7.0)
+#### `authentication-identity-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@authentication-identity-expert`
 - **English Summary**: Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js
 - **Indonesian Summary**: Autentikasi, otorisasi (RBAC/ABAC), OAuth2, Clerk, dan Auth.js.
 - **Tags**: #authentication, #identity, #security
 - **Repository Path**: [`skills/authentication-identity-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/authentication-identity-expert/SKILL.md)
 
-#### `autonomous-red-teamer` (v4.7.0)
+#### `autonomous-red-teamer` (v4.8.0)
 - **Native Prompt Trigger**: `@autonomous-red-teamer`
 - **English Summary**: Dynamic security fuzzing, exploit generation (XSS, SQLi), and patches
 - **Indonesian Summary**: Fuzzing keamanan dinamis, eksploitasi (XSS, SQLi), dan patch otomatis.
 - **Tags**: #autonomous, #red, #teamer, #security
 - **Repository Path**: [`skills/autonomous-red-teamer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/autonomous-red-teamer/SKILL.md)
 
-#### `autonomous-tdd-debugger` (v4.7.0)
+#### `autonomous-tdd-debugger` (v4.8.0)
 - **Native Prompt Trigger**: `@autonomous-tdd-debugger`
 - **English Summary**: Autonomous TDD test runner, stack trace analysis, and code self-heal
 - **Indonesian Summary**: Runner tes TDD otonom, analisis stack trace, dan self-healing kode.
 - **Tags**: #autonomous, #tdd, #debugger, #security
 - **Repository Path**: [`skills/autonomous-tdd-debugger/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/autonomous-tdd-debugger/SKILL.md)
 
-#### `biome-linter-formatter-expert` (v4.7.0)
+#### `biome-linter-formatter-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@biome-linter-formatter-expert`
 - **English Summary**: Biome Rust linter & formatter, ESLint/Prettier migration, and tooling
 - **Indonesian Summary**: Linter & formatter Biome Rust, migrasi ESLint/Prettier, dan tooling.
 - **Tags**: #biome, #linter, #formatter, #security
 - **Repository Path**: [`skills/biome-linter-formatter-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/biome-linter-formatter-expert/SKILL.md)
 
-#### `coderabbit` (v4.7.0)
+#### `coderabbit` (v4.8.0)
 - **Native Prompt Trigger**: `@coderabbit`
 - **English Summary**: AI automated code review, PR summarization, and developer feedback
 - **Indonesian Summary**: Review kode otomatis AI, ringkasan PR, dan umpan balik developer.
 - **Tags**: #coderabbit, #security
 - **Repository Path**: [`skills/coderabbit/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/coderabbit/SKILL.md)
 
-#### `compliance-gdpr-privacy-expert` (v4.7.0)
+#### `compliance-gdpr-privacy-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@compliance-gdpr-privacy-expert`
 - **English Summary**: Data privacy compliance: GDPR, CCPA, PDPA, and privacy-by-design
 - **Indonesian Summary**: Kepatuhan privasi data: GDPR, CCPA, PDPA, dan audit trail privasi.
 - **Tags**: #compliance, #gdpr, #privacy, #security
 - **Repository Path**: [`skills/compliance-gdpr-privacy-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/compliance-gdpr-privacy-expert/SKILL.md)
 
-#### `e2e-testing-expert` (v4.7.0)
+#### `e2e-testing-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@e2e-testing-expert`
 - **English Summary**: End-to-end testing with Playwright 1.50+, fixtures, and Vitest 3+
 - **Indonesian Summary**: Pengujian E2E dengan Playwright 1.50+, fixtures, dan Vitest 3+.
 - **Tags**: #e2e, #testing, #security
 - **Repository Path**: [`skills/e2e-testing-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/e2e-testing-expert/SKILL.md)
 
-#### `error-resilience-expert` (v4.7.0)
+#### `error-resilience-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@error-resilience-expert`
 - **English Summary**: Error resilience, circuit breakers, retries, and graceful degradation
 - **Indonesian Summary**: Ketahanan error, circuit breaker, retry, dan degradasi anggun.
 - **Tags**: #error, #resilience, #security
 - **Repository Path**: [`skills/error-resilience-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/error-resilience-expert/SKILL.md)
 
-#### `fga-rebac-authorization-expert` (v4.7.0)
+#### `fga-rebac-authorization-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@fga-rebac-authorization-expert`
 - **English Summary**: Fine-grained ReBAC authorization (OpenFGA, SpiceDB) and permissions
 - **Indonesian Summary**: Otorisasi granular ReBAC (OpenFGA, SpiceDB) dan kontrol izin.
 - **Tags**: #fga, #rebac, #authorization, #security
 - **Repository Path**: [`skills/fga-rebac-authorization-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/fga-rebac-authorization-expert/SKILL.md)
 
-#### `firebase-security-expert` (v4.7.0)
+#### `firebase-security-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@firebase-security-expert`
 - **English Summary**: Firebase security rules, authentication audit, and App Check
 - **Indonesian Summary**: Audit keamanan Firebase rules, autentikasi, dan konfigurasi App Check.
 - **Tags**: #firebase, #security
 - **Repository Path**: [`skills/firebase-security-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/firebase-security-expert/SKILL.md)
 
-#### `formal-spec-z3-verifier` (v4.7.0)
+#### `formal-spec-z3-verifier` (v4.8.0)
 - **Native Prompt Trigger**: `@formal-spec-z3-verifier`
 - **English Summary**: Formal verification and SMT solver constraints (Z3, TLA+, Dafny)
 - **Indonesian Summary**: Verifikasi formal dan batasan solver SMT (Z3, TLA+, Dafny).
 - **Tags**: #formal, #spec, #z3, #verifier, #security
 - **Repository Path**: [`skills/formal-spec-z3-verifier/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/formal-spec-z3-verifier/SKILL.md)
 
-#### `formal-theorem-verifier-lean4` (v4.7.0)
+#### `formal-theorem-verifier-lean4` (v4.8.0)
 - **Native Prompt Trigger**: `@formal-theorem-verifier-lean4`
 - **English Summary**: Formal theorem verification with Lean 4, Dafny, and mathematical invariant gating
 - **Indonesian Summary**: Verifikasi teorema formal dengan Lean 4, Dafny, dan gerbang invarian matematika.
 - **Tags**: #formal, #theorem, #verifier, #lean4, #security
 - **Repository Path**: [`skills/formal-theorem-verifier-lean4/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/formal-theorem-verifier-lean4/SKILL.md)
 
-#### `logging-error-tracking-expert` (v4.7.0)
+#### `logging-error-tracking-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@logging-error-tracking-expert`
 - **English Summary**: Structured logging (Pino) and error tracking (Sentry, Axiom)
 - **Indonesian Summary**: Logging terstruktur (Pino) dan pelacakan error (Sentry, Axiom).
 - **Tags**: #logging, #error, #tracking, #security
 - **Repository Path**: [`skills/logging-error-tracking-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/logging-error-tracking-expert/SKILL.md)
 
-#### `mcp-sampling-critic` (v4.7.0)
+#### `mcp-sampling-critic` (v4.8.0)
 - **Native Prompt Trigger**: `@mcp-sampling-critic`
 - **English Summary**: MCP client sampling and critic-in-the-loop multi-model consensus
 - **Indonesian Summary**: Sampling MCP client dan validasi konsensus multi-model AI.
 - **Tags**: #mcp, #sampling, #critic, #security
 - **Repository Path**: [`skills/mcp-sampling-critic/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/mcp-sampling-critic/SKILL.md)
 
-#### `passkeys-webauthn-identity-expert` (v4.7.0)
+#### `passkeys-webauthn-identity-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@passkeys-webauthn-identity-expert`
 - **English Summary**: FIDO2
 - **Indonesian Summary**: WebAuthn Passkeys, SimpleWebAuthn, and passwordless auth
 - **Tags**: #passkeys, #webauthn, #identity, #security
 - **Repository Path**: [`skills/passkeys-webauthn-identity-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/passkeys-webauthn-identity-expert/SKILL.md)
 
-#### `post-quantum-crypto-migrator` (v4.7.0)
+#### `post-quantum-crypto-migrator` (v4.8.0)
 - **Native Prompt Trigger**: `@post-quantum-crypto-migrator`
 - **English Summary**: NIST post-quantum cryptography migration (ML-KEM, ML-DSA)
 - **Indonesian Summary**: Migrasi kriptografi pasca-kuantum NIST (ML-KEM, ML-DSA).
 - **Tags**: #post, #quantum, #crypto, #migrator, #security
 - **Repository Path**: [`skills/post-quantum-crypto-migrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/post-quantum-crypto-migrator/SKILL.md)
 
-#### `prompt-injection-firewall` (v4.7.0)
+#### `prompt-injection-firewall` (v4.8.0)
 - **Native Prompt Trigger**: `@prompt-injection-firewall`
 - **English Summary**: Runtime defenses against prompt injection, jailbreaks, and SSRF
 - **Indonesian Summary**: Pertahanan runtime terhadap prompt injection, jailbreak, dan SSRF.
 - **Tags**: #prompt, #injection, #firewall, #security
 - **Repository Path**: [`skills/prompt-injection-firewall/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/prompt-injection-firewall/SKILL.md)
 
-#### `property-mutation-testing-expert` (v4.7.0)
+#### `property-mutation-testing-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@property-mutation-testing-expert`
 - **English Summary**: Property-based testing (fast-check) and mutation testing (Stryker)
 - **Indonesian Summary**: Pengujian berbasis properti (fast-check) dan mutasi (Stryker).
 - **Tags**: #property, #mutation, #testing, #security
 - **Repository Path**: [`skills/property-mutation-testing-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/property-mutation-testing-expert/SKILL.md)
 
-#### `rate-limit-abuse-prevention` (v4.7.0)
+#### `rate-limit-abuse-prevention` (v4.8.0)
 - **Native Prompt Trigger**: `@rate-limit-abuse-prevention`
 - **English Summary**: API rate limiting, bot protection, DDoS mitigation, and abuse defense
 - **Indonesian Summary**: Rate limiting API, perlindungan bot, dan mitigasi serangan DDoS.
 - **Tags**: #rate, #limit, #abuse, #prevention, #security
 - **Repository Path**: [`skills/rate-limit-abuse-prevention/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rate-limit-abuse-prevention/SKILL.md)
 
-#### `rea-analysis-optimization` (v4.7.0)
+#### `rea-analysis-optimization` (v4.8.0)
 - **Native Prompt Trigger**: `@rea-analysis-optimization`
 - **English Summary**: Optimize REA providers, analysis latency, memory, and Evidence
 - **Indonesian Summary**: Optimasi provider REA, latensi analisis, memori, dan Evidence.
 - **Tags**: #rea, #analysis, #optimization, #security
 - **Repository Path**: [`skills/rea-analysis-optimization/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rea-analysis-optimization/SKILL.md)
 
-#### `rea-changelog-update` (v4.7.0)
+#### `rea-changelog-update` (v4.8.0)
 - **Native Prompt Trigger**: `@rea-changelog-update`
 - **English Summary**: Prepare REA release changelogs and GitHub release notes
 - **Indonesian Summary**: Siapkan changelog rilis REA dan catatan rilis GitHub.
 - **Tags**: #rea, #changelog, #update, #security
 - **Repository Path**: [`skills/rea-changelog-update/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rea-changelog-update/SKILL.md)
 
-#### `rea-ci-tests-audit` (v4.7.0)
+#### `rea-ci-tests-audit` (v4.8.0)
 - **Native Prompt Trigger**: `@rea-ci-tests-audit`
 - **English Summary**: Audit REA CI and test suites for correctness and measured performance
 - **Indonesian Summary**: Audit suite tes dan CI REA untuk ketepatan dan performa terukur.
 - **Tags**: #rea, #ci, #tests, #audit, #security
 - **Repository Path**: [`skills/rea-ci-tests-audit/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rea-ci-tests-audit/SKILL.md)
 
-#### `rea-tool-design` (v4.7.0)
+#### `rea-tool-design` (v4.8.0)
 - **Native Prompt Trigger**: `@rea-tool-design`
 - **English Summary**: Design REA investigation tools, CLI/MCP contracts, and Evidence
 - **Indonesian Summary**: Desain tool investigasi REA, kontrak CLI/MCP, dan semantik Evidence.
 - **Tags**: #rea, #tool, #design, #security
 - **Repository Path**: [`skills/rea-tool-design/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rea-tool-design/SKILL.md)
 
-#### `reverse-engineer-anything` (v4.7.0)
+#### `reverse-engineer-anything` (v4.8.0)
 - **Native Prompt Trigger**: `@reverse-engineer-anything`
 - **English Summary**: Reverse-engineer binaries, firmware, and web apps with REA AgentEnv
 - **Indonesian Summary**: Rekayasa balik biner, firmware, dan web apps dengan REA AgentEnv.
 - **Tags**: #reverse, #engineer, #anything, #security
 - **Repository Path**: [`skills/reverse-engineer-anything/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/reverse-engineer-anything/SKILL.md)
 
-#### `sbom-supply-chain-security-expert` (v4.7.0)
+#### `sbom-supply-chain-security-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@sbom-supply-chain-security-expert`
 - **English Summary**: Supply chain security, CycloneDX SBOM, Cosign signing, SLSA Level 3
 - **Indonesian Summary**: Keamanan rantai pasok software, SBOM CycloneDX, dan tanda tangan Cosign.
 - **Tags**: #sbom, #supply, #chain, #security
 - **Repository Path**: [`skills/sbom-supply-chain-security-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/sbom-supply-chain-security-expert/SKILL.md)
 
-#### `supabase-security-expert` (v4.7.0)
+#### `supabase-security-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@supabase-security-expert`
 - **English Summary**: Supabase security audit: RLS policies, RBAC, and data leak prevention
 - **Indonesian Summary**: Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor.
 - **Tags**: #supabase, #security
 - **Repository Path**: [`skills/supabase-security-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/supabase-security-expert/SKILL.md)
 
-#### `zero-tech-debt-auditor` (v4.7.0)
+#### `zero-tech-debt-auditor` (v4.8.0)
 - **Native Prompt Trigger**: `@zero-tech-debt-auditor`
 - **English Summary**: Autonomous scanner and refactorer to eliminate technical debt
 - **Indonesian Summary**: Scanner otonom dan refaktor kode untuk menghapus utang teknis.
 - **Tags**: #zero, #tech, #debt, #auditor, #security
 - **Repository Path**: [`skills/zero-tech-debt-auditor/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/zero-tech-debt-auditor/SKILL.md)
 
-#### `zero-trust-secret-vault` (v4.7.0)
+#### `zero-trust-secret-vault` (v4.8.0)
 - **Native Prompt Trigger**: `@zero-trust-secret-vault`
 - **English Summary**: Zero-trust secret management (Infisical, Vault) and key rotation
 - **Indonesian Summary**: Manajemen rahasia zero-trust (Infisical, Vault) dan rotasi API key.
@@ -503,119 +503,119 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: SaaS, FinTech & Growth (17 Skills)
 
-#### `agentic-m2m-settlement` (v4.7.0)
+#### `agentic-m2m-settlement` (v4.8.0)
 - **Native Prompt Trigger**: `@agentic-m2m-settlement`
 - **English Summary**: Autonomous M2M agent settlement, SNAP BI, and stablecoin clearing
 - **Indonesian Summary**: Settlement agen M2M otonom, SNAP BI, dan kliring stablecoin.
 - **Tags**: #agentic, #m2m, #settlement, #saas
 - **Repository Path**: [`skills/agentic-m2m-settlement/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/agentic-m2m-settlement/SKILL.md)
 
-#### `app-promo-media-expert` (v4.7.0)
+#### `app-promo-media-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@app-promo-media-expert`
 - **English Summary**: App store screenshots, promo graphics, and programmatic video teasers
 - **Indonesian Summary**: Media promosi aplikasi, screenshot store, dan video teaser terprogram.
 - **Tags**: #app, #promo, #media, #saas
 - **Repository Path**: [`skills/app-promo-media-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/app-promo-media-expert/SKILL.md)
 
-#### `chatbot-messaging-expert` (v4.7.0)
+#### `chatbot-messaging-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@chatbot-messaging-expert`
 - **English Summary**: Chatbots & messaging APIs: WhatsApp Business, Telegram, Discord, Slack
 - **Indonesian Summary**: Integrasi chatbot & messaging: WhatsApp, Telegram, Discord, Slack.
 - **Tags**: #chatbot, #messaging, #saas
 - **Repository Path**: [`skills/chatbot-messaging-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/chatbot-messaging-expert/SKILL.md)
 
-#### `data-telemetry-expert` (v4.7.0)
+#### `data-telemetry-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@data-telemetry-expert`
 - **English Summary**: Observability, OpenTelemetry, metrics, and analytics (PostHog, Mixpanel)
 - **Indonesian Summary**: Observabilitas, OpenTelemetry, metrik, dan analitik data.
 - **Tags**: #data, #telemetry, #saas
 - **Repository Path**: [`skills/data-telemetry-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/data-telemetry-expert/SKILL.md)
 
-#### `doku-payment-gateway` (v4.7.0)
+#### `doku-payment-gateway` (v4.8.0)
 - **Native Prompt Trigger**: `@doku-payment-gateway`
 - **English Summary**: DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks
 - **Indonesian Summary**: Gateway pembayaran DOKU: Checkout, SNAP BI (VA, QRIS), dan webhook.
 - **Tags**: #doku, #payment, #gateway, #saas
 - **Repository Path**: [`skills/doku-payment-gateway/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/doku-payment-gateway/SKILL.md)
 
-#### `double-entry-ledger-fintech-expert` (v4.7.0)
+#### `double-entry-ledger-fintech-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@double-entry-ledger-fintech-expert`
 - **English Summary**: Immutable double-entry ledgers, TigerBeetle, and balance reconciliation
 - **Indonesian Summary**: Buku besar double-entry permanen, TigerBeetle, dan rekonsiliasi saldo.
 - **Tags**: #double, #entry, #ledger, #fintech, #saas
 - **Repository Path**: [`skills/double-entry-ledger-fintech-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/double-entry-ledger-fintech-expert/SKILL.md)
 
-#### `ecommerce-expert` (v4.7.0)
+#### `ecommerce-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@ecommerce-expert`
 - **English Summary**: E-commerce architecture, product catalogs, cart, and checkout UX
 - **Indonesian Summary**: Arsitektur e-commerce, katalog produk, keranjang, dan checkout UX.
 - **Tags**: #ecommerce, #saas
 - **Repository Path**: [`skills/ecommerce-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ecommerce-expert/SKILL.md)
 
-#### `email-notification-expert` (v4.7.0)
+#### `email-notification-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@email-notification-expert`
 - **English Summary**: Transactional email (Resend), React Email, and notification pipelines
 - **Indonesian Summary**: Email transaksional (Resend), React Email, dan pipeline notifikasi.
 - **Tags**: #email, #notification, #saas
 - **Repository Path**: [`skills/email-notification-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/email-notification-expert/SKILL.md)
 
-#### `feature-flag-analytics-expert` (v4.7.0)
+#### `feature-flag-analytics-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@feature-flag-analytics-expert`
 - **English Summary**: Feature flags, progressive rollouts (PostHog), and A/B testing
 - **Indonesian Summary**: Feature flag, rollout bertahap (PostHog), dan pengujian A/B.
 - **Tags**: #feature, #flag, #analytics, #saas
 - **Repository Path**: [`skills/feature-flag-analytics-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/feature-flag-analytics-expert/SKILL.md)
 
-#### `headless-cms-expert` (v4.7.0)
+#### `headless-cms-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@headless-cms-expert`
 - **English Summary**: Headless CMS integration: Sanity, Payload CMS, Strapi, Contentful
 - **Indonesian Summary**: Integrasi Headless CMS: Sanity, Payload CMS, Strapi, Contentful.
 - **Tags**: #headless, #cms, #saas
 - **Repository Path**: [`skills/headless-cms-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/headless-cms-expert/SKILL.md)
 
-#### `n8n-automation-expert` (v4.7.0)
+#### `n8n-automation-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@n8n-automation-expert`
 - **English Summary**: Workflow automation with n8n, custom nodes, and webhook triggers
 - **Indonesian Summary**: Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook.
 - **Tags**: #n8n, #automation, #saas
 - **Repository Path**: [`skills/n8n-automation-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/n8n-automation-expert/SKILL.md)
 
-#### `payment-gateway-expert` (v4.7.0)
+#### `payment-gateway-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@payment-gateway-expert`
 - **English Summary**: Payment gateways integration (Stripe, Midtrans) and secure webhooks
 - **Indonesian Summary**: Integrasi payment gateway (Stripe, Midtrans) dan webhook aman.
 - **Tags**: #payment, #gateway, #saas
 - **Repository Path**: [`skills/payment-gateway-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/payment-gateway-expert/SKILL.md)
 
-#### `saas-architect` (v4.7.0)
+#### `saas-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@saas-architect`
 - **English Summary**: Master SaaS orchestrator: MVP launches (0 to 1) and transformation
 - **Indonesian Summary**: Master orkestrator SaaS: peluncuran MVP (0 ke 1) dan transformasi.
 - **Tags**: #saas
 - **Repository Path**: [`skills/saas-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/saas-architect/SKILL.md)
 
-#### `saas-billing` (v4.7.0)
+#### `saas-billing` (v4.8.0)
 - **Native Prompt Trigger**: `@saas-billing`
 - **English Summary**: SaaS billing state machines, subscription lifecycle, and webhooks
 - **Indonesian Summary**: State machine billing SaaS, siklus langganan, dan webhook sinkron.
 - **Tags**: #saas, #billing
 - **Repository Path**: [`skills/saas-billing/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/saas-billing/SKILL.md)
 
-#### `saas-multi-tenant` (v4.7.0)
+#### `saas-multi-tenant` (v4.8.0)
 - **Native Prompt Trigger**: `@saas-multi-tenant`
 - **English Summary**: Multi-tenant SaaS architecture with PostgreSQL RLS isolation
 - **Indonesian Summary**: Arsitektur SaaS multi-tenant dengan isolasi PostgreSQL RLS.
 - **Tags**: #saas, #multi, #tenant
 - **Repository Path**: [`skills/saas-multi-tenant/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/saas-multi-tenant/SKILL.md)
 
-#### `seo` (v4.7.0)
+#### `seo` (v4.8.0)
 - **Native Prompt Trigger**: `@seo`
 - **English Summary**: Comprehensive SEO audits: technical, schema, and AI search readiness
 - **Indonesian Summary**: Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI.
 - **Tags**: #seo, #saas
 - **Repository Path**: [`skills/seo/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/seo/SKILL.md)
 
-#### `wordpress-headless-expert` (v4.7.0)
+#### `wordpress-headless-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@wordpress-headless-expert`
 - **English Summary**: Headless WordPress architecture with WPGraphQL, ACF, and Next.js
 - **Indonesian Summary**: Arsitektur headless WordPress dengan WPGraphQL, ACF, dan Next.js.
@@ -626,273 +626,273 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: Frontend & Mobile UI/UX (39 Skills)
 
-#### `angular-expert` (v4.7.0)
+#### `angular-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@angular-expert`
 - **English Summary**: Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store
 - **Indonesian Summary**: Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore.
 - **Tags**: #angular, #frontend
 - **Repository Path**: [`skills/angular-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/angular-expert/SKILL.md)
 
-#### `apple-ecosystem-expert` (v4.7.0)
+#### `apple-ecosystem-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@apple-ecosystem-expert`
 - **English Summary**: Apple ecosystem development: iOS support, Safari WebKit, and HIG
 - **Indonesian Summary**: Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG.
 - **Tags**: #apple, #ecosystem, #frontend
 - **Repository Path**: [`skills/apple-ecosystem-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/apple-ecosystem-expert/SKILL.md)
 
-#### `astro-framework-expert` (v4.7.0)
+#### `astro-framework-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@astro-framework-expert`
 - **English Summary**: Astro 5+ framework: Content Collections, Islands, and View Transitions
 - **Indonesian Summary**: Framework Astro 5+: Content Collections, Islands, dan View Transitions.
 - **Tags**: #astro, #framework, #frontend
 - **Repository Path**: [`skills/astro-framework-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/astro-framework-expert/SKILL.md)
 
-#### `blockchain-web3-expert` (v4.7.0)
+#### `blockchain-web3-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@blockchain-web3-expert`
 - **English Summary**: Web3 and dApp integration: viem, wagmi v2, ethers.js, and contracts
 - **Indonesian Summary**: Integrasi Web3 dan dApp: viem, wagmi v2, ethers.js, dan smart contracts.
 - **Tags**: #blockchain, #web3, #frontend
 - **Repository Path**: [`skills/blockchain-web3-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/blockchain-web3-expert/SKILL.md)
 
-#### `browser-extension-mv3-pro` (v4.7.0)
+#### `browser-extension-mv3-pro` (v4.8.0)
 - **Native Prompt Trigger**: `@browser-extension-mv3-pro`
 - **English Summary**: Manifest V3 browser extensions, SidePanel API, and service workers
 - **Indonesian Summary**: Pengembangan ekstensi browser Manifest V3, SidePanel, dan workers.
 - **Tags**: #browser, #extension, #mv3, #frontend
 - **Repository Path**: [`skills/browser-extension-mv3-pro/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/browser-extension-mv3-pro/SKILL.md)
 
-#### `design-system-architect` (v4.7.0)
+#### `design-system-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@design-system-architect`
 - **English Summary**: UI design systems, design tokens, headless primitives, and WCAG 2.2
 - **Indonesian Summary**: Sistem desain UI, token desain, headless primitives, dan WCAG 2.2.
 - **Tags**: #design, #system, #frontend
 - **Repository Path**: [`skills/design-system-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/design-system-architect/SKILL.md)
 
-#### `desktop-electron-expert` (v4.7.0)
+#### `desktop-electron-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@desktop-electron-expert`
 - **English Summary**: Electron 33+ desktop apps, IPC security, multi-window, and packaging
 - **Indonesian Summary**: Aplikasi desktop Electron 33+, keamanan IPC, dan multi-window.
 - **Tags**: #desktop, #electron, #frontend
 - **Repository Path**: [`skills/desktop-electron-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/desktop-electron-expert/SKILL.md)
 
-#### `ephemeral-generative-ui-architect` (v4.7.0)
+#### `ephemeral-generative-ui-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@ephemeral-generative-ui-architect`
 - **English Summary**: Ephemeral generative UI streaming with React 19 RSC & Vercel AI SDK
 - **Indonesian Summary**: Streaming UI generatif efemeral dengan React 19 RSC & Vercel AI SDK.
 - **Tags**: #ephemeral, #generative, #ui, #frontend
 - **Repository Path**: [`skills/ephemeral-generative-ui-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ephemeral-generative-ui-architect/SKILL.md)
 
-#### `flutter-dart-expert` (v4.7.0)
+#### `flutter-dart-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@flutter-dart-expert`
 - **English Summary**: Flutter 3.27+ and Dart 3.7+ cross-platform apps and Riverpod 3
 - **Indonesian Summary**: Aplikasi lintas platform Flutter 3.27+, Dart 3.7+, dan Riverpod 3.
 - **Tags**: #flutter, #dart, #frontend
 - **Repository Path**: [`skills/flutter-dart-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/flutter-dart-expert/SKILL.md)
 
-#### `form-validation-expert` (v4.7.0)
+#### `form-validation-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@form-validation-expert`
 - **English Summary**: Form validation with React Hook Form, Zod, and server actions
 - **Indonesian Summary**: Validasi formulir dengan React Hook Form, Zod, dan server actions.
 - **Tags**: #form, #validation, #frontend
 - **Repository Path**: [`skills/form-validation-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/form-validation-expert/SKILL.md)
 
-#### `global-a11y-i18n-expert` (v4.7.0)
+#### `global-a11y-i18n-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@global-a11y-i18n-expert`
 - **English Summary**: Web accessibility (WCAG) and internationalization (i18n)
 - **Indonesian Summary**: Aksesibilitas web (WCAG) dan internasionalisasi (i18n).
 - **Tags**: #global, #a11y, #i18n, #frontend
 - **Repository Path**: [`skills/global-a11y-i18n-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/global-a11y-i18n-expert/SKILL.md)
 
-#### `glsl-shader-expert` (v4.7.0)
+#### `glsl-shader-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@glsl-shader-expert`
 - **English Summary**: Web shaders: TSL, WebGPU WGSL, and WebGL GLSL in Three.js
 - **Indonesian Summary**: Shader web modern: TSL, WebGPU WGSL, dan GLSL di Three.js.
 - **Tags**: #glsl, #shader, #frontend
 - **Repository Path**: [`skills/glsl-shader-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/glsl-shader-expert/SKILL.md)
 
-#### `hig` (v4.7.0)
+#### `hig` (v4.8.0)
 - **Native Prompt Trigger**: `@hig`
 - **English Summary**: Human Interface Guidelines (HIG): Hierarchy, Harmony, Consistency, Apple HIG 2026 & Material 3
 - **Indonesian Summary**: Panduan Desain Human Interface: Hierarki, Harmoni, Konsistensi, Apple HIG 2026 & Material 3.
 - **Tags**: #hig, #frontend
 - **Repository Path**: [`skills/hig/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/hig/SKILL.md)
 
-#### `htmx-hypermedia-expert` (v4.7.0)
+#### `htmx-hypermedia-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@htmx-hypermedia-expert`
 - **English Summary**: HTMX 2.0+ hypermedia-driven apps and modern HTML-over-the-wire
 - **Indonesian Summary**: Aplikasi berbasis hypermedia HTMX 2.0+ dan HTML-over-the-wire.
 - **Tags**: #htmx, #hypermedia, #frontend
 - **Repository Path**: [`skills/htmx-hypermedia-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/htmx-hypermedia-expert/SKILL.md)
 
-#### `micro-frontend-architect` (v4.7.0)
+#### `micro-frontend-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@micro-frontend-architect`
 - **English Summary**: Micro-frontends with Webpack & Vite Module Federation
 - **Indonesian Summary**: Arsitektur micro-frontend dengan Webpack & Vite Module Federation.
 - **Tags**: #micro, #frontend
 - **Repository Path**: [`skills/micro-frontend-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/micro-frontend-architect/SKILL.md)
 
-#### `mobile-expo-expert` (v4.7.0)
+#### `mobile-expo-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@mobile-expo-expert`
 - **English Summary**: React Native & Expo SDK 53+ cross-platform mobile app development
 - **Indonesian Summary**: Pengembangan aplikasi mobile React Native & Expo SDK 53+.
 - **Tags**: #mobile, #expo, #frontend
 - **Repository Path**: [`skills/mobile-expo-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/mobile-expo-expert/SKILL.md)
 
-#### `modern-css-native-expert` (v4.7.0)
+#### `modern-css-native-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@modern-css-native-expert`
 - **English Summary**: Native CSS 2026: Anchor Positioning, View Transitions 2, @starting-style
 - **Indonesian Summary**: Fitur CSS native: Anchor Positioning, View Transitions 2.
 - **Tags**: #modern, #css, #native, #frontend
 - **Repository Path**: [`skills/modern-css-native-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/modern-css-native-expert/SKILL.md)
 
-#### `mpa-orchestrator` (v4.7.0)
+#### `mpa-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@mpa-orchestrator`
 - **English Summary**: Multi-Page Application (MPA) architecture and asset orchestration
 - **Indonesian Summary**: Arsitektur Multi-Page Application (MPA) dan orkestrasi aset.
 - **Tags**: #mpa, #orchestrator, #frontend
 - **Repository Path**: [`skills/mpa-orchestrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/mpa-orchestrator/SKILL.md)
 
-#### `multimodal-spatial-video-cloner` (v4.7.0)
+#### `multimodal-spatial-video-cloner` (v4.8.0)
 - **Native Prompt Trigger**: `@multimodal-spatial-video-cloner`
 - **English Summary**: Extract UI interactions and spring curves from video into code
 - **Indonesian Summary**: Ekstraksi interaksi UI dan kurva pegas dari video menjadi kode.
 - **Tags**: #multimodal, #spatial, #video, #cloner, #frontend
 - **Repository Path**: [`skills/multimodal-spatial-video-cloner/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/multimodal-spatial-video-cloner/SKILL.md)
 
-#### `nextjs-app-router-expert` (v4.7.0)
+#### `nextjs-app-router-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@nextjs-app-router-expert`
 - **English Summary**: Next.js 15 App Router: RSC, Server Actions, PPR, and caching
 - **Indonesian Summary**: Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache.
 - **Tags**: #nextjs, #app, #router, #frontend
 - **Repository Path**: [`skills/nextjs-app-router-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/nextjs-app-router-expert/SKILL.md)
 
-#### `performance-web-vitals` (v4.7.0)
+#### `performance-web-vitals` (v4.8.0)
 - **Native Prompt Trigger**: `@performance-web-vitals`
 - **English Summary**: Web performance optimization: Core Web Vitals (LCP, INP, CLS)
 - **Indonesian Summary**: Optimasi performa web dan metrik Core Web Vitals (LCP, INP, CLS).
 - **Tags**: #performance, #web, #vitals, #frontend
 - **Repository Path**: [`skills/performance-web-vitals/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/performance-web-vitals/SKILL.md)
 
-#### `pwa-offline-first-expert` (v4.7.0)
+#### `pwa-offline-first-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@pwa-offline-first-expert`
 - **English Summary**: Offline-first PWA architecture, OPFS SQLite, and local sync
 - **Indonesian Summary**: Arsitektur PWA offline-first, OPFS SQLite, dan sinkronisasi lokal.
 - **Tags**: #pwa, #offline, #first, #frontend
 - **Repository Path**: [`skills/pwa-offline-first-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/pwa-offline-first-expert/SKILL.md)
 
-#### `reactive-sync-engine-expert` (v4.7.0)
+#### `reactive-sync-engine-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@reactive-sync-engine-expert`
 - **English Summary**: Reactive sync engines (Zero, ElectricSQL) and instant mutations
 - **Indonesian Summary**: Mesin sinkronisasi reaktif (Zero, ElectricSQL) dan mutasi instan.
 - **Tags**: #reactive, #sync, #engine, #frontend
 - **Repository Path**: [`skills/reactive-sync-engine-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/reactive-sync-engine-expert/SKILL.md)
 
-#### `rich-text-editor-expert` (v4.7.0)
+#### `rich-text-editor-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@rich-text-editor-expert`
 - **English Summary**: Rich text editors integration (Tiptap, Lexical) & collaboration
 - **Indonesian Summary**: Integrasi editor rich text (Tiptap, Lexical) dan kolaborasi.
 - **Tags**: #rich, #text, #editor, #frontend
 - **Repository Path**: [`skills/rich-text-editor-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rich-text-editor-expert/SKILL.md)
 
-#### `screenshot-to-code-expert` (v4.7.0)
+#### `screenshot-to-code-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@screenshot-to-code-expert`
 - **English Summary**: Convert UI screenshots, Figma frames, and mockups into clean code
 - **Indonesian Summary**: Konversi screenshot UI, Figma, dan mockup menjadi kode produksi.
 - **Tags**: #screenshot, #to, #code, #frontend
 - **Repository Path**: [`skills/screenshot-to-code-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/screenshot-to-code-expert/SKILL.md)
 
-#### `senior-frontend` (v4.7.0)
+#### `senior-frontend` (v4.8.0)
 - **Native Prompt Trigger**: `@senior-frontend`
 - **English Summary**: Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4
 - **Indonesian Summary**: Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4.
 - **Tags**: #senior, #frontend
 - **Repository Path**: [`skills/senior-frontend/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/senior-frontend/SKILL.md)
 
-#### `solidjs-expert` (v4.7.0)
+#### `solidjs-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@solidjs-expert`
 - **English Summary**: SolidJS 2 and SolidStart fine-grained reactivity and server rendering
 - **Indonesian Summary**: SolidJS 2 dan SolidStart dengan reaktivitas fine-grained.
 - **Tags**: #solidjs, #frontend
 - **Repository Path**: [`skills/solidjs-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/solidjs-expert/SKILL.md)
 
-#### `spa-orchestrator` (v4.7.0)
+#### `spa-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@spa-orchestrator`
 - **English Summary**: Single-Page Application (SPA) architecture and client state flows
 - **Indonesian Summary**: Arsitektur Single-Page Application (SPA) dan aliran state klien.
 - **Tags**: #spa, #orchestrator, #frontend
 - **Repository Path**: [`skills/spa-orchestrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/spa-orchestrator/SKILL.md)
 
-#### `state-management-expert` (v4.7.0)
+#### `state-management-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@state-management-expert`
 - **English Summary**: Modern client state management: Zustand, Jotai, and TanStack Store
 - **Indonesian Summary**: Manajemen state modern client-side: Zustand, Jotai, TanStack Store.
 - **Tags**: #state, #management, #frontend
 - **Repository Path**: [`skills/state-management-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/state-management-expert/SKILL.md)
 
-#### `svelte-sveltekit-expert` (v4.7.0)
+#### `svelte-sveltekit-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@svelte-sveltekit-expert`
 - **English Summary**: Svelte 5 Runes and SvelteKit 2 server-first application architecture
 - **Indonesian Summary**: Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first.
 - **Tags**: #svelte, #sveltekit, #frontend
 - **Repository Path**: [`skills/svelte-sveltekit-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/svelte-sveltekit-expert/SKILL.md)
 
-#### `svg-animation-motion-expert` (v4.7.0)
+#### `svg-animation-motion-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@svg-animation-motion-expert`
 - **English Summary**: Web animations: Framer Motion 12+, GSAP 3, and CSS scroll animations
 - **Indonesian Summary**: Animasi web: Framer Motion 12+, GSAP 3, dan animasi scroll CSS.
 - **Tags**: #svg, #animation, #motion, #frontend
 - **Repository Path**: [`skills/svg-animation-motion-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/svg-animation-motion-expert/SKILL.md)
 
-#### `tailwind-expert` (v4.7.0)
+#### `tailwind-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@tailwind-expert`
 - **English Summary**: Tailwind CSS v4, CSS-first @theme configuration, and modern styling
 - **Indonesian Summary**: Panduan Tailwind CSS v4, konfigurasi @theme, dan styling modern.
 - **Tags**: #tailwind, #frontend
 - **Repository Path**: [`skills/tailwind-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/tailwind-expert/SKILL.md)
 
-#### `tanstack-query-expert` (v4.7.0)
+#### `tanstack-query-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@tanstack-query-expert`
 - **English Summary**: TanStack Query v5, useSuspenseQuery, SSR hydration, and cache invalidation
 - **Indonesian Summary**: Manajemen state server TanStack Query v5 dan hidrasi SSR.
 - **Tags**: #tanstack, #query, #frontend
 - **Repository Path**: [`skills/tanstack-query-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/tanstack-query-expert/SKILL.md)
 
-#### `tauri-expert` (v4.7.0)
+#### `tauri-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@tauri-expert`
 - **English Summary**: Tauri 2.x cross-platform desktop & mobile apps with Rust 1.90+
 - **Indonesian Summary**: Aplikasi desktop & mobile Tauri 2.x dengan Rust 1.90+ dan IPC.
 - **Tags**: #tauri, #frontend
 - **Repository Path**: [`skills/tauri-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/tauri-expert/SKILL.md)
 
-#### `ui-ux-pro-max` (v4.7.0)
+#### `ui-ux-pro-max` (v4.8.0)
 - **Native Prompt Trigger**: `@ui-ux-pro-max`
 - **English Summary**: Comprehensive UI/UX design guide and BM25 search engine for 11 stacks
 - **Indonesian Summary**: Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack.
 - **Tags**: #ui, #ux, #max, #frontend
 - **Repository Path**: [`skills/ui-ux-pro-max/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ui-ux-pro-max/SKILL.md)
 
-#### `visual-ui-auditor` (v4.7.0)
+#### `visual-ui-auditor` (v4.8.0)
 - **Native Prompt Trigger**: `@visual-ui-auditor`
 - **English Summary**: Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules
 - **Indonesian Summary**: Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop.
 - **Tags**: #visual, #ui, #auditor, #frontend
 - **Repository Path**: [`skills/visual-ui-auditor/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/visual-ui-auditor/SKILL.md)
 
-#### `vue-frontend-expert` (v4.7.0)
+#### `vue-frontend-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@vue-frontend-expert`
 - **English Summary**: Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture
 - **Indonesian Summary**: Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR.
 - **Tags**: #vue, #frontend
 - **Repository Path**: [`skills/vue-frontend-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/vue-frontend-expert/SKILL.md)
 
-#### `web-3d-graphics-expert` (v4.7.0)
+#### `web-3d-graphics-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@web-3d-graphics-expert`
 - **English Summary**: WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F
 - **Indonesian Summary**: Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F.
 - **Tags**: #web, #3d, #graphics, #frontend
 - **Repository Path**: [`skills/web-3d-graphics-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/web-3d-graphics-expert/SKILL.md)
 
-#### `webxr-ar-vr-expert` (v4.7.0)
+#### `webxr-ar-vr-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@webxr-ar-vr-expert`
 - **English Summary**: WebXR spatial computing, WebVR, AR, and Mixed Reality in Babylon.js
 - **Indonesian Summary**: Komputasi spasial WebXR, WebVR, AR, dan MR menggunakan Babylon.js.
@@ -903,196 +903,196 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: Backend & System Design (28 Skills)
 
-#### `api-design-expert` (v4.7.0)
+#### `api-design-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@api-design-expert`
 - **English Summary**: API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1
 - **Indonesian Summary**: Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1.
 - **Tags**: #api, #design, #backend
 - **Repository Path**: [`skills/api-design-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/api-design-expert/SKILL.md)
 
-#### `api-gateway-proxy-expert` (v4.7.0)
+#### `api-gateway-proxy-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@api-gateway-proxy-expert`
 - **English Summary**: API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX)
 - **Indonesian Summary**: API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX).
 - **Tags**: #api, #gateway, #proxy, #backend
 - **Repository Path**: [`skills/api-gateway-proxy-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/api-gateway-proxy-expert/SKILL.md)
 
-#### `async-queue-temporal-expert` (v4.7.0)
+#### `async-queue-temporal-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@async-queue-temporal-expert`
 - **English Summary**: Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io
 - **Indonesian Summary**: Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal.
 - **Tags**: #async, #queue, #temporal, #backend
 - **Repository Path**: [`skills/async-queue-temporal-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/async-queue-temporal-expert/SKILL.md)
 
-#### `autonomous-api-drift-healer` (v4.7.0)
+#### `autonomous-api-drift-healer` (v4.8.0)
 - **Native Prompt Trigger**: `@autonomous-api-drift-healer`
 - **English Summary**: Autonomous API schema drift detection and breaking change healing
 - **Indonesian Summary**: Deteksi drift skema API otonom dan perbaikan breaking change.
 - **Tags**: #autonomous, #api, #drift, #healer, #backend
 - **Repository Path**: [`skills/autonomous-api-drift-healer/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/autonomous-api-drift-healer/SKILL.md)
 
-#### `bun-runtime-expert` (v4.7.0)
+#### `bun-runtime-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@bun-runtime-expert`
 - **English Summary**: Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test
 - **Indonesian Summary**: Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test.
 - **Tags**: #bun, #runtime, #backend
 - **Repository Path**: [`skills/bun-runtime-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/bun-runtime-expert/SKILL.md)
 
-#### `cloudflare-workers-expert` (v4.7.0)
+#### `cloudflare-workers-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@cloudflare-workers-expert`
 - **English Summary**: Cloudflare Workers ecosystem: D1, KV, R2, Queues, Durable Objects
 - **Indonesian Summary**: Ekosistem Cloudflare Workers: D1, KV, R2, Queues, Durable Objects.
 - **Tags**: #cloudflare, #workers, #backend
 - **Repository Path**: [`skills/cloudflare-workers-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/cloudflare-workers-expert/SKILL.md)
 
-#### `composable-mach-architect` (v4.7.0)
+#### `composable-mach-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@composable-mach-architect`
 - **English Summary**: Composable MACH architecture: microservices, API mesh, and headless
 - **Indonesian Summary**: Arsitektur MACH komposabel: microservices, API mesh, dan headless.
 - **Tags**: #composable, #mach, #backend
 - **Repository Path**: [`skills/composable-mach-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/composable-mach-architect/SKILL.md)
 
-#### `cron-scheduler-expert` (v4.7.0)
+#### `cron-scheduler-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@cron-scheduler-expert`
 - **English Summary**: Scheduled cron tasks and background workflows (Vercel, Cloudflare)
 - **Indonesian Summary**: Tugas terjadwal cron dan background job (Vercel, Cloudflare).
 - **Tags**: #cron, #scheduler, #backend
 - **Repository Path**: [`skills/cron-scheduler-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/cron-scheduler-expert/SKILL.md)
 
-#### `domain-driven-design-expert` (v4.7.0)
+#### `domain-driven-design-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@domain-driven-design-expert`
 - **English Summary**: Domain-Driven Design (DDD), aggregates, bounded contexts, and CQRS
 - **Indonesian Summary**: Desain Berbasis Domain (DDD), aggregate, bounded context, dan CQRS.
 - **Tags**: #domain, #driven, #design, #backend
 - **Repository Path**: [`skills/domain-driven-design-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/domain-driven-design-expert/SKILL.md)
 
-#### `ephemeral-wasm-sandbox-executor` (v4.7.0)
+#### `ephemeral-wasm-sandbox-executor` (v4.8.0)
 - **Native Prompt Trigger**: `@ephemeral-wasm-sandbox-executor`
 - **English Summary**: Ephemeral WebAssembly sandboxes for secure code execution and tests
 - **Indonesian Summary**: Sandbox WASM efemeral untuk eksekusi kode aman dan pengujian.
 - **Tags**: #ephemeral, #wasm, #sandbox, #executor, #backend
 - **Repository Path**: [`skills/ephemeral-wasm-sandbox-executor/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ephemeral-wasm-sandbox-executor/SKILL.md)
 
-#### `event-driven-architect` (v4.7.0)
+#### `event-driven-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@event-driven-architect`
 - **English Summary**: Event-driven microservices, message queues, and event sourcing
 - **Indonesian Summary**: Arsitektur event-driven, antrean pesan, dan event sourcing.
 - **Tags**: #event, #driven, #backend
 - **Repository Path**: [`skills/event-driven-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/event-driven-architect/SKILL.md)
 
-#### `fullstack-expert` (v4.7.0)
+#### `fullstack-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@fullstack-expert`
 - **English Summary**: Polyglot fullstack development: TypeScript, Python, Go, and Rust
 - **Indonesian Summary**: Pengembangan fullstack polyglot: TypeScript, Python, Go, dan Rust.
 - **Tags**: #fullstack, #backend
 - **Repository Path**: [`skills/fullstack-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/fullstack-expert/SKILL.md)
 
-#### `go-programming-expert` (v4.7.0)
+#### `go-programming-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@go-programming-expert`
 - **English Summary**: Go 1.24+ microservices, sqlc, net/http, and concurrency patterns
 - **Indonesian Summary**: Pemrograman Go 1.24+, microservices, sqlc, dan pola konkuren.
 - **Tags**: #go, #programming, #backend
 - **Repository Path**: [`skills/go-programming-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/go-programming-expert/SKILL.md)
 
-#### `graphql-apollo-expert` (v4.7.0)
+#### `graphql-apollo-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@graphql-apollo-expert`
 - **English Summary**: GraphQL APIs with Apollo Server/Client, NestJS, and query caching
 - **Indonesian Summary**: API GraphQL dengan Apollo Server/Client, NestJS, dan optimasi query.
 - **Tags**: #graphql, #apollo, #backend
 - **Repository Path**: [`skills/graphql-apollo-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/graphql-apollo-expert/SKILL.md)
 
-#### `js-backend-expert` (v4.7.0)
+#### `js-backend-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@js-backend-expert`
 - **English Summary**: Node.js 24+, Bun, and Deno backend development (Hono, Fastify, Express)
 - **Indonesian Summary**: Pengembangan backend Node.js, Bun, dan Deno (Hono, Fastify, Express).
 - **Tags**: #js, #backend
 - **Repository Path**: [`skills/js-backend-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/js-backend-expert/SKILL.md)
 
-#### `legacy-code-translator` (v4.7.0)
+#### `legacy-code-translator` (v4.8.0)
 - **Native Prompt Trigger**: `@legacy-code-translator`
 - **English Summary**: Safely modernize legacy codebases (PHP, old React) into modern stacks
 - **Indonesian Summary**: Modernisasi codebase legacy (PHP, React lama) ke stack modern.
 - **Tags**: #legacy, #code, #translator, #backend
 - **Repository Path**: [`skills/legacy-code-translator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/legacy-code-translator/SKILL.md)
 
-#### `living-codebase-ast-graph` (v4.7.0)
+#### `living-codebase-ast-graph` (v4.8.0)
 - **Native Prompt Trigger**: `@living-codebase-ast-graph`
 - **English Summary**: In-memory AST code knowledge graphs and refactoring blast radius
 - **Indonesian Summary**: Graf pengetahuan AST in-memory dan radius dampak refaktor kode.
 - **Tags**: #living, #codebase, #ast, #graph, #backend
 - **Repository Path**: [`skills/living-codebase-ast-graph/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/living-codebase-ast-graph/SKILL.md)
 
-#### `monorepo-architect` (v4.7.0)
+#### `monorepo-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@monorepo-architect`
 - **English Summary**: Scalable monorepo architecture with Turborepo and pnpm workspaces
 - **Indonesian Summary**: Arsitektur monorepo skalabel dengan Turborepo dan pnpm workspaces.
 - **Tags**: #monorepo, #backend
 - **Repository Path**: [`skills/monorepo-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/monorepo-architect/SKILL.md)
 
-#### `mvc-expert` (v4.7.0)
+#### `mvc-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@mvc-expert`
 - **English Summary**: Refactor legacy codebases into clean and scalable MVC architecture
 - **Indonesian Summary**: Refaktor codebase legacy menjadi arsitektur MVC yang bersih.
 - **Tags**: #mvc, #backend
 - **Repository Path**: [`skills/mvc-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/mvc-expert/SKILL.md)
 
-#### `openapi-swagger-codegen-expert` (v4.7.0)
+#### `openapi-swagger-codegen-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@openapi-swagger-codegen-expert`
 - **English Summary**: OpenAPI 3.1 specifications, Swagger UI, and typed code generation
 - **Indonesian Summary**: Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis.
 - **Tags**: #openapi, #swagger, #codegen, #backend
 - **Repository Path**: [`skills/openapi-swagger-codegen-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/openapi-swagger-codegen-expert/SKILL.md)
 
-#### `python-programming-expert` (v4.7.0)
+#### `python-programming-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@python-programming-expert`
 - **English Summary**: Python 3.13/3.14+ type safety, FastAPI, Pydantic v2, uv, and pytest
 - **Indonesian Summary**: Pemrograman Python modern: FastAPI, Pydantic v2, uv, dan pytest.
 - **Tags**: #python, #programming, #backend
 - **Repository Path**: [`skills/python-programming-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/python-programming-expert/SKILL.md)
 
-#### `rust-programming-expert` (v4.7.0)
+#### `rust-programming-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@rust-programming-expert`
 - **English Summary**: Rust 2024
 - **Indonesian Summary**: v1.88+ memory safety, Brown Grounded Ownership & Permissions, async Axum, and zero-cost patterns
 - **Tags**: #rust, #programming, #backend
 - **Repository Path**: [`skills/rust-programming-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rust-programming-expert/SKILL.md)
 
-#### `scalability-clean-code` (v4.7.0)
+#### `scalability-clean-code` (v4.8.0)
 - **Native Prompt Trigger**: `@scalability-clean-code`
 - **English Summary**: Clean code architecture, SOLID principles, and system scalability
 - **Indonesian Summary**: Arsitektur clean code, prinsip SOLID, dan skalabilitas sistem.
 - **Tags**: #scalability, #clean, #code, #backend
 - **Repository Path**: [`skills/scalability-clean-code/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/scalability-clean-code/SKILL.md)
 
-#### `spec-driven-development-expert` (v4.7.0)
+#### `spec-driven-development-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@spec-driven-development-expert`
 - **English Summary**: Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing
 - **Indonesian Summary**: Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak.
 - **Tags**: #spec, #driven, #development, #backend
 - **Repository Path**: [`skills/spec-driven-development-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/spec-driven-development-expert/SKILL.md)
 
-#### `structured-output-contracts` (v4.7.0)
+#### `structured-output-contracts` (v4.8.0)
 - **Native Prompt Trigger**: `@structured-output-contracts`
 - **English Summary**: Strict JSON Schema structured outputs and MCP contract enforcement
 - **Indonesian Summary**: Penegakan kontrak output terstruktur JSON Schema ketat dan MCP.
 - **Tags**: #structured, #output, #contracts, #backend
 - **Repository Path**: [`skills/structured-output-contracts/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/structured-output-contracts/SKILL.md)
 
-#### `typescript-expert` (v4.7.0)
+#### `typescript-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@typescript-expert`
 - **English Summary**: TypeScript 5.8+ type system, strict types, generics, and branded types
 - **Indonesian Summary**: Sistem tipe TypeScript 5.8+, tipe strict, generics, dan branded types.
 - **Tags**: #typescript, #backend
 - **Repository Path**: [`skills/typescript-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/typescript-expert/SKILL.md)
 
-#### `wasm-edge-computing-expert` (v4.7.0)
+#### `wasm-edge-computing-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@wasm-edge-computing-expert`
 - **English Summary**: WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare
 - **Indonesian Summary**: WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare.
 - **Tags**: #wasm, #edge, #computing, #backend
 - **Repository Path**: [`skills/wasm-edge-computing-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/wasm-edge-computing-expert/SKILL.md)
 
-#### `web-game-engine-expert` (v4.7.0)
+#### `web-game-engine-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@web-game-engine-expert`
 - **English Summary**: Modern web game development: Three.js, Babylon.js, ECS, and physics
 - **Indonesian Summary**: Pengembangan game web modern: Three.js, Babylon.js, ECS, dan fisika.
@@ -1103,189 +1103,189 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 ### Domain: Data, Media & Orchestration (27 Skills)
 
-#### `brainstorming` (v4.7.0)
+#### `brainstorming` (v4.8.0)
 - **Native Prompt Trigger**: `@brainstorming`
 - **English Summary**: Master ideation protocol & architectural matrix before coding begins
 - **Indonesian Summary**: Protokol ideasi utama & matriks arsitektur sebelum coding dimulai.
 - **Tags**: #brainstorming, #data
 - **Repository Path**: [`skills/brainstorming/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/brainstorming/SKILL.md)
 
-#### `browser-automation-expert` (v4.7.0)
+#### `browser-automation-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@browser-automation-expert`
 - **English Summary**: Autonomous web agents (Stagehand, Browser-Use) & anti-bot evasion
 - **Indonesian Summary**: Agen web otonom (Stagehand, Browser-Use) dan bypass deteksi bot.
 - **Tags**: #browser, #automation, #data
 - **Repository Path**: [`skills/browser-automation-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/browser-automation-expert/SKILL.md)
 
-#### `ci-cd-devops-architect` (v4.7.0)
+#### `ci-cd-devops-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@ci-cd-devops-architect`
 - **English Summary**: CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures
 - **Indonesian Summary**: Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC.
 - **Tags**: #ci, #cd, #devops, #data
 - **Repository Path**: [`skills/ci-cd-devops-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/ci-cd-devops-architect/SKILL.md)
 
-#### `cloud-hosting-expert` (v4.7.0)
+#### `cloud-hosting-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@cloud-hosting-expert`
 - **English Summary**: Multi-tenant SaaS deployment on modern edge (Vercel, Cloudflare)
 - **Indonesian Summary**: Deployment SaaS multi-tenant di edge modern (Vercel, Cloudflare).
 - **Tags**: #cloud, #hosting, #data
 - **Repository Path**: [`skills/cloud-hosting-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/cloud-hosting-expert/SKILL.md)
 
-#### `data-pipeline-etl-expert` (v4.7.0)
+#### `data-pipeline-etl-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@data-pipeline-etl-expert`
 - **English Summary**: Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB
 - **Indonesian Summary**: Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB.
 - **Tags**: #data, #pipeline, #etl
 - **Repository Path**: [`skills/data-pipeline-etl-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/data-pipeline-etl-expert/SKILL.md)
 
-#### `data-visualization-expert` (v4.7.0)
+#### `data-visualization-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@data-visualization-expert`
 - **English Summary**: Data visualization dashboards using D3.js, Recharts, and Tremor
 - **Indonesian Summary**: Visualisasi data, grafik, dan dashboard dengan D3.js dan Recharts.
 - **Tags**: #data, #visualization
 - **Repository Path**: [`skills/data-visualization-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/data-visualization-expert/SKILL.md)
 
-#### `database-orm-expert` (v4.7.0)
+#### `database-orm-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@database-orm-expert`
 - **English Summary**: Unified database ORM, schema migrations, edge DBs, and Supabase CLI
 - **Indonesian Summary**: Database ORM terpadu, migrasi skema, edge DB, dan Supabase CLI.
 - **Tags**: #database, #orm, #data
 - **Repository Path**: [`skills/database-orm-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/database-orm-expert/SKILL.md)
 
-#### `dependency-upgrade-migrator` (v4.7.0)
+#### `dependency-upgrade-migrator` (v4.8.0)
 - **Native Prompt Trigger**: `@dependency-upgrade-migrator`
 - **English Summary**: Dependency upgrades, breaking change migrations, and codemod tooling
 - **Indonesian Summary**: Upgrade dependensi, migrasi breaking change, dan otomasi codemod.
 - **Tags**: #dependency, #upgrade, #migrator, #data
 - **Repository Path**: [`skills/dependency-upgrade-migrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/dependency-upgrade-migrator/SKILL.md)
 
-#### `docker-container-expert` (v4.7.0)
+#### `docker-container-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@docker-container-expert`
 - **English Summary**: Production Docker containerization, BuildKit, distroless, and Compose
 - **Indonesian Summary**: Kontainerisasi Docker produksi, BuildKit, distroless, dan Compose.
 - **Tags**: #docker, #container, #data
 - **Repository Path**: [`skills/docker-container-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/docker-container-expert/SKILL.md)
 
-#### `documentation-site-expert` (v4.7.0)
+#### `documentation-site-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@documentation-site-expert`
 - **English Summary**: Technical documentation sites: Mintlify, Docusaurus, and Storybook
 - **Indonesian Summary**: Situs dokumentasi teknis: Mintlify, Docusaurus, dan Storybook.
 - **Tags**: #documentation, #site, #data
 - **Repository Path**: [`skills/documentation-site-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/documentation-site-expert/SKILL.md)
 
-#### `file-upload-media-expert` (v4.7.0)
+#### `file-upload-media-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@file-upload-media-expert`
 - **English Summary**: File uploads (S3, R2, Supabase), presigned URLs, and media pipelines
 - **Indonesian Summary**: Upload file (S3, R2, Supabase), presigned URL, dan pipeline media.
 - **Tags**: #file, #upload, #media, #data
 - **Repository Path**: [`skills/file-upload-media-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/file-upload-media-expert/SKILL.md)
 
-#### `geospatial-maps-expert` (v4.7.0)
+#### `geospatial-maps-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@geospatial-maps-expert`
 - **English Summary**: Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS
 - **Indonesian Summary**: Peta dan data geospasial: Mapbox GL JS, Leaflet, dan PostGIS.
 - **Tags**: #geospatial, #maps, #data
 - **Repository Path**: [`skills/geospatial-maps-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/geospatial-maps-expert/SKILL.md)
 
-#### `github-actions-expert` (v4.7.0)
+#### `github-actions-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@github-actions-expert`
 - **English Summary**: GitHub Actions CI/CD workflows, reusable actions, and OIDC auth
 - **Indonesian Summary**: Workflow CI/CD GitHub Actions, reusable actions, dan auth OIDC.
 - **Tags**: #github, #actions, #data
 - **Repository Path**: [`skills/github-actions-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/github-actions-expert/SKILL.md)
 
-#### `kubernetes-gitops-platform-expert` (v4.7.0)
+#### `kubernetes-gitops-platform-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@kubernetes-gitops-platform-expert`
 - **English Summary**: Kubernetes & GitOps platform engineering: ArgoCD, Cilium, and KEDA
 - **Indonesian Summary**: Platform engineering Kubernetes & GitOps: ArgoCD, Cilium, dan KEDA.
 - **Tags**: #kubernetes, #gitops, #platform, #data
 - **Repository Path**: [`skills/kubernetes-gitops-platform-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/kubernetes-gitops-platform-expert/SKILL.md)
 
-#### `olap-columnar-analytics-expert` (v4.7.0)
+#### `olap-columnar-analytics-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@olap-columnar-analytics-expert`
 - **English Summary**: Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg
 - **Indonesian Summary**: Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg.
 - **Tags**: #olap, #columnar, #analytics, #data
 - **Repository Path**: [`skills/olap-columnar-analytics-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/olap-columnar-analytics-expert/SKILL.md)
 
-#### `pdf-document-generation-expert` (v4.7.0)
+#### `pdf-document-generation-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@pdf-document-generation-expert`
 - **English Summary**: PDF generation and document processing (React PDF, Puppeteer)
 - **Indonesian Summary**: Generasi PDF dan pemrosesan dokumen (React PDF, Puppeteer).
 - **Tags**: #pdf, #document, #generation, #data
 - **Repository Path**: [`skills/pdf-document-generation-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/pdf-document-generation-expert/SKILL.md)
 
-#### `prd-architect` (v4.7.0)
+#### `prd-architect` (v4.8.0)
 - **Native Prompt Trigger**: `@prd-architect`
 - **English Summary**: Continuous PRD, ERD, and architectural documentation generation
 - **Indonesian Summary**: Pembuatan dokumen PRD, ERD, dan arsitektur sistem secara kontinu.
 - **Tags**: #prd, #data
 - **Repository Path**: [`skills/prd-architect/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/prd-architect/SKILL.md)
 
-#### `proactive-background-watcher` (v4.7.0)
+#### `proactive-background-watcher` (v4.8.0)
 - **Native Prompt Trigger**: `@proactive-background-watcher`
 - **English Summary**: Proactive background task scheduling, API polling, and log monitoring
 - **Indonesian Summary**: Penjadwalan background task proaktif dan pemantauan sistem.
 - **Tags**: #proactive, #background, #watcher, #data
 - **Repository Path**: [`skills/proactive-background-watcher/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/proactive-background-watcher/SKILL.md)
 
-#### `production-ready-hardener` (v4.7.0)
+#### `production-ready-hardener` (v4.8.0)
 - **Native Prompt Trigger**: `@production-ready-hardener`
 - **English Summary**: Pre-deployment application hardening across security, perf, and tests
 - **Indonesian Summary**: Pengerasan aplikasi pra-deploy: keamanan, performa, dan tes.
 - **Tags**: #production, #ready, #hardener, #data
 - **Repository Path**: [`skills/production-ready-hardener/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/production-ready-hardener/SKILL.md)
 
-#### `realtime-collaboration-expert` (v4.7.0)
+#### `realtime-collaboration-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@realtime-collaboration-expert`
 - **English Summary**: Real-time collaboration: WebSockets, WebRTC, and CRDTs (Yjs)
 - **Indonesian Summary**: Kolaborasi real-time: WebSockets, WebRTC, dan CRDT (Yjs).
 - **Tags**: #realtime, #collaboration, #data
 - **Repository Path**: [`skills/realtime-collaboration-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/realtime-collaboration-expert/SKILL.md)
 
-#### `search-engine-expert` (v4.7.0)
+#### `search-engine-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@search-engine-expert`
 - **English Summary**: Full-text search engines: Typesense, Meilisearch, and Elasticsearch
 - **Indonesian Summary**: Mesin pencarian full-text: Typesense, Meilisearch, Elasticsearch.
 - **Tags**: #search, #engine, #data
 - **Repository Path**: [`skills/search-engine-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/search-engine-expert/SKILL.md)
 
-#### `self-healing-cloud-orchestrator` (v4.7.0)
+#### `self-healing-cloud-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@self-healing-cloud-orchestrator`
 - **English Summary**: Real-time log monitoring, crash detection, and auto-hotfixing
 - **Indonesian Summary**: Pemantauan log real-time, deteksi crash, dan auto-hotfix kode.
 - **Tags**: #self, #healing, #cloud, #orchestrator, #data
 - **Repository Path**: [`skills/self-healing-cloud-orchestrator/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/self-healing-cloud-orchestrator/SKILL.md)
 
-#### `session-memory-manager` (v4.7.0)
+#### `session-memory-manager` (v4.8.0)
 - **Native Prompt Trigger**: `@session-memory-manager`
 - **English Summary**: Session memory lifecycle, context handoffs, and compact checkpoints
 - **Indonesian Summary**: Manajemen memori sesi, handoff konteks, dan checkpoint ringkas.
 - **Tags**: #session, #memory, #manager, #data
 - **Repository Path**: [`skills/session-memory-manager/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/session-memory-manager/SKILL.md)
 
-#### `sse-websocket-streaming-expert` (v4.7.0)
+#### `sse-websocket-streaming-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@sse-websocket-streaming-expert`
 - **English Summary**: Real-time Server-Sent Events (SSE), WebSockets, and data streaming
 - **Indonesian Summary**: Server-Sent Events (SSE), WebSockets, dan streaming data real-time.
 - **Tags**: #sse, #websocket, #streaming, #data
 - **Repository Path**: [`skills/sse-websocket-streaming-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/sse-websocket-streaming-expert/SKILL.md)
 
-#### `web-scraper` (v4.7.0)
+#### `web-scraper` (v4.8.0)
 - **Native Prompt Trigger**: `@web-scraper`
 - **English Summary**: Agentic web scraping: Crawl4AI, Firecrawl, and anti-bot bypass
 - **Indonesian Summary**: Ekstraksi web agentic: Crawl4AI, Firecrawl, dan bypass anti-bot.
 - **Tags**: #web, #scraper, #data
 - **Repository Path**: [`skills/web-scraper/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/web-scraper/SKILL.md)
 
-#### `website-design-cloner` (v4.7.0)
+#### `website-design-cloner` (v4.8.0)
 - **Native Prompt Trigger**: `@website-design-cloner`
 - **English Summary**: Reverse-engineer website designs, layout structures, and design tokens
 - **Indonesian Summary**: Rekayasa balik desain website, struktur layout, dan token desain.
 - **Tags**: #website, #design, #cloner, #data
 - **Repository Path**: [`skills/website-design-cloner/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/website-design-cloner/SKILL.md)
 
-#### `zero-to-prod-orchestrator` (v4.7.0)
+#### `zero-to-prod-orchestrator` (v4.8.0)
 - **Native Prompt Trigger**: `@zero-to-prod-orchestrator`
 - **English Summary**: Master orchestrator to build apps from zero to production readiness
 - **Indonesian Summary**: Master orkestrator membangun aplikasi dari nol hingga siap produksi.

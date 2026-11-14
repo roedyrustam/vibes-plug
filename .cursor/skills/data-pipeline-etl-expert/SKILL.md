@@ -2,7 +2,7 @@
 name: data-pipeline-etl-expert
 description: "Data pipelines, ETL/ELT, dbt, Airflow, ClickHouse, and DuckDB / Pipeline data, ETL/ELT, dbt, Airflow, ClickHouse, dan DuckDB."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Data Pipeline & ETL Expert / Ahli Data Pipeline & ETL
@@ -139,7 +139,134 @@ FROM {{ ref('stg_telemetry_events') }}
 GROUP BY 1, 2
 ```
 
-### 4. Production Verification Checklist
+### 4. Dagster Software-Defined Asset with Partitioned Backfill & Freshness SLA (`pipeline/assets.py`)
+Define data pipelines as declarative, unit-testable Software-Defined Assets with daily partitions and explicit freshness checks:
+
+```python
+# pipeline/assets.py
+from datetime import datetime, timezone
+import duckdb
+from dagster import (
+    AssetExecutionContext,
+    DailyPartitionsDefinition,
+    FreshnessPolicy,
+    MetadataValue,
+    Output,
+    asset,
+)
+
+daily_partitions = DailyPartitionsDefinition(start_date="2026-01-01")
+
+@asset(
+    partitions_def=daily_partitions,
+    freshness_policy=FreshnessPolicy(maximum_lag_minutes=30),
+    group_name="silver_lakehouse",
+    compute_kind="duckdb",
+)
+def silver_tenant_events(context: AssetExecutionContext) -> Output[str]:
+    partition_date = context.partition_key
+    source_glob = f"s3://lakehouse/bronze/events/dt={partition_date}/*.parquet"
+    target_uri = f"s3://lakehouse/silver/tenant_events/dt={partition_date}/part-000.parquet"
+
+    con = duckdb.connect(database=":memory:")
+    con.execute("INSTALL httpfs; LOAD httpfs;")
+
+    row_count_res = con.execute(
+        """
+        COPY (
+            SELECT
+                event_id,
+                tenant_id,
+                actor_id,
+                event_name,
+                CAST(recorded_at AS TIMESTAMPTZ) AS recorded_at
+            FROM read_parquet(?, hive_partitioning = true)
+            WHERE tenant_id IS NOT NULL AND event_id IS NOT NULL
+            QUALIFY row_number() OVER (PARTITION BY tenant_id, event_id ORDER BY recorded_at DESC) = 1
+        ) TO ? (FORMAT PARQUET, CODEC 'ZSTD', ROW_GROUP_SIZE 122880)
+        """,
+        [source_glob, target_uri],
+    ).fetchone()
+
+    written_rows = int(row_count_res[0]) if row_count_res else 0
+    if written_rows == 0:
+        context.log.warning(f"Zero rows compacted for partition {partition_date}")
+
+    return Output(
+        value=target_uri,
+        metadata={
+            "partition_date": MetadataValue.text(partition_date),
+            "rows_compacted": MetadataValue.int(written_rows),
+            "compacted_at": MetadataValue.text(datetime.now(timezone.utc).isoformat()),
+        },
+    )
+```
+
+### 5. Log-Based CDC Watermark Tracker & Dead-Letter Quarantine Gate (TypeScript)
+Never silently drop malformed rows during ELT ingestion. Route schema-violating records to a quarantine table with full lineage metadata while advancing the high-watermark cursor atomically:
+
+```typescript
+// src/etl/cdc-watermark-quarantine.ts
+import { z } from 'zod';
+
+export const RawCdcEventSchema = z.object({
+  lsn: z.string().min(3),
+  eventId: z.string().uuid(),
+  tenantId: z.string().uuid(),
+  payload: z.record(z.string(), z.unknown()),
+  emittedAtIso: z.string().datetime(),
+});
+
+export type RawCdcEvent = z.infer<typeof RawCdcEventSchema>;
+
+export interface QuarantineRecord {
+  readonly rawEventJson: string;
+  readonly validationErrors: string;
+  readonly sourceStream: string;
+  readonly quarantinedAtIso: string;
+}
+
+export function partitionValidAndQuarantineBatch(
+  streamName: string,
+  rawRecords: readonly unknown[]
+): {
+  validEvents: RawCdcEvent[];
+  quarantined: QuarantineRecord[];
+  highestLsn: string | null;
+} {
+  const validEvents: RawCdcEvent[] = [];
+  const quarantined: QuarantineRecord[] = [];
+  let highestLsn: string | null = null;
+
+  for (const record of rawRecords) {
+    const parsed = RawCdcEventSchema.safeParse(record);
+    if (!parsed.success) {
+      quarantined.push({
+        rawEventJson: JSON.stringify(record),
+        validationErrors: parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`).join('; '),
+        sourceStream: streamName,
+        quarantinedAtIso: new Date().toISOString(),
+      });
+      continue;
+    }
+    validEvents.push(parsed.data);
+    if (highestLsn === null || parsed.data.lsn > highestLsn) {
+      highestLsn = parsed.data.lsn;
+    }
+  }
+
+  return { validEvents, quarantined, highestLsn };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **No Unbounded OLTP `SELECT *` Batch Scans**: Never extract analytical batches via unindexed `SELECT * FROM table` against primary OLTP databases; always use log-based CDC (`Logical Replication` / `PeerDB` / `Debezium`) or cursor-paginated read replicas.
+- **Mandatory Partition Idempotency**: Every pipeline execution must be idempotent per partition key (`unique_key` merge or partition overwrite) so re-running a failed date partition never duplicates rows.
+- **Late-Arriving Event Lookback Window**: Incremental dbt and DuckDB transformations must apply a configurable lookback window (`24h` to `72h`) deduplicated via `QUALIFY row_number() OVER (...) = 1` or `MERGE`.
+- **Dead-Letter Quarantine over Silent Drop**: Malformed records failing schema contracts must be routed to an auditable quarantine table rather than crashing the entire batch or being silently discarded.
+- **Columnar ZSTD Compression**: Lakehouse object storage outputs must use `PARQUET` with `ZSTD` compression and explicit row-group sizing (`100K–128K` rows).
+
+### 6. Production Verification Checklist
 - [ ] Every pipeline run is **idempotent**: re-running a date partition (`2026-10-23`) overwrites or merges cleanly via `unique_key` without duplicating rows.
 - [ ] OLTP extraction uses log-based CDC or read replicas with cursor pagination, never unindexed full-table scans on primary OLTP nodes.
 - [ ] dbt models enforce schema contracts (`not_null`, `unique`, `accepted_values`) before promoting `Silver` tables to customer-facing `Gold` marts.

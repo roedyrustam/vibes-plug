@@ -1,9 +1,9 @@
 {
-  "schema": "vibes-skill-slices/v4.7.0",
-  "version": "4.7.0",
-  "compiledAt": "2026-11-11T06:31:08.062Z",
+  "schema": "vibes-skill-slices/v4.8.0",
+  "version": "4.8.0",
+  "compiledAt": "2026-11-14T17:43:22.263Z",
   "totalSkills": 178,
-  "totalCodeBlueprints": 1199,
+  "totalCodeBlueprints": 1203,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -49,7 +49,7 @@
     },
     "frontend": {
       "count": 31,
-      "blueprints": 264,
+      "blueprints": 268,
       "skills": [
         "accessibility-testing-expert",
         "angular-expert",
@@ -227,10 +227,10 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 916156,
-    "compiledSlicesTokensApprox": 142399,
-    "avgTokensPerSlice": 800,
-    "tokenReductionPercent": "84%"
+    "fullRegistryTokensApprox": 921862,
+    "compiledSlicesTokensApprox": 142726,
+    "avgTokensPerSlice": 802,
+    "tokenReductionPercent": "85%"
   },
   "slices": {
     "a2a-agent-protocol-expert": {
@@ -14081,9 +14081,9 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 11,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 5,
+      "codeBlueprintsCount": 7,
       "languagesAvailable": [
         "text",
         "typescript",
@@ -14095,6 +14095,12 @@
           "language": "text",
           "lines": 22,
           "preview": "┌────────────────────────────────────────────────────────────────────────┐\n│                   MULTIMODAL VISUAL UI AUDIT PIPELINE                  │\n├────────────────────────────────────────────────────────────────────────┤\n│ 1. Render Target UI Component (Playwright / Headless Browser)          │\n│                                  │                                     │\n│                                  ▼                                     │"
+        },
+        {
+          "title": "Blueprint",
+          "language": "text",
+          "lines": 11,
+          "preview": "┌────────────────────────────────────────────────────────────────────────┐\n│               COMPLEMENTARY DUAL-PROBE RECONCILE ENGINE                │\n├──────────────────────────────────┬─────────────────────────────────────┤\n│   PROBE 1: PIXEL / LAYOUT DIFF   │  PROBE 2: STRUCTURAL CONTENT DIFF   │\n├──────────────────────────────────┼─────────────────────────────────────┤\n│ • Stretched/distorted images     │ • Missing / role-swapped headings   │"
         },
         {
           "title": "Blueprint 1: Multimodal Vision UI Audit Engine (`engine/visual-ui-auditor.ts`)",
@@ -14113,12 +14119,6 @@
           "language": "bash",
           "lines": 12,
           "preview": "# 1. Multi-route viewport sweep, hover pixel-diff, mobile 4x CPU + slow 4G, keyboard & reduced-motion\nnode skills/visual-ui-auditor/scripts/shoot.mjs http://localhost:4321 --out .shots --crawl --nav\n\n# 2. Structural DOM, Typography, SEO, Contrast, Perf & A11y Audit\nnode skills/visual-ui-auditor/scripts/audit.mjs http://localhost:4321 > .shots/audit.txt\n"
-        },
-        {
-          "title": "Blueprint 1: Mesin Audit UI Multimodal (`engine/visual-ui-auditor.ts`)",
-          "language": "typescript",
-          "lines": 102,
-          "preview": "import { generateObject } from 'ai';\nimport { google } from '@ai-sdk/google';\nexport const SkemaPelanggaranVisual = z.object({\n  kategori: z.enum([\n    'TOMBOL_PIL_BERLEBIHAN',\n    'BORDER_1PX_HILANG',"
         }
       ],
       "connectedSkillsCount": 12,
@@ -14678,20 +14678,27 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 11,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 4,
+      "codeBlueprintsCount": 6,
       "languagesAvailable": [
         "mermaid",
+        "json",
         "css",
         "tsx"
       ],
       "codeBlueprints": [
         {
-          "title": "5-Step URL-to-Code Reverse Engineering Methodology",
+          "title": "5-Step Enterprise Reverse Engineering & Modernization Methodology",
           "language": "mermaid",
-          "lines": 6,
-          "preview": "graph TD\n    A[\"Target URL\"] --> B[\"Phase 1: URL Inspection & DOM Scraping\"]\n    B --> C[\"Phase 2: Design Tokens & CSS Extraction\"]\n    C --> D[\"Phase 3: Component Hierarchy Breakdown\"]\n    D --> E[\"Phase 4: 1:1 Code Synthesis (Tailwind v4 + React 19)\"]\n    E --> F[\"Phase 5: Visual Verification & Polish\"]"
+          "lines": 9,
+          "preview": "graph TD\n    A[\"Target URL / Multi-Page Seed\"] --> B[\"Phase 1: Multi-Page Extraction & Brand Surface (extract)\"]\n    B --> C{\"Migration Topology Decision\"}\n    C -->|\"Keep Design (Replica)\"| D[\"Phase 2A: Replica Spec & Inconsistency Register\"]\n    C -->|\"Redesign / Modernize\"| E[\"Phase 2B: Direct Target Spec & Brand Direction\"]\n    D --> F[\"Phase 3: Clean Archetype Re-Authoring (prototype/replica)\"]"
+        },
+        {
+          "title": "The Inconsistency Register Contract (`cloner/inconsistency-register.json`)",
+          "language": "json",
+          "lines": 13,
+          "preview": "{\n  \"site\": \"https://example.com\",\n  \"inconsistencies\": [\n    {\n      \"id\": \"INC-01\",\n      \"target\": \"header > .nav-cta\","
         },
         {
           "title": "Example: Extracted Tailwind CSS v4 Theme (`tokens.css`)",
@@ -14731,7 +14738,7 @@
       "cli": "vibes skill exec website-design-cloner verify",
       "snippet": {
         "lang": "mermaid",
-        "code": "graph TD\n    A[\"Target URL\"] --> B[\"Phase 1: URL Inspection & DOM Scraping\"]\n    B --> C[\"Phase 2: Design Tokens & CSS Extraction\"]\n    C --> D[\"Phase 3: Component Hierarchy Breakdown\"]\n    D --> E[\"Phase 4: 1:1 Code Synthesis (Tailwind v4 + React 19)\"]\n    E --> F[\"Phase 5: Visual Verification & Polish\"]"
+        "code": "graph TD\n    A[\"Target URL / Multi-Page Seed\"] --> B[\"Phase 1: Multi-Page Extraction & Brand Surface (extract)\"]\n    B --> C{\"Migration Topology Decision\"}\n    C -->|\"Keep Design (Replica)\"| D[\"Phase 2A: Replica Spec & Inconsistency Register\"]\n    C -->|\"Redesign / Modernize\"| E[\"Phase 2B: Direct Target Spec & Brand Direction\"]\n    D --> F[\"Phase 3: Clean Archetype Re-Authoring (prototype/replica)\"]\n    E --> F\n    F --> G[\"Phase 4: Dual-Probe Measured Gate (diff: pixel + structural)\"]\n    G --> H[\"Phase 5: Dynamic Surface Triage & Site Rollout (migrate/rollout)\"]"
       }
     },
     "webxr-ar-vr-expert": {

@@ -1189,6 +1189,8 @@ export const MCP_RESOURCES = [
   }
 ];
 
+let skillsCatalogCache = null;
+
 // JSON-RPC Transport Handler over stdio or SSE
 export async function handleRpcRequest(request) {
   const { id, method, params } = request;
@@ -1448,25 +1450,51 @@ export async function handleRpcRequest(request) {
         }
       } else if (name === 'vibes_list_skills') {
         const domainFilter = typeof args?.domain === 'string' ? args.domain.trim().toLowerCase() : '';
-        const entries = await fs.readdir(SKILLS_DIR, { withFileTypes: true });
+        const [dirStat, entries] = await Promise.all([
+          fs.stat(SKILLS_DIR),
+          fs.readdir(SKILLS_DIR, { withFileTypes: true })
+        ]);
         const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
-        const allItems = await Promise.all(
-          skillDirs.map(async (sName) => {
-            const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
-            const domain = resolveSkillAdapter(sName).domain;
-            try {
-              const raw = await fs.readFile(sPath, 'utf8');
-              const descMatch = raw.match(/description:\s*["']?([^"'\r\n]+)["']?/);
-              return {
-                name: sName,
-                domain,
-                description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
-              };
-            } catch {
-              return { name: sName, domain, description: 'Specialized AI domain skill' };
-            }
-          })
-        );
+
+        let allItems;
+        if (
+          skillsCatalogCache &&
+          skillsCatalogCache.mtimeMs === dirStat.mtimeMs &&
+          skillsCatalogCache.count === skillDirs.length
+        ) {
+          allItems = skillsCatalogCache.items;
+        } else {
+          allItems = await Promise.all(
+            skillDirs.map(async (sName) => {
+              const sPath = path.join(SKILLS_DIR, sName, 'SKILL.md');
+              const domain = resolveSkillAdapter(sName).domain;
+              try {
+                const handle = await fs.open(sPath, 'r');
+                try {
+                  const buf = Buffer.alloc(1024);
+                  const { bytesRead } = await handle.read(buf, 0, 1024, 0);
+                  const head = buf.toString('utf8', 0, bytesRead);
+                  const descMatch = head.match(/description:\s*["']?([^"'\r\n]+)["']?/);
+                  return {
+                    name: sName,
+                    domain,
+                    description: descMatch ? descMatch[1].trim() : 'Specialized AI domain skill'
+                  };
+                } finally {
+                  await handle.close();
+                }
+              } catch {
+                return { name: sName, domain, description: 'Specialized AI domain skill' };
+              }
+            })
+          );
+          skillsCatalogCache = {
+            mtimeMs: dirStat.mtimeMs,
+            count: skillDirs.length,
+            items: allItems
+          };
+        }
+
         const list = domainFilter
           ? allItems.filter(item => item.domain.toLowerCase().includes(domainFilter))
           : allItems;
@@ -1657,7 +1685,7 @@ export async function handleRpcRequest(request) {
       } else if (name === 'vibes_run_benchmark') {
         const save = args?.save !== false;
         const { runBenchmarkSuite } = await import('../scripts/benchmark-suite.mjs');
-        const outcome = await runBenchmarkSuite({ json: true, save });
+        const outcome = await runBenchmarkSuite({ json: true, quiet: true, save });
         contentText = JSON.stringify(outcome, null, 2);
       } else if (name === 'vibes_git_hooks') {
         const action = args?.action || 'status';

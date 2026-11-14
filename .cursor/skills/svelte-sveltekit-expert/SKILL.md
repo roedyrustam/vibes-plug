@@ -2,7 +2,7 @@
 name: svelte-sveltekit-expert
 description: "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -189,11 +189,9 @@ async function fetchLiveMetrics() {
   let { data, form } = $props();
 
   let isSubmitting = $state(false);
-  let optimisticTasks = $state([...data.tasks]);
-
-  $effect(() => {
-    optimisticTasks = [...data.tasks];
-  });
+  // Svelte 5 Idiomatic: Avoid $effect syncing; derive combined view from server data + pending optimistic updates
+  let pendingTasks = $state<Array<{ id: string; title: string; completed: boolean }>>([]);
+  let allTasks = $derived([...pendingTasks, ...data.tasks]);
 </script>
 
 <div class="max-w-xl mx-auto py-8 space-y-6">
@@ -210,11 +208,12 @@ async function fetchLiveMetrics() {
       }
 
       isSubmitting = true;
-      // Optimistic update
-      optimisticTasks = [{ id: `temp-${Date.now()}`, title, completed: false }, ...optimisticTasks];
+      const optimisticTask = { id: `temp-${Date.now()}`, title, completed: false };
+      pendingTasks = [optimisticTask, ...pendingTasks];
 
       return async ({ update }) => {
         isSubmitting = false;
+        pendingTasks = pendingTasks.filter((t) => t.id !== optimisticTask.id);
         await update();
       };
     }}
@@ -241,7 +240,7 @@ async function fetchLiveMetrics() {
   {/if}
 
   <ul class="divide-y divide-border border rounded-xl bg-card">
-    {#each optimisticTasks as task (task.id)}
+    {#each allTasks as task (task.id)}
       <li class="p-3 text-sm flex items-center justify-between">
         <span>{task.title}</span>
         {#if task.id.startsWith('temp-')}
@@ -264,6 +263,45 @@ async function fetchLiveMetrics() {
   {/await}
 </div>
 ```
+
+#### Pattern 5: Universal Reactive State Class (`.svelte.ts`) with Svelte 5 Runes
+```typescript
+// src/lib/state/session.svelte.ts — Shared fine-grained state module
+export interface UserSessionProfile {
+  id: string;
+  email: string;
+  role: 'admin' | 'member' | 'guest';
+}
+
+export class SessionStore {
+  // Svelte 5 class field runes
+  profile = $state<UserSessionProfile | null>(null);
+  lastHeartbeat = $state<number>(Date.now());
+
+  // Derived getters update reactively across any component
+  isAuthenticated = $derived(this.profile !== null);
+  isAdmin = $derived(this.profile?.role === 'admin');
+
+  setProfile(user: UserSessionProfile) {
+    this.profile = user;
+    this.lastHeartbeat = Date.now();
+  }
+
+  logout() {
+    this.profile = null;
+  }
+}
+
+export const sessionStore = new SessionStore();
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero `$effect` for Deriving or Synchronizing Prop State**:
+   - Never use `$effect` to copy `$props` into `$state`. Derive computed views using `$derived` or track pending mutations in an isolated state array.
+2. **Strict Svelte 5 Runes Compliance**:
+   - Modern components MUST use `$state`, `$derived`, `$props`, and `$bindable`. Ban legacy Svelte 4 `export let`, `let x = 0`, and `$: double = x * 2` reactive declarations.
+3. **Mandatory Tabular Numerals on Metrics**:
+   - All numerical cards, uptime stats, and metrics MUST declare `tabular-nums` for stable visual layout.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

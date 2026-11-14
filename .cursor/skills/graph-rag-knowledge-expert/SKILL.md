@@ -2,7 +2,7 @@
 name: graph-rag-knowledge-expert
 description: "Knowledge Graphs, GraphRAG, Neo4j, and multi-hop relational search / Knowledge Graph, GraphRAG, Neo4j, dan pencarian relasional multi-hop."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -196,6 +196,120 @@ For high-level summaries ("Summarize all technical debts reported across the sys
 2. **Clustering**: Apply **Leiden Algorithm** to detect hierarchical communities (Level 0: Micro, Level 1: Sub-domain, Level 2: Macro domain).
 3. **Summarization**: LLM generates pre-computed summaries for each community cluster.
 4. **Global Search**: Query runs across pre-computed community summaries in parallel, eliminating the need to read millions of tokens at inference time.
+
+---
+
+## 5. Production Recipe: Deterministic Read-Only Cypher Firewall & Hop Limiter (TypeScript)
+
+Never trust LLM prompt instructions alone to prevent graph mutations or unbounded Cartesian traversals. Enforce a deterministic pre-execution Cypher validator and tenant filter injection:
+
+```typescript
+// src/lib/graph/cypher-firewall.ts
+const FORBIDDEN_CYPHER_MUTATIONS =
+  /\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|LOAD\s+CSV|CALL\s+dbms|CALL\s+apoc\.periodic)\b/i;
+
+const UNBOUNDED_STAR_HOP = /\[\s*[a-zA-Z0-9_]*\s*\*\s*\]/;
+
+export interface ValidatedCypherQuery {
+  readonly cypher: string;
+  readonly params: Record<string, unknown>;
+}
+
+export function assertReadOnlyTenantCypher(
+  rawCypher: string,
+  tenantId: string,
+  maxRows = 50
+): ValidatedCypherQuery {
+  const cleaned = rawCypher.trim().replace(/^```(?:cypher)?|```$/gi, '').trim();
+
+  if (!cleaned) {
+    throw new Error('CYPHER_FIREWALL_REJECTED: Empty Cypher query.');
+  }
+  if (FORBIDDEN_CYPHER_MUTATIONS.test(cleaned)) {
+    throw new Error('CYPHER_FIREWALL_REJECTED: Mutating or administrative Cypher clause detected.');
+  }
+  if (UNBOUNDED_STAR_HOP.test(cleaned)) {
+    throw new Error('CYPHER_FIREWALL_REJECTED: Unbounded variable-length path [*] is prohibited; cap hops to [*1..3].');
+  }
+  if (!cleaned.includes('$tenantId')) {
+    throw new Error('CYPHER_FIREWALL_REJECTED: Query must bind $tenantId for multi-tenant subgraph isolation.');
+  }
+
+  const hasLimit = /\bLIMIT\s+\d+/i.test(cleaned);
+  const boundedCypher = hasLimit ? cleaned : `${cleaned}\nLIMIT ${maxRows}`;
+
+  return {
+    cypher: boundedCypher,
+    params: { tenantId },
+  };
+}
+```
+
+---
+
+## 6. Production Recipe: Hybrid Vector + 2-Hop Subgraph Context Assembler (TypeScript)
+
+Combine top-K vector chunk hits with their 2-hop knowledge graph neighborhood under a strict token budget:
+
+```typescript
+// src/lib/graph/hybrid-subgraph-assembler.ts
+export interface GraphEdgeFact {
+  readonly source: string;
+  readonly relation: string;
+  readonly target: string;
+  readonly weight: number;
+}
+
+export interface VectorChunkHit {
+  readonly chunkId: string;
+  readonly text: string;
+  readonly similarity: number;
+}
+
+export function assembleGraphRagContextWindow(
+  chunks: readonly VectorChunkHit[],
+  edges: readonly GraphEdgeFact[],
+  maxCharBudget = 12000
+): { contextMarkdown: string; includedChunks: number; includedEdges: number } {
+  const sortedEdges = [...edges].sort((a, b) => b.weight - a.weight);
+  const sortedChunks = [...chunks].sort((a, b) => b.similarity - a.similarity);
+
+  const lines: string[] = ['### Knowledge Graph Relational Facts'];
+  let usedChars = lines[0].length;
+  let includedEdges = 0;
+
+  for (const edge of sortedEdges) {
+    const factLine = `- (${edge.source}) -[${edge.relation} (w=${edge.weight.toFixed(2)})]-> (${edge.target})`;
+    if (usedChars + factLine.length > maxCharBudget * 0.45) break;
+    lines.push(factLine);
+    usedChars += factLine.length + 1;
+    includedEdges++;
+  }
+
+  lines.push('\n### Grounded Document Chunks');
+  let includedChunks = 0;
+
+  for (const chunk of sortedChunks) {
+    const block = `[Chunk ${chunk.chunkId} | sim=${chunk.similarity.toFixed(3)}]: ${chunk.text}`;
+    if (usedChars + block.length > maxCharBudget) break;
+    lines.push(block);
+    usedChars += block.length + 1;
+    includedChunks++;
+  }
+
+  return {
+    contextMarkdown: lines.join('\n'),
+    includedChunks,
+    includedEdges,
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Deterministic Read-Only Cypher Firewall**: Every LLM-generated Text2Cypher query must pass a deterministic regex/AST firewall rejecting `CREATE`, `MERGE`, `DELETE`, `DETACH`, `SET`, `REMOVE`, and `DROP` before reaching `session.run()`, in addition to `neo4j.session.READ`.
+- **Bounded Multi-Hop Traversal Depth**: Prohibit unbounded variable-length patterns (`-[*]->`); explicitly cap traversal depth to `[*1..3]` and enforce a hard `LIMIT` clause (`<= 100` records).
+- **Tenant Subgraph Isolation**: Every multi-tenant GraphRAG query must parameterize and filter nodes/edges by `$tenantId` to prevent cross-tenant knowledge graph leakage.
+- **Canonical Entity Resolution**: Normalize extracted entity names (uppercase/trimmed + embedding cosine similarity deduplication) before upserting nodes to prevent fragmented duplicate vertices.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

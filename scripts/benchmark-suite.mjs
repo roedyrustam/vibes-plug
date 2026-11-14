@@ -67,7 +67,7 @@ export async function runBenchmarkSuite(options = {}) {
     const times = [];
     for (let i = 0; i < runs; i++) {
       const t0 = performance.now();
-      const res = executeInSandbox(code, { timeoutMs: 200 });
+      const res = executeInSandbox(code, { timeoutMs: 1000 });
       const t1 = performance.now();
       if (!res.success) {
         throw new Error(`Sandbox benchmark failed: ${res.error}`);
@@ -243,7 +243,9 @@ export async function runBenchmarkSuite(options = {}) {
   }
 
   if (isJson) {
-    console.log(JSON.stringify(payload, null, 2));
+    if (!options.quiet) {
+      console.log(JSON.stringify(payload, null, 2));
+    }
     return payload;
   }
 

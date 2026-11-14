@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/semantic-search.mjs
- * Local Zero-Cost Semantic Embedding & Hybrid Vector Engine (v4.7.0)
+ * Local Zero-Cost Semantic Embedding & Hybrid Vector Engine (v4.8.0)
  *
  * Provides in-process, zero-API-cost semantic code and skill search:
  * - Deterministic Subword & N-Gram TF-IDF Vector Space Embeddings (dim: 256)
@@ -115,54 +115,65 @@ export class LocalSemanticEngine {
     // 1. Ingest Skills
     try {
       const skillEntries = await fs.readdir(skillsDir, { withFileTypes: true });
-      for (const entry of skillEntries) {
-        if (!entry.isDirectory()) continue;
-        const skillFile = path.join(skillsDir, entry.name, 'SKILL.md');
-        try {
-          const content = await fs.readFile(skillFile, 'utf8');
-          const titleMatch = content.match(/name:\s*([^\n\r]+)/);
-          const descMatch = content.match(/description:\s*([^\n\r]+)/);
-          const name = titleMatch ? titleMatch[1].trim() : entry.name;
-          const desc = descMatch ? descMatch[1].trim() : '';
+      const skillDocs = await Promise.all(
+        skillEntries
+          .filter(entry => entry.isDirectory())
+          .map(async (entry) => {
+            const skillFile = path.join(skillsDir, entry.name, 'SKILL.md');
+            try {
+              const content = await fs.readFile(skillFile, 'utf8');
+              const titleMatch = content.match(/name:\s*([^\n\r]+)/);
+              const descMatch = content.match(/description:\s*([^\n\r]+)/);
+              const name = titleMatch ? titleMatch[1].trim() : entry.name;
+              const desc = descMatch ? descMatch[1].trim() : '';
 
-          docs.push({
-            id: `skill:${name}`,
-            type: 'skill',
-            title: name,
-            description: desc,
-            text: `${name} ${desc} ${content.slice(0, 1500)}`,
-            path: path.relative(this.baseDir, skillFile).replace(/\\/g, '/')
-          });
-        } catch {
-          // Skip unreadable files
-        }
-      }
-    } catch {
+              return {
+                id: `skill:${name}`,
+                type: 'skill',
+                title: name,
+                description: desc,
+                text: `${name} ${desc} ${content.slice(0, 1500)}`,
+                path: path.relative(this.baseDir, skillFile).replace(/\\/g, '/')
+              };
+            } catch (err) {
+              void err;
+              return null;
+            }
+          })
+      );
+      docs.push(...skillDocs.filter(Boolean));
+    } catch (err) {
       // Skills directory optional
+      void err;
     }
 
     // 2. Ingest Key Code Scripts
     const scriptsDir = path.join(this.baseDir, 'scripts');
     try {
       const scriptEntries = await fs.readdir(scriptsDir);
-      for (const f of scriptEntries) {
-        if (!f.endsWith('.mjs') && !f.endsWith('.js')) continue;
-        const scriptPath = path.join(scriptsDir, f);
-        try {
-          const content = await fs.readFile(scriptPath, 'utf8');
-          docs.push({
-            id: `script:${f}`,
-            type: 'code',
-            title: f,
-            description: `Engine script ${f}`,
-            text: `${f} ${content.slice(0, 2000)}`,
-            path: path.relative(this.baseDir, scriptPath).replace(/\\/g, '/')
-          });
-        } catch (err) {
-          // Ignore unreadable or binary script files during semantic indexing
-          void err;
-        }
-      }
+      const scriptDocs = await Promise.all(
+        scriptEntries
+          .filter(f => f.endsWith('.mjs') || f.endsWith('.js'))
+          .map(async (f) => {
+            const scriptPath = path.join(scriptsDir, f);
+            try {
+              const content = await fs.readFile(scriptPath, 'utf8');
+              return {
+                id: `script:${f}`,
+                type: 'code',
+                title: f,
+                description: `Engine script ${f}`,
+                text: `${f} ${content.slice(0, 2000)}`,
+                path: path.relative(this.baseDir, scriptPath).replace(/\\/g, '/')
+              };
+            } catch (err) {
+              // Ignore unreadable or binary script files during semantic indexing
+              void err;
+              return null;
+            }
+          })
+      );
+      docs.push(...scriptDocs.filter(Boolean));
     } catch (err) {
       // Scripts directory is optional in non-standard workspaces
       void err;

@@ -2,7 +2,7 @@
 name: doku-payment-gateway
 description: "DOKU payment gateway: Checkout, SNAP BI (VA, QRIS), and webhooks / Gateway pembayaran DOKU: Checkout, SNAP BI (VA, QRIS), dan webhook."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -91,7 +91,7 @@ Content-Type: application/json
    ```
 2. **Assemble Component String**:
    ```text
-   Client-Id:<client-id>\nRequest-Id:<request-id>\nRequest-Timestamp:<timestamp>\nRequest-Target:<request-target>\nDigest:<digest>
+   Client-Id:{client_id}\nRequest-Id:{request_id}\nRequest-Timestamp:{timestamp}\nRequest-Target:{request_target}\nDigest:{digest}
    ```
 3. **Calculate HMAC-SHA256**:
    ```typescript
@@ -226,7 +226,7 @@ The Check Status API tracks order-level statuses even before the customer select
 - **Endpoint**: `GET https://api-sandbox.doku.com/orders/v1/status/{invoice_number}`
 - **Signature for GET**: Does NOT require a Digest.
   ```text
-  Client-Id:<client-id>\nRequest-Id:<request-id>\nRequest-Timestamp:<timestamp>\nRequest-Target:/orders/v1/status/<invoice_number>
+  Client-Id:{client_id}\nRequest-Id:{request_id}\nRequest-Timestamp:{timestamp}\nRequest-Target:/orders/v1/status/{invoice_number}
   ```
 - **Statuses**:
   - `order.status`: `ORDER_GENERATED`, `ORDER_EXPIRED`, `ORDER_RECOVERED`.
@@ -247,14 +247,21 @@ export function verifyDokuCheckoutNotification(
   secretKey: string,
   requestTarget: string, // path of your notification endpoint e.g., '/api/webhooks/doku/checkout'
   headers: Record<string, string>,
-  rawBody: string
+  rawBody: string,
+  maxClockSkewSeconds = 300
 ): boolean {
   const reqClientId = headers['client-id'];
   const reqId = headers['request-id'];
   const reqTimestamp = headers['request-timestamp'];
   const receivedSig = headers['signature'] || '';
 
-  if (reqClientId !== clientId) return false;
+  if (reqClientId !== clientId || !reqId || !reqTimestamp) return false;
+
+  // Enforce 300-second replay window on Request-Timestamp
+  const parsedTimeMs = Date.parse(reqTimestamp);
+  if (Number.isNaN(parsedTimeMs) || Math.abs(Date.now() - parsedTimeMs) > maxClockSkewSeconds * 1000) {
+    return false;
+  }
 
   // 1. Compute Base64 SHA-256 Digest of raw body
   const digest = crypto.createHash('sha256').update(rawBody, 'utf8').digest('base64');
@@ -262,10 +269,12 @@ export function verifyDokuCheckoutNotification(
   // 2. Build string component
   const component = `Client-Id:${reqClientId}\nRequest-Id:${reqId}\nRequest-Timestamp:${reqTimestamp}\nRequest-Target:${requestTarget}\nDigest:${digest}`;
 
-  // 3. Compute HMAC-SHA256
+  // 3. Compute HMAC-SHA256 & compare in constant time with byte-length guard
   const expectedSig = 'HMACSHA256=' + crypto.createHmac('sha256', secretKey).update(component, 'utf8').digest('base64');
+  const receivedBuf = Buffer.from(receivedSig, 'utf8');
+  const expectedBuf = Buffer.from(expectedSig, 'utf8');
 
-  return crypto.timingSafeEqual(Buffer.from(receivedSig), Buffer.from(expectedSig));
+  return receivedBuf.byteLength === expectedBuf.byteLength && crypto.timingSafeEqual(receivedBuf, expectedBuf);
 }
 ```
 
@@ -362,7 +371,7 @@ Initiates an instant push payment notification directly to customer's OVO mobile
     "client": { "id": "MCH-0001-10791114622547" },
     "order": { "invoice_number": "INV-20261003-0002", "amount": 50000 },
     "ovo_info": { "ovo_id": "081234567890" },
-    "security": { "check_sum": "<sha256_checksum>" }
+    "security": { "check_sum": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" }
   }
   ```
 - **Checksum Calculation**:
@@ -540,6 +549,65 @@ export class DokuService {
 | Inverting `Request-Target` in Webhook | Signature validation fails | For incoming webhooks, `Request-Target` is the merchant's endpoint path (e.g., `/api/webhooks/doku/checkout`). |
 | OVO Push timeout too short | premature failure | OVO push payments require up to **70 seconds** client timeout while the user confirms on mobile. |
 | Non-atomic database updates | Race condition double top-up | Always guard webhook fulfillments with atomic SQL updates (`WHERE status = 'PENDING'`). |
+
+### Atomic PostgreSQL Settlement & Idempotent Webhook State Machine
+
+Guarantee exactly-once order fulfillment on DOKU Checkout or SNAP BI webhooks by combining `X-EXTERNAL-ID` / `Request-Id` deduplication with a conditional SQL state transition (`WHERE status = 'PENDING'`):
+
+```typescript
+export interface PgTransactionClient {
+  query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<{ rows: T[]; rowCount: number }>;
+}
+
+export async function settleDokuPaymentAtomically(
+  tx: PgTransactionClient,
+  params: {
+    requestId: string;
+    invoiceNumber: string;
+    paidAmountIdr: number;
+    channelCode: string;
+  }
+): Promise<{ settled: boolean; reason: 'SETTLED' | 'DUPLICATE_WEBHOOK' | 'AMOUNT_MISMATCH' | 'ALREADY_FINALIZED' }> {
+  // 1. Deduplicate by Request-Id / X-EXTERNAL-ID
+  const dedup = await tx.query(
+    `INSERT INTO doku_webhook_events (request_id, invoice_number, received_at)
+     VALUES ($1, $2, NOW())
+     ON CONFLICT (request_id) DO NOTHING`,
+    [params.requestId, params.invoiceNumber]
+  );
+
+  if (dedup.rowCount === 0) {
+    return { settled: false, reason: 'DUPLICATE_WEBHOOK' };
+  }
+
+  // 2. Conditional atomic transition: only PENDING orders with exact IDR amount can settle
+  const updated = await tx.query<{ id: string }>(
+    `UPDATE payment_orders
+     SET status = 'SUCCESS',
+         channel_code = $3,
+         settled_at = NOW(),
+         updated_at = NOW()
+     WHERE invoice_number = $1
+       AND amount_idr = $2
+       AND status = 'PENDING'
+     RETURNING id`,
+    [params.invoiceNumber, params.paidAmountIdr, params.channelCode]
+  );
+
+  if (updated.rowCount === 0) {
+    return { settled: false, reason: 'ALREADY_FINALIZED' };
+  }
+
+  return { settled: true, reason: 'SETTLED' };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Strict Protocol Signature Separation**: MUST use `HMAC-SHA256` with Base64 SHA-256 `Digest` for Non-SNAP DOKU Checkout (`Signature: HMACSHA256=...`) and `RSA-SHA256` (B2B token) + `HMAC-SHA512` with lowercase hex SHA-256 body hash for SNAP BI Direct APIs.
+- **Byte-Length Guarded Constant-Time Verification**: MUST check `receivedBuf.byteLength === expectedBuf.byteLength` before invoking `crypto.timingSafeEqual` on webhook signatures to avoid `RangeError` exceptions.
+- **ISO-8601 UTC Timestamp & Replay Window (`<= 300s`)**: MUST format `Request-Timestamp` / `X-TIMESTAMP` in strict UTC (`YYYY-MM-DDTHH:mm:ssZ`) without milliseconds and reject incoming webhooks older than `300` seconds.
+- **Unique `X-EXTERNAL-ID` & Atomic Settlement**: MUST generate a unique `X-EXTERNAL-ID` / `Request-Id` per request and guard order fulfillment with an atomic `WHERE status = 'PENDING' AND amount_idr = $2` database transition.
+- **Mandatory `CHANNEL-ID: H2H` on SNAP BI**: MUST include the `CHANNEL-ID: H2H` header on all SNAP BI Direct Virtual Account and QRIS transactional calls.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

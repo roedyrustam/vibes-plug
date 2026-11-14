@@ -30,7 +30,7 @@ for (const dir of dirs.sort()) {
     description = description.slice(1, -1);
   }
 
-  const version = versionMatch ? versionMatch[1].trim() : '4.7.0';
+  const version = versionMatch ? versionMatch[1].trim() : '4.8.0';
   const author = authorMatch ? authorMatch[1].trim() : 'Roedy Rustam';
 
   skills.push({ name, description, version, author });
@@ -45,7 +45,7 @@ const catalogJson = {
 fs.writeFileSync(path.join(PLUGIN_ROOT, 'CATALOG.json'), JSON.stringify(catalogJson, null, 2) + '\n', 'utf8');
 console.log('✅ Updated CATALOG.json');
 
-let catalogMd = `# Vibes-Plug Skills Catalog (${skills.length} Skills)\n\n*Universal AI Agent Swarm Architecture (v4.7.0)*\n\n| Skill Name | Version | Description |\n| :--- | :---: | :--- |\n`;
+let catalogMd = `# Vibes-Plug Skills Catalog (${skills.length} Skills)\n\n*Universal AI Agent Swarm Architecture (v4.8.0)*\n\n| Skill Name | Version | Description |\n| :--- | :---: | :--- |\n`;
 
 for (const s of skills) {
   const safeDesc = s.description.replace(/\\/g, '\\\\').replace(/\|/g, '\\|');

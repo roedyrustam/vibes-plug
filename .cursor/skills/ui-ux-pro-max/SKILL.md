@@ -2,7 +2,7 @@
 name: ui-ux-pro-max
 description: "Comprehensive UI/UX design guide and BM25 search engine for 11 stacks / Panduan desain UI/UX komprehensif dan mesin pencari BM25 11 stack."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # UI/UX Pro Max - Design Intelligence System
@@ -350,6 +350,111 @@ The UI/UX tier of vibes-plug strictly eliminates generic AI visual slop and inco
 6. **Domain-Authentic Content (No Lorem Ipsum Slop)**:
    - 🔴 **Forbidden**: Filling UI mockups with "Lorem ipsum dolor sit amet", "John Doe", "Jane Doe", or dummy placeholder avatars.
    - ✅ **Standard**: Use realistic, contextual domain content matching the business use-case (real currency, realistic timestamps, localized names, authentic domain terms).
+
+---
+
+### Section 10: Awwwards Site-of-the-Day (SOTD) Creative Direction & Concept Engine
+
+When building flagship marketing sites, studios, portfolios, product launches, or interactive stories, a visual style alone is never enough. Apply the **Concept-First SOTD Engine**:
+
+#### 1. The 5-Territory Concept Method & Portability Test
+A **concept** is a rule system borrowed from a real-world domain—not an aesthetic adjective ("brutalist", "minimalist"). Mine the subject across 5 territories:
+1. **Territory 1 — Name, Etymology & Identity**: Literal origin or structural meaning of the brand name.
+2. **Territory 2 — Material of the Profession**: Physical artifacts of the craft (e.g., architect -> Mylar sheets, scale bars, section cuts, North arrows; sound studio -> patch cables, VU meters, tape reels; printer -> registration marks, Pantone chips).
+3. **Territory 3 — Place & Culture**: Local vernacular signage, municipal forms, transit boards, or regional grids.
+4. **Territory 4 — Process Metaphor**: Frame the scroll journey as the craft's transformation process (e.g., *raw ore -> assay -> cut -> set*).
+5. **Territory 5 — Formal System**: Rule-bound structures (periodic tables, train timetables, index card catalogs, museum floor plans).
+
+**Mandatory Concept Validation Gates**:
+- **The 4-Decision Test**: Your chosen metaphor must dictate at least 4 of 5 decisions: **(1) Grid/Layout**, **(2) Motion Verb** (*snap, peel, dial, stamp, pan, develop, tune*), **(3) Typographic Voice**, **(4) Signature Interaction**, and **(5) Copy Register & Section Labels**.
+- **The Swap (Portability) Test**: Score portability from `1` (impossible to swap to another industry without breaking) to `5` (fits any company). **Reject any concept scoring > 2.**
+- **The Genericness Test**: Ask: *"If I gave a similar prompt to a generic model, would it land on this metaphor, palette, or font pair?"* If yes, discard and pick the second idea.
+
+#### 2. The 7 SOTD Art Direction Archetypes & Role-Named Palette
+Commit to one archetype (or a deliberate hybrid of two) in `DESIGN.md`:
+1. **Swiss Index**: Exposed `1px` hairlines (`--line`), tabular index numbers (`01 / 08`), strict 12-column grid, warm paper (`#F4F1EA`) + carbon ink (`#111111`) + signal vermilion (`#E03C1F`).
+2. **Gallery Dark**: Near-black obsidian (`#0B0B0C`), bone ink (`#ECE8E1`), 70%+ media viewport dominance, whisper-quiet chrome.
+3. **Field Color**: Saturated mid-tone ground (cobalt `#1B38D0`, ochre `#D89B1C`, celadon `#8FA98F`, or signal red), bold black or cream ink, zero timid neutral gray.
+4. **Editorial Modern**: High-contrast serif display + grotesque body + mono metadata, magazine drop caps, `4.2em` first-line `text-indent`, asymmetric pull quotes.
+5. **Tech Precise**: Dark graphite (`#090A0D`), `1px` technical spec borders, live interactive isometric/shader diagram, monospace telemetry readouts.
+6. **Warm Analog**: Uncoated cotton paper (`#F2ECE1`), espresso ink (`#1C1917`), tactile film grain (`0.03` opacity), physical print registration marks.
+7. **Experimental**: Spatial canvas, 3D/WebGL stage, or non-linear draggable index with a persistent escape hatch (`Index` / `List view` toggle).
+
+**Role-Named CSS Custom Properties & Global Dark-Section Ink Switch**:
+```css
+:root {
+  --ground:  #F3EFEA;
+  --ink:     #111110;
+  --muted:   #6E6A63;
+  --line:    rgba(17, 17, 16, 0.12);
+  --accent:  #D9381E;
+  --curtain: #111110;
+
+  /* Fluid 12-Column Grid & Optical Display Type Scale */
+  --cols: 12;
+  --gutter: clamp(1rem, 1.6vw, 1.75rem);
+  --pad: clamp(1.25rem, 3.5vw, 3.5rem);
+  --t-mega: clamp(3.75rem, 1rem + 13.5vw, 15.5rem);
+  --t-h1:   clamp(2.5rem, 1rem + 6.5vw, 7rem);
+  --t-h2:   clamp(1.75rem, 0.8rem + 3.2vw, 3.75rem);
+  --t-body: clamp(1rem, 0.92rem + 0.35vw, 1.2rem);
+  --t-mono: 0.75rem;
+}
+
+/* Single global switch when scroll enters a dark section — updates Four-Corner Frame & nav automatically */
+html.is-dark {
+  --ground: #0D0D0C;
+  --ink:    #F3EFEA;
+  --muted:  #8A857D;
+  --line:   rgba(243, 239, 234, 0.12);
+}
+
+.display-mega {
+  font-size: var(--t-mega);
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  margin-left: -0.06em; /* Optical left-edge alignment for capital glyphs */
+  font-kerning: normal;
+}
+
+/* Descender clearance for overflow-clipped split-text lines (prevents clipping g, j, p, q, y) */
+.split-line {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+```
+
+#### 3. Curated Free Font Library (Self-Hosted via `font.mjs`)
+Ban reflex AI fonts (*Fraunces*, *Instrument Serif*, *Playfair Display*, *Space Grotesk* on dark purple). Self-host `.woff2` via `node skills/visual-ui-auditor/scripts/font.mjs`:
+- **Fontshare (`--from fontshare`)**:
+  - *Neo-Grotesque & Sans*: `switzer`, `general-sans`, `satoshi`, `supreme`, `synonym`, `plus-jakarta-sans`
+  - *Expressive Display*: `clash-display`, `cabinet-grotesk`, `panchang`, `tanker`, `khand`, `array`
+  - *Editorial Serif*: `melodrama`, `zodiak`, `gambetta`, `erode`, `sentient`, `boska`, `gambarino`
+  - *Monospace*: `azeret-mono`, `jet-brains-mono`
+- **Google Fonts**:
+  - *Workhorse Sans*: `Inter Tight`, `Instrument Sans`, `Schibsted Grotesk`, `Host Grotesk`, `Hanken Grotesk`, `Mona Sans`, `Geist`, `Familjen Grotesk`
+  - *Display*: `Bricolage Grotesque`, `Big Shoulders Display`, `Anton`, `Unbounded`, `Syne`, `Funnel Display`, `Archivo`
+  - *Editorial Serif*: `Newsreader`, `Gloock`, `Young Serif`, `Bodoni Moda`, `Libre Caslon Display`, `Hedvig Letters Serif`, `Italiana`
+  - *Technical Mono*: `Martian Mono`, `Fragment Mono`, `IBM Plex Mono`
+
+#### 4. The 10 Section Layout Families (Maximum Once Per Page) & 390px Re-Composition
+Never repeat the same section layout back-to-back. Compose pages from 5–7 distinct families:
+1. **Poster Hero** (Full-viewport `--t-mega` bleed + 1 focal artwork + Four-Corner Frame).
+2. **Index List** (Obys-style numbered horizontal rows with `1px` `--line` hairlines, tabular metadata, and floating cursor/row preview).
+3. **Asymmetric Pair** (Cols `1..7` large slow-parallax plate vs. Cols `9..12` bottom-aligned smaller plate + caption).
+4. **Gallery Wall** (Scattered multi-aspect plates on a 12-col grid with deliberate empty columns).
+5. **Horizontal Filmstrip** (Desktop ScrollTrigger pin with live `01 / 06` counter; converts to native `overflow-x: auto; scroll-snap-type: x mandatory` on `<= 900px`).
+6. **Sticky Narrative** (4-col pinned thesis/index on left + 7-col scrolling evidence plates on right).
+7. **Editorial Statement** (Full-width typographic manifesto with `text-indent: 4.2em` and inline pill thumbnails).
+8. **Data / Spec Sheet** (Exposed `1px` hairline grid with oversize `--t-h1` `tabular-nums` figures and technical units).
+9. **Full-Bleed Media Break** (`100vw x 90vh` edge-to-edge plate or interactive shader with zero text clutter).
+10. **Footer as Finale** (Full-viewport curtain reveal with giant `--t-mega` CTA, live local clock, colophon, and magnetic trigger).
+
+**Mobile 390px Re-Composition Rules**:
+- Never squish a 12-column desktop layout into 390px. Switch to a dedicated 4-column grid at `@media (max-width: 900px)`.
+- Replace `grid-template-rows: auto 1fr auto` on mobile heroes with `auto` rows and explicit `gap` so no 300px empty hole appears mid-viewport.
+- Fold the Four-Corner Frame (`tl`, `tr`, `bl`, `br`) into top-left brand + top-right menu trigger (`min-height: 44px`).
 
 ---
 
@@ -719,6 +824,21 @@ Tingkat UI/UX vibes-plug melarang keras slop visual AI generik dan pengalaman pe
 
 ---
 
+### Bagian 10: Pengarahan Kreatif & Mesin Konsep Standar Awwwards (Site of the Day)
+Saat merancang situs flagship, studio kreatif, peluncuran produk, atau cerita interaktif, terapkan **Mesin Konsep Awwwards**:
+1. **Metode Konsep 5-Teritori & Uji Portabilitas**:
+   - Gali konsep dari 5 teritori: **(1) Etimologi & Identitas Nama**, **(2) Material Profesi Fisik** (misal: arsitek -> kertas kalkir Mylar, skala batang, potongan penampang), **(3) Tempat & Budaya Lokal**, **(4) Metafora Proses Transformasi**, atau **(5) Sistem Formal** (katalog indeks, jadwal kereta, tabel periodik).
+   - **Uji 4-Keputusan & Uji Tukar (Portabilitas <= 2/5)**: Konsep wajib menentukan tata letak grid, kata kerja gerak (*motion verb*), suara tipografi, interaksi khas, dan label seksi. Jika konsep dapat dipindahkan ke industri lain tanpa rusak, buang dan ganti.
+2. **7 Arketipe Art Direction & Palet Berbasis Peran (`ground`, `ink`, `muted`, `line`, `accent`, `curtain`)**:
+   - Pilih dari *Swiss Index*, *Gallery Dark*, *Field Color*, *Editorial Modern*, *Tech Precise*, *Warm Analog*, atau *Experimental*. Gunakan satu sakelar global `html.is-dark` saat latar berganti gelap di tengah halaman.
+3. **Pustaka Font Gratis Kurasi (`font.mjs`) & Tipografi Display Optik**:
+   - Unduh mandiri `.woff2` dari Fontshare (`clash-display`, `cabinet-grotesk`, `satoshi`, `switzer`, `zodiak`, `melodrama`, `gambetta`) atau Google Fonts (`Syne`, `Bricolage Grotesque`, `Instrument Sans`, `Schibsted Grotesk`, `Newsreader`, `Martian Mono`). Hindari font klise AI (*Fraunces*, *Instrument Serif*, *Playfair*).
+   - Terapkan `margin-left: -0.06em` untuk perataan tepi optik huruf besar dan `.split-line { padding-bottom: 0.08em; margin-bottom: -0.08em }` agar huruf berekor bawah (`g, j, p, q, y`) tidak terpotong.
+4. **10 Keluarga Layout Seksi (Maksimal 1x per Halaman) & Re-Komposisi Mobile 390px**:
+   - Kombinasikan 5–7 keluarga seksi (*Poster, Index List, Asymmetric Pair, Gallery Wall, Filmstrip, Sticky Narrative, Statement, Data/Facts, Full-Bleed Media, Footer Finale*). Pada layar `<= 900px`, ubah *horizontal pin* menjadi `overflow-x: auto; scroll-snap-type: x mandatory` native dan hindari baris `1fr` yang menyisakan lubang kosong di tengah layar.
+
+---
+
 ### Checklist Desain UI/UX Sebelum Delivery
 - [ ] **Hierarki Visual**: Skala tipografi terstruktur jelas (H1 -> H2 -> Body -> Eyebrow) dengan tracking optik (`tracking-tight` pada judul besar, `tracking-wider` pada eyebrow huruf besar).
 - [ ] **Single Focal CTA**: Hanya 1 aksi konversi utama per viewport; tombol aksi lain menggunakan varian subtle atau outline.
@@ -740,6 +860,16 @@ This generated image MUST be explicitly used as:
 3. The Open Graph (OG) image for SEO metadata (`og:image`).
 
 Do not use placeholders for these assets. Generate and integrate them automatically.
+
+### Hard Guardrails (Declarative Invariants)
+1. **The Law of the Single Focal Primary Action**:
+   - Every viewport MUST feature at most ONE prominent Primary CTA button. All secondary and tertiary actions MUST render as outline, tonal, or subtle ghost styles to eliminate choice paralysis.
+2. **Tabular Numerals on Numerical Displays (`tabular-nums`)**:
+   - All financial amounts, metric counters, timestamps, latency gauges, and live statistics MUST declare `tabular-nums` (or CSS `font-variant-numeric: tabular-nums`) to prevent layout shifts during reactive updates.
+3. **Mandatory 5-State Interactive Styling & Keyboard Accessibility**:
+   - Every interactive element (`<button>`, `<a>`, `<input>`) MUST declare 5 explicit visual states: `default`, `hover`, `focus-visible` (with high-contrast `ring-2 ring-offset-2`), `active`, and `disabled`.
+4. **Physical Surface Elevation & 1px Crisp Borders**:
+   - Container cards and surfaces MUST combine 1px crisp borders (`border-neutral-200/80 dark:border-neutral-800`) with directional micro-shadows (`shadow-xs`/`shadow-sm`). Never use generic 30px blurry black glows or unanchored floating neon orbs.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

@@ -2,7 +2,7 @@
 name: web-3d-graphics-expert
 description: "WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F / Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -367,6 +367,33 @@ For models conveying scientific, anatomical, or engineering concepts:
      });
    }
    ```
+4. **Zero-Allocation `THREE.InstancedMesh` Batch Transforms**:
+   - Pre-allocate a single module-level scratch `THREE.Object3D` dummy outside the animation loop so updating 10,000+ instances produces zero garbage-collection pauses:
+   ```typescript
+   import * as THREE from 'three/webgpu';
+
+   const scratchDummy = new THREE.Object3D();
+
+   export function updateInstancedField(
+     instancedMesh: THREE.InstancedMesh,
+     positions: Float32Array,
+     elapsedSeconds: number
+   ): void {
+     const count = instancedMesh.count;
+     for (let i = 0; i < count; i++) {
+       const base = i * 3;
+       const x = positions[base];
+       const y = positions[base + 1] + Math.sin(elapsedSeconds + i * 0.15) * 0.08;
+       const z = positions[base + 2];
+
+       scratchDummy.position.set(x, y, z);
+       scratchDummy.rotation.set(0, elapsedSeconds * 0.25, 0);
+       scratchDummy.updateMatrix();
+       instancedMesh.setMatrixAt(i, scratchDummy.matrix);
+     }
+     instancedMesh.instanceMatrix.needsUpdate = true;
+   }
+   ```
 
 ---
 
@@ -390,6 +417,177 @@ Evaluate every 3D scene against this checklist before completion:
 - [ ] **14. Collider Fidelity**: Do collision envelopes enclose actual geometry (including overhangs and wings)?
 - [ ] **15. Truthful Controls**: Do sliders, toggles, and resets accurately change the modeled state and restore initial values?
 - [ ] **16. Grounded Scientific Claims**: Are anatomical, chemical, or physical models grounded in verified references?
+
+---
+
+## 8. Shared-Canvas DOM-Synced WebGL Planes (`OGL` + `data-gl`)
+
+For editorial, studio, and Awwwards-grade sites, never spawn multiple WebGL contexts per page (browsers cap active contexts at 8–16) and never trap content inside WebGL where SEO, screen readers, and right-click break. Instead, use **One Shared `#gl` Canvas (`z-index: 0`)** behind `<main>` (`z-index: 1`) paired with DOM `<figure data-gl>` elements whose `<img>` stays in the DOM at `opacity: 0` once texture upload succeeds:
+
+```typescript
+// src/engine/gl/index.ts — Shared OGL Canvas + DOM-Synced Planes on gsap.ticker
+import { Renderer, Camera, Transform, Plane, Mesh, Program, Texture, Vec2 } from 'ogl';
+import { registerGLTick, env } from '../index';
+
+const VERT = /* glsl */ `
+  attribute vec3 position;
+  attribute vec2 uv;
+  uniform mat4 modelViewMatrix;
+  uniform mat4 projectionMatrix;
+  uniform float uVelocity;
+  uniform float uHover;
+  uniform vec2 uMouse;
+  varying vec2 vUv;
+
+  void main() {
+    vUv = uv;
+    vec3 pos = position;
+    // Scroll velocity wave bend + subtle pointer push
+    float wave = sin(uv.x * 3.14159265) * clamp(uVelocity * 0.0018, -0.18, 0.18);
+    float dist = distance(uv, uMouse);
+    pos.y += wave;
+    pos.z += smoothstep(0.45, 0.0, dist) * uHover * 0.08;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+  }
+`;
+
+const FRAG = /* glsl */ `
+  precision highp float;
+  uniform sampler2D tMap;
+  uniform vec2 uImageSizes;
+  uniform vec2 uPlaneSizes;
+  uniform float uHover;
+  uniform float uVelocity;
+  uniform vec2 uMouse;
+  varying vec2 vUv;
+
+  vec2 coverUv(vec2 uv, vec2 planeSize, vec2 imageSize) {
+    vec2 ratio = vec2(
+      min((planeSize.x / planeSize.y) / (imageSize.x / imageSize.y), 1.0),
+      min((planeSize.y / planeSize.x) / (imageSize.y / imageSize.x), 1.0)
+    );
+    return vec2(
+      uv.x * ratio.x + (1.0 - ratio.x) * 0.5,
+      uv.y * ratio.y + (1.0 - ratio.y) * 0.5
+    );
+  }
+
+  void main() {
+    vec2 uv = coverUv(vUv, uPlaneSizes, uImageSizes);
+    // Subtle zoom + RGB chromatic split proportional to velocity & hover
+    uv = (uv - 0.5) * (1.0 - 0.04 * uHover) + 0.5;
+    float shift = (abs(uVelocity) * 0.00015 + uHover * 0.0035);
+    float r = texture2D(tMap, uv + vec2(shift, 0.0)).r;
+    float g = texture2D(tMap, uv).g;
+    float b = texture2D(tMap, uv - vec2(shift, 0.0)).b;
+    gl_FragColor = vec4(r, g, b, 1.0);
+  }
+`;
+
+interface SyncedPlane {
+  el: HTMLElement;
+  mesh: Mesh;
+  program: Program;
+}
+
+export function mountSharedGL(canvas: HTMLCanvasElement): () => void {
+  if (env.reduced || env.coarse) return () => undefined;
+
+  const renderer = new Renderer({
+    canvas,
+    alpha: true,
+    antialias: false,
+    dpr: Math.min(window.devicePixelRatio, 2),
+  });
+  const gl = renderer.gl;
+  const camera = new Camera(gl, { fov: 45 });
+  camera.position.z = 5;
+  const scene = new Transform();
+  const geometry = new Plane(gl, { widthSegments: 24, heightSegments: 24 });
+  const planes: SyncedPlane[] = [];
+
+  let vpWidth = window.innerWidth;
+  let vpHeight = window.innerHeight;
+  let fovHeight = 2 * Math.tan((camera.fov * Math.PI) / 360) * camera.position.z;
+  let fovWidth = fovHeight * camera.aspect;
+
+  const onResize = () => {
+    vpWidth = window.innerWidth;
+    vpHeight = window.innerHeight;
+    renderer.setSize(vpWidth, vpHeight);
+    camera.perspective({ aspect: vpWidth / vpHeight });
+    fovHeight = 2 * Math.tan((camera.fov * Math.PI) / 360) * camera.position.z;
+    fovWidth = fovHeight * camera.aspect;
+  };
+  onResize();
+  window.addEventListener('resize', onResize);
+
+  document.documentElement.classList.add('gl-on');
+
+  document.querySelectorAll<HTMLElement>('[data-gl]').forEach((el) => {
+    const img = el.querySelector<HTMLImageElement>('img');
+    if (!img) return;
+    const texture = new Texture(gl, { generateMipmaps: false });
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+    image.src = img.currentSrc || img.src;
+    image.onload = () => {
+      texture.image = image;
+      program.uniforms.uImageSizes.value.set(image.naturalWidth, image.naturalHeight);
+      img.style.opacity = '0';
+    };
+
+    const program = new Program(gl, {
+      vertex: VERT,
+      fragment: FRAG,
+      uniforms: {
+        tMap: { value: texture },
+        uImageSizes: { value: new Vec2(1, 1) },
+        uPlaneSizes: { value: new Vec2(1, 1) },
+        uVelocity: { value: 0 },
+        uHover: { value: 0 },
+        uMouse: { value: new Vec2(0.5, 0.5) },
+      },
+      transparent: true,
+    });
+
+    const mesh = new Mesh(gl, { geometry, program });
+    mesh.setParent(scene);
+    planes.push({ el, mesh, program });
+  });
+
+  registerGLTick((_time, velocity) => {
+    for (const p of planes) {
+      const rect = p.el.getBoundingClientRect();
+      p.mesh.scale.x = (fovWidth * rect.width) / vpWidth;
+      p.mesh.scale.y = (fovHeight * rect.height) / vpHeight;
+      p.mesh.position.x = fovWidth * ((rect.left + rect.width / 2) / vpWidth - 0.5);
+      p.mesh.position.y = fovHeight * (0.5 - (rect.top + rect.height / 2) / vpHeight);
+      p.program.uniforms.uPlaneSizes.value.set(rect.width, rect.height);
+      p.program.uniforms.uVelocity.value = velocity;
+    }
+    renderer.render({ scene, camera });
+  });
+
+  return () => {
+    registerGLTick(null);
+    window.removeEventListener('resize', onResize);
+    document.documentElement.classList.remove('gl-on');
+  };
+}
+```
+
+> **Critical CSS Invariant (`glHidden` Prevention)**: When `.gl-on` is active on `<html>`, any opaque `background` on `<figure data-gl>` will cover the `#gl` canvas behind it (`z-index: 0`). Always include:
+> ```css
+> html.gl-on [data-gl] { background: none !important; }
+> ```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Per-Frame Object Allocations in Render Loops**: MUST pre-allocate reusable scratch `THREE.Vector3`, `THREE.Matrix4`, `THREE.Quaternion`, and `THREE.Color` instances outside `setAnimationLoop` / `useFrame` to prevent GC frame stutters.
+- **Bounded Device Pixel Ratio (`dpr <= 2`)**: MUST cap pixel ratio via `renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))` or `<Canvas dpr={[1, 2]}>` so 3x/4x mobile screens do not exhaust fill-rate and VRAM.
+- **Explicit GPU Resource Disposal on Unmount**: MUST traverse unmounted scene subtrees and call `.dispose()` on every `BufferGeometry`, `Material`, `Texture`, and `RenderTarget`.
+- **Fixed-Timestep Physics Decoupling**: MUST advance physics simulations using a fixed-timestep accumulator (`1 / 60` s with clamped `Math.min(frameDelta, 0.1)`) rather than passing raw variable `frameDelta` directly to `physicsWorld.step()`.
+- **Single Shared WebGL/WebGPU Context per Page**: MUST reuse a single `<canvas>` context across DOM-synced viewports (`data-gl` / `View`scissor) and respect `prefers-reduced-motion: reduce`.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -594,6 +792,13 @@ Saat merancang figur penjelasan teknis (*Standar Anatomi*), shader 3D tidak bole
 - [ ] **14. Akurasi Batas Collider**: Apakah collider fisik mencakup seluruh bentuk visual (termasuk atap dan sayap)?
 - [ ] **15. Kontrol & Reset Jujur**: Apakah slider dan tombol reset benar-benar mengubah state model dan mengembalikan nilai awal?
 - [ ] **16. Kebenaran Klaim Ilmiah**: Apakah model ilmiah/teknis berakar pada referensi yang terverifikasi?
+
+---
+
+## 7. Plane WebGL Tersinkronisasi DOM pada Kanvas Bersama (`OGL` + `data-gl`)
+Untuk situs editorial, studio kreatif, dan standar Awwwards, jangan pernah membuat banyak konteks WebGL terpisah (browser membatasi 8–16 konteks) atau menyembunyikan gambar di luar DOM. Gunakan **Satu Kanvas `#gl` Bersama (`z-index: 0`)** di belakang `<main>` yang menyinkronkan `<figure data-gl>` menggunakan `getBoundingClientRect()` di atas `gsap.ticker`:
+1. **SEO, Aksesibilitas & LCP Utuh**: Tag `<img alt="...">` tetap berada di dalam DOM dan baru diubah ke `opacity: 0` setelah tekstur GPU selesai dimuat. Pada perangkat mobile (`pointer: coarse`) atau `prefers-reduced-motion`, kanvas `#gl` dilewati sehingga `<img>` tampil secara native.
+2. **Pencegahan Bug `glHidden`**: Saat `html.gl-on` aktif, wajib terapkan `html.gl-on [data-gl] { background: none !important; }` agar warna latar kontainer placeholder tidak menutupi plane WebGL di belakangnya (`glHidden.length === 0`).
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

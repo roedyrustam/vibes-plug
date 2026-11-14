@@ -17,26 +17,34 @@ async function auditGraph() {
     outDegree[skill] = 0;
   }
 
-  for (const skill of allSkills) {
-    const filePath = path.join(SKILLS_DIR, skill, 'SKILL.md');
-    try {
-      const content = await fs.readFile(filePath, 'utf8');
-      const orchMatch = content.match(/(?:##|###|####)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###|####)\s|$)/i);
-      if (orchMatch) {
-        const refs = Array.from(orchMatch[0].matchAll(/`([a-z0-9_-]+)`/g)).map(m => m[1]);
-        const uniqueRefs = [...new Set(refs)].filter(r => r !== skill);
-        outDegree[skill] = uniqueRefs.length;
-        for (const ref of uniqueRefs) {
-          if (allSkills.has(ref)) {
-            inDegree[ref] = (inDegree[ref] || 0) + 1;
-            totalEdges++;
-          } else if (ref.includes('-') && !['utf-8', 'iso-8859-1', 'x-api-key', 'modern-web-guidance', 'vibes-plug', 'tabular-nums', 'quality-guardian', '--color-surface-card', '--color-border', 'x-trace-id', 'max-w-prose'].includes(ref)) {
-            broken.push({ skill, missingRef: ref });
-          }
+  const skillResults = await Promise.all(
+    [...allSkills].map(async (skill) => {
+      const filePath = path.join(SKILLS_DIR, skill, 'SKILL.md');
+      try {
+        const content = await fs.readFile(filePath, 'utf8');
+        const orchMatch = content.match(/(?:##|###|####)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###|####)\s|$)/i);
+        if (orchMatch) {
+          const refs = Array.from(orchMatch[0].matchAll(/`([a-z0-9_-]+)`/g)).map(m => m[1]);
+          const uniqueRefs = [...new Set(refs)].filter(r => r !== skill);
+          return { skill, uniqueRefs };
         }
+        return { skill, uniqueRefs: [] };
+      } catch (e) {
+        console.error(`Failed to read ${skill}: ${e.message}`);
+        return { skill, uniqueRefs: [] };
       }
-    } catch (e) {
-      console.error(`Failed to read ${skill}: ${e.message}`);
+    })
+  );
+
+  for (const { skill, uniqueRefs } of skillResults) {
+    outDegree[skill] = uniqueRefs.length;
+    for (const ref of uniqueRefs) {
+      if (allSkills.has(ref)) {
+        inDegree[ref] = (inDegree[ref] || 0) + 1;
+        totalEdges++;
+      } else if (ref.includes('-') && !['utf-8', 'iso-8859-1', 'x-api-key', 'modern-web-guidance', 'vibes-plug', 'tabular-nums', 'quality-guardian', '--color-surface-card', '--color-border', 'x-trace-id', 'max-w-prose'].includes(ref)) {
+        broken.push({ skill, missingRef: ref });
+      }
     }
   }
 

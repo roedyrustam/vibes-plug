@@ -2,7 +2,7 @@
 name: bun-runtime-expert
 description: "Bun 1.2+ runtime: native Bun.sql, Bun.s3, multi-core HTTP, bun:test / Runtime Bun 1.2+: native Bun.sql, Bun.s3, HTTP multi-core, bun:test."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -105,7 +105,7 @@ s3.credentials({
   secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
   bucket: process.env.S3_BUCKET_NAME!,
   region: process.env.S3_REGION || 'auto',
-  endpoint: process.env.S3_ENDPOINT, // e.g. https://<account_id>.r2.cloudflarestorage.com
+  endpoint: process.env.S3_ENDPOINT, // e.g. https://{account_id}.r2.cloudflarestorage.com
 });
 
 // Upload file directly from memory buffer
@@ -149,7 +149,15 @@ const server = serve({
     return new Response('Not Found', { status: 404 });
   },
   error(error) {
-    return new Response(`Internal Server Error: ${error.message}`, { status: 500 });
+    console.error('[BunServerError]', error);
+    return Response.json(
+      {
+        type: 'https://httpstatuses.com/500',
+        title: 'Internal Server Error',
+        status: 500,
+      },
+      { status: 500, headers: { 'Content-Type': 'application/problem+json' } }
+    );
   },
 });
 
@@ -188,6 +196,30 @@ describe('User Database Service', () => {
   });
 });
 ```
+
+#### 6. Native Argon2id Password Hashing (`Bun.password`) & Safe Subprocess Spawning (`Bun.spawn`)
+Use Bun's built-in C-accelerated `Bun.password` (Argon2id by default) and array-argument `Bun.spawn` (never shell-interpolated strings) for zero-dependency security:
+
+```typescript
+export async function hashUserPassword(plainPassword: string): Promise<string> {
+  return await Bun.password.hash(plainPassword, {
+    algorithm: 'argon2id',
+    memoryCost: 65536, // 64 MiB
+    timeCost: 3,
+  });
+}
+
+export async function verifyUserPassword(plainPassword: string, storedHash: string): Promise<boolean> {
+  return await Bun.password.verify(plainPassword, storedHash);
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Tagged Template Parameterization in `Bun.sql`**: MUST execute all `Bun.sql` queries via tagged template literals (`` sql`SELECT ... WHERE id = ${id}` ``) and never concatenate raw strings (`sql.unsafe(...)`) with user input.
+- **Native `Bun.password` Argon2id Hashing**: MUST use `Bun.password.hash(pw, { algorithm: 'argon2id' })` instead of external native C++ `bcrypt` addons or fast SHA hashes.
+- **Opaque Error Responses in `Bun.serve`**: MUST log unexpected exceptions internally inside `error(err)` and return an RFC 9457 Problem Details payload without leaking `err.message` or `err.stack` to clients.
+- **Array-Argument `Bun.spawn` Execution**: MUST pass command arguments as an explicit string array (`Bun.spawn(['git', 'status'])`) rather than interpolating user strings into `Bun.$` shell templates.
+- **Text Lockfile (`bun.lock`) Pinning**: MUST commit the text-based `bun.lock` and run `bun install --frozen-lockfile` in CI pipelines.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

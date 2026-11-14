@@ -2,7 +2,7 @@
 name: pwa-offline-first-expert
 description: "Offline-first PWA architecture, OPFS SQLite, and local sync / Arsitektur PWA offline-first, OPFS SQLite, dan sinkronisasi lokal."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -103,10 +103,91 @@ self.addEventListener('sync', (event: any) => {
   }
 });
 
-async function flushOfflineMutationQueue() {
-  // Read pending mutations from IndexedDB and POST to backend
+interface QueuedOfflineMutation {
+  readonly idempotencyKey: string;
+  readonly endpoint: string;
+  readonly method: 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+  readonly bodyJson: string;
+}
+
+async function flushOfflineMutationQueue(): Promise<void> {
+  const cache = await caches.open('offline-mutation-outbox-v1');
+  const requests = await cache.keys();
+
+  for (const req of requests) {
+    const stored = await cache.match(req);
+    if (!stored) continue;
+    const item = (await stored.json()) as QueuedOfflineMutation;
+
+    const response = await fetch(item.endpoint, {
+      method: item.method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Idempotency-Key': item.idempotencyKey,
+      },
+      body: item.bodyJson,
+    });
+
+    if (response.ok || (response.status >= 400 && response.status < 500 && response.status !== 429)) {
+      await cache.delete(req);
+    }
+  }
 }
 ```
+
+---
+
+## 2b. Production Recipe: Storage Quota Eviction Guard & Persistent Storage Request (TypeScript)
+Mobile browsers (especially iOS WebKit and Android Chrome under low disk space) can silently evict IndexedDB/OPFS data unless `navigator.storage.persist()` is requested and quota usage is monitored:
+
+```typescript
+// src/lib/pwa/storage-persistence-guard.ts
+export interface StorageHealthReport {
+  readonly persisted: boolean;
+  readonly usageBytes: number;
+  readonly quotaBytes: number;
+  readonly usageRatio: number;
+  readonly nearQuotaLimit: boolean;
+}
+
+export async function ensurePersistentLocalStorage(
+  warnThresholdRatio = 0.85
+): Promise<StorageHealthReport> {
+  if (typeof navigator === 'undefined' || !navigator.storage) {
+    return {
+      persisted: false,
+      usageBytes: 0,
+      quotaBytes: 0,
+      usageRatio: 0,
+      nearQuotaLimit: false,
+    };
+  }
+
+  let persisted = await navigator.storage.persisted();
+  if (!persisted && typeof navigator.storage.persist === 'function') {
+    persisted = await navigator.storage.persist();
+  }
+
+  const estimate = await navigator.storage.estimate();
+  const usageBytes = estimate.usage ?? 0;
+  const quotaBytes = estimate.quota ?? 1;
+  const usageRatio = quotaBytes > 0 ? usageBytes / quotaBytes : 0;
+
+  return {
+    persisted,
+    usageBytes,
+    quotaBytes,
+    usageRatio,
+    nearQuotaLimit: usageRatio >= warnThresholdRatio,
+  };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Never Cache `POST` / `PUT` / `DELETE` Mutations in Service Worker `CacheStorage` as GET Responses**: Non-GET mutations must bypass `caches.match()` and be queued in an idempotent offline outbox with an `Idempotency-Key` header.
+- **Versioned Cache Cleanup on `activate`**: Every Service Worker `activate` listener must delete stale versioned caches (`keys.filter(k => k !== CACHE_NAME)`) so outdated bundles never persist indefinitely.
+- **Parameterized Sync Replication Queries**: Never interpolate unsanitized document strings into GraphQL/SQL sync pull/push queries; always bind GraphQL `variables` and enforce server-side tenant authorization.
+- **Request `navigator.storage.persist()` for Local-First Databases**: Call `navigator.storage.persist()` and monitor `navigator.storage.estimate()` so mobile OS storage pressure does not silently wipe OPFS/IndexedDB state.
 
 ---
 
@@ -148,21 +229,21 @@ export async function initLocalDB() {
     tasks: { schema: taskSchema },
   });
 
-  // Background Replication with Server (GraphQL / REST Sync)
+  // Background Replication with Server (Parameterized GraphQL Sync)
   replicateGraphQL({
     collection: db.tasks,
     url: 'https://api.myapp.com/graphql',
     pull: {
       queryBuilder: (doc) => ({
-        query: `query { syncTasks(since: "${doc ? doc.updatedAt : 0}") { id title isCompleted updatedAt } }`,
-        variables: {},
+        query: `query SyncTasks($since: String!) { syncTasks(since: $since) { id title isCompleted updatedAt } }`,
+        variables: { since: doc ? doc.updatedAt : '1970-01-01T00:00:00.000Z' },
       }),
       modifier: (doc) => doc,
     },
     push: {
       queryBuilder: (doc) => ({
-        query: `mutation { pushTask(task: ${JSON.stringify(doc)}) { id } }`,
-        variables: {},
+        query: `mutation PushTask($task: TaskInput!) { pushTask(task: $task) { id } }`,
+        variables: { task: doc },
       }),
       batchSize: 10,
     },

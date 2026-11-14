@@ -2,7 +2,7 @@
 name: anti-slop
 description: "Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Sovereign Anti-AI Slop & Craftsmanship Engine (2026 Unified Edition)
@@ -595,15 +595,29 @@ export function handleMcpCheckContrast(args: { foreground: string; background: s
 ```
 
 ---
-| Dimension | Sovereign Mandate & Deterministic Contract |
-| :--- | :--- |
-| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
-| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
-| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **NFR & Anti-Slop Invariants** | Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+### Sub-Discipline 4: Awwwards Anti-Genericness & Real-Build Bug Prevention Rules (R-41 to R-48)
+Derived from empirical Awwwards Jury audits (`shoot.mjs` + `audit.mjs`), every production frontend must pass these 8 zero-tolerance craft gates:
+- **R-41 (Zero Repeated Copy Across Sections)**: Never repeat a thesis sentence, tagline, or paragraph across two sections on the same page, or reuse the same thumbnail asset twice (`duplicateImages === 0`).
+- **R-42 (Accessible Split/Ghost Headings)**: Never place decorative duplicate text (ghost echoes, outline clones, kinetic shadow layers) inside `<h1>–<h3>` tags where screen readers read the heading twice (`" KOBO — KOBO"`). Place decorative clones in a sibling `<span aria-hidden="true">` outside the heading tag.
+- **R-43 (Zero Device-Mismatched Copy)**: Never render `"Hover to explore"`, `"Move cursor"`, or `"Click to drag"` statically to touch users. Gate pointer copy behind `@media (hover: hover) and (pointer: fine)` or swap copy dynamically on `pointer: coarse`.
+- **R-44 (Ban `colorOnly` Hover on Primary Targets)**: Primary interactive targets (CTAs, nav links, work cards, index rows) must never rely on a bare CSS `color` change on hover (`colorOnly === false`). Use directional fill, letter-roll, underline draw, or cursor preview.
+- **R-45 (Ban Portfolio & Editorial AI-Tells)**: Ban the phrases *"where X meets Y"*, *"not just X, but Y"*, *"crafting digital experiences"*, *"at the intersection of"*, *"elevate/empower/unleash/seamless"*, and *"Scroll to explore"*. Ban reflex AI display fonts (*Fraunces*, *Instrument Serif*, *Playfair Display*) unless explicitly requested.
+- **R-46 (Zero `glHidden` WebGL Plane Occlusion)**: When syncing DOM `<figure data-gl>` elements to a fixed `#gl` background canvas (`z-index: 0`), enforce `.gl-on [data-gl] { background: none !important }` so an opaque placeholder background never hides the WebGL plane behind it (`glHidden.length === 0`).
+- **R-47 (Pre-Paint Motion Gate & Reduced-Motion Safety)**: Gate initial reveal hiding behind `html.js.motion [data-reveal]` added by a synchronous `<head>` script so disabled JS or `prefers-reduced-motion: reduce` never strands text at `opacity: 0` (`reduced.hiddenText === 0`).
+- **R-48 (Hard Production Asset & Loader Budgets)**: Total gzipped JS `< 300 KB`, self-hosted `.woff2` fonts `< 300 KB` (max 3 weights), initial page transfer `< 3 MB`, and loader duration capped at `<= 2.6s` (`loaderMs <= 2600`).
 
 ---
+
+### Hard Guardrails (Declarative Invariants)
+1. **Absolute Zero-Placeholder & Truncation Ban**:
+   - Production code MUST NEVER contain placeholder tokens (`// TODO`, `// ...rest of code`, `// implement later`, `<PLACEHOLDER>`). Every generated file and function must be 100% complete and working on the first try.
+2. **Deterministic Anti-Slop Audit Verification**:
+   - Every file change or generated project MUST pass `node scripts/check-anti-slop.js --strict` with zero errors and zero warnings before the task can be marked complete.
+3. **Mandatory 5-State Interactive Contract on Controls**:
+   - All interactive components (buttons, links, form inputs) MUST define complete physical feedback across 5 states: default, hover, focus-visible, active (`active:scale-[0.98]`), and disabled. Generic neon glows and unbounded pill buttons (`rounded-full`) on standard inputs are strictly prohibited.
+4. **Prohibition of AI Tell Prose & Em Dashes**:
+   - Copywriting and UI text MUST NOT use synthetic tell buzzwords ("elevate", "seamlessly empower", "where X meets Y") or em dashes (`—`). Real verified metrics (`tabular-nums`) or honest markers (`[REAL METRIC]`) must replace fabricated social proof.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -751,7 +765,7 @@ Sebelum menghasilkan kode UI atau layout, deklarasikan satu baris:
 
 Sebelum menyelesaikan tugas coding atau UI, Anda **WAJIB** menyertakan 4 blok laporan ini:
 1. **Konfirmasi Dial & Archetype**: Nama archetype dan nilai dial (ENERGY/RHYTHM/MOTION).
-2. **Checklist Kepatuhan 38 Aturan**: Evaluasi PASS/FAIL pada Hard Gate, Purpose-Gate, dan Quality Locks.
+2. **Checklist Kepatuhan 48 Aturan (R-01 s/d R-48)**: Evaluasi PASS/FAIL pada Hard Gate, Purpose-Gate, Quality Locks, dan Aturan Anti-Generik Awwwards (R-41: nol duplikasi kalimat/gambar antarseksi; R-42: teks dekoratif di luar `<h1-h3>` dengan `aria-hidden="true"`; R-43: salinan teks sesuai perangkat sentuh/kursor; R-44: larangan hover `colorOnly` pada elemen utama; R-45: larangan frasa & font klise AI; R-46: bebas `glHidden` pada kanvas WebGL; R-47: keamanan `prefers-reduced-motion`; R-48: anggaran JS `< 300KB`, font `.woff2 < 300KB`, loader `<= 2.6s`).
 3. **Bukti Click-Through Elemen Interaktif (R-35)**: Daftar elemen yang telah dicoba langsung beserta perilakunya.
 4. **Keputusan Akhir (Verdict)**: PASS atau FAIL.
 
@@ -774,15 +788,6 @@ This skill serves as the foundational quality, craftsmanship, and anti-slop gate
 | `production-ready-hardener` | Acts as the final delivery quality gate before any release or production deployment. |
 | `zero-tech-debt-auditor` | Scans and eradicates syntax narration comments, dead code, and speculative abstractions. |
 | `coderabbit` | Powers the autonomous PR review and code inspection engine. |
-
-### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
-| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
-| :--- | :--- |
-| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
-| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
-| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec anti-slop <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
-| **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

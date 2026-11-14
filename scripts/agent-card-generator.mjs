@@ -8,7 +8,7 @@
  * typed capability exchange across LangGraph, Pydantic AI, ADK, and Swarms.
  * 
  * @author Roedy Rustam
- * @version 4.7.0
+ * @version 4.8.0
  */
 
 import fs from 'node:fs/promises';
@@ -74,7 +74,7 @@ export async function generateA2ACard(options = {}) {
     name: 'vibes-plug-swarm-master',
     description: 'Universal 178-Skill Autonomous Multi-Agent Swarm & SaaT Superintelligence Substrate',
     url: hostUrl,
-    version: '4.7.0',
+    version: '4.8.0',
     protocolVersion: '1.0.0',
     capabilities: {
       streaming: true,

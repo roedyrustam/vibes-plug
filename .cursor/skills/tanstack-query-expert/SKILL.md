@@ -2,7 +2,7 @@
 name: tanstack-query-expert
 description: "TanStack Query v5, useSuspenseQuery, SSR hydration, and cache invalidation / Manajemen state server TanStack Query v5 dan hidrasi SSR."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -151,6 +151,46 @@ export default async function UsersPage() {
   );
 }
 ```
+
+#### 8. Cursor-Paginated `useInfiniteQuery` with `maxPages` Memory Cap (v5)
+Bound memory consumption on infinite-scroll feeds by setting `maxPages` and forwarding TanStack Query's `signal` (`AbortSignal`) to `fetch`:
+
+```typescript
+// src/queries/activity-feed.ts
+import { infiniteQueryOptions } from '@tanstack/react-query';
+
+export interface ActivityPage {
+  readonly items: ReadonlyArray<{ id: string; summary: string; createdAtIso: string }>;
+  readonly nextCursor: string | null;
+}
+
+export const activityFeedInfiniteOptions = (tenantId: string) =>
+  infiniteQueryOptions({
+    queryKey: ['activity-feed', tenantId] as const,
+    queryFn: async ({ pageParam, signal }): Promise<ActivityPage> => {
+      const url = new URL('/api/v1/activity', window.location.origin);
+      url.searchParams.set('tenantId', tenantId);
+      if (pageParam) url.searchParams.set('cursor', pageParam);
+
+      const response = await fetch(url.toString(), { signal });
+      if (!response.ok) {
+        throw new Error(`ACTIVITY_FETCH_FAILED: HTTP ${response.status}`);
+      }
+      return response.json() as Promise<ActivityPage>;
+    },
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+    maxPages: 10,
+    staleTime: 30_000,
+    gcTime: 5 * 60_000,
+  });
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero `useEffect` Data Fetching**: Never fetch API data inside `useEffect(() => { fetch(...) }, [])` when TanStack Query is present; use `useQuery`, `useSuspenseQuery`, or `useInfiniteQuery`.
+- **Never Copy Query Data Into `useState`**: Prohibit `useEffect(() => setState(data), [data])`; derive transformed views inline with `useMemo` or the `select` option inside `queryOptions()`.
+- **Invariant `gcTime >= staleTime`**: Never configure `gcTime` lower than `staleTime`, which evicts cached entries before their freshness window completes.
+- **Forward `signal` & Cancel Queries on Optimistic Mutations**: Pass the `queryFn` context `{ signal }` into `fetch()` for automatic request cancellation, and always `await queryClient.cancelQueries()` inside `onMutate` before writing optimistic state.
 
 ### Troubleshooting
 - **Infinite Fetching Loops**: Check your `queryFn`. Unhandled exceptions trigger 3 auto-retries. Ensure stable query keys (no object literals in render).

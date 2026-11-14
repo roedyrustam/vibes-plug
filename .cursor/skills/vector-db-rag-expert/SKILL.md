@@ -2,7 +2,7 @@
 name: vector-db-rag-expert
 description: "High-performance Vector DBs, Deep RAG, pgvector HNSW, and re-ranking / Vector DB performa tinggi, Deep RAG, pgvector HNSW, dan re-ranking."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -178,6 +178,16 @@ export async function rerankCandidates(
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Reciprocal Rank Fusion Over Naive Score Summation**:
+   - Hybrid search combining lexical BM25 and dense vector cosine similarity MUST use Reciprocal Rank Fusion ($RRF = 1 / (60 + rank)$) or normalized score distribution. Never naively add raw cosine similarity to lexical BM25 counts.
+2. **Deterministic Distance Operator Parity**:
+   - Vector distance calculations in SQL MUST match the embedding normalization: use `<=>` (cosine distance) for unit-normalized vectors and `<#>` (negative inner product) for unnormalized dot product spaces.
+3. **Mandatory Index Maintenance on Mass Deletion**:
+   - Tables utilizing HNSW indexes (`m = 16`, `ef_construction = 64`) MUST schedule a `REINDEX` or vacuum after deletes exceeding 10% of total rows to prevent graph index degradation.
+4. **Two-Stage Re-Ranking on Candidate Windows**:
+   - Production RAG pipelines MUST retrieve an expanded candidate set (e.g. top 25-50 candidates) before applying a cross-encoder model to distill down to top 3-5 high-relevance chunks.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -185,7 +195,7 @@ export async function rerankCandidates(
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec vector-db-rag-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | HNSW P99 Recall@10 >= 99%, Vector Search Latency P99 < 12ms, Reciprocal Rank Fusion k=60 parity, strictly tenant-isolated vector partitions; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -316,4 +326,4 @@ export async function cariDokumenRRF(
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec vector-db-rag-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | HNSW P99 Recall@10 >= 99%, Latensi Pencarian Vektor P99 < 12ms, paritas Reciprocal Rank Fusion k=60, partisi vektor terisolasi per tenant; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

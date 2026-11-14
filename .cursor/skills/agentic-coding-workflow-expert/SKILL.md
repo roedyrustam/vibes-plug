@@ -2,7 +2,7 @@
 name: agentic-coding-workflow-expert
 description: "AI coding workflows, multi-agent code swarms, and CI/CD self-healing / Workflow koding AI, swarm multi-agen, dan self-healing CI/CD."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -374,6 +374,16 @@ Pastikan keamanan dengan pengawasan manusia.
 - **Destructive Approvals:** Mandate human sign-off for DB migrations or breaking API changes.
 - **Escalation:** Alert human developers when agent loop is stuck or oscillating.
 
+### Hard Guardrails (Declarative Invariants)
+1. **Isolated Branch & Git Worktree Execution**:
+   - Coding agents and multi-agent swarms MUST execute modifications within dedicated feature branches or isolated git worktrees. Unchecked direct mutations or direct pushes to production/main branches are strictly prohibited.
+2. **Mandatory Pre-Commit Anti-Slop & Syntax Gates**:
+   - Autonomous code generation pipelines MUST verify syntactic validity and run anti-slop checks (`node scripts/check-anti-slop.js --strict`) before committing or proposing diffs. Committing placeholder tokens (`TODO`, `...rest of code`) is strictly prohibited.
+3. **Bounded Self-Healing Loop Limits**:
+   - CI/CD self-healing and test-fix loops MUST enforce a strict maximum ceiling of 2 iterative repair attempts (`maxRetries <= 2`). Unbounded recursive retry loops that consume unlimited reasoning tokens are forbidden.
+4. **Mandatory Human-in-the-Loop Escalation on High-Impact Operations**:
+   - Any agentic workflow involving schema drop operations (`DROP TABLE`, `DROP COLUMN`), credential changes, or breaking API contract mutations MUST halt and require explicit human confirmation.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -381,7 +391,7 @@ Pastikan keamanan dengan pengawasan manusia.
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec agentic-coding-workflow-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | AST mutation blast radius <= 1 module, git worktree cleanup 100%, automated self-heal pass rate >= 90%; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -412,4 +422,4 @@ Panduan produksi untuk alur kerja pembuatan kode berbasis AI dan swarm agen. Men
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec agentic-coding-workflow-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Radius dampak mutasi AST <= 1 modul, pembersihan git worktree 100%, tingkat kelulusan self-heal otomatis >= 90%; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

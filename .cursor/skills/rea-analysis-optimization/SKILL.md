@@ -2,7 +2,7 @@
 name: rea-analysis-optimization
 description: "Optimize REA providers, analysis latency, memory, and Evidence / Optimasi provider REA, latensi analisis, memori, dan Evidence."
 author: "morluto"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # REA analysis optimization
@@ -20,6 +20,19 @@ Use the current contracts, provider prerequisites, and user authorization.
 Read [the Kuna case study](references/kuna-case-study.md) when selecting a
 reuse strategy or interpreting a benchmark. Its pinned observations illustrate
 tradeoffs; they are not current-provider guarantees or universal speedups.
+
+## Hard Guardrails (Declarative Invariants)
+- **Independent Correctness Oracle**: Verify every optimization against an oracle independent of the modified code path (source-built fixtures, raw byte mappings, or verified native output) before claiming a speedup.
+- **Content-Addressed Cache Keys**: Include target artifact SHA-256, provider engine ID/version, architecture/load-map options, and schema version in every analysis cache key.
+- **Isolated Waiter Cancellation**: When multiple callers await a shared in-flight analysis producer, cancelling one caller's `AbortSignal` must never abort or corrupt the shared producer for remaining peers.
+- **Bounded Process-Family Memory**: Enforce hard byte budgets on retained caches and subprocess outputs before allocation; never trade a transport buffer cap for an unbounded in-memory inventory.
+- **Early Selection & Projection at Producer**: Push address-range and section filters down to the native provider boundary rather than materializing multi-megabyte full-binary reports and slicing them in CLI/MCP wrappers.
+- **Preserve Examined Scope & Same-Address Candidates**: Optimizations must never drop alternative symbols at the same address or omit `examinedScope` coverage metadata.
+
+### Domain-Specific Non-Functional Requirements (NFRs)
+- **Bounded Heap & Process Memory**: Retained in-memory cache and subprocess outputs capped at $\le 512\text{ MB}$.
+- **Content-Addressed Cache Hit Rate**: Shared in-flight deduplication and cache hit rate $\ge 80\%$ on repeated analysis queries.
+- **Cancellation Safety**: $0$ leaked subprocesses or corrupted shared promises when individual callers trigger `AbortSignal`.
 
 ## Pin the question and the correctness oracle
 
@@ -246,6 +259,85 @@ export function paginateCallGraphByTokenBudget(
 }
 ```
 
+## 4. Phase-Instrumented Analysis Profiler & Memory High-Water Tracker (TypeScript)
+Measure admission, native provider execution, decoding, and projection phases along with RSS memory delta so optimizations target proven bottlenecks:
+
+```typescript
+// src/rea/phase-profiler.ts
+export interface PhaseMeasurement {
+  readonly phase: string;
+  readonly durationMs: number;
+  readonly rssDeltaBytes: number;
+}
+
+export class ReaPhaseProfiler {
+  private readonly measurements: PhaseMeasurement[] = [];
+
+  public async measurePhase<T>(phase: string, fn: () => Promise<T>): Promise<T> {
+    const startRss = process.memoryUsage().rss;
+    const startNs = process.hrtime.bigint();
+    try {
+      return await fn();
+    } finally {
+      const durationMs = Number(process.hrtime.bigint() - startNs) / 1_000_000;
+      const rssDeltaBytes = process.memoryUsage().rss - startRss;
+      this.measurements.push({
+        phase,
+        durationMs: Math.round(durationMs * 100) / 100,
+        rssDeltaBytes,
+      });
+    }
+  }
+
+  public summary(): { totalMs: number; peakRssDeltaBytes: number; phases: readonly PhaseMeasurement[] } {
+    let totalMs = 0;
+    let peakRssDeltaBytes = 0;
+    for (const m of this.measurements) {
+      totalMs += m.durationMs;
+      if (m.rssDeltaBytes > peakRssDeltaBytes) {
+        peakRssDeltaBytes = m.rssDeltaBytes;
+      }
+    }
+    return {
+      totalMs: Math.round(totalMs * 100) / 100,
+      peakRssDeltaBytes,
+      phases: this.measurements,
+    };
+  }
+}
+```
+
+## 5. Streaming Bounded Binary Section Reader (TypeScript)
+Read and scan only the requested ELF/PE virtual section range from disk without loading multi-hundred-megabyte binaries into the V8 heap:
+
+```typescript
+// src/rea/bounded-section-reader.ts
+import fs from 'node:fs/promises';
+
+export interface SectionSliceRequest {
+  readonly filePath: string;
+  readonly fileOffset: number;
+  readonly byteLength: number;
+  readonly maxAllowedBytes?: number;
+}
+
+export async function readBoundedSectionSlice(req: SectionSliceRequest): Promise<Buffer> {
+  const maxBytes = req.maxAllowedBytes ?? 16 * 1024 * 1024;
+  if (req.byteLength <= 0 || req.byteLength > maxBytes) {
+    throw new Error(`Requested section slice (${req.byteLength}B) exceeds safety cap (${maxBytes}B)`);
+  }
+
+  const handle = await fs.open(req.filePath, 'r');
+  try {
+    const buffer = Buffer.allocUnsafe(req.byteLength);
+    const { bytesRead } = await handle.read(buffer, 0, req.byteLength, req.fileOffset);
+    return bytesRead === req.byteLength ? buffer : buffer.subarray(0, bytesRead);
+  } finally {
+    await handle.close();
+  }
+}
+```
+
 ## Orchestration & Integration
 
 **English & Bahasa Indonesia:** Latency, CPU, memory, and agent-context optimization for REA analysis paths. / Optimasi latensi, CPU, memori, dan konteks agen untuk jalur analisis REA.
@@ -274,3 +366,16 @@ export function paginateCallGraphByTokenBudget(
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec rea-analysis-optimization <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Oracle Kebenaran Independen**: Wajib memverifikasi setiap optimasi terhadap oracle independen dari jalur kode yang dimodifikasi (fixture bawaan sumber, pemetaan byte mentah, atau output native tervalidasi) sebelum mengklaim peningkatan kecepatan.
+2. **Kunci Cache Berbasis Konten (Content-Addressed)**: Sertakan SHA-256 berkas target, ID/versi mesin provider, opsi arsitektur/load-map, dan versi skema dalam setiap kunci cache analisis.
+3. **Pembatalan Penunggu Terisolasi (Isolated Waiter Cancellation)**: Saat beberapa pemanggil menunggu satu produser analisis bersama, pembatalan `AbortSignal` dari satu pemanggil tidak boleh membatalkan atau merusak produser yang sedang berjalan untuk pemanggil lain.
+4. **Batas Memori Proses & Cache Terbatas**: Terapkan anggaran memori byte yang ketat pada cache dan output subprocess sebelum alokasi; jangan pernah menukar batasan buffer transport dengan penumpukan inventaris memori tak terbatas.
+5. **Seleksi & Proyeksi Dini di Tingkat Produser**: Dorong filter rentang alamat dan seksi langsung ke perbatasan provider native daripada memuat laporan biner raksasa berukuran megabyte lalu memotongnya di wrapper CLI/MCP.
+6. **Preservasi Cakupan yang Diperiksa & Kandidat Alamat Sama**: Optimasi dilarang keras membuang simbol alternatif pada alamat yang sama atau menghilangkan metadata cakupan `examinedScope`.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Batas Memori Heap & Subprocess**: Cache in-memory dan output subprocess dibatasi maksimum $\le 512\text{ MB}$.
+- **Hit Rate Cache Content-Addressed**: Deduplikasi in-flight bersama dan hit rate cache $\ge 80\%$ pada kueri analisis berulang.
+- **Keamanan Pembatalan (Cancellation Safety)**: 0 kebocoran subprocess atau promise bersama yang korup saat pemanggil memicu `AbortSignal`.

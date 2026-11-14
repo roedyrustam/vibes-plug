@@ -2,7 +2,7 @@
 name: event-driven-architect
 description: "Event-driven microservices, message queues, and event sourcing / Arsitektur event-driven, antrean pesan, dan event sourcing."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -106,10 +106,128 @@ export const paymentWorker = new Worker(
 );
 ```
 
+### Concurrent Outbox Relay Worker (`FOR UPDATE SKIP LOCKED` + DLQ Transition)
+Poll the transactional `outbox_events` table safely across multiple worker replicas without duplicate publishing or lock contention:
+
+```typescript
+// src/workers/outbox-relay-poller.ts
+import { db } from '@/lib/db';
+import { sql } from 'drizzle-orm';
+
+export interface OutboxRow {
+  id: string;
+  aggregate_type: string;
+  aggregate_id: string;
+  event_type: string;
+  payload: Record<string, unknown>;
+  retry_count: number;
+}
+
+export async function relayPendingOutboxBatch(
+  publishToBroker: (topic: string, key: string, message: Record<string, unknown>) => Promise<void>,
+  batchSize = 50,
+  maxRetries = 5
+): Promise<{ published: number; deadLettered: number }> {
+  return await db.transaction(async (tx) => {
+    const rows = (await tx.execute(sql`
+      SELECT id, aggregate_type, aggregate_id, event_type, payload, retry_count
+      FROM outbox_events
+      WHERE status = 'PENDING' AND next_attempt_at <= NOW()
+      ORDER BY created_at ASC
+      LIMIT ${batchSize}
+      FOR UPDATE SKIP LOCKED
+    `)) as unknown as OutboxRow[];
+
+    let published = 0;
+    let deadLettered = 0;
+
+    for (const row of rows) {
+      try {
+        await publishToBroker(row.event_type, row.aggregate_id, {
+          eventId: row.id,
+          aggregateType: row.aggregate_type,
+          aggregateId: row.aggregate_id,
+          payload: row.payload,
+        });
+
+        await tx.execute(sql`
+          UPDATE outbox_events
+          SET status = 'PUBLISHED', published_at = NOW()
+          WHERE id = ${row.id}
+        `);
+        published++;
+      } catch (err) {
+        const nextRetry = row.retry_count + 1;
+        if (nextRetry >= maxRetries) {
+          await tx.execute(sql`
+            UPDATE outbox_events
+            SET status = 'DEAD_LETTER', retry_count = ${nextRetry}, last_error = ${String(err)}
+            WHERE id = ${row.id}
+          `);
+          deadLettered++;
+        } else {
+          const backoffSeconds = Math.min(300, Math.pow(2, nextRetry) * 5);
+          await tx.execute(sql`
+            UPDATE outbox_events
+            SET retry_count = ${nextRetry},
+                last_error = ${String(err)},
+                next_attempt_at = NOW() + (${backoffSeconds} || ' seconds')::interval
+            WHERE id = ${row.id}
+          `);
+        }
+      }
+    }
+
+    return { published, deadLettered };
+  });
+}
+```
+
+### Distributed Saga Orchestrator with Compensating Rollback (TypeScript)
+When a business workflow spans multiple bounded contexts (e.g., Reserve Inventory $\rightarrow$ Charge Card $\rightarrow$ Issue Shipment), execute compensating steps in reverse order on failure:
+
+```typescript
+// src/services/saga-orchestrator.ts
+export interface SagaStep<TContext> {
+  readonly name: string;
+  readonly execute: (ctx: TContext) => Promise<void>;
+  readonly compensate: (ctx: TContext) => Promise<void>;
+}
+
+export async function executeDistributedSaga<TContext>(
+  steps: readonly SagaStep<TContext>[],
+  context: TContext
+): Promise<{ completedSteps: string[] }> {
+  const executedSteps: SagaStep<TContext>[] = [];
+
+  try {
+    for (const step of steps) {
+      await step.execute(context);
+      executedSteps.push(step);
+    }
+    return { completedSteps: executedSteps.map((s) => s.name) };
+  } catch (primaryError) {
+    for (let i = executedSteps.length - 1; i >= 0; i--) {
+      const completedStep = executedSteps[i];
+      try {
+        await completedStep.compensate(context);
+      } catch (compensationError) {
+        throw new Error(
+          `SAGA_COMPENSATION_FAILED at step "${completedStep.name}": ${String(compensationError)} (Original error: ${String(primaryError)})`
+        );
+      }
+    }
+    throw primaryError;
+  }
+}
+```
+
 ### Key Event-Driven Invariants
 1. **Never Make Synchronous State Mutations Over HTTP**: Service A should not call Service B's `/mutate` endpoint synchronously. Publish an event and let Service B consume it asynchronously.
 2. **Always Enforce Idempotency**: Network retries will cause message duplicates. Every consumer MUST check an `idempotency_key` or message UUID before executing side effects.
 3. **Dead Letter Queues (DLQ)**: Failed jobs must be routed to a DLQ after 3-5 retries with exponential backoff to prevent poison pills from blocking the queue.
+4. **No Dual-Write Without Outbox**: Never call `kafka.send()`, `queue.add()`, or `eventBus.publish()` directly inside an HTTP handler alongside a separate database commit; always persist to `outbox_events` in the same SQL transaction and relay with `FOR UPDATE SKIP LOCKED`.
+5. **Partition Ordering by Aggregate ID**: Route domain events to broker partitions keyed by `aggregate_id` so state transitions for a single entity are processed strictly in order.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

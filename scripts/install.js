@@ -334,7 +334,7 @@ function main() {
     }
 
     const pkg = require('../package.json');
-    const version = pkg.version || '4.7.0';
+    const version = pkg.version || '4.8.0';
 
     if (helpFlag || args.length === 0) {
         console.log(`

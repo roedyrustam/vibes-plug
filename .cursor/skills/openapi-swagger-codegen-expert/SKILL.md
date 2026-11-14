@@ -2,7 +2,7 @@
 name: openapi-swagger-codegen-expert
 description: "OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -144,6 +144,16 @@ export async function submitOrder(customerId: string, productId: string, quantit
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Unique `operationId` Invariant**:
+   - Every operation across OpenAPI 3.1 specifications MUST declare a unique, descriptive `operationId` (e.g. `listUsers`, `createOrder`). Missing or duplicate `operationId` fields that break client SDK generation are strictly prohibited.
+2. **Schema Linting via Spectral in CI Gates**:
+   - OpenAPI specifications MUST be verified using automated linter gates (`spectral lint openapi.yaml`) passing with 0 errors. Specs containing syntax violations or undefined schema references are blocked from codegen.
+3. **Automated Typed Client Codegen Gate (Zero Manual Fetch Wrappers)**:
+   - Frontend and client packages MUST consume generated typed SDKs (`openapi-fetch` or Orval hooks) compiled directly from verified specifications. Writing ad-hoc manual `fetch()` wrappers without OpenAPI contract type bindings is prohibited.
+4. **Strict HTTP Error Response Contract (RFC 9457)**:
+   - All 4xx and 5xx response schemas in the specification MUST define standardized problem detail structures (`application/problem+json` RFC 9457) with explicit `status`, `title`, and `detail` properties.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -151,7 +161,7 @@ export async function submitOrder(customerId: string, productId: string, quantit
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec openapi-swagger-codegen-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | 100% operationId uniqueness, 0 Spectral lint errors in CI, 100% client SDK type sync; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -226,4 +236,4 @@ rules:
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec openapi-swagger-codegen-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | 100% keunikan operationId, 0 error Spectral lint pada CI, 100% sinkronisasi tipe SDK klien; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

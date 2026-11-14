@@ -2,7 +2,7 @@
 name: zero-to-prod-orchestrator
 description: "Master orchestrator to build apps from zero to production readiness / Master orkestrator membangun aplikasi dari nol hingga siap produksi."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Zero to Production Orchestrator (2026 Master Edition)
@@ -20,6 +20,16 @@ Connects and orchestrates with relevant domain skills like `brainstorming`, `zer
 
 ### Overview
 The **Zero to Production Orchestrator** is the ultimate master skill designed to orchestrate the entire `vibes-plug` ecosystem as a highly interconnected **engineering swarm**. By acting as the central conductor, it ensures that no sub-skill is executed in isolation. It guides fullstack developers through the complete software engineering lifecycle — from concept discovery to AI integration, multi-platform backend architecture, design systems, automated testing, GEO/AEO optimization, and production deployment.
+
+### Hard Guardrails (Declarative Invariants)
+- **Phase Gate Non-Skipping Invariant**: Advancement across the 8-phase pipeline is strictly sequential; transitioning to deployment (Phase 8) without completing automated testing (Phase 6) and pre-flight hardening (Phase 7) is prohibited.
+- **Atomic Progress & Blueprint Synchronization**: Every completed phase must atomically update `PROGRESS.md`, `BLUEPRINT.md`, and `CHANGELOG.md` with verifiable deliverables and exit criteria.
+- **Selective Fan-Out Context Pruning**: Subagent invocations during swarm fan-out must receive only task-specific context slices (`CONTEXT_MAP.md` slice); dumping unbounded full-session history into subagent prompts is strictly prohibited.
+- **Sovereign Anti-Slop Zero-Placeholder Gate**: Every production code generation step must pass `node scripts/check-anti-slop.js --strict` with 0 placeholders, 0 fake mocks, and 100% complete logic.
+
+### Non-Functional Requirements (NFR Contract)
+- **Milestone Traceability**: 100% of pipeline phase deliverables documented and verified against PRD requirements.
+- **Token Efficiency**: Subagent context payloads kept $< 350\text{ tokens}$ per delegated fan-out invocation.
 
 ### Trigger Conditions
 - Starting any new application development from scratch.
@@ -237,6 +247,16 @@ Terhubung dan mengorkestrasi skill domain yang relevan seperti `brainstorming`, 
 
 ### Ringkasan
 **Zero to Production Orchestrator** adalah skill master utama yang dirancang untuk mengorkestrasi seluruh ekosistem `vibes-plug` sebagai sebuah **engineering swarm** yang saling terhubung erat. Dengan bertindak sebagai konduktor pusat, skill ini memastikan tidak ada sub-skill yang dieksekusi secara terisolasi. Skill ini memandu pengembang *fullstack* melalui seluruh siklus hidup rekayasa perangkat lunak — mulai dari tahap ide awal hingga integrasi AI, arsitektur backend multi-platform, design system, pengujian otomatis, optimasi GEO/AEO, dan deployment produksi.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Invarian Larangan Melewati Fase**: Kemajuan dalam 8 fase pipeline wajib berurutan; langsung beralih ke deployment (Fase 8) tanpa menuntaskan pengujian otomatis (Fase 6) dan pengerasan pra-rilis (Fase 7) dilarang keras.
+- **Sinkronisasi Atomik Progres & Blueprint**: Setiap fase yang diselesaikan wajib secara atomik memperbarui `PROGRESS.md`, `BLUEPRINT.md`, dan `CHANGELOG.md` dengan artefak terverifikasi dan kriteria lolos yang jelas.
+- **Pemangkasan Konteks Fan-Out Selektif**: Pemanggilan subagent saat fan-out swarm wajib hanya menerima irisan konteks spesifik tugas (`CONTEXT_MAP.md` slice); memasukkan seluruh riwayat sesi tanpa batas ke prompt subagent dilarang keras.
+- **Gerbang Bebas Placeholder Anti-Slop Berdaulat**: Setiap kode produksi yang dihasilkan wajib lulus `node scripts/check-anti-slop.js --strict` dengan 0 placeholder, 0 mock palsu, dan logika lengkap 100%.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Kemampuan Pelacakan Milestone**: 100% deliverable fase pipeline terdokumentasi dan terverifikasi terhadap kebutuhan PRD.
+- **Efisiensi Token**: Payload konteks subagent dijaga $< 350\text{ token}$ untuk setiap delegasi fan-out.
 
 ### Kondisi Pemicu
 - Memulai pengembangan aplikasi baru dari nol.

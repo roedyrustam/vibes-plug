@@ -2,7 +2,7 @@
 name: coderabbit
 description: "AI automated code review, PR summarization, and developer feedback / Review kode otomatis AI, ringkasan PR, dan umpan balik developer."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -155,6 +155,16 @@ jobs:
 - **Human focus**: After CodeRabbit, humans focus on business logic, architecture intent, and product decisions.
 - **Teach it**: Dismiss false positives with an explanation — CodeRabbit learns your patterns.
 - **Custom instructions**: Invest time in `path_instructions` for your specific stack — dramatically improves relevance.
+
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Block-on-Critical Merge Gate**:
+   - Automated CI quality gates using CodeRabbit MUST enforce `block-on-critical: true`. Merging pull requests with unresolved critical security or correctness findings is strictly prohibited.
+2. **Mandatory Conventional Commits & Anti-Slop Directives**:
+   - `.coderabbit.yaml` configurations MUST enforce Conventional Commits formatting and explicitly instruct reviewers to flag placeholders (`// TODO`, `// ...`), mock data in production routines, and silent catch blocks.
+3. **Mandatory Noise Filtering via Path Filters**:
+   - Review configurations MUST declare `path_filters` excluding lockfiles (`*.lock`, `pnpm-lock.yaml`, `bun.lockb`), build artifacts, and auto-generated migration code to preserve review context budgets.
+4. **Actionable Inline Code Suggestions**:
+   - All review comments identifying defective code MUST provide concrete, syntactically valid drop-in replacement snippets rather than generic conversational commentary.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

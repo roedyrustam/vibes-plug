@@ -2,7 +2,7 @@
 name: speculative-multi-draft-synthesizer
 description: "Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Speculative Multi-Draft Synthesizer (2026 Sovereign Edition)
@@ -21,6 +21,16 @@ Single-model code generation suffers from inherent cognitive blind spots:
 - **Spec-Adherent Drafters** (e.g., GPT-5.6 Sol Medium / Claude Opus 5.5 / Gemini 4 Argon) produce strict schema compliance and clean API boundaries but may fail to leverage cutting-edge runtime optimizations.
 
 **Speculative Multi-Draft Synthesis** is an architectural protocol that transcends single-model limitations. Rather than relying on a single output, the swarm dispatches **heterogeneous drafting agents in parallel**, analyzes candidate outputs at the **Abstract Syntax Tree (AST) node level**, and invokes a **Frontier Arbiter** to fuse the optimal algorithmic core, error boundaries, and type definitions into a single flawless implementation.
+
+### Hard Guardrails (Declarative Invariants)
+- **Heterogeneous Model Drafter Diversity**: Speculative multi-draft batches must dispatch to at least two distinct model families (e.g., Grok for algorithmic speed, Claude Sonnet for type soundness, Gemini/GPT for spec contracts). Dispatching multiple identical model replicas is strictly prohibited.
+- **AST-Level Reconciliation & Validation**: The Frontier Arbiter must reconcile candidate drafts at the AST node level (scoring cyclomatic complexity, type safety, and defensive error boundaries) and NEVER perform naive text concatenation or unparsed string splicing.
+- **Isolated Sandbox Execution Gate**: Synthesized code artifacts must pass execution inside an isolated ephemeral WebAssembly or Node sandbox (`executeInSandbox`) before being committed to disk or presented as verified solutions.
+- **Bounded Concurrency & Timeout Enforcement**: Drafter fan-out must be bounded ($N \in [2, 4]$ parallel drafts) and wrapped in `Promise.allSettled` with a strict $15\text{ second}$ timeout budget to avoid blocking the user turn.
+
+### Non-Functional Requirements (NFR Contract)
+- **Arbitration Latency**: AST parsing, metric scoring, and arbitration synthesis must execute within $< 3.5\text{ s}$ total elapsed time.
+- **Zero Syntax Regressions**: Synthesized code must compile with 0 TypeScript/linter errors on the first try.
 
 ---
 
@@ -409,6 +419,16 @@ Generasi kode berbasis satu model tunggal selalu memiliki bias kognitif:
 - **Model Kepatuhan Spesifikasi** (misal GPT-5.6 Sol Medium / Claude Opus 5.5 / Gemini 4 Argon) menghasilkan kontrak antarmuka dan kepatuhan skema yang ketat namun belum memanfaatkan optimasi runtime terdepan secara maksimal.
 
 **Sintesis Multi-Draf Spekulatif** adalah protokol arsitektur yang melampaui batasan model tunggal. Alih-alih bergantung pada satu respon, swarm menugaskan **beberapa agen pembuat draf heterogen secara paralel**, menganalisis keluaran pada **tingkat simpul Abstract Syntax Tree (AST)**, dan memanggil **Model Arbiter Frontier** untuk memadukan inti algoritma terbaik, batasan error terkuat, serta definisi tipe terbersih ke dalam satu implementasi yang sempurna.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Diversitas Model Draf Heterogen**: Batch draf spekulatif multi-agen wajib menugaskan setidaknya dua keluarga model yang berbeda (misal Grok untuk kecepatan algoritma, Claude Sonnet untuk ketelitian tipe data, Gemini/GPT untuk kontrak spesifikasi). Menugaskan model replika yang identik dilarang keras.
+- **Rekonsiliasi & Validasi Tingkat AST**: Arbiter Frontier wajib merekonsiliasi draf kandidat pada tingkat simpul AST (menilai kompleksitas siklomatis, keamanan tipe, dan batasan error defensif) dan TIDAK BOLEH melakukan penggabungan string teks secara mentah.
+- **Gerbang Eksekusi Sandbox Terisolasi**: Artefak kode hasil sintesis wajib lulus uji eksekusi di dalam sandbox WebAssembly atau Node efemeral terisolasi (`executeInSandbox`) sebelum ditulis ke disk atau disajikan sebagai solusi terverifikasi.
+- **Batas Konkurensi & Penegakan Timeout**: Fan-out draf wajib dibatasi ($N \in [2, 4]$ draf paralel) dan dibungkus dalam `Promise.allSettled` dengan batas waktu ketat maksimal $15\text{ detik}$ untuk menghindari pemblokiran alur pengguna.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Latensi Arbitrase**: Parsing AST, penilaian metrik, dan sintesis arbitrase harus selesai dalam waktu total $< 3.5\text{ detik}$.
+- **Nol Regresi Sintaks**: Kode hasil sintesis harus berhasil dikompilasi dengan 0 error TypeScript/linter pada percobaan pertama.
 
 ---
 

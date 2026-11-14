@@ -2,7 +2,7 @@
 name: saas-multi-tenant
 description: "Multi-tenant SaaS architecture with PostgreSQL RLS isolation / Arsitektur SaaS multi-tenant dengan isolasi PostgreSQL RLS."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -206,6 +206,16 @@ if (!can(currentMember.role, 'project:delete')) {
   throw new ForbiddenError('Insufficient permissions');
 }
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory `tenant_id` / `workspace_id` Column on All Shared Tables**:
+   - Every multi-tenant database table (e.g. projects, documents, invoices, members) MUST declare a `tenant_id UUID NOT NULL REFERENCES workspaces(id)` or `workspace_id` column with an explicit B-tree index.
+2. **PostgreSQL RLS Enabled & Forced**:
+   - Every tenant table MUST declare `ALTER TABLE <name> ENABLE ROW LEVEL SECURITY;` and `ALTER TABLE <name> FORCE ROW LEVEL SECURITY;` to ensure table owners cannot bypass isolation rules.
+3. **Explicit `USING` and `WITH CHECK` Dual Clause Enforcement**:
+   - RLS mutation policies (INSERT, UPDATE) MUST declare both `USING (tenant_id = current_setting(...))` and `WITH CHECK (tenant_id = current_setting(...))` to prevent cross-tenant record injection.
+4. **Zero Client Exposure of Service Role Keys**:
+   - The Supabase/PostgreSQL service role key bypasses all RLS policies. It MUST NEVER be bundled in client-side code (`NEXT_PUBLIC_*` or `VITE_*`) or referenced without server-side super-admin auth checks.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

@@ -2,7 +2,7 @@
 name: structured-output-contracts
 description: "Strict JSON Schema structured outputs and MCP contract enforcement / Penegakan kontrak output terstruktur JSON Schema ketat dan MCP."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -24,6 +24,16 @@ version: "4.7.0"
 
 ### Description
 Production standard for enforcing strict JSON Schema output contracts across frontier LLMs. With modern models supporting grammar-constrained decoding (e.g. `response_format: { type: "json_schema", strict: true }` or Gemini `responseSchema`), AI agents must not rely on loose Markdown backticks (```json ... ```) with post-hoc regex parsing. This skill formalizes typed JSON schemas for Swarm Director plans, memory handoffs, anti-slop verification audits, and exposes them as native Model Context Protocol (MCP) resources (`vibes://schemas/*`).
+
+### Hard Guardrails (Declarative Invariants)
+- **Grammar-Constrained Decoding Enforcement**: LLM tool and agent invocations requiring structured data MUST declare native schema constraints (`response_format: { type: "json_schema", strict: true }` or Vercel AI SDK `generateObject({ schema })`). Fragile markdown backtick extraction (`replace(/```json/...)`) without parser validation is strictly prohibited.
+- **Explicit Schema Closedness (`additionalProperties: false`)**: All output JSON Schemas must set `additionalProperties: false` to block hallucinated extraneous properties from entering mission-critical execution pipelines.
+- **Strict Nullability & Required Array Invariant**: In strict schema mode, every defined property must be explicitly enumerated in the `required` array. Truly optional properties must be declared with explicit union nullability (e.g. `type: ['string', 'null']`).
+- **Fail-Fast Schema Validation Gate**: All JSON payloads received from external models or subagents must undergo immediate schema parsing (via Zod `schema.parse()` or Pydantic `model_validate()`) before being forwarded to database mutations or payments.
+
+### Non-Functional Requirements (NFR Contract)
+- **Schema Validation Overhead**: Runtime JSON Schema / Zod validation must execute within $< 5\text{ ms}$ per payload.
+- **Parse Error Rate**: Grammar-constrained structured outputs must achieve zero JSON parse exceptions across production runs.
 
 ### Trigger Conditions
 Activate this skill when:
@@ -162,6 +172,16 @@ export function applyStructuredContract(schema: object, provider: 'openai' | 'ge
 
 ### Deskripsi
 Standar produksi untuk menegakkan kontrak output JSON Schema ketat pada model-model frontier. Memanfaatkan *grammar-constrained decoding* (seperti `response_format: { type: "json_schema", strict: true }` atau Gemini `responseSchema`), agen AI dilarang mengandalkan teks Markdown mentah dengan parsing regex rentan gagal. Skill ini meresmikan skema typed JSON untuk perencanaan swarm, checkpoint memori, dan audit kualitas MCP resources (`vibes://schemas/*`).
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Penegakan Grammar-Constrained Decoding**: Pemanggilan tool dan agen LLM yang membutuhkan data terstruktur WAJIB mendeklarasikan batasan skema natif (`response_format: { type: "json_schema", strict: true }` atau `generateObject({ schema })`). Ekstraksi markdown regex mentah (`replace(/```json/...)`) dilarang keras.
+- **Penutupan Skema Eksplisit (`additionalProperties: false`)**: Seluruh JSON Schema wajib menyertakan `additionalProperties: false` untuk memblokir properti halusinasi asing masuk ke pipeline eksekusi.
+- **Invarian Array Required & Nullability Ketat**: Dalam mode skema ketat, seluruh properti wajib dicantumkan dalam array `required`. Properti opsional wajib menggunakan tipe union eksplisit (misal `type: ['string', 'null']`).
+- **Gerbang Validasi Fail-Fast**: Seluruh payload JSON yang diterima dari model eksternal wajib divalidasi seketika dengan skema runtime (via Zod `schema.parse()` atau Pydantic `model_validate()`) sebelum mutasi database atau transaksi finansial.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Overhead Validasi Skema**: Validasi JSON Schema / Zod runtime harus selesai dalam $< 5\text{ ms}$ per payload.
+- **Tingkat Error Parsing**: Output terstruktur dengan batasan grammar harus mencapai nol exception parse JSON dalam produksi.
 
 ### Kondisi Pemicu
 - Merancang output agen AI yang harus diproses otomatis oleh API backend atau pipeline CI/CD.

@@ -2,7 +2,7 @@
 name: rea-changelog-update
 description: "Prepare REA release changelogs and GitHub release notes / Siapkan changelog rilis REA dan catatan rilis GitHub."
 author: "morluto"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # REA changelog update
@@ -11,6 +11,19 @@ Use this for release-note preparation and contributor attribution. Read
 [docs/releasing.md](../../../docs/releasing.md) from the repository root for
 publication authority and the existing checkpoint checks. This skill prepares
 notes; it does not authorize merging, tagging, or publishing.
+
+## Hard Guardrails (Declarative Invariants)
+- **Inventory Before Prose**: Always build the machine-verified contribution manifest (`docs/releases/VERSION.contributions.json`) from the pinned base-branch SHA before writing release notes.
+- **Zero Fabricated Handle Attribution**: Keep unresolved commit identities as `user: null` in the inventory; never guess a GitHub handle or credit the PR merger in place of the author.
+- **Exclude Bot & Agent Accounts from Public Thanks**: Filter out `@claude`, `@cursoragent`, `@codex`, `dependabot[bot]`, `github-actions[bot]`, and `release-please[bot]` from public `Thanks @...` clauses while preserving their provenance metadata.
+- **Single-Entry Credit Deduplication**: Credit each human contributor and confirmed closing-issue reporter once per work item; never duplicate thanks across Highlights and Changes or credit reverted commits.
+- **Mandatory Finalization Label Guard**: Apply `rea:release-notes-finalized` to the open Release Please PR before editing its branch or body so bot refreshes do not overwrite curated notes.
+- **Ancestry & 65,536-Char Body Gate**: Verify that the inventory target SHA matches the release PR base branch HEAD and that the rendered PR body stays within GitHub's 65,536-character limit.
+
+### Domain-Specific Non-Functional Requirements (NFRs)
+- **100% Verified Attribution**: $0$ hallucinated or guessed GitHub contributor handles in release notes.
+- **Payload Size Boundary**: PR body length strictly capped at $\le 65.536\text{ characters}$ to prevent GitHub API rejection.
+- **Provenance Deduplication**: Every individual commit author and closing reporter credited exactly once per section.
 
 ## Inventory before prose
 
@@ -217,6 +230,38 @@ export function validateReleasePleaseFinalization(
 }
 ```
 
+## 3. Single-Section Changelog Splicer & Provenance Footer Attacher (TypeScript)
+Update only the target `## [VERSION]` block inside `CHANGELOG.md` and append the mandatory `record --summary` provenance link without altering historical release entries:
+
+```typescript
+// src/rea/changelog-splicer.ts
+export interface ChangelogUpdateSpec {
+  readonly version: string;
+  readonly releaseDateIso: string;
+  readonly highlights: readonly string[];
+  readonly changes: readonly string[];
+  readonly fixes: readonly string[];
+  readonly provenanceRecordPath: string;
+}
+
+export function renderVersionChangelogSection(spec: ChangelogUpdateSpec): string {
+  const lines: string[] = [`## [${spec.version}] (${spec.releaseDateIso})`, ''];
+
+  if (spec.highlights.length > 0) {
+    lines.push('### Highlights', ...spec.highlights.map((h) => `- ${h}`), '');
+  }
+  if (spec.changes.length > 0) {
+    lines.push('### Changes', ...spec.changes.map((c) => `- ${c}`), '');
+  }
+  if (spec.fixes.length > 0) {
+    lines.push('### Fixes', ...spec.fixes.map((f) => `- ${f}`), '');
+  }
+
+  lines.push(`Full contribution provenance: [\`${spec.provenanceRecordPath}\`](${spec.provenanceRecordPath})`);
+  return lines.join('\n');
+}
+```
+
 ## Orchestration & Integration
 
 **English & Bahasa Indonesia:** Release changelogs and GitHub release notes for REA. / Changelog rilis dan catatan rilis GitHub untuk REA.
@@ -244,3 +289,16 @@ export function validateReleasePleaseFinalization(
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec rea-changelog-update <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Inventaris Sebelum Prosa**: Wajib membuat manifest kontribusi terverifikasi mesin (`docs/releases/VERSION.contributions.json`) dari commit SHA cabang dasar sebelum menyusun catatan rilis.
+2. **Nol Fabrikasi Atribusi Handle**: Simpan identitas commit yang tidak terselesaikan sebagai `user: null` di inventaris; dilarang menebak handle GitHub atau memberikan kredit kepada merger PR alih-alih penulis aslinya.
+3. **Pengecualian Akun Bot & Agen dari Ucapan Terima Kasih Publik**: Filter dan kecualikan bot seperti `@claude`, `@cursoragent`, `@codex`, `dependabot[bot]`, `github-actions[bot]`, dan `release-please[bot]` dari klausa publik `Thanks @...` dengan tetap menjaga metadata asal-usulnya (provenance).
+4. **Deduplikasi Kredit Tunggal**: Berikan kredit pada masing-masing kontributor manusia dan pelapor issue terkonfirmasi tepat satu kali per item pekerjaan; jangan pernah menduplikasi ucapan terima kasih di Highlights dan Changes atau memberikan kredit pada commit yang di-revert.
+5. **Gerbang Label Finalisasi Wajib**: Terapkan label `rea:release-notes-finalized` pada Release Please PR yang terbuka sebelum mengedit branch atau body-nya agar refresh otomatis bot tidak menimpa catatan rilis yang telah dikurasi.
+6. **Gerbang Batas Karakter 65.536 & Kekerabatan SHA**: Verifikasi bahwa target SHA inventaris cocok dengan HEAD cabang dasar PR rilis dan panjang body PR tetap berada di bawah batas ketat GitHub 65.536 karakter.
+
+#### Non-Functional Requirements (NFR) Khusus Domain
+- **Atribusi Terverifikasi 100%**: 0 handle GitHub kontributor yang berhalusinasi atau ditebak sembarangan di catatan rilis.
+- **Batas Ukuran Payload**: Panjang teks body PR dibatasi maksimum $\le 65.536\text{ karakter}$ untuk mencegah penolakan API GitHub.
+- **Deduplikasi Provenance**: Setiap penulis commit dan pelapor issue dikreditkan tepat satu kali per seksi.

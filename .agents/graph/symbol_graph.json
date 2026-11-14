@@ -1,11 +1,11 @@
 {
   "version": "2.1.0",
-  "generatedAt": "2026-11-11T06:31:19.569Z",
+  "generatedAt": "2026-11-14T17:52:10.100Z",
   "rootDir": "C:\\Users\\roedy\\.gemini\\config\\plugins\\vibes-plug",
   "totalFilesIndexed": 92,
-  "incrementalReusedFiles": 88,
-  "totalSymbolsIndexed": 525,
-  "totalImportEdges": 313,
+  "incrementalReusedFiles": 87,
+  "totalSymbolsIndexed": 536,
+  "totalImportEdges": 318,
   "symbols": {
     "getActiveProfile": [
       {
@@ -48,7 +48,7 @@
     "handleRpcRequest": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1193,
+        "line": 1195,
         "type": "function",
         "signature": "function handleRpcRequest(request)",
         "calls": [
@@ -61,7 +61,7 @@
     "startStdioServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1876,
+        "line": 1904,
         "type": "function",
         "signature": "function startStdioServer()",
         "calls": [
@@ -80,7 +80,7 @@
     "startSseServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 1904,
+        "line": 1932,
         "type": "function",
         "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
         "calls": [
@@ -111,7 +111,7 @@
     "startServer": [
       {
         "file": "bin/mcp-server.mjs",
-        "line": 2012,
+        "line": 2040,
         "type": "function",
         "signature": "function startServer(options = {})",
         "calls": [
@@ -420,7 +420,7 @@
     "runDoctor": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1077,
+        "line": 1089,
         "type": "function",
         "signature": "function runDoctor(autoFix = false)",
         "calls": [
@@ -441,7 +441,7 @@
     "runSkillInfo": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1165,
+        "line": 1177,
         "type": "function",
         "signature": "function runSkillInfo(skillName)",
         "calls": [
@@ -466,7 +466,7 @@
     "runHooks": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1215,
+        "line": 1227,
         "type": "function",
         "signature": "function runHooks(action)",
         "calls": [
@@ -484,7 +484,7 @@
     "runRecipe": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1299,
+        "line": 1311,
         "type": "function",
         "signature": "function runRecipe(action, recipeName)",
         "calls": [
@@ -506,7 +506,7 @@
     "runSearch": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1364,
+        "line": 1376,
         "type": "function",
         "signature": "function runSearch(query)",
         "calls": [
@@ -520,6 +520,8 @@
           "map",
           "toLowerCase",
           "escapeRegExp",
+          "all",
+          "async",
           "readFile",
           "match",
           "RegExp",
@@ -532,7 +534,7 @@
     "runSync": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1412,
+        "line": 1427,
         "type": "function",
         "signature": "function runSync()",
         "calls": [
@@ -553,7 +555,7 @@
     "runDocs": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1469,
+        "line": 1484,
         "type": "function",
         "signature": "function runDocs(format = 'markdown', outputFile)",
         "calls": [
@@ -564,24 +566,28 @@
           "isDirectory",
           "map",
           "sort",
-          "readFile",
+          "all",
+          "async",
+          "open",
+          "alloc",
+          "read",
+          "toString",
           "match",
-          "push",
           "trim",
+          "close",
           "stringify",
           "writeFile",
           "log",
           "slice",
           "forEach",
-          "error",
-          "close"
+          "error"
         ]
       }
     ],
     "showHelp": [
       {
         "file": "bin/vibes.mjs",
-        "line": 1539,
+        "line": 1564,
         "type": "function",
         "signature": "function showHelp()",
         "calls": [
@@ -922,7 +928,7 @@
       },
       {
         "file": "scripts/semantic-search.mjs",
-        "line": 273,
+        "line": 284,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -1013,7 +1019,7 @@
       },
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 364,
+        "line": 384,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -1033,7 +1039,7 @@
       },
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 322,
+        "line": 371,
         "type": "function",
         "signature": "function main()",
         "calls": [
@@ -1054,16 +1060,19 @@
       },
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 208,
+        "line": 426,
         "type": "function",
         "signature": "function main()",
         "calls": [
           "slice",
+          "includes",
+          "configureAutoSwarm",
+          "log",
+          "stringify",
           "startsWith",
           "split",
           "push",
           "join",
-          "log",
           "executeSwarm",
           "forEach",
           "endsWith",
@@ -1392,16 +1401,18 @@
           "filter",
           "isDirectory",
           "map",
+          "all",
+          "async",
           "join",
           "readFile",
           "match",
           "n",
           "from",
           "matchAll",
+          "error",
           "has",
           "includes",
           "push",
-          "error",
           "entries",
           "log",
           "sort",
@@ -2404,7 +2415,7 @@
     "collectSourceFiles": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 51,
+        "line": 53,
         "type": "function",
         "signature": "function collectSourceFiles(dir, fileList = [])",
         "calls": [
@@ -2421,7 +2432,7 @@
     "buildSymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 79,
+        "line": 81,
         "type": "function",
         "signature": "function buildSymbolGraph(rootDir = process.cwd()",
         "calls": [
@@ -2450,10 +2461,12 @@
     "loadSymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 201,
+        "line": 209,
         "type": "function",
         "signature": "function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE)",
         "calls": [
+          "resolve",
+          "stat",
           "readFile",
           "parse",
           "buildSymbolGraph",
@@ -2464,7 +2477,7 @@
     "querySymbolGraph": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 216,
+        "line": 232,
         "type": "function",
         "signature": "function querySymbolGraph(symbolName, options = {})",
         "calls": [
@@ -2481,7 +2494,7 @@
     "tokenizeCode": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 265,
+        "line": 281,
         "type": "function",
         "signature": "function tokenizeCode(text = '')",
         "calls": [
@@ -2495,7 +2508,7 @@
     "hybridSearch": [
       {
         "file": "scripts/graphrag-indexer.mjs",
-        "line": 282,
+        "line": 298,
         "type": "function",
         "signature": "function hybridSearch(query, options = {})",
         "calls": [
@@ -3468,13 +3481,17 @@
           "now",
           "join",
           "readdir",
+          "all",
+          "filter",
           "isDirectory",
+          "map",
+          "async",
           "readFile",
           "match",
           "trim",
-          "push",
           "relative",
           "replace",
+          "push",
           "endsWith",
           "Map",
           "tokenize",
@@ -3485,18 +3502,14 @@
           "entries",
           "log",
           "from",
-          "computeVector",
-          "mkdir",
-          "dirname",
-          "writeFile",
-          "stringify"
+          "computeVector"
         ]
       }
     ],
     "LocalSemanticEngine.ensureIndex": [
       {
         "file": "scripts/semantic-search.mjs",
-        "line": 211,
+        "line": 222,
         "type": "method",
         "signature": "LocalSemanticEngine.ensureIndex()",
         "calls": [
@@ -3509,7 +3522,7 @@
     "LocalSemanticEngine.search": [
       {
         "file": "scripts/semantic-search.mjs",
-        "line": 229,
+        "line": 240,
         "type": "method",
         "signature": "LocalSemanticEngine.search(query = '', options = {})",
         "calls": [
@@ -3679,28 +3692,20 @@
         "signature": "function compileAllSkillSlices()",
         "calls": [
           "now",
-          "readdir",
-          "filter",
-          "isDirectory",
-          "startsWith",
-          "map",
-          "sort",
-          "inspectSkillCapabilities",
-          "push",
+          "compileSkillSlices",
           "keys",
-          "writeFile",
-          "stringify",
           "max",
           "round",
           "fromEntries",
-          "entries"
+          "entries",
+          "map"
         ]
       }
     ],
     "dispatchSkillAction": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 369,
+        "line": 337,
         "type": "function",
         "signature": "function dispatchSkillAction(request = {})",
         "calls": [
@@ -3735,7 +3740,7 @@
     "dispatchSkillChain": [
       {
         "file": "scripts/skill-dispatcher.mjs",
-        "line": 552,
+        "line": 520,
         "type": "function",
         "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
         "calls": [
@@ -3941,7 +3946,7 @@
     "matchSkillsForTarget": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 2986,
+        "line": 3000,
         "type": "function",
         "signature": "function matchSkillsForTarget(context = {})",
         "calls": [
@@ -3961,7 +3966,7 @@
     "extractDeclarativeRulesFromSkill": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 3037,
+        "line": 3051,
         "type": "function",
         "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
         "calls": [
@@ -3986,7 +3991,7 @@
     "evaluateContextualSkillGuards": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 3118,
+        "line": 3132,
         "type": "function",
         "signature": "function evaluateContextualSkillGuards(params = {})",
         "calls": [
@@ -4004,7 +4009,7 @@
     "extractLanguageSection": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 3165,
+        "line": 3179,
         "type": "function",
         "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
         "calls": [
@@ -4018,7 +4023,7 @@
     "extractSmartCodeSnippet": [
       {
         "file": "scripts/skill-rules-engine.mjs",
-        "line": 3210,
+        "line": 3224,
         "type": "function",
         "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
         "calls": [
@@ -4315,7 +4320,7 @@
     "loadSkillsCatalog": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 278,
+        "line": 285,
         "type": "function",
         "signature": "function loadSkillsCatalog()",
         "calls": [
@@ -4342,7 +4347,7 @@
     "getSkillDetails": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 342,
+        "line": 349,
         "type": "function",
         "signature": "function getSkillDetails(name)",
         "calls": [
@@ -4356,7 +4361,7 @@
     "getSystemStatus": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 365,
+        "line": 372,
         "type": "function",
         "signature": "function getSystemStatus()",
         "calls": [
@@ -4374,7 +4379,7 @@
     "generateStudioHtml": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 413,
+        "line": 420,
         "type": "function",
         "signature": "function generateStudioHtml(currentPort)",
         "calls": []
@@ -4383,7 +4388,7 @@
     "isValidSkillSlug": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3477,
+        "line": 3802,
         "type": "function",
         "signature": "function isValidSkillSlug(name)",
         "calls": [
@@ -4395,7 +4400,7 @@
     "resolveAllowedOrigin": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3481,
+        "line": 3806,
         "type": "function",
         "signature": "function resolveAllowedOrigin(req, port)",
         "calls": [
@@ -4406,7 +4411,7 @@
     "readJsonBody": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3490,
+        "line": 3815,
         "type": "function",
         "signature": "function readJsonBody(req)",
         "calls": [
@@ -4423,7 +4428,7 @@
     "startStudioServer": [
       {
         "file": "scripts/studio-server.mjs",
-        "line": 3514,
+        "line": 3839,
         "type": "function",
         "signature": "function startStudioServer(options = {})",
         "calls": [
@@ -4958,7 +4963,7 @@
     "SwarmEventBus._hydrateBlackboardFromDisk": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 76,
+        "line": 87,
         "type": "method",
         "signature": "SwarmEventBus._hydrateBlackboardFromDisk()",
         "calls": [
@@ -4975,7 +4980,7 @@
     "SwarmEventBus._persistBusStateToDisk": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 96,
+        "line": 107,
         "type": "method",
         "signature": "SwarmEventBus._persistBusStateToDisk()",
         "calls": [
@@ -4995,7 +5000,7 @@
     "SwarmEventBus._hydrateBusStateFromDisk": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 115,
+        "line": 126,
         "type": "method",
         "signature": "SwarmEventBus._hydrateBusStateFromDisk()",
         "calls": [
@@ -5013,7 +5018,7 @@
     "SwarmEventBus.setBlackboard": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 141,
+        "line": 152,
         "type": "method",
         "signature": "SwarmEventBus.setBlackboard(key, value, authorAgent = 'swarm-director')",
         "calls": [
@@ -5029,7 +5034,7 @@
     "SwarmEventBus.getBlackboard": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 169,
+        "line": 180,
         "type": "method",
         "signature": "SwarmEventBus.getBlackboard(key)",
         "calls": [
@@ -5042,7 +5047,7 @@
     "SwarmEventBus.listBlackboard": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 180,
+        "line": 191,
         "type": "method",
         "signature": "SwarmEventBus.listBlackboard()",
         "calls": [
@@ -5055,7 +5060,7 @@
     "SwarmEventBus.publish": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 191,
+        "line": 202,
         "type": "method",
         "signature": "SwarmEventBus.publish(eventType, payload = {})",
         "calls": [
@@ -5074,7 +5079,7 @@
     "SwarmEventBus.getEvents": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 245,
+        "line": 256,
         "type": "method",
         "signature": "SwarmEventBus.getEvents(options = {})",
         "calls": [
@@ -5085,10 +5090,21 @@
         ]
       }
     ],
+    "SwarmEventBus.getRecentEvents": [
+      {
+        "file": "scripts/swarm-bus.mjs",
+        "line": 274,
+        "type": "method",
+        "signature": "SwarmEventBus.getRecentEvents(limit = 25)",
+        "calls": [
+          "getEvents"
+        ]
+      }
+    ],
     "SwarmEventBus.getActiveSwarms": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 262,
+        "line": 282,
         "type": "method",
         "signature": "SwarmEventBus.getActiveSwarms()",
         "calls": [
@@ -5101,7 +5117,7 @@
     "SwarmEventBus.attachSseStream": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 273,
+        "line": 293,
         "type": "method",
         "signature": "SwarmEventBus.attachSseStream(res, options = {})",
         "calls": [
@@ -5117,7 +5133,7 @@
     "SwarmEventBus.clearBlackboard": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 314,
+        "line": 334,
         "type": "method",
         "signature": "SwarmEventBus.clearBlackboard()",
         "calls": [
@@ -5131,7 +5147,7 @@
     "SwarmEventBus.reset": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 327,
+        "line": 347,
         "type": "method",
         "signature": "SwarmEventBus.reset()",
         "calls": [
@@ -5147,7 +5163,7 @@
     "emitSwarmEvent": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 351,
+        "line": 371,
         "type": "function",
         "signature": "function emitSwarmEvent(type, payload = {})",
         "calls": [
@@ -5158,7 +5174,7 @@
     "getRecentSwarmEvents": [
       {
         "file": "scripts/swarm-bus.mjs",
-        "line": 360,
+        "line": 380,
         "type": "function",
         "signature": "function getRecentSwarmEvents(options = {})",
         "calls": [
@@ -5212,7 +5228,7 @@
     "discoverWorkspaceTargets": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 106,
+        "line": 107,
         "type": "function",
         "signature": "function discoverWorkspaceTargets(taskDescription, workerSpec)",
         "calls": [
@@ -5225,11 +5241,12 @@
     "executeWorkerTask": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 133,
+        "line": 134,
         "type": "function",
         "signature": "function executeWorkerTask(workerSpec, taskDescription, profile, swarmId)",
         "calls": [
           "now",
+          "resolveNativeSubagent",
           "emitSwarmEvent",
           "all",
           "loadWorkerSkillContext",
@@ -5241,16 +5258,31 @@
           "includes",
           "criticValidate",
           "executeInSandbox",
-          "resolveNativeSubagent",
           "isArray",
           "formatSamplingRequest"
+        ]
+      }
+    ],
+    "animateDispatchProgress": [
+      {
+        "file": "scripts/swarm-dispatcher.mjs",
+        "line": 248,
+        "type": "function",
+        "signature": "function animateDispatchProgress(workersList)",
+        "calls": [
+          "max",
+          "round",
+          "repeat",
+          "write",
+          "Promise",
+          "setTimeout"
         ]
       }
     ],
     "dispatchSwarm": [
       {
         "file": "scripts/swarm-dispatcher.mjs",
-        "line": 248,
+        "line": 271,
         "type": "function",
         "signature": "function dispatchSwarm(taskDescription, options = {})",
         "calls": [
@@ -5259,11 +5291,16 @@
           "Number",
           "resolveReasoningProfile",
           "planSwarm",
-          "emitSwarmEvent",
-          "push",
           "map",
+          "resolveNativeSubagent",
+          "emitSwarmEvent",
+          "setBlackboard",
+          "Date",
+          "toISOString",
+          "push",
           "executeWorkerTask",
           "runWithConcurrency",
+          "animateDispatchProgress",
           "every"
         ]
       }
@@ -5271,7 +5308,7 @@
     "resolveReasoningProfile": [
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 60,
+        "line": 62,
         "type": "function",
         "signature": "function resolveReasoningProfile(taskDescription = '', requestedProfile = null)",
         "calls": [
@@ -5285,7 +5322,7 @@
     "planSwarm": [
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 83,
+        "line": 85,
         "type": "function",
         "signature": "function planSwarm(taskDescription, options = {})",
         "calls": [
@@ -5297,15 +5334,67 @@
         ]
       }
     ],
+    "renderInteractivePulse": [
+      {
+        "file": "scripts/swarm-runner.mjs",
+        "line": 158,
+        "type": "function",
+        "signature": "function renderInteractivePulse(label, pct, durationMs = 180)",
+        "calls": [
+          "round",
+          "min",
+          "max",
+          "repeat",
+          "floor",
+          "write",
+          "Promise",
+          "setTimeout"
+        ]
+      }
+    ],
+    "configureAutoSwarm": [
+      {
+        "file": "scripts/swarm-runner.mjs",
+        "line": 178,
+        "type": "function",
+        "signature": "function configureAutoSwarm(options = {})",
+        "calls": [
+          "join",
+          "String",
+          "toLowerCase",
+          "Date",
+          "toISOString",
+          "readFile",
+          "parse",
+          "mkdir",
+          "writeFile",
+          "stringify",
+          "setBlackboard",
+          "emitSwarmEvent",
+          "Boolean"
+        ]
+      }
+    ],
     "executeSwarm": [
       {
         "file": "scripts/swarm-runner.mjs",
-        "line": 154,
+        "line": 244,
         "type": "function",
         "signature": "function executeSwarm(taskDescription, options = {})",
         "calls": [
           "planSwarm",
-          "push"
+          "randomUUID",
+          "Boolean",
+          "push",
+          "emitSwarmEvent",
+          "setBlackboard",
+          "map",
+          "Date",
+          "toISOString",
+          "renderInteractivePulse",
+          "max",
+          "min",
+          "round"
         ]
       }
     ],
@@ -5334,7 +5423,7 @@
     "setTelemetryEnabled": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 88,
+        "line": 90,
         "type": "function",
         "signature": "function setTelemetryEnabled(enabled)",
         "calls": [
@@ -5352,7 +5441,7 @@
     "trackEvent": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 108,
+        "line": 110,
         "type": "function",
         "signature": "function trackEvent(eventName, customProperties = {})",
         "calls": [
@@ -5374,7 +5463,7 @@
     "sendTelemetry": [
       {
         "file": "scripts/telemetry.mjs",
-        "line": 165,
+        "line": 170,
         "type": "function",
         "signature": "function sendTelemetry(eventName, properties = {})",
         "calls": [
@@ -5900,10 +5989,26 @@
         ]
       }
     ],
-    "executeInSandbox": [
+    "normalizeSandboxSource": [
       {
         "file": "scripts/wasm-sandbox.mjs",
         "line": 161,
+        "type": "function",
+        "signature": "function normalizeSandboxSource(rawSource)",
+        "calls": [
+          "min",
+          "Array",
+          "charCodeAt",
+          "map",
+          "fromCharCode",
+          "join"
+        ]
+      }
+    ],
+    "executeInSandbox": [
+      {
+        "file": "scripts/wasm-sandbox.mjs",
+        "line": 171,
         "type": "function",
         "signature": "function executeInSandbox(code, options = {})",
         "calls": [
@@ -5915,25 +6020,9 @@
           "looksLikeTypeScript",
           "stripTypeScript",
           "elapsed",
-          "createIsolatedSandbox"
-        ]
-      }
-    ],
-    "normalizeSandboxSource": [
-      {
-        "file": "scripts/wasm-sandbox.mjs",
-        "line": 215,
-        "type": "function",
-        "signature": "function normalizeSandboxSource(rawSource)",
-        "calls": [
-          "min",
-          "Array",
-          "charCodeAt",
-          "map",
-          "fromCharCode",
-          "join",
+          "createIsolatedSandbox",
+          "normalizeSandboxSource",
           "Script",
-          "elapsed",
           "runInContext",
           "String",
           "readLogs",
@@ -6263,19 +6352,55 @@
         ]
       }
     ],
+    "clearTopoSimTimers": [
+      {
+        "file": "showcase/app.js",
+        "line": 514,
+        "type": "function",
+        "signature": "function clearTopoSimTimers()",
+        "calls": [
+          "clearTimeout"
+        ]
+      }
+    ],
+    "simulateActiveTopology": [
+      {
+        "file": "showcase/app.js",
+        "line": 639,
+        "type": "function",
+        "signature": "function simulateActiveTopology()",
+        "calls": [
+          "clearTopoSimTimers",
+          "getElementById",
+          "from",
+          "querySelectorAll",
+          "forEach",
+          "remove",
+          "setTimeout",
+          "Number",
+          "getAttribute",
+          "add",
+          "push"
+        ]
+      }
+    ],
     "renderTopology": [
       {
         "file": "showcase/app.js",
-        "line": 626,
+        "line": 687,
         "type": "function",
         "signature": "function renderTopology(id)",
-        "calls": []
+        "calls": [
+          "clearTopoSimTimers",
+          "getElementById",
+          "addEventListener"
+        ]
       }
     ],
     "renderBridgeCode": [
       {
         "file": "showcase/app.js",
-        "line": 720,
+        "line": 791,
         "type": "function",
         "signature": "function renderBridgeCode(ideId)",
         "calls": []
@@ -6284,7 +6409,7 @@
     "initShowcase": [
       {
         "file": "showcase/app.js",
-        "line": 733,
+        "line": 804,
         "type": "function",
         "signature": "function initShowcase()",
         "calls": [
@@ -6319,7 +6444,7 @@
     "initHero3dSwarmCore": [
       {
         "file": "showcase/app.js",
-        "line": 1049,
+        "line": 1120,
         "type": "function",
         "signature": "function initHero3dSwarmCore()",
         "calls": [
@@ -6345,10 +6470,19 @@
         ]
       }
     ],
+    "createInitialAgentStates": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 49,
+        "type": "function",
+        "signature": "function createInitialAgentStates()",
+        "calls": []
+      }
+    ],
     "readSwarmState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 47,
+        "line": 57,
         "type": "function",
         "signature": "function readSwarmState()",
         "calls": [
@@ -6363,7 +6497,7 @@
     "readBlackboardState": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 59,
+        "line": 69,
         "type": "function",
         "signature": "function readBlackboardState()",
         "calls": [
@@ -6375,22 +6509,105 @@
         ]
       }
     ],
+    "sleep": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 81,
+        "type": "function",
+        "signature": "function sleep(ms)",
+        "calls": [
+          "Promise",
+          "setTimeout"
+        ]
+      }
+    ],
+    "createSidecarController": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 85,
+        "type": "function",
+        "signature": "function createSidecarController()",
+        "calls": [
+          "Set",
+          "createInitialAgentStates",
+          "broadcastSse",
+          "write",
+          "applyBusEventToState",
+          "String",
+          "toUpperCase",
+          "max",
+          "Date",
+          "toISOString",
+          "isArray",
+          "on",
+          "runAnimatedDispatch",
+          "randomUUID",
+          "Boolean",
+          "isFinite",
+          "planSwarm",
+          "map",
+          "from",
+          "resolveNativeSubagent",
+          "emitSwarmEvent",
+          "sleep",
+          "resolve",
+          "dispatchSwarm",
+          "min"
+        ]
+      }
+    ],
     "renderHtml": [
       {
         "file": "sidecars/swarm-cockpit/server.mjs",
-        "line": 71,
+        "line": 259,
         "type": "function",
-        "signature": "function renderHtml()",
+        "signature": "function renderHtml(activeSwarmRun = null)",
         "calls": [
           "readSwarmState",
           "readBlackboardState",
           "slice",
           "reverse",
-          "keys",
-          "rgba",
-          "var",
-          "gradient",
-          "scale"
+          "createInitialAgentStates",
+          "map",
+          "floor",
+          "round",
+          "max"
+        ]
+      }
+    ],
+    "createSidecarServer": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 959,
+        "type": "function",
+        "signature": "function createSidecarServer()",
+        "calls": [
+          "createSidecarController",
+          "createServer",
+          "URL",
+          "stringify",
+          "writeHead",
+          "end",
+          "Date",
+          "toISOString",
+          "on",
+          "dispose"
+        ]
+      }
+    ],
+    "startSidecarServer": [
+      {
+        "file": "sidecars/swarm-cockpit/server.mjs",
+        "line": 1086,
+        "type": "function",
+        "signature": "function startSidecarServer(options = {})",
+        "calls": [
+          "createSidecarServer",
+          "Promise",
+          "on",
+          "listen",
+          "address",
+          "exit"
         ]
       }
     ],
@@ -8187,10 +8404,10 @@
   },
   "files": {
     "bin/mcp-server.mjs": {
-      "totalLines": 2035,
+      "totalLines": 2063,
       "symbolCount": 7,
-      "mtimeMs": 1794378610306,
-      "size": 81645,
+      "mtimeMs": 1794678697763,
+      "size": 82525,
       "exports": [
         "getActiveProfile",
         "setActiveProfile",
@@ -8398,7 +8615,7 @@
         },
         {
           "name": "handleRpcRequest",
-          "line": 1193,
+          "line": 1195,
           "type": "function",
           "signature": "function handleRpcRequest(request)",
           "calls": [
@@ -8409,7 +8626,7 @@
         },
         {
           "name": "startStdioServer",
-          "line": 1876,
+          "line": 1904,
           "type": "function",
           "signature": "function startStdioServer()",
           "calls": [
@@ -8426,7 +8643,7 @@
         },
         {
           "name": "startSseServer",
-          "line": 1904,
+          "line": 1932,
           "type": "function",
           "signature": "function startSseServer(port = 3333, host = process.env.VIBES_HOST || '127.0.0.1')",
           "calls": [
@@ -8455,7 +8672,7 @@
         },
         {
           "name": "startServer",
-          "line": 2012,
+          "line": 2040,
           "type": "function",
           "signature": "function startServer(options = {})",
           "calls": [
@@ -8471,10 +8688,10 @@
       ]
     },
     "bin/vibes.mjs": {
-      "totalLines": 2160,
+      "totalLines": 2194,
       "symbolCount": 22,
-      "mtimeMs": 1794378610296,
-      "size": 103201,
+      "mtimeMs": 1794678427526,
+      "size": 105559,
       "exports": [],
       "imports": [
         {
@@ -8797,7 +9014,7 @@
         },
         {
           "name": "runDoctor",
-          "line": 1077,
+          "line": 1089,
           "type": "function",
           "signature": "function runDoctor(autoFix = false)",
           "calls": [
@@ -8816,7 +9033,7 @@
         },
         {
           "name": "runSkillInfo",
-          "line": 1165,
+          "line": 1177,
           "type": "function",
           "signature": "function runSkillInfo(skillName)",
           "calls": [
@@ -8839,7 +9056,7 @@
         },
         {
           "name": "runHooks",
-          "line": 1215,
+          "line": 1227,
           "type": "function",
           "signature": "function runHooks(action)",
           "calls": [
@@ -8855,7 +9072,7 @@
         },
         {
           "name": "runRecipe",
-          "line": 1299,
+          "line": 1311,
           "type": "function",
           "signature": "function runRecipe(action, recipeName)",
           "calls": [
@@ -8875,7 +9092,7 @@
         },
         {
           "name": "runSearch",
-          "line": 1364,
+          "line": 1376,
           "type": "function",
           "signature": "function runSearch(query)",
           "calls": [
@@ -8889,6 +9106,8 @@
             "map",
             "toLowerCase",
             "escapeRegExp",
+            "all",
+            "async",
             "readFile",
             "match",
             "RegExp",
@@ -8899,7 +9118,7 @@
         },
         {
           "name": "runSync",
-          "line": 1412,
+          "line": 1427,
           "type": "function",
           "signature": "function runSync()",
           "calls": [
@@ -8918,7 +9137,7 @@
         },
         {
           "name": "runDocs",
-          "line": 1469,
+          "line": 1484,
           "type": "function",
           "signature": "function runDocs(format = 'markdown', outputFile)",
           "calls": [
@@ -8929,22 +9148,26 @@
             "isDirectory",
             "map",
             "sort",
-            "readFile",
+            "all",
+            "async",
+            "open",
+            "alloc",
+            "read",
+            "toString",
             "match",
-            "push",
             "trim",
+            "close",
             "stringify",
             "writeFile",
             "log",
             "slice",
             "forEach",
-            "error",
-            "close"
+            "error"
           ]
         },
         {
           "name": "showHelp",
-          "line": 1539,
+          "line": 1564,
           "type": "function",
           "signature": "function showHelp()",
           "calls": [
@@ -9159,7 +9382,7 @@
     "scripts/agent-card-generator.mjs": {
       "totalLines": 161,
       "symbolCount": 3,
-      "mtimeMs": 1794062198814,
+      "mtimeMs": 1794678427616,
       "size": 6625,
       "exports": [
         "loadSubagentsMetadata",
@@ -9441,10 +9664,10 @@
       ]
     },
     "scripts/audit-graph.mjs": {
-      "totalLines": 78,
+      "totalLines": 86,
       "symbolCount": 1,
-      "mtimeMs": 1793827265925,
-      "size": 3083,
+      "mtimeMs": 1794678427864,
+      "size": 3317,
       "exports": [],
       "imports": [
         {
@@ -9476,16 +9699,18 @@
             "filter",
             "isDirectory",
             "map",
+            "all",
+            "async",
             "join",
             "readFile",
             "match",
             "n",
             "from",
             "matchAll",
+            "error",
             "has",
             "includes",
             "push",
-            "error",
             "entries",
             "log",
             "sort",
@@ -9495,10 +9720,10 @@
       ]
     },
     "scripts/benchmark-suite.mjs": {
-      "totalLines": 294,
+      "totalLines": 296,
       "symbolCount": 1,
-      "mtimeMs": 1793793449418,
-      "size": 12344,
+      "mtimeMs": 1794678710269,
+      "size": 12381,
       "exports": [
         "runBenchmarkSuite"
       ],
@@ -9602,7 +9827,7 @@
     "scripts/bundle-binary.mjs": {
       "totalLines": 186,
       "symbolCount": 3,
-      "mtimeMs": 1793900568779,
+      "mtimeMs": 1794678427953,
       "size": 6219,
       "exports": [
         "calculateChecksum",
@@ -9823,7 +10048,7 @@
     "scripts/compile-cache.mjs": {
       "totalLines": 321,
       "symbolCount": 3,
-      "mtimeMs": 1794062413596,
+      "mtimeMs": 1794678428075,
       "size": 15383,
       "exports": [
         "compileCache",
@@ -9918,7 +10143,7 @@
     "scripts/compile-skill-slices.mjs": {
       "totalLines": 154,
       "symbolCount": 1,
-      "mtimeMs": 1794324047117,
+      "mtimeMs": 1794678428211,
       "size": 6551,
       "exports": [
         "compileSkillSlices"
@@ -10834,7 +11059,7 @@
     "scripts/generate-catalog.mjs": {
       "totalLines": 57,
       "symbolCount": 0,
-      "mtimeMs": 1794062009309,
+      "mtimeMs": 1794678428323,
       "size": 2265,
       "exports": [],
       "imports": [
@@ -10868,7 +11093,7 @@
     "scripts/generate-llms-txt.mjs": {
       "totalLines": 148,
       "symbolCount": 1,
-      "mtimeMs": 1794062850806,
+      "mtimeMs": 1794678428450,
       "size": 7317,
       "exports": [],
       "imports": [
@@ -10920,8 +11145,8 @@
     "scripts/generate_swarm_gif.py": {
       "totalLines": 296,
       "symbolCount": 3,
-      "mtimeMs": 1792153848000,
-      "size": 10908,
+      "mtimeMs": 1794676969474,
+      "size": 10932,
       "exports": [],
       "imports": [],
       "cachedSymbols": [
@@ -11193,10 +11418,10 @@
       ]
     },
     "scripts/graphrag-indexer.mjs": {
-      "totalLines": 544,
+      "totalLines": 560,
       "symbolCount": 6,
-      "mtimeMs": 1793593331138,
-      "size": 16958,
+      "mtimeMs": 1794678725088,
+      "size": 17630,
       "exports": [
         "collectSourceFiles",
         "buildSymbolGraph",
@@ -11242,7 +11467,7 @@
       "cachedSymbols": [
         {
           "name": "collectSourceFiles",
-          "line": 51,
+          "line": 53,
           "type": "function",
           "signature": "function collectSourceFiles(dir, fileList = [])",
           "calls": [
@@ -11257,7 +11482,7 @@
         },
         {
           "name": "buildSymbolGraph",
-          "line": 79,
+          "line": 81,
           "type": "function",
           "signature": "function buildSymbolGraph(rootDir = process.cwd()",
           "calls": [
@@ -11284,10 +11509,12 @@
         },
         {
           "name": "loadSymbolGraph",
-          "line": 201,
+          "line": 209,
           "type": "function",
           "signature": "function loadSymbolGraph(graphFile = DEFAULT_GRAPH_FILE)",
           "calls": [
+            "resolve",
+            "stat",
             "readFile",
             "parse",
             "buildSymbolGraph",
@@ -11296,7 +11523,7 @@
         },
         {
           "name": "querySymbolGraph",
-          "line": 216,
+          "line": 232,
           "type": "function",
           "signature": "function querySymbolGraph(symbolName, options = {})",
           "calls": [
@@ -11311,7 +11538,7 @@
         },
         {
           "name": "tokenizeCode",
-          "line": 265,
+          "line": 281,
           "type": "function",
           "signature": "function tokenizeCode(text = '')",
           "calls": [
@@ -11323,7 +11550,7 @@
         },
         {
           "name": "hybridSearch",
-          "line": 282,
+          "line": 298,
           "type": "function",
           "signature": "function hybridSearch(query, options = {})",
           "calls": [
@@ -11430,7 +11657,7 @@
     "scripts/install.js": {
       "totalLines": 457,
       "symbolCount": 12,
-      "mtimeMs": 1794340777780,
+      "mtimeMs": 1794678428579,
       "size": 16962,
       "exports": [],
       "imports": [
@@ -12653,10 +12880,10 @@
       ]
     },
     "scripts/semantic-search.mjs": {
-      "totalLines": 309,
+      "totalLines": 320,
       "symbolCount": 9,
-      "mtimeMs": 1793900568789,
-      "size": 9883,
+      "mtimeMs": 1794678428675,
+      "size": 10313,
       "exports": [
         "LocalSemanticEngine"
       ],
@@ -12759,13 +12986,17 @@
             "now",
             "join",
             "readdir",
+            "all",
+            "filter",
             "isDirectory",
+            "map",
+            "async",
             "readFile",
             "match",
             "trim",
-            "push",
             "relative",
             "replace",
+            "push",
             "endsWith",
             "Map",
             "tokenize",
@@ -12776,16 +13007,12 @@
             "entries",
             "log",
             "from",
-            "computeVector",
-            "mkdir",
-            "dirname",
-            "writeFile",
-            "stringify"
+            "computeVector"
           ]
         },
         {
           "name": "LocalSemanticEngine.ensureIndex",
-          "line": 211,
+          "line": 222,
           "type": "method",
           "signature": "LocalSemanticEngine.ensureIndex()",
           "calls": [
@@ -12796,7 +13023,7 @@
         },
         {
           "name": "LocalSemanticEngine.search",
-          "line": 229,
+          "line": 240,
           "type": "method",
           "signature": "LocalSemanticEngine.search(query = '', options = {})",
           "calls": [
@@ -12818,7 +13045,7 @@
         },
         {
           "name": "main",
-          "line": 273,
+          "line": 284,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -12949,10 +13176,10 @@
       ]
     },
     "scripts/skill-dispatcher.mjs": {
-      "totalLines": 712,
+      "totalLines": 680,
       "symbolCount": 7,
-      "mtimeMs": 1794324047347,
-      "size": 29027,
+      "mtimeMs": 1794678428789,
+      "size": 28114,
       "exports": [
         "resolveSkillAdapter",
         "getSkillCompactSlice",
@@ -13168,26 +13395,18 @@
           "signature": "function compileAllSkillSlices()",
           "calls": [
             "now",
-            "readdir",
-            "filter",
-            "isDirectory",
-            "startsWith",
-            "map",
-            "sort",
-            "inspectSkillCapabilities",
-            "push",
+            "compileSkillSlices",
             "keys",
-            "writeFile",
-            "stringify",
             "max",
             "round",
             "fromEntries",
-            "entries"
+            "entries",
+            "map"
           ]
         },
         {
           "name": "dispatchSkillAction",
-          "line": 369,
+          "line": 337,
           "type": "function",
           "signature": "function dispatchSkillAction(request = {})",
           "calls": [
@@ -13220,7 +13439,7 @@
         },
         {
           "name": "dispatchSkillChain",
-          "line": 552,
+          "line": 520,
           "type": "function",
           "signature": "function dispatchSkillChain(recipeName = 'saas-launch-gate', payload = {})",
           "calls": [
@@ -13386,7 +13605,7 @@
     "scripts/skill-evolver.mjs": {
       "totalLines": 375,
       "symbolCount": 7,
-      "mtimeMs": 1793899797242,
+      "mtimeMs": 1794678429025,
       "size": 15274,
       "exports": [
         "sanitizeEvolveSlug",
@@ -13526,10 +13745,10 @@
       ]
     },
     "scripts/skill-rules-engine.mjs": {
-      "totalLines": 3230,
+      "totalLines": 3244,
       "symbolCount": 5,
-      "mtimeMs": 1794345034229,
-      "size": 175100,
+      "mtimeMs": 1794678692746,
+      "size": 176196,
       "exports": [
         "matchSkillsForTarget",
         "extractDeclarativeRulesFromSkill",
@@ -13566,7 +13785,7 @@
       "cachedSymbols": [
         {
           "name": "matchSkillsForTarget",
-          "line": 2986,
+          "line": 3000,
           "type": "function",
           "signature": "function matchSkillsForTarget(context = {})",
           "calls": [
@@ -13584,7 +13803,7 @@
         },
         {
           "name": "extractDeclarativeRulesFromSkill",
-          "line": 3037,
+          "line": 3051,
           "type": "function",
           "signature": "function extractDeclarativeRulesFromSkill(skillName, rawContent = null)",
           "calls": [
@@ -13607,7 +13826,7 @@
         },
         {
           "name": "evaluateContextualSkillGuards",
-          "line": 3118,
+          "line": 3132,
           "type": "function",
           "signature": "function evaluateContextualSkillGuards(params = {})",
           "calls": [
@@ -13623,7 +13842,7 @@
         },
         {
           "name": "extractLanguageSection",
-          "line": 3165,
+          "line": 3179,
           "type": "function",
           "signature": "function extractLanguageSection(content, lang = 'full', options = {})",
           "calls": [
@@ -13635,7 +13854,7 @@
         },
         {
           "name": "extractSmartCodeSnippet",
-          "line": 3210,
+          "line": 3224,
           "type": "function",
           "signature": "function extractSmartCodeSnippet(rawCode, maxLines = 18)",
           "calls": [
@@ -13654,7 +13873,7 @@
     "scripts/skill-synthesizer.mjs": {
       "totalLines": 543,
       "symbolCount": 7,
-      "mtimeMs": 1793899797243,
+      "mtimeMs": 1794678429324,
       "size": 21623,
       "exports": [
         "sanitizeSkillSlug",
@@ -14067,10 +14286,10 @@
       ]
     },
     "scripts/studio-server.mjs": {
-      "totalLines": 4874,
+      "totalLines": 5199,
       "symbolCount": 8,
-      "mtimeMs": 1794378610314,
-      "size": 201386,
+      "mtimeMs": 1794676892316,
+      "size": 216189,
       "exports": [
         "generateStudioHtml",
         "startStudioServer"
@@ -14184,7 +14403,7 @@
       "cachedSymbols": [
         {
           "name": "loadSkillsCatalog",
-          "line": 278,
+          "line": 285,
           "type": "function",
           "signature": "function loadSkillsCatalog()",
           "calls": [
@@ -14209,7 +14428,7 @@
         },
         {
           "name": "getSkillDetails",
-          "line": 342,
+          "line": 349,
           "type": "function",
           "signature": "function getSkillDetails(name)",
           "calls": [
@@ -14221,7 +14440,7 @@
         },
         {
           "name": "getSystemStatus",
-          "line": 365,
+          "line": 372,
           "type": "function",
           "signature": "function getSystemStatus()",
           "calls": [
@@ -14237,14 +14456,14 @@
         },
         {
           "name": "generateStudioHtml",
-          "line": 413,
+          "line": 420,
           "type": "function",
           "signature": "function generateStudioHtml(currentPort)",
           "calls": []
         },
         {
           "name": "isValidSkillSlug",
-          "line": 3477,
+          "line": 3802,
           "type": "function",
           "signature": "function isValidSkillSlug(name)",
           "calls": [
@@ -14254,7 +14473,7 @@
         },
         {
           "name": "resolveAllowedOrigin",
-          "line": 3481,
+          "line": 3806,
           "type": "function",
           "signature": "function resolveAllowedOrigin(req, port)",
           "calls": [
@@ -14263,7 +14482,7 @@
         },
         {
           "name": "readJsonBody",
-          "line": 3490,
+          "line": 3815,
           "type": "function",
           "signature": "function readJsonBody(req)",
           "calls": [
@@ -14278,7 +14497,7 @@
         },
         {
           "name": "startStudioServer",
-          "line": 3514,
+          "line": 3839,
           "type": "function",
           "signature": "function startStudioServer(options = {})",
           "calls": [
@@ -14742,10 +14961,10 @@
       ]
     },
     "scripts/swarm-bus.mjs": {
-      "totalLines": 412,
-      "symbolCount": 21,
-      "mtimeMs": 1794340778748,
-      "size": 12922,
+      "totalLines": 432,
+      "symbolCount": 22,
+      "mtimeMs": 1794676568450,
+      "size": 13467,
       "exports": [
         "emitSwarmEvent",
         "getRecentSwarmEvents"
@@ -14855,7 +15074,7 @@
         },
         {
           "name": "SwarmEventBus._hydrateBlackboardFromDisk",
-          "line": 76,
+          "line": 87,
           "type": "method",
           "signature": "SwarmEventBus._hydrateBlackboardFromDisk()",
           "calls": [
@@ -14870,7 +15089,7 @@
         },
         {
           "name": "SwarmEventBus._persistBusStateToDisk",
-          "line": 96,
+          "line": 107,
           "type": "method",
           "signature": "SwarmEventBus._persistBusStateToDisk()",
           "calls": [
@@ -14888,7 +15107,7 @@
         },
         {
           "name": "SwarmEventBus._hydrateBusStateFromDisk",
-          "line": 115,
+          "line": 126,
           "type": "method",
           "signature": "SwarmEventBus._hydrateBusStateFromDisk()",
           "calls": [
@@ -14904,7 +15123,7 @@
         },
         {
           "name": "SwarmEventBus.setBlackboard",
-          "line": 141,
+          "line": 152,
           "type": "method",
           "signature": "SwarmEventBus.setBlackboard(key, value, authorAgent = 'swarm-director')",
           "calls": [
@@ -14918,7 +15137,7 @@
         },
         {
           "name": "SwarmEventBus.getBlackboard",
-          "line": 169,
+          "line": 180,
           "type": "method",
           "signature": "SwarmEventBus.getBlackboard(key)",
           "calls": [
@@ -14929,7 +15148,7 @@
         },
         {
           "name": "SwarmEventBus.listBlackboard",
-          "line": 180,
+          "line": 191,
           "type": "method",
           "signature": "SwarmEventBus.listBlackboard()",
           "calls": [
@@ -14940,7 +15159,7 @@
         },
         {
           "name": "SwarmEventBus.publish",
-          "line": 191,
+          "line": 202,
           "type": "method",
           "signature": "SwarmEventBus.publish(eventType, payload = {})",
           "calls": [
@@ -14957,7 +15176,7 @@
         },
         {
           "name": "SwarmEventBus.getEvents",
-          "line": 245,
+          "line": 256,
           "type": "method",
           "signature": "SwarmEventBus.getEvents(options = {})",
           "calls": [
@@ -14968,8 +15187,17 @@
           ]
         },
         {
+          "name": "SwarmEventBus.getRecentEvents",
+          "line": 274,
+          "type": "method",
+          "signature": "SwarmEventBus.getRecentEvents(limit = 25)",
+          "calls": [
+            "getEvents"
+          ]
+        },
+        {
           "name": "SwarmEventBus.getActiveSwarms",
-          "line": 262,
+          "line": 282,
           "type": "method",
           "signature": "SwarmEventBus.getActiveSwarms()",
           "calls": [
@@ -14980,7 +15208,7 @@
         },
         {
           "name": "SwarmEventBus.attachSseStream",
-          "line": 273,
+          "line": 293,
           "type": "method",
           "signature": "SwarmEventBus.attachSseStream(res, options = {})",
           "calls": [
@@ -14994,7 +15222,7 @@
         },
         {
           "name": "SwarmEventBus.clearBlackboard",
-          "line": 314,
+          "line": 334,
           "type": "method",
           "signature": "SwarmEventBus.clearBlackboard()",
           "calls": [
@@ -15006,7 +15234,7 @@
         },
         {
           "name": "SwarmEventBus.reset",
-          "line": 327,
+          "line": 347,
           "type": "method",
           "signature": "SwarmEventBus.reset()",
           "calls": [
@@ -15020,7 +15248,7 @@
         },
         {
           "name": "emitSwarmEvent",
-          "line": 351,
+          "line": 371,
           "type": "function",
           "signature": "function emitSwarmEvent(type, payload = {})",
           "calls": [
@@ -15029,7 +15257,7 @@
         },
         {
           "name": "getRecentSwarmEvents",
-          "line": 360,
+          "line": 380,
           "type": "function",
           "signature": "function getRecentSwarmEvents(options = {})",
           "calls": [
@@ -15038,7 +15266,7 @@
         },
         {
           "name": "main",
-          "line": 364,
+          "line": 384,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -15059,10 +15287,10 @@
       ]
     },
     "scripts/swarm-dispatcher.mjs": {
-      "totalLines": 373,
-      "symbolCount": 7,
-      "mtimeMs": 1794340779036,
-      "size": 14792,
+      "totalLines": 425,
+      "symbolCount": 8,
+      "mtimeMs": 1794676622961,
+      "size": 16956,
       "exports": [
         "resolveNativeSubagent",
         "dispatchSwarm"
@@ -15192,7 +15420,7 @@
         },
         {
           "name": "discoverWorkspaceTargets",
-          "line": 106,
+          "line": 107,
           "type": "function",
           "signature": "function discoverWorkspaceTargets(taskDescription, workerSpec)",
           "calls": [
@@ -15203,11 +15431,12 @@
         },
         {
           "name": "executeWorkerTask",
-          "line": 133,
+          "line": 134,
           "type": "function",
           "signature": "function executeWorkerTask(workerSpec, taskDescription, profile, swarmId)",
           "calls": [
             "now",
+            "resolveNativeSubagent",
             "emitSwarmEvent",
             "all",
             "loadWorkerSkillContext",
@@ -15219,14 +15448,27 @@
             "includes",
             "criticValidate",
             "executeInSandbox",
-            "resolveNativeSubagent",
             "isArray",
             "formatSamplingRequest"
           ]
         },
         {
-          "name": "dispatchSwarm",
+          "name": "animateDispatchProgress",
           "line": 248,
+          "type": "function",
+          "signature": "function animateDispatchProgress(workersList)",
+          "calls": [
+            "max",
+            "round",
+            "repeat",
+            "write",
+            "Promise",
+            "setTimeout"
+          ]
+        },
+        {
+          "name": "dispatchSwarm",
+          "line": 271,
           "type": "function",
           "signature": "function dispatchSwarm(taskDescription, options = {})",
           "calls": [
@@ -15235,17 +15477,22 @@
             "Number",
             "resolveReasoningProfile",
             "planSwarm",
-            "emitSwarmEvent",
-            "push",
             "map",
+            "resolveNativeSubagent",
+            "emitSwarmEvent",
+            "setBlackboard",
+            "Date",
+            "toISOString",
+            "push",
             "executeWorkerTask",
             "runWithConcurrency",
+            "animateDispatchProgress",
             "every"
           ]
         },
         {
           "name": "main",
-          "line": 322,
+          "line": 371,
           "type": "function",
           "signature": "function main()",
           "calls": [
@@ -15267,13 +15514,14 @@
       ]
     },
     "scripts/swarm-runner.mjs": {
-      "totalLines": 245,
-      "symbolCount": 4,
-      "mtimeMs": 1793593331145,
-      "size": 12443,
+      "totalLines": 503,
+      "symbolCount": 6,
+      "mtimeMs": 1794676597489,
+      "size": 21482,
       "exports": [
         "resolveReasoningProfile",
         "planSwarm",
+        "configureAutoSwarm",
         "executeSwarm"
       ],
       "imports": [
@@ -15294,12 +15542,20 @@
           "line": 14
         },
         {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 15
+        },
+        {
           "source": "url",
           "target": null,
           "specifiers": [
             "fileURLToPath"
           ],
-          "line": 15
+          "line": 16
         },
         {
           "source": "./speculative-arbiter.mjs",
@@ -15307,13 +15563,22 @@
           "specifiers": [
             "arbitrateCandidates"
           ],
-          "line": 17
+          "line": 18
+        },
+        {
+          "source": "./swarm-bus.mjs",
+          "target": "scripts/swarm-bus.mjs",
+          "specifiers": [
+            "emitSwarmEvent",
+            "swarmBus"
+          ],
+          "line": 19
         }
       ],
       "cachedSymbols": [
         {
           "name": "resolveReasoningProfile",
-          "line": 60,
+          "line": 62,
           "type": "function",
           "signature": "function resolveReasoningProfile(taskDescription = '', requestedProfile = null)",
           "calls": [
@@ -15325,7 +15590,7 @@
         },
         {
           "name": "planSwarm",
-          "line": 83,
+          "line": 85,
           "type": "function",
           "signature": "function planSwarm(taskDescription, options = {})",
           "calls": [
@@ -15337,27 +15602,78 @@
           ]
         },
         {
+          "name": "renderInteractivePulse",
+          "line": 158,
+          "type": "function",
+          "signature": "function renderInteractivePulse(label, pct, durationMs = 180)",
+          "calls": [
+            "round",
+            "min",
+            "max",
+            "repeat",
+            "floor",
+            "write",
+            "Promise",
+            "setTimeout"
+          ]
+        },
+        {
+          "name": "configureAutoSwarm",
+          "line": 178,
+          "type": "function",
+          "signature": "function configureAutoSwarm(options = {})",
+          "calls": [
+            "join",
+            "String",
+            "toLowerCase",
+            "Date",
+            "toISOString",
+            "readFile",
+            "parse",
+            "mkdir",
+            "writeFile",
+            "stringify",
+            "setBlackboard",
+            "emitSwarmEvent",
+            "Boolean"
+          ]
+        },
+        {
           "name": "executeSwarm",
-          "line": 154,
+          "line": 244,
           "type": "function",
           "signature": "function executeSwarm(taskDescription, options = {})",
           "calls": [
             "planSwarm",
-            "push"
+            "randomUUID",
+            "Boolean",
+            "push",
+            "emitSwarmEvent",
+            "setBlackboard",
+            "map",
+            "Date",
+            "toISOString",
+            "renderInteractivePulse",
+            "max",
+            "min",
+            "round"
           ]
         },
         {
           "name": "main",
-          "line": 208,
+          "line": 426,
           "type": "function",
           "signature": "function main()",
           "calls": [
             "slice",
+            "includes",
+            "configureAutoSwarm",
+            "log",
+            "stringify",
             "startsWith",
             "split",
             "push",
             "join",
-            "log",
             "executeSwarm",
             "forEach",
             "endsWith",
@@ -15368,10 +15684,10 @@
       ]
     },
     "scripts/telemetry.mjs": {
-      "totalLines": 168,
+      "totalLines": 173,
       "symbolCount": 4,
-      "mtimeMs": 1793904429924,
-      "size": 5178,
+      "mtimeMs": 1794678429395,
+      "size": 5373,
       "exports": [
         "getTelemetryConfig",
         "setTelemetryEnabled",
@@ -15435,7 +15751,7 @@
         },
         {
           "name": "setTelemetryEnabled",
-          "line": 88,
+          "line": 90,
           "type": "function",
           "signature": "function setTelemetryEnabled(enabled)",
           "calls": [
@@ -15451,7 +15767,7 @@
         },
         {
           "name": "trackEvent",
-          "line": 108,
+          "line": 110,
           "type": "function",
           "signature": "function trackEvent(eventName, customProperties = {})",
           "calls": [
@@ -15471,7 +15787,7 @@
         },
         {
           "name": "sendTelemetry",
-          "line": 165,
+          "line": 170,
           "type": "function",
           "signature": "function sendTelemetry(eventName, properties = {})",
           "calls": [
@@ -15600,10 +15916,10 @@
       ]
     },
     "scripts/test-cli.mjs": {
-      "totalLines": 2631,
+      "totalLines": 2801,
       "symbolCount": 1,
-      "mtimeMs": 1794344924346,
-      "size": 146660,
+      "mtimeMs": 1794678050429,
+      "size": 155485,
       "exports": [],
       "imports": [
         {
@@ -16373,7 +16689,7 @@
     "scripts/wasm-sandbox.mjs": {
       "totalLines": 535,
       "symbolCount": 10,
-      "mtimeMs": 1794324047691,
+      "mtimeMs": 1794678723134,
       "size": 21738,
       "exports": [
         "createIsolatedSandbox",
@@ -16494,8 +16810,22 @@
           ]
         },
         {
-          "name": "executeInSandbox",
+          "name": "normalizeSandboxSource",
           "line": 161,
+          "type": "function",
+          "signature": "function normalizeSandboxSource(rawSource)",
+          "calls": [
+            "min",
+            "Array",
+            "charCodeAt",
+            "map",
+            "fromCharCode",
+            "join"
+          ]
+        },
+        {
+          "name": "executeInSandbox",
+          "line": 171,
           "type": "function",
           "signature": "function executeInSandbox(code, options = {})",
           "calls": [
@@ -16507,23 +16837,9 @@
             "looksLikeTypeScript",
             "stripTypeScript",
             "elapsed",
-            "createIsolatedSandbox"
-          ]
-        },
-        {
-          "name": "normalizeSandboxSource",
-          "line": 215,
-          "type": "function",
-          "signature": "function normalizeSandboxSource(rawSource)",
-          "calls": [
-            "min",
-            "Array",
-            "charCodeAt",
-            "map",
-            "fromCharCode",
-            "join",
+            "createIsolatedSandbox",
+            "normalizeSandboxSource",
             "Script",
-            "elapsed",
             "runInContext",
             "String",
             "readLogs",
@@ -16786,10 +17102,10 @@
       ]
     },
     "showcase/app.js": {
-      "totalLines": 1172,
-      "symbolCount": 13,
-      "mtimeMs": 1793901277197,
-      "size": 48128,
+      "totalLines": 1243,
+      "symbolCount": 15,
+      "mtimeMs": 1794676952193,
+      "size": 53002,
       "exports": [
         "showToast",
         "executeTerminalCommand",
@@ -16929,22 +17245,54 @@
           ]
         },
         {
+          "name": "clearTopoSimTimers",
+          "line": 514,
+          "type": "function",
+          "signature": "function clearTopoSimTimers()",
+          "calls": [
+            "clearTimeout"
+          ]
+        },
+        {
+          "name": "simulateActiveTopology",
+          "line": 639,
+          "type": "function",
+          "signature": "function simulateActiveTopology()",
+          "calls": [
+            "clearTopoSimTimers",
+            "getElementById",
+            "from",
+            "querySelectorAll",
+            "forEach",
+            "remove",
+            "setTimeout",
+            "Number",
+            "getAttribute",
+            "add",
+            "push"
+          ]
+        },
+        {
           "name": "renderTopology",
-          "line": 626,
+          "line": 687,
           "type": "function",
           "signature": "function renderTopology(id)",
-          "calls": []
+          "calls": [
+            "clearTopoSimTimers",
+            "getElementById",
+            "addEventListener"
+          ]
         },
         {
           "name": "renderBridgeCode",
-          "line": 720,
+          "line": 791,
           "type": "function",
           "signature": "function renderBridgeCode(ideId)",
           "calls": []
         },
         {
           "name": "initShowcase",
-          "line": 733,
+          "line": 804,
           "type": "function",
           "signature": "function initShowcase()",
           "calls": [
@@ -16977,7 +17325,7 @@
         },
         {
           "name": "initHero3dSwarmCore",
-          "line": 1049,
+          "line": 1120,
           "type": "function",
           "signature": "function initHero3dSwarmCore()",
           "calls": [
@@ -17007,18 +17355,23 @@
     "showcase/skills-data.js": {
       "totalLines": 3156,
       "symbolCount": 0,
-      "mtimeMs": 1794062795153,
+      "mtimeMs": 1794678429609,
       "size": 92999,
       "exports": [],
       "imports": [],
       "cachedSymbols": []
     },
     "sidecars/swarm-cockpit/server.mjs": {
-      "totalLines": 526,
-      "symbolCount": 3,
-      "mtimeMs": 1794344319699,
-      "size": 16635,
-      "exports": [],
+      "totalLines": 1115,
+      "symbolCount": 8,
+      "mtimeMs": 1794676696596,
+      "size": 40035,
+      "exports": [
+        "createSidecarController",
+        "renderHtml",
+        "createSidecarServer",
+        "startSidecarServer"
+      ],
       "imports": [
         {
           "source": "node:http",
@@ -17045,26 +17398,59 @@
           "line": 10
         },
         {
+          "source": "node:crypto",
+          "target": null,
+          "specifiers": [
+            "crypto"
+          ],
+          "line": 11
+        },
+        {
           "source": "node:url",
           "target": null,
           "specifiers": [
             "fileURLToPath"
           ],
-          "line": 11
+          "line": 12
         },
         {
-          "source": "node:child_process",
-          "target": null,
+          "source": "../../scripts/swarm-runner.mjs",
+          "target": "scripts/swarm-runner.mjs",
           "specifiers": [
-            "spawn"
+            "planSwarm"
           ],
-          "line": 12
+          "line": 14
+        },
+        {
+          "source": "../../scripts/swarm-dispatcher.mjs",
+          "target": "scripts/swarm-dispatcher.mjs",
+          "specifiers": [
+            "dispatchSwarm",
+            "resolveNativeSubagent"
+          ],
+          "line": 15
+        },
+        {
+          "source": "../../scripts/swarm-bus.mjs",
+          "target": "scripts/swarm-bus.mjs",
+          "specifiers": [
+            "swarmBus",
+            "emitSwarmEvent"
+          ],
+          "line": 16
         }
       ],
       "cachedSymbols": [
         {
+          "name": "createInitialAgentStates",
+          "line": 49,
+          "type": "function",
+          "signature": "function createInitialAgentStates()",
+          "calls": []
+        },
+        {
           "name": "readSwarmState",
-          "line": 47,
+          "line": 57,
           "type": "function",
           "signature": "function readSwarmState()",
           "calls": [
@@ -17077,7 +17463,7 @@
         },
         {
           "name": "readBlackboardState",
-          "line": 59,
+          "line": 69,
           "type": "function",
           "signature": "function readBlackboardState()",
           "calls": [
@@ -17089,20 +17475,95 @@
           ]
         },
         {
-          "name": "renderHtml",
-          "line": 71,
+          "name": "sleep",
+          "line": 81,
           "type": "function",
-          "signature": "function renderHtml()",
+          "signature": "function sleep(ms)",
+          "calls": [
+            "Promise",
+            "setTimeout"
+          ]
+        },
+        {
+          "name": "createSidecarController",
+          "line": 85,
+          "type": "function",
+          "signature": "function createSidecarController()",
+          "calls": [
+            "Set",
+            "createInitialAgentStates",
+            "broadcastSse",
+            "write",
+            "applyBusEventToState",
+            "String",
+            "toUpperCase",
+            "max",
+            "Date",
+            "toISOString",
+            "isArray",
+            "on",
+            "runAnimatedDispatch",
+            "randomUUID",
+            "Boolean",
+            "isFinite",
+            "planSwarm",
+            "map",
+            "from",
+            "resolveNativeSubagent",
+            "emitSwarmEvent",
+            "sleep",
+            "resolve",
+            "dispatchSwarm",
+            "min"
+          ]
+        },
+        {
+          "name": "renderHtml",
+          "line": 259,
+          "type": "function",
+          "signature": "function renderHtml(activeSwarmRun = null)",
           "calls": [
             "readSwarmState",
             "readBlackboardState",
             "slice",
             "reverse",
-            "keys",
-            "rgba",
-            "var",
-            "gradient",
-            "scale"
+            "createInitialAgentStates",
+            "map",
+            "floor",
+            "round",
+            "max"
+          ]
+        },
+        {
+          "name": "createSidecarServer",
+          "line": 959,
+          "type": "function",
+          "signature": "function createSidecarServer()",
+          "calls": [
+            "createSidecarController",
+            "createServer",
+            "URL",
+            "stringify",
+            "writeHead",
+            "end",
+            "Date",
+            "toISOString",
+            "on",
+            "dispose"
+          ]
+        },
+        {
+          "name": "startSidecarServer",
+          "line": 1086,
+          "type": "function",
+          "signature": "function startSidecarServer(options = {})",
+          "calls": [
+            "createSidecarServer",
+            "Promise",
+            "on",
+            "listen",
+            "address",
+            "exit"
           ]
         }
       ]

@@ -2,7 +2,7 @@
 name: web-game-engine-expert
 description: "Modern web game development: Three.js, Babylon.js, ECS, and physics / Pengembangan game web modern: Three.js, Babylon.js, ECS, dan fisika."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -30,6 +30,16 @@ Connects and orchestrates with relevant domain skills:
 
 ### Description
 Production-grade guidance for engineering commercial-quality 2D and 3D web games running at steady 60 to 144+ FPS. Enforces strict game architectural patterns: **Fixed-Timestep Accumulators with render interpolation**, **WebAssembly Physics Engines** (Rapier 3D, Jolt Physics, Havok), **Zero-GC Object Pooling** to eliminate JavaScript garbage collection stutters, **Entity Component System (ECS)** architectures, **Web Audio API 3D Spatial Sound (HRTF)**, and **WebTransport / WebRTC low-latency netcode**.
+
+### Hard Guardrails (Declarative Invariants)
+- **Fixed-Timestep Physics Accumulator**: Physics updates must execute within a deterministic fixed-step loop (`accumulateFrameTime` / `FIXED_TIMESTEP`) with render state interpolation (`alpha`); running physics updates directly on variable `requestAnimationFrame` delta times (`physics.step(delta)`) is strictly prohibited.
+- **Zero-Allocation Render Tick**: Instantiating heap objects (e.g. `new THREE.Vector3()`, `new Vector3()`, `new Quaternion()`, `new Object3D()`) inside the render or animation tick loop (`requestAnimationFrame`) is strictly prohibited; reusable scratchpools and object pools must be utilized.
+- **WASM Physics Memory Boundary**: Physics meshes and colliders allocated in WebAssembly backends (Rapier, Havok, Jolt) must explicitly dispose memory and unregister bodies upon entity deletion to prevent WASM memory leaks.
+- **3D Positional Audio Spatialization**: Audio sources placed within 3D game scenes must bind to Web Audio `PannerNode` or Three.js `PositionalAudio` using HRTF panning models rather than flat stereo gain.
+
+### Non-Functional Requirements (NFR Contract)
+- **Frame Budget & Pacing**: Steady 60 FPS ($16.6\text{ ms}$ budget) or 120 FPS ($8.3\text{ ms}$) with zero GC pauses exceeding $3\text{ ms}$.
+- **Physics Determinism**: 0 physics tunneling or interpenetration at standard collision velocities across variable screen refresh rates.
 
 ### Trigger Conditions
 Activate this skill when the user is:
@@ -368,6 +378,16 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 
 ### Deskripsi
 Panduan produksi untuk merekayasa game web komersial 2D dan 3D dengan target stabil di 60 hingga 144+ FPS. Menerapkan arsitektur game modern: **Fixed-Timestep Accumulator dengan interpolasi render**, **Physics Engine berbasis WebAssembly** (Rapier 3D, Jolt Physics, Havok), **Zero-GC Object Pooling** untuk mencegah lonjakan Garbage Collector JavaScript, arsitektur **ECS (Entity Component System)**, **Audio Spasial 3D Web Audio API (HRTF)**, dan **Netcode WebTransport / WebRTC berlatensi rendah**.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Akumulator Fisika Timestep Tetap**: Komputasi fisika wajib berjalan dalam loop deterministik bertick tetap (`accumulateFrameTime` / `FIXED_TIMESTEP`) dengan interpolasi render (`alpha`); menjalankan pembaruan fisika langsung pada delta waktu `requestAnimationFrame` yang bervariasi (`physics.step(delta)`) dilarang keras.
+- **Zero-Allocation pada Render Tick**: Menginstansiasi objek heap (seperti `new THREE.Vector3()`, `new Vector3()`, `new Quaternion()`, `new Object3D()`) di dalam loop render atau animasi (`requestAnimationFrame`) dilarang keras; wajib menggunakan scratchpool dan object pool yang dapat digunakan kembali.
+- **Batas Memori Fisika WASM**: Mesh dan collider fisika yang dialokasikan di backend WebAssembly (Rapier, Havok, Jolt) wajib menghapus memori (*dispose*) dan membatalkan registrasi bodi secara eksplisit saat entitas dihapus untuk mencegah kebocoran memori WASM.
+- **Spasialisasi Audio Posisi 3D**: Sumber audio dalam adegan game 3D wajib terhubung ke Web Audio `PannerNode` atau Three.js `PositionalAudio` dengan model panning HRTF, bukan sekadar stereo gain datar.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Frame Budget & Pacing**: Stabil di 60 FPS ($16.6\text{ ms}$ budget) atau 120 FPS ($8.3\text{ ms}$) tanpa jeda GC yang melebihi $3\text{ ms}$.
+- **Determinisme Fisika**: 0 penembusan tabrakan (*tunneling*) atau interpenetrasi pada kecepatan tabrakan standar di berbagai refresh rate layar.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika pengguna:

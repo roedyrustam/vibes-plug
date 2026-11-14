@@ -2,7 +2,7 @@
 name: geospatial-maps-expert
 description: "Maps and geospatial data: Mapbox GL JS, Leaflet, and PostGIS / Peta dan data geospasial: Mapbox GL JS, Leaflet, dan PostGIS."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -154,6 +154,16 @@ export function StoreLocatorMap({ stores }: { stores: StorePoint[] }) {
 - **`performance-web-vitals`**: Lazy-loads vector tile stylesheets and WebGL libraries to maintain optimal LCP and INP.
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `data-visualization-expert`, `mobile-expo-expert`, `search-engine-expert`
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory PostGIS Spatial GIST Index Invariant**:
+   - Every database column storing geospatial geometry or geography data (`geometry(Point, 4326)` or `geography`) MUST have an explicit GiST index (`CREATE INDEX ... USING GIST (geom)`). Unindexed spatial queries scanning full tables are strictly prohibited.
+2. **Deterministic Coordinate Order (Longitude, Latitude)**:
+   - All GeoJSON primitives, PostGIS constructors (`ST_MakePoint(lng, lat)`), and MapLibre/Mapbox center coordinates MUST follow strict `[longitude, latitude]` (X, Y) coordinate ordering. Inverting coordinates to `[lat, lng]` in GeoJSON arrays is strictly prohibited.
+3. **Client-Side Marker Clustering Overload Protection**:
+   - Map interfaces rendering dynamic datasets with more than 50 marker points MUST enforce WebGL clustering or Supercluster aggregation. Rendering unclustered DOM elements for massive pin datasets is strictly prohibited to prevent browser jank and UI freezes.
+4. **Dynamic Lazy-Loading & WebGL Cleanup Invariant**:
+   - Heavy map renderers (MapLibre, Mapbox, deck.gl, Leaflet) MUST be loaded dynamically with SSR disabled (`next/dynamic` with `ssr: false`), and MUST invoke cleanup routines (`map.remove()`) in `useEffect` unmount handlers to prevent WebGL context leaks.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -161,7 +171,7 @@ export function StoreLocatorMap({ stores }: { stores: StorePoint[] }) {
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec geospatial-maps-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | P99 spatial query latency < 25ms via GiST index, 60fps smooth map pan/zoom, 0 WebGL context leaks on unmount; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -224,4 +234,4 @@ export async function getNearbyStores(userLat: number, userLng: number, radiusMe
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec geospatial-maps-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | Latensi kueri spasial P99 < 25ms via indeks GiST, 60fps pan/zoom mulus, 0 kebocoran WebGL context saat unmount; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

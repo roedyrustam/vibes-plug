@@ -2,7 +2,7 @@
 name: data-visualization-expert
 description: "Data visualization dashboards using D3.js, Recharts, and Tremor / Visualisasi data, grafik, dan dashboard dengan D3.js dan Recharts."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -341,6 +341,16 @@ export function IsometricTokenBucketRig() {
 - **Filter Sidebar**: Global date range, category, and dimension filters.
 - **Drill-down**: Click chart segment → navigate to detail view.
 - **Export**: CSV/PNG/PDF export for all charts.
+
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory Tabular Numerals on Numerical Displays**:
+   - All chart tooltips, axis tick labels, KPI counters, and live readouts MUST apply `tabular-nums` font formatting to prevent layout shift and jitter during real-time data streaming.
+2. **Fluid Responsive Scaling Without Fixed Pixel Overflows**:
+   - Chart wrappers MUST utilize fluid layout containers (`ResponsiveContainer width="100%"` or SVG `viewBox`) with aspect-ratio preservation. Hardcoded fixed pixel widths (`width={1200}`) causing mobile overflow are strictly prohibited.
+3. **Canvas / WebGL Engine Fallback for Large Datasets**:
+   - Datasets exceeding 5,000 data points MUST NOT render individual SVG DOM nodes. Rendering pipelines MUST downsample via algorithms (e.g. LTTB) or switch to Canvas/WebGL (ECharts, Chart.js, Three.js) to guarantee 60fps responsiveness.
+4. **Accessible ARIA Descriptions & Data Table Fallbacks**:
+   - Visual charts MUST include descriptive `aria-label` tags and offer an accessible textual summary or hidden data table fallback compliant with WCAG 2.2 AA standards.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

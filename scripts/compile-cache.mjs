@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Vibes-Plug KV-Cache Prefix Compiler (2026 Edition - v4.7.0)
+ * Vibes-Plug KV-Cache Prefix Compiler (2026 Edition - v4.8.0)
  *
  * Enforces byte-deterministic instruction prefixes across all frontier models:
  * - Google Gemini (Context Caching & TTFT reduction)
@@ -59,13 +59,13 @@ async function loadSkillsMetadataFast(skillDirs, force = false) {
           return {
             name: skillName,
             description: descMatch ? descMatch[1].trim() : '',
-            version: versionMatch ? versionMatch[1].trim() : '4.7.0'
+            version: versionMatch ? versionMatch[1].trim() : '4.8.0'
           };
         } finally {
           await handle.close();
         }
       } catch {
-        return { name: skillName, description: '', version: '4.7.0' };
+        return { name: skillName, description: '', version: '4.8.0' };
       }
     })
   );
@@ -103,7 +103,7 @@ export async function compileCache(options = {}) {
 
   // 2. Build Canonical Deterministic Prefix Payload
   const canonicalPayload = {
-    version: '4.7.0',
+    version: '4.8.0',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
     architecture: `Vibes-Plug Swarm Architecture (${skillsData.length} Skills)`,
     orchestrator: 'Primary Trigger (Pemicu Utama)',
@@ -296,7 +296,7 @@ export async function getCacheStatus() {
     mtime,
     estimatedTokens,
     totalSkills: data?.totalSkills || 178,
-    version: data?.version || '4.7.0',
+    version: data?.version || '4.8.0',
     platforms: {
       claude: { eligible: eligibleClaude, threshold: 1024, discountPct: 90, savingsPer1k: Number(claudeSavingsPer1k.toFixed(3)) },
       gemini: { eligible: eligibleGemini, threshold: 1024, discountPct: 75, savingsPer1k: Number(geminiSavingsPer1k.toFixed(3)) },

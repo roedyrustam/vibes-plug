@@ -2,7 +2,7 @@
 name: voice-ai-realtime-agent
 description: "Ultra-low latency conversational voice AI (<300ms) with WebRTC / AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -25,6 +25,16 @@ version: "4.7.0"
 
 ### Description
 Expert guide for building ultra-low-latency (<300ms), bi-directional conversational voice AI applications. Covers WebRTC, full-duplex WebSocket audio streaming (PCM 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, and smart interruption (barge-in) handling.
+
+### Hard Guardrails (Declarative Invariants)
+- **Sub-300ms Native Full-Duplex Pipeline**: Sequential STT ➔ LLM ➔ TTS chains with round-trip latency $> 800\text{ ms}$ are strictly prohibited for conversational voice; applications must deploy direct speech-to-speech models or WebRTC full-duplex streaming (PCM 24kHz).
+- **Mandatory Interruption (Barge-In) Cancellation**: When Voice Activity Detection (VAD) detects user speech during playback, the agent MUST immediately flush client audio buffers and abort downstream TTS generation within $< 50\text{ ms}$.
+- **Streaming Audio Frame Invariant**: Audio chunks must stream directly over WebRTC audio tracks or WebSocket streams; accumulating unbounded raw audio frame arrays and executing synchronous `Buffer.concat` on the main event loop is banned.
+- **Hardware Echo Cancellation & Acoustic Safety**: Audio ingress pipelines must activate WebRTC Acoustic Echo Cancellation (AEC), Automatic Gain Control (AGC), and client-side Silero VAD to eliminate acoustic feedback self-triggering.
+
+### Non-Functional Requirements (NFR Contract)
+- **Time to First Audio Frame (TTFA)**: Voice turnaround latency from user utterance end to first synthesized audio byte must stay under $< 300\text{ ms}$ (p95).
+- **Audio Sample Quality**: Streams must maintain 24kHz 16-bit mono PCM with 0 audible buffer-underrun clicks.
 
 ### Trigger Conditions
 - Applications requiring sub-second, spoken conversation with an AI agent.
@@ -242,6 +252,16 @@ export class GeminiVoiceAgent {
 
 ### Deskripsi
 Panduan ahli untuk membangun aplikasi AI suara percakapan berlatensi ultra-rendah (<300ms) dan dua arah (*bi-directional*). Mencakup WebRTC, streaming audio WebSocket full-duplex (PCM 16-bit 24kHz), OpenAI Realtime API, Gemini Multimodal Live API, LiveKit Agents SDK, dan penanganan interupsi percakapan cerdas (*smart barge-in*).
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Pipeline Full-Duplex Natif Sub-300ms**: Arsitektur berantai sekuensial (STT ➔ LLM ➔ TTS) dengan latensi bolak-balik $> 800\text{ ms}$ dilarang keras untuk percakapan suara interaktif; sistem wajib menggunakan model *speech-to-speech* langsung atau streaming WebRTC full-duplex (PCM 24kHz).
+- **Pembatalan Interupsi Wajib (Barge-In)**: Saat Voice Activity Detection (VAD) mendeteksi suara pengguna saat agen sedang memutar audio, sistem WAJIB segera mengosongkan buffer audio klien dan membatalkan generasi TTS dalam waktu $< 50\text{ ms}$.
+- **Invarian Streaming Frame Audio**: Chunk audio wajib dialirkan secara langsung melalui track WebRTC atau stream WebSocket; mengumpulkan array frame audio mentah secara berlebih dan memanggil `Buffer.concat` sinkron pada event loop dilarang.
+- **Peredam Gema Hardware & Keamanan Akustik**: Pipeline ingress audio wajib mengaktifkan Acoustic Echo Cancellation (AEC), Automatic Gain Control (AGC), dan Silero VAD pada klien untuk mencegah pemicuan umpan balik audio sendiri.
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Time to First Audio Frame (TTFA)**: Latensi respon suara sejak pengguna selesai bicara hingga byte audio pertama terdengar harus tetap di bawah $< 300\text{ ms}$ (p95).
+- **Kualitas Sampel Audio**: Aliran audio harus mempertahankan format 24kHz 16-bit mono PCM dengan 0 noise klik akibat underrun buffer.
 
 ### Kondisi Pemicu
 - Aplikasi yang memerlukan percakapan suara langsung dengan agen AI dalam latensi sub-detik.

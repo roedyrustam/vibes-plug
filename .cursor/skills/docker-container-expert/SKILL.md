@@ -2,7 +2,7 @@
 name: docker-container-expert
 description: "Production Docker containerization, BuildKit, distroless, and Compose / Kontainerisasi Docker produksi, BuildKit, distroless, dan Compose."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Docker Container Expert (Production Standard 2026)
@@ -234,6 +234,75 @@ secrets:
   db_password:
     file: ./secrets/db_password.txt
 ```
+
+---
+
+#### Pattern 4: BuildKit Secret Mount Private Registry Install & Strict `.dockerignore`
+Never pass `NPM_TOKEN` or `GITHUB_TOKEN` via Docker `ARG` or `ENV` (which bakes credentials into `docker history` layers). Mount secrets ephemerally via `--mount=type=secret`:
+
+```dockerfile
+# syntax=docker/dockerfile:1.7
+FROM node:22-alpine AS secure-builder
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml ./
+
+# Ephemeral secret mount: never persisted in image layer history
+RUN --mount=type=secret,id=npmrc,target=/root/.npmrc \
+    --mount=type=cache,id=pnpm,target=/root/.local/share/pnpm/store \
+    corepack enable && pnpm install --frozen-lockfile
+```
+
+---
+
+#### Pattern 5: PID 1 `SIGTERM` Graceful Drain Handler for Containerized Node.js/Bun Services (TypeScript)
+When Docker or Kubernetes stops a container, it sends `SIGTERM` followed by `SIGKILL` after the grace period (`stop_grace_period: 30s`). Always trap `SIGTERM` to stop accepting new connections, drain in-flight HTTP requests, and close DB pools cleanly:
+
+```typescript
+// src/runtime/container-graceful-shutdown.ts
+import type { Server } from 'node:http';
+
+export interface GracefulShutdownDeps {
+  readonly server: Server;
+  readonly closeDatabasePool: () => Promise<void>;
+  readonly drainTimeoutMs?: number;
+}
+
+export function registerContainerSignalHandlers(deps: GracefulShutdownDeps): void {
+  const timeoutMs = deps.drainTimeoutMs ?? 25_000;
+  let isShuttingDown = false;
+
+  const handleSignal = async (signal: NodeJS.Signals) => {
+    if (isShuttingDown) return;
+    isShuttingDown = true;
+
+    const forceExitTimer = setTimeout(() => {
+      process.exit(1);
+    }, timeoutMs);
+    forceExitTimer.unref();
+
+    try {
+      await new Promise<void>((resolve, reject) => {
+        deps.server.close((err) => (err ? reject(err) : resolve()));
+      });
+      await deps.closeDatabasePool();
+      process.exit(0);
+    } catch {
+      process.exit(1);
+    }
+  };
+
+  process.once('SIGTERM', () => void handleSignal('SIGTERM'));
+  process.once('SIGINT', () => void handleSignal('SIGINT'));
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+- **Zero Root Containers**: Every production `Dockerfile` must declare a non-root `USER` (`nonroot`, `node`, or `65532:65532`) before `CMD`/`ENTRYPOINT`.
+- **No Secrets in `ARG` or `ENV`**: Never pass private registry tokens or API keys via `ARG` or `ENV` in a `Dockerfile`; always use BuildKit `--mount=type=secret`.
+- **Mandatory Multi-Stage Separation**: Compilers, TypeScript sources, and devDependencies must remain in builder stages; final runtime stages must use `distroless`, `scratch`, or minimal `alpine` images.
+- **Exec-Form `CMD` / `ENTRYPOINT` Only**: Always use JSON array exec form (`CMD ["dist/index.js"]`), never shell form (`CMD node dist/index.js`), so the process receives `SIGTERM` directly from PID 1.
+- **Health-Gated Compose Dependencies**: Multi-container `compose.yaml` files must gate application startup on `condition: service_healthy` and isolate databases inside `internal: true` networks.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

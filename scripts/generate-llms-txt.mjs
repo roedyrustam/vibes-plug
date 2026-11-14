@@ -91,7 +91,7 @@ npx vibes-plug doctor
 > Official Website: https://roedyrustam.github.io/vibes-plug/
 > GitHub: https://github.com/roedyrustam/vibes-plug
 > Author: Roedy Rustam
-> Version: 4.7.0
+> Version: 4.8.0
 
 ---
 

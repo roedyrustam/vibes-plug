@@ -2,7 +2,7 @@
 name: wordpress-headless-expert
 description: "Headless WordPress architecture with WPGraphQL, ACF, and Next.js / Arsitektur headless WordPress dengan WPGraphQL, ACF, dan Next.js."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -26,6 +26,16 @@ Connects and orchestrates with domain skills:
 
 ### Description
 Production guide for architecting, deploying, and maintaining headless WordPress systems. Covers decoupled WordPress backends with WPGraphQL and Advanced Custom Fields (ACF Pro), frontend rendering with Next.js 15 or Astro 5, Faust.js framework integration, webhook-triggered on-demand revalidation, authentication (JWT / Application Passwords), and WooCommerce headless setups.
+
+### Hard Guardrails (Declarative Invariants)
+- **Authenticated Mutation Endpoint Invariant**: Headless mutations, preview routes, and draft content revisions must authenticate with cryptographic signatures (JWT / Application Passwords / Webhook secret verification); exposing unauthenticated mutation or draft endpoints is strictly prohibited.
+- **On-Demand Tagged ISR Revalidation**: Content updates from WordPress publish webhooks must trigger on-demand revalidation using specific cache tags (`revalidateTag('wordpress')` or `res.revalidate()`); polling WordPress REST API on every request or blanket cache purging is banned.
+- **Typed WPGraphQL Schema Contract**: All frontend data fetching must use typed GraphQL queries (`gql` / TypedDocumentNode); raw SQL injection into WP endpoints or untyped REST querying is prohibited.
+- **Zero Exposed Admin Credentials**: WordPress administrative secrets, application passwords, and secret webhook keys must never be exposed to public frontend bundles (must reside strictly in server-only environment variables).
+
+### Non-Functional Requirements (NFR Contract)
+- **Edge Cache TTFB**: Edge-cached TTFB $< 100\text{ ms}$ (p95) for content pages.
+- **Webhook Revalidation Propagation**: Content update propagation from WordPress publish event to edge cache invalidation $< 1.5\text{ s}$.
 
 ### Trigger Conditions
 - Decoupling an existing WordPress site into a headless architecture with Next.js/Astro.
@@ -157,6 +167,16 @@ Terhubung dan mengorkestrasi bersama skill domain:
 
 ### Deskripsi
 Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 15, atau Astro 5, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Invarian Endpoint Mutasi Terautentikasi**: Mutasi headless, rute pratinjau, dan revisi draft konten wajib terautentikasi dengan tanda tangan kriptografis (JWT / Application Passwords / verifikasi webhook secret); membuka akses mutasi atau draf tanpa autentikasi dilarang keras.
+- **Revalidasi ISR Berbasis Tag On-Demand**: Pembaruan konten dari webhook publikasi WordPress wajib memicu revalidasi on-demand menggunakan tag cache spesifik (`revalidateTag('wordpress')` atau `res.revalidate()`); melakukan polling REST API WordPress di setiap permintaan dilarang.
+- **Kontrak Skema WPGraphQL Bertipe**: Seluruh pengambilan data frontend wajib menggunakan query GraphQL bertipe (`gql` / TypedDocumentNode); injeksi raw SQL ke endpoint WordPress atau query REST tanpa tipe dilarang.
+- **Nol Kredensial Admin Terekspos**: Rahasia administratif WordPress, Application Passwords, dan secret key webhook tidak boleh bocor ke bundle frontend publik (wajib berada di server-only environment variables).
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **TTFB Cache Edge**: TTFB halaman konten ter-cache di edge $< 100\text{ ms}$ (p95).
+- **Propagasi Revalidasi Webhook**: Propagasi pembaruan dari penerbitan konten di WordPress hingga invalidasi cache di edge $< 1.5\text{ s}$.
 
 ### Kondisi Pemicu
 - Memisahkan frontend WordPress ke arsitektur decoupled (Next.js/Astro).

@@ -2,7 +2,7 @@
 name: n8n-automation-expert
 description: "Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 ---
 
 # Workflow Automation & n8n AI Orchestration Expert (2026 Edition)
@@ -136,6 +136,17 @@ services:
 - [ ] Every critical workflow defines a dedicated `Error Workflow` (`Error Trigger` node) that alerts on-call channels and logs the failed execution ID.
 - [ ] Webhook endpoints validate HMAC signatures using `crypto.timingSafeEqual` and deduplicate retries by `idempotencyKey`.
 
+### Hard Guardrails (Declarative Invariants)
+- **Cryptographic Timing-Safe HMAC Webhook Verification**: Incoming webhook triggers MUST compute `HMAC-SHA256` signatures and verify them using `crypto.timingSafeEqual` before triggering downstream automation nodes.
+- **Queue Mode Scalability Invariant**: Production self-hosted n8n deployments MUST run in Queue Mode (`EXECUTIONS_MODE=queue`) with Redis BullMQ and PostgreSQL—never rely on single-process SQLite in production.
+- **Idempotent Execution & Deduplication Key**: Webhook handlers MUST extract and store a unique idempotency key (`n8n:webhook:${eventId}`) to permanently prevent duplicate task execution on network retries.
+- **Dedicated Error Trigger Workflow Guard**: Every production workflow MUST configure an associated Error Workflow (`Error Trigger` node) with alerts and automated execution ID capture.
+
+### Non-Functional Requirements (NFR)
+- **Webhook Verification Overhead**: Signature validation latency $\le 5\text{ms}$.
+- **Zero Duplicate Mutation**: 0 duplicate tasks executed during webhook retry storms.
+- **Encrypted Credential Protection**: 100% of credentials encrypted at rest via `N8N_ENCRYPTION_KEY`.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -169,6 +180,17 @@ Panduan rekayasa produksi untuk otomatisasi alur kerja (*workflow automation*) m
 - [ ] Aktifkan `EXECUTIONS_MODE=queue` dengan database PostgreSQL dan Redis (jangan gunakan SQLite di produksi).
 - [ ] Aktifkan `EXECUTIONS_DATA_PRUNE=true` agar tabel riwayat eksekusi tidak memenuhi disk.
 - [ ] Pasang `Error Trigger Workflow` pada setiap workflow produksi untuk menangkap kegagalan dan mengirim peringatan instan.
+
+### Hard Guardrails (Invarian Deklaratif)
+- **Verifikasi Kriptografis Webhook HMAC Timing-Safe**: Pemicu webhook masuk WAJIB menghitung tanda tangan `HMAC-SHA256` dan memverifikasinya menggunakan `crypto.timingSafeEqual` sebelum mengeksekusi node otomasi hilir.
+- **Invarian Skalabilitas Queue Mode**: Deployment n8n self-hosted produksi wajib berjalan dalam Queue Mode (`EXECUTIONS_MODE=queue`) dengan Redis BullMQ dan PostgreSQL—dilarang menggunakan SQLite di lingkungan produksi.
+- **Kunci Eksekusi Idempoten & Deduplikasi**: Handler webhook wajib mengekstrak dan menyimpan kunci idempotensi unik (`n8n:webhook:${eventId}`) guna mencegah eksekusi ganda pada skenario transmisi ulang jaringan.
+- **Gerbang Penanganan Error Workflow Terdedikasi**: Setiap alur kerja produksi wajib memiliki alur error terdedikasi (`Error Trigger` node) yang terhubung ke kanal notifikasi siaga dengan pencatatan ID eksekusi yang gagal.
+
+### Non-Functional Requirements (NFR)
+- **Overhead Verifikasi Webhook**: Validasi tanda tangan kriptografis $\le 5\text{ms}$.
+- **Zero Duplicate Mutation**: 0 tugas duplikat yang tereksekusi selama badai percobaan ulang webhook.
+- **Perlindungan Kredensial Terenkripsi**: 100% kredensial terenkripsi saat istirahat (*at rest*) menggunakan `N8N_ENCRYPTION_KEY`.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |

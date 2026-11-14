@@ -2624,6 +2624,8 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     await expectViolation({ skill: 'xerj-search-expert', code: 'xerj autoindex ./data' }, 'XERJ_MISSING_DRY_RUN_ON_AUTOINDEX');
     await expectViolation({ skill: 'zero-tech-debt-auditor', code: 'const a = 1;\n// @ts-ignore\nconst b = a.foo();' }, 'TECH_DEBT_TS_IGNORE_WITHOUT_REASON');
     await expectViolation({ skill: 'zero-to-prod-orchestrator', code: 'deployToProduction({ skipTests: true });' }, 'ORCHESTRATOR_SKIPPED_PHASE_GATE');
+    await expectViolation({ skill: 'visual-ui-auditor', code: 'const mismatch = pixelmatch(imgA, imgB, diff, 1440, 900);' }, 'VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF');
+    await expectViolation({ skill: 'website-design-cloner', code: '<div className="cms-block-wrap-v2-xyz">Hero</div>' }, 'DESIGN_CLONER_RAW_DOM_DUMP_SLOP');
   });
 
   await t.test('Swarm Auto-Mode, Live Events, Studio 9 Subagents & Sidecar Cockpit', async () => {
@@ -2739,6 +2741,59 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       if (typeof sidecarSrv.closeAllConnections === 'function') sidecarSrv.closeAllConnections();
       await new Promise((resolve) => sidecarSrv.close(resolve));
     }
+  });
+
+  await t.test('Adobe Stardust Guardrails, MCP vibes_list_skills Cache & Optimizations', async () => {
+    const { evaluateContextualSkillGuards } = await import('./skill-rules-engine.mjs');
+    const clonerBad = await evaluateContextualSkillGuards({
+      skill: 'website-design-cloner',
+      code: '<section><div className="cms-block-wrap-v2-hero">Banner</div></section>'
+    });
+    assert.ok(
+      clonerBad.findings.some(f => f.ruleId === 'DESIGN_CLONER_RAW_DOM_DUMP_SLOP'),
+      'Expected DESIGN_CLONER_RAW_DOM_DUMP_SLOP to trigger on raw CMS vendor DOM classes'
+    );
+
+    const clonerClean = await evaluateContextualSkillGuards({
+      skill: 'website-design-cloner',
+      code: '<section className="mx-auto max-w-7xl px-6 py-16"><h1>Clean Hero</h1></section>'
+    });
+    assert.equal(clonerClean.findings.some(f => f.ruleId === 'DESIGN_CLONER_RAW_DOM_DUMP_SLOP'), false);
+
+    const auditorBad = await evaluateContextualSkillGuards({
+      skill: 'visual-ui-auditor',
+      code: 'const diffPixels = pixelmatch(img1, img2, out, 1440, 900);'
+    });
+    assert.ok(
+      auditorBad.findings.some(f => f.ruleId === 'VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF'),
+      'Expected VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF to trigger on single-probe pixel diff'
+    );
+
+    const auditorDual = await evaluateContextualSkillGuards({
+      skill: 'visual-ui-auditor',
+      code: 'const px = pixelmatch(img1, img2, out, 1440, 900); const roles = contentDiff({ eyebrow, heading, cta });'
+    });
+    assert.equal(auditorDual.findings.some(f => f.ruleId === 'VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF'), false);
+
+    const { handleRpcRequest } = await import('../bin/mcp-server.mjs');
+    const rpcReq = {
+      jsonrpc: '2.0',
+      id: 'list-skills-cache-1',
+      method: 'tools/call',
+      params: { name: 'vibes_list_skills', arguments: {} }
+    };
+    const res1 = await handleRpcRequest(rpcReq);
+    const data1 = JSON.parse(res1.result.content[0].text);
+    assert.ok(data1.total >= 178);
+    assert.ok(Array.isArray(data1.skills) && data1.skills.length === data1.total);
+
+    const t0 = performance.now();
+    const res2 = await handleRpcRequest({ ...rpcReq, id: 'list-skills-cache-2' });
+    const cacheElapsedMs = performance.now() - t0;
+    const data2 = JSON.parse(res2.result.content[0].text);
+    assert.equal(data2.total, data1.total);
+    assert.deepEqual(data2.skills[0], data1.skills[0]);
+    assert.ok(cacheElapsedMs < 50, `Expected warm vibes_list_skills cache hit under 50ms, took ${cacheElapsedMs.toFixed(2)}ms`);
   });
 });
 

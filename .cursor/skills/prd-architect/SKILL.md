@@ -2,7 +2,7 @@
 name: prd-architect
 description: "Continuous PRD, ERD, and architectural documentation generation / Pembuatan dokumen PRD, ERD, dan arsitektur sistem secara kontinu."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -36,6 +36,16 @@ A mandatory lifecycle guardrail covering two distinct phases:
 
 ### Phase 1: Pre-Code Requirements & Enforcement
 **Why PRD Before Code:** Prevents scope creep, aligns AI output, enables traceability, reduces rework, version-controlled.
+
+### Hard Guardrails (Declarative Invariants)
+- **Mandatory Pre-Code PRD Gate**: Code generation must NEVER commence before `PRD.md`, `ERD.md`, and `DOCUMENTATION.md` are drafted, structured, and reviewed. Any attempt to write application code prior to PRD approval violates Phase 1.
+- **Mandatory Legal & Privacy Trio Inclusion**: Every generated PRD for web/mobile applications MUST define concrete requirements, public routes, and backend deletion handlers for: (1) Privacy Policy (`/privacy`), (2) Terms & Conditions (`/terms`), and (3) User Data Deletion flow (`/delete-account` or `/data-deletion`) compliant with UU PDP No. 27/2022 and GDPR Art. 17.
+- **Zero-Buzzword Technical Concrete Schema**: PRDs must completely exclude marketing buzzwords (`revolutionary`, `game-changing`, `cutting-edge`, `unleash`) and provide concrete PostgreSQL DDL tables with primary keys, indexes, foreign keys, and RLS policies.
+- **Verifiable Quantitative NFR Floors**: Every requirement must define measurable numeric criteria (e.g. p95 API latency $< 150\text{ ms}$, LCP $< 1.2\text{ s}$, and 99.9% uptime SLA).
+
+### Non-Functional Requirements (NFR Contract)
+- **Document Coverage**: 100% of bounded contexts identified in PRD must map to corresponding ERD tables and API contract routes.
+- **Audit Cadence**: PRD and blueprint files must be updated atomically on every completed feature phase or breaking schema migration.
 
 #### Enforcement Protocol
 1. **Detect**: When user requests a new project build.
@@ -209,6 +219,16 @@ Guardrail siklus hidup wajib untuk rekayasa perangkat lunak modern:
   - Suatu fitur atau modul berhasil diimplementasikan dan diverifikasi lolos tes.
   - Pengguna meminta "perbarui dokumentasi" atau "catat perubahan ini".
   - Keputusan arsitektur besar diambil (migrasi DB, perubahan auth, adopsi library inti).
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+- **Gerbang Wajib PRD Pra-Kode**: Pembuatan kode TIDAK BOLEH dimulai sebelum dokumen `PRD.md`, `ERD.md`, dan `DOCUMENTATION.md` disusun, terstruktur, dan disetujui. Setiap upaya menulis kode aplikasi sebelum persetujuan PRD merupakan pelanggaran Fase 1.
+- **Inklusi Wajib Trio Legal & Privasi**: Setiap PRD aplikasi web/mobile wajib menetapkan rute publik dan backend handler untuk: (1) Kebijakan Privasi (`/privacy`), (2) Syarat & Ketentuan (`/terms`), dan (3) Alur Hapus Data Pengguna (`/delete-account` atau `/data-deletion`) sesuai UU PDP No. 27/2022 dan GDPR Art. 17.
+- **Skema Teknis Konkret Bebas Buzzword**: Dokumen PRD dilarang memuat buzzword pemasaran (`revolusioner`, `canggih`, `terdepan`, `unleash`) dan wajib menyertakan DDL tabel PostgreSQL konkret dengan primary key, foreign key, indeks, dan aturan RLS.
+- **Ambang Batas Kuantitatif NFR Terukur**: Setiap kebutuhan teknis wajib memiliki target numerik terukur (latensi p95 API $< 150\text{ ms}$, LCP $< 1.2\text{ s}$, dan SLA ketersediaan 99.9%).
+
+### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
+- **Cakupan Dokumen**: 100% bounded context dalam PRD harus terpetakan ke tabel ERD dan rute kontrak API.
+- **Kedisiplinan Audit**: Berkas PRD dan blueprint wajib diperbarui secara atomik pada setiap penyelesaian fase fitur atau migrasi skema.
 
 ### Mengapa PRD Sebelum Kode (Why PRD Before Code)
 1. **Mencegah Scope Creep**: Membatasi batas fungsional sebelum implementasi.

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * scripts/skill-rules-engine.mjs
- * Sovereign Fine-Grained Skill Rules Engine & Contextual Auto-Router (v4.7.0)
+ * Sovereign Fine-Grained Skill Rules Engine & Contextual Auto-Router (v4.8.0)
  *
  * Bridges declarative knowledge across all 178 skills with:
  * 1. Per-Skill Deterministic AST/Regex Guardrails (React 19, Next.js 15, Vue 3.5, Svelte 5,
@@ -2813,6 +2813,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Interactive Button with Sub-Minimum Touch Target Violating WCAG 2.2 AA',
       regex: /<button\s+[^>]*class(?:Name)?\s*=\s*['"][^'"]*?\b(?:h-5\s+w-5|h-6\s+w-6|p-0\.5)\b(?![\s\S]{0,100}?\bmin-[wh]-\[44px\]\b)/,
       remediation: 'Ensure all interactive touch targets meet WCAG 2.2 minimum physical dimensions of >= 44x44px (min-h-[44px] min-w-[44px]).'
+    },
+    {
+      id: 'VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF',
+      severity: 'WARN',
+      name: 'Single-Probe Pixel-Only Visual Diff Without Structural Content/Typography Role Reconcile',
+      regex: /\b(?:pixelmatch|toMatchImageSnapshot)\s*\([^)]{0,160}\)(?![\s\S]{0,300}?\b(?:contentDiff|roleDiff|classifyRole|heading|eyebrow|cta|aria-label)\b)/,
+      remediation: 'Pair pixel-level visual diffing (visual-diff) with structural content & typography role verification (content-diff checking eyebrow, heading, cta+href, body, and aria-label).'
     }
   ],
   'voice-ai-realtime-agent': [
@@ -2877,6 +2884,13 @@ export const SKILL_GUARD_RULES = Object.freeze({
       name: 'Monolithic Div-Soup Root Lacking Semantic HTML5 Landmarks',
       regex: /export\s+default\s+function\s+[a-zA-Z0-9_]+\s*\([^)]*\)\s*\{[\s\S]{0,100}?return\s*\(\s*<div\b[^>]*>(?:[\s\S]{0,150}?<div\b[^>]*>){4,}(?![\s\S]{0,300}?<main\b|<header\b|<section\b)/,
       remediation: 'Deconstruct cloned pages using semantic HTML5 landmarks (<header>, <nav>, <main>, <section>, <footer>) instead of unsemantic monolithic nested <div> structures.'
+    },
+    {
+      id: 'DESIGN_CLONER_RAW_DOM_DUMP_SLOP',
+      severity: 'ERROR',
+      name: 'Raw Unmaintained CMS/Vendor DOM Wrapper Dump Instead of Clean Archetype Re-Authoring',
+      regex: /class(?:Name)?\s*=\s*['"][^'"]*?\b(?:cms-block-wrap-[a-z0-9_-]+|wp-block-group__inner-container|elementor-element-[a-z0-9]+|sqs-block-content)\b/i,
+      remediation: 'Follow Stardust Re-Authoring Invariant: never copy-paste raw source vendor DOM wrappers or legacy CMS classes; re-author clean semantic components from lifted DESIGN.json tokens.'
     }
   ],
   'wordpress-headless-expert': [

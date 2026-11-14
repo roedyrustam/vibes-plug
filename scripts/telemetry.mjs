@@ -1,6 +1,6 @@
 /**
  * scripts/telemetry.mjs
- * Privacy-First, Zero-PII Anonymous Telemetry Engine (v4.7.0)
+ * Privacy-First, Zero-PII Anonymous Telemetry Engine (v4.8.0)
  *
  * Collects anonymous usage metrics to help improve Vibes-Plug:
  * - Total unique developers (Monthly/Daily Active Developers)
@@ -33,11 +33,13 @@ const CONFIG_FILE = path.join(CONFIG_DIR, 'telemetry.json');
  * @returns {{ enabled: boolean, anonymousId: string, createdAt: string, lastActive: string }}
  */
 export function getTelemetryConfig() {
-  // Check standard opt-out environment variables
+  // Check standard opt-out environment variables and test harnesses
   if (
     process.env.DO_NOT_TRACK === '1' ||
     process.env.VIBES_TELEMETRY_DISABLED === '1' ||
-    process.env.CI === 'true'
+    process.env.CI === 'true' ||
+    process.env.NODE_TEST_CONTEXT !== undefined ||
+    process.env.NODE_ENV === 'test'
   ) {
     return {
       enabled: false,
@@ -117,7 +119,7 @@ export async function trackEvent(eventName, customProperties = {}) {
     distinct_id: config.anonymousId,
     properties: {
       $lib: 'vibes-plug-node',
-      $lib_version: '4.7.0',
+      $lib_version: '4.8.0',
       os: process.platform,
       os_release: os.release(),
       node_version: process.version,
@@ -133,13 +135,16 @@ export async function trackEvent(eventName, customProperties = {}) {
   for (const host of hosts) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 2000);
+      const timeoutId = setTimeout(() => controller.abort(), 1200);
+      timeoutId.unref?.();
 
       const res = await fetch(`${host}/capture/`, {
         method: 'POST',
+        keepalive: false,
         headers: {
           'Content-Type': 'application/json',
-          'User-Agent': 'Vibes-Plug-Telemetry/4.7.0'
+          'Connection': 'close',
+          'User-Agent': 'Vibes-Plug-Telemetry/4.8.0'
         },
         body: JSON.stringify(payload),
         signal: controller.signal

@@ -2,7 +2,7 @@
 name: ci-cd-devops-architect
 description: "CI/CD deployment pipelines, Docker, Kubernetes, and IaC architectures / Pipeline deploy CI/CD, Docker, Kubernetes, dan arsitektur IaC."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -121,17 +121,120 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: 'fs'
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
 ```
 
+### Keyless OIDC Cloud Deployment & Canary Smoke-Test Gate (`.github/workflows/deploy-prod.yml`)
+Authenticate to AWS/GCP/Azure via short-lived OIDC tokens (`id-token: write`) with zero static IAM keys stored in GitHub Secrets, followed by an automated post-deploy smoke test:
+
+```yaml
+name: Keyless OIDC Production Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
+concurrency:
+  group: production-release
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://api.vibesplug.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Keyless AWS OIDC Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/github-actions-prod-deployer
+          aws-region: ap-southeast-1
+
+      - name: Build and Push Immutable Digest Image
+        id: build_image
+        run: |
+          IMAGE_URI="123456789012.dkr.ecr.ap-southeast-1.amazonaws.com/vibes-api:${GITHUB_SHA}"
+          docker build --pull -t "${IMAGE_URI}" .
+          docker push "${IMAGE_URI}"
+
+      - name: Verify Post-Deploy Canary Health & Rollback on Failure
+        run: |
+          for attempt in 1 2 3 4 5; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://api.vibesplug.com/api/health)
+            if [ "$STATUS" = "200" ]; then
+              echo "Canary health check passed."
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Canary health check failed; triggering automatic rollback."
+          exit 1
+```
+
+### OpenTofu / Terraform Plan Destructive Change Gate (TypeScript)
+Block CI/CD auto-apply pipelines if an OpenTofu/Terraform plan (`tofu show -json tfplan`) attempts to destroy stateful production database or storage resources without manual approval:
+
+```typescript
+// scripts/ci/verify-terraform-plan.ts
+export interface TerraformResourceChange {
+  readonly address: string;
+  readonly type: string;
+  readonly change: {
+    readonly actions: readonly ('no-op' | 'create' | 'read' | 'update' | 'delete')[];
+  };
+}
+
+export interface TerraformPlanJson {
+  readonly resource_changes?: readonly TerraformResourceChange[];
+}
+
+const PROTECTED_STATEFUL_TYPES = new Set([
+  'aws_db_instance',
+  'aws_rds_cluster',
+  'aws_s3_bucket',
+  'google_sql_database_instance',
+  'azurerm_postgresql_flexible_server',
+]);
+
+export function auditTerraformPlanSafety(plan: TerraformPlanJson): {
+  safe: boolean;
+  blockedDeletions: string[];
+} {
+  const blockedDeletions: string[] = [];
+
+  for (const rc of plan.resource_changes ?? []) {
+    const isDeleting = rc.change.actions.includes('delete');
+    if (isDeleting && PROTECTED_STATEFUL_TYPES.has(rc.type)) {
+      blockedDeletions.push(`${rc.address} (${rc.type})`);
+    }
+  }
+
+  return {
+    safe: blockedDeletions.length === 0,
+    blockedDeletions,
+  };
+}
+```
+
 ### Key DevOps Invariants
 1. **Immutable Artifacts**: Build the container image exactly once in CI. The identical binary is promoted across Staging and Production; only environment variables change.
 2. **Non-Root Runtime**: Never run Docker containers as `root`. Always use unprivileged users (`nonroot` or `node`) to minimize container breakout vulnerabilities.
 3. **No Hardcoded Secrets**: Secrets must never be stored in GitHub Secrets as plaintext strings. Use GitHub OIDC tokens to fetch short-lived credentials from AWS IAM or Vault (`zero-trust-secret-vault`).
+4. **Frozen Lockfile & Pinned Action Versions**: Every CI workflow must install dependencies with `--frozen-lockfile` (`npm ci`) and pin third-party GitHub Actions to immutable commit SHAs or explicit release tags—never `@master` or `@main`.
+5. **Stateful IaC Deletion Gate**: Automated OpenTofu/Terraform pipelines must inspect `tfplan` JSON and halt if any stateful database or storage bucket is scheduled for `delete`.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -191,7 +294,7 @@ spec:
         runAsUser: 65532
       containers:
         - name: api
-          image: myregistry.azurecr.io/vibes-api:latest
+          image: myregistry.azurecr.io/vibes-api:v4.7.0
           resources:
             requests:
               cpu: "100m"

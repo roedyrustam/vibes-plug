@@ -2,7 +2,7 @@
 name: agentic-memory-architect
 description: "Long-term episodic memory (Mem0, Letta) and pgvector HNSW storage / Memori episodik jangka panjang (Mem0, Letta) dan storage pgvector."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -666,6 +666,17 @@ export async function purgeUserMemory(
 }
 ```
 
+### Hard Guardrails (Declarative Invariants)
+1. **Mandatory User & Tenant Scoping on All Memory Lookups**:
+   - Every semantic, episodic, and working memory query MUST mandate a non-null `userId` or `tenantId` filter (e.g. `WHERE user_id = $1` or `{ user_id }` parameter in Mem0/Letta).
+   - Never perform unbounded cross-tenant vector scans or global similarity searches without an explicit tenancy filter.
+2. **Relevance Thresholding & Cut-Off (`similarity >= 0.70`)**:
+   - Semantic retrieval MUST enforce a strict cosine similarity lower bound (minimum 0.70) to prevent hallucinated or irrelevant memory drift from polluting the model's context window.
+3. **Deterministic TTL on Ephemeral Working Context**:
+   - Short-term episodic working memories and scratchpads MUST declare an `expiresAt` timestamp or TTL policy to prevent memory bloat and stale context replay.
+4. **GDPR / PDP Art. 17 User Right-to-Forget Purge Path**:
+   - Every memory architecture MUST provide a verified, atomic `purgeUserMemories(userId)` cascade across working, vector (pgvector/Qdrant), and episodic graph stores.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
@@ -673,7 +684,7 @@ export async function purgeUserMemory(
 | **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec agentic-memory-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+| **NFR & Anti-Slop Invariants** | HNSW Recall@10 >= 99%, Vector Search Latency P99 < 15ms, strictly user-scoped episodic namespaces, similarity cut-off >= 0.70; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
 
 ---
 
@@ -810,4 +821,4 @@ LLM call → response
 | **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec agentic-memory-architect <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
-| **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |
+| **Invarian NFR & Anti-Slop** | HNSW Recall@10 >= 99%, Latensi Pencarian Vektor P99 < 15ms, isolasi namespace episodik per user_id, batas ambang kesamaan >= 0.70; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

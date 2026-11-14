@@ -3,7 +3,7 @@ name: angular-expert
 description: "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore."
 author: "Roedy Rustam"
 
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -243,6 +243,16 @@ export class ProductM3CardComponent {
   }
 }
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Strict Standalone Components Enforcement (NgModule-Free)**:
+   - All new Angular 19+ components, directives, and pipes MUST declare `standalone: true`. Scaffolding legacy `NgModule` architecture is strictly prohibited.
+2. **Mandatory ChangeDetectionStrategy.OnPush**:
+   - Every Angular component MUST declare `changeDetection: ChangeDetectionStrategy.OnPush`. Default full-tree dirty checking is forbidden in production code.
+3. **Signal Inputs & Output Functions Over Legacy Decorators**:
+   - Components MUST utilize modern Signal primitives `input()` / `input.required()` and `output()` rather than legacy `@Input()` and `@Output()` decorators.
+4. **Strict Functional Signal Effect Invariant**:
+   - Angular `effect()` MUST NOT be used for bidirectional state syncing or writing to other signals (which introduces cyclic expression changes). Use `computed()` for all derived state representations.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |

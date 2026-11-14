@@ -2,7 +2,7 @@
 name: vue-frontend-expert
 description: "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -94,6 +94,211 @@ For SSR, SEO optimization, and file-based routing, use Nuxt 3.
 Always leverage [VueUse](https://vueuse.org/) for common composables (e.g., `useWindowSize`, `onClickOutside`, `useStorage`) instead of writing custom composables from scratch.
 
 ---
+
+### Production Blueprints (Vue 3.5+ & Nuxt 3.15+)
+
+#### Blueprint 1: Vue 3.5+ Typed Component with Reactive Props Destructure & `defineModel<T>()` (`AdaptiveMetricCard.vue`)
+```vue
+<script setup lang="ts">
+import { computed, useTemplateRef, onMounted } from 'vue';
+
+interface MetricCardProps {
+  label: string;
+  value: number;
+  threshold?: number;
+  precision?: number;
+}
+
+// Vue 3.5+ Reactive Props Destructuring (no toRefs required)
+const { label, value, threshold = 100, precision = 2 } = defineProps<MetricCardProps>();
+
+// Vue 3.4+ Two-way Model Binding macro
+const isActive = defineModel<boolean>('active', { default: false });
+
+// Vue 3.5+ Type-safe template ref
+const containerRef = useTemplateRef<HTMLDivElement>('container');
+
+const isElevated = computed(() => value >= threshold);
+const formattedValue = computed(() => value.toFixed(precision));
+
+onMounted(() => {
+  if (containerRef.value) {
+    containerRef.value.setAttribute('data-hydrated', 'true');
+  }
+});
+</script>
+
+<template>
+  <div
+    ref="container"
+    class="rounded-xl border border-neutral-800 bg-neutral-900/90 p-4 transition-all duration-200"
+    :class="{ 'ring-1 ring-emerald-500/50 border-emerald-500/40': isElevated }"
+  >
+    <div class="flex items-center justify-between">
+      <span class="text-xs font-medium text-neutral-400">{{ label }}</span>
+      <button
+        type="button"
+        @click="isActive = !isActive"
+        class="cursor-pointer text-[11px] font-semibold rounded px-2 py-0.5 border transition"
+        :class="isActive ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-400' : 'border-neutral-800 text-neutral-500'"
+      >
+        {{ isActive ? 'Monitored' : 'Muted' }}
+      </button>
+    </div>
+    <div class="mt-2 flex items-baseline gap-2">
+      <span class="text-2xl font-bold text-white tabular-nums">{{ formattedValue }}</span>
+      <span v-if="isElevated" class="text-[10px] font-bold uppercase text-emerald-400">Optimal</span>
+    </div>
+  </div>
+</template>
+```
+
+#### Blueprint 2: Nuxt 3 SSR Hydration-Safe `useAsyncData` & Nitro Server Route
+```typescript
+// server/api/metrics.get.ts — Typed Nitro Server Route
+import { defineEventHandler, getQuery, createError } from 'h3';
+import { z } from 'zod';
+
+const querySchema = z.object({
+  clusterId: z.string().min(1),
+});
+
+export default defineEventHandler(async (event) => {
+  const queryResult = querySchema.safeParse(getQuery(event));
+  if (!queryResult.success) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Invalid clusterId parameter',
+    });
+  }
+
+  const { clusterId } = queryResult.data;
+
+  return {
+    clusterId,
+    timestamp: new Date().toISOString(),
+    metrics: {
+      p99LatencyMs: 14.2,
+      throughputReqSec: 38400,
+      healthyNodes: 12,
+    },
+  };
+});
+```
+
+```vue
+<!-- pages/dashboard.vue — Hydration-Safe Nuxt 3 Page Component -->
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useAsyncData, useRoute } from '#imports';
+
+interface ClusterMetricsResponse {
+  clusterId: string;
+  timestamp: string;
+  metrics: {
+    p99LatencyMs: number;
+    throughputReqSec: number;
+    healthyNodes: number;
+  };
+}
+
+const route = useRoute();
+const clusterId = computed(() => (route.query.cluster as string) || 'primary-prod');
+
+// Hydration-safe SSR fetch with deterministic key
+const { data, status, error, refresh } = await useAsyncData<ClusterMetricsResponse>(
+  `metrics-${clusterId.value}`,
+  () => $fetch('/api/metrics', { query: { clusterId: clusterId.value } }),
+  {
+    watch: [clusterId],
+    lazy: false,
+    transform: (res) => ({
+      ...res,
+      formattedThroughput: res.metrics.throughputReqSec.toLocaleString(),
+    }),
+  }
+);
+</script>
+
+<template>
+  <main class="max-w-4xl mx-auto p-6 space-y-4">
+    <header class="flex items-center justify-between border-b border-neutral-800 pb-4">
+      <h1 class="text-xl font-bold text-white">Cluster Telemetry</h1>
+      <button
+        type="button"
+        @click="() => refresh()"
+        class="cursor-pointer text-xs rounded-lg bg-neutral-800 px-3 py-1.5 text-neutral-200 hover:bg-neutral-700 transition"
+      >
+        Refresh
+      </button>
+    </header>
+
+    <div v-if="status === 'pending'" class="text-sm text-neutral-400 animate-pulse">
+      Loading telemetry data...
+    </div>
+
+    <div v-else-if="error" class="p-4 rounded-lg border border-red-500/30 bg-red-950/20 text-red-400 text-sm">
+      Failed to load telemetry: {{ error.message }}
+    </div>
+
+    <div v-else-if="data" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+        <span class="text-xs text-neutral-400">P99 Latency</span>
+        <p class="text-2xl font-bold text-white tabular-nums mt-1">{{ data.metrics.p99LatencyMs }}ms</p>
+      </div>
+      <div class="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+        <span class="text-xs text-neutral-400">Throughput</span>
+        <p class="text-2xl font-bold text-white tabular-nums mt-1">{{ data.formattedThroughput }} req/s</p>
+      </div>
+      <div class="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+        <span class="text-xs text-neutral-400">Healthy Nodes</span>
+        <p class="text-2xl font-bold text-white tabular-nums mt-1">{{ data.metrics.healthyNodes }} / 12</p>
+      </div>
+    </div>
+  </main>
+</template>
+```
+
+#### Blueprint 3: Vue 3.5+ Composable with `onWatcherCleanup()` Resource Teardown
+```typescript
+// composables/useEventFeed.ts
+import { ref, watch, type Ref } from 'vue';
+import { onWatcherCleanup } from 'vue';
+
+export function useEventFeed(streamUrl: Ref<string>) {
+  const events = ref<string[]>([]);
+  const isConnected = ref(false);
+
+  watch(streamUrl, (newUrl) => {
+    const sse = new EventSource(newUrl);
+    isConnected.value = true;
+
+    sse.onmessage = (event) => {
+      events.value = [event.data, ...events.value.slice(0, 49)];
+    };
+
+    sse.onerror = () => {
+      isConnected.value = false;
+    };
+
+    // Vue 3.5+ onWatcherCleanup registers cleanup before next watch run or component unmount
+    onWatcherCleanup(() => {
+      sse.close();
+      isConnected.value = false;
+    });
+  }, { immediate: true });
+
+  return { events, isConnected };
+}
+```
+
+### Hard Guardrails (Declarative Invariants)
+1. **Zero Direct Props Mutation**:
+   - Props in Vue 3 `<script setup>` are strictly read-only. Never assign to props (`props.foo = bar`). Use `defineModel()` or emit events via `defineEmits()`.
+2. **Deterministic SSR Hydration Keying in Nuxt 3**:
+   - Every `useAsyncData` invocation MUST provide a deterministic, unique cache key string as its first argument to prevent hydration mismatch errors between server and client.
+3. **Mandatory Tabular Numerals on Numerical Indicators**:
+   - All counters, timestamps, latency metrics, and prices in Vue templates MUST declare `tabular-nums`.
 
 ### Best Practices
 1. **Ref vs Reactive:** Prefer `ref` for primitive values and `reactive` for deeply nested objects. When in doubt, default to `ref`.

@@ -2,7 +2,7 @@
 name: api-design-expert
 description: "API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1."
 author: "Roedy Rustam"
-version: "4.7.0"
+version: "4.8.0"
 
 ---
 
@@ -285,6 +285,17 @@ components:
       scheme: bearer
       bearerFormat: JWT
 ```
+
+### Hard Guardrails (Declarative Invariants)
+1. **RFC 9457 Problem Details for All Error Responses**:
+   - Every non-2xx HTTP response MUST conform strictly to the RFC 9457 `application/problem+json` contract, containing `type`, `title`, `status`, and `detail`.
+   - Never leak raw unhandled runtime exceptions (`err.message`, SQL stack traces) directly into response payloads.
+2. **Mandatory `Idempotency-Key` on Critical Financial & Mutation Endpoints**:
+   - Any POST/PATCH endpoint executing payment creation, credit transfers, order placement, or wallet ledger changes MUST validate an `Idempotency-Key` header with atomic cache-lock checks.
+3. **Explicit URI Path Versioning**:
+   - All public REST APIs MUST declare explicit URI versioning (e.g. `/api/v1/...`). Breaking schema modifications MUST increment the major version URI rather than silently mutating existing contracts.
+4. **Zero-Unfiltered List Pagination**:
+   - Every collection endpoint MUST declare deterministic cursor or keyset pagination (`limit`, `cursor`). Unbounded collection queries returning unbounded arrays are strictly prohibited.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
