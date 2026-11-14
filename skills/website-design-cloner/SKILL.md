@@ -26,16 +26,22 @@ Connects and orchestrates with relevant domain skills:
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Description
-`website-design-cloner` is an advanced URL-to-Code visual reverse engineering skill. It enables AI agents to inspect any target website URL, analyze its visual aesthetic, layout grid, CSS design tokens (OKLCH/HEX colors, typography system, container bounds, shadow tiers, border-radii), DOM structure, and interactive components, and synthesize production-ready code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) to achieve a full 1:1 duplication.
+`website-design-cloner` is an advanced enterprise-grade website reverse engineering, modernization, and migration skill. Incorporating the **Adobe Stardust** multi-page pipeline architecture, it enables AI agents to crawl target website URLs, extract the complete consolidated **Brand Surface** (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), deconstruct dynamic surfaces, manage an explicit **Inconsistency Register**, and synthesize clean, modular, semantic code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) across two distinct execution flows: **Replica (Same-Design Replatform)** and **Redesign / Uplift**.
 
 ### Hard Guardrails (Declarative Invariants)
 - **Fluid Responsive Container Invariant**: Hardcoding static desktop pixel widths (e.g. `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}`, or fixed desktop dimensions without responsive breakpoints) is strictly prohibited; layouts must use modern Tailwind `max-w-*`, fluid clamp, or container query units.
 - **Semantic HTML5 Landmark Invariant**: Cloned page layouts must employ semantic landmarks (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`); outputting monolithic nested `<div>` soup without landmark semantics is prohibited.
+- **Re-Authoring Invariant (Ban Raw DOM Dumping)**: Recreated components must be re-authored as semantic, clean modern code from lifted tokens; direct copy-pasting of raw minified source DOM trees or dumping unmaintained vendor CSS classes (e.g. `<div class="cms-block-wrap-v2-xyz123"...>`) is strictly prohibited.
+- **Explicit Inconsistency Register Invariant**: In same-design replica migrations, zero unsolicited subjective design deviations are permitted; any layout, token, or structural delta against the live source must be formally declared in `cloner/inconsistency-register.json`.
+- **Dual-Probe Fidelity Gate Invariant**: Recreated pages must pass both a pixel/layout probe and a structural content/typography role probe (checking `eyebrow`, `heading`, `cta`, `body`) before being marked as migrated; visual-only diffs that ignore content roles are banned.
+- **Verbatim Content Accounting Invariant**: Source text copy, alt text, and SEO metadata must be preserved verbatim and counted per page; dropping, silently inventing, or hallucinating marketing copy without a documented migration reason is strictly prohibited.
+- **Resumable State Tracking Invariant**: Multi-page operations must maintain progress and per-page disposition in `cloner/state.json` and `cloner/status.jsonl` to ensure idempotent, resumable execution across sessions.
 - **60-30-10 OKLCH Design Token Contract**: Cloned color palettes must map into semantic Tailwind CSS v4 `@theme` tokens using perceptual OKLCH color values; uncoordinated raw inline hex codes scattered across cloned components are banned.
 - **Interactive 5-State Element Contract**: All cloned interactive elements (buttons, nav links, inputs) must implement all 5 states (`default`, `hover`, `focus-visible`, `active`, `disabled`) with compliant WCAG 2.2 contrast ($\ge 4.5:1$).
 
 ### Non-Functional Requirements (NFR Contract)
-- **Visual Layout Fidelity**: Structural similarity index (SSIM) $\ge 0.95$ against reference layout across 375px, 768px, and 1440px viewports.
+- **Visual Layout Fidelity**: Structural similarity index (SSIM) $\ge 0.95$ against reference layout across 375px, 768px, and 1440px viewports, with pixel diff $\le 1.5\%$ achieved within max 3 calibration passes.
+- **Content Parity Ledger**: 100% verbatim copy preservation (0 dropped headings, 0 broken link targets).
 - **Anti-Slop Cleanliness**: Zero placeholder lorem-ipsum or broken dummy links in synthesized production components.
 
 ### Trigger Conditions
@@ -46,24 +52,84 @@ Connects and orchestrates with relevant domain skills:
 
 ---
 
-### 5-Step URL-to-Code Reverse Engineering Methodology
+### 5-Step Enterprise Reverse Engineering & Modernization Methodology
 
 ```mermaid
 graph TD
-    A["Target URL"] --> B["Phase 1: URL Inspection & DOM Scraping"]
-    B --> C["Phase 2: Design Tokens & CSS Extraction"]
-    C --> D["Phase 3: Component Hierarchy Breakdown"]
-    D --> E["Phase 4: 1:1 Code Synthesis (Tailwind v4 + React 19)"]
-    E --> F["Phase 5: Visual Verification & Polish"]
+    A["Target URL / Multi-Page Seed"] --> B["Phase 1: Multi-Page Extraction & Brand Surface (extract)"]
+    B --> C{"Migration Topology Decision"}
+    C -->|"Keep Design (Replica)"| D["Phase 2A: Replica Spec & Inconsistency Register"]
+    C -->|"Redesign / Modernize"| E["Phase 2B: Direct Target Spec & Brand Direction"]
+    D --> F["Phase 3: Clean Archetype Re-Authoring (prototype/replica)"]
+    E --> F
+    F --> G["Phase 4: Dual-Probe Measured Gate (diff: pixel + structural)"]
+    G --> H["Phase 5: Dynamic Surface Triage & Site Rollout (migrate/rollout)"]
 ```
 
-#### Phase 1: URL Inspection & Asset Discovery
-1. **Content Fetching**: Retrieve raw DOM, inline CSS, stylesheet links (`<link rel="stylesheet">`), and font imports using `read_url_content`, Firecrawl, Jina Reader API (`https://r.jina.ai/<URL>`), or Playwright browser automation.
-2. **Visual Viewport Inspection**: Capture layout snapshots across break-points:
-   - Mobile (`375px`)
-   - Tablet (`768px`)
-   - Desktop (`1440px+`)
-3. **Asset Mining**: Extract SVG icons (Lucide/Heroicons equivalents), image asset URLs, logo vectors, and background gradients.
+#### Phase 1: Multi-Page Extraction & Brand Surface Capture (`extract`)
+1. **Capped Multi-Page Crawling**: Rather than analyzing an isolated single page, crawl a representative sample (`--cap 5` to `8` pages) covering the Home page plus core Information Architecture (IA) pillars (e.g. catalog, detail page, about, contact, blog template) using Playwright or Firecrawl.
+2. **Brand Surface Consolidation**: Aggregate across sampled pages into standard specifications under `cloner/current/`:
+   - `PRODUCT.md`: Business value proposition, target audiences, key user flows, and content structure.
+   - `DESIGN.md`: Visual voice, typography hierarchy, elevation/shadow scale, border radii, and spatial rhythm.
+   - `DESIGN.json`: Machine-readable tokens (OKLCH color palette, font stacks, spacing multipliers, breakpoint steps).
+   - `inventory.json`: Discovered pages, slugs, archetype mappings, and content metrics.
+3. **Pre-Flight Cookie & Consent Dismissal**: Automatically clear modal overlays, consent dialogs, and sticky floating banners before viewport captures.
+
+#### Phase 2: Topology Selection & The Inconsistency Register
+Choose one of two non-overlapping migration flows:
+
+| Dimension | Flow A: Same-Design Migration (Replica) | Flow B: Redesign / Modernization (Direct) |
+|---|---|---|
+| **Core Intent** | Re-platform website keeping existing visual design near pixel-perfect. | Refresh aesthetic, modernize UX, and eliminate design debt. |
+| **Design Source** | Mechanical promotion of the captured Brand Surface spec. | Target spec resolved from user intent in `cloner/direction.md`. |
+| **Taste Decisions** | Strictly forbidden. All decisions are measurement-policy calls. | Applied through modern design systems and 60-30-10 OKLCH tokens. |
+| **Deviation Control** | Every permitted delta must exist in `cloner/inconsistency-register.json`. | Measured against target redesign acceptance criteria. |
+| **Prototyping Step** | Recreates key archetypes as clean semantic code with lifted CSS values. | Renders interactive redesigned prototypes with before/after diffs. |
+
+##### The Inconsistency Register Contract (`cloner/inconsistency-register.json`)
+When executing a Replica migration, never "fix" or "improve" design inconsistencies silently. Log all intentional deviations:
+```json
+{
+  "site": "https://example.com",
+  "inconsistencies": [
+    {
+      "id": "INC-01",
+      "target": "header > .nav-cta",
+      "issue": "Primary CTA uses ungrounded 2018 pill radius with blurry drop shadow",
+      "disposition": "align-to-theme",
+      "resolution": "Use standard rounded-xl with crisp 1px neutral border",
+      "approvedBy": "migration-policy"
+    }
+  ]
+}
+```
+
+#### Phase 3: Clean Archetype Re-Authoring (No DOM Copying!)
+- **Strict Anti-DOM-Copy Rule**: Never dump raw scraped DOM trees or port 10,000-line vendor CSS files into React components. Raw DOM contains bloated CMS wrappers, stale tracking tags, and brittle class hierarchies.
+- **Semantic Re-Authoring**: Re-author clean, modern semantic HTML5 and React 19 / Tailwind v4 components using:
+  1. The verbatim extracted text copy from Phase 1.
+  2. Tokens lifted directly into Tailwind v4 `@theme`.
+  3. Semantic landmark components (`HeaderNav`, `HeroSection`, `FeatureBento`, `PricingSection`, `FooterNav`).
+
+#### Phase 4: Dual-Probe Measured Source-Fidelity Gate (`diff`)
+Every generated page archetype must be reconciled against the live reference URL using **two complementary probes**. Running only one gives a false "looks fine":
+
+| Probe | Execution Method | Detects | Blind To |
+|---|---|---|---|
+| **1. Pixel / Layout Probe** | Render reference & clone at 1440px and 375px via Playwright; compute image diff | Stretched media, dropped max-width wraps, blank renders, background flips, height deltas | "Right text, wrong slot"; missing CTA buttons that blend with background |
+| **2. Structural Content & Typography Probe** | Extract ordered semantic inventory classified by **computed style + tag** | Role swaps (`eyebrow` vs `heading`), dropped body text, font-face forks, dropped `aria-label`/`title` | Sub-pixel geometry and layout drift |
+
+- **Target Acceptance Gate**: Pixel diff $\le 1.5\%$ achieved within maximum 3 calibration loops; structural content diff reports **0 missing nodes** across all classified roles (`heading`, `eyebrow`, `cta`, `body`).
+
+#### Phase 5: Dynamic Surface Triage & Site Rollout (`migrate`)
+1. **Dynamic Surface Triage**: Detect and classify all interactive components on the site across 4 axes before generation:
+   - **Class**: `api` (data fetch), `search` (client or server queries), `form` (lead gen/contact), `modal` (dialogs), `media` (video/audio players), `tag` (analytics).
+   - **Disposition**: `re-implement` (native modern component), `embed` (iframe/micro-frontend), `proxy` (backend route), `retire` (obsolete feature).
+   - **Reproducibility**: `deterministic` (static mockable) or `dynamic-stateful`.
+   - **Status**: `triaged`, `implemented`, `verified`.
+2. **Resumable State Machine (`cloner/state.json`)**:
+   - Track per-page status (`queued`, `extracted`, `re-authored`, `gated`, `deployed`).
+   - Append execution logs to `cloner/status.jsonl` to allow pausing and resuming multi-page overhauls without re-tokenizing completed pages.
 
 #### Phase 2: Design Tokens & CSS Harvester
 Harvest computed styles and synthesize them into Tailwind CSS v4 `@theme` tokens:
@@ -227,16 +293,22 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Deskripsi
-`website-design-cloner` adalah skill rekayasa balik (*reverse engineering*) visual dari URL ke kode. Skill ini memungkinkan agen AI mempelajari situs web target dari URL, mengaudit estetika visual, grid layout, design token CSS (warna OKLCH/HEX, sistem tipografi, batas kontainer, bayangan, radius border), struktur DOM, dan komponen interaktif, lalu merekonstruksi kode siap produksi (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) untuk mencapai duplikasi 1:1 penuh.
+`website-design-cloner` adalah skill rekayasa balik (*reverse engineering*), modernisasi, dan migrasi website kelas enterprise. Mengadopsi arsitektur pipeline multi-halaman **Adobe Stardust**, skill ini memungkinkan agen AI merayapi (*crawl*) URL website target, mengekstrak **Brand Surface** terpadu (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), mendekonstruksi permukaan dinamis, mengelola **Inconsistency Register** eksplisit, dan menyintesis kode modular semantik (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) melalui dua alur eksekusi tegas: **Replica (Re-platforming Desain Sama)** dan **Redesign / Uplift**.
 
 ### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
 - **Invarian Kontainer Responsif Dinamis**: Menuliskan lebar desktop tetap dalam piksel secara hardcoded (seperti `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}` tanpa breakpoint responsif) dilarang keras; layout wajib menggunakan `max-w-*` Tailwind, fluid clamp, atau container queries.
 - **Invarian Landmark Semantik HTML5**: Tata letak hasil kloning wajib menggunakan elemen semantik (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`); menghasilkan komponen dengan struktur pure `<div>` soup tanpa penanda semantik dilarang.
+- **Invarian Re-Authoring (Larangan Salin DOM Mentah)**: Komponen yang dibangun kembali wajib ditulis ulang (*re-authored*) secara semantik dan bersih menggunakan token terangkat; menyalin-tempel pohon DOM mentah yang terminifikasi atau membawa class CSS usang CMS pihak ketiga (misal `<div class="cms-block-wrap-v2-xyz123"...>`) dilarang keras.
+- **Invarian Inconsistency Register Eksplisit**: Pada migrasi replika (desain sama), deviasi desain subjektif tanpa izin dilarang keras; setiap perubahan layout, token, atau visual terhadap situs live wajib dicatat secara formal dalam `cloner/inconsistency-register.json`.
+- **Invarian Gerbang Fidelitas Dual-Probe**: Halaman yang dibangun kembali wajib lulus uji dual-probe (probe tata letak piksel DAN probe struktural peran tipografi/konten: `eyebrow`, `heading`, `cta`, `body`) sebelum ditandai selesai; diff visual sepihak yang mengabaikan peran konten dilarang.
+- **Invarian Akuntansi Preservasi Konten Verbatim**: Teks asli, alt gambar, dan metadata SEO wajib dipreservasi secara verbatim dan dihitung per halaman; membuang, mengarang, atau menghalusinasikan teks copywriting tanpa alasan migrasi tercatat dilarang keras.
+- **Invarian Pelacakan Status Multi-Halaman (Resumable)**: Operasi multi-halaman wajib mencatat progres dan disposisi per halaman di `cloner/state.json` dan `cloner/status.jsonl` untuk memastikan eksekusi idempoten yang dapat dijeda dan dilanjutkan antar-sesi.
 - **Kontrak Design Token OKLCH 60-30-10**: Palet warna hasil kloning wajib dipetakan ke dalam token `@theme` Tailwind CSS v4 dengan ruang warna perseptual OKLCH; kode hex inline acak yang bertebaran di JSX dilarang.
 - **Kontrak Elemen Interaktif 5-Status**: Seluruh elemen kontrol interaktif yang dikloning (tombol, tautan navigasi, input) wajib mengimplementasikan 5 status (`default`, `hover`, `focus-visible`, `active`, `disabled`) dengan kontras WCAG 2.2 yang valid ($\ge 4.5:1$).
 
 ### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
-- **Fidelitas Tata Letak Visual**: Indeks kesamaan struktural (SSIM) $\ge 0.95$ terhadap referensi desain pada viewport 375px, 768px, dan 1440px.
+- **Fidelitas Tata Letak Visual**: Indeks kesamaan struktural (SSIM) $\ge 0.95$ terhadap referensi desain pada viewport 375px, 768px, dan 1440px, dengan deviasi piksel $\le 1.5\%$ tercapai dalam maksimal 3 iterasi kalibrasi.
+- **Buku Besar Paritas Konten**: Preservasi teks verbatim 100% (0 heading terbuang, 0 link tujuan rusak).
 - **Kebersihan Anti-Slop**: Nol teks placeholder lorem-ipsum atau tautan dummy yang rusak pada kode komponen produksi yang disintesis.
 
 ### Kondisi Pemicu
@@ -244,28 +316,45 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - Mengekstrak design system (skema warna, skala tipografi, grid kontainer, pola komponen) dari tautan referensi.
 - Membangun kembali komponen UI kompleks (banner Hero, Bento grid, drawer navigasi, tabel harga, footer) berdasarkan URL langsung.
 - Mempelajari struktur visual dan rekayasa balik situs web pihak ketiga untuk template baru.
+- Melakukan modernisasi atau replatforming situs web multi-halaman berbasis arsitektur Adobe Stardust.
 
 ---
 
-### Metodologi 5-Langkah Duplikasi URL-ke-Kode
+### Metodologi Rekayasa Balik & Modernisasi Enterprise 5-Langkah
 
-1. **Tahap 1: Inspeksi URL & Penemuan Aset**:
-   - Mengambil HTML mentah, inline CSS, tautan stylesheet, dan font melalui `read_url_content`, Firecrawl, Jina Reader API (`https://r.jina.ai/<URL>`), atau otomatisasi browser Playwright.
-   - Mengambil snapshot tampilan visual pada breakpoint Mobile (`375px`), Tablet (`768px`), dan Desktop (`1440px`).
-   - Ekstraksi ikon SVG, URL gambar, logo, dan gradien latar belakang.
+```mermaid
+graph TD
+    A["Target URL / Multi-Halaman"] --> B["Tahap 1: Ekstraksi Multi-Halaman & Brand Surface (extract)"]
+    B --> C{"Keputusan Topologi Migrasi"}
+    C -->|"Pertahankan Desain (Replica)"| D["Tahap 2A: Spek Replika & Inconsistency Register"]
+    C -->|"Desain Ulang (Redesign)"| E["Tahap 2B: Spek Target Desain Baru & Direction"]
+    D --> F["Tahap 3: Re-Authoring Arketipe Bersih (prototype/replica)"]
+    E --> F
+    F --> G["Tahap 4: Gerbang Terukur Dual-Probe (diff: piksel + struktural)"]
+    G --> H["Tahap 5: Triase Permukaan Dinamis & Rollout (migrate/rollout)"]
+```
 
-2. **Tahap 2: Ekstraksi Design Token & Hierarki Visual**:
-   - Mengekstrak properti CSS computed dan menyintesisnya ke dalam token `@theme` Tailwind CSS v4 (sistem warna OKLCH/HEX, tipografi Google Fonts, skala spacing, border radius, dan hierarki permukaan L0-L4).
-   - Memetakan rasio kontras 60-30-10, optical letter-spacing (`tracking-tight` pada judul, `tracking-wider` pada eyebrow), serta memastikan angka memakai format `tabular-nums`.
+1. **Tahap 1: Ekstraksi Multi-Halaman & Brand Surface (`extract`)**:
+   - Merayapi sampel representatif (`--cap 5` hingga `8` halaman: Beranda + pilar Arsitektur Informasi utama seperti katalog, detail, kontak, artikel) menggunakan Playwright atau Firecrawl.
+   - Mengonsolidasikan Brand Surface ke dalam berkas standar di `cloner/current/`: `PRODUCT.md`, `DESIGN.md`, `DESIGN.json` (token OKLCH, tipografi, spacing, breakpoint), dan `inventory.json`.
+   - Mengabaikan modal cookie dan banner persetujuan sebelum pengambilan screenshot viewport.
 
-3. **Tahap 3: Pembongkaran Hierarki Komponen**:
-   - Membagi halaman web target menjadi komponen modular: `HeaderNav`, `HeroSection`, `FeatureBento`, `TestimonialGrid`, `PricingSection`, dan `FooterNav`.
+2. **Tahap 2: Pemilihan Topologi & Inconsistency Register**:
+   - **Alur Replika (Same-Design)**: Rekayasa platform ulang dengan mempertahankan tampilan 1:1. Mengubah desain secara sepihak dilarang; setiap penyesuaian wajib dicatat dalam `cloner/inconsistency-register.json`.
+   - **Alur Desain Ulang (Redesign / Uplift)**: Mengarahkan intent pengguna ke dalam target desain baru di `cloner/direction.md` dengan palet warna OKLCH modern dan varian visual presales.
 
-4. **Tahap 4: Sintesis Kode Presisi 1:1**:
-   - Menyusun kode bersih dan modular dalam React 19 / Next.js 15 / HTML+CSS modern yang menggunakan token `@theme` Tailwind CSS v4.
+3. **Tahap 3: Re-Authoring Arketipe Bersih (Dilarang Copy-Paste DOM)**:
+   - Menuliskan ulang komponen semantik React 19 / Tailwind CSS v4 dari awal berdasarkan teks verbatim dan token CSS yang diekstrak. Dilarang menyalin tag DOM mentah yang kotor atau stylesheet vendor CMS lama.
 
-5. **Tahap 5: Verifikasi Visual & Polishing**:
-   - Memastikan rasio kontras WCAG 2.2, tes responsivitas mobile, dan membuat aset gambar pengganti presisi dengan tool `generate_image`.
+4. **Tahap 4: Gerbang Fidelitas Terukur Dual-Probe (`diff`)**:
+   - Memvalidasi arketipe menggunakan dua probe wajib:
+     * **Probe 1 (Piksel & Tata Letak)**: Membandingkan screenshot render 1440px & 375px untuk mendeteksi distorsi gambar, hilangnya wrap, dan pergeseran tinggi elemen.
+     * **Probe 2 (Struktural Konten & Peran Tipografi)**: Mengklasifikasikan elemen berdasarkan computed style + tag (`heading`, `eyebrow`, `cta`+href, `body`, `placeholder`, `aria-label`, ikon) untuk mencegah teks hilang atau tertukar peran.
+   - Ambang kelulusan: Pixel diff $\le 1.5\%$ dalam $\le 3$ kalibrasi, 0 node teks yang hilang.
+
+5. **Tahap 5: Triase Permukaan Dinamis & Rollout Bertahap (`migrate`)**:
+   - Mengklasifikasikan fitur interaktif (API, form, search, modal dialog, pemutar media) dalam 4 sumbu: Class, Disposition, Reproducibility, dan Status sebelum sintesis kode.
+   - Memelihara state machine multi-halaman di `cloner/state.json` dan `cloner/status.jsonl` agar progres migrasi dapat dipause dan diresume tanpa re-tokenisasi ulang.
 
 ---
 

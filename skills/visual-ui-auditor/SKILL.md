@@ -21,12 +21,16 @@ Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. T
 
 ### Hard Guardrails (Declarative Invariants)
 - **Zero-Tolerance Anti-Slop Visual Ban**: Banned design tropes are strictly rejected: generic purple/blue gradients (`from-blue-600 to-purple-600`), floating blurred neon glow orbs, pill button addiction (`rounded-full` on rectangular buttons), and ungrounded borderless cards.
+- **Dual-Probe Comprehensive Reconciliation**: Visual audits comparing an implementation against a design/prototype must execute BOTH pixel/layout probes AND structural role-classified content probes (`heading`, `eyebrow`, `cta`, `body`); visual-only diffs that ignore content roles are strictly prohibited.
+- **Evidence-Bound Citation Invariant**: Every audit finding must cite a concrete measurement, screenshot observation, or formal tension id (`T-*`); subjective claims without measurement evidence are banned.
+- **Verbatim Copy Preservation Check**: Every audit must verify zero invented, hallucinated, or silently dropped marketing copy against source specs with a strict per-page word count ledger.
 - **Crisp 1px Grounded Border Contract**: Every card, container, and input element must declare crisp 1px borders (`border border-neutral-200/80 dark:border-neutral-800`) with three-tier radius (`rounded-lg` for controls, `rounded-xl` for cards, `rounded-2xl` for modals).
 - **WCAG 2.2 AA Contrast & Touch Target Floors**: Text elements must satisfy minimum contrast ratios ($\ge 4.5:1$ for normal body text, $\ge 3:1$ for large headings). Interactive controls must enforce a minimum physical touch target of $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
 - **Tabular Numerals & Anti-Jitter Invariant**: All dynamic financial values, timestamps, and metric counters must declare `tabular-nums` (`font-variant-numeric: tabular-nums`) to prevent horizontal jitter during rapid re-renders.
 
 ### Non-Functional Requirements (NFR Contract)
 - **Visual Audit Score Floor**: Components must achieve a composite score $\ge 90/100$ across the 7-domain visual inspection checklist before deployment.
+- **Dual-Probe Precision Gate**: Stitched pixel diff $\le 1.5\%$ across 1440px and 375px viewports with 0 missing structural role nodes (`heading`, `eyebrow`, `cta`, `body`).
 - **Vision Inference Latency**: Multimodal screenshot inspection and rubric generation must complete within $< 4.0\text{ s}$.
 
 ---
@@ -93,6 +97,44 @@ Text-based code linters (ESLint, Biome, TypeScript) analyze syntax abstractly. T
    - Mandatory explicit dimensions or aspect ratios on media elements (`aspect-video`, `w-full h-auto`) to guarantee CLS = 0.
    - Mandatory `tabular-nums` on all numbers, currencies, dates, and live statistics to eliminate layout shift during re-renders.
    - WCAG 2.2 AA Contrast Compliance: 4.5:1 text contrast for body, 3:1 for large headings across light/dark themes.
+
+---
+
+### Adobe Stardust Multi-Perspective Audit & Dual-Probe Engine
+
+Integrating the battle-tested **Adobe Stardust** audit methodology, the auditor elevates single-component screenshot linting into an evidence-bound, site-wide modernization scorecard.
+
+#### 1. The Seven-Dimension Evidence-Bound Audit Framework
+Every website or component audit evaluates 7 complementary dimensions. Every single finding must cite a concrete measurement, an axe-core check, or an explicit Brand Tension ID (`T-*`):
+
+| Audit Dimension | Measurement / Instrument | Failure Threshold | Actionable Remediation |
+|---|---|---|---|
+| **1. Design & Brand Tensions** | Visual style audit + inconsistency register | Any uncited layout delta or `T-*` tension | Harmonize into 60-30-10 OKLCH tokens and standard 1px borders |
+| **2. Performance & CWV** | Core Web Vitals before & after | LCP > 2.5s, INP > 200ms, CLS > 0.1 | Eager load first hero image (`loading="eager"`), font swap without CLS |
+| **3. SEO & Technical** | Canonical, sitemap, robots, redirects | Missing canonicals, redirect hops | Generate canonical URLs, sitemaps, and localize internal paths |
+| **4. LLM & AI-Search Visibility** | Server-rendered HTML parser + `llms.txt` | Key facts trapped in client JS bundles | Server-render core product claims, publish `/llms.txt` and JSON-LD schema |
+| **5. Accessibility (a11y)** | axe-core + WCAG 2.2 AA rules | Contrast < 4.5:1, touch target < 44px, missing landmark | Declare semantic `<main>`, fix contrast, add accessible labels |
+| **6. Content Fidelity** | Per-page verbatim word count ledger | Dropped copy, hallucinated marketing filler | Preserve original copy verbatim; log any approved change in register |
+| **7. Platform Delivery** | Modular component inspection | Monolithic 10,000-line stylesheets | Re-author into clean semantic React 19 / Tailwind v4 components |
+
+#### 2. The Complementary Dual-Probe Reconcile Engine (`diff`)
+To verify that an implementation matches a target prototype, the auditor runs two complementary probes simultaneously. Running only one gives a false "looks fine":
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│               COMPLEMENTARY DUAL-PROBE RECONCILE ENGINE                │
+├──────────────────────────────────┬─────────────────────────────────────┤
+│   PROBE 1: PIXEL / LAYOUT DIFF   │  PROBE 2: STRUCTURAL CONTENT DIFF   │
+├──────────────────────────────────┼─────────────────────────────────────┤
+│ • Stretched/distorted images     │ • Missing / role-swapped headings   │
+│ • Dropped max-width wraps        │ • Dropped eyebrows or body copy     │
+│ • Blank/failed component renders │ • Missing or redirected CTA buttons │
+│ • Surface/ground color flips     │ • Rendered-face font forks          │
+│ • Element height/padding drifts  │ • Dropped aria-label / title values │
+└──────────────────────────────────┴─────────────────────────────────────┘
+```
+
+- **Structural Inventory Classification**: `Probe 2` parses DOM roots by **computed style + tag** into ordered roles: `eyebrow` (tracking-wider uppercase), `heading` (h1-h6 font-bold), `cta` (button/anchor + href), and `body`. If a prototype's eyebrow becomes a body paragraph in the build, the structural probe flags it immediately even if pixels look plausibly similar.
 
 ---
 
@@ -305,12 +347,16 @@ Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis 
 
 ### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
 - **Larangan Tanpa Toleransi Visual Slop**: Menolak keras klise desain murahan AI: gradien biru-ungu generik (`from-blue-600 to-purple-600`), bola cahaya neon buram melayang, kecanduan tombol pil (`rounded-full` pada tombol kotak), dan kartu mengambang tanpa border tegas.
+- **Rekonsiliasi Komprehensif Dual-Probe**: Audit visual yang membandingkan implementasi terhadap prototipe/desain wajib mengeksekusi KEDUA probe: probe piksel/layout DAN probe struktural peran konten (`heading`, `eyebrow`, `cta`, `body`); diff visual sepihak yang mengabaikan peran konten dilarang keras.
+- **Invarian Sitasi Berbasis Bukti**: Setiap temuan audit wajib mencantumkan bukti pengukuran nyata, pengamatan tangkapan layar, atau ID Tegangan Brand formal (`T-*`); klaim subjektif tanpa data pengukuran dilarang.
+- **Verifikasi Preservasi Teks Verbatim**: Setiap audit wajib memastikan tidak ada copywriting yang dihilangkan, dikarang, atau dihalusinasikan secara diam-diam terhadap spek sumber.
 - **Kontrak Border 1px Tegas & Tiga Tingkat Radius**: Setiap kartu, kontainer, dan elemen input wajib memiliki border 1px tegas (`border border-neutral-200/80 dark:border-neutral-800`) dengan tiga tingkatan radius (`rounded-lg` untuk kontrol, `rounded-xl` untuk kartu, `rounded-2xl` untuk modal).
 - **Standar Kontras & Touch Target WCAG 2.2 AA**: Teks wajib memenuhi rasio kontras minimum ($\ge 4.5:1$ untuk teks biasa, $\ge 3:1$ untuk judul besar). Kontrol interaktif wajib memiliki area sentuh fisik minimal $44 \times 44\text{ px}$ (`min-h-[44px] min-w-[44px]`).
 - **Angka Tabular & Anti-Gemetar**: Seluruh nilai finansial dinamis, stempel waktu, dan penghitung metrik wajib mendeklarasikan `tabular-nums` (`font-variant-numeric: tabular-nums`) untuk mencegah pergeseran layout horizontal saat rendering cepat.
 
 ### Non-Functional Requirements (Kontrak NFR - Bahasa Indonesia)
 - **Standar Skor Audit Visual**: Komponen wajib mencapai skor gabungan $\ge 90/100$ pada checklist audit visual 7-domain sebelum rilis produksi.
+- **Gerbang Presisi Dual-Probe**: Selisih piksel tersambung (*stitched pixel diff*) $\le 1.5\%$ pada viewport 1440px dan 375px dengan 0 node struktural yang hilang (`heading`, `eyebrow`, `cta`, `body`).
 - **Latensi Inferensi Visual**: Inspeksi tangkapan layar multimodal dan generasi rubrik harus selesai dalam $< 4.0\text{ detik}$.
 
 ---
@@ -350,6 +396,44 @@ Linter kode berbasis teks (ESLint, Biome, TypeScript) hanya memeriksa sintaksis 
    - Wajib menyertakan dimensi eksplisit atau rasio aspek pada media (`aspect-video`, `w-full h-auto`) untuk mencegah CLS.
    - Wajib menyertakan `tabular-nums` pada angka moneter, harga, persentase, dan tanggal.
    - Kepatuhan kontras WCAG 2.2 AA: minimal 4.5:1 untuk teks dan 3:1 untuk judul besar.
+
+---
+
+### Kerangka Kerja Audit Berbasis Bukti 7-Dimensi & Mesin Dual-Probe Adobe Stardust
+
+Mengintegrasikan metodologi teruji dari **Adobe Stardust**, auditor meningkatkan pengujian screenshot komponen menjadi kartu skor (*scorecard*) modernisasi seluruh situs berbasis bukti empiris.
+
+#### 1. Kerangka Kerja Audit Berbasis Bukti 7-Dimensi
+Setiap audit website atau antarmuka mengevaluasi 7 dimensi komplementer. Setiap temuan wajib mencantumkan bukti pengukuran nyata atau ID Tegangan Brand (`T-*`):
+
+| Dimensi Audit | Instrumen & Metode Pengukuran | Ambang Kegagalan | Tindakan Remediasi |
+|---|---|---|---|
+| **1. Desain & Tegangan Brand** | Audit gaya visual + inconsistency register | Deviasi layout tanpa sitasi atau tegangan `T-*` | Harmonisasi ke token OKLCH 60-30-10 dan border 1px tegas |
+| **2. Performa & CWV** | Core Web Vitals sebelum & sesudah | LCP > 2.5s, INP > 200ms, CLS > 0.1 | Muat gambar hero pertama secara eager (`loading="eager"`), font swap |
+| **3. SEO & Teknis** | Canonical, sitemap, robots, redirects | Canonical hilang, redirect berulang | Hasilkan canonical URL, sitemap, dan lokalisasi path internal |
+| **4. Visibilitas LLM & AI-Search** | Parser HTML server-rendered + `llms.txt` | Fakta penting terperangkap di bundle JS | Render klaim inti di server, publikasikan `/llms.txt` dan skema JSON-LD |
+| **5. Aksesibilitas (a11y)** | axe-core + aturan WCAG 2.2 AA | Kontras < 4.5:1, target sentuh < 44px, landmark hilang | Deklarasikan `<main>` semantik, perbaiki kontras, beri label aksesibel |
+| **6. Fidelitas Konten** | Buku besar hitungan kata verbatim per halaman | Teks copywriting terbuang atau dihalusinasikan | Preservasi teks asli secara verbatim; catat setiap perubahan di register |
+| **7. Pengiriman Platform** | Inspeksi komponen modular | Stylesheet monolitik 10.000 baris | Tulis ulang menjadi komponen React 19 / Tailwind v4 modular |
+
+#### 2. Mesin Rekonsiliasi Dual-Probe Komplementer (`diff`)
+Untuk memastikan kode hasil bangun cocok dengan prototipe/desain target, auditor menjalankan dua probe komplementer secara simultan. Menjalankan salah satu saja memberikan hasil keliru "tampak bagus":
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│              MESIN REKONSILIASI DUAL-PROBE KOMPLEMENTER                │
+├──────────────────────────────────┬─────────────────────────────────────┤
+│    PROBE 1: DIFF PIKSEL / LAYOUT │   PROBE 2: DIFF STRUKTURAL KONTEN   │
+├──────────────────────────────────┼─────────────────────────────────────┤
+│ • Gambar terdistorsi / melar     │ • Heading hilang / tertukar peran   │
+│ • Wrapper max-width terlepas     │ • Eyebrow atau teks paragraf hilang │
+│ • Render komponen kosong / gagal │ • Tombol CTA hilang atau salah arah │
+│ • Pembalikan warna surface/latar │ • Perbedaan font-face ter-render    │
+│ • Pergeseran tinggi atau padding │ • Atribut aria-label / title hilang │
+└──────────────────────────────────┴─────────────────────────────────────┘
+```
+
+- **Klasifikasi Inventaris Struktural**: `Probe 2` membedah DOM berdasarkan **computed style + tag** menjadi peran terurut: `eyebrow` (tracking-wider kapital), `heading` (h1-h6 font-bold), `cta` (button/anchor + href), dan `body`. Jika eyebrow pada prototipe berubah menjadi paragraf biasa di hasil build, probe struktural akan langsung menandainya sebagai kegagalan meskipun piksel sekilas tampak serupa.
 
 ---
 

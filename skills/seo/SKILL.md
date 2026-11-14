@@ -219,6 +219,8 @@ Internal links: 3-5 per long-form page to related content
    - Rich results and structured entity definitions (`<script type="application/ld+json">`) MUST validate against Schema.org standards (e.g. `SoftwareApplication`, `Article`, `FAQPage`) without syntax or property errors.
 4. **Dynamic Sitemap & Robots.txt Invariant**:
    - Applications MUST generate dynamic `sitemap.xml` (`app/sitemap.ts`) including all public indexable routes with updated `lastModified` timestamps, and an explicit `robots.txt` disallowing private administrative/API routes.
+5. **Server-Rendered LLM Discovery & Link Localization (Stardust Invariant)**:
+   - Key value propositions and core product claims MUST reside in server-rendered HTML for bot crawlers and LLM search agents; trapping core copy inside client-only JavaScript chunks is prohibited. All internal site links MUST localize to the target canonical origin, preventing redirects or bounces to legacy external domains.
 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
@@ -293,6 +295,13 @@ Google AI Mode (sebelumnya AI Overviews) dan Perplexity sangat menyukai format b
 
 ### Standar SEO On-Page
 H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskripsi < 155 karakter, URL lowercase dengan tanda hubung dan keyword di slug, alt text deskriptif untuk semua gambar, 3-5 internal link per halaman long-form.
+
+### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
+1. **Invarian Single Canonical H1 & Metadata**: Setiap rute web publik WAJIB memiliki tepat SATU tag `<h1>` semantik dengan fokus kata kunci utama.
+2. **URL Canonical & Meta Deskripsi Wajib**: Setiap halaman publik wajib mendeklarasikan URL kanonikal eksplisit dan meta deskripsi ($\le 155$ karakter).
+3. **Validasi Skema JSON-LD Terstruktur**: Definisi entitas JSON-LD wajib valid terhadap standar Schema.org (`SoftwareApplication`, `Article`, `FAQPage`).
+4. **Sitemap Dinamis & Robots.txt**: Aplikasi wajib menghasilkan `sitemap.xml` dinamis dan `robots.txt` yang memblokir rute administratif/API privat.
+5. **Penemuan LLM Server-Rendered & Lokalisasi Tautan (Invarian Stardust)**: Klaim nilai produk wajib dirender di sisi server agar dapat dibaca crawler bot dan agen AI pencari; mengurung konten teks di bundle JS klien dilarang keras. Tautan internal wajib melokalisasi ke origin target tanpa memantul ke domain legacy eksternal.
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
