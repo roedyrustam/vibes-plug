@@ -15,15 +15,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **Universal Multi-IDE Cross-Platform Swarm Engine**:
   - Full synchronization and automated activation for all major IDEs: Antigravity AGY (`rules/AGENTS.md`), Claude Code (`CLAUDE.md`, `.claude/rules/`), Cursor (`.cursorrules`, `.cursor/rules/`), OpenAI Codex (`CODEX.md`, `.codex/rules/`), Windsurf (`.windsurfrules`), Trae (`.traerules`), Kimi (`.kimirules`), and Kiro (`.kirorules`).
   - Swarm Cockpit sidecar server (`sidecars/swarm-cockpit/`) for visual agent monitoring, real-time bus streaming, and zero-permission task dispatch.
+- **Adobe Stardust Deep Integration**:
+  - Embedded Four-Loop Migration Pipeline & Re-Authoring Invariant into `website-design-cloner` (`DESIGN_CLONER_RAW_DOM_DUMP_SLOP` guardrail), Dual-Probe Visual + Content/Typography Role Diff & 7 CLI visual audit tools into `visual-ui-auditor` (`skills/visual-ui-auditor/scripts/*.mjs`, `VISUAL_AUDITOR_SHALLOW_PIXEL_ONLY_DIFF` guardrail), Visual-First Block Decomposition into `screenshot-to-code-expert`, and 3-Stage Design System Lifting into `design-system-architect`.
 - **Sovereign Anti-Slop Directive v2.0**:
-  - 100% strict compliance across all 700 files with 0 errors and 0 warnings on `node scripts/check-anti-slop.js --strict`.
+  - 100% strict compliance across all 709 scanned files with 0 errors and 0 warnings on `node scripts/check-anti-slop.mjs --strict`.
   - Ban on placeholders (`// TODO`, `// ...`), synthetic marketing narration, unhandled error suppression, and unanchored AI slop gradients.
 
 ### Changed / Diubah
-- Synchronized all 178 skill YAML frontmatters, agent manifests, and extension configs to version `4.8.0`.
-- Expanded CLI test suite (`scripts/test-cli.mjs`) to verify all 18 waves with 57/57 tests passing (100% pass rate).
-- Recompiled deterministic prompt cache prefix (`.cache-prefix.json`), AST symbol graph (`.agents/graph/symbol_graph.json`), and micro-slices (`.skill-slices.json`).
+- Synchronized all 178 skill YAML frontmatters, agent manifests, `.cursor/skills/` mirrors, `showcase/skills-data.js`, and extension configs to version `4.8.0`.
+- Expanded CLI test suite (`scripts/test-cli.mjs`) to verify all 18 waves, Adobe Stardust guardrails, and MCP cache hits (`59/59` tests passing in `24,807.56 ms`).
+- Recompiled deterministic prompt cache prefix (`.cache-prefix.json`), AST symbol graph (`.agents/graph/symbol_graph.json`), `CATALOG.*`, `llms*.txt`, and micro-slices (`.skill-slices.json`).
+- Unified `compileAllSkillSlices()` delegation in `scripts/skill-dispatcher.mjs` to `scripts/compile-skill-slices.mjs`.
 - Updated package distribution and VS Code / Cursor companion extension builder to target v4.8.0.
+
+### Fixed / Diperbaiki
+- **Telemetry Socket Hang & I/O Bottlenecks (`a68dd5d`)**:
+  - Fixed CLI/test process hang in `scripts/telemetry.mjs` (test-harness opt-out, `1200ms` abort timer with `.unref?.()`, `keepalive: false`, `Connection: close`), cutting full test suite duration by ~6.07x (`150,671.48 ms` ➔ `24,807.56 ms`).
+  - Added in-memory `mtimeMs` + `1024`-byte header cache for MCP `vibes_list_skills` (`bin/mcp-server.mjs`) and `symbolGraphMemCache` (`scripts/graphrag-indexer.mjs`), cutting Hybrid GraphRAG Top-5 benchmark latency from `19.73 ms` to `7.37 ms` and total benchmark duration from `404.80 ms` to `279.63 ms`.
+  - Parallelized file reads across `bin/vibes.mjs`, `scripts/audit-graph.mjs`, and `scripts/semantic-search.mjs`, moved `normalizeSandboxSource` to module scope in `scripts/wasm-sandbox.mjs`, and added quiet JSON support for `vibes_run_benchmark`.
 
 ---
 
@@ -66,6 +75,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - **CVE mitigations**: Command injection via `exec()` replaced with `execFile()` + argument array.
 - **Sandbox escape**: `normalizeSandboxSource()` strips high-bit characters before `vm.Script` compilation.
 - **Path traversal**: Skill read/inject operations confined to plugin root directory.
+
+---
+
+## [4.6.0] - 2026-11-01
+
+### Added / Ditambahkan
+- **Ephemeral Git Worktrees (`scripts/worktree-swarm.mjs`, MCP `vibes_worktree_swarm`)**: Isolated parallel worker sandboxes per swarm branch without polluting the active workspace.
+- **Local Zero-Cost Semantic Embedding Search (`scripts/semantic-search.mjs`, MCP `vibes_semantic_search`)**: 256-dimensional local TF-IDF/LSA vector search across all skills and scripts with zero external API billing.
+- **Micro-TDD Hot-Loop Compiler (`scripts/micro-tdd-compiler.mjs`, MCP `vibes_micro_tdd`)**: Sub-second red-green in-memory unit verification loop before disk writes.
+- **Multimodal Visual UI Self-Healer (`scripts/visual-ui-healer.mjs`, MCP `vibes_visual_heal`)**: Expanded Pillar 7 visual sanitization enforcing 40 Anti-Slop UI rules and automated DOM/Tailwind patching.
+- **Reciprocal Swarm Synergy Graph**: Connected the 176-skill registry with expanded bidirectional orchestration links across domains.
+
+---
 
 ## [4.5.0] - 2026-10-27
 
