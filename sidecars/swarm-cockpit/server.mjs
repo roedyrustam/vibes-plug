@@ -149,7 +149,13 @@ export function createSidecarController() {
   async function runAnimatedDispatch(task, options = {}) {
     const swarmId = options.swarmId || crypto.randomUUID();
     const simulateAll = Boolean(options.simulateAll);
-    const stepMs = Number.isFinite(options.stepMs) ? options.stepMs : 280;
+    const rawStepMs = Number(options.stepMs);
+    const DEFAULT_STEP_MS = 280;
+    const MIN_STEP_MS = 10;
+    const MAX_STEP_MS = 5000;
+    const stepMs = Number.isFinite(rawStepMs)
+      ? Math.min(MAX_STEP_MS, Math.max(MIN_STEP_MS, Math.floor(rawStepMs)))
+      : DEFAULT_STEP_MS;
     const plan = planSwarm(task, { reasoning: options.reasoning || 'balanced' });
 
     const matchedIds = simulateAll
