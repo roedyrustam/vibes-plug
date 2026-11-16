@@ -5,9 +5,15 @@ package-lock.json.bak
 # Worktrees & Ephemeral Test Stores
 /vibes-plug/
 .agents/worktrees/
+sidecars/**/.agents/
 .test-bridge-cli-tmp/
 .tmp-*/
 *.tmp
+
+# Python Bytecode
+__pycache__/
+*.pyc
+*.pyo
 
 # Logs
 logs/

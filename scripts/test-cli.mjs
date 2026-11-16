@@ -58,101 +58,105 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       }
     }
   });
-  await t.test('vibes --help should output banner and commands', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, '--help']);
-    assert.match(stdout, /Vibes-Plug CLI/);
-    assert.match(stdout, /sync/);
-    assert.match(stdout, /init/);
-    assert.match(stdout, /wizard/);
-    assert.match(stdout, /doctor/);
-    assert.match(stdout, /recipe/);
-  });
+  await t.test('Read-Only CLI Checks (Parallel)', { concurrency: 6 }, async (t) => {
+    await Promise.all([
+      t.test('vibes --help should output banner and commands', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, '--help']);
+        assert.match(stdout, /Vibes-Plug CLI/);
+        assert.match(stdout, /sync/);
+        assert.match(stdout, /init/);
+        assert.match(stdout, /wizard/);
+        assert.match(stdout, /doctor/);
+        assert.match(stdout, /recipe/);
+      }),
 
-  await t.test('vibes version current should return active package version', async () => {
-    const pkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'version', 'current']);
-    assert.ok(stdout.includes(pkg.version));
-  });
+      t.test('vibes version current should return active package version', async () => {
+        const pkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'version', 'current']);
+        assert.ok(stdout.includes(pkg.version));
+      }),
 
-  await t.test('vibes doctor should verify 178 skills and pass health checks', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor']);
-    assert.match(stdout, /Global skills registry: 1[67]\d skills found/);
-    assert.match(stdout, /All checks passed/);
-  });
+      t.test('vibes doctor should verify 178 skills and pass health checks', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'doctor']);
+        assert.match(stdout, /Global skills registry: 1[67]\d skills found/);
+        assert.match(stdout, /All checks passed/);
+      }),
 
-  await t.test('vibes search settlement should find agentic-m2m-settlement', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'settlement']);
-    assert.match(stdout, /agentic-m2m-settlement/);
-  });
+      t.test('vibes search settlement should find agentic-m2m-settlement', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'settlement']);
+        assert.match(stdout, /agentic-m2m-settlement/);
+      }),
 
-  await t.test('vibes search sidepanel should find browser-extension-mv3-pro', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'sidepanel']);
-    assert.match(stdout, /browser-extension-mv3-pro/);
-  });
+      t.test('vibes search sidepanel should find browser-extension-mv3-pro', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'sidepanel']);
+        assert.match(stdout, /browser-extension-mv3-pro/);
+      }),
 
-  await t.test('vibes search spec should find spec-driven-development-expert', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'spec']);
-    assert.match(stdout, /spec-driven-development-expert/);
-  });
+      t.test('vibes search spec should find spec-driven-development-expert', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'search', 'spec']);
+        assert.match(stdout, /spec-driven-development-expert/);
+      }),
 
-  await t.test('vibes recipe list should contain agentic-commerce, frontier-ai, and spec-driven-api', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
-    assert.match(stdout, /agentic-commerce/);
-    assert.match(stdout, /frontier-ai/);
-    assert.match(stdout, /spec-driven-api/);
-    assert.match(stdout, /ai-stack/);
-  });
+      t.test('vibes recipe list should contain agentic-commerce, frontier-ai, and spec-driven-api', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
+        assert.match(stdout, /agentic-commerce/);
+        assert.match(stdout, /frontier-ai/);
+        assert.match(stdout, /spec-driven-api/);
+        assert.match(stdout, /ai-stack/);
+      }),
 
-  await t.test('vibes skill info should display accurate metadata and orchestration', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'spec-driven-development-expert']);
-    assert.match(stdout, /spec-driven-development-expert/);
-    assert.match(stdout, /Roedy Rustam/);
-    assert.match(stdout, /openapi-swagger-codegen-expert/);
-  });
+      t.test('vibes skill info should display accurate metadata and orchestration', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'spec-driven-development-expert']);
+        assert.match(stdout, /spec-driven-development-expert/);
+        assert.match(stdout, /Roedy Rustam/);
+        assert.match(stdout, /openapi-swagger-codegen-expert/);
+      }),
 
-  await t.test('vibes docs should generate 178 skill ecosystem preview', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'docs']);
-    assert.match(stdout, /Vibes-Plug Skills Catalog \(1[67]\d Skills\)/);
-    assert.match(stdout, /accessibility-testing-expert/);
-  });
+      t.test('vibes docs should generate 178 skill ecosystem preview', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'docs']);
+        assert.match(stdout, /Vibes-Plug Skills Catalog \(1[67]\d Skills\)/);
+        assert.match(stdout, /accessibility-testing-expert/);
+      }),
 
-  await t.test('vibes cache status should report deterministic prefix economics', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'cache', 'status']);
-    assert.match(stdout, /Vibes-Plug Deterministic Prompt Cache Status/);
-    assert.match(stdout, /QUALIFIED/);
-    assert.match(stdout, /Anthropic Claude/);
-    assert.match(stdout, /Google Gemini/);
-  });
+      t.test('vibes cache status should report deterministic prefix economics', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'cache', 'status']);
+        assert.match(stdout, /Vibes-Plug Deterministic Prompt Cache Status/);
+        assert.match(stdout, /QUALIFIED/);
+        assert.match(stdout, /Anthropic Claude/);
+        assert.match(stdout, /Google Gemini/);
+      }),
 
-  await t.test('vibes critic should audit files and report zero violations on clean code', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'critic', 'scripts/compile-cache.mjs']);
-    assert.match(stdout, /Vibes-Plug Critic-Validator Report/);
-    assert.match(stdout, /Score\s+:\s+100\/100/);
-    assert.match(stdout, /Verdict\s+:\s+APPROVED/);
-  });
+      t.test('vibes critic should audit files and report zero violations on clean code', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'critic', 'scripts/compile-cache.mjs']);
+        assert.match(stdout, /Vibes-Plug Critic-Validator Report/);
+        assert.match(stdout, /Score\s+:\s+100\/100/);
+        assert.match(stdout, /Verdict\s+:\s+APPROVED/);
+      }),
 
-  await t.test('vibes visual-audit should audit UI elements and report Pillar 7 rubric', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'visual-audit', '<button className="rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums">Pay Rp 150.000</button>']);
-    assert.match(stdout, /Vibes-Plug Visual UI Audit Report/);
-    assert.match(stdout, /Score\s+:\s+100\/100/);
-    assert.match(stdout, /Verdict.*APPROVED/);
-  });
+      t.test('vibes visual-audit should audit UI elements and report Pillar 7 rubric', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'visual-audit', '<button className="rounded-lg border border-border/50 px-4 py-2 hover:bg-muted font-medium tabular-nums">Pay Rp 150.000</button>']);
+        assert.match(stdout, /Vibes-Plug Visual UI Audit Report/);
+        assert.match(stdout, /Score\s+:\s+100\/100/);
+        assert.match(stdout, /Verdict.*APPROVED/);
+      }),
 
-  await t.test('vibes bootstrap without args should list all templates including spec-api', async () => {
-    try {
-      await execFileAsync(process.execPath, [CLI_PATH, 'bootstrap']);
-      assert.fail('Should have exited with code 1');
-    } catch (err) {
-      assert.match(err.stdout + err.stderr, /Available templates: saas, ecommerce, mobile, api, fullstack, spec-api, ai-agent, fintech, cloud-native/);
-    }
-  });
+      t.test('vibes bootstrap without args should list all templates including spec-api', async () => {
+        try {
+          await execFileAsync(process.execPath, [CLI_PATH, 'bootstrap']);
+          assert.fail('Should have exited with code 1');
+        } catch (err) {
+          assert.match(err.stdout + err.stderr, /Available templates: saas, ecommerce, mobile, api, fullstack, spec-api, ai-agent, fintech, cloud-native/);
+        }
+      }),
 
-  await t.test('vibes recipe list should show curated recipes including cloud-native, ai-agent, and fintech', async () => {
-    const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
-    assert.match(stdout, /cloud-native/);
-    assert.match(stdout, /ai-agent/);
-    assert.match(stdout, /fintech/);
-    assert.match(stdout, /agentic-commerce/);
+      t.test('vibes recipe list should show curated recipes including cloud-native, ai-agent, and fintech', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [CLI_PATH, 'recipe', 'list']);
+        assert.match(stdout, /cloud-native/);
+        assert.match(stdout, /ai-agent/);
+        assert.match(stdout, /fintech/);
+        assert.match(stdout, /agentic-commerce/);
+      })
+    ]);
   });
 
   await t.test('vibes init should generate concrete PRD, BLUEPRINT, and PROGRESS', async () => {
