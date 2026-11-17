@@ -5,6 +5,7 @@
  */
 
 import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import path from 'node:path';
 
 // CLI Arguments
@@ -152,7 +153,7 @@ const DOC_ERROR_PATTERNS = [
   }
 ];
 
-const IGNORE_DIRS = [
+const IGNORE_DIRS = new Set([
   'node_modules',
   '.git',
   '.next',
@@ -163,48 +164,60 @@ const IGNORE_DIRS = [
   '.turbo',
   'coverage',
   '.cache'
-];
+]);
 
 const CLI_SCRIPT_DIRS = ['scripts', 'bin', 'cli', 'sidecars'];
 
-const CODE_EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.py', '.go', '.rs'];
-const DOC_EXTENSIONS = ['.md', '.mdx', '.txt'];
+const CODE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs', '.py', '.go', '.rs']);
+const DOC_EXTENSIONS = new Set(['.md', '.mdx', '.txt']);
 
 let totalFilesScanned = 0;
 let violations = [];
 let fixesApplied = 0;
 
-function isTestFile(filePath) {
-  const norm = filePath.replace(/\\/g, '/');
-  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(norm) || /\/test-[^\/]+\.m?js$/i.test(norm);
+function isTestFile(normPath) {
+  return /(__tests__|__mocks__|\.test\.|\.spec\.|test\/|tests\/)/i.test(normPath) || /\/test-[^\/]+\.m?js$/i.test(normPath);
 }
 
-function isCliScript(filePath) {
-  const normalized = filePath.replace(/\\/g, '/');
-  return CLI_SCRIPT_DIRS.some(dir => normalized.includes(`/${dir}/`) || normalized.startsWith(`${dir}/`));
+function isCliScript(normPath) {
+  return CLI_SCRIPT_DIRS.some(dir => normPath.includes(`/${dir}/`) || normPath.startsWith(`${dir}/`));
 }
 
-function scanFile(filePath) {
+async function scanFile(filePath) {
   totalFilesScanned++;
   const ext = path.extname(filePath).toLowerCase();
-  const isCode = CODE_EXTENSIONS.includes(ext);
-  const isDoc = DOC_EXTENSIONS.includes(ext);
+  const isCode = CODE_EXTENSIONS.has(ext);
+  const isDoc = DOC_EXTENSIONS.has(ext);
 
   if (!isCode && !isDoc) return;
   if (filePath.includes('check-anti-slop') || filePath.includes('visual-ui-healer') || filePath.includes('skill-rules-engine') || filePath.includes('anti-slop\\SKILL.md') || filePath.includes('anti-slop/SKILL.md')) {
     return;
   }
 
-  let content = fs.readFileSync(filePath, 'utf8');
-  let lines = content.split('\n');
+  const content = await fsp.readFile(filePath, 'utf8');
+  const lines = content.split('\n');
   let fileModified = false;
 
-  lines.forEach((line, index) => {
+  // Hoist path classification once per file instead of repeating inside the line loop
+  const normPath = isCode ? filePath.replace(/\\/g, '/') : '';
+  const testFile = isCode ? isTestFile(normPath) : false;
+  const cliScript = isCode ? isCliScript(normPath) : false;
+  const activeWarnPatterns = isCode
+    ? CODE_WARN_PATTERNS.filter(pattern => {
+        if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (testFile || cliScript)) return false;
+        if (testFile && (pattern.id.startsWith('UI_') || pattern.id === 'FOCUS_OUTLINE_STRIPPED')) return false;
+        return true;
+      })
+    : [];
+
+  for (let index = 0; index < lines.length; index++) {
+    const line = lines[index];
     const lineNum = index + 1;
     const trimmed = line.trim();
 
     if (isCode) {
-      CODE_ERROR_PATTERNS.forEach(pattern => {
+      for (let p = 0; p < CODE_ERROR_PATTERNS.length; p++) {
+        const pattern = CODE_ERROR_PATTERNS[p];
         if (pattern.regex.test(line)) {
           violations.push({
             severity: 'ERROR',
@@ -216,16 +229,10 @@ function scanFile(filePath) {
             description: pattern.description
           });
         }
-      });
+      }
 
-      CODE_WARN_PATTERNS.forEach(pattern => {
-        if (pattern.id === 'CONSOLE_LOG_DEBRIS' && (isTestFile(filePath) || isCliScript(filePath))) {
-          return;
-        }
-        if (isTestFile(filePath) && (pattern.id.startsWith('UI_') || pattern.id === 'FOCUS_OUTLINE_STRIPPED')) {
-          return;
-        }
-
+      for (let p = 0; p < activeWarnPatterns.length; p++) {
+        const pattern = activeWarnPatterns[p];
         if (pattern.regex.test(line)) {
           violations.push({
             severity: isStrict ? 'ERROR' : 'WARN',
@@ -243,11 +250,12 @@ function scanFile(filePath) {
             fixesApplied++;
           }
         }
-      });
+      }
     }
 
     if (isDoc) {
-      DOC_ERROR_PATTERNS.forEach(pattern => {
+      for (let p = 0; p < DOC_ERROR_PATTERNS.length; p++) {
+        const pattern = DOC_ERROR_PATTERNS[p];
         if (pattern.regex.test(trimmed)) {
           violations.push({
             severity: 'ERROR',
@@ -259,28 +267,40 @@ function scanFile(filePath) {
             description: pattern.description
           });
         }
-      });
+      }
     }
-  });
+  }
 
   if (fileModified && isFix) {
-    fs.writeFileSync(filePath, lines.filter(l => l !== '').join('\n'), 'utf8');
+    await fsp.writeFile(filePath, lines.filter(l => l !== '').join('\n'), 'utf8');
   }
 }
 
-function scanDir(dir) {
-  if (!fs.existsSync(dir)) return;
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
+async function collectFiles(dir, fileList = []) {
+  const entries = await fsp.readdir(dir, { withFileTypes: true }).catch(() => []);
+  const subDirs = [];
 
   for (const entry of entries) {
-    if (IGNORE_DIRS.includes(entry.name)) continue;
+    if (IGNORE_DIRS.has(entry.name)) continue;
     const fullPath = path.join(dir, entry.name);
-
     if (entry.isDirectory()) {
-      scanDir(fullPath);
+      subDirs.push(fullPath);
     } else if (entry.isFile()) {
-      scanFile(fullPath);
+      fileList.push(fullPath);
     }
+  }
+
+  if (subDirs.length > 0) {
+    await Promise.all(subDirs.map(sub => collectFiles(sub, fileList)));
+  }
+  return fileList;
+}
+
+async function scanDir(dir) {
+  const files = await collectFiles(dir);
+  const BATCH_SIZE = 32;
+  for (let i = 0; i < files.length; i += BATCH_SIZE) {
+    await Promise.all(files.slice(i, i + BATCH_SIZE).map(scanFile));
   }
 }
 
@@ -294,9 +314,9 @@ if (!isJson) {
 if (fs.existsSync(rootDir)) {
   const stat = fs.statSync(rootDir);
   if (stat.isFile()) {
-    scanFile(rootDir);
+    await scanFile(rootDir);
   } else if (stat.isDirectory()) {
-    scanDir(rootDir);
+    await scanDir(rootDir);
   }
 }
 

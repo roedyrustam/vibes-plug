@@ -1097,53 +1097,67 @@ async function runDoctor(autoFix = false) {
     ? `✅ Node.js v${nodeVersion} (>= 18 required)`
     : `❌ Node.js v${nodeVersion} is too old. Please upgrade to v18+`);
 
+  // Run independent environment checks in parallel to avoid sequential cold-start delays
+  const npxBin = path.join(path.dirname(process.execPath), process.platform === 'win32' ? 'npx.cmd' : 'npx');
+  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
+  const localAgentsDir = path.join(process.cwd(), '.agents');
+  const localSkillsDir = path.join(localAgentsDir, 'skills');
+  const cachePrefixPath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
+  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
+
+  const [npxOk, skillsEntries, inquirerOk, localExists, cacheExists, pkgRaw] = await Promise.all([
+    fs.access(npxBin).then(() => true).catch(async () => {
+      try {
+        const { execFile } = await import('child_process');
+        const { promisify } = await import('util');
+        await promisify(execFile)(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['--version'], { timeout: 3000, shell: process.platform === 'win32' });
+        return true;
+      } catch {
+        return false;
+      }
+    }),
+    fs.readdir(skillsDir, { withFileTypes: true }).catch(() => null),
+    fs.access(path.join(PLUGIN_ROOT, 'node_modules', '@inquirer', 'prompts', 'package.json')).then(() => true).catch(() => false),
+    fs.access(localSkillsDir).then(() => true).catch(() => false),
+    fs.access(cachePrefixPath).then(() => true).catch(() => false),
+    fs.readFile(pkgPath, 'utf8')
+  ]);
+
   // 2. npx available
-  try {
-    const { execSync } = await import('child_process');
-    execSync('npx --version', { stdio: 'pipe' });
-    checks.push('✅ npx is available');
-  } catch {
-    checks.push('❌ npx not found. Install Node.js from https://nodejs.org');
-  }
+  checks.push(npxOk
+    ? '✅ npx is available'
+    : '❌ npx not found. Install Node.js from https://nodejs.org');
 
   // 3. Global skills directory
-  const skillsDir = path.join(PLUGIN_ROOT, 'skills');
-  try {
-    const entries = await fs.readdir(skillsDir, { withFileTypes: true });
-    const count = entries.filter(d => d.isDirectory()).length;
+  if (skillsEntries) {
+    const count = skillsEntries.filter(d => d.isDirectory()).length;
     checks.push(`✅ Global skills registry: ${count} skills found`);
-  } catch {
+  } else {
     checks.push('❌ Skills directory missing! Run: npm install -g vibes-plug');
   }
 
   // 4. @inquirer/prompts installed
-  try {
-    await import('@inquirer/prompts');
-    checks.push('✅ @inquirer/prompts is installed (vibes ui works)');
-  } catch {
-    checks.push(`⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
-  }
+  checks.push(inquirerOk
+    ? '✅ @inquirer/prompts is installed (vibes ui works)'
+    : `⚠️  @inquirer/prompts not found. Run: cd ${PLUGIN_ROOT} && npm install`);
 
   // 5. Local project .agents/ structure
-  const localAgentsDir = path.join(process.cwd(), '.agents');
-  const localSkillsDir = path.join(localAgentsDir, 'skills');
-  const localExists = await fs.access(localSkillsDir).then(() => true).catch(() => false);
   if (localExists) {
     const localEntries = await fs.readdir(localSkillsDir, { withFileTypes: true });
     const localCount = localEntries.filter(d => d.isDirectory()).length;
     checks.push(`✅ Local project: ${localCount} skill(s) installed in .agents/skills/`);
   } else if (autoFix) {
-    await fs.mkdir(path.join(localAgentsDir, 'skills'), { recursive: true });
-    await fs.mkdir(path.join(localAgentsDir, 'graph'), { recursive: true });
-    await fs.mkdir(path.join(localAgentsDir, 'telemetry'), { recursive: true });
+    await Promise.all([
+      fs.mkdir(path.join(localAgentsDir, 'skills'), { recursive: true }),
+      fs.mkdir(path.join(localAgentsDir, 'graph'), { recursive: true }),
+      fs.mkdir(path.join(localAgentsDir, 'telemetry'), { recursive: true })
+    ]);
     checks.push('🛠️  [FIXED] Scaffolded .agents/ directory (.agents/skills, .agents/graph, .agents/telemetry)');
   } else {
     checks.push('ℹ️  No local .agents/skills/ found (run vibes doctor --fix or vibes add to initialize)');
   }
 
   // 6. Deterministic KV-Cache prefix
-  const cachePrefixPath = path.join(PLUGIN_ROOT, '.cache-prefix.json');
-  const cacheExists = await fs.access(cachePrefixPath).then(() => true).catch(() => false);
   if (cacheExists) {
     checks.push('✅ Prompt cache prefix locked (.cache-prefix.json)');
   } else if (autoFix) {
@@ -1159,14 +1173,12 @@ async function runDoctor(autoFix = false) {
   }
 
   // 7. Package version
-  const pkgPath = path.join(PLUGIN_ROOT, 'package.json');
-  const pkgRaw = await fs.readFile(pkgPath, 'utf8');
   const pkg = JSON.parse(pkgRaw);
   checks.push(`📦 vibes-plug version: v${pkg.version}`);
 
   checks.forEach(c => console.log('  ' + c));
 
-  const failed = checks.filter(c => c.startsWith('  ❌')).length;
+  const failed = checks.filter(c => c.startsWith('❌')).length;
   console.log(failed > 0
     ? `\n🚨 ${failed} issue(s) found. Fix them above and re-run: vibes doctor --fix`
     : '\n🎉 All checks passed! Your Vibes-Plug environment is healthy.');
