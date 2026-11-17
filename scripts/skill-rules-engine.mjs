@@ -1403,7 +1403,7 @@ export const SKILL_GUARD_RULES = Object.freeze({
       id: 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL',
       severity: 'WARN',
       name: 'Hardcoded Frontier Model Call Without Availability Fallback',
-      regex: /model\s*:\s*['"](?:gemini-4-argon|claude-opus-5\.5)['"](?![\s\S]{0,150}?\b(?:fallback|fallbackModel)\b)/,
+      regex: /model\s*:\s*['"](?:gemini-4-(?:argon|hydrogen|carbon|pro)|claude-opus-5\.5)['"](?![\s\S]{0,150}?\b(?:fallback|fallbackModel)\b)/,
       remediation: 'Configure an explicit availability fallback (e.g. gemini-3.8-flash or claude-opus-4.6) for frontier models that may be unprovisioned.'
     }
   ],

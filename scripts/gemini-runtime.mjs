@@ -176,13 +176,17 @@ export async function getGeminiThinkingConfig(taskInput = '') {
     thinkingBudget = 32768;
     targetModel = 'models/gemini-4-pro';
     mode = 'architectural';
+  } else if (score >= 41) {
+    thinkingBudget = 12288;
+    targetModel = 'models/gemini-4-argon';
+    mode = 'monolithic-balanced';
   } else if (score >= 26) {
     thinkingBudget = 8192;
-    targetModel = 'models/gemini-4-argon';
+    targetModel = 'models/gemini-4-hydrogen';
     mode = 'balanced';
   } else {
     thinkingBudget = 2048;
-    targetModel = 'models/gemini-3.8-flash';
+    targetModel = 'models/gemini-4-carbon';
     mode = 'fast-iteration';
   }
 

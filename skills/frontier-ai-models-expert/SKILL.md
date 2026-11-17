@@ -26,9 +26,9 @@ version: "4.8.0"
 
 ### Description
 Comprehensive guide for late-2026 frontier AI models across all primary IDE execution tiers. Calibrates routing, reasoning budgets, context ingestion, and code generation across four standardized tiers:
-1. **High Fast Tier (`Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Sub-second Time-to-First-Token (TTFT), real-time web compute, and lightning-fast subagent review loops.
+1. **High Fast Tier (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Sub-50ms/sub-second Time-to-First-Token (TTFT), real-time web compute, AST scans, and lightning-fast subagent review loops.
 2. **Fast Tier (`Composer 2.5 Fast`)**: Cursor native multi-file AST diff generation and surgical file system edits.
-3. **Medium / Balanced Tier (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: 2M+ monolithic context ingestion with native caching, strict JSON schema contracts, and balanced architectural refactoring.
+3. **Medium / Balanced Tier (`Gemini 4 Hydrogen Medium`, `Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: Efficiency-optimized reasoning & structured tool calling (`Hydrogen`), 2M+ monolithic context ingestion with native caching (`Argon`), strict JSON schema contracts, and balanced architectural refactoring.
 4. **High / Extended Thinking Tier (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro / Project Astra`)**: Deep System-2 thinking budgets (up to 64K tokens), zero-defect fullstack craftsmanship, generative UI layout synthesis, and multimodal spatial reasoning.
 
 ### Trigger Conditions
@@ -47,9 +47,11 @@ Activate this skill when:
 
 | Tier | Model Identifier | Primary Provider | Context Window | Thinking Support | Optimal Workload |
 |---|---|---|---|---|---|
+| **High Fast** | `Gemini 4 Carbon` | Google DeepMind | 1,048,576 | Ultra-Fast (`thinkingConfig`) | Sub-50ms TTFT AST scans, rapid multi-file diffs, linting auto-fixes, routine triage |
 | **High Fast** | `Grok 4.7 High Fast` | xAI | 131,072 | Fast System-2 | Rapid test iterations, real-time web search grounding, sub-second code reviews |
 | **High Fast** | `Grok 4.6 High Fast` | xAI | 131,072 | Lightweight | High-throughput batch AST scanning, linting auto-fixes, and syntax transforms |
 | **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128,000 | Diff Specialized | Multi-file unified diff generation, cross-file renames, and atomic patch application |
+| **Medium** | `Gemini 4 Hydrogen Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Efficiency-optimized fullstack reasoning, structured tool calling, multi-step agent loops |
 | **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Monolithic repository ingestion, persistent context caching, balanced feature work |
 | **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262,144 | Balanced (`reasoning_effort`) | Strict JSON schema extraction, OpenAPI tool calling, and spec-driven development |
 | **Medium** | `Claude Opus 5.5 Medium` | Anthropic | 200,000 | Balanced (up to 16K) | Architectural system refactoring, cross-domain logic validation, clean code audit |
@@ -64,6 +66,8 @@ When a late-2026 frontier model is pending regional provisioning, temporarily qu
 
 | Target Frontier Model | Fallback Target | Fallback Rationale & Preserved Guarantees |
 |---|---|---|
+| **`Gemini 4 Carbon`** | **`Gemini 3.8 Flash`** | Preserves sub-100ms TTFT, 1M+ context window, and rapid AST/diff throughput. |
+| **`Gemini 4 Hydrogen Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, structured tool calling, and balanced efficiency. |
 | **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, native context caching (`cachedContent`), and sub-100ms TTFT. |
 | **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Preserves monolithic context ingestion and dynamic thinking budget control. |
 | **`Claude Opus 5.5 Medium`** | **`Claude Opus 4.6`** | Preserves deep architectural comprehension, cross-domain logic validation, and formal refactoring rigor. |
@@ -423,9 +427,9 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 
 ### Deskripsi
 Panduan komprehensif integrasi model AI frontier akhir 2026 di seluruh tier eksekusi IDE modern. Mengalibrasi perutean (*routing*), anggaran penalaran (*thinking budgets*), ingesti konteks, dan pembentukan kode ke dalam empat tier standar:
-1. **Tier High Fast (`Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Time-to-First-Token (TTFT) sub-detik, komputasi web real-time, dan siklus review subagen secepat kilat.
+1. **Tier High Fast (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Grok 4.6 High Fast`)**: Time-to-First-Token (TTFT) sub-50ms/sub-detik, pemindaian AST cepat, komputasi web real-time, dan siklus review subagen secepat kilat.
 2. **Tier Fast (`Composer 2.5 Fast`)**: Pembuat diff AST multi-file native Cursor dan mutasi sistem file yang presisi secara bedah.
-3. **Tier Medium / Seimbang (`Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: Ingesti konteks monolitik 2M+ dengan caching native, kepatuhan skema JSON ketat, dan refaktor arsitektur seimbang.
+3. **Tier Medium / Seimbang (`Gemini 4 Hydrogen Medium`, `Gemini 4 Argon Medium`, `GPT-5.6 Sol Medium`, `Claude Opus 5.5 Medium`)**: Penalaran efisien & pemanggilan tool terstruktur (`Hydrogen`), ingesti konteks monolitik 2M+ dengan caching native (`Argon`), kepatuhan skema JSON ketat, dan refaktor arsitektur seimbang.
 4. **Tier High / Penalaran Mendalam (`Claude Sonnet 5.5 High`, `Claude Fable 5.1 High`, `Muse Wonder High`, `Gemini 4 Pro / Project Astra`)**: Anggaran penalaran System-2 mendalam (hingga 64K token), pengkodean fullstack tanpa cacat, eksplorasi desain UI generatif, dan penalaran spasial multimodal.
 
 ### Kondisi Pemicu
@@ -442,9 +446,11 @@ Aktifkan skill ini ketika:
 
 | Tier | Nama Model | Penyedia Utama | Window Konteks | Dukungan Penalaran | Beban Kerja Optimal |
 |---|---|---|---|---|---|
+| **High Fast** | `Gemini 4 Carbon` | Google DeepMind | 1.048.576 | Ultra-Cepat (`thinkingConfig`) | Pemindaian AST TTFT sub-50ms, diff multi-file cepat, auto-fix linter, triase rutin |
 | **High Fast** | `Grok 4.7 High Fast` | xAI | 131.072 | System-2 Cepat | Iterasi tes cepat, pencarian web real-time, audit kode sub-detik |
 | **High Fast** | `Grok 4.6 High Fast` | xAI | 131.072 | Ringan | Pemindaian AST throughput tinggi, auto-fix linter, transformasi sintaks |
 | **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128.000 | Khusus Diff | Pembuatan diff multi-file, rename simbol lintas-file, aplikasi patch atomik |
+| **Medium** | `Gemini 4 Hydrogen Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Penalaran fullstack efisien, pemanggilan tool terstruktur, loop agen multi-langkah |
 | **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Ingesti repositori monolitik, caching konteks persisten, fitur standar |
 | **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262.144 | Seimbang (`reasoning_effort`) | Ekstraksi skema JSON ketat, eksekusi tool OpenAPI, spec-driven dev |
 | **Medium** | `Claude Opus 5.5 Medium` | Anthropic | 200.000 | Seimbang (hingga 16K) | Refaktor arsitektur sistem, validasi logika lintas domain, audit clean code |
@@ -459,6 +465,8 @@ Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalam
 
 | Model Frontier Utama | Model Pengalihan (Fallback) | Alasan & Jaminan yang Dipertahankan |
 |---|---|---|
+| **`Gemini 4 Carbon`** | **`Gemini 3.8 Flash`** | Mempertahankan TTFT sub-100ms, context window 1M+, dan throughput AST/diff cepat. |
+| **`Gemini 4 Hydrogen Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, pemanggilan tool terstruktur, dan efisiensi seimbang. |
 | **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, caching konteks native (`cachedContent`), dan TTFT sub-100ms. |
 | **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Mempertahankan ingesti konteks monolitik dan kontrol budget penalaran dinamis. |
 | **`Claude Opus 5.5 Medium`** | **`Claude Opus 4.6`** | Mempertahankan pemahaman arsitektur mendalam, validasi logika lintas domain, dan ketelitian refaktor formal. |

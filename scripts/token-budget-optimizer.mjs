@@ -103,7 +103,7 @@ export const BUDGET_TIERS = {
     minScore: 0,
     maxScore: 25,
     thinkingBudgetTokens: 1024,
-    primaryModel: 'xAI Grok 4.7 High Fast / Cursor Composer 2.5 Fast',
+    primaryModel: 'Google Gemini 4 Carbon / xAI Grok 4.7 High Fast / Cursor Composer 2.5 Fast',
     fallbackModel: 'xAI Grok 4.6 High Fast / Google Gemini 3.8 Flash',
     reasoningEffort: 'low',
     description: 'Fast, high-throughput execution for AST lookups, linting, formatting, typos, and simple fixes.'
@@ -115,7 +115,7 @@ export const BUDGET_TIERS = {
     minScore: 26,
     maxScore: 55,
     thinkingBudgetTokens: 8192,
-    primaryModel: 'Google Gemini 4 Argon Medium / OpenAI GPT-5.6 Sol Medium / Anthropic Claude Opus 5.5 Medium',
+    primaryModel: 'Google Gemini 4 Hydrogen Medium / Google Gemini 4 Argon Medium / OpenAI GPT-5.6 Sol Medium / Anthropic Claude Opus 5.5 Medium',
     fallbackModel: 'Google Gemini 3.8 Flash / Anthropic Claude Opus 4.6',
     reasoningEffort: 'medium',
     description: 'Standard cognitive depth for fullstack features, component construction, and CRUD APIs.'
@@ -353,7 +353,11 @@ export async function optimizeThinkingBudget(task, options = {}) {
       }
     },
     google_gemini: {
-      model: analysis.tier === 'CRITICAL' || analysis.tier === 'HIGH' ? 'gemini-4-pro' : 'gemini-4-argon-medium',
+      model: (analysis.tier === 'CRITICAL' || analysis.tier === 'HIGH')
+        ? 'gemini-4-pro'
+        : analysis.tier === 'MODERATE'
+          ? (analysis.compositeScore >= 41 ? 'gemini-4-argon-medium' : 'gemini-4-hydrogen-medium')
+          : 'gemini-4-carbon',
       fallbackModel: 'gemini-3.8-flash',
       reasoningConfig: {
         thinkingBudget: allocatedBudget

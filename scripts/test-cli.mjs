@@ -2799,6 +2799,42 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.deepEqual(data2.skills[0], data1.skills[0]);
     assert.ok(cacheElapsedMs < 50, `Expected warm vibes_list_skills cache hit under 50ms, took ${cacheElapsedMs.toFixed(2)}ms`);
   });
+
+  await t.test('Gemini 4 Carbon, Hydrogen, and Argon Frontier Routing & Fallback Guardrails', async () => {
+    const { getGeminiThinkingConfig } = await import('./gemini-runtime.mjs');
+    const { optimizeThinkingBudget, BUDGET_TIERS } = await import('./token-budget-optimizer.mjs');
+    const { evaluateContextualSkillGuards } = await import('./skill-rules-engine.mjs');
+
+    assert.match(BUDGET_TIERS.LOW.primaryModel, /Gemini 4 Carbon/);
+    assert.match(BUDGET_TIERS.MODERATE.primaryModel, /Gemini 4 Hydrogen/);
+    assert.match(BUDGET_TIERS.MODERATE.primaryModel, /Gemini 4 Argon/);
+
+    const fastCfg = await getGeminiThinkingConfig('fix typo in README');
+    assert.equal(fastCfg.targetModel, 'models/gemini-4-carbon');
+    assert.equal(fastCfg.fallbackModel, 'models/gemini-3.8-flash');
+
+    const fastBudget = await optimizeThinkingBudget('fix typo in README');
+    assert.equal(fastBudget.providerConfigs.google_gemini.model, 'gemini-4-carbon');
+    assert.equal(fastBudget.providerConfigs.google_gemini.fallbackModel, 'gemini-3.8-flash');
+
+    const hydrogenGuard = await evaluateContextualSkillGuards({
+      skill: 'frontier-ai-models-expert',
+      code: "const res = await ai.generate({ model: 'gemini-4-hydrogen', prompt: 'hi' });"
+    });
+    assert.ok(
+      hydrogenGuard.findings.some(f => f.ruleId === 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL'),
+      'Expected FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL to trigger for gemini-4-hydrogen without fallback'
+    );
+
+    const carbonWithFallback = await evaluateContextualSkillGuards({
+      skill: 'frontier-ai-models-expert',
+      code: "const res = await ai.generate({ model: 'gemini-4-carbon', fallbackModel: 'gemini-3.8-flash', prompt: 'hi' });"
+    });
+    assert.equal(
+      carbonWithFallback.findings.some(f => f.ruleId === 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL'),
+      false
+    );
+  });
 });
 
 
