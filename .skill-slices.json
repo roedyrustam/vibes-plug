@@ -1,7 +1,7 @@
 {
   "schema": "vibes-skill-slices/v4.8.0",
   "version": "4.8.0",
-  "compiledAt": "2026-11-14T17:43:22.263Z",
+  "compiledAt": "2026-11-17T22:10:06.562Z",
   "totalSkills": 178,
   "totalCodeBlueprints": 1203,
   "domains": {
@@ -227,8 +227,8 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 921862,
-    "compiledSlicesTokensApprox": 142726,
+    "fullRegistryTokensApprox": 949951,
+    "compiledSlicesTokensApprox": 142814,
     "avgTokensPerSlice": 802,
     "tokenReductionPercent": "85%"
   },
@@ -1361,7 +1361,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
@@ -1539,7 +1539,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 12,
       "languagesAvailable": [
@@ -1977,7 +1977,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 7,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 14,
       "languagesAvailable": [
@@ -2482,7 +2482,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
@@ -2981,7 +2981,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "Webhook ack latency P95 < 800ms (<3s platform timeout limit), 100% cryptographic signature verification, zero unauthenticated webhook processing; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
@@ -3055,7 +3055,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 5,
       "languagesAvailable": [
@@ -3903,7 +3903,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 10,
       "languagesAvailable": [
@@ -4425,7 +4425,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "Cold launch time < 1.2s, renderer memory footprint < 120MB baseline, 100% IPC validation coverage, zero RCE vulnerabilities; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 4,
       "languagesAvailable": [
@@ -4507,7 +4507,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 5,
       "languagesAvailable": [
@@ -4595,7 +4595,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 35,
       "languagesAvailable": [
@@ -5124,7 +5124,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 10,
       "languagesAvailable": [
@@ -5213,7 +5213,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 Cart/Checkout Latency < 120ms, zero overselling on concurrent inventory reservations, 100% Schema.org Product compliance; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 4,
       "languagesAvailable": [
@@ -5296,7 +5296,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "P95 email delivery latency < 2s, 100% SPF/DKIM/DMARC alignment, zero unescaped HTML injection, responsive email client rendering 100%; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 8,
       "languagesAvailable": [
@@ -5890,7 +5890,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "Presigned URL generation latency < 25ms, 100% magic byte MIME verification, S3/R2 presigned expiration <= 15 minutes; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
@@ -6153,7 +6153,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 6,
       "languagesAvailable": [
@@ -6331,7 +6331,7 @@
         "budget"
       ],
       "guardRulesCount": 11,
-      "nfrContract": "100% complete zero-placeholder implementation",
+      "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 8,
       "languagesAvailable": [
         "typescript",
@@ -6681,7 +6681,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 spatial query latency < 25ms via GiST index, 60fps smooth map pan/zoom, 0 WebGL context leaks on unmount; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
@@ -6830,7 +6830,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "100% WCAG 2.2 AA compliance (0 axe-core critical violations), 100% type-safe i18n key coverage, zero missing aria-labels on interactive elements, CSS logical properties for RTL; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 4,
       "languagesAvailable": [
@@ -6994,7 +6994,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 11,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 13,
       "languagesAvailable": [
@@ -7259,7 +7259,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "Webhook cache revalidation latency < 200ms, 100% cryptographic webhook signature verification, zero unoptimized raw CMS images; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 8,
       "languagesAvailable": [
@@ -8165,7 +8165,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 13,
       "languagesAvailable": [
@@ -8660,7 +8660,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 9,
       "languagesAvailable": [
@@ -9079,7 +9079,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
@@ -9155,7 +9155,7 @@
         "budget"
       ],
       "guardRulesCount": 10,
-      "nfrContract": "100% complete zero-placeholder implementation",
+      "nfrContract": "KV-Cache Hit Rate >= 92%, Subagent Fan-Out Slice < 350 tokens (`.skill-slices.json`), MCP v1.x & A2A Agent Card v1.0 strict schema compliance; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
         "typescript"
@@ -9228,7 +9228,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 8,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 15,
       "languagesAvailable": [
@@ -9398,7 +9398,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "100% operationId uniqueness, 0 Spectral lint errors in CI, 100% client SDK type sync; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 5,
       "languagesAvailable": [
@@ -9731,7 +9731,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "PDF generation latency < 600ms, 100% in-memory buffer streaming (0 disk writes), 100% tenant authorization on document endpoints; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [
@@ -9806,7 +9806,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "LCP <= 2.5s, INP <= 200ms, CLS <= 0.1 (Lighthouse score >= 95), initial JS bundle < 200KB gzipped; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 12,
       "languagesAvailable": [
@@ -10561,7 +10561,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 11,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 9,
       "languagesAvailable": [
@@ -10649,7 +10649,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 8,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 11,
       "languagesAvailable": [
@@ -11570,7 +11570,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 7,
+      "guardRulesCount": 10,
       "nfrContract": "Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 11,
       "languagesAvailable": [
@@ -11657,7 +11657,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 7,
       "languagesAvailable": [
@@ -11982,7 +11982,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 10,
+      "guardRulesCount": 9,
       "nfrContract": "P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 5,
       "languagesAvailable": [
@@ -12818,7 +12818,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 10,
       "languagesAvailable": [
@@ -13072,7 +13072,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 8,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 9,
       "languagesAvailable": [
@@ -14257,7 +14257,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 9,
+      "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 8,
       "languagesAvailable": [
@@ -14846,7 +14846,7 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 10,
       "nfrContract": "P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
       "codeBlueprintsCount": 3,
       "languagesAvailable": [

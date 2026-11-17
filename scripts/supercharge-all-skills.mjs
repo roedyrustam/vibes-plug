@@ -26,55 +26,125 @@ const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
 const DOMAIN_EXECUTION_PROFILES = {
   'frontend': {
-    tierEn: 'Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate`',
     nfrEn: 'LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract',
     nfrId: 'LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state'
   },
   'database-storage': {
-    tierEn: 'Medium / High (`Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate`',
     nfrEn: 'P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys',
     nfrId: 'Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key'
   },
   'testing-security': {
-    tierEn: 'High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`)',
-    fallbackEn: '`Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast`',
+    tierEn: 'High Fast / High (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants`',
     nfrEn: 'Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations',
     nfrId: 'Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop'
   },
   'api-contracts': {
-    tierEn: 'Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate`',
     nfrEn: 'P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement',
     nfrId: 'Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key'
   },
   'ai-llm': {
-    tierEn: 'High Fast / Medium / High (`Grok 4.7 High Fast`, `Gemini 4 Argon/Pro`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_speculative_consensus`, `vibes_get_skill (mode: compact)`',
     nfrEn: 'KV-Cache Hit Rate >= 92%, Subagent Fan-Out Slice < 350 tokens (`.skill-slices.json`), MCP v1.x & A2A Agent Card v1.0 strict schema compliance',
     nfrId: 'KV-Cache Hit Rate >= 92%, Slice Fan-Out Subagent < 350 token (`.skill-slices.json`), kepatuhan skema ketat MCP v1.x & A2A Agent Card v1.0'
   },
   'devops-cicd': {
-    tierEn: 'Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_verify_gate`, `vibes_self_heal`, `vibes_terminal_monitor`',
     nfrEn: 'SLSA Level 3 provenance, rootless distroless container runtimes, zero `:latest` mutable tags, OpenTelemetry W3C TraceContext propagation',
     nfrId: 'Provenans SLSA Level 3, runtime kontainer distroless non-root, nol tag `:latest` mutabel, propagasi OpenTelemetry W3C TraceContext'
   },
   'mobile-desktop': {
-    tierEn: 'Medium / High (`Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`)',
-    fallbackEn: '`Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_verify_gate`, `vibes_eval_sandbox`',
     nfrEn: '60fps (16.67ms) / 120Hz (8.33ms) frame budget, Zero-GC object allocation inside render loops, Tauri v2 / Expo SDK 53 least-privilege capability ACLs',
     nfrId: 'Anggaran frame 60fps (16.67ms) / 120Hz (8.33ms), Zero-GC di dalam render loop, kapabilitas hak akses minimum Tauri v2 / Expo SDK 53'
   }
 };
+
+const RED_OCEAN_SKILLS = new Set([
+  'senior-frontend', 'nextjs-app-router-expert', 'tailwind-expert', 'modern-css-native-expert',
+  'vue-frontend-expert', 'angular-expert', 'svelte-sveltekit-expert', 'astro-framework-expert',
+  'solidjs-expert', 'htmx-hypermedia-expert', 'state-management-expert', 'tanstack-query-expert',
+  'form-validation-expert', 'rich-text-editor-expert', 'data-visualization-expert',
+  'svg-animation-motion-expert', 'design-system-architect', 'ui-ux-pro-max',
+  'fullstack-expert', 'js-backend-expert', 'bun-runtime-expert', 'python-programming-expert',
+  'go-programming-expert', 'rust-programming-expert', 'api-design-expert', 'graphql-apollo-expert',
+  'openapi-swagger-codegen-expert', 'database-orm-expert', 'authentication-identity-expert',
+  'email-notification-expert', 'file-upload-media-expert', 'pdf-document-generation-expert',
+  'search-engine-expert', 'geospatial-maps-expert', 'docker-container-expert', 'github-actions-expert',
+  'ci-cd-devops-architect', 'cloud-hosting-expert', 'cloudflare-workers-expert', 'monorepo-architect',
+  'logging-error-tracking-expert', 'data-telemetry-expert', 'rate-limit-abuse-prevention',
+  'error-resilience-expert', 'e2e-testing-expert', 'accessibility-testing-expert',
+  'global-a11y-i18n-expert', 'biome-linter-formatter-expert', 'performance-web-vitals', 'seo',
+  'ecommerce-expert', 'payment-gateway-expert', 'saas-architect', 'saas-billing', 'saas-multi-tenant',
+  'headless-cms-expert', 'wordpress-headless-expert', 'documentation-site-expert',
+  'chatbot-messaging-expert', 'n8n-automation-expert', 'mobile-expo-expert', 'flutter-dart-expert',
+  'desktop-electron-expert', 'tauri-expert', 'pwa-offline-first-expert'
+]);
+
+const BLUE_OCEAN_SYNERGIES = {
+  'frontend': {
+    pairings: '`ephemeral-generative-ui-architect`, `visual-ui-auditor`, `multimodal-spatial-video-cloner`, `anti-slop`',
+    mandateEn: 'Reject generic AI UI templates: enforce 5-state interactive contracts, `tabular-nums`, crisp 1px borders, and multimodal `vibes visual-audit` verification before disk write.',
+    mandateId: 'Tolak UI generik: wajibkan kontrak interaktif 5-state, `tabular-nums`, border tegas 1px, serta verifikasi multimodal `vibes visual-audit` sebelum menulis ke disk.'
+  },
+  'database-storage': {
+    pairings: '`reactive-sync-engine-expert`, `fga-rebac-authorization-expert`, `formal-spec-z3-verifier`, `zero-tech-debt-auditor`',
+    mandateEn: 'Never emit bare CRUD tables: enforce PostgreSQL RLS, explicit B-Tree indexes on foreign keys, in-memory `vibes db:eval` DDL simulation, and ReBAC authorization checks.',
+    mandateId: 'Dilarang membuat tabel CRUD polos: wajibkan PostgreSQL RLS, indeks B-Tree eksplisit pada foreign key, simulasi DDL `vibes db:eval`, dan otorisasi ReBAC.'
+  },
+  'testing-security': {
+    pairings: '`autonomous-tdd-debugger`, `autonomous-red-teamer`, `ephemeral-wasm-sandbox-executor`, `prompt-injection-firewall`, `anti-slop`',
+    mandateEn: 'Elevate routine tests into continuous self-healing: validate candidate patches in `vibes sandbox --verify`, fuzz OWASP/injection vectors, and gate commits via `vibes skill auto-diff`.',
+    mandateId: 'Tingkatkan tes standar menjadi self-healing kontinu: validasi patch di `vibes sandbox --verify`, fuzzing vektor OWASP/injeksi, dan gerbang commit via `vibes skill auto-diff`.'
+  },
+  'api-contracts': {
+    pairings: '`autonomous-api-drift-healer`, `formal-spec-z3-verifier`, `doku-mcp-server`, `agentic-m2m-settlement`, `post-quantum-crypto-migrator`',
+    mandateEn: 'Eliminate brittle REST boilerplate: enforce OpenAPI/TypeSpec drift healing, idempotency keys, RFC 9457 Problem Details, and formal Z3 state-transition invariants.',
+    mandateId: 'Hapus boilerplate REST rapuh: wajibkan deteksi drift OpenAPI/TypeSpec, idempotency key, error RFC 9457 Problem Details, dan verifikasi invarian state Z3.'
+  },
+  'devops-cicd': {
+    pairings: '`sbom-supply-chain-security-expert`, `self-healing-cloud-orchestrator`, `zero-trust-secret-vault`, `adaptive-model-cascade`',
+    mandateEn: 'Go beyond basic Docker/CI YAML: mandate rootless distroless builds, CycloneDX SBOM attestation, zero-trust secret rotation, and self-healing telemetry loops.',
+    mandateId: 'Lampaui YAML Docker/CI standar: wajibkan build distroless non-root, atestasi CycloneDX SBOM, rotasi secret zero-trust, dan loop telemetri self-healing.'
+  },
+  'mobile-desktop': {
+    pairings: '`local-slm-edge-ai-expert`, `reactive-sync-engine-expert`, `passkeys-webauthn-identity-expert`, `anti-slop`',
+    mandateEn: 'Upgrade standard app scaffolds with offline-first OPFS/SQLite sync, WebAuthn Passkeys, on-device SLM inference readiness, and strict 60/120fps Zero-GC budgets.',
+    mandateId: 'Tingkatkan scaffold aplikasi standar dengan sinkronisasi offline-first OPFS/SQLite, Passkeys WebAuthn, kesiapan inferensi SLM lokal, dan budget 60/120fps Zero-GC.'
+  }
+};
+
+function buildRedToBlueBlockEn(skillName, domain) {
+  const syn = BLUE_OCEAN_SYNERGIES[domain] || BLUE_OCEAN_SYNERGIES['api-contracts'];
+  return `### Blue-Ocean Synergy & Anti-Commodity Protocol
+- **Mandatory Blue-Ocean Pairing**: Always compose \`${skillName}\` with ${syn.pairings} so commodity boilerplate is elevated into verified, self-healing production architecture.
+- **Anti-Commodity Mandate**: ${syn.mandateEn}
+- **Pre-Disk Gate**: Run \`vibes verify-gate\` and \`vibes skill auto-diff --json\` to inject <350-token slices and eliminate placeholder slop.`;
+}
+
+function buildRedToBlueBlockId(skillName, domain) {
+  const syn = BLUE_OCEAN_SYNERGIES[domain] || BLUE_OCEAN_SYNERGIES['api-contracts'];
+  return `### Sinergi Blue-Ocean & Protokol Anti-Komoditas
+- **Pasangan Wajib Blue-Ocean**: Selalu komposisikan \`${skillName}\` bersama ${syn.pairings} agar boilerplate standar naik kelas menjadi arsitektur produksi terverifikasi dan *self-healing*.
+- **Mandat Anti-Komoditas**: ${syn.mandateId}
+- **Gerbang Pra-Disk**: Jalankan \`vibes verify-gate\` dan \`vibes skill auto-diff --json\` untuk menyuntikkan slice <350 token serta mencegah placeholder slop.`;
+}
 
 const SUPPLEMENTAL_BLUEPRINTS = {
   'saas-architect': `
@@ -592,6 +662,30 @@ async function superchargeAllSkills() {
         content = `${enPart}\n\n${enMatrix}\n\n---\n\n${idPart}\n\n${idMatrix}\n`;
       } else {
         content = `${content.trimEnd()}\n\n${enMatrix}\n\n${idMatrix}\n`;
+      }
+    } else {
+      // Refresh existing Frontier Model Cascade & Availability Fallback rows with Carbon/Hydrogen/Argon/Pro
+      content = content.replace(/\| \*\*Frontier Model Cascade\*\* \| [^\r\n]+/, `| **Frontier Model Cascade** | ${profile.tierEn} |`);
+      content = content.replace(/\| \*\*Kaskade Model Frontier\*\* \| [^\r\n]+/, `| **Kaskade Model Frontier** | ${profile.tierEn} |`);
+      content = content.replace(/\| \*\*Availability Fallback\*\* \| [^\r\n]+/, `| **Availability Fallback** | ${profile.fallbackEn} (Zero unhandled missing-model errors) |`);
+      content = content.replace(/\| \*\*Invarian Fallback Ketersediaan\*\* \| [^\r\n]+/, `| **Invarian Fallback Ketersediaan** | ${profile.fallbackEn} (Bebas gagal saat model belum tersedia/kuota penuh) |`);
+    }
+
+    // 6. Elevate Red-Ocean skills with explicit Blue-Ocean Synergy & Anti-Commodity Protocols
+    if (RED_OCEAN_SKILLS.has(skillName)) {
+      if (!content.includes('### Blue-Ocean Synergy & Anti-Commodity Protocol')) {
+        const enBlock = buildRedToBlueBlockEn(skillName, adapter.domain);
+        content = content.replace(
+          '### Sovereign Execution, Token Efficiency & Invariants',
+          `${enBlock}\n\n### Sovereign Execution, Token Efficiency & Invariants`
+        );
+      }
+      if (!content.includes('### Sinergi Blue-Ocean & Protokol Anti-Komoditas')) {
+        const idBlock = buildRedToBlueBlockId(skillName, adapter.domain);
+        content = content.replace(
+          '### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian',
+          `${idBlock}\n\n### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian`
+        );
       }
     }
 
