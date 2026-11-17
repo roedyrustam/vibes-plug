@@ -2849,11 +2849,24 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.equal(cascadeSwarm.modelCascadeSummary.fallbackModel, 'gemini-3.8-flash');
     assert.ok(cascadeSwarm.workers.every(w => w.assignedModel && w.fallbackModel === 'gemini-3.8-flash'));
 
-    const { dispatchSkillChain } = await import('./skill-dispatcher.mjs');
+    const { dispatchSkillChain, injectSkillsFromGitDiff } = await import('./skill-dispatcher.mjs');
     for (const chainId of ['sovereign-commerce-gate', 'generative-ui-gate', 'zero-trust-api-gate']) {
       const chainRes = await dispatchSkillChain(chainId, { options: { recordTelemetry: false } });
       assert.equal(chainRes.status, 'success', `Expected ${chainId} skill chain to succeed`);
     }
+
+    const diffInject = await injectSkillsFromGitDiff({
+      files: ['src/app/checkout/doku-webhook.ts', 'prisma/migrations/001_init.sql', 'src/components/PayButton.tsx']
+    });
+    assert.equal(diffInject.status, 'success');
+    assert.ok(diffInject.recommendedSkills.length >= 2 && diffInject.recommendedSkills.length <= 4);
+    assert.ok(diffInject.slices.length === diffInject.recommendedSkills.length);
+    assert.ok(diffInject.totalTokenEstimate > 0 && diffInject.totalTokenEstimate < 1600);
+
+    const { stdout: autoDiffOut } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'auto-diff', '--json']);
+    const autoDiffJson = JSON.parse(autoDiffOut);
+    assert.equal(autoDiffJson.status, 'success');
+    assert.ok(Array.isArray(autoDiffJson.recommendedSkills));
   });
 });
 

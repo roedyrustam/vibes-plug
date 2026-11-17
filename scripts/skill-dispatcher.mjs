@@ -10,7 +10,11 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
+
+const execFileAsync = promisify(execFile);
 
 import { databaseAdapter } from './adapters/database.mjs';
 import { frontendAdapter } from './adapters/frontend.mjs';
@@ -597,6 +601,81 @@ export async function dispatchSkillChain(recipeName = 'saas-launch-gate', payloa
   };
 }
 
+const DIFF_SKILL_RULES = [
+  { regex: /doku|payment|checkout|billing|ledger|snap/i, skills: ['doku-payment-gateway', 'doku-mcp-server', 'agentic-m2m-settlement', 'double-entry-ledger-fintech-expert'] },
+  { regex: /\.(sql|prisma)$|migrations?\//i, skills: ['database-orm-expert', 'reactive-sync-engine-expert', 'fga-rebac-authorization-expert'] },
+  { regex: /\.(tsx|jsx)$|components?\//i, skills: ['senior-frontend', 'ephemeral-generative-ui-architect', 'visual-ui-auditor', 'anti-slop'] },
+  { regex: /dockerfile|docker-compose|k8s|helm|\.github\/workflows/i, skills: ['docker-container-expert', 'kubernetes-gitops-platform-expert', 'sbom-supply-chain-security-expert'] },
+  { regex: /mcp|agent|llm|gemini|prompt|cascade|swarm/i, skills: ['mcp-server-architect', 'adaptive-model-cascade', 'kv-cache-prefix-optimizer', 'prompt-injection-firewall'] },
+  { regex: /\.py$/i, skills: ['python-programming-expert', 'pydantic-ai-expert'] },
+  { regex: /\.go$/i, skills: ['go-programming-expert'] },
+  { regex: /\.rs$/i, skills: ['rust-programming-expert'] },
+  { regex: /SKILL\.md$|rules\//i, skills: ['anti-slop', 'frontier-ai-models-expert'] },
+  { regex: /\.(js|mjs|cjs|ts)$/i, skills: ['js-backend-expert', 'autonomous-tdd-debugger', 'anti-slop'] }
+];
+
+/**
+ * Maps changed git diff files to compact <350-token skill slices for token-frugal context injection.
+ * @param {Object} [options]
+ * @param {string[]} [options.files]
+ * @param {boolean} [options.staged]
+ * @param {number} [options.limit]
+ * @param {string} [options.cwd]
+ * @returns {Promise<Object>}
+ */
+export async function injectSkillsFromGitDiff(options = {}) {
+  const startTime = performance.now();
+  const cwd = options.cwd || process.cwd();
+  const limit = Number(options.limit) || 4;
+  let changedFiles = Array.isArray(options.files) ? options.files.filter(Boolean) : [];
+
+  if (changedFiles.length === 0) {
+    const gitArgs = options.staged ? ['diff', '--cached', '--name-only'] : ['diff', '--name-only', 'HEAD'];
+    try {
+      const { stdout } = await execFileAsync('git', gitArgs, { cwd, timeout: 5000 });
+      changedFiles = stdout.split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+    } catch {
+      const { stdout } = await execFileAsync('git', ['status', '--porcelain'], { cwd, timeout: 5000 }).catch(() => ({ stdout: '' }));
+      changedFiles = stdout.split(/\r?\n/).map(l => l.slice(3).trim()).filter(Boolean);
+    }
+  }
+
+  const skillScores = new Map();
+  for (const file of changedFiles) {
+    for (const rule of DIFF_SKILL_RULES) {
+      if (rule.regex.test(file)) {
+        rule.skills.forEach((skill, idx) => {
+          skillScores.set(skill, (skillScores.get(skill) || 0) + (rule.skills.length - idx));
+        });
+      }
+    }
+  }
+
+  if (skillScores.size === 0) {
+    skillScores.set('anti-slop', 2);
+    skillScores.set('zero-to-prod-orchestrator', 1);
+  }
+
+  const recommendedSkills = Array.from(skillScores.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit)
+    .map(([skill]) => skill);
+
+  const slices = await Promise.all(recommendedSkills.map(s => getSkillCompactSlice(s)));
+  const validSlices = slices.filter(Boolean);
+  const totalTokenEstimate = validSlices.reduce((sum, s) => sum + (s.tokenEstimate || 120), 0);
+
+  return {
+    status: 'success',
+    mode: options.staged ? 'staged' : 'working-tree',
+    changedFiles,
+    recommendedSkills,
+    slices: validSlices,
+    totalTokenEstimate,
+    durationMs: Math.max(1, Math.round(performance.now() - startTime))
+  };
+}
+
 // CLI Runner
 const isMain = process.argv[1] && (
   path.resolve(process.argv[1]).toLowerCase() === path.resolve(__filename).toLowerCase() ||
@@ -664,7 +743,17 @@ Available Skill Chains:
   if (langFlag) parsedPayload.language = langFlag;
   if (indexFlag !== undefined) parsedPayload.index = Number(indexFlag);
 
-  if (firstPositional === 'compile-slices' || firstPositional === 'matrix') {
+  if (firstPositional === 'auto-diff') {
+    injectSkillsFromGitDiff({ staged: rawArgs.includes('--staged') }).then(res => {
+      if (formatFlag === 'json') {
+        console.log(JSON.stringify(res, null, 2));
+      } else {
+        console.log(`\n🧬 [Auto-Diff Skill Injector] ${res.changedFiles.length} changed file(s) -> ${res.recommendedSkills.length} compact slices (~${res.totalTokenEstimate} tokens, ${res.durationMs}ms)`);
+        res.recommendedSkills.forEach(s => console.log(`  • ${s}`));
+      }
+      process.exit(0);
+    });
+  } else if (firstPositional === 'compile-slices' || firstPositional === 'matrix') {
     compileAllSkillSlices().then(res => {
       if (formatFlag === 'json') {
         console.log(JSON.stringify(res, null, 2));

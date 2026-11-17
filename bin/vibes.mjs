@@ -1607,6 +1607,7 @@ Commands:
   skill exec <skill> <act>  Execute a deterministic Skill-as-a-Tool (SaaT) action across any skill
   skill chain <recipe>      Execute a multi-skill pipeline chain (saas-launch-gate, ai-agent-hardening, ...)
   skill slice <skill-name>  Retrieve <350-token compact contract slice for subagent fan-out
+  skill auto-diff [--staged] [--json] Inject compact skill slices from git diff
   skill extract-code <sk>   Extract runnable production code blueprints from a skill (--lang=<l>)
   skill matrix [--json]     Compile & inspect the 178-skill SaaT domain matrix (.skill-slices.json)
   recipe list               List all built-in skill bundles/recipes
@@ -1808,8 +1809,18 @@ Platform Eligibility & Economics:
     break;
   }
   case 'swarm:auto': {
-    const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'swarm-runner.mjs'), 'auto', ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { configureAutoSwarm } = await import('../scripts/swarm-runner.mjs');
+    const jsonOutput = args.includes('--json');
+    let action = 'status';
+    if (args.includes('--enable') || args.includes('enable')) action = 'enable';
+    else if (args.includes('--disable') || args.includes('disable')) action = 'disable';
+    const outcome = await configureAutoSwarm({ action });
+    if (jsonOutput) {
+      console.log(JSON.stringify(outcome, null, 2));
+    } else {
+      const badge = outcome.auto_swarm ? '\x1b[32mENABLED (AUTO-ACTIVE)\x1b[0m' : '\x1b[33mDISABLED (MANUAL)\x1b[0m';
+      console.log(`\n  Auto-Swarm Status : ${badge}\n  Active Topology   : ${outcome.active_topology}\n  Standing Subagents: ${outcome.active_subagents_count} Native Specialists\n  Updated At        : ${outcome.updatedAt}\n`);
+    }
     rl.close();
     break;
   }
@@ -1917,6 +1928,11 @@ Platform Eligibility & Economics:
       rl.close();
       const { spawnSync } = await import('child_process');
       const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), args[2], 'extract-code', ...args.slice(3)], { stdio: 'inherit', cwd: process.cwd() });
+      process.exit(child.status ?? 0);
+    } else if (args[1] === 'auto-diff') {
+      rl.close();
+      const { spawnSync } = await import('child_process');
+      const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-dispatcher.mjs'), 'auto-diff', ...args.slice(2)], { stdio: 'inherit', cwd: process.cwd() });
       process.exit(child.status ?? 0);
     } else if (args[1] === 'compile-slices' || args[1] === 'matrix') {
       rl.close();
