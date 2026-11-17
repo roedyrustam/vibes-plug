@@ -131,6 +131,36 @@ export const SKILL_CHAIN_RECIPES = Object.freeze({
       { skill: 'fga-rebac-authorization-expert', action: 'audit' }
     ]
   },
+  'sovereign-commerce-gate': {
+    name: 'Red-to-Blue Sovereign Agentic Commerce Gate',
+    description: 'Elevates standard e-commerce catalogs with DOKU MCP tools, M2M settlement rails, and anti-slop enforcement.',
+    steps: [
+      { skill: 'ecommerce-expert', action: 'generate' },
+      { skill: 'doku-mcp-server', action: 'verify' },
+      { skill: 'agentic-m2m-settlement', action: 'verify' },
+      { skill: 'anti-slop', action: 'audit' }
+    ]
+  },
+  'generative-ui-gate': {
+    name: 'Red-to-Blue Ephemeral Generative UI Gate',
+    description: 'Combines React 19 frontend craftsmanship with streaming generative UI, multimodal visual audit, and anti-slop rules.',
+    steps: [
+      { skill: 'senior-frontend', action: 'optimize' },
+      { skill: 'ephemeral-generative-ui-architect', action: 'generate' },
+      { skill: 'visual-ui-auditor', action: 'audit' },
+      { skill: 'anti-slop', action: 'audit' }
+    ]
+  },
+  'zero-trust-api-gate': {
+    name: 'Red-to-Blue Zero-Trust & Self-Healing API Gate',
+    description: 'Hardens REST/OpenAPI backends with autonomous API drift healing, prompt-injection firewall, and Z3 formal verification.',
+    steps: [
+      { skill: 'api-design-expert', action: 'verify' },
+      { skill: 'autonomous-api-drift-healer', action: 'verify' },
+      { skill: 'prompt-injection-firewall', action: 'audit' },
+      { skill: 'formal-spec-z3-verifier', action: 'verify' }
+    ]
+  },
   'formal-neurosymbolic-gate': {
     name: 'Lean 4 Formal Theorem & Neurosymbolic Genetic Synthesis Gate',
     description: 'Executes Lean 4 mathematical invariant verification, Z3 SMT solver checks, MAP-Elites genetic optimization, and WASM sandbox execution.',

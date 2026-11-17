@@ -1317,6 +1317,18 @@ const RECIPES = {
   'fintech': {
     description: 'FinTech, Billing & Payments: DOKU Checkout, SNAP BI standard, atomic idempotency, and SaaS subscriptions',
     skills: ['doku-payment-gateway', 'payment-gateway-expert', 'saas-billing', 'agentic-m2m-settlement', 'database-orm-expert', 'authentication-identity-expert', 'formal-spec-z3-verifier', 'anti-slop']
+  },
+  'sovereign-ecommerce': {
+    description: 'Blue-Ocean E-Commerce: Next.js & catalog paired with DOKU MCP, M2M settlement, generative UI, and anti-slop',
+    skills: ['ecommerce-expert', 'nextjs-app-router-expert', 'doku-mcp-server', 'agentic-m2m-settlement', 'ephemeral-generative-ui-architect', 'anti-slop']
+  },
+  'generative-frontend': {
+    description: 'Blue-Ocean Frontend: React 19 & Tailwind v4 paired with ephemeral generative UI, spatial video cloner, and visual audit',
+    skills: ['senior-frontend', 'tailwind-expert', 'ephemeral-generative-ui-architect', 'multimodal-spatial-video-cloner', 'visual-ui-auditor', 'anti-slop']
+  },
+  'zero-trust-backend': {
+    description: 'Blue-Ocean Backend: API & ORM paired with ReBAC FGA, post-quantum crypto, API drift healer, and Z3 verification',
+    skills: ['js-backend-expert', 'database-orm-expert', 'fga-rebac-authorization-expert', 'post-quantum-crypto-migrator', 'autonomous-api-drift-healer', 'formal-spec-z3-verifier']
   }
 };
 

@@ -155,6 +155,9 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
         assert.match(stdout, /ai-agent/);
         assert.match(stdout, /fintech/);
         assert.match(stdout, /agentic-commerce/);
+        assert.match(stdout, /sovereign-ecommerce/);
+        assert.match(stdout, /generative-frontend/);
+        assert.match(stdout, /zero-trust-backend/);
       })
     ]);
   });
@@ -2845,6 +2848,12 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(cascadeSwarm.modelCascadeSummary);
     assert.equal(cascadeSwarm.modelCascadeSummary.fallbackModel, 'gemini-3.8-flash');
     assert.ok(cascadeSwarm.workers.every(w => w.assignedModel && w.fallbackModel === 'gemini-3.8-flash'));
+
+    const { dispatchSkillChain } = await import('./skill-dispatcher.mjs');
+    for (const chainId of ['sovereign-commerce-gate', 'generative-ui-gate', 'zero-trust-api-gate']) {
+      const chainRes = await dispatchSkillChain(chainId, { options: { recordTelemetry: false } });
+      assert.equal(chainRes.status, 'success', `Expected ${chainId} skill chain to succeed`);
+    }
   });
 });
 
