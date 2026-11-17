@@ -2834,6 +2834,17 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       carbonWithFallback.findings.some(f => f.ruleId === 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL'),
       false
     );
+
+    const { dispatchSwarm, resolveWorkerModelAssignment } = await import('./swarm-dispatcher.mjs');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'anti-slop', name: 'Lint', thinkingBudget: 1024 }, 'quality-guardian', { id: 'speed' }).assignedModel, 'gemini-4-carbon');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'senior-frontend', name: 'Frontend', thinkingBudget: 8192 }, 'fullstack-craftsman', { id: 'balanced' }).assignedModel, 'gemini-4-hydrogen-medium');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'database-orm-expert', name: 'Database', thinkingBudget: 12288 }, 'data-rag-architect', { id: 'balanced' }).assignedModel, 'gemini-4-argon-medium');
+
+    const cascadeSwarm = await dispatchSwarm('Build React dashboard with Postgres RLS', { concurrency: 2, reasoning: 'balanced' });
+    assert.equal(cascadeSwarm.success, true);
+    assert.ok(cascadeSwarm.modelCascadeSummary);
+    assert.equal(cascadeSwarm.modelCascadeSummary.fallbackModel, 'gemini-3.8-flash');
+    assert.ok(cascadeSwarm.workers.every(w => w.assignedModel && w.fallbackModel === 'gemini-3.8-flash'));
   });
 });
 

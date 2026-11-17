@@ -44,6 +44,33 @@ export function resolveNativeSubagent(skillName = '', domainName = '') {
 }
 
 /**
+ * Assigns an optimal Gemini 4 frontier model tier per swarm worker with availability fallback.
+ * @param {Object} workerSpec
+ * @param {string} subagentId
+ * @param {Object} profile
+ * @returns {{ assignedModel: string, fallbackModel: string, modelTier: string }}
+ */
+export function resolveWorkerModelAssignment(workerSpec, subagentId, profile) {
+  const budget = Number(workerSpec?.thinkingBudget) || profile?.budgetTokens || 8192;
+  const key = `${workerSpec?.skill || ''} ${workerSpec?.name || ''} ${subagentId || ''}`.toLowerCase();
+
+  if (profile?.id === 'speed' || budget <= 2048 || /lint|slop|ast|triage|format/.test(key)) {
+    return { assignedModel: 'gemini-4-carbon', fallbackModel: 'gemini-3.8-flash', modelTier: 'HIGH_FAST' };
+  }
+  if (
+    profile?.id === 'deep' ||
+    profile?.id === 'exhaustive' ||
+    /fintech-payment-sentinel|reverse-security-auditor|quality-guardian/.test(subagentId)
+  ) {
+    return { assignedModel: 'gemini-4-pro', fallbackModel: 'gemini-3.8-flash', modelTier: 'HIGH' };
+  }
+  if (/data-rag-architect|swarm-architect/.test(subagentId) || budget >= 12000 || /rag|olap|graph|monolith/.test(key)) {
+    return { assignedModel: 'gemini-4-argon-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+  }
+  return { assignedModel: 'gemini-4-hydrogen-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+}
+
+/**
  * Throttled concurrent execution helper
  * @param {Array<() => Promise<any>>} tasks
  * @param {number} concurrency
@@ -135,6 +162,7 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
   const startTime = Date.now();
   const workerId = `worker-${workerSpec.skill}`;
   const subagentId = workerSpec.subagent || resolveNativeSubagent(workerSpec.skill, workerSpec.name);
+  const modelAssignment = resolveWorkerModelAssignment(workerSpec, subagentId, profile);
 
   emitSwarmEvent('worker:dispatch', {
     swarmId,
@@ -142,7 +170,9 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     subagent: subagentId,
     domain: workerSpec.name,
     skill: workerSpec.skill,
-    focus: workerSpec.focus
+    focus: workerSpec.focus,
+    assignedModel: modelAssignment.assignedModel,
+    fallbackModel: modelAssignment.fallbackModel
   });
 
   const [skillContext, compactSlice, workspaceTargets] = await Promise.all([
@@ -191,6 +221,9 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     skill: workerSpec.skill,
     thinkingBudget: workerSpec.thinkingBudget,
     targetModelTier: profile.tier,
+    assignedModel: modelAssignment.assignedModel,
+    fallbackModel: modelAssignment.fallbackModel,
+    modelTier: modelAssignment.modelTier,
     workspaceTargets,
     sharedContracts: blackboardContracts,
     slice: {
@@ -216,6 +249,9 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     focus: workerSpec.focus,
     thinkingBudget: workerSpec.thinkingBudget,
     targetModelTier: profile.tier,
+    assignedModel: modelAssignment.assignedModel,
+    fallbackModel: modelAssignment.fallbackModel,
+    modelTier: modelAssignment.modelTier,
     status: criticReport.verdict === 'APPROVED' ? 'COMPLETED' : 'FLAGGED',
     criticScore: criticReport.score,
     criticVerdict: criticReport.verdict,
@@ -234,6 +270,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     subagent: subagentResolved,
     domain: workerSpec.name,
     skill: workerSpec.skill,
+    assignedModel: modelAssignment.assignedModel,
+    fallbackModel: modelAssignment.fallbackModel,
     status: outcome.status,
     criticScore: outcome.criticScore,
     sandboxVerified: outcome.sandboxVerified,
@@ -319,10 +357,14 @@ export async function dispatchSwarm(taskDescription, options = {}) {
 
   const totalDurationMs = Date.now() - startTime;
   const allApproved = workerResults.every(r => r.status === 'COMPLETED' && r.sandboxVerified !== false);
+  const modelCascadeSummary = workerResults.reduce((acc, r) => {
+    acc[r.assignedModel] = (acc[r.assignedModel] || 0) + 1;
+    return acc;
+  }, {});
 
   traceLogs.push(`🔄 Synthesizing worker outputs and assembling cross-domain contracts...`);
   for (const res of workerResults) {
-    traceLogs.push(`  • [${res.domain}] -> @${res.skill} (${res.subagent}, Score: ${res.criticScore}/100, Targets: ${res.workspaceTargets.length}, Latency: ${res.durationMs}ms)`);
+    traceLogs.push(`  • [${res.domain}] -> @${res.skill} (${res.subagent}, Model: ${res.assignedModel}, Score: ${res.criticScore}/100, Targets: ${res.workspaceTargets.length}, Latency: ${res.durationMs}ms)`);
   }
 
   traceLogs.push(`✅ Swarm Dispatch Completed in ${totalDurationMs}ms. Overall Status: ${allApproved ? 'SUCCESS' : 'WARNING'}`);
@@ -360,6 +402,10 @@ export async function dispatchSwarm(taskDescription, options = {}) {
     workers: workerResults,
     subagentManifest: workerResults.map(w => w.subagentInvocation),
     mcpSamplingManifest: workerResults.map(w => w.mcpSamplingRequest),
+    modelCascadeSummary: {
+      distribution: modelCascadeSummary,
+      fallbackModel: 'gemini-3.8-flash'
+    },
     synthesis: {
       harmonized: allApproved,
       contractsEnforced: workerResults.length,
