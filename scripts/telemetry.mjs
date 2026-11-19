@@ -19,9 +19,8 @@ import path from 'node:path';
 import os from 'node:os';
 import crypto from 'node:crypto';
 
-// Anonymous public ingest key for client-side telemetry (opt-in only, no private data)
-const _DEFAULT_KEY_PARTS = ['phc_kUXzJ87wiErqyP4pk', 'YwbYuwEAHqcZZ74GSjEUShn7gHD'];
-export const POSTHOG_API_KEY = process.env.VIBES_TELEMETRY_KEY || _DEFAULT_KEY_PARTS.join('');
+// Optional telemetry ingest key (must be explicitly provided via VIBES_TELEMETRY_KEY; zero hardcoded keys)
+export const POSTHOG_API_KEY = process.env.VIBES_TELEMETRY_KEY || '';
 export const POSTHOG_HOST = 'https://eu.i.posthog.com';
 export const POSTHOG_FALLBACK_HOST = 'https://us.posthog.com';
 
@@ -109,8 +108,8 @@ export function setTelemetryEnabled(enabled) {
  */
 export async function trackEvent(eventName, customProperties = {}) {
   const config = getTelemetryConfig();
-  if (!config.enabled) {
-    return { status: 'skipped', reason: 'TELEMETRY_DISABLED' };
+  if (!config.enabled || !POSTHOG_API_KEY) {
+    return { status: 'skipped', reason: !config.enabled ? 'TELEMETRY_DISABLED' : 'NO_TELEMETRY_KEY' };
   }
 
   const payload = {
@@ -119,7 +118,7 @@ export async function trackEvent(eventName, customProperties = {}) {
     distinct_id: config.anonymousId,
     properties: {
       $lib: 'vibes-plug-node',
-      $lib_version: '4.8.0',
+      $lib_version: '4.9.0',
       os: process.platform,
       os_release: os.release(),
       node_version: process.version,

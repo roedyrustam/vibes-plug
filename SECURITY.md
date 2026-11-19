@@ -6,9 +6,17 @@ Only the latest minor release series of **Vibes-Plug** receives active security 
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 4.7.x   | :white_check_mark: |
-| 4.6.x   | :white_check_mark: |
-| < 4.6.0 | :x:                |
+| 4.9.x   | :white_check_mark: |
+| 4.8.x   | :white_check_mark: |
+| < 4.8.0 | :x:                |
+
+## Supply-Chain Security & Advisory Notice (`GHSA-xfv7-hqg2-67x3` / `MAL-2026-18524`)
+- **Affected legacy version**: `4.5.0` (removed from npm; not present in the npm registry).
+- **Hardening in `4.9.0+`**:
+  - Zero `preinstall`/`postinstall` lifecycle scripts in `package.json`.
+  - Removed `install.sh` and `install.ps1` from the npm tarball `"files"` manifest.
+  - Removed all hardcoded/split telemetry keys from `scripts/telemetry.mjs` (outbound telemetry only runs when `VIBES_TELEMETRY_KEY` is explicitly provided by the user).
+  - Releases are published via GitHub Actions with OIDC npm provenance (`id-token: write`).
 
 ## Security Scope
 
