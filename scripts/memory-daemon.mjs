@@ -39,11 +39,36 @@ export async function saveMemory(data, cwd = process.cwd()) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
 }
 
+const DEFAULT_TTL_DAYS = 90;
+const MS_PER_DAY = 86_400_000;
+
+export function computeEffectiveConfidence(decision, nowMs = Date.now()) {
+  const ttlDays = typeof decision.ttlDays === 'number' ? decision.ttlDays : DEFAULT_TTL_DAYS;
+  if (ttlDays <= 0) return 0;
+
+  const baseConfidence = typeof decision.confidence === 'number' ? decision.confidence : 1.0;
+  const refTime = Date.parse(decision.lastAccessedAt || decision.timestamp || '');
+  if (Number.isNaN(refTime)) return baseConfidence;
+
+  const ageDays = Math.max(0, (nowMs - refTime) / MS_PER_DAY);
+  if (ageDays >= ttlDays) return 0;
+  return Number(Math.max(0, baseConfidence * (1 - ageDays / ttlDays)).toFixed(4));
+}
+
 export async function recordDecision(decisionText, metadata = {}, cwd = process.cwd()) {
   const memory = await loadMemory(cwd);
+  const nowIso = new Date().toISOString();
+  const ttlDays = typeof metadata.ttlDays === 'number' && metadata.ttlDays > 0
+    ? metadata.ttlDays
+    : DEFAULT_TTL_DAYS;
+
   const item = {
     id: `MEM_${Date.now()}`,
-    timestamp: new Date().toISOString(),
+    timestamp: nowIso,
+    lastAccessedAt: nowIso,
+    accessCount: 1,
+    ttlDays,
+    confidence: typeof metadata.confidence === 'number' ? metadata.confidence : 1.0,
     decision: decisionText,
     category: metadata.category || 'Architecture',
     skillsInvolved: metadata.skills || [],
@@ -55,14 +80,70 @@ export async function recordDecision(decisionText, metadata = {}, cwd = process.
   return item;
 }
 
-export async function queryMemory(keyword, cwd = process.cwd()) {
+export async function queryMemory(keyword, cwd = process.cwd(), options = {}) {
   const memory = await loadMemory(cwd);
   const q = keyword.toLowerCase();
-  return memory.decisions.filter(d => 
-    d.decision.toLowerCase().includes(q) || 
-    d.category.toLowerCase().includes(q) ||
-    d.skillsInvolved.some(s => s.toLowerCase().includes(q))
-  );
+  const nowMs = options.nowMs ?? Date.now();
+  const minConfidence = options.minConfidence ?? 0.1;
+  const includeExpired = options.includeExpired === true;
+
+  const matched = [];
+  let dirty = false;
+
+  for (const d of memory.decisions) {
+    const effective = computeEffectiveConfidence(d, nowMs);
+    if (!includeExpired && effective <= minConfidence) continue;
+
+    const isMatch =
+      d.decision.toLowerCase().includes(q) ||
+      d.category.toLowerCase().includes(q) ||
+      d.skillsInvolved.some(s => s.toLowerCase().includes(q));
+
+    if (isMatch) {
+      d.lastAccessedAt = new Date(nowMs).toISOString();
+      d.accessCount = (d.accessCount || 1) + 1;
+      d.confidence = Number(Math.min(1.0, (d.confidence ?? 1.0) + 0.05).toFixed(4));
+      dirty = true;
+      matched.push({ ...d, effectiveConfidence: effective });
+    }
+  }
+
+  if (dirty) {
+    await saveMemory(memory, cwd);
+  }
+  return matched;
+}
+
+export async function pruneExpired(options = {}, cwd = process.cwd()) {
+  const memory = await loadMemory(cwd);
+  const nowMs = options.nowMs ?? Date.now();
+  const minConfidence = options.minConfidence ?? 0.2;
+  const dryRun = options.dryRun === true;
+
+  const kept = [];
+  const pruned = [];
+
+  for (const d of memory.decisions) {
+    const effective = computeEffectiveConfidence(d, nowMs);
+    if (effective < minConfidence) {
+      pruned.push({ id: d.id, decision: d.decision, effectiveConfidence: effective });
+    } else {
+      kept.push(d);
+    }
+  }
+
+  if (!dryRun && pruned.length > 0) {
+    memory.decisions = kept;
+    await saveMemory(memory, cwd);
+  }
+
+  return {
+    beforeCount: memory.decisions.length + (dryRun ? 0 : pruned.length),
+    afterCount: kept.length,
+    prunedCount: pruned.length,
+    dryRun,
+    pruned
+  };
 }
 
 export async function generateCompactCheckpoint(cwd = process.cwd()) {
@@ -101,14 +182,16 @@ async function main() {
   if (!action || action === 'help') {
     console.log(`
 Usage:
-  node scripts/memory-daemon.mjs record "<decision text>" [--category <cat>] [--skills <skill1,skill2>]
+  node scripts/memory-daemon.mjs record "<decision text>" [--category <cat>] [--skills <skill1,skill2>] [--ttl <days>]
   node scripts/memory-daemon.mjs query "<keyword>"
+  node scripts/memory-daemon.mjs prune [--dry-run] [--min-confidence <0..1>]
   node scripts/memory-daemon.mjs checkpoint
   node scripts/memory-daemon.mjs list
 
 Examples:
-  node scripts/memory-daemon.mjs record "Use Drizzle ORM instead of Prisma for edge serverless latency" --category Database --skills database-orm-expert
+  node scripts/memory-daemon.mjs record "Use Drizzle ORM instead of Prisma for edge serverless latency" --category Database --skills database-orm-expert --ttl 90
   node scripts/memory-daemon.mjs query "Drizzle"
+  node scripts/memory-daemon.mjs prune --dry-run
   node scripts/memory-daemon.mjs checkpoint
 `);
     return;
@@ -122,12 +205,21 @@ Examples:
     }
     const catIdx = args.indexOf('--category');
     const skillsIdx = args.indexOf('--skills');
+    const ttlIdx = args.indexOf('--ttl');
     const category = catIdx !== -1 ? args[catIdx + 1] : 'Architecture';
     const skills = skillsIdx !== -1 ? args[skillsIdx + 1].split(',').map(s => s.trim()) : [];
+    const ttlDays = ttlIdx !== -1 ? Number(args[ttlIdx + 1]) : DEFAULT_TTL_DAYS;
 
-    const recorded = await recordDecision(text, { category, skills });
+    const recorded = await recordDecision(text, { category, skills, ttlDays });
     console.log(`✅ Decision Recorded [${recorded.id}]:`);
-    console.log(`   "${recorded.decision}" (Category: ${recorded.category})`);
+    console.log(`   "${recorded.decision}" (Category: ${recorded.category}, TTL: ${recorded.ttlDays}d)`);
+  } else if (action === 'prune') {
+    const dryRun = args.includes('--dry-run');
+    const minIdx = args.indexOf('--min-confidence');
+    const minConfidence = minIdx !== -1 ? Number(args[minIdx + 1]) : 0.2;
+    const res = await pruneExpired({ dryRun, minConfidence });
+    console.log(`🧹 Memory Prune (${dryRun ? 'DRY RUN' : 'APPLIED'}):`);
+    console.log(`   Before: ${res.beforeCount} | After: ${res.afterCount} | Pruned: ${res.prunedCount}\n`);
   } else if (action === 'query') {
     const query = args[1] || '';
     const results = await queryMemory(query);

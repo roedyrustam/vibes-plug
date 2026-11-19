@@ -58,6 +58,7 @@ jobs:
         run: |
           node scripts/validate-skills.mjs
           node scripts/check-anti-slop.js --strict
+          node scripts/audit-tarball.mjs
           node --test scripts/test-cli.mjs
 
       - name: Run Performance Benchmark Suite

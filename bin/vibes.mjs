@@ -2091,6 +2091,20 @@ Platform Eligibility & Economics:
     process.exit(child.status ?? 0);
     break;
   }
+  case 'audit:tarball': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'audit-tarball.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
+    break;
+  }
+  case 'audit:bloat': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'audit-skill-bloat.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'audit':
   case 'anti-slop':
     runAudit();
@@ -2102,6 +2116,13 @@ Platform Eligibility & Economics:
   case 'catalog':
     runDocs(args[1], args[2]);
     break;
+  case 'bench:skills': {
+    rl.close();
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'eval-skills.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
+    break;
+  }
   case 'bench':
   case 'benchmark': {
     rl.close();
