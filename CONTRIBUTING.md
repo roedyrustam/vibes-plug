@@ -54,7 +54,7 @@ Set up the metadata (frontmatter) at the very top of the `SKILL.md` file:
 name: kebab-case-skill-name
 description: "Short English description / Deskripsi singkat"
 author: "Your Name or GitHub Username"
-version: "4.8.0"
+version: "4.9.0"
 
 ---
 ```
@@ -63,7 +63,7 @@ The document body must have the following sections:
 - `# Skill Name`
 - `## Description` / `## Deskripsi`
 - `## Instructions` / `## Instruksi` (Detailed guidelines, code styling rules, concrete code examples)
-- `## Orchestration & Integration` / `## Integrasi Orkestrasi` (**Mandatory**: Specify cooperating skills from the 178 ecosystem)
+- `## Orchestration & Integration` / `## Integrasi Orkestrasi` (**Mandatory**: Specify cooperating skills from the 179 ecosystem)
 - `## Trigger Conditions` / `## Kondisi Pemicu` (Conditions and context when this skill must be auto-synchronized)
 
 #### 4. Register the Skill in Catalog and Orchestrators
@@ -115,7 +115,7 @@ All contributors must sign the Contributor License Agreement before their pull r
 > - **Sovereign Anti-Slop Directive (Zero-Tolerance)**: Never use `// TODO`, `// ...rest of code`, or fake mocks. Output must be 100% complete and working.
 > - **Bilingual Requirement**: Every skill must provide bilingual English & Bahasa Indonesia context.
 > - **5-State UI Contract**: Any UI component guidance must include all 5 interactive states (`default`, `hover`, `focus-visible`, `active`, `disabled`).
-> - **No Duplicate Skills**: If a similar skill already exists among the 178 catalog, enhance the existing skill rather than duplicating it.
+> - **No Duplicate Skills**: If a similar skill already exists among the 179 catalog, enhance the existing skill rather than duplicating it.
 
 ---
 
@@ -169,7 +169,7 @@ Atur format metadata (frontmatter) di bagian paling atas file `SKILL.md`:
 name: nama-skill-kebab-case
 description: "Deskripsi singkat / Short description"
 author: "Nama Anda atau Username GitHub"
-version: "4.8.0"
+version: "4.9.0"
 
 ---
 ```
@@ -230,4 +230,4 @@ Seluruh kontributor wajib menandatangani Contributor License Agreement (CLA) seb
 > - **Sovereign Anti-Slop Directive (Zero-Tolerance)**: Dilarang keras menggunakan `// TODO`, `// ...rest of code`, atau fungsi tiruan (*fake mock*). Seluruh kode harus 100% lengkap dan langsung berfungsi (*first-try*).
 > - **Kebutuhan Bilingual**: Setiap skill harus dapat dipahami oleh developer pengguna bahasa Inggris dan bahasa Indonesia.
 > - **Kontrak Interaktif 5-State UI**: Panduan komponen UI wajib mencakup 5 state interaktif (`default`, `hover`, `focus-visible`, `active`, `disabled`).
-> - **Hindari Duplikasi Skill**: Jika skill serupa sudah ada dalam 178 katalog, prioritaskan untuk memperbarui skill yang telah ada.
+> - **Hindari Duplikasi Skill**: Jika skill serupa sudah ada dalam 179 katalog, prioritaskan untuk memperbarui skill yang telah ada.
