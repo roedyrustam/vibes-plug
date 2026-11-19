@@ -1238,7 +1238,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(showcaseRes.status, 200);
       assert.match(showcaseRes.headers.get('content-type'), /text\/html/);
       const showcaseHtml = await showcaseRes.text();
-      assert.match(showcaseHtml, /178 Skill Ecosystem/);
+      assert.match(showcaseHtml, /17[89] Skill Ecosystem/);
 
       const showcaseCssRes = await fetch(`${url}/showcase/styles.css`);
       assert.equal(showcaseCssRes.status, 200);

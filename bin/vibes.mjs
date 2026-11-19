@@ -2091,6 +2091,60 @@ Platform Eligibility & Economics:
     process.exit(child.status ?? 0);
     break;
   }
+  case 'stats': {
+    rl.close();
+    const isJson = args.includes('--json');
+    const [{ loadFinOpsData }, { runSkillEval }, { loadMemory, computeEffectiveConfidence }, { validatePackageScripts }] = await Promise.all([
+      import(pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'finops-tracker.mjs')).href),
+      import(pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'eval-skills.mjs')).href),
+      import(pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'memory-daemon.mjs')).href),
+      import(pathToFileURL(path.join(PLUGIN_ROOT, 'scripts', 'audit-tarball.mjs')).href)
+    ]);
+
+    const pkg = JSON.parse(await fs.readFile(path.join(PLUGIN_ROOT, 'package.json'), 'utf8'));
+    const [finops, skillEval, mem] = await Promise.all([
+      loadFinOpsData(),
+      runSkillEval({ rootDir: PLUGIN_ROOT }),
+      loadMemory(process.cwd())
+    ]);
+
+    const nowMs = Date.now();
+    const activeMemories = (mem.decisions || []).filter(d => computeEffectiveConfidence(d, nowMs) >= 0.2).length;
+    const lifecycleViolations = validatePackageScripts(pkg.scripts);
+
+    const summary = {
+      version: pkg.version,
+      skills: skillEval.totalSkills,
+      perTaskTokenSavingsPct: skillEval.perTaskSavingsPct,
+      cachePrefixSorted: skillEval.cachePrefixSorted,
+      routingRecall: skillEval.overallRecall,
+      finops: {
+        totalRequests: finops.totalRequests || 0,
+        totalSavedUsd: Number((finops.totalSavingsUsd || 0).toFixed(4))
+      },
+      memory: {
+        totalDecisions: (mem.decisions || []).length,
+        activeDecisions: activeMemories
+      },
+      supplyChain: {
+        lifecycleHooksClean: lifecycleViolations.length === 0
+      }
+    };
+
+    if (isJson) {
+      console.log(JSON.stringify(summary, null, 2));
+    } else {
+      console.log(`\n📊 Vibes-Plug Unified Cockpit Stats (v${summary.version})`);
+      console.log('------------------------------------------------------------');
+      console.log(`Skills & Compression  : ${summary.skills} skills | ${summary.perTaskTokenSavingsPct}% per-task savings`);
+      console.log(`KV-Cache Prefix       : ${summary.cachePrefixSorted ? 'SORTED (Deterministic)' : 'UNSORTED'}`);
+      console.log(`Routing Recall (Top-8): ${(summary.routingRecall * 100).toFixed(1)}%`);
+      console.log(`FinOps Saved (Local)  : $${summary.finops.totalSavedUsd.toFixed(4)} across ${summary.finops.totalRequests} requests`);
+      console.log(`Episodic Memory       : ${summary.memory.activeDecisions}/${summary.memory.totalDecisions} active (non-expired)`);
+      console.log(`Supply-Chain Hooks    : ${summary.supplyChain.lifecycleHooksClean ? 'CLEAN (Zero lifecycle hooks)' : 'VIOLATIONS DETECTED'}\n`);
+    }
+    break;
+  }
   case 'audit:tarball': {
     rl.close();
     const { spawnSync } = await import('child_process');
