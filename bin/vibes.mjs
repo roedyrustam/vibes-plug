@@ -844,7 +844,7 @@ async function runUi() {
         security: [
           'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
           'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
-          'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
+          'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'sovereign-id-compliance-expert', 'e2e-testing-expert',
           'error-resilience-expert', 'firebase-security-expert', 'formal-spec-z3-verifier',
           'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
           'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
@@ -1698,7 +1698,8 @@ switch (command) {
   case 'bridge': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'cross-ide-bridge.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'cross-ide-bridge.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'sync':

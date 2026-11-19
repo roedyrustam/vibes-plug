@@ -157,7 +157,7 @@ export async function compileCache(options = {}) {
       security_testing: [
         'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
         'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
-        'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
+        'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'sovereign-id-compliance-expert', 'e2e-testing-expert',
         'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'firebase-security-expert',
         'formal-spec-z3-verifier', 'formal-theorem-verifier-lean4', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
         'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',

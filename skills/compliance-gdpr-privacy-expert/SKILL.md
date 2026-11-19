@@ -15,6 +15,7 @@ version: "4.8.0"
 ## English
 
 ### Orchestration & Integration
+- **Indonesian & SEA Compliance**: `sovereign-id-compliance-expert`, `doku-payment-gateway`
 - **Database & Data Retention**: `database-orm-expert`, `double-entry-ledger-fintech-expert`, `saas-multi-tenant`, `saas-billing`
 - **Identity & Access Revocation**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `zero-trust-secret-vault`
 - **Logging & Error Redaction**: `logging-error-tracking-expert`, `data-telemetry-expert`
@@ -246,6 +247,7 @@ export function encryptSearchablePii(
 ## Bahasa Indonesia
 
 ### Integrasi Orkestrasi
+- **Kepatuhan Indonesia & SEA**: `sovereign-id-compliance-expert`, `doku-payment-gateway`
 - **Database & Retensi Data**: `database-orm-expert`, `double-entry-ledger-fintech-expert`, `saas-multi-tenant`, `saas-billing`
 - **Identitas & Pencabutan Akses**: `authentication-identity-expert`, `passkeys-webauthn-identity-expert`, `fga-rebac-authorization-expert`, `zero-trust-secret-vault`
 - **Logging & Redaksi Error**: `logging-error-tracking-expert`, `data-telemetry-expert`

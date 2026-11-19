@@ -24,6 +24,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -303,6 +304,42 @@ ${memorySummary}
 `;
 }
 
+const RULE_BRIDGE_TARGETS = [
+  'AGENTS.md', 'CLAUDE.md', 'CODEX.md', '.clinerules',
+  '.cursorrules', '.kimirules', '.kirorules', '.traerules', '.windsurfrules'
+];
+
+/**
+ * Verifies that multi-IDE rule entrypoints are byte-identical to rules/AGENTS.md.
+ * @param {string} [targetDir]
+ * @returns {Promise<{ inSync: boolean, canonicalHash: string, checkedCount: number, driftedFiles: string[] }>}
+ */
+export async function checkBridgeDrift(targetDir = process.cwd()) {
+  const canonicalPath = path.join(targetDir, 'rules', 'AGENTS.md');
+  const normalize = (s) => s.replace(/\r\n/g, '\n').trim();
+  const canonicalRaw = await fs.readFile(canonicalPath, 'utf8');
+  const canonicalHash = crypto.createHash('sha256').update(normalize(canonicalRaw)).digest('hex').slice(0, 12);
+
+  const driftedFiles = [];
+  for (const rel of RULE_BRIDGE_TARGETS) {
+    const filePath = path.join(targetDir, rel);
+    try {
+      const raw = await fs.readFile(filePath, 'utf8');
+      const h = crypto.createHash('sha256').update(normalize(raw)).digest('hex').slice(0, 12);
+      if (h !== canonicalHash) driftedFiles.push(rel);
+    } catch {
+      driftedFiles.push(`${rel} (missing)`);
+    }
+  }
+
+  return {
+    inSync: driftedFiles.length === 0,
+    canonicalHash,
+    checkedCount: RULE_BRIDGE_TARGETS.length,
+    driftedFiles
+  };
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const command = args[0] || 'status';
@@ -349,6 +386,19 @@ async function main() {
       console.log(`  ${icon} ${r.platform}: ${r.status}`);
     }
     console.log('\n✨ Cross-IDE bridge synchronization complete!');
+    return;
+  }
+
+  if (command === 'check') {
+    const report = await checkBridgeDrift(targetDir);
+    if (args.includes('--json')) {
+      console.log(JSON.stringify(report, null, 2));
+    } else if (report.inSync) {
+      console.log(`✅ Cross-IDE bridge drift check passed (${report.checkedCount}/${report.checkedCount} rule files synced, hash: ${report.canonicalHash})`);
+    } else {
+      console.error(`❌ Cross-IDE bridge drift detected (${report.driftedFiles.length} file(s) out of sync): ${report.driftedFiles.join(', ')}`);
+    }
+    if (!report.inSync) process.exit(1);
     return;
   }
 

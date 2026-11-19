@@ -122,7 +122,7 @@ const SKILL_DOMAIN_MAP = {
   // Testing & Security
   'accessibility-testing-expert': 'security', 'ai-code-review-autonomous': 'security', 'anti-slop': 'security', 'formal-theorem-verifier-lean4': 'security',
   'authentication-identity-expert': 'security', 'autonomous-red-teamer': 'security', 'autonomous-tdd-debugger': 'security',
-  'biome-linter-formatter-expert': 'security', 'compliance-gdpr-privacy-expert': 'security', 'e2e-testing-expert': 'security',
+  'biome-linter-formatter-expert': 'security', 'compliance-gdpr-privacy-expert': 'security', 'sovereign-id-compliance-expert': 'security', 'e2e-testing-expert': 'security',
   'error-resilience-expert': 'security', 'firebase-security-expert': 'security', 'formal-spec-z3-verifier': 'security',
   'logging-error-tracking-expert': 'security', 'post-quantum-crypto-migrator': 'security', 'prompt-injection-firewall': 'security',
   'property-mutation-testing-expert': 'security', 'rate-limit-abuse-prevention': 'security', 'supabase-security-expert': 'security',
@@ -3642,7 +3642,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       if (!ev || typeof ev !== 'object') return '{}';
       if (ev.payload && ev.payload.message) return String(ev.payload.message);
       const summary = {};
-      const keys = ['task', 'topology', 'domain', 'subagent', 'skill', 'status', 'directive', 'message', 'reasoningProfile', 'enabled', 'totalWorkers'];
+      const keys = ['task', 'topology', 'domain', 'subagent', 'skill', 'assignedModel', 'anthropicModel', 'status', 'directive', 'message', 'reasoningProfile', 'enabled', 'totalWorkers'];
       for (let i = 0; i < keys.length; i++) {
         const k = keys[i];
         if (ev[k] !== undefined) summary[k] = ev[k];
@@ -3683,10 +3683,14 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
 
         const payloadStr = formatSwarmEventSummary(ev);
         const sourceLabel = ev.subagent || ev.source || 'SWARM';
+        const modelTag = ev.assignedModel
+          ? '<span style="background: rgba(56,189,248,0.12); color: #38bdf8; border: 1px solid rgba(56,189,248,0.35); padding: 1px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 600;">' + escapeHtml(ev.assignedModel) + (ev.anthropicModel ? ' | ' + escapeHtml(ev.anthropicModel) : '') + '</span>'
+          : '';
 
         return '<div style="padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: flex-start; gap: 10px;">' +
           '<span style="color: var(--text-muted); font-size: 0.72rem; min-width: 65px;">[' + time + ']</span>' +
           '<span style="background: rgba(255,255,255,0.06); color: ' + badgeColor + '; border: 1px solid ' + badgeColor + '; padding: 1px 6px; border-radius: 4px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase;">' + (ev.type || 'EVENT') + '</span>' +
+          modelTag +
           '<span style="color: var(--text-muted); font-size: 0.75rem;">' + escapeHtml(sourceLabel) + '</span>' +
           '<div style="flex: 1; word-break: break-word;">' +
             '<span style="color: #fff;">' + escapeHtml(payloadStr) + '</span>' +

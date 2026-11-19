@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.9.0] - 2026-11-19
+
+### Added / Ditambahkan
+- **Full Frontier Model Cascade (Gemini 4 Carbon / Neon / Hydrogen / Argon / Pro & Claude Opus/Sonnet 5.5)**:
+  - Integrated multi-tier routing across `scripts/gemini-runtime.mjs`, `scripts/token-budget-optimizer.mjs`, `scripts/swarm-dispatcher.mjs`, `scripts/skill-rules-engine.mjs`, and all multi-IDE rules (`rules/AGENTS.md`, `AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.windsurfrules`, `.clinerules`, `.traerules`, `.kimirules`, `.kirorules`) with automatic fallback invariants (`Gemini 4 -> Gemini 3.8 Flash`, `Claude 5.5 -> Claude Opus 4.6`).
+  - Added Model-Aware Swarm Dispatch (`resolveWorkerModelAssignment`) assigning both Gemini 4 and Claude 5.5 models per worker plus `modelCascadeSummary` telemetry and live Studio Cockpit model badges.
+- **Blue-Ocean Skill #179 — `sovereign-id-compliance-expert`**:
+  - Added bilingual Indonesian & SEA digital compliance skill covering UU PDP No. 27/2022, PSE Komdigi, BI SNAP, append-only PostgreSQL RLS consent ledgers, 72-hour breach SLA columns, and Pasal 44/56 erasure & data-residency guards.
+- **Red-to-Blue Ocean Elevation**:
+  - Upgraded 65 Red-Ocean skills with explicit Blue-Ocean Synergy & Anti-Commodity Protocols (`scripts/supercharge-all-skills.mjs`).
+  - Added 3 Red-to-Blue recipes (`sovereign-ecommerce`, `generative-frontend`, `zero-trust-backend`) and 3 skill chain gates (`sovereign-commerce-gate`, `generative-ui-gate`, `zero-trust-api-gate`).
+- **Developer Experience & CI Guards**:
+  - Added `vibes skill auto-diff [--staged] [--json]` (`injectSkillsFromGitDiff`) for token-frugal <350-token skill slice injection from `git diff`.
+  - Added `vibes bridge check [--json]` (`checkBridgeDrift`) to detect multi-IDE rule drift in CI.
+
+### Performance & Reliability / Performa & Keandalan
+- Parallelized `vibes doctor` environment checks (~7x faster) and batched async I/O in `scripts/check-anti-slop.mjs` (>3.3x faster).
+- Executed `vibes swarm:auto` in-process in `bin/vibes.mjs` to eliminate child-process stdout flush races.
+- Parallelized read-only CLI tests in `scripts/test-cli.mjs` and ignored Python bytecode & sidecar runtime state in `.gitignore`.
+
 ## [4.8.0] - 2026-11-11
 
 ### Added / Ditambahkan

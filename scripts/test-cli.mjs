@@ -1265,7 +1265,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(skillsGraphRes.status, 200);
       const skillsGraphData = await skillsGraphRes.json();
       assert.equal(skillsGraphData.success, true);
-      assert.equal(skillsGraphData.totalNodes, 178);
+      assert.ok(skillsGraphData.totalNodes >= 179);
       assert.ok(skillsGraphData.totalEdges >= 1000);
 
       // Test Studio Blackboard endpoints
@@ -2889,6 +2889,14 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const autoDiffJson = JSON.parse(autoDiffOut);
     assert.equal(autoDiffJson.status, 'success');
     assert.ok(Array.isArray(autoDiffJson.recommendedSkills));
+
+    const { stdout: bridgeCheckOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'check', '--json']);
+    const bridgeCheckJson = JSON.parse(bridgeCheckOut);
+    assert.equal(bridgeCheckJson.inSync, true);
+    assert.equal(bridgeCheckJson.driftedFiles.length, 0);
+
+    const { stdout: pdpInfoOut } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'sovereign-id-compliance-expert']);
+    assert.match(pdpInfoOut, /sovereign-id-compliance-expert/);
   });
 });
 

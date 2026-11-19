@@ -1,7 +1,7 @@
 {
   "version": "4.8.0",
   "timestamp": "2026-10-06T00:00:00.000Z",
-  "architecture": "Vibes-Plug Swarm Architecture (178 Skills)",
+  "architecture": "Vibes-Plug Swarm Architecture (179 Skills)",
   "orchestrator": "Primary Trigger (Pemicu Utama)",
   "domains": {
     "ai_agentic": [
@@ -140,6 +140,7 @@
       "autonomous-tdd-debugger",
       "biome-linter-formatter-expert",
       "compliance-gdpr-privacy-expert",
+      "sovereign-id-compliance-expert",
       "e2e-testing-expert",
       "ephemeral-wasm-sandbox-executor",
       "error-resilience-expert",
@@ -199,7 +200,7 @@
       "zero-to-prod-orchestrator"
     ]
   },
-  "totalSkills": 178,
+  "totalSkills": 179,
   "antiSlopStandard": {
     "strictMode": true,
     "prohibited": [

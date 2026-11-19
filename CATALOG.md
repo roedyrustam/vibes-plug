@@ -1,4 +1,4 @@
-# Vibes-Plug Skills Catalog (178 Skills)
+# Vibes-Plug Skills Catalog (179 Skills)
 
 *Universal AI Agent Swarm Architecture (v4.8.0)*
 
@@ -149,6 +149,7 @@
 | `seo` | `4.8.0` | Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI. |
 | `session-memory-manager` | `4.8.0` | Session memory lifecycle, context handoffs, and compact checkpoints / Manajemen memori sesi, handoff konteks, dan checkpoint ringkas. |
 | `solidjs-expert` | `4.8.0` | SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained. |
+| `sovereign-id-compliance-expert` | `4.9.0` | Indonesian & SEA digital compliance: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledgers, and data residency / Kepatuhan digital Indonesia & SEA: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledger, dan residensi data. |
 | `spa-orchestrator` | `4.8.0` | Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien. |
 | `spec-driven-development-expert` | `4.8.0` | Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak. |
 | `speculative-multi-draft-synthesizer` | `4.8.0` | Speculative multi-agent drafting and AST-aware code consensus / Penyusunan draf spekulatif multi-agen dan konsensus kode sadar-AST. |

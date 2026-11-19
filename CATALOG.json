@@ -1,5 +1,5 @@
 {
-  "total": 178,
+  "total": 179,
   "skills": [
     {
       "name": "a2a-agent-protocol-expert",
@@ -869,6 +869,12 @@
       "name": "solidjs-expert",
       "description": "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained.",
       "version": "4.8.0",
+      "author": "Roedy Rustam"
+    },
+    {
+      "name": "sovereign-id-compliance-expert",
+      "description": "Indonesian & SEA digital compliance: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledgers, and data residency / Kepatuhan digital Indonesia & SEA: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledger, dan residensi data.",
+      "version": "4.9.0",
       "author": "Roedy Rustam"
     },
     {

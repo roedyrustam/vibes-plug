@@ -205,7 +205,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     skill: workerSpec.skill,
     focus: workerSpec.focus,
     assignedModel: modelAssignment.assignedModel,
-    fallbackModel: modelAssignment.fallbackModel
+    fallbackModel: modelAssignment.fallbackModel,
+    anthropicModel: modelAssignment.anthropicModel
   });
 
   const [skillContext, compactSlice, workspaceTargets] = await Promise.all([

@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.8.0",
   "version": "4.8.0",
-  "compiledAt": "2026-11-19T05:33:17.578Z",
-  "totalSkills": 178,
-  "totalCodeBlueprints": 1203,
+  "compiledAt": "2026-11-19T05:55:07.254Z",
+  "totalSkills": 179,
+  "totalCodeBlueprints": 1205,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -130,8 +130,8 @@
       ]
     },
     "api-contracts": {
-      "count": 31,
-      "blueprints": 192,
+      "count": 32,
+      "blueprints": 194,
       "skills": [
         "api-design-expert",
         "api-gateway-proxy-expert",
@@ -160,6 +160,7 @@
         "realtime-collaboration-expert",
         "rust-programming-expert",
         "saas-architect",
+        "sovereign-id-compliance-expert",
         "spec-driven-development-expert",
         "sse-websocket-streaming-expert",
         "wordpress-headless-expert",
@@ -227,8 +228,8 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 951901,
-    "compiledSlicesTokensApprox": 142814,
+    "fullRegistryTokensApprox": 954429,
+    "compiledSlicesTokensApprox": 143496,
     "avgTokensPerSlice": 802,
     "tokenReductionPercent": "85%"
   },
@@ -12444,6 +12445,74 @@
       "snippet": {
         "lang": "tsx",
         "code": "// src/components/CartManager.tsx\nimport { createSignal, createResource, For, Show } from 'solid-js';\ninterface CartItem {\n  id: string;\n  title: string;\n  quantity: number;\n  priceCents: number;\n}\n\n// Server Action executing strictly on the server\nexport const updateCartServerAction = action(async (formData: FormData) => {\n  'use server';\n  const itemId = formData.get('itemId') as string;\n  const quantity = parseInt(formData.get('quantity') as string, 10);\n  // Atomic database update via ORM...\n  return json({ success: true, itemId, quantity });\n});\n"
+      }
+    },
+    "sovereign-id-compliance-expert": {
+      "skill": "sovereign-id-compliance-expert",
+      "version": "4.9.0",
+      "domain": "api-contracts",
+      "description": "Indonesian & SEA digital compliance: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledgers, and data residency",
+      "actions": [
+        "audit",
+        "verify",
+        "eval",
+        "generate",
+        "optimize",
+        "heal"
+      ],
+      "supportedActions": [
+        "audit",
+        "verify",
+        "eval",
+        "generate",
+        "optimize",
+        "heal",
+        "blueprint",
+        "slice",
+        "extract-code",
+        "rules",
+        "read",
+        "health",
+        "budget"
+      ],
+      "guardRulesCount": 4,
+      "nfrContract": "100% RLS coverage on PII/consent tables, deterministic 72-hour breach SLA tracking, local region guard (`ap-southeast-3` / `asia-southeast2`), verified via `node scripts/check-anti-slop.js --strict`",
+      "codeBlueprintsCount": 2,
+      "languagesAvailable": [
+        "sql",
+        "typescript"
+      ],
+      "codeBlueprints": [
+        {
+          "title": "Blueprint 1: UU PDP Immutable Consent Ledger & Breach SLA Schema (PostgreSQL)",
+          "language": "sql",
+          "lines": 32,
+          "preview": "CREATE TABLE IF NOT EXISTS pdp_consent_ledger (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  tenant_id UUID NOT NULL,\n  subject_user_id UUID NOT NULL,\n  purpose_code TEXT NOT NULL,\n  policy_version TEXT NOT NULL,"
+        },
+        {
+          "title": "Blueprint 2: UU PDP Pasal 44 Erasure & Data-Residency Guard (TypeScript)",
+          "language": "typescript",
+          "lines": 39,
+          "preview": "import crypto from 'node:crypto';\n\nexport interface ErasureRequest {\n  tenantId: string;\n  userId: string;\n  requestedAtIso: string;"
+        }
+      ],
+      "connectedSkillsCount": 9,
+      "connectedSkills": [
+        "compliance-gdpr-privacy-expert",
+        "doku-payment-gateway",
+        "database-orm-expert",
+        "fga-rebac-authorization-expert",
+        "zero-trust-secret-vault",
+        "anti-slop",
+        "zero-to-prod-orchestrator",
+        "brainstorming",
+        "session-memory-manager"
+      ],
+      "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
+      "cli": "vibes skill exec sovereign-id-compliance-expert verify",
+      "snippet": {
+        "lang": "sql",
+        "code": "CREATE TABLE IF NOT EXISTS pdp_consent_ledger (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  tenant_id UUID NOT NULL,\n  subject_user_id UUID NOT NULL,\n  purpose_code TEXT NOT NULL,\n  policy_version TEXT NOT NULL,\n  consent_status TEXT NOT NULL CHECK (consent_status IN ('GRANTED', 'WITHDRAWN')),\n  lawful_basis TEXT NOT NULL CHECK (lawful_basis IN ('CONSENT', 'CONTRACT', 'LEGAL_OBLIGATION', 'VITAL_INTEREST', 'PUBLIC_INTEREST', 'LEGITIMATE_INTEREST')),\n  captured_ip INET NOT NULL,\n  proof_sha256 TEXT NOT NULL,\n  recorded_at TIMESTAMPTZ NOT NULL DEFAULT now()\n);\n\nCREATE INDEX IF NOT EXISTS idx_pdp_consent_subject ON pdp_consent_ledger (tenant_id, subject_user_id, purpose_code, recorded_at DESC);\nALTER TABLE pdp_consent_ledger ENABLE ROW LEVEL SECURITY;\n\nCREATE POLICY pdp_consent_tenant_isolation ON pdp_consent_ledger\n  USING (tenant_id = current_setting('app.current_tenant_id', true)::uuid);"
       }
     },
     "spa-orchestrator": {
