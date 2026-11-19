@@ -55,22 +55,52 @@ export function resolveWorkerModelAssignment(workerSpec, subagentId, profile) {
   const key = `${workerSpec?.skill || ''} ${workerSpec?.name || ''} ${subagentId || ''}`.toLowerCase();
 
   if (profile?.id === 'speed' || budget <= 2048 || /lint|slop|ast|triage|format/.test(key)) {
-    return { assignedModel: 'gemini-4-carbon', fallbackModel: 'gemini-3.8-flash', modelTier: 'HIGH_FAST' };
+    return {
+      assignedModel: 'gemini-4-carbon',
+      fallbackModel: 'gemini-3.8-flash',
+      anthropicModel: 'claude-opus-4-6',
+      anthropicFallback: 'claude-opus-4-6',
+      modelTier: 'HIGH_FAST'
+    };
   }
   if (
     profile?.id === 'deep' ||
     profile?.id === 'exhaustive' ||
     /fintech-payment-sentinel|reverse-security-auditor|quality-guardian/.test(subagentId)
   ) {
-    return { assignedModel: 'gemini-4-pro', fallbackModel: 'gemini-3.8-flash', modelTier: 'HIGH' };
+    return {
+      assignedModel: 'gemini-4-pro',
+      fallbackModel: 'gemini-3.8-flash',
+      anthropicModel: 'claude-sonnet-5-5-high',
+      anthropicFallback: 'claude-opus-4-6',
+      modelTier: 'HIGH'
+    };
   }
   if (/data-rag-architect|swarm-architect/.test(subagentId) || budget >= 12000 || /rag|olap|graph|monolith/.test(key)) {
-    return { assignedModel: 'gemini-4-argon-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+    return {
+      assignedModel: 'gemini-4-argon-medium',
+      fallbackModel: 'gemini-3.8-flash',
+      anthropicModel: 'claude-opus-5-5-medium',
+      anthropicFallback: 'claude-opus-4-6',
+      modelTier: 'MEDIUM'
+    };
   }
   if (/ai-mcp-engineer|mobile-spatial-craftsman/.test(subagentId) || /mcp|agent|neon|spatial|3d|ui-ux|generative/.test(key)) {
-    return { assignedModel: 'gemini-4-neon-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+    return {
+      assignedModel: 'gemini-4-neon-medium',
+      fallbackModel: 'gemini-3.8-flash',
+      anthropicModel: 'claude-opus-5-5-medium',
+      anthropicFallback: 'claude-opus-4-6',
+      modelTier: 'MEDIUM'
+    };
   }
-  return { assignedModel: 'gemini-4-hydrogen-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+  return {
+    assignedModel: 'gemini-4-hydrogen-medium',
+    fallbackModel: 'gemini-3.8-flash',
+    anthropicModel: 'claude-opus-5-5-medium',
+    anthropicFallback: 'claude-opus-4-6',
+    modelTier: 'MEDIUM'
+  };
 }
 
 /**
@@ -226,6 +256,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     targetModelTier: profile.tier,
     assignedModel: modelAssignment.assignedModel,
     fallbackModel: modelAssignment.fallbackModel,
+    anthropicModel: modelAssignment.anthropicModel,
+    anthropicFallback: modelAssignment.anthropicFallback,
     modelTier: modelAssignment.modelTier,
     workspaceTargets,
     sharedContracts: blackboardContracts,
@@ -254,6 +286,8 @@ async function executeWorkerTask(workerSpec, taskDescription, profile, swarmId) 
     targetModelTier: profile.tier,
     assignedModel: modelAssignment.assignedModel,
     fallbackModel: modelAssignment.fallbackModel,
+    anthropicModel: modelAssignment.anthropicModel,
+    anthropicFallback: modelAssignment.anthropicFallback,
     modelTier: modelAssignment.modelTier,
     status: criticReport.verdict === 'APPROVED' ? 'COMPLETED' : 'FLAGGED',
     criticScore: criticReport.score,

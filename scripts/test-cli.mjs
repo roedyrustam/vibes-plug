@@ -2848,10 +2848,21 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       'Expected FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL to trigger for gemini-4-neon without fallback'
     );
 
+    const claudeSonnetGuard = await evaluateContextualSkillGuards({
+      skill: 'frontier-ai-models-expert',
+      code: "const res = await client.messages.create({ model: 'claude-sonnet-5-5-high', max_tokens: 1024 });"
+    });
+    assert.ok(
+      claudeSonnetGuard.findings.some(f => f.ruleId === 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL'),
+      'Expected FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL to trigger for claude-sonnet-5-5-high without fallback'
+    );
+
     const { dispatchSwarm, resolveWorkerModelAssignment } = await import('./swarm-dispatcher.mjs');
     assert.equal(resolveWorkerModelAssignment({ skill: 'anti-slop', name: 'Lint', thinkingBudget: 1024 }, 'quality-guardian', { id: 'speed' }).assignedModel, 'gemini-4-carbon');
     assert.equal(resolveWorkerModelAssignment({ skill: 'mcp-server-architect', name: 'MCP', thinkingBudget: 8192 }, 'ai-mcp-engineer', { id: 'balanced' }).assignedModel, 'gemini-4-neon-medium');
     assert.equal(resolveWorkerModelAssignment({ skill: 'senior-frontend', name: 'Frontend', thinkingBudget: 8192 }, 'fullstack-craftsman', { id: 'balanced' }).assignedModel, 'gemini-4-hydrogen-medium');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'senior-frontend', name: 'Frontend', thinkingBudget: 8192 }, 'fullstack-craftsman', { id: 'balanced' }).anthropicModel, 'claude-opus-5-5-medium');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'doku-payment-gateway', name: 'FinTech', thinkingBudget: 32768 }, 'fintech-payment-sentinel', { id: 'deep' }).anthropicModel, 'claude-sonnet-5-5-high');
     assert.equal(resolveWorkerModelAssignment({ skill: 'database-orm-expert', name: 'Database', thinkingBudget: 12288 }, 'data-rag-architect', { id: 'balanced' }).assignedModel, 'gemini-4-argon-medium');
 
     const cascadeSwarm = await dispatchSwarm('Build React dashboard with Postgres RLS', { concurrency: 2, reasoning: 'balanced' });
