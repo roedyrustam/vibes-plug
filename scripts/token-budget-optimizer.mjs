@@ -115,7 +115,7 @@ export const BUDGET_TIERS = {
     minScore: 26,
     maxScore: 55,
     thinkingBudgetTokens: 8192,
-    primaryModel: 'Google Gemini 4 Hydrogen Medium / Google Gemini 4 Argon Medium / OpenAI GPT-5.6 Sol Medium / Anthropic Claude Opus 5.5 Medium',
+    primaryModel: 'Google Gemini 4 Neon Medium / Google Gemini 4 Hydrogen Medium / Google Gemini 4 Argon Medium / OpenAI GPT-5.6 Sol Medium / Anthropic Claude Opus 5.5 Medium',
     fallbackModel: 'Google Gemini 3.8 Flash / Anthropic Claude Opus 4.6',
     reasoningEffort: 'medium',
     description: 'Standard cognitive depth for fullstack features, component construction, and CRUD APIs.'
@@ -356,7 +356,7 @@ export async function optimizeThinkingBudget(task, options = {}) {
       model: (analysis.tier === 'CRITICAL' || analysis.tier === 'HIGH')
         ? 'gemini-4-pro'
         : analysis.tier === 'MODERATE'
-          ? (analysis.compositeScore >= 41 ? 'gemini-4-argon-medium' : 'gemini-4-hydrogen-medium')
+          ? (analysis.compositeScore >= 46 ? 'gemini-4-argon-medium' : analysis.compositeScore >= 36 ? 'gemini-4-neon-medium' : 'gemini-4-hydrogen-medium')
           : 'gemini-4-carbon',
       fallbackModel: 'gemini-3.8-flash',
       reasoningConfig: {

@@ -2809,6 +2809,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     const { evaluateContextualSkillGuards } = await import('./skill-rules-engine.mjs');
 
     assert.match(BUDGET_TIERS.LOW.primaryModel, /Gemini 4 Carbon/);
+    assert.match(BUDGET_TIERS.MODERATE.primaryModel, /Gemini 4 Neon/);
     assert.match(BUDGET_TIERS.MODERATE.primaryModel, /Gemini 4 Hydrogen/);
     assert.match(BUDGET_TIERS.MODERATE.primaryModel, /Gemini 4 Argon/);
 
@@ -2838,8 +2839,18 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       false
     );
 
+    const neonGuard = await evaluateContextualSkillGuards({
+      skill: 'frontier-ai-models-expert',
+      code: "const res = await ai.generate({ model: 'gemini-4-neon', prompt: 'hi' });"
+    });
+    assert.ok(
+      neonGuard.findings.some(f => f.ruleId === 'FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL'),
+      'Expected FRONTIER_AI_HARDCODED_UNFALLBACKABLE_MODEL to trigger for gemini-4-neon without fallback'
+    );
+
     const { dispatchSwarm, resolveWorkerModelAssignment } = await import('./swarm-dispatcher.mjs');
     assert.equal(resolveWorkerModelAssignment({ skill: 'anti-slop', name: 'Lint', thinkingBudget: 1024 }, 'quality-guardian', { id: 'speed' }).assignedModel, 'gemini-4-carbon');
+    assert.equal(resolveWorkerModelAssignment({ skill: 'mcp-server-architect', name: 'MCP', thinkingBudget: 8192 }, 'ai-mcp-engineer', { id: 'balanced' }).assignedModel, 'gemini-4-neon-medium');
     assert.equal(resolveWorkerModelAssignment({ skill: 'senior-frontend', name: 'Frontend', thinkingBudget: 8192 }, 'fullstack-craftsman', { id: 'balanced' }).assignedModel, 'gemini-4-hydrogen-medium');
     assert.equal(resolveWorkerModelAssignment({ skill: 'database-orm-expert', name: 'Database', thinkingBudget: 12288 }, 'data-rag-architect', { id: 'balanced' }).assignedModel, 'gemini-4-argon-medium');
 

@@ -51,6 +51,7 @@ Activate this skill when:
 | **High Fast** | `Grok 4.7 High Fast` | xAI | 131,072 | Fast System-2 | Rapid test iterations, real-time web search grounding, sub-second code reviews |
 | **High Fast** | `Grok 4.6 High Fast` | xAI | 131,072 | Lightweight | High-throughput batch AST scanning, linting auto-fixes, and syntax transforms |
 | **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128,000 | Diff Specialized | Multi-file unified diff generation, cross-file renames, and atomic patch application |
+| **Medium** | `Gemini 4 Neon Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Agentic MCP tool calling, multimodal UI synthesis, balanced multi-domain execution |
 | **Medium** | `Gemini 4 Hydrogen Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Efficiency-optimized fullstack reasoning, structured tool calling, multi-step agent loops |
 | **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2,097,152 | Balanced (`thinkingConfig`) | Monolithic repository ingestion, persistent context caching, balanced feature work |
 | **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262,144 | Balanced (`reasoning_effort`) | Strict JSON schema extraction, OpenAPI tool calling, and spec-driven development |
@@ -67,6 +68,7 @@ When a late-2026 frontier model is pending regional provisioning, temporarily qu
 | Target Frontier Model | Fallback Target | Fallback Rationale & Preserved Guarantees |
 |---|---|---|
 | **`Gemini 4 Carbon`** | **`Gemini 3.8 Flash`** | Preserves sub-100ms TTFT, 1M+ context window, and rapid AST/diff throughput. |
+| **`Gemini 4 Neon Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, multimodal tool calling, and balanced agentic throughput. |
 | **`Gemini 4 Hydrogen Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, structured tool calling, and balanced efficiency. |
 | **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Preserves 1M+ context window, native context caching (`cachedContent`), and sub-100ms TTFT. |
 | **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Preserves monolithic context ingestion and dynamic thinking budget control. |
@@ -400,8 +402,8 @@ export function buildMuseWonderUIBlueprint(intent: string): GenerativeUIConcept 
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
-| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Neon/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | P99 TTFT < 800ms (High Fast) / < 2.5s (High Thinking), prompt cache hit rate >= 80% on repeated turns, 100% structured contract parity; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -450,6 +452,7 @@ Aktifkan skill ini ketika:
 | **High Fast** | `Grok 4.7 High Fast` | xAI | 131.072 | System-2 Cepat | Iterasi tes cepat, pencarian web real-time, audit kode sub-detik |
 | **High Fast** | `Grok 4.6 High Fast` | xAI | 131.072 | Ringan | Pemindaian AST throughput tinggi, auto-fix linter, transformasi sintaks |
 | **Fast** | `Composer 2.5 Fast` | Cursor / Native | 128.000 | Khusus Diff | Pembuatan diff multi-file, rename simbol lintas-file, aplikasi patch atomik |
+| **Medium** | `Gemini 4 Neon Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Pemanggilan tool MCP agentic, sintesis UI multimodal, eksekusi multi-domain seimbang |
 | **Medium** | `Gemini 4 Hydrogen Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Penalaran fullstack efisien, pemanggilan tool terstruktur, loop agen multi-langkah |
 | **Medium** | `Gemini 4 Argon Medium` | Google DeepMind | 2.097.152 | Seimbang (`thinkingConfig`) | Ingesti repositori monolitik, caching konteks persisten, fitur standar |
 | **Medium** | `GPT-5.6 Sol Medium` | OpenAI | 262.144 | Seimbang (`reasoning_effort`) | Ekstraksi skema JSON ketat, eksekusi tool OpenAPI, spec-driven dev |
@@ -466,6 +469,7 @@ Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalam
 | Model Frontier Utama | Model Pengalihan (Fallback) | Alasan & Jaminan yang Dipertahankan |
 |---|---|---|
 | **`Gemini 4 Carbon`** | **`Gemini 3.8 Flash`** | Mempertahankan TTFT sub-100ms, context window 1M+, dan throughput AST/diff cepat. |
+| **`Gemini 4 Neon Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, pemanggilan tool multimodal, dan throughput agentic seimbang. |
 | **`Gemini 4 Hydrogen Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, pemanggilan tool terstruktur, dan efisiensi seimbang. |
 | **`Gemini 4 Argon Medium`** | **`Gemini 3.8 Flash`** | Mempertahankan context window 1M+, caching konteks native (`cachedContent`), dan TTFT sub-100ms. |
 | **`Gemini 4 Pro High`** | **`Gemini 3.8 Flash`** | Mempertahankan ingesti konteks monolitik dan kontrol budget penalaran dinamis. |
@@ -487,8 +491,8 @@ Ketika model frontier belum tersedia di region/lingkungan pengguna atau mengalam
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Neon/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec frontier-ai-models-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | TTFT P99 < 800ms (High Fast) / < 2.5s (High Thinking), hit rate prompt cache >= 80% pada sesi berulang, 100% paritas kontrak terstruktur; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

@@ -164,8 +164,8 @@ go tool pprof -http=:8080 profile.out
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | High Fast / High (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec app-analyzer-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | JS initial client bundle < 150KB gzipped, 0 duplicate dependency versions, Core Web Vitals all-green (LCP < 1.8s, INP < 100ms); 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -230,8 +230,8 @@ Gunakan CodeRabbit untuk review PR otomatis, Sourcegraph Cody untuk pencarian se
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | High Fast / High (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec app-analyzer-optimizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | Payload awal bundle JS klien < 150KB gzipped, 0 duplikasi versi dependensi, Core Web Vitals hijau semua (LCP < 1.8s, INP < 100ms); kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

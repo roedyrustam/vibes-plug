@@ -26,50 +26,50 @@ const SKILLS_DIR = path.join(PLUGIN_ROOT, 'skills');
 
 const DOMAIN_EXECUTION_PROFILES = {
   'frontend': {
-    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate`',
     nfrEn: 'LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract',
     nfrId: 'LCP < 1.8s, INP < 100ms, CLS < 0.05, border tegas 1px, radius 3-tier (6px/8px/12px), `tabular-nums`, kontrak interaktif 5-state'
   },
   'database-storage': {
-    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_eval_sql`, `vibes_verify_invariants`, `vibes_verify_gate`',
     nfrEn: 'P99 Query Latency < 15ms, 100% Row Level Security (RLS) coverage on multi-tenant tables, explicit B-Tree indexes on all Foreign Keys',
     nfrId: 'Latensi Query P99 < 15ms, cakupan Row Level Security (RLS) 100% pada tabel multi-tenant, indeks B-Tree eksplisit pada seluruh Foreign Key'
   },
   'testing-security': {
-    tierEn: 'High Fast / High (`Gemini 4 Carbon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast`',
+    tierEn: 'High Fast / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants`',
     nfrEn: 'Zero OWASP Top 10 vectors, 0 hardcoded secrets, >= 90% branch coverage on domain logic, 0 Anti-Slop violations',
     nfrId: 'Nol celah OWASP Top 10, 0 kredensial hardcoded, cakupan pengujian >= 90% pada logika domain, 0 pelanggaran Anti-Slop'
   },
   'api-contracts': {
-    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `GPT-5.6 Sol Medium`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate`',
     nfrEn: 'P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement',
     nfrId: 'Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key'
   },
   'ai-llm': {
-    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Neon/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_speculative_consensus`, `vibes_get_skill (mode: compact)`',
     nfrEn: 'KV-Cache Hit Rate >= 92%, Subagent Fan-Out Slice < 350 tokens (`.skill-slices.json`), MCP v1.x & A2A Agent Card v1.0 strict schema compliance',
     nfrId: 'KV-Cache Hit Rate >= 92%, Slice Fan-Out Subagent < 350 token (`.skill-slices.json`), kepatuhan skema ketat MCP v1.x & A2A Agent Card v1.0'
   },
   'devops-cicd': {
-    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_verify_gate`, `vibes_self_heal`, `vibes_terminal_monitor`',
     nfrEn: 'SLSA Level 3 provenance, rootless distroless container runtimes, zero `:latest` mutable tags, OpenTelemetry W3C TraceContext propagation',
     nfrId: 'Provenans SLSA Level 3, runtime kontainer distroless non-root, nol tag `:latest` mutabel, propagasi OpenTelemetry W3C TraceContext'
   },
   'mobile-desktop': {
-    tierEn: 'Medium / High (`Gemini 4 Hydrogen`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`)',
-    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
+    tierEn: 'Medium / High (`Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`)',
+    fallbackEn: '`Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`',
     mcpTools: '`vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_verify_gate`, `vibes_eval_sandbox`',
     nfrEn: '60fps (16.67ms) / 120Hz (8.33ms) frame budget, Zero-GC object allocation inside render loops, Tauri v2 / Expo SDK 53 least-privilege capability ACLs',
     nfrId: 'Anggaran frame 60fps (16.67ms) / 120Hz (8.33ms), Zero-GC di dalam render loop, kapabilitas hak akses minimum Tauri v2 / Expo SDK 53'

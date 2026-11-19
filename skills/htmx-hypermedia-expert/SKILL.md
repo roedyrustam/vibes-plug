@@ -281,8 +281,8 @@ func searchHandler(w http.ResponseWriter, r *http.Request) {
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
-| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec htmx-hypermedia-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | Server-side HTML render time < 20ms, 100% CSRF token enforcement on POST/PUT/DELETE, zero raw unescaped HTML interpolation; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -342,8 +342,8 @@ Atribut inti:
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec htmx-hypermedia-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | Waktu render HTML server-side < 20ms, 100% penegakan token CSRF pada POST/PUT/DELETE, zero interpolasi HTML mentah tanpa escape; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

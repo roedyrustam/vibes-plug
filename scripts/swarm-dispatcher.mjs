@@ -67,6 +67,9 @@ export function resolveWorkerModelAssignment(workerSpec, subagentId, profile) {
   if (/data-rag-architect|swarm-architect/.test(subagentId) || budget >= 12000 || /rag|olap|graph|monolith/.test(key)) {
     return { assignedModel: 'gemini-4-argon-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
   }
+  if (/ai-mcp-engineer|mobile-spatial-craftsman/.test(subagentId) || /mcp|agent|neon|spatial|3d|ui-ux|generative/.test(key)) {
+    return { assignedModel: 'gemini-4-neon-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
+  }
   return { assignedModel: 'gemini-4-hydrogen-medium', fallbackModel: 'gemini-3.8-flash', modelTier: 'MEDIUM' };
 }
 

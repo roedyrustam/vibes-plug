@@ -1,7 +1,7 @@
 {
   "schema": "vibes-skill-slices/v4.8.0",
   "version": "4.8.0",
-  "compiledAt": "2026-11-17T22:10:06.562Z",
+  "compiledAt": "2026-11-19T05:33:17.578Z",
   "totalSkills": 178,
   "totalCodeBlueprints": 1203,
   "domains": {
@@ -227,7 +227,7 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 949951,
+    "fullRegistryTokensApprox": 951901,
     "compiledSlicesTokensApprox": 142814,
     "avgTokensPerSlice": 802,
     "tokenReductionPercent": "85%"
