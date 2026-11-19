@@ -215,7 +215,20 @@ export async function configureAutoSwarm(options = {}) {
 
   if (action === 'enable' || action === 'disable') {
     await fs.mkdir(memoryDir, { recursive: true });
-    await fs.writeFile(bbPath, JSON.stringify(state, null, 2), 'utf8');
+    const tmpPath = `${bbPath}.${process.pid}.${Math.random().toString(36).slice(2, 8)}.tmp`;
+    await fs.writeFile(tmpPath, JSON.stringify(state, null, 2), 'utf8');
+    for (let attempt = 0; attempt < 5; attempt++) {
+      try {
+        await fs.rename(tmpPath, bbPath);
+        break;
+      } catch (err) {
+        if (attempt === 4 || !['EPERM', 'EBUSY', 'EACCES', 'UNKNOWN'].includes(err.code)) {
+          await fs.unlink(tmpPath).catch(() => {});
+          throw err;
+        }
+        await new Promise(r => setTimeout(r, 20 * (attempt + 1)));
+      }
+    }
     swarmBus.setBlackboard('swarm:auto_mode', {
       enabled: state.auto_swarm,
       topology: state.active_topology,

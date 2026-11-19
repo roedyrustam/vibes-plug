@@ -222,11 +222,16 @@ Internal links: 3-5 per long-form page to related content
 5. **Server-Rendered LLM Discovery & Link Localization (Stardust Invariant)**:
    - Key value propositions and core product claims MUST reside in server-rendered HTML for bot crawlers and LLM search agents; trapping core copy inside client-only JavaScript chunks is prohibited. All internal site links MUST localize to the target canonical origin, preventing redirects or bounces to legacy external domains.
 
+### Blue-Ocean Synergy & Anti-Commodity Protocol
+- **Mandatory Blue-Ocean Pairing**: Always compose `seo` with `ephemeral-generative-ui-architect`, `visual-ui-auditor`, `multimodal-spatial-video-cloner`, `anti-slop` so commodity boilerplate is elevated into verified, self-healing production architecture.
+- **Anti-Commodity Mandate**: Reject generic AI UI templates: enforce 5-state interactive contracts, `tabular-nums`, crisp 1px borders, and multimodal `vibes visual-audit` verification before disk write.
+- **Pre-Disk Gate**: Run `vibes verify-gate` and `vibes skill auto-diff --json` to inject <350-token slices and eliminate placeholder slop.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
-| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | 100% single-H1 compliance on indexable pages, valid JSON-LD on all product/article pages, dynamic sitemap.xml & robots.txt active; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -303,11 +308,16 @@ H1 satu per halaman, H2 untuk header seksi, meta title < 60 karakter, meta deskr
 4. **Sitemap Dinamis & Robots.txt**: Aplikasi wajib menghasilkan `sitemap.xml` dinamis dan `robots.txt` yang memblokir rute administratif/API privat.
 5. **Penemuan LLM Server-Rendered & Lokalisasi Tautan (Invarian Stardust)**: Klaim nilai produk wajib dirender di sisi server agar dapat dibaca crawler bot dan agen AI pencari; mengurung konten teks di bundle JS klien dilarang keras. Tautan internal wajib melokalisasi ke origin target tanpa memantul ke domain legacy eksternal.
 
+### Sinergi Blue-Ocean & Protokol Anti-Komoditas
+- **Pasangan Wajib Blue-Ocean**: Selalu komposisikan `seo` bersama `ephemeral-generative-ui-architect`, `visual-ui-auditor`, `multimodal-spatial-video-cloner`, `anti-slop` agar boilerplate standar naik kelas menjadi arsitektur produksi terverifikasi dan *self-healing*.
+- **Mandat Anti-Komoditas**: Tolak UI generik: wajibkan kontrak interaktif 5-state, `tabular-nums`, border tegas 1px, serta verifikasi multimodal `vibes visual-audit` sebelum menulis ke disk.
+- **Gerbang Pra-Disk**: Jalankan `vibes verify-gate` dan `vibes skill auto-diff --json` untuk menyuntikkan slice <350 token serta mencegah placeholder slop.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec seo <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | 100% kepatuhan single-H1 pada halaman terindeks, JSON-LD valid pada semua halaman produk/artikel, sitemap.xml & robots.txt dinamis aktif; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

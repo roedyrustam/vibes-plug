@@ -310,33 +310,61 @@ const RULE_BRIDGE_TARGETS = [
 ];
 
 /**
- * Verifies that multi-IDE rule entrypoints are byte-identical to rules/AGENTS.md.
+ * Verifies that multi-IDE rule entrypoints are byte-identical to rules/AGENTS.md,
+ * and optionally verifies skills/ vs .cursor/skills/ parity.
  * @param {string} [targetDir]
- * @returns {Promise<{ inSync: boolean, canonicalHash: string, checkedCount: number, driftedFiles: string[] }>}
+ * @param {Object} [options]
+ * @param {boolean} [options.withSkills]
+ * @returns {Promise<{ inSync: boolean, canonicalHash: string, checkedCount: number, driftedFiles: string[], checkedSkillsCount?: number, driftedSkills?: string[] }>}
  */
-export async function checkBridgeDrift(targetDir = process.cwd()) {
+export async function checkBridgeDrift(targetDir = process.cwd(), options = {}) {
   const canonicalPath = path.join(targetDir, 'rules', 'AGENTS.md');
   const normalize = (s) => s.replace(/\r\n/g, '\n').trim();
+  const sha12 = (txt) => crypto.createHash('sha256').update(normalize(txt)).digest('hex').slice(0, 12);
   const canonicalRaw = await fs.readFile(canonicalPath, 'utf8');
-  const canonicalHash = crypto.createHash('sha256').update(normalize(canonicalRaw)).digest('hex').slice(0, 12);
+  const canonicalHash = sha12(canonicalRaw);
 
   const driftedFiles = [];
   for (const rel of RULE_BRIDGE_TARGETS) {
     const filePath = path.join(targetDir, rel);
     try {
       const raw = await fs.readFile(filePath, 'utf8');
-      const h = crypto.createHash('sha256').update(normalize(raw)).digest('hex').slice(0, 12);
-      if (h !== canonicalHash) driftedFiles.push(rel);
+      if (sha12(raw) !== canonicalHash) driftedFiles.push(rel);
     } catch {
       driftedFiles.push(`${rel} (missing)`);
     }
   }
 
+  let checkedSkillsCount = 0;
+  const driftedSkills = [];
+  if (options.withSkills) {
+    const skillsRoot = path.join(targetDir, 'skills');
+    const cursorSkillsRoot = path.join(targetDir, '.cursor', 'skills');
+    const entries = await fs.readdir(skillsRoot, { withFileTypes: true }).catch(() => []);
+    const skillDirs = entries.filter(e => e.isDirectory()).map(e => e.name).sort();
+    checkedSkillsCount = skillDirs.length;
+
+    await Promise.all(skillDirs.map(async (name) => {
+      const srcPath = path.join(skillsRoot, name, 'SKILL.md');
+      const dstPath = path.join(cursorSkillsRoot, name, 'SKILL.md');
+      try {
+        const [srcRaw, dstRaw] = await Promise.all([
+          fs.readFile(srcPath, 'utf8'),
+          fs.readFile(dstPath, 'utf8')
+        ]);
+        if (sha12(srcRaw) !== sha12(dstRaw)) driftedSkills.push(name);
+      } catch {
+        driftedSkills.push(`${name} (missing)`);
+      }
+    }));
+  }
+
   return {
-    inSync: driftedFiles.length === 0,
+    inSync: driftedFiles.length === 0 && driftedSkills.length === 0,
     canonicalHash,
     checkedCount: RULE_BRIDGE_TARGETS.length,
-    driftedFiles
+    driftedFiles,
+    ...(options.withSkills ? { checkedSkillsCount, driftedSkills: driftedSkills.sort() } : {})
   };
 }
 
@@ -390,13 +418,20 @@ async function main() {
   }
 
   if (command === 'check') {
-    const report = await checkBridgeDrift(targetDir);
+    const withSkills = args.includes('--with-skills');
+    const report = await checkBridgeDrift(targetDir, { withSkills });
     if (args.includes('--json')) {
       console.log(JSON.stringify(report, null, 2));
     } else if (report.inSync) {
-      console.log(`✅ Cross-IDE bridge drift check passed (${report.checkedCount}/${report.checkedCount} rule files synced, hash: ${report.canonicalHash})`);
+      const skillsMsg = withSkills ? ` + ${report.checkedSkillsCount}/${report.checkedSkillsCount} .cursor/skills` : '';
+      console.log(`✅ Cross-IDE bridge drift check passed (${report.checkedCount}/${report.checkedCount} rule files${skillsMsg} synced, hash: ${report.canonicalHash})`);
     } else {
-      console.error(`❌ Cross-IDE bridge drift detected (${report.driftedFiles.length} file(s) out of sync): ${report.driftedFiles.join(', ')}`);
+      if (report.driftedFiles.length > 0) {
+        console.error(`❌ Cross-IDE rule drift (${report.driftedFiles.length}): ${report.driftedFiles.join(', ')}`);
+      }
+      if (report.driftedSkills?.length > 0) {
+        console.error(`❌ .cursor/skills drift (${report.driftedSkills.length}): ${report.driftedSkills.slice(0, 10).join(', ')}${report.driftedSkills.length > 10 ? '...' : ''}`);
+      }
     }
     if (!report.inSync) process.exit(1);
     return;

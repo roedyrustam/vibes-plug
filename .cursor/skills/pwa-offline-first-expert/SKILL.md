@@ -285,11 +285,16 @@ To distribute your web application on **Google Play Store** (TWA - Trusted Web A
 - **`email-notification-expert`**: For Web Push Notification subscription handling.
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `reactive-sync-engine-expert`, `local-slm-edge-ai-expert`, `mobile-expo-expert`, `flutter-dart-expert`, `tauri-expert`
 
+### Blue-Ocean Synergy & Anti-Commodity Protocol
+- **Mandatory Blue-Ocean Pairing**: Always compose `pwa-offline-first-expert` with `local-slm-edge-ai-expert`, `reactive-sync-engine-expert`, `passkeys-webauthn-identity-expert`, `anti-slop` so commodity boilerplate is elevated into verified, self-healing production architecture.
+- **Anti-Commodity Mandate**: Upgrade standard app scaffolds with offline-first OPFS/SQLite sync, WebAuthn Passkeys, on-device SLM inference readiness, and strict 60/120fps Zero-GC budgets.
+- **Pre-Disk Gate**: Run `vibes verify-gate` and `vibes skill auto-diff --json` to inject <350-token slices and eliminate placeholder slop.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
-| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | Medium / High (`Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec pwa-offline-first-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | P99 API Gateway Latency < 85ms, OpenAPI 3.1 / TypeSpec strict schema parity, RFC 9457 Problem Details error contracts, Idempotency-Key enforcement; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -410,11 +415,16 @@ export async function inisialisasiDatabaseLokal() {
 }
 ```
 
+### Sinergi Blue-Ocean & Protokol Anti-Komoditas
+- **Pasangan Wajib Blue-Ocean**: Selalu komposisikan `pwa-offline-first-expert` bersama `local-slm-edge-ai-expert`, `reactive-sync-engine-expert`, `passkeys-webauthn-identity-expert`, `anti-slop` agar boilerplate standar naik kelas menjadi arsitektur produksi terverifikasi dan *self-healing*.
+- **Mandat Anti-Komoditas**: Tingkatkan scaffold aplikasi standar dengan sinkronisasi offline-first OPFS/SQLite, Passkeys WebAuthn, kesiapan inferensi SLM lokal, dan budget 60/120fps Zero-GC.
+- **Gerbang Pra-Disk**: Jalankan `vibes verify-gate` dan `vibes skill auto-diff --json` untuk menyuntikkan slice <350 token serta mencegah placeholder slop.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | Medium / High (`GPT-5.6 Sol Medium`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Grok 4.7 High Fast`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Gemini 4 Pro`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec pwa-offline-first-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_ast_query`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | Latensi P99 API < 85ms, paritas skema ketat OpenAPI 3.1 / TypeSpec, kontrak error RFC 9457 Problem Details, penegakan Idempotency-Key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

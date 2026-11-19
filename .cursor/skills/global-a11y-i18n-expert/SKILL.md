@@ -137,11 +137,16 @@ Never use physical directional properties (`left`, `right`). Use logical propert
 4. **Strict Type-Safe Translation Key Validation**:
    - UI components MUST NOT hardcode user-facing strings or interpolate dynamic text without type-safe translation keys (`useTranslations()` or `t('key')`). Missing translation fallback keys that render blank or raw identifiers to users are strictly prohibited.
 
+### Blue-Ocean Synergy & Anti-Commodity Protocol
+- **Mandatory Blue-Ocean Pairing**: Always compose `global-a11y-i18n-expert` with `ephemeral-generative-ui-architect`, `visual-ui-auditor`, `multimodal-spatial-video-cloner`, `anti-slop` so commodity boilerplate is elevated into verified, self-healing production architecture.
+- **Anti-Commodity Mandate**: Reject generic AI UI templates: enforce 5-state interactive contracts, `tabular-nums`, crisp 1px borders, and multimodal `vibes visual-audit` verification before disk write.
+- **Pre-Disk Gate**: Run `vibes verify-gate` and `vibes skill auto-diff --json` to inject <350-token slices and eliminate placeholder slop.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
-| **Availability Fallback** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec global-a11y-i18n-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
 | **NFR & Anti-Slop Invariants** | 100% WCAG 2.2 AA compliance (0 axe-core critical violations), 100% type-safe i18n key coverage, zero missing aria-labels on interactive elements, CSS logical properties for RTL; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -203,11 +208,16 @@ export function formatLocalizedDate(date: Date | string, locale = 'id-ID') {
 - **`senior-frontend`**: Membangun komponen UI aksesibel menggunakan HTML semantik.
 - **`nextjs-app-router-expert`**: Mengelola perutean dinamis berbasis bahasa pada URL.
 
+### Sinergi Blue-Ocean & Protokol Anti-Komoditas
+- **Pasangan Wajib Blue-Ocean**: Selalu komposisikan `global-a11y-i18n-expert` bersama `ephemeral-generative-ui-architect`, `visual-ui-auditor`, `multimodal-spatial-video-cloner`, `anti-slop` agar boilerplate standar naik kelas menjadi arsitektur produksi terverifikasi dan *self-healing*.
+- **Mandat Anti-Komoditas**: Tolak UI generik: wajibkan kontrak interaktif 5-state, `tabular-nums`, border tegas 1px, serta verifikasi multimodal `vibes visual-audit` sebelum menulis ke disk.
+- **Gerbang Pra-Disk**: Jalankan `vibes verify-gate` dan `vibes skill auto-diff --json` untuk menyuntikkan slice <350 token serta mencegah placeholder slop.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | Medium / High (`Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 Argon/Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Gemini 4 Hydrogen`, `Gemini 4 Argon`, `Claude Sonnet 5.5 High`, `Muse Wonder High`, `Composer 2.5 Fast`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec global-a11y-i18n-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_visual_audit`, `vibes_ast_query`, `vibes_verify_gate` |
 | **Invarian NFR & Anti-Slop** | 100% kepatuhan WCAG 2.2 AA (0 pelanggaran kritis axe-core), 100% cakupan key i18n type-safe, zero ketiadaan aria-label pada elemen interaktif, properti logika CSS untuk RTL; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

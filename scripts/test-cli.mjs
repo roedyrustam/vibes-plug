@@ -2890,10 +2890,16 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.equal(autoDiffJson.status, 'success');
     assert.ok(Array.isArray(autoDiffJson.recommendedSkills));
 
-    const { stdout: bridgeCheckOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'check', '--json']);
+    const { stdout: bridgeCheckOut } = await execFileAsync(process.execPath, [CLI_PATH, 'bridge', 'check', '--with-skills', '--json']);
     const bridgeCheckJson = JSON.parse(bridgeCheckOut);
     assert.equal(bridgeCheckJson.inSync, true);
     assert.equal(bridgeCheckJson.driftedFiles.length, 0);
+    assert.equal(bridgeCheckJson.checkedSkillsCount, 179);
+    assert.equal(bridgeCheckJson.driftedSkills.length, 0);
+
+    const { loadFinOpsData } = await import('./finops-tracker.mjs');
+    const finopsAfterSwarm = await loadFinOpsData();
+    assert.ok(finopsAfterSwarm.byModel && Object.keys(finopsAfterSwarm.byModel).length > 0);
 
     const { stdout: pdpInfoOut } = await execFileAsync(process.execPath, [CLI_PATH, 'skill', 'info', 'sovereign-id-compliance-expert']);
     assert.match(pdpInfoOut, /sovereign-id-compliance-expert/);

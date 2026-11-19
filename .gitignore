@@ -5,6 +5,10 @@ package-lock.json.bak
 # Worktrees & Ephemeral Test Stores
 /vibes-plug/
 .agents/worktrees/
+.agents/cache/
+.agents/graph/
+.agents/memory/
+.agents/telemetry/
 sidecars/**/.agents/
 .test-bridge-cli-tmp/
 .tmp-*/

@@ -183,11 +183,16 @@ Active whenever the user is working on billing integration, payment checkout, we
 4. **Zero Client-Side Secret Key Exposure**:
    - Private payment gateway secret keys (`STRIPE_SECRET_KEY`, `DOKU_SECRET_KEY`) MUST NEVER be prefixed with public env tags (`NEXT_PUBLIC_`, `VITE_`) or referenced in client-side code.
 
+### Blue-Ocean Synergy & Anti-Commodity Protocol
+- **Mandatory Blue-Ocean Pairing**: Always compose `payment-gateway-expert` with `autonomous-tdd-debugger`, `autonomous-red-teamer`, `ephemeral-wasm-sandbox-executor`, `prompt-injection-firewall`, `anti-slop` so commodity boilerplate is elevated into verified, self-healing production architecture.
+- **Anti-Commodity Mandate**: Elevate routine tests into continuous self-healing: validate candidate patches in `vibes sandbox --verify`, fuzz OWASP/injection vectors, and gate commits via `vibes skill auto-diff`.
+- **Pre-Disk Gate**: Run `vibes verify-gate` and `vibes skill auto-diff --json` to inject <350-token slices and eliminate placeholder slop.
+
 ### Sovereign Execution, Token Efficiency & Invariants
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
-| **Frontier Model Cascade** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
+| **Frontier Model Cascade** | High Fast / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Zero unhandled missing-model errors) |
 | **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
 | **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **NFR & Anti-Slop Invariants** | 100% cryptographic webhook signature verification, 0 double-spending or race condition fulfillments via atomic inbox locks, 100% idempotency key coverage; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
@@ -266,11 +271,16 @@ export async function POST(req: Request) {
 }
 ```
 
+### Sinergi Blue-Ocean & Protokol Anti-Komoditas
+- **Pasangan Wajib Blue-Ocean**: Selalu komposisikan `payment-gateway-expert` bersama `autonomous-tdd-debugger`, `autonomous-red-teamer`, `ephemeral-wasm-sandbox-executor`, `prompt-injection-firewall`, `anti-slop` agar boilerplate standar naik kelas menjadi arsitektur produksi terverifikasi dan *self-healing*.
+- **Mandat Anti-Komoditas**: Tingkatkan tes standar menjadi self-healing kontinu: validasi patch di `vibes sandbox --verify`, fuzzing vektor OWASP/injeksi, dan gerbang commit via `vibes skill auto-diff`.
+- **Gerbang Pra-Disk**: Jalankan `vibes verify-gate` dan `vibes skill auto-diff --json` untuk menyuntikkan slice <350 token serta mencegah placeholder slop.
+
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
 | Dimensi | Mandat Berdaulat & Kontrak Deterministik |
 | :--- | :--- |
-| **Kaskade Model Frontier** | High Fast / High (`Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
-| **Invarian Fallback Ketersediaan** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Kaskade Model Frontier** | High Fast / High (`Gemini 4 Carbon`, `Gemini 4 Neon`, `Grok 4.7 High Fast`, `Claude Sonnet 5.5 High`, `Gemini 4 Pro`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6`; `Grok 4.7` -> `Grok 4.6 High Fast` (Bebas gagal saat model belum tersedia/kuota penuh) |
 | **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
 | **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec payment-gateway-expert <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_critic_validate`, `vibes_self_heal`, `vibes_eval_sandbox`, `vibes_verify_invariants` |
 | **Invarian NFR & Anti-Slop** | 100% verifikasi signature webhook kriptografis, 0 double-spending atau pemenuhan ganda via lock inbox atomik, 100% cakupan idempotency key; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

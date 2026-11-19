@@ -214,9 +214,21 @@ export class FunSearchGeneticEngine {
 | Dimension | Sovereign Mandate & Deterministic Contract |
 | :--- | :--- |
 | **Model Cascade** | High / Extended (`Claude Sonnet 5.5 High`, `Gemini 4 Pro`, `DeepSeek-R1`) for mutations; High Fast (`Grok 4.7 High Fast`) for AST parsing |
-| **Availability Fallback** | `Gemini 4 Pro` -> `Gemini 3.8 Flash`; `Claude Sonnet 5.5` -> `Claude Opus 4.6` |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
 | **KV-Cache Protocol** | Cache static problem specifications; inject only parent elite AST slices |
 | **Anti-Slop Invariant** | Zero placeholder stubs; 100% complete working implementation |
+
+### Sovereign Execution, Token Efficiency & Invariants
+| Dimension | Sovereign Mandate & Deterministic Contract |
+| :--- | :--- |
+| **Frontier Model Cascade** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Neon/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
+| **Availability Fallback** | `Gemini 4 (Carbon/Hydrogen/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Zero unhandled missing-model errors) |
+| **KV-Cache & Token Protocol** | Pin static instructions & schemas at prompt prefix (`kv-cache-prefix-optimizer`); pass surgical `CONTEXT_MAP.md` slices (<250 tokens/call) during Swarm Fan-Out |
+| **SaaT CLI & MCP Dispatch** | CLI: `vibes skill exec neurosymbolic-genetic-synthesizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_speculative_consensus`, `vibes_get_skill (mode: compact)` |
+| **NFR & Anti-Slop Invariants** | KV-Cache Hit Rate >= 92%, Subagent Fan-Out Slice < 350 tokens (`.skill-slices.json`), MCP v1.x & A2A Agent Card v1.0 strict schema compliance; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict` |
+
+---
+
 
 ---
 
@@ -251,3 +263,11 @@ Model frontier standar menghasilkan kode melalui inferensi stokastik satu arah a
 - **Efisiensi Token & Memori**: `kv-cache-prefix-optimizer`, `session-memory-manager`, `thinking-budget-orchestrator`.
 - **Orkestrator Utama**: `brainstorming`, `zero-to-prod-orchestrator`.
 
+### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian
+| Dimensi | Mandat Berdaulat & Kontrak Deterministik |
+| :--- | :--- |
+| **Kaskade Model Frontier** | High Fast / Medium / High (`Gemini 4 Carbon/Hydrogen/Neon/Argon/Pro`, `Grok 4.7 High Fast`, `Claude Sonnet/Opus 5.5`, `GPT-5.6 Sol`) |
+| **Invarian Fallback Ketersediaan** | `Gemini 4 (Carbon/Hydrogen/Neon/Argon/Pro)` -> `Gemini 3.8 Flash`; `Claude Opus 5.5` -> `Claude Opus 4.6` (Bebas gagal saat model belum tersedia/kuota penuh) |
+| **Protokol Hemat Token & KV-Cache** | Kunci instruksi & skema statis di prefix awal (`kv-cache-prefix-optimizer`); kirim potongan `CONTEXT_MAP.md` (<250 token/panggilan) saat Fan-Out |
+| **Eksekusi SaaT CLI & MCP** | CLI: `vibes skill exec neurosymbolic-genetic-synthesizer <audit\|eval\|verify\|generate\|blueprint>` / MCP: `vibes_skill_dispatch`, `vibes_compile_cache`, `vibes_optimize_budget`, `vibes_speculative_consensus`, `vibes_get_skill (mode: compact)` |
+| **Invarian NFR & Anti-Slop** | KV-Cache Hit Rate >= 92%, Slice Fan-Out Subagent < 350 token (`.skill-slices.json`), kepatuhan skema ketat MCP v1.x & A2A Agent Card v1.0; kode 100% tuntas tanpa placeholder diverifikasi melalui `node scripts/check-anti-slop.js --strict` |

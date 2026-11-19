@@ -46,6 +46,23 @@ const PRICING_PER_1M = {
   }
 };
 
+async function atomicWriteJson(filePath, payload) {
+  const tmpPath = `${filePath}.${process.pid}.${Math.random().toString(36).slice(2, 8)}.tmp`;
+  await fs.writeFile(tmpPath, JSON.stringify(payload, null, 2), 'utf8');
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      await fs.rename(tmpPath, filePath);
+      return;
+    } catch (err) {
+      if (attempt === 4 || !['EPERM', 'EBUSY', 'EACCES', 'UNKNOWN'].includes(err.code)) {
+        await fs.unlink(tmpPath).catch(() => {});
+        throw err;
+      }
+      await new Promise(r => setTimeout(r, 20 * (attempt + 1)));
+    }
+  }
+}
+
 function createDefaultData() {
   return {
     version: '1.0.0',
@@ -64,6 +81,7 @@ function createDefaultData() {
       openAiSavedUsd: '0.000',
       primaryEstSavedUsd: '0.000'
     },
+    byModel: {},
     records: []
   };
 }
@@ -132,6 +150,16 @@ export async function recordFinOpsUsage(entry = {}) {
   data.economics.primaryEstSavedUsd = savings.claudeSaved.toFixed(3);
   data.lastUpdated = new Date().toISOString();
 
+  if (!data.byModel || typeof data.byModel !== 'object') {
+    data.byModel = {};
+  }
+  const mStats = data.byModel[model] || { requests: 0, inputTokens: 0, outputTokens: 0, cachedTokens: 0 };
+  mStats.requests += 1;
+  mStats.inputTokens += input;
+  mStats.outputTokens += output;
+  mStats.cachedTokens += cached;
+  data.byModel[model] = mStats;
+
   // Keep last 50 records
   data.records.unshift({
     timestamp: new Date().toISOString(),
@@ -146,7 +174,7 @@ export async function recordFinOpsUsage(entry = {}) {
   }
 
   await fs.mkdir(TELEMETRY_DIR, { recursive: true });
-  await fs.writeFile(TELEMETRY_FILE, JSON.stringify(data, null, 2), 'utf8');
+  await atomicWriteJson(TELEMETRY_FILE, data);
 
   return data;
 }
@@ -157,7 +185,7 @@ export async function recordFinOpsUsage(entry = {}) {
 export async function resetFinOpsData() {
   const fresh = createDefaultData();
   await fs.mkdir(TELEMETRY_DIR, { recursive: true });
-  await fs.writeFile(TELEMETRY_FILE, JSON.stringify(fresh, null, 2), 'utf8');
+  await atomicWriteJson(TELEMETRY_FILE, fresh);
   return fresh;
 }
 

@@ -24,6 +24,7 @@ import { executeInSandbox } from './wasm-sandbox.mjs';
 import { emitSwarmEvent, swarmBus } from './swarm-bus.mjs';
 import { getSkillCompactSlice } from './skill-dispatcher.mjs';
 import { hybridSearch } from './graphrag-indexer.mjs';
+import { recordFinOpsUsage } from './finops-tracker.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -399,6 +400,19 @@ export async function dispatchSwarm(taskDescription, options = {}) {
     acc[r.assignedModel] = (acc[r.assignedModel] || 0) + 1;
     return acc;
   }, {});
+
+  if (options.recordTelemetry !== false) {
+    for (const res of workerResults) {
+      const sliceTokens = res.subagentInvocation?.slice?.tokenEstimate || 250;
+      await recordFinOpsUsage({
+        model: res.assignedModel,
+        inputTokens: sliceTokens,
+        outputTokens: Math.max(120, Math.round(sliceTokens * 0.6)),
+        cachedTokens: Math.max(800, 1750 - sliceTokens),
+        task: `Swarm:${res.skill}`
+      }).catch(() => null);
+    }
+  }
 
   traceLogs.push(`🔄 Synthesizing worker outputs and assembling cross-domain contracts...`);
   for (const res of workerResults) {

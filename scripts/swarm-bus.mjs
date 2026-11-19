@@ -28,6 +28,23 @@ function getBusStateFilePath(cwd = process.cwd()) {
   return path.join(getStateDir(cwd), 'swarm_bus_state.json');
 }
 
+function atomicWriteSync(filePath, content) {
+  const tmpPath = `${filePath}.${process.pid}.${Math.random().toString(36).slice(2, 8)}.tmp`;
+  fs.writeFileSync(tmpPath, content, 'utf8');
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      fs.renameSync(tmpPath, filePath);
+      return;
+    } catch (err) {
+      if (attempt === 4 || !['EPERM', 'EBUSY', 'EACCES', 'UNKNOWN'].includes(err.code)) {
+        try { fs.unlinkSync(tmpPath); } catch { /* ignore cleanup error */ }
+        throw err;
+      }
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 15 * (attempt + 1));
+    }
+  }
+}
+
 class SwarmEventBus extends EventEmitter {
   constructor(maxBufferSize = 150) {
     super();
@@ -65,15 +82,14 @@ class SwarmEventBus extends EventEmitter {
       for (const [k, v] of this.blackboard.entries()) {
         diskEntries[k] = v;
       }
-      fs.writeFileSync(
+      atomicWriteSync(
         filePath,
         JSON.stringify({
           auto_swarm: true,
           ...diskRoot,
           updatedAt: new Date().toISOString(),
           entries: diskEntries
-        }, null, 2),
-        'utf8'
+        }, null, 2)
       );
     } catch (persistErr) {
       // Non-fatal in read-only sandboxes
@@ -114,7 +130,7 @@ class SwarmEventBus extends EventEmitter {
         activeSwarms: Object.fromEntries(this.activeSwarms.entries()),
         eventBuffer: this.eventBuffer.slice(-this.maxBufferSize)
       };
-      fs.writeFileSync(filePath, JSON.stringify(payload, null, 2), 'utf8');
+      atomicWriteSync(filePath, JSON.stringify(payload, null, 2));
     } catch {
       // Non-fatal in read-only environments
     }
