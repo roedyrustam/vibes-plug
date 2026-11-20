@@ -26,7 +26,7 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `app-analyzer-optimizer`, `mpa-orchestrator`, `spa-orchestrator`
 
 ### Description
-Expert guide for measuring, diagnosing, and optimizing web application performance with a focus on **Core Web Vitals** (LCP, INP, CLS), JavaScript bundle optimization, image and font loading strategies, rendering performance, and achieving high Lighthouse scores. Covers Next.js 15, React 19, and modern browser APIs.
+Expert guide for measuring, diagnosing, and optimizing web application performance with a focus on **Core Web Vitals** (LCP, INP, CLS), JavaScript bundle optimization, image and font loading strategies, rendering performance, and achieving high Lighthouse scores. Covers Next.js 16, React 19, and modern browser APIs.
 
 ### Trigger Conditions
 - Improving Lighthouse performance score below 90.

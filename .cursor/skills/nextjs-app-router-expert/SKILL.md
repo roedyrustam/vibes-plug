@@ -1,12 +1,12 @@
 ---
 name: nextjs-app-router-expert
-description: "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache."
+description: "Next.js 16+ (latest) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, and React Compiler / Panduan Next.js 16+ (terbaru) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, dan React Compiler."
 author: "Roedy Rustam"
 version: "4.8.0"
 
 ---
 
-# Next.js 15 App Router Expert (2026 Edition)
+# Next.js 16+ (Latest) App Router Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -23,10 +23,10 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Description
-Production-grade architectural guide for **Next.js 15+ App Router** and **React 19**. Enforces modern standards: asynchronous request APIs (`await params`, `await cookies()`), function-level `'use cache'` with `cacheLife` and `cacheTag`, Partial Prerendering (PPR), React Server Actions with `useActionState` and `useOptimistic`, Parallel & Intercepting Routes, and streaming layouts via `<Suspense>`.
+Production-grade architectural guide for **Next.js 16+ (`next@latest`) App Router** and **React 19.2+**. Enforces modern standards: always scaffolding with `npx create-next-app@latest` (or `pnpm create next-app@latest` / `bun create next-app@latest`), Turbopack default bundler, `next.config.ts` with `cacheComponents: true` and `reactCompiler: true`, `proxy.ts` network boundary (replacing legacy `middleware.ts`), asynchronous request APIs (`await params`, `await cookies()`), stable function/component-level `'use cache'` with `cacheLife` and `cacheTag`, React Server Actions with `useActionState` and `useOptimistic`, Parallel & Intercepting Routes, and streaming layouts via `<Suspense>`.
 
 ### Trigger Conditions
-- Architecting new Next.js 15+ applications or migrating legacy `pages/` directory code.
+- Scaffolding or architecting new Next.js applications (ALWAYS use latest stable `next@latest` / Next.js 16+ via `create-next-app@latest`) or migrating legacy `pages/` / Next.js 14–15 code.
 - Handling asynchronous request parameters (`params`, `searchParams`, `cookies`, `headers`).
 - Implementing atomic mutations using React 19 Server Actions without manual REST endpoints.
 - Setting up granular caching with the new `'use cache'` directive and cache invalidation tags.
@@ -35,10 +35,54 @@ Production-grade architectural guide for **Next.js 15+ App Router** and **React 
 
 ---
 
+### Mandatory Scaffolding & Latest Version Protocol
+When creating ANY new Next.js application, NEVER pin outdated Next.js 14/15 versions. Always initialize with the latest stable release:
+```bash
+# Recommended scaffolding (always installs latest Next.js 16+, React 19.2+, Tailwind CSS v4, Turbopack)
+npx create-next-app@latest my-app --typescript --tailwind --eslint --app --src-dir --turbopack
+# Or upgrade an existing project to latest:
+npm install next@latest react@latest react-dom@latest
+```
+
+```typescript
+// next.config.ts (Next.js 16+ Standard)
+import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+  reactCompiler: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
+  },
+};
+
+export default nextConfig;
+```
+
+```typescript
+// proxy.ts (Next.js 16+ Network Boundary — replaces middleware.ts)
+import { NextResponse, type NextRequest } from 'next/server';
+
+export function proxy(request: NextRequest) {
+  const sessionCookie = request.cookies.get('session_token');
+  if (request.nextUrl.pathname.startsWith('/dashboard') && !sessionCookie) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/dashboard/:path*'],
+};
+```
+
 ### Core Architectural Patterns
 
-#### 1. Async Request APIs (Mandatory in Next.js 15)
-In Next.js 15, dynamic APIs (`params`, `searchParams`, `cookies()`, `headers()`) are asynchronous Promises to enable future runtime streaming and static preloading:
+#### 1. Async Request APIs (Mandatory in Next.js 16+)
+In Next.js 16+, dynamic APIs (`params`, `searchParams`, `cookies()`, `headers()`) are strictly asynchronous Promises to enable runtime streaming and static preloading:
 ```typescript
 // app/blog/[slug]/page.tsx
 import { cookies, headers } from 'next/headers';
@@ -73,11 +117,11 @@ export default async function BlogPostPage({ params, searchParams }: PageProps) 
 }
 ```
 
-#### 2. Next-Gen Caching with `'use cache'`, `cacheLife()`, and `cacheTag()`
-Next.js 15 replaces opaque fetch options with explicit, declarative function and component-level caching:
+#### 2. Cache Components with `'use cache'`, `cacheLife()`, and `cacheTag()`
+Next.js 16+ stabilizes Cache Components (`cacheComponents: true`) with explicit, declarative function and component-level caching:
 ```typescript
 // lib/cached-data.ts
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '@/lib/db';
 
 export async function getProductCatalog(category: string) {
@@ -213,8 +257,6 @@ Combines instantaneous static edge delivery with dynamic personalized punch-outs
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-export const experimental_ppr = true; // Enables PPR for this route segment
-
 export default function DashboardPage() {
   return (
     <main className="p-8 space-y-6">
@@ -330,7 +372,7 @@ export function EngineProvider({ children }: { children: ReactNode }) {
 import 'server-only';
 import { cache } from 'react';
 import { notFound } from 'next/navigation';
-import { unstable_after as after } from 'next/server';
+import { after } from 'next/server';
 
 export interface ProjectDto {
   id: string;
@@ -377,7 +419,7 @@ export function createProjectDal(db: DalDatabaseClient, verifySession: () => Pro
       notFound();
     }
 
-    // Next.js 15 after() executes non-blocking post-response telemetry
+    // Next.js 16+ stable after() executes non-blocking post-response telemetry
     after(async () => {
       await db.auditLog.create({
         data: {
@@ -401,11 +443,13 @@ export function createProjectDal(db: DalDatabaseClient, verifySession: () => Pro
 ```
 
 ### Hard Guardrails (Declarative Invariants)
-1. **Mandatory Async Dynamic APIs in Next.js 15+**:
+1. **Mandatory Latest Next.js Version (`next@latest` / Next.js 16+)**:
+   - Always scaffold new projects with `npx create-next-app@latest` (or `pnpm create next-app@latest` / `bun create next-app@latest`) and install `next@latest react@latest react-dom@latest`. NEVER pin outdated Next.js 14/15 versions. Use `next.config.ts` and `proxy.ts` (not `middleware.ts`).
+2. **Mandatory Async Dynamic APIs in Next.js 16+**:
    - `params`, `searchParams`, `cookies()`, and `headers()` MUST be awaited as Promises. Never treat `params.id` as synchronous properties.
-2. **Zero Leaked Server Secrets (`server-only`)**:
+3. **Zero Leaked Server Secrets (`server-only`)**:
    - All database connections, direct ORM clients, encryption engines, and DAL modules MUST declare `import 'server-only';` at line 1 to block bundling into client bundles.
-3. **Explicit Suspense and Error Boundaries**:
+4. **Explicit Suspense and Error Boundaries**:
    - Dynamic route segments using asynchronous components or streaming MUST have corresponding `loading.tsx` and `error.tsx` boundary handlers.
 
 ### Blue-Ocean Synergy & Anti-Commodity Protocol
@@ -438,10 +482,10 @@ export function createProjectDal(db: DalDatabaseClient, verifySession: () => Pro
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `spa-orchestrator`, `fullstack-expert`, `micro-frontend-architect`, `wordpress-headless-expert`, `ephemeral-generative-ui-architect`
 
 ### Deskripsi
-Panduan arsitektur tingkat produksi untuk **Next.js 15+ App Router** dan **React 19**. Menegakkan standar modern: API request asinkron (`await params`, `await cookies()`), caching tingkat fungsi `'use cache'` dengan `cacheLife` dan `cacheTag`, Partial Prerendering (PPR), React Server Actions dengan `useActionState` dan `useOptimistic`, Parallel & Intercepting Routes, serta streaming layout via `<Suspense>`.
+Panduan arsitektur tingkat produksi untuk **Next.js 16+ (`next@latest`) App Router** dan **React 19.2+**. Menegakkan standar terbaru: selalu inisialisasi proyek dengan `npx create-next-app@latest`, bundler bawaan Turbopack, `next.config.ts` dengan `cacheComponents: true` dan `reactCompiler: true`, batas jaringan `proxy.ts` (menggantikan `middleware.ts`), API request asinkron (`await params`, `await cookies()`), caching stabil `'use cache'` dengan `cacheLife` dan `cacheTag`, React Server Actions dengan `useActionState` dan `useOptimistic`, Parallel & Intercepting Routes, serta streaming layout via `<Suspense>`.
 
 ### Kondisi Pemicu
-- Merancang aplikasi Next.js 15+ baru atau migrasi kode dari direktori `pages/`.
+- Membuat atau merancang aplikasi Next.js baru (WAJIB menggunakan versi stabil terbaru `next@latest` / Next.js 16+ via `create-next-app@latest`) atau migrasi kode dari `pages/` / Next.js 14–15.
 - Menangani parameter request asinkron (`params`, `searchParams`, `cookies`, `headers`).
 - Mengimplementasikan mutasi data atomik menggunakan Server Actions React 19 tanpa endpoint REST manual.
 - Mengonfigurasi strategi cache terperinci dengan direktif `'use cache'` dan tag invalidasi.
@@ -450,10 +494,18 @@ Panduan arsitektur tingkat produksi untuk **Next.js 15+ App Router** dan **React
 
 ---
 
+### Protokol Wajib Versi Terbaru & Scaffolding
+Saat membuat aplikasi Next.js baru, DILARANG mengunci versi lawas (Next.js 14/15). Selalu gunakan rilis stabil terbaru:
+```bash
+npx create-next-app@latest my-app --typescript --tailwind --eslint --app --src-dir --turbopack
+# Atau perbarui proyek eksisting ke versi terbaru:
+npm install next@latest react@latest react-dom@latest
+```
+
 ### Implementasi Pola Kunci
 
-#### 1. API Request Asinkron (Wajib di Next.js 15)
-Di Next.js 15, API dinamis (`params`, `searchParams`, `cookies()`, `headers()`) berbentuk Promise asinkron untuk mendukung streaming runtime dan optimasi preloading:
+#### 1. API Request Asinkron (Wajib di Next.js 16+)
+Di Next.js 16+, API dinamis (`params`, `searchParams`, `cookies()`, `headers()`) wajib berbentuk Promise asinkron untuk mendukung streaming runtime dan optimasi preloading:
 ```typescript
 // app/blog/[slug]/page.tsx
 import { cookies, headers } from 'next/headers';
@@ -488,11 +540,11 @@ export default async function HalamanBlogPost({ params, searchParams }: PageProp
 }
 ```
 
-#### 2. Caching Generasi Baru dengan `'use cache'`, `cacheLife()`, dan `cacheTag()`
-Next.js 15 menggantikan opsi fetch manual dengan caching deklaratif tingkat fungsi dan komponen:
+#### 2. Cache Components dengan `'use cache'`, `cacheLife()`, dan `cacheTag()`
+Next.js 16+ menstabilkan Cache Components (`cacheComponents: true`) dengan caching deklaratif tingkat fungsi dan komponen:
 ```typescript
 // lib/cached-data.ts
-import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';
+import { cacheLife, cacheTag } from 'next/cache';
 import { db } from '@/lib/db';
 
 export async function ambilKatalogProduk(kategori: string) {
@@ -612,8 +664,6 @@ Menggabungkan kecepatan delivery shell statis dari CDN edge dengan data dinamis 
 // app/dashboard/page.tsx
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
-
-export const experimental_ppr = true; // Mengaktifkan PPR pada rute ini
 
 export default function HalamanDashboard() {
   return (

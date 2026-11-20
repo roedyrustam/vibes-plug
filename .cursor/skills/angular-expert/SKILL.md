@@ -1,13 +1,13 @@
 ---
 name: angular-expert
-description: "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore."
+description: "Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore / Aplikasi enterprise Angular 22+ (terbaru): Zoneless Signals, Standalone, Vitest, dan NgRx SignalStore."
 author: "Roedy Rustam"
 
 version: "4.8.0"
 
 ---
 
-# Angular Expert (2026 Edition)
+# Angular 22+ (Latest) Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -22,7 +22,7 @@ version: "4.8.0"
 - **`ui-ux-pro-max`**: Enterprise dashboard patterns, tabular data layouts, and color harmony.
 - **`visual-ui-auditor`**: Multimodal vision auditing of rendered Angular components and M3 theming.
 - **`anti-slop`**: Enforces complete Angular component and service implementations with zero placeholder stubs.
-- **`typescript-expert`**: Strict TypeScript typing and decorators in Angular 19+.
+- **`typescript-expert`**: Strict TypeScript typing and decorators in Angular 22+.
 - **`api-design-expert`**: REST and GraphQL client architecture with Angular `HttpClient`.
 - **`e2e-testing-expert`**: Playwright and Cypress end-to-end testing for Angular apps.
 - **`global-a11y-i18n-expert`**: Angular localized translations (`@angular/localize`) and accessibility compliance.
@@ -30,15 +30,23 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `tailwind-expert`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`, `form-validation-expert`
 
 ### Description
-Production-ready guide for building scalable, enterprise-grade web applications using Angular 19+. Covers modern Standalone Components (NgModule-free), fine-grained Signals (`signal()`, `computed()`, `effect()`), Signal-based inputs/outputs, NgRx SignalStore, deferrable views (`@defer`), SSR with Event Replay hydration, and Angular Material 3.
+Production-ready guide for building scalable, enterprise-grade web applications using Angular 22+. Covers modern Standalone Components (NgModule-free), fine-grained Signals (`signal()`, `computed()`, `effect()`), Signal-based inputs/outputs, NgRx SignalStore, deferrable views (`@defer`), SSR with Event Replay hydration, and Angular Material 3.
 
 ### Trigger Conditions
 - Building or refactoring enterprise-scale Angular applications.
-- Migrating legacy Angular (NgModules / RxJS heavy) to Angular 19+ Standalone Components & Signals.
+- Migrating legacy Angular (NgModules / RxJS heavy) to Angular 22+ Standalone Components & Signals.
 - Implementing state management with NgRx SignalStore.
 - Configuring Angular SSR with hydration and deferrable views (`@defer`).
 
 ---
+
+### Mandatory Scaffolding & Latest Version Protocol
+Always initialize new Angular apps with the latest CLI (Angular 22+ / 21+ with Zoneless Signals-first change detection by default, Standalone components, and Vitest):
+```bash
+npx @angular/cli@latest new my-angular-app --standalone --style=css --ssr
+# Upgrade existing project to latest:
+npx @angular/cli@latest update @angular/core @angular/cli
+```
 
 ### Core Architecture & Modern Patterns
 
@@ -67,7 +75,7 @@ export interface UserItem {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardComponent {
-  // Signal inputs & outputs (Angular 19+)
+  // Signal inputs & outputs (Angular 22+)
   user = input.required<UserItem>();
   roleUpdated = output<string>();
 
@@ -138,7 +146,7 @@ export const ProductsStore = signalStore(
 ```
 
 
-#### 4. Angular Material 3 (M3) Theming & Components (Angular 19+)
+#### 4. Angular Material 3 (M3) Theming & Components (Angular 22+)
 Angular Material 18/19+ natively adheres to Material Design 3 via `mat.define-theme()`, outputting semantic CSS tokens (`--mat-sys-*`):
 
 **Theme Configuration (`src/styles.scss`):**
@@ -231,8 +239,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class ProductM3CardComponent {
   title = signal('Material 3 Enterprise Suite');
   category = signal('Design Engineering');
-  description = signal('Production ready Angular 19 component leveraging M3 tokens and signals.');
-  tags = signal(['Angular 19', 'M3', 'Signals']);
+  description = signal('Production ready Angular 22+ component leveraging M3 tokens and signals.');
+  tags = signal(['Angular 22+', 'M3', 'Signals']);
 
   onBookmark() {
     // Action handled via Signals / Services
@@ -246,7 +254,7 @@ export class ProductM3CardComponent {
 
 ### Hard Guardrails (Declarative Invariants)
 1. **Strict Standalone Components Enforcement (NgModule-Free)**:
-   - All new Angular 19+ components, directives, and pipes MUST declare `standalone: true`. Scaffolding legacy `NgModule` architecture is strictly prohibited.
+   - All new Angular 22+ components, directives, and pipes MUST declare `standalone: true`. Scaffolding legacy `NgModule` architecture is strictly prohibited.
 2. **Mandatory ChangeDetectionStrategy.OnPush**:
    - Every Angular component MUST declare `changeDetection: ChangeDetectionStrategy.OnPush`. Default full-tree dirty checking is forbidden in production code.
 3. **Signal Inputs & Output Functions Over Legacy Decorators**:
@@ -282,7 +290,7 @@ export class ProductM3CardComponent {
 - **`ui-ux-pro-max`**: Pola dashboard enterprise, tata letak data tabular, dan harmoni warna.
 - **`visual-ui-auditor`**: Audit visual multimodal untuk komponen Angular dan theming M3 yang dirender.
 - **`anti-slop`**: Penegakan implementasi komponen dan layanan Angular lengkap tanpa stub.
-- **`typescript-expert`**: Penggunaan TypeScript ketat dan dekorator pada Angular 19+.
+- **`typescript-expert`**: Penggunaan TypeScript ketat dan dekorator pada Angular 22+.
 - **`api-design-expert`**: Arsitektur klien REST dan GraphQL dengan `HttpClient`.
 - **`e2e-testing-expert`**: Pengujian end-to-end menggunakan Playwright atau Cypress.
 - **`global-a11y-i18n-expert`**: Terjemahan terlokalisasi Angular (`@angular/localize`) dan kepatuhan aksesibilitas.
@@ -290,15 +298,15 @@ export class ProductM3CardComponent {
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `tailwind-expert`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`, `form-validation-expert`
 
 ### Deskripsi
-Panduan produksi untuk membangun aplikasi web skala enterprise menggunakan Angular 19+. Mencakup Standalone Components tanpa NgModule, reaktivitas modern berbasis Signals, NgRx SignalStore, deferrable views (`@defer`), SSR dengan hidrasi Event Replay, dan integrasi Angular Material 3.
+Panduan produksi untuk membangun aplikasi web skala enterprise menggunakan Angular 22+. Mencakup Standalone Components tanpa NgModule, reaktivitas modern berbasis Signals, NgRx SignalStore, deferrable views (`@defer`), SSR dengan hidrasi Event Replay, dan integrasi Angular Material 3.
 
 ### Kondisi Pemicu
 - Membangun atau merestrukturisasi aplikasi enterprise Angular.
-- Migrasi Angular lama (berbasis NgModule/RxJS berat) ke Angular 19+ Standalone & Signals.
+- Migrasi Angular lama (berbasis NgModule/RxJS berat) ke Angular 22+ Standalone & Signals.
 - Mengelola state aplikasi menggunakan NgRx SignalStore.
 - Mengoptimalkan performa rendering dengan deferrable views dan SSR hydration.
 
-#### 4. Theming & Komponen Angular Material 3 (M3) (Angular 19+)
+#### 4. Theming & Komponen Angular Material 3 (M3) (Angular 22+)
 Angular Material 18/19+ menerapkan standar Material Design 3 melalui fungsi `mat.define-theme()`, menghasilkan token CSS semantik (`--mat-sys-*`):
 
 **Konfigurasi Tema (`src/styles.scss`):**
@@ -388,8 +396,8 @@ import { MatIconModule } from '@angular/material/icon';
 export class ProductM3CardComponent {
   title = signal('Material 3 Enterprise Suite');
   category = signal('Teknik Desain');
-  description = signal('Komponen Angular 19 siap produksi dengan token M3 dan Signals.');
-  tags = signal(['Angular 19', 'M3', 'Signals']);
+  description = signal('Komponen Angular 22+ siap produksi dengan token M3 dan Signals.');
+  tags = signal(['Angular 22+', 'M3', 'Signals']);
 
   onBookmark() {
     // Logika bookmark via Signal

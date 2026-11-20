@@ -1,12 +1,12 @@
 ---
 name: astro-framework-expert
-description: "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions."
+description: "Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions / Framework Astro 7+ (terbaru): Live Content Collections, Islands, Fonts API, dan View Transitions."
 author: "Roedy Rustam"
 version: "4.8.0"
 
 ---
 
-# Astro Framework Expert (2026 Edition)
+# Astro 7+ (Latest) Framework Expert (2026 Edition)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -29,7 +29,7 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Description
-Expert guide for building high-performance, content-first websites with Astro 5+. Covers Content Collections (type-safe content), Islands Architecture (partial hydration), View Transitions, server-side rendering, hybrid rendering, MDX integration, Astro DB, and multi-framework component support (React, Vue, Svelte in one project).
+Expert guide for building high-performance, content-first websites with Astro 7+. Covers Content Collections (type-safe content), Islands Architecture (partial hydration), View Transitions, server-side rendering, hybrid rendering, MDX integration, Astro DB, and multi-framework component support (React, Vue, Svelte in one project).
 
 ### Trigger Conditions
 - Building content-heavy websites (blogs, docs, marketing pages, portfolios).
@@ -40,11 +40,19 @@ Expert guide for building high-performance, content-first websites with Astro 5+
 
 ---
 
+### Mandatory Scaffolding & Latest Version Protocol
+Always initialize new Astro projects with the latest stable release (Astro 7+ / 6+ with Vite Environment API, Live Content Collections, built-in Fonts API, and CSP support):
+```bash
+npm create astro@latest my-astro-app
+# Upgrade existing project to latest:
+npx @astrojs/upgrade
+```
+
 ### Core Concepts
 
 #### Astro vs Next.js Decision Guide
 
-| Criteria | Astro 5 | Next.js 15 |
+| Criteria | Astro 7+ | Next.js 16 |
 |----------|---------|------------|
 | Primary Focus | Content sites | Full-stack apps |
 | Default JS Shipped | 0 KB | React runtime |
@@ -179,7 +187,7 @@ import { ViewTransitions } from 'astro:transitions';
 </UserGreeting>
 ```
 
-#### 6. Astro 5 `ClientRouter` Parallel Curtain Transition Adapter (`src/engine/astro.ts`)
+#### 6. Astro 7+ `ClientRouter` Parallel Curtain Transition Adapter (`src/engine/astro.ts`)
 When pairing Astro's `<ClientRouter fallback="swap" />` with a GSAP + Lenis + OGL motion engine, override `event.loader` inside `astro:before-preparation` so the exit animation (`leave()`) and network fetch (`originalLoader()`) execute **in parallel** via `Promise.all`, while persistent chrome (`#gl`, `#curtain`, `#cursor`) uses `transition:persist`:
 
 ```typescript
@@ -211,15 +219,15 @@ export function mountAstroEngine(): void {
 }
 ```
 
-#### 7. Astro 5 Content Layer API with Custom Data Loader (`src/content.config.ts`)
+#### 7. Astro 7+ Content Layer API with Custom Data Loader (`src/content.config.ts`)
 ```typescript
-// src/content.config.ts — Astro 5 Content Layer API with loader & Zod validation
+// src/content.config.ts — Astro 7+ Content Layer API with loader & Zod validation
 import { defineCollection, z } from 'astro:content';
 
 export const collections = {
   docs: defineCollection({
     loader: async () => {
-      // Astro 5 supports custom remote/in-memory data loaders returning structured objects
+      // Astro 7+ supports custom remote/in-memory data loaders returning structured objects
       return [
         {
           id: 'architecture-overview',
@@ -300,7 +308,7 @@ export const collections = {
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `svelte-sveltekit-expert`, `vue-frontend-expert`, `solidjs-expert`, `mpa-orchestrator`, `documentation-site-expert`
 
 ### Deskripsi
-Panduan tingkat produksi untuk membangun website berperforma tinggi dan berfokus konten dengan Astro 5+. Mencakup Content Collections (manajemen konten type-safe berbasis Zod), Islands Architecture (hidrasi parsial), View Transitions native, rendering hybrid/SSR, integrasi MDX, Server Islands (rendering tunda), dan orkestrasi multi-framework (React, Vue, Svelte dalam satu proyek).
+Panduan tingkat produksi untuk membangun website berperforma tinggi dan berfokus konten dengan Astro 7+. Mencakup Content Collections (manajemen konten type-safe berbasis Zod), Islands Architecture (hidrasi parsial), View Transitions native, rendering hybrid/SSR, integrasi MDX, Server Islands (rendering tunda), dan orkestrasi multi-framework (React, Vue, Svelte dalam satu proyek).
 
 ### Kondisi Pemicu
 - Membangun situs web kaya konten (blog, dokumentasi teknis, portal berita, landing page).
@@ -310,9 +318,9 @@ Panduan tingkat produksi untuk membangun website berperforma tinggi dan berfokus
 
 ---
 
-### Panduan Keputusan: Astro 5 vs Next.js 15
+### Panduan Keputusan: Astro 7+ vs Next.js 16
 
-| Kriteria | Astro 5 | Next.js 15 |
+| Kriteria | Astro 7+ | Next.js 16 |
 |---|---|---|
 | Fokus Utama | Situs berbasis konten | Aplikasi interaktif full-stack |
 | Default JavaScript Dikirim | 0 KB (Zero-JS default) | React runtime (~80 KB+) |
@@ -459,8 +467,8 @@ import WidgetProfilPengguna from '../components/WidgetProfilPengguna.astro';
 </div>
 ```
 
-#### 6. Adapter Transisi Paralel `ClientRouter` Astro 5 (`src/engine/astro.ts`)
-Saat memadukan `<ClientRouter fallback="swap" />` di Astro 5 dengan mesin gerak GSAP + Lenis + WebGL:
+#### 6. Adapter Transisi Paralel `ClientRouter` Astro 7+ (`src/engine/astro.ts`)
+Saat memadukan `<ClientRouter fallback="swap" />` di Astro 7+ dengan mesin gerak GSAP + Lenis + WebGL:
 - Gunakan `transition:persist` dan `transition:animate="none"` pada elemen global `#gl`, `#curtain`, dan `#cursor`.
 - Di dalam event `astro:before-preparation`, bungkus `event.loader` dengan `await Promise.all([leave(), originalLoader()])` agar animasi tirai penutup berjalan **paralel** dengan pengunduhan HTML halaman berikutnya (tanpa jeda tunggu ganda).
 - Panggil `cleanup()` pada `astro:before-swap` dan `enter({ transition: true, scrollTop: true })` pada `astro:after-swap`.

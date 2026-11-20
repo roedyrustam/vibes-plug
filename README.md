@@ -100,7 +100,7 @@ VibesPlug bundles 9 dedicated specialist subagents residing in `agents/`, ready 
 | Specialist Subagent | File | Core Mission & Bound Skills |
 | :--- | :--- | :--- |
 | **`swarm-architect`** | [`agents/swarm-architect.md`](agents/swarm-architect.md) | **Discovery, PRD & ERD**: High-level system architecture, PostgreSQL DDL schemas, and DDD bounded contexts. |
-| **`fullstack-craftsman`** | [`agents/fullstack-craftsman.md`](agents/fullstack-craftsman.md) | **Production Fullstack**: React 19, Next.js 15, Tailwind v4, Hono/Bun/Node backend, and Prisma/Drizzle ORM. |
+| **`fullstack-craftsman`** | [`agents/fullstack-craftsman.md`](agents/fullstack-craftsman.md) | **Production Fullstack**: React 19, Next.js 16, Tailwind v4, Hono/Bun/Node backend, and Prisma/Drizzle ORM. |
 | **`quality-guardian`** | [`agents/quality-guardian.md`](agents/quality-guardian.md) | **Zero-Tolerance Quality Gate**: TDD self-healing, Playwright E2E, adversarial security fuzzing, and Anti-Slop audit. |
 | **`fintech-payment-sentinel`** | [`agents/fintech-payment-sentinel.md`](agents/fintech-payment-sentinel.md) | **FinTech & Payments**: DOKU Checkout, SNAP BI Direct API, HMAC-SHA512 webhook security, and atomic idempotency. |
 | **`ai-mcp-engineer`** | [`agents/ai-mcp-engineer.md`](agents/ai-mcp-engineer.md) | **AI & MCP Protocols**: Model Context Protocol (MCP v1.x) servers, A2A agent interoperability, durable workflows, and Gemini booster. |
@@ -130,7 +130,7 @@ VibesPlug Pro embeds 7 foundational engineering engines that give AI models sub-
 
 ### ⚡ Executable Skill Engine & Contextual Auto-Router (`skill-rules-engine`)
 Every skill in VibesPlug is backed by deterministic execution and active guardrails rather than passive prose:
-- **Per-Skill AST & Regex Guardrails (`rules` / `verify`)**: Enforces framework-specific invariants (e.g., Next.js 15 async `params`, React 19 Compiler & `useEffect` fetch bans, Tailwind v4 `@theme` CSS-first tokens, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, Rust `// SAFETY:` comments & `.unwrap()` bans, Go error handling, Python Pydantic v2 `.model_dump()`, PostgreSQL RLS, DOKU/SNAP BI constant-time `timingSafeEqual` HMAC & integer minor-unit currency, Docker `:latest` tag bans, and MCP stdio `stdout` protection).
+- **Per-Skill AST & Regex Guardrails (`rules` / `verify`)**: Enforces framework-specific invariants (e.g., Next.js 16 async `params`, React 19 Compiler & `useEffect` fetch bans, Tailwind v4 `@theme` CSS-first tokens, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, Rust `// SAFETY:` comments & `.unwrap()` bans, Go error handling, Python Pydantic v2 `.model_dump()`, PostgreSQL RLS, DOKU/SNAP BI constant-time `timingSafeEqual` HMAC & integer minor-unit currency, Docker `:latest` tag bans, and MCP stdio `stdout` protection).
 - **Contextual File & Intent Auto-Router (`vibes skill exec auto verify --file=<path>`)**: Automatically matches file extensions (`.rs`, `.go`, `.py`, `.vue`, `.svelte`, `.tsx`, `Dockerfile`, `.sql`, `.wgsl`) and import signatures to the appropriate domain skills and executes their guardrails inside `vibes_verify_gate`.
 - **Language-Segmented Skill Loading (`--lang=en|id`)**: Loads only the English or Bahasa Indonesia section of any `SKILL.md` (with optional boilerplate stripping), cutting context window consumption by **45–55%** with zero loss of technical blueprints.
 - **Smart AST-Aware Blueprint Slicing**: Extracts complete function/component signatures and indexes all 1,081 code blocks by Markdown section headings (`--query=<keyword>`).
@@ -353,7 +353,7 @@ If you download the `.zip` archive, extract it and configure your IDE as follows
 
 **1. Zero-Friction Prompting (In-IDE)**  
 You do *not* need to tag skills manually. Just open your IDE's AI Chat and type your vision:
-> *"Build me a multi-tenant SaaS platform with DOKU QRIS and Stripe billing, a Next.js 15 App Router frontend with Tailwind v4, and role-based access control with PostgreSQL RLS."*
+> *"Build me a multi-tenant SaaS platform with DOKU QRIS and Stripe billing, a Next.js 16 App Router frontend with Tailwind v4, and role-based access control with PostgreSQL RLS."*
 
 The Swarm Director automatically intercepts the request, runs Step 1 Context Discovery, generates `PRD.md` and `ERD.md`, and orchestrates the cooperating skills through the 8-Phase Zero-To-Prod workflow.
 
@@ -517,7 +517,7 @@ Jika Anda mengunduh arsip `.zip`, ekstrak dan konfigurasikan IDE Anda sebagai be
 
 **1. Prompting Bebas Hambatan (Di dalam IDE)**  
 Anda *tidak* perlu memanggil nama skill secara manual. Cukup buka Chat AI di IDE Anda dan ketik visi aplikasi Anda:
-> *"Buatkan saya platform SaaS multi-tenant dengan sistem pembayaran DOKU Checkout dan QRIS SNAP BI, frontend Next.js 15 App Router dengan Tailwind v4, serta otentikasi role-based dengan RLS PostgreSQL."*
+> *"Buatkan saya platform SaaS multi-tenant dengan sistem pembayaran DOKU Checkout dan QRIS SNAP BI, frontend Next.js 16 App Router dengan Tailwind v4, serta otentikasi role-based dengan RLS PostgreSQL."*
 
 Swarm Director akan otomatis mencegat permintaan, menjalankan Tahap 1 Penemuan Konteks, membuat dokumen `PRD.md` dan `ERD.md`, serta mengorkestrasikan skill-skill yang bekerja sama melalui alur kerja 8-Fase Zero-To-Prod.
 
@@ -570,7 +570,7 @@ vibes hooks install              # Memasang Git pre-commit hook untuk menegakkan
 
 ### ⚡ Mesin Eksekusi Skill & Auto-Router Kontekstual (`skill-rules-engine`)
 Setiap skill dari 179 skill dilengkapi dengan eksekusi deterministik dan guardrail aktif:
-- **Guardrail AST & Regex Spesifik per Skill (`rules` / `verify`)**: Menegakkan invarian spesifik framework secara otomatis (Next.js 15 async `params`, React 19 Compiler & larangan `fetch` di dalam `useEffect`, Tailwind v4 `@theme`, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, komentar wajib `// SAFETY:` & larangan `.unwrap()` pada Rust, penanganan error Go, Pydantic v2 `.model_dump()`, PostgreSQL RLS, verifikasi tanda tangan HMAC `timingSafeEqual` & tipe mata uang integer pada DOKU/SNAP BI, larangan tag `:latest` Docker, serta proteksi `stdout` MCP stdio).
+- **Guardrail AST & Regex Spesifik per Skill (`rules` / `verify`)**: Menegakkan invarian spesifik framework secara otomatis (Next.js 16 async `params`, React 19 Compiler & larangan `fetch` di dalam `useEffect`, Tailwind v4 `@theme`, Vue 3.5 `<script setup>` & Pinia, Svelte 5 Runes, komentar wajib `// SAFETY:` & larangan `.unwrap()` pada Rust, penanganan error Go, Pydantic v2 `.model_dump()`, PostgreSQL RLS, verifikasi tanda tangan HMAC `timingSafeEqual` & tipe mata uang integer pada DOKU/SNAP BI, larangan tag `:latest` Docker, serta proteksi `stdout` MCP stdio).
 - **Auto-Router File & Intent Kontekstual (`vibes skill exec auto verify --file=<path>`)**: Mencocokkan ekstensi file (`.rs`, `.go`, `.py`, `.vue`, `.svelte`, `.tsx`, `Dockerfile`, `.sql`, `.wgsl`) dan *import signature* secara otomatis ke skill terkait serta memvalidasinya di dalam `vibes_verify_gate`.
 - **Pemuatan Skill Terpilah Bahasa (`--lang=en|id`)**: Memuat hanya seksi Bahasa Inggris atau Bahasa Indonesia dari `SKILL.md` (dengan opsi pemangkasan tabel statis), menghemat **45–55% token *context window*** tanpa kehilangan satu pun blueprint kode.
 - **Pemotongan Blueprint Cerdas Sadar-AST**: Mengekstrak tanda tangan fungsi/komponen secara utuh dan mengindeks seluruh 1.081 blok kode berdasarkan judul sub-bab Markdown (`--query=<kata-kunci>`).

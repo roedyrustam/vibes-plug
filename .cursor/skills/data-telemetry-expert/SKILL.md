@@ -47,7 +47,7 @@ OpenTelemetry (OTel) is the CNCF standard for generating traces, metrics, and lo
 | **Metrics** | Numeric measurements over time | `http_requests_total`, `db_query_duration` |
 | **Logs** | Structured event records | `{"level":"error","msg":"DB timeout"}` |
 
-#### Next.js 15 + OTel Instrumentation
+#### Next.js 16 + OTel Instrumentation
 ```typescript
 // instrumentation.ts (Next.js built-in OTel support)
 export async function register() {
@@ -296,7 +296,7 @@ Panduan ahli untuk observabilitas produksi, analitik produk, dan pipeline data. 
 
 ### Implementasi Pola Kunci (TypeScript)
 
-#### 1. Instrumentasi OpenTelemetry di Next.js 15
+#### 1. Instrumentasi OpenTelemetry di Next.js 16
 ```typescript
 // instrumentation.ts
 export async function register() {

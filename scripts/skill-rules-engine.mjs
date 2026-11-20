@@ -4,7 +4,7 @@
  * Sovereign Fine-Grained Skill Rules Engine & Contextual Auto-Router (v4.8.0)
  *
  * Bridges declarative knowledge across all 178 skills with:
- * 1. Per-Skill Deterministic AST/Regex Guardrails (React 19, Next.js 15, Vue 3.5, Svelte 5,
+ * 1. Per-Skill Deterministic AST/Regex Guardrails (React 19, Next.js 16, Vue 3.5, Svelte 5,
  *    Tailwind v4, Rust 2024, Go 1.24, Python/Pydantic v2, PostgreSQL RLS, FinTech SNAP BI,
  *    Docker/K8s, MCP v1.x, Zero-Trust Security, WebGPU/Three.js, ClickHouse/DuckDB OLAP,
  *    SLSA/Sigstore supply chain, Lean 4 proofs, Electric/Yjs sync, OpenFGA ReBAC, WebAuthn).
@@ -45,9 +45,9 @@ export const SKILL_GUARD_RULES = Object.freeze({
     {
       id: 'NEXT15_SYNC_PARAMS_ACCESS',
       severity: 'ERROR',
-      name: 'Synchronous params / searchParams Access in Next.js 15',
+      name: 'Synchronous params / searchParams Access in Next.js 16',
       regex: /export\s+default\s+function\s+\w+\s*\(\s*\{\s*(?:params|searchParams)\s*\}/,
-      remediation: 'In Next.js 15+, params and searchParams are Promises. Mark the component async and await params/searchParams before accessing properties.'
+      remediation: 'In Next.js 16+, params and searchParams are Promises. Mark the component async and await params/searchParams before accessing properties.'
     },
     {
       id: 'NEXT15_MISSING_USE_SERVER_DIRECTIVE',
@@ -1781,7 +1781,7 @@ export const SKILL_GUARD_RULES = Object.freeze({
       severity: 'ERROR',
       name: 'Legacy NgModule Declaration Used Instead of Standalone Component',
       regex: /@NgModule\s*\(\s*\{/,
-      remediation: 'Angular 19+ mandates standalone components (standalone: true); legacy @NgModule declarations are prohibited.'
+      remediation: 'Angular 22+ mandates standalone components (standalone: true); legacy @NgModule declarations are prohibited.'
     },
     {
       id: 'ANGULAR_MISSING_ONPUSH_CHANGE_DETECTION',

@@ -65,7 +65,7 @@ Choose MPA (Astro, Django, Laravel) when:
 
 | Layer | Tool | Why |
 |---|---|---|
-| **Build** | Vite 6 / TanStack Start | Instant HMR, ES modules, fast builds |
+| **Build** | Vite 8+ (Rolldown) / TanStack Start | Instant HMR, ES modules, fast Rust-powered builds |
 | **Routing** | TanStack Router | Fully type-safe routes, search params, loaders |
 | **Server State** | TanStack Query v5 | Data fetching, caching, mutations |
 | **Client State** | Zustand / Jotai | Lightweight, no boilerplate |
@@ -317,7 +317,7 @@ Pilih SSR (Next.js) saat: SEO sangat penting, load halaman awal yang cepat untuk
 Pilih MPA (Astro, Django, Laravel) saat: konten sebagian besar statis, SEO adalah perhatian utama — lihat skill `mpa-orchestrator`.
 
 ### Stack SPA yang Direkomendasikan (2026)
-Vite 6 untuk build, TanStack Router untuk routing type-safe, TanStack Query v5 untuk server state, Zustand untuk client state, Hono RPC untuk API layer type-safe, React Hook Form + Zod untuk form, Tailwind CSS v4 untuk styling, dan GSAP untuk animasi kompleks.
+Vite 8+ (Rolldown) untuk build, TanStack Router untuk routing type-safe, TanStack Query v5 untuk server state, Zustand untuk client state, Hono RPC untuk API layer type-safe, React Hook Form + Zod untuk form, Tailwind CSS v4 untuk styling, dan GSAP untuk animasi kompleks.
 
 ### TanStack Router — Routing File-Based Type-Safe
 Atur rute dalam direktori `src/routes/` dengan layout bersarang. Gunakan `createFileRoute` dengan `beforeLoad` untuk guard autentikasi, `loader` untuk prefetch data, dan `validateSearch` untuk URL state yang dapat dibagikan.

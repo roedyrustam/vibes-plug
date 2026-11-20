@@ -277,7 +277,7 @@ Panduan ahli untuk men-deploy aplikasi SaaS dan multiple entry points-nya (landi
 
 ### Implementasi Pola Kunci (TypeScript)
 
-#### 1. Edge Middleware untuk Routing Subdomain & Tenant (Next.js 15)
+#### 1. Edge Middleware untuk Routing Subdomain & Tenant (Next.js 16)
 ```typescript
 // middleware.ts
 import { NextResponse } from 'next/server';

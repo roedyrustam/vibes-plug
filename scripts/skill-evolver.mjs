@@ -75,7 +75,7 @@ export async function analyzeCodebaseEvolution(targetDir = process.cwd()) {
     detected.modern2026Patterns.push('react-19-actions');
   }
   if (allDeps['next'] && (allDeps['next'].includes('15') || allDeps['next'].includes('^15'))) {
-    detected.frameworks.push('Next.js 15 App Router (PPR & Turbopack)');
+    detected.frameworks.push('Next.js 16 App Router (PPR & Turbopack)');
     detected.modern2026Patterns.push('nextjs-15-ppr');
   }
   if (allDeps['tailwindcss'] && (allDeps['tailwindcss'].includes('4') || allDeps['tailwindcss'].includes('^4'))) {

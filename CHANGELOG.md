@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2026-11-20
+
+### Changed / Diubah
+- **Latest Frontend Framework & User Selection Invariant (Invarian Versi Terbaru & Pemilihan Framework Frontend)**:
+  - Added Protocol #10 across `AGENTS.md`, `rules/AGENTS.md`, `CLAUDE.md`, `CODEX.md`, `.cursorrules`, `.windsurfrules`, `.clinerules`, `.traerules`, `.kimirules`, `.kirorules`, `agents/fullstack-craftsman.md`, and IDE frontend rules: when creating a new frontend/fullstack app, present all modern 2026 framework choices if unspecified and ALWAYS scaffold with the official `@latest` CLI.
+  - Upgraded all 8 frontend framework skills and cross-references to their latest 2026 stable versions:
+    - **Next.js 16+** (`npx create-next-app@latest`, React 19.2+, Turbopack default, `next.config.ts`, Cache Components `'use cache'` + stable `cacheLife`/`cacheTag`, `proxy.ts`, React Compiler `reactCompiler: true`, stable `after()`, Tailwind CSS v4)
+    - **Vite 8+ (Rolldown) + React 19.2+** (`npm create vite@latest`, `@tailwindcss/vite` v4)
+    - **Nuxt 4+ / Vue 3.5+** (`npx nuxi@latest init` / `npm create vue@latest`, replacing EOL Nuxt 3)
+    - **Svelte 5 (Runes) / SvelteKit 3+** (`npx sv create`)
+    - **Astro 7+** (`npm create astro@latest`, Vite Environment API, Live Content Collections, Fonts API)
+    - **Angular 22+** (`npx @angular/cli@latest new`, Zoneless Signals-first, Standalone, Vitest)
+    - **SolidJS 2+ / SolidStart** (`npm init solid@latest`)
+    - **HTMX 2.x + Alpine.js 3.14+** (`npm install htmx.org@latest alpinejs@latest`)
+  - Expanded interactive CLI wizard in `bin/vibes.mjs` to support selecting all 8 frontend frameworks and auto-binding their skills.
+  - Upgraded `skills/senior-frontend/scripts/frontend_scaffolder.py` to scaffold `@latest` Next.js 16+ (`next.config.ts`, `proxy.ts`, `@tailwindcss/postcss`) and React 19.2+ / Vite 8+ (`@tailwindcss/vite`) with Tailwind CSS v4.
+  - Re-synced `.cursor/skills/`, `CATALOG.md`/`CATALOG.json`, `llms.txt`/`llms-full.txt`, `.cache-prefix.json`, and `.skill-slices.json`.
+
 ## [4.9.0] - 2026-11-19
 
 ### Added / Ditambahkan

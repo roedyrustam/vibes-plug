@@ -17,8 +17,8 @@ version: "4.8.0"
 
 ### Orchestration & Integration
 Connects and orchestrates with relevant domain skills:
-- `senior-frontend` — Integrating React Three Fiber (R3F) in React 19 / Next.js 15.
-- `vue-frontend-expert` — Integrating TresJS in Vue 3 / Nuxt 3.
+- `senior-frontend` — Integrating React Three Fiber (R3F) in React 19 / Next.js 16.
+- `vue-frontend-expert` — Integrating TresJS in Vue 3.5+ / Nuxt 4+.
 - `svelte-sveltekit-expert` — Integrating Threlte in Svelte 5 (Runes).
 - `web-game-engine-expert` — Physics simulations (Rapier, Jolt, Havok), game loops, and ECS.
 - `glsl-shader-expert` — Shading languages, WGSL compute shaders, and TSL nodes.
@@ -608,8 +608,8 @@ export function mountSharedGL(canvas: HTMLCanvasElement): () => void {
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi skill domain yang relevan:
-- `senior-frontend` — Integrasi React Three Fiber (R3F) pada React 19 / Next.js 15.
-- `vue-frontend-expert` — Integrasi TresJS pada Vue 3 / Nuxt 3.
+- `senior-frontend` — Integrasi React Three Fiber (R3F) pada React 19 / Next.js 16.
+- `vue-frontend-expert` — Integrasi TresJS pada Vue 3.5+ / Nuxt 4+.
 - `svelte-sveltekit-expert` — Integrasi Threlte pada Svelte 5 (Runes).
 - `web-game-engine-expert` — Simulasi fisika (Rapier, Jolt, Havok), game loop, dan ECS.
 - `glsl-shader-expert` — Bahasa shader, compute shader WGSL, dan node TSL.

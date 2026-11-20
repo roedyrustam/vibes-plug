@@ -236,7 +236,7 @@ export const skemaArtikel = defineType({
 });
 ```
 
-#### 2. Query GROQ di Next.js 15 Server Component
+#### 2. Query GROQ di Next.js 16 Server Component
 ```typescript
 import { createClient } from 'next-sanity';
 

@@ -17,14 +17,14 @@
 | `ai-media-generation-expert` | `4.8.0` | AI media generation: Flux, Sora, Runway, ElevenLabs TTS, and Whisper / Generasi media AI: Flux, Sora, Runway, ElevenLabs TTS, dan Whisper. |
 | `ai-prompt-engineering-expert` | `4.8.0` | Prompt engineering, structured outputs, evals (Promptfoo, DeepEval) / Rekayasa prompt, output terstruktur, dan evaluasi otomatis AI. |
 | `ai-safety-governance-expert` | `4.8.0` | AI safety, guardrails (NeMo, Llama Guard), bias audit, EU AI Act / Keamanan AI, guardrail (NeMo, Llama Guard), dan tata kelola AI. |
-| `angular-expert` | `4.8.0` | Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore. |
+| `angular-expert` | `4.8.0` | Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore / Aplikasi enterprise Angular 22+ (terbaru): Zoneless Signals, Standalone, Vitest, dan NgRx SignalStore. |
 | `anti-slop` | `4.8.0` | Zero-tolerance Anti-AI Slop engine: crisp UI, clean code, no slop / Engine Anti-AI Slop: UI presisi, kode bersih tanpa placeholder. |
 | `api-design-expert` | `4.8.0` | API design best practices: REST, GraphQL, gRPC, tRPC, OpenAPI 3.1 / Desain API: praktik terbaik REST, GraphQL, gRPC, tRPC, OpenAPI 3.1. |
 | `api-gateway-proxy-expert` | `4.8.0` | API gateways, reverse proxies, and service mesh (Kong, Traefik, NGINX) / API gateway, reverse proxy, dan service mesh (Kong, Traefik, NGINX). |
 | `app-analyzer-optimizer` | `4.8.0` | Deep application architecture audit, bottleneck detection, and perf / Audit arsitektur aplikasi mendalam, deteksi bottleneck, dan optimasi. |
 | `app-promo-media-expert` | `4.8.0` | App store screenshots, promo graphics, and programmatic video teasers / Media promosi aplikasi, screenshot store, dan video teaser terprogram. |
 | `apple-ecosystem-expert` | `4.8.0` | Apple ecosystem development: iOS support, Safari WebKit, and HIG / Pengembangan ekosistem Apple: kompatibilitas iOS, Safari, dan HIG. |
-| `astro-framework-expert` | `4.8.0` | Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions. |
+| `astro-framework-expert` | `4.8.0` | Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions / Framework Astro 7+ (terbaru): Live Content Collections, Islands, Fonts API, dan View Transitions. |
 | `async-queue-temporal-expert` | `4.8.0` | Async queues & durable sagas: BullMQ v5, Trigger.dev, and Temporal.io / Antrean async & workflow tahan-gagal: BullMQ, Trigger.dev, Temporal. |
 | `authentication-identity-expert` | `4.8.0` | Authentication, authorization (RBAC/ABAC), OAuth2, Clerk, and Auth.js / Autentikasi, otorisasi (RBAC/ABAC), OAuth2, Clerk, dan Auth.js. |
 | `autonomous-api-drift-healer` | `4.8.0` | Autonomous API schema drift detection and breaking change healing / Deteksi drift skema API otonom dan perbaikan breaking change. |
@@ -110,7 +110,7 @@
 | `mvc-expert` | `4.8.0` | Refactor legacy codebases into clean and scalable MVC architecture / Refaktor codebase legacy menjadi arsitektur MVC yang bersih. |
 | `n8n-automation-expert` | `4.8.0` | Workflow automation with n8n, custom nodes, and webhook triggers / Otomasi workflow dengan n8n, custom nodes, dan pemicu webhook. |
 | `neurosymbolic-genetic-synthesizer` | `4.8.0` | Neurosymbolic genetic code synthesis, Quality-Diversity MAP-Elites, and FunSearch optimization / Sintesis kode genetik neurosimbolik, Quality-Diversity MAP-Elites, dan optimasi FunSearch. |
-| `nextjs-app-router-expert` | `4.8.0` | Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache. |
+| `nextjs-app-router-expert` | `4.8.0` | Next.js 16+ (latest) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, and React Compiler / Panduan Next.js 16+ (terbaru) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, dan React Compiler. |
 | `olap-columnar-analytics-expert` | `4.8.0` | Real-time OLAP & columnar analytics: ClickHouse, DuckDB, Iceberg / Analitik OLAP real-time: ClickHouse, DuckDB, dan Apache Iceberg. |
 | `openapi-swagger-codegen-expert` | `4.8.0` | OpenAPI 3.1 specifications, Swagger UI, and typed code generation / Spesifikasi OpenAPI 3.1, Swagger UI, dan pembuatan kode otomatis. |
 | `parallel-tool-orchestrator` | `4.8.0` | Parallel tool calling, MCP batching, and async subagent fan-out / Eksekusi tool paralel, batching MCP, dan subagent async fan-out. |
@@ -145,10 +145,10 @@
 | `screenshot-to-code-expert` | `4.8.0` | Convert UI screenshots, Figma frames, and mockups into clean code / Konversi screenshot UI, Figma, dan mockup menjadi kode produksi. |
 | `search-engine-expert` | `4.8.0` | Full-text search engines: Typesense, Meilisearch, and Elasticsearch / Mesin pencarian full-text: Typesense, Meilisearch, Elasticsearch. |
 | `self-healing-cloud-orchestrator` | `4.8.0` | Real-time log monitoring, crash detection, and auto-hotfixing / Pemantauan log real-time, deteksi crash, dan auto-hotfix kode. |
-| `senior-frontend` | `4.8.0` | Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4. |
+| `senior-frontend` | `4.8.0` | Senior frontend: React 19, Next.js 16+ (latest), TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 16+ (latest), dan Tailwind v4. |
 | `seo` | `4.8.0` | Comprehensive SEO audits: technical, schema, and AI search readiness / Audit SEO menyeluruh: teknis, schema markup, dan pencarian AI. |
 | `session-memory-manager` | `4.8.0` | Session memory lifecycle, context handoffs, and compact checkpoints / Manajemen memori sesi, handoff konteks, dan checkpoint ringkas. |
-| `solidjs-expert` | `4.8.0` | SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained. |
+| `solidjs-expert` | `4.8.0` | SolidJS 2+ and SolidStart (latest) fine-grained reactivity and server rendering / SolidJS 2+ dan SolidStart (terbaru) dengan reaktivitas fine-grained. |
 | `sovereign-id-compliance-expert` | `4.9.0` | Indonesian & SEA digital compliance: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledgers, and data residency / Kepatuhan digital Indonesia & SEA: UU PDP No. 27/2022, PSE Komdigi, BI SNAP, consent ledger, dan residensi data. |
 | `spa-orchestrator` | `4.8.0` | Single-Page Application (SPA) architecture and client state flows / Arsitektur Single-Page Application (SPA) dan aliran state klien. |
 | `spec-driven-development-expert` | `4.8.0` | Spec-Driven Development: TypeSpec, OpenAPI 3.1, and contract testing / Pengembangan berbasis spesifikasi: TypeSpec, OpenAPI 3.1, dan kontrak. |
@@ -157,7 +157,7 @@
 | `state-management-expert` | `4.8.0` | Modern client state management: Zustand, Jotai, and TanStack Store / Manajemen state modern client-side: Zustand, Jotai, TanStack Store. |
 | `structured-output-contracts` | `4.8.0` | Strict JSON Schema structured outputs and MCP contract enforcement / Penegakan kontrak output terstruktur JSON Schema ketat dan MCP. |
 | `supabase-security-expert` | `4.8.0` | Supabase security audit: RLS policies, RBAC, and data leak prevention / Audit keamanan Supabase: aturan RLS, RBAC, dan pencegahan bocor. |
-| `svelte-sveltekit-expert` | `4.8.0` | Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first. |
+| `svelte-sveltekit-expert` | `4.8.0` | Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 3+ (terbaru) server-first. |
 | `svg-animation-motion-expert` | `4.8.0` | Web animations: Framer Motion 12+, GSAP 3, and CSS scroll animations / Animasi web: Framer Motion 12+, GSAP 3, dan animasi scroll CSS. |
 | `synthetic-data-finetuning-expert` | `4.8.0` | Synthetic dataset generation, QLoRA fine-tuning, and local SLM export / Generasi data sintetis, fine-tuning QLoRA, dan ekspor model SLM. |
 | `tailwind-expert` | `4.8.0` | Tailwind CSS v4, CSS-first @theme configuration, and modern styling / Panduan Tailwind CSS v4, konfigurasi @theme, dan styling modern. |
@@ -171,7 +171,7 @@
 | `vercel-ai-sdk-expert` | `4.8.0` | Vercel AI SDK Core/UI, streaming structured data, and tool calling / Vercel AI SDK Core/UI, streaming data terstruktur, dan tool calling. |
 | `visual-ui-auditor` | `4.8.0` | Multimodal vision UI audit against crisp borders, accessibility, and 40 anti-slop rules / Audit visual antarmuka UI multimodal berbasis standar WCAG 2.2 dan 40 aturan anti-slop. |
 | `voice-ai-realtime-agent` | `4.8.0` | Ultra-low latency conversational voice AI (<300ms) with WebRTC / AI suara percakapan latensi ultra-rendah (<300ms) dengan WebRTC. |
-| `vue-frontend-expert` | `4.8.0` | Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR. |
+| `vue-frontend-expert` | `4.8.0` | Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture / Pengembangan Vue 3.5+ Composition API, Nuxt 4+ (terbaru), Pinia, dan arsitektur SPA/SSR. |
 | `wasm-edge-computing-expert` | `4.8.0` | WebAssembly (WASM) and edge computing: WASI preview 2 and Cloudflare / WebAssembly (WASM) dan edge computing: WASI preview 2 dan Cloudflare. |
 | `web-3d-graphics-expert` | `4.8.0` | WebGPU & WebGL 3D graphics in browser with Three.js, Babylon, and R3F / Grafis 3D WebGPU & WebGL di browser dengan Three.js, Babylon, dan R3F. |
 | `web-game-engine-expert` | `4.8.0` | Modern web game development: Three.js, Babylon.js, ECS, and physics / Pengembangan game web modern: Three.js, Babylon.js, ECS, dan fisika. |

@@ -778,7 +778,7 @@ This skill serves as the foundational quality, craftsmanship, and anti-slop gate
 | Skill | Relationship & Integration Flow |
 | :--- | :--- |
 | `modern-web-guidance` | Queries and enforces modern web platform best practices before generating UI code. |
-| `senior-frontend` | Sanitizes React 19 / Next.js 15 components from generic AI templates and unhandled states. |
+| `senior-frontend` | Sanitizes React 19 / Next.js 16 components from generic AI templates and unhandled states. |
 | `tailwind-expert` | Enforces CSS-first styling, eliminates excessive pill buttons, and prevents stacked neon glows. |
 | `design-system-architect` | Validates 5-state interactive contracts, accessible tokens, and solid borders. |
 | `modern-css-native-expert` | Enforces native CSS anchor positioning and top-layer `@starting-style` transitions. |

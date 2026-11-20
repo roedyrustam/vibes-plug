@@ -22,7 +22,7 @@ from typing import Dict, List, Optional
 # Project templates
 TEMPLATES = {
     "nextjs": {
-        "name": "Next.js 15+ App Router",
+        "name": "Next.js 16+ (Latest) App Router",
         "description": "Modern Next.js with App Router, Server Components, and TypeScript",
         "structure": {
             "app": {
@@ -66,10 +66,9 @@ TEMPLATES = {
             },
         },
         "config_files": [
-            "next.config.js",
-            "tailwind.config.ts",
+            "next.config.ts",
             "tsconfig.json",
-            "postcss.config.js",
+            "postcss.config.mjs",
             ".eslintrc.json",
             ".prettierrc",
             ".gitignore",
@@ -77,7 +76,7 @@ TEMPLATES = {
         ],
     },
     "react": {
-        "name": "React + Vite",
+        "name": "React 19.2+ + Vite 8+ (Latest)",
         "description": "Modern React with Vite, TypeScript, and Tailwind CSS",
         "structure": {
             "src": {
@@ -109,9 +108,7 @@ TEMPLATES = {
         },
         "config_files": [
             "vite.config.ts",
-            "tailwind.config.ts",
             "tsconfig.json",
-            "postcss.config.js",
             ".eslintrc.json",
             ".prettierrc",
             ".gitignore",
@@ -127,7 +124,7 @@ FEATURES = {
         "description": "Authentication with session management",
         "files": {
             "lib/auth.ts": "AUTH_LIB",
-            "middleware.ts": "AUTH_MIDDLEWARE",
+            "proxy.ts": "AUTH_MIDDLEWARE",
             "components/auth/login-form.tsx": "LOGIN_FORM",
             "components/auth/register-form.tsx": "REGISTER_FORM",
         },
@@ -207,9 +204,7 @@ export default function RootLayout({
   );
 }
 ''',
-    "GLOBALS_CSS": '''@tailwind base;
-@tailwind components;
-@tailwind utilities;
+    "GLOBALS_CSS": '''@import "tailwindcss";
 
 @layer base {
   :root {
@@ -598,43 +593,41 @@ def get_config_templates(name: str, template: str, features: List[str]) -> Dict[
     deps = {
         "nextjs": {
             "dependencies": {
-                "next": "^14.0.0",
-                "react": "^18.2.0",
-                "react-dom": "^18.2.0",
+                "next": "latest",
+                "react": "latest",
+                "react-dom": "latest",
                 "clsx": "^2.0.0",
                 "tailwind-merge": "^2.0.0",
             },
             "devDependencies": {
-                "@types/node": "^20.0.0",
-                "@types/react": "^18.2.0",
-                "@types/react-dom": "^18.2.0",
-                "autoprefixer": "^10.0.0",
-                "eslint": "^8.0.0",
-                "eslint-config-next": "^14.0.0",
-                "postcss": "^8.0.0",
-                "prettier": "^3.0.0",
-                "tailwindcss": "^3.4.0",
-                "typescript": "^5.0.0",
+                "@tailwindcss/postcss": "^4.0.0",
+                "@types/node": "^22.0.0",
+                "@types/react": "latest",
+                "@types/react-dom": "latest",
+                "eslint": "^9.0.0",
+                "eslint-config-next": "latest",
+                "prettier": "^3.4.0",
+                "tailwindcss": "^4.0.0",
+                "typescript": "^5.8.0",
             },
         },
         "react": {
             "dependencies": {
-                "react": "^18.2.0",
-                "react-dom": "^18.2.0",
-                "clsx": "^2.0.0",
-                "tailwind-merge": "^2.0.0",
+                "react": "latest",
+                "react-dom": "latest",
+                "clsx": "^2.1.0",
+                "tailwind-merge": "^3.0.0",
             },
             "devDependencies": {
-                "@types/react": "^18.2.0",
-                "@types/react-dom": "^18.2.0",
-                "@vitejs/plugin-react": "^4.0.0",
-                "autoprefixer": "^10.0.0",
-                "eslint": "^8.0.0",
-                "postcss": "^8.0.0",
-                "prettier": "^3.0.0",
-                "tailwindcss": "^3.4.0",
-                "typescript": "^5.0.0",
-                "vite": "^5.0.0",
+                "@tailwindcss/vite": "^4.0.0",
+                "@types/react": "latest",
+                "@types/react-dom": "latest",
+                "@vitejs/plugin-react": "latest",
+                "eslint": "^9.0.0",
+                "prettier": "^3.4.0",
+                "tailwindcss": "^4.0.0",
+                "typescript": "^5.8.0",
+                "vite": "latest",
             },
         },
     }
@@ -735,15 +728,19 @@ const config: Config = {
 
 export default config;
 ''',
-        "postcss.config.js": '''module.exports = {
+        "postcss.config.mjs": '''const config = {
   plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+    "@tailwindcss/postcss": {},
   },
 };
+
+export default config;
 ''',
-        "next.config.js": '''/** @type {import('next').NextConfig} */
-const nextConfig = {
+        "next.config.ts": '''import type { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  cacheComponents: true,
+  reactCompiler: true,
   images: {
     remotePatterns: [],
     formats: ['image/avif', 'image/webp'],
@@ -753,14 +750,15 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
 ''',
         "vite.config.ts": '''import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

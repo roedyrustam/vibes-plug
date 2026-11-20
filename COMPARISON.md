@@ -43,11 +43,11 @@
 
 | Feature | VibesPlug Pro | Others |
 |:---|:---:|:---:|
-| React 19 / Next.js 15 Expert | ✅ Dedicated skill | ❌ Generic prompts |
+| React 19 / Next.js 16 Expert | ✅ Dedicated skill | ❌ Generic prompts |
 | Tailwind CSS v4 Expert | ✅ CSS-first, @theme | ❌ |
-| Vue 3 / Nuxt 3 Expert | ✅ | ❌ |
+| Vue 3.5+ / Nuxt 4+ Expert | ✅ | ❌ |
 | Svelte 5 / SvelteKit Expert | ✅ | ❌ |
-| Angular 19+ Expert | ✅ | ❌ |
+| Angular 22+ Expert | ✅ | ❌ |
 | Mobile (React Native / Expo 53+) | ✅ | ❌ |
 | Desktop (Electron / Tauri v2) | ✅ Both | ❌ |
 | WebXR / 3D Graphics / Shaders | ✅ 3 dedicated skills | ❌ |

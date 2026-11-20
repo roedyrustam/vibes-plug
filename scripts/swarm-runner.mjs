@@ -488,7 +488,7 @@ async function main() {
     }
   }
 
-  const task = filteredArgs.join(' ') || 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 15 Tailwind UI, and Supabase RLS';
+  const task = filteredArgs.join(' ') || 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 16 Tailwind UI, and Supabase RLS';
 
   if (!jsonOutput) {
     console.log(`

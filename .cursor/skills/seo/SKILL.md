@@ -77,7 +77,7 @@ function SearchInput() {
 
 #### Crawlability & Indexing
 ```typescript
-// Next.js 15 — metadata API for complete SEO
+// Next.js 16 — metadata API for complete SEO
 // app/layout.tsx
 export const metadata: Metadata = {
   metadataBase: new URL('https://myapp.com'),
@@ -285,7 +285,7 @@ Audit SEO komprehensif mencakup SEO teknikal, optimasi on-page, data terstruktur
 **Optimasi INP**: Metrik kritis baru yang mengukur responsivitas interaksi. Gunakan `useTransition` React untuk menunda pembaruan non-kritis agar tidak memblokir thread utama.
 
 #### Crawlability & Indexing
-Gunakan Metadata API Next.js 15 untuk SEO lengkap: `title`, `description`, `openGraph`, `twitter`, `robots`, `alternates.canonical`. Buat sitemap dinamis dengan `app/sitemap.ts` yang menyertakan semua halaman statis dan konten dinamis.
+Gunakan Metadata API Next.js 16 untuk SEO lengkap: `title`, `description`, `openGraph`, `twitter`, `robots`, `alternates.canonical`. Buat sitemap dinamis dengan `app/sitemap.ts` yang menyertakan semua halaman statis dan konten dinamis.
 
 ### Data Terstruktur (JSON-LD) untuk Kutipan AI
 Tambahkan schema `Organization` untuk membangun entitas merek dan schema `SoftwareApplication` untuk produk SaaS — termasuk `aggregateRating` jika tersedia.

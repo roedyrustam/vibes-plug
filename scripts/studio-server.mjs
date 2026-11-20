@@ -163,7 +163,7 @@ const RECIPES = {
   },
   'fullstack-pro': {
     title: 'Fullstack Pro',
-    description: 'Production-grade fullstack: Next.js 15, auth, DB, payments, E2E testing, and error resilience',
+    description: 'Production-grade fullstack: Next.js 16, auth, DB, payments, E2E testing, and error resilience',
     skills: ['senior-frontend', 'tailwind-expert', 'js-backend-expert', 'database-orm-expert', 'authentication-identity-expert', 'e2e-testing-expert', 'error-resilience-expert']
   },
   'sovereign-guard': {
@@ -1514,7 +1514,7 @@ export function generateStudioHtml(currentPort) {
           <div class="grid-2col" style="margin-top: 12px; margin-bottom: 12px;">
             <div class="form-group" style="margin-bottom: 0;">
               <label for="swarm-task-input">Task Specification</label>
-              <input type="text" id="swarm-task-input" class="text-input" placeholder="e.g. Build multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and PostgreSQL RLS" />
+              <input type="text" id="swarm-task-input" class="text-input" placeholder="e.g. Build multi-tenant SaaS with DOKU QRIS billing, Next.js 16 UI, and PostgreSQL RLS" />
             </div>
             <div class="form-group" style="margin-bottom: 0;">
               <label for="swarm-reasoning-select">Thinking Budget Profile (Reasoning Depth)</label>
@@ -2513,7 +2513,7 @@ nums.map(n => n * 2).filter(n => n > 4);</textarea>
       const input = document.getElementById('swarm-task-input');
       const reasoningSelect = document.getElementById('swarm-reasoning-select');
       if (type === 'saas') {
-        input.value = 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 15 UI, and Supabase RLS';
+        input.value = 'Build a multi-tenant SaaS with DOKU QRIS billing, Next.js 16 UI, and Supabase RLS';
         if (reasoningSelect) reasoningSelect.value = 'deep';
       } else if (type === 'api') {
         input.value = 'Design a spec-driven contract API with TypeSpec, OpenAPI 3.1, and BDD contract testing';

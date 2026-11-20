@@ -55,7 +55,7 @@ const FRAMEWORK_DRIFT_PATTERNS = Object.freeze([
     id: 'NEXTJS_PAGES_DATA_FETCHING',
     regex: /\b(getStaticProps|getServerSideProps|getInitialProps)\b/,
     description: 'Legacy Next.js Pages Router data-fetching function detected',
-    recommendation: 'Migrate to Next.js 15 App Router Server Components, async params, and Server Actions'
+    recommendation: 'Migrate to Next.js 16 App Router Server Components, async params, and Server Actions'
   },
   {
     id: 'REACT_FC_TYPING',

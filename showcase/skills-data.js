@@ -242,8 +242,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@angular-expert",
-    "summaryEn": "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store",
-    "summaryId": "Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore.",
+    "summaryEn": "Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore",
+    "summaryId": "Aplikasi enterprise Angular 22+ (terbaru): Zoneless Signals, Standalone, Vitest, dan NgRx SignalStore.",
     "tags": [
       "angular",
       "frontend"
@@ -363,8 +363,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@astro-framework-expert",
-    "summaryEn": "Astro 5+ framework: Content Collections, Islands, and View Transitions",
-    "summaryId": "Framework Astro 5+: Content Collections, Islands, dan View Transitions.",
+    "summaryEn": "Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions",
+    "summaryId": "Framework Astro 7+ (terbaru): Live Content Collections, Islands, Fonts API, dan View Transitions.",
     "tags": [
       "astro",
       "framework",
@@ -1862,8 +1862,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@nextjs-app-router-expert",
-    "summaryEn": "Next.js 15 App Router: RSC, Server Actions, PPR, and caching",
-    "summaryId": "Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache.",
+    "summaryEn": "Next.js 16 App Router: RSC, Server Actions, PPR, and caching",
+    "summaryId": "Panduan Next.js 16 App Router: RSC, Server Actions, PPR, dan cache.",
     "tags": [
       "nextjs",
       "app",
@@ -2481,8 +2481,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@senior-frontend",
-    "summaryEn": "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4",
-    "summaryId": "Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4.",
+    "summaryEn": "Senior frontend: React 19, Next.js 16, TypeScript, and Tailwind v4",
+    "summaryId": "Frontend tingkat lanjut: React 19, Next.js 16, dan Tailwind v4.",
     "tags": [
       "senior",
       "frontend"
@@ -2670,8 +2670,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@svelte-sveltekit-expert",
-    "summaryEn": "Svelte 5 Runes and SvelteKit 2 server-first application architecture",
-    "summaryId": "Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first.",
+    "summaryEn": "Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture",
+    "summaryId": "Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 3+ (terbaru) server-first.",
     "tags": [
       "svelte",
       "sveltekit",
@@ -2914,8 +2914,8 @@ export const SKILLS_DATA = [
     "version": "4.8.0",
     "author": "Roedy Rustam",
     "trigger": "@vue-frontend-expert",
-    "summaryEn": "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture",
-    "summaryId": "Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR.",
+    "summaryEn": "Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture",
+    "summaryId": "Pengembangan Vue 3.5+ Composition API, Nuxt 4+ (terbaru), Pinia, dan arsitektur SPA/SSR.",
     "tags": [
       "vue",
       "frontend"

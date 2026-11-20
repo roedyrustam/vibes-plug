@@ -373,7 +373,7 @@ import { Dialog, Button, Select } from '@base-ui-components/react';
 #### 2. Navigation (Navbars, Tabs, Command Palettes)
 - **Command Palette**: Add `⌘K` command menu via `cmdk`.
 - **Responsive Layout**: Bottom nav (<768px), collapsible rail (tablet), full sidebar (desktop).
-- **Smooth Page Transitions**: In Next.js 15, leverage `<Link viewTransition>` for layout morphing.
+- **Smooth Page Transitions**: In Next.js 16, leverage `<Link viewTransition>` for layout morphing.
 - **Active State**: Clear high-contrast indicator with `role="navigation"` and `aria-current="page"`.
 
 #### 3. Information & Feedback (Toasts, Skeletons, Empty States)
@@ -558,7 +558,7 @@ Base UI (dari tim MUI) adalah alternatif Radix UI untuk 2026 dengan dukungan nat
 
 ### Katalog 4 Pilar Komponen UI
 1. **Input Controls (Tombol, Input, Select)**: Definisikan status visual (`default`, `hover`, `active`, `focus`, `disabled`, `error`). Tampilkan validasi inline on-blur (`aria-invalid`, `aria-describedby` via React Hook Form + Zod). Target sentuh minimal 44x44px.
-2. **Navigasi (Navbar, Tab, Command Palette)**: Sediakan menu perintah `⌘K` dengan `cmdk`. Layout responsif (navigasi bawah di mobile, rail di tablet, sidebar penuh di desktop). Transisi halaman halus via `<Link viewTransition>` di Next.js 15.
+2. **Navigasi (Navbar, Tab, Command Palette)**: Sediakan menu perintah `⌘K` dengan `cmdk`. Layout responsif (navigasi bawah di mobile, rail di tablet, sidebar penuh di desktop). Transisi halaman halus via `<Link viewTransition>` di Next.js 16.
 3. **Informasi & Feedback (Toast, Skeleton, Empty State)**: Gunakan **Sonner** untuk toast (maksimal 3 bersamaan). Gunakan Skeleton sesuai tata letak untuk mencegah CLS dibanding spinner.
 4. **Wadah & Layout (Card, Modal, Sheet)**: Dialog/Modal dengan penguncian scroll dan focus trapping otomatis (Base UI/Radix). Gunakan bottom sheet di mobile dan side sheet di desktop.
 

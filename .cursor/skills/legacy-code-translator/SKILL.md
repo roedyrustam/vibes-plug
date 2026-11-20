@@ -21,7 +21,7 @@ version: "4.8.0"
 - **Testing & Anti-Slop Gates**: `autonomous-tdd-debugger` (shadow execution comparison suites), `anti-slop` (zero truncation, no stubbed mocks), `zero-tech-debt-auditor`.
 
 ### Description
-A systematic, risk-mitigated engineering methodology for migrating large, business-critical legacy codebases (PHP 5/7, Python 2, jQuery, old React Class Components, AngularJS) to modern 2026 enterprise stacks (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) without business downtime or regression. Employs the **Strangler Fig pattern**, **Shadow Execution Harnesses**, and **Golden Master Characterization Tests**.
+A systematic, risk-mitigated engineering methodology for migrating large, business-critical legacy codebases (PHP 5/7, Python 2, jQuery, old React Class Components, AngularJS) to modern 2026 enterprise stacks (Next.js 16, TypeScript 5.8+, Bun, Rust, Go) without business downtime or regression. Employs the **Strangler Fig pattern**, **Shadow Execution Harnesses**, and **Golden Master Characterization Tests**.
 
 ### 1. Legacy Modernization Strategy Matrix
 
@@ -217,7 +217,7 @@ When modernizing large legacy template trees (e.g. 500+ PHP views, Smarty/Blade 
 - **Pengujian & Gerbang Anti-Slop**: `autonomous-tdd-debugger` (suite komparasi shadow execution), `anti-slop` (nol pemotongan kode, tanpa stub pura-pura), `zero-tech-debt-auditor`.
 
 ### Deskripsi
-Metodologi rekayasa sistematis bagi agen AI untuk memigrasikan basis kode warisan (*legacy codebase*) skala besar (PHP 5/7, Python 2, jQuery, React Class Component lawas) ke stack modern 2026 (Next.js 15, TypeScript 5.8+, Bun, Rust, Go) tanpa gangguan operasional (*zero downtime*) menggunakan pola *Strangler Fig*, *Shadow Execution*, dan *Golden Master Testing*.
+Metodologi rekayasa sistematis bagi agen AI untuk memigrasikan basis kode warisan (*legacy codebase*) skala besar (PHP 5/7, Python 2, jQuery, React Class Component lawas) ke stack modern 2026 (Next.js 16, TypeScript 5.8+, Bun, Rust, Go) tanpa gangguan operasional (*zero downtime*) menggunakan pola *Strangler Fig*, *Shadow Execution*, dan *Golden Master Testing*.
 
 ### Checklist Verifikasi Produksi
 - [ ] **Golden Master Fixtures**: Rekam minimal 50 pasang input/output asli dari sistem lama sebagai pengujian regresi sebelum menulis kode baru.

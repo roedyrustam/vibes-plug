@@ -142,7 +142,7 @@ Launch/Deploy <--- Security/GEO <--- Testing/QA  <--- Frontend/UI
 - [ ] Construct accessible component primitives using Radix UI / Base UI and CVA variants.
 - [ ] Convert UI screenshots, Figma frames, or whiteboard sketches into pixel-perfect frontend components with `screenshot-to-code-expert`.
 - [ ] Integrate data visualizations (Recharts/Tremor/D3) and rich text editors (Tiptap/Lexical).
-- [ ] Build React 19 / Next.js 15, Vue 3, Astro 5, Svelte 5, SolidJS 2, or Angular 19+ apps with state management and Web3 wallets.
+- [ ] Build React 19 / Next.js 16, Vue 3, Astro 7+, Svelte 5, SolidJS 2, or Angular 22+ apps with state management and Web3 wallets.
 - [ ] **MANDATORY**: Automatically scaffold standard pages and the Legal & Privacy Trio: About (`/about`), Profile (`/profile`), Contact (`/contact`), Terms & Conditions (`/terms` or `/terms-and-conditions`), Privacy Policy (`/privacy` or `/privacy-policy`), and User Data Deletion (`/delete-account` or `/data-deletion`) with self-service request UI.
 - [ ] Implement complex forms with React Hook Form + Zod validation.
 - [ ] If 3D Web or Web Games: architect with WebGPU (`WebGPURenderer`, PlayCanvas, or Babylon.js), KTX2 Basis Universal texture compression, Meshopt geometry, fixed-timestep physics loops, zero-GC object pooling, and 3D spatial audio.
@@ -360,7 +360,7 @@ Untuk menjaga efisiensi token tanpa mengurangi kapabilitas dan kedalaman fungsio
 - [ ] Bangun komponen primitif aksesibel menggunakan Radix UI / Base UI dan CVA.
 - [ ] Konversi screenshot antarmuka, frame Figma, atau sketsa whiteboard menjadi komponen frontend siap produksi dengan `screenshot-to-code-expert`.
 - [ ] Integrasikan visualisasi data (Recharts/Tremor/D3) dan editor rich text (Tiptap/Lexical).
-- [ ] Buat halaman React 19 / Next.js 15, Vue 3, Astro 5, Svelte 5, SolidJS 2, atau Angular 19+ dengan wallet Web3.
+- [ ] Buat halaman React 19 / Next.js 16, Vue 3, Astro 7+, Svelte 5, SolidJS 2, atau Angular 22+ dengan wallet Web3.
 - [ ] **MANDATORY**: Otomatis buat halaman standar dan Trio Kepatuhan Hukum & Privasi: About (`/about`), Profile (`/profile`), Contact (`/contact`), Syarat & Ketentuan (`/terms`), Kebijakan Privasi (`/privacy` atau `/privacy-policy`), dan Hapus Data Pengguna (`/delete-account` atau `/data-deletion`) dengan formulir permohonan hapus data mandiri.
 - [ ] Mengimplementasikan formulir kompleks dengan React Hook Form + validasi Zod.
 - [ ] Jika Web 3D atau Web Game: arsitekturkan dengan WebGPU (`WebGPURenderer`, PlayCanvas, atau Babylon.js), kompresi tekstur KTX2 Basis Universal, geometri Meshopt, loop fisika fixed-timestep, zero-GC object pooling, dan audio spasial 3D.

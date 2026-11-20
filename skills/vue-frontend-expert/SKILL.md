@@ -1,12 +1,12 @@
 ---
 name: vue-frontend-expert
-description: "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR."
+description: "Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture / Pengembangan Vue 3.5+ Composition API, Nuxt 4+ (terbaru), Pinia, dan arsitektur SPA/SSR."
 author: "Roedy Rustam"
 version: "4.8.0"
 
 ---
 
-# Vue Frontend Expert (Vue 3 / Nuxt 3)
+# Vue Frontend Expert (Vue 3.5+ / Nuxt 4+ Latest)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -24,25 +24,34 @@ Connects and orchestrates with relevant domain skills:
 - `ui-ux-pro-max` — Design intelligence, layout hierarchies, and Vue component tokens.
 - `visual-ui-auditor` — Multimodal vision auditing of rendered Vue/Nuxt views.
 - `anti-slop` — Anti-slop component craft, zero placeholder stubs, complete reactivity implementations.
-- `performance-web-vitals` — Optimizing Nuxt 3 SSR metrics (LCP, INP, CLS).
+- `performance-web-vitals` — Optimizing Nuxt 4+ SSR metrics (LCP, INP, CLS).
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
-Production-grade guidance for building highly reactive and scalable frontend applications using **Vue 3 (Composition API)** and **Nuxt 3**. Covers the latest ecosystem tools including **Pinia** for state management, **VueUse** for composables, and **Tailwind CSS v4** integration.
+Production-grade guidance for building highly reactive and scalable frontend applications using **Vue 3 (Composition API)** and **Nuxt 4+**. Covers the latest ecosystem tools including **Pinia** for state management, **VueUse** for composables, and **Tailwind CSS v4** integration.
 
 ### Trigger Conditions
 Activate this skill when the user is:
-- Scaffolding a new Vue 3 or Nuxt 3 project.
+- Scaffolding a new Vue 3 or Nuxt 4+ project.
 - Writing or refactoring Vue components using `<script setup>` and Composition API.
 - Managing global state with Pinia.
 - Handling client-side routing with Vue Router or Nuxt's file-based routing.
-- Implementing SSR (Server-Side Rendering) or SSG (Static Site Generation) using Nuxt 3.
+- Implementing SSR (Server-Side Rendering) or SSG (Static Site Generation) using Nuxt 4+.
 
 ---
 
+### Mandatory Scaffolding & Latest Version Protocol
+Always initialize new Vue / Nuxt apps using the latest stable release (Nuxt 3 is EOL — always use Nuxt 4+ with the `app/` directory structure):
+```bash
+# Nuxt 4+ (latest)
+npx nuxi@latest init my-nuxt-app
+# Vue 3.5+ + Vite 8+ (latest)
+npm create vue@latest my-vue-app
+```
+
 ### Core Concepts
 
-#### 1. Vue 3 Composition API & `<script setup>`
+#### 1. Vue 3.5+ Composition API & `<script setup>`
 Use the `<script setup>` syntax by default. It provides better type inference, less boilerplate, and superior performance compared to the Options API.
 
 ```vue
@@ -85,8 +94,8 @@ export const useCounterStore = defineStore('counter', () => {
 })
 ```
 
-#### 3. Nuxt 3 Architecture
-For SSR, SEO optimization, and file-based routing, use Nuxt 3.
+#### 3. Nuxt 4+ Architecture
+For SSR, SEO optimization, and file-based routing, use Nuxt 4+.
 - Data fetching: Use `useAsyncData` or `useFetch` to prevent hydration mismatches.
 - Server API: Utilize the `server/api/` directory for Nitro API routes.
 
@@ -95,7 +104,7 @@ Always leverage [VueUse](https://vueuse.org/) for common composables (e.g., `use
 
 ---
 
-### Production Blueprints (Vue 3.5+ & Nuxt 3.15+)
+### Production Blueprints (Vue 3.5+ & Nuxt 4+.15+)
 
 #### Blueprint 1: Vue 3.5+ Typed Component with Reactive Props Destructure & `defineModel<T>()` (`AdaptiveMetricCard.vue`)
 ```vue
@@ -153,7 +162,7 @@ onMounted(() => {
 </template>
 ```
 
-#### Blueprint 2: Nuxt 3 SSR Hydration-Safe `useAsyncData` & Nitro Server Route
+#### Blueprint 2: Nuxt 4+ SSR Hydration-Safe `useAsyncData` & Nitro Server Route
 ```typescript
 // server/api/metrics.get.ts — Typed Nitro Server Route
 import { defineEventHandler, getQuery, createError } from 'h3';
@@ -187,7 +196,7 @@ export default defineEventHandler(async (event) => {
 ```
 
 ```vue
-<!-- pages/dashboard.vue — Hydration-Safe Nuxt 3 Page Component -->
+<!-- pages/dashboard.vue — Hydration-Safe Nuxt 4+ Page Component -->
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAsyncData, useRoute } from '#imports';
@@ -295,7 +304,7 @@ export function useEventFeed(streamUrl: Ref<string>) {
 ### Hard Guardrails (Declarative Invariants)
 1. **Zero Direct Props Mutation**:
    - Props in Vue 3 `<script setup>` are strictly read-only. Never assign to props (`props.foo = bar`). Use `defineModel()` or emit events via `defineEmits()`.
-2. **Deterministic SSR Hydration Keying in Nuxt 3**:
+2. **Deterministic SSR Hydration Keying in Nuxt 4+**:
    - Every `useAsyncData` invocation MUST provide a deterministic, unique cache key string as its first argument to prevent hydration mismatch errors between server and client.
 3. **Mandatory Tabular Numerals on Numerical Indicators**:
    - All counters, timestamps, latency metrics, and prices in Vue templates MUST declare `tabular-nums`.
@@ -336,22 +345,22 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - `ui-ux-pro-max` — Kecerdasan desain UI/UX, hierarki tata letak, dan token komponen Vue.
 - `visual-ui-auditor` — Audit visual multimodal untuk tampilan antarmuka Vue/Nuxt yang dirender.
 - `anti-slop` — Penegakan anti-slop, nol stub atau placeholder, implementasi reaktivitas penuh.
-- `performance-web-vitals` — Optimasi metrik SSR Nuxt 3 (LCP, INP, CLS).
+- `performance-web-vitals` — Optimasi metrik SSR Nuxt 4+ (LCP, INP, CLS).
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
-Panduan tingkat produksi untuk membangun aplikasi frontend reaktif dan terukur menggunakan **Vue 3 (Composition API)** dan **Nuxt 3**. Mencakup pengelolaan state dengan **Pinia**, utilitas **VueUse**, dan integrasi **Tailwind CSS v4**.
+Panduan tingkat produksi untuk membangun aplikasi frontend reaktif dan terukur menggunakan **Vue 3 (Composition API)** dan **Nuxt 4+**. Mencakup pengelolaan state dengan **Pinia**, utilitas **VueUse**, dan integrasi **Tailwind CSS v4**.
 
 ### Kondisi Pemicu
 Aktifkan skill ini ketika pengguna sedang:
-- Memulai proyek Vue 3 atau Nuxt 3 baru.
+- Memulai proyek Vue 3 atau Nuxt 4+ baru.
 - Menulis ulang (refactoring) komponen ke `<script setup>` dan Composition API.
 - Mengelola state global dengan Pinia (bukan Vuex).
-- Menerapkan SSR (Server-Side Rendering) dengan Nuxt 3.
+- Menerapkan SSR (Server-Side Rendering) dengan Nuxt 4+.
 
 ---
 
-### Implementasi Pola Kunci (Vue 3 & Nuxt 3)
+### Implementasi Pola Kunci (Vue 3 & Nuxt 4+)
 
 #### 1. Komponen Reaktif Modern dengan `<script setup lang="ts">`
 ```vue

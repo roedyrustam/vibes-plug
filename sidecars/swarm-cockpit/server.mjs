@@ -36,7 +36,7 @@ try {
 
 export const NATIVE_AGENTS = [
   { id: 'swarm-architect', name: 'Swarm Architect', role: 'System Discovery, PRD, ERD & High-Level Architecture', badge: 'ARCH', color: '#8b5cf6' },
-  { id: 'fullstack-craftsman', name: 'Fullstack Craftsman', role: 'React 19, Next.js 15, Tailwind v4, Node/Bun & ORM', badge: 'FULL', color: '#06b6d4' },
+  { id: 'fullstack-craftsman', name: 'Fullstack Craftsman', role: 'React 19, Next.js 16, Tailwind v4, Node/Bun & ORM', badge: 'FULL', color: '#06b6d4' },
   { id: 'quality-guardian', name: 'Quality Guardian', role: 'Testing, TDD Debugging, Anti-Slop Audit & Red-Teaming', badge: 'QA', color: '#10b981' },
   { id: 'data-rag-architect', name: 'Data RAG Architect', role: 'Postgres DDL, Hybrid Vector/Graph RAG, OLAP & ReBAC', badge: 'DATA', color: '#f59e0b' },
   { id: 'fintech-payment-sentinel', name: 'FinTech Payment Sentinel', role: 'DOKU Checkout, SNAP BI Direct API & Atomic Ledgers', badge: 'FIN', color: '#ec4899' },

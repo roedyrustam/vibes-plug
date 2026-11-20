@@ -1,6 +1,6 @@
 ---
 alwaysApply: false
-description: "Vibes-Plug Frontend & UI Craftsmanship — React 19, Next.js 15, Tailwind v4, 5-state UI contract, tabular-nums, and WCAG 2.2"
+description: "Vibes-Plug Frontend & UI Craftsmanship — React 19.2+, Next.js 16+ (latest), Tailwind v4, 5-state UI contract, tabular-nums, and WCAG 2.2"
 globs: "**/*.{tsx,jsx,vue,svelte,css,scss,html}"
 ---
 
@@ -24,6 +24,6 @@ Every button, form control, navigation link, and interactive widget MUST define 
 
 ## 3. Tech Stack Conventions
 - **React 19**: Use `useActionState`, `useOptimistic`, `use`, Server Actions. No unnecessary `useEffect`.
-- **Next.js 15**: Async Request APIs (`await params`, `await searchParams`), 'use cache' directives, PPR.
+- **All Frontend Frameworks at `@latest`**: Let the user choose their framework if unspecified, and ALWAYS scaffold with the latest stable release: **Next.js 16+** (`create-next-app@latest`, Turbopack, Cache Components, `proxy.ts`), **Vite 8 + React 19.2+** (`create-vite@latest`), **Nuxt 4+ / Vue 3.5+** (`nuxi@latest init`), **SvelteKit 3+ / Svelte 5** (`sv create`), **Astro 7+** (`create-astro@latest`), **Angular 22+** (`@angular/cli@latest`), **SolidStart / SolidJS 2+** (`init solid@latest`), or **HTMX 2.x** (`htmx.org@latest`).
 - **Tailwind CSS v4**: CSS-first configuration via `@theme`, OKLCH color spaces.
 - **Accessibility**: Semantic HTML (`<main>`, `<nav>`, `<article>`), WCAG 2.2 AA contrast, proper ARIA labels.

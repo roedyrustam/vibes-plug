@@ -1,9 +1,9 @@
 {
   "schema": "vibes-skill-slices/v4.8.0",
   "version": "4.8.0",
-  "compiledAt": "2026-11-19T05:55:07.254Z",
+  "compiledAt": "2026-11-20T12:03:14.397Z",
   "totalSkills": 179,
-  "totalCodeBlueprints": 1205,
+  "totalCodeBlueprints": 1215,
   "domains": {
     "ai-llm": {
       "count": 36,
@@ -49,7 +49,7 @@
     },
     "frontend": {
       "count": 31,
-      "blueprints": 268,
+      "blueprints": 278,
       "skills": [
         "accessibility-testing-expert",
         "angular-expert",
@@ -228,9 +228,9 @@
     }
   },
   "metrics": {
-    "fullRegistryTokensApprox": 954429,
-    "compiledSlicesTokensApprox": 143496,
-    "avgTokensPerSlice": 802,
+    "fullRegistryTokensApprox": 955895,
+    "compiledSlicesTokensApprox": 142842,
+    "avgTokensPerSlice": 798,
     "tokenReductionPercent": "85%"
   },
   "slices": {
@@ -1340,7 +1340,7 @@
       "skill": "angular-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store",
+      "description": "Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore",
       "actions": [
         "audit",
         "verify",
@@ -1364,13 +1364,20 @@
       ],
       "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 7,
+      "codeBlueprintsCount": 8,
       "languagesAvailable": [
+        "bash",
         "typescript",
         "html",
         "scss"
       ],
       "codeBlueprints": [
+        {
+          "title": "Mandatory Scaffolding & Latest Version Protocol",
+          "language": "bash",
+          "lines": 3,
+          "preview": "npx @angular/cli@latest new my-angular-app --standalone --style=css --ssr\n# Upgrade existing project to latest:\nnpx @angular/cli@latest update @angular/core @angular/cli"
+        },
         {
           "title": "1. Standalone Component with Signals & Signal Inputs",
           "language": "typescript",
@@ -1394,12 +1401,6 @@
           "language": "scss",
           "lines": 40,
           "preview": "@use '@angular/material' as mat;\n\n// Define M3 Theme with Color, Typography, and Density\n$app-theme: mat.define-theme((\n  color: (\n    theme-type: light,"
-        },
-        {
-          "title": "Blueprint",
-          "language": "typescript",
-          "lines": 55,
-          "preview": "import { Component, ChangeDetectionStrategy, signal } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nexport class ProductM3CardComponent {\n  title = signal('Material 3 Enterprise Suite');\n  category = signal('Design Engineering');\n  description = signal('Production ready Angular 19 component leveraging M3 tokens and signals.');"
         }
       ],
       "connectedSkillsCount": 16,
@@ -1420,8 +1421,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec angular-expert verify",
       "snippet": {
-        "lang": "typescript",
-        "code": "import { Component, signal, computed, input, output, ChangeDetectionStrategy } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nexport interface UserItem {\n  id: string;\n  name: string;\n  role: 'admin' | 'member';\n}\n\n@Component({\n  selector: 'app-user-card',\n  standalone: true,\n  imports: [CommonModule],\n  template: `\n    <div class=\"user-card\" [class.admin]=\"isAdmin()\">\n      <h3>{{ user().name }}</h3>\n      <p>Role: {{ user().role }}</p>\n      <button (click)=\"onRoleChange()\">Promote</button>\n    </div>"
+        "lang": "bash",
+        "code": "npx @angular/cli@latest new my-angular-app --standalone --style=css --ssr\n# Upgrade existing project to latest:\nnpx @angular/cli@latest update @angular/core @angular/cli"
       }
     },
     "anti-slop": {
@@ -1827,7 +1828,7 @@
           "title": "3. Dynamic Open Graph (OG) Image Generator",
           "language": "tsx",
           "lines": 106,
-          "preview": "// app/api/og/route.tsx (Next.js 15 + @vercel/og / Satori)\nimport { ImageResponse } from 'next/og';\nexport const runtime = 'edge';\n\nexport async function GET(req: NextRequest) {\n  const { searchParams } = new URL(req.url);"
+          "preview": "// app/api/og/route.tsx (Next.js 16 + @vercel/og / Satori)\nimport { ImageResponse } from 'next/og';\nexport const runtime = 'edge';\n\nexport async function GET(req: NextRequest) {\n  const { searchParams } = new URL(req.url);"
         },
         {
           "title": "Blueprint",
@@ -1867,7 +1868,7 @@
       "cli": "vibes skill exec app-promo-media-expert verify",
       "snippet": {
         "lang": "tsx",
-        "code": "// app/api/og/route.tsx (Next.js 15 + @vercel/og / Satori)\nimport { ImageResponse } from 'next/og';\nexport const runtime = 'edge';\n\nexport async function GET(req: NextRequest) {\n  const { searchParams } = new URL(req.url);\n  const title = searchParams.get('title') || 'Next-Gen AI Workspace';\n  const subtitle = searchParams.get('subtitle') || 'Built with VibesPlug Swarm Architecture';\n  const tag = searchParams.get('tag') || 'v3.0 Production Ready';\n\n  return new ImageResponse(\n    (\n      <div\n        style={{\n          height: '100%',\n          width: '100%',\n          display: 'flex',\n          flexDirection: 'column',"
+        "code": "// app/api/og/route.tsx (Next.js 16 + @vercel/og / Satori)\nimport { ImageResponse } from 'next/og';\nexport const runtime = 'edge';\n\nexport async function GET(req: NextRequest) {\n  const { searchParams } = new URL(req.url);\n  const title = searchParams.get('title') || 'Next-Gen AI Workspace';\n  const subtitle = searchParams.get('subtitle') || 'Built with VibesPlug Swarm Architecture';\n  const tag = searchParams.get('tag') || 'v3.0 Production Ready';\n\n  return new ImageResponse(\n    (\n      <div\n        style={{\n          height: '100%',\n          width: '100%',\n          display: 'flex',\n          flexDirection: 'column',"
       }
     },
     "apple-ecosystem-expert": {
@@ -1956,7 +1957,7 @@
       "skill": "astro-framework-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Astro 5+ framework: Content Collections, Islands, and View Transitions",
+      "description": "Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions",
       "actions": [
         "audit",
         "verify",
@@ -1980,13 +1981,19 @@
       ],
       "guardRulesCount": 7,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 14,
+      "codeBlueprintsCount": 15,
       "languagesAvailable": [
         "bash",
         "typescript",
         "astro"
       ],
       "codeBlueprints": [
+        {
+          "title": "Blueprint",
+          "language": "bash",
+          "lines": 3,
+          "preview": "npm create astro@latest my-astro-app\n# Upgrade existing project to latest:\nnpx @astrojs/upgrade"
+        },
         {
           "title": "1. Project Setup",
           "language": "bash",
@@ -2010,12 +2017,6 @@
           "language": "astro",
           "lines": 22,
           "preview": "---\n// Only hydrate interactive components — rest ships as 0 JS\nimport Newsletter from '../components/Newsletter.tsx';\nimport Counter from '../components/Counter.vue';\nimport Chart from '../components/Chart.svelte';\n---"
-        },
-        {
-          "title": "4. View Transitions",
-          "language": "astro",
-          "lines": 15,
-          "preview": "---\n// src/layouts/BaseLayout.astro\nimport { ViewTransitions } from 'astro:transitions';\n---\n<html>\n  <head>"
         }
       ],
       "connectedSkillsCount": 16,
@@ -2037,7 +2038,7 @@
       "cli": "vibes skill exec astro-framework-expert verify",
       "snippet": {
         "lang": "bash",
-        "code": "# Create new Astro project\nnpm create astro@latest ./my-site -- --template blog --typescript strict\n\n# Add integrations\nnpx astro add tailwind react mdx sitemap"
+        "code": "npm create astro@latest my-astro-app\n# Upgrade existing project to latest:\nnpx @astrojs/upgrade"
       }
     },
     "async-queue-temporal-expert": {
@@ -2180,7 +2181,7 @@
           "preview": "import { generateCodeVerifier, generateCodeChallenge } from 'oslo/oauth2';\n\nconst codeVerifier = generateCodeVerifier();\nconst codeChallenge = await generateCodeChallenge(codeVerifier);\nsessionStorage.setItem('pkce_verifier', codeVerifier);\n"
         },
         {
-          "title": "4. Clerk — Next.js 15 Integration",
+          "title": "4. Clerk — Next.js 16 Integration",
           "language": "typescript",
           "lines": 12,
           "preview": "// middleware.ts\nimport { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';\nconst isPublicRoute = createRouteMatcher(['/', '/sign-in(.*)', '/sign-up(.*)', '/api/webhooks(.*)']);\n\nexport default clerkMiddleware(async (auth, req) => {\n  if (!isPublicRoute(req)) await auth.protect();"
@@ -2625,7 +2626,7 @@
       "cli": "vibes skill exec blockchain-web3-expert verify",
       "snippet": {
         "lang": "typescript",
-        "code": "// src/lib/web3/wagmi-config.ts\nimport { http, createConfig } from 'wagmi';\nexport const wagmiConfig = createConfig({\n  chains: [base, mainnet, arbitrum],\n  connectors: [\n    injected(),\n    coinbaseWallet({ appName: 'Vibes Web3 dApp' }),\n    walletConnect({ projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID! }),\n  ],\n  transports: {\n    [base.id]: http(process.env.BASE_RPC_URL || 'https://mainnet.base.org'),\n    [mainnet.id]: http(process.env.ETH_RPC_URL),\n    [arbitrum.id]: http(process.env.ARBITRUM_RPC_URL),\n  },\n  ssr: true, // Crucial for Next.js 15 App Router hydration safety\n});"
+        "code": "// src/lib/web3/wagmi-config.ts\nimport { http, createConfig } from 'wagmi';\nexport const wagmiConfig = createConfig({\n  chains: [base, mainnet, arbitrum],\n  connectors: [\n    injected(),\n    coinbaseWallet({ appName: 'Vibes Web3 dApp' }),\n    walletConnect({ projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID! }),\n  ],\n  transports: {\n    [base.id]: http(process.env.BASE_RPC_URL || 'https://mainnet.base.org'),\n    [mainnet.id]: http(process.env.ETH_RPC_URL),\n    [arbitrum.id]: http(process.env.ARBITRUM_RPC_URL),\n  },\n  ssr: true, // Crucial for Next.js 16 App Router hydration safety\n});"
       }
     },
     "brainstorming": {
@@ -3436,8 +3437,10 @@
           "preview": "CREATE TABLE IF NOT EXISTS user_privacy_consents (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,\n  consent_type VARCHAR(64) NOT NULL, -- 'MARKETING', 'ANALYTICS', 'TERMS_OF_SERVICE'\n  is_granted BOOLEAN NOT NULL DEFAULT FALSE,\n  policy_version VARCHAR(16) NOT NULL,"
         }
       ],
-      "connectedSkillsCount": 17,
+      "connectedSkillsCount": 19,
       "connectedSkills": [
+        "sovereign-id-compliance-expert",
+        "doku-payment-gateway",
         "database-orm-expert",
         "double-entry-ledger-fintech-expert",
         "saas-multi-tenant",
@@ -3447,9 +3450,7 @@
         "fga-rebac-authorization-expert",
         "zero-trust-secret-vault",
         "logging-error-tracking-expert",
-        "data-telemetry-expert",
-        "autonomous-red-teamer",
-        "prompt-injection-firewall"
+        "data-telemetry-expert"
       ],
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec compliance-gdpr-privacy-expert verify",
@@ -3913,7 +3914,7 @@
       ],
       "codeBlueprints": [
         {
-          "title": "Next.js 15 + OTel Instrumentation",
+          "title": "Next.js 16 + OTel Instrumentation",
           "language": "typescript",
           "lines": 26,
           "preview": "// instrumentation.ts (Next.js built-in OTel support)\nexport async function register() {\n  if (process.env.NEXT_RUNTIME === 'nodejs') {\n    const { NodeSDK } = await import('@opentelemetry/sdk-node');\n    const { OTLPTraceExporter } = await import('@opentelemetry/exporter-trace-otlp-http');\n    const { OTLPMetricExporter } = await import('@opentelemetry/exporter-metrics-otlp-http');"
@@ -5724,7 +5725,7 @@
       ],
       "codeBlueprints": [
         {
-          "title": "Zero-Flicker Server Component Pattern (Next.js 15 / PostHog)",
+          "title": "Zero-Flicker Server Component Pattern (Next.js 16 / PostHog)",
           "language": "typescript",
           "lines": 33,
           "preview": "// src/lib/posthog-server.ts\nimport { PostHog } from 'posthog-node';\nexport function getPostHogServer(): PostHog {\n  if (!posthogClient) {\n    posthogClient = new PostHog(process.env.POSTHOG_API_KEY!, {\n      host: process.env.POSTHOG_HOST || 'https://us.i.posthog.com',"
@@ -6169,7 +6170,7 @@
           "preview": "// components/signup-form.tsx\n'use client';\nconst signupSchema = z.object({\n  name: z.string().min(2, 'Name must be at least 2 characters'),\n  email: z.string().email('Please enter a valid email'),\n  password: z.string()"
         },
         {
-          "title": "2. Server Actions + useActionState (React 19 / Next.js 15)",
+          "title": "2. Server Actions + useActionState (React 19 / Next.js 16)",
           "language": "typescript",
           "lines": 46,
           "preview": "// actions/signup.ts\n'use server';\nconst signupSchema = z.object({\n  name: z.string().min(2),\n  email: z.string().email(),\n  password: z.string().min(8),"
@@ -6847,7 +6848,7 @@
           "preview": "// src/components/ui/AccessibleModal.tsx\n'use client';\ninterface ModalProps {\n  isOpen: boolean;\n  onClose: () => void;\n  title: string;"
         },
         {
-          "title": "Type-Safe Locale Routing with `next-intl` (Next.js 15)",
+          "title": "Type-Safe Locale Routing with `next-intl` (Next.js 16)",
           "language": "typescript",
           "lines": 14,
           "preview": "// src/i18n/request.ts\nimport { getRequestConfig } from 'next-intl/server';\nexport const locales = ['en', 'id', 'ar'] as const;\nexport type Locale = (typeof locales)[number];\n\nexport default getRequestConfig(async ({ locale }) => {"
@@ -7420,14 +7421,21 @@
       ],
       "guardRulesCount": 10,
       "nfrContract": "Server-side HTML render time < 20ms, 100% CSRF token enforcement on POST/PUT/DELETE, zero raw unescaped HTML interpolation; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 13,
+      "codeBlueprintsCount": 14,
       "languagesAvailable": [
+        "bash",
         "html",
         "javascript",
         "python",
         "go"
       ],
       "codeBlueprints": [
+        {
+          "title": "Mandatory Latest Version Installation",
+          "language": "bash",
+          "lines": 1,
+          "preview": "npm install htmx.org@latest alpinejs@latest"
+        },
         {
           "title": "1. HTMX Setup",
           "language": "html",
@@ -7451,12 +7459,6 @@
           "language": "html",
           "lines": 12,
           "preview": "<input\n  type=\"search\"\n  name=\"q\"\n  placeholder=\"Search products...\"\n  hx-get=\"/api/products/search\"\n  hx-trigger=\"input changed delay:300ms, search\""
-        },
-        {
-          "title": "4. Inline Editing",
-          "language": "html",
-          "lines": 11,
-          "preview": "<!-- Display mode -->\n<div id=\"user-name-1\" hx-get=\"/users/1/edit\" hx-trigger=\"dblclick\" hx-swap=\"outerHTML\">\n  <span>John Doe</span>\n</div>\n\n<!-- Server returns edit form on double-click -->"
         }
       ],
       "connectedSkillsCount": 17,
@@ -7477,8 +7479,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec htmx-hypermedia-expert verify",
       "snippet": {
-        "lang": "html",
-        "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>HTMX App</title>\n  <!-- HTMX 2.0 -->\n  <script src=\"https://unpkg.com/htmx.org@2.0.4\"></script>\n  <!-- Alpine.js for client-side micro-interactions -->\n  <script defer src=\"https://unpkg.com/alpinejs@3.14.9/dist/cdn.min.js\"></script>\n  <!-- Tailwind CSS -->\n  <link href=\"/styles.css\" rel=\"stylesheet\">\n</head>\n<body>\n  <!-- Application content -->\n</body>\n</html>"
+        "lang": "bash",
+        "code": "npm install htmx.org@latest alpinejs@latest"
       }
     },
     "js-backend-expert": {
@@ -8675,7 +8677,7 @@
           "title": "Repository Structure",
           "language": "text",
           "lines": 14,
-          "preview": "my-saas/\n├── apps/\n│   ├── web/          # Next.js 15 main app\n│   ├── admin/        # Next.js 15 super admin (subdomain)\n│   └── api/          # Hono/Fastify backend\n├── packages/"
+          "preview": "my-saas/\n├── apps/\n│   ├── web/          # Next.js 16 main app\n│   ├── admin/        # Next.js 16 super admin (subdomain)\n│   └── api/          # Hono/Fastify backend\n├── packages/"
         },
         {
           "title": "turbo.json (v2 Syntax)",
@@ -9207,7 +9209,7 @@
       "skill": "nextjs-app-router-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Next.js 15 App Router: RSC, Server Actions, PPR, and caching",
+      "description": "Next.js 16+ (latest) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, and React Compiler",
       "actions": [
         "audit",
         "verify",
@@ -9229,44 +9231,45 @@
         "health",
         "budget"
       ],
-      "guardRulesCount": 8,
+      "guardRulesCount": 9,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 15,
+      "codeBlueprintsCount": 19,
       "languagesAvailable": [
+        "bash",
         "typescript",
         "tsx",
         "text"
       ],
       "codeBlueprints": [
         {
-          "title": "1. Async Request APIs (Mandatory in Next.js 15)",
+          "title": "Mandatory Scaffolding & Latest Version Protocol",
+          "language": "bash",
+          "lines": 4,
+          "preview": "# Recommended scaffolding (always installs latest Next.js 16+, React 19.2+, Tailwind CSS v4, Turbopack)\nnpx create-next-app@latest my-app --typescript --tailwind --eslint --app --src-dir --turbopack\n# Or upgrade an existing project to latest:\nnpm install next@latest react@latest react-dom@latest"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 15,
+          "preview": "// next.config.ts (Next.js 16+ Standard)\nimport type { NextConfig } from 'next';\n\nconst nextConfig: NextConfig = {\n  cacheComponents: true,\n  reactCompiler: true,"
+        },
+        {
+          "title": "Blueprint",
+          "language": "typescript",
+          "lines": 14,
+          "preview": "// proxy.ts (Next.js 16+ Network Boundary — replaces middleware.ts)\nimport { NextResponse, type NextRequest } from 'next/server';\nexport function proxy(request: NextRequest) {\n  const sessionCookie = request.cookies.get('session_token');\n  if (request.nextUrl.pathname.startsWith('/dashboard') && !sessionCookie) {\n    return NextResponse.redirect(new URL('/login', request.url));"
+        },
+        {
+          "title": "Blueprint",
           "language": "typescript",
           "lines": 31,
           "preview": "// app/blog/[slug]/page.tsx\nimport { cookies, headers } from 'next/headers';\ninterface PageProps {\n  params: Promise<{ slug: string }>;\n  searchParams: Promise<{ preview?: string }>;\n}"
         },
         {
-          "title": "2. Next-Gen Caching with `'use cache'`, `cacheLife()`, and `cacheTag()`",
+          "title": "2. Cache Components with `'use cache'`, `cacheLife()`, and `cacheTag()`",
           "language": "typescript",
           "lines": 15,
-          "preview": "// lib/cached-data.ts\nimport { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from 'next/cache';\nexport async function getProductCatalog(category: string) {\n  'use cache';\n  cacheLife('hours'); // Predefined profile: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'max'\n  cacheTag('products', `category-${category}`);"
-        },
-        {
-          "title": "Blueprint",
-          "language": "typescript",
-          "lines": 11,
-          "preview": "// In Server Action (app/actions/products.ts)\n'use server';\nexport async function updateProductStock(productId: string, inStock: boolean) {\n  await db.products.update({ where: { id: productId }, data: { inStock } });\n  revalidateTag('products'); // Purges all cached product queries instantly\n  return { success: true };"
-        },
-        {
-          "title": "3. React 19 Server Actions with `useActionState` & `useOptimistic`",
-          "language": "tsx",
-          "lines": 66,
-          "preview": "// app/tasks/task-form.tsx\n'use client';\ninterface Task {\n  id: string;\n  title: string;\n  pending?: boolean;"
-        },
-        {
-          "title": "4. Parallel & Intercepting Routes (URL-Preserving Modals)",
-          "language": "text",
-          "lines": 8,
-          "preview": "app/\n ├── @modal/\n │   ├── (.)photos/[id]/page.tsx  <-- Intercepts client navigation to /photos/[id]\n │   └── default.tsx              <-- Returns null when modal is inactive\n ├── photos/\n │   └── [id]/page.tsx            <-- Renders standalone full page on direct refresh"
+          "preview": "// lib/cached-data.ts\nimport { cacheLife, cacheTag } from 'next/cache';\nexport async function getProductCatalog(category: string) {\n  'use cache';\n  cacheLife('hours'); // Predefined profile: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'max'\n  cacheTag('products', `category-${category}`);"
         }
       ],
       "connectedSkillsCount": 18,
@@ -9287,8 +9290,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec nextjs-app-router-expert verify",
       "snippet": {
-        "lang": "typescript",
-        "code": "// app/blog/[slug]/page.tsx\nimport { cookies, headers } from 'next/headers';\ninterface PageProps {\n  params: Promise<{ slug: string }>;\n  searchParams: Promise<{ preview?: string }>;\n}\n\nexport default async function BlogPostPage({ params, searchParams }: PageProps) {\n  // Await params and searchParams concurrently\n  const [{ slug }, { preview }] = await Promise.all([params, searchParams]);\n  const cookieStore = await cookies();\n  const headerStore = await headers();\n\n  const isPreview = preview === 'true' && cookieStore.get('preview_token')?.value === process.env.PREVIEW_SECRET;\n  const post = await db.posts.findUnique({ where: { slug } });\n\n  if (!post || (!post.published && !isPreview)) {\n    notFound();"
+        "lang": "bash",
+        "code": "# Recommended scaffolding (always installs latest Next.js 16+, React 19.2+, Tailwind CSS v4, Turbopack)\nnpx create-next-app@latest my-app --typescript --tailwind --eslint --app --src-dir --turbopack\n# Or upgrade an existing project to latest:\nnpm install next@latest react@latest react-dom@latest"
       }
     },
     "olap-columnar-analytics-expert": {
@@ -11511,7 +11514,7 @@
           "preview": "┌──────────────────────────────────────────────────────────────────┐\n│                   SAAS TRANSFORMATION PIPELINE                   │\n│  Phase 1: Discovery & Architecture Audit (Scanner script)        │\n│  Phase 2: Multi-Tenancy & Data Isolation (saas-multi-tenant)    │\n│  Phase 3: Identity & RBAC Management (authentication-identity)  │\n│  Phase 4: Billing, Subscriptions & Webhooks (saas-billing)      │"
         },
         {
-          "title": "Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 15 / Edge)",
+          "title": "Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 16 / Edge)",
           "language": "typescript",
           "lines": 27,
           "preview": "import { NextRequest, NextResponse } from 'next/server';\n\nexport interface TenantRoutingConfig {\n  rootDomain: string;\n  adminSubdomain: string;\n}"
@@ -12127,7 +12130,7 @@
       "skill": "senior-frontend",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4",
+      "description": "Senior frontend: React 19, Next.js 16+ (latest), TypeScript, and Tailwind v4",
       "actions": [
         "audit",
         "verify",
@@ -12261,7 +12264,7 @@
           "title": "Crawlability & Indexing",
           "language": "typescript",
           "lines": 19,
-          "preview": "// Next.js 15 — metadata API for complete SEO\n// app/layout.tsx\nexport const metadata: Metadata = {\n  metadataBase: new URL('https://myapp.com'),\n  title: {\n    default: 'My SaaS — One-line value proposition',"
+          "preview": "// Next.js 16 — metadata API for complete SEO\n// app/layout.tsx\nexport const metadata: Metadata = {\n  metadataBase: new URL('https://myapp.com'),\n  title: {\n    default: 'My SaaS — One-line value proposition',"
         },
         {
           "title": "Blueprint",
@@ -12376,7 +12379,7 @@
       "skill": "solidjs-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "SolidJS 2 and SolidStart fine-grained reactivity and server rendering",
+      "description": "SolidJS 2+ and SolidStart (latest) fine-grained reactivity and server rendering",
       "actions": [
         "audit",
         "verify",
@@ -12400,12 +12403,19 @@
       ],
       "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 3,
+      "codeBlueprintsCount": 4,
       "languagesAvailable": [
+        "bash",
         "tsx",
         "typescript"
       ],
       "codeBlueprints": [
+        {
+          "title": "Mandatory Scaffolding & Latest Version Protocol",
+          "language": "bash",
+          "lines": 3,
+          "preview": "npm init solid@latest my-solid-app\n# Or install latest packages directly:\nnpm install solid-js@latest @solidjs/start@latest"
+        },
         {
           "title": "Production SolidStart Server Action & Store Pattern",
           "language": "tsx",
@@ -12443,8 +12453,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec solidjs-expert verify",
       "snippet": {
-        "lang": "tsx",
-        "code": "// src/components/CartManager.tsx\nimport { createSignal, createResource, For, Show } from 'solid-js';\ninterface CartItem {\n  id: string;\n  title: string;\n  quantity: number;\n  priceCents: number;\n}\n\n// Server Action executing strictly on the server\nexport const updateCartServerAction = action(async (formData: FormData) => {\n  'use server';\n  const itemId = formData.get('itemId') as string;\n  const quantity = parseInt(formData.get('quantity') as string, 10);\n  // Atomic database update via ORM...\n  return json({ success: true, itemId, quantity });\n});\n"
+        "lang": "bash",
+        "code": "npm init solid@latest my-solid-app\n# Or install latest packages directly:\nnpm install solid-js@latest @solidjs/start@latest"
       }
     },
     "sovereign-id-compliance-expert": {
@@ -13119,7 +13129,7 @@
       "skill": "svelte-sveltekit-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Svelte 5 Runes and SvelteKit 2 server-first application architecture",
+      "description": "Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture",
       "actions": [
         "audit",
         "verify",
@@ -13143,12 +13153,19 @@
       ],
       "guardRulesCount": 8,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 9,
+      "codeBlueprintsCount": 10,
       "languagesAvailable": [
+        "bash",
         "svelte",
         "typescript"
       ],
       "codeBlueprints": [
+        {
+          "title": "Mandatory Scaffolding & Latest Version Protocol",
+          "language": "bash",
+          "lines": 3,
+          "preview": "npx sv create my-svelte-app\n# Upgrade existing project to latest:\nnpm install svelte@latest @sveltejs/kit@latest"
+        },
         {
           "title": "2. Component Composition with Svelte 5 Snippets (No Slots)",
           "language": "svelte",
@@ -13168,16 +13185,10 @@
           "preview": "<!-- src/lib/components/SearchInput.svelte -->\n<script lang=\"ts\">\n  interface Props {\n    value: string;\n    placeholder?: string;\n  }"
         },
         {
-          "title": "4. SvelteKit 2 Server Actions with Progressive Enhancement",
+          "title": "4. SvelteKit 3+ Server Actions with Progressive Enhancement",
           "language": "typescript",
           "lines": 31,
           "preview": "// src/routes/tasks/+page.server.ts\nimport { fail } from '@sveltejs/kit';\nexport const load: PageServerLoad = async ({ locals }) => {\n  // Non-blocking streaming promise: do not await slow telemetry data\n  return {\n    tasks: await db.tasks.findMany({ orderBy: { createdAt: 'desc' } }),"
-        },
-        {
-          "title": "Blueprint",
-          "language": "svelte",
-          "lines": 79,
-          "preview": "<!-- src/routes/tasks/+page.svelte -->\n<script lang=\"ts\">\n      const title = formData.get('title')?.toString().trim();\n      if (!title) {\n        cancel();\n        return;"
         }
       ],
       "connectedSkillsCount": 17,
@@ -13198,8 +13209,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec svelte-sveltekit-expert verify",
       "snippet": {
-        "lang": "svelte",
-        "code": "<!-- src/lib/components/DataTable.svelte -->\n<script lang=\"ts\" generics=\"T\">\n  interface Props {\n    items: T[];\n    header: Snippet;\n    row: Snippet<[T]>;\n    empty?: Snippet;\n  }\n\n  let { items, header, row, empty }: Props = $props();\n</script>\n\n<div class=\"overflow-x-auto rounded-xl border border-border bg-card\">\n  <table class=\"w-full text-left text-sm\">\n    <thead class=\"border-b border-border bg-muted/50 text-xs uppercase font-semibold text-muted-foreground\">\n      {@render header()}\n    </thead>\n    <tbody class=\"divide-y divide-border\">"
+        "lang": "bash",
+        "code": "npx sv create my-svelte-app\n# Upgrade existing project to latest:\nnpm install svelte@latest @sveltejs/kit@latest"
       }
     },
     "svg-animation-motion-expert": {
@@ -14078,7 +14089,7 @@
           "preview": "┌─────────────────────────────────────────────────────────────┐\n│                       CLIENT LAYER                          │\n│  useChat / useCompletion / Generative UI React Components    │\n│  • Optimistic updates  • Stream reader  • Tool invocation   │\n└──────────────────────────────▲──────────────────────────────┘\n                               │ HTTP SSE / Data Stream Protocol"
         },
         {
-          "title": "1. Next.js 15 Route Handler with Multi-Step Tool Calling & Step Hooks",
+          "title": "1. Next.js 16 Route Handler with Multi-Step Tool Calling & Step Hooks",
           "language": "typescript",
           "lines": 47,
           "preview": "// app/api/chat/route.ts\nimport { anthropic } from '@ai-sdk/anthropic';\nexport const maxDuration = 60; // Allow long-running agentic reasoning\n\nexport async function POST(req: Request) {\n  const { messages } = await req.json();"
@@ -14304,7 +14315,7 @@
       "skill": "vue-frontend-expert",
       "version": "4.8.0",
       "domain": "frontend",
-      "description": "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture",
+      "description": "Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture",
       "actions": [
         "audit",
         "verify",
@@ -14328,14 +14339,21 @@
       ],
       "guardRulesCount": 10,
       "nfrContract": "LCP < 1.8s, INP < 100ms, CLS < 0.05, 1px crisp borders, 3-tier radius (6px/8px/12px), `tabular-nums`, 5-state interactive contract; 100% complete zero-placeholder output verified via `node scripts/check-anti-slop.js --strict`",
-      "codeBlueprintsCount": 8,
+      "codeBlueprintsCount": 9,
       "languagesAvailable": [
+        "bash",
         "vue",
         "typescript"
       ],
       "codeBlueprints": [
         {
-          "title": "1. Vue 3 Composition API & `<script setup>`",
+          "title": "Mandatory Scaffolding & Latest Version Protocol",
+          "language": "bash",
+          "lines": 4,
+          "preview": "# Nuxt 4+ (latest)\nnpx nuxi@latest init my-nuxt-app\n# Vue 3.5+ + Vite 8+ (latest)\nnpm create vue@latest my-vue-app"
+        },
+        {
+          "title": "1. Vue 3.5+ Composition API & `<script setup>`",
           "language": "vue",
           "lines": 18,
           "preview": "<script setup lang=\"ts\">\nimport { ref, computed, onMounted } from 'vue'\n\nconst count = ref(0)\nconst doubleCount = computed(() => count.value * 2)\n"
@@ -14353,16 +14371,10 @@
           "preview": "<script setup lang=\"ts\">\nimport { computed, useTemplateRef, onMounted } from 'vue';\n\ninterface MetricCardProps {\n  label: string;\n  value: number;"
         },
         {
-          "title": "Blueprint 2: Nuxt 3 SSR Hydration-Safe `useAsyncData` & Nitro Server Route",
+          "title": "Blueprint 2: Nuxt 4+ SSR Hydration-Safe `useAsyncData` & Nitro Server Route",
           "language": "typescript",
           "lines": 29,
           "preview": "// server/api/metrics.get.ts — Typed Nitro Server Route\nimport { defineEventHandler, getQuery, createError } from 'h3';\nconst querySchema = z.object({\n  clusterId: z.string().min(1),\n});\n"
-        },
-        {
-          "title": "Blueprint",
-          "language": "vue",
-          "lines": 70,
-          "preview": "<!-- pages/dashboard.vue — Hydration-Safe Nuxt 3 Page Component -->\n<script setup lang=\"ts\">\nimport { computed } from 'vue';\nimport { useAsyncData, useRoute } from '#imports';\n\ninterface ClusterMetricsResponse {"
         }
       ],
       "connectedSkillsCount": 12,
@@ -14383,8 +14395,8 @@
       "fallback": "Gemini 4 -> Gemini 3.8 Flash | Claude Opus 5.5 -> Claude Opus 4.6",
       "cli": "vibes skill exec vue-frontend-expert verify",
       "snippet": {
-        "lang": "vue",
-        "code": "<script setup lang=\"ts\">\nimport { ref, computed, onMounted } from 'vue'\n\nconst count = ref(0)\nconst doubleCount = computed(() => count.value * 2)\n\nfunction increment() {\n  count.value++\n}\n\nonMounted(() => {\n  console.log('Component is mounted!')\n})\n</script>\n\n<template>\n  <button @click=\"increment\">Count is: {{ count }} (Double: {{ doubleCount }})</button>\n</template>"
+        "lang": "bash",
+        "code": "# Nuxt 4+ (latest)\nnpx nuxi@latest init my-nuxt-app\n# Vue 3.5+ + Vite 8+ (latest)\nnpm create vue@latest my-vue-app"
       }
     },
     "wasm-edge-computing-expert": {
@@ -14923,7 +14935,7 @@
       ],
       "codeBlueprints": [
         {
-          "title": "1. WPGraphQL Query Integration (Next.js 15 Server Component)",
+          "title": "1. WPGraphQL Query Integration (Next.js 16 Server Component)",
           "language": "typescript",
           "lines": 47,
           "preview": "const WP_GRAPHQL_ENDPOINT = process.env.WORDPRESS_API_URL || 'https://cms.example.com/graphql';\n\ninterface PostPreview {\n  id: string;\n  title: string;\n  slug: string;"
@@ -14935,7 +14947,7 @@
           "preview": "export async function generateMetadata({ params }: { params: { slug: string } }) {\n  const query = `\n    query GetPostSEO($slug: ID!) {\n      post(id: $slug, idType: SLUG) {\n        title\n        seo {"
         },
         {
-          "title": "Implementasi Pola Kunci (TypeScript & Next.js 15)",
+          "title": "Implementasi Pola Kunci (TypeScript & Next.js 16)",
           "language": "typescript",
           "lines": 27,
           "preview": "const WP_GRAPHQL_ENDPOINT = process.env.WORDPRESS_API_URL || 'https://cms.example.com/graphql';\n\nexport async function ambilArtikelWordPress() {\n  const query = `\n    query DapatkanArtikelTerbaru {\n      posts(first: 10, where: { orderby: { field: DATE, order: DESC } }) {"

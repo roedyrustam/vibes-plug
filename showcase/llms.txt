@@ -39,4 +39,4 @@ npx vibes-plug doctor
 - [Sovereign Anti-Slop Engine](https://github.com/roedyrustam/vibes-plug/blob/main/skills/anti-slop/SKILL.md): 7 pillars of zero AI slop, crisp UI craft, and production-grade code generation.
 - [Rust Programming Expert](https://github.com/roedyrustam/vibes-plug/blob/main/skills/rust-programming-expert/SKILL.md): Rust 2024, Brown University Grounded Permissions Model, and Axum 0.8 APIs.
 - [DOKU & SNAP BI Payment Gateway](https://github.com/roedyrustam/vibes-plug/blob/main/skills/doku-payment-gateway/SKILL.md): Indonesian FinTech SNAP BI, QRIS, Virtual Accounts, and atomic double-entry ledgers.
-- [Senior Frontend Craft](https://github.com/roedyrustam/vibes-plug/blob/main/skills/senior-frontend/SKILL.md): React 19, Next.js 15, Tailwind CSS v4, and WCAG 2.2 accessibility.
+- [Senior Frontend Craft](https://github.com/roedyrustam/vibes-plug/blob/main/skills/senior-frontend/SKILL.md): React 19, Next.js 16, Tailwind CSS v4, and WCAG 2.2 accessibility.

@@ -49,7 +49,7 @@ This skill does NOT replace individual skills — it **coordinates** them into a
 │  └────────────────────────────────────────────────────────────┘  │
 │                                                                  │
 │  ┌─── PHASE 2: Frontend Hardening ────────────────────────────┐  │
-│  │  • senior-frontend (React 19, Next.js 15 App Router)       │  │
+│  │  • senior-frontend (React 19, Next.js 16 App Router)       │  │
 │  │  • design-system-architect (Tokens, Radix, Base UI, WCAG)  │  │
 │  │  • tailwind-expert (CSS-first config, OKLCH, responsive)   │  │
 │  │  • form-validation-expert (React Hook Form, Zod validation)│  │

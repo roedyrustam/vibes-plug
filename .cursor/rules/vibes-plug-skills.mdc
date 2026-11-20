@@ -44,21 +44,21 @@ When addressing specific technical domains in Cursor, look up and read the corre
 ## 2. Frontend & Modern Web
 | Skill Name | Purpose |
 |---|---|
-| `senior-frontend` | React 19, Next.js 15, TypeScript 5.8+, modern web standards |
+| `senior-frontend` | React 19.2+, Next.js 16+ (`next@latest`), TypeScript 5.8+, modern web standards |
 | `tailwind-expert` | Tailwind CSS v4, CSS-first `@theme` configuration |
 | `modern-css-native-expert` | Native CSS 2026: CSS Anchor Positioning, `@starting-style`, View Transitions L2 |
 | `design-system-architect` | UI design systems, design tokens (OKLCH), headless primitives |
 | `ui-ux-pro-max` | Comprehensive UI/UX design guide across 11 tech stacks |
 | `visual-ui-auditor` | Multimodal visual UI compliance audit (Pillar 7, 1px crisp borders, 5-state) |
-| `nextjs-app-router-expert` | Next.js 15 App Router: Server Components, Server Actions, Parallel Routes |
+| `nextjs-app-router-expert` | Next.js 16+ (`next@latest`) App Router: Turbopack, Cache Components, `proxy.ts`, Server Actions, Parallel Routes |
 | `tanstack-query-expert` | TanStack Query v5, optimistic updates, SSR hydration |
 | `state-management-expert` | Zustand, Jotai, Valtio, TanStack Store |
 | `form-validation-expert` | React Hook Form, server-side validation (`useActionState` + Zod) |
-| `astro-framework-expert` | Astro 5+ Islands architecture, View Transitions, Content Collections |
-| `svelte-sveltekit-expert` | Svelte 5 (Runes) and SvelteKit 2+ |
-| `solidjs-expert` | SolidJS 2 and SolidStart fine-grained reactivity |
-| `angular-expert` | Angular 19+ Signals, Standalone Components, NgRx SignalStore |
-| `vue-frontend-expert` | Vue 3 Composition API, Nuxt 3, Pinia |
+| `astro-framework-expert` | Astro 7+ (`astro@latest`) Islands, Live Content Collections, Fonts API, View Transitions |
+| `svelte-sveltekit-expert` | Svelte 5 (Runes) and SvelteKit 3+ (`@sveltejs/kit@latest`) |
+| `solidjs-expert` | SolidJS 2+ and SolidStart (`solid-js@latest`) fine-grained reactivity |
+| `angular-expert` | Angular 22+ (`@angular/core@latest`) Zoneless Signals, Standalone, Vitest, NgRx SignalStore |
+| `vue-frontend-expert` | Vue 3.5+ Composition API, Nuxt 4+ (`nuxt@latest`), Pinia |
 | `pwa-offline-first-expert` | Local-First & Offline-First PWA, OPFS SQLite, CRDT sync |
 | `micro-frontend-architect` | Webpack / Vite Module Federation, Single-SPA |
 | `svg-animation-motion-expert` | Framer Motion 12+, GSAP 3, Scroll-Driven Animations |

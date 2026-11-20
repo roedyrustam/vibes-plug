@@ -81,7 +81,7 @@
     },
     {
       "name": "angular-expert",
-      "description": "Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store / Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore.",
+      "description": "Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore / Aplikasi enterprise Angular 22+ (terbaru): Zoneless Signals, Standalone, Vitest, dan NgRx SignalStore.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -123,7 +123,7 @@
     },
     {
       "name": "astro-framework-expert",
-      "description": "Astro 5+ framework: Content Collections, Islands, and View Transitions / Framework Astro 5+: Content Collections, Islands, dan View Transitions.",
+      "description": "Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions / Framework Astro 7+ (terbaru): Live Content Collections, Islands, Fonts API, dan View Transitions.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -639,7 +639,7 @@
     },
     {
       "name": "nextjs-app-router-expert",
-      "description": "Next.js 15 App Router: RSC, Server Actions, PPR, and caching / Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache.",
+      "description": "Next.js 16+ (latest) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, and React Compiler / Panduan Next.js 16+ (terbaru) App Router: Turbopack, Cache Components, proxy.ts, RSC, Server Actions, dan React Compiler.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -849,7 +849,7 @@
     },
     {
       "name": "senior-frontend",
-      "description": "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4.",
+      "description": "Senior frontend: React 19, Next.js 16+ (latest), TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 16+ (latest), dan Tailwind v4.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -867,7 +867,7 @@
     },
     {
       "name": "solidjs-expert",
-      "description": "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained.",
+      "description": "SolidJS 2+ and SolidStart (latest) fine-grained reactivity and server rendering / SolidJS 2+ dan SolidStart (terbaru) dengan reaktivitas fine-grained.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -921,7 +921,7 @@
     },
     {
       "name": "svelte-sveltekit-expert",
-      "description": "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first.",
+      "description": "Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 3+ (terbaru) server-first.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },
@@ -1005,7 +1005,7 @@
     },
     {
       "name": "vue-frontend-expert",
-      "description": "Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture / Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR.",
+      "description": "Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture / Pengembangan Vue 3.5+ Composition API, Nuxt 4+ (terbaru), Pinia, dan arsitektur SPA/SSR.",
       "version": "4.8.0",
       "author": "Roedy Rustam"
     },

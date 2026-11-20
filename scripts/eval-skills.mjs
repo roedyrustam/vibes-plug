@@ -23,7 +23,7 @@ const PLUGIN_ROOT = path.resolve(__dirname, '..');
 const EVAL_SCENARIOS = [
   {
     id: 'fullstack-rls',
-    prompt: 'Build a Next.js 15 App Router SaaS dashboard with Tailwind v4 and Supabase RLS multi-tenant isolation',
+    prompt: 'Build a Next.js 16 App Router SaaS dashboard with Tailwind v4 and Supabase RLS multi-tenant isolation',
     expectedSkills: ['nextjs-app-router-expert', 'tailwind-expert', 'saas-multi-tenant']
   },
   {

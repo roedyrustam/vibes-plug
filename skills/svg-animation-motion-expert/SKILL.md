@@ -457,7 +457,7 @@ Every primary interactive element (CTAs, nav links, project rows, work cards) mu
 - **`modern-web-guidance`**: Evaluates modern web animation specifications and scroll-driven APIs before implementation.
 - **`modern-css-native-expert`**: Bridges CSS Scroll-Driven Animations and native View Transitions Level 2.
 - **`ui-ux-pro-max`** and **`design-system-architect`**: Brings static UI/UX designs to life with harmonious timing.
-- **`senior-frontend`**: Integrates declarative motion layers into React 19 / Next.js 15 architectures.
+- **`senior-frontend`**: Integrates declarative motion layers into React 19 / Next.js 16 architectures.
 - **`seo`**: Balances rich visual landing page transitions with Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Enforces zero-bouncy slop, strict prefers-reduced-motion fallbacks, and compositor-only transforms.
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `glsl-shader-expert`, `webxr-ar-vr-expert`, `multimodal-spatial-video-cloner`
@@ -547,7 +547,7 @@ Untuk situs berstandar Awwwards pada Next.js, Astro, Vite, maupun SvelteKit, sat
 - **`modern-web-guidance`**: Mengevaluasi spesifikasi animasi web modern dan API scroll-driven sebelum implementasi.
 - **`modern-css-native-expert`**: Menjembatani CSS Scroll-Driven Animations dan native View Transitions Level 2.
 - **`ui-ux-pro-max`** dan **`design-system-architect`**: Menghidupkan desain statis dengan ritme waktu yang harmonis.
-- **`senior-frontend`**: Mengintegrasikan lapisan animasi deklaratif ke dalam arsitektur React 19 / Next.js 15.
+- **`senior-frontend`**: Mengintegrasikan lapisan animasi deklaratif ke dalam arsitektur React 19 / Next.js 16.
 - **`seo`**: Menyeimbangkan transisi landing page yang memukau dengan performa Core Web Vitals (INP/CLS).
 - **`anti-slop`**: Menegakkan larangan animasi memantul berlebihan (bouncy slop), kewajiban fallback prefers-reduced-motion, dan animasi khusus compositor.
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `glsl-shader-expert`, `webxr-ar-vr-expert`, `multimodal-spatial-video-cloner`

@@ -26,7 +26,7 @@ Connects and orchestrates with relevant domain skills:
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Description
-`website-design-cloner` is an advanced enterprise-grade website reverse engineering, modernization, and migration skill. Incorporating the **Adobe Stardust** multi-page pipeline architecture, it enables AI agents to crawl target website URLs, extract the complete consolidated **Brand Surface** (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), deconstruct dynamic surfaces, manage an explicit **Inconsistency Register**, and synthesize clean, modular, semantic code (Tailwind CSS v4, React 19, Next.js 15, HTML5/Vanilla CSS) across two distinct execution flows: **Replica (Same-Design Replatform)** and **Redesign / Uplift**.
+`website-design-cloner` is an advanced enterprise-grade website reverse engineering, modernization, and migration skill. Incorporating the **Adobe Stardust** multi-page pipeline architecture, it enables AI agents to crawl target website URLs, extract the complete consolidated **Brand Surface** (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), deconstruct dynamic surfaces, manage an explicit **Inconsistency Register**, and synthesize clean, modular, semantic code (Tailwind CSS v4, React 19, Next.js 16, HTML5/Vanilla CSS) across two distinct execution flows: **Replica (Same-Design Replatform)** and **Redesign / Uplift**.
 
 ### Hard Guardrails (Declarative Invariants)
 - **Fluid Responsive Container Invariant**: Hardcoding static desktop pixel widths (e.g. `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}`, or fixed desktop dimensions without responsive breakpoints) is strictly prohibited; layouts must use modern Tailwind `max-w-*`, fluid clamp, or container query units.
@@ -293,7 +293,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `screenshot-to-code-expert`, `multimodal-spatial-video-cloner`, `web-scraper`
 
 ### Deskripsi
-`website-design-cloner` adalah skill rekayasa balik (*reverse engineering*), modernisasi, dan migrasi website kelas enterprise. Mengadopsi arsitektur pipeline multi-halaman **Adobe Stardust**, skill ini memungkinkan agen AI merayapi (*crawl*) URL website target, mengekstrak **Brand Surface** terpadu (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), mendekonstruksi permukaan dinamis, mengelola **Inconsistency Register** eksplisit, dan menyintesis kode modular semantik (Tailwind CSS v4, React 19, Next.js 15, HTML5/CSS3) melalui dua alur eksekusi tegas: **Replica (Re-platforming Desain Sama)** dan **Redesign / Uplift**.
+`website-design-cloner` adalah skill rekayasa balik (*reverse engineering*), modernisasi, dan migrasi website kelas enterprise. Mengadopsi arsitektur pipeline multi-halaman **Adobe Stardust**, skill ini memungkinkan agen AI merayapi (*crawl*) URL website target, mengekstrak **Brand Surface** terpadu (`PRODUCT.md`, `DESIGN.md`, `DESIGN.json`), mendekonstruksi permukaan dinamis, mengelola **Inconsistency Register** eksplisit, dan menyintesis kode modular semantik (Tailwind CSS v4, React 19, Next.js 16, HTML5/CSS3) melalui dua alur eksekusi tegas: **Replica (Re-platforming Desain Sama)** dan **Redesign / Uplift**.
 
 ### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
 - **Invarian Kontainer Responsif Dinamis**: Menuliskan lebar desktop tetap dalam piksel secara hardcoded (seperti `style={{ width: '1280px' }}`, `style={{ width: '1440px' }}` tanpa breakpoint responsif) dilarang keras; layout wajib menggunakan `max-w-*` Tailwind, fluid clamp, atau container queries.
@@ -384,7 +384,7 @@ Ketika merekayasa balik landing page modern berbasis tren hero section Dribbble:
 | `web-scraper` | Mengambil HTML mentah, CSS, dan Markdown dari URL via Jina Reader / Firecrawl API. |
 | `design-system-architect` | Menyusun token visual hasil ekstraksi ke dalam design system enterprise berbasis OKLCH & Radix/Base UI. |
 | `ui-ux-pro-max` | Memberikan acuan BM25 visual style, pasangan font Google Fonts, dan checklist aksesibilitas WCAG 2.2. |
-| `senior-frontend` | Mengimplementasikan kode komponen React 19 / Next.js 15 App Router siap produksi. |
+| `senior-frontend` | Mengimplementasikan kode komponen React 19 / Next.js 16 App Router siap produksi. |
 | `tailwind-expert` | Mengatur konfigurasi Tailwind CSS v4 `@theme` dan utilitas responsif. |
 
 ### Matriks Eksekusi Berdaulat, Efisiensi Token & Invarian

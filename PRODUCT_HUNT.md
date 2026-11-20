@@ -35,7 +35,7 @@ To fix this, I engineered **VibesPlug Pro**:
 It's an autonomous AI Swarm Architecture that connects **178 specialized domain skills** with an in-memory execution substrate.
 
 Here is what makes it unique:
-1. 🤖 **Swarm Director Pattern**: Dynamically decomposes your prompt and coordinates cooperating skills (e.g. Next.js 15 + Prisma + DOKU/Stripe + Z3 formal verification).
+1. 🤖 **Swarm Director Pattern**: Dynamically decomposes your prompt and coordinates cooperating skills (e.g. Next.js 16 + Prisma + DOKU/Stripe + Z3 formal verification).
 2. 🛡️ **Sovereign Anti-Slop Directive**: Enforces an automated pre-disk scanner (`vibes verify-gate`) that rejects placeholder code, syntax narration, and fake mocks before files touch disk.
 3. ⚡ **Deterministic KV-Cache Locking**: Pinning the static prompt prefix slashes API token billing by 75-90% and gives sub-second Time-To-First-Token.
 4. 🌐 **Universal Portability**: Natively supports Google Antigravity, Anthropic Claude Code, Cursor IDE, Windsurf, OpenAI Codex, and Trae.

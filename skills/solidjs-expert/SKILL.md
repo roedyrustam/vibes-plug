@@ -1,6 +1,6 @@
 ---
 name: solidjs-expert
-description: "SolidJS 2 and SolidStart fine-grained reactivity and server rendering / SolidJS 2 dan SolidStart dengan reaktivitas fine-grained."
+description: "SolidJS 2+ and SolidStart (latest) fine-grained reactivity and server rendering / SolidJS 2+ dan SolidStart (terbaru) dengan reaktivitas fine-grained."
 author: "Roedy Rustam"
 version: "4.8.0"
 
@@ -23,6 +23,14 @@ Expert guide for SolidJS 2 and SolidStart, the reactive framework with zero Virt
 - Choosing SolidJS or SolidStart for low-latency dashboards, streaming financial terminals, or edge-rendered apps.
 - Migrating from React to SolidJS while maintaining clean reactive state boundaries.
 - Building reactive components with Tailwind CSS v4.
+
+### Mandatory Scaffolding & Latest Version Protocol
+Always initialize new SolidJS 2+ / SolidStart apps using the official `@latest` CLI:
+```bash
+npm init solid@latest my-solid-app
+# Or install latest packages directly:
+npm install solid-js@latest @solidjs/start@latest
+```
 
 ### Core Architectural Rules: SolidJS vs React
 1. **Components Run Exactly Once**: A SolidJS component function is a setup function, not a render function. Do NOT write side-effects directly in the function body; place them in `createEffect` or `onMount`.

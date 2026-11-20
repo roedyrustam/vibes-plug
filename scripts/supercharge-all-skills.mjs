@@ -148,7 +148,7 @@ function buildRedToBlueBlockId(skillName, domain) {
 
 const SUPPLEMENTAL_BLUEPRINTS = {
   'saas-architect': `
-#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 15 / Edge)
+#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 16 / Edge)
 \`\`\`typescript
 import { NextRequest, NextResponse } from 'next/server';
 

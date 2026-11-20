@@ -46,15 +46,15 @@ Connects and orchestrates with relevant domain skills:
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Description
-A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 5** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
+A structured approach for building and orchestrating Multi-Page Application (MPA) architectures within a single repository. Acts as an orchestrator connecting MPA principles with specialized skills (like `mvc-expert`, `saas-multi-tenant`, `senior-frontend`) to deliver cohesive, server-rendered applications. In 2026, MPAs are increasingly built with **Astro 7+** for content-heavy sites or **traditional server frameworks** (Laravel, Django, Go) augmented with **HTMX 2** or **Alpine.js** for interactivity.
 
 ### Core MPA Principles in a Single Repository
 1. **Centralized Architecture**: Frontend views, backend logic, and routing in a unified codebase — simplifies deployment and reduces cognitive load.
 2. **Server-Side Routing & Rendering**: A Front Controller intercepts requests, fetches data, and renders complete HTML per route. Options in 2026:
-   - **Astro 5**: Best for content-heavy sites — renders to static HTML by default, hydrates islands on demand.
-   - **Next.js 15 (Pages Router)**: Traditional MPA feel with React components.
+   - **Astro 7+**: Best for content-heavy sites — renders to static HTML by default, hydrates islands on demand.
+   - **Next.js 16 (Pages Router)**: Traditional MPA feel with React components.
    - **Backend-driven**: Laravel/Django/Gin templates rendered server-side.
-3. **Islands Architecture (Astro 5)**:
+3. **Islands Architecture (Astro 7+)**:
    - Render 100% static HTML for non-interactive content.
    - Use `client:load`, `client:idle`, or `client:visible` directives to hydrate interactive islands only when needed.
    - Supports React, Vue, Svelte, Solid, or vanilla JS islands side by side.
@@ -99,11 +99,11 @@ export default defineConfig({
 
 | Need | Recommended Stack |
 |---|---|
-| Content site / Blog / Docs | **Astro 5** + MDX + Tailwind v4 |
+| Content site / Blog / Docs | **Astro 7+** + MDX + Tailwind v4 |
 | Full server-rendered app (PHP) | **Laravel 11** + Livewire 3 / Alpine.js |
 | Full server-rendered app (Python) | **Django 5** + HTMX 2 + Alpine.js |
 | Full server-rendered app (Go) | **Templ** + HTMX 2 + Tailwind v4 |
-| React MPA with SSR | **Next.js 15** Pages Router or App Router |
+| React MPA with SSR | **Next.js 16** Pages Router or App Router |
 
 ### Orchestration Guidelines
 - **With `htmx-hypermedia-expert`**: MUST execute FIRST before any HTML/CSS task to ensure modern frontend standards.
@@ -117,7 +117,7 @@ export default defineConfig({
 - Building a web application using the Multi-Page Application (MPA) approach in a single repository.
 - Refactoring or migrating an existing app to a centralized MPA architecture.
 - Building content sites, marketing pages, or SEO-critical applications.
-- Using Astro 5 for static or content-heavy sites with optional interactive islands.
+- Using Astro 7+ for static or content-heavy sites with optional interactive islands.
 - Adding interactivity to server-rendered pages with HTMX 2 without a full SPA rewrite.
 
 ---
@@ -176,12 +176,12 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `nextjs-app-router-expert`, `spa-orchestrator`, `modern-css-native-expert`
 
 ### Deskripsi
-Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 5** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
+Pendekatan terstruktur untuk membangun dan mengorkestrasi arsitektur Multi-Page Application (MPA) di dalam satu repositori. Bertindak sebagai orkestrator yang menghubungkan prinsip MPA dengan skill spesialis lain untuk menghasilkan aplikasi server-rendered yang kohesif dan modern. Di 2026, MPA semakin banyak dibangun dengan **Astro 7+** untuk situs konten-berat atau framework server tradisional yang diperkuat dengan **HTMX 2** atau **Alpine.js**.
 
 ### Prinsip Inti MPA
 1. **Arsitektur Terpusat**: View frontend, logika backend, dan routing dalam satu codebase.
 2. **Routing & Rendering Sisi Server**: Front Controller menangkap permintaan, mengambil data, dan me-render HTML lengkap per rute.
-3. **Islands Architecture (Astro 5)**: Render HTML statis 100% secara default, hidrate island interaktif hanya saat diperlukan.
+3. **Islands Architecture (Astro 7+)**: Render HTML statis 100% secara default, hidrate island interaktif hanya saat diperlukan.
 4. **HTMX 2 — Interaktivitas HTML-First**: Tingkatkan halaman server-rendered dengan pertukaran HTML parsial tanpa menulis JavaScript.
 5. **Ekosistem UI Bersama**: Direktori `layouts/` dan `components/` untuk elemen UI yang dapat digunakan kembali.
 6. **State Berbasis Session**: Cookie HTTP-only dan session sisi server untuk autentikasi dan konteks tenant.
@@ -199,11 +199,11 @@ Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry po
 
 | Kebutuhan | Stack yang Direkomendasikan |
 |---|---|
-| Situs konten / Blog / Docs | **Astro 5** + MDX + Tailwind v4 |
+| Situs konten / Blog / Docs | **Astro 7+** + MDX + Tailwind v4 |
 | Aplikasi server-rendered (PHP) | **Laravel 11** + Livewire 3 / Alpine.js |
 | Aplikasi server-rendered (Python) | **Django 5** + HTMX 2 + Alpine.js |
 | Aplikasi server-rendered (Go) | **Templ** + HTMX 2 + Tailwind v4 |
-| React MPA dengan SSR | **Next.js 15** Pages Router atau App Router |
+| React MPA dengan SSR | **Next.js 16** Pages Router atau App Router |
 
 ### Panduan Orkestrasi
 - **Dengan `modern-web-guidance`**: WAJIB dieksekusi PERTAMA KALI sebelum tugas HTML/CSS untuk memastikan standar frontend modern.
@@ -217,7 +217,7 @@ Dalam konteks frontend modern (khususnya untuk MPA), tentukan beberapa *entry po
 - Membangun aplikasi web dengan pendekatan MPA dalam satu repositori.
 - Refaktor atau migrasi aplikasi yang ada ke arsitektur MPA terpusat.
 - Membangun situs konten, halaman marketing, atau aplikasi kritis SEO.
-- Menggunakan Astro 5 untuk situs statis atau konten-berat dengan island interaktif opsional.
+- Menggunakan Astro 7+ untuk situs statis atau konten-berat dengan island interaktif opsional.
 - Menambahkan interaktivitas ke halaman server-rendered dengan HTMX 2 tanpa menulis ulang ke SPA.
 
 ---

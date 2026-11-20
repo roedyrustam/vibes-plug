@@ -1,12 +1,12 @@
 ---
 name: svelte-sveltekit-expert
-description: "Svelte 5 Runes and SvelteKit 2 server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first."
+description: "Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture / Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 3+ (terbaru) server-first."
 author: "Roedy Rustam"
 version: "4.8.0"
 
 ---
 
-# Svelte 5 & SvelteKit 2 Expert (Runes Standard 2026)
+# Svelte 5 & SvelteKit 3+ (Latest) Expert (Runes Standard 2026)
 
 [English](#english) | [Bahasa Indonesia](#bahasa-indonesia)
 
@@ -23,16 +23,24 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Description
-Production-grade guide for building high-performance web applications using **Svelte 5** and **SvelteKit 2+**. Covers the complete Runes reactivity paradigm (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), snippet composition replacing legacy slots, progressive enhancement form actions (`use:enhance`), streaming server promises in `+page.server.ts`, and shallow routing (`pushState`) for modal overlays.
+Production-grade guide for building high-performance web applications using **Svelte 5** and **SvelteKit 3+**. Covers the complete Runes reactivity paradigm (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), snippet composition replacing legacy slots, progressive enhancement form actions (`use:enhance`), streaming server promises in `+page.server.ts`, and shallow routing (`pushState`) for modal overlays.
 
 ### Trigger Conditions
-- Scaffolding new applications with Svelte 5 and SvelteKit 2.
+- Scaffolding new applications with Svelte 5 and SvelteKit 3+.
 - Refactoring legacy Svelte 3/4 reactive declarations (`let x = 0; $: doubled = x * 2;`) to Svelte 5 Runes.
 - Composing modular UI components using Svelte 5 Snippets instead of legacy `<slot>`.
 - Implementing form submissions with atomic server actions and zero-JS progressive enhancement.
 - Streaming large asynchronous datasets to the client without blocking the initial SSR HTML payload.
 
 ---
+
+### Mandatory Scaffolding & Latest Version Protocol
+Always scaffold new Svelte 5 / SvelteKit 3+ projects using the official `sv` CLI (always installs latest Svelte 5 + SvelteKit 3+ + Vite 8+):
+```bash
+npx sv create my-svelte-app
+# Upgrade existing project to latest:
+npm install svelte@latest @sveltejs/kit@latest
+```
 
 ### Core Architectural Patterns
 
@@ -146,7 +154,7 @@ In Svelte 5, `<slot>` is deprecated. Components accept Snippets as typed functio
 />
 ```
 
-#### 4. SvelteKit 2 Server Actions with Progressive Enhancement
+#### 4. SvelteKit 3+ Server Actions with Progressive Enhancement
 Atomic server mutation with optimistic state and zero-JS fallback:
 ```typescript
 // src/routes/tasks/+page.server.ts
@@ -333,10 +341,10 @@ export const sessionStore = new SessionStore();
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `senior-frontend`, `state-management-expert`, `tanstack-query-expert`, `pwa-offline-first-expert`
 
 ### Deskripsi
-Panduan produksi untuk membangun aplikasi web performa tinggi menggunakan **Svelte 5** dan **SvelteKit 2+**. Berfokus pada paradigma reaktivitas Runes secara menyeluruh (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), komposisi Snippets pengganti slot lawas, progressive enhancement form actions (`use:enhance`), streaming promise server pada `+page.server.ts`, dan routing shallow (`pushState`) untuk modal URL-preserving.
+Panduan produksi untuk membangun aplikasi web performa tinggi menggunakan **Svelte 5** dan **SvelteKit 3+**. Berfokus pada paradigma reaktivitas Runes secara menyeluruh (`$state`, `$derived`, `$derived.by`, `$effect`, `$props`, `$bindable`), komposisi Snippets pengganti slot lawas, progressive enhancement form actions (`use:enhance`), streaming promise server pada `+page.server.ts`, dan routing shallow (`pushState`) untuk modal URL-preserving.
 
 ### Kondisi Pemicu
-- Membangun aplikasi baru menggunakan Svelte 5 dan SvelteKit 2.
+- Membangun aplikasi baru menggunakan Svelte 5 dan SvelteKit 3+.
 - Merefaktor kode lama Svelte 3/4 (`let x = 0; $: doubled = x * 2;`) ke sistem Runes Svelte 5.
 - Menggubah komponen UI modular menggunakan Snippets Svelte 5 alih-alih `<slot>` lawas.
 - Mengimplementasikan pengiriman data formulir atomik via Server Actions dengan fallback zero-JS.
@@ -401,7 +409,7 @@ Pada Svelte 5, `<slot>` digantikan oleh Snippets bertipe (*typed snippets*):
 </div>
 ```
 
-#### 3. Form Action SvelteKit 2 dengan Progressive Enhancement & State Optimistik
+#### 3. Form Action SvelteKit 3+ dengan Progressive Enhancement & State Optimistik
 ```typescript
 // src/routes/tugas/+page.server.ts
 import { fail } from '@sveltejs/kit';

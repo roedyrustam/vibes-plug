@@ -29,6 +29,12 @@ Expert guide for building Hypermedia-Driven Applications (HDA) using **HTMX 2.0+
 - Building with any backend (Express, FastAPI, Go, Rails, Django, Laravel, Hono) and wanting SPA-like UX without React/Vue.
 - Migrating from a heavy SPA to a simpler hypermedia architecture.
 
+### Mandatory Latest Version Installation
+Always install the latest HTMX 2.x release (never legacy HTMX 1.x):
+```bash
+npm install htmx.org@latest alpinejs@latest
+```
+
 ### What's New in 2026
 
 #### HTMX 2.0 — Key Updates

@@ -46,8 +46,8 @@ Expert guide for designing and managing scalable monorepos. Covers **Turborepo 2
 ```
 my-saas/
 ├── apps/
-│   ├── web/          # Next.js 15 main app
-│   ├── admin/        # Next.js 15 super admin (subdomain)
+│   ├── web/          # Next.js 16 main app
+│   ├── admin/        # Next.js 16 super admin (subdomain)
 │   └── api/          # Hono/Fastify backend
 ├── packages/
 │   ├── ui/           # Shared Tailwind v4 components

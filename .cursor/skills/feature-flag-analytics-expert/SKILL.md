@@ -26,7 +26,7 @@ version: "4.8.0"
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Description
-Production-grade engineering guide for feature flag management, progressive rollouts (canary releases), A/B testing statistical orchestration, and dynamic server-side/client-side flag evaluation using PostHog, LaunchDarkly, and GrowthBook. Covers zero-flicker server-side bootstrapping in Next.js 15 App Router, deterministic user bucketing, conversion metric tracking, and automated flag lifecycle deprecation.
+Production-grade engineering guide for feature flag management, progressive rollouts (canary releases), A/B testing statistical orchestration, and dynamic server-side/client-side flag evaluation using PostHog, LaunchDarkly, and GrowthBook. Covers zero-flicker server-side bootstrapping in Next.js 16 App Router, deterministic user bucketing, conversion metric tracking, and automated flag lifecycle deprecation.
 
 ### Trigger Conditions
 - Decoupling software deployment from feature release with instant operational kill-switches.
@@ -35,7 +35,7 @@ Production-grade engineering guide for feature flag management, progressive roll
 - Managing server-side gating in Next.js Server Components, Fastify, or Bun backends.
 - Retiring obsolete feature flags to prevent technical debt accumulation.
 
-### Zero-Flicker Server Component Pattern (Next.js 15 / PostHog)
+### Zero-Flicker Server Component Pattern (Next.js 16 / PostHog)
 
 ```typescript
 // src/lib/posthog-server.ts
@@ -209,7 +209,7 @@ export function auditStaleFeatureFlags(
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `saas-architect`, `production-ready-hardener`, `saas-billing`
 
 ### Deskripsi
-Panduan tingkat produksi untuk manajemen *feature flags*, rilis bertahap (*canary rollout*), orkestrasi pengujian A/B berbasis statistik, dan evaluasi fitur dinamis pada sisi server maupun klien menggunakan PostHog, LaunchDarkly, dan GrowthBook. Mencakup evaluasi server-side tanpa kedip (*zero-flicker*) pada Next.js 15 App Router, segmentasi pengguna deterministik, pelacakan metrik konversi, dan pembersihan siklus hidup flag secara berkala.
+Panduan tingkat produksi untuk manajemen *feature flags*, rilis bertahap (*canary rollout*), orkestrasi pengujian A/B berbasis statistik, dan evaluasi fitur dinamis pada sisi server maupun klien menggunakan PostHog, LaunchDarkly, dan GrowthBook. Mencakup evaluasi server-side tanpa kedip (*zero-flicker*) pada Next.js 16 App Router, segmentasi pengguna deterministik, pelacakan metrik konversi, dan pembersihan siklus hidup flag secara berkala.
 
 ### Kondisi Pemicu
 - Memisahkan deployment kode dari aktivasi fitur dengan tombol *kill-switch* instan.

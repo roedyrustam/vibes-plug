@@ -26,7 +26,7 @@ version: "4.8.0"
 Production-grade guide for automated browser and component testing using **Playwright 1.50+** and **Vitest 3+**. Covers virtual clock manipulation with `page.clock`, semantic accessibility assertions with `toMatchAriaSnapshot`, type-safe composable fixtures, dynamic UI banner interception (`page.addLocatorHandler`), session state reuse (`storageState`), and CI matrix sharding.
 
 ### Trigger Conditions
-- Writing End-to-End (E2E) browser test suites for Next.js 15, React 19, or Svelte 5 applications.
+- Writing End-to-End (E2E) browser test suites for Next.js 16, React 19, or Svelte 5 applications.
 - Testing time-sensitive UI (countdown timers, session expiries, debounced search) deterministically.
 - Verifying WCAG accessibility tree structure using semantic `aria-snapshot`.
 - Creating composable test fixtures with authenticated contexts and isolated database state.
@@ -255,7 +255,7 @@ test('checkout flow handles deterministic payment gateway response cleanly', asy
 Panduan produksi untuk pengujian browser dan komponen otomatis menggunakan **Playwright 1.50+** dan **Vitest 3+**. Mencakup manipulasi jam virtual deterministik dengan `page.clock`, asersi pohon aksesibilitas semantis dengan `toMatchAriaSnapshot`, pembuatan test fixture modular, penanganan banner modal dinamis (`page.addLocatorHandler`), penggunaan ulang sesi autentikasi (`storageState`), dan sharding paralel di CI.
 
 ### Kondisi Pemicu
-- Menulis test suite E2E browser untuk aplikasi Next.js 15, React 19, atau Svelte 5.
+- Menulis test suite E2E browser untuk aplikasi Next.js 16, React 19, atau Svelte 5.
 - Menguji antarmuka berbasis waktu (countdown timer, kedaluwarsa sesi) secara deterministik tanpa jeda waktu riil.
 - Memvalidasi struktur pohon aksesibilitas menggunakan asersi semantis `aria-snapshot`.
 - Mengonfigurasi fixture pengujian dengan isolasi state autentikasi dan database.

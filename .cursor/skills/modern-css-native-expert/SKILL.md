@@ -21,7 +21,7 @@ Integrates tightly with the following domain skills:
 - **`tailwind-expert`**: Bridges native CSS primitives with Tailwind v4 `@theme` and dynamic utility classes.
 - **`visual-ui-auditor`**: Validates smooth top-layer transitions, focus rings, and layout stability.
 - **`anti-slop`**: Eliminates unnecessary JS polyfills and div-soup wrappers.
-- **`senior-frontend`**: Integrates native CSS features into React 19 / Next.js 15 architectures.
+- **`senior-frontend`**: Integrates native CSS features into React 19 / Next.js 16 architectures.
 
 ### Purpose & Overview
 Production-grade engineering guide for modern **Native CSS features (2026 Edition)** that replace cumbersome JavaScript libraries with pure browser-native primitives. Covers the **CSS Anchor Positioning API** for tooltips/popovers, **`@starting-style`** for smooth entry/exit animations on top-layer elements (`<dialog>`, `popover`), **View Transitions API Level 2**, **Container Queries (`@container`)**, and the **`:has()`** relational selector.
@@ -280,7 +280,7 @@ Terintegrasi erat dengan skill berikut:
 - **`tailwind-expert`**: Menjembatani primitif CSS native dengan direktif `@theme` dan utilitas dinamis Tailwind v4.
 - **`visual-ui-auditor`**: Memvalidasi transisi top-layer yang halus, indikator fokus, dan stabilitas tata letak.
 - **`anti-slop`**: Menghilangkan polyfill JavaScript yang tidak diperlukan dan pembungkus div-soup.
-- **`senior-frontend`**: Mengintegrasikan fitur CSS native ke dalam arsitektur React 19 / Next.js 15.
+- **`senior-frontend`**: Mengintegrasikan fitur CSS native ke dalam arsitektur React 19 / Next.js 16.
 
 ### Hard Guardrails (Invarian Deklaratif)
 - **Invarian Anchor Positioning Native**: Tooltip, menu mengambang, dan popover WAJIB memanfaatkan CSS Anchor Positioning (`anchor-name`, `position-anchor`, `position-try-fallbacks`) tanpa mengimpor pustaka JavaScript pihak ketiga (Popper, Floating UI).

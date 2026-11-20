@@ -290,7 +290,7 @@ Guardrail siklus hidup wajib untuk rekayasa perangkat lunak modern:
 ### Pilihan Teknologi (Stack Decision)
 | Lapisan (Layer) | Teknologi Terpilih | Alasan & Justifikasi Teknis |
 |---|---|---|
-| Frontend | Next.js 15 App Router + React 19 | Server Component streaming, caching terintegrasi |
+| Frontend | Next.js 16 App Router + React 19 | Server Component streaming, caching terintegrasi |
 | Styling | Tailwind CSS v4 | CSS-first configuration, performa kompilasi instan |
 | Backend API | Node.js 24 LTS + Hono / Express 5 | Latensi ultra-rendah, typing TypeScript end-to-end |
 | Database | PostgreSQL 16 + Drizzle ORM | ACID compliance, type-safety, migrasi deterministik |

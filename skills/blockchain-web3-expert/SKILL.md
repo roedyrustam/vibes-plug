@@ -54,7 +54,7 @@ export const wagmiConfig = createConfig({
     [mainnet.id]: http(process.env.ETH_RPC_URL),
     [arbitrum.id]: http(process.env.ARBITRUM_RPC_URL),
   },
-  ssr: true, // Crucial for Next.js 15 App Router hydration safety
+  ssr: true, // Crucial for Next.js 16 App Router hydration safety
 });
 ```
 

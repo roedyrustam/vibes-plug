@@ -453,7 +453,7 @@ export function getLoggerRequest() {
 }
 ```
 
-#### 3. Inisialisasi Sentry Klien di Next.js 15
+#### 3. Inisialisasi Sentry Klien di Next.js 16
 ```typescript
 // sentry.client.config.ts
 import * as Sentry from '@sentry/nextjs';

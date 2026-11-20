@@ -1,6 +1,6 @@
 ---
 name: senior-frontend
-description: "Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4."
+description: "Senior frontend: React 19, Next.js 16+ (latest), TypeScript, and Tailwind v4 / Frontend tingkat lanjut: React 19, Next.js 16+ (latest), dan Tailwind v4."
 author: "Roedy Rustam"
 version: "4.8.0"
 
@@ -16,7 +16,7 @@ version: "4.8.0"
 ## English
 
 ### Description
-Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 15 applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies with automated self-healing testing loops.
+Production-grade frontend development patterns, performance optimization, and modern ecosystem integrations for React 19 / Next.js 16+ (latest) applications with Tailwind CSS v4 and TypeScript. Covers React 19 Compiler, Partial Prerendering (PPR), View Transitions API, and SPA/MPA hybrid strategies with automated self-healing testing loops.
 
 ### Orchestration & Integration
 - `modern-web-guidance`: For HTML5/CSS standards, modern browser APIs, and accessibility guidelines.
@@ -37,7 +37,7 @@ Production-grade frontend development patterns, performance optimization, and mo
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `vue-frontend-expert`, `svelte-sveltekit-expert`, `astro-framework-expert`, `htmx-hypermedia-expert`, `micro-frontend-architect`, `fullstack-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Trigger Conditions
-- Scaffold a new React or Next.js 15 project with TypeScript and Tailwind CSS v4.
+- Scaffold a new React or Next.js 16+ (latest) project with TypeScript and Tailwind CSS v4.
 - Generate new components, custom hooks, or Server Actions.
 - Analyze and optimize bundle sizes and Core Web Vitals.
 - Implement advanced React 19 patterns (`useActionState`, `useOptimistic`, `use()`).
@@ -46,12 +46,14 @@ Production-grade frontend development patterns, performance optimization, and mo
 
 ### Technical Guidelines & Best Practices
 
-#### 1. Next.js 15: Server vs Client Components
+#### 1. Next.js 16+ (latest): Server vs Client Components
 Use **Server Components** by default for performance and SEO. Use `'use client'` strictly for:
 - State (`useState`, `useEffect`), event handlers (`onClick`), browser APIs.
 - Interactive UI needing client hydration.
 
-*Next.js 15.2+ Requirements:*
+*Next.js 16+ (latest) Requirements:*
+- Always scaffold new Next.js apps with `npx create-next-app@latest` (`next@latest`, `react@latest`, `react-dom@latest`) — never pin Next.js 14/15.
+- Use Turbopack (default), `next.config.ts` (`cacheComponents: true`, `reactCompiler: true`), and `proxy.ts` (replacing `middleware.ts`).
 - Await `Promise`-based `params` and `searchParams` before accessing properties.
 - Use **Partial Prerendering (PPR)** natively. Wrap dynamic sections in `<Suspense>`.
 
@@ -65,7 +67,7 @@ Do not use `useMemo`, `useCallback`, or `React.memo` unless explicitly required;
 - **`use(promise)`**: Unwrap promises or context inside render with Suspense.
 
 #### 3. View Transitions API
-Implement native View Transitions API for smooth page transitions. Use Next.js 15 `<Link viewTransition>` natively.
+Implement native View Transitions API for smooth page transitions. Use Next.js 16+ (latest) `<Link viewTransition>` natively.
 
 #### 4. Tailwind CSS v4
 Use CSS-first configuration. Define custom tokens with `@theme` and register plugins with `@plugin` in the main CSS file. Never create `tailwind.config.js`.
@@ -86,12 +88,12 @@ For web animations, scroll-driven timelines, GSAP choreographies, and Framer Mot
 
 
 #### 8. Material Design 3 (M3) Web Integration (https://m3.material.io/)
-In modern React 19 / Next.js 15 apps, incorporate Google's official Material Web Components (`@material/web`) or token-mapped headless primitives:
+In modern React 19 / Next.js 16+ (latest) apps, incorporate Google's official Material Web Components (`@material/web`) or token-mapped headless primitives:
 - **Material Web Components**: Use Lit-based web components (`@material/web/button/filled-button.js`, `@material/web/textfield/outlined-text-field.js`) with React 19 native custom element support.
 - **Dynamic CSS Variable Theming**: Map tokens dynamically at the root.
 
 #### 9. Sovereign Visual Hierarchy & Scanability Engineering
-Every React 19 / Next.js 15 view must demonstrate Linear/Apple-caliber visual hierarchy:
+Every React 19 / Next.js 16+ (latest) view must demonstrate Linear/Apple-caliber visual hierarchy:
 - **Typographic Cadence**: Eyebrows (`text-[11px] font-semibold tracking-wider uppercase text-neutral-500`) -> Hero Titles (`text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.1]`) -> Section Headings (`text-xl md:text-2xl font-semibold tracking-tight`) -> Body (`text-sm md:text-base text-neutral-600 leading-relaxed`).
 - **Tabular Figures**: Always wrap metrics, currency, and counters in `tabular-nums`.
 - **Single Focal CTA**: Exactly one high-contrast primary button per screen view; secondary actions use subtle/outline treatments.
@@ -1102,7 +1104,7 @@ export function OverlappingFoldPeekHero() {
 ## Bahasa Indonesia
 
 ### Deskripsi
-Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 15 dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA dengan loop pengujian perbaikan mandiri (self-healing).
+Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ekosistem modern untuk aplikasi React 19 / Next.js 16+ (latest) dengan Tailwind CSS v4 dan TypeScript. Mencakup React 19 Compiler, Partial Prerendering (PPR), View Transitions API, dan strategi hybrid SPA/MPA dengan loop pengujian perbaikan mandiri (self-healing).
 
 ### Integrasi Orkestrasi
 - `modern-web-guidance`: Untuk standar HTML5/CSS, API browser modern, dan pedoman aksesibilitas.
@@ -1122,7 +1124,7 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `vue-frontend-expert`, `svelte-sveltekit-expert`, `solidjs-expert`, `angular-expert`, `astro-framework-expert`, `htmx-hypermedia-expert`, `micro-frontend-architect`, `fullstack-expert`, `rich-text-editor-expert`, `ephemeral-generative-ui-architect`
 
 ### Kondisi Pemicu
-- Buat proyek React atau Next.js 15 baru dengan TypeScript dan Tailwind CSS v4.
+- Buat proyek React atau Next.js 16+ (latest) baru dengan TypeScript dan Tailwind CSS v4.
 - Buat komponen baru, custom hooks, atau Server Actions.
 - Analisis dan optimalkan ukuran bundle dan Core Web Vitals.
 - Terapkan pola React 19 lanjutan (`useActionState`, `useOptimistic`, `use()`).
@@ -1131,12 +1133,12 @@ Pola pengembangan frontend tingkat produksi, optimasi performa, dan integrasi ek
 
 ### Panduan Teknis & Praktik Terbaik
 
-#### 1. Next.js 15: Server vs Client Components
+#### 1. Next.js 16+ (latest): Server vs Client Components
 Gunakan **Server Components** secara default. Gunakan `'use client'` hanya untuk:
 - State (`useState`, `useEffect`), event handler, API browser.
 - UI interaktif yang membutuhkan hidrasi klien.
 
-*Persyaratan Next.js 15.2+:*
+*Persyaratan Next.js 16+ (latest):*
 - Wajib `await` pada `params` dan `searchParams` yang kini bertipe `Promise`.
 - Gunakan **Partial Prerendering (PPR)** secara native. Bungkus bagian dinamis dengan `<Suspense>`.
 
@@ -1150,7 +1152,7 @@ Jangan gunakan `useMemo`, `useCallback`, atau `React.memo` kecuali sangat diperl
 - **`use(promise)`**: Buka promise atau context langsung di dalam render dengan Suspense.
 
 #### 3. View Transitions API
-Terapkan View Transitions API bawaan browser untuk transisi halaman. Gunakan `<Link viewTransition>` pada Next.js 15.
+Terapkan View Transitions API bawaan browser untuk transisi halaman. Gunakan `<Link viewTransition>` pada Next.js 16+ (latest).
 
 #### 4. Tailwind CSS v4
 Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plugin dengan `@plugin` di file CSS utama (lihat `tailwind-expert`). Jangan pernah membuat file `tailwind.config.js`.
@@ -1170,12 +1172,12 @@ Gunakan konfigurasi CSS-first. Definisikan token kustom dengan `@theme` dan plug
 Untuk animasi web, timeline scroll-driven, koreografi GSAP, dan fisika spring Framer Motion, delegasikan langsung ke `svg-animation-motion-expert`.
 
 #### 8. Integrasi Web Material Design 3 (M3) (https://m3.material.io/)
-Pada aplikasi React 19 / Next.js 15 modern, terapkan komponen web resmi Google (`@material/web`) atau primitif headless yang dipetakan ke token M3:
+Pada aplikasi React 19 / Next.js 16+ (latest) modern, terapkan komponen web resmi Google (`@material/web`) atau primitif headless yang dipetakan ke token M3:
 - **Komponen Material Web**: Manfaatkan komponen berbasis Lit (`@material/web`) yang didukung secara native oleh React 19 tanpa wrapper tambahan.
 - **Theming Variabel CSS Dinamis**: Terapkan token M3 (`--md-sys-color-primary`, `--md-sys-color-surface-container`) pada elemen root untuk menjamin paritas kontras WCAG di seluruh komponen antarmuka.
 
 #### 9. Rekayasa Hierarki Visual & Kemampuan Pindai
-Setiap tampilan React 19 / Next.js 15 wajib memancarkan hierarki visual kaliber Stripe/Linear:
+Setiap tampilan React 19 / Next.js 16+ (latest) wajib memancarkan hierarki visual kaliber Stripe/Linear:
 - **Irama Tipografi**: Eyebrow (`text-[11px] font-semibold tracking-wider uppercase text-neutral-500`) -> Judul Utama (`text-3xl md:text-5xl font-bold tracking-tight text-neutral-900 leading-[1.1]`) -> Subjudul (`text-xl md:text-2xl font-semibold tracking-tight`) -> Body (`text-sm md:text-base text-neutral-600 leading-relaxed`).
 - **Angka Tabular Wajib**: Selalu terapkan `tabular-nums` pada metrik, saldo mata uang, dan pencacah data.
 - **Dominasi Single Primary CTA**: Maksimal satu tombol utama kontras tinggi per layar; aksi sekunder menggunakan gaya subtle/outline.

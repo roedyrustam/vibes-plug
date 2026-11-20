@@ -17,7 +17,7 @@ version: "4.8.0"
 
 ### Orchestration & Integration
 Connects and orchestrates with domain skills:
-- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for headless frontend rendering (Next.js 15 / Astro 5), Faust.js template components, typography tokens, and responsive layouts.
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, and `anti-slop` for headless frontend rendering (Next.js 16 / Astro 7+), Faust.js template components, typography tokens, and responsive layouts.
 - **Visual Auditing**: `visual-ui-auditor` for verifying WordPress preview iframe fidelity, responsive breakpoints, and 1px crisp borders.
 - **CMS & Backend**: `headless-cms-expert` (CMS comparison and migration) and `nextjs-app-router-expert` (Next.js App Router with WPGraphQL).
 - **SEO & Performance**: `seo` (Yoast/RankMath metadata syncing) and `performance-web-vitals` (ISR caching and edge SSR).
@@ -25,7 +25,7 @@ Connects and orchestrates with domain skills:
 - **Cross-Domain Synergy & Subagent Swarm Integration**: `astro-framework-expert`, `documentation-site-expert`
 
 ### Description
-Production guide for architecting, deploying, and maintaining headless WordPress systems. Covers decoupled WordPress backends with WPGraphQL and Advanced Custom Fields (ACF Pro), frontend rendering with Next.js 15 or Astro 5, Faust.js framework integration, webhook-triggered on-demand revalidation, authentication (JWT / Application Passwords), and WooCommerce headless setups.
+Production guide for architecting, deploying, and maintaining headless WordPress systems. Covers decoupled WordPress backends with WPGraphQL and Advanced Custom Fields (ACF Pro), frontend rendering with Next.js 16 or Astro 7+, Faust.js framework integration, webhook-triggered on-demand revalidation, authentication (JWT / Application Passwords), and WooCommerce headless setups.
 
 ### Hard Guardrails (Declarative Invariants)
 - **Authenticated Mutation Endpoint Invariant**: Headless mutations, preview routes, and draft content revisions must authenticate with cryptographic signatures (JWT / Application Passwords / Webhook secret verification); exposing unauthenticated mutation or draft endpoints is strictly prohibited.
@@ -47,7 +47,7 @@ Production guide for architecting, deploying, and maintaining headless WordPress
 
 ### Core Architecture & Patterns
 
-#### 1. WPGraphQL Query Integration (Next.js 15 Server Component)
+#### 1. WPGraphQL Query Integration (Next.js 16 Server Component)
 ```typescript
 const WP_GRAPHQL_ENDPOINT = process.env.WORDPRESS_API_URL || 'https://cms.example.com/graphql';
 
@@ -163,7 +163,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 ### Integrasi Orkestrasi
 Terhubung dan mengorkestrasi bersama skill domain:
-- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk perenderan frontend headless (Next.js 15 / Astro 5), komponen template Faust.js, token tipografi, dan tata letak responsif.
+- **Frontend & Design System**: `senior-frontend`, `design-system-architect`, `ui-ux-pro-max`, `modern-web-guidance`, dan `anti-slop` untuk perenderan frontend headless (Next.js 16 / Astro 7+), komponen template Faust.js, token tipografi, dan tata letak responsif.
 - **Audit Visual**: `visual-ui-auditor` untuk memverifikasi fidelitas iframe pratinjau WordPress, breakpoint responsif, dan border tajam 1px.
 - **CMS & Backend**: `headless-cms-expert` (perbandingan dan migrasi CMS) dan `nextjs-app-router-expert` (Next.js App Router dengan WPGraphQL).
 - **SEO & Performa**: `seo` (sinkronisasi metadata Yoast/RankMath) dan `performance-web-vitals` (caching ISR dan edge SSR).
@@ -171,7 +171,7 @@ Terhubung dan mengorkestrasi bersama skill domain:
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `astro-framework-expert`, `documentation-site-expert`
 
 ### Deskripsi
-Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 15, atau Astro 5, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.
+Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. Menggunakan WPGraphQL, ACF Pro, Faust.js, Next.js 16, atau Astro 7+, revalidasi ISR instan via webhook, autentikasi aman, dan integrasi WooCommerce decoupled.
 
 ### Hard Guardrails (Invarian Deklaratif - Bahasa Indonesia)
 - **Invarian Endpoint Mutasi Terautentikasi**: Mutasi headless, rute pratinjau, dan revisi draft konten wajib terautentikasi dengan tanda tangan kriptografis (JWT / Application Passwords / verifikasi webhook secret); membuka akses mutasi atau draf tanpa autentikasi dilarang keras.
@@ -190,7 +190,7 @@ Panduan produksi untuk membangun dan memelihara arsitektur WordPress headless. M
 
 ---
 
-### Implementasi Pola Kunci (TypeScript & Next.js 15)
+### Implementasi Pola Kunci (TypeScript & Next.js 16)
 
 ```typescript
 const WP_GRAPHQL_ENDPOINT = process.env.WORDPRESS_API_URL || 'https://cms.example.com/graphql';

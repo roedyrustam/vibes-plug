@@ -159,7 +159,7 @@ export function SignupForm() {
 
 ---
 
-### 2. Server Actions + useActionState (React 19 / Next.js 15)
+### 2. Server Actions + useActionState (React 19 / Next.js 16)
 
 ```typescript
 // actions/signup.ts

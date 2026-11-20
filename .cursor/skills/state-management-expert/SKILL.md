@@ -359,7 +359,7 @@ Terhubung dan mengorkestrasi skill domain yang relevan:
 - **Sinergi Lintas Domain & Integrasi Swarm Subagent**: `solidjs-expert`, `angular-expert`, `svelte-sveltekit-expert`, `vue-frontend-expert`
 
 ### Deskripsi
-Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 15. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.
+Panduan ahli untuk memilih dan mengimplementasikan solusi manajemen state yang tepat untuk aplikasi React 19 dan Next.js 16. Mencakup **Zustand 5**, **Jotai 2**, **Valtio**, dan **Redux Toolkit 2**, dengan panduan pemilihan yang jelas, pemisahan server state (TanStack Query) dari client state, dan pola lanjutan seperti slices, persistensi, dan integrasi devtools.
 
 ### Kondisi Pemicu
 - Memilih library state management untuk proyek React/Next.js baru.

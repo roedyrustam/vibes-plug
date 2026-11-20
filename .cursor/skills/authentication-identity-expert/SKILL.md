@@ -28,7 +28,7 @@ version: "4.8.0"
   - `session-memory-manager` — Store authentication topology decisions and credential schemas.
 
 ### Description
-Production-grade guide for implementing secure authentication, authorization, and identity management in modern web and mobile applications. Covers **Clerk**, **Supabase Auth**, **Auth.js v5**, **Better Auth**, JWT patterns, OAuth 2.1, PKCE flows, RBAC/ABAC, passkeys (WebAuthn), and MFA implementations for React 19 / Next.js 15 stacks.
+Production-grade guide for implementing secure authentication, authorization, and identity management in modern web and mobile applications. Covers **Clerk**, **Supabase Auth**, **Auth.js v5**, **Better Auth**, JWT patterns, OAuth 2.1, PKCE flows, RBAC/ABAC, passkeys (WebAuthn), and MFA implementations for React 19 / Next.js 16 stacks.
 
 ### Trigger Conditions
 - Working on login/signup flows, session management, or OAuth integrations.
@@ -87,7 +87,7 @@ authUrl.searchParams.set('code_challenge_method', 'S256');
 authUrl.searchParams.set('state', cryptoRandomState);
 ```
 
-#### 4. Clerk — Next.js 15 Integration
+#### 4. Clerk — Next.js 16 Integration
 ```typescript
 // middleware.ts
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
@@ -193,7 +193,7 @@ export async function getPasskeyRegistrationOptions(userId: string, userEmail: s
   - `session-memory-manager` — Menyimpan keputusan topologi autentikasi dan skema kredensial.
 
 ### Deskripsi
-Panduan tingkat produksi untuk implementasi autentikasi aman, otorisasi (RBAC/ABAC), dan manajemen identitas pengguna pada aplikasi web dan mobile modern. Mencakup integrasi **Clerk**, **Supabase Auth**, **Auth.js v5 (NextAuth)**, **Better Auth**, OAuth 2.1 dengan alur PKCE, rotasi Refresh Token HttpOnly, Passkeys (WebAuthn), dan Multi-Factor Authentication (MFA) untuk stack React 19 / Next.js 15.
+Panduan tingkat produksi untuk implementasi autentikasi aman, otorisasi (RBAC/ABAC), dan manajemen identitas pengguna pada aplikasi web dan mobile modern. Mencakup integrasi **Clerk**, **Supabase Auth**, **Auth.js v5 (NextAuth)**, **Better Auth**, OAuth 2.1 dengan alur PKCE, rotasi Refresh Token HttpOnly, Passkeys (WebAuthn), dan Multi-Factor Authentication (MFA) untuk stack React 19 / Next.js 16.
 
 ### Rekomendasi Pemilihan Identity Provider
 
@@ -226,7 +226,7 @@ export async function verifikasiPassword(hashTersimpan: string, passwordInput: s
 }
 ```
 
-#### 2. Clerk Middleware pada Next.js 15 App Router
+#### 2. Clerk Middleware pada Next.js 16 App Router
 ```typescript
 // middleware.ts
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';

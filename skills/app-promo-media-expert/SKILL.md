@@ -99,7 +99,7 @@ Every screenshot in the sequence must follow a 4-part visual hierarchy:
 Dynamic OG generation ensures every link share on Twitter/X, Discord, Slack, and WhatsApp renders a custom high-res branded card.
 
 ```tsx
-// app/api/og/route.tsx (Next.js 15 + @vercel/og / Satori)
+// app/api/og/route.tsx (Next.js 16 + @vercel/og / Satori)
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
@@ -437,7 +437,7 @@ Panduan rekayasa tingkat produksi untuk membuat media promosi aplikasi berkualit
 ### Kondisi Pemicu (Trigger Conditions)
 - Mendesain screenshot promosi resmi untuk Apple App Store & Google Play Store lengkap dengan bingkai gawai (device frame).
 - Membuat materi promosi peluncuran untuk Product Hunt, banner Twitter/X, kartu LinkedIn, dan iklan carousel Instagram/TikTok.
-- Mengimplementasikan pembuatan gambar dinamis Open Graph (OG) berbasis Next.js 15 dan `@vercel/og` (Satori).
+- Mengimplementasikan pembuatan gambar dinamis Open Graph (OG) berbasis Next.js 16 dan `@vercel/og` (Satori).
 - Membuat video teaser atau demo aplikasi secara terprogram menggunakan Remotion (video berbasis React).
 - Menyusun storyboard dan skrip video promosi aplikasi 30 detik berkonversi tinggi dengan voiceover AI.
 - Mengotomatiskan pengambilan tangkapan layar (screenshot) multi-resolusi menggunakan Playwright/Puppeteer.

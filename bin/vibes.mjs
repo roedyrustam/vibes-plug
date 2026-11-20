@@ -38,7 +38,7 @@ async function runInit(projectName) {
     const filesToCreate = {
       'README.md': `# ${projectName}\n\nProject initialized with Vibes-Plug Swarm Orchestrator.\n\n## Next Steps\nAsk your AI agent to begin **Phase 1: Discovery** using the \`zero-to-prod-orchestrator\` skill.\n`,
       'PROGRESS.md': `# 🚀 Zero to Prod - Progress Tracker\n\n- [ ] Phase 1: Discovery & PRD Architecture\n- [ ] Phase 2: Foundation & Project Structure\n- [ ] Phase 3: Database & Security Isolation\n- [ ] Phase 4: Backend & APIs\n- [ ] Phase 5: Frontend & User Interface\n- [ ] Phase 6: Testing & Quality Gate (TDD / Anti-Slop)\n- [ ] Phase 7: DevOps, Telemetry & CI/CD\n- [ ] Phase 8: Production Release & Post-Launch Validation\n`,
-      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Frontend / Fullstack**: Next.js 15 App Router / React 19 / Hono\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Styling**: Tailwind CSS v4 (@theme tokens)\n- **Database ORM**: Prisma 6 / Drizzle ORM\n- **Testing**: Vitest + Playwright E2E\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first API schema definition with automated TypeScript client codegen.\n- **ADR-002**: Stateless session tokens with short expiration and refresh rotation.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
+      'BLUEPRINT.md': `# 📐 System Blueprint & Architecture\n\n## 1. Architectural Topology\n\`\`\`\nClient (Web / Mobile) ──► Reverse Proxy / Gateway ──► Application Layer ──► Database / Cache\n\`\`\`\n\n## 2. Technology Stack Selection\n- **Runtime**: Node.js 24+ LTS / Bun 1.2+\n- **Frontend / Fullstack**: Next.js 16 App Router / React 19 / Hono\n- **Language**: TypeScript 5.8+ (Strict Mode)\n- **Styling**: Tailwind CSS v4 (@theme tokens)\n- **Database ORM**: Prisma 6 / Drizzle ORM\n- **Testing**: Vitest + Playwright E2E\n\n## 3. Architectural Decision Records (ADRs)\n- **ADR-001**: Contract-first API schema definition with automated TypeScript client codegen.\n- **ADR-002**: Stateless session tokens with short expiration and refresh rotation.\n- **ADR-003**: Deterministic KV-Cache prompt prefixing for sub-second AI orchestration.\n`,
       'PRD.md': `# 📋 ${projectName} - Product Requirements Document (PRD)\n\n## 1. Executive Summary & Vision\n- **Product Name**: ${projectName}\n- **Lifecycle**: 8-Phase Zero-To-Prod Swarm Lifecycle\n- **Target Audience**: Developers, enterprise teams, and end-users requiring high-velocity reliability.\n\n## 2. Core Functional Requirements\n- **F-01**: Secure identity management and session validation with RBAC.\n- **F-02**: Typed domain models with automated schema validation.\n- **F-03**: Resilient data mutations with transactional idempotency.\n- **F-04**: Real-time event propagation and responsive user interface state.\n\n## 3. Data Architecture Spec (PostgreSQL DDL)\n\`\`\`sql\nCREATE TABLE IF NOT EXISTS users (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  email VARCHAR(255) UNIQUE NOT NULL,\n  role VARCHAR(32) NOT NULL DEFAULT 'user',\n  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),\n  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()\n);\n\nCREATE INDEX idx_users_email ON users(email);\n\`\`\`\n\n## 4. API Interface Contract\n\`\`\`json\n{\n  "endpoint": "/api/v1/health",\n  "method": "GET",\n  "response": {\n    "status": "healthy",\n    "version": "1.0.0",\n    "timestamp": "ISO-8601"\n  }\n}\n\`\`\`\n\n## 5. Non-Functional Requirements (NFR Budgets)\n- **Latency**: P99 response time < 150ms.\n- **Quality**: Zero AI slop, zero placeholder stubs, 100% typed contracts.\n- **Accessibility**: WCAG 2.2 Level AA compliance.\n- **Security**: OWASP Top 10 hardened with atomic input sanitization.\n`
     };
 
@@ -99,9 +99,9 @@ async function runWizard() {
     const archetype = await select({
       message: 'Select project architecture archetype:',
       choices: [
-        { name: '🏢 Multi-Tenant SaaS (Next.js 15, Supabase RLS, DOKU / Stripe Billing)', value: 'saas' },
+        { name: '🏢 Multi-Tenant SaaS (Next.js 16, Supabase RLS, DOKU / Stripe Billing)', value: 'saas' },
         { name: '📜 Contract-First Spec-Driven API (Hono, TypeSpec, OpenAPI 3.1, BDD)', value: 'spec-api' },
-        { name: '⚡ Fullstack Modern App (T3 / Next.js 15, tRPC, Drizzle / Prisma)', value: 'fullstack' },
+        { name: '⚡ Fullstack Modern App (T3 / Next.js 16, tRPC, Drizzle / Prisma)', value: 'fullstack' },
         { name: '🛍️ E-Commerce & Agentic Commerce (Next.js, QRIS / Base, Medusa)', value: 'ecommerce' },
         { name: '📱 Cross-Platform Mobile App (React Native, Expo SDK 53, Router v4)', value: 'mobile' },
         { name: '🚀 High-Performance Backend API (Bun / Hono / Node.js 24+)', value: 'api' },
@@ -112,7 +112,7 @@ async function runWizard() {
       ]
     });
 
-    let frontend = 'Next.js 15 (App Router)';
+    let frontend = 'Next.js 16 (App Router)';
     let backend = 'Hono / Node.js 24+';
     let db = 'Drizzle ORM + PostgreSQL';
     let auth = 'Supabase Auth';
@@ -121,13 +121,16 @@ async function runWizard() {
 
     if (archetype === 'custom') {
       frontend = await select({
-        message: 'Select Frontend Framework:',
+        message: 'Select Frontend Framework (all scaffolded at @latest):',
         choices: [
-          { name: 'Next.js 15 App Router (React 19 + Tailwind v4)', value: 'nextjs' },
-          { name: 'Vite + React 19 SPA', value: 'vite-react' },
-          { name: 'Astro 5 (Islands Architecture + MDX)', value: 'astro' },
-          { name: 'SvelteKit 2 (Svelte 5 Runes)', value: 'svelte' },
-          { name: 'SolidStart (SolidJS 2)', value: 'solid' },
+          { name: 'Next.js 16+ App Router (React 19.2+ + Turbopack + Tailwind v4)', value: 'nextjs' },
+          { name: 'Vite 8 + React 19.2+ SPA (Rolldown + Tailwind v4)', value: 'vite-react' },
+          { name: 'Nuxt 4+ / Vue 3.5+ (Composition API + Pinia + Tailwind v4)', value: 'vue' },
+          { name: 'SvelteKit 3+ (Svelte 5 Runes + Tailwind v4)', value: 'svelte' },
+          { name: 'Astro 7+ (Islands Architecture + Live Content Collections)', value: 'astro' },
+          { name: 'Angular 22+ (Zoneless Signals + Standalone + Vitest)', value: 'angular' },
+          { name: 'SolidStart (SolidJS 2+ Fine-Grained Reactivity)', value: 'solid' },
+          { name: 'HTMX 2.x + Alpine.js (Hypermedia HTML-over-the-Wire)', value: 'htmx' },
           { name: 'None (Pure Backend / Headless API)', value: 'none' }
         ]
       });
@@ -184,6 +187,10 @@ async function runWizard() {
         customSkillSet.add('spa-orchestrator');
         customSkillSet.add('tailwind-expert');
       }
+      if (frontend === 'vue') {
+        customSkillSet.add('vue-frontend-expert');
+        customSkillSet.add('tailwind-expert');
+      }
       if (frontend === 'astro') {
         customSkillSet.add('astro-framework-expert');
         customSkillSet.add('tailwind-expert');
@@ -192,8 +199,16 @@ async function runWizard() {
         customSkillSet.add('svelte-sveltekit-expert');
         customSkillSet.add('tailwind-expert');
       }
+      if (frontend === 'angular') {
+        customSkillSet.add('angular-expert');
+        customSkillSet.add('tailwind-expert');
+      }
       if (frontend === 'solid') {
         customSkillSet.add('solidjs-expert');
+        customSkillSet.add('tailwind-expert');
+      }
+      if (frontend === 'htmx') {
+        customSkillSet.add('htmx-hypermedia-expert');
         customSkillSet.add('tailwind-expert');
       }
 
@@ -1275,7 +1290,7 @@ const RECIPES = {
     skills: ['ai-llm-integration-expert', 'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'ai-prompt-engineering-expert', 'multi-agent-orchestration']
   },
   'fullstack-pro': {
-    description: 'Production-grade fullstack: Next.js 15, auth, DB, payments, testing',
+    description: 'Production-grade fullstack: Next.js 16, auth, DB, payments, testing',
     skills: ['nextjs-app-router-expert', 'authentication-identity-expert', 'database-orm-expert', 'payment-gateway-expert', 'e2e-testing-expert', 'error-resilience-expert']
   },
   'security-hardened': {

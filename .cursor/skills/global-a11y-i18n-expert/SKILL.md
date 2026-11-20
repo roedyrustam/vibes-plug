@@ -20,7 +20,7 @@ Production guide for building universally accessible, globally adaptable web app
 
 ### Trigger Conditions
 - Enterprise and public sector readiness requiring legal WCAG 2.2 AA compliance.
-- Adding multi-language routing (`/en`, `/id`, `/ja`, `/ar`) to Next.js 15 App Router.
+- Adding multi-language routing (`/en`, `/id`, `/ja`, `/ar`) to Next.js 16 App Router.
 - Supporting Right-to-Left (RTL) reading flows for Arabic or Hebrew markets.
 - Fixing keyboard navigation focus traps or screen reader accessibility bugs.
 - Localizing currency formatting (`Intl.NumberFormat`) and localized date displays.
@@ -79,7 +79,7 @@ export function AccessibleModal({ isOpen, onClose, title, children }: ModalProps
 }
 ```
 
-### Type-Safe Locale Routing with `next-intl` (Next.js 15)
+### Type-Safe Locale Routing with `next-intl` (Next.js 16)
 
 ```typescript
 // src/i18n/request.ts
@@ -167,7 +167,7 @@ Panduan produksi untuk membangun aplikasi web yang dapat diakses secara universa
 
 ### Kondisi Pemicu
 - Kesiapan pengadaan software untuk enterprise atau sektor publik dengan kewajiban hukum kepatuhan WCAG 2.2 AA.
-- Menambahkan dukungan multi-bahasa (`/en`, `/id`, `/ar`) pada Next.js 15 App Router.
+- Menambahkan dukungan multi-bahasa (`/en`, `/id`, `/ar`) pada Next.js 16 App Router.
 - Mendukung bahasa yang dibaca dari Kanan ke Kiri (RTL) seperti Bahasa Arab.
 - Mengatasi masalah navigasi keyboard atau hilangnya garis fokus (*focus outline*).
 - Memformat mata uang lokal (Rupiah, Dollar) menggunakan API `Intl.NumberFormat` native.

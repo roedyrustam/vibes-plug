@@ -275,14 +275,14 @@ const TERMINAL_OUTPUTS = {
 ----------------------------------------------------------------------
 📁 Target Directory   : /workspace/project
 ⚡ Detected Stacks    :
-   • Next.js 15 App Router (React 19 Server Components)
+   • Next.js 16 App Router (React 19 Server Components)
    • Tailwind CSS v4 (@theme native engine)
    • Prisma ORM 6 (PostgreSQL Client)
    • TypeScript 5.8 (Strict Mode Enabled)
    • Vitest + Playwright Testing Suite
 
 🎯 Recommended Cooperating Skills:
-   [1] <span class="term-badge term-badge-cyan">senior-frontend</span> : React 19 & Next.js 15 RSC architecture
+   [1] <span class="term-badge term-badge-cyan">senior-frontend</span> : React 19 & Next.js 16 RSC architecture
    [2] <span class="term-badge term-badge-cyan">tailwind-expert</span> : Modern Tailwind v4 tokens & responsive design
    [3] <span class="term-badge term-badge-purple">database-orm-expert</span> : Prisma 6 / Drizzle migrations & RLS
    [4] <span class="term-badge term-badge-yellow">anti-slop</span> : Zero placeholder & hyper-clean code enforcement

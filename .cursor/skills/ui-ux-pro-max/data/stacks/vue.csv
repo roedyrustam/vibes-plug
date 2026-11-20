@@ -46,5 +46,5 @@ No,Category,Guideline,Description,Do,Don't,Code Good,Code Bad,Severity,Docs URL
 45,Forms,Use VeeValidate or FormKit,Form validation libraries,VeeValidate for complex forms,Manual validation logic,useField useForm from vee-validate,Custom validation in each input,Medium,
 46,Accessibility,Use semantic elements,Proper HTML elements in templates,button nav main for purpose,div for everything,<button @click>,<div @click>,High,
 47,Accessibility,Bind aria attributes dynamically,Keep ARIA in sync with state,":aria-expanded=""isOpen""",Static ARIA values,":aria-expanded=""menuOpen""","aria-expanded=""true""",Medium,
-48,SSR,Use Nuxt for SSR,Full-featured SSR framework,Nuxt 3 for SSR apps,Manual SSR setup,npx nuxi init my-app,Custom SSR configuration,Medium,https://nuxt.com/
+48,SSR,Use Nuxt for SSR,Full-featured SSR framework,Nuxt 4+ for SSR apps,Manual SSR setup,npx nuxi@latest init my-app,Custom SSR configuration,Medium,https://nuxt.com/
 49,SSR,Handle hydration mismatches,Client/server content must match,ClientOnly for browser-only content,Different content server/client,<ClientOnly><BrowserWidget/></ClientOnly>,<div>{{ Date.now() }}</div>,High,

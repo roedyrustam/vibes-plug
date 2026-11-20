@@ -28,7 +28,7 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 **Swarm Synergy:** Within the **Frontend & UI Swarm**, this skill serves as the AI UI Presentation Lead. It translates complex backend multi-agent outputs and streaming tokens into accessible, beautiful web components in Phase 4 & Phase 5.
 
 ### Trigger Conditions
-- Integrating conversational chat, streaming completions, or generative UI in React 19 / Next.js 15.
+- Integrating conversational chat, streaming completions, or generative UI in React 19 / Next.js 16.
 - Implementing structured data extraction using `generateObject` or `streamObject` with Zod schemas.
 - Building autonomous multi-step tool-calling loops on Next.js Route Handlers or Server Actions.
 - Switching seamlessly across frontier providers (Claude Sonnet 5.5 / Fable 5.1, Gemini 4 Argon / Pro, OpenAI GPT-5.6 Sol, Grok 4.7, Ollama).
@@ -55,7 +55,7 @@ Production-grade guide for building AI applications using the **Vercel AI SDK (C
 
 ### Core Implementation Guidelines
 
-#### 1. Next.js 15 Route Handler with Multi-Step Tool Calling & Step Hooks
+#### 1. Next.js 16 Route Handler with Multi-Step Tool Calling & Step Hooks
 Use `streamText` with `maxSteps`, `onStepFinish`, and native prompt caching for iterative tool calling:
 ```typescript
 // app/api/chat/route.ts
@@ -398,7 +398,7 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 **Sinergi Swarm:** Di dalam **Frontend & UI Swarm**, skill ini berperan sebagai Pemimpin Presentasi UI AI. Skill ini bertugas mentransformasikan keluaran multi-agen backend dan token streaming menjadi komponen web yang interaktif, aksesibel, dan elegan pada Fase 4 & Fase 5.
 
 ### Kondisi Pemicu
-- Mengintegrasikan chat percakapan, streaming respons, atau generative UI di React 19 / Next.js 15.
+- Mengintegrasikan chat percakapan, streaming respons, atau generative UI di React 19 / Next.js 16.
 - Menerapkan ekstraksi data terstruktur dengan validasi skema Zod via `generateObject` atau `streamObject`.
 - Membangun loop pemanggilan tool (*tool-calling loops*) multi-langkah di Route Handler atau Server Actions.
 - Beralih fleksibel antar penyedia model frontier (Claude Sonnet 5.5 / Fable 5.1, Gemini 4 Argon / Pro, OpenAI GPT-5.6 Sol, Grok 4.7, Ollama).
@@ -408,7 +408,7 @@ Panduan produksi untuk membangun aplikasi AI menggunakan **Vercel AI SDK (Core &
 
 ### Implementasi Pola Kunci (TypeScript & React 19)
 
-#### 1. Next.js 15 Route Handler dengan Multi-Step Tool Calling & Hooks Langkah
+#### 1. Next.js 16 Route Handler dengan Multi-Step Tool Calling & Hooks Langkah
 Gunakan `streamText` dengan `maxSteps: 10`, `onStepFinish`, dan prompt caching native untuk siklus pemanggilan tool iteratif otonom:
 ```typescript
 // app/api/chat/route.ts

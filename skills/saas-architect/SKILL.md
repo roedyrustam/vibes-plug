@@ -49,7 +49,7 @@ The **SaaS Architect** is the master lifecycle orchestrator for building commerc
 - Keep MVP scope tight (target 4-6 weeks to launch).
 
 #### 2. Modern SaaS Stack Blueprint (2026)
-- **Frontend & App**: Next.js 15 App Router + React 19 + TypeScript.
+- **Frontend & App**: Next.js 16 App Router + React 19 + TypeScript.
 - **Styling & UI**: Tailwind CSS v4 + Base UI / shadcn/ui primitives.
 - **Data Layer**: PostgreSQL (Neon Serverless / Supabase) via Drizzle ORM or Prisma 6.
 - **Auth**: Clerk, Auth.js v5, or Supabase Auth with OAuth2 PKCE.
@@ -120,7 +120,7 @@ Every SaaS application must scaffold complete, functional implementations for:
 
 ---
 
-#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 15 / Edge)
+#### Multi-Tenant Subdomain & Entry-Point Isolation Middleware (Next.js 16 / Edge)
 ```typescript
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -232,7 +232,7 @@ export function evaluateFeatureAccess(featureKey: string, ctx: EntitlementContex
 
 ### Mode A: SaaS MVP dari Nol (0 ke 1)
 1. **Validasi Ide**: Rumuskan masalah dalam satu kalimat, validasi dengan 3+ komitmen bayar sebelum mulai coding.
-2. **Tech Stack Modern (2026)**: Next.js 15 App Router, Tailwind CSS v4, PostgreSQL (Neon/Supabase) via Drizzle/Prisma, Clerk/Auth.js, Stripe/Midtrans/DOKU, Resend, Vercel.
+2. **Tech Stack Modern (2026)**: Next.js 16 App Router, Tailwind CSS v4, PostgreSQL (Neon/Supabase) via Drizzle/Prisma, Clerk/Auth.js, Stripe/Midtrans/DOKU, Resend, Vercel.
 3. **Isolasi Entry Point**: Pisahkan landing page publik, dashboard penyewa (tenant), dan **Dashboard Super Admin** pada subdomain terpisah (`admin.example.com`).
 4. **Gerbang Kualitas Pra-Rilis**: Sesi login teroptimasi (JWT + Redis), webhook billing tervalidasi, Sentry aktif, rate limiting, halaman harga 2-3 tier, serta pemenuhan Trio Hukum & Privasi (Syarat & Ketentuan, Kebijakan Privasi, dan Hapus Data).
 

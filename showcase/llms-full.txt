@@ -628,8 +628,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `angular-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@angular-expert`
-- **English Summary**: Angular 19+ enterprise apps, Signals, Standalone, and NgRx Store
-- **Indonesian Summary**: Aplikasi enterprise Angular 19+, Signals, dan NgRx SignalStore.
+- **English Summary**: Angular 22+ (latest) enterprise apps: Zoneless Signals, Standalone, Vitest, and NgRx SignalStore
+- **Indonesian Summary**: Aplikasi enterprise Angular 22+ (terbaru): Zoneless Signals, Standalone, Vitest, dan NgRx SignalStore.
 - **Tags**: #angular, #frontend
 - **Repository Path**: [`skills/angular-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/angular-expert/SKILL.md)
 
@@ -642,8 +642,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `astro-framework-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@astro-framework-expert`
-- **English Summary**: Astro 5+ framework: Content Collections, Islands, and View Transitions
-- **Indonesian Summary**: Framework Astro 5+: Content Collections, Islands, dan View Transitions.
+- **English Summary**: Astro 7+ (latest) framework: Live Content Collections, Islands, Fonts API, and View Transitions
+- **Indonesian Summary**: Framework Astro 7+ (terbaru): Live Content Collections, Islands, Fonts API, dan View Transitions.
 - **Tags**: #astro, #framework, #frontend
 - **Repository Path**: [`skills/astro-framework-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/astro-framework-expert/SKILL.md)
 
@@ -761,8 +761,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `nextjs-app-router-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@nextjs-app-router-expert`
-- **English Summary**: Next.js 15 App Router: RSC, Server Actions, PPR, and caching
-- **Indonesian Summary**: Panduan Next.js 15 App Router: RSC, Server Actions, PPR, dan cache.
+- **English Summary**: Next.js 16 App Router: RSC, Server Actions, PPR, and caching
+- **Indonesian Summary**: Panduan Next.js 16 App Router: RSC, Server Actions, PPR, dan cache.
 - **Tags**: #nextjs, #app, #router, #frontend
 - **Repository Path**: [`skills/nextjs-app-router-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/nextjs-app-router-expert/SKILL.md)
 
@@ -803,8 +803,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `senior-frontend` (v4.8.0)
 - **Native Prompt Trigger**: `@senior-frontend`
-- **English Summary**: Senior frontend: React 19, Next.js 15, TypeScript, and Tailwind v4
-- **Indonesian Summary**: Frontend tingkat lanjut: React 19, Next.js 15, dan Tailwind v4.
+- **English Summary**: Senior frontend: React 19, Next.js 16, TypeScript, and Tailwind v4
+- **Indonesian Summary**: Frontend tingkat lanjut: React 19, Next.js 16, dan Tailwind v4.
 - **Tags**: #senior, #frontend
 - **Repository Path**: [`skills/senior-frontend/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/senior-frontend/SKILL.md)
 
@@ -831,8 +831,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `svelte-sveltekit-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@svelte-sveltekit-expert`
-- **English Summary**: Svelte 5 Runes and SvelteKit 2 server-first application architecture
-- **Indonesian Summary**: Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 2 server-first.
+- **English Summary**: Svelte 5 Runes and SvelteKit 3+ (latest) server-first application architecture
+- **Indonesian Summary**: Arsitektur aplikasi Svelte 5 Runes dan SvelteKit 3+ (terbaru) server-first.
 - **Tags**: #svelte, #sveltekit, #frontend
 - **Repository Path**: [`skills/svelte-sveltekit-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/svelte-sveltekit-expert/SKILL.md)
 
@@ -880,8 +880,8 @@ Every skill operates under the Sovereign Anti-Slop Directive, enforcing 100% com
 
 #### `vue-frontend-expert` (v4.8.0)
 - **Native Prompt Trigger**: `@vue-frontend-expert`
-- **English Summary**: Vue 3 Composition API, Nuxt 3, Pinia, and reactive architecture
-- **Indonesian Summary**: Pengembangan Vue 3 Composition API, Nuxt 3, Pinia, dan arsitektur SPA/SSR.
+- **English Summary**: Vue 3.5+ Composition API, Nuxt 4+ (latest), Pinia, and reactive architecture
+- **Indonesian Summary**: Pengembangan Vue 3.5+ Composition API, Nuxt 4+ (terbaru), Pinia, dan arsitektur SPA/SSR.
 - **Tags**: #vue, #frontend
 - **Repository Path**: [`skills/vue-frontend-expert/SKILL.md`](https://github.com/roedyrustam/vibes-plug/blob/main/skills/vue-frontend-expert/SKILL.md)
 
