@@ -36,7 +36,20 @@ export async function saveMemory(data, cwd = process.cwd()) {
   const dir = getMemoryDir(cwd);
   await fs.mkdir(dir, { recursive: true });
   const filePath = getMemoryFile(cwd);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8');
+  const tmpPath = `${filePath}.${process.pid}.${Math.random().toString(36).slice(2, 8)}.tmp`;
+  await fs.writeFile(tmpPath, JSON.stringify(data, null, 2) + '\n', 'utf8');
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      await fs.rename(tmpPath, filePath);
+      return;
+    } catch (err) {
+      if (attempt === 4 || !['EPERM', 'EBUSY', 'EACCES', 'UNKNOWN'].includes(err.code)) {
+        await fs.unlink(tmpPath).catch(() => {});
+        throw err;
+      }
+      await new Promise(r => setTimeout(r, 40 * (attempt + 1)));
+    }
+  }
 }
 
 const DEFAULT_TTL_DAYS = 90;
@@ -148,7 +161,9 @@ export async function pruneExpired(options = {}, cwd = process.cwd()) {
 
 export async function generateCompactCheckpoint(cwd = process.cwd()) {
   const memory = await loadMemory(cwd);
-  const activeDecisions = memory.decisions.slice(-5); // Keep top 5 latest decisions
+  const nowMs = Date.now();
+  const nonExpired = memory.decisions.filter(d => computeEffectiveConfidence(d, nowMs) >= 0.2);
+  const activeDecisions = nonExpired.slice(-5); // Keep top 5 latest non-expired decisions
 
   let md = `# ⚡ Ultra-Compact Session Checkpoint (Vibes-Plug)\n\n`;
   md += `> **Project:** ${memory.project} | **Decisions Logged:** ${memory.decisions.length}\n\n`;

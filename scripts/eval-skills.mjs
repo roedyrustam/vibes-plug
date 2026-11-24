@@ -48,11 +48,50 @@ const EVAL_SCENARIOS = [
   }
 ];
 
-function scoreSkillMatch(promptTokens, skillEntry) {
-  const haystack = `${skillEntry.name} ${skillEntry.description || ''}`.toLowerCase();
+const SYNONYM_MAP = {
+  rls: ['multi-tenant', 'supabase', 'postgres', 'isolation'],
+  nextjs: ['next', 'app-router', 'react'],
+  ghidra: ['reverse-engineer', 'binary', 'rea', 'firmware'],
+  firmware: ['reverse-engineer', 'binary', 'rea'],
+  cryptographic: ['z3', 'formal-spec', 'post-quantum', 'invariants'],
+  invariants: ['formal-spec', 'z3', 'lean4', 'verifier'],
+  z3: ['formal-spec', 'smt', 'verifier'],
+  e2e: ['playwright', 'testing'],
+  playwright: ['e2e', 'testing'],
+  qris: ['doku', 'snap', 'payment'],
+  webhook: ['doku', 'payment', 'idempotent'],
+  a2a: ['agent-protocol', 'card', 'mcp'],
+  slop: ['anti-slop', 'visual-ui']
+};
+
+function expandPromptTokens(rawTokens) {
+  const expanded = new Map();
+  for (const tok of rawTokens) {
+    expanded.set(tok, (expanded.get(tok) || 0) + 2.0);
+    const syns = SYNONYM_MAP[tok];
+    if (syns) {
+      for (const syn of syns) {
+        expanded.set(syn, Math.max(expanded.get(syn) || 0, 1.25));
+      }
+    }
+  }
+  return expanded;
+}
+
+function scoreSkillMatch(weightedTokens, skillEntry, sliceEntry) {
+  const nameLower = skillEntry.name.toLowerCase();
+  const descLower = (skillEntry.description || '').toLowerCase();
+  const blueprintTitles = (sliceEntry?.codeBlueprints || []).map(b => b.title).join(' ').toLowerCase();
+  const domainLower = (sliceEntry?.domain || '').toLowerCase();
+  const haystack = `${nameLower} ${descLower} ${domainLower} ${blueprintTitles}`;
+
   let score = 0;
-  for (const tok of promptTokens) {
-    if (haystack.includes(tok)) score += 1;
+  for (const [tok, weight] of weightedTokens.entries()) {
+    if (nameLower.includes(tok)) {
+      score += weight * 2.0;
+    } else if (haystack.includes(tok)) {
+      score += weight;
+    }
   }
   return score;
 }
@@ -108,14 +147,18 @@ export async function runSkillEval(options = {}) {
   let totalHits = 0;
 
   for (const sc of EVAL_SCENARIOS) {
-    const tokens = sc.prompt
+    const rawTokens = sc.prompt
       .toLowerCase()
       .split(/[^a-z0-9-]+/)
-      .filter(t => t.length >= 3);
+      .filter(t => t.length >= 2);
+    const weightedTokens = expandPromptTokens(rawTokens);
 
     const ranked = skillEntries
-      .map(s => ({ name: s.name, score: scoreSkillMatch(tokens, s) }))
-      .sort((a, b) => b.score - a.score)
+      .map(s => ({
+        name: s.name,
+        score: scoreSkillMatch(weightedTokens, s, slices.slices?.[s.name])
+      }))
+      .sort((a, b) => b.score - a.score || a.name.localeCompare(b.name))
       .slice(0, 8)
       .map(s => s.name);
 

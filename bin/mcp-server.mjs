@@ -28,7 +28,7 @@ import { evaluateSql } from '../scripts/eval-migration.mjs';
 import { scoreDraft, arbitrateCandidates } from '../scripts/speculative-arbiter.mjs';
 import { verifyStateMachine, parseTypeScriptStates } from '../scripts/verify-invariants.mjs';
 import { compileCache } from '../scripts/compile-cache.mjs';
-import { recordDecision, queryMemory, generateCompactCheckpoint, loadMemory } from '../scripts/memory-daemon.mjs';
+import { recordDecision, queryMemory, pruneExpired, generateCompactCheckpoint, loadMemory } from '../scripts/memory-daemon.mjs';
 import { executeSwarm } from '../scripts/swarm-runner.mjs';
 import { criticValidate, formatSamplingRequest } from '../scripts/critic-validator.mjs';
 import { visualAudit } from '../scripts/visual-critic.mjs';
@@ -180,13 +180,13 @@ export const TOOLS = [
   },
   {
     name: 'vibes_memory',
-    description: 'Local Episodic Memory Engine: record architectural decisions, query past project invariants, or generate ultra-compact handoff checkpoints (<150 tokens) to eliminate context amnesia.',
+    description: 'Local Episodic Memory Engine: record architectural decisions with TTL decay, query past invariants, prune stale memories, or generate ultra-compact handoff checkpoints (<150 tokens).',
     inputSchema: {
       type: 'object',
       properties: {
         action: {
           type: 'string',
-          enum: ['record', 'query', 'checkpoint', 'list'],
+          enum: ['record', 'query', 'prune', 'checkpoint', 'list'],
           description: 'Memory action to perform.'
         },
         text: {
@@ -196,6 +196,18 @@ export const TOOLS = [
         category: {
           type: 'string',
           description: 'Optional category (Architecture, Database, Security, UI).'
+        },
+        ttlDays: {
+          type: 'number',
+          description: 'Optional TTL in days for recorded decisions (default: 90).'
+        },
+        dryRun: {
+          type: 'boolean',
+          description: 'When action is prune, preview expired memories without deleting.'
+        },
+        minConfidence: {
+          type: 'number',
+          description: 'Minimum effective confidence threshold (0..1) for query/prune.'
         }
       },
       required: ['action']
@@ -997,6 +1009,52 @@ export const TOOLS = [
         }
       }
     }
+  },
+  {
+    name: 'vibes_audit_tarball',
+    description: 'Supply-Chain Tarball & Lifecycle Hook Auditor: verifies npm pack contents against forbidden files/binaries/secrets, validates zero dangerous lifecycle hooks, and optionally checks SHA-256 skill/script integrity manifests.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        writeManifest: {
+          type: 'boolean',
+          description: 'Generate and persist SHA-256 integrity manifest for skills and scripts.'
+        },
+        verifyManifest: {
+          type: 'boolean',
+          description: 'Verify current skills and scripts against the saved SHA-256 integrity manifest.'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_audit_bloat',
+    description: 'Zero-Bloat Skill Compression & Overlap Analyzer: computes token footprint per skill and pairwise Jaccard similarity to identify oversized skills and redundant overlaps.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        maxTokens: {
+          type: 'number',
+          description: 'Token budget threshold for flagging oversized skills (default: 2500).'
+        },
+        overlapThreshold: {
+          type: 'number',
+          description: 'Jaccard similarity threshold (0..1) for flagging high overlap (default: 0.42).'
+        },
+        top: {
+          type: 'number',
+          description: 'Maximum number of top results to return (default: 10).'
+        }
+      }
+    }
+  },
+  {
+    name: 'vibes_eval_skills',
+    description: 'Deterministic Skill Routing & Token-Compression Eval Harness: measures domain routing recall, per-task slice token savings %, and canonical KV-cache prefix sorting.',
+    inputSchema: {
+      type: 'object',
+      properties: {}
+    }
   }
 ];
 
@@ -1004,7 +1062,7 @@ export const TOOL_PROFILES = Object.freeze({
   full: {
     id: 'full',
     name: 'Full Sovereign Engine',
-    description: 'All 48 sovereign superintelligence, orchestration, and domain tools (Default mode)',
+    description: 'All 51 sovereign superintelligence, orchestration, and domain tools (Default mode)',
     tools: null
   },
   core: {
@@ -1092,6 +1150,8 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_bridge_status',
       'vibes_bridge_sync',
       'vibes_run_benchmark',
+      'vibes_audit_tarball',
+      'vibes_eval_skills',
       'vibes_tool_profile'
     ]
   },
@@ -1123,6 +1183,8 @@ export const TOOL_PROFILES = Object.freeze({
       'vibes_gemini_budget',
       'vibes_worktree_swarm',
       'vibes_semantic_search',
+      'vibes_audit_bloat',
+      'vibes_eval_skills',
       'vibes_tool_profile'
     ]
   }
@@ -1403,12 +1465,23 @@ export async function handleRpcRequest(request) {
         const action = args?.action;
         if (action === 'record') {
           if (!args.text) throw new Error("Argument 'text' is required for action 'record'.");
-          const item = await recordDecision(args.text, { category: args.category || 'Architecture' });
+          const item = await recordDecision(args.text, {
+            category: args.category || 'Architecture',
+            ttlDays: typeof args.ttlDays === 'number' ? args.ttlDays : undefined
+          });
           contentText = JSON.stringify({ success: true, item }, null, 2);
         } else if (action === 'query') {
           if (!args.text) throw new Error("Argument 'text' (search keyword) is required for action 'query'.");
-          const matches = await queryMemory(args.text);
+          const matches = await queryMemory(args.text, process.cwd(), {
+            minConfidence: typeof args.minConfidence === 'number' ? args.minConfidence : undefined
+          });
           contentText = JSON.stringify({ count: matches.length, matches }, null, 2);
+        } else if (action === 'prune') {
+          const res = await pruneExpired({
+            dryRun: Boolean(args?.dryRun),
+            minConfidence: typeof args?.minConfidence === 'number' ? args.minConfidence : 0.2
+          });
+          contentText = JSON.stringify({ success: true, ...res }, null, 2);
         } else if (action === 'checkpoint') {
           const res = await generateCompactCheckpoint();
           contentText = JSON.stringify({ success: true, checkpoint: res }, null, 2);
@@ -1873,6 +1946,34 @@ export async function handleRpcRequest(request) {
           await fs.writeFile(path.resolve(process.cwd(), args.targetFile), outcome.patchedCode, 'utf8');
         }
         contentText = JSON.stringify(outcome, null, 2);
+      } else if (name === 'vibes_audit_tarball') {
+        const { auditTarball, generateIntegrityManifest, verifyIntegrityManifest } = await import('../scripts/audit-tarball.mjs');
+        const report = await auditTarball({ rootDir: PLUGIN_ROOT });
+        const manifestPath = path.join(PLUGIN_ROOT, '.agents', 'security', 'integrity-manifest.json');
+        if (args?.writeManifest) {
+          const manifest = await generateIntegrityManifest(PLUGIN_ROOT);
+          await fs.mkdir(path.dirname(manifestPath), { recursive: true });
+          await fs.writeFile(manifestPath, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
+          report.manifestWritten = { path: manifestPath, fileCount: manifest.fileCount };
+        }
+        if (args?.verifyManifest) {
+          report.integrityVerification = await verifyIntegrityManifest(manifestPath, PLUGIN_ROOT);
+          if (!report.integrityVerification.passed) report.passed = false;
+        }
+        contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_audit_bloat') {
+        const { auditSkillBloat } = await import('../scripts/audit-skill-bloat.mjs');
+        const report = await auditSkillBloat({
+          skillsDir: SKILLS_DIR,
+          maxTokens: args?.maxTokens,
+          overlapThreshold: args?.overlapThreshold,
+          top: args?.top
+        });
+        contentText = JSON.stringify(report, null, 2);
+      } else if (name === 'vibes_eval_skills') {
+        const { runSkillEval } = await import('../scripts/eval-skills.mjs');
+        const report = await runSkillEval({ rootDir: PLUGIN_ROOT });
+        contentText = JSON.stringify(report, null, 2);
       } else {
         throw new Error(`Tool '${name}' not found.`);
       }

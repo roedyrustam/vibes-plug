@@ -103,7 +103,7 @@ export function arbitrateCandidates(candidates) {
     };
   });
 
-  evaluations.sort((a, b) => b.totalScore - a.totalScore);
+  evaluations.sort((a, b) => b.totalScore - a.totalScore || String(a.candidateId).localeCompare(String(b.candidateId)));
   const winner = evaluations[0];
 
   return {

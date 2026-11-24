@@ -284,7 +284,7 @@ export async function reconcileSpeculativeDrafts(drafts, options = {}) {
   }
 
   // Rank drafts by finalScore descending
-  analyzedDrafts.sort((a, b) => b.metrics.finalScore - a.metrics.finalScore);
+  analyzedDrafts.sort((a, b) => b.metrics.finalScore - a.metrics.finalScore || String(a.id || a.label || '').localeCompare(String(b.id || b.label || '')));
 
   const winner = analyzedDrafts[0];
 

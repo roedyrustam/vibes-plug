@@ -10,6 +10,7 @@
 
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolveSkillAdapter } from './skill-dispatcher.mjs';
 import { extractSmartCodeSnippet, extractDeclarativeRulesFromSkill } from './skill-rules-engine.mjs';
@@ -58,7 +59,7 @@ export async function compileSkillSlices() {
 
       const orchMatch = content.match(/(?:##|###)\s*(?:Orchestration & Integration|Integrasi Orkestrasi)[\s\S]*?(?=\r?\n(?:##|###)\s|$)/i);
       const allConnectedSkills = orchMatch
-        ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))]
+        ? [...new Set(Array.from(orchMatch[0].matchAll(/`([a-z0-9-]+)`/g)).map((m) => m[1]).filter((s) => s !== skillName))].sort((a, b) => a.localeCompare(b))
         : [];
       const connectedSkills = allConnectedSkills.slice(0, 12);
 
@@ -84,7 +85,7 @@ export async function compileSkillSlices() {
         guardRulesCount: rulesProfile.astGuardRulesCount + rulesProfile.declarativeMandatesCount,
         nfrContract: rulesProfile.nfrContract,
         codeBlueprintsCount: codeBlocks.length,
-        languagesAvailable: [...new Set(codeBlocks.map((b) => b.language))],
+        languagesAvailable: [...new Set(codeBlocks.map((b) => b.language))].sort((a, b) => a.localeCompare(b)),
         codeBlueprints: codeBlocks.slice(0, 5),
         connectedSkillsCount: allConnectedSkills.length,
         connectedSkills,
@@ -113,27 +114,59 @@ export async function compileSkillSlices() {
     domainSummary[dom].skills.push(item.skillName);
   }
 
+  const sortedDomains = {};
+  for (const domKey of Object.keys(domainSummary).sort((a, b) => a.localeCompare(b))) {
+    sortedDomains[domKey] = {
+      count: domainSummary[domKey].count,
+      blueprints: domainSummary[domKey].blueprints,
+      skills: [...domainSummary[domKey].skills].sort((a, b) => a.localeCompare(b))
+    };
+  }
+
   const fullTokensApprox = Math.ceil(totalFullBytes / 4);
   const sliceTokensApprox = Math.ceil(totalSliceBytes / 4);
   const reductionPct = Math.round(((fullTokensApprox - sliceTokensApprox) / fullTokensApprox) * 100);
 
+  const metrics = {
+    fullRegistryTokensApprox: fullTokensApprox,
+    compiledSlicesTokensApprox: sliceTokensApprox,
+    avgTokensPerSlice: Math.round(sliceTokensApprox / skillNames.length),
+    tokenReductionPercent: `${reductionPct}%`
+  };
+
+  const contentDigest = crypto
+    .createHash('sha256')
+    .update(JSON.stringify({ totalSkills: skillNames.length, totalCodeBlueprints: totalBlueprints, domains: sortedDomains, metrics, slices }))
+    .digest('hex');
+
+  let compiledAt = new Date().toISOString();
+  let existingRaw = null;
+  try {
+    existingRaw = await fs.readFile(OUTPUT_FILE, 'utf8');
+    const existingJson = JSON.parse(existingRaw);
+    if (existingJson.contentDigest === contentDigest && existingJson.compiledAt) {
+      compiledAt = existingJson.compiledAt;
+    }
+  } catch {
+    // Proceed with fresh compilation
+  }
+
   const payload = {
     schema: 'vibes-skill-slices/v4.8.0',
     version: '4.8.0',
-    compiledAt: new Date().toISOString(),
+    compiledAt,
+    contentDigest,
     totalSkills: skillNames.length,
     totalCodeBlueprints: totalBlueprints,
-    domains: domainSummary,
-    metrics: {
-      fullRegistryTokensApprox: fullTokensApprox,
-      compiledSlicesTokensApprox: sliceTokensApprox,
-      avgTokensPerSlice: Math.round(sliceTokensApprox / skillNames.length),
-      tokenReductionPercent: `${reductionPct}%`
-    },
+    domains: sortedDomains,
+    metrics,
     slices
   };
 
-  await fs.writeFile(OUTPUT_FILE, JSON.stringify(payload, null, 2), 'utf8');
+  const serializedPayload = JSON.stringify(payload, null, 2) + '\n';
+  if (existingRaw !== serializedPayload) {
+    await fs.writeFile(OUTPUT_FILE, serializedPayload, 'utf8');
+  }
   return payload;
 }
 

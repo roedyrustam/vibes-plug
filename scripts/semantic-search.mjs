@@ -274,7 +274,7 @@ export class LocalSemanticEngine {
       }
     }
 
-    scored.sort((a, b) => b.score - a.score);
+    scored.sort((a, b) => b.score - a.score || String(a.path || a.name || '').localeCompare(String(b.path || b.name || '')));
     return scored.slice(0, topK);
   }
 }

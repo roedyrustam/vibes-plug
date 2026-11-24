@@ -83,7 +83,7 @@ export async function auditSkillBloat(options = {}) {
 
   const oversized = metrics
     .filter(m => m.approxTokens > maxTokens)
-    .sort((a, b) => b.approxTokens - a.approxTokens)
+    .sort((a, b) => b.approxTokens - a.approxTokens || a.name.localeCompare(b.name))
     .map(({ tokenSet, ...rest }) => rest);
 
   const overlaps = [];
@@ -99,10 +99,10 @@ export async function auditSkillBloat(options = {}) {
       }
     }
   }
-  overlaps.sort((a, b) => b.similarity - a.similarity);
+  overlaps.sort((a, b) => b.similarity - a.similarity || a.skillA.localeCompare(b.skillA) || a.skillB.localeCompare(b.skillB));
 
   const heaviest = [...metrics]
-    .sort((a, b) => b.approxTokens - a.approxTokens)
+    .sort((a, b) => b.approxTokens - a.approxTokens || a.name.localeCompare(b.name))
     .slice(0, topLimit)
     .map(({ tokenSet, ...rest }) => rest);
 

@@ -101,83 +101,122 @@ export async function compileCache(options = {}) {
 
   const { skillsData, cacheHit } = await loadSkillsMetadataFast(skillDirs, force);
 
-  // 2. Build Canonical Deterministic Prefix Payload
+  // 2. Build Canonical Deterministic Prefix Payload (Deduplicated, Live-Synced & Sorted)
+  const rawDomains = {
+    ai_agentic: [
+      'a2a-agent-protocol-expert', 'adaptive-model-cascade', 'affective-computing-emotion-ai',
+      'agentic-coding-workflow-expert', 'agentic-memory-architect', 'agentic-micro-economy-architect',
+      'ai-llm-integration-expert', 'ai-media-generation-expert', 'ai-prompt-engineering-expert',
+      'ai-safety-governance-expert', 'computer-use-os-agent-expert', 'context-window-engineer',
+      'deep-research-analyst', 'doku-mcp-server', 'durable-agent-execution-expert',
+      'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
+      'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
+      'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
+      'neurosymbolic-genetic-synthesizer', 'parallel-tool-orchestrator', 'pydantic-ai-expert',
+      'speculative-multi-draft-synthesizer', 'synthetic-data-finetuning-expert',
+      'test-time-compute-optimizer', 'thinking-budget-orchestrator', 'vector-db-rag-expert',
+      'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert'
+    ],
+    design_ui_ux: [
+      'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',
+      'hig', 'modern-css-native-expert', 'multimodal-spatial-video-cloner',
+      'rich-text-editor-expert', 'screenshot-to-code-expert', 'svg-animation-motion-expert',
+      'tailwind-expert', 'ui-ux-pro-max', 'visual-ui-auditor', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
+    ],
+    frontend: [
+      'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
+      'blockchain-web3-expert', 'browser-extension-mv3-pro', 'flutter-dart-expert',
+      'form-validation-expert', 'global-a11y-i18n-expert', 'htmx-hypermedia-expert',
+      'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
+      'pwa-offline-first-expert', 'reactive-sync-engine-expert', 'senior-frontend',
+      'solidjs-expert', 'spa-orchestrator', 'state-management-expert',
+      'svelte-sveltekit-expert', 'tanstack-query-expert', 'vue-frontend-expert', 'web-game-engine-expert'
+    ],
+    backend_languages: [
+      'api-design-expert', 'api-gateway-proxy-expert', 'autonomous-api-drift-healer',
+      'bun-runtime-expert', 'cloudflare-workers-expert', 'domain-driven-design-expert',
+      'fullstack-expert', 'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
+      'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
+      'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
+      'structured-output-contracts', 'typescript-expert', 'wasm-edge-computing-expert'
+    ],
+    saas_cloud: [
+      'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert',
+      'composable-mach-architect', 'docker-container-expert', 'doku-payment-gateway',
+      'double-entry-ledger-fintech-expert', 'ecommerce-expert', 'event-driven-architect',
+      'feature-flag-analytics-expert', 'github-actions-expert', 'kubernetes-gitops-platform-expert',
+      'legacy-code-translator', 'micro-frontend-architect', 'monorepo-architect',
+      'payment-gateway-expert', 'saas-architect', 'saas-billing', 'saas-multi-tenant'
+    ],
+    database_data: [
+      'data-pipeline-etl-expert', 'database-orm-expert', 'geospatial-maps-expert',
+      'olap-columnar-analytics-expert', 'search-engine-expert', 'supabase-security-expert'
+    ],
+    security_testing: [
+      'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
+      'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
+      'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'e2e-testing-expert',
+      'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'fga-rebac-authorization-expert',
+      'firebase-security-expert', 'formal-spec-z3-verifier', 'formal-theorem-verifier-lean4',
+      'logging-error-tracking-expert', 'mcp-sampling-critic', 'passkeys-webauthn-identity-expert',
+      'post-quantum-crypto-migrator', 'production-ready-hardener', 'prompt-injection-firewall',
+      'property-mutation-testing-expert', 'rate-limit-abuse-prevention', 'rea-analysis-optimization',
+      'rea-changelog-update', 'rea-ci-tests-audit', 'rea-tool-design', 'reverse-engineer-anything',
+      'sbom-supply-chain-security-expert', 'scalability-clean-code', 'sovereign-id-compliance-expert',
+      'zero-tech-debt-auditor', 'zero-trust-secret-vault'
+    ],
+    orchestration_utilities: [
+      'app-analyzer-optimizer', 'app-promo-media-expert', 'async-queue-temporal-expert',
+      'brainstorming', 'browser-automation-expert', 'chatbot-messaging-expert',
+      'coderabbit', 'cron-scheduler-expert', 'data-telemetry-expert',
+      'data-visualization-expert', 'dependency-upgrade-migrator', 'desktop-electron-expert',
+      'documentation-site-expert', 'email-notification-expert', 'file-upload-media-expert',
+      'headless-cms-expert', 'mobile-expo-expert', 'n8n-automation-expert',
+      'pdf-document-generation-expert', 'prd-architect', 'proactive-background-watcher',
+      'realtime-collaboration-expert', 'self-healing-cloud-orchestrator', 'seo',
+      'session-memory-manager', 'sse-websocket-streaming-expert', 'tauri-expert',
+      'web-scraper', 'website-design-cloner', 'wordpress-headless-expert', 'zero-to-prod-orchestrator'
+    ]
+  };
+
+  const liveSkillSet = new Set(skillDirs);
+  const assignedSkills = new Set();
+  const normalizedDomains = {};
+
+  for (const [domKey, list] of Object.entries(rawDomains)) {
+    normalizedDomains[domKey] = [];
+    for (const s of list) {
+      if (liveSkillSet.has(s) && !assignedSkills.has(s)) {
+        assignedSkills.add(s);
+        normalizedDomains[domKey].push(s);
+      }
+    }
+  }
+
+  // Auto-route any newly created skill on disk so .cache-prefix.json never drifts or drops skills
+  for (const s of skillDirs) {
+    if (assignedSkills.has(s)) continue;
+    assignedSkills.add(s);
+    if (/(llm|agent|mcp|a2a|rag|prompt|model|gemini|ai-)/.test(s)) normalizedDomains.ai_agentic.push(s);
+    else if (/(ui|ux|css|tailwind|shader|design|3d|webxr|svg|hig)/.test(s)) normalizedDomains.design_ui_ux.push(s);
+    else if (/(react|nextjs|vue|angular|svelte|solid|astro|frontend|pwa|spa|mpa|htmx|flutter)/.test(s)) normalizedDomains.frontend.push(s);
+    else if (/(api|backend|rust|python|go-|bun|typescript|graphql|openapi|wasm|mvc|ddd)/.test(s)) normalizedDomains.backend_languages.push(s);
+    else if (/(saas|cloud|docker|k8s|kubernetes|ci-cd|payment|doku|fintech|ledger|monorepo)/.test(s)) normalizedDomains.saas_cloud.push(s);
+    else if (/(db|database|sql|olap|etl|search-engine|geospatial|supabase)/.test(s)) normalizedDomains.database_data.push(s);
+    else if (/(security|auth|test|slop|audit|rea-|reverse|crypto|z3|lean4|sbom|gdpr|compliance|firewall)/.test(s)) normalizedDomains.security_testing.push(s);
+    else normalizedDomains.orchestration_utilities.push(s);
+  }
+
+  for (const domKey of Object.keys(normalizedDomains)) {
+    normalizedDomains[domKey].sort((a, b) => a.localeCompare(b));
+  }
+
   const canonicalPayload = {
     version: '4.8.0',
     timestamp: '2026-10-06T00:00:00.000Z', // STATIC to ensure 100% byte-identical KV-cache hits
     architecture: `Vibes-Plug Swarm Architecture (${skillsData.length} Skills)`,
     orchestrator: 'Primary Trigger (Pemicu Utama)',
-    domains: {
-      ai_agentic: [
-        'adaptive-model-cascade', 'affective-computing-emotion-ai', 'agentic-coding-workflow-expert',
-        'agentic-memory-architect', 'agentic-micro-economy-architect', 'ai-llm-integration-expert',
-        'ai-media-generation-expert', 'ai-prompt-engineering-expert', 'ai-safety-governance-expert',
-        'context-window-engineer', 'deep-research-analyst', 'neurosymbolic-genetic-synthesizer', 'doku-mcp-server',
-        'frontier-ai-models-expert', 'gemini-agent-booster', 'graph-rag-knowledge-expert',
-        'kv-cache-prefix-optimizer', 'llm-finops-router', 'llm-observability-expert',
-        'local-slm-edge-ai-expert', 'mcp-server-architect', 'multi-agent-orchestration',
-        'parallel-tool-orchestrator', 'pydantic-ai-expert', 'speculative-multi-draft-synthesizer',
-        'synthetic-data-finetuning-expert', 'test-time-compute-optimizer', 'thinking-budget-orchestrator',
-        'vector-db-rag-expert', 'vercel-ai-sdk-expert', 'voice-ai-realtime-agent', 'xerj-search-expert',
-        'a2a-agent-protocol-expert', 'durable-agent-execution-expert', 'computer-use-os-agent-expert'
-      ],
-      design_ui_ux: [
-        'design-system-architect', 'ephemeral-generative-ui-architect', 'glsl-shader-expert',
-        'hig', 'modern-css-native-expert', 'multimodal-spatial-video-cloner',
-        'rich-text-editor-expert', 'screenshot-to-code-expert', 'svg-animation-motion-expert',
-        'tailwind-expert', 'ui-ux-pro-max', 'visual-ui-auditor', 'web-3d-graphics-expert', 'webxr-ar-vr-expert'
-      ],
-      frontend: [
-        'angular-expert', 'apple-ecosystem-expert', 'astro-framework-expert',
-        'blockchain-web3-expert', 'browser-extension-mv3-pro', 'flutter-dart-expert', 'form-validation-expert', 'global-a11y-i18n-expert',
-        'htmx-hypermedia-expert', 'mpa-orchestrator', 'nextjs-app-router-expert', 'performance-web-vitals',
-        'pwa-offline-first-expert', 'senior-frontend', 'solidjs-expert',
-        'spa-orchestrator', 'state-management-expert', 'svelte-sveltekit-expert',
-        'tanstack-query-expert', 'vue-frontend-expert', 'web-game-engine-expert', 'reactive-sync-engine-expert'
-      ],
-      backend_languages: [
-        'api-design-expert', 'api-gateway-proxy-expert', 'autonomous-api-drift-healer',
-        'bun-runtime-expert', 'cloudflare-workers-expert', 'domain-driven-design-expert', 'fullstack-expert',
-        'go-programming-expert', 'graphql-apollo-expert', 'js-backend-expert',
-        'living-codebase-ast-graph', 'mvc-expert', 'openapi-swagger-codegen-expert',
-        'python-programming-expert', 'rust-programming-expert', 'spec-driven-development-expert',
-        'structured-output-contracts', 'typescript-expert', 'wasm-edge-computing-expert'
-      ],
-      saas_cloud: [
-        'agentic-m2m-settlement', 'ci-cd-devops-architect', 'cloud-hosting-expert', 'composable-mach-architect',
-        'docker-container-expert', 'doku-payment-gateway', 'ecommerce-expert', 'event-driven-architect',
-        'feature-flag-analytics-expert', 'github-actions-expert', 'legacy-code-translator', 'micro-frontend-architect',
-        'monorepo-architect', 'payment-gateway-expert', 'saas-architect',
-        'saas-billing', 'saas-multi-tenant', 'double-entry-ledger-fintech-expert', 'kubernetes-gitops-platform-expert'
-      ],
-      database_data: [
-        'data-pipeline-etl-expert', 'database-orm-expert', 'geospatial-maps-expert',
-        'search-engine-expert', 'supabase-security-expert', 'olap-columnar-analytics-expert'
-      ],
-      security_testing: [
-        'accessibility-testing-expert', 'ai-code-review-autonomous', 'anti-slop',
-        'authentication-identity-expert', 'autonomous-red-teamer', 'autonomous-tdd-debugger',
-        'biome-linter-formatter-expert', 'compliance-gdpr-privacy-expert', 'sovereign-id-compliance-expert', 'e2e-testing-expert',
-        'ephemeral-wasm-sandbox-executor', 'error-resilience-expert', 'firebase-security-expert',
-        'formal-spec-z3-verifier', 'formal-theorem-verifier-lean4', 'logging-error-tracking-expert', 'mcp-sampling-critic', 'post-quantum-crypto-migrator',
-        'production-ready-hardener', 'prompt-injection-firewall', 'property-mutation-testing-expert',
-        'rate-limit-abuse-prevention', 'scalability-clean-code', 'zero-tech-debt-auditor', 'zero-trust-secret-vault',
-        'fga-rebac-authorization-expert', 'passkeys-webauthn-identity-expert', 'sbom-supply-chain-security-expert',
-        'reverse-engineer-anything', 'rea-tool-design', 'rea-analysis-optimization', 'rea-ci-tests-audit', 'rea-changelog-update'
-      ],
-      orchestration_utilities: [
-        'app-analyzer-optimizer', 'app-promo-media-expert', 'async-queue-temporal-expert',
-        'brainstorming', 'browser-automation-expert', 'chatbot-messaging-expert',
-        'coderabbit', 'cron-scheduler-expert', 'data-telemetry-expert',
-        'data-visualization-expert', 'dependency-upgrade-migrator', 'desktop-electron-expert',
-        'documentation-site-expert', 'email-notification-expert', 'file-upload-media-expert',
-        'headless-cms-expert', 'mobile-expo-expert', 'n8n-automation-expert',
-        'pdf-document-generation-expert', 'prd-architect', 'proactive-background-watcher',
-        'realtime-collaboration-expert', 'self-healing-cloud-orchestrator', 'seo',
-        'session-memory-manager', 'sse-websocket-streaming-expert', 'tauri-expert',
-        'web-scraper', 'website-design-cloner', 'wordpress-headless-expert', 'zero-to-prod-orchestrator'
-      ]
-    },
+    domains: normalizedDomains,
     totalSkills: skillsData.length,
     antiSlopStandard: {
       strictMode: true,
@@ -187,7 +226,7 @@ export async function compileCache(options = {}) {
   };
 
   // 3. Calculate Token & Size Metrics
-  const jsonString = JSON.stringify(canonicalPayload, null, 2);
+  const jsonString = JSON.stringify(canonicalPayload, null, 2) + '\n';
   const byteSize = Buffer.byteLength(jsonString, 'utf8');
   const estimatedTokens = Math.ceil(byteSize / 3.8);
 

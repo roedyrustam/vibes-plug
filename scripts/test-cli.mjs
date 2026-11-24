@@ -1257,7 +1257,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(liveTelRes.status, 200);
       const liveTelData = await liveTelRes.json();
       assert.equal(liveTelData.success, true);
-      assert.equal(liveTelData.mcpProfile.totalToolCount, 48);
+      assert.equal(liveTelData.mcpProfile.totalToolCount, 51);
       assert.equal(liveTelData.liveWatcher.active, true);
 
       // Test Studio 2D Interactive Knowledge Graph Node-Link endpoint
@@ -2947,23 +2947,94 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
     assert.ok(bloatReport.totalApproxTokens > 0);
     assert.ok(Array.isArray(bloatReport.highOverlaps));
 
+    const { compileCache } = await import('./compile-cache.mjs');
+    await compileCache({ quiet: true, force: true });
+
+    const { compileSkillSlices } = await import('./compile-skill-slices.mjs');
+    const slicesRun1 = await compileSkillSlices();
+    const slicesRun2 = await compileSkillSlices();
+    assert.ok(slicesRun1.contentDigest);
+    assert.equal(slicesRun1.contentDigest, slicesRun2.contentDigest);
+    assert.equal(slicesRun1.compiledAt, slicesRun2.compiledAt);
+
     const { runSkillEval } = await import('./eval-skills.mjs');
     const evalReport = await runSkillEval({ rootDir: PLUGIN_ROOT });
     assert.equal(evalReport.passed, true);
+    assert.equal(evalReport.cachePrefixSorted, true);
     assert.ok(evalReport.perTaskSavingsPct > 80);
-    assert.ok(evalReport.overallRecall >= 0.75);
+    assert.ok(evalReport.overallRecall >= 0.85);
+
+    const { stdout: statsOut } = await execFileAsync(process.execPath, [CLI_PATH, 'stats', '--json']);
+    const statsJson = JSON.parse(statsOut);
+    assert.equal(statsJson.cachePrefixSorted, true);
+    assert.equal(statsJson.supplyChain.lifecycleHooksClean, true);
+
+    // Verify new MCP tools & deterministic PRM tie-breaking
+    const { handleRpcRequest, TOOLS } = await import('../bin/mcp-server.mjs');
+    assert.equal(TOOLS.length, 51);
+
+    const mcpEvalRes = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 'eval-1',
+      method: 'tools/call',
+      params: { name: 'vibes_eval_skills', arguments: {} }
+    });
+    const mcpEvalJson = JSON.parse(mcpEvalRes.result.content[0].text);
+    assert.equal(mcpEvalJson.passed, true);
+    assert.equal(mcpEvalJson.cachePrefixSorted, true);
+
+    const mcpBloatRes = await handleRpcRequest({
+      jsonrpc: '2.0',
+      id: 'bloat-1',
+      method: 'tools/call',
+      params: { name: 'vibes_audit_bloat', arguments: { top: 3 } }
+    });
+    const mcpBloatJson = JSON.parse(mcpBloatRes.result.content[0].text);
+    assert.equal(mcpBloatJson.skillCount, 179);
+
+    const { arbitrateCandidates } = await import('./speculative-arbiter.mjs');
+    const identicalCode = 'export function add(a: number, b: number): number { return a + b; }\n';
+    const arb1 = arbitrateCandidates([{ id: 'B_Draft', code: identicalCode }, { id: 'A_Draft', code: identicalCode }]);
+    const arb2 = arbitrateCandidates([{ id: 'A_Draft', code: identicalCode }, { id: 'B_Draft', code: identicalCode }]);
+    assert.equal(arb1.winner.candidateId, 'A_Draft');
+    assert.equal(arb2.winner.candidateId, 'A_Draft');
+
+    const { runGuard } = await import('./run-guard.mjs');
+    const fastGuard = await runGuard({ fast: true });
+    assert.equal(fastGuard.passed, true);
+    assert.equal(fastGuard.passedCount, fastGuard.totalGates);
 
     const {
       recordDecision,
       computeEffectiveConfidence,
       pruneExpired,
-      loadMemory
+      loadMemory,
+      saveMemory,
+      generateCompactCheckpoint
     } = await import('./memory-daemon.mjs');
     const tmpMemDir = await fs.mkdtemp(path.join(os.tmpdir(), 'vibes-mem-'));
     try {
       const rec = await recordDecision('Use Drizzle ORM for edge DB', { ttlDays: 30 }, tmpMemDir);
       assert.equal(rec.ttlDays, 30);
       assert.equal(rec.confidence, 1.0);
+
+      // Verify expired decisions are excluded from CHECKPOINT.md
+      const staleMem = await loadMemory(tmpMemDir);
+      staleMem.decisions.unshift({
+        id: 'MEM_OLD',
+        timestamp: '2020-01-01T00:00:00.000Z',
+        lastAccessedAt: '2020-01-01T00:00:00.000Z',
+        ttlDays: 10,
+        confidence: 1.0,
+        decision: 'Obsolete jQuery Architecture',
+        category: 'Legacy',
+        skillsInvolved: []
+      });
+      await saveMemory(staleMem, tmpMemDir);
+      const cp = await generateCompactCheckpoint(tmpMemDir);
+      const cpText = await fs.readFile(cp.path, 'utf8');
+      assert.ok(!cpText.includes('Obsolete jQuery Architecture'));
+      assert.ok(cpText.includes('Use Drizzle ORM for edge DB'));
 
       const future15d = Date.parse(rec.timestamp) + 15 * 86_400_000;
       const midConf = computeEffectiveConfidence(rec, future15d);
@@ -2974,7 +3045,7 @@ test('Vibes-Plug CLI Test Suite', async (t) => {
       assert.equal(expiredConf, 0);
 
       const pruneRes = await pruneExpired({ nowMs: future31d, minConfidence: 0.2 }, tmpMemDir);
-      assert.equal(pruneRes.prunedCount, 1);
+      assert.equal(pruneRes.prunedCount, 2);
       assert.equal(pruneRes.afterCount, 0);
       const afterMem = await loadMemory(tmpMemDir);
       assert.equal(afterMem.decisions.length, 0);

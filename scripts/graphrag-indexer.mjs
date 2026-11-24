@@ -469,7 +469,7 @@ export async function hybridSearch(query, options = {}) {
     };
   });
 
-  results.sort((a, b) => b.score - a.score);
+  results.sort((a, b) => b.score - a.score || String(a.file || '').localeCompare(String(b.file || '')) || String(a.name || a.symbol || '').localeCompare(String(b.name || b.symbol || '')));
 
   return {
     success: true,

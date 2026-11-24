@@ -1172,19 +1172,59 @@ async function runDoctor(autoFix = false) {
     checks.push('ℹ️  No local .agents/skills/ found (run vibes doctor --fix or vibes add to initialize)');
   }
 
-  // 6. Deterministic KV-Cache prefix
+  // 6. Deterministic KV-Cache prefix & Skill Micro-Slices parity
+  const skillCount = skillsEntries ? skillsEntries.filter(d => d.isDirectory()).length : 0;
+  const slicesPath = path.join(PLUGIN_ROOT, '.skill-slices.json');
   if (cacheExists) {
-    checks.push('✅ Prompt cache prefix locked (.cache-prefix.json)');
+    try {
+      const cacheData = JSON.parse(await fs.readFile(cachePrefixPath, 'utf8'));
+      const domainsSorted = Object.values(cacheData.domains || {}).every(
+        arr => Array.isArray(arr) && arr.every((v, i) => i === 0 || arr[i - 1].localeCompare(v) <= 0)
+      );
+      const countMatches = cacheData.totalSkills === skillCount;
+      if (domainsSorted && countMatches) {
+        checks.push(`✅ Prompt cache prefix locked & canonically sorted (${cacheData.totalSkills} skills)`);
+      } else if (autoFix) {
+        const { compileCache } = await import('../scripts/compile-cache.mjs');
+        await compileCache({ quiet: true, force: true });
+        checks.push('🛠️  [FIXED] Recompiled & canonically sorted .cache-prefix.json');
+      } else {
+        checks.push('⚠️  .cache-prefix.json drifted or unsorted (run vibes doctor --fix)');
+      }
+    } catch {
+      checks.push('⚠️  .cache-prefix.json unreadable (run vibes doctor --fix)');
+    }
   } else if (autoFix) {
     try {
       const { compileCache } = await import('../scripts/compile-cache.mjs');
-      await compileCache();
+      await compileCache({ quiet: true, force: true });
       checks.push('🛠️  [FIXED] Recompiled and locked .cache-prefix.json');
     } catch {
       checks.push('⚠️  Could not auto-compile .cache-prefix.json');
     }
   } else {
     checks.push('⚠️  Prompt cache prefix missing (run vibes cache compile or vibes doctor --fix)');
+  }
+
+  try {
+    const slicesData = JSON.parse(await fs.readFile(slicesPath, 'utf8'));
+    if (slicesData.totalSkills === skillCount && slicesData.contentDigest) {
+      checks.push(`✅ Skill micro-slices deterministic & synchronized (${slicesData.totalSkills} slices)`);
+    } else if (autoFix) {
+      const { compileSkillSlices } = await import('../scripts/compile-skill-slices.mjs');
+      await compileSkillSlices();
+      checks.push('🛠️  [FIXED] Recompiled deterministic .skill-slices.json');
+    } else {
+      checks.push('ℹ️  .skill-slices.json missing digest or drifted (run vibes doctor --fix)');
+    }
+  } catch {
+    if (autoFix) {
+      const { compileSkillSlices } = await import('../scripts/compile-skill-slices.mjs');
+      await compileSkillSlices();
+      checks.push('🛠️  [FIXED] Generated deterministic .skill-slices.json');
+    } else {
+      checks.push('⚠️  .skill-slices.json missing (run vibes doctor --fix)');
+    }
   }
 
   // 7. Package version
@@ -1602,7 +1642,7 @@ async function runDocs(format = 'markdown', outputFile) {
 
 function showHelp() {
   console.log(`
-🌊 Vibes-Plug CLI (v4.8.0)
+🌊 Vibes-Plug CLI (v4.9.0)
 The ultimate AI Swarm Orchestrator tool.
 
 Usage:
@@ -1632,13 +1672,17 @@ Commands:
   version current           Show current version
   version bump <type>       Bump version across all files (type: major | minor | patch)
   hooks [install|remove|status] Manage Git pre-commit Anti-Slop & Pre-Disk verification gate
+  stats [--json]            Unified cockpit summary (FinOps, KV-Cache, Routing Recall, Memory & Supply-Chain)
   bench [--json]            Run the 7-engine performance benchmark suite & regression fuzzer
+  bench:skills [--json]     Evaluate domain routing recall & skill-slice token compression
   budget <task|file> [--json] Dynamic token budget optimizer & multi-provider complexity scorer
   drift [skill] [--json]    Automated Skill Health & Framework Drift Monitor (2026 Gold Standard)
   monitor [--once] [--json] Interactive terminal cockpit & live swarm telemetry monitor
   consensus <f1> <f2> [opts] Speculative multi-draft consensus synthesizer & arbitration engine
   doctor [--fix]            Run environment health diagnostics (and auto-repair)
   audit                     Run the strict Anti-AI Slop quality gate check
+  audit:tarball [--json]    Pre-publish npm tarball & lifecycle hook supply-chain verifier
+  audit:bloat [--json]      Analyze skill token footprint & pairwise overlap redundancy
   critic <file>             Run deep Critic-in-the-Loop audit on code/PRD before commit
   pr:review [diff|file]     Run automated Sovereign PR Review Critic Bot on git diff or files
   visual-audit <file>       Audit UI code or screenshot image against Pillar 7 & generate vision rubric
@@ -1666,10 +1710,10 @@ Commands:
   finops [status|record|export|reset] Track token economics & prompt caching (KV-cache) financial savings
   bridge [status|sync|bundle] Universal cross-IDE multi-platform rule & episodic memory state bridge
   learn <skill-name> [opts] Synthesize a Gold-Standard skill from codebase, OpenAPI, or docs
-  memory <action> [args]    Episodic project memory & ultra-compact checkpoints (record, query, checkpoint)
+  memory <action> [args]    Episodic project memory & TTL pruning (record, query, prune, checkpoint, list)
   mcp                       Start the native Model Context Protocol (MCP) server on stdio
   mcp:setup [--client <c>]  Auto-configure MCP for Claude Desktop, Cursor, Windsurf, or Zed
-  guard                     Run full Sovereign Guard (P1–P5 + Anti-Slop CI validation)
+  guard [--fast] [--json]   Run cross-platform Sovereign Guard (parallel static + supply-chain + suite)
   validate                  Run the strict skill ecosystem validation check
   docs [markdown|json|llms] Export catalog or compile LLMO (llms.txt) specifications
   studio [--port <n>]       Launch local web Studio Cockpit dashboard (visual 178-skill explorer)
@@ -1694,13 +1738,15 @@ switch (command) {
   case 'detect': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'project-detector.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'project-detector.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'learn': {
     rl.close();
     const { spawnSync } = await import('child_process');
-    spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-synthesizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'skill-synthesizer.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: process.cwd() });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'evolve': {
@@ -1744,11 +1790,9 @@ switch (command) {
   }
   case 'guard': {
     rl.close();
-    const { execFileSync } = await import('child_process');
-    console.log('🛡️ Running full Sovereign Guard validation...');
-    execFileSync(process.execPath, ['scripts/validate-skills.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
-    execFileSync(process.execPath, ['scripts/check-anti-slop.js', '--strict'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
-    execFileSync(process.execPath, ['--test', 'scripts/test-cli.mjs'], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    const { spawnSync } = await import('child_process');
+    const child = spawnSync(process.execPath, [path.join(PLUGIN_ROOT, 'scripts', 'run-guard.mjs'), ...args.slice(1)], { stdio: 'inherit', cwd: PLUGIN_ROOT });
+    process.exit(child.status ?? 0);
     break;
   }
   case 'cache': {

@@ -75,7 +75,7 @@ async function auditGraph() {
   }
 
   // Top 5 Central Hubs
-  const sortedByInDegree = Object.entries(inDegree).sort((a, b) => b[1] - a[1]);
+  const sortedByInDegree = Object.entries(inDegree).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   console.log(`\n🏆 Top 5 Core Orchestration Hubs (In-Degree Centrality):`);
   for (let i = 0; i < Math.min(5, sortedByInDegree.length); i++) {
     console.log(`   ${i + 1}. \`${sortedByInDegree[i][0]}\` (${sortedByInDegree[i][1]} incoming connections)`);
